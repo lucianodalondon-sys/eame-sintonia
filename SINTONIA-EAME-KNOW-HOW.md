@@ -20740,7 +20740,9 @@ corrida real, sem internet. O coletor baixa tudo com `curl`; um `_curlrc` em `CU
 com `connect-to` manda todo pedido a um servidor em 127.0.0.1, que serve páginas já
 guardadas (gabaritos e 97 matérias do lote-76). A base é um Postgres descartável com o nome
 `sala_italia` (o único aceite em modo operacional), numa porta livre. Coorte G1 (8 fontes):
-100 pedidos, todos locais; 88 RAW / 88 DERIVED; SIM 10 / NAO 29 / NAO_SEI 49; Sala 0 → 10.
+100 pedidos, todos locais; 88 RAW / 88 DERIVED; com a régua L1 (unificação @ 8fe122cb):
+SIM 14 / NAO 31 / NAO_SEI 43, Sala 0 → 14, C9 PASS e gabarito do dono 10/10 no binário com 0 SIM
+errado; sem a L1 (5a16d077): SIM 10 / NAO 29 / NAO_SEI 49, Sala 0 → 10 e C9 FAIL (10 em inglês).
 Duas corridas deram os mesmos números.
 
 **ARMADILHAS MEDIDAS.**

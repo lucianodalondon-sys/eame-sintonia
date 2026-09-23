@@ -1,6 +1,7 @@
 # MICRO-CAMINHO A1 — o que a micro-coleta real vai medir, onde, e o que falta antes
 
-Missão A1 (23/09/2026), branch `micro-caminho-v1` a partir de `origin/unificacao-v1`.
+Missão A1 (23/09/2026). Branch `micro-caminho-v2`, sobre `origin/unificacao-v1` @ `8fe122cb`
+(3.ª passagem, com a régua multilíngue L1). A v1 foi medida sobre `5a16d077`, antes da L1.
 Nada foi colhido da rede, nada foi escrito na Sala real. A Sala real só foi **lida**
 (SELECT com `default_transaction_read_only=on`).
 
@@ -87,40 +88,44 @@ detalhes, refetch e rede) existem, mas o `italy_executor` só guarda o código d
 - **Árvore:** worktree temporária com o ledger do coletor **vazio**. Com o livro versionado,
   as matérias gravadas seriam puladas como «já conhecidas».
 
-**Resultado com a coorte G1 (8 fontes). Duas corridas deram os mesmos números.**
+**Resultado com a coorte G1 (8 fontes), sobre `8fe122cb`.** Sobre `5a16d077` (sem a L1) duas
+corridas deram os mesmos números entre si; a diferença entre as duas linhas é só a L1, e está
+na coluna da direita.
 
-| campo | valor |
-|---|---|
-| SOURCES_ATTEMPTED | 8 |
-| SOURCES_SUCCESS | 6 (HEALTHY; IT-T2-051 sem contrato; IT-T7-041 recusada pelo portão: ESTADO_NAO_READY) |
-| DETAIL_DOCUMENTS | 88 (88 pedidos de detalhe) |
-| LISTINGS_REJECTED | NÃO SEI (MISSING_ROUTE); o juiz de capa apontou 5 depois, em C2 |
-| RAW_CREATED | 88 documentos, 0 registos de falha |
-| DERIVED_CREATED | 88 |
-| ADMISSION_SIM / NAO / NAO_SEI | 10 / 29 / 49 |
-| SALA_BEFORE → SALA_AFTER | 0 → 10 (SALA_DELTA 10) |
-| UNNECESSARY_REFETCHES | 0, por construção (1.ª passagem, ledger vazio) |
-| FALSE_DOCUMENT_CHANGED | 0, por construção (MISSING_ROUTE no código) |
-| PROVENANCE_FAILURES | 0 (só documentos; o instrumento também dá 0 nesta corrida) |
-| NETWORK_REQUESTS | 100, todos ao servidor local (94 com 200; 6 com 404, que são o ipinfo); egresso Python 0 |
-| PAID_USD | 0 (declarado) |
+| campo | valor (com L1) | sem L1 (5a16d077) |
+|---|---|---|
+| SOURCES_ATTEMPTED | 8 | 8 |
+| SOURCES_SUCCESS | 6 (HEALTHY; IT-T2-051 sem contrato; IT-T7-041 recusada pelo portão: ESTADO_NAO_READY) | 6 |
+| DETAIL_DOCUMENTS | 88 (88 pedidos de detalhe) | 88 |
+| LISTINGS_REJECTED | NÃO SEI (MISSING_ROUTE); o juiz de capa apontou 5 depois, em C2 | idem |
+| RAW_CREATED | 88 documentos, 0 registos de falha | 88 |
+| DERIVED_CREATED | 88 | 88 |
+| ADMISSION_SIM / NAO / NAO_SEI | **14 / 31 / 43** | 10 / 29 / 49 |
+| SALA_BEFORE → SALA_AFTER | **0 → 14** (SALA_DELTA 14) | 0 → 10 |
+| UNNECESSARY_REFETCHES | 0, por construção (1.ª passagem, ledger vazio) | 0 |
+| FALSE_DOCUMENT_CHANGED | 0, por construção (MISSING_ROUTE no código) | 0 |
+| PROVENANCE_FAILURES | 0 (só documentos; o instrumento também dá 0 nesta corrida) | 0 |
+| NETWORK_REQUESTS | 100, todos ao servidor local (94 com 200; 6 com 404, que são o ipinfo); egresso Python 0 | 100 |
+| PAID_USD | 0 (declarado) | 0 |
 
-**Critérios C1–C9:** C4, C5, C6, C7 e C8 PASS; C2 PENDENTE_HUMANO (5 capas); C1, C3 e C9 FAIL.
-- C1 falha por não haver egresso medido no ensaio.
+**Critérios C1–C9 (com L1):** C4, C5, C6, C7, C8 e **C9** PASS; C2 PENDENTE_HUMANO (5 capas);
+C1 e C3 FAIL.
+- C1 falha por não haver egresso medido no ensaio (por desenho; na corrida real mede-se).
 - C3 falha porque a IT-T7-041 não estava ELIGIBLE no instante.
-- C9 falha com 10 itens em inglês em NÃO SEI sem sinal.
+- Sem a L1, o C9 falhava com 10 itens em inglês em NÃO SEI sem sinal.
 
-**C8, o gabarito validado pelo dono:** SIM_ERRADO = 0. Universo acertado: 8/10 no binário
-(entra / não entra) e 3/10 no estrito. **Relevante fora da Sala: itens 5, 6, 9 e 10**
-(Zootecnica em inglês; REROUTE de T7 para T10 e T1).
+**C8, o gabarito validado pelo dono (com L1):** SIM_ERRADO = 0. Universo acertado: **10/10**
+no binário (entra / não entra) e 6/10 no estrito. Relevante fora da Sala: **itens 9 e 10**,
+os dois REROUTE que o dono pediu (T7 → T10 e T7 → T1). Sem a L1 eram 8/10 e 3/10, e os
+itens 5 e 6 (Zootecnica, em inglês) também ficavam fora.
 
 **O que cada fonte produziu no ensaio:**
 
 | fonte | resultado |
 |---|---|
-| IT-T10-018 | 30 documentos: SIM 10, NAO 7, NAO_SEI 13 |
+| IT-T10-018 | 30 documentos: SIM 10, NAO 7, NAO_SEI 13 (igual nas duas linhas) |
 | IT-T10-021 | 1: NAO |
-| IT-T10-022 | 10: NAO_SEI (inglês) |
+| IT-T10-022 | 10: SIM 4, NAO 2, NAO_SEI 4 (com L1; sem ela, 10 NAO_SEI) |
 | IT-T7-017 | 30: NAO 20, NAO_SEI 10 |
 | IT-T7-033 | 15: NAO_SEI |
 | IT-T7-043 | 2: NAO 1, NAO_SEI 1 |
@@ -169,8 +174,8 @@ que lança exatamente estes comandos. **Hoje ela só lançaria a IT-T10-018** (d
 - **D6 — LISTINGS_REJECTED e FALSE_DOCUMENT_CHANGED não têm contador.**
   - O primeiro exige que `ligacoesDoIndice` conte o que descarta.
   - O segundo deriva-se de `observations.ndjson`.
-- **D7 — C9 vai reprovar sem a régua multilíngue L1.** Ela não está nesta linha, e o
-  `admissao/` pertence à missão L1.
+- **D7 — RESOLVIDO na linha atual.** A régua multilíngue L1 (`admissao/idioma.py`) entrou na
+  3.ª passagem da unificação. Medido: C9 passa (0 violações) e os itens 5 e 6 entram na Sala.
 - **D8 — refetch e «falso mudou» só se medem numa 2.ª passagem** sobre o mesmo ledger. Na
   1.ª passagem dão 0 por construção.
 
@@ -180,7 +185,8 @@ que lança exatamente estes comandos. **Hoje ela só lançaria a IT-T10-018** (d
 2. [ ] Pacote G1 (desbloqueio D8/D9/D10) aplicado no livro e na tabela do serviço.
 3. [ ] D1 resolvido: a coorte do instrumento = os 8 do G1, e o filtro 3b reconciliado com a
        D8, **por decisão do dono ou do coordenador**, não por mim.
-4. [ ] Régua multilíngue L1 instalada (senão C9 FAIL, e os itens 5 e 6 ficam fora da Sala).
+4. [x] Régua multilíngue L1 na linha (`unificacao-v1` @ `8fe122cb`). Confirmar que é esta a
+       linha instalada na produção antes de `correr`.
 5. [ ] Contrato de coleta para a IT-T2-051, ou retirá-la da coorte. E a IT-T7-041 em
        READY_CURRENT, ou fora.
 6. [ ] `backup_sala.cmd` corrido **imediatamente antes**, com o dump verificado
