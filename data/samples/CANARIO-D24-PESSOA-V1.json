@@ -79,21 +79,25 @@
   "VALOR": "CONFIRMADA_PELO_ASSET_DO_JSON_LD",
   "PORQUE": "a ligacao do video ao post, conferida"
  },
- "VIDEO_MP4": {
-  "VALOR": 3,
-  "PORQUE": "ficheiros de video em data/raw/LINKEDIN/video"
+ "VIDEO_MP4_DESTA_PESSOA": {
+  "VALOR": 1,
+  "PORQUE": "MP4 desta publicacao, e nao os de outra missao"
  },
- "LEGENDA_VTT": {
-  "VALOR": 3,
-  "PORQUE": "faixas de legenda em data/raw/LINKEDIN/legenda"
+ "LEGENDA_VTT_DESTA_PESSOA": {
+  "VALOR": 1,
+  "PORQUE": "legendas desta publicacao"
+ },
+ "BYTES_NA_PASTA_EM_TOTAL": {
+  "VALOR": 6,
+  "PORQUE": "o que a pasta compartilhada tem, ao lado"
  },
  "  MP4_BYTES": {
-  "VALOR": 2587646,
-  "PORQUE": "7488216289828753409__a5410dc9b · sha a5410dc9bbb4317a"
+  "VALOR": 6935096,
+  "PORQUE": "7445139302390382592__bff909e51 · sha bff909e51443dc63"
  },
  "  LEGENDA_BYTES": {
-  "VALOR": 529,
-  "PORQUE": "7488216289828753409__8dc3240c9 · sha 8dc3240c9ee70cb4"
+  "VALOR": 1371,
+  "PORQUE": "7445139302390382592__097128706 · sha 097128706c463d8b"
  },
  "OBJETOS_RECONSTRUIDOS": {
   "VALOR": 1,
@@ -153,6 +157,7 @@
  },
  "_O_QUE_ISTO_E": "O canario real do D24: o video e a legenda de uma PESSOA do agro, adquiridos da pagina PUBLICA do post dela, sem conta, sem login, sem contornar muro e por US$ 0. O perfil da mesma pessoa foi medido e esta fechado (999/authwall) — e nao se contorna.",
  "_COMO_REFAZER": "py provas/canario_d24_video_de_pessoa.py",
+ "_O_NUMERO_CONTA_SO_ESTA_PESSOA": "A pasta `data/raw/LINKEDIN` e compartilhada entre missoes: `VIDEO_MP4_DESTA_PESSOA` conta os bytes desta publicacao (7445139302390382592), e `BYTES_NA_PASTA_EM_TOTAL` diz o que mais la esta. Dois trabalhos somados num numero so nao medem nenhum deles.",
  "_LIMITES": {
   "SEM_CONTA": true,
   "SEM_LOGIN": true,

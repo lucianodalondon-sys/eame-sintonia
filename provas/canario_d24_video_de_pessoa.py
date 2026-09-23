@@ -48,6 +48,11 @@ from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402
 POST = ('https://www.linkedin.com/posts/celestino-dom%C3%ADnguez-infante-423b4957_'
         'uplcorpiberia-uplcorpiespaaeha-uplespaaeha-activity-7445139302390382592-eYKi')
 PERFIL = 'https://www.linkedin.com/in/celestino-dom%C3%ADnguez-infante-423b4957'
+#: O id da publicacao DESTA pessoa. Ele existe porque a pasta de bytes e
+#: COMPARTILHADA entre missoes: contar o que la esta daria os videos de outra
+#: missao dentro do numero desta, e um numero que soma dois trabalhos nao mede
+#: nenhum deles.
+ID_DESTA_PESSOA = '7445139302390382592'
 RUN_ID = 'CANARIO-D24-PESSOA'
 SAIDA = os.path.join(RAIZ, 'data', 'samples', 'CANARIO-D24-PESSOA-V1.json')
 PASTA_RAW = os.path.join(RAIZ, 'data', 'samples', 'SOCIAL-IT', 'raw-free', 'LINKEDIN')
@@ -200,11 +205,12 @@ def main():
 
     # ── 4 · OS BYTES, MEDIDOS NO DISCO ────────────────────────────────────
     print('\n  4 · os bytes, conferidos no disco')
-    bs = brutos()
+    bs = [b for b in brutos() if b['ID'] == ID_DESTA_PESSOA]
     vs = [b for b in bs if b['PAPEL'] == 'video']
     ls = [b for b in bs if b['PAPEL'] == 'legenda']
-    mede('VIDEO_MP4', len(vs), 'ficheiros de video em data/raw/LINKEDIN/video')
-    mede('LEGENDA_VTT', len(ls), 'faixas de legenda em data/raw/LINKEDIN/legenda')
+    mede('VIDEO_MP4_DESTA_PESSOA', len(vs), 'MP4 desta publicacao, e nao os de outra missao')
+    mede('LEGENDA_VTT_DESTA_PESSOA', len(ls), 'legendas desta publicacao')
+    mede('BYTES_NA_PASTA_EM_TOTAL', len(brutos()), 'o que a pasta compartilhada tem, ao lado')
     for v in vs[:2]:
         mede('  MP4_BYTES', v['BYTES'], '%s · sha %s' % (os.path.basename(v['CAMINHO'])[:30],
                                                         v['SHA256'][:16]))
@@ -258,6 +264,11 @@ def main():
                                 'sem contornar muro e por US$ 0. O perfil da mesma pessoa foi '
                                 'medido e esta fechado (999/authwall) — e nao se contorna.')
     ACHADOS['_COMO_REFAZER'] = ('py provas/canario_d24_video_de_pessoa.py')
+    ACHADOS['_O_NUMERO_CONTA_SO_ESTA_PESSOA'] = (
+        'A pasta `data/raw/LINKEDIN` e compartilhada entre missoes: '
+        '`VIDEO_MP4_DESTA_PESSOA` conta os bytes desta publicacao (%s), e '
+        '`BYTES_NA_PASTA_EM_TOTAL` diz o que mais la esta. Dois trabalhos somados '
+        'num numero so nao medem nenhum deles.' % ID_DESTA_PESSOA)
     ACHADOS['_LIMITES'] = ({'SEM_CONTA': True, 'SEM_LOGIN': True, 'SEM_COOKIE': True,
                             'SEM_NAVEGADOR': True, 'SEM_ROTA_PAGA': True,
                             'SEM_CONTORNAR_MURO': True, 'SO_PUBLICO': True,
