@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "pesquisa-projetos-v1",
-    "HEAD": "940f3b1486d0915008256ea4805ee437b2893dd2",
-    "GENERATED_AT": "2026-09-23T11:33:30-03:00",
+    "HEAD": "52a64e48ef25c36717c0489a94568dc65ffb2eed",
+    "GENERATED_AT": "2026-09-23T13:09:02-03:00",
     "SOURCE_TREE_FINGERPRINT": "415ccf11ea9b7e6741545d1dda343e558d1eb9dedb2d8dff327395a381f7db81"
   },
   "FILES": [
@@ -592,6 +592,20 @@
     {
       "path": "_gavetas.py",
       "sha": "34b9aef66ba5d3e68feb49d117052b386d6cbe9e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "_p2_discover.py",
+      "sha": "f67bdc54e2adcaf4a10abdfc744d9b965cc25ab3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "_p2_discover_pass2.py",
+      "sha": "1590bdb23f854680508a513d73d037edc579360f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20513,6 +20527,28 @@
         "file": ".github/workflows/system-map.yml",
         "line": 568,
         "snippet": "python3 tests/test_red_team_estrada.py"
+      }
+    },
+    {
+      "from_file": "_p2_discover.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "_p2_discover.py",
+        "line": 21,
+        "snippet": "import fonte_nova as FN  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "_p2_discover_pass2.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "_p2_discover_pass2.py",
+        "line": 22,
+        "snippet": "import fonte_nova as FN  # noqa"
       }
     },
     {
@@ -78818,10 +78854,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2725,
-    "files_readable": 1245,
+    "files_tracked": 2727,
+    "files_readable": 1247,
     "files_code_dir": 1065,
-    "file_edges": 5379,
+    "file_edges": 5381,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

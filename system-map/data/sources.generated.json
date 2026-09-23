@@ -2,8 +2,8 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T16:01:43+00:00",
-    "HEAD": "940f3b1486d0915008256ea4805ee437b2893dd2",
+    "GENERATED_AT": "2026-09-23T22:25:01+00:00",
+    "HEAD": "52a64e48ef25c36717c0489a94568dc65ffb2eed",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
     "SOURCE_TREE_FINGERPRINT": "415ccf11ea9b7e6741545d1dda343e558d1eb9dedb2d8dff327395a381f7db81",
@@ -23626,6 +23626,10 @@
       "endpoint": "https://www.linkedin.com/company",
       "usado_por": [
         {
+          "file": "_p2_discover.py",
+          "line": 330
+        },
+        {
           "file": "coleta/adaptador_linkedin.py",
           "line": 753
         },
@@ -23911,6 +23915,52 @@
       ]
     },
     {
+      "endpoint": "https://www.regione.veneto.it/web",
+      "usado_por": [
+        {
+          "file": "_p2_discover_pass2.py",
+          "line": 31
+        },
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 143
+        },
+        {
+          "file": "curadoria/test_pais_das_candidatas.py",
+          "line": 28
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 84
+        },
+        {
+          "file": "provas/testa_rota_italia.py",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.cnr.it/it",
+      "usado_por": [
+        {
+          "file": "_p2_discover_pass2.py",
+          "line": 209
+        },
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 444
+        },
+        {
+          "file": "curadoria/test_abastecimento.py",
+          "line": 202
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 954
+        }
+      ]
+    },
+    {
       "endpoint": "https://bsky.app/profile",
       "usado_por": [
         {
@@ -24016,27 +24066,6 @@
       ]
     },
     {
-      "endpoint": "https://www.regione.veneto.it/web",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 143
-        },
-        {
-          "file": "curadoria/test_pais_das_candidatas.py",
-          "line": 28
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 84
-        },
-        {
-          "file": "provas/testa_rota_italia.py",
-          "line": 62
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.arpae.it/",
       "usado_por": [
         {
@@ -24138,6 +24167,57 @@
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 398
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.regione.campania.it/regione",
+      "usado_por": [
+        {
+          "file": "_p2_discover.py",
+          "line": 131
+        },
+        {
+          "file": "_p2_discover_pass2.py",
+          "line": 71
+        },
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 349
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.regione.lombardia.it/wps",
+      "usado_por": [
+        {
+          "file": "_p2_discover_pass2.py",
+          "line": 56
+        },
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 157
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 943
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.regione.puglia.it/web",
+      "usado_por": [
+        {
+          "file": "_p2_discover_pass2.py",
+          "line": 66
+        },
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 342
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 83
         }
       ]
     },
@@ -24295,23 +24375,6 @@
       ]
     },
     {
-      "endpoint": "https://www.cnr.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 444
-        },
-        {
-          "file": "curadoria/test_abastecimento.py",
-          "line": 202
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 954
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.nomisma.it/",
       "usado_por": [
         {
@@ -24429,50 +24492,11 @@
           "line": 207
         }
       ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/login",
-      "usado_por": [
-        {
-          "file": "candidatas/decidir_fila_italia.py",
-          "line": 46
-        },
-        {
-          "file": "tests/test_fila_italia_decisoes.py",
-          "line": 222
-        }
-      ]
-    },
-    {
-      "endpoint": "https://public.api.bsky.app/xrpc",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 105
-        },
-        {
-          "file": "provas/_rc01_mundo_falso.py",
-          "line": 111
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.ec.europa.eu/agrifood",
-      "usado_por": [
-        {
-          "file": "coleta/agrifood_ue.py",
-          "line": 33
-        },
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 42
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 591,
+  "ENDPOINTS_FOUND": 666,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 551,
+  "ENDPOINTS_TRUNCATED": 626,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -24490,9 +24514,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 591,
+    "endpoints": 666,
     "endpoints_published": 40,
-    "endpoints_truncated": 551,
+    "endpoints_truncated": 626,
     "candidates": 505,
     "coletores": 53,
     "coletores_com_data": 20,
