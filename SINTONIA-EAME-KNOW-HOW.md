@@ -20056,3 +20056,19 @@ Ferramentas em `ferramentas/unificacao/`; números em `ferramentas/unificacao/m5
 - **Classe antes do rótulo.** `AUTH_BLOCK` (muro de login) caía em UNKNOWN na
   reconciliação por não estar no vocabulário. Lê-se como CAPABILITY_BLOCK (a
   decisão já estava declarada em `_CLASSE_DE`); o rótulo fica no livro.
+
+## UMA PONTE QUE ATRAVESSA NÃO É UMA PONTE QUE PROMOVE
+
+B1 (2026-09-23). A ponte automática atravessou 106 vezes sozinha, sem humano e
+sem git — e o portão ficou 8 → 8 em todas. No livro entraram 35 READY e nenhuma
+passou: o bot promove pela régua antiga («PASS_PARCIAL»), 23 provas não chegam
+ao ficheiro de evidências e 12 contratos não estão no livro que o portão lê.
+
+    TRAVESSIA CONTADA NÃO É PROMOÇÃO PROVADA.
+    O NÚMERO QUE PROVA A PONTE É O «ENTRARAM/SAIRAM» DO PORTÃO, NÃO O «ATRAVESSOU».
+
+E duas guardas que se julgavam existentes não existem ou são fracas: nenhuma
+fonte pode ser marcada RETIRADA pelo dono (D9) no ciclo de vida, e a régua
+aceita «contrato actual» quando o contrato não tem data de integração — é assim
+que IT-T5-041, que o bot dá por bloqueada e que redirige para outro sítio,
+continua elegível.
