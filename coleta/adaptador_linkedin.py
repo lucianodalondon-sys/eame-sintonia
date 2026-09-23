@@ -97,6 +97,8 @@ Nao mexeu em `leis/social_matriz.py`. Nao ligou rota nenhuma ao
 `linkedin.com`. Nao baixou byte nenhum. `linkedin.history.discovery` continua
 `UNKNOWN` — ver a nota do registo, que diz de que profundidade ela fala.
 """
+import hashlib
+import json
 import os
 import re
 import sys
@@ -107,6 +109,12 @@ import _gavetas  # noqa: E402,F401
 import scrap_registo as reg  # noqa: E402
 import social_envelope as env  # noqa: E402
 import scrap_http as http  # noqa: E402
+# ⚠️ O DONO DA ESPECIE DO TEXTO, E NAO UMA SEGUNDA COPIA DELA.
+# `regras/proveniencia.py` governa a especie de um texto derivado. Este
+# adaptador NAO redeclara o vocabulario: importa-o. Duas listas para o mesmo
+# vocabulario divergem no dia em que alguem acrescentar uma especie a uma delas
+# — e a que fica e sempre a que ninguem atualiza.
+import proveniencia as pv  # noqa: E402
 
 NOME = 'adaptador_linkedin'
 PLATAFORMA = 'LINKEDIN'
@@ -1068,28 +1076,62 @@ def cartoes_com_video(corpo):
     casamento por posicao que se esconde.
     """
     fora = []
-        for m in _VIDEO_TAG.finditer(corpo or ''):
-            etiqueta = m.group(0)
-            attrs = atributos(etiqueta)
-            cru = valor_json_do_atributo(etiqueta, 'data-sources')
-            rendicoes = rendicoes_do_data_sources(cru)
-            if not rendicoes and cru is None:
-                # Sem `data-sources` nenhum isto nao e um cartao de video: e outra
-                # coisa qualquer que usa uma etiqueta `<video>`. Fora.
-                continue
+    for m in _VIDEO_TAG.finditer(corpo or ''):
+        etiqueta = m.group(0)
+        attrs = atributos(etiqueta)
+        cru = valor_json_do_atributo(etiqueta, 'data-sources')
+        rendicoes = rendicoes_do_data_sources(cru)
+        if not rendicoes and cru is None:
+            # Sem `data-sources` nenhum isto nao e um cartao de video: e outra
+            # coisa qualquer que usa uma etiqueta `<video>`. Fora.
+            continue
         antes = corpo[:m.start()]
         urns = _ACTIVITY_URN.findall(antes)
-        urls = _POST_URL.findall(antes)
         urn = urns[-1] if urns else None
-        url = urls[-1] if urls else None
+        # ── A LIGACAO E POR IDENTIDADE, E A POSICAO E SO O RECURSO ─────────
+        # ⚠️ ISTO ESTAVA ERRADO E FOI MEDIDO. A primeira versao ligava o video
+        # ao «ultimo endereco de post que apareceu antes da etiqueta». Em duas
+        # organizacoes isso deu `CONFLITO` em 2 de 2 cartoes, e o cartao era
+        # DESCARTADO — a pagina tinha la o video e a colheita ficava a zero.
+        #
+        # O que se faz agora, por ordem de forca da prova:
+        #
+        #   1 · IDENTIDADE  o endereco canonico CONTEM o activity id
+        #                   (`/posts/<slug>-activity-<id>-<hash>`). Se existe um
+        #                   endereco no documento que carrega ESTE id, e ele.
+        #                   E a ligacao mais forte: duas provas que concordam.
+        #   2 · POSICAO     o ultimo endereco antes da etiqueta, QUANDO o id
+        #                   dele e o mesmo do urn. Concordam, e vale.
+        #   3 · NADA        nem uma nem outra: o cartao sai `SO_URN` e o
+        #                   endereco do post fica por saber. Nao se inventa.
+        #
+        #     LIGAR POR POSICAO E ADIVINHAR COM BOA SORTE.
+        #     LIGAR POR IDENTIDADE E PROVAR.
+        url = None
+        ligacao = 'SEM_LIGACAO'
+        if urn:
+            for candidato in _POST_URL.findall(corpo):
+                if 'activity-%s-' % urn in candidato:
+                    url, ligacao = candidato, 'IDENTIDADE'
+                    break
+        if url is None and urn:
+            antes_urls = _POST_URL.findall(antes)
+            ultimo = antes_urls[-1] if antes_urls else None
+            m3 = re.search(r'activity-(\d{15,25})-', ultimo or '')
+            if ultimo and m3 and m3.group(1) == urn:
+                url, ligacao = ultimo, 'POSICAO_CONCORDA'
+            elif ultimo:
+                ligacao = 'CONFLITO_DE_POSICAO'
+        if url is None and not urn:
+            antes_urls = _POST_URL.findall(antes)
+            if antes_urls:
+                url, ligacao = antes_urls[-1], 'SO_URL'
         id_do_url = None
         if url:
             m2 = re.search(r'activity-(\d{15,25})-', url)
             id_do_url = m2.group(1) if m2 else None
-        ligacao = ('SO_URN' if urn and not url else
-                   'SO_URL' if url and not urn else
-                   'CONFLITO' if urn and id_do_url and urn != id_do_url else
-                   'CONCORDA' if urn and id_do_url else 'SEM_LIGACAO')
+        if urn is None:
+            urn = id_do_url
         fora.append({
             'ACTIVITY_ID': urn or id_do_url,
             'ACTIVITY_ID_DO_URN': urn,
@@ -1097,6 +1139,7 @@ def cartoes_com_video(corpo):
             'POST_URL': url,
             'LIGACAO': ligacao,
             'VIDEO_RENDICOES': rendicoes,
+            'DATA_SOURCES_UNPARSABLE': bool(cru is not None and not rendicoes),
             'CAPTION_URL': attrs.get('data-captions-url') or None,
             'ASSET_URN': attrs.get('data-digitalmedia-asset-urn') or None,
             'DECLARED_LANGUAGE': attrs.get('data-language') or None,
@@ -1162,6 +1205,16 @@ def video_do_post(corpo):
                             if isinstance(d.get('creator'), dict) else None),
         }
     return {}
+
+
+def _slug(s):
+    """→ texto limpo para nome de ficheiro. Mesmo formato do resto da casa.
+
+    Vive aqui, e nao se importa de `social_envelope`, porque importar um nome
+    privado (`_slug`) de outro modulo e construir sobre o que ninguem prometeu
+    manter. Sao quatro linhas; a copia e mais honesta do que a dependencia.
+    """
+    return ''.join(c if (c.isalnum() or c in '-_.') else '-' for c in str(s)).strip('-')
 
 
 def _guardar_bytes(corpo, pasta, nome_base, extensao):
@@ -1351,9 +1404,9 @@ def video_da_pagina_publica(*, pagina_url, run_id, country_scope='IT', teto=3,
     pedidos = list(contexto['PEDIDOS'])
     envelopes = []
     for cartao in cartoes:
-        pedidos.extend(_adquirir_um(cartao, run_id=run_id, country_scope=country_scope,
-                                   transporte=transporte, egresso=egresso,
-                                   pedidos=pedidos, envelopes=envelopes))
+        _adquirir_um(cartao, run_id=run_id, country_scope=country_scope,
+                    transporte=transporte, egresso=egresso,
+                    pedidos=pedidos, envelopes=envelopes)
     if medida is not None:
         medida.update({'IMPLEMENTACAO': 'coleta/adaptador_linkedin.video_da_pagina_publica',
                        'REQUESTS': len(pedidos),
@@ -1405,8 +1458,27 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
                 prosa = video_do_post(_buscar_texto(url_do_post, transporte))
             except Exception as e:                                    # noqa: BLE001
                 raw['POST_PAGE_ERROR'] = '%s: %s' % (type(e).__name__, str(e)[:200])
+    # ── A CONTRAPROVA DA IDENTIDADE ───────────────────────────────────────
+    # ⚠️ A LIGACAO DO CARTAO PODE SER POSICIONAL (ver `cartoes_com_video`), e
+    # uma ligacao posicional merece contraprova. Ela existe, e e barata: o
+    # JSON-LD do post declara `contentUrl`, e esse endereco carrega o MESMO
+    # identificador de midia que o cartao declarou no `asset`.
+    #
+    #     DOIS IDENTIFICADORES INDEPENDENTES QUE CONCORDAM PROVAM A LIGACAO.
+    #     UM SO, E UMA POSICAO NA PAGINA.
+    #
+    # Sem `contentUrl` nao se inventa concordancia: o campo diz que nao houve
+    # o que conferir, e isso e diferente de ter conferido e divergido.
+    if prosa.get('CONTENT_URL') and cartao.get('ASSET_URN'):
+        _asset = str(cartao['ASSET_URN']).rsplit(':', 1)[-1]
+        raw['IDENTITY_CROSSCHECK'] = (
+            'CONFIRMADA_PELO_ASSET_DO_JSON_LD' if _asset in prosa['CONTENT_URL']
+            else 'DIVERGE_DO_ASSET_DO_JSON_LD')
+    elif prosa.get('CONTENT_URL'):
+        raw['IDENTITY_CROSSCHECK'] = 'SEM_ASSET_DECLARADO_PARA_CONFERIR'
+    else:
+        raw['IDENTITY_CROSSCHECK'] = 'SEM_JSON_LD_NA_PAGINA_DO_POST'
     raw.update({k: v for k, v in prosa.items() if k != 'CONTENT_URL'})
-
     # ── 3 · os BYTES do video ─────────────────────────────────────────────
     rendicao, porque = _rendicao_escolhida(cartao.get('VIDEO_RENDICOES') or [])
     unidades = []
@@ -1517,7 +1589,6 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
     envelope['RAW_SHA256'] = ref['SHA256']
     envelope['EGRESS_MEASURED'] = egresso
     envelopes.append(envelope)
-    return []
 
 
 # ══════════════════════════════════════════════════════════════════════════
