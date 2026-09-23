@@ -187,6 +187,53 @@ T("toda razao devolvida pertence ao vocabulario fechado", () => {
   assert.equal(DECISOES.length, 3);
 });
 
+console.log("\n3b · MUTABLE COM PRAZO (T1) — volta, mas nao todas as corridas");
+
+const TRES_DIAS = 3 * 86400;
+const memT1 = () => memoriaDosDetalhes([obsOk({ CAPTURED_AT: "2026-09-20T00:00:00Z" })]);
+const mutavelComPrazo = { RECOLLECTION: { DETAIL_CONTENT: "MUTABLE", TTL_SECONDS: TRES_DIAS } };
+
+T("MUTABLE com prazo, dentro do prazo -> SKIP_KNOWN declarado (nao revisita)", () => {
+  const d = decidirSobreDetalhe(URL1, { memoria: memT1(), contrato: mutavelComPrazo,
+                                        agora: "2026-09-22T00:00:00Z" });
+  assert.equal(d.DECISAO, "SKIP_KNOWN", "revisitou antes do prazo");
+  assert.equal(d.COBERTURA, "DECLARADA");
+  assert.match(d.PORQUE, /prazo de 259200 s; a ultima visita tem 172800 s/);
+});
+
+T("MUTABLE com prazo, prazo vencido -> REVALIDATE por TTL_EXPIRED", () => {
+  const d = decidirSobreDetalhe(URL1, { memoria: memT1(), contrato: mutavelComPrazo,
+                                        agora: "2026-09-23T00:00:01Z" });
+  assert.equal(d.DECISAO, "REVALIDATE");
+  assert.equal(d.RAZAO, "TTL_EXPIRED");
+  assert.deepEqual(d.RAZOES, ["TTL_EXPIRED"], "o MUTABLE sem prazo voltou a mandar");
+});
+
+T("MUTABLE com prazo, mesmo no limite -> ainda nao revisita", () => {
+  const d = decidirSobreDetalhe(URL1, { memoria: memT1(), contrato: mutavelComPrazo,
+                                        agora: "2026-09-23T00:00:00Z" });
+  assert.equal(d.DECISAO, "SKIP_KNOWN");
+});
+
+T("MUTABLE com prazo e idade ILEGIVEL -> revisita (o nao sei nao cega o que muda)", () => {
+  const ilegivel = memoriaDosDetalhes([obsOk({ CAPTURED_AT: "data-que-ninguem-le" })]);
+  const d = decidirSobreDetalhe(URL1, { memoria: ilegivel, contrato: mutavelComPrazo,
+                                        agora: "2026-09-22T00:00:00Z" });
+  assert.equal(d.DECISAO, "REVALIDATE");
+  assert.equal(d.RAZAO, "CONTRACT_DECLARES_MUTABLE");
+  const semRelogio = decidirSobreDetalhe(URL1, { memoria: memT1(), contrato: mutavelComPrazo });
+  assert.equal(semRelogio.DECISAO, "REVALIDATE", "sem relogio, o prazo nao se calcula: volta");
+});
+
+T("MUTABLE SEM prazo continua a revisitar em todas as corridas (boletim na mesma morada)", () => {
+  for (const agora of ["2026-09-20T00:00:01Z", "2026-09-20T06:00:00Z", "2026-09-29T00:00:00Z"]) {
+    const d = decidirSobreDetalhe(URL1, { memoria: memT1(), agora,
+      contrato: { RECOLLECTION: { DETAIL_CONTENT: "MUTABLE", TTL_SECONDS: null } } });
+    assert.equal(d.DECISAO, "REVALIDATE", `deixou de revisitar em ${agora}`);
+    assert.equal(d.RAZAO, "CONTRACT_DECLARES_MUTABLE");
+  }
+});
+
 console.log("\n4 · O VALIDADOR QUE NAO EXISTE NAO SE INVENTA (F5)");
 
 T("sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara", () => {
