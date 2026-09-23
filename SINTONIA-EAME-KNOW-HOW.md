@@ -19327,7 +19327,9 @@ O mutante estava morto. Quem estava cega era a leitura da morte.
 
 Corrigido sem afrouxar a verificação: guardam-se **todas** as falhas.
 
-## RECEITAS-1 · O PADRÃO DE MORADA DOS CONTRATOS ESTAVA EM MOLDE
+# §176 · RECEITAS-1 · O PADRÃO DE MORADA DOS CONTRATOS ESTAVA EM MOLDE
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em desbloqueio-coorte-v1 (receitas). Nada foi apagado.
 
 *(6-PREP-d, 23/09/2026 · número de secção a atribuir na unificação: 168–172
 estão ocupados noutras branches.)*
@@ -19353,7 +19355,9 @@ Das 121: 14 padrões e 2 índices propostos com prova; 105 ficam **NÃO SEI**
 «não se mexe no que funciona»). No gabarito: matérias casadas 11 → 21 de 37,
 capas casadas 0 → 0 de 109.
 
-## RECEITAS-2 · CORRIGIR A RECEITA NÃO PÕE UMA FONTE PRONTA
+# §177 · RECEITAS-2 · CORRIGIR A RECEITA NÃO PÕE UMA FONTE PRONTA
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em desbloqueio-coorte-v1 (receitas). Nada foi apagado.
 
 Das 14 fontes da micro, as que têm receita provada passam de 3 para 6. As
 prontas continuam **1**: as três ganhas estão todas `FICA_FORA` na relevância
@@ -19362,7 +19366,9 @@ da 3b. A rota certa para uma fonte que não serve é só uma rota certa.
 > Medir o efeito de uma correção no número que se quer mexer — não no número
 > que ela mexe. Aqui: 3 → 6 receitas, 1 → 1 prontas.
 
-## COORTE-1 · O FUNIL DA MICRO-COLETA CORTA ANTES DA RELEVÂNCIA
+# §178 · COORTE-1 · O FUNIL DA MICRO-COLETA CORTA ANTES DA RELEVÂNCIA
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em desbloqueio-coorte-v1 (coorte-micro). Nada foi apagado.
 
 *(G0, 23/09/2026 · número a atribuir na unificação.)*
 
@@ -19390,7 +19396,9 @@ Brasil. O que ficou por ler fica NÃO SEI, com nome.
 E contar SOURCE_ID não é contar sites: com os desbloqueios, 11 códigos são 9
 sites (IT-T2-051/056 e IT-T7-043/100 são a mesma fonte com dois nomes).
 
-## DESBLOQUEIO-1 · O COLETOR TEM A SUA PRÓPRIA CÓPIA DA RECEITA
+# §179 · DESBLOQUEIO-1 · O COLETOR TEM A SUA PRÓPRIA CÓPIA DA RECEITA
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em desbloqueio-coorte-v1 (G1). Nada foi apagado.
 
 *(G1, 23/09/2026 · número a atribuir na unificação.)*
 
@@ -20320,7 +20328,9 @@ crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
 
 ---
 
-# UM LEITOR A OLHAR NÃO É UM ESCRITOR A MAIS — E NÃO CONSEGUI PERGUNTAR NÃO É «NÃO EXISTE»
+# §181 · UM LEITOR A OLHAR NÃO É UM ESCRITOR A MAIS — E NÃO CONSEGUI PERGUNTAR NÃO É «NÃO EXISTE»
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em fila-windows-v1 (M2e). Nada foi apagado.
 
 *Missão 2e (fila-windows-v1), 23/09/2026. Prova: `curadoria/FILA-WINDOWS-PROOF-V1.json`,
 `curadoria/ensaiar_fila_windows.py`, `curadoria/test_fila_windows.py`.*
@@ -20353,7 +20363,9 @@ crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
 - **No ensaio, a produção reproduziu o defeito tal qual**: 149/150, 1 órfã, 1 morte RC=1 por
   `PermissionError`, 240 s parados. O novo: 150/150, 20 s, 0 falsos pendurados, 1 worker.
 
-# § (sem número) · A PEÇA EXISTIA E NÃO ESTAVA LIGADA — E LIGÁ-LA FABRICAVA TERRITÓRIO
+# §180 · A PEÇA EXISTIA E NÃO ESTAVA LIGADA — E LIGÁ-LA FABRICAVA TERRITÓRIO
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em qualify-semantico-v1 (S1). Nada foi apagado.
 
 **A HIPÓTESE.** 105 QUALIFY em BLOCK SEMANTIC («território indeterminado pelo nome»),
 incluindo AGEA (CAND-0253), SIAN (CAND-0010) e Rete Rurale (CAND-0009). O worker chamava
@@ -20406,7 +20418,9 @@ Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
   Numa medição de 105 sites, é isso que domina o tempo.
 
 
-# § (sem número) · UMA DECISÃO SEM PROVA É UMA OPINIÃO — O CANAL DA DECISÃO SEMÂNTICA
+# §185 · UMA DECISÃO SEM PROVA É UMA OPINIÃO — O CANAL DA DECISÃO SEMÂNTICA
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em semantico-opus-v2 (S2/S3). Nada foi apagado.
 
 **O QUE FALTAVA.** O QUALIFY bloqueia em SEMANTIC quando nem o nome nem o endereço dizem o
 território, e a mensagem sempre disse «precisa de decisão semântica (Opus/humano)». Mas não
@@ -20454,7 +20468,9 @@ Segunda leitura com outro item, 5 sorteadas (semente 20260923): 3 concordam, 2 i
   tarefa fora do alvo mudou.
 
 
-# § (sem número) · REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO — E O LUGAR NÃO SE PRESUME
+# §190 · REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO — E O LUGAR NÃO SE PRESUME
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em semantico-opus-v2 (S3). Nada foi apagado.
 
 **O VAZAMENTO.** Correr as suítes numa worktree mudava a `curadoria/LIFECYCLE-QUEUE-V1.json`
 dessa worktree: a IT-T7-050 passava de WAITING_RETRY a IN_PROGRESS, e numa das vezes ficou
@@ -20497,7 +20513,9 @@ crawl dela trouxe 14 candidatas de streaming, podcast e pré-venda de festival. 
 trocada numa candidata propaga-se a toda a sua descendência.
 
 
-# § (sem número) · UMA SEMENTE É UMA ORGANIZAÇÃO, NÃO UMA PÁGINA — E O PAÍS VEM DO ENDEREÇO
+# §191 · UMA SEMENTE É UMA ORGANIZAÇÃO, NÃO UMA PÁGINA — E O PAÍS VEM DO ENDEREÇO
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em sementes-travao-v1 (S4). Nada foi apagado.
 
 **O EFEITO COLATERAL DA C1.** «Registado ≠ rastejado» fez de toda candidata temática em
 análise uma semente. Medido em 23/09 na cópia dos livros do serviço: 210 sementes temáticas
@@ -20537,7 +20555,9 @@ da admissão vem do item, não da candidata.
 «Reprovou 0» com «NÃO EXECUTOU» não é sobrevivente. Refazer com a âncora no início da
 expressão.
 
-## MULTILINGUE-1 · A MESMA RÉGUA NA LÍNGUA DO TEXTO, NÃO A OUTRA LÍNGUA AO LADO
+# §188 · MULTILINGUE-1 · A MESMA RÉGUA NA LÍNGUA DO TEXTO, NÃO A OUTRA LÍNGUA AO LADO
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em multilingue-v1 (L1). Nada foi apagado.
 
 *(L1, 23/09/2026 · número a atribuir na unificação.)*
 
@@ -20571,7 +20591,9 @@ Duas guardas de missões antigas (`test_a_admissao_e_o_gate_nao_mudaram`,
 documentos (os textos deles não estão no repo). A prova do italiano é a
 re-medição do lote-76 com as duas réguas.
 
-## UMA PONTE QUE ATRAVESSA NÃO É UMA PONTE QUE PROMOVE
+# §182 · UMA PONTE QUE ATRAVESSA NÃO É UMA PONTE QUE PROMOVE
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em contrato-unico-v1 (B1/B2). Nada foi apagado.
 
 B1 (2026-09-23). A ponte automática atravessou 106 vezes sozinha, sem humano e
 sem git — e o portão ficou 8 → 8 em todas. No livro entraram 35 READY e nenhuma
@@ -20587,7 +20609,9 @@ aceita «contrato actual» quando o contrato não tem data de integração — �
 que IT-T5-041, que o bot dá por bloqueada e que redirige para outro sítio,
 continua elegível.
 
-## UM CONTRATO, UM DONO — OU O PORTÃO GUARDA O QUE NINGUÉM MEDE
+# §184 · UM CONTRATO, UM DONO — OU O PORTÃO GUARDA O QUE NINGUÉM MEDE
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em contrato-unico-v1 (B2/B3). Nada foi apagado.
 
 B2 (2026-09-23). A prova viva de DEMOTION falhou de uma forma que ensinou mais
 do que se tivesse passado: pedido ao bot para re-medir IT-T5-041, ele disse
@@ -20602,7 +20626,9 @@ E duas coisas que pareciam defeito de código eram código velho a correr: o bot
 e a ponte vivos estavam atrás das correcções que já existiam na linha. Antes de
 consertar, medir QUE commit está a correr.
 
-## A PROVA DA ROTA ENVELHECE — E SÓ SE DESCOBRE SE ALGUÉM A VOLTAR A MEDIR
+# §187 · A PROVA DA ROTA ENVELHECE — E SÓ SE DESCOBRE SE ALGUÉM A VOLTAR A MEDIR
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em contrato-unico-v1 (B3). Nada foi apagado.
 
 B3 (2026-09-23). O bot re-media o que tinha falhado e nunca o que tinha passado.
 Uma fonte aprovada ficava aprovada até alguém reparar — a CRPV mudou de casa num
@@ -20617,7 +20643,9 @@ pedida em cada volta ociosa, para sempre.
 
 ---
 
-# UMA RECEITA APROVADA NO GABARITO NÃO SE MEDE NO MESMO GABARITO
+# §183 · UMA RECEITA APROVADA NO GABARITO NÃO SE MEDE NO MESMO GABARITO
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em listing-detail-v3 (LD1). Nada foi apagado.
 
 *Missão LD1 (listing-detail-v1), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`,
 relatório `RELATORIO-LISTING-DETAIL.md`.*
@@ -20649,7 +20677,9 @@ página de uma feira. Com essa receita corrigida (simulado), a V1 domina.
 
 ---
 
-# O CUSTO DE UMA REGRA DE MORADA É A TAXA DE MORADAS ERRADAS
+# §186 · O CUSTO DE UMA REGRA DE MORADA É A TAXA DE MORADAS ERRADAS
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em listing-detail-v3 (LD2). Nada foi apagado.
 
 *Missão LD2 (listing-detail-v2), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json`,
 controlo `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, relatório `RELATORIO-LISTING-DETAIL-V2.md`.*
@@ -20679,7 +20709,9 @@ barra uma matéria a mais — no original e no controlo. `LISTING_DETAIL_GATE_PR
 
 ---
 
-# UM ERRO DE CONTRATO APANHA-SE NO CONTRATO — E UMA SUBSTITUIÇÃO DE BASH ESTRAGA URL
+# §189 · UM ERRO DE CONTRATO APANHA-SE NO CONTRATO — E UMA SUBSTITUIÇÃO DE BASH ESTRAGA URL
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em listing-detail-v3 (LD3). Nada foi apagado.
 
 *Missão LD3 (listing-detail-v3), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V3.json`,
 relatório `RELATORIO-LISTING-DETAIL-V3.md`.*
