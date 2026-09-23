@@ -196,7 +196,8 @@ def um_reel(url, banco, armazem, relato):
 
     # ── DERIVED: o TEXTO, pelo dono único do ASR ──────────────────────────
     unidade = {'RAW_ASSET_ID': pai, 'PDF': caminho,      # `PDF` é histórico
-               'MEDIA_TYPE': ficha.MEDIA_TYPE, 'SOURCE_ID': FONTE,
+               'MEDIA_TYPE': getattr(ficha, 'CONTENT_TYPE', None),
+               'SOURCE_ID': FONTE,
                'CAPTURED_AT': _agora()}
     t0 = time.time()
     recibo = dvf.correr([unidade], banco_do_rastro=None, run_id=RUN,
@@ -243,10 +244,21 @@ def _pai_no_banco(banco, ficha, caminho, document_key):
     ident = ("'FORWARD_IDENTIFIED', '%s', '%s', 'SOURCE_DOCUMENT_ID'"
              % (FONTE, document_key) if tem_chave else
              "'FORWARD_IDENTITY_UNPROVEN', '%s', NULL, NULL" % FONTE)
+    # ⚠️ A CORRIDA VEM PRIMEIRO, E ELA NÃO É DECORAÇÃO: a migration 001 faz de
+    # `raw_asset.run_id` uma chave estrangeira para `collection_run`. Sem ela o
+    # banco recusa o byte — `FOREIGN KEY constraint failed`, medido nesta prova.
+    #
+    #     BYTE SEM CORRIDA NÃO ENTRA. E A CORRIDA É CUNADA PELA CASA.
+    banco.aplicar(
+        "insert into public.collection_run (run_id, platform, started_at, "
+        "rule_version, source_country) values ('%s','INSTAGRAM','%s','1','IT') "
+        "on conflict (run_id) do nothing;" % (RUN, _agora()))
     banco.aplicar(
         "insert into public.storage_object (storage_path, media_type, bytes, "
-        "sha256, created_at) values ('%s','%s',%d,'%s','%s');"
-        % (caminho, getattr(ficha, 'CONTENT_TYPE', None), ficha.BYTES, ficha.SHA256, _agora()))
+        "sha256, created_at) values ('%s','%s',%d,'%s','%s') "
+        "on conflict (storage_path) do nothing;"
+        % (caminho, getattr(ficha, 'CONTENT_TYPE', None), ficha.BYTES,
+           ficha.SHA256, _agora()))
     banco.aplicar(
         "insert into public.raw_asset (run_id, storage_path, media_type, bytes, "
         "sha256, captured_at, storage_object_id, identity_state, source_id, "
@@ -256,7 +268,13 @@ def _pai_no_banco(banco, ficha, caminho, document_key):
         % (RUN, caminho, getattr(ficha, 'CONTENT_TYPE', None), ficha.BYTES, ficha.SHA256,
            _agora(), ident, caminho))
     linhas = banco.con.execute(
-        'select id from public.raw_asset order by id desc limit 1').fetchall()
+        'select id from raw_asset order by id desc limit 1').fetchall()
+    if not linhas:
+        # ⚠️ `public.raw_asset` funcionou no INSERT e falhou no SELECT: a
+        # memória descartável resolve o prefixo no `aplicar()`, mas o cursor
+        # cru não. Ler pelo caminho do SELECT simples é o que se mede aqui —
+        # e se nem assim houver linha, é porque o RAW não entrou.
+        raise SystemExit('RAW_NAO_ENTROU_NO_BANCO: %s' % caminho)
     return int(linhas[0][0])
 
 
