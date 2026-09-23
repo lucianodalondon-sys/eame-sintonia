@@ -20370,3 +20370,18 @@ viaja no item, e a porta pergunta.
 E um custo que a D11 não decidiu e que fica à vista: ligar a política inteira
 barra também o que o detector chama capa — e ele erra, 6/37 e 4/20 notícias
 verdadeiras. Registadas, reprocessáveis, mas barradas.
+
+## O MENU DO SÍTIO NÃO É A PÁGINA — E CORRIGIR ISSO TAMBÉM TEM PREÇO
+
+D1 (2026-09-23). O detector chamava capa a notícias porque contava os links do
+menu do sítio como se fossem da página: em 9 de 10, a maioria dos links vivia em
+`<nav>/<header>/<footer>`. Tirar a moldura da conta recupera as notícias — e
+leva junto dezenas de capas verdadeiras, que também são «um corpo pequeno dentro
+de um menu grande». Não passam a matéria (a régua de matéria não mudou), mas
+enchem a quarentena.
+
+    NENHUM ERRO DO DETECTOR SE CORRIGE DE GRAÇA: O QUE NÃO VAI PARA «CAPA» VAI PARA «NÃO SEI».
+
+A validação cega foi sorteada e commitada ANTES de olhar para as páginas, e sem
+as já vistas: uma correção medida só nos casos que a inspiraram prova só que
+lê bem esses casos.
