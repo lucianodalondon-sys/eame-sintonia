@@ -25,5 +25,5 @@ dele e escreveu o que foi dito. O porteiro da Sala conferiu cinco coisas e todas
 na sexta — "isto é assunto de agricultores?" — ele não tem lista do que conta, e por isso não
 deixa entrar nem joga fora. Falta escrever essa lista.
 
-Detalhe e armadilhas de ambiente: §196 do `SINTONIA-EAME-KNOW-HOW.md`. Evidência (fora do Git):
+Detalhe e armadilhas de ambiente: §199 do `SINTONIA-EAME-KNOW-HOW.md` (era §196 na lane; renumerado na UNIFICACAO-V1-E). Evidência (fora do Git):
 `%TEMP%\yt1-evidencia`.

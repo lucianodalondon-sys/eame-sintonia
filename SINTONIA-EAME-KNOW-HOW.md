@@ -20969,7 +20969,9 @@ o viu. Só o Chrome headless com `--dump-dom` (depois do JavaScript) trouxe a fr
 resumo feito por modelo não serve de prova de política: o que conta é o texto copiado da
 página, com o ficheiro ao lado.
 
-## TTL-1 · MUTABLE COM PRAZO: VOLTA, MAS NÃO TODAS AS CORRIDAS
+# §196 · TTL-1 · MUTABLE COM PRAZO: VOLTA, MAS NÃO TODAS AS CORRIDAS
+
+> Numerada na unificação (UNIFICACAO-V1-E, 23/09/2026), por ordem de chegada: chegou sem número em ttl-mutable-v1 (T1). Nada foi apagado.
 
 **Missão T1** (`ttl-mutable-v1`, a partir de `recollection-prova-v2` @ `0ac7947b`,
 2026-09-23). Sem rede, nada colhido, nada na Sala.
@@ -21051,7 +21053,9 @@ nova, o ataque é o mesmo: 12/12 e 12/12 pela dona.
 quando o mutante não compilava — e o ficheiro tinha a mudança da T1 por commitar. Apagou-a.
 Salvou-a uma cópia feita antes do primeiro ataque. Regra: **commitar antes de atacar**, e
 restaurar pela cópia, nunca pelo índice.
-# §196 · A COORTE VEM DO PORTÃO, A FALHA NÃO É DOCUMENTO — E O «VISTO DE NOVO» ENTRA EM DOBRO NA SALA
+# §197 · A COORTE VEM DO PORTÃO, A FALHA NÃO É DOCUMENTO — E O «VISTO DE NOVO» ENTRA EM DOBRO NA SALA
+
+> Numerada na unificação (UNIFICACAO-V1-E, 23/09/2026), por ordem de chegada: era §196 em micro-pronta-v2 (A2); o número estava ocupado por outra lane que chegou antes. Nada foi apagado.
 
 **A COORTE.** O `micro_coleta plano` lia uma lista fixa (`COORTE-PROPOSTA.json`, 14 fontes) e
 o filtro de relevância da 3b barrava fontes: só 1 das 8 do funil G1 passava. As duas coisas
@@ -21162,7 +21166,12 @@ Conferência da matriz do engenheiro do Scrap (mesmo dia, sem rede):
 
 Número: `§196` e `§197` já existem noutras branches (varridas todas as refs locais e
 remotas); este é o `§198`.
-# §196 · YT1 · O SOM DO YOUTUBE ATRAVESSA ATÉ AO TEXTO — E PARA NA PORTA POR FALTA DE RÉGUA T8
+
+---
+
+# §199 · YT1 · O SOM DO YOUTUBE ATRAVESSA ATÉ AO TEXTO — E PARA NA PORTA POR FALTA DE RÉGUA T8
+
+> Numerada na unificação (UNIFICACAO-V1-E, 23/09/2026), por ordem de chegada: era §196 em youtube-oficial-v1 (YT1); o número estava ocupado por outra lane que chegou antes. Nada foi apagado.
 
 **Missão YT1** (`youtube-oficial-v1`, 2026-09-23), reorientada pela D17 do dono: as rotas de
 YouTube são as que o Sintonia Scrap JÁ declara (`leis/social_matriz.py`,
