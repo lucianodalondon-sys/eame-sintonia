@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T13:39:37+00:00",
-  "HEAD": "b5486cd3384bc3cc992fe24f111b3ec3c765ca84",
+  "GENERATED_AT": "2026-09-23T13:46:49+00:00",
+  "HEAD": "fdf07216c5516e1e3cde2750bdc83c7cdba820c5",
   "BRANCH": "v1-ligada",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "91cf46104a534bbce7563a80984f860a8ca5977b34c3fff925a446b0ccb8d14f",
+  "SOURCE_TREE_FINGERPRINT": "d8e9c3c59c61ac3656ee28f698837fe56f999de1fe886abea274f2443649b684",
   "FICHEIROS_NA_IMPRESSAO": 2858,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -3541,14 +3541,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "91cf46104a534bbce7563a80984f860a8ca5977b34c3fff925a446b0ccb8d14f",
+    "VERSAO": "d8e9c3c59c61ac3656ee28f698837fe56f999de1fe886abea274f2443649b684",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "91cf46104a534bbce7563a80984f860a8ca5977b34c3fff925a446b0ccb8d14f",
+    "VERSAO": "d8e9c3c59c61ac3656ee28f698837fe56f999de1fe886abea274f2443649b684",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5339,7 +5339,7 @@
    }
   ],
   "INPUTS_COUNT": 757,
-  "INPUTS_DIGEST": "e2de3086e008f9506df32f31a8e09e16b962e27dfbbe1eb283032ba2196c6ffc",
+  "INPUTS_DIGEST": "daa35ac78a166b6e20466b790816a75a30e060a499f856250f6e8d7d7b9c5b43",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5372,8 +5372,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b3bdbe7d0835b329391913846c85f40d68963a863e8982715002e1f90591a7f8",
-  "SEMANTIC_HASH": "0702bf76a7c0a4ec5905c597a659b65163b03ac8a9c41aab31f5c9eb4e635d7e"
+  "MEASUREMENT_HASH": "53182bfeac5322d0defd61b2dcd43bf0aa2194050b1a971f0cc25b0f45c73028",
+  "SEMANTIC_HASH": "712cc509dc82f155655bf8a56601a5c4541d4dc759c16fd1ef584177404b7256"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -16157,14 +16157,6 @@
      },
      {
       "FICHEIRO": "tests/test_v1a_v1_ligada.py",
-      "LINHA": 23,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_v1a_v1_ligada.py",
       "LINHA": 157,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -18114,6 +18106,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-DETECTOR-CAPA-GABARITO",
+    "FROM": "C-EXECUTOR-TEXTO-HTML",
+    "TO": "C-DETECTOR-CAPA-GABARITO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/mutacao_v1a.py",
+      "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
     "FROM": "C-EXECUTOR-TEXTO-HTML",
     "TO": "C-PROVA-ROTA-DO-HTML",
@@ -18131,6 +18145,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-TESTES",
+    "FROM": "C-EXECUTOR-TEXTO-HTML",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_v1a_v1_ligada.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -40503,12 +40539,12 @@
     ]
    }
   ],
-  "COUNT": 1133
+  "COUNT": 1135
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 172,
   "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1133,
+  "ARESTAS_RELACIONADAS": 1135,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -40903,8 +40939,8 @@
    "CODE": 191,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 375,
-   "READ": 255,
+   "PROOF": 376,
+   "READ": 256,
    "RULE": 201,
    "WRITE": 8
   },
@@ -43093,7 +43129,6 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
-    "coleta/retrato_html.mjs",
     "medidas/canario_receitas_k1.py",
     "medidas/ensaio_quarentena_naosei.py",
     "medidas/medir_detector_moldura.py",
@@ -43115,8 +43150,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "tests/test_medir_apos_receitas.py",
-    "tests/test_politica_nao_sei.py",
-    "tests/test_v1a_v1_ligada.py"
+    "tests/test_politica_nao_sei.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "RELATORIO-DETECTOR-CAPA.md"
@@ -43132,7 +43166,7 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 8,
+   "ENTRAM": 9,
    "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -43637,12 +43671,14 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
-    "coleta/executor_texto_de_html.py"
+    "coleta/executor_texto_de_html.py",
+    "coleta/retrato_html.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/red_team_duas_portas.py",
-    "tests/test_c4g_a_especie_do_video.py"
+    "tests/test_c4g_a_especie_do_video.py",
+    "tests/test_v1a_v1_ligada.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -43655,7 +43691,7 @@
     "guarda"
    ],
    "ENTRAM": 4,
-   "SAEM": 4,
+   "SAEM": 6,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "RULE"
@@ -49299,7 +49335,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 196,
+   "ENTRAM": 197,
    "SAEM": 26,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

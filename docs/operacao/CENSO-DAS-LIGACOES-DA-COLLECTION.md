@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b5486cd3384bc3cc992fe24f111b3ec3c765ca84
+HEAD_DA_MEDICAO  fdf07216c5516e1e3cde2750bdc83c7cdba820c5
 BRANCH           v1-ligada
-GERADO_EM        2026-09-23T10:35:14-03:00
+GERADO_EM        2026-09-23T10:42:36-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -227,24 +227,24 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/executor_texto_de_html.py` |
+| **peça real** | `coleta/executor_texto_de_html.py`, `coleta/retrato_html.mjs` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | medidas/medir_v1a.py:45; provas/a_rota_do_html_nao_vai_a_rede.py:47; provas/red_team_duas_portas.py:44 |
+| **prova de quem ativa** | medidas/medir_v1a.py:45; medidas/mutacao_v1a.py:19; provas/a_rota_do_html_nao_vai_a_rede.py:47 |
 | **porquê** | estas pecas importam-na — C-DETECTOR-CAPA-GABARITO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/retrato_html.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 4 · saem 4 |
-| **arestas provadas** | entram 4 · saem 4 |
+| **arestas no mapa** | entram 4 · saem 6 |
+| **arestas provadas** | entram 4 · saem 6 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 8 |
+| **prova das ligações** | CODE 10 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1495,10 +1495,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/retrato_html.mjs`, `medidas/canario_receitas_k1.py`, `medidas/ensaio_quarentena_naosei.py`, `medidas/medir_detector_moldura.py`, `medidas/medir_k1.py` _(e mais 13)_ |
+| **peça real** | `medidas/canario_receitas_k1.py`, `medidas/ensaio_quarentena_naosei.py`, `medidas/medir_detector_moldura.py`, `medidas/medir_k1.py`, `medidas/medir_v1a.py` _(e mais 12)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 18 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 17 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | coleta/social_scrap.py:775; curadoria/test_supervisor.py:59; medidas/micro_colheita.py:72 |
 | **porquê** | estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CENSO-UNIFICACAO · C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
@@ -1506,13 +1506,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/retrato_html.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/italy_contracts_curator.json` |
-| **arestas no mapa** | entram 8 · saem 11 |
-| **arestas provadas** | entram 8 · saem 11 |
+| **arestas no mapa** | entram 9 · saem 11 |
+| **arestas provadas** | entram 9 · saem 11 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 19 |
+| **prova das ligações** | CODE 20 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 

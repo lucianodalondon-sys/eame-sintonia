@@ -3304,9 +3304,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "v1-ligada",
-    "HEAD": "b5486cd3384bc3cc992fe24f111b3ec3c765ca84",
-    "GENERATED_AT": "2026-09-23T10:35:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "91cf46104a534bbce7563a80984f860a8ca5977b34c3fff925a446b0ccb8d14f"
+    "HEAD": "fdf07216c5516e1e3cde2750bdc83c7cdba820c5",
+    "GENERATED_AT": "2026-09-23T10:42:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d8e9c3c59c61ac3656ee28f698837fe56f999de1fe886abea274f2443649b684"
   },
   "FAMILIES": [
     {
@@ -27709,7 +27709,6 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "coleta/retrato_html.mjs",
         "medidas/canario_receitas_k1.py",
         "medidas/ensaio_quarentena_naosei.py",
         "medidas/medir_detector_moldura.py",
@@ -27728,9 +27727,9 @@
         "scripts/detector_capa/medir_gabarito.py",
         "scripts/detector_capa/rotular_gabarito.py"
       ],
-      "file_count": 18,
+      "file_count": 17,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 18 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 17 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/LIFECYCLE-EVIDENCE-V1.json",
@@ -29125,7 +29124,7 @@
       "name": "Executor · texto a partir de HTML",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao.",
+      "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
       "why_here": "A peca que converte HTML em texto existia nesta arvore desde antes e tinha ZERO chamadores em producao: 46 observacoes reais paravam em DERIVED com MISSING_ROUTE. CAPABILITY EXISTS != EDGE EXISTS. Declarar a capacidade tambem nao bastava — o `SUPPORTS` do executor de PDF viveu um ano sem leitores. O que liga e o nome na lista `coleta/ingresso.py::_DONOS_DA_DERIVACAO`.",
       "departments": [
         "ENGENHARIA"
@@ -29141,11 +29140,12 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "coleta/executor_texto_de_html.py"
+        "coleta/executor_texto_de_html.py",
+        "coleta/retrato_html.mjs"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -29209,9 +29209,9 @@
         "PLANO": null,
         "PROVA": [
           "medidas/medir_v1a.py:45",
+          "medidas/mutacao_v1a.py:19",
           "provas/a_rota_do_html_nao_vai_a_rede.py:47",
-          "provas/red_team_duas_portas.py:44",
-          "tests/test_a_rota_do_html.py:35"
+          "provas/red_team_duas_portas.py:44"
         ],
         "PORQUE": "estas pecas importam-na — C-DETECTOR-CAPA-GABARITO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -67915,7 +67915,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
@@ -67985,22 +67985,6 @@
           "file": "tests/test_politica_nao_sei.py",
           "line": 51,
           "snippet": "\"ensaio_quarentena_naosei.py\"))]",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
-            "FROM": "C-DETECTOR-CAPA-GABARITO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_v1a_v1_ligada.py",
-          "line": 23,
-          "snippet": "MJS = (RAIZ / \"coleta\" / \"retrato_html.mjs\").as_posix()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
@@ -71438,6 +71422,41 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-HTML",
+      "to": "C-DETECTOR-CAPA-GABARITO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de HTML alimenta Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/mutacao_v1a.py",
+          "line": 19,
+          "snippet": "(\"V1 desligada so no Node\", \"coleta/retrato_html.mjs\", \"export const V1_LIGADA = true;\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-DETECTOR-CAPA-GABARITO",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-DETECTOR-CAPA-GABARITO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-HTML",
       "to": "C-PROVA-ROTA-DO-HTML",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -71529,6 +71548,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-HTML",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de HTML alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_v1a_v1_ligada.py",
+          "line": 23,
+          "snippet": "MJS = (RAIZ / \"coleta\" / \"retrato_html.mjs\").as_posix()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -111702,8 +111756,8 @@
     "components_pending": 193,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1199,
-    "edges_proven": 1135,
+    "edges": 1201,
+    "edges_proven": 1137,
     "edges_unknown": 64,
     "business_edges": 4,
     "files_tracked": 2710,
