@@ -91,5 +91,52 @@
   "NAO_TERMINA_PENDURADO": "1",
   "WORKER_NAO_PULSA": "1",
   "SURVIVORS": 0
+ },
+ "8_AO_VIVO_APOS_9a82197c": {
+  "FONTE": "run-log e ledger da worktree viva copiados as ~01:56Z (evidencia trazida pelo coordenador)",
+  "WORKERS": [
+   {
+    "INI": "01:32:11",
+    "FIM": "01:37:15",
+    "DUR_S": 304,
+    "TRANSICOES": 44,
+    "ULTIMA_TRANSICAO_ANTES_DO_FIM_S": 115
+   },
+   {
+    "INI": "01:37:15",
+    "FIM": "01:42:19",
+    "DUR_S": 304,
+    "TRANSICOES": 44,
+    "ULTIMA_TRANSICAO_ANTES_DO_FIM_S": 162
+   },
+   {
+    "INI": "01:42:19",
+    "FIM": "01:47:22",
+    "DUR_S": 303,
+    "TRANSICOES": 44,
+    "ULTIMA_TRANSICAO_ANTES_DO_FIM_S": 171
+   },
+   {
+    "INI": "01:47:22",
+    "FIM": "01:52:25",
+    "DUR_S": 303,
+    "TRANSICOES": 44,
+    "ULTIMA_TRANSICAO_ANTES_DO_FIM_S": 194
+   },
+   {
+    "INI": "01:52:25",
+    "FIM": "01:53:55",
+    "DUR_S": 89,
+    "TRANSICOES": 31,
+    "SAIDA": "WORKER_OCIOSO_SAIU, rc 0 (fila esgotada)"
+   }
+  ],
+  "LEITURA": "os 4 pararam de trabalhar 110-190 s depois de arrancar, sempre ao fim de EXACTAMENTE 44 transicoes, e ficaram mudos ate ao timeout de 300 s. Um limite de bytes fixo da um numero fixo de tarefas; uma tarefa longa daria numeros diferentes e escrita ate perto do fim. -> a PARAGEM e o cano; o RITMO de ~5 min e HEARTBEAT_TIMEOUT_S=300 + o poll de 15 s, que e so como o cano e detectado.",
+  "NAO_SEI": "quantos bytes de stdout correspondem a 44 transicoes (uma tarefa pode dar 1 ou 2 transicoes e 1 linha)",
+  "CRASH_MAX": {
+   "REGRA": "3 mortes sem progresso dentro de 120 s",
+   "ESTADO": "1 entrada na janela; mortes a 303 s umas das outras nunca juntam 3 em 120 s",
+   "FALTA_PARA_BLOCKED": "2 mortes sem progresso nos 120 s seguintes a uma morte — impossivel neste ritmo"
+  }
  }
 }
