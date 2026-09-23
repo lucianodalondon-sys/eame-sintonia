@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2b5e30ab56f740730d3ed7eba537fbdac996c8f6
+HEAD_DA_MEDICAO  e752c3da9f709c5f01d5f130b5bf350b022151f0
 BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T06:51:06-03:00
+GERADO_EM        2026-09-23T06:57:20-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -608,7 +608,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `candidatas/FONTES-CANDIDATAS.json`, `candidatas/fonte_nova.py` |
+| **peça real** | `candidatas/FONTES-CANDIDATAS.json`, `candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json`, `candidatas/fonte_nova.py`, `candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html`, `candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
@@ -764,10 +764,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/unificacao/aplicar_d13_capacidade.py`, `ferramentas/unificacao/censo_lanes.py`, `ferramentas/unificacao/congelar_livros_do_servico.py`, `ferramentas/unificacao/ensaio_unificacao.py`, `ferramentas/unificacao/medir_suite.py` _(e mais 4)_ |
+| **peça real** | `ferramentas/unificacao/aplicar_d13_capacidade.py`, `ferramentas/unificacao/aplicar_d15_politica.py`, `ferramentas/unificacao/censo_lanes.py`, `ferramentas/unificacao/congelar_livros_do_servico.py`, `ferramentas/unificacao/ensaio_unificacao.py` _(e mais 5)_ |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 10 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |

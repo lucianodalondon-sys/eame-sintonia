@@ -3285,9 +3285,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "2b5e30ab56f740730d3ed7eba537fbdac996c8f6",
-    "GENERATED_AT": "2026-09-23T06:51:06-03:00",
-    "SOURCE_TREE_FINGERPRINT": "da6d2e57db5225717afdff8ad36c24536bdb02ca17b4c7eebd6716f346e0f752"
+    "HEAD": "e752c3da9f709c5f01d5f130b5bf350b022151f0",
+    "GENERATED_AT": "2026-09-23T06:57:20-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d"
   },
   "FAMILIES": [
     {
@@ -25029,6 +25029,7 @@
       "family": "F-COLETA",
       "files": [
         "ferramentas/unificacao/aplicar_d13_capacidade.py",
+        "ferramentas/unificacao/aplicar_d15_politica.py",
         "ferramentas/unificacao/censo_lanes.py",
         "ferramentas/unificacao/congelar_livros_do_servico.py",
         "ferramentas/unificacao/ensaio_unificacao.py",
@@ -25038,9 +25039,9 @@
         "ferramentas/unificacao/unir_ledger.py",
         "ferramentas/unificacao/unir_livros_do_servico.py"
       ],
-      "file_count": 9,
+      "file_count": 10,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 10 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
@@ -35767,9 +35768,12 @@
       "family": "F-COLETA",
       "files": [
         "candidatas/FONTES-CANDIDATAS.json",
-        "candidatas/fonte_nova.py"
+        "candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json",
+        "candidatas/fonte_nova.py",
+        "candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html",
+        "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html"
       ],
-      "file_count": 2,
+      "file_count": 5,
       "status": "PENDING",
       "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -87320,7 +87324,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 2 linhas de codigo.",
+      "reason": "A porta de entrada de fonte nova tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "curadoria/test_discovery.py",
@@ -87341,6 +87345,22 @@
         {
           "file": "ferramentas/unificacao/aplicar_d13_capacidade.py",
           "line": 21,
+          "snippet": "import fonte_nova as FN  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/aplicar_d15_politica.py",
+          "line": 24,
           "snippet": "import fonte_nova as FN  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
@@ -110460,12 +110480,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html",
-    "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
-    "ferramentas/unificacao/aplicar_d15_politica.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1532,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1528,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -110671,8 +110687,8 @@
     "edges_unknown": 64,
     "business_edges": 4,
     "files_tracked": 2691,
-    "files_covered": 1159,
-    "files_code_unclaimed": 3,
+    "files_covered": 1163,
+    "files_code_unclaimed": 0,
     "roles_proven": 160,
     "roles_declared_only": 8,
     "roles_unknown": 64,

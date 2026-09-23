@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T09:55:09+00:00",
-  "HEAD": "2b5e30ab56f740730d3ed7eba537fbdac996c8f6",
+  "GENERATED_AT": "2026-09-23T10:00:49+00:00",
+  "HEAD": "e752c3da9f709c5f01d5f130b5bf350b022151f0",
   "BRANCH": "unificacao-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "da6d2e57db5225717afdff8ad36c24536bdb02ca17b4c7eebd6716f346e0f752",
+  "SOURCE_TREE_FINGERPRINT": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
   "FICHEIROS_NA_IMPRESSAO": 2839,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -763,6 +763,13 @@
     "PATH": "ferramentas/unificacao/aplicar_d13_capacidade.py",
     "PAPEL": "FONTE",
     "VERSAO": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/unificacao/aplicar_d15_politica.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2adc59b7d1e11ecd29f4f60fe13e9d46a2649d80",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3485,14 +3492,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "da6d2e57db5225717afdff8ad36c24536bdb02ca17b4c7eebd6716f346e0f752",
+    "VERSAO": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "da6d2e57db5225717afdff8ad36c24536bdb02ca17b4c7eebd6716f346e0f752",
+    "VERSAO": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5261,8 +5268,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 746,
-  "INPUTS_DIGEST": "4b2c3fad8ecaa3a131fac5dcb257a761069f8fe1a8995dbbf138da3a06b03d10",
+  "INPUTS_COUNT": 747,
+  "INPUTS_DIGEST": "a1664b50f5367e045e294c68970b1cd93c2c4504cd4b543f02352ebfa8142cc2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5295,8 +5302,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "8a325f109a6806e6ac46539deb869500d1b874a2cba194330edf494e836cea04",
-  "SEMANTIC_HASH": "07e658530e645225dc1a14cac63425e5ed725d0c4a68479a25e30bffe732b2af"
+  "MEASUREMENT_HASH": "f00b6e8c65797e8c65f5d5421fe0eb328a947ac755fa06fb079aefc86e5d7517",
+  "SEMANTIC_HASH": "2f24ff08d95ae18796209de1f040684ae85dd1a20787eae477f9d2f4b27523ec"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -27345,6 +27352,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/aplicar_d15_politica.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -41538,6 +41553,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "ferramentas/unificacao/aplicar_d13_capacidade.py",
+    "ferramentas/unificacao/aplicar_d15_politica.py",
     "ferramentas/unificacao/censo_lanes.py",
     "ferramentas/unificacao/congelar_livros_do_servico.py",
     "ferramentas/unificacao/ensaio_unificacao.py",
@@ -45103,7 +45119,10 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "candidatas/FONTES-CANDIDATAS.json",
-    "candidatas/fonte_nova.py"
+    "candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json",
+    "candidatas/fonte_nova.py",
+    "candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html",
+    "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
