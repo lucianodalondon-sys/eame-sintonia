@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e752c3da9f709c5f01d5f130b5bf350b022151f0
-BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T06:57:20-03:00
+HEAD_DA_MEDICAO  f5c4947317b522f7711e4e199fe51d39b7654a0a
+BRANCH           scrap-portas-v1
+GERADO_EM        2026-09-23T08:57:25-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -32,7 +32,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:209 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:282 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/ES-RESEARCHERS-OLIVE.json`, `data/samples/ES-VOICE-LINKEDIN.json` |
@@ -57,7 +57,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:203; .github/workflows/sintonia-scrap.yml:203 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:276; .github/workflows/sintonia-scrap.yml:276 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | V-HTTP, V-INSTAGRAM |
 | **o que entra · ficheiros** | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json` |
@@ -107,7 +107,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | green — algum workflow ou a cadeia canonica manda rodar isto. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:206; .github/workflows/sintonia-scrap.yml:207 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:279; .github/workflows/sintonia-scrap.yml:280 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | V-HTTP, V-YOUTUBE |
 | **o que entra · ficheiros** | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json` |
@@ -438,13 +438,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 5 · saem 13 |
-| **arestas provadas** | entram 5 · saem 13 |
+| **arestas no mapa** | entram 6 · saem 13 |
+| **arestas provadas** | entram 6 · saem 13 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 |
+| **prova das ligações** | CODE 19 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -509,7 +509,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:384 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:469 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -744,7 +744,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-COLETA, C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/apify-conexao.yml:68; .github/workflows/apify-sensores.yml:117; .github/workflows/sintonia-scrap.yml:206 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/apify-conexao.yml:68; .github/workflows/apify-sensores.yml:117; .github/workflows/sintonia-scrap.yml:279 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -819,7 +819,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:205; .github/workflows/sintonia-scrap.yml:205 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:278; .github/workflows/sintonia-scrap.yml:278 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -844,7 +844,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:207 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:280 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/REEL-TRANSCRICOES/TRANSCRICOES-REEL.json`, `ferramentas/fala_local.py` |
@@ -1852,7 +1852,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-COLETA, C-PEDIDO, C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:139; .github/workflows/sintonia-scrap.yml:471; system-map/data/pedido-t4.observado.json:1 _(plano OBSERVED)_ |
+| **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:139; .github/workflows/sintonia-scrap.yml:598; system-map/data/pedido-t4.observado.json:1 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `coleta/executor_texto_de_pdf.py`, `guarda/preservar_documento.py` |
@@ -2008,19 +2008,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE, C-RECOLLECTION-CENSO.  Mas 4 ficheiro(s) mudaram depois d |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | candidatas/italy_write_matrix.mjs:2; coleta/italy_pilot_collect.mjs:38; medidas/canario_rotas_elegiveis.py:68 |
+| **prova de quem ativa** | candidatas/italy_write_matrix.mjs:2; coleta/italy_pilot_collect.mjs:38; coleta/scrap_colheita.py:476 |
 | **porquê** | estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CORRIDA-CANONICA · C-IT-CATALOGO · C-IT-COLETA · C-IT-INCREMENTALIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 9 · saem 15 |
-| **arestas provadas** | entram 9 · saem 10 |
+| **arestas no mapa** | entram 9 · saem 17 |
+| **arestas provadas** | entram 9 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 19 · NÃO SEI 5 |
+| **prova das ligações** | CODE 21 · NÃO SEI 5 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
