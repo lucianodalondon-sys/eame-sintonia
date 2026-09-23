@@ -22224,3 +22224,91 @@ UMA ROTA NÃO É UMA LINHA: É UM NOME. DUAS DECISÕES DO DONO SOBRE A MESMA ROT
 ```
 
 O que a junção mostrou, e custou: as duas baterias de mutação miravam «a primeira linha» — a da D24 estragava a linha da D22 e 4 mutantes sobreviviam; o M1 dos Reels nem chegava a ser aplicado (a âncora passou a casar duas vezes, e a linha da D24 vinha com 8 espaços a mais). Depois de mirar pelo significado: D24 10/10, REELS 10/10. E o ramo do Reel no workflow chamava `fonte_obrigatoria`, que não existia em versão nenhuma do ficheiro — a fase do Reel ficaria sem fonte em produção.
+
+# §199 · A CORTESIA VIVE NO TRANSPORTE: ROBOTS, PAUSA E TETO DENTRO DE `baixar()`
+
+**O QUE MUDOU (A5, 23/09).** A A4 mediu que o coletor Node (`coleta/italy_pilot_collect.mjs`)
+não lia robots.txt nem espaçava pedidos — quem o fazia era o condutor da micro, por fora.
+Agora as três guardas vivem em `baixar()`, que é o único sítio por onde um pedido a uma fonte
+sai (o motor de rota recebe-o como `buscar`, os `case` chamam-no directamente). A única outra
+saída do coletor é a medição do egresso em ipinfo.io, que não é fonte e está nomeada no código.
+- **Robots** por origem, uma vez por corrida, com os estados de `scrap_http._carregar_robots`:
+  404/410 = AUSENTE (permitido) · 200 com regras = LIDO · 200 em HTML ou outro HTTP = ILEGIVEL
+  (não permitido) · sem resposta = INDISPONIVEL (o pedido não sai, não é recusa do host, **não
+  fica em cache**). O curl perdeu o `-L`: cada salto de redireccionamento pede licença outra vez.
+  Leitura pela RFC 9309 (caminho mais longo vence, Allow no empate, `*` e `$`); o grupo do
+  nosso token (`mozilla`, como faz o urllib) ou o `*`. Difere do `urllib.robotparser` da casa
+  (primeira regra, sem curinga) — declarado; aqui é o mais restritivo nos curingas.
+- **Pausa** mínima entre pedidos ao MESMO site (host sem `www.`): 1,0 s (o `PAUSA_ENTRE_CHAMADAS` do Scrap),
+  `SINTONIA_PAUSA_POR_HOST_S` muda; um `Crawl-delay` maior manda.
+- **Teto** de pedidos HTTP por site (host sem `www.`) por corrida: 5 (D7), `SINTONIA_TETO_POR_HOST` muda. Conta
+  TUDO: robots, índice, matérias, saltos, retentativas. Configuração inválida falha alto.
+- **Exceções: nenhuma.** A única decidida pelo dono (D23, vídeos de organizações no LinkedIn)
+  vive no Scrap, não passa por este coletor. `EXCECOES_DE_CORTESIA = []`, nomeada.
+
+**O QUE A CORTESIA RECUSA NÃO É OBSERVAÇÃO.** Matéria recusada = `DEFERRED_BY_COURTESY`
+(como o `DEFERRED_AFTER_TIMEOUT`): contada, em `detalhes`, **fora do livro**, e volta a ser
+pedida na corrida seguinte (ADIADO ≠ NUNCA). Índice recusado = fonte UNKNOWN (não se olhou),
+não FAILED, nada no livro. Um salto recusado A MEIO já bateu à porta: segue como
+`TRANSPORT_OR_EMPTY` com o porquê. Os contadores `DETAIL_REQUESTS/DETAIL_NEW` passaram a
+contar-se DEPOIS de se saber que o pedido saiu, e `REDE.total` só sobe quando sai — senão
+`INDEX_REQUESTS` inventava índices. O resumo ganhou `CORTESIA` (config, estado do robots por
+origem, `PEDIDOS_POR_HOST`, recusas).
+
+**⚠️ O TETO DE 5 É POR OMISSÃO, E ISSO MUDA A BIG COLLECTION.** Com `MAX_TARGETS: 30`, uma
+corrida passa a pedir robots + índice + 3 matérias por site; as outras ficam adiadas para as
+corridas seguintes. Subir o teto é decisão do dono, por variável, e fica escrita no resumo.
+
+**AS PROVAS.** `provas/cortesia_http_local.mjs`: curl real contra servidor em 127.0.0.1,
+proxy de saída fechado, pedidos contados NO SERVIDOR — 30/30. `provas/cortesia_red_team.mjs`:
+17 mutantes (um por guarda), cada um com bandeira que prova que a linha mutada correu —
+17/17 mortos, restauro conferido por sha. Na 2.ª ronda o K8 SOBREVIVEU: a linha nova que guardava o
+robots da origem de destino guardava também o da origem pedida, e cobria a antiga. Não era guarda
+fraca, era código redundante: as duas linhas passaram a UMA instrução e o ataque repetiu-se. As três provas da recollection tinham servidores que
+respondiam 200 HTML (ou penduravam) em `/robots.txt`: passaram a dar 404 e a contá-lo à parte,
+com as contas de documentos intactas (16/16, 14/14, 8/8).
+
+**A MICRO SEM AJUDAS.** `micro_rede_real.py` deixou de ler robots, baixar MAX_TARGETS e
+esperar 15 s entre fontes (`--ajudas-da-a4` repõe, só para reproduzir a A4); os pedidos por
+site vêm do resumo do coletor.
+
+**A MICRO SEM AJUDAS, MEDIDA (23/09, 18:28–18:41Z, Sala descartável, VPN IT).** Mesma coorte
+de 8. Egresso IT antes e depois das 16 corridas.
+
+| | A4 (com ajudas) | A5 (sem ajudas) |
+|---|---|---|
+| 1.ª passada: fontes / documentos = RAW / falhas de rede | 8/8 · 19 = 19 · 0 | 8/8 · 19 = 19 · 0 |
+| máximo de pedidos por site (1.ª) | 5 | 5 |
+| Admission SIM · Sala (notícias do dia diferentes: não é efeito da cortesia) | 0 · +0 | 2 · +2 |
+| 2.ª passada: REFETCH · FALSE_CHANGED · puladas · revalidadas iguais | 0 · 0 · 10 · 9 | 0 · 0 · 10 · 9 |
+| 2.ª passada: documentos novos · Sala · duplicados na Sala | 0 · +0 · 0 | 6 · +1 · 0 |
+
+Os 6 novos da 2.ª passada são matérias que o teto adiou na 1.ª: o ADIADO ≠ NUNCA medido ao vivo.
+O total da 1.ª passada é 37 pedidos (A4: 35): um salto 301 na myfruit e o robots da Villoresi
+(`www.` → sem `www.`) contam agora, porque o coletor conta o que o curl faz, não uma soma.
+
+**⚠️ DOIS DEFEITOS QUE SÓ A REDE MOSTROU.** A primeira corrida desta missão (código anterior)
+deu à Villoresi **6 pedidos**: `www.etvilloresi.it` redirecciona para `etvilloresi.it`, e o
+teto contava por host. Corrigido: teto e pausa contam o SITE (host sem `www.`), e o robots lido
+no fim de um salto serve também a origem de destino (antes era pedido duas vezes). Prova C13
+(dois nomes resolvidos para o servidor local pelo `_curlrc`) e mutantes K16/K17.
+
+**⚠️ O PORTÃO DE EGRESSO PARA POR UNKNOWN, E O UNKNOWN MEDIDO ERA O CHECKER.** Três paragens
+em 40 min com `PAIS=UNKNOWN` (ipinfo sem resposta em 15 s), nenhuma com outro país: à 1.ª
+(antes de qualquer pedido) seguiram-se 3 medições IT; à 2.ª (a meio da 2.ª passada) a medição
+final, 16 s depois, também deu UNKNOWN; à 3.ª a medição final, 16 s depois, deu IT, e o coletor,
+na mesma corrida, tinha medido IT no ipinfo. Não prova que a VPN nunca piscou — prova que
+UNKNOWN não é «outro país». O condutor passou a repetir **só** o UNKNOWN
+(até 3×, 20 s), a guardar todas as medições, e a parar logo em qualquer país ≠ IT. UNKNOWN
+nunca passa. Na corrida final houve 1 repetição em 32 medições.
+
+A corrida final correu com o código de `a5347924`; a junção das duas linhas do cache (K8) veio
+depois e não muda o comportamento — as mesmas origens ficam guardadas, pela mesma regra.
+
+**NEW_FAILURES_BY_NAME = 0**, medido contra a base `dbbd7271` no âmbito do coletor: 11 provas
+e testes Node, 7 suítes Python que tocam o coletor e a micro, mais a prova nova (`tests/
+test_cortesia_no_transporte.py`). As falhas que existem já estavam na base, com os mesmos nomes:
+`italy_contract_test` 76 (lê o livro partilhado), `italy_pilot_negativos` 2,
+`test_alvo_estruturado_resolvido` 1, `test_fontes_explicitas_no_coletor` 1,
+`test_fase_italiana_no_workflow` 15 erros. ⚠️ `medidas/incrementalidade_prova.mjs` reescreve
+`medidas/INCREMENTALIDADE-V1.json` ao correr — repor com `git checkout` antes de commitar.

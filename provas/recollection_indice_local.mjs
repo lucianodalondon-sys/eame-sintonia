@@ -49,7 +49,7 @@ const MATERIAS = {
   "uva-da-tavola-record":  "Uva da tavola: campagna record",
 };
 let INDICE = { lista: [], ruido: 0, barra: {} };
-const PEDIDOS = [];
+const PEDIDOS = [], ROBOTS_PEDIDOS = [];
 const paginaIndice = () => `<!DOCTYPE html><html><head><title>News</title>
 <meta property="article:modified_time" content="2026-09-2${INDICE.ruido}T0${INDICE.ruido}:00:00+00:00" /></head><body>
 <div class="oggi">Oggi è il ${20 + INDICE.ruido} settembre 2026 · visitatori ${1000 + INDICE.ruido * 37}</div>
@@ -62,6 +62,11 @@ const paginaMateria = (s) => `<!DOCTYPE html><html><head><title>${MATERIAS[s]}</
 <h1>${MATERIAS[s]}</h1><div class="views">${PEDIDOS.length}</div>${enchimento}</body></html>`;
 const servidor = createServer((req, res) => {
   const p = req.url;
+  // ⚠️ A5 · O COLETOR LE O ROBOTS.TXT ANTES DE PEDIR (a cortesia vive em
+  // `baixar()`). Este servidor nao publica robots — 404, «sem ficheiro = sem
+  // proibicao» — e conta essas idas A PARTE: as contas desta prova sao de
+  // documentos, e continuam exactamente as mesmas.
+  if (p === "/robots.txt") { ROBOTS_PEDIDOS.push(Date.now()); res.writeHead(404); res.end("non trovato"); return; }
   PEDIDOS.push(p);
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   if (p === "/news/") { res.end(paginaIndice()); return; }
@@ -90,12 +95,12 @@ const livro = () => {
   return existsSync(f) ? readFileSync(f, "utf8").split("\n").filter(Boolean).map(JSON.parse) : [];
 };
 async function rodada(nome) {
-  const antes = PEDIDOS.length;
+  const antes = PEDIDOS.length, robotsAntes = ROBOTS_PEDIDOS.length;
   const { resumo } = await executarRodada({ runId: `PROVA_IDX_${nome}_${Date.now()}`, apenas: [FONTE],
                                             pularParse: true, nota: `prova indice local ${nome}` });
   const feitos = PEDIDOS.slice(antes);
   return { c: resumo.contadores, resumo, indice: feitos.filter(p => p === "/news/").length,
-           materias: feitos.filter(p => p !== "/news/"), feitos };
+           materias: feitos.filter(p => p !== "/news/"), feitos, robots: ROBOTS_PEDIDOS.length - robotsAntes };
 }
 
 let passou = 0, falhou = 0;
@@ -123,6 +128,9 @@ try {
     assert.ok(i1.materias.every(p => /^\/news\/[a-z-]+\/$/.test(p)), JSON.stringify(i1.materias));
   });
   t("zero rede externa: EGRESS_IP = NAO SEI", () => assert.equal(i1.resumo.EGRESS_IP, "NAO SEI"));
+  t("A5: I1 leu o robots UMA vez, contado a parte (ROBOTS_REQUESTS), nao como indice", () => {
+    assert.equal(i1.robots, 1); assert.equal(i1.c.ROBOTS_REQUESTS, 1);
+  });
 
   console.log("\n══ I2 · o mesmo índice, com ruído ═══════════════════════════════");
   INDICE = { lista: ["kiwi-raccolta-anticipata", "mele-prezzi-in-calo", "pere-export-germania"], ruido: 3, barra: {} };

@@ -65,8 +65,55 @@ class TestContagemPorSite(unittest.TestCase):
         self.assertEqual(l["FALHAS"], [{"URL": "u", "RESULTADO": "TRANSPORT_OR_EMPTY",
                                         "MOTIVO": "status 403"}])
 
+    def test_a5_a_conta_do_coletor_manda_quando_existe(self):
+        """A5: o coletor conta os pedidos HTTP por host; o condutor le essa conta."""
+        corridas = [{"SOURCE_ID": "S", "RUN_ID": "R1"}]
+        runs = [{"RUN_ID": "R1",
+                 "contadores": {"INDEX_REQUESTS": 1, "DETAIL_REQUESTS": 3, "ROBOTS_REQUESTS": 1},
+                 "CORTESIA": {"PEDIDOS_POR_HOST": {"www.s.it": 5, "cdn.s.it": 1},
+                              "ROBOTS": {"https://www.s.it": {"ESTADO": "LIDO"}},
+                              "RECUSAS": [{"URL": "u9", "MOTIVO": "TETO_POR_HOST", "PORQUE": "x"}]}}]
+        l = R.por_site(corridas, runs, [], {})["S"]
+        self.assertEqual((l["ROBOTS"], l["INDICE"], l["MATERIAS"]), (1, 1, 3))
+        self.assertEqual((l["TOTAL"], l["MAX_POR_HOST"]), (6, 5))
+        self.assertEqual(l["RECUSAS"], [{"URL": "u9", "MOTIVO": "TETO_POR_HOST"}])
+        self.assertEqual(l["ROBOTS_ESTADO"], {"https://www.s.it": "LIDO"})
+
     def test_teto_da_d7_e_5_por_passagem(self):
         self.assertEqual(1 + 1 + R.MAX_MATERIAS, 5)
+
+
+class TestPortaoDeEgressoRepeteSoUnknown(unittest.TestCase):
+    """A5: UNKNOWN (checker calado) mede-se outra vez; UNKNOWN nunca passa;
+    outro pais para logo, sem repetir."""
+
+    def _com(self, respostas):
+        fila = list(respostas)
+        chamadas = []
+        orig = R._uma_medicao_de_egresso
+
+        def falsa():
+            pais = fila.pop(0)
+            chamadas.append(pais)
+            return {"GATE": "PASS" if pais == "IT" else "BLOCKED", "PAIS": pais, "IP": None, "QUANDO": "t"}
+        R._uma_medicao_de_egresso = falsa
+        try:
+            return R.portao_de_egresso(tentativas=3, espera=0), chamadas
+        finally:
+            R._uma_medicao_de_egresso = orig
+
+    def test_unknown_depois_it_passa_e_guarda_as_duas(self):
+        m, ch = self._com(["UNKNOWN", "IT"])
+        self.assertEqual((m["GATE"], ch), ("PASS", ["UNKNOWN", "IT"]))
+        self.assertEqual([x["PAIS"] for x in m["MEDICOES"]], ["UNKNOWN", "IT"])
+
+    def test_tres_unknown_bloqueiam(self):
+        m, ch = self._com(["UNKNOWN", "UNKNOWN", "UNKNOWN", "IT"])
+        self.assertEqual((m["GATE"], len(ch)), ("BLOCKED", 3))
+
+    def test_outro_pais_para_sem_repetir(self):
+        m, ch = self._com(["US", "IT"])
+        self.assertEqual((m["GATE"], ch), ("BLOCKED", ["US"]))
 
 
 class TestQuarentena(unittest.TestCase):
