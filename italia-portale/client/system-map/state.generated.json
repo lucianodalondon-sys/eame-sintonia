@@ -42,6 +42,7 @@
       "RELATORIO-MICRO-PREP.md",
       "RELATORIO-PARIDADE.md",
       "RELATORIO-PROVAS-P1.md",
+      "RELATORIO-RECEITAS-FONTES.md",
       "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
@@ -311,6 +312,7 @@
       "curadoria/LISTAGENS-PROVADAS-V1.json",
       "curadoria/POLITICA-MODELO.json",
       "curadoria/PONTE-CURADOR-PROOF-V1.json",
+      "curadoria/PROPOSTA-RECEITAS-V1.json",
       "curadoria/READY-BATCHES-V1.json",
       "curadoria/READY-FOR-COLLECTION-V1.json",
       "curadoria/READY-SOURCES-V1.json",
@@ -2232,7 +2234,11 @@
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
       "scripts/micro_coleta/GABARITO-MICRO-V1.json",
       "scripts/micro_coleta/medir_detector_de_capa.py",
-      "scripts/micro_coleta/micro_coleta.py"
+      "scripts/micro_coleta/micro_coleta.py",
+      "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
+      "scripts/receitas/censo_e_proposta.py",
+      "scripts/receitas/medir_efeito.py",
+      "scripts/receitas/provar_indices.py"
     ],
     "security": [
       "security/ACCOES-DE-ADMINISTRADOR.md",
@@ -2563,6 +2569,7 @@
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
       "tests/test_raw_observation_id_volta.py",
+      "tests/test_receitas_proposta.py",
       "tests/test_red_team_estrada.py",
       "tests/test_reel_transcricao.py",
       "tests/test_reel_transcricao_trava.py",
@@ -3118,10 +3125,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "detector-capa-v1",
-    "HEAD": "fe2869f6c44d16e80991d346f6ef52f4ba1e5bd5",
-    "GENERATED_AT": "2026-09-22T22:57:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "68b7d0ee4d5bf5a11b9ea33600b11bc016ef9304ec7d547f5f8dbf93d782d451"
+    "BRANCH": "receitas-fontes-v1",
+    "HEAD": "922b662972aacc82e58436c180ebed25e6fdcc1a",
+    "GENERATED_AT": "2026-09-23T00:15:45-03:00",
+    "SOURCE_TREE_FINGERPRINT": "adb3e875aa3ed332a88262897306c2c3c64e33f44308797a62e25a6617dfdb61"
   },
   "FAMILIES": [
     {
@@ -3149,7 +3156,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 84
+      "count": 85
     },
     {
       "id": "F-ESPERA",
@@ -3407,7 +3414,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 19
+      "count": 20
     },
     {
       "id": "Z-ADMISSAO",
@@ -4607,8 +4614,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 452",
-        "desses, mostrados aqui: 40 (ficam de fora 412)"
+        "enderecos que o codigo realmente chama: 459",
+        "desses, mostrados aqui: 40 (ficam de fora 419)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -22018,6 +22025,7 @@
       "inbound": [],
       "outbound": [
         "C-PACOTE-CAMADAS",
+        "C-RECEITAS-PROPOSTA",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -22099,9 +22107,10 @@
         "PROVA": [
           "coleta/social_scrap.py:775",
           "pacote/v21_handoff_json.py:106",
+          "scripts/receitas/censo_e_proposta.py:147",
           "tests/test_c10_8b_r_raw_entre_jobs.py:151"
         ],
-        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-RECEITAS-PROPOSTA · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 10895,
       "y": 1004
@@ -35219,6 +35228,116 @@
       "y": 682
     },
     {
+      "id": "C-RECEITAS-PROPOSTA",
+      "name": "Receitas das fontes — censo do defeito e proposta com prova (nao aplicada)",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Le uma COPIA do livro de contratos do Curator e as paginas com veredito (gabarito do detector + paginas novas), classifica o defeito de cada receita (LINK_PATTERN que nao casa nada / nao casa a materia / generico; INDEX_URL que aponta para materia) e propoe LINK_PATTERN e INDEX_URL novos so com prova: materia lida, familia >= 2 na entrada, guarda contra padrao generico. Mede o efeito em memoria. Nunca escreve nos contratos.",
+      "why_here": "O mesmo defeito aparecia de tres lados (22/34 materias fora do padrao, 45 fontes revividas em EMPTY_LIST, micro com 1 fonte pronta): a receita escrita em molde e nunca medida contra o site.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "collection-strategy"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "curadoria/PROPOSTA-RECEITAS-V1.json",
+        "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
+        "scripts/receitas/censo_e_proposta.py",
+        "scripts/receitas/medir_efeito.py",
+        "scripts/receitas/provar_indices.py"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-DETECTOR-CAPA-GABARITO"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "NAV_SINTETICA"
+        ],
+        "palavras": 15,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 15,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve curadoria/PROPOSTA-RECEITAS-V1.json, e quem le nao esta na esteira: C-TESTES",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/PROPOSTA-RECEITAS-V1.json, e quem le nao esta na esteira: C-TESTES",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/PROPOSTA-RECEITAS-V1.json",
+        "handoff/paused-v2/MANIFESTO.json",
+        "scripts/detector_capa/GABARITO-CAPA-V1.json",
+        "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_receitas_proposta.py:15"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 10895,
+      "y": 1970
+    },
+    {
       "id": "C-RECOLLECTION-CENSO",
       "name": "O censo da revisita — como cada fonte publica, por evidencia",
       "territory": "Z-MEDIDAS",
@@ -35317,7 +35436,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1970
     },
     {
@@ -35679,7 +35798,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1970
     },
     {
@@ -35843,8 +35962,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
-      "y": 1970
+      "x": 10895,
+      "y": 2292
     },
     {
       "id": "C-RELEVANCIA",
@@ -36659,7 +36778,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 2292
     },
     {
@@ -40230,6 +40349,7 @@
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
         "tests/test_raw_observation_id_volta.py",
+        "tests/test_receitas_proposta.py",
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao.py",
         "tests/test_reel_transcricao_trava.py",
@@ -40267,7 +40387,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 201,
+      "file_count": 202,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -40400,6 +40520,7 @@
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-RASTRO",
         "C-RECEITAS",
+        "C-RECEITAS-PROPOSTA",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
@@ -40693,6 +40814,7 @@
         "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
         "curadoria/CONTRATOS-PASSO-2-V1.json",
         "curadoria/HANDOFF-INTEGRACAO-04.md",
+        "curadoria/PROPOSTA-RECEITAS-V1.json",
         "curadoria/READY-FOR-COLLECTION-V1.json",
         "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
         "curadoria/SOURCE-ID-ALLOCATION-V1.json",
@@ -40981,6 +41103,7 @@
         "research/intelligence/INTELLIGENCE-DATA-FLOW-ITALY.md",
         "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md",
         "scripts/micro_coleta/micro_coleta.py",
+        "scripts/receitas/censo_e_proposta.py",
         "security/drift_db.py",
         "security/live-db-expected.json",
         "security/projeccao.py",
@@ -42952,7 +43075,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch detector-capa-v1"
+        "branch receitas-fontes-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -60632,6 +60755,57 @@
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PACOTE-CAMADAS",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
             "TO": "C-PACOTE-CAMADAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-RECEITAS-PROPOSTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Receitas das fontes — censo do defeito e proposta com prova (nao aplicada). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/receitas/censo_e_proposta.py",
+          "line": 147,
+          "snippet": "g = json.loads((RAIZ / \"scripts/detector_capa/GABARITO-CAPA-V1.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-RECEITAS-PROPOSTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/receitas/censo_e_proposta.py",
+          "line": 159,
+          "snippet": "mf = pr / \"MANIFESTO.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-RECEITAS-PROPOSTA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -87679,6 +87853,57 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-RECEITAS-PROPOSTA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Receitas das fontes — censo do defeito e proposta com prova (nao aplicada) alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_receitas_proposta.py",
+          "line": 15,
+          "snippet": "RAIZ / \"scripts\" / \"receitas\" / \"censo_e_proposta.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+            "FROM": "C-RECEITAS-PROPOSTA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_receitas_proposta.py",
+          "line": 66,
+          "snippet": "f = RAIZ / \"curadoria\" / \"PROPOSTA-RECEITAS-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+            "FROM": "C-RECEITAS-PROPOSTA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-RECONCILIACAO-UNIVERSO",
       "to": "C-MAPA-TESTES",
       "type": "READS",
@@ -102983,7 +103208,7 @@
   "UNCLAIMED_CODE_FILES": [
     "provas/recollection_red_team_estrito.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1445,
+  "UNCLAIMED_FILES_COUNT": 1446,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -103147,7 +103372,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 202,
+      "PECAS_EM_DESACORDO": 203,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -103159,23 +103384,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 227
+      "TOTAL_DE_PECAS": 228
     }
   ],
   "COUNTS": {
-    "components": 227,
+    "components": 228,
     "components_proven": 31,
-    "components_pending": 187,
+    "components_pending": 188,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1159,
-    "edges_proven": 1095,
+    "edges": 1161,
+    "edges_proven": 1097,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2525,
-    "files_covered": 1080,
+    "files_tracked": 2532,
+    "files_covered": 1086,
     "files_code_unclaimed": 1,
-    "roles_proven": 156,
+    "roles_proven": 157,
     "roles_declared_only": 9,
     "roles_unknown": 62,
     "roles_conflict": 30,
