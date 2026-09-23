@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T00:36:44+00:00",
-  "HEAD": "93a6eef85d6ae08d6ba817b14f2c382b0b49a28c",
+  "GENERATED_AT": "2026-09-23T00:42:14+00:00",
+  "HEAD": "04e3c588edae0f5fef152a67af036239e9cf313b",
   "BRANCH": "micro-prep-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "3d69a19203009a0279f0502aa687edcd1f2554e8e46e34befdb60f6b2ff38bfc",
+  "SOURCE_TREE_FINGERPRINT": "76eec504c677c3a02a86a29f7f72055f9e62e76771329ba02e2c45f9ac65ec94",
   "FICHEIROS_NA_IMPRESSAO": 2664,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -3226,14 +3226,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3d69a19203009a0279f0502aa687edcd1f2554e8e46e34befdb60f6b2ff38bfc",
+    "VERSAO": "76eec504c677c3a02a86a29f7f72055f9e62e76771329ba02e2c45f9ac65ec94",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3d69a19203009a0279f0502aa687edcd1f2554e8e46e34befdb60f6b2ff38bfc",
+    "VERSAO": "76eec504c677c3a02a86a29f7f72055f9e62e76771329ba02e2c45f9ac65ec94",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4912,7 +4912,7 @@
    }
   ],
   "INPUTS_COUNT": 696,
-  "INPUTS_DIGEST": "e484f6aeebb6b3b91c0558e228b5f92a643688bc3bd3380fb94928db2464731b",
+  "INPUTS_DIGEST": "a35125bd6f0ac5f379580a3eca3108b57af285f0ab2054e10f4b2f87563b5452",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4945,8 +4945,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b7e537db12b74bec852fe57bcf50bdf05b31f1a3f0e5d63d6f40d30bf3d1aa44",
-  "SEMANTIC_HASH": "4aacf6919d304317fabe19dcabc893beb6733d8a6e1841ccedc8f86aa24b838d"
+  "MEASUREMENT_HASH": "d6d0908d2f0929a22eef03853afe22d6ba0ba91fe336d5da6bc23f34722cb1fd",
+  "SEMANTIC_HASH": "5ee6345897f183c140e6e4b0a15e280f741adc4c65d4b938338f56e9d3de473b"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -24158,6 +24158,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
+      "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-NAVEGADOR--ABRE_O_CANAL-->V-INSTAGRAM",
     "FROM": "C-NAVEGADOR",
     "TO": "V-INSTAGRAM",
@@ -24885,14 +24907,6 @@
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
       "LINHA": 98,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-MICRO-COLETA-INSTRUMENTO",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 83,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -38584,12 +38598,12 @@
     ]
    }
   ],
-  "COUNT": 1089
+  "COUNT": 1090
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 166,
   "CARTOES_AUDITADOS": 166,
-  "ARESTAS_RELACIONADAS": 1089,
+  "ARESTAS_RELACIONADAS": 1090,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38902,7 +38916,6 @@
     "science"
    ],
    "C-MICRO-COLETA-INSTRUMENTO": [
-    "audit",
     "collection-strategy"
    ],
    "C-POLITICA-COLETA": [
@@ -38976,7 +38989,7 @@
    "CODE": 185,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 361,
+   "PROOF": 362,
    "READ": 248,
    "RULE": 184,
    "WRITE": 8
@@ -43038,8 +43051,7 @@
    "FICHEIROS": [
     "scripts/micro_coleta/COORTE-PROPOSTA.json",
     "scripts/micro_coleta/GABARITO-MICRO-V1.json",
-    "scripts/micro_coleta/micro_coleta.py",
-    "tests/test_micro_coleta_instrumento.py"
+    "scripts/micro_coleta/micro_coleta.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -43049,29 +43061,27 @@
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
-   "ESCREVE_EM": [
-    "raw_asset",
-    "x"
-   ],
+   "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
     "datetime",
     "leis",
     "pathlib",
     "pedido",
-    "sala_de_espera",
-    "unittest"
+    "raw_asset",
+    "sala_de_espera"
    ],
    "ENTRAM": 4,
-   "SAEM": 0,
+   "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ"
    ],
-   "CATEGORIAS_QUE_SAEM": [],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
+   ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [
-    "audit",
     "collection-strategy"
    ],
    "GAP": null
@@ -46810,6 +46820,7 @@
     "tests/test_mapa_nao_mente.py",
     "tests/test_medir_admission_t3_atual.py",
     "tests/test_metricas.py",
+    "tests/test_micro_coleta_instrumento.py",
     "tests/test_migrations.py",
     "tests/test_modelo_de_objetos_da_intelligence.py",
     "tests/test_navegador.py",
@@ -46955,7 +46966,8 @@
     "public",
     "raw_asset",
     "schema_migracao",
-    "storage_object"
+    "storage_object",
+    "x"
    ],
    "LE_DE": [
     "__future__",
@@ -47000,10 +47012,9 @@
     "urllib",
     "v",
     "v_coleta_por_hora",
-    "v_saude_da_rota",
-    "x"
+    "v_saude_da_rota"
    ],
-   "ENTRAM": 187,
+   "ENTRAM": 188,
    "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

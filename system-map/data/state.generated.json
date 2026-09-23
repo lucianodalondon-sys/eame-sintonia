@@ -3110,9 +3110,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "micro-prep-v1",
-    "HEAD": "93a6eef85d6ae08d6ba817b14f2c382b0b49a28c",
-    "GENERATED_AT": "2026-09-22T21:33:05-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3d69a19203009a0279f0502aa687edcd1f2554e8e46e34befdb60f6b2ff38bfc"
+    "HEAD": "04e3c588edae0f5fef152a67af036239e9cf313b",
+    "GENERATED_AT": "2026-09-22T21:39:20-03:00",
+    "SOURCE_TREE_FINGERPRINT": "76eec504c677c3a02a86a29f7f72055f9e62e76771329ba02e2c45f9ac65ec94"
   },
   "FAMILIES": [
     {
@@ -28667,10 +28667,9 @@
       "files": [
         "scripts/micro_coleta/COORTE-PROPOSTA.json",
         "scripts/micro_coleta/GABARITO-MICRO-V1.json",
-        "scripts/micro_coleta/micro_coleta.py",
-        "tests/test_micro_coleta_instrumento.py"
+        "scripts/micro_coleta/micro_coleta.py"
       ],
-      "file_count": 4,
+      "file_count": 3,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -28681,7 +28680,9 @@
         "C-PEDIDO",
         "C-RECEITAS"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {
         "ITALIA": 2
@@ -28692,12 +28693,11 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "AMBIENTE_OK",
           "C"
         ],
-        "palavras": 64,
+        "palavras": 59,
         "por_lingua": {},
-        "sem_marca_de_lingua": 64,
+        "sem_marca_de_lingua": 59,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -28725,8 +28725,7 @@
         "data/samples/LIVRO-DE-DECISOES.json",
         "orquestrador/orquestrador.py",
         "regras/italy_contracts_onboarded.json",
-        "scripts/micro_coleta/COORTE-PROPOSTA.json",
-        "scripts/micro_coleta/micro_coleta.py"
+        "scripts/micro_coleta/COORTE-PROPOSTA.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -28737,11 +28736,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_micro_coleta_instrumento.py:19"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 11310,
       "y": 1326
@@ -40048,6 +40051,7 @@
         "tests/test_mapa_nao_mente.py",
         "tests/test_medir_admission_t3_atual.py",
         "tests/test_metricas.py",
+        "tests/test_micro_coleta_instrumento.py",
         "tests/test_migrations.py",
         "tests/test_modelo_de_objetos_da_intelligence.py",
         "tests/test_navegador.py",
@@ -40122,7 +40126,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 200,
+      "file_count": 201,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -40228,6 +40232,7 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
         "C-MEDICAO",
+        "C-MICRO-COLETA-INSTRUMENTO",
         "C-NAVEGADOR",
         "C-ORQUESTRADOR",
         "C-PACOTE-CAMADAS",
@@ -40315,6 +40320,7 @@
         "papel": "NAO SEI",
         "listas": [
           "ADAPTERS",
+          "AMBIENTE_OK",
           "ANTES_DESTA_MISSAO",
           "ANTES_DO_B2",
           "APOSENTADOS",
@@ -40391,13 +40397,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1113,
+        "palavras": 1118,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1101,
+        "sem_marca_de_lingua": 1106,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -40832,6 +40838,7 @@
         "research/intelligence/DATA-DEMAND-MATRIX-ITALY.md",
         "research/intelligence/INTELLIGENCE-DATA-FLOW-ITALY.md",
         "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md",
+        "scripts/micro_coleta/micro_coleta.py",
         "security/drift_db.py",
         "security/live-db-expected.json",
         "security/projeccao.py",
@@ -76419,6 +76426,41 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-MICRO-COLETA-INSTRUMENTO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_micro_coleta_instrumento.py",
+          "line": 19,
+          "snippet": "\"micro_coleta\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-NAVEGADOR",
       "to": "C-COLETA-INSTAGRAM",
       "type": "IMPORTS",
@@ -77466,28 +77508,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 2 linhas de codigo.",
+      "reason": "O orquestrador alimenta Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
           "line": 98,
           "snippet": "return [sys.executable, \"orquestrador/orquestrador.py\", apelido_de(u) or u,",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MICRO-COLETA-INSTRUMENTO",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-MICRO-COLETA-INSTRUMENTO",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 83,
-          "snippet": "self.assertEqual(c[1], \"orquestrador/orquestrador.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MICRO-COLETA-INSTRUMENTO",
             "FROM": "C-ORQUESTRADOR",
@@ -78490,7 +78516,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -102711,15 +102737,7 @@
     "provas/recollection_red_team_estrito.mjs"
   ],
   "UNCLAIMED_FILES_COUNT": 1443,
-  "OWNERSHIP_CONFLICTS": [
-    {
-      "file": "tests/test_micro_coleta_instrumento.py",
-      "claimed_by": [
-        "C-MICRO-COLETA-INSTRUMENTO",
-        "C-TESTES"
-      ]
-    }
-  ],
+  "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
       "file": "system-map/data/architecture.declared.json",
@@ -102903,8 +102921,8 @@
     "components_pending": 186,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1155,
-    "edges_proven": 1091,
+    "edges": 1156,
+    "edges_proven": 1092,
     "edges_unknown": 64,
     "business_edges": 4,
     "files_tracked": 2516,
