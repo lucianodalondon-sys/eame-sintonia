@@ -4517,6 +4517,26 @@
     "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
     "provas/recollection_red_team_estrito.mjs"
    ]
+  },
+  {
+   "id": "C-REPARO-MEDICAO",
+   "name": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n).",
+   "why_here": "O reparo de contratos (curadoria/reparar_contrato.py, etapa REPAIR_CONTRACT do worker) muda contratos e o livro de estado; medir o efeito no livro vivo seria escrever no vivo. A banca e descartavel e fica fora do Git.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/reparo/medir_em_copia.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
