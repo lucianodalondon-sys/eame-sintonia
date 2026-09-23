@@ -575,6 +575,30 @@
    ]
   },
   {
+   "id": "C-DESBLOQUEIO-PACOTE",
+   "name": "Pacote de desbloqueio da coorte — aplica-se uma vez no cutover",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Aplica, sobre o livro corrente e so com --escrever, as receitas provadas (PROPOSTA-RECEITAS-V1/V2) no livro do Curator e as rotas com canario da aquisicao exacta na tabela do coletor (pela linha_da_tabela da peca da M3). Cada alteracao so entra se a prova ainda bater; idempotente; nunca muda grupo T nem retira fonte; ledger por alteracao. O canario usa a peca da M3 com 3 pedidos por site.",
+   "why_here": "O livro de contratos e escrito pelo bot vivo e a M5 unifica: aplicar antes seria uma segunda fonte de verdade. E o coletor tem a sua propria copia da receita: corrigir so o Curator deixava-o a colher pela velha.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/desbloqueio/aplicar_desbloqueio.py",
+    "scripts/desbloqueio/canario_desbloqueio.py",
+    "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+    "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
+    "scripts/desbloqueio/LEDGER-ENSAIO-G1.jsonl"
+   ]
+  },
+  {
    "id": "C-COORTE-MICRO-FUNIL",
    "name": "Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios",
    "territory": "Z-MEDIDAS",
