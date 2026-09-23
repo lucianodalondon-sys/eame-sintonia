@@ -16,10 +16,11 @@ from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import descobrir as D  # noqa: E402
+import decisao_semantica as DS  # noqa: E402
 
 TEMATICA = "https://www.coldiretti.it/"
 TEMATICA_2 = "https://www.arpae.it/"
-UNKNOWN = "https://www.cnr.it/it/istituto?cds=0"
+UNKNOWN = "https://www.cnr.it/"          # raiz: o travao S4 so deixa semear entradas
 GENERICA = "https://www.regione.calabria.it/"
 
 
@@ -29,7 +30,8 @@ def _correr(sementes: list[str], visitados: dict) -> tuple[dict, list[dict]]:
     log: list[dict] = []
     with mock.patch.object(D, "_extrair_sementes_legitimas", return_value=[]), \
          mock.patch.object(D, "_sementes_de_segunda_geracao", return_value=s2), \
-         mock.patch.object(D, "_gravar_visitados", lambda *_a, **_k: None):
+         mock.patch.object(D, "_gravar_visitados", lambda *_a, **_k: None), \
+         mock.patch.object(DS, "DECISOES", Path(__file__).parent / "_nao_existe.json"):
         _, stats = D.crawl_sementes(D.Orcamento(total=0), set(), visitados,
                                     log, max_sementes=15)
     return stats, log
@@ -84,7 +86,7 @@ class TestSementeGastaContinuaFora(unittest.TestCase):
         self.assertEqual(stats["SEMENTES_GENERICAS_RECUSADAS"], 2)
 
     def test_tecto_por_corrida_mantido(self):
-        urls = ["https://www.coldiretti.it/p%d" % i for i in range(40)]
+        urls = ["https://p%d.coldiretti.it/" % i for i in range(40)]  # 40 entradas distintas
         v = _vis(**{u: ("VISITADOS", "REGISTADO_CAND-%04d" % i)
                     for i, u in enumerate(urls)})
         stats, _ = _correr(urls, v)

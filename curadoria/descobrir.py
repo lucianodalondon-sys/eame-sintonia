@@ -1377,6 +1377,61 @@ def _sementes_de_segunda_geracao(caminho: Path | None = None) -> list[dict]:
     return out
 
 
+# ---------------------------------------------------------------- travao S4
+# ⚠️ REGISTADO != RASTEJADO (C1) ABRIU A PORTA; ESTE TRAVAO ESCOLHE QUEM ENTRA.
+# Medido em 23/09 na copia dos livros do servico: 210 sementes tematicas livres,
+# e 190 eram PAGINAS INTERNAS de organizacoes ja conhecidas (noticias da ARPAE,
+# organograma da ASSAM, «chi siamo» da FederUnacoma, a loja da Terra e Vita).
+# E sherwood.it — a Radio Sherwood, registada por engano como revista florestal
+# — gerou 14 candidatas de streaming, podcast e pre-venda de festival.
+#
+#     UMA SEMENTE E UMA ORGANIZACAO A EXPLORAR, NAO UMA PAGINA.
+#
+# So para a 2.a geracao; as sementes do catalogo nao mudam. A regra de tema
+# (_classificar_semente), o orcamento, o tecto e o robots continuam iguais.
+_ENTRADA = re.compile(
+    r"^((it|en)/?)?((home|home-page|homepage|index\.(php|html?|asp)|portal)/?)?$", re.I)
+
+
+def _e_entrada(url: str) -> bool:
+    """A raiz do site, ou a sua pagina de entrada (home/index), sem query."""
+    p = urllib.parse.urlparse(url)
+    if p.query:
+        return False
+    return bool(_ENTRADA.match((p.path or "").strip("/")))
+
+
+def _host_da_chave(chave: str) -> str:
+    """Host de uma chave normalizada (sem esquema e sem www)."""
+    return re.split(r"[/?#]", chave, maxsplit=1)[0]
+
+
+def _hosts_ja_semeados(visitados: dict) -> set[str]:
+    """Organizacoes (hosts) cuja entrada ja foi rastejada ou recusada como semente."""
+    hosts = {_host_da_chave(k) for k, r in visitados.get("VISITADOS", {}).items()
+             if r.get("MOTIVO") == "SEMENTE_PROCESSADA"}
+    hosts |= {_host_da_chave(k) for k, r in visitados.get("REJEITADOS", {}).items()
+              if str(r.get("MOTIVO", "")).startswith(("ROBOTS_BLOCKED_SEMENTE",
+                                                      "FETCH_FAILED_"))}
+    return hosts
+
+
+def _travao_de_semente(s2: dict, visitados: dict, hosts: set[str]) -> str | None:
+    """Motivo para NAO usar esta candidata como semente, ou None."""
+    try:
+        import decisao_semantica as DS
+        cat = DS.nao_serve_de_semente(s2.get("CANDIDATA_ID") or "")
+    except Exception:
+        cat = None
+    if cat:
+        return "DECISAO_SEMANTICA_" + cat
+    if not _e_entrada(s2["URL"]):
+        return "PAGINA_INTERNA"
+    if _host_da_chave(normalizar(s2["URL"])) in hosts:
+        return "ORGANIZACAO_JA_SEMEADA"
+    return None
+
+
 def crawl_sementes(
     orcamento: "Orcamento",
     conhecidos: set[str],
@@ -1395,10 +1450,21 @@ def crawl_sementes(
     Devolve (registados, estatisticas).
     """
     todas_sementes = _extrair_sementes_legitimas()
-    # 2.a geracao: so acrescenta o que a MESMA regra ja classifica TEMATICA.
+    # 2.a geracao: so acrescenta o que a MESMA regra ja classifica TEMATICA,
+    # e so o que passa no travao (entrada de organizacao nova, nao lixo).
+    hosts_semeados = _hosts_ja_semeados(visitados)
+    travadas: Counter = Counter()
     for s2 in _sementes_de_segunda_geracao():
-        if normalizar(s2["URL"]) not in {normalizar(x) for x in todas_sementes}:
-            todas_sementes.append(s2["URL"])
+        if normalizar(s2["URL"]) in {normalizar(x) for x in todas_sementes}:
+            continue
+        if _semente_ja_gasta(normalizar(s2["URL"]), visitados):
+            todas_sementes.append(s2["URL"])      # sai adiante como gasta
+            continue
+        motivo_travao = _travao_de_semente(s2, visitados, hosts_semeados)
+        if motivo_travao:
+            travadas[motivo_travao] += 1
+            continue
+        todas_sementes.append(s2["URL"])
     sementes_a_usar = [
         s for s in todas_sementes
         if not _semente_ja_gasta(normalizar(s), visitados)
@@ -1408,6 +1474,7 @@ def crawl_sementes(
     stats: dict = {
         "SEMENTES_DISPONIVEIS": len(todas_sementes),
         "SEMENTES_A_USAR": len(sementes_a_usar),
+        "SEMENTES_TRAVADAS": dict(travadas),
         "SEMENTES_TEMATICAS_USADAS": 0,
         "SEMENTES_GENERICAS_RECUSADAS": 0,
         "SEMENTES_USADAS": 0,

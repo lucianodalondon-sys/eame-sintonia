@@ -96,6 +96,22 @@ def porque_invalida(dec: dict, ficha: dict) -> str | None:
     return None
 
 
+# Travao S4: categorias de NAO SEI que dizem que a candidata NAO e uma
+# organizacao a explorar. PROVA_INSUFICIENTE nao entra: falta de prova nao e
+# prova de lixo.
+NAO_SEMEIAM = frozenset({"IDENTIDADE_TROCADA", "NAO_E_FONTE",
+                         "PAGINA_DE_OUTRA_FONTE", "SEMENTE_ERRADA"})
+
+
+def nao_serve_de_semente(cand_id: str, caminho: Path | None = None) -> str | None:
+    """A categoria que impede esta candidata de ser semente, ou None."""
+    for d in _ler(caminho):
+        if (d.get("CANDIDATA_ID") == cand_id and d.get("TERRITORIO") == "NAO SEI"
+                and d.get("CATEGORIA") in NAO_SEMEIAM):
+            return d["CATEGORIA"]
+    return None
+
+
 def decisao_para(cand_id: str, ficha: dict,
                  caminho: Path | None = None) -> tuple[dict | None, str]:
     """(decisao valida, porque). Sem decisao valida: (None, motivo)."""
