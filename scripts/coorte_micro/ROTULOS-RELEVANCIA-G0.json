@@ -23,7 +23,7 @@
    "ACTION": "REROUTE -> T10",
    "BASE": "DONO",
    "PORQUE": "gabarito item 9 (balanco da cooperativa, preco pago a uva) — relevante mas noutra gaveta; a fonte segue fora por MARCA ate decisao do dono",
-   "D8_FACTO_DE_MERCADO": "YES — balanco: facturacao 266 M EUR, preco medio pago a uva 47,20 EUR/q"
+   "D8_FACTO_DE_MERCADO": "YES — mercado: balanco, facturacao 266 M EUR, preco medio pago a uva 47,20 EUR/q"
   },
   "IT-T7-033": {
    "UNIVERSE_MATCH": "NO",
@@ -31,7 +31,7 @@
    "ACTION": "REROUTE -> T1",
    "BASE": "DONO",
    "PORQUE": "gabarito item 10 (campanha do azeite DOP 2025); a fonte segue fora por MARCA ate decisao do dono",
-   "D8_FACTO_DE_MERCADO": "NAO_SEI — campanha do azeite DOP 2025 (quantidade/qualidade): o dono mandou-a para T1 (D1), nao para mercado; a D8 so aceita mercado. Conflito D1/D8 para o dono"
+   "D8_FACTO_DE_MERCADO": "YES — D8 REVISTA (23/09): facto de PRODUCAO/CULTURA (campanha do azeite DOP 2025: quantidade e qualidade) conta; REROUTE T1"
   },
   "IT-T7-042": {
    "UNIVERSE_MATCH": "NO",
@@ -39,7 +39,7 @@
    "ACTION": "NAO_SEI",
    "BASE": "LEITURA_CLAUDE",
    "PORQUE": "emenda de lei sobre a denominacao do vinagre: regulatorio de produto alimentar, nao de defesa de culturas; e fonte de MARCA",
-   "D8_FACTO_DE_MERCADO": "NO — emenda de lei sobre a denominacao do vinagre"
+   "D8_FACTO_DE_MERCADO": "NO — emenda de lei sobre a denominacao do vinagre: nem mercado nem producao"
   },
   "IT-T10-020": {
    "UNIVERSE_MATCH": "YES",
@@ -189,5 +189,5 @@
    "PORQUE": "Manifesto per il Biocontrollo (Agrofarma + FederBio): nucleo do Sintonia"
   }
  },
- "D8": "DECISOES-DONO-2026-09-23.md §D8: as 3 fontes de propaganda FICAM; so passa pagina que seja NOTICIA com facto de mercado; noticia util -> REROUTE mercado (T10)."
+ "D8": "DECISOES-DONO-2026-09-23.md §D8 REVISTA: nas 3 fontes so passa NOTICIA com facto util ao Sintonia — MERCADO (dinheiro, preco, resultado) OU PRODUCAO/CULTURA (colheita, safra, volume, qualidade); marketing recusado; REROUTE para a gaveta certa. Chianti: conta."
 }

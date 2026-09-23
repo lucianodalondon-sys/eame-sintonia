@@ -59,15 +59,15 @@ def git_json(ref_caminho: str) -> dict:
     return json.loads(r.stdout.decode("utf-8"))
 
 
-def carregar(snap: Path) -> dict:
+def carregar(snap: Path, livro: Path | None = None, tabela: Path | None = None) -> dict:
     T = json.loads((snap / "LIFECYCLE-LEDGER-V1.json").read_text(encoding="utf-8"))["TRANSICOES"]
     ultimo = {}
     for t in T:
         ultimo[t["SOURCE_ID"]] = t
     curador = {f["SOURCE_ID"]: f for f in json.loads(
-        (snap / "italy_contracts_curator.json").read_text(encoding="utf-8"))["FONTES"]}
+        Path(livro or snap / "italy_contracts_curator.json").read_text(encoding="utf-8"))["FONTES"]}
     onboarded = {f["SOURCE_ID"]: f for f in json.loads(
-        (RAIZ / "regras/italy_contracts_onboarded.json").read_text(encoding="utf-8"))["FONTES"]}
+        Path(tabela or RAIZ / "regras/italy_contracts_onboarded.json").read_text(encoding="utf-8"))["FONTES"]}
     m3 = {l["SOURCE_ID"]: l["VEREDITO"] for l in
           git_json("origin/rotas-elegiveis-v1:curadoria/ROTAS-ELEGIVEIS-V1.json")["LINHAS"]}
     ctx = GATE._contexto()
@@ -241,7 +241,9 @@ def desbloqueios(linhas: list[dict], D: dict) -> list[dict]:
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     snap = Path(next(a.split("=", 1)[1] for a in argv if a.startswith("--snap=")))
-    D = carregar(snap)
+    op = {k: next((Path(a.split("=", 1)[1]) for a in argv if a.startswith(f"--{k}=")), None)
+          for k in ("livro", "tabela")}
+    D = carregar(snap, **op)
     linhas = [avaliar(s, D) for s in D["universo"]]
     funil, vivos = {}, linhas
     for k in "ABCDE":
@@ -253,8 +255,9 @@ def main(argv=None) -> int:
            "PASSAM_TUDO": [l["SOURCE_ID"] for l in linhas if l["PARA_EM"] == "PASSA"],
            "DESBLOQUEIOS": desbloqueios(linhas, D),
            "FONTES": linhas}
+    saida = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--saida=")), SAIDA)
     if "--escrever" in argv:
-        SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        saida.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(json.dumps({k: v for k, v in out.items() if k != "FONTES"}, ensure_ascii=False, indent=1))
     return 0
 

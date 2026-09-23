@@ -1,0 +1,345 @@
+"""PACOTE DE DESBLOQUEIO G1 — aplica-se UMA vez, no cutover, sobre o livro corrente.
+
+    py scripts/desbloqueio/aplicar_desbloqueio.py --livro=<italy_contracts_curator.json>
+                                                   --tabela=<italy_contracts_onboarded.json>
+                                                   [--escrever] [--ledger=<ficheiro .jsonl>]
+
+Sem --escrever: so relatorio (antes/depois por SOURCE_ID). Com --escrever: grava os
+dois livros e acrescenta ao ledger uma linha por alteracao (MISSAO, PROVA, AT).
+
+DOIS LIVROS, DOIS DONOS DO CAMPO:
+  livro   = contratos do Curator. O pacote so muda ACQUISITION.LINK_PATTERN e
+            ACQUISITION.INDEX_URL, pelas PROPOSTA-RECEITAS-V1/V2 (6-PREP-d, G0).
+  tabela  = contratos do coletor (regras/italy_contracts_onboarded.json). O coletor
+            usa a SUA copia da aquisicao. Uma fonte so entra, ou so muda de aquisicao,
+            com um canario ROUTE_PROVEN com EXACTAMENTE a aquisicao que fica:
+              · as rotas provadas pela M3 (ROTAS-ELEGIVEIS-V1.json), pela regra da
+                propria peca da M3 (curadoria/onboardar_rotas_provadas.py): mesma
+                aquisicao, e um documento = uma fonte (duplicadas ficam de fora);
+              · o canario do G1 (scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json).
+            A linha da tabela e construida pela `linha_da_tabela` da peca da M3.
+
+CADA ALTERACAO SO SE APLICA SE A PROVA AINDA BATER, senao SALTA com motivo:
+  · o valor actual no livro e o ANTES da proposta (senao o livro mudou depois da prova);
+  · sha256 de cada pagina guardada = o do manifesto da recolha;
+  · o padrao novo casa TODAS as materias confirmadas e NENHUMA das 109 capas do
+    GABARITO-CAPA-V1, e passa o guarda contra padrao generico (6-PREP-d);
+  · um INDEX_URL novo tem a pagina buscada (sha conferido) e >= 10 links com forma
+    de materia confirmada.
+
+INVARIANTES (se falhar um, NADA e escrito, exit 4):
+  nunca muda TERRITORY/grupo T nem SOURCE_ID · nunca retira fonte (D5 e do dono) ·
+  no livro so mudam os dois campos acima · na tabela so se acrescenta linha ou se
+  muda ACQUISITION.
+IDEMPOTENTE: correr duas vezes = 0 alteracoes na segunda (a segunda so ve JA_APLICADA).
+"""
+from __future__ import annotations
+
+import copy
+import hashlib
+import json
+import re
+import subprocess
+import sys
+import types
+from datetime import datetime, timezone
+from pathlib import Path
+
+AQUI = Path(__file__).resolve().parent
+RAIZ = AQUI.parents[1]
+HOME = Path.home()
+MISSAO = "G1-DESBLOQUEIO-COORTE"
+CAMPOS_DO_LIVRO = ("LINK_PATTERN", "INDEX_URL")
+MANIFESTOS = [HOME / "detector-capa-gabarito" / "MANIFESTO.json",
+              HOME / "receitas-paginas" / "MANIFESTO.json",
+              HOME / "coorte-paginas" / "MANIFESTO.json"]
+INDICES = HOME / "receitas-paginas" / "indices" / "MANIFESTO-INDICES.json"
+FAMILIA_MINIMA_DO_INDICE = 10
+
+
+class InvarianteQuebrado(Exception):
+    pass
+
+
+def agora() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _json(p: Path) -> dict:
+    return json.loads(Path(p).read_text(encoding="utf-8"))
+
+
+def _da_arvore_ou_da_m3(rel: str) -> tuple[str, str]:
+    f = RAIZ / rel
+    if f.exists():
+        return f.read_text(encoding="utf-8"), "arvore"
+    r = subprocess.run(["git", "show", f"origin/rotas-elegiveis-v1:{rel}"], cwd=RAIZ, capture_output=True)
+    if r.returncode:
+        raise SystemExit(f"FALTA {rel} (nem na arvore nem em origin/rotas-elegiveis-v1)")
+    return r.stdout.decode("utf-8"), "origin/rotas-elegiveis-v1"
+
+
+def peca_onboarding():
+    """A peca da M3, sem copia: da arvore (depois da M5) ou por git show (antes)."""
+    src, origem = _da_arvore_ou_da_m3("curadoria/onboardar_rotas_provadas.py")
+    m = types.ModuleType("onboardar_rotas_provadas")
+    m.__file__ = str(RAIZ / "curadoria" / "onboardar_rotas_provadas.py")
+    sys.path.insert(0, str(RAIZ / "curadoria"))
+    exec(compile(src, m.__file__, "exec"), m.__dict__)
+    return m, origem
+
+
+def guarda():
+    sys.path.insert(0, str(RAIZ / "scripts" / "receitas"))
+    import censo_e_proposta as CP  # noqa: E402
+    return CP.e_generico
+
+
+# ── AS PROVAS ───────────────────────────────────────────────────────────────
+def paginas_guardadas() -> dict:
+    """URL -> (ficheiro, sha256 do manifesto). So o que foi recolhido e ficou em disco."""
+    out = {}
+    for mf in MANIFESTOS:
+        if mf.exists():
+            for p in _json(mf)["PAGINAS"]:
+                out.setdefault(p["URL"], (mf.parent / p["FICHEIRO"], p["SHA256"]))
+    return out
+
+
+def sha_confere(url: str, guardadas: dict) -> str | None:
+    """None se a pagina guardada existe e o sha256 bate; senao o motivo."""
+    if url not in guardadas:
+        return f"prova indisponivel: a pagina {url} nao esta guardada"
+    f, sha = guardadas[url]
+    if not f.exists():
+        return f"prova indisponivel: o ficheiro de {url} nao existe ({f.name})"
+    real = hashlib.sha256(f.read_bytes()).hexdigest()
+    if real != sha:
+        return f"prova adulterada: sha256 de {url} = {real[:12]} != manifesto {sha[:12]}"
+    return None
+
+
+def capas_do_gabarito() -> list[str]:
+    g = _json(RAIZ / "scripts" / "detector_capa" / "GABARITO-CAPA-V1.json")
+    return [p["URL"] for p in g["PAGINAS"] if p["VEREDITO"] == "CAPA"]
+
+
+def provar_padrao(p: dict, livro_c: dict, guardadas: dict, capas: list[str], e_generico) -> str | None:
+    novo = p["DEPOIS"]
+    try:
+        rx = re.compile(novo)
+    except re.error as ex:
+        return f"padrao nao compila: {ex}"
+    mats = p["PROVA"].get("MATERIAS_CONFIRMADAS") or []
+    if not mats:
+        return "sem materia confirmada na prova"
+    for m in mats:
+        e = sha_confere(m, guardadas)
+        if e:
+            return e
+        if not rx.match(m):
+            return f"o padrao novo ja nao casa a materia {m}"
+    presas = [c for c in capas if rx.match(c)]
+    if presas:
+        return f"o padrao novo casa {len(presas)} capa(s) do gabarito, ex. {presas[0]}"
+    g = e_generico(novo, livro_c["ACQUISITION"].get("INDEX_URL", ""), [], [])
+    if g:
+        return f"guarda: {g}"
+    return None
+
+
+def provar_indice(sid: str, p: dict) -> str | None:
+    if not INDICES.exists():
+        return "prova indisponivel: MANIFESTO-INDICES.json nao existe"
+    linhas = {l["SOURCE_ID"]: l for l in _json(INDICES)}
+    l = linhas.get(sid)
+    if not l or l.get("URL") != p["DEPOIS"] or not l.get("FICHEIRO"):
+        return "prova indisponivel: a pagina candidata nao foi buscada"
+    f = Path(l["FICHEIRO"])
+    if not f.exists() or hashlib.sha256(f.read_bytes()).hexdigest() != l.get("SHA256"):
+        return "prova adulterada ou em falta: sha256 da pagina candidata"
+    if int(p["PROVA"].get("LINKS_COM_FORMA_DE_MATERIA_CONFIRMADA", 0)) < FAMILIA_MINIMA_DO_INDICE:
+        return f"prova fraca: < {FAMILIA_MINIMA_DO_INDICE} links com forma de materia"
+    return None
+
+
+# ── O PLANO ────────────────────────────────────────────────────────────────
+def propostas() -> list[tuple[str, dict]]:
+    vistas, out = set(), []
+    for nome in ("PROPOSTA-RECEITAS-V1.json", "PROPOSTA-RECEITAS-V2.json"):
+        f = RAIZ / "curadoria" / nome
+        if not f.exists():
+            continue
+        for l in _json(f)["FONTES"]:
+            for p in l["PROPOSTAS"]:
+                chave = (l["SOURCE_ID"], p["CAMPO"])
+                if chave in vistas:
+                    continue
+                vistas.add(chave)
+                out.append((nome, dict(p, SOURCE_ID=l["SOURCE_ID"])))
+    return out
+
+
+def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico=None,
+            m3=None, canario=None, peca=None) -> dict:
+    guardadas = paginas_guardadas() if guardadas is None else guardadas
+    capas = capas_do_gabarito() if capas is None else capas
+    e_generico = guarda() if e_generico is None else e_generico
+    peca = peca_onboarding()[0] if peca is None else peca
+    if m3 is None:
+        m3 = json.loads(_da_arvore_ou_da_m3("curadoria/ROTAS-ELEGIVEIS-V1.json")[0])
+    if canario is None:
+        f = AQUI / "CANARIO-DESBLOQUEIO-V1.json"
+        canario = _json(f) if f.exists() else {"LINHAS": []}
+
+    L = {c["SOURCE_ID"]: c for c in livro["FONTES"]}
+    T = {c["SOURCE_ID"]: c for c in tabela["FONTES"]}
+    novo_livro = copy.deepcopy(L)
+    acoes = []
+
+    # 1) receitas no livro do Curator
+    for origem, p in propostas():
+        sid, campo = p["SOURCE_ID"], p["CAMPO"].split(".", 1)[1]
+        a = {"LIVRO": "livro", "SOURCE_ID": sid, "CAMPO": p["CAMPO"], "ANTES": p.get("ANTES"),
+             "DEPOIS": p["DEPOIS"], "ORIGEM": origem}
+        c = novo_livro.get(sid)
+        if campo not in CAMPOS_DO_LIVRO:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE=f"campo {campo} fora do que o pacote muda"))
+            continue
+        if not c:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="a fonte nao esta no livro"))
+            continue
+        actual = c["ACQUISITION"].get(campo)
+        if actual == p["DEPOIS"]:
+            acoes.append(dict(a, ACAO="JA_APLICADA"))
+            continue
+        if actual != p.get("ANTES"):
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="o livro mudou depois da prova (o valor actual nao e o ANTES)"))
+            continue
+        e = (provar_padrao(p, c, guardadas, capas, e_generico) if campo == "LINK_PATTERN"
+             else provar_indice(sid, p))
+        if e:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE=e))
+            continue
+        c["ACQUISITION"][campo] = p["DEPOIS"]
+        acoes.append(dict(a, ACAO="APLICA", PROVA=p.get("PROVA", {}).get("MATERIAS_CONFIRMADAS")
+                          or p.get("PROVA", {}).get("PAGINA_BUSCADA")))
+
+    # 2) a tabela do coletor: so com canario da aquisicao que fica
+    nova_tabela = copy.deepcopy(T)
+
+    def aq(c):
+        return (c["ACQUISITION"].get("INDEX_URL"), c["ACQUISITION"].get("LINK_PATTERN"))
+    provas = []
+    for l in m3["LINHAS"]:
+        if l.get("VEREDITO") == "ROUTE_PROVEN":
+            provas.append(("M3", l, (l.get("INDEX_URL"), l.get("LINK_PATTERN")), m3.get("GERADO_EM", "NAO SEI")))
+    for l in canario["LINHAS"]:
+        if l.get("VEREDITO") == "ROUTE_PROVEN":
+            k = l["ACQUISITION_PROVADA"]
+            provas.append(("G1", l, (k.get("INDEX_URL"), k.get("LINK_PATTERN")), canario.get("GERADO_EM", "NAO SEI")))
+    dono_do_doc = {}
+    for _, l, _, _ in provas:
+        dono_do_doc.setdefault(l["CANARIO"]["URL"], l["SOURCE_ID"])
+    tratadas = set()
+    for quem, l, provada, quando in sorted(provas, key=lambda x: x[0] != "G1"):   # G1 (mais recente) primeiro
+        sid = l["SOURCE_ID"]
+        if sid in tratadas:
+            continue
+        a = {"LIVRO": "tabela", "SOURCE_ID": sid, "CAMPO": "ACQUISITION", "ORIGEM": f"canario {quem} {quando[:10]}"}
+        c = novo_livro.get(sid)
+        if not c:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="a fonte nao esta no livro do Curator"))
+            continue
+        if provada != aq(c):
+            acoes.append(dict(a, ACAO="SALTA", PORQUE=f"o canario {quem} provou OUTRA aquisicao que nao a que fica no livro"))
+            continue
+        tratadas.add(sid)
+        if dono_do_doc.get(l["CANARIO"]["URL"]) != sid:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE=f"DUPLICADA: o mesmo documento ja e de {dono_do_doc[l['CANARIO']['URL']]} (decisao de identidade)"))
+            continue
+        linha = peca.linha_da_tabela(c, l, quando)
+        linha["EVIDENCE"] = ("curadoria/ROTAS-ELEGIVEIS-V1.json" if quem == "M3"
+                             else "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json")
+        if sid not in nova_tabela:
+            nova_tabela[sid] = linha
+            acoes.append(dict(a, ACAO="APLICA", ANTES=None, DEPOIS=linha["ACQUISITION"], PROVA=l["CANARIO"]["URL"]))
+        elif aq(nova_tabela[sid]) == provada:
+            acoes.append(dict(a, ACAO="JA_APLICADA"))
+        else:
+            antes = nova_tabela[sid]["ACQUISITION"]
+            nova_tabela[sid] = dict(nova_tabela[sid], ACQUISITION=c["ACQUISITION"],
+                                    SONDAGEM=linha["SONDAGEM"], EVIDENCE=linha["EVIDENCE"],
+                                    ONBOARDED_BY=linha["ONBOARDED_BY"] + " · aquisicao actualizada pelo G1")
+            acoes.append(dict(a, ACAO="APLICA", ANTES=antes, DEPOIS=c["ACQUISITION"], PROVA=l["CANARIO"]["URL"]))
+    # fontes da tabela cuja receita mudou no livro sem canario novo: ficam como estao
+    for sid, t in T.items():
+        if sid in novo_livro and sid not in tratadas and aq(novo_livro[sid]) != aq(L[sid]) and aq(t) != aq(novo_livro[sid]):
+            acoes.append({"LIVRO": "tabela", "SOURCE_ID": sid, "CAMPO": "ACQUISITION", "ACAO": "SALTA",
+                          "PORQUE": "a receita mudou no livro mas nao ha canario da aquisicao nova: a tabela fica"})
+
+    livro_out = dict(livro, FONTES=[novo_livro[c["SOURCE_ID"]] for c in livro["FONTES"]])
+    ordem = [c["SOURCE_ID"] for c in tabela["FONTES"]] + [s for s in nova_tabela if s not in T]
+    tabela_out = dict(tabela, FONTES=[nova_tabela[s] for s in ordem])
+    invariantes(livro, livro_out, tabela, tabela_out)
+    return {"ACOES": acoes, "LIVRO": livro_out, "TABELA": tabela_out}
+
+
+def invariantes(livro_a: dict, livro_d: dict, tab_a: dict, tab_d: dict) -> None:
+    A = {c["SOURCE_ID"]: c for c in livro_a["FONTES"]}
+    D = {c["SOURCE_ID"]: c for c in livro_d["FONTES"]}
+    if set(A) != set(D):
+        raise InvarianteQuebrado("o livro ganhou ou perdeu fontes")
+    for s in A:
+        a, d = copy.deepcopy(A[s]), copy.deepcopy(D[s])
+        if a.get("TERRITORY") != d.get("TERRITORY"):
+            raise InvarianteQuebrado(f"{s}: grupo T mudou")
+        for k in CAMPOS_DO_LIVRO:
+            a.get("ACQUISITION", {}).pop(k, None)
+            d.get("ACQUISITION", {}).pop(k, None)
+        if a != d:
+            raise InvarianteQuebrado(f"{s}: mudou um campo do livro que o pacote nao pode mudar")
+    TA = {c["SOURCE_ID"]: c for c in tab_a["FONTES"]}
+    TD = {c["SOURCE_ID"]: c for c in tab_d["FONTES"]}
+    if not set(TA) <= set(TD):
+        raise InvarianteQuebrado("a tabela perdeu fontes")
+    for s in TA:
+        if TA[s].get("TERRITORY") != TD[s].get("TERRITORY"):
+            raise InvarianteQuebrado(f"{s}: grupo T mudou na tabela")
+    for s in set(TD) - set(TA):
+        if s in A and TD[s].get("TERRITORY") != A[s].get("TERRITORY"):
+            raise InvarianteQuebrado(f"{s}: linha nova na tabela com grupo T diferente do livro")
+
+
+def main(argv=None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    arg = dict(a[2:].split("=", 1) for a in argv if a.startswith("--") and "=" in a)
+    livro_p, tab_p = Path(arg["livro"]), Path(arg["tabela"])
+    ledger = Path(arg.get("ledger", livro_p.parent / "DESBLOQUEIO-LEDGER-V1.jsonl"))
+    livro, tabela = _json(livro_p), _json(tab_p)
+    try:
+        plano = planear(livro, tabela)
+    except InvarianteQuebrado as ex:
+        print(f"INVARIANTE QUEBRADO — nada escrito: {ex}", file=sys.stderr)
+        return 4
+    from collections import Counter
+    for a in plano["ACOES"]:
+        print(f"{a['ACAO']:12s} {a['LIVRO']:6s} {a['SOURCE_ID']:11s} {a['CAMPO']:28s} {a.get('PORQUE', '')[:90]}")
+    c = Counter((a["LIVRO"], a["ACAO"]) for a in plano["ACOES"])
+    print("RESUMO", dict(c))
+    if "--escrever" in argv:
+        aplicadas = [a for a in plano["ACOES"] if a["ACAO"] == "APLICA"]
+        if aplicadas:
+            livro_p.write_text(json.dumps(plano["LIVRO"], ensure_ascii=False, indent=1), encoding="utf-8")
+            tab_p.write_text(json.dumps(plano["TABELA"], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+            with ledger.open("a", encoding="utf-8") as f:
+                for a in aplicadas:
+                    f.write(json.dumps({"MISSAO": MISSAO, "AT": agora(), **{k: a.get(k) for k in (
+                        "LIVRO", "SOURCE_ID", "CAMPO", "ANTES", "DEPOIS", "ORIGEM", "PROVA")}},
+                        ensure_ascii=False) + "\n")
+        print(f"ESCRITO: {len(aplicadas)} alteracao(oes) · ledger {ledger}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
