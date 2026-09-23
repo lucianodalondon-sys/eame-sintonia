@@ -89,8 +89,11 @@ def _m_abre_porta_proibida():
 
 # ── OS MUTANTES DO INSTAGRAM (a metade que a D22 já tinha aberto) ───────────
 def _rota_ig():
+    # a linha da D24 procura-se pelo LIMITE: desde a unificacao, a primeira linha
+    # e a da D22 (Reel por URL), e mutar essa nao testa a decisao do Reel de PESSOA.
     for r in mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']:
-        return r
+        if r.get('LIMITE') == 'PUBLIC_PERSON_VIDEO_ONLY':
+            return r
     raise KeyError('FETCH_TRANSCRIPT')
 
 

@@ -313,6 +313,10 @@ class AOutraPlataformaDaD24(unittest.TestCase):
         self.assertEqual('SIM', r['OWNER_AUTHORIZED'])
         self.assertEqual('DISALLOWED', r['PLATFORM_POLICY_STATUS'])
         self.assertEqual('PUBLIC_PERSON_VIDEO_ONLY', r['LIMITE'])
+        # e esta linha, a da D24, esta ela propria aberta — decisao() devolve a
+        # da D22, e sem isto a linha de pessoa podia fechar sem ninguem ver.
+        self.assertEqual('SIM', r['PERMITIDA'])
+        self.assertEqual('PROVED', r['ESTADO'])
 
     def test_17_a_decisao_do_instagram_e_a_do_projeto_e_diz_quem_assumiu(self):
         d = mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')

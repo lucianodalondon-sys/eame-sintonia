@@ -28,8 +28,11 @@ def corre(modulo):
     return r.returncode == 0, (r.stdout + r.stderr).strip().splitlines()[-1:]
 
 
-def muta(ficheiro, velho, novo):
-    """→ (aplicou?, motivo). O ficheiro tem de ter o velho UMA vez.
+def muta(ficheiro, velho, novo, todas=False):
+    """→ (aplicou?, motivo). O ficheiro tem de ter o velho UMA vez — ou, com
+    `todas=True`, pelo menos uma, e TODAS mudam (UNIFICACAO-V1-F: desde a D22 +
+    D24 a rota do Reel tem DUAS linhas na matriz, e «a lei volta a recusar» so e
+    verdade se as duas recusarem).
 
     ⚠️ O ficheiro do repositório guarda CRLF, e uma âncora escrita com `\\n`
     não casa nele — foi assim que duas mutações ficaram «NÃO APLICOU» e
@@ -41,7 +44,7 @@ def muta(ficheiro, velho, novo):
     for velho_a, novo_a in ((velho, novo),
                             (velho.replace('\n', '\r\n'),
                              novo.replace('\n', '\r\n'))):
-        if s.count(velho_a) == 1:
+        if s.count(velho_a) == 1 or (todas and s.count(velho_a) >= 1):
             _copia_de_seguranca(ficheiro, s)
             io.open(caminho, 'w', encoding='utf-8', newline='').write(
                 s.replace(velho_a, novo_a))
@@ -86,7 +89,7 @@ CASOS = [
      "            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'SIM',\n              'PROVED',",
      "            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'NAO',\n              'ROUTE_NOT_ALLOWED',",
      "tests.test_as_duas_portas_do_scrap",
-     "M1 · a matriz recusa o que a porta corre"),
+     "M1 · a matriz recusa o que a porta corre", 'TODAS'),
     # ── M2 · o portão deixa de consultar a lei (o defeito SOC1, de volta)
     ("coleta/scrap_executor.py",
      "    if veredicto['MATRIZ_DECISAO'] == mz.NAO_PERMITIDA:",
@@ -153,8 +156,9 @@ def main():
     mordeu = 0
     nao_mordeu = []
     nao_aplicou = []
-    for ficheiro, velho, novo, modulo, nome in CASOS:
-        ok, motivo = muta(ficheiro, velho, novo)
+    for caso in CASOS:
+        ficheiro, velho, novo, modulo, nome = caso[:5]
+        ok, motivo = muta(ficheiro, velho, novo, todas=caso[5:] == ('TODAS',))
         if not ok:
             print("  NAO_APLICOU  %s (%s)" % (nome, motivo))
             nao_aplicou.append(nome)
