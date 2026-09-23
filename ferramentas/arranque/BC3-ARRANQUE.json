@@ -1,0 +1,48 @@
+{
+ "DATASET": "BC3-ARRANQUE",
+ "MISSAO": "BC3, 23/09/2026",
+ "INSTALADO": {
+  "SCRIPT": "%USERPROFILE%\\orca-tools\u0007rranque\u0007rranque_sintonia.ps1 (fonte: ferramentas/arranque/arranque_sintonia.ps1)",
+  "TAREFA": "SINTONIA-Arranque: no logon do utilizador, atraso 1 min, sem limite de tempo, MultipleInstances=IgnoreNew, sem administrador",
+  "ORDEM": "Sala -> vigia VPN -> observador -> portao de egresso IT -> supervisor -> guarda de egresso (3 min)"
+ },
+ "INCIDENTE_REAL": {
+  "O_QUE": "17:52 o vigia alertou BLOCKED BR; o portao e o ipinfo deram Londrina, BR, com o bot RUNNING (supervisor 40520)",
+  "ACCAO": "17:54:55 PARAR.flag com a marca da guarda (worker IDLE, nenhuma tarefa interrompida); supervisor saiu em ~2 s (SUPERVISOR_PARADO_POR_FLAG)",
+  "REDE_DO_BOT_PELO_BRASIL": "nenhuma medida: ultima realimentacao 17:04 local com CRAWL 0; a proxima descoberta seria ~18:04",
+  "PENDENTE": "religar a VPN IT (coordenador/dono); a guarda lanca o supervisor sozinha quando o egresso voltar a IT"
+ },
+ "SIMULACAO": {
+  "ANTES": "sala=0 supervisor=0 observador=0 vigia=0 (Sala parada por pg_ctl stop -m fast; observador e vigia mortos; supervisor ja parado pelo flag)",
+  "DEPOIS_60S": "sala de pe em 8 s, vigia lancado, observador lancado da ponte-viva (A_TRABALHAR, SAUDAVEL), supervisor NAO lancado (egresso BLOCKED BR, real)",
+  "SALA_INTEGRIDADE": "5/5 tabelas com md5 igual ao backup BC1 (61/1405/1097/908/389), so leitura",
+  "SEM_DUPLICAR": "Start-ScheduledTask de novo: ignorado (IgnoreNew); o script a mao: 'ARRANQUE ja a correr noutra instancia' (mutex); contagens iguais",
+  "DEFEITO_ACHADO_E_CORRIGIDO": "a 1.a versao pendurou depois de ligar a Sala: o redireccionamento da saida do ligar_sala.cmd e herdado pelo postmaster e a espera nunca acaba; agora Start-Process sem redireccionar + pg_isready"
+ },
+ "NAO_PROVADO": [
+  "o lado positivo: supervisor a arrancar sozinho com o egresso de volta a IT (a VPN estava no Brasil durante toda a prova; fica no log arranque-AAAAMMDD.log)",
+  "um logon real (a missao proibe reiniciar)"
+ ],
+ "LOG": [
+  "2026-09-23 17:54:20 === ARRANQUE (UmaVolta=True, SimularEgresso='') ===",
+  "2026-09-23 17:54:21 SALA ja responde em 54330",
+  "2026-09-23 17:54:21 VIGIA ja a correr",
+  "2026-09-23 17:54:22 OBSERVADOR ja a correr",
+  "2026-09-23 17:54:23 EGRESSO BLOCKED BR",
+  "2026-09-23 17:54:23 SUPERVISOR NAO arranca: o egresso nao e IT (o bot iria a rede por outro pais)",
+  "2026-09-23 17:54:23 === UmaVolta: fim ===",
+  "2026-09-23 17:56:19 === ARRANQUE (UmaVolta=False, SimularEgresso='') ===",
+  "2026-09-23 17:56:21 SALA nao responde: ligar_sala.cmd",
+  "2026-09-23 17:58:49 SALA nao responde: ligar_sala.cmd",
+  "2026-09-23 17:58:57 SALA pronta: True",
+  "2026-09-23 17:59:00 VIGIA lancado; processos: 3",
+  "2026-09-23 17:59:05 OBSERVADOR lancado da casa C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-viva; processos: 2",
+  "2026-09-23 17:59:06 EGRESSO BLOCKED BR",
+  "2026-09-23 17:59:06 SUPERVISOR NAO arranca: o egresso nao e IT (o bot iria a rede por outro pais)",
+  "2026-09-23 18:00:07 EGRESSO BLOCKED BR",
+  "2026-09-23 18:00:07 SUPERVISOR NAO arranca: o egresso nao e IT (o bot iria a rede por outro pais)",
+  "2026-09-23 18:00:38 ARRANQUE ja a correr noutra instancia: esta sai sem fazer nada",
+  "2026-09-23 18:01:08 EGRESSO BLOCKED BR",
+  "2026-09-23 18:01:08 SUPERVISOR NAO arranca: o egresso nao e IT (o bot iria a rede por outro pais)"
+ ]
+}
