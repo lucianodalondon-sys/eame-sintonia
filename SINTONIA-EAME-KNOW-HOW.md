@@ -19029,3 +19029,44 @@ fica para o dono. A ficha errada nasce em `descobrir.py`, que esta missão não 
 «Sherwood — Foreste ed Alberi Oggi» apontava para `sherwood.it`, que é a Radio Sherwood, e o
 crawl dela trouxe 14 candidatas de streaming, podcast e pré-venda de festival. Uma identidade
 trocada numa candidata propaga-se a toda a sua descendência.
+
+
+# § (sem número) · UMA SEMENTE É UMA ORGANIZAÇÃO, NÃO UMA PÁGINA — E O PAÍS VEM DO ENDEREÇO
+
+**O EFEITO COLATERAL DA C1.** «Registado ≠ rastejado» fez de toda candidata temática em
+análise uma semente. Medido em 23/09 na cópia dos livros do serviço: 210 sementes temáticas
+livres, e 190 eram páginas internas de organizações já conhecidas (notícias da ARPAE,
+organograma e «privacy» da ASSAM, «chi siamo» da FederUnacoma, a loja da Terra e Vita). E a
+`sherwood.it` (uma rádio registada por engano como revista florestal) gerou 14 candidatas-lixo.
+
+**O TRAVÃO (só a 2.ª geração; o catálogo não muda).** Uma candidata não vira semente se:
+- a decisão semântica dela é NÃO SEI com `CATEGORIA` em IDENTIDADE_TROCADA, NAO_E_FONTE,
+  PAGINA_DE_OUTRA_FONTE ou SEMENTE_ERRADA (campo novo em `DECISOES-SEMANTICAS-V1.json`;
+  PROVA_INSUFICIENTE não trava, porque falta de prova não é prova de lixo);
+- o endereço não é a entrada da organização (raiz ou `home`/`index`, sem query);
+- o host já foi explorado ou recusado como semente.
+
+Na cópia: 201 travadas (159 internas, 7 de organização já semeada, 35 pela decisão), e ficam
+9 de 2.ª geração, todas raízes de subdomínios novos. Hosts perdidos: 3, todos serviços
+(`albo.`, `prenotaservizi.`, `service.`). As «boas» (Coldiretti, Nomisma, UIV, FederUnacoma,
+Unaitalia, Terra e Vita) já estavam em SEMENTE_PROCESSADA e não mudam. Resíduo que o travão
+não vê: `webmail.arpalazio.it` e `sportelloimprese.arpalombardia.it` são raízes de host sem
+decisão semântica.
+
+**O PAÍS.** `crawl_sementes` registava `pais="IT"` fixo. Agora usa `pais_pela_prova(url)`:
+- ccTLD do vocabulário → esse país;
+- outro ccTLD → OUTRO;
+- domínio genérico (.com, .org, .net) → NAO SEI, novo no vocabulário fechado de
+  `candidatas/fonte_nova.py`.
+
+`PAIS_PROVA=...` vai na nota. A FAO fica NAO SEI: `.org` não prova lugar, e ninguém inventa
+«INT» pelo nome. `corrigir_pais_das_candidatas.py` revê só as candidatas do crawl (o catálogo
+foi declarado à mão). Na cópia: 809 candidatas, 538 do crawl, 75 mudam (62 → NAO SEI, 7 → EU,
+5 → OUTRO, 1 → FR), 463 ficam IT com prova `.it`, 0 sem proveniência. Ninguém filtra
+candidatas por PAIS=IT (medido: capturador, worker e ordenação só leem), e o `SOURCE_LOCATION`
+da admissão vem do item, não da candidata.
+
+**ARMADILHA DE MUTAÇÃO.** Um mutante com âncora numa linha de continuação (dentro de um
+`frozenset({...})` partido) não executa: o script de mutação recusa ou quebra a sintaxe.
+«Reprovou 0» com «NÃO EXECUTOU» não é sobrevivente. Refazer com a âncora no início da
+expressão.
