@@ -21311,3 +21311,36 @@ onde foi medido não serve para decidir.
   aponta para lá. Usar um invólucro com `lane=` ou o `--lane`.
 - O tempo parado no relógio (429 s) não é a soma dos comandos (353 s). O coordenador também
   pausa entre passos; os dois números vão no runbook.
+
+---
+
+# §202 · UM GATE ESCRITO «= SAFE» NÃO É UMA MEDIDA — E «PASSOU» NA SALA NÃO É «CHEGOU À SALA»
+
+G2 (23/09/2026). Três gates do ponto de chegada da Collection estavam escritos como
+YES/SAFE/0 no handoff, sem dono de medida. Medidos numa fotografia só-leitura dos livros
+vivos (15:53Z, sha256 guardado) e nos documentos das micro A2/A4:
+
+**1. APPROVED_SOURCE_ROUTE_COVERAGE = NOT_SAFE.** O mandato não define SAFE; define o que
+tem de ser verdade — «fontes aprovadas possuem rota ou bloqueio explícito». O portão aprova
+37; as 37 têm a régua dos 4 passos e canário com menos de 1 dia; só **12** têm contrato no
+coletor. **25 estão aprovadas e ninguém as colhe**, sem bloqueio escrito. Duas famílias
+abrem o mesmo item (3 ARPAE, 2 Agrofarma): um documento, várias fontes.
+
+    APROVADA NÃO É COLHIDA. O PORTÃO E O COLETOR TÊM DE CONTAR A MESMA LISTA.
+
+**2. PROVENANCE_COMPLETE — YES só na Sala que existe.** A Sala da A2 (lida numa CÓPIA do
+Postgres parado da corrida): 16/16 linhas com os 11 campos presentes ou «NAO SEI»
+explícito, nenhum inferido. Mas as 16 vêm de 2 fontes; 5 dos 11 campos são NAO SEI em
+todas; a A4 (a de rede real) pôs **0** linhas na Sala; e no registo do coletor 4 chaves
+nem existem (149/149 e 28/28). O «NAO SEI» nasce na porta, não na colheita.
+
+**3. CRITICAL_RED_TEAM_SURVIVORS: eram 2, e ninguém tinha voltado a olhar.** Os 12
+resultados guardados dizem 0. Mas os sobreviventes 5c/5d da auditoria 08 (21/09) — desligar
+`_pid_no_so` ou `_proc_e_python` na trava do supervisor — continuavam vivos: todos os testes
+de lock órfão chegavam ao check do boot. Dois testes com STARTED_AT depois do boot matam os
+quatro (4b, 4c, 5c, 5d).
+
+E a lição que custou: **o PC caiu a meio de um ataque e o checkpoint de recuperação gravou o
+mutante** (`CRASH_MAX = 99999`). Ao retomar depois de uma queda, a primeira medida é o diff
+dos ALVOS dos ataques contra o último commit próprio; e o harness passou a recusar atacar um
+alvo que já difere do Git.
