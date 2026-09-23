@@ -111,6 +111,14 @@ CASOS = [
      "    fora.update({})",
      "tests.test_as_duas_portas_do_scrap",
      "M5 · a retenção da Data API desaparece"),
+    # ── M7 · uma rota de OUTRA PLATAFORMA muda: o congelado das 32 decisões
+    #         antigas tem de morder. É a prova de que o teste do §C13 continua
+    #         a morrer por qualquer outra decisão, e não só pela do Reel.
+    ("leis/social_matriz.py",
+     "r('reddit:OAuth Data API', 'OFFICIAL_API_FREE', 'CONDICIONAL',",
+     "r('reddit:OAuth Data API v2', 'OFFICIAL_API_FREE', 'CONDICIONAL',",
+     "tests.test_c13_route_gate",
+     "M7 · uma decisão antiga (REDDIT) muda sem prova"),
     # ── M6 · o RAW do Reel volta a não declarar a espécie
     ("ferramentas/reel_transcricao.py",
      "def _especie_do_ficheiro(caminho, media_kind):",
