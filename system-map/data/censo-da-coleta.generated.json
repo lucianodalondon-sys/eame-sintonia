@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T20:26:12+00:00",
-    "HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
+    "GENERATED_AT": "2026-09-23T21:02:07+00:00",
+    "HEAD": "9e2ab3633fbd360231e868617c81532194659827",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "1747c1700fd987dbdc47c4541ffb11e99f363b9d1c3a8794dbf439ffc0b3a054",
-    "FICHEIROS_NA_IMPRESSAO": 2905,
+    "SOURCE_TREE_FINGERPRINT": "31db7befc442e3d2ee0c813365ecfd44e75dfb7f2f82494bdb680cb98e61b596",
+    "FICHEIROS_NA_IMPRESSAO": 2913,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -564,6 +564,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/big_collection/coorte_unica.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d4daac87cfc163568a49e2f9e212b3c9d0cd74f9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/cdp.py",
         "PAPEL": "FONTE",
         "VERSAO": "f3472d8b63a9d6f8ea82c8eafe76945d0a2d8ee1",
@@ -1096,8 +1103,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 155,
-    "INPUTS_DIGEST": "e048dde41e032aebc0055f6a46445a0dabd40f244671633df9c912e0ece86f59",
+    "INPUTS_COUNT": 156,
+    "INPUTS_DIGEST": "d8b298956e6c3f8551d44b1db4a1c0a4bb3e4f50d091bed507088ba60e28b2e9",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1551,6 +1558,22 @@
         "regras/sensor_coleta.py"
       ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/coorte_unica.py",
+      "gaveta": "ferramentas",
+      "linhas": 123,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
     },
     {
       "ficheiro": "ferramentas/cdp.py",
@@ -3659,6 +3682,7 @@
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_recurrent_collect.mjs",
         "coleta/scrap_colheita.py",
+        "ferramentas/big_collection/coorte_unica.py",
         "pedido/receitas.py",
         "regras/contratos_de_fonte.py",
         "regras/italy_pilot_guards.mjs"
@@ -4310,12 +4334,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 155,
-    "pontos_de_entrada": 111,
+    "ficheiros_de_codigo": 156,
+    "pontos_de_entrada": 112,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 60,
+    "sem_chamador_e_fora_do_ci": 61,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 84,
+    "escrevem_ficheiro": 85,
     "deitam_fora_alguma_coisa": 45,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -4340,6 +4364,7 @@
       "fontes/adama_it_qa.py",
       "fontes/adama_referencia.py",
       "ferramentas/apify_pool.py",
+      "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/cutover/congelar_extras.py",
@@ -4474,6 +4499,7 @@
       "fontes/adama_it_gaps.py",
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
+      "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/cutover/congelar_extras.py",
       "ferramentas/cutover/observador_ensaio.py",
       "ferramentas/cutover/passos_do_cutover.py",
