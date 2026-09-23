@@ -178,6 +178,9 @@ def calcular() -> dict:
             "FONTES": sete,
         },
         "CARACTERIZADAS_NAO_READY_PORQUE": dict(nao_ready),
+        "NEEDS_MORE_SAMPLING_IDS": [c for c in baldes["CARACTERIZADAS_NAO_READY"]
+                                    if c not in matched
+                                    and caract[c]["FINAL_STATE"] == "NEEDS_MORE_SAMPLING"],
         "NUNCA_CARACTERIZADAS": {
             "PORQUE": ("amostrar.py so caracteriza PROPOSED_STATE == PROMOTE; estas nunca "
                        "foram PROMOTE na missao 02, ou nunca foram capturadas"),

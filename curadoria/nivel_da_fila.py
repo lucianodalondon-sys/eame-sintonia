@@ -71,7 +71,14 @@ def medir(baldes: dict | None = None, watermark: int = CANDIDATE_LOW_WATERMARK) 
     tentadas = _qualify_ja_tentadas()
     html_actionable = len(html_novas_ids - tentadas)
 
-    mais_amostra = b["CARACTERIZADAS_NAO_READY_PORQUE"].get("NEEDS_MORE_SAMPLING", 0)
+    # Mesma regra para NEEDS_MORE_SAMPLING: a que ja teve QUALIFY e bloqueou nao
+    # volta sozinha. Sem a lista de IDs (baldes antigos), fica a contagem.
+    if "NEEDS_MORE_SAMPLING_IDS" in b:
+        mais_amostra = len(set(b["NEEDS_MORE_SAMPLING_IDS"]) - tentadas)
+        amostra_bloqueada = len(set(b["NEEDS_MORE_SAMPLING_IDS"]) & tentadas)
+    else:
+        mais_amostra = b["CARACTERIZADAS_NAO_READY_PORQUE"].get("NEEDS_MORE_SAMPLING", 0)
+        amostra_bloqueada = 0
     backlog = html_actionable + mais_amostra
     needed = backlog < watermark
     return {
@@ -87,6 +94,7 @@ def medir(baldes: dict | None = None, watermark: int = CANDIDATE_LOW_WATERMARK) 
                                          "NEEDS_MORE_SAMPLING": mais_amostra},
         "FORA_DO_BACKLOG": {"SOCIAL_FORA_DE_ESCOPO": n["SOCIAL"],
                             "HTML_QUALIFY_BLOQUEADO": len(html_novas_ids & tentadas),
+                            "NEEDS_MORE_SAMPLING_JA_TENTADAS": amostra_bloqueada,
                             "CAPABILITY_BLOCK": b["TOTAIS"]["COM_SOURCE_ID_SEM_CONTRATO"]
                             + b["CARACTERIZADAS_NAO_READY_PORQUE"].get("CAPABILITY_BLOCK", 0),
                             "SEM_TERRITORIO": b["TOTAIS"]["SEM_TERRITORIO"],
