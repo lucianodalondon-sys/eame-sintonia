@@ -189,7 +189,8 @@
   "RECEITA_T12": "decisao do dono (politica de coleta) — nao e de M2/M3.",
   "RECEITA_T9_WEB": "decisao do dono — nao e de M2/M3.",
   "SUPOSICAO_DECLARADA": "confirmado pela coordenacao: M2 = abastecimento-bot-v1, M3 = rotas-elegiveis-v1.",
-  "M3b": "relevancia por fonte antes da coleta (Admission em leitura). O plano le curadoria/RELEVANCIA-POR-FONTE-V1.json {LINHAS:[{SOURCE_ID,RELEVANCIA}]} quando existir: so bloqueia, nunca promove. O nome e a forma do ficheiro sao SUPOSICAO minha — confirmar com a 3b."
+  "M3b": "relevancia-elegiveis-v1 @ 3b5080b9: lida por git show de curadoria/RELEVANCIA-ELEGIVEIS-V1.json (amostras) + coluna «coorte» de RELATORIO-RELEVANCIA-ELEGIVEIS.md (decisao do dono). ENTRA_NA_MICRO passa; qualquer outra bloqueia; fonte nao medida bloqueia; ficheiro ausente = FALHA ALTA (exit 3). O palpite da 6-PREP (RELEVANCIA-POR-FONTE-V1.json) estava ERRADO e foi retirado.",
+  "M3c": "regua T2/T12 (regua-t2-t12-v1): ainda nao publicada no remoto. Ponto de leitura declarado e DESLIGADO em micro_coleta.FILTROS; ligar quando a branch publicar."
  },
- "PRONTAS_HOJE": "com o livro desta linha: 6; com o resultado da M3 aplicado como filtro: 5 (IT-T10-018, IT-T10-022, IT-T10-021, IT-T7-021, IT-T7-043)"
+ "PRONTAS_HOJE": "com M3 @ 88ce30a8 e 3b @ 3b5080b9 como filtros: 1 (IT-T10-018). Bloqueadas pela 3b: FICA_FORA 9 · NAO_SEI 1 (IT-T7-043) · NAO_MEDIDA 4 (IT-T10-021, IT-T7-021, IT-T5-041, IT-T5-049)"
 }

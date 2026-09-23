@@ -24,6 +24,33 @@ AMBIENTE_OK = {"SINTONIA_COLLECTION_DSN": "x", "SINTONIA_SALA_DSN": "x",
                "SINTONIA_SALA_BACKEND": "POSTGRES", "SINTONIA_PSQL_EXE": "x"}
 
 
+IDS = [f["SOURCE_ID"] for f in MC.ler_coorte()["PROPOSTAS"]]
+
+
+def ler_fixture(entra=("IT-T10-018", "IT-T7-043"), rotas=None, sem_decisao=(),
+                ausente=None):
+    """Um `git show` falso: a forma REAL dos ficheiros da M3 e da 3b, sem git.
+    `ausente` = caminho que finge nao existir; `sem_decisao` = fontes que o
+    JSON da 3b mediu e o relatorio nao decide."""
+    rotas = rotas or {}
+    dados = {
+        "curadoria/ROTAS-ELEGIVEIS-V1.json": json.dumps({"LINHAS": [
+            {"SOURCE_ID": s, "VEREDITO": rotas.get(s, "ROUTE_PROVEN")} for s in IDS]}),
+        "curadoria/RELEVANCIA-ELEGIVEIS-V1.json": json.dumps({"FONTES": [
+            {"SOURCE_ID": s, "AMOSTRAS": [{"DECIDIR": {"RESULTADO": "NAO_SEI"}}]} for s in IDS]}),
+        "RELATORIO-RELEVANCIA-ELEGIVEIS.md": "\n".join(
+            ["| SOURCE_ID | U | amostras | SIM | classe | coorte | porque |", "|---|---|---|---|---|---|---|"]
+            + [f"| {s} nome | T | x | y | z | **{'ENTRA_NA_MICRO' if s in entra else 'FICA_FORA'}** | w |"
+               for s in IDS if s not in sem_decisao]),
+    }
+
+    def ler(ref, caminho):
+        if caminho == ausente or caminho not in dados:
+            raise MC.FiltroAusente(f"{ref}:{caminho}: nao existe")
+        return dados[caminho], "fixture"
+    return ler
+
+
 def _proibido(*a, **k):
     raise AssertionError(f"programa externo chamado num teste sem rede: {a[:1]}")
 
@@ -65,17 +92,17 @@ class TestCorrerNaoVaiARedeSemTudoCerto(unittest.TestCase):
     def test_egresso_brasil_nao_lanca_nenhuma(self):
         l = _Lancador()
         r = MC.correr(autorizado=True, lancar=l, egresso=lambda: {"PAIS": "BR"},
-                      ambiente=AMBIENTE_OK, consulta=_proibido)
+                      ambiente=AMBIENTE_OK, consulta=_proibido, ler=ler_fixture())
         self.assertEqual(l.comandos, [])
         for c in r["CORRIDAS"]:
             self.assertFalse(c["CORREU"])
 
     def test_egresso_it_lanca_so_as_prontas_e_pela_porta_canonica(self):
         l = _Lancador()
-        p = MC.plano()
+        p = MC.plano(ler=ler_fixture())
         prontas = {x["SOURCE_ID"] for x in p["LINHAS"] if x["ESTADO"] == "PRONTA"}
         r = MC.correr(autorizado=True, lancar=l, egresso=lambda: {"PAIS": "IT"},
-                      ambiente=AMBIENTE_OK, consulta=lambda q: [])
+                      ambiente=AMBIENTE_OK, consulta=lambda q: [], ler=ler_fixture())
         lancadas = {next(a.split("=", 1)[1] for a in c if a.startswith("fonte="))
                     for c in l.comandos}
         self.assertEqual(lancadas, prontas)
@@ -101,7 +128,7 @@ class TestPlano(unittest.TestCase):
         self.assertEqual(excl, {"IT-T7-017", "IT-T7-033", "IT-T7-042"})
 
     def test_pronta_tem_gate_contrato_receita_e_frase(self):
-        for l in MC.plano()["LINHAS"]:
+        for l in MC.plano(ler=ler_fixture())["LINHAS"]:
             if l["ESTADO"] == "PRONTA":
                 self.assertEqual(l["GATE"], "ELIGIBLE", l["SOURCE_ID"])
                 self.assertTrue(l["CONTRATO"] and l["RECEITA_WEB"] and l["FRASE_RESOLVE"])
@@ -110,20 +137,86 @@ class TestPlano(unittest.TestCase):
 
 
     def test_filtros_das_missoes_3_e_3b_so_bloqueiam(self):
-        t = Path(tempfile.mkdtemp())
-        ro, re_ = t / "rotas.json", t / "rel.json"
-        base = {x["SOURCE_ID"]: x["ESTADO"] for x in MC.plano()["LINHAS"]}
+        base = {x["SOURCE_ID"]: x["ESTADO"] for x in MC.plano(ler=ler_fixture())["LINHAS"]}
         prontas = [s for s, e in base.items() if e == "PRONTA"]
-        ro.write_text(json.dumps({"LINHAS": [{"SOURCE_ID": prontas[0], "VEREDITO": "CAPABILITY_BLOCK"}]}))
-        re_.write_text(json.dumps({"LINHAS": [{"SOURCE_ID": prontas[1], "RELEVANCIA": "NAO"}]
-                                   + [{"SOURCE_ID": s, "RELEVANCIA": "SIM"} for s in base if s != prontas[1]]}))
-        with mock.patch.object(MC, "ROTAS", ro), mock.patch.object(MC, "RELEVANCIA", re_):
-            depois = {x["SOURCE_ID"]: x for x in MC.plano()["LINHAS"]}
-        self.assertEqual(depois[prontas[0]]["ESTADO"], "BLOQUEADA")
-        self.assertEqual(depois[prontas[1]]["ESTADO"], "BLOQUEADA")
+        self.assertGreaterEqual(len(prontas), 2)
+        depois = {x["SOURCE_ID"]: x["ESTADO"] for x in MC.plano(ler=ler_fixture(
+            entra=(prontas[1],), rotas={prontas[0]: "CAPABILITY_BLOCK"}))["LINHAS"]}
+        self.assertEqual(depois[prontas[0]], "BLOQUEADA")
+        self.assertEqual(depois[prontas[1]], "PRONTA")
         for s, e in base.items():          # nunca promove
             if e == "BLOQUEADA":
-                self.assertEqual(depois[s]["ESTADO"], "BLOQUEADA")
+                self.assertEqual(depois[s], "BLOQUEADA")
+
+    def test_fica_fora_da_3b_bloqueia_fonte_que_estaria_pronta(self):
+        # IT-T10-022 tem gate, contrato, receita e rota: so a 3b a tira.
+        so_gate = MC.plano(ids=["IT-T10-022"], ler=ler_fixture(entra=("IT-T10-022",)))
+        self.assertEqual(so_gate["LINHAS"][0]["ESTADO"], "PRONTA")
+        fora = MC.plano(ids=["IT-T10-022"], ler=ler_fixture(entra=()))
+        self.assertEqual(fora["LINHAS"][0]["ESTADO"], "BLOQUEADA")
+        self.assertIn("RELEVANCIA:FICA_FORA", fora["LINHAS"][0]["FALTA"])
+
+    def test_fonte_que_a_3b_nao_mediu_fica_bloqueada(self):
+        p = MC.plano(ids=["IT-T10-018"], ler=ler_fixture())
+        self.assertEqual(p["LINHAS"][0]["ESTADO"], "PRONTA")
+        p = MC.plano(ids=["IT-T10-018", "IT-FORA-999"], ler=ler_fixture())
+        self.assertIn("RELEVANCIA_NAO_MEDIDA_PELA_3b", p["LINHAS"][1]["FALTA"])
+
+
+@mock.patch.object(MC.subprocess, "run", _proibido)
+class TestFiltroAusenteFalhaAlto(unittest.TestCase):
+    """FILTRO DECLARADO E AUSENTE = FALHA ALTA. Nunca «sem opiniao»."""
+
+    def test_ficheiro_da_3b_ausente_rebenta_o_plano(self):
+        for c in ("curadoria/RELEVANCIA-ELEGIVEIS-V1.json", "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
+                  "curadoria/ROTAS-ELEGIVEIS-V1.json"):
+            with self.assertRaises(MC.FiltroAusente, msg=c):
+                MC.plano(ler=ler_fixture(ausente=c))
+
+    def test_correr_nao_lanca_nada_sem_filtro(self):
+        l = _Lancador()
+        with self.assertRaises(MC.FiltroAusente):
+            MC.correr(autorizado=True, lancar=l, egresso=lambda: {"PAIS": "IT"},
+                      ambiente=AMBIENTE_OK, consulta=_proibido,
+                      ler=ler_fixture(ausente="curadoria/RELEVANCIA-ELEGIVEIS-V1.json"))
+        self.assertEqual(l.comandos, [])
+
+    def test_relatorio_e_dados_da_3b_desencontrados_rebentam(self):
+        with self.assertRaises(MC.FiltroAusente):
+            MC.plano(ler=ler_fixture(sem_decisao=("IT-T7-043",)))
+
+    def test_forma_inesperada_rebenta(self):
+        def ler(ref, c):
+            return json.dumps({"LINHAS": []}), "x"
+        with self.assertRaises(MC.FiltroAusente):
+            MC.plano(ler=ler)
+
+    def test_main_sai_com_3(self):
+        with mock.patch.object(MC, "git_show", ler_fixture(ausente="RELATORIO-RELEVANCIA-ELEGIVEIS.md")):
+            with mock.patch.object(MC, "plano", lambda: MC.filtros_externos(MC.git_show)):
+                self.assertEqual(MC.main(["plano"]), 3)
+
+
+class TestFiltroRealPorGit(unittest.TestCase):
+    """Le as branches reais por `git show` (so git local, sem rede).
+    A mutacao pedida: RENOMEAR o ficheiro tem de reprovar."""
+
+    def setUp(self):
+        r = MC.subprocess.run(["git", "rev-parse", "--verify", "-q", MC.FILTROS[1]["REF"]],
+                              cwd=MC.RAIZ, capture_output=True)
+        if r.returncode != 0:
+            self.skipTest("branch da 3b nao existe neste clone — correr `git fetch`")
+
+    def test_le_o_ficheiro_real_da_3b(self):
+        r = MC.ler_relevancia()
+        self.assertIn(MC.ENTRA_3B, r["POR_FONTE"].values())
+        self.assertEqual(set(r["POR_FONTE"]), set(r["AMOSTRAS"]))
+
+    def test_renomear_o_ficheiro_reprova(self):
+        f = dict(MC.FILTROS[1], DADOS="curadoria/RELEVANCIA-POR-FONTE-V1.json")
+        with mock.patch.object(MC, "FILTROS", [MC.FILTROS[0], f, MC.FILTROS[2]]):
+            with self.assertRaises(MC.FiltroAusente):
+                MC.ler_relevancia()
 
 
 @mock.patch.object(MC.subprocess, "run", _proibido)

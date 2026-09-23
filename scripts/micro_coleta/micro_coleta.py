@@ -99,30 +99,117 @@ def comando(source_id: str) -> list[str]:
             "--filtro", f"fonte={source_id}", "--filtro", f"universo={u}"]
 
 
-# Filtros de outras missoes, lidos SE existirem nesta linha. Ausente = sem
-# opiniao (o gate continua a decidir); presente = pode bloquear, nunca promover.
-ROTAS = RAIZ / "curadoria" / "ROTAS-ELEGIVEIS-V1.json"        # missao 3
-RELEVANCIA = RAIZ / "curadoria" / "RELEVANCIA-POR-FONTE-V1.json"  # missao 3b
-RELEVANTE = {"SIM", "RELEVANTE", "RELEVANT"}
+# ── FILTROS DE OUTRAS MISSOES ───────────────────────────────────────────────
+# ⚠️ ESTE BLOCO JA MENTIU, E CALADO. A 6-PREP lia «curadoria/RELEVANCIA-POR-
+# FONTE-V1.json» com a forma {"LINHAS": [...]}, e tratava ficheiro AUSENTE como
+# «sem opiniao». Nome e forma eram palpite meu; a 3b real escreveu outro ficheiro
+# com outra forma. Resultado medido pelo coordenador: filtro da 3b = nenhum, sem
+# aviso. O filtro da M3 tinha o mesmo buraco (ficheiro que nao existe nesta linha).
+#
+#     FILTRO DECLARADO E AUSENTE = FALHA ALTA. NUNCA «SEM OPINIAO».
+#
+# Cada filtro le-se da BRANCH DO DONO por `git show` (sem merge), pelo NOME DA
+# BRANCH e nao por um hash fixo — um REF fixo mata o filtro futuro em silencio.
+# O hash resolvido fica no plano. Um filtro so BLOQUEIA; nunca promove.
+class FiltroAusente(Exception):
+    """Um filtro declarado nao se conseguiu ler. Nao e «sem opiniao»."""
 
 
-def _veredito_por_fonte(caminho: Path, campo: str) -> dict:
-    """{SOURCE_ID: veredito}. Forma esperada: {"LINHAS": [{"SOURCE_ID", campo}]}.
-    Ficheiro ilegivel NAO e ficheiro vazio: rebenta, nao se ignora."""
-    if not Path(caminho).exists():
-        return {}
-    d = json.loads(Path(caminho).read_text(encoding="utf-8"))
-    return {l["SOURCE_ID"]: str(l.get(campo) or AUSENCIA) for l in d.get("LINHAS", [])}
+FILTROS = [
+    {"ID": "M3-ROTAS", "ATIVO": True, "REF": "origin/rotas-elegiveis-v1",
+     "DADOS": "curadoria/ROTAS-ELEGIVEIS-V1.json"},
+    {"ID": "M3b-RELEVANCIA", "ATIVO": True, "REF": "origin/relevancia-elegiveis-v1",
+     "DADOS": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+     "DECISAO": "RELATORIO-RELEVANCIA-ELEGIVEIS.md"},
+    # A 3c (regua T2/T12) ainda nao publicou. O ponto de leitura existe e esta
+    # DESLIGADO de proposito: o nome da branch e do ficheiro vem do coordenador
+    # ou da branch publicada — nao se adivinha outra vez. Ligar = pôr ATIVO,
+    # REF, DADOS e escrever o leitor; ate la o plano diz que ela falta.
+    {"ID": "M3c-REGUA-T2-T12", "ATIVO": False, "REF": None, "DADOS": None,
+     "NOTA": "aguarda publicacao da missao 3c; nome por confirmar"},
+]
+ENTRA_3B = "ENTRA_NA_MICRO"
+_LINHA_3B = re.compile(r"^\|\s*(IT-T\d+-\d+)\b[^|]*\|.*\|\s*\*\*([A-Z_]+)\*\*\s*\|[^|]*\|\s*$")
 
 
-def plano(ids: list[str] | None = None, *, ctx: dict | None = None) -> dict:
+def git_show(ref: str, caminho: str) -> tuple[str, str]:
+    """(texto, hash) de `ref:caminho`. Qualquer falha e FiltroAusente."""
+    try:
+        h = subprocess.run(["git", "rev-parse", "--short", ref], cwd=RAIZ,
+                           capture_output=True, text=True, timeout=30)
+        r = subprocess.run(["git", "show", f"{ref}:{caminho}"], cwd=RAIZ,
+                           capture_output=True, timeout=60)
+    except Exception as ex:                                    # noqa: BLE001
+        raise FiltroAusente(f"{ref}:{caminho}: {type(ex).__name__}: {ex}") from ex
+    if h.returncode != 0 or r.returncode != 0:
+        raise FiltroAusente(f"{ref}:{caminho}: " + (r.stderr or b"").decode("utf-8", "replace")[-200:].strip())
+    return r.stdout.decode("utf-8"), h.stdout.strip()
+
+
+def ler_rotas(ler=git_show) -> dict:
+    f = FILTROS[0]
+    txt, h = ler(f["REF"], f["DADOS"])
+    try:
+        linhas = json.loads(txt)["LINHAS"]
+        vered = {l["SOURCE_ID"]: l["VEREDITO"] for l in linhas}
+    except (ValueError, KeyError, TypeError) as ex:
+        raise FiltroAusente(f"{f['ID']}: forma inesperada ({type(ex).__name__}: {ex})") from ex
+    if not vered:
+        raise FiltroAusente(f"{f['ID']}: zero linhas — vazio nao e «tudo aprovado»")
+    return {"HASH": h, "POR_FONTE": vered}
+
+
+def ler_relevancia(ler=git_show) -> dict:
+    """A decisao por fonte da 3b, com regra escrita.
+
+    O JSON da 3b NAO tem veredito de coorte: tem AMOSTRAS com o DECIDIR de cada
+    uma. A decisao e do DONO da 3b e esta na coluna «coorte» do relatorio dela
+    (ex.: a myfruit ENTRA com as duas amostras NAO_SEI, pelo historico 5/9 na
+    Sala; a feira escolar FICA_FORA contra dois SIM). Derivar das amostras
+    daria outra coorte — e seria a minha decisao a passar por cima da dele.
+
+    REGRA: ENTRA_NA_MICRO passa; qualquer outra decisao bloqueia; fonte que o
+    JSON mediu e o relatorio nao decide (ou o inverso) = FiltroAusente.
+    Fonte que a 3b nao mediu de todo bloqueia com RELEVANCIA_NAO_MEDIDA.
+    As contagens das amostras vao ao lado, para quem quiser ver a divergencia.
+    """
+    f = FILTROS[1]
+    dados, h = ler(f["REF"], f["DADOS"])
+    rel, _ = ler(f["REF"], f["DECISAO"])
+    try:
+        fontes = json.loads(dados)["FONTES"]
+        amostras = {x["SOURCE_ID"]: [a["DECIDIR"]["RESULTADO"] for a in x.get("AMOSTRAS") or []]
+                    for x in fontes}
+    except (ValueError, KeyError, TypeError) as ex:
+        raise FiltroAusente(f"{f['ID']}: forma inesperada ({type(ex).__name__}: {ex})") from ex
+    decisao = {}
+    for linha in rel.splitlines():
+        m = _LINHA_3B.match(linha.strip())
+        if m:
+            decisao[m.group(1)] = m.group(2)
+    if not amostras or set(decisao) != set(amostras):
+        raise FiltroAusente(
+            f"{f['ID']}: o relatorio decide {sorted(set(decisao) - set(amostras))} a mais e "
+            f"{sorted(set(amostras) - set(decisao))} a menos do que o JSON mediu")
+    return {"HASH": h, "POR_FONTE": decisao, "AMOSTRAS": amostras}
+
+
+def filtros_externos(ler=git_show) -> dict:
+    """Le TODOS os filtros ativos, ou rebenta. Nao ha meio-termo."""
+    return {"M3-ROTAS": ler_rotas(ler), "M3b-RELEVANCIA": ler_relevancia(ler),
+            "DESLIGADOS": [x["ID"] for x in FILTROS if not x["ATIVO"]]}
+
+
+def plano(ids: list[str] | None = None, *, ctx: dict | None = None,
+          ler=git_show) -> dict:
     coorte = ler_coorte()
     ids = ids or [f["SOURCE_ID"] for f in coorte["PROPOSTAS"]]
     ctx = ctx if ctx is not None else GATE._contexto()
     contratos = {f["SOURCE_ID"]: f for f in
                  json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
-    rotas = _veredito_por_fonte(ROTAS, "VEREDITO")
-    relevancia = _veredito_por_fonte(RELEVANCIA, "RELEVANCIA")
+    fx = filtros_externos(ler)                      # rebenta se faltar um
+    rotas = fx["M3-ROTAS"]["POR_FONTE"]
+    relevancia = fx["M3b-RELEVANCIA"]["POR_FONTE"]
     linhas = []
     for s in ids:
         g = GATE.avaliar(s, **ctx)
@@ -140,7 +227,9 @@ def plano(ids: list[str] | None = None, *, ctx: dict | None = None) -> dict:
         if rv and rv not in ("ROUTE_PROVEN",):
             falta.append(f"ROTA:{rv}")
         rl = relevancia.get(s)
-        if rl and rl.upper() not in RELEVANTE:
+        if rl is None:
+            falta.append("RELEVANCIA_NAO_MEDIDA_PELA_3b")
+        elif rl != ENTRA_3B:
             falta.append(f"RELEVANCIA:{rl}")
         # A frase que o orquestrador vai montar, resolvida AQUI e sem rede:
         # alvo certo e executor web. Foi a frase que parou a canonical-micro.
@@ -161,12 +250,18 @@ def plano(ids: list[str] | None = None, *, ctx: dict | None = None) -> dict:
                        "CONTRATO": s in contratos,
                        "RECEITA_WEB": receita_web(u) is not None,
                        "FRASE_RESOLVE": frase_ok,
+                       "ROTA_M3": rotas.get(s, "NAO_MEDIDA"),
+                       "RELEVANCIA_3b": rl or "NAO_MEDIDA",
+                       "AMOSTRAS_3b": fx["M3b-RELEVANCIA"]["AMOSTRAS"].get(s),
                        "ESTADO": "PRONTA" if not falta else "BLOQUEADA",
                        "FALTA": falta,
                        "COMANDO": " ".join(comando(s)[1:])})
     return {"GERADO_EM": agora(), "GATE": GATE.CONTRATO,
             "PAINEL_DO_GATE": GATE.painel(ctx=ctx),
             "EXCLUIDAS": coorte.get("EXCLUIDAS", []),
+            "FILTROS": {"M3-ROTAS": fx["M3-ROTAS"]["HASH"],
+                        "M3b-RELEVANCIA": fx["M3b-RELEVANCIA"]["HASH"],
+                        "DESLIGADOS": fx["DESLIGADOS"]},
             "PRONTAS": sum(1 for l in linhas if l["ESTADO"] == "PRONTA"),
             "BLOQUEADAS": sum(1 for l in linhas if l["ESTADO"] != "PRONTA"),
             "LINHAS": linhas}
@@ -227,13 +322,14 @@ def precondicoes(ambiente=None) -> list[str]:
 
 
 def correr(ids=None, *, autorizado=False, lancar=None, egresso=medir_egresso,
-           ambiente=None, consulta=sql, saida: Path | None = None) -> dict:
+           ambiente=None, consulta=sql, saida: Path | None = None,
+           ler=git_show) -> dict:
     if not autorizado:
         return {"CORREU": False, "PORQUE": "falta --autorizado-pelo-dono"}
     falta = precondicoes(ambiente)
     if falta:
         return {"CORREU": False, "PORQUE": "precondicoes", "FALTA": falta}
-    p = plano(ids)
+    p = plano(ids, ler=ler)                  # FiltroAusente sobe: nada se lanca
     corridas = []
     for l in p["LINHAS"]:
         if l["ESTADO"] != "PRONTA":
@@ -424,11 +520,19 @@ def main(argv=None) -> int:
     saida = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--saida=")),
                  Path(os.environ.get("TEMP", "/tmp")) / "micro-coleta")
     if verbo == "plano":
-        p = plano()
+        try:
+            p = plano()
+        except FiltroAusente as ex:
+            print(f"FILTRO_AUSENTE — o plano NAO corre sem ele: {ex}", file=sys.stderr)
+            return 3
         print(json.dumps(p, ensure_ascii=False, indent=1))
         return 0
     if verbo == "correr":
-        r = correr(autorizado="--autorizado-pelo-dono" in argv, saida=saida)
+        try:
+            r = correr(autorizado="--autorizado-pelo-dono" in argv, saida=saida)
+        except FiltroAusente as ex:
+            print(f"FILTRO_AUSENTE — nada foi lancado: {ex}", file=sys.stderr)
+            return 3
         print(json.dumps(r, ensure_ascii=False, indent=1))
         return 0 if r.get("CORREU") else 2
     if verbo == "relatorio":
