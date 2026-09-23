@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-    "GENERATED_AT": "2026-09-23T02:36:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901"
+    "BRANCH": "cutover-ensaio-v1",
+    "HEAD": "5a16d07746c9f88f0003b37cc9a85e351d1f22c1",
+    "GENERATED_AT": "2026-09-23T02:41:25-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d71689426a604ff94fbcb0a203556d836f815fd4452a43bc2ea878a32d31f62c"
   },
   "FILES": [
     {
@@ -212,6 +212,13 @@
       "code_dir": false
     },
     {
+      "path": "CUTOVER-RUNBOOK.md",
+      "sha": "7225fe91bc8b7a7185f64c3f34399aa5db87c211",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "DEPOIS-DO-PORTAL.md",
       "sha": "bdf3477ab8fe95b282e877dacec54fc0a3f19e42",
       "ext": ".md",
@@ -227,7 +234,7 @@
     },
     {
       "path": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
-      "sha": "5abfd972fbc048d619c451aca75994395df25761",
+      "sha": "acfae23a51a2818b36afdd09b5c5afda57aca975",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -305,6 +312,13 @@
     {
       "path": "RELATORIO-COORTE-MICRO.md",
       "sha": "b9e87da05158b31c28034f28ab8087561c83a684",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-CUTOVER-ENSAIO.md",
+      "sha": "8c762502c9430764fda35a3cc1711cf2b17d1a17",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -472,7 +486,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "75310e8a1d30e3b19e8f6a8b8a56542d5fd25f95",
+      "sha": "424ea65a36afea9a21bf6eb0612b059930c282b5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8529,7 +8543,7 @@
     },
     {
       "path": "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
-      "sha": "5f755573a40e2fe389203215c9395380f8eb5395",
+      "sha": "43e5b82c0c0df3139d8f7ea739fd44ef16e01f77",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8823,7 +8837,7 @@
     },
     {
       "path": "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
-      "sha": "ff5705c423da164522831a1b3dc982eff66a8f3e",
+      "sha": "dbfb531f60a12ead99b736cd659bff836d25d02c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9516,21 +9530,21 @@
     },
     {
       "path": "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
-      "sha": "7af05d8b74827c8e251d6d3d9446f9cb52339322",
+      "sha": "e65602f38d34c47aab7887236e85a78e28a1b487",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/O-QUE-PODEMOS-DIZER.md",
-      "sha": "5bbf71bc83cfe6f13713c46d6b3e25bda1b10304",
+      "sha": "b7aa37fdf6f6656bc157ce21fc8aeeb59027c610",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
-      "sha": "6e5efd0bb76bfc950b606f8890d09f8796eaff7b",
+      "sha": "a30e37ecf21a878856e01259c0f5587de1e86078",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9558,7 +9572,7 @@
     },
     {
       "path": "docs/piloto/VEREDITO-M10-HANDOFF.md",
-      "sha": "83af3dfd7626a72ea2077ef8b4e619bc9c1e7246",
+      "sha": "9a008e0ea77b47e9dad31371002e1758551bdb88",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9691,7 +9705,7 @@
     },
     {
       "path": "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
-      "sha": "b4f9b0ee00a12baef6aed215dd19d0414a2c6877",
+      "sha": "c1fffa0a93ee90820bc838994f06aa06a5cb3cf3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10098,6 +10112,48 @@
     {
       "path": "ferramentas/contrato_ator.py",
       "sha": "aae0c5d013b5512c8a0c862278ef91b7fc86ead0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/cutover/CUTOVER-ENSAIO-V1.json",
+      "sha": "f394786930e4b5df9be104d73f10b314ef68fecb",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/cutover/congelar_extras.py",
+      "sha": "d6d4c10b82314a26729078bb99d38eece9165507",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/cutover/medir_cutover.py",
+      "sha": "c5cfe323235e9b0d6d805f8e4bc46baedba6f768",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/cutover/observador_ensaio.py",
+      "sha": "c650af1b1612f2601116fe85c270d0a92ac50306",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/cutover/passos_do_cutover.py",
+      "sha": "02537e7d333c316774e7c01b284d9f9feed4de9d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/cutover/resolver_conflitos_ensaio.py",
+      "sha": "91d7e5d234c970067f73f202d26b72f47f35282e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16467,7 +16523,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e42bd5a28182c9947c672981d771ffbc0c30d85f",
+      "sha": "71c67d6a08dcfc02f8a861b234dbd64bc61559b1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17854,6 +17910,13 @@
     {
       "path": "tests/test_medir_admission_t3_atual.py",
       "sha": "2b417aa2b4ccb1e328af34d578e5558faf9ca1a5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_medir_cutover.py",
+      "sha": "9dd08817e63fd9c2033795b48dc2089d7dfcef59",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29506,6 +29569,149 @@
         "file": "ferramentas/contrato_ator.py",
         "line": 63,
         "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/medir_cutover.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/medir_cutover.py",
+        "line": 88,
+        "snippet": "for rel, k, ch in ((\"candidatas/FONTES-CANDIDATAS.json\", \"CANDIDATAS\", \"CANDIDATA_ID\"),"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/medir_cutover.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/medir_cutover.py",
+        "line": 117,
+        "snippet": "tr = _j(cur / \"LIFECYCLE-LEDGER-V1.json\")[\"TRANSICOES\"]"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/medir_cutover.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/medir_cutover.py",
+        "line": 118,
+        "snippet": "ta = _j(cur / \"LIFECYCLE-QUEUE-V1.json\")[\"TAREFAS\"]"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/medir_cutover.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/medir_cutover.py",
+        "line": 89,
+        "snippet": "(\"curadoria/SOURCE-ID-ALLOCATION-V1.json\", \"NOVAS\", \"SOURCE_ID\")):"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/medir_cutover.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/medir_cutover.py",
+        "line": 119,
+        "snippet": "contratos = {c[\"SOURCE_ID\"]: c for c in _j(cur / \"italy_contracts_curator.json\")[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/medir_cutover.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/medir_cutover.py",
+        "line": 165,
+        "snippet": "est = subprocess.run([sys.executable, str(cur / \"supervisor.py\"), \"--estado\"], cwd=str(viva),"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/passos_do_cutover.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/passos_do_cutover.py",
+        "line": 56,
+        "snippet": "pares = [(raiz / \"candidatas\" / \"FONTES-CANDIDATAS.json\", extras / \"FONTES-CANDIDATAS.json\"),"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/passos_do_cutover.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/passos_do_cutover.py",
+        "line": 103,
+        "snippet": "trans = json.loads((cur / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/passos_do_cutover.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/passos_do_cutover.py",
+        "line": 104,
+        "snippet": "tarefas = json.loads((cur / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))[\"TAREFAS\"]"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/passos_do_cutover.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/passos_do_cutover.py",
+        "line": 57,
+        "snippet": "(raiz / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\", extras / \"SOURCE-ID-ALLOCATION-V1.json\")]"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/passos_do_cutover.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/passos_do_cutover.py",
+        "line": 88,
+        "snippet": "p = raiz / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/passos_do_cutover.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/cutover/passos_do_cutover.py",
+        "line": 97,
+        "snippet": "p.write_text(json.dumps(U, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/cutover/passos_do_cutover.py",
+      "to_file": "ferramentas/cutover/medir_cutover.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/cutover/passos_do_cutover.py",
+        "line": 38,
+        "snippet": "import medir_cutover as M  # noqa: E402"
       }
     },
     {
@@ -69923,6 +70129,116 @@
       }
     },
     {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 75,
+        "snippet": "cand = raiz / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 77,
+        "snippet": "cand.write_text(json.dumps({\"CANDIDATAS\": [{\"CANDIDATA_ID\": \"C1\"}]}), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 128,
+        "snippet": "(cur / \"LIFECYCLE-LEDGER-V1.json\").write_text(json.dumps({\"TRANSICOES\": tr}), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 129,
+        "snippet": "(cur / \"LIFECYCLE-QUEUE-V1.json\").write_text(json.dumps({\"TAREFAS\": ta}), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 76,
+        "snippet": "aloc = raiz / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 78,
+        "snippet": "aloc.write_text(json.dumps({\"NOVAS\": []}), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 46,
+        "snippet": "f = corte / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 47,
+        "snippet": "f.write_text('{\"FONTES\": []}', encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "ferramentas/cutover/medir_cutover.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 12,
+        "snippet": "_s = importlib.util.spec_from_file_location(\"medir_cutover\", RAIZ / \"ferramentas\" / \"cutover\" / \"medir_cutover.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_cutover.py",
+      "to_file": "ferramentas/cutover/passos_do_cutover.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_cutover.py",
+        "line": 15,
+        "snippet": "_p = importlib.util.spec_from_file_location(\"passos_do_cutover\", RAIZ / \"ferramentas\" / \"cutover\" / \"passos_do_cutover.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_metricas.py",
       "to_file": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
       "type": "READS",
@@ -76459,10 +76775,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2630,
-    "files_readable": 1198,
-    "files_code_dir": 1006,
-    "file_edges": 5225,
+    "files_tracked": 2639,
+    "files_readable": 1204,
+    "files_code_dir": 1013,
+    "file_edges": 5248,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

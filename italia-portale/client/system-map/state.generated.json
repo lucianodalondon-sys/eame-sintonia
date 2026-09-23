@@ -17,6 +17,7 @@
       "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
       "CASCO-CLIENT-DEMO.md",
       "CLAUDE.md",
+      "CUTOVER-RUNBOOK.md",
       "DEPOIS-DO-PORTAL.md",
       "HANDOFF-BUILD-DA-REUNIAO.md",
       "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
@@ -31,6 +32,7 @@
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
       "RELATORIO-COORTE-MICRO.md",
+      "RELATORIO-CUTOVER-ENSAIO.md",
       "RELATORIO-CUTOVER.md",
       "RELATORIO-DESBLOQUEIO-COORTE.md",
       "RELATORIO-DETECTOR-CAPA.md",
@@ -1472,6 +1474,12 @@
       "ferramentas/apify_pool.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
+      "ferramentas/cutover/CUTOVER-ENSAIO-V1.json",
+      "ferramentas/cutover/congelar_extras.py",
+      "ferramentas/cutover/medir_cutover.py",
+      "ferramentas/cutover/observador_ensaio.py",
+      "ferramentas/cutover/passos_do_cutover.py",
+      "ferramentas/cutover/resolver_conflitos_ensaio.py",
       "ferramentas/fala_local.py",
       "ferramentas/html_text.mjs",
       "ferramentas/instagram_transcrever.py",
@@ -2625,6 +2633,7 @@
       "tests/test_m2_rota_forward.py",
       "tests/test_mapa_nao_mente.py",
       "tests/test_medir_admission_t3_atual.py",
+      "tests/test_medir_cutover.py",
       "tests/test_metricas.py",
       "tests/test_micro_coleta_instrumento.py",
       "tests/test_migrations.py",
@@ -3223,10 +3232,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-    "GENERATED_AT": "2026-09-23T02:36:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901"
+    "BRANCH": "cutover-ensaio-v1",
+    "HEAD": "5a16d07746c9f88f0003b37cc9a85e351d1f22c1",
+    "GENERATED_AT": "2026-09-23T02:41:25-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d71689426a604ff94fbcb0a203556d836f815fd4452a43bc2ea878a32d31f62c"
   },
   "FAMILIES": [
     {
@@ -23796,7 +23805,7 @@
       "name": "Censo das lanes antes de unificar",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel.",
+      "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel; e as do ensaio do cutover (X1): medidores que mandam PARAR antes do passo seguinte, a fotografia dos livros extra e os passos 5b/5c/7b que o SWITCH_PLAN nao tinha.",
       "why_here": "Juntar linhas sem medir primeiro troca uma tarde de censo por uma semana a desfazer. O script nao escreve objectos, refs nem indice: o conflito e medido com merge-file em temporarios fora do repo.",
       "departments": [
         "ENGENHARIA"
@@ -23811,6 +23820,11 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "ferramentas/cutover/congelar_extras.py",
+        "ferramentas/cutover/medir_cutover.py",
+        "ferramentas/cutover/observador_ensaio.py",
+        "ferramentas/cutover/passos_do_cutover.py",
+        "ferramentas/cutover/resolver_conflitos_ensaio.py",
         "ferramentas/unificacao/censo_lanes.py",
         "ferramentas/unificacao/congelar_livros_do_servico.py",
         "ferramentas/unificacao/ensaio_unificacao.py",
@@ -23820,13 +23834,14 @@
         "ferramentas/unificacao/unir_ledger.py",
         "ferramentas/unificacao/unir_livros_do_servico.py"
       ],
-      "file_count": 8,
+      "file_count": 13,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 13 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
+        "curadoria/italy_contracts_curator.json",
         "curadoria/red_team_telemetria.py",
         "curadoria/status_live.py",
         "curadoria/supervisor.py",
@@ -23836,15 +23851,24 @@
       ],
       "inbound": [
         "C-CONTRATO-TELEMETRIA",
-        "C-PORTA-FONTE"
+        "C-PORTA-FONTE",
+        "C-TESTES"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-COORTE-MICRO-FUNIL",
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-MICRO-COLETA-INSTRUMENTO",
+        "C-MICRO-COLHEITA",
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 2
+        "ITALIA": 5
       },
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
+      "entregue_a_inteligencia": [
+        "curadoria/italy_contracts_curator.json"
+      ],
       "parado_na_coleta": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
@@ -23861,14 +23885,16 @@
         "papel": "NAO SEI",
         "listas": [
           "BASE_REAL",
+          "D10",
           "ESCOLHAS",
           "LANES",
           "LIVROS",
+          "NAO_FINAIS",
           "ORDEM"
         ],
-        "palavras": 41,
+        "palavras": 54,
         "por_lingua": {},
-        "sem_marca_de_lingua": 41,
+        "sem_marca_de_lingua": 54,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -23892,31 +23918,49 @@
         },
         {
           "onde": "GIT",
-          "file": "curadoria/red_team_telemetria.py",
+          "file": "curadoria/italy_contracts_curator.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
         {
           "onde": "GIT",
-          "file": "curadoria/status_live.py",
+          "file": "curadoria/red_team_telemetria.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "escreve curadoria/LIFECYCLE-QUEUE-V1.json, e C-COORTE-MICRO-FUNIL le isso: entrega trabalho a peca seguinte",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": null,
+      "OWNER_CONFLICT": [
+        {
+          "file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+          "written_by": [
+            "C-CENSO-UNIFICACAO",
+            "C-TESTES"
+          ],
+          "owner_elected": "C-CENSO-UNIFICACAO"
+        },
+        {
+          "file": "curadoria/italy_contracts_curator.json",
+          "written_by": [
+            "C-CENSO-UNIFICACAO",
+            "C-TESTES"
+          ],
+          "owner_elected": "C-CENSO-UNIFICACAO"
+        }
+      ],
       "consumes": [
+        "candidatas/FONTES-CANDIDATAS.json",
         "curadoria/BRIDGE-LEDGER-V1.json",
         "curadoria/DISCOVERY-VISITED.json",
         "curadoria/LIFECYCLE-EVIDENCE-V1.json",
@@ -23924,6 +23968,7 @@
         "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/READY-BATCHES-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
+        "curadoria/SOURCE-ID-ALLOCATION-V1.json",
         "curadoria/descobrir.py",
         "curadoria/ensaiar_gatilho_ocioso.py",
         "curadoria/ensaiar_worker_pendurado.py",
@@ -23956,8 +24001,13 @@
         "CLASSE": "NAO_SEI",
         "QUEM": [],
         "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "PROVA": [
+          "medidas/micro_colheita.py:72",
+          "scripts/coorte_micro/funil.py:68",
+          "scripts/detector_capa/colher_gabarito.py:64",
+          "scripts/micro_coleta/medir_detector_de_capa.py:48"
+        ],
+        "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-MICRO-COLETA-INSTRUMENTO · C-MICRO-COLHEITA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 6000,
       "y": 682
@@ -25395,6 +25445,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-CENSO-UNIFICACAO",
         "C-DETECTOR-CAPA-GABARITO",
         "C-RECEITAS-PROPOSTA",
         "C-TESTES"
@@ -26471,7 +26522,9 @@
       "produces": [
         "handoff/paused-v2/MANIFESTO.json"
       ],
-      "inbound": [],
+      "inbound": [
+        "C-CENSO-UNIFICACAO"
+      ],
       "outbound": [
         "C-COORTE-MICRO-FUNIL",
         "C-DESBLOQUEIO-PACOTE",
@@ -33273,6 +33326,7 @@
       "produces": [],
       "inbound": [
         "C-CANARIO-ROTAS-ELEGIVEIS",
+        "C-CENSO-UNIFICACAO",
         "C-IT-COLETA",
         "C-ORQUESTRADOR",
         "C-PEDIDO",
@@ -33366,7 +33420,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "◎",
       "views": [
         "audit"
@@ -33380,11 +33434,13 @@
         "medidas/micro_colheita.py"
       ],
       "file_count": 4,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-CENSO-UNIFICACAO"
+      ],
       "outbound": [],
       "paises": {
         "ITALIA": 1
@@ -34540,7 +34596,9 @@
         "candidatas/fonte_nova.py"
       ],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-TESTES"
+      ],
       "outbound": [
         "C-CENSO-UNIFICACAO",
         "C-DECISAO-DA-FILA",
@@ -44784,6 +44842,7 @@
         "tests/test_m2_rota_forward.py",
         "tests/test_mapa_nao_mente.py",
         "tests/test_medir_admission_t3_atual.py",
+        "tests/test_medir_cutover.py",
         "tests/test_metricas.py",
         "tests/test_micro_coleta_instrumento.py",
         "tests/test_migrations.py",
@@ -44864,7 +44923,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 208,
+      "file_count": 209,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -44886,6 +44945,8 @@
         "tests/test_red_team_estrada.py"
       ],
       "produces": [
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/SOURCE-ID-ALLOCATION-V1.json",
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
         "regras/italy_contracts_onboarded.json",
@@ -44913,6 +44974,7 @@
         "C-CENSO-EXECUTORES",
         "C-CENSO-IDENTIDADE-IT",
         "C-CENSO-OBSERVABILIDADE",
+        "C-CENSO-UNIFICACAO",
         "C-CI-COLETA",
         "C-CI-MAPA",
         "C-CI-PERSIST",
@@ -45038,6 +45100,7 @@
         "C-AUTORIZACAO-DE-GASTO",
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CENSO-CONGELAMENTO",
+        "C-CENSO-UNIFICACAO",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
         "C-COORTE-MICRO-FUNIL",
@@ -45046,6 +45109,7 @@
         "C-MAPA-GERADOR",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
+        "C-PORTA-FONTE",
         "C-PORTAL-DADOS",
         "C-PROVA-ADAMA-REFERENCE",
         "C-PROVA-COLETA",
@@ -45059,7 +45123,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 48,
+        "ITALIA": 50,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -45208,7 +45272,7 @@
         },
         {
           "onde": "GIT",
-          "file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+          "file": "candidatas/FONTES-CANDIDATAS.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -45468,6 +45532,8 @@
         "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
         "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
         "ferramentas/apify_pool.py",
+        "ferramentas/cutover/medir_cutover.py",
+        "ferramentas/cutover/passos_do_cutover.py",
         "ferramentas/fala_local.py",
         "ferramentas/instagram_transcrever.py",
         "ferramentas/reel_transcricao.py",
@@ -47568,7 +47634,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch cutover-ensaio-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -57176,6 +57242,245 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-COORTE-MICRO-FUNIL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/coorte_micro/funil.py",
+          "line": 68,
+          "snippet": "Path(livro or snap / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-COORTE-MICRO-FUNIL",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-COORTE-MICRO-FUNIL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-DETECTOR-CAPA-GABARITO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/detector_capa/colher_gabarito.py",
+          "line": 64,
+          "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-DETECTOR-CAPA-GABARITO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/detector_capa/medir_gabarito.py",
+          "line": 120,
+          "snippet": "(RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-DETECTOR-CAPA-GABARITO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-MICRO-COLETA-INSTRUMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/micro_coleta/medir_detector_de_capa.py",
+          "line": 48,
+          "snippet": "(MC.RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLETA-INSTRUMENTO",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-MICRO-COLETA-INSTRUMENTO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-MICRO-COLHEITA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta A micro-colheita medida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/micro_colheita.py",
+          "line": 72,
+          "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLHEITA",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-MICRO-COLHEITA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 37,
+          "snippet": "CURATOR = os.path.join(RAIZ, \"curadoria\", \"italy_contracts_curator.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_medir_cutover.py",
+          "line": 12,
+          "snippet": "_s = importlib.util.spec_from_file_location(\"medir_cutover\", RAIZ / \"ferramentas\" / \"cutover\" / \"medir_cutover.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_medir_cutover.py",
+          "line": 15,
+          "snippet": "_p = importlib.util.spec_from_file_location(\"passos_do_cutover\", RAIZ / \"ferramentas\" / \"cutover\" / \"passos_do_cutover.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_medir_cutover.py",
+          "line": 46,
+          "snippet": "f = corte / \"italy_contracts_curator.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -85750,12 +86055,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova alimenta Censo das lanes antes de unificar. Provado por 1 linha de codigo.",
+      "reason": "A porta de entrada de fonte nova alimenta Censo das lanes antes de unificar. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "curadoria/test_discovery.py",
           "line": 59,
           "snippet": "\"FN.FILA\":          RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/cutover/medir_cutover.py",
+          "line": 88,
+          "snippet": "for rel, k, ch in ((\"candidatas/FONTES-CANDIDATAS.json\", \"CANDIDATAS\", \"CANDIDATA_ID\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/cutover/passos_do_cutover.py",
+          "line": 56,
+          "snippet": "pares = [(raiz / \"candidatas\" / \"FONTES-CANDIDATAS.json\", extras / \"FONTES-CANDIDATAS.json\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
             "FROM": "C-PORTA-FONTE",
@@ -85871,12 +86208,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_fila_italia_decisoes.py",
           "line": 38,
           "snippet": "FILA = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_medir_cutover.py",
+          "line": 75,
+          "snippet": "cand = raiz / \"candidatas\" / \"FONTES-CANDIDATAS.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
             "FROM": "C-PORTA-FONTE",
@@ -105061,6 +105414,188 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Censo das lanes antes de unificar. Provado por 7 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/test_supervisor.py",
+          "line": 59,
+          "snippet": "\"LC.LIVRO\": RAIZ / \"curadoria\" / \"LIFECYCLE-LEDGER-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/cutover/medir_cutover.py",
+          "line": 89,
+          "snippet": "(\"curadoria/SOURCE-ID-ALLOCATION-V1.json\", \"NOVAS\", \"SOURCE_ID\")):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/cutover/medir_cutover.py",
+          "line": 117,
+          "snippet": "tr = _j(cur / \"LIFECYCLE-LEDGER-V1.json\")[\"TRANSICOES\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/cutover/passos_do_cutover.py",
+          "line": 57,
+          "snippet": "(raiz / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\", extras / \"SOURCE-ID-ALLOCATION-V1.json\")]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/cutover/passos_do_cutover.py",
+          "line": 103,
+          "snippet": "trans = json.loads((cur / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+          "line": 25,
+          "snippet": "LIVROS = (\"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/unir_ledger.py",
+          "line": 31,
+          "snippet": "CAMINHO = \"curadoria/LIFECYCLE-LEDGER-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Censo das lanes antes de unificar. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_medir_cutover.py",
+          "line": 47,
+          "snippet": "f.write_text('{\"FONTES\": []}', encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_medir_cutover.py",
+          "line": 129,
+          "snippet": "(cur / \"LIFECYCLE-QUEUE-V1.json\").write_text(json.dumps({\"TAREFAS\": ta}), encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
+            "FROM": "C-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-CI-PERSIST",
       "type": "WRITES",
       "payload": "artefacto",
@@ -105137,8 +105672,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes alimenta Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes alimenta Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "scripts/coorte_micro/funil.py",
+          "line": 63,
+          "snippet": "T = json.loads((snap / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-COORTE-MICRO-FUNIL",
+            "FROM": "C-TESTES",
+            "TO": "C-COORTE-MICRO-FUNIL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "scripts/coorte_micro/funil.py",
           "line": 70,
@@ -105343,6 +105894,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PORTA-FONTE",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em A porta de entrada de fonte nova. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_medir_cutover.py",
+          "line": 77,
+          "snippet": "cand.write_text(json.dumps({\"CANDIDATAS\": [{\"CANDIDATA_ID\": \"C1\"}]}), encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-PORTA-FONTE",
+            "FROM": "C-TESTES",
+            "TO": "C-PORTA-FONTE",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -108729,6 +109315,22 @@
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
+      "file": "candidatas/FONTES-CANDIDATAS.json",
+      "written_by": [
+        "C-PORTA-FONTE",
+        "C-TESTES"
+      ],
+      "owner_elected": "C-PORTA-FONTE"
+    },
+    {
+      "file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "written_by": [
+        "C-CENSO-UNIFICACAO",
+        "C-TESTES"
+      ],
+      "owner_elected": "C-CENSO-UNIFICACAO"
+    },
+    {
       "file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
       "written_by": [
         "C-CANARIO-ROTAS-ELEGIVEIS",
@@ -108743,6 +109345,14 @@
         "C-TESTES"
       ],
       "owner_elected": "C-CANARIO-ROTAS-ELEGIVEIS"
+    },
+    {
+      "file": "curadoria/italy_contracts_curator.json",
+      "written_by": [
+        "C-CENSO-UNIFICACAO",
+        "C-TESTES"
+      ],
+      "owner_elected": "C-CENSO-UNIFICACAO"
     },
     {
       "file": "system-map/data/architecture.declared.json",
@@ -108923,23 +109533,23 @@
   "COUNTS": {
     "components": 232,
     "components_proven": 31,
-    "components_pending": 192,
+    "components_pending": 193,
     "components_broken": 0,
-    "components_unknown": 9,
-    "edges": 1183,
-    "edges_proven": 1119,
+    "components_unknown": 8,
+    "edges": 1191,
+    "edges_proven": 1127,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2630,
-    "files_covered": 1135,
+    "files_tracked": 2639,
+    "files_covered": 1144,
     "files_code_unclaimed": 0,
-    "roles_proven": 159,
+    "roles_proven": 160,
     "roles_declared_only": 9,
-    "roles_unknown": 64,
+    "roles_unknown": 63,
     "roles_conflict": 30,
     "concept_owner_count": 15,
-    "concept_owner_conflicts": 10,
-    "concept_owner_single": 3,
+    "concept_owner_conflicts": 11,
+    "concept_owner_single": 2,
     "concept_owner_instrument": 2
   }
 }

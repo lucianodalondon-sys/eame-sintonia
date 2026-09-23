@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T05:39:55+00:00",
-  "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-  "BRANCH": "unificacao-v1",
+  "GENERATED_AT": "2026-09-23T10:21:26+00:00",
+  "HEAD": "5a16d07746c9f88f0003b37cc9a85e351d1f22c1",
+  "BRANCH": "cutover-ensaio-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901",
-  "FICHEIROS_NA_IMPRESSAO": 2778,
+  "SOURCE_TREE_FINGERPRINT": "d71689426a604ff94fbcb0a203556d836f815fd4452a43bc2ea878a32d31f62c",
+  "FICHEIROS_NA_IMPRESSAO": 2787,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -693,6 +693,41 @@
     "PATH": "ferramentas/contrato_ator.py",
     "PAPEL": "FONTE",
     "VERSAO": "aae0c5d013b5512c8a0c862278ef91b7fc86ead0",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/cutover/congelar_extras.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d6d4c10b82314a26729078bb99d38eece9165507",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/cutover/medir_cutover.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c5cfe323235e9b0d6d805f8e4bc46baedba6f768",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/cutover/observador_ensaio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c650af1b1612f2601116fe85c270d0a92ac50306",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/cutover/passos_do_cutover.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "02537e7d333c316774e7c01b284d9f9feed4de9d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/cutover/resolver_conflitos_ensaio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "91d7e5d234c970067f73f202d26b72f47f35282e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3408,14 +3443,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901",
+    "VERSAO": "d71689426a604ff94fbcb0a203556d836f815fd4452a43bc2ea878a32d31f62c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901",
+    "VERSAO": "d71689426a604ff94fbcb0a203556d836f815fd4452a43bc2ea878a32d31f62c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4589,6 +4624,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_medir_cutover.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9dd08817e63fd9c2033795b48dc2089d7dfcef59",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_metricas.py",
     "PAPEL": "FONTE",
     "VERSAO": "442dfcec526402c8d46abfb162aae64b0613f658",
@@ -5142,8 +5184,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 729,
-  "INPUTS_DIGEST": "e10c45a1e4f8e30e86a291ea50f9d71c5cfa2e3eaeb6fb0971ad7c258a5784f5",
+  "INPUTS_COUNT": 735,
+  "INPUTS_DIGEST": "1837898b18de83167201cec238babf6aebde94f74c55da600b225c36daf5db6c",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5169,15 +5211,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 468,
+  "DOCUMENTOS_LIDOS": 470,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "198184cc1e7dd070d8636383cb51d96442e170cbe699943cb97e582698cafb7f",
-  "SEMANTIC_HASH": "b1dc4d64cba1e9fe991aaa7366a354af17e07ef5ab7776dd3661ecb1ca083acb"
+  "MEASUREMENT_HASH": "1c23ea9cb5c80fce2263556cee4df5d44af2a4b708aa39325e5a1760615e28ab",
+  "SEMANTIC_HASH": "01b90e67adb2d0af30ce556f2f6b9a750d27dff9b9ffe066142ababb0aed243c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10489,6 +10531,148 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-TOPOLOGIA--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-COORTE-MICRO-FUNIL",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-COORTE-MICRO-FUNIL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/coorte_micro/funil.py",
+      "LINHA": 68,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-DETECTOR-CAPA-GABARITO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/detector_capa/colher_gabarito.py",
+      "LINHA": 64,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/detector_capa/medir_gabarito.py",
+      "LINHA": 120,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/medir_detector_de_capa.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLHEITA",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-MICRO-COLHEITA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/micro_colheita.py",
+      "LINHA": 72,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLHEITA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_integracao_04a_curator.py",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_medir_cutover.py",
+      "LINHA": 12,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_medir_cutover.py",
+      "LINHA": 15,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_medir_cutover.py",
+      "LINHA": 46,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -27104,6 +27288,22 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/cutover/medir_cutover.py",
+      "LINHA": 88,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/cutover/passos_do_cutover.py",
+      "LINHA": 56,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -27152,6 +27352,14 @@
      {
       "FICHEIRO": "tests/test_fila_italia_decisoes.py",
       "LINHA": 38,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_medir_cutover.py",
+      "LINHA": 75,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
@@ -37543,6 +37751,76 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+    "FROM": "C-TESTES",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/test_supervisor.py",
+      "LINHA": 59,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/cutover/medir_cutover.py",
+      "LINHA": 89,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/cutover/medir_cutover.py",
+      "LINHA": 117,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/cutover/passos_do_cutover.py",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/cutover/passos_do_cutover.py",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/unir_ledger.py",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-CICATRIZES-BR",
     "FROM": "C-TESTES",
     "TO": "C-CICATRIZES-BR",
@@ -37576,6 +37854,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/coorte_micro/funil.py",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "scripts/coorte_micro/funil.py",
       "LINHA": 70,
@@ -37963,6 +38249,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
+    "FROM": "C-TESTES",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_medir_cutover.py",
+      "LINHA": 47,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_medir_cutover.py",
+      "LINHA": 129,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--WRITES-->C-CI-PERSIST",
     "FROM": "C-TESTES",
     "TO": "C-CI-PERSIST",
@@ -38002,6 +38318,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-ESTRADAS-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--WRITES-->C-PORTA-FONTE",
+    "FROM": "C-TESTES",
+    "TO": "C-PORTA-FONTE",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_medir_cutover.py",
+      "LINHA": 77,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PORTA-FONTE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -39579,12 +39917,12 @@
     ]
    }
   ],
-  "COUNT": 1117
+  "COUNT": 1125
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 172,
   "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1117,
+  "ARESTAS_RELACIONADAS": 1125,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -39833,8 +40171,7 @@
   ],
   "SEM_LIGACAO": {
    "C-ARMAZEM-IT-SEM-LIVRO": "ARMAZEM",
-   "C-DERIVED-ARTIFACT": "ARMAZEM",
-   "C-MICRO-COLHEITA": "UNKNOWN"
+   "C-DERIVED-ARTIFACT": "ARMAZEM"
   },
   "ORFAOS_FALSOS_POR_VISTA": {
    "C-APRENDER-COM-A-FONTE": [
@@ -39849,9 +40186,6 @@
    ],
    "C-CENSO-EXECUTORES": [
     "coverage"
-   ],
-   "C-CENSO-UNIFICACAO": [
-    "infra"
    ],
    "C-CONTRATO-ARTEFATO": [
     "opportunity",
@@ -39915,6 +40249,9 @@
    ],
    "C-MICRO-COLETA-INSTRUMENTO": [
     "collection-strategy"
+   ],
+   "C-MICRO-COLHEITA": [
+    "audit"
    ],
    "C-POLITICA-COLETA": [
     "collection-strategy",
@@ -39980,15 +40317,13 @@
     "official"
    ]
   },
-  "SEM_LIGACAO_INEXPLICADOS": [
-   "C-MICRO-COLHEITA"
-  ],
+  "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
    "CODE": 188,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 372,
-   "READ": 250,
+   "PROOF": 376,
+   "READ": 254,
    "RULE": 196,
    "WRITE": 8
   },
@@ -41186,6 +41521,11 @@
    "KIND": "library",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "ferramentas/cutover/congelar_extras.py",
+    "ferramentas/cutover/medir_cutover.py",
+    "ferramentas/cutover/observador_ensaio.py",
+    "ferramentas/cutover/passos_do_cutover.py",
+    "ferramentas/cutover/resolver_conflitos_ensaio.py",
     "ferramentas/unificacao/censo_lanes.py",
     "ferramentas/unificacao/congelar_livros_do_servico.py",
     "ferramentas/unificacao/ensaio_unificacao.py",
@@ -41196,8 +41536,11 @@
     "ferramentas/unificacao/unir_livros_do_servico.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
-   "SO_MEDEM_ESTE": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_medir_cutover.py"
+   ],
    "DOCUMENTADO_COMO_CLI": [
+    "CUTOVER-RUNBOOK.md",
     "RELATORIO-UNIFICACAO.md"
    ],
    "E_ENTRYPOINT": false,
@@ -41205,24 +41548,27 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [
+    "__future__",
     "collections",
     "datetime",
     "pathlib",
     "telemetria",
     "telemetria_do_curador"
    ],
-   "ENTRAM": 3,
-   "SAEM": 0,
+   "ENTRAM": 5,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
+    "PROOF",
     "READ",
     "RULE"
    ],
-   "CATEGORIAS_QUE_SAEM": [],
-   "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "infra"
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
+    "READ"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -41852,10 +42198,11 @@
     "collections",
     "pathlib"
    ],
-   "ENTRAM": 3,
+   "ENTRAM": 4,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
+    "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -42132,6 +42479,7 @@
     "tests/test_retirada_por_decisao.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    "CUTOVER-RUNBOOK.md",
     "RELATORIO-DESBLOQUEIO-COORTE.md"
    ],
    "E_ENTRYPOINT": false,
@@ -42186,9 +42534,11 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 0,
+   "ENTRAM": 1,
    "SAEM": 6,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ"
+   ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
     "RULE"
@@ -44300,7 +44650,7 @@
     "raw_asset",
     "sala_de_espera"
    ],
-   "ENTRAM": 6,
+   "ENTRAM": 7,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -44323,7 +44673,7 @@
    "FAMILIA": "F-COLETA",
    "TERRITORIO": "Z-MEDIDAS",
    "KIND": "engine",
-   "STATUS": "UNKNOWN",
+   "STATUS": "PENDING",
    "FICHEIROS": [
     "medidas/MICRO-COLLECTION-RUN1-BR-V1.json",
     "medidas/MICRO-COLLECTION-RUN2-BR-V1.json",
@@ -44343,12 +44693,16 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 0,
+   "ENTRAM": 1,
    "SAEM": 0,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ"
+   ],
    "CATEGORIAS_QUE_SAEM": [],
-   "PORQUE_SOZINHO": "UNKNOWN",
-   "ORFAO_FALSO_NAS_VISTAS": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "audit"
+   ],
    "GAP": null
   },
   {
@@ -44740,6 +45094,7 @@
     "system-map/scripts/scan_repo.py",
     "system-map/scripts/scan_sources.py",
     "tests/test_fila_italia_decisoes.py",
+    "tests/test_medir_cutover.py",
     "tests/test_porta_de_candidatas.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -44756,9 +45111,11 @@
     "fonte_nova",
     "pathlib"
    ],
-   "ENTRAM": 0,
+   "ENTRAM": 1,
    "SAEM": 5,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF"
+   ],
    "CATEGORIAS_QUE_SAEM": [
     "CODE",
     "PROOF",
@@ -48099,6 +48456,7 @@
     "tests/test_m2_rota_forward.py",
     "tests/test_mapa_nao_mente.py",
     "tests/test_medir_admission_t3_atual.py",
+    "tests/test_medir_cutover.py",
     "tests/test_metricas.py",
     "tests/test_micro_coleta_instrumento.py",
     "tests/test_migrations.py",
@@ -48298,8 +48656,8 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 194,
-   "SAEM": 25,
+   "ENTRAM": 195,
+   "SAEM": 28,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
