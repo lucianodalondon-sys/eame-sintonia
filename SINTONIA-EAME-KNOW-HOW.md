@@ -20056,3 +20056,37 @@ Ferramentas em `ferramentas/unificacao/`; números em `ferramentas/unificacao/m5
 - **Classe antes do rótulo.** `AUTH_BLOCK` (muro de login) caía em UNKNOWN na
   reconciliação por não estar no vocabulário. Lê-se como CAPABILITY_BLOCK (a
   decisão já estava declarada em `_CLASSE_DE`); o rótulo fica no livro.
+
+## MULTILINGUE-1 · A MESMA RÉGUA NA LÍNGUA DO TEXTO, NÃO A OUTRA LÍNGUA AO LADO
+
+*(L1, 23/09/2026 · número a atribuir na unificação.)*
+
+D3 do dono: idioma sozinho nunca gera NAO_SEI. No lote-76, os 10 textos da
+Zootecnica (inglês) caíam todos em NAO_SEI — a régua só tinha palavras
+italianas e portuguesas.
+
+A receita antiga da casa era «não se traduz a lista: junta-se a outra língua ao
+lado». Para o inglês isso **estraga o italiano**: `export` já tinha saído de T10
+por casar nos blocos «potrebbe interessarti» de páginas italianas. Juntar o
+inglês à lista trazia esse ruído de volta.
+
+> A porta vê primeiro em que língua o texto está (`admissao/idioma.py`,
+> palavras-função com mínimo e margem) e aplica a lista **dessa** língua:
+> it/pt/não-sei → a régua de sempre, por construção; en → os mesmos conceitos
+> em inglês; fr/es/de → NAO_SEI dito (`IDIOMA_NAO_SUPORTADO:<xx>`). Nenhum
+> limiar muda.
+
+As armadilhas de substring também existem em inglês e ficam de fora, declaradas:
+`trial` (indus**trial**), `event` (pr**event**), `product` (**product**ion),
+`thesis` (syn**thesis**), `import` (**import**ant), `pest` (**pest**icide,
+Buda**pest**), `trap` (s**trap**).
+
+Medido no conteúdo real (528 ficheiros): italiano domina, inglês existe (19),
+francês/espanhol/alemão/português **zero** — não se finge suporte.
+
+Duas guardas de missões antigas (`test_a_admissao_e_o_gate_nao_mudaram`,
+`test_a_admission_nao_foi_tocada`) reprovam qualquer mudança **por commitar** em
+`admissao/`; passam depois do commit. Não guardam a opinião da porta — e a guarda
+`BASELINE_CONGELADO` confere um artefacto guardado, não volta a julgar os 36
+documentos (os textos deles não estão no repo). A prova do italiano é a
+re-medição do lote-76 com as duas réguas.
