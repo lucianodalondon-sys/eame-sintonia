@@ -21162,3 +21162,25 @@ provas/canario_d23_linkedin_video.py   ·   CUSTO_USD = 0.0
   `c2_youtube_oficial`, `c3_youtube_cutover`, `c6_especie_do_texto`, `canonico`,
   `porta_de_producao` e `a_porta_cli_liga_o_banco`. **A única regressão que era
   desta missão** (`c13_route_gate`) foi corrigida e passa 25/25.
+
+### E a armadilha do proprio mapa: o carimbo anda uma volta atras
+
+Medido hoje, e vale como regra para quem mexer no mapa: o mapa CARIMBA o HEAD que o gerou. Se alguem gerar, commitar e VOLTAR a gerar, a segunda geracao difere da commitada apenas em duas linhas por ficheiro — `HEAD` e `GENERATED_AT` — e o resultado e uma arvore que nunca fica limpa: cada commit novo torna o carimbo commitado um passo velho, e cada nova geracao cria trabalho novo. 
+
+     O CICLO ACABA NO COMMIT DA GERACAO. Quem regerar depois dele nao commita a segunda volta: REVERTE os ficheiros gerados para a versao commitada (`git checkout -- system-map/data italia-portale/client/system-map`). O que prova saude do mapa sao as duas medidas do fim — `SYSTEM_MAP_CHECK=PASS` e `IMPRESSAO_DO_CARIMBO=IGUAL` — e as duas comparam o CARIMBO, que e da ARVORE, e nao a hora em que a linha foi escrita.
+
+Nesta missao as duas fecharam: `SystemMap=PASS` e `Carimbo=IGUAL sobre 2849 ficheiros-fonte`. Duas geracoes seguidas sobre a mesma arvore deram ficheiros identicos (md5 `e51cdd34`) — o scanner NAO e a fonte de deriva: a deriva tinha sido a ORDEM dos acontecimentos.
+
+### A bateria do Scrap por NOME, contra a base
+
+Pedido do coordenador, e a unica forma de uma bateria nao mentir: comparar os NOMES, e nao os numeros. 40 ficheiros do Scrap corridos nos dois lados, um a um, com o nome de cada prova guardado. 
+
+     nomes nos dois lados .... 695 (conjuntos IDENTICOS)
+     NEW_FAILURES_BY_NAME .... 0
+     SAIRAM_DO_VERMELHO ....... 0
+     falhas na arvore nova ... 17 — as MESMAS 17 da base, nome a nome
+
+As tres sentinelas que a missao atualizou continuam VERDES (`test_c13_route_gate`, `test_as_duas_portas_do_scrap`, `test_c14c_permissao_instagram`), e a ancora das decisoes antigas continua a morder: tres mutacoes, tres mortes — uma rota ANTIGA que mude de estado derruba 2 provas, a rota NOVA do D23 derruba 1, e uma rota NOVA que apareca sem ser declarada derruba 2. `MUTANTES = 3 · SOBREVIVERAM = 0`. 
+
+**Uma rota antiga que mude tem de ser DECLARADA no teste citando o D23 — e o teste continua a morrer se qualquer OUTRA rota mudar. As duas metades estao medidas, cada uma com a sua prova.** 
+
