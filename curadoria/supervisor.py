@@ -617,9 +617,9 @@ def ler_estado_servico() -> dict:
 
     # --- LIVENESS: PID no SO, no instante da leitura ---
     worker_pid = s.get("WORKER_PID")
-    worker_pid_no_so = bool(worker_pid and _pid_no_so(worker_pid))
+    worker_pid_no_so = bool(worker_pid and _pid_no_so(worker_pid) and _proc_e_python(worker_pid))
     sup_pid = s.get("SUPERVISOR_PID")
-    sup_vivo = bool(sup_pid and _pid_no_so(sup_pid))
+    sup_vivo = bool(sup_pid and _pid_no_so(sup_pid) and _proc_e_python(sup_pid))
 
     # --- HEARTBEAT: idade real, sempre calculada ---
     hb = _ultimo_heartbeat()

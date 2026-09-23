@@ -131,7 +131,7 @@ class Isolado(unittest.TestCase):
 
     def _worker_que_morre_ja(self, pausa: float = 1.0) -> subprocess.Popen:
         """Morre sem escrever uma linha no diario: morte SEM progresso."""
-        p = self._popen("pass")
+        p = self._popen("import sys; sys.exit(1)")  # morrer e rc != 0; rc 0 e saida limpa
         p.wait(timeout=10)
         return p
 
@@ -139,7 +139,7 @@ class Isolado(unittest.TestCase):
         """Escreve um batimento no diario e morre: morte COM progresso."""
         linha = json.dumps({"EVENTO": "VOLTA", "AT": S._agora()})
         p = self._popen(
-            "import io; io.open(%r, 'a', encoding='utf-8').write(%r)"
+            "import io, sys; io.open(%r, 'a', encoding='utf-8').write(%r); sys.exit(1)"
             % (str(S.DIARIO), linha + "\n"))
         p.wait(timeout=10)
         return p

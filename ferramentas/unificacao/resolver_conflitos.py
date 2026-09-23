@@ -120,10 +120,59 @@ def remendos(raiz: Path) -> list:
         if u2 != u:
             tp.write_text(u2, encoding="utf-8", newline="\n")
             feito.append("test_painel_pergunta_ao_so: le SERVICE_DIAGNOSIS")
+    feito += _liveness_pergunta_se_e_python(raiz)
+    feito += _mortes_dos_testes_com_rc_de_crash(raiz)
     feito += _telemetria_com_nome_proprio(raiz)
     feito += _testes_do_servico_no_isolamento_da_ponte(raiz)
     feito += _pasta_descartavel(raiz)
     return feito
+
+
+def _liveness_pergunta_se_e_python(raiz: Path) -> list:
+    """(missao 5) Com o servico 9a82197c as linhas do liveness sairam do bloco 4
+    de conflito e juntaram-se limpas do lado do servico: o `replace` da escolha 4
+    passou a nao fazer nada, CALADO, e o PID reciclado por um processo que nao e
+    python voltava a contar como worker vivo (test_painel_pergunta_ao_so.test_6).
+    Aplica-se aqui sobre o ficheiro inteiro, e rebenta se nao encontrar o alvo."""
+    f = raiz / "curadoria/supervisor.py"
+    t = f.read_text(encoding="utf-8")
+    pares = [("bool(worker_pid and _pid_no_so(worker_pid))",
+              "bool(worker_pid and _pid_no_so(worker_pid) and _proc_e_python(worker_pid))"),
+             ("bool(sup_pid and _pid_no_so(sup_pid))",
+              "bool(sup_pid and _pid_no_so(sup_pid) and _proc_e_python(sup_pid))")]
+    feito = []
+    for velho, novo in pares:
+        if novo in t:
+            continue
+        if t.count(velho) != 1:
+            raise SystemExit("supervisor.py: alvo do liveness nao encontrado (%r) — rever" % velho)
+        t = t.replace(velho, novo)
+        feito.append("supervisor: liveness confirma que o PID e python (%s)" % velho.split()[1])
+    f.write_text(t, encoding="utf-8", newline="\n")
+    return feito
+
+
+def _mortes_dos_testes_com_rc_de_crash(raiz: Path) -> list:
+    """(missao 5) Desde o gatilho ocioso (9a82197c) rc 0 e SAIDA LIMPA, nao crash.
+    Os ajudantes da ponte que simulam um worker a MORRER saiam com rc 0
+    (`pass`, escrever e sair): o crashloop nunca contava e o servico nunca
+    bloqueava. Passam a sair com rc 1 — que e o que «morrer» sempre quis dizer."""
+    f = raiz / "curadoria/test_supervisor.py"
+    t = f.read_text(encoding="utf-8")
+    u = t.replace('''        p = self._popen("pass")
+        p.wait(timeout=10)
+        return p''', '''        p = self._popen("import sys; sys.exit(1)")  # morrer e rc != 0; rc 0 e saida limpa
+        p.wait(timeout=10)
+        return p''')
+    u = u.replace('''            "import io; io.open(%r, 'a', encoding='utf-8').write(%r)"
+            % (str(S.DIARIO), linha + "\\n"))''', '''            "import io, sys; io.open(%r, 'a', encoding='utf-8').write(%r); sys.exit(1)"
+            % (str(S.DIARIO), linha + "\\n"))''')
+    if u == t:
+        return []
+    if u.count("sys.exit(1)") < t.count("sys.exit(1)") + 2:
+        raise SystemExit("test_supervisor.py: os dois ajudantes de morte nao foram encontrados — rever")
+    f.write_text(u, encoding="utf-8", newline="\n")
+    return ["test_supervisor: _worker_que_morre_ja e _worker_que_bate_e_morre saem com rc 1"]
 
 
 def _telemetria_com_nome_proprio(raiz: Path) -> list:
