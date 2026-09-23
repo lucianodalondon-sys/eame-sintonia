@@ -20969,3 +20969,39 @@ quarentena, e na validação cega é só custo; a V1 da LD3, com a régua a mand
 tira capas sem perder nenhuma notícia. Medir as três políticas lado a lado, com
 um conjunto cego, foi o que deu a resposta — não a intuição de qual «devia»
 funcionar.
+
+---
+
+# §197 · UMA REGRA NOVA PRECISA DE UM DADO QUE NINGUÉM TRANSPORTAVA — E DE DOIS JUÍZES QUE DIGAM O MESMO
+
+V1A (23/09/2026). A V1 da LD3 — «a página que é o próprio INDEX_URL do contrato é capa» —
+cumpriu o critério escrito ANTES de medir (dominar o ACTUAL nos dois erros, nos três
+conjuntos, incluindo o cego) e foi ligada. Três coisas aprenderam-se ao ligá-la:
+
+**1. A regra era uma linha; o dado que ela lê não chegava à porta.** A porta de admissão
+julga a página pelo retrato do detector, mas não sabia DE QUE ENDEREÇO a página veio.
+`raw_asset.source_url` existia no banco e era lido por `objetos_da_corrida()` — e ficava
+lá. Foi preciso passá-lo por cinco mãos (preservar_coleta → ingresso → derivacao_forward →
+orquestrador → `item.url_da_pagina`). O orquestrador até já pedia `r.get("SOURCE_URL")`,
+e recebia `None` sem ninguém reparar.
+
+    UMA REGRA QUE LÊ UM CAMPO AUSENTE NÃO FALHA: JULGA CALADA COMO SE ELE NÃO EXISTISSE.
+
+Por isso o gate passou a EXIGIR `url` e `regua_a_mandar` por nome, em Python e em Node:
+um chamador esquecido rebenta, em vez de julgar sem a regra.
+
+**2. Duas travas para a mesma coisa escondem-se uma à outra.** A porta só passava o
+contrato quando a régua mandava, E o veredito só usava a V1 quando a régua mandava. O
+mutante «a régua manda sempre» sobreviveu — não por falta de teste, mas porque a outra
+trava o apanhava. Tirou-se a repetida; o ataque seguinte matou 11 de 11.
+
+**3. A paridade de veredito não é paridade de contagem.** Nas 251 páginas reais dos
+gabaritos, Python e Node dão o mesmo veredito — e em 8 contam caracteres diferente: o Node
+mede em unidades UTF-16 (um emoji vale 2) e o `\s` do JavaScript apanha U+FEFF. Uma delas
+(IT-T12-030) está a 39,6 caracteres por ligação, com o limiar nos 40: o mesmo veredito,
+por uma margem de dezenas de caracteres. Ficou declarado e vigiado (a lista só pode
+encolher), não corrigido: mudar a contagem é mudar o detector, e isso mede-se antes.
+
+Medido pelo código real, com o estado das fontes da K1 numa cópia: capas que entram
+37→30 · 6→5 · 4→3; notícias barradas e retidas iguais. A V1 disparou em 17 páginas — todas
+capas verdadeiras, todas de fontes que passam os 4 passos.
