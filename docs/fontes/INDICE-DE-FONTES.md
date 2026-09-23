@@ -58,7 +58,7 @@ py candidatas/fonte_nova.py \
     --para-que "para que serve" --quem-viu voce --onde-viu "onde viu"
 ```
 
-Hoje há **476** candidata(s) na fila,
+Hoje há **906** candidata(s) na fila,
 em `candidatas/FONTES-CANDIDATAS.json`.
 
 `--para-que` é obrigatório de propósito: fonte sem uso declarado vira
