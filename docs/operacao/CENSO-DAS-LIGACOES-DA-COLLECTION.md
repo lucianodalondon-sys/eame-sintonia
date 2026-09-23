@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  f920a7b52224eb588ff10e160690ede7330b8b92
+HEAD_DA_MEDICAO  2109bd43cc448cb424ab1482bb6b238aad5877a1
 BRANCH           gates-medidos-v1
-GERADO_EM        2026-09-23T15:30:31-03:00
+GERADO_EM        2026-09-23T16:43:43-03:00
 CARDS            90
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
