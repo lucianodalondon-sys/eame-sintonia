@@ -24,7 +24,8 @@ AMBIENTE_OK = {"SINTONIA_COLLECTION_DSN": "x", "SINTONIA_SALA_DSN": "x",
                "SINTONIA_SALA_BACKEND": "POSTGRES", "SINTONIA_PSQL_EXE": "x"}
 
 
-IDS = [f["SOURCE_ID"] for f in MC.ler_coorte()["PROPOSTAS"]]
+# A coorte vem do PORTAO, no instante (A2). Os dados de fixture cobrem-na toda.
+IDS = MC.coorte_do_portao(MC.GATE._contexto())[0]
 
 
 def ler_fixture(entra=("IT-T10-018", "IT-T7-043"), rotas=None, sem_decisao=(),
@@ -120,12 +121,26 @@ class TestCorrerNaoVaiARedeSemTudoCerto(unittest.TestCase):
 @mock.patch.object(MC.subprocess, "run", _proibido)
 class TestPlano(unittest.TestCase):
 
-    def test_excluidas_nunca_sao_propostas(self):
-        c = MC.ler_coorte()
-        prop = {f["SOURCE_ID"] for f in c["PROPOSTAS"]}
-        excl = {f["SOURCE_ID"] for f in c["EXCLUIDAS"]}
-        self.assertEqual(prop & excl, set())
-        self.assertEqual(excl, {"IT-T7-017", "IT-T7-033", "IT-T7-042"})
+    def test_a_coorte_e_o_portao_no_instante_nao_uma_lista(self):
+        ctx = MC.GATE._contexto()
+        p = MC.plano(ctx=ctx, ler=ler_fixture())
+        self.assertEqual(p["COORTE"], "PORTAO (collection_gate.elegiveis)")
+        self.assertEqual([l["SOURCE_ID"] for l in p["LINHAS"]], MC.GATE.elegiveis(ctx=ctx))
+
+    def test_cada_ready_fora_do_portao_tem_motivo(self):
+        p = MC.plano(ler=ler_fixture())
+        dentro = {l["SOURCE_ID"] for l in p["LINHAS"]}
+        for x in p["FORA_DO_PORTAO"]:
+            self.assertNotIn(x["SOURCE_ID"], dentro)
+            self.assertTrue(x["MOTIVO"] and x["PORQUE"], x)
+
+    def test_o_portao_manda_mesmo_contra_a_lista_antiga(self):
+        """Uma fonte que o portao recusa nao entra, nem que esteja no ficheiro antigo."""
+        ctx = MC.GATE._contexto()
+        antigas = {f["SOURCE_ID"] for f in MC.ler_coorte()["PROPOSTAS"]}
+        eleg = set(MC.GATE.elegiveis(ctx=ctx))
+        p = MC.plano(ctx=ctx, ler=ler_fixture())
+        self.assertEqual({l["SOURCE_ID"] for l in p["LINHAS"]} & (antigas - eleg), set())
 
     def test_pronta_tem_gate_contrato_receita_e_frase(self):
         for l in MC.plano(ler=ler_fixture())["LINHAS"]:
@@ -136,31 +151,29 @@ class TestPlano(unittest.TestCase):
                 self.assertTrue(l["FALTA"], l["SOURCE_ID"])
 
 
-    def test_filtros_das_missoes_3_e_3b_so_bloqueiam(self):
+    def test_filtro_de_rota_m3_so_bloqueia(self):
         base = {x["SOURCE_ID"]: x["ESTADO"] for x in MC.plano(ler=ler_fixture())["LINHAS"]}
         prontas = [s for s, e in base.items() if e == "PRONTA"]
         self.assertGreaterEqual(len(prontas), 2)
         depois = {x["SOURCE_ID"]: x["ESTADO"] for x in MC.plano(ler=ler_fixture(
-            entra=(prontas[1],), rotas={prontas[0]: "CAPABILITY_BLOCK"}))["LINHAS"]}
+            rotas={prontas[0]: "CAPABILITY_BLOCK"}))["LINHAS"]}
         self.assertEqual(depois[prontas[0]], "BLOQUEADA")
         self.assertEqual(depois[prontas[1]], "PRONTA")
         for s, e in base.items():          # nunca promove
             if e == "BLOQUEADA":
                 self.assertEqual(depois[s], "BLOQUEADA")
 
-    def test_fica_fora_da_3b_bloqueia_fonte_que_estaria_pronta(self):
-        # IT-T10-022 tem gate, contrato, receita e rota: so a 3b a tira.
-        so_gate = MC.plano(ids=["IT-T10-022"], ler=ler_fixture(entra=("IT-T10-022",)))
-        self.assertEqual(so_gate["LINHAS"][0]["ESTADO"], "PRONTA")
-        fora = MC.plano(ids=["IT-T10-022"], ler=ler_fixture(entra=()))
-        self.assertEqual(fora["LINHAS"][0]["ESTADO"], "BLOQUEADA")
-        self.assertIn("RELEVANCIA:FICA_FORA", fora["LINHAS"][0]["FALTA"])
+    def test_fica_fora_da_3b_nao_barra_a_fonte(self):
+        """D2 + D8 do dono: relevancia decide-se por item na Admission (REROUTE), nao por fonte.
+        IT-T10-022 (Zootecnica) e a 3b diz FICA_FORA: continua PRONTA, e a 3b fica ao lado."""
+        p = MC.plano(ids=["IT-T10-022"], ler=ler_fixture(entra=()))
+        self.assertEqual(p["LINHAS"][0]["ESTADO"], "PRONTA", p["LINHAS"][0]["FALTA"])
+        self.assertEqual(p["LINHAS"][0]["RELEVANCIA_3b"], "FICA_FORA")
 
-    def test_fonte_que_a_3b_nao_mediu_fica_bloqueada(self):
-        p = MC.plano(ids=["IT-T10-018"], ler=ler_fixture())
-        self.assertEqual(p["LINHAS"][0]["ESTADO"], "PRONTA")
+    def test_fonte_que_a_3b_nao_mediu_nao_e_barrada_por_isso(self):
         p = MC.plano(ids=["IT-T10-018", "IT-FORA-999"], ler=ler_fixture())
-        self.assertIn("RELEVANCIA_NAO_MEDIDA_PELA_3b", p["LINHAS"][1]["FALTA"])
+        self.assertNotIn("RELEVANCIA_NAO_MEDIDA_PELA_3b", p["LINHAS"][1]["FALTA"])
+        self.assertEqual(p["LINHAS"][1]["RELEVANCIA_3b"], "NAO_MEDIDA")
 
 
 @mock.patch.object(MC.subprocess, "run", _proibido)
@@ -257,6 +270,33 @@ class TestRelatorioComFixture(unittest.TestCase):
                 return [[sala_item, "1", "IT-X-1", "NAO SEI", "NAO SEI", "t", "R1", cadeia]]
             raise AssertionError(s)
         return q
+
+    def test_tentativa_falhada_nao_e_raw_nem_quebra_a_proveniencia(self):
+        """A1: 30 linhas para 1 documento e 29 «falhas de proveniencia» falsas. Nunca mais."""
+        (self.t / "XX" / "falha.json").write_text(json.dumps(
+            {"HEALTH_STATE": "FAILED", "SHA256": "", "OBSERVATION_RESULT": "TRANSPORT_OR_EMPTY",
+             "motivo": "status 404", "SOURCE_URL": "https://x.it/n9"}), encoding="utf-8")
+        base = self._consulta()
+
+        def q(s):
+            linhas = base(s)
+            if "from raw_asset r left join" in s:
+                linhas = linhas + [["3", "IT-X-1", "application/json", "XX/falha.json", "9", "",
+                                    "t", "R1", "https://x.it/n9", ""]]
+            return linhas
+        r = MC.relatorio(["R1"], consulta=q, livro=self.livro, armazem=self.t)
+        self.assertEqual(r["CONTAGENS"]["RAW_LINHAS"], 3)
+        self.assertEqual(r["CONTAGENS"]["RAW_CREATED"], 2)
+        self.assertEqual(r["CONTAGENS"]["TENTATIVAS_FALHADAS"], 1)
+        self.assertEqual(r["CONTAGENS"]["TENTATIVAS"][0]["MOTIVO"], "status 404")
+        c4 = r["CRITERIOS"]["C4_PROVENIENCIA_COMPLETA"]
+        self.assertEqual(c4["OBSERVACOES"], 2)
+        self.assertEqual(c4["TENTATIVAS_FALHADAS_A_PARTE"], 1)
+        self.assertNotIn("SEM_DERIVADO", r["CRITERIOS"]["C7_PROPORCAO_POR_FONTE_E_CLASSE"]["POR_FONTE"]["IT-X-1"])
+
+    def test_json_de_verdade_continua_documento(self):
+        (self.t / "XX" / "api.json").write_text(json.dumps({"dados": [1, 2]}), encoding="utf-8")
+        self.assertIsNone(MC.e_tentativa_falhada(self.t, "XX/api.json", "application/json"))
 
     def test_mede_os_criterios(self):
         corr = [{"SOURCE_ID": "IT-X-1", "CORREU": True, "GATE_NO_INSTANTE": "ELIGIBLE",

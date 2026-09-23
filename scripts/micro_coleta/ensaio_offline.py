@@ -254,14 +254,8 @@ def ler_ndjson(p: Path) -> list[dict]:
 
 
 def e_registo_de_falha(armazem: Path, storage_path: str, media_type: str) -> bool:
-    """O raw e o REGISTO de uma colheita falhada, nao um documento da fonte."""
-    if "json" not in (media_type or ""):
-        return False
-    try:
-        o = json.loads((Path(armazem) / storage_path).read_text(encoding="utf-8"))
-    except Exception:                                              # noqa: BLE001
-        return False
-    return isinstance(o, dict) and o.get("HEALTH_STATE") == "FAILED" and not o.get("SHA256")
+    """O raw e o REGISTO de uma colheita falhada. A regra e a do instrumento — uma so."""
+    return MC.e_tentativa_falhada(armazem, storage_path, media_type) is not None
 
 
 def cadeia_dos_documentos(run_ids) -> dict:
