@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-17 — **§140**, que fecha os dois blockers deixados pelo §139: `import fcntl` no topo de `ferramentas/reel_transcricao.py` (10 módulos de tests/ não carregavam em Windows) e `tests/test_comunicacao.py` a rebentar no import porque `comunicacao_universo.montar()` devolvia um universo VAZIO sem `data/samples/COMPETITOR-CROSSWALK.json` (ficheiro que nunca esteve no Git) — e a linha de comando ESCREVIA esse vazio por cima do universo versionado. Cura A: o cadeado do lote passou a ser o mesmo da admissão (flock em POSIX, msvcrt LK_NBLCK sem teto em Windows), BLOQUEANTE e entre processos, provado com processos filhos. Cura B: sem crosswalk (ou ilegível, ou todo a zero) `CrosswalkIndisponivel`, exit 2, ZERO mutação em disco; o teste passa uma fixture sintética por `montar(caminho=...)`. Resultado medido em processos novos (py 3.12 + PyYAML por PYTHONPATH, Windows): `TestLoader.errors = []`, `TEST_COUNT_CURRENT` = `4.759` DERIVADO, `--sync` reescreveu 8 documentos, dois `--check` com `DRIFT = 0`; sem PyYAML continua NOT_MEASURABLE (falha fechada). Suíte inteira comparada pelo nome: NEW_FAILURES = 0 · NEW_ERRORS = 0 · 20 nomes saíram do vermelho. Red team 0 blockers. `MANUAL_METRIC_STAMP_BLOCKER = CLOSED` · `METRIC_STABILITY_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO` (trunk 9d6dcbbd intocado) · `BIG_COLLECTION = NÃO AUTORIZADA`. O PROMPT continua a dizer «721 testes» (decisão do dono; test_handoff segue vermelho por isso). **Antes, §139** (ver o aviso no fim desta linha). **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`. **⚠️ CORRIGIDO PELO §139 (2026-09-17, mesmo dia):** a verificação independente derrubou o `INTEGRATION_BLOCKERS_FIX = PASS` — o «drift zero» do §138 era de UM ambiente; noutro processo o dono media `4.521` e o drift eram 9 ficheiros. A causa está provada (dois módulos com `import yaml`, 45 casos − 2 fantasmas = 43) e o dono passou a falhar fechado: qualquer módulo de `tests/` que não carregue ⇒ `TEST_COUNT_CURRENT = NOT_MEASURABLE` e `--sync` recusa. Nesta máquina a suíte NUNCA carrega inteira (10 módulos por `fcntl`, 1 por amostra que nunca esteve no Git) — logo `INTEGRATION_BLOCKERS_FIX = FAIL` até um ambiente completo medir e sincronizar. **⚠️ FECHADO PELO §140 (2026-09-17, mesmo dia):** as duas curas foram feitas, a suíte carrega inteira com PyYAML e a contagem foi medida, sincronizada e conferida em processos novos.
+**Última atualização material:** 2026-09-23 — **§198** (REELS-FUNCIONANDO, bloco 7, `scrap-portas-v1`): a medição também é uma peça — base de comparação sem `.git` dá verde falso (`git ls-files` responde zero); uma corrida de teste reescreveu um artefacto rastreado (`RUN-MANIFEST.json`) e isso apareceu como 23 falhas novas; a gaveta não rastreada `data/raw/REEL-MIDIA` faz a prova correr em vez de saltar (900 s vs 11 s); e depois da D22 a prova que não mede a plataforma não pode pagar pela rede — os metadados declaram-se no fixture. `NEW_FAILURES_BY_NAME = 0` medido por nome contra `6ea92f6a`. **Antes, §197:** a D22 autorizou a coleta de REELS do Instagram por URL directa, sem login, sem conta e sem rota paga; a matriz passou a `OWNER_AUTHORIZED=SIM` com `PLATFORM_POLICY_STATUS=DISALLOWED` e a rota ganhou o limite `PUBLIC_REEL_BY_URL_ONLY`; canário real 3/3 ponta a ponta, US$ 0. **Antes, §196:** as duas portas do Scrap.
 **§134 (2026-09-17):** o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **§133 (2026-09-17):** o blocker do §132 foi FECHADO NO CÓDIGO (`CLI_POSTGRES_BINDING_FIX = PASS`): a porta CLI do orquestrador compõe `memoria`/`banco_do_rastro` a partir de `BANCO_DESCARTAVEL_URL` (`orquestrador/persistencia.py`), com a trava canónica no runtime (`guarda/banco_descartavel.py`) e o adaptador Postgres canónico (`guarda/memoria_postgres.py`). Provado com a porta como PROCESSO contra Postgres 16 real (36 casos), red team 0 blockers, NEW_FAILURES = 0. **PROVA NÃO É RUNTIME.** O workflow não mudou.
 **§132 (2026-09-17):** o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -24,6 +24,8 @@
 **Passo anterior — CUMPRIDO (2026-09-17):** `CLI_POSTGRES_BINDING_FIX` (§133) — a porta CLI liga o banco descartável declarado; trava e adaptador promovidos a `guarda/`; prova como processo contra Postgres real; red team 0 blockers. Dono do blocker: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §15.
 **Passo anterior — BLOCKED (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (§134) — despachado por sessão nova (run `35227662328`, HEAD `b8e07e03`); o portão de egresso fechou a corrida antes da rede (`EGRESS_COUNTRY_CODE = BR`); a estrada não foi corrida e a pergunta ficou sem resposta. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §16.
 **Próximo passo autorizado (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_3` — IT-T3-002 pela fase real `italia-documento` do `sintonia-scrap.yml`, por **sessão nova**, **depois** de gente ligar o túnel do ProtonVPN a um servidor italiano na máquina do runner e de o revisor medir `country: IT` (ipinfo) ANTES do dispatch; com teardown medido fisicamente e exigindo `RAW_OBSERVATIONS >= 1`, `PERSISTENCIA = DESCARTAVEL` e `SALA_ROWS >= 1` no recibo/banco — `conclusion=success` já enganou uma vez e `conclusion=failure` já disse a verdade uma vez. Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Passo anterior — CUMPRIDO (2026-09-23):** REELS-FUNCIONANDO — a D22 aplicada e MEDIDA com canário real (3/3 ponta a ponta, US$ 0, sem conta, base descartável). Branch `scrap-portas-v1` @ `79140941`. Dono canónico: §197. **Próximo passo autorizado (2026-09-23):** o Instagram continua com `PLATFORM_POLICY_STATUS = DISALLOWED` — o dono assumiu o risco e ele está escrito; o que falta é FIACAO, não autorização: transportar o `POST_ID` na captura por URL directa, e um contrato que declare `DOCUMENT_ID_RULE` para as contas de concorrência (hoje o `DOCUMENT_ID` do Reel é `NAO SEI` por falta de contrato). `BIG_COLLECTION = NÃO AUTORIZADA` até o coordenador reabrir o portão.
+**Passo anterior — CUMPRIDO (2026-09-23):** SCRAP-PORTAS-V1 — as duas portas do SCRAP medidas uma contra a outra, o `CHECK` a consultar a matriz, o ASR na cadeia canónica e o `DOCUMENT_ID` materializado pelo contrato. Branch `scrap-portas-v1` @ `f5c49473` (LOCAL == REMOTO). Dono canónico: §196 deste mesmo documento. **Próximo passo autorizado (2026-09-23):** manter `BIG_COLLECTION = NÃO AUTORIZADA`; o Instagram continua `POLICY_BLOCK` até o dono REAL criar a conta Business do PROJETO com Página Meta e app próprios (D19) — sem essa estrutura humana o Scrap não tem rota oficial que possa usar; e a retenção de 30 dias da Data API só fica verde quando a Guarda provar em runtime a renovação ou o apagamento (D20.3).
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 **Decisão da coordenação, registada (2026-09-18):** `RAW_LIFECYCLE_DECISION = BIG COLLECTION PRIMEIRO, EVICTION DEPOIS` (§143). O RAW físico deixa de ser tratado como armazenamento infinito e passa a ser material temporário de aquisição e processamento; o valor permanente fica na identidade, procedência, lineage, texto / transcrição / OCR, dados estruturados, Admission, Sala e Intelligence. **Nada foi implementado e nada foi apagado:** `RAW_EVICTION_IMPLEMENTATION = NOT_IMPLEMENTED` · `RAW_AUTOMATIC_DELETE = NOT_AUTHORIZED` · `RETENTION_CONTRACT = A DEFINIR APÓS BIG COLLECTION`. O contrato de retenção só se desenha depois de a Big Collection medir volumes reais. Não inverter a ordem.
 
@@ -21553,3 +21555,346 @@ SOC3 (23/09/2026), D20 e D21. `RELATORIO-SOC3-RETENCAO-YOUTUBE.md`.
 
 Mutação com banco real: um cluster por mutante custava minutos; a ronda sobe UM banco descartável
 já migrado e passa-o aos testes (`SOC3_BANCO_JA_MIGRADO`, aceite só se `exigir_descartavel` passar).
+---
+
+# §196 · AS DUAS PORTAS DO SCRAP — E O CHECK QUE NÃO PERGUNTAVA À LEI
+
+**SCRAP-PORTAS-V1 (2026-09-23)** · branch `scrap-portas-v1` @ `f5c49473` · base
+`origin/unificacao-v1` @ `77077dee`. Escrita: 3 commits (parcial, bloco 2, bloco 3),
+cada um com os testes do passo. Nada pago, nenhuma conta pessoal, nenhuma rede na prova.
+
+## O QUE MUDOU, EM UMA LINHA
+
+Uma capability ligada à Collection passa por DUAS portas, e nenhuma delas tinha prova
+contra a outra. Agora tem, e as duas consultam a mesma lei:
+
+```
+PORTA DO PEDIDO    pedido/receitas.py::serve_fases + coleta/scrap_colheita.py::FASES/NOMEADOS
+PORTA OPERACIONAL  .github/workflows/*.yml — o `case` que escolhe, e o `recusar` que nega
+LEI                leis/social_matriz.py::decisao()  ·  ALLOWED | ROUTE_NOT_ALLOWED | NOT_DECLARED
+```
+
+`tests/test_as_duas_portas_do_scrap.py` (25 provas): toda fase do
+PETIDO tem ramo; fase que a matriz permite entra pelo orquestrador; fase que a matriz recusa tem
+recusa com o NOME dela; e nenhuma recusa pode repetir o texto datado.
+
+## OS TRÊS DEFEITOS MEDIDOS, E O QUE CADA UM CUSTAVA
+
+| defeito | medido | consequência |
+|---|---|---|
+| recusa com texto datado | `yt-alvos\|yt-transcrever` recusadas por «a matriz não declara capacidade de BYTES para YOUTUBE» — falso desde 2026-09-19 (`FETCH_AUDIO_BYTES`, `PERMITIDA=SIM`, decisão do dono) | a rota existia, estava autorizada e a porta negava-a com uma frase do mês passado |
+| fase sem porta | as cinco oficiais do YouTube e as três irmãs (`canal-telegram`, `tag-mastodon`, `contas-bluesky`) existiam em `FASES` + `serve_fases` e caíam no `*)` → `FASE_DESCONHECIDA` (exit 2) | capability provada que ninguém podia disparar de CI (§154 outra vez) |
+| o portão não perguntava à lei | `CHECK('INSTAGRAM','instagram.reel.transcribe')` → `CAN_COLLECT_NOW` enquanto `mz.decisao('INSTAGRAM','FETCH_TRANSCRIPT')` → `ROUTE_NOT_ALLOWED` (SOC1) | o roteador recusava — nada saía — mas a corrida abria RUN e checkpoint para colher zero |
+
+```
+O TEXTO DA RECUSA ENVELHECE MAIS DEPRESSA QUE A DECISÃO.
+DUAS PORTAS A DISCORDAR SOBRE A MESMA ROTA É DEFEITO, NÃO POLÍTICA.
+QUEM ABRE O PORTÃO É QUEM DEVE SABER SE A PORTA É PERMITIDA.
+```
+
+## O QUE FICOU, E O QUE NÃO MUDOU
+
+**O `CHECK` consulta a matriz** (`coleta/scrap_executor.py`) e expõe
+`MATRIZ_CAPABILITY · MATRIZ_DECISAO · MATRIZ_PORQUE · MATRIZ_ROTA` em TODOS os vereditos — um
+campo que só aparece num dos ramos não é um campo do veredicto, é um campo daquele ramo. Quando a
+matriz recusa, `CAN=False` e o estado é o NOME dela: `ROUTE_NOT_ALLOWED`. A ordem dos portões não
+mudou (estado medido → política → rota → credencial), e agora o nome de quem fechou diz qual foi.
+
+**A tradução inversa deixou de ser injectiva, e isso declarou-se.** As três capacidades de Reel
+partilham a rota grossa (`FETCH_TRANSCRIPT`) porque SÃO um acto só — o próprio adaptador o escreve.
+Sem uma tabela, quem respondia por `INSTAGRAM/FETCH_TRANSCRIPT` era o primeiro nome na ordem de
+inserção (`instagram.reel.capture`, que não tem rota) e o roteador respondia «sem adaptador nesta
+missão». `scrap_capacidades.DONO_DA_GROSSA` declara quem ATRAVESSA o portão; e com duas candidatas
+sem dono declarado a resposta passou a ser `None` — «não sei quem executa isto» — em vez da ordem
+do dicionário, que é uma decisão que ninguém tomou.
+
+```
+A ORDEM DE UM DICIONÁRIO NÃO É UMA DECISÃO DE ARQUITETURA.
+```
+
+**O `DOCUMENT_ID` deixou de ser sempre `NAO SEI`** (`regras/contratos_de_fonte.py::document_id_declarado`).
+O contrato `IT-T8-001` declara `AGRONOTIZIE:YT:{VIDEO_ID}` desde sempre, e nenhum owner materializava o
+molde — o dono do contrato é o contrato, e quem o lê é aquele ficheiro. Fail-closed nos quatro casos que
+importam: sem regra, com placeholder que o item não traz, com uma confissão como valor, e se sobrar chave
+no fim. Identidade incompleta não é identidade: meio id entra no acervo com a cara de facto.
+
+```
+UM `NAO SEI` ONDE O CONTRATO DECLARA UM ID NÃO É HONESTIDADE:
+É UMA IDENTIDADE QUE FICOU POR LIGAR.
+```
+
+**O ASR está na cadeia, e a cadeia está provada sem rede** (`tests/test_cadeia_do_audio_offline.py`, 11
+provas): YouTube audio → RAW (bytes de som, não o envelope) → DERIVED (texto pelo dono único,
+`ferramentas/fala_local.py`) → ingresso → Admissão com a régua multilingue T10 (SIM), com contraprova
+(texto fora do tema não é admitido) e com `NETWORK_CALLS = 0` medido por trava no socket. O
+reconhecedor é substituído por um duplo DECLARADO — o que se prova é a estrada, não o Whisper:
+`ASR_REAL = NOT_RUN NESTA PROVA`.
+
+Para o Reel chegar ao DERIVED faltava uma peça que o §155 já tinha nomeado «e o Instagram vai precisar
+disto»: o RAW da cadeia de Reel saía `CONTENT_TYPE = NAO SEI` (a tabela de extensões do dono do RAW
+conhece quatro, e `.wav` não é uma delas). A espécie passou a ser DECLARADA por quem a mediu — `ffprobe`
+prova som sem imagem, e a extensão só nomeia o contentor que a própria rota produziu.
+
+```
+MEDIDO: A ESPÉCIE. NOMEADO PELA ROTA: O CONTENTOR.
+```
+
+## AS DUAS DECISÕES DO DONO QUE MANDARAM NESTA MISSÃO
+
+**D19 · o Instagram fica `POLICY_BLOCK`.** A autorização nomeada da D17.4 vale para o YouTube e NÃO se
+estende a Reels. As três fases do Reel estão CONSTRUÍDAS (`FASES` + `NOMEADOS` + `serve_fases`) e
+RECUSADAS pela porta, com o nome da matriz — e a janela do Instagram, que corria a porta canónica e
+colhia zero (o roteador já a recusava), passou a ser recusada ANTES de abrir a corrida. Não mudou o que
+se colhe; mudou quem o diz e quando.
+
+```
+CONSTRUÍDA != LIGADA != PERMITIDA.
+```
+
+**D20 · os metadados da Data API têm prazo de 30 dias** (`coleta/social_envelope.py`): política,
+dias, âncora, data-limite e ação `RENEW_OR_DELETE`. A âncora é o `COLLECTED_AT` — o que a obrigação
+limita é a NOSSA cópia —, e áudio/transcrição LOCAL não recebem prazo nenhum, porque não vêm da
+Data API. Um dono só carimba o prazo, e `vencido()` responde `True/False/NAO SEI` — prazo ilegível não
+é «está em ordem».
+
+```
+D17.4 AUTORIZA USAR A ROTA. NÃO AUTORIZA IGNORAR UMA OBRIGAÇÃO DELA.
+```
+
+## O QUE CONTINUA ABERTO, DITO COM NOME
+
+- **`DOCUMENT_ID` do Reel = `NAO SEI`, e agora com nome no banco.** O contrato `IT-T8-001` declara
+  `AGRONOTIZIE:YT:{VIDEO_ID}` e um Reel não tem `VIDEO_ID` de YouTube. A prova escreve
+  `FORWARD_IDENTITY_UNPROVEN` (migration 026) em vez de fingir chave — a identidade documental do
+  Instagram precisa de um contrato que a declare, e isso é trabalho do dono do contrato.
+- **A retenção fecha-se em runtime no acervo**, não no Scrap: a regra e o prazo estão declarados no
+  envelope, e quem renova ou apaga é a Guarda. `D20.3` pede prova em runtime disso mesmo.
+- **Dois vermelhos PRÉ-EXISTENTES** (medidos no baseline `77077dee`, com os ficheiros de que
+  dependem *byte-idênticos*): `test_c10_6d...::test_8_a_rota_da_janela_e_a_que_a_matriz_nomeia` (a
+  matriz fecha a janela por `PLATFORM_POLICY_STATUS = NOT_MEASURED`) e
+  `test_c10_4c...::test_14` (o censo da coleta conta prosa de `fala_local` como chamada). Nenhum dos
+  dois é desta missão, e os dois têm dono fora dela.
+- **A leitura de `alvo` a partir do `SOURCE_ID`** só conhece `IT-T8-*` e `IT-T9-*`; para outra fonte a
+  porta RECUSA em vez de adivinhar o território. É limitação declarada, não palpite.
+
+---
+
+# §197 · O DONO PODE ASSUMIR O RISCO — E MEDIR A POLÍTICA NÃO É OBEDECER-LHE
+
+**REELS-FUNCIONANDO (2026-09-23)** · branch `scrap-portas-v1` @ `79140941` · autorização:
+**D22** (dono REAL, 2026-09-23), que substitui a D19 para os Reels.
+
+## A DECISÃO, E PORQUE ELA NÃO É UM ATALHO
+
+A D19 tinha as fases do Reel construídas e RECUSADAS. O dono REAL perguntou porquê, e decidiu:
+
+> «a coleta de REELS do Instagram pelo Scrap (por URL directa, SEM login, SEM conta, SEM rota
+> paga) é AUTORIZADA para a Big Collection, com o risco assumido por ele» — D22.
+
+É a mesma forma da D17.4 com o som do YouTube. E o que a torna defensável é a separação que a
+§196 deixou escrita: **a autorização é interna; a política da plataforma é medida**. As duas
+coisas ficam escritas lado a lado, e nenhuma mente sobre a outra:
+
+```
+OWNER_AUTHORIZED       = SIM          decisão do PROJETO (D22), com o risco assumido
+PLATFORM_POLICY_STATUS = DISALLOWED   medição da PLATAFORMA (robots.txt: Disallow: /)
+LIMITE                 = PUBLIC_REEL_BY_URL_ONLY    até onde a rota vai, e nada além
+```
+
+```
+MEDIR A POLÍTICA NÃO É OBEDECER-LHE: É SABER O QUE SE ASSUME.
+E UM DONO QUE ASSUME O RISCO NÃO APAGA A MEDIÇÃO — ELE ESCREVE-A AO LADO.
+```
+
+O `LIMITE` foi ampliado por decisão de dono, e o nome descreve o que a rota faz: não é som do
+YouTube (`PUBLIC_AUDIO_ONLY`) nem descoberta de perfil (`PUBLIC_PROFILE_DISCOVERY_ONLY`). O que
+ele **não** permite fica dito: perfil privado · login/conta/cookie de terceiro · CAPTCHA ·
+bypass · stories · comentários · listar reels de um perfil · qualquer rota paga.
+
+## AS PORTAS TODAS PASSARAM A DIZER O MESMO — E ISSO FOI PROVADO
+
+```
+matriz  decisao('INSTAGRAM','FETCH_TRANSCRIPT')      -> ALLOWED
+portão  CHECK('INSTAGRAM','instagram.reel.transcribe') -> CAN_COLLECT_NOW
+cadeia  reel_transcricao.politica_da_aquisicao('INSTAGRAM') -> ALLOWED
+porta   workflows/sintonia-scrap.yml                 -> ramo canónico (era recusa)
+```
+
+Quatro sítios, uma só resposta — e o teste das duas portas (`test_as_duas_portas_do_scrap`)
+reprova no dia em que discordarem. A recusa da D19 saiu dos testes com a razão escrita, não com
+o valor trocado: um teste que muda de lado sem dizer porquê é um teste que já não prova nada.
+
+## A DESCOBERTA, MEDIDA — E ELA NÃO SAI DO EXTRACTOR
+
+Como listar os Reels de um perfil **sem login**? Medido, do egresso VPN italiano (Palermo,
+AS212238 Datacamp Limited — DATACENTER, não residencial):
+
+| pedido | resposta | serve? |
+|---|---|---|
+| `GET /<perfil>/embed/` (UA curto) | 200 · 322 KB · **com** `graphql_media` | **SIM** — os itens recentes, com `shortcode` e `is_video` |
+| `GET /<perfil>/embed/` (UA Chrome completo) | 200 · 631 KB · **sem** `graphql_media` | NÃO — uma casca |
+| `GET /<perfil>/?__a=1&__d=dis` | 201 · **0 bytes** | NÃO |
+| `yt-dlp <perfil>/reels/` | `Unsupported URL` | NÃO — o extractor não lista perfil |
+| `yt-dlp <reel>/` (por URL directa) | metadados + mídia | **SIM** — é a rota de captura da D22 |
+
+```
+O MESMO ENDEREÇO, DOIS CONTEÚDOS — E A DIFERENÇA NÃO ESTÁ NO PEDIDO:
+ESTÁ EM QUEM O PEDIDO DIZ SER.
+```
+
+Por isso a descoberta do canário **tenta os dois UAs e diz qual serviu**. Tentar um só e concluir
+«não dá» seria medir a minha escolha, não a plataforma. E o egresso de DATACENTER foi aceite para
+as duas pontas (listar e capturar) — o IP residencial brasileiro **não** foi preciso, e isso fica
+medido em vez de suposto.
+
+```
+DESCOBRIR != BUSCAR. E UM EGRESSO QUE SERVE PARA UMA PONTA PODE NÃO SERVIR PARA A OUTRA.
+```
+
+## O CANÁRIO REAL — 3/3, US$ 0, SEM CONTA
+
+Perfil `bayer_italia` (identidade provada em `CONTAS-V1.json`), até 3 Reels, pela cadeia
+canónica: adaptador → cadeia do Reel (yt-dlp + ffprobe) → `scrap_colheita.unidade` → RAW →
+`derivacao_forward` → **DERIVED pelo dono único do ASR** (`ferramentas/fala_local.py`, Whisper
+local) → ingresso → Admissão. Base **descartável** (SQLite em memória + armazém em diretório
+temporário): nada foi escrito na Sala real.
+
+```
+3/3 ponta a ponta · 3 RAW com sha256 · 3 DERIVED com TEXTO REAL · 527.5 s no total
+1 reel: captura 97.8 s · RAW 892.445 bytes · audio/mp4 (ffprobe mediu) ·
+        DERIVED 1154 caracteres em italiano · 32.5 s de ASR local ·
+        PUBLISHED_AT 2026-06-24T10:37:03Z · ADMISSÃO NAO (universo T10)
+CUSTO_USD = 0 · nenhuma conta, nenhum login, nenhuma rota paga
+```
+
+A Admissão responder `NAO` é **resultado**, não falha: são Reels institucionais de uma empresa,
+e a régua T10 pergunta por mercado/commodity. O que o canário tinha de provar era a ESTRADA —
+bytes nossos viram texto nosso, com procedência, e o texto chega à porta de admissão.
+
+## DUAS LEIS DE FIACAO, APRENDIDAS AQUI
+
+```
+BYTE SEM CORRIDA NÃO ENTRA.
+```
+A migration 001 faz de `raw_asset.run_id` uma chave estrangeira para `collection_run`. Sem a
+corrida escrita primeiro, o banco recusa o byte — medido (`FOREIGN KEY constraint failed`).
+Uma prova que escreve RAW tem de cunhar a corrida antes.
+
+```
+RESTAURAR DO HEAD NÃO É RESTAURAR: É DESCARTAR O QUE AINDA NÃO FOI COMMITADO.
+```
+Esta custou trabalho a sério. A bancada de mutação restaurava os ficheiros com `git checkout --`,
+e o `HEAD` era **anterior** à decisão D22: o restauro devolveu a matriz velha (`NAO`), e o commit
+seguinte levou a matriz recusada junto com o workflow e os testes a dizer `SIM`. O defeito só
+apareceu no canário real — a cadeia respondia `ROUTE_NOT_ALLOWED` com a porta a dizer SIM. A cura
+é a bancada guardar o ficheiro ANTES de o estragar, e restaurar dessa cópia.
+
+## O QUE FICA ABERTO, COM NOME
+
+- **`DOCUMENT_ID` do Reel = `NAO SEI`.** O contrato da fonte (`COMPETITOR-PUBLIC-COMM/CONTAS-V1`)
+  não declara `DOCUMENT_ID_RULE`, e sem regra não há identidade documental a materializar. Não é
+  um `NAO SEI` por preguiça: é a falta de um contrato.
+- **`POST_ID` não vem preenchido na captura por URL directa** (o `id` do reel existe no extractor,
+  mas a cadeia não o transporta). É fiacao em falta, e está nomeada.
+- **A rota da JANELA (navegador) continua fechada na matriz** (`INSTAGRAM/INCREMENTAL`,
+  `PLATFORM_POLICY_STATUS = NOT_MEASURED`). O que foi medido nesta missão foi o EMBED — outra
+  rota. Abrir a janela exige medir a política DELA, e isso é outra missão.
+
+---
+
+# §198 · A MEDIÇÃO TAMBÉM É UMA PEÇA — E, DEPOIS DA D22, A PROVA NÃO PODE DEPENDER DA PLATAFORMA ESTAR FECHADA
+
+**Data:** 2026-09-23 · **Branch:** `scrap-portas-v1` · **Bloco 7** (as 12 provas congeladas que a D22 tornou falsas)
+
+Esta secção existe por causa de um número que eu entreguei errado. Depois do bloco 6, a
+bateria do Scrap foi comparada com a base e deu `NEW_FAILURES_BY_NAME = 12`. Onze eram
+verdade; o décimo segundo não era, e a bateria inteira, quando comparada de outra maneira,
+também deu "novos" que não existiam. **Os três enganos são da mesma família, e todos os
+três faziam o verde e o vermelho mentirem para o lado confortável.**
+
+## 198.1 · COMPARAR CONTRA UMA ÁRVORE SEM `.git` DÁ VERDE FALSO
+
+A base da comparação era um `git archive` extraído para uma pasta. Vários testes desta
+casa perguntam ao git **que ficheiros estão rastreados** (`git ls-files`) para depois os
+medirem — o teste dos segredos é um deles. Sem repositório, a pergunta responde "nenhum",
+a lista vem vazia, e a prova fica **verde por não ter medido nada**.
+
+MEDIDO: no arquivo sem `.git`, `test_security_secret_shapes` passava em 1,1 s. Numa
+worktree de git no MESMO commit da base, o mesmo teste leva 278 s e **reprova**, com os
+mesmos dois ficheiros que reprovam no meu HEAD — os quais foram acrescentados por commits
+que são antepassados comuns (`1bca4901`, `0799f2bb`) e não têm nada a ver com esta missão.
+
+```
+UMA BASE DE COMPARAÇÃO TEM DE TER O QUE O TESTE PERGUNTA.
+SEM REPOSITÓRIO, `git ls-files` RESPONDE ZERO — E ZERO NÃO É «LIMPO».
+```
+
+## 198.2 · UMA CORRIDA DE TESTE PODE REESCREVER UM ARTEFATO RASTREADO
+
+O checkpoint apanhado depois da queda do PC trazia `data/samples/RUN-MANIFEST.json` com
+`-44491/+19349` linhas. Não era trabalho nenhum: era uma corrida de testes a reescrever o
+manifesto da casa na árvore de trabalho. Na bateria seguinte isso apareceu como **23
+falhas novas** em `tests.test_proveniencia` — todas de um ficheiro que ninguém tinha
+mexido à mão.
+
+Reposto de `0c3bd0a2` em bytes. A prova de que era efeito lateral e não trabalho: o mesmo
+`git diff` contra a base dá o mesmo número antes e depois do restauro.
+
+```
+O QUE A CORRIDA ESCREVE, A CORRIDA NÃO DECIDE SE FICA.
+ARTEFATO RASTREADO SUJO = FALSO NOVO, NÃO REGRESSÃO.
+```
+
+## 198.3 · A GAVETA LOCAL FAZ A PROVA CORRER EM VEZ DE SALTAR
+
+`tests/test_c10_6_crash_retry` corre em 11 s na base e levava mais de 900 s no meu HEAD —
+e a classe do crash nem existia na listagem da base. A causa não era a lei: era
+`data/raw/REEL-MIDIA`, uma pasta **não rastreada** materializada na minha árvore por
+corridas anteriores. Onde ela não existe, a prova salta; onde existe, ela corre.
+
+E o inverso também aconteceu: `test_T10_o_bruto_historico_nao_foi_tocado` era verde na
+minha árvore e **reprovava numa árvore limpa** — porque nessa árvore a pasta existia (criada
+por outra prova) e estava **vazia**, e o teste transformava "não há nada para comparar" numa
+falha desta missão.
+
+```
+A PROVA TEM DE DAR O MESMO ONDE NINGUÉM TRABALHOU AINDA.
+CORRER ≠ SALTAR ≠ REPROVAR — E SÓ UM DOS TRÊS É RESULTADO.
+```
+
+## 198.4 · DEPOIS DA D22, A PROVA NÃO PODE DEPENDER DA PLATAFORMA ESTAR FECHADA
+
+Onze das doze provas novas eram falsas por decisão, e a cura foi declarada: a linha
+congelada muda **citando a D22 no próprio teste**, sem apagar e sem afrouxar. E onde o
+teste precisava do sentido contrário, a recusa passou a ser **injectada em memória**
+(`_PoliticaRecusada`, `_RotaRecusada`) — nunca reescrita no ficheiro da lei para o teste
+voltar a ficar verde.
+
+A décima segunda era outra coisa, e é a lição que faltava nomear. A D22 abriu a rota dos
+Reels; a partir daí, uma identidade que traz `SOURCE_URL` e **não** traz `CAPTION_TEXT`
+faz a cadeia **sair para a rede** para ir buscar os metadados. Duas provas alheias à
+política — uma de crash e idempotência, outra de repetição — passaram a levar minutos e
+uma delas nunca terminava. Elas nunca mediram a plataforma: medem **morte, preservação e
+idempotência**. A cura foi declarar os metadados no fixture, no sítio exacto onde a cadeia
+os iria buscar.
+
+```
+ABRIR UMA ROTA MUDA O CUSTO DE TODAS AS PROVAS QUE PASSAM POR ELA.
+UMA PROVA QUE NÃO MEDE A PLATAFORMA NÃO PODE PAGAR POR ELA.
+```
+
+E o portão fecha-se nos DOIS sentidos: uma prova que só mede o lado permissivo fica verde
+com um portão que nunca deixa passar nada — por isso cada uma destas ganhou o lado
+simétrico (`test_P7b`).
+
+## 198.5 · O QUE ESTA SECÇÃO CUSTOU, EM NÚMEROS
+
+- bateria do Scrap (147 módulos que tocam scrap/social/rota), **por nome**, base `6ea92f6a`
+  vs HEAD: `NEW_FAILURES_BY_NAME = 0` — e os 4 nomes que apareceram como novos na primeira
+  passagem foram um a um medidos isolados na base e todos reprovam lá com o MESMO nome
+  (`test_a_porta_cli_liga_o_banco`, `test_security_secret_shapes`, e 2 de `test_social_sessao`).
+- teto por módulo: quando um módulo bate no teto de segundos, os vermelhos dele **não
+  entram** — e o lado que não bateu aparece com "novos" que são só o teto. Um módulo no
+  teto é um módulo AINDA NÃO MEDIDO, nunca um módulo limpo.
+- mutação própria: 10/10 mordem (M8/M9 mexem no eixo do dono e no limite da rota do Reel;
+  M10 numa rota de outra plataforma).
