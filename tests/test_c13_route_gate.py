@@ -44,7 +44,28 @@ DECISOES_ANTIGAS = {
     'INSTAGRAM/FETCH_COMMENTS': ('ALLOWED', 'apify:comments', 'CONDICIONAL', 'PROVED'),
     'INSTAGRAM/FETCH_POST': ('ALLOWED', 'instagram_janela.py:embed', 'CONDICIONAL', 'PROVED'),
     'INSTAGRAM/FETCH_PROFILE': ('ALLOWED', 'graph:business_discovery', 'CONDICIONAL', 'CREDENTIAL_MISSING'),
-    'INSTAGRAM/FETCH_TRANSCRIPT': ('ROUTE_NOT_ALLOWED', None, None, None),
+    # ── MUDOU EM 2026-09-23, DE PROPÓSITO E COM PROVA (D22) ─────────────────
+    # Esta linha dizia `('ROUTE_NOT_ALLOWED', None, None, None)` desde a C10.5D,
+    # quando se leu o `robots.txt` vivo de instagram.com (`Disallow: /`).
+    #
+    # A LEITURA NÃO MUDOU. Mudou quem assume o risco: o dono do projeto
+    # autorizou nomeadamente a coleta de REELS do Instagram POR URL DIRECTA,
+    # sem login, sem conta e sem rota paga (D22, 2026-09-23), com o risco
+    # assumido por ele — como a D17.4 fez com o som do YouTube. A rota passou a
+    # declarar os três eixos, e é isso que ela diz agora:
+    #
+    #     OWNER_AUTHORIZED = SIM          D22 (decisão do PROJETO)
+    #     PLATFORM_POLICY_STATUS = DISALLOWED   (medição da PLATAFORMA)
+    #     LIMITE = PUBLIC_REEL_BY_URL_ONLY
+    #
+    #     MEDIR A POLÍTICA NÃO É OBEDECER-LHE: É SABER O QUE SE ASSUME.
+    #
+    # ── E ESTA É A ÚNICA LINHA QUE MUDOU. As outras 31 continuam congeladas, e
+    # este teste continua a MORRER se qualquer uma delas mudar — é para isso que
+    # ele existe. Prova por mutação: `tests/mutacao_do_scrap_portas.py`, caso
+    # M7, mexe na rota do REDDIT (outra plataforma, outro dono) e exige vermelho
+    # AQUI.
+    'INSTAGRAM/FETCH_TRANSCRIPT': ('ALLOWED', 'instagram_transcrever.py:faster-whisper', 'SIM', 'PROVED'),
     # ── MUDOU NA C14-C, DE PROPÓSITO E COM PROVA ────────────────────────────
     # Esta linha dizia `('ALLOWED', 'instagram_janela.py:grade', 'CONDICIONAL',
     # 'PROVED')`. Era a ÚNICA capacidade remota do Instagram que chegava a

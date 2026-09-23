@@ -137,8 +137,27 @@ _C11 = 'docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md'
 
 DECLARADAS = {
     # ── INSTAGRAM ─────────────────────────────────────────────────────────
-    'instagram.reel.capture': ('INSTAGRAM', PROVEN, EITHER, None, _RE, None),
-    'instagram.reel.audio': ('INSTAGRAM', PROVEN, EITHER, None, _RE, None),
+    'instagram.reel.capture': ('INSTAGRAM', PROVEN, EITHER, None, _RE, 'FETCH_TRANSCRIPT'),
+    # ⚠️ AS TRES LEVAM A MESMA CAPACIDADE GROSSA, E ISSO NAO E DESCUIDO.
+    # O proprio adaptador escreve a lei: «capture», «audio» e «transcribe» nao
+    # sao tres actos, sao tres nomes do mesmo acto — ir buscar a media do Reel e
+    # reconhecer a fala. Na lingua da matriz esse acto chama-se
+    # FETCH_TRANSCRIPT, e era a unica pergunta que o adaptador fazia a politica.
+    #
+    #     TRES NOMES PARA UM ACTO NAO SAO TRES AUTORIZACOES.
+    #
+    # Antes desta linha so `transcribe` carregava a traducao, e as outras duas
+    # ficavam SEM GROSSA — e uma capacidade sem grossa e uma capacidade sobre a
+    # qual a matriz nao pode ser perguntada. Medido (SOC1, 2026-09-23): o
+    # `CHECK` respondia `CAN_COLLECT_NOW` as tres enquanto
+    # `mz.decisao('INSTAGRAM','FETCH_TRANSCRIPT')` respondia `ROUTE_NOT_ALLOWED`.
+    #
+    #     UM PORTAO QUE NAO PODE PERGUNTAR A LEI RESPONDE SOZINHO — E ERRA.
+    #
+    # E o dono decidiu (D19): o Instagram continua POLICY_BLOCK e fornece zero
+    # dados ate existir a conta Business do PROJETO e a API oficial. A fase pode
+    # estar CONSTRUIDA; quem a recusa hoje e a matriz, e agora o portao diz isso.
+    'instagram.reel.audio': ('INSTAGRAM', PROVEN, EITHER, None, _RE, 'FETCH_TRANSCRIPT'),
     # A UNICA DAS TRES QUE A MATRIZ CONHECE. O acto que ela executa — ir
     # buscar a media e reconhecer a fala aqui — e o que `social_matriz`
     # chama FETCH_TRANSCRIPT, e ali ele esta PERMITIDA=SIM, PROVED. Sem
@@ -341,6 +360,28 @@ def da_matriz(nome):
     return linha[5] if linha else None
 
 
+#: O DONO DE UMA ROTA GROSSA QUANDO MAIS DE UMA CAPACIDADE FINA A PARTILHA.
+#:
+#: ⚠️ PORQUE ISTO EXISTE: a traducao inversa (`pela_matriz`) deixou de ser
+#: injectiva no dia em que as TRES capacidades de Reel passaram a declarar a
+#: mesma rota grossa — e passaram porque sao um acto so, como o proprio
+#: adaptador escreve (`TRES NOMES PARA UM ACTO NAO SAO TRES AUTORIZACOES`).
+#:
+#: Sem esta tabela, quem responde por `INSTAGRAM/FETCH_TRANSCRIPT` e o primeiro
+#: nome na ordem de insercao do dicionario — `instagram.reel.capture`, que se
+#: regista com `executa` e NAO tem rota. O roteador ficava sem funcao e a
+#: mensagem era «sem adaptador nesta missao», com o adaptador ali ao lado.
+#:
+#:     A ORDEM DE UM DICIONARIO NAO E UMA DECISAO DE ARQUITETURA.
+#:
+#: O dono da rota grossa e a capacidade que a ATRAVESSA pelo portao — a que se
+#: regista com `rota=`. As outras duas entram pela cadeia delas (`executa`), e
+#: para essas a pergunta nao se faz.
+DONO_DA_GROSSA = {
+    ('INSTAGRAM', 'FETCH_TRANSCRIPT'): 'instagram.reel.transcribe',
+}
+
+
 def pela_matriz(plat, capacidade_grossa):
     """O caminho inverso: da lingua da matriz para a capacidade declarada.
 
@@ -348,11 +389,32 @@ def pela_matriz(plat, capacidade_grossa):
     que se registou como `youtube.channel.discovery`. Sem esta traducao, ou o
     roteador aprendia nomes novos, ou a declaracao aprendia nomes velhos. As
     duas seriam a mesma coisa: um vocabulario a impor-se ao outro.
+
+    ⚠️ ESTA TRADUCAO INVERSA DEIXOU DE SER INJECTIVA, E A ORDEM DO DICIONARIO
+    NAO E UMA DECISAO. Medido em 2026-09-23, ao declarar a rota grossa das
+    TRES capacidades de Reel (elas sao um acto so, diz o proprio adaptador):
+
+        pela_matriz('INSTAGRAM','FETCH_TRANSCRIPT')  ->  'instagram.reel.capture'
+
+    — o primeiro da ordem de insercao, que se regista com `executa` e nao tem
+    rota nenhuma. O roteador ficava com `None` e respondia «rota declarada e
+    permitida, mas sem adaptador nesta missao».
+
+        QUEM RESPONDE POR UMA ROTA GROSSA NAO PODE SER O PRIMEIRO DA LISTA:
+        TEM DE SER QUEM A ATRAVESSA, E ISSO DECLARA-SE.
+
+    E com duas candidatas e nenhuma declarada, a resposta passa a ser `None` —
+    «nao sei quem executa isto», que e honesto e aparece — em vez de um nome
+    escolhido por ordem de insercao, que e uma decisao que ninguem tomou.
     """
     plat = (plat or '').upper()
-    for n, v in DECLARADAS.items():
-        if v[0] == plat and v[5] == capacidade_grossa:
-            return n
+    chave = (plat, capacidade_grossa)
+    if chave in DONO_DA_GROSSA:
+        return DONO_DA_GROSSA[chave]
+    candidatas = [n for n, v in DECLARADAS.items()
+                  if v[0] == plat and v[5] == capacidade_grossa]
+    if len(candidatas) == 1:
+        return candidatas[0]
     return None
 
 

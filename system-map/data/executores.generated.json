@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "cd4203dbd57b84c3c04edf3ff0ee90367fc83864",
+  "HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -606,7 +606,7 @@
   {
    "EXECUTOR_ID": "coleta/derivacao_forward.py",
    "GAVETA": "coleta",
-   "LINHAS": 611,
+   "LINHAS": 613,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -864,7 +864,7 @@
   {
    "EXECUTOR_ID": "coleta/ingresso.py",
    "GAVETA": "coleta",
-   "LINHAS": 1398,
+   "LINHAS": 1400,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1141,7 +1141,7 @@
   {
    "EXECUTOR_ID": "coleta/rota_forward_documento.py",
    "GAVETA": "coleta",
-   "LINHAS": 611,
+   "LINHAS": 634,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1220,7 +1220,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_capacidades.py",
    "GAVETA": "coleta",
-   "LINHAS": 423,
+   "LINHAS": 485,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
@@ -1247,9 +1247,11 @@
   {
    "EXECUTOR_ID": "coleta/scrap_colheita.py",
    "GAVETA": "coleta",
-   "LINHAS": 779,
+   "LINHAS": 900,
    "TEM_PORTA": true,
-   "ETAPAS_NOMEADAS": [],
+   "ETAPAS_NOMEADAS": [
+    "RAW"
+   ],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": false,
@@ -1271,7 +1273,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_executor.py",
    "GAVETA": "coleta",
-   "LINHAS": 843,
+   "LINHAS": 913,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1397,7 +1399,7 @@
   {
    "EXECUTOR_ID": "coleta/social_envelope.py",
    "GAVETA": "coleta",
-   "LINHAS": 364,
+   "LINHAS": 465,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -1876,7 +1878,7 @@
   {
    "EXECUTOR_ID": "guarda/preservar_coleta.py",
    "GAVETA": "guarda",
-   "LINHAS": 1559,
+   "LINHAS": 1564,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -2171,7 +2173,7 @@
   {
    "EXECUTOR_ID": "ferramentas/reel_transcricao.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 1729,
+   "LINHAS": 1784,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "FETCH",
@@ -2224,7 +2226,7 @@
   {
    "EXECUTOR_ID": "orquestrador/orquestrador.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 1183,
+   "LINHAS": 1190,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",

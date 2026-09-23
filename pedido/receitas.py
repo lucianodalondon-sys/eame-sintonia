@@ -471,7 +471,16 @@ EXECUTORES = {
                              # Os quatro do YouTube oficial. `termo` ja estava
                              # aberto acima e serve as duas buscas: e a lista
                              # POR FASE que decide quem o recebe.
-                             "canal_id", "videos", "video"],
+                             "canal_id", "videos", "video",
+                             # ── O ENDERECO DO REEL ────────────────────────────
+                             # As tres fases do Reel aceitam `url`, e so elas:
+                             # `NOMEADOS` fecha a lista por fase, e um nome que a
+                             # rota nao conhece recusa a corrida em vez de morrer
+                             # no `**_` do adaptador.
+                             #
+                             #     URL NAO E SOURCE_ID — e por isso `fonte`
+                             #     continua a descer ao lado dela.
+                             "url"],
         # `identidade-linkedin` chegou da LINKEDIN-OP-01. Ela e a UNICA rota que
         # a politica canonica permite no LinkedIn: le o site DA PROPRIA
         # organizacao e traz de la o endereco que a organizacao publicou. Nunca
@@ -496,7 +505,18 @@ EXECUTORES = {
                         # estava provada e com rota, mas sem fase — e sem esta
                         # linha a fase existiria em `scrap_colheita` e o pedido
                         # continuaria a nao a saber pedir. §151 outra vez.
-                        "audio-youtube"],
+                        "audio-youtube",
+                        # ── AS TRES DO REEL, PELA MESMA RAZAO ────────────────
+                        # `instagram.reel.capture`, `.audio` e `.transcribe` tem
+                        # adaptador, rota, prova e o `CHECK` responde
+                        # `CAN_COLLECT_NOW` — e a Collection nao as sabia pedir.
+                        # A fase diz O QUE CORRE; `serve_fases` diz QUEM A ABRE.
+                        #
+                        # ⚠️ `profile.discovery` (a fase `janela`) NAO entra
+                        # aqui por esta porta: ela continua declarada
+                        # `LOCAL/DATACENTER_BLOCKED` e a fase dela ja existe
+                        # acima. Isto nao a promove — declara as tres que faltam.
+                        "captura-reel", "audio-reel", "transcricao-reel"],
         "filtros_por_omissao": {},
         # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
         # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.

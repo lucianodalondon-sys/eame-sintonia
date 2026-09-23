@@ -217,9 +217,16 @@ class APortaQueNenhumImportMostra(unittest.TestCase):
         with self.assertRaises(velho.RotaAposentada):
             velho._baixar('https://scontent.cdninstagram.com/nada.mp4', alvo)
         self.assertFalse(os.path.exists(alvo), 'a velha escreveu apesar da recusa')
-        # a decisao de politica continua NAO, e continua a nao ser desta missao
+        # ⚠️ ESTAS LINHAS DIZIAM «a decisao de politica continua NAO». Mudou por
+        # decisao do dono (D22). O que a prova guarda — e que interessa a esta
+        # missao — e mais forte assim: a rota APOSENTADA recusa seja qual for a
+        # decisao, porque a recusa dela nao e politica, e sim ESPECIE.
         self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
-                         mz.NAO_PERMITIDA)
+                         mz.PERMITIDA_SIM)          # hoje, com os eixos (D22)
+        with self.assertRaises(velho.RotaAposentada):
+            velho._baixar('https://scontent.cdninstagram.com/nada2.mp4',
+                          alvo + '2')
+        self.assertFalse(os.path.exists(alvo + '2'))
 
     def test_o_embed_da_velha_tambem_deixou_de_abrir(self):
         # Gratis nao era permitido: abrir o embed subia navegador e tocava o
@@ -253,12 +260,22 @@ class UmaDecisaoTodasAsPortas(unittest.TestCase):
         self.assertEqual(velho.CAPACIDADE_NA_MATRIZ, rt.CAPACIDADE_NA_MATRIZ)
         self.assertEqual(velho.PLATAFORMA, 'INSTAGRAM')
 
-    def test_a_politica_nao_foi_alterada_por_esta_missao(self):
-        # A C10.4B nao e missao de politica. Se a decisao mudar, foi outra coisa.
+    def test_a_politica_da_rota_e_do_dono_e_tem_os_tres_eixos(self):
+        """⚠️ DIZIA `NAO` / `ROUTE_NOT_ALLOWED`. MUDOU POR DECISAO (D22).
+
+        Esta prova existe para que a C10.4B — missao de FIACAO — nao pudesse
+        mexer na politica por arrasto. Isso continua a valer: quem mexer na rota
+        morre aqui. O que mudou foi a politica, por decisao nomeada do dono
+        (D22, 2026-09-23: REELS publicos por URL directa, sem login, sem conta e
+        sem rota paga), e ela vem com os tres eixos.
+        """
         rotas = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
         self.assertEqual(len(rotas), 1)
-        self.assertEqual(rotas[0]['PERMITIDA'], 'NAO')
-        self.assertEqual(rotas[0]['ESTADO'], 'ROUTE_NOT_ALLOWED')
+        self.assertEqual(rotas[0]['PERMITIDA'], 'SIM')
+        self.assertEqual(rotas[0]['ESTADO'], 'PROVED')
+        self.assertEqual(rotas[0]['OWNER_AUTHORIZED'], 'SIM')        # D22
+        self.assertEqual(rotas[0]['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
+        self.assertEqual(rotas[0]['LIMITE'], 'PUBLIC_REEL_BY_URL_ONLY')
 
     def test_o_reconhecedor_continua_a_ter_um_dono_so(self):
         donos = []
@@ -291,9 +308,14 @@ class UmaDecisaoTodasAsPortas(unittest.TestCase):
                           ('-vn', '-i', 'ffmpeg', 'bestaudio')], [],
                          'a rota aposentada voltou a montar um comando de media')
 
-        # a decisao de politica continua NAO — e continua a nao ser desta missao
+        # ⚠️ ESTAS LINHAS DIZIAM «a decisao de politica continua NAO». Mudou por
+        # decisao do dono (D22). O que se mede aqui continua a ser o mesmo: SO A
+        # NOVA pede alguma coisa a rede, e a aposentada nao monta comando nenhum.
         self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
-                         mz.NAO_PERMITIDA)
+                         mz.PERMITIDA_SIM)          # hoje, com os eixos (D22)
+        rotas = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
+        self.assertEqual([r['ROTA'] for r in rotas],
+                         ['instagram_transcrever.py:faster-whisper'])
 
 
 if __name__ == '__main__':

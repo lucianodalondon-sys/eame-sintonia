@@ -109,8 +109,12 @@ class OVocabularioGanhouUmLimite(unittest.TestCase):
 
     def test_3_o_vocabulario_continua_FECHADO(self):
         """Ampliar não é abrir: só estes dois, e um terceiro exige decisão."""
-        self.assertEqual({'PUBLIC_AUDIO_ONLY', 'PUBLIC_PROFILE_DISCOVERY_ONLY'},
-                         set(mz.LIMITES))
+        # ⚠️ O TERCEIRO ENTROU COM DECISÃO DE DONO, E ESTÁ CITADA (D22): a
+        # coleta de REELS por URL directa não é som do YouTube nem descoberta de
+        # perfil — tem o seu próprio limite, porque um limite que não descreve o
+        # que a rota faz não trava nada.
+        self.assertEqual({'PUBLIC_AUDIO_ONLY', 'PUBLIC_REEL_BY_URL_ONLY',
+                          'PUBLIC_PROFILE_DISCOVERY_ONLY'}, set(mz.LIMITES))
 
     def test_4_nao_se_criou_segundo_vocabulario(self):
         """O limite vive em `LIMITES`, e só lá."""
@@ -175,10 +179,25 @@ class AutorizarNaoEMedir(unittest.TestCase):
 class ANENHUMASAIDASEMPORTEIRO(unittest.TestCase):
     """O gate central: REMOTE_CAPABILITIES_WITHOUT_GATE = 0."""
 
-    def test_13_nenhuma_capability_instagram_esta_ALLOWED(self):
+    def test_13_nenhuma_capability_instagram_esta_ALLOWED_SEM_EIXOS(self):
+        """⚠️ ESTE TESTE DIZIA «nenhuma está ALLOWED». A decisão mudou (D22).
+
+        O que ele existe para guardar não é o `NAO` — é que ninguém abre uma
+        rota remota do Instagram SEM declarar, na própria rota, quem autorizou,
+        o que a plataforma diz e até onde a rota vai. Uma autorização sem eixos
+        é uma autorização sem dono.
+
+            UMA PORTA ABERTA TEM DE DIZER QUEM A ABRIU.
+        """
         abertas = [c for c in AS_QUATRO if _remote_allowed(c)]
-        self.assertEqual([], abertas,
-                         'capability remota sem portão: %s' % abertas)
+        for c in abertas:
+            grossa = cap.da_matriz(c)
+            for rota in mz.MATRIZ['INSTAGRAM'][grossa]:
+                if rota.get('ROTA') != mz.decisao('INSTAGRAM', grossa)['ROTA']:
+                    continue
+                for eixo in mz.EIXOS:
+                    self.assertIn(eixo, rota,
+                                  '%s está ALLOWED sem declarar %s' % (c, eixo))
 
     def test_14_todas_as_capacidades_grossas_alcancaveis_tem_portao(self):
         """Não só as quatro conhecidas — TODA capacidade ALCANÇÁVEL.
@@ -217,10 +236,17 @@ class ANENHUMASAIDASEMPORTEIRO(unittest.TestCase):
             registo = SR._MAPA.get(('INSTAGRAM', fina))
             if not (registo and (registo.get('ROTA') or registo.get('EXECUTA'))):
                 continue                      # não alcançável: nada a pedir
-            if _remote_allowed(fina):
-                abertas.append(fina)
-        self.assertEqual([], abertas,
-                         'capability alcançável e ALLOWED sem eixos: %s' % abertas)
+            if not _remote_allowed(fina):
+                continue
+            # ALLOWED é legítimo desde a D22 — mas só com os três eixos na rota
+            # que a executa. Sem eixos, ninguém assinou aquilo.
+            grossa = cap.da_matriz(fina)
+            linha = [r for r in mz.MATRIZ['INSTAGRAM'].get(grossa, [])
+                     if r.get('ROTA') == mz.decisao('INSTAGRAM', grossa)['ROTA']]
+            self.assertTrue(linha, '%s ALLOWED sem rota declarada' % fina)
+            for eixo in mz.EIXOS:
+                self.assertIn(eixo, linha[0],
+                              '%s ALLOWED sem declarar %s' % (fina, eixo))
 
 
 class AProvaCritica(unittest.TestCase):
@@ -278,9 +304,25 @@ class NaoSeHerdaAutorizacao(unittest.TestCase):
         self.assertEqual('FETCH_TRANSCRIPT', cap.da_matriz('instagram.reel.transcribe'))
 
     def test_18_o_limite_da_descoberta_nao_viaja_para_o_reel(self):
-        """Autorizar discovery não autoriza mídia."""
+        """⚠️ AUTORIZAR DISCOVERY CONTINUA A NÃO AUTORIZAR MÍDIA.
+
+        O que este teste media era a recusa do reel — e a recusa caiu (D22).
+        O que ele passa a medir é a COISA QUE IMPORTA e que não mudou: o reel
+        não herda o limite da descoberta. Cada rota tem o seu, e o do reel é
+        mais estreito no que traz (bytes de um reel dado) e mais largo no que
+        faz (adquire mídia) — o que ele NÃO permite é o que a descoberta
+        permite: varrer um perfil.
+        """
         reel = mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')
-        self.assertNotEqual(mz.PERMITIDA_SIM, reel['DECISAO'])
+        self.assertEqual(mz.PERMITIDA_SIM, reel['DECISAO'])
+        linha = [r for r in mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
+                 if r.get('ROTA') == reel['ROTA']][0]
+        self.assertEqual('PUBLIC_REEL_BY_URL_ONLY', linha['LIMITE'])
+        self.assertNotEqual('PUBLIC_PROFILE_DISCOVERY_ONLY', linha['LIMITE'])
+        # e a descoberta continua fechada: o limite dela não abre o reel, e o
+        # do reel não abre a descoberta.
+        self.assertEqual(mz.NAO_PERMITIDA,
+                         mz.decisao('INSTAGRAM', 'INCREMENTAL')['DECISAO'])
 
     def test_19_o_limite_da_descoberta_nao_viaja_para_o_youtube(self):
         for rotas in (mz.MATRIZ.get('YOUTUBE') or {}).values():

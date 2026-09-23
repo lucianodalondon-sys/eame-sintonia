@@ -292,11 +292,63 @@ class TestOEnderecoLidoNaoEMetadeDoEndereco(unittest.TestCase):
                                  "endereco acaba em hifen — sinal de linha truncada")
 
 
+#: O commit desta missao (15/09): «a fila italiana decidida, e as treze que o
+#: atlas nao mostrava». As duas afirmacoes dela — ZERO identidades emitidas e ZERO
+#: amostras novas — sao sobre ESTE commit contra o PAI dele, e nao sobre o total de
+#: hoje. O total de hoje cresce com cada missao que regista fontes (344 em 23/09),
+#: e prende-lo reprovava a missao de 15/09 por trabalho de outras. (A3, 23/09)
+COMMIT_DA_MISSAO = "2f0863d1"
+
+
+def _git_show(ref, caminho):
+    import subprocess                                          # noqa: PLC0415
+    r = subprocess.run(["git", "show", "%s:%s" % (ref, caminho.replace(os.sep, "/"))],
+                       cwd=str(RAIZ), capture_output=True)
+    return r.stdout if r.returncode == 0 else None
+
+
+def _populacao_no_commit(ref):
+    """Os SOURCE_ID visiveis naquele commit: o Atlas e o outro emissor, lidos pela
+    mesma funcao que le a arvore de hoje (ATLAS.populacao), sobre uma copia temporaria."""
+    import shutil                                              # noqa: PLC0415
+    import tempfile                                            # noqa: PLC0415
+    t = tempfile.mkdtemp(prefix="populacao-")
+    try:
+        lidos = 0
+        for rel in (ATLAS.ATLAS, ATLAS.MASTER_IT):
+            b = _git_show(ref, rel)
+            if b is not None:
+                os.makedirs(os.path.join(t, os.path.dirname(rel)), exist_ok=True)
+                with open(os.path.join(t, rel), "wb") as f:
+                    f.write(b)
+                lidos += 1
+        if not lidos:
+            raise unittest.SkipTest("sem historia git para %s" % ref)
+        return ATLAS.populacao(t, recarregar=True)
+    finally:
+        shutil.rmtree(t, ignore_errors=True)
+
+
+def _amostras_no_commit(ref):
+    import subprocess                                          # noqa: PLC0415
+    r = subprocess.run(["git", "ls-tree", "--name-only", ref,
+                        "data/samples/IT-SOURCE-SAMPLES/"], cwd=str(RAIZ),
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        raise unittest.SkipTest("sem historia git para %s" % ref)
+    return set(l for l in r.stdout.splitlines() if l.strip())
+
+
 class TestAIdentidadeNaoSeMexeu(unittest.TestCase):
 
     def test_a_populacao_de_source_id_nao_mudou(self):
-        """Esta missao registou 13 fontes e emitiu ZERO identidades novas."""
-        self.assertEqual(len(ATLAS.populacao(str(RAIZ))), POPULACAO_ESPERADA)
+        """Esta missao registou 13 fontes e emitiu ZERO identidades novas:
+        o conjunto de SOURCE_ID no commit dela e o do pai dela, e era 257."""
+        na_missao = _populacao_no_commit(COMMIT_DA_MISSAO)
+        antes = _populacao_no_commit(COMMIT_DA_MISSAO + "^")
+        self.assertEqual(sorted(na_missao - antes), [], "a missao emitiu SOURCE_ID novos")
+        self.assertEqual(sorted(antes - na_missao), [], "a missao apagou SOURCE_ID")
+        self.assertEqual(len(na_missao), POPULACAO_ESPERADA)
 
     def test_nenhum_source_id_e_declarado_duas_vezes_no_atlas(self):
         texto = ATLAS_MD.read_text(encoding="utf-8")
@@ -427,8 +479,12 @@ class TestNadaDeColetaAconteceuAqui(unittest.TestCase):
                 self.assertNotIn(proibido, corpo)
 
     def test_a_pasta_de_amostras_nao_cresceu_nesta_missao(self):
-        """13 fichas novas e ZERO amostras novas: a prova ja estava toda ca."""
-        self.assertEqual(len(os.listdir(AMOSTRAS)), 155)
+        """13 fichas novas e ZERO amostras novas: a prova ja estava toda ca.
+        A pasta no commit da missao e a mesma do pai dela (155 ficheiros)."""
+        na_missao = _amostras_no_commit(COMMIT_DA_MISSAO)
+        antes = _amostras_no_commit(COMMIT_DA_MISSAO + "^")
+        self.assertEqual(sorted(na_missao - antes), [], "a missao acrescentou amostras")
+        self.assertEqual(len(na_missao), 155)
 
 
 class TestCorrerDuasVezesNaoInventaAvistamentos(unittest.TestCase):

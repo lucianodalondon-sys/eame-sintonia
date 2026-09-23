@@ -43,7 +43,7 @@ class TestPoliticaNaoSei(unittest.TestCase):
         # dono LD3) continua intocado: so reprova CAPA_PROVAVEL.
         contrato = {"OUTPUT_TYPE": "HTML", "ACQUISITION": {"STRATEGY": "HTML_LINK_DISCOVERY"}}
         self.assertIsNone(RH.gate_capa_nao_e_materia(contrato, dict(NS, LINKS=0,
-                          NON_WHITESPACE_CHARACTERS=0, PARAGRAPH_CHARACTERS=0)))
+                          NON_WHITESPACE_CHARACTERS=0, PARAGRAPH_CHARACTERS=0), url=None, regua_a_mandar=False))
         r = subprocess.run(["git", "grep", "-l", "politica_nao_sei", "--", "*.py", "*.mjs"],
                            cwd=RAIZ, capture_output=True, text=True)
         chamadores = [f for f in r.stdout.split() if not f.endswith((

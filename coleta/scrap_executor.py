@@ -252,7 +252,37 @@ def CHECK(plataforma, capacidade, *, ambiente=None, modo=NORMAL):
         'TRIAL_ELIGIBLE': False,
         'STATE': None,
         'WHY': None,
+        # ── A POLITICA VAI NO VEREDICTO DESDE O INICIO ────────────────────
+        # ⚠️ EXPOR NAO E DECORAR, E EXPOR SO NO FIM NAO E EXPOR.
+        # Estes quatro campos nasceram no ramo que consulta a matriz — e por
+        # isso TODOS os vereditos que saem antes dele (estado que nao promete,
+        # sem rota, ambiente errado) viajavam SEM eles. Quem le por maquina
+        # lia o `CAN` e nao sabia que lei estava em vigor quando ele foi
+        # escrito.
+        #
+        #     UM CAMPO QUE SO APARECE NUM DOS RAMOS NAO E UM CAMPO DO
+        #     VEREDICTO: E UM CAMPO DAQUELE RAMO.
+        #
+        # E a ORDEM dos dois portoes nao muda: o estado medido fecha primeiro
+        # (`CAPABILITY_STATE_PROMISES_NOTHING`) e a politica fecha no lugar
+        # dela. Os dois em serie, e o nome de quem fechou diz qual foi — que e
+        # a lei que `tests/test_c14c_permissao_instagram.py` ja prova.
+        'MATRIZ_CAPABILITY': cap.da_matriz(capacidade),
+        'MATRIZ_DECISAO': None,
+        'MATRIZ_PORQUE': None,
+        'MATRIZ_ROTA': None,
     }
+    # A DECISAO DA MATRIZ E LIDA UMA VEZ, AQUI, E VIAJA NO VEREDICTO DESDE O
+    # PRIMEIRO RAMO. Quem FECHA a porta com ela e o portao da politica, mais
+    # abaixo — e sao duas coisas: expor e agir.
+    #
+    #     UM CAMPO QUE SO APARECE NUM DOS RAMOS NAO E UM CAMPO DO VEREDICTO.
+    _grosso = veredicto['MATRIZ_CAPABILITY']
+    _decisao = mz.decisao(plat, _grosso) if _grosso else None
+    if _decisao:
+        veredicto['MATRIZ_DECISAO'] = _decisao['DECISAO']
+        veredicto['MATRIZ_PORQUE'] = _decisao['PORQUE']
+        veredicto['MATRIZ_ROTA'] = _decisao.get('ROTA')
     if not cap.existe(capacidade):
         veredicto['STATE'] = NAO_DECLARADA
         veredicto['WHY'] = ('capacidade nao declarada. Isto nao e uma falha: e '
@@ -285,6 +315,46 @@ def CHECK(plataforma, capacidade, *, ambiente=None, modo=NORMAL):
         return veredicto
     veredicto['ADAPTER'] = r['ADAPTADOR']
     veredicto['MATRIZ_CAPABILITY'] = cap.da_matriz(capacidade)
+    # ══════════════════════════════════════════════════════════════════════
+    # A PERMISSÃO DA MATRIZ, CONSULTADA PELO PRÓPRIO PORTÃO
+    # ══════════════════════════════════════════════════════════════════════
+    # ⚠️ ESTE PORTÃO NÃO CONSULTAVA A MATRIZ, E ISSO FOI MEDIDO (SOC1).
+    #
+    #     CHECK('INSTAGRAM','instagram.profile.discovery')  -> CAN_COLLECT_NOW
+    #     mz.decisao('INSTAGRAM','INCREMENTAL')             -> ROUTE_NOT_ALLOWED
+    #
+    #     CHECK('INSTAGRAM','instagram.reel.transcribe')    -> CAN_COLLECT_NOW
+    #     mz.decisao('INSTAGRAM','FETCH_TRANSCRIPT')        -> ROUTE_NOT_ALLOWED
+    #
+    # O roteador consultava-a mais abaixo e recusava — nada saía. Mas o PORTÃO
+    # dizia que sim, e um portão que diz sim a quem a lei recusa não é um
+    # portão: é um aviso que chega depois de a corrida ter aberto RUN,
+    # checkpoint e etapa. Dois donos a discordar sobre a mesma rota é defeito,
+    # não política.
+    #
+    #     QUEM ABRE O PORTÃO É QUEM DEVE SABER SE A PORTA É PERMITIDA.
+    #
+    # A CONSULTA É LIDA, NUNCA REESCRITA: quem decide continua a ser
+    # `leis/social_matriz.py`, e o nome do estado que sai daqui é o NOME DELE
+    # (`ROUTE_NOT_ALLOWED`), não um sinónimo inventado neste ficheiro.
+    #
+    # E as três respostas da matriz NÃO se colapsam:
+    #
+    #     ALLOWED            há rota declarada, permitida e viável → segue
+    #     ROUTE_NOT_ALLOWED  mediram, e nenhuma rota viável sobrou → RECUSA
+    #     NOT_DECLARED       ninguém mediu esta capacidade nesta plataforma →
+    #                        não é proibição nem permissão: o campo fica
+    #                        exposto e os outros portões (estado, rota,
+    #                        credencial) continuam a decidir. Medido no HEAD:
+    #                        zero capacidades declaradas caem aqui.
+    if veredicto['MATRIZ_DECISAO'] == mz.NAO_PERMITIDA:
+        veredicto['STATE'] = mz.NAO_PERMITIDA
+        veredicto['WHY'] = ('a matriz de rotas nao permite esta capacidade: '
+                            '%s/%s · %s — %s'
+                            % (plat, veredicto['MATRIZ_CAPABILITY'],
+                               veredicto['MATRIZ_DECISAO'],
+                               veredicto['MATRIZ_PORQUE']))
+        return veredicto
     if ambiente and alvo not in (ambiente, cap.EITHER):
         veredicto['STATE'] = AMBIENTE_ERRADO
         veredicto['WHY'] = ('esta capacidade corre em %s e foi pedida em %s%s'

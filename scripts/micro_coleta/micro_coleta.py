@@ -3,7 +3,8 @@
 Tres verbos, e so um deles vai a rede:
 
     py scripts/micro_coleta/micro_coleta.py plano
-        Sem rede, sem banco. Para cada fonte da coorte proposta pergunta, no
+        Sem rede, sem banco. A coorte e o PORTAO no instante
+        (collection_gate.elegiveis), nao uma lista; para cada fonte pergunta, no
         instante, ao gate canonico (curadoria/collection_gate.py), se ha
         contrato de coleta (regras/italy_contracts_onboarded.json) e se ha
         receita que leve o universo ao italy_executor (pedido/receitas.py).
@@ -200,11 +201,44 @@ def filtros_externos(ler=git_show) -> dict:
             "DESLIGADOS": [x["ID"] for x in FILTROS if not x["ATIVO"]]}
 
 
+# ── A COORTE VEM DO PORTAO ──────────────────────────────────────────────────
+# ⚠️ NAO USAR LISTA FIXA (lei do mandato). Ate a A2 a coorte era o ficheiro
+# COORTE-PROPOSTA.json (14 fontes) e so 1 das 8 do funil G1 passava: a lista
+# e o filtro 3b ficaram atras da decisao D8 do dono. A coorte e agora o que o
+# portao canonico (curadoria/collection_gate.elegiveis) diz NO INSTANTE, e
+# cada fonte READY que ele recusa aparece com o motivo dele.
+G1 = RAIZ / "scripts" / "desbloqueio" / "FUNIL-APOS-ENSAIO-G1.json"
+
+
+def coorte_do_portao(ctx: dict) -> tuple[list[str], list[dict]]:
+    """(elegiveis, fora): a coorte e o porque de cada READY que ficou de fora."""
+    inv = GATE.inventario(ctx=ctx)
+    ids = [l["SOURCE_ID"] for l in inv if l["COLLECTION_ELIGIBLE"]]
+    fora = [{"SOURCE_ID": l["SOURCE_ID"], "STATE": l["STATE"], "MOTIVO": l["MOTIVO"],
+             "PORQUE": l["PORQUE"]} for l in inv if not l["COLLECTION_ELIGIBLE"]]
+    return ids, fora
+
+
+def g1_fora_do_portao(ids: list[str], ctx: dict) -> list[dict]:
+    """Comparacao, nao coorte: as fontes que o funil G1 passou e o portao de hoje nao elege."""
+    if not G1.exists():
+        return [{"SOURCE_ID": AUSENCIA, "PORQUE": "funil G1 ausente nesta arvore"}]
+    g1 = json.loads(G1.read_text(encoding="utf-8")).get("PASSAM_TUDO") or []
+    out = []
+    for s in g1:
+        if s not in ids:
+            v = GATE.avaliar(s, **ctx)
+            out.append({"SOURCE_ID": s, "STATE": v["STATE"], "MOTIVO": v["MOTIVO"],
+                        "PORQUE": v["PORQUE"]})
+    return out
+
+
 def plano(ids: list[str] | None = None, *, ctx: dict | None = None,
           ler=git_show) -> dict:
-    coorte = ler_coorte()
-    ids = ids or [f["SOURCE_ID"] for f in coorte["PROPOSTAS"]]
     ctx = ctx if ctx is not None else GATE._contexto()
+    do_portao, fora_do_portao = coorte_do_portao(ctx)
+    origem = "ARGUMENTO" if ids else "PORTAO (collection_gate.elegiveis)"
+    ids = ids or do_portao
     contratos = {f["SOURCE_ID"]: f for f in
                  json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
     fx = filtros_externos(ler)                      # rebenta se faltar um
@@ -226,11 +260,11 @@ def plano(ids: list[str] | None = None, *, ctx: dict | None = None,
         rv = rotas.get(s)
         if rv and rv not in ("ROUTE_PROVEN",):
             falta.append(f"ROTA:{rv}")
+        # ⚠️ A RELEVANCIA NAO BARRA A FONTE (D2 + D8 do dono, 23/09): Riunite,
+        # Chianti e Balsamico FICAM; a Admission recusa o marketing e a noticia
+        # util segue por REROUTE. Decidir relevancia por fonte seria descartar
+        # sem ler. A 3b fica ao lado, lida com o mesmo rigor, para quem quiser ver.
         rl = relevancia.get(s)
-        if rl is None:
-            falta.append("RELEVANCIA_NAO_MEDIDA_PELA_3b")
-        elif rl != ENTRA_3B:
-            falta.append(f"RELEVANCIA:{rl}")
         # A frase que o orquestrador vai montar, resolvida AQUI e sem rede:
         # alvo certo e executor web. Foi a frase que parou a canonical-micro.
         cmd = comando(s)
@@ -258,7 +292,10 @@ def plano(ids: list[str] | None = None, *, ctx: dict | None = None,
                        "COMANDO": " ".join(comando(s)[1:])})
     return {"GERADO_EM": agora(), "GATE": GATE.CONTRATO,
             "PAINEL_DO_GATE": GATE.painel(ctx=ctx),
-            "EXCLUIDAS": coorte.get("EXCLUIDAS", []),
+            "COORTE": origem,
+            "FORA_DO_PORTAO": fora_do_portao,
+            "G1_FORA_DO_PORTAO": g1_fora_do_portao(ids, ctx),
+            "RELEVANCIA": "informativa: D2/D8 — decide-se por item na Admission (REROUTE), nao por fonte",
             "FILTROS": {"M3-ROTAS": fx["M3-ROTAS"]["HASH"],
                         "M3b-RELEVANCIA": fx["M3b-RELEVANCIA"]["HASH"],
                         "DESLIGADOS": fx["DESLIGADOS"]},
@@ -408,9 +445,63 @@ def _armazem() -> Path:
     return Path(r) if r else Path.home() / "sintonia-sala-italia" / "armazem"
 
 
+# ── DOCUMENTO != TENTATIVA FALHADA ─────────────────────────────────────────
+# ⚠️ Medido no ensaio offline (A1): cada materia que falha (404, transporte)
+# vira um REGISTO da tentativa, em JSON, guardado como raw_asset na MESMA pasta
+# (OBSERVATION) dos documentos, e sem derivado. Contar linhas de raw_asset deu
+# «30 RAW» para 1 documento e «29 falhas de proveniencia» que nao existem.
+# O que distingue e o PROPRIO registo: o coletor escreve HEALTH_STATE=FAILED e
+# SHA256 vazio (nenhum byte da fonte). Nada se apaga: conta-se a parte, com motivo.
+def e_tentativa_falhada(armazem: Path, storage_path: str, media_type: str) -> dict | None:
+    """O motivo, se o raw e o registo de uma colheita falhada; None se e documento."""
+    if "json" not in (media_type or ""):
+        return None
+    try:
+        o = json.loads((Path(armazem) / storage_path).read_text(encoding="utf-8"))
+    except Exception:                                          # noqa: BLE001
+        return None
+    if isinstance(o, dict) and o.get("HEALTH_STATE") == "FAILED" and not o.get("SHA256"):
+        return {"RESULTADO": o.get("OBSERVATION_RESULT") or AUSENCIA,
+                "MOTIVO": str(o.get("motivo") or AUSENCIA)[:120],
+                "URL": o.get("SOURCE_URL") or AUSENCIA}
+    return None
+
+
+# ── OS CONTADORES DO COLETOR ───────────────────────────────────────────────
+# O coletor Node conta o que so ele ve (saude real da fonte, detalhes, refetch,
+# pedidos a rede) e escreve-o em runs.ndjson — o italy_executor so devolve o
+# codigo de saida. Sem isto, SUCCESS = «o processo saiu com 0», e uma fonte
+# FAILED no coletor sai SUCCESS (medido na A1).
+def ledger_do_coletor() -> Path:
+    return Path(os.environ.get("ITALY_OPS_ROOT") or RAIZ) / "data" / "collection-ledger" / "italy"
+
+
+def contadores_do_coletor(run_ids: list[str], pasta: Path | None = None) -> dict:
+    p = (pasta or ledger_do_coletor()) / "runs.ndjson"
+    somas: dict = {}
+    achados = set()
+    if p.exists():
+        for l in p.read_text(encoding="utf-8").splitlines():
+            if not l.strip():
+                continue
+            r = json.loads(l)
+            if r.get("RUN_ID") in run_ids:
+                achados.add(r["RUN_ID"])
+                for k, v in (r.get("contadores") or {}).items():
+                    if isinstance(v, (int, float)):
+                        somas[k] = somas.get(k, 0) + v
+    return {"RUNS_NO_LEDGER": len(achados), "RUNS_SEM_LEDGER": sorted(set(run_ids) - achados),
+            "SOURCES_SUCCESS": somas.get("HEALTHY", 0), "SOURCES_DEGRADED": somas.get("DEGRADED", 0),
+            "SOURCES_FAILED": somas.get("FAILED", 0), "DETAIL_DOCUMENTS": somas.get("DETAIL_NEW", 0),
+            "DETAIL_REQUESTS": somas.get("DETAIL_REQUESTS", 0),
+            "NETWORK_REQUESTS": somas.get("DETAIL_REQUESTS", 0) + somas.get("INDEX_REQUESTS", 0),
+            "UNNECESSARY_REFETCHES": somas.get("UNNECESSARY_REFETCHES", 0),
+            "SKIPPED_KNOWN": somas.get("SKIPPED_KNOWN", 0), "LEDGER": str(p)}
+
+
 def relatorio(run_ids: list[str], *, corridas: list | None = None,
               consulta=sql, livro: Path = LIVRO, armazem: Path | None = None,
-              saida: Path | None = None) -> dict:
+              saida: Path | None = None, ledger: Path | None = None) -> dict:
     em = _em(run_ids)
     armazem = armazem or _armazem()
     obs = consulta(
@@ -427,9 +518,27 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
         "   join collection_run c on c.run_id = r.run_id"
         "  where r.id::text = s.raw_observation_id::text and 'derived:' || d.id = s.item_id)"
         f" from sala_de_espera s where s.run_id in ({em})")
+    # ⚠️ O MESMO ITEM DUAS VEZES NA SALA. Medido na 2.a passagem do ensaio (A2):
+    # uma materia REVALIDADA e igual (SEEN_AGAIN) atravessou a Admission outra vez
+    # e pousou de novo, com outra observacao e outro run_id — 4 itens em dobro.
+    # A Sala real ja tem itens do lote-76; conta-se aqui, sem corrigir (a Sala e
+    # a Admission tem outro dono).
+    ja_na_sala = consulta(
+        "select s.item_id, count(distinct s.run_id) from sala_de_espera s"
+        f" where s.item_id in (select item_id from sala_de_espera where run_id in ({em}))"
+        f" and s.run_id not in ({em}) group by s.item_id")
     decisoes = [d for d in json.loads(Path(livro).read_text(encoding="utf-8"))["DECISOES"]
                 if d.get("corrida") in run_ids]
     por_item = {d["item"]: d for d in decisoes}
+
+    falhadas = []
+    for o in list(obs):
+        f = e_tentativa_falhada(armazem, o[3], o[2])
+        if f:
+            falhadas.append({"RAW": o[0], "SOURCE_ID": o[1], **f})
+    ids_falhados = {x["RAW"] for x in falhadas}
+    todas_as_linhas = len(obs)
+    obs = [o for o in obs if o[0] not in ids_falhados]      # daqui em diante: so DOCUMENTOS
 
     # C2 — materia individual, pelo juiz canonico, sobre os BYTES brutos
     capas, sem_bytes, julgados = [], 0, 0
@@ -487,6 +596,7 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
             "SALA_LINHAS": len(sala),
             "SALA_COM_CADEIA_INTEIRA": sum(1 for s in sala if s[7] == "1"),
             "OBSERVACOES": len(obs),
+            "TENTATIVAS_FALHADAS_A_PARTE": len(falhadas),
             "COM_STORAGE": sum(1 for o in obs if o[4]),
             "COM_DERIVADO": sum(1 for o in obs if o[5]),
             "COM_DECISAO": sum(1 for o in obs if f"derived:{o[5]}" in por_item),
@@ -553,7 +663,17 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
         "IDIOMAS": idiomas, "NAO_SEI_ESTRANGEIRO_SEM_SINAL": violacoes,
         "CONTADOS": len(violacoes), "PASSA": not violacoes}
 
+    motivos: dict = {}
+    for x in falhadas:
+        motivos[x["RESULTADO"]] = motivos.get(x["RESULTADO"], 0) + 1
     rel = {"GERADO_EM": agora(), "RUN_IDS": run_ids, "CRITERIOS": C,
+           "CONTAGENS": {"RAW_LINHAS": todas_as_linhas, "RAW_CREATED": len(obs),
+                         "TENTATIVAS_FALHADAS": len(falhadas),
+                         "TENTATIVAS_POR_RESULTADO": motivos,
+                         "TENTATIVAS": falhadas[:200],
+                         "COLETOR": contadores_do_coletor(run_ids, ledger),
+                         "SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA": len(ja_na_sala),
+                         "SALA_DUPLICADOS_EXEMPLOS": [x[0] for x in ja_na_sala][:20]},
            "PASSOU": sum(1 for c in C.values() if c["PASSA"]), "DE": len(C),
            "LEI": "so SELECT; default_transaction_read_only=on na ligacao"}
     if saida:

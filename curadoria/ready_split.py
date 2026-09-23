@@ -169,6 +169,22 @@ def regua_de(source_id: str, *, livro: dict | None = None,
     return passos_da_promocao(p, ev, c)["REGUA"]
 
 
+def regua_manda(source_id: str | None) -> bool:
+    """V1A: a fonte passa os 4 passos? E a condicao para a V1 do detector valer
+    (`retrato_html.veredito`). Um so sitio para a pergunta; duvida = False."""
+    if not source_id:
+        return False
+    try:
+        return regua_de(source_id) == REGUA_CURRENT
+    except Exception:                                            # noqa: BLE001
+        return False
+
+
+def contrato_de(source_id: str | None) -> dict | None:
+    """O contrato que a regua le (o livro do Curator), para a V1 ler o INDEX_URL."""
+    return _contratos().get(source_id) if source_id else None
+
+
 def contrato_alterado_depois(source_id: str, promocao: dict | None,
                              contratos: dict | None = None) -> bool:
     """A rota mudou depois do READY? Le ROUTE_PROVENANCE.INTEGRADO_EM."""

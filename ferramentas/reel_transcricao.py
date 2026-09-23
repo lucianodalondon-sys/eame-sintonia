@@ -884,6 +884,44 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
 
 
 # ══════════════════════════════════════════════════════════════════ A CADEIA
+#: O CONTENTOR QUE CADA FAMILIA DE FICHEIRO DESTA ROTA PRODUZ. A extensao
+#: nomeia o contentor; quem decide a FAMILIA e o `media_kind` MEDIDO por
+#: `fl.so_audio()`. Uma extensao de video com som-sem-imagem sai `audio/...`,
+#: porque foi isso que o `ffprobe` provou e foi isso que a rota pediu ao
+#: `yt-dlp` (`SELETOR_SO_AUDIO`).
+CONTENTORES = {
+    '.wav': ('audio/wav', 'audio/wav'),
+    '.m4a': ('audio/mp4', 'audio/mp4'),
+    '.mp3': ('audio/mpeg', 'audio/mpeg'),
+    '.ogg': ('audio/ogg', 'audio/ogg'),
+    '.opus': ('audio/opus', 'audio/opus'),
+    '.webm': ('audio/webm', 'video/webm'),
+    '.mp4': ('audio/mp4', 'video/mp4'),
+    '.mov': ('audio/mp4', 'video/quicktime'),
+    '.mkv': ('audio/x-matroska', 'video/x-matroska'),
+}
+
+
+def _especie_do_ficheiro(caminho, media_kind):
+    """→ o `CONTENT_TYPE` do RAW: MEDIDO na familia, NOMEADO no contentor.
+
+    `NAO SEI` quando nao se sabe nenhuma das duas coisas — e `NAO SEI` e uma
+    resposta, nao um valor a preencher: quem trata a ausencia como «tenta» o
+    faz de proposito (`ingresso._quem_deriva_aceita`), e encher o campo com um
+    palpite estragaria essa lei em silencio.
+    """
+    ext = os.path.splitext(str(caminho or ''))[1].lower()
+    par = CONTENTORES.get(ext)
+    if par is None:
+        return NOT_KNOWN
+    if media_kind == MIDIA_AUDIO:
+        return par[0]
+    if media_kind == MIDIA_VIDEO:
+        return par[1]
+    # Sem `media_kind` medido nao se promove nada: o contentor sozinho nao
+    # diz se aquilo e som ou video.
+    return NOT_KNOWN
+
 def _ficha_raw(caminho, ident, *, run_id, capture_provider, media_kind=NOT_KNOWN):
     """A ficha do byte bruto. O `ARTIFACT_ID` sai do CONTEÚDO, e é por isso que
     correr duas vezes sobre o mesmo vídeo não cria dois artefatos.
@@ -920,6 +958,23 @@ def _ficha_raw(caminho, ident, *, run_id, capture_provider, media_kind=NOT_KNOWN
     """
     return art.raw_do_disco(
         os.path.abspath(caminho), ROOT,
+        # ── A ESPECIE DOS BYTES, DECLARADA POR QUEM OS MEDIU ────────────
+        # ⚠️ SEM ISTO, O RAW DA CADEIA DE REEL SAIA `CONTENT_TYPE = NAO SEI`,
+        # e um RAW sem especie NAO ATRAVESSA a ponte da derivacao: o §155
+        # mediu o mesmo defeito no YouTube, e a consequencia e sempre a mesma:
+        #
+        #     DERIVED = 0 -> ADMISSAO `NAO SEI` a um documento que nunca teve
+        #     texto porque ninguem o transcreveu.
+        #
+        # O QUE SE DECLARA, E COM QUE BASE:
+        #   · o `media_kind` NAO e palpite — `fl.so_audio()` corre `ffprobe` e
+        #     prova se ha som sem imagem (ou video com ela);
+        #   · a EXTENSAO nao e identidade: ela so nomeia o CONTENTOR, e o
+        #     contendor foi produzido POR ESTA ROTA (`-x --audio-format m4a`, ou
+        #     o ficheiro que ja estava preservado nesta casa).
+        #
+        #     MEDIDO: A ESPECIE (som/video).  NOMEADO PELA ROTA: O CONTENTOR.
+        CONTENT_TYPE=_especie_do_ficheiro(caminho, media_kind),
         # NUNCA `ident.get('SOURCE_URL')`. Ver a docstring: o endereço passa no
         # `_identifica()` e o sentinela não, e é essa a diferença inteira.
         SOURCE_ID=ident.get('SOURCE_ID', NAO_SEI),

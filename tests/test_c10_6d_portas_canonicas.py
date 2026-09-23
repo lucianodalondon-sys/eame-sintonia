@@ -75,13 +75,47 @@ IMPLEMENTACOES = ('instagram_janela.py', 'instagram_diario.py',
                   'youtube_janela.py', 'youtube_transcrever.py',
                   'instagram_transcrever.py', 'reel_transcricao.py',
                   'youtube_oficial.py')
-CANONICAS = ('janela', 'janela-perfis', 'janela-objetos')
-BLOQUEADAS = ('diario', 'yt-canais', 'yt-objetos', 'yt-legendas', 'yt-alvos',
+#: As fases que entram pela ENTRADA CANÔNICA — o orquestrador, que escolhe o
+#: executor, cunha o RUN_ID e leva a colheita à porta.
+#:
+#: ⚠️ A `janela` DO INSTAGRAM SAIU DESTA LISTA, E NÃO POR REGRESSÃO. A matriz
+#: já a recusava (`INSTAGRAM/INCREMENTAL` → `ROUTE_NOT_ALLOWED`), o roteador já
+#: a recusava em runtime, e o que faltava era a PORTA dizê-lo: o `CHECK`
+#: respondia `CAN_COLLECT_NOW` e a corrida abria RUN para colher zero. O dono
+#: decidiu (D19.1) que o Instagram permanece `POLICY_BLOCK` até existir a conta
+#: Business do PROJETO. Ela vive agora em `RECUSADAS_PELA_MATRIZ`.
+CANONICAS = ('canario-bluesky', 'identidade-linkedin',
+             'busca-youtube', 'canal-youtube', 'video-youtube',
+             'comentarios-youtube', 'audio-youtube',
+             'canal-telegram', 'tag-mastodon', 'contas-bluesky',
+             # ⚠️ AS TRÊS DO REEL ENTRARAM AQUI EM 2026-09-23 (D22). Elas
+             # nasceram recusadas (D19) e a decisão do dono REAL mudou: a
+             # coleta de REELS por URL directa, sem login, sem conta e sem rota
+             # paga está AUTORIZADA, com o risco assumido por ele.
+             #
+             #     A PORTA NÃO DECIDE POLÍTICA: ELA CONSULTA QUEM DECIDE.
+             'captura-reel', 'audio-reel', 'transcricao-reel')
+BLOQUEADAS = ('diario', 'yt-canais', 'yt-objetos', 'yt-legendas',
               'yt-transcrever', 'bio', 'posts', 'reels', 'comentarios')
+#: As fases que a MATRIZ recusa hoje — a recusa tem de ser a mesma nas duas
+#: portas, e o nome do estado tem de ser o que o dono da política deu.
+RECUSADAS_PELA_MATRIZ = ('janela', 'janela-perfis', 'janela-objetos')
 #: Fases que NÃO são Collection e que por isso continuam com CLI própria.
+#:
+#: ⚠️ `yt-alvos` ENTROU AQUI, E A ENTRADA É UMA CORREÇÃO. Ele estava nas
+#: bloqueadas como se fosse uma aquisição — e mediu-se que não adquire nada:
+#: `youtube_transcrever.py::fase_alvos` lê a fila LOCAL que a relevância já
+#: escreveu e imprime-a. Não abre rede, não preserva bytes, não cunha nada.
+#:
+#:     COLETAR != ADMITIR != JULGAR.
+#:
+#: Recusá-lo como se fosse Collection era um erro de ESPÉCIE, o mesmo que o
+#: `yt-relevancia` já teve. Quem faz a aquisição a seguir (`yt-transcrever`)
+#: continua recusado — mas agora com a verdade: a rota existe e a porta
+#: canónica é outra.
 FORA_DA_COLLECTION = ('diario-fila', 'diario-noticia', 'portao-pessoal',
                       'yt-relevancia', 'yt-calibrar', 'contratos', 'plano',
-                      'semaforo', 'liquidar')
+                      'semaforo', 'liquidar', 'yt-alvos')
 
 
 def _fonte(rel):
@@ -166,6 +200,63 @@ class NenhumaFaseDeCollectionChamaImplementacao(unittest.TestCase):
                 for i in IMPLEMENTACOES:
                     self.assertNotIn(i, cmds,
                                      '%s voltou a correr %s' % (f, i))
+
+    def test_2b_as_fases_recusadas_pela_matriz_recusam_E_nomeiam_a_matriz(self):
+        """A recusa da porta operacional e a lei têm de apontar para o mesmo lado.
+
+        ⚠️ ESTE PORTAO NASCEU DE UMA DISCORDANCIA MEDIDA (SOC1, 2026-09-23):
+        `CHECK` respondia `CAN_COLLECT_NOW` ao Instagram enquanto
+        `mz.decisao('INSTAGRAM','FETCH_TRANSCRIPT')` respondia
+        `ROUTE_NOT_ALLOWED`. As duas linhas eram verdade ao mesmo tempo.
+
+            DUAS PORTAS A DISCORDAR SOBRE A MESMA ROTA É DEFEITO, NÃO POLÍTICA.
+        """
+        import scrap_capacidades as cap
+        import scrap_colheita as SC
+        por = _por_fase()
+        for f in RECUSADAS_PELA_MATRIZ:
+            with self.subTest(fase=f):
+                cmds = ' '.join(por.get(f) or [])
+                self.assertIn('recusar', cmds, '%s deixou de recusar' % f)
+                plat, capacidade = SC.FASES[f][0], SC.FASES[f][1]
+                grosso = cap.da_matriz(capacidade)
+                self.assertIsNotNone(grosso,
+                                     '%s: a matriz nao pode ser perguntada sem '
+                                     'capacidade grossa' % f)
+                d = mz.decisao(plat, grosso)
+                self.assertNotEqual(
+                    mz.PERMITIDA_SIM, d['DECISAO'],
+                    '%s: a matriz PERMITE (%s) e a porta operacional recusa'
+                    % (f, grosso))
+                self.assertIn(grosso, cmds,
+                              '%s: a recusa nao nomeia a capacidade grossa que '
+                              'a matriz recusou' % f)
+                self.assertIn(d['DECISAO'], cmds,
+                              '%s: a recusa nao usa o NOME que a matriz deu (%s)'
+                              % (f, d['DECISAO']))
+                for i in IMPLEMENTACOES:
+                    self.assertNotIn(i, cmds, '%s volta a correr %s' % (f, i))
+
+    def test_2c_o_yt_transcrever_recusa_e_nomeia_a_porta_canonica(self):
+        """A recusa deixou de ser sobre a MATRIZ e passou a ser sobre o CAMINHO.
+
+        O texto datado dizia «a matriz nao declara capacidade de BYTES para
+        YOUTUBE». Ele deixou de ser verdade a 2026-09-19, quando a matriz passou
+        a declarar `FETCH_AUDIO_BYTES` e o dono autorizou a rota.
+
+            O TEXTO DA RECUSA ENVELHECE MAIS DEPRESSA QUE A DECISAO.
+
+        A recusa que fica é outra, e é verdadeira: a rota existe, a porta
+        canónica é `audio-youtube`, e esta fase faz a mesma aquisição por fora.
+        """
+        cmds = ' '.join(_por_fase().get('yt-transcrever') or [])
+        self.assertIn('recusar', cmds)
+        self.assertIn('audio-youtube', cmds,
+                      'a recusa nao nomeia a porta canonica que faz o mesmo acto')
+        self.assertNotIn('nao declara capacidade de BYTES', cmds,
+                         'a recusa voltou a negar uma rota que a matriz declara')
+        self.assertEqual('yt-dlp:public_audio',
+                         mz.decisao('YOUTUBE', 'FETCH_AUDIO_BYTES')['ROTA'])
 
     def test_3_nenhuma_fase_cai_num_ramo_que_ninguem_reclama(self):
         """O ramo `*)` mandava fase não nomeada para um orquestrador com fases pagas."""
@@ -355,11 +446,37 @@ class APoliticaContinuaDona(unittest.TestCase):
                          ' '.join(por.get('yt-legendas') or []),
                          'a fase que corre `timedtext` voltou ao workflow')
 
-    def test_10_a_politica_nao_mudou_nesta_missao(self):
-        self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
-                         mz.NAO_PERMITIDA)
+    def test_10_a_politica_do_reel_mudou_POR_DECISAO_E_OS_EIXOS_DIZEM_NO_QUE(
+            self):
+        """⚠️ ESTE TESTE JÁ DIZIA O CONTRÁRIO, E A DECISÃO MUDOU (D22).
+
+        Ele nasceu na C10.5D para fixar a leitura do `robots.txt` vivo de
+        instagram.com (`Disallow: /`) — e a leitura NÃO mudou. O que mudou foi
+        quem assume o risco: o dono do projeto autorizou nomeadamente a coleta
+        de REELS por URL directa (D22, 2026-09-23), como a D17.4 fez com o som
+        do YouTube.
+
+            MEDIR A POLÍTICA NÃO É OBEDECER-LHE: É SABER O QUE SE ASSUME.
+
+        O que este teste passa a fixar é que a decisão é EXPLÍCITA e que os três
+        eixos estão escritos — nenhum deles em branco, nenhum por analogia.
+        """
+        d = mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')
+        self.assertEqual(mz.PERMITIDA_SIM, d['DECISAO'])
+        rota = d['ROTA_ESCOLHIDA'] if 'ROTA_ESCOLHIDA' in d else None
+        linha = [r for r in mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
+                 if r.get('ROTA') == d['ROTA']][0]
+        for eixo in mz.EIXOS:
+            self.assertIn(eixo, linha, 'a decisão mudou sem declarar %s' % eixo)
+        self.assertEqual('SIM', linha['OWNER_AUTHORIZED'], 'D22 é decisão do dono')
+        self.assertEqual('DISALLOWED', linha['PLATFORM_POLICY_STATUS'],
+                         'a política continua medida — e continua proibindo')
+        self.assertEqual('PUBLIC_REEL_BY_URL_ONLY', linha['LIMITE'])
         for cap in ('INCREMENTAL', 'FETCH_TRANSCRIPT'):
-            self.assertIn(cap, mz.MATRIZ['YOUTUBE'])
+            self.assertIn(cap, mz.MATRIZ['INSTAGRAM'])
+        # E a JANELA do perfil continua fechada: D22 é dos REELS.
+        self.assertEqual(mz.NAO_PERMITIDA,
+                         mz.decisao('INSTAGRAM', 'INCREMENTAL')['DECISAO'])
 
 
 class ACLIEFinaENaoUmMotor(unittest.TestCase):

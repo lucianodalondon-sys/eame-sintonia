@@ -241,6 +241,97 @@ def _slug(s):
 # não um buraco: `UNKNOWN` fica `UNKNOWN` e não é promovido a nada.
 
 
+# ── O PRAZO DAS ROTAS DA DATA API DO YOUTUBE — 30 DIAS (D20) ───────────────
+# ⚠️ ISTO NÃO É PREFERÊNCIA NOSSA: É UMA OBRIGAÇÃO DA ROTA OFICIAL.
+# O dono decidiu (D20, 2026-09-23) que os metadados obtidos pela YouTube Data
+# API recebem prazo de 30 dias no acervo e, ao vencer, são RENOVADOS por nova
+# busca ou APAGADOS — nunca ficam em retenção permanente por omissão.
+#
+#     D17.4 AUTORIZA USAR A ROTA. NÃO AUTORIZA IGNORAR UMA OBRIGAÇÃO DELA.
+#
+# E o que a decisão NÃO muda, dito com o mesmo cuidado: áudio e transcrição
+# LOCAL não entram neste prazo. Eles não vêm da Data API — vêm do `yt-dlp` e do
+# reconhecedor desta casa — e tratá-los como se viessem seria colar a obrigação
+# de uma rota ao material de outra.
+#
+#     CADA ROTA RECEBE O PRAZO QUE A ROTA IMPÕE. NENHUM A MAIS.
+#
+# O RELÓGIO COMEÇA QUANDO NÓS RECEBEMOS (`COLLECTED_AT`), e não quando a fonte
+# publicou: o que a obrigação limita é a NOSSA cópia. `PUBLISHED_AT` é da
+# plataforma, e usá-lo faria o prazo correr antes de o dado existir aqui.
+RETENCAO_DIAS_DATA_API = 30
+RETENCAO_POLICY_DATA_API = 'YOUTUBE_DATA_API_30D'
+RETENCAO_ACAO = 'RENEW_OR_DELETE'
+#: O prefixo das rotas da Data API v3, medido na matriz (`ROTAS` de
+#: `youtube-data-api-v3:search.list`, `:videos.list`, `:playlistItems.list`,
+#: `:commentThreads.list`). É o prefixo que decide, e não o nome da capacidade:
+#: quem impõe o prazo é A ROTA que trouxe o dado.
+PREFIXO_DATA_API = 'youtube-data-api-v3:'
+
+
+def retencao_da_rota(rota, *, coletado_em=None):
+    """→ o prazo que ESTA rota impõe. `{}` quando ela não impõe nenhum.
+
+    Vazio é resposta, e não esquecimento: uma rota local não tem prazo nenhum
+    a declarar, e inventar-lhe um seria alargar a obrigação de uma rota a
+    material que não vem dela.
+    """
+    if not str(rota or '').startswith(PREFIXO_DATA_API):
+        return {}
+    fora = {'RETENTION_POLICY': RETENCAO_POLICY_DATA_API,
+            'RETENTION_DAYS': RETENCAO_DIAS_DATA_API,
+            'RETENTION_FROM': coletado_em or agora(),
+            'RETENTION_ACTION': RETENCAO_ACAO,
+            'RETENTION_BASIS': ('a rota oficial da YouTube Data API impoe prazo '
+                                'de retencao; decisao do dono D20. Ao vencer: '
+                                'renovar por nova busca ou apagar — nunca '
+                                'retencao permanente por omissao.')}
+    fora['RETENTION_DEADLINE'] = _mais_dias(fora['RETENTION_FROM'],
+                                            RETENCAO_DIAS_DATA_API)
+    return fora
+
+
+def _mais_dias(quando, dias):
+    """`quando` + `dias`, em ISO-8601 UTC. `NAO SEI` quando não se consegue ler.
+
+    Um prazo calculado sobre uma data ilegível seria pior do que nenhum: daria
+    a um objeto sem relógio o aspecto de um objeto vigiado.
+    """
+    from datetime import datetime, timedelta, timezone
+    try:
+        t = str(quando).replace('Z', '+00:00')
+        d = datetime.fromisoformat(t)
+    except (TypeError, ValueError):
+        return DESCONHECIDO
+    if d.tzinfo is None:
+        d = d.replace(tzinfo=timezone.utc)
+    return (d + timedelta(days=int(dias))).isoformat()
+
+
+def vencido(objeto, *, agora_iso=None):
+    """→ True/False/UNKNOWN: o prazo deste objeto já passou?
+
+    `UNKNOWN` é resposta legítima e obrigatória quando o objeto não tem prazo
+    declarado ou tem um prazo ilegível. Colapsar isso em `False` diria
+    «está tudo em ordem» sobre um objeto que ninguém sabe vigiar.
+
+        NAO SEI SE VENCEU != NAO VENCEU.
+    """
+    from datetime import datetime, timezone
+    limite = (objeto or {}).get('RETENTION_DEADLINE')
+    if not limite or limite == DESCONHECIDO:
+        return DESCONHECIDO if (objeto or {}).get('RETENTION_POLICY') else False
+    try:
+        d = datetime.fromisoformat(str(limite).replace('Z', '+00:00'))
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=timezone.utc)
+        agora_ = (datetime.fromisoformat(str(agora_iso).replace('Z', '+00:00'))
+                  if agora_iso else datetime.now(timezone.utc))
+    except (TypeError, ValueError):
+        return DESCONHECIDO
+    return d <= agora_
+
+
 def envelope(*, platform, native_id, url, content_type, route, executor,
              run_id, country_scope, source_account=None, published_at=None,
              language=None, source_location=None, cost_usd=0.0,
@@ -283,7 +374,7 @@ def envelope(*, platform, native_id, url, content_type, route, executor,
             source_artifact=url,
             derivation_method=text_derivation or pv.TEXTO_DESCONHECIDO,
             tool=text_tool, model=text_model)])
-    return {
+    fora = {
         'PLATFORM': platform.upper(),
         'SOURCE_ACCOUNT': source_account or DESCONHECIDO,
         'NATIVE_ID': str(native_id),
@@ -315,6 +406,16 @@ def envelope(*, platform, native_id, url, content_type, route, executor,
         'DISCOVERY_ROUTES': [route],
         'RAW': raw if raw is not None else {},
     }
+    # ── O PRAZO DA ROTA, QUANDO ELA O IMPÕE ───────────────────────────────
+    # ⚠️ ENTRA AQUI E NÃO NO `envelope` DE CADA ADAPTADOR, e a razão é a mesma
+    # que faz este ficheiro existir: um envelope montado em quatro sítios são
+    # quatro oportunidades de esquecer o prazo. Quem sabe qual é a rota é o
+    # objeto; quem sabe o que a rota impõe é esta função.
+    #
+    # Rota que não impõe prazo recebe `{}` — nenhum campo a mais. O áudio e a
+    # transcrição LOCAL continuam exactamente como estavam (D20.2).
+    fora.update(retencao_da_rota(route, coletado_em=fora['COLLECTED_AT']))
+    return fora
 
 
 def dedupe(objetos):

@@ -671,26 +671,67 @@ class _Postgres(object):
         # disso fez a primeira versão rebentar antes de chegar ao banco:
         #
         #     DOIS DONOS DO MESMO SÍMBOLO NA MESMA STRING.
+        # ⚠️ IDEMPOTENTE POR CORRIDA NÃO É IDEMPOTENTE POR DOCUMENTO. Medido na
+        # 2.ª passagem do ensaio offline (A2/A3): uma matéria REVALIDADA e igual
+        # (o coletor marcou-a SEEN_AGAIN; o derivado foi REUSED) atravessava a
+        # Admission outra vez e ganhava uma SEGUNDA linha na Sala, com outro
+        # run_id — 4 notícias em dobro. A trava por corrida não via isso.
+        #
+        #     O MESMO DOCUMENTO NA MESMA VERSÃO = A MESMA LINHA.
+        #     VERSÃO NOVA = LINHA NOVA. NUNCA SE APAGA A ANTIGA.
+        #
+        # A identidade é (item_id, universo): `derived:<n>` é o derivado, que a
+        # régua da 022 já deduplica pelos bytes (bytes novos = derivado novo =
+        # versão nova); o universo entra porque o mesmo documento reencaminhado
+        # (D2, REROUTE) a outra pergunta é outra entrada. A observação nova não
+        # se perde: fica em raw_asset e na participação na derivação — só não
+        # volta à fila da Inteligência. Uma segunda trava, GLOBAL e sempre
+        # depois da da corrida, serializa a pergunta «já está?» entre corridas.
         script = """
 create temporary table _recibo (resultado text) on commit drop;
+create temporary table _entrada (like public.sala_de_espera including defaults) on commit drop;
 do $sala$
 declare
   ja char(64);
+  n integer;
+  total integer;
 begin
   perform pg_advisory_xact_lock(hashtext({run}));
+  perform pg_advisory_xact_lock(hashtext('sala_de_espera:identidade'));
   select corrida_sha256 into ja
     from public.sala_de_espera where run_id = {run} limit 1;
   if ja is null then
-    insert into public.sala_de_espera
+    insert into _entrada
       (run_id, ordem, item_id, raw_observation_id, universo, texto,
        source_id, source_location, fact_location, fact_time, captured_at,
        admitido_por, corrida_sha256,
        estagio, fact_time_basis, fact_location_basis, published_at,
        observed_at, source_declared_evidence_class, fato)
     values {valores};
-    insert into _recibo values ('{pousou}');
+    select count(*) into total from _entrada;
+    insert into public.sala_de_espera
+      (run_id, ordem, item_id, raw_observation_id, universo, texto,
+       source_id, source_location, fact_location, fact_time, captured_at,
+       admitido_por, corrida_sha256,
+       estagio, fact_time_basis, fact_location_basis, published_at,
+       observed_at, source_declared_evidence_class, fato)
+    select run_id, ordem, item_id, raw_observation_id, universo, texto,
+           source_id, source_location, fact_location, fact_time, captured_at,
+           admitido_por, corrida_sha256,
+           estagio, fact_time_basis, fact_location_basis, published_at,
+           observed_at, source_declared_evidence_class, fato
+      from _entrada e
+     where not exists (select 1 from public.sala_de_espera s
+                        where s.item_id = e.item_id and s.universo = e.universo
+                          and s.run_id <> e.run_id);
+    get diagnostics n = row_count;
+    if n > 0 then
+      insert into _recibo values ('{pousou}:' || n || ':' || (total - n));
+    else
+      insert into _recibo values ('{ja_estava}:0:' || total);
+    end if;
   elsif ja = {sha} then
-    insert into _recibo values ('{ja_estava}');
+    insert into _recibo values ('{ja_estava}:0:-1');
   else
     raise exception
       '{conflito}: a corrida % ja pousou conteudo DIFERENTE (impressao %, agora %). NAO foi escrito nada.',
@@ -709,10 +750,15 @@ select resultado from _recibo;
             # A chave primária a morder é `(run_id, ordem)` — e ordem é gerada
             # aqui, por posição. Se ela morder, alguém escreveu por fora.
             raise SalaIndisponivel(erro.strip() or "psql falhou sem dizer porque")
-        estado = (saida or "").strip()
-        if estado not in (POUSOU, JA_ESTAVA):
+        partes = (saida or "").strip().split(":")
+        estado = partes[0]
+        if estado not in (POUSOU, JA_ESTAVA) or len(partes) != 3:
             raise SalaIndisponivel(
                 "o banco nao devolveu recibo legivel: %r" % saida)
+        # -1 = retry da mesma corrida: nao se volta a perguntar item a item.
+        self.ultimo_recibo = {"INSERIDAS": int(partes[1]),
+                              "JA_NA_SALA_POR_OUTRA_CORRIDA": (None if partes[2] == "-1"
+                                                               else int(partes[2]))}
         return estado
 
     # ── a fila ──────────────────────────────────────────────────────────
@@ -878,16 +924,28 @@ def pousar(run_id: str, unidades: list) -> dict:
                 "BACKEND": b.NOME, "CANONICO": b.CANONICO,
                 "PORQUE": "nenhuma unidade admitida: nao ha o que pousar"}
     _conferir_unidades(unidades)
+    b.ultimo_recibo = None
     estado = b.pousar(run_id, unidades)
     morada = b.morada(run_id)
+    # So o Postgres (canonico) sabe dizer quantas ja estavam por outra corrida;
+    # o ficheiro (prova offline) guarda a corrida inteira e diz NAO SEI.
+    recibo = getattr(b, "ultimo_recibo", None) or {}
+    ja_na_sala = recibo.get("JA_NA_SALA_POR_OUTRA_CORRIDA")
+    if estado == POUSOU:
+        porque = "escrita publicada nesta execucao"
+    elif ja_na_sala:
+        porque = "todas as unidades ja estavam na sala por outra corrida"
+    else:
+        porque = "a corrida ja tinha exactamente este conteudo"
     return {"ESTADO": estado, "RUN_ID": run_id,
             # `FICHEIRO` fica pelo consumidor que já o lê. `MORADA` é o nome
             # novo e é o que não mente quando o backend não é um ficheiro.
             "FICHEIRO": morada, "MORADA": morada,
             "UNIDADES": len(unidades),
+            "INSERIDAS": recibo.get("INSERIDAS", "NAO SEI"),
+            "JA_NA_SALA_POR_OUTRA_CORRIDA": ("NAO SEI" if ja_na_sala is None else ja_na_sala),
             "BACKEND": b.NOME, "CANONICO": b.CANONICO,
-            "PORQUE": ("escrita publicada nesta execucao" if estado == POUSOU
-                       else "a corrida ja tinha exactamente este conteudo")}
+            "PORQUE": porque}
 
 
 def listar_pendentes(limite=None):
