@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "fb4e62599ce47d15639fd859c1bb428203eae46e",
-    "GENERATED_AT": "2026-09-23T11:35:27-03:00",
+    "HEAD": "338bf666323ff09fbaab34741b77fda28c878c6f",
+    "GENERATED_AT": "2026-09-23T11:49:31-03:00",
     "SOURCE_TREE_FINGERPRINT": "1ee915d33c0e4424acec7004f27db3502fcacec485db16db7b7419eaad2892df"
   },
   "FILES": [
@@ -10273,6 +10273,13 @@
     {
       "path": "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "sha": "f69ddadf35a9917f28f1d38ba4612f5dbfcab545",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
+      "sha": "cb4fac31e532cd6d44a9295ff02f1adced3fb210",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -22751,6 +22758,17 @@
         "file": "coleta/scrap_capacidades.py",
         "line": 124,
         "snippet": "_CE = 'docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 138,
+        "snippet": "_D23 = 'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md'"
       }
     },
     {
@@ -37744,6 +37762,17 @@
         "file": "leis/social_matriz.py",
         "line": 460,
         "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md',"
+      }
+    },
+    {
+      "from_file": "leis/social_matriz.py",
+      "to_file": "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/social_matriz.py",
+        "line": 790,
+        "snippet": "'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md',"
       }
     },
     {
@@ -78581,10 +78610,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2699,
+    "files_tracked": 2700,
     "files_readable": 1234,
     "files_code_dir": 1043,
-    "file_edges": 5374,
+    "file_edges": 5376,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
