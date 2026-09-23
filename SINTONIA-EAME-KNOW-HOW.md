@@ -19326,3 +19326,38 @@ O mutante estava morto. Quem estava cega era a leitura da morte.
 > falso — e na direção que parece rigor.
 
 Corrigido sem afrouxar a verificação: guardam-se **todas** as falhas.
+
+## RECEITAS-1 · O PADRÃO DE MORADA DOS CONTRATOS ESTAVA EM MOLDE
+
+*(6-PREP-d, 23/09/2026 · número de secção a atribuir na unificação: 168–172
+estão ocupados noutras branches.)*
+
+Três sintomas eram o mesmo defeito: 22 de 34 matérias reais que não casam o
+`LINK_PATTERN` da própria fonte (6-PREP-c), 45 fontes revividas que voltaram a
+`EMPTY_LIST` («nenhum dos N endereços da entrada casa o padrão», 2b), e uma
+micro-coleta com 1 fonte pronta em 14. A receita da maioria das fontes é o
+mesmo molde WordPress (`^https?://host/(?!category|tag|author…)…`), escrito em
+lote e nunca medido contra uma página do site.
+
+Censo de 121 fontes (livro vivo lido **por cópia**): 61 com o padrão a não casar
+**nenhum** link da própria página de entrada; 31 a não casar a matéria
+confirmada; 3 com o `INDEX_URL` a apontar para uma notícia.
+
+> Um padrão novo só nasce de uma matéria **lida**, de uma família de ≥ 2 links
+> na entrada com o mesmo esqueleto, e passa por um guarda que recusa quem case
+> o índice, a navegação ou uma capa conhecida. `.*` é a forma extrema do molde,
+> e o guarda recusa-a — com mutante que o prova.
+
+Das 121: 14 padrões e 2 índices propostos com prova; 105 ficam **NÃO SEI**
+(sem matéria lida, sem família, recusado pelo guarda, ou sem defeito medido —
+«não se mexe no que funciona»). No gabarito: matérias casadas 11 → 21 de 37,
+capas casadas 0 → 0 de 109.
+
+## RECEITAS-2 · CORRIGIR A RECEITA NÃO PÕE UMA FONTE PRONTA
+
+Das 14 fontes da micro, as que têm receita provada passam de 3 para 6. As
+prontas continuam **1**: as três ganhas estão todas `FICA_FORA` na relevância
+da 3b. A rota certa para uma fonte que não serve é só uma rota certa.
+
+> Medir o efeito de uma correção no número que se quer mexer — não no número
+> que ela mexe. Aqui: 3 → 6 receitas, 1 → 1 prontas.
