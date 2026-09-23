@@ -106,6 +106,17 @@ class T8ETransversal(unittest.TestCase):
         self.assertNotEqual(r, A.NAO, "T8 serviu de prova para dizer NAO a T3")
         self.assertNotIn("T8", ev.get("achado_noutro") or {})
 
+    def test_11b_em_ingles_tambem_nao_e_prova_contra_outro_universo(self):
+        """⚠️ Nasceu de um mutante (MA1) que so a prova da LISTA apanhava: as
+        entradas italianas de T8 levam «|» e nunca casam no teste antigo de
+        «outro universo»; as inglesas de forma unica («pruning», «irrigation»)
+        casam — e e aqui que a transversalidade se ve no comportamento."""
+        t = ("We talk about pruning and irrigation in the valley this spring, and "
+             "how the work is organised week by week." + ENCH_EN * 3)
+        r, _, ev = v(t, "T3")
+        self.assertNotEqual(r, A.NAO, "palavras de T8 serviram de prova para NAO a T3")
+        self.assertNotIn("T8", ev.get("achado_noutro") or {})
+
     def test_12_a_lista_transversal_e_so_T8(self):
         self.assertEqual(A.TRANSVERSAIS, frozenset({"T8"}))
         self.assertEqual(A.PALAVRA_INTEIRA, frozenset({"T8"}))
