@@ -495,3 +495,109 @@ da troca, a condição volta: medir o HEAD vivo no passo 1 e confirmar
    por `RETIRADA_POR_DECISAO` e elegíveis perto de 16; `PASS_PARCIAL` nas voltas (lei do canário).
 10. **Desfazer:** `PARAR.flag`; voltar a pasta viva ao HEAD medido no passo 1; repor os
    livros do corte e as cópias do passo 3 (conferir sha256); relançar.
+
+---
+
+# 4.ª PASSAGEM — UNIFICACAO-V1-D (23/09/2026) — PRONTA PARA O CUTOVER
+
+Base fe61a34b (3.ª passagem aceite). Nenhuma coleta corrida; nenhum serviço vivo tocado.
+Não puxados, de propósito: detector-erro-v1 (D1), ttl-mutable-v1 (T1), micro-pronta-v1 (A2),
+cutover-ensaio-v1 (X1).
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | recollection-prova-v2 0ac7947b (R1 + R2) | 67d3183e |
+| 2 | quarentena-naosei-v1 c37c2423 (Q1; D11 liga a quarentena na porta) | 5756ee90 |
+| — | D15 (opção A): LinkedIn/Instagram = POLICY_BLOCK com o trecho dos termos | 2b5e30ab |
+| — | know-how §195, mapa, métricas, provas | até FINAL_HEAD |
+
+## ENTREGA-D
+
+```
+PONTAS            = 2
+CONFLITOS         = codigo 4 blocos, todos da Q1 x LD3, resolvidos pela D11 (ligar):
+                    · politica_nao_sei.py: ACTIVA = QUARENTENA (a LD3 deixara PASSA «ate a decisao»);
+                    · test_politica_nao_sei.py (3 blocos): os testes da LD3 que exigiam a politica
+                      DESLIGADA passam a exigir QUARENTENA e ligada SO na porta
+                      (admissao/admissao.py). O gate de FONTE da LD3 (retrato_html) nao muda.
+                    · a regra «ligada so na porta» conta o NOME da politica como chamador: a minha
+                      provar_em_copia.py escrevia-o; passou a correr esses testes por padrao
+                      (a regra nao foi afrouxada).
+                    R2 x LD2/LD3 na coleta: R2 mexe em coleta/italy_pilot_collect.mjs, Q1 em
+                    coleta/executor_texto_de_html.py; a LD nao tocou em nenhum dos dois — sem
+                    sobreposicao. Know-how: 2 blocos, uniao; R1, R2, Q1 recebem §192, §193, §194.
+SUITE             = antes 8fe122cb: curadoria/ Ran 572 OK · tests/ Ran 5139, 91 testes vermelhos por nome
+                    depois 5f514c9f: curadoria/ Ran 572 OK · tests/ Ran 5164, 90 testes vermelhos por nome
+                    NEW_RED_BY_NAME = 0. Por nome sairam 2 (D15: test_as_25_recusas... e
+                    test_nenhuma_recusa_viva...429...) e apareceu 1 que NAO e do codigo:
+                    test_M5_o_ponto_fixo... exige o carimbo do mapa igual a arvore, e 5f514c9f
+                    (commit de ferramenta) ainda nao tinha passado pela cadeia. Depois da cadeia,
+                    no FINAL_HEAD: IMPRESSAO_DO_CARIMBO=IGUAL e o teste passa (medido).
+PROVAS_COPIA      (77077dee, copia descartavel; ensaios numa copia sem .git)
+  ponte + red team 17/17 · ponte B2 (fotografia: 8 -> 20) · supervisor · worker pendurado ·
+  gatilho ocioso 9/9 · fila windows (1 worker, 0 PermissionError) · sementes + travao ·
+  decisao semantica · multilingue · G1 · RETIRADA · 183/183 modulos                 PASS
+  R1/R2 provas node: recollection_http_local 15/15 · recollection_indice_local 13/13 ·
+  recollection_timeout_local 8/8                                                    PASS
+  Q1: test_quarentena_naosei + test_politica_nao_sei 28/28                          PASS
+  REVALIDAR (offline, livro do bot depois do G1): 6 candidatas CONTRATO_NOVO
+  (IT-T7-017, IT-T10-018, IT-T7-033, IT-T10-022, IT-T7-042, IT-T7-043); o limite e 5 por volta:
+  5 na 1.a volta, 1 na 2.a                                                          PASS
+D15               = aplicada (abaixo)
+SYSTEM_MAP_CHECK  = PASS
+```
+
+## D15 (opção A) — aplicada
+
+- **(1)** LinkedIn e Instagram ficam `POLICY_BLOCK` na porta — o estado que a ponte já
+  escrevia no livro, não um novo. A ponte (`curadoria/ponte_candidatas.py`) escreve-o;
+  o vocabulário da porta declara-o (`fonte_nova.ESTADO_POLICY_BLOCK`).
+- **(2)** A prova é o trecho dos termos, com endereço e data, e o sha256 da página guardada:
+  - LinkedIn — https://www.linkedin.com/legal/user-agreement (em vigor 3/11/2025), lido
+    2026-09-23T09:42Z por curl (200): «Develop, support or use software, devices, scripts,
+    robots or any other means or processes (such as crawlers, browser plugins and add-ons or
+    any other technology) to scrape or copy the Services, including profiles and other data
+    from the Services;»
+  - Instagram — https://help.instagram.com/581066165581870 (em vigor 1/1/2025), lido
+    2026-09-23T09:44Z por Chrome headless `--dump-dom` (o curl deu 400 e a página só tem o
+    texto depois do JavaScript): «You can't attempt to create accounts or access or collect
+    information in unauthorized ways. This includes creating accounts or accessing or
+    collecting information in an automated way without our express permission, regardless of
+    whether such automated access or collection is undertaken while logged-in to an Instagram
+    account.»
+  - Ficheiros: `candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json` e `candidatas/prova-termos/`
+    (marcados `-text` para o sha256 bater em qualquer checkout). A sonda de 14/09 (429) fica
+    em `EVIDENCIA_HISTORICA`.
+- **(3)** `PROXIMA_EXPANSAO_PEOPLE_SOCIAL = 69` (44 LinkedIn + 25 Instagram), visível no teste
+  e no `fonte_nova.py` (listagem). Fora de pronta, recusada e em análise; só saem com acesso
+  autorizado pelo dono.
+- **(4)** Teste `TestOsTermosProibemEProvamSe` + teste da ponte. Mutações: marcar RECUSADA,
+  marcar EM_ANALISE, usar o 429 como prova, adulterar o sha256, a ponte voltar a escrever
+  RECUSADA → **5 de 5 reprovam**.
+- **(5)** Facebook continua `CAPABILITY_BLOCK` (6). Há ainda **14 Facebook em EM_ANALISE** que
+  nunca passaram pela ponte (já registado antes); a D13/D15 não as mencionam e ficaram como
+  estão.
+- As 69 linhas já escritas foram corrigidas por `ferramentas/unificacao/aplicar_d15_politica.py`
+  (idempotente; guarda o estado e o motivo anteriores). Com isto, os dois vermelhos que
+  vinham da base no mesmo ficheiro (`test_as_25_recusas…`, `test_nenhuma_recusa_viva…429…`)
+  passaram a verde.
+
+## SWITCH_PLAN — substituído pelo CUTOVER-RUNBOOK.md da X1
+
+**O plano da troca é o `CUTOVER-RUNBOOK.md` do ramo `origin/cutover-ensaio-v1` (d07fff36),
+ensaiado em cópia pela X1 (`RELATORIO-CUTOVER-ENSAIO.md`).** Este relatório não escreve outro.
+Os SWITCH_PLAN das passagens 1 a 3, acima, ficam só como registo.
+
+A X1 ensaiou o meu plano e achou 6 defeitos, que o runbook corrige:
+1. o passo 4 escrevia na cópia protegida dos livros e o passo 6 recusava-a (rc 3);
+2. perderia 430 candidatas e 302 SOURCE_ID que só o livro vivo tem;
+3. perderia as 6 marcas D10;
+4. 7 fontes D10 ficavam sem tarefa (incluindo IT-T5-049);
+5. o portão dá 29 elegíveis, não perto de 16 como eu escrevi;
+6. o observador era relançado sem `--lane`.
+
+O que esta passagem entrega ao runbook, sem o mudar: as ferramentas `aplicar_d13_capacidade.py`
+e `aplicar_d15_politica.py` (idempotentes, com `--porta`), a prova dos termos
+(`candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json` + `candidatas/prova-termos/`), e a medida
+offline do REVALIDAR (6 candidatas CONTRATO_NOVO, 5 por volta). A X2 ensaia sobre o FINAL_HEAD
+desta passagem.
