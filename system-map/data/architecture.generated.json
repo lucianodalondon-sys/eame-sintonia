@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "gatilho-ocioso-v1",
-    "HEAD": "f490fc55c943a6d8cefdf63cc55196a090ee845c",
-    "GENERATED_AT": "2026-09-22T22:24:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4ecba5f3002d8fa359c693166f97612a4b180dcbb3ccac3edcc52c951b2cc496"
+    "BRANCH": "worker-pendurado-v1",
+    "HEAD": "84e8d3cd69676d45c58e33fe56baeba2e04332bd",
+    "GENERATED_AT": "2026-09-22T22:45:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "91b1adee913b4b238e76dedc198713aea6c07c4c9f55b64c21d023a03319dade"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "117bfe8d4953f77629b441300959a99c694ec50d",
+      "sha": "4008865940c5e07a2a555d71d5917f69ce695ab8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1683,7 +1683,7 @@
     },
     {
       "path": "curadoria/.gitignore",
-      "sha": "c3ff372d1d9c33256860ddd2b5fddc6d63ed4be6",
+      "sha": "00df2cce2c669839eb4232adaeff95cd8a5113aa",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -1983,6 +1983,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/WORKER-PENDURADO-PROOF-V1.json",
+      "sha": "7a2b580cfa966db51dc00481052756568693d6ef",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/alimentar_fila.py",
       "sha": "6127ef0d8bce428f16b467a26ebad3befd1524ae",
       "ext": ".py",
@@ -2076,6 +2083,13 @@
     {
       "path": "curadoria/ensaiar_gatilho_ocioso.py",
       "sha": "3841d02bdd8d1ba0b629cdd0ae490a3278ce2c15",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/ensaiar_worker_pendurado.py",
+      "sha": "282343fbec7745c70ef16aa6da9732cdd4dbe6b8",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2257,7 +2271,7 @@
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "f7422d9982e9357d6c5da8c495b9e23213876ae6",
+      "sha": "13140406745a0bb1dca5243a84f11d19aae50ade",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2368,6 +2382,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_worker_pendurado.py",
+      "sha": "938491304509d659eab0d1da6fa7958d9bd54b09",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_worker_qualify.py",
       "sha": "37c120a091f16bfc53cda047e560f391ca242851",
       "ext": ".py",
@@ -2390,7 +2411,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "39172f9d3ac88af7c9619e6657e79598acb6ec29",
+      "sha": "fb5d2b74550d14be598ccac16d8107e7b1696877",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20835,6 +20856,28 @@
       }
     },
     {
+      "from_file": "curadoria/ensaiar_worker_pendurado.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_worker_pendurado.py",
+        "line": 39,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_worker_pendurado.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_worker_pendurado.py",
+        "line": 40,
+        "snippet": "import supervisor as S"
+      }
+    },
+    {
       "from_file": "curadoria/escrever_contratos.py",
       "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
       "type": "READS",
@@ -22029,7 +22072,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 244,
+        "line": 286,
         "snippet": "str(RAIZ / \"curadoria\" / \"ciclo_continuo.py\"),"
       }
     },
@@ -22051,7 +22094,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 520,
+        "line": 585,
         "snippet": "import gatilho_discovery as GD  # noqa: E402"
       }
     },
@@ -22559,6 +22602,39 @@
         "file": "curadoria/test_telemetria.py",
         "line": 22,
         "snippet": "import telemetria as T"
+      }
+    },
+    {
+      "from_file": "curadoria/test_worker_pendurado.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_worker_pendurado.py",
+        "line": 23,
+        "snippet": "import fila as F          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_worker_pendurado.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_worker_pendurado.py",
+        "line": 24,
+        "snippet": "import supervisor as S    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_worker_pendurado.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_worker_pendurado.py",
+        "line": 25,
+        "snippet": "import worker as W        # noqa: E402"
       }
     },
     {
@@ -67461,10 +67537,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2208,
-    "files_readable": 882,
+    "files_tracked": 2211,
+    "files_readable": 884,
     "files_code_dir": 883,
-    "file_edges": 4680,
+    "file_edges": 4685,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

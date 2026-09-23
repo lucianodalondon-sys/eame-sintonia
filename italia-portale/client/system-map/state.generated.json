@@ -306,6 +306,7 @@
       "curadoria/SOURCE-ID-ALLOCATION-V1.json",
       "curadoria/SOURCE-PATTERN-GAP-V1.json",
       "curadoria/SUPERVISOR-PROOF-V1.json",
+      "curadoria/WORKER-PENDURADO-PROOF-V1.json",
       "curadoria/alimentar_fila.py",
       "curadoria/amostrar.py",
       "curadoria/atribuir_source_id.py",
@@ -320,6 +321,7 @@
       "curadoria/descobrir.py",
       "curadoria/emparelhar_com_atlas.py",
       "curadoria/ensaiar_gatilho_ocioso.py",
+      "curadoria/ensaiar_worker_pendurado.py",
       "curadoria/escrever_contratos.py",
       "curadoria/escrever_no_atlas.py",
       "curadoria/fila.py",
@@ -361,6 +363,7 @@
       "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
       "curadoria/test_telemetria.py",
+      "curadoria/test_worker_pendurado.py",
       "curadoria/test_worker_qualify.py",
       "curadoria/validar_contratos.py",
       "curadoria/veredito_ready.py",
@@ -2801,10 +2804,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "gatilho-ocioso-v1",
-    "HEAD": "f490fc55c943a6d8cefdf63cc55196a090ee845c",
-    "GENERATED_AT": "2026-09-22T22:24:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4ecba5f3002d8fa359c693166f97612a4b180dcbb3ccac3edcc52c951b2cc496"
+    "BRANCH": "worker-pendurado-v1",
+    "HEAD": "84e8d3cd69676d45c58e33fe56baeba2e04332bd",
+    "GENERATED_AT": "2026-09-22T22:45:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "91b1adee913b4b238e76dedc198713aea6c07c4c9f55b64c21d023a03319dade"
   },
   "FAMILIES": [
     {
@@ -44284,7 +44287,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch gatilho-ocioso-v1"
+        "branch worker-pendurado-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -101210,7 +101213,7 @@
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1193,
+  "UNCLAIMED_FILES_COUNT": 1196,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101399,7 +101402,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2208,
+    "files_tracked": 2211,
     "files_covered": 1015,
     "files_code_unclaimed": 2,
     "roles_proven": 147,
