@@ -652,7 +652,7 @@ import rede as R                                         # noqa: E402
 
 PROOF_P1B = RAIZ / "curadoria" / "PESQUISADORES-P1B-PROOF-V1.json"
 VIGIA_A_CADA = 10
-_RELER_MOTIVOS = ("ROBOTS_BLOCKED", "HTTP_0")
+_RELER_MOTIVOS = ("ROBOTS_BLOCKED", "HTTP_0", "ROBOTS_ILEGIVEL_URLError")
 # So a pagina de listagem: o caminho TERMINA na palavra (nao artigo, PDF ou aviso).
 _SUB_RE = re.compile(r"/(notizie|news|comunicati|comunicati-stampa|pubblicazioni|"
                      r"eventi|ufficio-stampa|stampa|bollettini|bollettino|"
@@ -817,6 +817,11 @@ def tentar(cand: dict, orcam, ctx: dict, sub: bool = False) -> None:
             D._marcar_rejeitado(norm, "IDENTIDADE_NAO_CONFIRMADA", visitados)
             return anota("SEM_IDENTIDADE", titulo=titulo, relido=bool(antes))
         prova += " | TITULO=%s" % titulo
+    if cand.get("corpo_re"):
+        if not re.search(cand["corpo_re"], html or "", re.I):
+            D._marcar_rejeitado(norm, "IDENTIDADE_NAO_CONFIRMADA", visitados)
+            return anota("SEM_IDENTIDADE", corpo=cand["corpo_re"], relido=bool(antes))
+        prova += " | TEXTO_DA_PAGINA_CONTEM=%s" % cand["corpo_re"]
 
     linha = _registar_p1b(cand, code, prova)
     D._marcar_visitado(norm, "REGISTADO_%s" % linha["CANDIDATA_ID"], visitados)
