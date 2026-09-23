@@ -311,6 +311,94 @@ def segunda_passagem():
     return 0
 
 
+RE_DATA = re.compile(r"\b(20[12]\d)[-/.](0[1-9]|1[0-2])[-/.](0[1-9]|[12]\d|3[01])\b|\b(0[1-9]|[12]\d|3[01])[-/.](0[1-9]|1[0-2])[-/.](20[12]\d)\b")
+
+
+def medir():
+    """Newsletters no PROPRIO host da semente: 1 pedido (3.o do host) — ha arquivo publico com
+    edicoes datadas? Se sim, a frequencia sai das datas; se nao, SO_INSCRICAO (o conteudo chega
+    por e-mail: nao e publico). Podcast no Spotify: sem RSS publico -> NAO_MEDIDA."""
+    d = json.loads(SAIDA.read_text(encoding="utf-8"))
+    g = portao("antes de medir"); d["PORTOES"].append(g)
+    if g["GATE"] != "PASS":
+        return 2
+    hoje = datetime.now(timezone.utc).date()
+    for h in d["HOSTS"].values():
+        for a in h.get("ACHADOS", []):
+            if a["JA_CONHECIDO"] or "MEDIDA" in a:
+                continue
+            if a["TIPO"] == "YOUTUBE":
+                a["MEDIDA"] = {"FREQUENCIA": "NAO_MEDIDA",
+                               "PORQUE": "a unica rota declarada para listar videos e a Data API "
+                                         "(playlistItems.list); a chave vive so no GitHub (scrap-social.yml)"}
+                continue
+            if a["TIPO"] == "PODCAST":
+                a["MEDIDA"] = {"FREQUENCIA": "NAO_MEDIDA",
+                               "PORQUE": "Spotify nao publica RSS; o feed do proprio podcast nao esta ligado na pagina oficial"
+                               if "spotify" in a["URL"] else "rota de RSS por medir"}
+                continue
+            host_link = (urllib.parse.urlparse(a["URL"]).hostname or "").lower().removeprefix("www.")
+            if host_link != h["HOST"]:
+                a["MEDIDA"] = {"ARQUIVO": "NAO_MEDIDO", "PORQUE": "o link sai do host da semente (%s)" % host_link}
+                continue
+            if h.get("_MEDIDO"):
+                a["MEDIDA"] = {"ARQUIVO": "NAO_MEDIDO", "PORQUE": "orcamento do host gasto (3 pedidos)"}
+                continue
+            st, corpo = _curl(a["URL"])
+            time.sleep(PAUSA_S)
+            h["_MEDIDO"] = True
+            t = corpo.decode("utf-8", "replace")
+            datas = set()
+            for m in RE_DATA.finditer(t):
+                try:
+                    y, mo, dd = (m.group(1), m.group(2), m.group(3)) if m.group(1) else (m.group(6), m.group(5), m.group(4))
+                    datas.add(datetime(int(y), int(mo), int(dd)).date())
+                except ValueError:
+                    pass
+            ult = sorted(x for x in datas if x <= hoje)
+            ano = [x for x in ult if (hoje - x).days <= 365]
+            inscr = bool(re.search(r"iscriviti|iscrizione|subscribe|registrati|inserisci.*e-?mail", t, re.I))
+            a["MEDIDA"] = {"HTTP": st, "DATAS_NA_PAGINA": len(ult), "DATAS_ULTIMOS_365D": len(ano),
+                           "ULTIMA_DATA": ult[-1].isoformat() if ult else None,
+                           "FORMULARIO_DE_INSCRICAO": inscr,
+                           "ARQUIVO": "PUBLICO_COM_DATAS" if len(ano) >= 3 else "SO_INSCRICAO_OU_SEM_DATAS"}
+            print("%-28s %-10s %s" % (h["HOST"][:28], a["TIPO"], a["MEDIDA"]["ARQUIVO"]), flush=True)
+    g = portao("depois de medir"); d["PORTOES"].append(g)
+    SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return 0
+
+
+DECISOES = AQUI / "DECISOES-YT3-V1.json"
+
+
+def registar():
+    """Porta canonica. So entra o que DECISOES-YT3-V1.json diz ENTRA, com a prova na NOTA."""
+    d = json.loads(SAIDA.read_text(encoding="utf-8"))
+    dec = {x["URL"]: x for x in json.loads(DECISOES.read_text(encoding="utf-8"))["DECISOES"]}
+    tipo_da_casa = {"YOUTUBE": "YOUTUBE", "PODCAST": "IMPRENSA", "NEWSLETTER": "IMPRENSA"}
+    novas, ja = [], []
+    for h in d["HOSTS"].values():
+        for a in h.get("ACHADOS", []):
+            x = dec.get(a["URL"])
+            if not x or x["DECISAO"] != "ENTRA":
+                continue
+            pais, prova_pais = D.pais_pela_prova(h.get("URL_FINAL") or h["URL"])
+            nota = ("YT3 D24 · IDENTIDADE: a pagina oficial %s (sha256 %s, lida %s) liga a este %s "
+                    "[ancora «%s»] — descoberta-indireta:site-da-organizacao · TERRITORIO: %s (%s) · "
+                    "DONO: %s (%s; semente %s) · FREQUENCIA: %s · TECNICO: %s · %s") % (
+                h.get("URL_FINAL") or h["URL"], h.get("PAGINA_SHA256", "?")[:16], h["QUANDO"][:10],
+                a["TIPO"], a["ANCORA"][:60], pais, prova_pais, x["DONO"], x["TIPO_DE_DONO"],
+                h["CANDIDATA_DA_SEMENTE"], json.dumps(a.get("MEDIDA", {}), ensure_ascii=False)[:200],
+                x["TECNICO"], x["PORQUE"])
+            antes = FN.carregar()["TOTAL"] if FN.FILA.exists() else 0
+            linha = FN.registar(tipo=tipo_da_casa[a["TIPO"]], pais=pais, nome=x["NOME"], url=a["URL"],
+                                para_que=x["PARA_QUE"], quem_viu="scripts/canais_pessoas/canais_pessoas.py (YT3)",
+                                onde_viu=h.get("URL_FINAL") or h["URL"], nota=nota)
+            (novas if FN.carregar()["TOTAL"] > antes else ja).append(linha["CANDIDATA_ID"])
+    print("novas", len(novas), novas, "· ja estavam", len(ja))
+    return 0
+
+
 def resumo():
     d = json.loads(SAIDA.read_text(encoding="utf-8"))
     H = d["HOSTS"].values()
@@ -330,6 +418,10 @@ def main():
         return descobrir(mx)
     if "--segunda-passagem" in sys.argv:
         return segunda_passagem()
+    if "--medir" in sys.argv:
+        return medir()
+    if "--registar" in sys.argv:
+        return registar()
     if "--resumo" in sys.argv:
         return resumo()
     print(__doc__)
