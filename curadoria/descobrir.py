@@ -1277,6 +1277,27 @@ def _inferir_tipo_crawl(url: str, anchor: str) -> tuple[str, str]:
     return tipo, nome
 
 
+# ---------------------------------------------------------------- pais (S4)
+# ⚠️ O LUGAR NUNCA SE PRESUME. Ate 23/09 o crawl registava toda candidata com
+# PAIS=IT porque a tinha visto num site italiano: FAO, INRAE, CIMMYT, Benaki,
+# CropLife, EBIC. O pais vem agora do que o ENDERECO prova, sem pedido a rede:
+# um dominio de pais (ccTLD) diz onde o nome foi registado; um dominio
+# generico (.com, .org, .net...) nao prova lugar nenhum -> NAO SEI.
+_PAIS_POR_CCTLD = {"it": "IT", "fr": "FR", "es": "ES", "pt": "PT", "de": "DE",
+                   "pl": "PL", "eu": "EU"}
+
+
+def pais_pela_prova(url: str) -> tuple[str, str]:
+    """(PAIS, PAIS_PROVA). Nunca IT por omissao."""
+    host = (urllib.parse.urlparse(url).hostname or "").lower().rstrip(".")
+    tld = host.rsplit(".", 1)[-1] if "." in host else ""
+    if tld in _PAIS_POR_CCTLD:
+        return _PAIS_POR_CCTLD[tld], "ccTLD .%s" % tld
+    if len(tld) == 2 and tld.isalpha():
+        return "OUTRO", "ccTLD .%s (pais fora do vocabulario)" % tld
+    return "NAO SEI", "dominio generico .%s nao prova lugar" % (tld or "?")
+
+
 def _checar_sem_circularidade(discovered_from: str, url_candidato: str) -> None:
     """Garante invariante PROVENIENCIA_CIRCULAR = 0.
 
@@ -1593,19 +1614,21 @@ def crawl_sementes(
                 continue
 
             tipo, nome = _inferir_tipo_crawl(url_lnk, anchor)
+            pais, pais_prova = pais_pela_prova(url_lnk)
             para_que = (anchor.strip() or
                         ("link encontrado em %s" % urllib.parse.urlparse(semente).netloc))
             nota = (
                 "DISCOVERED_FROM=%s | DISCOVERY_METHOD=CRAWL_LINK | "
                 "DISCOVERED_AT=%s | ANCHOR_TEXT=%s | DISCOVERED_HTTP=%d"
+                " | PAIS_PROVA=%s"
                 % (discovered_from,
                    datetime.now(timezone.utc).isoformat(),
-                   (anchor or "")[:100], http_code)
+                   (anchor or "")[:100], http_code, pais_prova)
             )
 
             try:
                 linha = registar(
-                    tipo=tipo, pais="IT",
+                    tipo=tipo, pais=pais,
                     nome=(nome or urllib.parse.urlparse(url_lnk).netloc)[:200],
                     url=url_lnk,
                     para_que=para_que[:500],
