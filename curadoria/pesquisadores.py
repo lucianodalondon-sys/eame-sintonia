@@ -613,7 +613,7 @@ def escrever_lista() -> dict:
     por_familia: dict[str, int] = {}
     linhas = []
     fam_p1b = {}
-    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1B-*PROOF-V1.json")):
+    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1[BC]-*PROOF-V1.json")):
         for e in json.loads(prova.read_text(encoding="utf-8"))["LOG"]:
             fam_p1b[normalizar(e["url"])] = e["familia"]
     for c in sorted(cands, key=lambda c: c["CANDIDATA_ID"]):
@@ -655,7 +655,8 @@ VIGIA_A_CADA = 10
 _RELER_MOTIVOS = ("ROBOTS_BLOCKED", "HTTP_0")
 # So a pagina de listagem: o caminho TERMINA na palavra (nao artigo, PDF ou aviso).
 _SUB_RE = re.compile(r"/(notizie|news|comunicati|comunicati-stampa|pubblicazioni|"
-                     r"eventi|ufficio-stampa|stampa)/?$", re.I)
+                     r"eventi|ufficio-stampa|stampa|bollettini|bollettino|"
+                     r"bollettini-fitosanitari|avvisi-fitosanitari|agrometeo)/?$", re.I)
 
 
 class VigiaParou(RuntimeError):
@@ -844,7 +845,7 @@ def tentar(cand: dict, orcam, ctx: dict, sub: bool = False) -> None:
                    orcam, ctx, sub=False)
 
 
-def correr_p1b(catalogo: list, orcamento: int = 380) -> dict:
+def correr_p1b(catalogo: list, orcamento: int = 380, prova_path=None) -> dict:
     ctx = {"log": [], "visitados": D._ler_visitados(), "conhecidos": D._construir_set_conhecido(),
            "p2": conhecidos_da_p2(), "n": 0, "vigias": [vigia()]}
     orcam = D.Orcamento(total=orcamento)
@@ -874,10 +875,11 @@ def correr_p1b(catalogo: list, orcamento: int = 380) -> dict:
              "MAX_PEDIDOS_UM_DOMINIO": orcam.max_num_dominio(),
              "ROBOTS_POR_HOST": {h: c for h, (c, _) in sorted(_diag.items())},
              "LOG": log}
-    fd, tmp = tempfile.mkstemp(dir=str(PROOF_P1B.parent), suffix=".tmp")
+    destino = prova_path or PROOF_P1B
+    fd, tmp = tempfile.mkstemp(dir=str(destino.parent), suffix=".tmp")
     with os.fdopen(fd, "w", encoding="utf-8") as fh:
         json.dump(prova, fh, ensure_ascii=False, indent=1)
-    os.replace(tmp, PROOF_P1B)
+    os.replace(tmp, destino)
     return prova
 
 
@@ -1102,6 +1104,132 @@ def ordini_do_conaf() -> list[dict]:
     return list(escolhidos.values())
 
 
+# ---------------------------------------------------------------------------
+# Catalogo P1c — 3.a volta: todos os IZS, Veterinaria/Agraria que faltavam,
+# servicos regionais (fitossanitario + agrometeo), revistas com endereco novo.
+# ---------------------------------------------------------------------------
+SFR_LINKS = RAIZ / "curadoria" / "PESQUISADORES-P1C-SFR-LINKS.json"
+PROOF_P1C = RAIZ / "curadoria" / "PESQUISADORES-P1C-PROOF-V1.json"
+_SFN = "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/"
+_T_SERV = r"fitosanit|agrometeo|meteo|agricolt|agroalim|rurale|difesa|ARPA|ERSA|ERSAF|ASSAM|SIAS|ARSAC|LAORE|ALSIA|SIARL|LaMMA"
+
+
+def sfr_regionais() -> list[dict]:
+    """Os 21 servicos fitossanitarios regionais que o SFN publica no mapa."""
+    out = []
+    for a in json.loads(SFR_LINKS.read_text(encoding="utf-8")):
+        u = a["url"]
+        if "?jjj=" in u:
+            u = u.split("?jjj=")[0]
+        out.append(_c("SERVIZI_TECNICI", "BASE_OFICIAL",
+                      "Servizio Fitosanitario Regionale — %s" % a["regiao"], u,
+                      "bollettini e avvisi fitosanitari, difesa integrata (%s)" % a["regiao"],
+                      a["hub"], sub=True,
+                      prova="listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale"))
+    return out
+
+
+def _serv(nome, url, para_que, titulo_re=_T_SERV):
+    return _dns("SERVIZI_TECNICI", "BASE_OFICIAL", nome, url, para_que, titulo_re, sub=True)
+
+
+CATALOGO_P1C: list[dict] = [
+    _c("SERVIZI_TECNICI", "BASE_OFICIAL", "Servizio Fitosanitario Nazionale",
+       "https://www.protezionedellepiante.it/", "emergenze, ordinanze e notizie fitosanitarie nazionali",
+       "https://www.protezionedellepiante.it/", sub=True),
+    _c("SERVIZI_TECNICI", "BASE_OFICIAL", "SFN — Emergenze fitosanitarie",
+       "https://www.protezionedellepiante.it/emergenze-fitosanitarie/",
+       "organismi nocivi da quarantena e misure d'emergenza", "https://www.protezionedellepiante.it/"),
+    _c("SERVIZI_TECNICI", "BASE_OFICIAL", "Regione Abruzzo — Agrometeorologia e Agroambiente",
+       "https://www.regione.abruzzo.it/content/agrometeorologia-agroambiente-0",
+       "bollettini agrometeo e difesa integrata Abruzzo", "https://www.regione.abruzzo.it/agricoltura", sub=True),
+
+    # agrometeo / assistenza tecnica regionale (DNS + titulo)
+    _serv("Agrometeo Puglia", "https://www.agrometeopuglia.it/", "bollettini agrometeorologici Puglia"),
+    _serv("Meteotrentino", "https://www.meteotrentino.it/", "meteo e agrometeo Trentino"),
+    _serv("Meteo Provincia di Bolzano", "https://meteo.provincia.bz.it/", "meteo e agrometeo Alto Adige", r"meteo|wetter"),
+    _serv("OSMER FVG — Osservatorio meteorologico", "https://www.osmer.fvg.it/", "meteo e agrometeo Friuli Venezia Giulia", r"osmer|meteo"),
+    _serv("ASSAM Marche — Agenzia servizi settore agroalimentare", "https://www.assam.marche.it/", "agrometeo e assistenza tecnica Marche"),
+    _serv("SIAS — Servizio Informativo Agrometeorologico Siciliano", "https://www.sias.regione.sicilia.it/", "agrometeo Sicilia"),
+    _serv("LaMMA Toscana", "https://www.lamma.toscana.it/", "meteo e agrometeo Toscana", r"lamma|meteo"),
+    _serv("SIARL Lazio — agrometeo", "https://www.siarl-lazio.it/", "agrometeo e assistenza tecnica Lazio"),
+    _serv("ARSAC Calabria", "https://www.arsacweb.it/", "sviluppo agricolo e agrometeo Calabria"),
+    _serv("ARPAS Sardegna — Meteo", "https://www.sar.sardegna.it/", "meteo e agrometeo Sardegna"),
+    _serv("LAORE Sardegna — assistenza tecnica", "https://www.laore.it/", "assistenza tecnica agricola Sardegna"),
+    _serv("Agriligurianet", "https://www.agriligurianet.it/", "agricoltura, assistenza tecnica e fitosanitario Liguria", r"agri|liguria"),
+    _serv("ERSAF Lombardia", "https://www.ersaf.lombardia.it/", "servizi agricoli e forestali Lombardia"),
+    _serv("ARSARP Molise", "https://www.arsarp.it/", "sviluppo agricolo e assistenza tecnica Molise", r"ARSARP|agricol|molise"),
+    _serv("ARPAE Emilia-Romagna — SIMC", "https://simc.arpae.it/", "meteo e agrometeo Emilia-Romagna", r"arpae|meteo|simc|clima"),
+    _serv("ARPAV Veneto", "https://www.arpa.veneto.it/", "agrometeo e bollettini Veneto", r"ARPAV|veneto|ambiente"),
+    _serv("Regione Campania — Agricoltura", "https://agricoltura.regione.campania.it/", "agrometeo e difesa Campania", r"agricoltura|campania"),
+    _serv("ALSIA Basilicata", "https://www.alsia.it/", "assistenza tecnica e agrometeo Basilicata", r"ALSIA|agricol|basilicata"),
+
+    # IZS que faltavam (os 10)
+    _dns("IZS", "CIENCIA", "IZSPB — Istituto Zooprofilattico Puglia e Basilicata", "https://www.izspb.it/",
+         "sanita animale e sicurezza alimentare Puglia-Basilicata", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSPLV — Istituto Zooprofilattico Piemonte, Liguria e Valle d'Aosta", "https://www.izsplv.it/",
+         "sanita animale e sicurezza alimentare Piemonte-Liguria-VdA", _T_IZS),
+
+    # Veterinaria e Agraria que faltavam (links de paginas oficiais das universidades)
+    _c("VETERINARIA", "CIENCIA", "DIMEVET — Scienze Mediche Veterinarie, Univ. Bologna",
+       "https://scienzemedicheveterinarie.unibo.it/it", "ricerca veterinaria Bologna",
+       "https://www.unibo.it/it/ateneo/sedi-e-strutture/dipartimenti", sub=True, titulo_re=_T_VET),
+    _c("VETERINARIA", "CIENCIA", "Dip. Medicina Veterinaria, Univ. Perugia", "http://www.medvet.unipg.it/",
+       "ricerca veterinaria Umbria",
+       "https://www.unipg.it/ateneo/organizzazione/dipartimenti?view=navigatorestrutture&struttura=517200",
+       sub=True, titulo_re=_T_VET),
+    _c("VETERINARIA", "CIENCIA", "Dip. Medicina Veterinaria, Univ. Sassari", "https://veterinaria.uniss.it/",
+       "ricerca veterinaria Sardegna", "https://www.uniss.it/it/ateneo/strutture/dipartimenti", sub=True, titulo_re=_T_VET),
+    _c("VETERINARIA", "CIENCIA", "Dip. Scienze Veterinarie, Univ. Messina", "https://vet.unime.it/",
+       "ricerca veterinaria Sicilia", "https://www.unime.it/", sub=True, titulo_re=_T_VET),
+    _c("VETERINARIA", "CIENCIA", "Scuola di Bioscienze e Medicina Veterinaria, Univ. Camerino", "https://sbmv.unicam.it/",
+       "ricerca veterinaria e bioscienze Marche", "https://www.unicam.it/", sub=True, titulo_re=_T_VET + r"|bioscienz"),
+    _c("VETERINARIA", "CIENCIA", "Dip. Medicina Veterinaria, Univ. Bari",
+       "https://www.uniba.it/it/ricerca/dipartimenti/dipmedveterinaria", "ricerca veterinaria Puglia",
+       "https://www.uniba.it/it/ricerca/dipartimenti"),
+    _c("UNIVERSITA", "CIENCIA", "DiSSPA — Scienze del Suolo, della Pianta e degli Alimenti, Univ. Bari",
+       "https://www.uniba.it/it/ricerca/dipartimenti/disspa", "ricerca agraria Puglia",
+       "https://www.uniba.it/it/ricerca/dipartimenti"),
+    _c("UNIVERSITA", "CIENCIA", "DISTAL — Scienze e Tecnologie Agro-Alimentari, Univ. Bologna",
+       "https://distal.unibo.it/it", "ricerca agroalimentare Bologna",
+       "https://www.unibo.it/it/ateneo/sedi-e-strutture/dipartimenti", sub=True, titulo_re=r"DISTAL|agro|alimentar"),
+    _c("UNIVERSITA", "CIENCIA", "Dip. Agraria, Univ. Sassari", "http://agrariaweb.uniss.it/",
+       "ricerca agraria Sardegna", "https://www.uniss.it/it/ateneo/strutture/dipartimenti", sub=True, titulo_re=r"agrar"),
+    _c("UNIVERSITA", "CIENCIA", "Dip. Scienze Agrarie, Alimenti, Risorse Naturali e Ingegneria, Univ. Foggia",
+       "https://www.agraria.unifg.it/it", "ricerca agraria Foggia", "https://www.unifg.it/",
+       sub=True, titulo_re=r"agrar|alimenti|DAFNE"),
+    _dns("UNIVERSITA", "CIENCIA", "D3A — Scienze Agrarie, Alimentari e Ambientali, Univ. Politecnica delle Marche",
+         "https://www.d3a.univpm.it/", "ricerca agraria Marche", r"D3A|agrar|alimentar"),
+    _c("UNIVERSITA", "CIENCIA", "D3A UNIVPM — Archivio News Dipartimento",
+       "http://www.d3a.univpm.it/elenco-news-dipartimento", "notizie del dipartimento D3A",
+       "https://www.d3a.univpm.it/"),
+    _dns("UNIVERSITA", "CIENCIA", "TESAF — Territorio e Sistemi Agro-Forestali, Univ. Padova",
+         "https://www.tesaf.unipd.it/", "ricerca agro-forestale Padova", r"TESAF|territorio|agro|forest"),
+    _dns("UNIVERSITA", "CIENCIA", "DIBAF — Innovazione nei sistemi biologici, agroalimentari e forestali, Univ. Tuscia",
+         "https://www.dibaf.unitus.it/", "ricerca agroalimentare e forestale Viterbo", r"DIBAF|biolog|agro|forest"),
+
+    # Revistas — enderecos novos e a correcao da CAND-0488
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "Italus Hortus — rivista SOI", "https://www.soihs.it/italushortus/default.aspx",
+       "rivista scientifica di orticoltura", "https://www.soihs.it/"),
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "Acta Italus Hortus — atti SOI", "https://www.soihs.it/acta/default.aspx",
+       "atti dei convegni di orticoltura", "https://www.soihs.it/"),
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "Italian Journal of Food Safety — PAGEPress",
+       "https://www.pagepressjournals.org/ijfs", "rivista open di sicurezza alimentare e igiene veterinaria",
+       "https://www.pagepressjournals.org/", titulo_re=r"Food Safety"),
+    _dns("RIVISTE_SCIENTIFICHE", "CIENCIA", "Italian Journal of Food Science", "https://www.itjfs.com/",
+         "rivista di scienze e tecnologie alimentari", r"Food Science", sub=False),
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "Journal of Agricultural Engineering — PAGEPress",
+       "https://www.pagepressjournals.org/jae", "rivista open di ingegneria agraria (AIIA)",
+       "https://www.pagepressjournals.org/", titulo_re=r"Agricultural Engineering"),
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "Italian Journal of Agronomy — PAGEPress",
+       "https://www.pagepressjournals.org/ija", "rivista della Societa Italiana di Agronomia",
+       "https://www.pagepressjournals.org/", titulo_re=r"Agronomy"),
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "Italian Journal of Animal Science — Taylor & Francis",
+       "https://www.tandfonline.com/journals/tjas20", "rivista open di zootecnia (ASPA)",
+       "https://www.tandfonline.com/", titulo_re=r"Animal Science"),
+]
+
+
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser(
@@ -1110,12 +1238,15 @@ def main() -> int:
     ap.add_argument("--listar", action="store_true")
     ap.add_argument("--p1b", action="store_true",
                     help="fase P1b: releitura, IZS, Veterinaria, Ordini (rede, VPN IT)")
+    ap.add_argument("--p1c", action="store_true",
+                    help="3.a volta: IZS, Vet/Agraria, servicos regionais, revistas (rede, VPN IT)")
     ap.add_argument("--lista", action="store_true",
                     help="so escreve PESQUISADORES-LISTA-V1.json, sem rede")
     a = ap.parse_args()
 
-    if a.p1b:
-        r = correr_p1b(CATALOGO_P1B + ordini_do_conaf(), orcamento=a.orcamento)
+    if a.p1b or a.p1c:
+        cat = (CATALOGO_P1C + sfr_regionais()) if a.p1c else (CATALOGO_P1B + ordini_do_conaf())
+        r = correr_p1b(cat, orcamento=a.orcamento, prova_path=PROOF_P1C if a.p1c else None)
         l = escrever_lista()
         for k in ("CANDIDATAS_NOVAS", "POR_FAMILIA", "ACOES", "DUPLICADAS_EVITADAS",
                   "PEDIDOS_DE_REDE", "MAX_PEDIDOS_UM_DOMINIO", "VIGIA_PAROU", "VIGIAS"):
