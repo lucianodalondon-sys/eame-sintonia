@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "youtube-pronto-v1",
-    "HEAD": "5c4b1124fa45f50baa36d836e64f578814dee989",
-    "GENERATED_AT": "2026-09-23T14:06:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b5307bd9484f0a096aa00b57a4b06862480ff591a332666d952d8d9d5fc31d99"
+    "HEAD": "c4c72b2b36789fca7499db58784f3499ad486a85",
+    "GENERATED_AT": "2026-09-23T14:30:59-03:00",
+    "SOURCE_TREE_FINGERPRINT": "96421abf5afb2bf1ba5e3a75519ae55997cc6967882558bb6894556b922ace8a"
   },
   "FILES": [
     {
@@ -269,7 +269,7 @@
     },
     {
       "path": "MISSAO-CANDIDATE-FEEDER-V1.md",
-      "sha": "2999942b2dda31d9448d619205628d1b4afbdeac",
+      "sha": "766aac0b3449d728e35255d6c2516ab6c9302f03",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -360,7 +360,7 @@
     },
     {
       "path": "RELATORIO-CUTOVER.md",
-      "sha": "425c117df8a69d50500f068813b8bcbc45f94a65",
+      "sha": "da31f674cc7a937e10d70a439a46b0e5968ee724",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -571,6 +571,13 @@
     {
       "path": "RELATORIO-SOC3-RETENCAO-YOUTUBE.md",
       "sha": "b42536dbb1be6858eba056bb4254477f18a63523",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-SOC4-YOUTUBE-PRONTO.md",
+      "sha": "c46d60426e5c525ffe9070147e01c1a9892d2e5c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2396,6 +2403,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/PEDIDO-RESOLVER-HANDLES.json",
+      "sha": "8ad915c7ef45c564546db6b7b15a539f01ac3ae1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/POLITICA-MODELO.json",
       "sha": "5f9694b01753af039125cc2b45bb8fe7e53f1e4c",
       "ext": ".json",
@@ -2543,6 +2557,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/RESOLUCAO-HANDLES-YOUTUBE-V1.json",
+      "sha": "75d7594cd733813af3918c6a8be2548ed25a0833",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/ROTAS-ELEGIVEIS-V1-ADENDA-SECCOES.json",
       "sha": "34db7ef5411778149770f20c1a229d52aee4c16c",
       "ext": ".json",
@@ -2580,6 +2601,13 @@
     {
       "path": "curadoria/SOC2-QUALIFY-YOUTUBE-ENSAIO-V1.json",
       "sha": "d09a22a848e2ed6e85eb5262bb277dc997094bd5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/SOC4-QUALIFY-YOUTUBE-ENSAIO-V1.json",
+      "sha": "c6a6fc178f15f6cafd8af784d73ab31817ca288e",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -18875,7 +18903,7 @@
     },
     {
       "path": "tests/test_prontidao_social_v1.py",
-      "sha": "fd8da4da2be310085e5023781c5c21ad7d1516ea",
+      "sha": "bdeef36cacfd1f3a30580f03fe8d698dfd1e2778",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27235,6 +27263,17 @@
     },
     {
       "from_file": "curadoria/resolver_handles_youtube.py",
+      "to_file": "curadoria/RESOLUCAO-HANDLES-YOUTUBE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/resolver_handles_youtube.py",
+        "line": 54,
+        "snippet": "REGISTO = RAIZ / \"curadoria\" / \"RESOLUCAO-HANDLES-YOUTUBE-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/resolver_handles_youtube.py",
       "to_file": "curadoria/rota_do_scrap_youtube.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -27264,6 +27303,17 @@
         "file": "curadoria/rota_do_scrap_youtube.py",
         "line": 72,
         "snippet": "import scrap_colheita as sc"
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "curadoria/RESOLUCAO-HANDLES-YOUTUBE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 254,
+        "snippet": "RESOLUCAO = RAIZ / \"curadoria\" / \"RESOLUCAO-HANDLES-YOUTUBE-V1.json\""
       }
     },
     {
@@ -79629,10 +79679,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2745,
+    "files_tracked": 2749,
     "files_readable": 1257,
     "files_code_dir": 1071,
-    "file_edges": 5440,
+    "file_edges": 5442,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5c4b1124fa45f50baa36d836e64f578814dee989
+HEAD_DA_MEDICAO  c4c72b2b36789fca7499db58784f3499ad486a85
 BRANCH           youtube-pronto-v1
-GERADO_EM        2026-09-23T14:06:17-03:00
+GERADO_EM        2026-09-23T14:30:59-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
