@@ -21311,3 +21311,40 @@ onde foi medido não serve para decidir.
   aponta para lá. Usar um invólucro com `lane=` ou o `--lane`.
 - O tempo parado no relógio (429 s) não é a soma dos comandos (353 s). O coordenador também
   pausa entre passos; os dois números vão no runbook.
+
+---
+
+# § (sem número) · A LINHA NÃO É A PRODUÇÃO, E UM FF SOBRE ELA APAGAVA A TROCA — BC1, O RUNBOOK DA BIG COLLECTION
+
+**O QUE SE MEDIU (23/09).** Os 20 gates do §25 (o pedido dizia 25; o mandato tem 20),
+contra `940f3b14` e a produção, só com leitura no vivo: **12/20 YES**, 6 deles só sem
+internet ou só em cópia. A coorte do portão é **37 elegíveis → 10 PRONTAS**: as outras 27
+não têm contrato de coleta, receita web ou rota. Saída: `BIG-COLLECTION-RUNBOOK.md` e
+`BIG-COLLECTION-GATES.md`.
+
+**A ARMADILHA.** Depois da troca, a linha unificada (`940f3b14`, depois `de4dec2b`) tem os
+livros **de antes da troca**: o diff para a produção apaga 13.735 linhas do livro de
+transições. Avançar a produção para a linha por FF perdia tudo o que o bot e a troca
+escreveram. Instala-se **juntando** a linha na produção. Provado em cópia, sobre as duas
+passagens: 13 conflitos, todos no mapa gerado; 11/11 livros iguais aos da produção (desde o
+ponto comum, só a troca os mudou); `italy_contracts_onboarded.json` com as duas mudanças
+(TTL da T1 e D9 do G1).
+
+    O CÓDIGO VEM DA LINHA; OS LIVROS VÊM DE QUEM OS ESCREVE.
+
+**O ENSAIO QUE FALHOU E ESTAVA CERTO.** O primeiro ensaio offline recusou as 3 fontes: o
+próprio coletor disse `ESTADO_NAO_READY`. O ensaio monta a árvore a partir do **commit**, e
+no commit da troca as 3 ainda estavam CANARY_PENDING. Com os livros vivos gravados, as 3
+colheram: 55 = 55 = 55, Sala +12, C3..C9 PASS, rollback 8 → 12 → 8 com md5 igual.
+
+**ARMADILHAS DESTA MEDIÇÃO.**
+- `--provar-rollback` repõe a base **antes** do relatório: `RELATORIO_C1_C9` sai `null` e a
+  Admission 0/0/0, com a Sala +12. Para ver o C6 e o C8, fazer uma corrida sem essa opção.
+- `git worktree add /c/x` no Git Bash criou a pasta em `C:\c\x`. O `cd /c/x` a seguir
+  falhou, e os comandos seguintes (um merge de teste) correram na worktree de trabalho. O
+  `merge --abort` salvou. Passar ao `git` caminhos no formato `C:/x`.
+- Depois de uma tela azul, **nada volta sozinho**: supervisor, observador e a Sala real
+  (54330) ficaram desligados. Os livros sobreviveram (75 e 73 JSON válidos). «Contínuo» só
+  é contínuo se aguenta um reinício.
+- `provar_ponte_curador.py` e `red_team_ponte_curador.py` escrevem a fonte de teste
+  IT-T99-001 no `italy_contracts_curator.json` da árvore onde correm. Nunca na `ponte-viva`.

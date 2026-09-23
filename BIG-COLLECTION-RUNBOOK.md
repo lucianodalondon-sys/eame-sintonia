@@ -5,15 +5,17 @@
 > hoje). Medições em `BIG-COLLECTION-GATES.md` (os gates do §25) e em
 > `ferramentas/big_collection/BC1-ENSAIO.json`.
 >
-> **Estado em 23/09, ~13 h: NÃO CORRER AINDA.** Faltam três coisas, cada uma com dono
-> (secção 1). O resto está medido e ensaiado.
+> **Estado em 23/09, ~15 h: NÃO CORRER AINDA.** Pelo §25: 12/20 gates YES
+> (`BIG-COLLECTION-GATES.md`). Faltam três bloqueios, cada um com dono (secção 1). O resto
+> está medido e ensaiado. A linha andou durante a missão: `940f3b14` → **`de4dec2b`** (6.ª
+> passagem: A4, V1A, D1, A3). A instalação (passo I) foi provada sobre as duas.
 
 ## 1 · Bloqueios (cada um fecha antes do passo 5)
 
 | # | o quê | medido | o que falta | dono |
 |---|---|---|---|---|
-| B1 | a produção não tem a linha | bot em `cd4203db` e ponte em `5c02bbe4`: 40 commits atrás de `origin/unificacao-v1` @ `940f3b14` (T1, A2, SOC1, YT1). O `micro_coleta.py` da produção ainda é o de antes da A2 | passo I (instalar), ensaiado numa cópia: nos livros vence a produção, no código vence a linha, e os conflitos são só no mapa gerado | coordenador (bot quieto) |
-| B2 | robots e ritmo | o coletor Node não lê robots nem espaça pedidos (A4, medido). O único sítio que faz isso é `micro_rede_real.py` (A4), que está **fora** da linha e só trabalha com Sala descartável | A5 (robots e ritmo dentro do coletor) juntada à linha; ou a A4 com modo Sala real. Sem isto, a corrida viola o §27 («violations de policy/robots») | A5 → M5 |
+| B1 | a produção não tem a linha | bot em `cd4203db` e ponte em `5c02bbe4`: fora de `origin/unificacao-v1` @ `de4dec2b` (5.ª e 6.ª passagens: T1, A2, SOC1, YT1, A4, V1A, D1, A3). O `micro_coleta.py` da produção ainda é o de antes da A2 | passo I (instalar), provado em cópia sobre `940f3b14` e sobre `de4dec2b`: 13 conflitos, todos no mapa gerado; **11/11 livros = produção**; `italy_contracts_onboarded.json` com as duas mudanças e JSON válido | coordenador (bot quieto) |
+| B2 | robots e ritmo | o coletor Node da linha não lê robots nem espaça pedidos (0 ocorrências em `coleta/italy_pilot_collect.mjs`). A A4 (`micro_rede_real.py`, já na linha em `de4dec2b`) lê robots **por fora**, mas só trabalha com Sala descartável. A A5 (`cortesia-coleta-v1`) põe o robots no coletor, mas o único commit dela é um checkpoint do coordenador **não testado, não aceite** | A5 testada, aceite e juntada à linha; ou a A4 com modo Sala real. Sem isto, a corrida viola o §27 («violations de policy/robots») | A5 → M5 |
 | B3 | cobertura | portão 37 elegíveis → **10 PRONTAS**; 27 bloqueadas por capacidade: 25 `SEM_CONTRATO_DE_COLETA` (9 destas também `SEM_RECEITA_WEB` para T8/T12), 1 `SEM_RECEITA_WEB_PARA_T9`, 1 `ROTA:CAPABILITY_BLOCK` | decidir: a Big Collection de hoje é de 10 fontes, ou espera os contratos | dono (decisão) / curador (contratos) |
 
 ⚠️ **Não correr `provar_ponte_curador.py` na `ponte-viva`.** Medido hoje numa cópia: a
@@ -21,10 +23,9 @@ prova diz trabalhar numa cópia descartável, mas escreve as fontes de mentira I
 IT-T99-003 no `italy_contracts_curator.json` da árvore onde corre (`R.CONTRATOS_A` não é
 redirecionado). Dono: M5 (ponte).
 
-Também fora da linha, e não bloqueiam: V1A (`v1-ligada`, régua capa/matéria ligada) e D1
-(`detector-erro-v1`). Sem a V1A, a Admission usa a régua actual: mais capas passam
-(ensaio LD3: 6/8 contra 2/8). O C8 do relatório (0 SIM errado no gabarito) continua a ser
-a trava.
+A V1A (régua capa/matéria ligada) e a D1 entraram na linha na 6.ª passagem; **ninguém mediu
+a V1A no gabarito depois disso** (gate 10). O C8 do relatório (0 SIM errado no gabarito)
+continua a ser a trava.
 
 ## 2 · Quem corre o quê
 
@@ -43,8 +44,8 @@ não deste repositório. Não usar.
 
 ### I · Instalar a linha na produção (bot quieto) — ~15 min
 
-Ensaiado em `C:\bc1-inst` (apagado): `git merge origin/unificacao-v1` sobre
-`origin/cutover-20260923-0923`. Os 11 livros ficaram iguais byte a byte aos da produção; o
+Ensaiado em cópias (apagadas): `git merge origin/unificacao-v1` sobre
+`origin/cutover-20260923-0923`, com a linha em `940f3b14` e outra vez em `de4dec2b`. Os 11 livros ficaram iguais byte a byte aos da produção; o
 código ficou igual ao da linha; `regras/italy_contracts_onboarded.json` recebeu as duas
 mudanças (TTL da T1 + D9 do G1), com JSON válido. Os 13 conflitos são só no mapa gerado.
 
