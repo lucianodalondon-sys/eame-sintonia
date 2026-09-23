@@ -21974,3 +21974,28 @@ diferentes; a Sala é idempotente por documento) e ficam para o dono da identida
 - A Sala depois da tela azul: `ligar_sala.cmd` via Git Bash (`cmd //c "..."`) **não corre**
   o script (abre uma consola vazia e sai com 0). Pelo PowerShell corre. O Postgres fez a
   recuperação normal e ficou com o md5 igual ao do backup.
+
+---
+
+# § (sem número) · TRÊS CADERNOS DO COLETOR, NENHUM CONTINHA OS OUTROS — E A INSTALAÇÃO APAGAVA O MAIS NOVO (G3)
+
+G3 (23/09/2026). A coorte da Big Collection (D25) é medida pelo `micro_coleta.py plano`
+sobre a tabela do coletor (`regras/italy_contracts_onboarded.json`). Havia três:
+
+| linha | linhas | o que só ela tinha |
+|---|---|---|
+| `unificacao-v1` | 173 | — |
+| produção (cutover 5c02bbe4) | 176 | IT-T2-034, IT-T2-051, IT-T9-021 |
+| BC2 (`big-collection-runbook-v1`) | 191 | 18 levadas ao contrato pelo dono |
+
+O runbook instalava a linha sobre a produção: ficavam as 3, **perdiam-se as 18**. A BC2 contava
+19 prontas numa tabela que não ia chegar à produção.
+
+    UMA CONTAGEM FEITA NUM CADERNO QUE NÃO VAI SER INSTALADO NÃO É A COORTE.
+
+Juntou-se pelo dono, não à mão: produção + linha + BC2 por merge; na tabela ficou o lado da
+produção e `onboardar_rotas_provadas.py --aplicar` sobre os livros vivos repôs o que a prova
+sustenta: +17, e **IT-T7-100 ficou de fora** — com as duas tabelas juntas a regra das
+duplicadas viu que o documento dela é o mesmo da IT-T7-043. Separadas, as duas entravam.
+Coorte: 18, cada uma com contrato executável, régua DETAIL/v1 e canário com prova ≤ 7 dias,
+num só JSON que o runbook lê.
