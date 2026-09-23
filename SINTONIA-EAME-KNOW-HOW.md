@@ -20409,3 +20409,94 @@ não se tocou nelas. A prova nova entrou em `C-PROVA-PARIDADE`.
 **O QUE NÃO SE PROVOU.** Validadores HTTP (ETag/Last-Modified): o coletor não os pede
 nem os grava, por isso não há 304 a provar. O timeout de rede (só o 503). Uma fonte
 com índice (a prova usa uma STATIC_ROUTE, um endereço por corrida).
+
+## RECOLLECTION-R2 · O ÍNDICE, O SITE PENDURADO E O ETag QUE NÃO VALE A PENA (AINDA)
+
+**Missão R2** (`recollection-prova-v2`, a partir de `recollection-prova-v1` @ `d759a602`,
+2026-09-23). Nada colhido, nada na Sala. Rede real só na medição dos validadores
+(VPN IT, 1 HEAD por site + robots).
+
+**1 · A FONTE COM ÍNDICE — `provas/recollection_indice_local.mjs`.** As 8 fontes da
+coorte da micro-coleta são `HTML_LINK_DISCOVERY` com `MATCH: "URL"`. A prova usa o
+contrato REAL de IT-T10-018 (myfruit), com `INDEX_URL`/`LINK_PATTERN` apontados em
+memória para um servidor em 127.0.0.1, e a identidade genérica da tabela (pelo
+endereço) — a mesma de produção.
+
+    I1 índice com 3 matérias            índice 1 · matérias 3 · NEW 3
+    I2 o mesmo, com ruído               índice 1 · matérias 0 · SKIPPED_KNOWN 3
+    I3 1 matéria nova no topo           índice 1 · matérias 1 (só a nova)
+    I4 a mais antiga sai do índice      índice 1 · matérias 0 · bytes e linha do livro intactos
+    I5 conhecida sem a barra final      índice 1 · matérias 1 · NEW_DOCUMENTS 0   (limite)
+    I6 MUTABLE declarado                índice 1 · matérias 3 · REVALIDATED 3 · CHANGED 0
+
+O ruído do índice foi: data, contador de visitas, `article:modified_time`, ordem
+trocada, ligação `#commenti`, paginação, feed, css — e **cada matéria ligada duas
+vezes** (foto e título). Esta última entrou depois: sem ela, o mutante que desliga a
+deduplicação de `ligacoesDoIndice` sobrevivia, porque o índice de teste nunca repetia
+uma ligação. Um site real repete-a quase sempre.
+
+**LIMITE CONHECIDO, NÃO CORRIGIDO: A MEMÓRIA É POR ENDEREÇO EXACTO.** A mesma página
+anunciada como `/news/x` e `/news/x/` custa 1 pedido. Não nasce documento (a identidade
+genérica tira a barra → `SEEN_AGAIN`), e `UNNECESSARY_REFETCHES` NÃO o vê — conta-o
+como endereço novo. Medido nos quatro livros desta máquina (521, 574, 144 e 20
+observações): **0 endereços com duas grafias**. Corrigir seria por ansiedade; a prova
+descreve o comportamento de hoje e acende se ele mudar.
+
+**OBSERVAÇÃO (não medida na coorte).** `ligacoesDoIndice` usa `href="([^"'#]+)"`: uma
+ligação com `#fragmento` não é normalizada — é **descartada inteira**. Uma matéria que o
+índice só ligasse com fragmento ficaria invisível. No índice de teste ela aparece
+também sem fragmento, por isso nada se perde.
+
+**2 · O SITE PENDURADO — `provas/recollection_timeout_local.mjs`.** Cada pedido já
+tinha tecto: `curl --max-time 90`, e uma 2.ª tentativa porque o código 28 (timeout)
+é transitório → **180 s por endereço**. A fonte não tinha. Medido com o coletor de
+antes: índice que responde + 3 matérias penduradas = **544 s**; com o `MAX_TARGETS`
+de 30 (myfruit, Riunite) seriam ~90 minutos numa fonte, numa corrida.
+
+A correcção (mínima, na peça existente, `coleta/italy_pilot_collect.mjs`): `baixar()`
+devolve o `codigo` do curl; depois do **primeiro** timeout de uma matéria, as matérias
+seguintes DESSA fonte que iriam à rede ficam para a próxima corrida —
+`DETAIL_DEFERRED_AFTER_TIMEOUT`, em `detalhes` com o nome, **fora do livro** (uma
+adiada não foi observada; escrevê-la faria a memória lembrar uma tentativa que não
+houve). As já conhecidas continuam `SKIP_KNOWN`, não adiadas.
+
+    T1 índice ok, matérias penduram     183 s (era 544) · FAILED 1 com motivo «timed out» · ADIADAS 2
+    T2 o site volta (uma demora 3 s)      6 s · NEW 3 — a que falhou e as duas adiadas
+    T3 o índice pendura                 183 s · DISCOVERY_FAILED «indice inacessivel»
+
+Tecto por fonte, agora: 1 índice pendurado (180 s) OU índice + 1 matéria pendurada
+(~180 s, porque o índice respondeu). ⚠️ O disjuntor só dispara no TIMEOUT: um site lento que
+responde a 80 s continua a custar 80 s por matéria. `italy_contract_test` dá 76/425 vermelhos com e sem
+a correcção — os MESMOS, comparados por nome.
+
+**3 · O ETag — `provas/medir_validadores_coorte.py` → `VALIDADORES-COORTE-R2.json`.**
+Os 8 sites, pela VPN IT (egresso medido antes de cada um), 1 HEAD ao índice:
+
+    ETag           0/8
+    Last-Modified  3/8  — Chianti (22/09 21:23, plausível) · Agrofarma (Cloudflare) ·
+                          Bonifica Romagna (= o segundo do pedido: não valida nada)
+    as 2 MUTABLE (Zootecnica, Riunite): nenhum validador
+
+A regra de hoje já dá 0 pedidos às matérias conhecidas das 6 não-MUTABLE. O ETag só
+pouparia o corpo do índice em ≤ 2 de 8 sites. **Não se implementa.** O custo real está
+noutro sítio: uma fonte MUTABLE revalida TODAS as conhecidas em TODAS as corridas
+(`CONTRACT_DECLARES_MUTABLE` não olha para `TTL_SECONDS`) — até 14 + 30 = 44 corpos
+por corrida nas duas da coorte. A alavanca proposta (NÃO aplicada, é decisão do dono):
+fazer o `TTL_SECONDS` limitar a revalidação MUTABLE, com o TTL tirado dos atrasos de
+edição medidos (Riunite: 19 de 26 editados > 24 h depois, o maior 72 dias).
+
+**ARMADILHA DE INSTRUMENTO.** A 1.ª versão lia o robots com `RobotFileParser.read()`,
+que se apresenta como «Python-urllib», e deu a Agrofarma como BARRADA. Lido pelo curl
+com o User-Agent do coletor, o robots.txt dela é 404 — o host não o publica, e 404 é
+«tudo permitido». O que o servidor respondeu ao Python-urllib não foi medido (NÃO SEI;
+um 401/403 faz o leitor do Python fechar tudo). Corrigido: o robots lê-se pelo curl com o
+User-Agent do coletor. Custo: a Agrofarma recebeu 3 leituras de robots e 1 HEAD.
+
+**MUTANTES (execução provada por marca, `NODE_DISABLE_COMPILE_CACHE=1`).**
+Cinco, cinco mortos:
+
+    MI1 salto SKIP_KNOWN desligado (coletor)          morre em I2, I3, I4
+    MI2 o livro sobrescrito em vez de acrescentado     morre em I2, I3
+    MI3 ligacoesDoIndice sem deduplicação (motor)      morre em I1, I2, I3  (sobrevivia antes da foto+título)
+    MT1 disjuntor desligado                            morre em T1 (tempo e adiadas)
+    MT2 a adiada escrita no livro                      morre em T1 (livro)
