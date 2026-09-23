@@ -1488,7 +1488,15 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
             kind_basis=pv.DECLARED_BY_PROVIDER, relation=pv.ORIGINAL,
             language=cartao.get('DECLARED_LANGUAGE'),
             unit_id='%s:AUTHOR' % (ident or 'sem-id'),
-            derivation_method='PLATAFORMA_PUBLICOU_NO_JSON_LD',
+            # ⚠️ O METODO VEM DO DONO DO VOCABULARIO, E NAO DE UMA FRASE MINHA.
+            # A primeira versao escrevia 'PLATAFORMA_PUBLICOU_NO_JSON_LD' — um
+            # nome inventado, fora da lista fechada de `regras/proveniencia.py`.
+            # O ingresso recusou as DUAS observacoes com
+            # `INGRESS_CONTRATO_QUEBRADO`, e a medicao foi essa que o apanhou.
+            #
+            #     UM NOME INVENTADO NUM CAMPO DE VOCABULARIO FECHADO
+            #     NAO E UM DETALHE DE ESTILO: E UMA OBSERVACAO QUE NAO ENTRA.
+            derivation_method=pv.LIDO_DO_CAMPO,
             tool='adaptador_linkedin.video_do_post'))
     if rendicao:
         raw['RENDITION_CHOSEN'] = rendicao['SRC']
@@ -1546,7 +1554,12 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
                 kind_basis=pv.DECLARED_BY_PROVIDER, relation=pv.ORIGINAL,
                 language=cartao.get('DECLARED_LANGUAGE'),
                 unit_id='%s:NATIVE_CAPTION' % (ident or 'sem-id'),
-                derivation_method='FAIXA_DE_LEGENDA_DA_PLATAFORMA',
+                # A legenda automatica E o ASR do PROVEDOR: foi ele que ouviu a
+                # fala e escreveu o texto. `PROVIDER_ASR` e o nome que o dono do
+                # vocabulario ja tinha para exactamente isto.
+                #
+                #     ASR DE OUTRA CASA TEM NOME PROPRIO — E NAO E `ASR_LOCAL`.
+                derivation_method=pv.ASR_DO_PROVEDOR,
                 tool='adaptador_linkedin.legenda_do_video'))
         except Exception as e:                                        # noqa: BLE001
             raw['CAPTION_ERROR'] = '%s: %s' % (type(e).__name__, str(e)[:200])
@@ -1560,6 +1573,26 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
                                            'O texto teria de vir do dono unico do '
                                            'ASR: %s' % DONO_DO_ASR)})
 
+    # ── A LINGUA DECLARADA != A LINGUA DO TEXTO, E ISSO MEDIU-SE ─────────
+    # ⚠️ MEDIDO no canario: a etiqueta `<video>` das paginas do `gruppocaviro`
+    # declara `data-language="en"` E SERVE LEGENDA EM ITALIANO — o texto das
+    # legendas e dos posts e italiano legivel.
+    #
+    # A resposta continua a ser a declarada, e nao a que eu acho: a lei desta
+    # casa e «LINGUA DECLARADA, NUNCA INFERIDA DO TEXTO», e inferir `it` do
+    # texto seria exactamente o que ela proibe.
+    #
+    #     MANTER O `en` NÃO É UM ERRO: É O CAMPO A DIZER A VERDADE QUE A
+    #     PLATAFORMA DECLARA. O QUE SERIA ERRO E ESCREVER `it` POR CONTA PRÓPRIA.
+    #
+    # O que se faz é guardar a divergencia AO LADO, para que a Inteligencia
+    # saiba que este campo precisa de companhia antes de decidir lingua.
+    raw['DECLARED_LANGUAGE_NOTE'] = (
+        'a plataforma DECLARA esta lingua no atributo data-language da etiqueta '
+        '<video>; o texto da legenda e o texto do autor sao servidos na lingua '
+        'da publicacao. Medido no canario D23: declarado `en`, texto italiano. '
+        'O campo guarda o que a plataforma declarou — inferir do texto seria '
+        'fabricar.')
     raw['TEXT_UNITS_MADE'] = [u['TEXT_KIND'] for u in unidades]
     ref = env.guardar_raw(PLATAFORMA, 'post-%s' % (ident or url_do_post),
                           json.dumps(raw, ensure_ascii=False, indent=1, default=str))
