@@ -82,6 +82,18 @@ class TestItalianoFicaComoEstava(unittest.TestCase):
         self.assertEqual(sorted(ev["palavras"]), ["prezzi", "quotazion"])
 
 
+class TestODetectorSoDecideComMargem(unittest.TestCase):
+
+    def test_frase_inglesa_curta_fica_lingua_nao_sei_e_regua_de_sempre(self):
+        t = "The price and the exports."              # poucas palavras-funcao: abaixo do minimo
+        self.assertEqual(A._lingua_do_item({"texto": t}), "NAO_SEI")
+        self.assertNotEqual(veredito(t)[0], A.SIM)     # a regua italiana nao conhece price/exports
+
+    def test_texto_meio_italiano_meio_ingles_fica_lingua_nao_sei(self):
+        t = (ENCHIMENTO_EN + ENCHIMENTO_IT) * 3
+        self.assertEqual(A._lingua_do_item({"texto": t}), "NAO_SEI")
+
+
 class TestLinguaSemRegua(unittest.TestCase):
 
     def test_frances_e_nao_sei_dito(self):
