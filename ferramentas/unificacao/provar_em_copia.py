@@ -63,7 +63,8 @@ def git(cwd, *a, ok=(0,)):
 
 
 def correr(wt, args, timeout=3000):
-    env = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1")
+    env = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1",
+               PYTHONPATH=str(Path.home() / ".sintonia-libs"))
     p = subprocess.run([sys.executable, *args], cwd=str(wt), capture_output=True, text=True,
                        encoding="utf-8", errors="replace", env=env, timeout=timeout)
     out = (p.stdout + "\n" + p.stderr).replace("Could not find platform independent libraries <prefix>\n", "")
@@ -89,7 +90,25 @@ def main(ref, saida):
         doc["SUPERVISOR_VOLTA"] = correr(wt, ["-c", VOLTA], 300)
         doc["MODULOS_DE_PROVA"] = correr(wt, ["-m", "unittest", "-v", "curadoria.test_gatilho_ocioso",
                                               "curadoria.test_worker_pendurado",
-                                              "curadoria.test_discovery_sementes"], 1800)
+                                              "curadoria.test_discovery_sementes",
+                                              # 3.a passagem
+                                              "curadoria.test_fila_windows",
+                                              "curadoria.test_travao_sementes",
+                                              "curadoria.test_decisao_semantica",
+                                              "curadoria.test_pais_das_candidatas",
+                                              "curadoria.test_contrato_unico",
+                                              "curadoria.test_ponte_promocao",
+                                              "curadoria.test_ponte_candidatas",
+                                              "curadoria.test_livros_reais_intactos",
+                                              "tests.test_admissao_multilingue",
+                                              "tests.test_retirada_por_decisao",
+                                              "tests.test_aplicar_desbloqueio",
+                                              "tests.test_ld2_aditamento",
+                                              "tests.test_politica_nao_sei"], 3000)
+        snaps = sorted((Path.home() / "sintonia-gabarito").glob("B1-SNAPSHOT-*"))
+        if snaps and (wt / "medidas/prova_b2_ponte_em_copia.py").exists():
+            doc["PONTE_B2_PROMOCAO_DESPROMOCAO"] = correr(
+                wt, ["medidas/prova_b2_ponte_em_copia.py", str(snaps[-1])], 1800)
         doc["COPIA_SUJA_DEPOIS"] = git(wt, "status", "--short").stdout.splitlines()[:40]
         arq = Path(tempfile.gettempdir()) / ("ensaio-tar-%s" % sha[:8])
         shutil.rmtree(arq, ignore_errors=True)
@@ -104,6 +123,11 @@ def main(ref, saida):
                 arq, ["curadoria/ensaiar_worker_pendurado.py", "--sou-uma-copia"], 1800)
             doc["ENSAIO_GATILHO_OCIOSO"] = correr(
                 arq, ["curadoria/ensaiar_gatilho_ocioso.py", "--sou-uma-copia"], 1800)
+            if (arq / "curadoria/ensaiar_fila_windows.py").exists():
+                (arq / "curadoria/LIFECYCLE-QUEUE-V1.json").write_text(
+                    json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}), encoding="utf-8")
+                doc["ENSAIO_FILA_WINDOWS"] = correr(
+                    arq, ["curadoria/ensaiar_fila_windows.py", "--sou-uma-copia"], 1800)
         finally:
             shutil.rmtree(arq, ignore_errors=True)
         doc["COPIA_TAR_REMOVIDA"] = not arq.exists()
@@ -113,7 +137,11 @@ def main(ref, saida):
     doc["WORKTREE_REMOVIDA"] = not wt.exists()
     Path(saida).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k in ("PONTE_PROOF", "RED_TEAM_PONTE", "SUPERVISOR_ESTADO", "PONTE_SAUDE", "SUPERVISOR_VOLTA",
-              "MODULOS_DE_PROVA", "ENSAIO_WORKER_PENDURADO", "ENSAIO_GATILHO_OCIOSO"):
+              "MODULOS_DE_PROVA", "PONTE_B2_PROMOCAO_DESPROMOCAO", "ENSAIO_WORKER_PENDURADO",
+              "ENSAIO_GATILHO_OCIOSO", "ENSAIO_FILA_WINDOWS"):
+        if k not in doc:
+            print("==", k, "NAO CORREU")
+            continue
         print("==", k, "rc=%s" % doc[k]["RC"])
         print("\n".join(doc[k]["FIM"][-8:]))
 
