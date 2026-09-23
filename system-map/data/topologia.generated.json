@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T13:30:42+00:00",
-  "HEAD": "40fd03e7dd22aa55f5675347022a1bf4a82921df",
-  "BRANCH": "micro-rede-real-v1",
+  "GENERATED_AT": "2026-09-23T20:12:55+00:00",
+  "HEAD": "86799e78b1aab8644fa2994e96437f2fb4a1e9e0",
+  "BRANCH": "cortesia-coleta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8",
-  "FICHEIROS_NA_IMPRESSAO": 2847,
+  "SOURCE_TREE_FINGERPRINT": "f6fc2ce30e2c47dd33c7fb872ecd159c91694265f437fb4374a9e7954ae98dd3",
+  "FICHEIROS_NA_IMPRESSAO": 2851,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -482,7 +482,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
+    "VERSAO": "b0c1eccbaee10748bcd794ad7e8d7720a80fc775",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2503,6 +2503,20 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/cortesia_http_local.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "1d9d167f0eacdb18488e4572100d5c9e70b30ff2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/cortesia_red_team.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "b361afe53254cf327fd8349d6fe36c89bf339d29",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/coverage.py",
     "PAPEL": "FONTE",
     "VERSAO": "08545f17174b1d8b6a2d85143f90b2ccee0e1ae1",
@@ -3016,14 +3030,14 @@
    {
     "PATH": "provas/recollection_http_local.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "5fadd303ca89bf2ded04f11c431bebe7cbc3c41c",
+    "VERSAO": "5be6a9d99be2bf06406248a53b4b936fe2f4938c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
     "PATH": "provas/recollection_indice_local.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "d3fd359339762b5aaa0a0ea54df45adac8481451",
+    "VERSAO": "2815ea05ac13a6592c19b544a4ae815805c6ac8f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3044,7 +3058,7 @@
    {
     "PATH": "provas/recollection_timeout_local.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "f984a85a83be3e88eda853195ca6b737bd4a9495",
+    "VERSAO": "9227fba8893d441b9f76dfdad441d6d4c6a8c214",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3422,7 +3436,7 @@
    {
     "PATH": "scripts/micro_coleta/micro_rede_real.py",
     "PAPEL": "FONTE",
-    "VERSAO": "78681ef6e2c1730cac5792ac4bdd959489162840",
+    "VERSAO": "db8ff406b8a57c628916e9ae2349f75ae3c09fcd",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3513,14 +3527,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8",
+    "VERSAO": "f6fc2ce30e2c47dd33c7fb872ecd159c91694265f437fb4374a9e7954ae98dd3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8",
+    "VERSAO": "f6fc2ce30e2c47dd33c7fb872ecd159c91694265f437fb4374a9e7954ae98dd3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4428,6 +4442,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_cortesia_no_transporte.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d21d07d0869e9a40b06f000084e7959487e1bc1e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_ensaio_offline_micro.py",
     "PAPEL": "FONTE",
     "VERSAO": "cce3f6aa96b9a797d545e2890d462509de3484aa",
@@ -4745,7 +4766,7 @@
    {
     "PATH": "tests/test_micro_rede_real.py",
     "PAPEL": "FONTE",
-    "VERSAO": "826120cad3ad992d09a095c4a3c6d5a8aa7f49b0",
+    "VERSAO": "7d47605fd061f0933251b51c8bf9a24e21cdd6aa",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5310,8 +5331,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 753,
-  "INPUTS_DIGEST": "52c393c5011ed8c5f4c45d3ba515fc68d7d9e5a706a4b3e8bd13eed584bed56e",
+  "INPUTS_COUNT": 756,
+  "INPUTS_DIGEST": "d10125c685f2a657e4e89326862096c565d35549341bb9bddbe43af3da40c9bd",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5344,8 +5365,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "20c72e2b43cfbce32c3b3627ebae58c0288cabd464dc1df7d726075f31ce4eec",
-  "SEMANTIC_HASH": "c69d09f23bb97e27804477fc1d7db345fc2da827ae447ebb92ba7ba17f66f7e7"
+  "MEASUREMENT_HASH": "5bfb20b7f047b643efa7eeb7396aed1e24e85f19caa2d856ad3bb8d32a42a2cc",
+  "SEMANTIC_HASH": "6489051e88affee0b8be7af55104d0b3ac9fe0b6590a9043c4a8217453d0824c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5503,6 +5524,7 @@
    "C-PROVA-AUTORIDADE-FONTE",
    "C-PROVA-BIBLIA",
    "C-PROVA-COLETA",
+   "C-PROVA-CORTESIA",
    "C-PROVA-CUTOVER",
    "C-PROVA-DEDUPE",
    "C-PROVA-ENCANAMENTO",
@@ -5540,7 +5562,7 @@
    "C-TESTES",
    "C-V21-INGEST"
   ],
-  "COUNT": 82
+  "COUNT": 83
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -5658,6 +5680,7 @@
    "C-PROVA-AUTORIDADE-FONTE",
    "C-PROVA-BIBLIA",
    "C-PROVA-COLETA",
+   "C-PROVA-CORTESIA",
    "C-PROVA-CUTOVER",
    "C-PROVA-DEDUPE",
    "C-PROVA-ENCANAMENTO",
@@ -5720,16 +5743,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 172
+  "COUNT": 173
  },
  "ARITMETICA": {
   "COLLECTION": 90,
-  "BOUNDARY": 82,
-  "SOMA": 172,
-  "EXPANDED": 172,
+  "BOUNDARY": 83,
+  "SOMA": 173,
+  "EXPANDED": 173,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 172,
+  "RESUMO_CARTOES_NO_UNIVERSO": 173,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -8551,7 +8574,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
-      "LINHA": 46,
+      "LINHA": 80,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -21755,6 +21778,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-PROVA-CORTESIA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/cortesia_http_local.mjs",
+      "LINHA": 82,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/cortesia_red_team.mjs",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CUTOVER",
     "FROM": "C-IT-COLETA",
     "TO": "C-PROVA-CUTOVER",
@@ -21850,7 +21903,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_http_local.mjs",
-      "LINHA": 58,
+      "LINHA": 63,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
@@ -21858,7 +21911,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_indice_local.mjs",
-      "LINHA": 75,
+      "LINHA": 80,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
@@ -21866,7 +21919,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_timeout_local.mjs",
-      "LINHA": 64,
+      "LINHA": 69,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
@@ -22411,6 +22464,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-PROVA-CORTESIA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/cortesia_http_local.mjs",
+      "LINHA": 83,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-PROVA-PARIDADE",
@@ -22432,7 +22507,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_http_local.mjs",
-      "LINHA": 59,
+      "LINHA": 64,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -22440,7 +22515,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_indice_local.mjs",
-      "LINHA": 76,
+      "LINHA": 81,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -22448,7 +22523,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_timeout_local.mjs",
-      "LINHA": 65,
+      "LINHA": 70,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -23413,7 +23488,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
-      "LINHA": 233,
+      "LINHA": 291,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -23421,7 +23496,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
-      "LINHA": 234,
+      "LINHA": 292,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -23530,6 +23605,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-PROVA-CORTESIA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/cortesia_http_local.mjs",
+      "LINHA": 94,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
     "FROM": "C-IT-PRESERVAR",
     "TO": "C-PROVA-PARIDADE",
@@ -23551,7 +23648,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_http_local.mjs",
-      "LINHA": 66,
+      "LINHA": 71,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
@@ -23559,7 +23656,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_indice_local.mjs",
-      "LINHA": 89,
+      "LINHA": 94,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
@@ -23567,7 +23664,7 @@
      },
      {
       "FICHEIRO": "provas/recollection_timeout_local.mjs",
-      "LINHA": 73,
+      "LINHA": 78,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
@@ -24092,7 +24189,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
-      "LINHA": 122,
+      "LINHA": 156,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -29981,6 +30078,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-COLETA--WRITES-->C-SCRAP-LEIS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
+    "FROM": "C-PROVA-CORTESIA",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_cortesia_no_transporte.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -40301,12 +40420,12 @@
     ]
    }
   ],
-  "COUNT": 1128
+  "COUNT": 1132
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 172,
-  "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1128,
+  "CARTOES_NO_UNIVERSO": 173,
+  "CARTOES_AUDITADOS": 173,
+  "ARESTAS_RELACIONADAS": 1132,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -40493,6 +40612,7 @@
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-ASR-LOCAL",
    "C-PROVA-AUDIO-ONLY",
+   "C-PROVA-CORTESIA",
    "C-PROVA-CUTOVER",
    "C-PROVA-GATE-1D",
    "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -40640,6 +40760,9 @@
    "C-PROVA-AUDIO-ONLY": [
     "audit"
    ],
+   "C-PROVA-CORTESIA": [
+    "diagnostic"
+   ],
    "C-PROVA-CUTOVER": [
     "audit",
     "diagnostic"
@@ -40703,9 +40826,9 @@
    "CODE": 188,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 372,
-   "READ": 255,
-   "RULE": 202,
+   "PROOF": 373,
+   "READ": 257,
+   "RULE": 203,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -44189,6 +44312,8 @@
     "provas/a_fonte_t4_italiana_atravessa.py",
     "provas/a_linhagem_do_ready.py",
     "provas/a_unidade_pousa_na_espera.py",
+    "provas/cortesia_http_local.mjs",
+    "provas/cortesia_red_team.mjs",
     "provas/italy_pilot_negativos.mjs",
     "provas/o_cutover_nao_vaza.py",
     "provas/o_pedido_atravessa.py",
@@ -44225,7 +44350,7 @@
     "coleta"
    ],
    "ENTRAM": 11,
-   "SAEM": 20,
+   "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -44296,6 +44421,7 @@
    "SO_MEDEM_ESTE": [
     "provas/a_autoridade_da_fonte.py",
     "provas/a_collection_preserva_o_fato.py",
+    "provas/cortesia_http_local.mjs",
     "provas/italy_pilot_negativos.mjs",
     "provas/paridade_duas_rodadas.mjs",
     "provas/recollection_http_local.mjs",
@@ -44323,7 +44449,7 @@
     "pathlib"
    ],
    "ENTRAM": 9,
-   "SAEM": 15,
+   "SAEM": 16,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -44457,6 +44583,7 @@
     "provas/a_collection_preserva_o_fato.py",
     "provas/a_porta_cli_liga_o_banco.py",
     "provas/a_porta_le_italiano.py",
+    "provas/cortesia_http_local.mjs",
     "provas/italy_pilot_negativos.mjs",
     "provas/medir_source_id_wiring_gap.py",
     "provas/o_censo_da_sala_de_espera.py",
@@ -44486,7 +44613,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 2,
-   "SAEM": 18,
+   "SAEM": 19,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ"
@@ -46200,6 +46327,44 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PROVA-CORTESIA",
+   "NOME": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/CORTESIA-RED-TEAM-V1.json",
+    "provas/cortesia_http_local.mjs",
+    "provas/cortesia_red_team.mjs"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/cortesia_red_team.mjs",
+    "tests/test_cortesia_no_transporte.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [],
+   "ENTRAM": 3,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "diagnostic"
+   ],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PROVA-CUTOVER",
    "NOME": "As provas do cutover da Collection",
    "FAMILIA": "F-GOVERNANCA",
@@ -46823,6 +46988,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/cortesia_red_team.mjs",
     "provas/recollection_red_team.mjs",
     "provas/recollection_red_team_estrito.mjs"
    ],
@@ -48844,6 +49010,7 @@
     "tests/test_comunicacao.py",
     "tests/test_comunicacao_universo_falha_fechado.py",
     "tests/test_consumo_da_referencia_adama.py",
+    "tests/test_cortesia_no_transporte.py",
     "tests/test_ensaio_offline_micro.py",
     "tests/test_espinha_da_intelligence.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
@@ -49093,7 +49260,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 194,
+   "ENTRAM": 195,
    "SAEM": 25,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

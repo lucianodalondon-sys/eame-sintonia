@@ -2038,6 +2038,7 @@
     ],
     "provas": [
       "provas/A-MUDANCA-E-NOSSA-PEGADA-V1.json",
+      "provas/CORTESIA-RED-TEAM-V1.json",
       "provas/O-CUTOVER-NAO-VAZA-V1.json",
       "provas/PARIDADE-RED-TEAM-V1.json",
       "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
@@ -2099,6 +2100,8 @@
       "provas/chain.py",
       "provas/consumo_da_referencia_adama.py",
       "provas/corrigir_custo.py",
+      "provas/cortesia_http_local.mjs",
+      "provas/cortesia_red_team.mjs",
       "provas/coverage.py",
       "provas/demanda_de_dados_da_italia.py",
       "provas/derived_artifact_no_postgres.py",
@@ -2647,6 +2650,7 @@
       "tests/test_comunicacao.py",
       "tests/test_comunicacao_universo_falha_fechado.py",
       "tests/test_consumo_da_referencia_adama.py",
+      "tests/test_cortesia_no_transporte.py",
       "tests/test_ensaio_offline_micro.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
@@ -3292,10 +3296,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-rede-real-v1",
-    "HEAD": "40fd03e7dd22aa55f5675347022a1bf4a82921df",
-    "GENERATED_AT": "2026-09-23T10:24:59-03:00",
-    "SOURCE_TREE_FINGERPRINT": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8"
+    "BRANCH": "cortesia-coleta-v1",
+    "HEAD": "86799e78b1aab8644fa2994e96437f2fb4a1e9e0",
+    "GENERATED_AT": "2026-09-23T17:08:30-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f6fc2ce30e2c47dd33c7fb872ecd159c91694265f437fb4374a9e7954ae98dd3"
   },
   "FAMILIES": [
     {
@@ -3366,7 +3370,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 95
+      "count": 96
     },
     {
       "id": "F-ENTREGA",
@@ -3738,7 +3742,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 77
+      "count": 78
     },
     {
       "id": "Z-REFERENCIA",
@@ -4788,8 +4792,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 591",
-        "desses, mostrados aqui: 40 (ficam de fora 551)"
+        "enderecos que o codigo realmente chama: 592",
+        "desses, mostrados aqui: 40 (ficam de fora 552)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -31877,7 +31881,7 @@
       "name": "Colher as fontes italianas",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental.",
+      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte.",
       "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
       "departments": [
         "INTELIGENCIA",
@@ -31923,6 +31927,7 @@
         "C-IT-NORMALIZACAO",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PROVA-COLETA",
+        "C-PROVA-CORTESIA",
         "C-PROVA-CUTOVER",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
@@ -32149,6 +32154,7 @@
         "C-IT-CONTAS",
         "C-IT-INCREMENTALIDADE",
         "C-PROVA-AUTORIDADE-FONTE",
+        "C-PROVA-CORTESIA",
         "C-PROVA-PARIDADE",
         "C-RECOLLECTION-CENSO",
         "C-TESTES"
@@ -32583,6 +32589,7 @@
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PADRAO-COLETA",
         "C-PROVA-COLETA",
+        "C-PROVA-CORTESIA",
         "C-PROVA-PARIDADE",
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
         "C-PROVA-ROTAS-REAIS",
@@ -37724,6 +37731,100 @@
       "y": 4546
     },
     {
+      "id": "C-PROVA-CORTESIA",
+      "name": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Uma prova de ZERO REDE EXTERNA que liga o transporte real do coletor (curl) contra um servidor HTTP em 127.0.0.1 e conta os pedidos NO SERVIDOR: robots que proibe um caminho da 0 pedidos a ele; robots que proibe o indice deixa a fonte UNKNOWN e o livro intacto; a pausa minima (1 s, 2 s configurada, Crawl-delay 3) mede-se entre chegadas; o teto de 5 (D7) e o configurado cortam exactamente; robots ilegivel e indisponivel nao deixam passar; o salto de redireccionamento pede licenca outra vez; `www.site` e `site` contam como UM site (o caso Villoresi, medido na rede real: 6 pedidos antes da correccao). E um red team de 17 mutantes, um por guarda, com bandeira que prova que a linha mutada correu, restauro conferido por sha.",
+      "why_here": "Medido na A4: o coletor nao lia robots nem espacava pedidos; quem o fazia era o condutor da micro, por fora — uma regra com dois donos vale para um e falta ao outro. A prova arranca o coletor, nao a regra, porque so assim mede a ROTA: um teste que importa `robotsPermite` provaria o leitor do robots e nunca veria o `baixar()` a ignora-lo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "diagnostic",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/CORTESIA-RED-TEAM-V1.json",
+        "provas/cortesia_http_local.mjs",
+        "provas/cortesia_red_team.mjs"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-COLETA",
+        "C-IT-CONTRATOS",
+        "C-IT-PRESERVAR"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 3
+      },
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 4 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 4 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "coleta/italy_pilot_collect.mjs",
+        "data/collection-ledger/italy/observations.ndjson",
+        "provas/cortesia_http_local.mjs",
+        "regras/italy_contracts.mjs"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_cortesia_no_transporte.py:24"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 21680,
+      "y": 4546
+    },
+    {
       "id": "C-PROVA-CUTOVER",
       "name": "As provas do cutover da Collection",
       "territory": "Z-PROVA",
@@ -37837,8 +37938,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
-      "y": 4546
+      "x": 20850,
+      "y": 4868
     },
     {
       "id": "C-PROVA-DEDUPE",
@@ -37927,7 +38028,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 4868
     },
     {
@@ -38018,7 +38119,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 4868
     },
     {
@@ -38097,8 +38198,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 4868
+      "x": 20850,
+      "y": 5190
     },
     {
       "id": "C-PROVA-FALA-QUALIDADE",
@@ -38214,7 +38315,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 5190
     },
     {
@@ -38308,7 +38409,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 5190
     },
     {
@@ -38406,8 +38507,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 5190
+      "x": 20850,
+      "y": 5512
     },
     {
       "id": "C-PROVA-GATE-1D",
@@ -38494,7 +38595,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 5512
     },
     {
@@ -38584,7 +38685,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 5512
     },
     {
@@ -38696,8 +38797,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 5512
+      "x": 20850,
+      "y": 5834
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -38833,7 +38934,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 5834
     },
     {
@@ -38946,7 +39047,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 5834
     },
     {
@@ -39033,8 +39134,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 5834
+      "x": 20850,
+      "y": 6156
     },
     {
       "id": "C-PROVA-PARIDADE",
@@ -39161,7 +39262,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 6156
     },
     {
@@ -39272,7 +39373,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6156
     },
     {
@@ -39371,8 +39472,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
-      "y": 6156
+      "x": 20850,
+      "y": 6478
     },
     {
       "id": "C-PROVA-RECOLLECTION",
@@ -39467,7 +39568,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 6478
     },
     {
@@ -39555,7 +39656,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6478
     },
     {
@@ -39676,8 +39777,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
-      "y": 6478
+      "x": 20850,
+      "y": 6800
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -39778,7 +39879,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 6800
     },
     {
@@ -39922,7 +40023,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6800
     },
     {
@@ -40019,8 +40120,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 6800
+      "x": 20850,
+      "y": 7122
     },
     {
       "id": "C-PROVA-SALA-ITALIANA",
@@ -40131,7 +40232,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7122
     },
     {
@@ -40242,7 +40343,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7122
     },
     {
@@ -40330,8 +40431,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 7122
+      "x": 20850,
+      "y": 7444
     },
     {
       "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -40414,7 +40515,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7444
     },
     {
@@ -40510,7 +40611,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7444
     },
     {
@@ -40891,8 +40992,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
-      "y": 7444
+      "x": 20850,
+      "y": 7766
     },
     {
       "id": "C-RECEITAS",
@@ -41382,7 +41483,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7766
     },
     {
@@ -41481,7 +41582,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7766
     },
     {
@@ -41706,8 +41807,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 21680,
-      "y": 7766
+      "x": 20850,
+      "y": 8088
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -42124,7 +42225,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 8088
     },
     {
@@ -43440,7 +43541,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8088
     },
     {
@@ -43913,8 +44014,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 8088
+      "x": 20850,
+      "y": 8410
     },
     {
       "id": "C-SUPABASE",
@@ -44172,7 +44273,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 8410
     },
     {
@@ -46105,6 +46206,7 @@
         "tests/test_comunicacao.py",
         "tests/test_comunicacao_universo_falha_fechado.py",
         "tests/test_consumo_da_referencia_adama.py",
+        "tests/test_cortesia_no_transporte.py",
         "tests/test_ensaio_offline_micro.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
@@ -46232,7 +46334,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 217,
+      "file_count": 218,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -46357,6 +46459,7 @@
         "C-PROVA-ASR-LOCAL",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
+        "C-PROVA-CORTESIA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -46904,6 +47007,7 @@
         "provas/bluesky_trial_ao_vivo.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
+        "provas/cortesia_http_local.mjs",
         "provas/demanda_de_dados_da_italia.py",
         "provas/espinha_da_intelligence.py",
         "provas/fechar_ground_truth_t3.py",
@@ -47052,7 +47156,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8410
     },
     {
@@ -48947,7 +49051,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch micro-rede-real-v1"
+        "branch cortesia-coleta-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -54190,7 +54294,7 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/micro_rede_real.py",
-          "line": 46,
+          "line": 80,
           "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -77564,6 +77668,57 @@
     },
     {
       "from": "C-IT-COLETA",
+      "to": "C-PROVA-CORTESIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/cortesia_http_local.mjs",
+          "line": 82,
+          "snippet": "const M = await import(\"../coleta/italy_pilot_collect.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/cortesia_red_team.mjs",
+          "line": 25,
+          "snippet": "const ALVO = \"coleta/italy_pilot_collect.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-COLETA",
       "to": "C-PROVA-CUTOVER",
       "type": "READS",
       "payload": "artefacto",
@@ -77711,7 +77866,7 @@
         },
         {
           "file": "provas/recollection_http_local.mjs",
-          "line": 58,
+          "line": 63,
           "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
@@ -77727,7 +77882,7 @@
         },
         {
           "file": "provas/recollection_indice_local.mjs",
-          "line": 75,
+          "line": 80,
           "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
@@ -77743,7 +77898,7 @@
         },
         {
           "file": "provas/recollection_timeout_local.mjs",
-          "line": 64,
+          "line": 69,
           "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
@@ -78756,6 +78911,41 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-PROVA-CORTESIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/cortesia_http_local.mjs",
+          "line": 83,
+          "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-PROVA-PARIDADE",
       "type": "READS",
       "payload": "artefacto",
@@ -78782,7 +78972,7 @@
         },
         {
           "file": "provas/recollection_http_local.mjs",
-          "line": 59,
+          "line": 64,
           "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -78798,7 +78988,7 @@
         },
         {
           "file": "provas/recollection_indice_local.mjs",
-          "line": 76,
+          "line": 81,
           "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -78814,7 +79004,7 @@
         },
         {
           "file": "provas/recollection_timeout_local.mjs",
-          "line": 65,
+          "line": 70,
           "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -80418,7 +80608,7 @@
         },
         {
           "file": "scripts/micro_coleta/micro_rede_real.py",
-          "line": 233,
+          "line": 291,
           "snippet": "obs1 = E.ler_ndjson(led / \"observations.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -80434,7 +80624,7 @@
         },
         {
           "file": "scripts/micro_coleta/micro_rede_real.py",
-          "line": 234,
+          "line": 292,
           "snippet": "runs_nd = E.ler_ndjson(led / \"runs.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -80641,6 +80831,41 @@
     },
     {
       "from": "C-IT-PRESERVAR",
+      "to": "C-PROVA-CORTESIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/cortesia_http_local.mjs",
+          "line": 94,
+          "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
       "to": "C-PROVA-PARIDADE",
       "type": "READS",
       "payload": "artefacto",
@@ -80667,7 +80892,7 @@
         },
         {
           "file": "provas/recollection_http_local.mjs",
-          "line": 66,
+          "line": 71,
           "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
@@ -80683,7 +80908,7 @@
         },
         {
           "file": "provas/recollection_indice_local.mjs",
-          "line": 89,
+          "line": 94,
           "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
@@ -80699,7 +80924,7 @@
         },
         {
           "file": "provas/recollection_timeout_local.mjs",
-          "line": 73,
+          "line": 78,
           "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
@@ -81520,7 +81745,7 @@
         },
         {
           "file": "scripts/micro_coleta/micro_rede_real.py",
-          "line": 122,
+          "line": 156,
           "snippet": "x = subprocess.run([sys.executable, \"medidas/corrida_sem_rede.py\", f\"--saida={medida}\", \"--\"]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -92630,6 +92855,41 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
             "FROM": "C-PROVA-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-CORTESIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_cortesia_no_transporte.py",
+          "line": 24,
+          "snippet": "r = subprocess.run([\"node\", \"provas/cortesia_http_local.mjs\"], cwd=RAIZ, env=env,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
+            "FROM": "C-PROVA-CORTESIA",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -111309,7 +111569,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 207,
+      "PECAS_EM_DESACORDO": 208,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -111321,26 +111581,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 232
+      "TOTAL_DE_PECAS": 233
     }
   ],
   "COUNTS": {
-    "components": 232,
+    "components": 233,
     "components_proven": 31,
-    "components_pending": 192,
+    "components_pending": 193,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1194,
-    "edges_proven": 1130,
+    "edges": 1198,
+    "edges_proven": 1134,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2699,
-    "files_covered": 1171,
+    "files_tracked": 2703,
+    "files_covered": 1175,
     "files_code_unclaimed": 0,
     "roles_proven": 160,
     "roles_declared_only": 8,
-    "roles_unknown": 64,
-    "roles_conflict": 31,
+    "roles_unknown": 65,
+    "roles_conflict": 32,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 10,
     "concept_owner_single": 3,

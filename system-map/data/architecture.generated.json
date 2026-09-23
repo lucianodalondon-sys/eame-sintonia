@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-rede-real-v1",
-    "HEAD": "40fd03e7dd22aa55f5675347022a1bf4a82921df",
-    "GENERATED_AT": "2026-09-23T10:24:59-03:00",
-    "SOURCE_TREE_FINGERPRINT": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8"
+    "BRANCH": "cortesia-coleta-v1",
+    "HEAD": "86799e78b1aab8644fa2994e96437f2fb4a1e9e0",
+    "GENERATED_AT": "2026-09-23T17:08:30-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f6fc2ce30e2c47dd33c7fb872ecd159c91694265f437fb4374a9e7954ae98dd3"
   },
   "FILES": [
     {
@@ -542,7 +542,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "462b9f5e2920c4bc0da53e926e728c6d1edece11",
+      "sha": "471f173d7e774491b2a8046b185996f1c2af6061",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1746,7 +1746,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
+      "sha": "b0c1eccbaee10748bcd794ad7e8d7720a80fc775",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13876,6 +13876,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/CORTESIA-RED-TEAM-V1.json",
+      "sha": "2efb8af7d82cb1c4cca6367570fc3f65f6ef74a4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/O-CUTOVER-NAO-VAZA-V1.json",
       "sha": "c22416545775f8cbf2048a7aa2ad8d05242f02d4",
       "ext": ".json",
@@ -14299,6 +14306,20 @@
       "path": "provas/corrigir_custo.py",
       "sha": "b68fed443f41d88e003d2ba4d853a9a5927c0ae9",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/cortesia_http_local.mjs",
+      "sha": "1d9d167f0eacdb18488e4572100d5c9e70b30ff2",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/cortesia_red_team.mjs",
+      "sha": "b361afe53254cf327fd8349d6fe36c89bf339d29",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -14843,14 +14864,14 @@
     },
     {
       "path": "provas/recollection_http_local.mjs",
-      "sha": "5fadd303ca89bf2ded04f11c431bebe7cbc3c41c",
+      "sha": "5be6a9d99be2bf06406248a53b4b936fe2f4938c",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "provas/recollection_indice_local.mjs",
-      "sha": "d3fd359339762b5aaa0a0ea54df45adac8481451",
+      "sha": "2815ea05ac13a6592c19b544a4ae815805c6ac8f",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -14871,7 +14892,7 @@
     },
     {
       "path": "provas/recollection_timeout_local.mjs",
-      "sha": "f984a85a83be3e88eda853195ca6b737bd4a9495",
+      "sha": "9227fba8893d441b9f76dfdad441d6d4c6a8c214",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -16236,7 +16257,7 @@
     },
     {
       "path": "scripts/micro_coleta/micro_rede_real.py",
-      "sha": "78681ef6e2c1730cac5792ac4bdd959489162840",
+      "sha": "db8ff406b8a57c628916e9ae2349f75ae3c09fcd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16887,7 +16908,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b89b2d68722e801ab58be87940f3e6aa361be9db",
+      "sha": "25528cf41d38cb569398f8926b230199b7a3356d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -18013,6 +18034,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_cortesia_no_transporte.py",
+      "sha": "d21d07d0869e9a40b06f000084e7959487e1bc1e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_ensaio_offline_micro.py",
       "sha": "cce3f6aa96b9a797d545e2890d462509de3484aa",
       "ext": ".py",
@@ -18329,7 +18357,7 @@
     },
     {
       "path": "tests/test_micro_rede_real.py",
-      "sha": "826120cad3ad992d09a095c4a3c6d5a8aa7f49b0",
+      "sha": "7d47605fd061f0933251b51c8bf9a24e21cdd6aa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22210,7 +22238,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 268,
+        "line": 527,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -49187,6 +49215,61 @@
       }
     },
     {
+      "from_file": "provas/cortesia_http_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cortesia_http_local.mjs",
+        "line": 82,
+        "snippet": "const M = await import(\"../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/cortesia_http_local.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cortesia_http_local.mjs",
+        "line": 94,
+        "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/cortesia_http_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cortesia_http_local.mjs",
+        "line": 83,
+        "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/cortesia_red_team.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cortesia_red_team.mjs",
+        "line": 25,
+        "snippet": "const ALVO = \"coleta/italy_pilot_collect.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/cortesia_red_team.mjs",
+      "to_file": "provas/cortesia_http_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cortesia_red_team.mjs",
+        "line": 26,
+        "snippet": "const PROVA = \"provas/cortesia_http_local.mjs\";"
+      }
+    },
+    {
       "from_file": "provas/demanda_de_dados_da_italia.py",
       "to_file": "italia-portale/client/italy-v21.js",
       "type": "READS",
@@ -54462,7 +54545,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_http_local.mjs",
-        "line": 58,
+        "line": 63,
         "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");"
       }
     },
@@ -54473,7 +54556,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_http_local.mjs",
-        "line": 66,
+        "line": 71,
         "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
       }
     },
@@ -54484,7 +54567,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_http_local.mjs",
-        "line": 59,
+        "line": 64,
         "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
       }
     },
@@ -54495,7 +54578,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_indice_local.mjs",
-        "line": 75,
+        "line": 80,
         "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");"
       }
     },
@@ -54506,7 +54589,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_indice_local.mjs",
-        "line": 89,
+        "line": 94,
         "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
       }
     },
@@ -54517,7 +54600,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_indice_local.mjs",
-        "line": 76,
+        "line": 81,
         "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
       }
     },
@@ -54660,7 +54743,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_timeout_local.mjs",
-        "line": 64,
+        "line": 69,
         "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");"
       }
     },
@@ -54671,7 +54754,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_timeout_local.mjs",
-        "line": 73,
+        "line": 78,
         "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
       }
     },
@@ -54682,7 +54765,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/recollection_timeout_local.mjs",
-        "line": 65,
+        "line": 70,
         "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
       }
     },
@@ -57586,7 +57669,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 233,
+        "line": 291,
         "snippet": "obs1 = E.ler_ndjson(led / \"observations.ndjson\")"
       }
     },
@@ -57597,7 +57680,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 234,
+        "line": 292,
         "snippet": "runs_nd = E.ler_ndjson(led / \"runs.ndjson\")"
       }
     },
@@ -57608,7 +57691,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 231,
+        "line": 289,
         "snippet": "livro=arvore / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\","
       }
     },
@@ -57619,7 +57702,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 122,
+        "line": 156,
         "snippet": "x = subprocess.run([sys.executable, \"medidas/corrida_sem_rede.py\", f\"--saida={medida}\", \"--\"]"
       }
     },
@@ -57630,7 +57713,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 83,
+        "line": 117,
         "snippet": "f = arvore / \"regras\" / \"italy_contracts_onboarded.json\""
       }
     },
@@ -57641,7 +57724,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 94,
+        "line": 128,
         "snippet": "f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
       }
     },
@@ -57652,7 +57735,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 37,
+        "line": 49,
         "snippet": "import ensaio_offline as E      # noqa: E402"
       }
     },
@@ -57663,7 +57746,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 38,
+        "line": 50,
         "snippet": "import micro_coleta as MC       # noqa: E402"
       }
     },
@@ -57674,7 +57757,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_rede_real.py",
-        "line": 46,
+        "line": 80,
         "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],"
       }
     },
@@ -68998,6 +69081,17 @@
       }
     },
     {
+      "from_file": "tests/test_cortesia_no_transporte.py",
+      "to_file": "provas/cortesia_http_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_cortesia_no_transporte.py",
+        "line": 24,
+        "snippet": "r = subprocess.run([\"node\", \"provas/cortesia_http_local.mjs\"], cwd=RAIZ, env=env,"
+      }
+    },
+    {
       "from_file": "tests/test_ensaio_offline_micro.py",
       "to_file": "data/collection-ledger/italy/observations.ndjson",
       "type": "WRITES",
@@ -78361,10 +78455,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2699,
-    "files_readable": 1235,
-    "files_code_dir": 1046,
-    "file_edges": 5354,
+    "files_tracked": 2703,
+    "files_readable": 1238,
+    "files_code_dir": 1050,
+    "file_edges": 5360,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

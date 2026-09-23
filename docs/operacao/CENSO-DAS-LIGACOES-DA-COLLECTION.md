@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  40fd03e7dd22aa55f5675347022a1bf4a82921df
-BRANCH           micro-rede-real-v1
-GERADO_EM        2026-09-23T10:24:59-03:00
+HEAD_DA_MEDICAO  86799e78b1aab8644fa2994e96437f2fb4a1e9e0
+BRANCH           cortesia-coleta-v1
+GERADO_EM        2026-09-23T17:08:30-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -363,13 +363,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 11 · saem 20 |
-| **arestas provadas** | entram 8 · saem 19 |
+| **arestas no mapa** | entram 11 · saem 21 |
+| **arestas provadas** | entram 8 · saem 20 |
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 26 · NÃO SEI 4 · OBSERVED 1 |
+| **prova das ligações** | CODE 27 · NÃO SEI 4 · OBSERVED 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1154,13 +1154,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `superficie/rede.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 2 · saem 18 |
-| **arestas provadas** | entram 2 · saem 18 |
+| **arestas no mapa** | entram 2 · saem 19 |
+| **arestas provadas** | entram 2 · saem 19 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 20 |
+| **prova das ligações** | CODE 21 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2014,13 +2014,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 9 · saem 15 |
-| **arestas provadas** | entram 9 · saem 10 |
+| **arestas no mapa** | entram 9 · saem 16 |
+| **arestas provadas** | entram 9 · saem 11 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 19 · NÃO SEI 5 |
+| **prova das ligações** | CODE 20 · NÃO SEI 5 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
