@@ -3268,9 +3268,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "3490bdeb67d667f6a0467ec969229193e8148109",
-    "GENERATED_AT": "2026-09-23T04:51:21-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c0c3480e6e02e24f483146e43023df3ae4b0291852881b07a24655554dea4e9e"
+    "HEAD": "96cf46d837c60aa9ddbe325e6a7429c6652a2148",
+    "GENERATED_AT": "2026-09-23T04:58:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fc8100d242c32f8619325b0eb70879cd7a780c3e97a916e486d3245961da81b4"
   },
   "FAMILIES": [
     {
@@ -3298,7 +3298,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 93
+      "count": 89
     },
     {
       "id": "F-ESPERA",
@@ -3556,7 +3556,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 27
+      "count": 23
     },
     {
       "id": "Z-ADMISSAO",
@@ -23905,6 +23905,7 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "ferramentas/unificacao/aplicar_d13_capacidade.py",
         "ferramentas/unificacao/censo_lanes.py",
         "ferramentas/unificacao/congelar_livros_do_servico.py",
         "ferramentas/unificacao/ensaio_unificacao.py",
@@ -23914,9 +23915,9 @@
         "ferramentas/unificacao/unir_ledger.py",
         "ferramentas/unificacao/unir_livros_do_servico.py"
       ],
-      "file_count": 8,
+      "file_count": 9,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
@@ -25460,7 +25461,7 @@
       "territory": "Z-MEDIDAS",
       "kind": "engine",
       "what": "Junta o universo (READY vivo por copia, gate desta linha, M3, censo das receitas), passa cada fonte por cinco degraus — pronta, rota executavel, receita que reconhece noticia lida, relevancia D2, nao-marca — e simula em memoria os desbloqueios com dono conhecido, sem baixar regua. Propoe receitas V2 pelo metodo da 6-PREP-d. Nao aplica nada.",
-      "why_here": "A micro-coleta tinha 1 fonte em 14 e ninguem sabia que degrau cortava. O funil mostra que o corte e antes da relevancia: prontidao e contrato.",
+      "why_here": "A micro-coleta tinha 1 fonte em 14 e ninguem sabia que degrau cortava. O funil mostra que o corte e antes da relevancia: prontidao e contrato. || (segunda declaracao da mesma peca, unida na UNIFICACAO-V1-C) A micro-coleta tinha 1 fonte em 14 e ninguem sabia que degrau cortava. O funil mostra que o corte e antes da relevancia: prontidao e contrato. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -25573,99 +25574,6 @@
         "PORQUE": "estas pecas importam-na — C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 10895,
-      "y": 1004
-    },
-    {
-      "id": "C-COORTE-MICRO-FUNIL",
-      "name": "Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios",
-      "territory": "Z-MEDIDAS",
-      "kind": "engine",
-      "what": "Junta o universo (READY vivo por copia, gate desta linha, M3, censo das receitas), passa cada fonte por cinco degraus — pronta, rota executavel, receita que reconhece noticia lida, relevancia D2, nao-marca — e simula em memoria os desbloqueios com dono conhecido, sem baixar regua. Propoe receitas V2 pelo metodo da 6-PREP-d. Nao aplica nada.",
-      "why_here": "A micro-coleta tinha 1 fonte em 14 e ninguem sabia que degrau cortava. O funil mostra que o corte e antes da relevancia: prontidao e contrato. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
-      "departments": [
-        "ENGENHARIA",
-        "INTELIGENCIA"
-      ],
-      "legacy": false,
-      "ui_status": "yellow",
-      "icon": "◎",
-      "views": [
-        "audit",
-        "collection-strategy"
-      ],
-      "lane": "official",
-      "family": "F-COLETA",
-      "files": [
-        "curadoria/PROPOSTA-RECEITAS-V2.json"
-      ],
-      "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "existe teste que exercita isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
-      "changed_since_declared": [],
-      "produces": [],
-      "inbound": [
-        "C-DETECTOR-CAPA-GABARITO",
-        "C-RECEITAS-PROPOSTA",
-        "C-TESTES"
-      ],
-      "outbound": [
-        "C-DESBLOQUEIO-PACOTE",
-        "C-TESTES"
-      ],
-      "paises": {},
-      "paises_dado": {
-        "ITALIA": 2
-      },
-      "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
-      "nivel": "INTERNO",
-      "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "curadoria/PROPOSTA-RECEITAS-V2.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "DECLARES",
-      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "ROLE_MEASURED": "CONTRACT_OR_RULE",
-      "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_ENUNCIA",
-      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
-      "ROLE_CONFLICT": null,
-      "ROLE": "CONTRACT_OR_RULE",
-      "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "OWNER": "ENGENHARIA · INTELIGENCIA",
-      "OWNER_PLANE": "DECLARED",
-      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
-      "DECLARED": "YES",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "OBSERVED_EVIDENCE": [],
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
-      "ATIVACAO": {
-        "CLASSE": "NAO_SE_ATIVA",
-        "QUEM": [],
-        "PLANO": "CODE",
-        "PROVA": [
-          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
-        ],
-        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
-      },
-      "x": 11310,
       "y": 1004
     },
     {
@@ -25951,7 +25859,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 11310,
       "y": 1004
     },
     {
@@ -26512,7 +26420,7 @@
       "territory": "Z-MEDIDAS",
       "kind": "engine",
       "what": "Aplica, sobre o livro corrente e so com --escrever, as receitas provadas (PROPOSTA-RECEITAS-V1/V2) no livro do Curator e as rotas com canario da aquisicao exacta na tabela do coletor (pela linha_da_tabela da peca da M3). Cada alteracao so entra se a prova ainda bater; idempotente; nunca muda grupo T nem retira fonte; ledger por alteracao. O canario usa a peca da M3 com 3 pedidos por site.",
-      "why_here": "O livro de contratos e escrito pelo bot vivo e a M5 unifica: aplicar antes seria uma segunda fonte de verdade. E o coletor tem a sua propria copia da receita: corrigir so o Curator deixava-o a colher pela velha.",
+      "why_here": "O livro de contratos e escrito pelo bot vivo e a M5 unifica: aplicar antes seria uma segunda fonte de verdade. E o coletor tem a sua propria copia da receita: corrigir so o Curator deixava-o a colher pela velha. || (segunda declaracao da mesma peca, unida na UNIFICACAO-V1-C) O livro de contratos e escrito pelo bot vivo e a M5 unifica: aplicar antes seria uma segunda fonte de verdade. E o coletor tem a sua propria copia da receita: corrigir so o Curator deixava-o a colher pela velha. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -26623,126 +26531,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
-      "y": 1326
-    },
-    {
-      "id": "C-DESBLOQUEIO-PACOTE",
-      "name": "Pacote de desbloqueio da coorte — aplica-se uma vez no cutover",
-      "territory": "Z-MEDIDAS",
-      "kind": "engine",
-      "what": "Aplica, sobre o livro corrente e so com --escrever, as receitas provadas (PROPOSTA-RECEITAS-V1/V2) no livro do Curator e as rotas com canario da aquisicao exacta na tabela do coletor (pela linha_da_tabela da peca da M3). Cada alteracao so entra se a prova ainda bater; idempotente; nunca muda grupo T nem retira fonte; ledger por alteracao. O canario usa a peca da M3 com 3 pedidos por site.",
-      "why_here": "O livro de contratos e escrito pelo bot vivo e a M5 unifica: aplicar antes seria uma segunda fonte de verdade. E o coletor tem a sua propria copia da receita: corrigir so o Curator deixava-o a colher pela velha. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
-      "departments": [
-        "ENGENHARIA",
-        "INTELIGENCIA"
-      ],
-      "legacy": false,
-      "ui_status": "yellow",
-      "icon": "◎",
-      "views": [
-        "audit",
-        "collection-strategy"
-      ],
-      "lane": "official",
-      "family": "F-COLETA",
-      "files": [
-        "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
-        "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "scripts/desbloqueio/canario_desbloqueio.py"
-      ],
-      "file_count": 3,
-      "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
-      "produces": [],
-      "inbound": [
-        "C-CANARIO-ROTAS-ELEGIVEIS",
-        "C-COORTE-MICRO-FUNIL",
-        "C-DETECTOR-CAPA-GABARITO",
-        "C-RECEITAS-PROPOSTA"
-      ],
-      "outbound": [
-        "C-TESTES"
-      ],
-      "paises": {},
-      "paises_dado": {},
-      "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "D10_FONTES",
-          "MANIFESTOS"
-        ],
-        "palavras": 13,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 13,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
-      "nivel": "INTERNO",
-      "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json e este mapa nao viu ninguem ler",
-      "ROLE_MEASURED": "UNKNOWN",
-      "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
-      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
-      "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
-      "OWNER": "ENGENHARIA · INTELIGENCIA",
-      "OWNER_PLANE": "DECLARED",
-      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": null,
-      "consumes": [
-        "curadoria/PROPOSTA-CATALOGO-V1.json",
-        "curadoria/PROPOSTA-RECEITAS-V1.json",
-        "curadoria/PROPOSTA-RECEITAS-V2.json",
-        "curadoria/PROPOSTA-RECEITAS-V3.json",
-        "curadoria/ROTAS-ELEGIVEIS-V1.json",
-        "curadoria/onboardar_rotas_provadas.py",
-        "handoff/paused-v2/MANIFESTO.json",
-        "medidas/canario_rotas_elegiveis.py",
-        "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
-        "scripts/detector_capa/GABARITO-CAPA-V1.json"
-      ],
-      "consumes_plane": "CODE",
-      "DECLARED": "YES",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "OBSERVED_EVIDENCE": [],
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
-      "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-TESTES"
-        ],
-        "PLANO": "CODE",
-        "PROVA": [
-          "tests/test_aplicar_desbloqueio.py:16"
-        ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
-      },
-      "x": 11310,
-      "y": 1326
+      "x": 11725,
+      "y": 1004
     },
     {
       "id": "C-DETECTOR-CAPA-GABARITO",
@@ -26750,7 +26540,7 @@
       "territory": "Z-MEDIDAS",
       "kind": "engine",
       "what": "Recolhe paginas reais (egresso IT medido por site, max 3 pedidos, robots da casa) para uma pasta de gabarito fora da Sala e do armazem; rotula-as com veredito humano-proposto; e mede em memoria o detector actual de curadoria/retrato_html.py contra propostas, com matriz de confusao. Nao altera o detector.",
-      "why_here": "A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao.",
+      "why_here": "A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. || (segunda declaracao da mesma peca, unida na UNIFICACAO-V1-C) A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -26876,111 +26666,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE · C-PACOTE-CAMADAS · C-RECEITAS-PROPOSTA · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
-      "y": 1326
-    },
-    {
-      "id": "C-DETECTOR-CAPA-GABARITO",
-      "name": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao",
-      "territory": "Z-MEDIDAS",
-      "kind": "engine",
-      "what": "Recolhe paginas reais (egresso IT medido por site, max 3 pedidos, robots da casa) para uma pasta de gabarito fora da Sala e do armazem; rotula-as com veredito humano-proposto; e mede em memoria o detector actual de curadoria/retrato_html.py contra propostas, com matriz de confusao. Nao altera o detector.",
-      "why_here": "A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
-      "departments": [
-        "ENGENHARIA",
-        "INTELIGENCIA"
-      ],
-      "legacy": false,
-      "ui_status": "yellow",
-      "icon": "◎",
-      "views": [
-        "audit",
-        "diagnostic"
-      ],
-      "lane": "official",
-      "family": "F-COLETA",
-      "files": [
-        "scripts/detector_capa/GABARITO-CAPA-V1.json"
-      ],
-      "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
-      "produces": [
-        "handoff/paused-v2/MANIFESTO.json"
-      ],
-      "inbound": [],
-      "outbound": [
-        "C-COORTE-MICRO-FUNIL",
-        "C-DESBLOQUEIO-PACOTE",
-        "C-PACOTE-CAMADAS",
-        "C-RECEITAS-PROPOSTA",
-        "C-SCRAP-SOCIAL",
-        "C-TESTES"
-      ],
-      "paises": {},
-      "paises_dado": {
-        "ITALIA": 2
-      },
-      "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [
-        "handoff/paused-v2/MANIFESTO.json"
-      ],
-      "parado_na_coleta": [],
-      "nivel": "INTERNO",
-      "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "handoff/paused-v2/MANIFESTO.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "DECLARES",
-      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "ROLE_MEASURED": "CONTRACT_OR_RULE",
-      "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_ENUNCIA",
-      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
-      "ROLE_CONFLICT": null,
-      "ROLE": "CONTRACT_OR_RULE",
-      "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "OWNER": "ENGENHARIA · INTELIGENCIA",
-      "OWNER_PLANE": "DECLARED",
-      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
-      "DECLARED": "YES",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "OBSERVED_EVIDENCE": [],
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
-      "ATIVACAO": {
-        "CLASSE": "NAO_SE_ATIVA",
-        "QUEM": [],
-        "PLANO": "CODE",
-        "PROVA": [
-          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
-        ],
-        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
-      },
       "x": 10895,
-      "y": 1648
+      "y": 1326
     },
     {
       "id": "C-DIAGNOSTICO",
@@ -27167,7 +26854,7 @@
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 11310,
-      "y": 1648
+      "y": 1326
     },
     {
       "id": "C-DONO-DA-ESCRITA",
@@ -27711,7 +27398,7 @@
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 11725,
-      "y": 1648
+      "y": 1326
     },
     {
       "id": "C-ESPECIE-DO-TEXTO",
@@ -28965,7 +28652,7 @@
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 10895,
-      "y": 1970
+      "y": 1648
     },
     {
       "id": "C-GESTAO-DA-COLETA",
@@ -32301,7 +31988,7 @@
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 11310,
-      "y": 1970
+      "y": 1648
     },
     {
       "id": "C-LEITOR-DA-CADEIA",
@@ -33769,7 +33456,7 @@
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 11725,
-      "y": 1970
+      "y": 1648
     },
     {
       "id": "C-MICRO-COLHEITA",
@@ -33849,7 +33536,7 @@
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 10895,
-      "y": 2292
+      "y": 1970
     },
     {
       "id": "C-NAVEGADOR",
@@ -34493,7 +34180,7 @@
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
       "x": 11310,
-      "y": 2292
+      "y": 1970
     },
     {
       "id": "C-PALAVRAS",
@@ -39798,7 +39485,7 @@
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
       "x": 11725,
-      "y": 2292
+      "y": 1970
     },
     {
       "id": "C-READY",
@@ -40118,7 +39805,7 @@
       "territory": "Z-MEDIDAS",
       "kind": "engine",
       "what": "Le uma COPIA do livro de contratos do Curator e as paginas com veredito (gabarito do detector + paginas novas), classifica o defeito de cada receita (LINK_PATTERN que nao casa nada / nao casa a materia / generico; INDEX_URL que aponta para materia) e propoe LINK_PATTERN e INDEX_URL novos so com prova: materia lida, familia >= 2 na entrada, guarda contra padrao generico. Mede o efeito em memoria. Nunca escreve nos contratos.",
-      "why_here": "O mesmo defeito aparecia de tres lados (22/34 materias fora do padrao, 45 fontes revividas em EMPTY_LIST, micro com 1 fonte pronta): a receita escrita em molde e nunca medida contra o site.",
+      "why_here": "O mesmo defeito aparecia de tres lados (22/34 materias fora do padrao, 45 fontes revividas em EMPTY_LIST, micro com 1 fonte pronta): a receita escrita em molde e nunca medida contra o site. || (segunda declaracao da mesma peca, unida na UNIFICACAO-V1-C) O mesmo defeito aparecia de tres lados (22/34 materias fora do padrao, 45 fontes revividas em EMPTY_LIST, micro com 1 fonte pronta): a receita escrita em molde e nunca medida contra o site. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -40234,122 +39921,7 @@
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 10895,
-      "y": 2614
-    },
-    {
-      "id": "C-RECEITAS-PROPOSTA",
-      "name": "Receitas das fontes — censo do defeito e proposta com prova (nao aplicada)",
-      "territory": "Z-MEDIDAS",
-      "kind": "engine",
-      "what": "Le uma COPIA do livro de contratos do Curator e as paginas com veredito (gabarito do detector + paginas novas), classifica o defeito de cada receita (LINK_PATTERN que nao casa nada / nao casa a materia / generico; INDEX_URL que aponta para materia) e propoe LINK_PATTERN e INDEX_URL novos so com prova: materia lida, familia >= 2 na entrada, guarda contra padrao generico. Mede o efeito em memoria. Nunca escreve nos contratos.",
-      "why_here": "O mesmo defeito aparecia de tres lados (22/34 materias fora do padrao, 45 fontes revividas em EMPTY_LIST, micro com 1 fonte pronta): a receita escrita em molde e nunca medida contra o site. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
-      "departments": [
-        "ENGENHARIA",
-        "INTELIGENCIA"
-      ],
-      "legacy": false,
-      "ui_status": "yellow",
-      "icon": "◎",
-      "views": [
-        "audit",
-        "collection-strategy"
-      ],
-      "lane": "official",
-      "family": "F-COLETA",
-      "files": [
-        "curadoria/PROPOSTA-RECEITAS-V1.json",
-        "scripts/receitas/censo_e_proposta.py"
-      ],
-      "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
-      "produces": [],
-      "inbound": [
-        "C-DETECTOR-CAPA-GABARITO"
-      ],
-      "outbound": [
-        "C-COORTE-MICRO-FUNIL",
-        "C-DESBLOQUEIO-PACOTE",
-        "C-TESTES"
-      ],
-      "paises": {},
-      "paises_dado": {},
-      "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "NAV_SINTETICA"
-        ],
-        "palavras": 15,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 15,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
-      "nivel": "INTERNO",
-      "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "curadoria/PROPOSTA-RECEITAS-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "curadoria/PROPOSTA-RECEITAS-V3.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "MEASURES",
-      "rule_role_evidence": "escreve curadoria/PROPOSTA-RECEITAS-V1.json, e quem le nao esta na esteira: C-COORTE-MICRO-FUNIL, C-DESBLOQUEIO-PACOTE, C-TESTES",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
-      "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
-      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
-      "ROLE_CONFLICT": null,
-      "ROLE": "MEASUREMENT_INSTRUMENT",
-      "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/PROPOSTA-RECEITAS-V1.json, e quem le nao esta na esteira: C-COORTE-MICRO-FUNIL, C-DESBLOQUEIO-PACOTE, C-TESTES",
-      "OWNER": "ENGENHARIA · INTELIGENCIA",
-      "OWNER_PLANE": "DECLARED",
-      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": null,
-      "consumes": [
-        "curadoria/PROPOSTA-RECEITAS-V1.json",
-        "handoff/paused-v2/MANIFESTO.json",
-        "scripts/detector_capa/GABARITO-CAPA-V1.json",
-        "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json"
-      ],
-      "consumes_plane": "CODE",
-      "DECLARED": "YES",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "OBSERVED_EVIDENCE": [],
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
-      "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [
-          "scripts/coorte_micro/funil.py:204",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:208",
-          "tests/test_aplicar_desbloqueio.py:33"
-        ],
-        "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
-      },
-      "x": 11310,
-      "y": 2614
+      "y": 2292
     },
     {
       "id": "C-RECOLLECTION-CENSO",
@@ -40450,8 +40022,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
-      "y": 2614
+      "x": 11310,
+      "y": 2292
     },
     {
       "id": "C-RECONCILIACAO-UNIVERSO",
@@ -40812,8 +40384,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
-      "y": 2936
+      "x": 11725,
+      "y": 2292
     },
     {
       "id": "C-REGRESSAO-NAVEGADOR",
@@ -40976,8 +40548,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
-      "y": 2936
+      "x": 10895,
+      "y": 2614
     },
     {
       "id": "C-RELEVANCIA",
@@ -41792,8 +41364,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
-      "y": 2936
+      "x": 11310,
+      "y": 2614
     },
     {
       "id": "C-SCRAP-COLHEITA",
@@ -86350,12 +85922,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 1 linha de codigo.",
+      "reason": "A porta de entrada de fonte nova tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "curadoria/test_discovery.py",
           "line": 50,
           "snippet": "import fonte_nova as FN   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/aplicar_d13_capacidade.py",
+          "line": 21,
+          "snippet": "import fonte_nova as FN  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
             "FROM": "C-PORTA-FONTE",
@@ -109407,10 +108995,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "ferramentas/unificacao/aplicar_d13_capacidade.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1523,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1522,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -109590,7 +109176,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 211,
+      "PECAS_EM_DESACORDO": 207,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -109602,13 +109188,13 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 236
+      "TOTAL_DE_PECAS": 232
     }
   ],
   "COUNTS": {
-    "components": 236,
+    "components": 232,
     "components_proven": 31,
-    "components_pending": 196,
+    "components_pending": 192,
     "components_broken": 0,
     "components_unknown": 9,
     "edges": 1183,
@@ -109616,11 +109202,11 @@
     "edges_unknown": 64,
     "business_edges": 4,
     "files_tracked": 2674,
-    "files_covered": 1151,
-    "files_code_unclaimed": 1,
-    "roles_proven": 162,
+    "files_covered": 1152,
+    "files_code_unclaimed": 0,
+    "roles_proven": 159,
     "roles_declared_only": 9,
-    "roles_unknown": 65,
+    "roles_unknown": 64,
     "roles_conflict": 30,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 10,
