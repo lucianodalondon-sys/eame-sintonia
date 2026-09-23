@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T05:22:28+00:00",
-  "HEAD": "823e642df47be556247bae443dd5e99e842d3a4a",
-  "BRANCH": "ponte-prova-viva-v1",
+  "GENERATED_AT": "2026-09-23T05:56:03+00:00",
+  "HEAD": "9ddb563da7e1a188283b1b6f7db83ec00a64915d",
+  "BRANCH": "ponte-promocao-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "16d477f4c13762ba7e1a96fd3c35faa76f9e88bdf7af6ca0da0df73cbcba38a1",
-  "FICHEIROS_NA_IMPRESSAO": 2731,
+  "SOURCE_TREE_FINGERPRINT": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2",
+  "FICHEIROS_NA_IMPRESSAO": 2735,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1740,6 +1740,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/prova_b2_ponte_em_copia.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "10982d2a0b5e9f48531ca9bb81c0d34fbfd27da8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/rastro_da_coleta.py",
     "PAPEL": "FONTE",
     "VERSAO": "635d5425d249193ccedb8ac249fc93d01ac01de4",
@@ -3310,14 +3317,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "16d477f4c13762ba7e1a96fd3c35faa76f9e88bdf7af6ca0da0df73cbcba38a1",
+    "VERSAO": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "16d477f4c13762ba7e1a96fd3c35faa76f9e88bdf7af6ca0da0df73cbcba38a1",
+    "VERSAO": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5002,8 +5009,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 709,
-  "INPUTS_DIGEST": "8137ca36cfff4dcbd5729e1957a98a88122ca307fe89e2b5eff602c4801c7491",
+  "INPUTS_COUNT": 710,
+  "INPUTS_DIGEST": "3272973115dbefca24c9cc87f679d867fac4f4724c74f70de4b11b030af345e0",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5029,15 +5036,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 464,
+  "DOCUMENTOS_LIDOS": 465,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "eddebe46dfb736f94eea362d75973594ce6b2ac025dd3b8862ea7554e6004ff1",
-  "SEMANTIC_HASH": "4825ebaf7fa7eedf5cc66bebbbee301fb3beb60295ef72ea857ef21de001676c"
+  "MEASUREMENT_HASH": "2a8e2cbe6b6d1c523d6c25b9909b767f5314164f6816268931885c65ab7f72c3",
+  "SEMANTIC_HASH": "2f2c54d1f38973eda4697b1644765c56316ec05338ed0398cc8b4fa54e20991a"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -40144,6 +40151,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "medidas/canario_rotas_elegiveis.py",
+    "medidas/prova_b2_ponte_em_copia.py",
     "medidas/relevancia_antes_da_coleta.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],

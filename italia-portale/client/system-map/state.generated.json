@@ -28,6 +28,7 @@
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
       "RELATORIO-B1-PONTE-PROVA-VIVA.md",
+      "RELATORIO-B2-PONTE-PROMOCAO.md",
       "RELATORIO-BRIDGE-FEEDER.md",
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
@@ -292,6 +293,7 @@
       "curadoria/ABASTECIMENTO-PROOF-V1.json",
       "curadoria/ATLAS-WRITE-V1.json",
       "curadoria/B1-PONTE-PROVA-VIVA-V1.json",
+      "curadoria/B2-PONTE-PROMOCAO-V1.json",
       "curadoria/BRIDGE-LEDGER-V1.json",
       "curadoria/BRIDGE-PROOF-V1.json",
       "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
@@ -421,6 +423,7 @@
       "curadoria/test_ponte_automatica.py",
       "curadoria/test_ponte_cadeia.py",
       "curadoria/test_ponte_candidatas.py",
+      "curadoria/test_ponte_promocao.py",
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
       "curadoria/test_retrato_html.py",
@@ -1882,6 +1885,7 @@
       "medidas/porque_a_sala_nao_recebeu.py",
       "medidas/portao.py",
       "medidas/portoes_eame.py",
+      "medidas/prova_b2_ponte_em_copia.py",
       "medidas/rastro_da_coleta.py",
       "medidas/recollection_censo.mjs",
       "medidas/recollection_diff.mjs",
@@ -3176,10 +3180,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "ponte-prova-viva-v1",
-    "HEAD": "823e642df47be556247bae443dd5e99e842d3a4a",
-    "GENERATED_AT": "2026-09-23T02:18:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "16d477f4c13762ba7e1a96fd3c35faa76f9e88bdf7af6ca0da0df73cbcba38a1"
+    "BRANCH": "ponte-promocao-v1",
+    "HEAD": "9ddb563da7e1a188283b1b6f7db83ec00a64915d",
+    "GENERATED_AT": "2026-09-23T02:52:22-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2"
   },
   "FAMILIES": [
     {
@@ -4666,8 +4670,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 506",
-        "desses, mostrados aqui: 40 (ficam de fora 466)"
+        "enderecos que o codigo realmente chama: 509",
+        "desses, mostrados aqui: 40 (ficam de fora 469)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -22222,11 +22226,12 @@
       "family": "F-COLETA",
       "files": [
         "medidas/canario_rotas_elegiveis.py",
+        "medidas/prova_b2_ponte_em_copia.py",
         "medidas/relevancia_antes_da_coleta.py"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "existe teste que exercita isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
@@ -22243,7 +22248,9 @@
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
@@ -22302,8 +22309,11 @@
         }
       ],
       "consumes": [
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json",
+        "curadoria/italy_contracts_curator.json",
         "regras/motor_de_rota.mjs"
       ],
       "consumes_plane": "CODE",
@@ -46962,7 +46972,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch ponte-prova-viva-v1"
+        "branch ponte-promocao-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -107329,7 +107339,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1486,
+  "UNCLAIMED_FILES_COUNT": 1489,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -107534,8 +107544,8 @@
     "edges_proven": 1101,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2583,
-    "files_covered": 1097,
+    "files_tracked": 2587,
+    "files_covered": 1098,
     "files_code_unclaimed": 0,
     "roles_proven": 156,
     "roles_declared_only": 9,

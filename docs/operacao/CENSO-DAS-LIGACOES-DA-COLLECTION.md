@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  823e642df47be556247bae443dd5e99e842d3a4a
-BRANCH           ponte-prova-viva-v1
-GERADO_EM        2026-09-23T02:18:09-03:00
+HEAD_DA_MEDICAO  9ddb563da7e1a188283b1b6f7db83ec00a64915d
+BRANCH           ponte-promocao-v1
+GERADO_EM        2026-09-23T02:52:22-03:00
 CARDS            85
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1295,15 +1295,15 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `medidas/canario_rotas_elegiveis.py`, `medidas/relevancia_antes_da_coleta.py` |
+| **peça real** | `medidas/canario_rotas_elegiveis.py`, `medidas/prova_b2_ponte_em_copia.py`, `medidas/relevancia_antes_da_coleta.py` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — existe teste que exercita isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — existe teste que exercita isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | scripts/micro_coleta/micro_coleta.py:120; tests/test_micro_coleta_instrumento.py:171 |
 | **porquê** | estas pecas importam-na — C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/RELEVANCIA-ELEGIVEIS-V1.json`, `curadoria/ROTAS-ELEGIVEIS-V1.json`, `regras/motor_de_rota.mjs` |
+| **o que entra · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/RELEVANCIA-ELEGIVEIS-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/RELEVANCIA-ELEGIVEIS-V1.json`, `curadoria/ROTAS-ELEGIVEIS-V1.json` |
 | **arestas no mapa** | entram 4 · saem 2 |

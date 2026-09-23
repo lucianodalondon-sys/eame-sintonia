@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "ponte-prova-viva-v1",
-    "HEAD": "823e642df47be556247bae443dd5e99e842d3a4a",
-    "GENERATED_AT": "2026-09-23T02:18:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "16d477f4c13762ba7e1a96fd3c35faa76f9e88bdf7af6ca0da0df73cbcba38a1"
+    "BRANCH": "ponte-promocao-v1",
+    "HEAD": "9ddb563da7e1a188283b1b6f7db83ec00a64915d",
+    "GENERATED_AT": "2026-09-23T02:52:22-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2"
   },
   "FILES": [
     {
@@ -289,6 +289,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-B2-PONTE-PROMOCAO.md",
+      "sha": "c3fbf92cdd5422f056181c9c41733dc919e3ae66",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-BRIDGE-FEEDER.md",
       "sha": "12a6e18dfd5ddf05377ecdb5609187b09b40e8c0",
       "ext": ".md",
@@ -444,7 +451,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "670a4aabbae2a1337b3ad4821edf90d47b80b5c4",
+      "sha": "4a434e7a36fb13fb339970d01fc9e660c8e1630a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1885,6 +1892,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/B2-PONTE-PROMOCAO-V1.json",
+      "sha": "24114d2838af9c7f335e5c6c102e0bf21384c6df",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/BRIDGE-LEDGER-V1.json",
       "sha": "c850c6c5ca9772b0517ff9a95b9ef3966cafee8e",
       "ext": ".json",
@@ -2509,7 +2523,7 @@
     },
     {
       "path": "curadoria/ponte_automatica.py",
-      "sha": "6dedf0b17239975f6905f835d8311be6014a50bd",
+      "sha": "c7e2ae40c91a723bf51724a2089ae209fc88ef08",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2586,7 +2600,7 @@
     },
     {
       "path": "curadoria/reconciliar_livros.py",
-      "sha": "db94e463ad3bdb4657b2f780a5ef0dff24239814",
+      "sha": "aac9a3a89be7c34c8a2b8493b05ca346370687e2",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2783,6 +2797,13 @@
     {
       "path": "curadoria/test_ponte_candidatas.py",
       "sha": "9bf74fca7d8c092ee38e44bde57be2e3f0e59801",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_ponte_promocao.py",
+      "sha": "ce256518697367e34a770e2d13f300f867b92f02",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -12875,6 +12896,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/prova_b2_ponte_em_copia.py",
+      "sha": "10982d2a0b5e9f48531ca9bb81c0d34fbfd27da8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "medidas/rastro_da_coleta.py",
       "sha": "635d5425d249193ccedb8ac249fc93d01ac01de4",
       "ext": ".py",
@@ -16180,7 +16208,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "3af426dc4aa03f7e4f9dcff94ec61ec5747692e0",
+      "sha": "fad6620d5d381514aa45d6bd0caae187aa8a2ef8",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -25446,7 +25474,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 1325,
+        "line": 1433,
         "snippet": "SAIDA.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -26944,6 +26972,50 @@
         "file": "curadoria/test_ponte_candidatas.py",
         "line": 41,
         "snippet": "import ponte_candidatas as P  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_promocao.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_promocao.py",
+        "line": 21,
+        "snippet": "import lifecycle as LC           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_promocao.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_promocao.py",
+        "line": 22,
+        "snippet": "import ready_split as RS         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_promocao.py",
+      "to_file": "curadoria/reconciliar_livros.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_promocao.py",
+        "line": 23,
+        "snippet": "import reconciliar_livros as R   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_promocao.py",
+      "to_file": "medidas/prova_b2_ponte_em_copia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_promocao.py",
+        "line": 133,
+        "snippet": "import prova_b2_ponte_em_copia as P"
       }
     },
     {
@@ -37295,6 +37367,39 @@
         "file": "medidas/portoes_eame.py",
         "line": 244,
         "snippet": "if not existe('supabase', 'tests', 'regressoes_regulatorio_es.sql'):"
+      }
+    },
+    {
+      "from_file": "medidas/prova_b2_ponte_em_copia.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/prova_b2_ponte_em_copia.py",
+        "line": 34,
+        "snippet": "REAIS = [RAIZ / \"curadoria\" / n for n in (\"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\","
+      }
+    },
+    {
+      "from_file": "medidas/prova_b2_ponte_em_copia.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/prova_b2_ponte_em_copia.py",
+        "line": 34,
+        "snippet": "REAIS = [RAIZ / \"curadoria\" / n for n in (\"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\","
+      }
+    },
+    {
+      "from_file": "medidas/prova_b2_ponte_em_copia.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/prova_b2_ponte_em_copia.py",
+        "line": 35,
+        "snippet": "\"italy_contracts_curator.json\")]"
       }
     },
     {
@@ -75261,10 +75366,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2583,
-    "files_readable": 1174,
-    "files_code_dir": 976,
-    "file_edges": 5146,
+    "files_tracked": 2587,
+    "files_readable": 1176,
+    "files_code_dir": 977,
+    "file_edges": 5153,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
