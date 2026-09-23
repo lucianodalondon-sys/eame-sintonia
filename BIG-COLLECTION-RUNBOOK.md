@@ -1,0 +1,155 @@
+# BIG-COLLECTION-RUNBOOK — o dia da Big Collection, passo a passo
+
+> Missão BC1, 23/09/2026. Para o coordenador. Construído sobre o `MICRO-RUNBOOK.md` (a
+> mesma estrada, com a coorte inteira do portão) e o `CUTOVER-RUNBOOK.md` (a produção de
+> hoje). Medições em `BIG-COLLECTION-GATES.md` (os gates do §25) e em
+> `ferramentas/big_collection/BC1-ENSAIO.json`.
+>
+> **Estado em 23/09, ~13 h: NÃO CORRER AINDA.** Faltam três coisas, cada uma com dono
+> (secção 1). O resto está medido e ensaiado.
+
+## 1 · Bloqueios (cada um fecha antes do passo 5)
+
+| # | o quê | medido | o que falta | dono |
+|---|---|---|---|---|
+| B1 | a produção não tem a linha | bot em `cd4203db` e ponte em `5c02bbe4`: 40 commits atrás de `origin/unificacao-v1` @ `940f3b14` (T1, A2, SOC1, YT1). O `micro_coleta.py` da produção ainda é o de antes da A2 | passo I (instalar), ensaiado numa cópia: nos livros vence a produção, no código vence a linha, e os conflitos são só no mapa gerado | coordenador (bot quieto) |
+| B2 | robots e ritmo | o coletor Node não lê robots nem espaça pedidos (A4, medido). O único sítio que faz isso é `micro_rede_real.py` (A4), que está **fora** da linha e só trabalha com Sala descartável | A5 (robots e ritmo dentro do coletor) juntada à linha; ou a A4 com modo Sala real. Sem isto, a corrida viola o §27 («violations de policy/robots») | A5 → M5 |
+| B3 | cobertura | portão 37 elegíveis → **10 PRONTAS**; 27 bloqueadas por capacidade: 25 `SEM_CONTRATO_DE_COLETA` (9 destas também `SEM_RECEITA_WEB` para T8/T12), 1 `SEM_RECEITA_WEB_PARA_T9`, 1 `ROTA:CAPABILITY_BLOCK` | decidir: a Big Collection de hoje é de 10 fontes, ou espera os contratos | dono (decisão) / curador (contratos) |
+
+Também fora da linha, e não bloqueiam: V1A (`v1-ligada`, régua capa/matéria ligada) e D1
+(`detector-erro-v1`). Sem a V1A, a Admission usa a régua actual: mais capas passam
+(ensaio LD3: 6/8 contra 2/8). O C8 do relatório (0 SIM errado no gabarito) continua a ser
+a trava.
+
+## 2 · Quem corre o quê
+
+| onde | o quê | porquê |
+|---|---|---|
+| **esta máquina, um processo só**, a partir da árvore do serviço (`source-curator-service-v1`) | a corrida (passo 5) | a Sala real (`127.0.0.1:54330/sala_italia`), o armazém `~/sintonia-sala-italia/armazem` e a VPN IT estão aqui. O portão lê os livros da pasta de onde corre: medido, o bot e a casa da ponte dão os mesmos 37 |
+| runner `SINTONIA-EAME-LOCAL` (`C:\actions-runner-eame`, a escutar) | nada durante a corrida; antes, pode correr as provas locais (passo 0) | o checkout do runner vem do GitHub, com livros velhos, e a mesma saída de rede: colher lá era colher duas vezes do mesmo IP |
+| runner `SINTONIA-EAME-LOCAL-2` (`C:\actions-runner-eame-2`, a escutar) | reserva; parado durante a corrida | dois colectores com o mesmo IP dobram os pedidos por site (§27, «requests repetidos em massa») |
+| GitHub-hosted (`ubuntu-latest` + `postgres:16`) | `banco-descartavel.yml`, job `portao-big-collection` (`provas/o_portao_da_big_collection.py`) sobre o HEAD instalado | prova que o READY pousa na Sala num Postgres 16 limpo, sem nada desta máquina |
+| VPN IT (ProtonVPN) | a saída de TODA a corrida | medida antes e depois de cada fonte (`superficie/rede.py --portao-de-egresso IT`); se cair, pára tudo |
+
+⚠️ Os runners `LUCIANO` e `LUCIANO-2` (`C:\actions-runner`, `-2`) são do **portal-sintonia**,
+não deste repositório. Não usar.
+
+## 3 · Os passos
+
+### I · Instalar a linha na produção (bot quieto) — ~15 min
+
+Ensaiado em `C:\bc1-inst` (apagado): `git merge origin/unificacao-v1` sobre
+`origin/cutover-20260923-0923`. Os 11 livros ficaram iguais byte a byte aos da produção; o
+código ficou igual ao da linha; `regras/italy_contracts_onboarded.json` recebeu as duas
+mudanças (TTL da T1 + D9 do G1), com JSON válido. Os 13 conflitos são só no mapa gerado.
+
+```bash
+VIVA=/c/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1
+CASA=/c/Users/London1/orca/workspaces/eame-sintonia/ponte-viva
+# 1. esperar o worker ocioso; PARAR.flag; parar o observador (como no CUTOVER-RUNBOOK passo 1)
+# 2. na CASA: gravar os livros sujos da ponte, e juntar a linha
+cd $CASA && git add -A curadoria candidatas && git commit -q -m "ponte: livros antes de instalar a linha"
+git fetch -q origin && git merge --no-ff --no-commit origin/unificacao-v1
+git diff --name-only --diff-filter=U        # esperado: so docs/operacao/CENSO... e *.generated.json
+for f in $(git diff --name-only --diff-filter=U); do git checkout -q --theirs -- "$f"; git add "$f"; done
+git commit -q -m "instala unificacao-v1 na producao (livros = producao)"
+# 3. conferir: nenhum livro mudou
+for f in candidatas/FONTES-CANDIDATAS.json curadoria/LIFECYCLE-LEDGER-V1.json curadoria/italy_contracts_curator.json; do
+  git diff --quiet HEAD~1 HEAD -- $f && echo "igual $f" || echo "MUDOU $f  <- ABORTAR"; done
+# 4. no bot: os livros vivos dele estao sujos; gravar numa copia, trocar, repor
+#    (mesma mecanica do CUTOVER-RUNBOOK passos 2, 7 e o DESFAZER)
+# 5. cadeia do mapa na CASA, push, relancar bot e observador
+```
+
+🛑 se algum livro «MUDOU», ou se aparecer conflito fora do mapa gerado → `git merge --abort`, relançar.
+
+### 0 · Pré-condições (tudo verde, ou não se começa)
+
+| # | o quê | comando | abortar se |
+|---|---|---|---|
+| 0.1 | B1, B2, B3 fechados | este ficheiro, secção 1 | algum aberto |
+| 0.2 | gates do §25 | `BIG-COLLECTION-GATES.md`, medido no dia | algum ≠ YES/SAFE |
+| 0.3 | ensaio offline na árvore instalada | `py scripts/micro_coleta/ensaio_offline.py --fontes=<3 PRONTAS> --duas-passagens --provar-rollback` | C6/C8 FAIL, REFETCH ≠ 0, ROLLBACK ≠ igual |
+| 0.4 | portão num Postgres 16 limpo | GitHub: `banco-descartavel.yml` → `portao-big-collection` verde no HEAD instalado | vermelho |
+| 0.5 | egresso IT | `py superficie/rede.py --portao-de-egresso IT` → `EGRESS_GATE` aberto, `IT` | outro país / BLOCKED |
+| 0.6 | um só bot | `py curadoria/supervisor.py --estado` → worker IDLE, `PID_CHECK_NAO_SEI` vazio | worker a trabalhar: esperar |
+| 0.7 | memória livre | o dono pode estar a editar vídeo | falta de memória: **esperar e repetir**, nunca reduzir a coorte |
+
+### 1 · Parar a escrita concorrente
+
+`PARAR.flag` no bot (esperar o supervisor sair) e parar o observador. O portão fica
+congelado: a coorte do passo 2 é a que corre. Anotar a hora: começa a paragem do bot.
+
+### 2 · A coorte (sem rede, sem banco)
+
+```
+py scripts/micro_coleta/micro_coleta.py plano > C:\bc\plano.json
+```
+
+Medido às ~12:59 de 23/09 com os livros vivos: portão **37** → **10 PRONTAS**
+(IT-T10-018, IT-T10-021, IT-T10-022, IT-T2-034, IT-T2-051, IT-T7-017, IT-T7-021,
+IT-T7-033, IT-T7-042, IT-T7-043), **27 bloqueadas**, 106 fora do portão. **Abortar** se
+`FILTRO_AUSENTE` (código 3).
+
+### 3 · Checkpoint da Sala real (IMEDIATAMENTE antes)
+
+```
+py scripts/micro_coleta/provar_backup_da_sala.py --saida=C:\bc\backup
+```
+
+Faz o dump (só leitura), confere que a Sala não mudou durante o dump, restaura numa base
+descartável e compara o md5 das 5 tabelas. **Provado hoje** (23/09 15:50Z): dump 2 166 408
+bytes (sha256 `e6388fc09970…`), `IGUAL_A_SALA_REAL: true`. SALA_BEFORE: `sala_de_espera`
+61 · `raw_asset` 1405 · `storage_object` 1097 · `derived_artifact` 908 · `collection_run`
+389. **Anotar o caminho do dump**: é o único caminho de volta.
+
+🛑 `PROVA_VALE: false`, `IGUAL_A_SALA_REAL: false` ou `INDICE_TEM_SALA_DE_ESPERA: false`.
+
+### 4 · As variáveis da Sala
+
+As quatro do `MICRO-RUNBOOK.md` passo 4, e `BANCO_DESCARTAVEL_URL` vazia. Sem
+`SINTONIA_SALA_BACKEND=POSTGRES`, a Sala cai calada num ficheiro.
+
+### 5 · Correr (só com B2 fechado)
+
+Com a A5 na linha: `py scripts/micro_coleta/micro_coleta.py correr --autorizado-pelo-dono
+--saida=C:\bc\corrida`, uma fonte de cada vez, pela porta canónica, com a coorte do
+portão no instante. O comando exato é o que a A5 entregar (robots lido antes de cada
+fonte, ritmo dentro da fonte, teto de pedidos por site).
+
+### 6 · Circuit breakers (§27) — o que se olha e o que se faz
+
+| disjuntor | detector concreto | acção |
+|---|---|---|
+| dois workers | processos `orquestrador`/`italy_executor` > 1 ao mesmo tempo; o bot tem de estar parado (passo 1) | Ctrl+C → R |
+| corrupção / banco inconsistente | alguma contagem da Sala **desce**; erro do Postgres; `ModosEmConflito`, `SalaIndisponivel` | parar → R |
+| bypass de gate | `CRITERIOS.C6` ≠ PASS no relatório; fonte sem veredito do portão no instante | parar → R |
+| perda de proveniência | `C4.PROVENANCE_FAILURES` > 0 | parar; ler antes de R |
+| INSERT manual na Sala | proibido: só o orquestrador escreve. Qualquer `psql` com escrita = R | R |
+| runaway de erro | 3 fontes seguidas FAILED, ou uma corrida > 30 min | parar |
+| pedidos em massa | pedidos por site > teto da A5 (A4 usava 5 por passagem); > 3 × MAX_TARGETS | parar |
+| robots/policy | robots proíbe a entrada ou o caminho das matérias e a fonte correu | parar → R |
+| custo | alguma rota não `italia-recorrente` (paga) | parar |
+| source of truth divergente | o veredito do portão no instante ≠ o plano do passo 2 | parar essa fonte |
+| egresso | o país sai de IT a meio | parar TUDO; nunca continuar pela rede do Brasil |
+| não explicado em larga escala | SIM ou NÃO_SEI muito fora do ensaio | parar, medir |
+
+Ao parar: **PRESERVAR → MEDIR → BÍBLIA → KNOW-HOW → SYSTEM MAP → GIT → DADOS → CORRIGIR
+→ TESTAR → RED TEAM → RETOMAR** (§27).
+
+### 7 · Depois
+
+SALA_AFTER (mesma fotografia do passo 3); retirar o `PARAR.flag`; relançar o observador;
+guardar `C:\bc\` fora do TEMP. O defeito conhecido dos duplicados na Sala
+(`SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA`) lê-se como no `MICRO-RUNBOOK.md` passo 6.
+
+### R · Rollback
+
+O do `MICRO-RUNBOOK.md` passo R: `dropdb` + `createdb` com `--maintenance-db`, e
+`pg_restore` do dump do passo 3. **Nunca** `pg_restore` por cima da base existente.
+Provado duas vezes: com o dump real restaurado numa base descartável (passo 3, md5 igual
+nas 5 tabelas) e no ensaio (secção 4).
+
+## 4 · O ensaio (BC1)
+
+ENSAIO_PLACEHOLDER
