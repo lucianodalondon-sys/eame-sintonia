@@ -29,8 +29,8 @@ Merge-bases e commits exclusivos (A só / B só):
 | diagnóstico · lote76 | db146ddb | 4 | 0 |
 | qualquer · produção | 30138cad | ~1080 | 18 |
 
-Nota: `source-curator-service-v1` local = 779ac8f6, remoto = 41655f3a (o
-fast-forward do coordenador ainda não foi publicado).
+Nota: `source-curator-service-v1` era local 779ac8f6 / remoto 41655f3a na
+medição; o coordenador publicou o fast-forward (§6, decisão 5): local == remoto.
 
 **Excluídas (e porquê):**
 - `micro-collection-v1` (4fdabf82), `canonical-micro-v1` (4c0c62b3): já são
@@ -170,13 +170,144 @@ pelo observador — não foi incluído em nenhum commit desta missão.
 Riscos:
 - rotas ainda corre: o censo dela mudará (46c517c5 → 88ce30a8 durante esta medição).
 - o bot continua a escrever: qualquer corte envelhece; por isso há corte final.
-- `reconciliar_livros.py` com REF fixo não vê livros novos → tem de ser parametrizado antes.
+- ~~`reconciliar_livros.py` com REF fixo não vê livros novos~~ → resolvido na 5-PREP-b (§7.1).
 - a suíte chega vermelha na base; "verde" só se mede por nome contra a base.
 - a suíte do curator pode colher de verdade (rede) se corrida na worktree real.
+- o `git merge` normal trata 3 ficheiros como «criados dos dois lados» → usar a base certa (§7.2).
+- 5 defeitos que o merge limpo esconde, entre eles dois módulos `telemetria` com o mesmo nome (§7.2).
 
-**OWNER_DECISIONS (Luciano):**
-1. Aceitar a ponte (2018ed6a) como base.
-2. Renumeração do §159 do serviço (proposta: próximo número livre, com nota).
-3. Quando parar o bot para o corte final e trocar o serviço para o branch unificado.
-4. Se a produção (`ops/italy-forward-only-live`) e a "main" antiga entram numa missão posterior ou ficam como estão.
-5. Publicar o fast-forward local do serviço (779ac8f6) no remoto antes da missão 5.
+**DECISÕES — DECIDIDO em 22/09/2026:**
+1. **DECIDIDO** (Luciano): BASE = ponte-curador-v1 @ 2018ed6a.
+2. **DECIDIDO** (Luciano): o §159 do serviço («SAÚDE NÃO É PRODUTIVIDADE…») passa
+   para o próximo número livre. O maior § medido em TODAS as 456 refs (locais e
+   origin) é **170** (abastecimento-bot-v1, abastecimento-vivo-v1,
+   source-curator-service-v1). Número escolhido: **§171**, com a nota «era §159
+   no serviço; renumerado na unificação». Medir de novo imediatamente antes de
+   aplicar: se outra lane publicar §171 entretanto, sobe para o seguinte.
+3. **DECIDIDO** (Luciano): o bot pode ser pausado por poucos minutos, por
+   `PARAR.flag`, quando a unificação estiver pronta, **com aviso ao coordenador
+   antes**. Nunca na 5-PREP-b.
+4. **DECIDIDO** (Luciano): produção (`C:/eame-sintonia-ops`,
+   `ops/italy-forward-only-live`) e a "main" antiga ficam FORA desta
+   unificação; missão separada depois.
+5. **RESOLVIDO** (coordenador; não era do dono): 779ac8f6 já estava em
+   origin/abastecimento-bot-v1; origin/source-curator-service-v1 avançou
+   41655f3a → 779ac8f6 por fast-forward. Local == remoto.
+
+## 7. Resultados da 5-PREP-b (ferramentas prontas, nada unificado)
+
+### 7.1 A reconciliação aceita o livro do serviço
+
+`curadoria/reconciliar_livros.py --livro-servico DIR` lê um CORTE congelado:
+os livros + `CORTE.json` com o sha256 de cada um. O corte é feito por
+`ferramentas/unificacao/congelar_livros_do_servico.py`: duas leituras com 30 s
+de intervalo; só aceita se todos os bytes baterem. Um corte cujo sha256 não
+bate, ou sem manifesto, é recusado. A regra de reconciliação não mudou.
+Opções novas: `--livro-ponte FILE` (livro A de ensaio; as provas A leem-se e
+escrevem-se ao lado dele) e `--saida FILE`. `--aplicar` com corte e sem
+`--livro-ponte` é recusado (exit 2): um corte de ensaio nunca escreve no livro
+real. 4 testes novos; `test_reconciliar_livros` 45/45.
+
+Ensaio a seco em %TEMP%; os livros reais tinham o mesmo sha256 antes e depois.
+Corte de 23/09 01:00Z: sha256 do ledger `4a3b9863aa78…`, 1400 transições,
+437 fontes. Números em `ferramentas/unificacao/ensaio-reconciliacao-2026-09-23.json`.
+
+| estado final | C pelo git (779ac8f6) | C pelo corte vivo |
+|---|---|---|
+| READY_CURRENT | 10 | 12 |
+| READY_LEGACY | 92 | 95 |
+| RETRY | 24 | 13 |
+| DEGRADED | 18 | 18 |
+| POLICY_BLOCK | 69 | 69 |
+| CAPABILITY_BLOCK | 28 | 28 |
+| UNKNOWN | 34 | 39 |
+| NOT_READY | 280 | 281 |
+| identidades | 555 | 555 |
+
+- O corte muda **11 fontes**, todas saídas de RETRY: 2 → READY_CURRENT,
+  3 → READY_LEGACY, 1 → NOT_READY, **5 → UNKNOWN**.
+- **As 5 UNKNOWN vêm de uma palavra que a reconciliação não conhece.** O
+  serviço escreve `AUTH_BLOCK` (IT-T12-035/046/055/072/078), e a reconciliação
+  diz «estado fora do vocabulario». Nada se perde (UNKNOWN é honesto), mas a
+  missão 5 tem de ensinar `AUTH_BLOCK` à reconciliação antes do corte final.
+  Decisão de engenharia, não do dono.
+- Conflitos de classe entre A (ponte) e C (serviço): **74** (41 READY vs
+  RECONCILIATION_REQUIRED, 9 RETRY vs RECONCILIATION_REQUIRED, 8 NOT_READY vs
+  READY, 5 RETRY vs CAPABILITY_BLOCK, 5 RETRY vs READY, 4 READY vs
+  CAPABILITY_BLOCK, 2 outros). Resolvem-se pela prova, fonte a fonte, pela
+  régua que já existe.
+- Bloqueios: 69 POLICY + 18 CAPABILITY preservados pela evidência; 22
+  rejeitados por velhos; 8 superados por prova posterior. Iguais nos dois modos.
+- `--aplicar` sobre a cópia de ensaio: 16 transições planeadas, 16 escritas,
+  0 cadeias ilegais; a segunda passagem planeia 0 (idempotente).
+
+### 7.2 Os 6 conflitos de código — resolução proposta
+
+Achado principal: **3 dos 6 não são conflitos.** `descobrir.py`,
+`test_discovery.py` e `test_ponte_candidatas.py` entraram na ponte por CÓPIA
+de ficheiro vinda de 63b71421 (commit 5b6068cf), não por merge. O git vê-os
+como «criados dos dois lados» (add/add contra 8bbea01c). Com a base
+verdadeira (63b71421, que está na história do serviço), juntam com **0
+conflitos**. O `git merge` normal não sabe isto: a missão 5 junta-os com
+`git merge-file` e a base 63b71421 (o `resolver_conflitos.py` faz isso).
+
+Os outros três, bloco a bloco (o porquê repete-se no código de
+`ferramentas/unificacao/resolver_conflitos.py`):
+
+| ficheiro | bloco | fica | porquê |
+|---|---|---|---|
+| supervisor.py | 1 docstring do `hook_fila_vazia` | ponte | descreve o que o supervisor faz (chama o hook em volta IDLE); «abaixo do limiar» é decisão do gatilho |
+| supervisor.py | 2 chamada do hook | ponte | mesmo comportamento, e anota o tipo da excepção; o abastecimento (gatilho_discovery) entra pelo mesmo parâmetro e fica preservado |
+| supervisor.py | 3 docstring de `ler_estado_servico` | serviço + parágrafo novo | o código que fica é o do serviço |
+| supervisor.py | 4 vida dos PIDs | serviço + `_proc_e_python` da ponte | o serviço está em produção e a telemetria lê WORKER_STATE/SUPERVISOR_STATE; a ponte acrescenta «o PID é mesmo python» (PID reciclado não conta como vivo) |
+| supervisor.py | 5 batimento | serviço | `hb_stale`; o da ponte deriva-se dele |
+| supervisor.py | 6 estado | serviço + diagnóstico da ponte ao lado | os dois vocabulários são verdadeiros e medem coisas diferentes |
+| supervisor.py | 7 chaves devolvidas | serviço + `SERVICE_DIAGNOSIS`, `SERVICE_STATE_IN_FILE`, `SERVICE_STATE_MEASURED_VIA`, `HEARTBEAT_FRESH` | `SOURCE_CURATOR_SERVICE` mantém o valor do serviço (RUNNING/STOPPED/BLOCKED), que a telemetria lê em produção; o vocabulário da ponte (STOPPED_BROKEN…) vai para chave própria |
+| status_live.py | 1 | as quatro funções | `_nivel_da_fila` e `_status_discovery` da ponte (sem os literais 18 e 0 que pareciam medição); `_rendimento` e `_ready_sources_24h` do serviço. Ninguém fora do painel lê CANDIDATES_TOTAL/QUEUE_DEPTH (medido) |
+| test_supervisor.py | 1 | ponte (`Isolado`) | isola fila, livro, lock, estado, PARAR e diário, e troca o lançador por processo inerte — contém o isolamento que o serviço acrescentou |
+
+O merge "limpo" esconde **5 defeitos**, que só o ensaio mostrou (remendos no
+mesmo script):
+1. `status_live` passava a medir a descoberta duas vezes → uma chamada removida.
+2. **Dois módulos `telemetria`**: `leis/telemetria.py` (ESTADOS_DE_ETAPA, lido
+   por coleta/ e admissao/) e o novo `curadoria/telemetria.py` do serviço. Na
+   mesma corrida, um tapa o outro → `AttributeError`. Proposta: o do serviço
+   passa a `curadoria/telemetria_do_curador.py` (4 imports corrigidos).
+   **Na troca do serviço:** procurar antes quem chama `telemetria.py` pelo nome
+   (tarefa agendada, painel).
+3. 3 testes novos do serviço usavam `_ContextoLimpo` (guarda e restaura a fila
+   REAL), que a ponte trocou por `Isolada` (pasta descartável, rede proibida) →
+   passam a herdar `Isolada`.
+4. A guarda de isolamento da ponte reprova `test_status_liveness` e
+   `test_worker_qualify` (mkdtemp sem apagar) → `TemporaryDirectory`.
+5. `test_painel_pergunta_ao_so` passa a ler `SERVICE_DIAGNOSIS`.
+
+**Fica 1 vermelho, de propósito:** `test_ponte_cadeia.test_g1…` afirma que a
+QUALIFY «bloqueada no worker não chega ao livro» e espera o motivo «sem
+contrato». O worker do serviço (em produção) já faz a QUALIFY e bloqueia antes,
+por «território indeterminado pelo nome». A afirmação do teste ficou velha: o
+serviço corrigiu o buraco que ele documentava. Não o afrouxei no ensaio
+(afrouxar para ficar verde seria mentir). Na missão 5: reescrever os passos
+6-7 do teste com os números medidos da nova cadeia.
+
+### 7.3 Ensaio da unificação (clone temporário, apagado)
+
+`ferramentas/unificacao/ensaio_unificacao.py`: `git worktree add --detach` em
+%TEMP% sobre a base 2018ed6a; junta diagnóstico (44c873ff) → rotas (88ce30a8)
+→ serviço (779ac8f6); código pelo resolvedor; livros, gerados, docs e know-how
+ficam do lado da base (só no ensaio); suíte `curadoria/` com a fila vazia; no
+fim a worktree é removida e podada.
+
+| | testes (contagem do unittest) | falhas |
+|---|---|---|
+| base 2018ed6a | 311 / 311 | 0 |
+| unificado, sem remendos | 445 / 451 | 6 |
+| unificado, com remendos | **450 / 451** | 1 (o test_g1 acima) |
+
+Conflitos que o git levantou: diagnóstico 16, rotas 14, serviço 32 — todos
+livro/gerado/doc/know-how, exceto os 6 de código do serviço; 0 conflitos de
+código não previstos. Módulos-chave: test_abastecimento 14/14,
+test_supervisor 29/29, test_discovery 112/112, test_ponte_candidatas 22/22,
+test_telemetria 13/13. Fora do ensaio: `tests/` na raiz (≈4700 testes, 150+
+vermelhos de base nesta máquina) — medir na missão 5, por nome, contra as duas
+bases.
