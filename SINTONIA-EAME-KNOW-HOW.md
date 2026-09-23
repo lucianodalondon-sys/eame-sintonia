@@ -18986,3 +18986,46 @@ Segunda leitura com outro item, 5 sorteadas (semente 20260923): 3 concordam, 2 i
   `recuperar_bloqueadas_por_defeito(["territorio indeterminado"], {QUALIFY})` reabre as
   bloqueadas: 12 saíram, as outras 151 voltaram a BLOCKED com a mesma mensagem, e nenhuma
   tarefa fora do alvo mudou.
+
+
+# § (sem número) · REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO — E O LUGAR NÃO SE PRESUME
+
+**O VAZAMENTO.** Correr as suítes numa worktree mudava a `curadoria/LIFECYCLE-QUEUE-V1.json`
+dessa worktree: a IT-T7-050 passava de WAITING_RETRY a IN_PROGRESS, e numa das vezes ficou
+um `tmpwc_7s330.tmp` de 303 KB com a fila inteira dentro. O culpado era
+`test_supervisor.TestUmaVoltaSup` (`test_relanca_com_trabalho`, `test_vivo_quando_worker_ativo`).
+O teste redirecionava `F.FILA` para um ficheiro temporário, mas `uma_volta_sup` lança o worker
+VERDADEIRO (`ciclo_continuo.py`) como outro processo, e esse processo lê a fila do disco.
+Sozinho parecia limpo: é uma corrida. O filho só chegava a escrever com a máquina já «quente»,
+depois de `test_fila_windows` ou de `test_worker_pendurado`. Numa worktree de serviço, isto é
+escrever na fila viva e mandar um canário à rede.
+
+    REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO.
+
+**O CONSERTO (só nos testes).** Os `setUp` de `test_supervisor`, `test_fila_windows` e
+`test_worker_pendurado` embrulham `S._lancar_worker`: o lançador continua o verdadeiro, e o
+filho passa a ser um `sleep` inofensivo, salvo quando o teste dá o `cmd`.
+`test_gatilho_ocioso` já trocava o `Popen` e fica como estava.
+
+**A GUARDA.** `test_livros_reais_intactos` corre as combinações medidas num processo à parte
+e compara o md5 dos livros reais antes e depois. Também procura `.tmp` soltos. Se algo mudou,
+repõe os bytes e reprova, dizendo o quê. Exige ver «Ran N tests», porque «limpo» sem testes é
+verde vazio. Salta se houver `SUPERVISOR.lock` (árvore de serviço vivo). O mutante que desfaz
+o conserto no `test_supervisor` foi executado (bandeira) e a guarda reprovou apontando
+`LIFECYCLE-QUEUE-V1.json`.
+
+**UM VERDE VAZIO QUE QUASE PASSOU.** A primeira medição depois do conserto disse «limpo» 9
+vezes. O meu bloco tinha a indentação errada, o `test_supervisor` nem importava, e nenhum
+teste correu. Só se viu porque a linha «Ran N tests» veio vazia.
+
+**O LUGAR NÃO SE PRESUME.** O discovery regista toda candidata com `PAIS=IT` quando a vê num
+site italiano: CropLife, EBIC, Fertilizers Europe, FAO, CIMMYT, INRAE, Benaki. E o QUALIFY
+escrevia «IT-» fixo no número: a CropLife recebia IT-T12-135. Agora a decisão semântica exige
+`PAIS` vindo da prova (ISO2, EU ou INT). Com `PAIS` diferente de IT, a fonte fica
+BLOCK SEMANTIC com o motivo «território decidido fora de IT», e a numeração EU/INT do Atlas
+fica para o dono. A ficha errada nasce em `descobrir.py`, que esta missão não tocou.
+
+**A SEMENTE ERRADA.** Com a C1, toda candidata temática em análise vira semente. A
+«Sherwood — Foreste ed Alberi Oggi» apontava para `sherwood.it`, que é a Radio Sherwood, e o
+crawl dela trouxe 14 candidatas de streaming, podcast e pré-venda de festival. Uma identidade
+trocada numa candidata propaga-se a toda a sua descendência.
