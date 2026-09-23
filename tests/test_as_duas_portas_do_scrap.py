@@ -170,6 +170,36 @@ class AMatrizMandaNasDuasPortas(unittest.TestCase):
                 "a matriz PERMITE %s e a porta operacional nao a manda ao "
                 "orquestrador" % fase)
 
+    def test_4b_toda_fase_tem_nome_na_lei(self):
+        """⚠️ ESTA PROVA NASCEU DE UMA MUTAÇÃO QUE NÃO MORDEU.
+
+        Tirar o nome grosso de `instagram.reel.capture` deixava a fase a ser
+        recusada pela porta SEM nenhum teste a morder: a fase simplesmente saía
+        do laço do `test_4` (não havia decisão da matriz para comparar) e o
+        verde ficava. Um verde que aparece por a prova ter deixado de olhar é a
+        pior espécie de verde.
+
+            UMA CAPACIDADE QUE A LEI NÃO SABE NOMEAR NÃO PODE ATRAVESSAR
+            A PORTA EM SILÊNCIO.
+        """
+        for fase in sorted(SC.FASES):
+            plat, capacidade, grosso, _d = _grossa(fase)
+            self.assertTrue(
+                grosso,
+                "a fase %s (%s) usa %s, e a matriz não sabe nomear essa "
+                "capacidade — sem nome não há política, e sem política a porta "
+                "não sabe se pode" % (fase, plat, capacidade))
+        # E as três do Reel são UM acto só: um só nome na lei.
+        reels = sorted(n for n in cap.DECLARADAS if n.startswith("instagram.reel."))
+        self.assertEqual(3, len(reels), "as três do Reel continuam declaradas")
+        nomes = set(cap.da_matriz(n) for n in reels)
+        self.assertEqual(
+            1, len(nomes),
+            "as três do Reel têm de partilhar a MESMA capacidade grossa — são "
+            "um acto só, e é o adaptador que o diz — mas a lei responde %s"
+            % sorted(str(n) for n in nomes))
+        self.assertNotIn(None, nomes, "nenhuma das três pode ficar sem nome")
+
     def test_4_fase_recusada_pela_matriz_tem_ramo_de_recusa(self):
         ramos = _ramos_do_workflow()
         for fase in sorted(SC.FASES):
