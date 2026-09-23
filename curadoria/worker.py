@@ -361,6 +361,54 @@ def _alocar_source_id(cand_id: str, territorio: str, familia: str,
     return sid, True
 
 
+# Itens de conteudo que o QUALIFY colhe quando o nome nao decide o territorio.
+# Com o robots e o indice, sao 3 pedidos por site.
+QUALIFY_AMOSTRA_ITENS = 1
+
+
+def _territorio_pela_amostra(cand_id: str, ficha: dict) -> tuple[str, str, list[dict]]:
+    """Territorio pelo que a fonte PUBLICA, com a peca que ja existia.
+
+    ⚠️ NAO E UM CLASSIFICADOR NOVO. `amostrar.caracterizar` mede a amostra e
+    devolve `CONTENT_VALUE_TYPE`; `atribuir_source_id.territorio_de` ja sabia
+    decidir por ele («tema dominante medido na amostra»). O QUALIFY chamava
+    territorio_de com `CONTENT_VALUE_TYPE: []` — a peca existia e nao estava
+    ligada. Medido em 23/09: 105 QUALIFY em BLOCK SEMANTIC, 0 com amostra.
+
+    Devolve (territorio, porque, prova). Sem amostra util, `NAO SEI` — e o
+    chamador continua a bloquear, sem fabricar.
+    """
+    import hashlib
+    from urllib.parse import urlparse
+    import amostrar as AM              # pesado: so quando o nome nao chega
+
+    url = ficha.get("URL", "")
+    host = urlparse(url).hostname
+    if not host:
+        return "NAO SEI", "sem host no endereco da candidata", []
+    rp, porque_rb = GATE.robots_de(host)
+    car = AM.caracterizar(
+        {"FAMILY": "HTML_SITE"},
+        {"CANDIDATA_ID": cand_id, "NOME": ficha.get("NOME", ""), "URL": url},
+        {}, 1.0, tecto=QUALIFY_AMOSTRA_ITENS,
+        permitido=lambda u: GATE.permitido(u, rp))
+    prova = []
+    for i in car.get("SAMPLE_ITEMS", []):
+        ev = AM.RAIZ / i["EVIDENCE"]
+        prova.append({"URL": i["ITEM_URL"], "EVIDENCE": i["EVIDENCE"],
+                      "SHA256": hashlib.sha256(ev.read_bytes()).hexdigest()
+                                if ev.exists() else None,
+                      "TOPICS": i["TOPICS"]})
+    territorio, porque = ASI.territorio_de({
+        "NOME": ficha.get("NOME", ""), "URL": url,
+        "CONTENT_VALUE_TYPE": car.get("CONTENT_VALUE_TYPE", []),
+    })
+    if not prova:
+        porque = "%s · amostra vazia (%s; robots: %s)" % (
+            porque, car.get("SAMPLE_ERROR") or "nenhum item legivel", porque_rb[:80])
+    return territorio, porque, prova
+
+
 def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
     """O primeiro degrau. `source_id` e o CANDIDATA_ID (a fila nao tem outro).
 
@@ -404,15 +452,25 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
         "CONTENT_VALUE_TYPE": [],
     })
 
-    # ⚠️ SEM SINAL, SEM NUMERO — E SEM FABRICAR. Territorio indeterminado pelo
-    # nome/URL e identidade que so raciocinio semantico (Opus/humano) resolve.
+    # O nome nao decidiu: medir o que a fonte publica (so HTML — o YouTube ja
+    # saiu acima por capacidade).
+    prova: list[dict] = []
+    if territorio == "NAO SEI":
+        territorio, porque, prova = _territorio_pela_amostra(cand_id, ficha)
+
+    # ⚠️ SEM SINAL, SEM NUMERO — E SEM FABRICAR. Nem o nome nem a amostra
+    # decidiram: identidade que so raciocinio semantico (Opus/humano) resolve.
     # Um numero inventado poe a fonte na gaveta errada e da ar de trabalho feito.
     if territorio == "NAO SEI":
-        return "BLOCK", {"CLASSE": "SEMANTIC",
-                         "PORQUE": ("territorio indeterminado pelo nome (%s) — SOURCE_ID "
-                                    "fica UNKNOWN, sem fabricar; precisa de decisao "
-                                    "semantica (Opus/humano) ou caracterizacao"
-                                    % (ficha.get("NOME", "")[:50]))}
+        return "BLOCK", {"CLASSE": "SEMANTIC", "SEMANTIC_PENDING": True,
+                         "PROVA_DA_AMOSTRA": prova,
+                         "PORQUE": ("territorio indeterminado pelo nome (%s) e pela "
+                                    "amostra — SOURCE_ID fica UNKNOWN, sem fabricar; "
+                                    "precisa de decisao semantica (Opus/humano): %s"
+                                    % (ficha.get("NOME", "")[:50], porque[:160]))}
+    if prova:
+        porque = "%s · prova: %s" % (porque, "; ".join(
+            "%s sha256=%s" % (p["URL"], (p["SHA256"] or "NAO SEI")[:16]) for p in prova))
 
     # HTML: pedir/alocar o SOURCE_ID canonico e passar ao degrau do contrato.
     sid_real, novo = _alocar_source_id(cand_id, territorio, familia, ficha, porque)
@@ -429,6 +487,7 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
     return "OK", {"SOURCE_ID_REAL": sid_real, "TERRITORY": territorio,
                   "FAMILY": familia, "PAIS": pais, "TIPO": tipo,
                   "SOURCE_ID_NOVO": novo,
+                  "TERRITORY_REASON": porque, "PROVA_DA_AMOSTRA": prova,
                   "PORQUE": "qualificada: %s -> %s (%s)"
                             % (cand_id, sid_real, territorio)}
 

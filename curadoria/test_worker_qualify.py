@@ -49,6 +49,15 @@ class TestQualify(unittest.TestCase):
         W.ALLOCATION = self.tmp / "alloc.json"
         W.EVIDENCIA = self.tmp / "evid.json"
         FN.FILA = self.tmp / "candidatas.json"
+        # Sem rede: quando o nome nao decide, o QUALIFY vai a amostra; aqui o
+        # robots proibe tudo e a amostra fica vazia (ver test_qualify_semantico).
+        import urllib.robotparser
+        from unittest import mock
+        rp = urllib.robotparser.RobotFileParser()
+        rp.parse(["User-agent: *", "Disallow: /"])
+        self._sem_rede = mock.patch.object(W.GATE, "robots_de", lambda host: (rp, "teste"))
+        self._sem_rede.start()
+        self.addCleanup(self._sem_rede.stop)
         # Registo de alocacao com um teto por territorio (para prever a sequencia).
         W.ALLOCATION.write_text(json.dumps({
             "DATASET": "SOURCE-ID-ALLOCATION-V1",
