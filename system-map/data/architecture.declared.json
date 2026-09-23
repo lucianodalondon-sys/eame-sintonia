@@ -575,6 +575,29 @@
    ]
   },
   {
+   "id": "C-MICRO-COLETA-INSTRUMENTO",
+   "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "O comando unico da micro-coleta. `plano` pergunta ao collection_gate no instante, confere contrato, receita web e a frase que o orquestrador vai montar — sem rede. `correr` e a unica porta para a rede: exige autorizacao do dono, as quatro variaveis da Sala e egresso IT medido antes e depois de cada corrida, e corre pela porta canonica (orquestrador -> italy_executor). `relatorio` so faz SELECT com default_transaction_read_only e mede sete criterios de passagem.",
+   "why_here": "As duas micro-coletas de 21/09 falharam por egresso BR, frase sem apelido, falta de receita e fonte de marca — e nenhuma tinha um relatorio que o dissesse sozinho. Nao repete regra nenhuma: importa o gate, o juiz de capa e a regua.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/micro_coleta/micro_coleta.py",
+    "scripts/micro_coleta/COORTE-PROPOSTA.json",
+    "scripts/micro_coleta/GABARITO-MICRO-V1.json",
+    "tests/test_micro_coleta_instrumento.py"
+   ]
+  },
+  {
    "id": "C-PROCEDENCIA",
    "name": "De onde veio — carimbado na coleta",
    "territory": "Z-REGRAS",
