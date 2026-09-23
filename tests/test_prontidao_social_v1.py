@@ -26,7 +26,7 @@ sys.path.insert(0, os.path.join(RAIZ, 'provas'))
 sys.path.insert(0, os.path.join(RAIZ, 'curadoria'))
 import prontidao_social_v1 as ps   # noqa: E402
 
-ISCA = 'AIzaSyISCA-SOC1-nunca-deve-aparecer-0000000'
+ISCA = 'AIzaSyISCA-SOC1-nunca-deve-aparecer-0000000'  # fake: isca com a forma de uma chave Google, nao e segredo
 
 _MEDIDA = {}
 
