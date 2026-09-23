@@ -158,3 +158,89 @@ def canal_conhecido(channel_id: str, *, tabela=None, livro=None, alloc=None,
         if n.get("SOURCE_NATIVE_ID") == channel_id:
             achados.add(n["SOURCE_ID"])
     return sorted(achados)
+
+
+# ── D21 · O CANAL HERDA O TERRITÓRIO DO SITE DA MESMA ORGANIZAÇÃO ───────────
+#
+# DECISOES-DONO-2026-09-23, linha 199 (bot Luciano, opção A), com as condições
+# dela, uma a uma:
+#
+#   · LIGAÇÃO OFICIAL canal <-> site: o site oficial linka o canal. Nesta casa
+#     isso está escrito de duas maneiras na ficha da candidata, e só estas duas
+#     contam: `ONDE_VIU = «declarado no site oficial do dono: <site>»` (curadoria
+#     viu o link no site) ou `NOTA` com `DISCOVERED_FROM=<página>` e
+#     `DISCOVERY_METHOD=CRAWL_LINK` (o crawler tirou o link da página do site);
+#   · o site tem SOURCE_ID e território provado (tabela do coletor, livro do
+#     Curator ou ficha do Atlas);
+#   · NOME OU LOGOTIPO NÃO BASTAM — nada aqui compara nomes;
+#   · conflito (o site aparece com dois territórios) ou falta de prova = NAO SEI.
+#
+#     O CANAL NÃO É O SITE (COL-LAW-034): herda a GAVETA, não a identidade.
+#     O canal continua a ter o seu próprio SOURCE_ID.
+RE_DECLARADO = re.compile(r"declarado no site oficial do dono:\s*(https?://\S+)", re.I)
+RE_CRAWL = re.compile(r"DISCOVERED_FROM=(https?://\S+?)\s*\|.*DISCOVERY_METHOD=CRAWL_LINK", re.I)
+RE_SID_ATLAS = re.compile(r"^#### ([A-Z]{2}-T\d+-\d+)")
+RE_TERRITORY_ATLAS = re.compile(r"^TERRITORY:\s*(T\d+)\b")
+ATLAS = RAIZ / "docs" / "fontes" / "ATLAS-DE-FONTES-EAME.md"
+
+
+def ligacao_oficial(ficha: dict) -> tuple[str | None, str | None]:
+    """→ (URL da página do site que linka o canal, como se sabe) ou (None, None)."""
+    m = RE_DECLARADO.search(ficha.get("ONDE_VIU") or "")
+    if m:
+        return m.group(1).rstrip(".,;"), "ONDE_VIU: declarado no site oficial do dono"
+    m = RE_CRAWL.search(ficha.get("NOTA") or "")
+    if m:
+        return m.group(1).rstrip(".,;"), "NOTA: DISCOVERED_FROM + DISCOVERY_METHOD=CRAWL_LINK"
+    return None, None
+
+
+def _territorios_do_host(host: str, tabela: dict, livro: dict, atlas_texto: str) -> dict:
+    """→ {SOURCE_ID: {territórios que os livros lhe dão}} para as fontes deste host."""
+    import linkedin_pelo_site as LPS
+    out: dict[str, set] = {}
+    for doc in (tabela, livro):
+        for c in doc.get("FONTES") or []:
+            s = json.dumps(c.get("ACQUISITION") or {}) + " " + str(c.get("CANONICAL_ENTRY_URL") or "")
+            if any(LPS.host(u) == host for u in LPS.RE_URL.findall(s)) and c.get("TERRITORY"):
+                out.setdefault(c["SOURCE_ID"], set()).add(c["TERRITORY"])
+    sid, terr, hosts = None, None, set()
+
+    def fechar():
+        if sid and terr and host in hosts:
+            out.setdefault(sid, set()).add(terr)
+    for linha in atlas_texto.splitlines():
+        m = RE_SID_ATLAS.match(linha)
+        if m:
+            fechar()
+            sid, terr, hosts = m.group(1), None, set()
+            continue
+        t = RE_TERRITORY_ATLAS.match(linha)
+        if t:
+            terr = t.group(1)
+        for u in LPS.RE_URL.findall(linha):
+            hosts.add(LPS.host(u))
+    fechar()
+    return out
+
+
+def heranca_do_site(ficha: dict, *, tabela=None, livro=None, atlas_texto=None) -> tuple[str | None, dict]:
+    """→ (território, prova) ou (None, {PORQUE}). Nunca adivinha."""
+    import linkedin_pelo_site as LPS
+    pagina, como = ligacao_oficial(ficha)
+    if not pagina:
+        return None, {"PORQUE": "D21: sem ligacao oficial canal<->site escrita na ficha — NAO SEI"}
+    host = LPS.host(pagina)
+    tabela = _ler(TABELA) if tabela is None else tabela
+    livro = _ler(LIVRO) if livro is None else livro
+    if atlas_texto is None:
+        atlas_texto = ATLAS.read_text(encoding="utf-8") if ATLAS.exists() else ""
+    por_sid = _territorios_do_host(host, tabela, livro, atlas_texto)
+    if not por_sid:
+        return None, {"PORQUE": "D21: o site %s nao tem SOURCE_ID na casa — NAO SEI" % host}
+    territorios = sorted({t for ts in por_sid.values() for t in ts})
+    if len(territorios) != 1:
+        return None, {"PORQUE": "D21: conflito — o site %s aparece em %s — NAO SEI"
+                                % (host, ", ".join(territorios))}
+    return territorios[0], {"REGRA": "D21", "SITE": pagina, "HOST": host, "LIGACAO": como,
+                            "SOURCE_IDS_DO_SITE": sorted(por_sid), "TERRITORIO": territorios[0]}

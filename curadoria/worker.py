@@ -383,7 +383,8 @@ def _max_por_territorio(alloc: dict) -> dict:
 
 
 def _alocar_source_id(cand_id: str, territorio: str, familia: str,
-                      ficha: dict, porque: str, native: str | None = None) -> tuple[str, bool]:
+                      ficha: dict, porque: str, native: str | None = None,
+                      mesma_organizacao: dict | None = None) -> tuple[str, bool]:
     """Pede o SOURCE_ID canonico ao registo de alocacao. Idempotente: se esta
     candidata ja tem numero, devolve o mesmo (nunca cunha um segundo).
 
@@ -404,7 +405,7 @@ def _alocar_source_id(cand_id: str, territorio: str, familia: str,
         "NOME": ficha.get("NOME", ""),
         "URL": ficha.get("URL", ""),
         "FAMILY": familia,
-        "MESMA_ORGANIZACAO": None,
+        "MESMA_ORGANIZACAO": mesma_organizacao,
         **({"SOURCE_NATIVE_ID": native, "SOURCE_NATIVE_ID_KIND": "YOUTUBE_CHANNEL_ID"}
            if native else {}),
         "ALLOCATED_BY": ("SOURCE-CURATOR-WORKER/QUALIFY — regra do Atlas "
@@ -487,6 +488,20 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
         "CONTENT_VALUE_TYPE": [],
     })
 
+    # ── D21 · O CANAL HERDA A GAVETA DO SITE DA MESMA ORGANIZACAO ──────────
+    # So para YouTube, so quando o nome nao decidiu, e so com LIGACAO OFICIAL
+    # escrita na ficha (o site linka o canal) + SOURCE_ID e territorio do site
+    # na casa. Conflito ou falta de prova continuam NAO SEI. Nome ou logotipo
+    # nao contam: nada aqui compara nomes (`rota_do_scrap_youtube.heranca_do_site`).
+    heranca = None
+    if territorio == "NAO SEI" and familia == "YOUTUBE":
+        herdado, prova_d21 = RSY.heranca_do_site(ficha)
+        if herdado:
+            territorio, heranca = herdado, prova_d21
+            porque = ("D21: o canal herda %s do site %s (%s; fontes do site: %s)"
+                      % (herdado, prova_d21["HOST"], prova_d21["LIGACAO"],
+                         ", ".join(prova_d21["SOURCE_IDS_DO_SITE"][:5])))
+
     # O nome nao decidiu: ha decisao semantica (Opus/humano) COM PROVA no canal?
     # So entra aqui — nunca por cima de um territorio que a regra ja decidiu.
     decisao, porque_ds = (None, "")
@@ -522,7 +537,7 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
 
     # HTML: pedir/alocar o SOURCE_ID canonico e passar ao degrau do contrato.
     sid_real, novo = _alocar_source_id(cand_id, territorio, familia, ficha, porque,
-                                       native=canal)
+                                       native=canal, mesma_organizacao=heranca)
 
     if LC.estado_de(sid_real) != LC.CONTRACT_PENDING:
         LC.registar(sid_real, LC.CONTRACT_PENDING,
@@ -535,7 +550,7 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
 
     return "OK", {"SOURCE_ID_REAL": sid_real, "TERRITORY": territorio,
                   "FAMILY": familia, "PAIS": pais, "TIPO": tipo,
-                  "CHANNEL_ID": canal,
+                  "CHANNEL_ID": canal, "HERANCA_D21": heranca,
                   "SOURCE_ID_NOVO": novo,
                   "TERRITORY_REASON": porque,
                   "DECISAO_SEMANTICA": decisao,

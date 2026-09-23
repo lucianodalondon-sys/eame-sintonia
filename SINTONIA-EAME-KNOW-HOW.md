@@ -21030,3 +21030,35 @@ Armadilhas medidas:
   por `grep -c $'\x08'`.
 
 Número: `§196`–`§197` ocupados noutras branches; `§198` é da SOC1; este é o `§199`.
+
+# §200 · O BYTE SAI, A LINHA FICA — E O SEPARADOR QUE O PYTHON CHAMA DE ESPAÇO
+
+SOC3 (23/09/2026), D20 e D21. `RELATORIO-SOC3-RETENCAO-YOUTUBE.md`.
+
+1. **Apagar numa casa que não apaga.** A III.E.4 manda apagar ou renovar o dado da YouTube Data
+   API ao fim de 30 dias; a casa congela a identidade da observação (027) e prende os derivados
+   com `on delete restrict` (022). A saída foi apagar o BYTE e deixar a LINHA: `preserved=false`
+   com motivo, e uma lápide (migração 033) com o sha256 do que existia. O texto que o dado levou
+   para a Sala e para as tabelas sociais sai com ele. A proveniência nunca sai.
+
+2. **A rota não tem coluna.** Não há campo no banco que diga «isto veio da API»: a rota vive
+   dentro do byte (`ROUTE`/`DISCOVERY_ROUTES` do envelope). Por isso só se apaga o que se leu, cujo
+   sha256 bate com o da linha e cujas rotas são TODAS da API. Não saber não autoriza apagar
+   (`NAO_SEI`). E uma cópia que também é de uma observação renovada no prazo não sai.
+
+3. **`"\x1f".isspace()` é `True`.** O `psql -A -F $'\x1f'` devolve, para uma linha só de campos
+   vazios, exatamente `"\x1f"`; filtrar as linhas com `if l.strip()` fazia-a desaparecer — a
+   consulta «devolvia» zero linhas onde havia uma. Filtrar por `l != ""`. (O Python trata os
+   separadores de informação 0x1C–0x1F como espaço.)
+
+4. **D21: o canal herda a gaveta, não a identidade.** A ligação oficial canal↔site lê-se em dois
+   sítios da ficha — `ONDE_VIU «declarado no site oficial do dono»` e `NOTA ... CRAWL_LINK` — e em
+   mais nenhum; nome e logotipo não contam. Das 7 UC novas, 5 herdam, 2 ficam NAO SEI (o site não
+   tem SOURCE_ID). As duas fichas da ARPAE eram o mesmo canal: um só número.
+
+5. **O território decide o assunto, a plataforma decide o executor.** `pedido/receitas.resolver`
+   escolhia o executor pelo território; 44 dos 50 canais caíam onde o Scrap não está (34 no
+   executor HTML, 10 em nenhum). Proposta medida (50/50) entregue ao engenheiro do Scrap.
+
+Mutação com banco real: um cluster por mutante custava minutos; a ronda sobe UM banco descartável
+já migrado e passa-o aos testes (`SOC3_BANCO_JA_MIGRADO`, aceite só se `exigir_descartavel` passar).
