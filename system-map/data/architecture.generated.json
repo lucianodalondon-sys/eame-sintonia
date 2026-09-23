@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "micro-prep-v1",
-    "HEAD": "35b2caf5560978302380270143d07508ec7712b7",
-    "GENERATED_AT": "2026-09-22T21:46:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "42db1d08f56bd90720c49df07237145a5924b624f9de4f854e396890ff9e0776"
+    "HEAD": "bcb1324f5ee8438af64569209e400b837dab6c65",
+    "GENERATED_AT": "2026-09-22T22:03:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9c80cc76916867ddcef287b2b2cad1d96cb73d1fb140d43e101b7c2ab2ad9192"
   },
   "FILES": [
     {
@@ -352,8 +352,15 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-MICRO-PREP-B.md",
+      "sha": "34c9cd6fb8534fd16e958fe87d9aa4c35e4b7321",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-MICRO-PREP.md",
-      "sha": "85ddb8653de5207592d215839ddfc616a06ff10b",
+      "sha": "20ab7f9d69b3b8468af5058cc8eebc4f362cb90c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15109,7 +15116,7 @@
     },
     {
       "path": "scripts/micro_coleta/COORTE-PROPOSTA.json",
-      "sha": "a37f6629076cc65dbcf0b3ca09daa2e91c95b9ec",
+      "sha": "a5a2c277c23ed4a36cdb0afca97e45dd0c2a2b43",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -15122,8 +15129,15 @@
       "code_dir": true
     },
     {
+      "path": "scripts/micro_coleta/medir_detector_de_capa.py",
+      "sha": "3e4032012408a6ca87da37d2ac75b2ee17f40248",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/micro_coleta/micro_coleta.py",
-      "sha": "bacd106b6b8f184da1c9ecbbc13f068e4e3d0193",
+      "sha": "867cdc225b0bd1ae224b7d1675ea66da58ab16f7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15725,7 +15739,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "3d8fd662911043c6b57f944a8a1d77e5db2f63b8",
+      "sha": "1aa1d2a5d764ec20c9532ede108474e0654d28cd",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17104,7 +17118,7 @@
     },
     {
       "path": "tests/test_micro_coleta_instrumento.py",
-      "sha": "358653f1ab9025e23910fcd7c7a86cbf9d93f1a1",
+      "sha": "380573423ee29dd7ef4f4c45607db5e8f193bbb2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -52731,6 +52745,28 @@
       }
     },
     {
+      "from_file": "scripts/micro_coleta/medir_detector_de_capa.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/medir_detector_de_capa.py",
+        "line": 48,
+        "snippet": "(MC.RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/medir_detector_de_capa.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/medir_detector_de_capa.py",
+        "line": 29,
+        "snippet": "import micro_coleta as MC  # noqa: E402"
+      }
+    },
+    {
       "from_file": "scripts/micro_coleta/micro_coleta.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -66729,7 +66765,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_micro_coleta_instrumento.py",
-        "line": 83,
+        "line": 110,
         "snippet": "self.assertEqual(c[1], \"orquestrador/orquestrador.py\")"
       }
     },
@@ -72852,10 +72888,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2517,
-    "files_readable": 1141,
-    "files_code_dir": 954,
-    "file_edges": 4969,
+    "files_tracked": 2519,
+    "files_readable": 1142,
+    "files_code_dir": 955,
+    "file_edges": 4971,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

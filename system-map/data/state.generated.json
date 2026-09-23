@@ -37,6 +37,7 @@
       "RELATORIO-LOTE-76.md",
       "RELATORIO-MATERIA-PRIMA.md",
       "RELATORIO-MICRO-COLLECTION.md",
+      "RELATORIO-MICRO-PREP-B.md",
       "RELATORIO-MICRO-PREP.md",
       "RELATORIO-PARIDADE.md",
       "RELATORIO-PROVAS-P1.md",
@@ -2224,6 +2225,7 @@
       "scripts/diagnostico_sala/onde_casou.py",
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
       "scripts/micro_coleta/GABARITO-MICRO-V1.json",
+      "scripts/micro_coleta/medir_detector_de_capa.py",
       "scripts/micro_coleta/micro_coleta.py"
     ],
     "security": [
@@ -3111,9 +3113,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "micro-prep-v1",
-    "HEAD": "35b2caf5560978302380270143d07508ec7712b7",
-    "GENERATED_AT": "2026-09-22T21:46:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "42db1d08f56bd90720c49df07237145a5924b624f9de4f854e396890ff9e0776"
+    "HEAD": "bcb1324f5ee8438af64569209e400b837dab6c65",
+    "GENERATED_AT": "2026-09-22T22:03:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9c80cc76916867ddcef287b2b2cad1d96cb73d1fb140d43e101b7c2ab2ad9192"
   },
   "FAMILIES": [
     {
@@ -28668,9 +28670,10 @@
       "files": [
         "scripts/micro_coleta/COORTE-PROPOSTA.json",
         "scripts/micro_coleta/GABARITO-MICRO-V1.json",
+        "scripts/micro_coleta/medir_detector_de_capa.py",
         "scripts/micro_coleta/micro_coleta.py"
       ],
-      "file_count": 3,
+      "file_count": 4,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -28686,7 +28689,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 2
+        "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -28694,11 +28697,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "C"
+          "C",
+          "FILTROS"
         ],
-        "palavras": 59,
+        "palavras": 78,
         "por_lingua": {},
-        "sem_marca_de_lingua": 59,
+        "sem_marca_de_lingua": 78,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -28723,6 +28727,7 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "coleta/italy_executor.py",
+        "curadoria/italy_contracts_curator.json",
         "data/samples/LIVRO-DE-DECISOES.json",
         "orquestrador/orquestrador.py",
         "regras/italy_contracts_onboarded.json",
@@ -102737,7 +102742,7 @@
   "UNCLAIMED_CODE_FILES": [
     "provas/recollection_red_team_estrito.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1444,
+  "UNCLAIMED_FILES_COUNT": 1445,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102926,8 +102931,8 @@
     "edges_proven": 1092,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2517,
-    "files_covered": 1073,
+    "files_tracked": 2519,
+    "files_covered": 1074,
     "files_code_unclaimed": 1,
     "roles_proven": 155,
     "roles_declared_only": 9,
