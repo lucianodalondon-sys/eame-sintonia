@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T09:40:18+00:00",
-  "HEAD": "3276c242325fcda116427569e8e580d38891017e",
+  "GENERATED_AT": "2026-09-23T09:55:09+00:00",
+  "HEAD": "2b5e30ab56f740730d3ed7eba537fbdac996c8f6",
   "BRANCH": "unificacao-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "7e44028c4fcd47735a42fe9de84b301b0fabd39f9fb4ba520df0cb6c08af42cd",
-  "FICHEIROS_NA_IMPRESSAO": 2835,
+  "SOURCE_TREE_FINGERPRINT": "da6d2e57db5225717afdff8ad36c24536bdb02ca17b4c7eebd6716f346e0f752",
+  "FICHEIROS_NA_IMPRESSAO": 2839,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -188,7 +188,7 @@
    {
     "PATH": "candidatas/fonte_nova.py",
     "PAPEL": "FONTE",
-    "VERSAO": "1ede19a25278ac3b076f1737e0fdc3e009d09bff",
+    "VERSAO": "2617154069d64d58a51bf8cea4c5e1c378a9200e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3485,14 +3485,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "7e44028c4fcd47735a42fe9de84b301b0fabd39f9fb4ba520df0cb6c08af42cd",
+    "VERSAO": "da6d2e57db5225717afdff8ad36c24536bdb02ca17b4c7eebd6716f346e0f752",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "7e44028c4fcd47735a42fe9de84b301b0fabd39f9fb4ba520df0cb6c08af42cd",
+    "VERSAO": "da6d2e57db5225717afdff8ad36c24536bdb02ca17b4c7eebd6716f346e0f752",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4465,7 +4465,7 @@
    {
     "PATH": "tests/test_fila_italia_decisoes.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6d5e24f266804397a57e385f3f9f1128044d17ee",
+    "VERSAO": "9681466277ef06dd5c88657ed83dbf43a14979ad",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5262,7 +5262,7 @@
    }
   ],
   "INPUTS_COUNT": 746,
-  "INPUTS_DIGEST": "fbf7580577c0a62c79751e729c4cdfa634ba26e5f0db43a7e83600cf605d6bb7",
+  "INPUTS_DIGEST": "4b2c3fad8ecaa3a131fac5dcb257a761069f8fe1a8995dbbf138da3a06b03d10",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5295,8 +5295,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "4d299d7c658b806922f647859fb009f7fb5f318845789641cf96e3b8fadf01b9",
-  "SEMANTIC_HASH": "eb1c51ec8d89f2939c25be2e0ec3673ae3e5b05a950d1956c2d3c8ab4b76eb31"
+  "MEASUREMENT_HASH": "8a325f109a6806e6ac46539deb869500d1b874a2cba194330edf494e836cea04",
+  "SEMANTIC_HASH": "07e658530e645225dc1a14cac63425e5ed725d0c4a68479a25e30bffe732b2af"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15232,7 +15232,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_fila_italia_decisoes.py",
-      "LINHA": 371,
+      "LINHA": 418,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DECISAO-DA-FILA--READS-->C-TESTES",
@@ -21167,7 +21167,7 @@
      },
      {
       "FICHEIRO": "tests/test_fila_italia_decisoes.py",
-      "LINHA": 266,
+      "LINHA": 313,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",

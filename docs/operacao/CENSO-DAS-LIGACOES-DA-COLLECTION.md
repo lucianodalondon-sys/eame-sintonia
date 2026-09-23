@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3276c242325fcda116427569e8e580d38891017e
+HEAD_DA_MEDICAO  2b5e30ab56f740730d3ed7eba537fbdac996c8f6
 BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T06:36:29-03:00
+GERADO_EM        2026-09-23T06:51:06-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -563,7 +563,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
-| **prova de quem ativa** | tests/test_fila_italia_decisoes.py:33; tests/test_fila_italia_decisoes.py:371 _(plano CODE)_ |
+| **prova de quem ativa** | tests/test_fila_italia_decisoes.py:33; tests/test_fila_italia_decisoes.py:418 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-CONTRACT-CANDIDATES-2026-09-15.csv`, `candidatas/ITALY-SOURCE-DECISIONS-2026-09-15.csv`, `candidatas/ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx` |
@@ -616,7 +616,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | candidatas/decidir_fila_italia.py:100; curadoria/test_discovery.py:59; curadoria/test_discovery.py:50 |
 | **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json` |
+| **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 0 · saem 5 |

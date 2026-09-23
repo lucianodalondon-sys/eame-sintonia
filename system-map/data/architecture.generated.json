@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "3276c242325fcda116427569e8e580d38891017e",
-    "GENERATED_AT": "2026-09-23T06:36:29-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7e44028c4fcd47735a42fe9de84b301b0fabd39f9fb4ba520df0cb6c08af42cd"
+    "HEAD": "2b5e30ab56f740730d3ed7eba537fbdac996c8f6",
+    "GENERATED_AT": "2026-09-23T06:51:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "da6d2e57db5225717afdff8ad36c24536bdb02ca17b4c7eebd6716f346e0f752"
   },
   "FILES": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "path": ".gitattributes",
-      "sha": "85b21fce1fdc5902f0f81affaff83cdccf9b7e69",
+      "sha": "92daa5e9b2abee0cc15d7e121eb678b457c3f405",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -1340,7 +1340,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "fb646b123aa5832bcfd383db86042a02669b8f45",
+      "sha": "10ad60d2e6a312cde3995e6307fd35ec93db166d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -1409,6 +1409,13 @@
       "code_dir": true
     },
     {
+      "path": "candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json",
+      "sha": "bf2b14206be36e62676b65b2d29d4d3e179fa23c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "candidatas/decidir_fila_italia.py",
       "sha": "22de8d850b4499c701cbed6cad317fb744458f0e",
       "ext": ".py",
@@ -1417,7 +1424,7 @@
     },
     {
       "path": "candidatas/fonte_nova.py",
-      "sha": "1ede19a25278ac3b076f1737e0fdc3e009d09bff",
+      "sha": "2617154069d64d58a51bf8cea4c5e1c378a9200e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1461,6 +1468,20 @@
       "path": "candidatas/italy_write_matrix.mjs",
       "sha": "7be10ad18b8ba878b09ed93fd41b82ab74262828",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html",
+      "sha": "9d4269a99c384fe225fa97ac274491648f888c30",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
+      "sha": "27e56b98e57ac3560d5ad9c2e413ec951ab4f1c5",
+      "ext": ".html",
       "readable": true,
       "code_dir": true
     },
@@ -2782,7 +2803,7 @@
     },
     {
       "path": "curadoria/ponte_candidatas.py",
-      "sha": "0dd66454b310fbd6824be773e0334faf43d22a85",
+      "sha": "c981ee8464b65b3e226894b3121ccb28671f6f85",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3090,7 +3111,7 @@
     },
     {
       "path": "curadoria/test_ponte_candidatas.py",
-      "sha": "874cb2fedaf89bae89627e41a8d77409a75c7f47",
+      "sha": "f018f82bbaebf8a9295411caea38d29c09fdcd1f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -10378,6 +10399,13 @@
     {
       "path": "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "sha": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/unificacao/aplicar_d15_politica.py",
+      "sha": "2adc59b7d1e11ecd29f4f60fe13e9d46a2649d80",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18014,7 +18042,7 @@
     },
     {
       "path": "tests/test_fila_italia_decisoes.py",
-      "sha": "6d5e24f266804397a57e385f3f9f1128044d17ee",
+      "sha": "9681466277ef06dd5c88657ed83dbf43a14979ad",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20498,8 +20526,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "candidatas/fonte_nova.py",
-        "line": 196,
+        "line": 219,
         "snippet": "FILA.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "candidatas/fonte_nova.py",
+      "to_file": "candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/fonte_nova.py",
+        "line": 113,
+        "snippet": "PROVA_TERMOS = Path(__file__).resolve().parent / \"PROVA-TERMOS-REDES-SOCIAIS-V1.json\""
       }
     },
     {
@@ -30487,6 +30526,17 @@
       "evidence": {
         "file": "ferramentas/unificacao/aplicar_d13_capacidade.py",
         "line": 21,
+        "snippet": "import fonte_nova as FN  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/aplicar_d15_politica.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/unificacao/aplicar_d15_politica.py",
+        "line": 24,
         "snippet": "import fonte_nova as FN  # noqa: E402"
       }
     },
@@ -69107,7 +69157,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 349,
+        "line": 396,
         "snippet": "d = XL.folhas(RAIZ / \"candidatas\" / \"ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx\")"
       }
     },
@@ -69118,7 +69168,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 266,
+        "line": 313,
         "snippet": "master = (RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\") \\"
       }
     },
@@ -69129,7 +69179,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 346,
+        "line": 393,
         "snippet": "q = XL.folhas(RAIZ / \"candidatas\" / \"ITALY-SOURCE-QUALIFICATION-2026-09-14.xlsx\")"
       }
     },
@@ -69151,7 +69201,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 371,
+        "line": 418,
         "snippet": "codigo = (RAIZ / \"candidatas\" / \"decidir_fila_italia.py\").read_text("
       }
     },
@@ -69184,7 +69234,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 314,
+        "line": 361,
         "snippet": "self.assertIn(\"data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json\", bloco)"
       }
     },
@@ -77892,10 +77942,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2687,
-    "files_readable": 1226,
-    "files_code_dir": 1034,
-    "file_edges": 5319,
+    "files_tracked": 2691,
+    "files_readable": 1229,
+    "files_code_dir": 1038,
+    "file_edges": 5321,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

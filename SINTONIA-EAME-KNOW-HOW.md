@@ -20904,3 +20904,32 @@ viaja no item, e a porta pergunta.
 E um custo que a D11 não decidiu e que fica à vista: ligar a política inteira
 barra também o que o detector chama capa — e ele erra, 6/37 e 4/20 notícias
 verdadeiras. Registadas, reprocessáveis, mas barradas.
+---
+
+# §195 · 429 NÃO É «PROIBIDO» — A PROVA DE UMA POLÍTICA É O TEXTO DELA
+
+UNIFICACAO-V1-D (23/09/2026), D13 e D15 (bot Luciano por delegação do dono).
+
+Na porta de candidatas havia 69 linhas LinkedIn e Instagram RECUSADAS «pelos TOS» cuja
+EVIDENCIA era a sonda de 14/09: `HTTP 429`. Um 429 diz «demasiados pedidos» — é o site a
+pedir calma, não a proibir. A recusa estava certa pelo motivo errado, e a prova não
+sustentava a palavra que a acompanhava. Outras 6 (Facebook) estavam RECUSADAS por falta de
+capacidade: a fonte pode ser boa, falta-nos o adaptador.
+
+    UMA RECUSA TEM DE ASSENTAR NA PROVA DA SUA PRÓPRIA RAZÃO.
+
+O que ficou:
+- três estados que não são «recusada»: `CAPABILITY_BLOCK` (não sabemos colher),
+  `POLICY_BLOCK` (os termos proíbem — próxima expansão People/Social, só com acesso
+  autorizado pelo dono) e `EM_ANALISE` sem nota (ainda não sabemos). O vocabulário da porta
+  declara-os; a ponte escreve-os; os testes mordem se alguém voltar a pôr RECUSADA;
+- a prova da política é o **trecho dos termos**, com endereço, data em vigor, data de
+  leitura e sha256 da página guardada no repositório (`candidatas/prova-termos/`, com
+  `-text` no `.gitattributes`, senão o CRLF muda os bytes e o sha deixa de bater);
+- a sonda antiga fica em `EVIDENCIA_HISTORICA`. Nada apagado.
+
+Como se leu: o LinkedIn serve o texto no HTML (curl, 200). O Instagram respondeu **400** ao
+curl, e `www.instagram.com/legal/terms` devolveu uma casca sem texto; o WebFetch também não
+o viu. Só o Chrome headless com `--dump-dom` (depois do JavaScript) trouxe a frase. Um
+resumo feito por modelo não serve de prova de política: o que conta é o texto copiado da
+página, com o ficheiro ao lado.
