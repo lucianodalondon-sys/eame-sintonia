@@ -170,8 +170,18 @@ def processar() -> dict:
             motivo = _MOTIVO[tipo]
             LC.registar(cid, LC.POLICY_BLOCK, motivo,
                         evidence_ref="BRIDGE:candidatas/FONTES-CANDIDATAS.json")
-            c["ESTADO"] = "RECUSADA"
-            c["MOTIVO_DA_RECUSA"] = motivo
+            # D15 (23/09, bot Luciano por delegacao do dono): os TOS proibem —
+            # nem RECUSADA nem EM_ANALISE, POLICY_BLOCK, e a prova e o trecho dos
+            # termos (endereco e data), nunca uma sonda de 429.
+            c["ESTADO"] = "POLICY_BLOCK"
+            c["MOTIVO_DO_BLOQUEIO"] = motivo
+            ev = FN.evidencia_da_politica(tipo)
+            if ev:
+                if c.get("EVIDENCIA") and "TERMOS " not in c["EVIDENCIA"]:
+                    c.setdefault("EVIDENCIA_HISTORICA", c["EVIDENCIA"])
+                c["EVIDENCIA"] = FN.texto_da_evidencia(ev)
+                c["EVIDENCIA_POLITICA"] = ev
+            porta_doc.setdefault("ESTADOS", {}).setdefault("POLICY_BLOCK", FN.ESTADO_POLICY_BLOCK)
             porta_modificada = True
             entrada.update({"DESTINO": "POLICY_BLOCK", "MOTIVO": motivo})
             m["CLASSIFICADAS_BARRADAS"] += 1
