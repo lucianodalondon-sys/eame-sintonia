@@ -374,7 +374,15 @@ MATRIZ = {
     'YOUTUBE': {
         '_NOTA': ('As três rotas gratuitas foram MEDIDAS funcionando nesta máquina em '
                   '2026-09-08 e as três estão em caminho `Disallow` do robots.txt. '
-                  'A única rota permitida é a Data API v3.'),
+                  'A única rota permitida é a Data API v3. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou por escrito o VÍDEO (e o áudio, a '
+                  'legenda e os metadados públicos) de PESSOAS do agro — pesquisador, '
+                  'agrônomo, creator, influencer. Aqui isso NÃO move nenhum estado, e vale '
+                  'dizê-lo: o que barra as rotas do YouTube é CREDENCIAL e ROBOTS, não o '
+                  'eixo da pessoa. Um canal pessoal nunca foi recusado por ser pessoal; o '
+                  'que a D24 acrescenta é que ele também está AUTORIZADO — e o canal '
+                  'pessoal passa a ter rota declarada, com o `yt-dlp:public_audio` a valer '
+                  'para ele como vale para qualquer canal público.'),
         'SEARCH_KEYWORD': [
             r('youtube-data-api-v3:search.list', 'OFFICIAL_API_FREE', 'SIM',
               'CREDENTIAL_MISSING', '1 unidade/chamada, bucket próprio de 100 buscas/dia',
@@ -586,7 +594,10 @@ MATRIZ = {
     'THREADS': {
         '_NOTA': ('Surpresa boa da pesquisa: a Meta publica um endpoint de busca por '
                   'palavra-chave em conteúdo público de terceiros. É o único da família '
-                  'Meta desenhado para isso.'),
+                  'Meta desenhado para isso. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou o VÍDEO de PESSOAS do agro nesta '
+                  'família também. A busca por palavra-chave continua a ser a rota oficial '
+                  'e o eixo da pessoa não a trava; nenhum estado muda por causa do D24.'),
         'SEARCH_KEYWORD': [
             r('threads:/v1.0/keyword_search', 'OFFICIAL_API_FREE', 'CONDICIONAL',
               'CREDENTIAL_MISSING', 'zero dentro da quota',
@@ -606,7 +617,12 @@ MATRIZ = {
 
     'FACEBOOK': {
         '_NOTA': ('`robots.txt` do facebook.com é `Disallow: /` para todo agente. Não '
-                  'existe rota de HTTP direto permitida. Tudo passa por App Review.'),
+                  'existe rota de HTTP direto permitida. Tudo passa por App Review. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou o VÍDEO de PESSOAS do agro '
+                  'também aqui. O eixo da pessoa deixa de ser impedimento; o impedimento '
+                  'que resta é o da PLATAFORMA (robots `Disallow: /` medido, e as rotas '
+                  'oficiais atrás de App Review) — e por isso nenhuma rota desta '
+                  'plataforma muda de estado por causa do D24.'),
         'DISCOVER_ACCOUNT': [
             r('graph:/pages/search', 'OFFICIAL_API_FREE', 'CONDICIONAL', 'CREDENTIAL_MISSING',
               'zero dentro da quota',
@@ -638,7 +654,18 @@ MATRIZ = {
     'INSTAGRAM': {
         '_NOTA': ('Estrada MADURA nesta casa — `instagram_janela.py` já mede a rota do '
                   'navegador público e `instagram_transcrever.py` já transcreve local. '
-                  'Esta missão NÃO reescreve nada disso; só declara onde a Apify sobra.'),
+                  'Esta missão NÃO reescreve nada disso; só declara onde a Apify sobra. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou também o VÍDEO de PESSOAS do agro '
+                  '— e no Instagram isso NÃO abre rota nenhuma, porque o que barra aqui não '
+                  'é o eixo da pessoa, é a PLATAFORMA. Medido hoje, lendo o `robots.txt` '
+                  'vivo: «Collection of data on Instagram through automated means is '
+                  'prohibited unless you have express written permission from Instagram». '
+                  'A autorização do dono cobre o RISCO DO PROJETO; ela não é a «express '
+                  'written permission» da plataforma, e nenhuma das duas se troca pela '
+                  'outra. O Reel de pessoa segue RECUSADO (D19), e o canário do D24 não foi '
+                  'corrido por isso — recusa antes da rede, fail-closed. '
+                  'O QUE MUDARIA ISTO: a decisão humana que a D19 já nomeia (conta Business '
+                  'do PROJETO com Página Meta e app próprios), e mais nada.'),
         'FETCH_PROFILE': [
             r('instagram_janela.py:embed', 'PUBLIC_BROWSER', 'CONDICIONAL', 'PROVED', 'zero',
               'já medido nesta casa em 2026-09-02: bio, seguidores, denominador de posts',
@@ -978,7 +1005,12 @@ MATRIZ = {
                   'anthropic-ai num bloco `Disallow: /`. E a Research API — a única que dá '
                   'dado público rico — EXCLUI empresa por desenho: exige instituição '
                   'acadêmica ou sem fins lucrativos, com revisão ética e independência de '
-                  'interesse comercial. A ADAMA não é elegível. Sobra o oEmbed.'),
+                  'interesse comercial. A ADAMA não é elegível. Sobra o oEmbed. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou o VÍDEO de PESSOAS do agro também '
+                  'aqui. O eixo da pessoa deixa de ser impedimento; o que resta é a '
+                  'PLATAFORMA, que nomeia agentes automatizados num bloco `Disallow: /` — '
+                  'e por isso nenhuma rota desta plataforma muda de estado por causa do '
+                  'D24.'),
         'FETCH_VIDEO_METADATA': [
             r('tiktok:oembed', 'PUBLIC_NATIVE', 'CONDICIONAL', 'POSSIBLE_NOT_PROVED', 'zero',
               'Produto DOCUMENTADO pela TikTok, sem chave e sem login. MEDIDO: responde 200 '
