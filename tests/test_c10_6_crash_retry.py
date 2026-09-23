@@ -95,12 +95,45 @@ class _SemRede:
 
 
 class _PoliticaPermissiva:
-    """Injecta SIM em memoria; o ficheiro continua a dizer NAO (C10.5D)."""
+    """Injecta SIM em memoria.
+
+    ⚠️ ATE A D22 ESTA CLASSE INJECTAVA UMA PERMISSAO QUE O FICHEIRO DA LEI NAO
+    TINHA. Desde a D22 (2026-09-23) o ficheiro diz SIM, e esta classe passa a
+    servir para o contrario do que servia: garantir o sentido PERMISSIVO sem
+    depender de como o ficheiro estiver no dia em que a prova corre.
+
+        A PROVA NAO PODE DEPENDER DO DIA DA LEI SEM O DIZER.
+    """
 
     def __enter__(self):
         self._orig = mz.MATRIZ['INSTAGRAM'][GROSSA]
         mz.MATRIZ['INSTAGRAM'][GROSSA] = [
             dict(r, PERMITIDA='SIM', ESTADO='PROVED') for r in self._orig]
+        return self
+
+    def __exit__(self, *_):
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = self._orig
+        return False
+
+
+class _PoliticaRecusada:
+    """A lei de VOLTA a recusar — injectada em memoria, e so para esta prova.
+
+    ⚠️ DESDE A D22 O FICHEIRO DIZ SIM. Esta classe existe porque um portao so
+    esta provado quando se mede o que ele faz nos DOIS sentidos: o que ele deixa
+    passar quando a lei permite, e o que ele barra quando a lei recusa.
+
+    O que NAO se faz — e foi o que esta prova fazia antes da D22 — e escrever a
+    recusa no ficheiro da lei para o teste continuar verde. Isso prenderia a
+    prova a uma decisao que ja foi mudada pelo dono, e no dia da mudanca o teste
+    passava a medir a coisa errada sem ninguem saber.
+    """
+
+    def __enter__(self):
+        self._orig = mz.MATRIZ['INSTAGRAM'][GROSSA]
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = [
+            dict(r, PERMITIDA='NAO', ESTADO='ROUTE_NOT_ALLOWED')
+            for r in self._orig]
         return self
 
     def __exit__(self, *_):
@@ -336,18 +369,43 @@ class OLacoPerguntaAntesDeRepetir(unittest.TestCase):
                          'repetiu o que nao entendeu: isso e martelar no escuro')
 
     def test_P7_politica_NAO_nao_e_retentavel(self):
+        """⚠️ ESTA PROVA CORRIA COM A LEI A RECUSAR O INSTAGRAM (D19).
+
+        A D22 (2026-09-23) autorizou a rota dos REELS por URL directa, sem conta
+        e sem rota paga, e a rota do INSTAGRAM deixou de responder NAO. O QUE A
+        PROVA MEDE NAO MUDOU: um NAO da politica nao se repete, nao abre socket
+        e nao pede ao transporte. O que mudou e DE ONDE VEM esse NAO — passa a
+        vir da lei injectada em memoria (`_PoliticaRecusada`) em vez de vir do
+        ficheiro, porque o ficheiro ja nao diz isso.
+
+            A RECUSA TESTA-SE INJECTANDO-A; NAO SE ESCREVE A RECUSA NA LEI.
+        """
         espia = _Ytdlp('nunca chega a ser lido')
         rt._ytdlp = espia
         relato = {}
-        with _SemRede() as rede:
-            _c, motivo = rt.midia_por_ytdlp(
-                'https://www.instagram.com/reel/T/', os.path.join(self.tmp, 'p.m4a'),
-                kind=rt.MIDIA_AUDIO, plataforma='INSTAGRAM', relato=relato)
+        with _PoliticaRecusada():
+            with _SemRede() as rede:
+                _c, motivo = rt.midia_por_ytdlp(
+                    'https://www.instagram.com/reel/T/', os.path.join(self.tmp, 'p.m4a'),
+                    kind=rt.MIDIA_AUDIO, plataforma='INSTAGRAM', relato=relato)
         self.assertEqual(espia.chamadas, [], 'a politica NAO foi tentada na rede')
         self.assertEqual(rede.tentativas, [])
         self.assertEqual(self.relogio.dormiu, [], 'esperou para repetir um NAO')
         self.assertTrue(motivo.startswith(mz.NAO_PERMITIDA), motivo)
         self.assertFalse(fx.retentavel('ROUTE_NOT_ALLOWED'))
+
+    def test_P7b_lei_a_permitir_a_cadeia_pede_e_o_portao_e_quem_decide(self):
+        """O outro sentido, medido na mesma prova: com a D22 em vigor a cadeia
+        PEDE. Sem este lado, o teste de cima poderia ficar verde com um portao
+        que simplesmente nunca deixa passar nada."""
+        espia = _Ytdlp('ERROR: espia')
+        rt._ytdlp = espia
+        relato = {}
+        with _SemRede():
+            _c, _motivo = rt.midia_por_ytdlp(
+                'https://www.instagram.com/reel/T/', os.path.join(self.tmp, 'p2.m4a'),
+                kind=rt.MIDIA_AUDIO, plataforma='INSTAGRAM', relato=relato)
+        self.assertTrue(espia.chamadas, 'a rota autorizada pela D22 nao pediu nada')
 
     def test_a_cadeia_pergunta_ao_dono_e_nao_a_uma_tabela_propria(self):
         arv = ast.parse(io.open(os.path.join(RAIZ, 'ferramentas',
