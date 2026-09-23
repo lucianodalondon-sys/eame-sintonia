@@ -247,6 +247,44 @@ FASES = {
     # argumento que ela engole sem usar — o erro que o Telegram ja ensinou.
     'audio-youtube':    ('YOUTUBE', 'youtube.public_audio', {},
                          rc.COLHEITA),
+
+    # ── AS TRES DO REEL, E POR QUE ELAS ENTRAM AGORA ───────────────────────
+    # `instagram.reel.capture`, `instagram.reel.audio` e
+    # `instagram.reel.transcribe` estao PROVEN desde a C10, tem adaptador
+    # (`adaptador_instagram`), tem unidade de trabalho (o Reel) e o `CHECK`
+    # responde `CAN_COLLECT_NOW` as tres — sem credencial, sem conta e sem
+    # fornecedor pago. O que faltava era o degrau de CIMA, e e o §154 outra vez:
+    #
+    #     CAPABILITY PROVEN != EDGE WIRED != COLLECTION REACHABLE
+    #
+    # A Collection sabia pedir dez capabilities e estas tres nao estavam entre
+    # elas. Uma capacidade provada sem fase e um motor sem cabo: a prova diz que
+    # ele colhe; a fase e que diz que alguem pode pedir.
+    #
+    # ESPECIE: COLHEITA nas tres. O que volta e material observado — a media do
+    # Reel, o som dela e a fala reconhecida —, e nao uma lista de onde procurar.
+    # A mesma regra que poe `busca-youtube` em CATALOG.
+    #
+    # FIXOS = {}: nao ha `limit`. Estas rotas colhem UM Reel, o que o pedido
+    # nomear. Pedir um teto a uma rota que recebe uma URL seria um argumento que
+    # ela engole sem usar — o erro que o Telegram ja ensinou.
+    #
+    # ⚠️ A URL E O ENDERECO, E NAO A IDENTIDADE. `--fonte` continua a descer o
+    # SOURCE_ID provado; a URL diz A QUE PUBLICACAO se vai bater. A mesma lei
+    # que separa `handle` de SOURCE_ID no `canario-bluesky`.
+    #
+    #     URL NAO E SOURCE_ID.
+    #
+    # ⚠️ E `profile.discovery` NAO ENTRA AQUI. Ela e `PARTIAL` e
+    # `LOCAL/DATACENTER_BLOCKED` — precisa de maquina residencial e nao corre de
+    # um datacenter (a fase `janela` ja o declara). A ausencia dela nesta lista e
+    # uma medicao, e nao um esquecimento: quem quiser a janela pede `janela`.
+    'captura-reel':     ('INSTAGRAM', 'instagram.reel.capture', {},
+                         rc.COLHEITA),
+    'audio-reel':       ('INSTAGRAM', 'instagram.reel.audio', {},
+                         rc.COLHEITA),
+    'transcricao-reel': ('INSTAGRAM', 'instagram.reel.transcribe', {},
+                         rc.COLHEITA),
 }
 
 #: Que filtros NOMEADOS cada fase aceita, e so ela. O orquestrador traduz
@@ -321,6 +359,16 @@ NOMEADOS = {
     #
     #     VIDEO_ID != SOURCE_ID. HANDLE != SOURCE_ID.
     'audio-youtube':        {'video': 'video_id'},
+    # ── O ENDERECO DO REEL, E ELE E UM SO PARA AS TRES ─────────────────────
+    # `capturar_reel` recebe `url` (ou um `ident` ja resolvido), e a assinatura
+    # dela e a mesma nas tres capacidades — sao tres nomes do mesmo acto, e o
+    # proprio adaptador o escreve. Um nome publico por fase que apontasse para
+    # rotas diferentes seria a traducao a inventar o que a rota nao tem.
+    #
+    #     TRES NOMES PARA UM ACTO NAO SAO TRES ENDERECOS.
+    'captura-reel':         {'url': 'url'},
+    'audio-reel':           {'url': 'url'},
+    'transcricao-reel':     {'url': 'url'},
 }
 
 #: O que o envelope canônico do SCRAP responde, com o nome que a porta usa.
@@ -351,17 +399,66 @@ def _limpo(v):
     return None if not s or s in (DESCONHECIDO, rc.NAO_SEI) else v
 
 
+def _valores_de_identidade(objeto):
+    """Os valores que a OBSERVAÇÃO declara e que um molde de identidade pode usar.
+
+    ⚠️ NÃO É UMA LISTA DE CANDIDATOS, É UM CENSO DO QUE VEM. Só entram campos
+    que a observação de facto traz, com o nome que ela lhes deu. Nada é
+    derivado do sha, do caminho, da URL ou da data — um id montado com um
+    desses seria uma mentira com forma de dado.
+
+        O CONTRATO DIZ QUE IDENTIDADE ISTO TEM.
+        A OBSERVAÇÃO DIZ QUAIS DOS VALORES DELA EXISTEM.
+    """
+    if not isinstance(objeto, dict):
+        return {}
+    return {k: v for k, v in objeto.items()
+            if isinstance(k, str) and v not in (None, '')}
+
+
 def unidade(objeto, *, run_id, fonte):
     """Um objeto do SCRAP na língua da porta. → a unidade de COLHEITA.
 
-    `DOCUMENT_ID` sai `NAO SEI` de propósito e por lei: o SCRAP não tem
-    identidade documental para dar, e um identificador tirado do `sha` ou do
-    caminho seria uma mentira com forma de dado.
+    ⚠️ O `DOCUMENT_ID` DEIXOU DE SER SEMPRE `NAO SEI`, E ISSO É UMA CORREÇÃO.
+    Ele era `NAO SEI` «de propósito e por lei» enquanto NENHUM owner
+    materializava a regra que o contrato de fonte já declarava. Medido:
 
-        UNKNOWN PERMANECE UNKNOWN.
+        regras/italy_contracts.mjs::IT-T8-001
+            DOCUMENT_ID_RULE = "AGRONOTIZIE:YT:{VIDEO_ID}  —  o video_id …"
+        e a unidade saía `DOCUMENT_ID = NAO SEI`.
+
+    Isso não era honestidade: era uma identidade que ficou por ligar. O dono do
+    contrato é o contrato, e quem o lê é `regras/contratos_de_fonte.py` — é lá
+    que o molde se preenche, e é daqui que se lhe passam os valores.
+
+        UM `NAO SEI` ONDE O CONTRATO DECLARA UM ID NÃO É HONESTIDADE:
+        É UMA IDENTIDADE QUE FICOU POR LIGAR.
+
+    E o que NÃO mudou: sem contrato legível, sem regra, ou com um molde a que
+    falte um valor, a resposta continua a ser `NAO SEI` — com o motivo escrito
+    ao lado, em `DOCUMENT_ID_BASE`. Um id a meio é pior do que nenhum, porque
+    entra no acervo com a cara de facto e ninguém volta a perguntar.
     """
     fora = {'ESPECIE': rc.COLHEITA, 'RUN_ID': run_id, 'SOURCE_ID': fonte,
             'DOCUMENT_ID': rc.NAO_SEI}
+    # ── O `DOCUMENT_ID`, PELO DONO DO CONTRATO ─────────────────────────────
+    # A importação é local e protegida de propósito: numa árvore sem a gaveta
+    # `regras/` (ou sem `node`), a resposta honesta é `NAO SEI` — e não uma
+    # coleta que pára por causa de uma pergunta sobre identidade.
+    #
+    #     FERRAMENTA QUE FALTA NÃO É DOCUMENTO QUEBRADO.  (COL-LAW-503)
+    try:
+        import contratos_de_fonte as cf                            # noqa: PLC0415
+        if fonte:
+            _id = cf.document_id_declarado(fonte, _valores_de_identidade(objeto))
+            fora['DOCUMENT_ID'] = _id['DOCUMENT_ID']
+            fora['DOCUMENT_ID_BASE'] = _id['BASE']
+            fora['DOCUMENT_ID_REGRA'] = _id['REGRA_ORIGINAL']
+    except Exception as e:                                         # noqa: BLE001
+        fora['DOCUMENT_ID_BASE'] = (
+            'CONTRATO_ILEGIVEL: nao se conseguiu ler o contrato de fonte (%s: %s). '
+            'Sem o dono do contrato nao se materializa identidade nenhuma.'
+            % (type(e).__name__, str(e)[:160]))
     for de, para in DO_SCRAP_PARA_A_PORTA.items():
         v = _limpo(objeto.get(de))
         if v is not None:

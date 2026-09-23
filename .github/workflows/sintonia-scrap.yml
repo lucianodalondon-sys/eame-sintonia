@@ -110,6 +110,30 @@ on:
           - yt-calibrar    # cobertura do léxico + candidatos a termo novo
           - yt-alvos       # o que a fila manda, sem transcrever
           - yt-transcrever # whisper local, SÓ no que a fila aprovou
+
+          # ── AS CINCO OFICIAIS, PELA PORTA CANÓNICA ─────────────────
+          # Elas existem em `scrap_colheita.FASES` e em `serve_fases` desde a
+          # C10, com rota, adaptador, prova e `CHECK=CAN_COLLECT_NOW` — e NÃO
+          # tinham ramo aqui. Sem ramo o caminho existia e ninguém o podia
+          # disparar de CI:
+          #
+          #     CAPABILITY PROVEN != EDGE WIRED != COLLECTION REACHABLE
+          #
+          # As quatro primeiras falam com a YouTube Data API v3 e precisam de
+          # `YOUTUBE_DATA_API_KEY`. `audio-youtube` NÃO precisa: a rota dela é
+          # `yt-dlp` + `ffmpeg` na máquina, custo zero.
+          - busca-youtube       # search.list — candidatos a partir de um termo (CATALOG)
+          - canal-youtube       # playlistItems.list — os uploads recentes do canal
+          - video-youtube       # videos.list — o que o vídeo declara de si
+          - comentarios-youtube # commentThreads.list — o que se escreveu no vídeo
+          - audio-youtube       # yt-dlp:public_audio — os BYTES DE SOM, rota local
+          # ── AS TRÊS DO REEL ────────────────────────────────────────
+          # URL directa, sem conta, sem credencial e sem fornecedor pago. O
+          # `CHECK` responde `CAN_COLLECT_NOW` às três — o que faltava era a
+          # fase e o ramo. `profile.discovery` continua LOCAL e não entra aqui.
+          - captura-reel        # a media do Reel
+          - audio-reel          # o som dela (o ffmpeg extrai do vídeo já preservado)
+          - transcricao-reel    # a fala reconhecida, pelo dono único do ASR
       runner:
         description: 'qual runner usar'
         required: true
@@ -142,6 +166,35 @@ on:
         description: 'só para `yt-relevancia` — horas de máquina que a fila do whisper pode gastar'
         required: false
         default: '2'
+        type: string
+      # ── OS ENDEREÇOS DAS FASES QUE NÃO TINHAM PORTA ────────────────────
+      # Cada um é o ENDEREÇO de UMA rota, e nenhum é o SOURCE_ID. A `fonte`
+      # continua a descer ao lado deles, porque são duas coisas:
+      #
+      #     URL NAO E SOURCE_ID. CANAL NAO E SOURCE_ID. TERMO NAO E SOURCE_ID.
+      #
+      # `NOMEADOS`, em `coleta/scrap_colheita.py`, declara por fase QUAL destes
+      # ela aceita — e recusa os outros antes da rede, em vez de os deixar
+      # morrer no `**_` do adaptador.
+      termo:
+        description: 'só para `busca-youtube` — a palavra de busca. NÃO é o SOURCE_ID.'
+        required: false
+        type: string
+      canal_id:
+        description: 'só para `canal-youtube` — o CHANNEL_ID (UC…), que é identidade DA PLATAFORMA e não do projeto.'
+        required: false
+        type: string
+      video:
+        description: 'só para `audio-youtube` e `comentarios-youtube` — UM VIDEO_ID. NÃO é o SOURCE_ID.'
+        required: false
+        type: string
+      videos:
+        description: 'só para `video-youtube` — IDs separados por vírgula, para a rota que recebe lista.'
+        required: false
+        type: string
+      url:
+        description: 'só para as três fases do Reel — a URL directa da publicação. NÃO é o SOURCE_ID.'
+        required: false
         type: string
 
 permissions:
@@ -243,7 +296,15 @@ jobs:
       # ffmpeg no PATH. Sem um dos dois ela morre no meio do lote — depois de ja
       # ter baixado audio. Falhar aqui nao desperdica download.
       - name: 3 · a transcrição tem com que transcrever?
-        if: contains(fromJSON('["yt-transcrever"]'), inputs.fase)
+        # ⚠️ A LISTA CRESCEU COM AS FASES CUJA CADEIA TERMINA EM TEXTO, E ISSO É
+        # O PONTO DA MISSÃO: a fase do YouTube colhe BYTES DE SOM, e quem os
+        # transforma em TEXTO é o passo DERIVED da cadeia canónica, pelo dono
+        # único do ASR (`ferramentas/fala_local.py`). Sem a biblioteca, a fase
+        # adquire e o DERIVED sai `ASR_INDISPONIVEL` — e isso descobre-se melhor
+        # ANTES da rede do que depois de ter baixado sete megabytes de áudio.
+        #
+        #     ADQUIRIR O FICHEIRO NÃO É ENTREGAR O FICHEIRO.  (§155)
+        if: contains(fromJSON('["yt-transcrever","audio-youtube","captura-reel","audio-reel","transcricao-reel"]'), inputs.fase)
         run: |
           ffmpeg -version >/dev/null 2>&1 \
             && echo "FFMPEG=OK" \
@@ -262,9 +323,13 @@ jobs:
               print('instale com: py -m pip install --target "%s" faster-whisper' % libs)
               raise SystemExit(1)
           # O YouTube nao entrega URL de midia direta: a faixa de audio e negociada
-          # pelo player, e quem negocia e o yt-dlp. Sem ele a fase baixa zero audio
-          # DEPOIS de carregar o modelo — que leva dezenas de segundos por nada.
-          if os.environ.get('FASE') == 'yt-transcrever':
+          # pelo player, e quem negocia e o yt-dlp. O mesmo vale para o Reel: a
+          # cadeia dele tambem negocia a media pelo `yt-dlp`. Sem a ferramenta a
+          # fase baixa zero audio DEPOIS de carregar o modelo — que leva dezenas
+          # de segundos por nada.
+          if os.environ.get('FASE') in ('yt-transcrever', 'audio-youtube',
+                                        'captura-reel', 'audio-reel',
+                                        'transcricao-reel'):
               try:
                   import yt_dlp  # noqa: F401
                   print('YT_DLP=OK')
@@ -396,10 +461,43 @@ jobs:
           PYTHONIOENCODING=utf-8 $PY superficie/rede.py --portao-de-egresso IT
 
       - name: 6 · rodar a fase
+        # ── A CHAVE DA API OFICIAL ENTRA SÓ NAS FASES QUE A USAM ────────────
+        # `YOUTUBE_DATA_API_KEY` é o que `coleta/youtube_oficial.py::ENV_CHAVE`
+        # lê, e as quatro fases oficiais (busca · canal · video · comentarios)
+        # param em `CREDENTIAL_MISSING` sem ela — medido: o `CHECK` delas
+        # responde `CAN=False / CREDENTIAL_MISSING` num ambiente sem a chave, e
+        # `CAN_COLLECT_NOW` com ela declarada. `audio-youtube` NÃO entra nesta
+        # lista: a rota dela é local (`yt-dlp` + `ffmpeg`), e dar-lhe a chave
+        # seria alargar a superfície de um segredo a quem não o usa.
+        #
+        #     UMA CREDENCIAL SÓ ENTRA ONDE É NECESSÁRIA.
+        #
+        # O valor nunca é ecoado: o passo declara presença, nunca conteúdo.
+        env:
+          YOUTUBE_DATA_API_KEY: ${{ contains(fromJSON('["busca-youtube","canal-youtube","video-youtube","comentarios-youtube"]'), inputs.fase) && secrets.YOUTUBE_DATA_API_KEY || '' }}
         run: |
           echo "FASE=${{ inputs.fase }} · RUNNER=${{ runner.name }} · REF=${{ github.ref_name }}"
           TETO='${{ inputs.teto }}'
           CONTA='${{ inputs.conta }}'
+          # ── O APELIDO DA FONTE: UMA TABELA, UM SÍTIO ──────────────────
+          # O pedido diz a INTENÇÃO («colete agricultores»), e o orquestrador é
+          # quem escolhe o executor, cunha o RUN_ID e leva a colheita à porta.
+          # O que este workflow sabe — e só isto — é traduzir o TERRITÓRIO que a
+          # fonte já declara no seu SOURCE_ID para o apelido que a casa usa.
+          #
+          #     O ALVO É PROPRIEDADE DA FONTE.
+          #     QUEM ESCOLHE O EXECUTOR É O PEDIDO.
+          #
+          # Sem apelido para a fonte a porta RECUSA, em vez de adivinhar um
+          # território: um alvo inventado julga o item contra a régua errada, e
+          # esse resultado fica no livro como se fosse uma medição (§156).
+          assunto_do_alvo_da_fonte() {
+            case "$1" in
+              IT-T8-*) echo 'colete agricultores' ;;
+              IT-T9-*) echo 'colete concorrentes' ;;
+              *) return 1 ;;
+            esac
+          }
           # ══════════════════════════════════════════════════════════
           # QUEM ENTRA POR ONDE — E POR QUE ALGUMAS NÃO ENTRAM
           # ══════════════════════════════════════════════════════════
@@ -523,6 +621,72 @@ jobs:
                 --filtro fonte="${{ inputs.fonte }}" \
                 --filtro site="${{ inputs.site }}" ;;
 
+            # ── AS CINCO OFICIAIS DO YOUTUBE, PELA PORTA CANÓNICA ─────────
+            # `coleta/youtube_janela.py canais|objetos` sobe NAVEGADOR e
+            # continua recusado acima — a rota PUBLIC_BROWSER não está
+            # declarada na matriz. Estas cinco são outras: têm rota declarada,
+            # adaptador registado, prova e `CHECK=CAN_COLLECT_NOW`, e entram
+            # pelo MESMO caminho dos outros ramos canónicos — o disparador diz
+            # a intenção, e o orquestrador escolhe o executor, cunha o RUN_ID e
+            # leva a colheita à porta.
+            #
+            #     WORKFLOW É DISPARADOR. WORKFLOW NÃO É MOTOR DE COLETA.
+            #
+            # ⚠️ UM ENDEREÇO POR FASE, E NENHUM EMPRESTADO. `video` é UM id e
+            # `videos` é uma LISTA — são rotas diferentes, e `NOMEADOS` fecha a
+            # lista de cada fase. Enfiar os cinco num ramo só mandaria a cada
+            # rota um argumento que ela não conhece.
+            #
+            #     UM ID NÃO É UMA LISTA DE IDS.
+            busca-youtube|canal-youtube|video-youtube|comentarios-youtube|audio-youtube)
+              FONTE_YT='${{ inputs.fonte }}'
+              if [ -z "$FONTE_YT" ]; then
+                echo 'FONTE_OBRIGATORIA: as fases do YouTube exigem um SOURCE_ID do Atlas em `fonte`.'
+                echo '  Sem ele não há colheita: o SCRAP observa PLATAFORMAS e a porta fala em FONTES.'
+                exit 2
+              fi
+              ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_YT")" || {
+                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta só sabe apelidar IT-T8-* e IT-T9-*."
+                echo '  O alvo é propriedade da fonte, e inventá-lo julgaria o item contra a régua errada.'
+                exit 2
+              }
+              case "${{ inputs.fase }}" in
+                busca-youtube)       ENDERECO=(--filtro termo='${{ inputs.termo }}') ;;
+                canal-youtube)       ENDERECO=(--filtro canal_id='${{ inputs.canal_id }}') ;;
+                video-youtube)       ENDERECO=(--filtro videos='${{ inputs.videos }}') ;;
+                comentarios-youtube) ENDERECO=(--filtro video='${{ inputs.video }}') ;;
+                audio-youtube)       ENDERECO=(--filtro video='${{ inputs.video }}') ;;
+              esac
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro fonte="$FONTE_YT" \
+                --filtro pais=IT \
+                "${ENDERECO[@]}" ;;
+
+            # ── AS TRÊS DO REEL, PELA PORTA CANÓNICA ──────────────────────
+            # URL directa, sem conta, sem credencial e sem fornecedor pago: o
+            # `CHECK` responde `CAN_COLLECT_NOW` às três. O que faltava era a
+            # fase e o ramo — a mesma parede do §154.
+            #
+            # ⚠️ `profile.discovery` (a janela) NÃO entra aqui. Ela é `PARTIAL`
+            # e `LOCAL/DATACENTER_BLOCKED`: precisa de máquina residencial e não
+            # corre de um datacenter. Declarar não é forçar.
+            captura-reel|audio-reel|transcricao-reel)
+              FONTE_IG='${{ inputs.fonte }}'
+              if [ -z "$FONTE_IG" ]; then
+                echo 'FONTE_OBRIGATORIA: as fases do Reel exigem um SOURCE_ID do Atlas em `fonte`.'
+                exit 2
+              fi
+              ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_IG")" || {
+                echo "FONTE_SEM_APELIDO: $FONTE_IG — esta porta só sabe apelidar IT-T8-* e IT-T9-*."
+                exit 2
+              }
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro fonte="$FONTE_IG" \
+                --filtro pais=IT \
+                --filtro url='${{ inputs.url }}' ;;
+
             # ── COLLECTION SEM ROTA CANÔNICA · RECUSA ────────────────────
             # `coleta/instagram_diario.py rodar` importa `instagram_janela` e
             # corre a MESMA rota — mas com uma unidade de trabalho própria (a
@@ -551,12 +715,48 @@ jobs:
               recusar yt-legendas COLLECTION_DERIVED \
                 "timedtext e ROUTE_NOT_ALLOWED na matriz desde a C5 — ToS, Disallow /api/ e Developer Policies" ;;
 
-            # `yt-transcrever` busca o audio com `yt-dlp`. A matriz nao tem
-            # capacidade de BYTES para o YouTube: nao ha rota declarada, nem
-            # permitida nem proibida. Ausencia nao e permissao.
-            yt-alvos|yt-transcrever)
-              recusar "${{ inputs.fase }}" COLLECTION_FETCH \
-                "aquisicao de audio do YouTube por yt-dlp; a matriz nao declara capacidade de BYTES para YOUTUBE" ;;
+            # ── AS DUAS FASES LEGADAS DA FILA DO WHISPER ─────────────────
+            # ⚠️ AQUI ESTAVA ESCRITO QUE «a matriz nao declara capacidade de
+            # BYTES para YOUTUBE», E ISSO DEIXOU DE SER VERDADE. Medido no HEAD
+            # (origin/unificacao-v1 @ 77077dee, 2026-09-19 em diante):
+            #
+            #     leis/social_matriz.py   YOUTUBE / FETCH_AUDIO_BYTES
+            #         yt-dlp:public_audio · LOCAL_EXECUTOR · PERMITIDA=SIM
+            #         OWNER_AUTHORIZED=SIM · PLATFORM_POLICY=DISALLOWED
+            #         PROVED (C13) · limite PUBLIC_AUDIO_ONLY
+            #     CHECK('YOUTUBE','youtube.public_audio') -> CAN_COLLECT_NOW
+            #
+            #     O TEXTO DA RECUSA ENVELHECEU MAIS DEPRESSA QUE A DECISÃO.
+            #
+            # `yt-alvos` NÃO adquire nada: lê a fila local que a relevância já
+            # escreveu e imprime-a. Não é Collection, e recusá-la como se fosse
+            # era um erro de ESPÉCIE — o mesmo que `yt-relevancia` já teve.
+            #
+            #     COLETAR != ADMITIR != JULGAR.
+            yt-alvos)
+              PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py alvos ;;
+
+            # `yt-transcrever` faz a aquisição que AGORA tem rota declarada e
+            # autorizada — mas fá-la por FORA da porta canónica: sem RUN_ID
+            # cunhado pela casa, sem `CHECK`, sem RAW preservado, e com a fala
+            # reconhecida por um caminho paralelo. A aquisição de som do YouTube
+            # tem porta canónica desde esta missão: a fase `audio-youtube`
+            # (`youtube.public_audio`). O TEXTO vem depois, do passo DERIVED da
+            # cadeia, pelo dono único do ASR (`ferramentas/fala_local.py`).
+            #
+            #     A ROTA EXISTE. A PORTA É OUTRA — E É UMA SÓ.
+            #
+            # Isto NÃO é uma recusa da matriz: é a recusa do caminho paralelo, e
+            # ela nomeia a porta que faz o mesmo acto dentro do fluxo.
+            yt-transcrever)
+              echo "FASE_REDIRECIONADA=yt-transcrever"
+              echo '  A aquisicao de audio do YouTube TEM rota declarada e autorizada:'
+              echo '  FETCH_AUDIO_BYTES · yt-dlp:public_audio · PERMITIDA=SIM (decisao do dono, C13).'
+              echo '  O caminho canonico e a fase `audio-youtube`: colhe pela porta, com'
+              echo '  RUN_ID cunhado pela casa, CHECK e RAW preservado — e o TEXTO sai do'
+              echo '  DERIVED, pelo dono unico do ASR.'
+              echo '  Despache: fase=audio-youtube · fonte=<SOURCE_ID> · video=<VIDEO_ID>.'
+              exit 2 ;;
 
             # As quatro fases PAGAS do Instagram. `instagram.post.comments` esta
             # declarada e SEM rota; `bio`/`posts`/`reels` nem capacidade tem. E
@@ -640,15 +840,21 @@ jobs:
           # discutir. O que volta é o registo, com o SHA-256 do bruto.
           #
           #     RAW CAPTURADO NO RUNNER != RAW DEVOLVIDO AO REPOSITÓRIO.
+          # `REEL-TRANSCRICOES` é a gaveta do dono da cadeia do Reel
+          # (`ferramentas/reel_transcricao.py::SAIDA`). Sem ela nesta lista, a
+          # fase `transcricao-reel` corria e o resultado dela NÃO voltava — e o
+          # registo que a casa lê depois ficava só na máquina.
+          #
+          #     COLETAR E NÃO DEVOLVER É PAGAR REDE POR NADA.
           for d in INSTAGRAM-JANELA INSTAGRAM-COLETA INSTAGRAM-DIARIO INSTAGRAM-TRANSCRICOES \
                    YOUTUBE-JANELA YOUTUBE-RELEVANCIA YOUTUBE-TRANSCRICOES \
-                   SCRAP-YOUTUBE; do
+                   REEL-TRANSCRICOES SCRAP-YOUTUBE; do
             git add "data/samples/$d" 2>/dev/null || true
           done
           if git diff --cached --quiet; then
             echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"; exit 0
           fi
-          if git diff --cached --name-only | grep -qvE '^data/samples/(INSTAGRAM|YOUTUBE|SCRAP)-'; then
+          if git diff --cached --name-only | grep -qvE '^data/samples/(INSTAGRAM|YOUTUBE|REEL|SCRAP)-'; then
             echo "NAMESPACE_VIOLADO=YES · ha arquivo fora dos caminhos desta missao"
             git diff --cached --name-only; exit 1
           fi
