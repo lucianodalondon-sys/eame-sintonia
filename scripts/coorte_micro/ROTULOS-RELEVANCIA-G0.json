@@ -3,26 +3,187 @@
  "LEI": "D2 do dono: UNIVERSE_MATCH (serve a gaveta declarada da fonte?) != SINTONIA_RELEVANT (serve ao Sintonia em qualquer gaveta?). D3: idioma nao exclui.",
  "AUTOR": "BASE=DONO quando ha decisao do Luciano no GABARITO-MICRO-V1 (23/09); senao BASE=LEITURA_CLAUDE, humano-proposto, sobre a(s) materia(s) lida(s) — quase sempre UMA. Precisa de visto.",
  "FONTES": {
-  "IT-T10-018": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "YES", "ACTION": "ENTRA", "BASE": "DONO", "PORQUE": "gabarito itens 1 e 2 (precos de tomate e uva) validados pelo dono"},
-  "IT-T10-022": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "YES", "ACTION": "ENTRA", "BASE": "DONO", "PORQUE": "gabarito itens 5 e 6 (mercado avicola, em ingles) validados pelo dono; a 3b tirou-a por idioma, o que a lei D3 proibe"},
-  "IT-T7-017": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "YES", "ACTION": "REROUTE -> T10", "BASE": "DONO", "PORQUE": "gabarito item 9 (balanco da cooperativa, preco pago a uva) — relevante mas noutra gaveta; a fonte segue fora por MARCA ate decisao do dono"},
-  "IT-T7-033": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "YES", "ACTION": "REROUTE -> T1", "BASE": "DONO", "PORQUE": "gabarito item 10 (campanha do azeite DOP 2025); a fonte segue fora por MARCA ate decisao do dono"},
-  "IT-T7-042": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NAO_SEI", "ACTION": "NAO_SEI", "BASE": "LEITURA_CLAUDE", "PORQUE": "emenda de lei sobre a denominacao do vinagre: regulatorio de produto alimentar, nao de defesa de culturas; e fonte de MARCA"},
-  "IT-T10-020": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "NAO_SEI", "ACTION": "NAO_SEI", "BASE": "LEITURA_CLAUDE", "PORQUE": "BolognaFiere entra no Gambero Rosso: negocio de feiras de vinho; mercado, mas longe da protecao de culturas"},
-  "IT-T10-021": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "YES", "ACTION": "REROUTE -> T7 (tecnica agronomica)", "BASE": "LEITURA_CLAUDE", "PORQUE": "sistemas antigeada em pomares (17/09/2026): tecnica de defesa da cultura, nao mercado"},
-  "IT-T10-026": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "YES", "ACTION": "ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "World Durum and Pasta Forum: comercio de trigo duro, traders e cooperativas"},
-  "IT-T11-010": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "NO", "ACTION": "NAO_ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "feira de educacao ambiental para escolas; sem agricultura"},
-  "IT-T12-019": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "YES", "ACTION": "ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "MRV4SOC (ERSAF+CREA): carbono organico do solo agricola, politica agro-ambiental UE"},
-  "IT-T12-057": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NO", "ACTION": "NAO_ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "aviso de cursos ITS para jovens"},
-  "IT-T12-074": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NO", "ACTION": "NAO_ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "empresa grega procura parceiros digitais"},
-  "IT-T12-086": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NO", "ACTION": "NAO_ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "payback sanitario (saude)"},
-  "IT-T2-030": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NO", "ACTION": "NAO_ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "a materia lida e sobre compra e venda de imoveis e taxas do BCE; a rota desta fonte (press-area da Nomisma) traz tudo o que a Nomisma publica"},
-  "IT-T2-049": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NO", "ACTION": "NAO_ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "aviso de contratacao publica (D.Lgs 36/2023)"},
-  "IT-T2-051": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "YES", "ACTION": "ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "portal de captacoes de agua da Arpae apos eventos meteorologicos: agua e rega; a 3b tirou-a por falta de regua T2, nao por assunto"},
-  "IT-T5-049": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NO", "ACTION": "NAO_ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "resultados de concurso de doutoramento"},
-  "IT-T7-021": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "YES", "ACTION": "ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "projecto CSIS: certificacao de sistemas de rega por gravidade (consorcio de bonifica + Universita di Milano)"},
-  "IT-T7-043": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "YES", "ACTION": "REROUTE -> T10/T9 (industria de agrofarmacos)", "BASE": "LEITURA_CLAUDE", "PORQUE": "Osservatorio Agrofarma (Federchimica): mercado de agrofarmacos e biocontrolo — o nucleo do Sintonia, numa gaveta T7 que nao lhe serve"},
-  "IT-T8-008": {"UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NAO_SEI", "ACTION": "NAO_SEI", "BASE": "LEITURA_CLAUDE", "PORQUE": "inquerito sobre mulheres na filiera da cerveja: agro-alimentar, longe da protecao de culturas"},
-  "IT-T9-019": {"UNIVERSE_MATCH": "YES", "SINTONIA_RELEVANT": "YES", "ACTION": "ENTRA", "BASE": "LEITURA_CLAUDE", "PORQUE": "SCAM (fertilizantes e agrofarmacos): renovacao de certificacao Bioagricert — concorrente"}
+  "IT-T10-018": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA",
+   "BASE": "DONO",
+   "PORQUE": "gabarito itens 1 e 2 (precos de tomate e uva) validados pelo dono"
+  },
+  "IT-T10-022": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA",
+   "BASE": "DONO",
+   "PORQUE": "gabarito itens 5 e 6 (mercado avicola, em ingles) validados pelo dono; a 3b tirou-a por idioma, o que a lei D3 proibe"
+  },
+  "IT-T7-017": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "REROUTE -> T10",
+   "BASE": "DONO",
+   "PORQUE": "gabarito item 9 (balanco da cooperativa, preco pago a uva) — relevante mas noutra gaveta; a fonte segue fora por MARCA ate decisao do dono"
+  },
+  "IT-T7-033": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "REROUTE -> T1",
+   "BASE": "DONO",
+   "PORQUE": "gabarito item 10 (campanha do azeite DOP 2025); a fonte segue fora por MARCA ate decisao do dono"
+  },
+  "IT-T7-042": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NAO_SEI",
+   "ACTION": "NAO_SEI",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "emenda de lei sobre a denominacao do vinagre: regulatorio de produto alimentar, nao de defesa de culturas; e fonte de MARCA"
+  },
+  "IT-T10-020": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "NAO_SEI",
+   "ACTION": "NAO_SEI",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "BolognaFiere entra no Gambero Rosso: negocio de feiras de vinho; mercado, mas longe da protecao de culturas"
+  },
+  "IT-T10-021": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "REROUTE -> T7 (tecnica agronomica)",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "sistemas antigeada em pomares (17/09/2026): tecnica de defesa da cultura, nao mercado"
+  },
+  "IT-T10-026": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "World Durum and Pasta Forum: comercio de trigo duro, traders e cooperativas"
+  },
+  "IT-T11-010": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "feira de educacao ambiental para escolas; sem agricultura"
+  },
+  "IT-T12-019": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "MRV4SOC (ERSAF+CREA): carbono organico do solo agricola, politica agro-ambiental UE"
+  },
+  "IT-T12-057": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "aviso de cursos ITS para jovens"
+  },
+  "IT-T12-074": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "empresa grega procura parceiros digitais"
+  },
+  "IT-T12-086": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "payback sanitario (saude)"
+  },
+  "IT-T2-030": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "a materia lida e sobre compra e venda de imoveis e taxas do BCE; a rota desta fonte (press-area da Nomisma) traz tudo o que a Nomisma publica"
+  },
+  "IT-T2-049": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "aviso de contratacao publica (D.Lgs 36/2023)"
+  },
+  "IT-T2-051": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "portal de captacoes de agua da Arpae apos eventos meteorologicos: agua e rega; a 3b tirou-a por falta de regua T2, nao por assunto"
+  },
+  "IT-T5-049": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "resultados de concurso de doutoramento"
+  },
+  "IT-T7-021": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "projecto CSIS: certificacao de sistemas de rega por gravidade (consorcio de bonifica + Universita di Milano)"
+  },
+  "IT-T7-043": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "REROUTE -> T10/T9 (industria de agrofarmacos)",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "Osservatorio Agrofarma (Federchimica): mercado de agrofarmacos e biocontrolo — o nucleo do Sintonia, numa gaveta T7 que nao lhe serve"
+  },
+  "IT-T8-008": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NAO_SEI",
+   "ACTION": "NAO_SEI",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "inquerito sobre mulheres na filiera da cerveja: agro-alimentar, longe da protecao de culturas"
+  },
+  "IT-T9-019": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "SCAM (fertilizantes e agrofarmacos): renovacao de certificacao Bioagricert — concorrente"
+  },
+  "IT-T2-056": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA (duplicada de IT-T2-051: decisao de identidade no Atlas)",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "a mesma noticia da Arpae sobre captacoes de agua"
+  },
+  "IT-T5-039": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "aviso de matricula de alunos"
+  },
+  "IT-T5-064": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "NO",
+   "ACTION": "NAO_ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "festa da ciencia da universidade"
+  },
+  "IT-T7-041": {
+   "UNIVERSE_MATCH": "YES",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "ENTRA",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "semana nacional da bonificacao e rega: consorcio de rega, agua para a agricultura (materia de divulgacao, fraca)"
+  },
+  "IT-T7-100": {
+   "UNIVERSE_MATCH": "NO",
+   "SINTONIA_RELEVANT": "YES",
+   "ACTION": "REROUTE -> T10/T9 (industria de agrofarmacos)",
+   "BASE": "LEITURA_CLAUDE",
+   "PORQUE": "Manifesto per il Biocontrollo (Agrofarma + FederBio): nucleo do Sintonia"
+  }
  }
 }

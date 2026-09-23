@@ -80,6 +80,17 @@ def carregar(snap: Path) -> dict:
     rot = json.loads((AQUI / "ROTULOS-RELEVANCIA-G0.json").read_text(encoding="utf-8"))["FONTES"] \
         if (AQUI / "ROTULOS-RELEVANCIA-G0.json").exists() else {}
     paginas = CP.paginas()
+    paragens, visitadas, dominios = {}, set(), set()
+    for mf in (Path.home() / "coorte-paginas" / "MANIFESTO.json",
+               Path.home() / "receitas-paginas" / "MANIFESTO.json",
+               Path.home() / "detector-capa-gabarito" / "MANIFESTO.json"):
+        if mf.exists():
+            for r in json.loads(mf.read_text(encoding="utf-8"))["REGISTO"]:
+                visitadas.add(r["SOURCE_ID"])
+                if r.get("HOST"):
+                    dominios.add(r["HOST"].lower().removeprefix("www."))
+                if r.get("PAROU"):
+                    paragens.setdefault(r["SOURCE_ID"], str(r["PAROU"])[:60])
     pc = Path.home() / "coorte-paginas"
     if (pc / "MANIFESTO.json").exists():
         m = json.loads((pc / "MANIFESTO.json").read_text(encoding="utf-8"))["PAGINAS"]
@@ -90,7 +101,8 @@ def carregar(snap: Path) -> dict:
                             "ORIGEM": f"coorte#{i}"})
     return dict(ultimo=ultimo, curador=curador, onboarded=onboarded, m3=m3, linha=linha,
                 universo=universo["UNIVERSO"], dec3b=dec3b, rot=rot,
-                n3b=len(rel3b["FONTES"]), paginas=paginas)
+                n3b=len(rel3b["FONTES"]), paginas=paginas, paragens=paragens,
+                visitadas=visitadas, dominios=dominios)
 
 
 def avaliar(sid: str, D: dict) -> dict:
@@ -126,7 +138,21 @@ def avaliar(sid: str, D: dict) -> dict:
     mats = [p["URL"] for p in D["paginas"] if p["SOURCE_ID"] == sid and p["VEREDITO"] == "MATERIA"]
     r["MATERIAS_LIDAS"] = mats
     if not mats:
-        r["C"], r["C_PORQUE"] = False, "UNKNOWN (nenhuma materia lida) — PRECISA_REDE_IT"
+        par = D.get("paragens", {}).get(sid)
+        if par and "ROBOTS" in par:
+            motivo = "ROBOTS_NEGA — politica do site; nao se contorna"
+        elif par:
+            motivo = f"visitada sem materia ({par})"
+        elif sid not in D["curador"]:
+            motivo = "sem contrato no livro vivo: nao ha onde ir"
+        elif sid in D.get("visitadas", set()):
+            motivo = "visitada: a pagina-alvo era capa, nao materia"
+        elif (lambda h: h in D.get("dominios", set()))(
+                ((c.get("ACQUISITION") or {}).get("INDEX_URL", "").split("/")[2:3] or [""])[0].lower().removeprefix("www.")):
+            motivo = "dominio ja visitado por outra fonte: teto de 3 pedidos por site gasto"
+        else:
+            motivo = "PRECISA_REDE_IT"
+        r["C"], r["C_PORQUE"] = False, f"UNKNOWN (nenhuma materia lida) — {motivo}"
     elif lp and any(re.match(lp, m) for m in mats):
         r["C"], r["C_PORQUE"] = True, "a receita casa materia lida"
     else:
@@ -175,7 +201,18 @@ def desbloqueios(linhas: list[dict], D: dict) -> list[dict]:
         if not l["E"] and l.get("SINTONIA_RELEVANT") == "YES":
             l["E"] = True
 
+    v2 = RAIZ / "curadoria/PROPOSTA-RECEITAS-V2.json"
+    novo_v2 = {l["SOURCE_ID"]: p["DEPOIS"] for l in (json.loads(v2.read_text(encoding="utf-8"))["FONTES"]
+               if v2.exists() else []) for p in l["PROPOSTAS"] if p["CAMPO"] == "ACQUISITION.LINK_PATTERN"}
+
+    def u4(l):   # contrato novo na tabela do coletor (sem prova M3: exige canario) + receita V2 se houver
+        if not l["B"] and l["B_PORQUE"].startswith("NEEDS_CONTRACT") and "M3" not in l["B_PORQUE"]                 and MC.receita_web(l["UNIVERSO"]):
+            l["B"] = True
+            if not l["C"] and l["SOURCE_ID"] in novo_v2 and l["MATERIAS_LIDAS"] and                     all(re.match(novo_v2[l["SOURCE_ID"]], m) for m in l["MATERIAS_LIDAS"]):
+                l["C"] = True
+
     acoes = [("APLICAR_PROPOSTA_RECEITAS_V1", "Curator/rotas, depois da M5", u1),
+             ("ONBOARDAR_CONTRATO_NOVO_COM_CANARIO_E_RECEITA_V2", "Curator + coordenador (canario novo)", u4),
              ("APLICAR_ONBOARDING_M3", "coordenador (onboardar_rotas_provadas.py --aplicar), depois da M5", u2),
              ("DONO_DECIDE_MARCA_T7_017_033", "dono", u3)]
     base = {l["SOURCE_ID"] for l in linhas if passa(l)}
