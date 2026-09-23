@@ -63,6 +63,7 @@
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
       "RELATORIO-SOC1-SOCIAL.md",
+      "RELATORIO-SOC2-CURATOR-YOUTUBE.md",
       "RELATORIO-UNIFICACAO.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
@@ -381,6 +382,8 @@
       "curadoria/ROTAS-ELEGIVEIS-V1.json",
       "curadoria/SAMPLE-MANIFEST-V1.json",
       "curadoria/SERVICO-SOURCE-CURATOR.md",
+      "curadoria/SOC2-LINKEDIN-PELO-SITE-V1.json",
+      "curadoria/SOC2-QUALIFY-YOUTUBE-ENSAIO-V1.json",
       "curadoria/SOURCE-CAPABILITY-GAPS-V1.json",
       "curadoria/SOURCE-CARDS-V1.json",
       "curadoria/SOURCE-CHARACTERIZATION-V1.json",
@@ -409,6 +412,7 @@
       "curadoria/ensaiar_dois_escritores.py",
       "curadoria/ensaiar_fila_windows.py",
       "curadoria/ensaiar_gatilho_ocioso.py",
+      "curadoria/ensaiar_qualify_youtube.py",
       "curadoria/ensaiar_worker_pendurado.py",
       "curadoria/escrever_contratos.py",
       "curadoria/escrever_no_atlas.py",
@@ -420,6 +424,7 @@
       "curadoria/italy_contracts_curator.json",
       "curadoria/lifecycle.py",
       "curadoria/linhagem_das_candidatas.py",
+      "curadoria/linkedin_pelo_site.py",
       "curadoria/lotes.py",
       "curadoria/manifesto_da_evidencia.py",
       "curadoria/manifesto_das_amostras.py",
@@ -445,6 +450,7 @@
       "curadoria/red_team_service.py",
       "curadoria/red_team_telemetria.py",
       "curadoria/retrato_html.py",
+      "curadoria/rota_do_scrap_youtube.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
       "curadoria/supervisor.py",
@@ -478,6 +484,7 @@
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
       "curadoria/test_retrato_html.py",
+      "curadoria/test_soc2_curator_youtube.py",
       "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
       "curadoria/test_telemetria.py",
@@ -2367,6 +2374,7 @@
       "scripts/coorte_micro/funil.py",
       "scripts/coorte_micro/receitas_v2.py",
       "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "scripts/desbloqueio/ENSAIO-SOC2-BLOCO4-V1.json",
       "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
       "scripts/desbloqueio/LEDGER-ENSAIO-G1.jsonl",
       "scripts/desbloqueio/aplicar_desbloqueio.py",
@@ -3293,10 +3301,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "social-prontidao-v1",
-    "HEAD": "8f6f879dc2f0b386c32653ad1199986d734ab342",
-    "GENERATED_AT": "2026-09-23T08:00:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "07235552d122f178848c56e65c5811fb1f59d93476acfb5a3840830f12e14bfb"
+    "BRANCH": "curator-youtube-v1",
+    "HEAD": "6e01e55f023a1c9ee4671db2913c96830b1d9e74",
+    "GENERATED_AT": "2026-09-23T08:47:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "698b4b9b9dd48a43284f361022ee845e9b171ff4c5045f8b783a6eabba838863"
   },
   "FAMILIES": [
     {
@@ -4788,8 +4796,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 588",
-        "desses, mostrados aqui: 40 (ficam de fora 548)"
+        "enderecos que o codigo realmente chama: 593",
+        "desses, mostrados aqui: 40 (ficam de fora 553)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -23645,7 +23653,7 @@
         "PLANO": null,
         "PROVA": [
           "ferramentas/unificacao/provar_em_copia.py:119",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:182",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:188",
           "scripts/micro_coleta/micro_coleta.py:120",
           "tests/test_gabarito_t2_t12.py:9"
         ],
@@ -26708,7 +26716,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "scripts/desbloqueio/aplicar_desbloqueio.py:208",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:214",
           "tests/test_funil_coorte.py:13"
         ],
         "PORQUE": "estas pecas importam-na — C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -27603,12 +27611,13 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_DA_ROTA_DO_SCRAP",
           "D10_FONTES",
           "MANIFESTOS"
         ],
-        "palavras": 13,
+        "palavras": 25,
         "por_lingua": {},
-        "sem_marca_de_lingua": 13,
+        "sem_marca_de_lingua": 25,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -27804,7 +27813,7 @@
           "coleta/social_scrap.py:775",
           "pacote/v21_handoff_json.py:106",
           "scripts/coorte_micro/funil.py:86",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:67"
+          "scripts/desbloqueio/aplicar_desbloqueio.py:73"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE · C-PACOTE-CAMADAS · C-RECEITAS-PROPOSTA · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -41101,7 +41110,7 @@
         "PLANO": null,
         "PROVA": [
           "scripts/coorte_micro/funil.py:204",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:208",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:214",
           "tests/test_aplicar_desbloqueio.py:33"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -48899,7 +48908,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch social-prontidao-v1"
+        "branch curator-youtube-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -57322,7 +57331,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 182,
+          "line": 188,
           "snippet": "f = RAIZ / \"curadoria\" / \"PROPOSTA-CATALOGO-V1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -57338,7 +57347,7 @@
         },
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 231,
+          "line": 238,
           "snippet": "m3 = json.loads(_da_arvore_ou_da_m3(\"curadoria/ROTAS-ELEGIVEIS-V1.json\")[0])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -65784,7 +65793,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 208,
+          "line": 214,
           "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -67137,7 +67146,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 67,
+          "line": 73,
           "snippet": "MANIFESTOS = [HOME / \"detector-capa-gabarito\" / \"MANIFESTO.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -67153,7 +67162,7 @@
         },
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 137,
+          "line": 143,
           "snippet": "g = _json(RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -94897,7 +94906,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 208,
+          "line": 214,
           "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -94913,7 +94922,7 @@
         },
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 209,
+          "line": 215,
           "snippet": "\"PROPOSTA-RECEITAS-V3.json\"):   # V3 = aditamento LD2",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -110574,7 +110583,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1529,
+  "UNCLAIMED_FILES_COUNT": 1537,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -110779,7 +110788,7 @@
     "edges_proven": 1121,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2700,
+    "files_tracked": 2708,
     "files_covered": 1171,
     "files_code_unclaimed": 0,
     "roles_proven": 160,

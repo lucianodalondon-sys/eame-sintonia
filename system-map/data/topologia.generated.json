@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T11:04:22+00:00",
-  "HEAD": "8f6f879dc2f0b386c32653ad1199986d734ab342",
-  "BRANCH": "social-prontidao-v1",
+  "GENERATED_AT": "2026-09-23T11:53:07+00:00",
+  "HEAD": "6e01e55f023a1c9ee4671db2913c96830b1d9e74",
+  "BRANCH": "curator-youtube-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "07235552d122f178848c56e65c5811fb1f59d93476acfb5a3840830f12e14bfb",
-  "FICHEIROS_NA_IMPRESSAO": 2848,
+  "SOURCE_TREE_FINGERPRINT": "698b4b9b9dd48a43284f361022ee845e9b171ff4c5045f8b783a6eabba838863",
+  "FICHEIROS_NA_IMPRESSAO": 2856,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -482,7 +482,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
+    "VERSAO": "e068c80154e52d9e6d586735d3decc27dd381663",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3240,7 +3240,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+    "VERSAO": "49f5c2872c8e2ddab8461f3625003cc01d9b1267",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3345,7 +3345,7 @@
    {
     "PATH": "scripts/desbloqueio/aplicar_desbloqueio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "cfd6a0e443ebf0b1e587ba932235579f398631db",
+    "VERSAO": "81a3abb7f75f7b43a77b3135469d453a66e5ba51",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3499,14 +3499,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "07235552d122f178848c56e65c5811fb1f59d93476acfb5a3840830f12e14bfb",
+    "VERSAO": "698b4b9b9dd48a43284f361022ee845e9b171ff4c5045f8b783a6eabba838863",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "07235552d122f178848c56e65c5811fb1f59d93476acfb5a3840830f12e14bfb",
+    "VERSAO": "698b4b9b9dd48a43284f361022ee845e9b171ff4c5045f8b783a6eabba838863",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5283,7 +5283,7 @@
    }
   ],
   "INPUTS_COUNT": 749,
-  "INPUTS_DIGEST": "3caa25e70ae2b534bab6fc90dd61b35732815a716991873b7bdb16f2ebe319d4",
+  "INPUTS_DIGEST": "635790483da543b2fb9f7bd7c80f6e46bf5e490db443e08fcd6e027aa8f0aac8",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5309,15 +5309,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 479,
+  "DOCUMENTOS_LIDOS": 480,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "a79d2f5533e89766decdc5bd0d912841f832dfd50bd1d4706d976316ab89a12c",
-  "SEMANTIC_HASH": "f71a65ec75d72ad622d4edeb5fb63bbb2dad10d9f38794dfbe456c967cb740fd"
+  "MEASUREMENT_HASH": "b9302ceb60e4c7a37aa88cf775305214ca7df2b5d580a984c227c6a5004a8276",
+  "SEMANTIC_HASH": "48992f296ee03d113fe550d599efe2b80bf1c43b1c09385fd7c7e3c06a32f587"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10029,7 +10029,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 182,
+      "LINHA": 188,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -10037,7 +10037,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 231,
+      "LINHA": 238,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -14859,7 +14859,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 208,
+      "LINHA": 214,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15675,7 +15675,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 67,
+      "LINHA": 73,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15683,7 +15683,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 137,
+      "LINHA": 143,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -31259,7 +31259,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 208,
+      "LINHA": 214,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -31267,7 +31267,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 209,
+      "LINHA": 215,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
