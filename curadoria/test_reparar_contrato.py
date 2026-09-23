@@ -128,14 +128,40 @@ class Inferir(unittest.TestCase):
         self.assertEqual("PADRAO_NOVO", inferir(_contrato(index=idx), site)["DESFECHO"])
 
     def test_menu_repetido_no_item_salta_para_a_familia_seguinte(self):
-        pags = {B + "/": (200, _html(MENU + MENU + MENU + NOTICIAS[:4]))}
-        for m in MENU:
-            pags[B + m] = (200, _html(MENU, CORPO))      # home de centro: corpo grande + o menu
-        pags[B + NOTICIAS[0]] = (200, _html(MENU, CORPO))
+        menu = [m.replace("/web/", "/eventi/") for m in MENU]   # tem vocabulario: passa o FLUXO
+        pags = {B + "/": (200, _html(menu + menu + menu + NOTICIAS[:4]))}
+        for m in menu:
+            pags[B + m] = (200, _html(menu, CORPO))      # home de centro: corpo grande + o menu
+        pags[B + NOTICIAS[0]] = (200, _html(menu, CORPO))
         p = inferir(_contrato(), Site(pags))
         self.assertEqual("PADRAO_NOVO", p["DESFECHO"], p.get("PORQUE"))
         self.assertIn("articoli", p["LINK_PATTERN"])
         self.assertTrue(any("FAMILIA_E_MENU" in t["VEREDITO"] for t in p["TENTADOS"]))
+
+    def test_so_paginas_fixas_e_familia_estatica_sem_abrir_item(self):
+        fixas = ["/regione/uffici-e-organizzazione", "/regione/brand-e-immagine",
+                 "/regione/area-personale-tributi", "/regione/bollo-auto-regionale"]
+        site = Site({B + "/": (200, _html(fixas)), B + fixas[0]: (200, _html([], CORPO))})
+        p = inferir(_contrato(), site)
+        self.assertEqual(("RECUSA", "FAMILIA_ESTATICA"), (p["DESFECHO"], p["MOTIVO"]))
+        self.assertEqual([B + "/"], site.pedidos)
+
+    def test_paginas_fixas_na_home_descem_a_seccao_de_noticias(self):
+        fixas = ["/regione/uffici-e-organizzazione", "/regione/brand-e-immagine",
+                 "/regione/area-personale-tributi", "/news/"]
+        site = Site({B + "/": (200, _html(fixas)), B + "/news/": (200, _html(NOTICIAS)),
+                     B + NOTICIAS[0]: (200, _html([], CORPO))})
+        p = inferir(_contrato(), site)
+        self.assertEqual("PADRAO_NOVO", p["DESFECHO"], p.get("PORQUE"))
+        self.assertEqual(B + "/news/", p["INDEX_URL"])
+
+    def test_fluxo_pelos_tres_sinais(self):
+        self.assertIsNone(RC.fluxo(B + "/", "", [B + "/regione/area-personale-tributi"] * 2))
+        self.assertIn("vocabulario", RC.fluxo(B + "/comunicati/", "", [B + "/x/a-b-c"]))
+        self.assertIn("numero", RC.fluxo(B + "/", "", [B + "/x/2026/a-b"]))
+        self.assertIn("query", RC.fluxo(B + "/", "", [B + "/dettaglio?articleId=123"]))
+        self.assertIn("titulos", RC.fluxo(B + "/", "", [B + "/x/uno-due-tre-quattro-cinque-sei"] * 3))
+        self.assertIsNone(RC.fluxo(B + "/", "", [B + "/x/uno-due-tre-quattro-cinque"] * 3))
 
     def test_menu_com_titulos_longos_nao_e_menu(self):
         # o widget «ultimas noticias» repete-se em cada artigo, mas os nomes sao titulos

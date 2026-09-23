@@ -48,6 +48,8 @@ O QUE O REPARO RECUSA (e escreve porque) — nunca «resolve» a martelo:
                          com o mesmo esqueleto.
   ITEM_NAO_E_MATERIA     havia familia, mas o item que o canario abriria nao
                          tem corpo de materia.
+  FAMILIA_ESTATICA       ha familias, mas nenhuma tem cara de fluxo de
+                         publicacoes (paginas fixas: servicos, uffici, tributi).
   DUPLICADA              o padrao achado ja e de outra fonte (READY ou
                          reparada): o mesmo documento nao tem dois donos.
   ENTRADA_HTTP_<n>       a entrada respondeu 404/410/... — a fonte mudou de casa.
@@ -70,7 +72,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlparse
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
@@ -175,7 +177,7 @@ def familias(hrefs: set[str], listagem: str) -> list[dict]:
         if rx.match(listagem.rstrip("/")) or rx.match(listagem):
             return                                            # a porta do validador
         out.append({"PADRAO": padrao, "MEMBROS": len(membros), "COMO": como,
-                    "EXEMPLOS": membros[:3]})
+                    "EXEMPLOS": membros[:3], "FLUXO": fluxo(listagem, padrao, membros)})
 
     # 1) a listagem e os itens debaixo dela (provar_listagem)
     if (urlparse(listagem).path or "/").strip("/"):
@@ -199,6 +201,49 @@ def familias(hrefs: set[str], listagem: str) -> list[dict]:
 
     out.sort(key=lambda x: (-x["MEMBROS"], x["COMO"], x["PADRAO"]))
     return out
+
+
+# ── FLUXO DE PUBLICACOES, NAO PAGINAS FIXAS ─────────────────────────────────
+# Medido na 1.a medicao em copia (23/09, 4 bancas): 42 fontes chegaram a READY
+# pelo reparo, e pelo menos 12 tinham como «documento» uma pagina FIXA do site —
+# «accesso-civico», «1010000-ufficio-gabinetto», «area-personale-tributi»,
+# «brand-e-immagine-coordinata», «LAssociazione/Area-Studi». O juiz da casa
+# (retrato_html) mede texto e ligacoes: uma pagina institucional longa e
+# MATERIA para ele, e a regua dos quatro passos passa-a. Colher isso na Big
+# Collection seria guardar a repartição como noticia.
+#
+# Uma fonte de materias publica: a familia tem de ter CARA DE FLUXO, por UM de:
+#   · vocabulario de publicacao no caminho da listagem ou dos itens — a lista da
+#     casa, `provar_listagem._SECCAO_LARGA` (news, notizie, comunicati, stampa,
+#     eventi, blog, bollettini, avvisi, pubblicazioni, articoli...);
+#   · um marcador que so as publicacoes tem: segmento numerico, ano no caminho
+#     (`provar_listagem._ITEM_ANO`) ou id numerico na query;
+#   · titulo longo: mediana >= FLUXO_PALAVRAS palavras no ultimo segmento.
+#     WHY 6: nas 42 medidas, as paginas fixas tinham 2-5 palavras
+#     («area-personale-tributi», «brand-e-immagine-coordinata»); as noticias
+#     6-20. ⚠️ Custo medido na mesma amostra: 2 fontes boas saem (issuu
+#     /docs/<titulo-de-5-palavras>, e uma noticia da ARPAL com 5), e ~5 paginas
+#     fixas de titulo longo continuam a passar. Heuristica declarada, nao juiz.
+FLUXO_PALAVRAS = 6
+
+
+def fluxo(listagem: str, padrao: str, membros: list[str]) -> str | None:
+    """Porque esta familia parece um fluxo de publicacoes — ou None (pagina fixa)."""
+    caminhos = [urlparse(listagem).path] + [urlparse(m).path for m in membros]
+    for c in caminhos:
+        m = PL._SECCAO_LARGA.search(c)
+        if m:
+            return "vocabulario de publicacao: %s" % m.group(0)
+    for u in membros:
+        pu = urlparse(u)
+        if re.search(r"(?:^|/)\d+(?:/|$)", pu.path) or PL._ITEM_ANO.search(pu.path):
+            return "numero ou ano no caminho: %s" % pu.path[:60]
+        if any(v.isdigit() for _, v in parse_qsl(pu.query)):
+            return "id numerico na query: %s" % pu.query[:40]
+    pal = sorted(_palavras(m) for m in membros) or [0]
+    if pal[len(pal) // 2] >= FLUXO_PALAVRAS:
+        return "titulos longos (mediana %d palavras)" % pal[len(pal) // 2]
+    return None
 
 
 class _Leitor:
@@ -333,7 +378,9 @@ def inferir(contrato: dict, *, outros: dict | None = None, buscar=None, robots_d
             return fim({"DESFECHO": "RETRY" if r == "RETRY" else "BLOCK", "CLASSE": r,
                         "PORQUE": "destino %s: %s" % (entrada, porque)})
     listagem, hrefs = entrada, CAN.hrefs_da_entrada(b, entrada)
-    cands = familias(hrefs, listagem)
+    todas = familias(hrefs, listagem)
+    cands = [c for c in todas if c["FLUXO"]]
+    estaticas = [c for c in todas if not c["FLUXO"]]
     seccao_tentada = None
     if not cands:
         # a entrada nao lista itens: descer a seccao de noticias (provar_listagem)
@@ -349,9 +396,16 @@ def inferir(contrato: dict, *, outros: dict | None = None, buscar=None, robots_d
             if st2 != 200 or not b2:
                 break
             listagem, hrefs = s, CAN.hrefs_da_entrada(b2, s)
-            cands = familias(hrefs, listagem)
+            todas = familias(hrefs, listagem)
+            cands = [c for c in todas if c["FLUXO"]]
+            estaticas += [c for c in todas if not c["FLUXO"]]
     base["SECCAO_TENTADA"] = seccao_tentada
     base["FAMILIAS_VISTAS"] = cands[:5]
+    base["FAMILIAS_ESTATICAS"] = estaticas[:5]
+    if not cands and estaticas:
+        return fim({"DESFECHO": "RECUSA", "MOTIVO": "FAMILIA_ESTATICA",
+                    "PORQUE": ("so ha familias de paginas fixas (%s...): nenhuma tem cara de fluxo "
+                               "de publicacoes" % estaticas[0]["EXEMPLOS"][0][:70])})
     if not cands:
         return fim({"DESFECHO": "RECUSA", "MOTIVO": "SEM_FAMILIA_DE_ITENS",
                     "PORQUE": ("nem a entrada%s lista 2+ itens com o mesmo esqueleto"
