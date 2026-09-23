@@ -145,7 +145,8 @@ CAPA QUE ATRAVESSA O PORTÃO = 8/14 — o portão só reprova NAVIGATION; MIXED 
 * IT-T9-021: o `INDEX_URL` do contrato é uma página de evento
   («visita-didacta-italia-edizione-abruzzo»), não uma listagem óbvia. Sem ela:
   **FALSE_MATERIA = 4/13**, atravessam 7/13.
-* O conjunto de matérias é todo de 4 fontes de marca/mercado; não sei como o
+* O conjunto de matérias vem de 7 fontes (vinho, vinagre, fruta, aves, canal,
+  eventos); não sei como o
   detector se porta noutros sites.
 
 ### PROPOSTA (não aplicada) — uma mudança só: a MORADA antes da estrutura
