@@ -722,6 +722,28 @@
    ]
   },
   {
+   "id": "C-CANAIS-PESSOAS",
+   "name": "Canais de pessoas do agro (D24) — descoberta indireta pelo site oficial",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Le a pagina inicial das candidatas italianas ja conhecidas (ORGANIZACAO, CIENCIA, IMPRENSA desta linha e das branches da P1/P2), uma por host, com robots e portao de egresso IT antes, a cada 15 hosts e depois; extrai as ligacoes a canais YouTube, podcasts e newsletters que a propria organizacao publica; mede o arquivo publico das newsletters; e regista pela porta canonica (candidatas/fonte_nova.py) so o que o ficheiro de decisoes escrito a mao diz ENTRA, com a prova de identidade e de territorio na NOTA.",
+   "why_here": "A matriz social so permite uma rota para achar o endereco de uma conta: descoberta-indireta:site-da-organizacao. Um canal achado pela plataforma nao tem dono provado; um canal ligado pela pagina oficial tem. A frequencia dos canais fica NAO_MEDIDA porque a unica rota declarada de listagem e a Data API, cuja chave vive no GitHub.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/canais_pessoas/canais_pessoas.py",
+    "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+    "scripts/canais_pessoas/DECISOES-YT3-V1.json"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",

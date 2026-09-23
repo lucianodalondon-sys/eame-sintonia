@@ -21553,3 +21553,59 @@ SOC3 (23/09/2026), D20 e D21. `RELATORIO-SOC3-RETENCAO-YOUTUBE.md`.
 
 Mutação com banco real: um cluster por mutante custava minutos; a ronda sobe UM banco descartável
 já migrado e passa-o aos testes (`SOC3_BANCO_JA_MIGRADO`, aceite só se `exigir_descartavel` passar).
+
+# §209 · YT3 · CANAIS DE PESSOAS DO AGRO — A PÁGINA OFICIAL LIGA À ORGANIZAÇÃO, NÃO À PESSOA
+
+**Missão YT3** (`canais-pessoas-v1`, a partir de `origin/unificacao-v1` @ `de4dec2b`,
+2026-09-23; D24). Canais YouTube, podcasts e newsletters públicos de pesquisadores,
+agrónomos, creators e grupos de pesquisa italianos. Sem login, cookie nem pago.
+
+**O MÉTODO.** A matriz social tem UMA rota permitida para achar uma conta:
+`descoberta-indireta:site-da-organizacao` — ler o site da própria organização e trazer o
+endereço que ELA publicou. A ligação na página oficial é a prova de identidade (quem
+publicou o link é o dono) e de território. Não se abre youtube.com, não se pesquisa na
+plataforma. `coleta/youtube_janela.py` (a página do canal) NÃO está registada como rota
+do Scrap — ficou de fora pela D17.
+
+**AS SEMENTES NÃO FORAM ADIVINHADAS.** As candidatas italianas já conhecidas
+(ORGANIZACAO, CIENCIA, IMPRENSA) desta linha e das branches da P1 e da P2: 151 hosts,
+uma página inicial cada. Portão de egresso IT antes, a cada 15 hosts e depois — 20 portões,
+20 PASS.
+
+    151 hosts · 117 lidos (99 na 1.ª passagem + 18 na 2.ª) · 22 ilegíveis mesmo pelo curl ·
+    7 fechados por robots/401/403 · 5 por HTTP (0, 202, 301, 403)
+    achados: YouTube 54 (28 já conhecidos) · podcast 1 · newsletter 42 (4 já conhecidas)
+    ENTRAM 14: 13 canais YouTube + 1 podcast (CAND-0477..0490)
+    FICAM FORA 51 com motivo: 13 canais (não agro 7, canal do ateneo e não do
+    departamento 2, feira 3, dono incerto 1) e 38 newsletters
+
+**O ACHADO QUE MUDA A LEITURA DA D24: 0 PESSOAS, 0 DEPARTAMENTOS.** Os 14 são
+organizações agrícolas — media do sector, empresas de insumos e defensivos (Biolchim,
+Diachem, Sipcam), consórcio, cooperativa, associações, PSR Calabria, Nomisma. As páginas
+oficiais de departamento ligam ao canal do ATENEO (Florença, Palermo), não ao do
+departamento, e nenhuma página oficial ligava ao canal de uma pessoa. Achar a pessoa com
+prova pede outra rota: a página pessoal no site da universidade ou da ordem (P1/P4), ou a
+pesquisa na plataforma, que a D17 não autoriza aqui.
+
+**A FREQUÊNCIA NÃO FOI INVENTADA.** YouTube: a única rota declarada para listar vídeos é a
+Data API (`playlistItems.list`), e a chave vive só no GitHub → `NAO_MEDIDA` em 13/13.
+Podcast: Spotify não publica RSS → `NAO_MEDIDA`. Newsletters no host da semente (1 pedido,
+o 3.º do host): 19 de 21 só têm formulário de inscrição (o conteúdo chega por e-mail, não
+é público); 2 têm arquivo público datado (myfruit — repete a fonte IT-T10-018 — e a feira
+SANA) → nenhuma entra.
+
+**TRÊS ARMADILHAS.**
+- **O robots «ilegível» era quase sempre o cliente.** 45 dos 151 hosts leram-se como
+  ilegíveis pelo `urllib`: 13 devolviam uma página HTML com 200 no lugar do robots.txt (a
+  página de «não existe» — sem ficheiro, sem regra) e 12 recusavam a ligação ao cliente
+  Python. Pelo `curl`, com o MESMO User-Agent, 18 passaram a ler-se. Robots ilegível não é
+  proibição provada, e fica contado à parte.
+- **O país leu-se DEPOIS do redireccionamento.** `biolchim.it` → `biolchim.com` gravou
+  `PAIS = NAO SEI`. O domínio .it que a própria organização publica é a prova; corrigido nas
+  5 linhas (e 2 por P.IVA/morada na página), e 1 (`unaitalia.com`) fica NAO SEI declarado.
+- **A VPN piscou.** Uma medição deu BR (Londrina) a meio; o portão da `--medir` fechou
+  ANTES de qualquer pedido (rc 2) e a medição correu de novo só com 3/3 IT seguidos.
+
+**NUMERAÇÃO.** Os CAND-ids desta branch (0477..0490) colidem com os da P1 e da P2, que
+também começaram em 0477 — quem juntar as branches tem de renumerar; as URLs não colidem
+(o arnês deduplicou contra as três filas e contra os contratos onboarded).
