@@ -68,3 +68,29 @@ missão; fica registado para quem é dono da Collection.
 1. `py superficie/rede.py --portao-de-egresso IT` = PASS.
 2. Refazer a cópia: os livros vivos podem ter mudado; conferir o sha256.
 3. Correr o §3 e registar o portão antes/depois, `SAIRAM` e as linhas do livro.
+
+## 5 · Segunda tentativa (23/09, 21:30Z): a VPN oscila
+
+A coordenação mediu IT às 18:22 (-03). As minhas medições, pela mesma porta
+(`superficie/rede.py --portao-de-egresso IT`):
+
+| hora (UTC) | país |
+|---|---|
+| 21:30 | BR — BLOCKED |
+| 21:31:14 | BR — BLOCKED |
+| 21:31:46 | IT — PASS |
+
+A guarda da BC3 parou o bot vivo às 21:27Z («UNKNOWN») e às ~21:32Z («BR x4 18:30:51–18:31:32»),
+e religou-o às 21:30Z entre as duas paragens.
+
+**Decisão:** a prova em cópia faz dezenas de pedidos durante minutos. Um portão medido só antes
+e depois não cobre uma queda a meio, e a VPN caiu duas vezes em 10 minutos. **Não corri.**
+Pedidos à rede desta B5 no intervalo BR: 0. Só corri as sondas do portão, que apenas perguntam
+o país ao `ipinfo.io`.
+
+A cópia continua igual ao vivo: sha256 de LEDGER, QUEUE, EVIDENCE, contratos e porta conferidos
+às 21:30Z.
+
+Para retomar: a VPN IT tem de ficar estável (por exemplo, 3 medições PASS em 5 min). Idealmente
+correr a cópia com uma guarda de egresso entre voltas do worker, que é o que a BC3 já faz para o
+bot vivo.
