@@ -1,0 +1,1351 @@
+{
+ "DATASET": "SEMANTIC-DECISIONS-V1",
+ "CONTRATO": "lido por curadoria/decisao_semantica.py no ramo QUALIFY do worker",
+ "LEI": "Territorio so com prova multipla: >=1 INSTITUCIONAL ou LEI e >=2 CONTEUDO, cada uma com URL e sha256 distintos. NAO SEI fica SEMANTIC_PENDING com o motivo. Os bytes vivem fora do Git; o sha256 prende a decisao ao que foi lido.",
+ "GERADO_EM": "2026-09-23T05:52:05.330890+00:00",
+ "TOTAL": 105,
+ "DECIDIDAS": 12,
+ "NAO_SEI": 93,
+ "DECISOES": [
+  {
+   "CANDIDATA_ID": "CAND-0009",
+   "NOME": "Rete Rurale Nazionale",
+   "URL": "https://www.reterurale.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "robots.txt pede visita so entre 01:00 e 03:00 UTC; colheita feita fora da janela, 0 pedidos. Repetir na janela.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0010",
+   "NOME": "SIAN — Sistema Informativo Agricolo Nazionale",
+   "URL": "https://www.sian.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "portal de servicos com login; das 2 provas de conteudo, uma veio vazia (pagina montada por JavaScript) e a outra e a entrada do open data, sem item.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0015",
+   "NOME": "Sardegna Agricoltura — Laore",
+   "URL": "https://www.sardegnaagricoltura.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "os 2 itens de conteudo falharam (sem resposta).",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0018",
+   "NOME": "Veneto Agricoltura — Agenzia veneta per l'innovazione nel settore primario",
+   "URL": "https://www.venetoagricoltura.org/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "as 3 paginas devolveram os mesmos bytes (casca de JavaScript) — zero leitura.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0026",
+   "NOME": "Centro di Sperimentazione Laimburg",
+   "URL": "https://www.laimburg.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "as 3 paginas devolveram os mesmos bytes (casca de JavaScript) — zero leitura.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0050",
+   "NOME": "Agricoltura Moderna",
+   "URL": "https://agricolturamoderna.it/",
+   "TERRITORIO": "T1",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Revista da Unione Coltivatori Italiani sobre o mundo agricola; itens sobre importacao de trigo e estimativas da vindima 2025. Precedente do Atlas: imprensa agricola (Terra e Vita IT-T1-015, AgroNotizie IT-T1-021) em T1.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://agricolturamoderna.it/chi-siamo/",
+     "SHA256": "4507323dc96a49ff832c4972203996db065aa86d5d4f7f4d9daf93afd1e67e3f",
+     "BYTES": 80571,
+     "LIDO_EM": "2026-09-23T05:35:00.902844+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0050\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://agricolturamoderna.it/litalia-importa-sempre-piu-grano/",
+     "SHA256": "f10704916413833de13bec70ec11b3bc52e8bcd2887f6ba6e1b8d9261f82c4e8",
+     "BYTES": 72026,
+     "LIDO_EM": "2026-09-23T05:35:05.690364+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0050\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://agricolturamoderna.it/vendemmia-2025-le-stime-per-litalia/",
+     "SHA256": "cd71ff1d6b30794410ba92f55bbc1124e92460b9af96e8bce7354dce9ad7a736",
+     "BYTES": 75842,
+     "LIDO_EM": "2026-09-23T05:35:08.842477+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0050\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null
+  },
+  {
+   "CANDIDATA_ID": "CAND-0051",
+   "NOME": "Agrifoodtoday",
+   "URL": "https://www.agrifoodtoday.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "sem pagina institucional; os 2 itens deram 502 e 503.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0057",
+   "NOME": "Il Fatto Alimentare",
+   "URL": "https://www.ilfattoalimentare.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "jornalismo de seguranca alimentar para o consumidor; nenhum territorio T1..T12 encaixa sem esticar (T4 e registo de produtos fitossanitarios, nao aditivos alimentares).",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0060",
+   "NOME": "Noi Siamo Agricoltura — sito",
+   "URL": "https://www.noisiamoagricoltura.com/",
+   "TERRITORIO": "T8",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Comunidade agricola online (350 mil na pagina do Facebook, blog de 2,5 milhoes de leitores); itens sao guias praticos para o agricultor. T8 = agricultores, creators, newsletters.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.noisiamoagricoltura.com/chi-siamo/",
+     "SHA256": "795e2fa523b9ca684e12f8aeb6f7e87b6c36f177bc1af0da95ef9b9d52a4618b",
+     "BYTES": 233732,
+     "LIDO_EM": "2026-09-23T05:35:37.607349+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0060\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.noisiamoagricoltura.com/decespugliatore-a-batteria/",
+     "SHA256": "109327192ebb77a482208f4544b64b5bf0c7857bcb8b544b70fcee149219093e",
+     "BYTES": 212031,
+     "LIDO_EM": "2026-09-23T05:35:42.383787+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0060\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.noisiamoagricoltura.com/piano-di-concimazione/",
+     "SHA256": "933d2c23932b73405987989bdc229eaa754c61284b743ce8363d3985c10668ad",
+     "BYTES": 216035,
+     "LIDO_EM": "2026-09-23T05:35:45.796475+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0060\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null
+  },
+  {
+   "CANDIDATA_ID": "CAND-0063",
+   "NOME": "Teatro Naturale",
+   "URL": "https://www.teatronaturale.it/",
+   "TERRITORIO": "T1",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Magazine semanal online do mundo rural; itens sobre o mercado do azeite. Precedente do Atlas: imprensa agricola em T1. Segunda leitura (olivicultura de precisao) concorda.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.teatronaturale.it/chi-siamo.htm",
+     "SHA256": "949216768aaada257bd6c652eafa742f15652a8a9f5f8400d6ed577388fc71a0",
+     "BYTES": 25473,
+     "LIDO_EM": "2026-09-23T05:35:49.911918+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0063\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.teatronaturale.it/tracce/economia/47124-i-nuovi-equilibri-nel-mercato-mondiale-dell-olio-di-oliva.htm",
+     "SHA256": "c61d5e879f1ff37608d68998c066fab905250a50d6a66b90f7c47fbdccca666c",
+     "BYTES": 45926,
+     "LIDO_EM": "2026-09-23T05:35:53.936348+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0063\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.teatronaturale.it/tracce/economia/47353-boom-dell-export-di-olio-di-oliva-tunisino-55-7-nei-primi-tre-mesi-della-campagna-2025-2026.htm",
+     "SHA256": "a8c5f0e080af12fd885f5cc98652776520775c8c1c311256ee5f61d44c0b8b36",
+     "BYTES": 42228,
+     "LIDO_EM": "2026-09-23T05:35:56.717276+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0063\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": [
+    {
+     "URL": "https://www.teatronaturale.it/strettamente-tecnico/l-arca-olearia/49056-olivicoltura-di-precisione-la-vera-rivoluzione--nel-risparmio-meno-acqua-fertilizzanti-e-fitofarmaci.htm",
+     "ESTADO": "OK",
+     "HTTP": 200,
+     "SHA256": "00ef73d5e2fa24253def034980732ed9f1dbe0ff05ec106cdb4ddd2b95d4f260"
+    }
+   ]
+  },
+  {
+   "CANDIDATA_ID": "CAND-0064",
+   "NOME": "Agrisicilia",
+   "URL": "https://www.agrisicilia.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "agriturismo/camping em Selinunte, nao e fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0137",
+   "NOME": "Biolchim",
+   "URL": "https://biolchim.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "os 2 itens deram 404 (seria T9 pelo que e, mas sem prova do que publica).",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0139",
+   "NOME": "Caviro",
+   "URL": "https://www.caviro.com/",
+   "TERRITORIO": "T10",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Maior cooperativa vitivinicola de Italia (1966, uvas dos socios); itens: balanco 2024-2025 e 60 anos de fileira. Precedente do Atlas: consorcios e cooperativas em T10. Segunda leitura (Vinitaly 2025) concorda.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.caviro.com/governance/",
+     "SHA256": "6d056ed46cbc909933b7b60c58da6ad355295454a6098bca477437566ca897e1",
+     "BYTES": 369380,
+     "LIDO_EM": "2026-09-23T05:36:20.590965+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0139\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.caviro.com/gruppo-caviro-chiude-il-bilancio-2024-2025/",
+     "SHA256": "1e2035fad4efac0bee038c5907424dae0625382bbce7429422f91bff024fcd65",
+     "BYTES": 203684,
+     "LIDO_EM": "2026-09-23T05:36:27.137136+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0139\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.caviro.com/gruppo-caviro-celebra-60-anni/",
+     "SHA256": "d817d45990f554fd4e750a1473941c5af7fc7663213225a8ca2d92a13f36c08d",
+     "BYTES": 205130,
+     "LIDO_EM": "2026-09-23T05:36:32.617700+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0139\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": [
+    {
+     "URL": "https://www.caviro.com/en/caviro-at-vinitaly-2025-all-the-different-souls-of-the-group-under-one-stand/",
+     "ESTADO": "OK",
+     "HTTP": 200,
+     "SHA256": "d41d9046baef36e854b8b32240d0df6154cf87b67a701c2165202772c3cff1bb"
+    }
+   ]
+  },
+  {
+   "CANDIDATA_ID": "CAND-0144",
+   "NOME": "Fieravicola",
+   "URL": "https://www.fieravicola.com/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "robots proibe as paginas.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0145",
+   "NOME": "Granarolo",
+   "URL": "https://www.granarolo.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "robots proibe as paginas.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0148",
+   "NOME": "OP Alegra",
+   "URL": "https://www.alegra.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "identidade trocada: alegra.it nao e a OP Alegra (ortofruta, Faenza). Corrigir a URL da candidata.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0168",
+   "NOME": "Unione Italiana Vini",
+   "URL": "https://www.uiv.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "robots do subdominio dos itens (codici.uiv.it) proibe; so a pagina institucional foi lida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0176",
+   "NOME": "Interpoma",
+   "URL": "https://www.interpoma.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "nenhuma pagina institucional nem item encontrado.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0253",
+   "NOME": "AGEA — Agenzia per le Erogazioni in Agricoltura",
+   "URL": "https://www.agea.gov.it/",
+   "TERRITORIO": "T12",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Organismo pagador da PAC: paga e opera os apoios FEAGA/FEASR aos produtores (comunicado dos adiantamentos PAC 2023; instrucoes operativas n.30 aos produtores, regioes e CAA). T12 = CAP e politica agricola.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.agea.gov.it/portal/page/portal/AGEAPageGroup/HomeAGEA/ChiSiamo",
+     "SHA256": "ccb3d88124a06caa288845c08eaf01e7b0c3c131d1a1d1b4d8d55c3e14b27c5a",
+     "BYTES": 1385,
+     "LIDO_EM": "2026-09-23T05:24:54.361864+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0253\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.agea.gov.it/portale-apigw/documents/d/agea/cs_masaf-agea_anticipi-2023-pdf",
+     "SHA256": "e7984b3007b95edb5b17745956f2bce753facce0a20284cfbde923348f6e9204",
+     "BYTES": 181296,
+     "LIDO_EM": "2026-09-23T05:24:59.481022+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0253\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.agea.gov.it/portale-apigw/documents/d/agea/istruzioni-operative-n-30-del-28-marzo-2024-peronospora-2023-superfici_signed",
+     "SHA256": "efcb9d5dd4df0fe6e905750eb40d2a0104ba80cc34f2258034bf2f3be055fd17",
+     "BYTES": 510271,
+     "LIDO_EM": "2026-09-23T05:25:02.756904+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0253\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null
+  },
+  {
+   "CANDIDATA_ID": "CAND-0257",
+   "NOME": "Sherwood — Foreste ed Alberi Oggi",
+   "URL": "https://www.sherwood.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "identidade trocada: sherwood.it e a Radio Sherwood (webzine cultural de Padova), nao a revista florestal da ficha. Corrigir a URL da candidata.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0269",
+   "NOME": "UNAITALIA — Unione Nazionale Filiere Agroalimentari Carni",
+   "URL": "https://www.unaitalia.com/",
+   "TERRITORIO": "T10",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Associacao das fileiras italianas de carnes e ovos; itens: consumo recorde de carnes brancas 2025 (valor da fileira) e estrategia UE para a zootecnia. T10 = mercado e industria. Segunda leitura inconclusiva (404).",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.unaitalia.com/chi-siamo/",
+     "SHA256": "2aabc963f9d3b5d5595e42a63611c884533bc962bda779bf9d32e2a594721c41",
+     "BYTES": 259571,
+     "LIDO_EM": "2026-09-23T05:38:37.462530+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0269\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.unaitalia.com/unaitalia-carni-bianche-nel-2025-consumi-da-record-a-2247-kg-la-filiera-avicola-vale-97-miliardi/",
+     "SHA256": "51aadf446c51f5dc1beafdbaa719fbbca3c3261364df565316514a06af338891",
+     "BYTES": 142431,
+     "LIDO_EM": "2026-09-23T05:38:45.626320+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0269\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.unaitalia.com/unaitalia-commissione-ue-strategia-zootecnia-2026/",
+     "SHA256": "309685ccae4ef2342e10131d0351c17bc847001675cc1c6a082e68ccc673ca98",
+     "BYTES": 142198,
+     "LIDO_EM": "2026-09-23T05:38:51.073397+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0269\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": [
+    {
+     "URL": "https://www.unaitalia.com/in-cina-i-robot-controllano-la-salute-delle-galline/",
+     "ESTADO": "FALHOU",
+     "HTTP": 404,
+     "SHA256": null
+    }
+   ]
+  },
+  {
+   "CANDIDATA_ID": "CAND-0270",
+   "NOME": "ISTAT — statistiche agricoltura",
+   "URL": "https://www.istat.it/it/archivio/16361",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "ISTAT ja tem ficha no Atlas (IT-T1-001); dar numero aqui arrisca dois numeros para a mesma fonte. Decisao de identidade do dono.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0274",
+   "NOME": "InLombardia",
+   "URL": "https://www.in-lombardia.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0290",
+   "NOME": "open.spotify.com",
+   "URL": "https://open.spotify.com/show/1R01RxchEEaemUOYpdEyw9",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0296",
+   "NOME": "Visita il sito",
+   "URL": "https://www.lombardianotizie.online/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0298",
+   "NOME": "Segnalazione di condotte illecite",
+   "URL": "https://gestioneilleciti.servizirl.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0299",
+   "NOME": "open.spotify.com",
+   "URL": "https://open.spotify.com/user/31gqtegbafemb4n6rpj6ekecpri4",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0311",
+   "NOME": "Vai al sito",
+   "URL": "http://www.visitsicily.info",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0312",
+   "NOME": "Protezione Civile",
+   "URL": "https://www.protezionecivilesicilia.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0314",
+   "NOME": "Irfis",
+   "URL": "https://www.irfis.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0315",
+   "NOME": "Senato della Repubblica",
+   "URL": "http://www.senato.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0316",
+   "NOME": "Camera dei Deputati",
+   "URL": "https://www.camera.it/leg18/1",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0317",
+   "NOME": "Presidenza del Consiglio dei Ministri",
+   "URL": "http://www.governo.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0318",
+   "NOME": "Parlamento Europeo",
+   "URL": "https://www.europarl.europa.eu/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0320",
+   "NOME": "Dichiarazione di accessibilità",
+   "URL": "https://form.agid.gov.it/view/78bd7980-9859-11f0-b114-bda70f0f6c0f",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0333",
+   "NOME": "Spotify",
+   "URL": "https://open.spotify.com/show/4O539O6MYvAIQNkJiOPrlr",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0344",
+   "NOME": "Sportello del Consumatore",
+   "URL": "https://www.sportelloconsumatoricalabria.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0345",
+   "NOME": "Calabria Straordinaria",
+   "URL": "https://calabriastraordinaria.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0352",
+   "NOME": "CalabriaSUE - Sportello Unico per l’Edilizia",
+   "URL": "https://www.calabriasue.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0353",
+   "NOME": "SaniBook",
+   "URL": "https://segnalazioni.sanibook.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0367",
+   "NOME": "A trip to Lake Ampollino",
+   "URL": "https://calabriastraordinaria.it/en/travel-tips/a-trip-to-lake-ampollino",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0368",
+   "NOME": "Relax at the Bagni di Guida",
+   "URL": "https://calabriastraordinaria.it/en/travel-tips/relax-at-the-bagni-di-guida",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0369",
+   "NOME": "A journey through the Crotone Sila, amidst nature and footpaths",
+   "URL": "https://calabriastraordinaria.it/en/travel-tips/a-journey-through-the-crotone-sila-amidst-nature-and-footpaths",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0370",
+   "NOME": "Calabrian pasta: traditional shapes",
+   "URL": "https://calabriastraordinaria.it/en/travel-tips/calabrian-pasta-traditional-shapes",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0381",
+   "NOME": "Consiglio Regionale",
+   "URL": "https://www.cr.campania.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0395",
+   "NOME": "ARUS",
+   "URL": "https://www.agenziasportcampania.it/sito/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0396",
+   "NOME": "Campania Artecard",
+   "URL": "https://www.campaniartecard.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0398",
+   "NOME": "Obiettivi di accessibilità",
+   "URL": "https://form.agid.gov.it/r_campan/obiettivi",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0408",
+   "NOME": "Corecom Abruzzo",
+   "URL": "https://www.corecomabruzzo.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0413",
+   "NOME": "Avviso per iscrizione in elenco strutture per reinserimento sociale detenuti adulti",
+   "URL": "https://www.giustizia.it/giustizia/it/mg_1_6_1.page?contentId=SCE1497399",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0424",
+   "NOME": "hatsapp.com",
+   "URL": "https://whatsapp.com/channel/0029Var9c0yJJhzeZ64hrw3i",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0429",
+   "NOME": "DICHIARAZIONE DI ACCESSIBILITA'",
+   "URL": "https://form.agid.gov.it/view/b192d4e0-c0bc-11f0-bf33-33e72cf53987",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0430",
+   "NOME": "Intranet",
+   "URL": "https://login.microsoftonline.com/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0451",
+   "NOME": "snpambiente.it",
+   "URL": "https://www.snpambiente.it/",
+   "TERRITORIO": "T2",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Sistema nacional de protecao do ambiente (ISPRA + ARPA); itens: Rapporto Ambiente 2025 e Il clima in Italia nel 2025. Precedente do Atlas: as ARPA em T2.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.snpambiente.it/chi-siamo/",
+     "SHA256": "92530204566ba398da22ebd931ca1f9259746b0584550a57d19f70d185f44112",
+     "BYTES": 158816,
+     "LIDO_EM": "2026-09-23T05:38:56.654768+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0451\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.snpambiente.it/notizie/temi/report-intertematici/stato-ambiente/rapporto-ambiente-snpa-edizione-2025/",
+     "SHA256": "19f00181405cc98c135eb0239b06e150b8f1de0c914d542e5e88da09b5bf06b9",
+     "BYTES": 159261,
+     "LIDO_EM": "2026-09-23T05:39:06.567863+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0451\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.snpambiente.it/pubblicazioni/report-snpa/il-clima-in-italia-nel-2025/",
+     "SHA256": "97cf4cb5d45c43299393b46e5c3aca85b0f97d6b174899445fa997e93dcff002",
+     "BYTES": 159454,
+     "LIDO_EM": "2026-09-23T05:39:12.729865+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0451\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null
+  },
+  {
+   "CANDIDATA_ID": "CAND-0465",
+   "NOME": "dati.lombardia.it",
+   "URL": "https://www.dati.lombardia.it/stories/s/auv9-c2sj",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0477",
+   "NOME": "Le nostre eccellenze",
+   "URL": "https://www.nomisma.it/settori/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0481",
+   "NOME": "Real Estate",
+   "URL": "https://www.nomisma.it/settori/consulenza-immobiliare-real-estate/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0483",
+   "NOME": "Pubblica Amministrazione",
+   "URL": "https://www.nomisma.it/settori/consulenza-pubblica-amministrazione/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0484",
+   "NOME": "Energia",
+   "URL": "https://www.nomisma.it/settori/consulenza-energetica-aziendale/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0485",
+   "NOME": "ESG e Sostenibilità",
+   "URL": "https://www.nomisma.it/settori/consulenza-criteri-esg/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0486",
+   "NOME": "Wine Monitor",
+   "URL": "https://www.winemonitor.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "as 3 paginas devolveram os mesmos bytes (casca de JavaScript) — zero leitura.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0487",
+   "NOME": "Agrifood Monitor",
+   "URL": "https://www.agrifoodmonitor.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "as 3 paginas devolveram os mesmos bytes (casca de JavaScript) — zero leitura.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0489",
+   "NOME": "Area Riservata",
+   "URL": "https://geomarketing.cloud/geoCms03/wp-login.php?language=it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0490",
+   "NOME": "Powered by Noetica",
+   "URL": "https://www.noetica.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0491",
+   "NOME": "prenotazioni-evento.nomisma.it",
+   "URL": "https://prenotazioni-evento.nomisma.it/forumai/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0503",
+   "NOME": "cemi-milano.com",
+   "URL": "https://cemi-milano.com/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "as paginas sao da edicao do evento e logistica; a da edicao 2025 traz texto de 2022 — sem item de conteudo.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0514",
+   "NOME": "croplife.org",
+   "URL": "https://croplife.org/",
+   "TERRITORIO": "T12",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Voz global da industria de ciencia das plantas (associacao, nao empresa); itens: simposio de regulacao de biotecnologia e sistemas agroalimentares resilientes. Funcao central e advocacy politica -> T12.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://croplife.org/who-we-are/",
+     "SHA256": "ced5564701c461af10ad52a3edcdc70eeff85a4e5bbbab914554265d7eaebcad",
+     "BYTES": 240740,
+     "LIDO_EM": "2026-09-23T05:40:10.646389+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0514\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://croplife.org/isbr-symposium-biotechnology-progress/",
+     "SHA256": "8201f220ea9fffaebc462477c5e5f5d72a5e7f5711c82b390cbe2c9352bc7e92",
+     "BYTES": 206178,
+     "LIDO_EM": "2026-09-23T05:40:15.717306+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0514\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://croplife.org/making-agrifood-systems-more-resilient/",
+     "SHA256": "3f6b0733038f0e9535d05b02a591065765a747eb193c76f21674f2ad8a07c55e",
+     "BYTES": 197624,
+     "LIDO_EM": "2026-09-23T05:40:19.028577+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0514\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null
+  },
+  {
+   "CANDIDATA_ID": "CAND-0515",
+   "NOME": "croplifeeurope.eu",
+   "URL": "https://croplifeeurope.eu/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "os 2 itens so mostraram o menu (sem texto do item legivel).",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0525",
+   "NOME": "biostimulants.eu",
+   "URL": "https://biostimulants.eu/",
+   "TERRITORIO": "T12",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Voz da industria europeia de bioestimulantes (EBIC); itens: dialogo regulatorio na BWC 2025 e as 33 normas CEN para bioestimulantes CE. Associacao de advocacy -> T12.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://biostimulants.eu/about-ebic/",
+     "SHA256": "f67755c6cc34a1199b70e31d7f6bc562e0268f652ce8a2487a3b60d8dbc7f2c7",
+     "BYTES": 54893,
+     "LIDO_EM": "2026-09-23T05:40:36.170249+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0525\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://biostimulants.eu/news/ebic-drives-scientific-and-regulatory-dialogue-at-bwc-2025/",
+     "SHA256": "c89db883b1dfdd022426e7e68c120f1d4b435e9a6bcbe84cfe777a8492d2b3dc",
+     "BYTES": 52550,
+     "LIDO_EM": "2026-09-23T05:40:41.836165+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0525\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://biostimulants.eu/news/publication-of-33-cen-standards-for-ce-marked-plant-biostimulants/",
+     "SHA256": "b7076b66a73c59d87a1ff37eb7b377970bfd92457e21975428ab96ef425b6fc4",
+     "BYTES": 50473,
+     "LIDO_EM": "2026-09-23T05:40:45.429469+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0525\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null
+  },
+  {
+   "CANDIDATA_ID": "CAND-0526",
+   "NOME": "fertilizerseurope.com",
+   "URL": "https://www.fertilizerseurope.com/",
+   "TERRITORIO": "T12",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Representa os produtores de fertilizantes da UE junto dos decisores politicos; itens: posicao sobre o CBAM e sobre o Clean Industrial Deal. T12.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.fertilizerseurope.com/about-us/what-we-do/",
+     "SHA256": "65b026a5563d0a3198894d4c17b2c5d658d677df375c1c6a02ad67abb49e4d67",
+     "BYTES": 39285,
+     "LIDO_EM": "2026-09-23T05:40:50.172014+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0526\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.fertilizerseurope.com/wp-content/uploads/2026/02/Fertilizers-Europe-statement-on-the-European-fertilizer-market_17-02-2026.pdf",
+     "SHA256": "cac0383d604ddaa8c2334e0f64fedd7376c03bef5ae007f8aee9e0edf185a8d9",
+     "BYTES": 267962,
+     "LIDO_EM": "2026-09-23T05:40:54.387027+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0526\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.fertilizerseurope.com/wp-content/uploads/2025/03/Fertilizers-Europe_Press-Release_Clean-Industrial-Deal_final.pdf",
+     "SHA256": "7de70e36d39aaed6ea9454b6b003db7a38aa87973b1090e8de685cbd4e67a440",
+     "BYTES": 138288,
+     "LIDO_EM": "2026-09-23T05:40:57.899780+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0526\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null
+  },
+  {
+   "CANDIDATA_ID": "CAND-0527",
+   "NOME": "fertilizer.org",
+   "URL": "https://www.fertilizer.org/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "associacao global de fertilizantes; os itens (programa de emissoes, hub de inovacao) nao sustentam T12 nem T10 — ambiguo.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0528",
+   "NOME": "Mozilla Firefox 29+",
+   "URL": "https://www.mozilla.org/it/firefox/new/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0529",
+   "NOME": "PEC",
+   "URL": "https://webmail.infocert.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0552",
+   "NOME": "previdenzacooperativa.it",
+   "URL": "https://www.previdenzacooperativa.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0554",
+   "NOME": "quidanoi.coop",
+   "URL": "http://www.quidanoi.coop/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "loja online de produtos de cooperativas; os itens sao receitas e dicas de consumo.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0555",
+   "NOME": "agrireteservice.it",
+   "URL": "http://www.agrireteservice.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "os 2 itens deram 404.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0556",
+   "NOME": "italiacooperativa.it",
+   "URL": "http://www.italiacooperativa.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "sem prova do que o site e (nenhuma pagina institucional); so 2 noticias.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0569",
+   "NOME": "Mondo Macchina",
+   "URL": "https://www.mondomacchina.it",
+   "TERRITORIO": "T10",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Revista mensal da FederUnacoma sobre mecanizacao agricola; itens: ensaio de um trator e edicao 1/2026. Conteudo de industria de maquinas -> T10. Segunda leitura (mercado mundial de tratores) concorda.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.mondomacchina.it/it/rivista-mondo-macchina.php/",
+     "SHA256": "2345924f7861fee88a03fdafce1952311448efe7869ec0e75925da9611572c00",
+     "BYTES": 13588,
+     "LIDO_EM": "2026-09-23T05:41:52.488337+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0569\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.mondomacchina.it/it/super-la-guaresi-2025-prestazioni-ergonomia-sicurezza-c4732",
+     "SHA256": "d14043c6b5355b10b0be9ad9471ecb75ddc6a544c676857e1bdcab8159dc22fa",
+     "BYTES": 33121,
+     "LIDO_EM": "2026-09-23T05:41:55.917656+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0569\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.mondomacchina.it/rivista-flip/4691/",
+     "SHA256": "a92b332ba45c6769a8271f6e329f08cd3f4b306bccf6067163472787f17e8a3d",
+     "BYTES": 63909,
+     "LIDO_EM": "2026-09-23T05:41:58.509339+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0569\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": [
+    {
+     "URL": "https://www.mondomacchina.it/it/meccanica-agricola-uno-scenario-complesso-c4808",
+     "ESTADO": "OK",
+     "HTTP": 200,
+     "SHA256": "13475eb8f3707976c3a0841d3fa4231c1179253022efa7f0ee5d6a45cb5254a7"
+    }
+   ]
+  },
+  {
+   "CANDIDATA_ID": "CAND-0570",
+   "NOME": "mondomacchina.it",
+   "URL": "https://www.mondomacchina.it/it/archivio.php",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0571",
+   "NOME": "itabia.it",
+   "URL": "https://www.itabia.it/futaexpo/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "robots proibe as paginas.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0573",
+   "NOME": "eimaagrimach.in",
+   "URL": "http://eimaagrimach.in",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "possivel mesma fonte que EIMA IT-T11-001 (eima.it); decisao de identidade do dono.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0574",
+   "NOME": "eimashow.it",
+   "URL": "https://www.eimashow.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "possivel mesma fonte que EIMA IT-T11-001 (eima.it); decisao de identidade do dono.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0575",
+   "NOME": "AGRIDIGITAL",
+   "URL": "https://www.agridigitalit.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "os itens sao listagem e uma noticia sem texto proprio legivel.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0576",
+   "NOME": "ASSOIDROTECH",
+   "URL": "https://www.assoidrotech.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "um item deu 404; o outro so tem o cabecalho da associacao.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0577",
+   "NOME": "ASSOMAO",
+   "URL": "https://www.assomao.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "os itens sao listagem e uma noticia sem texto proprio legivel.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0578",
+   "NOME": "ASSOMASE",
+   "URL": "https://www.assomase.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "as 2 paginas de conteudo sao listagens, nao itens.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0579",
+   "NOME": "ASSOTRATTORI",
+   "URL": "https://www.assotrattori.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "os itens sao listagem e uma noticia sem texto proprio legivel.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0580",
+   "NOME": "COMACOMP",
+   "URL": "https://www.comacomp.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "so 1 item (Agrilevante 2025); a outra pagina e listagem.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0581",
+   "NOME": "COMAGARDEN",
+   "URL": "https://www.comagarden.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "dados de mercado e listagem, sem item; e maquinas de jardinagem.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0582",
+   "NOME": "clubofbologna.org",
+   "URL": "https://www.clubofbologna.org",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "pagina do premio e listagem de noticias, sem item.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0583",
+   "NOME": "progettobiomasse.it",
+   "URL": "https://www.progettobiomasse.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "projeto de energia de biomassa financiado pelo ministerio; bioenergia nao cabe em T1..T12 sem esticar.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0585",
+   "NOME": "interreg-central.eu",
+   "URL": "https://www.interreg-central.eu/projects/agri-digital-growth/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0586",
+   "NOME": "Abruzzo",
+   "URL": "https://www.ciaabruzzo.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "as 3 paginas tem so o cabecalho (conteudo montado por JavaScript) — zero leitura.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0636",
+   "NOME": "Universidad Técnica del Norte - Ecuador",
+   "URL": "https://www.utn.edu.ec/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0637",
+   "NOME": "Department of Science and Technology of Henan Province (China)",
+   "URL": "https://english.haust.edu.cn/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "FORA_DO_AGRO_APARENTE: instituicao real sem relacao agricola evidente pelo endereco; sem prova colhida.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0652",
+   "NOME": "masaf.gov.it",
+   "URL": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/202",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "PAGINA_DE_OUTRA_FONTE: pagina interna de masaf.gov.it; a fonte seria o MASAF, nao cada pagina.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0658",
+   "NOME": "Politiche europee",
+   "URL": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/7679",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "PAGINA_DE_OUTRA_FONTE: pagina interna de masaf.gov.it; a fonte seria o MASAF, nao cada pagina.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0659",
+   "NOME": "Politiche nazionali",
+   "URL": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/7681",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "PAGINA_DE_OUTRA_FONTE: pagina interna de masaf.gov.it; a fonte seria o MASAF, nao cada pagina.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0660",
+   "NOME": "Controlli",
+   "URL": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/7683",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "PAGINA_DE_OUTRA_FONTE: pagina interna de masaf.gov.it; a fonte seria o MASAF, nao cada pagina.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0661",
+   "NOME": "Qualità",
+   "URL": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/309",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "PAGINA_DE_OUTRA_FONTE: pagina interna de masaf.gov.it; a fonte seria o MASAF, nao cada pagina.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0663",
+   "NOME": "PNRR",
+   "URL": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/17911",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "PAGINA_DE_OUTRA_FONTE: pagina interna de masaf.gov.it; a fonte seria o MASAF, nao cada pagina.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0665",
+   "NOME": "Leggi tutto",
+   "URL": "https://www.masaf.gov.it/lollobrigida-pesca-credito-imposta-gasolio-benzina",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "PAGINA_DE_OUTRA_FONTE: pagina interna de masaf.gov.it; a fonte seria o MASAF, nao cada pagina.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0672",
+   "NOME": "fruttanellescuole.gov.it",
+   "URL": "http://www.fruttanellescuole.gov.it",
+   "TERRITORIO": "T12",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00",
+   "PORQUE": "Programa UE/MASAF de fruta e verdura nas escolas; itens: aviso do programa 2025-2026 e abertura das inscricoes. Programa de politica agricola -> T12. Segunda leitura inconclusiva (redirecionou para a home).",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.fruttanellescuole.gov.it/il-programma",
+     "SHA256": "cc4c262e0c7db83341e7b22cc1d868d368acbf4410f459623a1db4b95b04a49c",
+     "BYTES": 41200,
+     "LIDO_EM": "2026-09-23T05:44:40.121698+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0672\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.fruttanellescuole.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/336",
+     "SHA256": "d6769de8427014ae85aa5106f54b4c36ec528324b661114184db34e7ce29ce5a",
+     "BYTES": 41993,
+     "LIDO_EM": "2026-09-23T05:44:46.822809+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0672\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.fruttanellescuole.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/340",
+     "SHA256": "600d0bbc4f2dd9bf4d224dc0b52f1ac8b7aadeadcce7ed4d02ea07692ddd095d",
+     "BYTES": 47509,
+     "LIDO_EM": "2026-09-23T05:44:49.751646+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0672\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": [
+    {
+     "URL": "http://www.fruttanellescuole.gov.it/news/al-la-distribuzione-di-frutta-e-verdura-nelle-scuole",
+     "ESTADO": "OK",
+     "HTTP": 200,
+     "SHA256": "a03a7ce4fc675abfd577bd59dfa57641dfdf3c938d226da1b83388419141af23"
+    }
+   ]
+  },
+  {
+   "CANDIDATA_ID": "CAND-0673",
+   "NOME": "consultazioni.masaf.gov.it",
+   "URL": "https://consultazioni.masaf.gov.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "nenhum item de consulta encontrado; so a entrada do portal.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0700",
+   "NOME": "Abbonati / Rinnova",
+   "URL": "https://www.tecnichenuove.com/prodotto/terra-vita/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "NAO_E_FONTE: link de rodape/servico/login/pagina solta recolhido pelo crawler; nao e uma fonte.",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+   "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+  }
+ ]
+}
