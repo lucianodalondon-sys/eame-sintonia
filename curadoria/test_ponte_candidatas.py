@@ -317,6 +317,21 @@ class T3_SociaisBarradas(Isolada):
         self.assertIsNotNone(c["MOTIVO_DA_RECUSA"])
         self.assertIn("LINKEDIN_POLICY", c["MOTIVO_DA_RECUSA"])
 
+    def test_porta_marca_social_sem_capacidade_como_capability_block(self):
+        """D13: sem capacidade nao e recusa. O Facebook fica CAPABILITY_BLOCK na
+        porta (nao RECUSADA), com o motivo no campo do bloqueio."""
+        self._porta([self._cand("CAND-I002", "FACEBOOK")])
+
+        P.processar()
+
+        doc = FN.carregar()
+        c = next(x for x in doc["CANDIDATAS"] if x["CANDIDATA_ID"] == "CAND-I002")
+        self.assertEqual(c["ESTADO"], "CAPABILITY_BLOCK")
+        self.assertIn("CAPABILITY_BLOCK", c["ESTADO"])
+        self.assertIn("CAPABILITY_BLOCK", doc["ESTADOS"])
+        self.assertIn("FACEBOOK_CAPABILITY_BLOCK", c["MOTIVO_DO_BLOQUEIO"])
+        self.assertFalse(c.get("MOTIVO_DA_RECUSA"))
+
 
 # ---------------------------------------------------------------------------
 # T4 — Tipo desconhecido → UNKNOWN, sem SOURCE_ID fabricado

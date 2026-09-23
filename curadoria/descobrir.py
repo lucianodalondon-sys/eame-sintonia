@@ -1750,7 +1750,7 @@ def recusar_candidatas_lixo() -> dict:
     d = carregar()
     recusadas = []
     for c in d["CANDIDATAS"]:
-        if c["ESTADO"] == "RECUSADA":
+        if c["ESTADO"] in ("RECUSADA", "CAPABILITY_BLOCK"):  # decidido: nao se re-recusa
             continue
         nota = c.get("NOTA", "")
         if "DISCOVERY_METHOD=CRAWL_LINK" not in nota:
@@ -1784,7 +1784,7 @@ def recusar_candidatas_por_varredura_retroactiva() -> dict:
     d = carregar()
     recusadas = []
     for c in d["CANDIDATAS"]:
-        if c["ESTADO"] == "RECUSADA":
+        if c["ESTADO"] in ("RECUSADA", "CAPABILITY_BLOCK"):  # decidido: nao se re-recusa
             continue
         url = c["URL"]
         nota = c.get("NOTA", "")
@@ -1889,7 +1889,7 @@ def recusar_candidatas_fora_de_dominio() -> dict:
     d = carregar()
     recusadas = []
     for c in d["CANDIDATAS"]:
-        if c["ESTADO"] == "RECUSADA":
+        if c["ESTADO"] in ("RECUSADA", "CAPABILITY_BLOCK"):  # decidido: nao se re-recusa
             continue
         if "DISCOVERY_METHOD=CRAWL_LINK" not in c.get("NOTA", ""):
             continue
@@ -1919,7 +1919,7 @@ def recusar_candidatas_de_semente_generica() -> dict:
     d = carregar()
     recusadas = []
     for c in d["CANDIDATAS"]:
-        if c["ESTADO"] == "RECUSADA":
+        if c["ESTADO"] in ("RECUSADA", "CAPABILITY_BLOCK"):  # decidido: nao se re-recusa
             continue
         nota = c.get("NOTA", "")
         if "DISCOVERY_METHOD=CRAWL_LINK" not in nota:

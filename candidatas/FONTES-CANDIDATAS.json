@@ -5,7 +5,8 @@
     "CANDIDATA": "alguem viu que existe. Ninguem abriu ainda.",
     "EM_ANALISE": "alguem esta a olhar agora.",
     "PROMOVIDA": "virou ficha no atlas. O campo SOURCE_ID diz qual.",
-    "RECUSADA": "olhou-se e nao serve. O motivo fica escrito, e a linha fica."
+    "RECUSADA": "olhou-se e nao serve. O motivo fica escrito, e a linha fica.",
+    "CAPABILITY_BLOCK": "fonte boa; a casa ainda nao tem capacidade de a colher. Nao e recusa: volta quando houver capacidade (D13)."
   },
   "CANDIDATAS": [
     {
@@ -3114,14 +3115,21 @@
       "ONDE_VIU": "declarado no site oficial do dono: https://www.arsac.calabria.it/",
       "QUANDO": "2026-09-15",
       "NOTA": "owner provado pela declaracao do proprio dono; a plataforma nao permite prova direta a partir do datacenter (medido: Facebook devolve 200 para pagina inventada, Instagram devolve 429 para tudo) · CANDIDATA validada em 2026-09-14; SOURCE_ID nao atribuido (nasce na porta canonica)",
-      "ESTADO": "RECUSADA",
+      "ESTADO": "CAPABILITY_BLOCK",
       "SOURCE_ID": null,
-      "MOTIVO_DA_RECUSA": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+      "MOTIVO_DA_RECUSA": null,
       "PORQUE": "prova de existencia, nao de entrega: dono PROVED_BY_OWNER_SITE; pais: SIM — declarado por dono italiano no proprio site; endereco responde HTTP 200; portao 7D = REVIEW (58.9/100). Falta o degrau que o atlas exige para virar ficha.",
       "EVIDENCIA": "HTTP 200 · titulo: Facebook · ancora: titulo da pagina: Facebook",
       "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou; frequencia de actualizacao, nunca medida",
       "VIZINHA_NO_ATLAS": null,
-      "DECIDIDA_EM": "2026-09-15"
+      "DECIDIDA_EM": "2026-09-15",
+      "D13": {
+        "ESTADO_ANTERIOR": "RECUSADA",
+        "MOTIVO_ANTERIOR": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+        "QUANDO": "2026-09-23T07:47:29.273345+00:00",
+        "DECISAO": "D13 (DECISOES-DONO-2026-09-23, linha 116): sem capacidade nao e recusa"
+      },
+      "MOTIVO_DO_BLOQUEIO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
     },
     {
       "CANDIDATA_ID": "CAND-0035",
@@ -3303,14 +3311,21 @@
       "ONDE_VIU": "declarado no site oficial do dono: https://www.caviro.com/",
       "QUANDO": "2026-09-15",
       "NOTA": "owner provado pela declaracao do proprio dono; a plataforma nao permite prova direta a partir do datacenter (medido: Facebook devolve 200 para pagina inventada, Instagram devolve 429 para tudo) · CANDIDATA validada em 2026-09-14; SOURCE_ID nao atribuido (nasce na porta canonica)",
-      "ESTADO": "RECUSADA",
+      "ESTADO": "CAPABILITY_BLOCK",
       "SOURCE_ID": null,
-      "MOTIVO_DA_RECUSA": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+      "MOTIVO_DA_RECUSA": null,
       "PORQUE": "RECUSA ANTERIOR REVOGADA. Estava escrito «sem utilidade agricola identificavel para o SINTONIA», e a prova citada nao sustenta isso: o titulo lido era o nome da plataforma, nao o da fonte. O atlas proibe converter «nao consegui verificar» em recusa.",
       "EVIDENCIA": "qualificacao 2026-09-14 REJECT · sonda diz VALIDATION_RESULT=PASS · FLAGS=PLATFORM_GENERIC_TITLE",
       "O_QUE_FALTA": "uma leitura que atravesse a plataforma, ou um exemplo real da propria fonte. Enderecos estaveis conhecidos: https://www.facebook.com/GruppoCaviro",
       "VIZINHA_NO_ATLAS": null,
-      "DECIDIDA_EM": "2026-09-15"
+      "DECIDIDA_EM": "2026-09-15",
+      "D13": {
+        "ESTADO_ANTERIOR": "RECUSADA",
+        "MOTIVO_ANTERIOR": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+        "QUANDO": "2026-09-23T07:47:29.273345+00:00",
+        "DECISAO": "D13 (DECISOES-DONO-2026-09-23, linha 116): sem capacidade nao e recusa"
+      },
+      "MOTIVO_DO_BLOQUEIO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
     },
     {
       "CANDIDATA_ID": "CAND-0033",
@@ -3387,14 +3402,21 @@
       "ONDE_VIU": "declarado no site oficial do dono: https://www.prosecco.it/",
       "QUANDO": "2026-09-15",
       "NOTA": "owner provado pela declaracao do proprio dono; a plataforma nao permite prova direta a partir do datacenter (medido: Facebook devolve 200 para pagina inventada, Instagram devolve 429 para tudo) · CANDIDATA validada em 2026-09-14; SOURCE_ID nao atribuido (nasce na porta canonica)",
-      "ESTADO": "RECUSADA",
+      "ESTADO": "CAPABILITY_BLOCK",
       "SOURCE_ID": null,
-      "MOTIVO_DA_RECUSA": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+      "MOTIVO_DA_RECUSA": null,
       "PORQUE": "RECUSA ANTERIOR REVOGADA. Estava escrito «sem utilidade agricola identificavel para o SINTONIA», e a prova citada nao sustenta isso: o titulo lido era o nome da plataforma, nao o da fonte. O atlas proibe converter «nao consegui verificar» em recusa.",
       "EVIDENCIA": "qualificacao 2026-09-14 REJECT · sonda diz VALIDATION_RESULT=PASS · FLAGS=PLATFORM_GENERIC_TITLE",
       "O_QUE_FALTA": "uma leitura que atravesse a plataforma, ou um exemplo real da propria fonte. Enderecos estaveis conhecidos: https://www.facebook.com/ConeglianoValdobbiadeneProseccoDOCG",
       "VIZINHA_NO_ATLAS": null,
-      "DECIDIDA_EM": "2026-09-15"
+      "DECIDIDA_EM": "2026-09-15",
+      "D13": {
+        "ESTADO_ANTERIOR": "RECUSADA",
+        "MOTIVO_ANTERIOR": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+        "QUANDO": "2026-09-23T07:47:29.273345+00:00",
+        "DECISAO": "D13 (DECISOES-DONO-2026-09-23, linha 116): sem capacidade nao e recusa"
+      },
+      "MOTIVO_DO_BLOQUEIO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
     },
     {
       "CANDIDATA_ID": "CAND-0047",
@@ -3408,14 +3430,21 @@
       "ONDE_VIU": "declarado no site oficial do dono: https://www.consorziovalpolicella.it/",
       "QUANDO": "2026-09-15",
       "NOTA": "owner provado pela declaracao do proprio dono; a plataforma nao permite prova direta a partir do datacenter (medido: Facebook devolve 200 para pagina inventada, Instagram devolve 429 para tudo) · CANDIDATA validada em 2026-09-14; SOURCE_ID nao atribuido (nasce na porta canonica)",
-      "ESTADO": "RECUSADA",
+      "ESTADO": "CAPABILITY_BLOCK",
       "SOURCE_ID": null,
-      "MOTIVO_DA_RECUSA": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+      "MOTIVO_DA_RECUSA": null,
       "PORQUE": "RECUSA ANTERIOR REVOGADA. Estava escrito «sem utilidade agricola identificavel para o SINTONIA», e a prova citada nao sustenta isso: o titulo lido era o nome da plataforma, nao o da fonte. O atlas proibe converter «nao consegui verificar» em recusa.",
       "EVIDENCIA": "qualificacao 2026-09-14 REJECT · sonda diz VALIDATION_RESULT=PASS · FLAGS=PLATFORM_GENERIC_TITLE",
       "O_QUE_FALTA": "uma leitura que atravesse a plataforma, ou um exemplo real da propria fonte. Enderecos estaveis conhecidos: https://www.facebook.com/valpolicella.wines",
       "VIZINHA_NO_ATLAS": null,
-      "DECIDIDA_EM": "2026-09-15"
+      "DECIDIDA_EM": "2026-09-15",
+      "D13": {
+        "ESTADO_ANTERIOR": "RECUSADA",
+        "MOTIVO_ANTERIOR": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+        "QUANDO": "2026-09-23T07:47:29.273345+00:00",
+        "DECISAO": "D13 (DECISOES-DONO-2026-09-23, linha 116): sem capacidade nao e recusa"
+      },
+      "MOTIVO_DO_BLOQUEIO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
     },
     {
       "CANDIDATA_ID": "CAND-0029",
@@ -3429,14 +3458,21 @@
       "ONDE_VIU": "declarado no site oficial do dono: https://www.vinidabruzzo.it/",
       "QUANDO": "2026-09-15",
       "NOTA": "owner provado pela declaracao do proprio dono; a plataforma nao permite prova direta a partir do datacenter (medido: Facebook devolve 200 para pagina inventada, Instagram devolve 429 para tudo) · CANDIDATA validada em 2026-09-14; SOURCE_ID nao atribuido (nasce na porta canonica)",
-      "ESTADO": "RECUSADA",
+      "ESTADO": "CAPABILITY_BLOCK",
       "SOURCE_ID": null,
-      "MOTIVO_DA_RECUSA": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+      "MOTIVO_DA_RECUSA": null,
       "PORQUE": "RECUSA ANTERIOR REVOGADA. Estava escrito «sem utilidade agricola identificavel para o SINTONIA», e a prova citada nao sustenta isso: o titulo lido era o nome da plataforma, nao o da fonte. O atlas proibe converter «nao consegui verificar» em recusa.",
       "EVIDENCIA": "qualificacao 2026-09-14 REJECT · sonda diz VALIDATION_RESULT=PASS · FLAGS=PLATFORM_GENERIC_TITLE",
       "O_QUE_FALTA": "uma leitura que atravesse a plataforma, ou um exemplo real da propria fonte. Enderecos estaveis conhecidos: https://www.facebook.com/vinidabruzzo",
       "VIZINHA_NO_ATLAS": null,
-      "DECIDIDA_EM": "2026-09-15"
+      "DECIDIDA_EM": "2026-09-15",
+      "D13": {
+        "ESTADO_ANTERIOR": "RECUSADA",
+        "MOTIVO_ANTERIOR": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+        "QUANDO": "2026-09-23T07:47:29.273345+00:00",
+        "DECISAO": "D13 (DECISOES-DONO-2026-09-23, linha 116): sem capacidade nao e recusa"
+      },
+      "MOTIVO_DO_BLOQUEIO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
     },
     {
       "CANDIDATA_ID": "CAND-0043",
@@ -3450,14 +3486,21 @@
       "ONDE_VIU": "declarado no site oficial do dono: https://www.chianticlassico.com/",
       "QUANDO": "2026-09-15",
       "NOTA": "owner provado pela declaracao do proprio dono; a plataforma nao permite prova direta a partir do datacenter (medido: Facebook devolve 200 para pagina inventada, Instagram devolve 429 para tudo) · CANDIDATA validada em 2026-09-14; SOURCE_ID nao atribuido (nasce na porta canonica)",
-      "ESTADO": "RECUSADA",
+      "ESTADO": "CAPABILITY_BLOCK",
       "SOURCE_ID": null,
-      "MOTIVO_DA_RECUSA": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+      "MOTIVO_DA_RECUSA": null,
       "PORQUE": "RECUSA ANTERIOR REVOGADA. Estava escrito «sem utilidade agricola identificavel para o SINTONIA», e a prova citada nao sustenta isso: o titulo lido era o nome da plataforma, nao o da fonte. O atlas proibe converter «nao consegui verificar» em recusa.",
       "EVIDENCIA": "qualificacao 2026-09-14 REJECT · sonda diz VALIDATION_RESULT=PASS · FLAGS=PLATFORM_GENERIC_TITLE",
       "O_QUE_FALTA": "uma leitura que atravesse a plataforma, ou um exemplo real da propria fonte. Enderecos estaveis conhecidos: https://www.facebook.com/chianticlassico.it",
       "VIZINHA_NO_ATLAS": null,
-      "DECIDIDA_EM": "2026-09-15"
+      "DECIDIDA_EM": "2026-09-15",
+      "D13": {
+        "ESTADO_ANTERIOR": "RECUSADA",
+        "MOTIVO_ANTERIOR": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao.",
+        "QUANDO": "2026-09-23T07:47:29.273345+00:00",
+        "DECISAO": "D13 (DECISOES-DONO-2026-09-23, linha 116): sem capacidade nao e recusa"
+      },
+      "MOTIVO_DO_BLOQUEIO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
     },
     {
       "CANDIDATA_ID": "CAND-0256",

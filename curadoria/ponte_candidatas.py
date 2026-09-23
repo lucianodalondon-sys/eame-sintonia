@@ -180,8 +180,14 @@ def processar() -> dict:
             motivo = _MOTIVO[tipo]
             LC.registar(cid, LC.CAPABILITY_BLOCK, motivo,
                         evidence_ref="BRIDGE:candidatas/FONTES-CANDIDATAS.json")
-            c["ESTADO"] = "RECUSADA"
-            c["MOTIVO_DA_RECUSA"] = motivo
+            # D13 (23/09, bot Luciano por delegacao do dono): sem capacidade NAO
+            # e recusa. A fonte pode ser boa; falta-nos o adaptador. Fica com o
+            # seu proprio estado, e o motivo no campo do bloqueio.
+            c["ESTADO"] = "CAPABILITY_BLOCK"
+            c["MOTIVO_DO_BLOQUEIO"] = motivo
+            # o estado entra no vocabulario que a propria porta declara
+            porta_doc.setdefault("ESTADOS", {}).setdefault(
+                "CAPABILITY_BLOCK", FN.ESTADO_CAPABILITY_BLOCK)
             porta_modificada = True
             entrada.update({"DESTINO": "CAPABILITY_BLOCK", "MOTIVO": motivo})
             m["CLASSIFICADAS_BARRADAS"] += 1

@@ -101,6 +101,11 @@ def normalizar(url: str) -> str:
     return u.rstrip("/")
 
 
+# D13 (23/09): uma fonte que a casa nao consegue colher nao foi recusada.
+ESTADO_CAPABILITY_BLOCK = ("fonte boa; a casa ainda nao tem capacidade de a colher. "
+                           "Nao e recusa: volta quando houver capacidade (D13).")
+
+
 def carregar() -> dict:
     if FILA.exists():
         return json.loads(FILA.read_text(encoding="utf-8"))
@@ -115,6 +120,7 @@ def carregar() -> dict:
             "EM_ANALISE": "alguem esta a olhar agora.",
             "PROMOVIDA": "virou ficha no atlas. O campo SOURCE_ID diz qual.",
             "RECUSADA": "olhou-se e nao serve. O motivo fica escrito, e a linha fica.",
+            "CAPABILITY_BLOCK": ESTADO_CAPABILITY_BLOCK,
         },
         "CANDIDATAS": [],
     }
@@ -206,7 +212,8 @@ def listar() -> int:
             print(f"               para que: {c['PARA_QUE_SERVE'][:80]}")
     print(f"\nTOTAL={len(d['CANDIDATAS'])} · "
           + " · ".join(f"{e}={sum(1 for c in d['CANDIDATAS'] if c['ESTADO'] == e)}"
-                       for e in ("CANDIDATA", "EM_ANALISE", "PROMOVIDA", "RECUSADA")))
+                       for e in ("CANDIDATA", "EM_ANALISE", "PROMOVIDA", "RECUSADA",
+                                 "CAPABILITY_BLOCK")))
     return 0
 
 
