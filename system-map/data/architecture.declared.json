@@ -4522,6 +4522,22 @@
    ]
   },
   {
+   "id": "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
+   "name": "O canário do vídeo de um AGRÓNOMO ITALIANO no YouTube (D24) — a metade que faltava",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊞",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Corre o canário do VÍDEO PÚBLICO de um agrónomo italiano no YouTube e mede, por esta ordem: (1) o portão de egresso do DONO (`superficie/rede.py`) ANTES — fora de IT a corrida não começa e o artefacto não é escrito; (2) a lei SEM estágio, lida da matriz na acção que esta corrida usa (`FETCH_AUDIO_BYTES` → `yt-dlp:public_audio`, `LIMITE = PUBLIC_AUDIO_ONLY`, `OWNER_AUTHORIZED = SIM` e `PLATFORM_POLICY_STATUS = DISALLOWED` lado a lado) — com a rota da TRANSCRIÇÃO (`apify:transcricao`, PAGA) registada ao lado para que ninguém leia o `yt-dlp` e conclua que esta corrida pagou algo; (3) o que a PRÓPRIA PLATAFORMA declara da publicação, pelo `oembed` (gratuito, sem chave, HTTP 200); (4) a aquisição pela rota provada — 5 791 320 bytes de som, sha256 recalculado no disco, 180,98 s, ZERO fluxos de imagem e 1 de som, com o VIDEO preservado como PAI (`PARENT.VIDEO_ID`); e (5) o mesmo portão DEPOIS, a provar que a corrida INTEIRA saiu por IT. Declara o que NÃO mede: `VIDEO_BYTES = NOT_RUN`, porque a matriz não tem rota para os bytes de imagem do YouTube, e `TRANSCRIPT_STATE = NOT_RUN`, porque transcrever é outra capacidade e a fila não foi tocada. Custo US$ 0.",
+   "why_here": "A doc do D24 fechou a metade espanhola (o Reel do Instagram de pessoa) e deixou escrito `ITALIANO = NÃO ENCONTRADO NA AMOSTRA` — 4 posts de pessoa italiana medidos, 0 com vídeo. Este canário mede a metade que faltava, numa SEGUNDA plataforma, e com a MESMA pessoa do canário do Reel (`dr.agricultura`): a mesma pessoa provada em duas plataformas mede a MATRIZ, e não só mais um vídeo. E mede a fronteira em voz alta: a rota do YouTube desta casa é ÁUDIO-ONLY (D17.4/C13), assinatura que continua verdadeira — os bytes de som foram adquiridos, os de imagem não têm rota declarada.",
+   "files": [
+    "provas/canario_d24_video_youtube_de_pessoa.py"
+   ]
+  },
+  {
    "id": "C-PROVA-CANARIO-D23-LINKEDIN",
    "name": "O canário do vídeo de organização no LinkedIn (D23) — e os dois bisturis da cadeia",
    "territory": "Z-PROVA",

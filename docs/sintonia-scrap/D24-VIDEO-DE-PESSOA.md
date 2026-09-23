@@ -150,6 +150,12 @@ escondida: a porta que acharia mais perfis de pessoa sem buscador é o próprio
 acervo, e nele os italianos com vídeo ainda não apareceram. Não se inventou um
 italiano para fechar a frase.
 
+> ⚠️ **CORRIGIDO PELO §7 — 2026-09-23.** Este parágrafo era verdade sobre a
+> AMOSTRA do LinkedIn, e deixou de ser o resultado da missão: a metade italiana
+> foi medida e adquirida noutra plataforma, com o portão do dono nas duas pontas.
+> O parágrafo fica, porque apagá-lo apagaria a medição da amostra — 4 posts de
+> pessoa italiana, 0 com vídeo —, que continua verdadeira. Ver o §7.
+
 ---
 
 ## 3 · O QUE A D24 **NÃO** ABRIU — E CADA UM COM O SEU DONO
@@ -306,3 +312,70 @@ o diz é o coletor (`FONTES_AUSENTES`), no sítio onde essa pergunta tem dono.
 | `tests/test_c13_route_gate.py` | a **âncora** das decisões antigas ganhou a linha do Instagram **com a razão escrita** — mudou declarada |
 | `tests/test_c14c_permissao_instagram.py` | o gate passou a exigir: **ALLOWED só com os dois eixos declarados** |
 | `tests/test_as_duas_portas_do_scrap.py` | a fase autorizada pela matriz entra pela porta canónica |
+
+---
+
+## 7 · O VÍDEO DO AGRÓNOMO ITALIANO — a metade que faltava (§2)
+
+**ACRESCENTADO EM 2026-09-23**, no fecho da missão.
+
+O §2 fechou com `ITALIANO = NÃO ENCONTRADO NA AMOSTRA`. A amostra era do
+**LinkedIn**, e continua verdadeira: 4 posts de pessoa italiana, **0** com vídeo.
+O que faltava não era um italiano — era **procurá-lo onde a porta está aberta**.
+
+```
+A FRASE ERRADA   «não há agrónomo italiano com vídeo»
+A FRASE CERTA    «não há, NA AMOSTRA DO LINKEDIN; noutra plataforma há»
+```
+
+### A amostra procurada, medida
+
+Sobre o acervo da própria casa (`SENSOR-PILOT/VIDEOS-E.json` + `MEDICAO.json`,
+1 317 registos), procurando **vídeo público cuja descrição nomeia um profissional
+do agro em italiano**:
+
+```
+candidatos ..................................... 26
+com o papel declarado no TÍTULO ................  8
+o escolhido ..................................... 3m01s (o mais curto com papel no título e no texto)
+```
+
+### A pessoa — a MESMA do canário do Reel, e isso é deliberado
+
+Alessandro Giglietti, **`dr.agricultura`**, dottore agronomo — o mesmo canário do
+Instagram que a §6 mediu. Provar a mesma pessoa em **duas** plataformas mede a
+**matriz**; um italiano novo mediria só mais um vídeo.
+
+### O canário real — `provas/canario_d24_video_youtube_de_pessoa.py`
+
+| medido | valor |
+|---|---|
+| `ALVO` | `https://www.youtube.com/watch?v=WOrq-i7JXJc` — **a publicação**, não o perfil |
+| `oembed` | **HTTP 200** — a plataforma declarou título e canal a convidado, sem chave |
+| `ROUTE` | `yt-dlp:public_audio` · `LIMITE = PUBLIC_AUDIO_ONLY` (D17.4/C13) |
+| os dois eixos | `OWNER_AUTHORIZED = SIM` · `PLATFORM_POLICY_STATUS = DISALLOWED` |
+| `AUDIO_BYTES` | **5 791 320** · sha256 `d8564d47…` — **recalculado no disco** |
+| `STREAMS` | **0 de imagem**, 1 de som — chamar-lhe vídeo seria a 1.ª mentira |
+| `PARENT.VIDEO_ID` | `WOrq-i7JXJc` — o vídeo fica preservado como **pai** do som |
+| `EGRESS` | **IT** nas duas pontas (`PASS` antes **e** depois), e a corrida inteira no mesmo país |
+| `CUSTO_USD` | **0.0** |
+
+```
+VIDEO_BYTES      = NOT_RUN    a matriz não tem rota para os bytes de imagem do
+                              YouTube; abri-la é capability nova, com gate próprio
+TRANSCRIPT_STATE = NOT_RUN    transcrever é outra capacidade, e a fila não foi tocada
+```
+
+> **AS DUAS FRASES CONTRA A LEITURA FÁCIL.** «O YouTube é barato» é verdade e
+> esconde a fronteira: **som** tem rota provada; **imagem** não tem. Escrever só
+> a primeira faria a próxima missão prometer o que não existe.
+
+### O que ficou provado, e o que ficou aberto
+
+```
+FECHADO   a metade italiana, num vídeo público, numa segunda plataforma, IT nas
+          duas pontas, US$ 0 — com a pessoa IDENTIFICADA fora da plataforma
+ABERTO    os BYTES DE IMAGEM do YouTube (rota nova, decisão do dono)
+ABERTO    o `SOURCE_ID` da publicação de uma pessoa — é do dono do catálogo
+ABERTO    a tela de pessoas nomeadas — é da revisão jurídica
+```

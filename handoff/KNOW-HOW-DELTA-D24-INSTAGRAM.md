@@ -51,3 +51,40 @@ docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md §6   o documento da prova
    frase é reescrever a evidência.
 5. **A tela de pessoas nomeadas continua com a revisão jurídica** — autorizar a
    coleta não autoriza nenhuma tela a listar quem publicou.
+---
+
+## PARA QUEM JUNTAR COM O `scrap-portas-v1` — AS LINHAS QUE MUDARAM, E POR QUÊ
+
+**De:** `scrap-linkedin-v1` (blocos 7b–9). **Regra desta secção:** só entram
+ficheiros que EU toquei. Onde não toquei, digo que não toquei — uma lista
+incompleta é pior do que nenhuma, porque quem junta confia nela.
+
+| ficheiro | o que mudou | por quê |
+|---|---|---|
+| `provas/canario_d24_video_de_pessoa.py` | porta de egresso do DONO (`superficie/rede.py`) **antes e depois**; `EGRESSO_EXIGIDO`; `'superficie'` no `sys.path`; `import rede as superficie` | o canário media o egresso com um `ipinfo` próprio e **não** usava o portão do dono, nem media as duas pontas. Fora de IT a corrida não começa e o artefacto não é escrito |
+| `provas/canario_d24_video_youtube_de_pessoa.py` | **NOVO** — o canário do vídeo de agrónomo italiano no YouTube | era a metade que faltava (§7 do D24) |
+| `provas/canario_d24_reel_de_pessoa.py` | **NÃO TOQUEI** | — |
+| `tests/test_c10_4_route_gate.py` | **SÓ UMA linha de asserção**, em `test_o_check_conhece_a_capacidade_da_matriz`: `assertEqual(mz.PERMITIDA_SIM, v['STATE'])` → `assertEqual(scrap.PODE, v['STATE'])`, **mais** a contraprova com `_PoliticaNegativa()` | a linha antiga exigia `ALLOWED` (palavra da **matriz**) de um campo que é do **portão** (`CAN_COLLECT_NOW`). O portão **espelha** a matriz quando ela RECUSA e diz a palavra dele quando pode colher — a contraprova nova guarda esse espelho |
+| `tests/test_c10_4b_um_caminho_so.py` | **NÃO TOQUEI** | ⚠️ é do `scrap-portas-v1`; o conflito é dele |
+| `tests/test_c10_5d_decisao_instagram.py` | **NÃO TOQUEI** | ⚠️ idem — o `test_T10` falha em disco por uma pasta VAZIA (`data/raw/REEL-MIDIA`, ignorada, 0 ficheiros) e **passa em clone limpo**; não é regressão da árvore |
+| `tests/test_c10_6d_portas_canonicas.py` | **NÃO TOQUEI** | ⚠️ `test_8_a_rota_da_janela_e_a_que_a_matriz_nomeia` **falha igual na base `f5b61ec6`** (`'ROUTE_NOT_ALLOWED' != 'ALLOWED'`) — é herdada, não desta missão |
+| `docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md` | §1 ganhou o **Egresso C** (IT) e a comparação campo a campo Miami × Palermo; §2 ganhou a linha do `EGRESSO` e o aviso de correção; **§7 novo** | a repetição pela VPN IT e a metade italiana precisavam de ficar escritas onde o dono lê |
+| `system-map/data/architecture.declared.json` | **DUAS peças novas**: `C-PROVA-CANARIO-D24-REEL-PESSOA` e `C-PROVA-CANARIO-D24-YOUTUBE-PESSOA` | o validador reprovava `P9_CODIGO_DECLARADO`: os dois canários eram código que nenhuma peça do mapa reivindicava |
+| `data/samples/CANARIO-D24-PESSOA-V1.json` | **reescrito** pela corrida de IT | o egresso que viaja no objeto é o **medido na hora**. A corrida de Miami (**US**, `146.70.98.171`) fica registada no §1 do D24 — as duas concordaram em 12 dos 13 campos |
+| `data/samples/CANARIO-D24-YOUTUBE-PESSOA-V1.json` | **NOVO** | artefacto do canário do YouTube |
+
+### O confronto que vai dar trabalho, e como o ler
+
+```
+c10_4    → eu mexi (1 asserção + contraprova). Conflito esperado: resolver TOMANDO a minha versão
+             se o outro ramo não tocou nesta função.
+c10_4b   → eu NÃO mexi. Se houver conflito, é entre o `scrap-portas-v1` e a base.
+c10_5d   → eu NÃO mexi (a falha era do meu disco, não da árvore).
+c10_6d   → eu NÃO mexi; falha na base também.
+```
+
+> **A BATERIA CONTA POR NOME, E O NOME É O CAMINHO INTEIRO.** Comparar
+> `test_c10_5d_decisao_instagram.py` com `...::ADecisaoNaoTrouxeNadaAtrasDela::test_T10`
+> é comparar coisas diferentes: o número «3 falhas» que eu vi primeiro no meu
+> disco era **1 nova + 1 do disco + 1 da base**, e só a comparação em clone
+> limpo, por nome completo, separou as três.
