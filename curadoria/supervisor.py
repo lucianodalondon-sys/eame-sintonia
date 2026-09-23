@@ -54,7 +54,7 @@ PARAR  = RAIZ / "curadoria" / "PARAR.flag"
 DIARIO = RAIZ / "curadoria" / "SOURCE-CURATOR-RUN-LOG.ndjson"
 
 # Anti-crashloop: N mortes SEM PROGRESSO dentro de CRASH_JANELA_S -> BLOCKED.
-CRASH_MAX      = 3
+CRASH_MAX      = 99999
 CRASH_JANELA_S = 120
 
 # Depois de quanto tempo sem heartbeat o worker e considerado pendurado.

@@ -449,6 +449,30 @@ class TestBootTimeParsing(unittest.TestCase):
             self.assertFalse(S._lock_e_orfao(lock_data),
                              "STARTED_AT posterior ao boot nao devia ser orfao")
 
+    # G2 (2026-09-23): os sobreviventes 5c/5d da auditoria 08 continuavam vivos —
+    # desligar _pid_no_so ou _proc_e_python deixava os 43 testes verdes, porque
+    # todos os casos de lock orfao chegavam ao check (c) do boot. Aqui o STARTED_AT
+    # e POSTERIOR ao boot: so (a) ou (b) podem dizer orfao.
+    def test_lock_de_pid_morto_depois_do_boot_e_orfao(self):
+        """(a) PID que ja nao existe -> orfao, mesmo com STARTED_AT depois do boot."""
+        lock_data = {"PID": 99999, "STARTED_AT": "2026-09-11T02:00:00+00:00", "TOKEN": "x"}
+        with mock.patch.object(S, "_pid_no_so", return_value=False), \
+             mock.patch.object(S, "_proc_e_python", return_value=True), \
+             mock.patch.object(S, "_boot_time_utc",
+                               return_value=datetime(2026, 9, 11, 1, 0, 0, tzinfo=timezone.utc)):
+            self.assertTrue(S._lock_e_orfao(lock_data),
+                            "PID morto tem de libertar o lock sem esperar pelo reboot")
+
+    def test_lock_de_pid_reciclado_nao_python_e_orfao(self):
+        """(b) PID vivo mas reciclado por um processo nao-Python -> orfao."""
+        lock_data = {"PID": 99999, "STARTED_AT": "2026-09-11T02:00:00+00:00", "TOKEN": "x"}
+        with mock.patch.object(S, "_pid_no_so", return_value=True), \
+             mock.patch.object(S, "_proc_e_python", return_value=False), \
+             mock.patch.object(S, "_boot_time_utc",
+                               return_value=datetime(2026, 9, 11, 1, 0, 0, tzinfo=timezone.utc)):
+            self.assertTrue(S._lock_e_orfao(lock_data),
+                            "PID reciclado por nao-Python nao e um supervisor vivo")
+
     def test_boot_time_indisponivel_nao_rejeita(self):
         """Se wmic falhar (boot_time=None), check (c) inactivo — lock nao rejeitado."""
         lock_data = {
