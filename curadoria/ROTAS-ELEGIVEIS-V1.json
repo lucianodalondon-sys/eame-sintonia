@@ -357,7 +357,7 @@
    },
    "VEREDITO": "ROUTE_PROVEN",
    "CAUSA": "indice -> 8 links pelo motor -> https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2 com 851 caracteres em paragrafos (1 alvo(s) aberto(s))",
-   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
   },
   {
    "SOURCE_ID": "IT-T9-021",
@@ -366,54 +366,11 @@
    "INDEX_URL": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
    "LINK_PATTERN": "^https?://(www\\.)?fieradidacta\\.indire\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
    "MAX_TARGETS": 1,
-   "PEDIDOS": 3,
-   "ROBOTS": "lido",
-   "INDEX_HTTP": 200,
-   "NEGATIVE_CONTROL": {
-    "URL": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
-    "HTML_KIND": "CONTENT",
-    "LINKS": 58,
-    "NON_WHITESPACE_CHARACTERS": 2455,
-    "PASSARIA_COMO_MATERIA": true
-   },
-   "LINKS_DE_DETALHE": 4,
-   "AMOSTRA_LINKS": [
-    "https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/",
-    "https://fieradidacta.indire.it/it/news/e-online-il-programma-degli-eventi-espositori-con-workshop-presentazioni-e-novita-per-didacta-abruzzo/",
-    "https://fieradidacta.indire.it/it/news/didacta-lanciano-la-sostenibilita-si-mette-in-gioco-con-un-laboratorio-tra-greencomp-e-cambiamento/",
-    "https://fieradidacta.indire.it/it/news/aperte-le-iscrizioni-ai-90-eventi-formativi-di-didacta-italia-edizione-abruzzo/"
-   ],
-   "CANARIOS": [
-    {
-     "URL": "https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/",
-     "HTTP": 200,
-     "BYTES": 52272,
-     "HTML_KIND": "CONTENT",
-     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
-     "LINKS": 75,
-     "NON_WHITESPACE_CHARACTERS": 2982,
-     "PARAGRAPH_CHARACTERS": 1796,
-     "TEXT_SHA256": "50a5921eddc31681a24a17d823c24132eb8c4e0f6481b5f8ed7813a8eb24350a",
-     "VEREDITO": "ROUTE_PROVEN",
-     "CAUSA": "materia com corpo"
-    }
-   ],
-   "CANARIO": {
-    "URL": "https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/",
-    "HTTP": 200,
-    "BYTES": 52272,
-    "HTML_KIND": "CONTENT",
-    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
-    "LINKS": 75,
-    "NON_WHITESPACE_CHARACTERS": 2982,
-    "PARAGRAPH_CHARACTERS": 1796,
-    "TEXT_SHA256": "50a5921eddc31681a24a17d823c24132eb8c4e0f6481b5f8ed7813a8eb24350a",
-    "VEREDITO": "ROUTE_PROVEN",
-    "CAUSA": "materia com corpo"
-   },
-   "VEREDITO": "ROUTE_PROVEN",
-   "CAUSA": "indice -> 4 links pelo motor -> https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/ com 1796 caracteres em paragrafos (1 alvo(s) aberto(s))",
-   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
   },
   {
    "SOURCE_ID": "IT-T10-018",
@@ -558,13 +515,13 @@
     {
      "URL": "https://www.di3a.unict.it/it/notizie/avvisi-lezioni",
      "HTTP": 200,
-     "BYTES": 38558,
+     "BYTES": 39066,
      "HTML_KIND": "MIXED",
      "CAPA_OU_MATERIA": "NAO_SEI",
      "LINKS": 56,
-     "NON_WHITESPACE_CHARACTERS": 3555,
-     "PARAGRAPH_CHARACTERS": 846,
-     "TEXT_SHA256": "e29757d71f4d81323fc27dc6b2d84388bc9f62ffaf07d2e104fa49abb123ceb2",
+     "NON_WHITESPACE_CHARACTERS": 3913,
+     "PARAGRAPH_CHARACTERS": 1078,
+     "TEXT_SHA256": "088b262f538651a1621f829b3bf522a3c536852517ba333aedca01632e2b594c",
      "VEREDITO": "CAPABILITY_BLOCK",
      "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
     },
@@ -836,6 +793,1346 @@
    "VEREDITO": "ROUTE_PROVEN",
    "CAUSA": "indice -> 2 links pelo motor -> https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo com 2344 caracteres em paragrafos (1 alvo(s) aberto(s))",
    "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-137",
+   "OWNER": "psrn.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "http://www.psrn.it",
+   "LINK_PATTERN": "^https?://(www\\.)?psrn\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "http://www.psrn.it",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 103,
+    "NON_WHITESPACE_CHARACTERS": 3679,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 3,
+   "AMOSTRA_LINKS": [
+    "https://www.psrn.it/evento/grande-successo-di-pubblico-allevento-di-chiusura-della-campagna-di-comunicazione-del-psrn-2014-2022/",
+    "https://www.psrn.it/evento/il-7-giugno-a-roma-con-la-presenza-del-ministro-del-masaf-on-francesco-lollobrigida-levento-di-chiusura-del-programma-di-sviluppo-rurale-nazionale-2014-2022/",
+    "https://www.psrn.it/evento/sottomisura-10-2-gli-obiettivi-raggiunti-che-contribuiranno-tra-laltro-a-limitare-la-consanguineita-e-migliorare-geneticamente-le-razze-animali-di-interesse-zootecnico/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.psrn.it/evento/grande-successo-di-pubblico-allevento-di-chiusura-della-campagna-di-comunicazione-del-psrn-2014-2022/",
+     "HTTP": 200,
+     "BYTES": 103148,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 63,
+     "NON_WHITESPACE_CHARACTERS": 7606,
+     "PARAGRAPH_CHARACTERS": 6324,
+     "TEXT_SHA256": "2f38f392a0253294c33e38189c499efe092d56171868b36b9760fe3489892c06",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.psrn.it/evento/grande-successo-di-pubblico-allevento-di-chiusura-della-campagna-di-comunicazione-del-psrn-2014-2022/",
+    "HTTP": 200,
+    "BYTES": 103148,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 63,
+    "NON_WHITESPACE_CHARACTERS": 7606,
+    "PARAGRAPH_CHARACTERS": 6324,
+    "TEXT_SHA256": "2f38f392a0253294c33e38189c499efe092d56171868b36b9760fe3489892c06",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 3 links pelo motor -> https://www.psrn.it/evento/grande-successo-di-pubblico-allevento-di-chiusura-della-campagna-di-comunicazione-del-psrn-2014-2022/ com 6324 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-106",
+   "OWNER": "Italiano",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpae.it/@@multilingual-selector/425ee6f94f8b43d9947c9d8380825cf2/it?set_language=it",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpae.it/@@multilingual-selector/425ee6f94f8b43d9947c9d8380825cf2/it?set_language=it",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 112,
+    "NON_WHITESPACE_CHARACTERS": 4261,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 8,
+   "AMOSTRA_LINKS": [
+    "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+    "https://www.arpae.it/it/notizie/mare-riviera-interamente-balneabile-14sett2026",
+    "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+    "https://www.arpae.it/it/notizie/aggiornamento-al-portale-prelievi-1-1",
+    "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+     "HTTP": 200,
+     "BYTES": 26593,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 35,
+     "NON_WHITESPACE_CHARACTERS": 1952,
+     "PARAGRAPH_CHARACTERS": 851,
+     "TEXT_SHA256": "5d751d35740022fb513f6b1a535ee9e6375f210a7f2eb803f3c663aaee29abc4",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+    "HTTP": 200,
+    "BYTES": 26593,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 35,
+    "NON_WHITESPACE_CHARACTERS": 1952,
+    "PARAGRAPH_CHARACTERS": 851,
+    "TEXT_SHA256": "5d751d35740022fb513f6b1a535ee9e6375f210a7f2eb803f3c663aaee29abc4",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 8 links pelo motor -> https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2 com 851 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T5-090",
+   "OWNER": "ISTAT - Istituto Nazionale di Statistica",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.istat.it/it/",
+   "LINK_PATTERN": "^https?://(www\\.)?istat\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.istat.it/it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 317,
+    "NON_WHITESPACE_CHARACTERS": 14291,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 41,
+   "AMOSTRA_LINKS": [
+    "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/",
+    "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/promozione-della-ricerca/",
+    "https://www.istat.it/comunicati-e-analisi/pubblicazioni/rivista-di-statistica-ufficiale/",
+    "https://www.istat.it/comunicati-e-analisi/pubblicazioni/istat-working-papers/",
+    "https://www.istat.it/comunicati-e-analisi/audizioni-e-contributi-al-parlamento/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/",
+     "HTTP": 200,
+     "BYTES": 156992,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 263,
+     "NON_WHITESPACE_CHARACTERS": 11810,
+     "PARAGRAPH_CHARACTERS": 7110,
+     "TEXT_SHA256": "aad0139335c321584ebefba1e598d6112616623bf46604ac1b64d1f0bbff8827",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/",
+    "HTTP": 200,
+    "BYTES": 156992,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 263,
+    "NON_WHITESPACE_CHARACTERS": 11810,
+    "PARAGRAPH_CHARACTERS": 7110,
+    "TEXT_SHA256": "aad0139335c321584ebefba1e598d6112616623bf46604ac1b64d1f0bbff8827",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 41 links pelo motor -> https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/ com 7110 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T5-101",
+   "OWNER": "CNR - Consiglio Nazionale delle Ricerche",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.cnr.it/it",
+   "LINK_PATTERN": "^https?://(www\\.)?cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-053",
+   "OWNER": "Coldiretti Veneto",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://veneto.coldiretti.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?veneto\\.coldiretti\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-058",
+   "OWNER": "Unione Nazionale Associazioni Produttori Olivicoli",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.unaprol.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?unaprol\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-100",
+   "OWNER": "agrofarma.federchimica.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://agrofarma.federchimica.it/home-page",
+   "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://agrofarma.federchimica.it/home-page",
+    "HTML_KIND": "MIXED",
+    "LINKS": 81,
+    "NON_WHITESPACE_CHARACTERS": 4036,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 2,
+   "AMOSTRA_LINKS": [
+    "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+    "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+     "HTTP": 200,
+     "BYTES": 64740,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 66,
+     "NON_WHITESPACE_CHARACTERS": 3899,
+     "PARAGRAPH_CHARACTERS": 2344,
+     "TEXT_SHA256": "821917fb72ea247dacce6e4433da725769765d4f49397288b4706c2bf5b4a0dc",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+    "HTTP": 200,
+    "BYTES": 64740,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 66,
+    "NON_WHITESPACE_CHARACTERS": 3899,
+    "PARAGRAPH_CHARACTERS": 2344,
+    "TEXT_SHA256": "821917fb72ea247dacce6e4433da725769765d4f49397288b4706c2bf5b4a0dc",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 2 links pelo motor -> https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo com 2344 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-112",
+   "OWNER": "AGIA - Giovani",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/agia/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.cia.it/associazioni-cia/agia/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 124,
+    "NON_WHITESPACE_CHARACTERS": 4996,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://www.cia.it/news/settore-comunicazione-contatti/",
+    "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/",
+    "https://www.cia.it/news/notizie/cia-toscana-solo-il-7-di-giovani-in-agricoltura-ricambio-generazionale-deve-essere-priorita/",
+    "https://www.cia.it/news/notizie/eletti-i-presidenti-di-anp-agia-e-donne-in-campo-di-cia-calabria/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.cia.it/news/settore-comunicazione-contatti/",
+     "HTTP": 200,
+     "BYTES": 80967,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 89,
+     "NON_WHITESPACE_CHARACTERS": 1607,
+     "PARAGRAPH_CHARACTERS": 0,
+     "TEXT_SHA256": "c2ca9e68046b61e7cc9d49958b7434df91789ede25adfee41e012bd97caa8af1",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (89 ligacoes para 1607 caracteres, 0 em paragrafos)"
+    },
+    {
+     "URL": "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/",
+     "HTTP": 200,
+     "BYTES": 83251,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 84,
+     "NON_WHITESPACE_CHARACTERS": 3791,
+     "PARAGRAPH_CHARACTERS": 2355,
+     "TEXT_SHA256": "88718f88fc9139d3838b67e939e4198292ea54e0decf33dd78dd372cc91ae9bf",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/",
+    "HTTP": 200,
+    "BYTES": 83251,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 84,
+    "NON_WHITESPACE_CHARACTERS": 3791,
+    "PARAGRAPH_CHARACTERS": 2355,
+    "TEXT_SHA256": "88718f88fc9139d3838b67e939e4198292ea54e0decf33dd78dd372cc91ae9bf",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/ com 2355 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-115",
+   "OWNER": "Agenda",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.cia.it/agenda-archivio/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.cia.it/agenda-archivio/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 93,
+    "NON_WHITESPACE_CHARACTERS": 1837,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 13,
+   "AMOSTRA_LINKS": [
+    "https://www.cia.it/news/settore-comunicazione-contatti/",
+    "https://www.cia.it/eventi/cia-a-eima-international-2026/",
+    "https://www.cia.it/eventi/x-festa-dei-pensionati-anp-cia-nord-italia/",
+    "https://www.cia.it/eventi/vi-festa-interregionale-dei-pensionati-anp-cia-del-sud/",
+    "https://www.cia.it/eventi/cia-cuneo-al-confronto-sulla-sostenibilita-e-produzione/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.cia.it/news/settore-comunicazione-contatti/",
+     "HTTP": 200,
+     "BYTES": 80967,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 89,
+     "NON_WHITESPACE_CHARACTERS": 1607,
+     "PARAGRAPH_CHARACTERS": 0,
+     "TEXT_SHA256": "c2ca9e68046b61e7cc9d49958b7434df91789ede25adfee41e012bd97caa8af1",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (89 ligacoes para 1607 caracteres, 0 em paragrafos)"
+    },
+    {
+     "URL": "https://www.cia.it/eventi/cia-a-eima-international-2026/",
+     "HTTP": 200,
+     "BYTES": 79512,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 84,
+     "NON_WHITESPACE_CHARACTERS": 1459,
+     "PARAGRAPH_CHARACTERS": 236,
+     "TEXT_SHA256": "fab3e0f93ae7a4c020cea244684db9dc08e244c36857209bab7d33363f6cd73c",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (84 ligacoes para 1459 caracteres, 236 em paragrafos)"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://www.cia.it/news/settore-comunicazione-contatti/: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (89 ligacoes para 1607 caracteres, 0 em paragrafos); https://www.cia.it/eventi/cia-a-eima-international-2026/: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (84 ligacoes para 1459 caracteres, 236 em paragrafos)",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-117",
+   "OWNER": "CAF Cia",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.caf-cia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?caf\\-cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.caf-cia.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 68,
+    "NON_WHITESPACE_CHARACTERS": 2066,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 7,
+   "AMOSTRA_LINKS": [
+    "https://www.caf-cia.it/news/notizie/servizio-delega-digitale-730-precompilato/",
+    "https://www.caf-cia.it/news/notizie/730-2025-provvedimento-agenzia-delle-entrate/",
+    "https://www.caf-cia.it/news/notizie/detrazione-affitto-nel-modello-7302025-importi-requisiti-e-limiti-di-reddito/",
+    "https://www.caf-cia.it/news/notizie/la-dichiarazione-di-successione/",
+    "https://www.caf-cia.it/news/notizie/colf-e-badanti-aggiornamenti-normativi-del-2025/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.caf-cia.it/news/notizie/servizio-delega-digitale-730-precompilato/",
+     "HTTP": 200,
+     "BYTES": 34040,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 37,
+     "NON_WHITESPACE_CHARACTERS": 1685,
+     "PARAGRAPH_CHARACTERS": 932,
+     "TEXT_SHA256": "c287c226e44b6abead9598b356b3e1e806e87c73843bf34352f6a3cafbf0f6c7",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.caf-cia.it/news/notizie/servizio-delega-digitale-730-precompilato/",
+    "HTTP": 200,
+    "BYTES": 34040,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 37,
+    "NON_WHITESPACE_CHARACTERS": 1685,
+    "PARAGRAPH_CHARACTERS": 932,
+    "TEXT_SHA256": "c287c226e44b6abead9598b356b3e1e806e87c73843bf34352f6a3cafbf0f6c7",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 7 links pelo motor -> https://www.caf-cia.it/news/notizie/servizio-delega-digitale-730-precompilato/ com 932 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-118",
+   "OWNER": "Donne in Campo",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/donne-in-campo/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.cia.it/associazioni-cia/donne-in-campo/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 127,
+    "NON_WHITESPACE_CHARACTERS": 3660,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 10,
+   "AMOSTRA_LINKS": [
+    "https://www.cia.it/news/settore-comunicazione-contatti/",
+    "https://www.cia.it/news/notizie/la-presidente-di-donne-in-campo-cia-a-salerno-al-forum-di-cibo-dintorni/",
+    "https://www.cia.it/news/notizie/la-presidente-di-donne-in-campo-cia-allapertura-della-xviii-scuola-di-paesaggio-emilio-sereni/",
+    "https://www.cia.it/news/notizie/le-donne-agricoltrici-al-centro-della-sicurezza-alimentare-il-23-luglio-il-primo-webinar-sulla-sicurezza-alimentare-della-wfo-del-2026/",
+    "https://www.cia.it/news/notizie/roberta-serra-presidente-regionale-dic-puglia-interviene-al-convegno-il-pane-la-pace-e-la-terra-grano-sicurezza-alimentare-ed-ecologia-integrale-nel-mediterraneo/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.cia.it/news/settore-comunicazione-contatti/",
+     "HTTP": 200,
+     "BYTES": 80967,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 89,
+     "NON_WHITESPACE_CHARACTERS": 1607,
+     "PARAGRAPH_CHARACTERS": 0,
+     "TEXT_SHA256": "c2ca9e68046b61e7cc9d49958b7434df91789ede25adfee41e012bd97caa8af1",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (89 ligacoes para 1607 caracteres, 0 em paragrafos)"
+    },
+    {
+     "URL": "https://www.cia.it/news/notizie/la-presidente-di-donne-in-campo-cia-a-salerno-al-forum-di-cibo-dintorni/",
+     "HTTP": 200,
+     "BYTES": 82136,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 86,
+     "NON_WHITESPACE_CHARACTERS": 2829,
+     "PARAGRAPH_CHARACTERS": 1463,
+     "TEXT_SHA256": "05662a1ef980e920dbf9ec9e4db5cc3161c1b727ab6ce3db6ba4c8c25d9cdd98",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.cia.it/news/notizie/la-presidente-di-donne-in-campo-cia-a-salerno-al-forum-di-cibo-dintorni/",
+    "HTTP": 200,
+    "BYTES": 82136,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 86,
+    "NON_WHITESPACE_CHARACTERS": 2829,
+    "PARAGRAPH_CHARACTERS": 1463,
+    "TEXT_SHA256": "05662a1ef980e920dbf9ec9e4db5cc3161c1b727ab6ce3db6ba4c8c25d9cdd98",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 10 links pelo motor -> https://www.cia.it/news/notizie/la-presidente-di-donne-in-campo-cia-a-salerno-al-forum-di-cibo-dintorni/ com 1463 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-120",
+   "OWNER": "INAC Cia",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://inac-cia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?inac\\-cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://inac-cia.it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 69,
+    "NON_WHITESPACE_CHARACTERS": 3871,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 6,
+   "AMOSTRA_LINKS": [
+    "https://inac-cia.it/news/notizie/sei-un-pensionato/",
+    "https://inac-cia.it/news/notizie/vuoi-sapere-quando-andrai-in-pensione/",
+    "https://inac-cia.it/news/notizie/lavori-o-hai-lavorato-e-soffri-di-una-patologia/",
+    "https://inac-cia.it/news/notizie/riforma-disabilita-dal-1-marzo-sperimentazione-estesa-a-40-province-in-tutta-italia-rivolgiti-al-patronato-inac-per-tutti-gli-aggiornamenti/",
+    "https://inac-cia.it/news/notizie/servizio-civile-agricolo-la-proposta-di-cia-e-inac-a-lollobrigida-il-governo-traduca-lattivita-da-sperimentale-a-strutturale-fino-al-2030/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://inac-cia.it/news/notizie/sei-un-pensionato/",
+     "HTTP": 200,
+     "BYTES": 43246,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 40,
+     "NON_WHITESPACE_CHARACTERS": 2397,
+     "PARAGRAPH_CHARACTERS": 619,
+     "TEXT_SHA256": "16706dc0e3f4bea8205fe3b5b62e7201bd0cc63c35d831192838a0824a7608cf",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    },
+    {
+     "URL": "https://inac-cia.it/news/notizie/vuoi-sapere-quando-andrai-in-pensione/",
+     "HTTP": 200,
+     "BYTES": 43295,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 40,
+     "NON_WHITESPACE_CHARACTERS": 2373,
+     "PARAGRAPH_CHARACTERS": 602,
+     "TEXT_SHA256": "ee53a3d31b198e275fb68eea3b99854bb23a9e8194b1ee78c910a3d31e2771be",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://inac-cia.it/news/notizie/sei-un-pensionato/: alvo sem corpo util: HTML_KIND=MIXED; https://inac-cia.it/news/notizie/vuoi-sapere-quando-andrai-in-pensione/: alvo sem corpo util: HTML_KIND=MIXED",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-121",
+   "OWNER": "News",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.cia.it/news/news/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.cia.it/news/news/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 91,
+    "NON_WHITESPACE_CHARACTERS": 1417,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://www.cia.it/news/settore-comunicazione-contatti/",
+    "https://www.cia.it/news/notizie/biologico-anabio-cia-la-domanda-cresce-ma-non-abbastanza-il-reddito-delle-aziende/",
+    "https://www.cia.it/news/notizie/aree-interne-cia-parte-il-roadshow-territori-che-rigenerano-da-nord-a-sud-italia/",
+    "https://www.cia.it/news/notizie/olio-cia-cambiale-frantoi-misura-attesa-avanti-riforma-di-filiera/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.cia.it/news/settore-comunicazione-contatti/",
+     "HTTP": 200,
+     "BYTES": 80967,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 89,
+     "NON_WHITESPACE_CHARACTERS": 1607,
+     "PARAGRAPH_CHARACTERS": 0,
+     "TEXT_SHA256": "c2ca9e68046b61e7cc9d49958b7434df91789ede25adfee41e012bd97caa8af1",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (89 ligacoes para 1607 caracteres, 0 em paragrafos)"
+    },
+    {
+     "URL": "https://www.cia.it/news/notizie/biologico-anabio-cia-la-domanda-cresce-ma-non-abbastanza-il-reddito-delle-aziende/",
+     "HTTP": 200,
+     "BYTES": 82322,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 85,
+     "NON_WHITESPACE_CHARACTERS": 2961,
+     "PARAGRAPH_CHARACTERS": 1522,
+     "TEXT_SHA256": "fa0c75363a25df64ad83d17575523572970580355087c241c0c9887f8e728efd",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.cia.it/news/notizie/biologico-anabio-cia-la-domanda-cresce-ma-non-abbastanza-il-reddito-delle-aziende/",
+    "HTTP": 200,
+    "BYTES": 82322,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 85,
+    "NON_WHITESPACE_CHARACTERS": 2961,
+    "PARAGRAPH_CHARACTERS": 1522,
+    "TEXT_SHA256": "fa0c75363a25df64ad83d17575523572970580355087c241c0c9887f8e728efd",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://www.cia.it/news/notizie/biologico-anabio-cia-la-domanda-cresce-ma-non-abbastanza-il-reddito-delle-aziende/ com 1522 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-123",
+   "OWNER": "News dal territorio",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.cia.it/news/dal-territorio/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.cia.it/news/dal-territorio/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 91,
+    "NON_WHITESPACE_CHARACTERS": 1416,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://www.cia.it/news/settore-comunicazione-contatti/",
+    "https://www.cia.it/news/notizie/fauna-selvatica-cia-etruria-a-pomarance-danni-ingenti-alle-colture/",
+    "https://www.cia.it/news/notizie/cia-e-universita-del-salento-ricerca-e-cooperazione-sono-il-futuro-dellagricoltura/",
+    "https://www.cia.it/news/notizie/cia-siena-eolico-nelle-crete-senesi-no-al-progetto-di-mucigliani/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.cia.it/news/settore-comunicazione-contatti/",
+     "HTTP": 200,
+     "BYTES": 80967,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 89,
+     "NON_WHITESPACE_CHARACTERS": 1607,
+     "PARAGRAPH_CHARACTERS": 0,
+     "TEXT_SHA256": "c2ca9e68046b61e7cc9d49958b7434df91789ede25adfee41e012bd97caa8af1",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (89 ligacoes para 1607 caracteres, 0 em paragrafos)"
+    },
+    {
+     "URL": "https://www.cia.it/news/notizie/fauna-selvatica-cia-etruria-a-pomarance-danni-ingenti-alle-colture/",
+     "HTTP": 200,
+     "BYTES": 83454,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 86,
+     "NON_WHITESPACE_CHARACTERS": 3803,
+     "PARAGRAPH_CHARACTERS": 2341,
+     "TEXT_SHA256": "f05590eaf6231948e0f75029aa3105070c2c7b3857c675bd3b7ab7f2d8dc275d",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.cia.it/news/notizie/fauna-selvatica-cia-etruria-a-pomarance-danni-ingenti-alle-colture/",
+    "HTTP": 200,
+    "BYTES": 83454,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 86,
+    "NON_WHITESPACE_CHARACTERS": 3803,
+    "PARAGRAPH_CHARACTERS": 2341,
+    "TEXT_SHA256": "f05590eaf6231948e0f75029aa3105070c2c7b3857c675bd3b7ab7f2d8dc275d",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://www.cia.it/news/notizie/fauna-selvatica-cia-etruria-a-pomarance-danni-ingenti-alle-colture/ com 2341 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-135",
+   "OWNER": "cia.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://cia.it/agrichef-1/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://cia.it/agrichef-1/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 95,
+    "NON_WHITESPACE_CHARACTERS": 2332,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 5,
+   "AMOSTRA_LINKS": [
+    "https://cia.it/news/settore-comunicazione-contatti/",
+    "https://cia.it/news/notizie/la-zuppa-della-felicita-salentina-vince-agrichef-festival-2025/",
+    "https://cia.it/news/notizie/agrichef-festival-la-campania-porta-alla-finale-gli-involtini-di-verza-e-provola-del-monaco/",
+    "https://cia.it/news/notizie/la-zuppa-della-felicita-si-aggiudica-lagrichef-festival-in-puglia/",
+    "https://www.cia.it/news/settore-comunicazione-contatti/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://cia.it/news/settore-comunicazione-contatti/",
+     "HTTP": 200,
+     "BYTES": 80959,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 89,
+     "NON_WHITESPACE_CHARACTERS": 1607,
+     "PARAGRAPH_CHARACTERS": 0,
+     "TEXT_SHA256": "c2ca9e68046b61e7cc9d49958b7434df91789ede25adfee41e012bd97caa8af1",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (89 ligacoes para 1607 caracteres, 0 em paragrafos)"
+    },
+    {
+     "URL": "https://cia.it/news/notizie/la-zuppa-della-felicita-salentina-vince-agrichef-festival-2025/",
+     "HTTP": 200,
+     "BYTES": 85683,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 91,
+     "NON_WHITESPACE_CHARACTERS": 4181,
+     "PARAGRAPH_CHARACTERS": 2622,
+     "TEXT_SHA256": "bdcb01a0b52171a72c31d0d0f2934a13579481d6cbedfc57bf9af6423a48c5be",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://cia.it/news/notizie/la-zuppa-della-felicita-salentina-vince-agrichef-festival-2025/",
+    "HTTP": 200,
+    "BYTES": 85683,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 91,
+    "NON_WHITESPACE_CHARACTERS": 4181,
+    "PARAGRAPH_CHARACTERS": 2622,
+    "TEXT_SHA256": "bdcb01a0b52171a72c31d0d0f2934a13579481d6cbedfc57bf9af6423a48c5be",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 5 links pelo motor -> https://cia.it/news/notizie/la-zuppa-della-felicita-salentina-vince-agrichef-festival-2025/ com 2622 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-141",
+   "OWNER": "Toscana",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.ciatoscana.eu/home/",
+   "LINK_PATTERN": "^https?://(www\\.)?ciatoscana\\.eu/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.ciatoscana.eu/home/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 234,
+    "NON_WHITESPACE_CHARACTERS": 8644,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 11,
+   "AMOSTRA_LINKS": [
+    "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2026/",
+    "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2025/",
+    "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2024/",
+    "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2023/",
+    "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2022/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2026/",
+     "HTTP": 200,
+     "BYTES": 178311,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 194,
+     "NON_WHITESPACE_CHARACTERS": 9371,
+     "PARAGRAPH_CHARACTERS": 4508,
+     "TEXT_SHA256": "6f9ab2e6b1d4f0ac6fe23103309cb47430cdc4e06a669754f919cb21d7df58d4",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2026/",
+    "HTTP": 200,
+    "BYTES": 178311,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 194,
+    "NON_WHITESPACE_CHARACTERS": 9371,
+    "PARAGRAPH_CHARACTERS": 4508,
+    "TEXT_SHA256": "6f9ab2e6b1d4f0ac6fe23103309cb47430cdc4e06a669754f919cb21d7df58d4",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 11 links pelo motor -> https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2026/ com 4508 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-021",
+   "OWNER": "Attualità",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://terraevita.edagricole.it/attualita/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://terraevita.edagricole.it/attualita/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 263,
+    "NON_WHITESPACE_CHARACTERS": 9362,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 18,
+   "AMOSTRA_LINKS": [
+    "https://terraevita.edagricole.it/attualita/soil-date-i-giovani-dicono-la-loro-sul-futuro-del-suolo/",
+    "https://terraevita.edagricole.it/attualita/chi-e-dove/francesco-colpizzi-confermato-presidente-dellunione-agricoltori-firenze/",
+    "https://terraevita.edagricole.it/attualita/chi-e-dove/",
+    "https://terraevita.edagricole.it/attualita/bruxelles/pac-la-nuova-ocm-ridisegna-gli-equilibri-piu-flessibilita-agli-stati/",
+    "https://terraevita.edagricole.it/attualita/chi-e-dove/copagri-campania-angela-pisacane-nuova-presidente/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://terraevita.edagricole.it/attualita/soil-date-i-giovani-dicono-la-loro-sul-futuro-del-suolo/",
+     "HTTP": 200,
+     "BYTES": 277681,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 242,
+     "NON_WHITESPACE_CHARACTERS": 10694,
+     "PARAGRAPH_CHARACTERS": 6534,
+     "TEXT_SHA256": "fa2ad91ec884a18d31f8282d9f2ab699ab0b87688220749a61a4867b6af33d16",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://terraevita.edagricole.it/attualita/soil-date-i-giovani-dicono-la-loro-sul-futuro-del-suolo/",
+    "HTTP": 200,
+    "BYTES": 277681,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 242,
+    "NON_WHITESPACE_CHARACTERS": 10694,
+    "PARAGRAPH_CHARACTERS": 6534,
+    "TEXT_SHA256": "fa2ad91ec884a18d31f8282d9f2ab699ab0b87688220749a61a4867b6af33d16",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 18 links pelo motor -> https://terraevita.edagricole.it/attualita/soil-date-i-giovani-dicono-la-loro-sul-futuro-del-suolo/ com 6534 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-028",
+   "OWNER": "Frutticoltura",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://rivistafrutticoltura.edagricole.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?rivistafrutticoltura\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://rivistafrutticoltura.edagricole.it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 252,
+    "NON_WHITESPACE_CHARACTERS": 10175,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://rivistafrutticoltura.edagricole.it/eventi/fruitlab-2026-dalla-ricerca-al-campo-la-sfida-e-fare-innovazione/",
+    "https://rivistafrutticoltura.edagricole.it/notizie-dalle-aziende/progetto-kvds-zespri-nuove-evidenze-scientifiche-per-contrastare-la-moria/",
+    "https://rivistafrutticoltura.edagricole.it/notizie-dalle-aziende/apo-conerpo-fatturato-vernocchi-produzione/",
+    "https://rivistafrutticoltura.edagricole.it/notizie-dalle-aziende/fonti-preferite-su-google-ecco-come-aggiungere-frutticoltura/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://rivistafrutticoltura.edagricole.it/eventi/fruitlab-2026-dalla-ricerca-al-campo-la-sfida-e-fare-innovazione/",
+     "HTTP": 200,
+     "BYTES": 267394,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 200,
+     "NON_WHITESPACE_CHARACTERS": 11346,
+     "PARAGRAPH_CHARACTERS": 6721,
+     "TEXT_SHA256": "6a7a843b286b402006d67fe7c43e4f6ea403854f2fbc12e463099d8e65213007",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://rivistafrutticoltura.edagricole.it/eventi/fruitlab-2026-dalla-ricerca-al-campo-la-sfida-e-fare-innovazione/",
+    "HTTP": 200,
+    "BYTES": 267394,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 200,
+    "NON_WHITESPACE_CHARACTERS": 11346,
+    "PARAGRAPH_CHARACTERS": 6721,
+    "TEXT_SHA256": "6a7a843b286b402006d67fe7c43e4f6ea403854f2fbc12e463099d8e65213007",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://rivistafrutticoltura.edagricole.it/eventi/fruitlab-2026-dalla-ricerca-al-campo-la-sfida-e-fare-innovazione/ com 6721 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-029",
+   "OWNER": "Il Contoterzista",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://contoterzista.edagricole.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?contoterzista\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://contoterzista.edagricole.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 208,
+    "NON_WHITESPACE_CHARACTERS": 6686,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 5,
+   "AMOSTRA_LINKS": [
+    "https://contoterzista.edagricole.it/tecnica/seminatrici-come-orientarsi-nella-giungla-dei-prezzi/",
+    "https://contoterzista.edagricole.it/tecnica/per-unottima-trinciatura-di-grandi-aree-verdi/",
+    "https://contoterzista.edagricole.it/notizie-dalle-aziende/claas-investe-9-milioni-di-euro-nel-centro-di-test-e-validazione-dei-trattori/",
+    "https://contoterzista.edagricole.it/tecnica/coltivatori-indispensabili-per-lagricoltura-moderna/",
+    "https://contoterzista.edagricole.it/tecnica/diserbo-mais-pre-emergenza-o-post-precoce-determinanti/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://contoterzista.edagricole.it/tecnica/seminatrici-come-orientarsi-nella-giungla-dei-prezzi/",
+     "HTTP": 200,
+     "BYTES": 243300,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 188,
+     "NON_WHITESPACE_CHARACTERS": 7222,
+     "PARAGRAPH_CHARACTERS": 2349,
+     "TEXT_SHA256": "28acc100f307fe8d6cc47a6a29f987fcbf852752cbd54e3496affc4920def4d1",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (188 ligacoes para 7222 caracteres, 2349 em paragrafos)"
+    },
+    {
+     "URL": "https://contoterzista.edagricole.it/tecnica/per-unottima-trinciatura-di-grandi-aree-verdi/",
+     "HTTP": 200,
+     "BYTES": 280710,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 185,
+     "NON_WHITESPACE_CHARACTERS": 22628,
+     "PARAGRAPH_CHARACTERS": 15368,
+     "TEXT_SHA256": "0148ea72be8cf0b7c17bb2b44e58eb3db2cd9ab62bb3502f28080d9e14a8aa19",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://contoterzista.edagricole.it/tecnica/per-unottima-trinciatura-di-grandi-aree-verdi/",
+    "HTTP": 200,
+    "BYTES": 280710,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 185,
+    "NON_WHITESPACE_CHARACTERS": 22628,
+    "PARAGRAPH_CHARACTERS": 15368,
+    "TEXT_SHA256": "0148ea72be8cf0b7c17bb2b44e58eb3db2cd9ab62bb3502f28080d9e14a8aa19",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 5 links pelo motor -> https://contoterzista.edagricole.it/tecnica/per-unottima-trinciatura-di-grandi-aree-verdi/ com 15368 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-030",
+   "OWNER": "Informatore Zootecnico",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://informatorezootecnico.edagricole.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?informatorezootecnico\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://informatorezootecnico.edagricole.it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 227,
+    "NON_WHITESPACE_CHARACTERS": 9545,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 5,
+   "AMOSTRA_LINKS": [
+    "https://informatorezootecnico.edagricole.it/documenti/cheese-2025-vetrina-mondiale-dei-formaggi-a-latte-crudo/",
+    "https://informatorezootecnico.edagricole.it/notizie-dalle-aziende/gruppo-grigi-dopobile-2027-tecnologia-nutrizione-avanzata/",
+    "https://informatorezootecnico.edagricole.it/notizie-dalle-aziende/cosi-biocell-r-migliora-la-digeribilita-della-fibra-e-la-produzione-di-latte/",
+    "https://informatorezootecnico.edagricole.it/notizie-dalle-aziende/abs-50-milioni-di-dosi-di-genetica-sessata/",
+    "https://informatorezootecnico.edagricole.it/notizie-dalle-aziende/ddw-dati-affidabili-in-allevamento-testimonianza-di-milkrite-interpuls/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://informatorezootecnico.edagricole.it/documenti/cheese-2025-vetrina-mondiale-dei-formaggi-a-latte-crudo/",
+     "HTTP": 200,
+     "BYTES": 341067,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 206,
+     "NON_WHITESPACE_CHARACTERS": 24624,
+     "PARAGRAPH_CHARACTERS": 18227,
+     "TEXT_SHA256": "083a29fca19ee3c28397d07d321cf339109638fbf81d839873327544ca8a1e43",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://informatorezootecnico.edagricole.it/documenti/cheese-2025-vetrina-mondiale-dei-formaggi-a-latte-crudo/",
+    "HTTP": 200,
+    "BYTES": 341067,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 206,
+    "NON_WHITESPACE_CHARACTERS": 24624,
+    "PARAGRAPH_CHARACTERS": 18227,
+    "TEXT_SHA256": "083a29fca19ee3c28397d07d321cf339109638fbf81d839873327544ca8a1e43",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 5 links pelo motor -> https://informatorezootecnico.edagricole.it/documenti/cheese-2025-vetrina-mondiale-dei-formaggi-a-latte-crudo/ com 18227 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-034",
+   "OWNER": "Macchine Agricole",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://macchineagricolenews.edagricole.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?macchineagricolenews\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://macchineagricolenews.edagricole.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 217,
+    "NON_WHITESPACE_CHARACTERS": 5067,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 5,
+   "AMOSTRA_LINKS": [
+    "https://macchineagricolenews.edagricole.it/notizie-dallindustria/crisi-climatica-e-geopolitica-frenano-il-mercato/",
+    "https://macchineagricolenews.edagricole.it/notizie-dallindustria/il-trattore-cingolato-di-nuova-generazione/",
+    "https://macchineagricolenews.edagricole.it/notizie-dallindustria/serie-a-antonio-carraro-trattori-vigneto-frutteto/",
+    "https://macchineagricolenews.edagricole.it/notizie-dallindustria/stihl-allpro-sistema-batterie-professionali/",
+    "https://macchineagricolenews.edagricole.it/notizie-dallindustria/crescere-insieme-allagricoltura-del-centro-italia/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://macchineagricolenews.edagricole.it/notizie-dallindustria/crisi-climatica-e-geopolitica-frenano-il-mercato/",
+     "HTTP": 200,
+     "BYTES": 166626,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 189,
+     "NON_WHITESPACE_CHARACTERS": 7862,
+     "PARAGRAPH_CHARACTERS": 3586,
+     "TEXT_SHA256": "3979e716fba6fbd3dba892b752b7f5545cb1e1ba2fa92916a159e31e1d901a4a",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://macchineagricolenews.edagricole.it/notizie-dallindustria/crisi-climatica-e-geopolitica-frenano-il-mercato/",
+    "HTTP": 200,
+    "BYTES": 166626,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 189,
+    "NON_WHITESPACE_CHARACTERS": 7862,
+    "PARAGRAPH_CHARACTERS": 3586,
+    "TEXT_SHA256": "3979e716fba6fbd3dba892b752b7f5545cb1e1ba2fa92916a159e31e1d901a4a",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 5 links pelo motor -> https://macchineagricolenews.edagricole.it/notizie-dallindustria/crisi-climatica-e-geopolitica-frenano-il-mercato/ com 3586 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-039",
+   "OWNER": "Rivista di Orticoltura e Floricoltura",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://rivistaorticoltura.edagricole.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?rivistaorticoltura\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://rivistaorticoltura.edagricole.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 185,
+    "NON_WHITESPACE_CHARACTERS": 6246,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://rivistaorticoltura.edagricole.it/filiere-agricoltura24/news-filiere-agricoltura24/ortaggi-lilluminazione-migliora-il-profilo-nutrizionale/",
+    "https://rivistaorticoltura.edagricole.it/news/insalate-quarta-gamma-caldo-estremo-raccolti/",
+    "https://rivistaorticoltura.edagricole.it/notizie-dalle-aziende/gartenbau-versicherung-e-vereinigte-hagel-avviano-la-fusione/",
+    "https://rivistaorticoltura.edagricole.it/notizie-dalle-aziende/hortisecur-rafforza-gestione-diretta-italia/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://rivistaorticoltura.edagricole.it/filiere-agricoltura24/news-filiere-agricoltura24/ortaggi-lilluminazione-migliora-il-profilo-nutrizionale/",
+     "HTTP": 200,
+     "BYTES": 161218,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 170,
+     "NON_WHITESPACE_CHARACTERS": 6886,
+     "PARAGRAPH_CHARACTERS": 2892,
+     "TEXT_SHA256": "1a3a0e23570f6e25ec9f79b2e63287d39c5037f48072190b50d5f3f28028e070",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://rivistaorticoltura.edagricole.it/filiere-agricoltura24/news-filiere-agricoltura24/ortaggi-lilluminazione-migliora-il-profilo-nutrizionale/",
+    "HTTP": 200,
+    "BYTES": 161218,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 170,
+    "NON_WHITESPACE_CHARACTERS": 6886,
+    "PARAGRAPH_CHARACTERS": 2892,
+    "TEXT_SHA256": "1a3a0e23570f6e25ec9f79b2e63287d39c5037f48072190b50d5f3f28028e070",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://rivistaorticoltura.edagricole.it/filiere-agricoltura24/news-filiere-agricoltura24/ortaggi-lilluminazione-migliora-il-profilo-nutrizionale/ com 2892 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-040",
+   "OWNER": "Suinicoltura",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://suinicoltura.edagricole.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?suinicoltura\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://suinicoltura.edagricole.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 186,
+    "NON_WHITESPACE_CHARACTERS": 7046,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 3,
+   "AMOSTRA_LINKS": [
+    "https://suinicoltura.edagricole.it/eventi/il-futuro-della-zootecnia-alla-fiera-di-montichiari-il-24-ottobre/",
+    "https://suinicoltura.edagricole.it/notizie-dalle-aziende/coliprotec-f4-f18-salute-intestinale-suinetto-elanco/",
+    "https://suinicoltura.edagricole.it/notizie-dalle-aziende/proteck-additivo-minerale-bioattivo-stress-ossidativo-scrofe-elanco/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://suinicoltura.edagricole.it/eventi/il-futuro-della-zootecnia-alla-fiera-di-montichiari-il-24-ottobre/",
+     "HTTP": 200,
+     "BYTES": 232102,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 154,
+     "NON_WHITESPACE_CHARACTERS": 7432,
+     "PARAGRAPH_CHARACTERS": 3541,
+     "TEXT_SHA256": "9968dffa494ca94b06d07113495608bac1c76d1be0e64850448a469776248d27",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://suinicoltura.edagricole.it/eventi/il-futuro-della-zootecnia-alla-fiera-di-montichiari-il-24-ottobre/",
+    "HTTP": 200,
+    "BYTES": 232102,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 154,
+    "NON_WHITESPACE_CHARACTERS": 7432,
+    "PARAGRAPH_CHARACTERS": 3541,
+    "TEXT_SHA256": "9968dffa494ca94b06d07113495608bac1c76d1be0e64850448a469776248d27",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 3 links pelo motor -> https://suinicoltura.edagricole.it/eventi/il-futuro-della-zootecnia-alla-fiera-di-montichiari-il-24-ottobre/ com 3541 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-051",
+   "OWNER": "AGRIDaily",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://terraevita.edagricole.it/agridaily-guida-pac/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://terraevita.edagricole.it/agridaily-guida-pac/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 220,
+    "NON_WHITESPACE_CHARACTERS": 7383,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 8,
+   "AMOSTRA_LINKS": [
+    "https://terraevita.edagricole.it/attualita/bruxelles/pac-la-nuova-ocm-ridisegna-gli-equilibri-piu-flessibilita-agli-stati/",
+    "https://terraevita.edagricole.it/attualita/campagne-fiorentine-in-sofferenza-meno-superfici-e-pochi-giovani/",
+    "https://terraevita.edagricole.it/attualita/la-sfida-delleuropa-sulle-proteine-vegetali/",
+    "https://terraevita.edagricole.it/attualita/basilicata-20-milioni-per-gli-investimenti-nelle-aziende-agricole/",
+    "https://terraevita.edagricole.it/attualita/sardegna-oltre-28-milioni-per-il-ricambio-generazionale/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://terraevita.edagricole.it/attualita/bruxelles/pac-la-nuova-ocm-ridisegna-gli-equilibri-piu-flessibilita-agli-stati/",
+     "HTTP": 200,
+     "BYTES": 275825,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 250,
+     "NON_WHITESPACE_CHARACTERS": 7995,
+     "PARAGRAPH_CHARACTERS": 3560,
+     "TEXT_SHA256": "a6461d027833f47ddcc78069ce3d30fe4aa7d9d9a9db915c93df0740e6dbbf0f",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://terraevita.edagricole.it/attualita/bruxelles/pac-la-nuova-ocm-ridisegna-gli-equilibri-piu-flessibilita-agli-stati/",
+    "HTTP": 200,
+    "BYTES": 275825,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 250,
+    "NON_WHITESPACE_CHARACTERS": 7995,
+    "PARAGRAPH_CHARACTERS": 3560,
+    "TEXT_SHA256": "a6461d027833f47ddcc78069ce3d30fe4aa7d9d9a9db915c93df0740e6dbbf0f",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 8 links pelo motor -> https://terraevita.edagricole.it/attualita/bruxelles/pac-la-nuova-ocm-ridisegna-gli-equilibri-piu-flessibilita-agli-stati/ com 3560 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
   }
- ]
+ ],
+ "BC2": {
+  "GERADO_EM": "2026-09-23T18:37:31.856478+00:00",
+  "FONTES": [
+   "IT-T12-137",
+   "IT-T2-056",
+   "IT-T2-106",
+   "IT-T5-049",
+   "IT-T5-090",
+   "IT-T5-101",
+   "IT-T7-053",
+   "IT-T7-058",
+   "IT-T7-100",
+   "IT-T7-112",
+   "IT-T7-115",
+   "IT-T7-117",
+   "IT-T7-118",
+   "IT-T7-120",
+   "IT-T7-121",
+   "IT-T7-123",
+   "IT-T7-135",
+   "IT-T7-141",
+   "IT-T8-021",
+   "IT-T8-028",
+   "IT-T8-029",
+   "IT-T8-030",
+   "IT-T8-034",
+   "IT-T8-039",
+   "IT-T8-040",
+   "IT-T8-051",
+   "IT-T9-021"
+  ],
+  "SUBSTITUIDAS": [
+   "IT-T2-056",
+   "IT-T9-021",
+   "IT-T5-049"
+  ],
+  "NOTA": "junta dos canarios por fonte (BC2, 23/09): 1 fonte por invocacao, 10 s entre fontes; as 5 UNKNOWN da 1.a volta repetidas com egresso IT medido antes e depois de cada uma"
+ }
 }

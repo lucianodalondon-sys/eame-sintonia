@@ -4628,6 +4628,24 @@
     "provas/cortesia_red_team.mjs",
     "provas/CORTESIA-RED-TEAM-V1.json"
    ]
+  },
+  {
+   "id": "C-COORTE-BIG-COLLECTION",
+   "name": "A coorte unica da Big Collection (D25)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Le o plano do runbook (micro_coleta.py plano), o portao, as provas do canario e o dono dos contratos do coletor, e escreve COORTE-BIG-COLLECTION-V1.json: as PRONTAS com contrato executavel + regua DETAIL/v1 + canario com prova <= 7 dias, fonte a fonte, com o sha256 dos livros lidos. Nao decide nada novo.",
+   "why_here": "G3 (23/09): havia tres tabelas do coletor (linha 173, producao 176, BC2 191) e nenhuma continha as outras; a instalacao da linha perdia as 18 da BC2. A tabela foi juntada pelo dono (onboardar_rotas_provadas) e a coorte ficou num so ficheiro que o runbook le.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/big_collection/coorte_unica.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

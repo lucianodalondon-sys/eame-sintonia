@@ -22312,3 +22312,98 @@ test_cortesia_no_transporte.py`). As falhas que existem já estavam na base, com
 `test_alvo_estruturado_resolvido` 1, `test_fontes_explicitas_no_coletor` 1,
 `test_fase_italiana_no_workflow` 15 erros. ⚠️ `medidas/incrementalidade_prova.mjs` reescreve
 `medidas/INCREMENTALIDADE-V1.json` ao correr — repor com `git checkout` antes de commitar.
+---
+
+# § (sem número) · A LINHA NÃO É A PRODUÇÃO, E UM FF SOBRE ELA APAGAVA A TROCA — BC1, O RUNBOOK DA BIG COLLECTION
+
+**O QUE SE MEDIU (23/09).** Os 20 gates do §25 (o pedido dizia 25; o mandato tem 20),
+contra `940f3b14` e a produção, só com leitura no vivo: **12/20 YES**, 6 deles só sem
+internet ou só em cópia. A coorte do portão é **37 elegíveis → 10 PRONTAS**: as outras 27
+não têm contrato de coleta, receita web ou rota. Saída: `BIG-COLLECTION-RUNBOOK.md` e
+`BIG-COLLECTION-GATES.md`.
+
+**A ARMADILHA.** Depois da troca, a linha unificada (`940f3b14`, depois `de4dec2b`) tem os
+livros **de antes da troca**: o diff para a produção apaga 13.735 linhas do livro de
+transições. Avançar a produção para a linha por FF perdia tudo o que o bot e a troca
+escreveram. Instala-se **juntando** a linha na produção. Provado em cópia, sobre as duas
+passagens: 13 conflitos, todos no mapa gerado; 11/11 livros iguais aos da produção (desde o
+ponto comum, só a troca os mudou); `italy_contracts_onboarded.json` com as duas mudanças
+(TTL da T1 e D9 do G1).
+
+    O CÓDIGO VEM DA LINHA; OS LIVROS VÊM DE QUEM OS ESCREVE.
+
+**O ENSAIO QUE FALHOU E ESTAVA CERTO.** O primeiro ensaio offline recusou as 3 fontes: o
+próprio coletor disse `ESTADO_NAO_READY`. O ensaio monta a árvore a partir do **commit**, e
+no commit da troca as 3 ainda estavam CANARY_PENDING. Com os livros vivos gravados, as 3
+colheram: 55 = 55 = 55, Sala +12, C3..C9 PASS, rollback 8 → 12 → 8 com md5 igual.
+
+**ARMADILHAS DESTA MEDIÇÃO.**
+- `--provar-rollback` repõe a base **antes** do relatório: `RELATORIO_C1_C9` sai `null` e a
+  Admission 0/0/0, com a Sala +12. Para ver o C6 e o C8, fazer uma corrida sem essa opção.
+- `git worktree add /c/x` no Git Bash criou a pasta em `C:\c\x`. O `cd /c/x` a seguir
+  falhou, e os comandos seguintes (um merge de teste) correram na worktree de trabalho. O
+  `merge --abort` salvou. Passar ao `git` caminhos no formato `C:/x`.
+- Depois de uma tela azul, **nada volta sozinho**: supervisor, observador e a Sala real
+  (54330) ficaram desligados. Os livros sobreviveram (75 e 73 JSON válidos). «Contínuo» só
+  é contínuo se aguenta um reinício.
+- `provar_ponte_curador.py` e `red_team_ponte_curador.py` escrevem a fonte de teste
+  IT-T99-001 no `italy_contracts_curator.json` da árvore onde correm. Nunca na `ponte-viva`.
+
+---
+
+# § (sem número) · ELEGÍVEL SEM CONTRATO TINHA DONO — E O DONO NÃO VIA A DUPLICADA DE QUEM JÁ ESTAVA DENTRO (BC2)
+
+**O QUE SE FEZ (23/09).** 27 fontes READY no portão sem contrato no coletor. Não se escreveu
+contrato à mão. Passaram pelo canário real (`medidas/canario_rotas_elegiveis.py`, robots
+primeiro, 1 s entre pedidos, no máximo 4 por fonte, uma fonte de cada vez, sites
+intercalados, egresso IT) e pelo dono (`curadoria/onboardar_rotas_provadas.py`). Canário: 20
+ROUTE_PROVEN, 4 UNKNOWN, 3 CAPABILITY_BLOCK. Dono: ENTRA 18, FICA 7. **Prontas 10 → 19.**
+
+**O DEFEITO DO DONO.** A peça só procurava duplicadas **dentro do lote** (duas fichas, o mesmo
+documento). A IT-T2-056 é a página de «seleccionar idioma» da ARPAE, com OWNER «Italiano», e
+tem o mesmo site e o mesmo padrão de matérias da IT-T2-051, **já contratada**. Ia entrar, e o
+coletor colheria as mesmas notícias duas vezes, com dois nomes. Regra nova, na peça do dono:
+o mesmo site e o mesmo padrão de uma fonte já contratada é DUPLICADA, e é uma decisão de
+identidade, não de rota. 2 testes; 2 mutantes executados e mortos. Cinco secções da CIA e
+duas da Terra e Vita partilham site e padrão entre si: entraram (o canário abriu matérias
+diferentes; a Sala é idempotente por documento) e ficam para o dono da identidade.
+
+**ARMADILHAS.**
+- **Substituir um ficheiro de provas apaga provas.** Escrevi o `ROTAS-ELEGIVEIS-V1.json` só
+  com os 27 de hoje, e as 6 da D10 perderam o dono do contrato (`test_contrato_unico`
+  reprovou). Juntar por SOURCE_ID: 15 antigas, 3 actualizadas, 24 novas.
+- **Uma contagem fixa numa tabela que tem alimentador reprova a cada alimentação.** 173 → 191.
+  O teste passou a contar as 173 de origem mais as linhas carimbadas pelo onboardar.
+- **O medidor de egresso também cai.** No fim da 1.ª volta deu UNKNOWN/BLOCKED; 2 minutos
+  depois deu IT/PASS duas vezes. UNKNOWN não é «outro país»: repetiram-se as 5 UNKNOWN com o
+  egresso medido antes e depois de cada fonte.
+- **O robots pelo Python mente outra vez:** cnr.it responde 200 ao curl e URLError ao
+  canário. É defeito nosso, não da fonte.
+- A Sala depois da tela azul: `ligar_sala.cmd` via Git Bash (`cmd //c "..."`) **não corre**
+  o script (abre uma consola vazia e sai com 0). Pelo PowerShell corre. O Postgres fez a
+  recuperação normal e ficou com o md5 igual ao do backup.
+
+---
+
+# § (sem número) · TRÊS CADERNOS DO COLETOR, NENHUM CONTINHA OS OUTROS — E A INSTALAÇÃO APAGAVA O MAIS NOVO (G3)
+
+G3 (23/09/2026). A coorte da Big Collection (D25) é medida pelo `micro_coleta.py plano`
+sobre a tabela do coletor (`regras/italy_contracts_onboarded.json`). Havia três:
+
+| linha | linhas | o que só ela tinha |
+|---|---|---|
+| `unificacao-v1` | 173 | — |
+| produção (cutover 5c02bbe4) | 176 | IT-T2-034, IT-T2-051, IT-T9-021 |
+| BC2 (`big-collection-runbook-v1`) | 191 | 18 levadas ao contrato pelo dono |
+
+O runbook instalava a linha sobre a produção: ficavam as 3, **perdiam-se as 18**. A BC2 contava
+19 prontas numa tabela que não ia chegar à produção.
+
+    UMA CONTAGEM FEITA NUM CADERNO QUE NÃO VAI SER INSTALADO NÃO É A COORTE.
+
+Juntou-se pelo dono, não à mão: produção + linha + BC2 por merge; na tabela ficou o lado da
+produção e `onboardar_rotas_provadas.py --aplicar` sobre os livros vivos repôs o que a prova
+sustenta: +17, e **IT-T7-100 ficou de fora** — com as duas tabelas juntas a regra das
+duplicadas viu que o documento dela é o mesmo da IT-T7-043. Separadas, as duas entravam.
+Coorte: 18, cada uma com contrato executável, régua DETAIL/v1 e canário com prova ≤ 7 dias,
+num só JSON que o runbook lê.

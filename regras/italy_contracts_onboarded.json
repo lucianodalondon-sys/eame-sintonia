@@ -4213,7 +4213,7 @@
    "SOURCE_ID": "IT-T2-030",
    "OWNER": "Nomisma",
    "NAME": "Nomisma",
-   "TERRITORY": "T2",
+   "TERRITORY": "T10",
    "BATCH_ID": "LOTE-HTML-ARTIGO",
    "OUTPUT_TYPE": "HTML",
    "ACQUISITION": {
@@ -4279,6 +4279,13 @@
     "ROBOTS_HOST": "www.nomisma.it",
     "INITIAL_COLLECTION_CADENCE": "WEEKLY",
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
+   },
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "MUDAR_PARA_T10",
+    "UNIVERSO_ANTERIOR": "T2",
+    "PORQUE": "consultoria e observatorios de mercado; noticias de credito e mobilidade",
+    "REVERSIVEL": true
    }
   },
   {
@@ -9128,6 +9135,566 @@
    ],
    "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
    "DOCUMENT_ID_RULE": "IT-T12-016:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "OWNER": "ARPA Marche",
+   "NAME": "ARPA Marche — dati ambientali e meteo",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.marche.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpa\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.arpa.marche.it/notizie-2026/1699-pesaro-parco-miralfiore-1-2-ottobre-2026",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 65698,
+    "ALVOS_DESCOBERTOS": 10,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 3565
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "OWNER": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "NAME": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpae.it/it",
+    "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 26593,
+    "ALVOS_DESCOBERTOS": 8,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 851
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T9-021",
+   "OWNER": "Scopri l'evento",
+   "NAME": "Scopri l'evento",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
+    "LINK_PATTERN": "^https?://(www\\.)?fieradidacta\\.indire\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 52272,
+    "ALVOS_DESCOBERTOS": 4,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 1796
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T12-137",
+   "OWNER": "psrn.it",
+   "NAME": "psrn.it",
+   "TERRITORY": "T12",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "http://www.psrn.it",
+    "LINK_PATTERN": "^https?://(www\\.)?psrn\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.psrn.it/evento/grande-successo-di-pubblico-allevento-di-chiusura-della-campagna-di-comunicazione-del-psrn-2014-2022/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 103148,
+    "ALVOS_DESCOBERTOS": 3,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 6324
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T5-090",
+   "OWNER": "ISTAT - Istituto Nazionale di Statistica",
+   "NAME": "ISTAT - Istituto Nazionale di Statistica",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.istat.it/it/",
+    "LINK_PATTERN": "^https?://(www\\.)?istat\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 156992,
+    "ALVOS_DESCOBERTOS": 41,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 7110
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T7-112",
+   "OWNER": "AGIA - Giovani",
+   "NAME": "AGIA - Giovani",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cia.it/associazioni-cia/agia/",
+    "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 83251,
+    "ALVOS_DESCOBERTOS": 4,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 2355
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T7-117",
+   "OWNER": "CAF Cia",
+   "NAME": "CAF Cia",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.caf-cia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?caf\\-cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.caf-cia.it/news/notizie/servizio-delega-digitale-730-precompilato/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 34040,
+    "ALVOS_DESCOBERTOS": 7,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 932
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T7-118",
+   "OWNER": "Donne in Campo",
+   "NAME": "Donne in Campo",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cia.it/associazioni-cia/donne-in-campo/",
+    "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.cia.it/news/notizie/la-presidente-di-donne-in-campo-cia-a-salerno-al-forum-di-cibo-dintorni/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 82136,
+    "ALVOS_DESCOBERTOS": 10,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 1463
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T7-121",
+   "OWNER": "News",
+   "NAME": "News",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cia.it/news/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.cia.it/news/notizie/biologico-anabio-cia-la-domanda-cresce-ma-non-abbastanza-il-reddito-delle-aziende/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 82322,
+    "ALVOS_DESCOBERTOS": 4,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 1522
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T7-123",
+   "OWNER": "News dal territorio",
+   "NAME": "News dal territorio",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cia.it/news/dal-territorio/",
+    "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.cia.it/news/notizie/fauna-selvatica-cia-etruria-a-pomarance-danni-ingenti-alle-colture/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 83454,
+    "ALVOS_DESCOBERTOS": 4,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 2341
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T7-135",
+   "OWNER": "cia.it",
+   "NAME": "cia.it",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://cia.it/agrichef-1/",
+    "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://cia.it/news/notizie/la-zuppa-della-felicita-salentina-vince-agrichef-festival-2025/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 85683,
+    "ALVOS_DESCOBERTOS": 5,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 2622
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T7-141",
+   "OWNER": "Toscana",
+   "NAME": "Toscana",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ciatoscana.eu/home/",
+    "LINK_PATTERN": "^https?://(www\\.)?ciatoscana\\.eu/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2026/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 178311,
+    "ALVOS_DESCOBERTOS": 11,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 4508
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T8-021",
+   "OWNER": "Attualità",
+   "NAME": "Attualità",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/attualita/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://terraevita.edagricole.it/attualita/soil-date-i-giovani-dicono-la-loro-sul-futuro-del-suolo/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 277681,
+    "ALVOS_DESCOBERTOS": 18,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 6534
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T8-028",
+   "OWNER": "Frutticoltura",
+   "NAME": "Frutticoltura",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://rivistafrutticoltura.edagricole.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?rivistafrutticoltura\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://rivistafrutticoltura.edagricole.it/eventi/fruitlab-2026-dalla-ricerca-al-campo-la-sfida-e-fare-innovazione/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 267394,
+    "ALVOS_DESCOBERTOS": 4,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 6721
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T8-029",
+   "OWNER": "Il Contoterzista",
+   "NAME": "Il Contoterzista",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://contoterzista.edagricole.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?contoterzista\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://contoterzista.edagricole.it/tecnica/per-unottima-trinciatura-di-grandi-aree-verdi/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 280710,
+    "ALVOS_DESCOBERTOS": 5,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 15368
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T8-030",
+   "OWNER": "Informatore Zootecnico",
+   "NAME": "Informatore Zootecnico",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://informatorezootecnico.edagricole.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?informatorezootecnico\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://informatorezootecnico.edagricole.it/documenti/cheese-2025-vetrina-mondiale-dei-formaggi-a-latte-crudo/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 341067,
+    "ALVOS_DESCOBERTOS": 5,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 18227
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T8-034",
+   "OWNER": "Macchine Agricole",
+   "NAME": "Macchine Agricole",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://macchineagricolenews.edagricole.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?macchineagricolenews\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://macchineagricolenews.edagricole.it/notizie-dallindustria/crisi-climatica-e-geopolitica-frenano-il-mercato/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 166626,
+    "ALVOS_DESCOBERTOS": 5,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 3586
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T8-039",
+   "OWNER": "Rivista di Orticoltura e Floricoltura",
+   "NAME": "Rivista di Orticoltura e Floricoltura",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://rivistaorticoltura.edagricole.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?rivistaorticoltura\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://rivistaorticoltura.edagricole.it/filiere-agricoltura24/news-filiere-agricoltura24/ortaggi-lilluminazione-migliora-il-profilo-nutrizionale/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 161218,
+    "ALVOS_DESCOBERTOS": 4,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 2892
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T8-040",
+   "OWNER": "Suinicoltura",
+   "NAME": "Suinicoltura",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://suinicoltura.edagricole.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?suinicoltura\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://suinicoltura.edagricole.it/eventi/il-futuro-della-zootecnia-alla-fiera-di-montichiari-il-24-ottobre/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 232102,
+    "ALVOS_DESCOBERTOS": 3,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 3541
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T8-051",
+   "OWNER": "AGRIDaily",
+   "NAME": "AGRIDaily",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/agridaily-guida-pac/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://terraevita.edagricole.it/attualita/bruxelles/pac-la-nuova-ocm-ridisegna-gli-equilibri-piu-flessibilita-agli-stati/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 275825,
+    "ALVOS_DESCOBERTOS": 8,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 3560
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
   }
  ]
 }
