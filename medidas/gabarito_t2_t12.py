@@ -39,8 +39,12 @@ import gate_de_rota as GATE                 # noqa: E402
 from coleta import executor_texto_de_html as HTMLX  # noqa: E402
 from coleta import executor_texto_de_pdf as PDFX    # noqa: E402
 
-PASTA = RAIZ / "data" / "samples" / "GABARITO-T2-T12"
-SAIDA = PASTA / "GABARITO-T2-T12-V1.json"
+# Os BYTES vivem fora do Git (lei da casa: data/ nao e versionado para
+# acervo). No Git fica so o registo, com sha256 e URL de cada item.
+PASTA = Path.home() / "sintonia-gabarito" / "GABARITO-T2-T12-V2"
+SAIDA = RAIZ / "curadoria" / "GABARITO-T2-T12-V2.json"
+REGISTO_V1 = RAIZ / "curadoria" / "GABARITO-T2-T12-V1.json"
+MAX_MATERIAS = 3   # D4, 2.a ida: robots + entrada + ate 3 = 5 pedidos
 PAUSA_S = 1.0
 
 # (SOURCE_ID, universo declarado, papel, entrada). Uma linha por ANFITRIAO:
@@ -127,7 +131,9 @@ def egresso() -> dict:
         return {"IP": None, "COUNTRY": "NAO SEI", "ERRO": type(e).__name__}
 
 
-def primeiro_item(html: bytes, base: str) -> str | None:
+def itens_da_entrada(html: bytes, base: str, n: int = 3) -> list[str]:
+    """Os primeiros N links com cara de item, pela ordem da pagina."""
+    fora = []
     host = urlparse(base).hostname.replace("www.", "")
     vistos = set()
     # ⚠️ SO `<a href>`. A primeira corrida (2026-09-23) lia QUALQUER href — e
@@ -149,8 +155,15 @@ def primeiro_item(html: bytes, base: str) -> str | None:
         vistos.add(u)
         ultimo = [s for s in p.path.split("/") if s]
         if ultimo and _ITEM.search(ultimo[-1]):
-            return u
-    return None
+            fora.append(u)
+            if len(fora) >= n:
+                break
+    return fora
+
+
+def primeiro_item(html: bytes, base: str) -> str | None:
+    l = itens_da_entrada(html, base, 1)
+    return l[0] if l else None
 
 
 def texto_de(corpo: bytes, url: str) -> tuple[str, str]:
@@ -167,7 +180,10 @@ def texto_de(corpo: bytes, url: str) -> tuple[str, str]:
 def main(argv=None) -> int:
     PASTA.mkdir(parents=True, exist_ok=True)
     itens, sites = [], []
+    v1 = {x["SOURCE_ID"]: x for x in json.loads(REGISTO_V1.read_text(encoding="utf-8"))["SITES"]}
     for sid, uni, papel, entrada in SITES:
+        if str((v1.get(sid) or {}).get("PARADO", "")).startswith("robots"):
+            continue      # nao respondeu na 1.a ida: fora da autorizacao da 2.a
         eg = egresso()
         reg = {"SOURCE_ID": sid, "UNIVERSO_DECLARADO": uni, "PAPEL": papel,
                "ENTRADA": entrada, "EGRESSO": eg, "PEDIDOS": 0}
@@ -189,39 +205,42 @@ def main(argv=None) -> int:
             reg["PARADO"] = "entrada HTTP %s %s" % (st, err)
             print("%-11s entrada %s" % (sid, st), flush=True)
             continue
-        alvo = primeiro_item(corpo, entrada)
-        if not alvo:
+        alvos = itens_da_entrada(corpo, entrada, MAX_MATERIAS)
+        if not alvos:
             reg["PARADO"] = "nenhum link com cara de item na entrada"
             print("%-11s sem item" % sid, flush=True)
             continue
-        if not GATE.permitido(alvo, rp):
-            reg["PARADO"] = "robots proibe " + alvo
-            continue
+        for alvo in alvos:
+            if not GATE.permitido(alvo, rp):
+                reg.setdefault("RECUSAS", []).append("robots proibe " + alvo)
+                continue
+            time.sleep(PAUSA_S)
+            st, corpo_i, err = CAN.buscar(alvo)
+            reg["PEDIDOS"] += 1
+            if st != 200:
+                reg.setdefault("RECUSAS", []).append("HTTP %s %s" % (st, alvo))
+                continue
+            if not (corpo_i[:5] == b"%PDF-" or corpo_i.lstrip()[:1] == b"<"):
+                reg.setdefault("RECUSAS", []).append("nao e HTML nem PDF: " + alvo)
+                continue
+            sha = hashlib.sha256(corpo_i).hexdigest()
+            ext = ".pdf" if corpo_i[:5] == b"%PDF-" else ".html"
+            (PASTA / (sha[:16] + ext)).write_bytes(corpo_i)
+            texto, estado = texto_de(corpo_i, alvo)
+            itens.append({"ITEM_ID": "G-%s" % sha[:12], "SOURCE_ID": sid,
+                          "UNIVERSO_DECLARADO": uni, "PAPEL": papel, "URL": alvo,
+                          "ENTRADA": entrada, "HTTP": st, "BYTES": len(corpo_i),
+                          "SHA256": sha, "FICHEIRO_FORA_DO_GIT": str(PASTA / (sha[:16] + ext)),
+                          "EXTRACAO": estado, "EGRESSO": eg,
+                          "TEXTO_SHA256": hashlib.sha256(" ".join(texto.split()).encode()).hexdigest(),
+                          "NON_WHITESPACE_CHARACTERS": len("".join(texto.split())),
+                          "OBTIDO_EM": datetime.now(timezone.utc).isoformat()})
+            print("%-11s %-4s %s %d B" % (sid, uni, alvo[:90], len(corpo_i)), flush=True)
         time.sleep(PAUSA_S)
-        st, corpo, err = CAN.buscar(alvo)
-        reg["PEDIDOS"] += 1
-        if st != 200:
-            reg["PARADO"] = "item HTTP %s %s" % (st, err)
-            print("%-11s item %s" % (sid, st), flush=True)
-            continue
-        if not (corpo[:5] == b"%PDF-" or corpo.lstrip()[:1] == b"<"):
-            reg["PARADO"] = "item nao e HTML nem PDF: " + alvo
-            continue
-        sha = hashlib.sha256(corpo).hexdigest()
-        ext = ".pdf" if corpo[:5] == b"%PDF-" else ".html"
-        (PASTA / (sha[:16] + ext)).write_bytes(corpo)
-        texto, estado = texto_de(corpo, alvo)
-        itens.append({"ITEM_ID": "G-%s" % sha[:12], "SOURCE_ID": sid,
-                      "UNIVERSO_DECLARADO": uni, "PAPEL": papel, "URL": alvo,
-                      "ENTRADA": entrada, "HTTP": st, "BYTES": len(corpo),
-                      "SHA256": sha, "FICHEIRO": "data/samples/GABARITO-T2-T12/%s%s" % (sha[:16], ext),
-                      "EXTRACAO": estado, "EGRESSO": eg,
-                      "OBTIDO_EM": datetime.now(timezone.utc).isoformat()})
-        print("%-11s %-4s %s %d B" % (sid, uni, alvo[:90], len(corpo)), flush=True)
-        time.sleep(PAUSA_S)
-    d = {"DATASET": "GABARITO-T2-T12-V1", "ESTADO": "RECOLHIDO — por julgar",
-         "AUTORIZACAO": "DECISOES-DONO-2026-09-23 D4",
-         "REGRA_DE_PEDIDOS": "robots + entrada + 1 materia = 3 por site, todos contados",
+    d = {"DATASET": "GABARITO-T2-T12-V2", "ESTADO": "RECOLHIDO — por julgar",
+         "AUTORIZACAO": "DECISOES-DONO-2026-09-23 D4 + 2.a ida (ate 5 pedidos/site)",
+         "REGRA_DE_PEDIDOS": "robots + entrada + ate 3 materias = 5 por site, todos contados",
+         "BYTES_EM": str(PASTA),
          "SITES": sites, "ITENS": itens}
     SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     return 0

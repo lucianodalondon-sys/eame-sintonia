@@ -19738,3 +19738,20 @@ Uma régua T12 que as aprovasse seria um defeito; uma que as recusasse não
 aumentava a colheita em nada.
 
     FALTA DE AMOSTRA NÃO SE COMPENSA COM CONFIANÇA NAS PALAVRAS.
+
+## 168-17 · A PRIMEIRA MATÉRIA DA HOMEPAGE É A DA ADMINISTRAÇÃO
+
+Missão 3c, 2.ª ida do gabarito (2026-09-23, egresso IT 51/51, 232 pedidos, ≤5
+por site). A regra fixa «o primeiro link com cara de item na página de entrada»
+é imparcial — não escolhe pelo texto — e por isso mesmo mediu uma coisa dura:
+nos sites de agências e regiões, os primeiros links são **CUG, URP, concursos,
+transparência, albo**. De 95 itens utilizáveis e distintos, **12** eram de clima
+e **5** de política agrícola. Mínimo exigido: 20 por classe. NÃO PRONTO.
+
+    UM SITE PÚBLICO FALA PRIMEIRO DE SI, E SÓ DEPOIS DO ASSUNTO.
+
+A próxima ida tem de entrar pela **secção de notícias/boletins** declarada na
+rota provada (o `INDEX_URL` do contrato), não pela homepage — e continuar a
+escolher por regra fixa, nunca pelo texto. E o PDF grande (ISPRA) veio cortado
+nos 4 MB do leitor: 0 caracteres. Um teto de bytes que corta um PDF ao meio
+não é um teto, é uma perda.
