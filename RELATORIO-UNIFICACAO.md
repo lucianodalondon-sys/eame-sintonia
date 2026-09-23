@@ -601,3 +601,79 @@ e `aplicar_d15_politica.py` (idempotentes, com `--porta`), a prova dos termos
 (`candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json` + `candidatas/prova-termos/`), e a medida
 offline do REVALIDAR (6 candidatas CONTRATO_NOVO, 5 por volta). A X2 ensaia sobre o FINAL_HEAD
 desta passagem.
+
+---
+
+# 5.ª PASSAGEM — UNIFICACAO-V1-E (23/09/2026)
+
+Base 516132fe (4.ª passagem aceite). Nenhuma coleta corrida; nenhum serviço vivo tocado.
+**A linha descende de 05fd018a** (`origin/cutover-ensaio-v1`, o FINAL da troca real X3): o que
+esta passagem trouxe entra no vivo por fast-forward.
+Fora, de propósito: `v1-ligada` (não existe no origin), scrap-portas-v1, sala-duplicados-v1 (A3),
+curator-youtube-v1 (SOC2), youtube-regua-t8-v1 (YT2).
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | ttl-mutable-v1 8ee85e5a (T1: TTL 3 dias para Riunite/Zootecnica) | 023eaa18 |
+| 2 | micro-pronta-v2 b3f548eb (A2: coorte do portão, RAW ≠ falha, backup da Sala, MICRO-RUNBOOK) | b8056918 |
+| 3 | social-prontidao-v1 ffef59cf (SOC1: prova de prontidão social, termos com sha256) | 5983ffe5 |
+| 4 | youtube-oficial-v1 7f651aa7 (YT1: canário YouTube) | 6096726a |
+| — | know-how §196-§199 | 65e5c615 |
+| 5 | cutover-ensaio-v1 05fd018a (X2: observador com `--lane` e trava) | (ver git log) |
+| — | defeito escondido da A2 no portão; mapa | 75e9ce3e |
+| — | este relatório; mapa | FINAL_HEAD |
+
+## ENTREGA-E
+
+```
+PONTAS            = 5 (T1, A2, SOC1, YT1 + cutover-ensaio-v1 pedida a meio)
+CONFLITOS         = 0 de codigo. Know-how: 5 blocos, uniao. Docs com marcadores de metricas
+                    (HANDOFF, docs/piloto, docs/apresentacao...): lado da base e --sync.
+                    Gerados e censos: lado da base, regerados pela cadeia.
+                    SOC1 guarda 4 paginas de termos em candidatas/prova-termos/ (ja -text pela
+                    D15): os 4 sha256 do PROVA-TERMOS-SOC1-V1.json batem depois da juncao.
+                    T1 mexe na tabela do coletor (regras/italy_contracts_onboarded.json):
+                    italy_contract_test com as mesmas 76 falhas da base; RETIRADA verde.
+DEFEITOS ESCONDIDOS = 2 (12.o e 13.o da unificacao):
+                    12. a A2 trouxe scripts/micro_coleta/ensaio_offline.py,
+                    um caminho novo ate ao coletor italiano sem classificacao no portao
+                    (test_collection_gate). Isso punha VERMELHA a suite de base do red team da
+                    ponte: o red team saia com rc 1 («BASE suite=False») apesar de 17/17 mortos —
+                    mortos contra uma base vermelha nao provam nada. Declarado MANUAL_TOOL (o
+                    ensaio desvia toda a rede para 127.0.0.1 e usa um Postgres descartavel).
+                    Ja estava vermelho na propria b3f548eb.
+                    13. a SOC1 escrevia a chave PERMITIDA na sua prova (copia da matriz), e a
+                    regra «so a matriz declara PERMITIDA» (test_c10_4_route_gate) via ali um
+                    segundo portao. A chave passou a PERMITIDA_NA_MATRIZ (prova, fixture e JSON
+                    da SOC1). Ja estava vermelho na propria ffef59cf. A regra nao mudou.
+SUITE             = antes 5f514c9f (4.a): curadoria/ Ran 572 OK · tests/ Ran 5164, 90 vermelhos por nome
+                    depois 75e9ce3e: curadoria/ Ran 576 OK · tests/ 90 vermelhos por nome
+                    Por nome: saiu test_M5_o_ponto_fixo (o commit medido ja passou pela cadeia);
+                    entrou test_so_a_matriz_declara_permitida, herdado da SOC1 — corrigido a
+                    seguir (defeito 13) e re-medido modulo a modulo: test_c10_4_route_gate +
+                    test_prontidao_social_v1 44/44. NEW_RED_BY_NAME no FINAL_HEAD = 0.
+                    A suite inteira nao foi corrida outra vez depois desse conserto (1 h).
+PROVAS_COPIA      (75e9ce3e, copia descartavel; ensaios numa copia sem .git) — todas PASS
+  ponte · red team 17/17 com BASE verde · ponte B2 · supervisor · worker pendurado ·
+  gatilho ocioso · fila windows · 183/183 modulos de prova · NAO SEI/quarentena 28/28 ·
+  R1/R2 node 15/15, 13/13, 8/8
+  novas desta passagem (aad63db1, copia): ttl_mutable_local 12/0 · incrementalidade_test 31/0 ·
+  test_ensaio_offline_micro + test_micro_coleta_instrumento + test_prontidao_social_v1 65/65
+  X2 (1f3159da): test_ponte_automatica + guarda 22/22 · test_medir_cutover 11/11
+KNOW_HOW_TABLE    = §196 TTL-1 · MUTABLE COM PRAZO (T1; chegou sem numero)
+                    §197 A COORTE VEM DO PORTAO, A FALHA NAO E DOCUMENTO (A2; era §196)
+                    §198 O SCRAP DIZ «CONSIGO», A PORTA DIZ «NAO PODES» (SOC1; ja era §198)
+                    §199 YT1 · O SOM DO YOUTUBE ATRAVESSA ATE AO TEXTO (YT1; era §196;
+                         RELATORIO-YT1-CANARIO.md aponta agora para §199)
+                    §200 UM PLANO SEGUIDO A LETRA NUMA COPIA NAO E UM PLANO ENSAIADO (X1; sem numero)
+                    §201 A CASA DA PONTE NAO PODE SER A PASTA DO BOT (X2; era §196)
+                    Ordem: §196-§199 por ordem de chegada; X1/X2 chegaram depois de §199 estar
+                    publicado nesta linha e foram para o proximo livre depois do maior.
+                    Nada apagado. Proximo livre: §202.
+SYSTEM_MAP_CHECK  = PASS
+FINAL_HEAD        = (na entrega ao coordenador) — para a X2/X3: descende de 05fd018a
+```
+
+O plano da troca continua a ser o `CUTOVER-RUNBOOK.md` (X1/X2). Os 2 vermelhos conhecidos de
+`tests/test_fila_italia_decisoes` (amostras e população de SOURCE_ID) estão com a A3 e não foram
+mexidos.
