@@ -424,6 +424,24 @@
    ]
   },
   {
+   "id": "C-CENSO-UNIFICACAO",
+   "name": "Censo das lanes antes de unificar",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade.",
+   "why_here": "Juntar linhas sem medir primeiro troca uma tarde de censo por uma semana a desfazer. O script nao escreve objectos, refs nem indice: o conflito e medido com merge-file em temporarios fora do repo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/unificacao/censo_lanes.py"
+   ]
+  },
+  {
    "id": "C-IT-CONTRATOS",
    "name": "O contrato de cada fonte italiana",
    "territory": "Z-REGRAS",
