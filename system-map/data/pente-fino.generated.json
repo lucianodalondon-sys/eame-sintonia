@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T10:00:26+00:00",
-    "HEAD": "e752c3da9f709c5f01d5f130b5bf350b022151f0",
+    "GENERATED_AT": "2026-09-23T19:25:46+00:00",
+    "HEAD": "fa63e262a5268d359a4dc298caa484e2666d1bc4",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
-    "FICHEIROS_NA_IMPRESSAO": 2839,
+    "SOURCE_TREE_FINGERPRINT": "9f0680790c678e6305f4dab134c22ac52f53d13f0924e7af45d2f9ce35e345af",
+    "FICHEIROS_NA_IMPRESSAO": 2857,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -90,7 +90,7 @@
       {
         "PATH": ".github/workflows/sintonia-scrap.yml",
         "PAPEL": "FONTE",
-        "VERSAO": "e1f03684d93952c4eb849c4f5a36cdc246bc8ec4",
+        "VERSAO": "be25e6c5875aa599b5660791e43ef664022722cf",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
+        "VERSAO": "9f0680790c678e6305f4dab134c22ac52f53d13f0924e7af45d2f9ce35e345af",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "7b0bd6a7cb399fe0c57d747abf8928295ebb6602759d07ab46eadcbce8902550",
+    "INPUTS_DIGEST": "9fd0200a3bd286fec51073604b85290638480b3d6820b1c705ce256ce7e2de6e",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -417,18 +417,6 @@
       "respostas": 3,
       "ficheiros": 9,
       "estado": "green"
-    },
-    {
-      "id": "C-SCRAP-COLHEITA",
-      "nome": "O adapter do SCRAP para a porta canonica · a aresta que faltava",
-      "zona": "· os executores",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 3,
-      "ficheiros": 1,
-      "estado": "yellow"
     },
     {
       "id": "C-IT-CONTRATOS",
@@ -743,6 +731,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-SCRAP-COLHEITA",
+      "nome": "O adapter do SCRAP para a porta canonica · a aresta que faltava",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
       "id": "C-SUPABASE",
       "nome": "O banco onde o dado fica guardado",
       "zona": "A SALA DE ESPERA",
@@ -841,8 +841,8 @@
   ],
   "RESUMO": {
     "pecas_da_coleta": 58,
-    "respondem_as_quatro": 26,
-    "respondem_a_tres": 24,
+    "respondem_as_quatro": 27,
+    "respondem_a_tres": 23,
     "respondem_a_duas": 5,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

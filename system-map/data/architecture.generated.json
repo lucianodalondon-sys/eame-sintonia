@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "808273d7b5c4498262725ede0ba20a1ea8bad439",
-    "GENERATED_AT": "2026-09-23T14:35:11-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2e16b001c7fdb99954e437c71d946978c5de30e4b8f11bd31b8bbfd2831d8c8b"
+    "HEAD": "fa63e262a5268d359a4dc298caa484e2666d1bc4",
+    "GENERATED_AT": "2026-09-23T16:11:12-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9f0680790c678e6305f4dab134c22ac52f53d13f0924e7af45d2f9ce35e345af"
   },
   "FILES": [
     {
@@ -10887,6 +10887,13 @@
       "code_dir": false
     },
     {
+      "path": "handoff/KNOW-HOW-DELTA-D24-INSTAGRAM.md",
+      "sha": "d0946c1bf6c90aa9b6b0e7bfb613fc79364eacf9",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "handoff/KNOW-HOW-DELTA-INTELLIGENCE-SPINE.md",
       "sha": "840a0d2aee200ecfe3abb6e0a2e140583e0eb169",
       "ext": ".md",
@@ -14345,6 +14352,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/canario_d24_reel_de_pessoa.py",
+      "sha": "256d0931d18a4f72d3d49f48cf243ec703b46622",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/canario_d24_video_de_pessoa.py",
       "sha": "a37333629a335f22dc23f08e7832bd07b58db69a",
       "ext": ".py",
@@ -16943,7 +16957,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "5185f47304d42f46943ffb767c1afe4fe969f820",
+      "sha": "d51e25a9e7af97bc94ddc645b856d518f79033ba",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -49111,6 +49125,61 @@
       }
     },
     {
+      "from_file": "provas/canario_d24_reel_de_pessoa.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_reel_de_pessoa.py",
+        "line": 54,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_reel_de_pessoa.py",
+      "to_file": "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_d24_reel_de_pessoa.py",
+        "line": 101,
+        "snippet": "'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_reel_de_pessoa.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_reel_de_pessoa.py",
+        "line": 57,
+        "snippet": "import reel_transcricao as rt         # noqa: E402 — a cadeia provada do Reel"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_reel_de_pessoa.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_reel_de_pessoa.py",
+        "line": 55,
+        "snippet": "import social_matriz as mz            # noqa: E402 — o dono da política"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_reel_de_pessoa.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_reel_de_pessoa.py",
+        "line": 56,
+        "snippet": "import rede as superficie             # noqa: E402 — o dono do portão de egresso"
+      }
+    },
+    {
       "from_file": "provas/canario_d24_video_de_pessoa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -69615,6 +69684,17 @@
       }
     },
     {
+      "from_file": "tests/test_d24_video_de_pessoa.py",
+      "to_file": "provas/canario_d24_reel_de_pessoa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_d24_video_de_pessoa.py",
+        "line": 364,
+        "snippet": "p = os.path.join(RAIZ, 'provas', 'canario_d24_reel_de_pessoa.py')"
+      }
+    },
+    {
       "from_file": "tests/test_espinha_da_intelligence.py",
       "to_file": "provas/espinha_da_intelligence.py",
       "type": "IMPORTS",
@@ -78846,10 +78926,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2707,
-    "files_readable": 1238,
-    "files_code_dir": 1047,
-    "file_edges": 5393,
+    "files_tracked": 2709,
+    "files_readable": 1239,
+    "files_code_dir": 1048,
+    "file_edges": 5399,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
