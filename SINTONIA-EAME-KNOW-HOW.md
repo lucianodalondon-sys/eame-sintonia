@@ -21557,7 +21557,9 @@ Mutação com banco real: um cluster por mutante custava minutos; a ronda sobe U
 já migrado e passa-o aos testes (`SOC3_BANCO_JA_MIGRADO`, aceite só se `exigir_descartavel` passar).
 ---
 
-# §196 · AS DUAS PORTAS DO SCRAP — E O CHECK QUE NÃO PERGUNTAVA À LEI
+# §209 · AS DUAS PORTAS DO SCRAP — E O CHECK QUE NÃO PERGUNTAVA À LEI
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026): era §196 em scrap-portas-v1 (REELS); o número já estava ocupado nesta linha. Nada foi apagado.
 
 **SCRAP-PORTAS-V1 (2026-09-23)** · branch `scrap-portas-v1` @ `f5c49473` · base
 `origin/unificacao-v1` @ `77077dee`. Escrita: 3 commits (parcial, bloco 2, bloco 3),
@@ -21679,7 +21681,9 @@ D17.4 AUTORIZA USAR A ROTA. NÃO AUTORIZA IGNORAR UMA OBRIGAÇÃO DELA.
 
 ---
 
-# §197 · O DONO PODE ASSUMIR O RISCO — E MEDIR A POLÍTICA NÃO É OBEDECER-LHE
+# §210 · O DONO PODE ASSUMIR O RISCO — E MEDIR A POLÍTICA NÃO É OBEDECER-LHE
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026): era §197 em scrap-portas-v1 (REELS); o número já estava ocupado nesta linha. Nada foi apagado.
 
 **REELS-FUNCIONANDO (2026-09-23)** · branch `scrap-portas-v1` @ `79140941` · autorização:
 **D22** (dono REAL, 2026-09-23), que substitui a D19 para os Reels.
@@ -21802,7 +21806,9 @@ apareceu no canário real — a cadeia respondia `ROUTE_NOT_ALLOWED` com a porta
 
 ---
 
-# §198 · A MEDIÇÃO TAMBÉM É UMA PEÇA — E, DEPOIS DA D22, A PROVA NÃO PODE DEPENDER DA PLATAFORMA ESTAR FECHADA
+# §211 · A MEDIÇÃO TAMBÉM É UMA PEÇA — E, DEPOIS DA D22, A PROVA NÃO PODE DEPENDER DA PLATAFORMA ESTAR FECHADA
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026): era §198 em scrap-portas-v1 (REELS); o número já estava ocupado nesta linha. Nada foi apagado.
 
 **Data:** 2026-09-23 · **Branch:** `scrap-portas-v1` · **Bloco 7** (as 12 provas congeladas que a D22 tornou falsas)
 
@@ -21812,7 +21818,7 @@ verdade; o décimo segundo não era, e a bateria inteira, quando comparada de ou
 também deu "novos" que não existiam. **Os três enganos são da mesma família, e todos os
 três faziam o verde e o vermelho mentirem para o lado confortável.**
 
-## 198.1 · COMPARAR CONTRA UMA ÁRVORE SEM `.git` DÁ VERDE FALSO
+## 211.1 · COMPARAR CONTRA UMA ÁRVORE SEM `.git` DÁ VERDE FALSO
 
 A base da comparação era um `git archive` extraído para uma pasta. Vários testes desta
 casa perguntam ao git **que ficheiros estão rastreados** (`git ls-files`) para depois os
@@ -21829,7 +21835,7 @@ UMA BASE DE COMPARAÇÃO TEM DE TER O QUE O TESTE PERGUNTA.
 SEM REPOSITÓRIO, `git ls-files` RESPONDE ZERO — E ZERO NÃO É «LIMPO».
 ```
 
-## 198.2 · UMA CORRIDA DE TESTE PODE REESCREVER UM ARTEFATO RASTREADO
+## 211.2 · UMA CORRIDA DE TESTE PODE REESCREVER UM ARTEFATO RASTREADO
 
 O checkpoint apanhado depois da queda do PC trazia `data/samples/RUN-MANIFEST.json` com
 `-44491/+19349` linhas. Não era trabalho nenhum: era uma corrida de testes a reescrever o
@@ -21845,7 +21851,7 @@ O QUE A CORRIDA ESCREVE, A CORRIDA NÃO DECIDE SE FICA.
 ARTEFATO RASTREADO SUJO = FALSO NOVO, NÃO REGRESSÃO.
 ```
 
-## 198.3 · A GAVETA LOCAL FAZ A PROVA CORRER EM VEZ DE SALTAR
+## 211.3 · A GAVETA LOCAL FAZ A PROVA CORRER EM VEZ DE SALTAR
 
 `tests/test_c10_6_crash_retry` corre em 11 s na base e levava mais de 900 s no meu HEAD —
 e a classe do crash nem existia na listagem da base. A causa não era a lei: era
@@ -21862,7 +21868,7 @@ A PROVA TEM DE DAR O MESMO ONDE NINGUÉM TRABALHOU AINDA.
 CORRER ≠ SALTAR ≠ REPROVAR — E SÓ UM DOS TRÊS É RESULTADO.
 ```
 
-## 198.4 · DEPOIS DA D22, A PROVA NÃO PODE DEPENDER DA PLATAFORMA ESTAR FECHADA
+## 211.4 · DEPOIS DA D22, A PROVA NÃO PODE DEPENDER DA PLATAFORMA ESTAR FECHADA
 
 Onze das doze provas novas eram falsas por decisão, e a cura foi declarada: a linha
 congelada muda **citando a D22 no próprio teste**, sem apagar e sem afrouxar. E onde o
@@ -21887,7 +21893,7 @@ E o portão fecha-se nos DOIS sentidos: uma prova que só mede o lado permissivo
 com um portão que nunca deixa passar nada — por isso cada uma destas ganhou o lado
 simétrico (`test_P7b`).
 
-## 198.5 · O QUE ESTA SECÇÃO CUSTOU, EM NÚMEROS
+## 211.5 · O QUE ESTA SECÇÃO CUSTOU, EM NÚMEROS
 
 - bateria do Scrap (147 módulos que tocam scrap/social/rota), **por nome**, base `6ea92f6a`
   vs HEAD: `NEW_FAILURES_BY_NAME = 0` — e os 4 nomes que apareceram como novos na primeira
