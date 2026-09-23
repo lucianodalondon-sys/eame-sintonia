@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  99e2d9a34db0cef9c6bcdd0b2247719ccf2a72ac
+HEAD_DA_MEDICAO  d96df4b66482f5168ef734037aefa1aec529b606
 BRANCH           seguranca-caminhos-v1
-GERADO_EM        2026-09-23T18:59:28-03:00
+GERADO_EM        2026-09-23T19:21:38-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
