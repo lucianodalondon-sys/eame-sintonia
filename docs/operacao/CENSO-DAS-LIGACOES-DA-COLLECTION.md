@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  203314e4f7bf64b29215d4529e19c2820e331ea0
+HEAD_DA_MEDICAO  bbc0df4fbbb42fff2d14196412bdce787536c66e
 BRANCH           reparo-fontes-v1
-GERADO_EM        2026-09-23T16:22:24-03:00
+GERADO_EM        2026-09-23T17:00:08-03:00
 CARDS            90
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -775,13 +775,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `curadoria/BRIDGE-LEDGER-V1.json`, `curadoria/DISCOVERY-VISITED.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `curadoria/RED-TEAM-TELEMETRIA-V1.json`, `curadoria/italy_contracts_curator.json` |
-| **arestas no mapa** | entram 9 · saem 6 |
-| **arestas provadas** | entram 9 · saem 6 |
+| **arestas no mapa** | entram 9 · saem 7 |
+| **arestas provadas** | entram 9 · saem 7 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 15 |
+| **prova das ligações** | CODE 16 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1506,13 +1506,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/retrato_html.mjs` |
 | **o que sai · dado** | C-CENSO-UNIFICACAO |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `handoff/paused-v2/MANIFESTO.json` |
-| **arestas no mapa** | entram 10 · saem 11 |
-| **arestas provadas** | entram 10 · saem 11 |
+| **arestas no mapa** | entram 10 · saem 12 |
+| **arestas provadas** | entram 10 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 21 |
+| **prova das ligações** | CODE 22 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1820,26 +1820,26 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/reparo/medir_em_copia.py` |
-| **papel** | CONTRACT_OR_RULE · medido no plano CODE |
+| **peça real** | `scripts/reparo/juntar_bancas.py`, `scripts/reparo/medir_em_copia.py` |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | gray — ⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje. |
-| **QUEM ATIVA** | **NAO_SE_ATIVA** |
-| **prova de quem ativa** | rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato _(plano CODE)_ |
-| **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | — NÃO SEI |
+| **o que entra · ficheiros** | `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/LIFECYCLE-QUEUE-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 0 |
-| **arestas provadas** | entram 0 · saem 0 |
+| **arestas no mapa** | entram 2 · saem 0 |
+| **arestas provadas** | entram 2 · saem 0 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** |  |
+| **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
-| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
 ### `C-SAUDE-FONTE` · A saude de cada fonte
 
@@ -2310,8 +2310,7 @@ OK                 37
 UNKNOWN            29
 SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
-TERMINAL           5
+TERMINAL           6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-ORPHAN             1
 TOTAL              90
 ```

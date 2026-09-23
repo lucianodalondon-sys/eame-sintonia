@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "reparo-fontes-v1",
-    "HEAD": "203314e4f7bf64b29215d4529e19c2820e331ea0",
-    "GENERATED_AT": "2026-09-23T16:22:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "637f65a636dd998f90415b30305adea0b1c5d7ec52f1347010d13720f4808fd9"
+    "HEAD": "bbc0df4fbbb42fff2d14196412bdce787536c66e",
+    "GENERATED_AT": "2026-09-23T17:00:08-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1021e1e1e18493a0e87678e13983d76fc040eceeea65761fc72c44d7ceb4f6a6"
   },
   "FILES": [
     {
@@ -3090,7 +3090,7 @@
     },
     {
       "path": "curadoria/reparar_contrato.py",
-      "sha": "909472b0b9bca0987111a75d0bd36218f86a5f5f",
+      "sha": "19a7e231ed78b982157559e2e28ac0fd9a546b0f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3349,7 +3349,7 @@
     },
     {
       "path": "curadoria/test_reparar_contrato.py",
-      "sha": "586dbd24cb9e5572f9f1e01d46cec4e6397dc031",
+      "sha": "48099087a55454255f440865a83292f2a367428b",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -16718,6 +16718,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/reparo/juntar_bancas.py",
+      "sha": "14a496fb6accddfd9080f26d88300fa4a7c2c7d5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/reparo/medir_em_copia.py",
       "sha": "6ac71e5f7f3957b28f6f940b7e60ba6945483924",
       "ext": ".py",
@@ -17328,7 +17335,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f44766992b9fb261b02181047ebe298e3690d229",
+      "sha": "29f925707a907a6388924bee8e6bc77d1938d734",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -27441,7 +27448,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 78,
+        "line": 80,
         "snippet": "import canario as CAN            # noqa: E402  (buscar + hrefs_da_entrada: o leitor do canario)"
       }
     },
@@ -27452,7 +27459,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 481,
+        "line": 535,
         "snippet": "import escrever_contratos as EC      # noqa: PLC0415"
       }
     },
@@ -27463,7 +27470,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 79,
+        "line": 81,
         "snippet": "import gate_de_rota as GATE      # noqa: E402"
       }
     },
@@ -27474,7 +27481,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 80,
+        "line": 82,
         "snippet": "import provar_listagem as PL     # noqa: E402  (listagem -> itens: o metodo da CANDIDATE-FEEDER-V1)"
       }
     },
@@ -27485,7 +27492,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 81,
+        "line": 83,
         "snippet": "import retrato_html as RH        # noqa: E402"
       }
     },
@@ -27496,7 +27503,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 482,
+        "line": 536,
         "snippet": "import validar_contratos as VC       # noqa: PLC0415"
       }
     },
@@ -27507,7 +27514,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 84,
+        "line": 86,
         "snippet": "\"censo_e_proposta\", RAIZ / \"scripts\" / \"receitas\" / \"censo_e_proposta.py\")"
       }
     },
@@ -29498,7 +29505,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reparar_contrato.py",
-        "line": 451,
+        "line": 477,
         "snippet": "import fonte_nova as FN"
       }
     },
@@ -29509,7 +29516,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reparar_contrato.py",
-        "line": 449,
+        "line": 475,
         "snippet": "import decisao_semantica as DS"
       }
     },
@@ -59764,6 +59771,28 @@
       }
     },
     {
+      "from_file": "scripts/reparo/juntar_bancas.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/juntar_bancas.py",
+        "line": 60,
+        "snippet": "t0 = _livro(foto / \"LIFECYCLE-LEDGER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/juntar_bancas.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/juntar_bancas.py",
+        "line": 71,
+        "snippet": "fila = json.loads((Path(b) / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
       "from_file": "security/censo_do_cliente.py",
       "to_file": "security/cliente-classificacao.json",
       "type": "READS",
@@ -80831,10 +80860,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2769,
-    "files_readable": 1271,
-    "files_code_dir": 1087,
-    "file_edges": 5534,
+    "files_tracked": 2770,
+    "files_readable": 1272,
+    "files_code_dir": 1088,
+    "file_edges": 5536,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
