@@ -21025,3 +21025,54 @@ provado no ensaio.
   coincidem. Quem guarda a regra é o teste que compara a coorte com `elegiveis()`.
 
 Tudo em `scripts/micro_coleta/MICRO-RUNBOOK.md`.
+
+
+# §197 · IDEMPOTENTE POR CORRIDA NÃO É IDEMPOTENTE POR DOCUMENTO — E A QUARENTENA NÃO É REGRESSÃO
+
+**A CAUSA DOS DUPLICADOS.** `admissao/sala_de_espera.py` (Postgres) só perguntava «esta
+CORRIDA já pousou?». Uma corrida nova que trazia o mesmo documento (matéria revalidada e
+igual: SEEN_AGAIN no coletor, derivado REUSED) inseria-o outra vez. Medido na 2.ª passagem
+do ensaio (A2): 4 notícias da Zootecnica em dois run_id.
+
+**A CORREÇÃO (mínima, na peça que escreve).** Os itens da corrida entram numa tabela
+temporária; só passam para a Sala os que não existem com o mesmo **(item_id, universo)**
+noutra corrida. Uma trava global, sempre a seguir à da corrida, serializa a pergunta. A
+impressão da corrida continua sobre a lista inteira (repetir a mesma corrida = JA_ESTAVA).
+- `derived:<n>` é deduplicado pelos bytes: bytes novos = derivado novo = **versão nova, linha
+  nova**.
+- O universo entra na chave porque um REROUTE (D2) é outra pergunta e tem de ter entrada
+  própria.
+- Nada se apaga: a observação nova fica em raw_asset.
+- O recibo diz INSERIDAS e JA_NA_SALA_POR_OUTRA_CORRIDA.
+- O backend de ficheiro (prova offline) não muda: é ele que define «a mesma corrida».
+
+**CONFLITO DECLARADO.** A C-SALA-IDENTITY-V1 (`93b6c479`, 20/09, nunca fundida na linha
+principal) tratou estas re-observações como entregas válidas (VALID_REUSE) e só mudava o nome
+para `obs:<raw id>`. A coordenação decidiu, a 23/09, que a Sala é idempotente por documento:
+a mesma notícia não volta à fila da Inteligência.
+
+**NA SALA REAL (só leitura, 23/09).** 61 linhas. A Myfruit tem 12 (7 de 21/09 + 5 do
+lote-76), todas com item_id distinto: a regra nova reconhece-as, se os bytes forem os mesmos.
+Já existem **6 pares duplicados** de 20/09 (derived 6, 56, 57, 60, 62 e 66, os da BCR).
+A correção impede que nasçam novos; não os apaga.
+
+**O SIM QUE DESCEU 14 → 12.** Não é regressão: é a quarentena Q1 (D11) a funcionar. Duas
+notícias verdadeiras da Myfruit (amendoim dos EUA em alta; duas lojas novas) têm a página
+«MIXED»: notícia curta (1 489 e 2 115 caracteres de parágrafo) com um menu de 143 e 146 links.
+O detector diz NÃO SEI, e o NÃO SEI vai para a quarentena: não entra na Sala, nada se apaga, e
+sai por replay ou por decisão humana (`data/samples/QUARENTENA-DECISOES-HUMANAS.jsonl`).
+É a fraqueza já medida na D14 (16–20 % de erro do detector). O gabarito continua 10/10.
+
+**OS TESTES «CONGELADOS».** Dois testes de 15/09 queriam provar «esta missão emitiu ZERO
+identidades e ZERO amostras», mas comparavam o total de hoje (344; 158) com o daquele dia
+(257; 155). Agora comparam o commit da missão (`2f0863d1`) com o pai dele, lidos pela mesma
+função. Não afrouxam: apontados a commits que emitiram (`7218170d`, +84 SOURCE_ID) ou
+acrescentaram amostras (`008ac754`, +3), reprovam.
+
+**ARMADILHAS.**
+- Um erro no `setUpClass` não chama o `tearDownClass`: o Postgres de teste ficou ligado na
+  1.ª versão. O arranque agora desliga-o se falhar.
+- Um mutante dentro de um texto SQL não pode levar a bandeira lá dentro: a bandeira vai
+  numa linha Python da mesma função.
+- Uma suíte vermelha só é regressão depois de medida na base: três suítes da Sala já
+  falhavam em `b3f548eb` com os mesmos números.
