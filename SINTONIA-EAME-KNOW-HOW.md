@@ -18851,3 +18851,56 @@ antigo» executou (ficheiro-bandeira) e reprovou 4 de 7.
 referência é 21,7 % (21/09). A árvore cresce: cada candidata TEMÁTICA vira semente. O
 custo por corrida está travado (15 sementes, 250 pedidos); a fila de sementes pode
 crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
+
+
+# § (sem número) · A PEÇA EXISTIA E NÃO ESTAVA LIGADA — E LIGÁ-LA FABRICAVA TERRITÓRIO
+
+**A HIPÓTESE.** 105 QUALIFY em BLOCK SEMANTIC («território indeterminado pelo nome»),
+incluindo AGEA (CAND-0253), SIAN (CAND-0010) e Rete Rurale (CAND-0009). O worker chamava
+`atribuir_source_id.territorio_de` com `CONTENT_VALUE_TYPE: []`; a peça que mede o tema
+(`amostrar.caracterizar`) existia e nunca era chamada. **Confirmado: não estava ligada.**
+
+**A MEDIÇÃO (23/09, cópia da fila do serviço).** Sem rede: 0 das 105 tinham amostra ou
+caracterização guardada. Com rede (egresso IT medido antes de cada site, 105/105; robots +
+índice + 1 item, ≤3 pedidos por site), ligando a peça como ela é:
+
+| resultado | fontes |
+|---|---|
+| nenhum item achado no índice (inclui AGEA, SIAN, Rete Rurale) | 68 |
+| item colhido, sem tema reconhecível | 23 |
+| robots proíbe ou ilegível | 7 |
+| site não respondeu | 1 |
+| **território decidido pela amostra** | **6** |
+
+Dos 6, pelo menos 4 foram para a gaveta errada: Presidenza del Consiglio → T8 por uma
+notícia de viagem; Sherwood (revista florestal) → T10 por uma página de doação;
+`lombardianotizie` → T5 por um artigo sobre baterias; «Frutta nelle scuole» → T7. Só o
+Consiglio Regionale da Campânia → T4 parece certo.
+
+**A DECISÃO.** A ligação foi escrita e testada (`572fe46b`: 7 testes, 4 mutantes
+executados e apanhados) e **revertida** (`be2433ad`). Ligar a peça não resolve 99 e
+fabrica território nas que resolve. O próprio `atribuir_source_id` já avisava:
+
+    UMA EMPRESA QUE FALA DE CLIMA NAO E UM SERVICO CLIMATICO.
+
+Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
+«comunicato» num site do governo basta para o chamar de meio agrícola.
+
+**O QUE FALTARIA (proposta, não aplicada).**
+1. Achar item em portal institucional: 68 de 105 param porque
+   `capturador.candidatos_a_item` não acha nenhum link com cara de item na página
+   de entrada. Candidatos: `sitemap.xml` ou uma página de listagem conhecida.
+2. Uma regra de amostra que sustente a decisão: vários itens (a peça já prevê de 3
+   a 10) e concordância entre eles, e não «o tema do primeiro item». Isso é regra
+   nova e precisa de dono.
+3. Enquanto isso, as 105 são **SEMANTIC_PENDING**: decisão semântica (Opus/humano),
+   como já dizia a mensagem de bloqueio.
+
+**ARMADILHAS DESTA MEDIÇÃO.**
+- `amostrar` grava a amostra com um caminho relativo à sua `RAIZ`. Mudar só
+  `AMOSTRAS` para fora do repositório faz `relative_to` rebentar no primeiro site que
+  tiver item. É preciso mudar `RAIZ` também.
+- O robots de alguns sites (SIAN, entre outros) devolve HTML com HTTP 200. O parser não
+  lê regra nenhuma e trata como «tudo permitido».
+- `robots_de` tenta duas vezes, com esperas de 25 e 45 s, quando o robots não responde.
+  Numa medição de 105 sites, é isso que domina o tempo.
