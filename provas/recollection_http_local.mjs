@@ -37,7 +37,7 @@ process.env.NO_PROXY = process.env.no_proxy = "127.0.0.1,localhost";
 
 // ── O SERVIDOR ──────────────────────────────────────────────────────────────
 let estado = {}, modo = 200;
-const PEDIDOS = [];
+const PEDIDOS = [], ROBOTS_PEDIDOS = [];
 const pagina = (v = {}) => `<!DOCTYPE html><html><head>
 <meta property="article:modified_time" content="${v.hora ?? "2026-09-22T02:01:41+00:00"}" />
 </head><body>
@@ -47,6 +47,11 @@ const pagina = (v = {}) => `<!DOCTYPE html><html><head>
 <form><input name="_token" type="hidden" value="${v.token ?? "A".repeat(40)}"></form>
 </body></html>`;
 const servidor = createServer((req, res) => {
+  // ⚠️ A5 · O COLETOR LE O ROBOTS.TXT ANTES DE PEDIR (a cortesia vive em
+  // `baixar()`). Este servidor nao publica robots — 404, «sem ficheiro = sem
+  // proibicao» — e conta essas idas A PARTE: as contas desta prova sao de
+  // documentos, e continuam exactamente as mesmas.
+  if (req.url === "/robots.txt") { ROBOTS_PEDIDOS.push(Date.now()); res.writeHead(404); res.end("non trovato"); return; }
   PEDIDOS.push(req.url);
   if (modo !== 200) { res.writeHead(modo); res.end("indisponivel"); return; }
   res.writeHead(200, { "Content-Type": "text/html; charset=ISO-8859-1" });
@@ -67,10 +72,11 @@ const livro = () => {
   return existsSync(f) ? readFileSync(f, "utf8").split("\n").filter(Boolean).map(JSON.parse) : [];
 };
 async function rodada(nome) {
-  const antes = PEDIDOS.length;
+  const antes = PEDIDOS.length, robotsAntes = ROBOTS_PEDIDOS.length;
   const { resumo } = await executarRodada({ runId: `PROVA_HTTP_${nome}_${Date.now()}`, apenas: [FONTE],
                                             pularParse: true, nota: `prova http local ${nome}` });
-  return { c: resumo.contadores, resumo, pedidos: PEDIDOS.length - antes };
+  return { c: resumo.contadores, resumo, pedidos: PEDIDOS.length - antes,
+           robots: ROBOTS_PEDIDOS.length - robotsAntes };
 }
 
 let passou = 0, falhou = 0;
@@ -102,6 +108,9 @@ try {
   estado = { visitas: 135, hora: "2026-09-22T02:06:03+00:00", token: "B".repeat(40) };
   const r2 = await rodada("R2"); anota("R2", r2);
   t("R2 NAO chega ao servidor", () => { assert.equal(r2.pedidos, 0); assert.equal(r2.c.SKIPPED_KNOWN, 1); });
+  t("A5: R1 leu o robots UMA vez; R2, que nao pediu nada, nem o robots leu", () => {
+    assert.equal(r1.robots, 1); assert.equal(r2.robots, 0); assert.equal(r2.c.ROBOTS_REQUESTS, 0);
+  });
   t("R2: UNNECESSARY_REFETCHES = 0 e nenhum CHANGED", () => {
     assert.equal(r2.c.UNNECESSARY_REFETCHES, 0); assert.equal(r2.c.CHANGED_IN_PLACE, 0);
   });
