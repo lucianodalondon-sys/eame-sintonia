@@ -19389,3 +19389,28 @@ Brasil. O que ficou por ler fica NÃO SEI, com nome.
 
 E contar SOURCE_ID não é contar sites: com os desbloqueios, 11 códigos são 9
 sites (IT-T2-051/056 e IT-T7-043/100 são a mesma fonte com dois nomes).
+
+## DESBLOQUEIO-1 · O COLETOR TEM A SUA PRÓPRIA CÓPIA DA RECEITA
+
+*(G1, 23/09/2026 · número a atribuir na unificação.)*
+
+Há dois livros de contratos: o do Curator (`italy_contracts_curator.json`) e a
+tabela do coletor (`regras/italy_contracts_onboarded.json`). O coletor usa a
+**sua** cópia da aquisição. Corrigir a receita só no Curator deixa o coletor a
+colher pela receita velha, calado.
+
+> Uma receita nova só vai para a tabela do coletor com um canário que provou
+> **exactamente** essa aquisição. Receita mudada sem canário novo: a tabela fica
+> como está, e o pacote diz porquê.
+
+O pacote G1 (`scripts/desbloqueio/aplicar_desbloqueio.py`) aplica-se uma vez, no
+cutover, sobre o livro corrente: cada mudança só entra se a prova ainda bater
+(sha256 da página guardada, padrão que casa a notícia e nenhuma das 109 capas do
+gabarito, livro ainda no valor ANTES); correr duas vezes dá zero; nunca muda
+grupo T nem retira fonte.
+
+Dois mutantes sobreviveram à primeira bateria sem serem buracos: uma trava
+redundante (a comparação do contrato inteiro já apanhava o grupo T) e uma
+idempotência que dava o resultado certo com o motivo errado («o livro mudou» em
+vez de «já aplicada»). A cura foi o teste exigir o **motivo**, não só o
+resultado.
