@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3517940909212f707bcb4d76e631557e53be0771
-BRANCH           listing-detail-v1
-GERADO_EM        2026-09-23T02:50:33-03:00
+HEAD_DA_MEDICAO  6ba41c39e493d9e29e4736f927976d27597da896
+BRANCH           listing-detail-v2
+GERADO_EM        2026-09-23T03:27:45-03:00
 CARDS            87
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1428,7 +1428,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | tests/test_aplicar_desbloqueio.py:16 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/PROPOSTA-RECEITAS-V1.json`, `curadoria/PROPOSTA-RECEITAS-V2.json`, `handoff/paused-v2/MANIFESTO.json` |
+| **o que entra · ficheiros** | `curadoria/PROPOSTA-RECEITAS-V1.json`, `curadoria/PROPOSTA-RECEITAS-V2.json`, `curadoria/PROPOSTA-RECEITAS-V3.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 3 · saem 1 |
@@ -1445,7 +1445,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/detector_capa/GABARITO-CAPA-V1.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`, `scripts/detector_capa/MANIFESTO-RECOLHA-V1.json`, `scripts/detector_capa/colher_gabarito.py`, `scripts/detector_capa/medir_apos_receitas.py` _(e mais 2)_ |
+| **peça real** | `scripts/detector_capa/GABARITO-CAPA-V1.json`, `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json`, `scripts/detector_capa/MANIFESTO-RECOLHA-V1.json` _(e mais 5)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
@@ -1670,7 +1670,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `curadoria/PROPOSTA-RECEITAS-V1.json`, `scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json`, `scripts/receitas/censo_e_proposta.py`, `scripts/receitas/medir_efeito.py`, `scripts/receitas/provar_indices.py` |
+| **peça real** | `curadoria/PROPOSTA-RECEITAS-V1.json`, `curadoria/PROPOSTA-RECEITAS-V3.json`, `scripts/receitas/ROTULOS-LD2.json`, `scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json`, `scripts/receitas/censo_e_proposta.py` _(e mais 3)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
@@ -1678,7 +1678,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | scripts/coorte_micro/funil.py:204; scripts/desbloqueio/aplicar_desbloqueio.py:208; tests/test_aplicar_desbloqueio.py:33 |
 | **porquê** | estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/PROPOSTA-RECEITAS-V1.json`, `handoff/paused-v2/MANIFESTO.json`, `scripts/detector_capa/GABARITO-CAPA-V1.json` |
+| **o que entra · ficheiros** | `curadoria/PROPOSTA-RECEITAS-V1.json`, `curadoria/PROPOSTA-RECEITAS-V3.json`, `handoff/paused-v2/MANIFESTO.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 1 · saem 3 |

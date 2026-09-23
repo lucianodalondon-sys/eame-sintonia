@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T05:55:08+00:00",
-    "HEAD": "3517940909212f707bcb4d76e631557e53be0771",
+    "GENERATED_AT": "2026-09-23T06:32:09+00:00",
+    "HEAD": "6ba41c39e493d9e29e4736f927976d27597da896",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "b39f99fe52af7cc3c7548879fba55e848c086a7060145cd957c00d358efcf6ec",
-    "FICHEIROS_NA_IMPRESSAO": 2700,
+    "SOURCE_TREE_FINGERPRINT": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07",
+    "FICHEIROS_NA_IMPRESSAO": 2708,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -18653,6 +18653,23 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 173
+        },
+        {
+          "file": "scripts/receitas/provar_indices.py",
+          "line": 24
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 58
+        }
+      ]
+    },
+    {
       "endpoint": "https://%s/robots.txt",
       "usado_por": [
         {
@@ -18683,6 +18700,23 @@
         {
           "file": "tests/test_porta_de_candidatas.py",
           "line": 233
+        }
+      ]
+    },
+    {
+      "endpoint": "https://a.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_capturador.py",
+          "line": 200
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 77
+        },
+        {
+          "file": "tests/test_medir_apos_receitas.py",
+          "line": 36
         }
       ]
     },
@@ -18906,19 +18940,6 @@
       ]
     },
     {
-      "endpoint": "https://www.arpae.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 173
-        },
-        {
-          "file": "scripts/receitas/provar_indices.py",
-          "line": 24
-        }
-      ]
-    },
-    {
       "endpoint": "https://agronotizie.imagelinenetwork.com/",
       "usado_por": [
         {
@@ -18958,35 +18979,22 @@
       ]
     },
     {
-      "endpoint": "https://a.it/news",
+      "endpoint": "https://a.it/notizie",
       "usado_por": [
         {
           "file": "curadoria/test_capturador.py",
-          "line": 200
+          "line": 188
         },
         {
-          "file": "tests/test_medir_apos_receitas.py",
-          "line": 36
-        }
-      ]
-    },
-    {
-      "endpoint": "https://a.it/x.pdf",
-      "usado_por": [
-        {
-          "file": "curadoria/test_capturador.py",
-          "line": 219
-        },
-        {
-          "file": "curadoria/test_correr_lote.py",
-          "line": 87
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 83
         }
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 462,
+  "ENDPOINTS_FOUND": 464,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 422,
+  "ENDPOINTS_TRUNCATED": 424,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -19004,9 +19012,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 462,
+    "endpoints": 464,
     "endpoints_published": 40,
-    "endpoints_truncated": 422,
+    "endpoints_truncated": 424,
     "candidates": 241,
     "coletores": 53,
     "coletores_com_data": 20,

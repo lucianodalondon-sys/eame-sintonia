@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T05:54:28+00:00",
-  "HEAD": "3517940909212f707bcb4d76e631557e53be0771",
-  "BRANCH": "listing-detail-v1",
+  "GENERATED_AT": "2026-09-23T06:31:28+00:00",
+  "HEAD": "6ba41c39e493d9e29e4736f927976d27597da896",
+  "BRANCH": "listing-detail-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "b39f99fe52af7cc3c7548879fba55e848c086a7060145cd957c00d358efcf6ec",
-  "FICHEIROS_NA_IMPRESSAO": 2700,
+  "SOURCE_TREE_FINGERPRINT": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07",
+  "FICHEIROS_NA_IMPRESSAO": 2708,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3170,7 +3170,7 @@
    {
     "PATH": "scripts/desbloqueio/aplicar_desbloqueio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "75072f32c485b0ec52c25f6c63a875ead61fc3b5",
+    "VERSAO": "eed0cfafd53e53a8b1f98bb09e359b8c0f2ca189",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3185,6 +3185,13 @@
     "PATH": "scripts/detector_capa/colher_gabarito.py",
     "PAPEL": "FONTE",
     "VERSAO": "e8db51ccb0a420bda8ba40a76e06fbe3d7a30c68",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/detector_capa/colher_urls.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4150f18c7b6ef7d77fce6c73c6e46834b0940272",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3252,6 +3259,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/receitas/propor_receitas_v3.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "44273965c15b834c01644eda63adde66172c3910",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/receitas/provar_indices.py",
     "PAPEL": "FONTE",
     "VERSAO": "36277086c8e454656febfd4278efd98c6c6d7ab7",
@@ -3310,14 +3324,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "b39f99fe52af7cc3c7548879fba55e848c086a7060145cd957c00d358efcf6ec",
+    "VERSAO": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "b39f99fe52af7cc3c7548879fba55e848c086a7060145cd957c00d358efcf6ec",
+    "VERSAO": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4400,6 +4414,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_ld2_aditamento.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a41a35eb972a7262316c195cf91f70299fba5a3f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_legado_fora_do_fluxo.py",
     "PAPEL": "FONTE",
     "VERSAO": "2e5ecac006f1d56d98d1f7a1165ad87cb0795496",
@@ -5023,8 +5044,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 712,
-  "INPUTS_DIGEST": "3bf34d609a2df5425449afac42814a51c811a3ea3746df183a11476ad87fcfce",
+  "INPUTS_COUNT": 715,
+  "INPUTS_DIGEST": "7325e7968b049ccca0278c99bdd796bd4ccc9beb891c3fa503e5c9d92d29b9a5",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5050,15 +5071,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 460,
+  "DOCUMENTOS_LIDOS": 461,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c5d2851750eff177aa753403e34bbe95664d07e21e105aff37d06288f8e5fcd5",
-  "SEMANTIC_HASH": "8982e1f0b81d102ab63b56af80a4873034c1f2494d8d64330c918c0be4649cd6"
+  "MEASUREMENT_HASH": "df7b8ad5e8d7779bc41a3c6e310dcbce9e240ebb534338da5f57a66707d9428d",
+  "SEMANTIC_HASH": "dfa81f0be7985f5dbff7eb58b90267c4734d399d3ac0caeec61714fffd03a6b2"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15133,6 +15154,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_ld2_aditamento.py",
+      "LINHA": 15,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -15237,6 +15266,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/receitas/propor_receitas_v3.py",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -15277,6 +15314,14 @@
      {
       "FICHEIRO": "tests/test_c10_8b_r_raw_entre_jobs.py",
       "LINHA": 151,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_ld2_aditamento.py",
+      "LINHA": 19,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
@@ -30469,6 +30514,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "LINHA": 209,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "scripts/desbloqueio/canario_desbloqueio.py",
       "LINHA": 54,
       "SUPPORTS": "YES",
@@ -30493,6 +30546,22 @@
      {
       "FICHEIRO": "tests/test_aplicar_desbloqueio.py",
       "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_ld2_aditamento.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_ld2_aditamento.py",
+      "LINHA": 66,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
@@ -41486,7 +41555,8 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "tests/test_aplicar_desbloqueio.py"
+    "tests/test_aplicar_desbloqueio.py",
+    "tests/test_ld2_aditamento.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "RELATORIO-DESBLOQUEIO-COORTE.md"
@@ -41522,9 +41592,12 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "scripts/detector_capa/GABARITO-CAPA-V1.json",
+    "scripts/detector_capa/GABARITO-CONTROLO-LD2.json",
     "scripts/detector_capa/LISTING-DETAIL-GATE-V1.json",
+    "scripts/detector_capa/LISTING-DETAIL-GATE-V2.json",
     "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
     "scripts/detector_capa/colher_gabarito.py",
+    "scripts/detector_capa/colher_urls.py",
     "scripts/detector_capa/medir_apos_receitas.py",
     "scripts/detector_capa/medir_gabarito.py",
     "scripts/detector_capa/rotular_gabarito.py"
@@ -46030,14 +46103,18 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "curadoria/PROPOSTA-RECEITAS-V1.json",
+    "curadoria/PROPOSTA-RECEITAS-V3.json",
+    "scripts/receitas/ROTULOS-LD2.json",
     "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
     "scripts/receitas/censo_e_proposta.py",
     "scripts/receitas/medir_efeito.py",
+    "scripts/receitas/propor_receitas_v3.py",
     "scripts/receitas/provar_indices.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "tests/test_aplicar_desbloqueio.py",
+    "tests/test_ld2_aditamento.py",
     "tests/test_receitas_proposta.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -47443,6 +47520,7 @@
     "tests/test_integracao_biblia.py",
     "tests/test_integracao_e7_contrato_na_linha_funcional.py",
     "tests/test_italia_na_porta_canonica.py",
+    "tests/test_ld2_aditamento.py",
     "tests/test_legado_fora_do_fluxo.py",
     "tests/test_leitores_depois_da_fase_10.py",
     "tests/test_lingua_da_porta.py",
