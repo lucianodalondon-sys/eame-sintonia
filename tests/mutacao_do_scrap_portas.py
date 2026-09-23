@@ -119,6 +119,26 @@ CASOS = [
      "r('reddit:OAuth Data API v2', 'OFFICIAL_API_FREE', 'CONDICIONAL',",
      "tests.test_c13_route_gate",
      "M7 · uma decisão antiga (REDDIT) muda sem prova"),
+    # ── M8 · o Reel PERDE o eixo do dono (a rota fecha): as provas do C10.5D
+    #         e do C10.4B têm de morder as duas. Não se muda o valor da decisão
+    #         para «testar» — muda-se a LEI, e exige-se vermelho.
+    ("leis/social_matriz.py",
+     "owner_authorized='SIM', platform_policy='DISALLOWED',\n              limite='PUBLIC_REEL_BY_URL_ONLY'),",
+     "owner_authorized='NAO', platform_policy='DISALLOWED',\n              limite='PUBLIC_REEL_BY_URL_ONLY'),",
+     "tests.test_c10_5d_decisao_instagram",
+     "M8 · a rota do Reel perde o eixo do dono"),
+    ("leis/social_matriz.py",
+     "owner_authorized='SIM', platform_policy='DISALLOWED',\n              limite='PUBLIC_REEL_BY_URL_ONLY'),",
+     "owner_authorized='NAO', platform_policy='DISALLOWED',\n              limite='PUBLIC_REEL_BY_URL_ONLY'),",
+     "tests.test_c10_4b_um_caminho_so",
+     "M9 · a rota do Reel perde o eixo do dono (C10.4B)"),
+    # ── M10 · o LIMITE da rota muda sem decisão: as duas provas dos eixos
+    #          continuam a olhar para ele.
+    ("leis/social_matriz.py",
+     "limite='PUBLIC_REEL_BY_URL_ONLY'),",
+     "limite='PUBLIC_AUDIO_ONLY'),",
+     "tests.test_c10_5d_decisao_instagram",
+     "M10 · o limite da rota do Reel muda sem prova"),
     # ── M6 · o RAW do Reel volta a não declarar a espécie
     ("ferramentas/reel_transcricao.py",
      "def _especie_do_ficheiro(caminho, media_kind):",
