@@ -21407,3 +21407,23 @@ SOC4 (23/09/2026). `RELATORIO-SOC4-YOUTUBE-PRONTO.md`.
    commit do registo na mesma branch — é assim que o resultado volta a uma máquina sem sessão do
    GitHub. O registo guarda só identidade (handle → channel_id, corrida, hora): nada que a regra
    dos 30 dias tenha de apagar.
+
+# §205 · O CANAL É DA FONTE, O UNIVERSO É DE CADA VÍDEO — E T2/T12 NÃO TÊM RÉGUA
+
+SOC5 (23/09/2026). `RELATORIO-SOC5-CANARIO-YOUTUBE.md`.
+
+Canário real de 5 canais × 2 vídeos pela porta canónica (lista pela API no runner; áudio, ASR e
+Admissão nesta máquina, VPN IT, banco descartável próprio): RAW 9/10, DERIVED 8/10, Sala 1/10.
+
+1. **Quatro paradas não eram do vídeo:** a Admissão desta linha tem régua para T3, T4, T5, T7, T9 e
+   T10. T2 e T12 respondem NAO_SE_APLICA «não há regra escrita» a tudo — e 12 dos 50 canais YouTube
+   vivem nesses dois territórios. Um canal que atravessa RAW e DERIVED e nunca chega à Sala pode estar
+   à espera de uma régua, e não de um conserto.
+2. **Um canal T7 que fala de produto é NÃO com prova (T9).** O canal diz a fonte; cada vídeo diz o
+   seu universo. Não se «corrige» o veredicto mudando o território do canal.
+3. **O ASR empanca e a porta deixa passar:** «di un progetto» repetido dezenas de vezes num vídeo
+   de 54 min chegou a DERIVED como texto legível. Legível ≠ transcrito bem.
+4. **Bancos órfãos:** de 10 pastas `pg-prova-cli-*` com `postmaster.pid`, só 4 tinham processo; o
+   ficheiro sobrevive à morte do servidor (tela azul). Contar processos, não ficheiros — e provar
+   descartável pela morada (`e_descartavel`), pela pasta, pelos clientes e pelo pai morto.
+5. **Um vigia de egresso por vídeo apanha a VPN a cair a meio** — aconteceu, e o canário parou.

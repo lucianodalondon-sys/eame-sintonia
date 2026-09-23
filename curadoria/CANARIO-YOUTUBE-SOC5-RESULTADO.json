@@ -1,0 +1,314 @@
+{
+ "DATASET": "CANARIO-YOUTUBE-SOC5-RESULTADO",
+ "MEDIDO_EM": "2026-09-23T18:41:26Z",
+ "COMO": "porta canonica (orquestrador → scrap-colheita fase audio-youtube → ingresso → derivacao → admissao → sala) em Postgres descartavel proprio (127.0.0.1, base descartavel, 32 migracoes); VPN IT verificada antes e depois de cada video; 20 s entre videos; lista dos videos pela API oficial no runner (run 35901103902).",
+ "NOTA": "Sem textos da transcricao nem titulos aqui (D20 / tamanho). Os bytes ficaram FORA do repositorio.",
+ "TOTAL": {
+  "VIDEOS": 10,
+  "RAW": 9,
+  "DERIVED": 8,
+  "ADMISSAO_SIM": 1,
+  "SALA": 1
+ },
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T2-025",
+   "UNIVERSO": "T2",
+   "VIDEO": "G-AJsmMac24",
+   "RUN_ID": "IT-T2-2026-09-23-182036-8ea5b649639f1f00",
+   "RC": 0,
+   "SEGUNDOS": 196.3,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 103980892
+    }
+   ],
+   "AUDIO_DURATION_S": 3249.4,
+   "DERIVED": [
+    {
+     "KIND": "TRANSCRIPTION",
+     "BYTES": 48075
+    }
+   ],
+   "DERIVACAO_PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "NAO_SE_APLICA",
+     "REGRA": "pertence ao universo",
+     "MOTIVO": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma."
+    }
+   ],
+   "SALA": 0,
+   "ZERO": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-025",
+   "UNIVERSO": "T2",
+   "VIDEO": "4TP_D8t5e5s",
+   "RUN_ID": "IT-T2-2026-09-23-182540-e434646493165e90",
+   "RC": 0,
+   "SEGUNDOS": 141.4,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 96025922
+    }
+   ],
+   "AUDIO_DURATION_S": 3000.81,
+   "DERIVED": [
+    {
+     "KIND": "TRANSCRIPTION",
+     "BYTES": 33323
+    }
+   ],
+   "DERIVACAO_PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "NAO_SE_APLICA",
+     "REGRA": "pertence ao universo",
+     "MOTIVO": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma."
+    }
+   ],
+   "SALA": 0,
+   "ZERO": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-037",
+   "UNIVERSO": "T5",
+   "VIDEO": "v8KLSChzhrg",
+   "RUN_ID": "IT-T5-2026-09-23-182824-fd32eee7ed66c71f",
+   "RC": 0,
+   "SEGUNDOS": 35.5,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 7792696
+    }
+   ],
+   "AUDIO_DURATION_S": 243.52,
+   "DERIVED": [],
+   "DERIVACAO_PORQUE": "o reconhecedor devolveu REQUESTED_EMPTY",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "NAO_SEI",
+     "REGRA": "legivel",
+     "MOTIVO": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve»."
+    }
+   ],
+   "SALA": 0,
+   "ZERO": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-037",
+   "UNIVERSO": "T5",
+   "VIDEO": "VEdmSRMTMGA",
+   "RUN_ID": "IT-T5-2026-09-23-183109-876c67be6c6854a6",
+   "RC": 0,
+   "SEGUNDOS": 57.8,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 7881116
+    }
+   ],
+   "AUDIO_DURATION_S": 246.28,
+   "DERIVED": [
+    {
+     "KIND": "TRANSCRIPTION",
+     "BYTES": 2488
+    }
+   ],
+   "DERIVACAO_PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "NAO_SEI",
+     "REGRA": "pertence ao universo",
+     "MOTIVO": "so uma palavra de «T5» aparece (ricerca), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita."
+    }
+   ],
+   "SALA": 0,
+   "ZERO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-015",
+   "UNIVERSO": "T7",
+   "VIDEO": "f-Up25Lyn9I",
+   "RUN_ID": "IT-T7-2026-09-23-183228-d6a7f909bb8e9348",
+   "RC": 0,
+   "SEGUNDOS": 53.3,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 16518564
+    }
+   ],
+   "AUDIO_DURATION_S": 516.2,
+   "DERIVED": [
+    {
+     "KIND": "TRANSCRIPTION",
+     "BYTES": 8036
+    }
+   ],
+   "DERIVACAO_PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "SIM",
+     "REGRA": "pertence ao universo",
+     "MOTIVO": "fala de consorcio, consorzio — que e do que «T7» trata"
+    }
+   ],
+   "SALA": 1,
+   "ZERO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-015",
+   "UNIVERSO": "T7",
+   "VIDEO": "hwEWEvYFAoQ",
+   "RUN_ID": "IT-T7-2026-09-23-183343-c03fa63e1ce3ace1",
+   "RC": 0,
+   "SEGUNDOS": 58.2,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 18961828
+    }
+   ],
+   "AUDIO_DURATION_S": 592.55,
+   "DERIVED": [
+    {
+     "KIND": "TRANSCRIPTION",
+     "BYTES": 8026
+    }
+   ],
+   "DERIVACAO_PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "NAO",
+     "REGRA": "pertence ao universo",
+     "MOTIVO": "nao fala de «T7», e fala claramente de outro universo (T9: prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra."
+    }
+   ],
+   "SALA": 0,
+   "ZERO": null
+  },
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "UNIVERSO": "T10",
+   "VIDEO": "wUU1EZ9L-44",
+   "RUN_ID": "IT-T10-2026-09-23-183518-f58741c9768efb3b",
+   "RC": 0,
+   "SEGUNDOS": 23.6,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [],
+   "AUDIO_DURATION_S": null,
+   "DERIVED": [],
+   "DERIVACAO_PORQUE": null,
+   "ADMISSAO": [],
+   "SALA": 0,
+   "ZERO": "a corrida correu e não observou nada. ZERO LEGÍTIMO NÃO É FALHA: SOURCE_UNAVAILABLE"
+  },
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "UNIVERSO": "T10",
+   "VIDEO": "n26xEq3oR8k",
+   "RUN_ID": "IT-T10-2026-09-23-183604-b11b72c48b40f4c2",
+   "RC": 0,
+   "SEGUNDOS": 43.8,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 8497230
+    }
+   ],
+   "AUDIO_DURATION_S": 265.54,
+   "DERIVED": [
+    {
+     "KIND": "TRANSCRIPTION",
+     "BYTES": 3184
+    }
+   ],
+   "DERIVACAO_PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "NAO",
+     "REGRA": "pertence ao universo",
+     "MOTIVO": "nao fala de «T10», e fala claramente de outro universo (T7: agronomi; T9: campagna, prodotto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra."
+    }
+   ],
+   "SALA": 0,
+   "ZERO": null
+  },
+  {
+   "SOURCE_ID": "IT-T12-007",
+   "UNIVERSO": "T12",
+   "VIDEO": "ZYZ5bbBVK7I",
+   "RUN_ID": "IT-T12-2026-09-23-183710-43e194dba8ed5bdd",
+   "RC": 0,
+   "SEGUNDOS": 34.9,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 1206350
+    }
+   ],
+   "AUDIO_DURATION_S": 37.7,
+   "DERIVED": [
+    {
+     "KIND": "TRANSCRIPTION",
+     "BYTES": 23
+    }
+   ],
+   "DERIVACAO_PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "NAO_SE_APLICA",
+     "REGRA": "pertence ao universo",
+     "MOTIVO": "nao ha regra escrita do que conta como «T12». Sem regra, esta porta nao inventa uma."
+    }
+   ],
+   "SALA": 0,
+   "ZERO": null
+  },
+  {
+   "SOURCE_ID": "IT-T12-007",
+   "UNIVERSO": "T12",
+   "VIDEO": "A1TKG1wp3KI",
+   "RUN_ID": "IT-T12-2026-09-23-183813-b6c97cfea4dd9137",
+   "RC": 0,
+   "SEGUNDOS": 40.3,
+   "EGRESSO_IT_ANTES_E_DEPOIS": true,
+   "RAW": [
+    {
+     "MEDIA_TYPE": "audio/wav",
+     "BYTES": 3173112
+    }
+   ],
+   "AUDIO_DURATION_S": 99.16,
+   "DERIVED": [
+    {
+     "KIND": "TRANSCRIPTION",
+     "BYTES": 1447
+    }
+   ],
+   "DERIVACAO_PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "ADMISSAO": [
+    {
+     "RESULTADO": "NAO_SE_APLICA",
+     "REGRA": "pertence ao universo",
+     "MOTIVO": "nao ha regra escrita do que conta como «T12». Sem regra, esta porta nao inventa uma."
+    }
+   ],
+   "SALA": 0,
+   "ZERO": null
+  }
+ ]
+}
