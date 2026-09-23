@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T10:00:49+00:00",
-  "HEAD": "e752c3da9f709c5f01d5f130b5bf350b022151f0",
-  "BRANCH": "unificacao-v1",
+  "GENERATED_AT": "2026-09-23T11:11:52+00:00",
+  "HEAD": "99123195c127ecb2f6c06cf9ccd652200d34ce9f",
+  "BRANCH": "micro-pronta-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
-  "FICHEIROS_NA_IMPRESSAO": 2839,
+  "SOURCE_TREE_FINGERPRINT": "cf6b07e2243f7b661a663e5c9b4d300c9b99d27e97248029dd882e379a782077",
+  "FICHEIROS_NA_IMPRESSAO": 2844,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3399,6 +3399,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/micro_coleta/ensaio_offline.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ad23b79a713491f2be82746bbf87af10b4708d3b",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/micro_coleta/medir_detector_de_capa.py",
     "PAPEL": "FONTE",
     "VERSAO": "3e4032012408a6ca87da37d2ac75b2ee17f40248",
@@ -3408,7 +3415,14 @@
    {
     "PATH": "scripts/micro_coleta/micro_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "f9849698157d2777dae0c63bfbe48ecb90004d60",
+    "VERSAO": "84b157afb93da33fcd8a69609b906d4feaba6696",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/micro_coleta/provar_backup_da_sala.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0fb475127ef2f991437a0dd4e9abf6cbd56d5d1a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3492,14 +3506,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
+    "VERSAO": "cf6b07e2243f7b661a663e5c9b4d300c9b99d27e97248029dd882e379a782077",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
+    "VERSAO": "cf6b07e2243f7b661a663e5c9b4d300c9b99d27e97248029dd882e379a782077",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4407,6 +4421,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_ensaio_offline_micro.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "cce3f6aa96b9a797d545e2890d462509de3484aa",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_espinha_da_intelligence.py",
     "PAPEL": "FONTE",
     "VERSAO": "af89d9f8eb9f2cce5a91b829c1259ddc0ad4f5b0",
@@ -4710,7 +4731,7 @@
    {
     "PATH": "tests/test_micro_coleta_instrumento.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a06a2c982d54cf47c2591819d715f510be6c9cea",
+    "VERSAO": "1dff049fafd953bd65be609f542207473dd09c0c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5268,8 +5289,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 747,
-  "INPUTS_DIGEST": "a1664b50f5367e045e294c68970b1cd93c2c4504cd4b543f02352ebfa8142cc2",
+  "INPUTS_COUNT": 750,
+  "INPUTS_DIGEST": "36789841826510c28e239eeee2cea23db3afc8b754baee2abc9dc5f1d057e5cc",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5295,15 +5316,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 478,
+  "DOCUMENTOS_LIDOS": 480,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "f00b6e8c65797e8c65f5d5421fe0eb328a947ac755fa06fb079aefc86e5d7517",
-  "SEMANTIC_HASH": "2f24ff08d95ae18796209de1f040684ae85dd1a20787eae477f9d2f4b27523ec"
+  "MEASUREMENT_HASH": "7c149054a0e8c80b3d5d587466388fdc79f2869f8faa7cd099586c85f4116c2e",
+  "SEMANTIC_HASH": "f0840ef6a76a68400c0b2c0ef79ee234cbe727a7708fdb8cf9e4692544b51901"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7199,6 +7220,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ADMISSAO--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-ADMISSAO",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
+      "LINHA": 367,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -9548,6 +9591,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-CADEIA-V21--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-CADEIA-V21",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
+      "LINHA": 195,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CADEIA-V21--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CADEIA-V21--READS-->C-PACOTE-CAMADAS",
     "FROM": "C-CADEIA-V21",
     "TO": "C-PACOTE-CAMADAS",
@@ -10053,7 +10118,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 120,
+      "LINHA": 121,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -10061,7 +10126,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 122,
+      "LINHA": 123,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -10083,7 +10148,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 171,
+      "LINHA": 184,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -10091,7 +10156,7 @@
      },
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 172,
+      "LINHA": 185,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -15596,6 +15661,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-DESBLOQUEIO-PACOTE",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
+      "LINHA": 210,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-TESTES",
     "FROM": "C-DESBLOQUEIO-PACOTE",
     "TO": "C-TESTES",
@@ -15673,6 +15760,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
+      "LINHA": 105,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -21548,7 +21657,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 55,
+      "LINHA": 56,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -23224,6 +23333,44 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
+      "LINHA": 93,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
+      "LINHA": 536,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
+      "LINHA": 480,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PADRAO-COLETA",
     "FROM": "C-IT-PRESERVAR",
     "TO": "C-PADRAO-COLETA",
@@ -23860,6 +24007,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-IT-NORMALIZACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-LASTMILE-MEDIDORES",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
+      "LINHA": 472,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -25183,6 +25352,22 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_ensaio_offline_micro.py",
+      "LINHA": 17,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_ensaio_offline_micro.py",
+      "LINHA": 155,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
       "LINHA": 19,
       "SUPPORTS": "YES",
@@ -25941,7 +26126,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 98,
+      "LINHA": 99,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -26789,7 +26974,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 49,
+      "LINHA": 50,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -30821,7 +31006,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 48,
+      "LINHA": 49,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -38006,7 +38191,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 53,
+      "LINHA": 54,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -38308,7 +38493,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 37,
+      "LINHA": 38,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -38316,7 +38501,7 @@
      },
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 39,
+      "LINHA": 40,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -38347,6 +38532,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--WRITES-->C-DETECTOR-CAPA-GABARITO",
+    "FROM": "C-TESTES",
+    "TO": "C-DETECTOR-CAPA-GABARITO",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_ensaio_offline_micro.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--WRITES-->C-ESTRADAS-IT",
     "FROM": "C-TESTES",
     "TO": "C-ESTRADAS-IT",
@@ -38364,6 +38571,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-ESTRADAS-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
+    "FROM": "C-TESTES",
+    "TO": "C-IT-PRESERVAR",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_ensaio_offline_micro.py",
+      "LINHA": 41,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
+      "LINHA": 308,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -39941,12 +40178,12 @@
     ]
    }
   ],
-  "COUNT": 1119
+  "COUNT": 1127
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 172,
   "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1119,
+  "ARESTAS_RELACIONADAS": 1127,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -40272,9 +40509,6 @@
    "C-LUGAR-DO-FATO": [
     "science"
    ],
-   "C-MICRO-COLETA-INSTRUMENTO": [
-    "collection-strategy"
-   ],
    "C-POLITICA-COLETA": [
     "collection-strategy",
     "opportunity",
@@ -40346,9 +40580,9 @@
    "CODE": 188,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 372,
-   "READ": 251,
-   "RULE": 197,
+   "PROOF": 374,
+   "READ": 254,
+   "RULE": 200,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -40586,7 +40820,7 @@
     "preservar_coleta"
    ],
    "ENTRAM": 6,
-   "SAEM": 35,
+   "SAEM": 36,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -41118,7 +41352,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 5,
-   "SAEM": 16,
+   "SAEM": 17,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF",
@@ -42513,12 +42747,13 @@
     "pathlib"
    ],
    "ENTRAM": 4,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
-    "PROOF"
+    "PROOF",
+    "RULE"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -42564,9 +42799,11 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 0,
-   "SAEM": 6,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "ENTRAM": 1,
+   "SAEM": 7,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF"
+   ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
     "RULE"
@@ -44114,7 +44351,9 @@
     "system-map/scripts/scan_repo.py",
     "system-map/scripts/scan_sources.py",
     "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
+    "tests/test_ensaio_offline_micro.py",
     "tests/test_fontes_explicitas_no_coletor.py",
+    "tests/test_micro_coleta_instrumento.py",
     "tests/test_observabilidade_estrada.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -44123,9 +44362,10 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 1,
-   "SAEM": 17,
+   "ENTRAM": 2,
+   "SAEM": 18,
    "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF",
     "READ"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -44309,7 +44549,7 @@
     "raw_asset"
    ],
    "ENTRAM": 9,
-   "SAEM": 4,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ",
@@ -44661,16 +44901,23 @@
    "FICHEIROS": [
     "scripts/micro_coleta/COORTE-PROPOSTA.json",
     "scripts/micro_coleta/GABARITO-MICRO-V1.json",
+    "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
+    "scripts/micro_coleta/MICRO-RUNBOOK.md",
+    "scripts/micro_coleta/ensaio_offline.py",
     "scripts/micro_coleta/medir_detector_de_capa.py",
-    "scripts/micro_coleta/micro_coleta.py"
+    "scripts/micro_coleta/micro_coleta.py",
+    "scripts/micro_coleta/provar_backup_da_sala.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "tests/test_ensaio_offline_micro.py",
     "tests/test_micro_coleta_instrumento.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "RELATORIO-MICRO-PREP-B.md",
-    "RELATORIO-MICRO-PREP.md"
+    "RELATORIO-MICRO-PREP.md",
+    "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
+    "scripts/micro_coleta/MICRO-RUNBOOK.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -44685,9 +44932,10 @@
     "pathlib",
     "pedido",
     "raw_asset",
-    "sala_de_espera"
+    "sala_de_espera",
+    "urllib"
    ],
-   "ENTRAM": 6,
+   "ENTRAM": 12,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -44699,9 +44947,7 @@
     "PROOF"
    ],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "collection-strategy"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -44840,7 +45086,8 @@
     "RELATORIO-MICRO-PREP.md",
     "SINTONIA-EAME-KNOW-HOW.md",
     "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
-    "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md"
+    "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md",
+    "scripts/micro_coleta/MICRO-CAMINHO-A1.md"
    ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,
@@ -48469,6 +48716,7 @@
     "tests/test_comunicacao.py",
     "tests/test_comunicacao_universo_falha_fechado.py",
     "tests/test_consumo_da_referencia_adama.py",
+    "tests/test_ensaio_offline_micro.py",
     "tests/test_espinha_da_intelligence.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
     "tests/test_estradas_it.py",
@@ -48716,7 +48964,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 194,
-   "SAEM": 25,
+   "SAEM": 27,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
