@@ -155,6 +155,14 @@ class Inferir(unittest.TestCase):
         self.assertEqual("PADRAO_NOVO", p["DESFECHO"], p.get("PORQUE"))
         self.assertEqual(B + "/news/", p["INDEX_URL"])
 
+    def test_seccao_vem_sempre_com_vocabulario_de_publicacao(self):
+        # Por isso o filtro FLUXO no ramo da seccao nunca recusa: `_seccoes` so devolve
+        # caminhos com vocabulario de noticia, e `fluxo` le o caminho da listagem.
+        # (mutante equivalente declarado no relatorio R1.)
+        import provar_listagem as PL
+        for s in PL._seccoes([B + "/news/", B + "/comunicati-stampa/", B + "/regione/uffici"]):
+            self.assertIsNotNone(RC.fluxo(s, "", [B + "/regione/uffici-e-organizzazione"]))
+
     def test_fluxo_pelos_tres_sinais(self):
         self.assertIsNone(RC.fluxo(B + "/", "", [B + "/regione/area-personale-tributi"] * 2))
         self.assertIn("vocabulario", RC.fluxo(B + "/comunicati/", "", [B + "/x/a-b-c"]))
