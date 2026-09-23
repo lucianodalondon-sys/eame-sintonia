@@ -21313,6 +21313,7 @@ onde foi medido não serve para decidir.
   pausa entre passos; os dois números vão no runbook.
 
 
+
 # §206 · IDEMPOTENTE POR CORRIDA NÃO É IDEMPOTENTE POR DOCUMENTO — E A QUARENTENA NÃO É REGRESSÃO
 
 > Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §197 em sala-duplicados-v1 (A3); o número já estava ocupado nesta linha. Nada foi apagado.
@@ -21553,3 +21554,40 @@ SOC3 (23/09/2026), D20 e D21. `RELATORIO-SOC3-RETENCAO-YOUTUBE.md`.
 
 Mutação com banco real: um cluster por mutante custava minutos; a ronda sobe UM banco descartável
 já migrado e passa-o aos testes (`SOC3_BANCO_JA_MIGRADO`, aceite só se `exigir_descartavel` passar).
+
+# §209 · «JÁ PROCESSADA» E «BACKLOG» SÃO DOIS LIVROS — E O INTERVALO PROTEGE CONTRA A RAJADA, NÃO CONTRA O TRABALHO
+
+> B4 (bot-impasse-v1, 23/09/2026). Era §205 no ramo bot-impasse-v1; renumerada §209 na junção com a unificação (REPARO-FONTES-V1, 23/09/2026), onde §202–§208 já estavam ocupados. Nada foi apagado.
+
+**O SINTOMA.** O bot ficou parado com a fila a zero. A ponte dizia «932 lidas, 0 enfileiradas,
+932 já processadas». O sinal dizia «backlog 186, DISCOVERY_NOT_NEEDED». Os dois estavam certos
+no livro que cada um lia, e nenhum contava o que ia virar trabalho.
+
+**O QUE ESTAVA POR TRÁS.** 175 das 186 já tinham tido QUALIFY, e as 175 estavam BLOCKED
+(território NÃO SEI). As outras 11 (NEEDS_MORE_SAMPLING) nunca tinham tido tarefa: a ponte
+lia «está na caracterização» como «já entrou». E o gatilho esperava 3600 s mesmo com tudo a
+zero.
+
+**A REGRA.**
+- Backlog é o que **ainda não foi tentado**. Uma candidata que já teve a sua tarefa e
+  bloqueou sai do backlog, e aparece à parte com o nome dela (`HTML_QUALIFY_BLOQUEADO`,
+  `NEEDS_MORE_SAMPLING_JA_TENTADAS`).
+- «Está no ficheiro X» não é «foi decidida». Olhar o estado final (`FINAL_STATE`) e não a
+  presença.
+- O intervalo do discovery existe contra a **rajada**, não contra o trabalho. Chegar a zero
+  depois de trabalho feito (fila diferente da do último discovery) dispara já. Continuar a
+  zero sem mudança espera o intervalo.
+- Uma assinatura de «nada mudou» tem de incluir **a regra** que decide. Senão, instalar uma
+  regra nova deixa o feeder em NO-OP para sempre (`REGRA_VERSAO`).
+
+**ARMADILHAS.**
+- O primeiro conserto do D3 fazia 240 crawls por hora. Quem o apanhou foi
+  `test_abastecimento`, uma suíte que eu não tinha escrito. Correr as suítes dos vizinhos,
+  não só a própria.
+- A prova ao vivo encontrou um segundo furo (4 das 11 bloquearam e continuavam no backlog).
+  A prova ao vivo faz parte do conserto, não é só a cerimónia do fim.
+- Com o discovery a funcionar, o bot parou outra vez, agora de verdade: 63 de 70 sementes
+  gastas, e as 7 restantes GENERICA/UNKNOWN. Sinal honesto não fabrica fonte nova.
+- `tasklist //FI` no bash desta máquina dá erro e o `grep -q` lê isso como «processo
+  morreu». Medir por `Get-Process -Id`.
+

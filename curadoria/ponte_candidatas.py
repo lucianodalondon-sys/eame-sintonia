@@ -52,6 +52,9 @@ import fonte_nova as FN   # noqa: E402
 CARACT = RAIZ / "curadoria" / "SOURCE-CHARACTERIZATION-V1.json"
 LEDGER = RAIZ / "curadoria" / "BRIDGE-LEDGER-V1.json"
 
+# Muda quando a regra de decisao muda; entra na assinatura do FEEDER.
+REGRA_VERSAO = "B4-2026-09-23-needs-more-sampling"
+
 # Tipos sociais: têm barreira de política ou capacidade conhecida e documentada.
 # Insistir no que a política barra não é persistência — é contorno.
 # O worker já sabe disto (NAO_INSISTIR = {POLICY, AUTH, ROBOTS}); a ponte não
@@ -103,12 +106,22 @@ def _gravar_ledger(d: dict) -> None:
 
 
 def _ja_no_curator() -> set:
-    """CANDIDATA_IDs que já passaram pela caracterização (entraram no curator)."""
+    """CANDIDATA_IDs que já passaram pela caracterização E não precisam de mais trabalho.
+
+    NEEDS_MORE_SAMPLING fica de fora: passou pela caracterização mas não chegou ao
+    fim. A ponte tem de os enfileirar — alimentar_fila não os apanha (sem SOURCE_ID
+    ainda) e o sinal de discovery conta-os como backlog real.
+
+    ⚠️ GUARDA: só excluir NEEDS_MORE_SAMPLING. Qualquer outro FINAL_STATE na
+    caracterização (PROMOTE, BLOCK, ENDPOINT_OF_EXISTING_SOURCE, etc.) significa
+    que o curator já decidiu — a ponte não volta a tocar neles.
+    """
     if not CARACT.exists():
         return set()
     data = json.loads(CARACT.read_text(encoding="utf-8"))
     return {f["CANDIDATE_ID"] for f in data.get("FONTES", [])
-            if f.get("CANDIDATE_ID")}
+            if f.get("CANDIDATE_ID")
+            and f.get("FINAL_STATE") != "NEEDS_MORE_SAMPLING"}
 
 
 def processar() -> dict:

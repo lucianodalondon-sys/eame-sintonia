@@ -156,7 +156,8 @@ def calcular() -> dict:
     html_por_classe = Counter(_classe_02(c) for c in html)
     endpoints = [{"CANDIDATE_ID": c, "ENDPOINT_OF": decisoes[c].get("MATCHED_SOURCE_ID")}
                  for c in html if _classe_02(c) == "ENDPOINT_OF_EXISTING_SOURCE"]
-    html_novas = len(html) - len(endpoints)
+    html_novas_ids = [c for c in html if _classe_02(c) != "ENDPOINT_OF_EXISTING_SOURCE"]
+    html_novas = len(html_novas_ids)
 
     total = sum(len(v) for v in baldes.values())
     return {
@@ -177,6 +178,9 @@ def calcular() -> dict:
             "FONTES": sete,
         },
         "CARACTERIZADAS_NAO_READY_PORQUE": dict(nao_ready),
+        "NEEDS_MORE_SAMPLING_IDS": [c for c in baldes["CARACTERIZADAS_NAO_READY"]
+                                    if c not in matched
+                                    and caract[c]["FINAL_STATE"] == "NEEDS_MORE_SAMPLING"],
         "NUNCA_CARACTERIZADAS": {
             "PORQUE": ("amostrar.py so caracteriza PROPOSED_STATE == PROMOTE; estas nunca "
                        "foram PROMOTE na missao 02, ou nunca foram capturadas"),
@@ -189,6 +193,7 @@ def calcular() -> dict:
             "HTML_POR_DECISAO_DA_MISSAO_02": dict(html_por_classe),
             "HTML_ENDPOINTS_DE_FONTE_EXISTENTE": endpoints,
             "HTML_NOVAS": html_novas,
+            "HTML_NOVAS_IDS": html_novas_ids,
             "HTML_NOVAS_NOTA": ("HTML menos os endpoints de fonte existente (COL-LAW-205). "
                                 "As NEEDS_REVIEW_SEM_ITEM_NO_INDICE esbarram na mesma "
                                 "capacidade que trava as 7."),
