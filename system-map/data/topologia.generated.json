@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T21:05:03+00:00",
-  "HEAD": "9e2ab3633fbd360231e868617c81532194659827",
+  "GENERATED_AT": "2026-09-23T22:30:00+00:00",
+  "HEAD": "2d605ef6213a23d9cd7c7612e3a42a14500bdc7f",
   "BRANCH": "coorte-unica-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "31db7befc442e3d2ee0c813365ecfd44e75dfb7f2f82494bdb680cb98e61b596",
+  "SOURCE_TREE_FINGERPRINT": "1fbf3b0c4c11b684df75990df284a82d4097dc954be5c06f6d79c5980c8c0f47",
   "FICHEIROS_NA_IMPRESSAO": 2913,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -699,7 +699,7 @@
    {
     "PATH": "ferramentas/big_collection/coorte_unica.py",
     "PAPEL": "FONTE",
-    "VERSAO": "d4daac87cfc163568a49e2f9e212b3c9d0cd74f9",
+    "VERSAO": "ae6e99ada092ba8943b4419679295af05f0a78b5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3632,14 +3632,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "31db7befc442e3d2ee0c813365ecfd44e75dfb7f2f82494bdb680cb98e61b596",
+    "VERSAO": "1fbf3b0c4c11b684df75990df284a82d4097dc954be5c06f6d79c5980c8c0f47",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "31db7befc442e3d2ee0c813365ecfd44e75dfb7f2f82494bdb680cb98e61b596",
+    "VERSAO": "1fbf3b0c4c11b684df75990df284a82d4097dc954be5c06f6d79c5980c8c0f47",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5486,7 +5486,7 @@
    }
   ],
   "INPUTS_COUNT": 778,
-  "INPUTS_DIGEST": "6ce55da7eaeaf807ad65d675982ddd0a62c43a7f1c2336aae3d2a20d6e097abf",
+  "INPUTS_DIGEST": "5b779559d92efd116b603cd184483b42cbf0f470e754dfb0eb6ab9c9da54e977",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5519,8 +5519,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3e5e0800246d5710a77eb8a9d62235ceb62fbb181d0c3b58ad17419a12314157",
-  "SEMANTIC_HASH": "3040da9fad377cf829694ab937722f9023c46db8c308ae996dae4eeb7f74a412"
+  "MEASUREMENT_HASH": "4bd76faf7e79fa3ce9cd29063b208a9c555860c1a3a79e955141fb02b1edb746",
+  "SEMANTIC_HASH": "261585340458bdd28ddf183d923afcfc696b070a6fe6a9d40ef95822726c050a"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -11054,7 +11054,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coorte_unica.py",
-      "LINHA": 37,
+      "LINHA": 42,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-COORTE-BIG-COLLECTION",
@@ -16408,7 +16408,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coorte_unica.py",
-      "LINHA": 36,
+      "LINHA": 41,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-COORTE-BIG-COLLECTION",
@@ -16416,7 +16416,7 @@
      },
      {
       "FICHEIRO": "ferramentas/big_collection/coorte_unica.py",
-      "LINHA": 36,
+      "LINHA": 41,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-COORTE-BIG-COLLECTION",
@@ -23165,7 +23165,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coorte_unica.py",
-      "LINHA": 46,
+      "LINHA": 51,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-COORTE-BIG-COLLECTION",
@@ -26395,7 +26395,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coorte_unica.py",
-      "LINHA": 37,
+      "LINHA": 42,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-COORTE-BIG-COLLECTION",
