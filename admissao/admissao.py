@@ -134,7 +134,12 @@ AUSENCIA_NAO_SE_APLICA = art.NAO_SE_APLICA
 #     sabe classificar passa a `NAO_SEI` em QUARENTENA. Sem retrato do detector
 #     (PDF, video, texto) nada muda. Tudo o que a v5 admitiu de HTML sem esta
 #     pergunta pode ser reaberto pela versao.
-VERSAO_DA_REGRA = "6"
+# 7 · a pergunta `materia` ganha a V1 (V1A, 2026-09-23), e ela APERTA: uma pagina
+#     que e o proprio INDEX_URL do contrato de uma fonte que passa os 4 passos e
+#     CAPA, diga o detector o que disser (`retrato_html.veredito`). Nas fontes que
+#     nao passam os 4 passos nada muda. O que a v6 admitiu ou reteve de HTML pode
+#     ser reaberto pela versao.
+VERSAO_DA_REGRA = "7"
 
 
 @dataclass
@@ -501,20 +506,45 @@ def _politica_nao_sei():
 D14_C_LIGADA = False
 
 
+def _da_curadoria(nome: str):
+    """Um modulo do dono em curadoria/, carregado UMA vez (sys.modules): a
+    V1A pergunta por pagina, e reexecutar o modulo a cada pagina relia o
+    livro do lifecycle do zero."""
+    m = sys.modules.get(nome)
+    if m is not None:
+        return m
+    import importlib.util  # noqa: PLC0415
+    if str(RAIZ / "curadoria") not in sys.path:
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+    spec = importlib.util.spec_from_file_location(nome, RAIZ / "curadoria" / (nome + ".py"))
+    m = importlib.util.module_from_spec(spec)
+    sys.modules[nome] = m
+    spec.loader.exec_module(m)
+    return m
+
+
 def _fonte_bem_configurada(source_id) -> bool:
     """A fonte passa a regua dos 4 passos (DETAIL/v1)? Le o dono, sem copia."""
-    if not source_id:
-        return False
-    import importlib.util  # noqa: PLC0415
-    sys.path.insert(0, str(RAIZ / "curadoria"))
-    f = RAIZ / "curadoria" / "ready_split.py"
-    spec = importlib.util.spec_from_file_location("ready_split", f)
-    m = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(m)
     try:
-        return m.regua_de(source_id) == m.REGUA_CURRENT
+        return _da_curadoria("ready_split").regua_manda(source_id)
     except Exception:                                            # noqa: BLE001
         return False
+
+
+def _contrato_da_fonte(source_id) -> dict | None:
+    """O contrato que a regua le — a V1 compara a pagina com o INDEX_URL dele."""
+    try:
+        return _da_curadoria("ready_split").contrato_de(source_id)
+    except Exception:                                            # noqa: BLE001
+        return None
+
+
+# ── V1A (2026-09-23): O INDEX_URL DO CONTRATO E CAPA, SO COM A REGUA A MANDAR ──
+# A regra vive no detector (`curadoria/retrato_html.py::veredito`, gemeo Node em
+# `coleta/retrato_html.mjs`); esta porta so lhe da o que ela precisa: o endereco
+# da pagina (`url_da_pagina`, transportado desde `raw_asset.source_url`), o
+# contrato da fonte e se a fonte passa os 4 passos. Sem endereco, a V1 nao se
+# aplica e fica o detector — nao se adivinha se a pagina era o indice.
 
 
 def _decisoes_humanas() -> dict:
@@ -545,16 +575,33 @@ def _e_materia(item: dict) -> tuple:
         if humano["VEREDITO"] == "MATERIA":
             return SIM, "uma pessoa leu e registou: e materia (saida humana da quarentena)", ev
         return NAO, "uma pessoa leu e registou: e pagina de entrada, nao materia", ev
+    fonte = item.get("source_id") or item.get("SOURCE_ID")
+    url = item.get("url_da_pagina")
+    regua = _fonte_bem_configurada(fonte)
+    rh = _da_curadoria("retrato_html")
+    # Uma so trava: `regua_a_mandar`. O contrato vai sempre (o veredito e que o ignora
+    # sem a regua) — duas travas para a mesma coisa escondiam-se uma a outra no ataque.
+    k = rh.veredito(retrato, url=url, contrato=_contrato_da_fonte(fonte),
+                    regua_a_mandar=regua)
+    ev["url_da_pagina"] = url
+    ev["regua_a_mandar"] = regua
+    julgado = retrato
+    if k != retrato.get("CAPA_OU_MATERIA"):
+        ev["v1"] = {"REGRA": rh.REGRA_V1, "DETECTOR": retrato.get("CAPA_OU_MATERIA"), "VEREDITO": k}
+        julgado = dict(retrato, CAPA_OU_MATERIA=k)
     pns = _politica_nao_sei()
-    d = pns.decidir(retrato, pns.QUARENTENA)
+    d = pns.decidir(julgado, pns.QUARENTENA)
     ev["politica"] = "QUARENTENA (D11)"
     if d["ACCAO"] == "ENTRA":
         return SIM, "o detector diz materia", ev
     if d["ACCAO"] == "REPROVA":
         # A capa barrada fica no livro com o que e preciso para voltar a porta:
         # a fonte e a observacao-pai (os bytes vivem no armazem pelo raw_asset).
-        ev["fonte"] = item.get("source_id") or item.get("SOURCE_ID")
+        ev["fonte"] = fonte
         ev["raw_asset_id"] = item.get("raw_asset_id")
+        if ev.get("v1"):
+            return NAO, ("V1: a pagina e o proprio INDEX_URL do contrato, e a fonte passa os 4 "
+                         "passos — e capa, nao materia; fica no livro e volta no replay"), ev
         if D14_C_LIGADA and _fonte_bem_configurada(ev["fonte"]):
             ev["estado"] = QUARENTENA
             ev["d14"] = "CAPA de fonte cujo contrato passa os 4 passos: QUARENTENA, nao barrada"

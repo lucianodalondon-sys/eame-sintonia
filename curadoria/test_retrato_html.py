@@ -81,24 +81,24 @@ class ORetratoDistingueCapaDeMateria(unittest.TestCase):
 class OGateBarraACapaSoOndeOContratoDeclaraDetalhe(unittest.TestCase):
 
     def test_5_contrato_de_detalhe_com_capa_REPROVA(self):
-        g = RH.gate_capa_nao_e_materia(DETALHE, RH.retrato_do_html(listagem_sintetica().encode()))
+        g = RH.gate_capa_nao_e_materia(DETALHE, RH.retrato_do_html(listagem_sintetica().encode()), url=None, regua_a_mandar=False)
         self.assertIsNotNone(g)
         self.assertTrue(g.startswith("CAPA_NAO_E_MATERIA"), g)
 
     def test_6_contrato_de_detalhe_com_materia_passa(self):
         self.assertIsNone(RH.gate_capa_nao_e_materia(
-            DETALHE, RH.retrato_do_html(artigo_sintetico().encode())))
+            DETALHE, RH.retrato_do_html(artigo_sintetico().encode()), url=None, regua_a_mandar=False))
 
     def test_7_rota_fixa_nao_e_julgada_pelo_gate(self):
         fixo = {"OUTPUT_TYPE": "HTML", "ACQUISITION": {"STRATEGY": "STATIC_ENDPOINT", "URL": "x"}}
         self.assertIsNone(RH.gate_capa_nao_e_materia(
-            fixo, RH.retrato_do_html(listagem_sintetica().encode())),
+            fixo, RH.retrato_do_html(listagem_sintetica().encode()), url=None, regua_a_mandar=False),
             "STATIC_ENDPOINT nao declara itens de detalhe")
 
     def test_8_pdf_nao_e_julgado_pelo_gate(self):
         pdf = {"OUTPUT_TYPE": "PDF", "ACQUISITION": {"STRATEGY": "HTML_LINK_DISCOVERY", "MATCH": "URL"}}
         self.assertIsNone(RH.gate_capa_nao_e_materia(
-            pdf, RH.retrato_do_html(listagem_sintetica().encode())))
+            pdf, RH.retrato_do_html(listagem_sintetica().encode()), url=None, regua_a_mandar=False))
 
 
 if __name__ == "__main__":

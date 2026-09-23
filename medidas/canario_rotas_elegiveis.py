@@ -145,7 +145,7 @@ def provar(sid: str, contrato: dict) -> dict:
         c.update({k: r[k] for k in ("HTML_KIND", "CAPA_OU_MATERIA", "LINKS",
                                     "NON_WHITESPACE_CHARACTERS",
                                     "PARAGRAPH_CHARACTERS", "TEXT_SHA256")})
-        gate = RH.gate_capa_nao_e_materia(contrato, r)
+        gate = RH.gate_capa_nao_e_materia(contrato, r, url=alvo, regua_a_mandar=CAN._regua_manda(sid))  # V1A
         if gate:
             c["VEREDITO"], c["CAUSA"] = "CAPABILITY_BLOCK", gate
         elif r["HTML_KIND"] != "CONTENT":
