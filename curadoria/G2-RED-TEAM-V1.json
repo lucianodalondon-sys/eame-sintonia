@@ -1,0 +1,116 @@
+{
+ "DATASET": "G2-RED-TEAM-V1",
+ "GATE": "CRITICAL_RED_TEAM_SURVIVORS",
+ "RESULTADOS_GUARDADOS": [
+  {
+   "FICHEIRO": "curadoria/RED-TEAM-PONTE-CURADOR-V1.json",
+   "MUTANTES": 17,
+   "MORTOS": 17,
+   "SOBREVIVENTES": 0
+  },
+  {
+   "FICHEIRO": "curadoria/RED-TEAM-SERVICE-V1.json",
+   "MUTANTES": 10,
+   "MORTOS": 10,
+   "SOBREVIVENTES": 0
+  },
+  {
+   "FICHEIRO": "curadoria/RED-TEAM-TELEMETRIA-V1.json",
+   "MUTANTES": 8,
+   "MORTOS": 8,
+   "SOBREVIVENTES": 0
+  },
+  {
+   "FICHEIRO": "medidas/RED-TEAM-CANONICO-V1.json",
+   "MUTANTES": 16,
+   "MORTOS": 16,
+   "SOBREVIVENTES": 0
+  },
+  {
+   "FICHEIRO": "provas/PARIDADE-RED-TEAM-V1.json",
+   "MUTANTES": 8,
+   "MORTOS": 8,
+   "SOBREVIVENTES": 0
+  },
+  {
+   "FICHEIRO": "provas/RECOLLECTION-RED-TEAM-V1.json",
+   "MUTANTES": 12,
+   "MORTOS": 12,
+   "SOBREVIVENTES": 0
+  },
+  {
+   "FICHEIRO": "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
+   "MUTANTES": 12,
+   "MORTOS": 12,
+   "SOBREVIVENTES": 0
+  },
+  {
+   "FICHEIRO": "provas/RED-TEAM-DUAS-PORTAS-V1.json",
+   "MUTANTES": 14,
+   "MORTOS": 14,
+   "SOBREVIVENTES": 0
+  },
+  {
+   "FICHEIRO": "system-map/data/red-team-sala.generated.json",
+   "MUTANTES": 28,
+   "MORTOS": 28,
+   "SOBREVIVENTES": 0
+  }
+ ],
+ "LIFECYCLE_RED_TEAM_BLOCKER": {
+  "FICHEIRO": "curadoria/LIFECYCLE-RED-TEAM-V1.json",
+  "ATAQUE": "as 50 do feed nao viraram READY sem canario novo",
+  "MEDIDO_NA_FOTO": "g2-foto-20260923T155312Z",
+  "DAS_50": {
+   "READY_FOR_COLLECTION": 41,
+   "RETRY_AFTER": 9
+  },
+  "DAS_41_READY": "todas LEGACY (prova = coleta BCR de 20/09 do livro B, nao canario); 0 entre as 37 ELIGIBLE",
+  "CRITICO": false,
+  "PORQUE": "o portao da Collection nao deixa colher READY_LEGACY; o ataque conta estados, nao colheita"
+ },
+ "AUDITORIA_08_REATACADA": {
+  "HARNESS": "medidas/mutacao_trava_g2.py",
+  "ALVO": "curadoria/supervisor.py",
+  "ANTES_DOS_TESTES_NOVOS": {
+   "4b": "MORTO",
+   "4c": "MORTO",
+   "5c": "SOBREVIVE",
+   "5d": "SOBREVIVE"
+  },
+  "TESTES_NOVOS": [
+   "curadoria/test_supervisor.py::test_lock_de_pid_morto_depois_do_boot_e_orfao",
+   "curadoria/test_supervisor.py::test_lock_de_pid_reciclado_nao_python_e_orfao"
+  ],
+  "DEPOIS": {
+   "4b": "MORTO",
+   "4c": "MORTO",
+   "5c": "MORTO",
+   "5d": "MORTO"
+  },
+  "CRITICO_PORQUE": "5c/5d guardam a trava de UM so supervisor (SINGLE_WORKER_INVARIANT)"
+ },
+ "SOBREVIVENTES_ACEITES_NO_KNOW_HOW": [
+  {
+   "ONDE": "SINTONIA-EAME-KNOW-HOW.md ~13821",
+   "O_QUE": "M2 (apagar uma proibicao explicita; 45 testes verdes)",
+   "CRITICO": false,
+   "PORQUE": "comportamento garantido pelo desenho de mundo fechado; so a razao escrita fica sem guarda"
+  },
+  {
+   "ONDE": "SINTONIA-EAME-KNOW-HOW.md ~17158",
+   "O_QUE": "#3: social_guarda.py:82 cego a caminho com barra dupla",
+   "CRITICO": "NAO SEI",
+   "PORQUE": "divida declarada; nao re-medido nesta missao"
+  }
+ ],
+ "HARNESSES_SEM_RESULTADO_GUARDADO": 13,
+ "NAO_RE_CORRIDOS": "os 13 harnesses sem resultado guardado (varios pedem Postgres) — NAO SEI se ainda matam tudo",
+ "SUPERVISOR_PROOF_V1": "curadoria/SUPERVISOR-PROOF-V1.json:75 ainda diz CONTINUOUS_OPERATION_PROVEN=YES com provas 09/10 SIMULADO (a 08 pedia PARTIAL) — nao alterado",
+ "CRITICAL_RED_TEAM_SURVIVORS": {
+  "ANTES": 2,
+  "DEPOIS": 0,
+  "CONHECIDOS_NAO_CRITICOS": 1,
+  "NAO_SEI": 1
+ }
+}
