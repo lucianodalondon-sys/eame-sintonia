@@ -1,0 +1,24 @@
+{
+ "DATASET": "PROVA-TERMOS-REDES-SOCIAIS-V1",
+ "LEI": "D15 (DECISOES-DONO-2026-09-23, linha 144; bot Luciano por delegacao do dono): LinkedIn e Instagram ficam POLICY_BLOCK na porta. A prova e o trecho dos termos da plataforma, com endereco e data; a sonda de 14/09 (HTTP 429 = demasiados pedidos, nao 'proibido') fica so como historico. Saem de POLICY_BLOCK so com acesso autorizado pelo dono — nunca por scraping improvisado.",
+ "POLITICAS": {
+  "LINKEDIN": {
+   "URL": "https://www.linkedin.com/legal/user-agreement",
+   "EM_VIGOR": "November 3, 2025",
+   "LIDO_EM": "2026-09-23T09:42:37Z",
+   "COMO": "curl (HTTP 200); texto no HTML servido",
+   "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
+   "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694",
+   "TRECHO": "Develop, support or use software, devices, scripts, robots or any other means or processes (such as crawlers, browser plugins and add-ons or any other technology) to scrape or copy the Services, including profiles and other data from the Services;"
+  },
+  "INSTAGRAM": {
+   "URL": "https://help.instagram.com/581066165581870",
+   "EM_VIGOR": "1 January 2025",
+   "LIDO_EM": "2026-09-23T09:44:33Z",
+   "COMO": "Chrome headless --dump-dom (a pagina so traz o texto depois do JavaScript; curl devolveu HTTP 400 e www.instagram.com/legal/terms devolveu a casca sem texto)",
+   "FICHEIRO": "candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html",
+   "SHA256": "c3cf30159cbdfca6db619811d2665665a1ea7ca547bf1874596bf36d3f89a233",
+   "TRECHO": "You can't attempt to create accounts or access or collect information in unauthorized ways. This includes creating accounts or accessing or collecting information in an automated way without our express permission, regardless of whether such automated access or collection is undertaken while logged-in to an Instagram account."
+  }
+ }
+}

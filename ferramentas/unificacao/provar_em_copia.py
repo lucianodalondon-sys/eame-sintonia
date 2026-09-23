@@ -103,8 +103,18 @@ def main(ref, saida):
                                               "tests.test_admissao_multilingue",
                                               "tests.test_retirada_por_decisao",
                                               "tests.test_aplicar_desbloqueio",
-                                              "tests.test_ld2_aditamento",
-                                              "tests.test_politica_nao_sei"], 3000)
+                                              "tests.test_ld2_aditamento"], 3000)
+        # os testes da politica NAO SEI e da quarentena (Q1), por padrao de nome: a
+        # regra da Q1 conta como chamador todo o ficheiro que escreve o nome dela.
+        doc["MODULOS_NAO_SEI"] = correr(wt, ["-m", "unittest", "discover", "-v", "-s", "tests",
+                                             "-t", ".", "-p", "test_*na*sei*.py"], 1800)
+        for f in ("provas/recollection_http_local.mjs", "provas/recollection_indice_local.mjs",
+                  "provas/recollection_timeout_local.mjs"):
+            if (wt / f).exists():
+                p = subprocess.run(["node", f], cwd=str(wt), capture_output=True, text=True,
+                                   encoding="utf-8", errors="replace", timeout=900)
+                doc.setdefault("PROVAS_NODE_R1_R2", {})[f] = {
+                    "RC": p.returncode, "FIM": (p.stdout + p.stderr).strip().splitlines()[-6:]}
         snaps = sorted((Path.home() / "sintonia-gabarito").glob("B1-SNAPSHOT-*"))
         if snaps and (wt / "medidas/prova_b2_ponte_em_copia.py").exists():
             doc["PONTE_B2_PROMOCAO_DESPROMOCAO"] = correr(
@@ -135,9 +145,11 @@ def main(ref, saida):
         git(raiz, "worktree", "remove", "--force", str(wt), ok=(0, 128))
         git(raiz, "worktree", "prune")
     doc["WORKTREE_REMOVIDA"] = not wt.exists()
+    for f, r in doc.get("PROVAS_NODE_R1_R2", {}).items():
+        print("== NODE", f, "rc=%s" % r["RC"], " | ".join(r["FIM"][-2:]))
     Path(saida).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k in ("PONTE_PROOF", "RED_TEAM_PONTE", "SUPERVISOR_ESTADO", "PONTE_SAUDE", "SUPERVISOR_VOLTA",
-              "MODULOS_DE_PROVA", "PONTE_B2_PROMOCAO_DESPROMOCAO", "ENSAIO_WORKER_PENDURADO",
+              "MODULOS_DE_PROVA", "MODULOS_NAO_SEI", "PONTE_B2_PROMOCAO_DESPROMOCAO", "ENSAIO_WORKER_PENDURADO",
               "ENSAIO_GATILHO_OCIOSO", "ENSAIO_FILA_WINDOWS"):
         if k not in doc:
             print("==", k, "NAO CORREU")

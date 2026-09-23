@@ -15,9 +15,10 @@ NS = {"CAPA_OU_MATERIA": P.NAO_SEI}
 
 
 class TestPoliticaNaoSei(unittest.TestCase):
-    def test_hoje_e_passa_ate_a_decisao_d11(self):
-        self.assertEqual(P.ACTIVA, P.PASSA)
-        self.assertEqual(P.decidir(NS)["ACCAO"], "ENTRA")
+    def test_depois_da_d11_e_quarentena(self):
+        # Q1 (2026-09-23): a D11 decidiu a opcao C. Era PASSA ate a decisao.
+        self.assertEqual(P.ACTIVA, P.QUARENTENA)
+        self.assertEqual(P.decidir(NS)["ACCAO"], "QUARENTENA")
 
     def test_as_tres_respostas(self):
         self.assertEqual(P.decidir(NS, P.PASSA)["ACCAO"], "ENTRA")
@@ -36,15 +37,20 @@ class TestPoliticaNaoSei(unittest.TestCase):
         with self.assertRaises(ValueError):
             P.decidir(NS, "TALVEZ")
 
-    def test_nao_esta_ligada_o_portao_de_hoje_deixa_passar_nao_sei(self):
+    def test_ligada_so_na_porta_depois_da_d11(self):
+        # Q1 (2026-09-23): a D11 decidiu, e a politica foi ligada num sitio so — a
+        # pergunta `materia` da porta de admissao. O gate de FONTE (retrato_html,
+        # dono LD3) continua intocado: so reprova CAPA_PROVAVEL.
         contrato = {"OUTPUT_TYPE": "HTML", "ACQUISITION": {"STRATEGY": "HTML_LINK_DISCOVERY"}}
         self.assertIsNone(RH.gate_capa_nao_e_materia(contrato, dict(NS, LINKS=0,
                           NON_WHITESPACE_CHARACTERS=0, PARAGRAPH_CHARACTERS=0)))
         r = subprocess.run(["git", "grep", "-l", "politica_nao_sei", "--", "*.py", "*.mjs"],
                            cwd=RAIZ, capture_output=True, text=True)
-        chamadores = [f for f in r.stdout.split() if not f.endswith(("politica_nao_sei.py",
-                                                                     "test_politica_nao_sei.py"))]
-        self.assertEqual(chamadores, [], "a politica foi ligada antes da decisao D11")
+        chamadores = [f for f in r.stdout.split() if not f.endswith((
+            "politica_nao_sei.py", "test_politica_nao_sei.py", "test_quarentena_naosei.py",
+            "ensaio_quarentena_naosei.py"))]
+        self.assertEqual(chamadores, ["admissao/admissao.py"],
+                         "a politica tem de estar ligada na porta, e SO na porta")
 
 
 if __name__ == "__main__":

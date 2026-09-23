@@ -369,7 +369,27 @@ def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,
             "TEXT_UNIT": unidade,
             "LANGUAGE": None,
             "LANGUAGE_SOURCE": None,
-            "MEDIDAS": medidas}
+            "MEDIDAS": medidas,
+            # ⚠️ O VEREDITO DO DETECTOR «MATERIA vs PAGINA DE ENTRADA» (Q1, D11).
+            # Nasce AQUI porque e aqui que estao os bytes do HTML — e o executor e
+            # chamado tambem quando o derivado e REUSED, por isso o retrato viaja
+            # igualmente no replay. O executor NAO decide nada com ele: transporta.
+            # Quem julga e a porta de admissao (pergunta `materia`).
+            "RETRATO_DO_DETECTOR": _retrato(dados)}
+
+
+def _retrato(dados: bytes) -> dict | None:
+    """O retrato do detector de capa (dono: curadoria/retrato_html.py, LD3), sem copia.
+    `None` se o detector nao carregar: a ausencia e dita, e a porta le-a como «nao se aplica»."""
+    import importlib.util  # noqa: PLC0415
+    f = os.path.join(RAIZ, "curadoria", "retrato_html.py")
+    try:
+        spec = importlib.util.spec_from_file_location("retrato_html", f)
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        return m.retrato_do_html(dados)
+    except Exception:                                            # noqa: BLE001
+        return None
 
 
 def _seco(caminho):

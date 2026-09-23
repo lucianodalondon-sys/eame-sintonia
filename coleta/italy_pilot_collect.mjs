@@ -219,7 +219,10 @@ async function baixar(url, tentativas = 2) {
       const cod = e.code ?? 0;
       const transitorio = TRANSITORIOS.includes(cod);
       // retry SO para falha de transporte. Nunca para schema, MIME, login ou WAF.
-      if (!transitorio || i === tentativas) return { erro: (e.stderr?.toString() || e.message || "").slice(0, 200), status: 0, tentativas: i, retry_permitido: transitorio };
+      // `codigo` sai para fora porque o laco das materias precisa de distinguir
+      // o site PENDURADO (28 = timeout) de uma falha rapida: ver
+      // DETAIL_DEFERRED_AFTER_TIMEOUT em executarRodada().
+      if (!transitorio || i === tentativas) return { erro: (e.stderr?.toString() || e.message || "").slice(0, 200), status: 0, tentativas: i, retry_permitido: transitorio, codigo: cod };
     }
   }
 }
@@ -499,6 +502,9 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     // a regra devolve SKIP e o pedido nao chega a acontecer.
     INDEX_REQUESTS: 0, DETAIL_REQUESTS: 0, DETAIL_NEW: 0, SKIPPED_KNOWN: 0,
     REVALIDATED: 0, UNNECESSARY_REFETCHES: 0, REVISIT_REASONS: {},
+    // Materias que ficaram para a proxima corrida porque o site pendurou
+    // numa materia anterior DESTA fonte (ver o laco). Nao sao observacoes.
+    DETAIL_DEFERRED_AFTER_TIMEOUT: 0,
     // Quantas vezes a segunda defesa impediu o livro de mentir.
     VOLATILE_ONLY_NOT_CHANGED: 0 };
   const detalhes = [];
@@ -524,6 +530,23 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     }
 
     let saudeFonte = "HEALTHY";
+    // ══ O SITE PENDURADO PAGA UMA VEZ POR CORRIDA, NAO UMA VEZ POR MATERIA ══
+    // ⚠️ MEDIDO NA R2 (2026-09-23, provas/recollection_timeout_local.mjs): cada
+    // pedido ja tinha tecto (`--max-time 90`, e uma 2.a tentativa porque o
+    // codigo 28 e transitorio) — 180 s por endereco. A FONTE nao tinha: um
+    // indice que responde e materias que penduram custavam 180 s × cada
+    // materia nova. Com o MAX_TARGETS de 30 da coorte sao 90 minutos numa so
+    // fonte, numa so corrida.
+    //
+    // Depois do PRIMEIRO timeout de uma materia, as seguintes desta fonte que
+    // iriam a rede ficam para a proxima corrida. Nao se escrevem no livro — uma
+    // materia adiada nao foi observada, e escreve-la faria a memoria lembrar
+    // uma tentativa que nao houve. Ficam contadas no resumo e em `detalhes`,
+    // com o nome. Na corrida seguinte continuam desconhecidas, e vao-se buscar.
+    //
+    //     UM TIMEOUT E UMA RESPOSTA SOBRE O SITE, NAO SOBRE A MATERIA.
+    //     UNKNOWN CONTINUA UNKNOWN: ADIADA != NUNCA.
+    let penduradaNestaFonte = null;
     for (const alvo of alvos) {
       // ══ DEFESA 1 · A DECISAO DE IR, TOMADA ANTES DE BATER A PORTA ════════
       // ⚠️ ESTE BLOCO TEM DE FICAR ACIMA DE `baixar()`, E ISSO E A CORRECCAO.
@@ -562,6 +585,15 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
           COLLECTION_RUN_STARTED_AT: STARTED_AT });
         continue;
       }
+      if (penduradaNestaFonte) {
+        cont.DETAIL_DEFERRED_AFTER_TIMEOUT++;
+        detalhes.push({ RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url,
+          DECISAO: "DEFERRED_AFTER_TIMEOUT",
+          PORQUE: `o site pendurou nesta corrida em ${penduradaNestaFonte} — fica para a proxima`,
+          LIVRO: "NAO_ESCRITO — uma materia adiada nao e uma observacao",
+          COLLECTION_RUN_STARTED_AT: STARTED_AT });
+        continue;
+      }
       if (decisao.DECISAO === "REVALIDATE") {
         cont.REVALIDATED++;
         cont.REVISIT_REASONS[decisao.RAZAO] = (cont.REVISIT_REASONS[decisao.RAZAO] || 0) + 1;
@@ -591,6 +623,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
 
       if (r.erro || r.status !== 200 || !r.buf?.length) {
         saudeFonte = "FAILED";
+        if (r.codigo === 28) penduradaNestaFonte = alvo.url;
         const obs = { RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url, DOCUMENT_ID: null, HEALTH_STATE: "FAILED", OBSERVATION_RESULT: "TRANSPORT_OR_EMPTY", motivo: r.erro || `status ${r.status} / ${r.buf?.length ?? 0} bytes`, retries: r.tentativas, CAPTURED_AT, COLLECTION_RUN_STARTED_AT: STARTED_AT };
         gravar(obs); detalhes.push(obs); continue;
       }

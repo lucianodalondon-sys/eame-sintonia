@@ -149,6 +149,47 @@ class TestSemCapacidadeNaoERecusa(unittest.TestCase):
                     self.assertTrue((c.get("MOTIVO_DO_BLOQUEIO") or "").strip())
 
 
+class TestOsTermosProibemEProvamSe(unittest.TestCase):
+    """D15 (23/09, DECISOES-DONO-2026-09-23 linha 144): LinkedIn e Instagram ficam
+    POLICY_BLOCK — nem pronta, nem recusada, nem em analise — e a prova e o trecho
+    dos termos, com endereco e data. O 429 da sonda de 14/09 fica so como historico:
+    429 e «demasiados pedidos», nao «proibido»."""
+
+    SOCIAIS = ("LINKEDIN", "INSTAGRAM")
+
+    def test_todas_as_sociais_proibidas_estao_em_policy_block(self):
+        d = _fila()
+        self.assertIn("POLICY_BLOCK", d["ESTADOS"])
+        sociais = [c for c in d["CANDIDATAS"] if c["TIPO"] in self.SOCIAIS]
+        self.assertGreater(len(sociais), 0, "nao ha sociais: esta prova passaria por vazio")
+        for c in sociais:
+            with self.subTest(candidata=c["CANDIDATA_ID"]):
+                self.assertEqual(c["ESTADO"], "POLICY_BLOCK")
+                self.assertFalse(c.get("MOTIVO_DA_RECUSA"))
+                self.assertIsNone(c.get("SOURCE_ID"))
+
+    def test_a_prova_e_o_trecho_dos_termos_e_nunca_o_429(self):
+        import hashlib
+        for c in _fila()["CANDIDATAS"]:
+            if c["ESTADO"] != "POLICY_BLOCK":
+                continue
+            with self.subTest(candidata=c["CANDIDATA_ID"]):
+                ev = c.get("EVIDENCIA_POLITICA") or {}
+                for campo in ("URL", "EM_VIGOR", "LIDO_EM", "TRECHO", "FICHEIRO", "SHA256"):
+                    self.assertTrue((ev.get(campo) or "").strip(), campo)
+                self.assertTrue(ev["URL"].startswith("https://"))
+                self.assertTrue((c.get("EVIDENCIA") or "").startswith("TERMOS https://"))
+                self.assertNotIn("429", c.get("EVIDENCIA") or "")
+                pagina = RAIZ / ev["FICHEIRO"]
+                self.assertEqual(hashlib.sha256(pagina.read_bytes()).hexdigest(), ev["SHA256"])
+
+    def test_a_proxima_expansao_people_social_e_contada(self):
+        d = _fila()
+        n = sum(1 for c in d["CANDIDATAS"] if c["ESTADO"] == "POLICY_BLOCK")
+        self.assertEqual(n, sum(1 for c in d["CANDIDATAS"] if c["TIPO"] in self.SOCIAIS))
+        print("PROXIMA_EXPANSAO_PEOPLE_SOCIAL = %d" % n)
+
+
 class TestNaoSeRecusaOQueNinguemLeu(unittest.TestCase):
     """O atlas: «Nunca converter "nao consegui verificar" em RED.»"""
 
@@ -203,6 +244,12 @@ class TestNaoSeRecusaOQueNinguemLeu(unittest.TestCase):
                 # boa sem capacidade. A revogacao de 14/09 continua cumprida.
                 if c["ESTADO"] == "CAPABILITY_BLOCK":
                     self.assertTrue((c.get("MOTIVO_DO_BLOQUEIO") or "").strip())
+                    continue
+                # D15: os termos da plataforma proibem — POLICY_BLOCK com o trecho
+                # dos termos como prova, nunca a sonda de 429 que a revogacao desfez.
+                if c["ESTADO"] == "POLICY_BLOCK":
+                    self.assertTrue((c.get("EVIDENCIA_POLITICA") or {}).get("TRECHO"))
+                    self.assertNotIn("429", c.get("EVIDENCIA") or "")
                     continue
                 self.assertEqual(c["ESTADO"], "EM_ANALISE")
 
