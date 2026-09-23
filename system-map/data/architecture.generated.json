@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "quarentena-naosei-v1",
-    "HEAD": "cbe5a1a34a2ba6ca8dfd5ff1e9959929aaf1fe9f",
-    "GENERATED_AT": "2026-09-23T04:58:59-03:00",
-    "SOURCE_TREE_FINGERPRINT": "534ce573c8d30c78943523493e7a1c65803fd41b78a939aedbefa956bcdb8d67"
+    "BRANCH": "detector-erro-v1",
+    "HEAD": "8a072e7479f5287f9c65a9908acca85820d2381a",
+    "GENERATED_AT": "2026-09-23T06:02:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "915d3b5268a055895336adb61935b7906b559b8db2d0c48de1c98a172edd412e"
   },
   "FILES": [
     {
@@ -317,6 +317,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-D1-DETECTOR-ERRO.md",
+      "sha": "3c256368d525786150b1721ed9d20163921055e4",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-DESBLOQUEIO-COORTE.md",
       "sha": "ff1f60210e8df21937c45d88c907905f1d1324c9",
       "ext": ".md",
@@ -479,7 +486,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "59bf7f7299e6aad61b4ea385bd46a4bdec829235",
+      "sha": "a976f600e095cbd3093b17df260d7f88e6b81b0c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -493,7 +500,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "56afb71e8eba3f419bd2d6b8b0d0ade781267a5f",
+      "sha": "2fa79284518ea17ce825568ee4c7c69628f35c6c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12756,6 +12763,27 @@
       "code_dir": true
     },
     {
+      "path": "medidas/D1-CAUSAS-10-PAGINAS-V1.json",
+      "sha": "272527c9ae499998d97dd2d79cdadccbdd005a41",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/D1-MEDICAO-DETECTOR-MOLDURA-V1.json",
+      "sha": "639c9e57b444499ffd1bbff00c16310fedd57793",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/D1-VALIDACAO-CEGA-V1.json",
+      "sha": "5188916e922f092424a27541a5556513b1f245b2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "medidas/DUAS-PORTAS-REPROCESSAMENTO-V1.json",
       "sha": "92790ee9c2e67b4b63ccd9bad3fa1beed0aa2c32",
       "ext": ".json",
@@ -12984,6 +13012,13 @@
       "sha": "00cb6c0e635ce998d005567b22522a0df7776f85",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/medir_detector_moldura.py",
+      "sha": "714336ea94770cc40624bc5122cd5488a17ee37f",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -16495,7 +16530,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "89fcf5a583329732712c5428a02c8ce2f0bc8aed",
+      "sha": "87a692e7d22fa08a3b7fd32fce8fc1fd69f0dafc",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17602,6 +17637,13 @@
     {
       "path": "tests/test_consumo_da_referencia_adama.py",
       "sha": "e8d877f24ebef6b58de0e83b1ebf9f19fd1824a4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_d1_detector_d14.py",
+      "sha": "e5712a8f0c494c5f022cc94fcd156390d467fa28",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19912,6 +19954,17 @@
         "file": "admissao/admissao.py",
         "line": 486,
         "snippet": "f = RAIZ / \"curadoria\" / \"politica_nao_sei.py\""
+      }
+    },
+    {
+      "from_file": "admissao/admissao.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 510,
+        "snippet": "f = RAIZ / \"curadoria\" / \"ready_split.py\""
       }
     },
     {
@@ -37413,6 +37466,39 @@
         "file": "medidas/incrementalidade_prova.mjs",
         "line": 22,
         "snippet": "} from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/medir_detector_moldura.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/medir_detector_moldura.py",
+        "line": 48,
+        "snippet": "json.loads((pasta / \"MANIFESTO.json\").read_text(encoding=\"utf-8\"))[\"PAGINAS\"]}"
+      }
+    },
+    {
+      "from_file": "medidas/medir_detector_moldura.py",
+      "to_file": "medidas/D1-VALIDACAO-CEGA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/medir_detector_moldura.py",
+        "line": 30,
+        "snippet": "CEGA = json.loads((RAIZ / \"medidas\" / \"D1-VALIDACAO-CEGA-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "medidas/medir_detector_moldura.py",
+      "to_file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/medir_detector_moldura.py",
+        "line": 34,
+        "snippet": "orig = json.loads((RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -67457,6 +67543,72 @@
       }
     },
     {
+      "from_file": "tests/test_d1_detector_d14.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_d1_detector_d14.py",
+        "line": 16,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_d1_detector_d14.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_d1_detector_d14.py",
+        "line": 17,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_d1_detector_d14.py",
+      "to_file": "curadoria/retrato_html.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_d1_detector_d14.py",
+        "line": 99,
+        "snippet": "texto = (RAIZ / \"curadoria\" / \"retrato_html.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_d1_detector_d14.py",
+      "to_file": "medidas/D1-VALIDACAO-CEGA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_d1_detector_d14.py",
+        "line": 82,
+        "snippet": "CEGA = json.loads((RAIZ / \"medidas\" / \"D1-VALIDACAO-CEGA-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_d1_detector_d14.py",
+      "to_file": "medidas/medir_detector_moldura.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_d1_detector_d14.py",
+        "line": 92,
+        "snippet": "import medir_detector_moldura as M"
+      }
+    },
+    {
+      "from_file": "tests/test_d1_detector_d14.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_d1_detector_d14.py",
+        "line": 18,
+        "snippet": "import orquestrador as ORQ  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_espinha_da_intelligence.py",
       "to_file": "provas/espinha_da_intelligence.py",
       "type": "IMPORTS",
@@ -76633,10 +76785,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2636,
-    "files_readable": 1202,
-    "files_code_dir": 1009,
-    "file_edges": 5237,
+    "files_tracked": 2642,
+    "files_readable": 1204,
+    "files_code_dir": 1014,
+    "file_edges": 5247,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

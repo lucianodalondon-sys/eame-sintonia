@@ -32,6 +32,7 @@
       "RELATORIO-CANONICAL-MICRO.md",
       "RELATORIO-COORTE-MICRO.md",
       "RELATORIO-CUTOVER.md",
+      "RELATORIO-D1-DETECTOR-ERRO.md",
       "RELATORIO-DESBLOQUEIO-COORTE.md",
       "RELATORIO-DETECTOR-CAPA.md",
       "RELATORIO-DIAGNOSTICO-SALA.md",
@@ -1865,6 +1866,9 @@
       "medidas/CORRIDA-CANONICA-RUN1B.json",
       "medidas/CORRIDA-CANONICA-RUN1C.json",
       "medidas/CORRIDA-CANONICA-RUN2.json",
+      "medidas/D1-CAUSAS-10-PAGINAS-V1.json",
+      "medidas/D1-MEDICAO-DETECTOR-MOLDURA-V1.json",
+      "medidas/D1-VALIDACAO-CEGA-V1.json",
       "medidas/DUAS-PORTAS-REPROCESSAMENTO-V1.json",
       "medidas/INCREMENTALIDADE-V1.json",
       "medidas/MICRO-COLLECTION-RUN1-BR-V1.json",
@@ -1898,6 +1902,7 @@
       "medidas/lastmile/REDE-IT-T7-042.json",
       "medidas/lastmile/REDE-T7-043.json",
       "medidas/lastmile/REDE-T7-043b.json",
+      "medidas/medir_detector_moldura.py",
       "medidas/micro_colheita.py",
       "medidas/montar_proposta_catalogo.py",
       "medidas/o_contrato_do_universo.py",
@@ -2589,6 +2594,7 @@
       "tests/test_comunicacao.py",
       "tests/test_comunicacao_universo_falha_fechado.py",
       "tests/test_consumo_da_referencia_adama.py",
+      "tests/test_d1_detector_d14.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
       "tests/test_estradas_it.py",
@@ -3229,10 +3235,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "quarentena-naosei-v1",
-    "HEAD": "cbe5a1a34a2ba6ca8dfd5ff1e9959929aaf1fe9f",
-    "GENERATED_AT": "2026-09-23T04:58:59-03:00",
-    "SOURCE_TREE_FINGERPRINT": "534ce573c8d30c78943523493e7a1c65803fd41b78a939aedbefa956bcdb8d67"
+    "BRANCH": "detector-erro-v1",
+    "HEAD": "8a072e7479f5287f9c65a9908acca85820d2381a",
+    "GENERATED_AT": "2026-09-23T06:02:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "915d3b5268a055895336adb61935b7906b559b8db2d0c48de1c98a172edd412e"
   },
   "FAMILIES": [
     {
@@ -4270,13 +4276,14 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 3 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
         "curadoria/politica_nao_sei.py",
+        "curadoria/ready_split.py",
         "data/samples/LIVRO-DE-DECISOES.json"
       ],
       "consumes_plane": "CODE",
@@ -26466,15 +26473,16 @@
       "family": "F-COLETA",
       "files": [
         "medidas/ensaio_quarentena_naosei.py",
+        "medidas/medir_detector_moldura.py",
         "scripts/detector_capa/GABARITO-CAPA-V1.json",
         "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
         "scripts/detector_capa/colher_gabarito.py",
         "scripts/detector_capa/medir_gabarito.py",
         "scripts/detector_capa/rotular_gabarito.py"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "handoff/paused-v2/MANIFESTO.json"
@@ -26550,6 +26558,7 @@
       "consumes": [
         "curadoria/italy_contracts_curator.json",
         "handoff/paused-v2/MANIFESTO.json",
+        "medidas/D1-VALIDACAO-CEGA-V1.json",
         "scripts/detector_capa/GABARITO-CAPA-V1.json"
       ],
       "consumes_plane": "CODE",
@@ -44755,6 +44764,7 @@
         "tests/test_comunicacao.py",
         "tests/test_comunicacao_universo_falha_fechado.py",
         "tests/test_consumo_da_referencia_adama.py",
+        "tests/test_d1_detector_d14.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
         "tests/test_estradas_it.py",
@@ -44877,7 +44887,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 210,
+      "file_count": 211,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -45099,6 +45109,7 @@
           "CAMPOS_DOC_DA_REGRA",
           "CAMPOS_DO_FATO",
           "CANONICA_DE_PE",
+          "CAPA",
           "CATALOGO",
           "COMPLETA",
           "CONTRATO",
@@ -45159,13 +45170,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1127,
+        "palavras": 1134,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1115,
+        "sem_marca_de_lingua": 1122,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -45329,6 +45340,7 @@
         "curadoria/politica_nao_sei.py",
         "curadoria/ponte_candidatas.py",
         "curadoria/ready_split.py",
+        "curadoria/retrato_html.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
         "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
@@ -45516,6 +45528,7 @@
         "leis/retorno_da_coleta.py",
         "leis/social_matriz.py",
         "leis/telemetria.py",
+        "medidas/D1-VALIDACAO-CEGA-V1.json",
         "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
         "medidas/corrida_instrumentada.py",
         "medidas/ensaio_quarentena_naosei.py",
@@ -47584,7 +47597,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch quarentena-naosei-v1"
+        "branch detector-erro-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -50336,7 +50349,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1289,
+          "line": 1341,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -50465,7 +50478,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 31 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 32 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -65908,6 +65921,41 @@
         }
       ],
       "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_d1_detector_d14.py",
+          "line": 92,
+          "snippet": "import medir_detector_moldura as M",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--IMPORTS-->C-TESTES",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -83981,7 +84029,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -84019,6 +84067,22 @@
           "file": "tests/test_col_e7_contrato_do_texto.py",
           "line": 480,
           "snippet": "import orquestrador as orq",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_d1_detector_d14.py",
+          "line": 18,
+          "snippet": "import orquestrador as ORQ  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -84147,22 +84211,6 @@
           "file": "tests/test_runtime_so_deixa_passar_colheita.py",
           "line": 24,
           "snippet": "import orquestrador as orq  # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 24,
-          "snippet": "import orquestrador as orq                                        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -108789,7 +108837,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1498,
+  "UNCLAIMED_FILES_COUNT": 1502,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -108990,12 +109038,12 @@
     "components_pending": 192,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1183,
-    "edges_proven": 1119,
+    "edges": 1184,
+    "edges_proven": 1120,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2636,
-    "files_covered": 1138,
+    "files_tracked": 2642,
+    "files_covered": 1140,
     "files_code_unclaimed": 0,
     "roles_proven": 160,
     "roles_declared_only": 9,
