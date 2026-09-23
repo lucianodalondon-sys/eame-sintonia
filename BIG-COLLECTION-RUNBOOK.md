@@ -91,7 +91,21 @@ congelado: a coorte do passo 2 é a que corre. Anotar a hora: começa a paragem 
 
 ```
 py scripts/micro_coleta/micro_coleta.py plano > C:\bc\plano.json
+py ferramentas/big_collection/coorte_unica.py --plano=C:\bc\plano.json --saida=C:\bc\COORTE-BIG-COLLECTION.json
 ```
+
+⚠️ **G3 (23/09 ~21:00Z): a coorte é UMA, e está num só ficheiro.** Havia três tabelas do
+coletor (`regras/italy_contracts_onboarded.json`): a da linha (173), a da produção (176, com
+IT-T2-034, IT-T2-051, IT-T9-021) e a da BC2 (191, com 18 novas) — nenhuma continha as outras, e
+instalar só a linha **perdia as 18 da BC2**. `origin/coorte-unica-v1` = produção + linha + BC2,
+com a tabela juntada **pelo dono** (`onboardar_rotas_provadas.py --aplicar`, livros vivos de
+20:55Z): 176 → **193** (+17; IT-T7-100 fica, duplicada de IT-T7-043; 2.ª passagem 0).
+`COORTE-BIG-COLLECTION.json` só aceita a PRONTA do plano que TAMBÉM tem contrato executável
+(aquisição igual à do portão), régua DETAIL/v1 e canário com prova ≤ 7 dias, fonte a fonte.
+Medido às 21:00Z: **COORTE_BIG_COLLECTION = 18**, 0 duplicadas
+(`ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json`). **No passo I, instalar
+`origin/coorte-unica-v1` em vez de `origin/unificacao-v1`** até a linha a absorver.
+🛑 abortar se `COORTE_BIG_COLLECTION = 0` ou se alguma PRONTA sair em `FORA` com `PROVAS`.
 
 Medido na BC2 (23/09 ~15:30), depois do onboardar: portão **37** → **19 PRONTAS**
 (IT-T10-018, -021, -022, IT-T2-034, IT-T2-051, IT-T5-090, IT-T7-017, -021, -033, -042,
