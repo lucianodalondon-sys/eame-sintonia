@@ -1,0 +1,164 @@
+AS PROVAS DA RECONCILIACAO DO UNIVERSO DO MAPA
+======================================================================
+  PASS  o_artefato_existe
+  PASS  aritmetica_incluidos_mais_excluidos_da_o_total
+  PASS  visual_count_bate_com_os_membros_listados
+  PASS  pente_count_bate_com_os_membros_listados
+  PASS  o_pente_fino_bate_consigo_proprio
+  PASS  nenhum_cartao_contado_duas_vezes
+  PASS  nenhum_membro_do_pente_fica_fora_da_vista
+  PASS  nenhum_cartao_excluido_sem_razao
+  PASS  toda_exclusao_tem_dono
+  PASS  toda_exclusao_diz_se_foi_decidida
+  PASS  universo_declarado[SYSTEM_MAP_NODE_UNIVERSE]
+  PASS  universo_conta_os_membros_que_lista[SYSTEM_MAP_NODE_UNIVERSE]
+  PASS  universo_declarado[SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE]
+  PASS  universo_conta_os_membros_que_lista[SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE]
+  PASS  universo_declarado[PENTE_FINO_UNIVERSE]
+  PASS  universo_conta_os_membros_que_lista[PENTE_FINO_UNIVERSE]
+  PASS  universo_declarado[TOPOLOGY_CENSUS_UNIVERSE]
+  PASS  universo_conta_os_membros_que_lista[TOPOLOGY_CENSUS_UNIVERSE]
+  PASS  universo_declarado[CASCO_TOOL_CARD_UNIVERSE]
+  PASS  universo_conta_os_membros_que_lista[CASCO_TOOL_CARD_UNIVERSE]
+  PASS  universo_declarado[COLLECTION_CODE_FILE_UNIVERSE]
+  PASS  nenhum_membro_sem_no_real[SYSTEM_MAP_NODE_UNIVERSE]
+  PASS  nenhum_membro_sem_no_real[SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE]
+  PASS  nenhum_membro_sem_no_real[PENTE_FINO_UNIVERSE]
+  PASS  nenhum_membro_sem_no_real[TOPOLOGY_CENSUS_UNIVERSE]
+  PASS  todo_cartao_da_reconciliacao_e_um_no_do_mapa
+  PASS  ha_cartoes_em_mais_de_uma_vista_para_esta_prova_nao_ser_vazia
+  PASS  cartao_em_duas_vistas_conta_uma_vez
+  PASS  lente_declarada[FRONTEND_FAMILY_COUNTER]
+  PASS  lente_aponta_para_universo_real[FRONTEND_FAMILY_COUNTER]
+  PASS  lente_declarada[FRONTEND_DEFAULT_VIEW_DRAWN]
+  PASS  lente_aponta_para_universo_real[FRONTEND_DEFAULT_VIEW_DRAWN]
+  PASS  lente_declarada[PENTE_FINO]
+  PASS  lente_aponta_para_universo_real[PENTE_FINO]
+  PASS  lente_declarada[CENSO_DA_TOPOLOGIA]
+  PASS  lente_aponta_para_universo_real[CENSO_DA_TOPOLOGIA]
+  PASS  lente_declarada[CENSO_DA_COLETA]
+  PASS  lente_aponta_para_universo_real[CENSO_DA_COLETA]
+  PASS  lente_declarada[CENSO_CARDS_SENSORES]
+  PASS  lente_aponta_para_universo_real[CENSO_CARDS_SENSORES]
+  PASS  lente_declarada[STATE_COUNTS]
+  PASS  lente_aponta_para_universo_real[STATE_COUNTS]
+  PASS  o_vocabulario_de_especies_nao_esta_vazio
+  PASS  toda_superficie_de_contagem_foi_enumerada
+  PASS  superficie_declara_especie[UNIVERSE:SYSTEM_MAP_NODE_UNIVERSE]
+  PASS  especie_nao_e_vazia[UNIVERSE:SYSTEM_MAP_NODE_UNIVERSE]
+  PASS  especie_esta_no_vocabulario[UNIVERSE:SYSTEM_MAP_NODE_UNIVERSE]
+  PASS  superficie_declara_especie[UNIVERSE:SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE]
+  PASS  especie_nao_e_vazia[UNIVERSE:SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE]
+  PASS  especie_esta_no_vocabulario[UNIVERSE:SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE]
+  PASS  superficie_declara_especie[UNIVERSE:PENTE_FINO_UNIVERSE]
+  PASS  especie_nao_e_vazia[UNIVERSE:PENTE_FINO_UNIVERSE]
+  PASS  especie_esta_no_vocabulario[UNIVERSE:PENTE_FINO_UNIVERSE]
+  PASS  superficie_declara_especie[UNIVERSE:TOPOLOGY_CENSUS_UNIVERSE]
+  PASS  especie_nao_e_vazia[UNIVERSE:TOPOLOGY_CENSUS_UNIVERSE]
+  PASS  especie_esta_no_vocabulario[UNIVERSE:TOPOLOGY_CENSUS_UNIVERSE]
+  PASS  superficie_declara_especie[UNIVERSE:CASCO_TOOL_CARD_UNIVERSE]
+  PASS  especie_nao_e_vazia[UNIVERSE:CASCO_TOOL_CARD_UNIVERSE]
+  PASS  especie_esta_no_vocabulario[UNIVERSE:CASCO_TOOL_CARD_UNIVERSE]
+  PASS  superficie_declara_especie[UNIVERSE:COLLECTION_CODE_FILE_UNIVERSE]
+  PASS  especie_nao_e_vazia[UNIVERSE:COLLECTION_CODE_FILE_UNIVERSE]
+  PASS  especie_esta_no_vocabulario[UNIVERSE:COLLECTION_CODE_FILE_UNIVERSE]
+  PASS  superficie_declara_especie[LENS:FRONTEND_FAMILY_COUNTER]
+  PASS  especie_nao_e_vazia[LENS:FRONTEND_FAMILY_COUNTER]
+  PASS  especie_esta_no_vocabulario[LENS:FRONTEND_FAMILY_COUNTER]
+  PASS  superficie_declara_especie[LENS:FRONTEND_DEFAULT_VIEW_DRAWN]
+  PASS  especie_nao_e_vazia[LENS:FRONTEND_DEFAULT_VIEW_DRAWN]
+  PASS  especie_esta_no_vocabulario[LENS:FRONTEND_DEFAULT_VIEW_DRAWN]
+  PASS  superficie_declara_especie[LENS:PENTE_FINO]
+  PASS  especie_nao_e_vazia[LENS:PENTE_FINO]
+  PASS  especie_esta_no_vocabulario[LENS:PENTE_FINO]
+  PASS  superficie_declara_especie[LENS:CENSO_DA_TOPOLOGIA]
+  PASS  especie_nao_e_vazia[LENS:CENSO_DA_TOPOLOGIA]
+  PASS  especie_esta_no_vocabulario[LENS:CENSO_DA_TOPOLOGIA]
+  PASS  superficie_declara_especie[LENS:CENSO_DA_COLETA]
+  PASS  especie_nao_e_vazia[LENS:CENSO_DA_COLETA]
+  PASS  especie_esta_no_vocabulario[LENS:CENSO_DA_COLETA]
+  PASS  superficie_declara_especie[LENS:CENSO_CARDS_SENSORES]
+  PASS  especie_nao_e_vazia[LENS:CENSO_CARDS_SENSORES]
+  PASS  especie_esta_no_vocabulario[LENS:CENSO_CARDS_SENSORES]
+  PASS  superficie_declara_especie[LENS:STATE_COUNTS]
+  PASS  especie_nao_e_vazia[LENS:STATE_COUNTS]
+  PASS  especie_esta_no_vocabulario[LENS:STATE_COUNTS]
+  PASS  o_mapeamento_superficie_para_especie_e_deterministico
+  PASS  membros_sao_mesmo_da_especie_declarada[UNIVERSE:SYSTEM_MAP_NODE_UNIVERSE]
+  PASS  membros_sao_mesmo_da_especie_declarada[UNIVERSE:SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE]
+  PASS  membros_sao_mesmo_da_especie_declarada[UNIVERSE:PENTE_FINO_UNIVERSE]
+  PASS  membros_sao_mesmo_da_especie_declarada[UNIVERSE:TOPOLOGY_CENSUS_UNIVERSE]
+  PASS  membros_sao_mesmo_da_especie_declarada[UNIVERSE:CASCO_TOOL_CARD_UNIVERSE]
+  PASS  a_semantica_foi_cruzada_em_pelo_menos_uma_superficie
+  FAIL  contagem_de_ficheiros_bate_com_o_censo[UNIVERSE:COLLECTION_CODE_FILE_UNIVERSE]
+        119 != 155
+  FAIL  contagem_de_ficheiros_bate_com_o_censo[LENS:CENSO_DA_COLETA]
+        119 != 155
+  PASS  a_guarda_da_presenca_morde
+  PASS  a_guarda_da_presenca_aceita_o_bom
+  PASS  a_guarda_do_vazio_morde
+  PASS  a_guarda_do_vocabulario_morde
+  PASS  a_guarda_do_vocabulario_aceita_o_bom
+  PASS  a_guarda_de_COUNT_igual_MEMBERS_morde
+  PASS  a_guarda_de_COUNT_igual_MEMBERS_aceita_o_bom
+  PASS  a_guarda_da_especie_mais_apertada_morde
+  PASS  a_guarda_da_especie_mais_apertada_aceita_o_bom
+  PASS  a_guarda_da_semantica_cruzada_morde
+  PASS  a_guarda_da_semantica_cruzada_aceita_o_bom
+  PASS  o_gerador_recusa_especie_fora_do_vocabulario
+  PASS  o_gerador_aceita_o_vocabulario_bom
+  PASS  o_gerador_recusa_superficie_que_a_tabela_nao_conhece
+  PASS  o_gerador_recusa_lente_que_a_tabela_nao_conhece
+  PASS  o_gerador_carimba_o_que_conhece
+  PASS  o_contador_da_tela_nao_e_hardcoded
+  FAIL  o_contador_da_tela_vem_do_estado_gerado
+        FAMILIES[].count nao soma o universo visual
+  PASS  a_tela_le_o_campo_que_a_reconciliacao_nomeia
+  PASS  a_lente_da_vista_padrao_existe
+  PASS  a_regra_citada_da_vista_padrao_ainda_esta_no_mapjs
+  PASS  a_diferenca_entre_contado_e_desenhado_esta_enumerada
+  PASS  todo_escondido_pela_vista_diz_a_bandeira_que_o_esconde
+  PASS  cartao_escondido_pela_vista_continua_no_universo
+  PASS  o_artefato_declara_os_proprios_carimbos
+  FAIL  a_reconciliacao_commitada_e_a_desta_arvore
+        regerar mudou a reconciliacao. Conserto: py system-map/scripts/reconciliacao_do_universo.py && git add data/derivados
+  PASS  os_achados_de_frescura_dizem_de_onde_nascem
+  PASS  ha_achados_estruturais_para_esta_prova_nao_ser_vazia
+  PASS  a_guarda_anti_drift_ainda_morde_num_achado_a_serio
+  PASS  a_guarda_anti_drift_ignora_o_ponto_do_ciclo
+  PASS  a_tela_e_a_reconciliacao_conhecem_o_MESMO_numero
+  PASS  o_pente_fino_e_a_reconciliacao_conhecem_o_MESMO_numero
+  FAIL  todo_territorio_da_coleta_fora_do_pente_esta_nomeado
+        territorios fora do pente e sem ficha: ['Z-REFERENCIA']
+  PASS  nenhum_territorio_novo_caiu_fora_em_silencio
+  PASS  o_pente_fino_mediu_o_mesmo_conjunto_de_nos_que_a_tela
+  PASS  as_especies_de_card_estao_todas_declaradas
+  PASS  especie_tem_dono_e_fonte[ARCHITECTURE_NODE]
+  PASS  especie_tem_dono_e_fonte[SYSTEM_MAP_VISUAL_CARD]
+  PASS  especie_tem_dono_e_fonte[COLLECTION_INTERNAL_PIECE]
+  PASS  especie_tem_dono_e_fonte[PORTAL_TOOL_CARD]
+  PASS  especie_tem_dono_e_fonte[COLLECTION_CODE_FILE]
+  PASS  especie_tem_dono_e_fonte[VISUAL_ONLY_BLOCK]
+  PASS  card_do_portal_nao_se_confunde_com_card_da_coleta
+  PASS  a_identidade_do_card_do_portal_esta_provada_e_nao_assumida
+  PASS  frescura_tem_veredito_conhecido[state.generated.json]
+  PASS  frescura_tem_veredito_conhecido[architecture.generated.json]
+  PASS  frescura_tem_veredito_conhecido[sources.generated.json]
+  PASS  frescura_tem_veredito_conhecido[pente-fino.generated.json]
+  PASS  frescura_tem_veredito_conhecido[censo-da-coleta.generated.json]
+  PASS  frescura_tem_veredito_conhecido[topologia.generated.json]
+  PASS  frescura_tem_veredito_conhecido[MATRIZ-CARDS-SENSORES-V1.json]
+  PASS  mutante_morre[remover_um_cartao]
+  PASS  mutante_morre[duplicar_um_cartao]
+  PASS  mutante_morre[trocar_a_familia_de_um_cartao]
+  PASS  mutante_morre[trocar_o_territorio_de_um_cartao]
+  PASS  mutante_morre[apagar_a_razao_de_uma_exclusao]
+Traceback (most recent call last):
+  File "/home/runner/work/eame-sintonia/eame-sintonia/system-map/tests/test_reconciliacao_do_universo.py", line 728, in <module>
+    mutar("dar_stale_por_actual", forjar_stale_como_actual, True)
+  File "/home/runner/work/eame-sintonia/eame-sintonia/system-map/tests/test_reconciliacao_do_universo.py", line 650, in mutar
+    transformar(d)
+  File "/home/runner/work/eame-sintonia/eame-sintonia/system-map/tests/test_reconciliacao_do_universo.py", line 716, in forjar_stale_como_actual
+    raise AssertionError("nenhum artefato CURRENT para mutar")
+AssertionError: nenhum artefato CURRENT para mutar
+rc=1

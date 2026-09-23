@@ -1,0 +1,85 @@
+==========================================================================
+A ORDEM DA CADEIA — 20 passos, 108 arestas
+==========================================================================
+  PASS  o_leitor_deriva_uma_ordem_total
+  PASS  a_ordem_escrita_e_a_ordem_derivada
+  PASS  passos_devolve_a_ordem_derivada
+  PASS  NORMAL_DEPENDENCY_ORDER_VIOLATIONS_e_zero
+  PASS  com_a_lista_ao_contrario_a_ordem_continua_a_respeitar_o_grafo
+  PASS  e_a_lista_ao_contrario_da_mesmo_uma_ordem_diferente
+  PASS  passos_entrega_a_derivada_mesmo_com_o_ficheiro_ao_contrario
+  PASS  UNRESOLVED_DEPENDENCIES_e_zero
+  PASS  o_que_vem_de_fora_tem_dono_declarado
+  PASS  nenhuma_dependencia_aponta_para_passo_inexistente
+  PASS  cada_artefato_tem_um_produtor_so
+  PASS  nenhum_passo_de_regeracao_deixa_de_produzir
+  PASS  o_ciclo_atrasado_existe_e_esta_declarado
+  PASS  todo_ciclo_tem_classe_do_vocabulario
+  PASS  UNCLASSIFIED_CYCLES_e_zero
+  PASS  nenhum_ciclo_e_BUG
+  PASS  todo_ciclo_atrasado_mostra_o_corte_no_tempo
+  PASS  ha_uma_varredura_que_apanha_a_propria_saida
+  PASS  nenhuma_dependencia_NOMEADA_esta_atrasada
+  PASS  e_os_atrasos_que_restam_sao_todos_de_varredura
+  PASS  a_lei_do_ciclo_atrasado_responde[QUE_ARTEFATO_E_ATRASADO]
+  PASS  a_lei_do_ciclo_atrasado_responde[QUE_VERSAO_E_LIDA]
+  PASS  a_lei_do_ciclo_atrasado_responde[PORQUE_PRECISA_DE_SER_ATRASADO]
+  PASS  a_lei_do_ciclo_atrasado_responde[COMO_SE_SABE_QUE_NAO_E_STALE_ACIDENTAL]
+  PASS  a_lei_do_ciclo_atrasado_responde[COMO_O_MAPA_COMUNICA]
+  PASS  a_lei_da_ordem_esta_declarada_no_manifesto
+  PASS  a_lei_da_ordem_nomeia_o_dono_da_derivacao
+  PASS  as_duas_classes_de_aresta_estao_escritas
+  PASS  um_ciclo_entre_nomeadas_rebenta_em_vez_de_ser_ordenado
+  PASS  apagar_uma_dependencia_real_e_apanhado_pela_corrida
+  PASS  uma_dependencia_inventada_e_apanhada_pela_corrida
+  PASS  a_frescura_classifica_o_ciclo[censo-da-coleta.generated.json]
+  PASS  a_frescura_classifica_o_ciclo[pente-fino.generated.json]
+  PASS  a_frescura_classifica_o_ciclo[sources.generated.json]
+  PASS  a_frescura_classifica_o_ciclo[topologia.generated.json]
+  PASS  a_frescura_classifica_o_ciclo[architecture.generated.json]
+  PASS  UNEXPECTED_STALE_ACCEPTED_AS_EXPECTED_e_zero
+  PASS  o_artefato_a_mao_esta_velho_por_contrato
+  FAIL  e_sem_a_classe_declarada_volta_a_ser_defeito  com contrato: EXPECTED_PREVIOUS_CYCLE · sem contrato: UNKNOWN
+  PASS  arvore_mexida_sem_contrato_de_mao_e_sempre_defeito
+  PASS  entrada_gerada_velha_de_um_produtor_que_corre_antes_e_defeito
+  PASS  sem_carimbo_a_classe_e_UNKNOWN_e_nao_CURRENT
+  PASS  um_artefato_sem_PROVENANCE_nao_ganha_classe_boa
+  PASS  so_a_arvore_com_a_arvore_mexida_nunca_e_CURRENT
+  PASS  a_frescura_diz_o_atraso_por_varredura_de_quem_o_tem
+  PASS  e_diz_NAO_SEI_quando_nao_sabe_quem_gerou
+  PASS  o_regenerador_a_mao_tem_classe[CENSO_CARDS_SENSORES]
+  PASS  e_diz_porque[CENSO_CARDS_SENSORES]
+  PASS  e_nao_esta_UNREACHABLE_sem_dizer[CENSO_CARDS_SENSORES]
+  PASS  o_regenerador_a_mao_tem_classe[RECONCILIACAO_DO_UNIVERSO]
+  PASS  e_diz_porque[RECONCILIACAO_DO_UNIVERSO]
+  PASS  e_nao_esta_UNREACHABLE_sem_dizer[RECONCILIACAO_DO_UNIVERSO]
+  PASS  o_regenerador_a_mao_tem_classe[REVISAO_DA_EVIDENCIA]
+  PASS  e_diz_porque[REVISAO_DA_EVIDENCIA]
+  PASS  e_nao_esta_UNREACHABLE_sem_dizer[REVISAO_DA_EVIDENCIA]
+  PASS  o_vocabulario_das_classes_esta_declarado
+  PASS  um_passo_a_mao_sem_classe_declarada_da_UNKNOWN
+  PASS  o_corredor_sabe_correr[REGERAR]
+  PASS  o_corredor_sabe_correr[REGERAR_A_MAO]
+  PASS  o_corredor_sabe_correr[VALIDAR]
+  PASS  o_corredor_sabe_correr[PORTOES_POS_COMMIT]
+  PASS  o_corredor_sabe_correr[OUTRAS_EXECUCOES]
+  PASS  o_corredor_recusa_uma_ordem_que_contradiz_as_dependencias
+  PASS  o_publicador_tambem_confere_a_ordem
+  PASS  e_a_conferencia_do_publicador_decide_mesmo_alguma_coisa
+  PASS  o_corredor_e_o_leitor_entregam_a_mesma_ordem
+  PASS  esta_prova_nao_corta_o_universo_em_fatias
+  PASS  esta_prova_nao_esta_presa_a_um_numero_de_passos
+  PASS  o_clone_nasce
+  PASS  RUN_1_corre
+  PASS  RUN_2_corre
+  PASS  RUN_3_corre
+  PASS  o_retrato_ve_mudanca_quando_ha_mudanca
+  NOTA  ATRASO_COM_EFEITO_OBSERVAVEL = NAO
+  PASS  SEMANTIC_DRIFT_ON_SECOND_RUN_e_zero
+  PASS  e_a_segunda_passagem_escreveu_mesmo
+  PASS  o_manifesto_ficou_como_estava
+
+==========================================================================
+ORDEM_POR_DEPENDENCIA=FAIL · 1 prova(s) reprovada(s)
+  · e_sem_a_classe_declarada_volta_a_ser_defeito
+rc=1

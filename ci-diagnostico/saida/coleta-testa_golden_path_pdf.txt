@@ -1,0 +1,37 @@
+AS 30 PROVAS DA PRIMEIRA ESTRADA
+
+  PASS  T1_o_bruto_nao_mudou_um_byte
+  PASS  T2_cada_bruto_tem_nome_proprio
+  PASS  T3_o_filho_nao_tem_o_nome_do_pai
+  PASS  T4_todo_derivado_automatico_tem_pai_provado
+  PASS  T5_o_texto_a_mao_nao_ganha_pai_inventado
+  PASS  T6_a_hora_do_trabalho_nao_vira_data_do_fato
+  PASS  T7_publicar_nao_e_acontecer
+  PASS  T8_colher_nao_e_acontecer
+  PASS  T9_onde_a_fonte_esta_nao_e_onde_o_fato_foi
+  PASS  T10_o_escopo_do_pais_nao_preenche_o_lugar_do_fato
+  PASS  T11_pais_nao_e_lingua
+  PASS  T12_pdf_sem_texto_nao_vira_NAO
+  PASS  T13_falha_da_ferramenta_e_ERRO_e_tem_de_dizer_qual
+  PASS  T14_sem_palavra_conhecida_nao_vira_NAO
+  PASS  T15_emitido_e_guardado_batem
+  PASS  T16_a_porta_nao_ve_mais_do_que_existe
+  PASS  T17_nada_se_perdeu
+  PASS  T18_correr_duas_vezes_nao_duplica
+  PASS  T19_a_versao_do_executor_fica_guardada
+  PASS  T20_a_versao_do_cano_fica_guardada
+  PASS  T21_mudanca_na_fonte_distingue_se_de_mudanca_no_cano
+  PASS  T22_nao_ha_rede_nesta_estrada
+  PASS  T23_nao_ha_Apify
+  PASS  T24_nao_ha_OCR
+  FALHA  T25_o_orquestrador_nao_carrega_PDF_nem_texto
+         o dado vai do bruto ao executor e ao derivado. O orquestrador e o plano de controlo e sera ligado depois — nenhum byte passa por ele
+  PASS  T26_o_mapa_so_tem_setas_reais
+  PASS  T27_o_NEEDS_OCR_aparece_se_e_so_se_houver
+  PASS  T28_a_corrida_e_renderizavel
+  PASS  T29_a_linhagem_e_renderizavel
+  FALHA  T30_o_mapa_representa_esta_arvore
+         o mapa tem de ter sido gerado sobre um commit desta arvore, e os numeros que ele mostra tem de ser os desta corrida — nao os de ontem
+
+GOLDEN_PATH_PDF_PROVAS=FALHA · 2: T25_o_orquestrador_nao_carrega_PDF_nem_texto, T30_o_mapa_representa_esta_arvore
+rc=1

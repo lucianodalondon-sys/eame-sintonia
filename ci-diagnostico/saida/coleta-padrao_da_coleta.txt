@@ -1,0 +1,18 @@
+PADRAO_DA_COLETA=FAIL · erro inesperado: sequence item 0: expected str instance, NoneType found
+PADRAO DA COLETA — o chao nao desce
+
+  ok     FONTE_TEM_FICHA_ANTES_DE_SER_COLETADA    faltam hoje 3    chao 3    =
+  FAIL   COLETOR_CARIMBA_A_DATA                   faltam hoje 33   chao 26   PIOROU
+         Data so vale se for posta NO MOMENTO da coleta. Depois e tarde: o dado ja entrou sem ela e ninguem recupera quando foi visto.
+         mudou: coleta/adaptador_linkedin.py, coleta/eu_regulatorio_executor.py, coleta/executor_texto_de_html.py, coleta/executor_texto_de_pdf.py, coleta/executor_transcricao_midia.py, coleta/scrap_colheita.py
+  FAIL   COLETOR_SEPARA_A_FONTE_DO_FATO           faltam hoje 32   chao 20   PIOROU
+         Uma fonte italiana a falar de Espanha nao torna o facto italiano. SOURCE_LOCATION e FACT_LOCATION sao dois campos, e nao um.
+         mudou: coleta/adaptador_linkedin.py, coleta/adaptador_youtube.py, coleta/eu_regulatorio_executor.py, coleta/executor_texto_de_html.py, coleta/executor_texto_de_pdf.py, coleta/executor_transcricao_midia.py
+  FAIL   COLETOR_REGISTA_O_QUE_DESCARTOU          faltam hoje 33   chao 30   PIOROU
+         O que foi deixado de fora, e porque, e metade do que a coleta aprendeu. Sem isso, a proxima coleta repete o mesmo descarte sem saber.
+         mudou: coleta/eu_regulatorio_executor.py, coleta/executor_texto_de_pdf.py, coleta/italy_executor.py, coleta/social_envelope.py, coleta/youtube_oficial.py, regras/contratos_de_fonte.py
+  ok     CORRIDA_MEDE_O_RENDIMENTO                faltam hoje 0    chao 0    =
+  ok     CORRIDA_GUARDA_O_CUSTO                   faltam hoje 6    chao 6    =
+  FAIL   DOCUMENTO_TEM_IMPRESSAO_DIGITAL          faltam hoje 37   chao 0    PIOROU
+         Testemunho nao e prova. Sem SHA256, nada distingue o documento guardado de uma copia trocada — e a prova vira palavra.
+rc=1

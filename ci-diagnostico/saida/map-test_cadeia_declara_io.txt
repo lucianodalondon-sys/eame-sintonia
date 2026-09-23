@@ -1,0 +1,53 @@
+======================================================================
+O CONTRATO DE IO DA CADEIA — 24 passos
+======================================================================
+  PASS  o_manifesto_declara_um_schema_conhecido
+  PASS  todo_passo_tem_STEP_ID
+  PASS  STEP_ID_nao_repete
+  PASS  todo_passo_tem_EXECUTABLE
+  PASS  o_executavel_existe_no_disco
+  PASS  todo_passo_tem_INPUTS
+  PASS  todo_passo_tem_OUTPUTS
+  PASS  nenhum_passo_tem_INPUTS_vazio
+  PASS  passo_sem_OUTPUTS_explica_porque
+  PASS  nenhum_caminho_declarado_e_vazio
+  PASS  todo_KIND_esta_no_vocabulario
+  PASS  o_vocabulario_distingue_fonte_de_gerado
+  PASS  toda_entrada_nomeada_traz_PATH
+  PASS  toda_arvore_declara_origem_padrao_e_dono_do_filtro
+  PASS  toda_entrada_e_saida_diz_PORQUE
+  PASS  o_dono_do_filtro_existe_no_ficheiro_que_ele_nomeia
+  PASS  toda_entrada_gerada_nomeia_o_produtor
+  PASS  o_produtor_declarado_e_quem_produz_mesmo
+  PASS  o_executavel_do_produtor_existe
+  PASS  o_que_e_saida_de_um_passo_e_GERADO_em_todo_o_lado
+  PASS  o_mesmo_caminho_tem_sempre_o_mesmo_KIND
+  PASS  nenhuma_saida_tem_dois_donos
+  PASS  a_divida_do_G5_nao_voltou_por_outro_nome
+  PASS  o_manifesto_governa_mais_do_que_os_sete_do_G4
+  PASS  cada_troca_na_ordem_do_G4_e_exigida_por_uma_dependencia
+  PASS  a_ordem_escrita_e_a_ordem_derivada
+  PASS  o_corredor_tambem_nao_ordena
+  PASS  o_pente_fino_declara_que_le_a_saida_do_gerador
+  PASS  e_o_ciclo_deixou_de_estar_atrasado
+  PASS  a_AST_confirma_todo_caminho_declarado
+  PASS  o_VIA_declarado_e_mesmo_importado_pelo_passo
+  PASS  a_medicao_de_runtime_correu_num_clone
+  PASS  todo_passo_correu_sem_erro_no_clone
+  PASS  o_validador_correu_e_deixou_medicao
+  PASS  todo_passo_do_manifesto_foi_medido
+  PASS  toda_entrada_declarada_foi_mesmo_lida
+  PASS  toda_saida_declarada_foi_mesmo_escrita
+  PASS  nenhuma_escrita_real_fica_por_declarar
+  FAIL  toda_leitura_real_e_explicada_por_uma_entrada_declarada  6 orfas: [('CENSO_DAS_ESTRADAS_IT', 'docs/fontes/ATLAS-DE-FONTES-EAME.md'), ('CENSO_DA_TOPOLOGIA', 'italia-portale/client/italy-app-model.js'), ('CENSO_DA_TOPOLOGIA', 'italia-portale/client/italy-casa.js'), ('CENSO_DA_TOPOLOGIA', 'italia-portale/client/italy-i18n.js'), ('CENSO_DA_TOPOLOGIA', 'italia
+  PASS  nenhum_passo_declara_a_arvore_toda_medindo_um_pedaco
+  FAIL  o_MEDIDO_VARRE_declarado_bate_com_a_corrida  [('SCAN_REPO', 1726, 2774), ('SCAN_SOURCES', 516, 812), ('CENSO_DA_COLETA', 136, 173), ('CENSO_DE_IDENTIDADE_IT', 67, 210), ('CENSO_DO_CONGELAMENTO', 1208, 1877), ('CENSO_DO_CORPUS_IT', 615, 806), ('CENSO_DOS_DONOS', 738, 1065), ('RECALL_DA_PORTA_IT', 28, 156), ('CENSO_DOS_BURACOS', 510, 807), ('GEN
+  PASS  a_corrida_confirma_o_ciclo_do_pente_fino
+  PASS  nenhuma_leitura_de_saida_alheia_fica_por_declarar
+  PASS  o_que_o_codigo_nomeia_nao_se_declara_varredura
+
+======================================================================
+CADEIA_IO=FAIL · 2 prova(s) reprovada(s)
+  · toda_leitura_real_e_explicada_por_uma_entrada_declarada
+  · o_MEDIDO_VARRE_declarado_bate_com_a_corrida
+rc=1

@@ -1,0 +1,11 @@
+======================================================================
+SYSTEM_MAP_AUDIT_BASE_GUARD — a arvore auditada e o sistema actual?
+======================================================================
+  PASS  o_contrato_da_base_existe
+  PASS  o_contrato_nomeia_uma_referencia
+  FAIL  a_referencia_declarada_resolve
+        CANNOT_MEASURE: `claude/sala-persistente-preflight-real-v1` nao existe como ref local nem remota nesta copia. Isto NAO e «a base esta certa»: e nao ter medido, e nao medir reprova.
+  PASS  a_base_e_uma_referencia_viva_e_nao_um_SHA
+
+AUDIT_BASE_GUARD=FAIL · 1 reprovada(s): a_referencia_declarada_resolve
+rc=1

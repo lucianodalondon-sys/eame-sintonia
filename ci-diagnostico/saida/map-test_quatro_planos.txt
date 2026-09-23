@@ -1,0 +1,85 @@
+AS PROVAS DOS QUATRO PLANOS — G1
+======================================================================
+  PASS  o_estado_existe_e_tem_arestas
+  PASS  toda_aresta_publica_os_quatro_planos
+  PASS  todo_plano_de_aresta_tem_valor_conhecido
+  PASS  toda_peca_publica_os_quatro_planos
+  PASS  todo_plano_de_peca_tem_valor_conhecido
+  PASS  nao_nasceu_um_quinto_plano
+  PASS  nenhuma_aresta_diz_OBSERVED_sem_corrida
+  PASS  toda_peca_OBSERVED_traz_a_prova_da_corrida
+  PASS  ha_pelo_menos_uma_peca_OBSERVED_para_esta_prova_nao_ser_vazia
+  PASS  PROVEN_declara_sempre_o_plano
+  PASS  o_plano_provado_esta_mesmo_em_YES
+  PASS  toda_evidencia_diz_se_sustenta_a_afirmacao
+  PASS  toda_evidencia_declara_o_seu_limite
+  PASS  a_afirmacao_apontada_e_a_desta_aresta
+  PASS  CODE_YES_exige_evidencia_que_sustente_a_afirmacao
+  PASS  rotulo_narrativo_nunca_recebe_CODE_YES
+  PASS  nenhum_plano_diz_NO_sem_medidor_de_ausencia
+  PASS  o_status_legado_nao_contradiz_os_planos
+  PASS  o_status_legado_diz_que_e_derivado
+  PASS  aresta_declarada_e_nao_provada_continua_NAO_SEI
+  PASS  toda_peca_declara_que_o_status_e_legado
+  PASS  a_nota_da_peca_nao_mente_dizendo_que_deriva
+  PASS  a_nota_da_peca_nomeia_quem_ganha
+  PASS  a_tela_mostra_os_quatro_planos_da_peca
+  PASS  a_tela_mostra_a_nota_do_legado_na_peca
+  PASS  o_ajudante_dos_planos_e_um_so
+  PASS  o_conflito_do_status_legado_esta_publicado
+  PASS  o_conflito_traz_os_campos_da_secao_15
+  PASS  o_conflito_nao_escolhe_vencedor_em_silencio
+  PASS  a_contagem_do_conflito_bate_com_o_estado
+  PASS  a_desavenca_entre_o_legado_e_os_planos_e_conhecida
+  PASS  sentinela_o_import_existe
+  PASS  sentinela_o_import_tem_CODE_YES
+  PASS  sentinela_o_import_esta_provado_no_plano_CODE
+  PASS  sentinela_o_import_nao_diz_OBSERVED
+  PASS  sentinela_as_tres_aberturas_de_canal_existem
+  PASS  sentinela_V-FACEBOOK_nao_usa_o_import_como_prova_de_CODE
+  PASS  sentinela_V-FACEBOOK_nao_foi_dada_por_provada
+  PASS  sentinela_V-INSTAGRAM_nao_usa_o_import_como_prova_de_CODE
+  PASS  sentinela_V-INSTAGRAM_nao_foi_dada_por_provada
+  PASS  sentinela_V-LINKEDIN_nao_usa_o_import_como_prova_de_CODE
+  PASS  sentinela_V-LINKEDIN_nao_foi_dada_por_provada
+  PASS  sentinela_a_linha_partilhada_continua_a_ser_a_mesma
+  PASS  a_revisao_existe
+  PASS  nenhuma_decisao_da_revisao_sem_porque
+  PASS  ha_arestas_com_linha_partilhada_para_esta_prova_nao_ser_vazia
+  FAIL  a_revisao_cobre_todas_as_arestas_tocadas
+        faltam ['C-ADAMA-REFERENCE--READS-->C-PORTAL-MODELO', 'C-APIFY-POOL--ABRE_O_CANAL-->V-INSTAGRAM', 'C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES', 'C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE'] · a mais ['C-ESTRADA-PDF--READS-->C-TESTES', 'C-ORQUESTRADOR--READS-->C-TESTES']
+  PASS  a_revisao_conta_o_que_lista
+  PASS  a_conta_da_revisao_fecha
+  PASS  toda_decisao_e_uma_das_tres
+  FAIL  a_revisao_e_o_estado_dizem_o_mesmo
+        ['C-IT-CONTRATOS--READS-->C-IT-COLETA']
+  PASS  a_guarda_do_rotulo_narrativo_morde
+  PASS  a_guarda_do_rotulo_narrativo_aceita_a_relacao_medida
+  PASS  a_guarda_do_import_lido_como_leitura_morde
+  PASS  o_import_da_mesma_linha_continua_sustentado
+  PASS  uma_leitura_sem_import_ao_lado_continua_sustentada
+  PASS  o_plano_do_rotulo_narrativo_fica_UNKNOWN
+  PASS  o_plano_da_relacao_medida_fica_CODE
+  PASS  nem_a_medida_nem_a_narrativa_ganham_OBSERVED
+  PASS  o_status_legado_de_um_caso_fabricado_tambem_deriva
+  PASS  a_guarda_da_afirmacao_trocada_morde
+  PASS  a_guarda_da_afirmacao_trocada_morde_no_tipo
+  PASS  a_guarda_da_afirmacao_trocada_aceita_a_certa
+  PASS  a_guarda_do_CODE_sem_apoio_morde
+  PASS  a_guarda_do_CODE_sem_apoio_morde_sem_evidencia_nenhuma
+  PASS  a_guarda_do_CODE_sem_apoio_aceita_o_bom
+  PASS  o_ledger_de_runtime_e_lido_e_nao_esta_vazio
+  PASS  cada_observacao_traz_ambiente_e_modo
+  PASS  m1_peca_sem_nota_seria_apanhada
+  PASS  m2_a_nota_da_aresta_colada_na_peca_seria_apanhada
+  PASS  m3_nota_sem_os_quatro_planos_seria_apanhada
+  PASS  m4_tela_sem_os_planos_da_peca_seria_apanhada
+  PASS  m5_tela_sem_a_nota_seria_apanhada
+  PASS  m6_ajudante_duplicado_seria_apanhado
+  PASS  m7_a_guarda_velha_teria_reprovado_se_tivesse_olhado_para_as_pecas
+
+======================================================================
+QUATRO_PLANOS=FAIL · 2 prova(s) reprovada(s)
+  · a_revisao_cobre_todas_as_arestas_tocadas
+  · a_revisao_e_o_estado_dizem_o_mesmo
+rc=1

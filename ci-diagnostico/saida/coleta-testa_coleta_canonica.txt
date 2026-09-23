@@ -1,0 +1,13 @@
+  FALHA  1_pedido_em_portugues_vira_alvo  — deu T6
+  PASS   1_plano_encontra_executor
+  PASS   1_corrida_devolve_recibo_com_versao
+  PASS   1_recibo_diz_quem_correu_e_quando
+  FALHA  1_item_bom_passa_a_porta  — nao fala de «T7», e fala claramente de outro universo (T5: doi, ensaio). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.
+Traceback (most recent call last):
+  File "/home/runner/work/eame-sintonia/eame-sintonia/provas/testa_coleta_canonica.py", line 64, in <module>
+    saida = adm.pronto_para_inteligencia(item_bom, d)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/eame-sintonia/eame-sintonia/admissao/admissao.py", line 1510, in pronto_para_inteligencia
+    raise ValueError(f"item {decisao.item} nao passou a porta ({decisao.resultado})")
+ValueError: item e2e-1 nao passou a porta (NAO)
+rc=1

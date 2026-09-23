@@ -1,0 +1,19 @@
+O ENCANAMENTO DA COLETA
+======================================================================
+  PASS  P1_a_porta_de_entrada_existe                         
+  PASS  P2_a_porta_delega_ao_dono_do_raw                     
+  FALHA P3_nenhum_coletor_preserva_por_fora                  coleta/eu_regulatorio_executor.py
+  PASS  P4_a_porta_nao_decide_admissao                       
+  PASS  P5_fact_time_nao_e_inventado                         
+  PASS  P5_fact_location_nao_e_inventado                     
+  PASS  P5_collected_at_veio_da_corrida                      
+  PASS  P6_sem_corrida_nao_entra                             
+  PASS  P7_recusa_de_um_nao_derruba_os_outros                
+  PASS  P8_a_recusa_tem_vocabulario_proprio                  
+  PASS  P9_reobservar_nao_duplica                            
+  PASS  P10_o_orquestrador_chama_a_porta                     
+  PASS  P10_a_porta_vem_ANTES_da_admissao                    
+  FALHA P11_um_so_caminho_de_producao_chama_o_raw            chamam preservar(): ['coleta/ingresso.py', 'coleta/eu_regulatorio_executor.py']
+
+ENCANAMENTO=FALHA · 2 invariante(s): P3_nenhum_coletor_preserva_por_fora, P11_um_so_caminho_de_producao_chama_o_raw
+rc=1

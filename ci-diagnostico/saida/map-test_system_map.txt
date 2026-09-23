@@ -1,0 +1,149 @@
+  PASS  ids_unicos
+  PASS  todo_no_tem_frase_de_gente
+  PASS  todo_no_tem_motivo_de_status
+  PASS  as_partes_sao_estas_e_nesta_ordem
+  PASS  toda_zona_tem_familia
+  PASS  toda_peca_tem_familia
+  PASS  nenhuma_parte_ficou_vazia
+  PASS  a_familia_vem_da_zona_e_nao_da_peca
+  PASS  toda_regua_tem_papel_medido
+  PASS  todo_papel_de_regua_diz_porque
+  FAIL  nenhuma_regua_ficou_por_decidir
+        C-DESBLOQUEIO-PACOTE, C-DUAS-PORTAS-MEDIDORES, C-RECOLLECTION-CENSO
+  FAIL  regua_que_carimba_nao_e_regua_que_mede
+        C-DETECTOR-CAPA-GABARITO (escreve curadoria/LIFECYCLE-EVIDENCE-V1.json, e C-CENSO-UNIFICACAO — peca da esteira — le isso); C-MICRO-COLETA-INSTRUMENTO (escreve regras/italy_contracts_onboarded.json, e C-IT-CONTRATOS — peca da esteira — le isso)
+  PASS  papel_nao_e_a_mesma_pergunta_que_familia
+  FAIL  as_regras_que_nao_carimbam_estao_contadas
+        em Z-REGRAS sem carimbar: ['C-IT-CONTRATOS', 'C-IT-INCREMENTALIDADE', 'C-IT-NORMALIZACAO', 'C-PALAVRAS', 'C-SENSOR-COLETA'] — mudou o numero, entao mudou a arquitetura e alguem tem de decidir
+  PASS  T1_import_nao_e_descrito_ao_contrario
+  PASS  T2_import_sozinho_nao_vira_dado
+  PASS  T3_runs_gera_comando
+  PASS  T4_leitura_nao_e_dado
+  PASS  T5_prova_nao_e_fluxo_de_dado
+  PASS  T5b_nenhum_dado_salta_a_porta_para_a_inteligencia
+  PASS  T6_evidencia_continua_acessivel
+  PASS  T7_filtro_de_conexao_so_mexe_em_setas
+  PASS  T8_abre_com_dado_e_comando
+  PASS  T9_toda_ligacao_tem_categoria
+  PASS  T10_omissao_nao_e_dado
+  PASS  E1_pedido_continua_acessivel
+  FAIL  E2_receita_continua_com_um_consumidor
+        consumidores da receita: ['C-MICRO-COLETA-INSTRUMENTO', 'C-ORQUESTRADOR']
+  PASS  E3_receita_nao_e_estacao_principal
+  PASS  E4_botoes_vivem_na_entrada
+  PASS  E5_scrap_e_executor_composto
+  PASS  E6_scrap_nao_e_ferramenta
+  PASS  E7_apify_e_ferramenta_paga
+  PASS  E8_mapa_nao_afirma_fallback_garantido
+  PASS  E9_desvios_continuam_visiveis
+  PASS  E10_agrupar_nao_apagou_ninguem
+  PASS  E11_proposta_nao_se_disfarca_de_estado
+  PASS  E12_as_duas_vistas_existem
+  PASS  cada_zona_com_codigo_tem_gaveta
+  PASS  nenhum_ficheiro_na_gaveta_errada
+  PASS  a_pasta_antiga_scripts_nao_voltou
+  PASS  existe_um_so_lugar_com_a_lista_de_gavetas
+  PASS  nenhuma_aresta_solta
+  PASS  nenhuma_aresta_tecnica_sem_prova
+  PASS  toda_prova_aponta_para_ficheiro_real
+  PASS  aresta_declarada_e_nao_provada_fica_cinza
+  PASS  status_do_vocabulario_fechado
+  PASS  verde_nunca_e_so_existir
+  PASS  facto_verde_nomeia_a_prova
+  PASS  nao_ha_verde_sem_tipo_de_prova
+  PASS  o_acervo_de_fontes_e_uma_peca_so
+  PASS  o_acervo_agrupa_por_tipo_de_fonte
+  PASS  todo_grupo_diz_onde_esta_registrado
+  PASS  todo_item_do_acervo_diz_se_a_maquina_sabe_buscar
+  PASS  o_acervo_nao_e_verde_com_fonte_sem_contrato
+  FAIL  nao_sei_sobrevive_no_acervo
+        'nao consegui ver' nao pode virar 'vi e nao presta'
+  PASS  existe_porta_de_entrada_de_fonte_nova
+  PASS  a_escada_tem_quatro_degraus
+  PASS  cada_degrau_diz_onde_mora_e_como_se_sobe
+  PASS  o_que_entra_pela_porta_e_candidata_e_nao_fonte
+  FAIL  scanner_e_deterministico
+        correr duas vezes deu resultado diferente
+  PASS  proveniencia_separada_da_arquitetura
+  PASS  AGENTS_md_existe
+  PASS  AGENTS_md_manda_correr_o_validador
+  PASS  AGENTS_md_diz_que_o_mapa_e_derivado
+  PASS  CLAUDE_md_aponta_para_AGENTS_md
+  PASS  README_aponta_agentes_para_AGENTS_md
+  PASS  a_tela_le_o_estado_de_um_ficheiro
+  PASS  as_tres_partes_tem_cor_propria
+  PASS  a_tela_usa_tokens_do_design_system
+  PASS  a_rampa_de_estado_e_separada_da_marca
+  PASS  a_pagina_carrega_o_design_system_oficial
+  PASS  a_pagina_sobrevive_sem_javascript
+  PASS  a_tela_nao_guarda_facto_nenhum
+  PASS  escrita_por_pathlib_tem_autor
+  PASS  mutacao_metodo_que_nao_escreve_nao_vira_autor
+  PASS  a_prova_e_a_linha_que_escreve
+  PASS  cada_escrita_vai_para_o_ficheiro_que_estava_vivo_ali
+  PASS  sem_ligacao_antes_da_linha_o_censo_cala_se
+  FAIL  tem_autor_LIVRO-DE-DECISOES
+        UM ARTEFACTO SEM AUTOR NAO E UM ARTEFACTO SEM AUTOR — E UMA MEDICAO QUE NAO OLHOU
+  PASS  tem_autor_REGISTO-DE-ARTEFATOS
+  PASS  tem_autor_RUN-MANIFEST
+  PASS  o_artefacto_com_dois_autores_esta_declarado
+  PASS  linha_de_docstring_nao_e_linha_de_codigo
+  PASS  nenhuma_aresta_e_provada_por_docstring
+  PASS  campo_que_regista_zero_apify_nao_e_chamada_a_apify
+  PASS  import_de_apify_pool_continua_a_ser_rede
+  PASS  tabela_de_hosts_nao_e_rota
+  PASS  id_de_ator_nao_e_dominio
+  PASS  linha_que_diz_que_nao_correu_nao_prova_passagem
+  PASS  linha_que_diz_que_ja_correu_continua_a_valer
+  PASS  o_cartao_do_canal_diz_que_a_rota_e_declarada
+  PASS  o_corpus_nao_colhe_das_redes_sociais
+  PASS  a_governanca_existe_como_familia
+  PASS  a_governanca_e_transversal
+  PASS  prova_e_regua_vivem_na_governanca
+  FAIL  cada_familia_ocupa_um_bloco_contiguo
+        familias intercaladas na ordem das zonas: ['F-COLETA', 'F-ESPERA', 'F-INTELIGENCIA', 'F-ENTREGA', 'F-GOVERNANCA', 'F-COLETA', 'F-INTELIGENCIA']
+  FAIL  a_governanca_fica_fora_da_esteira
+        a esteira acaba em F-INTELIGENCIA; governanca no meio le-se como mais um passo
+  FAIL  a_esteira_le_se_da_esquerda_para_a_direita
+        a vista do acervo esta em ['Z-BIBLIA', 'Z-ENTRADA', 'Z-PEDIDO', 'Z-ORQUESTRADOR', 'Z-CANDIDATAS', 'Z-FONTES', 'Z-EXECUCAO', 'Z-VEICULOS', 'Z-FERRAMENTAS', 'Z-ACOES', 'Z-GUARDA', 'Z-REGRAS', 'Z-ADMISSAO', 'Z-ESPERA', 'Z-REFERENCIA']
+  FAIL  a_esteira_acaba_no_ready
+        nada pode vir depois do READY na vista principal
+  PASS  nenhuma_zona_de_prova_ou_regua_ficou_na_inteligencia
+  PASS  a_coleta_nao_conversa_com_o_motor_as_centenas
+  PASS  toda_travessia_para_a_inteligencia_tem_prova
+  PASS  nenhum_dado_atravessa_para_a_inteligencia_depois_do_rehome
+  PASS  a_decisao_de_dono_esta_declarada
+  PASS  nenhum_dono_canonico_contornado
+  PASS  so_a_proveniencia_escreve_o_manifesto
+  PASS  a_porta_do_manifesto_existe_e_e_a_declarada
+  PASS  a_cadeia_do_mapa_tem_um_dono_so
+  PASS  SMF-12_existe_um_publicador_de_build
+  PASS  SMF-12_o_build_chama_o_publicador
+  PASS  SMF-12_o_publicador_regenera_pela_cadeia
+  PASS  SMF-13_o_build_so_faz_ao_git_perguntas_de_leitura
+  PASS  SMF-13_o_build_nao_percorre_nem_analisa_a_arvore
+  PASS  SMF-13_o_build_nao_escreve_o_mapa
+  PASS  SMF-13_o_build_mede_a_completude_antes_de_regerar
+  PASS  SMF-13_alguem_corre_mesmo_a_cadeia_no_CI
+  PASS  SMF-13_o_corredor_entrega_a_cadeia_declarada
+  PASS  SMF-13_a_cadeia_do_build_e_a_do_CI_na_mesma_ordem
+  PASS  SMF-13_o_CI_confere_a_mesma_lista_de_publicados
+  PASS  SMF-14_o_publicador_le_o_ambiente_por_lista_fechada
+  PASS  SMF-14_nenhuma_variavel_suspeita_entra_no_artefato
+  PASS  SMF-14_o_publicador_nao_serializa_o_ambiente_inteiro
+  PASS  SMF-15_o_bundle_do_cliente_nao_carrega_token
+  PASS  a_lei_da_frescura_existe_num_ficheiro_proprio
+  PASS  a_lei_da_frescura_e_publicada
+  PASS  a_lei_da_frescura_nao_tem_credencial
+  PASS  SMF-08_a_decisao_de_frescura_nao_le_cobertura
+  PASS  SMF-08_a_cobertura_e_rotulada_na_tela
+  PASS  o_artefato_de_deploy_nao_entra_no_git
+  PASS  o_artefato_de_deploy_nao_esta_rastreado
+  PASS  a_tela_declara_que_o_escopo_e_uma_arvore_so
+  PASS  a_tela_mostra_os_quatro_factos_separados
+  PASS  a_tela_le_o_commit_implantado_do_artefato_do_build
+  PASS  a_tela_nao_decide_frescura_por_conta_propria
+  PASS  a_tela_mede_a_cabeca_remota_sem_credencial
+
+TESTES_SYSTEM_MAP=FAIL · 11 reprovada(s): nenhuma_regua_ficou_por_decidir, regua_que_carimba_nao_e_regua_que_mede, as_regras_que_nao_carimbam_estao_contadas, E2_receita_continua_com_um_consumidor, nao_sei_sobrevive_no_acervo, scanner_e_deterministico, tem_autor_LIVRO-DE-DECISOES, cada_familia_ocupa_um_bloco_contiguo, a_governanca_fica_fora_da_esteira, a_esteira_le_se_da_esquerda_para_a_direita, a_esteira_acaba_no_ready
+rc=1
