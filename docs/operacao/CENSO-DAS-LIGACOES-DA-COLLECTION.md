@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2a3f751d7aa8cbc717f9ed1f50f5ca5222a137c0
+HEAD_DA_MEDICAO  b8027212633bf152e9d025f05dfb61b8d7ab36d2
 BRANCH           regua-t2-t12-v1
-GERADO_EM        2026-09-22T23:55:46-03:00
+GERADO_EM        2026-09-23T00:33:44-03:00
 CARDS            82
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1270,17 +1270,17 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `medidas/canario_rotas_elegiveis.py`, `medidas/gabarito_t2_t12.py`, `medidas/relevancia_antes_da_coleta.py` |
+| **peça real** | `medidas/canario_rotas_elegiveis.py`, `medidas/gabarito_t2_t12.py`, `medidas/gabarito_t2_t12_ida3.py`, `medidas/relevancia_antes_da_coleta.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
 | **prova de quem ativa** | tests/test_gabarito_t2_t12.py:9 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/GABARITO-T2-T12-V1.json`, `curadoria/GABARITO-T2-T12-V2.json`, `curadoria/RELEVANCIA-ELEGIVEIS-V1.json` |
+| **o que entra · ficheiros** | `curadoria/GABARITO-T2-T12-V1.json`, `curadoria/GABARITO-T2-T12-V2.json`, `curadoria/GABARITO-T2-T12-V3.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | `curadoria/GABARITO-T2-T12-V2.json`, `curadoria/RELEVANCIA-ELEGIVEIS-V1.json`, `curadoria/ROTAS-ELEGIVEIS-V1.json` |
+| **o que sai · ficheiros** | `curadoria/GABARITO-T2-T12-V2.json`, `curadoria/GABARITO-T2-T12-V3.json`, `curadoria/RELEVANCIA-ELEGIVEIS-V1.json` |
 | **arestas no mapa** | entram 3 · saem 1 |
 | **arestas provadas** | entram 3 · saem 1 |
 | **OBSERVADAS** | 0 |

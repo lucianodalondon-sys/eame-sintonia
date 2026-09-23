@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t2-t12-v1",
-    "HEAD": "2a3f751d7aa8cbc717f9ed1f50f5ca5222a137c0",
-    "GENERATED_AT": "2026-09-22T23:55:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "892cb2a13206467f33ce83eff1431ee07a0a936efb1d0337b44fccf4043e362b"
+    "HEAD": "b8027212633bf152e9d025f05dfb61b8d7ab36d2",
+    "GENERATED_AT": "2026-09-23T00:33:44-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3e197f0e75629605c05c7403245335e502497c415e78011211827156ddaef592"
   },
   "FILES": [
     {
@@ -381,7 +381,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "e612d05e88d4fbda2bfac2c299116c914828e2cd",
+      "sha": "3743912778cea010f23963ec31a134b736683e74",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1936,6 +1936,13 @@
     {
       "path": "curadoria/GABARITO-T2-T12-V2.json",
       "sha": "e7ce043c497d8b27cd8f8bfbceb4dc0c31779bdc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/GABARITO-T2-T12-V3.json",
+      "sha": "04f675b32d8632f17e3d3f9cf4de98700ec236e6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -12084,6 +12091,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/gabarito_t2_t12_ida3.py",
+      "sha": "c6bbd99a5a397e053ef4e638ebaac0f56ecd311d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "medidas/incrementalidade_prova.mjs",
       "sha": "73da94929b68f85bca7d63169816d81d3bb641fd",
       "ext": ".mjs",
@@ -15452,7 +15466,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "a5e4c9694227b8af138381e486a2449ec71f14b2",
+      "sha": "abf4bb6cdd289f78f2f839bcfe50feb43f33ddb2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -34488,6 +34502,83 @@
         "file": "medidas/gabarito_t2_t12.py",
         "line": 245,
         "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "medidas/gabarito_t2_t12_ida3.py",
+      "to_file": "curadoria/GABARITO-T2-T12-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/gabarito_t2_t12_ida3.py",
+        "line": 50,
+        "snippet": "V1 = RAIZ / \"curadoria\" / \"GABARITO-T2-T12-V1.json\""
+      }
+    },
+    {
+      "from_file": "medidas/gabarito_t2_t12_ida3.py",
+      "to_file": "curadoria/GABARITO-T2-T12-V2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/gabarito_t2_t12_ida3.py",
+        "line": 51,
+        "snippet": "V2 = RAIZ / \"curadoria\" / \"GABARITO-T2-T12-V2.json\""
+      }
+    },
+    {
+      "from_file": "medidas/gabarito_t2_t12_ida3.py",
+      "to_file": "curadoria/GABARITO-T2-T12-V3.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/gabarito_t2_t12_ida3.py",
+        "line": 49,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"GABARITO-T2-T12-V3.json\""
+      }
+    },
+    {
+      "from_file": "medidas/gabarito_t2_t12_ida3.py",
+      "to_file": "curadoria/GABARITO-T2-T12-V3.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/gabarito_t2_t12_ida3.py",
+        "line": 219,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "medidas/gabarito_t2_t12_ida3.py",
+      "to_file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/gabarito_t2_t12_ida3.py",
+        "line": 52,
+        "snippet": "PROVAS = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\""
+      }
+    },
+    {
+      "from_file": "medidas/gabarito_t2_t12_ida3.py",
+      "to_file": "medidas/canario_rotas_elegiveis.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/gabarito_t2_t12_ida3.py",
+        "line": 45,
+        "snippet": "import canario_rotas_elegiveis as ROTAS      # noqa: E402  (motor do coletor)"
+      }
+    },
+    {
+      "from_file": "medidas/gabarito_t2_t12_ida3.py",
+      "to_file": "medidas/gabarito_t2_t12.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/gabarito_t2_t12_ida3.py",
+        "line": 44,
+        "snippet": "import gabarito_t2_t12 as G2                 # noqa: E402  (egresso, seletor, texto)"
       }
     },
     {
@@ -72773,10 +72864,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2479,
-    "files_readable": 1098,
-    "files_code_dir": 953,
-    "file_edges": 4986,
+    "files_tracked": 2481,
+    "files_readable": 1099,
+    "files_code_dir": 954,
+    "file_edges": 4993,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
