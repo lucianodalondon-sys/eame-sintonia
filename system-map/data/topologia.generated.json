@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T17:05:45+00:00",
-  "HEAD": "bf1de5a36511c769dd7747ce19f2b8a8e29d91dc",
+  "GENERATED_AT": "2026-09-23T17:13:27+00:00",
+  "HEAD": "d47f6c02300fd8ca30aedebfb76af3301a8468e7",
   "BRANCH": "gates-medidos-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "44f531d718c3b14e6629382a5d68e2c8db28657f08e052f47189ac3024d22d6a",
+  "SOURCE_TREE_FINGERPRINT": "793764ad9b43a1782fbf19b33e79f015b81e2351fd91b68ff3100bc2fb58eb4d",
   "FICHEIROS_NA_IMPRESSAO": 2879,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -1768,6 +1768,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/medir_gates_g2.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "6905fcbd322fa39c39d2837d6ae9b8443abb6d81",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/medir_proveniencia_g2.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7ea598f8be5c54c29222329498e5b4213fc2eba0",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/micro_colheita.py",
     "PAPEL": "FONTE",
     "VERSAO": "f56dc7f768a8ca91067a3a33b5a15750219d55de",
@@ -1778,6 +1792,13 @@
     "PATH": "medidas/montar_proposta_catalogo.py",
     "PAPEL": "FONTE",
     "VERSAO": "7bdd98e7c554db316fc64ba9c4d4dd49902e5f89",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/mutacao_trava_g2.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ba14644d6627993bb5b2bfa5f7c6265e213ec799",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3562,14 +3583,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "44f531d718c3b14e6629382a5d68e2c8db28657f08e052f47189ac3024d22d6a",
+    "VERSAO": "793764ad9b43a1782fbf19b33e79f015b81e2351fd91b68ff3100bc2fb58eb4d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "44f531d718c3b14e6629382a5d68e2c8db28657f08e052f47189ac3024d22d6a",
+    "VERSAO": "793764ad9b43a1782fbf19b33e79f015b81e2351fd91b68ff3100bc2fb58eb4d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5359,8 +5380,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 760,
-  "INPUTS_DIGEST": "44c99bde97a4c7080d2e2cfa7b10fb10c5b6daca5e87f801f5cb74023ef4e89f",
+  "INPUTS_COUNT": 763,
+  "INPUTS_DIGEST": "761235f21da55b0f4d6a13b881a7244807a2467d99aba38e67299e6213186129",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5393,8 +5414,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "14bf202bb142f880351bdf4943ead2521a955e02b24e5e07b2bca1b84f8387ac",
-  "SEMANTIC_HASH": "1bc7b715116ef8a8c44c3f3aa20759019506cf669225a221086b6f1308cb673a"
+  "MEASUREMENT_HASH": "d591f7162be3e82da3f37ce0218c5dd065df1b2ee931f5f38daae67e810019e2",
+  "SEMANTIC_HASH": "123a14d22167fe610cd9d9657a52b236beb09d763d2e1cc5a6bdeda832a9b3b6"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5446,6 +5467,7 @@
    "C-EXECUTOR-TRANSCRICAO-MIDIA",
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
+   "C-GATES-MEDIDOS-G2",
    "C-IDENTIDADE",
    "C-IMPORTAR",
    "C-INGRESSO",
@@ -5496,7 +5518,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 90
+  "COUNT": 91
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5661,6 +5683,7 @@
    "C-FONTE-DO-ATLAS",
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
+   "C-GATES-MEDIDOS-G2",
    "C-GESTAO-DA-COLETA",
    "C-IDENTIDADE",
    "C-IMPORTAR",
@@ -5769,16 +5792,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 172
+  "COUNT": 173
  },
  "ARITMETICA": {
-  "COLLECTION": 90,
+  "COLLECTION": 91,
   "BOUNDARY": 82,
-  "SOMA": 172,
-  "EXPANDED": 172,
+  "SOMA": 173,
+  "EXPANDED": 173,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 172,
+  "RESUMO_CARTOES_NO_UNIVERSO": 173,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -10862,6 +10885,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-GATES-MEDIDOS-G2",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-GATES-MEDIDOS-G2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/mutacao_trava_g2.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-GATES-MEDIDOS-G2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -19209,6 +19254,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-GATES-MEDIDOS-G2--WRITES-->C-CENSO-UNIFICACAO",
+    "FROM": "C-GATES-MEDIDOS-G2",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/mutacao_trava_g2.py",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-GATES-MEDIDOS-G2--WRITES-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-GESTAO-DA-COLETA--IMPORTS-->C-CENSO-OBSERVABILIDADE",
     "FROM": "C-GESTAO-DA-COLETA",
     "TO": "C-CENSO-OBSERVABILIDADE",
@@ -23436,6 +23503,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-ESTRADAS-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-GATES-MEDIDOS-G2",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-GATES-MEDIDOS-G2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/medir_proveniencia_g2.py",
+      "LINHA": 118,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-GATES-MEDIDOS-G2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -40652,12 +40741,12 @@
     ]
    }
   ],
-  "COUNT": 1137
+  "COUNT": 1140
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 172,
-  "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1137,
+  "CARTOES_NO_UNIVERSO": 173,
+  "CARTOES_AUDITADOS": 173,
+  "ARESTAS_RELACIONADAS": 1140,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -40819,6 +40908,7 @@
    "C-EXECUTOR-TEXTO-HTML",
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
+   "C-GATES-MEDIDOS-G2",
    "C-GESTAO-DA-COLETA",
    "C-INT-ARBITRAGEM",
    "C-INT-CONSUMO-ADAMA",
@@ -40896,6 +40986,7 @@
    "C-DIAGNOSTICO-SALA",
    "C-DUAS-PORTAS-MEDIDORES",
    "C-ESPECIE-DO-TEXTO",
+   "C-GATES-MEDIDOS-G2",
    "C-INT-CONSUMO-ADAMA",
    "C-IT-CONTAS",
    "C-IT-TEXTO-PESQUISAVEL",
@@ -40964,6 +41055,9 @@
    ],
    "C-FONTES-EU": [
     "science"
+   ],
+   "C-GATES-MEDIDOS-G2": [
+    "audit"
    ],
    "C-GESTAO-DA-COLETA": [
     "opportunity",
@@ -41056,9 +41150,9 @@
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 379,
-   "READ": 259,
+   "READ": 261,
    "RULE": 200,
-   "WRITE": 8
+   "WRITE": 9
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -42297,13 +42391,14 @@
     "telemetria",
     "telemetria_do_curador"
    ],
-   "ENTRAM": 7,
-   "SAEM": 6,
+   "ENTRAM": 8,
+   "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
     "READ",
-    "RULE"
+    "RULE",
+    "WRITE"
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -44061,6 +44156,48 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-GATES-MEDIDOS-G2",
+   "NOME": "Os tres gates da Collection medidos (G2)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "medidas/medir_gates_g2.py",
+    "medidas/medir_proveniencia_g2.py",
+    "medidas/mutacao_trava_g2.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collection_run",
+    "collections",
+    "datetime",
+    "pathlib",
+    "sala_de_espera",
+    "storage_object"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "WRITE"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "audit"
+   ],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-GESTAO-DA-COLETA",
    "NOME": "O contrato da gestão da coleta",
    "FAMILIA": "F-GOVERNANCA",
@@ -44858,7 +44995,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 2,
-   "SAEM": 18,
+   "SAEM": 19,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ"
