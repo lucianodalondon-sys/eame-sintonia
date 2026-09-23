@@ -21313,7 +21313,9 @@ onde foi medido não serve para decidir.
   pausa entre passos; os dois números vão no runbook.
 
 
-# §197 · IDEMPOTENTE POR CORRIDA NÃO É IDEMPOTENTE POR DOCUMENTO — E A QUARENTENA NÃO É REGRESSÃO
+# §206 · IDEMPOTENTE POR CORRIDA NÃO É IDEMPOTENTE POR DOCUMENTO — E A QUARENTENA NÃO É REGRESSÃO
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §197 em sala-duplicados-v1 (A3); o número já estava ocupado nesta linha. Nada foi apagado.
 
 **A CAUSA DOS DUPLICADOS.** `admissao/sala_de_espera.py` (Postgres) só perguntava «esta
 CORRIDA já pousou?». Uma corrida nova que trazia o mesmo documento (matéria revalidada e
@@ -21364,7 +21366,9 @@ acrescentaram amostras (`008ac754`, +3), reprovam.
   falhavam em `b3f548eb` com os mesmos números.
 
 
-# §198 · A MICRO COM REDE REAL: O CAMINHO AGUENTA A INTERNET — E SIM 0 NÃO É FALHA DA REDE
+# §208 · A MICRO COM REDE REAL: O CAMINHO AGUENTA A INTERNET — E SIM 0 NÃO É FALHA DA REDE
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §198 em micro-rede-real-v1 (A4); o número já estava ocupado nesta linha. Nada foi apagado.
 
 **O QUE CORREU (23/09, 12:59–13:15Z).** `scripts/micro_coleta/micro_rede_real.py`: a mesma
 estrada do ensaio offline (orquestrador → coletor Node → RAW → DERIVED → Admission → Sala),
@@ -21396,7 +21400,9 @@ seguidos. **Para a Big Collection isto tem de viver no coletor**, não num condu
 aplicado baixando MAX_TARGETS para 3 só na cópia temporária da árvore. Um teste apanhou um
 defeito meu: `c.get("ACQUISITION") or {}` dá um dicionário solto quando ACQUISITION está vazio
 (vazio é falso), e o teto não ficava gravado. Usar `setdefault`.
-## O MENU DO SÍTIO NÃO É A PÁGINA — E CORRIGIR ISSO TAMBÉM TEM PREÇO
+# §202 · O MENU DO SÍTIO NÃO É A PÁGINA — E CORRIGIR ISSO TAMBÉM TEM PREÇO
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: chegou sem número em detector-erro-v1 (D1, via v1-ligada). Nada foi apagado.
 
 D1 (2026-09-23). O detector chamava capa a notícias porque contava os links do
 menu do sítio como se fossem da página: em 9 de 10, a maioria dos links vivia em
@@ -21411,7 +21417,9 @@ A validação cega foi sorteada e commitada ANTES de olhar para as páginas, e s
 as já vistas: uma correção medida só nos casos que a inspiraram prova só que
 lê bem esses casos.
 
-## §196 · A RECEITA ARRUMA A ROTA; OS 4 PASSOS PEDEM MAIS DO QUE A ROTA
+# §203 · A RECEITA ARRUMA A ROTA; OS 4 PASSOS PEDEM MAIS DO QUE A ROTA
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §196 em K1 (via v1-ligada); o número já estava ocupado nesta linha. Nada foi apagado.
 
 K1 (2026-09-23; escrita como §192 na branch receitas-gabaritos-v1 e renumerada na
 fusao V1A, porque a unificacao ja tinha um §192). Corrigir a configuração das fontes era o caminho certo — e o
@@ -21434,7 +21442,9 @@ funcionar.
 
 ---
 
-# §197 · UMA REGRA NOVA PRECISA DE UM DADO QUE NINGUÉM TRANSPORTAVA — E DE DOIS JUÍZES QUE DIGAM O MESMO
+# §204 · UMA REGRA NOVA PRECISA DE UM DADO QUE NINGUÉM TRANSPORTAVA — E DE DOIS JUÍZES QUE DIGAM O MESMO
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §197 em v1-ligada (V1A); o número já estava ocupado nesta linha. Nada foi apagado.
 
 V1A (23/09/2026). A V1 da LD3 — «a página que é o próprio INDEX_URL do contrato é capa» —
 cumpriu o critério escrito ANTES de medir (dominar o ACTUAL nos dois erros, nos três
@@ -21467,7 +21477,9 @@ encolher), não corrigido: mudar a contagem é mudar o detector, e isso mede-se 
 Medido pelo código real, com o estado das fontes da K1 numa cópia: capas que entram
 37→30 · 6→5 · 4→3; notícias barradas e retidas iguais. A V1 disparou em 17 páginas — todas
 capas verdadeiras, todas de fontes que passam os 4 passos.
-# §199 · UM «NÃO SEI FAZER» ESCRITO À MÃO NÃO SE DESACTUALIZA SOZINHO — E UM CANAL É UMA FONTE
+# §205 · UM «NÃO SEI FAZER» ESCRITO À MÃO NÃO SE DESACTUALIZA SOZINHO — E UM CANAL É UMA FONTE
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §199 em curator-youtube-v1 (SOC2, via retencao-youtube-v1); o número já estava ocupado nesta linha. Nada foi apagado.
 
 SOC2 (23/09/2026), D17.4, D18, D19, D20. `RELATORIO-SOC2-CURATOR-YOUTUBE.md`.
 
@@ -21508,7 +21520,9 @@ Armadilhas medidas:
 
 Número: `§196`–`§197` ocupados noutras branches; `§198` é da SOC1; este é o `§199`.
 
-# §200 · O BYTE SAI, A LINHA FICA — E O SEPARADOR QUE O PYTHON CHAMA DE ESPAÇO
+# §207 · O BYTE SAI, A LINHA FICA — E O SEPARADOR QUE O PYTHON CHAMA DE ESPAÇO
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §200 em retencao-youtube-v1 (SOC3); o número já estava ocupado nesta linha. Nada foi apagado.
 
 SOC3 (23/09/2026), D20 e D21. `RELATORIO-SOC3-RETENCAO-YOUTUBE.md`.
 

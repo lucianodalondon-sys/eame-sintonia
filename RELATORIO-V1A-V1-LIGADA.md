@@ -116,7 +116,7 @@ curadoria/canario.py · curadoria/ready_split.py · curadoria/retrato_html.py ·
 curadoria/V1A-MEDICAO-V1.json (novo) · guarda/preservar_coleta.py · medidas/canario_rotas_elegiveis.py
 medidas/micro_colheita.py · medidas/medir_v1a.py (novo) · medidas/mutacao_v1a.py (novo)
 orquestrador/orquestrador.py · tests/test_politica_nao_sei.py · tests/test_quarentena_naosei.py
-tests/test_v1a_v1_ligada.py (novo) · tests/test_raw_observation_id_volta.py · SINTONIA-EAME-KNOW-HOW.md (§196 renumerado, §197)
+tests/test_v1a_v1_ligada.py (novo) · tests/test_raw_observation_id_volta.py · SINTONIA-EAME-KNOW-HOW.md (§196 renumerado, §197 — na UNIFICACAO-V1-F passaram a §203 e §204)
 RELATORIO-V1A-V1-LIGADA.md · system-map/data/architecture.declared.json · gerados do mapa
 + tudo o que o merge da K1 trouxe (bfb99224)
 ```
