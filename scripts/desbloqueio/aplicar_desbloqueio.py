@@ -205,7 +205,8 @@ def prova_integra(provas: list[dict]) -> str | None:
 # ── O PLANO ────────────────────────────────────────────────────────────────
 def propostas() -> list[tuple[str, dict]]:
     vistas, out = set(), []
-    for nome in ("PROPOSTA-RECEITAS-V1.json", "PROPOSTA-RECEITAS-V2.json"):
+    for nome in ("PROPOSTA-RECEITAS-V1.json", "PROPOSTA-RECEITAS-V2.json",
+                 "PROPOSTA-RECEITAS-V3.json"):   # V3 = aditamento LD2
         f = RAIZ / "curadoria" / nome
         if not f.exists():
             continue

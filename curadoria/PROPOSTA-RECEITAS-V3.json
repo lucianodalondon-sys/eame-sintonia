@@ -1,0 +1,222 @@
+{
+ "DATASET": "PROPOSTA-RECEITAS-V3",
+ "MISSAO": "LD2 (aditamento ao G1)",
+ "ESTADO": "PROPOSTA — aplica-se pelo pacote G1, no cutover",
+ "METODO": "scripts/receitas/censo_e_proposta.por_fonte (6-PREP-d), sem alteracao; DERIVACAO por linha",
+ "CONTRATOS_LIDOS_DE": "C:\\Users\\London1\\AppData\\Local\\Temp\\ld1\\livro-g1.json",
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T10-020",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://winenews.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?winenews\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa um link de navegacao da entrada: https://winenews.it/it/cercasi-talenti-del-vino-di-domani-torna-il-wine-business-program-di-italia-del-vino_601874/",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.ersaf.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?ersaf\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://www.ersaf.lombardia.it/progetti-ersaf/mrv4soc/: < 2",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-023",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.regione.puglia.it/web/agricoltura",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.puglia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: o padrao derivado nao casa a propria materia confirmada https://www.regione.puglia.it/web/feampa-21-27/-/pn-feampa-2021-2027-bando-per-gli-indennizzi-finanziari-a-copertura-dei-maggiori-costi-di-produzione-sostenuti-dalle-imprese-della-pesca-e-dell-acquacoltura-per-effetto-del-conflitto-bellico-in-medio-oriente-priorit%C3%A0-2-obiettivo-specifico-2.2-azione-?redirect=%2Fweb%2Fagricoltura (esqueleto nao reproduzivel)",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1, SLUG_COM_PERCENT",
+   "PRIMEIRA_TENTATIVA": "NAO SEI: o padrao derivado nao casa a propria materia confirmada https://www.regione.puglia.it/web/feampa-21-27/-/pn-feampa-2021-2027-bando-per-gli-indennizzi-finanziari-a-copertura-dei-maggiori-costi-di-produzione-sostenuti-dalle-imprese-della-pesca-e-dell-acquacoltura-per-effetto-del-conflitto-bellico-in-medio-oriente-priorit%C3%A0-2-obiettivo-specifico-2.2-azione-?redirect=%2Fweb%2Fagricoltura (esqueleto nao reproduzivel)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-028",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://agricoltura.regione.campania.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?agricoltura\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://agricoltura.regione.campania.it/tartufo/gestionale.html: < 2",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-044",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://calabriaeuropa.regione.calabria.it/news",
+   "LINK_PATTERN": "^https?://(www\\.)?calabriaeuropa\\.regione\\.calabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa navegacao sintetica /chi-siamo; padrao derivado recusado pelo guarda: casa navegacao sintetica /chi-siamo",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-033",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpalombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa um link de navegacao da entrada: https://www.arpalombardia.it/temi-ambientali/frane-e-dissesti/archivio-webcam-cmg/",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-039",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?arpae\\.it/it/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/2",
+      "CAPAS_CASADAS_DEPOIS": "0/2",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "28/55",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "30/55",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+       "https://www.arpae.it/it/notizie/aggiornamento-al-portale-prelievi-1",
+       "https://www.arpae.it/it/notizie/aggiornamento-al-portale-prelievi-1-1",
+       "https://www.arpae.it/it/notizie/aggiornamento-portale-prelievi-di-arpae",
+       "https://www.arpae.it/it/notizie/arpae-a-remtech-expo-2026"
+      ],
+      "PAGINA_DE_ENTRADA": "indices-G1:https://www.arpae.it/it/notizie"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.arpae.it/it/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-049",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.arpa.sicilia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpa\\.sicilia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa navegacao sintetica /chi-siamo",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?di3a\\.unict\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?di3a\\.unict\\.it/it/notizie/(?:[A-Za-z0-9]|%[0-9A-Fa-f]{2})+(?:[-_](?:[A-Za-z0-9]|%[0-9A-Fa-f]{2})+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.di3a.unict.it/it/notizie/pubblicazione-risultati-valutazione-titoli-i-concorrenti-del-ciclo-di-dottorato-42%C2%B0"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "5/29",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "6/29",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.di3a.unict.it/it/notizie/avvisi-esami-e-prove-itinere",
+       "https://www.di3a.unict.it/it/notizie/avvisi-lezioni",
+       "https://www.di3a.unict.it/it/notizie/kit-di-sopravvivenza-la-sessione-di-esami-strumenti-psicologici-contro-lansia",
+       "https://www.di3a.unict.it/it/notizie/pubblica-selezione-titoli-e-colloquio-633",
+       "https://www.di3a.unict.it/it/notizie/pubblicazione-risultati-valutazione-titoli-i-concorrenti-del-ciclo-di-dottorato-42%C2%B0"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#44",
+      "RISCO_DECLARADO": "2 dos 5 exemplos (avvisi-lezioni, avvisi-esami-e-prove-itinere) parecem paginas de categoria, nao noticias; o guarda da casa deixou passar. Medido no gabarito de controlo LD2."
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.di3a.unict.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1, SLUG_COM_PERCENT",
+   "PRIMEIRA_TENTATIVA": "NAO SEI: o padrao derivado nao casa a propria materia confirmada https://www.di3a.unict.it/it/notizie/pubblicazione-risultati-valutazione-titoli-i-concorrenti-del-ciclo-di-dottorato-42%C2%B0 (esqueleto nao reproduzivel)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.etvilloresi.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?etvilloresi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://etvilloresi.it/attivita/progetti/csis/: < 2",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-046",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://assofertilizzanti.federchimica.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?assofertilizzanti\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://assofertilizzanti.federchimica.it/progetto-qualita/progetto: < 2",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-055",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.consorziopiave.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?consorziopiave\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://consorziopiave.it/riduzionelaghi-decarlo/: < 2",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-008",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA",
+    "PADRAO_NAO_CASA_NADA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.agroalimentarenews.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?agroalimentarenews\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: padrao derivado recusado pelo guarda: casa navegacao sintetica /chi-siamo",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1"
+  },
+  {
+   "SOURCE_ID": "IT-T11-010",
+   "DEFEITOS": [
+    "INDEX_APONTA_MATERIA",
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/fiera/fiera-2026",
+   "LINK_PATTERN": "^https?://(www\\.)?svilupposostenibile\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 0 link(s) na entrada para https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/fiera/fiera-2026: < 2; familia com 1 link(s) na entrada para https://www.svilupposostenibile.regione.lombardia.it/it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit: < 2; familia com 1 link(s) na entrada para https://www.svilupposostenibile.regione.lombardia.it/it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit: < 2",
+   "DERIVACAO": "POR_FONTE_6PREPD, ENTRADA=INDEX_URL_DEPOIS_DO_G1",
+   "SEM_PROPOSTA_INDEX": "NAO SEI: a listagem de noticias do site (/it/educazione-ambientale/notizie, buscada em LD2, sha no ~/ld2-paginas) tem 3 links com a forma da noticia confirmada (/it/news/news/<id>/<slug>) — o site pagina de 3 em 3; minimo do G1 = 10. Os 3 pedidos ao site esgotaram-se. Falta: 1 visita autorizada a mesma listagem com o parametro de pagina maior (dp-1-per-page)."
+  }
+ ]
+}
