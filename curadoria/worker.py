@@ -542,6 +542,36 @@ def _pulso(r: dict) -> None:
         pass
 
 
+# ⚠️ PULSO DURANTE A TAREFA, COM TETO. O pulso por tarefa nao cobre UMA
+# tarefa longa (rede lenta, canario grande): passados HEARTBEAT_TIMEOUT_S sem
+# pulso o supervisor da-o como morto — e agora termina-o, a meio. Um fio de
+# fundo pulsa enquanto ha tarefa em curso. Mas um fio que pulsa SEMPRE
+# esconderia um worker realmente encravado; por isso so pulsa ate
+# TAREFA_MAX_S. Encravado passa a ser detectado em TAREFA_MAX_S + 300 s.
+PULSO_INTERVALO_S = 30
+TAREFA_MAX_S = 900
+_EM_CURSO: dict = {}
+
+
+def _pulsar_em_fundo() -> None:
+    while True:
+        time.sleep(PULSO_INTERVALO_S)
+        t = dict(_EM_CURSO)
+        if t and time.time() - t["DESDE"] < TAREFA_MAX_S:
+            _pulso({"TASK_ID": t["TASK_ID"], "RESULTADO": "EM_CURSO"})
+
+
+_FIO_ARRANCADO: list = []
+
+
+def _arrancar_fio_de_pulso() -> None:
+    """Um fio por processo, arrancado na primeira tarefa."""
+    import threading
+    threading.Thread(target=_pulsar_em_fundo, daemon=True,
+                     name="pulso-do-worker").start()
+    _FIO_ARRANCADO.append(1)
+
+
 def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> list[dict]:
     """O LOOP. Para quando a fila nao tem nada ELEGIVEL — o que nao e o mesmo
     que a fila estar vazia: pode haver tarefas a espera do relogio delas, e
@@ -556,7 +586,13 @@ def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> li
         t = F.proxima()
         if t is None:
             break
-        r = executar_uma(t, contratos)
+        if not _FIO_ARRANCADO:
+            _arrancar_fio_de_pulso()
+        _EM_CURSO.update({"TASK_ID": t["TASK_ID"], "DESDE": time.time()})
+        try:
+            r = executar_uma(t, contratos)
+        finally:
+            _EM_CURSO.clear()
         # ⚠️ BUILD_CONTRACT acrescenta linhas a tabela. Um dicionario lido uma
         # vez no arranque nao ve o contrato que acabou de nascer, e o canario
         # seguinte diria «sem contrato» sobre a fonte que o Bot acabou de

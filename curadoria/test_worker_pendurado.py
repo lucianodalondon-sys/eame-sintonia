@@ -95,12 +95,62 @@ class TestPulsoPorTarefa(_Isolado):
             F.enfileirar("IT-SEM-CONTRATO-%d" % i, F.CANARY, priority=1, motivo="t")
         vistos = []
         orig = W._pulso
-        W._pulso = lambda r: vistos.append(r["TASK_ID"])
+        W._pulso = lambda r: r.get("RESULTADO") != "EM_CURSO" and vistos.append(r["TASK_ID"])
         try:
             W.correr(pausa=0, verboso=False)
         finally:
             W._pulso = orig
         self.assertEqual(len(vistos), 3)
+
+
+class TestPulsoDuranteATarefa(_Isolado):
+    def _correr_com_tarefa_de(self, dur_s, teto_s):
+        import time as _t
+        F.enfileirar("IT-LONGA", F.CANARY, priority=1, motivo="t")
+        pulsos = []
+        orig = (W._pulso, W.executar_uma, W.PULSO_INTERVALO_S, W.TAREFA_MAX_S)
+        W._pulso = lambda r: pulsos.append((_t.time(), r.get("RESULTADO")))
+        W.PULSO_INTERVALO_S, W.TAREFA_MAX_S = 0.1, teto_s
+
+        def _lenta(t, contratos):
+            _t.sleep(dur_s)
+            F.concluir(t["TASK_ID"], "ok")
+            return {"TASK_ID": t["TASK_ID"], "SOURCE_ID": t["SOURCE_ID"],
+                    "TASK_TYPE": t["TASK_TYPE"], "RESULTADO": "OK", "PORQUE": ""}
+        W.executar_uma = _lenta
+        W._arrancar_fio_de_pulso()        # fio proprio, ja com o intervalo curto
+        t0 = _t.time()
+        try:
+            W.correr(pausa=0, verboso=False)
+        finally:
+            _t.sleep(0.3)
+            (W._pulso, W.executar_uma, W.PULSO_INTERVALO_S, W.TAREFA_MAX_S) = orig
+        return t0, [(t - t0, r) for t, r in pulsos]
+
+    def test_correr_arranca_o_fio_de_pulso_sozinho(self):
+        F.enfileirar("IT-SEM-CONTRATO-FIO", F.CANARY, priority=1, motivo="t")
+        chamadas = []
+        orig = (W._arrancar_fio_de_pulso, list(W._FIO_ARRANCADO))
+        W._FIO_ARRANCADO.clear()
+        W._arrancar_fio_de_pulso = lambda: (chamadas.append(1),
+                                            W._FIO_ARRANCADO.append(1))
+        try:
+            W.correr(pausa=0, verboso=False)
+        finally:
+            W._arrancar_fio_de_pulso = orig[0]
+            W._FIO_ARRANCADO[:] = orig[1]
+        self.assertEqual(chamadas, [1])
+
+    def test_tarefa_longa_pulsa_durante(self):
+        _, p = self._correr_com_tarefa_de(1.2, teto_s=60)
+        em_curso = [t for t, r in p if r == "EM_CURSO"]
+        self.assertGreaterEqual(len(em_curso), 5, p)
+
+    def test_tarefa_encravada_deixa_de_pulsar_no_teto(self):
+        _, p = self._correr_com_tarefa_de(1.5, teto_s=0.3)
+        em_curso = [t for t, r in p if r == "EM_CURSO"]
+        self.assertTrue(em_curso, p)                     # pulsou no inicio
+        self.assertLess(max(em_curso), 0.3 + 0.25, p)    # e calou-se no teto
 
 
 class TestUmSoEscritor(_Isolado):
@@ -114,8 +164,9 @@ class TestUmSoEscritor(_Isolado):
                   "LAST_PROGRESS_AT": velho.isoformat(), "RESTARTS_TOTAL": 0}
         lancados = []
         orig = S._lancar_worker
-        S._lancar_worker = lambda pausa=1.0, cmd=None: lancados.append(1) or \
-            subprocess.Popen([sys.executable, "-c", "pass"])
+        # no INSTANTE do lancamento: o antigo ainda vive? (um so escritor)
+        S._lancar_worker = lambda pausa=1.0, cmd=None: lancados.append(
+            pendurado.poll() is None) or subprocess.Popen([sys.executable, "-c", "pass"])
         try:
             accao, estado, novo = S.uma_volta_sup(estado, pendurado)
         finally:
@@ -126,6 +177,8 @@ class TestUmSoEscritor(_Isolado):
             if novo:
                 novo.wait(timeout=30)
         self.assertEqual(accao, "RELANCADO")
+        self.assertEqual(lancados, [False],
+                         "o worker antigo ainda estava vivo quando o novo foi lancado")
         evs = [json.loads(l)["EVENTO"] for l in
                S.DIARIO.read_text(encoding="utf-8").splitlines() if l.strip()]
         i_term = evs.index("WORKER_PENDURADO_TERMINADO")

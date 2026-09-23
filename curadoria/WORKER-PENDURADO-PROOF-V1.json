@@ -83,14 +83,17 @@
  "6_CORRECAO": [
   "stdout do worker -> curadoria/WORKER-STDOUT.log (append, roda para .1 acima de 5 MB no arranque)",
   "worker._pulso: WORKER-HEARTBEAT.json por tarefa; supervisor._ultimo_heartbeat = max(diario, pulso)",
-  "rc None na morte -> terminate/kill e WORKER_PENDURADO_TERMINADO antes de relancar"
+  "rc None na morte -> terminate/kill e WORKER_PENDURADO_TERMINADO antes de relancar",
+  "pulso DURANTE a tarefa: fio de fundo a cada 30 s enquanto ha tarefa em curso, com teto TAREFA_MAX_S=900 — encravado continua a ser detectado (900+300 s)"
  ],
  "7_MUTACOES": {
   "PIPE_NAO_LIDO": "2 testes reprovam",
   "SUPERVISOR_IGNORA_PULSO": "2",
-  "NAO_TERMINA_PENDURADO": "1",
+  "NAO_TERMINA_PENDURADO": "1 (um so escritor: o antigo ainda vivo no instante do lancamento)",
   "WORKER_NAO_PULSA": "1",
-  "SURVIVORS": 0
+  "SURVIVORS": 0,
+  "SEM_FIO_DE_PULSO": "1 (sobreviveu a 1a vez; teste acrescentado)",
+  "PULSO_SEM_TETO": "1"
  },
  "8_AO_VIVO_APOS_9a82197c": {
   "FONTE": "run-log e ledger da worktree viva copiados as ~01:56Z (evidencia trazida pelo coordenador)",
@@ -138,5 +141,132 @@
    "ESTADO": "1 entrada na janela; mortes a 303 s umas das outras nunca juntam 3 em 120 s",
    "FALTA_PARA_BLOCKED": "2 mortes sem progresso nos 120 s seguintes a uma morte — impossivel neste ritmo"
   }
+ },
+ "9_DOIS_ESCRITORES_EM_COPIA": {
+  "COMO": "ensaiar_dois_escritores.py: supervisor e workers reais; relogio encurtado (HEARTBEAT_TIMEOUT_S=10, worker --pausa 12) para o supervisor dar como morto um worker vivo; tarefas sem contrato, sem rede",
+  "ANTERIOR_DRENADO": {
+   "DATASET": "DOIS-ESCRITORES-ENSAIO-V1",
+   "CODIGO": "sem terminate (anterior)",
+   "DRENADO": true,
+   "PIDS_LANCADOS": [
+    114768,
+    127984,
+    127124
+   ],
+   "MAX_WORKERS_VIVOS_AO_MESMO_TEMPO": 3,
+   "SEGUNDOS_COM_2_OU_MAIS_VIVOS": 3.0,
+   "TAREFAS_FECHADAS_POR_PID": {
+    "114768": 4,
+    "127984": 3,
+    "127124": 1
+   },
+   "PIDS_A_FECHAR_TAREFAS_EM_INTERVALOS_QUE_SE_CRUZAM": true,
+   "LINHAS_POR_PID": {
+    "114768": [
+     1.2,
+     13.3,
+     25.4,
+     37.5
+    ],
+    "127984": [
+     12.5,
+     24.8,
+     36.8
+    ],
+    "127124": [
+     27.8
+    ]
+   },
+   "TAREFAS_FECHADAS_MAIS_DE_UMA_VEZ": [],
+   "EVENTOS": [
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "SUPERVISOR_BLOCKED",
+    "VOLTA",
+    "WORKER_OCIOSO_SAIU",
+    "SUPERVISOR_BLOCKED",
+    "VOLTA",
+    "WORKER_OCIOSO_SAIU",
+    "SUPERVISOR_BLOCKED",
+    "VOLTA",
+    "WORKER_OCIOSO_SAIU",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED"
+   ]
+  },
+  "ANTERIOR_COMO_EM_PRODUCAO": {
+   "DATASET": "DOIS-ESCRITORES-ENSAIO-V1",
+   "CODIGO": "sem terminate (anterior)",
+   "DRENADO": false,
+   "PIDS_LANCADOS": [
+    116140,
+    127660,
+    120384
+   ],
+   "MAX_WORKERS_VIVOS_AO_MESMO_TEMPO": 2,
+   "SEGUNDOS_COM_2_OU_MAIS_VIVOS": 1.0,
+   "TAREFAS_FECHADAS_POR_PID": {},
+   "PIDS_A_FECHAR_TAREFAS_EM_INTERVALOS_QUE_SE_CRUZAM": false,
+   "LINHAS_POR_PID": {},
+   "TAREFAS_FECHADAS_MAIS_DE_UMA_VEZ": [],
+   "EVENTOS": [
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED"
+   ]
+  },
+  "NOVO_COMO_EM_PRODUCAO": {
+   "DATASET": "DOIS-ESCRITORES-ENSAIO-V1",
+   "CODIGO": "com terminate antes de relancar",
+   "DRENADO": false,
+   "PIDS_LANCADOS": [
+    128676,
+    100648,
+    121072
+   ],
+   "MAX_WORKERS_VIVOS_AO_MESMO_TEMPO": 1,
+   "SEGUNDOS_COM_2_OU_MAIS_VIVOS": 0.0,
+   "TAREFAS_FECHADAS_POR_PID": {},
+   "PIDS_A_FECHAR_TAREFAS_EM_INTERVALOS_QUE_SE_CRUZAM": false,
+   "LINHAS_POR_PID": {},
+   "TAREFAS_FECHADAS_MAIS_DE_UMA_VEZ": [],
+   "EVENTOS": [
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_PENDURADO_TERMINADO",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_PENDURADO_TERMINADO",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE"
+   ]
+  },
+  "LEITURA": "anterior: ate 3 workers vivos e 3 PIDs a fechar tarefas intercaladas da mesma fila (~25 s de escrita cruzada); nenhuma tarefa duplicada nesta corrida, sem nada que o impeca. Novo: nunca mais de 1 vivo; WORKER_PENDURADO_TERMINADO antes de cada relancamento.",
+  "NOTA_METRICA": "SEGUNDOS_COM_2_OU_MAIS_VIVOS subconta: cada amostra consulta o tasklist por PID e demora varios segundos; os tempos de fecho por PID sao a medida.",
+  "SUPERVISOR_BLOCKED_NO_ANTERIOR": "artefacto do relogio encurtado: 3 mortes em <120 s. Em producao, a 303 s umas das outras, nao acontece."
  }
 }
