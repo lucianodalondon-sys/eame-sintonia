@@ -4399,6 +4399,26 @@
    ]
   },
   {
+   "id": "C-PROVA-CANARIO-REEL",
+   "name": "A prova do canário do Reel",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "▶",
+   "what": "O canário que leva REELS PÚBLICOS DO INSTAGRAM, por URL directa, pela cadeia canónica com rede a sério e a dinheiro zero: listagem dos Reels recentes do perfil pelo embed (sem login, sem conta) -> captura do reel pelo yt-dlp -> RAW com sha256 -> DERIVED com o TEXTO pelo dono único do ASR -> ingresso -> Admissão com a régua multilingue. Base descartável: nada é escrito na Sala. Mede o egresso de cada passo e grava o artefacto em data/samples/CANARIO-REELS-INSTAGRAM-V1.json.",
+   "why_here": "A capability estava provada por partes — a cadeia do Reel tinha 47 testes e oito Reels no disco — e nunca tinha sido exercida PONTA A PONTA com bytes vindos da plataforma. Um canário que só corresse a cadeia sobre um ficheiro em casa não mediria nem a descoberta, nem o egresso, nem a autorização da D22. E ele mediu três coisas que nenhum teste de unidade mede: o User-Agent decide o conteúdo que a plataforma serve (UA curto traz a lista, UA completo traz uma casca), o `raw_asset.run_id` é chave estrangeira e o byte não entra sem corrida, e a Admissão responde NAO a um reel institucional — que é resultado, não falha.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/canario_reels_instagram.py",
+    "data/samples/CANARIO-REELS-INSTAGRAM-V1.json"
+   ],
+   "views": [
+    "audit",
+    "diagnostic"
+   ]
+  },
+  {
    "id": "C-PROVA-CUTOVER",
    "name": "As provas do cutover da Collection",
    "territory": "Z-PROVA",
