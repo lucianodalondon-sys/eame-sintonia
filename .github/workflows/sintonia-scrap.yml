@@ -80,6 +80,7 @@ on:
           # PRÓPRIA organização e traz de lá o endereço que ela publicou.
           # Devolve CATÁLOGO, e catálogo não atravessa a Admissão.
           - identidade-linkedin # o endereço LinkedIn publicado pela organização
+          - video-linkedin # D23: o VÍDEO (e a legenda) das páginas públicas de ORGANIZAÇÃO
           # `transcrever` e `transcrever-alvos` foram APOSENTADAS na C10.4C.
           # A fala de Reel tem um dono só, e ele pede áudio — nunca o vídeo
           # inteiro. Ver `docs/sintonia-scrap/C10-4C-APOSENTAR-A-ROTA-LEGADA.md`.
@@ -168,6 +169,20 @@ on:
         type: string
       site:
         description: 'só para `identidade-linkedin` — o site DA ORGANIZAÇÃO onde ela publica o próprio endereço. NUNCA linkedin.com.'
+        required: false
+        type: string
+      # ⚠️ `pagina` NAO E `site`, E NAO E O `url` DO REEL.
+      #
+      #     `site`    o site PRÓPRIO da organização, de onde se descobre o
+      #               endereço que ela publicou. Route de IDENTIDADE.
+      #     `pagina`  a página do LinkedIn que ela SERVE PUBLICAMENTE, de
+      #               onde vêm as publicações com vídeo. D23.
+      #     `url`     a publicação directa de um Reel (Instagram).
+      #
+      # Três endereços, três actos, três nomes — e nenhum deles é o
+      # SOURCE_ID, que continua a descer em `fonte`.
+      pagina:
+        description: 'só para `video-linkedin` — a PÁGINA PÚBLICA da organização (ex.: https://www.linkedin.com/company/<slug>/). NÃO é o SOURCE_ID.'
         required: false
         type: string
       orcamento_h:
@@ -668,6 +683,42 @@ jobs:
                 --filtro fonte="${{ inputs.fonte }}" \
                 --filtro site="${{ inputs.site }}" ;;
 
+            # ── D23 · O VÍDEO DA PÁGINA PÚBLICA DE ORGANIZAÇÃO ─────────────
+            # Ramo PRÓPRIO, pela mesma razão do irmão acima: leva um
+            # endereço que nenhuma outra fase leva — a PÁGINA PÚBLICA da
+            # ORGANIZAÇÃO.
+            #
+            # ⚠️ A MATRIZ PERMITE ESTA ROTA E A PLATAFORMA PROÍBE — e é isso
+            # que o dono autorizou, com o risco assumido (D23). As duas
+            # frases ficam escritas, e viajam em cada objeto que sai daqui:
+            #
+            #     OWNER_AUTHORIZED        = SIM        (decisão do dono)
+            #     PLATFORM_POLICY_STATUS  = DISALLOWED (robots.txt, medido)
+            #
+            #     PERMITIDA POR DECISÃO DO DONO ≠ PERMITIDA PELA PLATAFORMA.
+            #     ESCONDER A SEGUNDA SERIA A CASA A MENTIR NO PRÓPRIO RASTO.
+            #
+            # `fonte` é OBRIGATÓRIA: o SCRAP observa PLATAFORMAS e a porta
+            # fala em FONTES. Sem SOURCE_ID provado não há colheita a
+            # declarar, por muito que os bytes tenham chegado.
+            #
+            # O teto desce SÓ quando alguém o escreveu: um filtro vazio não
+            # é um teto de zero, e passá-lo vazio diria à rota que se pediu
+            # zero vídeos quando ninguém pediu nada.
+            video-linkedin)
+              FONTE_LI="$(fonte_do_pedido '${{ inputs.fonte }}')"
+              PEDIDO_TETO=''
+              if [ -n "${{ inputs.teto }}" ]; then
+                PEDIDO_TETO="--filtro teto=${{ inputs.teto }}"
+              fi
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" \
+                --filtro fase="video-linkedin" \
+                --filtro pais=IT \
+                --filtro fonte="$FONTE_LI" \
+                --filtro pagina="${{ inputs.pagina }}" \
+                $PEDIDO_TETO ;;
+
             # ── AS CINCO OFICIAIS DO YOUTUBE, PELA PORTA CANÓNICA ─────────
             # `coleta/youtube_janela.py canais|objetos` sobe NAVEGADOR e
             # continua recusado acima — a rota PUBLIC_BROWSER não está
@@ -782,21 +833,26 @@ jobs:
                 --filtro fase=contas-bluesky --filtro fonte="$FONTE_AB" \
                 --filtro pais=IT --filtro termo='${{ inputs.termo }}' ;;
 
-            # ── AS TRÊS DO REEL: CONSTRUÍDAS, E RECUSADAS PELA MATRIZ ─────
-            # A fase EXISTE — `scrap_colheita.FASES`, `NOMEADOS` e
-            # `receitas.serve_fases` — e o caminho está montado. Quem a recusa
-            # hoje é a LEI, e o portão passou a dizê-lo:
+            # ── AS TRÊS DO REEL: A MATRIZ AUTORIZA (D22/D24) — E ESTA PORTA
+            #    PASSA A MANDÁ-LAS AO ORQUESTRADOR ──────────────────────────
+            # ATUALIZADO EM 2026-09-23, e a mudança é de DIREÇÃO, não de gosto.
             #
-            #     mz.decisao('INSTAGRAM','FETCH_TRANSCRIPT') -> ROUTE_NOT_ALLOWED
-            #     CHECK('INSTAGRAM','instagram.reel.transcribe')
-            #         -> CAN=False · STATE=ROUTE_NOT_ALLOWED
+            # O que estava escrito aqui: «a matriz recusa
+            # `INSTAGRAM/FETCH_TRANSCRIPT` (ROUTE_NOT_ALLOWED) e a autorização
+            # nomeada do dono vale para o YOUTUBE (D17.4) e não para Reels
+            # (D19.2)». Isso deixou de ser verdade: a **D22** autorizou os Reels
+            # por URL directa (substituindo a D19) e a **D24** autorizou o vídeo
+            # de PESSOAS do agro, com os DOIS eixos escritos ao lado —
+            # `OWNER_AUTHORIZED = SIM` + `PLATFORM_POLICY_STATUS = DISALLOWED`.
             #
-            # A autorização nomeada do dono vale para o YOUTUBE (D17.4) e NÃO
-            # se estende a Reels (D19.2): até existir a conta Instagram Business
-            # do PROJETO, a Página Meta e o app próprios, o Instagram permanece
-            # POLICY_BLOCK e fornece zero dados à Big Collection (D19.1).
+            #     UMA PORTA OPERACIONAL QUE RECUSA O QUE A LEI PERMITE É DOIS
+            #     VERDADES SOBRE A MESMA ROTA.
             #
-            #     CONSTRUÍDA != LIGADA != PERMITIDA.
+            # O que NÃO mudou, e é o que continua a travar esta fase: **`URL` não
+            # é `SOURCE_ID`**. A publicação de uma pessoa ainda não tem fonte
+            # registada com território provado (D24, item aberto 1), e esta porta
+            # NÃO inventa uma — quem recusa alto é o coletor, com
+            # `FONTES_AUSENTES`, no sítio canónico onde essa pergunta tem dono.
             #
             # ⚠️ E ISTO NÃO É UMA RECUSA DE CONTEÚDO: é uma recusa de POLÍTICA.
             # O estado que sai é o da matriz, com o nome dela — nunca um
@@ -819,7 +875,7 @@ jobs:
             # O endereço do reel é o ALVO, e vem do pedido: sem `url` não há
             # alvo, porque a lei do dono é colher POR URL DIRECTA.
             captura-reel|audio-reel|transcricao-reel)
-              FONTE_IG="$(fonte_obrigatoria '${{ inputs.fonte }}')"
+              FONTE_IG="$(fonte_do_pedido '${{ inputs.fonte }}')"
               if [ -z '${{ inputs.url }}' ]; then
                 echo 'ENDERECO_OBRIGATORIO: as fases do Reel colhem por URL DIRECTA — sem `url` nao ha alvo (D22: sem login, sem conta).'
                 exit 2

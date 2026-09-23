@@ -133,6 +133,9 @@ _C5 = 'docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md'
 #: SHA, ffprobe e ASR. Prova propria: a rota oficial de dados nao a sustenta.
 _C13 = 'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md'
 _LB = 'docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md'
+#: A prova propria desta missao: o video de ORGANIZACAO do LinkedIn, medido ao vivo
+#: com bytes, sha, legenda e a decisao do dono (D23) escrita ao lado.
+_D23 = 'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md'
 _C11 = 'docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md'
 
 DECLARADAS = {
@@ -230,7 +233,41 @@ DECLARADAS = {
     # SRT automatica, nao WebVTT humana. E ASR de outra casa: mais barata, nao melhor.
     'linkedin.native_caption': ('LINKEDIN', BLOCKED, ONLINE, None, _C11, None),
     'linkedin.comments': ('LINKEDIN', UNKNOWN, AMBIENTE_DESCONHECIDO, None, _B, None),
-    'linkedin.documents': ('LINKEDIN', NOT_EXECUTED, AMBIENTE_DESCONHECIDO, None, _B, None),
+        'linkedin.documents': ('LINKEDIN', NOT_EXECUTED, AMBIENTE_DESCONHECIDO, None, _B, None),
+
+    # ── D23 · O VIDEO DE ORGANIZACAO — A CAPACIDADE QUE PASSOU A TER ROTA ──
+    # ⚠️ E ELA NAO RESSUSCITA NENHUMA DAS TRES ACIMA. `linkedin.native_video`,
+    # `linkedin.native_caption` e `linkedin.direct_post` continuam BLOCKED, e
+    # continuam certas: elas falam das rotas que a matriz NAO permite — a busca
+    # por palavra-chave, o post publico fora de pagina de organizacao e a rota
+    # paga. O que nasceu aqui e nome NOVO para um acto NOVO, com limite proprio
+    # (`PUBLIC_ORG_VIDEO_ONLY`) e com a decisao do dono escrita ao lado.
+    #
+    #     UMA CAPACIDADE NOVA NAO REVOGA UMA RECUSA ANTIGA:
+    #     ELA DECLARA QUE A RECUSA ERA SOBRE OUTRA COISA.
+    #
+    # Os tres nomes sao TRES actos, e nao tres nomes do mesmo acto (o caso do
+    # Reel, onde capturar/baixar/transcrever sao o mesmo gesto):
+    #
+    #   posts    DESCOBRIR as publicacoes que a pagina da organizacao serve
+    #            publicamente, com o activity id e o endereco de cada uma.
+    #            E o acto que a matriz chama `DISCOVER_POST`.
+    #   video    OS BYTES do video progressivo. `FETCH_VIDEO_BYTES` — nunca
+    #            `FETCH_TRANSCRIPT`, que diria que o que veio foi texto.
+    #   caption  O TEXTO da faixa de legenda que a publicacao declara.
+    #            `FETCH_TRANSCRIPT` — e legenda nativa, com especie propria.
+    #
+    #     VIDEO != TEXTO. E UM NOME PARA OS DOIS APAGARIA QUAL DAS DUAS COISAS
+    #     FOI ADQUIRIDA.
+    #
+    # PROVEN, e a prova e propria desta missao: 18 paginas de organizacoes
+    # italianas medidas ao vivo, MP4 servido a convidado com bytes e sha
+    # conferidos, legenda obtida e legivel em duas organizacoes. ONLINE porque
+    # corre inteira na rede, sem maquina local e sem GPU — e por isso nao ha
+    # `WHY_LOCAL` para declarar.
+    'linkedin.org.posts': ('LINKEDIN', PROVEN, ONLINE, None, _D23, 'DISCOVER_POST'),
+    'linkedin.org.video': ('LINKEDIN', PROVEN, ONLINE, None, _D23, 'FETCH_VIDEO_BYTES'),
+    'linkedin.org.caption': ('LINKEDIN', PROVEN, ONLINE, None, _D23, 'FETCH_TRANSCRIPT'),
 
     # ── YOUTUBE ───────────────────────────────────────────────────────────
     # Resolver o endereco de uma conta ate ao `channelId` e o degrau que faltava

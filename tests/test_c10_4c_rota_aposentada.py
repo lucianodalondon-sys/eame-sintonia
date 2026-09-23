@@ -478,7 +478,12 @@ class UmOwnerSo(unittest.TestCase):
         # (D22, 2026-09-23) e a linha mudou; o que NAO mudou — e e o que este
         # ficheiro existe para guardar — e o dono do motor: continua um so.
         rotas = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
-        self.assertEqual(len(rotas), 1)
+        # UMA rota (um so NOME, um so motor), em DUAS linhas desde a D22 + D24: uma
+        # por limite. Nascer um NOME novo aqui continua a reprovar (UNIFICACAO-V1-F).
+        self.assertEqual({r['ROTA'] for r in rotas}, {'instagram_transcrever.py:faster-whisper'},
+                         'nasceu rota nova em FETCH_TRANSCRIPT')
+        self.assertEqual(sorted(r.get('LIMITE') for r in rotas),
+                         ['PUBLIC_PERSON_VIDEO_ONLY', 'PUBLIC_REEL_BY_URL_ONLY'])
         self.assertEqual(rotas[0]['PERMITIDA'], 'SIM')
         self.assertEqual(rotas[0]['ESTADO'], 'PROVED')
         self.assertEqual(rotas[0]['OWNER_AUTHORIZED'], 'SIM')

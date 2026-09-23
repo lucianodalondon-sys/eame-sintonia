@@ -99,6 +99,11 @@ BLOQUEADAS = ('diario', 'yt-canais', 'yt-objetos', 'yt-legendas',
               'yt-transcrever', 'bio', 'posts', 'reels', 'comentarios')
 #: As fases que a MATRIZ recusa hoje — a recusa tem de ser a mesma nas duas
 #: portas, e o nome do estado tem de ser o que o dono da política deu.
+#: ⚠️ ATUALIZADO PELA D22/D24 (2026-09-23): as três do Reel SAÍRAM desta lista.
+#: A matriz deixou de as recusar — o dono real autorizou os Reels por URL directa
+#: (D22) e o vídeo de pessoas do agro (D24), com os dois eixos escritos. Elas
+#: continuam a NÃO correr por falta de FONTE registada, e quem o diz agora é o
+#: coletor (`FONTES_AUSENTES`), não esta porta — a porta manda-as ao orquestrador.
 RECUSADAS_PELA_MATRIZ = ('janela', 'janela-perfis', 'janela-objetos')
 #: Fases que NÃO são Collection e que por isso continuam com CLI própria.
 #:
@@ -472,6 +477,12 @@ class APoliticaContinuaDona(unittest.TestCase):
         self.assertEqual('DISALLOWED', linha['PLATFORM_POLICY_STATUS'],
                          'a política continua medida — e continua proibindo')
         self.assertEqual('PUBLIC_REEL_BY_URL_ONLY', linha['LIMITE'])
+        # D24: a segunda linha da mesma rota (video de PESSOA) existe, com os eixos.
+        pessoa = [r for r in mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
+                  if r.get('LIMITE') == 'PUBLIC_PERSON_VIDEO_ONLY']
+        self.assertEqual(len(pessoa), 1)
+        self.assertEqual('SIM', pessoa[0]['OWNER_AUTHORIZED'])
+        self.assertEqual('DISALLOWED', pessoa[0]['PLATFORM_POLICY_STATUS'])
         for cap in ('INCREMENTAL', 'FETCH_TRANSCRIPT'):
             self.assertIn(cap, mz.MATRIZ['INSTAGRAM'])
         # E a JANELA do perfil continua fechada: D22 é dos REELS.

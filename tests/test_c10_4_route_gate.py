@@ -207,26 +207,38 @@ class ODonoDaPoliticaEUmSo(unittest.TestCase):
         # A leitura nao mudou; mudou quem assume o risco: D22, 2026-09-23.
         # A decisao continua TOMADA e continua EXPLICITA — e o que este teste
         # fixa e que ela nomeia a autorizacao e o limite, nao que seja `NAO`.
+        # E a D24 (2026-09-23) acrescentou a SEGUNDA linha, a do video de PESSOA
+        # (PUBLIC_PERSON_VIDEO_ONLY): as duas autorizacoes convivem (UNIFICACAO-V1-F).
         d = mz.decisao('INSTAGRAM', GROSSA)
         self.assertEqual(d['DECISAO'], mz.PERMITIDA_SIM)
         rotas = mz.MATRIZ['INSTAGRAM'][GROSSA]
-        self.assertEqual(len(rotas), 1, 'nasceu rota nova em FETCH_TRANSCRIPT')
+        # UMA rota (um so NOME, um so motor), em DUAS linhas desde a D22 + D24: uma
+        # por limite. Nascer um NOME novo aqui continua a reprovar (UNIFICACAO-V1-F).
+        self.assertEqual({r['ROTA'] for r in rotas}, {'instagram_transcrever.py:faster-whisper'},
+                         'nasceu rota nova em FETCH_TRANSCRIPT')
+        self.assertEqual(sorted(r.get('LIMITE') for r in rotas),
+                         ['PUBLIC_PERSON_VIDEO_ONLY', 'PUBLIC_REEL_BY_URL_ONLY'])
         self.assertEqual(rotas[0]['PERMITIDA'], 'SIM')
         self.assertEqual(rotas[0]['ESTADO'], 'PROVED')
         self.assertEqual(rotas[0]['CLASSE'], 'LOCAL_EXECUTOR')
         self.assertEqual(rotas[0]['OWNER_AUTHORIZED'], 'SIM')
         self.assertEqual(rotas[0]['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
         self.assertEqual(rotas[0]['LIMITE'], 'PUBLIC_REEL_BY_URL_ONLY')
+        # D24: a linha do video de PESSOA existe ao lado, com os mesmos dois eixos.
+        pessoa = [x for x in rotas if x.get('LIMITE') == 'PUBLIC_PERSON_VIDEO_ONLY']
+        self.assertEqual(len(pessoa), 1, 'a linha da D24 sumiu da matriz')
+        self.assertEqual(pessoa[0]['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(pessoa[0]['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
 
     def test_a_decisao_e_de_rota_e_nao_rebaixa_a_capacidade(self):
         # O erro que esta casa nao pode cometer: transformar «nao podes sair»
         # em «nao sabes fazer». Sao donos diferentes e ficheiros diferentes.
         self.assertEqual(cap.estado('instagram.reel.transcribe'), 'PROVEN')
         self.assertTrue(cap.promete_resultado('instagram.reel.transcribe'))
-        # A capacidade continua PROVEN, e a decisao de rota continua a ser do
-        # dono — agora `SIM` por D22. Duas coisas, dois donos, dois ficheiros.
-        self.assertEqual(mz.decisao('INSTAGRAM', GROSSA)['DECISAO'],
-                         mz.PERMITIDA_SIM)
+        # ATUALIZADO PELA D22/D24: a rota deixou de ser recusada — e o estado da
+        # capacidade, que é do OUTRO dono, continua exactamente onde estava.
+        self.assertEqual(mz.decisao('INSTAGRAM', GROSSA)['DECISAO'], mz.PERMITIDA_SIM)
+        self.assertEqual(cap.estado('instagram.reel.transcribe'), 'PROVEN')
 
     def test_buscar_bytes_de_video_continua_por_declarar(self):
         # A cadeia mediu VIDEO_BYTES_DOWNLOADED = 0. Pedir autorizacao para o
@@ -307,15 +319,31 @@ class OCaminhoCanonico(unittest.TestCase):
         não que a porta esteja aberta. O caminho permitido é medido acima, com
         a política injectada em memória, que é onde ele deve ser medido.
         """
+        # ⚠️ ATUALIZADO PELA D22/D24 (2026-09-23): a matriz deixou de recusar
+        # `INSTAGRAM/FETCH_TRANSCRIPT` — o dono real autorizou os Reels por URL
+        # directa (D22) e o vídeo de pessoas do agro (D24), com os dois eixos ao
+        # lado. O que este teste guarda continua a ser o mesmo: o `CHECK` CONHECE
+        # a capacidade grossa e fala a língua dela.
         v = scrap.CHECK('INSTAGRAM', CAPACIDADE)
         self.assertEqual(v['MATRIZ_CAPABILITY'], GROSSA)
-        # ⚠️ ESTA LINHA JÁ FOI `assertFalse(v['CAN'])` E DEIXOU DE SER VERDADE
-        # POR DECISÃO (D22, 2026-09-23): o dono autorizou a coleta de REELS por
-        # URL directa. O que se mede aqui continua a ser o que sempre se mediu —
-        # que o `CHECK` CONHECE a capacidade grossa e fala a língua dela.
         self.assertEqual(v['MATRIZ_DECISAO'], mz.PERMITIDA_SIM)
         self.assertTrue(v['CAN'])
-        self.assertEqual('CAN_COLLECT_NOW', v['STATE'])
+        # ⚠️ DUAS PALAVRAS, DOIS DONOS — e esta linha afirmava a errada.
+        #
+        # `MATRIZ_DECISAO` é a permissão da POLÍTICA (`ALLOWED`, dona
+        # `leis/social_matriz.py`), e está medida na linha de cima. `STATE` é a
+        # PRONTIDÃO do portão (`CAN_COLLECT_NOW`, dona `coleta/scrap_executor.py`).
+        # O portão ESPELHA a palavra da matriz quando ela RECUSA, e diz a palavra
+        # dele quando pode colher — confundir as duas exigia `ALLOWED` de um campo
+        # que nunca falou essa língua.
+        self.assertEqual(scrap.PODE, v['STATE'])
+        # E a contraprova, no mesmo instante: com a matriz a RECUSAR, o portão
+        # fala a língua dela. O espelho é COMPORTAMENTO, e não coincidência — sem
+        # esta metade, trocar o `STATE` por uma constante qualquer passaria.
+        with _PoliticaNegativa():
+            recusado = scrap.CHECK('INSTAGRAM', CAPACIDADE)
+        self.assertFalse(recusado['CAN'])
+        self.assertEqual(mz.NAO_PERMITIDA, recusado['STATE'])
         self.assertEqual(v['ADAPTER'], 'adaptador_instagram')
         self.assertEqual(v['COST_TO_CHECK_USD'], 0.0)
 
