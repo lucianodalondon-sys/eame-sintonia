@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-    "GENERATED_AT": "2026-09-23T02:36:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901"
+    "BRANCH": "quarentena-naosei-v1",
+    "HEAD": "a5a164d52d38e89a8a3515ce000c55522026e730",
+    "GENERATED_AT": "2026-09-23T04:55:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "534ce573c8d30c78943523493e7a1c65803fd41b78a939aedbefa956bcdb8d67"
   },
   "FILES": [
     {
@@ -472,7 +472,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "75310e8a1d30e3b19e8f6a8b8a56542d5fd25f95",
+      "sha": "59bf7f7299e6aad61b4ea385bd46a4bdec829235",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -486,7 +486,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "992d01c7e815b113c673dc2030ce2e2f59091531",
+      "sha": "56afb71e8eba3f419bd2d6b8b0d0ade781267a5f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1515,7 +1515,7 @@
     },
     {
       "path": "coleta/derivacao_forward.py",
-      "sha": "9b0f83cf6aea92f0fe58ff54b361120e7e23601b",
+      "sha": "0859e753c16789449577da7f444a83b2d71d00db",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1557,7 +1557,7 @@
     },
     {
       "path": "coleta/executor_texto_de_html.py",
-      "sha": "136192ce25ffb9e93fdef38b41da258b5e847fd5",
+      "sha": "e3890cf94e05c267db3ce84a2f2e7ef8d225ed49",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2027,6 +2027,13 @@
     {
       "path": "curadoria/DISCOVERY-VISITED.json",
       "sha": "1bfc9b7cb4468c29de495443cd57785976420782",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/ENSAIO-QUARENTENA-NAOSEI-V1.json",
+      "sha": "da5421a641e3e26bcc7944e1c48c1b383d1a7e69",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2608,6 +2615,13 @@
     {
       "path": "curadoria/onboardar_rotas_provadas.py",
       "sha": "23e72778cdd69578407e8a6a7c1043dc7ce27702",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/politica_nao_sei.py",
+      "sha": "c2f00e37cbe272645424f7d371a51d93612e937c",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -12889,6 +12903,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/ensaio_quarentena_naosei.py",
+      "sha": "83cc38800a78b4a3eb730796a2e003751351c0c5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "medidas/gabarito_t2_t12.py",
       "sha": "77c66f2d35dc5555120476e66a38f71b5187dfe3",
       "ext": ".py",
@@ -13387,7 +13408,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "cfa9cca750f5c8895652ad07ee549981f7344aa5",
+      "sha": "570e72271468cd9abbd92c8f6858bb03ef261e39",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16467,7 +16488,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e42bd5a28182c9947c672981d771ffbc0c30d85f",
+      "sha": "89fcf5a583329732712c5428a02c8ce2f0bc8aed",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -18020,6 +18041,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_politica_nao_sei.py",
+      "sha": "7ce45a0e8b49056ba546eb63284dfef0bc5022cd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_ponte_audio_publico.py",
       "sha": "b5ae695612e51823212ca1ab765068a0e5476352",
       "ext": ".py",
@@ -18120,6 +18148,13 @@
     {
       "path": "tests/test_qualidade_t3.py",
       "sha": "9bd38faaa9aab770f69be801dac3019290806bb2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_quarentena_naosei.py",
+      "sha": "a5682577c85f7d2f5a10dbed812cd203714503fe",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19863,6 +19898,17 @@
     },
     {
       "from_file": "admissao/admissao.py",
+      "to_file": "curadoria/politica_nao_sei.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 486,
+        "snippet": "f = RAIZ / \"curadoria\" / \"politica_nao_sei.py\""
+      }
+    },
+    {
+      "from_file": "admissao/admissao.py",
       "to_file": "data/samples/LIVRO-DE-DECISOES.json",
       "type": "READS",
       "payload": "artefacto",
@@ -21102,6 +21148,17 @@
         "file": "coleta/executor_texto_de_html.py",
         "line": 81,
         "snippet": "from coleta.texto_fonte import limpar  # noqa: E402 — O DONO ÚNICO DA EXTRAÇÃO"
+      }
+    },
+    {
+      "from_file": "coleta/executor_texto_de_html.py",
+      "to_file": "curadoria/retrato_html.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/executor_texto_de_html.py",
+        "line": 385,
+        "snippet": "f = os.path.join(RAIZ, \"curadoria\", \"retrato_html.py\")"
       }
     },
     {
@@ -37165,6 +37222,28 @@
       }
     },
     {
+      "from_file": "medidas/ensaio_quarentena_naosei.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/ensaio_quarentena_naosei.py",
+        "line": 49,
+        "snippet": "json.loads((pasta / \"MANIFESTO.json\").read_text(encoding=\"utf-8\"))[\"PAGINAS\"]}"
+      }
+    },
+    {
+      "from_file": "medidas/ensaio_quarentena_naosei.py",
+      "to_file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/ensaio_quarentena_naosei.py",
+        "line": 33,
+        "snippet": "(\"ORIGINAL\", RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\", None, HOME / \"detector-capa-gabarito\"),"
+      }
+    },
+    {
       "from_file": "medidas/gabarito_t2_t12.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -41208,7 +41287,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "orquestrador/orquestrador.py",
-        "line": 554,
+        "line": 556,
         "snippet": "tool=\"coleta/executor_texto_de_pdf.py\")"
       }
     },
@@ -41230,7 +41309,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "orquestrador/orquestrador.py",
-        "line": 605,
+        "line": 611,
         "snippet": "import rota_forward_documento as _rf                    # noqa: PLC0415"
       }
     },
@@ -41241,7 +41320,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "orquestrador/orquestrador.py",
-        "line": 512,
+        "line": 514,
         "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}"
       }
     },
@@ -71804,6 +71883,50 @@
       }
     },
     {
+      "from_file": "tests/test_politica_nao_sei.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_politica_nao_sei.py",
+        "line": 52,
+        "snippet": "self.assertEqual(chamadores, [\"admissao/admissao.py\"],"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_nao_sei.py",
+      "to_file": "curadoria/politica_nao_sei.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_politica_nao_sei.py",
+        "line": 50,
+        "snippet": "\"politica_nao_sei.py\", \"test_politica_nao_sei.py\", \"test_quarentena_naosei.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_politica_nao_sei.py",
+      "to_file": "medidas/ensaio_quarentena_naosei.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_politica_nao_sei.py",
+        "line": 51,
+        "snippet": "\"ensaio_quarentena_naosei.py\"))]"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_nao_sei.py",
+      "to_file": "tests/test_quarentena_naosei.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_politica_nao_sei.py",
+        "line": 50,
+        "snippet": "\"politica_nao_sei.py\", \"test_politica_nao_sei.py\", \"test_quarentena_naosei.py\","
+      }
+    },
+    {
       "from_file": "tests/test_ponte_audio_publico.py",
       "to_file": "coleta/adaptador_youtube.py",
       "type": "IMPORTS",
@@ -72692,6 +72815,50 @@
         "file": "tests/test_qualidade_t3.py",
         "line": 36,
         "snippet": "\"qualidade_t3\", os.path.join(RAIZ, \"provas\", \"qualidade_t3.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_quarentena_naosei.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_quarentena_naosei.py",
+        "line": 17,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_quarentena_naosei.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_quarentena_naosei.py",
+        "line": 18,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_quarentena_naosei.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_quarentena_naosei.py",
+        "line": 170,
+        "snippet": "import guarda.preservar_derivado as PD"
+      }
+    },
+    {
+      "from_file": "tests/test_quarentena_naosei.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_quarentena_naosei.py",
+        "line": 19,
+        "snippet": "import orquestrador as ORQ  # noqa: E402"
       }
     },
     {
@@ -76459,10 +76626,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2630,
-    "files_readable": 1198,
-    "files_code_dir": 1006,
-    "file_edges": 5225,
+    "files_tracked": 2635,
+    "files_readable": 1202,
+    "files_code_dir": 1009,
+    "file_edges": 5237,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

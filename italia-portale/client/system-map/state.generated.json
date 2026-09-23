@@ -313,6 +313,7 @@
       "curadoria/DISCOVERY-PROOF-V1.json",
       "curadoria/DISCOVERY-SIGNAL-V1.json",
       "curadoria/DISCOVERY-VISITED.json",
+      "curadoria/ENSAIO-QUARENTENA-NAOSEI-V1.json",
       "curadoria/FRENTE2-FACTOS-REMEDIDOS.md",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
       "curadoria/GABARITO-T2-T12-INVENTARIO-V1.json",
@@ -396,6 +397,7 @@
       "curadoria/medir_fila_do_bot.py",
       "curadoria/nivel_da_fila.py",
       "curadoria/onboardar_rotas_provadas.py",
+      "curadoria/politica_nao_sei.py",
       "curadoria/ponte_automatica.py",
       "curadoria/ponte_candidatas.py",
       "curadoria/provar_abastecimento.py",
@@ -1884,6 +1886,7 @@
       "medidas/corrida_instrumentada.py",
       "medidas/corrida_sem_rede.py",
       "medidas/duas_portas_reprocessa.py",
+      "medidas/ensaio_quarentena_naosei.py",
       "medidas/gabarito_t2_t12.py",
       "medidas/gabarito_t2_t12_ida3.py",
       "medidas/incrementalidade_prova.mjs",
@@ -2648,6 +2651,7 @@
       "tests/test_persistencia_operacional.py",
       "tests/test_pipeline.py",
       "tests/test_politica_da_coleta.py",
+      "tests/test_politica_nao_sei.py",
       "tests/test_ponte_audio_publico.py",
       "tests/test_porta_de_candidatas.py",
       "tests/test_porta_de_producao.py",
@@ -2663,6 +2667,7 @@
       "tests/test_proveniencia.py",
       "tests/test_psql_argv.py",
       "tests/test_qualidade_t3.py",
+      "tests/test_quarentena_naosei.py",
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
       "tests/test_raw_observation_id_volta.py",
@@ -3223,10 +3228,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-    "GENERATED_AT": "2026-09-23T02:36:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901"
+    "BRANCH": "quarentena-naosei-v1",
+    "HEAD": "a5a164d52d38e89a8a3515ce000c55522026e730",
+    "GENERATED_AT": "2026-09-23T04:55:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "534ce573c8d30c78943523493e7a1c65803fd41b78a939aedbefa956bcdb8d67"
   },
   "FAMILIES": [
     {
@@ -4264,12 +4269,13 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "curadoria/politica_nao_sei.py",
         "data/samples/LIVRO-DE-DECISOES.json"
       ],
       "consumes_plane": "CODE",
@@ -24863,7 +24869,7 @@
           ".github/workflows/comunicacao-publica.yml:146",
           ".github/workflows/comunicacao-publica.yml:147",
           "pedido/receitas.py:372",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:898"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -25652,7 +25658,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:105",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:898"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -26458,13 +26464,14 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "medidas/ensaio_quarentena_naosei.py",
         "scripts/detector_capa/GABARITO-CAPA-V1.json",
         "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
         "scripts/detector_capa/colher_gabarito.py",
         "scripts/detector_capa/medir_gabarito.py",
         "scripts/detector_capa/rotular_gabarito.py"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -26492,15 +26499,16 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "GABARITOS",
           "JUIZES",
           "L",
           "SOCIAL"
         ],
-        "palavras": 149,
+        "palavras": 156,
         "por_lingua": {
           "PT": 2
         },
-        "sem_marca_de_lingua": 147,
+        "sem_marca_de_lingua": 154,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -27073,7 +27081,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "orquestrador/orquestrador.py:512"
+          "orquestrador/orquestrador.py:514"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -27687,7 +27695,7 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           "pedido/receitas.py:122",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:898"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
@@ -27844,20 +27852,22 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "curadoria/retrato_html.py"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -28456,7 +28466,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:236",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:898"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -30727,7 +30737,7 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           "pedido/receitas.py:170",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:898"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
@@ -40876,7 +40886,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "orquestrador/orquestrador.py:605",
+          "orquestrador/orquestrador.py:611",
           "provas/a_linhagem_do_ready.py:60",
           "provas/a_ponte_de_midia_no_postgres.py:67",
           "provas/a_rota_m2_atravessa.py:72"
@@ -41054,7 +41064,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:157",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:898"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -41351,7 +41361,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:410",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:898"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -44807,6 +44817,7 @@
         "tests/test_persistencia_operacional.py",
         "tests/test_pipeline.py",
         "tests/test_politica_da_coleta.py",
+        "tests/test_politica_nao_sei.py",
         "tests/test_ponte_audio_publico.py",
         "tests/test_porta_de_candidatas.py",
         "tests/test_porta_de_producao.py",
@@ -44822,6 +44833,7 @@
         "tests/test_proveniencia.py",
         "tests/test_psql_argv.py",
         "tests/test_qualidade_t3.py",
+        "tests/test_quarentena_naosei.py",
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
         "tests/test_raw_observation_id_volta.py",
@@ -44864,7 +44876,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 208,
+      "file_count": 210,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -45313,6 +45325,7 @@
         "curadoria/gate_de_rota.py",
         "curadoria/italy_contracts_curator.json",
         "curadoria/onboardar_rotas_provadas.py",
+        "curadoria/politica_nao_sei.py",
         "curadoria/ponte_candidatas.py",
         "curadoria/ready_split.py",
         "data/collection-ledger/italy/observations.ndjson",
@@ -45504,6 +45517,7 @@
         "leis/telemetria.py",
         "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
         "medidas/corrida_instrumentada.py",
+        "medidas/ensaio_quarentena_naosei.py",
         "medidas/rastro_da_coleta.py",
         "motor/cadeia_canonica.sh",
         "motor/corrida_da_inteligencia.py",
@@ -45649,7 +45663,8 @@
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c4h_ponte_de_midia.py",
         "tests/test_comunicacao.py",
-        "tests/test_m2_rota_forward.py"
+        "tests/test_m2_rota_forward.py",
+        "tests/test_quarentena_naosei.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -47568,7 +47583,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch quarentena-naosei-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -50320,7 +50335,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1139,
+          "line": 1289,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -50449,7 +50464,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 30 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 31 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -50660,7 +50675,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -50714,6 +50729,22 @@
           "file": "tests/test_observabilidade_estrada.py",
           "line": 269,
           "snippet": "porta = ler(os.path.join(RAIZ, 'admissao', 'admissao.py'))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_politica_nao_sei.py",
+          "line": 52,
+          "snippet": "self.assertEqual(chamadores, [\"admissao/admissao.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
             "FROM": "C-ADMISSAO",
@@ -65891,12 +65922,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
           "line": 151,
           "snippet": "man = os.path.join(self.gaveta, RUN, 'MANIFESTO.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_politica_nao_sei.py",
+          "line": 51,
+          "snippet": "\"ensaio_quarentena_naosei.py\"))]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
@@ -68097,7 +68144,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4h_ponte_de_midia.py",
@@ -68119,6 +68166,22 @@
           "file": "tests/test_preservar_derivado.py",
           "line": 35,
           "snippet": "from guarda.preservar_derivado import (  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-TESTES",
+            "FROM": "C-DONO-DO-DERIVADO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_quarentena_naosei.py",
+          "line": 170,
+          "snippet": "import guarda.preservar_derivado as PD",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-TESTES",
             "FROM": "C-DONO-DO-DERIVADO",
@@ -68203,7 +68266,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 512,
+          "line": 514,
           "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DOCUMENTO--READS-->C-ORQUESTRADOR",
@@ -69687,7 +69750,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 554,
+          "line": 556,
           "snippet": "tool=\"coleta/executor_texto_de_pdf.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-ORQUESTRADOR",
@@ -82445,7 +82508,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
@@ -82496,7 +82559,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
@@ -82652,7 +82715,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-EU-REGULATORIO-COLETA",
@@ -82720,7 +82783,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
@@ -82771,7 +82834,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -82803,7 +82866,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -82835,7 +82898,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -82867,7 +82930,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -82899,7 +82962,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -82931,7 +82994,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -83783,7 +83846,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
@@ -83834,7 +83897,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 898,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
@@ -83917,7 +83980,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -84048,6 +84111,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_quarentena_naosei.py",
+          "line": 19,
+          "snippet": "import orquestrador as ORQ  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 463,
           "snippet": "import orquestrador as orq",
@@ -84083,22 +84162,6 @@
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 24,
           "snippet": "import orquestrador as orq                                        # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_universo_explicito.py",
-          "line": 44,
-          "snippet": "import orquestrador as orq                                      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -94332,7 +94395,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 605,
+          "line": 611,
           "snippet": "import rota_forward_documento as _rf                    # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--IMPORTS-->C-ORQUESTRADOR",
@@ -108725,7 +108788,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1495,
+  "UNCLAIMED_FILES_COUNT": 1497,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -108930,12 +108993,12 @@
     "edges_proven": 1119,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2630,
-    "files_covered": 1135,
+    "files_tracked": 2635,
+    "files_covered": 1138,
     "files_code_unclaimed": 0,
-    "roles_proven": 159,
+    "roles_proven": 160,
     "roles_declared_only": 9,
-    "roles_unknown": 64,
+    "roles_unknown": 63,
     "roles_conflict": 30,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 10,
