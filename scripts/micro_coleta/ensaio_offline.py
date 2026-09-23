@@ -511,6 +511,7 @@ def main(argv=None) -> int:
                            livro=arvore / "data" / "samples" / "LIVRO-DE-DECISOES.json",
                            armazem=arvore, saida=saida) if runs and not provar_rollback else None
         led = D / "ops" / "data" / "collection-ledger" / "italy"
+        registo_da_1a = list(srv.registo)     # os campos sao da 1.a passagem; a 2.a conta a parte
         if duas:
             obs1 = ler_ndjson(led / "observations.ndjson")
             n_reg, antes2 = len(srv.registo), contagens()
@@ -548,7 +549,7 @@ def main(argv=None) -> int:
             "CAMPOS": campos(corridas, rel, antes, depois,
                              ler_ndjson(D / "ops" / "data" / "collection-ledger" / "italy" / "runs.ndjson"),
                              ler_ndjson(D / "ops" / "data" / "collection-ledger" / "italy" / "observations.ndjson"),
-                             srv.registo, rede_py, cadeia_dos_documentos(runs)),
+                             registo_da_1a, rede_py, cadeia_dos_documentos(runs)),
             "RELATORIO_C1_C9": ({k: (v.get("ESTADO") or ("PASS" if v["PASSA"] else "FAIL"))
                                  for k, v in rel["CRITERIOS"].items()} if rel else None),
         })
