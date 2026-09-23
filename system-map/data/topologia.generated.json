@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T17:28:06+00:00",
-  "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
-  "BRANCH": "unificacao-v1",
+  "GENERATED_AT": "2026-09-23T19:35:37+00:00",
+  "HEAD": "33d6ee1efab9ec27d35d0d9cbbf3421f33e5125e",
+  "BRANCH": "canais-pessoas-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749",
-  "FICHEIROS_NA_IMPRESSAO": 2912,
+  "SOURCE_TREE_FINGERPRINT": "29bcb9238d3f554e775e9b83c4b8f94069a7b1353a65af94fdc8db26000a4965",
+  "FICHEIROS_NA_IMPRESSAO": 2917,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3434,6 +3434,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/canais_pessoas/canais_pessoas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "05de2d2539822146bfd6b4a40ab887cf91ee4bc0",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/coorte_micro/funil.py",
     "PAPEL": "FONTE",
     "VERSAO": "296f3c1ee9efa26d760141333f3c73e8b4a5b27e",
@@ -3632,14 +3639,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749",
+    "VERSAO": "29bcb9238d3f554e775e9b83c4b8f94069a7b1353a65af94fdc8db26000a4965",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749",
+    "VERSAO": "29bcb9238d3f554e775e9b83c4b8f94069a7b1353a65af94fdc8db26000a4965",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4438,6 +4445,13 @@
     "PATH": "tests/test_calendario_temporal.py",
     "PAPEL": "FONTE",
     "VERSAO": "7f05aa45f2ae319f5eefebbf7654a09ed05b2d40",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_canais_pessoas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "bf89c7f88b3afb88baad75d4dfc206b4fe5cd5c4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5478,8 +5492,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 777,
-  "INPUTS_DIGEST": "609c97d2e5fb5fae085304b86703d98f915ec76d802283fd76f309a780e0ea0b",
+  "INPUTS_COUNT": 779,
+  "INPUTS_DIGEST": "bb9bf16142f44cacc5d20fb6c648e95a07c8bb7a49bb21375694b8f2b369f7f8",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5505,15 +5519,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 492,
+  "DOCUMENTOS_LIDOS": 493,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "63d33e2f735a8d3eb60fe3fbd6c5d8000e6844ea8132d0dbf34f2d60ba9810cc",
-  "SEMANTIC_HASH": "b7ca5031c08e1dd9b893141d08ff683fd7b440273c70e42c03ba7e6fc9652e51"
+  "MEASUREMENT_HASH": "976b974f723bbb0ab975ce063bb40e6dd1e05a2ebd36140574a0bc3fa41c9d81",
+  "SEMANTIC_HASH": "3a23295a68a3f7cb28a9696859c0b1e6168dc6d1cd023b8093f99802450e440c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5533,6 +5547,7 @@
    "C-AS-FONTES",
    "C-BANCO-NO-SECO",
    "C-BIBLIA",
+   "C-CANAIS-PESSOAS",
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-EXECUTORES",
    "C-CENSO-OBSERVABILIDADE",
@@ -5615,7 +5630,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 90
+  "COUNT": 91
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5729,6 +5744,7 @@
    "C-BANCO-NO-SECO",
    "C-BIBLIA",
    "C-CADEIA-V21",
+   "C-CANAIS-PESSOAS",
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-ARMAZEM-IT",
    "C-CENSO-CARDS-SENSORES",
@@ -5888,16 +5904,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 172
+  "COUNT": 173
  },
  "ARITMETICA": {
-  "COLLECTION": 90,
+  "COLLECTION": 91,
   "BOUNDARY": 82,
-  "SOMA": 172,
-  "EXPANDED": 172,
+  "SOMA": 173,
+  "EXPANDED": 173,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 172,
+  "RESUMO_CARTOES_NO_UNIVERSO": 173,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -8676,6 +8692,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CANAIS-PESSOAS",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-CANAIS-PESSOAS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/canais_pessoas/canais_pessoas.py",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CANAIS-PESSOAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-PROVA-COLETA",
     "FROM": "C-ASK-SINTONIA",
     "TO": "C-PROVA-COLETA",
@@ -10273,6 +10311,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CADEIA-V21--RUNS-->C-V21-OPORTUNIDADE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CANAIS-PESSOAS--READS-->C-TESTES",
+    "FROM": "C-CANAIS-PESSOAS",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_canais_pessoas.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANAIS-PESSOAS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_canais_pessoas.py",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANAIS-PESSOAS--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -26141,6 +26209,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-CANAIS-PESSOAS",
+    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+    "TO": "C-CANAIS-PESSOAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/canais_pessoas/canais_pessoas.py",
+      "LINHA": 87,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-CANAIS-PESSOAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-COORTE-MICRO-FUNIL",
     "FROM": "C-MICRO-COLETA-INSTRUMENTO",
     "TO": "C-COORTE-MICRO-FUNIL",
@@ -28492,6 +28582,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CANAIS-PESSOAS",
+    "FROM": "C-PORTA-FONTE",
+    "TO": "C-CANAIS-PESSOAS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/canais_pessoas/canais_pessoas.py",
+      "LINHA": 55,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CANAIS-PESSOAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
     "FROM": "C-PORTA-FONTE",
     "TO": "C-CENSO-UNIFICACAO",
@@ -28631,6 +28743,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_canais_pessoas.py",
+      "LINHA": 59,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_fila_italia_decisoes.py",
       "LINHA": 38,
@@ -41363,12 +41483,12 @@
     ]
    }
   ],
-  "COUNT": 1153
+  "COUNT": 1157
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 172,
-  "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1153,
+  "CARTOES_NO_UNIVERSO": 173,
+  "CARTOES_AUDITADOS": 173,
+  "ARESTAS_RELACIONADAS": 1157,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -41501,6 +41621,7 @@
    "C-ADAMA-ES",
    "C-APRENDER-COM-A-FONTE",
    "C-AUDIT-GERAL",
+   "C-CANAIS-PESSOAS",
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-ARMAZEM-IT",
    "C-CENSO-CARDS-SENSORES",
@@ -41758,12 +41879,12 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 191,
+   "CODE": 193,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 381,
+   "PROOF": 382,
    "READ": 265,
-   "RULE": 204,
+   "RULE": 205,
    "WRITE": 9
   },
   "GAPS_NOMEADOS": [
@@ -42216,12 +42337,13 @@
     "collections"
    ],
    "ENTRAM": 2,
-   "SAEM": 8,
+   "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
    ],
    "CATEGORIAS_QUE_SAEM": [
+    "CODE",
     "PROOF",
     "READ"
    ],
@@ -42544,6 +42666,46 @@
     "CONTROL",
     "PROOF",
     "READ"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-CANAIS-PESSOAS",
+   "NOME": "Canais de pessoas do agro (D24) — descoberta indireta pelo site oficial",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "scripts/canais_pessoas/DECISOES-YT3-V1.json",
+    "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+    "scripts/canais_pessoas/canais_pessoas.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_canais_pessoas.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "datetime",
+    "pathlib"
+   ],
+   "ENTRAM": 3,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -46166,7 +46328,7 @@
     "urllib"
    ],
    "ENTRAM": 14,
-   "SAEM": 4,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -46619,6 +46781,7 @@
     "system-map/scripts/generate_system_map.py",
     "system-map/scripts/scan_repo.py",
     "system-map/scripts/scan_sources.py",
+    "tests/test_canais_pessoas.py",
     "tests/test_fila_italia_decisoes.py",
     "tests/test_medir_cutover.py",
     "tests/test_porta_de_candidatas.py"
@@ -46638,7 +46801,7 @@
     "pathlib"
    ],
    "ENTRAM": 1,
-   "SAEM": 5,
+   "SAEM": 6,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -49971,6 +50134,7 @@
     "tests/test_c7_lugar_do_fato.py",
     "tests/test_c8_convergencia.py",
     "tests/test_calendario_temporal.py",
+    "tests/test_canais_pessoas.py",
     "tests/test_candidatos_tematicos.py",
     "tests/test_canonico.py",
     "tests/test_censo_cards_sensores.py",
@@ -50243,7 +50407,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 199,
+   "ENTRAM": 200,
    "SAEM": 28,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

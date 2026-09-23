@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
-    "GENERATED_AT": "2026-09-23T14:22:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749"
+    "BRANCH": "canais-pessoas-v1",
+    "HEAD": "33d6ee1efab9ec27d35d0d9cbbf3421f33e5125e",
+    "GENERATED_AT": "2026-09-23T16:30:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "29bcb9238d3f554e775e9b83c4b8f94069a7b1353a65af94fdc8db26000a4965"
   },
   "FILES": [
     {
@@ -611,6 +611,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-YT3-CANAIS-PESSOAS.md",
+      "sha": "7a91becbc2f8d1ba869fe46cde599382b1c3de2e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "SALA-DE-CONTROLE-SINTONIA.md",
       "sha": "1f6d1e7688eaf93c71adcd17af1cf0d761faf5b1",
       "ext": ".md",
@@ -619,7 +626,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "fbc8e756641af1e90f2b6952be4ed278a9802788",
+      "sha": "8450023a7cbd89f729e06d96a1fd11425dcb1792",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1417,7 +1424,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "10ad60d2e6a312cde3995e6307fd35ec93db166d",
+      "sha": "dca3d5a78ee0445f447a35d8ad06dcdbcb501c98",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -16403,6 +16410,27 @@
       "code_dir": true
     },
     {
+      "path": "scripts/canais_pessoas/DECISOES-YT3-V1.json",
+      "sha": "4e666924fc7a61e5561570bee1da339635bd012f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+      "sha": "5730fc1b3f424578918a1c61aad1dfadc418b39a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/canais_pessoas/canais_pessoas.py",
+      "sha": "05de2d2539822146bfd6b4a40ab887cf91ee4bc0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
       "sha": "753e8ee5596a4cf7da28beba6a10a563346545d9",
       "ext": ".json",
@@ -17293,7 +17321,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "809fc677f126d5af0f0593a1b036f2ce24b0b7fe",
+      "sha": "02fec9eaef9d39fa3b5b54aa5024796ff0cbd5ba",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -18309,6 +18337,13 @@
     {
       "path": "tests/test_calendario_temporal.py",
       "sha": "7f05aa45f2ae319f5eefebbf7654a09ed05b2d40",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_canais_pessoas.py",
+      "sha": "bf89c7f88b3afb88baad75d4dfc206b4fe5cd5c4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -58420,6 +58455,72 @@
       }
     },
     {
+      "from_file": "scripts/canais_pessoas/canais_pessoas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/canais_pessoas/canais_pessoas.py",
+        "line": 55,
+        "snippet": "import fonte_nova as FN          # noqa: E402 — a porta canonica"
+      }
+    },
+    {
+      "from_file": "scripts/canais_pessoas/canais_pessoas.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/canais_pessoas/canais_pessoas.py",
+        "line": 87,
+        "snippet": "t = json.loads((RAIZ / \"regras\" / \"italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/canais_pessoas/canais_pessoas.py",
+      "to_file": "scripts/canais_pessoas/DECISOES-YT3-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/canais_pessoas/canais_pessoas.py",
+        "line": 371,
+        "snippet": "DECISOES = AQUI / \"DECISOES-YT3-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/canais_pessoas/canais_pessoas.py",
+      "to_file": "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/canais_pessoas/canais_pessoas.py",
+        "line": 60,
+        "snippet": "SAIDA = AQUI / \"DESCOBERTA-CANAIS-PESSOAS-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/canais_pessoas/canais_pessoas.py",
+      "to_file": "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/canais_pessoas/canais_pessoas.py",
+        "line": 231,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/canais_pessoas/canais_pessoas.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/canais_pessoas/canais_pessoas.py",
+        "line": 57,
+        "snippet": "import rede                      # noqa: E402 — portao_de_egresso"
+      }
+    },
+    {
       "from_file": "scripts/coorte_micro/funil.py",
       "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
       "type": "READS",
@@ -69373,6 +69474,39 @@
         "file": "tests/test_calendario_temporal.py",
         "line": 343,
         "snippet": "with open(p, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_canais_pessoas.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_canais_pessoas.py",
+        "line": 59,
+        "snippet": "with open(os.path.join(RAIZ, \"candidatas\", \"FONTES-CANDIDATAS.json\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_canais_pessoas.py",
+      "to_file": "scripts/canais_pessoas/DECISOES-YT3-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_canais_pessoas.py",
+        "line": 48,
+        "snippet": "d = {x[\"URL\"]: x for x in _j(\"DECISOES-YT3-V1.json\")[\"DECISOES\"]}"
+      }
+    },
+    {
+      "from_file": "tests/test_canais_pessoas.py",
+      "to_file": "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_canais_pessoas.py",
+        "line": 57,
+        "snippet": "cls.desc = _j(\"DESCOBERTA-CANAIS-PESSOAS-V1.json\")"
       }
     },
     {
@@ -80488,10 +80622,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2764,
-    "files_readable": 1267,
-    "files_code_dir": 1086,
-    "file_edges": 5506,
+    "files_tracked": 2769,
+    "files_readable": 1269,
+    "files_code_dir": 1090,
+    "file_edges": 5515,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

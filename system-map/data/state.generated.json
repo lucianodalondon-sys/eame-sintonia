@@ -74,6 +74,7 @@
       "RELATORIO-UNIFICACAO.md",
       "RELATORIO-V1A-V1-LIGADA.md",
       "RELATORIO-YT1-CANARIO.md",
+      "RELATORIO-YT3-CANAIS-PESSOAS.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
@@ -2407,6 +2408,9 @@
     ],
     "scripts": [
       "scripts/.gitkeep",
+      "scripts/canais_pessoas/DECISOES-YT3-V1.json",
+      "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+      "scripts/canais_pessoas/canais_pessoas.py",
       "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
       "scripts/coorte_micro/ROTULOS-PAGINAS-COORTE-G0.json",
       "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
@@ -2690,6 +2694,7 @@
       "tests/test_c7_lugar_do_fato.py",
       "tests/test_c8_convergencia.py",
       "tests/test_calendario_temporal.py",
+      "tests/test_canais_pessoas.py",
       "tests/test_candidatos_tematicos.py",
       "tests/test_canonico.py",
       "tests/test_censo_cards_sensores.py",
@@ -3357,10 +3362,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
-    "GENERATED_AT": "2026-09-23T14:22:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749"
+    "BRANCH": "canais-pessoas-v1",
+    "HEAD": "33d6ee1efab9ec27d35d0d9cbbf3421f33e5125e",
+    "GENERATED_AT": "2026-09-23T16:30:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "29bcb9238d3f554e775e9b83c4b8f94069a7b1353a65af94fdc8db26000a4965"
   },
   "FAMILIES": [
     {
@@ -3388,7 +3393,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 89
+      "count": 90
     },
     {
       "id": "F-ESPERA",
@@ -3646,7 +3651,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 23
+      "count": 24
     },
     {
       "id": "Z-ADMISSAO",
@@ -4854,8 +4859,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 605",
-        "desses, mostrados aqui: 40 (ficam de fora 565)"
+        "enderecos que o codigo realmente chama: 613",
+        "desses, mostrados aqui: 40 (ficam de fora 573)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -12359,7 +12364,7 @@
             "degrau": 1,
             "nome": "CANDIDATA",
             "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-            "quantas": 0,
+            "quantas": 14,
             "onde": "candidatas/FONTES-CANDIDATAS.json",
             "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
           },
@@ -12392,11 +12397,11 @@
           "BASE_OFICIAL": 166,
           "CIENCIA": 15,
           "FACEBOOK": 20,
-          "IMPRENSA": 22,
+          "IMPRENSA": 23,
           "INSTAGRAM": 25,
           "LINKEDIN": 44,
           "ORGANIZACAO": 113,
-          "YOUTUBE": 71
+          "YOUTUBE": 84
         },
         "candidatas": [
           {
@@ -16257,6 +16262,22 @@
             "QUANDO": "2026-09-20",
             "NOTA": "DISCOVERED_FROM=https://www.sherwood.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-21T02:13:26.103801+00:00 | DISCOVERED_HTTP=200 | FAMILIA=NOTICIAS_AGRICOLAS",
             "ESTADO": "EM_ANALISE",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
+            "CANDIDATA_ID": "CAND-0480",
+            "TIPO": "IMPRENSA",
+            "TIPO_SIGNIFICA": "Veiculo de imprensa, boletim, newsletter setorial.",
+            "PAIS": "IT",
+            "NOME": "Sherwood — Foreste ed Alberi Oggi — podcast (Spotify)",
+            "URL": "https://open.spotify.com/show/0cqa1I9ccmuQ9Db5P3TJ4v",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.sherwood.it/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.sherwood.it/ (sha256 c009b35204b19279, lida 2026-09-23) liga a este PODCAST [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (ccTLD .it) · DONO: Sherwood — Foreste ed Alberi Oggi (MEDIA_AGRO (florestal); semente CAND-0257) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"Spotify nao publica RSS; o feed do proprio podcast nao esta ligado na pagina oficial\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+            "ESTADO": "CANDIDATA",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -21683,6 +21704,22 @@
             "DECIDIDA_EM": "2026-09-15"
           },
           {
+            "CANDIDATA_ID": "CAND-0485",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Diachem — canal YouTube",
+            "URL": "https://www.youtube.com/@diachem",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.diachem.it/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.diachem.it/ (sha256 4f7e72b1cbe81ea8, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (ccTLD .it) · DONO: Diachem (EMPRESA_DEFENSIVOS; semente CAND-0156) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
             "CANDIDATA_ID": "CAND-0414",
             "TIPO": "YOUTUBE",
             "TIPO_SIGNIFICA": "Canal publico no YouTube.",
@@ -21718,6 +21755,22 @@
             "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou",
             "VIZINHA_NO_ATLAS": null,
             "DECIDIDA_EM": "2026-09-15"
+          },
+          {
+            "CANDIDATA_ID": "CAND-0486",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "FederUnacoma — canal YouTube",
+            "URL": "https://www.youtube.com/user/federunacoma",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.federunacoma.it/it/index.php",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.federunacoma.it/it/index.php (sha256 f45ac656ce6d0b00, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (ccTLD .it) · DONO: FederUnacoma — Federazione Nazionale Costruttori Macchine per l'Agricoltura (ASSOCIACAO_AGRO (maquinas); semente CAND-0166) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
           },
           {
             "CANDIDATA_ID": "CAND-0203",
@@ -21967,6 +22020,22 @@
             "DECIDIDA_EM": "2026-09-15"
           },
           {
+            "CANDIDATA_ID": "CAND-0479",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Myfruit.it — canal YouTube",
+            "URL": "https://www.youtube.com/@myfruitvideo",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.myfruit.it/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.myfruit.it/ (sha256 b99a8d96ed902e5d, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (ccTLD .it) · DONO: Myfruit.it (MEDIA_AGRO; semente CAND-0059) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
             "CANDIDATA_ID": "CAND-0218",
             "TIPO": "YOUTUBE",
             "TIPO_SIGNIFICA": "Canal publico no YouTube.",
@@ -21988,6 +22057,22 @@
             "DECIDIDA_EM": "2026-09-15"
           },
           {
+            "CANDIDATA_ID": "CAND-0487",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Nomisma — canal YouTube",
+            "URL": "https://www.youtube.com/@nomisma8372",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.nomisma.it/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.nomisma.it/ (sha256 ec3ea545e0892c8d, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (ccTLD .it) · DONO: Nomisma (INVESTIGACAO_ECONOMICA_AGRO; semente CAND-0147) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
             "CANDIDATA_ID": "CAND-0219",
             "TIPO": "YOUTUBE",
             "TIPO_SIGNIFICA": "Canal publico no YouTube.",
@@ -22007,6 +22092,22 @@
             "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou",
             "VIZINHA_NO_ATLAS": null,
             "DECIDIDA_EM": "2026-09-15"
+          },
+          {
+            "CANDIDATA_ID": "CAND-0482",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "PSR Calabria — canal YouTube do Programa de Desenvolvimento Rural",
+            "URL": "https://www.youtube.com/channel/UCE3BgIE0ztA9PXEv6oxI-LQ",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "http://www.calabriapsr.it/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial http://www.calabriapsr.it/ (sha256 ff0a94a0b7c490bb, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (ccTLD .it) · DONO: Adozione versione 2.0 di giugno 2026 del Prezzario dei costi Massimi di riferimento per macchine ed attrezzature agricole, (INSTITUCIONAL_AGRO; semente CAND-0364) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
           },
           {
             "CANDIDATA_ID": "CAND-0220",
@@ -22114,6 +22215,22 @@
             "DECIDIDA_EM": "2026-09-15"
           },
           {
+            "CANDIDATA_ID": "CAND-0481",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Sherwood — Foreste ed Alberi Oggi — canal YouTube",
+            "URL": "https://www.youtube.com/user/sherwoodweb",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.sherwood.it/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.sherwood.it/ (sha256 c009b35204b19279, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (ccTLD .it) · DONO: Sherwood — Foreste ed Alberi Oggi (MEDIA_AGRO (florestal); semente CAND-0257) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
             "CANDIDATA_ID": "CAND-0221",
             "TIPO": "YOUTUBE",
             "TIPO_SIGNIFICA": "Canal publico no YouTube.",
@@ -22175,6 +22292,22 @@
             "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou",
             "VIZINHA_NO_ATLAS": null,
             "DECIDIDA_EM": "2026-09-15"
+          },
+          {
+            "CANDIDATA_ID": "CAND-0489",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Terremerse — canal YouTube",
+            "URL": "https://www.youtube.com/user/TerremerseCoop",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://terremerse.it/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://terremerse.it/ (sha256 e2d87a055577c2bb, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (ccTLD .it) · DONO: Terremerse (COOPERATIVA_AGRO; semente CAND-0151) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
           },
           {
             "CANDIDATA_ID": "CAND-0226",
@@ -22365,6 +22498,102 @@
             "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
+          },
+          {
+            "CANDIDATA_ID": "CAND-0477",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Agroalimentare News — canal YouTube",
+            "URL": "https://www.youtube.com/@AgroalimentareNews-i2o",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.agroalimentarenews.com/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.agroalimentarenews.com/ (sha256 df6f4cfbb414e3ed, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: NAO SEI (dominio generico .com nao prova lugar) · DONO: Agroalimentare News (MEDIA_AGRO; semente CAND-0054) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO (sem rota de listagem aqui) · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola · TERRITORIO CORRIGIDO (YT3, 2026-09-23): IT — endereco na pagina oficial: «00165 Roma» (a 1.a gravacao leu o pais no endereco DEPOIS do redireccionamento)",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
+            "CANDIDATA_ID": "CAND-0478",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Agroter / Italiafruit News — canal YouTube",
+            "URL": "https://www.youtube.com/user/AgroterVideo",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.italiafruit.net/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.italiafruit.net/ (sha256 61b4bd233e91e5b7, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: NAO SEI (dominio generico .net nao prova lugar) · DONO: Italiafruit News (MEDIA_AGRO; semente CAND-0048) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola · TERRITORIO CORRIGIDO (YT3, 2026-09-23): IT — Partita IVA italiana na pagina oficial: 01984900363 (a 1.a gravacao leu o pais no endereco DEPOIS do redireccionamento)",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
+            "CANDIDATA_ID": "CAND-0483",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Biolchim — canal YouTube",
+            "URL": "https://www.youtube.com/@BiolchimSpA",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.biolchim.com/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.biolchim.com/ (sha256 f923d593ec419265, lida 2026-09-23) liga a este YOUTUBE [ancora «youtube»] — descoberta-indireta:site-da-organizacao · TERRITORIO: NAO SEI (dominio generico .com nao prova lugar) · DONO: Biolchim (EMPRESA_INSUMOS; semente CAND-0137) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola · TERRITORIO CORRIGIDO (YT3, 2026-09-23): IT — a semente e o dominio .it da propria empresa (biolchim.it), que redirecciona para biolchim.com (a 1.a gravacao leu o pais no endereco DEPOIS do redireccionamento)",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
+            "CANDIDATA_ID": "CAND-0484",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Consorzio del Parmigiano Reggiano — canal YouTube",
+            "URL": "https://www.youtube.com/user/ParmigianoReggianoIT",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.parmigianoreggiano.com/it",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.parmigianoreggiano.com/it (sha256 528f4413b77fc147, lida 2026-09-23) liga a este YOUTUBE [ancora «»] — descoberta-indireta:site-da-organizacao · TERRITORIO: NAO SEI (dominio generico .com nao prova lugar) · DONO: Consorzio del Parmigiano Reggiano (CONSORCIO_AGRO; semente CAND-0141) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola · TERRITORIO CORRIGIDO (YT3, 2026-09-23): IT — a semente e o dominio .it do proprio consorcio (parmigianoreggiano.it), que redirecciona para .com (a 1.a gravacao leu o pais no endereco DEPOIS do redireccionamento)",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
+            "CANDIDATA_ID": "CAND-0488",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "IT",
+            "NOME": "Sipcam Italia — canal YouTube",
+            "URL": "https://www.youtube.com/channel/UC8Uto03To7JFiY6HM1PAb7Q",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.sipcam.com/it/it/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.sipcam.com/it/it/ (sha256 db7699e96c9999ee, lida 2026-09-23) liga a este YOUTUBE [ancora «Youtube»] — descoberta-indireta:site-da-organizacao · TERRITORIO: NAO SEI (dominio generico .com nao prova lugar) · DONO: Sipcam Italia (EMPRESA_DEFENSIVOS; semente CAND-0158) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola · TERRITORIO CORRIGIDO (YT3, 2026-09-23): IT — a semente e o dominio .it da propria empresa (sipcamitalia.it), que redirecciona para sipcam.com (a 1.a gravacao leu o pais no endereco DEPOIS do redireccionamento)",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
+          },
+          {
+            "CANDIDATA_ID": "CAND-0490",
+            "TIPO": "YOUTUBE",
+            "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+            "PAIS": "NAO SEI",
+            "NOME": "UNAITALIA — canal YouTube",
+            "URL": "https://www.youtube.com/@unaitalia-unionenazionalef9849",
+            "PARA_QUE_SERVE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+            "QUEM_VIU": "scripts/canais_pessoas/canais_pessoas.py (YT3)",
+            "ONDE_VIU": "https://www.unaitalia.com/",
+            "QUANDO": "2026-09-23",
+            "NOTA": "YT3 D24 · IDENTIDADE: a pagina oficial https://www.unaitalia.com/ (sha256 3dd6fda247662326, lida 2026-09-23) liga a este YOUTUBE [ancora «Youtube»] — descoberta-indireta:site-da-organizacao · TERRITORIO: NAO SEI (dominio generico .com nao prova lugar) · DONO: UNAITALIA — Unione Nazionale Filiere Agroalimentari Carni (ASSOCIACAO_AGRO (filieras avicolas); semente CAND-0269) · FREQUENCIA: {\"FREQUENCIA\": \"NAO_MEDIDA\", \"PORQUE\": \"a unica rota declarada para listar videos e a Data API (playlistItems.list); a chave vive so no GitHub (scrap-social.yml)\"} · TECNICO: NAO_MEDIDO · pagina oficial da propria organizacao liga ao canal (identidade); dono agricola · TERRITORIO_POR_PROVAR: dominio .com e a pagina inicial nao traz P.IVA nem morada italiana — PAIS fica NAO SEI",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
           }
         ],
         "nao_verificadas": 10
@@ -22453,6 +22682,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-CANAIS-PESSOAS",
         "C-IT-PRESERVAR",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
@@ -23540,6 +23770,106 @@
       "y": 360
     },
     {
+      "id": "C-CANAIS-PESSOAS",
+      "name": "Canais de pessoas do agro (D24) — descoberta indireta pelo site oficial",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Le a pagina inicial das candidatas italianas ja conhecidas (ORGANIZACAO, CIENCIA, IMPRENSA desta linha e das branches da P1/P2), uma por host, com robots e portao de egresso IT antes, a cada 15 hosts e depois; extrai as ligacoes a canais YouTube, podcasts e newsletters que a propria organizacao publica; mede o arquivo publico das newsletters; e regista pela porta canonica (candidatas/fonte_nova.py) so o que o ficheiro de decisoes escrito a mao diz ENTRA, com a prova de identidade e de territorio na NOTA.",
+      "why_here": "A matriz social so permite uma rota para achar o endereco de uma conta: descoberta-indireta:site-da-organizacao. Um canal achado pela plataforma nao tem dono provado; um canal ligado pela pagina oficial tem. A frequencia dos canais fica NAO_MEDIDA porque a unica rota declarada de listagem e a Data API, cuja chave vive no GitHub.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "collection-strategy"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/canais_pessoas/DECISOES-YT3-V1.json",
+        "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+        "scripts/canais_pessoas/canais_pessoas.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ASK-SINTONIA",
+        "C-MICRO-COLETA-INSTRUMENTO",
+        "C-PORTA-FONTE"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json, e quem le nao esta na esteira: C-TESTES",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: escreve scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json, e quem le nao esta na esteira: C-TESTES",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "regras/italy_contracts_onboarded.json",
+        "scripts/canais_pessoas/DECISOES-YT3-V1.json",
+        "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_canais_pessoas.py:48"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 11310,
+      "y": 360
+    },
+    {
       "id": "C-CANARIO-ROTAS-ELEGIVEIS",
       "name": "O canario das rotas das fontes aprovadas",
       "territory": "Z-MEDIDAS",
@@ -23721,7 +24051,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 360
     },
     {
@@ -24704,8 +25034,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
-      "y": 360
+      "x": 10895,
+      "y": 682
     },
     {
       "id": "C-CENSO-IDENTIDADE-IT",
@@ -24901,7 +25231,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 682
     },
     {
@@ -25827,7 +26157,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGRA-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 682
     },
     {
@@ -26507,8 +26837,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 11725,
-      "y": 682
+      "x": 10895,
+      "y": 1004
     },
     {
       "id": "C-CONTRATO-DE-RETORNO",
@@ -26828,7 +27158,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1004
     },
     {
@@ -27114,7 +27444,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1004
     },
     {
@@ -27788,8 +28118,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
-      "y": 1004
+      "x": 10895,
+      "y": 1326
     },
     {
       "id": "C-DETECTOR-CAPA-GABARITO",
@@ -27997,7 +28327,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CENSO-UNIFICACAO · C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1326
     },
     {
@@ -28184,7 +28514,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1326
     },
     {
@@ -28731,8 +29061,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
-      "y": 1326
+      "x": 10895,
+      "y": 1648
     },
     {
       "id": "C-ESPECIE-DO-TEXTO",
@@ -29987,7 +30317,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1648
     },
     {
@@ -33327,7 +33657,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1648
     },
     {
@@ -34738,6 +35068,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-CANAIS-PESSOAS",
         "C-COORTE-MICRO-FUNIL",
         "C-IT-CONTRATOS",
         "C-SUPERFICIE-SCRAP-V1",
@@ -34839,13 +35170,13 @@
         "PROVA": [
           "provas/roteamento_youtube_proposta.py:54",
           "regras/italy_contracts.mjs:579",
-          "scripts/coorte_micro/funil.py:70",
-          "tests/test_ensaio_offline_micro.py:17"
+          "scripts/canais_pessoas/canais_pessoas.py:87",
+          "scripts/coorte_micro/funil.py:70"
         ],
-        "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CANAIS-PESSOAS · C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
-      "y": 1648
+      "x": 10895,
+      "y": 1970
     },
     {
       "id": "C-MICRO-COLHEITA",
@@ -34932,7 +35263,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1970
     },
     {
@@ -35577,7 +35908,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1970
     },
     {
@@ -36053,6 +36384,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-CANAIS-PESSOAS",
         "C-CENSO-UNIFICACAO",
         "C-DECISAO-DA-FILA",
         "C-MAPA-SCAN",
@@ -36120,9 +36452,9 @@
           "candidatas/decidir_fila_italia.py:100",
           "curadoria/test_discovery.py:59",
           "curadoria/test_discovery.py:50",
-          "system-map/scripts/scan_sources.py:480"
+          "scripts/canais_pessoas/canais_pessoas.py:55"
         ],
-        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CANAIS-PESSOAS · C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 3180,
       "y": 1004
@@ -40945,8 +41277,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 11725,
-      "y": 1970
+      "x": 10895,
+      "y": 2292
     },
     {
       "id": "C-READY",
@@ -41393,7 +41725,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 2292
     },
     {
@@ -41495,7 +41827,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2292
     },
     {
@@ -41857,8 +42189,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
-      "y": 2292
+      "x": 10895,
+      "y": 2614
     },
     {
       "id": "C-REGRESSAO-NAVEGADOR",
@@ -42021,7 +42353,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 2614
     },
     {
@@ -42837,7 +43169,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -46339,6 +46671,7 @@
         "tests/test_c7_lugar_do_fato.py",
         "tests/test_c8_convergencia.py",
         "tests/test_calendario_temporal.py",
+        "tests/test_canais_pessoas.py",
         "tests/test_candidatos_tematicos.py",
         "tests/test_canonico.py",
         "tests/test_censo_cards_sensores.py",
@@ -46488,7 +46821,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 224,
+      "file_count": 225,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -46528,6 +46861,7 @@
         "C-BANCO-NO-SECO",
         "C-BIBLIA",
         "C-CADEIA-V21",
+        "C-CANAIS-PESSOAS",
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CENSO-ARMAZEM-IT",
         "C-CENSO-CARDS-SENSORES",
@@ -47241,6 +47575,8 @@
         "research/intelligence/DATA-DEMAND-MATRIX-ITALY.md",
         "research/intelligence/INTELLIGENCE-DATA-FLOW-ITALY.md",
         "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md",
+        "scripts/canais_pessoas/DECISOES-YT3-V1.json",
+        "scripts/canais_pessoas/DESCOBERTA-CANAIS-PESSOAS-V1.json",
         "scripts/coorte_micro/funil.py",
         "scripts/desbloqueio/aplicar_desbloqueio.py",
         "scripts/detector_capa/medir_apos_receitas.py",
@@ -49222,7 +49558,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch canais-pessoas-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -54490,6 +54826,41 @@
     },
     {
       "from": "C-ASK-SINTONIA",
+      "to": "C-CANAIS-PESSOAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia tem o seu codigo importado por Canais de pessoas do agro (D24) — descoberta indireta pelo site oficial. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/canais_pessoas/canais_pessoas.py",
+          "line": 57,
+          "snippet": "import rede                      # noqa: E402 — portao_de_egresso",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CANAIS-PESSOAS",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-CANAIS-PESSOAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
       "to": "C-IT-PRESERVAR",
       "type": "READS",
       "payload": "artefacto",
@@ -57766,6 +58137,57 @@
         }
       ],
       "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CANAIS-PESSOAS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Canais de pessoas do agro (D24) — descoberta indireta pelo site oficial alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_canais_pessoas.py",
+          "line": 48,
+          "snippet": "d = {x[\"URL\"]: x for x in _j(\"DECISOES-YT3-V1.json\")[\"DECISOES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CANAIS-PESSOAS--READS-->C-TESTES",
+            "FROM": "C-CANAIS-PESSOAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_canais_pessoas.py",
+          "line": 57,
+          "snippet": "cls.desc = _j(\"DESCOBERTA-CANAIS-PESSOAS-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CANAIS-PESSOAS--READS-->C-TESTES",
+            "FROM": "C-CANAIS-PESSOAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -85269,6 +85691,41 @@
     },
     {
       "from": "C-MICRO-COLETA-INSTRUMENTO",
+      "to": "C-CANAIS-PESSOAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Canais de pessoas do agro (D24) — descoberta indireta pelo site oficial. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/canais_pessoas/canais_pessoas.py",
+          "line": 87,
+          "snippet": "t = json.loads((RAIZ / \"regras\" / \"italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-CANAIS-PESSOAS",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-CANAIS-PESSOAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MICRO-COLETA-INSTRUMENTO",
       "to": "C-COORTE-MICRO-FUNIL",
       "type": "READS",
       "payload": "artefacto",
@@ -89312,6 +89769,41 @@
     },
     {
       "from": "C-PORTA-FONTE",
+      "to": "C-CANAIS-PESSOAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova tem o seu codigo importado por Canais de pessoas do agro (D24) — descoberta indireta pelo site oficial. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/canais_pessoas/canais_pessoas.py",
+          "line": 55,
+          "snippet": "import fonte_nova as FN          # noqa: E402 — a porta canonica",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CANAIS-PESSOAS",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-CANAIS-PESSOAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTE",
       "to": "C-CENSO-UNIFICACAO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -89538,8 +90030,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_canais_pessoas.py",
+          "line": 59,
+          "snippet": "with open(os.path.join(RAIZ, \"candidatas\", \"FONTES-CANDIDATAS.json\"), encoding=\"utf-8\") as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_fila_italia_decisoes.py",
           "line": 38,
@@ -112951,7 +113459,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1554,
+  "UNCLAIMED_FILES_COUNT": 1555,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -113188,7 +113696,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 207,
+      "PECAS_EM_DESACORDO": 208,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -113200,23 +113708,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 232
+      "TOTAL_DE_PECAS": 233
     }
   ],
   "COUNTS": {
-    "components": 232,
+    "components": 233,
     "components_proven": 31,
-    "components_pending": 193,
+    "components_pending": 194,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1219,
-    "edges_proven": 1155,
+    "edges": 1223,
+    "edges_proven": 1159,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2764,
-    "files_covered": 1210,
+    "files_tracked": 2769,
+    "files_covered": 1214,
     "files_code_unclaimed": 0,
-    "roles_proven": 161,
+    "roles_proven": 162,
     "roles_declared_only": 8,
     "roles_unknown": 63,
     "roles_conflict": 31,
