@@ -575,6 +575,32 @@
    ]
   },
   {
+   "id": "C-COORTE-MICRO-FUNIL",
+   "name": "Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Junta o universo (READY vivo por copia, gate desta linha, M3, censo das receitas), passa cada fonte por cinco degraus — pronta, rota executavel, receita que reconhece noticia lida, relevancia D2, nao-marca — e simula em memoria os desbloqueios com dono conhecido, sem baixar regua. Propoe receitas V2 pelo metodo da 6-PREP-d. Nao aplica nada.",
+   "why_here": "A micro-coleta tinha 1 fonte em 14 e ninguem sabia que degrau cortava. O funil mostra que o corte e antes da relevancia: prontidao e contrato.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/coorte_micro/funil.py",
+    "scripts/coorte_micro/receitas_v2.py",
+    "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
+    "scripts/coorte_micro/UNIVERSO-G0.json",
+    "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
+    "scripts/coorte_micro/ROTULOS-PAGINAS-COORTE-G0.json",
+    "curadoria/PROPOSTA-RECEITAS-V2.json"
+   ]
+  },
+  {
    "id": "C-RECEITAS-PROPOSTA",
    "name": "Receitas das fontes — censo do defeito e proposta com prova (nao aplicada)",
    "territory": "Z-MEDIDAS",
