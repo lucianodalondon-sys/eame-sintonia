@@ -19814,6 +19814,62 @@ que nenhum livro dizia:
   único controlo negativo que funciona.
 
     ROTA SEM CANÁRIO NÃO É ROTA — E ROTA COM CANÁRIO DE ONTEM É UMA MEMÓRIA.
+
+## 168-16 · SEM GABARITO NÃO HÁ RÉGUA — E ESCREVER A RÉGUA JÁ É LIGÁ-LA
+
+Missão 3c (2026-09-23). A porta não tinha pergunta para T2 nem T12, e a tentação
+era escrever as palavras e medir depois. Não se pode: `PERGUNTAS_DO_UNIVERSO` não
+tem modo «rascunho» — no instante em que a chave existe, `decidir()` usa-a.
+
+Medido antes de escrever uma palavra: em **todas** as bancadas do disco há **0**
+textos T12 e **14** T2 distintos, de 3 fontes de agrometeo, com **0** negativos. As
+dezenas de cópias eram os mesmos 8 PDFs da ARPAV. Um gabarito feito só disto
+mediria a régua contra boletins que qualquer palavra de clima aprova.
+
+E o catálogo primeiro mudou a pergunta: das 6 fontes T2/T12 que motivaram a
+missão, 2 não são agricultura (juventude e inovação da Lombardia) e 1 é duplicada.
+Uma régua T12 que as aprovasse seria um defeito; uma que as recusasse não
+aumentava a colheita em nada.
+
+    FALTA DE AMOSTRA NÃO SE COMPENSA COM CONFIANÇA NAS PALAVRAS.
+
+## 168-17 · A PRIMEIRA MATÉRIA DA HOMEPAGE É A DA ADMINISTRAÇÃO
+
+Missão 3c, 2.ª ida do gabarito (2026-09-23, egresso IT 51/51, 232 pedidos, ≤5
+por site). A regra fixa «o primeiro link com cara de item na página de entrada»
+é imparcial — não escolhe pelo texto — e por isso mesmo mediu uma coisa dura:
+nos sites de agências e regiões, os primeiros links são **CUG, URP, concursos,
+transparência, albo**. De 95 itens utilizáveis e distintos, **12** eram de clima
+e **5** de política agrícola. Mínimo exigido: 20 por classe. NÃO PRONTO.
+
+    UM SITE PÚBLICO FALA PRIMEIRO DE SI, E SÓ DEPOIS DO ASSUNTO.
+
+A próxima ida tem de entrar pela **secção de notícias/boletins** declarada na
+rota provada (o `INDEX_URL` do contrato), não pela homepage — e continuar a
+escolher por regra fixa, nunca pelo texto. E o PDF grande (ISPRA) veio cortado
+nos 4 MB do leitor: 0 caracteres. Um teto de bytes que corta um PDF ao meio
+não é um teto, é uma perda.
+
+## 168-18 · T12 NÃO TEM FONTES QUE CHEGUEM — ISSO É UM ACHADO
+
+Três idas ao gabarito T2/T12 (2026-09-23, egresso IT sempre, ≤5 pedidos por site,
+regra de escolha commitada antes de cada corrida). Positivos distintos,
+julgados a mão: **T2 = 13, T12 = 9**. Mínimo: 20. NÃO PRONTO nos dois.
+
+O número de T12 não é azar de amostra. O catálogo tem **121** fontes T12 (livro
+lote-76); **38** mostram sinal agrícola no nome ou no endereço, em **14**
+anfitriões; somando as 4 associações do Atlas, ~17 sítios. **83** são o governo
+regional inteiro (saúde, imposto automóvel, eleições, intranet). Em três idas,
+só 5 fontes deram um texto de política agrícola: Pianeta PSR, CSR Campania,
+CIA, CIA Toscana e o portal agrícola do Veneto.
+
+    UMA GAVETA CHEIA DE PAPÉIS NÃO É UMA GAVETA CHEIA DE ASSUNTO.
+
+E o defeito da 3.ª ida, para não repetir: numa página de secção, os primeiros
+links continuam a ser o MENU. O seletor tem de saltar o que já viu e seguir a
+lista — e a página da secção tem de ser guardada, para não custar um pedido
+de novo. A palavra «PAC» no BURA era *Piano Attuativo Comunale*: falso amigo que
+uma régua T12 tem de recusar.
 ---
 
 # §169 · UMA PONTE QUE ALGUÉM TEM DE MANDAR CORRER NÃO ESTÁ LIGADA
