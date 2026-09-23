@@ -107,7 +107,7 @@ def main(ref, saida):
         # os testes da politica NAO SEI e da quarentena (Q1), por padrao de nome: a
         # regra da Q1 conta como chamador todo o ficheiro que escreve o nome dela.
         doc["MODULOS_NAO_SEI"] = correr(wt, ["-m", "unittest", "discover", "-v", "-s", "tests",
-                                             "-t", ".", "-p", "test_*na*sei*.py"], 1800)
+                                             "-p", "test_*na*sei*.py"], 1800)
         for f in ("provas/recollection_http_local.mjs", "provas/recollection_indice_local.mjs",
                   "provas/recollection_timeout_local.mjs"):
             if (wt / f).exists():
