@@ -20570,3 +20570,47 @@ Duas guardas de missões antigas (`test_a_admissao_e_o_gate_nao_mudaram`,
 `BASELINE_CONGELADO` confere um artefacto guardado, não volta a julgar os 36
 documentos (os textos deles não estão no repo). A prova do italiano é a
 re-medição do lote-76 com as duas réguas.
+
+## UMA PONTE QUE ATRAVESSA NÃO É UMA PONTE QUE PROMOVE
+
+B1 (2026-09-23). A ponte automática atravessou 106 vezes sozinha, sem humano e
+sem git — e o portão ficou 8 → 8 em todas. No livro entraram 35 READY e nenhuma
+passou: o bot promove pela régua antiga («PASS_PARCIAL»), 23 provas não chegam
+ao ficheiro de evidências e 12 contratos não estão no livro que o portão lê.
+
+    TRAVESSIA CONTADA NÃO É PROMOÇÃO PROVADA.
+    O NÚMERO QUE PROVA A PONTE É O «ENTRARAM/SAIRAM» DO PORTÃO, NÃO O «ATRAVESSOU».
+
+E duas guardas que se julgavam existentes não existem ou são fracas: nenhuma
+fonte pode ser marcada RETIRADA pelo dono (D9) no ciclo de vida, e a régua
+aceita «contrato actual» quando o contrato não tem data de integração — é assim
+que IT-T5-041, que o bot dá por bloqueada e que redirige para outro sítio,
+continua elegível.
+
+## UM CONTRATO, UM DONO — OU O PORTÃO GUARDA O QUE NINGUÉM MEDE
+
+B2 (2026-09-23). A prova viva de DEMOTION falhou de uma forma que ensinou mais
+do que se tivesse passado: pedido ao bot para re-medir IT-T5-041, ele disse
+«sem contrato» e não escreveu nada. O READY dessa fonte tinha nascido noutra
+bancada, com um contrato que o bot não conhecia. E não era um caso: as 8
+fontes elegíveis tinham todas, no bot, um contrato diferente do que o portão lia.
+
+    UM PORTÃO QUE APROVA O QUE O BOT NÃO CONSEGUE MEDIR
+    APROVA PARA SEMPRE — NEM A MUDANÇA DE CASA DO SÍTIO A TIRA.
+
+E duas coisas que pareciam defeito de código eram código velho a correr: o bot
+e a ponte vivos estavam atrás das correcções que já existiam na linha. Antes de
+consertar, medir QUE commit está a correr.
+
+## A PROVA DA ROTA ENVELHECE — E SÓ SE DESCOBRE SE ALGUÉM A VOLTAR A MEDIR
+
+B3 (2026-09-23). O bot re-media o que tinha falhado e nunca o que tinha passado.
+Uma fonte aprovada ficava aprovada até alguém reparar — a CRPV mudou de casa num
+dia e continuava no portão. A re-medição periódica (7 dias, declarados) é o que
+faz uma DEMOTION acontecer sem humano.
+
+    UMA RESPOSTA QUE NÃO ESCREVE NO LIVRO NÃO PODE SER MOTIVO PARA PERGUNTAR OUTRA VEZ.
+
+A prova viva T02077 mostrou porquê a guarda anti-eco é obrigatória: «BLOCK sem
+contrato» não deixa linha no livro, e a fonte continuaria velha e elegível —
+pedida em cada volta ociosa, para sempre.
