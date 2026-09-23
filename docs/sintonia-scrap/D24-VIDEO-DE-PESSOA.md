@@ -147,17 +147,23 @@ NAMED_RESEARCHER_PUBLIC_SCREEN  BLOCKED_PENDING_LEGAL_REVIEW (dono: revisão jur
 > **tela**, e o dono dele é a revisão jurídica da ADAMA. As duas coisas vivem em
 > donos diferentes, e nenhuma missão de Scrap troca uma pela outra.
 
-E o **Instagram**, medido hoje lendo o `robots.txt` vivo:
+E o **Instagram**, medido lendo o `robots.txt` vivo:
 
 ```
 «Collection of data on Instagram through automated means is prohibited unless
   you have express written permission from Instagram»
 ```
 
-A autorização do dono cobre o risco do **projeto**. Ela **não é** a «express
-written permission» da **plataforma**, e nenhuma das duas se troca pela outra:
-o Reel de pessoa segue **RECUSADO** (D19), e o canário do D24 **não foi corrido
-por isso** — a recusa acontece **antes** da rede.
+> ⚠️ **CORRIGIDO PELO §6 — 2026-09-23.** O parágrafo que aqui estava dizia que
+> «o Reel de pessoa segue **RECUSADO** (D19), e o canário do D24 **não foi
+> corrido por isso**». **Isso deixou de ser verdade, e a correção é do
+> coordenador.** Aquela leitura colapsava os **dois eixos num só**: dizia a
+> proibição da plataforma e escondia quem já tinha assumido o risco — que é
+> exactamente o desenho que a casa usa no áudio do YouTube (D17.4/C13) e no
+> vídeo de organização do LinkedIn (D23), e que a **D22** já tinha aplicado aos
+> Reels do Instagram. O parágrafo fica, porque apagá-lo apagaria a medição do
+> `robots.txt`, que continua verdadeira: **a plataforma proíbe**. O que se
+> acrescenta é o segundo eixo. Ver o §6.
 
 ---
 
@@ -198,3 +204,81 @@ MUTANTES = 6 · SOBREVIVERAM = 0
 4 · A TELA DE PESSOAS NOMEADAS    continua bloqueada por revisão jurídica, e esta
                                   missão não a desbloqueia.
 ```
+
+---
+
+## 6 · O REEL DO INSTAGRAM — a mesma D24 na outra plataforma
+
+**ACRESCENTADO EM 2026-09-23**, por correção do coordenador. A D24 diz «em
+qualquer plataforma já coberta pela matriz do Scrap», e a D22 já tinha
+autorizado os Reels por URL directa. Faltava **medir** a metade do Instagram, e
+não recusá-la.
+
+### O que estava errado, em uma linha
+
+A recusa colapsava os **dois eixos** num só:
+
+```
+LEITURA ANTIGA   «a plataforma proíbe»                    -> NAO, antes da rede
+LEITURA CERTA    «a plataforma proíbe» + «o dono assumiu» -> SIM, com as duas
+```
+
+A segunda linha é a que a casa já escrevia no áudio do YouTube (D17.4/C13), no
+vídeo de organização do LinkedIn (D23) e — decisivo — nos **Reels do Instagram
+pela D22**.
+
+### O canário real — `provas/canario_d24_reel_de_pessoa.py`
+
+A pessoa: **Alessandro Giglietti**, dottore agronomo (laureado em Agraria,
+Univ. Firenze), divulgador — perfil público `@dr.agricultura`, identificado por
+**imprensa italiana** (Gazzetta di Siena, Corriere.it), não por inferência nossa
+sobre o handle. **O perfil nunca foi usado como fonte.**
+
+| medido | valor |
+|---|---|
+| `DISCOVERY_METHOD` | janela pública do próprio perfil, **deslogada** (`coleta/instagram_janela.py`) — nenhum buscador |
+| `ALVO` | `https://www.instagram.com/reel/DdW2PPWAqht/` — **a publicação**, não o perfil |
+| `EGRESS` | **IT** nas **duas** pontas (antes e depois), AS212238 · Palermo |
+| `MEDIA_STATE` | **`MEDIA_OK`** · `AUDIO_ONLY_ACQUISITION = PROVEN` |
+| bytes | **696 245**, sha256 `ea372eeb…` — **duas corridas devolveram o mesmo** |
+| `CAPTION_TEXT` | **731 caracteres** (legenda do autor, marcada como legenda) |
+| oficina | `tempfile.mkdtemp` — **base descartável** (`guardar=False`), nada entra no acervo |
+| pedidos | sem conta · sem login · sem cookie · sem contornar muro |
+| `CUSTO_USD` | **0.0** |
+| matriz | estagiada **em memória** durante a medição e **restaurada** no fim |
+
+> **O ESTÁGIO É DECLARADO.** A lei só passou a `PROVED` depois de o canário
+> devolver os números — não antes. Um canário que mudasse a lei para si próprio
+> não mediria nada.
+
+### O que a D24 abriu no Instagram, e o que **não** abriu
+
+```
+ABERTO    o REEL público por URL directa (vídeo/áudio, legenda/metadados do
+          próprio post) · limite PUBLIC_PERSON_VIDEO_ONLY
+FECHADO   o PERFIL (muro de login medido na grade por HTTP) · login · conta ·
+          cookie de sessão · CAPTCHA/bloqueio · CONTATOS · SEGUIDORES · DM ·
+          COMENTÁRIOS DE TERCEIROS · rota paga · PERSONAL_SCORING ·
+          NAMED_RESEARCHER_PUBLIC_SCREEN (dono: revisão jurídica)
+```
+
+### As duas portas passaram a concordar
+
+A porta operacional (`​.github/workflows/sintonia-scrap.yml`) **recusava** as três
+fases do Reel citando a política. Com a matriz a autorizar, isso passou a ser
+**duas verdades sobre a mesma rota**. O ramo passou a ser o **canónico**: manda
+ao orquestrador com `fase`, `pais`, `fonte` e `url`. Quem continua a travar não é
+a política — é a **falta de `SOURCE_ID`** para a publicação de uma pessoa, e quem
+o diz é o coletor (`FONTES_AUSENTES`), no sítio onde essa pergunta tem dono.
+
+> `URL` NÃO É `SOURCE_ID` — e a porta operacional **não inventa** uma fonte.
+
+### As provas desta metade
+
+| prova | o que mede |
+|---|---|
+| `tests/test_d24_video_de_pessoa.py` (**22**) | as rotas do Instagram com os três eixos; o perfil fechado nas duas plataformas; o que a D24 não abre, nomeado; o canário reproduzível |
+| `provas/_mutantes_d24.py` | **10 mutações · 10 mortes** (4 delas novas, do Instagram) |
+| `tests/test_c13_route_gate.py` | a **âncora** das decisões antigas ganhou a linha do Instagram **com a razão escrita** — mudou declarada |
+| `tests/test_c14c_permissao_instagram.py` | o gate passou a exigir: **ALLOWED só com os dois eixos declarados** |
+| `tests/test_as_duas_portas_do_scrap.py` | a fase autorizada pela matriz entra pela porta canónica |

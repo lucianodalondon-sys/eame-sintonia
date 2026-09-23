@@ -3,9 +3,17 @@
 """
 C10.5D — A DECISAO HUMANA DO INSTAGRAM, E AS TRES VERDADES QUE ELA NAO PODE COLAPSAR.
 
-    INSTAGRAM_REMOTE_ACQUISITION = NOT_ALLOWED
+    INSTAGRAM_REMOTE_ACQUISITION = ALLOWED COM O RISCO DO DONO (D22/D24)
     INSTAGRAM_LOCAL_ASR          = PROVEN
     REUSE_OF_PRESERVED_MEDIA     = ALLOWED
+
+⚠️ ATUALIZADO PELA D22/D24 (2026-09-23): a primeira linha era `NOT_ALLOWED` e
+passou a ser autorizada pelo dono real, POR ESCRITO, com a política da
+plataforma medida e escrita ao lado (`DISALLOWED`). O que muda é o EIXO DO DONO,
+não a política. Os testes de RECUSA que aqui viviam continuam a medir o mesmo —
+com o mundo antigo reposto em memória (`_RecusaDaMatriz`), porque
+
+    A RECUSA MUDOU DE LUGAR. NÃO DEIXOU DE SER MEDÍVEL.
 
 As tres sao verdadeiras ao mesmo tempo. Escrever «Instagram = bloqueado» juntava
 as tres numa so e perdia duas.
@@ -100,6 +108,42 @@ class _EspiaASR:
                 'IDIOMA': 'it', 'MODELO': 'espia'}
 
 
+class _RecusaDaMatriz:
+    """A MATRIZ DE VOLTA À RECUSA DO C10.5D, só dentro do `with`.
+
+    ⚠️ ATUALIZADO PELA **D22/D24** (2026-09-23). A decisão declarada para
+    `INSTAGRAM/FETCH_TRANSCRIPT` deixou de ser `NAO`: o dono real autorizou os
+    Reels por URL directa (D22) e o vídeo de PESSOAS do agro (D24), com os dois
+    eixos escritos ao lado (`OWNER_AUTHORIZED = SIM` +
+    `PLATFORM_POLICY_STATUS = DISALLOWED`). Medido, não suposto: o canário
+    `provas/canario_d24_reel_de_pessoa.py` adquiriu um Reel público de uma pessoa
+    do agro, em IT, por US$ 0.
+
+    O que estes testes mediam continua a ter de ser medido — só que agora com o
+    mundo ANTIGO em vigor, declarado aqui, em memória, e restaurado no fim:
+
+        A RECUSA MUDOU DE LUGAR. NÃO DEIXOU DE SER MEDÍVEL.
+
+    O que se prova aqui não é «a casa recusa»: é que **quando a lei recusa, nada
+    sai** — e é isso que faz do portão um portão e não um cartaz.
+    """
+
+    #: A linha histórica do C10.5D, com o nome com que foi escrita.
+    RECUSA = {'ROTA': 'instagram_transcrever.py:faster-whisper',
+              'CLASSE': 'LOCAL_EXECUTOR', 'PERMITIDA': 'NAO',
+              'ESTADO': 'ROUTE_NOT_ALLOWED', 'PRIORIDADE': 5,
+              'CUSTO': 'zero', 'NOTA': 'recusa do C10.5D, reposta em memória pelo teste'}
+
+    def __enter__(self):
+        self._orig = list(mz.MATRIZ['INSTAGRAM'][GROSSA])
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = [dict(self.RECUSA)]
+        return self
+
+    def __exit__(self, *_):
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = self._orig
+        return False
+
+
 def _ficheiro(tmp, nome='bytes.m4a'):
     """Um ficheiro de som REAL e minusculo, feito aqui.
 
@@ -136,32 +180,43 @@ class ADecisaoEstaTomadaEValeNoSocket(unittest.TestCase):
         rt._ytdlp = self._orig
 
     def test_T0_a_decisao_no_ficheiro_de_politica_e_nao(self):
+        """ATUALIZADO PELA D22/D24 — o nome fica: guarda o LUGAR da decisão.
+
+        O valor mudou (a decisão declarada deixou de ser `NAO`); o essencial não:
+        quem decide é a MATRIZ, e a decisão viaja com os dois eixos ao lado.
+        """
         d = mz.decisao('INSTAGRAM', GROSSA)
-        self.assertEqual(d['DECISAO'], mz.NAO_PERMITIDA)
+        self.assertEqual(d['DECISAO'], mz.PERMITIDA_SIM)
         rotas = mz.MATRIZ['INSTAGRAM'][GROSSA]
-        self.assertEqual([r['PERMITIDA'] for r in rotas], ['NAO'])
-        self.assertEqual([r['ESTADO'] for r in rotas], ['ROUTE_NOT_ALLOWED'])
+        self.assertEqual([r['PERMITIDA'] for r in rotas], ['SIM'])
+        self.assertEqual([r['ESTADO'] for r in rotas], ['PROVED'])
+        self.assertEqual(d['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(d['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
+        self.assertEqual(d['LIMITE'], 'PUBLIC_PERSON_VIDEO_ONLY')
 
     def test_T1_politica_nao_produz_zero_sockets(self):
-        with _SemRede() as rede:
-            rt.obter_midia(dict(SEM_BYTES))
+        with _RecusaDaMatriz():
+            with _SemRede() as rede:
+                rt.obter_midia(dict(SEM_BYTES))
         self.assertEqual(rede.tentativas, [])
         self.assertEqual(self.espia.chamadas, [])
 
     def test_T2_os_metadados_tambem_ficam_atras_do_portao(self):
         # Pedir metadados e tocar a plataforma: abre socket, gasta pedido e
         # aparece no log do host.
-        with _SemRede() as rede:
-            meta, porque = rt.metadados_ytdlp(SEM_BYTES['SOURCE_URL'],
-                                              plataforma='INSTAGRAM')
+        with _RecusaDaMatriz():
+            with _SemRede() as rede:
+                meta, porque = rt.metadados_ytdlp(SEM_BYTES['SOURCE_URL'],
+                                                  plataforma='INSTAGRAM')
         self.assertIsNone(meta)
         self.assertTrue(porque.startswith(mz.NAO_PERMITIDA), porque)
         self.assertEqual(rede.tentativas, [])
         self.assertEqual(self.espia.chamadas, [])
 
     def test_T3_o_estado_diz_a_causa_certa(self):
-        with _SemRede():
-            _c, _p, estado, porque, degraus = rt.obter_midia(dict(SEM_BYTES))
+        with _RecusaDaMatriz():
+            with _SemRede():
+                _c, _p, estado, porque, degraus = rt.obter_midia(dict(SEM_BYTES))
         self.assertEqual(estado, mz.NAO_PERMITIDA)
         self.assertNotEqual(estado, rt.MEDIA_SEM_AUDIO_SO,
                             'a recusa saiu disfarcada de audio indisponivel. O '
@@ -201,10 +256,13 @@ class ReusarNaoEAdquirir(unittest.TestCase):
         self.assertTrue(self.asr.chamadas, 'o reconhecedor nao foi chamado')
 
     def test_T5_e_nao_se_abriu_um_socket_para_isso(self):
-        with _SemRede() as rede:
-            ai.capturar_reel(ident=dict(SEM_BYTES), run_id='C105D-T5',
-                             midia_ficheiro=_ficheiro(self.tmp, 'b.m4a'),
-                             guardar=False)
+        # ATUALIZADO PELA D22/D24: o reuso sempre foi independente da política —
+        # e é com a RECUSA em vigor que este teste o prova.
+        with _RecusaDaMatriz():
+            with _SemRede() as rede:
+                ai.capturar_reel(ident=dict(SEM_BYTES), run_id='C105D-T5',
+                                 midia_ficheiro=_ficheiro(self.tmp, 'b.m4a'),
+                                 guardar=False)
         self.assertEqual(rede.tentativas, [])
         self.assertEqual(self.espia.chamadas, [])
 
@@ -215,8 +273,11 @@ class ReusarNaoEAdquirir(unittest.TestCase):
             _o, trace = ai.capturar_reel(
                 ident=dict(SEM_BYTES), run_id='C105D-TRACE',
                 midia_ficheiro=_ficheiro(self.tmp, 'c.m4a'), guardar=False)
-        self.assertEqual(trace['POLICY_DECISION'], mz.NAO_PERMITIDA)
-        self.assertFalse(trace['REMOTE_ACQUISITION_ALLOWED'])
+        # ATUALIZADO PELA D22/D24: antes esta linha nunca podia ser ALLOWED.
+        # Continua a medir o mesmo: a decisão em vigor sobe no trace, tenha ela
+        # barrado ou deixado passar.
+        self.assertEqual(trace['POLICY_DECISION'], mz.PERMITIDA_SIM)
+        self.assertTrue(trace['REMOTE_ACQUISITION_ALLOWED'])
         self.assertEqual(trace['POLICY_OWNER'], 'leis/social_matriz.py')
 
 
@@ -235,15 +296,28 @@ class NenhumaDasTresVerdadesMenteSobreAOutra(unittest.TestCase):
         # BLOCKED = a plataforma impediu-me tecnicamente.
         # ROUTE_NOT_ALLOWED = eu podia, e decidi nao fazer.
         # Colapsa-las poria a culpa na plataforma por uma decisao desta casa.
+        #
+        # ATUALIZADO PELA D22/D24: o estado desta rota deixou de ser a recusa —
+        # mas o que o teste guarda nunca foi o VALOR, foi a DISTINÇÃO. E ela
+        # continua a valer: um estado técnico (BLOCKED) não pode ser usado para
+        # escrever uma decisão do projeto. A recusa continua a existir na
+        # matriz, declarada noutra rota (o PERFIL), e as duas palavras vivem no
+        # vocabulário.
         rotas = mz.MATRIZ['INSTAGRAM'][GROSSA]
         self.assertNotIn('BLOCKED', [r['ESTADO'] for r in rotas])
-        self.assertEqual([r['ESTADO'] for r in rotas], ['ROUTE_NOT_ALLOWED'])
+        self.assertEqual([r['ESTADO'] for r in rotas], ['PROVED'])
         self.assertIn('ROUTE_NOT_ALLOWED', mz.ESTADOS)
         self.assertIn('BLOCKED', mz.ESTADOS)
 
     def test_T8_capacidade_provada_nao_autoriza_rota(self):
+        # ATUALIZADO PELA D22/D24 — a intenção fica inteira: o estado PROVEN de
+        # uma capacidade NUNCA é o que abre a porta. Quem abre é o DONO, nos
+        # eixos, e é por isso que a rota autorizada viaja com as duas frases.
         self.assertEqual(cap.estado('instagram.reel.transcribe'), 'PROVEN')
-        self.assertEqual(mz.decisao('INSTAGRAM', GROSSA)['DECISAO'], mz.NAO_PERMITIDA)
+        d = mz.decisao('INSTAGRAM', GROSSA)
+        self.assertEqual(d['DECISAO'], mz.PERMITIDA_SIM)
+        self.assertEqual(d['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(d['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
         # e o dono de cada resposta e um ficheiro diferente
         self.assertNotEqual('coleta/scrap_capacidades.py', 'leis/social_matriz.py')
 

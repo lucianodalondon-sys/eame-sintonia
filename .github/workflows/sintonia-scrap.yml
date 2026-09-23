@@ -833,28 +833,39 @@ jobs:
                 --filtro fase=contas-bluesky --filtro fonte="$FONTE_AB" \
                 --filtro pais=IT --filtro termo='${{ inputs.termo }}' ;;
 
-            # ── AS TRÊS DO REEL: CONSTRUÍDAS, E RECUSADAS PELA MATRIZ ─────
-            # A fase EXISTE — `scrap_colheita.FASES`, `NOMEADOS` e
-            # `receitas.serve_fases` — e o caminho está montado. Quem a recusa
-            # hoje é a LEI, e o portão passou a dizê-lo:
+            # ── AS TRÊS DO REEL: A MATRIZ AUTORIZA (D22/D24) — E ESTA PORTA
+            #    PASSA A MANDÁ-LAS AO ORQUESTRADOR ──────────────────────────
+            # ATUALIZADO EM 2026-09-23, e a mudança é de DIREÇÃO, não de gosto.
             #
-            #     mz.decisao('INSTAGRAM','FETCH_TRANSCRIPT') -> ROUTE_NOT_ALLOWED
-            #     CHECK('INSTAGRAM','instagram.reel.transcribe')
-            #         -> CAN=False · STATE=ROUTE_NOT_ALLOWED
+            # O que estava escrito aqui: «a matriz recusa
+            # `INSTAGRAM/FETCH_TRANSCRIPT` (ROUTE_NOT_ALLOWED) e a autorização
+            # nomeada do dono vale para o YOUTUBE (D17.4) e não para Reels
+            # (D19.2)». Isso deixou de ser verdade: a **D22** autorizou os Reels
+            # por URL directa (substituindo a D19) e a **D24** autorizou o vídeo
+            # de PESSOAS do agro, com os DOIS eixos escritos ao lado —
+            # `OWNER_AUTHORIZED = SIM` + `PLATFORM_POLICY_STATUS = DISALLOWED`.
             #
-            # A autorização nomeada do dono vale para o YOUTUBE (D17.4) e NÃO
-            # se estende a Reels (D19.2): até existir a conta Instagram Business
-            # do PROJETO, a Página Meta e o app próprios, o Instagram permanece
-            # POLICY_BLOCK e fornece zero dados à Big Collection (D19.1).
+            #     UMA PORTA OPERACIONAL QUE RECUSA O QUE A LEI PERMITE É DOIS
+            #     VERDADES SOBRE A MESMA ROTA.
             #
-            #     CONSTRUÍDA != LIGADA != PERMITIDA.
+            # O que NÃO mudou, e é o que continua a travar esta fase: **`URL` não
+            # é `SOURCE_ID`**. A publicação de uma pessoa ainda não tem fonte
+            # registada com território provado (D24, item aberto 1), e esta porta
+            # NÃO inventa uma — quem recusa alto é o coletor, com
+            # `FONTES_AUSENTES`, no sítio canónico onde essa pergunta tem dono.
             #
-            # ⚠️ E ISTO NÃO É UMA RECUSA DE CONTEÚDO: é uma recusa de POLÍTICA.
-            # O estado que sai é o da matriz, com o nome dela — nunca um
-            # «recusada» que julga o que ninguém leu.
+            #     WORKFLOW É DISPARADOR. WORKFLOW NÃO É MOTOR DE COLETA.
             captura-reel|audio-reel|transcricao-reel)
-              recusar "${{ inputs.fase }}" COLLECTION_FETCH \
-                "INSTAGRAM/FETCH_TRANSCRIPT e ROUTE_NOT_ALLOWED na matriz; a autorizacao nomeada do dono vale para o YOUTUBE (D17.4) e NAO para Reels (D19). A fase esta construida (FASES + serve_fases) e esta porta recusa-a ate existir a conta Business do PROJETO e a API oficial" ;;
+              FONTE_IG="$(fonte_do_pedido '${{ inputs.fonte }}')"
+              ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_IG")" || {
+                echo "FONTE_SEM_APELIDO: $FONTE_IG — a publicacao de pessoa do agro ainda nao tem SOURCE_ID com territorio provado (D24, item aberto 1). Esta porta nao inventa fonte."
+                exit 2
+              }
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro pais=IT \
+                --filtro fonte="$FONTE_IG" \
+                --filtro url='${{ inputs.url }}' ;;
 
             # ── COLLECTION SEM ROTA CANÔNICA · RECUSA ────────────────────
             # `coleta/instagram_diario.py rodar` importa `instagram_janela` e

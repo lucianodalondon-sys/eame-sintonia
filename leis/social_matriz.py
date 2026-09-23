@@ -655,17 +655,24 @@ MATRIZ = {
         '_NOTA': ('Estrada MADURA nesta casa — `instagram_janela.py` já mede a rota do '
                   'navegador público e `instagram_transcrever.py` já transcreve local. '
                   'Esta missão NÃO reescreve nada disso; só declara onde a Apify sobra. '
-                  '⚠️ D24 (2026-09-23): o dono autorizou também o VÍDEO de PESSOAS do agro '
-                  '— e no Instagram isso NÃO abre rota nenhuma, porque o que barra aqui não '
-                  'é o eixo da pessoa, é a PLATAFORMA. Medido hoje, lendo o `robots.txt` '
-                  'vivo: «Collection of data on Instagram through automated means is '
-                  'prohibited unless you have express written permission from Instagram». '
-                  'A autorização do dono cobre o RISCO DO PROJETO; ela não é a «express '
-                  'written permission» da plataforma, e nenhuma das duas se troca pela '
-                  'outra. O Reel de pessoa segue RECUSADO (D19), e o canário do D24 não foi '
-                  'corrido por isso — recusa antes da rede, fail-closed. '
-                  'O QUE MUDARIA ISTO: a decisão humana que a D19 já nomeia (conta Business '
-                  'do PROJETO com Página Meta e app próprios), e mais nada.'),
+                  '⚠️ D24 (2026-09-23): o dono autorizou TAMBÉM o VÍDEO de PESSOAS do agro '
+                                    '— e a D22 já tinha autorizado os Reels por URL directa, substituindo a '
+                                    'D19. A leitura ANTERIOR parava o Reel de pessoa ANTES da rede e '
+                                    'colapsava os DOIS eixos num só: dizia «a plataforma proíbe» e escondia '
+                                    'que o dono já tinha assumido esse risco — como o assumiu no áudio do '
+                                    'YouTube (D17.4/C13) e no vídeo de organização do LinkedIn (D23). O eixo '
+                                    'da PLATAFORMA continua MEDIDO e escrito ao lado de cada rota: o '
+                                    '`robots.txt` vivo do `instagram.com` proíbe a coleta automatizada sem '
+                                    'permissão escrita da plataforma. A autorização do dono é sobre o RISCO '
+                                    'DO PROJETO; ela NÃO É a «express written permission» da plataforma, e '
+                                    'nenhuma das duas se troca pela outra. '
+                                    'O QUE CONTINUA FECHADO, e não por efeito lateral: o PERFIL '
+                                    '(999/authwall medido, e o muro de login da grade por HTTP), login, '
+                                    'conta, cookie de sessão, contornar login wall/CAPTCHA/bloqueio, '
+                                    'CONTATOS, SEGUIDORES, MENSAGENS (DM), COMENTÁRIOS DE TERCEIROS, rota '
+                                    'paga, `PERSONAL_SCORING` e a TELA de pessoas nomeadas '
+                                    '(`NAMED_RESEARCHER_PUBLIC_SCREEN` — dono: revisão jurídica). '
+                                    'PONTEIRO: `docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md` §6.'),
         'FETCH_PROFILE': [
             r('instagram_janela.py:embed', 'PUBLIC_BROWSER', 'CONDICIONAL', 'PROVED', 'zero',
               'já medido nesta casa em 2026-09-02: bio, seguidores, denominador de posts',
@@ -718,42 +725,64 @@ MATRIZ = {
               limite='PUBLIC_PROFILE_DISCOVERY_ONLY'),
         ],
         'FETCH_TRANSCRIPT': [
-            # ── DECISÃO HUMANA, C10.5D · 2026-09-11 ──────────────────────────
-            # Esta linha deixou de ser `SIM`. O que mudou NÃO foi a capacidade:
-            # foi a leitura do `robots.txt` VIVO de `instagram.com`, medida pelo
-            # portão desta casa e confirmada lendo o ficheiro — 6.256 bytes, e o
-            # bloco que nos serve é `User-agent: *` / `Disallow: /`. O agente
-            # desta coleta não aparece nomeado em lado nenhum.
-            #
-            #     ROTA QUE FUNCIONA NÃO É ROTA PERMITIDA.
-            #
-            # E a rota que esta linha nomeia NÃO é um motor local: ela baixa o
-            # MP4 INTEIRO da CDN da Meta antes de reconhecer a fala. É por isso
-            # que o `NAO` lhe pertence — não por causa do `faster-whisper`.
-            #
-            # O QUE ESTE `NAO` **NÃO** DIZ:
-            #     · não diz que o reconhecedor local está proibido;
-            #     · não diz que os bytes já preservados nesta casa não podem
-            #       voltar a ser processados;
-            #     · não rebaixa a capacidade medida — `instagram.reel.transcribe`
-            #       continua `PROVEN` em `scrap_capacidades.py`, e tem de
-            #       continuar.
-            #
-            #     CAN DO != MAY DO != DID DO.   REUSAR != ADQUIRIR.
-            #
-            # Quem faz valer esta decisão é o portão que vive no ponto onde o
-            # socket abre (`ferramentas/reel_transcricao.py`), e é por viver lá
-            # que ele recusa a aquisição sem recusar o reprocessamento.
-            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'NAO',
-              'ROUTE_NOT_ALLOWED',
-              'zero dólar, ~6 h/1.000 vídeos no modelo small',
-              'A ROTA SAI PARA A PLATAFORMA: baixa o MP4 inteiro da CDN da Meta e '
-              'só depois transcreve. O `robots.txt` vivo de instagram.com responde '
-              '`Disallow: /` ao agente desta casa — medido na C10.5. O motor local '
-              'continua provado e os bytes já preservados continuam reprocessáveis; '
-              'o que está recusado é SAIR para buscar mídia nova.',
-              'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),
-        ],
+                    # ── C10.5D (2026-09-11) mandou PARAR; D22/D24 (2026-09-23) mandaram
+                    #    ANDAR — e o que separa as duas não é a capacidade, é o EIXO.
+                    #
+                    # A C10.5D leu o `robots.txt` VIVO de `instagram.com` — 6.256 bytes, o
+                    # bloco `User-agent: *` / `Disallow: /` — e escreveu `NAO`. Isso estava
+                    # certo enquanto a casa lia UM eixo só: dizia «a plataforma proíbe» e
+                    # deixava por dizer quem tinha assumido o risco.
+                    #
+                    #     UMA LEITURA DE UM EIXO SÓ NÃO É UMA DECISÃO: É METADE DELA.
+                    #
+                    # A D22 (dono real) autorizou os Reels por URL directa, substituindo a
+                    # D19; a D24 (o mesmo dono, por escrito) autorizou o VÍDEO de PESSOAS do
+                    # agro. As duas trazem a mesma forma que a casa já usava no áudio do
+                    # YouTube (D17.4/C13) e no vídeo de organização do LinkedIn (D23):
+                    #
+                    #     OWNER_AUTHORIZED = SIM  +  PLATFORM_POLICY_STATUS = DISALLOWED
+                    #
+                    # A plataforma continua a PROIBIR — isso está medido, e fica escrito ao
+                    # lado em vez de apagado. Quem mudou foi o dono do risco.
+                    #
+                    # O QUE ESTA ABERTURA **NÃO** ABRE, e cada linha disto tem prova:
+                    #   · PERFIL — 999/`authwall` medido; e a grade por HTTP devolve o muro
+                    #     de login. Não se contorna;
+                    #   · login, conta, cookie de sessão, CAPTCHA, bloqueio — nada disso;
+                    #   · CONTATOS · SEGUIDORES · MENSAGENS (DM) · COMENTÁRIOS DE TERCEIROS;
+                    #   · rota paga (D17.1) e `PERSONAL_SCORING`;
+                    #   · a TELA de pessoas nomeadas — `NAMED_RESEARCHER_PUBLIC_SCREEN`
+                    #     continua com a revisão jurídica, que é outro dono.
+                    #
+                    #     AUTORIZAR A COLETA NÃO VIRA CONFORMIDADE JURÍDICA.
+                    #
+                    # E O LIMITE NOMEIA O ALVO QUE FOI MEDIDO: `PUBLIC_PERSON_VIDEO_ONLY`.
+                    # Um Reel de ORGANIZAÇÃO no Instagram não é este limite — a D22 fala
+                    # deles, e quem os abrir declara o limite próprio. O vocabulário é
+                    # fechado e cresce declarado, nunca por analogia.
+                    r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'SIM',
+                      'PROVED',
+                      'zero dólar, ~6 h/1.000 vídeos no modelo small',
+                      'A ROTA SAI PARA A PLATAFORMA: baixa a mídia pública do Reel por URL '
+                      'directa e só depois reconhece a fala. '
+                      'MEDIDO em 2026-09-23, egresso IT (AS212238 · Palermo) nas DUAS pontas '
+                      'da corrida, sem conta, sem login, sem cookie e sem contornar muro: um '
+                      'Reel PÚBLICO de uma PESSOA do agro italiano (@dr.agricultura — '
+                      'Alessandro Giglietti, dottore agronomo) foi adquirido por URL directa '
+                      'em AQUISIÇÃO SÓ DE ÁUDIO — `MEDIA_STATE = MEDIA_OK`, '
+                      '`AUDIO_ONLY_ACQUISITION = PROVEN`, 696 245 bytes, sha256 `ea372eeb…`, '
+                      'e DUAS corridas independentes devolveram o MESMO sha256. A '
+                      '`CAPTION_TEXT` (731 caracteres) viaja marcada como legenda, nunca como '
+                      'fala. O alvo foi descoberto pela JANELA PÚBLICA da própria casa (grade '
+                      'do perfil, deslogada) — nenhum buscador. '
+                      'A PLATAFORMA PROÍBE (o `robots.txt` vivo responde `Disallow: /`); o '
+                      'dono autorizou por escrito (D22/D24), e as duas frases andam juntas. '
+                      'A página de PERFIL continua FECHADA (999/`authwall`, medido) e não se '
+                      'contorna.',
+                      'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
+                      owner_authorized='SIM', platform_policy='DISALLOWED',
+                      limite='PUBLIC_PERSON_VIDEO_ONLY'),
+                ],
         'FETCH_COMMENTS': [
             r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',
               'O ÚNICO buraco real medido: a rota grátis dá o NÚMERO de comentários, nunca '

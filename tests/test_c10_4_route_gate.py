@@ -203,23 +203,31 @@ def _quem_escreve_permitida():
 class ODonoDaPoliticaEUmSo(unittest.TestCase):
 
     def test_a_decisao_do_instagram_esta_tomada_e_e_nao(self):
-        # C10.5D · decisao humana. Ate aqui esta linha dizia SIM, e o teste
-        # media isso. O que mudou nao foi a capacidade: foi a leitura do
-        # `robots.txt` vivo de instagram.com.
+        # C10.5D · decisao humana — e ATUALIZADA PELA D22/D24 (2026-09-23).
+        # O nome fica: o que ele guarda é que a decisão está TOMADA, num ficheiro
+        # só, e não dispersa. O valor dela mudou: o dono real autorizou os Reels
+        # por URL directa (D22) e o vídeo de pessoas do agro (D24), assumindo o
+        # risco, com a política da plataforma medida e escrita ao lado.
         d = mz.decisao('INSTAGRAM', GROSSA)
-        self.assertEqual(d['DECISAO'], mz.NAO_PERMITIDA)
+        self.assertEqual(d['DECISAO'], mz.PERMITIDA_SIM)
         rotas = mz.MATRIZ['INSTAGRAM'][GROSSA]
         self.assertEqual(len(rotas), 1, 'nasceu rota nova em FETCH_TRANSCRIPT')
-        self.assertEqual(rotas[0]['PERMITIDA'], 'NAO')
-        self.assertEqual(rotas[0]['ESTADO'], 'ROUTE_NOT_ALLOWED')
+        self.assertEqual(rotas[0]['PERMITIDA'], 'SIM')
+        self.assertEqual(rotas[0]['ESTADO'], 'PROVED')
         self.assertEqual(rotas[0]['CLASSE'], 'LOCAL_EXECUTOR')
+        # E as DUAS frases andam juntas: quem autorizou, e quem proíbe.
+        self.assertEqual(rotas[0]['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(rotas[0]['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
 
     def test_a_decisao_e_de_rota_e_nao_rebaixa_a_capacidade(self):
         # O erro que esta casa nao pode cometer: transformar «nao podes sair»
         # em «nao sabes fazer». Sao donos diferentes e ficheiros diferentes.
         self.assertEqual(cap.estado('instagram.reel.transcribe'), 'PROVEN')
         self.assertTrue(cap.promete_resultado('instagram.reel.transcribe'))
-        self.assertEqual(mz.decisao('INSTAGRAM', GROSSA)['DECISAO'], mz.NAO_PERMITIDA)
+        # ATUALIZADO PELA D22/D24: a rota deixou de ser recusada — e o estado da
+        # capacidade, que é do OUTRO dono, continua exactamente onde estava.
+        self.assertEqual(mz.decisao('INSTAGRAM', GROSSA)['DECISAO'], mz.PERMITIDA_SIM)
+        self.assertEqual(cap.estado('instagram.reel.transcribe'), 'PROVEN')
 
     def test_buscar_bytes_de_video_continua_por_declarar(self):
         # A cadeia mediu VIDEO_BYTES_DOWNLOADED = 0. Pedir autorizacao para o
@@ -300,11 +308,16 @@ class OCaminhoCanonico(unittest.TestCase):
         não que a porta esteja aberta. O caminho permitido é medido acima, com
         a política injectada em memória, que é onde ele deve ser medido.
         """
+        # ⚠️ ATUALIZADO PELA D22/D24 (2026-09-23): a matriz deixou de recusar
+        # `INSTAGRAM/FETCH_TRANSCRIPT` — o dono real autorizou os Reels por URL
+        # directa (D22) e o vídeo de pessoas do agro (D24), com os dois eixos ao
+        # lado. O que este teste guarda continua a ser o mesmo: o `CHECK` CONHECE
+        # a capacidade grossa e fala a língua dela.
         v = scrap.CHECK('INSTAGRAM', CAPACIDADE)
         self.assertEqual(v['MATRIZ_CAPABILITY'], GROSSA)
-        self.assertEqual(v['MATRIZ_DECISAO'], mz.NAO_PERMITIDA)
-        self.assertFalse(v['CAN'])
-        self.assertEqual(mz.NAO_PERMITIDA, v['STATE'])
+        self.assertEqual(v['MATRIZ_DECISAO'], mz.PERMITIDA_SIM)
+        self.assertTrue(v['CAN'])
+        self.assertEqual(mz.PERMITIDA_SIM, v['STATE'])
         self.assertEqual(v['ADAPTER'], 'adaptador_instagram')
         self.assertEqual(v['COST_TO_CHECK_USD'], 0.0)
 

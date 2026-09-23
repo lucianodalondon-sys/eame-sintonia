@@ -92,8 +92,12 @@ BLOQUEADAS = ('diario', 'yt-canais', 'yt-objetos', 'yt-legendas',
               'yt-transcrever', 'bio', 'posts', 'reels', 'comentarios')
 #: As fases que a MATRIZ recusa hoje — a recusa tem de ser a mesma nas duas
 #: portas, e o nome do estado tem de ser o que o dono da política deu.
-RECUSADAS_PELA_MATRIZ = ('janela', 'janela-perfis', 'janela-objetos',
-                        'captura-reel', 'audio-reel', 'transcricao-reel')
+#: ⚠️ ATUALIZADO PELA D22/D24 (2026-09-23): as três do Reel SAÍRAM desta lista.
+#: A matriz deixou de as recusar — o dono real autorizou os Reels por URL directa
+#: (D22) e o vídeo de pessoas do agro (D24), com os dois eixos escritos. Elas
+#: continuam a NÃO correr por falta de FONTE registada, e quem o diz agora é o
+#: coletor (`FONTES_AUSENTES`), não esta porta — a porta manda-as ao orquestrador.
+RECUSADAS_PELA_MATRIZ = ('janela', 'janela-perfis', 'janela-objetos')
 #: Fases que NÃO são Collection e que por isso continuam com CLI própria.
 #:
 #: ⚠️ `yt-alvos` ENTROU AQUI, E A ENTRADA É UMA CORREÇÃO. Ele estava nas
@@ -441,8 +445,13 @@ class APoliticaContinuaDona(unittest.TestCase):
                          'a fase que corre `timedtext` voltou ao workflow')
 
     def test_10_a_politica_nao_mudou_nesta_missao(self):
-        self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
-                         mz.NAO_PERMITIDA)
+        # ATUALIZADO PELA D22/D24 — mudou, e mudou num ficheiro que não é este.
+        # O que o teste guarda é que a DECISÃO continua a ser lida da matriz, com
+        # os eixos, e não reescrita pela porta operacional.
+        d = mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')
+        self.assertEqual(d['DECISAO'], mz.PERMITIDA_SIM)
+        self.assertEqual(d['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(d['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
         for cap in ('INCREMENTAL', 'FETCH_TRANSCRIPT'):
             self.assertIn(cap, mz.MATRIZ['YOUTUBE'])
 

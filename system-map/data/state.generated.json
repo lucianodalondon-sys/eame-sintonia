@@ -3301,9 +3301,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "be1f8ebbd9310fed2b8288cdaffc7aede0a9563a",
-    "GENERATED_AT": "2026-09-23T14:32:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "aae0c180f00c932ebd7958a43e48e9238c202f09ead9b8173a762de6c71197d4"
+    "HEAD": "808273d7b5c4498262725ede0ba20a1ea8bad439",
+    "GENERATED_AT": "2026-09-23T14:35:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "2e16b001c7fdb99954e437c71d946978c5de30e4b8f11bd31b8bbfd2831d8c8b"
   },
   "FAMILIES": [
     {
@@ -43135,9 +43135,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 567,
+        "palavras": 570,
         "por_lingua": {},
-        "sem_marca_de_lingua": 567,
+        "sem_marca_de_lingua": 570,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -43163,7 +43163,6 @@
       "consumes": [
         "coleta/instagram_janela.py",
         "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
-        "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
         "docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md",
         "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
         "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
@@ -46616,6 +46615,7 @@
           "CAMPOS_DA_REGRA",
           "CAMPOS_DOC_DA_REGRA",
           "CAMPOS_DO_FATO",
+          "CANARIO_INSTAGRAM",
           "CANONICAS",
           "CANONICA_DE_PE",
           "CATALOGO",
@@ -46662,7 +46662,7 @@
           "PRONTO",
           "QUEM_FALA_DE_RAW_ASSET",
           "QUINZE",
-          "RECUSADAS_PELA_MATRIZ",
+          "RECUSA",
           "ROTA_M2",
           "ROTULO_ITALIA",
           "SEIS",
@@ -46682,13 +46682,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1190,
+        "palavras": 1212,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1178,
+        "sem_marca_de_lingua": 1200,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -46721,7 +46721,7 @@
         {
           "onde": "SUPABASE",
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 471,
+          "line": 480,
           "snippet": "anterior = os.environ.pop('SUPABASE_DB_URL', None)"
         },
         {
@@ -62996,7 +62996,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 672,
+          "line": 679,
           "snippet": "'scripts/instagram_janela.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -63264,7 +63264,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 270,
+          "line": 274,
           "snippet": "for i in IMPLEMENTACOES + ('instagram_coleta.py',):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
@@ -63503,7 +63503,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 521,
+          "line": 530,
           "snippet": "import comunicacao_coleta as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--IMPORTS-->C-TESTES",
@@ -63666,7 +63666,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 555,
+          "line": 564,
           "snippet": "arv = ast.parse(_fonte('coleta/comunicacao_coleta.py'))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--READS-->C-TESTES",
@@ -86537,7 +86537,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 174,
+          "line": 178,
           "snippet": "ENTRADAS_CANONICAS = ('social_scrap.py', 'orquestrador/orquestrador.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
@@ -99811,7 +99811,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 209,
+          "line": 213,
           "snippet": "import scrap_colheita as SC",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-TESTES",
@@ -101836,7 +101836,7 @@
         },
         {
           "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 47,
+          "line": 55,
           "snippet": "import social_matriz as mz          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-TESTES",
@@ -101967,7 +101967,7 @@
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 265,
+          "line": 273,
           "snippet": "self.assertIn('leis/social_matriz.py', donos,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -101983,7 +101983,7 @@
         },
         {
           "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 220,
+          "line": 281,
           "snippet": "self.assertEqual(trace['POLICY_OWNER'], 'leis/social_matriz.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -104031,7 +104031,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 319,
+          "line": 332,
           "snippet": "arvore = ast.parse(_fonte('coleta/adaptador_instagram.py'))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -104175,7 +104175,7 @@
         },
         {
           "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 248,
+          "line": 322,
           "snippet": "self.assertNotEqual('coleta/scrap_capacidades.py', 'leis/social_matriz.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -109288,7 +109288,7 @@
         },
         {
           "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 50,
+          "line": 58,
           "snippet": "import fala_local as fl             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-TESTES",
@@ -109304,7 +109304,7 @@
         },
         {
           "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 51,
+          "line": 59,
           "snippet": "import reel_transcricao as rt       # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-TESTES",
@@ -109403,7 +109403,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 508,
+          "line": 521,
           "snippet": "'ferramentas/reel_transcricao.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -109419,7 +109419,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 509,
+          "line": 522,
           "snippet": "self.assertEqual(medida.get('ASR_OWNER'), 'ferramentas/fala_local.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -109467,7 +109467,7 @@
         },
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
-          "line": 271,
+          "line": 279,
           "snippet": "self.assertEqual(donos, ['ferramentas/fala_local.py'])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -109547,7 +109547,7 @@
         },
         {
           "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 264,
+          "line": 338,
           "snippet": "self.assertEqual(donos, ['ferramentas/fala_local.py'])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -109563,7 +109563,7 @@
         },
         {
           "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 349,
+          "line": 423,
           "snippet": "'ferramentas/reel_transcricao.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",

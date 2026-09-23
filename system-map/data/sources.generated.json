@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T17:33:27+00:00",
-    "HEAD": "be1f8ebbd9310fed2b8288cdaffc7aede0a9563a",
+    "GENERATED_AT": "2026-09-23T19:08:01+00:00",
+    "HEAD": "808273d7b5c4498262725ede0ba20a1ea8bad439",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "aae0c180f00c932ebd7958a43e48e9238c202f09ead9b8173a762de6c71197d4",
-    "FICHEIROS_NA_IMPRESSAO": 2855,
+    "SOURCE_TREE_FINGERPRINT": "2e16b001c7fdb99954e437c71d946978c5de30e4b8f11bd31b8bbfd2831d8c8b",
+    "FICHEIROS_NA_IMPRESSAO": 2857,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -23116,6 +23116,71 @@
   },
   "ENDPOINTS": [
     {
+      "endpoint": "https://www.instagram.com/reel",
+      "usado_por": [
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 7
+        },
+        {
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 65
+        },
+        {
+          "file": "provas/instagram_audio_only.py",
+          "line": 7
+        },
+        {
+          "file": "tests/test_c10_1_source_id.py",
+          "line": 18
+        },
+        {
+          "file": "tests/test_c10_2_origin_gate.py",
+          "line": 37
+        },
+        {
+          "file": "tests/test_c10_3_location.py",
+          "line": 199
+        },
+        {
+          "file": "tests/test_c10_4_route_gate.py",
+          "line": 68
+        },
+        {
+          "file": "tests/test_c10_5_collection_flow.py",
+          "line": 139
+        },
+        {
+          "file": "tests/test_c10_5d_decisao_instagram.py",
+          "line": 65
+        },
+        {
+          "file": "tests/test_c10_6_crash_retry.py",
+          "line": 65
+        },
+        {
+          "file": "tests/test_c10_audio_only.py",
+          "line": 116
+        },
+        {
+          "file": "tests/test_cadeia_do_audio_offline.py",
+          "line": 71
+        },
+        {
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 290
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 116
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 779
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.linkedin.com/company",
       "usado_por": [
         {
@@ -23173,67 +23238,6 @@
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 305
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/reel",
-      "usado_por": [
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 7
-        },
-        {
-          "file": "provas/censo_executavel_da_v1.py",
-          "line": 65
-        },
-        {
-          "file": "provas/instagram_audio_only.py",
-          "line": 7
-        },
-        {
-          "file": "tests/test_c10_1_source_id.py",
-          "line": 18
-        },
-        {
-          "file": "tests/test_c10_2_origin_gate.py",
-          "line": 37
-        },
-        {
-          "file": "tests/test_c10_3_location.py",
-          "line": 199
-        },
-        {
-          "file": "tests/test_c10_4_route_gate.py",
-          "line": 68
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 139
-        },
-        {
-          "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 57
-        },
-        {
-          "file": "tests/test_c10_6_crash_retry.py",
-          "line": 65
-        },
-        {
-          "file": "tests/test_c10_audio_only.py",
-          "line": 116
-        },
-        {
-          "file": "tests/test_cadeia_do_audio_offline.py",
-          "line": 71
-        },
-        {
-          "file": "tests/test_reel_transcricao.py",
-          "line": 116
-        },
-        {
-          "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 779
         }
       ]
     },
@@ -24047,7 +24051,7 @@
       "usado_por": [
         {
           "file": "leis/social_matriz.py",
-          "line": 813
+          "line": 842
         },
         {
           "file": "provas/canario_d24_video_de_pessoa.py",

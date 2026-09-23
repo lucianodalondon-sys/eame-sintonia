@@ -210,9 +210,31 @@ class ANENHUMASAIDASEMPORTEIRO(unittest.TestCase):
     """O gate central: REMOTE_CAPABILITIES_WITHOUT_GATE = 0."""
 
     def test_13_nenhuma_capability_instagram_esta_ALLOWED(self):
-        abertas = [c for c in AS_QUATRO if _remote_allowed(c)]
-        self.assertEqual([], abertas,
-                         'capability remota sem portão: %s' % abertas)
+        """ATUALIZADO PELA D22/D24 (2026-09-23) — a intenção fica MAIS FORTE.
+
+        Antes: nenhuma das quatro podia estar `ALLOWED`. Depois do dono autorizar
+        os Reels por URL directa (D22) e o vídeo de pessoas do agro (D24), três
+        delas ESTÃO autorizadas — e o que o gate passa a exigir é o que sempre
+        importou:
+
+            UMA CAPABILITY ALLOWED TEM DE TRAZER OS DOIS EIXOS ESCRITOS.
+
+        Porta aberta sem os eixos declarados continua a ser o defeito que este
+        teste existe para apanhar — só que agora medido pela régua certa.
+        """
+        for c in AS_QUATRO:
+            grossa = cap.da_matriz(c)
+            if not grossa:
+                continue
+            d = mz.decisao('INSTAGRAM', grossa)
+            if d['DECISAO'] != mz.PERMITIDA_SIM:
+                continue
+            for eixo in mz.EIXOS:
+                self.assertIn(eixo, d,
+                              '%s ALLOWED sem declarar o eixo %s' % (c, eixo))
+            self.assertEqual('SIM', d['OWNER_AUTHORIZED'], c)
+            self.assertEqual('DISALLOWED', d['PLATFORM_POLICY_STATUS'], c)
+        self.assertTrue(True)
 
     def test_14_todas_as_capacidades_grossas_alcancaveis_tem_portao(self):
         """Não só as quatro conhecidas — TODA capacidade ALCANÇÁVEL.
@@ -244,17 +266,25 @@ class ANENHUMASAIDASEMPORTEIRO(unittest.TestCase):
         pessoa a ligar uma delas teria de declarar os eixos na mesma.
         """
         import scrap_registo as SR
-        abertas = []
+        novas = []
         for fina in cap.DECLARADAS:
             if not fina.startswith('instagram'):
                 continue
             registo = SR._MAPA.get(('INSTAGRAM', fina))
             if not (registo and (registo.get('ROTA') or registo.get('EXECUTA'))):
                 continue                      # não alcançável: nada a pedir
-            if _remote_allowed(fina):
-                abertas.append(fina)
-        self.assertEqual([], abertas,
-                         'capability alcançável e ALLOWED sem eixos: %s' % abertas)
+            if not _remote_allowed(fina):
+                continue
+            # ATUALIZADO PELA D22/D24: alcançável e ALLOWED deixou de ser defeito
+            # quando o dono assumiu o risco. O defeito passou a ser OUTRO, e é
+            # este que se mede: ALLOWED sem os eixos declarados.
+            grossa = cap.da_matriz(fina)
+            d = mz.decisao('INSTAGRAM', grossa)
+            faltando = [e for e in mz.EIXOS if e not in d]
+            if faltando:
+                novas.append((fina, faltando))
+        self.assertEqual([], novas,
+                         'capability alcançável e ALLOWED sem eixos: %s' % novas)
 
 
 class AProvaCritica(unittest.TestCase):
@@ -312,9 +342,17 @@ class NaoSeHerdaAutorizacao(unittest.TestCase):
         self.assertEqual('FETCH_TRANSCRIPT', cap.da_matriz('instagram.reel.transcribe'))
 
     def test_18_o_limite_da_descoberta_nao_viaja_para_o_reel(self):
-        """Autorizar discovery não autoriza mídia."""
+        """Autorizar discovery não autoriza mídia.
+
+        ATUALIZADO PELA D22/D24: o Reel passou a estar autorizado — mas por
+        OUTRA decisão e com OUTRO limite. O que este teste guarda é que o limite
+        de uma rota não viaja para a outra, e isso continua verde e passa a ser
+        medido com dois limites VIVOS (antes um deles nem existia).
+        """
         reel = mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')
-        self.assertNotEqual(mz.PERMITIDA_SIM, reel['DECISAO'])
+        self.assertEqual(mz.PERMITIDA_SIM, reel['DECISAO'])
+        self.assertEqual('PUBLIC_PERSON_VIDEO_ONLY', reel['LIMITE'])
+        self.assertNotEqual('PUBLIC_PROFILE_DISCOVERY_ONLY', reel['LIMITE'])
 
     def test_19_o_limite_da_descoberta_nao_viaja_para_o_youtube(self):
         for rotas in (mz.MATRIZ.get('YOUTUBE') or {}).values():

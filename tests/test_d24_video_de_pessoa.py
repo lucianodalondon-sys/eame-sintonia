@@ -272,6 +272,105 @@ class OQueOD24NaoReabre(unittest.TestCase):
                                          'rota de conteudo pessoal autorizada: %s' % nome)
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# D24 TAMBÉM VALE NO INSTAGRAM — E A D22 JÁ TINHA ABERTO OS REELS
+# ══════════════════════════════════════════════════════════════════════════
+# ⚠️ ESTE BLOCO NASCEU DE UMA CORREÇÃO DO COORDENADOR, e a correção estava
+# certa: a primeira versão da D24 recusava o Reel de pessoa no Instagram com a
+# justificação «a plataforma proíbe». Essa leitura colapsava os DOIS eixos num
+# só — dizia a proibição e escondia quem tinha assumido o risco, que é
+# exactamente o desenho que a casa já usava no áudio do YouTube (D17.4/C13) e no
+# vídeo de organização do LinkedIn (D23), e que a **D22** já tinha aplicado aos
+# Reels do Instagram.
+#
+#     UMA LEITURA DE UM EIXO SÓ NÃO É UMA DECISÃO: É METADE DELA.
+#
+# O que fica congelado aqui são os NÚMEROS medidos, e não uma promessa.
+CANARIO_INSTAGRAM = {
+    'ALVO': 'https://www.instagram.com/reel/DdW2PPWAqht/',
+    'PESSOA': '@dr.agricultura — Alessandro Giglietti, dottore agronomo (IT)',
+    'MEDIA_STATE': 'MEDIA_OK',
+    'MEDIA_KIND': 'AUDIO',
+    'AUDIO_ONLY_ACQUISITION': 'PROVEN',
+    'BYTES': 696245,
+    'SHA256': 'ea372eebbae1faac3bc6e745324f147371bbbbf6ab1075a341b7a17481bc48db',
+    'CAPTION_TEXT_CHARS': 731,
+    'EGRESSO': 'IT',
+    'CUSTO_USD': 0.0,
+}
+MATRIZ_INSTAGRAM = 'INSTAGRAM/FETCH_TRANSCRIPT'
+
+
+class AOutraPlataformaDaD24(unittest.TestCase):
+    """O Instagram: a mesma D24, o mesmo limite, os mesmos dois eixos."""
+
+    def test_16_o_instagram_declara_os_tres_eixos(self):
+        r = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT'][0]
+        for eixo in mz.EIXOS:
+            self.assertIn(eixo, r, 'falta o eixo %s no Instagram' % eixo)
+        self.assertEqual('SIM', r['OWNER_AUTHORIZED'])
+        self.assertEqual('DISALLOWED', r['PLATFORM_POLICY_STATUS'])
+        self.assertEqual('PUBLIC_PERSON_VIDEO_ONLY', r['LIMITE'])
+
+    def test_17_a_decisao_do_instagram_e_a_do_projeto_e_diz_quem_assumiu(self):
+        d = mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')
+        self.assertEqual(mz.PERMITIDA_SIM, d['DECISAO'])
+        self.assertEqual('SIM', d['OWNER_AUTHORIZED'])
+        self.assertEqual('DISALLOWED', d['PLATFORM_POLICY_STATUS'])
+
+    def test_18_a_nota_carrega_os_numeros_medidos_e_o_nome_da_decisao(self):
+        """A nota é a prova escrita: sem os números, a rota abre por narrativa."""
+        nota = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT'][0]['NOTA']
+        self.assertIn('D22/D24', nota)
+        self.assertIn('696 245', nota)
+        self.assertIn(CANARIO_INSTAGRAM['SHA256'][:8], nota)
+        self.assertIn('AUDIO', nota.upper(), 'a nota esqueceu a espécie adquirida')
+
+    def test_19_o_perfil_de_pessoa_continua_FECHADO_nas_duas_plataformas(self):
+        """A plataforma fecha a porta que fala da pessoa e abre a da publicação.
+
+        Medido no LinkedIn (999/authwall) e no Instagram (muro de login na grade
+        por HTTP). O que a D24 abriu foi o POST, e é isso que aqui se guarda.
+        """
+        r = [x for x in mz.MATRIZ['LINKEDIN']['DISCOVER_ACCOUNT']
+             if x['ROTA'] == 'linkedin:perfil-publico-de-pessoa'][0]
+        self.assertEqual('NAO', r['PERMITIDA'])
+        self.assertEqual('BLOCKED', r['ESTADO'])
+        # no Instagram, a rota da janela (descoberta) NÃO é autorizada:
+        d = mz.decisao('INSTAGRAM', 'INCREMENTAL')
+        self.assertNotEqual(mz.PERMITIDA_SIM, d['DECISAO'],
+                            'a descoberta de perfil ganhou autorização por '
+                            'efeito lateral da D24')
+
+    def test_20_o_que_a_D24_nao_abre_esta_nomeado_na_nota(self):
+        """O que NÃO abre está nomeado — e a lista tem dono.
+
+        A NOTA da ROTA diz o que a rota faz (e que não se contorna muro); a
+        `_NOTA` da PLATAFORMA diz o que a plataforma fecha. As duas juntas são a
+        lista fechada: procurar num lado só faria o teste medir a minha memória
+        do sítio, não a frase escrita.
+        """
+        rota = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT'][0]
+        proibicoes = rota['NOTA'] + ' ' + mz.MATRIZ['INSTAGRAM']['_NOTA']
+        for proibido in ('login', 'CONTATOS', 'SEGUIDORES', 'DM',
+                         'COMENTÁRIOS DE TERCEIROS', 'PERSONAL_SCORING',
+                         'NAMED_RESEARCHER_PUBLIC_SCREEN'):
+            self.assertIn(proibido, proibicoes,
+                          'a declaracao deixou de nomear %s' % proibido)
+
+    def test_21_o_canario_congelado_e_reproduzivel_por_comando(self):
+        """O canário vive em `provas/` e corre com um comando — sem ele, os
+        números acima seriam folclore."""
+        p = os.path.join(RAIZ, 'provas', 'canario_d24_reel_de_pessoa.py')
+        self.assertTrue(os.path.exists(p), 'o canario do Instagram desapareceu')
+        txt = io.open(p, encoding='utf-8').read()
+        self.assertIn(CANARIO_INSTAGRAM['ALVO'], txt)
+        self.assertIn('portao_de_egresso', txt,
+                      'o canario deixou de medir o egresso antes e depois')
+        self.assertIn("EGRESS_GATE_BEFORE", txt)
+        self.assertIn("EGRESS_GATE_AFTER", txt)
+
+
 def inspect_src(mod):
     import inspect
     return inspect.getsource(mod)

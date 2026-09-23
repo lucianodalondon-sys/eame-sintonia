@@ -217,9 +217,12 @@ class APortaQueNenhumImportMostra(unittest.TestCase):
         with self.assertRaises(velho.RotaAposentada):
             velho._baixar('https://scontent.cdninstagram.com/nada.mp4', alvo)
         self.assertFalse(os.path.exists(alvo), 'a velha escreveu apesar da recusa')
-        # a decisao de politica continua NAO, e continua a nao ser desta missao
+        # ATUALIZADO PELA D22/D24: a decisão de política passou a SIM (o dono
+        # autorizou por escrito, com a plataforma a proibir e isso escrito ao
+        # lado). E a prova da ROTA APOSENTADA ficou mais forte, não mais fraca:
+        # ela continua a recusar mesmo quando a lei PERMITE.
         self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
-                         mz.NAO_PERMITIDA)
+                         mz.PERMITIDA_SIM)
 
     def test_o_embed_da_velha_tambem_deixou_de_abrir(self):
         # Gratis nao era permitido: abrir o embed subia navegador e tocava o
@@ -254,11 +257,16 @@ class UmaDecisaoTodasAsPortas(unittest.TestCase):
         self.assertEqual(velho.PLATAFORMA, 'INSTAGRAM')
 
     def test_a_politica_nao_foi_alterada_por_esta_missao(self):
-        # A C10.4B nao e missao de politica. Se a decisao mudar, foi outra coisa.
+        # A C10.4B nao e missao de politica. Se a decisao mudar, foi outra coisa
+        # — e foi: D22/D24 (2026-09-23), dono real, por escrito. O que este
+        # teste guarda continua a ser a FORMA: UMA rota, declarada, com os eixos.
         rotas = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
         self.assertEqual(len(rotas), 1)
-        self.assertEqual(rotas[0]['PERMITIDA'], 'NAO')
-        self.assertEqual(rotas[0]['ESTADO'], 'ROUTE_NOT_ALLOWED')
+        self.assertEqual(rotas[0]['PERMITIDA'], 'SIM')
+        self.assertEqual(rotas[0]['ESTADO'], 'PROVED')
+        self.assertEqual(rotas[0]['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(rotas[0]['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
+        self.assertEqual(rotas[0]['LIMITE'], 'PUBLIC_PERSON_VIDEO_ONLY')
 
     def test_o_reconhecedor_continua_a_ter_um_dono_so(self):
         donos = []
@@ -291,9 +299,10 @@ class UmaDecisaoTodasAsPortas(unittest.TestCase):
                           ('-vn', '-i', 'ffmpeg', 'bestaudio')], [],
                          'a rota aposentada voltou a montar um comando de media')
 
-        # a decisao de politica continua NAO — e continua a nao ser desta missao
+        # ATUALIZADO PELA D22/D24 — a decisão é SIM, e continua a não ser desta
+        # missão: quem a mudou foi o dono, num ficheiro que não é este.
         self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
-                         mz.NAO_PERMITIDA)
+                         mz.PERMITIDA_SIM)
 
 
 if __name__ == '__main__':

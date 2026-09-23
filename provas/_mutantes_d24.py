@@ -86,6 +86,38 @@ def _m_abre_porta_proibida():
     r['PERMITIDA'] = 'SIM'
 
 
+
+# ── OS MUTANTES DO INSTAGRAM (a metade que a D22 já tinha aberto) ───────────
+def _rota_ig():
+    for r in mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']:
+        return r
+    raise KeyError('FETCH_TRANSCRIPT')
+
+
+def _m_ig_recusa():
+    """A rota do Reel volta a `NAO` — e o teste congelado tem de morrer."""
+    _rota_ig()['PERMITIDA'] = 'NAO'
+
+
+def _m_ig_estado():
+    _rota_ig()['ESTADO'] = 'ROUTE_NOT_ALLOWED'
+
+
+def _m_ig_politica_apagada():
+    """Apagar o eixo da PLATAFORMA é esconder a proibição: a casa proíbe isso."""
+    _rota_ig()['PLATFORM_POLICY_STATUS'] = 'NOT_MEASURED'
+
+
+def _m_ig_limite_vira_audio():
+    _rota_ig()['LIMITE'] = 'PUBLIC_AUDIO_ONLY'
+
+
+mutacao('o Instagram volta a recusar o Reel de pessoa', _m_ig_recusa)
+mutacao('o ESTADO do Instagram volta a ser a recusa', _m_ig_estado)
+mutacao('a politica da plataforma no Instagram deixa de estar medida',
+        _m_ig_politica_apagada)
+mutacao('o LIMITE do Reel de pessoa vira o limite do audio', _m_ig_limite_vira_audio)
+
 mutacao('o ESTADO da rota de pessoa muda', _m_estado)
 mutacao('o dono deixa de estar autorizado na rota de pessoa', _m_dono)
 mutacao('o LIMITE da rota de pessoa vira o da organizacao', _m_limite)
