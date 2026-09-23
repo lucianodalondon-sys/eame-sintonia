@@ -21076,3 +21076,37 @@ acrescentaram amostras (`008ac754`, +3), reprovam.
   numa linha Python da mesma função.
 - Uma suíte vermelha só é regressão depois de medida na base: três suítes da Sala já
   falhavam em `b3f548eb` com os mesmos números.
+
+
+# §198 · A MICRO COM REDE REAL: O CAMINHO AGUENTA A INTERNET — E SIM 0 NÃO É FALHA DA REDE
+
+**O QUE CORREU (23/09, 12:59–13:15Z).** `scripts/micro_coleta/micro_rede_real.py`: a mesma
+estrada do ensaio offline (orquestrador → coletor Node → RAW → DERIVED → Admission → Sala),
+com os pedidos a sair pela VPN italiana e uma Sala **descartável** (`sala_italia` numa porta
+livre; a Sala real não foi tocada). Coorte do portão: as mesmas 8 da A2.
+- Portão de egresso IT antes e depois de **cada** uma das 16 corridas: IT → IT, sem paragem.
+- 1.ª passagem: 8/8 HEALTHY, 19 documentos = 19 RAW = 19 DERIVED, 0 falhas de rede, no
+  máximo 5 pedidos por site (35 no total).
+- 2.ª passagem: REFETCH 0, FALSE_CHANGED 0, 10 puladas, 9 revalidadas SEEN_AGAIN, no máximo 4
+  pedidos por site.
+
+**SIM 0 — E PORQUE.** Admission: NAO 9 / NAO_SEI 10 / SIM 0; quarentena D11 = 2. As 3
+matérias mais recentes de cada site (o teto da D7) não traziam sinal bastante: 8 NAO_SEI por
+uma palavra solta do universo, 7 NAO por falarem claramente de outro universo, 2 NAO do
+detector (capa), 2 em quarentena. É a régua a funcionar sobre as notícias do dia, não a rede.
+Consequências:
+- a Sala ficou +0 já na 1.ª passagem, portanto o «+0 na 2.ª» **não prova idempotência** nesta
+  corrida (a idempotência está provada no ensaio offline A3: +12/+0);
+- o C4 reprova, porque exige ≥1 linha na Sala;
+- o gabarito só pôde ser medido em 2 dos 10 itens: 2/2, 0 SIM errado.
+
+**O COLETOR NÃO LÊ ROBOTS E NÃO ESPAÇA PEDIDOS.** Medido no código (`italy_pilot_collect.mjs`):
+nenhuma leitura de robots.txt, nenhuma pausa. O condutor lê o robots antes de cada fonte (pela
+peça da casa, `gate_de_rota.robots_de`, sondando a página de entrada e o caminho das matérias
+tirado do padrão do contrato) e espera 15 s entre fontes. Dentro de uma fonte os pedidos saem
+seguidos. **Para a Big Collection isto tem de viver no coletor**, não num condutor à parte.
+
+**O TETO DA D7.** «Robots + página + até 3 matérias» = 5 por site, **por passagem**. Foi
+aplicado baixando MAX_TARGETS para 3 só na cópia temporária da árvore. Um teste apanhou um
+defeito meu: `c.get("ACQUISITION") or {}` dá um dicionário solto quando ACQUISITION está vazio
+(vazio é falso), e o teto não ficava gravado. Usar `setdefault`.
