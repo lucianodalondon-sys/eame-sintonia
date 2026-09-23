@@ -233,6 +233,84 @@ def descobrir(maximo=None):
     return 0
 
 
+def _curl(url):
+    """(status, corpo) pelo curl com o MESMO User-Agent. A licao da R2: o urllib leva
+    recusa de TLS/cliente onde o curl entra, e a recusa lia-se como «robots ilegivel»."""
+    r = subprocess.run(["curl", "-sS", "-L", "--max-time", str(TIMEOUT_S), "-A", D.UA,
+                        "-H", "Accept-Language: it-IT,it;q=0.9", "-o", "-", "-w", "\n__S__%{http_code}", url],
+                       capture_output=True)
+    s = r.stdout
+    k = s.rfind(b"\n__S__")
+    if k < 0:
+        return 0, b""
+    return int(s[k + 6:] or 0), s[:k]
+
+
+def segunda_passagem():
+    """So para os NAO_LIDO_ROBOTS_ILEGIVEL da 1.a: robots pelo curl; «HTML com 200» no
+    lugar do robots.txt e a pagina de «nao existe» (soft-404) — sem ficheiro, sem regra,
+    DECLARADO no registo. 401/403 continua a fechar. Orcamento: com o pedido da 1.a,
+    no maximo 3 por host (robots urllib + robots curl + pagina)."""
+    d = json.loads(SAIDA.read_text(encoding="utf-8"))
+    urls_conh, ids_conh = conhecidos()
+    alvo = [h for h in d["HOSTS"].values() if h["RESULTADO"] == "NAO_LIDO_ROBOTS_ILEGIVEL"]
+    g = portao("antes da 2.a passagem"); d["PORTOES"].append(g)
+    print("portao:", g["GATE"], "· hosts:", len(alvo))
+    if g["GATE"] != "PASS":
+        return 2
+    for i, reg in enumerate(alvo):
+        if i and i % VIGIA_A_CADA == 0:
+            g = portao("vigia 2.a passagem %d" % i); d["PORTOES"].append(g)
+            if g["GATE"] != "PASS":
+                break
+        h = reg["HOST"]
+        st, corpo = _curl("https://%s/robots.txt" % h)
+        time.sleep(PAUSA_S)
+        texto = corpo.decode("utf-8", "replace")
+        rp = urllib.robotparser.RobotFileParser()
+        if st in (401, 403):
+            reg.update({"ROBOTS_2": "HTTP %d pelo curl — fechado" % st, "RESULTADO": "NAO_LIDO_ROBOTS_2"})
+            continue
+        if st == 200 and not texto.lstrip().lower().startswith(("<!doctype", "<html")):
+            rp.parse(texto.splitlines()); est = "LIDO pelo curl"
+        elif st in (200, 404, 410):
+            rp.parse([]); est = ("SEM_ROBOTS: /robots.txt devolve %s — pagina de «nao existe», sem regra"
+                                % ("HTML com 200" if st == 200 else "HTTP %d" % st))
+        else:
+            reg.update({"ROBOTS_2": "HTTP %d pelo curl — continua ilegivel" % st,
+                        "RESULTADO": "NAO_LIDO_ROBOTS_ILEGIVEL_2"})
+            continue
+        reg["ROBOTS_2"] = est
+        if not rp.can_fetch(D.UA, reg["URL"]):
+            reg["RESULTADO"] = "NAO_LIDO_ROBOTS"
+            continue
+        st, corpo = _curl(reg["URL"])
+        time.sleep(PAUSA_S)
+        reg["HTTP"] = st
+        if st != 200 or not corpo:
+            reg["RESULTADO"] = "NAO_LIDO_HTTP_%s" % st
+            continue
+        sha = hashlib.sha256(corpo).hexdigest()
+        (EVID / (h + ".html")).write_bytes(corpo)
+        achados = {}
+        for u, a in D.extrair_links(corpo.decode("utf-8", "replace"), reg["URL"]):
+            tipo, canon = classificar_link(u, a)
+            if not tipo:
+                continue
+            k = FN.normalizar(canon)
+            if k in achados:
+                continue
+            ja = (k in urls_conh) or any(x in canon for x in ids_conh)
+            achados[k] = {"TIPO": tipo, "URL": canon, "ANCORA": (a or "")[:120], "JA_CONHECIDO": ja}
+        reg.update({"RESULTADO": "LIDO_2A_PASSAGEM", "PAGINA_SHA256": sha, "PAGINA_BYTES": len(corpo),
+                    "ACHADOS": list(achados.values())})
+        print("%-40s %s · %d achados" % (h[:40], est[:24], len(achados)), flush=True)
+    g = portao("depois da 2.a passagem"); d["PORTOES"].append(g)
+    SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print("portao depois:", g["GATE"])
+    return 0
+
+
 def resumo():
     d = json.loads(SAIDA.read_text(encoding="utf-8"))
     H = d["HOSTS"].values()
@@ -250,6 +328,8 @@ def main():
     if "--descobrir" in sys.argv:
         mx = next((int(a.split("=")[1]) for a in sys.argv if a.startswith("--max=")), None)
         return descobrir(mx)
+    if "--segunda-passagem" in sys.argv:
+        return segunda_passagem()
     if "--resumo" in sys.argv:
         return resumo()
     print(__doc__)
