@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "pesquisadores-v1",
-    "HEAD": "54c96f248df75296d3fcfa69656cf7fe0f3787f4",
-    "GENERATED_AT": "2026-09-23T14:01:54-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1f1399a41e1ffba56c2b73146930a1024b2c807f93f11969933b03b53a086e53"
+    "HEAD": "ed005349f3927e80055e191b39c344cbcd059af7",
+    "GENERATED_AT": "2026-09-23T15:48:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3661babaf08bb149c7149a3240be450d4cf3a57c7180e958d4d114c0049183da"
   },
   "FILES": [
     {
@@ -1382,7 +1382,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "631617f519d65f297d222fbaa61be747ad5827b8",
+      "sha": "252459602e66d5bbd11b55e63552adb6b1901a9d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -2236,7 +2236,7 @@
     },
     {
       "path": "curadoria/DISCOVERY-VISITED.json",
-      "sha": "c7e7a9b854f58ee4cf0267aaadb8d1e997c0ac01",
+      "sha": "cd4e09b960dd04dcc50189f2f46252d44f7ac555",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2369,7 +2369,28 @@
     },
     {
       "path": "curadoria/PESQUISADORES-LISTA-V1.json",
-      "sha": "b82ad27aa2e48fa61bd4bfa087f90670c1ed4527",
+      "sha": "449ddbe4449594b5e21c4b8a2f0c50402b28bcc0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-P1B-CONAF-LINKS.json",
+      "sha": "bc4d3251dc018a7ac7b28a7975268bca12bca56a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-P1B-PROOF-V1.json",
+      "sha": "f149939b8775a8d4662775a85fe99390346b3ffc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-P1B-RELEITURA-PROOF-V1.json",
+      "sha": "2da7ed8a3746ce5d416e285defff45583c14566a",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2880,7 +2901,7 @@
     },
     {
       "path": "curadoria/pesquisadores.py",
-      "sha": "9481c3bdfcfbfb804e0f9caba01d385d76bdcf92",
+      "sha": "07bb54bd7b4b13960959ac56b3358260d62deb17",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -25807,6 +25828,28 @@
     },
     {
       "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/PESQUISADORES-P1B-CONAF-LINKS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 888,
+        "snippet": "CONAF_LINKS = RAIZ / \"curadoria\" / \"PESQUISADORES-P1B-CONAF-LINKS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/PESQUISADORES-P1B-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 653,
+        "snippet": "PROOF_P1B = RAIZ / \"curadoria\" / \"PESQUISADORES-P1B-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
       "to_file": "curadoria/PESQUISADORES-PROOF-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -25825,6 +25868,17 @@
         "file": "curadoria/pesquisadores.py",
         "line": 34,
         "snippet": "import descobrir as D                                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 651,
+        "snippet": "import rede as R                                         # noqa: E402"
       }
     },
     {
@@ -78883,10 +78937,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2728,
+    "files_tracked": 2731,
     "files_readable": 1246,
     "files_code_dir": 1065,
-    "file_edges": 5383,
+    "file_edges": 5386,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
