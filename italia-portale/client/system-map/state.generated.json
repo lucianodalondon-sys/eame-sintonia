@@ -2325,6 +2325,8 @@
       "scripts/diagnostico_sala/onde_casou.py",
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
       "scripts/micro_coleta/GABARITO-MICRO-V1.json",
+      "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
+      "scripts/micro_coleta/ensaio_offline.py",
       "scripts/micro_coleta/medir_detector_de_capa.py",
       "scripts/micro_coleta/micro_coleta.py",
       "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
@@ -2585,6 +2587,7 @@
       "tests/test_comunicacao.py",
       "tests/test_comunicacao_universo_falha_fechado.py",
       "tests/test_consumo_da_referencia_adama.py",
+      "tests/test_ensaio_offline_micro.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
       "tests/test_estradas_it.py",
@@ -3223,10 +3226,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-    "GENERATED_AT": "2026-09-23T02:36:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901"
+    "BRANCH": "micro-caminho-v1",
+    "HEAD": "57b6b83f37a3ecd9368122b8c7c5da06e3840bd6",
+    "GENERATED_AT": "2026-09-23T05:30:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a16e2ce112839f375a3b3b2e1236e4de807e1d907bd273a3dd74a1dee72dc8e4"
   },
   "FAMILIES": [
     {
@@ -4713,8 +4716,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 558",
-        "desses, mostrados aqui: 40 (ficam de fora 518)"
+        "enderecos que o codigo realmente chama: 561",
+        "desses, mostrados aqui: 40 (ficam de fora 521)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -26466,12 +26469,14 @@
       ],
       "file_count": 5,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "handoff/paused-v2/MANIFESTO.json"
       ],
-      "inbound": [],
+      "inbound": [
+        "C-TESTES"
+      ],
       "outbound": [
         "C-COORTE-MICRO-FUNIL",
         "C-DESBLOQUEIO-PACOTE",
@@ -26537,7 +26542,16 @@
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": null,
+      "OWNER_CONFLICT": [
+        {
+          "file": "handoff/paused-v2/MANIFESTO.json",
+          "written_by": [
+            "C-DETECTOR-CAPA-GABARITO",
+            "C-TESTES"
+          ],
+          "owner_elected": "C-DETECTOR-CAPA-GABARITO"
+        }
+      ],
       "consumes": [
         "curadoria/italy_contracts_curator.json",
         "handoff/paused-v2/MANIFESTO.json",
@@ -31299,7 +31313,7 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "existe teste que exercita isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
@@ -31307,7 +31321,8 @@
       ],
       "produces": [],
       "inbound": [
-        "C-ASK-SINTONIA"
+        "C-ASK-SINTONIA",
+        "C-TESTES"
       ],
       "outbound": [
         "C-CENSO-IDENTIDADE-IT",
@@ -44744,6 +44759,7 @@
         "tests/test_comunicacao.py",
         "tests/test_comunicacao_universo_falha_fechado.py",
         "tests/test_consumo_da_referencia_adama.py",
+        "tests/test_ensaio_offline_micro.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
         "tests/test_estradas_it.py",
@@ -44864,7 +44880,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 208,
+      "file_count": 209,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -45041,8 +45057,10 @@
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
         "C-COORTE-MICRO-FUNIL",
+        "C-DETECTOR-CAPA-GABARITO",
         "C-ESTRADAS-IT",
         "C-IT-CONTRATOS",
+        "C-IT-PRESERVAR",
         "C-MAPA-GERADOR",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
@@ -45595,6 +45613,7 @@
         "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md",
         "scripts/coorte_micro/funil.py",
         "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "scripts/micro_coleta/ensaio_offline.py",
         "scripts/micro_coleta/micro_coleta.py",
         "scripts/receitas/censo_e_proposta.py",
         "security/drift_db.py",
@@ -47568,7 +47587,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch micro-caminho-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -105166,6 +105185,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-DETECTOR-CAPA-GABARITO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_ensaio_offline_micro.py",
+          "line": 33,
+          "snippet": "(t / \"gab\" / \"MANIFESTO.json\").write_text(json.dumps({\"PAGINAS\": [",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-DETECTOR-CAPA-GABARITO",
+            "FROM": "C-TESTES",
+            "TO": "C-DETECTOR-CAPA-GABARITO",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-ESTRADAS-IT",
       "type": "WRITES",
       "payload": "artefacto",
@@ -105222,6 +105276,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-IT-PRESERVAR",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Guardar com impressao digital. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_ensaio_offline_micro.py",
+          "line": 41,
+          "snippet": "(led / \"observations.ndjson\").write_text(json.dumps(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
+            "FROM": "C-TESTES",
+            "TO": "C-IT-PRESERVAR",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -108724,8 +108813,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1495,
+  "UNCLAIMED_CODE_FILES": [
+    "scripts/micro_coleta/ensaio_offline.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1497,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -108743,6 +108834,14 @@
         "C-TESTES"
       ],
       "owner_elected": "C-CANARIO-ROTAS-ELEGIVEIS"
+    },
+    {
+      "file": "handoff/paused-v2/MANIFESTO.json",
+      "written_by": [
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-TESTES"
+      ],
+      "owner_elected": "C-DETECTOR-CAPA-GABARITO"
     },
     {
       "file": "system-map/data/architecture.declared.json",
@@ -108926,13 +109025,13 @@
     "components_pending": 192,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1183,
-    "edges_proven": 1119,
+    "edges": 1185,
+    "edges_proven": 1121,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2630,
-    "files_covered": 1135,
-    "files_code_unclaimed": 0,
+    "files_tracked": 2633,
+    "files_covered": 1136,
+    "files_code_unclaimed": 1,
     "roles_proven": 159,
     "roles_declared_only": 9,
     "roles_unknown": 64,
