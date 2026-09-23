@@ -1,0 +1,187 @@
+{
+ "DATASET": "G2-PROVENIENCIA-V1",
+ "GATE": "PROVENANCE_COMPLETE",
+ "A2": {
+  "CORRIDA": "micro-ensaio-20260923-074335",
+  "SALA": {
+   "LINHAS": 16,
+   "FONTES": [
+    "IT-T10-018",
+    "IT-T10-022"
+   ],
+   "LINHAS_COMPLETAS": 16,
+   "POR_CAMPO": {
+    "SOURCE": {
+     "PRESENTE": 16
+    },
+    "RUN": {
+     "PRESENTE": 16
+    },
+    "OBSERVATION": {
+     "PRESENTE": 16
+    },
+    "STORAGE_OBJECT": {
+     "PRESENTE": 16
+    },
+    "CONTENT": {
+     "PRESENTE": 16
+    },
+    "FACT_TIME": {
+     "UNKNOWN_EXPLICITO": 16
+    },
+    "SOURCE_LOCATION": {
+     "UNKNOWN_EXPLICITO": 16
+    },
+    "FACT_LOCATION": {
+     "UNKNOWN_EXPLICITO": 16
+    },
+    "PUBLICATION_TIME": {
+     "UNKNOWN_EXPLICITO": 16
+    },
+    "OBSERVATION_TIME": {
+     "UNKNOWN_EXPLICITO": 16
+    },
+    "COLLECTION_TIME": {
+     "PRESENTE": 16
+    }
+   }
+  },
+  "COLETOR": {
+   "REGISTOS": 149,
+   "POR_CAMPO": {
+    "SOURCE": {
+     "CHAVE": "SOURCE_ID",
+     "PRESENTE": 149,
+     "AUSENTE": 0
+    },
+    "RUN": {
+     "CHAVE": "RUN_ID",
+     "PRESENTE": 149,
+     "AUSENTE": 0
+    },
+    "OBSERVATION": {
+     "CHAVE": "DOCUMENT_VERSION_ID",
+     "PRESENTE": 149,
+     "AUSENTE": 0
+    },
+    "CONTENT": {
+     "CHAVE": "RAW_SHA256",
+     "PRESENTE": 149,
+     "AUSENTE": 0
+    },
+    "STORAGE_OBJECT": {
+     "CHAVE": "RAW_PATH",
+     "PRESENTE": 149,
+     "AUSENTE": 0
+    },
+    "FACT_TIME": {
+     "CHAVE": "FACT_TIME",
+     "PRESENTE": 149,
+     "AUSENTE": 0
+    },
+    "SOURCE_LOCATION": {
+     "CHAVE": "SOURCE_LOCATION",
+     "PRESENTE": 0,
+     "AUSENTE": 149
+    },
+    "FACT_LOCATION": {
+     "CHAVE": "FACT_LOCATION",
+     "PRESENTE": 0,
+     "AUSENTE": 149
+    },
+    "PUBLICATION_TIME": {
+     "CHAVE": "PUBLISHED_AT",
+     "PRESENTE": 0,
+     "AUSENTE": 149
+    },
+    "OBSERVATION_TIME": {
+     "CHAVE": "OBSERVED_AT",
+     "PRESENTE": 0,
+     "AUSENTE": 149
+    },
+    "COLLECTION_TIME": {
+     "CHAVE": "CAPTURED_AT",
+     "PRESENTE": 149,
+     "AUSENTE": 0
+    }
+   },
+   "CAMPOS_AUSENTES_EM_TODOS": [
+    "FACT_LOCATION",
+    "OBSERVATION_TIME",
+    "PUBLICATION_TIME",
+    "SOURCE_LOCATION"
+   ]
+  }
+ },
+ "A4": {
+  "CORRIDA": "micro-rede-real-20260923-095953",
+  "SALA": "0 linhas (A4: SIM 0 -> Sala +0; know-how §198 em origin/micro-rede-real-v1)",
+  "COLETOR": {
+   "REGISTOS": 28,
+   "POR_CAMPO": {
+    "SOURCE": {
+     "CHAVE": "SOURCE_ID",
+     "PRESENTE": 28,
+     "AUSENTE": 0
+    },
+    "RUN": {
+     "CHAVE": "RUN_ID",
+     "PRESENTE": 28,
+     "AUSENTE": 0
+    },
+    "OBSERVATION": {
+     "CHAVE": "DOCUMENT_VERSION_ID",
+     "PRESENTE": 28,
+     "AUSENTE": 0
+    },
+    "CONTENT": {
+     "CHAVE": "RAW_SHA256",
+     "PRESENTE": 28,
+     "AUSENTE": 0
+    },
+    "STORAGE_OBJECT": {
+     "CHAVE": "RAW_PATH",
+     "PRESENTE": 28,
+     "AUSENTE": 0
+    },
+    "FACT_TIME": {
+     "CHAVE": "FACT_TIME",
+     "PRESENTE": 28,
+     "AUSENTE": 0
+    },
+    "SOURCE_LOCATION": {
+     "CHAVE": "SOURCE_LOCATION",
+     "PRESENTE": 0,
+     "AUSENTE": 28
+    },
+    "FACT_LOCATION": {
+     "CHAVE": "FACT_LOCATION",
+     "PRESENTE": 0,
+     "AUSENTE": 28
+    },
+    "PUBLICATION_TIME": {
+     "CHAVE": "PUBLISHED_AT",
+     "PRESENTE": 0,
+     "AUSENTE": 28
+    },
+    "OBSERVATION_TIME": {
+     "CHAVE": "OBSERVED_AT",
+     "PRESENTE": 0,
+     "AUSENTE": 28
+    },
+    "COLLECTION_TIME": {
+     "CHAVE": "CAPTURED_AT",
+     "PRESENTE": 28,
+     "AUSENTE": 0
+    }
+   },
+   "CAMPOS_AUSENTES_EM_TODOS": [
+    "FACT_LOCATION",
+    "OBSERVATION_TIME",
+    "PUBLICATION_TIME",
+    "SOURCE_LOCATION"
+   ]
+  }
+ },
+ "PROVENANCE_COMPLETE": "YES"
+}
