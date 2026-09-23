@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T04:11:26+00:00",
-  "HEAD": "6b159d41e39c3c82f0ef220699e3a7ef3e87b4d9",
+  "GENERATED_AT": "2026-09-23T05:10:46+00:00",
+  "HEAD": "5a8db21a772f60aa8c1ebdb523a0f658996aed76",
   "BRANCH": "unificacao-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "81043c005d76096bad8d020f62ba1413b3236c4e9751e9603a4e616cecb6a966",
-  "FICHEIROS_NA_IMPRESSAO": 2727,
+  "SOURCE_TREE_FINGERPRINT": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb",
+  "FICHEIROS_NA_IMPRESSAO": 2729,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -790,7 +790,7 @@
    {
     "PATH": "ferramentas/unificacao/resolver_conflitos.py",
     "PAPEL": "FONTE",
-    "VERSAO": "c514a599664efa174644a92ef523fc81e753b925",
+    "VERSAO": "2964d19b090d8246a191a89b2689ca932400314a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3310,14 +3310,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "81043c005d76096bad8d020f62ba1413b3236c4e9751e9603a4e616cecb6a966",
+    "VERSAO": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "81043c005d76096bad8d020f62ba1413b3236c4e9751e9603a4e616cecb6a966",
+    "VERSAO": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5003,7 +5003,7 @@
    }
   ],
   "INPUTS_COUNT": 709,
-  "INPUTS_DIGEST": "70e332adeccc68e0a1886c0af44c8ac2b83e61a9adb9da2102e84ce2dd1575f1",
+  "INPUTS_DIGEST": "fa362c9e1c93722317928081e47f60225d460491c6bc7891944f65a0f022d2ad",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5029,15 +5029,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 462,
+  "DOCUMENTOS_LIDOS": 463,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "4bc44efc5f9a8db1ca4ae2d91a7fb1d516094a1273d31393b4655930a6acd071",
-  "SEMANTIC_HASH": "4a7119ecd39405156478c4db1e35befd441a12f0525ca550ef24a06921fe9b02"
+  "MEASUREMENT_HASH": "eddebe46dfb736f94eea362d75973594ce6b2ac025dd3b8862ea7554e6004ff1",
+  "SEMANTIC_HASH": "8d270a4e13b8b32c3b281bce60fa0f1896879d027defe0b668af01ff74dbbe68"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -14391,7 +14391,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/unificacao/resolver_conflitos.py",
-      "LINHA": 134,
+      "LINHA": 183,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTRATO-TELEMETRIA--READS-->C-CENSO-UNIFICACAO",
@@ -39168,6 +39168,7 @@
   "SO_CLI_DOCUMENTADO": [
    "C-AUDIT-GERAL",
    "C-CENSO-CORPUS-IT",
+   "C-CENSO-UNIFICACAO",
    "C-CICATRIZES-BR",
    "C-CONTRATO-CAMPOS",
    "C-DECISAO-DA-FILA",
@@ -39187,7 +39188,6 @@
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-DERIVACOES",
    "C-CENSO-SEMANTICO-IT",
-   "C-CENSO-UNIFICACAO",
    "C-CORRIDA-CANONICA",
    "C-DIAGNOSTICO-SALA",
    "C-DUAS-PORTAS-MEDIDORES",
@@ -40558,7 +40558,9 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "RELATORIO-UNIFICACAO.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,

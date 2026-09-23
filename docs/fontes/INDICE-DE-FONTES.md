@@ -23,9 +23,9 @@ sabe buscar sozinha.
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
-> O cabeçalho do atlas diz **190 fontes registradas**
+> O cabeçalho do atlas diz **277 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **297**. Faltam **-107**.
+> **297**. Faltam **-20**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:

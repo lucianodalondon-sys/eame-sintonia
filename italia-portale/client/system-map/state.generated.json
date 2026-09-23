@@ -47,6 +47,7 @@
       "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
+      "RELATORIO-UNIFICACAO.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
@@ -1473,6 +1474,7 @@
       "ferramentas/unificacao/m5/livros-passo3-servico.json",
       "ferramentas/unificacao/m5/provas-passo4.json",
       "ferramentas/unificacao/m5/suite-base-20c06500.json",
+      "ferramentas/unificacao/m5/suite-unificado-91b5f38e.json",
       "ferramentas/unificacao/medir_suite.py",
       "ferramentas/unificacao/provar_em_copia.py",
       "ferramentas/unificacao/resolver_conflitos.py",
@@ -2697,16 +2699,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "13 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py · status_live.py · test_discovery.py · test_painel_pergunta_ao_so.py · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json … e mais 5",
+      "titulo": "15 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py · status_live.py · supervisor.py · test_discovery.py · test_painel_pergunta_ao_so.py · test_supervisor.py … e mais 7",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/red_team_telemetria.py",
         "curadoria/status_live.py",
-        "curadoria/test_discovery.py",
-        "curadoria/test_painel_pergunta_ao_so.py"
+        "curadoria/supervisor.py",
+        "curadoria/test_discovery.py"
       ]
     },
     {
@@ -3173,9 +3175,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "6b159d41e39c3c82f0ef220699e3a7ef3e87b4d9",
-    "GENERATED_AT": "2026-09-23T01:05:51-03:00",
-    "SOURCE_TREE_FINGERPRINT": "81043c005d76096bad8d020f62ba1413b3236c4e9751e9603a4e616cecb6a966"
+    "HEAD": "5a8db21a772f60aa8c1ebdb523a0f658996aed76",
+    "GENERATED_AT": "2026-09-23T02:06:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb"
   },
   "FAMILIES": [
     {
@@ -9954,7 +9956,7 @@
         }
       ],
       "header_claim": {
-        "total": 190,
+        "total": 277,
         "line": 9,
         "green": 90,
         "yellow": 83,
@@ -9976,9 +9978,9 @@
           "IT-T4-002",
           "IT-T4-003"
         ],
-        "os_tres_numeros": "190 = o que o CABECALHO declara · 284 = SOURCE_IDs MENCIONADOS no texto · 297 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
-        "divergencia": -107,
-        "leitura": "O cabecalho do atlas diz 190 fontes registradas; fichas completas, com SOURCE_ID valido, ha 297. Faltam -107 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+        "os_tres_numeros": "277 = o que o CABECALHO declara · 284 = SOURCE_IDs MENCIONADOS no texto · 297 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
+        "divergencia": -20,
+        "leitura": "O cabecalho do atlas diz 277 fontes registradas; fichas completas, com SOURCE_ID valido, ha 297. Faltam -20 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
       "runs": {
         "ficheiro": "data/samples/RUN-MANIFEST.json",
@@ -23724,8 +23726,10 @@
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/red_team_telemetria.py",
         "curadoria/status_live.py",
+        "curadoria/supervisor.py",
         "curadoria/test_discovery.py",
-        "curadoria/test_painel_pergunta_ao_so.py"
+        "curadoria/test_painel_pergunta_ao_so.py",
+        "curadoria/test_supervisor.py"
       ],
       "inbound": [
         "C-CONTRATO-TELEMETRIA",
@@ -23743,8 +23747,10 @@
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/red_team_telemetria.py",
         "curadoria/status_live.py",
+        "curadoria/supervisor.py",
         "curadoria/test_discovery.py",
-        "curadoria/test_painel_pergunta_ao_so.py"
+        "curadoria/test_painel_pergunta_ao_so.py",
+        "curadoria/test_supervisor.py"
       ],
       "momento": "NAO SEI",
       "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
@@ -62918,7 +62924,7 @@
       "evidence": [
         {
           "file": "ferramentas/unificacao/resolver_conflitos.py",
-          "line": 134,
+          "line": 183,
           "snippet": "velho = raiz / \"curadoria/telemetria.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-TELEMETRIA--READS-->C-CENSO-UNIFICACAO",
@@ -107526,8 +107532,8 @@
     "edges_proven": 1101,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2579,
-    "files_covered": 1095,
+    "files_tracked": 2581,
+    "files_covered": 1097,
     "files_code_unclaimed": 0,
     "roles_proven": 156,
     "roles_declared_only": 9,
