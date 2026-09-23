@@ -1,0 +1,68 @@
+# ═══════════════════════════════════════════════════════════════════════
+# SOC5 · OS VÍDEOS DO CANÁRIO YOUTUBE — listados onde a chave vive
+# ═══════════════════════════════════════════════════════════════════════
+# Corre `curadoria/listar_videos_canario.py --listar`: 5 canais (um por
+# território com régua), 2 vídeos cada, pela capacidade `youtube.channel.discovery`
+# do Scrap (API oficial, ~10 unidades, US$ 0). Guarda SÓ identidade em
+# `curadoria/CANARIO-YOUTUBE-SOC5-VIDEOS.json` e faz commit dele na mesma branch.
+# O resto do canário (áudio público, ASR, Admissão) corre na máquina local, pela VPN IT.
+#
+# Dispara por `workflow_dispatch` ou por push de `curadoria/PEDIDO-CANARIO-YOUTUBE.json`
+# (esta máquina não tem sessão do `gh`). A chave só existe no passo 2 e não é impressa.
+# ═══════════════════════════════════════════════════════════════════════
+name: curator-youtube-canario
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [youtube-canario-v1, unificacao-v1]
+    paths: ['curadoria/PEDIDO-CANARIO-YOUTUBE.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: curator-youtube-canario-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  listar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 0 · nenhum segredo entrou no repositório
+        run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py
+
+      - name: 1 · a escolha (sem rede)
+        run: PYTHONUTF8=1 python3 curadoria/listar_videos_canario.py
+
+      - name: 2 · listar pela API oficial (a chave só existe neste passo)
+        env:
+          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+          YT_TETO_SEARCH_CALLS: '0'
+          YT_TETO_GENERAL_UNITS: '40'
+          PYTHONUTF8: '1'
+        run: python3 curadoria/listar_videos_canario.py --listar
+
+      - name: 3 · guardar a lista na branch
+        run: |
+          git config user.name  "sintonia-curator-bot"
+          git config user.email "curator-bot@users.noreply.github.com"
+          git add curadoria/CANARIO-YOUTUBE-SOC5-VIDEOS.json
+          if git diff --cached --quiet; then
+            echo "LISTA_INALTERADA"
+          else
+            git commit -m "curator: videos do canario SOC5 (run ${{ github.run_id }}, API oficial, so identidade)"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
