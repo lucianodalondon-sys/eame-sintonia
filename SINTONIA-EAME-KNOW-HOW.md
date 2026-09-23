@@ -19361,3 +19361,26 @@ da 3b. A rota certa para uma fonte que não serve é só uma rota certa.
 
 > Medir o efeito de uma correção no número que se quer mexer — não no número
 > que ela mexe. Aqui: 3 → 6 receitas, 1 → 1 prontas.
+
+## COORTE-1 · O FUNIL DA MICRO-COLETA CORTA ANTES DA RELEVÂNCIA
+
+*(G0, 23/09/2026 · número a atribuir na unificação.)*
+
+Universo de 134 fontes (READY vivo ∪ gate desta linha ∪ M3 ∪ censo das
+receitas). Funil em cadeia: **A pronta 45 → B rota executável 14 → C receita
+reconhece notícia lida 7 → D relevante 5 → E não é marca 3**. O maior corte é
+**A** (89 não estão prontas; 69 delas por `EMPTY_LIST`, a receita), e dentro
+das prontas é **B** (31: 24 sem contrato na tabela do coletor, 7 dos quais com
+rota já provada pela M3 à espera de aplicação).
+
+> A relevância quase nunca é o degrau que corta. Quando chega a ser medida,
+> passa. O que falta é a fonte chegar lá: pronta, com contrato, com receita
+> que reconheça uma notícia real.
+
+E a 3b tinha tirado uma fonte por **idioma** (Zootecnica, inglês). A lei D3
+proíbe-o, e o dono já a tinha validado noutras notícias: a decisão do dono vence
+a da 3b.
+
+Uma VPN que cai a meio não é uma fonte que falha. A recolha mediu o egresso
+antes de cada site, viu BR no 8.º e parou **antes** do pedido — 0 pedidos pelo
+Brasil. O que ficou por ler fica NÃO SEI, com nome.
