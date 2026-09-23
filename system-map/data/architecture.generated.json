@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
-    "GENERATED_AT": "2026-09-23T11:26:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d"
+    "BRANCH": "pesquisadores-v1",
+    "HEAD": "54c96f248df75296d3fcfa69656cf7fe0f3787f4",
+    "GENERATED_AT": "2026-09-23T14:01:54-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1f1399a41e1ffba56c2b73146930a1024b2c807f93f11969933b03b53a086e53"
   },
   "FILES": [
     {
@@ -1382,7 +1382,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "10ad60d2e6a312cde3995e6307fd35ec93db166d",
+      "sha": "631617f519d65f297d222fbaa61be747ad5827b8",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -2236,7 +2236,7 @@
     },
     {
       "path": "curadoria/DISCOVERY-VISITED.json",
-      "sha": "1bfc9b7cb4468c29de495443cd57785976420782",
+      "sha": "c7e7a9b854f58ee4cf0267aaadb8d1e997c0ac01",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2363,6 +2363,20 @@
     {
       "path": "curadoria/LISTAGENS-PROVADAS-V1.json",
       "sha": "66185dd8d9adf406ceb311e11f23a7a0e3cbdb6d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-LISTA-V1.json",
+      "sha": "b82ad27aa2e48fa61bd4bfa087f90670c1ed4527",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-PROOF-V1.json",
+      "sha": "8cc41f6e6994d149d7d7cf7b23c14831f01480a0",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2860,6 +2874,13 @@
     {
       "path": "curadoria/onboardar_rotas_provadas.py",
       "sha": "23e72778cdd69578407e8a6a7c1043dc7ce27702",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/pesquisadores.py",
+      "sha": "9481c3bdfcfbfb804e0f9caba01d385d76bdcf92",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -25760,6 +25781,50 @@
         "file": "curadoria/onboardar_rotas_provadas.py",
         "line": 125,
         "snippet": "TABELA.write_text(json.dumps(t, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 33,
+        "snippet": "from fonte_nova import registar, normalizar, carregar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/PESQUISADORES-LISTA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 37,
+        "snippet": "LISTA_JSON = RAIZ / \"curadoria\" / \"PESQUISADORES-LISTA-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/PESQUISADORES-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 36,
+        "snippet": "PROOF_JSON = RAIZ / \"curadoria\" / \"PESQUISADORES-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 34,
+        "snippet": "import descobrir as D                                   # noqa: E402"
       }
     },
     {
@@ -78818,10 +78883,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2725,
-    "files_readable": 1245,
+    "files_tracked": 2728,
+    "files_readable": 1246,
     "files_code_dir": 1065,
-    "file_edges": 5379,
+    "file_edges": 5383,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

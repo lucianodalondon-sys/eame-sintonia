@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T14:32:40+00:00",
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
+    "GENERATED_AT": "2026-09-23T17:04:58+00:00",
+    "HEAD": "54c96f248df75296d3fcfa69656cf7fe0f3787f4",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d",
-    "FICHEIROS_NA_IMPRESSAO": 2873,
+    "SOURCE_TREE_FINGERPRINT": "1f1399a41e1ffba56c2b73146930a1024b2c807f93f11969933b03b53a086e53",
+    "FICHEIROS_NA_IMPRESSAO": 2876,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "candidatas/FONTES-CANDIDATAS.json",
         "PAPEL": "FONTE",
-        "VERSAO": "10ad60d2e6a312cde3995e6307fd35ec93db166d",
+        "VERSAO": "631617f519d65f297d222fbaa61be747ad5827b8",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "a_fila() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "669e68aac451942089a360a3e4e7fb7ede741c15376f512956800bda9203bacb",
+    "INPUTS_DIGEST": "52fc67ac638c0bfe2c6650d1aad69abbdef4509549bebd8ec2287047f042403e",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -10556,7 +10556,7 @@
         "degrau": 1,
         "nome": "CANDIDATA",
         "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-        "quantas": 0,
+        "quantas": 19,
         "onde": "candidatas/FONTES-CANDIDATAS.json",
         "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
       },
@@ -10587,7 +10587,7 @@
     ],
     "por_tipo": {
       "BASE_OFICIAL": 166,
-      "CIENCIA": 15,
+      "CIENCIA": 34,
       "FACEBOOK": 20,
       "IMPRENSA": 22,
       "INSTAGRAM": 25,
@@ -13343,6 +13343,54 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0490",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "AISSA — Associazione Italiana Società Scientifiche Agrarie",
+        "URL": "https://www.aissa.it/",
+        "PARA_QUE_SERVE": "federazione societa agri; congressi, agenda ricerca italiana",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.aissa.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.aissa.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:45:04.721972+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0483",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Accademia dei Georgofili",
+        "URL": "https://www.georgofili.it/",
+        "PARA_QUE_SERVE": "accademia storica agri Firenze; convegni, pubblicazioni e notizie",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.georgofili.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.georgofili.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:43:15.505647+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0489",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Agrochimica — rivista internazionale di chimica agri",
+        "URL": "https://www.agrochimica.it/",
+        "PARA_QUE_SERVE": "rivista agrochemica italiana; ricerca su fertilizzanti e suolo",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.agrochimica.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.agrochimica.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:45:00.197332+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0021",
         "TIPO": "CIENCIA",
         "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
@@ -13362,6 +13410,86 @@
         "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou; frequencia de actualizacao, nunca medida",
         "VIZINHA_NO_ATLAS": null,
         "DECIDIDA_EM": "2026-09-15"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0480",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "CNR IBBR — Istituto di Bioscienze e Biorisorse",
+        "URL": "https://www.ibbr.cnr.it/",
+        "PARA_QUE_SERVE": "ricerca biodiversita vegetale, genetica e miglioramento colture",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.cnr.it/it/ricerca-e-innovazione/settori/agrifood",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.cnr.it/it/ricerca-e-innovazione/settori/agrifood | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:42:57.961562+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0478",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "CNR IBE — Istituto per la BioEconomia",
+        "URL": "https://www.ibe.cnr.it/",
+        "PARA_QUE_SERVE": "ricerca bioeconomia, biomasse, uso sostenibile risorse agri",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.cnr.it/it/ricerca-e-innovazione/settori/agrifood",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.cnr.it/it/ricerca-e-innovazione/settori/agrifood | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:42:47.641225+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0479",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "CNR ISAFoM — Istituto per i Sistemi Agricoli e Forestali del Mediterraneo",
+        "URL": "https://www.isafom.cnr.it/",
+        "PARA_QUE_SERVE": "ricerca agro-foreste-meteo Mediterraneo; bollettini tecnici",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.cnr.it/it/ricerca-e-innovazione/settori/agrifood",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.cnr.it/it/ricerca-e-innovazione/settori/agrifood | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:42:53.084993+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0477",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "CNR ISPA — Istituto di Scienze delle Produzioni Alimentari",
+        "URL": "https://www.ispa.cnr.it/",
+        "PARA_QUE_SERVE": "ricerca produzione alimentare, sicurezza e qualita; pubblicazioni CNR",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.cnr.it/it/ricerca-e-innovazione/settori/agrifood",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.cnr.it/it/ricerca-e-innovazione/settori/agrifood | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:42:44.190588+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0492",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "CONAF — Consiglio Nazionale Dottori Agronomi e Forestali",
+        "URL": "https://www.conaf.it/",
+        "PARA_QUE_SERVE": "ordine nazionale agronomi IT; notizie, eventi, pubblicazioni professionali",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.conaf.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.conaf.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:47:51.361666+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0259",
@@ -13454,6 +13582,38 @@
         "DECIDIDA_EM": "2026-09-15"
       },
       {
+        "CANDIDATA_ID": "CAND-0493",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Collegio Nazionale dei Periti Agrari e dei Periti Agrari Laureati",
+        "URL": "https://www.peritiagrari.it/",
+        "PARA_QUE_SERVE": "collegio periti agrari IT; notizie professionali, tecnica agraria",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.peritiagrari.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.peritiagrari.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:47:56.360454+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0485",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "DAGRI — Dip. Scienze e Tecnologie Agrarie Univ. Firenze",
+        "URL": "https://www.dagri.unifi.it/",
+        "PARA_QUE_SERVE": "ricerca agri Firenze; pubblicazioni, tesi, notizie del dipartimento",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.unifi.it/dipartimenti/dagri",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.unifi.it/dipartimenti/dagri | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:43:21.743144+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0263",
         "TIPO": "CIENCIA",
         "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
@@ -13466,6 +13626,102 @@
         "QUANDO": "2026-09-20",
         "NOTA": "DISCOVERED_FROM=https://www.unito.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-21T02:14:10.785613+00:00 | DISCOVERED_HTTP=200 | FAMILIA=UNIVERSIDADES_CENTROS",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0487",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. DAFNE — Univ. della Tuscia (Viterbo)",
+        "URL": "https://www.unitus.it/it/dipartimento/dafne/",
+        "PARA_QUE_SERVE": "ricerca agri Viterbo; produzioni tipiche, foreste e ambiente",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.unitus.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.unitus.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:44:22.178607+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0482",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "FEM — Notizie e comunicati stampa",
+        "URL": "https://www.fmach.it/Comunicazione/Notizie",
+        "PARA_QUE_SERVE": "aggiornamenti FEM su ricerca applicata a frutto/vite/entomologia",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.fmach.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.fmach.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:43:07.687467+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0481",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Fondazione Edmund Mach (FEM) — Centro di Ricerca",
+        "URL": "https://www.fmach.it/",
+        "PARA_QUE_SERVE": "ricerca vite, frutticoltura alpina, entomologia, genomica agri",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.fmach.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.fmach.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:43:02.659779+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0495",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Georgofili Info — newsletter accademica agri",
+        "URL": "https://www.georgofili.info/",
+        "PARA_QUE_SERVE": "newsletter Georgofili su ricerca agri e politiche; pubblicazioni agronomi",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.georgofili.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.georgofili.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:48:31.803229+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0484",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "IZSVe — Istituto Zooprofilattico Sperimentale delle Venezie",
+        "URL": "https://www.izsvenezie.it/",
+        "PARA_QUE_SERVE": "diagnostica malattie animali e zoonosi; notizie e pubblicazioni NE Italia",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.izsvenezie.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.izsvenezie.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:43:18.350141+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0488",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Italian Journal of Food Science — PAGEPress",
+        "URL": "https://www.pagepressjournals.org/index.php/ijfs",
+        "PARA_QUE_SERVE": "rivista open-access scienze alimentari italiane; articoli e fascicoli",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.pagepressjournals.org/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.pagepressjournals.org/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:44:37.233929+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -13531,6 +13787,54 @@
         "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou",
         "VIZINHA_NO_ATLAS": null,
         "DECIDIDA_EM": "2026-09-15"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0486",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "SAF — Dip. Scienze Agrarie Univ. Palermo",
+        "URL": "https://www.unipa.it/strutture/dipartimenti/saf/",
+        "PARA_QUE_SERVE": "ricerca agri Palermo; produzioni tipiche Sicilia, olivicoltura, vite",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.unipa.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.unipa.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:43:53.750065+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0491",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "SIPaV — Società Italiana di Patologia Vegetale",
+        "URL": "https://sipav.org/",
+        "PARA_QUE_SERVE": "patologia vegetale; notizie, convegni e pubblicazioni SIPaV",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://sipav.org/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://sipav.org/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:45:11.756156+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0494",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Terra e Vita — Agri media Edagricole",
+        "URL": "https://www.terraevita.edagricole.it/",
+        "PARA_QUE_SERVE": "rivista agri tecnica; notizie filiere, ricerca e innovazione IT",
+        "QUEM_VIU": "curadoria/pesquisadores.py",
+        "ONDE_VIU": "https://www.terraevita.edagricole.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.terraevita.edagricole.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:48:25.224290+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0024",
@@ -23170,6 +23474,10 @@
           "line": 644
         },
         {
+          "file": "curadoria/pesquisadores.py",
+          "line": 455
+        },
+        {
           "file": "curadoria/test_discovery.py",
           "line": 193
         },
@@ -23594,6 +23902,48 @@
       ]
     },
     {
+      "endpoint": "https://www.crea.gov.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 293
+        },
+        {
+          "file": "curadoria/pesquisadores.py",
+          "line": 102
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 353
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 95
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.cnr.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 444
+        },
+        {
+          "file": "curadoria/pesquisadores.py",
+          "line": 110
+        },
+        {
+          "file": "curadoria/test_abastecimento.py",
+          "line": 202
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 954
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.coldiretti.it/",
       "usado_por": [
         {
@@ -23814,36 +24164,36 @@
       ]
     },
     {
-      "endpoint": "https://www.crea.gov.it/",
+      "endpoint": "https://agronotizie.imagelinenetwork.com/",
       "usado_por": [
         {
           "file": "curadoria/descobrir.py",
-          "line": 293
+          "line": 235
         },
         {
-          "file": "curadoria/test_discovery.py",
-          "line": 353
+          "file": "curadoria/pesquisadores.py",
+          "line": 412
         },
         {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 95
+          "file": "curadoria/test_emparelhar_ataques.py",
+          "line": 39
         }
       ]
     },
     {
-      "endpoint": "https://www.cnr.it/it",
+      "endpoint": "https://www.crea.gov.it/centri-di-ricerca",
       "usado_por": [
         {
           "file": "curadoria/descobrir.py",
-          "line": 444
+          "line": 416
         },
         {
-          "file": "curadoria/test_abastecimento.py",
-          "line": 202
+          "file": "curadoria/pesquisadores.py",
+          "line": 53
         },
         {
           "file": "curadoria/test_discovery.py",
-          "line": 954
+          "line": 919
         }
       ]
     },
@@ -23978,37 +24328,11 @@
           "line": 222
         }
       ]
-    },
-    {
-      "endpoint": "https://public.api.bsky.app/xrpc",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 105
-        },
-        {
-          "file": "provas/_rc01_mundo_falso.py",
-          "line": 111
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.ec.europa.eu/agrifood",
-      "usado_por": [
-        {
-          "file": "coleta/agrifood_ue.py",
-          "line": 33
-        },
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 42
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 591,
+  "ENDPOINTS_FOUND": 656,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 551,
+  "ENDPOINTS_TRUNCATED": 616,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -24026,10 +24350,10 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 591,
+    "endpoints": 656,
     "endpoints_published": 40,
-    "endpoints_truncated": 551,
-    "candidates": 476,
+    "endpoints_truncated": 616,
+    "candidates": 495,
     "coletores": 53,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,
