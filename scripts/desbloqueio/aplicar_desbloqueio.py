@@ -66,7 +66,11 @@ CATALOGO_CONFERIDO = "0644a916"
 CAMPOS_DO_LIVRO = ("LINK_PATTERN", "INDEX_URL")
 MANIFESTOS = [HOME / "detector-capa-gabarito" / "MANIFESTO.json",
               HOME / "receitas-paginas" / "MANIFESTO.json",
-              HOME / "coorte-paginas" / "MANIFESTO.json"]
+              HOME / "coorte-paginas" / "MANIFESTO.json",
+              # K1: as paginas do gabarito de controlo LD2 e da recolha LD2 — a V4 prova
+              # receitas com elas; o sha256 confere-se aqui como o das outras.
+              HOME / "ld2-controlo" / "MANIFESTO.json",
+              HOME / "ld2-paginas" / "MANIFESTO.json"]
 INDICES = HOME / "receitas-paginas" / "indices" / "MANIFESTO-INDICES.json"
 FAMILIA_MINIMA_DO_INDICE = 10
 
@@ -205,7 +209,9 @@ def prova_integra(provas: list[dict]) -> str | None:
 # ── O PLANO ────────────────────────────────────────────────────────────────
 def propostas() -> list[tuple[str, dict]]:
     vistas, out = set(), []
-    for nome in ("PROPOSTA-RECEITAS-V1.json", "PROPOSTA-RECEITAS-V2.json"):
+    for nome in ("PROPOSTA-RECEITAS-V1.json", "PROPOSTA-RECEITAS-V2.json",
+                 "PROPOSTA-RECEITAS-V3.json",    # V3 = aditamento LD2
+                 "PROPOSTA-RECEITAS-V4.json"):   # V4 = K1: fontes dos 2 gabaritos
         f = RAIZ / "curadoria" / nome
         if not f.exists():
             continue
