@@ -21348,3 +21348,37 @@ colheram: 55 = 55 = 55, Sala +12, C3..C9 PASS, rollback 8 → 12 → 8 com md5 i
   é contínuo se aguenta um reinício.
 - `provar_ponte_curador.py` e `red_team_ponte_curador.py` escrevem a fonte de teste
   IT-T99-001 no `italy_contracts_curator.json` da árvore onde correm. Nunca na `ponte-viva`.
+
+---
+
+# § (sem número) · ELEGÍVEL SEM CONTRATO TINHA DONO — E O DONO NÃO VIA A DUPLICADA DE QUEM JÁ ESTAVA DENTRO (BC2)
+
+**O QUE SE FEZ (23/09).** 27 fontes READY no portão sem contrato no coletor. Não se escreveu
+contrato à mão. Passaram pelo canário real (`medidas/canario_rotas_elegiveis.py`, robots
+primeiro, 1 s entre pedidos, no máximo 4 por fonte, uma fonte de cada vez, sites
+intercalados, egresso IT) e pelo dono (`curadoria/onboardar_rotas_provadas.py`). Canário: 20
+ROUTE_PROVEN, 4 UNKNOWN, 3 CAPABILITY_BLOCK. Dono: ENTRA 18, FICA 7. **Prontas 10 → 19.**
+
+**O DEFEITO DO DONO.** A peça só procurava duplicadas **dentro do lote** (duas fichas, o mesmo
+documento). A IT-T2-056 é a página de «seleccionar idioma» da ARPAE, com OWNER «Italiano», e
+tem o mesmo site e o mesmo padrão de matérias da IT-T2-051, **já contratada**. Ia entrar, e o
+coletor colheria as mesmas notícias duas vezes, com dois nomes. Regra nova, na peça do dono:
+o mesmo site e o mesmo padrão de uma fonte já contratada é DUPLICADA, e é uma decisão de
+identidade, não de rota. 2 testes; 2 mutantes executados e mortos. Cinco secções da CIA e
+duas da Terra e Vita partilham site e padrão entre si: entraram (o canário abriu matérias
+diferentes; a Sala é idempotente por documento) e ficam para o dono da identidade.
+
+**ARMADILHAS.**
+- **Substituir um ficheiro de provas apaga provas.** Escrevi o `ROTAS-ELEGIVEIS-V1.json` só
+  com os 27 de hoje, e as 6 da D10 perderam o dono do contrato (`test_contrato_unico`
+  reprovou). Juntar por SOURCE_ID: 15 antigas, 3 actualizadas, 24 novas.
+- **Uma contagem fixa numa tabela que tem alimentador reprova a cada alimentação.** 173 → 191.
+  O teste passou a contar as 173 de origem mais as linhas carimbadas pelo onboardar.
+- **O medidor de egresso também cai.** No fim da 1.ª volta deu UNKNOWN/BLOCKED; 2 minutos
+  depois deu IT/PASS duas vezes. UNKNOWN não é «outro país»: repetiram-se as 5 UNKNOWN com o
+  egresso medido antes e depois de cada fonte.
+- **O robots pelo Python mente outra vez:** cnr.it responde 200 ao curl e URLError ao
+  canário. É defeito nosso, não da fonte.
+- A Sala depois da tela azul: `ligar_sala.cmd` via Git Bash (`cmd //c "..."`) **não corre**
+  o script (abre uma consola vazia e sai com 0). Pelo PowerShell corre. O Postgres fez a
+  recuperação normal e ficou com o md5 igual ao do backup.

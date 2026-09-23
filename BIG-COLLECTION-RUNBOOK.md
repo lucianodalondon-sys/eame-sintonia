@@ -16,7 +16,7 @@
 |---|---|---|---|---|
 | B1 | a produção não tem a linha | bot em `cd4203db` e ponte em `5c02bbe4`: fora de `origin/unificacao-v1` @ `de4dec2b` (5.ª e 6.ª passagens: T1, A2, SOC1, YT1, A4, V1A, D1, A3). O `micro_coleta.py` da produção ainda é o de antes da A2 | passo I (instalar), provado em cópia sobre `940f3b14` e sobre `de4dec2b`: 13 conflitos, todos no mapa gerado; **11/11 livros = produção**; `italy_contracts_onboarded.json` com as duas mudanças e JSON válido | coordenador (bot quieto) |
 | B2 | robots e ritmo | o coletor Node da linha não lê robots nem espaça pedidos (0 ocorrências em `coleta/italy_pilot_collect.mjs`). A A4 (`micro_rede_real.py`, já na linha em `de4dec2b`) lê robots **por fora**, mas só trabalha com Sala descartável. A A5 (`cortesia-coleta-v1`) põe o robots no coletor, mas o único commit dela é um checkpoint do coordenador **não testado, não aceite** | A5 testada, aceite e juntada à linha; ou a A4 com modo Sala real. Sem isto, a corrida viola o §27 («violations de policy/robots») | A5 → M5 |
-| B3 | cobertura | portão 37 elegíveis → **10 PRONTAS**; 27 bloqueadas por capacidade: 25 `SEM_CONTRATO_DE_COLETA` (9 destas também `SEM_RECEITA_WEB` para T8/T12), 1 `SEM_RECEITA_WEB_PARA_T9`, 1 `ROTA:CAPABILITY_BLOCK` | decidir: a Big Collection de hoje é de 10 fontes, ou espera os contratos | dono (decisão) / curador (contratos) |
+| B3 | cobertura | **fechado pela D25** (a Big Collection não espera pelas fontes; a coorte são as READY do portão com rota provada, sem mínimo). BC2: canário real + o dono (`onboardar_rotas_provadas.py`) levaram **18** ao contrato: **PRONTAS 10 → 19**; as 18 de fora têm cada uma o seu `FALTA` (`ferramentas/big_collection/BC2-FONTES-27.json`) | ondas seguintes: receitas web T8/T12/T9 (10 fontes), 4 robots/rede desta saída, 3 rotas que caem em capa | receitas / curador |
 
 ⚠️ **Não correr `provar_ponte_curador.py` na `ponte-viva`.** Medido hoje numa cópia: a
 prova diz trabalhar numa cópia descartável, mas escreve as fontes de mentira IT-T99-001 e
@@ -93,10 +93,10 @@ congelado: a coorte do passo 2 é a que corre. Anotar a hora: começa a paragem 
 py scripts/micro_coleta/micro_coleta.py plano > C:\bc\plano.json
 ```
 
-Medido às ~12:59 de 23/09 com os livros vivos: portão **37** → **10 PRONTAS**
-(IT-T10-018, IT-T10-021, IT-T10-022, IT-T2-034, IT-T2-051, IT-T7-017, IT-T7-021,
-IT-T7-033, IT-T7-042, IT-T7-043), **27 bloqueadas**, 106 fora do portão. **Abortar** se
-`FILTRO_AUSENTE` (código 3).
+Medido na BC2 (23/09 ~15:30), depois do onboardar: portão **37** → **19 PRONTAS**
+(IT-T10-018, -021, -022, IT-T2-034, IT-T2-051, IT-T5-090, IT-T7-017, -021, -033, -042,
+-043, -100, -112, -117, -118, -121, -123, -135, -141), **18 bloqueadas** com motivo. (BC1,
+~12:59: 10 PRONTAS.) **Abortar** se `FILTRO_AUSENTE` (código 3).
 
 ### 3 · Checkpoint da Sala real (IMEDIATAMENTE antes)
 
