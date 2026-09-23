@@ -222,7 +222,13 @@ def main():
     print('\n  5 · a cadeia: unidade -> ingresso -> dono do RAW (base descartavel)')
     real, pedidos = duble_do_replay()
     try:
-        reconstruidos = al.video_de_post_publico(post_url=POST, run_id=RUN_ID)
+        reconstruidos = al.video_de_post_publico(
+            post_url=POST, run_id=RUN_ID,
+            # ⚠️ O EGRESSO VAI NAS DUAS METADES. A metade de replay reescreve o
+            # bruto, e um bruto que diz `EGRESS_MEASURED = None` perde a unica
+            # prova de POR ONDE a corrida saiu — medicao que existe na primeira
+            # metade e desaparece na segunda.
+            egresso='%s · %s' % (e.get('ip'), e.get('org')))
     finally:
         http.buscar_bytes = real
     mede('OBJETOS_RECONSTRUIDOS', len(reconstruidos), 'a partir do bruto preservado')
