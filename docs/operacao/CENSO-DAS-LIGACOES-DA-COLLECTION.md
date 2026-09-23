@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2b04c538e752de9d75169784e1de8191b2304e0b
+HEAD_DA_MEDICAO  9637a1bbe188c6d4814a3d4341eae397d0b8cf90
 BRANCH           big-collection-runbook-v1
-GERADO_EM        2026-09-23T18:02:17-03:00
+GERADO_EM        2026-09-23T18:36:34-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
