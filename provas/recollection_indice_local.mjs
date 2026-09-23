@@ -17,6 +17,7 @@
 // só 127.0.0.1/localhost fora dele; `EGRESS_IP = NAO SEI`.
 //
 //   I1  índice com 3 matérias                    -> 1 índice + 3 matérias, NEW=3
+//   (cada matéria é ligada DUAS vezes no índice — foto e título — como nos sites reais)
 //   I2  o mesmo índice com ruído (data, contador,
 //       ligação com #fragmento, ordem trocada)    -> 1 índice + 0 matérias
 //   I3  1 matéria nova no topo                    -> 1 índice + 1 matéria, NEW=1
@@ -53,7 +54,8 @@ const paginaIndice = () => `<!DOCTYPE html><html><head><title>News</title>
 <meta property="article:modified_time" content="2026-09-2${INDICE.ruido}T0${INDICE.ruido}:00:00+00:00" /></head><body>
 <div class="oggi">Oggi è il ${20 + INDICE.ruido} settembre 2026 · visitatori ${1000 + INDICE.ruido * 37}</div>
 <a href="/news/">News</a> <a href="/news/page/2/">Pagina 2</a> <a href="/feed/">RSS</a> <link href="/style.css">
-${INDICE.lista.map(s => `<article><a href="/news/${s}${INDICE.barra[s] ?? "/"}">${MATERIAS[s]}</a>
+${INDICE.lista.map(s => `<article><a href="/news/${s}${INDICE.barra[s] ?? "/"}"><img src="/img/${s}.jpg"></a>
+  <a href="/news/${s}${INDICE.barra[s] ?? "/"}">${MATERIAS[s]}</a>
   <a href="/news/${s}/#commenti">commenti</a></article>`).join("\n")}
 ${enchimento}</body></html>`;
 const paginaMateria = (s) => `<!DOCTYPE html><html><head><title>${MATERIAS[s]}</title></head><body>
