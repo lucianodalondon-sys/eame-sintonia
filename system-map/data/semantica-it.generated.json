@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "973c1f690c9e345cac2946a8d45047c89ed9c11a"
+    "HEAD": "9aeccd3123c690e0313598a2ba3d80b5a714ac70"
   },
   "VOCABULARIOS": [
     {
@@ -1248,16 +1248,16 @@
       "OWNER": "admissao",
       "ROLE": "ADMISSAO",
       "O_QUE_E": "as palavras que decidem se o item pertence ao universo pedido",
-      "TOTAL_TERMS": 103,
+      "TOTAL_TERMS": 117,
       "POR_ESCOPO": {
-        "UNKNOWN": 43,
-        "IT_ONLY": 32,
+        "UNKNOWN": 56,
+        "IT_ONLY": 33,
         "PT_ONLY": 20,
         "SHARED_MULTILINGUAL": 6,
         "INTERNATIONAL": 2
       },
-      "CLASSIFIED": 60,
-      "UNKNOWN": 43,
+      "CLASSIFIED": 61,
+      "UNKNOWN": 56,
       "FECHA": true,
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
@@ -1323,6 +1323,7 @@
         "scripts/diagnostico_sala/ler_os_76.py",
         "scripts/diagnostico_sala/onde_casou.py",
         "scripts/micro_coleta/micro_coleta.py",
+        "scripts/regua_t8/medir_regua_t8.py",
         "system-map/scripts/censo_das_derivacoes.py",
         "system-map/scripts/censo_semantico_it.py",
         "system-map/scripts/generate_system_map.py",
@@ -1363,6 +1364,7 @@
         "tests/test_quarentena_naosei.py",
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao_trava.py",
+        "tests/test_regua_t8.py",
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_sala_duravel.py",
         "tests/test_ui_revisao_t3_ptbr.py",
@@ -1370,6 +1372,62 @@
         "tests/test_universo_vem_do_pedido.py"
       ],
       "TERMOS": [
+        {
+          "termo": "agricoltore|agricoltori|agricultor|agricultores",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "in campo|nei campi|no campo|nos campos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "coltivatore|coltivatori|viticoltore|viticoltori|frutticoltore|frutticoltori|olivicoltore|olivicoltori|produtor rural|produtores rurais",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "allevatore|allevatori|pecuarista|pecuaristas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "raccolto|raccolti|colheita|colheitas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "semina|semine|sementeira|plantio",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "potatura|poda",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "irrigazione|irrigacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ettaro|ettari|hectare|hectares",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "trattore|trattori|trator|tratores",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "redditivita|costi di produzione|rentabilidade|custos de producao",
+          "escopo": "UNKNOWN"
+        },
         {
           "termo": "doi",
           "escopo": "INTERNATIONAL"
@@ -1787,9 +1845,9 @@
   ],
   "COUNTS": {
     "vocabularios": 10,
-    "termos_ao_todo": 345,
+    "termos_ao_todo": 359,
     "por_papel": {
-      "ADMISSAO": 103,
+      "ADMISSAO": 117,
       "BUSCA": 68,
       "CLASSIFICACAO": 139,
       "EXTRACAO": 35

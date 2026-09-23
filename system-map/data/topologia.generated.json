@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T11:18:54+00:00",
-  "HEAD": "973c1f690c9e345cac2946a8d45047c89ed9c11a",
-  "BRANCH": "youtube-oficial-v1",
+  "GENERATED_AT": "2026-09-23T15:15:53+00:00",
+  "HEAD": "9aeccd3123c690e0313598a2ba3d80b5a714ac70",
+  "BRANCH": "youtube-regua-t8-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ceb6e995c4b19ec6e655132f4461479b438c1c34cfc96f8c54ac3fb1383883ad",
-  "FICHEIROS_NA_IMPRESSAO": 2840,
+  "SOURCE_TREE_FINGERPRINT": "54bca220e86e99826c78acad5cbf5f24fd638cff7ea97f9fca2b3947b21791c4",
+  "FICHEIROS_NA_IMPRESSAO": 2849,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -160,7 +160,7 @@
    {
     "PATH": "admissao/admissao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6bb2d593d0200b5303d76abdd85cbd0a029627d1",
+    "VERSAO": "5fbef344d752176fb86dba6175e8cebeb95a0fc3",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1973,7 +1973,7 @@
    {
     "PATH": "orquestrador/orquestrador.py",
     "PAPEL": "FONTE",
-    "VERSAO": "570e72271468cd9abbd92c8f6858bb03ef261e39",
+    "VERSAO": "e237a1ef949ce84ddd60013c69a747da43250496",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3441,6 +3441,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/regua_t8/medir_regua_t8.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "92010743bd5c186a938a936e7117f6977fb3b0d4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "security/censo_do_cliente.py",
     "PAPEL": "FONTE",
     "VERSAO": "b4bca8482feee20bdd30331d6830d31fd06ed17b",
@@ -3492,14 +3499,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ceb6e995c4b19ec6e655132f4461479b438c1c34cfc96f8c54ac3fb1383883ad",
+    "VERSAO": "54bca220e86e99826c78acad5cbf5f24fd638cff7ea97f9fca2b3947b21791c4",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ceb6e995c4b19ec6e655132f4461479b438c1c34cfc96f8c54ac3fb1383883ad",
+    "VERSAO": "54bca220e86e99826c78acad5cbf5f24fd638cff7ea97f9fca2b3947b21791c4",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3877,7 +3884,7 @@
    {
     "PATH": "tests/test_a_regra_de_t2.py",
     "PAPEL": "FONTE",
-    "VERSAO": "c52a162af4347974a8ddb4a65c505b22803c4415",
+    "VERSAO": "a877ef80eb01227cea5940cfc1da8ea7883323ef",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3947,7 +3954,7 @@
    {
     "PATH": "tests/test_amostragem_neutra_t3.py",
     "PAPEL": "FONTE",
-    "VERSAO": "085b651435bf9bbd104191a710b2c1443b3fdd12",
+    "VERSAO": "aed036ea3ada491e7433a9abd7031d0c21016f49",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4836,7 +4843,7 @@
    {
     "PATH": "tests/test_pacote_de_revisao_t3.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5b45ce4c0360f8fe5fbf3c0e40a3a165fc081b19",
+    "VERSAO": "7ae7b77d7f7d464d90f061b243b093ffad7b3f6c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5030,6 +5037,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_regua_t8.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "491594627b51af6d17a5e75f1344510b839bd0fa",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_relatorio_do_fluxo.py",
     "PAPEL": "FONTE",
     "VERSAO": "6ce0032ae5798cbb37aee401db51f905d370af92",
@@ -5186,7 +5200,14 @@
    {
     "PATH": "tests/test_ui_revisao_t3_ptbr.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6b8677f41782f52d782604cd81c24a483d148480",
+    "VERSAO": "5d039232cb3e27d8b7a281d9f9463f7293a3885f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_universo_antes_da_rede.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "57ba1d9c1be392d0f7bc672dc0be237578e26fe6",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5200,7 +5221,7 @@
    {
     "PATH": "tests/test_universo_vem_do_pedido.py",
     "PAPEL": "FONTE",
-    "VERSAO": "47a2b39055f281ef5d43c8a0e48edee4730c4bd1",
+    "VERSAO": "e98530e2bce30a02e903e4ceb0f90c680dc068ca",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5268,8 +5289,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 747,
-  "INPUTS_DIGEST": "5a810560f1f1f11e1fad54149f2c93cc1234cfdd73e71caf747ba5e3c6fc928b",
+  "INPUTS_COUNT": 750,
+  "INPUTS_DIGEST": "85e230c97793a197dd474fefd58c6527853665a6cdb15ff91aeaaa8dab435836",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5295,15 +5316,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 479,
+  "DOCUMENTOS_LIDOS": 481,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "f00b6e8c65797e8c65f5d5421fe0eb328a947ac755fa06fb079aefc86e5d7517",
-  "SEMANTIC_HASH": "bc2b0233a82986716f6c8ca460de890390ba3c694f149e4fe13c5075dbff098e"
+  "MEASUREMENT_HASH": "d03957ede38fcf4c6c9ab2aa6ddf21f4c642758caa825133882dd5c30a1832c5",
+  "SEMANTIC_HASH": "4aa638ab6872a15626bca093ad57fff348f54a3a3f7823373298dd6ad35a1eb5"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5355,6 +5376,7 @@
    "C-EXECUTOR-TRANSCRICAO-MIDIA",
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
+   "C-GABARITO-REGUA-T8",
    "C-IDENTIDADE",
    "C-IMPORTAR",
    "C-INGRESSO",
@@ -5405,7 +5427,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 90
+  "COUNT": 91
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5570,6 +5592,7 @@
    "C-FONTE-DO-ATLAS",
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
+   "C-GABARITO-REGUA-T8",
    "C-GESTAO-DA-COLETA",
    "C-IDENTIDADE",
    "C-IMPORTAR",
@@ -5678,16 +5701,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 172
+  "COUNT": 173
  },
  "ARITMETICA": {
-  "COLLECTION": 90,
+  "COLLECTION": 91,
   "BOUNDARY": 82,
-  "SOMA": 172,
-  "EXPANDED": 172,
+  "SOMA": 173,
+  "EXPANDED": 173,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 172,
+  "RESUMO_CARTOES_NO_UNIVERSO": 173,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -6440,6 +6463,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-GABARITO-REGUA-T8",
+    "FROM": "C-ADMISSAO",
+    "TO": "C-GABARITO-REGUA-T8",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/regua_t8/medir_regua_t8.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-GABARITO-REGUA-T8",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-LASTMILE-MEDIDORES",
     "FROM": "C-ADMISSAO",
     "TO": "C-LASTMILE-MEDIDORES",
@@ -7085,7 +7130,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "admissao/admissao.py",
-      "LINHA": 1360,
+      "LINHA": 1428,
       "SUPPORTS": "NO",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -7133,6 +7178,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-CENSO-SEMANTICO-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ADMISSAO--READS-->C-GABARITO-REGUA-T8",
+    "FROM": "C-ADMISSAO",
+    "TO": "C-GABARITO-REGUA-T8",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/regua_t8/medir_regua_t8.py",
+      "LINHA": 55,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-GABARITO-REGUA-T8",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -26237,7 +26304,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
@@ -26267,7 +26334,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
@@ -26297,7 +26364,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-EU-REGULATORIO-COLETA",
@@ -26335,7 +26402,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
@@ -26365,7 +26432,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -26381,7 +26448,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -26397,7 +26464,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -26413,7 +26480,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -26429,7 +26496,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -26445,7 +26512,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -26483,7 +26550,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
@@ -26513,7 +26580,7 @@
      },
      {
       "FICHEIRO": "orquestrador/orquestrador.py",
-      "LINHA": 898,
+      "LINHA": 928,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
@@ -27124,6 +27191,14 @@
      {
       "FICHEIRO": "tests/test_scrap_rc01_release_candidate.py",
       "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_universo_antes_da_rede.py",
+      "LINHA": 30,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -39941,12 +40016,12 @@
     ]
    }
   ],
-  "COUNT": 1119
+  "COUNT": 1121
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 172,
-  "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1119,
+  "CARTOES_NO_UNIVERSO": 173,
+  "CARTOES_AUDITADOS": 173,
+  "ARESTAS_RELACIONADAS": 1121,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -40108,6 +40183,7 @@
    "C-EXECUTOR-TEXTO-HTML",
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
+   "C-GABARITO-REGUA-T8",
    "C-GESTAO-DA-COLETA",
    "C-INT-ARBITRAGEM",
    "C-INT-CONSUMO-ADAMA",
@@ -40254,6 +40330,10 @@
    "C-FONTES-EU": [
     "science"
    ],
+   "C-GABARITO-REGUA-T8": [
+    "audit",
+    "collection-strategy"
+   ],
    "C-GESTAO-DA-COLETA": [
     "opportunity",
     "science"
@@ -40343,11 +40423,11 @@
    "C-MICRO-COLHEITA"
   ],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 188,
+   "CODE": 189,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 372,
-   "READ": 251,
+   "READ": 252,
    "RULE": 197,
    "WRITE": 8
   },
@@ -40586,7 +40666,7 @@
     "preservar_coleta"
    ],
    "ENTRAM": 6,
-   "SAEM": 35,
+   "SAEM": 37,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -43333,6 +43413,52 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-GABARITO-REGUA-T8",
+   "NOME": "Gabarito e medicao da regua T8 (FARMERS & INFLUENCERS) — YouTube pela porta canonica",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "scripts/regua_t8/CANARIO-T8-V1.json",
+    "scripts/regua_t8/GABARITO-T8-V1.json",
+    "scripts/regua_t8/MEDICAO-REGUA-T8-V1.json",
+    "scripts/regua_t8/PROTOCOLO-GABARITO-T8.md",
+    "scripts/regua_t8/SELECAO-VIDEOS-T8.json",
+    "scripts/regua_t8/medir_regua_t8.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_a_regra_de_t2.py",
+    "tests/test_amostragem_neutra_t3.py",
+    "tests/test_pacote_de_revisao_t3.py",
+    "tests/test_regua_t8.py",
+    "tests/test_ui_revisao_t3_ptbr.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "collections",
+    "pathlib"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "audit",
+    "collection-strategy"
+   ],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-GESTAO-DA-COLETA",
    "NOME": "O contrato da gestão da coleta",
    "FAMILIA": "F-GOVERNANCA",
@@ -44833,6 +44959,7 @@
     "tests/test_sala_duravel.py",
     "tests/test_scrap_flow01_caminho_canonico.py",
     "tests/test_scrap_rc01_release_candidate.py",
+    "tests/test_universo_antes_da_rede.py",
     "tests/test_universo_vem_do_pedido.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -44840,7 +44967,8 @@
     "RELATORIO-MICRO-PREP.md",
     "SINTONIA-EAME-KNOW-HOW.md",
     "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
-    "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md"
+    "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md",
+    "scripts/regua_t8/PROTOCOLO-GABARITO-T8.md"
    ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,
@@ -45040,7 +45168,8 @@
     "tests/test_a_regra_de_t2.py",
     "tests/test_amostragem_neutra_t3.py",
     "tests/test_pacote_de_revisao_t3.py",
-    "tests/test_ui_revisao_t3_ptbr.py"
+    "tests/test_ui_revisao_t3_ptbr.py",
+    "tests/test_universo_antes_da_rede.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md"
@@ -45755,7 +45884,8 @@
     "tests/test_sala_duravel.py",
     "tests/test_scrap_flow01_caminho_canonico.py",
     "tests/test_source_id_wiring_gap.py",
-    "tests/test_ui_revisao_t3_ptbr.py"
+    "tests/test_ui_revisao_t3_ptbr.py",
+    "tests/test_universo_vem_do_pedido.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
@@ -48558,6 +48688,7 @@
     "tests/test_red_team_estrada.py",
     "tests/test_reel_transcricao.py",
     "tests/test_reel_transcricao_trava.py",
+    "tests/test_regua_t8.py",
     "tests/test_relatorio_do_fluxo.py",
     "tests/test_relevance_priority_sobrecarga.py",
     "tests/test_retirada_por_decisao.py",
@@ -48581,6 +48712,7 @@
     "tests/test_thread_parcial.py",
     "tests/test_trava_da_inteligencia.py",
     "tests/test_ui_revisao_t3_ptbr.py",
+    "tests/test_universo_antes_da_rede.py",
     "tests/test_universo_explicito.py",
     "tests/test_universo_vem_do_pedido.py",
     "tests/test_v21_datas.py",
@@ -48641,7 +48773,9 @@
     "tests/test_scrap_sr02_autorizacao_de_gasto.py",
     "tests/test_source_id.py",
     "tests/test_trava_da_inteligencia.py",
-    "tests/test_ui_revisao_t3_ptbr.py"
+    "tests/test_ui_revisao_t3_ptbr.py",
+    "tests/test_universo_antes_da_rede.py",
+    "tests/test_universo_vem_do_pedido.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md"
@@ -48682,6 +48816,7 @@
     "collections",
     "comentario",
     "consumo_da_referencia_adama",
+    "contextlib",
     "coverage",
     "dataclasses",
     "datetime",
