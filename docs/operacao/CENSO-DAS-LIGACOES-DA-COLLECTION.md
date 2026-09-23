@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  195a6634ce754c1b6e0571a0d22bd301a9cbd1c1
+HEAD_DA_MEDICAO  dcc2642823e3470067e198b94d71c5acdcde4f61
 BRANCH           regua-t2-t12-v1
-GERADO_EM        2026-09-22T22:28:20-03:00
+GERADO_EM        2026-09-22T22:32:46-03:00
 CARDS            82
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
