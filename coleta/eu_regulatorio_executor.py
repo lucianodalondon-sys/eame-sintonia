@@ -226,7 +226,10 @@ def _bytes_que_ja_temos(celex: str, iso2: str = IDIOMA):
     return b if b[:4] == b"%PDF" else None
 
 
-def preservar(b: bytes, celex: str, iso2: str = IDIOMA) -> str:
+def largar_pdf(b: bytes, celex: str, iso2: str = IDIOMA) -> str:
+    # SOC6: chamava-se `preservar`, o nome do DONO do RAW (guarda/preservar_coleta).
+    # Este coletor nao preserva: LARGA os bytes onde a porta (coleta/ingresso.py) os vai
+    # buscar. O nome igual fazia o encanamento (P3/P11) ler aqui uma segunda porta.
     """Larga os bytes e devolve o caminho RELATIVO a raiz do repositorio.
 
     O nome do ficheiro e o CELEX porque ele ja e a identidade do ato — mas o
@@ -324,7 +327,7 @@ def observar(celex: str, run_id: str, iso2: str = IDIOMA) -> dict:
         onde = os.path.join(ARMAZEM, "%s-%s.pdf" % (celex, iso2)).replace(
             os.sep, "/")
     else:
-        onde = preservar(b, celex, iso2)
+        onde = largar_pdf(b, celex, iso2)
     item["STORAGE_LOCATION"] = onde
     return {"ESTADO": estado, "ITEM": item,
             "SHA256": hashlib.sha256(b).hexdigest(), "ONDE": onde}

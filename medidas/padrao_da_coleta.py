@@ -209,12 +209,19 @@ def medir():
         'corridas_com_hora': sorted(cheio('STARTED_AT')),
         'observacoes': [o.get('DOCUMENT_VERSION_ID') or o.get('DOCUMENT_ID')
                         for o in obs],
+        # SOC6: uma observacao FALHADA (DISCOVERY_FAILED, TRANSPORT_OR_EMPTY) nao
+        # trouxe documento nenhum — nao tem byte, logo nao tem sha a faltar. Conta-la
+        # aqui fazia a regra do DOCUMENTO reprovar por 37 falhas com DOCUMENT_ID nulo.
+        #     A FALHA NAO E DOCUMENTO.
         'observacoes_SEM_sha256': [o.get('DOCUMENT_ID') for o in obs
-                                   if not o.get('RAW_SHA256')],
+                                   if o.get('HEALTH_STATE') != 'FAILED'
+                                   and not o.get('RAW_SHA256')],
         'observacoes_SEM_fact_time': [o.get('DOCUMENT_ID') for o in obs
-                                      if o.get('FACT_TIME') in VAZIO],
+                                      if o.get('HEALTH_STATE') != 'FAILED'
+                                      and o.get('FACT_TIME') in VAZIO],
         'observacoes_SEM_cadencia': [o.get('DOCUMENT_ID') for o in obs
-                                     if o.get('CADENCE_STATE') in VAZIO],
+                                     if o.get('HEALTH_STATE') != 'FAILED'
+                                     and o.get('CADENCE_STATE') in VAZIO],
         'corridas_SEM_egress': [r.get('RUN_ID') for r in runs_it
                                 if r.get('EGRESS_IP') in VAZIO],
         '_runs_it': [r.get('RUN_ID') for r in runs_it],
@@ -292,11 +299,11 @@ def main():
         if pior:
             falhou = True
             print('         %s' % porque)
-            novos = sorted(set(agora.get(campo, [])) - set(chao.get(campo, []))) \
+            novos = sorted(set(agora.get(campo, [])) - set(chao.get(campo, [])), key=str) \
                 if sentido == 'menor' else \
-                sorted(set(chao.get(campo, [])) - set(agora.get(campo, [])))
+                sorted(set(chao.get(campo, [])) - set(agora.get(campo, [])), key=str)
             if novos:
-                print('         mudou: %s' % ', '.join(novos[:6]))
+                print('         mudou: %s' % ', '.join(str(x) for x in novos[:6]))
 
     print('\n  A DIVIDA, hoje:')
     for r, t in (('fontes_so_citadas', 'fontes citadas em tabela, sem ficha'),
