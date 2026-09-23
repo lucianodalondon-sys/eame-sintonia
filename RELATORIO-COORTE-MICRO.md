@@ -177,6 +177,8 @@ DESBLOQUEIOS   = 1) dono decide marca +2 → 5 · 2) aplicar receitas V1 +1 → 
                  5) ler 4 prontas sem página (VPN) até +4 → até 12 · 6) o resto: NÃO SEI sem canário
 RECEITAS_NOVAS = 1 com prova (IT-T10-026)
 EGRESS         = IT 7/8 · 8.ª BR, parada antes do pedido · 0 pedidos BR · VPN em baixo no fim
+PRECISA_REDE_IT = 24 das 45 prontas sem notícia lida (88 das 134 no universo) — marcadas no
+                 FUNIL (C_PORQUE); nada foi buscado depois da queda, a pedido da coordenação
 ```
 
 ---

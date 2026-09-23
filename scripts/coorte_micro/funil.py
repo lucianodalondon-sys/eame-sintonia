@@ -126,7 +126,7 @@ def avaliar(sid: str, D: dict) -> dict:
     mats = [p["URL"] for p in D["paginas"] if p["SOURCE_ID"] == sid and p["VEREDITO"] == "MATERIA"]
     r["MATERIAS_LIDAS"] = mats
     if not mats:
-        r["C"], r["C_PORQUE"] = False, "UNKNOWN (nenhuma materia lida)"
+        r["C"], r["C_PORQUE"] = False, "UNKNOWN (nenhuma materia lida) — PRECISA_REDE_IT"
     elif lp and any(re.match(lp, m) for m in mats):
         r["C"], r["C_PORQUE"] = True, "a receita casa materia lida"
     else:
