@@ -160,32 +160,46 @@ def _boot_time_utc() -> Optional[datetime]:
     return None
 
 
-def _proc_e_python(pid: int) -> bool:
-    """Verifica se o processo com este PID tem 'python' no nome da imagem."""
+def _proc_e_python(pid: int) -> Optional[bool]:
+    """O processo com este PID e python? None = NAO SEI (ver _pid_no_so)."""
     try:
         r = subprocess.run(
             ["tasklist", "/FI", "PID eq %d" % pid, "/NH", "/FO", "CSV"],
-            capture_output=True, text=True, timeout=5
+            capture_output=True, text=True, errors="replace", timeout=5
         )
-        return "python" in r.stdout.lower()
     except Exception:
-        return False
+        return None
+    if r.returncode != 0 or r.stdout is None:
+        return None
+    return "python" in r.stdout.lower()
 
 
 # ---------------------------------------------------------------------------
 # Verificacao de liveness — PID + heartbeat
 # ---------------------------------------------------------------------------
 
-def _pid_no_so(pid: int) -> bool:
-    """Verifica se o PID existe no SO (Windows)."""
+def _pid_no_so(pid: int) -> Optional[bool]:
+    """O PID existe no SO (Windows)? True, False — ou None = NAO SEI.
+
+    ⚠️ ERRO DA PERGUNTA NAO E RESPOSTA. Ate 23/09 qualquer excepcao do
+    tasklist (timeout de 5 s sob carga, saida ilegivel) devolvia False —
+    «morto». Visto ao vivo (M2e, 04:44Z): worker 79896 terminado como
+    pendurado com heartbeat de 16 s; medido nesta maquina, o tasklist leva
+    ~1 s em repouso. Quem pergunta decide o que fazer com NAO SEI; nenhum
+    chamador o pode ler como morte.
+
+        NAO CONSEGUI PERGUNTAR != NAO EXISTE.
+    """
     try:
         r = subprocess.run(
             ["tasklist", "/FI", "PID eq %d" % pid, "/NH", "/FO", "CSV"],
-            capture_output=True, text=True, timeout=5
+            capture_output=True, text=True, errors="replace", timeout=5
         )
-        return str(pid) in r.stdout
     except Exception:
-        return False
+        return None
+    if r.returncode != 0 or r.stdout is None:
+        return None
+    return str(pid) in r.stdout
 
 
 PULSO = RAIZ / "curadoria" / "WORKER-HEARTBEAT.json"
@@ -237,12 +251,21 @@ def _saida_limpa(rc: Optional[int]) -> bool:
     return rc == 0
 
 
-def _worker_vivo(estado: dict) -> bool:
-    """PID existe no SO E heartbeat recente."""
+def _worker_vivo(estado: dict, proc: Optional[subprocess.Popen] = None) -> bool:
+    """Processo vivo E heartbeat recente.
+
+    Processo vivo: se o supervisor tem o Popen (o filho e dele), proc.poll()
+    e a verdade — sem tasklist. Sem Popen (depois de um reinicio do
+    supervisor), o tasklist; e o NAO SEI dele nao conta como morte: quem
+    decide entao e o heartbeat. So se mata com heartbeat realmente velho.
+    """
     pid = estado.get("WORKER_PID")
     if not pid:
         return False
-    if not _pid_no_so(pid):
+    if proc is not None:
+        if proc.poll() is not None:
+            return False
+    elif _pid_no_so(pid) is False:
         return False
     hb = _ultimo_heartbeat()
     if hb is None:
@@ -314,12 +337,20 @@ def _lock_e_orfao(lock_data: dict) -> bool:
     if not pid:
         return True
 
-    # a) PID existe?
-    if not _pid_no_so(pid):
+    # a) PID existe? NAO SEI (tasklist em timeout) nao e «nao existe»: um
+    #    lock de um supervisor vivo lido como orfao deixaria arrancar um
+    #    segundo supervisor. Na duvida, o lock e valido.
+    existe = _pid_no_so(pid)
+    if existe is None:
+        return False
+    if not existe:
         return True
 
-    # b) PID e um processo Python?
-    if not _proc_e_python(pid):
+    # b) PID e um processo Python? (mesma regra para o NAO SEI)
+    python = _proc_e_python(pid)
+    if python is None:
+        return False
+    if not python:
         return True  # PID reciclado por processo nao-Python
 
     # c) STARTED_AT anterior ao boot? (boot_time pode ser None se wmic falhar)
@@ -413,7 +444,7 @@ def uma_volta_sup(
     # --- estado actual do worker ---
     worker_vivo = (proc is not None
                    and proc.poll() is None
-                   and _worker_vivo(estado))
+                   and _worker_vivo(estado, proc))
 
     if worker_vivo:
         hb = _ultimo_heartbeat()
@@ -673,9 +704,14 @@ def ler_estado_servico() -> dict:
 
     # --- LIVENESS: PID no SO, no instante da leitura ---
     worker_pid = s.get("WORKER_PID")
-    worker_pid_no_so = bool(worker_pid and _pid_no_so(worker_pid))
+    # NAO SEI do tasklist fica visivel no painel, em vez de virar «morto».
+    w_so = _pid_no_so(worker_pid) if worker_pid else False
+    worker_pid_no_so = w_so is True
     sup_pid = s.get("SUPERVISOR_PID")
-    sup_vivo = bool(sup_pid and _pid_no_so(sup_pid))
+    s_so = _pid_no_so(sup_pid) if sup_pid else False
+    sup_vivo = s_so is True
+    pid_nao_sei = [n for n, v in (("WORKER", w_so), ("SUPERVISOR", s_so))
+                   if v is None]
 
     # --- HEARTBEAT: idade real, sempre calculada ---
     hb = _ultimo_heartbeat()
@@ -747,6 +783,7 @@ def ler_estado_servico() -> dict:
         "FEEDER_NOOP_ULTIMO_AT":     s.get("FEEDER_NOOP_ULTIMO_AT"),
         "FEEDER_ULTIMA_CHAMADA_AT":  s.get("FEEDER_ULTIMA_CHAMADA_AT"),
         "LIVENESS_SOURCE":           "DERIVED_FROM_OS_AT_READ_TIME",
+        "PID_CHECK_NAO_SEI":         pid_nao_sei,
     }
 
 
