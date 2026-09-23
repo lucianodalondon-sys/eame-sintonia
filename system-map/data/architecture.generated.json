@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "coorte-micro-v1",
-    "HEAD": "c604760a8fcdb268904ed1e14b24c0e75ba70339",
-    "GENERATED_AT": "2026-09-23T01:15:35-03:00",
-    "SOURCE_TREE_FINGERPRINT": "5a6a0ddeb6383f987c43f93c0831a337017cc318c2ec1b824227a03a7d9f76d0"
+    "BRANCH": "desbloqueio-coorte-v1",
+    "HEAD": "335227ab0bd31645856bc8e3ad3f10af703128e8",
+    "GENERATED_AT": "2026-09-23T01:37:43-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cc5ee0799924f611a5282b5eeb69c27eb8371b0701fdb4b584a3449debffdbb5"
   },
   "FILES": [
     {
@@ -310,6 +310,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-DESBLOQUEIO-COORTE.md",
+      "sha": "8538f5bcf035261177123bbaa49f8bc3772e5d66",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-DETECTOR-CAPA.md",
       "sha": "0be554823d2ea155763dcbb5e888f604e060422e",
       "ext": ".md",
@@ -423,7 +430,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "54fb68b959eacc8df1e18027b32061bfc3668827",
+      "sha": "becbe4b332feeabb3e85552a5d076b88385fb89e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15151,7 +15158,7 @@
     },
     {
       "path": "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
-      "sha": "11ef054bc360fb57897e8b8e3f10c752642584ae",
+      "sha": "fc4e4bde027145b8751ea21a6855de4047817251",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -15165,7 +15172,7 @@
     },
     {
       "path": "scripts/coorte_micro/funil.py",
-      "sha": "29d04b0422c8133048b9d2f8ad821a8e5c061cab",
+      "sha": "a78b97ba95f030f5caf5f0664d059655703c893c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15173,6 +15180,41 @@
     {
       "path": "scripts/coorte_micro/receitas_v2.py",
       "sha": "a0828592102d394e4c891682d755931757d1c822",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "sha": "bfdf67f53e320794d4dc99dde3eafbd2b2446fc1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
+      "sha": "e1bd7a118fe2ab4a0dd9385f4d20b7412c3ef89b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/desbloqueio/LEDGER-ENSAIO-G1.jsonl",
+      "sha": "81beb6f08f6207752c469302d680e4fdacc2c25e",
+      "ext": ".jsonl",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "sha": "e3fdf270efe459ce794491e39eea5643329596d6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/desbloqueio/canario_desbloqueio.py",
+      "sha": "1a0471380daba09700cddd498da3d02d146b2ff4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15879,7 +15921,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "543dfa81a9b46745cbf77ea4b47a9ac6d20d5afc",
+      "sha": "50589f398c523608140e3dcbde49c3bbefe47758",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -16531,6 +16573,13 @@
     {
       "path": "tests/test_amostragem_neutra_t3.py",
       "sha": "085b651435bf9bbd104191a710b2c1443b3fdd12",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_aplicar_desbloqueio.py",
+      "sha": "15c5a39a6118fa623ddd3105bd00cdc754e00719",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -52906,7 +52955,7 @@
       "evidence": {
         "file": "scripts/coorte_micro/funil.py",
         "line": 68,
-        "snippet": "(snap / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+        "snippet": "Path(livro or snap / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
       }
     },
     {
@@ -52928,7 +52977,7 @@
       "evidence": {
         "file": "scripts/coorte_micro/funil.py",
         "line": 70,
-        "snippet": "(RAIZ / \"regras/italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+        "snippet": "Path(tabela or RAIZ / \"regras/italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
       }
     },
     {
@@ -52940,17 +52989,6 @@
         "file": "scripts/coorte_micro/funil.py",
         "line": 52,
         "snippet": "SAIDA = AQUI / \"FUNIL-COORTE-MICRO-V1.json\""
-      }
-    },
-    {
-      "from_file": "scripts/coorte_micro/funil.py",
-      "to_file": "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/coorte_micro/funil.py",
-        "line": 257,
-        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
     {
@@ -53006,6 +53044,105 @@
         "file": "scripts/coorte_micro/receitas_v2.py",
         "line": 19,
         "snippet": "import funil as FU              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 169,
+        "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 169,
+        "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 53,
+        "snippet": "MANIFESTOS = [HOME / \"detector-capa-gabarito\" / \"MANIFESTO.json\","
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 192,
+        "snippet": "f = AQUI / \"CANARIO-DESBLOQUEIO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 123,
+        "snippet": "g = _json(RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 54,
+        "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 54,
+        "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 21,
+        "snippet": "SAIDA = AQUI / \"CANARIO-DESBLOQUEIO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 85,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
     {
@@ -58220,6 +58357,28 @@
         "file": "tests/test_amostragem_neutra_t3.py",
         "line": 26,
         "snippet": "\"amostra_t3\", os.path.join(RAIZ, \"provas\", \"amostragem_neutra_t3.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_aplicar_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_aplicar_desbloqueio.py",
+        "line": 33,
+        "snippet": "return [(\"PROPOSTA-RECEITAS-V1.json\", {\"SOURCE_ID\": sid, \"CAMPO\": \"ACQUISITION.LINK_PATTERN\","
+      }
+    },
+    {
+      "from_file": "tests/test_aplicar_desbloqueio.py",
+      "to_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_aplicar_desbloqueio.py",
+        "line": 16,
+        "snippet": "RAIZ / \"scripts\" / \"desbloqueio\" / \"aplicar_desbloqueio.py\")"
       }
     },
     {
@@ -73372,10 +73531,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2541,
-    "files_readable": 1152,
-    "files_code_dir": 972,
-    "file_edges": 5001,
+    "files_tracked": 2548,
+    "files_readable": 1155,
+    "files_code_dir": 978,
+    "file_edges": 5011,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
