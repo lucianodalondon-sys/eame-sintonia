@@ -34,6 +34,7 @@ from fonte_nova import registar, normalizar, carregar  # noqa: E402
 import descobrir as D                                   # noqa: E402
 
 PROOF_JSON = RAIZ / "curadoria" / "PESQUISADORES-PROOF-V1.json"
+LISTA_JSON = RAIZ / "curadoria" / "PESQUISADORES-LISTA-V1.json"
 
 # ---------------------------------------------------------------------------
 # Catalogo de pesquisadores
@@ -582,13 +583,67 @@ def descobrir_pesquisadores(orcamento: int = 200) -> dict:
     return prova
 
 
+_FAMILIAS = [
+    ("CANAIS_SOCIAIS",        ("youtube.com", "linkedin.com", "instagram.com", "facebook.com")),
+    ("CNR",                   ("cnr.it",)),
+    ("CREA",                  ("crea.gov.it",)),
+    ("IZS",                   ("izs",)),
+    ("ORDINI_COLLEGI",        ("conaf.it", "peritiagrari", "agrotecnici")),
+    ("ACCADEMIE",             ("georgofili",)),
+    ("SOCIETA_SCIENTIFICHE",  ("aissa.it", "sipav", "soihs", "sigaweb", "agronomia.it")),
+    ("RIVISTE_SCIENTIFICHE",  ("pagepress", "agrochimica", "fupress", "bulletinofinsectology")),
+    ("RIVISTE_TECNICHE",      ("terraevita", "informatoreagrario", "agronotizie")),
+    ("FONDAZIONI_ENTI",       ("fmach.it", "laimburg", "enea.it", "isprambiente")),
+    ("UNIVERSITA",            ("uni", "santanna", "cattolica")),
+]
+
+
+def familia_de(url: str) -> str:
+    u = url.lower()
+    for fam, chaves in _FAMILIAS:
+        if any(k in u for k in chaves):
+            return fam
+    return "OUTRA"
+
+
+def escrever_lista() -> dict:
+    """Lista cumulativa desta missao, lida da fila (nao da ultima corrida)."""
+    cands = [c for c in carregar()["CANDIDATAS"]
+             if "MISSAO=PESQUISADORES" in c.get("NOTA", "")]
+    por_familia: dict[str, int] = {}
+    linhas = []
+    for c in sorted(cands, key=lambda c: c["CANDIDATA_ID"]):
+        fam = familia_de(c["URL"])
+        por_familia[fam] = por_familia.get(fam, 0) + 1
+        linhas.append({"CANDIDATA_ID": c["CANDIDATA_ID"], "FAMILIA": fam,
+                       "TIPO": c["TIPO"], "PAIS": c["PAIS"], "NOME": c["NOME"],
+                       "URL": c["URL"], "ESTADO": c["ESTADO"]})
+    lista = {"DATASET": "PESQUISADORES-LISTA-V1",
+             "GERADO_EM": datetime.now(timezone.utc).isoformat(),
+             "CANDIDATAS_NOVAS": len(linhas),
+             "POR_FAMILIA": dict(sorted(por_familia.items())),
+             "CANDIDATAS": linhas}
+    fd, tmp = tempfile.mkstemp(dir=str(LISTA_JSON.parent), suffix=".tmp")
+    with os.fdopen(fd, "w", encoding="utf-8") as fh:
+        json.dump(lista, fh, ensure_ascii=False, indent=1)
+    os.replace(tmp, LISTA_JSON)
+    return lista
+
+
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser(
         description="Discovery focada em pesquisadores/CIENCIA para IT.")
     ap.add_argument("--orcamento", type=int, default=200)
     ap.add_argument("--listar", action="store_true")
+    ap.add_argument("--lista", action="store_true",
+                    help="so escreve PESQUISADORES-LISTA-V1.json, sem rede")
     a = ap.parse_args()
+
+    if a.lista:
+        l = escrever_lista()
+        print("CANDIDATAS_NOVAS", l["CANDIDATAS_NOVAS"], l["POR_FAMILIA"])
+        return 0
 
     if a.listar:
         for c in CATALOGO_PESQUISADORES:
