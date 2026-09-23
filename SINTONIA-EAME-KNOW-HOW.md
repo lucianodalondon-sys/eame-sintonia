@@ -19483,3 +19483,27 @@ barra uma matéria a mais — no original e no controlo. `LISTING_DETAIL_GATE_PR
   falta uma visita com uma página maior, e essa decisão é do coordenador.
 - **O detector de hoje deixa passar 57% das capas também em dados independentes** (28/49). A
   6-PREP-c não era um artefacto do seu gabarito.
+
+---
+
+# UM ERRO DE CONTRATO APANHA-SE NO CONTRATO — E UMA SUBSTITUIÇÃO DE BASH ESTRAGA URL
+
+*Missão LD3 (listing-detail-v3), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V3.json`,
+relatório `RELATORIO-LISTING-DETAIL-V3.md`.*
+
+- **A régua dos 4 passos já reprova os contratos que estragavam a V1.** A #28 (IT-T11-010) está
+  READY pelo canário, mas é LEGACY para a régua (`DETAIL_LINKS = 1`); a #34 nunca passou o
+  canário. Com a régua a mandar, a V1 domina nos dois gabaritos. Com a régua ainda a não
+  mandar (36/68 READY são LEGACY), a V1 perde no original. **O gate do detector depende de
+  a régua mandar.**
+- **A régua apanhou a #28 por uma margem de 1 link.** Não guarda o retrato da página do
+  índice, logo não pode perguntar se o índice é ele próprio uma matéria. Endurecer o mínimo
+  para 5 tiraria 10 de 32 fontes de READY_CURRENT, com falsos positivos não medidos.
+- **Um servidor pode fixar o tamanho da página.** A listagem da #28 devolve 3 notícias por
+  página mesmo com a paginação pedida a 12: a régua dos ≥ 10 links do G1 nunca se cumpre
+  nesse site. O que falta é uma decisão, não mais uma visita.
+- **`${VAR//N/12}` em bash troca TODOS os N, não só o marcador.** Dois pedidos autorizados
+  saíram com `AmosNews` → `Amos12ews`. Para mudar parâmetros de um URL, usar `urllib.parse`
+  (mudar só as chaves certas) e confirmar o URL antes de gastar o pedido.
+- **Preparar sem ligar tem prova.** `politica_nao_sei.py` tem as três respostas da D11 e um
+  teste que falha se algum ficheiro a importar antes da decisão.
