@@ -134,8 +134,8 @@ SEM_PADRAO_URL = comportamento do ACTUAL
 2. **O detector actual é fraco no sentido perigoso**: deixa passar 58% das
    capas (63/109), e 48% das que não são o índice (13/27). **O «0 capas» de
    qualquer relatório de coleta que confie só nele não prova grande coisa.**
-3. **O problema de fundo não é o detector: são os padrões de morada dos
-   contratos.** 22 de 34 matérias reais (fora dos índices) não casam o
+3. **A proposta falha por causa dos padrões de morada dos contratos**, não
+   por causa do formato. 22 de 34 matérias reais (fora dos índices) não casam o
    `LINK_PATTERN` da sua própria fonte. Isto quer dizer, provavelmente, que
    **o coletor, que usa esses padrões, também não as apanharia**. Isto é
    inferência, não o medi no coletor.
@@ -158,7 +158,7 @@ cada vez**:
    qualquer micro-coleta. Medido: o molde genérico falha em 22/34 matérias
    reais. Medida de sucesso: o gabarito deste relatório, re-corrido.
 2. **Curator — corrigir os 3 `INDEX_URL` que apontam para uma matéria**
-   (IT fontes das páginas #28, #101, #161: um evento, uma notícia de pólenes,
+   (IT-T11-010 #28, IT-T2-039 #101, IT-T12-044 #161: um evento, uma notícia de pólenes,
    uma notícia de app). São defeitos de contrato.
 3. **Só depois, dono de `retrato_html.py` — aplicar a V1** («a morada
    exactamente igual ao `INDEX_URL` é capa»). Medido: capas que atravessam
