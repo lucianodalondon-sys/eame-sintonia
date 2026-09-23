@@ -37,6 +37,11 @@ def correr() -> tuple[bool, str]:
 
 
 def main() -> int:
+    # Um ataque morto a meio (queda do PC, 23/09 12:50) deixou CRASH_MAX=99999 no
+    # ficheiro, e um checkpoint gravou-o. Nunca atacar um alvo que ja difere do Git.
+    if subprocess.run(["git", "diff", "--quiet", "HEAD", "--", str(ALVO)], cwd=RAIZ).returncode:
+        print("ALVO DIFERE DO GIT: %s — restaurar antes de atacar" % ALVO)
+        return 3
     ok, resumo = correr()
     print("BASE", "VERDE" if ok else "VERMELHA", resumo, flush=True)
     if not ok:
