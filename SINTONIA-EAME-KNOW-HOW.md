@@ -20351,3 +20351,54 @@ Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
   lê regra nenhuma e trata como «tudo permitido».
 - `robots_de` tenta duas vezes, com esperas de 25 e 45 s, quando o robots não responde.
   Numa medição de 105 sites, é isso que domina o tempo.
+
+---
+
+# § (sem número) · UM PLANO SEGUIDO À LETRA NUMA CÓPIA NÃO É UM PLANO ENSAIADO — O CUTOVER X1
+
+**O QUE SE FEZ (23/09).** O SWITCH_PLAN da M5 (trocar o serviço vivo para a linha
+unificada) correu inteiro num clone isolado, com os livros vivos fotografados duas vezes
+com sha256, supervisor, worker e observador reais e a rede cortada. Correu sobre três HEADs
+da linha, porque a M5 continuou a juntar enquanto o ensaio corria. Saída:
+`CUTOVER-RUNBOOK.md` e `RELATORIO-CUTOVER-ENSAIO.md`.
+
+**O PLANO PARA NO PASSO 6, E NENHUM TESTE O VIA.** O passo 4 manda o pacote G1 escrever no
+livro do bot *dentro do corte*. O passo 6 confere o sha256 desse corte e recusa-o. Cada
+ferramenta estava certa sozinha; o defeito está na ordem. Só uma corrida de ponta a ponta
+com os livros verdadeiros o mostra.
+
+**CINCO PERDAS CALADAS DEPOIS DE CONTORNAR O PASSO 6.**
+1. 430 candidatas e 302 SOURCE_ID que só a pasta viva tem: o `git checkout -- .` da troca
+   deita-os fora, e os 302 números voltariam a ser dados a outras fontes.
+2. 6 marcas D10: a união escolhe o contrato da ponte, que não tem a marca.
+3. 7 fontes da D10 presas em CANARY_PENDING sem tarefa: o REVALIDAR só olha READY.
+4. **A sétima.** Os dois primeiros ensaios enfileiraram «as 6 marcadas». IT-T5-049 não tem
+   marca e foi despromovida na mesma. Só apareceu quando o medidor passou a perguntar
+   «quem está preso?» em vez de «quem está marcado?».
+5. 75 correcções da linha (D13 e D15) desfeitas quando se copia o livro de candidatas da
+   viva, e 76 correcções de país que só a viva tinha. Correr as ferramentas idempotentes
+   da linha depois da cópia repõe tudo. Medido, não suposto.
+
+**REGRA.** Num cutover, cada passo que escreve precisa de três coisas:
+- um medidor que diga PARAR antes do passo seguinte (`medir_cutover.py`);
+- uma segunda corrida que escreva 0;
+- um sítio de onde se desfaz (o corte com sha256).
+
+Um «esperado» escrito no plano (o portão ~16) não é medida. O ensaio mediu 29, e bate com
+o que a B2 previa (+20/−8) mais as 3 retiradas da D9.
+
+**QUEM É DONO DE QUÊ.** Juntar o livro de candidatas com «a linha vence» dava hoje o mesmo
+resultado que copiar a viva e reaplicar as correcções. Foi rejeitado na mesma, porque é a
+viva que promove candidatas. Uma promoção escrita depois da última passagem seria apagada
+por uma linha mais velha. Quando dois lados escrevem no mesmo livro, copia-se o lado do
+**dono** e reaplica-se o que o outro lado **decidiu**, por ferramenta, nunca por cópia.
+
+**ARMADILHAS DESTA MEDIÇÃO.**
+- `unir_livros_do_servico` lê *refs do Git*, não pastas: o corte tem de virar um ramo.
+- Clone no `%TEMP%` longo rebenta o git (`Filename too long`): usar `C:/x1`.
+- Trocar de ramo com alterações por gravar aborta o checkout, e os comandos seguintes
+  correm no ramo errado. Gravar (commit) antes de cada troca.
+- Cada serviço vivo é um par `py.exe` (lançador) + `python.exe`: contar e parar os dois.
+- O amostrador de processos devolveu 0 com o worker vivo. A prova de «um só worker» é o
+  diário (`WORKER_RELANCADO` / `WORKER_OCIOSO_SAIU`), não a lista de processos.
+- B2 conta identidades, não conteúdo: 906 = 906 com 75 linhas mudadas por dentro.
