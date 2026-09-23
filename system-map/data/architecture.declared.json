@@ -4486,7 +4486,25 @@
     "provas/recollection_red_team_estrito.mjs"
    ]
   },
-    {
+      {
+   "id": "C-PROVA-CANARIO-D24-PESSOA",
+   "name": "O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊞",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Corre a aquisicao do video de uma PESSOA do agro PELA PORTA PUBLICA DO POST — `adaptador_linkedin.video_de_post_publico` — e mede as QUATRO metades: (1) a porta que a plataforma FECHOU, com um pedido real ao perfil da pessoa (HTTP 999, `authwall`, zero `urn:li:activity`) registado em vez de contornado; (2) as travas do D24 SEM REDE, com contatos, seguidores, mensagens, comentarios de terceiros e ecra de login a morrerem antes de qualquer pedido; (3) a rede, com o MP4 e a legenda da publicacao publica; e (4) a CADEIA com o bruto ja em disco — `unidade()` -> `coleta/ingresso.py` -> o dono do RAW — contra uma base DESCARTÁVEL, com um duble que so serve bytes que o bruto preservado conhece. Escreve o artefacto `data/samples/CANARIO-D24-PESSOA-V1.json`. Traz tambem os SEIS MUTANTES de `test_d24_video_de_pessoa`: o estado, o dono autorizado, o limite, o nome da decisao na nota, o nome da rota e a porta de contatos — os seis tem de fazer o teste MORRER, e os seis o fazem. O mutante NAO escreve `PERMITIDA`: mudar um valor nao e declarar uma lei, e ha uma prova nesta casa que exige que a politica seja escrita so pela matriz.",
+   "why_here": "A D24 autorizou por escrito o video de PESSOAS do agro, e a medicao mostrou que a porta da pessoa sao DUAS: o perfil responde 999/authwall e NAO se contorna; a pagina do post publico responde 200 e e por ali que o video se le. Sem esta prova, a rota nova ficaria ligada ao adaptador sem nenhuma medicao que a sustente — e sem os mutantes, ninguem saberia se o teste que a guarda morre quando ela muda.",
+   "department": "COLETA",
+   "files": [
+    "provas/canario_d24_video_de_pessoa.py",
+    "provas/_mutantes_d24.py"
+   ]
+  },
+  {
    "id": "C-PROVA-CANARIO-D23-LINKEDIN",
    "name": "O canário do vídeo de organização no LinkedIn (D23) — e os dois bisturis da cadeia",
    "territory": "Z-PROVA",

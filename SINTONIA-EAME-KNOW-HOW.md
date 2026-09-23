@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-23 — **§197** (LINKEDIN-VIDEOS · D23: o VÍDEO (e a legenda) de página pública de ORGANIZAÇÃO passou a ser adquirido pelo Scrap, pela porta canónica, com a plataforma a PROIBIR e o dono a assumir o risco — as duas frases escritas lado a lado; 2 MP4 e 2 legendas reais medidos, US$ 0, e a medição do que ainda falta: a identidade, que é decisão de catálogo e não de aquisição). **Antes, §196** (SCRAP-PORTAS-V1, `origin/unificacao-v1` @ `77077dee` → branch `scrap-portas-v1` @ `f5c49473`): as DUAS PORTAS do SCRAP passaram a ter prova uma contra a outra (`tests/test_as_duas_portas_do_scrap.py`, 25 provas) e as duas passaram a consultar a MESMA lei (`leis/social_matriz.py::decisao`). Fechado o `CHECK` que não perguntava à lei (SOC1: `CAN_COLLECT_NOW` no Instagram enquanto a matriz dizia `ROUTE_NOT_ALLOWED`), a recusa datada de `yt-alvos|yt-transcrever` («a matriz nao declara capacidade de BYTES para YOUTUBE» — falso desde 2026-09-19) e as oito fases que existiam no PEDIDO sem porta operacional. O `DOCUMENT_ID` que o contrato declara passou a ser materializado pelo dono do contrato (`IT-T8-001` → `AGRONOTIZIE:YT:{VIDEO_ID}`), fail-closed em quatro casos. A cadeia do som está provada offline ponta a ponta — YouTube audio → RAW → DERIVED (texto pelo dono único do ASR) → ingresso → Admissão com a régua multilingue — em `tests/test_cadeia_do_audio_offline.py` (11 provas, `NETWORK_CALLS = 0`, `ASR_REAL = NOT_RUN`). Decisões do dono aplicadas: **D19** (Instagram `POLICY_BLOCK`; as três fases do Reel CONSTRUÍDAS e RECUSADAS pela matriz) e **D20** (metadados da Data API com prazo de 30 dias, `RENEW_OR_DELETE`). **Antes, §140**, que fecha os dois blockers deixados pelo §139: `import fcntl` no topo de `ferramentas/reel_transcricao.py` (10 módulos de tests/ não carregavam em Windows) e `tests/test_comunicacao.py` a rebentar no import porque `comunicacao_universo.montar()` devolvia um universo VAZIO sem `data/samples/COMPETITOR-CROSSWALK.json` (ficheiro que nunca esteve no Git) — e a linha de comando ESCREVIA esse vazio por cima do universo versionado. Cura A: o cadeado do lote passou a ser o mesmo da admissão (flock em POSIX, msvcrt LK_NBLCK sem teto em Windows), BLOQUEANTE e entre processos, provado com processos filhos. Cura B: sem crosswalk (ou ilegível, ou todo a zero) `CrosswalkIndisponivel`, exit 2, ZERO mutação em disco; o teste passa uma fixture sintética por `montar(caminho=...)`. Resultado medido em processos novos (py 3.12 + PyYAML por PYTHONPATH, Windows): `TestLoader.errors = []`, `TEST_COUNT_CURRENT` = `4.759` DERIVADO, `--sync` reescreveu 8 documentos, dois `--check` com `DRIFT = 0`; sem PyYAML continua NOT_MEASURABLE (falha fechada). Suíte inteira comparada pelo nome: NEW_FAILURES = 0 · NEW_ERRORS = 0 · 20 nomes saíram do vermelho. Red team 0 blockers. `MANUAL_METRIC_STAMP_BLOCKER = CLOSED` · `METRIC_STABILITY_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO` (trunk 9d6dcbbd intocado) · `BIG_COLLECTION = NÃO AUTORIZADA`. O PROMPT continua a dizer «721 testes» (decisão do dono; test_handoff segue vermelho por isso). **Antes, §139** (ver o aviso no fim desta linha). **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`. **⚠️ CORRIGIDO PELO §139 (2026-09-17, mesmo dia):** a verificação independente derrubou o `INTEGRATION_BLOCKERS_FIX = PASS` — o «drift zero» do §138 era de UM ambiente; noutro processo o dono media `4.521` e o drift eram 9 ficheiros. A causa está provada (dois módulos com `import yaml`, 45 casos − 2 fantasmas = 43) e o dono passou a falhar fechado: qualquer módulo de `tests/` que não carregue ⇒ `TEST_COUNT_CURRENT = NOT_MEASURABLE` e `--sync` recusa. Nesta máquina a suíte NUNCA carrega inteira (10 módulos por `fcntl`, 1 por amostra que nunca esteve no Git) — logo `INTEGRATION_BLOCKERS_FIX = FAIL` até um ambiente completo medir e sincronizar. **⚠️ FECHADO PELO §140 (2026-09-17, mesmo dia):** as duas curas foram feitas, a suíte carrega inteira com PyYAML e a contagem foi medida, sincronizada e conferida em processos novos.
+**Última atualização material:** 2026-09-23 — **§198** (LINKEDIN-VIDEOS · D24: o VÍDEO de uma PESSOA do agro passou a ser adquirido pelo Scrap com autorização ESCRITA do dono, e a medição mostrou que a porta da pessoa é DUAS — o perfil responde 999/authwall e não se contorna, e a página do POST público responde 200 e é por ali que o vídeo se lê; 1 MP4 e 1 legenda reais, US$ 0, dois egressos concordando, e o que fica declarado: a metade italiana não foi encontrada na amostra, a fase nas DUAS portas ainda não existe, e a tela de pessoas nomeadas continua do dono dela, a revisão jurídica). **Antes, §196** (SCRAP-PORTAS-V1, `origin/unificacao-v1` @ `77077dee` → branch `scrap-portas-v1` @ `f5c49473`): as DUAS PORTAS do SCRAP passaram a ter prova uma contra a outra (`tests/test_as_duas_portas_do_scrap.py`, 25 provas) e as duas passaram a consultar a MESMA lei (`leis/social_matriz.py::decisao`). Fechado o `CHECK` que não perguntava à lei (SOC1: `CAN_COLLECT_NOW` no Instagram enquanto a matriz dizia `ROUTE_NOT_ALLOWED`), a recusa datada de `yt-alvos|yt-transcrever` («a matriz nao declara capacidade de BYTES para YOUTUBE» — falso desde 2026-09-19) e as oito fases que existiam no PEDIDO sem porta operacional. O `DOCUMENT_ID` que o contrato declara passou a ser materializado pelo dono do contrato (`IT-T8-001` → `AGRONOTIZIE:YT:{VIDEO_ID}`), fail-closed em quatro casos. A cadeia do som está provada offline ponta a ponta — YouTube audio → RAW → DERIVED (texto pelo dono único do ASR) → ingresso → Admissão com a régua multilingue — em `tests/test_cadeia_do_audio_offline.py` (11 provas, `NETWORK_CALLS = 0`, `ASR_REAL = NOT_RUN`). Decisões do dono aplicadas: **D19** (Instagram `POLICY_BLOCK`; as três fases do Reel CONSTRUÍDAS e RECUSADAS pela matriz) e **D20** (metadados da Data API com prazo de 30 dias, `RENEW_OR_DELETE`). **Antes, §140**, que fecha os dois blockers deixados pelo §139: `import fcntl` no topo de `ferramentas/reel_transcricao.py` (10 módulos de tests/ não carregavam em Windows) e `tests/test_comunicacao.py` a rebentar no import porque `comunicacao_universo.montar()` devolvia um universo VAZIO sem `data/samples/COMPETITOR-CROSSWALK.json` (ficheiro que nunca esteve no Git) — e a linha de comando ESCREVIA esse vazio por cima do universo versionado. Cura A: o cadeado do lote passou a ser o mesmo da admissão (flock em POSIX, msvcrt LK_NBLCK sem teto em Windows), BLOQUEANTE e entre processos, provado com processos filhos. Cura B: sem crosswalk (ou ilegível, ou todo a zero) `CrosswalkIndisponivel`, exit 2, ZERO mutação em disco; o teste passa uma fixture sintética por `montar(caminho=...)`. Resultado medido em processos novos (py 3.12 + PyYAML por PYTHONPATH, Windows): `TestLoader.errors = []`, `TEST_COUNT_CURRENT` = `4.759` DERIVADO, `--sync` reescreveu 8 documentos, dois `--check` com `DRIFT = 0`; sem PyYAML continua NOT_MEASURABLE (falha fechada). Suíte inteira comparada pelo nome: NEW_FAILURES = 0 · NEW_ERRORS = 0 · 20 nomes saíram do vermelho. Red team 0 blockers. `MANUAL_METRIC_STAMP_BLOCKER = CLOSED` · `METRIC_STABILITY_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO` (trunk 9d6dcbbd intocado) · `BIG_COLLECTION = NÃO AUTORIZADA`. O PROMPT continua a dizer «721 testes» (decisão do dono; test_handoff segue vermelho por isso). **Antes, §139** (ver o aviso no fim desta linha). **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`. **⚠️ CORRIGIDO PELO §139 (2026-09-17, mesmo dia):** a verificação independente derrubou o `INTEGRATION_BLOCKERS_FIX = PASS` — o «drift zero» do §138 era de UM ambiente; noutro processo o dono media `4.521` e o drift eram 9 ficheiros. A causa está provada (dois módulos com `import yaml`, 45 casos − 2 fantasmas = 43) e o dono passou a falhar fechado: qualquer módulo de `tests/` que não carregue ⇒ `TEST_COUNT_CURRENT = NOT_MEASURABLE` e `--sync` recusa. Nesta máquina a suíte NUNCA carrega inteira (10 módulos por `fcntl`, 1 por amostra que nunca esteve no Git) — logo `INTEGRATION_BLOCKERS_FIX = FAIL` até um ambiente completo medir e sincronizar. **⚠️ FECHADO PELO §140 (2026-09-17, mesmo dia):** as duas curas foram feitas, a suíte carrega inteira com PyYAML e a contagem foi medida, sincronizada e conferida em processos novos.
 **§134 (2026-09-17):** o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **§133 (2026-09-17):** o blocker do §132 foi FECHADO NO CÓDIGO (`CLI_POSTGRES_BINDING_FIX = PASS`): a porta CLI do orquestrador compõe `memoria`/`banco_do_rastro` a partir de `BANCO_DESCARTAVEL_URL` (`orquestrador/persistencia.py`), com a trava canónica no runtime (`guarda/banco_descartavel.py`) e o adaptador Postgres canónico (`guarda/memoria_postgres.py`). Provado com a porta como PROCESSO contra Postgres 16 real (36 casos), red team 0 blockers, NEW_FAILURES = 0. **PROVA NÃO É RUNTIME.** O workflow não mudou.
 **§132 (2026-09-17):** o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -24,7 +24,7 @@
 **Passo anterior — CUMPRIDO (2026-09-17):** `CLI_POSTGRES_BINDING_FIX` (§133) — a porta CLI liga o banco descartável declarado; trava e adaptador promovidos a `guarda/`; prova como processo contra Postgres real; red team 0 blockers. Dono do blocker: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §15.
 **Passo anterior — BLOCKED (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (§134) — despachado por sessão nova (run `35227662328`, HEAD `b8e07e03`); o portão de egresso fechou a corrida antes da rede (`EGRESS_COUNTRY_CODE = BR`); a estrada não foi corrida e a pergunta ficou sem resposta. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §16.
 **Próximo passo autorizado (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_3` — IT-T3-002 pela fase real `italia-documento` do `sintonia-scrap.yml`, por **sessão nova**, **depois** de gente ligar o túnel do ProtonVPN a um servidor italiano na máquina do runner e de o revisor medir `country: IT` (ipinfo) ANTES do dispatch; com teardown medido fisicamente e exigindo `RAW_OBSERVATIONS >= 1`, `PERSISTENCIA = DESCARTAVEL` e `SALA_ROWS >= 1` no recibo/banco — `conclusion=success` já enganou uma vez e `conclusion=failure` já disse a verdade uma vez. Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
-**Passo anterior — CUMPRIDO (2026-09-23):** LINKEDIN-VIDEOS (D23) — o VÍDEO (e a legenda) de página pública de ORGANIZAÇÃO passou a ser adquirido pelo Scrap: rota declarada na matriz com os três eixos (`OWNER_AUTHORIZED = SIM` + `PLATFORM_POLICY_STATUS = DISALLOWED`, medido), exceção NOMEADA no portão do transporte, fase ligada nas DUAS portas (`tests/test_as_duas_portas_do_scrap` 25/25) e canário real: 2 MP4, 2 legendas WebVTT, o contrato do texto a passar e o DERIVED com espécie. Branch `scrap-linkedin-v1` (LOCAL == REMOTO). Dono canónico: §197 deste mesmo documento. **Antes, §196:** SCRAP-PORTAS-V1 — as duas portas do SCRAP medidas uma contra a outra, o `CHECK` a consultar a matriz, o ASR na cadeia canónica e o `DOCUMENT_ID` materializado pelo contrato. **Próximo passo autorizado (2026-09-23):** manter `BIG_COLLECTION = NÃO AUTORIZADA`; o Instagram continua `POLICY_BLOCK` até o dono REAL criar a conta Business do PROJETO com Página Meta e app próprios (D19) — sem essa estrutura humana o Scrap não tem rota oficial que possa usar; e a retenção de 30 dias da Data API só fica verde quando a Guarda provar em runtime a renovação ou o apagamento (D20.3).
+**Passo anterior — CUMPRIDO (2026-09-23):** LINKEDIN-VIDEOS (D24) — o VÍDEO de uma PESSOA do agro passou a ser adquirido pelo Scrap com autorização ESCRITA do dono: o vocabulário dos limites ganhou `PUBLIC_PERSON_VIDEO_ONLY`, as rotas de pessoa nasceram com os três eixos (D24 · DISALLOWED · limite da pessoa), a trava passou a deixar passar o POST público e a recusar perfil, contatos, seguidores, mensagens, comentários de terceiros e ecrã de login — e o canário real mediu 1 MP4 e 1 legenda da página pública de um post de pessoa, US$ 0, com o PERFIL a responder 999/authwall sem se contornar. Provas: 16 no teste novo, 6 mutações com 6 mortes, e a bateria do Scrap por nome com NEW_FAILURES_BY_NAME = 0. Branch `scrap-linkedin-v1` (LOCAL == REMOTO). Dono canónico: §198 deste mesmo documento. **Próximo passo autorizado (2026-09-23):** manter `BIG_COLLECTION = NÃO AUTORIZADA`; a fase da D24 nas DUAS portas continua por construir (a rota está ligada ao adaptador e provada, mas não tem fase na porta operacional nem no workflow); a metade italiana do pedido ficou `NÃO ENCONTRADO NA AMOSTRA`, e a porta de descoberta italiana é a lacuna que ela deixou medida; e a tela de pessoas nomeadas continua `BLOCKED_PENDING_LEGAL_REVIEW`, que é de outro dono. **Antes, §196:** SCRAP-PORTAS-V1 — as duas portas do SCRAP medidas uma contra a outra, o `CHECK` a consultar a matriz, o ASR na cadeia canónica e o `DOCUMENT_ID` materializado pelo contrato. **Próximo passo autorizado (2026-09-23):** manter `BIG_COLLECTION = NÃO AUTORIZADA`; o Instagram continua `POLICY_BLOCK` até o dono REAL criar a conta Business do PROJETO com Página Meta e app próprios (D19) — sem essa estrutura humana o Scrap não tem rota oficial que possa usar; e a retenção de 30 dias da Data API só fica verde quando a Guarda provar em runtime a renovação ou o apagamento (D20.3).
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 **Decisão da coordenação, registada (2026-09-18):** `RAW_LIFECYCLE_DECISION = BIG COLLECTION PRIMEIRO, EVICTION DEPOIS` (§143). O RAW físico deixa de ser tratado como armazenamento infinito e passa a ser material temporário de aquisição e processamento; o valor permanente fica na identidade, procedência, lineage, texto / transcrição / OCR, dados estruturados, Admission, Sala e Intelligence. **Nada foi implementado e nada foi apagado:** `RAW_EVICTION_IMPLEMENTATION = NOT_IMPLEMENTED` · `RAW_AUTOMATIC_DELETE = NOT_AUTHORIZED` · `RETENTION_CONTRACT = A DEFINIR APÓS BIG COLLECTION`. O contrato de retenção só se desenha depois de a Big Collection medir volumes reais. Não inverter a ordem.
 
@@ -21187,4 +21187,123 @@ Pedido do coordenador, e a unica forma de uma bateria nao mentir: comparar os NO
 As tres sentinelas que a missao atualizou continuam VERDES (`test_c13_route_gate`, `test_as_duas_portas_do_scrap`, `test_c14c_permissao_instagram`), e a ancora das decisoes antigas continua a morder: tres mutacoes, tres mortes — uma rota ANTIGA que mude de estado derruba 2 provas, a rota NOVA do D23 derruba 1, e uma rota NOVA que apareca sem ser declarada derruba 2. `MUTANTES = 3 · SOBREVIVERAM = 0`. 
 
 **Uma rota antiga que mude tem de ser DECLARADA no teste citando o D23 — e o teste continua a morrer se qualquer OUTRA rota mudar. As duas metades estao medidas, cada uma com a sua prova.** 
+
+# §198 · O VÍDEO DE UMA PESSOA DO AGRO — A AUTORIZAÇÃO ESCRITA E O MURO QUE NÃO ERA TÉCNICO
+
+**MEDIDO_EM:** 2026-09-23 · branch `scrap-linkedin-v1` · **DOIS egressos**, porque
+a máquina mudou de saída a meio (o PC caiu e voltou com outra rota de VPN):
+`149.22.91.171` (AS212238 Datacamp · Palermo IT) nas medições da manhã, e
+`146.70.98.171` (AS9009 M247 · Miami US) na corrida completa do canário. Sem
+conta, sem login, sem cookie, sem navegador e sem rota paga.
+
+## O QUE O DONO DECIDIU (D24, `DECISOES-DONO-2026-09-23.md`)
+
+O dono REAL autorizou, **por escrito e com o risco assumido**, a aquisição de
+**vídeo** (e da legenda/transcrição e dos metadados públicos do próprio post) de
+**PESSOAS do agro** — pesquisador, engenheiro agrônomo, perito agrário,
+agrotécnico, creator, influencer — em qualquer plataforma já coberta pela matriz
+do Scrap. Isso **substitui**, para esses vídeos, a frase «perfis de PESSOAS
+continuam fora» que valia desde a D15.
+
+```
+OWNER_AUTHORIZED        = SIM          (decisão do dono, D24)
+PLATFORM_POLICY_STATUS  = DISALLOWED   (medido, plataforma a plataforma)
+LIMITE                  = PUBLIC_PERSON_VIDEO_ONLY
+```
+
+## AS TRÊS DESCOBERTAS QUE MUDARAM O DESENHO
+
+**1 · A PORTA DA PESSOA É DUAS PORTAS, E SÓ UMA ESTÁ ABERTA.**
+Medido, e não suposto: `linkedin.com/in/<slug>/` responde **HTTP 999 com
+`authwall`** — com a UA desta casa E com UA de navegador, e nos DOIS egressos.
+A **mesma** UA, no **mesmo** minuto, recebe **200** na página de **organização**:
+a recusa é da **ROTA**, e não do nosso robô. Mas
+`linkedin.com/posts/<slug>-activity-<id>-<hash>` responde **200** — e é por ali
+que o vídeo se lê, **sem tocar no perfil**.
+
+    A PLATAFORMA FECHA A PORTA QUE FALA DA PESSOA
+    E DEIXA ABERTA A QUE FALA DA PUBLICAÇÃO.
+
+**2 · VÍDEO EM POST DE PESSOA É MINORIA.** Numa amostra de **15** posts públicos
+de pessoa do próprio acervo: **15 responderam 200**, e **apenas UM** trazia
+`data-sources`. Dos **4** posts de agrônomo **italiano** medidos, **nenhum**
+trazia vídeo. A metade italiana do pedido ficou **`NÃO ENCONTRADO NA AMOSTRA`**,
+escrita — e não fechada com um italiano inventado.
+
+**3 · QUEM DECIDE A TELA É OUTRO DONO.** O `docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md`
+continua a declarar `NAMED_RESEARCHER_PUBLIC_SCREEN = BLOCKED_PENDING_LEGAL_REVIEW`
+e `PERSONAL_SCORING = PROHIBITED_FOR_CURRENT_PILOT`.
+
+    AUTORIZAR A COLETA NÃO VIRA CONFORMIDADE JURÍDICA.
+
+O dono assumiu o risco da **aquisição de um vídeo público**; isso **não** abre
+nenhuma **tela** do produto para listar pessoas nomeadas. As duas coisas vivem em
+donos diferentes, e nenhuma missão de Scrap troca uma pela outra.
+
+## O CANÁRIO REAL — e o que a cadeia devolveu
+
+Celestino Domínguez Infante, profissional do agro (UPL Iberia) — **o perfil
+nunca foi tocado**, só o post público dele.
+
+```
+HTTP ................. 200 · 4 pedidos (post + 1 salto IT→ES + MP4 + legenda)
+MP4 .................. 6 935 096 bytes · sha bff909e5… · `video/mp4`
+LEGENDA .............. 1 371 bytes · sha 09712870… · `text/vtt` WebVTT real
+PUBLISHED_AT ......... 2026-04-01T16:05:33.664Z (JSON-LD VideoObject)
+IDENTITY_CROSSCHECK .. CONFIRMADA_PELO_ASSET_DO_JSON_LD
+DERIVED .............. AUTHOR_TEXT 1 061 car. + NATIVE_CAPTION 1 358 car.
+INGRESSO ............. 1 aceite · 0 recusas
+RAW .................. 0 linhas — o dono do RAW recusou por falta de SOURCE_ID
+DOCUMENT_ID .......... NAO SEI
+CUSTO_USD ............ 0.0
+```
+
+E o mesmo `sha256` de MP4 saiu **dos dois egressos**: o que muda com o país de
+saída não é esta porta. **E o egresso que viaja no objeto é o MEDIDO na hora** —
+declarar «VPN IT» porque o pedido dizia «VPN IT» seria inventar uma medição.
+
+## E O QUE A CASA APRENDEU SOBRE SI MESMA
+
+**a) `PERMITIDA` tem um dono, e ele é a matriz.** O primeiro mutante do D24
+escrevia `PERMITIDA=` dentro de um dicionário, e `tests/test_c10_4_route_gate`
+reprovou — corretamente. Um mutante que **declara política** é um segundo dono da
+política disfarçado de prova. **Mutar um valor não é declarar uma lei**: o
+mutante passou a mudar `r['PERMITIDA']` de uma rota existente, e a prova não foi
+tocada.
+
+**b) Um mutante que sobrevive é uma prova em falta.** O mutante do `ESTADO`
+sobreviveu à primeira corrida — e a resposta certa não foi apagá-lo: era escrever
+a prova que faltava **e corrigir a matriz**, porque o canário tinha medido o
+vídeo de pessoa e o estado ainda dizia `POSSIBLE_NOT_PROVED`.
+
+**c) Números de pastas compartilhadas somam trabalhos.** O canário dizia
+`VIDEO_MP4 = 3` porque a pasta de bytes é compartilhada com a missão anterior.
+Agora diz `VIDEO_MP4_DESTA_PESSOA = 1` **e** `BYTES_NA_PASTA_EM_TOTAL = 6`. Um
+número que soma dois trabalhos não mede nenhum deles.
+
+**d) Uma autorização não é uma permissão da plataforma.** No Instagram, o
+`robots.txt` vivo diz que a coleta automatizada é proibida sem autorização
+**expressa escrita da plataforma**. A autorização do dono cobre o **risco do
+projeto**; ela **não é** a autorização da plataforma. Por isso o Reel de pessoa
+segue **RECUSADO** (D19) e o canário do D24 **não foi corrido** — a recusa
+acontece **antes** da rede, fail-closed.
+
+## O QUE CONTINUA ABERTO
+
+```
+1 · PROMOVER A PESSOA A FONTE      candidata → Curador, com identidade e território
+                                   provados (D21). Sem isso o RAW fica sem identidade.
+2 · A FASE NAS DUAS PORTAS         a rota está ligada ao ADAPTADOR e provada por teste
+                                   e por canário; ainda NÃO tem fase na porta
+                                   operacional (CLI) nem no workflow. É o que falta
+                                   para a porta canónica ficar inteira.
+3 · O ASR PARA VÍDEO SEM LEGENDA   dono único, `ferramentas/fala_local.py`.
+4 · A DESCOBERTA ITALIANA          achar perfis de pessoa do agro italiano sem
+                                   buscador: hoje só o acervo da casa.
+5 · A TELA DE PESSOAS NOMEADAS     bloqueada por revisão jurídica — não é do Scrap.
+```
+
+**Provas desta secção:** `tests/test_d24_video_de_pessoa.py` (16) ·
+`provas/_mutantes_d24.py` (6 mutações, 6 mortes) ·
+`provas/canario_d24_video_de_pessoa.py` · `docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md`.
 

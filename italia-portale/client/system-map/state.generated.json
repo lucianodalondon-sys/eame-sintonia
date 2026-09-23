@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 23735,
-    "h": 8902
+    "h": 9224
   },
   "INVENTORY": {
     ".claude": [
@@ -800,6 +800,7 @@
       "data/samples/BENCHMARK-ORDENACAO-B2.json",
       "data/samples/BENCHMARK-RESEARCH-SAVING-B1.json",
       "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json",
+      "data/samples/CANARIO-D24-PESSOA-V1.json",
       "data/samples/CANARIO-LINKEDIN-D23-V1.json",
       "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
       "data/samples/CASE-006-es41-rain-window-vs-yield.json",
@@ -1254,6 +1255,7 @@
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__77ae30349938860b.txt",
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__85febb3329491c69.txt",
       "data/samples/SOCIAL-IT/raw-free/LINKEDIN/identidade-https---imagelinenetwork.com__9e40b34272e2139f.txt",
+      "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7445139302390382592__e8b0d8124a68f091.txt",
       "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7488216289828753409__729cc597cc25ab27.txt",
       "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7490681050906439680__3fa4d7dc1dfd8eed.txt",
       "data/samples/SPAIN-DEMO-CONTENT-V1.json",
@@ -1496,6 +1498,7 @@
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
+      "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
       "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md",
       "docs/sintonia-scrap/SCRAP-FLOW-01-CAMINHO-CANONICO.md",
@@ -2058,6 +2061,7 @@
       "provas/_e2e02_janela_dois_posts.py",
       "provas/_flow01_janela_falsa.py",
       "provas/_mutantes_c13_d23.py",
+      "provas/_mutantes_d24.py",
       "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
       "provas/a_collection_preserva_o_fato.py",
@@ -2101,6 +2105,7 @@
       "provas/benchmark_tematico.py",
       "provas/bluesky_trial_ao_vivo.py",
       "provas/canario_d23_linkedin_video.py",
+      "provas/canario_d24_video_de_pessoa.py",
       "provas/candidatos_tematicos.py",
       "provas/censo_corpus_rotulado_admission.py",
       "provas/censo_executavel_da_v1.py",
@@ -2652,6 +2657,7 @@
       "tests/test_comunicacao.py",
       "tests/test_comunicacao_universo_falha_fechado.py",
       "tests/test_consumo_da_referencia_adama.py",
+      "tests/test_d24_video_de_pessoa.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
       "tests/test_estradas_it.py",
@@ -3295,9 +3301,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "864159847fb7e3b5d5a11839c7301f20b3c8abbe",
-    "GENERATED_AT": "2026-09-23T12:31:25-03:00",
-    "SOURCE_TREE_FINGERPRINT": "50c323fcc7da92094fea44bb4a7576fadf6dc4c8b6537715fe7bb0f3e3746b09"
+    "HEAD": "30943c9b61bca6b729021e20478f66e1962014c7",
+    "GENERATED_AT": "2026-09-23T14:14:54-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f9f7c451dcf3cb9ca6bd5f41c10cc60bb61e822db626bc159c6af47a7e0fb5ec"
   },
   "FAMILIES": [
     {
@@ -3307,7 +3313,7 @@
       "x": 260,
       "y": 60,
       "w": 22510,
-      "h": 8582,
+      "h": 8904,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -3334,7 +3340,7 @@
       "x": 13035,
       "y": 60,
       "w": 485,
-      "h": 8582,
+      "h": 8904,
       "zones": [
         "Z-ESPERA"
       ],
@@ -3347,7 +3353,7 @@
       "x": 13740,
       "y": 60,
       "w": 9735,
-      "h": 8582,
+      "h": 8904,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE",
@@ -3363,12 +3369,12 @@
       "x": 19215,
       "y": 60,
       "w": 2850,
-      "h": 8582,
+      "h": 8904,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 96
+      "count": 97
     },
     {
       "id": "F-ENTREGA",
@@ -3377,7 +3383,7 @@
       "x": 15565,
       "y": 60,
       "w": 3430,
-      "h": 8582,
+      "h": 8904,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -3399,7 +3405,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 1
     },
     {
@@ -3413,7 +3419,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 1
     },
     {
@@ -3428,7 +3434,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 2
     },
     {
@@ -3443,7 +3449,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 2
     },
     {
@@ -3458,7 +3464,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 3
     },
     {
@@ -3473,7 +3479,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 2
     },
     {
@@ -3488,7 +3494,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 3
     },
     {
@@ -3503,7 +3509,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 5
     },
     {
@@ -3519,7 +3525,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 5
     },
     {
@@ -3535,7 +3541,7 @@
       "x": 6645,
       "y": 190,
       "w": 1235,
-      "h": 8412,
+      "h": 8734,
       "count": 18
     },
     {
@@ -3551,7 +3557,7 @@
       "x": 8180,
       "y": 190,
       "w": 1235,
-      "h": 8412,
+      "h": 8734,
       "count": 14
     },
     {
@@ -3567,7 +3573,7 @@
       "x": 9715,
       "y": 190,
       "w": 820,
-      "h": 8412,
+      "h": 8734,
       "count": 7
     },
     {
@@ -3582,7 +3588,7 @@
       "x": 10835,
       "y": 190,
       "w": 1235,
-      "h": 8412,
+      "h": 8734,
       "count": 23
     },
     {
@@ -3597,7 +3603,7 @@
       "x": 12370,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 2
     },
     {
@@ -3612,7 +3618,7 @@
       "x": 13075,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 1
     },
     {
@@ -3628,7 +3634,7 @@
       "x": 13780,
       "y": 190,
       "w": 820,
-      "h": 8412,
+      "h": 8734,
       "count": 12
     },
     {
@@ -3644,7 +3650,7 @@
       "x": 14900,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 4
     },
     {
@@ -3660,7 +3666,7 @@
       "x": 15605,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 3
     },
     {
@@ -3676,7 +3682,7 @@
       "x": 16310,
       "y": 190,
       "w": 820,
-      "h": 8412,
+      "h": 8734,
       "count": 7
     },
     {
@@ -3692,7 +3698,7 @@
       "x": 17430,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 5
     },
     {
@@ -3707,7 +3713,7 @@
       "x": 18135,
       "y": 190,
       "w": 820,
-      "h": 8412,
+      "h": 8734,
       "count": 12
     },
     {
@@ -3723,7 +3729,7 @@
       "x": 19255,
       "y": 190,
       "w": 1235,
-      "h": 8412,
+      "h": 8734,
       "count": 18
     },
     {
@@ -3739,8 +3745,8 @@
       "x": 20790,
       "y": 190,
       "w": 1235,
-      "h": 8412,
-      "count": 78
+      "h": 8734,
+      "count": 79
     },
     {
       "id": "Z-REFERENCIA",
@@ -3755,7 +3761,7 @@
       "x": 22325,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 1
     },
     {
@@ -3770,7 +3776,7 @@
       "x": 23030,
       "y": 190,
       "w": 405,
-      "h": 8412,
+      "h": 8734,
       "count": 4
     }
   ],
@@ -4285,6 +4291,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-AGRO-FRONTEIRA",
         "C-PROVA-CANARIO-D23-LINKEDIN",
+        "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -4790,8 +4797,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 590",
-        "desses, mostrados aqui: 40 (ficam de fora 550)"
+        "enderecos que o codigo realmente chama: 595",
+        "desses, mostrados aqui: 40 (ficam de fora 555)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -28063,6 +28070,7 @@
         "C-INGRESSO",
         "C-PERSISTENCIA-DA-PORTA-CLI",
         "C-PROVA-CANARIO-D23-LINKEDIN",
+        "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-FORWARD-CONTA",
@@ -30413,6 +30421,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-AGRO-FRONTEIRA",
         "C-PROVA-CANARIO-D23-LINKEDIN",
+        "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -37218,6 +37227,99 @@
       "y": 4546
     },
     {
+      "id": "C-PROVA-CANARIO-D24-PESSOA",
+      "name": "O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Corre a aquisicao do video de uma PESSOA do agro PELA PORTA PUBLICA DO POST — `adaptador_linkedin.video_de_post_publico` — e mede as QUATRO metades: (1) a porta que a plataforma FECHOU, com um pedido real ao perfil da pessoa (HTTP 999, `authwall`, zero `urn:li:activity`) registado em vez de contornado; (2) as travas do D24 SEM REDE, com contatos, seguidores, mensagens, comentarios de terceiros e ecra de login a morrerem antes de qualquer pedido; (3) a rede, com o MP4 e a legenda da publicacao publica; e (4) a CADEIA com o bruto ja em disco — `unidade()` -> `coleta/ingresso.py` -> o dono do RAW — contra uma base DESCARTÁVEL, com um duble que so serve bytes que o bruto preservado conhece. Escreve o artefacto `data/samples/CANARIO-D24-PESSOA-V1.json`. Traz tambem os SEIS MUTANTES de `test_d24_video_de_pessoa`: o estado, o dono autorizado, o limite, o nome da decisao na nota, o nome da rota e a porta de contatos — os seis tem de fazer o teste MORRER, e os seis o fazem. O mutante NAO escreve `PERMITIDA`: mudar um valor nao e declarar uma lei, e ha uma prova nesta casa que exige que a politica seja escrita so pela matriz.",
+      "why_here": "A D24 autorizou por escrito o video de PESSOAS do agro, e a medicao mostrou que a porta da pessoa sao DUAS: o perfil responde 999/authwall e NAO se contorna; a pagina do post publico responde 200 e e por ali que o video se le. Sem esta prova, a rota nova ficaria ligada ao adaptador sem nenhuma medicao que a sustente — e sem os mutantes, ninguem saberia se o teste que a guarda morre quando ela muda.",
+      "departments": [],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊞",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/_mutantes_d24.py",
+        "provas/canario_d24_video_de_pessoa.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-DONO-DA-ESCRITA",
+        "C-INGRESSO",
+        "C-SCRAP-COLHEITA",
+        "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "PASTA_RAW"
+        ],
+        "palavras": 5,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 5,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "provas/canario_d24_video_de_pessoa.py abre ligacao de rede: vai buscar dado fora da arvore",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (provas/canario_d24_video_de_pessoa.py abre ligacao de rede: vai buscar dado fora da arvore) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "UNKNOWN",
+      "OWNER_PLANE": "UNKNOWN",
+      "OWNER_EVIDENCE": "nenhum departamento declarado para esta peca; a arvore nao consegue medir responsabilidade",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/samples/CANARIO-D24-PESSOA-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 21680,
+      "y": 4546
+    },
+    {
       "id": "C-PROVA-COLETA",
       "name": "Provas da coleta canonica",
       "territory": "Z-PROVA",
@@ -37768,8 +37870,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 4546
+      "x": 20850,
+      "y": 4868
     },
     {
       "id": "C-PROVA-CUTOVER",
@@ -37885,7 +37987,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 4868
     },
     {
@@ -37975,7 +38077,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 4868
     },
     {
@@ -38066,8 +38168,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 4868
+      "x": 20850,
+      "y": 5190
     },
     {
       "id": "C-PROVA-EXECUTOR-CONTA",
@@ -38145,7 +38247,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 5190
     },
     {
@@ -38262,7 +38364,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 5190
     },
     {
@@ -38356,8 +38458,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 5190
+      "x": 20850,
+      "y": 5512
     },
     {
       "id": "C-PROVA-FRONTEIRA",
@@ -38454,7 +38556,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 5512
     },
     {
@@ -38542,7 +38644,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 5512
     },
     {
@@ -38632,8 +38734,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 5512
+      "x": 20850,
+      "y": 5834
     },
     {
       "id": "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -38744,7 +38846,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 5834
     },
     {
@@ -38881,7 +38983,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 5834
     },
     {
@@ -38994,8 +39096,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 5834
+      "x": 20850,
+      "y": 6156
     },
     {
       "id": "C-PROVA-O-RAW-FALA",
@@ -39081,7 +39183,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 6156
     },
     {
@@ -39209,7 +39311,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6156
     },
     {
@@ -39320,8 +39422,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 6156
+      "x": 20850,
+      "y": 6478
     },
     {
       "id": "C-PROVA-PORTA-ITALIANA",
@@ -39419,7 +39521,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 6478
     },
     {
@@ -39515,7 +39617,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6478
     },
     {
@@ -39603,8 +39705,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 6478
+      "x": 20850,
+      "y": 6800
     },
     {
       "id": "C-PROVA-ROTA-DO-HTML",
@@ -39724,7 +39826,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 6800
     },
     {
@@ -39826,7 +39928,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6800
     },
     {
@@ -39970,8 +40072,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 6800
+      "x": 20850,
+      "y": 7122
     },
     {
       "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -40067,7 +40169,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7122
     },
     {
@@ -40179,7 +40281,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7122
     },
     {
@@ -40290,8 +40392,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 7122
+      "x": 20850,
+      "y": 7444
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -40378,7 +40480,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7444
     },
     {
@@ -40462,7 +40564,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7444
     },
     {
@@ -40558,8 +40660,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
-      "y": 7444
+      "x": 20850,
+      "y": 7766
     },
     {
       "id": "C-PROVENIENCIA",
@@ -40939,7 +41041,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7766
     },
     {
@@ -41430,7 +41532,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7766
     },
     {
@@ -41529,8 +41631,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 7766
+      "x": 20850,
+      "y": 8088
     },
     {
       "id": "C-REGRA-COLETA",
@@ -41754,7 +41856,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 8088
     },
     {
@@ -42172,7 +42274,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8088
     },
     {
@@ -42698,6 +42800,7 @@
       "outbound": [
         "C-MAPA-TESTES",
         "C-PROVA-CANARIO-D23-LINKEDIN",
+        "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-GATE-1D",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -43002,6 +43105,7 @@
         "C-FLUXO-NO-SECO",
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-CANARIO-D23-LINKEDIN",
+        "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTAS-REAIS",
@@ -43031,9 +43135,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 535,
+        "palavras": 567,
         "por_lingua": {},
-        "sem_marca_de_lingua": 535,
+        "sem_marca_de_lingua": 567,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -43062,7 +43166,8 @@
         "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
         "docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md",
         "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
-        "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md"
+        "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
+        "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -43245,6 +43350,7 @@
         "C-CORRIDA-CANONICA",
         "C-MAPA-TESTES",
         "C-PROVA-CANARIO-D23-LINKEDIN",
+        "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -43271,6 +43377,7 @@
           "CAMPOS_DA_LISTAGEM",
           "CAMPOS_DE_ENRIQUECIMENTO",
           "CONTENT_TYPES",
+          "DECISAO_DA_PESSOA",
           "DECLARADAS",
           "FASES_CANONICAS",
           "FASES_PAGAS",
@@ -43286,11 +43393,11 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 355,
+        "palavras": 363,
         "por_lingua": {
-          "PT": 1
+          "PT": 2
         },
-        "sem_marca_de_lingua": 354,
+        "sem_marca_de_lingua": 361,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -43495,8 +43602,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 21680,
-      "y": 8088
+      "x": 20850,
+      "y": 8410
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -43968,7 +44075,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 8410
     },
     {
@@ -44227,7 +44334,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8410
     },
     {
@@ -46162,6 +46269,7 @@
         "tests/test_comunicacao.py",
         "tests/test_comunicacao_universo_falha_fechado.py",
         "tests/test_consumo_da_referencia_adama.py",
+        "tests/test_d24_video_de_pessoa.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
         "tests/test_estradas_it.py",
@@ -46286,7 +46394,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 216,
+      "file_count": 217,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -47107,8 +47215,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 8410
+      "x": 20850,
+      "y": 8732
     },
     {
       "id": "C-TRANSCRICAO",
@@ -50910,6 +51018,41 @@
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-CANARIO-D23-LINKEDIN",
             "FROM": "C-ADMISSAO",
             "TO": "C-PROVA-CANARIO-D23-LINKEDIN",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-CANARIO-D24-PESSOA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 285,
+          "snippet": "import admissao  # noqa: F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -62853,7 +62996,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 604,
+          "line": 672,
           "snippet": "'scripts/instagram_janela.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -68372,6 +68515,57 @@
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-CANARIO-D23-LINKEDIN",
             "FROM": "C-DONO-DA-ESCRITA",
             "TO": "C-PROVA-CANARIO-D23-LINKEDIN",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-CANARIO-D24-PESSOA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 42,
+          "snippet": "from guarda.preservar_coleta import ArmazemLocal  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-DONO-DA-ESCRITA",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 43,
+          "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-DONO-DA-ESCRITA",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -74248,6 +74442,41 @@
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-CANARIO-D23-LINKEDIN",
             "FROM": "C-INGRESSO",
             "TO": "C-PROVA-CANARIO-D23-LINKEDIN",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-PROVA-CANARIO-D24-PESSOA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 40,
+          "snippet": "import ingresso as ing                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-INGRESSO",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -98947,6 +99176,41 @@
     },
     {
       "from": "C-SCRAP-COLHEITA",
+      "to": "C-PROVA-CANARIO-D24-PESSOA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 41,
+          "snippet": "import scrap_colheita as SC           # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-COLHEITA",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -100697,6 +100961,41 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-PROVA-CANARIO-D24-PESSOA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_d24.py",
+          "line": 22,
+          "snippet": "import social_matriz as mz",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -101453,7 +101752,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 55 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 56 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -102493,6 +102792,57 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-CANARIO-D24-PESSOA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 38,
+          "snippet": "import adaptador_linkedin as al       # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 39,
+          "snippet": "import scrap_http as http             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -103434,7 +103784,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 152 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 153 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -111319,7 +111669,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1532,
+  "UNCLAIMED_FILES_COUNT": 1535,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -111499,7 +111849,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 208,
+      "PECAS_EM_DESACORDO": 209,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -111511,26 +111861,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 233
+      "TOTAL_DE_PECAS": 234
     }
   ],
   "COUNTS": {
-    "components": 233,
+    "components": 234,
     "components_proven": 31,
-    "components_pending": 193,
+    "components_pending": 194,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1196,
-    "edges_proven": 1132,
+    "edges": 1202,
+    "edges_proven": 1138,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2701,
-    "files_covered": 1169,
+    "files_tracked": 2707,
+    "files_covered": 1172,
     "files_code_unclaimed": 0,
     "roles_proven": 160,
     "roles_declared_only": 8,
-    "roles_unknown": 65,
-    "roles_conflict": 32,
+    "roles_unknown": 66,
+    "roles_conflict": 33,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 10,
     "concept_owner_single": 3,
