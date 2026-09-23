@@ -314,16 +314,33 @@ def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico
                                     SONDAGEM=linha["SONDAGEM"], EVIDENCE=linha["EVIDENCE"],
                                     ONBOARDED_BY=linha["ONBOARDED_BY"] + " · aquisicao actualizada pelo G1")
             acoes.append(dict(a, ACAO="APLICA", ANTES=antes, DEPOIS=c["ACQUISITION"], PROVA=l["CANARIO"]["URL"]))
-    # fontes da tabela cuja receita mudou no livro sem canario novo: ficam como estao
+    # fontes da tabela cuja receita o PACOTE poe no livro sem canario novo: a tabela
+    # fica com a velha. Compara-se o LIVRO com a TABELA — nao o livro antes/depois
+    # desta passagem —, senao o aviso desaparecia na 2.a passagem com a divergencia
+    # ainda la (medido pelo coordenador em 23/09: 16 linhas na 1.a, 14 na 2.a).
+    com_receita = {p["SOURCE_ID"] for _, p in propostas()
+                   if p["CAMPO"].split(".", 1)[1] in CAMPOS_DO_LIVRO}
     for sid, t in T.items():
-        if sid in novo_livro and sid not in tratadas and aq(novo_livro[sid]) != aq(L[sid]) and aq(t) != aq(novo_livro[sid]):
+        if sid in com_receita and sid in novo_livro and sid not in tratadas \
+                and aq(t) != aq(novo_livro[sid]):
             acoes.append({"LIVRO": "tabela", "SOURCE_ID": sid, "CAMPO": "ACQUISITION", "ACAO": "SALTA",
-                          "PORQUE": "a receita mudou no livro mas nao ha canario da aquisicao nova: a tabela fica"})
+                          "PORQUE": "a receita do livro difere da tabela e nao ha canario dessa aquisicao: a tabela fica"})
 
     # 3) BLOCO 2 — catalogo (D9)
     autorizadas_d9 = set()
     if catalogo is None:
         catalogo = catalogo_d9()
+    def _d9_tabela(sid, mud, a):
+        """A marca/universo da D9 na tabela do coletor, com relatorio igual nas
+        duas passagens: APLICA se a tabela ainda nao a tem, JA_APLICADA se tem."""
+        if sid not in nova_tabela:
+            return
+        if all(nova_tabela[sid].get(k) == v for k, v in mud.items()):
+            acoes.append(dict(a, LIVRO="tabela", ACAO="JA_APLICADA"))
+            return
+        nova_tabela[sid] = dict(nova_tabela[sid], **copy.deepcopy(mud))
+        acoes.append(dict(a, LIVRO="tabela", ACAO="APLICA", PROVA="a mesma do livro"))
+
     for l in catalogo.get("LINHAS", []):
         accao = l.get("ACCAO", "")
         if not (accao.startswith("MUDAR_PARA_T") or accao == "RETIRAR_DO_UNIVERSO"):
@@ -343,6 +360,8 @@ def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico
             alvo = accao.rsplit("_", 1)[1]
             if c.get("TERRITORY") == alvo:
                 acoes.append(dict(a, ACAO="JA_APLICADA"))
+                autorizadas_d9.add(sid)
+                _d9_tabela(sid, {"TERRITORY": alvo, "CATALOGO_D9": c.get("CATALOGO_D9")}, a)
                 continue
             if c.get("TERRITORY") != l.get("UNIVERSO_ACTUAL"):
                 acoes.append(dict(a, ACAO="SALTA", PORQUE="o universo actual nao e o da proposta (o livro mudou)"))
@@ -357,6 +376,10 @@ def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico
                 continue
             if c.get("ESTADO_CATALOGO") == "RETIRADA_POR_DECISAO":
                 acoes.append(dict(a, ACAO="JA_APLICADA"))
+                autorizadas_d9.add(sid)
+                if sid in T:
+                    _d9_tabela(sid, {"ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+                                     "CATALOGO_D9": c.get("CATALOGO_D9")}, a)
                 continue
             mud = {"ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
                    "CATALOGO_D9": {"DECISAO": "D9", "ACCAO": accao, "PORQUE": l.get("PORQUE"),
@@ -372,9 +395,7 @@ def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico
                 if x["LIVRO"] == "tabela" and x["SOURCE_ID"] == sid and x["ACAO"] == "APLICA":
                     x["ACAO"], x["PORQUE"] = "SALTA", "D9 retira-a neste mesmo pacote: nao entra na tabela"
             continue
-        if sid in nova_tabela:
-            nova_tabela[sid] = dict(nova_tabela[sid], **copy.deepcopy(mud))
-            acoes.append(dict(a, LIVRO="tabela", ACAO="APLICA", PROVA="a mesma do livro"))
+        _d9_tabela(sid, mud, a)
 
     livro_out = dict(livro, FONTES=[novo_livro[c["SOURCE_ID"]] for c in livro["FONTES"]])
     ordem = [c["SOURCE_ID"] for c in tabela["FONTES"]] + [s for s in nova_tabela if s not in T]

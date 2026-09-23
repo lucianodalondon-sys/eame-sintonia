@@ -110,6 +110,15 @@ class TestPacote(unittest.TestCase):
         p = self.plano(livro, {"FONTES": []}, props=props, can=can)
         self.assertEqual([f["SOURCE_ID"] for f in p["TABELA"]["FONTES"]], ["IT-T10-900"])
 
+    def test_divergencia_livro_tabela_e_reportada_nas_duas_passagens(self):
+        tab = {"FONTES": [contrato()]}                              # tabela com a receita VELHA
+        can = canario(lp=VELHO)                                      # canario so da velha
+        p1 = self.plano({"FONTES": [contrato()]}, tab, can=can)
+        p2 = self.plano(copy.deepcopy(p1["LIVRO"]), copy.deepcopy(p1["TABELA"]), can=can)
+        for p in (p1, p2):
+            self.assertTrue(any(a["LIVRO"] == "tabela" and "difere" in a.get("PORQUE", "")
+                                for a in p["ACOES"]))
+
     def test_idempotente(self):
         l, t = self.base()
         p1 = self.plano(l, t)
@@ -237,6 +246,23 @@ class TestBlocoCatalogoD9(unittest.TestCase):
                             catalogo={"LINHAS": [self.linha(sid, "RETIRAR_DO_UNIVERSO")]})
         self.assertEqual(p2["TABELA"]["FONTES"], [])
         self.assertEqual([a for a in p2["ACOES"] if a["ACAO"] == "APLICA"], [])
+
+    def test_as_duas_passagens_reportam_as_mesmas_linhas(self):
+        tab = {"FONTES": [contrato("IT-T12-901", t="T12")]}
+        ls = [self.linha("IT-T12-901", "MUDAR_PARA_T7"), self.linha("IT-T12-902", "RETIRAR_DO_UNIVERSO")]
+        p1 = self.plano(self.base(), tab, ls)
+        p2 = self.plano(copy.deepcopy(p1["LIVRO"]), copy.deepcopy(p1["TABELA"]), ls)
+        k = lambda p: sorted((a["LIVRO"], a["SOURCE_ID"], a["CAMPO"]) for a in p["ACOES"])
+        self.assertEqual(k(p1), k(p2))
+        self.assertEqual({a["ACAO"] for a in p2["ACOES"]}, {"JA_APLICADA"})
+
+    def test_livro_ja_aplicado_e_tabela_por_aplicar_corrige_a_tabela(self):
+        tab = {"FONTES": [contrato("IT-T12-901", t="T12")]}
+        ls = [self.linha("IT-T12-901", "MUDAR_PARA_T7")]
+        p1 = self.plano(self.base(), {"FONTES": []}, ls)          # livro aplicado, tabela ainda T12
+        p2 = self.plano(copy.deepcopy(p1["LIVRO"]), tab, ls)
+        self.assertEqual(p2["TABELA"]["FONTES"][0]["TERRITORY"], "T7")
+        self.assertIn(("tabela", "APLICA"), {(a["LIVRO"], a["ACAO"]) for a in p2["ACOES"]})
 
     def test_fora_da_d9_o_grupo_T_continua_fechado(self):
         antes = self.base()

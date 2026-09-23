@@ -278,3 +278,29 @@ que serve ao Sintonia (a sua regra D2 passa à frente).
 Descobri também que o sistema guarda **duas cópias** de cada receita — uma do
 curador e outra do coletor. Corrigir só uma deixava o coletor a trabalhar com a
 receita velha. A caixa corrige as duas, e só quando há prova para as duas.
+
+---
+
+## ADENDA — as 2 linhas que desapareciam na 2.ª passagem (pergunta do coordenador)
+
+O coordenador mediu 16 linhas de tabela na 1.ª passagem (5 APLICA + 11 SALTA) e
+14 na 2.ª (4 JA_APLICADA + 10 SALTA). As duas eram:
+
+1. **IT-T2-030** (D9, MUDAR → T10). Com o livro já mudado, o bloco D9 dizia
+   `JA_APLICADA` e **não olhava para a tabela**. Aqui o resultado estava certo
+   (a tabela também já estava mudada), mas havia um **defeito de comportamento**
+   por trás: se o livro chegasse aplicado e a tabela não, a tabela nunca seria
+   corrigida. Agora o bloco D9 confere a tabela nas duas passagens: `APLICA` se
+   lhe falta a marca, `JA_APLICADA` se já a tem.
+2. **IT-T10-018** (aviso «a receita mudou no livro sem canário novo»). O pacote
+   comparava o livro **antes/depois da passagem**, não o livro com a tabela; na
+   2.ª passagem o livro já não muda e o aviso sumia — com a divergência ainda lá.
+   Agora compara-se o livro com a tabela, só para as fontes a que o pacote muda a
+   receita.
+
+Depois da correcção, no mesmo ensaio: **1.ª passagem tabela 5 APLICA + 11 SALTA;
+2.ª passagem 5 JA_APLICADA + 11 SALTA — as mesmas 16 linhas**, 0 alterações.
+Provas novas: as duas passagens reportam as mesmas linhas; livro aplicado com
+tabela por aplicar corrige a tabela; a divergência livro/tabela aparece nas duas
+passagens. 23/23. Os dois comportamentos antigos, repostos como mutantes (com
+execução provada), põem provas a vermelho.
