@@ -3294,9 +3294,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "338bf666323ff09fbaab34741b77fda28c878c6f",
-    "GENERATED_AT": "2026-09-23T11:49:31-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1ee915d33c0e4424acec7004f27db3502fcacec485db16db7b7419eaad2892df"
+    "HEAD": "a2a24019fe569110637952b682b1b369a6078489",
+    "GENERATED_AT": "2026-09-23T11:52:49-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d990a80e605e2a9efce2bd4c2923adf339a631285308bb54818f3d41e8ee636f"
   },
   "FAMILIES": [
     {
@@ -37132,7 +37132,7 @@
       "name": "O canário do vídeo de organização no LinkedIn (D23) — e os dois bisturis da cadeia",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Corre a fase `video-linkedin` PELA PORTA CANÓNICA — a mesma linha de comando que o workflow corre, em subprocesso — sobre a página pública de uma ORGANIZAÇÃO, e mede: os MP4 servidos a convidado (bytes e sha256), as faixas de legenda (formato declarado no endereço E medido nos bytes), o `PUBLISHED_AT` que a plataforma declara no JSON-LD, a contraprova de identidade pelo asset, e depois a CADEIA com o bruto já em disco — `unidade()` -> `coleta/ingresso.py` -> o dono do RAW — contra uma base DESCARTÁVEL (SQLite + armazém em pasta temporária). Os dois ficheiros `_diag_` são os bisturis que a missão usou para ler, sem resumir, o que o dono do RAW respondia: um imprime as quebras de contrato do artefacto e das unidades de texto, o outro imprime o recibo inteiro do RAW, incluindo os recusados. Nada aqui toca a Sala real, e o custo é US$ 0.",
+      "what": "Corre a fase `video-linkedin` PELA PORTA CANÓNICA — a mesma linha de comando que o workflow corre, em subprocesso — sobre a página pública de uma ORGANIZAÇÃO, e mede: os MP4 servidos a convidado (bytes e sha256), as faixas de legenda (formato declarado no endereço E medido nos bytes), o `PUBLISHED_AT` que a plataforma declara no JSON-LD, a contraprova de identidade pelo asset, e depois a CADEIA com o bruto já em disco — `unidade()` -> `coleta/ingresso.py` -> o dono do RAW — contra uma base DESCARTÁVEL (SQLite + armazém em pasta temporária). Os dois ficheiros `_diag_` são os bisturis que a missão usou para ler, sem resumir, o que o dono do RAW respondia: um imprime as quebras de contrato do artefacto e das unidades de texto, o outro imprime o recibo inteiro do RAW, incluindo os recusados. Nada aqui toca a Sala real, e o custo é US$ 0. Traz tambem os TRES MUTANTES de `test_c13_route_gate` que provam que a ancora das decisoes antigas ainda morde: uma rota ANTIGA que mude de estado, a rota NOVA do D23 que mude de estado, e uma rota NOVA que apareca sem estar declarada — as tres tem de fazer o teste MORRER, e as tres o fazem (2, 1 e 2 provas caem).",
       "why_here": "A aquisição de vídeo do LinkedIn estava PROVADA tecnicamente e RECUSADA por política; o dono assumiu o risco (D23, `DECISOES-DONO-2026-09-23.md`) e o que faltava passou a ser a excepção saber dizer o próprio nome. Duas coisas só se podem afirmar com estes ficheiros, e nenhuma delas com um teste de unidade: (1) que a rede serve os bytes a convidado, sem conta, sem cookie e sem navegador — medido com bytes e sha, e não com um código de estado; e (2) que a cadeia ACEITA as observações e que quem recusa a linha canónica é o dono do RAW, com o motivo escrito: «sem SOURCE_ID real nao ha estado de identidade possivel, e nenhum se inventa». Essa segunda metade é a que impede a leitura errada mais provável desta missão — a de que «o vídeo funciona» equivaleria a «entra na Collection». Não equivale: a identidade é decisão de CATÁLOGO. Os dois `_diag_` existem porque o primeiro `INGRESS_CONTRATO_QUEBRADO` que a cadeia deu era desta missão (dois nomes inventados no campo `DERIVATION_METHOD`, que tem vocabulário fechado com dono), e não se conserta o que não se consegue ler por inteiro.",
       "departments": [
         "ENGENHARIA"
