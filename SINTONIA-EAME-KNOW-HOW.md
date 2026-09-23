@@ -20732,6 +20732,41 @@ relatório `RELATORIO-LISTING-DETAIL-V3.md`.*
   (mudar só as chaves certas) e confirmar o URL antes de gastar o pedido.
 - **Preparar sem ligar tem prova.** `politica_nao_sei.py` tem as três respostas da D11 e um
   teste que falha se algum ficheiro a importar antes da decisão.
+# § (sem número) · A MICRO-COLETA ENSAIADA SEM INTERNET — E O QUE O INSTRUMENTO AINDA NÃO LÊ
+
+**O ENSAIO.** `scripts/micro_coleta/ensaio_offline.py` corre o caminho inteiro da micro
+(orquestrador → coletor Node → RAW → DERIVED → Admission → Sala) pelo mesmo comando da
+corrida real, sem internet. O coletor baixa tudo com `curl`; um `_curlrc` em `CURL_HOME`
+com `connect-to` manda todo pedido a um servidor em 127.0.0.1, que serve páginas já
+guardadas (gabaritos e 97 matérias do lote-76). A base é um Postgres descartável com o nome
+`sala_italia` (o único aceite em modo operacional), numa porta livre. Coorte G1 (8 fontes):
+100 pedidos, todos locais; 88 RAW / 88 DERIVED; com a régua L1 (unificação @ 8fe122cb):
+SIM 14 / NAO 31 / NAO_SEI 43, Sala 0 → 14, C9 PASS e gabarito do dono 10/10 no binário com 0 SIM
+errado; sem a L1 (5a16d077): SIM 10 / NAO 29 / NAO_SEI 49, Sala 0 → 10 e C9 FAIL (10 em inglês).
+Duas corridas deram os mesmos números.
+
+**ARMADILHAS MEDIDAS.**
+- `connect-to = :443:127.0.0.1:P` sem aspas é **ignorado calado** pelo `curl` (o `:` do
+  início conta como separador) e o pedido iria à internet. Com aspas funciona. Testar sempre
+  com um nome `.invalid`: sem o redirecionamento, falha a resolver e nada sai.
+- Cada matéria que falha vira um **registo de falha em JSON guardado como raw_asset**, na
+  mesma pasta `OBSERVATION` dos documentos. Contar linhas de raw_asset (como faz o
+  instrumento) dá «30 RAW» para 1 documento e «29 falhas de proveniência» que não existem.
+  O que distingue é o conteúdo: `HEALTH_STATE=FAILED` e `SHA256` vazio.
+- `pg_restore` por cima da base existente «ignora 499 erros» e deixa os dados da corrida: sai
+  com 1, mas parece ter corrido. O rollback provado é `dropdb` + `createdb` + `pg_restore`,
+  conferido por md5 do conteúdo das 5 tabelas, sobre uma base cheia.
+- O ledger do coletor tem de começar vazio: com o livro versionado, as matérias gravadas são
+  puladas como «já conhecidas» e o ensaio não mede nada.
+
+**O QUE O INSTRUMENTO NÃO LÊ.** Dos 15 campos do §22, 13 têm dono e o `micro_coleta` lê 8.
+O sucesso real por fonte, os detalhes, o refetch e a rede estão em `runs.ndjson`, que o
+`italy_executor` não devolve (guarda o código de saída e 1500 caracteres de stderr).
+LISTINGS_REJECTED e FALSE_DOCUMENT_CHANGED não têm contador. E o `plano` de hoje só deixa
+correr 1 dos 8 da coorte G1: o ficheiro de coorte e o filtro 3b estão atrás da decisão D8.
+Tudo em `scripts/micro_coleta/MICRO-CAMINHO-A1.md`, com a checklist antes da micro real.
+
+
 # §192 · RECOLLECTION-R1 · A PROVA SEM REDE DESLIGAVA O TRANSPORTE, E UMA FALHA NÃO É UM ENDEREÇO CONHECIDO
 
 > Numerada na unificação (UNIFICACAO-V1-D, 23/09/2026), por ordem de chegada: chegou sem número em recollection-prova-v2 (R1). Nada foi apagado.
@@ -21016,3 +21051,59 @@ nova, o ataque é o mesmo: 12/12 e 12/12 pela dona.
 quando o mutante não compilava — e o ficheiro tinha a mudança da T1 por commitar. Apagou-a.
 Salvou-a uma cópia feita antes do primeiro ataque. Regra: **commitar antes de atacar**, e
 restaurar pela cópia, nunca pelo índice.
+# §196 · A COORTE VEM DO PORTÃO, A FALHA NÃO É DOCUMENTO — E O «VISTO DE NOVO» ENTRA EM DOBRO NA SALA
+
+**A COORTE.** O `micro_coleta plano` lia uma lista fixa (`COORTE-PROPOSTA.json`, 14 fontes) e
+o filtro de relevância da 3b barrava fontes: só 1 das 8 do funil G1 passava. As duas coisas
+estavam atrás da decisão do dono. A lei do mandato diz «não usar lista fixa», e a D2 + D8 dizem
+que a relevância se decide **por item**, na Admission (REROUTE), nunca por fonte. Agora:
+- a coorte é `collection_gate.elegiveis()` no instante: 19 elegíveis, 8 PRONTAS;
+- as 11 bloqueadas são-no por capacidade (contrato, receita web, rota), com a FALTA escrita;
+- cada fonte READY fora do portão aparece com MOTIVO/PORQUE (92: 88 régua antiga, 4 revisão
+  humana);
+- do funil G1 só a IT-T7-041 fica fora (CONTRACTED_CANARY_FAILED);
+- a 3b continua a ser lida com rigor (filtro declarado e ausente rebenta), mas não barra.
+
+**A FALHA NÃO É DOCUMENTO.** O relatório separa DOCUMENTO de TENTATIVA_FALHADA pelo conteúdo do
+registo (o coletor escreve `HEALTH_STATE=FAILED` e `SHA256` vazio), não pela pasta, que é a
+mesma. RAW_CREATED conta só documentos; as tentativas ficam à parte, com o motivo; C4 e C7 já
+não as tomam por falha de proveniência. Nada apagado.
+
+**OS CONTADORES QUE SÓ O COLETOR VÊ.** Sucesso real por fonte, documentos de detalhe, pedidos à
+rede e refetch estão em `runs.ndjson`; o relatório lê-os agora pelo RUN_ID
+(`CONTAGENS.COLETOR`). Antes, SUCCESS era «o processo saiu com 0».
+
+**NÚMEROS (ensaio sobre `unificacao-v1` @ `77077dee`, com R2 e Q1).** 1.ª passagem: 8/8
+HEALTHY, 99 documentos, SIM 12 / NAO 34 / NAO_SEI 53, Sala 0 → 12, 115 pedidos locais,
+C3..C9 PASS, gabarito 10/10 com 0 SIM errado. Antes da 4.ª passagem eram SIM 14 / NAO 31 /
+NAO_SEI 54 (a Myfruit passou de SIM 10 para SIM 8; a causa exata NÃO SEI).
+
+**A 2.ª PASSAGEM, MEDIDA A SÉRIO.** A mesma coorte, a mesma base, o mesmo livro do coletor, e o
+servidor do ensaio serve exatamente os mesmos bytes:
+- UNNECESSARY_REFETCHES = 0 e FALSE_DOCUMENT_CHANGED = 0;
+- falso «novo» = 0;
+- 49 URLs puladas como conhecidas e 50 revalidadas, todas SEEN_AGAIN.
+
+**MAS O «VISTO DE NOVO» ENTRA EM DOBRO NA SALA.** As 50 revalidações criaram +50 linhas de
+`raw_asset` (observações; o `storage_object` e o `derived_artifact` ficaram 99 = 99, bem
+deduplicados) e **+4 linhas na Sala**. Foram 4 notícias da Zootecnica (derived 33, 36, 39 e 41)
+em dois run_id. Uma matéria revalidada e igual atravessa a Admission outra vez e pousa de novo.
+A Sala real já tem itens do lote-76. O relatório conta agora
+`SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA` (só SELECT); a correção é do dono da Sala e da
+Admission.
+
+**O BACKUP PROVADO COM OS DADOS REAIS.** `provar_backup_da_sala.py` corre o comando do
+`backup_sala.cmd` sobre a Sala real (só lê), fotografa-a antes e depois do dump (não mudou) e
+restaura o dump num Postgres descartável. Resultado: md5 igual nas 5 tabelas
+(61 / 1405 / 1097 / 908 / 389), com 2,17 MB. O `dropdb` da Sala real não se exerce aqui; está
+provado no ensaio.
+
+**ARMADILHAS.**
+- O shell desta máquina come barras invertidas dentro de heredoc: a sequência barra-n de um
+  script gerado vira uma quebra de linha real e parte a string (aconteceu três vezes nesta
+  missão, incluindo nesta mesma nota). Editar ficheiros Python com a ferramenta de edição, não
+  por heredoc com barras.
+- Um teste que diz «o portão manda mesmo contra a lista antiga» é vazio enquanto as duas
+  coincidem. Quem guarda a regra é o teste que compara a coorte com `elegiveis()`.
+
+Tudo em `scripts/micro_coleta/MICRO-RUNBOOK.md`.
