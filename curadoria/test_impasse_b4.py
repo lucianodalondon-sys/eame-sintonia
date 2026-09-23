@@ -285,9 +285,14 @@ class TestD3DispararImediato(unittest.TestCase):
         self._td = tempfile.TemporaryDirectory(prefix="b4-d3-")
         self.addCleanup(self._td.cleanup)
         self.tmp = Path(self._td.name)
-        self._orig = {"F.FILA": F.FILA, "GD.CANDIDATAS": GD.CANDIDATAS}
+        self._orig = {"F.FILA": F.FILA, "GD.CANDIDATAS": GD.CANDIDATAS,
+                      "LC.LIVRO": LC.LIVRO, "GD.CONTRATOS": GD.CONTRATOS}
         F.FILA = self.tmp / "fila.json"
         GD.CANDIDATAS = self.tmp / "cand.json"
+        # R1: livro e contratos vazios — o gatilho agora os le (reparo antes de discovery)
+        LC.LIVRO = self.tmp / "livro.json"
+        GD.CONTRATOS = self.tmp / "contratos.json"
+        GD.CONTRATOS.write_text('{"FONTES": []}', encoding="utf-8")
         self.disc_calls = 0
         F.FILA.write_text(json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}),
                           encoding="utf-8")
@@ -295,6 +300,8 @@ class TestD3DispararImediato(unittest.TestCase):
     def tearDown(self):
         F.FILA = self._orig["F.FILA"]
         GD.CANDIDATAS = self._orig["GD.CANDIDATAS"]
+        LC.LIVRO = self._orig["LC.LIVRO"]
+        GD.CONTRATOS = self._orig["GD.CONTRATOS"]
 
     def _acervo(self, n_candidata: int) -> None:
         cs = [{"CANDIDATA_ID": "CAND-%04d" % i, "ESTADO": "CANDIDATA"}
