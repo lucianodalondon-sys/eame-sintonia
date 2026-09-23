@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e752c3da9f709c5f01d5f130b5bf350b022151f0
-BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T06:57:20-03:00
+HEAD_DA_MEDICAO  8f6f879dc2f0b386c32653ad1199986d734ab342
+BRANCH           social-prontidao-v1
+GERADO_EM        2026-09-23T08:00:09-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -608,7 +608,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `candidatas/FONTES-CANDIDATAS.json`, `candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json`, `candidatas/fonte_nova.py`, `candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html`, `candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html` |
+| **peça real** | `candidatas/FONTES-CANDIDATAS.json`, `candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json`, `candidatas/PROVA-TERMOS-SOC1-V1.json`, `candidatas/fonte_nova.py`, `candidatas/prova-termos/instagram-business-discovery-texto-20260923T1040Z.txt` _(e mais 5)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |

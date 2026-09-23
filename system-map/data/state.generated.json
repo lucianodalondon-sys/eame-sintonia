@@ -62,6 +62,7 @@
       "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
+      "RELATORIO-SOC1-SOCIAL.md",
       "RELATORIO-UNIFICACAO.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
@@ -219,6 +220,7 @@
       "candidatas/ITALY-SOURCE-QUALIFICATION-2026-09-14.xlsx",
       "candidatas/ITALY-SOURCE-REGISTRATION-AUDIT-2026-09-14.csv",
       "candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json",
+      "candidatas/PROVA-TERMOS-SOC1-V1.json",
       "candidatas/decidir_fila_italia.py",
       "candidatas/fonte_nova.py",
       "candidatas/italy_fill_manifests.mjs",
@@ -227,8 +229,12 @@
       "candidatas/italy_profiles.mjs",
       "candidatas/italy_update_master_browser.mjs",
       "candidatas/italy_write_matrix.mjs",
+      "candidatas/prova-termos/instagram-business-discovery-texto-20260923T1040Z.txt",
       "candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html",
+      "candidatas/prova-termos/linkedin-api-terms-20260923T1028Z.html",
       "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
+      "candidatas/prova-termos/youtube-developer-policies-20260923T1028Z.html",
+      "candidatas/prova-termos/youtube-terms-20260923T1028Z.html",
       "candidatas/reconciliar_fichas_orfas.py",
       "candidatas/xlsx_simples.py"
     ],
@@ -1499,7 +1505,8 @@
       "docs/sintonia-scrap/SCRAP-OP-CLOSE-DECISAO-DE-VINCULO.md",
       "docs/sintonia-scrap/SCRAP-OWNER-01-AUTORIZACAO-CONVERGIDA.md",
       "docs/sintonia-scrap/SCRAP-RC-01-RELEASE-CANDIDATE-V1.md",
-      "docs/sintonia-scrap/SCRAP-SR-02-AUTORIZACAO-DE-GASTO.md"
+      "docs/sintonia-scrap/SCRAP-SR-02-AUTORIZACAO-DE-GASTO.md",
+      "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json"
     ],
     "ferramentas": [
       "ferramentas/apify_pool.py",
@@ -2170,6 +2177,7 @@
       "provas/preservar_coleta_no_postgres.py",
       "provas/primeira_coleta_controlada_italia.py",
       "provas/primeira_rota_paga.py",
+      "provas/prontidao_social_v1.py",
       "provas/qualidade_t3.py",
       "provas/queda_e_repeticao_da_v1.py",
       "provas/quem_pode_comprar.py",
@@ -2719,6 +2727,7 @@
       "tests/test_preservar_coleta_no_banco.py",
       "tests/test_preservar_derivado.py",
       "tests/test_prioridade_comercial.py",
+      "tests/test_prontidao_social_v1.py",
       "tests/test_proposta_catalogo.py",
       "tests/test_proveniencia.py",
       "tests/test_psql_argv.py",
@@ -3284,10 +3293,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "e752c3da9f709c5f01d5f130b5bf350b022151f0",
-    "GENERATED_AT": "2026-09-23T06:57:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d"
+    "BRANCH": "social-prontidao-v1",
+    "HEAD": "8f6f879dc2f0b386c32653ad1199986d734ab342",
+    "GENERATED_AT": "2026-09-23T08:00:09-03:00",
+    "SOURCE_TREE_FINGERPRINT": "07235552d122f178848c56e65c5811fb1f59d93476acfb5a3840830f12e14bfb"
   },
   "FAMILIES": [
     {
@@ -35769,11 +35778,16 @@
       "files": [
         "candidatas/FONTES-CANDIDATAS.json",
         "candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json",
+        "candidatas/PROVA-TERMOS-SOC1-V1.json",
         "candidatas/fonte_nova.py",
+        "candidatas/prova-termos/instagram-business-discovery-texto-20260923T1040Z.txt",
         "candidatas/prova-termos/instagram-terms-dom-20260923T0944Z.html",
-        "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html"
+        "candidatas/prova-termos/linkedin-api-terms-20260923T1028Z.html",
+        "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
+        "candidatas/prova-termos/youtube-developer-policies-20260923T1028Z.html",
+        "candidatas/prova-termos/youtube-terms-20260923T1028Z.html"
       ],
-      "file_count": 5,
+      "file_count": 10,
       "status": "PENDING",
       "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -44019,12 +44033,14 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
         "provas/entradas_do_scrap_v1.py",
+        "provas/prontidao_social_v1.py",
         "provas/superficie_do_scrap_v1.py"
       ],
-      "file_count": 2,
+      "file_count": 4,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -44046,6 +44062,18 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CREDENCIAL_DA_ROTA",
+          "TIPO_DA_CLASSE"
+        ],
+        "palavras": 21,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 21,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -44095,7 +44123,7 @@
         "PROVA": [
           "provas/censo_executavel_da_v1.py:48",
           "provas/mutacao_da_release_v1.py:39",
-          "tests/test_scrap_rc01_release_candidate.py:34",
+          "tests/test_prontidao_social_v1.py:27",
           "tests/test_scrap_rc01_release_candidate.py:147"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
@@ -46110,6 +46138,7 @@
         "tests/test_preservar_coleta_no_banco.py",
         "tests/test_preservar_derivado.py",
         "tests/test_prioridade_comercial.py",
+        "tests/test_prontidao_social_v1.py",
         "tests/test_proposta_catalogo.py",
         "tests/test_proveniencia.py",
         "tests/test_psql_argv.py",
@@ -46157,7 +46186,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 214,
+      "file_count": 215,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -48870,7 +48899,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch social-prontidao-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -98801,12 +98830,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 285,
           "snippet": "import scrap_colheita as _sc",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/prontidao_social_v1.py",
+          "line": 116,
+          "snippet": "import scrap_colheita as sc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-SCRAP-COLHEITA",
@@ -100695,12 +100740,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 354,
           "snippet": "import social_matriz as mz",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/prontidao_social_v1.py",
+          "line": 52,
+          "snippet": "import social_matriz as mz                                        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-SCRAP-LEIS",
@@ -100746,7 +100807,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 53 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 54 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -102478,7 +102539,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 5 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
@@ -102500,6 +102561,22 @@
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 266,
           "snippet": "import social_scrap as _ss",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/prontidao_social_v1.py",
+          "line": 51,
+          "snippet": "import scrap_capacidades as cap                                   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-SCRAP-SOCIAL",
@@ -102612,7 +102689,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 144 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 145 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_audio_youtube_wiring.py",
@@ -105995,8 +106072,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_prontidao_social_v1.py",
+          "line": 27,
+          "snippet": "import prontidao_social_v1 as ps   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SUPERFICIE-SCRAP-V1--IMPORTS-->C-TESTES",
+            "FROM": "C-SUPERFICIE-SCRAP-V1",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 34,
@@ -110481,7 +110574,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1528,
+  "UNCLAIMED_FILES_COUNT": 1529,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -110686,8 +110779,8 @@
     "edges_proven": 1121,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2691,
-    "files_covered": 1163,
+    "files_tracked": 2700,
+    "files_covered": 1171,
     "files_code_unclaimed": 0,
     "roles_proven": 160,
     "roles_declared_only": 8,
