@@ -70,8 +70,9 @@ const ATAQUES = [
     DE: `    const url = o && o.SOURCE_URL;`, PARA: `    const url = o && o.DOCUMENT_ID;`,
     SONDA: sondaRegra(`mem.size===0`) },
   { ID: "M8", O_QUE: "tudo o que se conhece passa a ser revisitado", FICHEIRO: REGRA,
-    DE: `  if (rec.DETAIL_CONTENT === "MUTABLE") razoes.push("CONTRACT_DECLARES_MUTABLE");`,
-    PARA: `  if (rec.DETAIL_CONTENT !== "__nunca__") razoes.push("CONTRACT_DECLARES_MUTABLE");`,
+    // T1 (2026-09-23): a linha passou a abrir o bloco MUTABLE-com-prazo; o ataque e o mesmo.
+    DE: `  if (rec.DETAIL_CONTENT === "MUTABLE") {`,
+    PARA: `  if (rec.DETAIL_CONTENT !== "__nunca__") {`,
     SONDA: sondaRegra(`${DEC("null")}.DECISAO==='REVALIDATE'`) },
   { ID: "M10", O_QUE: "o salto conhecido vira ida a rede", FICHEIRO: REGRA,
     DE: `      DECISAO: "SKIP_KNOWN",\n      RAZAO: null,\n      COBERTURA:`,
