@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "gatilho-ocioso-v1",
-    "HEAD": "f490fc55c943a6d8cefdf63cc55196a090ee845c",
-    "GENERATED_AT": "2026-09-22T22:24:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4ecba5f3002d8fa359c693166f97612a4b180dcbb3ccac3edcc52c951b2cc496"
+    "BRANCH": "discovery-sementes-v1",
+    "HEAD": "e5f5bd2cea7374072f2cdd765885f67ef45a39cf",
+    "GENERATED_AT": "2026-09-23T00:22:43-03:00",
+    "SOURCE_TREE_FINGERPRINT": "819ee082769a78a34789e770f408fe91dfac6d66c6903ef0526703fa53680781"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "117bfe8d4953f77629b441300959a99c694ec50d",
+      "sha": "e602e91520bca3a8aba672f4b45612a401c4b50f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2061,7 +2061,7 @@
     },
     {
       "path": "curadoria/descobrir.py",
-      "sha": "d41f8266852ef0965ebfd4e4873fce104ea1efcc",
+      "sha": "40a67f5751c3c1446c64e1a8eee44e44c1c819ab",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2307,6 +2307,13 @@
     {
       "path": "curadoria/test_discovery.py",
       "sha": "43a59c620b375ac393e8a71546483b49562fe34e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_discovery_sementes.py",
+      "sha": "94ff96a96317b7782d1e671cdcc70e6adc07c9bb",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20676,7 +20683,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 1338,
+        "line": 1355,
         "snippet": "caminho = caminho or (RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\")"
       }
     },
@@ -20731,7 +20738,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 752,
+        "line": 769,
         "snippet": "(RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -22273,6 +22280,17 @@
         "file": "curadoria/test_discovery.py",
         "line": 36,
         "snippet": "import descobrir as D      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery_sementes.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_discovery_sementes.py",
+        "line": 18,
+        "snippet": "import descobrir as D  # noqa: E402"
       }
     },
     {
@@ -67461,10 +67479,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2208,
-    "files_readable": 882,
+    "files_tracked": 2209,
+    "files_readable": 883,
     "files_code_dir": 883,
-    "file_edges": 4680,
+    "file_edges": 4681,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
