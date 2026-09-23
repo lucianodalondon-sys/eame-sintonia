@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  c4c72b2b36789fca7499db58784f3499ad486a85
-BRANCH           youtube-pronto-v1
-GERADO_EM        2026-09-23T14:30:59-03:00
+HEAD_DA_MEDICAO  a38b40d50034fdb30dd45d8197eac3af30117136
+BRANCH           youtube-canario-v1
+GERADO_EM        2026-09-23T15:43:39-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -687,12 +687,12 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `.github/workflows/curator-youtube-handles.yml`, `.github/workflows/scrap-social.yml` |
+| **peça real** | `.github/workflows/curator-youtube-canario.yml`, `.github/workflows/curator-youtube-handles.yml`, `.github/workflows/scrap-social.yml` |
 | **papel** | DISPATCH_ENTRYPOINT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — este workflow manda rodar script do repositorio.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — este workflow manda rodar script do repositorio.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **EXTERNO_EVENTO** — EXTERNO |
-| **prova de quem ativa** | .github/workflows/curator-youtube-handles.yml · on: push, workflow_dispatch; .github/workflows/scrap-social.yml · on: workflow_dispatch _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/curator-youtube-canario.yml · on: push, workflow_dispatch; .github/workflows/curator-youtube-handles.yml · on: push, workflow_dispatch; .github/workflows/scrap-social.yml · on: workflow_dispatch _(plano CODE)_ |
 | **porquê** | um acontecimento do repositorio acorda este botao. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json` |
@@ -1223,7 +1223,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — esta no caminho: alguem o chama antes de publicar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SCRAP-ROTA, C-SECURITY-CHECK |
-| **prova de quem ativa** | .github/workflows/curator-youtube-handles.yml:64; .github/workflows/scrap-social.yml:277; .github/workflows/security-check.yml:58 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/curator-youtube-canario.yml:45; .github/workflows/curator-youtube-handles.yml:64; .github/workflows/security-check.yml:58 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `coleta/instagram_janela.py`, `docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md`, `guarda/social_sessao.py` |

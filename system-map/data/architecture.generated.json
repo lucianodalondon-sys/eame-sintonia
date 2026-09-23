@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "youtube-pronto-v1",
-    "HEAD": "c4c72b2b36789fca7499db58784f3499ad486a85",
-    "GENERATED_AT": "2026-09-23T14:30:59-03:00",
-    "SOURCE_TREE_FINGERPRINT": "96421abf5afb2bf1ba5e3a75519ae55997cc6967882558bb6894556b922ace8a"
+    "BRANCH": "youtube-canario-v1",
+    "HEAD": "a38b40d50034fdb30dd45d8197eac3af30117136",
+    "GENERATED_AT": "2026-09-23T15:43:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "598be5b6853bfb3f8b2a39a96ef9499436946891c7c1e365e68e15fa75dc4103"
   },
   "FILES": [
     {
@@ -81,6 +81,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/curator-youtube-canario.yml",
+      "sha": "5ade890afb7b6e251a9d81789a8a3276203e0294",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -577,7 +584,14 @@
     },
     {
       "path": "RELATORIO-SOC4-YOUTUBE-PRONTO.md",
-      "sha": "c46d60426e5c525ffe9070147e01c1a9892d2e5c",
+      "sha": "76afb77124a56291a655411681c2db6301fc8c34",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-SOC5-CANARIO-YOUTUBE.md",
+      "sha": "fcbf692801d5662760c1e46aad7a211e99219d68",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -612,7 +626,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "7f304c425ba4fe341c1ebe66aa5ab1acc54f1fac",
+      "sha": "aab0d25ef7b3c7dcc5b87a75070154e794f74ffd",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2151,6 +2165,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/CANARIO-YOUTUBE-SOC5-RESULTADO.json",
+      "sha": "46e00ff88deecc6eea053b4b8f1f6d880580283b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/CANARIO-YOUTUBE-SOC5-VIDEOS.json",
+      "sha": "96584f9757ebd66f7f58b070b373ad13264893d3",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
       "sha": "08eda42fbc03667afd012c60ba5af423a562c8d5",
       "ext": ".json",
@@ -2398,6 +2426,13 @@
     {
       "path": "curadoria/LISTAGENS-PROVADAS-V1.json",
       "sha": "66185dd8d9adf406ceb311e11f23a7a0e3cbdb6d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PEDIDO-CANARIO-YOUTUBE.json",
+      "sha": "ea2afd4ca0a7a029c7753f92a390c54b32910cc9",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2895,6 +2930,13 @@
     {
       "path": "curadoria/linkedin_pelo_site.py",
       "sha": "074e5adaa9a79065a4e165f687ea8aa2b6d9e657",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/listar_videos_canario.py",
+      "sha": "485092261333d1086fb4374962794505c611abc0",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -8794,6 +8836,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UC1vKirvt0hzsqE9zQAs9nTw__4672a916266aec90.txt",
+      "sha": "809ba2f7aba270f2896f44c35bc22489cd13f117",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "sha": "39facad66d67a5b3b620435937a5e03ed99b1dc9",
       "ext": ".json",
@@ -9818,6 +9867,13 @@
     {
       "path": "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "sha": "bb3013c947f09f67021363422ce8be259eb462bb",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/SOC5-BANCOS-DE-TESTE-DESLIGADOS.md",
+      "sha": "ddcb649ecba03a38444ed9e5eb44a012a18eaad1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17223,7 +17279,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b497464cb7ea59a197a24495acbea3e1d3e34d0c",
+      "sha": "c26c1526042e30a4ef0cb4d0e526296c63716d31",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19900,6 +19956,17 @@
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 105,
         "snippet": "PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/curator-youtube-canario.yml",
+      "to_file": "guarda/social_guarda.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/curator-youtube-canario.yml",
+        "line": 45,
+        "snippet": "run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py"
       }
     },
     {
@@ -25740,6 +25807,50 @@
       "evidence": {
         "file": "curadoria/linkedin_pelo_site.py",
         "line": 45,
+        "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/listar_videos_canario.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/listar_videos_canario.py",
+        "line": 69,
+        "snippet": "import scrap_executor as sx"
+      }
+    },
+    {
+      "from_file": "curadoria/listar_videos_canario.py",
+      "to_file": "curadoria/CANARIO-YOUTUBE-SOC5-VIDEOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/listar_videos_canario.py",
+        "line": 39,
+        "snippet": "REGISTO = RAIZ / \"curadoria\" / \"CANARIO-YOUTUBE-SOC5-VIDEOS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/listar_videos_canario.py",
+      "to_file": "curadoria/CANARIO-YOUTUBE-SOC5-VIDEOS.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/listar_videos_canario.py",
+        "line": 96,
+        "snippet": "REGISTO.write_text(json.dumps({"
+      }
+    },
+    {
+      "from_file": "curadoria/listar_videos_canario.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/listar_videos_canario.py",
+        "line": 38,
         "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
       }
     },
@@ -79679,10 +79790,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2749,
-    "files_readable": 1257,
-    "files_code_dir": 1071,
-    "file_edges": 5442,
+    "files_tracked": 2757,
+    "files_readable": 1259,
+    "files_code_dir": 1072,
+    "file_edges": 5447,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

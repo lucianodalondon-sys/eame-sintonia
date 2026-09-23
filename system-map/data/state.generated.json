@@ -69,6 +69,7 @@
       "RELATORIO-SOC2-CURATOR-YOUTUBE.md",
       "RELATORIO-SOC3-RETENCAO-YOUTUBE.md",
       "RELATORIO-SOC4-YOUTUBE-PRONTO.md",
+      "RELATORIO-SOC5-CANARIO-YOUTUBE.md",
       "RELATORIO-TTL-MUTABLE-T1.md",
       "RELATORIO-UNIFICACAO.md",
       "RELATORIO-YT1-CANARIO.md",
@@ -88,6 +89,7 @@
       ".github/workflows/banco-descartavel.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/curator-youtube-canario.yml",
       ".github/workflows/curator-youtube-handles.yml",
       ".github/workflows/regressao-de-navegador.yml",
       ".github/workflows/rls-censo-metadados.yml",
@@ -330,6 +332,8 @@
       "curadoria/B3-ENSAIO-4-PASSOS-DAS-7.json",
       "curadoria/BRIDGE-LEDGER-V1.json",
       "curadoria/BRIDGE-PROOF-V1.json",
+      "curadoria/CANARIO-YOUTUBE-SOC5-RESULTADO.json",
+      "curadoria/CANARIO-YOUTUBE-SOC5-VIDEOS.json",
       "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
       "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
       "curadoria/CANDIDATE-BUCKETS-V1.json",
@@ -366,6 +370,7 @@
       "curadoria/LIFECYCLE-RECONCILIATION-V1.json",
       "curadoria/LIFECYCLE-RED-TEAM-V1.json",
       "curadoria/LISTAGENS-PROVADAS-V1.json",
+      "curadoria/PEDIDO-CANARIO-YOUTUBE.json",
       "curadoria/PEDIDO-RESOLVER-HANDLES.json",
       "curadoria/POLITICA-MODELO.json",
       "curadoria/PONTE-CURADOR-PROOF-V1.json",
@@ -437,6 +442,7 @@
       "curadoria/lifecycle.py",
       "curadoria/linhagem_das_candidatas.py",
       "curadoria/linkedin_pelo_site.py",
+      "curadoria/listar_videos_canario.py",
       "curadoria/lotes.py",
       "curadoria/manifesto_da_evidencia.py",
       "curadoria/manifesto_das_amostras.py",
@@ -1281,6 +1287,7 @@
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__77ae30349938860b.txt",
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__85febb3329491c69.txt",
       "data/samples/SOCIAL-IT/raw-free/LINKEDIN/identidade-https---imagelinenetwork.com__9e40b34272e2139f.txt",
+      "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UC1vKirvt0hzsqE9zQAs9nTw__4672a916266aec90.txt",
       "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "data/samples/SPAIN-HERO-CASES-V1.json",
       "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
@@ -1430,6 +1437,7 @@
       "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
       "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
+      "docs/operacao/SOC5-BANCOS-DE-TESTE-DESLIGADOS.md",
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "docs/operacao/SOURCE-ID-WIRING-GAP-V1.md",
       "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
@@ -3342,10 +3350,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "youtube-pronto-v1",
-    "HEAD": "c4c72b2b36789fca7499db58784f3499ad486a85",
-    "GENERATED_AT": "2026-09-23T14:30:59-03:00",
-    "SOURCE_TREE_FINGERPRINT": "96421abf5afb2bf1ba5e3a75519ae55997cc6967882558bb6894556b922ace8a"
+    "BRANCH": "youtube-canario-v1",
+    "HEAD": "a38b40d50034fdb30dd45d8197eac3af30117136",
+    "GENERATED_AT": "2026-09-23T15:43:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "598be5b6853bfb3f8b2a39a96ef9499436946891c7c1e365e68e15fa75dc4103"
   },
   "FAMILIES": [
     {
@@ -42995,8 +43003,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
+          ".github/workflows/curator-youtube-canario.yml:45",
           ".github/workflows/curator-youtube-handles.yml:64",
-          ".github/workflows/scrap-social.yml:277",
           ".github/workflows/security-check.yml:58"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
@@ -43156,12 +43164,13 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        ".github/workflows/curator-youtube-canario.yml",
         ".github/workflows/curator-youtube-handles.yml",
         ".github/workflows/scrap-social.yml"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -43191,7 +43200,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "DISPATCH_ENTRYPOINT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "2 ficheiro(s), todos manifestos de workflow: quem os corre e o GitHub Actions, e nada na arvore os importa",
+      "ROLE_EVIDENCE": "3 ficheiro(s), todos manifestos de workflow: quem os corre e o GitHub Actions, e nada na arvore os importa",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -43214,6 +43223,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
+          ".github/workflows/curator-youtube-canario.yml · on: push, workflow_dispatch",
           ".github/workflows/curator-youtube-handles.yml · on: push, workflow_dispatch",
           ".github/workflows/scrap-social.yml · on: workflow_dispatch"
         ],
@@ -49081,7 +49091,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch youtube-pronto-v1"
+        "branch youtube-canario-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -102192,8 +102202,24 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 2 linhas de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": ".github/workflows/curator-youtube-canario.yml",
+          "line": 45,
+          "snippet": "run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
+            "FROM": "C-SCRAP-ROTA",
+            "TO": "C-SCRAP-GUARDA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": ".github/workflows/curator-youtube-handles.yml",
           "line": 64,
@@ -111936,7 +111962,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1553,
+  "UNCLAIMED_FILES_COUNT": 1560,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -112173,8 +112199,8 @@
     "edges_proven": 1141,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2749,
-    "files_covered": 1196,
+    "files_tracked": 2757,
+    "files_covered": 1197,
     "files_code_unclaimed": 0,
     "roles_proven": 161,
     "roles_declared_only": 8,

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T17:34:46+00:00",
-  "HEAD": "c4c72b2b36789fca7499db58784f3499ad486a85",
-  "BRANCH": "youtube-pronto-v1",
+  "GENERATED_AT": "2026-09-23T18:49:40+00:00",
+  "HEAD": "a38b40d50034fdb30dd45d8197eac3af30117136",
+  "BRANCH": "youtube-canario-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "96421abf5afb2bf1ba5e3a75519ae55997cc6967882558bb6894556b922ace8a",
-  "FICHEIROS_NA_IMPRESSAO": 2897,
+  "SOURCE_TREE_FINGERPRINT": "598be5b6853bfb3f8b2a39a96ef9499436946891c7c1e365e68e15fa75dc4103",
+  "FICHEIROS_NA_IMPRESSAO": 2905,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -77,6 +77,13 @@
     "PATH": ".github/workflows/comunicacao-publica.yml",
     "PAPEL": "FONTE",
     "VERSAO": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": ".github/workflows/curator-youtube-canario.yml",
+    "PAPEL": "FONTE",
+    "VERSAO": "5ade890afb7b6e251a9d81789a8a3276203e0294",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3583,14 +3590,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "96421abf5afb2bf1ba5e3a75519ae55997cc6967882558bb6894556b922ace8a",
+    "VERSAO": "598be5b6853bfb3f8b2a39a96ef9499436946891c7c1e365e68e15fa75dc4103",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "96421abf5afb2bf1ba5e3a75519ae55997cc6967882558bb6894556b922ace8a",
+    "VERSAO": "598be5b6853bfb3f8b2a39a96ef9499436946891c7c1e365e68e15fa75dc4103",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5394,8 +5401,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 765,
-  "INPUTS_DIGEST": "e4d4b527b5934c4bf6f7153604253d3319f434fcc9bddf2861e81748c6e4c0bb",
+  "INPUTS_COUNT": 766,
+  "INPUTS_DIGEST": "4b917dd263f53fcd916a6d7fb9cb55106a14466d1539bd2cd3cc1dc70873f6cf",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5421,15 +5428,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 490,
+  "DOCUMENTOS_LIDOS": 492,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "1901a2d4482fb83cace3242f69aa405d10ba44035e5ae769f8b25f3be414461f",
-  "SEMANTIC_HASH": "cbd16679802fa02cf77dcdb61c29dae26c23f5d487c6524d62c6b8012e95449b"
+  "MEASUREMENT_HASH": "7fbbfd9e7d434e0507f0451f658e764b26837f461f915461e1f8a1e0749ac64d",
+  "SEMANTIC_HASH": "12962c3be59c45425efb31b47f5d572ff95cca25bc8ede5193ac8f18e5c5d389"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -35559,6 +35566,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": ".github/workflows/curator-youtube-canario.yml",
+      "LINHA": 45,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": ".github/workflows/curator-youtube-handles.yml",
       "LINHA": 64,
       "SUPPORTS": "YES",
@@ -48560,6 +48575,7 @@
     "guarda/social_sessao.py"
    ],
    "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/curator-youtube-canario.yml",
     ".github/workflows/curator-youtube-handles.yml",
     ".github/workflows/scrap-social.yml",
     ".github/workflows/security-check.yml"
@@ -48683,6 +48699,7 @@
    "KIND": "workflow",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    ".github/workflows/curator-youtube-canario.yml",
     ".github/workflows/curator-youtube-handles.yml",
     ".github/workflows/scrap-social.yml"
    ],
