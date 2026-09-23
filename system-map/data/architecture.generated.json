@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
-    "GENERATED_AT": "2026-09-23T14:22:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749"
+    "BRANCH": "reparo-fontes-v1",
+    "HEAD": "203314e4f7bf64b29215d4529e19c2820e331ea0",
+    "GENERATED_AT": "2026-09-23T16:22:24-03:00",
+    "SOURCE_TREE_FINGERPRINT": "637f65a636dd998f90415b30305adea0b1c5d7ec52f1347010d13720f4808fd9"
   },
   "FILES": [
     {
@@ -317,6 +317,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-B4-BOT-PARADO.md",
+      "sha": "ef9d25d2d51bf4496ce9fb4b8283714b65037d52",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-BRIDGE-FEEDER.md",
       "sha": "12a6e18dfd5ddf05377ecdb5609187b09b40e8c0",
       "ext": ".md",
@@ -619,7 +626,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "fbc8e756641af1e90f2b6952be4ed278a9802788",
+      "sha": "c8c23544d7a7b7d15a97d2ca965ceb0f942b28f1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2705,14 +2712,14 @@
     },
     {
       "path": "curadoria/baldes_das_candidatas.py",
-      "sha": "6aeb9b125648f40b2ab2c32186aa8ce206e7af00",
+      "sha": "b61376ca8a9878ea829e4a048587b34b5101f70f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "curadoria/canario.py",
-      "sha": "a597d5928e573a6188bfb8deea46585351e34bc7",
+      "sha": "4226df24d7a528072698f436787c6cb73957175b",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2852,7 +2859,7 @@
     },
     {
       "path": "curadoria/fila.py",
-      "sha": "23bed6e927650d9ed0b090b5ae89c7046f9d8b2d",
+      "sha": "1edc5977a8b6ba0bccb69c6d7e22184cedfdcde7",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2866,7 +2873,7 @@
     },
     {
       "path": "curadoria/gatilho_discovery.py",
-      "sha": "eb5c3482094d40dc8886d19914cf1c1920b0b299",
+      "sha": "4f7d51b80a82699dfa3aa76d3809411fc1acd98b",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2950,7 +2957,7 @@
     },
     {
       "path": "curadoria/nivel_da_fila.py",
-      "sha": "f729e6de5d7f83384c5f8a15c62b651074ddeb1b",
+      "sha": "2fff527b291f94476cb186ae0e150368b1f124d8",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2978,7 +2985,7 @@
     },
     {
       "path": "curadoria/ponte_candidatas.py",
-      "sha": "c981ee8464b65b3e226894b3121ccb28671f6f85",
+      "sha": "e54cf4fe65eae8938d17b0d07b9133419f003cd7",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3077,6 +3084,13 @@
     {
       "path": "curadoria/red_team_telemetria.py",
       "sha": "7f10849f76142967d2b8bd5b8592fad76440cf79",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/reparar_contrato.py",
+      "sha": "909472b0b9bca0987111a75d0bd36218f86a5f5f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3223,7 +3237,7 @@
     },
     {
       "path": "curadoria/test_gatilho_discovery.py",
-      "sha": "94f0e8b86f3d51d73e35ccf9cef0739ae213aea5",
+      "sha": "e05e292c61ad764eef7e1881444f2f046dad964d",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3231,6 +3245,13 @@
     {
       "path": "curadoria/test_gatilho_ocioso.py",
       "sha": "36e257b9943fdd36f35289195b06a48d40ba81a5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_impasse_b4.py",
+      "sha": "310d1e055ed5a9559ab693c488780d7321d03acf",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3258,7 +3279,7 @@
     },
     {
       "path": "curadoria/test_nivel_da_fila.py",
-      "sha": "f5c59e85b698e0b68cf16f667b2646d805860a8f",
+      "sha": "d7cfc8cf1df62d61b7274fed57ee39e0be1c0e68",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3322,6 +3343,13 @@
     {
       "path": "curadoria/test_reconciliar_livros.py",
       "sha": "314b9e647d91558d315339c19dcee216938c79fa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_reparar_contrato.py",
+      "sha": "586dbd24cb9e5572f9f1e01d46cec4e6397dc031",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3419,7 +3447,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "e90a320077cda380cb7904322e1d8ac1d5147410",
+      "sha": "d974bd5f7c2478fc5774687deaacbddb1fdfcc28",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -16690,6 +16718,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/reparo/medir_em_copia.py",
+      "sha": "6ac71e5f7f3957b28f6f940b7e60ba6945483924",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "security/ACCOES-DE-ADMINISTRADOR.md",
       "sha": "05cbaae9a8dd420a88524ece8287f89ea1426804",
       "ext": ".md",
@@ -17293,7 +17328,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "809fc677f126d5af0f0593a1b036f2ce24b0b7fe",
+      "sha": "f44766992b9fb261b02181047ebe298e3690d229",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -24403,7 +24438,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/baldes_das_candidatas.py",
-        "line": 208,
+        "line": 213,
         "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\","
       }
     },
@@ -24502,7 +24537,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/canario.py",
-        "line": 207,
+        "line": 215,
         "snippet": "d = json.loads((RAIZ / \"curadoria\" / \"italy_contracts_curator.json\")"
       }
     },
@@ -25454,13 +25489,46 @@
     },
     {
       "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 367,
+        "snippet": "import fonte_nova as FN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/atribuir_source_id.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 364,
+        "snippet": "import atribuir_source_id as ASI   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
       "to_file": "curadoria/collection_gate.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 189,
+        "line": 200,
         "snippet": "import collection_gate as CG   # noqa: E402  (lido so aqui: o gatilho corre sem ele)"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 365,
+        "snippet": "import decisao_semantica as DS     # noqa: E402"
       }
     },
     {
@@ -25487,12 +25555,23 @@
     },
     {
       "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 290,
+        "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
       "to_file": "curadoria/lifecycle.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 191,
+        "line": 202,
         "snippet": "import lifecycle as LC         # noqa: E402"
       }
     },
@@ -25514,7 +25593,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 190,
+        "line": 201,
         "snippet": "import ready_split as RS       # noqa: E402"
       }
     },
@@ -26075,7 +26154,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/nivel_da_fila.py",
-        "line": 42,
+        "line": 43,
         "snippet": "SAIDA = RAIZ / \"curadoria\" / \"DISCOVERY-SIGNAL-V1.json\""
       }
     },
@@ -26086,7 +26165,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/nivel_da_fila.py",
-        "line": 80,
+        "line": 110,
         "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -26099,6 +26178,17 @@
         "file": "curadoria/nivel_da_fila.py",
         "line": 40,
         "snippet": "import baldes_das_candidatas as B  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/nivel_da_fila.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/nivel_da_fila.py",
+        "line": 41,
+        "snippet": "import fila as F                   # noqa: E402"
       }
     },
     {
@@ -27345,6 +27435,83 @@
       }
     },
     {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 78,
+        "snippet": "import canario as CAN            # noqa: E402  (buscar + hrefs_da_entrada: o leitor do canario)"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/escrever_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 481,
+        "snippet": "import escrever_contratos as EC      # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/gate_de_rota.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 79,
+        "snippet": "import gate_de_rota as GATE      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/provar_listagem.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 80,
+        "snippet": "import provar_listagem as PL     # noqa: E402  (listagem -> itens: o metodo da CANDIDATE-FEEDER-V1)"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/retrato_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 81,
+        "snippet": "import retrato_html as RH        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/validar_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 482,
+        "snippet": "import validar_contratos as VC       # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "scripts/receitas/censo_e_proposta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 84,
+        "snippet": "\"censo_e_proposta\", RAIZ / \"scripts\" / \"receitas\" / \"censo_e_proposta.py\")"
+      }
+    },
+    {
       "from_file": "curadoria/rota_do_scrap_youtube.py",
       "to_file": "coleta/scrap_capacidades.py",
       "type": "IMPORTS",
@@ -28374,7 +28541,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_gatilho_discovery.py",
-        "line": 114,
+        "line": 128,
         "snippet": "import descobrir as D"
       }
     },
@@ -28398,6 +28565,17 @@
         "file": "curadoria/test_gatilho_discovery.py",
         "line": 20,
         "snippet": "import gatilho_discovery as GD"
+      }
+    },
+    {
+      "from_file": "curadoria/test_gatilho_discovery.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_gatilho_discovery.py",
+        "line": 21,
+        "snippet": "import lifecycle as LC"
       }
     },
     {
@@ -28442,6 +28620,72 @@
         "file": "curadoria/test_gatilho_ocioso.py",
         "line": 27,
         "snippet": "import supervisor as S       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 35,
+        "snippet": "import fonte_nova as FN       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 34,
+        "snippet": "import fila as F              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 39,
+        "snippet": "import gatilho_discovery as GD  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 36,
+        "snippet": "import lifecycle as LC        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/nivel_da_fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 38,
+        "snippet": "import nivel_da_fila as N     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/ponte_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 37,
+        "snippet": "import ponte_candidatas as P  # noqa: E402"
       }
     },
     {
@@ -28605,8 +28849,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_nivel_da_fila.py",
-        "line": 53,
+        "line": 81,
         "snippet": "import baldes_das_candidatas as B"
+      }
+    },
+    {
+      "from_file": "curadoria/test_nivel_da_fila.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_nivel_da_fila.py",
+        "line": 19,
+        "snippet": "import fila as F        # noqa: E402"
       }
     },
     {
@@ -28616,7 +28871,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_nivel_da_fila.py",
-        "line": 11,
+        "line": 20,
         "snippet": "import nivel_da_fila as N  # noqa: E402"
       }
     },
@@ -29234,6 +29489,83 @@
         "file": "curadoria/test_reconciliar_livros.py",
         "line": 320,
         "snippet": "linha(so_b, None, LC.CANARY_PENDING, T1, \"regras/italy_contracts.mjs\"),"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 451,
+        "snippet": "import fonte_nova as FN"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 449,
+        "snippet": "import decisao_semantica as DS"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 17,
+        "snippet": "import fila as F                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 18,
+        "snippet": "import gatilho_discovery as GD    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 19,
+        "snippet": "import lifecycle as LC            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 20,
+        "snippet": "import reparar_contrato as RC     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 21,
+        "snippet": "import worker as W                # noqa: E402"
       }
     },
     {
@@ -30057,7 +30389,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 107,
+        "line": 110,
         "snippet": "EVIDENCIA.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -30068,7 +30400,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 267,
+        "line": 270,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -30123,7 +30455,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 225,
+        "line": 228,
         "snippet": "import escrever_contratos as EC"
       }
     },
@@ -30167,7 +30499,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 304,
+        "line": 307,
         "snippet": "CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -30195,6 +30527,17 @@
     },
     {
       "from_file": "curadoria/worker.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/worker.py",
+        "line": 591,
+        "snippet": "import reparar_contrato as RC"
+      }
+    },
+    {
+      "from_file": "curadoria/worker.py",
       "to_file": "curadoria/rota_do_scrap_youtube.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -30211,7 +30554,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 226,
+        "line": 229,
         "snippet": "import validar_contratos as VC"
       }
     },
@@ -80488,10 +80831,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2764,
-    "files_readable": 1267,
-    "files_code_dir": 1086,
-    "file_edges": 5506,
+    "files_tracked": 2769,
+    "files_readable": 1271,
+    "files_code_dir": 1087,
+    "file_edges": 5534,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

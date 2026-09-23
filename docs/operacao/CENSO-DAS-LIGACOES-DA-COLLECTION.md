@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  59f045cf86e5ebadbf0636c2bc750275c3ea38c0
-BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T14:22:49-03:00
-CARDS            89
+HEAD_DA_MEDICAO  203314e4f7bf64b29215d4529e19c2820e331ea0
+BRANCH           reparo-fontes-v1
+GERADO_EM        2026-09-23T16:22:24-03:00
+CARDS            90
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -1816,6 +1816,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
+### `C-REPARO-MEDICAO` · Medicao do reparo de fontes numa copia do livro vivo (R1)
+
+| | |
+|---|---|
+| **peça real** | `scripts/reparo/medir_em_copia.py` |
+| **papel** | CONTRACT_OR_RULE · medido no plano CODE |
+| **dono** | ENGENHARIA · INTELIGENCIA |
+| **status operacional** | gray — ⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje. |
+| **QUEM ATIVA** | **NAO_SE_ATIVA** |
+| **prova de quem ativa** | rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato _(plano CODE)_ |
+| **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 0 |
+| **arestas provadas** | entram 0 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** |  |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
+| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
+
 ### `C-SAUDE-FONTE` · A saude de cada fonte
 
 | | |
@@ -2287,5 +2312,6 @@ SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
 TERMINAL           5
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              89
+ORPHAN             1
+TOTAL              90
 ```

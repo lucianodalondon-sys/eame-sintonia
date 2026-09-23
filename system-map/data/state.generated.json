@@ -32,6 +32,7 @@
       "RELATORIO-B1-PONTE-PROVA-VIVA.md",
       "RELATORIO-B2-PONTE-PROMOCAO.md",
       "RELATORIO-B3-CONTRATO-UNICO.md",
+      "RELATORIO-B4-BOT-PARADO.md",
       "RELATORIO-BRIDGE-FEEDER.md",
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
@@ -463,6 +464,7 @@
       "curadoria/red_team_ponte_curador.py",
       "curadoria/red_team_service.py",
       "curadoria/red_team_telemetria.py",
+      "curadoria/reparar_contrato.py",
       "curadoria/retrato_html.py",
       "curadoria/rota_do_scrap_youtube.py",
       "curadoria/semear_lifecycle.py",
@@ -485,6 +487,7 @@
       "curadoria/test_fila_windows.py",
       "curadoria/test_gatilho_discovery.py",
       "curadoria/test_gatilho_ocioso.py",
+      "curadoria/test_impasse_b4.py",
       "curadoria/test_interface_collection.py",
       "curadoria/test_lifecycle.py",
       "curadoria/test_livros_reais_intactos.py",
@@ -498,6 +501,7 @@
       "curadoria/test_ponte_promocao.py",
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
+      "curadoria/test_reparar_contrato.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_soc2_curator_youtube.py",
       "curadoria/test_status_liveness.py",
@@ -2447,7 +2451,8 @@
       "scripts/receitas/medir_efeito.py",
       "scripts/receitas/propor_receitas_v3.py",
       "scripts/receitas/propor_receitas_v4.py",
-      "scripts/receitas/provar_indices.py"
+      "scripts/receitas/provar_indices.py",
+      "scripts/reparo/medir_em_copia.py"
     ],
     "security": [
       "security/ACCOES-DE-ADMINISTRADOR.md",
@@ -3357,10 +3362,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
-    "GENERATED_AT": "2026-09-23T14:22:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749"
+    "BRANCH": "reparo-fontes-v1",
+    "HEAD": "203314e4f7bf64b29215d4529e19c2820e331ea0",
+    "GENERATED_AT": "2026-09-23T16:22:24-03:00",
+    "SOURCE_TREE_FINGERPRINT": "637f65a636dd998f90415b30305adea0b1c5d7ec52f1347010d13720f4808fd9"
   },
   "FAMILIES": [
     {
@@ -3388,7 +3393,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 89
+      "count": 90
     },
     {
       "id": "F-ESPERA",
@@ -3646,7 +3651,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 23
+      "count": 24
     },
     {
       "id": "Z-ADMISSAO",
@@ -4854,8 +4859,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 605",
-        "desses, mostrados aqui: 40 (ficam de fora 565)"
+        "enderecos que o codigo realmente chama: 608",
+        "desses, mostrados aqui: 40 (ficam de fora 568)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -42267,6 +42272,81 @@
       "y": 1970
     },
     {
+      "id": "C-REPARO-MEDICAO",
+      "name": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n).",
+      "why_here": "O reparo de contratos (curadoria/reparar_contrato.py, etapa REPAIR_CONTRACT do worker) muda contratos e o livro de estado; medir o efeito no livro vivo seria escrever no vivo. A banca e descartavel e fica fora do Git.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "collection-strategy"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/reparo/medir_em_copia.py"
+      ],
+      "file_count": 1,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "ROLE_MEASURED": "CONTRACT_OR_RULE",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_ENUNCIA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "CONTRACT_OR_RULE",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
+      "x": 11310,
+      "y": 2614
+    },
+    {
       "id": "C-REVISAO-DA-EVIDENCIA",
       "name": "Revisao da evidencia emprestada",
       "territory": "Z-PROVA",
@@ -42837,7 +42917,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -49222,7 +49302,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch reparo-fontes-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -112951,7 +113031,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1554,
+  "UNCLAIMED_FILES_COUNT": 1558,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -113188,7 +113268,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 207,
+      "PECAS_EM_DESACORDO": 208,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -113200,23 +113280,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 232
+      "TOTAL_DE_PECAS": 233
     }
   ],
   "COUNTS": {
-    "components": 232,
+    "components": 233,
     "components_proven": 31,
     "components_pending": 193,
     "components_broken": 0,
-    "components_unknown": 8,
+    "components_unknown": 9,
     "edges": 1219,
     "edges_proven": 1155,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2764,
-    "files_covered": 1210,
+    "files_tracked": 2769,
+    "files_covered": 1211,
     "files_code_unclaimed": 0,
-    "roles_proven": 161,
+    "roles_proven": 162,
     "roles_declared_only": 8,
     "roles_unknown": 63,
     "roles_conflict": 31,
