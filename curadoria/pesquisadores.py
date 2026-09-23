@@ -787,6 +787,8 @@ def tentar(cand: dict, orcam, ctx: dict, sub: bool = False) -> None:
     def anota(acao, **kw):
         log.append({"url": url, "familia": fam, "acao": acao, **kw})
 
+    if fora_do_foco({**cand, "familia": fam}):
+        return anota("FORA_DO_FOCO", motivo="decisao do dono 23/09: veterinaria/IZS")
     if norm in ctx["p2"]:
         return anota("DEDUP", motivo="NA_P2")
     if norm in ctx["conhecidos"]:
@@ -1235,6 +1237,54 @@ CATALOGO_P1C: list[dict] = [
 ]
 
 
+# ---------------------------------------------------------------------------
+# FORA DO FOCO — decisao do dono em 23/09 ~18:50: Veterinaria, IZS e fontes so
+# de saude animal nao sao foco do Sintonia. Nada novo desse tipo entra; as ja
+# registadas ficam listadas e so saem por fonte_nova.recusar, quando pedido.
+# ---------------------------------------------------------------------------
+FAMILIAS_FORA_DO_FOCO = {"VETERINARIA", "IZS"}
+_FORA_DO_FOCO_RE = re.compile(r"veterinar|zooprofilattic|izs[a-z-]*\.it|aivi\.it", re.I)
+FORA_DO_FOCO_JSON = RAIZ / "curadoria" / "PESQUISADORES-FORA-DO-FOCO-V1.json"
+_FRONTEIRA = {"https://www.pagepressjournals.org/ijfs": "revista de seguranca alimentar, feita sobretudo por veterinarios",
+              "https://www.crea.gov.it/web/zootecnia-e-acquacoltura": "producao animal, nao saude animal"}
+
+
+def fora_do_foco(cand: dict) -> bool:
+    return (cand.get("familia") in FAMILIAS_FORA_DO_FOCO
+            or bool(_FORA_DO_FOCO_RE.search(cand["url"] + " " + cand.get("nome", ""))))
+
+
+def listar_fora_do_foco(aplicar: bool = False) -> dict:
+    """Lista as registadas fora do foco. Com aplicar=True recusa-as pela porta."""
+    vivas, fronteira = [], []
+    fam = {x["CANDIDATA_ID"]: x["FAMILIA"]
+           for x in json.loads(LISTA_JSON.read_text(encoding="utf-8"))["CANDIDATAS"]}
+    for c in carregar()["CANDIDATAS"]:
+        if "MISSAO=PESQUISADORES" not in c.get("NOTA", "") or c["ESTADO"] == "RECUSADA":
+            continue
+        linha = {"CANDIDATA_ID": c["CANDIDATA_ID"], "URL": c["URL"], "NOME": c["NOME"]}
+        if c["URL"] in _FRONTEIRA:
+            fronteira.append({**linha, "PORQUE_E_FRONTEIRA": _FRONTEIRA[c["URL"]]})
+        elif fora_do_foco({"url": c["URL"], "nome": c["NOME"], "familia": fam.get(c["CANDIDATA_ID"])}):
+            vivas.append(linha)
+    recusadas = []
+    if aplicar:
+        from fonte_nova import recusar
+        for x in vivas:
+            recusar(x["URL"], "FORA_DO_FOCO: decisao do dono 23/09 — Veterinaria/IZS/saude animal nao e foco do Sintonia")
+            recusadas.append(x["CANDIDATA_ID"])
+    out = {"DATASET": "PESQUISADORES-FORA-DO-FOCO-V1",
+           "DECISAO": "dono 23/09 ~18:50: Veterinaria, IZS e fontes so de saude animal fora do foco",
+           "GERADO_EM": datetime.now(timezone.utc).isoformat(),
+           "VIVAS_FORA_DO_FOCO": len(vivas), "FRONTEIRA_A_DECIDIR": len(fronteira),
+           "RECUSADAS_AGORA": recusadas, "LISTA": vivas, "FRONTEIRA": fronteira}
+    fd, tmp = tempfile.mkstemp(dir=str(FORA_DO_FOCO_JSON.parent), suffix=".tmp")
+    with os.fdopen(fd, "w", encoding="utf-8") as fh:
+        json.dump(out, fh, ensure_ascii=False, indent=1)
+    os.replace(tmp, FORA_DO_FOCO_JSON)
+    return out
+
+
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser(
@@ -1245,6 +1295,10 @@ def main() -> int:
                     help="fase P1b: releitura, IZS, Veterinaria, Ordini (rede, VPN IT)")
     ap.add_argument("--p1c", action="store_true",
                     help="3.a volta: IZS, Vet/Agraria, servicos regionais, revistas (rede, VPN IT)")
+    ap.add_argument("--fora-do-foco", dest="fora_do_foco", action="store_true",
+                    help="lista as registadas de Veterinaria/IZS (sem rede, nao mexe na fila)")
+    ap.add_argument("--aplicar", action="store_true",
+                    help="com --fora-do-foco: recusa-as pela porta canonica")
     ap.add_argument("--lista", action="store_true",
                     help="so escreve PESQUISADORES-LISTA-V1.json, sem rede")
     a = ap.parse_args()
@@ -1257,6 +1311,12 @@ def main() -> int:
                   "PEDIDOS_DE_REDE", "MAX_PEDIDOS_UM_DOMINIO", "VIGIA_PAROU", "VIGIAS"):
             print(k, r[k])
         print("LISTA_CUMULATIVA", l["CANDIDATAS_NOVAS"], l["POR_FAMILIA"])
+        return 0
+
+    if a.fora_do_foco:
+        r = listar_fora_do_foco(aplicar=a.aplicar)
+        print("VIVAS_FORA_DO_FOCO", r["VIVAS_FORA_DO_FOCO"], "FRONTEIRA", r["FRONTEIRA_A_DECIDIR"],
+              "RECUSADAS_AGORA", len(r["RECUSADAS_AGORA"]))
         return 0
 
     if a.lista:
