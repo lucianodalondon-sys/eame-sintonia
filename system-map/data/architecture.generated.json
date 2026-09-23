@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "96cf46d837c60aa9ddbe325e6a7429c6652a2148",
-    "GENERATED_AT": "2026-09-23T04:58:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc8100d242c32f8619325b0eb70879cd7a780c3e97a916e486d3245961da81b4"
+    "BRANCH": "micro-caminho-v2",
+    "HEAD": "a3084b3f87d7b3f9cff51ac08b54577fadfcb433",
+    "GENERATED_AT": "2026-09-23T06:03:40-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7d458feaf662699b090346ac1c87678722fc72c0676ad14dba10d2fc53c9b759"
   },
   "FILES": [
     {
@@ -521,7 +521,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "29d896a53b7b4871c5ab41fc7e9a80adef9fedb5",
+      "sha": "d33c0833fdda908b6cc796f85d8076ab3dd946d8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -16088,6 +16088,20 @@
       "code_dir": true
     },
     {
+      "path": "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
+      "sha": "c3d910bdc11c8c538430dac73abba4e980d7ec7c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/micro_coleta/ensaio_offline.py",
+      "sha": "4202e4e1187cc02afea8c6bee58e820bd59f1edf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/micro_coleta/medir_detector_de_capa.py",
       "sha": "3e4032012408a6ca87da37d2ac75b2ee17f40248",
       "ext": ".py",
@@ -16740,7 +16754,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c50553e1508d7b320813e78384c49d61bbc2314a",
+      "sha": "bd10406fede3551e53440311acd6b27ed4c550a0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17861,6 +17875,13 @@
     {
       "path": "tests/test_consumo_da_referencia_adama.py",
       "sha": "e8d877f24ebef6b58de0e83b1ebf9f19fd1824a4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_ensaio_offline_micro.py",
+      "sha": "05c323980d643dd3a33ffc4a94359525f5adb7a7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -56899,6 +56920,94 @@
       }
     },
     {
+      "from_file": "scripts/micro_coleta/ensaio_offline.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/ensaio_offline.py",
+        "line": 339,
+        "snippet": "\"ADMISSION_NAO\": {\"VALOR\": adm.get(\"NAO\", 0), \"PECA\": \"admissao/admissao.py\", \"ROTA\": \"READ_BY_INSTRUMENT\"},"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/ensaio_offline.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/ensaio_offline.py",
+        "line": 93,
+        "snippet": "led = raiz / \"data\" / \"collection-ledger\" / \"italy\" / \"observations.ndjson\""
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/ensaio_offline.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/ensaio_offline.py",
+        "line": 483,
+        "snippet": "ler_ndjson(D / \"ops\" / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"),"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/ensaio_offline.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/ensaio_offline.py",
+        "line": 472,
+        "snippet": "livro=arvore / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\","
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/ensaio_offline.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/ensaio_offline.py",
+        "line": 105,
+        "snippet": "man = pasta / \"MANIFESTO.json\""
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/ensaio_offline.py",
+      "to_file": "medidas/corrida_sem_rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/ensaio_offline.py",
+        "line": 433,
+        "snippet": "lanc = [sys.executable, \"medidas/corrida_sem_rede.py\", f\"--saida={medida}\", \"--\"] + cmd[2:]"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/ensaio_offline.py",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/ensaio_offline.py",
+        "line": 195,
+        "snippet": "r = subprocess.run([shutil.which(\"bash\") or \"bash\", \"motor/cadeia_canonica.sh\","
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/ensaio_offline.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/ensaio_offline.py",
+        "line": 57,
+        "snippet": "import micro_coleta as MC  # noqa: E402"
+      }
+    },
+    {
       "from_file": "scripts/micro_coleta/medir_detector_de_capa.py",
       "to_file": "curadoria/italy_contracts_curator.json",
       "type": "READS",
@@ -68350,6 +68459,39 @@
       }
     },
     {
+      "from_file": "tests/test_ensaio_offline_micro.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ensaio_offline_micro.py",
+        "line": 41,
+        "snippet": "(led / \"observations.ndjson\").write_text(json.dumps("
+      }
+    },
+    {
+      "from_file": "tests/test_ensaio_offline_micro.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ensaio_offline_micro.py",
+        "line": 33,
+        "snippet": "(t / \"gab\" / \"MANIFESTO.json\").write_text(json.dumps({\"PAGINAS\": ["
+      }
+    },
+    {
+      "from_file": "tests/test_ensaio_offline_micro.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ensaio_offline_micro.py",
+        "line": 17,
+        "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_espinha_da_intelligence.py",
       "to_file": "provas/espinha_da_intelligence.py",
       "type": "IMPORTS",
@@ -77504,10 +77646,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2674,
-    "files_readable": 1220,
-    "files_code_dir": 1025,
-    "file_edges": 5292,
+    "files_tracked": 2677,
+    "files_readable": 1222,
+    "files_code_dir": 1028,
+    "file_edges": 5303,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
