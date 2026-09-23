@@ -18851,3 +18851,38 @@ antigo» executou (ficheiro-bandeira) e reprovou 4 de 7.
 referência é 21,7 % (21/09). A árvore cresce: cada candidata TEMÁTICA vira semente. O
 custo por corrida está travado (15 sementes, 250 pedidos); a fila de sementes pode
 crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
+
+---
+
+# UM LEITOR A OLHAR NÃO É UM ESCRITOR A MAIS — E NÃO CONSEGUI PERGUNTAR NÃO É «NÃO EXISTE»
+
+*Missão 2e (fila-windows-v1), 23/09/2026. Prova: `curadoria/FILA-WINDOWS-PROOF-V1.json`,
+`curadoria/ensaiar_fila_windows.py`, `curadoria/test_fila_windows.py`.*
+
+**Os dois defeitos, vistos no 1.º lote real depois da C1, reproduzidos em cópia.**
+
+1. **`os.replace` perde para um leitor, no Windows.** A escrita atómica da casa (temporário,
+   `fsync`, `os.replace`) está certa no POSIX; no Windows a troca falha com `WinError 5`
+   enquanto outro processo tem o destino aberto. Leitores legítimos da fila: supervisor,
+   painel, telemetria, verificadores. Medido: 5 leitores a cada 100 ms fazem 287 de 2.000
+   trocas falharem; o worker morria a meio de `F.concluir` e deixava a tarefa IN_PROGRESS.
+   Cura: `fila._com_paciencia` — esperar (0,02 → 1,6 s) e tentar outra vez; esgotado o
+   teto, o erro sobe. Com a cura: 2.000 de 2.000. **O padrão da escrita atómica da casa não
+   tinha esta parte; quem o reutilizar no Windows precisa dela.**
+2. **O erro da pergunta lia-se como resposta.** `_pid_no_so` devolvia False («morto») em
+   qualquer excepção do `tasklist` — timeout (~1 s em repouso, teto 5 s) ou `UnicodeDecodeError`
+   da saída em cp850. O supervisor terminou um worker com heartbeat de 16 s. Agora a
+   resposta tem três valores e **NÃO SEI nunca é morte**; o filho próprio responde-se com
+   `proc.poll()`, sem perguntar a ninguém; o trinco do supervisor com NÃO SEI é válido
+   (lido como órfão deixaria arrancar um segundo supervisor).
+
+**O que se aprendeu.**
+
+- **Uma cura plausível que não mede nada é código a mais.** Abrir a leitura com
+  `FILE_SHARE_DELETE` parecia a cura da causa; medido em 5.000 leituras, não mudou nada
+  (0 vs 1 erro). O mutante que a removia sobreviveu, e a lição da casa decidiu: remover.
+- **Um mutante que parte a sintaxe não é um mutante morto.** O primeiro ataque à leitura
+  deixou um parêntese a mais; nenhum teste correu. Provar a execução (o módulo mutado
+  importa) é parte da prova.
+- **No ensaio, a produção reproduziu o defeito tal qual**: 149/150, 1 órfã, 1 morte RC=1 por
+  `PermissionError`, 240 s parados. O novo: 150/150, 20 s, 0 falsos pendurados, 1 worker.
