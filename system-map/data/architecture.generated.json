@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "gates-medidos-v1",
-    "HEAD": "d47f6c02300fd8ca30aedebfb76af3301a8468e7",
-    "GENERATED_AT": "2026-09-23T14:08:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "793764ad9b43a1782fbf19b33e79f015b81e2351fd91b68ff3100bc2fb58eb4d"
+    "HEAD": "f920a7b52224eb588ff10e160690ede7330b8b92",
+    "GENERATED_AT": "2026-09-23T15:30:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b61107d824080289c36101fe0d9dab80282487a3bb6bd57fe298fdb079aa631d"
   },
   "FILES": [
     {
@@ -2271,7 +2271,7 @@
     },
     {
       "path": "curadoria/G2-GATES-MEDIDOS-V1.json",
-      "sha": "2f9d85a2e793127f1bdf944795c75159d79f9e32",
+      "sha": "13580e1986250fabcac1f062b4b8d04f06da740c",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -13422,7 +13422,7 @@
     },
     {
       "path": "medidas/medir_gates_g2.py",
-      "sha": "6905fcbd322fa39c39d2837d6ae9b8443abb6d81",
+      "sha": "14431e522bfe8cfe5569416a595a89f0e693dc65",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13584,6 +13584,13 @@
     {
       "path": "medidas/test_corrida_canonica.py",
       "sha": "e4f38418de7a5281366a04428a7db7ca61e22791",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/test_medir_gates_g2.py",
+      "sha": "00c4b4903aed5d64f4dd25a838df892c057312f9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17111,7 +17118,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "47597c24c823402fcf88b8022b55969e4e00ddc5",
+      "sha": "55ed6f47e2b6fca1731cfc2f6558bc687d4d232d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -40102,6 +40109,17 @@
         "file": "medidas/test_corrida_canonica.py",
         "line": 167,
         "snippet": "with io.open(RAIZ / \"medidas\" / \"corrida_canonica.py\", encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
+      "from_file": "medidas/test_medir_gates_g2.py",
+      "to_file": "medidas/medir_gates_g2.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/test_medir_gates_g2.py",
+        "line": 8,
+        "snippet": "import medir_gates_g2 as G  # noqa: E402"
       }
     },
     {
@@ -78893,10 +78911,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2731,
-    "files_readable": 1248,
-    "files_code_dir": 1068,
-    "file_edges": 5382,
+    "files_tracked": 2732,
+    "files_readable": 1249,
+    "files_code_dir": 1069,
+    "file_edges": 5383,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

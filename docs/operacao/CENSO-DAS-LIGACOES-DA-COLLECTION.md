@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  d47f6c02300fd8ca30aedebfb76af3301a8468e7
+HEAD_DA_MEDICAO  f920a7b52224eb588ff10e160690ede7330b8b92
 BRANCH           gates-medidos-v1
-GERADO_EM        2026-09-23T14:08:20-03:00
+GERADO_EM        2026-09-23T15:30:31-03:00
 CARDS            90
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1595,7 +1595,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `medidas/medir_gates_g2.py`, `medidas/medir_proveniencia_g2.py`, `medidas/mutacao_trava_g2.py` |
+| **peça real** | `medidas/medir_gates_g2.py`, `medidas/medir_proveniencia_g2.py`, `medidas/mutacao_trava_g2.py`, `medidas/test_medir_gates_g2.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |

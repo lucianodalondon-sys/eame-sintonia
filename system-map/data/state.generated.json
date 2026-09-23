@@ -1984,6 +1984,7 @@
       "medidas/scanner_da_coleta.py",
       "medidas/source_health.py",
       "medidas/test_corrida_canonica.py",
+      "medidas/test_medir_gates_g2.py",
       "medidas/ultima_milha.py",
       "medidas/voz.py"
     ],
@@ -3325,9 +3326,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "gates-medidos-v1",
-    "HEAD": "d47f6c02300fd8ca30aedebfb76af3301a8468e7",
-    "GENERATED_AT": "2026-09-23T14:08:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "793764ad9b43a1782fbf19b33e79f015b81e2351fd91b68ff3100bc2fb58eb4d"
+    "HEAD": "f920a7b52224eb588ff10e160690ede7330b8b92",
+    "GENERATED_AT": "2026-09-23T15:30:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b61107d824080289c36101fe0d9dab80282487a3bb6bd57fe298fdb079aa631d"
   },
   "FAMILIES": [
     {
@@ -29904,7 +29905,7 @@
       "territory": "Z-MEDIDAS",
       "kind": "engine",
       "what": "Mede, so em leitura, tres gates do ponto de chegada da Collection: APPROVED_SOURCE_ROUTE_COVERAGE numa fotografia dos livros vivos (portao x coletor x bot: rota validada, canario <= 7 dias, contrato unico); PROVENANCE_COMPLETE nos documentos das micro A2/A4 (Sala lida numa COPIA do Postgres parado + registo do coletor); e reataca os sobreviventes 4b/4c/5c/5d da auditoria 08 na trava do supervisor, restaurando o alvo byte a byte.",
-      "why_here": "Os tres estavam escritos como SAFE/YES/0 no handoff sem dono de medida. A regua de SAFE e a frase do mandato: «fontes aprovadas possuem rota ou bloqueio explicito». Resultados em curadoria/G2-*.json; know-how §202.",
+      "why_here": "Os tres estavam escritos como SAFE/YES/0 no handoff sem dono de medida. A regua de SAFE e a frase do mandato: «fontes aprovadas possuem rota ou bloqueio explicito». Resultados em curadoria/G2-*.json; know-how §202. D25 (dono, 23/09): a coorte da Big Collection = elegiveis COM contrato no coletor; SAFE le-se sobre a coorte.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -29919,9 +29920,10 @@
       "files": [
         "medidas/medir_gates_g2.py",
         "medidas/medir_proveniencia_g2.py",
-        "medidas/mutacao_trava_g2.py"
+        "medidas/mutacao_trava_g2.py",
+        "medidas/test_medir_gates_g2.py"
       ],
-      "file_count": 3,
+      "file_count": 4,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -112199,8 +112201,8 @@
     "edges_proven": 1142,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2731,
-    "files_covered": 1192,
+    "files_tracked": 2732,
+    "files_covered": 1193,
     "files_code_unclaimed": 0,
     "roles_proven": 162,
     "roles_declared_only": 8,
