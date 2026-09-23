@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T05:10:46+00:00",
-  "HEAD": "5a8db21a772f60aa8c1ebdb523a0f658996aed76",
-  "BRANCH": "unificacao-v1",
+  "GENERATED_AT": "2026-09-23T06:33:04+00:00",
+  "HEAD": "6f1e9b519695544dacad276ebbd2633011dba28c",
+  "BRANCH": "multilingue-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb",
-  "FICHEIROS_NA_IMPRESSAO": 2729,
+  "SOURCE_TREE_FINGERPRINT": "c4b670d77a29f45a527f3c4807c2fd611804d07495d494107420bd02f78dacb5",
+  "FICHEIROS_NA_IMPRESSAO": 2733,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -160,7 +160,14 @@
    {
     "PATH": "admissao/admissao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "992d01c7e815b113c673dc2030ce2e2f59091531",
+    "VERSAO": "af240570071d8aa92dbfecc83ee89bcb6830a7d5",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "admissao/idioma.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ee745685d7b75cc45399578660ab1db60a15c707",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3310,14 +3317,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb",
+    "VERSAO": "c4b670d77a29f45a527f3c4807c2fd611804d07495d494107420bd02f78dacb5",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb",
+    "VERSAO": "c4b670d77a29f45a527f3c4807c2fd611804d07495d494107420bd02f78dacb5",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3602,6 +3609,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/medir_multilingue.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a9e68e1154be3c890cd147edab09f082ae874bc8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_a_collection_preserva_o_fato.py",
     "PAPEL": "FONTE",
     "VERSAO": "62c18c23220dfcc889a7d6a504ae99b63710af9e",
@@ -3731,6 +3745,13 @@
     "PATH": "tests/test_adama_relevance.py",
     "PAPEL": "FONTE",
     "VERSAO": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_admissao_multilingue.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "24d3bf04a8ab84f85081f873f2ab7d257a02cf9e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5002,8 +5023,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 709,
-  "INPUTS_DIGEST": "fa362c9e1c93722317928081e47f60225d460491c6bc7891944f65a0f022d2ad",
+  "INPUTS_COUNT": 712,
+  "INPUTS_DIGEST": "91b9b5c67e35e6cf5e145c39592478a72cee5a2f2d7ccebb31aa2e5fdac64ce6",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5029,15 +5050,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 463,
+  "DOCUMENTOS_LIDOS": 464,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "eddebe46dfb736f94eea362d75973594ce6b2ac025dd3b8862ea7554e6004ff1",
-  "SEMANTIC_HASH": "8d270a4e13b8b32c3b281bce60fa0f1896879d027defe0b668af01ff74dbbe68"
+  "MEASUREMENT_HASH": "4ab04677623f1c69640466d8170ebe95586cec029f2fbf8a34fd6240d802c1c4",
+  "SEMANTIC_HASH": "5ec4fb1bfd20d85c294a8e6be6e3dfa921be43433d4058d46b5d97baa3995131"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6700,6 +6721,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/medir_multilingue.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_a_collection_preserva_o_fato.py",
       "LINHA": 35,
       "SUPPORTS": "YES",
@@ -6764,6 +6793,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_admissao_multilingue.py",
+      "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_alcance_tematico.py",
       "LINHA": 18,
       "SUPPORTS": "YES",
@@ -6774,22 +6811,6 @@
      {
       "FICHEIRO": "tests/test_amostragem_neutra_t3.py",
       "LINHA": 179,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_atomicidade_da_intelligence.py",
-      "LINHA": 290,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_c10_2_origin_gate.py",
-      "LINHA": 34,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
@@ -6811,7 +6832,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "admissao/admissao.py",
-      "LINHA": 1139,
+      "LINHA": 1210,
       "SUPPORTS": "NO",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -7053,6 +7074,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/medir_multilingue.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_a_linhagem_do_ready.py",
       "LINHA": 91,
@@ -39538,7 +39567,8 @@
    "KIND": "gate",
    "STATUS": "PENDING",
    "FICHEIROS": [
-    "admissao/admissao.py"
+    "admissao/admissao.py",
+    "admissao/idioma.py"
    ],
    "CHAMADORES_DE_RUNTIME": [
     ".github/workflows/banco-descartavel.yml"
@@ -39563,6 +39593,7 @@
     "system-map/scripts/scan_repo.py",
     "system-map/scripts/validate_system_map.py",
     "system-map/tests/test_verdade_das_ligacoes.py",
+    "tests/medir_multilingue.py",
     "tests/test_a_linhagem_do_ready.py",
     "tests/test_a_operacao_aguenta_concorrencia.py",
     "tests/test_atomicidade_da_intelligence.py",
@@ -39573,13 +39604,16 @@
     "tests/test_reel_transcricao_trava.py",
     "tests/test_relevance_priority_sobrecarga.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "RELATORIO-MULTILINGUE.md"
+   ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,
    "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
+    "collections",
     "dataclasses",
     "datetime",
     "e",
@@ -47157,6 +47191,7 @@
    "FICHEIROS": [
     "tests/es/test_adama_es_gate.py",
     "tests/es/test_adama_es_import_rules.py",
+    "tests/medir_multilingue.py",
     "tests/test_a_collection_preserva_o_fato.py",
     "tests/test_a_demanda_de_dados_da_italia.py",
     "tests/test_a_fase_10_entra_no_acervo.py",
@@ -47176,6 +47211,7 @@
     "tests/test_adama_catalogo_drift.py",
     "tests/test_adama_referencia.py",
     "tests/test_adama_relevance.py",
+    "tests/test_admissao_multilingue.py",
     "tests/test_alcance_tematico.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_amostragem_neutra_t3.py",
@@ -47433,6 +47469,7 @@
     "x"
    ],
    "LE_DE": [
+    "Ukraine",
     "__future__",
     "adama_relevance",
     "admissao",
@@ -47471,6 +47508,7 @@
     "sala_de_espera",
     "sqlite_master",
     "test_italia_na_porta_canonica",
+    "the",
     "unittest",
     "urllib",
     "v",

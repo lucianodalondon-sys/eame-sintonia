@@ -41,6 +41,7 @@
       "RELATORIO-MICRO-COLLECTION.md",
       "RELATORIO-MICRO-PREP-B.md",
       "RELATORIO-MICRO-PREP.md",
+      "RELATORIO-MULTILINGUE.md",
       "RELATORIO-PARIDADE.md",
       "RELATORIO-PONTE-CURADOR.md",
       "RELATORIO-PROVAS-P1.md",
@@ -78,6 +79,7 @@
     ],
     "admissao": [
       "admissao/admissao.py",
+      "admissao/idioma.py",
       "admissao/sala_de_espera.py"
     ],
     "build": [
@@ -2455,6 +2457,7 @@
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "tests/fixtures/yt-raw-minimo.json",
+      "tests/medir_multilingue.py",
       "tests/test_a_collection_preserva_o_fato.py",
       "tests/test_a_demanda_de_dados_da_italia.py",
       "tests/test_a_fase_10_entra_no_acervo.py",
@@ -2474,6 +2477,7 @@
       "tests/test_adama_catalogo_drift.py",
       "tests/test_adama_referencia.py",
       "tests/test_adama_relevance.py",
+      "tests/test_admissao_multilingue.py",
       "tests/test_alcance_tematico.py",
       "tests/test_alvo_estruturado_resolvido.py",
       "tests/test_amostragem_neutra_t3.py",
@@ -3174,10 +3178,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "5a8db21a772f60aa8c1ebdb523a0f658996aed76",
-    "GENERATED_AT": "2026-09-23T02:06:39-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb"
+    "BRANCH": "multilingue-v1",
+    "HEAD": "6f1e9b519695544dacad276ebbd2633011dba28c",
+    "GENERATED_AT": "2026-09-23T03:28:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c4b670d77a29f45a527f3c4807c2fd611804d07495d494107420bd02f78dacb5"
   },
   "FAMILIES": [
     {
@@ -4134,9 +4138,10 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "admissao/admissao.py"
+        "admissao/admissao.py",
+        "admissao/idioma.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -4190,16 +4195,18 @@
       "vocabulario": {
         "papel": "ADMISSAO",
         "listas": [
+          "FUNCAO",
           "JA_TEM_CAMPO_PROPRIO_NO_READY",
           "NAO_E_ITEM",
-          "PERGUNTAS_DO_UNIVERSO"
+          "PERGUNTAS_DO_UNIVERSO",
+          "PERGUNTAS_EN"
         ],
-        "palavras": 136,
+        "palavras": 300,
         "por_lingua": {
-          "IT": 29,
+          "IT": 31,
           "PT": 19
         },
-        "sem_marca_de_lingua": 88,
+        "sem_marca_de_lingua": 250,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -4215,12 +4222,13 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "admissao/idioma.py",
         "data/samples/LIVRO-DE-DECISOES.json"
       ],
       "consumes_plane": "CODE",
@@ -44068,6 +44076,7 @@
       "files": [
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
+        "tests/medir_multilingue.py",
         "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_demanda_de_dados_da_italia.py",
         "tests/test_a_fase_10_entra_no_acervo.py",
@@ -44087,6 +44096,7 @@
         "tests/test_adama_catalogo_drift.py",
         "tests/test_adama_referencia.py",
         "tests/test_adama_relevance.py",
+        "tests/test_admissao_multilingue.py",
         "tests/test_alcance_tematico.py",
         "tests/test_alvo_estruturado_resolvido.py",
         "tests/test_amostragem_neutra_t3.py",
@@ -44269,7 +44279,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 202,
+      "file_count": 204,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -46960,7 +46970,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch multilingue-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -49712,7 +49722,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1139,
+          "line": 1210,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -49841,8 +49851,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 30 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 32 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/medir_multilingue.py",
+          "line": 20,
+          "snippet": "import admissao as DEPOIS  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
           "line": 35,
@@ -49972,6 +49998,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_admissao_multilingue.py",
+          "line": 19,
+          "snippet": "import admissao as A  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_alcance_tematico.py",
           "line": 18,
           "snippet": "import admissao as adm  # noqa: E402",
@@ -50002,38 +50044,6 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 290,
-          "snippet": "from admissao import decidir, pronto_para_inteligencia",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_c10_2_origin_gate.py",
-          "line": 34,
-          "snippet": "import admissao as ad            # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -50052,8 +50062,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/medir_multilingue.py",
+          "line": 27,
+          "snippet": "m.__file__ = str(RAIZ / \"admissao\" / \"admissao.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_a_linhagem_do_ready.py",
           "line": 91,
@@ -107327,7 +107353,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1484,
+  "UNCLAIMED_FILES_COUNT": 1485,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -107532,8 +107558,8 @@
     "edges_proven": 1101,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2581,
-    "files_covered": 1097,
+    "files_tracked": 2585,
+    "files_covered": 1100,
     "files_code_unclaimed": 0,
     "roles_proven": 156,
     "roles_declared_only": 9,

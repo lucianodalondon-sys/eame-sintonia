@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5a8db21a772f60aa8c1ebdb523a0f658996aed76
-BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T02:06:39-03:00
+HEAD_DA_MEDICAO  6f1e9b519695544dacad276ebbd2633011dba28c
+BRANCH           multilingue-v1
+GERADO_EM        2026-09-23T03:28:04-03:00
 CARDS            85
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -479,7 +479,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `admissao/admissao.py` |
+| **peça real** | `admissao/admissao.py`, `admissao/idioma.py` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
@@ -487,7 +487,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | tests/test_m2_rota_forward.py:1 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | C-IT-TEXTO-DERIVADO, C-IT-TEXTO-PESQUISAVEL, C-SCRAP-SOCIAL |
-| **o que entra · ficheiros** | `data/samples/LIVRO-DE-DECISOES.json` |
+| **o que entra · ficheiros** | `admissao/idioma.py`, `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 6 · saem 35 |

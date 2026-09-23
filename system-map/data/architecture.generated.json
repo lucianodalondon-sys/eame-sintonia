@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "5a8db21a772f60aa8c1ebdb523a0f658996aed76",
-    "GENERATED_AT": "2026-09-23T02:06:39-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb"
+    "BRANCH": "multilingue-v1",
+    "HEAD": "6f1e9b519695544dacad276ebbd2633011dba28c",
+    "GENERATED_AT": "2026-09-23T03:28:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c4b670d77a29f45a527f3c4807c2fd611804d07495d494107420bd02f78dacb5"
   },
   "FILES": [
     {
@@ -380,6 +380,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-MULTILINGUE.md",
+      "sha": "149b1afa92ccb758573538277b3163d302105222",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-PARIDADE.md",
       "sha": "a6884c0619fdee6ffe576b13c8152ebe99a4c2b8",
       "ext": ".md",
@@ -437,7 +444,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "d7fbea8ace482eb5c91ae15b0f44ee635cdd0747",
+      "sha": "24813b6fb79ca1fd508df2f1e37a1b8414c55358",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -451,7 +458,14 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "992d01c7e815b113c673dc2030ce2e2f59091531",
+      "sha": "af240570071d8aa92dbfecc83ee89bcb6830a7d5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "admissao/idioma.py",
+      "sha": "ee745685d7b75cc45399578660ab1db60a15c707",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16166,7 +16180,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "3af426dc4aa03f7e4f9dcff94ec61ec5747692e0",
+      "sha": "954aed60194dd8c5bbfb209c8b7aff552215921b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -16669,6 +16683,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/medir_multilingue.py",
+      "sha": "a9e68e1154be3c890cd147edab09f082ae874bc8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_a_collection_preserva_o_fato.py",
       "sha": "62c18c23220dfcc889a7d6a504ae99b63710af9e",
       "ext": ".py",
@@ -16797,6 +16818,13 @@
     {
       "path": "tests/test_adama_relevance.py",
       "sha": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_admissao_multilingue.py",
+      "sha": "24d3bf04a8ab84f85081f873f2ab7d257a02cf9e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19516,6 +19544,17 @@
         "file": "admissao/admissao.py",
         "line": 69,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "admissao/admissao.py",
+      "to_file": "admissao/idioma.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 875,
+        "snippet": "_sp = _iu.spec_from_file_location(\"admissao_idioma\", Path(__file__).resolve().parent / \"idioma.py\")"
       }
     },
     {
@@ -58437,6 +58476,39 @@
       }
     },
     {
+      "from_file": "tests/medir_multilingue.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/medir_multilingue.py",
+        "line": 19,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/medir_multilingue.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/medir_multilingue.py",
+        "line": 20,
+        "snippet": "import admissao as DEPOIS  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/medir_multilingue.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/medir_multilingue.py",
+        "line": 27,
+        "snippet": "m.__file__ = str(RAIZ / \"admissao\" / \"admissao.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_a_collection_preserva_o_fato.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -59886,6 +59958,28 @@
         "file": "tests/test_adama_relevance.py",
         "line": 22,
         "snippet": "from adama_relevance import (classificar, contar, produto_que_prova,   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_admissao_multilingue.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_admissao_multilingue.py",
+        "line": 18,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_admissao_multilingue.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_admissao_multilingue.py",
+        "line": 19,
+        "snippet": "import admissao as A  # noqa: E402"
       }
     },
     {
@@ -75247,10 +75341,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2581,
-    "files_readable": 1174,
-    "files_code_dir": 976,
-    "file_edges": 5146,
+    "files_tracked": 2585,
+    "files_readable": 1177,
+    "files_code_dir": 979,
+    "file_edges": 5152,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
