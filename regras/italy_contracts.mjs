@@ -661,11 +661,6 @@ export function contratoGenerico(linha) {
     // continua a dar `undefined` e `recolheitaDoContrato()` continua a ler
     // `UNKNOWN`/`DECLARADO: false`. E o caminho de sempre, intacto.
     ...(linha.RECOLLECTION ? { RECOLLECTION: linha.RECOLLECTION } : {}),
-    // SOC2 (D17.4): uma linha com `COLETADO_POR` e colhida por OUTRO executor
-    // (a fase `canal-youtube` do Scrap), nao pelo motor. A marca passa inteira
-    // para o contrato para que o coletor a leia e nao tente a ACQUISITION —
-    // que, nestas linhas, nomeia um adapter que nao existe nesta arvore.
-    ...(linha.COLETADO_POR ? { COLETADO_POR: linha.COLETADO_POR } : {}),
   };
 }
 

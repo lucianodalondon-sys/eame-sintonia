@@ -21479,7 +21479,7 @@ Medido pelo código real, com o estado das fontes da K1 numa cópia: capas que e
 capas verdadeiras, todas de fontes que passam os 4 passos.
 # §205 · UM «NÃO SEI FAZER» ESCRITO À MÃO NÃO SE DESACTUALIZA SOZINHO — E UM CANAL É UMA FONTE
 
-> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §199 em curator-youtube-v1 (SOC2, via retencao-youtube-v1); o número já estava ocupado nesta linha. Nada foi apagado.
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §199 em curator-youtube-v1 (SOC2, via retencao-youtube-v1); o número já estava ocupado nesta linha. Nada foi apagado. **O código desta lane saiu da linha na 6.ª passagem (revert de f07349e3):** a SOC3 reprova 4 leis da casa (SQL da Sala fora do dono, segundo dialeto psql no runtime, migration 033 sem a marca de proposta, migration nova desde o tronco). A lição fica; o código volta quando estiver verde.
 
 SOC2 (23/09/2026), D17.4, D18, D19, D20. `RELATORIO-SOC2-CURATOR-YOUTUBE.md`.
 
@@ -21522,7 +21522,7 @@ Número: `§196`–`§197` ocupados noutras branches; `§198` é da SOC1; este �
 
 # §207 · O BYTE SAI, A LINHA FICA — E O SEPARADOR QUE O PYTHON CHAMA DE ESPAÇO
 
-> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §200 em retencao-youtube-v1 (SOC3); o número já estava ocupado nesta linha. Nada foi apagado.
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026), por ordem de chegada: era §200 em retencao-youtube-v1 (SOC3); o número já estava ocupado nesta linha. Nada foi apagado. **O código desta lane saiu da linha na 6.ª passagem (revert de f07349e3):** a SOC3 reprova 4 leis da casa (SQL da Sala fora do dono, segundo dialeto psql no runtime, migration 033 sem a marca de proposta, migration nova desde o tronco). A lição fica; o código volta quando estiver verde.
 
 SOC3 (23/09/2026), D20 e D21. `RELATORIO-SOC3-RETENCAO-YOUTUBE.md`.
 

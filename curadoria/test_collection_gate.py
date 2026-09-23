@@ -286,8 +286,6 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
         # descartavel e uma worktree temporaria — a Sala real nao e tocada.
         # Ferramenta corrida a mao; nao arranca coleta de producao.
         "scripts/micro_coleta/ensaio_offline.py": ("MANUAL_TOOL", False),
-        # SOC2: importa `alvosDe` para provar a guarda COLETADO_POR; nao colhe.
-        "curadoria/test_soc2_curator_youtube.py": ("TEST_ONLY", False),
         # V1A: o retrato de um HTML (mede bytes: HTML_KIND, TEXT_SHA256). E uma
         # biblioteca que o coletor usa; so CITA o coletor num comentario. Nao
         # arranca coleta nenhuma.

@@ -241,7 +241,7 @@ export function estadoDeCadencia(c, ultimaObs, mudou) {
 
 // ---------- alvos por fonte ----------
 // Cada alvo: { url, nome, documentIdDe(buf) -> {DOCUMENT_ID, SOURCE_DATE, FACT_TIME} }
-export async function alvosDe(sourceId) {
+async function alvosDe(sourceId) {
   const c = CONTRACTS[sourceId];
   // ── O CONTRATO MANDA PRIMEIRO, E O SWITCH FICA PARA TRÁS ─────────────────
   // ⚠️ MEDIDO: este `switch` tinha SETE fontes escritas à mão, e uma fonte
@@ -260,14 +260,6 @@ export async function alvosDe(sourceId) {
   //
   // O dia em que o último `case` tiver `ACQUISITION`, o `switch` inteiro sai
   // — e sai por ficar vazio, não por alguém o apagar com pressa.
-  // SOC2 (D17.4): uma fonte com `COLETADO_POR` nao e deste motor. Sem esta
-  // guarda, `alvosDoContrato` lancava «ADAPTER_ID ... nao esta no registry» e,
-  // como o ciclo da rodada nao apanha excecoes, UMA fonte destas derrubava a
-  // corrida inteira. Agora e um resultado por fonte, com o nome de quem a colhe.
-  if (c && c.COLETADO_POR) {
-    const cp = c.COLETADO_POR;
-    return { erro: `COLETADO_POR_OUTRO_EXECUTOR: ${cp.EXECUTOR}/${cp.FASE} — este motor nao colhe ${sourceId}` };
-  }
   if (c && c.ACQUISITION) {
     return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS });
   }
