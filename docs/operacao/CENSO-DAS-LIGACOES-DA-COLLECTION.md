@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  0f24ef30a9331d1d7a61495387c17019847879b1
+HEAD_DA_MEDICAO  5998719d849074a524820694e524f3f0a822c096
 BRANCH           unificacao-plano-v1
-GERADO_EM        2026-09-22T21:50:07-03:00
+GERADO_EM        2026-09-22T22:33:34-03:00
 CARDS            82
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -613,19 +613,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | candidatas/decidir_fila_italia.py:100; system-map/scripts/scan_sources.py:480; tests/test_fila_italia_decisoes.py:38 |
-| **porquê** | estas pecas importam-na — C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | candidatas/decidir_fila_italia.py:100; curadoria/test_discovery.py:59; curadoria/test_discovery.py:50 |
+| **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 3 |
-| **arestas provadas** | entram 0 · saem 3 |
+| **arestas no mapa** | entram 0 · saem 5 |
+| **arestas provadas** | entram 0 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 3 |
+| **prova das ligações** | CODE 5 |
 | **lei da Bíblia** | COL-LAW-053 · a fonte tem cadastro unico e reconciliado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -764,26 +764,26 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/unificacao/censo_lanes.py` |
+| **peça real** | `ferramentas/unificacao/censo_lanes.py`, `ferramentas/unificacao/congelar_livros_do_servico.py`, `ferramentas/unificacao/ensaio_unificacao.py`, `ferramentas/unificacao/resolver_conflitos.py` |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
-| **status operacional** | gray — ⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | — NÃO SEI |
+| **o que entra · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/LIFECYCLE-QUEUE-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 0 |
-| **arestas provadas** | entram 0 · saem 0 |
+| **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `curadoria/status_live.py`, `curadoria/test_discovery.py` |
+| **arestas no mapa** | entram 3 · saem 0 |
+| **arestas provadas** | entram 3 · saem 0 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** |  |
+| **prova das ligações** | CODE 3 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
-| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
 ### `C-LEITORES` · Abrir PDF, ODS e HTML
 
@@ -2110,8 +2110,8 @@ OK                 37
 UNKNOWN            21
 SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
-TERMINAL           4
-ORPHAN             2
+TERMINAL           5
 ALVO_SEM_ESCRITOR_MEDIDO 2
+ORPHAN             1
 TOTAL              82
 ```

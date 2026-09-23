@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-plano-v1",
-    "HEAD": "0f24ef30a9331d1d7a61495387c17019847879b1",
-    "GENERATED_AT": "2026-09-22T21:50:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0e03a5cf95c909fe17c6e4ec90841efd9e68a94c2cc70c1796076a9ca3ed848f"
+    "HEAD": "5998719d849074a524820694e524f3f0a822c096",
+    "GENERATED_AT": "2026-09-22T22:33:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "53b1d8942d84bc33b6c646610a56373bd4b4be053a00c08d45f7d201f3fec010"
   },
   "FILES": [
     {
@@ -255,7 +255,7 @@
     },
     {
       "path": "PLANO-UNIFICACAO.md",
-      "sha": "73587ed29a20c4e49d7de9d058351e8992b72629",
+      "sha": "b8f412ca38d63274f5d8c57db00ca10cfb1698de",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1949,14 +1949,14 @@
     },
     {
       "path": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
-      "sha": "ad6e5780963d20d9d97f78731071ce43db017683",
+      "sha": "4ef18a12505b1ebe75cde801be63c7cd06051b2f",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "curadoria/LIFECYCLE-LEDGER-V1.json",
-      "sha": "626bd64b4d2dce863cbd7cc8a523d8dfe421bf2d",
+      "sha": "3ff3dbf28c1794acde8e2dd555813bb83097173a",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2390,7 +2390,7 @@
     },
     {
       "path": "curadoria/reconciliar_livros.py",
-      "sha": "53fcf4fad1b3ba01528b75ce3d23dd085e34040c",
+      "sha": "ec232aaf9f1a0ada23150eb06bdcd35240266093",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2551,7 +2551,7 @@
     },
     {
       "path": "curadoria/test_reconciliar_livros.py",
-      "sha": "faad5b398a509fdf6a9d61e59910fac3c127c5ee",
+      "sha": "a1904ede53f9a5f755d97ac314c587cb0ca9e150",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -9466,6 +9466,48 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "sha": "d9256956a081a46a926dad1915d5b81df9a1da7e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/unificacao/ensaio-reconciliacao-2026-09-23.json",
+      "sha": "206d4c2837670267b9f52f1593dc5086a77d2ef8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/unificacao/ensaio-testes-base-2026-09-23.json",
+      "sha": "abb0d2c52b011b3a25c35c96c9de2737f6a9975a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/unificacao/ensaio-testes-unificado-2026-09-23.json",
+      "sha": "66a8356382851a8a04d0eb8dba70fef901548c02",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/unificacao/ensaio_unificacao.py",
+      "sha": "edbbcd030a958459b65838e4a4c0325a3ea3fbeb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/unificacao/resolver_conflitos.py",
+      "sha": "8f69fdab4b5e0f99ba6877edeadcb1dccf3a0e78",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/youtube_transcrever.py",
       "sha": "7bd25e8262b71709e587d7541735d2bee0ae1418",
       "ext": ".py",
@@ -15417,7 +15459,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "1fc66937c4f789ee9a7e266ad7cdbbe21eef6198",
+      "sha": "9496a37d81450c5df5e78b95d9fd01366725daa2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -24097,7 +24139,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 114,
+        "line": 115,
         "snippet": "PORTA = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
       }
     },
@@ -24108,7 +24150,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 113,
+        "line": 114,
         "snippet": "MATCH = RAIZ / \"curadoria\" / \"CANDIDATE-TO-SOURCE-MATCH-V1.json\""
       }
     },
@@ -24119,7 +24161,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 223,
+        "line": 280,
         "snippet": "passo2_b = do_git(ref_b, \"curadoria/CONTRATOS-PASSO-2-V1.json\") or {}"
       }
     },
@@ -24130,7 +24172,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 109,
+        "line": 110,
         "snippet": "EVIDENCIA_A = RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\""
       }
     },
@@ -24141,8 +24183,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 232,
-        "snippet": "\"B\": do_git(ref_b, \"curadoria/LIFECYCLE-LEDGER-V1.json\"),"
+        "line": 217,
+        "snippet": "CORTE_LIVROS = (\"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\","
       }
     },
     {
@@ -24152,7 +24194,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 111,
+        "line": 112,
         "snippet": "LISTAGENS_A = RAIZ / \"curadoria\" / \"LISTAGENS-PROVADAS-V1.json\""
       }
     },
@@ -24163,7 +24205,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 115,
+        "line": 116,
         "snippet": "SAIDA = RAIZ / \"curadoria\" / \"RECONCILIACAO-V1.json\""
       }
     },
@@ -24174,7 +24216,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 1178,
+        "line": 1285,
         "snippet": "SAIDA.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -24185,7 +24227,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 112,
+        "line": 113,
         "snippet": "ALLOC = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
       }
     },
@@ -24196,7 +24238,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 54,
+        "line": 55,
         "snippet": "import collection_gate as CG  # noqa: E402"
       }
     },
@@ -24207,7 +24249,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 110,
+        "line": 111,
         "snippet": "CONTRATOS_A = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -24218,7 +24260,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 55,
+        "line": 56,
         "snippet": "import lifecycle as LC        # noqa: E402"
       }
     },
@@ -24229,7 +24271,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 56,
+        "line": 57,
         "snippet": "import ready_split as RS      # noqa: E402"
       }
     },
@@ -25450,8 +25492,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/test_reconciliar_livros.py",
-        "line": 807,
-        "snippet": "LC.LIVRO = AQUI / \"LIFECYCLE-LEDGER-V1.json\""
+        "line": 805,
+        "snippet": "(pasta / \"LIFECYCLE-LEDGER-V1.json\").write_bytes(b)"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reconciliar_livros.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_reconciliar_livros.py",
+        "line": 820,
+        "snippet": "(p / \"LIFECYCLE-LEDGER-V1.json\").write_text('{\"TRANSICOES\": [1]}', encoding=\"utf-8\")"
       }
     },
     {
@@ -27377,6 +27430,215 @@
         "file": "ferramentas/reel_transcricao.py",
         "line": 93,
         "snippet": "import social_matriz as mz      # noqa: E402 — a política de rota, dono único"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+        "line": 25,
+        "snippet": "LIVROS = (\"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\","
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+        "line": 25,
+        "snippet": "LIVROS = (\"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\","
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+        "line": 26,
+        "snippet": "\"LIFECYCLE-QUEUE-V1.json\", \"italy_contracts_curator.json\","
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+        "line": 26,
+        "snippet": "\"LIFECYCLE-QUEUE-V1.json\", \"italy_contracts_curator.json\","
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/ensaio_unificacao.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/ensaio_unificacao.py",
+        "line": 74,
+        "snippet": "fila = wt / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\""
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/ensaio_unificacao.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/ensaio_unificacao.py",
+        "line": 75,
+        "snippet": "fila.write_text(json.dumps({\"PROXIMO_ID\": 1, \"TAREFAS\": []}), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/ensaio_unificacao.py",
+      "to_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/unificacao/ensaio_unificacao.py",
+        "line": 49,
+        "snippet": "import resolver_conflitos as RC"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 22,
+        "snippet": "\"curadoria/descobrir.py\": \"63b71421\","
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/status_live.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 80,
+        "snippet": "\"curadoria/status_live.py\": ["
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/status_live.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 106,
+        "snippet": "sl.write_text(t, encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 30,
+        "snippet": "\"curadoria/supervisor.py\": ["
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/test_discovery.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 23,
+        "snippet": "\"curadoria/test_discovery.py\": \"63b71421\","
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/test_discovery.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 172,
+        "snippet": "f.write_text(\"\\n\".join(out), encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/test_painel_pergunta_ao_so.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 108,
+        "snippet": "tp = raiz / \"curadoria/test_painel_pergunta_ao_so.py\""
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/test_painel_pergunta_ao_so.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 113,
+        "snippet": "tp.write_text(u2, encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/test_ponte_candidatas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 24,
+        "snippet": "\"curadoria/test_ponte_candidatas.py\": \"63b71421\","
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/test_supervisor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 87,
+        "snippet": "\"curadoria/test_supervisor.py\": ["
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "curadoria/worker.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 205,
+        "snippet": "for f in sorted(set(BASE_REAL) | set(ESCOLHAS) | {\"curadoria/worker.py\"}):"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/resolver_conflitos.py",
+      "to_file": "leis/telemetria.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/resolver_conflitos.py",
+        "line": 126,
+        "snippet": "velho = raiz / \"curadoria/telemetria.py\""
       }
     },
     {
@@ -72614,10 +72876,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2472,
-    "files_readable": 1095,
-    "files_code_dir": 950,
-    "file_edges": 4976,
+    "files_tracked": 2478,
+    "files_readable": 1098,
+    "files_code_dir": 956,
+    "file_edges": 4996,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

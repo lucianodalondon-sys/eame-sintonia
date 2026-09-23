@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T00:50:49+00:00",
-    "HEAD": "0f24ef30a9331d1d7a61495387c17019847879b1",
+    "GENERATED_AT": "2026-09-23T01:35:10+00:00",
+    "HEAD": "5998719d849074a524820694e524f3f0a822c096",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "0e03a5cf95c909fe17c6e4ec90841efd9e68a94c2cc70c1796076a9ca3ed848f",
-    "FICHEIROS_NA_IMPRESSAO": 2620,
+    "SOURCE_TREE_FINGERPRINT": "c80fe8555e668bb3c71331aa519a6f1c71c9d690e0df37ec57c45809a80e75dd",
+    "FICHEIROS_NA_IMPRESSAO": 2626,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -627,6 +627,27 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/unificacao/congelar_livros_do_servico.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d9256956a081a46a926dad1915d5b81df9a1da7e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/ensaio_unificacao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "edbbcd030a958459b65838e4a4c0325a3ea3fbeb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/resolver_conflitos.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "8f69fdab4b5e0f99ba6877edeadcb1dccf3a0e78",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/youtube_transcrever.py",
         "PAPEL": "FONTE",
         "VERSAO": "7bd25e8262b71709e587d7541735d2bee0ae1418",
@@ -984,8 +1005,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 139,
-    "INPUTS_DIGEST": "77809ddaeb2ecdae9d04b937e81a06bc93f16a8d84b69ccf4f72cad2b3167bf1",
+    "INPUTS_COUNT": 142,
+    "INPUTS_DIGEST": "e7d9898beec1c67cf72e15b59a81e8058058c549f8d83bfbc0a62fa74ec8c2fc",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1676,6 +1697,56 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "gaveta": "ferramentas",
+      "linhas": 92,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/ensaio_unificacao.py",
+      "gaveta": "ferramentas",
+      "linhas": 119,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/resolver_conflitos.py",
+      "gaveta": "ferramentas",
+      "linhas": 234,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/unificacao/ensaio_unificacao.py"
+      ],
       "no_ci": false
     },
     {
@@ -3918,13 +3989,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 139,
-    "pontos_de_entrada": 96,
+    "ficheiros_de_codigo": 142,
+    "pontos_de_entrada": 99,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 50,
+    "sem_chamador_e_fora_do_ci": 52,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 74,
-    "deitam_fora_alguma_coisa": 40,
+    "escrevem_ficheiro": 77,
+    "deitam_fora_alguma_coisa": 41,
     "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 4,
     "decisoes_escondidas_ao_todo": 4
@@ -3958,6 +4029,9 @@
       "ferramentas/pdf_peek.mjs",
       "ferramentas/reel_transcricao.py",
       "ferramentas/unificacao/censo_lanes.py",
+      "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "ferramentas/unificacao/ensaio_unificacao.py",
+      "ferramentas/unificacao/resolver_conflitos.py",
       "ferramentas/youtube_transcrever.py",
       "coleta/agrifood_ue.py",
       "coleta/coleta_checkpoint.py",
@@ -4071,6 +4145,8 @@
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/unificacao/censo_lanes.py",
+      "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "ferramentas/unificacao/ensaio_unificacao.py",
       "coleta/adaptador_aberto.py",
       "coleta/adaptador_facebook.py",
       "coleta/adaptador_linkedin.py",

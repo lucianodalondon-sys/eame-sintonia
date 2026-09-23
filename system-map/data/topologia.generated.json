@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T00:53:25+00:00",
-  "HEAD": "0f24ef30a9331d1d7a61495387c17019847879b1",
+  "GENERATED_AT": "2026-09-23T01:37:40+00:00",
+  "HEAD": "5998719d849074a524820694e524f3f0a822c096",
   "BRANCH": "unificacao-plano-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "0e03a5cf95c909fe17c6e4ec90841efd9e68a94c2cc70c1796076a9ca3ed848f",
-  "FICHEIROS_NA_IMPRESSAO": 2620,
+  "SOURCE_TREE_FINGERPRINT": "7943f8be0c9eaf6419271ce12e129dbc99430c08612c4f4acbbece8ec4a1d511",
+  "FICHEIROS_NA_IMPRESSAO": 2626,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -756,6 +756,27 @@
     "PATH": "ferramentas/unificacao/censo_lanes.py",
     "PAPEL": "FONTE",
     "VERSAO": "7911424ac316bd6f5e2b506c3d4b48edb163211f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/unificacao/congelar_livros_do_servico.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d9256956a081a46a926dad1915d5b81df9a1da7e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/unificacao/ensaio_unificacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "edbbcd030a958459b65838e4a4c0325a3ea3fbeb",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/unificacao/resolver_conflitos.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "8f69fdab4b5e0f99ba6877edeadcb1dccf3a0e78",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3219,14 +3240,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0e03a5cf95c909fe17c6e4ec90841efd9e68a94c2cc70c1796076a9ca3ed848f",
+    "VERSAO": "c80fe8555e668bb3c71331aa519a6f1c71c9d690e0df37ec57c45809a80e75dd",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0e03a5cf95c909fe17c6e4ec90841efd9e68a94c2cc70c1796076a9ca3ed848f",
+    "VERSAO": "c80fe8555e668bb3c71331aa519a6f1c71c9d690e0df37ec57c45809a80e75dd",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4897,8 +4918,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 694,
-  "INPUTS_DIGEST": "7b5da4dfaa38a2779d5bf2f48d2cb8eb77df0f12582d72ff2879d7d50b784bff",
+  "INPUTS_COUNT": 697,
+  "INPUTS_DIGEST": "acad4411bae94d597b16b73f171687b8c4f32c9bb7c19857949d7d555b671f17",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4931,8 +4952,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "ca87d90c65e470f862fc2c436aa186330d08a2ae6d5fb63252c6ba4e91bf2285",
-  "SEMANTIC_HASH": "ce7b733a5099b0e00260a67c1e7bfe7f5dfbaec5faa183af99b79b71641ea2b9"
+  "MEASUREMENT_HASH": "777db787df1b6b5bfcef9f5441fc8d7020a47c77b6cb47994aad4f9d4e8c1aa3",
+  "SEMANTIC_HASH": "1b89c9d55bd508e38fa02a152bcc4dc87977e1f6be1f042affd8e01a6e6776b2"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -14150,6 +14171,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTRATO-TELEMETRIA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CONTRATO-TELEMETRIA--READS-->C-CENSO-UNIFICACAO",
+    "FROM": "C-CONTRATO-TELEMETRIA",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/unificacao/resolver_conflitos.py",
+      "LINHA": 126,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CONTRATO-TELEMETRIA--READS-->C-CENSO-UNIFICACAO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -26197,6 +26240,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
+    "FROM": "C-PORTA-FONTE",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/test_discovery.py",
+      "LINHA": 50,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-DECISAO-DA-FILA",
     "FROM": "C-PORTA-FONTE",
     "TO": "C-DECISAO-DA-FILA",
@@ -26214,6 +26279,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-DECISAO-DA-FILA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
+    "FROM": "C-PORTA-FONTE",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/test_discovery.py",
+      "LINHA": 59,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -38482,12 +38569,12 @@
     ]
    }
   ],
-  "COUNT": 1084
+  "COUNT": 1087
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 165,
   "CARTOES_AUDITADOS": 165,
-  "ARESTAS_RELACIONADAS": 1084,
+  "ARESTAS_RELACIONADAS": 1087,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38724,7 +38811,6 @@
   ],
   "SEM_LIGACAO": {
    "C-ARMAZEM-IT-SEM-LIVRO": "ARMAZEM",
-   "C-CENSO-UNIFICACAO": "UNKNOWN",
    "C-DERIVED-ARTIFACT": "ARMAZEM",
    "C-MICRO-COLHEITA": "UNKNOWN"
   },
@@ -38741,6 +38827,9 @@
    ],
    "C-CENSO-EXECUTORES": [
     "coverage"
+   ],
+   "C-CENSO-UNIFICACAO": [
+    "infra"
    ],
    "C-CONTRATO-ARTEFATO": [
     "opportunity",
@@ -38860,16 +38949,15 @@
    ]
   },
   "SEM_LIGACAO_INEXPLICADOS": [
-   "C-CENSO-UNIFICACAO",
    "C-MICRO-COLHEITA"
   ],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 182,
+   "CODE": 183,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 361,
-   "READ": 246,
-   "RULE": 184,
+   "READ": 247,
+   "RULE": 185,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -40018,9 +40106,12 @@
    "FAMILIA": "F-COLETA",
    "TERRITORIO": "Z-FERRAMENTAS",
    "KIND": "library",
-   "STATUS": "UNKNOWN",
+   "STATUS": "PENDING",
    "FICHEIROS": [
-    "ferramentas/unificacao/censo_lanes.py"
+    "ferramentas/unificacao/censo_lanes.py",
+    "ferramentas/unificacao/congelar_livros_do_servico.py",
+    "ferramentas/unificacao/ensaio_unificacao.py",
+    "ferramentas/unificacao/resolver_conflitos.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
@@ -40029,13 +40120,24 @@
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
-   "LE_DE": [],
-   "ENTRAM": 0,
+   "LE_DE": [
+    "datetime",
+    "pathlib",
+    "telemetria",
+    "telemetria_do_curador"
+   ],
+   "ENTRAM": 3,
    "SAEM": 0,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ",
+    "RULE"
+   ],
    "CATEGORIAS_QUE_SAEM": [],
-   "PORQUE_SOZINHO": "UNKNOWN",
-   "ORFAO_FALSO_NAS_VISTAS": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "infra"
+   ],
    "GAP": null
   },
   {
@@ -40623,7 +40725,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 2,
-   "SAEM": 15,
+   "SAEM": 16,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
@@ -43347,7 +43449,7 @@
     "pathlib"
    ],
    "ENTRAM": 0,
-   "SAEM": 3,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [],
    "CATEGORIAS_QUE_SAEM": [
     "CODE",
