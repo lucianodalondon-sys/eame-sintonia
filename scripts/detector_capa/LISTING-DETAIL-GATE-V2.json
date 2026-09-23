@@ -1,0 +1,521 @@
+{
+ "DATASET": "LISTING-DETAIL-GATE-V2",
+ "MISSAO": "LD2, 23/09/2026",
+ "EGRESSO": {
+  "T11_010": {
+   "PAIS": "IT",
+   "IP": "149.22.91.171",
+   "CIDADE": "Palermo"
+  },
+  "CONTROLO": "IT em 49/49 sites (149.22.91.171/172, Palermo)",
+  "PEDIDOS": "<= 3 por site, robots da casa, 1 s de pausa"
+ },
+ "IT_T11_010": {
+  "ESTADO": "NAO SEI",
+  "PAGINAS_BUSCADAS": [
+   {
+    "URL": "https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/notizie",
+    "SHA256": "3852f1acd1a13b460f9d8753a3fff7d4c4b8a18e65b94ccfb84dc0c63a15c4f8",
+    "PAPEL": "CAPA_INDICE_CANDIDATA"
+   },
+   {
+    "URL": "https://www.svilupposostenibile.regione.lombardia.it/it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit",
+    "SHA256": "c07e5a4adab78a63cd5997833ff58bc83cdcf85ca95c91c1884fbf7621688b57",
+    "PAPEL": "MATERIA_CANDIDATA"
+   }
+  ],
+  "PROVA": "noticia lida e confirmada (MATERIA_PROVAVEL); a listagem /it/educazione-ambientale/notizie tem 3 links com a forma /it/news/news/<id>/<slug> — o site pagina de 3 em 3; o G1 exige >= 10",
+  "FALTA": "1 visita autorizada a mesma listagem com parametro de pagina maior (dp-1-per-page), ou outra listagem do site com >= 10 noticias"
+ },
+ "RECEITAS_V3": {
+  "COM_PROVA": [
+   "IT-T2-039 (arpae /it/notizie/<slug>)",
+   "IT-T5-049 (di3a /it/notizie/<slug %XX>; RISCO: 2/5 exemplos parecem categorias)"
+  ],
+  "NAO_SEI": 12,
+  "CONGELADAS_EM": "64c3beb7 2026-09-23T06:05:48Z (antes de qualquer pagina do controlo)",
+  "PACOTE": "G1 + V3 numa copia do livro vivo: 75 alteracoes, 2.a passagem 0"
+ },
+ "CONTROLO": {
+  "FICHEIRO": "scripts/detector_capa/GABARITO-CONTROLO-LD2.json",
+  "ROTULADO_EM": "922f2230 2026-09-23T06:16:59Z (antes de medir)",
+  "CAPAS": 49,
+  "MATERIAS": 20,
+  "DOMINIOS": "23 nas paginas que contam, 14 nas materias",
+  "FORA": "8 VAZIAS, 1 AMBIGUA (paywall)",
+  "SEGUNDA_LEITURA": {
+   "N": 10,
+   "CONCORDAM": 9,
+   "DISCORDA": [
+    {
+     "PAGINA": "F",
+     "ID": 34,
+     "ROTULO": "MATERIA",
+     "SEGUNDA_LEITURA": "CAPA"
+    }
+   ],
+   "LEITOR": "agente separado, as cegas (sem papel nem rotulo)"
+  }
+ },
+ "TABELA": {
+  "ORIGINAL_146_DEPOIS_G1_V3": {
+   "ACTUAL": {
+    "FALSE_LISTING_AS_ARTICLE": "63/109",
+    "CAPA_CALADA_COMO_MATERIA": "37/109",
+    "FALSE_ARTICLE_AS_LISTING": "6/37",
+    "IDS": {
+     "ATRAVESSA": [
+      0,
+      7,
+      10,
+      11,
+      12,
+      15,
+      19,
+      21,
+      24,
+      26,
+      27,
+      32,
+      34,
+      37,
+      39,
+      41,
+      42,
+      43,
+      44,
+      54,
+      56,
+      58,
+      61,
+      64,
+      69,
+      71,
+      79,
+      80,
+      81,
+      83,
+      87,
+      91,
+      95,
+      96,
+      103,
+      106,
+      107,
+      109,
+      110,
+      112,
+      114,
+      118,
+      121,
+      122,
+      127,
+      128,
+      131,
+      133,
+      134,
+      135,
+      136,
+      141,
+      142,
+      144,
+      147,
+      148,
+      150,
+      154,
+      157,
+      158,
+      159,
+      164,
+      166
+     ],
+     "CALADA": [
+      11,
+      12,
+      15,
+      19,
+      26,
+      27,
+      32,
+      34,
+      37,
+      41,
+      43,
+      54,
+      56,
+      58,
+      64,
+      79,
+      80,
+      81,
+      87,
+      91,
+      95,
+      96,
+      103,
+      109,
+      112,
+      114,
+      118,
+      133,
+      134,
+      135,
+      136,
+      147,
+      148,
+      150,
+      154,
+      157,
+      164
+     ],
+     "BARRADA": [
+      18,
+      82,
+      92,
+      111,
+      124,
+      155
+     ]
+    }
+   },
+   "V1_SO_INDICE": {
+    "FALSE_LISTING_AS_ARTICLE": "20/109",
+    "CAPA_CALADA_COMO_MATERIA": "12/109",
+    "FALSE_ARTICLE_AS_LISTING": "7/37",
+    "IDS": {
+     "ATRAVESSA": [
+      7,
+      11,
+      12,
+      19,
+      27,
+      37,
+      39,
+      42,
+      44,
+      61,
+      64,
+      79,
+      80,
+      96,
+      122,
+      134,
+      136,
+      142,
+      144,
+      148
+     ],
+     "CALADA": [
+      11,
+      12,
+      19,
+      27,
+      37,
+      64,
+      79,
+      80,
+      96,
+      134,
+      136,
+      148
+     ],
+     "BARRADA": [
+      18,
+      28,
+      82,
+      92,
+      111,
+      124,
+      155
+     ]
+    }
+   },
+   "V2_DESEMPATE": {
+    "FALSE_LISTING_AS_ARTICLE": "37/109",
+    "CAPA_CALADA_COMO_MATERIA": "4/109",
+    "FALSE_ARTICLE_AS_LISTING": "3/37",
+    "IDS": {
+     "ATRAVESSA": [
+      11,
+      12,
+      15,
+      19,
+      26,
+      27,
+      32,
+      34,
+      37,
+      41,
+      43,
+      54,
+      56,
+      58,
+      64,
+      79,
+      80,
+      81,
+      87,
+      91,
+      95,
+      96,
+      103,
+      109,
+      112,
+      114,
+      118,
+      133,
+      134,
+      135,
+      136,
+      147,
+      148,
+      150,
+      154,
+      157,
+      164
+     ],
+     "CALADA": [
+      11,
+      12,
+      19,
+      37
+     ],
+     "BARRADA": [
+      28,
+      51,
+      108
+     ]
+    }
+   },
+   "SO_MORADA": {
+    "FALSE_LISTING_AS_ARTICLE": "4/109",
+    "CAPA_CALADA_COMO_MATERIA": "0/109",
+    "FALSE_ARTICLE_AS_LISTING": "13/37",
+    "IDS": {
+     "ATRAVESSA": [
+      11,
+      12,
+      19,
+      37
+     ],
+     "BARRADA": [
+      14,
+      23,
+      28,
+      35,
+      51,
+      53,
+      84,
+      108,
+      117,
+      119,
+      151,
+      161,
+      162
+     ]
+    }
+   }
+  },
+  "CONTROLO_69": {
+   "ACTUAL": {
+    "FALSE_LISTING_AS_ARTICLE": "28/49",
+    "CAPA_CALADA_COMO_MATERIA": "10/49",
+    "FALSE_ARTICLE_AS_LISTING": "4/20",
+    "IDS": {
+     "ATRAVESSA": [
+      3,
+      6,
+      10,
+      11,
+      12,
+      15,
+      16,
+      18,
+      20,
+      21,
+      23,
+      30,
+      37,
+      38,
+      40,
+      41,
+      46,
+      49,
+      51,
+      57,
+      58,
+      61,
+      62,
+      64,
+      65,
+      70,
+      76,
+      77
+     ],
+     "CALADA": [
+      6,
+      11,
+      20,
+      21,
+      30,
+      37,
+      41,
+      49,
+      57,
+      77
+     ],
+     "BARRADA": [
+      1,
+      19,
+      25,
+      31
+     ]
+    }
+   },
+   "V1_SO_INDICE": {
+    "FALSE_LISTING_AS_ARTICLE": "5/49",
+    "CAPA_CALADA_COMO_MATERIA": "2/49",
+    "FALSE_ARTICLE_AS_LISTING": "5/20",
+    "IDS": {
+     "ATRAVESSA": [
+      15,
+      37,
+      61,
+      65,
+      77
+     ],
+     "CALADA": [
+      37,
+      77
+     ],
+     "BARRADA": [
+      1,
+      19,
+      25,
+      31,
+      34
+     ]
+    }
+   },
+   "V2_DESEMPATE": {
+    "FALSE_LISTING_AS_ARTICLE": "10/49",
+    "CAPA_CALADA_COMO_MATERIA": "0/49",
+    "FALSE_ARTICLE_AS_LISTING": "4/20",
+    "IDS": {
+     "ATRAVESSA": [
+      6,
+      11,
+      20,
+      21,
+      30,
+      37,
+      41,
+      49,
+      57,
+      77
+     ],
+     "BARRADA": [
+      1,
+      19,
+      25,
+      31
+     ]
+    }
+   },
+   "SO_MORADA": {
+    "FALSE_LISTING_AS_ARTICLE": "0/49",
+    "CAPA_CALADA_COMO_MATERIA": "0/49",
+    "FALSE_ARTICLE_AS_LISTING": "15/20",
+    "IDS": {
+     "BARRADA": [
+      1,
+      8,
+      19,
+      22,
+      25,
+      27,
+      31,
+      34,
+      45,
+      50,
+      52,
+      59,
+      63,
+      67,
+      71
+     ]
+    }
+   }
+  }
+ },
+ "LEITURA": {
+  "V1_ORIGINAL": "20/109 capas passam vs 63; 7/37 materias barradas vs 6 — perde por #28 (IT-T11-010, INDEX_URL = materia, NAO SEI)",
+  "V1_CONTROLO": "5/49 vs 28; 5/20 vs 4/20 — perde por #34 (IT-T7 fedagri Agrinsieme: o INDEX_URL do contrato e um artigo); a segunda leitura chama-lhe CAPA (caso-limite). Com esse rotulo, V1 dominaria no controlo. O rotulo foi congelado antes de medir e NAO se muda.",
+  "PADRAO": "as duas materias que a V1 barra a mais sao as duas paginas que o contrato declara como indice e que sao artigos: o custo da V1 e a taxa de INDEX_URL errados nos contratos (1/47 no controlo).",
+  "V2": "controlo: 10/49 e 4/20 — domina no controlo, mas no original na fatia nao circular barra 3/22 vs 2/22",
+  "ACTUAL_NO_CONTROLO": "deixa passar 28/49 capas (57%) — confirma a 6-PREP-c em dados independentes"
+ },
+ "OPCOES_NAO_SEI": {
+  "ORIGINAL": {
+   "ACTUAL": {
+    "A_NAO_SEI_PASSA": {
+     "CAPAS_QUE_PASSAM": "63/109",
+     "PARA_PESSOA": 0,
+     "MATERIAS_BARRADAS": "6/37"
+    },
+    "B_NAO_SEI_VAI_A_PESSOA": {
+     "CAPAS_QUE_PASSAM_CALADAS": "37/109",
+     "PARA_PESSOA": "34 paginas (26 capas + 8 materias) de 146",
+     "MATERIAS_BARRADAS": "6/37",
+     "MATERIAS_ATRASADAS_A_ESPERA_DE_PESSOA": "8/37"
+    }
+   },
+   "V1_SO_INDICE": {
+    "A_NAO_SEI_PASSA": {
+     "CAPAS_QUE_PASSAM": "20/109",
+     "PARA_PESSOA": 0,
+     "MATERIAS_BARRADAS": "7/37"
+    },
+    "B_NAO_SEI_VAI_A_PESSOA": {
+     "CAPAS_QUE_PASSAM_CALADAS": "12/109",
+     "PARA_PESSOA": "15 paginas (8 capas + 7 materias) de 146",
+     "MATERIAS_BARRADAS": "7/37",
+     "MATERIAS_ATRASADAS_A_ESPERA_DE_PESSOA": "7/37"
+    }
+   }
+  },
+  "CONTROLO": {
+   "ACTUAL": {
+    "A_NAO_SEI_PASSA": {
+     "CAPAS_QUE_PASSAM": "28/49",
+     "PARA_PESSOA": 0,
+     "MATERIAS_BARRADAS": "4/20"
+    },
+    "B_NAO_SEI_VAI_A_PESSOA": {
+     "CAPAS_QUE_PASSAM_CALADAS": "10/49",
+     "PARA_PESSOA": "19 paginas (18 capas + 1 materias) de 69",
+     "MATERIAS_BARRADAS": "4/20",
+     "MATERIAS_ATRASADAS_A_ESPERA_DE_PESSOA": "1/20"
+    }
+   },
+   "V1_SO_INDICE": {
+    "A_NAO_SEI_PASSA": {
+     "CAPAS_QUE_PASSAM": "5/49",
+     "PARA_PESSOA": 0,
+     "MATERIAS_BARRADAS": "5/20"
+    },
+    "B_NAO_SEI_VAI_A_PESSOA": {
+     "CAPAS_QUE_PASSAM_CALADAS": "2/49",
+     "PARA_PESSOA": "4 paginas (3 capas + 1 materias) de 69",
+     "MATERIAS_BARRADAS": "5/20",
+     "MATERIAS_ATRASADAS_A_ESPERA_DE_PESSOA": "1/20"
+    }
+   }
+  }
+ },
+ "PRECEDENTE_NA_CASA": "curadoria/ready_split.py: 'NAO SEI nao vira READY_CURRENT por conveniencia: fica READY_LEGACY'; Biblia COL-LAW-034: identidade NAO_SEI nao passa. Nenhum decide o detector: decisao do dono (via bot Luciano).",
+ "DECISAO": {
+  "V1_APLICADA": "NO",
+  "LISTING_DETAIL_GATE_PROVEN": "NO"
+ }
+}

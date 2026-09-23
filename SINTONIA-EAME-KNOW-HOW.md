@@ -20614,3 +20614,89 @@ faz uma DEMOTION acontecer sem humano.
 A prova viva T02077 mostrou porquê a guarda anti-eco é obrigatória: «BLOCK sem
 contrato» não deixa linha no livro, e a fonte continuaria velha e elegível —
 pedida em cada volta ociosa, para sempre.
+
+---
+
+# UMA RECEITA APROVADA NO GABARITO NÃO SE MEDE NO MESMO GABARITO
+
+*Missão LD1 (listing-detail-v1), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`,
+relatório `RELATORIO-LISTING-DETAIL.md`.*
+
+**O que se mediu.** O detector capa/matéria antes e depois das receitas do G1, nas 146 páginas
+do gabarito da 6-PREP-c. **Nenhuma regra ficou tão boa como a de hoje nos dois erros ao
+mesmo tempo.** A V1 («o `INDEX_URL` exacto é capa») deixa passar 20/109 capas em vez de 63/109,
+mas barra 7/37 matérias em vez de 6. A matéria a mais é a #28: o `INDEX_URL` de IT-T11-010 é a
+página de uma feira. Com essa receita corrigida (simulado), a V1 domina.
+`LISTING_DETAIL_GATE_PROVEN = NO`, e a regra não mudou.
+
+**O que se aprendeu.**
+
+- **Circularidade herdada.** O G1 só aceitou padrões que casam todas as matérias e nenhuma capa
+  DESTE gabarito. Medir a regra depois das receitas nas mesmas páginas dá razão à morada
+  por construção nas 26 páginas afetadas. A V2 parecia ganhar no total, mas na fatia não
+  circular barra o dobro das matérias do ACTUAL (4/23 contra 2/23). **Antes de medir
+  depois de uma correção, perguntar contra o quê a correção foi aprovada.**
+- **O livro vivo não é o livro do relatório anterior.** Das 85 fontes do gabarito, 3 não
+  existem no livro do serviço vivo, e 8 têm `INDEX_URL`/`LINK_PATTERN` diferentes do livro
+  da branch em que a 6-PREP-c mediu. Os números «antes» de hoje não são os dela (V1 20/109
+  contra 13/109). Um «antes» herdado de outro relatório não serve de base: mede-se de novo.
+- **Separar regra de receita, página a página.** Com o livro já corrigido, se a morada
+  acerta e o juiz erra, o erro é da regra; se a morada erra, é da receita. O ACTUAL erra
+  por regra (o formato). As regras de morada erram por receita: 14 matérias ainda não
+  casam o `LINK_PATTERN` da própria fonte.
+- **Segunda leitura às cegas:** 20/20 concordam, mas rotulador e revisor são ambos agentes
+  Claude. Declara-se o limite; não se vende como validação humana.
+
+---
+
+# O CUSTO DE UMA REGRA DE MORADA É A TAXA DE MORADAS ERRADAS
+
+*Missão LD2 (listing-detail-v2), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json`,
+controlo `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, relatório `RELATORIO-LISTING-DETAIL-V2.md`.*
+
+**O que se fez.** O gate capa/matéria foi medido num gabarito de controlo independente: 50 sites
+nunca usados, recolhidos depois de as receitas estarem congeladas e rotulados antes de medir.
+A V1 («a página do `INDEX_URL` é capa») deixa passar muito menos capas (5/49 contra 28/49), mas
+barra uma matéria a mais — no original e no controlo. `LISTING_DETAIL_GATE_PROVEN = NO`.
+
+**O que se aprendeu.**
+
+- **O erro residual da V1 não é aleatório.** As duas matérias que ela barra a mais são as duas
+  páginas que o contrato declara como índice e que são artigos (#28 IT-T11-010, #34 Agrinsieme).
+  O custo de uma regra que confia na morada do contrato é a taxa de moradas erradas nos
+  contratos. Corrigir `INDEX_URL` é o que fecha o gate, não mexer na regra.
+- **A ordem prova a independência.** Receitas congeladas num commit, depois a recolha, depois
+  os rótulos noutro commit, e só então a medição. As horas dos commits são a prova de que o
+  controlo não escolheu nada.
+- **Um rótulo discutido decide o resultado, e não se muda depois de medir.** A segunda leitura
+  (agente separado, às cegas) discordou numa página em 10, e era exatamente a página que
+  decidia a V1 no controlo. Regista-se a discordância; trocar o rótulo agora seria escolher a
+  resposta.
+- **Uma listagem paginada de 3 em 3 não prova um índice pela régua dos 10 links.** A régua fica;
+  falta uma visita com uma página maior, e essa decisão é do coordenador.
+- **O detector de hoje deixa passar 57% das capas também em dados independentes** (28/49). A
+  6-PREP-c não era um artefacto do seu gabarito.
+
+---
+
+# UM ERRO DE CONTRATO APANHA-SE NO CONTRATO — E UMA SUBSTITUIÇÃO DE BASH ESTRAGA URL
+
+*Missão LD3 (listing-detail-v3), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V3.json`,
+relatório `RELATORIO-LISTING-DETAIL-V3.md`.*
+
+- **A régua dos 4 passos já reprova os contratos que estragavam a V1.** A #28 (IT-T11-010) está
+  READY pelo canário, mas é LEGACY para a régua (`DETAIL_LINKS = 1`); a #34 nunca passou o
+  canário. Com a régua a mandar, a V1 domina nos dois gabaritos. Com a régua ainda a não
+  mandar (36/68 READY são LEGACY), a V1 perde no original. **O gate do detector depende de
+  a régua mandar.**
+- **A régua apanhou a #28 por uma margem de 1 link.** Não guarda o retrato da página do
+  índice, logo não pode perguntar se o índice é ele próprio uma matéria. Endurecer o mínimo
+  para 5 tiraria 10 de 32 fontes de READY_CURRENT, com falsos positivos não medidos.
+- **Um servidor pode fixar o tamanho da página.** A listagem da #28 devolve 3 notícias por
+  página mesmo com a paginação pedida a 12: a régua dos ≥ 10 links do G1 nunca se cumpre
+  nesse site. O que falta é uma decisão, não mais uma visita.
+- **`${VAR//N/12}` em bash troca TODOS os N, não só o marcador.** Dois pedidos autorizados
+  saíram com `AmosNews` → `Amos12ews`. Para mudar parâmetros de um URL, usar `urllib.parse`
+  (mudar só as chaves certas) e confirmar o URL antes de gastar o pedido.
+- **Preparar sem ligar tem prova.** `politica_nao_sei.py` tem as três respostas da D11 e um
+  teste que falha se algum ficheiro a importar antes da decisão.
