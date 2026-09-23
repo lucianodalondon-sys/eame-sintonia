@@ -13,6 +13,10 @@
     3. supervisor.py --estado e ponte_automatica.py --saude (so leitura)
     4. uma volta do supervisor observada: fila vazia -> IDLE, hook chamado,
        nenhum worker lancado; e o worker ocioso (rc 0) nao conta como crash.
+    5. (2.a passagem) os modulos de prova do gatilho ocioso, do worker pendurado
+       e das sementes da discovery; e os dois ENSAIOS reais (supervisor e worker
+       verdadeiros) numa segunda copia SEM .git (git archive | tar), que e a
+       unica onde eles aceitam correr.
 - remove a worktree no fim.
 """
 import json
@@ -83,13 +87,33 @@ def main(ref, saida):
         doc["SUPERVISOR_ESTADO"] = correr(wt, ["curadoria/supervisor.py", "--estado"], 120)
         doc["PONTE_SAUDE"] = correr(wt, ["curadoria/ponte_automatica.py", "--saude"], 120)
         doc["SUPERVISOR_VOLTA"] = correr(wt, ["-c", VOLTA], 300)
+        doc["MODULOS_DE_PROVA"] = correr(wt, ["-m", "unittest", "-v", "curadoria.test_gatilho_ocioso",
+                                              "curadoria.test_worker_pendurado",
+                                              "curadoria.test_discovery_sementes"], 1800)
         doc["COPIA_SUJA_DEPOIS"] = git(wt, "status", "--short").stdout.splitlines()[:40]
+        arq = Path(tempfile.gettempdir()) / ("ensaio-tar-%s" % sha[:8])
+        shutil.rmtree(arq, ignore_errors=True)
+        arq.mkdir(parents=True)
+        tar = subprocess.run("git archive %s | tar -x -C \"%s\"" % (sha, arq.as_posix()), shell=True,
+                             cwd=str(raiz), capture_output=True, text=True)
+        doc["COPIA_TAR"] = {"RC": tar.returncode, "TEM_GIT": (arq / ".git").exists()}
+        try:
+            (arq / "curadoria/LIFECYCLE-QUEUE-V1.json").write_text(
+                json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}), encoding="utf-8")
+            doc["ENSAIO_WORKER_PENDURADO"] = correr(
+                arq, ["curadoria/ensaiar_worker_pendurado.py", "--sou-uma-copia"], 1800)
+            doc["ENSAIO_GATILHO_OCIOSO"] = correr(
+                arq, ["curadoria/ensaiar_gatilho_ocioso.py", "--sou-uma-copia"], 1800)
+        finally:
+            shutil.rmtree(arq, ignore_errors=True)
+        doc["COPIA_TAR_REMOVIDA"] = not arq.exists()
     finally:
         git(raiz, "worktree", "remove", "--force", str(wt), ok=(0, 128))
         git(raiz, "worktree", "prune")
     doc["WORKTREE_REMOVIDA"] = not wt.exists()
     Path(saida).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
-    for k in ("PONTE_PROOF", "RED_TEAM_PONTE", "SUPERVISOR_ESTADO", "PONTE_SAUDE", "SUPERVISOR_VOLTA"):
+    for k in ("PONTE_PROOF", "RED_TEAM_PONTE", "SUPERVISOR_ESTADO", "PONTE_SAUDE", "SUPERVISOR_VOLTA",
+              "MODULOS_DE_PROVA", "ENSAIO_WORKER_PENDURADO", "ENSAIO_GATILHO_OCIOSO"):
         print("==", k, "rc=%s" % doc[k]["RC"])
         print("\n".join(doc[k]["FIM"][-8:]))
 
