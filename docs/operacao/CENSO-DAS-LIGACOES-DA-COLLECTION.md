@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b0330535ccc243a9ce44b5290583e50928131280
+HEAD_DA_MEDICAO  46c517c58a91bdf178c494753791478b101c69de
 BRANCH           rotas-elegiveis-v1
-GERADO_EM        2026-09-22T20:39:10-03:00
+GERADO_EM        2026-09-22T21:20:32-03:00
 CARDS            82
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
