@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T14:31:54+00:00",
-  "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
-  "BRANCH": "unificacao-v1",
+  "GENERATED_AT": "2026-09-23T17:10:42+00:00",
+  "HEAD": "5c4b1124fa45f50baa36d836e64f578814dee989",
+  "BRANCH": "youtube-pronto-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d",
-  "FICHEIROS_NA_IMPRESSAO": 2873,
+  "SOURCE_TREE_FINGERPRINT": "b5307bd9484f0a096aa00b57a4b06862480ff591a332666d952d8d9d5fc31d99",
+  "FICHEIROS_NA_IMPRESSAO": 2893,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -77,6 +77,13 @@
     "PATH": ".github/workflows/comunicacao-publica.yml",
     "PAPEL": "FONTE",
     "VERSAO": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": ".github/workflows/curator-youtube-handles.yml",
+    "PAPEL": "FONTE",
+    "VERSAO": "4b4d8566818446456361e86eb5cf8280fb1ee319",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -482,7 +489,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
+    "VERSAO": "e068c80154e52d9e6d586735d3decc27dd381663",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1043,6 +1050,13 @@
     "PATH": "guarda/preservar_documento.py",
     "PAPEL": "FONTE",
     "VERSAO": "cabbb9e39d2a48b9005d1f922646f1fe72f0c289",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "guarda/retencao_youtube_api.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ad119f7bad1d3c56127b80285f4436a6948d4521",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2148,7 +2162,7 @@
    {
     "PATH": "pedido/receitas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e5b85b8e0f0fd6811dad0ddf8ecae42a9505c5be",
+    "VERSAO": "2971670f1c73dece98dc2346a83e940d4aaaef06",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3140,6 +3154,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/roteamento_youtube_proposta.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "bedf612bdadac5178d8585a647bf97f17beafd31",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/run_duravel_no_postgres.py",
     "PAPEL": "FONTE",
     "VERSAO": "7394d2e6a3e168d65454fa7337d7707793e907b6",
@@ -3289,7 +3310,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+    "VERSAO": "49f5c2872c8e2ddab8461f3625003cc01d9b1267",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3394,7 +3415,7 @@
    {
     "PATH": "scripts/desbloqueio/aplicar_desbloqueio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "cfd6a0e443ebf0b1e587ba932235579f398631db",
+    "VERSAO": "81a3abb7f75f7b43a77b3135469d453a66e5ba51",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3562,14 +3583,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d",
+    "VERSAO": "b5307bd9484f0a096aa00b57a4b06862480ff591a332666d952d8d9d5fc31d99",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d",
+    "VERSAO": "b5307bd9484f0a096aa00b57a4b06862480ff591a332666d952d8d9d5fc31d99",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5135,6 +5156,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_retencao_youtube_api.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "afd2cea97eadff38b2c4ee83c64d1062c6c5d375",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_retirada_por_decisao.py",
     "PAPEL": "FONTE",
     "VERSAO": "730f94111ee490b4c0394d5fd670b0d809542dc7",
@@ -5145,6 +5173,13 @@
     "PATH": "tests/test_retorno_da_coleta.py",
     "PAPEL": "FONTE",
     "VERSAO": "507a94ffa7b2f68f6fb3946e64b19d8c08246c77",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_roteamento_youtube_proposta.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "865e4a785d622d8579ed036f6d23bd10fe554b2e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5359,8 +5394,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 760,
-  "INPUTS_DIGEST": "a29d8964f2200f3ed41e9d6ed84106c6d10cef864b695bbab7e0f5486d69efde",
+  "INPUTS_COUNT": 765,
+  "INPUTS_DIGEST": "5bfff434dda048caaf8db87ffe19ff597c98f4fb9008304414139b60be3c2f68",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5386,15 +5421,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 486,
+  "DOCUMENTOS_LIDOS": 489,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "14bf202bb142f880351bdf4943ead2521a955e02b24e5e07b2bca1b84f8387ac",
-  "SEMANTIC_HASH": "6004fc735e5d5715879a9ad15d4039352107851508612f30c0078288c904a131"
+  "MEASUREMENT_HASH": "1901a2d4482fb83cace3242f69aa405d10ba44035e5ae769f8b25f3be414461f",
+  "SEMANTIC_HASH": "6fb82f30ef0a606b554c4a28c2452c9ff02ac77f611c75dd6e3bcc3cdcba4e43"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10150,7 +10185,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 182,
+      "LINHA": 188,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -10158,7 +10193,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 231,
+      "LINHA": 238,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15144,7 +15179,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 208,
+      "LINHA": 214,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15982,7 +16017,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 67,
+      "LINHA": 73,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15990,7 +16025,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 137,
+      "LINHA": 143,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -27493,6 +27528,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/roteamento_youtube_proposta.py",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -27559,6 +27602,14 @@
      {
       "FICHEIRO": "tests/test_reel_transcricao.py",
       "LINHA": 464,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_roteamento_youtube_proposta.py",
+      "LINHA": 20,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -30603,6 +30654,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--IMPORTS-->C-TESTES",
+    "FROM": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_retencao_youtube_api.py",
+      "LINHA": 67,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--READS-->C-TESTES",
     "FROM": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
     "TO": "C-TESTES",
@@ -31521,6 +31594,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/roteamento_youtube_proposta.py",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -31587,6 +31668,14 @@
      {
       "FICHEIRO": "tests/test_reel_transcricao.py",
       "LINHA": 465,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_roteamento_youtube_proposta.py",
+      "LINHA": 21,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
@@ -31720,7 +31809,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 208,
+      "LINHA": 214,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -31728,7 +31817,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 209,
+      "LINHA": 215,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -35470,6 +35559,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": ".github/workflows/curator-youtube-handles.yml",
+      "LINHA": 64,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": ".github/workflows/scrap-social.yml",
       "LINHA": 277,
       "SUPPORTS": "YES",
@@ -38114,6 +38211,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_roteamento_youtube_proposta.py",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SUPERFICIE-SCRAP-V1--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_scrap_rc01_release_candidate.py",
       "LINHA": 34,
       "SUPPORTS": "YES",
@@ -38779,6 +38884,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-SECURITY-CHECK",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-SUPERFICIE-SCRAP-V1",
+    "FROM": "C-TESTES",
+    "TO": "C-SUPERFICIE-SCRAP-V1",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/roteamento_youtube_proposta.py",
+      "LINHA": 38,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-SUPERFICIE-SCRAP-V1",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -40652,12 +40779,12 @@
     ]
    }
   ],
-  "COUNT": 1137
+  "COUNT": 1139
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 172,
   "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1137,
+  "ARESTAS_RELACIONADAS": 1139,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -40753,6 +40880,7 @@
    "C-PALAVRAS",
    "C-PEDIDO",
    "C-PERSISTENCIA-DA-PORTA-CLI",
+   "C-PORTA-FONTE",
    "C-PROCEDENCIA",
    "C-PROVA-AUTORIDADE-FONTE",
    "C-PROVA-BIBLIA",
@@ -40839,7 +40967,6 @@
    "C-MAPA-SCAN",
    "C-MICRO-COLETA-INSTRUMENTO",
    "C-MICRO-COLHEITA",
-   "C-PORTA-FONTE",
    "C-PROVA-ADAMA-REFERENCE",
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-ASR-LOCAL",
@@ -40882,7 +41009,6 @@
    "C-MAPA-GERADOR",
    "C-MAPA-SCAN",
    "C-MICRO-COLETA-INSTRUMENTO",
-   "C-PORTA-FONTE",
    "C-PROVA-AGRO-FRONTEIRA",
    "C-RECALL-PORTA-IT",
    "C-SAUDE-FONTE",
@@ -41055,7 +41181,7 @@
    "CODE": 188,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 379,
+   "PROOF": 381,
    "READ": 259,
    "RULE": 200,
    "WRITE": 8
@@ -41816,6 +41942,7 @@
     "docs/design/ITALY-V2.1-README-FIRST.md",
     "docs/operacao/C-SALA-PERSISTENTE-E-PREFLIGHT-REAL-V1.md",
     "docs/operacao/CENSO-DA-INTELLIGENCE.md",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md",
     "docs/operacao/PREFLIGHT-LIVE-COLLECTION-V1.md",
     "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
     "handoff/KNOW-HOW-DELTA-ARBITRAGEM-DA-INTELLIGENCE.md",
@@ -43224,7 +43351,8 @@
    "DOCUMENTADO_COMO_CLI": [
     "CUTOVER-RUNBOOK.md",
     "RELATORIO-DESBLOQUEIO-COORTE.md",
-    "RELATORIO-UNIFICACAO.md"
+    "RELATORIO-UNIFICACAO.md",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -43386,13 +43514,15 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md",
     "guarda/banco_descartavel.py",
     "guarda/banco_operacional.py",
     "guarda/cliente_postgres.py",
     "guarda/memoria_descartavel.py",
     "guarda/memoria_postgres.py",
     "guarda/portas_live.py",
-    "guarda/preservar_coleta.py"
+    "guarda/preservar_coleta.py",
+    "guarda/retencao_youtube_api.py"
    ],
    "CHAMADORES_DE_RUNTIME": [
     ".github/workflows/banco-descartavel.yml",
@@ -43423,16 +43553,24 @@
     "tests/test_psql_argv.py",
     "tests/test_raw_observation_id_volta.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "RELATORIO-SOC3-RETENCAO-YOUTUBE.md",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md"
+   ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,
    "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [
     "collection_run",
+    "comentario",
+    "conteudo",
+    "lapide_de_retencao",
     "raw_asset",
+    "sala_de_espera",
     "storage_object"
    ],
    "LE_DE": [
+    "__future__",
     "datetime",
     "derived_artifact",
     "documento_estruturado",
@@ -45890,8 +46028,8 @@
     "regras/LEIA-ANTES-DE-COLETAR.md"
    ],
    "E_ENTRYPOINT": false,
-   "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "ALCANCADO_POR_CORRIDA": true,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
     "datetime",
@@ -47141,7 +47279,7 @@
     "storage_object"
    ],
    "ENTRAM": 9,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ",
@@ -47786,6 +47924,7 @@
     "provas/o_canario_da_collection.py",
     "provas/o_video_tem_consumidor.py",
     "provas/os_portoes_da_collection.py",
+    "provas/roteamento_youtube_proposta.py",
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/censo_do_congelamento.py",
     "system-map/scripts/generate_system_map.py",
@@ -48421,6 +48560,7 @@
     "guarda/social_sessao.py"
    ],
    "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/curator-youtube-handles.yml",
     ".github/workflows/scrap-social.yml",
     ".github/workflows/security-check.yml"
    ],
@@ -48543,6 +48683,7 @@
    "KIND": "workflow",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    ".github/workflows/curator-youtube-handles.yml",
     ".github/workflows/scrap-social.yml"
    ],
    "CHAMADORES_DE_RUNTIME": [
@@ -48986,6 +49127,7 @@
     "supabase/migrations/030_o_documento_ganha_registo.sql",
     "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
     "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
+    "supabase/migrations/033_a_lapide_da_retencao.sql",
     "supabase/tests/mutacao_cicatrizes.sql",
     "supabase/tests/mutacao_coleta.sql",
     "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -49067,6 +49209,7 @@
     "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
     "provas/entradas_do_scrap_v1.py",
     "provas/prontidao_social_v1.py",
+    "provas/roteamento_youtube_proposta.py",
     "provas/superficie_do_scrap_v1.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -49076,16 +49219,18 @@
     "tests/test_scrap_rc01_release_candidate.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "RELATORIO-SOC1-SOCIAL.md"
+    "RELATORIO-SOC1-SOCIAL.md",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [
+    "collections",
     "datetime"
    ],
-   "ENTRAM": 12,
+   "ENTRAM": 13,
    "SAEM": 4,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -49331,8 +49476,10 @@
     "tests/test_reel_transcricao_trava.py",
     "tests/test_relatorio_do_fluxo.py",
     "tests/test_relevance_priority_sobrecarga.py",
+    "tests/test_retencao_youtube_api.py",
     "tests/test_retirada_por_decisao.py",
     "tests/test_retorno_da_coleta.py",
+    "tests/test_roteamento_youtube_proposta.py",
     "tests/test_route_membership.py",
     "tests/test_runtime_so_deixa_passar_colheita.py",
     "tests/test_sala_duravel.py",
@@ -49424,17 +49571,20 @@
     "canal",
     "checkpoint_coleta",
     "collection_run",
+    "comentario",
     "conteudo",
     "conteudo_visto_em",
     "decisao_de_coleta",
     "derived_artifact",
     "documento_estruturado",
     "etapa_da_corrida",
+    "lapide_de_retencao",
     "organizacao",
     "origem",
     "participacao_na_derivacao",
     "public",
     "raw_asset",
+    "sala_de_espera",
     "schema_migracao",
     "storage_object",
     "x"
@@ -49451,7 +49601,6 @@
     "cicatrizes_brasil",
     "coleta",
     "collections",
-    "comentario",
     "consumo_da_referencia_adama",
     "coverage",
     "dataclasses",
@@ -49476,7 +49625,6 @@
     "raw_asset_velha",
     "receitas",
     "regras",
-    "sala_de_espera",
     "sqlite_master",
     "test_italia_na_porta_canonica",
     "the",
@@ -49486,8 +49634,8 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 195,
-   "SAEM": 31,
+   "ENTRAM": 196,
+   "SAEM": 32,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
