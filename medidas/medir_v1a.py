@@ -10,7 +10,7 @@ gabaritos percorre o caminho de producao:
           -> admissao._e_materia                        (a pergunta `materia`, com a V1)
              -> ready_split.regua_manda / contrato_de   (a regua dos 4 passos)
              -> retrato_html.veredito                   (a V1)
-             -> politica_nao_sei.decidir                (a quarentena do NAO SEI, D11)
+             -> a politica do NAO SEI (D11), chamada pela porta (a quarentena)
 
 SIM -> ENTRA · NAO -> BARRADA · NAO_SEI -> RETIDA.
 
