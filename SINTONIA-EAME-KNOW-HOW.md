@@ -21909,7 +21909,9 @@ simétrico (`test_P7b`).
 
 ---
 
-# §197 · O VÍDEO DO LINKEDIN QUE O DONO MANDOU FAZER — E O MURO QUE NÃO ERA TÉCNICO
+# §212 · O VÍDEO DO LINKEDIN QUE O DONO MANDOU FAZER — E O MURO QUE NÃO ERA TÉCNICO
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026): era §197 em scrap-linkedin-v1 (D23/D24); o número já estava ocupado nesta linha. Nada foi apagado.
 
 **LINKEDIN-VIDEOS (2026-09-23)** · branch `scrap-linkedin-v1` · base
 `origin/scrap-portas-v1` @ `f5b61ec6`. Decisão do dono: **D23**
@@ -22037,7 +22039,9 @@ As tres sentinelas que a missao atualizou continuam VERDES (`test_c13_route_gate
 
 **Uma rota antiga que mude tem de ser DECLARADA no teste citando o D23 — e o teste continua a morrer se qualquer OUTRA rota mudar. As duas metades estao medidas, cada uma com a sua prova.** 
 
-# §198 · O VÍDEO DE UMA PESSOA DO AGRO — A AUTORIZAÇÃO ESCRITA E O MURO QUE NÃO ERA TÉCNICO
+# §213 · O VÍDEO DE UMA PESSOA DO AGRO — A AUTORIZAÇÃO ESCRITA E O MURO QUE NÃO ERA TÉCNICO
+
+> Numerada na unificação (UNIFICACAO-V1-F, 23/09/2026): era §198 em scrap-linkedin-v1 (D23/D24); o número já estava ocupado nesta linha. Nada foi apagado.
 
 **MEDIDO_EM:** 2026-09-23 · branch `scrap-linkedin-v1` · **DOIS egressos**, porque
 a máquina mudou de saída a meio (o PC caiu e voltou com outra rota de VPN):
@@ -22156,3 +22160,67 @@ acontece **antes** da rede, fail-closed.
 `provas/_mutantes_d24.py` (6 mutações, 6 mortes) ·
 `provas/canario_d24_video_de_pessoa.py` · `docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md`.
 
+
+
+---
+
+# §214 · A MESMA ROTA, DUAS AUTORIZAÇÕES — O REEL DE ORGANIZAÇÃO (D22) E O DE PESSOA (D24)
+
+> Entra na unificação (UNIFICACAO-V1-F, 23/09/2026) a partir do delta interino `handoff/KNOW-HOW-DELTA-D24-INSTAGRAM.md`, que pedia para ser integrado numa missão de coordenação. O texto do delta vai abaixo tal como veio; a nota da junção vem no fim.
+
+## O QUE MUDOU
+
+| antes | depois |
+|---|---|
+| `INSTAGRAM/FETCH_TRANSCRIPT` · `NAO` · `ROUTE_NOT_ALLOWED` | `SIM` · `PROVED`, com os **três eixos**: `OWNER_AUTHORIZED = SIM` · `PLATFORM_POLICY_STATUS = DISALLOWED` · `LIMITE = PUBLIC_PERSON_VIDEO_ONLY` |
+| as três fases do Reel (`captura-reel`, `audio-reel`, `transcricao-reel`) eram **recusadas** pela porta operacional citando a política | entram pela **porta canónica** (orquestrador com `fase`, `pais`, `fonte`, `url`); quem ainda trava é a **falta de `SOURCE_ID`**, dito pelo coletor (`FONTES_AUSENTES`) |
+| o canário do Instagram **não tinha corrido** («recusa antes da rede») | canário real corrido: Reel público de pessoa do agro, 696 245 bytes, sha256 `ea372eeb…`, egresso IT nas duas pontas, US$ 0 |
+
+## POR QUÊ
+
+A recusa **colapsava os dois eixos num só**: dizia «a plataforma proíbe» e
+escondia quem já tinha assumido o risco. A casa nunca usou uma leitura de um eixo
+só para o YouTube (D17.4/C13) nem para o LinkedIn (D23) — e a **D22** já tinha
+autorizado os Reels do Instagram por URL directa. A D24 estendeu a mesma
+autorização às **PESSOAS** do agro.
+
+```
+UMA LEITURA DE UM EIXO SÓ NÃO É UMA DECISÃO: É METADE DELA.
+A PLATAFORMA CONTINUA A PROIBIR. QUEM MUDOU FOI O DONO DO RISCO.
+```
+
+## PROVA
+
+```
+provas/canario_d24_reel_de_pessoa.py            canário real, base descartável
+provas/_mutantes_d24.py                         10 mutações · 10 mortes
+tests/test_d24_video_de_pessoa.py               22 provas (6 novas, do Instagram)
+tests/test_c14c_permissao_instagram.py          ALLOWED só com os dois eixos
+tests/test_c13_route_gate.py                    âncora com a linha mudada e a razão
+tests/test_as_duas_portas_do_scrap.py           fase autorizada entra canónica
+docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md §6   o documento da prova
+```
+
+## CONSEQUÊNCIA PARA QUEM VEM DEPOIS
+
+1. **O PERFIL continua fechado** — Instagram (muro de login na grade por HTTP) e
+   LinkedIn (999/`authwall`). Não se contorna.
+2. **`URL` não é `SOURCE_ID`** — a publicação de uma pessoa ainda **não tem
+   fonte**. É o item aberto nº 1 da D24, e é do dono do catálogo (candidata →
+   Curador), não do Scrap.
+3. **O vocabulário de limites continua fechado** e cresce **declarado**:
+   `PUBLIC_PERSON_VIDEO_ONLY` entrou com prova; ampliá-lo exige decisão escrita.
+4. **`PLATFORM_POLICY_STATUS = DISALLOWED` viaja em cada objeto.** Apagar essa
+   frase é reescrever a evidência.
+5. **A tela de pessoas nomeadas continua com a revisão jurídica** — autorizar a
+   coleta não autoriza nenhuma tela a listar quem publicou.
+
+## A JUNÇÃO DOS REELS (D22) COM O VÍDEO DE PESSOA (D24)
+
+As duas lanes reescreveram a MESMA linha da matriz (`INSTAGRAM/FETCH_TRANSCRIPT`), cada uma com o seu limite. A linha unificada guarda as DUAS: primeiro a da D22 (`PUBLIC_REEL_BY_URL_ONLY`, é a que `decisao()` devolve), depois a da D24 (`PUBLIC_PERSON_VIDEO_ONLY`). As provas da D24 procuram a sua linha pelo LIMITE, e «uma rota só» passou a ser um só NOME de rota com exatamente os dois limites.
+
+```
+UMA ROTA NÃO É UMA LINHA: É UM NOME. DUAS DECISÕES DO DONO SOBRE A MESMA ROTA SÃO DUAS LINHAS.
+```
+
+O que a junção mostrou, e custou: as duas baterias de mutação miravam «a primeira linha» — a da D24 estragava a linha da D22 e 4 mutantes sobreviviam; o M1 dos Reels nem chegava a ser aplicado (a âncora passou a casar duas vezes, e a linha da D24 vinha com 8 espaços a mais). Depois de mirar pelo significado: D24 10/10, REELS 10/10. E o ramo do Reel no workflow chamava `fonte_obrigatoria`, que não existia em versão nenhuma do ficheiro — a fase do Reel ficaria sem fonte em produção.
