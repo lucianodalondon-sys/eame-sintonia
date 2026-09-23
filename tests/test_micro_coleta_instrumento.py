@@ -109,6 +109,23 @@ class TestPlano(unittest.TestCase):
                 self.assertTrue(l["FALTA"], l["SOURCE_ID"])
 
 
+    def test_filtros_das_missoes_3_e_3b_so_bloqueiam(self):
+        t = Path(tempfile.mkdtemp())
+        ro, re_ = t / "rotas.json", t / "rel.json"
+        base = {x["SOURCE_ID"]: x["ESTADO"] for x in MC.plano()["LINHAS"]}
+        prontas = [s for s, e in base.items() if e == "PRONTA"]
+        ro.write_text(json.dumps({"LINHAS": [{"SOURCE_ID": prontas[0], "VEREDITO": "CAPABILITY_BLOCK"}]}))
+        re_.write_text(json.dumps({"LINHAS": [{"SOURCE_ID": prontas[1], "RELEVANCIA": "NAO"}]
+                                   + [{"SOURCE_ID": s, "RELEVANCIA": "SIM"} for s in base if s != prontas[1]]}))
+        with mock.patch.object(MC, "ROTAS", ro), mock.patch.object(MC, "RELEVANCIA", re_):
+            depois = {x["SOURCE_ID"]: x for x in MC.plano()["LINHAS"]}
+        self.assertEqual(depois[prontas[0]]["ESTADO"], "BLOQUEADA")
+        self.assertEqual(depois[prontas[1]]["ESTADO"], "BLOQUEADA")
+        for s, e in base.items():          # nunca promove
+            if e == "BLOQUEADA":
+                self.assertEqual(depois[s]["ESTADO"], "BLOQUEADA")
+
+
 @mock.patch.object(MC.subprocess, "run", _proibido)
 class TestBancoSoLeitura(unittest.TestCase):
 

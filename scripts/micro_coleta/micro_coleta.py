@@ -99,12 +99,30 @@ def comando(source_id: str) -> list[str]:
             "--filtro", f"fonte={source_id}", "--filtro", f"universo={u}"]
 
 
+# Filtros de outras missoes, lidos SE existirem nesta linha. Ausente = sem
+# opiniao (o gate continua a decidir); presente = pode bloquear, nunca promover.
+ROTAS = RAIZ / "curadoria" / "ROTAS-ELEGIVEIS-V1.json"        # missao 3
+RELEVANCIA = RAIZ / "curadoria" / "RELEVANCIA-POR-FONTE-V1.json"  # missao 3b
+RELEVANTE = {"SIM", "RELEVANTE", "RELEVANT"}
+
+
+def _veredito_por_fonte(caminho: Path, campo: str) -> dict:
+    """{SOURCE_ID: veredito}. Forma esperada: {"LINHAS": [{"SOURCE_ID", campo}]}.
+    Ficheiro ilegivel NAO e ficheiro vazio: rebenta, nao se ignora."""
+    if not Path(caminho).exists():
+        return {}
+    d = json.loads(Path(caminho).read_text(encoding="utf-8"))
+    return {l["SOURCE_ID"]: str(l.get(campo) or AUSENCIA) for l in d.get("LINHAS", [])}
+
+
 def plano(ids: list[str] | None = None, *, ctx: dict | None = None) -> dict:
     coorte = ler_coorte()
     ids = ids or [f["SOURCE_ID"] for f in coorte["PROPOSTAS"]]
     ctx = ctx if ctx is not None else GATE._contexto()
     contratos = {f["SOURCE_ID"]: f for f in
                  json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
+    rotas = _veredito_por_fonte(ROTAS, "VEREDITO")
+    relevancia = _veredito_por_fonte(RELEVANCIA, "RELEVANCIA")
     linhas = []
     for s in ids:
         g = GATE.avaliar(s, **ctx)
@@ -118,6 +136,12 @@ def plano(ids: list[str] | None = None, *, ctx: dict | None = None) -> dict:
             falta.append(f"SEM_RECEITA_WEB_PARA_{u}")
         if apelido_de(u) is None:
             falta.append(f"SEM_APELIDO_PARA_{u}")
+        rv = rotas.get(s)
+        if rv and rv not in ("ROUTE_PROVEN",):
+            falta.append(f"ROTA:{rv}")
+        rl = relevancia.get(s)
+        if rl and rl.upper() not in RELEVANTE:
+            falta.append(f"RELEVANCIA:{rl}")
         # A frase que o orquestrador vai montar, resolvida AQUI e sem rede:
         # alvo certo e executor web. Foi a frase que parou a canonical-micro.
         cmd = comando(s)

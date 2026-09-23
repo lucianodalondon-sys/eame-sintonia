@@ -5,32 +5,191 @@
  "LEI": "PROPOSTA, nao autorizacao. O gate do dia decide: `micro_coleta.py plano` pergunta ao curadoria/collection_gate.py no instante e so corre o que la sair ELIGIBLE.",
  "ORIGEM": "curadoria/collection_gate.py --json sobre o livro desta linha (lote-76 @ 44c873ff): READY 102 · READY_CURRENT 21 · HUMAN_REVIEW 4 (das 21) · ELIGIBLE 17. Menos as 3 excluidas = 14 propostas.",
  "PROPOSTAS": [
-  {"SOURCE_ID": "IT-T10-018", "NOME": "Myfruit.it", "UNIVERSO": "T10", "TIPO": "HTML noticia", "CONTRATO": true, "RECEITA": true, "DEPENDE": [], "NOTA": "deu os 5 SIM do lote-76"},
-  {"SOURCE_ID": "IT-T10-022", "NOME": "Zootecnica International", "UNIVERSO": "T10", "TIPO": "HTML noticia (EN)", "CONTRATO": true, "RECEITA": true, "DEPENDE": [], "NOTA": "texto em ingles: a regua T10 nao tem ingles (diagnostico: REGUA 3). Espera-se NAO_SEI ate a regua decidir."},
-  {"SOURCE_ID": "IT-T10-021", "NOME": "Plantgest", "UNIVERSO": "T10", "TIPO": "HTML evento/varieta", "CONTRATO": true, "RECEITA": true, "DEPENDE": [], "NOTA": "diagnostico: UNKNOWN (1 item tecnico numa fonte T10). Em observacao."},
-  {"SOURCE_ID": "IT-T5-049", "NOME": "UNICT Di3A", "UNIVERSO": "T5", "TIPO": "HTML noticia", "CONTRATO": true, "RECEITA": true, "DEPENDE": [], "NOTA": "o canario de rotas-elegiveis-v1 falhou nela (2 alvos sem corpo) — risco R4"},
-  {"SOURCE_ID": "IT-T7-021", "NOME": "Consorzio di Bonifica Est Ticino Villoresi", "UNIVERSO": "T7", "TIPO": "HTML noticia", "CONTRATO": true, "RECEITA": true, "DEPENDE": [], "NOTA": "diagnostico: TEMA (1 item, aviso de canal)"},
-  {"SOURCE_ID": "IT-T7-043", "NOME": "Agrofarma — Federchimica", "UNIVERSO": "T7", "TIPO": "HTML noticia", "CONTRATO": true, "RECEITA": true, "DEPENDE": [], "NOTA": "sem historico colhido nesta linha"},
-  {"SOURCE_ID": "IT-T2-034", "NOME": "ARPA Marche", "UNIVERSO": "T2", "TIPO": "HTML", "CONTRATO": false, "RECEITA": true, "DEPENDE": ["M3"], "NOTA": "sem contrato na tabela do coletor"},
-  {"SOURCE_ID": "IT-T2-051", "NOME": "Arpae Emilia-Romagna", "UNIVERSO": "T2", "TIPO": "HTML", "CONTRATO": false, "RECEITA": true, "DEPENDE": ["M3"], "NOTA": "sem contrato na tabela do coletor"},
-  {"SOURCE_ID": "IT-T2-056", "NOME": "Arpae (seletor de lingua)", "UNIVERSO": "T2", "TIPO": "HTML", "CONTRATO": false, "RECEITA": true, "DEPENDE": ["M3"], "NOTA": "rotas-elegiveis-v1 mediu-a como duplicada de IT-T2-051 (mesmo documento) — provavel exclusao pelo Curator"},
-  {"SOURCE_ID": "IT-T5-041", "NOME": "CRPV", "UNIVERSO": "T5", "TIPO": "HTML noticia", "CONTRATO": false, "RECEITA": true, "DEPENDE": ["M3"], "NOTA": "crpv.it redirige para rinova.eu; inalcancavel do BR em 22/09"},
-  {"SOURCE_ID": "IT-T12-041", "NOME": "Bollettino Ufficiale Regione Abruzzo", "UNIVERSO": "T12", "TIPO": "HTML", "CONTRATO": false, "RECEITA": false, "DEPENDE": ["M3", "RECEITA_T12"], "NOTA": "pedido/receitas.py nao tem T12"},
-  {"SOURCE_ID": "IT-T12-057", "NOME": "Generazione Lombardia", "UNIVERSO": "T12", "TIPO": "HTML", "CONTRATO": false, "RECEITA": false, "DEPENDE": ["M3", "RECEITA_T12"], "NOTA": "portal de juventude: suspeita de FONTE (mesma familia do diagnostico)"},
-  {"SOURCE_ID": "IT-T12-074", "NOME": "Open Innovation Lombardia", "UNIVERSO": "T12", "TIPO": "HTML", "CONTRATO": false, "RECEITA": false, "DEPENDE": ["M3", "RECEITA_T12"], "NOTA": "suspeita de FONTE"},
-  {"SOURCE_ID": "IT-T9-021", "NOME": "Fiera Didacta (INDIRE)", "UNIVERSO": "T9", "TIPO": "HTML evento", "CONTRATO": false, "RECEITA": false, "DEPENDE": ["M3", "RECEITA_T9_WEB"], "NOTA": "a receita T9 roda comunicacao_coleta.py (social), nao o italy_executor; feira de educacao: suspeita de FONTE"}
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "NOME": "Myfruit.it",
+   "UNIVERSO": "T10",
+   "TIPO": "HTML noticia",
+   "CONTRATO": true,
+   "RECEITA": true,
+   "DEPENDE": [],
+   "NOTA": "deu os 5 SIM do lote-76"
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "NOME": "Zootecnica International",
+   "UNIVERSO": "T10",
+   "TIPO": "HTML noticia (EN)",
+   "CONTRATO": true,
+   "RECEITA": true,
+   "DEPENDE": [],
+   "NOTA": "texto em ingles: a regua T10 nao tem ingles (diagnostico: REGUA 3). Espera-se NAO_SEI ate a regua decidir."
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "NOME": "Plantgest",
+   "UNIVERSO": "T10",
+   "TIPO": "HTML evento/varieta",
+   "CONTRATO": true,
+   "RECEITA": true,
+   "DEPENDE": [],
+   "NOTA": "diagnostico: UNKNOWN (1 item tecnico numa fonte T10). Em observacao."
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "NOME": "UNICT Di3A",
+   "UNIVERSO": "T5",
+   "TIPO": "HTML noticia",
+   "CONTRATO": true,
+   "RECEITA": true,
+   "DEPENDE": [
+    "M3"
+   ],
+   "NOTA": "M3 @ 88ce30a8: CAPABILITY_BLOCK — os alvos de detalhe nao tem corpo util (HTML_KIND=MIXED). Fora ate a rota mudar."
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "NOME": "Consorzio di Bonifica Est Ticino Villoresi",
+   "UNIVERSO": "T7",
+   "TIPO": "HTML noticia",
+   "CONTRATO": true,
+   "RECEITA": true,
+   "DEPENDE": [],
+   "NOTA": "diagnostico: TEMA (1 item, aviso de canal)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "NOME": "Agrofarma — Federchimica",
+   "UNIVERSO": "T7",
+   "TIPO": "HTML noticia",
+   "CONTRATO": true,
+   "RECEITA": true,
+   "DEPENDE": [],
+   "NOTA": "sem historico colhido nesta linha"
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "NOME": "ARPA Marche",
+   "UNIVERSO": "T2",
+   "TIPO": "HTML",
+   "CONTRATO": false,
+   "RECEITA": true,
+   "DEPENDE": [
+    "M3"
+   ],
+   "NOTA": "sem contrato na tabela do coletor · M3 @ 88ce30a8: ROUTE_PROVEN, mas a tabela do coletor (regras/italy_contracts_onboarded.json) continua com 173 linhas e sem ela — falta aplicar o onboarding."
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "NOME": "Arpae Emilia-Romagna",
+   "UNIVERSO": "T2",
+   "TIPO": "HTML",
+   "CONTRATO": false,
+   "RECEITA": true,
+   "DEPENDE": [
+    "M3"
+   ],
+   "NOTA": "sem contrato na tabela do coletor · M3 @ 88ce30a8: ROUTE_PROVEN, mas a tabela do coletor (regras/italy_contracts_onboarded.json) continua com 173 linhas e sem ela — falta aplicar o onboarding."
+  },
+  {
+   "SOURCE_ID": "IT-T2-056",
+   "NOME": "Arpae (seletor de lingua)",
+   "UNIVERSO": "T2",
+   "TIPO": "HTML",
+   "CONTRATO": false,
+   "RECEITA": true,
+   "DEPENDE": [
+    "M3"
+   ],
+   "NOTA": "rotas-elegiveis-v1 mediu-a como duplicada de IT-T2-051 (mesmo documento) — provavel exclusao pelo Curator · M3 @ 88ce30a8: ROUTE_PROVEN, mas a tabela do coletor (regras/italy_contracts_onboarded.json) continua com 173 linhas e sem ela — falta aplicar o onboarding."
+  },
+  {
+   "SOURCE_ID": "IT-T5-041",
+   "NOME": "CRPV",
+   "UNIVERSO": "T5",
+   "TIPO": "HTML noticia",
+   "CONTRATO": false,
+   "RECEITA": true,
+   "DEPENDE": [
+    "M3"
+   ],
+   "NOTA": "M3 @ 88ce30a8: UNKNOWN — crpv.it redirige para rinova.eu"
+  },
+  {
+   "SOURCE_ID": "IT-T12-041",
+   "NOME": "Bollettino Ufficiale Regione Abruzzo",
+   "UNIVERSO": "T12",
+   "TIPO": "HTML",
+   "CONTRATO": false,
+   "RECEITA": false,
+   "DEPENDE": [
+    "M3",
+    "RECEITA_T12"
+   ],
+   "NOTA": "pedido/receitas.py nao tem T12 · M3 @ 88ce30a8: ROUTE_PROVEN, mas a tabela do coletor (regras/italy_contracts_onboarded.json) continua com 173 linhas e sem ela — falta aplicar o onboarding."
+  },
+  {
+   "SOURCE_ID": "IT-T12-057",
+   "NOME": "Generazione Lombardia",
+   "UNIVERSO": "T12",
+   "TIPO": "HTML",
+   "CONTRATO": false,
+   "RECEITA": false,
+   "DEPENDE": [
+    "M3",
+    "RECEITA_T12"
+   ],
+   "NOTA": "portal de juventude: suspeita de FONTE (mesma familia do diagnostico) · M3 @ 88ce30a8: ROUTE_PROVEN, mas a tabela do coletor (regras/italy_contracts_onboarded.json) continua com 173 linhas e sem ela — falta aplicar o onboarding."
+  },
+  {
+   "SOURCE_ID": "IT-T12-074",
+   "NOME": "Open Innovation Lombardia",
+   "UNIVERSO": "T12",
+   "TIPO": "HTML",
+   "CONTRATO": false,
+   "RECEITA": false,
+   "DEPENDE": [
+    "M3",
+    "RECEITA_T12"
+   ],
+   "NOTA": "suspeita de FONTE · M3 @ 88ce30a8: ROUTE_PROVEN, mas a tabela do coletor (regras/italy_contracts_onboarded.json) continua com 173 linhas e sem ela — falta aplicar o onboarding."
+  },
+  {
+   "SOURCE_ID": "IT-T9-021",
+   "NOME": "Fiera Didacta (INDIRE)",
+   "UNIVERSO": "T9",
+   "TIPO": "HTML evento",
+   "CONTRATO": false,
+   "RECEITA": false,
+   "DEPENDE": [
+    "M3",
+    "RECEITA_T9_WEB"
+   ],
+   "NOTA": "a receita T9 roda comunicacao_coleta.py (social), nao o italy_executor; feira de educacao: suspeita de FONTE · M3 @ 88ce30a8: ROUTE_PROVEN, mas a tabela do coletor (regras/italy_contracts_onboarded.json) continua com 173 linhas e sem ela — falta aplicar o onboarding."
+  }
  ],
  "EXCLUIDAS": [
-  {"SOURCE_ID": "IT-T7-017", "MOTIVO": "RELATORIO-DIAGNOSTICO-SALA: FONTE 30/30 — noticias de marca de grupo vinicola (premios, patrocinios, feiras)"},
-  {"SOURCE_ID": "IT-T7-033", "MOTIVO": "RELATORIO-DIAGNOSTICO-SALA: FONTE 15/15 — promocao do Consorzio Chianti Classico; em 21/09 foi a unica CAPA colhida e robots nao lido"},
-  {"SOURCE_ID": "IT-T7-042", "MOTIVO": "RELATORIO-DIAGNOSTICO-SALA: FONTE 10/10 — promocao do Consorzio Aceto Balsamico"}
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "MOTIVO": "RELATORIO-DIAGNOSTICO-SALA: FONTE 30/30 — noticias de marca de grupo vinicola (premios, patrocinios, feiras)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "MOTIVO": "RELATORIO-DIAGNOSTICO-SALA: FONTE 15/15 — promocao do Consorzio Chianti Classico; em 21/09 foi a unica CAPA colhida e robots nao lido"
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "MOTIVO": "RELATORIO-DIAGNOSTICO-SALA: FONTE 10/10 — promocao do Consorzio Aceto Balsamico"
+  }
  ],
  "FORA_DA_COORTE_PELO_GATE": "READY_CURRENT com HUMAN_REVIEW_REQUIRED: IT-T12-095, IT-T5-064, IT-T9-015, IT-T9-019 — o gate recusa; nao se propoem.",
  "DEPENDENCIAS": {
-  "M3": "rotas/contratos (origin/rotas-elegiveis-v1 @ 67982307): onboardar_rotas_provadas.py esta em dry-run; ninguem aplicou. Sem isso o coletor nao conhece a fonte.",
-  "M2": "abastecimento do bot (origin/abastecimento-bot-v1 @ 779ac8f6): muda o livro. Qualquer fonte pode entrar ou sair da lista; por isso a lista e proposta.",
+  "M3": "rotas-elegiveis-v1 FECHADA @ 88ce30a8 (curadoria/ROTAS-ELEGIVEIS-V1.json): 13 ROUTE_PROVEN, IT-T5-041 UNKNOWN, IT-T5-049 CAPABILITY_BLOCK. As rotas provadas ainda NAO estao na tabela do coletor. As seccoes de Chianti/Balsamico sao series paradas em 2022/2020: a exclusao das 3 T7 mantem-se.",
+  "M2": "abastecimento do bot EM PRODUCAO desde 22/09 21:23 (supervisor PID 117276): o livro muda sozinho, por isso a lista e proposta e o gate e perguntado no instante.",
   "RECEITA_T12": "decisao do dono (politica de coleta) — nao e de M2/M3.",
   "RECEITA_T9_WEB": "decisao do dono — nao e de M2/M3.",
-  "SUPOSICAO_DECLARADA": "o briefing nao nomeia M2/M3; li-as como abastecimento-bot-v1 e rotas-elegiveis-v1, as duas unicas branches abertas com esse assunto."
- }
+  "SUPOSICAO_DECLARADA": "confirmado pela coordenacao: M2 = abastecimento-bot-v1, M3 = rotas-elegiveis-v1.",
+  "M3b": "relevancia por fonte antes da coleta (Admission em leitura). O plano le curadoria/RELEVANCIA-POR-FONTE-V1.json {LINHAS:[{SOURCE_ID,RELEVANCIA}]} quando existir: so bloqueia, nunca promove. O nome e a forma do ficheiro sao SUPOSICAO minha — confirmar com a 3b."
+ },
+ "PRONTAS_HOJE": "com o livro desta linha: 6; com o resultado da M3 aplicado como filtro: 5 (IT-T10-018, IT-T10-022, IT-T10-021, IT-T7-021, IT-T7-043)"
 }
