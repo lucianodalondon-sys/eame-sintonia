@@ -298,6 +298,8 @@
       "curadoria/DISCOVERY-VISITED.json",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
       "curadoria/GABARITO-T2-T12-INVENTARIO-V1.json",
+      "curadoria/GABARITO-T2-T12-V1.json",
+      "curadoria/GABARITO-T2-T12-V2.json",
       "curadoria/HANDOFF-INTEGRACAO-04.md",
       "curadoria/LIFECYCLE-AUTONOMY-V1.json",
       "curadoria/LIFECYCLE-EVIDENCE-V1.json",
@@ -755,18 +757,6 @@
       "data/samples/FR-T4-001/FR-T4-001-adama-crop-target.json",
       "data/samples/FR-T4-001/FR-T4-001-adama-produtos.json",
       "data/samples/FR-T4-001/substance_active_utf8.csv",
-      "data/samples/GABARITO-T2-T12/0e4777c2c58fc734.html",
-      "data/samples/GABARITO-T2-T12/21914d1965ff6332.html",
-      "data/samples/GABARITO-T2-T12/2689db0c9ade0144.html",
-      "data/samples/GABARITO-T2-T12/363932bd7b018ce3.html",
-      "data/samples/GABARITO-T2-T12/779f95def8053840.html",
-      "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json",
-      "data/samples/GABARITO-T2-T12/b3d8fcc0d86aa7dd.html",
-      "data/samples/GABARITO-T2-T12/b7666f5aec5465de.html",
-      "data/samples/GABARITO-T2-T12/be8c688138c7cb67.html",
-      "data/samples/GABARITO-T2-T12/c0356e34c298b02d.html",
-      "data/samples/GABARITO-T2-T12/d7e3dc5333347a50.html",
-      "data/samples/GABARITO-T2-T12/f58fa49f4ab33c05.html",
       "data/samples/INVENTARIO-SCRATCHPAD-HANDOFF.json",
       "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json",
       "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
@@ -2608,13 +2598,13 @@
     {
       "id": "parado-na-coleta",
       "titulo": "10 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · GABARITO-T2-T12-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json … e mais 2",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: GABARITO-T2-T12-V2.json · RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json … e mais 2",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
+        "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json",
         "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-        "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json",
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
       ]
@@ -3083,9 +3073,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t2-t12-v1",
-    "HEAD": "dcc2642823e3470067e198b94d71c5acdcde4f61",
-    "GENERATED_AT": "2026-09-22T22:32:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2c5e3a8cfdd7fd4092eca29e4a522daaaa943786f9b34aed2b01d51e226d990a"
+    "HEAD": "2a3f751d7aa8cbc717f9ed1f50f5ca5222a137c0",
+    "GENERATED_AT": "2026-09-22T23:55:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "892cb2a13206467f33ce83eff1431ee07a0a936efb1d0337b44fccf4043e362b"
   },
   "FAMILIES": [
     {
@@ -18335,9 +18325,9 @@
       "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
+        "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
-        "curadoria/ROTAS-ELEGIVEIS-V1.json",
-        "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json"
+        "curadoria/ROTAS-ELEGIVEIS-V1.json"
       ],
       "inbound": [
         "C-ADMISSAO",
@@ -18352,9 +18342,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [
+        "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
-        "curadoria/ROTAS-ELEGIVEIS-V1.json",
-        "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json"
+        "curadoria/ROTAS-ELEGIVEIS-V1.json"
       ],
       "vocabulario": {
         "papel": "NAO SEI",
@@ -18375,6 +18365,12 @@
       "destino_prova": [
         {
           "onde": "GIT",
+          "file": "curadoria/GABARITO-T2-T12-V2.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
           "file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
@@ -18384,17 +18380,11 @@
           "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve curadoria/RELEVANCIA-ELEGIVEIS-V1.json e este mapa nao viu ninguem ler",
+      "rule_role_evidence": "escreve curadoria/GABARITO-T2-T12-V2.json e este mapa nao viu ninguem ler",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
@@ -18408,9 +18398,10 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "curadoria/GABARITO-T2-T12-V1.json",
+        "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json",
-        "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json",
         "regras/motor_de_rota.mjs"
       ],
       "consumes_plane": "CODE",
@@ -102602,7 +102593,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1412,
+  "UNCLAIMED_FILES_COUNT": 1402,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102791,7 +102782,7 @@
     "edges_proven": 1090,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2489,
+    "files_tracked": 2479,
     "files_covered": 1077,
     "files_code_unclaimed": 0,
     "roles_proven": 154,
