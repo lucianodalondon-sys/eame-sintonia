@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T05:53:02+00:00",
-    "HEAD": "9ddb563da7e1a188283b1b6f7db83ec00a64915d",
+    "GENERATED_AT": "2026-09-23T06:28:55+00:00",
+    "HEAD": "ce40e387dbd6d51061d6a8b41105a200623bbf6c",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2",
-    "FICHEIROS_NA_IMPRESSAO": 2735,
+    "SOURCE_TREE_FINGERPRINT": "20ac0cad2985babb5e2737bd59f20a4b06e337bcb85df14098ef11dda493d455",
+    "FICHEIROS_NA_IMPRESSAO": 2748,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -22353,6 +22353,27 @@
       ]
     },
     {
+      "endpoint": "https://a.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_capturador.py",
+          "line": 200
+        },
+        {
+          "file": "curadoria/test_contrato_unico.py",
+          "line": 55
+        },
+        {
+          "file": "curadoria/test_ponte_promocao.py",
+          "line": 61
+        },
+        {
+          "file": "tests/test_onboardar_rotas_provadas.py",
+          "line": 28
+        }
+      ]
+    },
+    {
       "endpoint": "https://youtu.be/X'",
       "usado_por": [
         {
@@ -22476,23 +22497,6 @@
       ]
     },
     {
-      "endpoint": "https://a.it/news",
-      "usado_por": [
-        {
-          "file": "curadoria/test_capturador.py",
-          "line": 200
-        },
-        {
-          "file": "curadoria/test_ponte_promocao.py",
-          "line": 61
-        },
-        {
-          "file": "tests/test_onboardar_rotas_provadas.py",
-          "line": 28
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.youtube.com/@agronotizietv",
       "usado_por": [
         {
@@ -22557,6 +22561,23 @@
         {
           "file": "motor/v21_ingest_c.py",
           "line": 173
+        }
+      ]
+    },
+    {
+      "endpoint": "https://ipinfo.io/json",
+      "usado_por": [
+        {
+          "file": "medidas/relevancia_antes_da_coleta.py",
+          "line": 56
+        },
+        {
+          "file": "scripts/desbloqueio/canario_desbloqueio.py",
+          "line": 43
+        },
+        {
+          "file": "scripts/micro_coleta/micro_coleta.py",
+          "line": 304
         }
       ]
     },
@@ -22745,24 +22766,11 @@
           "line": 532
         }
       ]
-    },
-    {
-      "endpoint": "https://www.regione.sicilia.it/agricoltura-foreste",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 169
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 888
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 509,
+  "ENDPOINTS_FOUND": 511,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 469,
+  "ENDPOINTS_TRUNCATED": 471,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -22780,9 +22788,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 509,
+    "endpoints": 511,
     "endpoints_published": 40,
-    "endpoints_truncated": 469,
+    "endpoints_truncated": 471,
     "candidates": 476,
     "coletores": 53,
     "coletores_com_data": 20,

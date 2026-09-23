@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T05:56:03+00:00",
-  "HEAD": "9ddb563da7e1a188283b1b6f7db83ec00a64915d",
-  "BRANCH": "ponte-promocao-v1",
+  "GENERATED_AT": "2026-09-23T06:32:04+00:00",
+  "HEAD": "ce40e387dbd6d51061d6a8b41105a200623bbf6c",
+  "BRANCH": "contrato-unico-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2",
-  "FICHEIROS_NA_IMPRESSAO": 2735,
+  "SOURCE_TREE_FINGERPRINT": "20ac0cad2985babb5e2737bd59f20a4b06e337bcb85df14098ef11dda493d455",
+  "FICHEIROS_NA_IMPRESSAO": 2748,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3238,6 +3238,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/desbloqueio/aplicar_desbloqueio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "be3c494d42950caad38483e8b1911b046068cf97",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/desbloqueio/canario_desbloqueio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "1a0471380daba09700cddd498da3d02d146b2ff4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/diagnostico_sala/ler_os_76.py",
     "PAPEL": "FONTE",
     "VERSAO": "a2aad3aace669c32401a41304bc032969430fe84",
@@ -3262,6 +3276,13 @@
     "PATH": "scripts/micro_coleta/micro_coleta.py",
     "PAPEL": "FONTE",
     "VERSAO": "f9849698157d2777dae0c63bfbe48ecb90004d60",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/receitas/censo_e_proposta.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "3a61bce0177fcdd7672781c2b152a3e34f5e7a35",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3317,14 +3338,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2",
+    "VERSAO": "20ac0cad2985babb5e2737bd59f20a4b06e337bcb85df14098ef11dda493d455",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2",
+    "VERSAO": "20ac0cad2985babb5e2737bd59f20a4b06e337bcb85df14098ef11dda493d455",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3759,6 +3780,13 @@
     "PATH": "tests/test_amostragem_neutra_t3.py",
     "PAPEL": "FONTE",
     "VERSAO": "085b651435bf9bbd104191a710b2c1443b3fdd12",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_aplicar_desbloqueio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "3fd649c04019ab5d8c203510531af0ef4e45a5a4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5009,8 +5037,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 710,
-  "INPUTS_DIGEST": "3272973115dbefca24c9cc87f679d867fac4f4724c74f70de4b11b030af345e0",
+  "INPUTS_COUNT": 714,
+  "INPUTS_DIGEST": "1afcc8417ce996eb3aa6b2d1d7dbdfac7b8497711d2a931e1afa5433844e949a",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5036,15 +5064,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 465,
+  "DOCUMENTOS_LIDOS": 466,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "2a8e2cbe6b6d1c523d6c25b9909b767f5314164f6816268931885c65ab7f72c3",
-  "SEMANTIC_HASH": "2f2c54d1f38973eda4697b1644765c56316ec05338ed0398cc8b4fa54e20991a"
+  "MEASUREMENT_HASH": "c2c0ae19800e47a012717b44ed61f4b72791b94471b9b0a304c40caf1abc9fb4",
+  "SEMANTIC_HASH": "0c69e853b88abed222bef3404f83954e20fe0eac843b77baffaefa8c62f3e56e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5076,11 +5104,14 @@
    "C-COLETA-PUBLICA",
    "C-COLETA-YOUTUBE",
    "C-CONTRATO-CAMPOS",
+   "C-COORTE-MICRO-FUNIL",
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
    "C-DECISAO-DA-FILA",
    "C-DERIVACAO-FORWARD",
    "C-DERIVED-ARTIFACT",
+   "C-DESBLOQUEIO-PACOTE",
+   "C-DETECTOR-CAPA-GABARITO",
    "C-DIAGNOSTICO-SALA",
    "C-DONO-DA-ESCRITA",
    "C-DONO-DO-DERIVADO",
@@ -5120,6 +5151,7 @@
    "C-RASTRO",
    "C-READY",
    "C-RECEITAS",
+   "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
@@ -5142,7 +5174,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 86
+  "COUNT": 90
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5281,12 +5313,15 @@
    "C-CONTRATO-CAMPOS",
    "C-CONTRATO-DE-RETORNO",
    "C-CONTRATO-TELEMETRIA",
+   "C-COORTE-MICRO-FUNIL",
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
    "C-DATA-CLOCK",
    "C-DECISAO-DA-FILA",
    "C-DERIVACAO-FORWARD",
    "C-DERIVED-ARTIFACT",
+   "C-DESBLOQUEIO-PACOTE",
+   "C-DETECTOR-CAPA-GABARITO",
    "C-DIAGNOSTICO",
    "C-DIAGNOSTICO-SALA",
    "C-DONO-DA-ESCRITA",
@@ -5378,6 +5413,7 @@
    "C-READY",
    "C-RECALL-PORTA-IT",
    "C-RECEITAS",
+   "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
    "C-RECORRENCIA",
    "C-REGRA-COLETA",
@@ -5411,16 +5447,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 168
+  "COUNT": 172
  },
  "ARITMETICA": {
-  "COLLECTION": 86,
+  "COLLECTION": 90,
   "BOUNDARY": 82,
-  "SOMA": 168,
-  "EXPANDED": 168,
+  "SOMA": 172,
+  "EXPANDED": 172,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 168,
+  "RESUMO_CARTOES_NO_UNIVERSO": 172,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -9648,6 +9684,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CADEIA-V21--RUNS-->C-V21-OPORTUNIDADE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
+    "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+    "TO": "C-DESBLOQUEIO-PACOTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "LINHA": 230,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/desbloqueio/canario_desbloqueio.py",
+      "LINHA": 26,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -14437,6 +14503,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
+    "FROM": "C-COORTE-MICRO-FUNIL",
+    "TO": "C-DESBLOQUEIO-PACOTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "LINHA": 208,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/desbloqueio/canario_desbloqueio.py",
+      "LINHA": 54,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CORPUS--READS-->C-MAPA-TESTES",
     "FROM": "C-CORPUS",
     "TO": "C-MAPA-TESTES",
@@ -15144,6 +15240,72 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DERIVACAO-FORWARD--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-TESTES",
+    "FROM": "C-DESBLOQUEIO-PACOTE",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_aplicar_desbloqueio.py",
+      "LINHA": 16,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-DESBLOQUEIO-PACOTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "LINHA": 137,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-RECEITAS-PROPOSTA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/receitas/censo_e_proposta.py",
+      "LINHA": 147,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -30411,6 +30573,58 @@
     ]
    },
    {
+    "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
+    "FROM": "C-RECEITAS-PROPOSTA",
+    "TO": "C-DESBLOQUEIO-PACOTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "LINHA": 208,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/desbloqueio/canario_desbloqueio.py",
+      "LINHA": 54,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+    "FROM": "C-RECEITAS-PROPOSTA",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_aplicar_desbloqueio.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-RECONCILIACAO-UNIVERSO--READS-->C-MAPA-TESTES",
     "FROM": "C-RECONCILIACAO-UNIVERSO",
     "TO": "C-MAPA-TESTES",
@@ -38962,12 +39176,12 @@
     ]
    }
   ],
-  "COUNT": 1099
+  "COUNT": 1106
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 168,
-  "CARTOES_AUDITADOS": 168,
-  "ARESTAS_RELACIONADAS": 1099,
+  "CARTOES_NO_UNIVERSO": 172,
+  "CARTOES_AUDITADOS": 172,
+  "ARESTAS_RELACIONADAS": 1106,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -39113,9 +39327,12 @@
    "C-CENSO-UNIFICACAO",
    "C-CICATRIZES-BR",
    "C-CONTRATO-CAMPOS",
+   "C-COORTE-MICRO-FUNIL",
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
    "C-DECISAO-DA-FILA",
+   "C-DESBLOQUEIO-PACOTE",
+   "C-DETECTOR-CAPA-GABARITO",
    "C-DIAGNOSTICO-SALA",
    "C-DONO-DO-DOCUMENTO",
    "C-DUAS-PORTAS-MEDIDORES",
@@ -39165,6 +39382,7 @@
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
    "C-RECALL-PORTA-IT",
+   "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
    "C-RECORRENCIA",
    "C-RELATORIO-FLUXO",
@@ -39195,7 +39413,9 @@
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-DERIVACOES",
    "C-CENSO-SEMANTICO-IT",
+   "C-COORTE-MICRO-FUNIL",
    "C-CORRIDA-CANONICA",
+   "C-DETECTOR-CAPA-GABARITO",
    "C-DIAGNOSTICO-SALA",
    "C-DUAS-PORTAS-MEDIDORES",
    "C-ESPECIE-DO-TEXTO",
@@ -39246,6 +39466,9 @@
    ],
    "C-DATA-CLOCK": [
     "science"
+   ],
+   "C-DETECTOR-CAPA-GABARITO": [
+    "diagnostic"
    ],
    "C-DIAGNOSTICO": [
     "evolution"
@@ -39361,9 +39584,9 @@
    "CODE": 188,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 364,
+   "PROOF": 366,
    "READ": 249,
-   "RULE": 187,
+   "RULE": 192,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -40169,7 +40392,7 @@
     "urllib"
    ],
    "ENTRAM": 4,
-   "SAEM": 2,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -41192,6 +41415,34 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-COORTE-MICRO-FUNIL",
+   "NOME": "Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "curadoria/PROPOSTA-RECEITAS-V2.json"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [],
+   "ENTRAM": 0,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_SAEM": [
+    "RULE"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-CORPUS",
    "NOME": "Montar o corpus de fala e de ciencia",
    "FAMILIA": "F-COLETA",
@@ -41435,6 +41686,75 @@
    "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": "ARMAZEM",
    "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-DESBLOQUEIO-PACOTE",
+   "NOME": "Pacote de desbloqueio da coorte — aplica-se uma vez no cutover",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+    "scripts/desbloqueio/aplicar_desbloqueio.py",
+    "scripts/desbloqueio/canario_desbloqueio.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_aplicar_desbloqueio.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "datetime",
+    "pathlib"
+   ],
+   "ENTRAM": 4,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-DETECTOR-CAPA-GABARITO",
+   "NOME": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "scripts/detector_capa/GABARITO-CAPA-V1.json"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [],
+   "ENTRAM": 0,
+   "SAEM": 2,
+   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_SAEM": [
+    "RULE"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "diagnostic"
+   ],
    "GAP": null
   },
   {
@@ -45901,6 +46221,45 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-RECEITAS-PROPOSTA",
+   "NOME": "Receitas das fontes — censo do defeito e proposta com prova (nao aplicada)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "curadoria/PROPOSTA-RECEITAS-V1.json",
+    "scripts/receitas/censo_e_proposta.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_aplicar_desbloqueio.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "pathlib",
+    "urllib"
+   ],
+   "ENTRAM": 1,
+   "SAEM": 2,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
+    "RULE"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-RECOLLECTION-CENSO",
    "NOME": "O censo da revisita — como cada fonte publica, por evidencia",
    "FAMILIA": "F-COLETA",
@@ -47187,6 +47546,7 @@
     "tests/test_alcance_tematico.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_amostragem_neutra_t3.py",
+    "tests/test_aplicar_desbloqueio.py",
     "tests/test_aprender_com_a_fonte.py",
     "tests/test_arestas.py",
     "tests/test_armazem_italiano.py",
@@ -47485,7 +47845,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 189,
+   "ENTRAM": 191,
    "SAEM": 22,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

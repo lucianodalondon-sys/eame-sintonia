@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "ponte-promocao-v1",
-    "HEAD": "9ddb563da7e1a188283b1b6f7db83ec00a64915d",
-    "GENERATED_AT": "2026-09-23T02:52:22-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f40fdc04758025b670f1af9f863dd05f4f8dcb47678177a3e0137db7cab994c2"
+    "BRANCH": "contrato-unico-v1",
+    "HEAD": "ce40e387dbd6d51061d6a8b41105a200623bbf6c",
+    "GENERATED_AT": "2026-09-23T03:26:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "20ac0cad2985babb5e2737bd59f20a4b06e337bcb85df14098ef11dda493d455"
   },
   "FILES": [
     {
@@ -296,6 +296,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-B3-CONTRATO-UNICO.md",
+      "sha": "185037b725404b7285d214acd1d1093991926a3b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-BRIDGE-FEEDER.md",
       "sha": "12a6e18dfd5ddf05377ecdb5609187b09b40e8c0",
       "ext": ".md",
@@ -451,7 +458,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "4a434e7a36fb13fb339970d01fc9e660c8e1630a",
+      "sha": "058f0133cb0e29469bf61b175ecae0b307f5af27",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1899,6 +1906,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/B3-CONTRATO-UNICO-V1.json",
+      "sha": "6696a59761d4411d442de735ae29188d676376b0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/B3-ENSAIO-4-PASSOS-DAS-7.json",
+      "sha": "fcb30f63e87017ec9c7012fa24a6af6c6f207a0e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/BRIDGE-LEDGER-V1.json",
       "sha": "c850c6c5ca9772b0517ff9a95b9ef3966cafee8e",
       "ext": ".json",
@@ -2111,6 +2132,27 @@
     {
       "path": "curadoria/PONTE-CURADOR-PROOF-V1.json",
       "sha": "215b8e8d1bd4f0bba90f7a2698627edb5ab79b33",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PROPOSTA-CATALOGO-V1.json",
+      "sha": "e211cc932e6cdbedd4533ecd3b70073f91ca62c0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "sha": "4bf93d36634d3f63c746fa7550ecf064a9fbac5a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PROPOSTA-RECEITAS-V2.json",
+      "sha": "b0df21f95149164efb23fa16d3cd7188ff234d33",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2432,7 +2474,7 @@
     },
     {
       "path": "curadoria/gatilho_discovery.py",
-      "sha": "7009591a749988d3aed6529f57db7e5ba81f6875",
+      "sha": "eb5c3482094d40dc8886d19914cf1c1920b0b299",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2706,6 +2748,13 @@
     {
       "path": "curadoria/test_collection_gate.py",
       "sha": "190278251f244e9ab3143c8cac601f666f02ff9e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_contrato_unico.py",
+      "sha": "d9da4837bdf0a48f9066b2be12bf4461931d108f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -15570,6 +15619,34 @@
       "code_dir": true
     },
     {
+      "path": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "sha": "bfdf67f53e320794d4dc99dde3eafbd2b2446fc1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "sha": "be3c494d42950caad38483e8b1911b046068cf97",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/desbloqueio/canario_desbloqueio.py",
+      "sha": "1a0471380daba09700cddd498da3d02d146b2ff4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "sha": "81696bfd368092f943f4050da02e48c669bcec0e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/diagnostico_sala/ler_os_76.py",
       "sha": "a2aad3aace669c32401a41304bc032969430fe84",
       "ext": ".py",
@@ -15607,6 +15684,13 @@
     {
       "path": "scripts/micro_coleta/micro_coleta.py",
       "sha": "f9849698157d2777dae0c63bfbe48ecb90004d60",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas/censo_e_proposta.py",
+      "sha": "3a61bce0177fcdd7672781c2b152a3e34f5e7a35",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16208,7 +16292,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "fad6620d5d381514aa45d6bd0caae187aa8a2ef8",
+      "sha": "f83cf7c612c3215aabf9ebbd261b0ecbaa0099a6",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -16860,6 +16944,13 @@
     {
       "path": "tests/test_amostragem_neutra_t3.py",
       "sha": "085b651435bf9bbd104191a710b2c1443b3fdd12",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_aplicar_desbloqueio.py",
+      "sha": "3fd649c04019ab5d8c203510531af0ef4e45a5a4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23984,6 +24075,17 @@
     },
     {
       "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 189,
+        "snippet": "import collection_gate as CG   # noqa: E402  (lido so aqui: o gatilho corre sem ele)"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
       "to_file": "curadoria/descobrir.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24006,6 +24108,17 @@
     },
     {
       "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 191,
+        "snippet": "import lifecycle as LC         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
       "to_file": "curadoria/ponte_candidatas.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24013,6 +24126,17 @@
         "file": "curadoria/gatilho_discovery.py",
         "line": 57,
         "snippet": "import ponte_candidatas as PONTE    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 190,
+        "snippet": "import ready_split as RS       # noqa: E402"
       }
     },
     {
@@ -26345,6 +26469,61 @@
         "file": "curadoria/test_collection_gate.py",
         "line": 279,
         "snippet": "\"pedido/receitas.py\": (\"PRODUCTION_PATH_DECLARA\", False),"
+      }
+    },
+    {
+      "from_file": "curadoria/test_contrato_unico.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_contrato_unico.py",
+        "line": 20,
+        "snippet": "import fila as F                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_contrato_unico.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_contrato_unico.py",
+        "line": 21,
+        "snippet": "import gatilho_discovery as GD    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_contrato_unico.py",
+      "to_file": "curadoria/reconciliar_livros.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_contrato_unico.py",
+        "line": 22,
+        "snippet": "import reconciliar_livros as R    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_contrato_unico.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_contrato_unico.py",
+        "line": 197,
+        "snippet": "(d / \"tabela.json\").write_bytes((RAIZ / \"regras\" / \"italy_contracts_onboarded.json\").read_bytes())"
+      }
+    },
+    {
+      "from_file": "curadoria/test_contrato_unico.py",
+      "to_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_contrato_unico.py",
+        "line": 25,
+        "snippet": "\"aplicar_desbloqueio\", RAIZ / \"scripts\" / \"desbloqueio\" / \"aplicar_desbloqueio.py\")"
       }
     },
     {
@@ -55080,6 +55259,149 @@
       }
     },
     {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-CATALOGO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 182,
+        "snippet": "f = RAIZ / \"curadoria\" / \"PROPOSTA-CATALOGO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 208,
+        "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 208,
+        "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 230,
+        "snippet": "m3 = json.loads(_da_arvore_ou_da_m3(\"curadoria/ROTAS-ELEGIVEIS-V1.json\")[0])"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "curadoria/onboardar_rotas_provadas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 98,
+        "snippet": "src, origem = _da_arvore_ou_da_m3(\"curadoria/onboardar_rotas_provadas.py\")"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 67,
+        "snippet": "MANIFESTOS = [HOME / \"detector-capa-gabarito\" / \"MANIFESTO.json\","
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 232,
+        "snippet": "f = AQUI / \"CANARIO-DESBLOQUEIO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "to_file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "line": 137,
+        "snippet": "g = _json(RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 54,
+        "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 54,
+        "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "medidas/canario_rotas_elegiveis.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 26,
+        "snippet": "alvo = RAIZ / \"medidas\" / \"canario_rotas_elegiveis.py\""
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 21,
+        "snippet": "SAIDA = AQUI / \"CANARIO-DESBLOQUEIO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/desbloqueio/canario_desbloqueio.py",
+      "to_file": "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/desbloqueio/canario_desbloqueio.py",
+        "line": 85,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "scripts/diagnostico_sala/ler_os_76.py",
       "to_file": "admissao/admissao.py",
       "type": "IMPORTS",
@@ -55264,6 +55586,50 @@
         "file": "scripts/micro_coleta/micro_coleta.py",
         "line": 389,
         "snippet": "GABARITO = AQUI / \"GABARITO-MICRO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/receitas/censo_e_proposta.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas/censo_e_proposta.py",
+        "line": 43,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"PROPOSTA-RECEITAS-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/receitas/censo_e_proposta.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas/censo_e_proposta.py",
+        "line": 316,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas/censo_e_proposta.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas/censo_e_proposta.py",
+        "line": 159,
+        "snippet": "mf = pr / \"MANIFESTO.json\""
+      }
+    },
+    {
+      "from_file": "scripts/receitas/censo_e_proposta.py",
+      "to_file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas/censo_e_proposta.py",
+        "line": 147,
+        "snippet": "g = json.loads((RAIZ / \"scripts/detector_capa/GABARITO-CAPA-V1.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -60181,6 +60547,28 @@
         "file": "tests/test_amostragem_neutra_t3.py",
         "line": 26,
         "snippet": "\"amostra_t3\", os.path.join(RAIZ, \"provas\", \"amostragem_neutra_t3.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_aplicar_desbloqueio.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_aplicar_desbloqueio.py",
+        "line": 33,
+        "snippet": "return [(\"PROPOSTA-RECEITAS-V1.json\", {\"SOURCE_ID\": sid, \"CAMPO\": \"ACQUISITION.LINK_PATTERN\","
+      }
+    },
+    {
+      "from_file": "tests/test_aplicar_desbloqueio.py",
+      "to_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_aplicar_desbloqueio.py",
+        "line": 16,
+        "snippet": "RAIZ / \"scripts\" / \"desbloqueio\" / \"aplicar_desbloqueio.py\")"
       }
     },
     {
@@ -75366,10 +75754,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2587,
-    "files_readable": 1176,
-    "files_code_dir": 977,
-    "file_edges": 5153,
+    "files_tracked": 2600,
+    "files_readable": 1181,
+    "files_code_dir": 983,
+    "file_edges": 5180,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
