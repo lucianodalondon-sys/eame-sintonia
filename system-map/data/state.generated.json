@@ -68,8 +68,6 @@
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
       "RELATORIO-SOC1-SOCIAL.md",
-      "RELATORIO-SOC2-CURATOR-YOUTUBE.md",
-      "RELATORIO-SOC3-RETENCAO-YOUTUBE.md",
       "RELATORIO-TTL-MUTABLE-T1.md",
       "RELATORIO-UNIFICACAO.md",
       "RELATORIO-V1A-V1-LIGADA.md",
@@ -343,7 +341,6 @@
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CONTRATOS-PASSO-2-V1.json",
       "curadoria/CRAWL-PROOF-V1.json",
-      "curadoria/D21-HERANCA-DO-TERRITORIO-V1.json",
       "curadoria/DECISOES-SEMANTICAS-V1.json",
       "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
       "curadoria/DIAGNOSTICO-FILA-DO-BOT-V1.json",
@@ -395,8 +392,6 @@
       "curadoria/ROTAS-ELEGIVEIS-V1.json",
       "curadoria/SAMPLE-MANIFEST-V1.json",
       "curadoria/SERVICO-SOURCE-CURATOR.md",
-      "curadoria/SOC2-LINKEDIN-PELO-SITE-V1.json",
-      "curadoria/SOC2-QUALIFY-YOUTUBE-ENSAIO-V1.json",
       "curadoria/SOURCE-CAPABILITY-GAPS-V1.json",
       "curadoria/SOURCE-CARDS-V1.json",
       "curadoria/SOURCE-CHARACTERIZATION-V1.json",
@@ -426,7 +421,6 @@
       "curadoria/ensaiar_dois_escritores.py",
       "curadoria/ensaiar_fila_windows.py",
       "curadoria/ensaiar_gatilho_ocioso.py",
-      "curadoria/ensaiar_qualify_youtube.py",
       "curadoria/ensaiar_worker_pendurado.py",
       "curadoria/escrever_contratos.py",
       "curadoria/escrever_no_atlas.py",
@@ -438,7 +432,6 @@
       "curadoria/italy_contracts_curator.json",
       "curadoria/lifecycle.py",
       "curadoria/linhagem_das_candidatas.py",
-      "curadoria/linkedin_pelo_site.py",
       "curadoria/lotes.py",
       "curadoria/manifesto_da_evidencia.py",
       "curadoria/manifesto_das_amostras.py",
@@ -464,7 +457,6 @@
       "curadoria/red_team_service.py",
       "curadoria/red_team_telemetria.py",
       "curadoria/retrato_html.py",
-      "curadoria/rota_do_scrap_youtube.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
       "curadoria/supervisor.py",
@@ -477,7 +469,6 @@
       "curadoria/test_collection_gate.py",
       "curadoria/test_contrato_unico.py",
       "curadoria/test_correr_lote.py",
-      "curadoria/test_d21_heranca.py",
       "curadoria/test_decisao_semantica.py",
       "curadoria/test_discovery.py",
       "curadoria/test_discovery_sementes.py",
@@ -499,7 +490,6 @@
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
       "curadoria/test_retrato_html.py",
-      "curadoria/test_soc2_curator_youtube.py",
       "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
       "curadoria/test_telemetria.py",
@@ -1416,7 +1406,6 @@
       "docs/operacao/ORQUESTRACAO-UM-CEREBRO.md",
       "docs/operacao/OUT-OF-FLOW-LEGACY-DECISION-V1.md",
       "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
-      "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md",
       "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "docs/operacao/PONTE-OBSERVACAO-UNIDADE.md",
       "docs/operacao/PREFLIGHT-LIVE-COLLECTION-V1.md",
@@ -1566,6 +1555,7 @@
       "ferramentas/unificacao/m5/provas-passagem3.json",
       "ferramentas/unificacao/m5/provas-passagem4.json",
       "ferramentas/unificacao/m5/provas-passagem5.json",
+      "ferramentas/unificacao/m5/provas-passagem6.json",
       "ferramentas/unificacao/m5/provas-passo4.json",
       "ferramentas/unificacao/m5/suite-base-20c06500.json",
       "ferramentas/unificacao/m5/suite-base-2cfdc3b3.json",
@@ -1574,6 +1564,7 @@
       "ferramentas/unificacao/m5/suite-unificado-75e9ce3e.json",
       "ferramentas/unificacao/m5/suite-unificado-8fe122cb.json",
       "ferramentas/unificacao/m5/suite-unificado-91b5f38e.json",
+      "ferramentas/unificacao/m5/suite-unificado-de4dec2b.json",
       "ferramentas/unificacao/medir_suite.py",
       "ferramentas/unificacao/provar_em_copia.py",
       "ferramentas/unificacao/resolver_conflitos.py",
@@ -1611,7 +1602,6 @@
       "guarda/preservar_coleta.py",
       "guarda/preservar_derivado.py",
       "guarda/preservar_documento.py",
-      "guarda/retencao_youtube_api.py",
       "guarda/social_guarda.py",
       "guarda/social_sessao.py",
       "guarda/sql_conferir.py"
@@ -2243,7 +2233,6 @@
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
-      "provas/roteamento_youtube_proposta.py",
       "provas/run_duravel_no_postgres.py",
       "provas/runtime_comum_no_postgres.py",
       "provas/runtime_pago_no_postgres.py",
@@ -2414,7 +2403,6 @@
       "scripts/coorte_micro/funil.py",
       "scripts/coorte_micro/receitas_v2.py",
       "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
-      "scripts/desbloqueio/ENSAIO-SOC2-BLOCO4-V1.json",
       "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
       "scripts/desbloqueio/LEDGER-ENSAIO-G1.jsonl",
       "scripts/desbloqueio/aplicar_desbloqueio.py",
@@ -2515,7 +2503,6 @@
       "supabase/migrations/030_o_documento_ganha_registo.sql",
       "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
       "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
-      "supabase/migrations/033_a_lapide_da_retencao.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -2802,10 +2789,8 @@
       "tests/test_reel_transcricao_trava.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_relevance_priority_sobrecarga.py",
-      "tests/test_retencao_youtube_api.py",
       "tests/test_retirada_por_decisao.py",
       "tests/test_retorno_da_coleta.py",
-      "tests/test_roteamento_youtube_proposta.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
       "tests/test_sala_duravel.py",
@@ -3358,9 +3343,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
-    "GENERATED_AT": "2026-09-23T14:22:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749"
+    "HEAD": "1849e096287a1fb870492d7b29904cd43aac573d",
+    "GENERATED_AT": "2026-09-23T16:17:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3a8fbb16de5fcffb5d6c9dc811d099a4e03f8856bb302b41aae3b7f1604325c0"
   },
   "FAMILIES": [
     {
@@ -4854,8 +4839,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 605",
-        "desses, mostrados aqui: 40 (ficam de fora 565)"
+        "enderecos que o codigo realmente chama: 592",
+        "desses, mostrados aqui: 40 (ficam de fora 552)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -23715,7 +23700,7 @@
         "PLANO": null,
         "PROVA": [
           "ferramentas/unificacao/provar_em_copia.py:119",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:192",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:186",
           "scripts/micro_coleta/micro_coleta.py:121",
           "tests/test_gabarito_t2_t12.py:9"
         ],
@@ -26823,7 +26808,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "scripts/desbloqueio/aplicar_desbloqueio.py:218",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:212",
           "tests/test_funil_coorte.py:13"
         ],
         "PORQUE": "estas pecas importam-na — C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -27719,13 +27704,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "CAMPOS_DA_ROTA_DO_SCRAP",
           "D10_FONTES",
           "MANIFESTOS"
         ],
-        "palavras": 29,
+        "palavras": 17,
         "por_lingua": {},
-        "sem_marca_de_lingua": 29,
+        "sem_marca_de_lingua": 17,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -28208,17 +28192,15 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md",
         "guarda/banco_descartavel.py",
         "guarda/banco_operacional.py",
         "guarda/cliente_postgres.py",
         "guarda/memoria_descartavel.py",
         "guarda/memoria_postgres.py",
         "guarda/portas_live.py",
-        "guarda/preservar_coleta.py",
-        "guarda/retencao_youtube_api.py"
+        "guarda/preservar_coleta.py"
       ],
-      "file_count": 9,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -34740,7 +34722,6 @@
       "outbound": [
         "C-COORTE-MICRO-FUNIL",
         "C-IT-CONTRATOS",
-        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -34837,7 +34818,6 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "provas/roteamento_youtube_proposta.py:54",
           "regras/italy_contracts.mjs:579",
           "scripts/coorte_micro/funil.py:70",
           "tests/test_ensaio_offline_micro.py:17"
@@ -39484,8 +39464,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "tests/test_a_porta_cli_liga_o_banco.py:378",
-          "tests/test_retencao_youtube_api.py:67"
+          "tests/test_a_porta_cli_liga_o_banco.py:378"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -41388,7 +41367,7 @@
         "PLANO": null,
         "PROVA": [
           "scripts/coorte_micro/funil.py:204",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:218",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:212",
           "tests/test_aplicar_desbloqueio.py:33"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -44209,7 +44188,6 @@
         "supabase/migrations/030_o_documento_ganha_registo.sql",
         "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
         "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
-        "supabase/migrations/033_a_lapide_da_retencao.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -44221,9 +44199,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 55,
+      "file_count": 54,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 11 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 10 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -44324,18 +44302,16 @@
         "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
         "provas/entradas_do_scrap_v1.py",
         "provas/prontidao_social_v1.py",
-        "provas/roteamento_youtube_proposta.py",
         "provas/superficie_do_scrap_v1.py"
       ],
-      "file_count": 5,
+      "file_count": 4,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AUTORIZACAO-DE-GASTO",
         "C-COLETA-BASE",
-        "C-MICRO-COLETA-INSTRUMENTO",
         "C-ORQUESTRADOR",
         "C-PEDIDO",
         "C-PROVA-COLETA",
@@ -44350,9 +44326,7 @@
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {
-        "ITALIA": 1
-      },
+      "paises_dado": {},
       "pais": "TRANSVERSAL",
       "vocabulario": {
         "papel": "NAO SEI",
@@ -44379,12 +44353,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 7 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 7 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 6 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -44395,7 +44369,6 @@
         "orquestrador/orquestrador.py",
         "provas/linkedin_local_first.py",
         "provas/o_canario_do_scrap_v1.py",
-        "regras/italy_contracts_onboarded.json",
         "regras/sensor_coleta.py"
       ],
       "consumes_plane": "CODE",
@@ -46451,10 +46424,8 @@
         "tests/test_reel_transcricao_trava.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_relevance_priority_sobrecarga.py",
-        "tests/test_retencao_youtube_api.py",
         "tests/test_retirada_por_decisao.py",
         "tests/test_retorno_da_coleta.py",
-        "tests/test_roteamento_youtube_proposta.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
         "tests/test_sala_duravel.py",
@@ -46488,7 +46459,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 224,
+      "file_count": 222,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -57820,7 +57791,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 192,
+          "line": 186,
           "snippet": "f = RAIZ / \"curadoria\" / \"PROPOSTA-CATALOGO-V1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -57836,7 +57807,7 @@
         },
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 243,
+          "line": 236,
           "snippet": "m3 = json.loads(_da_arvore_ou_da_m3(\"curadoria/ROTAS-ELEGIVEIS-V1.json\")[0])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -66604,7 +66575,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 218,
+          "line": 212,
           "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -68257,7 +68228,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 73,
+          "line": 67,
           "snippet": "MANIFESTOS = [HOME / \"detector-capa-gabarito\" / \"MANIFESTO.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -68273,7 +68244,7 @@
         },
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 147,
+          "line": 141,
           "snippet": "g = _json(RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -70200,7 +70171,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 22 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 20 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -85339,41 +85310,6 @@
     },
     {
       "from": "C-MICRO-COLETA-INSTRUMENTO",
-      "to": "C-SUPERFICIE-SCRAP-V1",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/roteamento_youtube_proposta.py",
-          "line": 54,
-          "snippet": "d = json.load(open(TABELA, encoding='utf-8'))",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-SUPERFICIE-SCRAP-V1",
-            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
-            "TO": "C-SUPERFICIE-SCRAP-V1",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "PROOF",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-MICRO-COLETA-INSTRUMENTO",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -88813,28 +88749,12 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 306,
           "snippet": "import pedido as _pd",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
-            "FROM": "C-PEDIDO",
-            "TO": "C-SUPERFICIE-SCRAP-V1",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/roteamento_youtube_proposta.py",
-          "line": 34,
-          "snippet": "import pedido as PD      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-PEDIDO",
@@ -94982,41 +94902,6 @@
     {
       "from": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
       "to": "C-TESTES",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que a porta CLI liga o banco — como PROCESSO, contra Postgres 16 real tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_retencao_youtube_api.py",
-          "line": 67,
-          "snippet": "import a_porta_cli_liga_o_banco as P",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--IMPORTS-->C-TESTES",
-            "FROM": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "PROOF",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
-      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -96673,28 +96558,12 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 65,
           "snippet": "import receitas as rec                     # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
-            "FROM": "C-RECEITAS",
-            "TO": "C-SUPERFICIE-SCRAP-V1",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/roteamento_youtube_proposta.py",
-          "line": 35,
-          "snippet": "import receitas as R     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-RECEITAS",
@@ -96961,7 +96830,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 218,
+          "line": 212,
           "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -96977,7 +96846,7 @@
         },
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 219,
+          "line": 213,
           "snippet": "\"PROPOSTA-RECEITAS-V3.json\",    # V3 = aditamento LD2",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -96993,7 +96862,7 @@
         },
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 220,
+          "line": 214,
           "snippet": "\"PROPOSTA-RECEITAS-V4.json\"):   # V4 = K1: fontes dos 2 gabaritos",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -108200,28 +108069,12 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_prontidao_social_v1.py",
           "line": 27,
           "snippet": "import prontidao_social_v1 as ps   # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SUPERFICIE-SCRAP-V1--IMPORTS-->C-TESTES",
-            "FROM": "C-SUPERFICIE-SCRAP-V1",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_roteamento_youtube_proposta.py",
-          "line": 18,
-          "snippet": "import roteamento_youtube_proposta as RP  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPERFICIE-SCRAP-V1--IMPORTS-->C-TESTES",
             "FROM": "C-SUPERFICIE-SCRAP-V1",
@@ -112951,7 +112804,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1554,
+  "UNCLAIMED_FILES_COUNT": 1545,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -113209,12 +113062,12 @@
     "components_pending": 193,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1219,
-    "edges_proven": 1155,
+    "edges": 1217,
+    "edges_proven": 1153,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2764,
-    "files_covered": 1210,
+    "files_tracked": 2749,
+    "files_covered": 1204,
     "files_code_unclaimed": 0,
     "roles_proven": 161,
     "roles_declared_only": 8,

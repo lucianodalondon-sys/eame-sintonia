@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T17:28:53+00:00",
-    "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
+    "GENERATED_AT": "2026-09-23T19:23:27+00:00",
+    "HEAD": "1849e096287a1fb870492d7b29904cd43aac573d",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749",
-    "FICHEIROS_NA_IMPRESSAO": 2912,
+    "SOURCE_TREE_FINGERPRINT": "3a8fbb16de5fcffb5d6c9dc811d099a4e03f8856bb302b41aae3b7f1604325c0",
+    "FICHEIROS_NA_IMPRESSAO": 2897,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -23178,10 +23178,6 @@
           "line": 142
         },
         {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 339
-        },
-        {
           "file": "provas/censo_executavel_da_v1.py",
           "line": 97
         },
@@ -23459,31 +23455,6 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/feeds",
-      "usado_por": [
-        {
-          "file": "curadoria/canario.py",
-          "line": 56
-        },
-        {
-          "file": "curadoria/capturador.py",
-          "line": 585
-        },
-        {
-          "file": "curadoria/escrever_contratos.py",
-          "line": 121
-        },
-        {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 63
-        },
-        {
-          "file": "curadoria/validar_contratos.py",
-          "line": 187
-        }
-      ]
-    },
-    {
       "endpoint": "https://bsky.app/profile",
       "usado_por": [
         {
@@ -23568,23 +23539,23 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/channel",
+      "endpoint": "https://www.youtube.com/feeds",
       "usado_por": [
         {
-          "file": "coleta/youtube_oficial.py",
-          "line": 450
+          "file": "curadoria/canario.py",
+          "line": 56
         },
         {
-          "file": "curadoria/test_d21_heranca.py",
-          "line": 43
+          "file": "curadoria/capturador.py",
+          "line": 585
         },
         {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 59
+          "file": "curadoria/escrever_contratos.py",
+          "line": 121
         },
         {
-          "file": "regras/sensor_coleta.py",
-          "line": 806
+          "file": "curadoria/validar_contratos.py",
+          "line": 178
         }
       ]
     },
@@ -24028,11 +23999,24 @@
           "line": 111
         }
       ]
+    },
+    {
+      "endpoint": "https://www.ec.europa.eu/agrifood",
+      "usado_por": [
+        {
+          "file": "coleta/agrifood_ue.py",
+          "line": 33
+        },
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 42
+        }
+      ]
     }
   ],
-  "ENDPOINTS_FOUND": 605,
+  "ENDPOINTS_FOUND": 592,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 565,
+  "ENDPOINTS_TRUNCATED": 552,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -24050,9 +24034,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 605,
+    "endpoints": 592,
     "endpoints_published": 40,
-    "endpoints_truncated": 565,
+    "endpoints_truncated": 552,
     "candidates": 476,
     "coletores": 53,
     "coletores_com_data": 20,

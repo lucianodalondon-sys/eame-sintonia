@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T17:24:33+00:00",
-    "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
+    "GENERATED_AT": "2026-09-23T19:19:36+00:00",
+    "HEAD": "1849e096287a1fb870492d7b29904cd43aac573d",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749",
-    "FICHEIROS_NA_IMPRESSAO": 2912,
+    "SOURCE_TREE_FINGERPRINT": "3a8fbb16de5fcffb5d6c9dc811d099a4e03f8856bb302b41aae3b7f1604325c0",
+    "FICHEIROS_NA_IMPRESSAO": 2897,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -349,7 +349,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "e068c80154e52d9e6d586735d3decc27dd381663",
+        "VERSAO": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -921,13 +921,6 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
-        "PATH": "guarda/retencao_youtube_api.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "ad119f7bad1d3c56127b80285f4436a6948d4521",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
         "PATH": "guarda/social_guarda.py",
         "PAPEL": "FONTE",
         "VERSAO": "431b97fb8264db0e1cf65ec1c5207eb405c68fab",
@@ -1014,7 +1007,7 @@
       {
         "PATH": "regras/italy_contracts.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "49f5c2872c8e2ddab8461f3625003cc01d9b1267",
+        "VERSAO": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1103,8 +1096,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 156,
-    "INPUTS_DIGEST": "344581af27cd1780ef1f04d61159f086fdf40414b36621d637f7f6c8a79c0fc9",
+    "INPUTS_COUNT": 155,
+    "INPUTS_DIGEST": "8db5210a4b3fd0be483a3836b8ba1e10842d660c23d269099b1104f720d46e5f",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2820,7 +2813,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 939,
+      "linhas": 931,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3261,7 +3254,6 @@
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py",
         "ferramentas/reel_transcricao.py",
-        "guarda/retencao_youtube_api.py",
         "regras/proveniencia.py"
       ],
       "no_ci": true
@@ -3644,7 +3636,7 @@
     {
       "ficheiro": "regras/italy_contracts.mjs",
       "gaveta": "regras",
-      "linhas": 709,
+      "linhas": 704,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -3991,8 +3983,7 @@
       "chamado_por": [
         "guarda/banco_operacional.py",
         "guarda/cliente_postgres.py",
-        "guarda/memoria_postgres.py",
-        "guarda/retencao_youtube_api.py"
+        "guarda/memoria_postgres.py"
       ],
       "no_ci": false
     },
@@ -4198,8 +4189,7 @@
         "guarda/catalogo_importar.py",
         "guarda/portas_live.py",
         "guarda/preservar_derivado.py",
-        "guarda/preservar_documento.py",
-        "guarda/retencao_youtube_api.py"
+        "guarda/preservar_documento.py"
       ],
       "no_ci": true
     },
@@ -4243,24 +4233,6 @@
       "chamado_por": [
         "guarda/preservar_coleta.py"
       ],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "guarda/retencao_youtube_api.py",
-      "gaveta": "guarda",
-      "linhas": 302,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [
-        "YOUTUBE"
-      ],
-      "ferramentas": [],
-      "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -4332,13 +4304,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 156,
-    "pontos_de_entrada": 112,
+    "ficheiros_de_codigo": 155,
+    "pontos_de_entrada": 111,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 62,
+    "sem_chamador_e_fora_do_ci": 61,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 84,
-    "deitam_fora_alguma_coisa": 46,
+    "deitam_fora_alguma_coisa": 45,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
     "decisoes_escondidas_ao_todo": 4
@@ -4453,7 +4425,6 @@
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
       "guarda/portas_live.py",
-      "guarda/retencao_youtube_api.py",
       "guarda/social_guarda.py",
       "guarda/social_sessao.py",
       "guarda/sql_conferir.py"
@@ -4544,7 +4515,6 @@
       "guarda/banco_operacional.py",
       "guarda/es/adama_es_gate.py",
       "guarda/italy_preserve.mjs",
-      "guarda/retencao_youtube_api.py",
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [
