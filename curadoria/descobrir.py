@@ -727,6 +727,23 @@ def _marcar_visitado(url_norm: str, motivo: str, visitados: dict) -> None:
     _gravar_visitados(visitados)
 
 
+def _semente_ja_gasta(url_norm: str, visitados: dict) -> bool:
+    """Uma URL so deixa de poder ser semente se ja foi RASTEJADA como semente
+    (SEMENTE_PROCESSADA) ou REJEITADA.
+
+    O livro VISITADOS guarda dois significados com o mesmo nome: a pagina que
+    foi rastejada como semente e o link que foi REGISTADO como candidata
+    ("REGISTADO_CAND-xxxx"). Medido em 23/09: das 166 sementes, 125 de 2.a
+    geracao estavam fora por REGISTADO_* -- nunca tinham sido rastejadas.
+
+        REGISTADO != RASTEJADO.
+    """
+    if url_norm in visitados.get("REJEITADOS", {}):
+        return True
+    reg = visitados.get("VISITADOS", {}).get(url_norm)
+    return bool(reg) and not str(reg.get("MOTIVO", "")).startswith("REGISTADO_")
+
+
 def _marcar_rejeitado(url_norm: str, motivo: str, visitados: dict) -> None:
     agora = datetime.now(timezone.utc).isoformat()
     visitados["REJEITADOS"][url_norm] = {"AT": agora, "MOTIVO": motivo}
@@ -1384,8 +1401,7 @@ def crawl_sementes(
             todas_sementes.append(s2["URL"])
     sementes_a_usar = [
         s for s in todas_sementes
-        if normalizar(s) not in visitados.get("VISITADOS", {})
-        and normalizar(s) not in visitados.get("REJEITADOS", {})
+        if not _semente_ja_gasta(normalizar(s), visitados)
     ][:max_sementes]
 
     registados: list[dict] = []
@@ -1420,7 +1436,7 @@ def crawl_sementes(
             continue
         stats["SEMENTES_TEMATICAS_USADAS"] += 1
 
-        if semente_norm in visitados.get("VISITADOS", {}):
+        if _semente_ja_gasta(semente_norm, visitados):
             log.append({"semente": semente, "acao": "SEMENTE_JA_VISITADA"})
             continue
 
