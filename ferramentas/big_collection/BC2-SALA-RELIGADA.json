@@ -1,0 +1,37 @@
+{
+ "DATASET": "BC2-SALA-RELIGADA",
+ "MISSAO": "BC2, 23/09/2026",
+ "ANTES": "depois da tela azul (~13 h): postgres com 0 processos; 127.0.0.1:54330 sem resposta; postmaster.pid velho (PID 53588, livre)",
+ "PROCEDIMENTO": "~/sintonia-sala-italia/ligar_sala.cmd (pg_ctl start -p 54330, listen 127.0.0.1), lancado pelo PowerShell; o cmd via Git Bash nao executa o script (aspas) — nao fez nada, repetido",
+ "ARRANQUE": "18:13:08Z: recuperacao de queda normal (redo feito, checkpoint end-of-recovery de 3 buffers); 'pronto para aceitar conexoes'; pg_isready: aceitando conexoes",
+ "INTEGRIDADE_SO_LEITURA": {
+  "CLIENTE": "scripts/micro_coleta/micro_coleta.py sql (so SELECT; PGOPTIONS default_transaction_read_only=on); confirmado porta 54330, base sala_italia, transaction_read_only=on",
+  "REFERENCIA": "backup BC1 (provar_backup_da_sala.py, 23/09 15:50Z, restaurado igual numa base descartavel)",
+  "TABELAS": {
+   "sala_de_espera": {
+    "LINHAS": 61,
+    "MD5_IGUAL_AO_BACKUP": true
+   },
+   "raw_asset": {
+    "LINHAS": 1405,
+    "MD5_IGUAL_AO_BACKUP": true
+   },
+   "storage_object": {
+    "LINHAS": 1097,
+    "MD5_IGUAL_AO_BACKUP": true
+   },
+   "derived_artifact": {
+    "LINHAS": 908,
+    "MD5_IGUAL_AO_BACKUP": true
+   },
+   "collection_run": {
+    "LINHAS": 389,
+    "MD5_IGUAL_AO_BACKUP": true
+   }
+  },
+  "IGUAL_AO_BACKUP": true,
+  "CONTAGENS_IGUAIS_A_A2": "61/1405/1097/908/389"
+ },
+ "ESCRITO_NA_SALA": 0,
+ "NAO_FEITO": "o supervisor do bot e o observador da ponte continuam desligados desde a queda (fora desta missao; coordenador)"
+}
