@@ -1,0 +1,70 @@
+# ═══════════════════════════════════════════════════════════════════════
+# SOC6 · DIAGNÓSTICO DOS DOIS PORTÕES VERMELHOS (MAP RULES e COLETA CHECK)
+# ═══════════════════════════════════════════════════════════════════════
+# Os logs do Actions só se leem com sessão do GitHub, e esta máquina não a tem.
+# Este workflow corre, no MESMO ambiente do CI (ubuntu-latest, python 3.12),
+# os passos que reprovam em `system-map.yml`, sem parar no primeiro, e faz commit
+# da saída de cada um em `ci-diagnostico/` na mesma branch. Não usa segredo.
+# Dispara por push de `ci-diagnostico/PEDIDO.json` (ou workflow_dispatch).
+# ═══════════════════════════════════════════════════════════════════════
+name: ci-diagnostico
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ci-portoes-v1]
+    paths: ['ci-diagnostico/PEDIDO.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ci-diagnostico-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: correr os passos vermelhos e guardar a saida
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          set +e
+          mkdir -p ci-diagnostico/saida
+          o=ci-diagnostico/saida
+          python3 system-map/scripts/correr_a_cadeia.py REGERAR > $o/00-regerar.txt 2>&1; echo "rc=$?" >> $o/00-regerar.txt
+          for t in test_base_da_auditoria test_system_map test_verdade_da_collection_actual \
+                   test_reconciliacao_do_universo test_quatro_planos test_cadeia_declara_io \
+                   test_ordem_por_dependencia; do
+            python3 system-map/tests/$t.py > $o/map-$t.txt 2>&1; echo "rc=$?" >> $o/map-$t.txt
+          done
+          git checkout -- . 2>/dev/null
+          for p in medidas/padrao_da_coleta.py provas/testa_coleta_canonica.py \
+                   provas/testa_golden_path_pdf.py provas/o_encanamento_tem_uma_porta.py; do
+            n=$(basename $p .py)
+            python3 $p > $o/coleta-$n.txt 2>&1; echo "rc=$?" >> $o/coleta-$n.txt
+          done
+          grep -H "^rc=" $o/*.txt > $o/RESUMO.txt
+          cat $o/RESUMO.txt
+      - name: guardar na branch
+        run: |
+          git config user.name  "sintonia-ci-diagnostico"
+          git config user.email "ci-diagnostico@users.noreply.github.com"
+          git add -f ci-diagnostico/saida
+          git commit -m "ci-diagnostico: saida dos passos vermelhos (run ${{ github.run_id }})" || exit 0
+          git push origin HEAD:${{ github.ref_name }}
