@@ -141,6 +141,104 @@ def assinatura_da_condicao() -> str:
     return h.hexdigest()
 
 
+# ────────────────────────────────────────────────────────────────────────────
+# REVALIDAR AS ELEGIVEIS (B3, 2026-09-23)
+# ────────────────────────────────────────────────────────────────────────────
+# O bot so re-media o que FALHOU (alimentar_fila: REVALIDATE de
+# CONTRACTED_CANARY_FAILED). Uma fonte ELIGIBLE nunca mais era olhada: IT-T5-041
+# mudou de casa (crpv.it -> rinova.eu) a 22/09 e continuava no portao, porque
+# nada a voltava a medir. Sem re-medicao nao ha DEMOTION sem humano.
+#
+#     O QUE O PORTAO DEIXA COLHER TEM DE SER RE-MEDIDO — SENAO A PROVA E UMA MEMORIA.
+#
+# REVALIDAR_ELEGIVEIS_DIAS = 7
+#   WHY: nem a Biblia nem o know-how fixam uma idade maxima de prova (procurado a
+#   23/09: «revalid», «prova velha», «idade da prova» — nada). Proposto e
+#   declarado: 7 dias limita a uma semana o tempo que uma fonte que mudou de casa
+#   fica no portao (a CRPV mudou em <1 dia); e custa pouco — ~30 elegiveis x <=4
+#   pedidos por semana, contra ate 250 pedidos por DISCOVERY por hora. A cadencia
+#   inicial das fontes (MONTHLY_PROBE) e de COLHEITA, nao de prova da rota.
+# REVALIDAR_POR_VOLTA = 5
+#   WHY: alimentacao progressiva, como o resto deste ficheiro: 5 x <=4 pedidos por
+#   volta ociosa, nunca a lista inteira de uma vez.
+# Guarda anti-eco: uma fonte cuja VALIDATE_ROUTE mexeu ha menos de N dias nao volta
+#   a ser pedida, SEJA QUAL FOR o desfecho. Medido na prova viva T02077: «BLOCK sem
+#   contrato» nao escreve linha no livro; sem esta guarda a fonte continuava velha e
+#   ELIGIBLE e era pedida em cada volta ociosa — o eco que o FEEDER ja teve.
+# Contrato novo (CONTRATO_UNICO da D10) e razao propria: re-medir logo, uma vez,
+#   com o contrato novo (D10, condicao 2), mesmo que a prova seja recente.
+#
+# A re-medicao passa pela cadeia normal do worker: VALIDATE_ROUTE -> CANARY_PENDING
+# -> CANARY -> READY so com os quatro passos, ou CONTRACTED_CANARY_FAILED. Durante
+# a re-medicao a fonte sai do portao, e volta se passar — um contrato e hipotese
+# ate o canario o provar.
+REVALIDAR_ELEGIVEIS_DIAS = 7
+REVALIDAR_POR_VOLTA = 5
+
+
+def _quando(s: str | None) -> datetime | None:
+    try:
+        return datetime.fromisoformat(str(s).replace("Z", "+00:00")) if s else None
+    except ValueError:
+        return None
+
+
+def candidatas_a_revalidar(agora: datetime, *, ctx: dict | None = None,
+                           tarefas: list | None = None) -> list[dict]:
+    """[{SOURCE_ID, MOTIVO, PROMOVIDA_EM}] por ordem de urgencia. Nao escreve nada."""
+    import collection_gate as CG   # noqa: E402  (lido so aqui: o gatilho corre sem ele)
+    import ready_split as RS       # noqa: E402
+    import lifecycle as LC         # noqa: E402
+    ctx = ctx if ctx is not None else CG._contexto()
+    tarefas = tarefas if tarefas is not None else F._ler()["TAREFAS"]
+    limite = REVALIDAR_ELEGIVEIS_DIAS * 86400
+    ultima_vr = {}
+    for t in tarefas:
+        if t.get("TASK_TYPE") == F.VALIDATE_ROUTE:
+            u = _quando(t.get("UPDATED_AT"))
+            if u and (t["SOURCE_ID"] not in ultima_vr or u > ultima_vr[t["SOURCE_ID"]]):
+                ultima_vr[t["SOURCE_ID"]] = u
+    est = {}
+    for t in ctx["livro"]["TRANSICOES"]:
+        est[t["SOURCE_ID"]] = t["NEW_STATE"]
+    elegiveis = set(CG.elegiveis(ctx=ctx))
+    out = []
+    for sid in sorted(s for s, e in est.items() if e == LC.READY_FOR_COLLECTION):
+        promo = RS.ultima_promocao(sid, ctx["livro"]) or {}
+        quando = _quando(promo.get("OBSERVED_AT"))
+        cu = (ctx["contratos"].get(sid) or {}).get("CONTRATO_UNICO") or {}
+        novo = _quando(cu.get("APLICADO_EM"))
+        vr = ultima_vr.get(sid)
+        if novo and (quando is None or novo > quando):
+            if vr is None or vr < novo:
+                out.append({"SOURCE_ID": sid, "MOTIVO": "CONTRATO_NOVO",
+                            "PROMOVIDA_EM": promo.get("OBSERVED_AT"), "ORDEM": 0})
+            continue
+        if sid not in elegiveis or quando is None:
+            continue
+        if (agora - quando).total_seconds() <= limite:
+            continue
+        if vr is not None and (agora - vr).total_seconds() <= limite:
+            continue
+        out.append({"SOURCE_ID": sid, "MOTIVO": "PROVA_VELHA",
+                    "PROMOVIDA_EM": promo.get("OBSERVED_AT"), "ORDEM": 1})
+    out.sort(key=lambda x: (x["ORDEM"], x["PROMOVIDA_EM"] or ""))
+    return out
+
+
+def revalidar_elegiveis(agora: datetime, *, ctx: dict | None = None,
+                        tarefas: list | None = None) -> dict:
+    cands = candidatas_a_revalidar(agora, ctx=ctx, tarefas=tarefas)
+    feitas = []
+    for c in cands[:REVALIDAR_POR_VOLTA]:
+        F.enfileirar(c["SOURCE_ID"], F.VALIDATE_ROUTE, priority=55,
+                     motivo=("re-medir: contrato novo (D10)" if c["MOTIVO"] == "CONTRATO_NOVO"
+                             else "re-medir: prova com mais de %d dias (promovida em %s)"
+                             % (REVALIDAR_ELEGIVEIS_DIAS, (c["PROMOVIDA_EM"] or "?")[:19])))
+        feitas.append({k: c[k] for k in ("SOURCE_ID", "MOTIVO")})
+    return {"CANDIDATAS": len(cands), "ENFILEIRADAS": feitas}
+
+
 def talvez_alimentar(estado: dict | None = None, *,
                      feeder_fn=None, descobrir_fn=None,
                      agora: datetime | None = None) -> dict:
@@ -174,6 +272,13 @@ def talvez_alimentar(estado: dict | None = None, *,
             "TASK_IDS": [t["TASK_ID"] for t in revividas][:50],
         }
         m["ACCOES"].append("REVIVER")
+
+    # Nivel 0b — REVALIDAR: o que o portao tem por ELIGIBLE tem de ser re-medido
+    # (B3). Sem rede propria: so enfileira VALIDATE_ROUTE; a rede e a do worker.
+    rv = revalidar_elegiveis(agora)
+    if rv["ENFILEIRADAS"]:
+        m["REVALIDAR"] = rv
+        m["ACCOES"].append("REVALIDAR")
 
     # Nivel 1 — FEEDER: drenar o acervo para a fila (barato).
     #

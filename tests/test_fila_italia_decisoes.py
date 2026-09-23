@@ -49,13 +49,33 @@ def _fila():
     return json.loads(FILA.read_text(encoding="utf-8"))
 
 
+#: D13 (23/09, DECISOES-DONO-2026-09-23 linha 116, bot Luciano por delegacao do
+#: dono): «a nota "o que falta" NAO e lei». Estas provas medem a DECISAO da fila
+#: de 14/09 — a qualificacao de 14/09, decidida por decidir_fila_italia.py e
+#: carimbada DECIDIDA_EM = 2026-09-15. E esse grupo, e so esse, que elas olham.
+#: As candidatas que a discovery trouxe depois sao outra populacao: contam-se e
+#: ficam a vista (TestAsNovasContamSeEFicamAVista), sem nota inventada.
+DECIDIDA_EM_DA_COORTE = "2026-09-15"
+
+
+def _coorte(d=None):
+    d = d or _fila()
+    return [c for c in d["CANDIDATAS"] if c.get("DECIDIDA_EM") == DECIDIDA_EM_DA_COORTE]
+
+
+def _novas(d=None):
+    d = d or _fila()
+    return [c for c in d["CANDIDATAS"] if c.get("DECIDIDA_EM") != DECIDIDA_EM_DA_COORTE]
+
+
 class TestAFilaFoiDecididaEDizPorque(unittest.TestCase):
 
     def test_a_fila_tem_as_241_e_nenhuma_ficou_sem_decisao(self):
         d = _fila()
-        self.assertEqual(d["TOTAL"], FILA_ESPERADA)
-        self.assertEqual(len(d["CANDIDATAS"]), FILA_ESPERADA)
-        for c in d["CANDIDATAS"]:
+        coorte = _coorte(d)
+        self.assertEqual(len(coorte), FILA_ESPERADA)
+        self.assertEqual(d["TOTAL"], len(d["CANDIDATAS"]), "o TOTAL da fila nao conta as linhas dela")
+        for c in coorte:
             with self.subTest(candidata=c["NOME"][:40]):
                 self.assertIn(c["ESTADO"], set(d["ESTADOS"]),
                               "estado fora do vocabulario declarado pela propria fila")
@@ -67,7 +87,9 @@ class TestAFilaFoiDecididaEDizPorque(unittest.TestCase):
 
     def test_em_analise_diz_sempre_o_que_falta(self):
         """EM_ANALISE sem «o que falta» e' limbo com outro nome."""
-        for c in _fila()["CANDIDATAS"]:
+        coorte = _coorte()
+        self.assertEqual(len(coorte), FILA_ESPERADA)
+        for c in coorte:
             if c["ESTADO"] == "EM_ANALISE":
                 with self.subTest(candidata=c["NOME"][:40]):
                     self.assertTrue((c.get("O_QUE_FALTA") or "").strip())
@@ -84,6 +106,88 @@ class TestAFilaFoiDecididaEDizPorque(unittest.TestCase):
             if c["ESTADO"] == "RECUSADA":
                 with self.subTest(candidata=c["NOME"][:40]):
                     self.assertTrue((c.get("MOTIVO_DA_RECUSA") or "").strip())
+
+
+class TestAsNovasContamSeEFicamAVista(unittest.TestCase):
+    """D13 (2): as candidatas que chegaram depois de 14/09 continuam contadas e a
+    vista como «ainda nao sabemos» — nem prontas nem recusadas por omissao — e a
+    nota nao se inventa para encher."""
+
+    def test_toda_a_fila_e_contada_coorte_mais_novas(self):
+        d = _fila()
+        self.assertEqual(len(_coorte(d)) + len(_novas(d)), d["TOTAL"])
+        self.assertGreater(len(_novas(d)), 0, "nao ha novas: esta prova passaria por vazio")
+
+    def test_nova_sem_nota_fica_em_ainda_nao_sabemos(self):
+        for c in _novas():
+            if (c.get("O_QUE_FALTA") or "").strip():
+                continue
+            with self.subTest(candidata=c["CANDIDATA_ID"]):
+                self.assertIn(c["ESTADO"], ("CANDIDATA", "EM_ANALISE", "RECUSADA", "CAPABILITY_BLOCK"))
+                self.assertNotEqual(c["ESTADO"], "PROMOVIDA", "promovida sem nota nem prova")
+                self.assertIsNone(c.get("SOURCE_ID"))
+
+    def test_nenhuma_nota_generica_de_enchimento(self):
+        """PROIBIDO (D13): a mesma frase copiada para varias novas nao e nota, e enchimento."""
+        from collections import Counter
+        notas = Counter((c.get("O_QUE_FALTA") or "").strip() for c in _novas())
+        notas.pop("", None)
+        self.assertEqual([n for n, k in notas.items() if k > 1], [])
+
+
+class TestSemCapacidadeNaoERecusa(unittest.TestCase):
+    """D13 (3): rede social sem capacidade e CAPABILITY_BLOCK, nao RECUSADA."""
+
+    def test_nenhuma_recusa_por_falta_de_capacidade(self):
+        d = _fila()
+        self.assertIn("CAPABILITY_BLOCK", d["ESTADOS"])
+        for c in d["CANDIDATAS"]:
+            with self.subTest(candidata=c["CANDIDATA_ID"]):
+                if c["ESTADO"] == "RECUSADA":
+                    self.assertNotIn("CAPABILITY_BLOCK", c.get("MOTIVO_DA_RECUSA") or "")
+                if c["ESTADO"] == "CAPABILITY_BLOCK":
+                    self.assertTrue((c.get("MOTIVO_DO_BLOQUEIO") or "").strip())
+
+
+class TestOsTermosProibemEProvamSe(unittest.TestCase):
+    """D15 (23/09, DECISOES-DONO-2026-09-23 linha 144): LinkedIn e Instagram ficam
+    POLICY_BLOCK — nem pronta, nem recusada, nem em analise — e a prova e o trecho
+    dos termos, com endereco e data. O 429 da sonda de 14/09 fica so como historico:
+    429 e «demasiados pedidos», nao «proibido»."""
+
+    SOCIAIS = ("LINKEDIN", "INSTAGRAM")
+
+    def test_todas_as_sociais_proibidas_estao_em_policy_block(self):
+        d = _fila()
+        self.assertIn("POLICY_BLOCK", d["ESTADOS"])
+        sociais = [c for c in d["CANDIDATAS"] if c["TIPO"] in self.SOCIAIS]
+        self.assertGreater(len(sociais), 0, "nao ha sociais: esta prova passaria por vazio")
+        for c in sociais:
+            with self.subTest(candidata=c["CANDIDATA_ID"]):
+                self.assertEqual(c["ESTADO"], "POLICY_BLOCK")
+                self.assertFalse(c.get("MOTIVO_DA_RECUSA"))
+                self.assertIsNone(c.get("SOURCE_ID"))
+
+    def test_a_prova_e_o_trecho_dos_termos_e_nunca_o_429(self):
+        import hashlib
+        for c in _fila()["CANDIDATAS"]:
+            if c["ESTADO"] != "POLICY_BLOCK":
+                continue
+            with self.subTest(candidata=c["CANDIDATA_ID"]):
+                ev = c.get("EVIDENCIA_POLITICA") or {}
+                for campo in ("URL", "EM_VIGOR", "LIDO_EM", "TRECHO", "FICHEIRO", "SHA256"):
+                    self.assertTrue((ev.get(campo) or "").strip(), campo)
+                self.assertTrue(ev["URL"].startswith("https://"))
+                self.assertTrue((c.get("EVIDENCIA") or "").startswith("TERMOS https://"))
+                self.assertNotIn("429", c.get("EVIDENCIA") or "")
+                pagina = RAIZ / ev["FICHEIRO"]
+                self.assertEqual(hashlib.sha256(pagina.read_bytes()).hexdigest(), ev["SHA256"])
+
+    def test_a_proxima_expansao_people_social_e_contada(self):
+        d = _fila()
+        n = sum(1 for c in d["CANDIDATAS"] if c["ESTADO"] == "POLICY_BLOCK")
+        self.assertEqual(n, sum(1 for c in d["CANDIDATAS"] if c["TIPO"] in self.SOCIAIS))
+        print("PROXIMA_EXPANSAO_PEOPLE_SOCIAL = %d" % n)
 
 
 class TestNaoSeRecusaOQueNinguemLeu(unittest.TestCase):
@@ -136,6 +240,17 @@ class TestNaoSeRecusaOQueNinguemLeu(unittest.TestCase):
         self.assertEqual(len(revogadas), 25)
         for c in revogadas:
             with self.subTest(candidata=c["NOME"][:40]):
+                # D13 (3): CAPABILITY_BLOCK nao e recusa — e o estado de uma fonte
+                # boa sem capacidade. A revogacao de 14/09 continua cumprida.
+                if c["ESTADO"] == "CAPABILITY_BLOCK":
+                    self.assertTrue((c.get("MOTIVO_DO_BLOQUEIO") or "").strip())
+                    continue
+                # D15: os termos da plataforma proibem — POLICY_BLOCK com o trecho
+                # dos termos como prova, nunca a sonda de 429 que a revogacao desfez.
+                if c["ESTADO"] == "POLICY_BLOCK":
+                    self.assertTrue((c.get("EVIDENCIA_POLITICA") or {}).get("TRECHO"))
+                    self.assertNotIn("429", c.get("EVIDENCIA") or "")
+                    continue
                 self.assertEqual(c["ESTADO"], "EM_ANALISE")
 
     def test_nenhuma_recusa_viva_assenta_em_429_ou_muro(self):

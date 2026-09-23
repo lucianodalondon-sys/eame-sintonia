@@ -53,6 +53,7 @@ sys.path.insert(0, str(RAIZ / "candidatas"))
 
 import atribuir_source_id as ASI   # noqa: E402
 import canario as CANARIO          # noqa: E402
+import decisao_semantica as DS     # noqa: E402
 import fila as F                   # noqa: E402
 import fonte_nova as FN            # noqa: E402
 import gate_de_rota as GATE        # noqa: E402
@@ -405,6 +406,29 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
         "CONTENT_VALUE_TYPE": [],
     })
 
+    # O nome nao decidiu: ha decisao semantica (Opus/humano) COM PROVA no canal?
+    # So entra aqui — nunca por cima de um territorio que a regra ja decidiu.
+    decisao, porque_ds = (None, "")
+    if territorio == "NAO SEI":
+        decisao, porque_ds = DS.decisao_para(cand_id, ficha)
+        # ⚠️ ESTE REGISTO SO CUNHA NUMEROS «IT-». Uma fonte europeia ou
+        # internacional com territorio decidido nao recebe um numero italiano
+        # por omissao: fica a espera da numeracao do Atlas (EU-...), do dono.
+        if decisao and decisao.get("PAIS") != "IT":
+            return "BLOCK", {"CLASSE": "SEMANTIC", "SEMANTIC_PENDING": True,
+                             "PORQUE": ("territorio decidido fora de IT: %s, PAIS=%s pela "
+                                        "prova — o QUALIFY so cunha numeros IT; a numeracao "
+                                        "%s do Atlas e decisao do dono, sem fabricar"
+                                        % (decisao["TERRITORIO"], decisao.get("PAIS"),
+                                           decisao.get("PAIS")))}
+        if decisao:
+            territorio = decisao["TERRITORIO"]
+            porque = "decisao semantica de %s: %s · provas: %s" % (
+                decisao["DECIDIDO_POR"], (decisao.get("PORQUE") or "")[:200],
+                "; ".join("%s %s sha256=%s" % (p.get("PAPEL"), p.get("URL"),
+                                               (p.get("SHA256") or "")[:16])
+                          for p in decisao.get("PROVAS", [])))
+
     # ⚠️ SEM SINAL, SEM NUMERO — E SEM FABRICAR. Territorio indeterminado pelo
     # nome/URL e identidade que so raciocinio semantico (Opus/humano) resolve.
     # Um numero inventado poe a fonte na gaveta errada e da ar de trabalho feito.
@@ -412,8 +436,8 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
         return "BLOCK", {"CLASSE": "SEMANTIC",
                          "PORQUE": ("territorio indeterminado pelo nome (%s) — SOURCE_ID "
                                     "fica UNKNOWN, sem fabricar; precisa de decisao "
-                                    "semantica (Opus/humano) ou caracterizacao"
-                                    % (ficha.get("NOME", "")[:50]))}
+                                    "semantica (Opus/humano) ou caracterizacao · %s"
+                                    % (ficha.get("NOME", "")[:50], porque_ds))}
 
     # HTML: pedir/alocar o SOURCE_ID canonico e passar ao degrau do contrato.
     sid_real, novo = _alocar_source_id(cand_id, territorio, familia, ficha, porque)
@@ -430,6 +454,8 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
     return "OK", {"SOURCE_ID_REAL": sid_real, "TERRITORY": territorio,
                   "FAMILY": familia, "PAIS": pais, "TIPO": tipo,
                   "SOURCE_ID_NOVO": novo,
+                  "TERRITORY_REASON": porque,
+                  "DECISAO_SEMANTICA": decisao,
                   "PORQUE": "qualificada: %s -> %s (%s)"
                             % (cand_id, sid_real, territorio)}
 

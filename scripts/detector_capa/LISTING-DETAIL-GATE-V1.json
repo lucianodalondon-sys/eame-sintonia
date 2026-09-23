@@ -1,0 +1,621 @@
+{
+ "DATASET": "LISTING-DETAIL-GATE-V1",
+ "MISSAO": "LD1, 23/09/2026",
+ "LEI": "nao alterar regra sem benchmark valido (mandato v2 §18); uma regra so entra se nao for pior que o ACTUAL em nenhum dos dois erros",
+ "BASE": {
+  "LIVRO_ANTES": "copia de source-curator-service-v1/curadoria/italy_contracts_curator.json (servico vivo @ 409eeb8e)",
+  "LIVRO_ANTES_SHA256": "9c14afed9e56476549d9d39aa67fd0f925dd4e2b4bbdaa0d38086a90ebd4b142",
+  "LIVRO_DEPOIS": "a mesma copia com o pacote G1 (scripts/desbloqueio/aplicar_desbloqueio.py) em 2 passagens: 73 alteracoes e depois 0",
+  "LIVRO_DEPOIS_SHA256": "e957f1e044c30f4ada4ed4cf1cfd6a00a4de7843e2a179f1ac13d6e2e7539c43",
+  "TABELA": "origin/unificacao-v1:regras/italy_contracts_onboarded.json (copia; nao entra no juizo do detector)",
+  "RECEITAS_MUDADAS": "17 fontes: 15 LINK_PATTERN + 2 INDEX_URL; 13 no gabarito, 26/146 paginas (12 capas, 14 materias)",
+  "GABARITO": "scripts/detector_capa/GABARITO-CAPA-V1.json, 146 paginas (109 capas, 37 materias), bytes em ~/detector-capa-gabarito, sem rede"
+ },
+ "AMEACAS_A_VALIDADE": {
+  "CIRCULARIDADE": "o G1 so aceitou padroes que casam TODAS as materias e NENHUMA capa deste gabarito: nas 26 paginas afetadas a morada acerta por construcao. Medido em fatia separada.",
+  "LIVRO_VIVO_DIFERENTE_DO_DA_6PREPC": "3 fontes do gabarito ausentes do livro vivo (IT-T5-041, IT-T9-015, IT-T9-019) e 8 com INDEX_URL/LINK_PATTERN diferentes do livro de detector-capa-v1 (a7ddd069): os numeros 'antes' de hoje nao sao os da 6-PREP-c (V1 20/109 vs 13; SO_MORADA 4 vs 0).",
+  "INDICE_CIRCULAR": "o ganho da V1 esta nas paginas que sao o INDEX_URL, escolhidas como capa pelo INDEX_URL na recolha",
+  "SEGUNDA_LEITURA": {
+   "AMOSTRA": "20 paginas, random.seed(20260923)",
+   "IDS": [
+    8,
+    9,
+    10,
+    16,
+    17,
+    24,
+    60,
+    61,
+    65,
+    73,
+    75,
+    88,
+    98,
+    102,
+    108,
+    122,
+    141,
+    143,
+    150,
+    164
+   ],
+   "CONCORDAM": "20/20",
+   "LIMITE": "o rotulador e o revisor sao ambos agentes Claude; leitura as cegas, mas nao e um olho humano"
+  }
+ },
+ "MEDIDA": {
+  "FONTES_COM_RECEITA_MUDADA": [
+   "IT-T10-018",
+   "IT-T10-022",
+   "IT-T10-026",
+   "IT-T12-024",
+   "IT-T12-039",
+   "IT-T12-044",
+   "IT-T12-057",
+   "IT-T12-074",
+   "IT-T12-117",
+   "IT-T2-038",
+   "IT-T2-039",
+   "IT-T2-050",
+   "IT-T5-052",
+   "IT-T5-053",
+   "IT-T7-047",
+   "IT-T8-016",
+   "IT-T9-018"
+  ],
+  "FONTES_MUDADAS_NO_GABARITO": [
+   "IT-T10-018",
+   "IT-T10-022",
+   "IT-T12-024",
+   "IT-T12-039",
+   "IT-T12-044",
+   "IT-T2-038",
+   "IT-T2-039",
+   "IT-T2-050",
+   "IT-T5-052",
+   "IT-T5-053",
+   "IT-T7-047",
+   "IT-T8-016",
+   "IT-T9-018"
+  ],
+  "FATIAS": {
+   "TODAS": {
+    "CAPAS": 109,
+    "MATERIAS": 37,
+    "JUIZES": {
+     "ACTUAL": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "63/109",
+       "CAPA_CALADA_COMO_MATERIA": "37/109",
+       "FALSE_ARTICLE_AS_LISTING": "6/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "63/109",
+       "CAPA_CALADA_COMO_MATERIA": "37/109",
+       "FALSE_ARTICLE_AS_LISTING": "6/37"
+      }
+     },
+     "SO_MORADA": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/109",
+       "CAPA_CALADA_COMO_MATERIA": "0/109",
+       "FALSE_ARTICLE_AS_LISTING": "25/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/109",
+       "CAPA_CALADA_COMO_MATERIA": "0/109",
+       "FALSE_ARTICLE_AS_LISTING": "15/37"
+      }
+     },
+     "PROPOSTA": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/109",
+       "CAPA_CALADA_COMO_MATERIA": "4/109",
+       "FALSE_ARTICLE_AS_LISTING": "25/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/109",
+       "CAPA_CALADA_COMO_MATERIA": "4/109",
+       "FALSE_ARTICLE_AS_LISTING": "15/37"
+      }
+     },
+     "V1_SO_INDICE": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "20/109",
+       "CAPA_CALADA_COMO_MATERIA": "12/109",
+       "FALSE_ARTICLE_AS_LISTING": "9/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "20/109",
+       "CAPA_CALADA_COMO_MATERIA": "12/109",
+       "FALSE_ARTICLE_AS_LISTING": "7/37"
+      }
+     },
+     "V2_DESEMPATE": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "37/109",
+       "CAPA_CALADA_COMO_MATERIA": "4/109",
+       "FALSE_ARTICLE_AS_LISTING": "11/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "37/109",
+       "CAPA_CALADA_COMO_MATERIA": "4/109",
+       "FALSE_ARTICLE_AS_LISTING": "5/37"
+      }
+     }
+    }
+   },
+   "AFETADAS_CIRCULAR": {
+    "CAPAS": 12,
+    "MATERIAS": 14,
+    "JUIZES": {
+     "ACTUAL": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "8/12",
+       "CAPA_CALADA_COMO_MATERIA": "4/12",
+       "FALSE_ARTICLE_AS_LISTING": "4/14"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "8/12",
+       "CAPA_CALADA_COMO_MATERIA": "4/12",
+       "FALSE_ARTICLE_AS_LISTING": "4/14"
+      }
+     },
+     "SO_MORADA": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "0/12",
+       "CAPA_CALADA_COMO_MATERIA": "0/12",
+       "FALSE_ARTICLE_AS_LISTING": "13/14"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "0/12",
+       "CAPA_CALADA_COMO_MATERIA": "0/12",
+       "FALSE_ARTICLE_AS_LISTING": "3/14"
+      }
+     },
+     "PROPOSTA": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "0/12",
+       "CAPA_CALADA_COMO_MATERIA": "0/12",
+       "FALSE_ARTICLE_AS_LISTING": "13/14"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "0/12",
+       "CAPA_CALADA_COMO_MATERIA": "0/12",
+       "FALSE_ARTICLE_AS_LISTING": "3/14"
+      }
+     },
+     "V1_SO_INDICE": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "1/12",
+       "CAPA_CALADA_COMO_MATERIA": "0/12",
+       "FALSE_ARTICLE_AS_LISTING": "6/14"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "1/12",
+       "CAPA_CALADA_COMO_MATERIA": "0/12",
+       "FALSE_ARTICLE_AS_LISTING": "4/14"
+      }
+     },
+     "V2_DESEMPATE": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/12",
+       "CAPA_CALADA_COMO_MATERIA": "0/12",
+       "FALSE_ARTICLE_AS_LISTING": "7/14"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/12",
+       "CAPA_CALADA_COMO_MATERIA": "0/12",
+       "FALSE_ARTICLE_AS_LISTING": "1/14"
+      }
+     }
+    }
+   },
+   "NAO_AFETADAS": {
+    "CAPAS": 97,
+    "MATERIAS": 23,
+    "JUIZES": {
+     "ACTUAL": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "55/97",
+       "CAPA_CALADA_COMO_MATERIA": "33/97",
+       "FALSE_ARTICLE_AS_LISTING": "2/23"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "55/97",
+       "CAPA_CALADA_COMO_MATERIA": "33/97",
+       "FALSE_ARTICLE_AS_LISTING": "2/23"
+      }
+     },
+     "SO_MORADA": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/97",
+       "CAPA_CALADA_COMO_MATERIA": "0/97",
+       "FALSE_ARTICLE_AS_LISTING": "12/23"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/97",
+       "CAPA_CALADA_COMO_MATERIA": "0/97",
+       "FALSE_ARTICLE_AS_LISTING": "12/23"
+      }
+     },
+     "PROPOSTA": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/97",
+       "CAPA_CALADA_COMO_MATERIA": "4/97",
+       "FALSE_ARTICLE_AS_LISTING": "12/23"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/97",
+       "CAPA_CALADA_COMO_MATERIA": "4/97",
+       "FALSE_ARTICLE_AS_LISTING": "12/23"
+      }
+     },
+     "V1_SO_INDICE": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "19/97",
+       "CAPA_CALADA_COMO_MATERIA": "12/97",
+       "FALSE_ARTICLE_AS_LISTING": "3/23"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "19/97",
+       "CAPA_CALADA_COMO_MATERIA": "12/97",
+       "FALSE_ARTICLE_AS_LISTING": "3/23"
+      }
+     },
+     "V2_DESEMPATE": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "33/97",
+       "CAPA_CALADA_COMO_MATERIA": "4/97",
+       "FALSE_ARTICLE_AS_LISTING": "4/23"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "33/97",
+       "CAPA_CALADA_COMO_MATERIA": "4/97",
+       "FALSE_ARTICLE_AS_LISTING": "4/23"
+      }
+     }
+    }
+   },
+   "CAPAS_NAO_INDICE_MAIS_MATERIAS": {
+    "CAPAS": 37,
+    "MATERIAS": 37,
+    "JUIZES": {
+     "ACTUAL": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "20/37",
+       "CAPA_CALADA_COMO_MATERIA": "12/37",
+       "FALSE_ARTICLE_AS_LISTING": "6/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "20/37",
+       "CAPA_CALADA_COMO_MATERIA": "12/37",
+       "FALSE_ARTICLE_AS_LISTING": "6/37"
+      }
+     },
+     "SO_MORADA": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/37",
+       "CAPA_CALADA_COMO_MATERIA": "0/37",
+       "FALSE_ARTICLE_AS_LISTING": "25/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/37",
+       "CAPA_CALADA_COMO_MATERIA": "0/37",
+       "FALSE_ARTICLE_AS_LISTING": "15/37"
+      }
+     },
+     "PROPOSTA": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/37",
+       "CAPA_CALADA_COMO_MATERIA": "4/37",
+       "FALSE_ARTICLE_AS_LISTING": "25/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "4/37",
+       "CAPA_CALADA_COMO_MATERIA": "4/37",
+       "FALSE_ARTICLE_AS_LISTING": "15/37"
+      }
+     },
+     "V1_SO_INDICE": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "20/37",
+       "CAPA_CALADA_COMO_MATERIA": "12/37",
+       "FALSE_ARTICLE_AS_LISTING": "9/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "20/37",
+       "CAPA_CALADA_COMO_MATERIA": "12/37",
+       "FALSE_ARTICLE_AS_LISTING": "7/37"
+      }
+     },
+     "V2_DESEMPATE": {
+      "ANTES_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "12/37",
+       "CAPA_CALADA_COMO_MATERIA": "4/37",
+       "FALSE_ARTICLE_AS_LISTING": "11/37"
+      },
+      "DEPOIS_RECEITAS": {
+       "FALSE_LISTING_AS_ARTICLE": "12/37",
+       "CAPA_CALADA_COMO_MATERIA": "4/37",
+       "FALSE_ARTICLE_AS_LISTING": "5/37"
+      }
+     }
+    }
+   }
+  }
+ },
+ "CAUSAS_DOS_ERROS_RESIDUAIS_DEPOIS_DAS_RECEITAS": {
+  "ACTUAL": {
+   "ATRAVESSA | REGRA": {
+    "N": 59,
+    "FONTES": [
+     "IT-T10-018",
+     "IT-T10-021",
+     "IT-T10-022",
+     "IT-T11-009",
+     "IT-T12-018",
+     "IT-T12-020",
+     "IT-T12-023",
+     "IT-T12-024",
+     "IT-T12-026",
+     "IT-T12-027",
+     "IT-T12-028",
+     "IT-T12-030",
+     "IT-T12-033",
+     "IT-T12-034",
+     "IT-T12-039",
+     "IT-T12-041",
+     "IT-T12-042",
+     "IT-T12-043",
+     "IT-T12-048",
+     "IT-T12-049",
+     "IT-T2-032",
+     "IT-T2-034",
+     "IT-T2-049",
+     "IT-T2-050",
+     "IT-T2-065",
+     "IT-T2-070",
+     "IT-T5-039",
+     "IT-T5-046",
+     "IT-T5-049",
+     "IT-T5-053",
+     "IT-T5-056",
+     "IT-T5-061",
+     "IT-T5-062",
+     "IT-T5-063",
+     "IT-T5-064",
+     "IT-T5-080",
+     "IT-T5-082",
+     "IT-T5-083",
+     "IT-T7-019",
+     "IT-T7-021",
+     "IT-T7-031",
+     "IT-T7-033",
+     "IT-T7-040",
+     "IT-T7-041",
+     "IT-T7-054",
+     "IT-T7-055",
+     "IT-T8-007",
+     "IT-T8-011",
+     "IT-T8-016",
+     "IT-T9-018"
+    ]
+   },
+   "ATRAVESSA | RECEITA:fonte ausente do livro vivo": {
+    "N": 4,
+    "FONTES": [
+     "IT-T5-041",
+     "IT-T9-015",
+     "IT-T9-019"
+    ]
+   },
+   "BARRADA | REGRA": {
+    "N": 6,
+    "FONTES": [
+     "IT-T12-024",
+     "IT-T12-027",
+     "IT-T12-039",
+     "IT-T2-030",
+     "IT-T7-047",
+     "IT-T8-016"
+    ]
+   }
+  },
+  "SO_MORADA": {
+   "ATRAVESSA | RECEITA:fonte ausente do livro vivo": {
+    "N": 4,
+    "FONTES": [
+     "IT-T5-041",
+     "IT-T9-015",
+     "IT-T9-019"
+    ]
+   },
+   "BARRADA | RECEITA:LINK_PATTERN nao casa a materia": {
+    "N": 14,
+    "FONTES": [
+     "IT-T10-020",
+     "IT-T12-019",
+     "IT-T12-023",
+     "IT-T12-028",
+     "IT-T12-044",
+     "IT-T2-033",
+     "IT-T2-039",
+     "IT-T2-049",
+     "IT-T5-049",
+     "IT-T7-021",
+     "IT-T7-046",
+     "IT-T7-055",
+     "IT-T8-008"
+    ]
+   },
+   "BARRADA | RECEITA:INDEX_URL e materia": {
+    "N": 1,
+    "FONTES": [
+     "IT-T11-010"
+    ]
+   }
+  },
+  "PROPOSTA": {
+   "ATRAVESSA | RECEITA:fonte ausente do livro vivo": {
+    "N": 4,
+    "FONTES": [
+     "IT-T5-041",
+     "IT-T9-015",
+     "IT-T9-019"
+    ]
+   },
+   "BARRADA | RECEITA:LINK_PATTERN nao casa a materia": {
+    "N": 14,
+    "FONTES": [
+     "IT-T10-020",
+     "IT-T12-019",
+     "IT-T12-023",
+     "IT-T12-028",
+     "IT-T12-044",
+     "IT-T2-033",
+     "IT-T2-039",
+     "IT-T2-049",
+     "IT-T5-049",
+     "IT-T7-021",
+     "IT-T7-046",
+     "IT-T7-055",
+     "IT-T8-008"
+    ]
+   },
+   "BARRADA | RECEITA:INDEX_URL e materia": {
+    "N": 1,
+    "FONTES": [
+     "IT-T11-010"
+    ]
+   }
+  },
+  "V1_SO_INDICE": {
+   "ATRAVESSA | REGRA": {
+    "N": 16,
+    "FONTES": [
+     "IT-T10-021",
+     "IT-T10-022",
+     "IT-T12-018",
+     "IT-T12-033",
+     "IT-T12-034",
+     "IT-T2-034",
+     "IT-T2-070",
+     "IT-T5-039",
+     "IT-T5-049",
+     "IT-T5-061",
+     "IT-T5-080",
+     "IT-T5-083",
+     "IT-T7-033",
+     "IT-T7-041",
+     "IT-T7-054"
+    ]
+   },
+   "ATRAVESSA | RECEITA:fonte ausente do livro vivo": {
+    "N": 4,
+    "FONTES": [
+     "IT-T5-041",
+     "IT-T9-015",
+     "IT-T9-019"
+    ]
+   },
+   "BARRADA | REGRA": {
+    "N": 6,
+    "FONTES": [
+     "IT-T12-024",
+     "IT-T12-027",
+     "IT-T12-039",
+     "IT-T2-030",
+     "IT-T7-047",
+     "IT-T8-016"
+    ]
+   },
+   "BARRADA | RECEITA:INDEX_URL e materia": {
+    "N": 1,
+    "FONTES": [
+     "IT-T11-010"
+    ]
+   }
+  },
+  "V2_DESEMPATE": {
+   "ATRAVESSA | RECEITA:fonte ausente do livro vivo": {
+    "N": 4,
+    "FONTES": [
+     "IT-T5-041",
+     "IT-T9-015",
+     "IT-T9-019"
+    ]
+   },
+   "ATRAVESSA | REGRA": {
+    "N": 33,
+    "FONTES": [
+     "IT-T10-021",
+     "IT-T11-009",
+     "IT-T12-018",
+     "IT-T12-020",
+     "IT-T12-024",
+     "IT-T12-028",
+     "IT-T12-039",
+     "IT-T12-041",
+     "IT-T12-048",
+     "IT-T2-032",
+     "IT-T2-050",
+     "IT-T2-070",
+     "IT-T5-046",
+     "IT-T5-056",
+     "IT-T5-061",
+     "IT-T5-062",
+     "IT-T5-063",
+     "IT-T5-064",
+     "IT-T5-083",
+     "IT-T7-021",
+     "IT-T7-031",
+     "IT-T7-033",
+     "IT-T7-041",
+     "IT-T7-054",
+     "IT-T7-055",
+     "IT-T8-011",
+     "IT-T8-016"
+    ]
+   },
+   "BARRADA | RECEITA:INDEX_URL e materia": {
+    "N": 1,
+    "FONTES": [
+     "IT-T11-010"
+    ]
+   },
+   "BARRADA | RECEITA:LINK_PATTERN nao casa a materia": {
+    "N": 4,
+    "FONTES": [
+     "IT-T12-019",
+     "IT-T2-039",
+     "IT-T2-049",
+     "IT-T5-049"
+    ]
+   }
+  }
+ },
+ "SIMULADO_V1_COM_IT_T11_010_CORRIGIDA": {
+  "O_QUE": "INDEX_URL de IT-T11-010 (hoje a pagina de uma feira, #28, materia) retirado — o endereco certo da listagem NAO SEI",
+  "ACTUAL": {
+   "FALSE_LISTING_AS_ARTICLE": "63/109",
+   "FALSE_ARTICLE_AS_LISTING": "6/37"
+  },
+  "V1_SO_INDICE": {
+   "FALSE_LISTING_AS_ARTICLE": "20/109",
+   "FALSE_ARTICLE_AS_LISTING": "6/37"
+  },
+  "LEITURA": "com essa receita corrigida, a V1 domina o ACTUAL (melhor num erro, igual no outro)"
+ },
+ "DOMINANCIA_DEPOIS_DAS_RECEITAS": {
+  "SO_MORADA": "nao (15/37 barradas vs 6)",
+  "PROPOSTA": "nao (15/37 vs 6)",
+  "V1_SO_INDICE": "nao por 1 materia (7/37 vs 6: #28, receita)",
+  "V2_DESEMPATE": "no total sim (37/109, 5/37), mas na fatia NAO circular barra 4/23 vs 2/23 do ACTUAL: a vitoria vem das paginas circulares -> benchmark nao valido"
+ },
+ "DECISAO": {
+  "REGRA_RECOMENDADA": "V1 (INDEX_URL exacto = capa), DEPOIS de corrigir o INDEX_URL de IT-T11-010",
+  "APLICADA": "NO",
+  "LISTING_DETAIL_GATE_PROVEN": "NO"
+ }
+}

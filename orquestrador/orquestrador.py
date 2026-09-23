@@ -502,6 +502,8 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
                            # tempo da colheita.
                            "CAPTURED_AT": r.get("CAPTURED_AT"),
                            "ESTADO": recibo["ESTADO"],
+                           # Q1 (D11): transportado ate a porta, que o julga.
+                           "RETRATO_DO_DETECTOR": r.get("RETRATO_DO_DETECTOR"),
                            "TEXTO": corpo})
         else:
             recusados.append({"DERIVED_ARTIFACT_ID": linha.get("id"),
@@ -573,6 +575,10 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     item = ing.para_a_porta(bruto)
     item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
                  "raw_asset_id": estruturado.get("RAW_ASSET_ID")})
+    # Q1 (D11): a porta pergunta `materia` a quem traz retrato do detector.
+    # Sem retrato (PDF, video) nao se escreve a chave: ausencia continua ausencia.
+    if estruturado.get("RETRATO_DO_DETECTOR"):
+        item["retrato_do_detector"] = estruturado["RETRATO_DO_DETECTOR"]
     return item
 
 

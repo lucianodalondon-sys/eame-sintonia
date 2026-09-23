@@ -87,7 +87,10 @@ TIPOS = {
     "IMPRENSA": "Veiculo de imprensa, boletim, newsletter setorial.",
     "OUTRO": "Nao encaixa em nenhuma das anteriores. Explique em PARA_QUE.",
 }
-PAISES = {"EU", "FR", "ES", "IT", "PT", "DE", "PL", "OUTRO"}
+# «NAO SEI» (23/09): o discovery escrevia PAIS=IT em tudo o que via num site
+# italiano — FAO, INRAE, CropLife. O lugar nunca se presume: quem nao tem prova
+# de pais regista NAO SEI, e o motivo vai na NOTA (PAIS_PROVA=...).
+PAISES = {"EU", "FR", "ES", "IT", "PT", "DE", "PL", "OUTRO", "NAO SEI"}
 
 
 def normalizar(url: str) -> str:
@@ -96,6 +99,33 @@ def normalizar(url: str) -> str:
     u = re.sub(r"^https?://", "", u)
     u = re.sub(r"^www\.", "", u)
     return u.rstrip("/")
+
+
+# D13 (23/09): uma fonte que a casa nao consegue colher nao foi recusada.
+ESTADO_CAPABILITY_BLOCK = ("fonte boa; a casa ainda nao tem capacidade de a colher. "
+                           "Nao e recusa: volta quando houver capacidade (D13).")
+# D15 (23/09): LinkedIn e Instagram — os termos da plataforma proibem a recolha
+# automatizada. Nem pronta, nem recusada, nem em analise: e a proxima expansao
+# People/Social, e so sai daqui com acesso autorizado pelo dono.
+ESTADO_POLICY_BLOCK = ("os termos da plataforma proibem a recolha automatizada (prova: o trecho, "
+                       "com endereco e data). Proxima expansao People/Social; so sai com acesso "
+                       "autorizado pelo dono, nunca por scraping improvisado (D15).")
+PROVA_TERMOS = Path(__file__).resolve().parent / "PROVA-TERMOS-REDES-SOCIAIS-V1.json"
+
+
+def evidencia_da_politica(tipo: str) -> dict | None:
+    """A prova da D15 para LINKEDIN / INSTAGRAM: trecho, endereco e datas. None = nao ha."""
+    if not PROVA_TERMOS.exists():
+        return None
+    p = json.loads(PROVA_TERMOS.read_text(encoding="utf-8"))["POLITICAS"].get(tipo)
+    if not p:
+        return None
+    return {k: p[k] for k in ("URL", "EM_VIGOR", "LIDO_EM", "TRECHO", "FICHEIRO", "SHA256")}
+
+
+def texto_da_evidencia(ev: dict) -> str:
+    return "TERMOS %s (em vigor: %s; lido %s): «%s»" % (
+        ev["URL"], ev["EM_VIGOR"], ev["LIDO_EM"], ev["TRECHO"])
 
 
 def carregar() -> dict:
@@ -112,6 +142,8 @@ def carregar() -> dict:
             "EM_ANALISE": "alguem esta a olhar agora.",
             "PROMOVIDA": "virou ficha no atlas. O campo SOURCE_ID diz qual.",
             "RECUSADA": "olhou-se e nao serve. O motivo fica escrito, e a linha fica.",
+            "CAPABILITY_BLOCK": ESTADO_CAPABILITY_BLOCK,
+            "POLICY_BLOCK": ESTADO_POLICY_BLOCK,
         },
         "CANDIDATAS": [],
     }
@@ -203,7 +235,10 @@ def listar() -> int:
             print(f"               para que: {c['PARA_QUE_SERVE'][:80]}")
     print(f"\nTOTAL={len(d['CANDIDATAS'])} · "
           + " · ".join(f"{e}={sum(1 for c in d['CANDIDATAS'] if c['ESTADO'] == e)}"
-                       for e in ("CANDIDATA", "EM_ANALISE", "PROMOVIDA", "RECUSADA")))
+                       for e in ("CANDIDATA", "EM_ANALISE", "PROMOVIDA", "RECUSADA",
+                                 "CAPABILITY_BLOCK", "POLICY_BLOCK"))
+          + " · PROXIMA_EXPANSAO_PEOPLE_SOCIAL=%d" % sum(
+              1 for c in d["CANDIDATAS"] if c["ESTADO"] == "POLICY_BLOCK"))
     return 0
 
 

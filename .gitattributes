@@ -37,3 +37,7 @@ italia-portale/client/**   -text
 #     CONFERIR COM `git check-attr`, NUNCA CONFIAR NO PADRAO ESCRITO.
 data/collection-ledger/**/*.ndjson  merge=union
 data/collection-ledger/**/*.log     merge=union
+
+# D15: a prova dos termos (LinkedIn/Instagram) tem de bater byte a byte com o sha256
+# registado em candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json.
+candidatas/prova-termos/** -text -diff

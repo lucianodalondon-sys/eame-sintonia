@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T10:31:52+00:00",
-    "HEAD": "d1069d33ecec7dd339ae416686cad38113d8797d",
+    "GENERATED_AT": "2026-09-23T10:00:26+00:00",
+    "HEAD": "e752c3da9f709c5f01d5f130b5bf350b022151f0",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "67ba14f00c6cff1dffcc09509c24a1402d8d3bf97e9870de79410eb396a9dd42",
-    "FICHEIROS_NA_IMPRESSAO": 2787,
+    "SOURCE_TREE_FINGERPRINT": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
+    "FICHEIROS_NA_IMPRESSAO": 2839,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "67ba14f00c6cff1dffcc09509c24a1402d8d3bf97e9870de79410eb396a9dd42",
+        "VERSAO": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "5b357ce9aa58dad868cee12c7b725b69acca9cdf0a3b0e39869b28891f8fe609",
+    "INPUTS_DIGEST": "7b0bd6a7cb399fe0c57d747abf8928295ebb6602759d07ab46eadcbce8902550",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -177,6 +177,18 @@
       "respostas": 1,
       "ficheiros": 20,
       "estado": "gray"
+    },
+    {
+      "id": "C-PORTA-FONTE",
+      "nome": "A porta de entrada de fonte nova",
+      "zona": "· de onde vem uma fonte",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 5,
+      "estado": "yellow"
     },
     {
       "id": "C-LEITORES",
@@ -242,18 +254,6 @@
       "id": "C-IT-NORMALIZACAO",
       "nome": "A normalizacao de conteudo — o que e ruido nao e mudanca",
       "zona": "· as reguas que carimbam",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 3,
-      "ficheiros": 2,
-      "estado": "yellow"
-    },
-    {
-      "id": "C-PORTA-FONTE",
-      "nome": "A porta de entrada de fonte nova",
-      "zona": "· de onde vem uma fonte",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -343,7 +343,7 @@
       "porque_existe": true,
       "alguem_corre": false,
       "respostas": 3,
-      "ficheiros": 13,
+      "ficheiros": 10,
       "estado": "yellow"
     },
     {
@@ -583,7 +583,7 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 1,
+      "ficheiros": 2,
       "estado": "yellow"
     },
     {
@@ -842,8 +842,8 @@
   "RESUMO": {
     "pecas_da_coleta": 58,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 25,
-    "respondem_a_duas": 4,
+    "respondem_a_tres": 24,
+    "respondem_a_duas": 5,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

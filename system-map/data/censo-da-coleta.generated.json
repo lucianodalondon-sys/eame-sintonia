@@ -2,18 +2,25 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T10:28:29+00:00",
-    "HEAD": "d1069d33ecec7dd339ae416686cad38113d8797d",
+    "GENERATED_AT": "2026-09-23T09:58:11+00:00",
+    "HEAD": "e752c3da9f709c5f01d5f130b5bf350b022151f0",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "67ba14f00c6cff1dffcc09509c24a1402d8d3bf97e9870de79410eb396a9dd42",
-    "FICHEIROS_NA_IMPRESSAO": 2787,
+    "SOURCE_TREE_FINGERPRINT": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
+    "FICHEIROS_NA_IMPRESSAO": 2839,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "992d01c7e815b113c673dc2030ce2e2f59091531",
+        "VERSAO": "6bb2d593d0200b5303d76abdd85cbd0a029627d1",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/idioma.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ee745685d7b75cc45399578660ab1db60a15c707",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -34,7 +41,7 @@
       {
         "PATH": "candidatas/fonte_nova.py",
         "PAPEL": "FONTE",
-        "VERSAO": "31b00a51187ee60c72668b0a9a85f836add3b66d",
+        "VERSAO": "2617154069d64d58a51bf8cea4c5e1c378a9200e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -209,7 +216,7 @@
       {
         "PATH": "coleta/derivacao_forward.py",
         "PAPEL": "FONTE",
-        "VERSAO": "9b0f83cf6aea92f0fe58ff54b361120e7e23601b",
+        "VERSAO": "0859e753c16789449577da7f444a83b2d71d00db",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -251,7 +258,7 @@
       {
         "PATH": "coleta/executor_texto_de_html.py",
         "PAPEL": "FONTE",
-        "VERSAO": "136192ce25ffb9e93fdef38b41da258b5e847fd5",
+        "VERSAO": "e3890cf94e05c267db3ce84a2f2e7ef8d225ed49",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -342,7 +349,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "72412e63d5422025f0fafdab7bf76b7ecaa2aaf5",
+        "VERSAO": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -564,41 +571,6 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
-        "PATH": "ferramentas/cutover/congelar_extras.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "d6d4c10b82314a26729078bb99d38eece9165507",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
-        "PATH": "ferramentas/cutover/medir_cutover.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "c5cfe323235e9b0d6d805f8e4bc46baedba6f768",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
-        "PATH": "ferramentas/cutover/observador_ensaio.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "c650af1b1612f2601116fe85c270d0a92ac50306",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
-        "PATH": "ferramentas/cutover/passos_do_cutover.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "02537e7d333c316774e7c01b284d9f9feed4de9d",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
-        "PATH": "ferramentas/cutover/resolver_conflitos_ensaio.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "91d7e5d234c970067f73f202d26b72f47f35282e",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
         "PATH": "ferramentas/fala_local.py",
         "PAPEL": "FONTE",
         "VERSAO": "e3363d354f3f6b6f8f0bad0be6661925ff7fa18e",
@@ -655,6 +627,20 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/unificacao/aplicar_d13_capacidade.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/aplicar_d15_politica.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "2adc59b7d1e11ecd29f4f60fe13e9d46a2649d80",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/unificacao/censo_lanes.py",
         "PAPEL": "FONTE",
         "VERSAO": "7911424ac316bd6f5e2b506c3d4b48edb163211f",
@@ -685,7 +671,7 @@
       {
         "PATH": "ferramentas/unificacao/provar_em_copia.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e174cc2279dc9b4c94a6a02c2ccd1cd2aed8e873",
+        "VERSAO": "f9f3228721c48a6a7b719ef3522b677a0a193971",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1068,8 +1054,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 151,
-    "INPUTS_DIGEST": "07d2e736656ab0b731bca3b3853f7cfc9f427aceef75c447f7cf187e3cd43ff6",
+    "INPUTS_COUNT": 149,
+    "INPUTS_DIGEST": "c8c4f61d2981b63ec31e6003de25d4b7bac10c2357a164c37a2f1536a346db82",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1151,7 +1137,7 @@
     {
       "ficheiro": "candidatas/fonte_nova.py",
       "gaveta": "candidatas",
-      "linhas": 245,
+      "linhas": 280,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1167,7 +1153,9 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
-        "candidatas/decidir_fila_italia.py"
+        "candidatas/decidir_fila_italia.py",
+        "ferramentas/unificacao/aplicar_d13_capacidade.py",
+        "ferramentas/unificacao/aplicar_d15_politica.py"
       ],
       "no_ci": false
     },
@@ -1575,88 +1563,6 @@
       "no_ci": true
     },
     {
-      "ficheiro": "ferramentas/cutover/congelar_extras.py",
-      "gaveta": "ferramentas",
-      "linhas": 30,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "ferramentas/cutover/medir_cutover.py",
-      "gaveta": "ferramentas",
-      "linhas": 191,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [
-        "ferramentas/cutover/passos_do_cutover.py"
-      ],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "ferramentas/cutover/observador_ensaio.py",
-      "gaveta": "ferramentas",
-      "linhas": 17,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "ferramentas/cutover/passos_do_cutover.py",
-      "gaveta": "ferramentas",
-      "linhas": 135,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "ferramentas/cutover/resolver_conflitos_ensaio.py",
-      "gaveta": "ferramentas",
-      "linhas": 36,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
       "ficheiro": "ferramentas/fala_local.py",
       "gaveta": "ferramentas",
       "linhas": 1261,
@@ -1829,6 +1735,43 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/unificacao/aplicar_d13_capacidade.py",
+      "gaveta": "ferramentas",
+      "linhas": 52,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/aplicar_d15_politica.py",
+      "gaveta": "ferramentas",
+      "linhas": 66,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/unificacao/censo_lanes.py",
       "gaveta": "ferramentas",
       "linhas": 170,
@@ -1895,7 +1838,7 @@
     {
       "ficheiro": "ferramentas/unificacao/provar_em_copia.py",
       "gaveta": "ferramentas",
-      "linhas": 123,
+      "linhas": 163,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2346,7 +2289,7 @@
     {
       "ficheiro": "coleta/derivacao_forward.py",
       "gaveta": "coleta",
-      "linhas": 608,
+      "linhas": 611,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2459,7 +2402,7 @@
     {
       "ficheiro": "coleta/executor_texto_de_html.py",
       "gaveta": "coleta",
-      "linhas": 409,
+      "linhas": 429,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2744,7 +2687,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 898,
+      "linhas": 931,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3815,7 +3758,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 1286,
+      "linhas": 1507,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3838,6 +3781,24 @@
         "ferramentas/reel_transcricao.py"
       ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "admissao/idioma.py",
+      "gaveta": "admissao",
+      "linhas": 91,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "admissao/admissao.py"
+      ],
+      "no_ci": false
     },
     {
       "ficheiro": "admissao/sala_de_espera.py",
@@ -4198,13 +4159,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 151,
-    "pontos_de_entrada": 108,
+    "ficheiros_de_codigo": 149,
+    "pontos_de_entrada": 106,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 60,
+    "sem_chamador_e_fora_do_ci": 58,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 84,
-    "deitam_fora_alguma_coisa": 45,
+    "escrevem_ficheiro": 81,
+    "deitam_fora_alguma_coisa": 44,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
     "decisoes_escondidas_ao_todo": 4
@@ -4230,11 +4191,6 @@
       "ferramentas/apify_pool.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
-      "ferramentas/cutover/congelar_extras.py",
-      "ferramentas/cutover/medir_cutover.py",
-      "ferramentas/cutover/observador_ensaio.py",
-      "ferramentas/cutover/passos_do_cutover.py",
-      "ferramentas/cutover/resolver_conflitos_ensaio.py",
       "ferramentas/fala_local.py",
       "ferramentas/html_text.mjs",
       "ferramentas/instagram_transcrever.py",
@@ -4242,6 +4198,8 @@
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/reel_transcricao.py",
+      "ferramentas/unificacao/aplicar_d13_capacidade.py",
+      "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo_lanes.py",
       "ferramentas/unificacao/congelar_livros_do_servico.py",
       "ferramentas/unificacao/ensaio_unificacao.py",
@@ -4309,6 +4267,7 @@
       "regras/sensor_coleta.py",
       "regras/sensor_medir.py",
       "admissao/admissao.py",
+      "admissao/idioma.py",
       "admissao/sala_de_espera.py",
       "guarda/catalogo_importar.py",
       "guarda/es/adama_es_gate.py",
@@ -4359,13 +4318,11 @@
       "fontes/adama_it_gaps.py",
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
-      "ferramentas/cutover/congelar_extras.py",
-      "ferramentas/cutover/observador_ensaio.py",
-      "ferramentas/cutover/passos_do_cutover.py",
-      "ferramentas/cutover/resolver_conflitos_ensaio.py",
       "ferramentas/html_text.mjs",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/unificacao/aplicar_d13_capacidade.py",
+      "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo_lanes.py",
       "ferramentas/unificacao/congelar_livros_do_servico.py",
       "ferramentas/unificacao/ensaio_unificacao.py",

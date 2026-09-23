@@ -1,0 +1,244 @@
+{
+ "DATASET": "LISTING-DETAIL-GATE-V3",
+ "MISSAO": "LD3, 23/09/2026",
+ "REGUA_JA_REPROVA_28_34": {
+  "RESPOSTA": "YES",
+  "IT-T11-010 (#28)": "READY_FOR_COLLECTION desde 23/09 00:30Z (canario), mas regua = LEGACY: DETAIL_LINKS = 1 < 2 (a 'listagem' e a pagina da feira). Nao e READY_CURRENT.",
+  "IT-T7-106 (#34)": "CONTRACTED_CANARY_FAILED, nunca promovida: a pagina nem chega ao detector.",
+  "FONTE": "copias do ledger, evidencias e contratos do servico vivo @ 409eeb8e; curadoria/ready_split.passos_da_promocao sem alteracao",
+  "FRAGILIDADE": "a #28 cai por margem de 1 link. Das 32 READY_CURRENT, 1 passa com exactamente 2 links e 3 com 3 (IT-T8-040=2; IT-T5-064, IT-T7-100, IT-T8-039=3). A evidencia do canario nao guarda o retrato da pagina do indice, por isso a regua nao pode perguntar 'o indice e ele proprio uma materia?' sem mexer no canario."
+ },
+ "CONDICAO_NOVA": "NAO NECESSARIA para #28/#34. Subir o minimo para 5 tiraria 10/32 fontes de READY_CURRENT; falsos positivos NAO medidos (exigiria ler essas fontes).",
+ "IT_28": {
+  "ESTADO": "NAO SEI (definitivo pela regua de 10)",
+  "PEDIDOS": 5,
+  "EGRESSO": {
+   "PAIS": "IT",
+   "IP": "149.22.91.171",
+   "CIDADE": "Palermo"
+  },
+  "ERRO_MEU": "2 dos 5 pedidos foram com URL estragado (substituicao de bash trocou todas as letras N: AmosNews->Amos12ews); o servidor devolveu a listagem normal. Refeito com o URL construido em Python (so numElementsPerPage e per-page mudados).",
+  "PAGINAS": [
+   {
+    "URL": "https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/notizie?parms%5BbackendModule%5D=elitedivision%5Camos%5Cnews%5CAmos12ews&parms%5BnumElementsPerPage%5D=12&parms%5BwithPagi",
+    "SHA256": "867639aa3029722e4782bdaa7b7ae7f293b9a65456fe02b506a66508a24bd30a"
+   },
+   {
+    "URL": "https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/notizie?parms%5BbackendModule%5D=elitedivision%5Camos%5Cnews%5CAmos24ews&parms%5BnumElementsPerPage%5D=24&parms%5BwithPagi",
+    "SHA256": "ce230997e79a5d33304bbcff15bdbc150599e2079a48175e9c216aa2aa9b5ad9"
+   },
+   {
+    "URL": "https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/notizie?parms%5BbackendModule%5D=elitedivision%5Camos%5Cnews%5CAmosNews&parms%5BnumElementsPerPage%5D=12&parms%5BwithPagin",
+    "SHA256": "9fe356efc0505549a7a7b952ae8bb2aa4a3e4b7aa654439dde0b549244da32ad"
+   }
+  ],
+  "RESULTADO": "3 links de noticia com a paginacao a 12 — o servidor ignora o parametro"
+ },
+ "TABELA_V1_ACTUAL": {
+  "ORIGINAL": {
+   "TODAS": {
+    "FONTES": 85,
+    "ACTUAL": {
+     "FALSE_LISTING_AS_ARTICLE": "63/109",
+     "FALSE_ARTICLE_AS_LISTING": "6/37",
+     "BARRADAS": [
+      18,
+      82,
+      92,
+      111,
+      124,
+      155
+     ]
+    },
+    "V1_SO_INDICE": {
+     "FALSE_LISTING_AS_ARTICLE": "20/109",
+     "FALSE_ARTICLE_AS_LISTING": "7/37",
+     "BARRADAS": [
+      18,
+      28,
+      82,
+      92,
+      111,
+      124,
+      155
+     ]
+    }
+   },
+   "READY_CURRENT (regua DETAIL/v1)": {
+    "FONTES": 5,
+    "ACTUAL": {
+     "FALSE_LISTING_AS_ARTICLE": "6/8",
+     "FALSE_ARTICLE_AS_LISTING": "0/1",
+     "BARRADAS": []
+    },
+    "V1_SO_INDICE": {
+     "FALSE_LISTING_AS_ARTICLE": "2/8",
+     "FALSE_ARTICLE_AS_LISTING": "0/1",
+     "BARRADAS": []
+    }
+   },
+   "READY (qualquer regua)": {
+    "FONTES": 24,
+    "ACTUAL": {
+     "FALSE_LISTING_AS_ARTICLE": "17/30",
+     "FALSE_ARTICLE_AS_LISTING": "1/15",
+     "BARRADAS": [
+      18
+     ]
+    },
+    "V1_SO_INDICE": {
+     "FALSE_LISTING_AS_ARTICLE": "8/30",
+     "FALSE_ARTICLE_AS_LISTING": "2/15",
+     "BARRADAS": [
+      18,
+      28
+     ]
+    }
+   }
+  },
+  "CONTROLO": {
+   "TODAS": {
+    "FONTES": 42,
+    "ACTUAL": {
+     "FALSE_LISTING_AS_ARTICLE": "28/49",
+     "FALSE_ARTICLE_AS_LISTING": "4/20",
+     "BARRADAS": [
+      1,
+      19,
+      25,
+      31
+     ]
+    },
+    "V1_SO_INDICE": {
+     "FALSE_LISTING_AS_ARTICLE": "5/49",
+     "FALSE_ARTICLE_AS_LISTING": "5/20",
+     "BARRADAS": [
+      1,
+      19,
+      25,
+      31,
+      34
+     ]
+    }
+   },
+   "READY_CURRENT (regua DETAIL/v1)": {
+    "FONTES": 10,
+    "ACTUAL": {
+     "FALSE_LISTING_AS_ARTICLE": "6/11",
+     "FALSE_ARTICLE_AS_LISTING": "1/7",
+     "BARRADAS": [
+      19
+     ]
+    },
+    "V1_SO_INDICE": {
+     "FALSE_LISTING_AS_ARTICLE": "1/11",
+     "FALSE_ARTICLE_AS_LISTING": "1/7",
+     "BARRADAS": [
+      19
+     ]
+    }
+   },
+   "READY (qualquer regua)": {
+    "FONTES": 13,
+    "ACTUAL": {
+     "FALSE_LISTING_AS_ARTICLE": "7/14",
+     "FALSE_ARTICLE_AS_LISTING": "1/9",
+     "BARRADAS": [
+      19
+     ]
+    },
+    "V1_SO_INDICE": {
+     "FALSE_LISTING_AS_ARTICLE": "1/14",
+     "FALSE_ARTICLE_AS_LISTING": "1/9",
+     "BARRADAS": [
+      19
+     ]
+    }
+   }
+  }
+ },
+ "LEITURA": {
+  "COM_A_REGUA_A_MANDAR": "na populacao READY_CURRENT, V1 domina nos dois gabaritos (original 2/8 vs 6/8, 0/1 vs 0/1; controlo 1/11 vs 6/11, 1/7 vs 1/7)",
+  "MAS": "original READY_CURRENT tem 5 fontes e 1 materia — a dominancia no erro de materia e vazia; com todas as READY de hoje V1 perde no original (2/15 vs 1/15, #28); a regua ainda nao manda (36/68 READY sao LEGACY)",
+  "CUSTO_DE_APLICAR": "gate_capa_nao_e_materia nao recebe o URL da pagina: a V1 exige mudar a assinatura e os chamadores (canario, provar_listagem, micro_coleta) e os gemeos .mjs/_kind"
+ },
+ "NAO_SEI_D11": {
+  "DECISAO": "D11 = OPCAO C, QUARENTENA (bot Luciano). Feita pela equipa Q1, nao aqui. politica_nao_sei.py continua ACTIVA=PASSA e sem chamadores ate a Q1 a ligar.",
+  "QUARENTENA_POR_REGRA": {
+   "ORIGINAL": {
+    "TODAS": {
+     "ACTUAL": {
+      "QUARENTENA_PAGINAS": "34/146",
+      "QUARENTENA_CAPAS": "26/109",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "8/37",
+      "CAPAS_QUE_ENTRAM_CALADAS": "37/109",
+      "NOTICIAS_BARRADAS": "6/37"
+     },
+     "V1_SO_INDICE": {
+      "QUARENTENA_PAGINAS": "15/146",
+      "QUARENTENA_CAPAS": "8/109",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "7/37",
+      "CAPAS_QUE_ENTRAM_CALADAS": "12/109",
+      "NOTICIAS_BARRADAS": "7/37"
+     }
+    },
+    "READY_CURRENT": {
+     "ACTUAL": {
+      "QUARENTENA_PAGINAS": "1/9",
+      "QUARENTENA_CAPAS": "1/8",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "0/1",
+      "CAPAS_QUE_ENTRAM_CALADAS": "5/8",
+      "NOTICIAS_BARRADAS": "0/1"
+     },
+     "V1_SO_INDICE": {
+      "QUARENTENA_PAGINAS": "1/9",
+      "QUARENTENA_CAPAS": "1/8",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "0/1",
+      "CAPAS_QUE_ENTRAM_CALADAS": "1/8",
+      "NOTICIAS_BARRADAS": "0/1"
+     }
+    }
+   },
+   "CONTROLO": {
+    "TODAS": {
+     "ACTUAL": {
+      "QUARENTENA_PAGINAS": "19/69",
+      "QUARENTENA_CAPAS": "18/49",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "1/20",
+      "CAPAS_QUE_ENTRAM_CALADAS": "10/49",
+      "NOTICIAS_BARRADAS": "4/20"
+     },
+     "V1_SO_INDICE": {
+      "QUARENTENA_PAGINAS": "4/69",
+      "QUARENTENA_CAPAS": "3/49",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "1/20",
+      "CAPAS_QUE_ENTRAM_CALADAS": "2/49",
+      "NOTICIAS_BARRADAS": "5/20"
+     }
+    },
+    "READY_CURRENT": {
+     "ACTUAL": {
+      "QUARENTENA_PAGINAS": "5/18",
+      "QUARENTENA_CAPAS": "5/11",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "0/7",
+      "CAPAS_QUE_ENTRAM_CALADAS": "1/11",
+      "NOTICIAS_BARRADAS": "1/7"
+     },
+     "V1_SO_INDICE": {
+      "QUARENTENA_PAGINAS": "1/18",
+      "QUARENTENA_CAPAS": "1/11",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "0/7",
+      "CAPAS_QUE_ENTRAM_CALADAS": "0/11",
+      "NOTICIAS_BARRADAS": "1/7"
+     }
+    }
+   }
+  },
+  "LEITURA": "com o ACTUAL, a quarentena recebe 34/146 (original) e 19/69 (controlo) paginas e retem 8/37 e 1/20 noticias verdadeiras; com a V1, 15/146 e 4/69, retendo 7/37 e 1/20. Nas READY_CURRENT: ACTUAL 1/9 e 5/18, V1 1/9 e 1/18; 0 noticias retidas nas duas regras."
+ },
+ "DECISAO": {
+  "V1_APLICADA": "NO",
+  "LISTING_DETAIL_GATE_PROVEN": "NO",
+  "RECOMENDACAO": "aplicar a V1 quando a B2 puser a regua a mandar (so READY_CURRENT e coletada) e com mais materias READY_CURRENT no gabarito (hoje 1 no original)"
+ }
+}

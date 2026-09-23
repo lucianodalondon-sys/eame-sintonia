@@ -81,6 +81,10 @@ FICHEIROS_REAIS = [
     # unificacao: 3 ficheiros de teste escreviam-no (volta_sobrevive,
     # um_so_canario_promove, ponte_cadeia).
     "WORKER-HEARTBEAT.json",
+    # FILA-WINDOWS (M2e, UNIFICACAO-V1-C): o stdout do worker vai para um log
+    # proprio. Um teste que chame o lancador verdadeiro escrevia no log REAL
+    # (medido: test_gatilho_ocioso).
+    "WORKER-STDOUT.log",
 ]
 
 
@@ -145,12 +149,16 @@ ESCREVE_O_PORTAO = re.compile(r"CG\.main\(")
 REDIRECIONA_A_ENTREGA = re.compile(r"IC\.SNAPSHOT\s*=[^=]")
 REDIRECIONA_A_SAIDA_DO_PORTAO = re.compile(r"CG\.SAIDA\s*=[^=]")
 
+LANCA_O_WORKER_REAL = re.compile(r"S\._lancar_worker\(\s*[\d.]")
+REDIRECIONA_LOG_DO_WORKER = re.compile(r"(S|SUP)\.WORKER_LOG\s*=[^=]")
 PULSA = re.compile(r"W\.correr\(|CC\.uma_volta\(")
 # o supervisor LE o pulso como batimento: um teste que leia o real mede o bot vivo
 REDIRECIONA_PULSO_LIDO = re.compile(r"(S|SUP)\.PULSO\s*=[^=]")
 REDIRECIONA_PULSO = re.compile(r"W\.PULSO\s*=[^=]")
 
 REGRAS = [
+    ("chama o lancador verdadeiro -> S.WORKER_LOG redirecionado",
+     LANCA_O_WORKER_REAL, [("S.WORKER_LOG =", REDIRECIONA_LOG_DO_WORKER)]),
     ("corre o worker -> W.PULSO redirecionado (o pulso e prova de vida)",
      PULSA, [("W.PULSO =", REDIRECIONA_PULSO)]),
     ("escreve a entrega da Collection -> IC.SNAPSHOT redirecionado",

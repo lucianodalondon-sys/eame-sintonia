@@ -205,7 +205,8 @@ def prova_integra(provas: list[dict]) -> str | None:
 # ── O PLANO ────────────────────────────────────────────────────────────────
 def propostas() -> list[tuple[str, dict]]:
     vistas, out = set(), []
-    for nome in ("PROPOSTA-RECEITAS-V1.json", "PROPOSTA-RECEITAS-V2.json"):
+    for nome in ("PROPOSTA-RECEITAS-V1.json", "PROPOSTA-RECEITAS-V2.json",
+                 "PROPOSTA-RECEITAS-V3.json"):   # V3 = aditamento LD2
         f = RAIZ / "curadoria" / nome
         if not f.exists():
             continue
@@ -220,7 +221,8 @@ def propostas() -> list[tuple[str, dict]]:
 
 
 def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico=None,
-            m3=None, canario=None, peca=None, catalogo=None) -> dict:
+            m3=None, canario=None, peca=None, catalogo=None,
+            livro_bot: dict | None = None, d10: str | None = None) -> dict:
     guardadas = paginas_guardadas() if guardadas is None else guardadas
     capas = capas_do_gabarito() if capas is None else capas
     e_generico = guarda() if e_generico is None else e_generico
@@ -401,7 +403,133 @@ def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico
     ordem = [c["SOURCE_ID"] for c in tabela["FONTES"]] + [s for s in nova_tabela if s not in T]
     tabela_out = dict(tabela, FONTES=[nova_tabela[s] for s in ordem])
     invariantes(livro, livro_out, tabela, tabela_out, autorizadas_d9)
-    return {"ACOES": acoes, "LIVRO": livro_out, "TABELA": tabela_out}
+    out = {"ACOES": acoes, "LIVRO": livro_out, "TABELA": tabela_out}
+
+    # 4) BLOCO 3 — CONTRATO UNICO (D10)
+    if livro_bot is not None:
+        bot_out, acoes_bot = contrato_unico(novo_livro, livro_bot, provas, dono_do_doc, d10)
+        acoes.extend(acoes_bot)
+        out["LIVRO_BOT"] = bot_out
+    return out
+
+
+# ── BLOCO 3 — CONTRATO UNICO (D10, 23/09, bot Luciano por delegacao do dono) ────
+#
+# ⚠️ DOIS DONOS DO MESMO CONTRATO (B2). As 8 elegiveis tinham, no livro do bot, um
+# contrato diferente do que o portao le; e a prova viva T02077 pediu ao bot que
+# re-medisse IT-T5-041 e ele respondeu «sem contrato». A D10 escolheu a OPCAO A:
+# o contrato AFINADO do portao passa a ser O contrato, e so entra no livro do bot
+# por esta porta — com a mesma lei do resto do pacote:
+#
+#   · so com canario ROUTE_PROVEN (M3 ou G1) de EXACTAMENTE a aquisicao que fica,
+#     e um documento = uma fonte (duplicadas ficam de fora);
+#   · a ORIGEM fica escrita no contrato (de onde veio a rota, quando foi provada,
+#     por que canario) e no ledger (DECISAO = D10);
+#   · muda-se SO a ACQUISITION e acrescenta-se CONTRATO_UNICO. Nunca se acrescenta
+#     nem se retira fonte: uma fonte que o bot nao tem (IT-T5-041) nao entra aqui
+#     — volta, se voltar, como candidata nova pelo Curator (D10, condicao 4);
+#   · sem prova: SALTA, e pela regra da B2 a fonte sai do portao (D10: vale C);
+#   · tudo na mesma passagem: nunca dois contratos para a mesma fonte ao mesmo tempo;
+#   · a OPCAO B existe no codigo pela simetria, mas so aplica com prova da
+#     aquisicao do bot — medido a 23/09: 0 de 9 tinham.
+#
+# O bloco NAO promove: um contrato que muda fica por re-medir (CONTRATO_UNICO.
+# PRECISA_DE_REMEDIR), e e o bot, com os quatro passos, quem decide (D10, cond. 2).
+CAMPOS_DO_CONTRATO_UNICO = ("ACQUISITION", "CONTRATO_UNICO")
+# As 7 que a D10 decidiu (DECISOES-DONO-2026-09-23, linha 72): as elegiveis de 23/09
+# com contrato diferente no bot. IT-T5-041 NAO esta aqui: o bot nao a tem, e a D10
+# manda-a sair (condicao 4). Outra fonte com dois contratos e decisao nova, nao esta.
+D10_FONTES = frozenset({"IT-T10-018", "IT-T10-022", "IT-T5-049", "IT-T7-017",
+                        "IT-T7-033", "IT-T7-042", "IT-T7-043"})
+
+
+def _aq(c: dict) -> tuple:
+    a = (c or {}).get("ACQUISITION") or {}
+    return (a.get("INDEX_URL"), a.get("LINK_PATTERN"))
+
+
+def _origem(c: dict) -> dict:
+    rp = (c or {}).get("ROUTE_PROVENANCE") or {}
+    return {"MISSAO": rp.get("MISSAO") or "NAO SEI", "FERRAMENTA": rp.get("FERRAMENTA") or "NAO SEI",
+            "PROVADO_EM": rp.get("PROVADO_EM") or rp.get("INTEGRADO_EM") or "NAO SEI",
+            "LISTAGEM": rp.get("LISTAGEM") or ((c or {}).get("ACQUISITION") or {}).get("INDEX_URL")}
+
+
+def contrato_unico(livro_portao: dict, livro_bot: dict, provas: list, dono_do_doc: dict,
+                   d10: str | None) -> tuple[dict, list]:
+    """Iguala, com prova, o contrato do bot ao do portao (A) ou o inverso (B).
+    Devolve (livro do bot depois, accoes). So o livro do bot e escrito aqui."""
+    B = {c["SOURCE_ID"]: c for c in livro_bot["FONTES"]}
+    novo_bot = copy.deepcopy(B)
+    acoes, autorizadas = [], set()
+    por_sid = {}
+    for quem, l, provada, quando in provas:
+        por_sid.setdefault(l["SOURCE_ID"], []).append((quem, l, provada, quando))
+    for sid in sorted(set(livro_portao) & set(B)):
+        p, b = livro_portao[sid], novo_bot[sid]
+        a = {"LIVRO": "bot", "SOURCE_ID": sid, "CAMPO": "ACQUISITION", "DECISAO": "D10",
+             "ORIGEM": "CONTRATO_UNICO"}
+        if json.dumps(p.get("ACQUISITION"), sort_keys=True) == json.dumps(b.get("ACQUISITION"), sort_keys=True):
+            if (b.get("CONTRATO_UNICO") or {}).get("DECISAO") == "D10":
+                acoes.append(dict(a, ACAO="JA_APLICADA"))
+            continue
+        if sid not in D10_FONTES:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="dois contratos para a fonte, mas fora das 7 da D10: "
+                                                       "decisao nova do dono, nao deste pacote"))
+            continue
+        if d10 not in ("A", "B"):
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="dois contratos para a fonte e sem D10 dada: o pacote nao escolhe"))
+            continue
+        vence = p
+        if d10 == "B":
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="OPCAO B: esta porta so escreve no livro do bot; "
+                                                       "o contrato do portao muda pelo bloco 1 (receitas)"))
+            continue
+        certas = [x for x in por_sid.get(sid, []) if x[2] == _aq(vence)]
+        if not certas:
+            acoes.append(dict(a, ACAO="SALTA", ANTES=b.get("ACQUISITION"), DEPOIS=vence.get("ACQUISITION"),
+                              PORQUE="sem canario ROUTE_PROVEN da aquisicao que ficaria — D10: vale C "
+                                     "(a fonte sai do portao pela regra da B2)"))
+            continue
+        quem, l, _, quando = certas[0]
+        if dono_do_doc.get(l["CANARIO"]["URL"]) != sid:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="DUPLICADA: o documento do canario e de %s"
+                              % dono_do_doc[l["CANARIO"]["URL"]]))
+            continue
+        antes = b.get("ACQUISITION")
+        novo_bot[sid] = dict(b, ACQUISITION=copy.deepcopy(vence["ACQUISITION"]), CONTRATO_UNICO={
+            "DECISAO": "D10", "OPCAO": "A", "APLICADO_EM": agora(),
+            "ORIGEM": dict(_origem(vence), BANCADA="ponte-curador-v1 (livro do portao)"),
+            "PROVA": {"CANARIO": quem, "QUANDO": quando, "DOCUMENTO": l["CANARIO"]["URL"]},
+            "ACQUISITION_ANTERIOR": antes,
+            "PRECISA_DE_REMEDIR": True,
+            "NOTA": "contrato novo: o bot re-mede (4 passos + canario) antes de voltar a ser elegivel"})
+        autorizadas.add(sid)
+        acoes.append(dict(a, ACAO="APLICA", ANTES=antes, DEPOIS=vence["ACQUISITION"],
+                          PROVA=l["CANARIO"]["URL"]))
+    bot_out = dict(livro_bot, FONTES=[novo_bot[c["SOURCE_ID"]] for c in livro_bot["FONTES"]])
+    invariantes_do_bot(livro_bot, bot_out, autorizadas)
+    return bot_out, acoes
+
+
+def invariantes_do_bot(antes: dict, depois: dict, autorizadas: set) -> None:
+    """No livro do bot: as mesmas fontes, pela mesma ordem; so as autorizadas mudam, e
+    so em ACQUISITION e CONTRATO_UNICO. Grupo T e SOURCE_ID nunca."""
+    A = [c["SOURCE_ID"] for c in antes["FONTES"]]
+    D = [c["SOURCE_ID"] for c in depois["FONTES"]]
+    if A != D:
+        raise InvarianteQuebrado("o livro do bot ganhou, perdeu ou reordenou fontes")
+    for a, d in zip(antes["FONTES"], depois["FONTES"]):
+        a2, d2 = copy.deepcopy(a), copy.deepcopy(d)
+        if a2 == d2:
+            continue
+        if a["SOURCE_ID"] not in autorizadas:
+            raise InvarianteQuebrado(f"{a['SOURCE_ID']}: mudou no livro do bot sem autorizacao D10")
+        for k in CAMPOS_DO_CONTRATO_UNICO:
+            a2.pop(k, None)
+            d2.pop(k, None)
+        if a2 != d2:
+            raise InvarianteQuebrado(f"{a['SOURCE_ID']}: mudou no livro do bot um campo alem da aquisicao")
 
 
 def invariantes(livro_a: dict, livro_d: dict, tab_a: dict, tab_d: dict,
@@ -451,8 +579,10 @@ def main(argv=None) -> int:
         if h and not h.startswith(CATALOGO_CONFERIDO):
             print(f"AVISO: a branch andou desde o head conferido ({CATALOGO_CONFERIDO}); "
                   f"confirmar com o coordenador antes de --escrever", file=sys.stderr)
+    bot_p = Path(arg["livro-bot"]) if "livro-bot" in arg else None
+    livro_bot = _json(bot_p) if bot_p else None
     try:
-        plano = planear(livro, tabela)
+        plano = planear(livro, tabela, livro_bot=livro_bot, d10=arg.get("d10"))
     except InvarianteQuebrado as ex:
         print(f"INVARIANTE QUEBRADO — nada escrito: {ex}", file=sys.stderr)
         return 4
@@ -464,8 +594,15 @@ def main(argv=None) -> int:
     if "--escrever" in argv:
         aplicadas = [a for a in plano["ACOES"] if a["ACAO"] == "APLICA"]
         if aplicadas:
-            livro_p.write_text(json.dumps(plano["LIVRO"], ensure_ascii=False, indent=1), encoding="utf-8")
-            tab_p.write_text(json.dumps(plano["TABELA"], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+            # cada livro so e reescrito se tem alteracao sua: o bloco 3 sozinho nao
+            # reescreve (e reformata) os livros do portao e do coletor.
+            if any(a["LIVRO"] in ("livro", "tabela") for a in aplicadas):
+                livro_p.write_text(json.dumps(plano["LIVRO"], ensure_ascii=False, indent=1), encoding="utf-8")
+                tab_p.write_text(json.dumps(plano["TABELA"], ensure_ascii=False, indent=1) + "\n",
+                                 encoding="utf-8")
+            if bot_p and any(a["LIVRO"] == "bot" for a in aplicadas):
+                bot_p.write_text(json.dumps(plano["LIVRO_BOT"], ensure_ascii=False, indent=1) + "\n",
+                                 encoding="utf-8")
             with ledger.open("a", encoding="utf-8") as f:
                 for a in aplicadas:
                     f.write(json.dumps({"MISSAO": MISSAO, "AT": agora(), **{k: a.get(k) for k in (

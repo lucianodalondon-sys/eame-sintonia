@@ -129,7 +129,12 @@ AUSENCIA_NAO_SE_APLICA = art.NAO_SE_APLICA
 #     Tudo o que a v4 admitiu com `ITEM_ID = "?"` ou com `FACT_TIME` vindo de
 #     `data` tem de poder ser reaberto — e a versao e o que permite dize-lo sem
 #     reprocessar o resto.
-VERSAO_DA_REGRA = "5"
+# 6 · uma pergunta nova no estagio DOCUMENTO, e ela APERTA: `materia` (Q1, D11).
+#     Uma pagina HTML que o detector diz ser CAPA passa a `NAO`; uma que ele nao
+#     sabe classificar passa a `NAO_SEI` em QUARENTENA. Sem retrato do detector
+#     (PDF, video, texto) nada muda. Tudo o que a v5 admitiu de HTML sem esta
+#     pergunta pode ser reaberto pela versao.
+VERSAO_DA_REGRA = "6"
 
 
 @dataclass
@@ -444,13 +449,158 @@ def estagio(item: dict) -> str:
     return ESTAGIO_DESCONHECIDO
 
 
+# ── A QUARENTENA DO «NAO SEI» DO DETECTOR (D11, opcao C, 2026-09-23) ────────
+# O detector «materia vs pagina de entrada» (`curadoria/retrato_html.py`, dono
+# LD3) so corria ao nivel da FONTE — no canario e na prova da listagem. Nenhuma
+# pagina colhida passava por ele a caminho da Sala: medido nos dois gabaritos,
+# 63/109 e 28/49 capas entrariam caladas.
+#
+# A D11 decidiu: quando o detector diz NAO SEI, a pagina NAO entra na Sala e fica
+# em QUARENTENA registada. O estado JA EXISTIA — e este: `NAO_SEI` desta porta
+# («nao ha prova suficiente para dizer sim ou nao») e exactamente o NAO SEI do
+# detector. Classe antes do rotulo: nao se cria um segundo registo nem um estado
+# novo. A pagina fica no LIVRO desta porta, com o retrato e a proveniencia; o
+# bruto fica intacto no armazem; e o replay (`orquestrador --so-a-porta`,
+# COL-LAW-027) volta a julga-la quando a regra mudar.
+#
+#     UNKNOWN NAO E NEVER. QUARENTENA NAO E DESCARTE.
+#
+# SO DUAS SAIDAS:
+#   a) REGRA PROVADA — o detector (dono LD3), mudado e provado nos 2 gabaritos,
+#      e re-corrido no replay e da MATERIA ou CAPA. A porta nao mede a prova do
+#      detector: le o veredito que ele entrega.
+#   b) DECISAO HUMANA REGISTADA — uma linha em `QUARENTENA_HUMANA` para o sha256
+#      da pagina (MATERIA ou CAPA, com QUEM e PORQUE). Ler e opcional; registar
+#      a leitura e obrigatorio para ela contar.
+# Ao sair, a pagina passa pelas perguntas seguintes desta porta, como qualquer outra.
+#
+# A politica NAO se copia: e `curadoria/politica_nao_sei.py` (preparada na LD3,
+# ACTIVA = QUARENTENA pela D11). Sem retrato — PDF, video, texto — a pergunta
+# nao se aplica: a porta nao aperta para quem o detector nao sabe ler.
+QUARENTENA_HUMANA = RAIZ / "data" / "samples" / "QUARENTENA-DECISOES-HUMANAS.jsonl"
+QUARENTENA = "QUARENTENA"
+
+
+def _politica_nao_sei():
+    import importlib.util  # noqa: PLC0415
+    f = RAIZ / "curadoria" / "politica_nao_sei.py"
+    spec = importlib.util.spec_from_file_location("politica_nao_sei", f)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+def _decisoes_humanas() -> dict:
+    """{sha256 da pagina: ultima linha humana}. Append-only; a ultima manda."""
+    out = {}
+    if QUARENTENA_HUMANA.exists():
+        for l in QUARENTENA_HUMANA.read_text(encoding="utf-8").splitlines():
+            if l.strip():
+                d = json.loads(l)
+                if d.get("SHA256") and d.get("VEREDITO") in ("MATERIA", "CAPA"):
+                    out[d["SHA256"]] = d
+    return out
+
+
+def _e_materia(item: dict) -> tuple:
+    """A pagina e materia, ou e uma pagina de entrada? → (resultado, motivo, evidencia)."""
+    retrato = item.get("retrato_do_detector")
+    if not retrato:
+        return SIM, "sem retrato do detector (nao e HTML): a pergunta nao se aplica", \
+               {"retrato": None}
+    sha = item.get("parent_sha256") or item.get("PARENT_SHA256")
+    ev = {"retrato": {k: retrato.get(k) for k in ("CAPA_OU_MATERIA", "HTML_KIND", "LINKS",
+                                                  "NON_WHITESPACE_CHARACTERS", "PARAGRAPH_CHARACTERS")},
+          "pagina_sha256": sha}
+    humano = _decisoes_humanas().get(sha) if sha else None
+    if humano:
+        ev["decisao_humana"] = {k: humano.get(k) for k in ("VEREDITO", "QUEM", "QUANDO", "PORQUE")}
+        if humano["VEREDITO"] == "MATERIA":
+            return SIM, "uma pessoa leu e registou: e materia (saida humana da quarentena)", ev
+        return NAO, "uma pessoa leu e registou: e pagina de entrada, nao materia", ev
+    pns = _politica_nao_sei()
+    d = pns.decidir(retrato, pns.QUARENTENA)
+    ev["politica"] = "QUARENTENA (D11)"
+    if d["ACCAO"] == "ENTRA":
+        return SIM, "o detector diz materia", ev
+    if d["ACCAO"] == "REPROVA":
+        return NAO, ("o detector diz pagina de entrada (capa), nao materia — CAPA != MATERIA; "
+                     "fica no livro e volta a ser julgada no replay"), ev
+    ev["estado"] = QUARENTENA
+    return NAO_SEI, ("QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de "
+                     "entrada. Nao entra na Sala; nada se apaga; sai so por regra provada "
+                     "(replay) ou por decisao humana registada"), ev
+
+
+# ── O CUSTO DA QUARENTENA, VIGIADO (D11, ponto 3) ───────────────────────────
+# Uma quarentena que so cresce e um descarte com outro nome. Os limites:
+#
+# QUARENTENA_JANELA_DIAS = 14
+#   WHY: duas semanas cobrem duas revalidacoes semanais das fontes (B3) e mais do
+#   que um ciclo de mudanca de regra do detector (LD1->LD3 levou 2 dias). Se em 14
+#   dias nada saiu e ha paginas com mais de 14 dias la dentro, a quarentena
+#   deixou de ser espera e virou deposito.
+# QUARENTENA_TAMANHO_MAXIMO = 300
+#   WHY: no ensaio dos dois gabaritos, 34/146 e 19/69 paginas HTML ficam em
+#   quarentena (~25%). O lote-76 trouxe 76 documentos; 300 sao ~15 corridas
+#   desse tamanho so de quarentena — acima disso a leitura humana ja nao chega.
+# Qualquer dos dois dispara ALARME, e o alarme volta ao dono (nao decide nada).
+QUARENTENA_JANELA_DIAS = 14
+QUARENTENA_TAMANHO_MAXIMO = 300
+
+
+def painel_da_quarentena(livro: dict | None = None, agora: datetime | None = None) -> dict:
+    """Tamanho, idade e saidas da quarentena, lidos do LIVRO desta porta. So le."""
+    if livro is None:
+        livro = json.loads(LIVRO.read_text(encoding="utf-8")) if LIVRO.exists() else {"DECISOES": []}
+    agora = agora or datetime.now(timezone.utc)
+
+    def _t(s):
+        try:
+            return datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+        except ValueError:
+            return None
+
+    ultima, entrou, saiu = {}, {}, {}
+    for d in livro.get("DECISOES", []):
+        chave = (d.get("item"), d.get("universo"))
+        q = ((d.get("evidencia") or {}).get("estado") == QUARENTENA
+             and d.get("resultado") == NAO_SEI and d.get("regra") == "materia")
+        if q:
+            entrou.setdefault(chave, _t(d.get("quando")))
+        elif chave in entrou:
+            # saiu: a idade de uma reentrada conta de novo a partir dela
+            saiu[chave] = _t(d.get("quando"))
+            entrou.pop(chave)
+        ultima[chave] = q
+    dentro = [k for k, q in ultima.items() if q]
+    idades = [(agora - entrou[k]).total_seconds() / 86400 for k in dentro if entrou.get(k)]
+    janela = QUARENTENA_JANELA_DIAS * 86400
+    saidas = [t for t in saiu.values() if t and (agora - t).total_seconds() <= janela]
+    mais_antiga = round(max(idades), 1) if idades else 0
+    alarmes = []
+    if len(dentro) > QUARENTENA_TAMANHO_MAXIMO:
+        alarmes.append("TAMANHO: %d paginas > %d" % (len(dentro), QUARENTENA_TAMANHO_MAXIMO))
+    if dentro and mais_antiga > QUARENTENA_JANELA_DIAS and not saidas:
+        alarmes.append("SEM_SAIDAS: a mais antiga tem %.1f dias e nada saiu em %d dias"
+                       % (mais_antiga, QUARENTENA_JANELA_DIAS))
+    return {"TAMANHO": len(dentro), "MAIS_ANTIGA_DIAS": mais_antiga,
+            "SAIDAS_NA_JANELA": len(saidas), "JANELA_DIAS": QUARENTENA_JANELA_DIAS,
+            "TAMANHO_MAXIMO": QUARENTENA_TAMANHO_MAXIMO,
+            "ALARME": bool(alarmes), "PORQUE": alarmes,
+            "ACCAO_SE_ALARME": "volta ao dono (D11): a quarentena cresce sem nada sair"}
+
+
 def perguntas_do_estagio(est: str) -> tuple:
     """As perguntas aplicaveis, por estagio. Uma arquitetura, duas reguas."""
     if est == DOCUMENTO:
         # Prontidao DOCUMENTAL: da para ler, sabe de onde veio, sabe de que
         # original nasceu. O tempo do FATO nao se pergunta aqui.
+        # `materia` vem depois de `identidade`: uma pagina em quarentena tem de
+        # ter morada no livro, senao nao se consegue voltar a ela.
         return (("legivel", _legivel), ("origem", _tem_origem),
-                ("linhagem", _tem_pai), ("identidade", _tem_identidade))
+                ("linhagem", _tem_pai), ("identidade", _tem_identidade),
+                ("materia", _e_materia))
     # FATO e ESTAGIO_DESCONHECIDO continuam a responder pelo tempo do fato.
     #
     # ⚠️ `identidade` e a ULTIMA das prontidoes, e nao a primeira, de proposito:
@@ -533,6 +683,16 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
                                f"Sem regra, esta porta nao inventa uma."), {}
     texto = _dobrar(" ".join(str(item.get(k) or "") for k in
                              ("texto", "title", "nome", "topics", "crops", "resumo")))
+    # D3: a mesma regua, na lingua do texto. it/pt/NAO SEI: nada muda.
+    lingua = _lingua_do_item(item)
+    reguas = PERGUNTAS_DO_UNIVERSO
+    if lingua in IDIOMAS_SEM_REGUA:
+        return NAO_SEI, (f"IDIOMA_NAO_SUPORTADO:{lingua} — o texto esta em «{lingua}» e esta "
+                         f"porta nao tem regua nessa lingua. NAO_SEI dito, nao fingido."), \
+            {"idioma": lingua}
+    if lingua == "en":
+        reguas = PERGUNTAS_EN
+        palavras = PERGUNTAS_EN.get(universo, [])
     achadas = [p for p in palavras if _dobrar(p) in texto]
     # ── UMA PALAVRA SOLTA NAO PROMOVE ───────────────────────────────────────
     # Medido: `sintoma` (pt) casa dentro de `sintomatologia` (it), `prova` casa
@@ -559,7 +719,7 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
 
     # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
     noutros = {}
-    for outro, termos in PERGUNTAS_DO_UNIVERSO.items():
+    for outro, termos in reguas.items():
         if outro == universo:
             continue
         casou = [t for t in termos if t.lower() in texto]
@@ -807,6 +967,67 @@ PERGUNTAS_DO_UNIVERSO = {
             "importacao", "importacoes",
             "exportacao", "exportacoes"],                    # pt
 }
+
+
+# ── A MESMA REGUA, NA LINGUA DO TEXTO (D3 do dono, 23/09/2026) ─────────────
+# Medido no lote-76: 10 de 76 documentos eram NAO_SEI so por estarem em ingles
+# (os 10 da Zootecnica), e o dono validou dois deles como ENTRA (gabarito itens 5
+# e 6: precos e exportacoes de frango). Uma regua que so fala italiano e
+# portugues nao julga um texto ingles: cala-se, e o calar tem nome de NAO_SEI.
+#
+# A CORRECCAO NAO JUNTA O INGLES A LISTA ITALIANA. `export` saiu de T10 porque
+# casava nos blocos «potrebbe interessarti» de paginas ITALIANAS; juntar o ingles
+# ao lado traria esse ruido de volta e mudaria vereditos italianos. Em vez disso,
+# a porta ve em que lingua o texto esta (`admissao/idioma.py`) e aplica a lista
+# DESSA lingua:
+#
+#     it / pt / lingua NAO SEI  ->  PERGUNTAS_DO_UNIVERSO, exactamente como antes
+#     en                        ->  PERGUNTAS_EN (os mesmos conceitos, em ingles)
+#     fr / es / de              ->  NAO_SEI com motivo IDIOMA_NAO_SUPORTADO:<xx>
+#
+# Os limiares nao mudam (SINAIS_MINIMOS = 2; NAO so com prova de outro universo).
+#
+# CADA TERMO INGLES E O EQUIVALENTE DE UM TERMO QUE JA ESTA NA LISTA IT/PT. As
+# mesmas licoes de substring que limparam o italiano valem aqui, e por isso
+# ficaram DE FORA, declarado:
+#     trial   dentro de «indusTRIAL»          event    dentro de «prEVENT»
+#     product dentro de «PRODUCTion»           thesis   dentro de «synTHESIS»
+#     import  dentro de «IMPORTant»            pest     dentro de «PESTicide», «BudaPEST»
+#     trap    dentro de «sTRAP»                resistance: nao ha equivalente italiano na lista
+#     listino / rincar / borsa merci: as formas inglesas («price list», «price
+#     increase», «commodity exchange») cabem dentro de `price`/`commodity`, e dariam
+#     dois sinais a uma palavra — a regra dos SINAIS_MINIMOS deixava de valer.
+# E, como no italiano, NENHUMA FORMA CABE DENTRO DE OUTRA DA MESMA LISTA.
+PERGUNTAS_EN = {
+    "T5": ["doi", "orcid",                                    # sem lingua
+           "study", "research", "journal", "article", "university", "institute",
+           "publication", "conference", "experiment", "field trial"],
+    "T7": ["cooperative", "consortium", "agronomist", "extension service",
+           "technical assistance", "agronomic advice", "field technician"],
+    "T9": ["competitor", "launch", "campaign", "announce", "novelty", "trade fair"],
+    "T4": ["registration", "ministry", "decree", "authorisation", "authorization",
+           "label", "leaflet", "gazette"],
+    "T3": ["fungus", "fungi", "larva",                        # larva: sem lingua
+           "pests", "disease", "insect", "infestation", "symptom",
+           "weeds", "weed control", "herbicide", "parasit", "pathogen",
+           "phytopatholog", "plant patholog", "oviposition",
+           "downy mildew", "powdery mildew", "botrytis", "apple scab"],
+    "T10": ["commodity",                                      # sem lingua
+            "price", "quotation", "imports", "exports", "supply and demand"],
+}
+IDIOMAS_SEM_REGUA = ("fr", "es", "de")
+
+
+def _lingua_do_item(item: dict) -> str:
+    import importlib.util as _iu
+    global _IDIOMA
+    if "_IDIOMA" not in globals():
+        _sp = _iu.spec_from_file_location("admissao_idioma", Path(__file__).resolve().parent / "idioma.py")
+        _IDIOMA = _iu.module_from_spec(_sp)
+        _sp.loader.exec_module(_IDIOMA)
+    _I = _IDIOMA
+    return _I.idioma(" ".join(str(item.get(k) or "") for k in
+                              ("texto", "title", "nome", "topics", "crops", "resumo")))
 
 
 def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:

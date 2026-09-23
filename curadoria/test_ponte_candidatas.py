@@ -305,17 +305,36 @@ class T3_SociaisBarradas(Isolada):
         self.assertEqual(self._queue_total(), 0)
         self.assertEqual(LC.estado_de("CAND-H001"), LC.CAPABILITY_BLOCK)
 
-    def test_porta_marca_social_como_recusada(self):
-        """A porta fica com ESTADO=RECUSADA e MOTIVO para as sociais."""
+    def test_porta_marca_social_proibida_como_policy_block(self):
+        """D15: a porta fica com ESTADO=POLICY_BLOCK (nao RECUSADA), o motivo no
+        campo do bloqueio e a prova = o trecho dos termos, com endereco e data."""
         self._porta([self._cand("CAND-I001", "LINKEDIN")])
 
         P.processar()
 
         doc = FN.carregar()
         c = next(x for x in doc["CANDIDATAS"] if x["CANDIDATA_ID"] == "CAND-I001")
-        self.assertEqual(c["ESTADO"], "RECUSADA")
-        self.assertIsNotNone(c["MOTIVO_DA_RECUSA"])
-        self.assertIn("LINKEDIN_POLICY", c["MOTIVO_DA_RECUSA"])
+        self.assertEqual(c["ESTADO"], "POLICY_BLOCK")
+        self.assertIn("POLICY_BLOCK", doc["ESTADOS"])
+        self.assertFalse(c.get("MOTIVO_DA_RECUSA"))
+        self.assertIn("LINKEDIN_POLICY", c["MOTIVO_DO_BLOQUEIO"])
+        self.assertTrue(c["EVIDENCIA"].startswith("TERMOS https://www.linkedin.com/"))
+        self.assertIn("scrape", c["EVIDENCIA_POLITICA"]["TRECHO"])
+
+    def test_porta_marca_social_sem_capacidade_como_capability_block(self):
+        """D13: sem capacidade nao e recusa. O Facebook fica CAPABILITY_BLOCK na
+        porta (nao RECUSADA), com o motivo no campo do bloqueio."""
+        self._porta([self._cand("CAND-I002", "FACEBOOK")])
+
+        P.processar()
+
+        doc = FN.carregar()
+        c = next(x for x in doc["CANDIDATAS"] if x["CANDIDATA_ID"] == "CAND-I002")
+        self.assertEqual(c["ESTADO"], "CAPABILITY_BLOCK")
+        self.assertIn("CAPABILITY_BLOCK", c["ESTADO"])
+        self.assertIn("CAPABILITY_BLOCK", doc["ESTADOS"])
+        self.assertIn("FACEBOOK_CAPABILITY_BLOCK", c["MOTIVO_DO_BLOQUEIO"])
+        self.assertFalse(c.get("MOTIVO_DA_RECUSA"))
 
 
 # ---------------------------------------------------------------------------

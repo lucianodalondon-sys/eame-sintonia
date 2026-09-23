@@ -19327,7 +19327,9 @@ O mutante estava morto. Quem estava cega era a leitura da morte.
 
 Corrigido sem afrouxar a verificação: guardam-se **todas** as falhas.
 
-## RECEITAS-1 · O PADRÃO DE MORADA DOS CONTRATOS ESTAVA EM MOLDE
+# §176 · RECEITAS-1 · O PADRÃO DE MORADA DOS CONTRATOS ESTAVA EM MOLDE
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em desbloqueio-coorte-v1 (receitas). Nada foi apagado.
 
 *(6-PREP-d, 23/09/2026 · número de secção a atribuir na unificação: 168–172
 estão ocupados noutras branches.)*
@@ -19353,7 +19355,9 @@ Das 121: 14 padrões e 2 índices propostos com prova; 105 ficam **NÃO SEI**
 «não se mexe no que funciona»). No gabarito: matérias casadas 11 → 21 de 37,
 capas casadas 0 → 0 de 109.
 
-## RECEITAS-2 · CORRIGIR A RECEITA NÃO PÕE UMA FONTE PRONTA
+# §177 · RECEITAS-2 · CORRIGIR A RECEITA NÃO PÕE UMA FONTE PRONTA
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em desbloqueio-coorte-v1 (receitas). Nada foi apagado.
 
 Das 14 fontes da micro, as que têm receita provada passam de 3 para 6. As
 prontas continuam **1**: as três ganhas estão todas `FICA_FORA` na relevância
@@ -19362,7 +19366,9 @@ da 3b. A rota certa para uma fonte que não serve é só uma rota certa.
 > Medir o efeito de uma correção no número que se quer mexer — não no número
 > que ela mexe. Aqui: 3 → 6 receitas, 1 → 1 prontas.
 
-## COORTE-1 · O FUNIL DA MICRO-COLETA CORTA ANTES DA RELEVÂNCIA
+# §178 · COORTE-1 · O FUNIL DA MICRO-COLETA CORTA ANTES DA RELEVÂNCIA
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em desbloqueio-coorte-v1 (coorte-micro). Nada foi apagado.
 
 *(G0, 23/09/2026 · número a atribuir na unificação.)*
 
@@ -19390,7 +19396,9 @@ Brasil. O que ficou por ler fica NÃO SEI, com nome.
 E contar SOURCE_ID não é contar sites: com os desbloqueios, 11 códigos são 9
 sites (IT-T2-051/056 e IT-T7-043/100 são a mesma fonte com dois nomes).
 
-## DESBLOQUEIO-1 · O COLETOR TEM A SUA PRÓPRIA CÓPIA DA RECEITA
+# §179 · DESBLOQUEIO-1 · O COLETOR TEM A SUA PRÓPRIA CÓPIA DA RECEITA
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em desbloqueio-coorte-v1 (G1). Nada foi apagado.
 
 *(G1, 23/09/2026 · número a atribuir na unificação.)*
 
@@ -20207,6 +20215,25 @@ Ferramentas em `ferramentas/unificacao/`; números em `ferramentas/unificacao/m5
 - **Classe antes do rótulo.** `AUTH_BLOCK` (muro de login) caía em UNKNOWN na
   reconciliação por não estar no vocabulário. Lê-se como CAPABILITY_BLOCK (a
   decisão já estava declarada em `_CLASSE_DE`); o rótulo fica no livro.
+## 174-1 · O PULSO DO WORKER É PROVA DE VIDA — E A SUÍTE ESCREVIA O REAL (2.ª passagem)
+
+O worker-pendurado-v1 (M2d) deu ao supervisor uma segunda prova de vida: o ficheiro
+`curadoria/WORKER-HEARTBEAT.json`, escrito a cada tarefa. Na unificação, 3 ficheiros de
+teste corriam `W.correr()` sem redirecionar `W.PULSO` e escreviam o pulso REAL; 7 davam
+voltas ao supervisor (ou liam o estado) sem redirecionar `S.PULSO` e liam o pulso real.
+A suíte continuava verde. Numa pasta onde o bot corre, um teste teria feito um worker
+pendurado parecer vivo durante 5 minutos. A guarda do isolamento ganhou o ficheiro e duas
+regras (`W.PULSO =`, `S.PULSO =`); os 10 ficheiros foram corrigidos.
+
+    UMA PROVA DE VIDA NOVA É UM FICHEIRO NOVO A PROTEGER.
+
+Também desta passagem: `RETIRADA_POR_DECISAO` (D9) passa a ser recusada pelo portão da
+Collection (lê o contrato corrente) e pela tabela do coletor (a linha não vira contrato),
+com motivo escrito e dois mutantes mortos. E a nota «o que falta» das 235 candidatas
+novas: a Bíblia e o know-how não a exigem — a regra vive só em `decidir_fila_italia.py`
+(REGRA 3) e num plano que se declara «não é lei». Ficou NÃO SEI + proposta, sem estreitar
+o teste.
+
 # §172 · UM CANO SEM LEITOR NÃO É UM LOG, É UM TRAVÃO
 
 *Missão 2d (worker-pendurado-v1), 23/09/2026. Prova: `curadoria/WORKER-PENDURADO-PROOF-V1.json`,
@@ -20299,8 +20326,46 @@ referência é 21,7 % (21/09). A árvore cresce: cada candidata TEMÁTICA vira s
 custo por corrida está travado (15 sementes, 250 pedidos); a fila de sementes pode
 crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
 
+---
 
-# § (sem número) · A PEÇA EXISTIA E NÃO ESTAVA LIGADA — E LIGÁ-LA FABRICAVA TERRITÓRIO
+# §181 · UM LEITOR A OLHAR NÃO É UM ESCRITOR A MAIS — E NÃO CONSEGUI PERGUNTAR NÃO É «NÃO EXISTE»
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em fila-windows-v1 (M2e). Nada foi apagado.
+
+*Missão 2e (fila-windows-v1), 23/09/2026. Prova: `curadoria/FILA-WINDOWS-PROOF-V1.json`,
+`curadoria/ensaiar_fila_windows.py`, `curadoria/test_fila_windows.py`.*
+
+**Os dois defeitos, vistos no 1.º lote real depois da C1, reproduzidos em cópia.**
+
+1. **`os.replace` perde para um leitor, no Windows.** A escrita atómica da casa (temporário,
+   `fsync`, `os.replace`) está certa no POSIX; no Windows a troca falha com `WinError 5`
+   enquanto outro processo tem o destino aberto. Leitores legítimos da fila: supervisor,
+   painel, telemetria, verificadores. Medido: 5 leitores a cada 100 ms fazem 287 de 2.000
+   trocas falharem; o worker morria a meio de `F.concluir` e deixava a tarefa IN_PROGRESS.
+   Cura: `fila._com_paciencia` — esperar (0,02 → 1,6 s) e tentar outra vez; esgotado o
+   teto, o erro sobe. Com a cura: 2.000 de 2.000. **O padrão da escrita atómica da casa não
+   tinha esta parte; quem o reutilizar no Windows precisa dela.**
+2. **O erro da pergunta lia-se como resposta.** `_pid_no_so` devolvia False («morto») em
+   qualquer excepção do `tasklist` — timeout (~1 s em repouso, teto 5 s) ou `UnicodeDecodeError`
+   da saída em cp850. O supervisor terminou um worker com heartbeat de 16 s. Agora a
+   resposta tem três valores e **NÃO SEI nunca é morte**; o filho próprio responde-se com
+   `proc.poll()`, sem perguntar a ninguém; o trinco do supervisor com NÃO SEI é válido
+   (lido como órfão deixaria arrancar um segundo supervisor).
+
+**O que se aprendeu.**
+
+- **Uma cura plausível que não mede nada é código a mais.** Abrir a leitura com
+  `FILE_SHARE_DELETE` parecia a cura da causa; medido em 5.000 leituras, não mudou nada
+  (0 vs 1 erro). O mutante que a removia sobreviveu, e a lição da casa decidiu: remover.
+- **Um mutante que parte a sintaxe não é um mutante morto.** O primeiro ataque à leitura
+  deixou um parêntese a mais; nenhum teste correu. Provar a execução (o módulo mutado
+  importa) é parte da prova.
+- **No ensaio, a produção reproduziu o defeito tal qual**: 149/150, 1 órfã, 1 morte RC=1 por
+  `PermissionError`, 240 s parados. O novo: 150/150, 20 s, 0 falsos pendurados, 1 worker.
+
+# §180 · A PEÇA EXISTIA E NÃO ESTAVA LIGADA — E LIGÁ-LA FABRICAVA TERRITÓRIO
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em qualify-semantico-v1 (S1). Nada foi apagado.
 
 **A HIPÓTESE.** 105 QUALIFY em BLOCK SEMANTIC («território indeterminado pelo nome»),
 incluindo AGEA (CAND-0253), SIAN (CAND-0010) e Rete Rurale (CAND-0009). O worker chamava
@@ -20351,6 +20416,523 @@ Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
   lê regra nenhuma e trata como «tudo permitido».
 - `robots_de` tenta duas vezes, com esperas de 25 e 45 s, quando o robots não responde.
   Numa medição de 105 sites, é isso que domina o tempo.
+
+
+# §185 · UMA DECISÃO SEM PROVA É UMA OPINIÃO — O CANAL DA DECISÃO SEMÂNTICA
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em semantico-opus-v2 (S2/S3). Nada foi apagado.
+
+**O QUE FALTAVA.** O QUALIFY bloqueia em SEMANTIC quando nem o nome nem o endereço dizem o
+território, e a mensagem sempre disse «precisa de decisão semântica (Opus/humano)». Mas não
+havia por onde essa decisão entrar no circuito. O CSV de `candidatas/` decide outra coisa
+(promover ou recusar) e o QUALIFY não o lê. Quem decidisse teria de escrever no livro à mão.
+
+**O CANAL.** `curadoria/decisao_semantica.py` lê `curadoria/DECISOES-SEMANTICAS-V1.json`.
+O QUALIFY consulta-o só quando o nome dá NÃO SEI, antes do BLOCK, e nunca por cima de um
+território que a regra do nome já decidiu. Uma decisão só vale com:
+- a URL da candidata, um território de T1 a T12 e `DECIDIDO_POR`;
+- ≥1 prova do que a organização É (INSTITUCIONAL ou LEI);
+- ≥2 provas do que ela PUBLICA (CONTEUDO);
+- cada prova com URL e sha256 **distintos**.
+
+Sem isso, a decisão é ignorada e a fonte continua bloqueada. `NAO SEI` com motivo fica
+registado e continua bloqueado. A proveniência (quem decidiu, porquê, cada prova) viaja até
+`TERRITORY_REASON` na alocação do SOURCE_ID.
+
+**BYTES IGUAIS SÃO UMA PROVA SÓ.** Medido em 23/09: em 4 sites (Veneto Agricoltura, Laimburg,
+Wine Monitor, Agrifood Monitor), três URLs diferentes devolveram os mesmos bytes, uma casca de
+JavaScript sem conteúdo. A primeira versão do canal só comparava URLs e teria aceitado três
+endereços com zero leitura.
+
+**A DECISÃO (Opus, 23/09, 105 candidatas).** 12 com território e prova; 93 NÃO SEI.
+Das 93: 29 nem são fonte (Spotify, WhatsApp, login da Microsoft, Firefox, formulários de
+acessibilidade: o crawler recolheu rodapés), 7 são páginas internas do MASAF, 19 são
+instituições sem relação agrícola evidente, e as restantes têm motivo próprio (casca JS,
+404/502, robots, identidade trocada, possível número duplicado, listagem sem item). Egresso
+IT medido antes de cada site (129/129); no máximo 3 pedidos por site, mais 1 de segunda
+leitura em 5 sites.
+
+**CONTROLO.** Das 6 que a S1 decidiu pela amostra, as ≥4 erradas foram corrigidas:
+Presidenza → NÃO SEI, `lombardianotizie` → NÃO SEI, Sherwood → NÃO SEI (a URL é a Radio
+Sherwood, não a revista florestal), «Frutta nelle scuole» → T12. SNPA passou de T8 a T2.
+Segunda leitura com outro item, 5 sorteadas (semente 20260923): 3 concordam, 2 inconclusivas
+(404 e redirecionamento para a home), 0 discordam.
+
+**ARMADILHAS.**
+- O robots da Rete Rurale traz `Visit-time: 0100-0300`. O `urllib.robotparser` ignora essa
+  linha: quem só perguntar «posso?» visita fora da janela.
+- Resumo de busca não é prova. A prova são os bytes lidos pela nossa saída, com sha256.
+- O ensaio correu `W.executar_uma` sobre cópias. A função da fila
+  `recuperar_bloqueadas_por_defeito(["territorio indeterminado"], {QUALIFY})` reabre as
+  bloqueadas: 12 saíram, as outras 151 voltaram a BLOCKED com a mesma mensagem, e nenhuma
+  tarefa fora do alvo mudou.
+
+
+# §190 · REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO — E O LUGAR NÃO SE PRESUME
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em semantico-opus-v2 (S3). Nada foi apagado.
+
+**O VAZAMENTO.** Correr as suítes numa worktree mudava a `curadoria/LIFECYCLE-QUEUE-V1.json`
+dessa worktree: a IT-T7-050 passava de WAITING_RETRY a IN_PROGRESS, e numa das vezes ficou
+um `tmpwc_7s330.tmp` de 303 KB com a fila inteira dentro. O culpado era
+`test_supervisor.TestUmaVoltaSup` (`test_relanca_com_trabalho`, `test_vivo_quando_worker_ativo`).
+O teste redirecionava `F.FILA` para um ficheiro temporário, mas `uma_volta_sup` lança o worker
+VERDADEIRO (`ciclo_continuo.py`) como outro processo, e esse processo lê a fila do disco.
+Sozinho parecia limpo: é uma corrida. O filho só chegava a escrever com a máquina já «quente»,
+depois de `test_fila_windows` ou de `test_worker_pendurado`. Numa worktree de serviço, isto é
+escrever na fila viva e mandar um canário à rede.
+
+    REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO.
+
+**O CONSERTO (só nos testes).** Os `setUp` de `test_supervisor`, `test_fila_windows` e
+`test_worker_pendurado` embrulham `S._lancar_worker`: o lançador continua o verdadeiro, e o
+filho passa a ser um `sleep` inofensivo, salvo quando o teste dá o `cmd`.
+`test_gatilho_ocioso` já trocava o `Popen` e fica como estava.
+
+**A GUARDA.** `test_livros_reais_intactos` corre as combinações medidas num processo à parte
+e compara o md5 dos livros reais antes e depois. Também procura `.tmp` soltos. Se algo mudou,
+repõe os bytes e reprova, dizendo o quê. Exige ver «Ran N tests», porque «limpo» sem testes é
+verde vazio. Salta se houver `SUPERVISOR.lock` (árvore de serviço vivo). O mutante que desfaz
+o conserto no `test_supervisor` foi executado (bandeira) e a guarda reprovou apontando
+`LIFECYCLE-QUEUE-V1.json`.
+
+**UM VERDE VAZIO QUE QUASE PASSOU.** A primeira medição depois do conserto disse «limpo» 9
+vezes. O meu bloco tinha a indentação errada, o `test_supervisor` nem importava, e nenhum
+teste correu. Só se viu porque a linha «Ran N tests» veio vazia.
+
+**O LUGAR NÃO SE PRESUME.** O discovery regista toda candidata com `PAIS=IT` quando a vê num
+site italiano: CropLife, EBIC, Fertilizers Europe, FAO, CIMMYT, INRAE, Benaki. E o QUALIFY
+escrevia «IT-» fixo no número: a CropLife recebia IT-T12-135. Agora a decisão semântica exige
+`PAIS` vindo da prova (ISO2, EU ou INT). Com `PAIS` diferente de IT, a fonte fica
+BLOCK SEMANTIC com o motivo «território decidido fora de IT», e a numeração EU/INT do Atlas
+fica para o dono. A ficha errada nasce em `descobrir.py`, que esta missão não tocou.
+
+**A SEMENTE ERRADA.** Com a C1, toda candidata temática em análise vira semente. A
+«Sherwood — Foreste ed Alberi Oggi» apontava para `sherwood.it`, que é a Radio Sherwood, e o
+crawl dela trouxe 14 candidatas de streaming, podcast e pré-venda de festival. Uma identidade
+trocada numa candidata propaga-se a toda a sua descendência.
+
+
+# §191 · UMA SEMENTE É UMA ORGANIZAÇÃO, NÃO UMA PÁGINA — E O PAÍS VEM DO ENDEREÇO
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em sementes-travao-v1 (S4). Nada foi apagado.
+
+**O EFEITO COLATERAL DA C1.** «Registado ≠ rastejado» fez de toda candidata temática em
+análise uma semente. Medido em 23/09 na cópia dos livros do serviço: 210 sementes temáticas
+livres, e 190 eram páginas internas de organizações já conhecidas (notícias da ARPAE,
+organograma e «privacy» da ASSAM, «chi siamo» da FederUnacoma, a loja da Terra e Vita). E a
+`sherwood.it` (uma rádio registada por engano como revista florestal) gerou 14 candidatas-lixo.
+
+**O TRAVÃO (só a 2.ª geração; o catálogo não muda).** Uma candidata não vira semente se:
+- a decisão semântica dela é NÃO SEI com `CATEGORIA` em IDENTIDADE_TROCADA, NAO_E_FONTE,
+  PAGINA_DE_OUTRA_FONTE ou SEMENTE_ERRADA (campo novo em `DECISOES-SEMANTICAS-V1.json`;
+  PROVA_INSUFICIENTE não trava, porque falta de prova não é prova de lixo);
+- o endereço não é a entrada da organização (raiz ou `home`/`index`, sem query);
+- o host já foi explorado ou recusado como semente.
+
+Na cópia: 201 travadas (159 internas, 7 de organização já semeada, 35 pela decisão), e ficam
+9 de 2.ª geração, todas raízes de subdomínios novos. Hosts perdidos: 3, todos serviços
+(`albo.`, `prenotaservizi.`, `service.`). As «boas» (Coldiretti, Nomisma, UIV, FederUnacoma,
+Unaitalia, Terra e Vita) já estavam em SEMENTE_PROCESSADA e não mudam. Resíduo que o travão
+não vê: `webmail.arpalazio.it` e `sportelloimprese.arpalombardia.it` são raízes de host sem
+decisão semântica.
+
+**O PAÍS.** `crawl_sementes` registava `pais="IT"` fixo. Agora usa `pais_pela_prova(url)`:
+- ccTLD do vocabulário → esse país;
+- outro ccTLD → OUTRO;
+- domínio genérico (.com, .org, .net) → NAO SEI, novo no vocabulário fechado de
+  `candidatas/fonte_nova.py`.
+
+`PAIS_PROVA=...` vai na nota. A FAO fica NAO SEI: `.org` não prova lugar, e ninguém inventa
+«INT» pelo nome. `corrigir_pais_das_candidatas.py` revê só as candidatas do crawl (o catálogo
+foi declarado à mão). Na cópia: 809 candidatas, 538 do crawl, 75 mudam (62 → NAO SEI, 7 → EU,
+5 → OUTRO, 1 → FR), 463 ficam IT com prova `.it`, 0 sem proveniência. Ninguém filtra
+candidatas por PAIS=IT (medido: capturador, worker e ordenação só leem), e o `SOURCE_LOCATION`
+da admissão vem do item, não da candidata.
+
+**ARMADILHA DE MUTAÇÃO.** Um mutante com âncora numa linha de continuação (dentro de um
+`frozenset({...})` partido) não executa: o script de mutação recusa ou quebra a sintaxe.
+«Reprovou 0» com «NÃO EXECUTOU» não é sobrevivente. Refazer com a âncora no início da
+expressão.
+
+# §188 · MULTILINGUE-1 · A MESMA RÉGUA NA LÍNGUA DO TEXTO, NÃO A OUTRA LÍNGUA AO LADO
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em multilingue-v1 (L1). Nada foi apagado.
+
+*(L1, 23/09/2026 · número a atribuir na unificação.)*
+
+D3 do dono: idioma sozinho nunca gera NAO_SEI. No lote-76, os 10 textos da
+Zootecnica (inglês) caíam todos em NAO_SEI — a régua só tinha palavras
+italianas e portuguesas.
+
+A receita antiga da casa era «não se traduz a lista: junta-se a outra língua ao
+lado». Para o inglês isso **estraga o italiano**: `export` já tinha saído de T10
+por casar nos blocos «potrebbe interessarti» de páginas italianas. Juntar o
+inglês à lista trazia esse ruído de volta.
+
+> A porta vê primeiro em que língua o texto está (`admissao/idioma.py`,
+> palavras-função com mínimo e margem) e aplica a lista **dessa** língua:
+> it/pt/não-sei → a régua de sempre, por construção; en → os mesmos conceitos
+> em inglês; fr/es/de → NAO_SEI dito (`IDIOMA_NAO_SUPORTADO:<xx>`). Nenhum
+> limiar muda.
+
+As armadilhas de substring também existem em inglês e ficam de fora, declaradas:
+`trial` (indus**trial**), `event` (pr**event**), `product` (**product**ion),
+`thesis` (syn**thesis**), `import` (**import**ant), `pest` (**pest**icide,
+Buda**pest**), `trap` (s**trap**).
+
+Medido no conteúdo real (507 ficheiros): italiano domina, inglês existe (19),
+francês/espanhol/alemão/português **zero** — não se finge suporte.
+
+Duas guardas de missões antigas (`test_a_admissao_e_o_gate_nao_mudaram`,
+`test_a_admission_nao_foi_tocada`) reprovam qualquer mudança **por commitar** em
+`admissao/`; passam depois do commit. Não guardam a opinião da porta — e a guarda
+`BASELINE_CONGELADO` confere um artefacto guardado, não volta a julgar os 36
+documentos (os textos deles não estão no repo). A prova do italiano é a
+re-medição do lote-76 com as duas réguas.
+
+# §182 · UMA PONTE QUE ATRAVESSA NÃO É UMA PONTE QUE PROMOVE
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em contrato-unico-v1 (B1/B2). Nada foi apagado.
+
+B1 (2026-09-23). A ponte automática atravessou 106 vezes sozinha, sem humano e
+sem git — e o portão ficou 8 → 8 em todas. No livro entraram 35 READY e nenhuma
+passou: o bot promove pela régua antiga («PASS_PARCIAL»), 23 provas não chegam
+ao ficheiro de evidências e 12 contratos não estão no livro que o portão lê.
+
+    TRAVESSIA CONTADA NÃO É PROMOÇÃO PROVADA.
+    O NÚMERO QUE PROVA A PONTE É O «ENTRARAM/SAIRAM» DO PORTÃO, NÃO O «ATRAVESSOU».
+
+E duas guardas que se julgavam existentes não existem ou são fracas: nenhuma
+fonte pode ser marcada RETIRADA pelo dono (D9) no ciclo de vida, e a régua
+aceita «contrato actual» quando o contrato não tem data de integração — é assim
+que IT-T5-041, que o bot dá por bloqueada e que redirige para outro sítio,
+continua elegível.
+
+# §184 · UM CONTRATO, UM DONO — OU O PORTÃO GUARDA O QUE NINGUÉM MEDE
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em contrato-unico-v1 (B2/B3). Nada foi apagado.
+
+B2 (2026-09-23). A prova viva de DEMOTION falhou de uma forma que ensinou mais
+do que se tivesse passado: pedido ao bot para re-medir IT-T5-041, ele disse
+«sem contrato» e não escreveu nada. O READY dessa fonte tinha nascido noutra
+bancada, com um contrato que o bot não conhecia. E não era um caso: as 8
+fontes elegíveis tinham todas, no bot, um contrato diferente do que o portão lia.
+
+    UM PORTÃO QUE APROVA O QUE O BOT NÃO CONSEGUE MEDIR
+    APROVA PARA SEMPRE — NEM A MUDANÇA DE CASA DO SÍTIO A TIRA.
+
+E duas coisas que pareciam defeito de código eram código velho a correr: o bot
+e a ponte vivos estavam atrás das correcções que já existiam na linha. Antes de
+consertar, medir QUE commit está a correr.
+
+# §187 · A PROVA DA ROTA ENVELHECE — E SÓ SE DESCOBRE SE ALGUÉM A VOLTAR A MEDIR
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em contrato-unico-v1 (B3). Nada foi apagado.
+
+B3 (2026-09-23). O bot re-media o que tinha falhado e nunca o que tinha passado.
+Uma fonte aprovada ficava aprovada até alguém reparar — a CRPV mudou de casa num
+dia e continuava no portão. A re-medição periódica (7 dias, declarados) é o que
+faz uma DEMOTION acontecer sem humano.
+
+    UMA RESPOSTA QUE NÃO ESCREVE NO LIVRO NÃO PODE SER MOTIVO PARA PERGUNTAR OUTRA VEZ.
+
+A prova viva T02077 mostrou porquê a guarda anti-eco é obrigatória: «BLOCK sem
+contrato» não deixa linha no livro, e a fonte continuaria velha e elegível —
+pedida em cada volta ociosa, para sempre.
+
+---
+
+# §183 · UMA RECEITA APROVADA NO GABARITO NÃO SE MEDE NO MESMO GABARITO
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em listing-detail-v3 (LD1). Nada foi apagado.
+
+*Missão LD1 (listing-detail-v1), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`,
+relatório `RELATORIO-LISTING-DETAIL.md`.*
+
+**O que se mediu.** O detector capa/matéria antes e depois das receitas do G1, nas 146 páginas
+do gabarito da 6-PREP-c. **Nenhuma regra ficou tão boa como a de hoje nos dois erros ao
+mesmo tempo.** A V1 («o `INDEX_URL` exacto é capa») deixa passar 20/109 capas em vez de 63/109,
+mas barra 7/37 matérias em vez de 6. A matéria a mais é a #28: o `INDEX_URL` de IT-T11-010 é a
+página de uma feira. Com essa receita corrigida (simulado), a V1 domina.
+`LISTING_DETAIL_GATE_PROVEN = NO`, e a regra não mudou.
+
+**O que se aprendeu.**
+
+- **Circularidade herdada.** O G1 só aceitou padrões que casam todas as matérias e nenhuma capa
+  DESTE gabarito. Medir a regra depois das receitas nas mesmas páginas dá razão à morada
+  por construção nas 26 páginas afetadas. A V2 parecia ganhar no total, mas na fatia não
+  circular barra o dobro das matérias do ACTUAL (4/23 contra 2/23). **Antes de medir
+  depois de uma correção, perguntar contra o quê a correção foi aprovada.**
+- **O livro vivo não é o livro do relatório anterior.** Das 85 fontes do gabarito, 3 não
+  existem no livro do serviço vivo, e 8 têm `INDEX_URL`/`LINK_PATTERN` diferentes do livro
+  da branch em que a 6-PREP-c mediu. Os números «antes» de hoje não são os dela (V1 20/109
+  contra 13/109). Um «antes» herdado de outro relatório não serve de base: mede-se de novo.
+- **Separar regra de receita, página a página.** Com o livro já corrigido, se a morada
+  acerta e o juiz erra, o erro é da regra; se a morada erra, é da receita. O ACTUAL erra
+  por regra (o formato). As regras de morada erram por receita: 14 matérias ainda não
+  casam o `LINK_PATTERN` da própria fonte.
+- **Segunda leitura às cegas:** 20/20 concordam, mas rotulador e revisor são ambos agentes
+  Claude. Declara-se o limite; não se vende como validação humana.
+
+---
+
+# §186 · O CUSTO DE UMA REGRA DE MORADA É A TAXA DE MORADAS ERRADAS
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em listing-detail-v3 (LD2). Nada foi apagado.
+
+*Missão LD2 (listing-detail-v2), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json`,
+controlo `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, relatório `RELATORIO-LISTING-DETAIL-V2.md`.*
+
+**O que se fez.** O gate capa/matéria foi medido num gabarito de controlo independente: 50 sites
+nunca usados, recolhidos depois de as receitas estarem congeladas e rotulados antes de medir.
+A V1 («a página do `INDEX_URL` é capa») deixa passar muito menos capas (5/49 contra 28/49), mas
+barra uma matéria a mais — no original e no controlo. `LISTING_DETAIL_GATE_PROVEN = NO`.
+
+**O que se aprendeu.**
+
+- **O erro residual da V1 não é aleatório.** As duas matérias que ela barra a mais são as duas
+  páginas que o contrato declara como índice e que são artigos (#28 IT-T11-010, #34 Agrinsieme).
+  O custo de uma regra que confia na morada do contrato é a taxa de moradas erradas nos
+  contratos. Corrigir `INDEX_URL` é o que fecha o gate, não mexer na regra.
+- **A ordem prova a independência.** Receitas congeladas num commit, depois a recolha, depois
+  os rótulos noutro commit, e só então a medição. As horas dos commits são a prova de que o
+  controlo não escolheu nada.
+- **Um rótulo discutido decide o resultado, e não se muda depois de medir.** A segunda leitura
+  (agente separado, às cegas) discordou numa página em 10, e era exatamente a página que
+  decidia a V1 no controlo. Regista-se a discordância; trocar o rótulo agora seria escolher a
+  resposta.
+- **Uma listagem paginada de 3 em 3 não prova um índice pela régua dos 10 links.** A régua fica;
+  falta uma visita com uma página maior, e essa decisão é do coordenador.
+- **O detector de hoje deixa passar 57% das capas também em dados independentes** (28/49). A
+  6-PREP-c não era um artefacto do seu gabarito.
+
+---
+
+# §189 · UM ERRO DE CONTRATO APANHA-SE NO CONTRATO — E UMA SUBSTITUIÇÃO DE BASH ESTRAGA URL
+
+> Numerada na unificação (UNIFICACAO-V1-C, 23/09/2026), por ordem de chegada: chegou sem número em listing-detail-v3 (LD3). Nada foi apagado.
+
+*Missão LD3 (listing-detail-v3), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V3.json`,
+relatório `RELATORIO-LISTING-DETAIL-V3.md`.*
+
+- **A régua dos 4 passos já reprova os contratos que estragavam a V1.** A #28 (IT-T11-010) está
+  READY pelo canário, mas é LEGACY para a régua (`DETAIL_LINKS = 1`); a #34 nunca passou o
+  canário. Com a régua a mandar, a V1 domina nos dois gabaritos. Com a régua ainda a não
+  mandar (36/68 READY são LEGACY), a V1 perde no original. **O gate do detector depende de
+  a régua mandar.**
+- **A régua apanhou a #28 por uma margem de 1 link.** Não guarda o retrato da página do
+  índice, logo não pode perguntar se o índice é ele próprio uma matéria. Endurecer o mínimo
+  para 5 tiraria 10 de 32 fontes de READY_CURRENT, com falsos positivos não medidos.
+- **Um servidor pode fixar o tamanho da página.** A listagem da #28 devolve 3 notícias por
+  página mesmo com a paginação pedida a 12: a régua dos ≥ 10 links do G1 nunca se cumpre
+  nesse site. O que falta é uma decisão, não mais uma visita.
+- **`${VAR//N/12}` em bash troca TODOS os N, não só o marcador.** Dois pedidos autorizados
+  saíram com `AmosNews` → `Amos12ews`. Para mudar parâmetros de um URL, usar `urllib.parse`
+  (mudar só as chaves certas) e confirmar o URL antes de gastar o pedido.
+- **Preparar sem ligar tem prova.** `politica_nao_sei.py` tem as três respostas da D11 e um
+  teste que falha se algum ficheiro a importar antes da decisão.
+# §192 · RECOLLECTION-R1 · A PROVA SEM REDE DESLIGAVA O TRANSPORTE, E UMA FALHA NÃO É UM ENDEREÇO CONHECIDO
+
+> Numerada na unificação (UNIFICACAO-V1-D, 23/09/2026), por ordem de chegada: chegou sem número em recollection-prova-v2 (R1). Nada foi apagado.
+
+**Missão R1** (`recollection-prova-v1`, a partir de `unificacao-v1`, 2026-09-23).
+Nada colhido, nada escrito na Sala, rede externa fechada e provada fechada.
+
+**ONDE ESTAVA PROVADO.** Tudo já estava na linha unificada, e passa nela:
+`regras/incrementalidade_test.mjs` (26/0), `regras/recollection_test.mjs` (31/0),
+`regras/paridade_test.mjs` (32/0), `provas/paridade_duas_rodadas.mjs` (13/0),
+`provas/recollection_red_team.mjs` (12 ataques, 12 mortos) e
+`provas/recollection_red_team_estrito.mjs` (12 ataques, 12 mortos pela suíte DONA).
+Nascem em `69d16ea3`, `68aef8a9` e `42708647` (22/09); a secção 167 conta a história.
+
+**O QUE FALTAVA.** A prova de duas rodadas injecta os bytes por `forcarBuf`. Isso
+prova a regra DENTRO do coletor, mas desliga três coisas: o `curl`, o HTTP que
+falha, e o egresso (com `forcarBuf` o coletor nem o mede). E nenhuma prova olhava
+para o disco depois de uma mudança — a versão antiga continua lá?
+
+**A PROVA NOVA — `provas/recollection_http_local.mjs`.** Servidor `node:http` em
+127.0.0.1, porta aleatória; raiz descartável; o contrato de IT-T3-005 apontado para
+o servidor, em memória, e restaurado no `finally`. A saída para a internet fecha-se
+SEM TOCAR NO CÓDIGO: `http(s)_proxy`/`ALL_PROXY` para `127.0.0.1:9` (porta fechada),
+e só `127.0.0.1,localhost` em `NO_PROXY`. O curl honra estas variáveis; o pedido ao
+ipinfo falha antes de sair, e a prova confirma as duas coisas: `EGRESS_IP = NAO SEI`
+no resumo, e um curl à parte à internet devolve `000`.
+
+    R1 novo                         1 pedido   NEW=1
+    R2 o mesmo endereço             0 pedidos  SKIPPED_KNOWN=1
+    R3 boletim novo, servidor 503   1 pedido   FAILED=1, TRANSPORT_OR_EMPTY, DOCUMENT_ID null
+    R4 o servidor volta             1 pedido   NEW=1 — o endereço que falhou é retomado
+    R5 MUTABLE declarado, só ruído  1 pedido   SEEN_AGAIN, 0 objectos RAW novos (UNKNOWN nas R1–R4 não congelou a fonte)
+    R6 a matéria muda               1 pedido   CHANGED=1, versão nova; a anterior continua em disco com o seu sha256
+    UNNECESSARY_REFETCHES = 0 nas seis.   15 verificações, 15 passam.
+
+**ARMADILHA DE LEITURA: `DETAIL_NEW` NÃO É `NEW_DOCUMENTS`.** `DETAIL_NEW` conta a
+DECISÃO de ir buscar um endereço novo, antes do transporte; `NEW_DOCUMENTS` conta o
+documento que nasceu. Na R3 (503) o primeiro vale 1 e o segundo 0. A primeira versão
+da prova confundiu os dois e acusou um defeito que não existia.
+
+**ARMADILHA DE FIXTURE: MESMOS BYTES NUM ENDEREÇO NOVO SÃO O MESMO DOCUMENTO.** A
+identidade vem do conteúdo (o período do boletim), não do endereço. Servir a página
+da R1 num endereço novo dá `SEEN_AGAIN`, e está certo. Para provar «retomado» é
+preciso um boletim novo (outro período).
+
+**MUTANTES NO COLETOR (execução provada por ficheiro-marca, NODE_DISABLE_COMPILE_CACHE=1,
+restauro por `git checkout -- <ficheiro>`).** Cinco, cinco mortos:
+a falha gravada como `NEW_DOCUMENT` (morre em R3/R4) · a versão nova reusa o id da
+antiga (R6) · `guardarRaw` sem a guarda de existência, sobrescreve (R5/R6) · o salto
+`SKIP_KNOWN` desligado (R2) · o veredicto de ruído desligado (R5).
+
+**P9.** O `.mjs` do red team estrito já está declarado nesta linha (em
+`C-PROVA-RECOLLECTION`). Continua sem dono em 11 das 23 branches remotas que o têm —
+todas anteriores à unificação; ficam resolvidas quando juntarem `unificacao-v1`, e
+não se tocou nelas. A prova nova entrou em `C-PROVA-PARIDADE`.
+
+**O QUE NÃO SE PROVOU.** Validadores HTTP (ETag/Last-Modified): o coletor não os pede
+nem os grava, por isso não há 304 a provar. O timeout de rede (só o 503). Uma fonte
+com índice (a prova usa uma STATIC_ROUTE, um endereço por corrida).
+
+# §193 · RECOLLECTION-R2 · O ÍNDICE, O SITE PENDURADO E O ETag QUE NÃO VALE A PENA (AINDA)
+
+> Numerada na unificação (UNIFICACAO-V1-D, 23/09/2026), por ordem de chegada: chegou sem número em recollection-prova-v2 (R2). Nada foi apagado.
+
+**Missão R2** (`recollection-prova-v2`, a partir de `recollection-prova-v1` @ `d759a602`,
+2026-09-23). Nada colhido, nada na Sala. Rede real só na medição dos validadores
+(VPN IT, 1 HEAD por site + robots).
+
+**1 · A FONTE COM ÍNDICE — `provas/recollection_indice_local.mjs`.** As 8 fontes da
+coorte da micro-coleta são `HTML_LINK_DISCOVERY` com `MATCH: "URL"`. A prova usa o
+contrato REAL de IT-T10-018 (myfruit), com `INDEX_URL`/`LINK_PATTERN` apontados em
+memória para um servidor em 127.0.0.1, e a identidade genérica da tabela (pelo
+endereço) — a mesma de produção.
+
+    I1 índice com 3 matérias            índice 1 · matérias 3 · NEW 3
+    I2 o mesmo, com ruído               índice 1 · matérias 0 · SKIPPED_KNOWN 3
+    I3 1 matéria nova no topo           índice 1 · matérias 1 (só a nova)
+    I4 a mais antiga sai do índice      índice 1 · matérias 0 · bytes e linha do livro intactos
+    I5 conhecida sem a barra final      índice 1 · matérias 1 · NEW_DOCUMENTS 0   (limite)
+    I6 MUTABLE declarado                índice 1 · matérias 3 · REVALIDATED 3 · CHANGED 0
+
+O ruído do índice foi: data, contador de visitas, `article:modified_time`, ordem
+trocada, ligação `#commenti`, paginação, feed, css — e **cada matéria ligada duas
+vezes** (foto e título). Esta última entrou depois: sem ela, o mutante que desliga a
+deduplicação de `ligacoesDoIndice` sobrevivia, porque o índice de teste nunca repetia
+uma ligação. Um site real repete-a quase sempre.
+
+**LIMITE CONHECIDO, NÃO CORRIGIDO: A MEMÓRIA É POR ENDEREÇO EXACTO.** A mesma página
+anunciada como `/news/x` e `/news/x/` custa 1 pedido. Não nasce documento (a identidade
+genérica tira a barra → `SEEN_AGAIN`), e `UNNECESSARY_REFETCHES` NÃO o vê — conta-o
+como endereço novo. Medido nos quatro livros desta máquina (521, 574, 144 e 20
+observações): **0 endereços com duas grafias**. Corrigir seria por ansiedade; a prova
+descreve o comportamento de hoje e acende se ele mudar.
+
+**OBSERVAÇÃO (não medida na coorte).** `ligacoesDoIndice` usa `href="([^"'#]+)"`: uma
+ligação com `#fragmento` não é normalizada — é **descartada inteira**. Uma matéria que o
+índice só ligasse com fragmento ficaria invisível. No índice de teste ela aparece
+também sem fragmento, por isso nada se perde.
+
+**2 · O SITE PENDURADO — `provas/recollection_timeout_local.mjs`.** Cada pedido já
+tinha tecto: `curl --max-time 90`, e uma 2.ª tentativa porque o código 28 (timeout)
+é transitório → **180 s por endereço**. A fonte não tinha. Medido com o coletor de
+antes: índice que responde + 3 matérias penduradas = **544 s**; com o `MAX_TARGETS`
+de 30 (myfruit, Riunite) seriam ~90 minutos numa fonte, numa corrida.
+
+A correcção (mínima, na peça existente, `coleta/italy_pilot_collect.mjs`): `baixar()`
+devolve o `codigo` do curl; depois do **primeiro** timeout de uma matéria, as matérias
+seguintes DESSA fonte que iriam à rede ficam para a próxima corrida —
+`DETAIL_DEFERRED_AFTER_TIMEOUT`, em `detalhes` com o nome, **fora do livro** (uma
+adiada não foi observada; escrevê-la faria a memória lembrar uma tentativa que não
+houve). As já conhecidas continuam `SKIP_KNOWN`, não adiadas.
+
+    T1 índice ok, matérias penduram     183 s (era 544) · FAILED 1 com motivo «timed out» · ADIADAS 2
+    T2 o site volta (uma demora 3 s)      6 s · NEW 3 — a que falhou e as duas adiadas
+    T3 o índice pendura                 183 s · DISCOVERY_FAILED «indice inacessivel»
+
+Tecto por fonte, agora: 1 índice pendurado (180 s) OU índice + 1 matéria pendurada
+(~180 s, porque o índice respondeu). ⚠️ O disjuntor só dispara no TIMEOUT: um site lento que
+responde a 80 s continua a custar 80 s por matéria. `italy_contract_test` dá 76/425 vermelhos com e sem
+a correcção — os MESMOS, comparados por nome.
+
+**3 · O ETag — `provas/medir_validadores_coorte.py` → `VALIDADORES-COORTE-R2.json`.**
+Os 8 sites, pela VPN IT (egresso medido antes de cada um), 1 HEAD ao índice:
+
+    ETag           0/8
+    Last-Modified  3/8  — Chianti (22/09 21:23, plausível) · Agrofarma (Cloudflare) ·
+                          Bonifica Romagna (= o segundo do pedido: não valida nada)
+    as 2 MUTABLE (Zootecnica, Riunite): nenhum validador
+
+A regra de hoje já dá 0 pedidos às matérias conhecidas das 6 não-MUTABLE. O ETag só
+pouparia o corpo do índice em ≤ 2 de 8 sites. **Não se implementa.** O custo real está
+noutro sítio: uma fonte MUTABLE revalida TODAS as conhecidas em TODAS as corridas
+(`CONTRACT_DECLARES_MUTABLE` não olha para `TTL_SECONDS`) — até 14 + 30 = 44 corpos
+por corrida nas duas da coorte. A alavanca proposta (NÃO aplicada, é decisão do dono):
+fazer o `TTL_SECONDS` limitar a revalidação MUTABLE, com o TTL tirado dos atrasos de
+edição medidos (Riunite: 19 de 26 editados > 24 h depois, o maior 72 dias).
+
+**ARMADILHA DE INSTRUMENTO.** A 1.ª versão lia o robots com `RobotFileParser.read()`,
+que se apresenta como «Python-urllib», e deu a Agrofarma como BARRADA. Lido pelo curl
+com o User-Agent do coletor, o robots.txt dela é 404 — o host não o publica, e 404 é
+«tudo permitido». O que o servidor respondeu ao Python-urllib não foi medido (NÃO SEI;
+um 401/403 faz o leitor do Python fechar tudo). Corrigido: o robots lê-se pelo curl com o
+User-Agent do coletor. Custo: a Agrofarma recebeu 3 leituras de robots e 1 HEAD.
+
+**MUTANTES (execução provada por marca, `NODE_DISABLE_COMPILE_CACHE=1`).**
+Cinco, cinco mortos:
+
+    MI1 salto SKIP_KNOWN desligado (coletor)          morre em I2, I3, I4
+    MI2 o livro sobrescrito em vez de acrescentado     morre em I2, I3
+    MI3 ligacoesDoIndice sem deduplicação (motor)      morre em I1, I2, I3  (sobrevivia antes da foto+título)
+    MT1 disjuntor desligado                            morre em T1 (tempo e adiadas)
+    MT2 a adiada escrita no livro                      morre em T1 (livro)
+# §194 · O DETECTOR SÓ OLHAVA PARA A FONTE — NENHUMA PÁGINA COLHIDA PASSAVA POR ELE
+
+> Numerada na unificação (UNIFICACAO-V1-D, 23/09/2026), por ordem de chegada: chegou sem número em quarentena-naosei-v1 (Q1). Nada foi apagado.
+
+Q1 (2026-09-23). A pergunta «isto é matéria ou página de entrada?» tinha dono,
+teste, gabarito e régua — e corria só no canário da FONTE. As páginas que o
+coletor trazia seguiam para a porta sem ninguém lhes fazer a pergunta: medido
+nos dois gabaritos, 63/109 e 28/49 capas entrariam caladas.
+
+    UMA REGRA QUE SÓ JULGA A FONTE NÃO JULGA O QUE A FONTE ENTREGA.
+
+A quarentena do NÃO SEI (D11) não precisou de estado novo: o `NAO_SEI` da porta
+já dizia «não há prova suficiente para dizer sim ou não», e é exactamente o que o
+detector diz. Classe antes do rótulo. O que faltava era o CAMINHO: o retrato
+nasce onde estão os bytes (o derivador de HTML, chamado também no replay),
+viaja no item, e a porta pergunta.
+
+E um custo que a D11 não decidiu e que fica à vista: ligar a política inteira
+barra também o que o detector chama capa — e ele erra, 6/37 e 4/20 notícias
+verdadeiras. Registadas, reprocessáveis, mas barradas.
+---
+
+# §195 · 429 NÃO É «PROIBIDO» — A PROVA DE UMA POLÍTICA É O TEXTO DELA
+
+UNIFICACAO-V1-D (23/09/2026), D13 e D15 (bot Luciano por delegação do dono).
+
+Na porta de candidatas havia 69 linhas LinkedIn e Instagram RECUSADAS «pelos TOS» cuja
+EVIDENCIA era a sonda de 14/09: `HTTP 429`. Um 429 diz «demasiados pedidos» — é o site a
+pedir calma, não a proibir. A recusa estava certa pelo motivo errado, e a prova não
+sustentava a palavra que a acompanhava. Outras 6 (Facebook) estavam RECUSADAS por falta de
+capacidade: a fonte pode ser boa, falta-nos o adaptador.
+
+    UMA RECUSA TEM DE ASSENTAR NA PROVA DA SUA PRÓPRIA RAZÃO.
+
+O que ficou:
+- três estados que não são «recusada»: `CAPABILITY_BLOCK` (não sabemos colher),
+  `POLICY_BLOCK` (os termos proíbem — próxima expansão People/Social, só com acesso
+  autorizado pelo dono) e `EM_ANALISE` sem nota (ainda não sabemos). O vocabulário da porta
+  declara-os; a ponte escreve-os; os testes mordem se alguém voltar a pôr RECUSADA;
+- a prova da política é o **trecho dos termos**, com endereço, data em vigor, data de
+  leitura e sha256 da página guardada no repositório (`candidatas/prova-termos/`, com
+  `-text` no `.gitattributes`, senão o CRLF muda os bytes e o sha deixa de bater);
+- a sonda antiga fica em `EVIDENCIA_HISTORICA`. Nada apagado.
+
+Como se leu: o LinkedIn serve o texto no HTML (curl, 200). O Instagram respondeu **400** ao
+curl, e `www.instagram.com/legal/terms` devolveu uma casca sem texto; o WebFetch também não
+o viu. Só o Chrome headless com `--dump-dom` (depois do JavaScript) trouxe a frase. Um
+resumo feito por modelo não serve de prova de política: o que conta é o texto copiado da
+página, com o ficheiro ao lado.
 
 ---
 
