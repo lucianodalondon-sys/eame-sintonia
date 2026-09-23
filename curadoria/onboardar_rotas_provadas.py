@@ -34,6 +34,7 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
@@ -58,6 +59,11 @@ def _json(p: Path) -> dict:
     return json.loads(p.read_text(encoding="utf-8"))
 
 
+def _site(url) -> str:
+    h = urlparse(url or "").hostname or ""
+    return h[4:] if h.startswith("www.") else h
+
+
 def planear(*, ctx: dict | None = None, canario: dict | None = None,
             curator: dict | None = None, com_contrato: set[str] | None = None) -> dict:
     ctx = ctx if ctx is not None else G._contexto()
@@ -71,6 +77,14 @@ def planear(*, ctx: dict | None = None, canario: dict | None = None,
     for l in canario["LINHAS"]:
         if l.get("VEREDITO") == "ROUTE_PROVEN":
             dono_do_doc.setdefault(l["CANARIO"]["URL"], l["SOURCE_ID"])
+    # ...e contra quem JA tem contrato no coletor: o mesmo site com o mesmo padrao de
+    # materias colhe os mesmos documentos (BC2, 23/09: duas paginas de «seleccao de
+    # idioma» da ARPAE, com OWNER «Italiano», iam duplicar a fonte ja contratada).
+    ja_contratada = {}
+    for s in sorted(com_contrato):
+        a = (curator.get(s) or {}).get("ACQUISITION") or {}
+        if a.get("LINK_PATTERN"):
+            ja_contratada.setdefault((_site(a.get("INDEX_URL")), a["LINK_PATTERN"]), s)
     entra, fica = [], []
     for sid in G.elegiveis(ctx=ctx):
         if sid in com_contrato:
@@ -89,6 +103,12 @@ def planear(*, ctx: dict | None = None, canario: dict | None = None,
             porque = ("DUPLICADA: a rota chega ao mesmo documento que %s — duas fichas, "
                       "uma fonte; decisao de identidade, nao de rota"
                       % dono_do_doc[p["CANARIO"]["URL"]])
+        elif (_site(c["ACQUISITION"].get("INDEX_URL")),
+              c["ACQUISITION"].get("LINK_PATTERN")) in ja_contratada:
+            porque = ("DUPLICADA de fonte ja contratada: %s — mesmo site e mesmo padrao de "
+                      "materias; decisao de identidade, nao de rota"
+                      % ja_contratada[(_site(c["ACQUISITION"].get("INDEX_URL")),
+                                       c["ACQUISITION"].get("LINK_PATTERN"))])
         if porque:
             fica.append({"SOURCE_ID": sid, "PORQUE": porque})
             continue
