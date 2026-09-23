@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T12:39:44+00:00",
-  "HEAD": "e137f16e7e237bf58886814b588ed32291057560",
-  "BRANCH": "sala-duplicados-v1",
+  "GENERATED_AT": "2026-09-23T13:30:42+00:00",
+  "HEAD": "40fd03e7dd22aa55f5675347022a1bf4a82921df",
+  "BRANCH": "micro-rede-real-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411",
-  "FICHEIROS_NA_IMPRESSAO": 2845,
+  "SOURCE_TREE_FINGERPRINT": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8",
+  "FICHEIROS_NA_IMPRESSAO": 2847,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3420,6 +3420,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/micro_coleta/micro_rede_real.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "78681ef6e2c1730cac5792ac4bdd959489162840",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/micro_coleta/provar_backup_da_sala.py",
     "PAPEL": "FONTE",
     "VERSAO": "0fb475127ef2f991437a0dd4e9abf6cbd56d5d1a",
@@ -3506,14 +3513,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411",
+    "VERSAO": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411",
+    "VERSAO": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4736,6 +4743,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_micro_rede_real.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "826120cad3ad992d09a095c4a3c6d5a8aa7f49b0",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_migrations.py",
     "PAPEL": "FONTE",
     "VERSAO": "f6d3457ff85b14e4aed4ee4a5e957916147d6ed1",
@@ -5296,8 +5310,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 751,
-  "INPUTS_DIGEST": "4aeb28f72f52d39ecd30913b95fac1ee4abf975eae9c7c31c8dd62bfa7de415b",
+  "INPUTS_COUNT": 753,
+  "INPUTS_DIGEST": "52c393c5011ed8c5f4c45d3ba515fc68d7d9e5a706a4b3e8bd13eed584bed56e",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5330,8 +5344,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "35b8d3f680aa7435bd0538f420fd4ee3db5ca3ac02a035081f4f5e2c26aaefbe",
-  "SEMANTIC_HASH": "653c67b1a20f19d2d98274d0f99c4e8be37474962bcd85e4f854a78e18cac631"
+  "MEASUREMENT_HASH": "20c72e2b43cfbce32c3b3627ebae58c0288cabd464dc1df7d726075f31ce4eec",
+  "SEMANTIC_HASH": "c69d09f23bb97e27804477fc1d7db345fc2da827ae447ebb92ba7ba17f66f7e7"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -8519,6 +8533,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-PRESERVAR",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ASK-SINTONIA--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
+      "LINHA": 46,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -23374,6 +23410,22 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
+      "LINHA": 233,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
+      "LINHA": 234,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -24033,6 +24085,14 @@
      {
       "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
       "LINHA": 472,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
+      "LINHA": 122,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -25347,6 +25407,50 @@
     ]
    },
    {
+    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-COORTE-MICRO-FUNIL",
+    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+    "TO": "C-COORTE-MICRO-FUNIL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/coorte_micro/funil.py",
+      "LINHA": 70,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-IT-CONTRATOS",
+    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/italy_contracts.mjs",
+      "LINHA": 579,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
     "FROM": "C-MICRO-COLETA-INSTRUMENTO",
     "TO": "C-TESTES",
@@ -25375,8 +25479,40 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_integracao_04a_curator.py",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
       "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_micro_rede_real.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_micro_rede_real.py",
+      "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_retirada_por_decisao.py",
+      "LINHA": 92,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
@@ -38135,50 +38271,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-TESTES--READS-->C-COORTE-MICRO-FUNIL",
-    "FROM": "C-TESTES",
-    "TO": "C-COORTE-MICRO-FUNIL",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "scripts/coorte_micro/funil.py",
-      "LINHA": 70,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-COORTE-MICRO-FUNIL",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-TESTES--READS-->C-IT-CONTRATOS",
-    "FROM": "C-TESTES",
-    "TO": "C-IT-CONTRATOS",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "regras/italy_contracts.mjs",
-      "LINHA": 579,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-IT-CONTRATOS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-TESTES--READS-->C-MAPA-GERADOR",
     "FROM": "C-TESTES",
     "TO": "C-MAPA-GERADOR",
@@ -38196,28 +38288,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-MAPA-GERADOR",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-TESTES--READS-->C-MICRO-COLETA-INSTRUMENTO",
-    "FROM": "C-TESTES",
-    "TO": "C-MICRO-COLETA-INSTRUMENTO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 54,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -38624,6 +38694,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--WRITES-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-TESTES",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_micro_rede_real.py",
+      "LINHA": 43,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_retirada_por_decisao.py",
+      "LINHA": 97,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -40201,12 +40301,12 @@
     ]
    }
   ],
-  "COUNT": 1127
+  "COUNT": 1128
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 172,
   "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1127,
+  "ARESTAS_RELACIONADAS": 1128,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -40603,9 +40703,9 @@
    "CODE": 188,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 374,
-   "READ": 254,
-   "RULE": 200,
+   "PROOF": 372,
+   "READ": 255,
+   "RULE": 202,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -41058,7 +41158,7 @@
     "collections"
    ],
    "ENTRAM": 2,
-   "SAEM": 7,
+   "SAEM": 8,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -42478,7 +42578,6 @@
    "ENTRAM": 3,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
-    "PROOF",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -44229,6 +44328,7 @@
     "CODE",
     "PROOF",
     "READ",
+    "RULE",
     "WRITE"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -44929,12 +45029,14 @@
     "scripts/micro_coleta/ensaio_offline.py",
     "scripts/micro_coleta/medir_detector_de_capa.py",
     "scripts/micro_coleta/micro_coleta.py",
+    "scripts/micro_coleta/micro_rede_real.py",
     "scripts/micro_coleta/provar_backup_da_sala.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "tests/test_ensaio_offline_micro.py",
     "tests/test_micro_coleta_instrumento.py",
+    "tests/test_micro_rede_real.py",
     "tests/test_sala_idempotente_por_documento.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -44959,8 +45061,8 @@
     "sala_de_espera",
     "urllib"
    ],
-   "ENTRAM": 12,
-   "SAEM": 1,
+   "ENTRAM": 13,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -44968,7 +45070,8 @@
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
-    "PROOF"
+    "PROOF",
+    "RULE"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -48786,6 +48889,7 @@
     "tests/test_medir_apos_receitas.py",
     "tests/test_metricas.py",
     "tests/test_micro_coleta_instrumento.py",
+    "tests/test_micro_rede_real.py",
     "tests/test_migrations.py",
     "tests/test_modelo_de_objetos_da_intelligence.py",
     "tests/test_navegador.py",
@@ -48990,7 +49094,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 194,
-   "SAEM": 27,
+   "SAEM": 25,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

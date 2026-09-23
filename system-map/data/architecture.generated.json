@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "sala-duplicados-v1",
-    "HEAD": "e137f16e7e237bf58886814b588ed32291057560",
-    "GENERATED_AT": "2026-09-23T09:26:04-03:00",
-    "SOURCE_TREE_FINGERPRINT": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411"
+    "BRANCH": "micro-rede-real-v1",
+    "HEAD": "40fd03e7dd22aa55f5675347022a1bf4a82921df",
+    "GENERATED_AT": "2026-09-23T10:24:59-03:00",
+    "SOURCE_TREE_FINGERPRINT": "20c84cadfd3151ea415302aa84b4008cb87bb64b5bf5ab6ad1c898e46ed60dc8"
   },
   "FILES": [
     {
@@ -542,7 +542,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "fce1a06454df68cb9781de55ef6acd6f5cd9691c",
+      "sha": "462b9f5e2920c4bc0da53e926e728c6d1edece11",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -16235,6 +16235,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/micro_coleta/micro_rede_real.py",
+      "sha": "78681ef6e2c1730cac5792ac4bdd959489162840",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/micro_coleta/provar_backup_da_sala.py",
       "sha": "0fb475127ef2f991437a0dd4e9abf6cbd56d5d1a",
       "ext": ".py",
@@ -16880,7 +16887,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "fc3d943404e9142fbedf1c1969d8585836f9ccb1",
+      "sha": "b89b2d68722e801ab58be87940f3e6aa361be9db",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -18316,6 +18323,13 @@
     {
       "path": "tests/test_micro_coleta_instrumento.py",
       "sha": "1dff049fafd953bd65be609f542207473dd09c0c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_micro_rede_real.py",
+      "sha": "826120cad3ad992d09a095c4a3c6d5a8aa7f49b0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -57566,6 +57580,105 @@
       }
     },
     {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 233,
+        "snippet": "obs1 = E.ler_ndjson(led / \"observations.ndjson\")"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 234,
+        "snippet": "runs_nd = E.ler_ndjson(led / \"runs.ndjson\")"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 231,
+        "snippet": "livro=arvore / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\","
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "medidas/corrida_sem_rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 122,
+        "snippet": "x = subprocess.run([sys.executable, \"medidas/corrida_sem_rede.py\", f\"--saida={medida}\", \"--\"]"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 83,
+        "snippet": "f = arvore / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 94,
+        "snippet": "f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 37,
+        "snippet": "import ensaio_offline as E      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 38,
+        "snippet": "import micro_coleta as MC       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_rede_real.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_rede_real.py",
+        "line": 46,
+        "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],"
+      }
+    },
+    {
       "from_file": "scripts/micro_coleta/provar_backup_da_sala.py",
       "to_file": "scripts/micro_coleta/ensaio_offline.py",
       "type": "IMPORTS",
@@ -71899,6 +72012,39 @@
       }
     },
     {
+      "from_file": "tests/test_micro_rede_real.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_rede_real.py",
+        "line": 42,
+        "snippet": "f = t / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_micro_rede_real.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_rede_real.py",
+        "line": 43,
+        "snippet": "f.write_text(json.dumps({\"FONTES\": ["
+      }
+    },
+    {
+      "from_file": "tests/test_micro_rede_real.py",
+      "to_file": "scripts/micro_coleta/micro_rede_real.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_rede_real.py",
+        "line": 18,
+        "snippet": "\"micro_rede_real\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_rede_real.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_migrations.py",
       "to_file": "data/samples/RAW-PESADO-CONGELADO.txt",
       "type": "READS",
@@ -78215,10 +78361,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2697,
-    "files_readable": 1233,
-    "files_code_dir": 1044,
-    "file_edges": 5342,
+    "files_tracked": 2699,
+    "files_readable": 1235,
+    "files_code_dir": 1046,
+    "file_edges": 5354,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
