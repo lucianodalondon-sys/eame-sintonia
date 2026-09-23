@@ -31,6 +31,8 @@ class TestLiveness(unittest.TestCase):
         self._orig = {"ESTADO": S.ESTADO, "DIARIO": S.DIARIO,
                       "PARAR": S.PARAR, "F.FILA": F.FILA}
         S.ESTADO = self.tmp / "state.json"
+        self.addCleanup(setattr, S, "PULSO", S.PULSO)  # o pulso lido e batimento: nunca o real
+        S.PULSO = self.tmp / "WORKER-HEARTBEAT.json"
         S.DIARIO = self.tmp / "run.ndjson"
         S.PARAR = self.tmp / "PARAR.flag"
 

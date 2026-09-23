@@ -48,6 +48,9 @@ class TestQualify(unittest.TestCase):
         LC.LIVRO = self.tmp / "livro.json"
         W.ALLOCATION = self.tmp / "alloc.json"
         W.EVIDENCIA = self.tmp / "evid.json"
+        # o pulso do worker e prova de vida para o supervisor: nunca o real
+        self.addCleanup(setattr, W, "PULSO", W.PULSO)
+        W.PULSO = self.tmp / "WORKER-HEARTBEAT.json"
         FN.FILA = self.tmp / "candidatas.json"
         # Registo de alocacao com um teto por territorio (para prever a sequencia).
         W.ALLOCATION.write_text(json.dumps({

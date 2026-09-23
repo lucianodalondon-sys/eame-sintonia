@@ -1,0 +1,285 @@
+{
+ "DATASET": "WORKER-PENDURADO-PROOF-V1",
+ "MISSAO": "M2d, 23/09/2026",
+ "LEI": "um cano sem leitor nao e um log, e um travao; o pulso e por tarefa, nao por volta; quem se da como morto, morre",
+ "1_REPRO_MINIMA_REAL": {
+  "O_QUE": "filho escreve linhas de 100 bytes para stdout; o pai nunca le",
+  "PIPE": {
+   "BYTES_ATE_BLOQUEAR": 4000,
+   "ESTADO": "vivo e parado 4 s depois",
+   "NOTA": "a linha 41 (4.100 bytes) ja nao cabe: cano anonimo do Windows de ~4.096 bytes"
+  },
+  "DEVNULL": {
+   "BYTES": 10000000,
+   "RC": 0
+  },
+  "FICHEIRO": {
+   "BYTES": 10000000,
+   "RC": 0
+  }
+ },
+ "2_WORKER_REAL_ANTES": {
+  "DATASET": "WORKER-PENDURADO-ENSAIO-V1",
+  "CANAL_STDOUT": "o de supervisor._lancar_worker (medido: PIPE)",
+  "TAREFAS": 80,
+  "FECHADAS_NO_FIM": 64,
+  "VIVO_NO_FIM": true,
+  "RC": null,
+  "SEGUNDO_EM_QUE_PAROU_DE_AVANCAR": 7,
+  "BYTES_DE_STDOUT_ESCRITOS": 3994,
+  "EVENTOS_NO_DIARIO": [
+   "ARRANQUE"
+  ],
+  "PENDURADO": true
+ },
+ "3_WORKER_REAL_DEPOIS": {
+  "DATASET": "WORKER-PENDURADO-ENSAIO-V1",
+  "CANAL_STDOUT": "o de supervisor._lancar_worker (medido: outro)",
+  "TAREFAS": 80,
+  "FECHADAS_NO_FIM": 80,
+  "VIVO_NO_FIM": false,
+  "RC": 0,
+  "SEGUNDO_EM_QUE_PAROU_DE_AVANCAR": 9,
+  "BYTES_DE_STDOUT_ESCRITOS": 0,
+  "EVENTOS_NO_DIARIO": [
+   "ARRANQUE",
+   "VOLTA",
+   "WORKER_OCIOSO_SAIU"
+  ],
+  "PENDURADO": false
+ },
+ "4_DADOS_REAIS": {
+  "FONTE": "run-log e ledger da worktree viva, copiados (21/09 20:54Z a 23/09 01:37Z)",
+  "WORKER_MORTO": 60,
+  "RC_VAZIO": 50,
+  "RC_COM_VALOR": {
+   "1": 9,
+   "0": 1
+  },
+  "SILENCIO_ANTES_DA_MORTE_RC_VAZIO_S": {
+   "MIN": 301,
+   "MEDIANA": 315,
+   "MAX": 317
+  },
+  "RC_VAZIO_POR_CLASSE": {
+   "SEM_VOLTA_COM_TRABALHO": {
+    "N": 37,
+    "LEITURA": "morreram na 1a volta, com transicoes no ledger ate 1-125 s antes da morte: o heartbeat (so a VOLTA, no fim) nao avancou durante uma volta longa; a morte chega sempre ~305 s apos o lancamento"
+   },
+   "COM_VOLTAS": {
+    "N": 12,
+    "LEITURA": "workers ociosos com varias voltas; texto estimado 3.600-5.300 bytes = o cano (ex.: 91744, 20 voltas, ~3.830 bytes)"
+   },
+   "SEM_VOLTA_SEM_TRABALHO": {
+    "N": 1
+   }
+  },
+  "NAO_SEI": "para os 37 da 1a volta nao se separa caso a caso se o cano encheu antes dos 300 s ou se so o heartbeat envelheceu: o worker nao anotava cada tarefa. As duas causas estao provadas; a proporcao entre elas nos dados antigos nao."
+ },
+ "5_DEFEITO_ASSOCIADO": {
+  "O_QUE": "declarado morto com rc None, o worker NAO era terminado; o supervisor lancava outro -> dois escritores numa fila sem trinco ate o antigo rebentar no print seguinte",
+  "VISTO_AO_VIVO": "98460 declarado morto as 01:37:15Z com 44 transicoes; 121156 lancado no mesmo segundo; as 01:38 so 121156 existia"
+ },
+ "6_CORRECAO": [
+  "stdout do worker -> curadoria/WORKER-STDOUT.log (append, roda para .1 acima de 5 MB no arranque)",
+  "worker._pulso: WORKER-HEARTBEAT.json por tarefa; supervisor._ultimo_heartbeat = max(diario, pulso)",
+  "rc None na morte -> terminate/kill e WORKER_PENDURADO_TERMINADO antes de relancar",
+  "pulso DURANTE a tarefa: fio de fundo a cada 30 s enquanto ha tarefa em curso, com teto TAREFA_MAX_S=900 — encravado continua a ser detectado (900+300 s)"
+ ],
+ "7_MUTACOES": {
+  "PIPE_NAO_LIDO": "2 testes reprovam",
+  "SUPERVISOR_IGNORA_PULSO": "2",
+  "NAO_TERMINA_PENDURADO": "1 (um so escritor: o antigo ainda vivo no instante do lancamento)",
+  "WORKER_NAO_PULSA": "1",
+  "SURVIVORS": 0,
+  "SEM_FIO_DE_PULSO": "1 (sobreviveu a 1a vez; teste acrescentado)",
+  "PULSO_SEM_TETO": "1"
+ },
+ "8_AO_VIVO_APOS_9a82197c": {
+  "FONTE": "run-log e ledger da worktree viva copiados as ~01:56Z (evidencia trazida pelo coordenador)",
+  "WORKERS": [
+   {
+    "INI": "01:32:11",
+    "FIM": "01:37:15",
+    "DUR_S": 304,
+    "TRANSICOES": 44,
+    "ULTIMA_TRANSICAO_ANTES_DO_FIM_S": 115
+   },
+   {
+    "INI": "01:37:15",
+    "FIM": "01:42:19",
+    "DUR_S": 304,
+    "TRANSICOES": 44,
+    "ULTIMA_TRANSICAO_ANTES_DO_FIM_S": 162
+   },
+   {
+    "INI": "01:42:19",
+    "FIM": "01:47:22",
+    "DUR_S": 303,
+    "TRANSICOES": 44,
+    "ULTIMA_TRANSICAO_ANTES_DO_FIM_S": 171
+   },
+   {
+    "INI": "01:47:22",
+    "FIM": "01:52:25",
+    "DUR_S": 303,
+    "TRANSICOES": 44,
+    "ULTIMA_TRANSICAO_ANTES_DO_FIM_S": 194
+   },
+   {
+    "INI": "01:52:25",
+    "FIM": "01:53:55",
+    "DUR_S": 89,
+    "TRANSICOES": 31,
+    "SAIDA": "WORKER_OCIOSO_SAIU, rc 0 (fila esgotada)"
+   }
+  ],
+  "LEITURA": "os 4 pararam de trabalhar 110-190 s depois de arrancar, sempre ao fim de EXACTAMENTE 44 transicoes, e ficaram mudos ate ao timeout de 300 s. Um limite de bytes fixo da um numero fixo de tarefas; uma tarefa longa daria numeros diferentes e escrita ate perto do fim. -> a PARAGEM e o cano; o RITMO de ~5 min e HEARTBEAT_TIMEOUT_S=300 + o poll de 15 s, que e so como o cano e detectado.",
+  "NAO_SEI": "quantos bytes de stdout correspondem a 44 transicoes (uma tarefa pode dar 1 ou 2 transicoes e 1 linha)",
+  "CRASH_MAX": {
+   "REGRA": "3 mortes sem progresso dentro de 120 s",
+   "ESTADO": "1 entrada na janela; mortes a 303 s umas das outras nunca juntam 3 em 120 s",
+   "FALTA_PARA_BLOCKED": "2 mortes sem progresso nos 120 s seguintes a uma morte — impossivel neste ritmo"
+  }
+ },
+ "9_DOIS_ESCRITORES_EM_COPIA": {
+  "COMO": "ensaiar_dois_escritores.py: supervisor e workers reais; relogio encurtado (HEARTBEAT_TIMEOUT_S=10, worker --pausa 12) para o supervisor dar como morto um worker vivo; tarefas sem contrato, sem rede",
+  "ANTERIOR_DRENADO": {
+   "DATASET": "DOIS-ESCRITORES-ENSAIO-V1",
+   "CODIGO": "sem terminate (anterior)",
+   "DRENADO": true,
+   "PIDS_LANCADOS": [
+    114768,
+    127984,
+    127124
+   ],
+   "MAX_WORKERS_VIVOS_AO_MESMO_TEMPO": 3,
+   "SEGUNDOS_COM_2_OU_MAIS_VIVOS": 3.0,
+   "TAREFAS_FECHADAS_POR_PID": {
+    "114768": 4,
+    "127984": 3,
+    "127124": 1
+   },
+   "PIDS_A_FECHAR_TAREFAS_EM_INTERVALOS_QUE_SE_CRUZAM": true,
+   "LINHAS_POR_PID": {
+    "114768": [
+     1.2,
+     13.3,
+     25.4,
+     37.5
+    ],
+    "127984": [
+     12.5,
+     24.8,
+     36.8
+    ],
+    "127124": [
+     27.8
+    ]
+   },
+   "TAREFAS_FECHADAS_MAIS_DE_UMA_VEZ": [],
+   "EVENTOS": [
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "SUPERVISOR_BLOCKED",
+    "VOLTA",
+    "WORKER_OCIOSO_SAIU",
+    "SUPERVISOR_BLOCKED",
+    "VOLTA",
+    "WORKER_OCIOSO_SAIU",
+    "SUPERVISOR_BLOCKED",
+    "VOLTA",
+    "WORKER_OCIOSO_SAIU",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED"
+   ]
+  },
+  "ANTERIOR_COMO_EM_PRODUCAO": {
+   "DATASET": "DOIS-ESCRITORES-ENSAIO-V1",
+   "CODIGO": "sem terminate (anterior)",
+   "DRENADO": false,
+   "PIDS_LANCADOS": [
+    116140,
+    127660,
+    120384
+   ],
+   "MAX_WORKERS_VIVOS_AO_MESMO_TEMPO": 2,
+   "SEGUNDOS_COM_2_OU_MAIS_VIVOS": 1.0,
+   "TAREFAS_FECHADAS_POR_PID": {},
+   "PIDS_A_FECHAR_TAREFAS_EM_INTERVALOS_QUE_SE_CRUZAM": false,
+   "LINHAS_POR_PID": {},
+   "TAREFAS_FECHADAS_MAIS_DE_UMA_VEZ": [],
+   "EVENTOS": [
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_MORTO",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED",
+    "SUPERVISOR_BLOCKED"
+   ]
+  },
+  "NOVO_COMO_EM_PRODUCAO": {
+   "DATASET": "DOIS-ESCRITORES-ENSAIO-V1",
+   "CODIGO": "com terminate antes de relancar",
+   "DRENADO": false,
+   "PIDS_LANCADOS": [
+    128676,
+    100648,
+    121072
+   ],
+   "MAX_WORKERS_VIVOS_AO_MESMO_TEMPO": 1,
+   "SEGUNDOS_COM_2_OU_MAIS_VIVOS": 0.0,
+   "TAREFAS_FECHADAS_POR_PID": {},
+   "PIDS_A_FECHAR_TAREFAS_EM_INTERVALOS_QUE_SE_CRUZAM": false,
+   "LINHAS_POR_PID": {},
+   "TAREFAS_FECHADAS_MAIS_DE_UMA_VEZ": [],
+   "EVENTOS": [
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_PENDURADO_TERMINADO",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE",
+    "WORKER_PENDURADO_TERMINADO",
+    "WORKER_MORTO",
+    "WORKER_RELANCADO",
+    "ARRANQUE"
+   ]
+  },
+  "LEITURA": "anterior: ate 3 workers vivos e 3 PIDs a fechar tarefas intercaladas da mesma fila (~25 s de escrita cruzada); nenhuma tarefa duplicada nesta corrida, sem nada que o impeca. Novo: nunca mais de 1 vivo; WORKER_PENDURADO_TERMINADO antes de cada relancamento.",
+  "NOTA_METRICA": "SEGUNDOS_COM_2_OU_MAIS_VIVOS subconta: cada amostra consulta o tasklist por PID e demora varios segundos; os tempos de fecho por PID sao a medida.",
+  "SUPERVISOR_BLOCKED_NO_ANTERIOR": "artefacto do relogio encurtado: 3 mortes em <120 s. Em producao, a 303 s umas das outras, nao acontece."
+ },
+ "10_ORFA_T01510_SEGUNDO_ESCRITOR_REAL": {
+  "FONTE": "fila, ledger e run-log da worktree viva copiados (~02:10Z)",
+  "FACTOS": {
+   "FILA": "T01510 IT-T7-107 BUILD_CONTRACT IN_PROGRESS, UPDATED_AT 01:52:26.777Z, ATTEMPTS 0; nenhuma tarefa seguinte para IT-T7-107",
+   "LEDGER": "01:52:27.102Z CONTRACT_PENDING -> CANARY_PENDING, EV-IT-T7-107-BUILD_CONTRACT-1768 — a tarefa FOI executada e concluida",
+   "RUN_LOG": "01:52:25.856 WORKER_MORTO 119492 RC None (nao terminado); 01:52:25.881 WORKER_RELANCADO 81524; 01:52:26.742 ARRANQUE; 01:53:55 VOLTA 36; saiu limpo"
+  },
+  "LEITURA": "depois de concluir, o worker grava DONE e enfileira VALIDATE_ROUTE; a fila perdeu as duas escritas. Um escritor so relê a fila antes de cada gravacao e nao perde as proprias; so um segundo escritor a gravar um retrato antigo explica. CONFIRMADO: escrita perdida por dois escritores.",
+  "NAO_MEDIDO": "quem gravou por cima (a fila nao guarda PID). Inferido: 119492, o unico outro vivo. Os 35 ms entre ARRANQUE e a reclamacao cabem no 81524 (recuperar_orfas + proxima).",
+  "ORFA_PRESA": "recuperar_orfas so corria no arranque do supervisor e no inicio de cada volta do worker; IN_PROGRESS nao e elegivel; com o servico IDLE ninguem a recuperava. IT-T7-107 fica em CANARY_PENDING sem tarefa que a mova.",
+  "FIX": "supervisor.uma_volta_sup chama F.recuperar_orfas() (limite 1800 s) no ramo sem worker vivo e anota ORFAS_RECUPERADAS; a orfa volta a PENDING e o worker e relancado. Reprocessar o BUILD_CONTRACT reescreve o contrato e reenfileira VALIDATE_ROUTE — repara tambem a tarefa perdida.",
+  "MUTACAO": "orfas = [] no ramo novo (1 linha) -> test_orfa_velha_e_recuperada_e_acorda_o_worker reprova"
+ }
+}

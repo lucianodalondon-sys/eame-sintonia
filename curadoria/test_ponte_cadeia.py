@@ -83,9 +83,14 @@ class ACadeia(unittest.TestCase):
         P.CARACT = d / "CARACT-nao-existe.json"
         P.LEDGER = d / "BRIDGE-LEDGER.json"
         W.EVIDENCIA = d / "EVIDENCE.json"
+        # o pulso do worker e prova de vida para o supervisor: nunca o real
+        self.addCleanup(setattr, W, "PULSO", W.PULSO)
+        W.PULSO = d / "WORKER-HEARTBEAT.json"
         W.CONTRATOS = d / "contracts.json"
         W.CONTRATOS.write_text(json.dumps({"FONTES": []}), encoding="utf-8")
         S.ESTADO = d / "SUPERVISOR-STATE.json"
+        self.addCleanup(setattr, S, "PULSO", S.PULSO)  # o pulso lido e batimento: nunca o real
+        S.PULSO = d / "WORKER-HEARTBEAT.json"
         S.DIARIO = d / "RUN-LOG.ndjson"
         S.LOCK = d / "SUPERVISOR.lock"
         S.PARAR = d / "PARAR.flag"

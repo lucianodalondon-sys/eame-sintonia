@@ -85,6 +85,8 @@ class Isolado(unittest.TestCase):
         LC.LIVRO = d / "LEDGER.json"
         S.LOCK   = d / "SUPERVISOR.lock"
         S.ESTADO = d / "SUPERVISOR-STATE.json"
+        self.addCleanup(setattr, S, "PULSO", S.PULSO)  # o pulso lido e batimento: nunca o real
+        S.PULSO = d / "WORKER-HEARTBEAT.json"
         S.PARAR  = d / "PARAR.flag"
         S.DIARIO = d / "RUN-LOG.ndjson"
         self._procs: list[subprocess.Popen] = []

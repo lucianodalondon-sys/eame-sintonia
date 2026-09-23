@@ -19861,9 +19861,9 @@ produção por causa de uma demonstração.
 > não é uma prova.** Fica por fazer, dito, e com o caminho descrito — é decisão
 > de quem manda, não de quem demonstra.
 
-# §173 · SAÚDE NÃO É PRODUTIVIDADE — A OBSERVABILIDADE DO SOURCE CURATOR
+# §175 · SAÚDE NÃO É PRODUTIVIDADE — A OBSERVABILIDADE DO SOURCE CURATOR
 
-> Era §159 no serviço (source-curator-service-v1); renumerado na unificação (UNIFICACAO-V1, 22/09/2026): o §159 da ponte («A PORTA EXISTIA…») ocupava o número, o §170 e o §171 já eram do serviço, e o §172 já está ocupado em worker-pendurado-v1 («UM CANO SEM LEITOR…», que entra depois). Nenhuma secção foi apagada.
+> Era §159 no serviço (source-curator-service-v1); renumerado na unificação (UNIFICACAO-V1, 22/09/2026): o §159 da ponte («A PORTA EXISTIA…») ocupava o número, o §170 e o §171 já eram do serviço, o §172 era de worker-pendurado-v1 («UM CANO SEM LEITOR…») e o §173 de discovery-sementes-v2 («REGISTADO NÃO É RASTEJADO…»). Na 1.ª passagem ficou §173; na 2.ª (UNIFICACAO-V1-B), quando o §173 do discovery entrou, passou a §175 (o §174 é o da unificação). Nenhuma secção foi apagada.
 
 **O QUE.** O Source Curator virou serviço contínuo (§ anterior) e o painel sabia
 dizer se estava VIVO — mas não se estava a PRODUZIR. Medido numa janela real:
@@ -20042,7 +20042,8 @@ Ferramentas em `ferramentas/unificacao/`; números em `ferramentas/unificacao/m5
   import partido que o denunciasse. Procurar o nome como texto, não como símbolo.
 - **Um número de § só está livre depois de medido em TODAS as refs, incluindo as
   lanes que ainda correm.** O §159 do serviço ia para §172; `worker-pendurado-v1`
-  (ainda não integrado) já tinha §172. Foi para §173.
+  (ainda não integrado) já tinha §172. Foi para §173 — e na 2.ª passagem, quando
+  o §173 do discovery-sementes-v2 entrou, para §175. Medir de novo a cada passagem.
 - **«450/451» e «445/446» eram o mesmo resultado.** O `unittest` correu 451 e
   reprovou 1. O leitor do ensaio só reconhece o nome de um teste quando a linha
   `... ok` sai inteira; cinco testes escrevem no ecrã a meio dessa linha e
@@ -20056,3 +20057,147 @@ Ferramentas em `ferramentas/unificacao/`; números em `ferramentas/unificacao/m5
 - **Classe antes do rótulo.** `AUTH_BLOCK` (muro de login) caía em UNKNOWN na
   reconciliação por não estar no vocabulário. Lê-se como CAPABILITY_BLOCK (a
   decisão já estava declarada em `_CLASSE_DE`); o rótulo fica no livro.
+# §172 · UM CANO SEM LEITOR NÃO É UM LOG, É UM TRAVÃO
+
+*Missão 2d (worker-pendurado-v1), 23/09/2026. Prova: `curadoria/WORKER-PENDURADO-PROOF-V1.json`,
+`curadoria/ensaiar_worker_pendurado.py` (worker real numa cópia), `curadoria/test_worker_pendurado.py`.*
+
+**A PERGUNTA.** O supervisor dava ~54 «mortes» por dia com RC vazio. RC vazio não é
+morte: é um processo que ainda existe e cujo heartbeat envelheceu 300 s.
+
+**O QUE SE MEDIU — DUAS CAUSAS, NÃO UMA.**
+
+1. **O cano.** `_lancar_worker` punha o stdout em `subprocess.PIPE` e ninguém o lia. O
+   cano anónimo do Windows guarda ~4 KB. Repro mínima: bloqueia aos 4.000 bytes (a linha
+   que levaria a 4.100 já não cabe). Worker real, lançado pela própria `_lancar_worker`:
+   3.994 bytes, 64 de 80 tarefas, vivo e parado para sempre. Com ficheiro ou DEVNULL,
+   10 MB passam.
+2. **O pulso por volta.** O heartbeat é a última linha do run-log, e o worker só escreve a
+   `VOLTA` no fim de TODAS as tarefas elegíveis. Nos dados reais, 37 das 50 mortes de RC
+   vazio foram na 1.ª volta, com o ledger a receber transições até 1–125 s antes da
+   «morte»: trabalhavam, e morreram por o relógio só ver o fim.
+
+**E O QUE ISSO ESCONDIA.** Declarado morto com RC vazio, o worker não era terminado: o
+supervisor lançava outro. Dois escritores numa fila que grava sem trinco, até o antigo
+rebentar no print seguinte (o cano fechava quando o `Popen` antigo era largado). Visto
+ao vivo: 98460 declarado morto às 01:37:15Z com 44 transições feitas, 121156 lançado no
+mesmo segundo.
+
+**O QUE MUDOU.** stdout → `WORKER-STDOUT.log` (roda para `.1` acima de 5 MB no arranque);
+pulso por tarefa em `WORKER-HEARTBEAT.json`, e o heartbeat é o mais recente dos dois;
+RC vazio → `terminate`/`kill` e `WORKER_PENDURADO_TERMINADO` antes de relançar.
+
+**O QUE SE APRENDEU.**
+
+- **O que o worker escrevia nunca foi lido por ninguém**: o log que parecia existir era um
+  cano de 4 KB. «Imprime-se» não quer dizer «fica registado».
+- **A estimativa pela VOLTA não vê a 1.ª volta.** Só o ledger (transições com hora) mostrou
+  que os «mortos» ainda trabalhavam. Medir a vida pelo mesmo relógio que a declara morta
+  dá sempre razão ao relógio.
+- **NÃO SEI:** nos dados antigos não se separa caso a caso se o cano encheu antes dos
+  300 s ou se só o pulso envelheceu, porque o worker não anotava cada tarefa. As duas
+  causas estão provadas; a proporção entre elas, não.
+
+**ADENDA À §172 — o que a evidência ao vivo e o ensaio de dois escritores acrescentaram.**
+
+- **Ao vivo, depois de 9a82197c:** quatro workers seguidos (01:32–01:52Z) pararam ao fim de
+  EXACTAMENTE 44 transições e morreram 303–304 s depois de arrancar. Um número fixo de
+  tarefas é a assinatura de um limite de bytes (o cano); o ritmo de 5 min é só o
+  `HEARTBEAT_TIMEOUT_S` que o deteta. Uma tarefa longa daria contagens diferentes.
+- **Dois escritores, medidos em cópia:** com o relógio encurtado, o código anterior teve até
+  3 workers vivos e 3 PIDs a fechar tarefas intercaladas da mesma fila. O novo nunca passa de 1.
+- **O remédio do cano agravava o outro defeito.** Com o stdout em ficheiro, o worker antigo
+  já não morre no print seguinte (o cano fechado era o que o matava). Sem o `terminate`
+  antes de relançar, ficaria vivo para sempre ao lado do novo. Os dois consertos só são
+  seguros juntos.
+- **Pulso durante a tarefa, com teto.** Um fio que pulsa sempre esconderia um worker
+  encravado; por isso só pulsa até `TAREFA_MAX_S = 900`.
+- **Um mutante sobreviveu à primeira**: os testes arrancavam o fio à mão, e ninguém
+  verificava que o `correr` o arranca sozinho. Teste acrescentado; o mutante morre.
+- **CRASH_MAX (3 em 120 s) não é alcançável** com mortes a 303 s umas das outras: o
+  risco destas mortes nunca foi BLOCKED, foi o escritor duplicado.
+- **O segundo escritor deixou rasto ao vivo.** T01510 (IT-T7-107) ficou IN_PROGRESS na fila, mas
+  o ledger já a dava por concluída (01:52:27.102Z, CANARY_PENDING), e a tarefa seguinte que o
+  worker cria ao concluir não existe. Um escritor só não perde as próprias escritas; foi
+  gravado por cima um retrato antigo da fila. **O ledger é o que desmente a fila.**
+- **Uma órfã não acorda ninguém.** IN_PROGRESS não é elegível; `recuperar_orfas` só corria no
+  arranque do supervisor e no início de cada volta do worker. Com o serviço IDLE, a órfã
+  ficava presa para sempre. Agora o supervisor recupera-as (> 30 min) no único ponto em
+  que sabe que não há worker vivo.
+
+# §173 · REGISTADO NÃO É RASTEJADO — O DISCOVERY SEM COMBUSTÍVEL
+
+**O QUE ESTAVA ERRADO.** O livro `DISCOVERY-VISITED.json` guarda em `VISITADOS` dois
+significados com o mesmo nome: a página rastejada como semente (`SEMENTE_PROCESSADA`) e o
+link registado como candidata (`REGISTADO_CAND-xxxx`). O filtro de sementes de
+`crawl_sementes` lia os dois como «já usada». Cada candidata nova nascia já impedida de
+ser semente: a 2.ª geração secava na mesma corrida em que nascia.
+
+**PROVA (cópia dos livros do serviço, 23/09).** 166 sementes conhecidas; 6 livres (todas
+UNKNOWN). Com o filtro novo: 132 livres, 125 TEMÁTICAS. O mesmo nome de estado não é o
+mesmo significado (ver §170 ponto 3).
+
+**O QUE MUDOU.** `_semente_ja_gasta()` em `curadoria/descobrir.py`: fora só o que foi
+REJEITADO ou está em VISITADOS com motivo que não começa por `REGISTADO_`. Depois de
+rastejada, a semente passa a `SEMENTE_PROCESSADA` e nunca repete. A regra
+`_classificar_semente`, o orçamento (250), o tecto de 15 sementes por corrida e o robots
+ficaram iguais. Testes em `curadoria/test_discovery_sementes.py`; o mutante «filtro
+antigo» executou (ficheiro-bandeira) e reprovou 4 de 7.
+
+**O QUE NÃO SE SABE.** A taxa agro das filhas da 2.ª geração não foi medida sem rede; a
+referência é 21,7 % (21/09). A árvore cresce: cada candidata TEMÁTICA vira semente. O
+custo por corrida está travado (15 sementes, 250 pedidos); a fila de sementes pode
+crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
+
+
+# § (sem número) · A PEÇA EXISTIA E NÃO ESTAVA LIGADA — E LIGÁ-LA FABRICAVA TERRITÓRIO
+
+**A HIPÓTESE.** 105 QUALIFY em BLOCK SEMANTIC («território indeterminado pelo nome»),
+incluindo AGEA (CAND-0253), SIAN (CAND-0010) e Rete Rurale (CAND-0009). O worker chamava
+`atribuir_source_id.territorio_de` com `CONTENT_VALUE_TYPE: []`; a peça que mede o tema
+(`amostrar.caracterizar`) existia e nunca era chamada. **Confirmado: não estava ligada.**
+
+**A MEDIÇÃO (23/09, cópia da fila do serviço).** Sem rede: 0 das 105 tinham amostra ou
+caracterização guardada. Com rede (egresso IT medido antes de cada site, 105/105; robots +
+índice + 1 item, ≤3 pedidos por site), ligando a peça como ela é:
+
+| resultado | fontes |
+|---|---|
+| nenhum item achado no índice (inclui AGEA, SIAN, Rete Rurale) | 68 |
+| item colhido, sem tema reconhecível | 23 |
+| robots proíbe ou ilegível | 7 |
+| site não respondeu | 1 |
+| **território decidido pela amostra** | **6** |
+
+Dos 6, pelo menos 4 foram para a gaveta errada: Presidenza del Consiglio → T8 por uma
+notícia de viagem; Sherwood (revista florestal) → T10 por uma página de doação;
+`lombardianotizie` → T5 por um artigo sobre baterias; «Frutta nelle scuole» → T7. Só o
+Consiglio Regionale da Campânia → T4 parece certo.
+
+**A DECISÃO.** A ligação foi escrita e testada (`572fe46b`: 7 testes, 4 mutantes
+executados e apanhados) e **revertida** (`be2433ad`). Ligar a peça não resolve 99 e
+fabrica território nas que resolve. O próprio `atribuir_source_id` já avisava:
+
+    UMA EMPRESA QUE FALA DE CLIMA NAO E UM SERVICO CLIMATICO.
+
+Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
+«comunicato» num site do governo basta para o chamar de meio agrícola.
+
+**O QUE FALTARIA (proposta, não aplicada).**
+1. Achar item em portal institucional: 68 de 105 param porque
+   `capturador.candidatos_a_item` não acha nenhum link com cara de item na página
+   de entrada. Candidatos: `sitemap.xml` ou uma página de listagem conhecida.
+2. Uma regra de amostra que sustente a decisão: vários itens (a peça já prevê de 3
+   a 10) e concordância entre eles, e não «o tema do primeiro item». Isso é regra
+   nova e precisa de dono.
+3. Enquanto isso, as 105 são **SEMANTIC_PENDING**: decisão semântica (Opus/humano),
+   como já dizia a mensagem de bloqueio.
+
+**ARMADILHAS DESTA MEDIÇÃO.**
+- `amostrar` grava a amostra com um caminho relativo à sua `RAIZ`. Mudar só
+  `AMOSTRAS` para fora do repositório faz `relative_to` rebentar no primeiro site que
+  tiver item. É preciso mudar `RAIZ` também.
+- O robots de alguns sites (SIAN, entre outros) devolve HTML com HTTP 200. O parser não
+  lê regra nenhuma e trata como «tudo permitido».
+- `robots_de` tenta duas vezes, com esperas de 25 e 45 s, quando o robots não responde.
+  Numa medição de 105 sites, é isso que domina o tempo.

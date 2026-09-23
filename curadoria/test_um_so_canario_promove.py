@@ -50,6 +50,9 @@ class UmSoCanarioPromove(unittest.TestCase):
         LC.LIVRO = d / "LEDGER.json"
         F.FILA = d / "QUEUE.json"
         W.EVIDENCIA = d / "EVIDENCE.json"
+        # o pulso do worker e prova de vida para o supervisor: nunca o real
+        self.addCleanup(setattr, W, "PULSO", W.PULSO)
+        W.PULSO = d / "WORKER-HEARTBEAT.json"
         W.CONTRATOS = d / "contracts.json"
         W.CONTRATOS.write_text(json.dumps({"FONTES": [_contrato(BOA), _contrato(PARCIAL)]}),
                                encoding="utf-8")

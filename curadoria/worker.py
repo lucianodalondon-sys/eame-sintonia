@@ -609,6 +609,50 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
             "PORQUE": detalhe.get("PORQUE", "")[:160]}
 
 
+PULSO = RAIZ / "curadoria" / "WORKER-HEARTBEAT.json"
+
+
+def _pulso(r: dict) -> None:
+    """Sinal de vida do worker, por tarefa. Nunca levanta."""
+    try:
+        PULSO.write_text(json.dumps({
+            "AT": datetime.now(timezone.utc).isoformat(), "PID": os.getpid(),
+            "TASK_ID": r.get("TASK_ID"), "RESULTADO": r.get("RESULTADO")}),
+            encoding="utf-8")
+    except Exception:
+        pass
+
+
+# ⚠️ PULSO DURANTE A TAREFA, COM TETO. O pulso por tarefa nao cobre UMA
+# tarefa longa (rede lenta, canario grande): passados HEARTBEAT_TIMEOUT_S sem
+# pulso o supervisor da-o como morto — e agora termina-o, a meio. Um fio de
+# fundo pulsa enquanto ha tarefa em curso. Mas um fio que pulsa SEMPRE
+# esconderia um worker realmente encravado; por isso so pulsa ate
+# TAREFA_MAX_S. Encravado passa a ser detectado em TAREFA_MAX_S + 300 s.
+PULSO_INTERVALO_S = 30
+TAREFA_MAX_S = 900
+_EM_CURSO: dict = {}
+
+
+def _pulsar_em_fundo() -> None:
+    while True:
+        time.sleep(PULSO_INTERVALO_S)
+        t = dict(_EM_CURSO)
+        if t and time.time() - t["DESDE"] < TAREFA_MAX_S:
+            _pulso({"TASK_ID": t["TASK_ID"], "RESULTADO": "EM_CURSO"})
+
+
+_FIO_ARRANCADO: list = []
+
+
+def _arrancar_fio_de_pulso() -> None:
+    """Um fio por processo, arrancado na primeira tarefa."""
+    import threading
+    threading.Thread(target=_pulsar_em_fundo, daemon=True,
+                     name="pulso-do-worker").start()
+    _FIO_ARRANCADO.append(1)
+
+
 def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> list[dict]:
     """O LOOP. Para quando a fila nao tem nada ELEGIVEL — o que nao e o mesmo
     que a fila estar vazia: pode haver tarefas a espera do relogio delas, e
@@ -623,7 +667,13 @@ def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> li
         t = F.proxima()
         if t is None:
             break
-        r = executar_uma(t, contratos)
+        if not _FIO_ARRANCADO:
+            _arrancar_fio_de_pulso()
+        _EM_CURSO.update({"TASK_ID": t["TASK_ID"], "DESDE": time.time()})
+        try:
+            r = executar_uma(t, contratos)
+        finally:
+            _EM_CURSO.clear()
         # ⚠️ BUILD_CONTRACT acrescenta linhas a tabela. Um dicionario lido uma
         # vez no arranque nao ve o contrato que acabou de nascer, e o canario
         # seguinte diria «sem contrato» sobre a fonte que o Bot acabou de
@@ -631,6 +681,12 @@ def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> li
         if r.get("TASK_TYPE") == F.BUILD_CONTRACT and r["RESULTADO"] == "OK":
             contratos = _contratos()
         feitos.append(r)
+        # ⚠️ PULSO POR TAREFA. O diario so recebe a VOLTA no fim de todas as
+        # tarefas; uma volta com mais de HEARTBEAT_TIMEOUT_S de rede lia-se
+        # como worker morto (medido: 37 das 50 «mortes» de RC vazio eram
+        # workers ainda a escrever no livro). O pulso vai para um ficheiro
+        # proprio, nao para o diario: uma linha por tarefa seria ruido.
+        _pulso(r)
         if verboso:
             print("  %-12s %-10s %s  %s" % (r["SOURCE_ID"], r["RESULTADO"],
                                             r["TASK_TYPE"], r["PORQUE"][:70]),

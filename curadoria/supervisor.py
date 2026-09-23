@@ -188,7 +188,28 @@ def _pid_no_so(pid: int) -> bool:
         return False
 
 
+PULSO = RAIZ / "curadoria" / "WORKER-HEARTBEAT.json"
+
+
 def _ultimo_heartbeat() -> Optional[datetime]:
+    """O mais recente de: ultima linha do run log, pulso por tarefa do worker.
+
+    Sem o pulso, o heartbeat so avancava no fim de uma VOLTA inteira — e uma
+    volta longa de trabalho real lia-se como worker pendurado (M2d).
+    """
+    marcas = [m for m in (_heartbeat_do_diario(), _heartbeat_do_pulso()) if m]
+    return max(marcas) if marcas else None
+
+
+def _heartbeat_do_pulso() -> Optional[datetime]:
+    try:
+        return datetime.fromisoformat(
+            json.loads(PULSO.read_text(encoding="utf-8"))["AT"])
+    except Exception:
+        return None
+
+
+def _heartbeat_do_diario() -> Optional[datetime]:
     """Le o timestamp AT da ultima linha do run log escrita pelo WORKER.
 
     ⚠️ O supervisor escreve no MESMO diario que le (`_anotar`: WORKER_MORTO,
@@ -252,15 +273,40 @@ def _worker_vivo(estado: dict) -> bool:
 # Lancamento do worker
 # ---------------------------------------------------------------------------
 
-def _lancar_worker(pausa: float = 1.0) -> subprocess.Popen:
-    cmd = [sys.executable,
-           str(RAIZ / "curadoria" / "ciclo_continuo.py"),
-           "--pausa", str(pausa), "--sair-quando-ocioso"]
-    return subprocess.Popen(
-        cmd,
-        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        text=True, encoding="utf-8", errors="replace",
-    )
+# ⚠️ O CANO QUE NINGUEM LE PENDURA O WORKER. Ate 23/09 o stdout do worker ia
+# para subprocess.PIPE e o supervisor nunca o lia. O cano anonimo do Windows
+# guarda ~4 KB: medido (M2d, WORKER-PENDURADO-ENSAIO-V1), o ciclo_continuo real
+# escreveu 3.994 bytes, fechou 64 de 80 tarefas e ficou vivo e parado no print
+# seguinte, para sempre. O que ele escreve vai agora para um ficheiro, que se
+# roda no arranque — e o que antes se perdia no cano passa a ler-se.
+#
+#     UM CANO SEM LEITOR NAO E UM LOG, E UM TRAVAO.
+WORKER_LOG = RAIZ / "curadoria" / "WORKER-STDOUT.log"
+WORKER_LOG_MAX_BYTES = 5 * 1024 * 1024
+
+
+def _abrir_log_do_worker():
+    try:
+        if WORKER_LOG.exists() and WORKER_LOG.stat().st_size > WORKER_LOG_MAX_BYTES:
+            WORKER_LOG.replace(WORKER_LOG.with_name(WORKER_LOG.name + ".1"))
+    except OSError:
+        pass                       # rodar e cortesia; escrever e obrigatorio
+    return WORKER_LOG.open("a", encoding="utf-8", errors="replace")
+
+
+def _lancar_worker(pausa: float = 1.0, cmd: Optional[list] = None) -> subprocess.Popen:
+    cmd = cmd or [sys.executable,
+                  str(RAIZ / "curadoria" / "ciclo_continuo.py"),
+                  "--pausa", str(pausa), "--sair-quando-ocioso"]
+    log = _abrir_log_do_worker()
+    try:
+        return subprocess.Popen(
+            cmd,
+            stdout=log, stderr=subprocess.STDOUT,
+            text=True, encoding="utf-8", errors="replace",
+        )
+    finally:
+        log.close()                # o filho tem a sua copia do descritor
 
 
 # ---------------------------------------------------------------------------
@@ -409,6 +455,25 @@ def uma_volta_sup(
             estado["LAST_PROGRESS_AT"] = hb_str
 
         rc = proc.returncode if proc.poll() is not None else None
+
+        # ⚠️ DECLARADO MORTO E AINDA VIVO: TERMINA-SE ANTES DE RELANCAR.
+        # rc None = o processo existe mas o heartbeat envelheceu. Ate 23/09 o
+        # supervisor relancava um segundo worker e deixava este vivo: dois
+        # escritores na mesma fila, que grava sem trinco (fila._gravar). O
+        # antigo so caia quando o cano fechado lhe rebentava o print seguinte.
+        #
+        #     UM SO ESCRITOR: QUEM SE DA COMO MORTO, MORRE.
+        if rc is None:
+            proc.terminate()
+            try:
+                proc.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait(timeout=10)
+            _anotar({"EVENTO": "WORKER_PENDURADO_TERMINADO",
+                     "PID": estado["WORKER_PID"], "RC_APOS": proc.returncode,
+                     "HB_AGORA": hb_str})
+
         _anotar({
             "EVENTO": "WORKER_MORTO",
             "PID": estado["WORKER_PID"],
@@ -455,6 +520,20 @@ def uma_volta_sup(
         _gravar_estado(estado)
         _anotar({"EVENTO": "SUPERVISOR_BLOCKED", "MOTIVO": motivo})
         return "BLOQUEADO", estado, None
+
+    # --- orfas: aqui NAO ha worker vivo (acabou de se confirmar acima) ---
+    # ⚠️ UMA ORFA NAO E ELEGIVEL, LOGO NUNCA ACORDAVA NINGUEM. recuperar_orfas
+    # so corria no arranque do supervisor e no inicio de cada volta do worker;
+    # uma tarefa IN_PROGRESS nao conta em F.elegiveis(), e com o servico IDLE o
+    # worker nunca era relancado. Visto ao vivo (M2d): T01510 (IT-T7-107)
+    # ficou IN_PROGRESS depois de o ledger ja a dar por concluida — escrita
+    # perdida por um segundo escritor — e ficaria assim ate um reinicio.
+    # Este e o unico ponto do supervisor sem worker vivo: um so escritor.
+    orfas = F.recuperar_orfas()
+    if orfas:
+        _anotar({"EVENTO": "ORFAS_RECUPERADAS", "TOTAL": len(orfas),
+                 "TASK_IDS": [t["TASK_ID"] for t in orfas][:20],
+                 "ONDE": "supervisor, ramo sem worker vivo"})
 
     # --- sem trabalho elegivel -> IDLE ---
     n_elegiveis = len(F.elegiveis())

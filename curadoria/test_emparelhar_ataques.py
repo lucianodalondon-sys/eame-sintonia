@@ -143,6 +143,8 @@ class OsSeteAtaques(unittest.TestCase):
             antes = (F.FILA, SUP.ESTADO, SUP.PARAR, SUP.DIARIO)
             F.FILA = Path(d) / "Q.json"
             SUP.ESTADO, SUP.PARAR, SUP.DIARIO = Path(d) / "S.json", Path(d) / "P.flag", Path(d) / "L.ndjson"
+            self.addCleanup(setattr, SUP, "PULSO", SUP.PULSO)  # o pulso lido e batimento: nunca o real
+            SUP.PULSO = Path(d) / "WORKER-HEARTBEAT.json"
             try:
                 accao, estado, proc = SUP.uma_volta_sup({}, None)
                 self.assertEqual("IDLE", accao)
@@ -157,6 +159,8 @@ class OsSeteAtaques(unittest.TestCase):
             antes = (F.FILA, SUP.ESTADO, SUP.PARAR, SUP.DIARIO)
             F.FILA = Path(d) / "Q.json"
             SUP.ESTADO, SUP.PARAR, SUP.DIARIO = Path(d) / "S.json", Path(d) / "P.flag", Path(d) / "L.ndjson"
+            self.addCleanup(setattr, SUP, "PULSO", SUP.PULSO)  # o pulso lido e batimento: nunca o real
+            SUP.PULSO = Path(d) / "WORKER-HEARTBEAT.json"
             try:
                 SUP._gravar_estado({"SUPERVISOR_STATE": "STOPPED", "RESTARTS_TOTAL": 7,
                                     "CRASHES_SEM_PROGRESSO": []})

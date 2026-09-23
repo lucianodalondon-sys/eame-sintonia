@@ -77,6 +77,9 @@ class AVoltaSobrevive(unittest.TestCase):
         LC.LIVRO = d / "LEDGER.json"
         F.FILA = d / "QUEUE.json"
         W.EVIDENCIA = d / "EVIDENCE.json"
+        # o pulso do worker e prova de vida para o supervisor: nunca o real
+        self.addCleanup(setattr, W, "PULSO", W.PULSO)
+        W.PULSO = d / "WORKER-HEARTBEAT.json"
         W.CONTRATOS = IC.CONTRATOS = d / "contracts.json"
         IC.CARACT = d / "nao-existe.json"
         LOTES.LOTES = SL.LOTES = d / "BATCHES.json"
@@ -85,6 +88,8 @@ class AVoltaSobrevive(unittest.TestCase):
         NIVEL.SAIDA = d / "DISCOVERY-SIGNAL.json"
         CC.DIARIO = S.DIARIO = d / "RUN-LOG.ndjson"
         S.ESTADO = d / "SUPERVISOR-STATE.json"
+        self.addCleanup(setattr, S, "PULSO", S.PULSO)  # o pulso lido e batimento: nunca o real
+        S.PULSO = d / "WORKER-HEARTBEAT.json"
         S.LOCK = d / "SUPERVISOR.lock"
         S.PARAR = d / "PARAR.flag"
         W.CONTRATOS.write_text(json.dumps({"FONTES": [

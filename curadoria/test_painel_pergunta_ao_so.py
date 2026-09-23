@@ -28,6 +28,8 @@ class OPainel(unittest.TestCase):
         d = Path(self.tmp.name)
         self._antes = (SUP.ESTADO, SUP.DIARIO)
         SUP.ESTADO, SUP.DIARIO = d / "S.json", d / "L.ndjson"
+        self.addCleanup(setattr, SUP, "PULSO", SUP.PULSO)  # o pulso lido e batimento: nunca o real
+        SUP.PULSO = d / "WORKER-HEARTBEAT.json"
 
     def tearDown(self):
         SUP.ESTADO, SUP.DIARIO = self._antes

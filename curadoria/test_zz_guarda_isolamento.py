@@ -75,6 +75,12 @@ FICHEIROS_REAIS = [
     "READY-SOURCES-V1.json",
     "READY-SPLIT-V1.json",
     "COLLECTION-INTAKE-V1.json",
+    # WORKER-PENDURADO (M2d, UNIFICACAO-V1-B): o pulso do worker. O supervisor
+    # le-o como prova de vida: um teste que escreva o pulso REAL numa pasta
+    # onde o bot corre faz um worker pendurado parecer vivo. Medido na
+    # unificacao: 3 ficheiros de teste escreviam-no (volta_sobrevive,
+    # um_so_canario_promove, ponte_cadeia).
+    "WORKER-HEARTBEAT.json",
 ]
 
 
@@ -139,7 +145,14 @@ ESCREVE_O_PORTAO = re.compile(r"CG\.main\(")
 REDIRECIONA_A_ENTREGA = re.compile(r"IC\.SNAPSHOT\s*=[^=]")
 REDIRECIONA_A_SAIDA_DO_PORTAO = re.compile(r"CG\.SAIDA\s*=[^=]")
 
+PULSA = re.compile(r"W\.correr\(|CC\.uma_volta\(")
+# o supervisor LE o pulso como batimento: um teste que leia o real mede o bot vivo
+REDIRECIONA_PULSO_LIDO = re.compile(r"(S|SUP)\.PULSO\s*=[^=]")
+REDIRECIONA_PULSO = re.compile(r"W\.PULSO\s*=[^=]")
+
 REGRAS = [
+    ("corre o worker -> W.PULSO redirecionado (o pulso e prova de vida)",
+     PULSA, [("W.PULSO =", REDIRECIONA_PULSO)]),
     ("escreve a entrega da Collection -> IC.SNAPSHOT redirecionado",
      ESCREVE_A_ENTREGA, [("IC.SNAPSHOT =", REDIRECIONA_A_ENTREGA)]),
     ("escreve a saida do portao -> CG.SAIDA redirecionado",
@@ -162,12 +175,14 @@ REGRAS = [
      ESCREVE_NO_LIVRO, [("LC.LIVRO =", REDIRECIONA_LIVRO)]),
     ("usa o lock -> LOCK redirecionado",
      USA_O_LOCK, [("S.LOCK =", REDIRECIONA_LOCK)]),
-    ("da voltas ao supervisor -> ESTADO, DIARIO e F.FILA redirecionados",
+    ("da voltas ao supervisor -> ESTADO, DIARIO, PULSO e F.FILA redirecionados",
      USA_A_VOLTA_DO_SUPERVISOR, [("S.ESTADO =", REDIRECIONA_ESTADO),
                                  ("S.DIARIO =", REDIRECIONA_DIARIO),
+                                 ("S.PULSO =", REDIRECIONA_PULSO_LIDO),
                                  ("F.FILA =", REDIRECIONA_FILA)]),
-    ("le o estado do servico -> ESTADO redirecionado",
-     USA_O_ESTADO_DO_SERVICO, [("S.ESTADO =", REDIRECIONA_ESTADO)]),
+    ("le o estado do servico -> ESTADO e PULSO redirecionados",
+     USA_O_ESTADO_DO_SERVICO, [("S.ESTADO =", REDIRECIONA_ESTADO),
+                               ("S.PULSO =", REDIRECIONA_PULSO_LIDO)]),
 ]
 
 
