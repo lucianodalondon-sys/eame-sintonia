@@ -86,7 +86,9 @@ def hora_do_canario(sid: str, f: dict) -> tuple:
     ev = f["evidencias"].get(ref) or f["bot_evidencias"].get(ref)
     if ev and ev.get("OBSERVED_AT"):
         return _quando(ev["OBSERVED_AT"]), "prova %s" % ref
-    return _quando(p.get("OBSERVED_AT")), "linha do livro %s (prova %s nao encontrada)" % (p.get("OBSERVED_AT"), ref)
+    # Sem a prova, a hora da linha e a da reconciliacao que a copiou (medido: 73 LEGACY
+    # na foto de 19:38Z). Isso nao e um canario — nao conta como recente.
+    return None, "sem prova: %s nao existe nas provas (linha do livro %s)" % (ref, p.get("OBSERVED_AT"))
 
 
 def _d25(linhas: list) -> dict:
@@ -99,6 +101,40 @@ def _d25(linhas: list) -> dict:
             "ONDAS_SEGUINTES_ELIGIBLE_WITHOUT_CONTRACT": sorted(x["SOURCE_ID"] for x in linhas if not x["NO_COLETOR"]),
             "APPROVED_SOURCE_ROUTE_COVERAGE": ("SAFE" if coorte and not falham else
                                                "NOT_SAFE" if falham else "NAO_SEI (coorte vazia)")}
+
+
+def censo_das_ready(f: dict) -> dict:
+    """TODAS as READY_FOR_COLLECTION do livro, fonte a fonte — nao so as ELIGIBLE.
+
+    Coorte real (D25) = READY + portao ELIGIBLE (regua DETAIL/v1, sem revisao humana,
+    nao retirada) + contrato EXECUTAVEL no coletor (existe em CONTRACTS e a aquisicao e
+    a do portao) + canario <= 7 dias. Cada READY sai com o PRIMEIRO degrau que falha."""
+    ctx = {"livro": f["livro"], "evidencias": f["evidencias"], "contratos": f["contratos"]}
+    col = f["coletor"]["CONTRATOS"]
+    linhas, degraus = [], Counter()
+    for l in CG.inventario(ctx=ctx):
+        s = l["SOURCE_ID"]
+        quando, _ = hora_do_canario(s, f)
+        idade = (f["quando"] - quando).total_seconds() / 86400 if quando else None
+        no_col = s in col
+        executavel = no_col and (col[s].get("ACQUISITION") is not None) and (
+            json.dumps(col[s].get("ACQUISITION"), sort_keys=True, ensure_ascii=False) == _aq(f["contratos"].get(s)))
+        passos = [("ROTA_VALIDADA", l["READY_RULE"] == RS.REGUA_CURRENT),
+                  ("PORTAO_ELIGIBLE", l["COLLECTION_ELIGIBLE"]),
+                  ("CONTRATO_NO_COLETOR", no_col),
+                  ("CONTRATO_EXECUTAVEL", executavel),
+                  ("CANARIO_RECENTE_7D", idade is not None and idade <= DIAS)]
+        falha = next((n for n, ok in passos if not ok), None)
+        degraus[falha or "COORTE"] += 1
+        linhas.append({"SOURCE_ID": s, "READY_RULE": l["READY_RULE"], "MOTIVO_DO_PORTAO": l["MOTIVO"],
+                       **{n: ok for n, ok in passos},
+                       "CANARIO_IDADE_DIAS": round(idade, 2) if idade is not None else None,
+                       "PRIMEIRO_DEGRAU_QUE_FALHA": falha})
+    return {"READY_TOTAL": len(linhas),
+            "POR_PRIMEIRO_DEGRAU_QUE_FALHA": dict(degraus),
+            "CONTAGENS": {n: sum(x[n] for x in linhas) for n, _ in passos},
+            "COORTE_D25": sorted(x["SOURCE_ID"] for x in linhas if not x["PRIMEIRO_DEGRAU_QUE_FALHA"]),
+            "LINHAS": linhas}
 
 
 def medir_cobertura(f: dict) -> dict:
@@ -143,6 +179,7 @@ def medir_cobertura(f: dict) -> dict:
         "OK_NOS_QUATRO": len(linhas) - len(falham),
         "APPROVED_SOURCE_ROUTE_COVERAGE": "SAFE" if not falham else "NOT_SAFE",
         "D25": _d25(linhas),
+        "CENSO_DAS_READY": censo_das_ready(f),
         "LINHAS": linhas,
     }
 
