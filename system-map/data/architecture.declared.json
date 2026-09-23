@@ -432,7 +432,7 @@
    "views": [
     "infra"
    ],
-   "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel.",
+   "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel; e as do ensaio do cutover (X1): medidores que mandam PARAR antes do passo seguinte, a fotografia dos livros extra e os passos 5b/5c/7b que o SWITCH_PLAN nao tinha.",
    "why_here": "Juntar linhas sem medir primeiro troca uma tarde de censo por uma semana a desfazer. O script nao escreve objectos, refs nem indice: o conflito e medido com merge-file em temporarios fora do repo.",
    "departments": [
     "ENGENHARIA"
@@ -447,7 +447,12 @@
     "ferramentas/unificacao/provar_em_copia.py",
     "ferramentas/unificacao/resolver_conflitos.py",
     "ferramentas/unificacao/unir_ledger.py",
-    "ferramentas/unificacao/unir_livros_do_servico.py"
+    "ferramentas/unificacao/unir_livros_do_servico.py",
+    "ferramentas/cutover/congelar_extras.py",
+    "ferramentas/cutover/medir_cutover.py",
+    "ferramentas/cutover/observador_ensaio.py",
+    "ferramentas/cutover/passos_do_cutover.py",
+    "ferramentas/cutover/resolver_conflitos_ensaio.py"
    ]
   },
   {

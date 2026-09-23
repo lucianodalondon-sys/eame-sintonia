@@ -54,6 +54,7 @@ class ABancada(unittest.TestCase):
 
         self._antes = (PA.ESTADO, PA.DIARIO, LC.LIVRO, R.SAIDA, R.EVIDENCIA_A,
                        RS.EVIDENCIA, RS.CONTRATOS)
+        self._contratos_a = R.CONTRATOS_A
         PA.ESTADO = d / "STATE.json"
         PA.DIARIO = d / "LOG.ndjson"
         LC.LIVRO = d / "LEDGER.json"
@@ -257,6 +258,61 @@ class NaoSeEscreveNaLaneDoBot(ABancada):
                 self.assertNotIn("%s%s" % (proibido, escrita), texto)
         self.assertNotIn("subprocess", texto,
                          "o observador nao corre comandos — so le ficheiros")
+
+
+class ALaneDizSeNaLinhaDeComando(ABancada):
+    """Defeito 6 do ensaio X1: sem --lane, o observador so observava a pasta
+    fixa. E a lane nunca pode ser a casa da ponte (o livro seria o mesmo)."""
+
+    def test_lane_da_linha_de_comando_e_a_que_se_le(self):
+        import io
+        from contextlib import redirect_stdout
+        with redirect_stdout(io.StringIO()):
+            rc = PA.main(["--servir", "--voltas", "1", "--intervalo", "0",
+                          "--lane", str(self.lane)])
+        self.assertEqual(rc, 0)
+        arranque = json.loads(self._linhas_do_diario()[0])
+        self.assertEqual(arranque["LANE_DO_BOT"], str(self.lane))
+        import hashlib
+        self.assertEqual(PA.estado_lido()["ULTIMO_LIVRO_VISTO"]["SHA256"],
+                         hashlib.sha256(self.livro_do_bot.read_bytes()).hexdigest())
+
+    def test_uma_volta_sem_servir_tambem_obedece_a_lane(self):
+        import io
+        from contextlib import redirect_stdout
+        out = io.StringIO()
+        with redirect_stdout(out):
+            rc = PA.main(["--lane", str(self.lane)])
+        self.assertEqual(rc, 0)
+        r = json.loads(out.getvalue())
+        import hashlib
+        self.assertEqual((r["ACCAO"], r["BOT"]["SHA256"]),
+                         ("ATRAVESSOU", hashlib.sha256(self.livro_do_bot.read_bytes()).hexdigest()))
+
+    def test_lane_que_e_a_casa_da_ponte_e_recusada_sem_escrever(self):
+        import io
+        from contextlib import redirect_stdout
+        LC.LIVRO = self.livro_do_bot           # a ponte a correr DENTRO da pasta do bot
+        antes = self.livro_do_bot.read_bytes()
+        out = io.StringIO()
+        with redirect_stdout(out):
+            rc = PA.main(["--servir", "--voltas", "1", "--intervalo", "0",
+                          "--lane", str(self.lane)])
+        self.assertEqual(rc, 2)
+        r = json.loads(out.getvalue())
+        self.assertEqual((r["PORQUE"], r["MESMOS_FICHEIROS"]),
+                         ("LANE_E_A_CASA_DA_PONTE", ["LIFECYCLE-LEDGER-V1.json"]))
+        self.assertEqual(self.livro_do_bot.read_bytes(), antes)
+        self.assertEqual(self._linhas_do_diario(), [])
+        self.assertFalse(PA.ESTADO.exists())
+
+    def test_so_as_provas_ou_os_contratos_iguais_tambem_recusam(self):
+        R.CONTRATOS_A = self.lane / "curadoria" / "italy_contracts_curator.json"
+        try:
+            self.assertEqual(PA.lane_separada(self.lane), ["italy_contracts_curator.json"])
+        finally:
+            R.CONTRATOS_A = self._contratos_a
+        self.assertEqual(PA.lane_separada(self.lane), [])
 
 
 if __name__ == "__main__":

@@ -21225,3 +21225,89 @@ mais 1 por cada 50 vídeos de metadados: ~4.000 canais/dia sem comentários.
 **CANAIS IT COM IDENTIDADE PROVADA.** 51 com `channelId` e SOURCE_ID (50 em
 `regras/italy_contracts_onboarded.json` + IT-T8-001); +3 resolvidos pela API sem SOURCE_ID
 (`YOUTUBE-PILOTO-IT.json`). «Agro» é largo: os 50 incluem agências ambientais (ARPA, ISPRA).
+---
+
+# §200 · UM PLANO SEGUIDO À LETRA NUMA CÓPIA NÃO É UM PLANO ENSAIADO — O CUTOVER X1
+
+> Numerada na unificação (UNIFICACAO-V1-E, 23/09/2026): chegou sem número em cutover-ensaio-v1 (X1). Nada foi apagado.
+
+**O QUE SE FEZ (23/09).** O SWITCH_PLAN da M5 (trocar o serviço vivo para a linha
+unificada) correu inteiro num clone isolado, com os livros vivos fotografados duas vezes
+com sha256, supervisor, worker e observador reais e a rede cortada. Correu sobre três HEADs
+da linha, porque a M5 continuou a juntar enquanto o ensaio corria. Saída:
+`CUTOVER-RUNBOOK.md` e `RELATORIO-CUTOVER-ENSAIO.md`.
+
+**O PLANO PARA NO PASSO 6, E NENHUM TESTE O VIA.** O passo 4 manda o pacote G1 escrever no
+livro do bot *dentro do corte*. O passo 6 confere o sha256 desse corte e recusa-o. Cada
+ferramenta estava certa sozinha; o defeito está na ordem. Só uma corrida de ponta a ponta
+com os livros verdadeiros o mostra.
+
+**CINCO PERDAS CALADAS DEPOIS DE CONTORNAR O PASSO 6.**
+1. 430 candidatas e 302 SOURCE_ID que só a pasta viva tem: o `git checkout -- .` da troca
+   deita-os fora, e os 302 números voltariam a ser dados a outras fontes.
+2. 6 marcas D10: a união escolhe o contrato da ponte, que não tem a marca.
+3. 7 fontes da D10 presas em CANARY_PENDING sem tarefa: o REVALIDAR só olha READY.
+4. **A sétima.** Os dois primeiros ensaios enfileiraram «as 6 marcadas». IT-T5-049 não tem
+   marca e foi despromovida na mesma. Só apareceu quando o medidor passou a perguntar
+   «quem está preso?» em vez de «quem está marcado?».
+5. 75 correcções da linha (D13 e D15) desfeitas quando se copia o livro de candidatas da
+   viva, e 76 correcções de país que só a viva tinha. Correr as ferramentas idempotentes
+   da linha depois da cópia repõe tudo. Medido, não suposto.
+
+**REGRA.** Num cutover, cada passo que escreve precisa de três coisas:
+- um medidor que diga PARAR antes do passo seguinte (`medir_cutover.py`);
+- uma segunda corrida que escreva 0;
+- um sítio de onde se desfaz (o corte com sha256).
+
+Um «esperado» escrito no plano (o portão ~16) não é medida. O ensaio mediu 29, e bate com
+o que a B2 previa (+20/−8) mais as 3 retiradas da D9.
+
+**QUEM É DONO DE QUÊ.** Juntar o livro de candidatas com «a linha vence» dava hoje o mesmo
+resultado que copiar a viva e reaplicar as correcções. Foi rejeitado na mesma, porque é a
+viva que promove candidatas. Uma promoção escrita depois da última passagem seria apagada
+por uma linha mais velha. Quando dois lados escrevem no mesmo livro, copia-se o lado do
+**dono** e reaplica-se o que o outro lado **decidiu**, por ferramenta, nunca por cópia.
+
+**ARMADILHAS DESTA MEDIÇÃO.**
+- `unir_livros_do_servico` lê *refs do Git*, não pastas: o corte tem de virar um ramo.
+- Clone no `%TEMP%` longo rebenta o git (`Filename too long`): usar `C:/x1`.
+- Trocar de ramo com alterações por gravar aborta o checkout, e os comandos seguintes
+  correm no ramo errado. Gravar (commit) antes de cada troca.
+- Cada serviço vivo é um par `py.exe` (lançador) + `python.exe`: contar e parar os dois.
+- O amostrador de processos devolveu 0 com o worker vivo. A prova de «um só worker» é o
+  diário (`WORKER_RELANCADO` / `WORKER_OCIOSO_SAIU`), não a lista de processos.
+- B2 conta identidades, não conteúdo: 906 = 906 com 75 linhas mudadas por dentro.
+
+---
+
+# §201 · A CASA DA PONTE NÃO PODE SER A PASTA DO BOT — E UM «ESPERADO» TEM DE DIZER EM QUE LIVRO
+
+> Numerada na unificação (UNIFICACAO-V1-E, 23/09/2026): era §196 em cutover-ensaio-v1 (X2); o número já estava ocupado nesta linha, e vai para o próximo livre depois do maior. Nada foi apagado.
+
+**O PEDIDO.** Correr o observador da ponte a partir da pasta do serviço, e não da bancada
+onde a M5 trabalha (X2, 23/09).
+
+**O QUE O CÓDIGO DIZ.** O livro canónico da ponte é `RAIZ/curadoria/LIFECYCLE-LEDGER-V1.json`,
+e as provas e os contratos também: `RAIZ` é a pasta de onde o código corre. O bot escreve os
+mesmos nomes na pasta dele. Correr a ponte dentro do bot fazia do livro do bot o livro
+canónico. A reconciliação lê-o como C e grava-o como A, com o bot a escrever no mesmo ficheiro.
+
+**A REGRA.** Um observador que grava tem de ter casa própria. Nem a bancada de quem
+desenvolve (fica suja a cada volta), nem a pasta de quem é observado (dois escritores).
+`ponte_automatica --lane` diz quem se observa. `lane_separada()` recusa quando os ficheiros
+coincidem, antes de escrever uma linha. A troca acontece na mesma pasta de onde a ponte
+passa a correr (`$CASA`, no FINAL_HEAD).
+
+**O «6» E O «0» ESTAVAM OS DOIS CERTOS.** A M5 mediu «REVALIDAR: 6 CONTRATO_NOVO» e a X1
+mediu 0. As 7 fontes da D10 estão READY no livro do bot antes da reconciliação e
+CANARY_PENDING no livro que o bot corre depois dela. Um número esperado sem o nome do livro
+onde foi medido não serve para decidir.
+
+**ARMADILHAS.**
+- Um mutante sobreviveu porque o teste só olhava «ATRAVESSOU». Ignorar `--lane` lia o
+  serviço verdadeiro, que também atravessa. O teste tem de conferir **qual** livro foi
+  lido (o sha256).
+- Ensaiar o observador antigo numa cópia lê o serviço verdadeiro: o `LANE_DO_BOT` fixo
+  aponta para lá. Usar um invólucro com `lane=` ou o `--lane`.
+- O tempo parado no relógio (429 s) não é a soma dos comandos (353 s). O coordenador também
+  pausa entre passos; os dois números vão no runbook.
