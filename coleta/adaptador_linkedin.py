@@ -859,6 +859,668 @@ def pronto_para_identidade(**_):
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# D23 · O VIDEO DA PAGINA PUBLICA DE ORGANIZACAO — a porta que o dono abriu
+# ══════════════════════════════════════════════════════════════════════════
+# MEDIDO em 2026-09-23, desta maquina, egresso italiano (AS212238, Palermo),
+# sem conta, sem cookie, sem login, sem navegador e sem rota paga:
+#
+#     /company/<slug>/                      200 · 10 a 18 activity ids
+#     <video data-sources="…">               MP4 progressivo declarado
+#     dms.licdn.com                         206 · video/mp4 · 7,4 MB medidos
+#     data-captions-url                     200 · WebVTT e SRT, texto legivel
+#
+# O QUE A AQUISICAO FAZ, EM QUATRO PASSOS, E POR QUE NESTA ORDEM
+# ---------------------------------------------------------------
+#   1 · DESCOBERTA   a landing publica da organizacao serve os cartoes das
+#                    publicacoes recentes; cada cartao com video traz o
+#                    activity id, o endereco canonico do post e a etiqueta
+#                    `<video data-sources>`.
+#   2 · IDENTIDADE   a pagina publica do POST traz um JSON-LD `VideoObject`
+#                    com `datePublished`, `duration`, `description` e as
+#                    contagens de reaccao — tudo DECLARADO PELA PLATAFORMA.
+#   3 · BYTES        o MP4 progressivo, escolhido pela rendicao mais LEVE (o
+#                    que interessa e o texto e a prova; a banda e do dono).
+#   4 · TEXTO        a legenda, quando o video a declara — com a especie
+#                    preservada, porque e ASR de outra casa.
+#
+# A LEGENDA NAO E "MAIS UM CAMPO": E OUTRA ESPECIE DE TEXTO
+# ---------------------------------------------------------
+# `NATIVE_CAPTION` + `ORIGINAL` + base `DECLARED_BY_PROVIDER`, e nunca
+# `TRANSCRIPT`. A casa ja escreveu por que:
+#
+#     CAPTION != TRANSCRIPT. E ASR DE OUTRA CASA E MAIS BARATA, NAO MELHOR.
+#
+# O endereco di-lo em claro — `video-auto-caption-srt-…` ou
+# `video-auto-caption-webvtt-…` — e os BYTES confirmam o formato. Guardam-se os
+# dois: o que a plataforma declara e o que se mediu, porque ja divergiram nesta
+# casa (a medicao anterior escreveu «WebVTT» sobre bytes SRT).
+#
+# E NAO EXISTE EM TODO VIDEO. Medido: 2 de 5 videos numa organizacao, zero de 2
+# noutra. Ausencia de legenda e RESULTADO, e o objeto sai com
+# `DERIVED_TEXT = ASR_REQUIRED` e o dono do ASR nomeado — nunca mudo.
+RAIZ_ADAPTADOR = os.path.dirname(HERE)
+
+#: Os nomes das rotas, e eles sao os MESMOS de `leis/social_matriz.py`. Um
+#: segundo nome aqui seria uma segunda rota a fingir-se da primeira.
+ROTA_PAGINA_PUBLICA = 'linkedin:pagina-publica-da-organizacao'
+ROTA_VIDEO_BYTES = 'linkedin:data-sources-mp4'
+ROTA_LEGENDA_NATIVA = 'linkedin:data-captions-url'
+
+#: A decisao do dono, com o nome e o ficheiro dela. Ela viaja em cada objeto:
+#: um dado adquirido por uma excecao tem de dizer QUAL excecao o autorizou.
+DECISAO_DO_DONO = 'D23'
+DECISAO_DO_DONO_REF = 'DECISOES-DONO-2026-09-23.md'
+AUTORIZACAO_ESCRITA = ('%s · %s · OWNER_AUTHORIZED=SIM · '
+                       'PLATFORM_POLICY_STATUS=DISALLOWED'
+                       % (DECISAO_DO_DONO, DECISAO_DO_DONO_REF))
+
+#: Os hosts que ESTA aquisicao pode alcancar. O portao abre so para estes, e
+#: so enquanto ela corre — e `scrap_http.permitido()` continua a ler o robots
+#: de cada um, porque e essa leitura que sustenta o `DISALLOWED` que se escreve.
+HOSTS_DA_AQUISICAO = ('linkedin.com', 'www.linkedin.com', 'it.linkedin.com',
+                      'dms.licdn.com', 'media.licdn.com')
+
+#: Onde ficam os bytes. Ao lado do RAW de texto da casa (`data/raw/...`), e
+#: nunca dentro do Git: midia nao se versiona.
+PASTA_DOS_BYTES = os.path.join(RAIZ_ADAPTADOR, 'data', 'raw', 'LINKEDIN')
+
+#: O dono unico do reconhecimento de fala desta casa. Nomeado aqui para que um
+#: video sem legenda diga PARA QUEM falta o texto, em vez de ficar mudo.
+DONO_DO_ASR = 'ferramentas/fala_local.py (via coleta/executor_transcricao_midia.py)'
+
+_VIDEO_TAG = re.compile(r'<video\b[^>]*>', re.I | re.S)
+_ATRIBUTO = re.compile(r'([A-Za-z0-9_:.-]+)="([^"]*)"')
+_ACTIVITY_URN = re.compile(r'urn:li:activity:(\d{15,25})')
+_POST_URL = re.compile(r'https://(?:[a-z]{2,3}\.)?linkedin\.com/posts/[A-Za-z0-9\-_%\.]+')
+_PAGINA_ORGANIZACAO = re.compile(
+    r'^https?://(?:[a-z]{2,3}\.)?linkedin\.com/company/([A-Za-z0-9\-_%\.]{2,100})/?$', re.I)
+_PAGINA_PESSOA = re.compile(r'linkedin\.com/(?:in|pub)/', re.I)
+_LOGIN = re.compile(r'linkedin\.com/(?:uas/login|login|signup|checkpoint)', re.I)
+_JSON_LD = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
+_FORMATO_NO_ENDERECO = re.compile(r'video-auto-caption-(srt|webvtt)', re.I)
+_SRT_EM_BYTES = re.compile(b'\\s*1\\s*[\\x0d\\x0a]{1,2}\\s*\\d\\d:\\d\\d:\\d\\d[,.]\\d\\d\\d')
+_NAO_SEI = 'NAO SEI'
+
+
+def valor_json_do_atributo(etiqueta, nome):
+    """→ o valor de um atributo cujo conteudo e JSON, com aspas cruas ou escapadas.
+
+    ⚠️ PORQUE NAO BASTA UM REGEX DE ASPAS. O `data-sources` chega de duas
+    formas na mesma plataforma, e as duas foram medidas nesta casa:
+
+        forma SERVIDA  `data-sources="[{&quot;src&quot;:&quot;…&quot;}]"`
+                       └ as aspas do JSON estao escapadas — e por isso um
+                         `="([^\"]*)"` funciona
+        forma JA LIMPA `data-sources="[{"src":"…"}]"`
+                       └ o valor tem aspas CRUAS dentro do atributo, e o mesmo
+                         regex corta no primeiro `"` e nao apanha nada
+
+    E o que acontece a seguir e o defeito que isto fecha: sem valor nenhum, o
+    cartao sai como «video sem rendicoes declaradas» — um parse que falhou
+    parece um facto sobre a plataforma.
+
+        UM PARSE QUE FALHA NAO E UM FACTO SOBRE A FONTE.
+
+    Por isso, quando o valor comeca por `[`, le-se ate ao `]` correspondente —
+    o delimitador passa a ser a ESTRUTURA e nao a aspa.
+    """
+    i = etiqueta.find('%s="' % nome)
+    if i < 0:
+        return None
+    ini = i + len(nome) + 2
+    if etiqueta[ini:ini + 1] == '[':
+        profundidade = 0
+        for k in range(ini, len(etiqueta)):
+            if etiqueta[k] == '[':
+                profundidade += 1
+            elif etiqueta[k] == ']':
+                profundidade -= 1
+                if profundidade == 0:
+                    return etiqueta[ini:k + 1]
+        return None
+    fim = etiqueta.find('"', ini)
+    return etiqueta[ini:fim] if fim > 0 else None
+
+
+def atributos(etiqueta):
+    """→ os atributos de uma etiqueta HTML, ja descodificados. Puro.
+
+    `html.unescape` e obrigatorio e nao e detalhe: o `data-sources` chega com
+    `&quot;` no lugar das aspas e `&amp;` no lugar do `&` dos enderecos. Ler
+    sem descodificar devolve um JSON que nao abre — e um JSON que nao abre
+    parece «este video nao declara rendicoes».
+    """
+    import html as _html
+    return {k: _html.unescape(v) for k, v in _ATRIBUTO.findall(etiqueta or '')}
+
+
+def rendicoes_do_data_sources(cru):
+    """→ a lista de rendicoes declaradas, ou [] quando nao ha o que ler.
+
+    Devolve o que a PLATAFORMA declarou, na ordem em que o declarou. Nao
+    ordena por qualidade: quem escolhe e quem adquire, e escolhe com motivo.
+    """
+    import html as _html
+    import json as _json
+    texto = _html.unescape(cru or '')
+    if not texto.strip():
+        return []
+    try:
+        itens = _json.loads(texto)
+    except ValueError:
+        return []
+    if not isinstance(itens, list):
+        return []
+    fora = []
+    for i in itens:
+        if not isinstance(i, dict) or not i.get('src'):
+            continue
+        fora.append({'SRC': i.get('src'),
+                     'TYPE': i.get('type'),
+                     'BITRATE': i.get('data-bitrate')})
+    return fora
+
+
+def formato_declarado_no_endereco(url):
+    """→ 'SRT' | 'WEBVTT' | None — o que o PROPRIO endereco diz do formato.
+
+    Nao e adivinhacao: o caminho da legenda traz `video-auto-caption-srt-…` ou
+    `video-auto-caption-webvtt-…`. E uma declaracao da plataforma, e por isso
+    ela e guardada ao lado da medicao dos bytes — as duas ja divergiram.
+    """
+    m = _FORMATO_NO_ENDERECO.search(str(url or ''))
+    return m.group(1).upper() if m else None
+
+
+def formato_pelos_bytes(corpo):
+    """→ 'WEBVTT' | 'SRT' | 'DESCONHECIDO' — medido, nunca suposto."""
+    if not corpo:
+        return 'DESCONHECIDO'
+    if corpo.lstrip()[:6] == b'WEBVTT':
+        return 'WEBVTT'
+    if _SRT_EM_BYTES.match(corpo):
+        return 'SRT'
+    return 'DESCONHECIDO'
+
+
+def cartoes_com_video(corpo):
+    """→ os cartoes da pagina que trazem video. Puro, zero rede.
+
+    Cada cartao e o que a pagina publica entrega, lido da propria estrutura:
+
+        ACTIVITY_ID      o `urn:li:activity:<id>` do cartao — identidade real
+        POST_URL         o endereco canonico `/posts/<slug>-activity-<id>-<hash>`
+        VIDEO_RENDICOES  o `data-sources` da etiqueta `<video>`
+        CAPTION_URL      o `data-captions-url`, quando existe
+        ASSET_URN        `data-digitalmedia-asset-urn` — a identidade da midia
+        DECLARED_LANGUAGE o `data-language` — a lingua DECLARADA, nunca inferida
+        POSTER_URL       a capa
+        ASPECT_RATIO     a proporcao declarada
+
+    ⚠️ A LIGACAO ENTRE O VIDEO E O POST E POSICIONAL, E ISSO E UMA LIMITACAO
+    DECLARADA. O cartao nao traz um `data-urn` proprio; o que existe e a ordem
+    do documento — o endereco do post e o `urn:li:activity` aparecem ANTES da
+    etiqueta `<video>` do mesmo cartao. A ligacao e, portanto, «o ultimo
+    endereco de post que apareceu antes desta etiqueta», e o cartao guarda o
+    `urn` E o endereco para que os dois possam ser conferidos: quando os dois
+    discordam do activity id, o cartao sai com `LIGACAO = CONFLITO` e nao e
+    adquirido. Um casamento por posicao que se declara e melhor do que um
+    casamento por posicao que se esconde.
+    """
+    fora = []
+        for m in _VIDEO_TAG.finditer(corpo or ''):
+            etiqueta = m.group(0)
+            attrs = atributos(etiqueta)
+            cru = valor_json_do_atributo(etiqueta, 'data-sources')
+            rendicoes = rendicoes_do_data_sources(cru)
+            if not rendicoes and cru is None:
+                # Sem `data-sources` nenhum isto nao e um cartao de video: e outra
+                # coisa qualquer que usa uma etiqueta `<video>`. Fora.
+                continue
+        antes = corpo[:m.start()]
+        urns = _ACTIVITY_URN.findall(antes)
+        urls = _POST_URL.findall(antes)
+        urn = urns[-1] if urns else None
+        url = urls[-1] if urls else None
+        id_do_url = None
+        if url:
+            m2 = re.search(r'activity-(\d{15,25})-', url)
+            id_do_url = m2.group(1) if m2 else None
+        ligacao = ('SO_URN' if urn and not url else
+                   'SO_URL' if url and not urn else
+                   'CONFLITO' if urn and id_do_url and urn != id_do_url else
+                   'CONCORDA' if urn and id_do_url else 'SEM_LIGACAO')
+        fora.append({
+            'ACTIVITY_ID': urn or id_do_url,
+            'ACTIVITY_ID_DO_URN': urn,
+            'ACTIVITY_ID_DO_URL': id_do_url,
+            'POST_URL': url,
+            'LIGACAO': ligacao,
+            'VIDEO_RENDICOES': rendicoes,
+            'CAPTION_URL': attrs.get('data-captions-url') or None,
+            'ASSET_URN': attrs.get('data-digitalmedia-asset-urn') or None,
+            'DECLARED_LANGUAGE': attrs.get('data-language') or None,
+            'POSTER_URL': attrs.get('data-poster-url') or None,
+            'ASPECT_RATIO': attrs.get('data-aspect-ratio') or None,
+        })
+    # Um cartao por activity id: a mesma publicacao pode aparecer duas vezes
+    # na pagina (a versao "vista" e a completa), e contar duas vezes o mesmo
+    # video inflaria a medicao.
+    vistos, unicos = set(), []
+    for c in fora:
+        chave = c['ACTIVITY_ID'] or c['POST_URL'] or id(c)
+        if chave in vistos:
+            continue
+        vistos.add(chave)
+        unicos.append(c)
+    return unicos
+
+
+def video_do_post(corpo):
+    """→ o que a pagina publica do POST declara do video. Puro, zero rede.
+
+    Le o JSON-LD `VideoObject`. Ele e a unica fonte desta casa para
+    `datePublished` — e `PUBLISHED_AT` NAO se deduz do nosso relogio nem do
+    `postedAgoText` do cartao.
+    """
+    import json as _json
+    for cru in _JSON_LD.findall(corpo or ''):
+        try:
+            d = _json.loads(cru.strip())
+        except ValueError:
+            continue
+        if not isinstance(d, dict) or d.get('@type') != 'VideoObject':
+            continue
+        inter = d.get('interactionStatistic')
+        inter = inter if isinstance(inter, list) else ([inter] if inter else [])
+        contas = {}
+        for i in inter:
+            if not isinstance(i, dict):
+                continue
+            tipo = str(i.get('interactionType') or '').rsplit('/', 1)[-1]
+            contas[tipo] = i.get('userInteractionCount')
+        return {
+            'PUBLISHED_AT': d.get('datePublished') or None,
+            'PUBLISHED_AT_SOURCE': 'JSON_LD_VideoObject.datePublished',
+            'UPLOAD_DATE': d.get('uploadDate') or None,
+            'DURATION': d.get('duration') or None,
+            'HEADLINE': d.get('headline') or None,
+            'NAME': d.get('name') or None,
+            'DESCRIPTION': d.get('description') or None,
+            'KEYWORDS': d.get('keywords') or None,
+            'WIDTH': d.get('width'),
+            'HEIGHT': d.get('height'),
+            'EMBED_URL': d.get('embedUrl') or None,
+            'CONTENT_URL': d.get('contentUrl') or None,
+            'THUMBNAIL_URL': d.get('thumbnailUrl') or None,
+            'IS_FAMILY_FRIENDLY': d.get('isFamilyFriendly'),
+            'LIKE_COUNT': contas.get('LikeAction'),
+            'COMMENT_COUNT': contas.get('CommentAction'),
+            'CREATOR_NAME': ((d.get('creator') or {}).get('name')
+                             if isinstance(d.get('creator'), dict) else None),
+            'CREATOR_URL': ((d.get('creator') or {}).get('url')
+                            if isinstance(d.get('creator'), dict) else None),
+        }
+    return {}
+
+
+def _guardar_bytes(corpo, pasta, nome_base, extensao):
+    """Grava bytes medidos e devolve o que se MEDIU deles. Nada se interpreta.
+
+    O nome carrega o sha: o mesmo byte gravado duas vezes nao cria dois
+    ficheiros, e um ficheiro diferente nunca sobrescreve o anterior.
+    """
+    h = hashlib.sha256(corpo).hexdigest()
+    destino = os.path.join(PASTA_DOS_BYTES, pasta)
+    os.makedirs(destino, exist_ok=True)
+    caminho = os.path.join(destino, '%s__%s.%s' % (_slug(nome_base)[:48], h[:16], extensao))
+    if not os.path.exists(caminho):
+        with open(caminho, 'wb') as f:
+            f.write(corpo)
+    return {'PATH': caminho,
+            'RELATIVO': os.path.relpath(caminho, RAIZ_ADAPTADOR).replace('\\', '/'),
+            'SHA256': h, 'BYTES': len(corpo)}
+
+
+def _alvo_e_organizacao(pagina_url):
+    """→ o slug, ou levanta. O alvo desta aquisicao e uma PAGINA DE ORGANIZACAO.
+
+    Tres recusas, cada uma com o nome do que recusou — porque «nao deu» nao
+    distingue um alvo proibido de um alvo mal escrito:
+
+        PERFIL DE PESSOA   dado pessoal, fora do limite declarado (D23)
+        ECRÃ DE LOGIN      contornar controlo de acesso esta fora do limite
+        ALVO MAL FORMADO   um pedido sem alvo nao e um alvo proibido
+
+    E a recusa e ESTATICA: nao se confirma pela rede. Uma proibicao que
+    pergunta ao proibido ja fez um pedido a ele.
+    """
+    alvo = str(pagina_url or '').strip()
+    if _LOGIN.search(alvo):
+        raise http.RotaNaoPermitida(
+            'ALVO_RECUSADO: ecra de login. Esta aquisicao NAO contorna controlo '
+            'de acesso — nem login wall, nem CAPTCHA, nem bloqueio. · %s' % alvo)
+    if _PAGINA_PESSOA.search(alvo):
+        raise http.RotaNaoPermitida(
+            'ALVO_RECUSADO: perfil de PESSOA. O limite autorizado pelo dono (D23) '
+            'cobre PAGINAS DE ORGANIZACAO; perfil de pessoa e dado pessoal e fica '
+            'fora. · %s' % alvo)
+    m = _PAGINA_ORGANIZACAO.match(alvo)
+    if not m:
+        raise ValueError(
+            'ALVO_AUSENTE_OU_MALFORMADO: esta aquisicao le a PAGINA PUBLICA de '
+            'uma organizacao e precisa de um endereco '
+            '`https://www.linkedin.com/company/<slug>/`. Recebeu %r.' % (pagina_url,))
+    return m.group(1).lower()
+
+
+def _buscar_texto(url, transporte, autorizacao=None):
+    if transporte is not None:
+        return transporte(url)
+    return http.buscar(url, aceitar_json=False)
+
+
+def _url_do_post(cartao):
+    """→ o endereco canonico do post. Preferido o que a pagina publicou."""
+    if cartao.get('POST_URL'):
+        return cartao['POST_URL']
+    if cartao.get('ACTIVITY_ID'):
+        return 'https://www.linkedin.com/feed/update/urn:li:activity:%s/' % cartao['ACTIVITY_ID']
+    return None
+
+
+def _rendicao_escolhida(rendicoes):
+    """→ (a rendicao, o motivo). A MAIS LEVE que declare `video/mp4`.
+
+    O criterio e declarado e nao e gosto: o que se procura neste objeto e o
+    TEXTO e a PROVA de que o video existe; a banda e do dono. Quando nao ha
+    bitrate declarado, a primeira da lista e a resposta — e o motivo di-lo.
+    """
+    mp4 = [r for r in rendicoes if 'mp4' in str(r.get('TYPE') or '').lower()]
+    if not mp4:
+        return None, 'NENHUMA_RENDICAO_MP4_DECLARADA'
+    com_peso = [r for r in mp4 if isinstance(r.get('BITRATE'), (int, float))]
+    if not com_peso:
+        return mp4[0], 'PRIMEIRA_DECLARADA_SEM_BITRATE'
+    return min(com_peso, key=lambda r: r['BITRATE']), 'MENOR_BITRATE_DECLARADO'
+
+
+def posts_com_video(*, pagina_url, run_id, country_scope='IT', teto=None,
+                    transporte=None, medida=None, **_):
+    """A DESCOBERTA. → (cartoes, contexto). Nao adquire bytes nenhuns.
+
+    Devolve o que a pagina publica serve, com o rasto dos pedidos feitos. Nao
+    grava RAW e nao monta envelope: quem faz isso e a aquisicao, e separar as
+    duas coisas e o que permite provar a descoberta sem tocar num byte de
+    midia.
+    """
+    slug = _alvo_e_organizacao(pagina_url)
+    pedidos = []
+
+    def _um_pedido(url, tipo='ROUTE'):
+        pedidos.append({'TYPE': tipo, 'TARGET': http.host_de(url), 'URL': url})
+
+    autorizacao = http.autorizacao_actual()
+    with http.autorizacao_do_dono(ROTA_PAGINA_PUBLICA, HOSTS_DA_AQUISICAO,
+                                 decisao=AUTORIZACAO_ESCRITA, plataforma=PLATAFORMA):
+        _um_pedido(pagina_url)
+        corpo = _buscar_texto(pagina_url, transporte)
+    cartoes = [c for c in cartoes_com_video(corpo) if c['LIGACAO'] != 'CONFLITO']
+    if teto is not None and int(teto) >= 0:
+        cartoes = cartoes[:int(teto)]
+    contexto = {
+        'PAGINA': pagina_url, 'SLUG': slug, 'PEDIDOS': pedidos,
+        'PEDIDOS_TOTAIS': len(pedidos),
+        'CARTOES_COM_VIDEO': len(cartoes),
+        'AUTORIZACAO_ATRAVESSADA': AUTORIZACAO_ESCRITA,
+        'AUTORIZACAO_VIVA': autorizacao is not None,
+        'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+        'OWNER_AUTHORIZED': 'SIM',
+        'ROTA': ROTA_PAGINA_PUBLICA,
+    }
+    if medida is not None:
+        medida.update({'IMPLEMENTACAO': 'coleta/adaptador_linkedin.posts_com_video',
+                       'ROUTE_CLASS': 'DIRECT_HTTP', 'REQUESTS': len(pedidos),
+                       'HANDLES_FOUND': len(cartoes),
+                       'COST_STATE': 'FREE_ROUTE_BY_OWNER_DECISION',
+                       'ACTUAL_COST_USD': 0.0,
+                       'OWNER_AUTHORIZED': 'SIM',
+                       'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+                       'DECISAO_DO_DONO': DECISAO_DO_DONO})
+    return cartoes, contexto
+
+
+def legenda_do_video(*, caption_url, run_id, country_scope='IT', transporte=None,
+                     nome_base='legenda', medida=None, **_):
+    """A LEGENDA NATIVA, sozinha. → (o texto, a ficha do que se mediu).
+
+    Existe como rota propria porque a capacidade e propria: a legenda tem
+    dono, especie e limite declarados na matriz, e esconder a aquisicao dela
+    dentro de outra rota faria a politica nao poder ser perguntada sobre ela.
+    """
+    autorizacao = http.autorizacao_actual()
+    with http.autorizacao_do_dono(ROTA_LEGENDA_NATIVA, HOSTS_DA_AQUISICAO,
+                                 decisao=AUTORIZACAO_ESCRITA, plataforma=PLATAFORMA):
+        if transporte is not None:
+            corpo = transporte(caption_url)
+            if isinstance(corpo, str):
+                corpo = corpo.encode('utf-8')
+            meta = {'CONTENT_TYPE': None, 'STATUS': None}
+        else:
+            corpo, meta = http.buscar_bytes(caption_url, aceitar='*/*')
+    declarado = formato_declarado_no_endereco(caption_url)
+    medido = formato_pelos_bytes(corpo)
+    extensao = (medido if medido in ('SRT', 'WEBVTT') else 'txt').lower()
+    ficha = _guardar_bytes(corpo, 'legenda', nome_base, extensao)
+    ficha.update({'CAPTION_URL': caption_url,
+                  'FORMAT_DECLARED_BY_URL': declarado,
+                  'FORMAT_MEASURED_IN_BYTES': medido,
+                  'CONTENT_TYPE_SERVED': meta.get('CONTENT_TYPE'),
+                  'STATUS': meta.get('STATUS'),
+                  'AUTORIZACAO_ATRAVESSADA': AUTORIZACAO_ESCRITA,
+                  'ROTA': ROTA_LEGENDA_NATIVA,
+                  'DIVERGE': bool(declarado and medido not in (declarado, 'DESCONHECIDO')
+                                  and declarado != medido)})
+    if medida is not None:
+        medida.update({'IMPLEMENTACAO': 'coleta/adaptador_linkedin.legenda_do_video',
+                       'REQUESTS': 1, 'CAPTION_BYTES': ficha['BYTES'],
+                       'CAPTION_FORMAT': medido, 'CAPTION_SHA256': ficha['SHA256'],
+                       'ACTUAL_COST_USD': 0.0,
+                       'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+                       'OWNER_AUTHORIZED': 'SIM'})
+    return corpo.decode('utf-8', 'replace'), ficha
+
+
+def video_da_pagina_publica(*, pagina_url, run_id, country_scope='IT', teto=3,
+                            transporte=None, egresso=None, medida=None, **_):
+    """A AQUISICAO COMPLETA. → lista de envelopes, um por publicacao com video.
+
+    `pagina_url` e o endereco da pagina de ORGANIZACAO — e nunca o SOURCE_ID.
+    A identidade da fonte desce pelo pedido, como em todas as fases desta casa.
+
+        URL NAO E SOURCE_ID.
+
+    `teto` e o numero maximo de videos ADQUIRIDOS nesta corrida. Ele existe
+    porque o custo desta aquisicao e BANDA e CORTESIA, e nao dolares: pedir a
+    pagina inteira de uma organizacao com trinta videos nao e o mesmo acto que
+    pedir tres.
+    """
+    cartoes, contexto = posts_com_video(pagina_url=pagina_url, run_id=run_id,
+                                       country_scope=country_scope, teto=teto,
+                                       transporte=transporte)
+    pedidos = list(contexto['PEDIDOS'])
+    envelopes = []
+    for cartao in cartoes:
+        pedidos.extend(_adquirir_um(cartao, run_id=run_id, country_scope=country_scope,
+                                   transporte=transporte, egresso=egresso,
+                                   pedidos=pedidos, envelopes=envelopes))
+    if medida is not None:
+        medida.update({'IMPLEMENTACAO': 'coleta/adaptador_linkedin.video_da_pagina_publica',
+                       'REQUESTS': len(pedidos),
+                       'VIDEOS_ADQUIRIDOS': len(envelopes),
+                       'CARTOES_COM_VIDEO': contexto['CARTOES_COM_VIDEO'],
+                       'COST_STATE': 'FREE_ROUTE_BY_OWNER_DECISION',
+                       'ACTUAL_COST_USD': 0.0,
+                       'OWNER_AUTHORIZED': 'SIM',
+                       'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+                       'DECISAO_DO_DONO': DECISAO_DO_DONO,
+                       'PEDIDOS': pedidos})
+    return envelopes
+
+
+def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos, envelopes):
+    """Um cartao -> um envelope. Aquisicao dos bytes, texto e prova."""
+    ident = cartao.get('ACTIVITY_ID')
+    url_do_post = _url_do_post(cartao)
+    raw = {
+        'PLATFORM': PLATAFORMA,
+        'PAGE_URL': cartao.get('POST_URL') or None,
+        'POST_URL': url_do_post,
+        'ACTIVITY_ID': ident,
+        'ACTIVITY_ID_DO_URN': cartao.get('ACTIVITY_ID_DO_URN'),
+        'ACTIVITY_ID_DO_URL': cartao.get('ACTIVITY_ID_DO_URL'),
+        'CARD_LINK': cartao.get('LIGACAO'),
+        'ASSET_URN': cartao.get('ASSET_URN'),
+        'VIDEO_RENDITIONS_DECLARED': cartao.get('VIDEO_RENDICOES') or [],
+        'DECLARED_LANGUAGE': cartao.get('DECLARED_LANGUAGE'),
+        'DECLARED_LANGUAGE_BASIS': ('DECLARED_BY_PLATFORM:data-language da etiqueta '
+                                    '<video> — nunca inferida do texto'),
+        'POSTER_URL': cartao.get('POSTER_URL'),
+        'ASPECT_RATIO': cartao.get('ASPECT_RATIO'),
+        'OWNER_AUTHORIZED': 'SIM',
+        'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+        'DECISAO_DO_DONO': DECISAO_DO_DONO,
+        'DECISAO_DO_DONO_REF': DECISAO_DO_DONO_REF,
+        'EGRESS_MEASURED': egresso,
+        'URL_EXPIRY_OBSERVED': None,
+    }
+    # ── 2 · a pagina do POST: identidade temporal e texto do autor ─────────
+    prosa = {}
+    if url_do_post:
+        with http.autorizacao_do_dono(ROTA_PAGINA_PUBLICA, HOSTS_DA_AQUISICAO,
+                                     decisao=AUTORIZACAO_ESCRITA, plataforma=PLATAFORMA):
+            pedidos.append({'TYPE': 'ROUTE', 'TARGET': http.host_de(url_do_post),
+                            'URL': url_do_post})
+            try:
+                prosa = video_do_post(_buscar_texto(url_do_post, transporte))
+            except Exception as e:                                    # noqa: BLE001
+                raw['POST_PAGE_ERROR'] = '%s: %s' % (type(e).__name__, str(e)[:200])
+    raw.update({k: v for k, v in prosa.items() if k != 'CONTENT_URL'})
+
+    # ── 3 · os BYTES do video ─────────────────────────────────────────────
+    rendicao, porque = _rendicao_escolhida(cartao.get('VIDEO_RENDICOES') or [])
+    unidades = []
+    if prosa.get('DESCRIPTION'):
+        unidades.append(pv.unidade_de_texto(
+            texto=prosa['DESCRIPTION'], kind=pv.AUTHOR_TEXT,
+            kind_basis=pv.DECLARED_BY_PROVIDER, relation=pv.ORIGINAL,
+            language=cartao.get('DECLARED_LANGUAGE'),
+            unit_id='%s:AUTHOR' % (ident or 'sem-id'),
+            derivation_method='PLATAFORMA_PUBLICOU_NO_JSON_LD',
+            tool='adaptador_linkedin.video_do_post'))
+    if rendicao:
+        raw['RENDITION_CHOSEN'] = rendicao['SRC']
+        raw['RENDITION_CHOSEN_BY'] = porque
+        raw['RENDITION_CHOSEN_BITRATE'] = rendicao.get('BITRATE')
+        try:
+            with http.autorizacao_do_dono(ROTA_VIDEO_BYTES, HOSTS_DA_AQUISICAO,
+                                         decisao=AUTORIZACAO_ESCRITA, plataforma=PLATAFORMA):
+                pedidos.append({'TYPE': 'ROUTE', 'TARGET': http.host_de(rendicao['SRC']),
+                                'URL': rendicao['SRC']})
+                corpo, meta = http.buscar_bytes(rendicao['SRC'], aceitar='video/mp4')
+            ficha = _guardar_bytes(corpo, 'video', ident or 'sem-id', 'mp4')
+            raw.update({'VIDEO_STORAGE_LOCATION': ficha['RELATIVO'],
+                        'STORAGE_LOCATION': ficha['RELATIVO'],
+                        'CONTENT_TYPE': meta.get('CONTENT_TYPE') or 'video/mp4',
+                        'VIDEO_SHA256': ficha['SHA256'],
+                        'VIDEO_BYTES': ficha['BYTES'],
+                        'VIDEO_BYTES_ACQUIRED': True,
+                        'VIDEO_URL_SERVED': meta.get('URL'),
+                        'VIDEO_CONTENT_TYPE_SERVED': meta.get('CONTENT_TYPE')})
+        except Exception as e:                                        # noqa: BLE001
+            raw['VIDEO_BYTES_ACQUIRED'] = False
+            raw['VIDEO_ERROR'] = '%s: %s' % (type(e).__name__, str(e)[:200])
+    else:
+        raw['VIDEO_BYTES_ACQUIRED'] = False
+        raw['VIDEO_ERROR'] = 'NENHUMA_RENDICAO_MP4_DECLARADA'
+
+    # ── 4 · a LEGENDA, e a especie do texto ───────────────────────────────
+    legenda = {}
+    if cartao.get('CAPTION_URL'):
+        try:
+            with http.autorizacao_do_dono(ROTA_LEGENDA_NATIVA, HOSTS_DA_AQUISICAO,
+                                         decisao=AUTORIZACAO_ESCRITA, plataforma=PLATAFORMA):
+                pedidos.append({'TYPE': 'ROUTE',
+                                'TARGET': http.host_de(cartao['CAPTION_URL']),
+                                'URL': cartao['CAPTION_URL']})
+                texto, ficha = legenda_do_video(caption_url=cartao['CAPTION_URL'],
+                                                run_id=run_id, nome_base=ident or 'legenda',
+                                                transporte=transporte)
+            legenda = dict(ficha)
+            raw.update({'CAPTION_URL': cartao['CAPTION_URL'],
+                        'CAPTION_FORMAT_DECLARED_BY_URL': ficha['FORMAT_DECLARED_BY_URL'],
+                        'CAPTION_FORMAT_MEASURED': ficha['FORMAT_MEASURED_IN_BYTES'],
+                        'CAPTION_BYTES': ficha['BYTES'],
+                        'CAPTION_SHA256': ficha['SHA256'],
+                        'CAPTION_STORAGE_LOCATION': ficha['RELATIVO'],
+                        'CAPTION_CONTENT_TYPE': ficha['CONTENT_TYPE_SERVED'],
+                        'CAPTION_FORMAT_DIVERGENCE': ficha['DIVERGE'],
+                        'NATIVE_CAPTION': texto,
+                        'DERIVED_TEXT': 'NATIVE_CAPTION',
+                        'DERIVED_TEXT_BASIS': ('ASR de outra casa, declarada pela '
+                                               'plataforma — mais barata, nao melhor')})
+            unidades.append(pv.unidade_de_texto(
+                texto=texto, kind=pv.NATIVE_CAPTION,
+                kind_basis=pv.DECLARED_BY_PROVIDER, relation=pv.ORIGINAL,
+                language=cartao.get('DECLARED_LANGUAGE'),
+                unit_id='%s:NATIVE_CAPTION' % (ident or 'sem-id'),
+                derivation_method='FAIXA_DE_LEGENDA_DA_PLATAFORMA',
+                tool='adaptador_linkedin.legenda_do_video'))
+        except Exception as e:                                        # noqa: BLE001
+            raw['CAPTION_ERROR'] = '%s: %s' % (type(e).__name__, str(e)[:200])
+            raw['DERIVED_TEXT'] = 'CAPTION_FALHOU_ASR_REQUIRED'
+    else:
+        raw.update({'CAPTION_URL': None,
+                    'CAPTION_FORMAT_DECLARED_BY_URL': None,
+                    'NATIVE_CAPTION': None,
+                    'DERIVED_TEXT': 'ASR_REQUIRED',
+                    'DERIVED_TEXT_BASIS': ('o video nao declara faixa de legenda. '
+                                           'O texto teria de vir do dono unico do '
+                                           'ASR: %s' % DONO_DO_ASR)})
+
+    raw['TEXT_UNITS_MADE'] = [u['TEXT_KIND'] for u in unidades]
+    ref = env.guardar_raw(PLATAFORMA, 'post-%s' % (ident or url_do_post),
+                          json.dumps(raw, ensure_ascii=False, indent=1, default=str))
+    envelope = env.envelope(
+        platform=PLATAFORMA,
+        native_id=ident or env.DESCONHECIDO,
+        url=url_do_post or env.DESCONHECIDO,
+        content_type='VIDEO',
+        route=ROTA_VIDEO_BYTES,
+        executor='adaptador_linkedin.video_da_pagina_publica',
+        run_id=run_id, country_scope=country_scope,
+        source_account=cartao.get('POST_URL') or None,
+        published_at=prosa.get('PUBLISHED_AT'),
+        language=cartao.get('DECLARED_LANGUAGE'),
+        source_location=None,
+        cost_usd=0.0,
+        raw_reference=ref['PATH'],
+        title=prosa.get('NAME') or prosa.get('HEADLINE'),
+        text=None,
+        text_units=unidades or None,
+        raw=raw)
+    envelope['ACQUISITION_TIER'] = FREE
+    envelope['FIELD_ORIGIN_TIER'] = FREE
+    envelope['OWNER_AUTHORIZED'] = 'SIM'
+    envelope['PLATFORM_POLICY_STATUS'] = 'DISALLOWED'
+    envelope['DECISAO_DO_DONO'] = DECISAO_DO_DONO
+    envelope['RAW_SHA256'] = ref['SHA256']
+    envelope['EGRESS_MEASURED'] = egresso
+    envelopes.append(envelope)
+    return []
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
 # Sete capacidades medidas e uma nova. A nova e a unica com rota ligada, e ela
@@ -897,3 +1559,42 @@ reg.registar(PLATAFORMA, 'linkedin.documents', adaptador=NOME,
              nota='carrossel em PDF. Os ENDERECOS foram observados em 20 de 472 no bruto '
                   'preservado — PDF, manifesto e transcriptManifestUrl. Os BYTES nunca '
                   'foram pedidos, e as URLs preservadas expiraram')
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# D23 · AS TRES ROTAS DO VIDEO DE ORGANIZACAO
+# ══════════════════════════════════════════════════════════════════════════
+def pronto_para_video_publico(**_):
+    """→ (consigo?, estado). Zero rede, zero dólar, zero credencial.
+
+    Nao falta chave nem conta nenhuma: esta aquisicao le uma pagina publica.
+    O que ela EXIGE nao e credencial — e a decisao do dono, e ela ja esta
+    escrita (D23) e viaja em cada objeto que sai daqui.
+    """
+    return True, 'NO_CREDENTIAL_REQUIRED · OWNER_AUTHORIZED=SIM (%s)' % DECISAO_DO_DONO
+
+
+reg.registar(PLATAFORMA, 'linkedin.org.posts', adaptador=NOME,
+             pronto=pronto_para_video_publico, rota=posts_com_video,
+             nota='D23: a pagina PUBLICA da organizacao serve os cartoes das '
+                  'publicacoes recentes — activity id, endereco canonico, texto do '
+                  'autor e a etiqueta <video data-sources> quando o post tem video. '
+                  'MEDIDO em 18 organizacoes italianas: 10 a 18 activity ids cada, 9 '
+                  'com video. Teto conhecido: PROFUNDIDADE — nao ha endereco de pagina '
+                  'seguinte. Plataforma PROIBE (robots.txt); dono autorizou (D23).')
+reg.registar(PLATAFORMA, 'linkedin.org.video', adaptador=NOME,
+             pronto=pronto_para_video_publico, rota=video_da_pagina_publica,
+             nota='D23: MP4 PROGRESSIVO servido a convidado pelo CDN, HTTP 206 e '
+                  '`video/mp4` medidos em 7 464 653 e 14 687 975 bytes. Endereco com '
+                  '`e=2147483647` = LONG_LIVED_OBSERVED — observacao, nao garantia. '
+                  'A rendicao escolhida e a MAIS LEVE, e o motivo viaja no objeto. '
+                  'Plataforma PROIBE; dono autorizou (D23).')
+reg.registar(PLATAFORMA, 'linkedin.org.caption', adaptador=NOME,
+             pronto=pronto_para_video_publico, rota=legenda_do_video,
+             nota='D23: a faixa de legenda que a publicacao declara em '
+                  '`data-captions-url`. MEDIDO: SRT e WebVTT reais, 529 a 3 587 bytes, '
+                  'texto legivel; o endereco declara o formato e os BYTES confirmam — '
+                  'as duas guardam-se. E AUTOMATICA: ASR de outra casa, mais barata e '
+                  'nao melhor, e por isso a especie viaja declarada. NAO EXISTE EM TODO '
+                  'VIDEO, e ausencia de legenda e resultado. Plataforma PROIBE; dono '
+                  'autorizou (D23).')

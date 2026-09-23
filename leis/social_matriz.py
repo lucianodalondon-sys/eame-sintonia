@@ -198,7 +198,41 @@ LIMITES = ('PUBLIC_AUDIO_ONLY',
            # E NAO SE HERDA. Uma cadeia que peca internamente outra especie
            # nao ganha esta autorizacao por passar por aqui — a lei da C14-B
            # continua a valer, e o `LIMITE` e da ROTA, nao do pedido.
-           'PUBLIC_PROFILE_DISCOVERY_ONLY')
+           'PUBLIC_PROFILE_DISCOVERY_ONLY',
+           # ── O LIMITE DO VIDEO DE ORGANIZACAO NO LINKEDIN (D23) ──────────
+           # ⚠️ AMPLIAR ESTE VOCABULARIO E DECISAO DE DONO, E ELE TOMOU-A.
+           # O DONO REAL autorizou, por escrito, a aquisicao de VIDEO (e da
+           # legenda que vem com ele) de paginas de ORGANIZACOES no LinkedIn,
+           # assumindo o risco: `DECISOES-DONO-2026-09-23.md` -> D23.
+           #
+           #     OWNER_AUTHORIZED = SIM  +  PLATFORM_POLICY_STATUS = DISALLOWED
+           #
+           # Nenhum dos dois limites acima descreve isto, e reusar um deles
+           # faria o limite prometer o que nao trava:
+           #   · `PUBLIC_AUDIO_ONLY` descreve BYTES DE SOM publicos e nasceu
+           #     para o YouTube; aqui o que se adquire e VIDEO e TEXTO.
+           #   · `PUBLIC_PROFILE_DISCOVERY_ONLY` NAO adquire midia nenhuma.
+           #
+           # O QUE ELE PERMITE, e a lista e fechada:
+           #   · descobrir as publicacoes que uma pagina de ORGANIZACAO serve
+           #     publicamente, sem autenticacao;
+           #   · os BYTES do video que essa publicacao serve (MP4 progressivo);
+           #   · a FAIXA DE LEGENDA que a propria publicacao declara
+           #     (`data-captions-url`), com a especie do texto preservada;
+           #   · o texto que a organizacao escreveu na propria publicacao.
+           #
+           # O QUE ELE NAO PERMITE, e a lista e fechada de proposito:
+           #   conteudo de PERFIL DE PESSOA · autenticacao, conta, cookie de
+           #   sessao · contornar login wall, CAPTCHA ou bloqueio · texto de
+           #   comentarios · lista de quem reagiu · rota paga · escrita,
+           #   publicacao ou interacao de qualquer especie.
+           #
+           # E NAO SE HERDA: `fetch_post` (post publico fora de pagina de
+           # organizacao, ou por busca) continua `ROUTE_NOT_ALLOWED`, e nada
+           # nesta rota ganha aquela permissao por passar por aqui.
+           #
+           #     UM LIMITE QUE NAO DESCREVE O QUE A ROTA FAZ NAO E UM LIMITE.
+           'PUBLIC_ORG_VIDEO_ONLY')
 
 #: Os tres campos, na ordem em que se leem. Uma rota declara-os TODOS ou nenhum.
 EIXOS = ('OWNER_AUTHORIZED', 'PLATFORM_POLICY_STATUS', 'LIMITE')
@@ -672,7 +706,15 @@ MATRIZ = {
                   'abre com "The use of robots or other automated means to access LinkedIn '
                   'without the express permission of LinkedIn is strictly prohibited." '
                   'Só `LinkedInBot` tem `Allow: /`. Portanto: DESCOBERTA INDIRETA, e '
-                  'nenhum acesso automatizado ao linkedin.com.'),
+                  'nenhum acesso automatizado ao linkedin.com — COM UMA EXCEÇÃO DECLARADA. '
+                  '⚠️ D23 (2026-09-23): o DONO REAL autorizou, por escrito e com o risco '
+                  'assumido, a aquisição de VÍDEO e da legenda que vem com ele em páginas '
+                  'de ORGANIZAÇÕES. Essa autorização vive nas três rotas com eixos '
+                  '(`DISCOVER_POST`, `FETCH_VIDEO_BYTES`, `FETCH_TRANSCRIPT`), e ela NÃO '
+                  'se espalha: as rotas de `FETCH_POST` continuam `ROUTE_NOT_ALLOWED`, e '
+                  'perfis de PESSOAS continuam fora. A plataforma continua a PROIBIR — '
+                  'isso está medido e escrito em cada rota; quem mudou foi o dono do '
+                  'risco, e não a lei da plataforma.'),
         'DISCOVER_ACCOUNT': [
             r('descoberta-indireta:site-da-organizacao', 'DIRECT_HTTP', 'SIM',
               'POSSIBLE_NOT_PROVED', 'zero',
@@ -704,6 +746,100 @@ MATRIZ = {
               'cláusula. A missão manda NÃO remover Apify agora; então fica declarado como '
               'dependência legada com risco jurídico aberto, para decisão humana.',
               'https://www.linkedin.com/legal/user-agreement'),
+        ],
+        # ═══════════════════════════════════════════════════════════════════
+        # D23 · A PÁGINA PÚBLICA DE ORGANIZAÇÃO — a porta que o dono abriu
+        # ═══════════════════════════════════════════════════════════════════
+        # MEDIDO em 2026-09-23, desta máquina, egresso IT/datacenter
+        # (AS212238, Palermo), sem conta, sem cookie, sem login, sem navegador
+        # e sem rota paga:
+        #
+        #     /company/<slug>/                        200 · 10 a 18 activity ids
+        #     <video data-sources="…">                 MP4 progressivo declarado
+        #     MP4 em dms.licdn.com                     206 · video/mp4 · 7,4 MB
+        #     data-captions-url                        200 · WebVTT e SRT reais
+        #
+        # E A POLÍTICA DA PLATAFORMA FOI MEDIDA, NÃO SE ESCONDE:
+        #
+        #     PLATFORM_POLICY_STATUS = DISALLOWED
+        #     (o robots.txt do LinkedIn abre com «The use of robots or other
+        #      automated means to access LinkedIn without the express
+        #      permission of LinkedIn is strictly prohibited.»)
+        #
+        # O que mudou NÃO foi a política da plataforma — foi o DONO. Ele
+        # autorizou, por escrito, com o risco assumido: D23,
+        # `DECISOES-DONO-2026-09-23.md`. É o mesmo desenho do
+        # `yt-dlp:public_audio` (C13/D17.4), e pela mesma razão:
+        #
+        #     AUTORIZAR NÃO É MEDIR. E AS DUAS COISAS FICAM ESCRITAS.
+        #
+        # Uma leitura apressada diria «o LinkedIn proíbe, então não se faz».
+        # A leitura certa é a que a casa já escreveu nos eixos: a plataforma
+        # proíbe, o dono assumiu o risco, e o dado viaja com as duas frases.
+        'DISCOVER_POST': [
+            r('linkedin:pagina-publica-da-organizacao', 'DIRECT_HTTP', 'SIM',
+              'PROVED', 'zero',
+              'MEDIDO 2026-09-23: a landing pública da organização responde 200 a '
+              'convidado e serve os cartões das publicações recentes, com o '
+              'activity id, o endereço canónico do post, o texto do autor e — '
+              'quando existe — o `<video data-sources>` com o MP4 e a legenda. '
+              'MEDIDO em 18 páginas de organizações italianas: 10 a 18 activity '
+              'ids cada, 9 delas com pelo menos um vídeo. O teto conhecido é a '
+              'PROFUNDIDADE: a página não expõe endereço de página seguinte. '
+              'PLATAFORMA PROÍBE (DISALLOWED); dono autorizou (D23).',
+              'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_ORG_VIDEO_ONLY'),
+        ],
+        'FETCH_POST': [
+            r('linkedin:Community Management API', 'OFFICIAL_API_PAID', 'NAO',
+              'ROUTE_NOT_ALLOWED', 'programa de parceiro',
+              '`r_organization_social` é "restricted to organizations in which the '
+              'authenticated member has ADMINISTRATOR / DIRECT_SPONSORED_CONTENT_POSTER / '
+              'CONTENT_ADMIN". Lê a Página que o app ADMINISTRA — a nossa, não a do '
+              'concorrente. Não existe API que leia post público de organização de terceiro. '
+              'Para vigilância ampla de concorrente: NÃO EXISTE ROTA PERMITIDA. Isto é uma '
+              'resposta, não uma pendência.',
+              'https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api'),
+            r('apify:harvestapi~linkedin-*', 'APIFY', 'NAO', 'ROUTE_NOT_ALLOWED',
+              'US$ 4,03/1.000 medido nesta casa',
+              'RISCO REGISTADO, NÃO ENDOSSADO: esta casa JÁ gastou US$ 0,484 em 120 perfis '
+              'por esta rota. O §8.2 alcança explicitamente dado obtido "through third '
+              'parties (such as data aggregators or brokers)" — o intermediário não muda a '
+              'cláusula. A missão manda NÃO remover Apify agora; então fica declarado como '
+              'dependência legada com risco jurídico aberto, para decisão humana.',
+              'https://www.linkedin.com/legal/user-agreement'),
+        ],
+        'FETCH_VIDEO_BYTES': [
+            r('linkedin:data-sources-mp4', 'DIRECT_HTTP', 'SIM', 'PROVED', 'zero',
+              'MEDIDO 2026-09-23: a página pública da publicação declara o endereço '
+              'progressivo no atributo `data-sources` da etiqueta `<video>`, e o CDN '
+              '`dms.licdn.com` serve os bytes a convidado — HTTP 206, `video/mp4`, '
+              '7 464 653 e 14 687 975 bytes medidos em dois vídeos. O endereço traz '
+              '`e=2147483647`, e isso é `LONG_LIVED_OBSERVED` — uma observação, não '
+              'uma garantia documental. É MP4 PROGRESSIVO: nem HLS, nem DASH, logo '
+              'não há manifesto nem segmentos a remontar. PLATAFORMA PROÍBE '
+              '(DISALLOWED); dono autorizou (D23).',
+              'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_ORG_VIDEO_ONLY'),
+        ],
+        'FETCH_TRANSCRIPT': [
+            r('linkedin:data-captions-url', 'DIRECT_HTTP', 'SIM', 'PROVED', 'zero',
+              'MEDIDO 2026-09-23: quando o vídeo tem faixa automática, a MESMA '
+              'etiqueta `<video>` declara o endereço dela em `data-captions-url`. '
+              'O endereço diz o formato em claro — `video-auto-caption-srt-…` ou '
+              '`video-auto-caption-webvtt-…` — e os bytes confirmam: 4 legenda(s) '
+              'obtidas, `text/vtt` e `text/plain`, 529 a 3 587 bytes, texto italiano '
+              'e inglês legível. É legenda AUTOMÁTICA: ASR de outra casa, mais '
+              'barata e não melhor — e por isso viaja com a espécie declarada, '
+              'nunca como se fosse prova da fala original. NÃO EXISTE EM TODO VÍDEO: '
+              'medido, 2 dos 5 vídeos de uma organização e nenhum dos 2 de outra. '
+              'Ausência de legenda é resultado, e não falha. PLATAFORMA PROÍBE '
+              '(DISALLOWED); dono autorizou (D23).',
+              'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_ORG_VIDEO_ONLY'),
         ],
     },
 
