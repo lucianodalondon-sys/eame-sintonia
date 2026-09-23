@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
-    "GENERATED_AT": "2026-09-23T11:26:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d"
+    "BRANCH": "bot-impasse-v1",
+    "HEAD": "cfa84fc157a10d3ac6b99579717378c49d57f9f3",
+    "GENERATED_AT": "2026-09-23T14:08:51-03:00",
+    "SOURCE_TREE_FINGERPRINT": "33fa1c26781d08344295ec77667dd55af3dfb070ab091b071afad10026a0fccf"
   },
   "FILES": [
     {
@@ -2621,7 +2621,7 @@
     },
     {
       "path": "curadoria/baldes_das_candidatas.py",
-      "sha": "6aeb9b125648f40b2ab2c32186aa8ce206e7af00",
+      "sha": "a7dcbe4475168427973be59c6d7f186f60e00cb8",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2775,7 +2775,7 @@
     },
     {
       "path": "curadoria/gatilho_discovery.py",
-      "sha": "eb5c3482094d40dc8886d19914cf1c1920b0b299",
+      "sha": "a8dea718f32512f4a00a32a3e03e878cd0ed027a",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2852,7 +2852,7 @@
     },
     {
       "path": "curadoria/nivel_da_fila.py",
-      "sha": "f729e6de5d7f83384c5f8a15c62b651074ddeb1b",
+      "sha": "6757359f7751183ba50ded8fd23af5348f41b11f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2880,7 +2880,7 @@
     },
     {
       "path": "curadoria/ponte_candidatas.py",
-      "sha": "c981ee8464b65b3e226894b3121ccb28671f6f85",
+      "sha": "e54cf4fe65eae8938d17b0d07b9133419f003cd7",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3124,6 +3124,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_impasse_b4.py",
+      "sha": "dea1eab2b485bc370319c2cd96af3c50c13df4bb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_interface_collection.py",
       "sha": "84bd8ac3787ab718c6011120e42feeb984cfcc8c",
       "ext": ".py",
@@ -3146,7 +3153,7 @@
     },
     {
       "path": "curadoria/test_nivel_da_fila.py",
-      "sha": "f5c59e85b698e0b68cf16f667b2646d805860a8f",
+      "sha": "cd9c334487c960ae600dae7a97fae32c392d6202",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -24130,7 +24137,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/baldes_das_candidatas.py",
-        "line": 208,
+        "line": 210,
         "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\","
       }
     },
@@ -25109,7 +25116,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 189,
+        "line": 200,
         "snippet": "import collection_gate as CG   # noqa: E402  (lido so aqui: o gatilho corre sem ele)"
       }
     },
@@ -25142,7 +25149,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 191,
+        "line": 202,
         "snippet": "import lifecycle as LC         # noqa: E402"
       }
     },
@@ -25164,7 +25171,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 190,
+        "line": 201,
         "snippet": "import ready_split as RS       # noqa: E402"
       }
     },
@@ -25670,7 +25677,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/nivel_da_fila.py",
-        "line": 42,
+        "line": 43,
         "snippet": "SAIDA = RAIZ / \"curadoria\" / \"DISCOVERY-SIGNAL-V1.json\""
       }
     },
@@ -25681,7 +25688,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/nivel_da_fila.py",
-        "line": 80,
+        "line": 102,
         "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -25694,6 +25701,17 @@
         "file": "curadoria/nivel_da_fila.py",
         "line": 40,
         "snippet": "import baldes_das_candidatas as B  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/nivel_da_fila.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/nivel_da_fila.py",
+        "line": 41,
+        "snippet": "import fila as F                   # noqa: E402"
       }
     },
     {
@@ -27864,6 +27882,72 @@
       }
     },
     {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 35,
+        "snippet": "import fonte_nova as FN       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 34,
+        "snippet": "import fila as F              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 39,
+        "snippet": "import gatilho_discovery as GD  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 36,
+        "snippet": "import lifecycle as LC        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/nivel_da_fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 38,
+        "snippet": "import nivel_da_fila as N     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_impasse_b4.py",
+      "to_file": "curadoria/ponte_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_impasse_b4.py",
+        "line": 37,
+        "snippet": "import ponte_candidatas as P  # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_interface_collection.py",
       "to_file": "curadoria/fila.py",
       "type": "IMPORTS",
@@ -28024,8 +28108,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_nivel_da_fila.py",
-        "line": 53,
+        "line": 79,
         "snippet": "import baldes_das_candidatas as B"
+      }
+    },
+    {
+      "from_file": "curadoria/test_nivel_da_fila.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_nivel_da_fila.py",
+        "line": 19,
+        "snippet": "import fila as F        # noqa: E402"
       }
     },
     {
@@ -28035,7 +28130,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_nivel_da_fila.py",
-        "line": 11,
+        "line": 20,
         "snippet": "import nivel_da_fila as N  # noqa: E402"
       }
     },
@@ -78818,10 +78913,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2725,
-    "files_readable": 1245,
+    "files_tracked": 2726,
+    "files_readable": 1246,
     "files_code_dir": 1065,
-    "file_edges": 5379,
+    "file_edges": 5387,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

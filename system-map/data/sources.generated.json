@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T14:32:40+00:00",
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
+    "GENERATED_AT": "2026-09-23T17:12:11+00:00",
+    "HEAD": "cfa84fc157a10d3ac6b99579717378c49d57f9f3",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d",
-    "FICHEIROS_NA_IMPRESSAO": 2873,
+    "SOURCE_TREE_FINGERPRINT": "33fa1c26781d08344295ec77667dd55af3dfb070ab091b071afad10026a0fccf",
+    "FICHEIROS_NA_IMPRESSAO": 2874,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -23636,6 +23636,27 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/test_capturador.py",
+          "line": 29
+        },
+        {
+          "file": "curadoria/test_impasse_b4.py",
+          "line": 52
+        },
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 213
+        },
+        {
+          "file": "tests/test_porta_de_candidatas.py",
+          "line": 233
+        }
+      ]
+    },
+    {
       "endpoint": "https://it.linkedin.com/company",
       "usado_por": [
         {
@@ -23861,23 +23882,6 @@
         {
           "file": "medidas/gabarito_t2_t12.py",
           "line": 80
-        }
-      ]
-    },
-    {
-      "endpoint": "https://exemplo.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/test_capturador.py",
-          "line": 29
-        },
-        {
-          "file": "provas/a_rota_m2_atravessa.py",
-          "line": 213
-        },
-        {
-          "file": "tests/test_porta_de_candidatas.py",
-          "line": 233
         }
       ]
     },
