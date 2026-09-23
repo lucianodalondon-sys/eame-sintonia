@@ -712,7 +712,6 @@
     "scripts/detector_capa/GABARITO-CONTROLO-LD2.json",
     "scripts/detector_capa/LISTING-DETAIL-GATE-V2.json",
     "scripts/detector_capa/LISTING-DETAIL-GATE-V3.json",
-    "coleta/retrato_html.mjs",
     "medidas/medir_v1a.py",
     "medidas/mutacao_v1a.py"
    ]
@@ -4348,13 +4347,14 @@
    "territory": "Z-ACOES",
    "kind": "engine",
    "icon": "⚙",
-   "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao.",
+   "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
    "why_here": "A peca que converte HTML em texto existia nesta arvore desde antes e tinha ZERO chamadores em producao: 46 observacoes reais paravam em DERIVED com MISSING_ROUTE. CAPABILITY EXISTS != EDGE EXISTS. Declarar a capacidade tambem nao bastava — o `SUPPORTS` do executor de PDF viveu um ano sem leitores. O que liga e o nome na lista `coleta/ingresso.py::_DONOS_DA_DERIVACAO`.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
-    "coleta/executor_texto_de_html.py"
+    "coleta/executor_texto_de_html.py",
+    "coleta/retrato_html.mjs"
    ],
    "views": [
     "audit",
