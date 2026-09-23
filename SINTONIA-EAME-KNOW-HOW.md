@@ -19421,3 +19421,35 @@ retirava a fonte pelo catálogo — dão um pacote que **não é idempotente**: 
 2.ª passagem o bloco 2 dizia «já aplicada» e o bloco 1 voltava a pôr a fonte.
 O ensaio de duas passagens apanhou-o (1 alteração na 2.ª). Cura na raiz, não
 no sintoma: fonte `RETIRADA_POR_DECISAO` nunca entra na tabela.
+
+---
+
+# UMA RECEITA APROVADA NO GABARITO NÃO SE MEDE NO MESMO GABARITO
+
+*Missão LD1 (listing-detail-v1), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`,
+relatório `RELATORIO-LISTING-DETAIL.md`.*
+
+**O que se mediu.** O detector capa/matéria antes e depois das receitas do G1, nas 146 páginas
+do gabarito da 6-PREP-c. **Nenhuma regra ficou tão boa como a de hoje nos dois erros ao
+mesmo tempo.** A V1 («o `INDEX_URL` exacto é capa») deixa passar 20/109 capas em vez de 63/109,
+mas barra 7/37 matérias em vez de 6. A matéria a mais é a #28: o `INDEX_URL` de IT-T11-010 é a
+página de uma feira. Com essa receita corrigida (simulado), a V1 domina.
+`LISTING_DETAIL_GATE_PROVEN = NO`, e a regra não mudou.
+
+**O que se aprendeu.**
+
+- **Circularidade herdada.** O G1 só aceitou padrões que casam todas as matérias e nenhuma capa
+  DESTE gabarito. Medir a regra depois das receitas nas mesmas páginas dá razão à morada
+  por construção nas 26 páginas afetadas. A V2 parecia ganhar no total, mas na fatia não
+  circular barra o dobro das matérias do ACTUAL (4/23 contra 2/23). **Antes de medir
+  depois de uma correção, perguntar contra o quê a correção foi aprovada.**
+- **O livro vivo não é o livro do relatório anterior.** Das 85 fontes do gabarito, 3 não
+  existem no livro do serviço vivo, e 8 têm `INDEX_URL`/`LINK_PATTERN` diferentes do livro
+  da branch em que a 6-PREP-c mediu. Os números «antes» de hoje não são os dela (V1 20/109
+  contra 13/109). Um «antes» herdado de outro relatório não serve de base: mede-se de novo.
+- **Separar regra de receita, página a página.** Com o livro já corrigido, se a morada
+  acerta e o juiz erra, o erro é da regra; se a morada erra, é da receita. O ACTUAL erra
+  por regra (o formato). As regras de morada erram por receita: 14 matérias ainda não
+  casam o `LINK_PATTERN` da própria fonte.
+- **Segunda leitura às cegas:** 20/20 concordam, mas rotulador e revisor são ambos agentes
+  Claude. Declara-se o limite; não se vende como validação humana.
