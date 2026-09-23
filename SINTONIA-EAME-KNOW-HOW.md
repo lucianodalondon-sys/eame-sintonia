@@ -20732,3 +20732,36 @@ relatório `RELATORIO-LISTING-DETAIL-V3.md`.*
   (mudar só as chaves certas) e confirmar o URL antes de gastar o pedido.
 - **Preparar sem ligar tem prova.** `politica_nao_sei.py` tem as três respostas da D11 e um
   teste que falha se algum ficheiro a importar antes da decisão.
+# § (sem número) · A MICRO-COLETA ENSAIADA SEM INTERNET — E O QUE O INSTRUMENTO AINDA NÃO LÊ
+
+**O ENSAIO.** `scripts/micro_coleta/ensaio_offline.py` corre o caminho inteiro da micro
+(orquestrador → coletor Node → RAW → DERIVED → Admission → Sala) pelo mesmo comando da
+corrida real, sem internet. O coletor baixa tudo com `curl`; um `_curlrc` em `CURL_HOME`
+com `connect-to` manda todo pedido a um servidor em 127.0.0.1, que serve páginas já
+guardadas (gabaritos e 97 matérias do lote-76). A base é um Postgres descartável com o nome
+`sala_italia` (o único aceite em modo operacional), numa porta livre. Coorte G1 (8 fontes):
+100 pedidos, todos locais; 88 RAW / 88 DERIVED; com a régua L1 (unificação @ 8fe122cb):
+SIM 14 / NAO 31 / NAO_SEI 43, Sala 0 → 14, C9 PASS e gabarito do dono 10/10 no binário com 0 SIM
+errado; sem a L1 (5a16d077): SIM 10 / NAO 29 / NAO_SEI 49, Sala 0 → 10 e C9 FAIL (10 em inglês).
+Duas corridas deram os mesmos números.
+
+**ARMADILHAS MEDIDAS.**
+- `connect-to = :443:127.0.0.1:P` sem aspas é **ignorado calado** pelo `curl` (o `:` do
+  início conta como separador) e o pedido iria à internet. Com aspas funciona. Testar sempre
+  com um nome `.invalid`: sem o redirecionamento, falha a resolver e nada sai.
+- Cada matéria que falha vira um **registo de falha em JSON guardado como raw_asset**, na
+  mesma pasta `OBSERVATION` dos documentos. Contar linhas de raw_asset (como faz o
+  instrumento) dá «30 RAW» para 1 documento e «29 falhas de proveniência» que não existem.
+  O que distingue é o conteúdo: `HEALTH_STATE=FAILED` e `SHA256` vazio.
+- `pg_restore` por cima da base existente «ignora 499 erros» e deixa os dados da corrida: sai
+  com 1, mas parece ter corrido. O rollback provado é `dropdb` + `createdb` + `pg_restore`,
+  conferido por md5 do conteúdo das 5 tabelas, sobre uma base cheia.
+- O ledger do coletor tem de começar vazio: com o livro versionado, as matérias gravadas são
+  puladas como «já conhecidas» e o ensaio não mede nada.
+
+**O QUE O INSTRUMENTO NÃO LÊ.** Dos 15 campos do §22, 13 têm dono e o `micro_coleta` lê 8.
+O sucesso real por fonte, os detalhes, o refetch e a rede estão em `runs.ndjson`, que o
+`italy_executor` não devolve (guarda o código de saída e 1500 caracteres de stderr).
+LISTINGS_REJECTED e FALSE_DOCUMENT_CHANGED não têm contador. E o `plano` de hoje só deixa
+correr 1 dos 8 da coorte G1: o ficheiro de coorte e o filtro 3b estão atrás da decisão D8.
+Tudo em `scripts/micro_coleta/MICRO-CAMINHO-A1.md`, com a checklist antes da micro real.
