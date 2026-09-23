@@ -38,6 +38,7 @@
       "RELATORIO-INTAKE-GATE.md",
       "RELATORIO-LAST-MILE.md",
       "RELATORIO-LISTING-DETAIL-V2.md",
+      "RELATORIO-LISTING-DETAIL-V3.md",
       "RELATORIO-LISTING-DETAIL.md",
       "RELATORIO-LOTE-76.md",
       "RELATORIO-MATERIA-PRIMA.md",
@@ -362,6 +363,7 @@
       "curadoria/manifesto_da_evidencia.py",
       "curadoria/manifesto_das_amostras.py",
       "curadoria/nivel_da_fila.py",
+      "curadoria/politica_nao_sei.py",
       "curadoria/ponte_candidatas.py",
       "curadoria/provar_autonomia.py",
       "curadoria/provar_lifecycle.py",
@@ -2245,6 +2247,7 @@
       "scripts/detector_capa/GABARITO-CONTROLO-LD2.json",
       "scripts/detector_capa/LISTING-DETAIL-GATE-V1.json",
       "scripts/detector_capa/LISTING-DETAIL-GATE-V2.json",
+      "scripts/detector_capa/LISTING-DETAIL-GATE-V3.json",
       "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
       "scripts/detector_capa/colher_gabarito.py",
       "scripts/detector_capa/colher_urls.py",
@@ -2580,6 +2583,7 @@
       "tests/test_persistencia_operacional.py",
       "tests/test_pipeline.py",
       "tests/test_politica_da_coleta.py",
+      "tests/test_politica_nao_sei.py",
       "tests/test_ponte_audio_publico.py",
       "tests/test_porta_de_candidatas.py",
       "tests/test_porta_de_producao.py",
@@ -3153,10 +3157,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "listing-detail-v2",
-    "HEAD": "6ba41c39e493d9e29e4736f927976d27597da896",
-    "GENERATED_AT": "2026-09-23T03:27:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07"
+    "BRANCH": "listing-detail-v3",
+    "HEAD": "85f31eb9f344420e0e8a7610d94dcbbbc6357eea",
+    "GENERATED_AT": "2026-09-23T03:42:52-03:00",
+    "SOURCE_TREE_FINGERPRINT": "53b59a060e483c298fde720b8dc890f5f9ece50c83aaa94397718b18875f8cbf"
   },
   "FAMILIES": [
     {
@@ -22275,6 +22279,7 @@
         "scripts/detector_capa/GABARITO-CONTROLO-LD2.json",
         "scripts/detector_capa/LISTING-DETAIL-GATE-V1.json",
         "scripts/detector_capa/LISTING-DETAIL-GATE-V2.json",
+        "scripts/detector_capa/LISTING-DETAIL-GATE-V3.json",
         "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
         "scripts/detector_capa/colher_gabarito.py",
         "scripts/detector_capa/colher_urls.py",
@@ -22282,7 +22287,7 @@
         "scripts/detector_capa/medir_gabarito.py",
         "scripts/detector_capa/rotular_gabarito.py"
       ],
-      "file_count": 10,
+      "file_count": 11,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -40619,6 +40624,7 @@
         "tests/test_persistencia_operacional.py",
         "tests/test_pipeline.py",
         "tests/test_politica_da_coleta.py",
+        "tests/test_politica_nao_sei.py",
         "tests/test_ponte_audio_publico.py",
         "tests/test_porta_de_candidatas.py",
         "tests/test_porta_de_producao.py",
@@ -40674,7 +40680,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 206,
+      "file_count": 207,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -41115,6 +41121,7 @@
         "curadoria/descobrir.py",
         "curadoria/gate_de_rota.py",
         "curadoria/italy_contracts_curator.json",
+        "curadoria/politica_nao_sei.py",
         "curadoria/ponte_candidatas.py",
         "curadoria/ready_split.py",
         "data/collection-ledger/italy/observations.ndjson",
@@ -43372,7 +43379,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch listing-detail-v2"
+        "branch listing-detail-v3"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -103926,7 +103933,7 @@
   "UNCLAIMED_CODE_FILES": [
     "provas/recollection_red_team_estrito.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1450,
+  "UNCLAIMED_FILES_COUNT": 1452,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -104115,8 +104122,8 @@
     "edges_proven": 1104,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2560,
-    "files_covered": 1110,
+    "files_tracked": 2564,
+    "files_covered": 1112,
     "files_code_unclaimed": 1,
     "roles_proven": 158,
     "roles_declared_only": 9,

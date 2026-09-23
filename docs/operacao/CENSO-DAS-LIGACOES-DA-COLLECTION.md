@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  6ba41c39e493d9e29e4736f927976d27597da896
-BRANCH           listing-detail-v2
-GERADO_EM        2026-09-23T03:27:45-03:00
+HEAD_DA_MEDICAO  85f31eb9f344420e0e8a7610d94dcbbbc6357eea
+BRANCH           listing-detail-v3
+GERADO_EM        2026-09-23T03:42:52-03:00
 CARDS            87
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1445,7 +1445,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/detector_capa/GABARITO-CAPA-V1.json`, `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json`, `scripts/detector_capa/MANIFESTO-RECOLHA-V1.json` _(e mais 5)_ |
+| **peça real** | `scripts/detector_capa/GABARITO-CAPA-V1.json`, `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V3.json` _(e mais 6)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |

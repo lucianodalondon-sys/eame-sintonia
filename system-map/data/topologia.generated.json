@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T06:31:28+00:00",
-  "HEAD": "6ba41c39e493d9e29e4736f927976d27597da896",
-  "BRANCH": "listing-detail-v2",
+  "GENERATED_AT": "2026-09-23T06:46:32+00:00",
+  "HEAD": "85f31eb9f344420e0e8a7610d94dcbbbc6357eea",
+  "BRANCH": "listing-detail-v3",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07",
-  "FICHEIROS_NA_IMPRESSAO": 2708,
+  "SOURCE_TREE_FINGERPRINT": "53b59a060e483c298fde720b8dc890f5f9ece50c83aaa94397718b18875f8cbf",
+  "FICHEIROS_NA_IMPRESSAO": 2712,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3324,14 +3324,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07",
+    "VERSAO": "53b59a060e483c298fde720b8dc890f5f9ece50c83aaa94397718b18875f8cbf",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07",
+    "VERSAO": "53b59a060e483c298fde720b8dc890f5f9ece50c83aaa94397718b18875f8cbf",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4666,6 +4666,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_politica_nao_sei.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "eb656ef32d2b83c43156d7b00cd8545e5d9ff3f1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_ponte_audio_publico.py",
     "PAPEL": "FONTE",
     "VERSAO": "b5ae695612e51823212ca1ab765068a0e5476352",
@@ -5044,8 +5051,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 715,
-  "INPUTS_DIGEST": "7325e7968b049ccca0278c99bdd796bd4ccc9beb891c3fa503e5c9d92d29b9a5",
+  "INPUTS_COUNT": 716,
+  "INPUTS_DIGEST": "15d91f512c246602d474622a22578b4a652f61793c6faae1493fa7be0e568e40",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5071,15 +5078,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 461,
+  "DOCUMENTOS_LIDOS": 462,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "df7b8ad5e8d7779bc41a3c6e310dcbce9e240ebb534338da5f57a66707d9428d",
-  "SEMANTIC_HASH": "dfa81f0be7985f5dbff7eb58b90267c4734d399d3ac0caeec61714fffd03a6b2"
+  "MEASUREMENT_HASH": "b1728ebb2bbd1fc3d5468fe8919cd7f2ac45590ca82a5727139c10e17b199697",
+  "SEMANTIC_HASH": "8a3e6c9cc52b381abe22ba8e59fe7ee4931b2583ef8b3dcae1adaa169b874b70"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -41595,6 +41602,7 @@
     "scripts/detector_capa/GABARITO-CONTROLO-LD2.json",
     "scripts/detector_capa/LISTING-DETAIL-GATE-V1.json",
     "scripts/detector_capa/LISTING-DETAIL-GATE-V2.json",
+    "scripts/detector_capa/LISTING-DETAIL-GATE-V3.json",
     "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
     "scripts/detector_capa/colher_gabarito.py",
     "scripts/detector_capa/colher_urls.py",
@@ -47556,6 +47564,7 @@
     "tests/test_persistencia_operacional.py",
     "tests/test_pipeline.py",
     "tests/test_politica_da_coleta.py",
+    "tests/test_politica_nao_sei.py",
     "tests/test_ponte_audio_publico.py",
     "tests/test_porta_de_candidatas.py",
     "tests/test_porta_de_producao.py",

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "listing-detail-v2",
-    "HEAD": "6ba41c39e493d9e29e4736f927976d27597da896",
-    "GENERATED_AT": "2026-09-23T03:27:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b26bfdae042875cf73a80c5da20fa8ecbe1ef3cf3e074e124728b1a857371a07"
+    "BRANCH": "listing-detail-v3",
+    "HEAD": "85f31eb9f344420e0e8a7610d94dcbbbc6357eea",
+    "GENERATED_AT": "2026-09-23T03:42:52-03:00",
+    "SOURCE_TREE_FINGERPRINT": "53b59a060e483c298fde720b8dc890f5f9ece50c83aaa94397718b18875f8cbf"
   },
   "FILES": [
     {
@@ -359,6 +359,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-LISTING-DETAIL-V3.md",
+      "sha": "1bdee7d3ee2807dc461129eb7fcd8b4b1dfca681",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-LISTING-DETAIL.md",
       "sha": "4c1aa281a4192d5d350143cbabc6aea57b8b653f",
       "ext": ".md",
@@ -444,7 +451,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "4636c2f246f672d738634b4fa7efaad5a273a8ac",
+      "sha": "16b256345a14bec00671787b270753458c6d91b0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2068,7 +2075,7 @@
     },
     {
       "path": "curadoria/PROPOSTA-RECEITAS-V3.json",
-      "sha": "3d0d5b4ce76da1b43e928eece25720987c410471",
+      "sha": "bf6cb8da8499c6432781622949dda2b736778829",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2370,6 +2377,13 @@
     {
       "path": "curadoria/nivel_da_fila.py",
       "sha": "f729e6de5d7f83384c5f8a15c62b651074ddeb1b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/politica_nao_sei.py",
+      "sha": "26afff7bbd7eb5794c5410743ada213af8c3b8cd",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -15269,6 +15283,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/detector_capa/LISTING-DETAIL-GATE-V3.json",
+      "sha": "7a33467e52587acf144bae8f23b9b44891c1750d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
       "sha": "d67a3e8c20389e0e6664fd24e09faff757609192",
       "ext": ".json",
@@ -15991,7 +16012,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "26b079df39f260ae31b4ee63793ec6dd6d5c46fe",
+      "sha": "796ee148449fdbdb32e47e1511712f0f2a314086",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17539,6 +17560,13 @@
     {
       "path": "tests/test_politica_da_coleta.py",
       "sha": "5ca2656b1812f493807349c57c947e51df2b0020",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_politica_nao_sei.py",
+      "sha": "eb656ef32d2b83c43156d7b00cd8545e5d9ff3f1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -69180,6 +69208,17 @@
       }
     },
     {
+      "from_file": "tests/test_politica_nao_sei.py",
+      "to_file": "curadoria/politica_nao_sei.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_politica_nao_sei.py",
+        "line": 45,
+        "snippet": "chamadores = [f for f in r.stdout.split() if not f.endswith((\"politica_nao_sei.py\","
+      }
+    },
+    {
       "from_file": "tests/test_ponte_audio_publico.py",
       "to_file": "coleta/adaptador_youtube.py",
       "type": "IMPORTS",
@@ -73791,10 +73830,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2560,
-    "files_readable": 1160,
-    "files_code_dir": 987,
-    "file_edges": 5027,
+    "files_tracked": 2564,
+    "files_readable": 1162,
+    "files_code_dir": 989,
+    "file_edges": 5028,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
