@@ -32,6 +32,16 @@ INVARIANTES (se falhar um, NADA e escrito, exit 4):
   no livro so mudam os dois campos acima · na tabela so se acrescenta linha ou se
   muda ACQUISITION.
 IDEMPOTENTE: correr duas vezes = 0 alteracoes na segunda (a segunda so ve JA_APLICADA).
+
+BLOCO 2 — CATALOGO (D9, 23/09, bot Luciano por delegacao do dono): as linhas MUDAR_PARA_Tx
+e RETIRAR_DO_UNIVERSO da PROPOSTA-CATALOGO-V1 (origin/catalogo-proposta-v1), SO com prova
+integra (cada ficheiro existe em disco e o sha256 bate). UNKNOWN e MANTER intocados.
+  · MUDAR   muda TERRITORY (o SOURCE_ID nao muda: e identidade) e guarda CATALOGO_D9 com
+            o universo anterior. E a UNICA excepcao ao «nunca muda grupo T», so para estas linhas.
+  · RETIRAR marca ESTADO_CATALOGO = RETIRADA_POR_DECISAO, reversivel. NUNCA apaga.
+            Se a prova tiver uma noticia SINTONIA_RELEVANT = YES, vale a D2 (REROUTE): SALTA.
+  · a tabela do coletor recebe a mesma marca/universo, se a fonte la estiver.
+  · ledger com DECISAO = D9.
 """
 from __future__ import annotations
 
@@ -163,6 +173,31 @@ def provar_indice(sid: str, p: dict) -> str | None:
     return None
 
 
+def catalogo_d9() -> dict:
+    """A PROPOSTA-CATALOGO-V1: da arvore (depois da M5) ou de origin/catalogo-proposta-v1."""
+    f = RAIZ / "curadoria" / "PROPOSTA-CATALOGO-V1.json"
+    if f.exists():
+        return _json(f)
+    r = subprocess.run(["git", "show", "origin/catalogo-proposta-v1:curadoria/PROPOSTA-CATALOGO-V1.json"],
+                       cwd=RAIZ, capture_output=True)
+    if r.returncode:
+        raise SystemExit("FALTA a PROPOSTA-CATALOGO-V1 (D9): nem na arvore nem em origin/catalogo-proposta-v1")
+    return json.loads(r.stdout.decode("utf-8"))
+
+
+def prova_integra(provas: list[dict]) -> str | None:
+    """D9: prova integra = cada ficheiro existe em disco e o sha256 bate."""
+    if not provas:
+        return "sem prova"
+    for p in provas:
+        f = Path(p.get("FICHEIRO", ""))
+        if not f.exists():
+            return f"prova indisponivel: {f.name} nao existe"
+        if hashlib.sha256(f.read_bytes()).hexdigest() != p.get("SHA256"):
+            return f"prova adulterada: sha256 de {f.name}"
+    return None
+
+
 # ── O PLANO ────────────────────────────────────────────────────────────────
 def propostas() -> list[tuple[str, dict]]:
     vistas, out = set(), []
@@ -181,7 +216,7 @@ def propostas() -> list[tuple[str, dict]]:
 
 
 def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico=None,
-            m3=None, canario=None, peca=None) -> dict:
+            m3=None, canario=None, peca=None, catalogo=None) -> dict:
     guardadas = paginas_guardadas() if guardadas is None else guardadas
     capas = capas_do_gabarito() if capas is None else capas
     e_generico = guarda() if e_generico is None else e_generico
@@ -251,6 +286,9 @@ def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico
         if not c:
             acoes.append(dict(a, ACAO="SALTA", PORQUE="a fonte nao esta no livro do Curator"))
             continue
+        if c.get("ESTADO_CATALOGO") == "RETIRADA_POR_DECISAO" and sid not in T:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="RETIRADA_POR_DECISAO (D9): nao entra na tabela"))
+            continue
         if provada != aq(c):
             acoes.append(dict(a, ACAO="SALTA", PORQUE=f"o canario {quem} provou OUTRA aquisicao que nao a que fica no livro"))
             continue
@@ -278,20 +316,84 @@ def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico
             acoes.append({"LIVRO": "tabela", "SOURCE_ID": sid, "CAMPO": "ACQUISITION", "ACAO": "SALTA",
                           "PORQUE": "a receita mudou no livro mas nao ha canario da aquisicao nova: a tabela fica"})
 
+    # 3) BLOCO 2 — catalogo (D9)
+    autorizadas_d9 = set()
+    if catalogo is None:
+        catalogo = catalogo_d9()
+    for l in catalogo.get("LINHAS", []):
+        accao = l.get("ACCAO", "")
+        if not (accao.startswith("MUDAR_PARA_T") or accao == "RETIRAR_DO_UNIVERSO"):
+            continue
+        sid = l["SOURCE_ID"]
+        a = {"LIVRO": "livro", "SOURCE_ID": sid, "CAMPO": "CATALOGO", "DECISAO": "D9",
+             "ORIGEM": "PROPOSTA-CATALOGO-V1", "ANTES": l.get("UNIVERSO_ACTUAL"), "DEPOIS": accao}
+        c = novo_livro.get(sid)
+        if not c:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="a fonte nao esta no livro"))
+            continue
+        e = prova_integra(l.get("PROVA") or [])
+        if e:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE=e))
+            continue
+        if accao.startswith("MUDAR_PARA_T"):
+            alvo = accao.rsplit("_", 1)[1]
+            if c.get("TERRITORY") == alvo:
+                acoes.append(dict(a, ACAO="JA_APLICADA"))
+                continue
+            if c.get("TERRITORY") != l.get("UNIVERSO_ACTUAL"):
+                acoes.append(dict(a, ACAO="SALTA", PORQUE="o universo actual nao e o da proposta (o livro mudou)"))
+                continue
+            mud = {"TERRITORY": alvo,
+                   "CATALOGO_D9": {"DECISAO": "D9", "ACCAO": accao, "UNIVERSO_ANTERIOR": c.get("TERRITORY"),
+                                   "PORQUE": l.get("PORQUE"), "REVERSIVEL": True}}
+        else:
+            if any(str(p.get("ROTULO", "")).split("/")[-1] == "YES" for p in l.get("PROVA") or []):
+                acoes.append(dict(a, ACAO="SALTA",
+                                  PORQUE="D2: a prova tem noticia SINTONIA_RELEVANT=YES — REROUTE, nao retirar"))
+                continue
+            if c.get("ESTADO_CATALOGO") == "RETIRADA_POR_DECISAO":
+                acoes.append(dict(a, ACAO="JA_APLICADA"))
+                continue
+            mud = {"ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+                   "CATALOGO_D9": {"DECISAO": "D9", "ACCAO": accao, "PORQUE": l.get("PORQUE"),
+                                   "REVERSIVEL": True, "NOTA": "pode voltar pelo circuito do Curator"}}
+        c.update(copy.deepcopy(mud))
+        autorizadas_d9.add(sid)
+        acoes.append(dict(a, ACAO="APLICA", PROVA=[p.get("SHA256") for p in l.get("PROVA") or []]))
+        if accao == "RETIRAR_DO_UNIVERSO" and sid in nova_tabela and sid not in T:
+            # o bloco 1 acabou de a por na tabela; a D9 retira-a no mesmo pacote:
+            # nao entra (a tabela nao perde nada que ja tivesse).
+            del nova_tabela[sid]
+            for x in acoes:
+                if x["LIVRO"] == "tabela" and x["SOURCE_ID"] == sid and x["ACAO"] == "APLICA":
+                    x["ACAO"], x["PORQUE"] = "SALTA", "D9 retira-a neste mesmo pacote: nao entra na tabela"
+            continue
+        if sid in nova_tabela:
+            nova_tabela[sid] = dict(nova_tabela[sid], **copy.deepcopy(mud))
+            acoes.append(dict(a, LIVRO="tabela", ACAO="APLICA", PROVA="a mesma do livro"))
+
     livro_out = dict(livro, FONTES=[novo_livro[c["SOURCE_ID"]] for c in livro["FONTES"]])
     ordem = [c["SOURCE_ID"] for c in tabela["FONTES"]] + [s for s in nova_tabela if s not in T]
     tabela_out = dict(tabela, FONTES=[nova_tabela[s] for s in ordem])
-    invariantes(livro, livro_out, tabela, tabela_out)
+    invariantes(livro, livro_out, tabela, tabela_out, autorizadas_d9)
     return {"ACOES": acoes, "LIVRO": livro_out, "TABELA": tabela_out}
 
 
-def invariantes(livro_a: dict, livro_d: dict, tab_a: dict, tab_d: dict) -> None:
+def invariantes(livro_a: dict, livro_d: dict, tab_a: dict, tab_d: dict,
+                autorizadas_d9=frozenset()) -> None:
+    """Nunca muda grupo T nem outro campo — EXCEPTO as linhas do catalogo que a D9
+    autorizou e cuja prova bateu: essas podem mudar TERRITORY, ESTADO_CATALOGO e
+    CATALOGO_D9, e mais nada."""
     A = {c["SOURCE_ID"]: c for c in livro_a["FONTES"]}
     D = {c["SOURCE_ID"]: c for c in livro_d["FONTES"]}
     if set(A) != set(D):
         raise InvarianteQuebrado("o livro ganhou ou perdeu fontes")
     for s in A:
         a, d = copy.deepcopy(A[s]), copy.deepcopy(D[s])
+        if s in autorizadas_d9:
+            for k in ("TERRITORY", "ESTADO_CATALOGO", "CATALOGO_D9"):
+                a.pop(k, None)
+                d.pop(k, None)
         if a.get("TERRITORY") != d.get("TERRITORY"):
             raise InvarianteQuebrado(f"{s}: grupo T mudou")
         for k in CAMPOS_DO_LIVRO:
@@ -304,10 +406,10 @@ def invariantes(livro_a: dict, livro_d: dict, tab_a: dict, tab_d: dict) -> None:
     if not set(TA) <= set(TD):
         raise InvarianteQuebrado("a tabela perdeu fontes")
     for s in TA:
-        if TA[s].get("TERRITORY") != TD[s].get("TERRITORY"):
+        if s not in autorizadas_d9 and TA[s].get("TERRITORY") != TD[s].get("TERRITORY"):
             raise InvarianteQuebrado(f"{s}: grupo T mudou na tabela")
     for s in set(TD) - set(TA):
-        if s in A and TD[s].get("TERRITORY") != A[s].get("TERRITORY"):
+        if s in A and TD[s].get("TERRITORY") != D[s].get("TERRITORY"):
             raise InvarianteQuebrado(f"{s}: linha nova na tabela com grupo T diferente do livro")
 
 
@@ -335,7 +437,7 @@ def main(argv=None) -> int:
             with ledger.open("a", encoding="utf-8") as f:
                 for a in aplicadas:
                     f.write(json.dumps({"MISSAO": MISSAO, "AT": agora(), **{k: a.get(k) for k in (
-                        "LIVRO", "SOURCE_ID", "CAMPO", "ANTES", "DEPOIS", "ORIGEM", "PROVA")}},
+                        "LIVRO", "SOURCE_ID", "CAMPO", "ANTES", "DEPOIS", "ORIGEM", "PROVA", "DECISAO")}},
                         ensure_ascii=False) + "\n")
         print(f"ESCRITO: {len(aplicadas)} alteracao(oes) · ledger {ledger}")
     return 0

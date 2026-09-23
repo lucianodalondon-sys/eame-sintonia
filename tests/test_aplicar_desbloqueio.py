@@ -56,12 +56,13 @@ class TestPacote(unittest.TestCase):
         self.f.write_bytes(b"<html><p>noticia</p></html>")
         self.guardadas = {MAT: (self.f, hashlib.sha256(self.f.read_bytes()).hexdigest())}
 
-    def plano(self, livro, tabela, props=None, can=None, guardadas=None, capas=None):
+    def plano(self, livro, tabela, props=None, can=None, guardadas=None, capas=None, catalogo=None):
         with mock.patch.object(PK, "propostas", lambda: props if props is not None else proposta()):
             return PK.planear(livro, tabela, guardadas=guardadas or self.guardadas,
                               capas=capas if capas is not None else [CAPA],
                               e_generico=lambda *a: None, m3={"LINHAS": []},
-                              canario=can or canario(), peca=Peca)
+                              canario=can or canario(), peca=Peca,
+                              catalogo=catalogo if catalogo is not None else {"LINHAS": []})
 
     def base(self):
         return {"FONTES": [contrato()]}, {"FONTES": []}
@@ -143,6 +144,107 @@ class TestPacote(unittest.TestCase):
         l = {"FONTES": [contrato()]}
         with self.assertRaises(PK.InvarianteQuebrado):
             PK.invariantes(l, l, {"FONTES": []}, {"FONTES": [contrato(t="T3")]})
+
+
+
+class TestBlocoCatalogoD9(unittest.TestCase):
+    """D9: MUDAR/RETIRAR so com prova integra; RETIRAR marca, nunca apaga;
+    retirada relevante = REROUTE (salta); fora da D9 o grupo T continua fechado."""
+
+    def setUp(self):
+        self.t = Path(tempfile.mkdtemp())
+        self.f = self.t / "prova.html"
+        self.f.write_bytes(b"<html>prova</html>")
+        self.sha = hashlib.sha256(self.f.read_bytes()).hexdigest()
+
+    def linha(self, sid, accao, rotulo="NENHUM/NO/NO", sha=None, actual="T12"):
+        return {"SOURCE_ID": sid, "UNIVERSO_ACTUAL": actual, "ACCAO": accao, "PORQUE": "x",
+                "PROVA": [{"FICHEIRO": str(self.f), "SHA256": sha or self.sha, "ROTULO": rotulo}]}
+
+    def plano(self, livro, tabela, linhas):
+        with mock.patch.object(PK, "propostas", lambda: []):
+            return PK.planear(livro, tabela, guardadas={}, capas=[], e_generico=lambda *a: None,
+                              m3={"LINHAS": []}, canario={"LINHAS": []}, peca=Peca,
+                              catalogo={"LINHAS": linhas})
+
+    def base(self):
+        return {"FONTES": [contrato("IT-T12-901", t="T12"), contrato("IT-T12-902", t="T12")]}
+
+    def test_mudar_muda_o_grupo_e_guarda_o_anterior_no_livro_e_na_tabela(self):
+        tab = {"FONTES": [contrato("IT-T12-901", t="T12")]}
+        p = self.plano(self.base(), tab, [self.linha("IT-T12-901", "MUDAR_PARA_T7")])
+        c = p["LIVRO"]["FONTES"][0]
+        self.assertEqual(c["TERRITORY"], "T7")
+        self.assertEqual(c["SOURCE_ID"], "IT-T12-901")                  # a identidade nao muda
+        self.assertEqual(c["CATALOGO_D9"]["UNIVERSO_ANTERIOR"], "T12")
+        self.assertEqual(p["TABELA"]["FONTES"][0]["TERRITORY"], "T7")
+
+    def test_retirar_marca_e_nao_apaga(self):
+        p = self.plano(self.base(), {"FONTES": []}, [self.linha("IT-T12-902", "RETIRAR_DO_UNIVERSO")])
+        self.assertEqual(len(p["LIVRO"]["FONTES"]), 2)
+        c = [x for x in p["LIVRO"]["FONTES"] if x["SOURCE_ID"] == "IT-T12-902"][0]
+        self.assertEqual(c["ESTADO_CATALOGO"], "RETIRADA_POR_DECISAO")
+        self.assertTrue(c["CATALOGO_D9"]["REVERSIVEL"])
+
+    def test_retirada_com_noticia_relevante_salta_pela_d2(self):
+        p = self.plano(self.base(), {"FONTES": []},
+                       [self.linha("IT-T12-902", "RETIRAR_DO_UNIVERSO", rotulo="T2/NO/YES")])
+        a = p["ACOES"][0]
+        self.assertEqual(a["ACAO"], "SALTA")
+        self.assertIn("D2", a["PORQUE"])
+
+    def test_prova_adulterada_ou_em_falta_salta(self):
+        for l in (self.linha("IT-T12-901", "MUDAR_PARA_T7", sha="0" * 64),):
+            self.assertEqual(self.plano(self.base(), {"FONTES": []}, [l])["ACOES"][0]["ACAO"], "SALTA")
+        self.f.unlink()
+        l = self.linha("IT-T12-901", "MUDAR_PARA_T7")
+        self.assertEqual(self.plano(self.base(), {"FONTES": []}, [l])["ACOES"][0]["ACAO"], "SALTA")
+
+    def test_unknown_e_manter_intocados(self):
+        p = self.plano(self.base(), {"FONTES": []},
+                       [self.linha("IT-T12-901", "UNKNOWN"), self.linha("IT-T12-902", "MANTER")])
+        self.assertEqual(p["ACOES"], [])
+        self.assertEqual(p["LIVRO"]["FONTES"], self.base()["FONTES"])
+
+    def test_universo_actual_diferente_do_da_proposta_salta(self):
+        l = self.linha("IT-T12-901", "MUDAR_PARA_T7", actual="T2")
+        self.assertIn("mudou", self.plano(self.base(), {"FONTES": []}, [l])["ACOES"][0]["PORQUE"])
+
+    def test_idempotente_no_bloco_d9(self):
+        ls = [self.linha("IT-T12-901", "MUDAR_PARA_T7"), self.linha("IT-T12-902", "RETIRAR_DO_UNIVERSO")]
+        p1 = self.plano(self.base(), {"FONTES": []}, ls)
+        p2 = self.plano(copy.deepcopy(p1["LIVRO"]), copy.deepcopy(p1["TABELA"]), ls)
+        self.assertEqual({a["ACAO"] for a in p2["ACOES"]}, {"JA_APLICADA"})
+        self.assertEqual(p2["LIVRO"], p1["LIVRO"])
+
+    def test_retirada_no_mesmo_pacote_nao_entra_na_tabela(self):
+        sid = "IT-T12-902"
+        can = {"GERADO_EM": "2026-09-23", "LINHAS": [
+            {"SOURCE_ID": sid, "VEREDITO": "ROUTE_PROVEN", "CANARIO": {"URL": MAT},
+             "ACQUISITION_PROVADA": {"INDEX_URL": CAPA, "LINK_PATTERN": VELHO}}]}
+        with mock.patch.object(PK, "propostas", lambda: []):
+            p = PK.planear(self.base(), {"FONTES": []}, guardadas={}, capas=[], e_generico=lambda *a: None,
+                           m3={"LINHAS": []}, canario=can, peca=Peca,
+                           catalogo={"LINHAS": [self.linha(sid, "RETIRAR_DO_UNIVERSO")]})
+        self.assertEqual(p["TABELA"]["FONTES"], [])
+        t = [a for a in p["ACOES"] if a["LIVRO"] == "tabela"]
+        self.assertEqual([a["ACAO"] for a in t], ["SALTA"])
+        self.assertIn("D9", t[0]["PORQUE"])
+        # e a 2.a passagem, com o livro ja retirado, tambem nao a poe na tabela
+        with mock.patch.object(PK, "propostas", lambda: []):
+            p2 = PK.planear(copy.deepcopy(p["LIVRO"]), copy.deepcopy(p["TABELA"]), guardadas={}, capas=[],
+                            e_generico=lambda *a: None, m3={"LINHAS": []}, canario=can, peca=Peca,
+                            catalogo={"LINHAS": [self.linha(sid, "RETIRAR_DO_UNIVERSO")]})
+        self.assertEqual(p2["TABELA"]["FONTES"], [])
+        self.assertEqual([a for a in p2["ACOES"] if a["ACAO"] == "APLICA"], [])
+
+    def test_fora_da_d9_o_grupo_T_continua_fechado(self):
+        antes = self.base()
+        depois = copy.deepcopy(antes)
+        depois["FONTES"][0]["TERRITORY"] = "T7"
+        with self.assertRaisesRegex(PK.InvarianteQuebrado, "grupo T"):
+            PK.invariantes(antes, depois, {"FONTES": []}, {"FONTES": []}, {"IT-T12-902"})
+        PK.invariantes(antes, depois, {"FONTES": []}, {"FONTES": []}, {"IT-T12-901"})   # autorizada: passa
 
 
 if __name__ == "__main__":

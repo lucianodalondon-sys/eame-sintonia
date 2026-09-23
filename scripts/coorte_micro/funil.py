@@ -108,7 +108,8 @@ def carregar(snap: Path, livro: Path | None = None, tabela: Path | None = None) 
 
 
 def avaliar(sid: str, D: dict) -> dict:
-    u = MC.universo_de(sid)
+    # D9: a gaveta vem do CONTRATO (pode ter mudado por decisao); o SOURCE_ID e so identidade
+    u = (D["curador"].get(sid) or {}).get("TERRITORY") or MC.universo_de(sid)
     v = D["ultimo"].get(sid, {})
     l = D["linha"].get(sid, {})
     r = {"SOURCE_ID": sid, "UNIVERSO": u, "ESTADO_VIVO": v.get("NEW_STATE", "SEM_HISTORIA"),
@@ -177,8 +178,16 @@ def avaliar(sid: str, D: dict) -> dict:
         f8 = str((rot or {}).get("D8_FACTO_DE_MERCADO", "NAO_SEI"))
         r["D8"] = f8
         r["D"] = r["D"] and f8.startswith("YES")
-    # E — depois da D8 a marca deixa de cortar aqui (fica como anotacao)
-    r["E"] = True
+    # E — depois da D8 a marca deixa de cortar aqui (fica como anotacao).
+    # D9: fonte RETIRADA_POR_DECISAO nao entra; T12 fica fora da micro-coleta
+    # ate a regua T12 ter >= 20 exemplos distintos (D4/D9.6).
+    c = D["curador"].get(sid) or {}
+    if c.get("ESTADO_CATALOGO") == "RETIRADA_POR_DECISAO":
+        r["E"], r["E_PORQUE"] = False, "D9: RETIRADA_POR_DECISAO"
+    elif u == "T12":
+        r["E"], r["E_PORQUE"] = False, "D9.6: T12 fora da micro-coleta ate >= 20 exemplos"
+    else:
+        r["E"] = True
     # o primeiro degrau que falha
     r["PARA_EM"] = next((k for k in "ABCDE" if not r[k]), "PASSA")
     return r
