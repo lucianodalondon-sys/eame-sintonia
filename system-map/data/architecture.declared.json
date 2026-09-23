@@ -575,6 +575,30 @@
    ]
   },
   {
+   "id": "C-DETECTOR-CAPA-GABARITO",
+   "name": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Recolhe paginas reais (egresso IT medido por site, max 3 pedidos, robots da casa) para uma pasta de gabarito fora da Sala e do armazem; rotula-as com veredito humano-proposto; e mede em memoria o detector actual de curadoria/retrato_html.py contra propostas, com matriz de confusao. Nao altera o detector.",
+   "why_here": "A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/detector_capa/colher_gabarito.py",
+    "scripts/detector_capa/rotular_gabarito.py",
+    "scripts/detector_capa/medir_gabarito.py",
+    "scripts/detector_capa/GABARITO-CAPA-V1.json",
+    "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",
