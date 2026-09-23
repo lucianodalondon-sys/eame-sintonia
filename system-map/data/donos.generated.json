@@ -140,35 +140,39 @@
     "guarda/memoria_postgres.py",
     "guarda/preservar_documento.py",
     "medidas/coorte_da_micro_collection.py",
+    "medidas/relevancia_antes_da_coleta.py",
     "medidas/ultima_milha.py",
     "orquestrador/orquestrador.py",
-    "scripts/diagnostico_sala/ler_os_76.py",
-    "scripts/micro_coleta/micro_coleta.py"
+    "scripts/diagnostico_sala/ler_os_76.py"
    ],
-   "QUANTOS_LEEM": 15,
+   "QUANTOS_LEEM": 16,
    "INSTRUMENTOS_QUE_CITAM": 41,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ADMISSION",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "25 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "30 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/admissao.py",
     "admissao/sala_de_espera.py",
     "coleta/rota_forward_documento.py",
     "curadoria/baldes_das_candidatas.py",
+    "curadoria/cartao_de_fonte.py",
     "curadoria/ciclo_continuo.py",
     "curadoria/collection_gate.py",
     "curadoria/emparelhar_com_atlas.py",
     "curadoria/gate_de_rota.py",
+    "curadoria/medir_abastecimento_vivo.py",
     "curadoria/provar_lifecycle.py",
     "curadoria/ready_split.py",
     "curadoria/reconciliar_livros.py",
     "curadoria/red_team_lifecycle.py",
     "curadoria/semear_lifecycle.py",
+    "curadoria/telemetria_do_curador.py",
     "curadoria/test_discovery.py",
     "curadoria/test_reconciliar_livros.py",
+    "curadoria/test_telemetria.py",
     "curadoria/veredito_ready.py",
     "italia-portale/BASELINE/support.js",
     "italia-portale/audit/acceptance.mjs",
@@ -177,6 +181,7 @@
     "italia-portale/client/italy-pdf.js",
     "italia-portale/client/support.js",
     "leis/fundacao_da_coleta.py",
+    "medidas/relevancia_antes_da_coleta.py",
     "motor/v21_comercial.py",
     "superficie/rede.py"
    ],
@@ -194,7 +199,7 @@
     "coleta/executor_transcricao_midia.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 154,
+   "QUANTOS_LEEM": 164,
    "INSTRUMENTOS_QUE_CITAM": 196,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -228,7 +233,7 @@
     "guarda/banco_operacional.py",
     "italia-portale/client/system-map/map.js"
    ],
-   "QUANTOS_LEEM": 19,
+   "QUANTOS_LEEM": 20,
    "INSTRUMENTOS_QUE_CITAM": 104,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -298,7 +303,7 @@
   {
    "CONCEITO": "COST",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "11 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "12 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "coleta/coletor.py",
     "coleta/instagram_diario.py",
@@ -306,6 +311,7 @@
     "coleta/scrap_capacidades.py",
     "coleta/social_scrap.py",
     "coleta/youtube_oficial.py",
+    "curadoria/telemetria_do_curador.py",
     "italia-portale/client/italy-casa.js",
     "leis/artefato.py",
     "leis/autorizacao_de_gasto.py",
@@ -326,7 +332,7 @@
     "coleta/preservar_pdf.py",
     "coleta/scrap_colheita.py"
    ],
-   "QUANTOS_LEEM": 58,
+   "QUANTOS_LEEM": 60,
    "INSTRUMENTOS_QUE_CITAM": 46,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -349,7 +355,7 @@
     "coleta/scrap_fornecedores.py",
     "coleta/social_rotas.py"
    ],
-   "QUANTOS_LEEM": 78,
+   "QUANTOS_LEEM": 79,
    "INSTRUMENTOS_QUE_CITAM": 33,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -379,7 +385,7 @@
     "coleta/golden_path_pdf.py",
     "coleta/ingresso.py"
    ],
-   "QUANTOS_LEEM": 127,
+   "QUANTOS_LEEM": 131,
    "INSTRUMENTOS_QUE_CITAM": 101,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -430,9 +436,9 @@
     "coleta/youtube_janela.py",
     "coleta/youtube_oficial.py",
     "coleta/youtube_relevancia.py",
-    "ferramentas/fala_local.py"
+    "curadoria/telemetria_do_curador.py"
    ],
-   "QUANTOS_LEEM": 31,
+   "QUANTOS_LEEM": 32,
    "INSTRUMENTOS_QUE_CITAM": 21,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   }

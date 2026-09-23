@@ -432,7 +432,7 @@
    "views": [
     "infra"
    ],
-   "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade.",
+   "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel.",
    "why_here": "Juntar linhas sem medir primeiro troca uma tarde de censo por uma semana a desfazer. O script nao escreve objectos, refs nem indice: o conflito e medido com merge-file em temporarios fora do repo.",
    "departments": [
     "ENGENHARIA"
@@ -441,7 +441,11 @@
     "ferramentas/unificacao/censo_lanes.py",
     "ferramentas/unificacao/congelar_livros_do_servico.py",
     "ferramentas/unificacao/ensaio_unificacao.py",
-    "ferramentas/unificacao/resolver_conflitos.py"
+    "ferramentas/unificacao/medir_suite.py",
+    "ferramentas/unificacao/provar_em_copia.py",
+    "ferramentas/unificacao/resolver_conflitos.py",
+    "ferramentas/unificacao/unir_ledger.py",
+    "ferramentas/unificacao/unir_livros_do_servico.py"
    ]
   },
   {
