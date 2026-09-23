@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "desbloqueio-coorte-v1",
-    "HEAD": "335227ab0bd31645856bc8e3ad3f10af703128e8",
-    "GENERATED_AT": "2026-09-23T01:37:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cc5ee0799924f611a5282b5eeb69c27eb8371b0701fdb4b584a3449debffdbb5"
+    "HEAD": "181ecbb48a75f8277ff68e504d4ebc12ed485c10",
+    "GENERATED_AT": "2026-09-23T01:50:41-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e61c9002fa3b2d3a63163bc1fdd7d2cf16ddd1d55cf6c877c8a9ccf5f79b3e0d"
   },
   "FILES": [
     {
@@ -311,7 +311,7 @@
     },
     {
       "path": "RELATORIO-DESBLOQUEIO-COORTE.md",
-      "sha": "8538f5bcf035261177123bbaa49f8bc3772e5d66",
+      "sha": "5910ccfa7d0382bb103d38154d56ff6cc6d50711",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -430,7 +430,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "becbe4b332feeabb3e85552a5d076b88385fb89e",
+      "sha": "559e72dab00eb42728507589a808ed2856d6f740",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15172,7 +15172,7 @@
     },
     {
       "path": "scripts/coorte_micro/funil.py",
-      "sha": "a78b97ba95f030f5caf5f0664d059655703c893c",
+      "sha": "296f3c1ee9efa26d760141333f3c73e8b4a5b27e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15193,21 +15193,21 @@
     },
     {
       "path": "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
-      "sha": "e1bd7a118fe2ab4a0dd9385f4d20b7412c3ef89b",
+      "sha": "4e452cfc6ae8e4618d5adc52fd7ac5b6a35513c6",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "scripts/desbloqueio/LEDGER-ENSAIO-G1.jsonl",
-      "sha": "81beb6f08f6207752c469302d680e4fdacc2c25e",
+      "sha": "4064624dd771dabb974984d5c57c60471b0a4df1",
       "ext": ".jsonl",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "sha": "e3fdf270efe459ce794491e39eea5643329596d6",
+      "sha": "af28deafeb6299ad2009ec3b64279c12242e1dfb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16579,7 +16579,7 @@
     },
     {
       "path": "tests/test_aplicar_desbloqueio.py",
-      "sha": "15c5a39a6118fa623ddd3105bd00cdc754e00719",
+      "sha": "0173b9ab49fa4bd00a1caf84f1b20f89dbbbe38d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -52932,7 +52932,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/coorte_micro/funil.py",
-        "line": 195,
+        "line": 204,
         "snippet": "prop = json.loads((RAIZ / \"curadoria/PROPOSTA-RECEITAS-V1.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -52943,7 +52943,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/coorte_micro/funil.py",
-        "line": 208,
+        "line": 217,
         "snippet": "v2 = RAIZ / \"curadoria/PROPOSTA-RECEITAS-V2.json\""
       }
     },
@@ -53053,7 +53053,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 169,
+        "line": 208,
         "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
       }
     },
@@ -53064,7 +53064,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 169,
+        "line": 208,
         "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):"
       }
     },
@@ -53075,7 +53075,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 53,
+        "line": 67,
         "snippet": "MANIFESTOS = [HOME / \"detector-capa-gabarito\" / \"MANIFESTO.json\","
       }
     },
@@ -53086,7 +53086,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 192,
+        "line": 231,
         "snippet": "f = AQUI / \"CANARIO-DESBLOQUEIO-V1.json\""
       }
     },
@@ -53097,7 +53097,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 123,
+        "line": 137,
         "snippet": "g = _json(RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\")"
       }
     },

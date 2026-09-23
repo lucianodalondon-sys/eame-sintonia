@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T04:41:12+00:00",
-  "HEAD": "335227ab0bd31645856bc8e3ad3f10af703128e8",
+  "GENERATED_AT": "2026-09-23T04:53:44+00:00",
+  "HEAD": "181ecbb48a75f8277ff68e504d4ebc12ed485c10",
   "BRANCH": "desbloqueio-coorte-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "cc5ee0799924f611a5282b5eeb69c27eb8371b0701fdb4b584a3449debffdbb5",
+  "SOURCE_TREE_FINGERPRINT": "e61c9002fa3b2d3a63163bc1fdd7d2cf16ddd1d55cf6c877c8a9ccf5f79b3e0d",
   "FICHEIROS_NA_IMPRESSAO": 2696,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -3156,7 +3156,7 @@
    {
     "PATH": "scripts/coorte_micro/funil.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a78b97ba95f030f5caf5f0664d059655703c893c",
+    "VERSAO": "296f3c1ee9efa26d760141333f3c73e8b4a5b27e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3170,7 +3170,7 @@
    {
     "PATH": "scripts/desbloqueio/aplicar_desbloqueio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e3fdf270efe459ce794491e39eea5643329596d6",
+    "VERSAO": "af28deafeb6299ad2009ec3b64279c12242e1dfb",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3303,14 +3303,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cc5ee0799924f611a5282b5eeb69c27eb8371b0701fdb4b584a3449debffdbb5",
+    "VERSAO": "e61c9002fa3b2d3a63163bc1fdd7d2cf16ddd1d55cf6c877c8a9ccf5f79b3e0d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cc5ee0799924f611a5282b5eeb69c27eb8371b0701fdb4b584a3449debffdbb5",
+    "VERSAO": "e61c9002fa3b2d3a63163bc1fdd7d2cf16ddd1d55cf6c877c8a9ccf5f79b3e0d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3751,7 +3751,7 @@
    {
     "PATH": "tests/test_aplicar_desbloqueio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "15c5a39a6118fa623ddd3105bd00cdc754e00719",
+    "VERSAO": "0173b9ab49fa4bd00a1caf84f1b20f89dbbbe38d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5010,7 +5010,7 @@
    }
   ],
   "INPUTS_COUNT": 710,
-  "INPUTS_DIGEST": "9011afdfcedf51e8a86e32452140db85f48c4c184d210b3efe6a5340462e70ec",
+  "INPUTS_DIGEST": "f5118ad37f39f817992651742ded5a2feca898a75f7277a05ba0f89ed4cf3197",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5043,8 +5043,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c1a5e74e21f00ae2c25f3eb8c3753880dc793eb146426300a035006ecfdd1d2d",
-  "SEMANTIC_HASH": "557aba1066128b42617397215b379ea7c375f3a9d317cc280e11595f561f28fd"
+  "MEASUREMENT_HASH": "ccdfb2f862bef2c53f99b36f463d21d12438c077861cc5ee882cf328572610d9",
+  "SEMANTIC_HASH": "b8788f1b546c372841e4430ff5957893f7d0334ebeb9f87ab63eae3a5146d281"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -14350,7 +14350,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 169,
+      "LINHA": 208,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15158,7 +15158,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 53,
+      "LINHA": 67,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15166,7 +15166,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 123,
+      "LINHA": 137,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -30418,7 +30418,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/coorte_micro/funil.py",
-      "LINHA": 195,
+      "LINHA": 204,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-COORTE-MICRO-FUNIL",
@@ -30440,7 +30440,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 169,
+      "LINHA": 208,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",

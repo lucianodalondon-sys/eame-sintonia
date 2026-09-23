@@ -3142,9 +3142,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "desbloqueio-coorte-v1",
-    "HEAD": "335227ab0bd31645856bc8e3ad3f10af703128e8",
-    "GENERATED_AT": "2026-09-23T01:37:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cc5ee0799924f611a5282b5eeb69c27eb8371b0701fdb4b584a3449debffdbb5"
+    "HEAD": "181ecbb48a75f8277ff68e504d4ebc12ed485c10",
+    "GENERATED_AT": "2026-09-23T01:50:41-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e61c9002fa3b2d3a63163bc1fdd7d2cf16ddd1d55cf6c877c8a9ccf5f79b3e0d"
   },
   "FAMILIES": [
     {
@@ -21278,7 +21278,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "scripts/desbloqueio/aplicar_desbloqueio.py:169",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:208",
           "tests/test_funil_coorte.py:13"
         ],
         "PORQUE": "estas pecas importam-na — C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -22359,7 +22359,7 @@
           "coleta/social_scrap.py:775",
           "pacote/v21_handoff_json.py:106",
           "scripts/coorte_micro/funil.py:86",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:53"
+          "scripts/desbloqueio/aplicar_desbloqueio.py:67"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE · C-PACOTE-CAMADAS · C-RECEITAS-PROPOSTA · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -35581,8 +35581,8 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "scripts/coorte_micro/funil.py:195",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:169",
+          "scripts/coorte_micro/funil.py:204",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:208",
           "tests/test_aplicar_desbloqueio.py:33"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -59827,7 +59827,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 169,
+          "line": 208,
           "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -61164,7 +61164,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 53,
+          "line": 67,
           "snippet": "MANIFESTOS = [HOME / \"detector-capa-gabarito\" / \"MANIFESTO.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -61180,7 +61180,7 @@
         },
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 123,
+          "line": 137,
           "snippet": "g = _json(RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -88330,7 +88330,7 @@
       "evidence": [
         {
           "file": "scripts/coorte_micro/funil.py",
-          "line": 195,
+          "line": 204,
           "snippet": "prop = json.loads((RAIZ / \"curadoria/PROPOSTA-RECEITAS-V1.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-COORTE-MICRO-FUNIL",
@@ -88365,7 +88365,7 @@
       "evidence": [
         {
           "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 169,
+          "line": 208,
           "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
