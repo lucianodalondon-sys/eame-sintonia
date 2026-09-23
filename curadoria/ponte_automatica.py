@@ -124,6 +124,22 @@ def _ler_inteiro(caminho: Path, tentativas: int = TENTATIVAS_SNAPSHOT) -> tuple[
     raise LeituraInstavel("%s: %s" % (caminho.name, ultimo))
 
 
+def lane_separada(lane: Path) -> list[str]:
+    """Livros do bot que seriam os MESMOS ficheiros que a ponte escreve (vazio = pode).
+
+    ⚠️ O livro canonico da ponte vive onde o codigo corre (RAIZ): `LC.LIVRO`,
+    `R.EVIDENCIA_A`, `R.CONTRATOS_A`. Correr o observador DENTRO da pasta do
+    servico fazia do livro do bot o livro canonico: a reconciliacao lia-o como C
+    e gravava-o como A, com o bot a escrever no mesmo ficheiro. Medido no ensaio
+    X2 (23/09): por isso o observador corre numa pasta propria e aponta --lane
+    para o servico (cutover, passo 8)."""
+    cur = Path(lane) / "curadoria"
+    pares = (("LIFECYCLE-LEDGER-V1.json", LC.LIVRO),
+             ("LIFECYCLE-EVIDENCE-V1.json", R.EVIDENCIA_A),
+             ("italy_contracts_curator.json", R.CONTRATOS_A))
+    return [n for n, meu in pares if (cur / n).resolve() == Path(meu).resolve()]
+
+
 def snapshot_do_bot(lane: Path = LANE_DO_BOT) -> dict:
     """O livro, as provas e os contratos do bot, lidos do DISCO, inteiros.
 
@@ -284,6 +300,8 @@ def uma_volta(*, lane: Path = LANE_DO_BOT, forcar: bool = False) -> dict:
                            "DEPOIS": aplicado["LINHAS_DEPOIS"],
                            "APENDIDAS": aplicado["APENDIDAS"]},
         "PROVAS_IMPORTADAS": aplicado["EVIDENCIA"]["PROVAS_IMPORTADAS"],
+        "CONTRATOS_IMPORTADOS": aplicado["CONTRATOS"]["CONTRATOS_IMPORTADOS"],
+        "COLISOES_DE_DONO": len(aplicado["CONTRATOS"]["COLISOES_DE_DONO"]),
         "PORTAO": {
             "ELIGIBLE_ANTES": len(elegiveis_antes),
             "ELIGIBLE_DEPOIS": len(elegiveis_depois),
@@ -297,8 +315,11 @@ def uma_volta(*, lane: Path = LANE_DO_BOT, forcar: bool = False) -> dict:
     # volta atravessou e nao acrescentou uma linha. Somar isso a TRAVESSIAS
     # dava um contador que sobrestima, e um contador que sobrestima e um
     # contador que engana: alguem leria «3 travessias» onde houve 2.
+    # Uma prova ou um contrato que atravessou sem transicao nova tambem e
+    # noticia: e o que faz uma fonte parada em READY_LEGACY passar a regua.
     houve_noticia = bool(aplicado["APENDIDAS"] or r["PORTAO"]["ENTRARAM"]
-                         or r["PORTAO"]["SAIRAM"])
+                         or r["PORTAO"]["SAIRAM"] or r["PROVAS_IMPORTADAS"]
+                         or r["CONTRATOS_IMPORTADOS"])
     if houve_noticia:
         e["TRAVESSIAS"] = e.get("TRAVESSIAS", 0) + 1
         estado_gravado(e)
@@ -314,7 +335,7 @@ def servir(*, intervalo: int = INTERVALO_S, voltas: int | None = None,
            lane: Path = LANE_DO_BOT) -> int:
     """O ciclo. `voltas=None` corre para sempre."""
     anotar({"EVENTO": "ARRANQUE", "AT": agora(), "INTERVALO_S": intervalo,
-            "LANE_DO_BOT": str(lane), "PID": __import__("os").getpid()})
+            "LANE_DO_BOT": str(lane), "CASA": str(RAIZ), "PID": __import__("os").getpid()})
     n = 0
     espera = intervalo
     while voltas is None or n < voltas:
@@ -336,6 +357,8 @@ def main(argv=None) -> int:
     p.add_argument("--voltas", type=int, default=None)
     p.add_argument("--intervalo", type=int, default=INTERVALO_S)
     p.add_argument("--forcar", action="store_true", help="atravessa mesmo sem livro novo")
+    p.add_argument("--lane", type=Path, default=LANE_DO_BOT,
+                   help="a pasta do bot a observar (so leitura); nunca a pasta desta ponte")
     p.add_argument("--estado", action="store_true", help="so mostra o estado")
     p.add_argument("--saude", action="store_true",
                    help="esta a trabalhar, ou so existe? (sai 1 se parado)")
@@ -348,9 +371,15 @@ def main(argv=None) -> int:
     if a.estado:
         print(json.dumps(estado_lido(), ensure_ascii=False, indent=1))
         return 0
+    mesmos = lane_separada(a.lane)
+    if mesmos:
+        print(json.dumps({"ACCAO": "RECUSADO", "PORQUE": "LANE_E_A_CASA_DA_PONTE",
+                          "LANE": str(a.lane), "CASA": str(RAIZ), "MESMOS_FICHEIROS": mesmos},
+                         ensure_ascii=False, indent=1))
+        return 2
     if a.servir:
-        return servir(intervalo=a.intervalo, voltas=a.voltas)
-    r = uma_volta(forcar=a.forcar)
+        return servir(intervalo=a.intervalo, voltas=a.voltas, lane=a.lane)
+    r = uma_volta(lane=a.lane, forcar=a.forcar)
     print(json.dumps(r, ensure_ascii=False, indent=1))
     return 0 if r["ACCAO"] != "FALHA" else 1
 
