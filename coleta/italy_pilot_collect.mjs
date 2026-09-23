@@ -434,8 +434,12 @@ async function licenca(url) {
     rb = await robotsDaOrigem(u.origin);
     if (rb.recusado) return rb;
     // INDISPONIVEL nao fica em cache (a regra de scrap_http.permitido).
-    if (rb.estado !== "INDISPONIVEL") CORTESIA.robots.set(u.origin, rb);
-    if (rb.origemLida && !CORTESIA.robots.has(rb.origemLida)) CORTESIA.robots.set(rb.origemLida, rb);
+    // Guarda-se para a origem pedida E para a origem cujo ficheiro se leu no fim
+    // dos saltos (a mesma, quase sempre). Uma so instrucao, de proposito: duas
+    // linhas (uma por origem) cobriam-se uma a outra, e o red team (K8) mostrou
+    // que desligar a primeira nao mudava nada.
+    if (rb.estado !== "INDISPONIVEL")
+      for (const o of new Set([u.origin, rb.origemLida].filter(Boolean))) CORTESIA.robots.set(o, rb);
   }
   if (rb.estado === "INDISPONIVEL") return { recusado: "ROBOTS_INDISPONIVEL", porque: rb.porque };
   if (rb.estado === "ILEGIVEL") return { recusado: "ROBOTS_ILEGIVEL", porque: rb.porque };

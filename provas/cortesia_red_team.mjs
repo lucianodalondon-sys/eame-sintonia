@@ -52,11 +52,11 @@ const ATAQUES = [
     DE: `    const lic = await licenca(atual);`,
     PARA: `    const lic = salto > 0 && ${B} ? { host: new URL(atual).hostname, crawlDelay: null } : await licenca(atual);` },
   { ID: "K8", O_QUE: "o robots volta a ser lido a cada pedido (sem cache por corrida)",
-    DE: `    if (rb.estado !== "INDISPONIVEL") CORTESIA.robots.set(u.origin, rb);`,
-    PARA: `    if (rb.estado !== "INDISPONIVEL" && ${B} && false) CORTESIA.robots.set(u.origin, rb);` },
+    DE: `    if (rb.estado !== "INDISPONIVEL")`,
+    PARA: `    if (rb.estado !== "INDISPONIVEL" && ${B} && false)` },
   { ID: "K9", O_QUE: "INDISPONIVEL fica em cache (um soluco vira proibicao da corrida)",
-    DE: `    if (rb.estado !== "INDISPONIVEL") CORTESIA.robots.set(u.origin, rb);`,
-    PARA: `    if (${B}) CORTESIA.robots.set(u.origin, rb);` },
+    DE: `    if (rb.estado !== "INDISPONIVEL")`,
+    PARA: `    if (${B})` },
   { ID: "K10", O_QUE: "a materia recusada volta a contar como pedido e a ir ao livro",
     DE: `      if (r.recusado && !r.foiARede) {`,
     PARA: `      if (r.recusado && !r.foiARede && ${B} && false) {` },
@@ -81,8 +81,8 @@ const ATAQUES = [
     DE: `export const siteDe = host => String(host).toLowerCase().replace(/^www\\./, "");`,
     PARA: `export const siteDe = host => ${B} && String(host).toLowerCase();` },
   { ID: "K17", O_QUE: "o robots lido no fim de um salto deixa de servir a origem de destino",
-    DE: `    if (rb.origemLida && !CORTESIA.robots.has(rb.origemLida)) CORTESIA.robots.set(rb.origemLida, rb);`,
-    PARA: `    if (rb.origemLida && ${B} && false) CORTESIA.robots.set(rb.origemLida, rb);` },
+    DE: `new Set([u.origin, rb.origemLida].filter(Boolean))`,
+    PARA: `new Set([u.origin, ${B} && null].filter(Boolean))` },
 ];
 
 const pedidos = process.argv.slice(2);

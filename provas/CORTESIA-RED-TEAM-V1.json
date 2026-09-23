@@ -2,7 +2,7 @@
  "DATASET": "CORTESIA-RED-TEAM-V1",
  "ALVO": "coleta/italy_pilot_collect.mjs",
  "PROVA": "provas/cortesia_http_local.mjs",
- "SHA256_DO_ALVO": "8a1a6226650acf2c3725f3ddb655ac992a7caab6eaa831147bd0374e90dc1045",
+ "SHA256_DO_ALVO": "079112bddfe325ea529ac62a91c95f63d6d8f99aeb679241d292968197146967",
  "ATAQUES": [
   {
    "ID": "K1",
@@ -72,7 +72,8 @@
    "CODIGO": 1,
    "MORTO_POR": [
     "FALHA C10: o destino proibido pelo robots NUNCA e pedido",
-    "FALHA C10: o salto recusado a meio JA bateu a porta — fica como falha de transporte, com o porque"
+    "FALHA C10: o salto recusado a meio JA bateu a porta — fica como falha de transporte, com o porque",
+    "FALHA C13: www e sem-www sao UM site — o servidor recebe 5 pedidos, nao 5 + 5"
    ]
   },
   {
@@ -158,9 +159,28 @@
     "FALHA C1: a recusa e contada com o motivo, e NAO e observacao nem falha",
     "FALHA C2: a fonte fica UNKNOWN (nao se olhou), nao FAILED, e nada vai ao livro"
    ]
+  },
+  {
+   "ID": "K16",
+   "O_QUE": "www.site e site voltam a ser dois sites (o caso Villoresi: 6 pedidos)",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C13: www e sem-www sao UM site — o servidor recebe 5 pedidos, nao 5 + 5",
+    "FALHA C13: a pausa vale entre os dois nomes do mesmo site"
+   ]
+  },
+  {
+   "ID": "K17",
+   "O_QUE": "o robots lido no fim de um salto deixa de servir a origem de destino",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C13: o robots do destino e lido UMA vez (o salto do robots serve a origem de destino)"
+   ]
   }
  ],
- "MORTOS": 15,
- "TOTAL": 15,
+ "MORTOS": 17,
+ "TOTAL": 17,
  "RESTAURADO": true
 }
