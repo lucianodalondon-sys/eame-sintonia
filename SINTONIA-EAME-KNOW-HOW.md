@@ -19720,3 +19720,21 @@ que nenhum livro dizia:
   único controlo negativo que funciona.
 
     ROTA SEM CANÁRIO NÃO É ROTA — E ROTA COM CANÁRIO DE ONTEM É UMA MEMÓRIA.
+
+## 168-16 · SEM GABARITO NÃO HÁ RÉGUA — E ESCREVER A RÉGUA JÁ É LIGÁ-LA
+
+Missão 3c (2026-09-23). A porta não tinha pergunta para T2 nem T12, e a tentação
+era escrever as palavras e medir depois. Não se pode: `PERGUNTAS_DO_UNIVERSO` não
+tem modo «rascunho» — no instante em que a chave existe, `decidir()` usa-a.
+
+Medido antes de escrever uma palavra: em **todas** as bancadas do disco há **0**
+textos T12 e **14** T2 distintos, de 3 fontes de agrometeo, com **0** negativos. As
+dezenas de cópias eram os mesmos 8 PDFs da ARPAV. Um gabarito feito só disto
+mediria a régua contra boletins que qualquer palavra de clima aprova.
+
+E o catálogo primeiro mudou a pergunta: das 6 fontes T2/T12 que motivaram a
+missão, 2 não são agricultura (juventude e inovação da Lombardia) e 1 é duplicada.
+Uma régua T12 que as aprovasse seria um defeito; uma que as recusasse não
+aumentava a colheita em nada.
+
+    FALTA DE AMOSTRA NÃO SE COMPENSA COM CONFIANÇA NAS PALAVRAS.
