@@ -291,11 +291,29 @@ class OCaminhoCanonico(unittest.TestCase):
         self.assertTrue(reg.tem_caminho('INSTAGRAM', CAPACIDADE))
 
     def test_o_check_conhece_a_capacidade_da_matriz(self):
+        """O `CHECK` conhece a rota grossa — e agora diz também o que ela diz.
+
+        ⚠️ ESTA LINHA ERA `assertTrue(v['CAN'])` E DEIXOU DE SER VERDADE, por
+        decisão: a matriz recusa `INSTAGRAM/FETCH_TRANSCRIPT`
+        (`ROUTE_NOT_ALLOWED`) e o `CHECK` passou a consultá-la (SOC1). O que se
+        mede aqui é que ele CONHECE a capacidade grossa e fala a língua dela —
+        não que a porta esteja aberta. O caminho permitido é medido acima, com
+        a política injectada em memória, que é onde ele deve ser medido.
+        """
         v = scrap.CHECK('INSTAGRAM', CAPACIDADE)
-        self.assertTrue(v['CAN'])
         self.assertEqual(v['MATRIZ_CAPABILITY'], GROSSA)
+        self.assertEqual(v['MATRIZ_DECISAO'], mz.NAO_PERMITIDA)
+        self.assertFalse(v['CAN'])
+        self.assertEqual(mz.NAO_PERMITIDA, v['STATE'])
         self.assertEqual(v['ADAPTER'], 'adaptador_instagram')
         self.assertEqual(v['COST_TO_CHECK_USD'], 0.0)
+
+    def test_o_check_da_capacidade_permitida_continua_a_dizer_sim(self):
+        """A contraprova: com a lei a dizer sim, o portão abre."""
+        with _PoliticaPermissiva():
+            v = scrap.CHECK('INSTAGRAM', CAPACIDADE)
+        self.assertTrue(v['CAN'])
+        self.assertEqual('ALLOWED', v['MATRIZ_DECISAO'])
 
     def test_o_adaptador_pergunta_ao_dono_e_nao_a_uma_tabela_propria(self):
         arvore = ast.parse(_fonte('coleta/adaptador_instagram.py'))
@@ -556,11 +574,32 @@ class OPortaoNaoMudaOsOutrosContratos(unittest.TestCase):
             self.assertNotIn(palavra, fonte,
                              'o adaptador comecou a julgar: %s' % palavra)
 
-    def test_as_outras_duas_capacidades_de_reel_continuam_sem_nome_na_matriz(self):
-        # Traduzi-las tambem faria o registo nomear uma rota que nao e a delas,
-        # e um trace que nomeia a rota errada mente com precisao de relojoeiro.
-        self.assertIsNone(cap.da_matriz('instagram.reel.capture'))
-        self.assertIsNone(cap.da_matriz('instagram.reel.audio'))
+    def test_as_outras_duas_capacidades_de_reel_declaram_o_MESMO_acto(self):
+        """⚠️ ESTE TESTE DIZIA `assertIsNone(...)`, E A LEI MUDOU — por medição.
+
+        Ele existia para impedir que o registo nomeasse uma rota que não é a
+        delas. O que se mediu depois (SOC1, 2026-09-23) foi o preço do `None`:
+        sem rota grossa, a matriz não pode ser PERGUNTADA, e o `CHECK` respondia
+        `CAN_COLLECT_NOW` às duas enquanto a matriz recusava o acto delas.
+
+            UM PORTAO QUE NAO PODE PERGUNTAR A LEI RESPONDE SOZINHO — E ERRA.
+
+        E os três nomes não são três rotas: o próprio adaptador escreve que são
+        três nomes do MESMO acto, e na língua da matriz esse acto é
+        `FETCH_TRANSCRIPT`. O que continua a valer do teste original é a
+        preocupação com o trace — e ela vive agora em `DONO_DA_GROSSA`, onde
+        está declarado que quem responde pela rota grossa é a capacidade que a
+        ATRAVESSA (a que tem `rota`), e não as outras duas.
+        """
+        for c in ('instagram.reel.capture', 'instagram.reel.audio',
+                  'instagram.reel.transcribe'):
+            self.assertEqual(GROSSA, cap.da_matriz(c))
+        self.assertEqual('instagram.reel.transcribe',
+                         cap.pela_matriz('INSTAGRAM', GROSSA),
+                         'quem responde pela rota grossa tem de ser quem a '
+                         'atravessa; a ordem do dicionario nao decide isto')
+        self.assertEqual('instagram.reel.transcribe',
+                         cap.DONO_DA_GROSSA[('INSTAGRAM', GROSSA)])
 
     def test_mas_elas_tambem_batem_no_portao(self):
         with _PoliticaNegativa(), _SemRede() as rede:

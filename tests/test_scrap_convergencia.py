@@ -283,7 +283,22 @@ class T8Reels(unittest.TestCase):
         # porta que o roteador abre depois de medir a politica. Pinar `executa`
         # aqui seria exigir a porta de servico em nome de alcancar a cadeia.
         self.assertTrue(reg.tem_caminho('INSTAGRAM', 'instagram.reel.transcribe'))
-        self.assertTrue(scrap.CHECK('INSTAGRAM', 'instagram.reel.transcribe')['CAN'])
+        # ⚠️ ESTA LINHA DIZIA `assertTrue(...['CAN'])`, E DEIXOU DE SER VERDADE
+        # — por decisão, não por regressão. O caminho CONTINUA montado (a linha
+        # de cima prova-o), e quem recusa a rota hoje é a MATRIZ:
+        #
+        #     mz.decisao('INSTAGRAM','FETCH_TRANSCRIPT') -> ROUTE_NOT_ALLOWED
+        #
+        # O `CHECK` passou a consultá-la (SOC1), e o dono decidiu (D19) que o
+        # Instagram permanece POLICY_BLOCK até existir a conta Business do
+        # PROJETO. Uma capability CONSTRUÍDA e uma capability PERMITIDA são
+        # duas coisas, e este teste passou a medir as duas separadamente.
+        #
+        #     CONSTRUÍDA != LIGADA != PERMITIDA.
+        v = scrap.CHECK('INSTAGRAM', 'instagram.reel.transcribe')
+        self.assertFalse(v['CAN'])
+        self.assertEqual('ROUTE_NOT_ALLOWED', v['STATE'])
+        self.assertEqual('ROUTE_NOT_ALLOWED', v['MATRIZ_DECISAO'])
 
     def test_a_cadeia_continua_a_ser_o_modulo_especializado(self):
         import reel_transcricao as rt
