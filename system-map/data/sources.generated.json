@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T12:12:25+00:00",
-    "HEAD": "f5c4947317b522f7711e4e199fe51d39b7654a0a",
+    "GENERATED_AT": "2026-09-23T14:42:45+00:00",
+    "HEAD": "fb4e62599ce47d15639fd859c1bb428203eae46e",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "3050c192480570f95c015106060c255a77ec0ab7b73d57cd491aadb2dac63633",
-    "FICHEIROS_NA_IMPRESSAO": 2841,
+    "SOURCE_TREE_FINGERPRINT": "1ee915d33c0e4424acec7004f27db3502fcacec485db16db7b7419eaad2892df",
+    "FICHEIROS_NA_IMPRESSAO": 2848,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -20876,6 +20876,20 @@
   ],
   "MEMORIA_DA_COLETA": [
     {
+      "ficheiro": "coleta/adaptador_linkedin.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "DESCARTAD",
+        "RECUSAD"
+      ]
+    },
+    {
       "ficheiro": "coleta/adaptador_youtube.py",
       "como_se_chama": "",
       "carimba_data": [
@@ -23167,7 +23181,7 @@
       "usado_por": [
         {
           "file": "coleta/adaptador_linkedin.py",
-          "line": 753
+          "line": 761
         },
         {
           "file": "curadoria/descobrir.py",
@@ -23180,6 +23194,18 @@
         {
           "file": "curadoria/test_ponte_cadeia.py",
           "line": 142
+        },
+        {
+          "file": "provas/_diag_canario_d23.py",
+          "line": 22
+        },
+        {
+          "file": "provas/_diag_canario_d23_b.py",
+          "line": 25
+        },
+        {
+          "file": "provas/canario_d23_linkedin_video.py",
+          "line": 60
         },
         {
           "file": "provas/censo_executavel_da_v1.py",
@@ -23195,7 +23221,7 @@
         },
         {
           "file": "tests/test_linkedin_build_01_local_first.py",
-          "line": 339
+          "line": 379
         },
         {
           "file": "tests/test_linkedin_op_01_operacional.py",
@@ -24014,9 +24040,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 589,
+  "ENDPOINTS_FOUND": 590,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 549,
+  "ENDPOINTS_TRUNCATED": 550,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -24034,15 +24060,15 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 589,
+    "endpoints": 590,
     "endpoints_published": 40,
-    "endpoints_truncated": 549,
+    "endpoints_truncated": 550,
     "candidates": 476,
-    "coletores": 53,
+    "coletores": 54,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,
     "coletores_que_separam_fonte_do_fato": 21,
-    "coletores_que_registam_descarte": 19,
+    "coletores_que_registam_descarte": 20,
     "corridas_registadas": 108,
     "observacoes_registadas": 521,
     "fontes_ja_coletadas": 4,

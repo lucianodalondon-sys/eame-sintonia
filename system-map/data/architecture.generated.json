@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "scrap-portas-v1",
-    "HEAD": "f5c4947317b522f7711e4e199fe51d39b7654a0a",
-    "GENERATED_AT": "2026-09-23T08:57:25-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3050c192480570f95c015106060c255a77ec0ab7b73d57cd491aadb2dac63633"
+    "BRANCH": "scrap-linkedin-v1",
+    "HEAD": "fb4e62599ce47d15639fd859c1bb428203eae46e",
+    "GENERATED_AT": "2026-09-23T11:35:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1ee915d33c0e4424acec7004f27db3502fcacec485db16db7b7419eaad2892df"
   },
   "FILES": [
     {
@@ -122,7 +122,7 @@
     },
     {
       "path": ".github/workflows/sintonia-scrap.yml",
-      "sha": "4b05820c3e810ca92e49b3e2deedc5f1fc57b0d4",
+      "sha": "747edc8fa7dac63137ec4e79643ebd851b3b421f",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -542,7 +542,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "55258a89627324baa8142a9d4b52e6eba9a99c5c",
+      "sha": "918125a3496a88379ce96533bcaf58dd2bd8aaa4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1522,7 +1522,7 @@
     },
     {
       "path": "coleta/adaptador_linkedin.py",
-      "sha": "2540dc04833655e7b9ad060547e89d057c12ee3b",
+      "sha": "443c30194edc886210d3bf0afe4e2f13aba56c76",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1823,14 +1823,14 @@
     },
     {
       "path": "coleta/scrap_capacidades.py",
-      "sha": "78df1d20718802361a7529bde87d1aee1d215c39",
+      "sha": "b350a4f49bf9f1637213117b2c3f6e3a3d065c71",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "coleta/scrap_colheita.py",
-      "sha": "f485a1a58e8770142804967e593c5dc18f16ce4b",
+      "sha": "e03299538186f752c0237f75128cf1b177072ec9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1851,7 +1851,7 @@
     },
     {
       "path": "coleta/scrap_http.py",
-      "sha": "b6f0ebd8b2ebfb0180156e7ea888470923a95fd0",
+      "sha": "8135ba85982820ad6bbe16ff1e1ece89287db037",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5427,6 +5427,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/CANARIO-LINKEDIN-D23-V1.json",
+      "sha": "3291ab8079836fa76fa01aefa84d4ed46ff2c7f9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
       "sha": "8f2a02f6509ba740e3cc10f4a472ff65eaf3828c",
       "ext": ".json",
@@ -8593,6 +8600,20 @@
     {
       "path": "data/samples/SOCIAL-IT/raw-free/LINKEDIN/identidade-https---imagelinenetwork.com__9e40b34272e2139f.txt",
       "sha": "549d2e7854c688cebb68374171f5e8abdccb1916",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7488216289828753409__729cc597cc25ab27.txt",
+      "sha": "3e5a070e20d4a5a4e73d0ad08009e6630d5d51ba",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7490681050906439680__3fa4d7dc1dfd8eed.txt",
+      "sha": "f72ff276878a6255c5f030bc14a24246ae046bba",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -12925,7 +12946,7 @@
     },
     {
       "path": "leis/social_matriz.py",
-      "sha": "9417ccb2949c2f10739330fbbe961eac5d7fe271",
+      "sha": "52883c037f0405194e4e0338a3dee4a1dfc4be97",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13828,7 +13849,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "953c32c65c053ef85959f1878cc293bc3eb71aa8",
+      "sha": "6f00da380cd2404530213d4764ecc3fb4b8d30e8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13943,6 +13964,20 @@
       "sha": "29b5a9ab328c592959d3a356152dd20dc7a5a367",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_diag_canario_d23.py",
+      "sha": "3b8cd0795a8bb9eb016da0b7e35f3edcb490db40",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_diag_canario_d23_b.py",
+      "sha": "022a0061b9ed7ff2e04e546bfb69d706c4a295fe",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -14256,6 +14291,13 @@
     {
       "path": "provas/bluesky_trial_ao_vivo.py",
       "sha": "9c29d83ffa8fefd662c69c23fbfdd3c4fbf70b56",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_d23_linkedin_video.py",
+      "sha": "f33fee53414045e85e9569ce54996fcc00e6fb02",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16852,7 +16894,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0674fcc3b76ad94829694e53b758232efc951ee1",
+      "sha": "a7a8cb0e49540c1ac5a4dab601862beb44bec307",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17769,7 +17811,7 @@
     },
     {
       "path": "tests/test_c13_route_gate.py",
-      "sha": "fe5e7ffa248337cad9694d80e6b6ed7d7161f068",
+      "sha": "62699b8665011a9b746b135a5a39eb1dfc26829e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17783,7 +17825,7 @@
     },
     {
       "path": "tests/test_c14c_permissao_instagram.py",
-      "sha": "c3610f7fdfce0db9e5ffa9c7055462366d64d982",
+      "sha": "a064b4548aead5fcdc737b094ad550ea24977d10",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18224,14 +18266,14 @@
     },
     {
       "path": "tests/test_linkedin_build_01_local_first.py",
-      "sha": "7488d2bc05740fe7f7bf09d19130baabfbb104e9",
+      "sha": "574dfddb984985306a7486379d316800e2f20dbf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "tests/test_linkedin_op_01_operacional.py",
-      "sha": "b7ca42d4e6ba03bdf6b29b59c2b529bc7318f0e2",
+      "sha": "ebcbb6acfe4d87e80589408e87d9ef96917bd872",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19616,7 +19658,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 469,
+        "line": 484,
         "snippet": "PYTHONIOENCODING=utf-8 $PY admissao/sala_de_espera.py --portao"
       }
     },
@@ -19627,7 +19669,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 282,
+        "line": 297,
         "snippet": "coleta/coletor.py; do"
       }
     },
@@ -19638,7 +19680,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 276,
+        "line": 291,
         "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\"
       }
     },
@@ -19649,7 +19691,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 277,
+        "line": 292,
         "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\"
       }
     },
@@ -19660,7 +19702,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 276,
+        "line": 291,
         "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\"
       }
     },
@@ -19671,7 +19713,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 277,
+        "line": 292,
         "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\"
       }
     },
@@ -19682,7 +19724,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 281,
+        "line": 296,
         "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\"
       }
     },
@@ -19693,7 +19735,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 281,
+        "line": 296,
         "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\"
       }
     },
@@ -19704,7 +19746,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 279,
+        "line": 294,
         "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\"
       }
     },
@@ -19715,7 +19757,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 280,
+        "line": 295,
         "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\"
       }
     },
@@ -19726,7 +19768,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 291,
+        "line": 306,
         "snippet": "if [ ! -f data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json ]; then"
       }
     },
@@ -19737,7 +19779,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 367,
+        "line": 382,
         "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
       }
     },
@@ -19748,7 +19790,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 278,
+        "line": 293,
         "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\"
       }
     },
@@ -19759,7 +19801,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 279,
+        "line": 294,
         "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\"
       }
     },
@@ -19770,7 +19812,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 278,
+        "line": 293,
         "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\"
       }
     },
@@ -19781,7 +19823,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 280,
+        "line": 295,
         "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\"
       }
     },
@@ -19792,7 +19834,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 439,
+        "line": 454,
         "snippet": "PATH=\"$PGBIN:$PATH\" bash motor/cadeia_canonica.sh migrations '<DSN-REDIGIDA>'"
       }
     },
@@ -19803,7 +19845,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 598,
+        "line": 613,
         "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \\"
       }
     },
@@ -19814,7 +19856,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 481,
+        "line": 496,
         "snippet": "PYTHONIOENCODING=utf-8 $PY superficie/rede.py --portao-de-egresso IT"
       }
     },
@@ -20870,7 +20912,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_linkedin.py",
-        "line": 106,
+        "line": 108,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -20881,7 +20923,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_linkedin.py",
-        "line": 109,
+        "line": 111,
         "snippet": "import scrap_http as http  # noqa: E402"
       }
     },
@@ -20892,7 +20934,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_linkedin.py",
-        "line": 107,
+        "line": 109,
         "snippet": "import scrap_registo as reg  # noqa: E402"
       }
     },
@@ -20903,7 +20945,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_linkedin.py",
-        "line": 108,
+        "line": 110,
         "snippet": "import social_envelope as env  # noqa: E402"
       }
     },
@@ -20914,8 +20956,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_linkedin.py",
-        "line": 562,
+        "line": 570,
         "snippet": "import social_matriz as mz"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_linkedin.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_linkedin.py",
+        "line": 117,
+        "snippet": "import proveniencia as pv  # noqa: E402"
       }
     },
     {
@@ -22652,7 +22705,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_capacidades.py",
-        "line": 321,
+        "line": 358,
         "snippet": "'docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md',"
       }
     },
@@ -22762,7 +22815,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_colheita.py",
-        "line": 476,
+        "line": 512,
         "snippet": "import contratos_de_fonte as cf                            # noqa: PLC0415"
       }
     },
@@ -37656,7 +37709,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 570,
+        "line": 604,
         "snippet": "'scripts/instagram_janela.py'),"
       }
     },
@@ -37667,7 +37720,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 653,
+        "line": 687,
         "snippet": "'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),"
       }
     },
@@ -37678,7 +37731,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 397,
+        "line": 431,
         "snippet": "'docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md'),"
       }
     },
@@ -37689,7 +37742,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 426,
+        "line": 460,
         "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md',"
       }
     },
@@ -44652,7 +44705,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 612,
+        "line": 637,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -44663,7 +44716,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 608,
+        "line": 633,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -44674,7 +44727,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 610,
+        "line": 635,
         "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
       }
     },
@@ -44696,7 +44749,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 606,
+        "line": 631,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -45094,6 +45147,171 @@
         "file": "provas/_c106c_filho.py",
         "line": 75,
         "snippet": "import youtube_oficial as yt"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23.py",
+        "line": 14,
+        "snippet": "import _gavetas  # noqa: F401"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23.py",
+      "to_file": "coleta/adaptador_linkedin.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23.py",
+        "line": 17,
+        "snippet": "import adaptador_linkedin as al"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23.py",
+        "line": 18,
+        "snippet": "import ingresso as ing"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23.py",
+        "line": 48,
+        "snippet": "import scrap_colheita as SC"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23.py",
+        "line": 16,
+        "snippet": "import scrap_http as http"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23.py",
+        "line": 19,
+        "snippet": "import artefato as art"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23.py",
+        "line": 20,
+        "snippet": "import proveniencia as pv"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23_b.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23_b.py",
+        "line": 15,
+        "snippet": "import _gavetas  # noqa: F401"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23_b.py",
+      "to_file": "coleta/adaptador_linkedin.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23_b.py",
+        "line": 18,
+        "snippet": "import adaptador_linkedin as al"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23_b.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23_b.py",
+        "line": 19,
+        "snippet": "import ingresso as ing"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23_b.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23_b.py",
+        "line": 20,
+        "snippet": "import scrap_colheita as SC"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23_b.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23_b.py",
+        "line": 17,
+        "snippet": "import scrap_http as http"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23_b.py",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23_b.py",
+        "line": 23,
+        "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23_b.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23_b.py",
+        "line": 22,
+        "snippet": "from guarda.preservar_coleta import ArmazemLocal"
+      }
+    },
+    {
+      "from_file": "provas/_diag_canario_d23_b.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_diag_canario_d23_b.py",
+        "line": 21,
+        "snippet": "import artefato as art"
       }
     },
     {
@@ -48658,6 +48876,116 @@
         "file": "provas/bluesky_trial_ao_vivo.py",
         "line": 289,
         "snippet": "nome = '_c108a_ensaio_a_seco.json' if A_SECO else '_c108a_ultima_corrida.json'"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 48,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 303,
+        "snippet": "import admissao as adm                                      # noqa: F401"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "coleta/adaptador_linkedin.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 234,
+        "snippet": "import adaptador_linkedin as al"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 52,
+        "snippet": "import ingresso as ing                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 50,
+        "snippet": "import scrap_colheita as SC            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 99,
+        "snippet": "cmd = [sys.executable, os.path.join(RAIZ, 'coleta', 'scrap_colheita.py'),"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 51,
+        "snippet": "import scrap_http as http              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "data/samples/CANARIO-LINKEDIN-D23-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 68,
+        "snippet": "SAIDA = os.path.join(RAIZ, 'data', 'samples', 'CANARIO-LINKEDIN-D23-V1.json')"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 54,
+        "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/canario_d23_linkedin_video.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d23_linkedin_video.py",
+        "line": 53,
+        "snippet": "from guarda.preservar_coleta import ArmazemLocal  # noqa: E402"
       }
     },
     {
@@ -65948,7 +66276,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c13_route_gate.py",
-        "line": 128,
+        "line": 153,
         "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md')"
       }
     },
@@ -66080,7 +66408,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c14c_permissao_instagram.py",
-        "line": 212,
+        "line": 237,
         "snippet": "import scrap_registo as SR"
       }
     },
@@ -70931,7 +71259,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_linkedin_build_01_local_first.py",
-        "line": 473,
+        "line": 520,
         "snippet": "arvore = ast.parse(open(caminho, encoding='utf-8').read())"
       }
     },
@@ -71052,7 +71380,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_linkedin_op_01_operacional.py",
-        "line": 377,
+        "line": 392,
         "snippet": "for ficheiro in ('coleta/scrap_colheita.py', 'pedido/receitas.py',"
       }
     },
@@ -71162,7 +71490,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_linkedin_op_01_operacional.py",
-        "line": 378,
+        "line": 393,
         "snippet": "'orquestrador/orquestrador.py'):"
       }
     },
@@ -71173,7 +71501,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_linkedin_op_01_operacional.py",
-        "line": 377,
+        "line": 392,
         "snippet": "for ficheiro in ('coleta/scrap_colheita.py', 'pedido/receitas.py',"
       }
     },
@@ -78253,10 +78581,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2693,
-    "files_readable": 1231,
-    "files_code_dir": 1040,
-    "file_edges": 5348,
+    "files_tracked": 2699,
+    "files_readable": 1234,
+    "files_code_dir": 1043,
+    "file_edges": 5374,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
