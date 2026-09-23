@@ -198,6 +198,20 @@ def ficheiros_de_teste() -> list[Path]:
     return sorted(p for p in AQUI.glob("test_*.py") if p.name != Path(__file__).name)
 
 
+def _redireciona_por_tabela(texto: str, rotulo: str) -> bool:
+    """A outra forma de redirecionar (SOC2/SOC3, UNIFICACAO-V1-F): uma tabela
+    `{(W, "PULSO"): "pulso.json", ...}` percorrida com `setattr(mod, attr, ...)`.
+    Aceita-se SO com as duas coisas no ficheiro: a entrada `(X, "Y")` para o
+    rotulo pedido e um `setattr(` que a aplica. Tirar a entrada da tabela volta
+    a reprovar (mutacao provada na unificacao)."""
+    m = re.match(r"(\w+)\.(\w+) =", rotulo)
+    if not m or "setattr(" not in texto:
+        return False
+    modulos = {"S": ("S", "SUP")}.get(m.group(1), (m.group(1),))
+    return any(re.search(r"\(\s*%s\s*,\s*[\"']%s[\"']\s*\)" % (mod, m.group(2)), texto)
+               for mod in modulos)
+
+
 def faltas_de(p: Path) -> list[str]:
     texto = p.read_text(encoding="utf-8", errors="replace")
     faltas = []
@@ -207,7 +221,7 @@ def faltas_de(p: Path) -> list[str]:
             continue
         disparou = True
         for rotulo, padrao in exigencias:
-            if not padrao.search(texto):
+            if not padrao.search(texto) and not _redireciona_por_tabela(texto, rotulo):
                 faltas.append("%s: falta `%s` (%s)" % (p.name, rotulo, nome))
     if disparou and not USA_PASTA_DESCARTAVEL.search(texto):
         faltas.append("%s: toca em estado e nao usa TemporaryDirectory" % p.name)

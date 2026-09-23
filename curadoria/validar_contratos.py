@@ -32,7 +32,9 @@ TABELA = RAIZ / "curadoria" / "italy_contracts_curator.json"
 
 # o motor de rota so conhece estas; inventar uma terceira seria criar um
 # segundo motor, e um segundo motor diverge
-STRATEGIES = {"HTML_LINK_DISCOVERY", "STATIC_ENDPOINT", "YOUTUBE_CHANNEL_FEED"}
+STRATEGIES = {"HTML_LINK_DISCOVERY", "STATIC_ENDPOINT", "YOUTUBE_CHANNEL_FEED",
+              # SOC2: o contrato nomeia uma fase do Scrap; a rota e a do Scrap.
+              "SCRAP_FASE"}
 OUTPUTS = {"HTML", "PDF", "VIDEO_METADATA"}
 ROTAS = {"DISCOVERED_ROUTE", "STATIC_ROUTE", "APPLICATION_ROUTE"}
 
@@ -85,6 +87,13 @@ def route_resolved(c: dict) -> tuple[bool, str]:
         if ch not in (aq.get("FEED_URL") or ""):
             return False, "FEED_URL nao aponta para o CHANNEL_ID"
         return True, "feed publico do canal"
+    if st == "SCRAP_FASE":
+        # A rota nao se valida aqui: le-se no Scrap, que e o dono dela. Se o
+        # Scrap deixar de a declarar (ou a matriz deixar de a permitir), o
+        # contrato reprova ANTES de chegar a fila — sem rede, sem gasto.
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+        import rota_do_scrap_youtube as RSY
+        return RSY.conferir(aq)
     return False, "estrategia nao coberta"
 
 
