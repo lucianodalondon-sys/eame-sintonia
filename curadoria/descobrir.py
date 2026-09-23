@@ -1277,6 +1277,27 @@ def _inferir_tipo_crawl(url: str, anchor: str) -> tuple[str, str]:
     return tipo, nome
 
 
+# ---------------------------------------------------------------- pais (S4)
+# ⚠️ O LUGAR NUNCA SE PRESUME. Ate 23/09 o crawl registava toda candidata com
+# PAIS=IT porque a tinha visto num site italiano: FAO, INRAE, CIMMYT, Benaki,
+# CropLife, EBIC. O pais vem agora do que o ENDERECO prova, sem pedido a rede:
+# um dominio de pais (ccTLD) diz onde o nome foi registado; um dominio
+# generico (.com, .org, .net...) nao prova lugar nenhum -> NAO SEI.
+_PAIS_POR_CCTLD = {"it": "IT", "fr": "FR", "es": "ES", "pt": "PT", "de": "DE",
+                   "pl": "PL", "eu": "EU"}
+
+
+def pais_pela_prova(url: str) -> tuple[str, str]:
+    """(PAIS, PAIS_PROVA). Nunca IT por omissao."""
+    host = (urllib.parse.urlparse(url).hostname or "").lower().rstrip(".")
+    tld = host.rsplit(".", 1)[-1] if "." in host else ""
+    if tld in _PAIS_POR_CCTLD:
+        return _PAIS_POR_CCTLD[tld], "ccTLD .%s" % tld
+    if len(tld) == 2 and tld.isalpha():
+        return "OUTRO", "ccTLD .%s (pais fora do vocabulario)" % tld
+    return "NAO SEI", "dominio generico .%s nao prova lugar" % (tld or "?")
+
+
 def _checar_sem_circularidade(discovered_from: str, url_candidato: str) -> None:
     """Garante invariante PROVENIENCIA_CIRCULAR = 0.
 
@@ -1377,6 +1398,61 @@ def _sementes_de_segunda_geracao(caminho: Path | None = None) -> list[dict]:
     return out
 
 
+# ---------------------------------------------------------------- travao S4
+# ⚠️ REGISTADO != RASTEJADO (C1) ABRIU A PORTA; ESTE TRAVAO ESCOLHE QUEM ENTRA.
+# Medido em 23/09 na copia dos livros do servico: 210 sementes tematicas livres,
+# e 190 eram PAGINAS INTERNAS de organizacoes ja conhecidas (noticias da ARPAE,
+# organograma da ASSAM, «chi siamo» da FederUnacoma, a loja da Terra e Vita).
+# E sherwood.it — a Radio Sherwood, registada por engano como revista florestal
+# — gerou 14 candidatas de streaming, podcast e pre-venda de festival.
+#
+#     UMA SEMENTE E UMA ORGANIZACAO A EXPLORAR, NAO UMA PAGINA.
+#
+# So para a 2.a geracao; as sementes do catalogo nao mudam. A regra de tema
+# (_classificar_semente), o orcamento, o tecto e o robots continuam iguais.
+_ENTRADA = re.compile(
+    r"^((it|en)/?)?((home|home-page|homepage|index\.(php|html?|asp)|portal)/?)?$", re.I)
+
+
+def _e_entrada(url: str) -> bool:
+    """A raiz do site, ou a sua pagina de entrada (home/index), sem query."""
+    p = urllib.parse.urlparse(url)
+    if p.query:
+        return False
+    return bool(_ENTRADA.match((p.path or "").strip("/")))
+
+
+def _host_da_chave(chave: str) -> str:
+    """Host de uma chave normalizada (sem esquema e sem www)."""
+    return re.split(r"[/?#]", chave, maxsplit=1)[0]
+
+
+def _hosts_ja_semeados(visitados: dict) -> set[str]:
+    """Organizacoes (hosts) cuja entrada ja foi rastejada ou recusada como semente."""
+    hosts = {_host_da_chave(k) for k, r in visitados.get("VISITADOS", {}).items()
+             if r.get("MOTIVO") == "SEMENTE_PROCESSADA"}
+    hosts |= {_host_da_chave(k) for k, r in visitados.get("REJEITADOS", {}).items()
+              if str(r.get("MOTIVO", "")).startswith(("ROBOTS_BLOCKED_SEMENTE",
+                                                      "FETCH_FAILED_"))}
+    return hosts
+
+
+def _travao_de_semente(s2: dict, visitados: dict, hosts: set[str]) -> str | None:
+    """Motivo para NAO usar esta candidata como semente, ou None."""
+    try:
+        import decisao_semantica as DS
+        cat = DS.nao_serve_de_semente(s2.get("CANDIDATA_ID") or "")
+    except Exception:
+        cat = None
+    if cat:
+        return "DECISAO_SEMANTICA_" + cat
+    if not _e_entrada(s2["URL"]):
+        return "PAGINA_INTERNA"
+    if _host_da_chave(normalizar(s2["URL"])) in hosts:
+        return "ORGANIZACAO_JA_SEMEADA"
+    return None
+
+
 def crawl_sementes(
     orcamento: "Orcamento",
     conhecidos: set[str],
@@ -1395,10 +1471,21 @@ def crawl_sementes(
     Devolve (registados, estatisticas).
     """
     todas_sementes = _extrair_sementes_legitimas()
-    # 2.a geracao: so acrescenta o que a MESMA regra ja classifica TEMATICA.
+    # 2.a geracao: so acrescenta o que a MESMA regra ja classifica TEMATICA,
+    # e so o que passa no travao (entrada de organizacao nova, nao lixo).
+    hosts_semeados = _hosts_ja_semeados(visitados)
+    travadas: Counter = Counter()
     for s2 in _sementes_de_segunda_geracao():
-        if normalizar(s2["URL"]) not in {normalizar(x) for x in todas_sementes}:
-            todas_sementes.append(s2["URL"])
+        if normalizar(s2["URL"]) in {normalizar(x) for x in todas_sementes}:
+            continue
+        if _semente_ja_gasta(normalizar(s2["URL"]), visitados):
+            todas_sementes.append(s2["URL"])      # sai adiante como gasta
+            continue
+        motivo_travao = _travao_de_semente(s2, visitados, hosts_semeados)
+        if motivo_travao:
+            travadas[motivo_travao] += 1
+            continue
+        todas_sementes.append(s2["URL"])
     sementes_a_usar = [
         s for s in todas_sementes
         if not _semente_ja_gasta(normalizar(s), visitados)
@@ -1408,6 +1495,7 @@ def crawl_sementes(
     stats: dict = {
         "SEMENTES_DISPONIVEIS": len(todas_sementes),
         "SEMENTES_A_USAR": len(sementes_a_usar),
+        "SEMENTES_TRAVADAS": dict(travadas),
         "SEMENTES_TEMATICAS_USADAS": 0,
         "SEMENTES_GENERICAS_RECUSADAS": 0,
         "SEMENTES_USADAS": 0,
@@ -1526,19 +1614,21 @@ def crawl_sementes(
                 continue
 
             tipo, nome = _inferir_tipo_crawl(url_lnk, anchor)
+            pais, pais_prova = pais_pela_prova(url_lnk)
             para_que = (anchor.strip() or
                         ("link encontrado em %s" % urllib.parse.urlparse(semente).netloc))
             nota = (
                 "DISCOVERED_FROM=%s | DISCOVERY_METHOD=CRAWL_LINK | "
                 "DISCOVERED_AT=%s | ANCHOR_TEXT=%s | DISCOVERED_HTTP=%d"
+                " | PAIS_PROVA=%s"
                 % (discovered_from,
                    datetime.now(timezone.utc).isoformat(),
-                   (anchor or "")[:100], http_code)
+                   (anchor or "")[:100], http_code, pais_prova)
             )
 
             try:
                 linha = registar(
-                    tipo=tipo, pais="IT",
+                    tipo=tipo, pais=pais,
                     nome=(nome or urllib.parse.urlparse(url_lnk).netloc)[:200],
                     url=url_lnk,
                     para_que=para_que[:500],

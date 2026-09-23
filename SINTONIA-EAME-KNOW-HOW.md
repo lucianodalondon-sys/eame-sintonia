@@ -20318,6 +20318,40 @@ referência é 21,7 % (21/09). A árvore cresce: cada candidata TEMÁTICA vira s
 custo por corrida está travado (15 sementes, 250 pedidos); a fila de sementes pode
 crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
 
+---
+
+# UM LEITOR A OLHAR NÃO É UM ESCRITOR A MAIS — E NÃO CONSEGUI PERGUNTAR NÃO É «NÃO EXISTE»
+
+*Missão 2e (fila-windows-v1), 23/09/2026. Prova: `curadoria/FILA-WINDOWS-PROOF-V1.json`,
+`curadoria/ensaiar_fila_windows.py`, `curadoria/test_fila_windows.py`.*
+
+**Os dois defeitos, vistos no 1.º lote real depois da C1, reproduzidos em cópia.**
+
+1. **`os.replace` perde para um leitor, no Windows.** A escrita atómica da casa (temporário,
+   `fsync`, `os.replace`) está certa no POSIX; no Windows a troca falha com `WinError 5`
+   enquanto outro processo tem o destino aberto. Leitores legítimos da fila: supervisor,
+   painel, telemetria, verificadores. Medido: 5 leitores a cada 100 ms fazem 287 de 2.000
+   trocas falharem; o worker morria a meio de `F.concluir` e deixava a tarefa IN_PROGRESS.
+   Cura: `fila._com_paciencia` — esperar (0,02 → 1,6 s) e tentar outra vez; esgotado o
+   teto, o erro sobe. Com a cura: 2.000 de 2.000. **O padrão da escrita atómica da casa não
+   tinha esta parte; quem o reutilizar no Windows precisa dela.**
+2. **O erro da pergunta lia-se como resposta.** `_pid_no_so` devolvia False («morto») em
+   qualquer excepção do `tasklist` — timeout (~1 s em repouso, teto 5 s) ou `UnicodeDecodeError`
+   da saída em cp850. O supervisor terminou um worker com heartbeat de 16 s. Agora a
+   resposta tem três valores e **NÃO SEI nunca é morte**; o filho próprio responde-se com
+   `proc.poll()`, sem perguntar a ninguém; o trinco do supervisor com NÃO SEI é válido
+   (lido como órfão deixaria arrancar um segundo supervisor).
+
+**O que se aprendeu.**
+
+- **Uma cura plausível que não mede nada é código a mais.** Abrir a leitura com
+  `FILE_SHARE_DELETE` parecia a cura da causa; medido em 5.000 leituras, não mudou nada
+  (0 vs 1 erro). O mutante que a removia sobreviveu, e a lição da casa decidiu: remover.
+- **Um mutante que parte a sintaxe não é um mutante morto.** O primeiro ataque à leitura
+  deixou um parêntese a mais; nenhum teste correu. Provar a execução (o módulo mutado
+  importa) é parte da prova.
+- **No ensaio, a produção reproduziu o defeito tal qual**: 149/150, 1 órfã, 1 morte RC=1 por
+  `PermissionError`, 240 s parados. O novo: 150/150, 20 s, 0 falsos pendurados, 1 worker.
 
 # § (sem número) · A PEÇA EXISTIA E NÃO ESTAVA LIGADA — E LIGÁ-LA FABRICAVA TERRITÓRIO
 
@@ -20370,3 +20404,135 @@ Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
   lê regra nenhuma e trata como «tudo permitido».
 - `robots_de` tenta duas vezes, com esperas de 25 e 45 s, quando o robots não responde.
   Numa medição de 105 sites, é isso que domina o tempo.
+
+
+# § (sem número) · UMA DECISÃO SEM PROVA É UMA OPINIÃO — O CANAL DA DECISÃO SEMÂNTICA
+
+**O QUE FALTAVA.** O QUALIFY bloqueia em SEMANTIC quando nem o nome nem o endereço dizem o
+território, e a mensagem sempre disse «precisa de decisão semântica (Opus/humano)». Mas não
+havia por onde essa decisão entrar no circuito. O CSV de `candidatas/` decide outra coisa
+(promover ou recusar) e o QUALIFY não o lê. Quem decidisse teria de escrever no livro à mão.
+
+**O CANAL.** `curadoria/decisao_semantica.py` lê `curadoria/DECISOES-SEMANTICAS-V1.json`.
+O QUALIFY consulta-o só quando o nome dá NÃO SEI, antes do BLOCK, e nunca por cima de um
+território que a regra do nome já decidiu. Uma decisão só vale com:
+- a URL da candidata, um território de T1 a T12 e `DECIDIDO_POR`;
+- ≥1 prova do que a organização É (INSTITUCIONAL ou LEI);
+- ≥2 provas do que ela PUBLICA (CONTEUDO);
+- cada prova com URL e sha256 **distintos**.
+
+Sem isso, a decisão é ignorada e a fonte continua bloqueada. `NAO SEI` com motivo fica
+registado e continua bloqueado. A proveniência (quem decidiu, porquê, cada prova) viaja até
+`TERRITORY_REASON` na alocação do SOURCE_ID.
+
+**BYTES IGUAIS SÃO UMA PROVA SÓ.** Medido em 23/09: em 4 sites (Veneto Agricoltura, Laimburg,
+Wine Monitor, Agrifood Monitor), três URLs diferentes devolveram os mesmos bytes, uma casca de
+JavaScript sem conteúdo. A primeira versão do canal só comparava URLs e teria aceitado três
+endereços com zero leitura.
+
+**A DECISÃO (Opus, 23/09, 105 candidatas).** 12 com território e prova; 93 NÃO SEI.
+Das 93: 29 nem são fonte (Spotify, WhatsApp, login da Microsoft, Firefox, formulários de
+acessibilidade: o crawler recolheu rodapés), 7 são páginas internas do MASAF, 19 são
+instituições sem relação agrícola evidente, e as restantes têm motivo próprio (casca JS,
+404/502, robots, identidade trocada, possível número duplicado, listagem sem item). Egresso
+IT medido antes de cada site (129/129); no máximo 3 pedidos por site, mais 1 de segunda
+leitura em 5 sites.
+
+**CONTROLO.** Das 6 que a S1 decidiu pela amostra, as ≥4 erradas foram corrigidas:
+Presidenza → NÃO SEI, `lombardianotizie` → NÃO SEI, Sherwood → NÃO SEI (a URL é a Radio
+Sherwood, não a revista florestal), «Frutta nelle scuole» → T12. SNPA passou de T8 a T2.
+Segunda leitura com outro item, 5 sorteadas (semente 20260923): 3 concordam, 2 inconclusivas
+(404 e redirecionamento para a home), 0 discordam.
+
+**ARMADILHAS.**
+- O robots da Rete Rurale traz `Visit-time: 0100-0300`. O `urllib.robotparser` ignora essa
+  linha: quem só perguntar «posso?» visita fora da janela.
+- Resumo de busca não é prova. A prova são os bytes lidos pela nossa saída, com sha256.
+- O ensaio correu `W.executar_uma` sobre cópias. A função da fila
+  `recuperar_bloqueadas_por_defeito(["territorio indeterminado"], {QUALIFY})` reabre as
+  bloqueadas: 12 saíram, as outras 151 voltaram a BLOCKED com a mesma mensagem, e nenhuma
+  tarefa fora do alvo mudou.
+
+
+# § (sem número) · REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO — E O LUGAR NÃO SE PRESUME
+
+**O VAZAMENTO.** Correr as suítes numa worktree mudava a `curadoria/LIFECYCLE-QUEUE-V1.json`
+dessa worktree: a IT-T7-050 passava de WAITING_RETRY a IN_PROGRESS, e numa das vezes ficou
+um `tmpwc_7s330.tmp` de 303 KB com a fila inteira dentro. O culpado era
+`test_supervisor.TestUmaVoltaSup` (`test_relanca_com_trabalho`, `test_vivo_quando_worker_ativo`).
+O teste redirecionava `F.FILA` para um ficheiro temporário, mas `uma_volta_sup` lança o worker
+VERDADEIRO (`ciclo_continuo.py`) como outro processo, e esse processo lê a fila do disco.
+Sozinho parecia limpo: é uma corrida. O filho só chegava a escrever com a máquina já «quente»,
+depois de `test_fila_windows` ou de `test_worker_pendurado`. Numa worktree de serviço, isto é
+escrever na fila viva e mandar um canário à rede.
+
+    REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO.
+
+**O CONSERTO (só nos testes).** Os `setUp` de `test_supervisor`, `test_fila_windows` e
+`test_worker_pendurado` embrulham `S._lancar_worker`: o lançador continua o verdadeiro, e o
+filho passa a ser um `sleep` inofensivo, salvo quando o teste dá o `cmd`.
+`test_gatilho_ocioso` já trocava o `Popen` e fica como estava.
+
+**A GUARDA.** `test_livros_reais_intactos` corre as combinações medidas num processo à parte
+e compara o md5 dos livros reais antes e depois. Também procura `.tmp` soltos. Se algo mudou,
+repõe os bytes e reprova, dizendo o quê. Exige ver «Ran N tests», porque «limpo» sem testes é
+verde vazio. Salta se houver `SUPERVISOR.lock` (árvore de serviço vivo). O mutante que desfaz
+o conserto no `test_supervisor` foi executado (bandeira) e a guarda reprovou apontando
+`LIFECYCLE-QUEUE-V1.json`.
+
+**UM VERDE VAZIO QUE QUASE PASSOU.** A primeira medição depois do conserto disse «limpo» 9
+vezes. O meu bloco tinha a indentação errada, o `test_supervisor` nem importava, e nenhum
+teste correu. Só se viu porque a linha «Ran N tests» veio vazia.
+
+**O LUGAR NÃO SE PRESUME.** O discovery regista toda candidata com `PAIS=IT` quando a vê num
+site italiano: CropLife, EBIC, Fertilizers Europe, FAO, CIMMYT, INRAE, Benaki. E o QUALIFY
+escrevia «IT-» fixo no número: a CropLife recebia IT-T12-135. Agora a decisão semântica exige
+`PAIS` vindo da prova (ISO2, EU ou INT). Com `PAIS` diferente de IT, a fonte fica
+BLOCK SEMANTIC com o motivo «território decidido fora de IT», e a numeração EU/INT do Atlas
+fica para o dono. A ficha errada nasce em `descobrir.py`, que esta missão não tocou.
+
+**A SEMENTE ERRADA.** Com a C1, toda candidata temática em análise vira semente. A
+«Sherwood — Foreste ed Alberi Oggi» apontava para `sherwood.it`, que é a Radio Sherwood, e o
+crawl dela trouxe 14 candidatas de streaming, podcast e pré-venda de festival. Uma identidade
+trocada numa candidata propaga-se a toda a sua descendência.
+
+
+# § (sem número) · UMA SEMENTE É UMA ORGANIZAÇÃO, NÃO UMA PÁGINA — E O PAÍS VEM DO ENDEREÇO
+
+**O EFEITO COLATERAL DA C1.** «Registado ≠ rastejado» fez de toda candidata temática em
+análise uma semente. Medido em 23/09 na cópia dos livros do serviço: 210 sementes temáticas
+livres, e 190 eram páginas internas de organizações já conhecidas (notícias da ARPAE,
+organograma e «privacy» da ASSAM, «chi siamo» da FederUnacoma, a loja da Terra e Vita). E a
+`sherwood.it` (uma rádio registada por engano como revista florestal) gerou 14 candidatas-lixo.
+
+**O TRAVÃO (só a 2.ª geração; o catálogo não muda).** Uma candidata não vira semente se:
+- a decisão semântica dela é NÃO SEI com `CATEGORIA` em IDENTIDADE_TROCADA, NAO_E_FONTE,
+  PAGINA_DE_OUTRA_FONTE ou SEMENTE_ERRADA (campo novo em `DECISOES-SEMANTICAS-V1.json`;
+  PROVA_INSUFICIENTE não trava, porque falta de prova não é prova de lixo);
+- o endereço não é a entrada da organização (raiz ou `home`/`index`, sem query);
+- o host já foi explorado ou recusado como semente.
+
+Na cópia: 201 travadas (159 internas, 7 de organização já semeada, 35 pela decisão), e ficam
+9 de 2.ª geração, todas raízes de subdomínios novos. Hosts perdidos: 3, todos serviços
+(`albo.`, `prenotaservizi.`, `service.`). As «boas» (Coldiretti, Nomisma, UIV, FederUnacoma,
+Unaitalia, Terra e Vita) já estavam em SEMENTE_PROCESSADA e não mudam. Resíduo que o travão
+não vê: `webmail.arpalazio.it` e `sportelloimprese.arpalombardia.it` são raízes de host sem
+decisão semântica.
+
+**O PAÍS.** `crawl_sementes` registava `pais="IT"` fixo. Agora usa `pais_pela_prova(url)`:
+- ccTLD do vocabulário → esse país;
+- outro ccTLD → OUTRO;
+- domínio genérico (.com, .org, .net) → NAO SEI, novo no vocabulário fechado de
+  `candidatas/fonte_nova.py`.
+
+`PAIS_PROVA=...` vai na nota. A FAO fica NAO SEI: `.org` não prova lugar, e ninguém inventa
+«INT» pelo nome. `corrigir_pais_das_candidatas.py` revê só as candidatas do crawl (o catálogo
+foi declarado à mão). Na cópia: 809 candidatas, 538 do crawl, 75 mudam (62 → NAO SEI, 7 → EU,
+5 → OUTRO, 1 → FR), 463 ficam IT com prova `.it`, 0 sem proveniência. Ninguém filtra
+candidatas por PAIS=IT (medido: capturador, worker e ordenação só leem), e o `SOURCE_LOCATION`
+da admissão vem do item, não da candidata.
+
+**ARMADILHA DE MUTAÇÃO.** Um mutante com âncora numa linha de continuação (dentro de um
+`frozenset({...})` partido) não executa: o script de mutação recusa ou quebra a sintaxe.
+«Reprovou 0» com «NÃO EXECUTOU» não é sobrevivente. Refazer com a âncora no início da
+expressão.

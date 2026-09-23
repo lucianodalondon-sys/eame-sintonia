@@ -43,6 +43,8 @@ class _Isolado(unittest.TestCase):
         S.ESTADO = t / "estado.json"
         self.addCleanup(setattr, S, "PULSO", S.PULSO)  # o pulso lido e batimento: nunca o real
         S.PULSO = t / "WORKER-HEARTBEAT.json"
+        self.addCleanup(setattr, S, "WORKER_LOG", S.WORKER_LOG)  # o log do worker real: nunca o da arvore
+        S.WORKER_LOG = t / "WORKER-STDOUT.log"
         S.DIARIO = C.DIARIO = t / "diario.ndjson"
         S.PARAR = C.PARAR = t / "PARAR.flag"
         F.FILA.write_text(json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}),

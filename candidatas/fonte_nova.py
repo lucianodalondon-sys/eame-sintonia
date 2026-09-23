@@ -87,7 +87,10 @@ TIPOS = {
     "IMPRENSA": "Veiculo de imprensa, boletim, newsletter setorial.",
     "OUTRO": "Nao encaixa em nenhuma das anteriores. Explique em PARA_QUE.",
 }
-PAISES = {"EU", "FR", "ES", "IT", "PT", "DE", "PL", "OUTRO"}
+# «NAO SEI» (23/09): o discovery escrevia PAIS=IT em tudo o que via num site
+# italiano — FAO, INRAE, CropLife. O lugar nunca se presume: quem nao tem prova
+# de pais regista NAO SEI, e o motivo vai na NOTA (PAIS_PROVA=...).
+PAISES = {"EU", "FR", "ES", "IT", "PT", "DE", "PL", "OUTRO", "NAO SEI"}
 
 
 def normalizar(url: str) -> str:

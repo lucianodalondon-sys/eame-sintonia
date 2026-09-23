@@ -30,6 +30,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -80,13 +81,46 @@ def _parse(s: str) -> datetime:
     return datetime.fromisoformat(s)
 
 
+# ⚠️ NO WINDOWS, UM LEITOR TRAVA O ESCRITOR. os.replace sobre um ficheiro que
+# outro processo tem aberto (Python abre sem FILE_SHARE_DELETE) falha com
+# PermissionError [WinError 5]. Visto ao vivo (M2e, 04:37Z): o worker 129352
+# morreu RC=1 dentro de F.concluir, com a tarefa executada e a fila a
+# dize-la IN_PROGRESS. Medido: com um leitor em ciclo, 371 de 500 trocas
+# falharam. Os leitores sao legitimos (supervisor, painel, telemetria,
+# verificadores) e seguram o ficheiro milissegundos.
+#
+# Cura: esperar e tentar outra vez, com teto; esgotado o teto, o erro SOBE —
+# a escrita nunca se perde em silencio. REPLACE_RETRIES conta quantas vezes
+# isto aconteceu neste processo.
+#
+# Medido e descartado: abrir a leitura com FILE_SHARE_DELETE (CreateFileW) nao
+# muda nada mensuravel — 5000 leituras contra um escritor em ciclo: 0 vs 1 erro,
+# 5 vs 6 esperas do escritor. O os.replace do Windows recusa na mesma. O
+# remedio e a espera, nao a partilha.
+#
+#     UM LEITOR A OLHAR NAO E UM ESCRITOR A MAIS: ESPERA-SE POR ELE.
+ESPERAS_PERMISSAO_S = (0.02, 0.05, 0.1, 0.2, 0.4, 0.8, 1.6)
+REPLACE_RETRIES = {"GRAVAR": 0, "LER": 0}
+
+
+def _com_paciencia(accao, contador: str):
+    for espera in ESPERAS_PERMISSAO_S:
+        try:
+            return accao()
+        except PermissionError:
+            REPLACE_RETRIES[contador] += 1
+            time.sleep(espera)
+    return accao()            # ultima tentativa: se falhar, o erro sobe
+
+
 def _ler() -> dict:
     if not FILA.exists():
         return {"DATASET": "LIFECYCLE-QUEUE-V1", "CONTRATO": CONTRATO,
                 "LEI": ("fila duravel. Um 429 adia UMA tarefa, nunca a fila. "
                         "O worker nunca dorme a espera de uma fonte."),
                 "PROXIMO_ID": 1, "TAREFAS": []}
-    return json.loads(FILA.read_text(encoding="utf-8"))
+    return json.loads(_com_paciencia(lambda: FILA.read_text(encoding="utf-8"),
+                                     "LER"))
 
 
 def _gravar(d: dict) -> None:
@@ -97,7 +131,7 @@ def _gravar(d: dict) -> None:
             json.dump(d, fh, ensure_ascii=False, indent=1)
             fh.flush()
             os.fsync(fh.fileno())
-        os.replace(tmp, FILA)
+        _com_paciencia(lambda: os.replace(tmp, FILA), "GRAVAR")
     except BaseException:
         if os.path.exists(tmp):
             os.unlink(tmp)
