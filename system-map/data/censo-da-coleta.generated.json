@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-22T23:48:41+00:00",
-    "HEAD": "220412641ff714f980ece9a5ba55c3a9e2c67f84",
+    "GENERATED_AT": "2026-09-23T00:50:49+00:00",
+    "HEAD": "0f24ef30a9331d1d7a61495387c17019847879b1",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "eae17bf29c5cd4e6325d445bdb869be2b1b555d31fa9b867b398f5474111416e",
-    "FICHEIROS_NA_IMPRESSAO": 2617,
+    "SOURCE_TREE_FINGERPRINT": "0e03a5cf95c909fe17c6e4ec90841efd9e68a94c2cc70c1796076a9ca3ed848f",
+    "FICHEIROS_NA_IMPRESSAO": 2620,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -620,6 +620,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/unificacao/censo_lanes.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "7911424ac316bd6f5e2b506c3d4b48edb163211f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/youtube_transcrever.py",
         "PAPEL": "FONTE",
         "VERSAO": "7bd25e8262b71709e587d7541735d2bee0ae1418",
@@ -977,8 +984,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 138,
-    "INPUTS_DIGEST": "4002b8610b14a46811d7fd15c380b0fc04ea7271e3ca5ca7937b1f56eb4d70e6",
+    "INPUTS_COUNT": 139,
+    "INPUTS_DIGEST": "77809ddaeb2ecdae9d04b937e81a06bc93f16a8d84b69ccf4f72cad2b3167bf1",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1653,6 +1660,22 @@
         "coleta/social_scrap.py",
         "ferramentas/instagram_transcrever.py"
       ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/censo_lanes.py",
+      "gaveta": "ferramentas",
+      "linhas": 170,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -3895,12 +3918,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 138,
-    "pontos_de_entrada": 95,
+    "ficheiros_de_codigo": 139,
+    "pontos_de_entrada": 96,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 49,
+    "sem_chamador_e_fora_do_ci": 50,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 73,
+    "escrevem_ficheiro": 74,
     "deitam_fora_alguma_coisa": 40,
     "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 4,
@@ -3934,6 +3957,7 @@
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/reel_transcricao.py",
+      "ferramentas/unificacao/censo_lanes.py",
       "ferramentas/youtube_transcrever.py",
       "coleta/agrifood_ue.py",
       "coleta/coleta_checkpoint.py",
@@ -4046,6 +4070,7 @@
       "ferramentas/html_text.mjs",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/unificacao/censo_lanes.py",
       "coleta/adaptador_aberto.py",
       "coleta/adaptador_facebook.py",
       "coleta/adaptador_linkedin.py",

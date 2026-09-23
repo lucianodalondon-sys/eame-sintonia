@@ -23,6 +23,7 @@
       "HANDOFF-V2-PAUSE.json",
       "HANDOFF-V2-PAUSE.md",
       "MISSAO-CANDIDATE-FEEDER-V1.md",
+      "PLANO-UNIFICACAO.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
@@ -1378,6 +1379,8 @@
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/reel_transcricao.py",
+      "ferramentas/unificacao/censo-2026-09-22.json",
+      "ferramentas/unificacao/censo_lanes.py",
       "ferramentas/youtube_transcrever.py"
     ],
     "fontes": [
@@ -3062,10 +3065,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "ponte-curador-v1",
-    "HEAD": "220412641ff714f980ece9a5ba55c3a9e2c67f84",
-    "GENERATED_AT": "2026-09-22T20:47:57-03:00",
-    "SOURCE_TREE_FINGERPRINT": "eae17bf29c5cd4e6325d445bdb869be2b1b555d31fa9b867b398f5474111416e"
+    "BRANCH": "unificacao-plano-v1",
+    "HEAD": "0f24ef30a9331d1d7a61495387c17019847879b1",
+    "GENERATED_AT": "2026-09-22T21:50:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0e03a5cf95c909fe17c6e4ec90841efd9e68a94c2cc70c1796076a9ca3ed848f"
   },
   "FAMILIES": [
     {
@@ -3093,7 +3096,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 81
+      "count": 82
     },
     {
       "id": "F-ESPERA",
@@ -3288,7 +3291,7 @@
       "y": 190,
       "w": 405,
       "h": 8412,
-      "count": 4
+      "count": 5
     },
     {
       "id": "Z-ACOES",
@@ -19650,6 +19653,90 @@
       "y": 1326
     },
     {
+      "id": "C-CENSO-UNIFICACAO",
+      "name": "Censo das lanes antes de unificar",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade.",
+      "why_here": "Juntar linhas sem medir primeiro troca uma tarde de censo por uma semana a desfazer. O script nao escreve objectos, refs nem indice: o conflito e medido com merge-file em temporarios fora do repo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/unificacao/censo_lanes.py"
+      ],
+      "file_count": 1,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "LANES",
+          "ORDEM"
+        ],
+        "palavras": 17,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 17,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6000,
+      "y": 682
+    },
+    {
       "id": "C-CI-COLETA",
       "name": "Os botoes que disparam a coleta",
       "territory": "Z-ENTRADA",
@@ -27294,7 +27381,7 @@
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 6000,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-LUGAR-COLETA",
@@ -28647,7 +28734,7 @@
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
       "x": 6000,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-ORQUESTRADOR",
@@ -40749,7 +40836,7 @@
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
       "x": 6000,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-V2-LEGADO",
@@ -42528,7 +42615,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch ponte-curador-v1"
+        "branch unificacao-plano-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -102306,7 +102393,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1400,
+  "UNCLAIMED_FILES_COUNT": 1402,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102470,7 +102557,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 199,
+      "PECAS_EM_DESACORDO": 200,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -102482,25 +102569,25 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 224
+      "TOTAL_DE_PECAS": 225
     }
   ],
   "COUNTS": {
-    "components": 224,
+    "components": 225,
     "components_proven": 31,
     "components_pending": 184,
     "components_broken": 0,
-    "components_unknown": 9,
+    "components_unknown": 10,
     "edges": 1150,
     "edges_proven": 1086,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2469,
-    "files_covered": 1069,
+    "files_tracked": 2472,
+    "files_covered": 1070,
     "files_code_unclaimed": 0,
     "roles_proven": 153,
     "roles_declared_only": 9,
-    "roles_unknown": 62,
+    "roles_unknown": 63,
     "roles_conflict": 30,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 10,

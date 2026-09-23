@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  220412641ff714f980ece9a5ba55c3a9e2c67f84
-BRANCH           ponte-curador-v1
-GERADO_EM        2026-09-22T20:47:57-03:00
-CARDS            81
+HEAD_DA_MEDICAO  0f24ef30a9331d1d7a61495387c17019847879b1
+BRANCH           unificacao-plano-v1
+GERADO_EM        2026-09-22T21:50:07-03:00
+CARDS            82
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -759,6 +759,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 12 · NÃO SEI 4 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
+
+### `C-CENSO-UNIFICACAO` · Censo das lanes antes de unificar
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/unificacao/censo_lanes.py` |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA |
+| **status operacional** | gray — ⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 0 |
+| **arestas provadas** | entram 0 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** |  |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
 
 ### `C-LEITORES` · Abrir PDF, ODS e HTML
 
@@ -2086,7 +2111,7 @@ UNKNOWN            21
 SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
 TERMINAL           4
+ORPHAN             2
 ALVO_SEM_ESCRITOR_MEDIDO 2
-ORPHAN             1
-TOTAL              81
+TOTAL              82
 ```
