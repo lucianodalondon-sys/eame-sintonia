@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  181ecbb48a75f8277ff68e504d4ebc12ed485c10
+HEAD_DA_MEDICAO  bdeb562cb64f9da1b34be976bacb0b7bc7119ca5
 BRANCH           desbloqueio-coorte-v1
-GERADO_EM        2026-09-23T01:50:41-03:00
+GERADO_EM        2026-09-23T02:00:28-03:00
 CARDS            87
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
