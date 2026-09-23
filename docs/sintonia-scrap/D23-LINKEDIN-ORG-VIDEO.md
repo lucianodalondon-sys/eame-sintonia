@@ -4,6 +4,22 @@
 (`149.22.91.171` · AS212238 · Palermo) · sem conta, sem login, sem cookie de
 sessão, sem navegador e **sem rota paga**.
 
+**O EGRESSO — AS DUAS METADES, E SÓ UMA FOI MEDIDA.**
+
+| ROTA | IP OBSERVADO | ESTADO |
+|---|---|---|
+| VPN italiana desta máquina (datacenter) | `149.22.91.171` · AS212238 · Datacamp Ltd, Palermo IT | **MEDIDA E SERVE** — 200 na página da organização, sem login e sem cookie; é por aqui que saíram os 2 MP4 e as 2 legendas |
+| Sem VPN (IP residencial do Brasil) | — | **NÃO MEDIDA** |
+
+A segunda linha está assim de propósito. Medir a rota sem VPN exige **derrubar a
+VPN desta máquina**, que é a mesma que a outra sessão do Scrap (os Reels, na
+bancada `scrap-portas-v1`) está a usar — uma acção de máquina, com efeito no
+trabalho de outra bancada, que esta missão não tem autorização para tomar
+sozinha. Fica como **decisão por tomar**, com o que se sabe: nesta casa a regra
+já está escrita noutra fonte — *«a fonte pode responder de outro modo a partir
+de um IP não italiano, e isso não foi medido»* — e por isso a rota residencial
+não passa a valer por omissão.
+
 **DECISÃO DO DONO:** **D23** — `C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md`.
 O dono REAL autorizou, por escrito e com o risco assumido, a aquisição de
 **vídeo** (e da legenda que vem com ele) de páginas de **ORGANIZAÇÕES** no
