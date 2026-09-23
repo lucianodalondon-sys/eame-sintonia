@@ -93,6 +93,14 @@ class TestUmaVoltaSup(unittest.TestCase):
         F.FILA = self._tmp / "fila.json"
         F.FILA.write_text(json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}),
                           encoding="utf-8")
+        # ⚠️ O WORKER E OUTRO PROCESSO: le a fila REAL do disco, nao este F.FILA.
+        # Medido em 23/09: com o lancador verdadeiro, o worker filho pegava a
+        # IT-T7-050 da fila real (WAITING_RETRY -> IN_PROGRESS) durante a suite.
+        # O lancador continua o verdadeiro; so o filho e inofensivo, salvo cmd explicito.
+        _lancar_real = S._lancar_worker
+        S._lancar_worker = lambda pausa=1.0, cmd=None: _lancar_real(
+            pausa, cmd=cmd or [sys.executable, "-c", "import time; time.sleep(30)"])
+        self.addCleanup(setattr, S, "_lancar_worker", _lancar_real)
 
     def tearDown(self):
         S.PARAR.unlink(missing_ok=True)
