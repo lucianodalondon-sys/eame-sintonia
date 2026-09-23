@@ -613,18 +613,20 @@ def escrever_lista() -> dict:
     por_familia: dict[str, int] = {}
     linhas = []
     fam_p1b = {}
-    if PROOF_P1B.exists():
-        for e in json.loads(PROOF_P1B.read_text(encoding="utf-8"))["LOG"]:
+    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1B-*PROOF-V1.json")):
+        for e in json.loads(prova.read_text(encoding="utf-8"))["LOG"]:
             fam_p1b[normalizar(e["url"])] = e["familia"]
     for c in sorted(cands, key=lambda c: c["CANDIDATA_ID"]):
         fam = fam_p1b.get(normalizar(c["URL"])) or familia_de(c["URL"])
-        por_familia[fam] = por_familia.get(fam, 0) + 1
+        if c["ESTADO"] != "RECUSADA":
+            por_familia[fam] = por_familia.get(fam, 0) + 1
         linhas.append({"CANDIDATA_ID": c["CANDIDATA_ID"], "FAMILIA": fam,
                        "TIPO": c["TIPO"], "PAIS": c["PAIS"], "NOME": c["NOME"],
                        "URL": c["URL"], "ESTADO": c["ESTADO"]})
     lista = {"DATASET": "PESQUISADORES-LISTA-V1",
              "GERADO_EM": datetime.now(timezone.utc).isoformat(),
-             "CANDIDATAS_NOVAS": len(linhas),
+             "CANDIDATAS_NOVAS": sum(por_familia.values()),
+             "RECUSADAS_DEPOIS_DE_REGISTADAS": sum(1 for x in linhas if x["ESTADO"] == "RECUSADA"),
              "POR_FAMILIA": dict(sorted(por_familia.items())),
              "CANDIDATAS": linhas}
     fd, tmp = tempfile.mkstemp(dir=str(LISTA_JSON.parent), suffix=".tmp")
@@ -651,8 +653,9 @@ import rede as R                                         # noqa: E402
 PROOF_P1B = RAIZ / "curadoria" / "PESQUISADORES-P1B-PROOF-V1.json"
 VIGIA_A_CADA = 10
 _RELER_MOTIVOS = ("ROBOTS_BLOCKED", "HTTP_0")
+# So a pagina de listagem: o caminho TERMINA na palavra (nao artigo, PDF ou aviso).
 _SUB_RE = re.compile(r"/(notizie|news|comunicati|comunicati-stampa|pubblicazioni|"
-                     r"eventi|avvisi|ufficio-stampa|stampa)(/|$)", re.I)
+                     r"eventi|ufficio-stampa|stampa)/?$", re.I)
 
 
 class VigiaParou(RuntimeError):
