@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "abastecimento-vivo-v1",
-    "HEAD": "cfe3c71c0c8612379841998eca98403c2cbf29b6",
-    "GENERATED_AT": "2026-09-22T22:02:06-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fb2d8dfad569edb24908472fc6ad2666d1bd3e9527e9b5da4b37c612cf0968eb"
+    "BRANCH": "gatilho-ocioso-v1",
+    "HEAD": "f490fc55c943a6d8cefdf63cc55196a090ee845c",
+    "GENERATED_AT": "2026-09-22T22:24:17-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4ecba5f3002d8fa359c693166f97612a4b180dcbb3ccac3edcc52c951b2cc496"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "c83fce5d9ae9d003ed2841968d85adadf396e88d",
+      "sha": "117bfe8d4953f77629b441300959a99c694ec50d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1780,6 +1780,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/GATILHO-OCIOSO-ENSAIO-V1.json",
+      "sha": "30f8441d56e29873f3f09a086d94135be5e9597b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/HANDOFF-INTEGRACAO-04.md",
       "sha": "20be3375ecb0df29957084bad3cf282ff9e7ba38",
       "ext": ".md",
@@ -2026,7 +2033,7 @@
     },
     {
       "path": "curadoria/ciclo_continuo.py",
-      "sha": "cfaba535d8765095b3dd0883e8ae1d821d709396",
+      "sha": "e5ca9e3701d82da4e9c5339f3a139239c2ee1dbc",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2062,6 +2069,13 @@
     {
       "path": "curadoria/emparelhar_com_atlas.py",
       "sha": "fc771d670a4ee76707c0532add8cdb02d43e3455",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/ensaiar_gatilho_ocioso.py",
+      "sha": "3841d02bdd8d1ba0b629cdd0ae490a3278ce2c15",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2243,7 +2257,7 @@
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "69617a156b469e8dceb8e2866a7d388134bf60d7",
+      "sha": "f7422d9982e9357d6c5da8c495b9e23213876ae6",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2305,6 +2319,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_gatilho_ocioso.py",
+      "sha": "089a54ddb1f1472a0bd5a3560fa192409e2ef681",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_interface_collection.py",
       "sha": "22004a6b8b24d4265189401523f38e4aebcc2837",
       "ext": ".py",
@@ -2334,7 +2355,7 @@
     },
     {
       "path": "curadoria/test_supervisor.py",
-      "sha": "09c7218e02bae0c79578bd1cc44fb8af023d4cf4",
+      "sha": "6765ce2715bb2ba64c37dfa9c16226ea238d90ec",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20759,6 +20780,61 @@
       }
     },
     {
+      "from_file": "curadoria/ensaiar_gatilho_ocioso.py",
+      "to_file": "curadoria/GATILHO-OCIOSO-ENSAIO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/ensaiar_gatilho_ocioso.py",
+        "line": 143,
+        "snippet": "out = RAIZ / \"curadoria\" / \"GATILHO-OCIOSO-ENSAIO-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_gatilho_ocioso.py",
+      "to_file": "curadoria/GATILHO-OCIOSO-ENSAIO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/ensaiar_gatilho_ocioso.py",
+        "line": 144,
+        "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_gatilho_ocioso.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_gatilho_ocioso.py",
+        "line": 47,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_gatilho_ocioso.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_gatilho_ocioso.py",
+        "line": 48,
+        "snippet": "import gatilho_discovery as GD"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_gatilho_ocioso.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_gatilho_ocioso.py",
+        "line": 49,
+        "snippet": "import supervisor as S"
+      }
+    },
+    {
       "from_file": "curadoria/escrever_contratos.py",
       "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
       "type": "READS",
@@ -21953,7 +22029,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 235,
+        "line": 244,
         "snippet": "str(RAIZ / \"curadoria\" / \"ciclo_continuo.py\"),"
       }
     },
@@ -21975,7 +22051,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 502,
+        "line": 520,
         "snippet": "import gatilho_discovery as GD  # noqa: E402"
       }
     },
@@ -22230,6 +22306,50 @@
         "file": "curadoria/test_gatilho_discovery.py",
         "line": 20,
         "snippet": "import gatilho_discovery as GD"
+      }
+    },
+    {
+      "from_file": "curadoria/test_gatilho_ocioso.py",
+      "to_file": "curadoria/ciclo_continuo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_gatilho_ocioso.py",
+        "line": 25,
+        "snippet": "import ciclo_continuo as C   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_gatilho_ocioso.py",
+      "to_file": "curadoria/ciclo_continuo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_gatilho_ocioso.py",
+        "line": 138,
+        "snippet": "sys.argv = [\"ciclo_continuo.py\"] + argv"
+      }
+    },
+    {
+      "from_file": "curadoria/test_gatilho_ocioso.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_gatilho_ocioso.py",
+        "line": 26,
+        "snippet": "import fila as F             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_gatilho_ocioso.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_gatilho_ocioso.py",
+        "line": 27,
+        "snippet": "import supervisor as S       # noqa: E402"
       }
     },
     {
@@ -67341,10 +67461,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2205,
-    "files_readable": 880,
+    "files_tracked": 2208,
+    "files_readable": 882,
     "files_code_dir": 883,
-    "file_edges": 4671,
+    "file_edges": 4680,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  cfe3c71c0c8612379841998eca98403c2cbf29b6
-BRANCH           abastecimento-vivo-v1
-GERADO_EM        2026-09-22T22:02:06-03:00
+HEAD_DA_MEDICAO  f490fc55c943a6d8cefdf63cc55196a090ee845c
+BRANCH           gatilho-ocioso-v1
+GERADO_EM        2026-09-22T22:24:17-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
