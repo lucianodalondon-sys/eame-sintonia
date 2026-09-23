@@ -51,13 +51,13 @@ def restaura(ficheiro):
 
 
 CASOS = [
-    # ── M1 · a LEI deixa de recusar o Instagram: a porta que recusa passa a
+    # ── M1 · a LEI volta a recusar o Reel: a porta que o corre passa a
     #         discordar da matriz, e o teste das duas portas tem de ver
     ("leis/social_matriz.py",
-     "            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'NAO',\n              'ROUTE_NOT_ALLOWED',",
      "            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'SIM',\n              'PROVED',",
+     "            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'NAO',\n              'ROUTE_NOT_ALLOWED',",
      "tests.test_as_duas_portas_do_scrap",
-     "M1 · matriz permite o que a porta recusa"),
+     "M1 · a matriz recusa o que a porta corre"),
     # ── M2 · o portão deixa de consultar a lei (o defeito SOC1, de volta)
     ("coleta/scrap_executor.py",
      "    if veredicto['MATRIZ_DECISAO'] == mz.NAO_PERMITIDA:",

@@ -361,21 +361,45 @@ class ACadeiaDoAudioOffline(unittest.TestCase):
         self.assertEqual(SC.rc.PAYLOAD_NAO_SE_APLICA, u["PAYLOAD"]["ESTADO"])
 
 
+#: As chamadas ao provedor de metadados, contadas — para a prova poder dizer
+#: que elas foram ao DUPLO e não à plataforma.
+CHAMADAS_DE_METADADOS = []
+
+#: ⚠️ O QUE O DUPLO DE METADADOS **É** E O QUE ELE **NÃO** É.
+#: Devolve o que a plataforma devolveria para o reel da fixture (data, título,
+#: contagens) — e é DUPLO DECLARADO, não medição: `METADADOS_REAIS = NOT_RUN
+#: NESTA PROVA`. O que aqui se prova é que a CADEIA pede os metadados ao dono
+#: certo, no degrau certo, e que sem eles a data e a espécie ficariam `NAO SEI`.
+#: A aquisição a sério mede-se no canário real, com rede.
+def _duplo_dos_metadados(url, tentativas=None, *, plataforma=None, relato=None):
+    CHAMADAS_DE_METADADOS.append((url, plataforma))
+    return ({'PUBLISHED_AT': '2026-09-01T12:00:00+00:00',
+             'TITLE': 'Reel da fixture (metadados de DUPLO declarado)',
+             'MEDIA_TYPE': 'REEL', 'VIEW_COUNT': 1234, 'LIKE_COUNT': 56},
+            'METADADOS_DE_DUPLO — a plataforma nao foi tocada nesta prova')
+
+
 class ACadeiaDoReelOffline(unittest.TestCase):
     """Reel: URL -> cadeia -> unidade -> RAW (>som) -> DERIVED (texto). Sem rede."""
 
     @classmethod
     def setUpClass(cls):
         global _ORIGINAL
+        import reel_transcricao as rt
         cls.tmp = tempfile.mkdtemp(prefix="cadeia-reel-")
         cls.wav = _wav(os.path.join(cls.tmp, "reel.wav"))
         _ORIGINAL = fl.transcrever
         fl.transcrever = _duplo_do_asr
+        cls._meta_original = rt.metadados_ytdlp
+        rt.metadados_ytdlp = _duplo_dos_metadados
         CHAMADAS_DO_ASR[:] = []
+        CHAMADAS_DE_METADADOS[:] = []
 
     @classmethod
     def tearDownClass(cls):
+        import reel_transcricao as rt
         fl.transcrever = _ORIGINAL
+        rt.metadados_ytdlp = cls._meta_original
         import shutil
         shutil.rmtree(cls.tmp, ignore_errors=True)
 
@@ -426,23 +450,54 @@ class ACadeiaDoReelOffline(unittest.TestCase):
         self.assertEqual(TEXTO_DO_ASR, texto)
         self.assertEqual("transcricao-de-midia", resultado.get("EXECUTOR_ID"))
 
-    def test_13_o_reel_NAO_foi_baixado(self):
-        """`REUSAR != ADQUIRIR`: com o ficheiro em casa, nada sai para a rede.
+    def test_13_o_reel_NAO_foi_baixado_e_a_rota_esta_AUTORIZADA(self):
+        """`REUSAR != ADQUIRIR` — e a rota passou a ser permitida por D22.
 
-        É esta a fronteira que a D19 mantém de pé: a cadeia pode ser exercida
-        sobre bytes que já são nossos; o que continua recusado é a porta de
-        aquisição do Instagram (matriz: `ROUTE_NOT_ALLOWED`).
+        ⚠️ ESTA PROVA TRAZIA UMA TRAVA DELIBERADA: `assertNotEqual(PERMITIDA_SIM,
+        ...)`, escrita para OBRIGAR a reler o ficheiro no dia em que a decisão
+        mudasse. Mudou (D22, 2026-09-23), e a releitura é esta.
+
+        O que ela mede continua a ser a mesma fronteira:
+
+            COM OS BYTES EM CASA, NADA SAI PARA A REDE — nem para baixar mídia
+            (o `yt-dlp` da mídia não é chamado), nem para pedir metadados (vêm
+            do duplo declarado). A autorização do dono abre a PORTA; não torna
+            obrigatório sair por ela quando o alvo já está no disco.
         """
         import adaptador_instagram as ai
         import social_matriz as mz
+        import subprocess
+        antes_meta = len(CHAMADAS_DE_METADADOS)
+        chamadas_de_ytdlp = []
+        _run_original = subprocess.run
+
+        def _espiao(argv, *a, **k):
+            # ⚠️ SÓ O `yt-dlp` CONTA AQUI. O `ffprobe` e o `ffmpeg` são
+            # ferramentas LOCAIS: elas medem e cortam os bytes que já estão no
+            # disco, e chamá-las não é sair para a plataforma. Medir a coisa
+            # errada daria um vermelho que não é defeito — e um verde que não é
+            # prova.
+            if any('yt-dlp' in str(x) or 'yt_dlp' in str(x) for x in argv):
+                chamadas_de_ytdlp.append(list(argv)[:4])
+            return _run_original(argv, *a, **k)
+
         with _SemRede() as r:
-            ai.capturar_reel(url=REEL_URL, run_id=RUN,
-                             midia_ficheiro=self.wav, guardar=False)
-        self.assertEqual([], r.tentativas)
-        self.assertNotEqual(mz.PERMITIDA_SIM,
-                            mz.decisao("INSTAGRAM", "FETCH_TRANSCRIPT")["DECISAO"],
-                            "a matriz liberou o Instagram — a D19 mudou e esta "
-                            "prova tem de ser relida")
+            subprocess.run = _espiao
+            try:
+                ai.capturar_reel(url=REEL_URL, run_id=RUN,
+                                 midia_ficheiro=self.wav, guardar=False)
+            finally:
+                subprocess.run = _run_original
+        self.assertEqual([], r.tentativas, "NETWORK_CALLS tem de ser 0")
+        self.assertEqual([], chamadas_de_ytdlp,
+                         "a mídia foi pedida à plataforma com os bytes em casa")
+        self.assertEqual(1, len(CHAMADAS_DE_METADADOS) - antes_meta,
+                         "os metadados vieram do duplo declarado, uma vez")
+        self.assertEqual(mz.PERMITIDA_SIM,
+                         mz.decisao("INSTAGRAM", "FETCH_TRANSCRIPT")["DECISAO"],
+                         "a rota do Reel está autorizada (D22) — se esta linha "
+                         "falhar, a decisão mudou outra vez e a prova tem de ser "
+                         "relida")
 
 
 if __name__ == "__main__":

@@ -296,9 +296,15 @@ class T8Reels(unittest.TestCase):
         #
         #     CONSTRUÍDA != LIGADA != PERMITIDA.
         v = scrap.CHECK('INSTAGRAM', 'instagram.reel.transcribe')
-        self.assertFalse(v['CAN'])
-        self.assertEqual('ROUTE_NOT_ALLOWED', v['STATE'])
-        self.assertEqual('ROUTE_NOT_ALLOWED', v['MATRIZ_DECISAO'])
+        # ⚠️ Dizia `assertFalse` por D19; o dono mudou a decisão (D22,
+        # 2026-09-23) e a porta passou a estar aberta. O que este teste guarda
+        # continua a ser o mesmo: o CAMINHO está montado e o `CHECK` responde
+        # pela matriz — agora `SIM`, com o nome dela.
+        import social_matriz as mz
+        self.assertTrue(v['CAN'])
+        self.assertEqual(mz.PERMITIDA_SIM, v['MATRIZ_DECISAO'])
+        self.assertEqual('CAN_COLLECT_NOW', v['STATE'])
+        self.assertEqual(mz.PERMITIDA_SIM, v['MATRIZ_DECISAO'])
 
     def test_a_cadeia_continua_a_ser_o_modulo_especializado(self):
         import reel_transcricao as rt

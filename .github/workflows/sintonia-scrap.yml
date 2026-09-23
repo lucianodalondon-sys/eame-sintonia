@@ -801,9 +801,38 @@ jobs:
             # ⚠️ E ISTO NÃO É UMA RECUSA DE CONTEÚDO: é uma recusa de POLÍTICA.
             # O estado que sai é o da matriz, com o nome dela — nunca um
             # «recusada» que julga o que ninguém leu.
+            # ── AS TRÊS DO REEL: A PORTA CANÓNICA, E O DONO AUTORIZOU-A ────
+            # ⚠️ ESTA PORTA RECUSAVA-AS ATÉ 2026-09-23 (D19). A decisão mudou:
+            # o dono REAL autorizou a coleta de REELS por URL directa, SEM
+            # login, SEM conta e SEM rota paga (D22, 2026-09-23), com o risco
+            # assumido por ele — como a D17.4 fez com o som do YouTube.
+            #
+            #      A PORTA NÃO DECIDE POLÍTICA: ELA CONSULTA QUEM DECIDE.
+            #
+            # Quem diz que a rota é permitida é a MATRIZ, e ela responde ALLOWED
+            # com os três eixos declarados:
+            #
+            #     OWNER_AUTHORIZED       = SIM          (D22)
+            #     PLATFORM_POLICY_STATUS = DISALLOWED   (medido: robots.txt)
+            #     LIMITE                 = PUBLIC_REEL_BY_URL_ONLY
+            #
+            # O endereço do reel é o ALVO, e vem do pedido: sem `url` não há
+            # alvo, porque a lei do dono é colher POR URL DIRECTA.
             captura-reel|audio-reel|transcricao-reel)
-              recusar "${{ inputs.fase }}" COLLECTION_FETCH \
-                "INSTAGRAM/FETCH_TRANSCRIPT e ROUTE_NOT_ALLOWED na matriz; a autorizacao nomeada do dono vale para o YOUTUBE (D17.4) e NAO para Reels (D19). A fase esta construida (FASES + serve_fases) e esta porta recusa-a ate existir a conta Business do PROJETO e a API oficial" ;;
+              FONTE_IG="$(fonte_obrigatoria '${{ inputs.fonte }}')"
+              if [ -z '${{ inputs.url }}' ]; then
+                echo 'ENDERECO_OBRIGATORIO: as fases do Reel colhem por URL DIRECTA — sem `url` nao ha alvo (D22: sem login, sem conta).'
+                exit 2
+              fi
+              ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_IG")" || {
+                echo "FONTE_SEM_APELIDO: $FONTE_IG — o pedido nomeia a INTENCAO pela fonte, e esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                exit 2
+              }
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro fonte="$FONTE_IG" \
+                --filtro pais=IT \
+                --filtro url='${{ inputs.url }}' ;;
 
             # ── COLLECTION SEM ROTA CANÔNICA · RECUSA ────────────────────
             # `coleta/instagram_diario.py rodar` importa `instagram_janela` e

@@ -87,13 +87,19 @@ IMPLEMENTACOES = ('instagram_janela.py', 'instagram_diario.py',
 CANONICAS = ('canario-bluesky', 'identidade-linkedin',
              'busca-youtube', 'canal-youtube', 'video-youtube',
              'comentarios-youtube', 'audio-youtube',
-             'canal-telegram', 'tag-mastodon', 'contas-bluesky')
+             'canal-telegram', 'tag-mastodon', 'contas-bluesky',
+             # ⚠️ AS TRÊS DO REEL ENTRARAM AQUI EM 2026-09-23 (D22). Elas
+             # nasceram recusadas (D19) e a decisão do dono REAL mudou: a
+             # coleta de REELS por URL directa, sem login, sem conta e sem rota
+             # paga está AUTORIZADA, com o risco assumido por ele.
+             #
+             #     A PORTA NÃO DECIDE POLÍTICA: ELA CONSULTA QUEM DECIDE.
+             'captura-reel', 'audio-reel', 'transcricao-reel')
 BLOQUEADAS = ('diario', 'yt-canais', 'yt-objetos', 'yt-legendas',
               'yt-transcrever', 'bio', 'posts', 'reels', 'comentarios')
 #: As fases que a MATRIZ recusa hoje — a recusa tem de ser a mesma nas duas
 #: portas, e o nome do estado tem de ser o que o dono da política deu.
-RECUSADAS_PELA_MATRIZ = ('janela', 'janela-perfis', 'janela-objetos',
-                        'captura-reel', 'audio-reel', 'transcricao-reel')
+RECUSADAS_PELA_MATRIZ = ('janela', 'janela-perfis', 'janela-objetos')
 #: Fases que NÃO são Collection e que por isso continuam com CLI própria.
 #:
 #: ⚠️ `yt-alvos` ENTROU AQUI, E A ENTRADA É UMA CORREÇÃO. Ele estava nas
@@ -440,11 +446,37 @@ class APoliticaContinuaDona(unittest.TestCase):
                          ' '.join(por.get('yt-legendas') or []),
                          'a fase que corre `timedtext` voltou ao workflow')
 
-    def test_10_a_politica_nao_mudou_nesta_missao(self):
-        self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
-                         mz.NAO_PERMITIDA)
+    def test_10_a_politica_do_reel_mudou_POR_DECISAO_E_OS_EIXOS_DIZEM_NO_QUE(
+            self):
+        """⚠️ ESTE TESTE JÁ DIZIA O CONTRÁRIO, E A DECISÃO MUDOU (D22).
+
+        Ele nasceu na C10.5D para fixar a leitura do `robots.txt` vivo de
+        instagram.com (`Disallow: /`) — e a leitura NÃO mudou. O que mudou foi
+        quem assume o risco: o dono do projeto autorizou nomeadamente a coleta
+        de REELS por URL directa (D22, 2026-09-23), como a D17.4 fez com o som
+        do YouTube.
+
+            MEDIR A POLÍTICA NÃO É OBEDECER-LHE: É SABER O QUE SE ASSUME.
+
+        O que este teste passa a fixar é que a decisão é EXPLÍCITA e que os três
+        eixos estão escritos — nenhum deles em branco, nenhum por analogia.
+        """
+        d = mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')
+        self.assertEqual(mz.PERMITIDA_SIM, d['DECISAO'])
+        rota = d['ROTA_ESCOLHIDA'] if 'ROTA_ESCOLHIDA' in d else None
+        linha = [r for r in mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
+                 if r.get('ROTA') == d['ROTA']][0]
+        for eixo in mz.EIXOS:
+            self.assertIn(eixo, linha, 'a decisão mudou sem declarar %s' % eixo)
+        self.assertEqual('SIM', linha['OWNER_AUTHORIZED'], 'D22 é decisão do dono')
+        self.assertEqual('DISALLOWED', linha['PLATFORM_POLICY_STATUS'],
+                         'a política continua medida — e continua proibindo')
+        self.assertEqual('PUBLIC_REEL_BY_URL_ONLY', linha['LIMITE'])
         for cap in ('INCREMENTAL', 'FETCH_TRANSCRIPT'):
-            self.assertIn(cap, mz.MATRIZ['YOUTUBE'])
+            self.assertIn(cap, mz.MATRIZ['INSTAGRAM'])
+        # E a JANELA do perfil continua fechada: D22 é dos REELS.
+        self.assertEqual(mz.NAO_PERMITIDA,
+                         mz.decisao('INSTAGRAM', 'INCREMENTAL')['DECISAO'])
 
 
 class ACLIEFinaENaoUmMotor(unittest.TestCase):

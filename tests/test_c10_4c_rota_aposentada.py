@@ -473,11 +473,16 @@ class AJanelaFicouDePe(unittest.TestCase):
 
 class UmOwnerSo(unittest.TestCase):
 
-    def test_a_politica_nao_mudou_nesta_missao(self):
+    def test_a_politica_do_reel_mudou_por_D22_e_o_motor_continua_o_mesmo(self):
+        # ⚠️ Dizia `NAO`/`ROUTE_NOT_ALLOWED` desde a C10.5D. O dono decidiu
+        # (D22, 2026-09-23) e a linha mudou; o que NAO mudou — e e o que este
+        # ficheiro existe para guardar — e o dono do motor: continua um so.
         rotas = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
         self.assertEqual(len(rotas), 1)
-        self.assertEqual(rotas[0]['PERMITIDA'], 'NAO')
-        self.assertEqual(rotas[0]['ESTADO'], 'ROUTE_NOT_ALLOWED')
+        self.assertEqual(rotas[0]['PERMITIDA'], 'SIM')
+        self.assertEqual(rotas[0]['ESTADO'], 'PROVED')
+        self.assertEqual(rotas[0]['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(rotas[0]['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
 
     def test_o_reconhecedor_continua_a_ter_um_dono_so(self):
         donos = []
