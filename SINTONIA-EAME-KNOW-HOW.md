@@ -21384,7 +21384,7 @@ SOC3 (23/09/2026), D20 e D21. `RELATORIO-SOC3-RETENCAO-YOUTUBE.md`.
 Mutação com banco real: um cluster por mutante custava minutos; a ronda sobe UM banco descartável
 já migrado e passa-o aos testes (`SOC3_BANCO_JA_MIGRADO`, aceite só se `exigir_descartavel` passar).
 
-# §204 · A PLATAFORMA DECIDE O EXECUTOR — E UMA PLAYLIST LIDA COMO HANDLE É O CANAL DE OUTRA PESSOA
+# §209 · A PLATAFORMA DECIDE O EXECUTOR — E UMA PLAYLIST LIDA COMO HANDLE É O CANAL DE OUTRA PESSOA
 
 SOC4 (23/09/2026). `RELATORIO-SOC4-YOUTUBE-PRONTO.md`.
 
@@ -21408,7 +21408,7 @@ SOC4 (23/09/2026). `RELATORIO-SOC4-YOUTUBE-PRONTO.md`.
    GitHub. O registo guarda só identidade (handle → channel_id, corrida, hora): nada que a regra
    dos 30 dias tenha de apagar.
 
-# §205 · O CANAL É DA FONTE, O UNIVERSO É DE CADA VÍDEO — E T2/T12 NÃO TÊM RÉGUA
+# §210 · O CANAL É DA FONTE, O UNIVERSO É DE CADA VÍDEO — E T2/T12 NÃO TÊM RÉGUA
 
 SOC5 (23/09/2026). `RELATORIO-SOC5-CANARIO-YOUTUBE.md`.
 
@@ -21427,3 +21427,6 @@ Admissão nesta máquina, VPN IT, banco descartável próprio): RAW 9/10, DERIVE
    ficheiro sobrevive à morte do servidor (tela azul). Contar processos, não ficheiros — e provar
    descartável pela morada (`e_descartavel`), pela pasta, pelos clientes e pelo pai morto.
 5. **Um vigia de egresso por vídeo apanha a VPN a cair a meio** — aconteceu, e o canário parou.
+
+Números: a `unificacao-v1` já ocupa §202–§208 (inclui a SOC2 como §205 e a SOC3 como §207); a SOC4
+e a SOC5 passam a §209 e §210.

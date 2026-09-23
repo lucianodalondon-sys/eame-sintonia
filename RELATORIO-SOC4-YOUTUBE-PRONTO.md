@@ -83,4 +83,4 @@ reservas: o número real é cunhado pelo serviço quando as 11 tarefas QUALIFY f
 (runbook X2, passo 3).
 
 ## Know-how
-§202 e §203 (os da SOC2 e SOC3, renumerados porque a 5.ª passagem ocupou §199–§201) e §204.
+§202 e §203 (os da SOC2 e SOC3, renumerados porque a 5.ª passagem ocupou §199–§201) e §209 (a unificacao-v1 ja usa §202-§208; a SOC2 la e §205 e a SOC3 e §207).

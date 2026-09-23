@@ -66,4 +66,4 @@ vídeos. O banco foi desligado no fim; os bytes (252 MB) ficaram FORA do reposit
 * Os dois «NÃO SEI» (ASR vazio em 243 s; `SOURCE_UNAVAILABLE`) ficam ditos, sem adivinhar a causa.
 
 ## Know-how
-§205.
+§210 (a unificacao-v1 ja ocupa §202-§208).
