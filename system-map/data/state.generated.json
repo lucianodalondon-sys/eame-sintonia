@@ -3173,9 +3173,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "4d14cc157e8200ac820d5aed6233931c5032d9f0",
-    "GENERATED_AT": "2026-09-23T00:58:05-03:00",
-    "SOURCE_TREE_FINGERPRINT": "5e680d63b29e419f4d730f6741c960d96eda1b7d8098224749aee4f8e4ae1d3b"
+    "HEAD": "6b159d41e39c3c82f0ef220699e3a7ef3e87b4d9",
+    "GENERATED_AT": "2026-09-23T01:05:51-03:00",
+    "SOURCE_TREE_FINGERPRINT": "81043c005d76096bad8d020f62ba1413b3236c4e9751e9603a4e616cecb6a966"
   },
   "FAMILIES": [
     {
@@ -23691,7 +23691,7 @@
       "name": "Censo das lanes antes de unificar",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade.",
+      "what": "Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel.",
       "why_here": "Juntar linhas sem medir primeiro troca uma tarde de censo por uma semana a desfazer. O script nao escreve objectos, refs nem indice: o conflito e medido com merge-file em temporarios fora do repo.",
       "departments": [
         "ENGENHARIA"
@@ -23709,11 +23709,15 @@
         "ferramentas/unificacao/censo_lanes.py",
         "ferramentas/unificacao/congelar_livros_do_servico.py",
         "ferramentas/unificacao/ensaio_unificacao.py",
-        "ferramentas/unificacao/resolver_conflitos.py"
+        "ferramentas/unificacao/medir_suite.py",
+        "ferramentas/unificacao/provar_em_copia.py",
+        "ferramentas/unificacao/resolver_conflitos.py",
+        "ferramentas/unificacao/unir_ledger.py",
+        "ferramentas/unificacao/unir_livros_do_servico.py"
       ],
-      "file_count": 4,
+      "file_count": 8,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
@@ -23730,7 +23734,7 @@
       "outbound": [],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -23804,12 +23808,18 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "curadoria/BRIDGE-LEDGER-V1.json",
+        "curadoria/DISCOVERY-VISITED.json",
         "curadoria/LIFECYCLE-EVIDENCE-V1.json",
         "curadoria/LIFECYCLE-LEDGER-V1.json",
         "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/READY-BATCHES-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/descobrir.py",
         "curadoria/italy_contracts_curator.json",
+        "curadoria/ponte_automatica.py",
+        "curadoria/provar_ponte_curador.py",
+        "curadoria/red_team_ponte_curador.py",
         "curadoria/red_team_telemetria.py",
         "curadoria/status_live.py",
         "curadoria/supervisor.py",
@@ -107310,13 +107320,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "ferramentas/unificacao/medir_suite.py",
-    "ferramentas/unificacao/provar_em_copia.py",
-    "ferramentas/unificacao/unir_ledger.py",
-    "ferramentas/unificacao/unir_livros_do_servico.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1488,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1484,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -107522,8 +107527,8 @@
     "edges_unknown": 64,
     "business_edges": 4,
     "files_tracked": 2579,
-    "files_covered": 1091,
-    "files_code_unclaimed": 4,
+    "files_covered": 1095,
+    "files_code_unclaimed": 0,
     "roles_proven": 156,
     "roles_declared_only": 9,
     "roles_unknown": 63,

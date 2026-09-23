@@ -100,7 +100,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **A fala vira texto, sem fatura** — Transcreve o audio dos videos na propria maquina, com whisper local. `fala_local.py` e o DONO UNICO do reconhecimento; `reel_transcricao.py` e a cadeia que liga um Reel publico ao texto falado, com RAW e DERIVED separados; os dois programas de lote chamam o mesmo dono.
 - **Abrir PDF, ODS e HTML** — Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.
 - **Apify — a rota paga** — Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.
-- **Censo das lanes antes de unificar** — Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade.
+- **Censo das lanes antes de unificar** — Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
 
 ---

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  4d14cc157e8200ac820d5aed6233931c5032d9f0
+HEAD_DA_MEDICAO  6b159d41e39c3c82f0ef220699e3a7ef3e87b4d9
 BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T00:58:05-03:00
+GERADO_EM        2026-09-23T01:05:51-03:00
 CARDS            85
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -764,15 +764,15 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/unificacao/censo_lanes.py`, `ferramentas/unificacao/congelar_livros_do_servico.py`, `ferramentas/unificacao/ensaio_unificacao.py`, `ferramentas/unificacao/resolver_conflitos.py` |
+| **peça real** | `ferramentas/unificacao/censo_lanes.py`, `ferramentas/unificacao/congelar_livros_do_servico.py`, `ferramentas/unificacao/ensaio_unificacao.py`, `ferramentas/unificacao/medir_suite.py`, `ferramentas/unificacao/provar_em_copia.py` _(e mais 3)_ |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/LIFECYCLE-QUEUE-V1.json` |
+| **o que entra · ficheiros** | `curadoria/BRIDGE-LEDGER-V1.json`, `curadoria/DISCOVERY-VISITED.json`, `curadoria/LIFECYCLE-EVIDENCE-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `curadoria/RED-TEAM-TELEMETRIA-V1.json`, `curadoria/red_team_telemetria.py` |
 | **arestas no mapa** | entram 3 · saem 0 |
