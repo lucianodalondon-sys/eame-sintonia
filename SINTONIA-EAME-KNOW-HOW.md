@@ -19684,6 +19684,42 @@ Lê-se como `CAPABILITY_BLOCK`, **por decisão declarada e não por omissão**: 
 credencial que não temos é capacidade em falta, não proibição do publicador. O
 vocabulário é fechado, e alargá-lo é decisão de quem manda.
 
+## 168-15 · ELEGÍVEL SEM CONTRATO: O NÚMERO É DO LIVRO, E A FALTA É UMA PONTE
+
+Missão ROTAS-ELEGIVEIS-V1 (2026-09-22). Três números circulavam para a mesma
+pergunta — «8 aprovadas sem rota», «17 elegíveis, 9 com contrato», «1 sem
+contrato (IT-T5-041)». **Os três estavam certos**, cada um no seu livro:
+
+    livro desta linha e de ops/cutover-prod-v1   8 elegíveis · 7 com contrato · 1 sem
+    livro de lote-76-v1 (ainda não integrado)   17 elegíveis · 9 com contrato · 8 sem
+
+    UM NÚMERO SEM O LIVRO AO LADO NÃO É UM NÚMERO. É UMA OPINIÃO.
+
+O portão lê `curadoria/italy_contracts_curator.json` (só para a régua do
+READY); o coletor lê **outro** livro — `regras/italy_contracts.mjs`, que expande
+`regras/italy_contracts_onboarded.json`. As 8 do lote-76 **tinham** contrato do
+Curator. Não tinham linha na tabela do coletor porque a tabela foi escrita
+**uma vez** (INTEGRAÇÃO-04A) e nada a alimentava depois. Oito bloqueios eram
+uma ponte em falta: construiu-se `curadoria/onboardar_rotas_provadas.py`, que
+só escreve quem é ELIGIBLE **no livro desta árvore**, sem contrato, com canário
+`ROUTE_PROVEN` pela mesma aquisição e sem duplicar o documento de outra ficha.
+
+Três coisas que o canário real (`medidas/canario_rotas_elegiveis.py`) apanhou e
+que nenhum livro dizia:
+
+- **IT-T2-051 e IT-T2-056 são uma fonte com duas fichas** — a rota das duas
+  chega ao mesmo documento. Contratar a segunda seria colher tudo duas vezes.
+  É decisão de identidade, não de rota.
+- **Uma rota provada envelhece.** IT-T5-041 foi provada a 21/09; a 22/09 o
+  `crpv.it` redirige tudo para `rinova.eu` (inalcançável deste egresso BR) —
+  UNKNOWN, não morta. IT-T5-049, **já com contrato**, abriu 2 alvos sem corpo.
+- **O retrato sozinho não é controlo negativo.** 5 de 14 listagens foram
+  classificadas `CONTENT` pelo `retrato_html`: o gate CAPA ≠ MATÉRIA deixaria
+  passar a listagem como matéria. O que a barra é o **motor** (o `INDEX_URL`
+  nunca sai como alvo: 0 de 15). Quem afrouxar essa exclusão no motor perde o
+  único controlo negativo que funciona.
+
+    ROTA SEM CANÁRIO NÃO É ROTA — E ROTA COM CANÁRIO DE ONTEM É UMA MEMÓRIA.
 ---
 
 # §169 · UMA PONTE QUE ALGUÉM TEM DE MANDAR CORRER NÃO ESTÁ LIGADA

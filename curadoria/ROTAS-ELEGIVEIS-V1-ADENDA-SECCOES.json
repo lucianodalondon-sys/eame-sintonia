@@ -1,0 +1,16 @@
+{
+ "DATASET": "ROTAS-ELEGIVEIS-V1 / ADENDA-SECCOES",
+ "GERADO_EM": "2026-09-22",
+ "PEDIDO": "missao 4 (diagnostico-sala-v1 @ 44c873ff): T7-017/033/042 colhem comunicacao de marca (55/55 sem materia T7); testar seccoes Vendemmia/Tracciabilita/Tutela e Vigilanza/Monitoraggio/Dati economici",
+ "EGRESSO": "BR (Londrina)", "PEDIDOS": "3 robots + 13 GET, 1 s de pausa",
+ "SECCOES": [
+  {"SOURCE_ID": "IT-T7-033", "URL": "https://www.chianticlassico.com/vino/vendemmia/", "FORMA": "SERIE por ano: anno-2010 .. anno-2022 (13 itens)", "CANARIO": {"URL": "https://www.chianticlassico.com/vino/vendemmia/anno-2022/", "HTTP": 200, "BYTES": 111526, "HTML_KIND": "CONTENT", "PARAGRAPH_CHARACTERS": 1582}, "MATERIA": "SIM: relatorio de colheita (clima, maturacao, estado sanitario, difesa sanitaria)", "VEREDITO": "ROTA_TECNICA_PROVADA_SERIE_PARADA", "CAUSA": "ultimo item 2022 — rota forward nao traz nada novo; so arquivo"},
+  {"SOURCE_ID": "IT-T7-033", "URL": "https://www.chianticlassico.com/vino/tracciabilita/", "FORMA": "pagina unica", "HTML_KIND": "NAVIGATION", "VEREDITO": "NAO_E_ROTA", "CAUSA": "texto institucional fixo, sem itens"},
+  {"SOURCE_ID": "IT-T7-033", "URL": "https://www.chianticlassico.com/marchio/tutela/", "FORMA": "pagina unica", "HTML_KIND": "CONTENT", "VEREDITO": "NAO_E_ROTA", "CAUSA": "texto institucional fixo, sem itens"},
+  {"SOURCE_ID": "IT-T7-042", "URL": "https://www.consorziobalsamico.it/consorzio/monitoraggio/", "FORMA": "4 PDF por ano (2017..2020)", "CANARIO": {"URL": "https://www.consorziobalsamico.it/wp-content/uploads/2022/03/report-monitoraggio-2020-x-sito.pdf", "HTTP": 200, "BYTES": 132946, "ASSINATURA": "%PDF"}, "VEREDITO": "ROTA_TECNICA_PROVADA_SERIE_PARADA", "CAUSA": "ultimo relatorio 2020 (publicado 2022/03); conteudo do PDF NAO lido — relevancia NAO SEI"},
+  {"SOURCE_ID": "IT-T7-042", "URL": "https://www.consorziobalsamico.it/consorzio/dati-economici/", "FORMA": "pagina unica, 0 documentos", "HTML_KIND": "NAVIGATION", "VEREDITO": "NAO_E_ROTA", "CAUSA": "sem itens nem anexos"},
+  {"SOURCE_ID": "IT-T7-042", "URL": "NAO ACHADO", "SECCAO": "Vigilanza e Tutela", "VEREDITO": "UNKNOWN", "CAUSA": "nenhum link com vigilanza/tutela na pagina inicial; endereco nao inventado"},
+  {"SOURCE_ID": "IT-T7-017", "URL": "https://www.riuniteciv.com/", "VEREDITO": "SEM_SECCAO_ALTERNATIVA", "CAUSA": "nenhum link vendemmia/tutela/dati na pagina inicial"}
+ ],
+ "DECISAO": "nenhum contrato alterado: as rotas actuais continuam tecnicamente validas (chegam a materia com corpo); o defeito medido pela missao 4 e de RELEVANCIA, nao de rota. As duas series com materia util estao paradas desde 2022/2020 — trocar a rota por elas daria zero documentos novos."
+}
