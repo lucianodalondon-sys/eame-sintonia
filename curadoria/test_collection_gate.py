@@ -286,6 +286,8 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
         # descartavel e uma worktree temporaria — a Sala real nao e tocada.
         # Ferramenta corrida a mao; nao arranca coleta de producao.
         "scripts/micro_coleta/ensaio_offline.py": ("MANUAL_TOOL", False),
+        # SOC2: importa `alvosDe` para provar a guarda COLETADO_POR; nao colhe.
+        "curadoria/test_soc2_curator_youtube.py": ("TEST_ONLY", False),
     }
     PREFIXOS_DECLARADOS = {
         "regras/": "TEST_ONLY",      # guardas e motor de rota, nao correm coleta
