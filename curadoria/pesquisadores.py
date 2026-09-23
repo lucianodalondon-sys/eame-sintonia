@@ -612,8 +612,12 @@ def escrever_lista() -> dict:
              if "MISSAO=PESQUISADORES" in c.get("NOTA", "")]
     por_familia: dict[str, int] = {}
     linhas = []
+    fam_p1b = {}
+    if PROOF_P1B.exists():
+        for e in json.loads(PROOF_P1B.read_text(encoding="utf-8"))["LOG"]:
+            fam_p1b[normalizar(e["url"])] = e["familia"]
     for c in sorted(cands, key=lambda c: c["CANDIDATA_ID"]):
-        fam = familia_de(c["URL"])
+        fam = fam_p1b.get(normalizar(c["URL"])) or familia_de(c["URL"])
         por_familia[fam] = por_familia.get(fam, 0) + 1
         linhas.append({"CANDIDATA_ID": c["CANDIDATA_ID"], "FAMILIA": fam,
                        "TIPO": c["TIPO"], "PAIS": c["PAIS"], "NOME": c["NOME"],
@@ -630,15 +634,491 @@ def escrever_lista() -> dict:
     return lista
 
 
+# ---------------------------------------------------------------------------
+# FASE P1b — reler recusas, achar enderecos novos, IZS, Veterinaria, Ordini
+# ---------------------------------------------------------------------------
+import subprocess                                        # noqa: E402
+import time                                              # noqa: E402
+import urllib.error                                      # noqa: E402
+import urllib.parse                                      # noqa: E402
+import urllib.request                                    # noqa: E402
+import urllib.robotparser                                # noqa: E402
+from collections import Counter                          # noqa: E402
+
+sys.path.insert(0, str(RAIZ / "superficie"))
+import rede as R                                         # noqa: E402
+
+PROOF_P1B = RAIZ / "curadoria" / "PESQUISADORES-P1B-PROOF-V1.json"
+VIGIA_A_CADA = 10
+_RELER_MOTIVOS = ("ROBOTS_BLOCKED", "HTTP_0")
+_SUB_RE = re.compile(r"/(notizie|news|comunicati|comunicati-stampa|pubblicazioni|"
+                     r"eventi|avvisi|ufficio-stampa|stampa)(/|$)", re.I)
+
+
+class VigiaParou(RuntimeError):
+    pass
+
+
+def vigia() -> str:
+    """Mede a saida. UNKNOWN repete uma vez (o checker tropeca); o resto para."""
+    for tentativa in (1, 2):
+        e = R.portao_de_egresso("IT")
+        if e["EGRESS_GATE"] == "PASS":
+            return "PASS"
+        if tentativa == 1:
+            time.sleep(5)
+    raise VigiaParou("EGRESS=%s" % e["EGRESS_COUNTRY_CODE"])
+
+
+def conhecidos_da_p2() -> set[str]:
+    """URLs que a missao P2 ja registou noutra branch — nao duplicar."""
+    try:
+        bruto = subprocess.run(
+            ["git", "show", "pesquisa-projetos-v1:candidatas/FONTES-CANDIDATAS.json"],
+            cwd=str(RAIZ), capture_output=True, check=True).stdout
+        return {normalizar(c["URL"]) for c in json.loads(bruto)["CANDIDATAS"]}
+    except Exception:
+        return set()
+
+
+_diag: dict[str, tuple[str, urllib.robotparser.RobotFileParser]] = {}
+
+
+def diagnosticar_robots(host: str, orcam) -> tuple[str, urllib.robotparser.RobotFileParser]:
+    """Le o robots.txt de novo e diz PORQUE: 200, AUSENTE ou ILEGIVEL_<codigo>.
+
+    ILEGIVEL continua a fechar a porta (prudencia) — so deixa de se chamar
+    «proibido», porque nao e isso que foi medido.
+    """
+    if host in _diag:
+        return _diag[host]
+    url = "https://%s/robots.txt" % host
+    rp = urllib.robotparser.RobotFileParser()
+    ok, _ = orcam.pode(url)
+    if not ok:
+        rp.parse(["User-agent: *", "Disallow: /"])
+        _diag[host] = ("ILEGIVEL_ORCAMENTO", rp)
+        return _diag[host]
+    orcam.pausar(url)
+    orcam.registar(url)
+    req = urllib.request.Request(url, headers={"User-Agent": D.UA})
+    try:
+        with urllib.request.urlopen(req, timeout=D.TIMEOUT_S, context=D.CTX) as r:
+            rp.parse(r.read().decode("utf-8", "replace").splitlines())
+            classe = "ROBOTS_200"
+    except urllib.error.HTTPError as e:
+        if e.code in (404, 410):
+            rp.parse([])
+            classe = "ROBOTS_AUSENTE"
+        else:
+            rp.parse(["User-agent: *", "Disallow: /"])
+            classe = "ILEGIVEL_%d" % e.code
+    except Exception as ex:
+        rp.parse(["User-agent: *", "Disallow: /"])
+        classe = "ILEGIVEL_%s" % type(ex).__name__
+    _diag[host] = (classe, rp)
+    return _diag[host]
+
+
+def _host(url: str) -> str:
+    return urllib.parse.urlsplit(url).netloc.lower()
+
+
+def _porta_do_robots(url: str, orcam) -> tuple[bool, str]:
+    classe, rp = diagnosticar_robots(_host(url), orcam)
+    if classe.startswith("ILEGIVEL"):
+        return False, "ROBOTS_" + classe
+    if not rp.can_fetch(D.UA, url):
+        return False, "ROBOTS_DISALLOW"
+    return True, classe
+
+
+def explorar(url: str, padrao: str = "", orcam=None) -> list[tuple[str, str]]:
+    """Abre uma pagina oficial (hub) e devolve os links dela. Nao regista nada."""
+    orcam = orcam or D.Orcamento(total=20)
+    ok, porque = _porta_do_robots(url, orcam)
+    if not ok:
+        print("HUB FECHADO", porque, url)
+        return []
+    html, code, ct = D._buscar_pagina_html(url, orcam)
+    if not html:
+        print("HUB SEM HTML", code, ct, url)
+        return []
+    rx = re.compile(padrao, re.I) if padrao else None
+    vistos, out = set(), []
+    for u, a in D.extrair_links(html, url):
+        u = u.split("#")[0]
+        if u in vistos or not u.startswith("http"):
+            continue
+        if rx and not (rx.search(u) or rx.search(a)):
+            continue
+        vistos.add(u)
+        out.append((u, a))
+    return out
+
+
+def _motivo_rejeitado(norm: str, visitados: dict):
+    r = visitados.get("REJEITADOS", {}).get(norm)
+    if r is None:
+        return None
+    return r if isinstance(r, str) else str(r.get("MOTIVO", r))
+
+
+def _registar_p1b(cand: dict, http: int, prova: str) -> dict:
+    nota = ("DISCOVERED_FROM=%s | DISCOVERY_METHOD=%s | DISCOVERED_AT=%s"
+            " | DISCOVERED_HTTP=%d | PROVA=%s | MISSAO=PESQUISADORES-P1B"
+            % (cand["discovered_from"], cand["method"],
+               datetime.now(timezone.utc).isoformat(), http, prova))
+    return registar(tipo=cand["tipo"], pais=cand["pais"], nome=cand["nome"],
+                    url=cand["url"], para_que=cand["para_que"],
+                    quem_viu="curadoria/pesquisadores.py (P1b)",
+                    onde_viu=cand["discovered_from"], nota=nota)
+
+
+def tentar(cand: dict, orcam, ctx: dict, sub: bool = False) -> None:
+    url, norm = cand["url"], normalizar(cand["url"])
+    log, visitados = ctx["log"], ctx["visitados"]
+    fam = cand.get("familia") or familia_de(url)
+
+    def anota(acao, **kw):
+        log.append({"url": url, "familia": fam, "acao": acao, **kw})
+
+    if norm in ctx["p2"]:
+        return anota("DEDUP", motivo="NA_P2")
+    if norm in ctx["conhecidos"]:
+        return anota("DEDUP", motivo="SAME_URL")
+    antes = _motivo_rejeitado(norm, visitados)
+    if antes and not antes.startswith(_RELER_MOTIVOS):
+        return anota("DEDUP", motivo="PREVIOUSLY_REJECTED:" + antes)
+
+    ctx["n"] += 1
+    if ctx["n"] % VIGIA_A_CADA == 0:
+        ctx["vigias"].append(vigia())
+
+    ok, porque = _porta_do_robots(url, orcam)
+    if not ok:
+        D._marcar_rejeitado(norm, porque, visitados)
+        return anota("ROBOTS", motivo=porque, relido=bool(antes))
+
+    html, code, ct = D._buscar_pagina_html(url, orcam)
+    if not (200 <= code < 300):
+        D._marcar_rejeitado(norm, "HTTP_%d" % code, visitados)
+        return anota("FALHOU", http=code, relido=bool(antes))
+
+    prova = cand.get("prova", "pagina oficial responde")
+    if cand.get("titulo_re"):
+        m = re.search(r"<title[^>]*>(.*?)</title>", html or "", re.S | re.I)
+        titulo = " ".join((m.group(1) if m else "").split())[:120]
+        if not re.search(cand["titulo_re"], titulo, re.I):
+            D._marcar_rejeitado(norm, "IDENTIDADE_NAO_CONFIRMADA", visitados)
+            return anota("SEM_IDENTIDADE", titulo=titulo, relido=bool(antes))
+        prova += " | TITULO=%s" % titulo
+
+    linha = _registar_p1b(cand, code, prova)
+    D._marcar_visitado(norm, "REGISTADO_%s" % linha["CANDIDATA_ID"], visitados)
+    ctx["conhecidos"].add(norm)
+    anota("REGISTADO", id=linha["CANDIDATA_ID"], relido=bool(antes), robots=porque)
+
+    if sub and html:
+        host = _host(url)
+        achados = []
+        for u, a in D.extrair_links(html, url):
+            u = u.split("#")[0].split("?")[0]
+            p = urllib.parse.urlsplit(u)
+            if p.netloc.lower() != host or not _SUB_RE.search(p.path):
+                continue
+            if p.path.rstrip("/").count("/") > 3:
+                continue
+            if normalizar(u) == norm or normalizar(u) in {normalizar(x) for x, _ in achados}:
+                continue
+            achados.append((u, a))
+        for u, a in achados[:2]:
+            tentar({**cand, "url": u, "familia": fam, "titulo_re": None,
+                    "nome": "%s — %s" % (cand["nome"], (a or urllib.parse.urlsplit(u).path)[:50]),
+                    "para_que": "pagina de noticias/publicacoes de: " + cand["para_que"],
+                    "discovered_from": url, "method": "link_da_home_oficial",
+                    "prova": "ligada pela home oficial %s (texto: %s)" % (url, (a or "")[:60])},
+                   orcam, ctx, sub=False)
+
+
+def correr_p1b(catalogo: list, orcamento: int = 380) -> dict:
+    ctx = {"log": [], "visitados": D._ler_visitados(), "conhecidos": D._construir_set_conhecido(),
+           "p2": conhecidos_da_p2(), "n": 0, "vigias": [vigia()]}
+    orcam = D.Orcamento(total=orcamento)
+    inicio = datetime.now(timezone.utc).isoformat()
+    parou = None
+    try:
+        for cand in catalogo:
+            tentar(cand, orcam, ctx, sub=cand.get("sub", False))
+            time.sleep(cand.get("pausa", 1))
+        ctx["vigias"].append(vigia())
+    except VigiaParou as ex:
+        parou = str(ex)
+    finally:
+        D._gravar_visitados(ctx["visitados"])
+    log = ctx["log"]
+    por_fam: dict = {}
+    for e in log:
+        if e["acao"] == "REGISTADO":
+            por_fam[e["familia"]] = por_fam.get(e["familia"], 0) + 1
+    prova = {"DATASET": "PESQUISADORES-P1B-PROOF-V1", "CORRIDA_EM": inicio,
+             "VIGIA_PAROU": parou, "VIGIAS": ctx["vigias"],
+             "CANDIDATAS_NOVAS": sum(por_fam.values()),
+             "POR_FAMILIA": dict(sorted(por_fam.items())),
+             "ACOES": dict(Counter(e["acao"] for e in log)),
+             "DUPLICADAS_EVITADAS": sum(1 for e in log if e["acao"] == "DEDUP"),
+             "PEDIDOS_DE_REDE": orcam.pedidos_feitos,
+             "MAX_PEDIDOS_UM_DOMINIO": orcam.max_num_dominio(),
+             "ROBOTS_POR_HOST": {h: c for h, (c, _) in sorted(_diag.items())},
+             "LOG": log}
+    fd, tmp = tempfile.mkstemp(dir=str(PROOF_P1B.parent), suffix=".tmp")
+    with os.fdopen(fd, "w", encoding="utf-8") as fh:
+        json.dump(prova, fh, ensure_ascii=False, indent=1)
+    os.replace(tmp, PROOF_P1B)
+    return prova
+
+
+# ---------------------------------------------------------------------------
+# Catalogo P1b — so enderecos medidos em 23/09: link de pagina oficial
+# explorada (discovered_from) ou nome que resolve no DNS + titulo confirmado.
+# ---------------------------------------------------------------------------
+CONAF_LINKS = RAIZ / "curadoria" / "PESQUISADORES-P1B-CONAF-LINKS.json"
+_CREA_HUB = "https://www.crea.gov.it/centri-di-ricerca"
+_T_IZS = r"zooprofilattic|IZS"
+_T_VET = r"veterinar|animal"
+_T_ORD = r"agronom|forestal|ordine|federazion|dottori"
+
+
+def _c(familia, tipo, nome, url, para_que, de, **kw):
+    return {"familia": familia, "tipo": tipo, "pais": "IT", "nome": nome, "url": url,
+            "para_que": para_que, "discovered_from": de,
+            "method": kw.pop("method", "link_de_pagina_oficial"), **kw}
+
+
+def _crea(slug, nome):
+    return _c("CREA", "CIENCIA", "CREA — Centro " + nome,
+              "https://www.crea.gov.it/web/" + slug,
+              "centro di ricerca CREA: notizie, progetti e pubblicazioni", _CREA_HUB,
+              prova="listado na pagina oficial Centri di ricerca do CREA")
+
+
+def _dns(familia, tipo, nome, url, para_que, titulo_re, sub=True):
+    return _c(familia, tipo, nome, url, para_que, url, method="dns_e_titulo",
+              titulo_re=titulo_re, sub=sub,
+              prova="nome resolve no DNS (medido 23/09) e a propria home responde")
+
+
+CATALOGO_P1B: list[dict] = [
+    # CREA — os 12 centros vivem em /web/<centro>; 4 ja estao na fila sem /web/
+    _crea("agricoltura-e-ambiente", "Agricoltura e Ambiente"),
+    _crea("alimenti-e-nutrizione", "Alimenti e Nutrizione"),
+    _crea("foreste-e-legno", "Foreste e Legno"),
+    _crea("genomica-e-bioinformatica", "Genomica e Bioinformatica"),
+    _crea("ingegneria-e-trasformazioni-agroalimentari", "Ingegneria e Trasformazioni Agroalimentari"),
+    _crea("olivicoltura-frutticoltura-e-agrumicoltura", "Olivicoltura, Frutticoltura e Agrumicoltura"),
+    _crea("politiche-e-bioeconomia", "Politiche e Bioeconomia"),
+    _crea("zootecnia-e-acquacoltura", "Zootecnia e Acquacoltura"),
+    _c("CREA", "CIENCIA", "CREA — Notizie", "https://www.crea.gov.it/notizie",
+       "notizie ufficiali della ricerca CREA", _CREA_HUB),
+    _c("CREA", "CIENCIA", "CREA — Comunicati Stampa", "https://www.crea.gov.it/comunicati-stampa",
+       "comunicati stampa CREA su risultati di ricerca", _CREA_HUB),
+    _c("CREA", "CIENCIA", "CREA — Eventi", "https://www.crea.gov.it/eventi-crea",
+       "convegni e giornate tecniche CREA", _CREA_HUB),
+    _c("CREA", "CIENCIA", "CREA — Riviste del CREA", "https://www.crea.gov.it/riviste-del-crea",
+       "riviste scientifiche e tecniche edite dal CREA", _CREA_HUB),
+    _c("CREA", "CIENCIA", "CREA — Open Access", "https://www.crea.gov.it/open-access",
+       "pubblicazioni ad accesso aperto dei ricercatori CREA", _CREA_HUB),
+    _c("CREA", "CIENCIA", "CREA — Schede tecniche", "https://www.crea.gov.it/schede-tecniche",
+       "schede tecniche CREA per colture e difesa", _CREA_HUB),
+
+    # ENEA / ISPRA — enderecos novos no lugar dos 404
+    _c("FONDAZIONI_ENTI", "CIENCIA", "ENEA — Dipartimento Sostenibilita (SSPT)",
+       "https://sostenibilita.enea.it/", "ricerca ENEA su agroalimentare, bioeconomia e sostenibilita",
+       "https://www.enea.it/it", sub=True, titulo_re=r"sostenib|ENEA"),
+    _c("FONDAZIONI_ENTI", "CIENCIA", "ISPRA — Geologia, suolo e siti contaminati",
+       "https://www.isprambiente.gov.it/it/attivita/suolo-e-territorio",
+       "consumo di suolo, erosione e qualita dei suoli agricoli", "https://www.isprambiente.gov.it/it"),
+    _c("FONDAZIONI_ENTI", "CIENCIA", "ISPRA — Biodiversita",
+       "https://www.isprambiente.gov.it/it/attivita/biodiversita",
+       "biodiversita, specie aliene e impollinatori", "https://www.isprambiente.gov.it/it"),
+    _c("FONDAZIONI_ENTI", "CIENCIA", "ISPRA — Pubblicazioni",
+       "https://www.isprambiente.gov.it/it/pubblicazioni",
+       "rapporti ISPRA (suolo, fitofarmaci nelle acque, clima)", "https://www.isprambiente.gov.it/it"),
+
+    # IZS — os 10 institutos; IZSVe ja esta na fila
+    _dns("IZS", "CIENCIA", "IZSAM — Istituto Zooprofilattico Abruzzo e Molise", "https://www.izs.it/",
+         "sanita animale, zoonosi e sicurezza alimentare Abruzzo-Molise", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSLER — Istituto Zooprofilattico Lombardia ed Emilia-Romagna", "https://www.izsler.it/",
+         "sanita animale e sicurezza alimentare Lombardia-Emilia-Romagna", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSUM — Istituto Zooprofilattico Umbria e Marche", "https://www.izsum.it/",
+         "sanita animale e sicurezza alimentare Umbria-Marche", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSLT — Istituto Zooprofilattico Lazio e Toscana", "https://www.izslt.it/",
+         "sanita animale e sicurezza alimentare Lazio-Toscana", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSM — Istituto Zooprofilattico del Mezzogiorno", "https://www.izsmportici.it/",
+         "sanita animale e sicurezza alimentare Campania-Calabria", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSPB — Istituto Zooprofilattico Puglia e Basilicata", "https://www.izspb.it/",
+         "sanita animale e sicurezza alimentare Puglia-Basilicata", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSSi — Istituto Zooprofilattico della Sicilia", "https://www.izssicilia.it/",
+         "sanita animale e sicurezza alimentare Sicilia", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSSa — Istituto Zooprofilattico della Sardegna", "https://www.izs-sardegna.it/",
+         "sanita animale e sicurezza alimentare Sardegna", _T_IZS),
+    _dns("IZS", "CIENCIA", "IZSPLV — Istituto Zooprofilattico Piemonte, Liguria e Valle d'Aosta", "https://izsto.it/",
+         "sanita animale e sicurezza alimentare Piemonte-Liguria-VdA", _T_IZS),
+
+    # Veterinaria
+    _dns("VETERINARIA", "CIENCIA", "MAPS — Medicina Animale, Produzioni e Salute, Univ. Padova",
+         "https://www.maps.unipd.it/", "ricerca veterinaria e produzioni animali Padova", _T_VET),
+    _dns("VETERINARIA", "CIENCIA", "BCA — Biomedicina Comparata e Alimentazione, Univ. Padova",
+         "https://www.bca.unipd.it/", "ricerca veterinaria e alimentazione animale Padova", _T_VET + r"|alimentaz|biomedicin"),
+    _dns("VETERINARIA", "CIENCIA", "DIVAS — Medicina Veterinaria e Scienze Animali, Univ. Milano",
+         "https://www.divas.unimi.it/", "ricerca veterinaria e zootecnia Milano", _T_VET),
+    _dns("VETERINARIA", "CIENCIA", "VESPA — Scienze Veterinarie per la Salute e la Produzione Animale, Univ. Milano",
+         "https://www.vespa.unimi.it/", "salute animale e sicurezza alimentare Milano", _T_VET),
+    _dns("VETERINARIA", "CIENCIA", "Dip. Scienze Veterinarie, Univ. Torino",
+         "https://www.veterinaria.unito.it/", "ricerca veterinaria Torino", _T_VET),
+    _dns("VETERINARIA", "CIENCIA", "DMVPA — Medicina Veterinaria e Produzioni Animali, Univ. Napoli Federico II",
+         "https://www.mvpa.unina.it/", "ricerca veterinaria e produzioni animali Napoli", _T_VET),
+    _dns("VETERINARIA", "CIENCIA", "Dip. Scienze Veterinarie, Univ. Pisa",
+         "https://www.vet.unipi.it/", "ricerca veterinaria Pisa", _T_VET),
+    _dns("VETERINARIA", "CIENCIA", "Dip. Scienze Medico-Veterinarie, Univ. Parma",
+         "https://smv.unipr.it/", "ricerca veterinaria e sicurezza alimentare Parma", _T_VET),
+    _c("VETERINARIA", "CIENCIA", "Dip. Medicina Veterinaria, Univ. Teramo",
+       "https://www.unite.it/UniTE/Dipartimenti_HP/Medicina_veterinaria",
+       "ricerca veterinaria Teramo", "https://www.unite.it/"),
+
+    # Universita agraria — enderecos certos no lugar dos que nao resolviam
+    _c("UNIVERSITA", "CIENCIA", "DI4A — Scienze AgroAlimentari, Ambientali e Animali, Univ. Udine",
+       "https://di4a.uniud.it/", "ricerca agroalimentare e zootecnica Friuli", "https://www.uniud.it/it",
+       sub=True, titulo_re=r"DI4A|agro|alimentar"),
+    _dns("UNIVERSITA", "CIENCIA", "DSA3 — Scienze Agrarie, Alimentari e Ambientali, Univ. Perugia",
+         "https://dsa3.unipg.it/", "ricerca agraria Umbria", r"agrari|alimentar|ambient|DSA3"),
+    _c("UNIVERSITA", "CIENCIA", "Dip. Bioscienze e Tecnologie Agro-alimentari e Ambientali, Univ. Teramo",
+       "https://www.unite.it/UniTE/Dipartimenti_HP/Bioscienze_e_tecnologie_agro-alimentari_e_ambientali",
+       "ricerca agroalimentare Teramo", "https://www.unite.it/"),
+    _c("UNIVERSITA", "CIENCIA", "Dip. Scienze Agrarie, Alimentari e Agro-ambientali, Univ. Pisa",
+       "https://www.agr.unipi.it/", "ricerca agraria Pisa (relida: antes HTTP_0)", "https://www.agr.unipi.it/", sub=True),
+    _c("UNIVERSITA", "CIENCIA", "DiSSPA — Scienze del Suolo, della Pianta e degli Alimenti, Univ. Bari",
+       "https://www.uniba.it/ricerca/dipartimenti/disspa", "ricerca agraria Puglia (relida: antes HTTP_0)",
+       "https://www.uniba.it/"),
+
+    # Societa scientifiche e riviste
+    _dns("SOCIETA_SCIENTIFICHE", "CIENCIA", "SIGA — Societa Italiana di Genetica Agraria",
+         "https://www.geneticagraria.it/", "genetica agraria: congressi e notizie", r"genetica|SIGA"),
+    _dns("SOCIETA_SCIENTIFICHE", "CIENCIA", "SIA — Societa Italiana di Agronomia",
+         "https://www.siagr.it/", "agronomia: congressi, rivista IJA e notizie", r"agronom|SIA"),
+    _dns("SOCIETA_SCIENTIFICHE", "CIENCIA", "AIVI — Associazione Italiana Veterinari Igienisti",
+         "https://www.aivi.it/", "igiene degli alimenti di origine animale", r"AIVI|veterinar|igien"),
+    _dns("SOCIETA_SCIENTIFICHE", "CIENCIA", "Societa Entomologica Italiana",
+         "https://www.societaentomologicaitaliana.it/", "entomologia agraria: bollettino e notizie", r"entomolog"),
+    _dns("SOCIETA_SCIENTIFICHE", "CIENCIA", "AIAM — Associazione Italiana di AgroMeteorologia",
+         "https://www.aiam.info/", "agrometeorologia: rivista e convegni", r"agrometeo|AIAM"),
+    _dns("SOCIETA_SCIENTIFICHE", "CIENCIA", "SIDEA — Societa Italiana di Economia Agraria",
+         "https://www.sidea.org/", "economia agraria: convegni e pubblicazioni", r"economia|SIDEA"),
+    _dns("SOCIETA_SCIENTIFICHE", "CIENCIA", "AIIA — Associazione Italiana di Ingegneria Agraria",
+         "https://www.aiia.it/", "meccanizzazione e ingegneria agraria", r"ingegneria|AIIA"),
+    _c("SOCIETA_SCIENTIFICHE", "CIENCIA", "SOI — Societa di Orticoltura Italiana",
+       "https://www.soihs.it/", "orticoltura: convegni e notizie (relida: robots ausente)",
+       "https://www.soihs.it/", sub=True),
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "Italus Hortus — rivista SOI", "https://www.soihs.it/italus-hortus/",
+       "rivista di orticoltura (relida: robots ausente)", "https://www.soihs.it/"),
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "Journal of Entomological and Acarological Research — PAGEPress",
+       "https://www.pagepressjournals.org/jear", "rivista open di entomologia e acarologia",
+       "https://www.pagepressjournals.org/"),
+    _c("RIVISTE_SCIENTIFICHE", "CIENCIA", "AF — L'Agronomo Forestale (rivista CONAF)",
+       "https://www.agronomoforestale.eu/", "rivista professionale degli agronomi e forestali",
+       "https://www.conaf.it/ordini-provinciali", titulo_re=r"agronom|forestal|AF"),
+
+    # Ordini e Collegi (paginas nacionais)
+    _c("ORDINI_COLLEGI", "ORGANIZACAO", "CONAF — Comunicati stampa",
+       "https://www.conaf.it/newsinhome/conaf-news/", "comunicati stampa del Consiglio nazionale agronomi",
+       "https://www.conaf.it/ordini-provinciali"),
+    _c("ORDINI_COLLEGI", "ORGANIZACAO", "CONAF — Rivista", "https://www.conaf.it/newsinhome/rivista/",
+       "rivista e pubblicazioni CONAF", "https://www.conaf.it/ordini-provinciali"),
+    _c("ORDINI_COLLEGI", "ORGANIZACAO", "CONAF — Centro Studi", "https://www.conaf.it/uffici/centro-studi/",
+       "studi e ricerche del Centro Studi CONAF", "https://www.conaf.it/ordini-provinciali"),
+    _c("ORDINI_COLLEGI", "ORGANIZACAO", "Periti Agrari — Notizie dal Collegio Nazionale",
+       "https://www.peritiagrari.it/area-comunicazione.html", "notizie tecniche dei periti agrari",
+       "https://www.peritiagrari.it/"),
+    _c("ORDINI_COLLEGI", "ORGANIZACAO", "Periti Agrari — Notizie dai Territoriali",
+       "https://www.peritiagrari.it/area-comunicazione/notizie-dai-territoriali.html",
+       "notizie dei collegi provinciali dei periti agrari", "https://www.peritiagrari.it/"),
+    _c("ORDINI_COLLEGI", "ORGANIZACAO", "Periti Agrari — Comunicati Stampa",
+       "https://www.peritiagrari.it/area-comunicazione/comunicati-stampa.html",
+       "comunicati stampa del Collegio nazionale periti agrari", "https://www.peritiagrari.it/territoriali.html"),
+    _c("ORDINI_COLLEGI", "ORGANIZACAO", "Collegio Nazionale Agrotecnici e Agrotecnici Laureati",
+       "https://www.agrotecnici.it/", "agrotecnici: notizie professionali (relida: robots ausente)",
+       "https://www.agrotecnici.it/", sub=True, titulo_re=r"agrotecnic"),
+
+    # Riviste tecniche
+    _c("RIVISTE_TECNICHE", "IMPRENSA", "L'Informatore Agrario", "https://www.informatoreagrario.it/",
+       "rivista tecnica degli agronomi (relida: robots permite a home)",
+       "https://www.informatoreagrario.it/", sub=True),
+]
+
+# Externos listados pelo CONAF so quando a ordem nao tem subdominio conaf.it proprio.
+_ORDINI_EXTERNOS = {
+    "www.odafrieti.it", "agronomicatanzaro.it", "www.agronomiforestali.it", "www.agronomi-fg.it",
+    "www.agronomiforestali-novara-vco.it",
+}
+_RER = ("ordine-di-ferrara", "ordine-di-forli-cesena-rimini", "ordine-di-modena",
+        "ordine-di-parma", "ordine-di-piacenza")
+
+
+def ordini_do_conaf() -> list[dict]:
+    """Uma entrada por ordem/federacao, escolhida dos links que o CONAF publica."""
+    achados = json.loads(CONAF_LINKS.read_text(encoding="utf-8"))
+    escolhidos: dict[str, dict] = {}
+    for a in achados:
+        u = a["url"].rstrip("/")
+        host = urllib.parse.urlsplit(u).netloc.lower()
+        regiao = a["regiao"].replace("ordini-afferenti-federazione-", "").replace(
+            "ordine-regionale-", "").replace("federazione-", "")
+        if host.startswith("old") or host == "ordinefvg.conaf.it":
+            continue
+        if host.endswith(".conaf.it"):
+            chave = host[:-len(".conaf.it")]
+            chave = chave[3:] if chave.startswith("new") else chave
+        elif host in _ORDINI_EXTERNOS:
+            chave = host
+        elif host == "www.agronomiforestali-rer.it" and u.rsplit("/", 1)[-1] in _RER:
+            chave = u.rsplit("/", 1)[-1]
+        else:
+            continue
+        atual = escolhidos.get(chave)
+        if atual and not (u.startswith("https") and not atual["url"].startswith("https")):
+            continue
+        rotulo = (chave.replace("-", " ") if chave.startswith("ordine-di") else
+                  chave.replace("ordine", "ordine ").replace("federazione", "federazione ").replace("fodaf", "federazione "))
+        escolhidos[chave] = _c(
+            "ORDINI_COLLEGI", "ORGANIZACAO",
+            "Dottori Agronomi e Forestali — %s (%s)" % (rotulo.strip(), regiao),
+            u + ("/" if urllib.parse.urlsplit(u).path == "" else ""),
+            "ordine territoriale agronomi e forestali (%s): notizie, eventi e formazione" % regiao,
+            a["hub"], titulo_re=_T_ORD, pausa=3,
+            prova="listado pela pagina oficial CONAF da regiao %s" % regiao)
+    return list(escolhidos.values())
+
+
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser(
         description="Discovery focada em pesquisadores/CIENCIA para IT.")
     ap.add_argument("--orcamento", type=int, default=200)
     ap.add_argument("--listar", action="store_true")
+    ap.add_argument("--p1b", action="store_true",
+                    help="fase P1b: releitura, IZS, Veterinaria, Ordini (rede, VPN IT)")
     ap.add_argument("--lista", action="store_true",
                     help="so escreve PESQUISADORES-LISTA-V1.json, sem rede")
     a = ap.parse_args()
+
+    if a.p1b:
+        r = correr_p1b(CATALOGO_P1B + ordini_do_conaf(), orcamento=a.orcamento)
+        l = escrever_lista()
+        for k in ("CANDIDATAS_NOVAS", "POR_FAMILIA", "ACOES", "DUPLICADAS_EVITADAS",
+                  "PEDIDOS_DE_REDE", "MAX_PEDIDOS_UM_DOMINIO", "VIGIA_PAROU", "VIGIAS"):
+            print(k, r[k])
+        print("LISTA_CUMULATIVA", l["CANDIDATAS_NOVAS"], l["POR_FAMILIA"])
+        return 0
 
     if a.lista:
         l = escrever_lista()
