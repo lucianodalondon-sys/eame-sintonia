@@ -274,6 +274,7 @@
       "curadoria/CICLO-FONTE-PROOF-V1.json",
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CRAWL-PROOF-V1.json",
+      "curadoria/DECISOES-SEMANTICAS-V1.json",
       "curadoria/DISCOVERY-PROOF-V1.json",
       "curadoria/DISCOVERY-VISITED.json",
       "curadoria/FILA-WINDOWS-PROOF-V1.json",
@@ -319,6 +320,7 @@
       "curadoria/consolidar.py",
       "curadoria/consolidar_caracterizacao.py",
       "curadoria/correr_lote.py",
+      "curadoria/decisao_semantica.py",
       "curadoria/descobrir.py",
       "curadoria/emparelhar_com_atlas.py",
       "curadoria/ensaiar_dois_escritores.py",
@@ -357,6 +359,7 @@
       "curadoria/test_caracterizador.py",
       "curadoria/test_cartao_de_fonte.py",
       "curadoria/test_correr_lote.py",
+      "curadoria/test_decisao_semantica.py",
       "curadoria/test_discovery.py",
       "curadoria/test_discovery_sementes.py",
       "curadoria/test_fila_windows.py",
@@ -364,6 +367,7 @@
       "curadoria/test_gatilho_ocioso.py",
       "curadoria/test_interface_collection.py",
       "curadoria/test_lifecycle.py",
+      "curadoria/test_livros_reais_intactos.py",
       "curadoria/test_ponte_candidatas.py",
       "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
@@ -2809,10 +2813,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "fila-windows-v1",
-    "HEAD": "760a4a0011613d57612d1a8d03208226f66ac94d",
-    "GENERATED_AT": "2026-09-23T02:12:31-03:00",
-    "SOURCE_TREE_FINGERPRINT": "79d15b9ba2c164c863633bb388820365efd3e315928e6236420290b59d5e5741"
+    "BRANCH": "semantico-opus-v2",
+    "HEAD": "fc0ff45ecd6c00b910ffafed336e8e30041a6676",
+    "GENERATED_AT": "2026-09-23T03:48:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6b129bc82168556ff8e7a7f33fabe107ff4afda5c198a3af7d09c75c9f7e95de"
   },
   "FAMILIES": [
     {
@@ -4294,8 +4298,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 472",
-        "desses, mostrados aqui: 40 (ficam de fora 432)"
+        "enderecos que o codigo realmente chama: 475",
+        "desses, mostrados aqui: 40 (ficam de fora 435)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -44292,7 +44296,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch fila-windows-v1"
+        "branch semantico-opus-v2"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -101218,7 +101222,7 @@
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1201,
+  "UNCLAIMED_FILES_COUNT": 1205,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101407,7 +101411,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2216,
+    "files_tracked": 2220,
     "files_covered": 1015,
     "files_code_unclaimed": 2,
     "roles_proven": 147,

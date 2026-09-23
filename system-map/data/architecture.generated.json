@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "fila-windows-v1",
-    "HEAD": "760a4a0011613d57612d1a8d03208226f66ac94d",
-    "GENERATED_AT": "2026-09-23T02:12:31-03:00",
-    "SOURCE_TREE_FINGERPRINT": "79d15b9ba2c164c863633bb388820365efd3e315928e6236420290b59d5e5741"
+    "BRANCH": "semantico-opus-v2",
+    "HEAD": "fc0ff45ecd6c00b910ffafed336e8e30041a6676",
+    "GENERATED_AT": "2026-09-23T03:48:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6b129bc82168556ff8e7a7f33fabe107ff4afda5c198a3af7d09c75c9f7e95de"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "b44ca9e53cc27e1d9cbcad834f5837d65d2d3371",
+      "sha": "3d86495b254a4197e0d1f0ba88f1d1773dba6c05",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1759,6 +1759,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/DECISOES-SEMANTICAS-V1.json",
+      "sha": "c7dfcf01cfd96a239dede0d4db8ad2b9ab846f07",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/DISCOVERY-PROOF-V1.json",
       "sha": "06feaaaa3b6a0c720b195df1c070bb244d58e835",
       "ext": ".json",
@@ -2074,6 +2081,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/decisao_semantica.py",
+      "sha": "7fecff83b73cd6ed7a6530b8e52f5beb8b1f70c6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/descobrir.py",
       "sha": "40a67f5751c3c1446c64e1a8eee44e44c1c819ab",
       "ext": ".py",
@@ -2340,6 +2354,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_decisao_semantica.py",
+      "sha": "51aaefe9a7b2e5d91f0f2c83a4ab304ea363cf1b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_discovery.py",
       "sha": "43a59c620b375ac393e8a71546483b49562fe34e",
       "ext": ".py",
@@ -2355,7 +2376,7 @@
     },
     {
       "path": "curadoria/test_fila_windows.py",
-      "sha": "a3c5e5fa444ef777eb7686c02a07e06e1e7aa0bb",
+      "sha": "fb86f5e0947d2d46608560ef3e3d7df4cc2119fc",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2389,6 +2410,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_livros_reais_intactos.py",
+      "sha": "9bbe20402d154d67ed1d911aaa2da0cacd80c3c4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_ponte_candidatas.py",
       "sha": "a9d452086f899717f68bf3adf056a81577321933",
       "ext": ".py",
@@ -2404,7 +2432,7 @@
     },
     {
       "path": "curadoria/test_supervisor.py",
-      "sha": "6765ce2715bb2ba64c37dfa9c16226ea238d90ec",
+      "sha": "1b36608c16fd838083c43200519a4a5f23d44378",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2418,7 +2446,7 @@
     },
     {
       "path": "curadoria/test_worker_pendurado.py",
-      "sha": "832f6336f078889721d33799858149e843ea3946",
+      "sha": "9629de6eaab748990a38da87759e4f05db6f9efb",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2446,7 +2474,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "1356ca839cc38ee5895779bee8a3f45cd9e2f09c",
+      "sha": "5c620378e8fa402b7f5d4b44b502fa35e36dc9b1",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20726,6 +20754,17 @@
       }
     },
     {
+      "from_file": "curadoria/decisao_semantica.py",
+      "to_file": "curadoria/DECISOES-SEMANTICAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/decisao_semantica.py",
+        "line": 31,
+        "snippet": "DECISOES = RAIZ / \"curadoria\" / \"DECISOES-SEMANTICAS-V1.json\""
+      }
+    },
+    {
       "from_file": "curadoria/descobrir.py",
       "to_file": "candidatas/FONTES-CANDIDATAS.json",
       "type": "READS",
@@ -22365,6 +22404,61 @@
       }
     },
     {
+      "from_file": "curadoria/test_decisao_semantica.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_decisao_semantica.py",
+        "line": 22,
+        "snippet": "import fonte_nova as FN          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_decisao_semantica.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_decisao_semantica.py",
+        "line": 20,
+        "snippet": "import decisao_semantica as DS  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_decisao_semantica.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_decisao_semantica.py",
+        "line": 21,
+        "snippet": "import fila as F                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_decisao_semantica.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_decisao_semantica.py",
+        "line": 23,
+        "snippet": "import lifecycle as LC           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_decisao_semantica.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_decisao_semantica.py",
+        "line": 24,
+        "snippet": "import worker as W               # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_discovery.py",
       "to_file": "candidatas/fonte_nova.py",
       "type": "IMPORTS",
@@ -22571,6 +22665,83 @@
         "file": "curadoria/test_lifecycle.py",
         "line": 27,
         "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_livros_reais_intactos.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_livros_reais_intactos.py",
+        "line": 33,
+        "snippet": ")] + [RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/test_livros_reais_intactos.py",
+      "to_file": "curadoria/DECISOES-SEMANTICAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_livros_reais_intactos.py",
+        "line": 32,
+        "snippet": "\"SOURCE-ID-ALLOCATION-V1.json\", \"DISCOVERY-VISITED.json\", \"DECISOES-SEMANTICAS-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_livros_reais_intactos.py",
+      "to_file": "curadoria/DISCOVERY-VISITED.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_livros_reais_intactos.py",
+        "line": 32,
+        "snippet": "\"SOURCE-ID-ALLOCATION-V1.json\", \"DISCOVERY-VISITED.json\", \"DECISOES-SEMANTICAS-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_livros_reais_intactos.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_livros_reais_intactos.py",
+        "line": 31,
+        "snippet": "\"LIFECYCLE-QUEUE-V1.json\", \"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_livros_reais_intactos.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_livros_reais_intactos.py",
+        "line": 31,
+        "snippet": "\"LIFECYCLE-QUEUE-V1.json\", \"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_livros_reais_intactos.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_livros_reais_intactos.py",
+        "line": 31,
+        "snippet": "\"LIFECYCLE-QUEUE-V1.json\", \"LIFECYCLE-LEDGER-V1.json\", \"LIFECYCLE-EVIDENCE-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_livros_reais_intactos.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_livros_reais_intactos.py",
+        "line": 32,
+        "snippet": "\"SOURCE-ID-ALLOCATION-V1.json\", \"DISCOVERY-VISITED.json\", \"DECISOES-SEMANTICAS-V1.json\","
       }
     },
     {
@@ -22888,7 +23059,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 57,
+        "line": 58,
         "snippet": "import fonte_nova as FN            # noqa: E402"
       }
     },
@@ -22899,7 +23070,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 63,
+        "line": 64,
         "snippet": "EVIDENCIA = RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\""
       }
     },
@@ -22910,7 +23081,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 104,
+        "line": 105,
         "snippet": "EVIDENCIA.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -22921,7 +23092,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 223,
+        "line": 224,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -22932,7 +23103,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 64,
+        "line": 65,
         "snippet": "ALLOCATION = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
       }
     },
@@ -22960,12 +23131,23 @@
     },
     {
       "from_file": "curadoria/worker.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/worker.py",
+        "line": 56,
+        "snippet": "import decisao_semantica as DS     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/worker.py",
       "to_file": "curadoria/escrever_contratos.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 197,
+        "line": 198,
         "snippet": "import escrever_contratos as EC"
       }
     },
@@ -22976,7 +23158,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 56,
+        "line": 57,
         "snippet": "import fila as F                   # noqa: E402"
       }
     },
@@ -22987,7 +23169,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 58,
+        "line": 59,
         "snippet": "import gate_de_rota as GATE        # noqa: E402"
       }
     },
@@ -22998,7 +23180,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 62,
+        "line": 63,
         "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -23009,7 +23191,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 259,
+        "line": 260,
         "snippet": "CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -23020,7 +23202,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 59,
+        "line": 60,
         "snippet": "import lifecycle as LC             # noqa: E402"
       }
     },
@@ -23031,7 +23213,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 198,
+        "line": 199,
         "snippet": "import validar_contratos as VC"
       }
     },
@@ -67649,10 +67831,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2216,
-    "files_readable": 888,
+    "files_tracked": 2220,
+    "files_readable": 891,
     "files_code_dir": 883,
-    "file_edges": 4692,
+    "file_edges": 4706,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
