@@ -274,6 +274,7 @@
       "curadoria/CICLO-FONTE-PROOF-V1.json",
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CRAWL-PROOF-V1.json",
+      "curadoria/DECISOES-SEMANTICAS-V1.json",
       "curadoria/DISCOVERY-PROOF-V1.json",
       "curadoria/DISCOVERY-VISITED.json",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
@@ -318,6 +319,7 @@
       "curadoria/consolidar.py",
       "curadoria/consolidar_caracterizacao.py",
       "curadoria/correr_lote.py",
+      "curadoria/decisao_semantica.py",
       "curadoria/descobrir.py",
       "curadoria/emparelhar_com_atlas.py",
       "curadoria/ensaiar_dois_escritores.py",
@@ -355,6 +357,7 @@
       "curadoria/test_caracterizador.py",
       "curadoria/test_cartao_de_fonte.py",
       "curadoria/test_correr_lote.py",
+      "curadoria/test_decisao_semantica.py",
       "curadoria/test_discovery.py",
       "curadoria/test_discovery_sementes.py",
       "curadoria/test_gatilho_discovery.py",
@@ -2806,10 +2809,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "qualify-semantico-v1",
-    "HEAD": "68a484ad1f84a3db7f3b8bf03388ea17f3591cb8",
-    "GENERATED_AT": "2026-09-23T02:05:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "36e62fdcd01a065c75db22c9d08c55b0d371743ed792e0006aa1172ded8dbcfe"
+    "BRANCH": "semantico-opus-v1",
+    "HEAD": "6c3b49d7f5de7b32ab466c9a3ab779edba05aa96",
+    "GENERATED_AT": "2026-09-23T02:54:52-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ccd166bc4464449cbdd90badeaeff2069573fade699df534fea025dee80dd69f"
   },
   "FAMILIES": [
     {
@@ -4291,8 +4294,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 472",
-        "desses, mostrados aqui: 40 (ficam de fora 432)"
+        "enderecos que o codigo realmente chama: 475",
+        "desses, mostrados aqui: 40 (ficam de fora 435)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -44289,7 +44292,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch qualify-semantico-v1"
+        "branch semantico-opus-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -101215,7 +101218,7 @@
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1198,
+  "UNCLAIMED_FILES_COUNT": 1201,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101404,7 +101407,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2213,
+    "files_tracked": 2216,
     "files_covered": 1015,
     "files_code_unclaimed": 2,
     "roles_proven": 147,

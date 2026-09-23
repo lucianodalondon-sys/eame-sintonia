@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  68a484ad1f84a3db7f3b8bf03388ea17f3591cb8
-BRANCH           qualify-semantico-v1
-GERADO_EM        2026-09-23T02:05:34-03:00
+HEAD_DA_MEDICAO  6c3b49d7f5de7b32ab466c9a3ab779edba05aa96
+BRANCH           semantico-opus-v1
+GERADO_EM        2026-09-23T02:54:52-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
