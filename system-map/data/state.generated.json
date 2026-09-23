@@ -800,6 +800,7 @@
       "data/samples/BENCHMARK-ORDENACAO-B2.json",
       "data/samples/BENCHMARK-RESEARCH-SAVING-B1.json",
       "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json",
+      "data/samples/CANARIO-REELS-INSTAGRAM-V1.json",
       "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
       "data/samples/CASE-006-es41-rain-window-vs-yield.json",
       "data/samples/CHANGE-EVENTS-es-2025-2026.json",
@@ -1211,7 +1212,10 @@
       "data/samples/REEL-TRANSCRICOES/C2b0GJrIJ8t.txt",
       "data/samples/REEL-TRANSCRICOES/CAMINHOS-COMPARACAO-V1.json",
       "data/samples/REEL-TRANSCRICOES/DW6X5lZkU41.txt",
+      "data/samples/REEL-TRANSCRICOES/DZ9ygDrCwzu.txt",
+      "data/samples/REEL-TRANSCRICOES/DZUXUMnifDX.txt",
       "data/samples/REEL-TRANSCRICOES/Db5QG2Dk3sF.txt",
+      "data/samples/REEL-TRANSCRICOES/DcNkh7LCW4u.txt",
       "data/samples/REEL-TRANSCRICOES/MODELO-COMPARACAO-V1.json",
       "data/samples/REEL-TRANSCRICOES/QUALIDADE-DA-FALA-V1.json",
       "data/samples/REEL-TRANSCRICOES/TRANSCRICOES-REEL.json",
@@ -2093,6 +2097,7 @@
       "provas/auditoria_live.sh",
       "provas/benchmark_tematico.py",
       "provas/bluesky_trial_ao_vivo.py",
+      "provas/canario_reels_instagram.py",
       "provas/candidatos_tematicos.py",
       "provas/censo_corpus_rotulado_admission.py",
       "provas/censo_executavel_da_v1.py",
@@ -3288,9 +3293,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-portas-v1",
-    "HEAD": "fdccea29c77638cf7095937176c8745b19fd8418",
-    "GENERATED_AT": "2026-09-23T09:49:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6fb1606c6f3853a66dd0b3a97689b9091af7e83c88393fb17865f89a19891d72"
+    "HEAD": "ba968bd34748e3eb21e18eb48ad96f5c02ba3ed5",
+    "GENERATED_AT": "2026-09-23T11:15:42-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a60c4705457d8022238c2cbb3d072004c8f8fe5cc072fffbbba6d3f3d16a9ac2"
   },
   "FAMILIES": [
     {
@@ -62698,7 +62703,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 570,
+          "line": 587,
           "snippet": "'scripts/instagram_janela.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -62966,7 +62971,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 270,
+          "line": 276,
           "snippet": "for i in IMPLEMENTACOES + ('instagram_coleta.py',):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
@@ -63205,7 +63210,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 521,
+          "line": 553,
           "snippet": "import comunicacao_coleta as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--IMPORTS-->C-TESTES",
@@ -63317,7 +63322,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 315,
+          "line": 321,
           "snippet": "import comunicacao_classificar as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--IMPORTS-->C-TESTES",
@@ -63368,7 +63373,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 555,
+          "line": 587,
           "snippet": "arv = ast.parse(_fonte('coleta/comunicacao_coleta.py'))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--READS-->C-TESTES",
@@ -78812,7 +78817,7 @@
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
-          "line": 74,
+          "line": 103,
           "snippet": "(\"regras/contratos_de_fonte.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
@@ -85968,7 +85973,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 174,
+          "line": 180,
           "snippet": "ENTRADAS_CANONICAS = ('social_scrap.py', 'orquestrador/orquestrador.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
@@ -99054,7 +99059,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 209,
+          "line": 215,
           "snippet": "import scrap_colheita as SC",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-TESTES",
@@ -99545,7 +99550,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 346,
+          "line": 352,
           "snippet": "import social_sessao as ss",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-GUARDA--IMPORTS-->C-TESTES",
@@ -99628,7 +99633,7 @@
       "evidence": [
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 374,
+          "line": 380,
           "snippet": "_fonte('guarda/social_sessao.py'))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-GUARDA--READS-->C-TESTES",
@@ -100925,7 +100930,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 55 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 56 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -101140,7 +101145,7 @@
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
-          "line": 56,
+          "line": 85,
           "snippet": "(\"leis/social_matriz.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -101156,7 +101161,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 265,
+          "line": 272,
           "snippet": "self.assertIn('leis/social_matriz.py', donos,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -103022,7 +103027,7 @@
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
-          "line": 62,
+          "line": 91,
           "snippet": "(\"coleta/scrap_executor.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -103038,7 +103043,7 @@
         },
         {
           "file": "tests/mutacao_do_scrap_portas.py",
-          "line": 68,
+          "line": 97,
           "snippet": "(\"coleta/scrap_capacidades.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -103054,7 +103059,7 @@
         },
         {
           "file": "tests/mutacao_do_scrap_portas.py",
-          "line": 80,
+          "line": 109,
           "snippet": "(\"coleta/social_envelope.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -103102,7 +103107,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 319,
+          "line": 330,
           "snippet": "arvore = ast.parse(_fonte('coleta/adaptador_instagram.py'))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -108195,7 +108200,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 30 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 31 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -108410,7 +108415,7 @@
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
-          "line": 86,
+          "line": 115,
           "snippet": "(\"ferramentas/reel_transcricao.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -108442,7 +108447,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 508,
+          "line": 519,
           "snippet": "'ferramentas/reel_transcricao.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -108458,7 +108463,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 509,
+          "line": 520,
           "snippet": "self.assertEqual(medida.get('ASR_OWNER'), 'ferramentas/fala_local.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -110691,8 +110696,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1528,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/canario_reels_instagram.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1533,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -110897,9 +110904,9 @@
     "edges_proven": 1123,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2694,
+    "files_tracked": 2699,
     "files_covered": 1166,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 160,
     "roles_declared_only": 8,
     "roles_unknown": 64,

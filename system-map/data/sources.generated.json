@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T12:50:58+00:00",
-    "HEAD": "fdccea29c77638cf7095937176c8745b19fd8418",
+    "GENERATED_AT": "2026-09-23T14:17:33+00:00",
+    "HEAD": "ba968bd34748e3eb21e18eb48ad96f5c02ba3ed5",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "6fb1606c6f3853a66dd0b3a97689b9091af7e83c88393fb17865f89a19891d72",
-    "FICHEIROS_NA_IMPRESSAO": 2842,
+    "SOURCE_TREE_FINGERPRINT": "a60c4705457d8022238c2cbb3d072004c8f8fe5cc072fffbbba6d3f3d16a9ac2",
+    "FICHEIROS_NA_IMPRESSAO": 2847,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -23109,6 +23109,10 @@
           "line": 7
         },
         {
+          "file": "provas/canario_reels_instagram.py",
+          "line": 143
+        },
+        {
           "file": "provas/censo_executavel_da_v1.py",
           "line": 65
         },
@@ -23535,6 +23539,27 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/%s",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 374
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 671
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 265
+        },
+        {
+          "file": "provas/canario_reels_instagram.py",
+          "line": 109
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/feeds",
       "usado_por": [
         {
@@ -23712,23 +23737,6 @@
         {
           "file": "superficie/rede.py",
           "line": 77
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/%s",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 374
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 671
-        },
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 265
         }
       ]
     },
