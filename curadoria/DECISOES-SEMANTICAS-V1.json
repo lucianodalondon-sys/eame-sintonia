@@ -1,7 +1,7 @@
 {
  "DATASET": "SEMANTIC-DECISIONS-V1",
  "CONTRATO": "lido por curadoria/decisao_semantica.py no ramo QUALIFY do worker",
- "LEI": "Territorio so com prova multipla: >=1 INSTITUCIONAL ou LEI e >=2 CONTEUDO, cada uma com URL e sha256 distintos. NAO SEI fica SEMANTIC_PENDING com o motivo. Os bytes vivem fora do Git; o sha256 prende a decisao ao que foi lido.",
+ "LEI": "Territorio so com prova multipla: >=1 INSTITUCIONAL ou LEI e >=2 CONTEUDO, cada uma com URL e sha256 distintos. NAO SEI fica SEMANTIC_PENDING com o motivo. Os bytes vivem fora do Git; o sha256 prende a decisao ao que foi lido. PAIS obrigatorio e vindo da prova (ISO2, EU ou INT); a ficha da candidata pode vir errada do discovery.",
  "GERADO_EM": "2026-09-23T05:52:05.330890+00:00",
  "TOTAL": 105,
  "DECIDIDAS": 12,
@@ -89,7 +89,9 @@
      "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0050\\2_CONTEUDO.bin"
     }
    ],
-   "SEGUNDA_LEITURA": null
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "magazine dell’Unione Coltivatori Italiani (prova INSTITUCIONAL)."
   },
   {
    "CANDIDATA_ID": "CAND-0051",
@@ -146,7 +148,9 @@
      "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0060\\2_CONTEUDO.bin"
     }
    ],
-   "SEGUNDA_LEITURA": null
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "«la piu grande community agricola italiana» (prova INSTITUCIONAL)."
   },
   {
    "CANDIDATA_ID": "CAND-0063",
@@ -192,7 +196,9 @@
      "HTTP": 200,
      "SHA256": "00ef73d5e2fa24253def034980732ed9f1dbe0ff05ec106cdb4ddd2b95d4f260"
     }
-   ]
+   ],
+   "PAIS": "IT",
+   "PAIS_PROVA": "magazine settimanale online italiano; itens sobre a filiera italiana do azeite."
   },
   {
    "CANDIDATA_ID": "CAND-0064",
@@ -256,7 +262,9 @@
      "HTTP": 200,
      "SHA256": "d41d9046baef36e854b8b32240d0df6154cf87b67a701c2165202772c3cff1bb"
     }
-   ]
+   ],
+   "PAIS": "IT",
+   "PAIS_PROVA": "Gruppo Caviro, nato nel 1966 a Faenza (prova INSTITUCIONAL)."
   },
   {
    "CANDIDATA_ID": "CAND-0144",
@@ -340,7 +348,9 @@
      "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0253\\2_CONTEUDO.bin"
     }
    ],
-   "SEGUNDA_LEITURA": null
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "Agenzia per le Erogazioni in Agricoltura, organismo pagatore nazionale, via Palestro 81, Roma (bytes da prova CONTEUDO 2)."
   },
   {
    "CANDIDATA_ID": "CAND-0257",
@@ -395,7 +405,9 @@
      "HTTP": 404,
      "SHA256": null
     }
-   ]
+   ],
+   "PAIS": "IT",
+   "PAIS_PROVA": "associazione delle filiere agroalimentari italiane delle carni e delle uova (prova INSTITUCIONAL)."
   },
   {
    "CANDIDATA_ID": "CAND-0270",
@@ -722,7 +734,9 @@
      "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0451\\2_CONTEUDO.bin"
     }
    ],
-   "SEGUNDA_LEITURA": null
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "Sistema nazionale per la protezione dell’ambiente (ISPRA + ARPA italianas)."
   },
   {
    "CANDIDATA_ID": "CAND-0465",
@@ -869,7 +883,9 @@
      "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0514\\2_CONTEUDO.bin"
     }
    ],
-   "SEGUNDA_LEITURA": null
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "INT",
+   "PAIS_PROVA": "«the global voice of the plant science industry» (prova INSTITUCIONAL) — internacional, nao italiana."
   },
   {
    "CANDIDATA_ID": "CAND-0515",
@@ -917,7 +933,9 @@
      "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0525\\2_CONTEUDO.bin"
     }
    ],
-   "SEGUNDA_LEITURA": null
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "EU",
+   "PAIS_PROVA": "«the voice of the biostimulants industry in Europe» (prova INSTITUCIONAL) — europeia."
   },
   {
    "CANDIDATA_ID": "CAND-0526",
@@ -956,7 +974,9 @@
      "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0526\\2_CONTEUDO.bin"
     }
    ],
-   "SEGUNDA_LEITURA": null
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "EU",
+   "PAIS_PROVA": "«represents EU fertilizer producers» (prova INSTITUCIONAL) — europeia."
   },
   {
    "CANDIDATA_ID": "CAND-0527",
@@ -1065,7 +1085,9 @@
      "HTTP": 200,
      "SHA256": "13475eb8f3707976c3a0841d3fa4231c1179253022efa7f0ee5d6a45cb5254a7"
     }
-   ]
+   ],
+   "PAIS": "IT",
+   "PAIS_PROVA": "edito da FederUnacoma, via Venafro 5, Roma (prova CONTEUDO 2)."
   },
   {
    "CANDIDATA_ID": "CAND-0570",
@@ -1327,7 +1349,9 @@
      "HTTP": 200,
      "SHA256": "a03a7ce4fc675abfd577bd59dfa57641dfdf3c938d226da1b83388419141af23"
     }
-   ]
+   ],
+   "PAIS": "IT",
+   "PAIS_PROVA": "programma del Ministero (MASAF), dominio .gov.it (prova INSTITUCIONAL)."
   },
   {
    "CANDIDATA_ID": "CAND-0673",

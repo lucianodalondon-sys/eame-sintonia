@@ -410,6 +410,16 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
     decisao, porque_ds = (None, "")
     if territorio == "NAO SEI":
         decisao, porque_ds = DS.decisao_para(cand_id, ficha)
+        # ⚠️ ESTE REGISTO SO CUNHA NUMEROS «IT-». Uma fonte europeia ou
+        # internacional com territorio decidido nao recebe um numero italiano
+        # por omissao: fica a espera da numeracao do Atlas (EU-...), do dono.
+        if decisao and decisao.get("PAIS") != "IT":
+            return "BLOCK", {"CLASSE": "SEMANTIC", "SEMANTIC_PENDING": True,
+                             "PORQUE": ("territorio decidido fora de IT: %s, PAIS=%s pela "
+                                        "prova — o QUALIFY so cunha numeros IT; a numeracao "
+                                        "%s do Atlas e decisao do dono, sem fabricar"
+                                        % (decisao["TERRITORIO"], decisao.get("PAIS"),
+                                           decisao.get("PAIS")))}
         if decisao:
             territorio = decisao["TERRITORIO"]
             porque = "decisao semantica de %s: %s · provas: %s" % (

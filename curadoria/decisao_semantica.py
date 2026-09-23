@@ -36,6 +36,13 @@ PAPEL_DO_QUE_PUBLICA = "CONTEUDO"
 MIN_CONTEUDO = 2
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
+# ⚠️ O LUGAR NUNCA SE INFERE EM SILENCIO. Medido em 23/09: o discovery registou
+# CropLife International, EBIC e Fertilizers Europe com PAIS=IT so porque as
+# viu num site italiano, e o QUALIFY cunhava «IT-» fixo — a CropLife recebeu
+# IT-T12-135 no ensaio. O pais da decisao vem da PROVA: codigo ISO de 2 letras,
+# «EU» (europeia) ou «INT» (internacional). Sem ele, a decisao nao vale.
+_PAIS = re.compile(r"^([A-Z]{2}|EU|INT)$")
+
 
 def _norm(url: str) -> str:
     p = urlparse((url or "").strip().lower())
@@ -61,6 +68,8 @@ def porque_invalida(dec: dict, ficha: dict) -> str | None:
         return "territorio fora de T1..T12: %r" % dec.get("TERRITORIO")
     if not (dec.get("DECIDIDO_POR") or "").strip():
         return "sem DECIDIDO_POR"
+    if not _PAIS.match(dec.get("PAIS") or ""):
+        return "sem PAIS decidido pela prova (%r) — o lugar nunca se presume" % dec.get("PAIS")
     provas = dec.get("PROVAS") or []
     boas, urls, shas = [], set(), set()
     for p in provas:

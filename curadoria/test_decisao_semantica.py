@@ -35,7 +35,7 @@ def _prova(papel, url, sha=SHA):
 
 
 def _decisao(**mudar):
-    d = {"CANDIDATA_ID": CAND, "URL": URL, "TERRITORIO": "T12",
+    d = {"CANDIDATA_ID": CAND, "URL": URL, "TERRITORIO": "T12", "PAIS": "IT",
          "DECIDIDO_POR": "OPUS", "PORQUE": "organismo pagador da PAC",
          "PROVAS": [_prova("INSTITUCIONAL", URL + "chi-siamo", "a1" * 32),
                     _prova("CONTEUDO", URL + "notizie/2026/09/anticipi-pac", "b2" * 32),
@@ -109,6 +109,21 @@ class TestDecisaoComProva(_Base):
         self.assertIn("IT-T7-041", json.dumps(self._novas()))
 
 
+class TestCanalExigePais(unittest.TestCase):
+    """O canal, sozinho, recusa a decisao sem pais — nao depende do worker."""
+
+    def test_canal_recusa_decisao_sem_pais(self):
+        d = _decisao()
+        del d["PAIS"]
+        motivo = DS.porque_invalida(d, {"URL": URL})
+        self.assertIsNotNone(motivo)
+        self.assertIn("PAIS", motivo)
+
+    def test_canal_aceita_pais_da_prova(self):
+        for pais in ("IT", "EU", "INT"):
+            self.assertIsNone(DS.porque_invalida(_decisao(PAIS=pais), {"URL": URL}), pais)
+
+
 class TestDecisaoSemProvaIgnorada(_Base):
 
     def test_sem_decisao_continua_bloqueada(self):
@@ -143,6 +158,20 @@ class TestDecisaoSemProvaIgnorada(_Base):
         for p in d["PROVAS"]:
             p["SHA256"] = SHA
         self._bloqueou(self._correr([d]))
+
+    def test_sem_pais_a_decisao_nao_vale(self):
+        d = _decisao()
+        del d["PAIS"]
+        self._bloqueou(self._correr([d]))
+
+    def test_fonte_europeia_nao_recebe_numero_italiano(self):
+        """Territorio decidido, PAIS=EU pela prova: nada de «IT-» por omissao."""
+        r = self._correr([_decisao(PAIS="EU")])
+        self._bloqueou(r)
+        self.assertIn("PAIS=EU", r.get("PORQUE", ""))
+
+    def test_fonte_internacional_nao_recebe_numero_italiano(self):
+        self._bloqueou(self._correr([_decisao(PAIS="INT")]))
 
     def test_url_de_outra_fonte(self):
         self._bloqueou(self._correr([_decisao(URL="https://outra.example/")]))
