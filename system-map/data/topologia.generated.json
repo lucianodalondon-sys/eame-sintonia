@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T05:46:47+00:00",
-  "HEAD": "413057e68ec8d6ca31a0b43efecf81080d5e980f",
+  "GENERATED_AT": "2026-09-23T05:54:28+00:00",
+  "HEAD": "3517940909212f707bcb4d76e631557e53be0771",
   "BRANCH": "listing-detail-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "e4c57babcecd98f8ea95ecbcb56cfc2006a354d72ea91b64433befce5f38cda3",
-  "FICHEIROS_NA_IMPRESSAO": 2701,
+  "SOURCE_TREE_FINGERPRINT": "b39f99fe52af7cc3c7548879fba55e848c086a7060145cd957c00d358efcf6ec",
+  "FICHEIROS_NA_IMPRESSAO": 2700,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3310,14 +3310,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e4c57babcecd98f8ea95ecbcb56cfc2006a354d72ea91b64433befce5f38cda3",
+    "VERSAO": "b39f99fe52af7cc3c7548879fba55e848c086a7060145cd957c00d358efcf6ec",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e4c57babcecd98f8ea95ecbcb56cfc2006a354d72ea91b64433befce5f38cda3",
+    "VERSAO": "b39f99fe52af7cc3c7548879fba55e848c086a7060145cd957c00d358efcf6ec",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5024,7 +5024,7 @@
    }
   ],
   "INPUTS_COUNT": 712,
-  "INPUTS_DIGEST": "aaaf5cc2ee6e7696871440e9693c4f274bb2c000903c62b27f805722aaf484dc",
+  "INPUTS_DIGEST": "3bf34d609a2df5425449afac42814a51c811a3ea3746df183a11476ad87fcfce",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5057,8 +5057,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "300f6f0524e854b7c0db64ea60258a44926616db2d50acc854148f77e5bf8747",
-  "SEMANTIC_HASH": "554193934e63bc670b5d9ae752826cba12c5cd7749bff89bd3e46a6ff889a7b4"
+  "MEASUREMENT_HASH": "c5d2851750eff177aa753403e34bbe95664d07e21e105aff37d06288f8e5fcd5",
+  "SEMANTIC_HASH": "8982e1f0b81d102ab63b56af80a4873034c1f2494d8d64330c918c0be4649cd6"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15277,6 +15277,14 @@
      {
       "FICHEIRO": "tests/test_c10_8b_r_raw_entre_jobs.py",
       "LINHA": 151,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_medir_apos_receitas.py",
+      "LINHA": 18,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
@@ -41519,8 +41527,7 @@
     "scripts/detector_capa/colher_gabarito.py",
     "scripts/detector_capa/medir_apos_receitas.py",
     "scripts/detector_capa/medir_gabarito.py",
-    "scripts/detector_capa/rotular_gabarito.py",
-    "tests/test_medir_apos_receitas.py"
+    "scripts/detector_capa/rotular_gabarito.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -47448,6 +47455,7 @@
     "tests/test_m2_rota_forward.py",
     "tests/test_mapa_nao_mente.py",
     "tests/test_medir_admission_t3_atual.py",
+    "tests/test_medir_apos_receitas.py",
     "tests/test_metricas.py",
     "tests/test_micro_coleta_instrumento.py",
     "tests/test_migrations.py",

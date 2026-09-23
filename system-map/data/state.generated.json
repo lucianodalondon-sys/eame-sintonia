@@ -3146,9 +3146,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "listing-detail-v1",
-    "HEAD": "413057e68ec8d6ca31a0b43efecf81080d5e980f",
-    "GENERATED_AT": "2026-09-23T02:43:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e4c57babcecd98f8ea95ecbcb56cfc2006a354d72ea91b64433befce5f38cda3"
+    "HEAD": "3517940909212f707bcb4d76e631557e53be0771",
+    "GENERATED_AT": "2026-09-23T02:50:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b39f99fe52af7cc3c7548879fba55e848c086a7060145cd957c00d358efcf6ec"
   },
   "FAMILIES": [
     {
@@ -22268,10 +22268,9 @@
         "scripts/detector_capa/colher_gabarito.py",
         "scripts/detector_capa/medir_apos_receitas.py",
         "scripts/detector_capa/medir_gabarito.py",
-        "scripts/detector_capa/rotular_gabarito.py",
-        "tests/test_medir_apos_receitas.py"
+        "scripts/detector_capa/rotular_gabarito.py"
       ],
-      "file_count": 8,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -22299,18 +22298,15 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "ANTES",
-          "DEPOIS",
           "JUIZES",
           "L",
-          "PAGINAS",
           "SOCIAL"
         ],
-        "palavras": 186,
+        "palavras": 154,
         "por_lingua": {
           "PT": 2
         },
-        "sem_marca_de_lingua": 184,
+        "sem_marca_de_lingua": 152,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -22351,8 +22347,7 @@
       "consumes": [
         "curadoria/italy_contracts_curator.json",
         "handoff/paused-v2/MANIFESTO.json",
-        "scripts/detector_capa/GABARITO-CAPA-V1.json",
-        "scripts/detector_capa/medir_apos_receitas.py"
+        "scripts/detector_capa/GABARITO-CAPA-V1.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -40576,6 +40571,7 @@
         "tests/test_m2_rota_forward.py",
         "tests/test_mapa_nao_mente.py",
         "tests/test_medir_admission_t3_atual.py",
+        "tests/test_medir_apos_receitas.py",
         "tests/test_metricas.py",
         "tests/test_micro_coleta_instrumento.py",
         "tests/test_migrations.py",
@@ -40653,7 +40649,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 204,
+      "file_count": 205,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -40852,6 +40848,7 @@
         "listas": [
           "ADAPTERS",
           "AMBIENTE_OK",
+          "ANTES",
           "ANTES_DESTA_MISSAO",
           "ANTES_DO_B2",
           "APOSENTADOS",
@@ -40875,6 +40872,7 @@
           "DECISOES_ANTIGAS",
           "DEFEITO_MEDIDO",
           "DELEGADAS",
+          "DEPOIS",
           "DESTINOS",
           "DOC",
           "DONOS",
@@ -40900,6 +40898,7 @@
           "MINIMOS",
           "ONDE",
           "OUTRAS_GAVETAS",
+          "PAGINAS",
           "PASTAS_DA_COLLECTION",
           "PASTAS_DE_RUNTIME",
           "PASTAS_PY",
@@ -40928,13 +40927,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1118,
+        "palavras": 1150,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1106,
+        "sem_marca_de_lingua": 1138,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -41372,6 +41371,7 @@
         "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md",
         "scripts/coorte_micro/funil.py",
         "scripts/desbloqueio/aplicar_desbloqueio.py",
+        "scripts/detector_capa/medir_apos_receitas.py",
         "scripts/micro_coleta/micro_coleta.py",
         "scripts/receitas/censo_e_proposta.py",
         "security/drift_db.py",
@@ -61343,12 +61343,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
           "line": 151,
           "snippet": "man = os.path.join(self.gaveta, RUN, 'MANIFESTO.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_medir_apos_receitas.py",
+          "line": 18,
+          "snippet": "\"medir_apos_receitas\", RAIZ / \"scripts\" / \"detector_capa\" / \"medir_apos_receitas.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
@@ -103788,15 +103804,7 @@
     "provas/recollection_red_team_estrito.mjs"
   ],
   "UNCLAIMED_FILES_COUNT": 1449,
-  "OWNERSHIP_CONFLICTS": [
-    {
-      "file": "tests/test_medir_apos_receitas.py",
-      "claimed_by": [
-        "C-DETECTOR-CAPA-GABARITO",
-        "C-TESTES"
-      ]
-    }
-  ],
+  "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
       "file": "system-map/data/architecture.declared.json",
