@@ -121,7 +121,7 @@
     "coleta/scrap_colheita.py"
    ],
    "QUANTOS_LEEM": 56,
-   "INSTRUMENTOS_QUE_CITAM": 90,
+   "INSTRUMENTOS_QUE_CITAM": 91,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -200,7 +200,7 @@
     "coleta/golden_path_pdf.py"
    ],
    "QUANTOS_LEEM": 181,
-   "INSTRUMENTOS_QUE_CITAM": 213,
+   "INSTRUMENTOS_QUE_CITAM": 215,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -266,8 +266,9 @@
   {
    "CONCEITO": "ROUTE_MODEL",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "5 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "6 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
+    "coleta/adaptador_linkedin.py",
     "coleta/coleta_checkpoint.py",
     "coleta/executor_texto_de_pdf.py",
     "coleta/ingresso.py",
@@ -276,7 +277,6 @@
    ],
    "LEEM": [
     "coleta/adaptador_instagram.py",
-    "coleta/adaptador_linkedin.py",
     "coleta/adaptador_youtube.py",
     "coleta/derivacao_forward.py",
     "coleta/rota_forward_documento.py",
@@ -288,7 +288,7 @@
     "orquestrador/orquestrador.py",
     "supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
    ],
-   "QUANTOS_LEEM": 12,
+   "QUANTOS_LEEM": 11,
    "INSTRUMENTOS_QUE_CITAM": 31,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -329,6 +329,7 @@
    "LEEM": [
     "candidatas/italy_fill_manifests.mjs",
     "coleta/adaptador_instagram.py",
+    "coleta/adaptador_linkedin.py",
     "coleta/adaptador_x.py",
     "coleta/adaptador_youtube.py",
     "coleta/agrifood_ue.py",
@@ -337,17 +338,16 @@
     "coleta/comunicacao_medir.py",
     "coleta/derivacao_forward.py",
     "coleta/instagram_coleta.py",
-    "coleta/preservar_pdf.py",
-    "coleta/scrap_colheita.py"
+    "coleta/preservar_pdf.py"
    ],
-   "QUANTOS_LEEM": 61,
-   "INSTRUMENTOS_QUE_CITAM": 47,
+   "QUANTOS_LEEM": 62,
+   "INSTRUMENTOS_QUE_CITAM": 48,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ERRORS",
    "ESTADO": "DONO_E_INSTRUMENTO",
-   "NOTA": "nenhum dono fora das gavetas de medida, e 34 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 36 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
    "ESCREVEM": [],
    "LEEM": [
     "candidatas/italy_fix_semantics.mjs",
@@ -364,7 +364,7 @@
     "coleta/social_rotas.py"
    ],
    "QUANTOS_LEEM": 80,
-   "INSTRUMENTOS_QUE_CITAM": 34,
+   "INSTRUMENTOS_QUE_CITAM": 36,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -450,7 +450,7 @@
     "curadoria/telemetria_do_curador.py"
    ],
    "QUANTOS_LEEM": 32,
-   "INSTRUMENTOS_QUE_CITAM": 21,
+   "INSTRUMENTOS_QUE_CITAM": 22,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   }
  ]

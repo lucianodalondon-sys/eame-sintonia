@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
+  "HEAD": "80378f59b2a8bd3a51730cceedec76b5f2bccff1",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -299,12 +299,13 @@
   {
    "EXECUTOR_ID": "coleta/adaptador_linkedin.py",
    "GAVETA": "coleta",
-   "LINHAS": 900,
+   "LINHAS": 1883,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
     "FETCH",
     "RAW",
+    "DERIVED",
     "READY"
    ],
    "HAS_PRESERVED_INPUT": false,
@@ -1220,7 +1221,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_capacidades.py",
    "GAVETA": "coleta",
-   "LINHAS": 485,
+   "LINHAS": 522,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
@@ -1247,7 +1248,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_colheita.py",
    "GAVETA": "coleta",
-   "LINHAS": 900,
+   "LINHAS": 936,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -1325,7 +1326,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_http.py",
    "GAVETA": "coleta",
-   "LINHAS": 572,
+   "LINHAS": 730,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
