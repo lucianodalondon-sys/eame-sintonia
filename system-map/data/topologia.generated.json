@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T03:24:57+00:00",
-  "HEAD": "922b662972aacc82e58436c180ebed25e6fdcc1a",
-  "BRANCH": "receitas-fontes-v1",
+  "GENERATED_AT": "2026-09-23T03:54:54+00:00",
+  "HEAD": "27b4fb0556d003e6c316f4dc3077d7ba5030da75",
+  "BRANCH": "coorte-micro-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "adb3e875aa3ed332a88262897306c2c3c64e33f44308797a62e25a6617dfdb61",
-  "FICHEIROS_NA_IMPRESSAO": 2680,
+  "SOURCE_TREE_FINGERPRINT": "289016513f2490702124609e1e4550f97e6f4aa726d948a2503fad483e964389",
+  "FICHEIROS_NA_IMPRESSAO": 2689,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3154,6 +3154,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/coorte_micro/funil.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2139378365be765f5d58525cb74be06b12ab596c",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/coorte_micro/receitas_v2.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a0828592102d394e4c891682d755931757d1c822",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/detector_capa/colher_gabarito.py",
     "PAPEL": "FONTE",
     "VERSAO": "e8db51ccb0a420bda8ba40a76e06fbe3d7a30c68",
@@ -3275,14 +3289,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "adb3e875aa3ed332a88262897306c2c3c64e33f44308797a62e25a6617dfdb61",
+    "VERSAO": "289016513f2490702124609e1e4550f97e6f4aa726d948a2503fad483e964389",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "adb3e875aa3ed332a88262897306c2c3c64e33f44308797a62e25a6617dfdb61",
+    "VERSAO": "289016513f2490702124609e1e4550f97e6f4aa726d948a2503fad483e964389",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4281,6 +4295,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_funil_coorte.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "1989272a8fe179b1cbf6946e7b49c165c5223fa1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_gate_de_aceitacao_tematica.py",
     "PAPEL": "FONTE",
     "VERSAO": "f1a675576734ed26822e90dfc91758343058ce9a",
@@ -4967,8 +4988,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 704,
-  "INPUTS_DIGEST": "074ec7a418157e0484dd2191616695c7b09a9fc5cc6143acd41387e98386d53f",
+  "INPUTS_COUNT": 707,
+  "INPUTS_DIGEST": "870bc77fe2e156dfd8a1abf1b77c58b1551a06a9954a3c123e8a58ffd6951e35",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4994,15 +5015,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 457,
+  "DOCUMENTOS_LIDOS": 458,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c03961674186d12fb6c9fb91dff36864849f65b26c72f1e257b8015640eee574",
-  "SEMANTIC_HASH": "425a58efc880e29ff8686882a9f3757a357232ae3633afb3b23f5a1dafd155a0"
+  "MEASUREMENT_HASH": "2a186ec600552b72f61cfb09054d52e87dc90051d2d84c886e62fb37af863812",
+  "SEMANTIC_HASH": "96573d566d711a4ae98c67a7e7cf5acf7bf9fade24936c3e02b5f4524f211332"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5032,6 +5053,7 @@
    "C-COLETA-PUBLICA",
    "C-COLETA-YOUTUBE",
    "C-CONTRATO-CAMPOS",
+   "C-COORTE-MICRO-FUNIL",
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
    "C-DECISAO-DA-FILA",
@@ -5100,7 +5122,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 86
+  "COUNT": 87
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5237,6 +5259,7 @@
    "C-CONTRATO-CAMPOS",
    "C-CONTRATO-DE-RETORNO",
    "C-CONTRATO-TELEMETRIA",
+   "C-COORTE-MICRO-FUNIL",
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
    "C-DATA-CLOCK",
@@ -5369,16 +5392,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 168
+  "COUNT": 169
  },
  "ARITMETICA": {
-  "COLLECTION": 86,
+  "COLLECTION": 87,
   "BOUNDARY": 82,
-  "SOMA": 168,
-  "EXPANDED": 168,
+  "SOMA": 169,
+  "EXPANDED": 169,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 168,
+  "RESUMO_CARTOES_NO_UNIVERSO": 169,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -14291,6 +14314,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-TESTES",
+    "FROM": "C-COORTE-MICRO-FUNIL",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_funil_coorte.py",
+      "LINHA": 13,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CORPUS--READS-->C-MAPA-TESTES",
     "FROM": "C-CORPUS",
     "TO": "C-MAPA-TESTES",
@@ -14998,6 +15043,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DERIVACAO-FORWARD--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-COORTE-MICRO-FUNIL",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-COORTE-MICRO-FUNIL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/coorte_micro/funil.py",
+      "LINHA": 84,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-COORTE-MICRO-FUNIL",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -30233,6 +30300,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-COORTE-MICRO-FUNIL",
+    "FROM": "C-RECEITAS-PROPOSTA",
+    "TO": "C-COORTE-MICRO-FUNIL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/coorte_micro/funil.py",
+      "LINHA": 161,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
     "FROM": "C-RECEITAS-PROPOSTA",
     "TO": "C-TESTES",
@@ -38784,12 +38873,12 @@
     ]
    }
   ],
-  "COUNT": 1095
+  "COUNT": 1098
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 168,
-  "CARTOES_AUDITADOS": 168,
-  "ARESTAS_RELACIONADAS": 1095,
+  "CARTOES_NO_UNIVERSO": 169,
+  "CARTOES_AUDITADOS": 169,
+  "ARESTAS_RELACIONADAS": 1098,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38933,6 +39022,7 @@
    "C-CENSO-SEMANTICO-IT",
    "C-CICATRIZES-BR",
    "C-CONTRATO-CAMPOS",
+   "C-COORTE-MICRO-FUNIL",
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
    "C-DECISAO-DA-FILA",
@@ -39136,9 +39226,6 @@
     "audit",
     "infra"
    ],
-   "C-RECEITAS-PROPOSTA": [
-    "collection-strategy"
-   ],
    "C-RELEVANCIA": [
     "science"
    ],
@@ -39185,9 +39272,9 @@
    "CODE": 185,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 364,
+   "PROOF": 365,
    "READ": 248,
-   "RULE": 187,
+   "RULE": 189,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -40928,6 +41015,48 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-COORTE-MICRO-FUNIL",
+   "NOME": "Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "curadoria/PROPOSTA-RECEITAS-V2.json",
+    "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
+    "scripts/coorte_micro/ROTULOS-PAGINAS-COORTE-G0.json",
+    "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
+    "scripts/coorte_micro/UNIVERSO-G0.json",
+    "scripts/coorte_micro/funil.py",
+    "scripts/coorte_micro/receitas_v2.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_funil_coorte.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "pathlib"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-CORPUS",
    "NOME": "Montar o corpus de fala e de ciencia",
    "FAMILIA": "F-COLETA",
@@ -41204,7 +41333,7 @@
     "urllib"
    ],
    "ENTRAM": 0,
-   "SAEM": 4,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -45706,17 +45835,16 @@
     "urllib"
    ],
    "ENTRAM": 1,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
-    "PROOF"
+    "PROOF",
+    "RULE"
    ],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "collection-strategy"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -47086,6 +47214,7 @@
     "tests/test_fronteira_mede_a_sala_canonica.py",
     "tests/test_fronteira_mede_producao.py",
     "tests/test_fundacao_da_coleta.py",
+    "tests/test_funil_coorte.py",
     "tests/test_gate_de_aceitacao_tematica.py",
     "tests/test_gestao_da_coleta.py",
     "tests/test_handoff.py",
@@ -47304,7 +47433,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 190,
+   "ENTRAM": 191,
    "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

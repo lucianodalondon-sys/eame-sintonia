@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "receitas-fontes-v1",
-    "HEAD": "922b662972aacc82e58436c180ebed25e6fdcc1a",
-    "GENERATED_AT": "2026-09-23T00:15:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "adb3e875aa3ed332a88262897306c2c3c64e33f44308797a62e25a6617dfdb61"
+    "BRANCH": "coorte-micro-v1",
+    "HEAD": "27b4fb0556d003e6c316f4dc3077d7ba5030da75",
+    "GENERATED_AT": "2026-09-23T00:49:56-03:00",
+    "SOURCE_TREE_FINGERPRINT": "289016513f2490702124609e1e4550f97e6f4aa726d948a2503fad483e964389"
   },
   "FILES": [
     {
@@ -296,6 +296,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-COORTE-MICRO.md",
+      "sha": "ccb09a8e4d513ebb13dbbe4f32605bf3c23a723b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-CUTOVER.md",
       "sha": "425c117df8a69d50500f068813b8bcbc45f94a65",
       "ext": ".md",
@@ -416,7 +423,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "f244dceebde1d60b1ebdccfd8ed71b5f6d5b2397",
+      "sha": "0e240a947a070b9c075b0aab5682a13f08527409",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2027,6 +2034,13 @@
     {
       "path": "curadoria/PROPOSTA-RECEITAS-V1.json",
       "sha": "4bf93d36634d3f63c746fa7550ecf064a9fbac5a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PROPOSTA-RECEITAS-V2.json",
+      "sha": "b0df21f95149164efb23fa16d3cd7188ff234d33",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -15122,6 +15136,48 @@
       "code_dir": true
     },
     {
+      "path": "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
+      "sha": "eb94f3e048a7d5db533e271f80e1cbe5d54bb95c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/coorte_micro/ROTULOS-PAGINAS-COORTE-G0.json",
+      "sha": "bafd976a8788fe4b0fec24bcc689d6b0a53f3c9f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
+      "sha": "30acf10c200a85cd59877afb2996d7eb22aca11b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/coorte_micro/UNIVERSO-G0.json",
+      "sha": "a7ce675ba97865db950836392fc7abff1a9b24e5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/coorte_micro/funil.py",
+      "sha": "2139378365be765f5d58525cb74be06b12ab596c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/coorte_micro/receitas_v2.py",
+      "sha": "a0828592102d394e4c891682d755931757d1c822",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/detector_capa/GABARITO-CAPA-V1.json",
       "sha": "81696bfd368092f943f4050da02e48c669bcec0e",
       "ext": ".json",
@@ -15823,7 +15879,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "1b5e29f802571020e78f25057743421c9ae26b47",
+      "sha": "543dfa81a9b46745cbf77ea4b47a9ac6d20d5afc",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17035,6 +17091,13 @@
     {
       "path": "tests/test_fundacao_da_coleta.py",
       "sha": "96b20ae3de22362c156141deeb1c84ee15eb1c25",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_funil_coorte.py",
+      "sha": "1989272a8fe179b1cbf6946e7b49c165c5223fa1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -52803,6 +52866,138 @@
       }
     },
     {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 61,
+        "snippet": "T = json.loads((snap / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 161,
+        "snippet": "prop = json.loads((RAIZ / \"curadoria/PROPOSTA-RECEITAS-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 66,
+        "snippet": "(snap / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 84,
+        "snippet": "if (pc / \"MANIFESTO.json\").exists():"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 68,
+        "snippet": "(RAIZ / \"regras/italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 50,
+        "snippet": "SAIDA = AQUI / \"FUNIL-COORTE-MICRO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 217,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "scripts/coorte_micro/ROTULOS-PAGINAS-COORTE-G0.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 86,
+        "snippet": "rp = json.loads((AQUI / \"ROTULOS-PAGINAS-COORTE-G0.json\").read_text(encoding=\"utf-8\"))[\"ROTULOS\"]"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/funil.py",
+      "to_file": "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/funil.py",
+        "line": 80,
+        "snippet": "rot = json.loads((AQUI / \"ROTULOS-RELEVANCIA-G0.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"] \\"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/receitas_v2.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/receitas_v2.py",
+        "line": 21,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"PROPOSTA-RECEITAS-V2.json\""
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/receitas_v2.py",
+      "to_file": "curadoria/PROPOSTA-RECEITAS-V2.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/coorte_micro/receitas_v2.py",
+        "line": 44,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/coorte_micro/receitas_v2.py",
+      "to_file": "scripts/coorte_micro/funil.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/coorte_micro/receitas_v2.py",
+        "line": 19,
+        "snippet": "import funil as FU              # noqa: E402"
+      }
+    },
+    {
       "from_file": "scripts/detector_capa/colher_gabarito.py",
       "to_file": "curadoria/italy_contracts_curator.json",
       "type": "READS",
@@ -65079,6 +65274,17 @@
       }
     },
     {
+      "from_file": "tests/test_funil_coorte.py",
+      "to_file": "scripts/coorte_micro/funil.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_funil_coorte.py",
+        "line": 13,
+        "snippet": "_s = importlib.util.spec_from_file_location(\"funil\", RAIZ / \"scripts\" / \"coorte_micro\" / \"funil.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_gate_de_aceitacao_tematica.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -73155,10 +73361,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2532,
-    "files_readable": 1149,
-    "files_code_dir": 965,
-    "file_edges": 4987,
+    "files_tracked": 2541,
+    "files_readable": 1152,
+    "files_code_dir": 972,
+    "file_edges": 5000,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
