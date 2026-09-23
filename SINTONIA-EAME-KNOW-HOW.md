@@ -21383,3 +21383,27 @@ SOC3 (23/09/2026), D20 e D21. `RELATORIO-SOC3-RETENCAO-YOUTUBE.md`.
 
 Mutação com banco real: um cluster por mutante custava minutos; a ronda sobe UM banco descartável
 já migrado e passa-o aos testes (`SOC3_BANCO_JA_MIGRADO`, aceite só se `exigir_descartavel` passar).
+
+# §204 · A PLATAFORMA DECIDE O EXECUTOR — E UMA PLAYLIST LIDA COMO HANDLE É O CANAL DE OUTRA PESSOA
+
+SOC4 (23/09/2026). `RELATORIO-SOC4-YOUTUBE-PRONTO.md`.
+
+1. **`pedido/receitas.promover_o_scrap`.** O `resolver` escolhia o executor pelo território; o
+   Scrap só estava em T8/T9. Nos 50 canais da tabela: 6 chegavam ao Scrap, 34 iam ao executor
+   HTML (o filtro `canal_id` morria) e 10 não tinham executor. Agora a fase que o registo do
+   Scrap declara em `serve_fases` abre o Scrap em qualquer território: 50 de 50. Pedido sem
+   fase devolve a MESMA lista (o mesmo objecto) — a mudança não toca em mais nada.
+
+2. **O resolvedor do Scrap tenta um nome nu como handle.** É desenho dele («um nome nu depois do
+   domínio pode ser handle»), e está certo para `youtube.com/arpatoscana`. Mas
+   `youtube.com/playlist?list=…` casa na mesma expressão com o nome `playlist` — e
+   `channels.list forHandle=@playlist` devolveria o canal de um desconhecido, com identidade
+   «provada» pela API. Quem pede decide a FORMA antes de pedir: playlist e `/c/` não vão à API.
+
+       UMA RESPOSTA DA API OFICIAL NÃO PROVA QUE A PERGUNTA ESTAVA CERTA.
+
+3. **A chave vive no runner, e esta máquina não tem `gh`.** O workflow `curator-youtube-handles`
+   dispara por `workflow_dispatch` OU por push de `curadoria/PEDIDO-RESOLVER-HANDLES.json`, e faz
+   commit do registo na mesma branch — é assim que o resultado volta a uma máquina sem sessão do
+   GitHub. O registo guarda só identidade (handle → channel_id, corrida, hora): nada que a regra
+   dos 30 dias tenha de apagar.
