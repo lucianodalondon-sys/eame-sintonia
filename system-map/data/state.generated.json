@@ -37,6 +37,7 @@
       "RELATORIO-DUAS-PORTAS.md",
       "RELATORIO-INTAKE-GATE.md",
       "RELATORIO-LAST-MILE.md",
+      "RELATORIO-LISTING-DETAIL.md",
       "RELATORIO-LOTE-76.md",
       "RELATORIO-MATERIA-PRIMA.md",
       "RELATORIO-MICRO-COLLECTION.md",
@@ -2239,8 +2240,10 @@
       "scripts/desbloqueio/aplicar_desbloqueio.py",
       "scripts/desbloqueio/canario_desbloqueio.py",
       "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "scripts/detector_capa/LISTING-DETAIL-GATE-V1.json",
       "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
       "scripts/detector_capa/colher_gabarito.py",
+      "scripts/detector_capa/medir_apos_receitas.py",
       "scripts/detector_capa/medir_gabarito.py",
       "scripts/detector_capa/rotular_gabarito.py",
       "scripts/diagnostico_sala/ler_os_76.py",
@@ -2546,6 +2549,7 @@
       "tests/test_m2_rota_forward.py",
       "tests/test_mapa_nao_mente.py",
       "tests/test_medir_admission_t3_atual.py",
+      "tests/test_medir_apos_receitas.py",
       "tests/test_metricas.py",
       "tests/test_micro_coleta_instrumento.py",
       "tests/test_migrations.py",
@@ -3141,10 +3145,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "desbloqueio-coorte-v1",
-    "HEAD": "bdeb562cb64f9da1b34be976bacb0b7bc7119ca5",
-    "GENERATED_AT": "2026-09-23T02:00:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0230c5c8e6352280b09641b0e2c7ed9d6215491e0d7b58b22fafbdead1e6847e"
+    "BRANCH": "listing-detail-v1",
+    "HEAD": "413057e68ec8d6ca31a0b43efecf81080d5e980f",
+    "GENERATED_AT": "2026-09-23T02:43:37-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e4c57babcecd98f8ea95ecbcb56cfc2006a354d72ea91b64433befce5f38cda3"
   },
   "FAMILIES": [
     {
@@ -4630,8 +4634,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 460",
-        "desses, mostrados aqui: 40 (ficam de fora 420)"
+        "enderecos que o codigo realmente chama: 462",
+        "desses, mostrados aqui: 40 (ficam de fora 422)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -22259,12 +22263,15 @@
       "family": "F-COLETA",
       "files": [
         "scripts/detector_capa/GABARITO-CAPA-V1.json",
+        "scripts/detector_capa/LISTING-DETAIL-GATE-V1.json",
         "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
         "scripts/detector_capa/colher_gabarito.py",
+        "scripts/detector_capa/medir_apos_receitas.py",
         "scripts/detector_capa/medir_gabarito.py",
-        "scripts/detector_capa/rotular_gabarito.py"
+        "scripts/detector_capa/rotular_gabarito.py",
+        "tests/test_medir_apos_receitas.py"
       ],
-      "file_count": 5,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -22292,15 +22299,18 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ANTES",
+          "DEPOIS",
           "JUIZES",
           "L",
+          "PAGINAS",
           "SOCIAL"
         ],
-        "palavras": 149,
+        "palavras": 186,
         "por_lingua": {
           "PT": 2
         },
-        "sem_marca_de_lingua": 147,
+        "sem_marca_de_lingua": 184,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -22341,7 +22351,8 @@
       "consumes": [
         "curadoria/italy_contracts_curator.json",
         "handoff/paused-v2/MANIFESTO.json",
-        "scripts/detector_capa/GABARITO-CAPA-V1.json"
+        "scripts/detector_capa/GABARITO-CAPA-V1.json",
+        "scripts/detector_capa/medir_apos_receitas.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -43334,7 +43345,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch desbloqueio-coorte-v1"
+        "branch listing-detail-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -103776,8 +103787,16 @@
   "UNCLAIMED_CODE_FILES": [
     "provas/recollection_red_team_estrito.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1448,
-  "OWNERSHIP_CONFLICTS": [],
+  "UNCLAIMED_FILES_COUNT": 1449,
+  "OWNERSHIP_CONFLICTS": [
+    {
+      "file": "tests/test_medir_apos_receitas.py",
+      "claimed_by": [
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-TESTES"
+      ]
+    }
+  ],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
       "file": "system-map/data/architecture.declared.json",
@@ -103965,8 +103984,8 @@
     "edges_proven": 1104,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2548,
-    "files_covered": 1100,
+    "files_tracked": 2552,
+    "files_covered": 1103,
     "files_code_unclaimed": 1,
     "roles_proven": 158,
     "roles_declared_only": 9,
