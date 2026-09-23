@@ -340,3 +340,158 @@ Os 9 passos da 1.ª passagem continuam, com estas mudanças:
    `RETIRADA_POR_DECISAO` no portão para as 5 retiradas; elegíveis perto de 16.
 9. **Desfazer: volta ao HEAD medido no passo 1** (hoje seria 409eeb8e, não 9a82197c), com os
    livros do corte (conferir sha256) e a tabela copiada no passo 3.
+
+---
+
+# 3.ª PASSAGEM — UNIFICACAO-V1-C (23/09/2026)
+
+Base c64316d6 (2.ª passagem aceite). Nenhuma coleta corrida; nenhum serviço vivo tocado.
+Não puxados, de propósito: recollection-prova-v1 (R1), quarentena-naosei-v1 (Q1),
+cutover-ensaio-v1 (X1), micro-caminho-v1 (A1).
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | sementes-travao-v1 075501a0 (M2e fila windows + S2/S3 decisão semântica + S4 travão) | 238c5609 |
+| 2 | multilingue-v1 9bf91789 (L1) | 1d902726 |
+| 3 | contrato-unico-v1 808d554f (B1 prova viva, B2 promoção/despromoção, B3 contrato único) | a515d2ce |
+| 4 | listing-detail-v3 a05d0bbe (LD1-LD3, aditamento V3, politica_nao_sei desligada) | 2abde1dd |
+| — | D13 (opção B) | 4dcb26be |
+| — | know-how §176-§191 | 7045cb0f |
+| — | mapa: 4 peças duplicadas unidas; cadeia | 8fe122cb |
+| — | provas da 3.ª passagem no provar_em_copia; este relatório; mapa | FINAL_HEAD |
+
+## ENTREGA-C
+
+```
+PONTAS            = 4
+CONFLITOS         = codigo 2 blocos + 4 extensoes:
+                    · supervisor.py (liveness): o do servico (NAO SEI do tasklist fica
+                      visivel) + a pergunta da ponte «o PID e python?» nos dois PIDs;
+                    · test_supervisor.py: fica a classe Isolado da ponte (ja isola fila,
+                      livro, lock, estado, PARAR, diario e pulso);
+                    · aplicar_desbloqueio.py: 4 blocos B3 sobre o G1, todos extensoes
+                      (assinatura do planear, retorno, escrita do livro do bot) — nenhuma
+                      linha da base perdida; a V3 (LD) juntou limpo por cima.
+                    Declarado: 1 lista de ficheiros da mesma peca (uniao).
+                    Know-how: 6 blocos, uniao por significado.
+                    Gerados e censos: lado da base, regerados pela cadeia.
+DEFEITOS ESCONDIDOS = 2 novos (10.o e 11.o da unificacao):
+                    10. o log do worker (WORKER-STDOUT.log, novo no M2e) era escrito por
+                        test_gatilho_ocioso; test_decisao_semantica escrevia o pulso real e
+                        deixava a pasta temporaria. Guarda: novo ficheiro + regra S.WORKER_LOG.
+                    11. o enxerto do G1 na B3 declarou 4 pecas do mapa DUAS vezes
+                        (C-DESBLOQUEIO-PACOTE, C-COORTE-MICRO-FUNIL, C-RECEITAS-PROPOSTA,
+                        C-DETECTOR-CAPA-GABARITO): unidas, sem perder ficheiro nem texto.
+SUITE antes       = c64316d6 (codigo igual a 5a16d077, medido): curadoria/ Ran 487 OK ·
+                    tests/ Ran 5103, 93 testes vermelhos por nome
+SUITE depois      = 8fe122cb: curadoria/ Ran 572 OK · tests/ Ran 5139, 91 testes vermelhos por nome
+NEW_RED_BY_NAME   = 0. Sairam 2 (D13): test_a_fila_tem_as_241... e test_em_analise_diz_sempre...
+PROVAS_COPIA      (8fe122cb, copia descartavel; ensaios numa segunda copia sem .git)
+  ponte                         PASS  ENTRA/NUNCA_ENTROU/SAI; red team 17/17, SURVIVORS 0
+  ponte B2 promocao/despromocao PASS  fotografia B1-SNAPSHOT-20260923T051430Z: elegiveis
+                                      8 -> 20 (entram 20, saem 8); ficheiros reais intocados
+  supervisor                    PASS  fila vazia -> IDLE, 0 workers; rc 0 nao e crash
+  worker pendurado              PASS  ensaio real: PENDURADO=false, 0 bytes de stdout
+  gatilho ocioso                PASS  ensaio real: 9/9 assercoes
+  fila windows (leitor agressivo) PASS ensaio real: 1 worker de cada vez, 0 PermissionError
+  discovery sementes + travao   PASS  test_discovery_sementes, test_travao_sementes
+  decisao semantica             PASS  test_decisao_semantica + test_pais_das_candidatas;
+                                      fotografia: 18 IT decididas / 7 fora de IT / 156 NAO SEI (181)
+  multilingue                   PASS  test_admissao_multilingue. A re-medicao do gabarito
+                                      (5/6 SIM, IT_VERDICTS_CHANGED 0) NAO foi re-corrida: a
+                                      tabela de juncao nao esta no repo. admissao/ tem 0 linhas
+                                      de diferenca contra 9bf91789, onde foi medida.
+  pacote G1 blocos 1-3 + V3     PASS  1.a passagem 76 / 2.a 0 (abaixo)
+  RETIRADA                      PASS  test_retirada_por_decisao
+  modulos de prova juntos: 189/189
+KNOW_HOW_TABLE    = abaixo
+PACOTE_G1         = 1.a 76 (livro 66 + tabela 4 + livro do bot 6) / 2.a 0. Livro do portao =
+                    copia desta linha; livro do bot = copia do vivo (075501a0, sha 70dfb300...);
+                    --d10=A. 0 invariantes quebrados. Com o livro ensaiado: portao 19 -> 16
+                    elegiveis, 5 recusadas por RETIRADA_POR_DECISAO.
+SYSTEM_MAP_CHECK  = PASS
+```
+
+## D13 (opção B) — aplicada
+
+- **(1)** O teste das 241 olha **só** o grupo de 14/09, escrito no próprio teste:
+  `DECIDIDA_EM = 2026-09-15`, a decisão da qualificação de 14/09 — 241 candidatas.
+  Mutação: tirar a nota a CAND-0013 → o teste reprova.
+- **(2)** As novas contam-se (grupo + novas = TOTAL = 476) e ficam à vista: sem nota, nunca
+  PROMOVIDA, sem SOURCE_ID. Nota genérica copiada para várias → reprova (mutação). Nenhuma
+  nota foi escrita para encher.
+- **(3)** Sem capacidade não é recusa: a ponte escreve `CAPABILITY_BLOCK` (com
+  `MOTIVO_DO_BLOQUEIO`) e o estado entra no vocabulário da porta. As 6 linhas Facebook já
+  escritas foram corrigidas por `ferramentas/unificacao/aplicar_d13_capacidade.py`
+  (guarda o estado e o motivo anteriores; idempotente). Mutações no código e no dado → reprovam.
+- **Continua vermelho, fora da D13, e já o era na base:** 16 das 25 recusas revogadas a 14/09
+  voltaram a RECUSADA por **POLICY** (LinkedIn 3, Instagram 13), e 25 RECUSADA POLICY citam
+  na EVIDENCIA a sonda de 429 de 14/09. São duas regras a dizer coisas diferentes («não se
+  recusa o que ninguém leu» contra «os TOS proíbem»). Proposta: a mesma forma da D13 — POLICY
+  com estado próprio e a evidência da política no lugar da sonda. **Decisão do dono.**
+- Se a falta de nota travar o caminho, volta ao dono como proposta de lei (D13). Medido
+  nesta passagem: não há nenhum consumidor que leia `O_QUE_FALTA` para decidir.
+
+## KNOW_HOW_TABLE (final, §170-§191)
+
+| § | título (abreviado) | origem |
+|---|---|---|
+| §170 | REPETIR O QUE NADA MUDOU NÃO É PERSISTÊNCIA | serviço (abastecimento) |
+| §171 | SAIR NÃO É MORRER | serviço (gatilho ocioso) |
+| §172 | UM CANO SEM LEITOR NÃO É UM LOG | worker-pendurado-v1 (M2d) |
+| §173 | REGISTADO NÃO É RASTEJADO | discovery-sementes-v2 (C1) |
+| §174 | A MESMA RECONCILIAÇÃO DUAS VEZES… (+174-1) | unificação |
+| §175 | SAÚDE NÃO É PRODUTIVIDADE | serviço (era §159) |
+| §176 | RECEITAS-1 · O PADRÃO DE MORADA ESTAVA EM MOLDE | desbloqueio-coorte (receitas) |
+| §177 | RECEITAS-2 · CORRIGIR A RECEITA NÃO PÕE UMA FONTE PRONTA | desbloqueio-coorte (receitas) |
+| §178 | COORTE-1 · O FUNIL CORTA ANTES DA RELEVÂNCIA | desbloqueio-coorte (coorte-micro) |
+| §179 | DESBLOQUEIO-1 · O COLETOR TEM A SUA CÓPIA DA RECEITA | desbloqueio-coorte (G1) |
+| §180 | A PEÇA EXISTIA E NÃO ESTAVA LIGADA | qualify-semantico (S1) |
+| §181 | UM LEITOR A OLHAR NÃO É UM ESCRITOR A MAIS | fila-windows (M2e) |
+| §182 | UMA PONTE QUE ATRAVESSA NÃO É UMA PONTE QUE PROMOVE | contrato-unico (B1/B2) |
+| §183 | UMA RECEITA APROVADA NO GABARITO NÃO SE MEDE NO MESMO GABARITO | listing-detail (LD1) |
+| §184 | UM CONTRATO, UM DONO | contrato-unico (B2/B3) |
+| §185 | UMA DECISÃO SEM PROVA É UMA OPINIÃO | semantico-opus (S2/S3) |
+| §186 | O CUSTO DE UMA REGRA DE MORADA | listing-detail (LD2) |
+| §187 | A PROVA DA ROTA ENVELHECE | contrato-unico (B3) |
+| §188 | MULTILINGUE-1 · A MESMA RÉGUA NA LÍNGUA DO TEXTO | multilingue (L1) |
+| §189 | UM ERRO DE CONTRATO APANHA-SE NO CONTRATO | listing-detail (LD3) |
+| §190 | REDIRECIONAR NO PROCESSO NÃO ISOLA O FILHO | semantico-opus (S3) |
+| §191 | UMA SEMENTE É UMA ORGANIZAÇÃO, NÃO UMA PÁGINA | sementes-travao (S4) |
+
+A ordem de chegada é a data do primeiro commit (em qualquer ref) que trouxe o título. Cada
+secção renumerada leva uma linha a dizer de onde veio. Nada apagado. Próximo livre: **§192**.
+
+## SWITCH_PLAN — actualizado na 3.ª passagem
+
+**Medido agora (23/09):** supervisor **PID 98512** (arrancou às 04:29); observador
+**PID 14960** (ponte-curador-v1); a pasta viva está em **075501a0 (sementes-travao-v1)** —
+**contido nesta linha**. Trocar já **não** tira nada de produção (M2e, S2, S3, S4 estão cá).
+11 ficheiros sujos na pasta viva.
+
+Ainda em curso e fora da linha: R1, Q1, X1, A1. Se algum destes for para produção antes
+da troca, a condição volta: medir o HEAD vivo no passo 1 e confirmar
+`git merge-base --is-ancestor <HEAD vivo> <FINAL_HEAD>`.
+
+1. **Medir na hora:** PIDs (pelo PID exacto) e HEAD da pasta viva; exigir que o HEAD vivo seja
+   ancestral do FINAL_HEAD (senão: parar aqui).
+2. `PARAR.flag` na pasta viva; confirmar que o supervisor do passo 1 saiu.
+3. Corte final com o bot parado (`congelar_livros_do_servico.py`), mais cópia com sha256 de
+   `italy_contracts_curator.json` (do bot) e de `candidatas/FONTES-CANDIDATAS.json`.
+4. **Pacote G1 com o bot parado**, blocos 1-3 + V3:
+   `py scripts/desbloqueio/aplicar_desbloqueio.py --livro=curadoria/italy_contracts_curator.json
+   --tabela=regras/italy_contracts_onboarded.json --livro-bot=<corte>/italy_contracts_curator.json
+   --d10=A --escrever` na worktree unificada; correr outra vez e exigir `ESCRITO: 0`
+   (ensaiado hoje: 76 → 0).
+5. D13 sobre a porta viva: `py ferramentas/unificacao/aplicar_d13_capacidade.py --porta
+   <copia da porta viva> --escrever` (idempotente).
+6. Reconciliar (`reconciliar_livros.py --livro-servico <corte> --livro-ponte
+   curadoria/LIFECYCLE-LEDGER-V1.json --aplicar`), unir livros (`unir_livros_do_servico.py`),
+   `interface_collection.py`, cadeia do mapa, push, LOCAL == REMOTO.
+7. Trocar o código na pasta viva (mesma pasta; ramo novo no FINAL_HEAD).
+8. Relançar o supervisor e o observador (o observador a partir de unificacao-v1).
+9. Medir: `supervisor.py --estado` (RUNNING ou IDLE, `PID_CHECK_NAO_SEI` vazio);
+   `WORKER-HEARTBEAT.json` a avançar; `WORKER-STDOUT.log` a crescer; no portão, 5 recusadas
+   por `RETIRADA_POR_DECISAO` e elegíveis perto de 16; `PASS_PARCIAL` nas voltas (lei do canário).
+10. **Desfazer:** `PARAR.flag`; voltar a pasta viva ao HEAD medido no passo 1; repor os
+   livros do corte e as cópias do passo 3 (conferir sha256); relançar.
