@@ -207,6 +207,15 @@ def _ultimo_heartbeat() -> Optional[datetime]:
     return None
 
 
+def _saida_limpa(rc: Optional[int]) -> bool:
+    """rc 0 = o worker saiu por decisao propria (ocioso, PARAR, --voltas).
+
+    Um crash em Python sai com rc 1; um processo morto pelo SO nao sai com 0.
+    None = ainda nao ha rc (processo sem poll) — nao e saida limpa.
+    """
+    return rc == 0
+
+
 def _worker_vivo(estado: dict) -> bool:
     """PID existe no SO E heartbeat recente."""
     pid = estado.get("WORKER_PID")
@@ -233,7 +242,7 @@ def _worker_vivo(estado: dict) -> bool:
 def _lancar_worker(pausa: float = 1.0) -> subprocess.Popen:
     cmd = [sys.executable,
            str(RAIZ / "curadoria" / "ciclo_continuo.py"),
-           "--pausa", str(pausa)]
+           "--pausa", str(pausa), "--sair-quando-ocioso"]
     return subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -394,7 +403,16 @@ def uma_volta_sup(
             "HB_AGORA": hb_str,
         })
 
-        if progrediu:
+        if _saida_limpa(rc):
+            # ⚠️ SAIR NAO E MORRER. O worker ocioso sai com rc 0 de proposito
+            # (ciclo_continuo --sair-quando-ocioso) e o heartbeat dele NAO
+            # avanca desde a ultima volta VIVO — o supervisor ja o registou em
+            # LAST_PROGRESS_AT. Contada como «morte sem progresso», 3 saidas
+            # ociosas em 120 s mandariam o servico a BLOCKED. O contador fica
+            # como esta: uma saida limpa nao e crash nem e progresso.
+            _anotar({"EVENTO": "WORKER_SAIU_LIMPO", "PID": estado["WORKER_PID"],
+                     "RC": rc})
+        elif progrediu:
             # Morte com progresso: repoe o contador.
             estado["CRASHES_SEM_PROGRESSO"] = []
         else:

@@ -178,7 +178,7 @@ class TestUmaVoltaSup(unittest.TestCase):
         with S.DIARIO.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps({"EVENTO": "TESTE", "AT": agora_ts}) + "\n")
         proc_morto = subprocess.Popen(
-            [sys.executable, "-c", "pass"],
+            [sys.executable, "-c", "import sys; sys.exit(1)"],  # crash: rc 0 e saida limpa
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         )
         proc_morto.wait(timeout=5)
