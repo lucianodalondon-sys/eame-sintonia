@@ -20,7 +20,6 @@
   "DEFEITO_ACHADO_E_CORRIGIDO": "a 1.a versao pendurou depois de ligar a Sala: o redireccionamento da saida do ligar_sala.cmd e herdado pelo postmaster e a espera nunca acaba; agora Start-Process sem redireccionar + pg_isready"
  },
  "NAO_PROVADO": [
-  "o lado positivo: supervisor a arrancar sozinho com o egresso de volta a IT (a VPN estava no Brasil durante toda a prova; fica no log arranque-AAAAMMDD.log)",
   "um logon real (a missao proibe reiniciar)"
  ],
  "LOG": [
@@ -44,5 +43,12 @@
   "2026-09-23 18:00:38 ARRANQUE ja a correr noutra instancia: esta sai sem fazer nada",
   "2026-09-23 18:01:08 EGRESSO BLOCKED BR",
   "2026-09-23 18:01:08 SUPERVISOR NAO arranca: o egresso nao e IT (o bot iria a rede por outro pais)"
- ]
+ ],
+ "VPN_A_OSCILAR": {
+  "O_QUE": "18:30:15 a guarda (versao 1) viu UMA medicao PASS IT, tirou o flag e relancou o supervisor (18:30:25 = LADO POSITIVO VISTO); 18:30:51-18:31:32 quatro medicoes seguidas deram BR (portao e ipinfo)",
+  "ACCAO": "18:32:04 PARAR.flag com a marca da guarda; o supervisor correu 18:30:16-18:32:04 so com SUPERVISOR_ARRANQUE: nenhum worker, nenhuma realimentacao, nenhuma rede",
+  "CORRECCAO": "versao 2: IT so conta com 2 medicoes SEGUIDAS (arranque: 30 s entre elas; guarda: 3 min); reinstalada; parar a tarefa nao mata Sala/observador/vigia (mesmos PIDs antes e depois)",
+  "DEPOIS": "18:33:22 e 18:33:54 PASS IT x2 -> flag da guarda retirado, supervisor lancado 18:34:04 (PID 23416); 18:34:59-18:35:47 IT x3 (portao e ipinfo)",
+  "COLETA_NO_INTERVALO_17_52_18_20": "nenhuma desta sessao; o bot nao teve rede (ultima realimentacao 17:04 com CRAWL 0; parado 17:54-18:30 e 18:32-18:34); os canarios da BC2 correram 15:18-15:40 com egresso IT"
+ }
 }

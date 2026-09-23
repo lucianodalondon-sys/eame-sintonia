@@ -15,8 +15,12 @@
 #                          e a segunda trava contra duas instancias)
 #   6. GUARDA              de 3 em 3 min mede o egresso; 2 medicoes seguidas fora de IT ->
 #                          PARAR.flag com a marca desta guarda (o bot fica quieto pelo
-#                          procedimento da casa); de volta a IT -> tira SO o flag que ela
-#                          escreveu e relanca o supervisor. Flag de outra mao nao se toca.
+#                          procedimento da casa); 2 medicoes SEGUIDAS em IT -> tira SO o flag
+#                          que ela escreveu e relanca o supervisor. Flag de outra mao nao se toca.
+#
+#   IT so conta com DUAS medicoes seguidas, a entrada e na guarda. Medido na BC3 (23/09,
+#   18:30): com a VPN a oscilar, uma medicao IT isolada relancou o bot e as 4 seguintes
+#   deram BR.
 #
 # Uma so instancia: mutex «SINTONIA-ARRANQUE». A segunda sai logo, e diz porque.
 # -UmaVolta: faz 1-5 e sai (para provar). -SimularEgresso: finge o veredito do portao
@@ -123,7 +127,12 @@ try {
     while ($true) {
         $e = Egresso
         L "EGRESSO $e"
-        if ($e -like "PASS IT*") { LancarSupervisor; break }
+        if ($e -like "PASS IT*") {
+            Start-Sleep -Seconds 30
+            $e2 = Egresso
+            L "EGRESSO (2.a medicao) $e2"
+            if ($e2 -like "PASS IT*") { LancarSupervisor; break }
+        }
         L "SUPERVISOR NAO arranca: o egresso nao e IT (o bot iria a rede por outro pais)"
         if ($UmaVolta) { break }
         Start-Sleep -Seconds 60
@@ -131,16 +140,19 @@ try {
     if ($UmaVolta) { L "=== UmaVolta: fim ==="; exit 0 }
 
     # 6. GUARDA
-    $ruins = 0
+    $ruins = 0; $bons = 0
     while ($true) {
         Start-Sleep -Seconds 180
         $e = Egresso
         if ($e -like "PASS IT*") {
-            if ($ruins -ge 2 -or ((Test-Path $FLAG) -and ((Get-Content $FLAG -Raw) -match [regex]::Escape($MARCA)))) {
-                L "GUARDA: egresso de volta a IT ($e)"; LancarSupervisor
-            }
-            $ruins = 0
+            $bons++
+            $flagDaGuarda = (Test-Path $FLAG) -and ((Get-Content $FLAG -Raw) -match [regex]::Escape($MARCA))
+            if ($flagDaGuarda -or $ruins -ge 2) {
+                if ($bons -ge 2) { L "GUARDA: egresso em IT ha $bons medicoes seguidas ($e)"; LancarSupervisor; $ruins = 0 }
+                else { L "GUARDA: egresso IT ($e), 1.a medicao boa — espera a 2.a antes de relancar" }
+            } else { $ruins = 0 }
         } else {
+            $bons = 0
             $ruins++
             L "GUARDA: egresso $e ($ruins seguida(s))"
             if ($ruins -eq 2 -and -not (Test-Path $FLAG)) {

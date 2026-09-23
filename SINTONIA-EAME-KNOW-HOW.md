@@ -21411,3 +21411,10 @@ supervisor**, porque o egresso era BR.
   texto que se procura.
 - O lado positivo (o supervisor a arrancar sozinho com egresso IT) só se vê com a VPN de pé:
   fica no `arranque-AAAAMMDD.log`.
+
+**ADENDA (18:30).** A primeira versão relançava o bot com **uma** medição IT. Com a VPN a
+oscilar, relançou-o às 18:30:25, e as 4 medições seguintes deram BR. O bot foi parado 2
+minutos depois, sem ter feito nada na rede. Agora IT só conta com **duas medições
+seguidas**, tanto para arrancar como para relançar: a mesma exigência que já havia para parar.
+
+    UMA MEDIÇÃO BOA DEPOIS DE UMA QUEDA NÃO É A REDE DE VOLTA.
