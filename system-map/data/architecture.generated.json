@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "pesquisadores-v1",
-    "HEAD": "5ae903936cc79fa339085fd534bee1c0a42ce4e2",
-    "GENERATED_AT": "2026-09-23T19:03:01-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e42aa854524bc1f2f6a3265cfa51dd94b5c9f0f68479bc1e21f3e534c8baf311"
+    "HEAD": "017a060130581c42962067f38fcfd970443ee1c7",
+    "GENERATED_AT": "2026-09-23T19:18:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "36ed90e7f953e9407ae3a130d8cce55bab021e913d3fa2fdecdb262b9f006553"
   },
   "FILES": [
     {
@@ -2368,6 +2368,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/PESQUISADORES-FORA-DO-FOCO-V1.json",
+      "sha": "3477b93fe4883f1e0a6a55fe7ea74ab8fc81d24b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/PESQUISADORES-LISTA-V1.json",
       "sha": "229ae54cda2a2c9320be8852e561d9116af51ee6",
       "ext": ".json",
@@ -2922,7 +2929,7 @@
     },
     {
       "path": "curadoria/pesquisadores.py",
-      "sha": "414b7fb65eeb27a2de563731cf578a3b73d327b7",
+      "sha": "dda5384ac69f11f55dad0cb1eb800c8cd2619729",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -25838,6 +25845,17 @@
     },
     {
       "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/PESQUISADORES-FORA-DO-FOCO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 1247,
+        "snippet": "FORA_DO_FOCO_JSON = RAIZ / \"curadoria\" / \"PESQUISADORES-FORA-DO-FOCO-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
       "to_file": "curadoria/PESQUISADORES-LISTA-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -25854,7 +25872,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/pesquisadores.py",
-        "line": 895,
+        "line": 897,
         "snippet": "CONAF_LINKS = RAIZ / \"curadoria\" / \"PESQUISADORES-P1B-CONAF-LINKS.json\""
       }
     },
@@ -25876,7 +25894,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/pesquisadores.py",
-        "line": 1117,
+        "line": 1119,
         "snippet": "PROOF_P1C = RAIZ / \"curadoria\" / \"PESQUISADORES-P1C-PROOF-V1.json\""
       }
     },
@@ -25887,7 +25905,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/pesquisadores.py",
-        "line": 1116,
+        "line": 1118,
         "snippet": "SFR_LINKS = RAIZ / \"curadoria\" / \"PESQUISADORES-P1C-SFR-LINKS.json\""
       }
     },
@@ -78980,10 +78998,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2734,
+    "files_tracked": 2735,
     "files_readable": 1246,
     "files_code_dir": 1065,
-    "file_edges": 5388,
+    "file_edges": 5389,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
