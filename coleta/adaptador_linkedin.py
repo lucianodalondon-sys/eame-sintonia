@@ -914,6 +914,7 @@ ROTA_PAGINA_PUBLICA = 'linkedin:pagina-publica-da-organizacao'
 ROTA_VIDEO_BYTES = 'linkedin:data-sources-mp4'
 ROTA_LEGENDA_NATIVA = 'linkedin:data-captions-url'
 
+
 #: A decisao do dono, com o nome e o ficheiro dela. Ela viaja em cada objeto:
 #: um dado adquirido por uma excecao tem de dizer QUAL excecao o autorizou.
 DECISAO_DO_DONO = 'D23'
@@ -922,6 +923,52 @@ AUTORIZACAO_ESCRITA = ('%s · %s · OWNER_AUTHORIZED=SIM · '
                        'PLATFORM_POLICY_STATUS=DISALLOWED'
                        % (DECISAO_DO_DONO, DECISAO_DO_DONO_REF))
 
+# ── D24 · OS MESMOS TRES PAPEIS, PARA A PESSOA ──────────────────────────
+# ⚠️ PORQUE HA TRES NOMES NOVOS E NAO SE REUSA OS DE CIMA. Uma rota e o que a
+# casa DECLAROU na matriz, e o nome dela viaja em cada objeto. Se a aquisicao
+# de uma pessoa saisse carimbada com o nome da rota de ORGANIZACAO, o objeto
+# diria que veio de uma porta onde ele nao passou — e a auditoria acreditaria.
+#
+#     UM OBJETO TEM DE NOMEAR A PORTA POR ONDE PASSOU, E NAO A PARECIDA.
+ROTA_POST_PUBLICO = 'linkedin:post-publico-de-pessoa'
+ROTA_VIDEO_BYTES_PESSOA = 'linkedin:data-sources-mp4-de-pessoa'
+ROTA_LEGENDA_PESSOA = 'linkedin:data-captions-url-de-pessoa'
+DECISAO_DO_DONO_D24 = 'D24'
+LIMITE_DA_PESSOA = 'PUBLIC_PERSON_VIDEO_ONLY'
+AUTORIZACAO_ESCRITA_D24 = ('%s · %s · OWNER_AUTHORIZED=SIM · '
+                           'PLATFORM_POLICY_STATUS=DISALLOWED'
+                           % (DECISAO_DO_DONO_D24, DECISAO_DO_DONO_REF))
+
+#: O QUE MUDA quando o alvo e uma pessoa. Um dicionario, e nao tres parametros
+#: soltos: o que muda anda junto, e quem lê a chamada ve o conjunto.
+DECISAO_DA_PESSOA = {
+    'DECISAO': DECISAO_DO_DONO_D24,
+    'REF': DECISAO_DO_DONO_REF,
+    'AUTORIZACAO': AUTORIZACAO_ESCRITA_D24,
+    'ROTA_PAGINA': ROTA_POST_PUBLICO,
+    'ROTA_BYTES': ROTA_VIDEO_BYTES_PESSOA,
+    'ROTA_LEGENDA': ROTA_LEGENDA_PESSOA,
+    'LIMITE': LIMITE_DA_PESSOA,
+    'EXECUTOR': 'adaptador_linkedin.video_de_post_publico',
+}
+
+#: As portas que NAO se abrem, com o nome de cada uma. A lista e a mesma que o
+#: dono escreveu no D24: o que ele autorizou foi o VIDEO, e nao a pessoa.
+_CONTEUDO_PESSOAL = re.compile(
+    r'linkedin\.com/(?:'
+    r'(?:in|pub)/[^/?#]+/(?:detail/)?(?:contact-info|followers|following|connections|people)'
+    r'|overlay/(?:contact-info|followers|following)'
+    r'|messaging'
+    r'|feed/update/[^/?#]+/comments'
+    r'|comments?(?:[/?#]|$)'
+    r'|search/results/(?:people|connections)'
+    r')', re.I)
+
+#: A forma CANONICA do post publico — e ela carrega o activity id, que e a
+#: identidade real da publicacao.
+_POST_PUBLICO = re.compile(
+    r'^https?://(?:[a-z]{2,3}\.)?linkedin\.com/posts/[A-Za-z0-9\-_%\.]+'
+    r'-activity-(\d{15,25})-[A-Za-z0-9_\-]+/?$', re.I)
 #: Os hosts que ESTA aquisicao pode alcancar. O portao abre so para estes, e
 #: so enquanto ela corre — e `scrap_http.permitido()` continua a ler o robots
 #: de cada um, porque e essa leitura que sustenta o `DISALLOWED` que se escreve.
@@ -1267,6 +1314,61 @@ def _alvo_e_organizacao(pagina_url):
     return m.group(1).lower()
 
 
+def _alvo_e_post_publico(post_url):
+    """A TRAVA DO D24. → (url, activity_id). Recusa e ESTATICA: zero rede.
+
+    O dono autorizou, por escrito, o VIDEO de pessoas do agro (D24). O que essa
+    autorizacao fez foi tirar o limite «perfil de PESSOA fora» — NAO abriu o
+    resto, e nao abriu o que a plataforma fecha. Por isso:
+
+        POST PUBLICO DE PESSOA   passa. `/posts/<slug>-activity-<id>-<hash>`
+                                 responde 200 a convidado (medido).
+        PAGINA DE PERFIL         recusada, e o motivo e MEDIDO, nao suposto:
+                                 `linkedin.com/in/<slug>/` responde HTTP 999
+                                 com `authwall`, com a UA desta casa e com UA
+                                 de navegador. Nao se contorna.
+        CONTEUDO PESSOAL         contatos, seguidores, mensagens e comentarios
+                                 de terceiros ficam fora — o D24 nomeia-os um
+                                 a um na lista do que NAO autoriza.
+        ECRA DE LOGIN            contornar controlo de acesso continua fora.
+
+    Uma recusa que nao diz QUAL coisa recusou nao serve para decidir nada.
+    """
+    alvo = str(post_url or '').strip()
+    if _LOGIN.search(alvo):
+        raise http.RotaNaoPermitida(
+            'ALVO_RECUSADO: ecra de login. Esta aquisicao NAO contorna controlo '
+            'de acesso — nem login wall, nem CAPTCHA, nem bloqueio. · %s' % alvo)
+    if _CONTEUDO_PESSOAL.search(alvo):
+        raise http.RotaNaoPermitida(
+            'ALVO_RECUSADO: conteudo PESSOAL (contato, seguidor, mensagem ou '
+            'comentario de terceiro). A D24 autoriza o VIDEO publico da pessoa e '
+            'nomeia o resto como fora: contatos, seguidores, mensagens e '
+            'comentarios de terceiros. · %s' % alvo)
+    m = _POST_PUBLICO.match(alvo)
+    if m:
+        return alvo, m.group(1)
+    if _PAGINA_PESSOA.search(alvo):
+        raise http.RotaNaoPermitida(
+            'ALVO_RECUSADO: pagina de PERFIL DE PESSOA. MEDIDO em 2026-09-23: '
+            'responde HTTP 999 com `authwall` — com a UA desta casa E com UA de '
+            'navegador, no egresso IT/datacenter, sem conta e sem cookie. A '
+            'plataforma fechou esta porta, e NAO se contorna. O alvo desta porta '
+            'e a pagina do POST publico: `/posts/<slug>-activity-<id>-<hash>`. · %s'
+            % alvo)
+    if _PAGINA_ORGANIZACAO.match(alvo):
+        raise ValueError(
+            'ALVO_TROCADO_DE_PORTA: esta e a pagina de ORGANIZACAO, e a porta '
+            'dela e `video_da_pagina_publica` (D23), que descobre as publicacoes '
+            'na propria landing. Aqui o alvo e a pagina de um POST publico. · %s'
+            % alvo)
+    raise ValueError(
+        'ALVO_AUSENTE_OU_MALFORMADO: esta aquisicao le a PAGINA PUBLICA DE UM '
+        'POST e precisa de um endereco '
+        '`https://www.linkedin.com/posts/<slug>-activity-<id>-<hash>`. Recebeu %r.'
+        % (post_url,))
+
+
 def _buscar_texto(url, transporte, autorizacao=None):
     if transporte is not None:
         return transporte(url)
@@ -1421,8 +1523,82 @@ def video_da_pagina_publica(*, pagina_url, run_id, country_scope='IT', teto=3,
     return envelopes
 
 
-def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos, envelopes):
-    """Um cartao -> um envelope. Aquisicao dos bytes, texto e prova."""
+def video_de_post_publico(*, post_url, run_id, country_scope='IT', transporte=None,
+                           egresso=None, medida=None, **_):
+    """A AQUISICAO DO VIDEO DE UMA PESSOA (D24), pela pagina PUBLICA do POST.
+
+    PORQUE ESTA PORTA EXISTE, e nao a do perfil: medido, a pagina do PERFIL de
+    uma pessoa responde 999 com `authwall`, e a pagina do POST dela responde
+    200. A plataforma fecha a porta que fala da pessoa e deixa aberta a que
+    fala da publicacao — e esta casa obedece ao que a plataforma serve, sem
+    contornar nada.
+
+    A cadeia e a MESMA da D23, e isso e o ponto:
+    a pagina do post entrega o cartao, `cartoes_com_video` monta-o, e o
+    `_adquirir_um` faz o resto — MP4, legenda, texto do autor, JSON-LD.
+
+    Um post SEM video e RESULTADO, e nao falha: o objeto sai sem bytes, com o
+    texto do autor e o `PUBLISHED_AT` que a propria pagina declara.
+    """
+    url, ident = _alvo_e_post_publico(post_url)
+    pedidos = [{'TYPE': 'ROUTE', 'TARGET': http.host_de(url), 'URL': url}]
+    envelopes = []
+    # ⚠️ O PORTAO PRECISA DA DECISAO DO DONO PARA ABRIR ESTE CAMINHO — e ela
+    # vai NOMEADA, como na D23. O `robots.txt` do LinkedIn barra o caminho; o
+    # que o portao aceita nao e «uma excecao», e a excecao COM NOME: D24,
+    # `DECISOES-DONO-2026-09-23.md`, escrita e assumida pelo dono.
+    with http.autorizacao_do_dono(ROTA_POST_PUBLICO, HOSTS_DA_AQUISICAO,
+                                 decisao=AUTORIZACAO_ESCRITA_D24,
+                                 plataforma=PLATAFORMA):
+        corpo = _buscar_texto(url, transporte)
+    cartoes = cartoes_com_video(corpo)
+    tem_video = bool(cartoes)
+    if not cartoes:
+        # Sem `data-sources` na pagina, o cartao monta-se do que a pagina TEM:
+        # a identidade vem do proprio endereco pedido, e nao de uma posicao.
+        cartoes = [{
+            'ACTIVITY_ID': ident, 'ACTIVITY_ID_DO_URN': None,
+            'ACTIVITY_ID_DO_URL': ident, 'POST_URL': url,
+            'LIGACAO': 'IDENTIDADE_NO_ENDERECO_PEDIDO',
+            'VIDEO_RENDICOES': [], 'DATA_SOURCES_UNPARSABLE': False,
+            'CAPTION_URL': None, 'ASSET_URN': None, 'DECLARED_LANGUAGE': None,
+            'POSTER_URL': None, 'ASPECT_RATIO': None,
+        }]
+    for cartao in cartoes:
+        _adquirir_um(cartao, run_id=run_id, country_scope=country_scope,
+                     transporte=transporte, egresso=egresso,
+                     pedidos=pedidos, envelopes=envelopes,
+                     decisao=DECISAO_DA_PESSOA)
+    if medida is not None:
+        medida.update({
+            'IMPLEMENTACAO': 'coleta/adaptador_linkedin.video_de_post_publico',
+            'REQUESTS': len(pedidos), 'POST_SEM_VIDEO': not tem_video,
+            'POST_URL_PEDIDO': url, 'ACTIVITY_ID_DO_ENDERECO': ident,
+            'ENVELOPES': len(envelopes),
+            'COST_STATE': 'FREE_ROUTE_BY_OWNER_DECISION', 'ACTUAL_COST_USD': 0.0,
+            'OWNER_AUTHORIZED': 'SIM', 'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+            'DECISAO_DO_DONO': DECISAO_DO_DONO_D24,
+            'LIMITE': LIMITE_DA_PESSOA, 'PEDIDOS': pedidos})
+    return envelopes
+
+
+def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos, envelopes,
+                 decisao=None):
+    """Um cartao -> um envelope. Aquisicao dos bytes, texto e prova.
+
+    `decisao` e o que MUDA quando o alvo e uma PESSOA (D24): o nome da decisao,
+    a rota, o executor e o limite. Ausente, tudo fica como estava — e e por isso
+    que a rota de ORGANIZACAO (D23) nao muda por causa desta porta.
+    """
+    dec = decisao or {}
+    nome_decisao = dec.get('DECISAO', DECISAO_DO_DONO)
+    ref_decisao = dec.get('REF', DECISAO_DO_DONO_REF)
+    autorizacao = dec.get('AUTORIZACAO', AUTORIZACAO_ESCRITA)
+    rota_pagina = dec.get('ROTA_PAGINA', ROTA_PAGINA_PUBLICA)
+    rota_bytes = dec.get('ROTA_BYTES', ROTA_VIDEO_BYTES)
+    rota_legenda = dec.get('ROTA_LEGENDA', ROTA_LEGENDA_NATIVA)
+    executor = dec.get('EXECUTOR', 'adaptador_linkedin.video_da_pagina_publica')
+    limite = dec.get('LIMITE')
     ident = cartao.get('ACTIVITY_ID')
     url_do_post = _url_do_post(cartao)
     raw = {
@@ -1442,16 +1618,16 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
         'ASPECT_RATIO': cartao.get('ASPECT_RATIO'),
         'OWNER_AUTHORIZED': 'SIM',
         'PLATFORM_POLICY_STATUS': 'DISALLOWED',
-        'DECISAO_DO_DONO': DECISAO_DO_DONO,
-        'DECISAO_DO_DONO_REF': DECISAO_DO_DONO_REF,
+        'DECISAO_DO_DONO': nome_decisao,
+        'DECISAO_DO_DONO_REF': ref_decisao,
         'EGRESS_MEASURED': egresso,
         'URL_EXPIRY_OBSERVED': None,
     }
     # ── 2 · a pagina do POST: identidade temporal e texto do autor ─────────
     prosa = {}
     if url_do_post:
-        with http.autorizacao_do_dono(ROTA_PAGINA_PUBLICA, HOSTS_DA_AQUISICAO,
-                                     decisao=AUTORIZACAO_ESCRITA, plataforma=PLATAFORMA):
+        with http.autorizacao_do_dono(rota_pagina, HOSTS_DA_AQUISICAO,
+                                     decisao=autorizacao, plataforma=PLATAFORMA):
             pedidos.append({'TYPE': 'ROUTE', 'TARGET': http.host_de(url_do_post),
                             'URL': url_do_post})
             try:
@@ -1503,8 +1679,8 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
         raw['RENDITION_CHOSEN_BY'] = porque
         raw['RENDITION_CHOSEN_BITRATE'] = rendicao.get('BITRATE')
         try:
-            with http.autorizacao_do_dono(ROTA_VIDEO_BYTES, HOSTS_DA_AQUISICAO,
-                                         decisao=AUTORIZACAO_ESCRITA, plataforma=PLATAFORMA):
+            with http.autorizacao_do_dono(rota_bytes, HOSTS_DA_AQUISICAO,
+                                         decisao=autorizacao, plataforma=PLATAFORMA):
                 pedidos.append({'TYPE': 'ROUTE', 'TARGET': http.host_de(rendicao['SRC']),
                                 'URL': rendicao['SRC']})
                 corpo, meta = http.buscar_bytes(rendicao['SRC'], aceitar='video/mp4')
@@ -1528,8 +1704,8 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
     legenda = {}
     if cartao.get('CAPTION_URL'):
         try:
-            with http.autorizacao_do_dono(ROTA_LEGENDA_NATIVA, HOSTS_DA_AQUISICAO,
-                                         decisao=AUTORIZACAO_ESCRITA, plataforma=PLATAFORMA):
+            with http.autorizacao_do_dono(rota_legenda, HOSTS_DA_AQUISICAO,
+                                         decisao=autorizacao, plataforma=PLATAFORMA):
                 pedidos.append({'TYPE': 'ROUTE',
                                 'TARGET': http.host_de(cartao['CAPTION_URL']),
                                 'URL': cartao['CAPTION_URL']})
@@ -1601,8 +1777,8 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
         native_id=ident or env.DESCONHECIDO,
         url=url_do_post or env.DESCONHECIDO,
         content_type='VIDEO',
-        route=ROTA_VIDEO_BYTES,
-        executor='adaptador_linkedin.video_da_pagina_publica',
+        route=rota_bytes,
+        executor=executor,
         run_id=run_id, country_scope=country_scope,
         source_account=cartao.get('POST_URL') or None,
         published_at=prosa.get('PUBLISHED_AT'),
@@ -1618,7 +1794,9 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
     envelope['FIELD_ORIGIN_TIER'] = FREE
     envelope['OWNER_AUTHORIZED'] = 'SIM'
     envelope['PLATFORM_POLICY_STATUS'] = 'DISALLOWED'
-    envelope['DECISAO_DO_DONO'] = DECISAO_DO_DONO
+    envelope['DECISAO_DO_DONO'] = nome_decisao
+    if limite:
+        envelope['LIMITE'] = limite
     envelope['RAW_SHA256'] = ref['SHA256']
     envelope['EGRESS_MEASURED'] = egresso
     envelopes.append(envelope)
