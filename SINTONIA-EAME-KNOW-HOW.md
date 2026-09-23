@@ -19755,3 +19755,24 @@ rota provada (o `INDEX_URL` do contrato), não pela homepage — e continuar a
 escolher por regra fixa, nunca pelo texto. E o PDF grande (ISPRA) veio cortado
 nos 4 MB do leitor: 0 caracteres. Um teto de bytes que corta um PDF ao meio
 não é um teto, é uma perda.
+
+## 168-18 · T12 NÃO TEM FONTES QUE CHEGUEM — ISSO É UM ACHADO
+
+Três idas ao gabarito T2/T12 (2026-09-23, egresso IT sempre, ≤5 pedidos por site,
+regra de escolha commitada antes de cada corrida). Positivos distintos,
+julgados a mão: **T2 = 13, T12 = 9**. Mínimo: 20. NÃO PRONTO nos dois.
+
+O número de T12 não é azar de amostra. O catálogo tem **121** fontes T12 (livro
+lote-76); **38** mostram sinal agrícola no nome ou no endereço, em **14**
+anfitriões; somando as 4 associações do Atlas, ~17 sítios. **83** são o governo
+regional inteiro (saúde, imposto automóvel, eleições, intranet). Em três idas,
+só 5 fontes deram um texto de política agrícola: Pianeta PSR, CSR Campania,
+CIA, CIA Toscana e o portal agrícola do Veneto.
+
+    UMA GAVETA CHEIA DE PAPÉIS NÃO É UMA GAVETA CHEIA DE ASSUNTO.
+
+E o defeito da 3.ª ida, para não repetir: numa página de secção, os primeiros
+links continuam a ser o MENU. O seletor tem de saltar o que já viu e seguir a
+lista — e a página da secção tem de ser guardada, para não custar um pedido
+de novo. A palavra «PAC» no BURA era *Piano Attuativo Comunale*: falso amigo que
+uma régua T12 tem de recusar.
