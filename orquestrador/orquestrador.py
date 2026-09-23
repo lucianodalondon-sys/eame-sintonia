@@ -846,6 +846,36 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             "_plano": plano,
         }
 
+    # ── O UNIVERSO É PERGUNTADO ANTES DA REDE, E NÃO DEPOIS ─────────────────
+    # ⚠️ MEDIDO NO CANÁRIO YT1 (2026-09-23): o pedido sem `universo` colheu o
+    # vídeo, transcreveu-o (5,5 min de rede e de ASR) e SÓ ENTÃO morreu em
+    # `UniversoNaoDeclarado`, lá em baixo, sem recibo — o processo saiu com
+    # rc 1 e o RAW e o DERIVED ficaram escritos para uma pergunta que nunca
+    # ia ser feita.
+    #
+    #     UMA PERGUNTA OBRIGATÓRIA PERGUNTA-SE ANTES DE GASTAR,
+    #     COMO O FILTRO NÃO CONSUMIDO ACIMA.
+    #
+    # A lei é a MESMA e o dono é o MESMO (`universo_do_pedido` →
+    # `rota_forward_documento.universo_declarado`): sem fallback para o alvo,
+    # sem segunda validação. Só muda o QUANDO. O `--seco` não chega à porta, e
+    # por isso não é recusado aqui — continua a provar o caminho como antes.
+    if not seco:
+        import rota_forward_documento as _rf                # noqa: PLC0415
+        try:
+            universo_do_pedido(p)
+        except _rf.UniversoNaoDeclarado as erro_universo:
+            return {
+                "RUN_ID": novo_run_id(p),
+                "STATUS": "UNIVERSO_NAO_DECLARADO",
+                "PEDIDO": p.para_json(),
+                "MISSION": p.assunto,
+                "COUNTRY": p.filtros.get("pais", "NAO SEI"),
+                "EXECUTOR_ESCOLHIDO": e.get("id", "NAO SEI"),
+                "ERROR": str(erro_universo),
+                "_plano": plano,
+            }
+
     # ── A CORRIDA NASCE AQUI, ANTES DE QUALQUER COISA CORRER ────────────────
     # ⚠️ O `RUN_ID` NASCIA OITO LINHAS DEPOIS DE O EXECUTOR JA TER CORRIDO.
     # O executor ia a fonte, trazia bytes, e so entao esta casa decidia como se
@@ -1149,8 +1179,16 @@ def main() -> int:
     if recibo["STATUS"] == "PLANO":
         print("(so o plano foi pedido; nada correu)")
         return 0
-    if recibo["STATUS"] == "SEM_CAMINHO":
-        print(f"NAO CORREU · {recibo['ERROR']}")
+    # ⚠️ AS RECUSAS ANTES DA REDE NÃO SÃO CORRIDAS, e por isso não vão ao
+    # manifesto. Medido na YT2 (2026-09-23): `FILTRO_NAO_CONSUMIDO` recusava
+    # certo, ANTES do executor — e depois `guardar_recibo` rebentava com
+    # «STATUS fora do contrato», porque o manifesto só fala SUCCESS, PARTIAL,
+    # FAILED e NOT_PRESERVED. A recusa bem feita saía como traceback.
+    #
+    #     NADA CORREU = NADA A REGISTAR. DIZ-SE PORQUÊ, E SAI COM 1.
+    if recibo["STATUS"] in ("SEM_CAMINHO", "FILTRO_NAO_CONSUMIDO",
+                            "UNIVERSO_NAO_DECLARADO"):
+        print(f"NAO CORREU · {recibo['STATUS']} · {recibo['ERROR']}")
         return 1
 
     if not seco:
