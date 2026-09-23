@@ -37,9 +37,9 @@ def _prova(papel, url, sha=SHA):
 def _decisao(**mudar):
     d = {"CANDIDATA_ID": CAND, "URL": URL, "TERRITORIO": "T12",
          "DECIDIDO_POR": "OPUS", "PORQUE": "organismo pagador da PAC",
-         "PROVAS": [_prova("INSTITUCIONAL", URL + "chi-siamo"),
-                    _prova("CONTEUDO", URL + "notizie/2026/09/anticipi-pac"),
-                    _prova("CONTEUDO", URL + "documenti/istruzioni-operative-30")]}
+         "PROVAS": [_prova("INSTITUCIONAL", URL + "chi-siamo", "a1" * 32),
+                    _prova("CONTEUDO", URL + "notizie/2026/09/anticipi-pac", "b2" * 32),
+                    _prova("CONTEUDO", URL + "documenti/istruzioni-operative-30", "c3" * 32)]}
     d.update(mudar)
     return d
 
@@ -97,8 +97,9 @@ class TestDecisaoComProva(_Base):
         self.assertNotIn(LC.READY_FOR_COLLECTION, LC.snapshot().values())
 
     def test_a_lei_vale_como_prova_do_que_e(self):
-        provas = [_prova("LEI", "https://www.normattiva.it/uri-res/N2Ls?urn:x"),
-                  _prova("CONTEUDO", URL + "a"), _prova("CONTEUDO", URL + "b")]
+        provas = [_prova("LEI", "https://www.normattiva.it/uri-res/N2Ls?urn:x", "d4" * 32),
+                  _prova("CONTEUDO", URL + "a", "e5" * 32),
+                  _prova("CONTEUDO", URL + "b", "f6" * 32)]
         self.assertEqual(self._correr([_decisao(PROVAS=provas)])["RESULTADO"], "OK")
 
     def test_decisao_nao_passa_por_cima_do_nome(self):
@@ -134,6 +135,13 @@ class TestDecisaoSemProvaIgnorada(_Base):
     def test_mesma_pagina_nao_conta_duas_vezes(self):
         d = _decisao()
         d["PROVAS"][2]["URL"] = d["PROVAS"][1]["URL"]
+        self._bloqueou(self._correr([d]))
+
+    def test_bytes_iguais_em_urls_diferentes_contam_uma_vez(self):
+        """Tres URLs, a mesma casca de JavaScript: uma prova so."""
+        d = _decisao()
+        for p in d["PROVAS"]:
+            p["SHA256"] = SHA
         self._bloqueou(self._correr([d]))
 
     def test_url_de_outra_fonte(self):

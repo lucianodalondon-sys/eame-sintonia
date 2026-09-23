@@ -62,7 +62,7 @@ def porque_invalida(dec: dict, ficha: dict) -> str | None:
     if not (dec.get("DECIDIDO_POR") or "").strip():
         return "sem DECIDIDO_POR"
     provas = dec.get("PROVAS") or []
-    boas, urls = [], set()
+    boas, urls, shas = [], set(), set()
     for p in provas:
         u = (p.get("URL") or "").strip()
         if not u.startswith(("http://", "https://")):
@@ -71,7 +71,14 @@ def porque_invalida(dec: dict, ficha: dict) -> str | None:
             continue
         if _norm(u) in urls:
             continue                      # a mesma pagina nao conta duas vezes
+        # ⚠️ BYTES IGUAIS SAO UMA PROVA SO. Medido em 23/09: em 4 sites
+        # (Veneto Agricoltura, Laimburg, Wine Monitor, Agrifood Monitor) tres
+        # URLs diferentes devolveram os MESMOS bytes — uma casca de JavaScript
+        # sem conteudo. Tres enderecos, zero leitura.
+        if p["SHA256"].lower() in shas:
+            continue
         urls.add(_norm(u))
+        shas.add(p["SHA256"].lower())
         boas.append(p)
     if not any(p.get("PAPEL") in PAPEIS_DO_QUE_E for p in boas):
         return "sem prova do que a organizacao E (INSTITUCIONAL ou LEI com sha256)"
