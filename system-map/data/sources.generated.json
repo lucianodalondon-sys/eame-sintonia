@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T05:11:25+00:00",
-    "HEAD": "5a8db21a772f60aa8c1ebdb523a0f658996aed76",
+    "GENERATED_AT": "2026-09-23T05:40:39+00:00",
+    "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "0daafa0044765487eff43620eda1f1236ac427269c2431b734f15bce376d92cb",
-    "FICHEIROS_NA_IMPRESSAO": 2729,
+    "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901",
+    "FICHEIROS_NA_IMPRESSAO": 2778,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -22029,7 +22029,7 @@
         },
         {
           "file": "curadoria/test_ponte_cadeia.py",
-          "line": 137
+          "line": 142
         },
         {
           "file": "provas/censo_executavel_da_v1.py",
@@ -22140,6 +22140,43 @@
       ]
     },
     {
+      "endpoint": "https://ex.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_canario_detalhe.py",
+          "line": 32
+        },
+        {
+          "file": "curadoria/test_collection_gate.py",
+          "line": 49
+        },
+        {
+          "file": "curadoria/test_interface_collection.py",
+          "line": 34
+        },
+        {
+          "file": "curadoria/test_ready_split.py",
+          "line": 65
+        },
+        {
+          "file": "curadoria/test_reconciliar_livros.py",
+          "line": 45
+        },
+        {
+          "file": "curadoria/test_um_so_canario_promove.py",
+          "line": 31
+        },
+        {
+          "file": "curadoria/test_worker_volta_sobrevive.py",
+          "line": 63
+        },
+        {
+          "file": "tests/test_retirada_por_decisao.py",
+          "line": 49
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/watch?v=%s'",
       "usado_por": [
         {
@@ -22173,35 +22210,27 @@
       ]
     },
     {
-      "endpoint": "https://ex.it/news",
+      "endpoint": "https://ipinfo.io/json",
       "usado_por": [
         {
-          "file": "curadoria/test_canario_detalhe.py",
-          "line": 32
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 127
         },
         {
-          "file": "curadoria/test_collection_gate.py",
-          "line": 49
+          "file": "medidas/relevancia_antes_da_coleta.py",
+          "line": 56
         },
         {
-          "file": "curadoria/test_interface_collection.py",
-          "line": 34
+          "file": "scripts/desbloqueio/canario_desbloqueio.py",
+          "line": 43
         },
         {
-          "file": "curadoria/test_ready_split.py",
-          "line": 65
+          "file": "scripts/detector_capa/colher_gabarito.py",
+          "line": 55
         },
         {
-          "file": "curadoria/test_reconciliar_livros.py",
-          "line": 45
-        },
-        {
-          "file": "curadoria/test_um_so_canario_promove.py",
-          "line": 31
-        },
-        {
-          "file": "curadoria/test_worker_volta_sobrevive.py",
-          "line": 63
+          "file": "scripts/micro_coleta/micro_coleta.py",
+          "line": 304
         }
       ]
     },
@@ -22311,11 +22340,53 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 177
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 827
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 54
+        },
+        {
+          "file": "scripts/receitas/provar_indices.py",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.cnr.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 444
+        },
+        {
+          "file": "curadoria/test_abastecimento.py",
+          "line": 202
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 954
+        },
+        {
+          "file": "curadoria/test_discovery_sementes.py",
+          "line": 22
+        }
+      ]
+    },
+    {
       "endpoint": "https://%s/robots.txt",
       "usado_por": [
         {
           "file": "curadoria/descobrir.py",
-          "line": 842
+          "line": 859
         },
         {
           "file": "curadoria/gate_de_rota.py",
@@ -22442,19 +22513,138 @@
       ]
     },
     {
-      "endpoint": "https://www.cnr.it/it",
+      "endpoint": "https://www.politicheagricole.it/",
       "usado_por": [
         {
           "file": "curadoria/descobrir.py",
-          "line": 444
-        },
-        {
-          "file": "curadoria/test_abastecimento.py",
-          "line": 202
+          "line": 134
         },
         {
           "file": "curadoria/test_discovery.py",
-          "line": 954
+          "line": 612
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 89
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.regione.veneto.it/web",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 143
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 84
+        },
+        {
+          "file": "provas/testa_rota_italia.py",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.arpae.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 179
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 818
+        },
+        {
+          "file": "curadoria/test_discovery_sementes.py",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.arsacweb.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 191
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 932
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 92
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.regione.calabria.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 193
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 936
+        },
+        {
+          "file": "curadoria/test_discovery_sementes.py",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.assam.marche.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 209
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 986
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 93
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.nomisma.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 580
+        },
+        {
+          "file": "curadoria/test_abastecimento.py",
+          "line": 191
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 80
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.coldiretti.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 618
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 950
+        },
+        {
+          "file": "curadoria/test_discovery_sementes.py",
+          "line": 20
         }
       ]
     },
@@ -22624,141 +22814,11 @@
           "line": 65
         }
       ]
-    },
-    {
-      "endpoint": "https://eur-lex.europa.eu/legal-content",
-      "usado_por": [
-        {
-          "file": "coleta/eu_regulatorio_executor.py",
-          "line": 93
-        },
-        {
-          "file": "fontes/adama_it_eu.py",
-          "line": 29
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.fitosanitari.salute.gov.it/",
-      "usado_por": [
-        {
-          "file": "coleta/rotulos_baixar.py",
-          "line": 125
-        },
-        {
-          "file": "fontes/adama_it_labels.py",
-          "line": 72
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/channel",
-      "usado_por": [
-        {
-          "file": "coleta/youtube_oficial.py",
-          "line": 450
-        },
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 806
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.politicheagricole.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 134
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 612
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.regione.veneto.it/web",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 143
-        },
-        {
-          "file": "provas/testa_rota_italia.py",
-          "line": 62
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.regione.lombardia.it/wps",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 157
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 943
-        }
-      ]
-    },
-    {
-      "endpoint": "https://agri.regione.emilia-romagna.it/fitosanitario",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 162
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 534
-        }
-      ]
-    },
-    {
-      "endpoint": "https://agri.regione.emilia-romagna.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 164
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 532
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.regione.sicilia.it/agricoltura-foreste",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 169
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 888
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.regione.sicilia.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 171
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 854
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 506,
+  "ENDPOINTS_FOUND": 558,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 466,
+  "ENDPOINTS_TRUNCATED": 518,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -22776,9 +22836,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 506,
+    "endpoints": 558,
     "endpoints_published": 40,
-    "endpoints_truncated": 466,
+    "endpoints_truncated": 518,
     "candidates": 476,
     "coletores": 53,
     "coletores_com_data": 20,
