@@ -57,3 +57,8 @@ Depois compara-se o que se previu com o que aconteceu. Assim ninguém escolhe as
 - `medidas/entrada-lote.json`: as capas medidas hoje, com o portão de egresso PASS antes e depois (26 pedidos).
 - `medidas/lote-regua-offline.json`: a régua instalada sobre os textos já colhidos, sem rede.
 - `lote_micro.mjs` e `regua_offline.py`: para refazer.
+
+## ESTACIONADO (24/09, pausa do coordenador)
+
+Ao retomar falta só: regerar o mapa pela cadeia com o LOCK-PESADO (os commits 4caad317 e 427545d4 entraram sem mapa) e depois VALIDAR e PORTOES_POS_COMMIT; o lote em si está completo e não se corre aqui.
+Provas fora do Git: `medidas/PROVAS-FORA-DO-GIT.sha256`.
