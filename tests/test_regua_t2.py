@@ -69,8 +69,11 @@ class PalavraInteiraEConceitoUmaVez(unittest.TestCase):
         self.assertEqual(r, adm.NAO_SEI)
         self.assertIn("SEM_LIGACAO_AGRICOLA", m)
 
-    def test_seca_dentro_de_biblioteca_nao_casa(self):
-        self.assertNotIn("siccita", t2("biblioteca comunale, fase fenologica")[2].get("palavras", []))
+    def test_seca_dentro_de_secao_nao_casa(self):
+        """«seca» vive dentro de «secao» (seccao do site, em portugues)."""
+        r, _m, ev = t2("nesta secao do site: fase fenologica")
+        self.assertEqual(r, adm.NAO_SEI, "a seca casou dentro de «secao»")
+        self.assertNotIn("siccita", ev.get("palavras", []))
 
     def test_singular_e_plural_sao_um_indicio(self):
         r, _m, ev = t2("pioggia, piogge, precipitazioni — agrometeo")
@@ -88,6 +91,20 @@ class T2ETransversal(unittest.TestCase):
                                              u, adm.PERGUNTAS_DO_UNIVERSO[u])
                 self.assertNotEqual(r, adm.NAO, "T2 serviu de prova contra %s" % u)
                 self.assertNotIn("T2", (ev.get("achado_noutro") or {}))
+
+    def test_sem_a_transversal_t2_seria_prova_contra_t3(self):
+        """O contraponto: o mecanismo de prova-noutro-universo VE as formas de T2 —
+        e so a transversalidade as cala. Sem isto, tirar T2 de TRANSVERSAIS nao
+        mudava nada e a guarda acima guardava por acidente."""
+        velho = adm.TRANSVERSAIS
+        try:
+            adm.TRANSVERSAIS = frozenset()
+            r, _m, ev = adm._do_universo({"texto": "piogge e temperature in calo"}, "T3",
+                                         adm.PERGUNTAS_DO_UNIVERSO["T3"])
+        finally:
+            adm.TRANSVERSAIS = velho
+        self.assertEqual(r, adm.NAO)
+        self.assertIn("T2", ev["achado_noutro"])
 
     def test_t2_e_transversal_e_palavra_inteira(self):
         self.assertIn("T2", adm.TRANSVERSAIS)

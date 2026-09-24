@@ -887,7 +887,10 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     for outro, termos in reguas.items():
         if outro == universo or outro in TRANSVERSAIS:
             continue
-        casou = [t for t in termos if t.lower() in texto]
+        # um universo por conceito («forma|forma») so casa pelas suas formas, e por
+        # palavra inteira; os antigos continuam como estavam.
+        casou = [t.split("|")[0] for t in termos
+                 if (_casa(t, texto) if outro in PALAVRA_INTEIRA else t.lower() in texto)]
         if casou:
             noutros[outro] = casou[:4]
     if noutros:
