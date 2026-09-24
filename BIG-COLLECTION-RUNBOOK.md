@@ -105,6 +105,8 @@ com a tabela juntada **pelo dono** (`onboardar_rotas_provadas.py --aplicar`, liv
 Medido às 21:00Z: **COORTE_BIG_COLLECTION = 18**, 0 duplicadas
 (`ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json`). **No passo I, instalar
 `origin/coorte-unica-v1` em vez de `origin/unificacao-v1`** até a linha a absorver.
+**M5G (24/09): a linha absorveu-a** (`unificacao-v1` @ `1527bfbc` e seguintes) — o passo I volta a
+instalar `origin/unificacao-v1`, pelo `PLANO-INSTALACAO-M5G.md` (ensaiado, com WRITESET).
 🛑 abortar se `COORTE_BIG_COLLECTION = 0` ou se alguma PRONTA sair em `FORA` com `PROVAS`.
 
 Medido na BC2 (23/09 ~15:30), depois do onboardar: portão **37** → **19 PRONTAS**
