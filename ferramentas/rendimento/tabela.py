@@ -69,6 +69,9 @@ def main(argv):
     e37 = linhas_de("entrada-37.json", "entrada-37-passo2.json", "entrada-37-passo3.json")
     er1 = linhas_de("entrada-r1.json", "entrada-r1-passo2.json")
 
+    jan = {}
+    if (M / "janelas.json").exists():
+        jan = ler(M / "janelas.json")["POR_FONTE"]
     tabela = []
     for grupo, ids, med in (("PORTAO_37", gate["COLLECTION_ELIGIBLE_IDS"], e37), ("R1_46", list(r1), er1)):
         for s in ids:
@@ -98,8 +101,20 @@ def main(argv):
                 "NOVAS_PARA_O_ACERVO": l.get("NOVAS_PARA_O_ACERVO"), "MAX_TARGETS": l.get("MAX_TARGETS"),
                 "NOVAS_NA_JANELA": l.get("NOVAS_NA_JANELA"), "UMA_CORRIDA_TRARIA": l.get("UMA_CORRIDA_TRARIA"), "POTENCIAL_SEM_BLOQUEIO": potencial,
                 "HIST_RAW": h["RAW"], "HIST_DERIVED": h["DERIVED"], "HIST_SIM": h["SIM"], "HIST_SIM_ULTIMO": h["SIM_ULTIMO"],
+                "JANELA_DE_CULTURA": jan.get(s, {}).get("JANELA", "NAO_SEI"),
+                "JANELA_FORCA": jan.get(s, {}).get("FORCA"), "JANELA_EXEMPLO_URL": jan.get(s, {}).get("EXEMPLO_URL"),
                 "VALE_CORRER_AGORA": v, "PORQUE": porque, "CADENCIA_SUGERIDA": cad,
                 "INDEX_SHA256": l.get("INDEX_SHA256"), "PEDIDO_EM": l.get("PEDIDO_EM")})
+
+    # D29 (dono): a janela de cultura PESA na ordem. Primeiro o que corre agora,
+    # depois o que corre depois da R1; dentro de cada degrau, janela forte >
+    # janela fraca > sem prova; depois o que uma corrida traria e o potencial.
+    degrau = {"SIM": 0, "DEPOIS_DA_R1": 1, "NAO": 2}
+    peso_j = lambda x: 0 if (x["JANELA_FORCA"] or "").startswith("FORTE") else (1 if x["JANELA_DE_CULTURA"] == "SIM" else (2 if x["JANELA_DE_CULTURA"] == "NAO_SEI" else 3))
+    tabela.sort(key=lambda x: (degrau[x["VALE_CORRER_AGORA"]], peso_j(x), -(x["UMA_CORRIDA_TRARIA"] or 0),
+                               -(x["POTENCIAL_SEM_BLOQUEIO"] or 0), -(x["NOVAS_PARA_O_COLETOR"] or 0), x["SOURCE_ID"]))
+    for i, x in enumerate(tabela, 1):
+        x["ORDEM"] = i
 
     def conta(g):
         t = [x for x in tabela if x["GRUPO"] == g]
@@ -116,7 +131,8 @@ def main(argv):
         return {"FONTES": len(t), "VALE_AGORA": sum(x["VALE_CORRER_AGORA"] == "SIM" for x in t),
                 "MATERIAS_NUMA_CORRIDA": sum(x["UMA_CORRIDA_TRARIA"] or 0 for x in t if x["VALE_CORRER_AGORA"] == "SIM"),
                 "NOVAS_ANUNCIADAS_COM_REGUA_E_CONTRATO": sum(x["NOVAS_PARA_O_COLETOR"] or 0 for x in t if x["REGUA"] and x["CONTRATO"] == "COLETOR"),
-                "POR_MOTIVO": por}
+                "POR_MOTIVO": por,
+                "JANELA_DE_CULTURA": {k: sum(x["JANELA_DE_CULTURA"] == k for x in t) for k in ("SIM", "NAO", "NAO_SEI")}}
 
     d = {"DATASET": "REND-TABELA-V1",
          "O_QUE_E": "vale a pena correr agora? por fonte — SUGESTAO; a agenda e do Curator/Collection",
