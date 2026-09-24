@@ -613,7 +613,7 @@ def escrever_lista() -> dict:
     por_familia: dict[str, int] = {}
     linhas = []
     fam_p1b = {}
-    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1[BCDE]-*PROOF-V1.json")):
+    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1[BCDEF]-*PROOF-V1.json")):
         for e in json.loads(prova.read_text(encoding="utf-8"))["LOG"]:
             fam_p1b[normalizar(e["url"])] = e["familia"]
     for c in sorted(cands, key=lambda c: c["CANDIDATA_ID"]):
@@ -1490,6 +1490,20 @@ CATALOGO_P1E: list[dict] = [
 ]
 
 
+# P1f (24/09): fecho — Tuscia DIBAF pelo padrao oficial /dipartimenti/<sigla>/ e ultima tentativa Bari.
+PROOF_P1F = RAIZ / "curadoria" / "PESQUISADORES-P1F-PROOF-V1.json"
+CATALOGO_P1F: list[dict] = [
+    _c("UNIVERSITA", "CIENCIA", "DIBAF — Innovazione nei sistemi biologici, agroalimentari e forestali, Univ. Tuscia",
+       "https://www.unitus.it/dipartimenti/dibaf/", "ricerca agroalimentare e forestale Viterbo",
+       "https://www.unitus.it/ateneo/aq/attori-dell-assicurazione-qualita/dipartimenti-e-altre-strutture-di-ricerca/",
+       sub=True, titulo_re=r"DIBAF|biolog|agroaliment|forest", pausa=3,
+       prova="mesmo padrao /dipartimenti/<sigla>/ do DAFNE ligado pela pagina oficial da Tuscia"),
+    _c("UNIVERSITA", "CIENCIA", "DiSSPA — Scienze del Suolo, della Pianta e degli Alimenti, Univ. Bari",
+       "https://www.uniba.it/it/ricerca/dipartimenti/disspa", "ricerca agraria Puglia",
+       "https://www.uniba.it/it/ricerca/dipartimenti", pausa=5),
+]
+
+
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser(
@@ -1498,6 +1512,7 @@ def main() -> int:
     ap.add_argument("--listar", action="store_true")
     ap.add_argument("--p1b", action="store_true",
                     help="fase P1b: releitura, IZS, Veterinaria, Ordini (rede, VPN IT)")
+    ap.add_argument("--p1f", action="store_true", help="fecho 24/09: DIBAF e Bari (rede)")
     ap.add_argument("--p1e", action="store_true",
                     help="D29 janelas de cultura: boletins regionais e consorzi di difesa (rede)")
     ap.add_argument("--p1d", action="store_true",
@@ -1512,10 +1527,10 @@ def main() -> int:
                     help="so escreve PESQUISADORES-LISTA-V1.json, sem rede")
     a = ap.parse_args()
 
-    if a.p1d or a.p1e:
-        cat = CATALOGO_P1E if a.p1e else (CATALOGO_P1D + pesquisadores_crea())
+    if a.p1d or a.p1e or a.p1f:
+        cat = CATALOGO_P1F if a.p1f else CATALOGO_P1E if a.p1e else (CATALOGO_P1D + pesquisadores_crea())
         r = correr_p1b(cat, orcamento=a.orcamento,
-                       prova_path=PROOF_P1E if a.p1e else PROOF_P1D, por_dominio=20)
+                       prova_path=PROOF_P1F if a.p1f else PROOF_P1E if a.p1e else PROOF_P1D, por_dominio=20)
         l = escrever_lista()
         for k in ("CANDIDATAS_NOVAS", "POR_FAMILIA", "ACOES", "DUPLICADAS_EVITADAS",
                   "PEDIDOS_DE_REDE", "MAX_PEDIDOS_UM_DOMINIO", "VIGIA_PAROU", "VIGIAS"):
