@@ -24,6 +24,8 @@ nenhum. Os NAO_SEI ficam fora da conta, contados a parte.
 """
 from __future__ import annotations
 
+import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -130,5 +132,58 @@ def main() -> int:
     return 0
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and "--v3" not in sys.argv:
     raise SystemExit(main())
+
+
+def montar_v3(d=None):
+    """ADENDA 2: T2-V2 + os textos da RECOLHA pela rede (1.a/2.a/3.a ida), rotulados no
+    eixo JANELA em rotulos-recolha.tsv (TEXTO_SHA256 \t JANELA \t ACTION \t PORQUE).
+    Os textos normalizados vao para textos/<sha16>.txt (fora do Git), como os outros."""
+    d = Path(d or (CASA / "sintonia-gabarito" / "REGUA-T2-V1"))
+    spec = importlib.util.spec_from_file_location("inv", AQUI / "inventariar_t2.py")
+    inv = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(inv)
+    v2 = json.load(open(AQUI / "GABARITO-T2-V2.json", encoding="utf-8"))
+    rot = {}
+    for linha in open(d / "rotulos-recolha.tsv", encoding="utf-8"):
+        if linha.strip():
+            h, j, acc, porque = (linha.rstrip(chr(10)).split(chr(9)) + [""] * 4)[:4]
+            rot[h] = (j, acc or None, porque)
+    novos, vistos = [], {i["TEXTO_SHA256"] for i in v2["ITENS"]}
+    for ida in ("V1", "V2", "V3"):
+        for i in json.load(open(AQUI / ("RECOLHA-BOLETINS-%s.json" % ida), encoding="utf-8"))["ITENS"]:
+            h = i["TEXTO_SHA256"]
+            if h in vistos or h not in rot:
+                continue
+            vistos.add(h)
+            corpo = Path(i["FICHEIRO_FORA_DO_GIT"]).read_bytes()
+            norm = inv.normalizar(inv.extrair(corpo)[0])
+            assert hashlib.sha256(norm.encode("utf-8")).hexdigest() == h, i["URL"]
+            (d / "textos" / (h[:16] + ".txt")).write_bytes(norm.encode("utf-8"))
+            j, acc, porque = rot[h]
+            novos.append({"TEXTO_ID": h[:16], "TEXTO_SHA256": h, "SOURCE_ID": i["SOURCE_ID"],
+                          "SERVICO": i["SERVICO"], "ORIGEM": "RECOLHA-REDE-" + ida, "URL": i["URL"],
+                          "CAMINHO_FORA_DO_GIT": i["FICHEIRO_FORA_DO_GIT"], "BYTES_SHA256": i["SHA256"],
+                          "SERIE": "ARPAV-AGROMETEO-INFORMA" if "/agro_" in i["URL"] else None,
+                          "JANELA": j, "ACTION": acc, "PORQUE": porque,
+                          "ROTULO_DE": "T2-REGUA ADENDA-2 (Claude)", "FORA_DA_AMOSTRA": True})
+    itens = v2["ITENS"] + novos
+    c = Counter(i["JANELA"] for i in itens)
+    cn = Counter(i["JANELA"] for i in novos)
+    out = {"DATASET": "GABARITO-T2-V3", "EIXO": "JANELA (ADENDA 1, D29)",
+           "PROTOCOLO": "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md#adenda-2", "VALIDADO_POR_HUMANO": "NAO",
+           "CONTAGEM": {"ITENS": len(itens), "YES": c["YES"], "NO": c["NO"], "NAO_SEI": c["NAO_SEI"],
+                        "NOVOS_DA_REDE": {"ITENS": len(novos), "YES": cn["YES"], "NO": cn["NO"],
+                                          "NAO_SEI": cn["NAO_SEI"],
+                                          "YES_POR_SERVICO": dict(Counter(i["SERVICO"] for i in novos
+                                                                          if i["JANELA"] == "YES"))},
+                        "MINIMO": 20, "PRONTO": c["YES"] >= 20 and c["NO"] >= 20},
+           "ITENS": itens}
+    (AQUI / "GABARITO-T2-V3.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10),
+                                              encoding="utf-8", newline=chr(10))
+    print(json.dumps(out["CONTAGEM"], ensure_ascii=False, indent=1))
+
+
+if __name__ == "__main__" and "--v3" in sys.argv:
+    montar_v3()
