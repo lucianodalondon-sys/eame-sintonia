@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T13:58:36+00:00",
-  "HEAD": "ce51e8d0ac42b904e92bc2626ca1e190e8438652",
+  "GENERATED_AT": "2026-09-24T16:57:11+00:00",
+  "HEAD": "1d998d91b8e43fb209616a17d72c69b9956aace9",
   "BRANCH": "reparo-fontes-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "fa8caee11359aabce6278b8ce1474d8dcf2108b7f794fe80643f1c57d97b9ae6",
-  "FICHEIROS_NA_IMPRESSAO": 2960,
+  "SOURCE_TREE_FINGERPRINT": "65d12e55848f9436cfe4f84a56737e421977db48fbcbe5214bd569026ee51e94",
+  "FICHEIROS_NA_IMPRESSAO": 2961,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3672,6 +3672,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/reparo/revisar_ready.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a0fcc9700dfabd87882769e17122dc92cbc1577c",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "security/censo_do_cliente.py",
     "PAPEL": "FONTE",
     "VERSAO": "b4bca8482feee20bdd30331d6830d31fd06ed17b",
@@ -3723,14 +3730,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fa8caee11359aabce6278b8ce1474d8dcf2108b7f794fe80643f1c57d97b9ae6",
+    "VERSAO": "65d12e55848f9436cfe4f84a56737e421977db48fbcbe5214bd569026ee51e94",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fa8caee11359aabce6278b8ce1474d8dcf2108b7f794fe80643f1c57d97b9ae6",
+    "VERSAO": "65d12e55848f9436cfe4f84a56737e421977db48fbcbe5214bd569026ee51e94",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5604,8 +5611,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 795,
-  "INPUTS_DIGEST": "eacffc43464d90e8c6c2279b59920b67d4e27ff92c9782c5921317e526f38c79",
+  "INPUTS_COUNT": 796,
+  "INPUTS_DIGEST": "2705c70b6f1e8ef801c15612c168741cb3a1153a55ee77e4ad712f0ce27ea0ea",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5638,8 +5645,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e725f863a2e5e30eaa4dce5c3297a6afec124e1d2986d1a7bb2b814b42576133",
-  "SEMANTIC_HASH": "bfb79d721cb8238dff4287cdf9721bbc23af63669a1fe807ad62add8c7982363"
+  "MEASUREMENT_HASH": "df4c8cd14957b1f7c67f5b54f4cfd00ef89690f3a5cff0683b66c94deaccbe8e",
+  "SEMANTIC_HASH": "6fedabcf0592463a8776e52e563d6c871ed5c597713901cfa10dc5b1df2a6a1f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -50528,7 +50535,8 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "scripts/reparo/juntar_bancas.py",
-    "scripts/reparo/medir_em_copia.py"
+    "scripts/reparo/medir_em_copia.py",
+    "scripts/reparo/revisar_ready.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],

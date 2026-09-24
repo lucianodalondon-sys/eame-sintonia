@@ -2491,7 +2491,8 @@
       "scripts/reparo/R1-SUITE-POR-NOME.json",
       "scripts/reparo/R1-WRITESET.json",
       "scripts/reparo/juntar_bancas.py",
-      "scripts/reparo/medir_em_copia.py"
+      "scripts/reparo/medir_em_copia.py",
+      "scripts/reparo/revisar_ready.py"
     ],
     "security": [
       "security/ACCOES-DE-ADMINISTRADOR.md",
@@ -3406,9 +3407,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "reparo-fontes-v2",
-    "HEAD": "ce51e8d0ac42b904e92bc2626ca1e190e8438652",
-    "GENERATED_AT": "2026-09-24T10:46:21-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fa8caee11359aabce6278b8ce1474d8dcf2108b7f794fe80643f1c57d97b9ae6"
+    "HEAD": "1d998d91b8e43fb209616a17d72c69b9956aace9",
+    "GENERATED_AT": "2026-09-24T13:15:15-03:00",
+    "SOURCE_TREE_FINGERPRINT": "65d12e55848f9436cfe4f84a56737e421977db48fbcbe5214bd569026ee51e94"
   },
   "FAMILIES": [
     {
@@ -50101,7 +50102,7 @@
       "name": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
       "territory": "Z-MEDIDAS",
       "kind": "engine",
-      "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n). juntar_bancas.py junta as fatias num ANTES/DEPOIS por fonte e por causa (reparo, re-canario, qualify).",
+      "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n). juntar_bancas.py junta as fatias num ANTES/DEPOIS por fonte e por causa (reparo, re-canario, qualify). revisar_ready.py re-corre o reparo so para as READY novas numa banca, reabre o item do canario e marca sinais de suspeita (caminho de servico, sem data) para revisao humana.",
       "why_here": "O reparo de contratos (curadoria/reparar_contrato.py, etapa REPAIR_CONTRACT do worker) muda contratos e o livro de estado; medir o efeito no livro vivo seria escrever no vivo. A banca e descartavel e fica fora do Git.",
       "departments": [
         "ENGENHARIA",
@@ -50118,9 +50119,10 @@
       "family": "F-COLETA",
       "files": [
         "scripts/reparo/juntar_bancas.py",
-        "scripts/reparo/medir_em_copia.py"
+        "scripts/reparo/medir_em_copia.py",
+        "scripts/reparo/revisar_ready.py"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -123142,8 +123144,8 @@
     "edges_proven": 1199,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2812,
-    "files_covered": 1228,
+    "files_tracked": 2813,
+    "files_covered": 1229,
     "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,

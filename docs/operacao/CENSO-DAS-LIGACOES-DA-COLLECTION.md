@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ce51e8d0ac42b904e92bc2626ca1e190e8438652
+HEAD_DA_MEDICAO  1d998d91b8e43fb209616a17d72c69b9956aace9
 BRANCH           reparo-fontes-v2
-GERADO_EM        2026-09-24T10:46:21-03:00
+GERADO_EM        2026-09-24T13:15:15-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1870,7 +1870,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/reparo/juntar_bancas.py`, `scripts/reparo/medir_em_copia.py` |
+| **peça real** | `scripts/reparo/juntar_bancas.py`, `scripts/reparo/medir_em_copia.py`, `scripts/reparo/revisar_ready.py` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
