@@ -126,3 +126,27 @@ nos itens que já os tinham; não são re-rotulados.
 
 Pedido da coordenação: medir se T1 (CROP & PRODUCTION) já cobre fenologia/tratamento. Mede-se
 lendo `PERGUNTAS_DO_UNIVERSO` e julgando o gabarito com T1 — sem escrever régua T1.
+
+---
+
+## ADENDA 2 · RECOLHA PELA REDE DE BOLETINS REAIS (2026-09-24, escrita ANTES da corrida)
+
+A coordenação pediu, com a rede de volta (EGR instalado), exemplos REAIS de boletins
+fitossanitários/agrometeorológicos regionais no gabarito, **≥ 20 distintos**. A régua não muda
+antes de o gabarito crescer; depois de rotulado, mede-se de novo — e estes textos são **novos**
+para a régua (não serviram para escolher palavra nenhuma): é a primeira medida FORA da amostra.
+
+- **Onde**: páginas de boletins de serviços regionais (lista fixa em
+  `scripts/regua_t2/recolher_boletins.py::SITES`, com a origem de cada endereço: contrato da casa,
+  catálogo, ou página inicial do serviço). Pelo menos 8 serviços de regiões diferentes.
+- **Como se escolhe o documento (regra fixa, não pelo conteúdo)**: na página de entrada, os links do
+  mesmo anfitrião cujo endereço OU texto do link contém `bollettin`, `notiziario`, `agrometeo`,
+  `fitosanitar`, `difesa` ou termina em `.pdf`, pela ordem da página, até 3. Se o 1.º alvo for outra
+  página de índice (HTML sem esse conteúdo), segue-se UM nível com a mesma regra, dentro do teto.
+- **Cortesia**: robots.txt pelo leitor da casa (`gate_de_rota`), teto de **6 pedidos por site**
+  (robots + entrada + até 4), 2 s de pausa, sem login, sem pago.
+- **Egresso**: `superficie/rede.py::portao_de_egresso("IT")` (consenso) antes de CADA site; se não
+  for PASS, a recolha PARA.
+- **Bytes fora do Git** (`%USERPROFILE%\sintonia-gabarito\REGUA-T2-V1\recolha\`), sha256 no manifesto
+  `scripts/regua_t2/RECOLHA-BOLETINS-V1.json`.
+- **Rótulo**: o eixo JANELA da Adenda 1, lido à mão no texto extraído, com o trecho que decidiu.
