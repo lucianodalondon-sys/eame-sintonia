@@ -417,6 +417,7 @@
       "curadoria/atribuir_source_id.py",
       "curadoria/avancar_fontes.py",
       "curadoria/baldes_das_candidatas.py",
+      "curadoria/bancada_ia.py",
       "curadoria/canario.py",
       "curadoria/capturador.py",
       "curadoria/caracterizador.py",
@@ -443,6 +444,7 @@
       "curadoria/gatilho_discovery.py",
       "curadoria/integrar_gate_de_detalhe.py",
       "curadoria/interface_collection.py",
+      "curadoria/irmas_por_item.py",
       "curadoria/italy_contracts_curator.json",
       "curadoria/janela_de_cultura.py",
       "curadoria/lifecycle.py",
@@ -482,8 +484,10 @@
       "curadoria/telemetria_do_curador.py",
       "curadoria/test_abastecimento.py",
       "curadoria/test_avancar_fontes.py",
+      "curadoria/test_bancada_ia.py",
       "curadoria/test_canario_detalhe.py",
       "curadoria/test_canario_hrefs.py",
+      "curadoria/test_canario_pdf.py",
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
       "curadoria/test_cartao_de_fonte.py",
@@ -500,6 +504,7 @@
       "curadoria/test_gatilho_ocioso.py",
       "curadoria/test_impasse_b4.py",
       "curadoria/test_interface_collection.py",
+      "curadoria/test_irmas_por_item.py",
       "curadoria/test_lifecycle.py",
       "curadoria/test_livros_reais_intactos.py",
       "curadoria/test_nivel_da_fila.py",
@@ -510,6 +515,7 @@
       "curadoria/test_ponte_automatica.py",
       "curadoria/test_ponte_cadeia.py",
       "curadoria/test_ponte_candidatas.py",
+      "curadoria/test_ponte_prefixos.py",
       "curadoria/test_ponte_promocao.py",
       "curadoria/test_qualify_fora_de_it.py",
       "curadoria/test_ready_split.py",
@@ -2238,17 +2244,35 @@
       "provas/gate_de_aceitacao_tematica.py",
       "provas/gpu_asr_smoke.py",
       "provas/hardware_local.py",
+      "provas/ia_cur/BANCADA-EXECUCAO-1.json",
+      "provas/ia_cur/CANARIO-SFN-PDF.json",
+      "provas/ia_cur/D32-BLOCO4-RESULTADO.json",
+      "provas/ia_cur/D32-BLOCO5-RESULTADO.json",
       "provas/ia_cur/DECISOES-IA-CUR-V1.json",
       "provas/ia_cur/ESTADO-FINAL-30.json",
+      "provas/ia_cur/FILA-PRECISA-DE-IA-VIVO-2026-09-24.json",
       "provas/ia_cur/FOTO-1511.sha256",
+      "provas/ia_cur/IRMAS-FEDERUNACOMA.json",
+      "provas/ia_cur/LEITOR-LIVRO-INTEIRO.jsonl",
+      "provas/ia_cur/LEITOR-LIVRO-INTEIRO.md",
       "provas/ia_cur/PAGINAS-LIDAS-COM-REDE.jsonl",
       "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
+      "provas/ia_cur/RECEITA-CAMPANIA-AGROMETEO.json",
       "provas/ia_cur/RELATORIO-IA-CUR.md",
       "provas/ia_cur/RESULTADO-PILOTO-IA-CUR.json",
+      "provas/ia_cur/atlas_t3_005.py",
+      "provas/ia_cur/bancada_execucao_1.py",
+      "provas/ia_cur/buscar_lote.py",
       "provas/ia_cur/buscar_pagina.py",
+      "provas/ia_cur/canario_sfn_pdf.py",
       "provas/ia_cur/ciclo_ia.py",
+      "provas/ia_cur/construir_fila_viva.py",
+      "provas/ia_cur/d32_bloco4.py",
+      "provas/ia_cur/d32_bloco5.py",
       "provas/ia_cur/decidir_territorio.py",
+      "provas/ia_cur/irmas_federunacoma.py",
       "provas/ia_cur/ler_paginas.py",
+      "provas/ia_cur/medir_leitor.py",
       "provas/ia_cur/propor_arsac.py",
       "provas/ia_cur/registar_propostas.py",
       "provas/ia_cur/seguir_territorios.py",
@@ -2942,8 +2966,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 922 ficheiros (91%) · ESPANHA 76 ficheiros (8%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 922 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 922 ficheiros (91%) · ESPANHA 76 ficheiros (8%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 245. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 922 ficheiros e 245 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -2951,8 +2975,8 @@
     },
     {
       "id": "duas-listas-de-fontes",
-      "titulo": "37 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
-      "texto": "297 tem ficha no atlas, 54 estao no levantamento italiano, 17 estao nos dois. 37 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
+      "titulo": "36 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
+      "texto": "298 tem ficha no atlas, 54 estao no levantamento italiano, 18 estao nos dois. 36 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
       "porque_importa": "O levantamento italiano tem campos que o atlas nao tem — o dono normalizado, o papel da fonte, e o melhor de todos: o que ela NAO prova. Mas nasceu ao lado do atlas, e nao dentro dele. Duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2971,8 +2995,8 @@
     },
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
-      "titulo": "297 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 49 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 29. Elas trouxeram 4277 itens e 3038 atravessaram a régua. As outras 297 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "titulo": "298 fontes nunca foram coletadas. Todas as corridas foram num país só.",
+      "texto": "Há 49 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 29. Elas trouxeram 4277 itens e 3038 atravessaram a régua. As outras 298 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -3456,9 +3480,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "curador-ate-pronta-v1",
-    "HEAD": "2786cbc4411e278a433836c6d034052f24eace2c",
-    "GENERATED_AT": "2026-09-24T16:21:08-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9b891df89b3d69ceee6f2bebba1eae5b4787b0b89f90717e8a9002fd9e8a5015"
+    "HEAD": "68d8b4b9f04a2c5386565ecc69b050e1f1e6bf6b",
+    "GENERATED_AT": "2026-09-24T17:47:30-03:00",
+    "SOURCE_TREE_FINGERPRINT": "5651111c6b478d48aacf06f9db424414144be8a2e5a870ff302c314f3b6074ac"
   },
   "FAMILIES": [
     {
@@ -4942,7 +4966,7 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "O capital parado da casa: 297 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
+      "what": "O capital parado da casa: 298 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
       "why_here": "Nada existe no SINTONIA sem passar por aqui primeiro. Uma fonte so entra depois de alguem a abrir, olhar o que ela entrega e guardar evidencia disso — e coleta nenhuma comeca sem consultar o que ja esta aqui.",
       "files": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -4950,15 +4974,15 @@
         "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json"
       ],
       "facts": [
-        "bases oficiais com ficha: 297",
+        "bases oficiais com ficha: 298",
         "dessas, a maquina sabe buscar sozinha: 5",
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 636",
-        "desses, mostrados aqui: 40 (ficam de fora 596)"
+        "enderecos que o codigo realmente chama: 641",
+        "desses, mostrados aqui: 40 (ficam de fora 601)"
       ],
-      "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
+      "status_reason": "298 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 293, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -4993,7 +5017,7 @@
       "groups": [
         {
           "titulo": "BASES OFICIAIS E ABERTAS",
-          "subtitulo": "297 fichas no atlas · 5 com contrato de busca escrito",
+          "subtitulo": "298 fichas no atlas · 5 com contrato de busca escrito",
           "porque": "Registro publico, dado aberto, base regulatoria, estatistica e ciencia. Fonte que nao depende de ninguem ter postado.",
           "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
           "itens": [
@@ -7205,6 +7229,21 @@
               "url": "https://www.agricoltura.regione.campania.it",
               "atualiza": "NÃO SEI",
               "exemplo": "«Bollettino fitosanitario — produzione integrata» https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf — application/pdf, 813109 bytes, SHA256 conferido em 2026-09-07",
+              "contrato": null
+            },
+            {
+              "id": "IT-T3-005",
+              "nome": "Terre dell'Etruria — Monitoraggio mosca dell'olivo (Servizio Agronomico)",
+              "pais": "ITALIA",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
+              "estado": "YELLOW",
+              "estado_texto": "real, mas com atrito registrado",
+              "sabe_coletar": false,
+              "como_se_entra": "HTTP publico - pagina fixa /monitoraggio, atualizada por periodo",
+              "dono": "NAO SEI - nao medido nesta missao",
+              "url": "https://www.terretruria.it/monitoraggio",
+              "atualiza": "ATIVO - publicacao semanal ou mais frequente",
+              "exemplo": "Bollettino del periodo dal 07-09-2026 al 13-09-2026 — monitoraggio mosca dell'olivo (2026-09-07)",
               "contrato": null
             },
             {
@@ -10248,13 +10287,13 @@
         }
       ],
       "header_claim": {
-        "total": 277,
+        "total": 278,
         "line": 9,
         "green": 90,
         "yellow": 83,
         "nao_sei": 17,
-        "fichas_completas": 297,
-        "ids_mencionados_no_atlas": 284,
+        "fichas_completas": 298,
+        "ids_mencionados_no_atlas": 285,
         "mencionados_sem_ficha": [
           "ES-T1-001",
           "ES-T13-001",
@@ -10270,9 +10309,9 @@
           "IT-T4-002",
           "IT-T4-003"
         ],
-        "os_tres_numeros": "277 = o que o CABECALHO declara · 284 = SOURCE_IDs MENCIONADOS no texto · 297 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
+        "os_tres_numeros": "278 = o que o CABECALHO declara · 285 = SOURCE_IDs MENCIONADOS no texto · 298 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
         "divergencia": -20,
-        "leitura": "O cabecalho do atlas diz 277 fontes registradas; fichas completas, com SOURCE_ID valido, ha 297. Faltam -20 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+        "leitura": "O cabecalho do atlas diz 278 fontes registradas; fichas completas, com SOURCE_ID valido, ha 298. Faltam -20 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
       "runs": {
         "ficheiro": "data/samples/RUN-MANIFEST.json",
@@ -11581,6 +11620,7 @@
           "IT-T2-030",
           "IT-T3-001",
           "IT-T3-002",
+          "IT-T3-005",
           "IT-T3-008",
           "IT-T3-010",
           "IT-T3-011",
@@ -12482,7 +12522,7 @@
             "degrau": 2,
             "nome": "REGISTADA",
             "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
-            "quantas": 260,
+            "quantas": 261,
             "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
             "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
           },
@@ -29623,11 +29663,13 @@
         "listas": [
           "BENCH",
           "FRESHNESS",
-          "HOSTS"
+          "HOSTS",
+          "VERIFICADORES",
+          "_VARIAVEIS_DE_REDE"
         ],
-        "palavras": 247,
+        "palavras": 267,
         "por_lingua": {},
-        "sem_marca_de_lingua": 247,
+        "sem_marca_de_lingua": 267,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -43380,7 +43422,7 @@
           "candidatas/decidir_fila_italia.py:100",
           "curadoria/test_discovery.py:59",
           "curadoria/test_discovery.py:50",
-          "provas/ia_cur/decidir_territorio.py:58"
+          "provas/ia_cur/bancada_execucao_1.py:26"
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -45764,15 +45806,24 @@
         "provas/cur_pronta/medir_janela.py",
         "provas/cur_pronta/prova_orquestra.py",
         "provas/ia_cur/RELATORIO-IA-CUR.md",
+        "provas/ia_cur/atlas_t3_005.py",
+        "provas/ia_cur/bancada_execucao_1.py",
+        "provas/ia_cur/buscar_lote.py",
         "provas/ia_cur/buscar_pagina.py",
+        "provas/ia_cur/canario_sfn_pdf.py",
         "provas/ia_cur/ciclo_ia.py",
+        "provas/ia_cur/construir_fila_viva.py",
+        "provas/ia_cur/d32_bloco4.py",
+        "provas/ia_cur/d32_bloco5.py",
         "provas/ia_cur/decidir_territorio.py",
+        "provas/ia_cur/irmas_federunacoma.py",
         "provas/ia_cur/ler_paginas.py",
+        "provas/ia_cur/medir_leitor.py",
         "provas/ia_cur/propor_arsac.py",
         "provas/ia_cur/registar_propostas.py",
         "provas/ia_cur/seguir_territorios.py"
       ],
-      "file_count": 14,
+      "file_count": 23,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -45786,12 +45837,13 @@
         "C-IT-COLETA",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PORTA-FONTE",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "outbound": [],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 5
+        "ITALIA": 11
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -45799,12 +45851,17 @@
         "listas": [
           "ALVO",
           "CAPA",
+          "D2",
           "DECIDE",
-          "NAO_SEI"
+          "E",
+          "NAO_SEI",
+          "PILOTO",
+          "RECEITA",
+          "TERRITORIO"
         ],
-        "palavras": 54,
+        "palavras": 110,
         "por_lingua": {},
-        "sem_marca_de_lingua": 54,
+        "sem_marca_de_lingua": 110,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -45842,13 +45899,19 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "candidatas/FONTES-CANDIDATAS.json",
+        "coleta/scrap_http.py",
         "curadoria/DECISOES-SEMANTICAS-V1.json",
         "curadoria/LIFECYCLE-EVIDENCE-V1.json",
         "curadoria/LIFECYCLE-LEDGER-V1.json",
         "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+        "curadoria/descobrir.py",
+        "curadoria/gate_de_rota.py",
         "curadoria/italy_contracts_curator.json",
         "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+        "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
+        "provas/ia_cur/DECISOES-IA-CUR-V1.json",
+        "provas/ia_cur/PAGINAS-LIDAS-COM-REDE.jsonl",
         "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
         "regras/italy_contracts_onboarded.json",
         "superficie/rede.py"
@@ -51541,6 +51604,7 @@
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
         "C-PROVA-CANARIO-REEL",
         "C-PROVA-COLETA",
+        "C-PROVA-CUR-PRONTA",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -63038,7 +63102,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 4 linhas de codigo.",
+      "reason": "Ask Sintonia alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cur_pronta/ciclo_uma_volta.py",
@@ -63073,6 +63137,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "provas/ia_cur/buscar_lote.py",
+          "line": 19,
+          "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], capture_output=True, text=True)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "provas/ia_cur/buscar_pagina.py",
           "line": 14,
           "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], cwd=RAIZ,",
@@ -63092,6 +63172,22 @@
           "file": "provas/ia_cur/ciclo_ia.py",
           "line": 10,
           "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], cwd=\"C:/cur/ia-copia\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/medir_leitor.py",
+          "line": 33,
+          "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
             "FROM": "C-ASK-SINTONIA",
@@ -67795,7 +67891,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 3 linhas de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cur_pronta/medir_janela.py",
@@ -67833,6 +67929,54 @@
           "file": "provas/cur_pronta/prova_orquestra.py",
           "line": 23,
           "snippet": "for f in LIVROS + [\"curadoria/italy_contracts_curator.json\"]:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/bancada_execucao_1.py",
+          "line": 143,
+          "snippet": "C = {c[\"SOURCE_ID\"]: c for c in json.load(open(V + \"curadoria/italy_contracts_curator.json\", encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/construir_fila_viva.py",
+          "line": 9,
+          "snippet": "C = {c[\"SOURCE_ID\"]: c for c in json.load(open(V + \"italy_contracts_curator.json\", encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/medir_leitor.py",
+          "line": 68,
+          "snippet": "con = {c[\"SOURCE_ID\"]: c for c in json.load(open(\"curadoria/italy_contracts_curator.json\", encoding=\"utf-8\"))[\"FONTES\"]}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-CUR-PRONTA",
             "FROM": "C-CENSO-UNIFICACAO",
@@ -77098,7 +77242,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 3 linhas de codigo.",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cur_pronta/medir_janela.py",
@@ -77136,6 +77280,70 @@
           "file": "provas/cur_pronta/prova_orquestra.py",
           "line": 18,
           "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/bancada_execucao_1.py",
+          "line": 140,
+          "snippet": "L = json.load(open(V + \"curadoria/LIFECYCLE-LEDGER-V1.json\", encoding=\"utf-8\"))[\"TRANSICOES\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/bancada_execucao_1.py",
+          "line": 142,
+          "snippet": "json.load(open(V + \"curadoria/LIFECYCLE-EVIDENCE-V1.json\", encoding=\"utf-8\"))[\"PROVAS\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/construir_fila_viva.py",
+          "line": 6,
+          "snippet": "L = json.load(open(V + \"LIFECYCLE-LEDGER-V1.json\", encoding=\"utf-8\"))[\"TRANSICOES\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/construir_fila_viva.py",
+          "line": 7,
+          "snippet": "E = {p[\"EVIDENCE_REF\"]: p.get(\"OBSERVED_AT\") for p in json.load(open(V + \"LIFECYCLE-EVIDENCE-V1.json\", encoding=\"utf-8\"))[\"PROVAS\"]}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-CUR-PRONTA",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
@@ -94872,12 +95080,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 1 linha de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cur_pronta/medir_janela.py",
           "line": 11,
           "snippet": "tab = {c[\"SOURCE_ID\"]: c for c in J(\"regras/italy_contracts_onboarded.json\", \"FONTES\")}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/canario_sfn_pdf.py",
+          "line": 21,
+          "snippet": "linha = next(c for c in json.load(open(RAIZ + \"/regras/italy_contracts_onboarded.json\", encoding=\"utf-8\"))[\"FONTES\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/medir_leitor.py",
+          "line": 70,
+          "snippet": "for c in json.load(open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\"))[\"FONTES\"]:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-CUR-PRONTA",
             "FROM": "C-MICRO-COLETA-INSTRUMENTO",
@@ -99132,8 +99372,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 1 linha de codigo.",
+      "reason": "A porta de entrada de fonte nova alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/ia_cur/bancada_execucao_1.py",
+          "line": 26,
+          "snippet": "CAND = {x[\"CANDIDATA_ID\"]: x for x in json.load(open(V + \"candidatas/FONTES-CANDIDATAS.json\", encoding=\"utf-8\"))[\"CANDIDATAS\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/buscar_lote.py",
+          "line": 11,
+          "snippet": "cand = {x[\"CANDIDATA_ID\"]: x for x in json.load(open(V + \"candidatas/FONTES-CANDIDATAS.json\", encoding=\"utf-8\"))[\"CANDIDATAS\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/ia_cur/decidir_territorio.py",
           "line": 58,
@@ -114695,6 +114967,41 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-CUR-PRONTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/ia_cur/d32_bloco4.py",
+          "line": 56,
+          "snippet": "\"coleta/scrap_http.py\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
       "type": "READS",
       "payload": "artefacto",
@@ -123520,7 +123827,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1616,
+  "UNCLAIMED_FILES_COUNT": 1631,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123778,12 +124085,12 @@
     "components_pending": 203,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1271,
-    "edges_proven": 1207,
+    "edges": 1272,
+    "edges_proven": 1208,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2862,
-    "files_covered": 1246,
+    "files_tracked": 2886,
+    "files_covered": 1255,
     "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,
