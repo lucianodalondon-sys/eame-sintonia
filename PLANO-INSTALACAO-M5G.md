@@ -11,14 +11,18 @@
 
 ## O que vai para a produção
 
-`FINAL` = `origin/unificacao-v1` @ `e642c52a` (ou o HEAD que o coordenador escolher — medir na
-hora; se não for este, **repetir o ensaio**). Desde o vivo, esta passagem traz: A5 (robots,
+`FINAL` = `origin/unificacao-v1` @ `7ee87573` — o commit ensaiado. Os commits depois dele (até
+o HEAD da entrega) só mudam `PLANO-INSTALACAO-M5G.md`, `RELATORIO-UNIFICACAO.md` e o mapa
+gerado: conferir com `git diff --stat 7ee87573 origin/unificacao-v1`. Se aparecer outro
+ficheiro, **repetir o ensaio**. Desde o vivo, esta passagem traz: A5 (robots,
 pausa e teto dentro do coletor), G3+BC2 (coorte única, tabela do coletor 176 → 193), B4 (já
 está no vivo, por cópia de ficheiros — conteúdo idêntico), e as passagens 5 e 6 que o vivo
-ainda não tinha. **Nenhuma função nova da M5G**: só junções e duas correcções de teste
-(declaração de `micro_rede_real.py` no portão; precedência da D9 em `test_collection_gate`).
+ainda não tinha. **Nenhuma função nova da M5G**: só junções, duas correcções de teste
+(declaração de `micro_rede_real.py` no portão; precedência da D9 em `test_collection_gate`) e,
+por ordem da coordenação (C1), os testes/provas do Scrap desactualizados (RT01/RT02, RT20,
+NS1/NS6, setUpClass do RC01) — só testes e provas.
 
-## Ensaio (feito) — cópia fiel do vivo, 24/09 ~00:55Z
+## Ensaio (feito) — cópia fiel do vivo, 24/09 (em `e642c52a` ~00:55Z e de novo em `7ee87573`)
 
 Cópias em `C:/ens-bot` e `C:/ens-ponte` (apagadas no fim): worktree no HEAD do vivo + os
 ficheiros sujos do vivo copiados (só leitura no vivo; JSON conferido).
@@ -26,7 +30,7 @@ ficheiros sujos do vivo copiados (só leitura no vivo; JSON conferido).
 ```
 VIVO bot   servico-20260923-0923 @ 3d62e87d  sujos=10
 VIVO ponte cutover-20260923-0923 @ 5c02bbe4  sujos=3
-FINAL      e642c52a
+FINAL      7ee87573   (em e642c52a: os mesmos resultados, linha a linha)
 BOT 1. merge --no-ff (com os livros sujos no sitio)   rc=0  conflitos=0
 BOT 2. livros sujos: IGUAIS byte a byte (10)
 BOT 3. arvore commitada vs FINAL: 0 ficheiros diferentes
@@ -34,7 +38,7 @@ BOT 4. testes na copia instalada: 54 corridos, 1 FAIL (test_5 de test_nivel_da_f
        portao com os livros vivos: elegiveis = 37 de 143
 BOT 5. DESFAZER: git reset --keep 3d62e87d   rc=0  HEAD=3d62e87d  0 codigo diferente
        livros sujos depois do desfazer: IGUAIS
-PONTE 1. 5c02bbe4 esta na linha: avanco rapido (ff-only)   rc=0 HEAD=e642c52a
+PONTE 1. 5c02bbe4 esta na linha: avanco rapido (ff-only)   rc=0 HEAD=7ee87573
 PONTE 2. livros sujos: IGUAIS (3)
 PONTE 3. --lane presente (LANE=SIM)
 PONTE 4. DESFAZER rc=0 HEAD=5c02bbe4 livros IGUAIS
@@ -56,7 +60,7 @@ processo do bot.** Nenhuma peça abaixo escreve livro na instalação.
 
 | peça | na INSTALAÇÃO escreve | em FUNCIONAMENTO passa a escrever | livros do vivo tocados na instalação |
 |---|---|---|---|
-| **M5G** (esta linha) | bot `$VIVA`: **176** ficheiros rastreados (87 novos, 89 alterados): código de `curadoria/` (7: canario, onboardar_rotas_provadas, ready_split, retrato_html + 3 testes), `coleta/` (11, incl. `italy_pilot_collect.mjs` da A5 e `retrato_html.mjs`), `admissao/` (2), `regras/` (5, incl. **`italy_contracts_onboarded.json` 176 → 193**), `scripts/`, `medidas/`, `ferramentas/`, `leis/social_matriz.py`, `pedido/receitas.py`, `orquestrador/orquestrador.py`, `.github/workflows/sintonia-scrap.yml`, provas, testes, docs e mapa. Ponte `$CASA`: avanço rápido, **182** ficheiros | **nada novo.** O bot escreve os mesmos livros de hoje (B4 já está no vivo). O coletor da A5 só escreve em `data/collection-ledger/italy/` quando corre uma Collection — e a instalação não corre nenhuma; não acrescenta destino de escrita novo (medido: nenhum `writeFileSync`/`appendFileSync` novo) | **0 de 10** (bot) e **0 de 3** (ponte) — os 13 são iguais na versão salva do vivo e em `FINAL` |
+| **M5G** (esta linha) | bot `$VIVA`: **181** ficheiros rastreados (89 novos, 92 alterados): código de `curadoria/` (7: canario, onboardar_rotas_provadas, ready_split, retrato_html + 3 testes), `coleta/` (11, incl. `italy_pilot_collect.mjs` da A5 e `retrato_html.mjs`), `admissao/` (2), `regras/` (5, incl. **`italy_contracts_onboarded.json` 176 → 193**), `scripts/`, `medidas/`, `ferramentas/`, `leis/social_matriz.py`, `pedido/receitas.py`, `orquestrador/orquestrador.py`, `.github/workflows/sintonia-scrap.yml`, provas, testes, docs e mapa. Ponte `$CASA`: avanço rápido, **187** ficheiros | **nada novo.** O bot escreve os mesmos livros de hoje (B4 já está no vivo). O coletor da A5 só escreve em `data/collection-ledger/italy/` quando corre uma Collection — e a instalação não corre nenhuma; não acrescenta destino de escrita novo (medido: nenhum `writeFileSync`/`appendFileSync` novo) | **0 de 10** (bot) e **0 de 3** (ponte) — os 13 são iguais na versão salva do vivo e em `FINAL` |
 | **R1** reparo-fontes-v1 | pelo `scripts/reparo/R1-WRITESET.json` dela: 25 ficheiros por `git checkout 491cc9ea -- <ficheiros>`. **Medido contra `FINAL`:** 5 já são iguais e saem (`ready_split.py`, `retrato_html.py`, `test_retrato_html.py`, `test_zz_guarda_isolamento.py`, `propor_receitas_v4.py`); **20 diferem** da linha | `italy_contracts_curator.json` (REPAIR_CONTRACT reescreve ACQUISITION / acrescenta contrato), `LIFECYCLE-LEDGER`, `-QUEUE`, `-EVIDENCE` (append), `SOURCE-ID-ALLOCATION` (SOURCE_ID novos das QUALIFY YouTube), estado do supervisor | 0 (diz a R1) |
 | **B5** b5-demotion-viva-v1 | **nada** (0 ficheiros; a B5 só tem relatório e provas em cópia) | quando houver uma falha real, a despromoção é feita **pelo bot** (gatilho REVALIDAR → VALIDATE_ROUTE → canário): `LIFECYCLE-LEDGER`, `-QUEUE`, `-EVIDENCE` — o mesmo escritor de hoje | 0 |
 

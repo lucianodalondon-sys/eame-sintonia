@@ -826,3 +826,50 @@ PLANO             = PLANO-INSTALACAO-M5G.md — ensaio em copia fiel do vivo: 0 
                     livros; R1 20 ficheiros (5 ja iguais saem) + SOC2; B5 0. NAO instalado.
 FINAL_HEAD        = na entrega
 ```
+
+### ADENDO C1 (ordem da coordenação, 24/09): os 4 do Scrap eram TEST/PROBE STALE — consertados só em testes/provas
+
+A coordenação mediu os 2 módulos num clone de `f24a459f` (106 testes, 5 FAIL + 1 ERROR, os
+mesmos nomes) e decidiu: corrigir DENTRO da M5G só testes e provas, zero função de produto,
+sem reverter `233638e3`/`c57987a4`. Feito em `54ac31c8`:
+
+```
+setUpClass RC01   provas/entradas_do_scrap_v1 chamava censo_da_coleta._linhas_de_comando, que
+                  867f2f1d removeu. Religada ao dono do corte de prosa que a cadeia usa hoje
+                  (generate_system_map.sem_comentarios). Nenhum parser novo. medir() devolve o
+                  MESMO resultado com a funcao antiga e com esta (9.934 caracteres iguais).
+RT20              o livro de relevancia real tem 7 decisoes humanas (SIM); a classe passa a ler
+                  um livro VAZIO numa pasta temporaria, pelo mesmo ler_livro do runtime. RT20
+                  continua a exigir: livro vazio -> NAO_AVALIADA, DECISAO None, sem SIM, sem gasto.
+NS1/NS6           depois da D22 a rota do Reel e autorizada; a cadeia nao corre fornecedor
+                  (COST_STATE=NOT_RUN, RESULT=AUDIO_ONLY_UNAVAILABLE) e devolve o esqueleto. A
+                  premissa passa a medir-se pelo custo; NS6 exige o RESULT que a propria cadeia
+                  escreveu. NS1b (novo, so teste): matriz a recusar SO dentro do teste -> a porta
+                  (SOC1) recusa antes da cadeia: 0 objetos, 0 colheita. Forcar a recusa na
+                  fixture da classe inteira NAO servia: tirava o esqueleto que NS3-NS5 examinam.
+RT01/RT02         o ramo janela recusa fail-closed (D19). RT01: o ramo tem de comecar por
+                  `recusar` e nao executar programa nenhum (.py/.mjs/py/node). RT02: COLLECT por
+                  palavra inteira (a especie da recusa chama-se COLLECTION_DISCOVER).
+FOCADOS           test_scrap_flow01 + test_scrap_rc01: Ran 113, OK (eram 106 com 5 FAIL + 1 ERROR;
+                  +6 que o setUpClass partido escondia, +1 NS1b).
+MUTACAO           (copia C:/mut, apagada) 5 de 6 mortos: K1 ramo volta a chamar o script direto ·
+                  K2 ramo deixa de recusar e corre o orquestrador · K3 o disparador chama COLLECT ·
+                  K4 a porta SOC1 deixa de recusar o que a matriz recusa · K5 o portao de
+                  relevancia le um SIM fabricado. SOBREVIVE K6 (a prova deixa de cortar a prosa):
+                  hoje nenhum comentario do workflow produz entrada falsa, e a bateria nao tem
+                  sentinela desse corte. LACUNA DECLARADA; nao ha teste novo porque a ordem era
+                  so consertar o que estava desactualizado.
+PRODUCT           nenhum invariante do runtime quebrado: o motivo escrito pela cadeia para o zero
+                  continua a dizer «a rota nao correu … um esqueleto carimbado com SOURCE_ID seria
+                  observacao fabricada».
+```
+
+Balanço dos vermelhos por nome depois do C1 (medido modulo a modulo; a suite inteira fica para
+o gate posterior, D27): dos 11 que entraram, **4 consertados** (Scrap); ficam **7 herdados e
+nomeados** — 4 dos Reels que falham nesta maquina na propria lane (c10_6 P11, audio offline
+04/05/12) e 3 da G3 presos ao retrato do livro real (micro_coleta_instrumento x2,
+reconciliar_livros.test_zy_censo).
+
+Ensaio de instalacao repetido em `7ee87573` (C1 + mapa): os mesmos resultados — 0 conflitos,
+13 livros iguais, arvore = FINAL, desfazer provado. WRITESET da M5G: 181 ficheiros no bot
+(89 novos, 92 alterados), 187 na ponte, 0 livros. R1 e B5 como no plano.
