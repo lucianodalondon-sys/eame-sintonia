@@ -454,7 +454,7 @@ def _gravar_alloc(d: dict) -> None:
         raise
 
 
-def _max_por_territorio(alloc: dict) -> dict:
+def _max_por_territorio(alloc: dict, prefixo: str = "IT") -> dict:
     """O maior numero usado por territorio, para continuar dali. NUNCA recicla.
 
     ⚠️ CAVEAT DE FRAGMENTACAO (medido e documentado noutras missoes): o registo
@@ -464,10 +464,20 @@ def _max_por_territorio(alloc: dict) -> dict:
     da alocacao em lote) e do maior ja atribuido aqui. Reconciliar colisoes
     entre branches e outra lane, e esta missao NAO lhe toca.
     """
-    maior: dict[str, int] = {k: int(v) for k, v in
-                             alloc.get("MAIOR_POR_TERRITORIO_ANTES", {}).items()}
+    if prefixo == "IT":
+        maior: dict[str, int] = {k: int(v) for k, v in
+                                 alloc.get("MAIOR_POR_TERRITORIO_ANTES", {}).items()}
+    else:
+        # D31 (24/09): fora de IT o ponto de partida e o ATLAS, que ja numera
+        # EU-T<n>-<seq>; nunca se reusa um numero que o Atlas escreveu.
+        maior = {}
+        atlas = RAIZ / "docs" / "fontes" / "ATLAS-DE-FONTES-EAME.md"
+        if atlas.exists():
+            for t, q in re.findall(r"\b%s-(T\d+)-(\d+)\b" % prefixo,
+                                   atlas.read_text(encoding="utf-8", errors="replace")):
+                maior[t] = max(maior.get(t, 0), int(q))
     for n in alloc.get("NOVAS", []):
-        m = re.match(r"^IT-(T\d+)-(\d+)$", str(n.get("SOURCE_ID", "")))
+        m = re.match(r"^%s-(T\d+)-(\d+)$" % prefixo, str(n.get("SOURCE_ID", "")))
         if m:
             maior[m.group(1)] = max(maior.get(m.group(1), 0), int(m.group(2)))
     return maior
@@ -475,7 +485,8 @@ def _max_por_territorio(alloc: dict) -> dict:
 
 def _alocar_source_id(cand_id: str, territorio: str, familia: str,
                       ficha: dict, porque: str, native: str | None = None,
-                      mesma_organizacao: dict | None = None) -> tuple[str, bool]:
+                      mesma_organizacao: dict | None = None,
+                      prefixo: str = "IT") -> tuple[str, bool]:
     """Pede o SOURCE_ID canonico ao registo de alocacao. Idempotente: se esta
     candidata ja tem numero, devolve o mesmo (nunca cunha um segundo).
 
@@ -485,9 +496,9 @@ def _alocar_source_id(cand_id: str, territorio: str, familia: str,
     for n in alloc.get("NOVAS", []):
         if n.get("CANDIDATE_ID") == cand_id:
             return n["SOURCE_ID"], False
-    maior = _max_por_territorio(alloc)
+    maior = _max_por_territorio(alloc, prefixo)
     seq = maior.get(territorio, 0) + 1
-    sid = "IT-%s-%03d" % (territorio, seq)
+    sid = "%s-%s-%03d" % (prefixo, territorio, seq)
     nova = {
         "CANDIDATE_ID": cand_id,
         "SOURCE_ID": sid,
@@ -500,7 +511,9 @@ def _alocar_source_id(cand_id: str, territorio: str, familia: str,
         **({"SOURCE_NATIVE_ID": native, "SOURCE_NATIVE_ID_KIND": "YOUTUBE_CHANNEL_ID"}
            if native else {}),
         "ALLOCATED_BY": ("SOURCE-CURATOR-WORKER/QUALIFY — regra do Atlas "
-                         "(IT-T<territorio>-<seq>, max+1, nunca recicla)"),
+                         "(%s-T<territorio>-<seq>, max+1, nunca recicla)%s"
+                         % (prefixo, "" if prefixo == "IT" else
+                            " · fora de IT pela decisao %s" % (ficha.get("_AUTORIZACAO") or "?"))),
         "ALLOCATED_AT": agora(),
     }
     alloc.setdefault("NOVAS", []).append(nova)
@@ -596,12 +609,21 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
     # O nome nao decidiu: ha decisao semantica (Opus/humano) COM PROVA no canal?
     # So entra aqui — nunca por cima de um territorio que a regra ja decidiu.
     decisao, porque_ds = (None, "")
+    prefixo = "IT"          # D31: so muda com a autorizacao escrita na decisao
     if territorio == "NAO SEI":
         decisao, porque_ds = DS.decisao_para(cand_id, ficha)
         # ⚠️ ESTE REGISTO SO CUNHA NUMEROS «IT-». Uma fonte europeia ou
         # internacional com territorio decidido nao recebe um numero italiano
         # por omissao: fica a espera da numeracao do Atlas (EU-...), do dono.
-        if decisao and decisao.get("PAIS") != "IT":
+        # ⚠️ D31 (24/09, bot Luciano por delegacao do dono): fora de IT so com a
+        # AUTORIZACAO escrita NA PROPRIA DECISAO (`NUMERACAO_FORA_DE_IT`), e so
+        # para EU e INT. Sem ela, o bloqueio de sempre: a numeracao fora de IT e
+        # decisao do dono, nunca da maquina.
+        if (decisao and decisao.get("PAIS") in ("EU", "INT")
+                and (decisao.get("NUMERACAO_FORA_DE_IT") or "").strip()):
+            prefixo = decisao["PAIS"]
+            ficha = dict(ficha, _AUTORIZACAO=decisao["NUMERACAO_FORA_DE_IT"])
+        elif decisao and decisao.get("PAIS") != "IT":
             return "BLOCK", {"CLASSE": "SEMANTIC", "SEMANTIC_PENDING": True,
                              "PORQUE": ("territorio decidido fora de IT: %s, PAIS=%s pela "
                                         "prova — o QUALIFY so cunha numeros IT; a numeracao "
@@ -628,7 +650,8 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
 
     # HTML: pedir/alocar o SOURCE_ID canonico e passar ao degrau do contrato.
     sid_real, novo = _alocar_source_id(cand_id, territorio, familia, ficha, porque,
-                                       native=canal, mesma_organizacao=heranca)
+                                       native=canal, mesma_organizacao=heranca,
+                                       prefixo=prefixo)
 
     if LC.estado_de(sid_real) != LC.CONTRACT_PENDING:
         LC.registar(sid_real, LC.CONTRACT_PENDING,

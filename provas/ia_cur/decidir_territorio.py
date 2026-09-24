@@ -88,7 +88,9 @@ for cid, ter, pais, porque, pais_prova in DECIDE:
                        "BYTES_EM": "%TEMP%\\s2\\provas\\" + cid + "\\" + os.path.basename(r["CAMINHO"])})
     rever(cid, {"CANDIDATA_ID": cid, "NOME": cand[cid]["NOME"], "URL": cand[cid]["URL"], "TERRITORIO": ter,
                 "DECIDIDO_POR": POR, "DECIDIDO_EM": agora, "PORQUE": porque, "PROVAS": provas,
-                "SEGUNDA_LEITURA": None, "PAIS": pais, "PAIS_PROVA": pais_prova})
+                "SEGUNDA_LEITURA": None, "PAIS": pais, "PAIS_PROVA": pais_prova,
+                # D31 (24/09, bot Luciano por delegacao do dono): EU/INT entram como candidatas
+                **({"NUMERACAO_FORA_DE_IT": "D31"} if pais in ("EU", "INT") else {})})
     res.append((cid, ter, pais, len(provas)))
 
 for cid, cat, porque in NAO_SEI:
