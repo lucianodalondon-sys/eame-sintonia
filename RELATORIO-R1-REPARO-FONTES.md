@@ -128,3 +128,17 @@ Motivo final das que não chegaram (reparo): 148 item não é matéria · 117 se
 ⚠️ Continua a valer §4: parte das READY novas pode ser página fixa de título longo (IT-T12-134, IT-T2-063, IT-T7-105, IT-T7-041, IT-T12-044 estão na lista) e IT-T9-015 aponta para «lavora-con-noi». Ler antes de uma onda da Big Collection.
 
 **Pronto para instalar** depois da 1.ª onda, com o OK do coordenador: `git merge --no-ff reparo-fontes-v2` no ramo do bot; desfazer `git reset --keep fca4f2b6`.
+
+## 9 · Provas fora do Git (regra nova da coordenação, 24/09)
+
+- Baterias por nome: resumo com a lista de vermelhos por nome em `scripts/reparo/R1-SUITE-POR-NOME.json` (no ramo); os ficheiros completos ficam em `%TEMP%` com o sha256 escrito nesse JSON.
+- Fotos dos livros do vivo usadas nas medições (dados de produção, 13 MB cada, não se versionam):
+
+| foto | LIFECYCLE-LEDGER-V1.json | LIFECYCLE-QUEUE-V1.json | italy_contracts_curator.json |
+|---|---|---|---|
+| `%TEMP%/r1v3-snap-20260924T122126Z` (reensaio) | `c63fe0fbfb3519d7ab83fde1b73fc5586cc29730ca2e08c30e59745df729d461` | `4786b390277ca0e2a7ab334fd36d62a8adca77768ffe65da560063035fa3111b` | `a7abd28091abdef10f49ae4e86bf38887fdc1847ffc3f5cb779eee25c86abc84` |
+| `%TEMP%/r1-snap-20260923T182146Z` (1.ª medição) | `1931bc2ea9f86412b790923bf44c8cc84c608318bba3db7903f6a629c1632aa6` | `aabe131ffb33342d8c279125b081bb19b9e812622058976b3fb7923eacd3540d` | `a7abd28091abdef10f49ae4e86bf38887fdc1847ffc3f5cb779eee25c86abc84` |
+
+- Ensaio em cópia fiel: sha256 dos 14 livros sujos antes/depois em `%TEMP%/r1v3-sha-antes.txt` (`83fbf6505c14d6fcd378bddc231367ea7da12b5b88b2a9dcbc6ebe15cdc4b848`); a cópia `C:/ens-r1` e as bancas foram apagadas.
+- O resultado de cada medição com rede está no ramo: `R1-REENSAIO-ANTES-DEPOIS-fca4f2b6.json`, `R1-ANTES-DEPOIS-EM-COPIA.json`, `R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json`.
+
