@@ -154,8 +154,21 @@ def candidatas_a_avancar(agora: datetime, *, estados: dict | None = None,
     import collection_gate as CG   # noqa: E402  (so a constante da D9)
     out = []
 
+    # CUR-PRONTA / ONDA EM CURSO: um anfitriao que a coleta esta a visitar nao
+    # leva canario do Curator ao mesmo tempo (a cortesia por host vale dentro de
+    # um processo, nao entre dois). A fonte espera a onda acabar; nada se perde.
+    import onda_em_curso as OND    # noqa: E402
+    na_onda = OND.hosts_na_onda()
+
+    def _host_de(sid):
+        c = contratos.get(sid) or tabela.get(sid) or {}
+        return OND._host((c.get("ACQUISITION") or {}).get("INDEX_URL")
+                         or c.get("CANONICAL_ENTRY_URL") or "")
+
     def _por(sid, regra, motivo):
         tipo, prio = _TAREFA[regra]
+        if na_onda and tipo != F.QUALIFY and _host_de(sid) in na_onda:
+            return
         if _livre(sid, tipo):
             out.append({"SOURCE_ID": sid, "REGRA": regra, "TASK_TYPE": tipo,
                         "PRIORITY": prio, "MOTIVO": motivo})

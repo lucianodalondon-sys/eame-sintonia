@@ -236,6 +236,30 @@ def main(argv=None) -> int:
     for a in argv:
         if a.startswith("--ids="):
             ids = [x.strip() for x in a.split("=", 1)[1].split(",") if x.strip()]
+    # ⚠️ ONDA EM CURSO (CUR-PRONTA, 24/09): perguntado por fonte (`--ids`, o
+    # caminho de `italy_executor.admissao_do_curator`) com uma onda aberta, o
+    # portao responde pela FOTO da coorte e NAO abre nenhum livro do Curator —
+    # o Curator continua a trabalhar sem mudar a onda por baixo dela. Foto que
+    # existe e nao se le = NAO SEI = recusa (rc 3, o executor le GATE_NAO_RESPONDEU).
+    if ids:
+        import onda_em_curso as OND   # noqa: E402
+        try:
+            onda = OND.ler()
+        except OND.OndaIlegivel as e:
+            print(str(e), file=sys.stderr)
+            return 3
+        if onda is not None:
+            linhas = [OND.veredito(s, onda) for s in ids]
+            d = {"DATASET": "COLLECTION-INTAKE-V1", "CONTRATO": CONTRATO,
+                 "ONDA_EM_CURSO": {k: onda[k] for k in ("ABERTA_EM", "COORTE_SHA256")},
+                 "GERADO_EM": LC.agora(), "PERGUNTADAS": ids,
+                 "COLLECTION_ELIGIBLE_IDS": [l["SOURCE_ID"] for l in linhas
+                                             if l["COLLECTION_ELIGIBLE"]],
+                 "RECUSADAS": [l for l in linhas if not l["COLLECTION_ELIGIBLE"]],
+                 "LINHAS": linhas}
+            print(json.dumps(d, ensure_ascii=False) if "--json" in argv
+                  else "\n".join("  %-12s %s" % (l["SOURCE_ID"], l["MOTIVO"]) for l in linhas))
+            return 0
     ctx = _contexto()
     if ids:
         linhas = [avaliar(s, **ctx) for s in ids]
