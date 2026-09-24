@@ -2495,8 +2495,10 @@
       "scripts/regua_t2/MEDICAO-REGUA-T2-V1.json",
       "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
       "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+      "scripts/regua_t2/MEDICAO-T2C-V1.json",
       "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
       "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
+      "scripts/regua_t2/MUTACAO-REGUA-T2-V3.json",
       "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
       "scripts/regua_t2/PROVA-D29-PORTA-CANONICA-OFFLINE.json",
       "scripts/regua_t2/RECOLHA-BOLETINS-V1.json",
@@ -2504,6 +2506,7 @@
       "scripts/regua_t2/RECOLHA-BOLETINS-V3.json",
       "scripts/regua_t2/inventariar_t2.py",
       "scripts/regua_t2/medir_regua_t2.py",
+      "scripts/regua_t2/medir_t2c.py",
       "scripts/regua_t2/medir_via_agrometeo.py",
       "scripts/regua_t2/montar_gabarito_t2.py",
       "scripts/regua_t2/mutar_regua_t2.py",
@@ -3432,9 +3435,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t2-v1",
-    "HEAD": "1d33589e96ada2f69fe150af8a7d23942ce4c176",
-    "GENERATED_AT": "2026-09-24T16:31:01-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e40320ee49c80abe53fe80e8f74539ae35713a149a1b83e8c49c77618edf7f48"
+    "HEAD": "61335f880808dcd0d792d8e9fee8bf4335daa13b",
+    "GENERATED_AT": "2026-09-24T17:08:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ac39ac5f8830b64e3cbf294a781bc9fcd43cb11f80227224a08b9dc52b551365"
   },
   "FAMILIES": [
     {
@@ -4455,18 +4458,19 @@
       "vocabulario": {
         "papel": "ADMISSAO",
         "listas": [
+          "ANCORAS",
           "FUNCAO",
           "JA_TEM_CAMPO_PROPRIO_NO_READY",
           "NAO_E_ITEM",
           "PERGUNTAS_DO_UNIVERSO",
           "PERGUNTAS_EN"
         ],
-        "palavras": 324,
+        "palavras": 342,
         "por_lingua": {
           "IT": 31,
           "PT": 19
         },
-        "sem_marca_de_lingua": 274,
+        "sem_marca_de_lingua": 292,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -49952,8 +49956,10 @@
         "scripts/regua_t2/MEDICAO-REGUA-T2-V1.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+        "scripts/regua_t2/MEDICAO-T2C-V1.json",
         "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
         "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
+        "scripts/regua_t2/MUTACAO-REGUA-T2-V3.json",
         "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
         "scripts/regua_t2/PROVA-D29-PORTA-CANONICA-OFFLINE.json",
         "scripts/regua_t2/RECOLHA-BOLETINS-V1.json",
@@ -49961,6 +49967,7 @@
         "scripts/regua_t2/RECOLHA-BOLETINS-V3.json",
         "scripts/regua_t2/inventariar_t2.py",
         "scripts/regua_t2/medir_regua_t2.py",
+        "scripts/regua_t2/medir_t2c.py",
         "scripts/regua_t2/medir_via_agrometeo.py",
         "scripts/regua_t2/montar_gabarito_t2.py",
         "scripts/regua_t2/mutar_regua_t2.py",
@@ -49974,7 +49981,7 @@
         "scripts/regua_t2/rotulos/rotulos-recolha.tsv",
         "scripts/regua_t2/rotulos/rotulos.tsv"
       ],
-      "file_count": 27,
+      "file_count": 30,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -50008,9 +50015,9 @@
           "SITES",
           "SITES_IDA2"
         ],
-        "palavras": 142,
+        "palavras": 148,
         "por_lingua": {},
-        "sem_marca_de_lingua": 142,
+        "sem_marca_de_lingua": 148,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -50020,7 +50027,7 @@
           "pasta": "admissao",
           "prova": {
             "file": "scripts/regua_t2/mutar_regua_t2.py",
-            "line": 24,
+            "line": 62,
             "snippet": "escreve em F"
           }
         }
@@ -50076,12 +50083,17 @@
         "orquestrador/orquestrador.py",
         "scripts/regua_t2/GABARITO-T2-V2.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+        "scripts/regua_t2/MEDICAO-T2C-V1.json",
         "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
+        "scripts/regua_t2/MUTACAO-REGUA-T2-V3.json",
         "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
         "scripts/regua_t2/RECOLHA-BOLETINS-V1.json",
         "scripts/regua_t2/RECOLHA-BOLETINS-V2.json",
         "scripts/regua_t2/RECOLHA-BOLETINS-V3.json",
         "scripts/regua_t2/inventariar_t2.py",
+        "scripts/regua_t2/medir_regua_t2.py",
+        "scripts/regua_t2/medir_t2c.py",
+        "scripts/regua_t2/medir_via_agrometeo.py",
         "scripts/regua_t2/rotulos/A-ROTULAR.json",
         "scripts/regua_t2/rotulos/rotulos-janela.tsv",
         "scripts/regua_t2/rotulos/rotulos-recolha.tsv",
@@ -55467,6 +55479,7 @@
         "scripts/receitas/propor_receitas_v3.py",
         "scripts/regua_t2/GABARITO-T2-V2.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
+        "scripts/regua_t2/MEDICAO-T2C-V1.json",
         "scripts/regua_t2/portao_t2.py",
         "security/drift_db.py",
         "security/live-db-expected.json",
@@ -60403,7 +60416,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1681,
+          "line": 1721,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -60549,8 +60562,8 @@
         },
         {
           "file": "scripts/regua_t2/mutar_regua_t2.py",
-          "line": 4,
-          "snippet": "orig=open(F,encoding='utf-8').read()",
+          "line": 39,
+          "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-REGUA-T2-JANELA",
             "FROM": "C-ADMISSAO",
@@ -107503,8 +107516,8 @@
         },
         {
           "file": "scripts/regua_t2/mutar_regua_t2.py",
-          "line": 19,
-          "snippet": "open(F,'w',encoding='utf-8',newline='').write(orig.replace(a,b))",
+          "line": 48,
+          "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-REGUA-T2-JANELA--WRITES-->C-ADMISSAO",
             "FROM": "C-REGUA-T2-JANELA",
@@ -107569,7 +107582,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -107605,7 +107618,23 @@
         },
         {
           "file": "tests/test_regua_t2.py",
-          "line": 147,
+          "line": 167,
+          "snippet": "m = json.load(open(os.path.join(AQUI, \"MEDICAO-T2C-V1.json\"), encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
+            "FROM": "C-REGUA-T2-JANELA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_regua_t2.py",
+          "line": 190,
           "snippet": "self.g = json.load(open(os.path.join(AQUI, \"GABARITO-T2-V2.json\"), encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
@@ -107621,7 +107650,7 @@
         },
         {
           "file": "tests/test_regua_t2.py",
-          "line": 148,
+          "line": 191,
           "snippet": "self.m = json.load(open(os.path.join(AQUI, \"MEDICAO-REGUA-T2-V2.json\"), encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
@@ -124270,8 +124299,8 @@
     "edges_proven": 1217,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2838,
-    "files_covered": 1259,
+    "files_tracked": 2841,
+    "files_covered": 1262,
     "files_code_unclaimed": 0,
     "roles_proven": 164,
     "roles_declared_only": 8,

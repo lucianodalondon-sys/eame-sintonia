@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t2-v1",
-    "HEAD": "1d33589e96ada2f69fe150af8a7d23942ce4c176",
-    "GENERATED_AT": "2026-09-24T16:31:01-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e40320ee49c80abe53fe80e8f74539ae35713a149a1b83e8c49c77618edf7f48"
+    "HEAD": "61335f880808dcd0d792d8e9fee8bf4335daa13b",
+    "GENERATED_AT": "2026-09-24T17:08:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ac39ac5f8830b64e3cbf294a781bc9fcd43cb11f80227224a08b9dc52b551365"
   },
   "FILES": [
     {
@@ -612,7 +612,7 @@
     },
     {
       "path": "RELATORIO-T2-REGUA.md",
-      "sha": "a76126939eb5271007483939b7e5dc86c1f375b5",
+      "sha": "a444d8938e305651ab85779306bc91cbc4b532e2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -668,7 +668,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "ef815bbbfb4de5de338d7724d06256a1d11e92d4",
+      "sha": "7eca95c614a8c9d7d92cc1951f631af63479dfec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17006,14 +17006,21 @@
     },
     {
       "path": "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
-      "sha": "111d9918ef97bd14ce1b96c410a2f666fa628dfd",
+      "sha": "a250cb76431e8924649c93a14416430a9f2c5085",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
-      "sha": "b30b03c2c5ab92e23f03ff5805e838f67bf79dca",
+      "sha": "10879084d598131b630c85a6fc09265e9a9c7256",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t2/MEDICAO-T2C-V1.json",
+      "sha": "68fb29aa040e9a8c359e338b5ce70239ca73653d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17028,6 +17035,13 @@
     {
       "path": "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
       "sha": "6f9f58cb65189b1cba199d5e2bbb9564f5921d23",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t2/MUTACAO-REGUA-T2-V3.json",
+      "sha": "3191a480e874c608bdd2b4514fb46ad2ded8f9d2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17082,6 +17096,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/regua_t2/medir_t2c.py",
+      "sha": "991ebaf38c876fff5acfc391cbe62b56103c7b8e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/regua_t2/medir_via_agrometeo.py",
       "sha": "269ab4a502470af338224a34535c4cdce36b2e67",
       "ext": ".py",
@@ -17097,7 +17118,7 @@
     },
     {
       "path": "scripts/regua_t2/mutar_regua_t2.py",
-      "sha": "1cca0475ea5f0dc6fd43fe9c6171d65b85a883e1",
+      "sha": "67120dbd5080f4a3df9ee0190bfd1bd6b203af80",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17762,7 +17783,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "4e560836d865fd04a055714e70edfb58342d7487",
+      "sha": "8c92cf24a29136c6800cbe4729bc40f2eb711717",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19610,7 +19631,7 @@
     },
     {
       "path": "tests/test_regua_t2.py",
-      "sha": "f4945d7e7c81c503e1baee36d6ef41c01fa79b0e",
+      "sha": "1eaf899caa6957529aa3f82d84b7cf464daa00ab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21324,7 +21345,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 1346,
+        "line": 1386,
         "snippet": "_sp = _iu.spec_from_file_location(\"admissao_idioma\", Path(__file__).resolve().parent / \"idioma.py\")"
       }
     },
@@ -60698,6 +60719,50 @@
       }
     },
     {
+      "from_file": "scripts/regua_t2/medir_t2c.py",
+      "to_file": "scripts/regua_t2/MEDICAO-T2C-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/medir_t2c.py",
+        "line": 72,
+        "snippet": "(AQUI / \"MEDICAO-T2C-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10),"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t2/medir_t2c.py",
+      "to_file": "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/medir_t2c.py",
+        "line": 32,
+        "snippet": "leitura = {l[\"TEXTO_ID\"]: l for l in json.load(open(AQUI / \"MEDICAO-VIA-AGROMETEO-V1.json\","
+      }
+    },
+    {
+      "from_file": "scripts/regua_t2/medir_t2c.py",
+      "to_file": "scripts/regua_t2/medir_regua_t2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/medir_t2c.py",
+        "line": 19,
+        "snippet": "sp = u.spec_from_file_location(\"mr\", AQUI / \"medir_regua_t2.py\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t2/medir_t2c.py",
+      "to_file": "scripts/regua_t2/medir_via_agrometeo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/medir_t2c.py",
+        "line": 22,
+        "snippet": "sp = u.spec_from_file_location(\"mva\", AQUI / \"medir_via_agrometeo.py\")"
+      }
+    },
+    {
       "from_file": "scripts/regua_t2/medir_via_agrometeo.py",
       "to_file": "admissao/admissao.py",
       "type": "IMPORTS",
@@ -60847,8 +60912,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/regua_t2/mutar_regua_t2.py",
-        "line": 4,
-        "snippet": "orig=open(F,encoding='utf-8').read()"
+        "line": 39,
+        "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()"
       }
     },
     {
@@ -60858,8 +60923,41 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/regua_t2/mutar_regua_t2.py",
-        "line": 19,
-        "snippet": "open(F,'w',encoding='utf-8',newline='').write(orig.replace(a,b))"
+        "line": 48,
+        "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t2/mutar_regua_t2.py",
+      "to_file": "scripts/regua_t2/MEDICAO-T2C-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/mutar_regua_t2.py",
+        "line": 56,
+        "snippet": "med = json.load(open(os.path.join(R, \"scripts\", \"regua_t2\", \"MEDICAO-T2C-V1.json\"), encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t2/mutar_regua_t2.py",
+      "to_file": "scripts/regua_t2/MUTACAO-REGUA-T2-V3.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/mutar_regua_t2.py",
+        "line": 65,
+        "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-REGUA-T2-V3.json\"), \"w\","
+      }
+    },
+    {
+      "from_file": "scripts/regua_t2/mutar_regua_t2.py",
+      "to_file": "scripts/regua_t2/medir_t2c.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/mutar_regua_t2.py",
+        "line": 54,
+        "snippet": "q = subprocess.run([sys.executable, \"scripts/regua_t2/medir_t2c.py\"], cwd=R, env=env,"
       }
     },
     {
@@ -79239,7 +79337,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_regua_t2.py",
-        "line": 147,
+        "line": 190,
         "snippet": "self.g = json.load(open(os.path.join(AQUI, \"GABARITO-T2-V2.json\"), encoding=\"utf-8\"))"
       }
     },
@@ -79250,8 +79348,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_regua_t2.py",
-        "line": 148,
+        "line": 191,
         "snippet": "self.m = json.load(open(os.path.join(AQUI, \"MEDICAO-REGUA-T2-V2.json\"), encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_regua_t2.py",
+      "to_file": "scripts/regua_t2/MEDICAO-T2C-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_regua_t2.py",
+        "line": 167,
+        "snippet": "m = json.load(open(os.path.join(AQUI, \"MEDICAO-T2C-V1.json\"), encoding=\"utf-8\"))"
       }
     },
     {
@@ -82555,7 +82664,7 @@
     "scripts/regua_t2/mutar_regua_t2.py": [
       {
         "pasta": "admissao",
-        "line": 24,
+        "line": 62,
         "constante": "F"
       }
     ],
@@ -82666,10 +82775,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2838,
-    "files_readable": 1291,
-    "files_code_dir": 1149,
-    "file_edges": 5655,
+    "files_tracked": 2841,
+    "files_readable": 1292,
+    "files_code_dir": 1152,
+    "file_edges": 5663,
     "escritas_em_pasta": 85,
     "declared_missing_here": 0
   },
