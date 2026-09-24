@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "reparo-fontes-v1",
-    "HEAD": "b179dee39a4aca44519ffa1e4dd4b650ce00a252",
-    "GENERATED_AT": "2026-09-23T17:45:11-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b5b1628c6ec0b81d6598305f65705859ce7eda50c9415282bc405a881e942536"
+    "HEAD": "aa26839fac00aab2245ed03dc8329c977c30e240",
+    "GENERATED_AT": "2026-09-23T21:29:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9f19be1183c2b157972aada672be26fd23dc82cb0713231b7c740fc41409b98a"
   },
   "FILES": [
     {
@@ -528,7 +528,7 @@
     },
     {
       "path": "RELATORIO-R1-REPARO-FONTES.md",
-      "sha": "ff69dc0ae3c47380795b6d8cfa0499ee2d7a4fe3",
+      "sha": "078150f5f3753e4a3d9920678b91915818a2da22",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3146,7 +3146,7 @@
     },
     {
       "path": "curadoria/test_abastecimento.py",
-      "sha": "9790fb7e877e51d5b0add112675b069a8273582a",
+      "sha": "c7c679ec59be5076df5cfc84d440b5df1c3aefcb",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3258,7 +3258,7 @@
     },
     {
       "path": "curadoria/test_impasse_b4.py",
-      "sha": "310d1e055ed5a9559ab693c488780d7321d03acf",
+      "sha": "b5b4b7274b5f5fd961572f4e456e77a813cd4489",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -16739,6 +16739,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/reparo/R1-WRITESET.json",
+      "sha": "31d4d8bc33d1580a1eef292ef0face18c2f87588",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/reparo/juntar_bancas.py",
       "sha": "14a496fb6accddfd9080f26d88300fa4a7c2c7d5",
       "ext": ".py",
@@ -27900,6 +27907,17 @@
         "file": "curadoria/test_abastecimento.py",
         "line": 25,
         "snippet": "import gatilho_discovery as GD   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_abastecimento.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_abastecimento.py",
+        "line": 26,
+        "snippet": "import lifecycle as LC            # noqa: E402"
       }
     },
     {
@@ -80892,10 +80910,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2773,
+    "files_tracked": 2774,
     "files_readable": 1272,
-    "files_code_dir": 1090,
-    "file_edges": 5537,
+    "files_code_dir": 1091,
+    "file_edges": 5538,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
