@@ -1,0 +1,492 @@
+{
+ "DATASET": "DECISOES-IA-CUR-V1",
+ "NOTA": "as 14 linhas que o agente reviu em DECISOES-SEMANTICAS-V1.json (copia do livro vivo 15:11); a decisao anterior fica em ANTERIOR",
+ "DECISOES": [
+  {
+   "CANDIDATA_ID": "CAND-0057",
+   "NOME": "Il Fatto Alimentare",
+   "URL": "https://www.ilfattoalimentare.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "jornalismo de consumo alimentar (etiquetas, Coop, aditivos); fora do universo agro de protecao de culturas — relevancia duvidosa, nao ha territorio T1..T12 honesto",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "CATEGORIA": "NAO_E_FONTE",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "jornalismo de seguranca alimentar para o consumidor; nenhum territorio T1..T12 encaixa sem esticar (T4 e registo de produtos fitossanitarios, nao aditivos alimentares).",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0257",
+   "NOME": "Sherwood — Foreste ed Alberi Oggi",
+   "URL": "https://www.sherwood.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "sherwood.it e a Radio Sherwood (webzine cultural de Padova), nao a revista florestal «Sherwood — Foreste ed Alberi Oggi»; a candidata aponta para a organizacao errada",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "CATEGORIA": "IDENTIDADE_TROCADA",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "IDENTIDADE_TROCADA",
+    "MOTIVO": "identidade trocada: sherwood.it e a Radio Sherwood (webzine cultural de Padova), nao a revista florestal da ficha. Corrigir a URL da candidata.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0503",
+   "NOME": "cemi-milano.com",
+   "URL": "https://cemi-milano.com/",
+   "TERRITORIO": "T11",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "PORQUE": "CeMi — Commodities Exchange Milano, o evento anual das agrocommodities da Associazione Granaria di Milano (desde 1902); as paginas sao a edicao 2025 (programa de analise de mercado de cereais) e a informacao da edicao 2026. E um EVENTO do setor.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://cemi-milano.com/en/associazione-granaria-milano/",
+     "SHA256": "52a162bd5a274df463a0d6316a2c4eaeb2f0b6e5a18286c9650c503eafdcfd17",
+     "BYTES": 71826,
+     "LIDO_EM": "2026-09-23T05:39:59.782706+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0503\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://cemi-milano.com/en/event-2025/",
+     "SHA256": "9c046b4ca59870ee78ac7b7a623f45e6c3f046f1624ed18ac4e9a8bb9e0ae25c",
+     "BYTES": 118758,
+     "LIDO_EM": "2026-09-23T05:40:03.646059+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0503\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://cemi-milano.com/en/event-info/",
+     "SHA256": "2264b1a22aa54390cec3974d1f947c07849546455e5e3f698e420342adffa488",
+     "BYTES": 76765,
+     "LIDO_EM": "2026-09-23T05:40:06.728924+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0503\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "Palazzo del Ghiaccio, Milano; Associazione Granaria di Milano",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "as paginas sao da edicao do evento e logistica; a da edicao 2025 traz texto de 2022 — sem item de conteudo.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0515",
+   "NOME": "croplifeeurope.eu",
+   "URL": "https://croplifeeurope.eu/",
+   "TERRITORIO": "T9",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "PORQUE": "CropLife Europe representa as empresas que desenvolvem e vendem pesticidas e biopesticidas na Europa (a INSTITUCIONAL diz quem sao os membros); publica a revisao anual e a conferencia 2026 em Bruxelas. E a camada associativa dos CONCORRENTES.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://croplifeeurope.eu/who-we-are/",
+     "SHA256": "0eb58c3e0a5dff4bf2aafea148b91220b55644dfb8e0c4185bfb61749012330c",
+     "BYTES": 92739,
+     "LIDO_EM": "2026-09-23T05:40:23.350245+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0515\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://croplifeeurope.eu/annual-review-2025/",
+     "SHA256": "e2389aa8c43202df39437e5782ddfb070bd5a4b6fced6fa4c99398c235840cdc",
+     "BYTES": 97961,
+     "LIDO_EM": "2026-09-23T05:40:28.008118+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0515\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://croplifeeurope.eu/cleconference2026/",
+     "SHA256": "3fe382637c768fb0785294c2a0eaf394f8f266d12177874a15c4278f713d83cc",
+     "BYTES": 98197,
+     "LIDO_EM": "2026-09-23T05:40:31.474725+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0515\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "EU",
+   "PAIS_PROVA": "Bruxelas; representa o mercado europeu",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "os 2 itens so mostraram o menu (sem texto do item legivel).",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0527",
+   "NOME": "fertilizer.org",
+   "URL": "https://www.fertilizer.org/",
+   "TERRITORIO": "T10",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "PORQUE": "IFA — International Fertilizer Association, a unica associacao global de fertilizantes (~500 membros em ~80 paises); publica programas da industria (emissoes, Innovation Hub). MERCADO / INDUSTRIA de insumos.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.fertilizer.org/about-ifa/what-we-do/",
+     "SHA256": "850f18933f9846bbdd6645b4a168575d05171d3e3acced2b23a80436ca8426fa",
+     "BYTES": 194191,
+     "LIDO_EM": "2026-09-23T05:41:02.624748+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0527\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.fertilizer.org/news/ifa-proba-ghg-emissions-reduction/",
+     "SHA256": "bf4b4deeaee97384d9221534a70a19636541fa01c66778a297b3c4d6006520a3",
+     "BYTES": 218312,
+     "LIDO_EM": "2026-09-23T05:41:09.562125+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0527\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.fertilizer.org/news/ifa-unveils-innovation-hub-program/",
+     "SHA256": "17a3c1dbf09bb4e2e4b9fba4ce6d3f64272c6acc612a96585c741008101a32af",
+     "BYTES": 216537,
+     "LIDO_EM": "2026-09-23T05:41:14.130246+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0527\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "INT",
+   "PAIS_PROVA": "associacao global, sede em Paris, eventos em Barcelona",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "associacao global de fertilizantes; os itens (programa de emissoes, hub de inovacao) nao sustentam T12 nem T10 — ambiguo.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0554",
+   "NOME": "quidanoi.coop",
+   "URL": "http://www.quidanoi.coop/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "loja online de produtos de cooperativas; os itens sao receitas e dicas de consumo",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "CATEGORIA": "NAO_E_FONTE",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "loja online de produtos de cooperativas; os itens sao receitas e dicas de consumo.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0556",
+   "NOME": "italiacooperativa.it",
+   "URL": "http://www.italiacooperativa.it/",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "ha 2 paginas de conteudo (Confcooperative: FonCoop, Caviro) e nenhuma INSTITUCIONAL guardada — a porta exige prova do que a organizacao E; precisa de rede",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "CATEGORIA": "PROVA_INSUFICIENTE",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "sem prova do que o site e (nenhuma pagina institucional); so 2 noticias.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0575",
+   "NOME": "AGRIDIGITAL",
+   "URL": "https://www.agridigitalit.it",
+   "TERRITORIO": "T10",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "PORQUE": "Agridigital — associacao dos sistemas e tecnologias digitais para maquinas agricolas, aderente a FederUnacoma; publica noticias da associacao e das empresas costruttrici. INDUSTRIA de maquinas.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.agridigitalit.it/it/sistemi-tecnologie-digitali-macchine-produzioni-agricole-struttura-associativa.php",
+     "SHA256": "58cabbbd717d5da5e16728f3b961cbd1b04abd7e5644db3fa613b86a307dc68d",
+     "BYTES": 11254,
+     "LIDO_EM": "2026-09-23T05:42:48.515800+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0575\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.agridigitalit.it/it/news_open.php?EW_ID=14845",
+     "SHA256": "703f05b5758ddbbf21274b30750aba626f1cb97d38b1a1e97b2c4d933b8313cf",
+     "BYTES": 13769,
+     "LIDO_EM": "2026-09-23T05:42:51.891910+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0575\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.agridigitalit.it/it/notizie-dalle-aziende-sistemi-tecnologie-digitali-macchine-produzioni-agricole.php",
+     "SHA256": "7be81f2fc3f012e1b446fd30a114cc176f47c34dc552d59bb29c3dd324035afb",
+     "BYTES": 11871,
+     "LIDO_EM": "2026-09-23T05:42:54.173455+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0575\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "FederUnacoma (Italia); assembleia em Zola Predosa-BO",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "os itens sao listagem e uma noticia sem texto proprio legivel.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0577",
+   "NOME": "ASSOMAO",
+   "URL": "https://www.assomao.it",
+   "TERRITORIO": "T10",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "PORQUE": "Assomao — Italian Implements Manufacturers Association (FederUnacoma); publica noticias e comunicados das empresas de alfaias. INDUSTRIA de maquinas.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.assomao.it/en/",
+     "SHA256": "c18be3a351ba1837402e1a68d5c0c4a071b7a68c3f8514fd24115960616a94e7",
+     "BYTES": 15238,
+     "LIDO_EM": "2026-09-23T05:43:06.557184+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0577\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.assomao.it/it/news_open.php?EW_ID=14903",
+     "SHA256": "61f6e8ea911761145b6e44f6c5fa931224f49cdf03f1d2e7719988389d42ec8e",
+     "BYTES": 13223,
+     "LIDO_EM": "2026-09-23T05:43:10.074736+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0577\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.assomao.it/it/news-aziende-costruttrici-implements-macchine-agricole.php",
+     "SHA256": "e879401cdcd394e4b26fedce3d1fae9c7e406b9eedb53769288d2c79bdc126e2",
+     "BYTES": 27159,
+     "LIDO_EM": "2026-09-23T05:43:12.395651+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0577\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "associacao italiana (FederUnacoma), Modena/Bologna",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "os itens sao listagem e uma noticia sem texto proprio legivel.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0579",
+   "NOME": "ASSOTRATTORI",
+   "URL": "https://www.assotrattori.it",
+   "TERRITORIO": "T10",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "PORQUE": "Assotrattori — associacao dos construtores italianos de tratores (FederUnacoma); publica noticias (Agrilevante 2025) e comunicados das empresas. INDUSTRIA de maquinas.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.assotrattori.it/en/index.php",
+     "SHA256": "73d873d85f7f2d8365f59335927c3db6a0ed3aab635fadcb0a17ffb182379885",
+     "BYTES": 11400,
+     "LIDO_EM": "2026-09-23T05:43:26.102684+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0579\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.assotrattori.it/it/news_open.php?EW_ID=14934",
+     "SHA256": "3f85436d7359ab4372a1f40ebfc90632c19330eb27995f96d9209910b9d1666d",
+     "BYTES": 10588,
+     "LIDO_EM": "2026-09-23T05:43:29.545995+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0579\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.assotrattori.it/it/comunicati-stampa-aziende-trattori.php",
+     "SHA256": "b264d834ced0b9d9c2b148ff4d9e269c8778d04bcf754e620eed3a4d06a68b88",
+     "BYTES": 30757,
+     "LIDO_EM": "2026-09-23T05:43:31.795923+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0579\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "associacao italiana (FederUnacoma)",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "os itens sao listagem e uma noticia sem texto proprio legivel.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0580",
+   "NOME": "COMACOMP",
+   "URL": "https://www.comacomp.it",
+   "TERRITORIO": "T10",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "PORQUE": "Comacomp — associacao dos construtores italianos de componentes para maquinas agricolas (FederUnacoma); publica noticias (Agrilevante 2025) e comunicados. INDUSTRIA de maquinas.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.comacomp.it/it/associazione-aziende-costruttrici-componenti-macchine-agricole.php",
+     "SHA256": "2b548a92ab0f259d70fba11b4803ac5bd4e5849c57616d569e54272275f856e5",
+     "BYTES": 15184,
+     "LIDO_EM": "2026-09-23T05:43:35.666467+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0580\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.comacomp.it/it/Presentazione-Agrilevante-2025/n14754",
+     "SHA256": "f19fedea0459a9d3fa769f6f63bb33cbd65b0ad3e3ea970e9b03a4d3571e759b",
+     "BYTES": 13625,
+     "LIDO_EM": "2026-09-23T05:43:39.070276+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0580\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.comacomp.it/it/comunicati-stampa-aziende-componenti-macchine-agricole.php",
+     "SHA256": "00050d8d195bab015b5ec4bf8d1e68a749894169f44204a509d17b877e3d58fa",
+     "BYTES": 33391,
+     "LIDO_EM": "2026-09-23T05:43:41.350585+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0580\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "IT",
+   "PAIS_PROVA": "associacao italiana (FederUnacoma)",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "so 1 item (Agrilevante 2025); a outra pagina e listagem.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0581",
+   "NOME": "COMAGARDEN",
+   "URL": "https://www.comagarden.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "Comagarden — maquinas de jardinagem e espacos verdes, nao agricultura",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "CATEGORIA": "NAO_E_FONTE",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "dados de mercado e listagem, sem item; e maquinas de jardinagem.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0582",
+   "NOME": "clubofbologna.org",
+   "URL": "https://www.clubofbologna.org",
+   "TERRITORIO": "T11",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "PORQUE": "Club of Bologna — task-force mundial sobre mecanizacao agricola (FederUnacoma + Accademia dei Georgofili); publica o premio Pellizzi e o encontro anual durante a EIMA. EVENTOS / encontros.",
+   "PROVAS": [
+    {
+     "PAPEL": "INSTITUCIONAL",
+     "URL": "https://www.clubofbologna.org/en/mission.php",
+     "SHA256": "3daae59da60103a1c59cdb13d947b6ba01423ebf35e045baf86a7bfe08c5e5e5",
+     "BYTES": 7797,
+     "LIDO_EM": "2026-09-23T05:43:55.318624+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0582\\0_INSTITUCIONAL.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.clubofbologna.org/en/pellizzi-prize.php",
+     "SHA256": "8090db3e23c716058655266552ed05d55b2ed9a5bcd8ca0dbf4b7fc25dbfdddf",
+     "BYTES": 6319,
+     "LIDO_EM": "2026-09-23T05:43:58.718151+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0582\\1_CONTEUDO.bin"
+    },
+    {
+     "PAPEL": "CONTEUDO",
+     "URL": "https://www.clubofbologna.org/en/news.php",
+     "SHA256": "34028f542f9c2e8c44730992203b39d6394832af895a14f4e3a2f218e66dbec6",
+     "BYTES": 20762,
+     "LIDO_EM": "2026-09-23T05:44:00.900260+00:00",
+     "EGRESSO": "IT",
+     "BYTES_EM": "%TEMP%\\s2\\provas\\CAND-0582\\2_CONTEUDO.bin"
+    }
+   ],
+   "SEGUNDA_LEITURA": null,
+   "PAIS": "INT",
+   "PAIS_PROVA": "task-force mundial (membros de varios paises), sede em Bologna",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "pagina do premio e listagem de noticias, sem item.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  },
+  {
+   "CANDIDATA_ID": "CAND-0583",
+   "NOME": "progettobiomasse.it",
+   "URL": "https://www.progettobiomasse.it",
+   "TERRITORIO": "NAO SEI",
+   "MOTIVO": "projeto de energia renovavel de biomassa (2010, FederUnacoma/Ministerio); bioenergia, fora do universo; as provas de conteudo sao PDFs",
+   "DECIDIDO_POR": "OPUS (claude-opus-5-5) via agente Orca IA-CUR",
+   "DECIDIDO_EM": "2026-09-24T18:17:05.232398+00:00",
+   "CATEGORIA": "NAO_E_FONTE",
+   "ANTERIOR": {
+    "TERRITORIO": "NAO SEI",
+    "CATEGORIA": "PROVA_INSUFICIENTE",
+    "MOTIVO": "projeto de energia de biomassa financiado pelo ministerio; bioenergia nao cabe em T1..T12 sem esticar.",
+    "DECIDIDO_POR": "OPUS (claude-opus-5-5), missao S2",
+    "DECIDIDO_EM": "2026-09-23T05:52:05.330890+00:00"
+   }
+  }
+ ]
+}
