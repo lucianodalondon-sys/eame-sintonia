@@ -751,13 +751,17 @@
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
       "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+      "data/derivados/TRAVA-MEDIDORES-V1/MAPA-SOURCE-RC-716.tsv",
       "data/derivados/TRAVA-MEDIDORES-V1/mutacao-RESULTADO.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/mutacao.py.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-ANTES.txt",
+      "data/derivados/TRAVA-MEDIDORES-V1/testes-D33-ANTES.txt",
+      "data/derivados/TRAVA-MEDIDORES-V1/testes-D33-DEPOIS.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-DEPOIS.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-cadeia-ANTES.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-cadeia-DEPOIS.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-ANTES.txt",
+      "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-D33.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-DEPOIS.txt",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
       "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
@@ -1455,6 +1459,8 @@
       "docs/operacao/T3-SAMPLING-FRAME-V1.md",
       "docs/operacao/TOPOLOGIA-DA-COLETA.md",
       "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "docs/operacao/TRAVA-MEDIDORES-V1-D33-CRITERIO-A.md",
+      "docs/operacao/TRAVA-MEDIDORES-V1-OS-21.md",
       "docs/operacao/TRAVA-MEDIDORES-V1.md",
       "docs/operacao/TRAVESSIA-GENERICA-DA-UNIDADE.md",
       "docs/operacao/VEREDITO-TEMATICO-T3-V1.md",
@@ -3413,9 +3419,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "trava-medidores-v1",
-    "HEAD": "2157cdfef21a894a7384534bf153b79c1d1c107f",
-    "GENERATED_AT": "2026-09-24T17:33:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844"
+    "HEAD": "c888f68338fba86b8e4ec7f2a2d91b419bc4d034",
+    "GENERATED_AT": "2026-09-24T18:07:30-03:00",
+    "SOURCE_TREE_FINGERPRINT": "df9c7be78893e23a12cecc20fea36c812ae0492e4910b1b10f7736226bacf038"
   },
   "FAMILIES": [
     {
@@ -36293,11 +36299,12 @@
         "papel": "NAO SEI",
         "listas": [
           "ESTADOS",
-          "ETAPAS"
+          "ETAPAS",
+          "PROVAS_DE_RESULTADO"
         ],
-        "palavras": 17,
+        "palavras": 23,
         "por_lingua": {},
-        "sem_marca_de_lingua": 17,
+        "sem_marca_de_lingua": 23,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -36307,7 +36314,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 1033,
+            "line": 1179,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -36333,6 +36340,8 @@
         "data/collection-ledger/italy/observations.ndjson",
         "data/samples/IT-PROBE/probe-fase-c.json",
         "docs/decisoes/DIARIO-DE-DECISOES.md",
+        "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json",
+        "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "leis/fundacao_da_coleta.py",
         "leis/social_matriz.py",
         "orquestrador/orquestrador.py",
@@ -42172,7 +42181,7 @@
           "ferramentas/big_collection/coorte_unica.py:37",
           "regras/italy_contracts.mjs:579",
           "scripts/coorte_micro/funil.py:70",
-          "system-map/scripts/censo_das_estradas_it.py:837"
+          "system-map/scripts/censo_das_estradas_it.py:838"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -54944,6 +54953,7 @@
         "curadoria/CONTRATOS-PASSO-2-V1.json",
         "curadoria/HANDOFF-INTEGRACAO-04.md",
         "curadoria/K1-MEDICAO-V1.json",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
         "curadoria/PROPOSTA-CATALOGO-V1.json",
         "curadoria/PROPOSTA-RECEITAS-V1.json",
         "curadoria/PROPOSTA-RECEITAS-V3.json",
@@ -77146,7 +77156,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 828,
+          "line": 829,
           "snippet": "with open(LIVRO_DO_CURADOR, encoding='utf-8') as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ESTRADAS-IT",
@@ -77416,7 +77426,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
@@ -77454,6 +77464,22 @@
           "file": "tests/test_medir_apos_receitas.py",
           "line": 18,
           "snippet": "\"medir_apos_receitas\", RAIZ / \"scripts\" / \"detector_capa\" / \"medir_apos_receitas.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_os_medidores_da_trava_veem.py",
+          "line": 86,
+          "snippet": "LIVRO_DO_CURADOR = os.path.join(RAIZ, \"curadoria\", \"LIFECYCLE-LEDGER-V1.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
@@ -86986,7 +87012,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 39,
+          "line": 40,
           "snippet": "with open(CATALOGO, encoding='utf-8') as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-ESTRADAS-IT",
@@ -90838,7 +90864,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 464,
+          "line": 465,
           "snippet": "with open(LEDGER, encoding='utf-8') as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ESTRADAS-IT",
@@ -94904,7 +94930,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 837,
+          "line": 838,
           "snippet": "with open(LIVRO_DO_COLETOR, encoding='utf-8') as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ESTRADAS-IT",
@@ -95811,7 +95837,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 703,
+          "line": 704,
           "snippet": "caminho = os.path.join(RAIZ, 'orquestrador', 'orquestrador.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-ESTRADAS-IT",
@@ -105948,7 +105974,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 708,
+          "line": 709,
           "snippet": "import receitas                                    # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-ESTRADAS-IT",
@@ -112034,7 +112060,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 30,
+          "line": 31,
           "snippet": "import social_matriz as mz          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-ESTRADAS-IT",
@@ -112050,7 +112076,7 @@
         },
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 31,
+          "line": 32,
           "snippet": "import fundacao_da_coleta as fdc    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-ESTRADAS-IT",
@@ -112085,7 +112111,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 789,
+          "line": 790,
           "snippet": "'FUNDACAO_DONO': 'leis/fundacao_da_coleta.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -112101,7 +112127,7 @@
         },
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 937,
+          "line": 1081,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -123453,7 +123479,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1587,
+  "UNCLAIMED_FILES_COUNT": 1593,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123715,7 +123741,7 @@
     "edges_proven": 1210,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2819,
+    "files_tracked": 2825,
     "files_covered": 1232,
     "files_code_unclaimed": 0,
     "roles_proven": 163,

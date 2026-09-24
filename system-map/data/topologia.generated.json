@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T20:37:48+00:00",
-  "HEAD": "2157cdfef21a894a7384534bf153b79c1d1c107f",
+  "GENERATED_AT": "2026-09-24T21:32:53+00:00",
+  "HEAD": "c888f68338fba86b8e4ec7f2a2d91b419bc4d034",
   "BRANCH": "trava-medidores-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844",
-  "FICHEIROS_NA_IMPRESSAO": 2967,
+  "SOURCE_TREE_FINGERPRINT": "df9c7be78893e23a12cecc20fea36c812ae0492e4910b1b10f7736226bacf038",
+  "FICHEIROS_NA_IMPRESSAO": 2973,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3723,14 +3723,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844",
+    "VERSAO": "df9c7be78893e23a12cecc20fea36c812ae0492e4910b1b10f7736226bacf038",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844",
+    "VERSAO": "df9c7be78893e23a12cecc20fea36c812ae0492e4910b1b10f7736226bacf038",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3758,7 +3758,7 @@
    {
     "PATH": "system-map/scripts/censo_das_estradas_it.py",
     "PAPEL": "FONTE",
-    "VERSAO": "8d73e5019c3de0a8b17ab53352f4a9337ff080f4",
+    "VERSAO": "dcb7632ccde34d25ac5cd0a56dc0eced3907e95e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5158,7 +5158,7 @@
    {
     "PATH": "tests/test_os_medidores_da_trava_veem.py",
     "PAPEL": "FONTE",
-    "VERSAO": "cc22f150b4c42e03a2adaffb194c2e012875665e",
+    "VERSAO": "be6c7221014ac2f662a3a062dc6fb3bab3f15993",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5619,7 +5619,7 @@
    }
   ],
   "INPUTS_COUNT": 797,
-  "INPUTS_DIGEST": "8bc6882059f672cefe11e5b42ad1039cd4c6a212a4399adf414a637194ce2dae",
+  "INPUTS_DIGEST": "4d308467b8af6234914ca1e71b1712dc5eb2289c3f35aa7a6aed37a45a9f1f86",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5645,15 +5645,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 500,
+  "DOCUMENTOS_LIDOS": 502,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "8bcb8ecf5e3639ffbf4c876bd5ca1d8aa71f57c6bc0c5012c364b06b3a9c4453",
-  "SEMANTIC_HASH": "64f8afc8bfb1a92e4fd78b79dae8e886541fc572ab94602fa22b8e86cfcb4b9e"
+  "MEASUREMENT_HASH": "7b278f3faa742e1007b3fe50d05b09b4b261c1d2be42dbbef7eb81b1d2213d00",
+  "SEMANTIC_HASH": "787d14ce6c0b6422771227a51b1129d6cbed5f766dced0fede3422f04e5cf936"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -17039,7 +17039,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 828,
+      "LINHA": 829,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ESTRADAS-IT",
@@ -17182,6 +17182,14 @@
      {
       "FICHEIRO": "tests/test_medir_apos_receitas.py",
       "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_os_medidores_da_trava_veem.py",
+      "LINHA": 86,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
@@ -22680,7 +22688,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 39,
+      "LINHA": 40,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-ESTRADAS-IT",
@@ -25003,7 +25011,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 464,
+      "LINHA": 465,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-ESTRADAS-IT",
@@ -27280,7 +27288,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 837,
+      "LINHA": 838,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ESTRADAS-IT",
@@ -28131,7 +28139,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 703,
+      "LINHA": 704,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-ESTRADAS-IT",
@@ -33227,7 +33235,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 708,
+      "LINHA": 709,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-ESTRADAS-IT",
@@ -36766,7 +36774,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 30,
+      "LINHA": 31,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-ESTRADAS-IT",
@@ -36774,7 +36782,7 @@
      },
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 31,
+      "LINHA": 32,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-ESTRADAS-IT",
@@ -37450,7 +37458,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 789,
+      "LINHA": 790,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -37458,7 +37466,7 @@
      },
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 937,
+      "LINHA": 1081,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -45878,6 +45886,7 @@
     "provas/objeto_e_observacao_no_postgres.py",
     "provas/os_portoes_da_collection.py",
     "provas/preservar_coleta_no_postgres.py",
+    "system-map/scripts/censo_das_estradas_it.py",
     "tests/test_a_porta_cli_liga_o_banco.py",
     "tests/test_cliente_postgres.py",
     "tests/test_italia_na_porta_canonica.py",
@@ -46457,6 +46466,7 @@
     "provas/a_rota_do_html_nao_vai_a_rede.py",
     "provas/candidatos_tematicos.py",
     "provas/chain.py",
+    "system-map/scripts/censo_das_estradas_it.py",
     "tests/test_a_rota_do_html.py",
     "tests/test_c4g_a_especie_do_video.py"
    ],
@@ -47045,6 +47055,7 @@
     "provas/recollection_timeout_local.mjs",
     "provas/so_a_colheita_atravessa.py",
     "provas/ttl_mutable_local.mjs",
+    "system-map/scripts/censo_das_estradas_it.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
     "tests/test_fontes_explicitas_no_coletor.py",

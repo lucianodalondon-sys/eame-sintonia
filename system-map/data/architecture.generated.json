@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "trava-medidores-v1",
-    "HEAD": "2157cdfef21a894a7384534bf153b79c1d1c107f",
-    "GENERATED_AT": "2026-09-24T17:33:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844"
+    "HEAD": "c888f68338fba86b8e4ec7f2a2d91b419bc4d034",
+    "GENERATED_AT": "2026-09-24T18:07:30-03:00",
+    "SOURCE_TREE_FINGERPRINT": "df9c7be78893e23a12cecc20fea36c812ae0492e4910b1b10f7736226bacf038"
   },
   "FILES": [
     {
@@ -5084,15 +5084,22 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/MAPA-SOURCE-RC-716.tsv",
+      "sha": "98497bd35a98a772afb5e7f1c5a75c31a3b9783c",
+      "ext": ".tsv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/mutacao-RESULTADO.txt",
-      "sha": "79c9a401e6ecb6349e637ff8579a810692183063",
+      "sha": "f41c079dde461e79d7216e7a2446d698884b100d",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/mutacao.py.txt",
-      "sha": "161c8450bfcbc749d377fd121323a9efabb84060",
+      "sha": "f970e7ad571bbec6beed2be23f60df565180eded",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -5100,6 +5107,20 @@
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-ANTES.txt",
       "sha": "250ee68b8083351b78fccdc43c6d03e826dadc46",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-D33-ANTES.txt",
+      "sha": "f47432feb54f447062717e7a29e3722fba698090",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-D33-DEPOIS.txt",
+      "sha": "9773245094265179ae0cdfcef1fc41be74104e23",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -5128,6 +5149,13 @@
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-ANTES.txt",
       "sha": "0529134fbf7a1baea4f0c3e06ea74f000d4d9cd7",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-D33.txt",
+      "sha": "34712f899b6973be18c7f6ac63bed7e6b23bcd58",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -9994,6 +10022,20 @@
       "path": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
       "sha": "3cf19203ad5e0f3a0f274ef65358665e6c960193",
       "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/TRAVA-MEDIDORES-V1-D33-CRITERIO-A.md",
+      "sha": "a38b8c762174849c0d562a90358096d026d16091",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/TRAVA-MEDIDORES-V1-OS-21.md",
+      "sha": "b6c52c1d5e9e2ade9e4c258de7c4e2855fbc9ee0",
+      "ext": ".md",
       "readable": false,
       "code_dir": false
     },
@@ -17755,7 +17797,7 @@
     },
     {
       "path": "system-map/scripts/censo_das_estradas_it.py",
-      "sha": "8d73e5019c3de0a8b17ab53352f4a9337ff080f4",
+      "sha": "dcb7632ccde34d25ac5cd0a56dc0eced3907e95e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19274,7 +19316,7 @@
     },
     {
       "path": "tests/test_os_medidores_da_trava_veem.py",
-      "sha": "cc22f150b4c42e03a2adaffb194c2e012875665e",
+      "sha": "be6c7221014ac2f662a3a062dc6fb3bab3f15993",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -61308,7 +61350,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 29,
+        "line": 30,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -61319,7 +61361,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 39,
+        "line": 40,
         "snippet": "with open(CATALOGO, encoding='utf-8') as f:"
       }
     },
@@ -61330,7 +61372,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 828,
+        "line": 829,
         "snippet": "with open(LIVRO_DO_CURADOR, encoding='utf-8') as f:"
       }
     },
@@ -61341,7 +61383,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 464,
+        "line": 465,
         "snippet": "with open(LEDGER, encoding='utf-8') as f:"
       }
     },
@@ -61352,7 +61394,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 483,
+        "line": 484,
         "snippet": "with open(PROBE, encoding='utf-8') as f:"
       }
     },
@@ -61363,8 +61405,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 773,
+        "line": 774,
         "snippet": "'M1_ONDE_A_DEFINICAO_VIVE': 'docs/decisoes/DIARIO-DE-DECISOES.md',"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 915,
+        "snippet": "os.path.join(RAIZ, 'ferramentas', 'big_collection', 'BC4D-MICRO-FINAL-RESULTADO.json'),"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 914,
+        "snippet": "os.path.join(RAIZ, 'ferramentas', 'big_collection', 'BC5-BIG-COLLECTION-1A-ONDA.json'),"
       }
     },
     {
@@ -61374,7 +61438,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 31,
+        "line": 32,
         "snippet": "import fundacao_da_coleta as fdc    # noqa: E402"
       }
     },
@@ -61385,7 +61449,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 789,
+        "line": 790,
         "snippet": "'FUNDACAO_DONO': 'leis/fundacao_da_coleta.py',"
       }
     },
@@ -61396,7 +61460,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 30,
+        "line": 31,
         "snippet": "import social_matriz as mz          # noqa: E402"
       }
     },
@@ -61407,7 +61471,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 937,
+        "line": 1081,
         "snippet": "'MATRIZ': 'leis/social_matriz.py',"
       }
     },
@@ -61418,7 +61482,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 703,
+        "line": 704,
         "snippet": "caminho = os.path.join(RAIZ, 'orquestrador', 'orquestrador.py')"
       }
     },
@@ -61429,7 +61493,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 708,
+        "line": 709,
         "snippet": "import receitas                                    # noqa: PLC0415"
       }
     },
@@ -61440,7 +61504,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 837,
+        "line": 838,
         "snippet": "with open(LIVRO_DO_COLETOR, encoding='utf-8') as f:"
       }
     },
@@ -61451,7 +61515,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 327,
+        "line": 328,
         "snippet": "with open(MODELO, encoding='utf-8') as f:"
       }
     },
@@ -76967,6 +77031,17 @@
     },
     {
       "from_file": "tests/test_os_medidores_da_trava_veem.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_medidores_da_trava_veem.py",
+        "line": 86,
+        "snippet": "LIVRO_DO_CURADOR = os.path.join(RAIZ, \"curadoria\", \"LIFECYCLE-LEDGER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_os_medidores_da_trava_veem.py",
       "to_file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
       "type": "READS",
       "payload": "artefacto",
@@ -82087,7 +82162,7 @@
     "system-map/scripts/censo_das_estradas_it.py": [
       {
         "pasta": "system-map",
-        "line": 1033,
+        "line": 1179,
         "constante": "SAIDA"
       }
     ],
@@ -82163,10 +82238,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2819,
+    "files_tracked": 2825,
     "files_readable": 1283,
     "files_code_dir": 1122,
-    "file_edges": 5622,
+    "file_edges": 5625,
     "escritas_em_pasta": 84,
     "declared_missing_here": 0
   },
