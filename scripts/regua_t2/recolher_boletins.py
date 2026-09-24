@@ -77,6 +77,28 @@ SITES = [
     ("IT-T2-035", "Sardegna · ARPAS", "https://www.arpa.sardegna.it/", "catalogo curadoria"),
 ]
 
+# 2.a ida (Adenda 2): paginas-indice de boletins ENCONTRADAS na 1.a ida (de onde vieram).
+SITES_IDA2 = [
+    ("IT-T2-001", "ARPAE · bollettino agrofenologico",
+     "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettino-agrofenologico",
+     "link em .../bollettini-e-rapporti-agrometeo (1.a ida)"),
+    ("IT-T3-002", "Campania · SFR bollettini 2026",
+     "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+     "entrada do contrato; na 1.a ida a regra pegou a navegacao antes dos PDF"),
+    ("IT-T3-008", "Puglia · agrometeo bollettini", "https://www.agrometeopuglia.it/bollettini",
+     "entrada do contrato; idem"),
+    ("NAO_CATALOGADO", "Liguria · bollettino di olivicoltura",
+     "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-olivicoltura.html",
+     "link em agrometeo-caar.html (1.a ida)"),
+    ("NAO_CATALOGADO", "Liguria · bollettino di viticoltura",
+     "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-viticoltura.html",
+     "link em agrometeo-caar.html (1.a ida)"),
+    ("NAO_CATALOGADO", "Trentino · FEM bollettini tecnici", "https://www.fmach.it/Servizi/Bollettini-tecnici",
+     "link na pagina inicial da FEM (1.a ida)"),
+    ("IT-T3-010", "Puglia · APOL bollettini 2026",
+     "http://www.apol.it/press/item/bollettini-fitosanitari-mosca-dell-olivo-2026", "1.a ida"),
+]
+
 REGRA = re.compile(r"bollettin|notiziario|agrometeo|fitosanitar|difesa", re.I)
 _NAV = re.compile(r"privacy|cookie|contatt|accessibil|login|facebook|twitter|instagram|"
                   r"youtube|linkedin|mailto:|javascript:|#", re.I)
@@ -100,15 +122,23 @@ def alvos_da_pagina(corpo: bytes, base: str, n: int) -> list[str]:
         if REGRA.search(u) or REGRA.search(txt) or p.path.lower().endswith(".pdf"):
             vistos.add(u)
             fora.append(u)
-            if len(fora) >= n:
-                break
-    return fora
+    if PDF_PRIMEIRO:
+        fora = [u for u in fora if urlparse(u).path.lower().endswith(".pdf")] +                [u for u in fora if not urlparse(u).path.lower().endswith(".pdf")]
+    return fora[:n]
+
+
+PDF_PRIMEIRO = False
 
 
 def main() -> int:
+    global PDF_PRIMEIRO, SAIDA
+    ida2 = "--ida=2" in sys.argv
+    if ida2:
+        PDF_PRIMEIRO = True
+        SAIDA = Path(__file__).parent / "RECOLHA-BOLETINS-V2.json"
     PASTA.mkdir(parents=True, exist_ok=True)
     sites, itens = [], []
-    for sid, nome, entrada, origem in SITES:
+    for sid, nome, entrada, origem in (SITES_IDA2 if ida2 else SITES):
         eg = REDE.portao_de_egresso("IT")
         reg = {"SOURCE_ID": sid, "SERVICO": nome, "ENTRADA": entrada, "ORIGEM_DO_ENDERECO": origem,
                "EGRESSO": {"GATE": eg["EGRESS_GATE"], "VOTOS": [(v["VERIFICADOR"], v["PAIS"]) for v in eg["VOTOS"]],
@@ -170,7 +200,7 @@ def main() -> int:
                     seguiu = True
                     fila = mais[:max(0, TETO - reg["PEDIDOS"])] + fila
         time.sleep(PAUSA_S)
-    out = {"DATASET": "RECOLHA-BOLETINS-V1", "PROTOCOLO": "PROTOCOLO-GABARITO-T2.md#adenda-2",
+    out = {"DATASET": SAIDA.stem, "PROTOCOLO": "PROTOCOLO-GABARITO-T2.md#adenda-2",
            "REGRA": "egresso por consenso antes de cada site; robots; teto %d/anfitriao; %.0f s; alvos por regra fixa" % (TETO, PAUSA_S),
            "BYTES_EM": str(PASTA), "SITES": sites, "ITENS": itens,
            "CONTAGEM": {"SITES": len(sites), "ITENS": len(itens),

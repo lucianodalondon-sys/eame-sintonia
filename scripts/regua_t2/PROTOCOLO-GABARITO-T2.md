@@ -150,3 +150,13 @@ para a régua (não serviram para escolher palavra nenhuma): é a primeira medid
 - **Bytes fora do Git** (`%USERPROFILE%\sintonia-gabarito\REGUA-T2-V1\recolha\`), sha256 no manifesto
   `scripts/regua_t2/RECOLHA-BOLETINS-V1.json`.
 - **Rótulo**: o eixo JANELA da Adenda 1, lido à mão no texto extraído, com o trecho que decidiu.
+
+### Adenda 2 · 2.ª ida (escrita ANTES dela)
+
+A 1.ª ida (`RECOLHA-BOLETINS-V1.json`, 15 serviços, 64 pedidos, 35 páginas) trouxe sobretudo
+páginas-índice: a regra pegava primeiro os links de navegação que também dizem «bollettini». A 2.ª
+ida parte das páginas-índice de boletins que a 1.ª ida ENCONTROU (lista `SITES_IDA2`, cada uma com
+a página da 1.ª ida onde apareceu) e muda UMA coisa na regra: **os links para PDF vêm primeiro**,
+e só depois os outros links pela mesma regra. Mesmo teto (6 por anfitrião, contando a 1.ª ida não —
+é outra visita, noutro dia de rede não; fica declarado), mesma pausa, mesmo egresso por consenso.
+Saída: `RECOLHA-BOLETINS-V2.json`.
