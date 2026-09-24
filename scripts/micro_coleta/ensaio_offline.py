@@ -444,7 +444,9 @@ def main(argv=None) -> int:
     env.update({"CURL_HOME": str(D / "curl"), "ITALY_OPS_ROOT": str(D / "ops"),
                 "SINTONIA_COLLECTION_DSN": base.url, "SINTONIA_SALA_DSN": base.url,
                 "SINTONIA_SALA_BACKEND": "POSTGRES", "SINTONIA_PSQL_EXE": base.exe("psql"),
-                "SINTONIA_ARMAZEM_RAIZ": str(arvore), "PYTHONUTF8": "1",
+                # ⚠️ FORA da arvore: a bancada e OPERACIONAL (SINTONIA_COLLECTION_DSN),
+                # e raiz_do_armazem_local recusa armazem operacional dentro do repo (BC4).
+                "SINTONIA_ARMAZEM_RAIZ": str(D / "armazem"), "PYTHONUTF8": "1",
                 "PATH": str(PG_BIN) + os.pathsep + os.environ.get("PATH", "")})
     (D / "ops").mkdir()
     resultado = {"ENSAIO": str(D), "INICIO": agora(), "FONTES": fontes,
@@ -456,7 +458,8 @@ def main(argv=None) -> int:
                  "FIXTURES": len(mapa), "PORTOS": {"HTTP": ph, "HTTPS": ps, "PG": base.porto}}
     try:
         resultado["BASE"] = base.subir(arvore, env)
-        os.environ.update({k: env[k] for k in ("SINTONIA_SALA_DSN", "SINTONIA_PSQL_EXE")})
+        os.environ.update({k: env[k] for k in ("SINTONIA_SALA_DSN", "SINTONIA_PSQL_EXE",
+                                               "SINTONIA_ARMAZEM_RAIZ")})
         antes = contagens()
         corridas = []
         # ⚠️ ROLLBACK PROVADO SOBRE UMA BASE CHEIA. Repor uma base vazia prova
@@ -509,7 +512,7 @@ def main(argv=None) -> int:
         # relatorio ler. Os campos do mandato saem da corrida sem essa opcao.
         rel = MC.relatorio(runs, corridas=corridas,
                            livro=arvore / "data" / "samples" / "LIVRO-DE-DECISOES.json",
-                           armazem=arvore, saida=saida) if runs and not provar_rollback else None
+                           armazem=D / "armazem", saida=saida) if runs and not provar_rollback else None
         led = D / "ops" / "data" / "collection-ledger" / "italy"
         registo_da_1a = list(srv.registo)     # os campos sao da 1.a passagem; a 2.a conta a parte
         if duas:

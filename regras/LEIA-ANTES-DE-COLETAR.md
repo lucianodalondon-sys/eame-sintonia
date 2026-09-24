@@ -103,6 +103,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **Apify — a rota paga** — Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.
 - **Censo das lanes antes de unificar** — Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel; e as do ensaio do cutover (X1): medidores que mandam PARAR antes do passo seguinte, a fotografia dos livros extra e os passos 5b/5c/7b que o SWITCH_PLAN nao tinha.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
+- **Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)** — Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.
 
 ---
 
@@ -148,4 +149,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 6 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 7 ferramentas e 2 peças de fonte declaradas no mapa.

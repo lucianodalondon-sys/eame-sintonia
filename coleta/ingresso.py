@@ -82,7 +82,9 @@ import artefato as art                                    # noqa: E402
 # um deles mudasse a ligacao partia-se em silencio — que e a pior maneira de
 # uma linhagem se perder.
 from guarda.preservar_coleta import (ArmazemLocal, PASSAGEM,  # noqa: E402
-                                     PASSAGENS, preservar)
+                                     PASSAGENS, preservar,
+                                     ArmazemOperacionalSemRaiz, ArmazemProtegido,
+                                     apagar_armazem_de_medicao, raiz_do_armazem_local)
 # ⚠️ O DONO DO RASTRO, E NAO UMA SEGUNDA TELEMETRIA.
 # `medidas/rastro_da_coleta.py` ja escreve as passagens de DERIVED, STRUCTURED
 # e ADMISSION. A etapa RAW estava no vocabulario (`telemetria.ETAPAS_DA_COLETA`)

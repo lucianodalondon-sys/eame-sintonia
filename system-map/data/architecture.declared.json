@@ -4646,6 +4646,24 @@
    "files": [
     "ferramentas/big_collection/coorte_unica.py"
    ]
+  },
+  {
+   "id": "C-RECONCILIAR-BYTES-BC4",
+   "name": "Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.",
+   "why_here": "BC4 (24/09/2026): a linha instalada nao tinha a raiz operacional do armazem, e os bytes da micro real ficaram na arvore do bot (XX/, NAO_SEI/), residuo que a suite apaga. O conserto (raiz obrigatoria no modo OPERACIONAL) fecha o defeito para a frente; isto repoe os 8 ficheiros ja pousados sem mexer a mao na Sala.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/big_collection/reconciliar_bytes_bc4.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
