@@ -4675,7 +4675,7 @@
     "audit",
     "collection-strategy"
    ],
-   "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n). juntar_bancas.py junta as fatias num ANTES/DEPOIS por fonte e por causa (reparo, re-canario, qualify).",
+   "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n). juntar_bancas.py junta as fatias num ANTES/DEPOIS por fonte e por causa (reparo, re-canario, qualify). revisar_ready.py re-corre o reparo so para as READY novas numa banca, reabre o item do canario e marca sinais de suspeita (caminho de servico, sem data) para revisao humana.",
    "why_here": "O reparo de contratos (curadoria/reparar_contrato.py, etapa REPAIR_CONTRACT do worker) muda contratos e o livro de estado; medir o efeito no livro vivo seria escrever no vivo. A banca e descartavel e fica fora do Git.",
    "departments": [
     "ENGENHARIA",
@@ -4683,7 +4683,8 @@
    ],
    "files": [
     "scripts/reparo/medir_em_copia.py",
-    "scripts/reparo/juntar_bancas.py"
+    "scripts/reparo/juntar_bancas.py",
+    "scripts/reparo/revisar_ready.py"
    ]
   }
  ],
