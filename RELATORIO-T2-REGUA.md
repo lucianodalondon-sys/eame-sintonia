@@ -89,7 +89,23 @@ estimativa de colheita, regiões produtoras); (3) decidir com o dono se a fenolo
 
 ## Prova pela porta canónica com banco descartável
 
-Ver a secção «PROVA D29» abaixo (preenchida no fim).
+`scripts/regua_t2/PROVA-D29-PORTA-CANONICA-OFFLINE.json` (driver `prova_d29_porta.py`).
+
+- **Pela VPN IT: BLOQUEADA.** O portão de egresso consulta `ipinfo.io`, que respondeu 429 («limite de
+  pedidos», várias sessões na mesma saída) de 16:55Z a 17:10Z. País = UNKNOWN → o portão bloqueia,
+  e está certo. Nenhuma página foi pedida.
+- **Sem rede, pela porta canónica, numa cópia (worktree destacada) com banco descartável próprio:**
+  reprocessei 6 corridas que já estão no ledger do Git (`--so-a-porta --colheita-da-corrida`,
+  `universo=T2`, proxy morto). Resultado no banco: RAW 16 · DERIVED 9 · ESTRUTURADO 9 · **Sala 8**.
+  Os 8 são todos boletins de janela (ARPAV ×4, Campania SFR, Terre dell'Etruria mosca, ARIF, APOL).
+  Nenhuma notícia de mercado entrou. `FACT_TIME`, `FACT_LOCATION` e `SOURCE_LOCATION` chegaram à
+  Sala como `NAO SEI` — a porta não inventou tempo nem lugar.
+- **Defeito pré-existente achado (não é da régua):** 2 das 6 corridas (Campania e ARIF de 18/09)
+  rebentam no ingresso — `coleta/ingresso.py:829`, `TypeError: Artefato() got multiple values for
+  keyword argument 'CONTENT_TYPE'`. Os mesmos boletins entraram pela outra corrida.
+- **Lição:** `--filtro fonte=` não recorta uma colheita reprocessada — a corrida PILOT trouxe 10
+  observações de várias fontes.
+- O banco foi desligado (sem `postmaster.pid`).
 
 ## Provas fora do Git (caminho e sha256)
 
