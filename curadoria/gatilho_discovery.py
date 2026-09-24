@@ -130,7 +130,18 @@ def assinatura_da_condicao() -> str:
     mudar nada.
     """
     h = hashlib.sha256()
+    # A regra da ponte e a caracterizacao que ela le tambem sao condicao: sem
+    # isto, instalar uma regra nova deixava o FEEDER em NO-OP para sempre.
+    h.update(PONTE.REGRA_VERSAO.encode("utf-8"))
+    h.update(PONTE.CARACT.read_bytes() if PONTE.CARACT.exists() else b"-")
     h.update(CANDIDATAS.read_bytes() if CANDIDATAS.exists() else b"-")
+    h.update(assinatura_da_fila().encode("utf-8"))
+    return h.hexdigest()
+
+
+def assinatura_da_fila() -> str:
+    """O essencial de cada tarefa (id, estado, tentativas), sem carimbos de hora."""
+    h = hashlib.sha256()
     try:
         tarefas = F._ler()["TAREFAS"]
     except Exception:
@@ -307,10 +318,16 @@ def talvez_alimentar(estado: dict | None = None, *,
         estado["FEEDER_ULTIMA_CHAMADA_AT"] = agora.isoformat()
         estado["FEEDER_CHAMADAS_TOTAL"] = int(estado.get("FEEDER_CHAMADAS_TOTAL", 0)) + 1
 
-    # Nivel 2 — DISCOVERY: so quando o proprio acervo esta baixo, e com intervalo.
+    # Nivel 2 — DISCOVERY: so quando o proprio acervo esta baixo.
     pend = candidatas_por_qualificar()
     m["CANDIDATAS_POR_QUALIFICAR"] = pend
-    if pend > CANDIDATE_LOW_WATERMARK:
+
+    # Re-medir elegíveis DEPOIS do feeder: se ele acabou de criar tarefas, a
+    # fila já não está vazia e o discovery não precisa de disparar agora.
+    eligible_agora = len(F.elegiveis())
+    m["QUEUE_ELIGIBLE_APOS_FEEDER"] = eligible_agora
+
+    if eligible_agora > QUEUE_LOW_WATERMARK or pend > CANDIDATE_LOW_WATERMARK:
         m["DECISAO"] = "FEEDER_SO — acervo ainda chega"
         return m
 
@@ -322,6 +339,23 @@ def talvez_alimentar(estado: dict | None = None, *,
             faltam = -1
     else:
         faltam = -1
+
+    # ⚠️ IMPASSE B4 (23/09): fila e acervo a zero, e o gatilho esperava 54 min.
+    # O intervalo existe contra a RAJADA (discovery que nada acha, repetido a
+    # cada 15 s). Chegar a zero DEPOIS de trabalho feito nao e rajada: a fila
+    # mudou desde o ultimo discovery, logo dispara ja. Fila igual a do ultimo
+    # discovery = nada aconteceu desde entao -> o intervalo manda.
+    #
+    #     CHEGOU A ZERO AGORA != CONTINUA A ZERO DESDE O ULTIMO CRAWL.
+    #
+    # Sem assinatura gravada (estado de antes desta regra) o intervalo manda.
+    fila_no_ultimo = estado.get("DISCOVERY_ASSINATURA_FILA")
+    chegou_a_zero = (eligible_agora == 0 and pend == 0 and fila_no_ultimo is not None
+                     and fila_no_ultimo != assinatura_da_fila())
+    if faltam > 0 and chegou_a_zero:
+        m["DISCOVERY_ANTECIPADO"] = "fila mudou desde o ultimo discovery e chegou a zero"
+        faltam = -1
+
     if faltam > 0:
         m["DECISAO"] = "DISCOVERY_EM_INTERVALO"
         m["DISCOVERY_PROXIMA_EM_S"] = round(faltam, 0)
@@ -333,6 +367,7 @@ def talvez_alimentar(estado: dict | None = None, *,
     # Depois de descobrir, drenar as novas para a fila.
     m["FEEDER_2"] = feeder()
     m["ACCOES"].append("FEEDER_2")
+    estado["DISCOVERY_ASSINATURA_FILA"] = assinatura_da_fila()
     m["DECISAO"] = "DISCOVERY_ACCIONADA"
     return m
 

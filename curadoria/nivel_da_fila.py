@@ -38,6 +38,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 import baldes_das_candidatas as B  # noqa: E402
+import fila as F                   # noqa: E402
 
 SAIDA = RAIZ / "curadoria" / "DISCOVERY-SIGNAL-V1.json"
 
@@ -46,12 +47,39 @@ DISCOVERY_PRODUCER = {"LANE": "source-discovery-v1", "COMMIT_MEDIDO": "56d037b3"
                       "NOTA": "produtor existe noutra bancada; este sinal e o consumidor a pedir"}
 
 
+def _qualify_ja_tentadas() -> set:
+    """CANDIDATE_IDs que já tiveram uma tarefa QUALIFY (qualquer resultado).
+
+    Uma fonte cujo QUALIFY BLOQUEOU (território NAO SEI) não vai avançar
+    automaticamente — não conta como backlog accionável. Só as que ainda
+    não foram tentadas (sem tarefa QUALIFY nenhuma) representam trabalho real.
+    """
+    try:
+        d = F._ler()
+    except Exception:
+        return set()
+    return {t["SOURCE_ID"] for t in d["TAREFAS"] if t["TASK_TYPE"] == F.QUALIFY}
+
+
 def medir(baldes: dict | None = None, watermark: int = CANDIDATE_LOW_WATERMARK) -> dict:
     b = baldes if baldes is not None else B.calcular()
     n = b["NUNCA_CARACTERIZADAS"]
-    html_novas = n["HTML_NOVAS"]
-    mais_amostra = b["CARACTERIZADAS_NAO_READY_PORQUE"].get("NEEDS_MORE_SAMPLING", 0)
-    backlog = html_novas + mais_amostra
+
+    # HTML_NOVAS: só conta as que ainda não tiveram QUALIFY (nenhum resultado).
+    # As que tiveram QUALIFY BLOQUEADO não vão avançar sozinhas — não são backlog.
+    html_novas_ids = set(n.get("HTML_NOVAS_IDS", []))
+    tentadas = _qualify_ja_tentadas()
+    html_actionable = len(html_novas_ids - tentadas)
+
+    # Mesma regra para NEEDS_MORE_SAMPLING: a que ja teve QUALIFY e bloqueou nao
+    # volta sozinha. Sem a lista de IDs (baldes antigos), fica a contagem.
+    if "NEEDS_MORE_SAMPLING_IDS" in b:
+        mais_amostra = len(set(b["NEEDS_MORE_SAMPLING_IDS"]) - tentadas)
+        amostra_bloqueada = len(set(b["NEEDS_MORE_SAMPLING_IDS"]) & tentadas)
+    else:
+        mais_amostra = b["CARACTERIZADAS_NAO_READY_PORQUE"].get("NEEDS_MORE_SAMPLING", 0)
+        amostra_bloqueada = 0
+    backlog = html_actionable + mais_amostra
     needed = backlog < watermark
     return {
         "DATASET": "DISCOVERY-SIGNAL-V1",
@@ -62,9 +90,11 @@ def medir(baldes: dict | None = None, watermark: int = CANDIDATE_LOW_WATERMARK) 
         "UNIVERSO_DESTA_ARVORE": b["UNIVERSO_DESTA_ARVORE"],
         "CANDIDATE_LOW_WATERMARK": watermark,
         "CANDIDATE_BACKLOG": backlog,
-        "CANDIDATE_BACKLOG_COMPOSICAO": {"HTML_NUNCA_CARACTERIZADAS_NOVAS": html_novas,
+        "CANDIDATE_BACKLOG_COMPOSICAO": {"HTML_NUNCA_CARACTERIZADAS_NOVAS": html_actionable,
                                          "NEEDS_MORE_SAMPLING": mais_amostra},
         "FORA_DO_BACKLOG": {"SOCIAL_FORA_DE_ESCOPO": n["SOCIAL"],
+                            "HTML_QUALIFY_BLOQUEADO": len(html_novas_ids & tentadas),
+                            "NEEDS_MORE_SAMPLING_JA_TENTADAS": amostra_bloqueada,
                             "CAPABILITY_BLOCK": b["TOTAIS"]["COM_SOURCE_ID_SEM_CONTRATO"]
                             + b["CARACTERIZADAS_NAO_READY_PORQUE"].get("CAPABILITY_BLOCK", 0),
                             "SEM_TERRITORIO": b["TOTAIS"]["SEM_TERRITORIO"],
