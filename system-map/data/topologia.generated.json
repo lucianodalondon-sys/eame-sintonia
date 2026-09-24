@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T20:52:50+00:00",
-  "HEAD": "d0e9a1a01812051bf6fd659df7fe1dccac5f6365",
+  "GENERATED_AT": "2026-09-24T21:26:14+00:00",
+  "HEAD": "a6ead79483b3ac0385e303ac870430b459cc870d",
   "BRANCH": "regua-t1-janela-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "9adba7ce20331ae937f640b89bf1f42cd181de3b073ca72e69ef63fc33adcb71",
-  "FICHEIROS_NA_IMPRESSAO": 3003,
+  "SOURCE_TREE_FINGERPRINT": "3527ae7081338b8144cf2af53f4ec3be97f8b4c8870ec19aa9e089fd5eb1292d",
+  "FICHEIROS_NA_IMPRESSAO": 3009,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3672,6 +3672,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/regua_t1/medir_aperto_site.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a003c1206b45af668a35daf9df06c30c45f7e6e9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/regua_t1/medir_regua_t1.py",
     "PAPEL": "FONTE",
     "VERSAO": "804e6c02e88d10c3457d6ef2557f47a08565d8d9",
@@ -3689,6 +3696,13 @@
     "PATH": "scripts/regua_t1/mutar_regua_t1.py",
     "PAPEL": "FONTE",
     "VERSAO": "e6f318893aa9c730cf168f31b89d797ec90b5bdd",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/regua_t1/selecionar_cega.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0813235227431c9002cc557efd5cd489f584599c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3814,14 +3828,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9adba7ce20331ae937f640b89bf1f42cd181de3b073ca72e69ef63fc33adcb71",
+    "VERSAO": "3527ae7081338b8144cf2af53f4ec3be97f8b4c8870ec19aa9e089fd5eb1292d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9adba7ce20331ae937f640b89bf1f42cd181de3b073ca72e69ef63fc33adcb71",
+    "VERSAO": "3527ae7081338b8144cf2af53f4ec3be97f8b4c8870ec19aa9e089fd5eb1292d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5716,8 +5730,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 811,
-  "INPUTS_DIGEST": "a2e12e2dcb726d10252e306d4338342821464b58abe8bbd4ff951bec3802e8c1",
+  "INPUTS_COUNT": 813,
+  "INPUTS_DIGEST": "69249a3a5807974ca2987f063961a04c537a3c7d9f484322c14d2fc8ea32e98e",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5750,8 +5764,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "37c6e1706d17d445ea076c674123d02a055fc0faf7af4fc53e01c4a9cd15da14",
-  "SEMANTIC_HASH": "7d7949f6af23c2e9ae55503d59711eea970e42687919bacaa612e90794613a4d"
+  "MEASUREMENT_HASH": "3130b01dc00009f0884ae4e7a232585062ca941893804e8e59a1bd1f86b77116",
+  "SEMANTIC_HASH": "5c0ee5c63cf64fb0f02fc4d457aaa0491cf9123b972de3d2c95ad56a5e84e2ea"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7471,6 +7485,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-RECALL-PORTA-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T1-JANELA",
+    "FROM": "C-ADMISSAO",
+    "TO": "C-REGUA-T1-JANELA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/regua_t1/selecionar_cega.py",
+      "LINHA": 28,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T1-JANELA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -34172,6 +34208,22 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "scripts/regua_t1/medir_aperto_site.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REGUA-T1-JANELA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/regua_t1/medir_aperto_site.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REGUA-T1-JANELA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "scripts/regua_t1/medir_regua_t1.py",
       "LINHA": 22,
       "SUPPORTS": "YES",
@@ -43429,12 +43481,12 @@
     ]
    }
   ],
-  "COUNT": 1218
+  "COUNT": 1219
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 183,
   "CARTOES_AUDITADOS": 183,
-  "ARESTAS_RELACIONADAS": 1218,
+  "ARESTAS_RELACIONADAS": 1219,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43848,7 +43900,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 217,
+   "CODE": 218,
    "CONTROL": 72,
    "DATA": 30,
    "PROOF": 386,
@@ -44091,7 +44143,7 @@
     "preservar_coleta"
    ],
    "ENTRAM": 8,
-   "SAEM": 44,
+   "SAEM": 45,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -51183,16 +51235,22 @@
    "FICHEIROS": [
     "RELATORIO-T1-JANELA.md",
     "scripts/regua_t1/GABARITO-T1-V1.json",
+    "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
     "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
     "scripts/regua_t1/MUTACAO-REGUA-T1-V1.json",
     "scripts/regua_t1/PROTOCOLO-GABARITO-T1.md",
+    "scripts/regua_t1/PROVA-CEGA-T1-V1.json",
+    "scripts/regua_t1/SELECAO-CEGA-T1-V1.json",
     "scripts/regua_t1/SELECAO-T1-V1.json",
+    "scripts/regua_t1/medir_aperto_site.py",
     "scripts/regua_t1/medir_regua_t1.py",
     "scripts/regua_t1/montar_gabarito_t1.py",
     "scripts/regua_t1/mutar_regua_t1.py",
     "scripts/regua_t1/rotulos/rotulos-1.tsv",
     "scripts/regua_t1/rotulos/rotulos-2.tsv",
     "scripts/regua_t1/rotulos/rotulos-3.tsv",
+    "scripts/regua_t1/rotulos/rotulos-cega.tsv",
+    "scripts/regua_t1/selecionar_cega.py",
     "scripts/regua_t1/selecionar_t1.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -51208,9 +51266,10 @@
     "collections",
     "pathlib"
    ],
-   "ENTRAM": 2,
+   "ENTRAM": 3,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
     "READ",
     "RULE"
    ],

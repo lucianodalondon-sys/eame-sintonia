@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t1-janela-v1",
-    "HEAD": "d0e9a1a01812051bf6fd659df7fe1dccac5f6365",
-    "GENERATED_AT": "2026-09-24T17:41:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9adba7ce20331ae937f640b89bf1f42cd181de3b073ca72e69ef63fc33adcb71"
+    "HEAD": "a6ead79483b3ac0385e303ac870430b459cc870d",
+    "GENERATED_AT": "2026-09-24T18:06:28-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3527ae7081338b8144cf2af53f4ec3be97f8b4c8870ec19aa9e089fd5eb1292d"
   },
   "FILES": [
     {
@@ -612,7 +612,7 @@
     },
     {
       "path": "RELATORIO-T1-JANELA.md",
-      "sha": "8bab6e0d102699d024615b78123eef61777195e3",
+      "sha": "7df930571ea5c354fa1e60d48ccfee2bd5fd3ba1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -16991,6 +16991,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
+      "sha": "60948c27885f96a9616e37fd24b6c6a799fac96b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
       "sha": "91baa598a3373b51772689019bbefbce5a9bb521",
       "ext": ".json",
@@ -17012,10 +17019,31 @@
       "code_dir": true
     },
     {
+      "path": "scripts/regua_t1/PROVA-CEGA-T1-V1.json",
+      "sha": "fda963940b6960e122728a9fd957f4c7ae86d084",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t1/SELECAO-CEGA-T1-V1.json",
+      "sha": "f4519bbeaf5216b805ace5417e2b2cebe2c0cd07",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/regua_t1/SELECAO-T1-V1.json",
       "sha": "6acefa8911e63d1824f43cb10ad0dfe52dcdb0c9",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t1/medir_aperto_site.py",
+      "sha": "a003c1206b45af668a35daf9df06c30c45f7e6e9",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -17058,6 +17086,20 @@
       "sha": "196249f90ee66b7724108ec17e1709e6afb218b2",
       "ext": ".tsv",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t1/rotulos/rotulos-cega.tsv",
+      "sha": "56cd032058f9961cca079ce25c351b9d154907d1",
+      "ext": ".tsv",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t1/selecionar_cega.py",
+      "sha": "0813235227431c9002cc557efd5cd489f584599c",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -17874,7 +17916,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f67dc40a2f8f78c7c239380d50ee99797d9dcb19",
+      "sha": "8ce71eec796e7de03eec4de8f8eb5ec15d917100",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -60751,6 +60793,50 @@
       }
     },
     {
+      "from_file": "scripts/regua_t1/medir_aperto_site.py",
+      "to_file": "scripts/regua_t1/GABARITO-T1-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/medir_aperto_site.py",
+        "line": 42,
+        "snippet": "g = json.load(open(AQUI / \"GABARITO-T1-V1.json\", encoding=\"utf-8\"))[\"ITENS\"]"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/medir_aperto_site.py",
+      "to_file": "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/medir_aperto_site.py",
+        "line": 74,
+        "snippet": "(AQUI / \"MEDICAO-APERTO-SITE-T1-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10),"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/medir_aperto_site.py",
+      "to_file": "scripts/regua_t2/medir_regua_t2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/medir_aperto_site.py",
+        "line": 20,
+        "snippet": "sp = u.spec_from_file_location(\"mr\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_regua_t2.py\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/medir_aperto_site.py",
+      "to_file": "scripts/regua_t2/medir_via_agrometeo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/medir_aperto_site.py",
+        "line": 23,
+        "snippet": "sp = u.spec_from_file_location(\"mva\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_via_agrometeo.py\")"
+      }
+    },
+    {
       "from_file": "scripts/regua_t1/medir_regua_t1.py",
       "to_file": "scripts/regua_t1/GABARITO-T1-V1.json",
       "type": "READS",
@@ -60858,6 +60944,39 @@
         "file": "scripts/regua_t1/mutar_regua_t1.py",
         "line": 50,
         "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-REGUA-T1-V1.json\"), \"w\","
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/selecionar_cega.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_t1/selecionar_cega.py",
+        "line": 28,
+        "snippet": "import admissao as A  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/selecionar_cega.py",
+      "to_file": "scripts/regua_t1/SELECAO-CEGA-T1-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/selecionar_cega.py",
+        "line": 54,
+        "snippet": "(AQUI / \"SELECAO-CEGA-T1-V1.json\").write_text(json.dumps("
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/selecionar_cega.py",
+      "to_file": "scripts/regua_t1/SELECAO-T1-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/selecionar_cega.py",
+        "line": 36,
+        "snippet": "usados = {i[\"ID\"] for i in json.load(open(AQUI / \"SELECAO-T1-V1.json\", encoding=\"utf-8\"))[\"ITENS\"]}"
       }
     },
     {
@@ -83056,10 +83175,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2855,
-    "files_readable": 1297,
-    "files_code_dir": 1165,
-    "file_edges": 5679,
+    "files_tracked": 2861,
+    "files_readable": 1299,
+    "files_code_dir": 1171,
+    "file_edges": 5686,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },
