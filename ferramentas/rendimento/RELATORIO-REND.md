@@ -183,3 +183,10 @@ Ordem: 1.º quem vale correr agora, 2.º quem vale depois da R1, 3.º o resto; d
 | 81 | IT-T7-135 | portão | T7 | sim | **NAO** | NAO |  | 5 | 3 | 1 | 0 | 0 | SEMANAL ate rever a janela (MAX_TARGETS) | 3 nova(s) anunciada(s), mas FORA da janela: o contrato so olha as primeiras 1 e essas ja estao no livro |
 | 82 | IT-T5-049 | portão | T5 | sim | **NAO** | NAO |  | 5 | 1 | 4 | 0 | 4 | SEMANAL ate rever a janela (MAX_TARGETS) | 1 nova(s) anunciada(s), mas FORA da janela: o contrato so olha as primeiras 4 e essas ja estao no livro |
 | 83 | IT-T10-022 | portão | T10 | sim | **NAO** | NAO |  | 9 | 0 | 14 | 0 | 0 | SEMANAL | nada novo: tudo o que a entrada anuncia ja esta no livro |
+
+## ESTACIONADO (24/09/2026, ordem do coordenador)
+
+Parado aqui; retoma-se depois do piloto IA-CUR e da revisão da R1. Para retomar:
+1. **Medir de novo as 40 da R1 que precisavam de reparo, com o contrato REPARADO** (o de hoje é o de antes do reparo; os reparados perderam-se com as bancas `%TEMP%\r1v3-banca-*`). Só faz sentido depois de a R1 ser revista/instalada ou de as bancas serem refeitas.
+2. Voltar a correr `medir_entrada.mjs` nas 37 do portão (a memória do coletor muda a cada corrida) e `tabela.py`.
+3. Pontos em aberto para o coordenador: rever `MAX_TARGETS` (128 novas escondidas), régua para T2/T8/T12, contrato no coletor para as fontes só do curador, e o passo 2b5 do banco-descartavel (herdado).
