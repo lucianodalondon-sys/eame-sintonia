@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T19:19:51+00:00",
-    "HEAD": "fa17ccdf189083b52bb50cd0bd912397b78a6a9b",
+    "GENERATED_AT": "2026-09-24T20:44:34+00:00",
+    "HEAD": "fe58115be86ba4721c4392ad9acbcfecfa74cbe0",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "a640723d0d1d6c758143467845c8f15c057b5574ab6dd14e391cae5b7c6ddb00",
-    "FICHEIROS_NA_IMPRESSAO": 2957,
+    "SOURCE_TREE_FINGERPRINT": "30d6708492b9dfa0c029d1402274f7cdb7194298742a3a091d208ed8c18461ad",
+    "FICHEIROS_NA_IMPRESSAO": 2964,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "candidatas/FONTES-CANDIDATAS.json",
         "PAPEL": "FONTE",
-        "VERSAO": "fcc898553ec2c7cb60a947292bb360ef0d1bb177",
+        "VERSAO": "4dc4bc686a5f8a9134f694d71ae7e292781f0abb",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "a_fila() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "6f3b36e478e6c06a1ec475d876dbbb24219f8e3b6059642dfc49fe5e04c583db",
+    "INPUTS_DIGEST": "7bd029c98a8498c24ea4fbb4e18cc3cc610b56e67c3d724f2ddeb0d4f55dce3f",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -10556,7 +10556,7 @@
         "degrau": 1,
         "nome": "CANDIDATA",
         "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-        "quantas": 0,
+        "quantas": 46,
         "onde": "candidatas/FONTES-CANDIDATAS.json",
         "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
       },
@@ -10586,13 +10586,13 @@
       }
     ],
     "por_tipo": {
-      "BASE_OFICIAL": 290,
+      "BASE_OFICIAL": 335,
       "CIENCIA": 17,
       "FACEBOOK": 20,
       "IMPRENSA": 22,
       "INSTAGRAM": 25,
       "LINKEDIN": 44,
-      "ORGANIZACAO": 407,
+      "ORGANIZACAO": 408,
       "YOUTUBE": 81
     },
     "candidatas": [
@@ -10844,6 +10844,70 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0910",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ALSIA Basilicata — agrometeo e assistenza tecnica",
+        "URL": "https://www.alsia.it/",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.alsia.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.alsia.it/ | DISCOVERED_AT=2026-09-24T19:58:36.544605+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_AUSENTE | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Basilicata/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0929",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "AMAP Marche — Agrometeorologia",
+        "URL": "https://www.amap.marche.it/servizi/agrometeorologia",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.amap.marche.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.amap.marche.it/ | DISCOVERED_AT=2026-09-24T20:02:07.787122+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Marche/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0931",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "AMAP Marche — Pubblicazioni di agrometeorologia",
+        "URL": "https://www.amap.marche.it/pubblicazioni/agrometeorologia",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.amap.marche.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.amap.marche.it/ | DISCOVERED_AT=2026-09-24T20:02:18.040578+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Marche/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0928",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "AMAP Marche — Servizio fitosanitario",
+        "URL": "https://www.amap.marche.it/servizi/fitosanitario",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERED_AT=2026-09-24T20:02:03.119745+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Marche/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0251",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -10872,6 +10936,38 @@
         "QUANDO": "2026-09-20",
         "NOTA": "DISCOVERED_FROM=https://www.arpal.liguria.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-21T02:12:29.031801+00:00 | DISCOVERED_HTTP=200 | FAMILIA=AGROMETEOROLOGIA_CLIMA",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0927",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPA Lombardia — Archivio bollettini agrometeo",
+        "URL": "https://www.arpalombardia.it/archivio-bollettini-agrometeo/",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.arpalombardia.it/bollettini/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/bollettini/ | DISCOVERED_AT=2026-09-24T20:01:19.982310+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Lombardia/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0926",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPA Lombardia — Bollettino agrometeo",
+        "URL": "https://www.arpalombardia.it/temi-ambientali/meteo-e-clima/bollettini-meteorologici/agrometeo/",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.arpalombardia.it/bollettini/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/bollettini/ | DISCOVERED_AT=2026-09-24T20:01:15.459332+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Lombardia/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -10971,6 +11067,70 @@
         "DECIDIDA_EM": "2026-09-15"
       },
       {
+        "CANDIDATA_ID": "CAND-0916",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAE — Mappe agrometeo settimanali",
+        "URL": "https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/mappe-settimanali",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.arpae.it/it/temi-ambientali/meteo",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.arpae.it/it/temi-ambientali/meteo | DISCOVERED_AT=2026-09-24T19:59:33.215907+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Emilia-Romagna/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0915",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAE — Previsioni agrometeo",
+        "URL": "https://www.arpae.it/it/temi-ambientali/meteo/previsioni-meteo/previsioni-agrometeo",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.arpae.it/it/temi-ambientali/meteo",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.arpae.it/it/temi-ambientali/meteo | DISCOVERED_AT=2026-09-24T19:59:29.171323+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Emilia-Romagna/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0937",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAS Sardegna — Bollettino decadale di siccita",
+        "URL": "http://www.sar.sardegna.it/servizi/agro/monit_siccita.asp",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.sar.sardegna.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.sar.sardegna.it/ | DISCOVERED_AT=2026-09-24T20:04:00.072648+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=TABELA_HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Sardegna/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0936",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAS Sardegna — Bollettino fenologico",
+        "URL": "http://www.sar.sardegna.it/servizi/agro/bollfenologico.asp",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.sar.sardegna.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.sar.sardegna.it/ | DISCOVERED_AT=2026-09-24T20:03:56.151047+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=TABELA_HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Sardegna/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0249",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -10987,6 +11147,22 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0949",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAV — Agrometeo",
+        "URL": "https://www.arpa.veneto.it/temi-ambientali/agrometeo",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.arpa.veneto.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.arpa.veneto.it/ | DISCOVERED_AT=2026-09-24T20:06:50.685575+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Veneto/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0244",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -10999,6 +11175,38 @@
         "QUANDO": "2026-09-20",
         "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-21T02:12:16.516629+00:00 | DISCOVERED_HTTP=200 | FAMILIA=BOLETINS_AGRONOMICOS",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0911",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARSAC — Bollettino agrometeorologico e fitosanitario (agrumi, olivo, vite)",
+        "URL": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.calabria.it/website/organizzazione/dipartimento8/subsite/fitosanitario/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/website/organizzazione/dipartimento8/subsite/fitosanitario/ | DISCOVERED_AT=2026-09-24T19:58:49.863993+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-e-olivo-valido-fino-al-29-novembre-2022/ (2022-11-29) | LOGIN_NA_PAGINA=False | JANELA=Calabria/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0933",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARSARP Molise — Agrometeorologia",
+        "URL": "https://www.arsarp.it/category/agrometeorologia-2/",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.arsarp.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.arsarp.it/ | DISCOVERED_AT=2026-09-24T20:02:34.422153+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Molise/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -11036,6 +11244,38 @@
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://sportelloimprese.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-23T08:22:06.475916+00:00 | ANCHOR_TEXT=AUA Regione | DISCOVERED_HTTP=200 | PAIS_PROVA=ccTLD .it",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0908",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Abruzzo — Agrometeorologia e agroambiente",
+        "URL": "https://www.regione.abruzzo.it/content/agrometeorologia-agroambiente-0",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.abruzzo.it/agricoltura",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/agricoltura | DISCOVERED_AT=2026-09-24T19:58:06.919051+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Abruzzo/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0907",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Abruzzo — Servizio fitosanitario",
+        "URL": "https://www.regione.abruzzo.it/content/fitosanitario",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERED_AT=2026-09-24T19:58:01.478989+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Abruzzo/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -11228,6 +11468,22 @@
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:05.109301+00:00 | ANCHOR_TEXT=Agricoltura Campania | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0935",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Agrometeo Puglia — Bollettini",
+        "URL": "https://www.agrometeopuglia.it/bollettini",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.puglia.it/web/agricoltura",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.puglia.it/web/agricoltura | DISCOVERED_AT=2026-09-24T20:03:32.431646+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=True | JANELA=Puglia/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -11728,6 +11984,22 @@
         "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
       },
       {
+        "CANDIDATA_ID": "CAND-0909",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Basilicata — Ufficio fitosanitario regionale",
+        "URL": "https://www.regione.basilicata.it/giunta/site/giunta/department.jsp?dep=100049&area=104835&level=1",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERED_AT=2026-09-24T19:58:31.199496+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=True | JANELA=Basilicata/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0409",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -11907,6 +12179,38 @@
         "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou",
         "VIZINHA_NO_ATLAS": null,
         "DECIDIDA_EM": "2026-09-15"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0912",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Campania — Bollettini fitosanitari 2026",
+        "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "http://www.agricoltura.regione.campania.it/difesa/difesa.html",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=http://www.agricoltura.regione.campania.it/difesa/difesa.html | DISCOVERED_AT=2026-09-24T19:59:06.054879+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_AUSENTE | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Campania/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0913",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Campania — SIMFITO monitoraggio fitosanitario",
+        "URL": "https://simfito.regione.campania.it/",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "http://www.agricoltura.regione.campania.it/difesa/difesa.html",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=http://www.agricoltura.regione.campania.it/difesa/difesa.html | DISCOVERED_AT=2026-09-24T19:59:11.377178+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_AUSENTE | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Campania/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0901",
@@ -12346,6 +12650,38 @@
         "DECIDIDA_EM": "2026-09-15"
       },
       {
+        "CANDIDATA_ID": "CAND-0919",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ERSA FVG — Avvisi e comunicazioni",
+        "URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/index.html",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.ersa.fvg.it/cms/hp/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.ersa.fvg.it/cms/hp/ | DISCOVERED_AT=2026-09-24T20:00:28.411690+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_AUSENTE | FORMATO=HTML | EXEMPLO=http://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/17-09-2026_AgriVoltFriuli_comunicato.html (2026-09-17) | LOGIN_NA_PAGINA=False | JANELA=Friuli Venezia Giulia/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0918",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ERSA FVG — Bollettini di difesa integrata e biologica",
+        "URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.ersa.fvg.it/cms/hp/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.ersa.fvg.it/cms/hp/ | DISCOVERED_AT=2026-09-24T20:00:24.773409+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_AUSENTE | FORMATO=PDF | EXEMPLO=http://www.ersa.fvg.it/cms/aziende/bollettini-integrata/Actinidia/2026/Bollettino-produzione-integrata-actinidia-n.-12-2026.pdf (2026-08-28) | LOGIN_NA_PAGINA=False | JANELA=Friuli Venezia Giulia/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0006",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -12397,6 +12733,22 @@
         "ESTADO": "EM_ANALISE",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0914",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Emilia-Romagna — Bollettini di produzione integrata e biologica",
+        "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://agricoltura.regione.emilia-romagna.it/fitosanitario",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://agricoltura.regione.emilia-romagna.it/fitosanitario | DISCOVERED_AT=2026-09-24T19:59:23.245683+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Emilia-Romagna/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0322",
@@ -12571,6 +12923,54 @@
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:52.007790+00:00 | ANCHOR_TEXT=FAQ | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0941",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "FEM — Bollettini tecnici (Trentino)",
+        "URL": "https://www.fmach.it/Servizi/Bollettini-tecnici",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.fmach.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.fmach.it/ | DISCOVERED_AT=2026-09-24T20:04:58.524948+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Trentino-Alto Adige/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0942",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "FEM — Emergenze fitosanitarie",
+        "URL": "https://fitoemergenze.fmach.it/",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.fmach.it/Servizi/Bollettini-tecnici",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.fmach.it/Servizi/Bollettini-tecnici | DISCOVERED_AT=2026-09-24T20:05:04.685606+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_AUSENTE | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Trentino-Alto Adige/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0952",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "FEM — Flavescenza dorata, bollettini di difesa",
+        "URL": "https://fitoemergenze.fmach.it/flavescenza-dorata/bollettini-di-difesa",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g, aprofundamento)",
+        "ONDE_VIU": "https://fitoemergenze.fmach.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://fitoemergenze.fmach.it/ | DISCOVERED_AT=2026-09-24T20:14:24.540076+00:00 | MEDIDO_NO_APROFUNDAMENTO_P1G | EXEMPLO=https://drive.google.com/file/d/1ZGdmM7oDEZ2rlag51q8Zm_FDQL1JPb5f/view?usp=sharing (2026-05-29) | JANELA=Trentino-Alto Adige/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -13124,6 +13524,22 @@
         "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
       },
       {
+        "CANDIDATA_ID": "CAND-0940",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "LaMMA — Bollettino agrometeo",
+        "URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.lamma.toscana.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.lamma.toscana.it/ | DISCOVERED_AT=2026-09-24T20:04:46.341913+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=TABELA_HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=True | JANELA=Toscana/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0467",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -13156,6 +13572,22 @@
         "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
       },
       {
+        "CANDIDATA_ID": "CAND-0921",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Lazio — Servizio fitosanitario regionale",
+        "URL": "https://www.regione.lazio.it/cittadini/agricoltura/servizio-fitosanitario-regionale",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERED_AT=2026-09-24T20:00:45.996528+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Lazio/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0665",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -13168,6 +13600,54 @@
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.politicheagricole.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-23T04:29:00.899252+00:00 | ANCHOR_TEXT=Leggi tutto | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0924",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Liguria — Bollettini (Agriligurianet)",
+        "URL": "https://www.agriligurianet.it/it/impresa/bandi/publiccompetitions/cloud/BOLLETTINI/all.html?view=publiccompetitions&task=cloud&tipocloud=all&tag=BOLLETTINI",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html | DISCOVERED_AT=2026-09-24T20:01:01.719560+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=TABELA_HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Liguria/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0925",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Liguria — Centro di agrometeorologia (CAAR)",
+        "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html | DISCOVERED_AT=2026-09-24T20:01:05.414584+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Liguria/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0923",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Liguria — Sorveglianza e monitoraggio organismi nocivi",
+        "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/sorveglianza-del-territorio-carte-di-diffusione-e-monitoraggio-degli-organismi-nocivi.html",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html | DISCOVERED_AT=2026-09-24T20:00:57.964808+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Liguria/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -13268,6 +13748,22 @@
         "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
       },
       {
+        "CANDIDATA_ID": "CAND-0943",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Meteo Provincia di Bolzano",
+        "URL": "https://meteo.provincia.bz.it/",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://meteo.provincia.bz.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://meteo.provincia.bz.it/ | DISCOVERED_AT=2026-09-24T20:05:20.432824+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Trentino-Alto Adige/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0246",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -13296,6 +13792,22 @@
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.politicheagricole.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-23T04:28:41.094419+00:00 | ANCHOR_TEXT=Ministero | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0932",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Molise — Bollettini e comunicati fitosanitari",
+        "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/4130",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/4130 | DISCOVERED_AT=2026-09-24T20:02:27.081911+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=https://www.regione.molise.it/flex/cm/pages/ServeAttachment.php/L/IT/D/1%252Fb%252F0%252FD.20ab7d86fc963c615dce/P/BLOB%3AID%3D18077/E/pdf?mode=download (2026-09-20) | LOGIN_NA_PAGINA=True | JANELA=Molise/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -13408,6 +13920,22 @@
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/difesa-e-certificazione | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-23T05:22:11.600074+00:00 | ANCHOR_TEXT=Notizie | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0920",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "OSMER FVG",
+        "URL": "https://www.osmer.fvg.it/",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.osmer.fvg.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.osmer.fvg.it/ | DISCOVERED_AT=2026-09-24T20:00:33.905021+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Friuli Venezia Giulia/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -13648,6 +14176,22 @@
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/amministrazione-trasparente | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-23T07:22:35.282157+00:00 | ANCHOR_TEXT=Piano triennale per la prevenzione della corruzione e della trasparenza | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0934",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Piemonte — Bacheca dei bollettini fitosanitari",
+        "URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan/bacheca-dei-bollettini",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan | DISCOVERED_AT=2026-09-24T20:02:40.806546+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Piemonte/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -13898,6 +14442,22 @@
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.arpae.it/it/notizie/sospensione-del-blocco-strutturale-dal-1degottobre-ai-diesel-euro-5 | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-23T07:21:04.484326+00:00 | ANCHOR_TEXT=Regione Emilia-Romagna | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0930",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Regione Marche — Notiziari meteo e agrometeo",
+        "URL": "https://meteo.regione.marche.it/Notiziari",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.amap.marche.it/servizi/agrometeorologia",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.amap.marche.it/servizi/agrometeorologia | DISCOVERED_AT=2026-09-24T20:02:13.362141+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_AUSENTE | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=True | JANELA=Marche/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -14194,6 +14754,22 @@
         "DECIDIDA_EM": "2026-09-15"
       },
       {
+        "CANDIDATA_ID": "CAND-0922",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "SIARL — Agrometeorologia Lazio (ARSIAL)",
+        "URL": "https://siarl.arsial.it/",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici e fenologia",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.arsial.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.arsial.it/ | DISCOVERED_AT=2026-09-24T20:00:52.450617+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_AUSENTE | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Lazio/AGROMETEO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0754",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -14403,6 +14979,22 @@
         "QUANDO": "2026-09-20",
         "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-21T02:11:46.620666+00:00 | DISCOVERED_HTTP=200 | FAMILIA=FITOSSANITARIO",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0938",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Sicilia — Difesa fitosanitaria",
+        "URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/difesa-fitosanitaria",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.sicilia.it/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERED_AT=2026-09-24T20:04:22.249105+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=PDF | EXEMPLO=https://www.regione.sicilia.it/system/files/2025-04/DDG%20n.%203246%20del%2007.04.2025%20di%20appr.%20NT%20Difesa%20DPI%202025%20Sicilia.pdf (2025-04-07) | LOGIN_NA_PAGINA=False | JANELA=Sicilia/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -14631,6 +15223,22 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0939",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Toscana — Servizio fitosanitario regionale",
+        "URL": "https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERED_AT=2026-09-24T20:04:40.172859+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Toscana/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0362",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -14709,6 +15317,38 @@
         "ESTADO": "EM_ANALISE",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": "VARREDURA_RETROACTIVA_RC_ISTITUZIONALE_OBBLIGATORIO"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0950",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Umbria — Bollettini fitosanitari (lista permanente)",
+        "URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g, aprofundamento)",
+        "ONDE_VIU": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale | DISCOVERED_AT=2026-09-24T20:14:24.414676+00:00 | MEDIDO_NO_APROFUNDAMENTO_P1G | EXEMPLO=https://www.regione.umbria.it/documents/18/0/bollettino+NOCCIOLO+n.12+del+07_08_2026/936268a3-7175-4320-bd1f-ee12289d69ad?version=1.0 (2026-08-07) | JANELA=Umbria/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0944",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Umbria — Bollettini fitosanitari 2026",
+        "URL": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale/in-evidenza/-/asset_publisher/PONvICXXT7f8/content/bollettini-fitosanitari-2026",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale | DISCOVERED_AT=2026-09-24T20:06:09.951573+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Umbria/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0458",
@@ -14796,6 +15436,38 @@
         "DECIDIDA_EM": "2026-09-15"
       },
       {
+        "CANDIDATA_ID": "CAND-0945",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Valle d'Aosta — Avvisi fitosanitari per frutticoltori",
+        "URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/default_i.asp",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/default_i.asp | DISCOVERED_AT=2026-09-24T20:06:22.604254+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=https://www.regione.vda.it/allegato.aspx?pk=130369 (2026-09-15) | LOGIN_NA_PAGINA=False | JANELA=Valle d'Aosta/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0946",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Valle d'Aosta — Avvisi fitosanitari per viticoltori",
+        "URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/viticoltura_i.asp",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/default_i.asp",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/default_i.asp | DISCOVERED_AT=2026-09-24T20:06:26.305976+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=https://www.regione.vda.it/allegato.aspx?pk=126943 (2026-06-19) | LOGIN_NA_PAGINA=False | JANELA=Valle d'Aosta/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0899",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -14831,6 +15503,54 @@
         "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou; frequencia de actualizacao, nunca medida",
         "VIZINHA_NO_ATLAS": null,
         "DECIDIDA_EM": "2026-09-15"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0951",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Veneto — Bollettini fitosanitari (lista permanente)",
+        "URL": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g, aprofundamento)",
+        "ONDE_VIU": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026 | DISCOVERED_AT=2026-09-24T20:14:24.474452+00:00 | MEDIDO_NO_APROFUNDAMENTO_P1G | EXEMPLO=NAO_SEI (sem data) | JANELA=Veneto/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0947",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Veneto — Bollettini fitosanitari 2026",
+        "URL": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.veneto.it/web/fitosanitario",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.veneto.it/web/fitosanitario | DISCOVERED_AT=2026-09-24T20:06:40.043516+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=PDF | EXEMPLO=https://www.regione.veneto.it/documents/11979050/14345303/Bollettino_vite_20_270826.pdf/bac2bf94-b6c1-46d6-a608-1ff9cb82264d (2026-08-27) | LOGIN_NA_PAGINA=False | JANELA=Veneto/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0948",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Veneto — Difesa delle colture",
+        "URL": "https://www.regione.veneto.it/web/fitosanitario/difesa-colture",
+        "PARA_QUE_SERVE": "bollettini e avvisi di difesa integrata",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.regione.veneto.it/web/fitosanitario",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.veneto.it/web/fitosanitario | DISCOVERED_AT=2026-09-24T20:06:44.515584+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=NAO_SEI (sem data) | LOGIN_NA_PAGINA=False | JANELA=Veneto/FITO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0746",
@@ -20766,6 +21486,22 @@
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.terraevita.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-23T04:31:19.007436+00:00 | ANCHOR_TEXT=Comitato tecnico scientifico | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0917",
+        "TIPO": "ORGANIZACAO",
+        "TIPO_SIGNIFICA": "Instituto, associacao, consorcio, universidade, cooperativa.",
+        "PAIS": "IT",
+        "NOME": "Condifesa Ravenna",
+        "URL": "https://www.condifesa.ra.it/",
+        "PARA_QUE_SERVE": "consorzio di difesa: avvisi agli agricoltori",
+        "QUEM_VIU": "curadoria/janelas_regioes.py (P1g)",
+        "ONDE_VIU": "https://www.asnacodi.it/le-sedi-condifesa/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.asnacodi.it/le-sedi-condifesa/ | DISCOVERED_AT=2026-09-24T19:59:49.150091+00:00 | DISCOVERED_HTTP=200 | ROBOTS=ROBOTS_200 | FORMATO=HTML | EXEMPLO=https://www.condifesa.ra.it/2026/02/24/comunicato-del-condifesa-ravenna-del-24-02-2026-avvio-campagna-2026/ (2026-02-24) | LOGIN_NA_PAGINA=False | JANELA=Emilia-Romagna/CONSORZIO | MISSAO=P1G-JANELAS",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -30364,6 +31100,43 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 177
+        },
+        {
+          "file": "curadoria/janelas_celulas.py",
+          "line": 45
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 827
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 22
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 54
+        },
+        {
+          "file": "provas/medir_validadores_coorte.py",
+          "line": 41
+        },
+        {
+          "file": "scripts/receitas/provar_indices.py",
+          "line": 24
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 58
+        }
+      ]
+    },
+    {
       "endpoint": "https://ex.it/news",
       "usado_por": [
         {
@@ -30434,39 +31207,6 @@
       ]
     },
     {
-      "endpoint": "https://www.arpae.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 177
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 827
-        },
-        {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 22
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 54
-        },
-        {
-          "file": "provas/medir_validadores_coorte.py",
-          "line": 41
-        },
-        {
-          "file": "scripts/receitas/provar_indices.py",
-          "line": 24
-        },
-        {
-          "file": "tests/test_ld2_aditamento.py",
-          "line": 58
-        }
-      ]
-    },
-    {
       "endpoint": "https://a.it/news",
       "usado_por": [
         {
@@ -30496,6 +31236,31 @@
         {
           "file": "tests/test_onboardar_rotas_provadas.py",
           "line": 28
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.regione.veneto.it/web",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 143
+        },
+        {
+          "file": "curadoria/janelas_celulas.py",
+          "line": 128
+        },
+        {
+          "file": "curadoria/test_pais_das_candidatas.py",
+          "line": 28
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 84
+        },
+        {
+          "file": "provas/testa_rota_italia.py",
+          "line": 62
         }
       ]
     },
@@ -30664,27 +31429,6 @@
         {
           "file": "curadoria/validar_contratos.py",
           "line": 178
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.regione.veneto.it/web",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 143
-        },
-        {
-          "file": "curadoria/test_pais_das_candidatas.py",
-          "line": 28
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 84
-        },
-        {
-          "file": "provas/testa_rota_italia.py",
-          "line": 62
         }
       ]
     },
@@ -30883,6 +31627,23 @@
       ]
     },
     {
+      "endpoint": "https://www.regione.sicilia.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 171
+        },
+        {
+          "file": "curadoria/janelas_celulas.py",
+          "line": 103
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 854
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.arsacweb.it/",
       "usado_por": [
         {
@@ -30934,6 +31695,23 @@
       ]
     },
     {
+      "endpoint": "https://www.meteotrentino.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 250
+        },
+        {
+          "file": "curadoria/janelas_celulas.py",
+          "line": 114
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 79
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.crea.gov.it/",
       "usado_por": [
         {
@@ -30947,6 +31725,23 @@
         {
           "file": "curadoria/test_travao_sementes.py",
           "line": 95
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.regione.puglia.it/web",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 342
+        },
+        {
+          "file": "curadoria/janelas_celulas.py",
+          "line": 90
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 83
         }
       ]
     },
@@ -30981,6 +31776,23 @@
         {
           "file": "medidas/gabarito_t2_t12.py",
           "line": 80
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.arpa.veneto.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/janelas_celulas.py",
+          "line": 130
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 55
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 147
         }
       ]
     },
@@ -31034,79 +31846,11 @@
           "line": 172
         }
       ]
-    },
-    {
-      "endpoint": "https://irac-online.org/mode-of-action",
-      "usado_por": [
-        {
-          "file": "fontes/adama_it_intelligence.py",
-          "line": 47
-        },
-        {
-          "file": "fontes/adama_it_moa.py",
-          "line": 21
-        },
-        {
-          "file": "motor/v21_ingest_c.py",
-          "line": 173
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "leis/social_matriz.py",
-          "line": 907
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 58
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 119
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/watch?v=%s",
-      "usado_por": [
-        {
-          "file": "provas/a_legenda_e_o_audio_do_youtube.py",
-          "line": 91
-        },
-        {
-          "file": "tests/test_as_duas_portas_do_scrap.py",
-          "line": 409
-        },
-        {
-          "file": "tests/test_cadeia_do_audio_offline.py",
-          "line": 148
-        }
-      ]
-    },
-    {
-      "endpoint": "https://exemplo.tld/x')",
-      "usado_por": [
-        {
-          "file": "provas/orcamento_de_rede.py",
-          "line": 287
-        },
-        {
-          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
-          "line": 96
-        },
-        {
-          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
-          "line": 207
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 605,
+  "ENDPOINTS_FOUND": 680,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 565,
+  "ENDPOINTS_TRUNCATED": 640,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31124,10 +31868,10 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 605,
+    "endpoints": 680,
     "endpoints_published": 40,
-    "endpoints_truncated": 565,
-    "candidates": 906,
+    "endpoints_truncated": 640,
+    "candidates": 952,
     "coletores": 54,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,
