@@ -5,7 +5,7 @@ Ramo `reparo-fontes-v1` (de `origin/unificacao-v1` + `origin/bot-impasse-v1`, a 
 ```
 READY na CÓPIA do livro vivo (foto 23/09 18:21Z)   143 -> 179  (+36)
 READY no VIVO                                       NÃO INSTALADO — ver §5
-NEW_FAILURES_BY_NAME                                NÃO SEI — a medição da suíte nova foi morta por falta de memória
+NEW_FAILURES_BY_NAME                                0  (base 280eb90b vs 491cc9ea: curadoria 0→0 de 671; tests 78→77 de 5012)
 MUTAÇÃO                                             42 mutantes · 37 mortos · 5 equivalentes declarados
 SYSTEM_MAP_CHECK                                    PASS (cadeia)
 ```
@@ -64,3 +64,9 @@ Plano (padrão B4), quando a suíte der verde:
 5. Provar ao vivo: contar READY no livro a cada hora; esperado ≈ +36 em ~2 h de fila.
 
 **DESFAZER:** `PARAR.flag`, repor `antes/`, relançar.
+
+## 6 · Depois da queda da sessão (23/09 ~19:42) — a bateria completa e o writeset
+
+- Suíte por NOME, uma de cada vez: `tests/` medida em `b862ef97` (depois dela só mudaram 2 testes em `curadoria/`); `curadoria/` medida em `491cc9ea`. **NEW_FAILURES_BY_NAME = 0.** Os 6 vermelhos da primeira medição eram `test_abastecimento` e `test_impasse_b4` a ler o livro real da árvore pelo gatilho; corrigido em `491cc9ea` (isolam livro e contratos).
+- Writeset: `scripts/reparo/R1-WRITESET.json` — o que a instalação escreve (só código) e o que o bot passa a escrever em funcionamento.
+- Ordem do coordenador: M5G primeiro; a R1 só depois, com OK. Refazer o diff contra o vivo depois da M5G (parte dos 25 ficheiros pode já ter entrado).
