@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T03:09:16+00:00",
-    "HEAD": "1a88c4772e3302103c956010fcfe78aec5c53974",
+    "GENERATED_AT": "2026-09-24T03:33:54+00:00",
+    "HEAD": "b6e7de79626d3a92a5d2869964b8c13d3ad57bd5",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "a84acd42dbffb1688d7fc01ebfb92400540e673f02e7aa5b59339d182985919c",
-    "FICHEIROS_NA_IMPRESSAO": 2941,
+    "SOURCE_TREE_FINGERPRINT": "c4ee4500fb9576f8ccd96696d46dbdb92b3bb332f8d47e6554dac443dcb42e3e",
+    "FICHEIROS_NA_IMPRESSAO": 2945,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -31013,7 +31013,7 @@
         },
         {
           "file": "curadoria/test_abastecimento.py",
-          "line": 202
+          "line": 208
         },
         {
           "file": "curadoria/test_discovery.py",
@@ -31030,7 +31030,7 @@
         },
         {
           "file": "curadoria/test_abastecimento.py",
-          "line": 191
+          "line": 197
         },
         {
           "file": "medidas/gabarito_t2_t12.py",
@@ -31052,6 +31052,23 @@
         {
           "file": "curadoria/test_emparelhar_ataques.py",
           "line": 36
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.exemplo.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 462
+        },
+        {
+          "file": "curadoria/test_reparar_contrato.py",
+          "line": 42
+        },
+        {
+          "file": "tests/test_fila_italia_decisoes.py",
+          "line": 196
         }
       ]
     },
@@ -31105,28 +31122,11 @@
           "line": 173
         }
       ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "leis/social_matriz.py",
-          "line": 907
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 58
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 119
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 604,
+  "ENDPOINTS_FOUND": 607,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 564,
+  "ENDPOINTS_TRUNCATED": 567,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31144,9 +31144,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 604,
+    "endpoints": 607,
     "endpoints_published": 40,
-    "endpoints_truncated": 564,
+    "endpoints_truncated": 567,
     "candidates": 906,
     "coletores": 54,
     "coletores_com_data": 20,

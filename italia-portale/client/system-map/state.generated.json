@@ -460,6 +460,7 @@
       "curadoria/red_team_ponte_curador.py",
       "curadoria/red_team_service.py",
       "curadoria/red_team_telemetria.py",
+      "curadoria/reparar_contrato.py",
       "curadoria/retrato_html.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
@@ -494,6 +495,7 @@
       "curadoria/test_ponte_promocao.py",
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
+      "curadoria/test_reparar_contrato.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
@@ -2474,7 +2476,9 @@
       "scripts/receitas/medir_efeito.py",
       "scripts/receitas/propor_receitas_v3.py",
       "scripts/receitas/propor_receitas_v4.py",
-      "scripts/receitas/provar_indices.py"
+      "scripts/receitas/provar_indices.py",
+      "scripts/reparo/juntar_bancas.py",
+      "scripts/reparo/medir_em_copia.py"
     ],
     "security": [
       "security/ACCOES-DE-ADMINISTRADOR.md",
@@ -3386,10 +3390,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "1a88c4772e3302103c956010fcfe78aec5c53974",
-    "GENERATED_AT": "2026-09-24T00:03:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a84acd42dbffb1688d7fc01ebfb92400540e673f02e7aa5b59339d182985919c"
+    "BRANCH": "reparo-fontes-v2",
+    "HEAD": "b6e7de79626d3a92a5d2869964b8c13d3ad57bd5",
+    "GENERATED_AT": "2026-09-24T00:26:51-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c4ee4500fb9576f8ccd96696d46dbdb92b3bb332f8d47e6554dac443dcb42e3e"
   },
   "FAMILIES": [
     {
@@ -3417,7 +3421,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 90
+      "count": 91
     },
     {
       "id": "F-ESPERA",
@@ -3675,7 +3679,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 23
+      "count": 24
     },
     {
       "id": "Z-ADMISSAO",
@@ -4886,8 +4890,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 604",
-        "desses, mostrados aqui: 40 (ficam de fora 564)"
+        "enderecos que o codigo realmente chama: 607",
+        "desses, mostrados aqui: 40 (ficam de fora 567)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -32234,6 +32238,7 @@
         "C-DETECTOR-CAPA-GABARITO",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
+        "C-REPARO-MEDICAO",
         "C-TESTES"
       ],
       "paises": {},
@@ -35025,6 +35030,7 @@
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
         "C-RECEITAS-PROPOSTA",
+        "C-REPARO-MEDICAO",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -50000,6 +50006,86 @@
       "y": 1970
     },
     {
+      "id": "C-REPARO-MEDICAO",
+      "name": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n). juntar_bancas.py junta as fatias num ANTES/DEPOIS por fonte e por causa (reparo, re-canario, qualify).",
+      "why_here": "O reparo de contratos (curadoria/reparar_contrato.py, etapa REPAIR_CONTRACT do worker) muda contratos e o livro de estado; medir o efeito no livro vivo seria escrever no vivo. A banca e descartavel e fica fora do Git.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "collection-strategy"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/reparo/juntar_bancas.py",
+        "scripts/reparo/medir_em_copia.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CENSO-UNIFICACAO",
+        "C-DETECTOR-CAPA-GABARITO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/LIFECYCLE-QUEUE-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 11725,
+      "y": 2614
+    },
+    {
       "id": "C-REVISAO-DA-EVIDENCIA",
       "name": "Revisao da evidencia emprestada",
       "territory": "Z-PROVA",
@@ -50571,7 +50657,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2614
     },
     {
@@ -56984,7 +57070,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch reparo-fontes-v2"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -67327,6 +67413,41 @@
     },
     {
       "from": "C-CENSO-UNIFICACAO",
+      "to": "C-REPARO-MEDICAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/reparo/juntar_bancas.py",
+          "line": 71,
+          "snippet": "fila = json.loads((Path(b) / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-REPARO-MEDICAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -76576,6 +76697,41 @@
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
             "TO": "C-RECEITAS-PROPOSTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-REPARO-MEDICAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/reparo/juntar_bancas.py",
+          "line": 60,
+          "snippet": "t0 = _livro(foto / \"LIFECYCLE-LEDGER-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-REPARO-MEDICAO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -122532,7 +122688,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1570,
+  "UNCLAIMED_FILES_COUNT": 1572,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -122769,7 +122925,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 214,
+      "PECAS_EM_DESACORDO": 215,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -122781,23 +122937,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 239
+      "TOTAL_DE_PECAS": 240
     }
   ],
   "COUNTS": {
-    "components": 239,
+    "components": 240,
     "components_proven": 31,
-    "components_pending": 200,
+    "components_pending": 201,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1260,
-    "edges_proven": 1196,
+    "edges": 1262,
+    "edges_proven": 1198,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2793,
-    "files_covered": 1223,
+    "files_tracked": 2797,
+    "files_covered": 1225,
     "files_code_unclaimed": 0,
-    "roles_proven": 162,
+    "roles_proven": 163,
     "roles_declared_only": 8,
     "roles_unknown": 69,
     "roles_conflict": 37,
