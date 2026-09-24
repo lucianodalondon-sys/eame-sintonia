@@ -22454,3 +22454,49 @@ zero.
   gastas, e as 7 restantes GENERICA/UNKNOWN. Sinal honesto não fabrica fonte nova.
 - `tasklist //FI` no bash desta máquina dá erro e o `grep -q` lê isso como «processo
   morreu». Medir por `Get-Process -Id`.
+
+
+# §223 · P5 · PESSOAS PELA PÁGINA OFICIAL DE CADA INVESTIGADOR — O FILÃO É A FICHA DO CNR, NÃO A UNIVERSIDADE
+
+**O PROBLEMA.** A YT3 (§209 da linha dela) mostrou que a página de uma organização liga ao canal
+da organização, nunca ao da pessoa. Para ter **prova de que um perfil é de uma pessoa** (D24/D21),
+a prova tem de ser a página **da própria pessoa** no site oficial: «esta ficha, no domínio do CNR ou
+da universidade, liga a este LinkedIn».
+
+**O QUE SE MEDIU (P5/P5b, 23–24/09, `scripts/pessoas_docentes/`).**
+- 574 páginas oficiais de pessoas lidas, 69 perfis (25 LinkedIn, 4 YouTube, 40 ResearchGate).
+- Universidades: quase zero. A P4 já tinha medido 0 em sete (Unito, Unitus, Unifi, Unina, Unipg,
+  Unipi e UCSC), e a P5 mediu 0 em Padova, Reggio Calabria, Udine e Marche. A exceção é a Unimi: a
+  rubrica tem um campo «Sito web», e foi aí que apareceram um LinkedIn e um canal.
+- CNR IBBA: **37 de 53 fichas** (`ibba.cnr.it/staff/<nome>/`) têm LinkedIn e/ou ResearchGate num
+  campo próprio («Linkedin:»). É o filão. ISAFOM e IBBR têm o campo, mas quase ninguém o preenche.
+- 8 entraram pela porta canónica (CAND-0907..0914): 7 LinkedIn e 1 YouTube.
+
+**A REGRA.**
+- Perfil só entra com a **página da pessoa** a ligá-lo. O rodapé da casa (o que já estava na casa
+  ou na listagem, ou o que se repete em 3 ou mais pessoas) é da instituição.
+- Só `linkedin.com/in/` é pessoa. `company` e `school` são a organização, e uma página de projeto
+  ligada da ficha de duas pessoas (EXTRAFRESCO) também não é pessoa.
+- **O tema decide depois da identidade.** Metade do IBBA é área animal (sede de Lodi): prova boa,
+  mas fica fora por D26. Nutrição humana e biomedicina também ficam fora. Cada FICA_FORA tem o
+  motivo escrito em `DECISOES-P5-V1.json`.
+- ResearchGate só entra se publicar vídeo, e não há rota permitida para o verificar. Fica fora
+  com o motivo escrito, não em silêncio.
+- A marca D29 (janela de cultura) lê-se na página oficial e é **sinal, não prova de publicação**.
+  Nenhuma das 8 é forte em D29.
+
+**ARMADILHAS.**
+- «cambiamenti climatici» acendia a marca D29 em 7 de 8 pessoas: é um bloco de projeto repetido
+  nas fichas do IBBA. Palavra genérica não é janela de cultura.
+- Um heredoc voltou a meter **0x08** no lugar de `\b` (§ do caractere invisível): `IPM` sem
+  fronteira de palavra casava com «shipment». Escrever regex pelo Edit, e há teste que falha se
+  houver 0x08 no ficheiro.
+- As páginas de prova (`evidencia/*.html`) contam como **código** para o P9 do mapa. Declará-las
+  na peça, senão o VALIDAR reprova.
+- `ipinfo.io` respondeu 429 («Rate limit hit») e o portão leu isso como UNKNOWN. Ao mesmo tempo,
+  outra fonte mostrava a saída nos EUA. O portão bloqueia bem nos dois casos, mas a causa não é a
+  mesma: um 429 **não prova** que a VPN caiu.
+- As bancadas irmãs (P1d, P4b) podem não ter publicado: o dedupe lê a fila **no disco** de cada
+  worktree irmã, além das branches remotas, e compara também pelo slug do perfil.
+- A memória do PC (84–93 %) estacionou a P5 duas vezes. Commit por bloco, com o relatório a
+  dizer de onde retomar, evitou refazer um único pedido de rede.
