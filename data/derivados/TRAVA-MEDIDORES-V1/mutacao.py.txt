@@ -16,6 +16,7 @@ C = "system-map/scripts/censo_do_congelamento.py"
 T = "tests.test_os_medidores_da_trava_veem."
 VIGIA = T + "OVigiaDoCongelamentoComparaComAFotografia"
 ESTRADAS = T + "OMedidorDasEstradasVeOLivroDoColetor"
+CURADOR = T + "OCriterioAMedeAsIdentidadesDoCurador"
 
 MUTANTES = [
     ("M1 o vigia compara o blob consigo", C,
@@ -34,6 +35,26 @@ MUTANTES = [
     ("M6 a sobreposicao conta tudo", E,
      "'TAMBEM_NO_CATALOGO_DA_TRAVA': len(ids & catalogo),",
      "'TAMBEM_NO_CATALOGO_DA_TRAVA': len(ids),", ESTRADAS),
+    # D33 — o criterio A sobre as identidades do Curator
+    ("M7 so canario passa a provar classe", E,
+     "    elif contrato:\n        porque = ('so contrato/canario",
+     "    elif contrato:\n        classe, resolucao = 'RC-1', 'CLASSE_PROVADA'\n"
+     "        porque = ('so contrato/canario", CURADOR),
+    ("M8 o YouTube entra como documento", E,
+     "ESTRATEGIAS_DE_DOCUMENTO = ('HTML_LINK_DISCOVERY', 'STATIC_ENDPOINT')",
+     "ESTRATEGIAS_DE_DOCUMENTO = ('HTML_LINK_DISCOVERY', 'STATIC_ENDPOINT', 'CUSTOM_ADAPTER')", CURADOR),
+    ("M9 o criterio A diz SIM sempre", E,
+     "'CRITERIO_A': 'NAO' if por_resolucao.get('NAO_SEI') else 'SIM',",
+     "'CRITERIO_A': 'SIM',", CURADOR),
+    ("M10 a classe sai sem prova", E,
+     "'PROVA': prova if classe != SEM_CLASSE else None,",
+     "'PROVA': None,", CURADOR),
+    ("M12 bloqueio sem razao conta como bloqueado", E,
+     "elif transicao.get('NEW_STATE') in ESTADOS_BLOQUEADOS and razao:",
+     "elif transicao.get('NEW_STATE') in ESTADOS_BLOQUEADOS:", CURADOR),
+    ("M11 o denominador volta ao catalogo", E,
+     "    ultima = {s: t for s, t in ultima.items() if str(s).startswith('IT-')}",
+     "    ultima = {s: t for s, t in ultima.items() if s in {f.get('SOURCE_ID') for f in fontes_it()}}", CURADOR),
 ]
 
 

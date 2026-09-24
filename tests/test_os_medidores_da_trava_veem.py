@@ -71,12 +71,88 @@ class OMedidorDasEstradasVeOLivroDoColetor(unittest.TestCase):
         self.assertEqual(sum(self.u["ESTADO_NO_CURADOR"].values()), self.u["TOTAL"])
 
     def test_o_veredito_declara_sobre_que_universo_fala(self):
-        """A regra da trava não muda aqui: o veredito continua sobre o catálogo,
-        e DIZ isso, até decisão escrita do dono."""
+        """D33 (bot Luciano, delegação do dono): o critério A mede as identidades
+        italianas do Curator. O catálogo de 54 fica publicado como histórico,
+        e o veredito DIZ sobre que universo fala e por que decisão."""
         rel, _ = estradas.relatorio()
-        self.assertIn("ITALY-SOURCE-MASTER-V1", rel["UNIVERSO_DO_VEREDITO"]["CATALOGO"])
-        self.assertEqual(rel["UNIVERSO_DO_VEREDITO"]["DECISAO"], "PENDENTE_DO_DONO")
+        u = rel["UNIVERSO_DO_VEREDITO"]
+        self.assertEqual(u["DECISAO"], "D33")
+        self.assertIn("LIFECYCLE-LEDGER-V1", u["CRITERIO_A"])
+        self.assertIn("ITALY-SOURCE-MASTER-V1", u["CATALOGO_HISTORICO"])
         self.assertIn("UNIVERSO_DO_COLETOR", rel)
+        self.assertIn("CRITERIO_A_NO_CURADOR", rel)
+
+
+LIVRO_DO_CURADOR = os.path.join(RAIZ, "curadoria", "LIFECYCLE-LEDGER-V1.json")
+
+
+class OCriterioAMedeAsIdentidadesDoCurador(unittest.TestCase):
+    """D33: A = as identidades italianas do Curator; a classe de cada fonte sai do
+    caminho/executor/resultado REAIS, e a dúvida é NAO_SEI."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.a = estradas.criterio_a_no_curador()
+        cls.por = {f["SOURCE_ID"]: f for f in cls.a["POR_FONTE"]}
+        ult = {}
+        for t in _json(LIVRO_DO_CURADOR)["TRANSICOES"]:
+            ult[t["SOURCE_ID"]] = t
+        cls.ult = {s: t for s, t in ult.items() if s.startswith("IT-")}
+
+    def test_o_denominador_e_o_livro_do_curador(self):
+        self.assertEqual(set(self.por), set(self.ult))
+        self.assertEqual(self.a["TOTAL"], len(self.ult))
+        self.assertEqual(sum(self.a["POR_RESOLUCAO"].values()), self.a["TOTAL"])
+
+    def test_resultado_real_pelo_caminho_de_documento_prova_rc1(self):
+        """IT-T10-018: 3 RAW + 3 DERIVED na 1.ª onda, contrato HTML_LINK_DISCOVERY."""
+        f = self.por["IT-T10-018"]
+        self.assertEqual(f["ROUTE_CLASS_ID"], "RC-1")
+        self.assertEqual(f["RESOLUCAO"], "CLASSE_PROVADA")
+        self.assertTrue(f["PROVA"])
+
+    def test_so_canario_nao_prova_classe(self):
+        """IT-T10-021 está READY e correu na onda, mas colheu 0 documentos."""
+        f = self.por["IT-T10-021"]
+        self.assertEqual(f["ROUTE_CLASS_ID"], "NAO_SEI")
+        self.assertNotEqual(f["RESOLUCAO"], "CLASSE_PROVADA")
+
+    def test_youtube_nao_vira_rc1(self):
+        f = self.por["IT-T7-015"]
+        self.assertNotEqual(f["ROUTE_CLASS_ID"], "RC-1")
+
+    def test_bloqueio_com_razao_escrita_conta_como_bloqueado(self):
+        f = self.por["IT-T7-029"]
+        self.assertEqual(f["RESOLUCAO"], "BLOQUEADA_COM_RAZAO")
+        self.assertTrue(f["RAZAO_DO_BLOQUEIO"])
+
+    def test_nenhuma_classe_sem_prova(self):
+        for f in self.a["POR_FONTE"]:
+            if f["ROUTE_CLASS_ID"] != "NAO_SEI":
+                self.assertTrue(f["PROVA"], f["SOURCE_ID"])
+
+    def test_a_regra_numa_fonte_de_exemplo(self):
+        """A regra pura, com fontes inventadas — cobre o que o livro de hoje não
+        tem (um canal de YouTube com resultado real)."""
+        doc = {"ACQUISITION": {"STRATEGY": "HTML_LINK_DISCOVERY"}}
+        yt = {"ACQUISITION": {"STRATEGY": "CUSTOM_ADAPTER"}}
+        ok = {"NEW_STATE": "READY_FOR_COLLECTION", "REASON": "x"}
+        f = estradas.classificar_fonte("IT-X-1", ok, doc, "BC5 · RUN")
+        self.assertEqual((f["ROUTE_CLASS_ID"], f["RESOLUCAO"]), ("RC-1", "CLASSE_PROVADA"))
+        f = estradas.classificar_fonte("IT-X-2", ok, yt, "BC5 · RUN")
+        self.assertEqual(f["ROUTE_CLASS_ID"], "NAO_SEI")
+        f = estradas.classificar_fonte("IT-X-3", ok, doc, None)
+        self.assertEqual(f["ROUTE_CLASS_ID"], "NAO_SEI")
+        f = estradas.classificar_fonte(
+            "IT-X-4", {"NEW_STATE": "POLICY_BLOCK", "REASON": "  "}, None, None)
+        self.assertEqual(f["RESOLUCAO"], "NAO_SEI")
+        f = estradas.classificar_fonte(
+            "IT-X-5", {"NEW_STATE": "POLICY_BLOCK", "REASON": "termos proibem"}, None, None)
+        self.assertEqual(f["RESOLUCAO"], "BLOQUEADA_COM_RAZAO")
+
+    def test_a_so_e_sim_sem_nenhum_nao_sei(self):
+        nao_sei = self.a["POR_RESOLUCAO"].get("NAO_SEI", 0)
+        self.assertEqual(self.a["CRITERIO_A"], "NAO" if nao_sei else "SIM")
 
 
 class OVigiaDoCongelamentoComparaComAFotografia(unittest.TestCase):
