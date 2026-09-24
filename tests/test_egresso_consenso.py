@@ -166,7 +166,11 @@ class ACache(unittest.TestCase):
     def test_outro_ambiente_de_rede_nao_le_a_cache(self):
         """A prova offline (proxy morto) nao pode herdar o IT medido pela VPN."""
         rede.gravar_cache(self._medicao("IT"))
-        with mock.patch.dict(os.environ, {"HTTPS_PROXY": "http://127.0.0.1:9"}):
+        # ⚠️ o valor tem de ser DIFERENTE do que ja estiver no ambiente: uma prova
+        # que corre com HTTPS_PROXY=127.0.0.1:9 punha aqui o mesmo valor e a chave
+        # nao mudava (medido 24/09, defeito deste teste).
+        outro = (os.environ.get("HTTPS_PROXY") or "") + "-outro-ambiente"
+        with mock.patch.dict(os.environ, {"HTTPS_PROXY": outro}):
             self.assertIsNone(rede.ler_cache())
 
     def test_injecao_nao_escreve_na_cache(self):
