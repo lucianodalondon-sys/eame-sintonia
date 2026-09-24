@@ -88,7 +88,9 @@ def main(argv):
             "where d.source_id in (%s) group by 1" % (SQL_RE, SQL_RE, SQL_TEMA, lista)):
         acervo[sid] = {"TEXTOS": int(n), "COM_JANELA": int(casam), "EXEMPLO": ex or None, "SO_TEMA": int(tema)}
     idx = {}
-    for f in (AQUI / "medidas").glob("entrada-*.json"):
+    # a medida da R1 com o contrato de antes do reparo (entrada-r1.json, -passo2) e so historia
+    antigos = {"entrada-r1.json", "entrada-r1-passo2.json"}
+    for f in sorted(p for p in (AQUI / "medidas").glob("entrada-*.json") if p.name not in antigos):
         for l in json.loads(f.read_text(encoding="utf-8"))["LINHAS"]:
             if l.get("INDEX_URL"):
                 idx[l["SOURCE_ID"]] = l["INDEX_URL"]

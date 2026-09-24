@@ -1,0 +1,80 @@
+{
+ "DATASET": "REND-ENTRADA-V1",
+ "MEDIDO_EM": "2026-09-24T19:47:44.370Z",
+ "ARVORE": "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1",
+ "PEDIDOS_HTTP": 8,
+ "PEDIDOS_POR_SITE": {
+  "osservatorio.regione.calabria.it": 5,
+  "terraevita.edagricole.it": 3
+ },
+ "TETO_POR_SITE": 5,
+ "PAUSA_S": 1,
+ "MEMORIA_DO_COLETOR": {
+  "OBSERVACOES": 541,
+  "ENDERECOS": 169
+ },
+ "ACERVO_URLS": 979,
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T12-075",
+   "UNIVERSO": "T12",
+   "CONTRATO": "SO_CURADOR:C:/rend/banca/curadoria/italy_contracts_curator.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "https://osservatorio.regione.calabria.it/notizie",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "UNKNOWN",
+   "PEDIDO_EM": "2026-09-24T19:47:53.871Z",
+   "ESTADO": "ADIADA_POR_CORTESIA:TETO_POR_HOST"
+  },
+  {
+   "SOURCE_ID": "IT-T8-024",
+   "UNIVERSO": "T8",
+   "CONTRATO": "SO_CURADOR:C:/rend/banca/curadoria/italy_contracts_curator.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "https://terraevita.edagricole.it/seminativi/",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "UNKNOWN",
+   "PEDIDO_EM": "2026-09-24T19:47:57.958Z",
+   "INDEX_BYTES": 273504,
+   "INDEX_SHA256": "5d7f4a285372fcdf4b73925595cb7db46f24d2b5a5a2a9d8c7a3786c872a5706",
+   "ANUNCIADAS": 19,
+   "NOVAS_PARA_O_COLETOR": 19,
+   "NOVAS_PARA_O_ACERVO": 19,
+   "NA_JANELA_DO_CONTRATO": 1,
+   "NOVAS_NA_JANELA": 1,
+   "REVISITAS_NA_JANELA": 0,
+   "UMA_CORRIDA_TRARIA": 1,
+   "EXEMPLOS_NOVAS": [
+    "https://terraevita.edagricole.it/seminativi/frumento-post-emergenza-sempre-piu-in-balia-dellandamento-stagionale/",
+    "https://terraevita.edagricole.it/seminativi/frumento-senza-pre-e-post-precoce-necessario-assumere-dei-rischi/",
+    "https://terraevita.edagricole.it/seminativi/orzo-unaltra-stagione-da-incorniciare/"
+   ],
+   "ESTADO": "MEDIDA"
+  },
+  {
+   "SOURCE_ID": "IT-T8-042",
+   "UNIVERSO": "T8",
+   "CONTRATO": "SO_CURADOR:C:/rend/banca/curadoria/italy_contracts_curator.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "https://terraevita.edagricole.it/viticoltura/",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "UNKNOWN",
+   "PEDIDO_EM": "2026-09-24T19:48:00.884Z",
+   "INDEX_BYTES": 274370,
+   "INDEX_SHA256": "62560710a5cfbad4e45a8f5012d2765743a7f7a84447e7e1549ee7a525c93619",
+   "ANUNCIADAS": 15,
+   "NOVAS_PARA_O_COLETOR": 15,
+   "NOVAS_PARA_O_ACERVO": 15,
+   "NA_JANELA_DO_CONTRATO": 1,
+   "NOVAS_NA_JANELA": 1,
+   "REVISITAS_NA_JANELA": 0,
+   "UMA_CORRIDA_TRARIA": 1,
+   "EXEMPLOS_NOVAS": [
+    "https://terraevita.edagricole.it/viticoltura/in-puglia-cantine-piene-i-piani-di-confagricoltura-e-coldiretti/",
+    "https://terraevita.edagricole.it/viticoltura/puglia-vendemmia-abbondante-mercato-fiato-corto/",
+    "https://terraevita.edagricole.it/viticoltura/uva-da-tavola-puglia-conferma-qualita-prezzi-bassi/"
+   ],
+   "ESTADO": "MEDIDA"
+  }
+ ]
+}

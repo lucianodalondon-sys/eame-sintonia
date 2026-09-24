@@ -1,0 +1,3667 @@
+{
+ "DATASET": "REND-CONTRATOS-R1-REPARADOS-V1",
+ "COMO": "banca C:/rend/banca = git archive origin/reparo-fontes-v2 (2c083a38) + livros do bot vivo 5c4daf5a copiados por cima (sha256 em banca-livros-sha256); scripts/reparo/revisar_ready.py corrido so para as 40 A_REPARO; as 6 B_RECANARIO ficam com o contrato do vivo (nao foram reparadas)",
+ "CURATOR_JSON_DA_BANCA": {
+  "CAMINHO": "C:/rend/banca/curadoria/italy_contracts_curator.json",
+  "SHA256": "9ebc7e4be476d6d46845b3b903efdb4078cbe80ec913e09025cf30c18360f9e2"
+ },
+ "REVISAO": {
+  "DATASET": "R1-REVISAO-READY",
+  "MEDIDO_EM": "2026-09-24T19:41:08.823594+00:00",
+  "FONTES": [
+   {
+    "SOURCE_ID": "IT-T12-023",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Regione Puglia — Agricoltura",
+    "INDEX_URL": "https://www.regione.puglia.it/web/agricoltura",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.puglia\\.it/web/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://regione.puglia.it/web/contratto-di-fiume-canale-reale",
+    "EVIDENCE_REF": "EV-IT-T12-023-CANARY-3369",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 55,
+     "PARAGRAPH_CHARACTERS": 2092,
+     "TEXT_SHA256": "533318f67852c76a502faec79d3b092eaf64c8209143ca73a1746a72f501a66a"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Home - Contratto di Fiume del Canale Reale - Regione Puglia",
+    "H1": "",
+    "DATA_VISTA": "25 novembre 2025",
+    "INICIO": "Home - Contratto di Fiume del Canale Reale Il Canale Reale è il più importante corso d’acqua della penisola Salentina: esso attraversa la provincia di Brindisi dal confine con la provincia di Taranto fino alla costa, dove sfocia nella Riserva Naturale dello Stato di Torre Guaceto. Con i suoi 48 km attraversa sei Comuni (dalle sorgenti alla foce: Villa Castelli, Francavilla Fontana, Oria, Latiano, ",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T12-042",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Bollettino ufficiale",
+    "INDEX_URL": "https://www.regione.lombardia.it/burl-bollettino-ufficiale-regione-lombardia",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/area-personale-tributi",
+    "EVIDENCE_REF": "EV-IT-T12-042-CANARY-3372",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 146,
+     "PARAGRAPH_CHARACTERS": 4222,
+     "TEXT_SHA256": "797498271cb8e3057a90fe2d440a7f693b68d2338dd5554b3f9efe7f06434606"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Area Personale Tributi",
+    "H1": "Ricerca",
+    "DATA_VISTA": "31 dicembre 2023",
+    "INICIO": "È arrivata la nuova Area Personale del portale di Regione Lombardia! Accedi per scoprire contenuti personalizzati per te. Come accedere e servizi a disposizione dei contribuenti Il ticket sanitario è la quota di compartecipazione diretta dei cittadini alla spesa pubblica per l’assistenza sanitaria fornita dallo Stato e dalla Regione; i casi di esenzione Come accedere e servizi a disposizione dei c",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: tribut"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T12-043",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Bollo auto e tributi regionali",
+    "INDEX_URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/bollo\\-auto\\-e\\-tributi\\-regionali/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/tassa-automobilistica-bollo-auto/allineamento-scadenze-di-pagamento-per-veicoli-provenienti-da-altre-regioni",
+    "EVIDENCE_REF": "EV-IT-T12-043-CANARY-3375",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 135,
+     "PARAGRAPH_CHARACTERS": 2785,
+     "TEXT_SHA256": "7c9abec7d0733e1eda2f20e4dd3ac84737ba7ae6d873eeeb66b47bdd67929a46"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Allineamento scadenze di pagamento per veicoli provenienti da altre Regioni",
+    "H1": "Ricerca",
+    "DATA_VISTA": "18 Novembre 2025",
+    "INICIO": "È arrivata la nuova Area Personale del portale di Regione Lombardia! Accedi per scoprire contenuti personalizzati per te. Come accedere e servizi a disposizione dei contribuenti Il ticket sanitario è la quota di compartecipazione diretta dei cittadini alla spesa pubblica per l’assistenza sanitaria fornita dallo Stato e dalla Regione; i casi di esenzione Come accedere e servizi a disposizione dei c",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: tribut"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T12-044",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "CalabriAmbiente, la nuova app regionale che coinvolge i cittadini",
+    "INDEX_URL": "https://calabriaeuropa.regione.calabria.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?calabriaeuropa\\.regione\\.calabria\\.it/il\\-piano\\-nazionale\\-di\\-ripresa\\-e\\-resilienza/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://calabriaeuropa.regione.calabria.it/il-piano-nazionale-di-ripresa-e-resilienza/il-progetto-1000-esperti/",
+    "EVIDENCE_REF": "EV-IT-T12-044-CANARY-3342",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 79,
+     "PARAGRAPH_CHARACTERS": 3511,
+     "TEXT_SHA256": "263ad585bbe6195c4c1e200964fe501a3e9e6c0638acecceb649dbff17b6abc0"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Il Progetto “1000 Esperti” - Calabria Europa",
+    "H1": "Il Progetto “1000 Esperti”",
+    "DATA_VISTA": "07/12/2021",
+    "INICIO": "Nell’ambito dell’Investimento 2.2 – “Task force digitalizzazione, monitoraggio e performance” della Missione 1, Componente 1 del PNRR, il Dipartimento della Funzione Pubblica ha avviato un’importante iniziativa per supportare concretamente le amministrazioni locali. È stato così creato una Task Force nazionale di 1.000 esperti e professionisti con competenze strategiche, tecniche e amministrative.",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T12-073",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Oltreigiochi2026",
+    "INDEX_URL": "https://www.oltreigiochi2026.regione.lombardia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?oltreigiochi2026\\.regione\\.lombardia\\.it/projects/mico2026\\-project/view/?\\?id=\\d+$",
+    "ITEM": "https://www.oltreigiochi2026.regione.lombardia.it/projects/mico2026-project/view?id=22",
+    "EVIDENCE_REF": "EV-IT-T12-073-CANARY-3378",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 38,
+     "PARAGRAPH_CHARACTERS": 1167,
+     "TEXT_SHA256": "23d21087aceece963ecd5a5f0de3cf8caa74b6e0b04bf809816de5c6450460db"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "38 nuovi treni per la mobilità lombarda - Oltre i Giochi 2026 - Regione Lombardia",
+    "H1": "38 nuovi treni per la mobilità lombarda",
+    "DATA_VISTA": null,
+    "INICIO": "Una nuova flotta di 38 treni potenzia il trasporto pubblico sulle direttrici Milano-Sondrio-Tirano e Milano-Aeroporti , assi strategici per la Lombardia e per i territori olimpici della Valtellina. Suddivisi in due modelli differenti, Donizetti e Caravaggio (sia a 4 che a 5 carrozze), i nuovi treni accompagnano ogni giorno milioni di cittadini verso il lavoro, l’aeroporto o alla scoperta dei luogh",
+    "SINAIS": [
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T12-075",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Osservatorio Istruzione",
+    "INDEX_URL": "https://osservatorio.regione.calabria.it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?osservatorio\\.regione\\.calabria\\.it/notizie/news/?\\?id=\\d+$",
+    "ITEM": "https://osservatorio.regione.calabria.it/notizie/news/?id=69",
+    "EVIDENCE_REF": "EV-IT-T12-075-CANARY-3345",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 75,
+     "PARAGRAPH_CHARACTERS": 3324,
+     "TEXT_SHA256": "c70f9043e9b58dafb5b060b8d9d551ab05061a42dc0eeccb6578faa194065c02"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Osservatorio Istruzione - Home",
+    "H1": "",
+    "DATA_VISTA": "11/01/2024",
+    "INICIO": "Pubblicata la 145esima edizione dell’Annuario statistico dell’Istat che fornisce una fotografia aggiornata del sistema paese Ventiquattro capitoli che offrono analisi e dati aggiornati a livello nazionale, regionale e provinciale su popolazione, istruzione, società, ambiente, economia, ricerca e innovazione, turismo, sanità e salute, giustizia e criminalità ma anche condizione economiche e vita qu",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T12-081",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Programmazione Europea",
+    "INDEX_URL": "https://ue.regione.lombardia.it",
+    "LINK_PATTERN": "^https?://(www\\.)?ue\\.regione\\.lombardia\\.it/it/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://ue.regione.lombardia.it/it/accordo-per-lo-sviluppo-e-la-coesione",
+    "EVIDENCE_REF": "EV-IT-T12-081-CANARY-3381",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 1105,
+     "PARAGRAPH_CHARACTERS": 23767,
+     "TEXT_SHA256": "a7399778e9178d0749c7019f36103953de9f38d6fceb8460bbbf312d72422101"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Accordo per lo Sviluppo e la Coesione",
+    "H1": "Accordo per lo Sviluppo e la Coesione",
+    "DATA_VISTA": "7 dicembre 2023",
+    "INICIO": "L’Accordo per lo Sviluppo e la Coesione è stato sottoscritto il 7 dicembre 2023 tra il Presidente del Consiglio dei Ministri Giorgia Meloni e il Presidente della Regione Lombardia Attilio Fontana. Il Responsabile unico dell'attuazione dell'Accordo per lo Sviluppo e la Coesione garantisce, tramite i beneficiari, l’adempimento degli obblighi di pubblicità e informazione nei confronti dell’opinione p",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T12-102",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Uffici e organizzazione",
+    "INDEX_URL": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.campania\\.it/regione/uffici\\-e\\-organizzazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.regione.campania.it/regione/uffici-e-organizzazione/1010000-ufficio-gabinetto",
+    "EVIDENCE_REF": "EV-IT-T12-102-CANARY-3348",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 117,
+     "PARAGRAPH_CHARACTERS": 1343,
+     "TEXT_SHA256": "f61082a6fbec1aceef90728896a7fc68c6a656ea43ce22313a6aff32cb8f10eb"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "101.00.00 UFFICIO DI GABINETTO | Regione Campania",
+    "H1": "Regione Campania",
+    "DATA_VISTA": "28 agosto 1997",
+    "INICIO": "L'Ufficio di Gabinetto svolge compiti di supporto tecnico in tutti gli ambiti di competenza del Presidente; cura i rapporti con gli organismi dell'Unione Europea, con gli organi costituzionali e di rilievo costituzionale, il CIPESS, la Conferenza delle Regioni e delle Province Autonome e le Conferenze di cui agli articoli 2 e 8 del decreto legislativo 28 agosto 1997, n. 281, nonché con il Consigli",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: uffic"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T12-104",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "geoportale.regione.lombardia.it",
+    "INDEX_URL": "https://www.geoportale.regione.lombardia.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/news/\\-/asset_publisher/80SRILUddraK/content/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=\\d+&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=[^&]+$",
+    "ITEM": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+    "EVIDENCE_REF": "EV-IT-T12-104-CANARY-3384",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 30,
+     "PARAGRAPH_CHARACTERS": 1122,
+     "TEXT_SHA256": "766c65c2513c170cc0eb28f01bcb312191de96bf45cd82eb2b7dd6e1daad48c6"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "DISPONIBILE IL DOWNLOAD DEL DBGT RISTRUTTURATO - Geoportale della Lombardia",
+    "H1": "Navigazione",
+    "DATA_VISTA": null,
+    "INICIO": "A seguito della pubblicazione del DataBase GeoTopografico (DBGT) regionale ristrutturato completamente secondo le specifiche di contenuto nazionali, oggi è disponibile anche il download \"comunale\" nella nuova versione. I dati - scaricabili anche con il taglio \"provinciale\" - sono contenuti in cartelle in formato .zip contenenti i seguenti file nello standard OGC GeoPackage, utilizzabile con i prin",
+    "SINAIS": [
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T12-129",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Regione Siciliana Assessorato Regionale dell'Agricoltura dello Sviluppo Rurale",
+    "INDEX_URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.sicilia\\.it/la\\-regione\\-informa/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.regione.sicilia.it/la-regione-informa/nuova-disciplina-riconoscimento-patrocini-contributi-manifestazioni-programmi-promozione-prodotti-agricoli-agroalimentari",
+    "EVIDENCE_REF": "EV-IT-T12-129-CANARY-3351",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 71,
+     "PARAGRAPH_CHARACTERS": 1577,
+     "TEXT_SHA256": "4fedb0548c8db7863b75fc87ca900cdca186b9e83df4d6919a87c3d37bff50f7"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Nuova disciplina per il riconoscimento di patrocini e contributi per manifestazioni e programmi di promozione dei prodotti agricoli e agroalimentari | Regione S",
+    "H1": "",
+    "DATA_VISTA": "1 gennaio 2026",
+    "INICIO": "E' stato pubblicato il nuovo decreto assessoriale che disciplina, dall'1 gennaio 2026, le modalità per la presentazione di proposte per iniziative di promozione e valorizzazione dei prodotti agricoli, agroalimentari, forestali e della pesca e per la concessione di patrocini e contributi. Le istanze di contributo dovranno essere compilate esclusivamente tramite il form scaricabile da questa pagina ",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: tribut"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T12-130",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Finanziamenti agricoli",
+    "INDEX_URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/pac\\-psr\\-csr/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "ITEM": "https://terraevita.edagricole.it/pac-psr-csr/aiuti-in-aumento-con-le-economie-di-spesa/",
+    "EVIDENCE_REF": "EV-IT-T12-130-CANARY-3354",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 251,
+     "PARAGRAPH_CHARACTERS": 3744,
+     "TEXT_SHA256": "438f492f9de3e6cf91aecd4321856a25cd959b8ec1e66da8ab021427c3d059d4"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Aiuti in aumento con le economie di spesa - Terra e Vita",
+    "H1": "Aiuti in aumento con le economie di spesa",
+    "DATA_VISTA": "24 Settembre 2026",
+    "INICIO": "Questo contenuto è riservato agli abbonati a Terra e Vita Sei abbonato a Terra e Vita? Effettua il login con la stessa e-mail utilizzata per la sottoscrizione del tuo abbonamento, per accedere a questo articolo e a tutti i contenuti a te riservati. Non sei ancora abbonato a Terra e Vita? Attiva ora il tuo abbonamento per non perderti nulla. Contenuti premium, approfondimenti speciali e tanti altri",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T12-131",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "L'esperto Pac risponde",
+    "INDEX_URL": "https://terraevita.edagricole.it/l-esperto-risponde/pac-e-psr/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/esperto\\-risponde/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://terraevita.edagricole.it/esperto-risponde/avvicendamento-non-rispettato-quali-sono-le-sanzioni/",
+    "EVIDENCE_REF": "EV-IT-T12-131-CANARY-3357",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 204,
+     "PARAGRAPH_CHARACTERS": 2864,
+     "TEXT_SHA256": "4719f40ae1e199ff1041f062d279b0429290ab0469d964b77a8c49d771d47729"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Avvicendamento non rispettato, quali sono le sanzioni - Terra e Vita",
+    "H1": "L'Esperto PAC risponde Approfondimenti sulla politica agricola comune a cura di Angelo Frascarelli",
+    "DATA_VISTA": "13 Febbraio 2026",
+    "INICIO": "Soltanto tu, che sei abbonato, potrai proporre fino a tre quesiti all'anno, a cui avrai risposta direttamente via e-mail prima ancora della pubblicazione. Il caso di chi ha ripetuto una coltura per due anni consecutivi Ho un’azienda situata in Molise. Nella mia domanda Pac 2024 ho aderito all’avvicendamento (Ecoschema 4) e, in quell’anno, su entrambe le mie particelle, ho coltivato grano duro. Nel",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T12-134",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "fruttanellescuole.gov.it",
+    "INDEX_URL": "http://www.fruttanellescuole.gov.it",
+    "LINK_PATTERN": "^https?://(www\\.)?fruttanellescuole\\.gov\\.it/alunni/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.fruttanellescuole.gov.it/alunni/conosci-la-frutta-e-la-verdura",
+    "EVIDENCE_REF": "EV-IT-T12-134-CANARY-3360",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 87,
+     "PARAGRAPH_CHARACTERS": 1301,
+     "TEXT_SHA256": "b760a5fd5cf0bf56327700fae81bb037096925d63cc19cf4e88e01eaeded04da"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Conosci la frutta e la verdura",
+    "H1": "Conosci la frutta e la verdura",
+    "DATA_VISTA": null,
+    "INICIO": "Conosci orto, frutteto e serra: i luoghi dove frutta e verdura nascono e crescono. Pensaci bene: frutta e verdura siamo abituati a vederle tutte insieme dal fruttivendolo o al supermercato, ma sai davvero da dove arrivano? Mele e fragole, finocchi e pomodorini prima non si erano mai incontrati, perché cresciuti e maturati in posti diversi. Dall’orto arrivano le verdure, che infatti si chiamano anc",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: alunni",
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T2-032",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "ARPA Liguria — dati meteo e qualita aria",
+    "INDEX_URL": "https://www.arpal.liguria.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpal\\.liguria\\.it/home\\-page/notizie\\-tematiche/item/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$",
+    "ITEM": "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/acustica-ambientale-il-29-ottobre-nuovo-corso-di-aggiornamento-arpal.html",
+    "EVIDENCE_REF": "EV-IT-T2-032-CANARY-3363",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 44,
+     "PARAGRAPH_CHARACTERS": 1516,
+     "TEXT_SHA256": "2619c591c00cd4b47d5dcf21c42b74edf2f44dfad007f99f56946d0430323347"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Notizie tematiche - Acustica ambientale, il 29 ottobre nuovo corso di aggiornamento Arpal - Arpal Liguria",
+    "H1": "Acustica ambientale, il 29 ottobre nuovo corso di aggiornamento Arpal",
+    "DATA_VISTA": "29 ottobre 2026",
+    "INICIO": "Prosegue l’attività formativa di Arpal dedicata ai Tecnici Competenti in Acustica dipendenti di Enti Pubblici . Il 29 ottobre 2026 si terrà il terzo modulo del corso di aggiornamento “Tecniche e metodi per le istruttorie e le misure in acustica ambientale” , organizzato da Arpal e articolato complessivamente in cinque moduli monotematici distribuiti su diverse annualità. L’appuntamento sarà dedica",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: corso"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T2-033",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "ARPA Lombardia — dati ambientali e meteo",
+    "INDEX_URL": "https://www.arpalombardia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/temi\\-ambientali/campi\\-elettromagnetici/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.arpalombardia.it/temi-ambientali/campi-elettromagnetici/elettrodotti-basse-frequenze/",
+    "EVIDENCE_REF": "EV-IT-T2-033-CANARY-3387",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 463,
+     "PARAGRAPH_CHARACTERS": 6748,
+     "TEXT_SHA256": "0fba9ff644903608fe8b37c9f09360154fbb6c09cac02c5a2eafe39c58bef11a"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "ARPA Lombardia | Campi elettromagnetici | Elettrodotti | Basse frequenze - ARPA Lombardia",
+    "H1": "Elettrodotti | Basse frequenze",
+    "DATA_VISTA": "8 luglio 2003",
+    "INICIO": "Questo sito utilizza cookie tecnici e di terze parti. Per saperne di più consulta la Consulta la PRIVACY POLICY . L'utilizzo di cookie di terze parti, comunque responsabili del trattamento, consente di attivare l'incorporamento di elementi necessari al funzionamento del social network Twitter e dell'interprete di dati geografici OpenStreetMap . Prima di proseguire la navigazione scegli quali accet",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T2-037",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "ARPAT Toscana — Agenzia regionale protezione ambientale",
+    "INDEX_URL": "https://www.arpat.toscana.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/pubblicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.arpat.toscana.it/pubblicazione/centrali-geotermiche-della-toscana-anno-2025/",
+    "EVIDENCE_REF": "EV-IT-T2-037-CANARY-3390",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 153,
+     "PARAGRAPH_CHARACTERS": 2355,
+     "TEXT_SHA256": "aa483fb7d4693de5f1ca598aff9932acd1748050d206b4c9a6b425119070d9f1"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Centrali geotermiche della Toscana – Anno 2025 - ARPAT",
+    "H1": "Centrali geotermiche della Toscana – Anno 2025",
+    "DATA_VISTA": "12 Agosto 2026",
+    "INICIO": "Attività di controllo ARPAT svolta nelle centrali geotermiche della Toscana nel 2025 La presente relazione riporta i risultati delle attività di controllo alle emissioni in atmosfera delle centrali geotermoelettriche svolte da ARPAT nell’anno 2025. La parte introduttiva della presente relazione fornisce un quadro delle attività di sfruttamento delle risorse geotermiche in Toscana, della normativa ",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T2-050",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "ArpaC",
+    "INDEX_URL": "https://www.arpacampania.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?redirect=[^&]+$",
+    "ITEM": "https://www.arpacampania.it/-/arpa-campania-partecipa-alla-notte-europea-delle-ricercatrici-e-dei-ricercatori-2026?redirect=%2F",
+    "EVIDENCE_REF": "EV-IT-T2-050-CANARY-3366",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 66,
+     "PARAGRAPH_CHARACTERS": 1943,
+     "TEXT_SHA256": "830cd355b4210b7840a66a6cf2e2eb7ce966b3505f56a44f32e6c8534bc275a8"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Arpa Campania partecipa alla Notte europea delle ricercatrici e dei ricercatori 2026 - Arpac",
+    "H1": "Navigazione",
+    "DATA_VISTA": null,
+    "INICIO": "Indietro Arpa Campania partecipa alla Notte europea delle ricercatrici e dei ricercatori 2026 ll 25 settembre torna la Notte europea delle ricercatrici e dei ricercatori, iniziativa promossa dalla Commissione europea fin dal 2005 che coinvolge ogni anno migliaia di ricercatrici e ricercatori afferenti a istituzioni di ricerca in tutti i paesi europei. L’iniziativa si svolge ogni anno in tutta Euro",
+    "SINAIS": [
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T2-063",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Sistema di gestione Qualità",
+    "INDEX_URL": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/sistema\\-di\\-gestione\\-per\\-la\\-qualita/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "ITEM": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/accreditamento-dei-laboratori-iso-iec-17025/",
+    "EVIDENCE_REF": "EV-IT-T2-063-CANARY-3393",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 147,
+     "PARAGRAPH_CHARACTERS": 5215,
+     "TEXT_SHA256": "5cd3eead7c9735bbb3f0b23efb68cd6f05dcc7646894cf3b183bd1bdd124a429"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "L'accreditamento dei laboratori ARPAT - ARPAT",
+    "H1": "L’accreditamento dei laboratori ARPAT",
+    "DATA_VISTA": null,
+    "INICIO": "È un’attestazione della conformità alla norma UNI CEI EN ISO/IEC 17025 Molte attività di competenza dell’Agenzia ( L.R. 30/2009 ) implicano attività di misura e prova svolte da ARPAT. Lo schema dell’accreditamento è stato messo a punto dall’Unione Europea a metà degli anni ‘80 al fine di permettere la libera circolazione di merci e prodotti sul territorio comunitario. L’accreditamento è volontario",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: accreditament",
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T2-070",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Vai al profilo Issuu di\n                                            ARPAT",
+    "INDEX_URL": "http://issuu.com/arpatoscana",
+    "LINK_PATTERN": "^https?://(www\\.)?issuu\\.com/arpatoscana/docs/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "http://issuu.com/arpatoscana/docs/acque-destinate-vita-molluschi-2023",
+    "EVIDENCE_REF": "EV-IT-T2-070-CANARY-3396",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 79,
+     "PARAGRAPH_CHARACTERS": 1858,
+     "TEXT_SHA256": "62b5ae7c5e05f90ad364f9820c185ec321507f6e079e3a860ebb47466d870942"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Issuu",
+    "H1": "Qualità delle acque destinate alla vita dei molluschi - 2023",
+    "DATA_VISTA": null,
+    "INICIO": "Transform any piece of content into a page-turning experience. Deliver a distraction-free reading experience with a simple link. Host your publication on your website or blog with just a few clicks. Make data-driven decisions to drive reader engagement, subscriptions, and campaigns. Enable groups of users to work together to streamline your digital publishing. Create on-brand social posts and Arti",
+    "SINAIS": [
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T3-023",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Difesa fitosanitaria",
+    "INDEX_URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/agrofarmaci\\-difesa/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://terraevita.edagricole.it/agrofarmaci-difesa/agrumi-confusione-sessuale-anche-per-le-cocciniglie/",
+    "EVIDENCE_REF": "EV-IT-T3-023-CANARY-3399",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 235,
+     "PARAGRAPH_CHARACTERS": 3692,
+     "TEXT_SHA256": "ae8b28435779ecceb8e9ec73378e839524be4edf46672e4f94684262a88cde49"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Agrumi, confusione sessuale anche per le cocciniglie - Terra e Vita",
+    "H1": "Agrumi, confusione sessuale anche per le cocciniglie",
+    "DATA_VISTA": "22 Settembre 2026",
+    "INICIO": "Le strategie di controllo sono sempre più preventive e meno curative Questo contenuto è riservato agli abbonati a Terra e Vita Sei abbonato a Terra e Vita? Effettua il login con la stessa e-mail utilizzata per la sottoscrizione del tuo abbonamento, per accedere a questo articolo e a tutti i contenuti a te riservati. Non sei ancora abbonato a Terra e Vita? Attiva ora il tuo abbonamento per non perd",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T5-056",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "CREA — Consiglio per la Ricerca in Agricoltura e l'Analisi dell'Economia Agraria",
+    "INDEX_URL": "https://www.crea.gov.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.crea.gov.it/-/il-contributo-del-crea-allo-sviluppo-dell-acquacoltura-sostenibile",
+    "EVIDENCE_REF": "EV-IT-T5-056-CANARY-3402",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 94,
+     "PARAGRAPH_CHARACTERS": 1074,
+     "TEXT_SHA256": "2234276fcd913b40ada01fa3d5e4ed732de61b116bc27e5bb0d340d4c6a85a99"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Il contributo del CREA allo sviluppo dell'acquacoltura sostenibile - Il contributo del CREA allo sviluppo dell'acquacoltura sostenibile - CREA",
+    "H1": "Il contributo del CREA allo sviluppo dell'acquacoltura sostenibile - Il contributo del CREA allo sviluppo dell'acquacoltura sostenibile",
+    "DATA_VISTA": null,
+    "INICIO": "\" Mission del CREA - afferma Fabrizio Capoccioni, ricercatore del CREA Zootecnia e Acquacoltura, intervistato nel programma RAI \"Habitat\" nella puntata n. 13, dedicata alle isole toscane di Pianosa e Capraia - è quella di aiutare le aziende a sviluppare nuovi materiali e tecniche che favoriscano la pescicoltura sostenibile, come le reti in lega di rame, che, dopo un test ad hoc, sono risultate mol",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: tribut",
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T5-080",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "creafuturo.crea.gov.it",
+    "INDEX_URL": "https://creafuturo.crea.gov.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?creafuturo\\.crea\\.gov\\.it/\\d+/?$",
+    "ITEM": "https://creafuturo.crea.gov.it/13865/",
+    "EVIDENCE_REF": "EV-IT-T5-080-CANARY-3405",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 116,
+     "PARAGRAPH_CHARACTERS": 6626,
+     "TEXT_SHA256": "32ab65f46aaba9f55814af2674adbee32010fedb17c18783961704ad45bdbf4b"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Il Florovivaismo italiano nel 2024: numeri&tendenze | CREA futuro",
+    "H1": "Il Florovivaismo italiano nel 2024: numeri&tendenze",
+    "DATA_VISTA": "29/7/2020",
+    "INICIO": "TESTATA GIORNALISTICA ONLINE DEL CREA, ISCRIZIONE N. 76/2020 AL REGISTRO STAMPA DEL TRIBUNALE DI ROMA DEL 29/7/2020 Il Sistema Informativo Nazionale delle Foreste e delle Filiere forestali Nel 2023, il valore alla produzione del florovivaismo italiano ha raggiunto un record storico, superando i 3,2 miliardi di euro, posizionando l’Italia al terzo posto nella classifica europea, dietro solo ai Paes",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T5-104",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Università degli Studi di Roma “Tor Vergata”",
+    "INDEX_URL": "https://web.uniroma2.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?web\\.uniroma2\\.it/it/contenuto/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://web.uniroma2.it/it/contenuto/algo26-roma-tor-vergata-protagonista-al-meeting-internazionale-dedicato-agli-algoritmi",
+    "EVIDENCE_REF": "EV-IT-T5-104-CANARY-3408",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 55,
+     "PARAGRAPH_CHARACTERS": 3397,
+     "TEXT_SHA256": "989278f944a4dbd0b1b7a6f7f98a5ad507b4e5e1c1da87cafeff0cdee661f347"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Algo26, Roma Tor Vergata protagonista al meeting internazionale dedicato agli algoritmi",
+    "H1": "Algo26, Roma Tor Vergata protagonista al meeting internazionale dedicato agli algoritmi",
+    "DATA_VISTA": "09/09/2026",
+    "INICIO": "Cinque giorni, circa 280 presentazioni e 350 ricercatori provenienti da tutto il mondo. Dal 31 agosto al 4 settembre nel Centro congressi 'Luigi Zordan' dell'Università dell'Aquila si è svolto Algo 2026 , il maggiore meeting europeo dedicato alla scienza degli algoritmi. Tra L'Aquila e Roma, le traiettorie dell'innovazione tecnologica europea tracciano nuove coordinate fondamentali. Un evento di p",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T5-111",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Comunicati Stampa",
+    "INDEX_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/comunicati-stampa",
+    "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/web/guest/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.crea.gov.it/web/guest/-/capitale-umano-e-visione-strategica-il-crea-rafforza-la-governance-della-ricerca",
+    "EVIDENCE_REF": "EV-IT-T5-111-CANARY-3411",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 95,
+     "PARAGRAPH_CHARACTERS": 7918,
+     "TEXT_SHA256": "526f6dadf47159c1fb87f51ba462d03e49a0475118538e24cde196914d37e107"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Capitale umano e visione strategica: il CREA rafforza la governance della ricerca - Capitale umano e visione strategica: il CREA rafforza la governance della ri",
+    "H1": "Capitale umano e visione strategica: il CREA rafforza la governance della ricerca - Capitale umano e visione strategica: il CREA rafforza la governance della ri",
+    "DATA_VISTA": null,
+    "INICIO": "Nominati i nuovi Direttori dei Centri di ricerca Il Consiglio di Amministrazione del CREA, su proposta del Presidente, Andrea Rocchi, ha approvato le proposte di nomina dei nuovi Direttori dei Centri di ricerca dell’Ente. Le scelte puntano alla valorizzazione delle competenze scientifiche e gestionali, promuovono percorsi di crescita maturati all’interno del CREA, rafforzando il ruolo delle propri",
+    "SINAIS": [
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T5-113",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Notizie",
+    "INDEX_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/web/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/cardo-mariano-il-18-settembre-un-simposio-dedicato-via-biosintetica-della-silimarina",
+    "EVIDENCE_REF": "EV-IT-T5-113-CANARY-3414",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 97,
+     "PARAGRAPH_CHARACTERS": 2149,
+     "TEXT_SHA256": "9e210bced3f629ade2aa1adb13dbc63d4a234cc5b83e7736ebdc47c73d20b929"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Cardo Mariano - il 18 settembre un simposio dedicato via biosintetica della silimarina - Cardo Mariano - il 18 settembre un simposio dedicato via biosintetica d",
+    "H1": "Cardo Mariano - il 18 settembre un simposio dedicato via biosintetica della silimarina - Cardo Mariano - il 18 settembre un simposio dedicato via biosintetica d",
+    "DATA_VISTA": null,
+    "INICIO": "Il CREA partecipa all'incontro Latest Advancements in the Regulation of Silymarin Flavonolignans Biosynthesis organizzato dal Prof. Sameh AbouZid, Faculty of Pharmacy, Beni-Suef University Tommaso Martinelli, CREA Centro di Ricerca Difesa e Certificazione, parteciperà con una relazione dal titolo- The importance of silymarin chemotypes identification for the study of Silybum marianum. La relazione",
+    "SINAIS": [
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T7-019",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Confagricoltura Lombardia",
+    "INDEX_URL": "https://lombardia.confagricoltura.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?lombardia\\.confagricoltura\\.it/news/home/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$",
+    "ITEM": "https://lombardia.confagricoltura.it/news/home/103421/pomodoro-da-industria-annata-in-chiaroscuro.html",
+    "EVIDENCE_REF": "EV-IT-T7-019-CANARY-3417",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 65,
+     "PARAGRAPH_CHARACTERS": 2917,
+     "TEXT_SHA256": "935952255ec226b0dd5b8036cdb8440c7ae4de7be9710d7468816b36b7b99c00"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Pomodoro da industria, annata in chiaroscuro - Confagricoltura",
+    "H1": "Pomodoro da industria, annata in chiaroscuro",
+    "DATA_VISTA": "28.08.2026",
+    "INICIO": "Campagna del pomodoro precoce e anomala. Rese in calo e costi in aumento Una campagna del pomodoro particolarmente precoce , iniziata con un anticipo di circa dieci giorni grazie ad un andamento meteo climatico con temperature molto al di sopra della media (ma anche con qualche grandinata), che si andrà a chiudere entro il mese di settembre con più ombre che luci . «Quest’anno la campagna è in ant",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T7-041",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Consorzio di Bonifica della Romagna",
+    "INDEX_URL": "https://www.bonificaromagna.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/attivita/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.bonificaromagna.it/attivita/difesa-idraulica-e-ambiente",
+    "EVIDENCE_REF": "EV-IT-T7-041-CANARY-3420",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 54,
+     "PARAGRAPH_CHARACTERS": 2051,
+     "TEXT_SHA256": "6119372516af7251942c206dd8443b46b60e404dc8702912e500efd2c96de11e"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Difesa idraulica e ambiente - Consorzio di Bonifica della Romagna",
+    "H1": "Difesa idraulica e ambiente",
+    "DATA_VISTA": null,
+    "INICIO": "Garantisce la raccolta e il deflusso di oltre 900 milioni di metri cubi acque di pioggia, tramite 2.200 Km di canali che raccolgono e allontanano le acque di pioggia, poi sollevate e portate a mare da 55 impianti idrovori, assicurando così la difesa idraulica dei campi, degli immobili urbani e delle infrastrutture. Il consumo di suolo (urbanizzazione), la subsidenza (abbassamento del suolo) e i ca",
+    "SINAIS": [
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T7-048",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "CONFAI — Federazione Nazionale Coltivatori Diretti Compartimentali",
+    "INDEX_URL": "http://www.caiagromec.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?caiagromec\\.it/node/\\d+/?$",
+    "ITEM": "http://www.caiagromec.it/node/10820",
+    "EVIDENCE_REF": "EV-IT-T7-048-CANARY-3423",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 77,
+     "PARAGRAPH_CHARACTERS": 1930,
+     "TEXT_SHA256": "229108383a8c3669476fba7c78a54f3a7df81d57ec2b1bece36ae158c49d92a9"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Cai Agromec, Apima Verona compie 80 anni e si ritrova in assemblea | CAI",
+    "H1": "Cai Agromec, Apima Verona compie 80 anni e si ritrova in assemblea",
+    "DATA_VISTA": "30 maggio 2025",
+    "INICIO": "L’appuntamento è per domani a Villa Quaranta di Pescantina. Il presidente Gianni Dalla Bernardina: «Un’occasione per riflettere sul cammino percorso e sulle sfide future» Verona, 30 maggio 2025 – Sabato 31 maggio, a Villa Quaranta di Pescantina (VR), è in programma l’assemblea annuale di Apima Verona, aderente a Cai Agromec. L’evento offrirà anche l’occasione per celebrare un traguardo storico: gl",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T7-049",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "COPAGRI — Confederazione dei Produttori Agricoli",
+    "INDEX_URL": "https://copagri.org/",
+    "LINK_PATTERN": "^https?://(www\\.)?copagri\\.org/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://copagri.org/2026/04/02/basilicata-maltempo-2026/",
+    "EVIDENCE_REF": "EV-IT-T7-049-CANARY-3426",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 135,
+     "PARAGRAPH_CHARACTERS": 3469,
+     "TEXT_SHA256": "6add62786ad312bfe7df3db03c979222472c4b98b0b56c1f0630c4d52e36f7be"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Basilicata: maltempo, agricoltura lucana in piena emergenza; Regione intervenga - Copagri",
+    "H1": "",
+    "DATA_VISTA": "2 aprile 2026",
+    "INICIO": "Potenza, 2 aprile 2026 – “Le continue e prolungate piogge e le intense grandinate che negli ultimi giorni hanno sferzato la quasi totalità del territorio lucano stanno causando ingenti danni sia alle numerose coltivazioni in campo che alle strutture e alle pertinenze delle aziende agricole. Lo sottolinea il presidente della Copagri Basilicata Nicola Minichino , informando di aver prontamente aller",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T7-103",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "confcooperative.it",
+    "INDEX_URL": "https://www.confcooperative.it/LInformazione/Le-notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?confcooperative\\.it/LInformazione/Le\\-notizie/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "ITEM": "https://www.confcooperative.it/LInformazione/Le-notizie/action-plan-171informativa-232-primo-passo-verso-una-politica-di-sviluppo-per-tutta-la-cooperazione187",
+    "EVIDENCE_REF": "EV-IT-T7-103-CANARY-3429",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 124,
+     "PARAGRAPH_CHARACTERS": 3446,
+     "TEXT_SHA256": "f537759b8adaa902bb31e2afb3c8f77753a998e014129e308579f5232ba61104"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Action Plan: «Informativa è primo passo verso una politica di sviluppo per tutta la cooperazione»",
+    "H1": "Action Plan: «Informativa è primo passo verso una politica di sviluppo per tutta la cooperazione»",
+    "DATA_VISTA": "2 luglio 2026",
+    "INICIO": "«L’informativa relativa al Piano nazionale dell'economia sociale presentata in Cdm è un primo passo verso una politica di sviluppo per la cooperazione italiana. Ci aspettiamo però un’assunzione di impegno più chiara. Quando ci sarà l’approvazione del piano dell’economia sociale la politica economica si arricchirà di un nuovo strumento, capace di guardare con una visione più adeguata a un mondo, qu",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T7-105",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "en",
+    "INDEX_URL": "https://www.federunacoma.it/en/index.php",
+    "LINK_PATTERN": "^https?://(www\\.)?federunacoma\\.it/en/servizi/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.php/?$",
+    "ITEM": "https://www.federunacoma.it/en/servizi/italian-and-foreign-fairs-and-events.php",
+    "EVIDENCE_REF": "EV-IT-T7-105-CANARY-3432",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 99,
+     "PARAGRAPH_CHARACTERS": 5405,
+     "TEXT_SHA256": "d1aa80f95eb41220716afb73e336c1af9cbe6a1ecbcbdcdf5d1969fad7f61f18"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Italian and Foreign Fairs and Events - FederUnacoma",
+    "H1": "Italian and Foreign Fairs and Events",
+    "DATA_VISTA": "4 settembre 2026",
+    "INICIO": "Organization Agency: Informa Markets 605 3rd Ave, New York, NY 10158, USA Tel.: +1 212 6003668 | Fax: shows@farmprogress.com https://www.farmprogressshow.com/en/home.html KAZBUILD ALMATY 2 - 4 settembre 2026 Atakent IEC, Almaty (Kazakistan) Frequency: annuale Organization Agency: Iteca Kazakhstan, Almaty 42, Timiryazev str., 2nd floor 050057 Kazakistan Tel.: +7 727 2583434 / +39 02 86897000 | Fax:",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: servizi"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T7-125",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Puglia",
+    "INDEX_URL": "https://cia-puglia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?cia\\-puglia\\.it/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/",
+    "EVIDENCE_REF": "EV-IT-T7-125-CANARY-3435",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 77,
+     "PARAGRAPH_CHARACTERS": 1381,
+     "TEXT_SHA256": "60e8c681352832c0e03ebee70dcef6b782d390023bfbad457f72e8dc22dc8e6b"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Emergenza cinghiali, focus di Cia Due Mari con l’assessore Pentassuglia - CIA Puglia",
+    "H1": "",
+    "DATA_VISTA": "27 febbraio 2023",
+    "INICIO": "L’emergenza cinghiali in Puglia e nel Tarantino: lunedì 27 febbraio 2023, alle 9.30, sarà questo il “focus” al centro dell’incontro che si terrà nella Masseria Grotte di Sileno, in contrada Le Grotte a Castellaneta. L’iniziativa, alla quale tra gli altri parteciperà l’assessore regionale all’Agricoltura Donato Pentassuglia, è organizzata dall’Area Due Mari di Cia Agricoltori Italiani di Puglia. Al",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T7-139",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Florovivaisti Italiani",
+    "INDEX_URL": "https://www.florovivaistiitaliani.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?florovivaistiitaliani\\.it/inevidenza/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/",
+    "EVIDENCE_REF": "EV-IT-T7-139-CANARY-3438",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 42,
+     "PARAGRAPH_CHARACTERS": 2073,
+     "TEXT_SHA256": "898965e0f59391e768f024de6e07e1892c2e1304b8048f86c34e9d14a8704caa"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Buone notizie: Detrazione per il gasolio anche per le serre Florovivaistiche - Associazione Florovivaisti Italiani",
+    "H1": "Buone notizie: Detrazione per il gasolio anche per le serre Florovivaistiche",
+    "DATA_VISTA": "14 settembre 2026",
+    "INICIO": "ROMA, 14 settembre 2026 – Una buona notizia per il settore. Il Ministero dell’agricoltura (MASAF) ha pubblicato i chiarimenti applicativi in merito al credito d’imposta per l’acquisto di carburanti agricoli, confermando ufficialmente l’ammissibilità all’agevolazione anche per il riscaldamento delle serre floricole. Secondo la Presidente Florovivaisti Italiani Emanuela Milone, con le risposte Masaf",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T7-150",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "CENTRO REACH di FEDERCHIMICA",
+    "INDEX_URL": "https://centroreach.federchimica.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?centroreach\\.federchimica\\.it/dettaglio\\-corso/\\d+/?$",
+    "ITEM": "https://centroreach.federchimica.it/dettaglio-corso/189",
+    "EVIDENCE_REF": "EV-IT-T7-150-CANARY-3441",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 57,
+     "PARAGRAPH_CHARACTERS": 2948,
+     "TEXT_SHA256": "1b7e4ba76a6ac18553922eaa63c8c84076fa0bf38d36cab44c9938f1eeb8a13a"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Dettaglio corso",
+    "H1": "Il Consulente per la Sicurezza dei Trasporti Merci Pericolose (modalità stradale)",
+    "DATA_VISTA": "27 gennaio 2010",
+    "INICIO": "La figura professionale del Consulente Sicurezza dei Trasporti Merci Pericolose (DGSA) trova il suo riferimento normativo nella Direttiva 2008/68/CE e nel D.Lgs. 27 gennaio 2010, n.35 Italiano. L’obbligo di avvalersi del Consulente (che deve essere in possesso del prescritto certificato di formazione professionale) si applica alle Imprese che movimentano (operazioni di carico e scarico) merci peri",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: corso"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T7-163",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Consorzio Casalasco del Pomodoro",
+    "INDEX_URL": "https://www.casalasco.com/it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?casalasco\\.com/it/news/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.casalasco.com/it/news/a-tuttofood-2026-con-filiera-integrata-e-nuove-referenze",
+    "EVIDENCE_REF": "EV-IT-T7-163-CANARY-3444",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 46,
+     "PARAGRAPH_CHARACTERS": 2420,
+     "TEXT_SHA256": "ef44112af3385c79343eec682be0609c9837a575727acfe3da3d5e331bdc9124"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "A Tuttofood 2026 con filiera integrata e nuove referenze",
+    "H1": "A Tuttofood 2026 con filiera integrata e nuove referenze",
+    "DATA_VISTA": "14 maggio 2026",
+    "INICIO": "Anche quest’anno a Milano, porteremo le nostre proposte d’eccellenza, tra filiera integrata, ampliamento di gamma e internazionalizzazione. Gruppo agroalimentare leader nella selezione,coltivazione, trasformazione del pomodoro da industria, confezionamento ecommercializzazione dei suoi derivati, sarà tra i protagonisti della prossimaedizione di TUTTOFOOD (HALL 7 Stand E01), la fiera internazionale",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T8-010",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Il Corriere Vinicolo",
+    "INDEX_URL": "https://www.unioneitalianavini.it/il-corriere-vinicolo",
+    "LINK_PATTERN": "^https?://(www\\.)?unioneitalianavini\\.it/servizi/servizio\\-giuridico/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://www.unioneitalianavini.it/servizi/servizio-giuridico/alert-normativo-uivlex",
+    "EVIDENCE_REF": "EV-IT-T8-010-CANARY-3447",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 108,
+     "PARAGRAPH_CHARACTERS": 3260,
+     "TEXT_SHA256": "0a14ed26f4b99a9944054b4a89c528f74d65ee0b89162993a89885876c123d04"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Normative vitivinicole: alert settimanale UIVLex | UIV",
+    "H1": "Alert normativo – UIVLex",
+    "DATA_VISTA": null,
+    "INICIO": "UIVLex è la newsletter settimanale del Servizio Giuridico di Unione Italiana Vini che segnala in modo chiaro e selettivo le principali novità normative e giurisprudenziali del settore vitivinicolo. Nel settore vitivinicolo, il quadro normativo evolve in modo continuo: nuove disposizioni, aggiornamenti interpretativi, sentenze e prassi amministrative possono incidere direttamente su produzione, eti",
+    "SINAIS": [
+     "CAMINHO_DE_SERVICO: servizi",
+     "SEM_DATA"
+    ]
+   },
+   {
+    "SOURCE_ID": "IT-T8-022",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Colture",
+    "INDEX_URL": "https://terraevita.edagricole.it/colture/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/frutticoltura/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://terraevita.edagricole.it/frutticoltura/pera-dellemilia-romagna-igp-dalla-regione-13-milioni-per-rinforzare-la-filiera/",
+    "EVIDENCE_REF": "EV-IT-T8-022-CANARY-3450",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 243,
+     "PARAGRAPH_CHARACTERS": 6611,
+     "TEXT_SHA256": "197c80323800acff716b1e132fc33a496fb89bbba216f3d9af89b541e6c6321e"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Pera dell’Emilia-Romagna Igp, 1,3 milioni per rinforzare la filiera - Terra e Vita",
+    "H1": "Pera dell’Emilia-Romagna Igp, dalla Regione 1,3 milioni per rinforzare la filiera",
+    "DATA_VISTA": "3 Settembre 2026",
+    "INICIO": "La Regione Emilia-Romagna stanzia 1,3 milioni di euro per sostenere la filiera della Pera dell’Emilia-Romagna Igp , con due interventi rivolti rispettivamente alla produzione certificata e alla promozione del prodotto sui mercati nazionali e internazionali. Al nuovo bando da 700mila euro approvato dalla Giunta regionale possono accedere consorzi di tutela, consorzi di promozione economica e altri ",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T8-024",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Colture estensive",
+    "INDEX_URL": "https://terraevita.edagricole.it/seminativi/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/seminativi/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://terraevita.edagricole.it/seminativi/cereali-buone-rese-frumenti-orzi-conti-tornano-innovazione/",
+    "EVIDENCE_REF": "EV-IT-T8-024-CANARY-3453",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 240,
+     "PARAGRAPH_CHARACTERS": 6248,
+     "TEXT_SHA256": "dc4b206781238d8320bbd34ba76d1b09b6a87aba65a7f5d781ad9c66411390bd"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Cereali: buone rese per frumenti e orzi. I conti tornano con l’innovazione - Terra e Vita",
+    "H1": "Cereali: buone rese per frumenti e orzi. I conti tornano con l’innovazione",
+    "DATA_VISTA": "26 Maggio 2026",
+    "INICIO": "Superfici in leggero calo per il frumento duro (intorno al 4-5% rispetto al 2025), ma rese in linea e in qualche caso superiori alle medie storiche, che al Sud, ad esempio, potrebbero toccare i 40-50 q/ha. In aumento invece del (5-6%) rispetto allo scorso anno gli ettari coltivati a frumento tenero, con qualità delle spighe che a metà maggio si presenta mediamente eccellente, sancendo finora la mi",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T8-041",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "VVQ – Vigne, Vini e Qualità",
+    "INDEX_URL": "https://vigneviniequalita.edagricole.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?vigneviniequalita\\.edagricole\\.it/attualita\\-news/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://vigneviniequalita.edagricole.it/attualita-news/al-via-il-decreto-per-la-promozione-del-turismo-enologico/",
+    "EVIDENCE_REF": "EV-IT-T8-041-CANARY-3456",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 184,
+     "PARAGRAPH_CHARACTERS": 3495,
+     "TEXT_SHA256": "acb28ae5c518f72bed6785a44b4d1a96bd2eda39661f754af42cfb5b33ae0b75"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Al via decreto per la promozione dell'enoturismo - VVQ - Vigne, Vini & Qualità",
+    "H1": "Al via il decreto per la promozione del turismo enologico",
+    "DATA_VISTA": "23 Settembre 2026",
+    "INICIO": "Firmato dal ministro dell’Agricoltura, della Sovranità alimentare e delle Foreste, Francesco Lollobrigida , il decreto per la promozione del turismo enologico . “ Con questo decreto - afferma il Ministro - compiamo un altro passo in avanti per rafforzare la reputazione del vino italiano e la crescita dei nostri territori . Sostenere la promozione del turismo enologico vuol dire valorizzare le prod",
+    "SINAIS": []
+   },
+   {
+    "SOURCE_ID": "IT-T8-042",
+    "ESTADO": "READY_FOR_COLLECTION",
+    "NOME": "Viticoltura",
+    "INDEX_URL": "https://terraevita.edagricole.it/viticoltura/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/viticoltura/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "ITEM": "https://terraevita.edagricole.it/viticoltura/barbatelle-sane-segreto-per-vigneti-longevi/",
+    "EVIDENCE_REF": "EV-IT-T8-042-CANARY-3459",
+    "RETRATO": {
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 245,
+     "PARAGRAPH_CHARACTERS": 3710,
+     "TEXT_SHA256": "7ffaa7a475375522c44d2d6d2597dbe91e11e325b2fb58bb4dc8803699cb755f"
+    },
+    "REPARADA": true,
+    "RELIDO_HTTP": 200,
+    "TITULO": "Barbatelle sane segreto per vigneti longevi - Terra e Vita",
+    "H1": "Barbatelle sane per vigneti longevi",
+    "DATA_VISTA": "24 Settembre 2026",
+    "INICIO": "Il punto sui rischi sanitari delle barbatelle Questo contenuto è riservato agli abbonati a Terra e Vita Sei abbonato a Terra e Vita? Effettua il login con la stessa e-mail utilizzata per la sottoscrizione del tuo abbonamento, per accedere a questo articolo e a tutti i contenuti a te riservati. Non sei ancora abbonato a Terra e Vita? Attiva ora il tuo abbonamento per non perderti nulla. Contenuti p",
+    "SINAIS": []
+   }
+  ]
+ },
+ "CONTRATOS": {
+  "IT-T12-023": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.puglia.it/web/agricoltura",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.puglia\\.it/web/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:29:06.798139+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.puglia.it/web/agricoltura",
+     "LINK_PATTERN": "^https?://(www\\.)?regione\\.puglia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.regione.puglia.it/web/agricoltura",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 112,
+      "PARAGRAPH_CHARACTERS": 1268,
+      "TEXT_SHA256": "ae98d224c6cd0bc3427ce49d58118f0a92f8b813fb88e52c847930876368ad30"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 17,
+     "ITEM_LIDO": {
+      "URL": "https://regione.puglia.it/web/contratto-di-fiume-canale-reale",
+      "HTTP": 200,
+      "BYTES": 120249,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 55,
+      "NON_WHITESPACE_CHARACTERS": 3177,
+      "PARAGRAPH_CHARACTERS": 2092,
+      "TEXT_SHA256": "533318f67852c76a502faec79d3b092eaf64c8209143ca73a1746a72f501a66a"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.regione.puglia.it/web/agricoltura",
+       "HTTP": 200,
+       "BYTES": 134305
+      },
+      {
+       "URL": "https://regione.puglia.it/web/contratto-di-fiume-canale-reale",
+       "HTTP": 200,
+       "BYTES": 120249
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.regione.puglia.it/web/agricoltura",
+   "NAME": "Regione Puglia — Agricoltura",
+   "OWNER": "Regione Puglia"
+  },
+  "IT-T12-024": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/web/agricoltura\\-e\\-foreste/dettaglio\\-news/?\\?articleId=\\d+$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": null,
+   "CANONICAL_ENTRY_URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+   "NAME": "Regione Veneto — Agricoltura",
+   "OWNER": "Regione Veneto"
+  },
+  "IT-T12-042": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.lombardia.it/burl-bollettino-ufficiale-regione-lombardia",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:29:29.878291+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "http://www.bollettino.regione.lombardia.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?bollettino\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "http://www.bollettino.regione.lombardia.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 140,
+      "PARAGRAPH_CHARACTERS": 1205,
+      "TEXT_SHA256": "05bd6d3740a97f0cb73e698981a24f8c34d85d2e6146d77a9e357dd8344beaf0"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 3,
+     "ITEM_LIDO": {
+      "URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/area-personale-tributi",
+      "HTTP": 200,
+      "BYTES": 355741,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 146,
+      "NON_WHITESPACE_CHARACTERS": 9995,
+      "PARAGRAPH_CHARACTERS": 4222,
+      "TEXT_SHA256": "797498271cb8e3057a90fe2d440a7f693b68d2338dd5554b3f9efe7f06434606"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "http://www.bollettino.regione.lombardia.it/",
+       "HTTP": 200,
+       "BYTES": 303876,
+       "DESTINO": "https://www.regione.lombardia.it/burl-bollettino-ufficiale-regione-lombardia"
+      },
+      {
+       "URL": "https://www.regione.lombardia.it/burl-bollettino-ufficiale-regione-lombardia/assistenza-per-gli-inserzionisti",
+       "HTTP": 0,
+       "BYTES": 0
+      },
+      {
+       "URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/area-personale-tributi",
+       "HTTP": 200,
+       "BYTES": 355741
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "http://www.bollettino.regione.lombardia.it/",
+   "NAME": "Bollettino ufficiale",
+   "OWNER": "Bollettino ufficiale"
+  },
+  "IT-T12-043": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/bollo\\-auto\\-e\\-tributi\\-regionali/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:29:45.366444+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+     "LINK_PATTERN": "^https?://(www\\.)?regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 213,
+      "PARAGRAPH_CHARACTERS": 1175,
+      "TEXT_SHA256": "66f35507349d492ed86d752232b6996372dc948169a4c24f4da689f8ccd343f3"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 8,
+     "ITEM_LIDO": {
+      "URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/tassa-automobilistica-bollo-auto/allineamento-scadenze-di-pagamento-per-veicoli-provenienti-da-altre-regioni",
+      "HTTP": 200,
+      "BYTES": 302825,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 135,
+      "NON_WHITESPACE_CHARACTERS": 6637,
+      "PARAGRAPH_CHARACTERS": 2785,
+      "TEXT_SHA256": "7c9abec7d0733e1eda2f20e4dd3ac84737ba7ae6d873eeeb66b47bdd67929a46"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+       "HTTP": 200,
+       "BYTES": 533004
+      },
+      {
+       "URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/tassa-automobilistica-bollo-auto/allineamento-scadenze-di-pagamento-per-veicoli-provenienti-da-altre-regioni",
+       "HTTP": 200,
+       "BYTES": 302825
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+   "NAME": "Bollo auto e tributi regionali",
+   "OWNER": "Bollo auto e tributi regionali"
+  },
+  "IT-T12-044": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://calabriaeuropa.regione.calabria.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?calabriaeuropa\\.regione\\.calabria\\.it/il\\-piano\\-nazionale\\-di\\-ripresa\\-e\\-resilienza/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:26:26.830053+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://calabriaeuropa.regione.calabria.it/news",
+     "LINK_PATTERN": "^https?://(www\\.)?calabriaeuropa\\.regione\\.calabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://calabriaeuropa.regione.calabria.it/news",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 85,
+      "PARAGRAPH_CHARACTERS": 912,
+      "TEXT_SHA256": "a9101e43e8c3790e113c5c94ec9aaa19ec1ad0359d5217d9f306be9d67b7315e"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 2,
+     "ITEM_LIDO": {
+      "URL": "https://calabriaeuropa.regione.calabria.it/il-piano-nazionale-di-ripresa-e-resilienza/il-progetto-1000-esperti/",
+      "HTTP": 200,
+      "BYTES": 148278,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 79,
+      "NON_WHITESPACE_CHARACTERS": 5520,
+      "PARAGRAPH_CHARACTERS": 3511,
+      "TEXT_SHA256": "263ad585bbe6195c4c1e200964fe501a3e9e6c0638acecceb649dbff17b6abc0"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://calabriaeuropa.regione.calabria.it/news",
+       "HTTP": 200,
+       "BYTES": 163819,
+       "DESTINO": "https://calabriaeuropa.regione.calabria.it/news/"
+      },
+      {
+       "URL": "https://calabriaeuropa.regione.calabria.it/news/?paged=167",
+       "HTTP": 200,
+       "BYTES": 136817,
+       "DESTINO": "https://calabriaeuropa.regione.calabria.it/news/page/167/"
+      },
+      {
+       "URL": "https://calabriaeuropa.regione.calabria.it/il-piano-nazionale-di-ripresa-e-resilienza/il-progetto-1000-esperti/",
+       "HTTP": 200,
+       "BYTES": 148278
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://calabriaeuropa.regione.calabria.it/calabriambiente-la-nuova-app-regionale-che-coinvolge-i-cittadini/",
+   "NAME": "CalabriAmbiente, la nuova app regionale che coinvolge i cittadini",
+   "OWNER": "CalabriAmbiente, la nuova app regionale che coinvolge i cittadini"
+  },
+  "IT-T12-073": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.oltreigiochi2026.regione.lombardia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?oltreigiochi2026\\.regione\\.lombardia\\.it/projects/mico2026\\-project/view/?\\?id=\\d+$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:30:05.713526+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.oltreigiochi2026.regione.lombardia.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?oltreigiochi2026\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.oltreigiochi2026.regione.lombardia.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 79,
+      "PARAGRAPH_CHARACTERS": 1256,
+      "TEXT_SHA256": "ad0712df3d2c2645fca21fa76f0028391e5f47ec1e40f522e96116682805b91f"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 3,
+     "ITEM_LIDO": {
+      "URL": "https://www.oltreigiochi2026.regione.lombardia.it/projects/mico2026-project/view?id=22",
+      "HTTP": 200,
+      "BYTES": 36809,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 38,
+      "NON_WHITESPACE_CHARACTERS": 1795,
+      "PARAGRAPH_CHARACTERS": 1167,
+      "TEXT_SHA256": "23d21087aceece963ecd5a5f0de3cf8caa74b6e0b04bf809816de5c6450460db"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.oltreigiochi2026.regione.lombardia.it/",
+       "HTTP": 200,
+       "BYTES": 163845
+      },
+      {
+       "URL": "https://www.oltreigiochi2026.regione.lombardia.it/projects/mico2026-project/view?id=22",
+       "HTTP": 200,
+       "BYTES": 36809
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.oltreigiochi2026.regione.lombardia.it/",
+   "NAME": "Oltreigiochi2026",
+   "OWNER": "Oltreigiochi2026"
+  },
+  "IT-T12-075": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://osservatorio.regione.calabria.it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?osservatorio\\.regione\\.calabria\\.it/notizie/news/?\\?id=\\d+$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:26:48.215103+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://osservatorio.regione.calabria.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?osservatorio\\.regione\\.calabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://osservatorio.regione.calabria.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 99,
+      "PARAGRAPH_CHARACTERS": 1593,
+      "TEXT_SHA256": "d095a3982e25bbd9ad4771d9fc83adc5e5cacd2871c775953fc8c523061282de"
+     },
+     "SECCAO_TENTADA": "https://osservatorio.regione.calabria.it/notizie",
+     "ALVOS_NA_LISTAGEM": 6,
+     "ITEM_LIDO": {
+      "URL": "https://osservatorio.regione.calabria.it/notizie/news/?id=69",
+      "HTTP": 200,
+      "BYTES": 77701,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 75,
+      "NON_WHITESPACE_CHARACTERS": 5403,
+      "PARAGRAPH_CHARACTERS": 3324,
+      "TEXT_SHA256": "c70f9043e9b58dafb5b060b8d9d551ab05061a42dc0eeccb6578faa194065c02"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://osservatorio.regione.calabria.it/",
+       "HTTP": 200,
+       "BYTES": 87630
+      },
+      {
+       "URL": "https://osservatorio.regione.calabria.it/notizie",
+       "HTTP": 200,
+       "BYTES": 87572,
+       "DESTINO": "https://osservatorio.regione.calabria.it/notizie/"
+      },
+      {
+       "URL": "https://osservatorio.regione.calabria.it/notizie/news/?id=69",
+       "HTTP": 200,
+       "BYTES": 77701
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://osservatorio.regione.calabria.it/",
+   "NAME": "Osservatorio Istruzione",
+   "OWNER": "Osservatorio Istruzione"
+  },
+  "IT-T12-081": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://ue.regione.lombardia.it",
+    "LINK_PATTERN": "^https?://(www\\.)?ue\\.regione\\.lombardia\\.it/it/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:30:30.977755+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://ue.regione.lombardia.it",
+     "LINK_PATTERN": "^https?://(www\\.)?ue\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://ue.regione.lombardia.it",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 1178,
+      "PARAGRAPH_CHARACTERS": 23508,
+      "TEXT_SHA256": "70b5f35bc27469ecfd0f2b2557369e06d4c7cfe1c67e82fc9480561d9f59fddc"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 5,
+     "ITEM_LIDO": {
+      "URL": "https://ue.regione.lombardia.it/it/accordo-per-lo-sviluppo-e-la-coesione",
+      "HTTP": 200,
+      "BYTES": 486097,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 1105,
+      "NON_WHITESPACE_CHARACTERS": 63269,
+      "PARAGRAPH_CHARACTERS": 23767,
+      "TEXT_SHA256": "a7399778e9178d0749c7019f36103953de9f38d6fceb8460bbbf312d72422101"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://ue.regione.lombardia.it",
+       "HTTP": 200,
+       "BYTES": 534045
+      },
+      {
+       "URL": "https://ue.regione.lombardia.it/it/accordo-per-lo-sviluppo-e-la-coesione",
+       "HTTP": 200,
+       "BYTES": 486097
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://ue.regione.lombardia.it",
+   "NAME": "Programmazione Europea",
+   "OWNER": "Programmazione Europea"
+  },
+  "IT-T12-102": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.campania\\.it/regione/uffici\\-e\\-organizzazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:27:06.396569+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+     "LINK_PATTERN": "^https?://(www\\.)?regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 142,
+      "PARAGRAPH_CHARACTERS": 410,
+      "TEXT_SHA256": "ec3d7e39240118f7b258e3575395fb6fff77669f0b4e619560f84de7aad0c6fe"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 32,
+     "ITEM_LIDO": {
+      "URL": "https://www.regione.campania.it/regione/uffici-e-organizzazione/1010000-ufficio-gabinetto",
+      "HTTP": 200,
+      "BYTES": 256424,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 117,
+      "NON_WHITESPACE_CHARACTERS": 3299,
+      "PARAGRAPH_CHARACTERS": 1343,
+      "TEXT_SHA256": "f61082a6fbec1aceef90728896a7fc68c6a656ea43ce22313a6aff32cb8f10eb"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+       "HTTP": 200,
+       "BYTES": 281689
+      },
+      {
+       "URL": "https://www.regione.campania.it/regione/uffici-e-organizzazione/1010000-ufficio-gabinetto",
+       "HTTP": 200,
+       "BYTES": 256424
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+   "NAME": "Uffici e organizzazione",
+   "OWNER": "Uffici e organizzazione"
+  },
+  "IT-T12-104": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.geoportale.regione.lombardia.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/news/\\-/asset_publisher/80SRILUddraK/content/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=\\d+&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=[^&]+$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:30:57.410487+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.geoportale.regione.lombardia.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.geoportale.regione.lombardia.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 33,
+      "PARAGRAPH_CHARACTERS": 37,
+      "TEXT_SHA256": "a2aeb5600aa44eed452608123bb0af68b94438439c05b643359b21564ccf17d8"
+     },
+     "SECCAO_TENTADA": "https://www.geoportale.regione.lombardia.it/news",
+     "ALVOS_NA_LISTAGEM": 3,
+     "ITEM_LIDO": {
+      "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+      "HTTP": 200,
+      "BYTES": 70367,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 30,
+      "NON_WHITESPACE_CHARACTERS": 2427,
+      "PARAGRAPH_CHARACTERS": 1122,
+      "TEXT_SHA256": "766c65c2513c170cc0eb28f01bcb312191de96bf45cd82eb2b7dd6e1daad48c6"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.geoportale.regione.lombardia.it/",
+       "HTTP": 200,
+       "BYTES": 116205
+      },
+      {
+       "URL": "https://www.geoportale.regione.lombardia.it/news",
+       "HTTP": 200,
+       "BYTES": 78291
+      },
+      {
+       "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596",
+       "HTTP": 200,
+       "BYTES": 70367
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.geoportale.regione.lombardia.it/",
+   "NAME": "geoportale.regione.lombardia.it",
+   "OWNER": "geoportale.regione.lombardia.it"
+  },
+  "IT-T12-117": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://energia.calabriaimpresa.eu/",
+    "LINK_PATTERN": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": null,
+   "CANONICAL_ENTRY_URL": "https://energia.calabriaimpresa.eu/",
+   "NAME": "Calabria Energia - Il Portale Energia della Regione Calabria",
+   "OWNER": "Calabria Energia - Il Portale Energia della Regione Calabria"
+  },
+  "IT-T12-129": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.sicilia\\.it/la\\-regione\\-informa/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:27:24.403367+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+     "LINK_PATTERN": "^https?://(www\\.)?regione\\.sicilia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 86,
+      "PARAGRAPH_CHARACTERS": 601,
+      "TEXT_SHA256": "456a32bd006843915841933573c6e9e1929a88d32c79db0003d5bb36c00c0020"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 3,
+     "ITEM_LIDO": {
+      "URL": "https://www.regione.sicilia.it/la-regione-informa/nuova-disciplina-riconoscimento-patrocini-contributi-manifestazioni-programmi-promozione-prodotti-agricoli-agroalimentari",
+      "HTTP": 200,
+      "BYTES": 238090,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 71,
+      "NON_WHITESPACE_CHARACTERS": 3357,
+      "PARAGRAPH_CHARACTERS": 1577,
+      "TEXT_SHA256": "4fedb0548c8db7863b75fc87ca900cdca186b9e83df4d6919a87c3d37bff50f7"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+       "HTTP": 200,
+       "BYTES": 244453
+      },
+      {
+       "URL": "https://www.regione.sicilia.it/la-regione-informa/nuova-disciplina-riconoscimento-patrocini-contributi-manifestazioni-programmi-promozione-prodotti-agricoli-agroalimentari",
+       "HTTP": 200,
+       "BYTES": 238090
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+   "NAME": "Regione Siciliana Assessorato Regionale dell'Agricoltura dello Sviluppo Rurale",
+   "OWNER": "Regione Siciliana Assessorato Regionale dell'Agricoltura dello Sviluppo Rurale"
+  },
+  "IT-T12-130": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/pac\\-psr\\-csr/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:27:46.536512+00:00",
+    "COMO": "LISTAGEM_E_ITENS_SOB_ELA (provar_listagem)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+     "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://terraevita.edagricole.it/pac-psr-csr/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 227,
+      "PARAGRAPH_CHARACTERS": 2162,
+      "TEXT_SHA256": "035c78fc40ddda70cbcb460971f15c2e542279d65fc46c70094ea015363ecb61"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 9,
+     "ITEM_LIDO": {
+      "URL": "https://terraevita.edagricole.it/pac-psr-csr/aiuti-in-aumento-con-le-economie-di-spesa/",
+      "HTTP": 200,
+      "BYTES": 275454,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 251,
+      "NON_WHITESPACE_CHARACTERS": 7954,
+      "PARAGRAPH_CHARACTERS": 3744,
+      "TEXT_SHA256": "438f492f9de3e6cf91aecd4321856a25cd959b8ec1e66da8ab021427c3d059d4"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+       "HTTP": 200,
+       "BYTES": 250927
+      },
+      {
+       "URL": "https://terraevita.edagricole.it/l-esperto-risponde/pac-e-psr/",
+       "HTTP": 200,
+       "BYTES": 243319
+      },
+      {
+       "URL": "https://terraevita.edagricole.it/pac-psr-csr/aiuti-in-aumento-con-le-economie-di-spesa/",
+       "HTTP": 200,
+       "BYTES": 275454
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+   "NAME": "Finanziamenti agricoli",
+   "OWNER": "Finanziamenti agricoli"
+  },
+  "IT-T12-131": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/l-esperto-risponde/pac-e-psr/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/esperto\\-risponde/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:28:01.713753+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.terraevita.it/l-esperto-risponde/pac-e-psr/",
+     "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.terraevita.it/l-esperto-risponde/pac-e-psr/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 204,
+      "PARAGRAPH_CHARACTERS": 2473,
+      "TEXT_SHA256": "a6d8024be14c122e1212dc8e03356db8709d6d25ff0a5b9b574ca13e208f44dc"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 10,
+     "ITEM_LIDO": {
+      "URL": "https://terraevita.edagricole.it/esperto-risponde/avvicendamento-non-rispettato-quali-sono-le-sanzioni/",
+      "HTTP": 200,
+      "BYTES": 244598,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 204,
+      "NON_WHITESPACE_CHARACTERS": 6717,
+      "PARAGRAPH_CHARACTERS": 2864,
+      "TEXT_SHA256": "4719f40ae1e199ff1041f062d279b0429290ab0469d964b77a8c49d771d47729"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.terraevita.it/l-esperto-risponde/pac-e-psr/",
+       "HTTP": 200,
+       "BYTES": 243319,
+       "DESTINO": "https://terraevita.edagricole.it/l-esperto-risponde/pac-e-psr/"
+      },
+      {
+       "URL": "https://terraevita.edagricole.it/esperto-risponde/avvicendamento-non-rispettato-quali-sono-le-sanzioni/",
+       "HTTP": 200,
+       "BYTES": 244598
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.terraevita.it/l-esperto-risponde/pac-e-psr/",
+   "NAME": "L'esperto Pac risponde",
+   "OWNER": "L'esperto Pac risponde"
+  },
+  "IT-T12-134": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "http://www.fruttanellescuole.gov.it",
+    "LINK_PATTERN": "^https?://(www\\.)?fruttanellescuole\\.gov\\.it/alunni/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:28:19.131014+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "http://www.fruttanellescuole.gov.it",
+     "LINK_PATTERN": "^https?://(www\\.)?fruttanellescuole\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "http://www.fruttanellescuole.gov.it",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 93,
+      "PARAGRAPH_CHARACTERS": 3186,
+      "TEXT_SHA256": "b440cb8694baccb6ad50f9258a1e80384df5946246ef7d82bff5bd5899c52f40"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 2,
+     "ITEM_LIDO": {
+      "URL": "https://www.fruttanellescuole.gov.it/alunni/conosci-la-frutta-e-la-verdura",
+      "HTTP": 200,
+      "BYTES": 44823,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 87,
+      "NON_WHITESPACE_CHARACTERS": 3346,
+      "PARAGRAPH_CHARACTERS": 1301,
+      "TEXT_SHA256": "b760a5fd5cf0bf56327700fae81bb037096925d63cc19cf4e88e01eaeded04da"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "http://www.fruttanellescuole.gov.it",
+       "HTTP": 200,
+       "BYTES": 53191,
+       "DESTINO": "https://www.fruttanellescuole.gov.it/home"
+      },
+      {
+       "URL": "https://www.fruttanellescuole.gov.it/alunni/conosci-la-frutta-e-la-verdura",
+       "HTTP": 200,
+       "BYTES": 44823
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "http://www.fruttanellescuole.gov.it",
+   "NAME": "fruttanellescuole.gov.it",
+   "OWNER": "fruttanellescuole.gov.it"
+  },
+  "IT-T2-032": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpal.liguria.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpal\\.liguria\\.it/home\\-page/notizie\\-tematiche/item/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:28:36.154009+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.arpal.liguria.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?arpal\\.liguria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.arpal.liguria.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 85,
+      "PARAGRAPH_CHARACTERS": 1129,
+      "TEXT_SHA256": "8b5e27dfcf55d2080eb1f751ce871aead44d9997c0da2940d9717331986028e5"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 5,
+     "ITEM_LIDO": {
+      "URL": "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/acustica-ambientale-il-29-ottobre-nuovo-corso-di-aggiornamento-arpal.html",
+      "HTTP": 200,
+      "BYTES": 36177,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 44,
+      "NON_WHITESPACE_CHARACTERS": 2109,
+      "PARAGRAPH_CHARACTERS": 1516,
+      "TEXT_SHA256": "2619c591c00cd4b47d5dcf21c42b74edf2f44dfad007f99f56946d0430323347"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.arpal.liguria.it/",
+       "HTTP": 200,
+       "BYTES": 55577
+      },
+      {
+       "URL": "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/acustica-ambientale-il-29-ottobre-nuovo-corso-di-aggiornamento-arpal.html",
+       "HTTP": 200,
+       "BYTES": 36177
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.arpal.liguria.it/",
+   "NAME": "ARPA Liguria — dati meteo e qualita aria",
+   "OWNER": "ARPA Liguria"
+  },
+  "IT-T2-033": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpalombardia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/temi\\-ambientali/campi\\-elettromagnetici/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:31:25.174657+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.arpalombardia.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.arpalombardia.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 481,
+      "PARAGRAPH_CHARACTERS": 2002,
+      "TEXT_SHA256": "2823347302f0534d5d2bd59100d44997a23aa9a54ca1dfd3e0654c4cbb84b087"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 2,
+     "ITEM_LIDO": {
+      "URL": "https://www.arpalombardia.it/temi-ambientali/campi-elettromagnetici/elettrodotti-basse-frequenze/",
+      "HTTP": 200,
+      "BYTES": 371488,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 463,
+      "NON_WHITESPACE_CHARACTERS": 16372,
+      "PARAGRAPH_CHARACTERS": 6748,
+      "TEXT_SHA256": "0fba9ff644903608fe8b37c9f09360154fbb6c09cac02c5a2eafe39c58bef11a"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.arpalombardia.it/",
+       "HTTP": 200,
+       "BYTES": 436335
+      },
+      {
+       "URL": "https://www.arpalombardia.it/temi-ambientali/aria/form-richiesta-dati-stazioni-fisse/",
+       "HTTP": 200,
+       "BYTES": 339257
+      },
+      {
+       "URL": "https://www.arpalombardia.it/temi-ambientali/earth-observation/consumo-suolo/",
+       "HTTP": 500,
+       "BYTES": 0
+      },
+      {
+       "URL": "https://www.arpalombardia.it/temi-ambientali/campi-elettromagnetici/elettrodotti-basse-frequenze/",
+       "HTTP": 200,
+       "BYTES": 371488
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.arpalombardia.it/",
+   "NAME": "ARPA Lombardia — dati ambientali e meteo",
+   "OWNER": "ARPA Lombardia"
+  },
+  "IT-T2-037": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpat.toscana.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/pubblicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:31:43.901982+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.arpat.toscana.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.arpat.toscana.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 158,
+      "PARAGRAPH_CHARACTERS": 1066,
+      "TEXT_SHA256": "2627acd6ea11586c34e0c550f2d65257738c5bf6cd1b376e05a06d8e136fbe9c"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 4,
+     "ITEM_LIDO": {
+      "URL": "https://www.arpat.toscana.it/pubblicazione/centrali-geotermiche-della-toscana-anno-2025/",
+      "HTTP": 200,
+      "BYTES": 255145,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 153,
+      "NON_WHITESPACE_CHARACTERS": 6673,
+      "PARAGRAPH_CHARACTERS": 2355,
+      "TEXT_SHA256": "aa483fb7d4693de5f1ca598aff9932acd1748050d206b4c9a6b425119070d9f1"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.arpat.toscana.it/",
+       "HTTP": 200,
+       "BYTES": 287174
+      },
+      {
+       "URL": "https://www.arpat.toscana.it/pubblicazione/centrali-geotermiche-della-toscana-anno-2025/",
+       "HTTP": 200,
+       "BYTES": 255145
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.arpat.toscana.it/",
+   "NAME": "ARPAT Toscana — Agenzia regionale protezione ambientale",
+   "OWNER": "ARPAT Toscana"
+  },
+  "IT-T2-050": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpacampania.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?redirect=[^&]+$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:28:50.023730+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.arpacampania.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?redirect=[^&]+$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.arpacampania.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 88,
+      "PARAGRAPH_CHARACTERS": 1771,
+      "TEXT_SHA256": "41992d43965b1027638de85fd6b700728d310961575a20dc4a400f99475a9eff"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 4,
+     "ITEM_LIDO": {
+      "URL": "https://www.arpacampania.it/-/arpa-campania-partecipa-alla-notte-europea-delle-ricercatrici-e-dei-ricercatori-2026?redirect=%2F",
+      "HTTP": 200,
+      "BYTES": 113246,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 66,
+      "NON_WHITESPACE_CHARACTERS": 3286,
+      "PARAGRAPH_CHARACTERS": 1943,
+      "TEXT_SHA256": "830cd355b4210b7840a66a6cf2e2eb7ce966b3505f56a44f32e6c8534bc275a8"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.arpacampania.it/",
+       "HTTP": 200,
+       "BYTES": 128362
+      },
+      {
+       "URL": "https://www.arpacampania.it/-/arpa-campania-partecipa-alla-notte-europea-delle-ricercatrici-e-dei-ricercatori-2026?redirect=%2F",
+       "HTTP": 200,
+       "BYTES": 113246
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.arpacampania.it/",
+   "NAME": "ArpaC",
+   "OWNER": "ArpaC"
+  },
+  "IT-T2-063": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/sistema\\-di\\-gestione\\-per\\-la\\-qualita/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:32:02.256472+00:00",
+    "COMO": "LISTAGEM_E_ITENS_SOB_ELA (provar_listagem)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/",
+     "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 142,
+      "PARAGRAPH_CHARACTERS": 1792,
+      "TEXT_SHA256": "30287711f0fb74485f22a407eb9cc523682aa8966cb5c57a403f7055e3329492"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 2,
+     "ITEM_LIDO": {
+      "URL": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/accreditamento-dei-laboratori-iso-iec-17025/",
+      "HTTP": 200,
+      "BYTES": 244706,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 147,
+      "NON_WHITESPACE_CHARACTERS": 9765,
+      "PARAGRAPH_CHARACTERS": 5215,
+      "TEXT_SHA256": "5cd3eead7c9735bbb3f0b23efb68cd6f05dcc7646894cf3b183bd1bdd124a429"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/",
+       "HTTP": 200,
+       "BYTES": 240831
+      },
+      {
+       "URL": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/accreditamento-dei-laboratori-iso-iec-17025/",
+       "HTTP": 200,
+       "BYTES": 244706
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/",
+   "NAME": "Sistema di gestione Qualità",
+   "OWNER": "Sistema di gestione Qualità"
+  },
+  "IT-T2-070": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "http://issuu.com/arpatoscana",
+    "LINK_PATTERN": "^https?://(www\\.)?issuu\\.com/arpatoscana/docs/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:32:20.415463+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "http://issuu.com/arpatoscana",
+     "LINK_PATTERN": "^https?://(www\\.)?issuu\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "http://issuu.com/arpatoscana",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 175,
+      "PARAGRAPH_CHARACTERS": 4775,
+      "TEXT_SHA256": "55434adf8e123651789cf7ab9fb6b4bfaf137d7aa52eaa137ed1e81fcc1f6652"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 22,
+     "ITEM_LIDO": {
+      "URL": "http://issuu.com/arpatoscana/docs/acque-destinate-vita-molluschi-2023",
+      "HTTP": 200,
+      "BYTES": 129624,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 79,
+      "NON_WHITESPACE_CHARACTERS": 2546,
+      "PARAGRAPH_CHARACTERS": 1858,
+      "TEXT_SHA256": "62b5ae7c5e05f90ad364f9820c185ec321507f6e079e3a860ebb47466d870942"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "http://issuu.com/arpatoscana",
+       "HTTP": 200,
+       "BYTES": 221588,
+       "DESTINO": "https://issuu.com/arpatoscana"
+      },
+      {
+       "URL": "http://issuu.com/arpatoscana/docs/acque-destinate-vita-molluschi-2023",
+       "HTTP": 200,
+       "BYTES": 129624,
+       "DESTINO": "https://issuu.com/arpatoscana/docs/acque-destinate-vita-molluschi-2023"
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "http://issuu.com/arpatoscana",
+   "NAME": "Vai al profilo Issuu di\n                                            ARPAT",
+   "OWNER": "Vai al profilo Issuu di\n                                            ARPAT"
+  },
+  "IT-T3-023": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/agrofarmaci\\-difesa/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:32:35.297707+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+     "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 263,
+      "PARAGRAPH_CHARACTERS": 4474,
+      "TEXT_SHA256": "43b346ef50ee21cecd00c342549267d57906fbdd1b29d44104dedb8e149d22f9"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 18,
+     "ITEM_LIDO": {
+      "URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/agrumi-confusione-sessuale-anche-per-le-cocciniglie/",
+      "HTTP": 200,
+      "BYTES": 268232,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 235,
+      "NON_WHITESPACE_CHARACTERS": 7643,
+      "PARAGRAPH_CHARACTERS": 3692,
+      "TEXT_SHA256": "ae8b28435779ecceb8e9ec73378e839524be4edf46672e4f94684262a88cde49"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+       "HTTP": 200,
+       "BYTES": 273905
+      },
+      {
+       "URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/agrumi-confusione-sessuale-anche-per-le-cocciniglie/",
+       "HTTP": 200,
+       "BYTES": 268232
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+   "NAME": "Difesa fitosanitaria",
+   "OWNER": "Difesa fitosanitaria"
+  },
+  "IT-T5-041": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.crpv.it/it/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?crpv\\.it/it/news/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 6
+   },
+   "REPARO_DE_CONTRATO": null,
+   "CANONICAL_ENTRY_URL": "https://www.crpv.it/",
+   "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+   "OWNER": "CRPV"
+  },
+  "IT-T5-056": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.crea.gov.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:32:50.326082+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.crea.gov.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.crea.gov.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 145,
+      "PARAGRAPH_CHARACTERS": 3152,
+      "TEXT_SHA256": "d50cb9f5be3290897a814aded978f2026abaa54a859c3917f94d293cd5410342"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 9,
+     "ITEM_LIDO": {
+      "URL": "https://www.crea.gov.it/-/il-contributo-del-crea-allo-sviluppo-dell-acquacoltura-sostenibile",
+      "HTTP": 200,
+      "BYTES": 75084,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 94,
+      "NON_WHITESPACE_CHARACTERS": 3003,
+      "PARAGRAPH_CHARACTERS": 1074,
+      "TEXT_SHA256": "2234276fcd913b40ada01fa3d5e4ed732de61b116bc27e5bb0d340d4c6a85a99"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.crea.gov.it/",
+       "HTTP": 200,
+       "BYTES": 138248
+      },
+      {
+       "URL": "https://www.crea.gov.it/-/il-contributo-del-crea-allo-sviluppo-dell-acquacoltura-sostenibile",
+       "HTTP": 200,
+       "BYTES": 75084
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.crea.gov.it/",
+   "NAME": "CREA — Consiglio per la Ricerca in Agricoltura e l'Analisi dell'Economia Agraria",
+   "OWNER": "CREA"
+  },
+  "IT-T5-080": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://creafuturo.crea.gov.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?creafuturo\\.crea\\.gov\\.it/\\d+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:33:13.050731+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://creafuturo.crea.gov.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?creafuturo\\.crea\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://creafuturo.crea.gov.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 217,
+      "PARAGRAPH_CHARACTERS": 2285,
+      "TEXT_SHA256": "dad5f848c799b5f530e54a86f2cba13463e6ecdeb2ae8cb564489ebbbb32079f"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 41,
+     "ITEM_LIDO": {
+      "URL": "https://creafuturo.crea.gov.it/13865/",
+      "HTTP": 200,
+      "BYTES": 384731,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 116,
+      "NON_WHITESPACE_CHARACTERS": 11548,
+      "PARAGRAPH_CHARACTERS": 6626,
+      "TEXT_SHA256": "32ab65f46aaba9f55814af2674adbee32010fedb17c18783961704ad45bdbf4b"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://creafuturo.crea.gov.it/",
+       "HTTP": 200,
+       "BYTES": 772246
+      },
+      {
+       "URL": "https://creafuturo.crea.gov.it/13865/",
+       "HTTP": 200,
+       "BYTES": 384731
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://creafuturo.crea.gov.it/",
+   "NAME": "creafuturo.crea.gov.it",
+   "OWNER": "creafuturo.crea.gov.it"
+  },
+  "IT-T5-104": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://web.uniroma2.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?web\\.uniroma2\\.it/it/contenuto/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:33:28.884845+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://web.uniroma2.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?web\\.uniroma2\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://web.uniroma2.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 111,
+      "PARAGRAPH_CHARACTERS": 165,
+      "TEXT_SHA256": "5fff6c19ee1e22706abe34722f21f0aa3cb2facc5212f42423707f39617657ed"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 14,
+     "ITEM_LIDO": {
+      "URL": "https://web.uniroma2.it/it/contenuto/algo26-roma-tor-vergata-protagonista-al-meeting-internazionale-dedicato-agli-algoritmi",
+      "HTTP": 200,
+      "BYTES": 30780,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 55,
+      "NON_WHITESPACE_CHARACTERS": 4576,
+      "PARAGRAPH_CHARACTERS": 3397,
+      "TEXT_SHA256": "989278f944a4dbd0b1b7a6f7f98a5ad507b4e5e1c1da87cafeff0cdee661f347"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://web.uniroma2.it/",
+       "HTTP": 200,
+       "BYTES": 48130
+      },
+      {
+       "URL": "https://web.uniroma2.it/it/contenuto/algo26-roma-tor-vergata-protagonista-al-meeting-internazionale-dedicato-agli-algoritmi",
+       "HTTP": 200,
+       "BYTES": 30780
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://web.uniroma2.it/",
+   "NAME": "Università degli Studi di Roma “Tor Vergata”",
+   "OWNER": "Università degli Studi di Roma “Tor Vergata”"
+  },
+  "IT-T5-111": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/comunicati-stampa",
+    "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/web/guest/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:33:47.160021+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/comunicati-stampa",
+     "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.crea.gov.it/web/difesa-e-certificazione/comunicati-stampa",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 121,
+      "PARAGRAPH_CHARACTERS": 724,
+      "TEXT_SHA256": "f06890bd798ae5df7bc203b4b9a4898f53e102b61ef9e1fab11d644e08474f29"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 8,
+     "ITEM_LIDO": {
+      "URL": "https://www.crea.gov.it/web/guest/-/capitale-umano-e-visione-strategica-il-crea-rafforza-la-governance-della-ricerca",
+      "HTTP": 200,
+      "BYTES": 85638,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 95,
+      "NON_WHITESPACE_CHARACTERS": 10002,
+      "PARAGRAPH_CHARACTERS": 7918,
+      "TEXT_SHA256": "526f6dadf47159c1fb87f51ba462d03e49a0475118538e24cde196914d37e107"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.crea.gov.it/web/difesa-e-certificazione/comunicati-stampa",
+       "HTTP": 200,
+       "BYTES": 98312
+      },
+      {
+       "URL": "https://www.crea.gov.it/web/agricoltura-e-ambiente",
+       "HTTP": 200,
+       "BYTES": 132512
+      },
+      {
+       "URL": "https://www.crea.gov.it/web/guest/-/capitale-umano-e-visione-strategica-il-crea-rafforza-la-governance-della-ricerca",
+       "HTTP": 200,
+       "BYTES": 85638
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/comunicati-stampa",
+   "NAME": "Comunicati Stampa",
+   "OWNER": "Comunicati Stampa"
+  },
+  "IT-T5-113": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/web/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:34:09.129329+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/notizie",
+     "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.crea.gov.it/web/difesa-e-certificazione/notizie",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 136,
+      "PARAGRAPH_CHARACTERS": 579,
+      "TEXT_SHA256": "658fdb6b6f1f6ec463e7a87f1d8334237b4da68b158a70e839532d91dc255c3f"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 4,
+     "ITEM_LIDO": {
+      "URL": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/cardo-mariano-il-18-settembre-un-simposio-dedicato-via-biosintetica-della-silimarina",
+      "HTTP": 200,
+      "BYTES": 80267,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 97,
+      "NON_WHITESPACE_CHARACTERS": 4469,
+      "PARAGRAPH_CHARACTERS": 2149,
+      "TEXT_SHA256": "9e210bced3f629ade2aa1adb13dbc63d4a234cc5b83e7736ebdc47c73d20b929"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.crea.gov.it/web/difesa-e-certificazione/notizie",
+       "HTTP": 200,
+       "BYTES": 100316
+      },
+      {
+       "URL": "https://www.crea.gov.it/web/agricoltura-e-ambiente",
+       "HTTP": 200,
+       "BYTES": 132512
+      },
+      {
+       "URL": "https://www.crea.gov.it/web/difesa-e-certificazione/aziende-sperimentali",
+       "HTTP": 200,
+       "BYTES": 93426
+      },
+      {
+       "URL": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/cardo-mariano-il-18-settembre-un-simposio-dedicato-via-biosintetica-della-silimarina",
+       "HTTP": 200,
+       "BYTES": 80267
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.crea.gov.it/web/difesa-e-certificazione/notizie",
+   "NAME": "Notizie",
+   "OWNER": "Notizie"
+  },
+  "IT-T7-019": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://lombardia.confagricoltura.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?lombardia\\.confagricoltura\\.it/news/home/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:34:30.123406+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.confagricolturalombardia.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?confagricolturalombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.confagricolturalombardia.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 213,
+      "PARAGRAPH_CHARACTERS": 2382,
+      "TEXT_SHA256": "7a2e4fec2381a59b2aef28a4300f6148995c6adb50ef83ff5ce992eb4a9df1b9"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 20,
+     "ITEM_LIDO": {
+      "URL": "https://lombardia.confagricoltura.it/news/home/103421/pomodoro-da-industria-annata-in-chiaroscuro.html",
+      "HTTP": 200,
+      "BYTES": 127070,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 65,
+      "NON_WHITESPACE_CHARACTERS": 3950,
+      "PARAGRAPH_CHARACTERS": 2917,
+      "TEXT_SHA256": "935952255ec226b0dd5b8036cdb8440c7ae4de7be9710d7468816b36b7b99c00"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.confagricolturalombardia.it/",
+       "HTTP": 200,
+       "BYTES": 283668,
+       "DESTINO": "https://lombardia.confagricoltura.it/"
+      },
+      {
+       "URL": "https://lombardia.confagricoltura.it/news/home/103421/pomodoro-da-industria-annata-in-chiaroscuro.html",
+       "HTTP": 200,
+       "BYTES": 127070
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.confagricolturalombardia.it/",
+   "NAME": "Confagricoltura Lombardia",
+   "OWNER": "Confagricoltura Lombardia"
+  },
+  "IT-T7-031": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://feder.bio/",
+    "LINK_PATTERN": "^https?://(www\\.)?feder\\.bio/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": null,
+   "CANONICAL_ENTRY_URL": "https://feder.bio/",
+   "NAME": "FederBio",
+   "OWNER": "FederBio"
+  },
+  "IT-T7-041": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.bonificaromagna.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/attivita/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 7
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:34:52.185905+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.bonificaromagna.it/news",
+     "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+     "MAX_TARGETS": 7
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.bonificaromagna.it/news",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 65,
+      "PARAGRAPH_CHARACTERS": 1622,
+      "TEXT_SHA256": "b5e1f3d33a8ba07aba78a6a8d3860a83d1ff2fb5b7bc6b982d9dc787e39a7880"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 2,
+     "ITEM_LIDO": {
+      "URL": "https://www.bonificaromagna.it/attivita/difesa-idraulica-e-ambiente",
+      "HTTP": 200,
+      "BYTES": 49046,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 54,
+      "NON_WHITESPACE_CHARACTERS": 4006,
+      "PARAGRAPH_CHARACTERS": 2051,
+      "TEXT_SHA256": "6119372516af7251942c206dd8443b46b60e404dc8702912e500efd2c96de11e"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.bonificaromagna.it/news",
+       "HTTP": 200,
+       "BYTES": 55367
+      },
+      {
+       "URL": "https://www.bonificaromagna.it/news/23-marzo-2025-presentazione-giornate-fai-visite-guidate-idrovoro-madonna-del-pino-ra",
+       "HTTP": 200,
+       "BYTES": 46947
+      },
+      {
+       "URL": "https://www.bonificaromagna.it/news/23-marzo-2025-presentazione-giornate-fai-visite-guidate-idrovoro-madonna-del-pino-ra",
+       "HTTP": 200,
+       "BYTES": 46947
+      },
+      {
+       "URL": "https://www.bonificaromagna.it/attivita/difesa-idraulica-e-ambiente",
+       "HTTP": 200,
+       "BYTES": 49046
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.bonificaromagna.it/",
+   "NAME": "Consorzio di Bonifica della Romagna",
+   "OWNER": "Consorzio di Bonifica della Romagna"
+  },
+  "IT-T7-048": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "http://www.caiagromec.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?caiagromec\\.it/node/\\d+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:35:05.959938+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.confai.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?confai\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.confai.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 119,
+      "PARAGRAPH_CHARACTERS": 309,
+      "TEXT_SHA256": "ec97dd9f6bf50ef6c15067e86c7c475bcbf9a8ac15228e3d6f65935442e34a5d"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 37,
+     "ITEM_LIDO": {
+      "URL": "http://www.caiagromec.it/node/10820",
+      "HTTP": 200,
+      "BYTES": 42042,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 77,
+      "NON_WHITESPACE_CHARACTERS": 3232,
+      "PARAGRAPH_CHARACTERS": 1930,
+      "TEXT_SHA256": "229108383a8c3669476fba7c78a54f3a7df81d57ec2b1bece36ae158c49d92a9"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.confai.it/",
+       "HTTP": 200,
+       "BYTES": 63062,
+       "DESTINO": "http://www.caiagromec.it/"
+      },
+      {
+       "URL": "http://www.caiagromec.it/node/10820",
+       "HTTP": 200,
+       "BYTES": 42042
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.confai.it/",
+   "NAME": "CONFAI — Federazione Nazionale Coltivatori Diretti Compartimentali",
+   "OWNER": "CONFAI"
+  },
+  "IT-T7-049": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://copagri.org/",
+    "LINK_PATTERN": "^https?://(www\\.)?copagri\\.org/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:35:23.627413+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.copagri.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?copagri\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.copagri.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 181,
+      "PARAGRAPH_CHARACTERS": 624,
+      "TEXT_SHA256": "272d253c8223e392df4a98bbdff3b779d391f0aa4ff2005e34687b88cf093a3c"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 24,
+     "ITEM_LIDO": {
+      "URL": "https://copagri.org/2026/04/02/basilicata-maltempo-2026/",
+      "HTTP": 200,
+      "BYTES": 141150,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 135,
+      "NON_WHITESPACE_CHARACTERS": 7229,
+      "PARAGRAPH_CHARACTERS": 3469,
+      "TEXT_SHA256": "6add62786ad312bfe7df3db03c979222472c4b98b0b56c1f0630c4d52e36f7be"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.copagri.it/",
+       "HTTP": 200,
+       "BYTES": 208926,
+       "DESTINO": "https://copagri.org/"
+      },
+      {
+       "URL": "https://copagri.org/2026/04/02/basilicata-maltempo-2026/",
+       "HTTP": 200,
+       "BYTES": 141150
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.copagri.it/",
+   "NAME": "COPAGRI — Confederazione dei Produttori Agricoli",
+   "OWNER": "COPAGRI"
+  },
+  "IT-T7-103": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.confcooperative.it/LInformazione/Le-notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?confcooperative\\.it/LInformazione/Le\\-notizie/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:35:46.861217+00:00",
+    "COMO": "LISTAGEM_E_ITENS_SOB_ELA (provar_listagem)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.confcooperative.it/LInformazione/Giornale-Radio",
+     "LINK_PATTERN": "^https?://(www\\.)?confcooperative\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.confcooperative.it/LInformazione/Giornale-Radio",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 111,
+      "PARAGRAPH_CHARACTERS": 379,
+      "TEXT_SHA256": "efe5bf478db73fefe007d8e8803044bbedf1b11c8dd65d81a52a5ae3dfc3db02"
+     },
+     "SECCAO_TENTADA": "https://www.confcooperative.it/LInformazione/Le-notizie",
+     "ALVOS_NA_LISTAGEM": 11,
+     "ITEM_LIDO": {
+      "URL": "https://www.confcooperative.it/LInformazione/Le-notizie/action-plan-171informativa-232-primo-passo-verso-una-politica-di-sviluppo-per-tutta-la-cooperazione187",
+      "HTTP": 200,
+      "BYTES": 87560,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 124,
+      "NON_WHITESPACE_CHARACTERS": 5316,
+      "PARAGRAPH_CHARACTERS": 3446,
+      "TEXT_SHA256": "f537759b8adaa902bb31e2afb3c8f77753a998e014129e308579f5232ba61104"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.confcooperative.it/LInformazione/Giornale-Radio",
+       "HTTP": 200,
+       "BYTES": 51816
+      },
+      {
+       "URL": "https://www.confcooperative.it/LInformazione/Le-notizie",
+       "HTTP": 200,
+       "BYTES": 102920
+      },
+      {
+       "URL": "https://www.confcooperative.it/LInformazione/Le-notizie/PgrID/541/PageID/1",
+       "HTTP": 200,
+       "BYTES": 102966
+      },
+      {
+       "URL": "https://www.confcooperative.it/LInformazione/Le-notizie/action-plan-171informativa-232-primo-passo-verso-una-politica-di-sviluppo-per-tutta-la-cooperazione187",
+       "HTTP": 200,
+       "BYTES": 87560
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.confcooperative.it/LInformazione/Giornale-Radio",
+   "NAME": "confcooperative.it",
+   "OWNER": "confcooperative.it"
+  },
+  "IT-T7-105": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.federunacoma.it/en/index.php",
+    "LINK_PATTERN": "^https?://(www\\.)?federunacoma\\.it/en/servizi/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.php/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:35:59.733913+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.federunacoma.it/en/index.php",
+     "LINK_PATTERN": "^https?://(www\\.)?federunacoma\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.federunacoma.it/en/index.php",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 108,
+      "PARAGRAPH_CHARACTERS": 0,
+      "TEXT_SHA256": "911144b7bc72725c65febd6439e78d1dbb1f610ee4be0d63520ba34e671b9508"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 2,
+     "ITEM_LIDO": {
+      "URL": "https://www.federunacoma.it/en/servizi/italian-and-foreign-fairs-and-events.php",
+      "HTTP": 200,
+      "BYTES": 33999,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 99,
+      "NON_WHITESPACE_CHARACTERS": 6889,
+      "PARAGRAPH_CHARACTERS": 5405,
+      "TEXT_SHA256": "d1aa80f95eb41220716afb73e336c1af9cbe6a1ecbcbdcdf5d1969fad7f61f18"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.federunacoma.it/en/index.php",
+       "HTTP": 200,
+       "BYTES": 28792
+      },
+      {
+       "URL": "https://www.federunacoma.it/en/servizi/italian-and-foreign-fairs-and-events.php",
+       "HTTP": 200,
+       "BYTES": 33999
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.federunacoma.it/en/index.php",
+   "NAME": "en",
+   "OWNER": "en"
+  },
+  "IT-T7-125": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://cia-puglia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?cia\\-puglia\\.it/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:36:14.887244+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://cia-puglia.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?cia\\-puglia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://cia-puglia.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 165,
+      "PARAGRAPH_CHARACTERS": 5096,
+      "TEXT_SHA256": "01876f65ee68677ae21591e68650a4db1fcaf389e5c5c4a28c278dc7e40464f0"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 5,
+     "ITEM_LIDO": {
+      "URL": "https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/",
+      "HTTP": 200,
+      "BYTES": 106323,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 77,
+      "NON_WHITESPACE_CHARACTERS": 3508,
+      "PARAGRAPH_CHARACTERS": 1381,
+      "TEXT_SHA256": "60e8c681352832c0e03ebee70dcef6b782d390023bfbad457f72e8dc22dc8e6b"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://cia-puglia.it/",
+       "HTTP": 200,
+       "BYTES": 226747
+      },
+      {
+       "URL": "https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/",
+       "HTTP": 200,
+       "BYTES": 106323
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://cia-puglia.it/",
+   "NAME": "Puglia",
+   "OWNER": "Puglia"
+  },
+  "IT-T7-139": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.florovivaistiitaliani.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?florovivaistiitaliani\\.it/inevidenza/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:36:32.031579+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.florovivaistiitaliani.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?florovivaistiitaliani\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.florovivaistiitaliani.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 96,
+      "PARAGRAPH_CHARACTERS": 1053,
+      "TEXT_SHA256": "84d9c1554256b96c5ba68862afe60d8bff430e1fdb182d2220a31cda2c0e60fa"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 3,
+     "ITEM_LIDO": {
+      "URL": "https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/",
+      "HTTP": 200,
+      "BYTES": 189454,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 42,
+      "NON_WHITESPACE_CHARACTERS": 2899,
+      "PARAGRAPH_CHARACTERS": 2073,
+      "TEXT_SHA256": "898965e0f59391e768f024de6e07e1892c2e1304b8048f86c34e9d14a8704caa"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.florovivaistiitaliani.it/",
+       "HTTP": 200,
+       "BYTES": 285397
+      },
+      {
+       "URL": "https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/",
+       "HTTP": 200,
+       "BYTES": 189454
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.florovivaistiitaliani.it/",
+   "NAME": "Florovivaisti Italiani",
+   "OWNER": "Florovivaisti Italiani"
+  },
+  "IT-T7-150": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://centroreach.federchimica.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?centroreach\\.federchimica\\.it/dettaglio\\-corso/\\d+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:36:48.571542+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://centroreach.federchimica.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?centroreach\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://centroreach.federchimica.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 79,
+      "PARAGRAPH_CHARACTERS": 3443,
+      "TEXT_SHA256": "4c4625d6ef885418d350e7fea683abab488e4a8d55f171c0186e85e0b2f283d1"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 13,
+     "ITEM_LIDO": {
+      "URL": "https://centroreach.federchimica.it/dettaglio-corso/189",
+      "HTTP": 200,
+      "BYTES": 64927,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 57,
+      "NON_WHITESPACE_CHARACTERS": 4669,
+      "PARAGRAPH_CHARACTERS": 2948,
+      "TEXT_SHA256": "1b7e4ba76a6ac18553922eaa63c8c84076fa0bf38d36cab44c9938f1eeb8a13a"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://centroreach.federchimica.it/",
+       "HTTP": 200,
+       "BYTES": 110952
+      },
+      {
+       "URL": "https://centroreach.federchimica.it/dettaglio-corso/189",
+       "HTTP": 200,
+       "BYTES": 64927
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://centroreach.federchimica.it/",
+   "NAME": "CENTRO REACH di FEDERCHIMICA",
+   "OWNER": "CENTRO REACH di FEDERCHIMICA"
+  },
+  "IT-T7-163": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.casalasco.com/it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?casalasco\\.com/it/news/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:37:06.944267+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.casalasco.com/",
+     "LINK_PATTERN": "^https?://(www\\.)?casalasco\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.casalasco.com/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 56,
+      "PARAGRAPH_CHARACTERS": 3205,
+      "TEXT_SHA256": "dfc641cbbcf42228240ba3967895e7d7d665d1de68cb382d2cd01f1ba09af259"
+     },
+     "SECCAO_TENTADA": "https://www.casalasco.com/it/news",
+     "ALVOS_NA_LISTAGEM": 12,
+     "ITEM_LIDO": {
+      "URL": "https://www.casalasco.com/it/news/a-tuttofood-2026-con-filiera-integrata-e-nuove-referenze",
+      "HTTP": 200,
+      "BYTES": 49386,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 46,
+      "NON_WHITESPACE_CHARACTERS": 3643,
+      "PARAGRAPH_CHARACTERS": 2420,
+      "TEXT_SHA256": "ef44112af3385c79343eec682be0609c9837a575727acfe3da3d5e331bdc9124"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.casalasco.com/",
+       "HTTP": 200,
+       "BYTES": 77904,
+       "DESTINO": "https://www.casalasco.com/it"
+      },
+      {
+       "URL": "https://www.casalasco.com/it/news",
+       "HTTP": 200,
+       "BYTES": 51838
+      },
+      {
+       "URL": "https://www.casalasco.com/it/news/a-tuttofood-2026-con-filiera-integrata-e-nuove-referenze",
+       "HTTP": 200,
+       "BYTES": 49386
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.casalasco.com/",
+   "NAME": "Consorzio Casalasco del Pomodoro",
+   "OWNER": "Consorzio Casalasco del Pomodoro"
+  },
+  "IT-T8-010": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.unioneitalianavini.it/il-corriere-vinicolo",
+    "LINK_PATTERN": "^https?://(www\\.)?unioneitalianavini\\.it/servizi/servizio\\-giuridico/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:37:28.065475+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.corrierevinicolo.com/",
+     "LINK_PATTERN": "^https?://(www\\.)?corrierevinicolo\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://www.corrierevinicolo.com/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 208,
+      "PARAGRAPH_CHARACTERS": 587,
+      "TEXT_SHA256": "06a735afbeb3e82190103ecf75cfb246cfe12f91837059f5eb2efd9bd60277b2"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 8,
+     "ITEM_LIDO": {
+      "URL": "https://www.unioneitalianavini.it/servizi/servizio-giuridico/alert-normativo-uivlex",
+      "HTTP": 200,
+      "BYTES": 2240708,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 108,
+      "NON_WHITESPACE_CHARACTERS": 7095,
+      "PARAGRAPH_CHARACTERS": 3260,
+      "TEXT_SHA256": "0a14ed26f4b99a9944054b4a89c528f74d65ee0b89162993a89885876c123d04"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://www.corrierevinicolo.com/",
+       "HTTP": 200,
+       "BYTES": 2899597,
+       "DESTINO": "https://www.unioneitalianavini.it/il-corriere-vinicolo"
+      },
+      {
+       "URL": "https://www.unioneitalianavini.it/servizi/servizio-giuridico/alert-normativo-uivlex",
+       "HTTP": 200,
+       "BYTES": 2240708
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://www.corrierevinicolo.com/",
+   "NAME": "Il Corriere Vinicolo",
+   "OWNER": "Il Corriere Vinicolo"
+  },
+  "IT-T8-022": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/colture/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/frutticoltura/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:37:45.184427+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://terraevita.edagricole.it/colture/",
+     "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://terraevita.edagricole.it/colture/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "NAVIGATION",
+      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+      "LINKS": 225,
+      "PARAGRAPH_CHARACTERS": 1923,
+      "TEXT_SHA256": "d012909f84b61abf710126d2dce0aaf84b3e99a4119f108519030893e3cc19e8"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 2,
+     "ITEM_LIDO": {
+      "URL": "https://terraevita.edagricole.it/frutticoltura/pera-dellemilia-romagna-igp-dalla-regione-13-milioni-per-rinforzare-la-filiera/",
+      "HTTP": 200,
+      "BYTES": 279238,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 243,
+      "NON_WHITESPACE_CHARACTERS": 11016,
+      "PARAGRAPH_CHARACTERS": 6611,
+      "TEXT_SHA256": "197c80323800acff716b1e132fc33a496fb89bbba216f3d9af89b541e6c6321e"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://terraevita.edagricole.it/colture/",
+       "HTTP": 200,
+       "BYTES": 250853
+      },
+      {
+       "URL": "https://terraevita.edagricole.it/frutticoltura/pera-dellemilia-romagna-igp-dalla-regione-13-milioni-per-rinforzare-la-filiera/",
+       "HTTP": 200,
+       "BYTES": 279238
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://terraevita.edagricole.it/colture/",
+   "NAME": "Colture",
+   "OWNER": "Colture"
+  },
+  "IT-T8-024": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/seminativi/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/seminativi/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:37:59.956090+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://terraevita.edagricole.it/seminativi/",
+     "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://terraevita.edagricole.it/seminativi/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 261,
+      "PARAGRAPH_CHARACTERS": 4555,
+      "TEXT_SHA256": "8a45cbf13892883205d29062f708887ec36f3c37d634dc162ac9672c1159a615"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 19,
+     "ITEM_LIDO": {
+      "URL": "https://terraevita.edagricole.it/seminativi/cereali-buone-rese-frumenti-orzi-conti-tornano-innovazione/",
+      "HTTP": 200,
+      "BYTES": 275196,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 240,
+      "NON_WHITESPACE_CHARACTERS": 10459,
+      "PARAGRAPH_CHARACTERS": 6248,
+      "TEXT_SHA256": "dc4b206781238d8320bbd34ba76d1b09b6a87aba65a7f5d781ad9c66411390bd"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://terraevita.edagricole.it/seminativi/",
+       "HTTP": 200,
+       "BYTES": 273504
+      },
+      {
+       "URL": "https://terraevita.edagricole.it/seminativi/cereali-buone-rese-frumenti-orzi-conti-tornano-innovazione/",
+       "HTTP": 200,
+       "BYTES": 275196
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://terraevita.edagricole.it/seminativi/",
+   "NAME": "Colture estensive",
+   "OWNER": "Colture estensive"
+  },
+  "IT-T8-041": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://vigneviniequalita.edagricole.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?vigneviniequalita\\.edagricole\\.it/attualita\\-news/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:38:18.129822+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://vigneviniequalita.edagricole.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?vigneviniequalita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://vigneviniequalita.edagricole.it/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "MIXED",
+      "CAPA_OU_MATERIA": "NAO_SEI",
+      "LINKS": 295,
+      "PARAGRAPH_CHARACTERS": 3320,
+      "TEXT_SHA256": "ddb8e2776fdd92eebadb9800ef00d6ddfa998f7607ce4e4c822b9a3ecd445293"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 6,
+     "ITEM_LIDO": {
+      "URL": "https://vigneviniequalita.edagricole.it/attualita-news/al-via-il-decreto-per-la-promozione-del-turismo-enologico/",
+      "HTTP": 200,
+      "BYTES": 250433,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 184,
+      "NON_WHITESPACE_CHARACTERS": 8269,
+      "PARAGRAPH_CHARACTERS": 3495,
+      "TEXT_SHA256": "acb28ae5c518f72bed6785a44b4d1a96bd2eda39661f754af42cfb5b33ae0b75"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://vigneviniequalita.edagricole.it/",
+       "HTTP": 200,
+       "BYTES": 348254
+      },
+      {
+       "URL": "https://vigneviniequalita.edagricole.it/articoli-abbonati/autoctono-pugliese-e-versatile-il-negrodolce/",
+       "HTTP": 200,
+       "BYTES": 242950
+      },
+      {
+       "URL": "https://vigneviniequalita.edagricole.it/attualita-news/al-via-il-decreto-per-la-promozione-del-turismo-enologico/",
+       "HTTP": 200,
+       "BYTES": 250433
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://vigneviniequalita.edagricole.it/",
+   "NAME": "VVQ – Vigne, Vini e Qualità",
+   "OWNER": "VVQ – Vigne, Vini e Qualità"
+  },
+  "IT-T8-042": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/viticoltura/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/viticoltura/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   },
+   "REPARO_DE_CONTRATO": {
+    "DECISAO": "R1",
+    "MISSAO": "REPARO-FONTES-V1",
+    "METODO": "REPARO-DE-CONTRATO/v1",
+    "APLICADO_EM": "2026-09-24T19:38:33.102148+00:00",
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://terraevita.edagricole.it/viticoltura/",
+     "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "ENTRADA": "https://terraevita.edagricole.it/viticoltura/",
+     "ENTRADA_RETRATO": {
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 262,
+      "PARAGRAPH_CHARACTERS": 4967,
+      "TEXT_SHA256": "8451eb61f092042f187dd06c6d7dc80c1628086b6baf30d70b86e5ef27e6fc14"
+     },
+     "SECCAO_TENTADA": null,
+     "ALVOS_NA_LISTAGEM": 15,
+     "ITEM_LIDO": {
+      "URL": "https://terraevita.edagricole.it/viticoltura/barbatelle-sane-segreto-per-vigneti-longevi/",
+      "HTTP": 200,
+      "BYTES": 273153,
+      "HTML_KIND": "CONTENT",
+      "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+      "LINKS": 245,
+      "NON_WHITESPACE_CHARACTERS": 7824,
+      "PARAGRAPH_CHARACTERS": 3710,
+      "TEXT_SHA256": "7ffaa7a475375522c44d2d6d2597dbe91e11e325b2fb58bb4dc8803699cb755f"
+     },
+     "PAGINAS_LIDAS": [
+      {
+       "URL": "https://terraevita.edagricole.it/viticoltura/",
+       "HTTP": 200,
+       "BYTES": 274370
+      },
+      {
+       "URL": "https://terraevita.edagricole.it/viticoltura/barbatelle-sane-segreto-per-vigneti-longevi/",
+       "HTTP": 200,
+       "BYTES": 273153
+      }
+     ]
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+   },
+   "CANONICAL_ENTRY_URL": "https://terraevita.edagricole.it/viticoltura/",
+   "NAME": "Viticoltura",
+   "OWNER": "Viticoltura"
+  },
+  "IT-T9-015": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.conserveitalia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?conserveitalia\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 2
+   },
+   "REPARO_DE_CONTRATO": null,
+   "CANONICAL_ENTRY_URL": "https://www.conserveitalia.it/",
+   "NAME": "Conserve Italia",
+   "OWNER": "Conserve Italia"
+  },
+  "IT-T9-019": {
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.scam.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?scam\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 19
+   },
+   "REPARO_DE_CONTRATO": null,
+   "CANONICAL_ENTRY_URL": "https://www.scam.it/",
+   "NAME": "SCAM",
+   "OWNER": "SCAM"
+  }
+ }
+}

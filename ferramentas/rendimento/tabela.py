@@ -67,7 +67,11 @@ def main(argv):
     fora = {x["SOURCE_ID"]: x["FALTA"] for x in coorte["FORA"]}
     r1 = {x["SOURCE_ID"]: x for x in ler(r1p)["READY_NOVAS"]}
     e37 = linhas_de("entrada-37.json", "entrada-37-passo2.json", "entrada-37-passo3.json")
-    er1 = linhas_de("entrada-r1.json", "entrada-r1-passo2.json")
+    # As 46 da R1 medem-se com os contratos REPARADOS, refeitos a partir do ramo
+    # reparo-fontes-v2 numa banca (medidas/contratos-r1-reparados.json). A medida
+    # com os contratos de antes do reparo (entrada-r1*.json) fica no ramo, so como historia.
+    er1 = linhas_de("entrada-r1-reparado.json", "entrada-r1-reparado-passo2.json")
+    rev = {x["SOURCE_ID"]: x for x in ler(M / "contratos-r1-reparados.json")["REVISAO"]["FONTES"]}
 
     jan = {}
     if (M / "janelas.json").exists():
@@ -78,17 +82,27 @@ def main(argv):
             l = med[s]
             u = s.split("-")[1]
             no_coletor = l.get("CONTRATO") == "COLETOR"
-            v, porque, cad = veredito(l, u, no_coletor)
+            # R1: a falta de contrato no coletor e um bloqueio a mais, nao o veredito —
+            # mede-se a entrada como se o contrato do curador ja la estivesse.
+            v, porque, cad = veredito(l, u, no_coletor or grupo == "R1_46")
             # o que a entrada promete se os bloqueios caissem (regua e entrada medida)
             potencial = (l.get("UMA_CORRIDA_TRARIA") or 0) if str(l.get("ESTADO", "")).startswith("MEDIDA") else None
             # bloqueio de porta: fora da coorte congelada, ou R1 ainda nao instalada
             if v == "SIM" and grupo == "PORTAO_37" and s not in na_coorte:
                 v, porque, cad = "NAO", "a entrada tem novidade, mas a fonte esta fora da coorte: " + ",".join(fora.get(s, ["?"])), "PARADA ate sair o bloqueio"
+            sinais = (rev.get(s) or {}).get("SINAIS") or []
             if grupo == "R1_46":
                 if v == "SIM":
-                    v, porque, cad = "DEPOIS_DA_R1", "a entrada tem novidade; so corre quando a R1 for instalada e a fonte passar o portao", "DIARIA depois da R1"
-                if r1[s]["CAUSA"] == "A_REPARO":
-                    porque += " [medido com o contrato de ANTES do reparo: o reparado so existia nas bancas da R1, apagadas antes desta medicao]"
+                    if no_coletor:
+                        v, porque, cad = "DEPOIS_DA_R1", "a entrada tem novidade; corre quando a R1 for instalada e a fonte passar o portao", "DIARIA depois da R1"
+                    else:
+                        v, porque, cad = ("DEPOIS_DA_R1_E_DO_CONTRATO",
+                                          "a entrada tem novidade; falta a R1 E o contrato na tabela do coletor (hoje so existe no curador)",
+                                          "DIARIA depois da R1 e do contrato")
+                if [x for x in sinais if x.startswith("CAMINHO_DE_SERVICO")]:
+                    porque += " [SUSPEITA: o item que o canario abriu e pagina de servico — %s; ler antes de correr]" % "; ".join(sinais)
+                elif sinais:
+                    porque += " [sinal: %s]" % "; ".join(sinais)
             h = sala.get(s, {"RAW": 0, "DERIVED": 0, "SIM": 0, "SIM_ULTIMO": None})
             if grupo == "PORTAO_37":
                 onde = "COORTE_1A_ONDA" if s in na_coorte else "FORA_DA_COORTE:" + ",".join(fora.get(s, ["?"]))
@@ -103,15 +117,17 @@ def main(argv):
                 "HIST_RAW": h["RAW"], "HIST_DERIVED": h["DERIVED"], "HIST_SIM": h["SIM"], "HIST_SIM_ULTIMO": h["SIM_ULTIMO"],
                 "JANELA_DE_CULTURA": jan.get(s, {}).get("JANELA", "NAO_SEI"),
                 "JANELA_FORCA": jan.get(s, {}).get("FORCA"), "JANELA_EXEMPLO_URL": jan.get(s, {}).get("EXEMPLO_URL"),
+                "SINAIS_DA_REVISAO_R1": sinais or None, "ITEM_DO_CANARIO_R1": (rev.get(s) or {}).get("ITEM"),
                 "VALE_CORRER_AGORA": v, "PORQUE": porque, "CADENCIA_SUGERIDA": cad,
                 "INDEX_SHA256": l.get("INDEX_SHA256"), "PEDIDO_EM": l.get("PEDIDO_EM")})
 
     # D29 (dono): a janela de cultura PESA na ordem. Primeiro o que corre agora,
     # depois o que corre depois da R1; dentro de cada degrau, janela forte >
     # janela fraca > sem prova; depois o que uma corrida traria e o potencial.
-    degrau = {"SIM": 0, "DEPOIS_DA_R1": 1, "NAO": 2}
+    degrau = {"SIM": 0, "DEPOIS_DA_R1": 1, "DEPOIS_DA_R1_E_DO_CONTRATO": 2, "NAO": 3}
+    suspeita = lambda x: 1 if "SUSPEITA" in x["PORQUE"] else 0
     peso_j = lambda x: 0 if (x["JANELA_FORCA"] or "").startswith("FORTE") else (1 if x["JANELA_DE_CULTURA"] == "SIM" else (2 if x["JANELA_DE_CULTURA"] == "NAO_SEI" else 3))
-    tabela.sort(key=lambda x: (degrau[x["VALE_CORRER_AGORA"]], peso_j(x), -(x["UMA_CORRIDA_TRARIA"] or 0),
+    tabela.sort(key=lambda x: (degrau[x["VALE_CORRER_AGORA"]], suspeita(x), peso_j(x), -(x["UMA_CORRIDA_TRARIA"] or 0),
                                -(x["POTENCIAL_SEM_BLOQUEIO"] or 0), -(x["NOVAS_PARA_O_COLETOR"] or 0), x["SOURCE_ID"]))
     for i, x in enumerate(tabela, 1):
         x["ORDEM"] = i
@@ -121,7 +137,7 @@ def main(argv):
         por = {}
         for x in t:
             chave = x["PORQUE"].split(":")[0].split(" (")[0]
-            if x["VALE_CORRER_AGORA"] in ("SIM", "DEPOIS_DA_R1"):
+            if x["VALE_CORRER_AGORA"] != "NAO":
                 chave = x["VALE_CORRER_AGORA"]
             elif x["PORQUE"].startswith("a entrada tem novidade, mas"):
                 chave = "novidade, mas fora da coorte"
