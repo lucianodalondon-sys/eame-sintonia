@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T18:23:49+00:00",
-  "HEAD": "7d7c080755591228638b2de1423138e63ac7f121",
-  "BRANCH": "egresso-consenso-v1",
+  "GENERATED_AT": "2026-09-24T20:25:04+00:00",
+  "HEAD": "df1e9f872ef068a414aefd96551229dc20655cf0",
+  "BRANCH": "reparo-fontes-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "56b661c7b77af071d835b6d7c885631adc88b9f14d4db629a7ceabf336a5069f",
-  "FICHEIROS_NA_IMPRESSAO": 2957,
+  "SOURCE_TREE_FINGERPRINT": "e406939a2e978162127bc8434c974eddaf9025010cc61d0ca642f3c5a9233ad6",
+  "FICHEIROS_NA_IMPRESSAO": 2972,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3672,6 +3672,27 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/reparo/juntar_bancas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "14a496fb6accddfd9080f26d88300fa4a7c2c7d5",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/reparo/medir_em_copia.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7fda06472018d6a48975eac526f969ad56053cbf",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/reparo/revisar_ready.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a0fcc9700dfabd87882769e17122dc92cbc1577c",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "security/censo_do_cliente.py",
     "PAPEL": "FONTE",
     "VERSAO": "b4bca8482feee20bdd30331d6830d31fd06ed17b",
@@ -3723,14 +3744,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "56b661c7b77af071d835b6d7c885631adc88b9f14d4db629a7ceabf336a5069f",
+    "VERSAO": "e406939a2e978162127bc8434c974eddaf9025010cc61d0ca642f3c5a9233ad6",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "56b661c7b77af071d835b6d7c885631adc88b9f14d4db629a7ceabf336a5069f",
+    "VERSAO": "e406939a2e978162127bc8434c974eddaf9025010cc61d0ca642f3c5a9233ad6",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5611,8 +5632,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 796,
-  "INPUTS_DIGEST": "eb93f3d163de6d7ef8e0ea280faf9823c7ca3979e7952c165459a49b41966d58",
+  "INPUTS_COUNT": 799,
+  "INPUTS_DIGEST": "dc1de38b39296250e5a0946705724b1eccb809624a5adc9b34957475f57a5c28",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5638,15 +5659,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 499,
+  "DOCUMENTOS_LIDOS": 500,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "dbc74c04f5464a7e4970c067590e727fd6143a7061ba25417cea64c0901b06c0",
-  "SEMANTIC_HASH": "d4a5de156b6d7104aa01f1a367200e0d2720826ebc908adb6cb083999b2de99a"
+  "MEASUREMENT_HASH": "89c749d394ff0838f732746ac9499ee743405c5c8cc211034e1674ca9836bc47",
+  "SEMANTIC_HASH": "ab9b0967cab7059770528d0a401f01d5c5634f7fb3dc86e5d8f388e1919208d9"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5732,6 +5753,7 @@
    "C-RECONCILIAR-BYTES-BC4",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
+   "C-REPARO-MEDICAO",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -5751,7 +5773,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 93
+  "COUNT": 94
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6012,6 +6034,7 @@
    "C-RELATORIO-FLUXO",
    "C-RELEVANCIA",
    "C-RELEVANCIA-DA-FONTE",
+   "C-REPARO-MEDICAO",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -6039,16 +6062,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 181
+  "COUNT": 182
  },
  "ARITMETICA": {
-  "COLLECTION": 93,
+  "COLLECTION": 94,
   "BOUNDARY": 88,
-  "SOMA": 181,
-  "EXPANDED": 181,
+  "SOMA": 182,
+  "EXPANDED": 182,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 181,
+  "RESUMO_CARTOES_NO_UNIVERSO": 182,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -11671,6 +11694,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-REPARO-MEDICAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/reparo/juntar_bancas.py",
+      "LINHA": 71,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
     "FROM": "C-CENSO-UNIFICACAO",
     "TO": "C-TESTES",
@@ -17088,6 +17133,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-REPARO-MEDICAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/reparo/juntar_bancas.py",
+      "LINHA": 60,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -42930,12 +42997,12 @@
     ]
    }
   ],
-  "COUNT": 1205
+  "COUNT": 1207
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 181,
-  "CARTOES_AUDITADOS": 181,
-  "ARESTAS_RELACIONADAS": 1205,
+  "CARTOES_NO_UNIVERSO": 182,
+  "CARTOES_AUDITADOS": 182,
+  "ARESTAS_RELACIONADAS": 1207,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43150,6 +43217,7 @@
    "C-RECONCILIAR-BYTES-BC4",
    "C-RECORRENCIA",
    "C-RELATORIO-FLUXO",
+   "C-REPARO-MEDICAO",
    "C-ROTULOS",
    "C-SAUDE-FONTE",
    "C-SUPERFICIE-SCRAP-V1"
@@ -43198,7 +43266,8 @@
    "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
    "C-PROVA-GATE-1D",
    "C-RECOLLECTION-CENSO",
-   "C-RELATORIO-FLUXO"
+   "C-RELATORIO-FLUXO",
+   "C-REPARO-MEDICAO"
   ],
   "SEM_LIGACAO": {
    "C-ARMAZEM-IT-SEM-LIVRO": "ARMAZEM",
@@ -43309,6 +43378,9 @@
    "C-RELEVANCIA": [
     "science"
    ],
+   "C-REPARO-MEDICAO": [
+    "collection-strategy"
+   ],
    "C-SAUDE-FONTE": [
     "acervo"
    ],
@@ -43351,8 +43423,8 @@
    "CONTROL": 72,
    "DATA": 30,
    "PROOF": 383,
-   "READ": 281,
-   "RULE": 215,
+   "READ": 282,
+   "RULE": 216,
    "WRITE": 9
   },
   "GAPS_NOMEADOS": [
@@ -44641,7 +44713,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 9,
-   "SAEM": 7,
+   "SAEM": 8,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -45679,7 +45751,7 @@
     "urllib"
    ],
    "ENTRAM": 11,
-   "SAEM": 12,
+   "SAEM": 13,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -50790,6 +50862,44 @@
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-REPARO-MEDICAO",
+   "NOME": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "scripts/reparo/juntar_bancas.py",
+    "scripts/reparo/medir_em_copia.py",
+    "scripts/reparo/revisar_ready.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "datetime",
+    "pathlib",
+    "urllib"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "collection-strategy"
+   ],
    "GAP": null
   },
   {
