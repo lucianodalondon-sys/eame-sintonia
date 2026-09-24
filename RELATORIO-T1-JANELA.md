@@ -70,3 +70,62 @@ não entra e não é rejeitado. A porta só admite; quem decide a janela é a In
 Textos: `%USERPROFILE%\sintonia-gabarito\REGUA-T2-V1\textos\`, derivados do armazém e do lote-76 —
 sha256 de cada um em `scripts/regua_t1/SELECAO-T1-V1.json` e conferido pela medição
 (`SHA_NAO_CONFERE = []`). Rótulos brutos copiados para `scripts/regua_t1/rotulos/`.
+
+---
+
+## T1B (24/09) — o aperto de «página de site» e a prova cega
+
+### 1. O aperto da T2C aplicado a T1 — medido e **NÃO aplicado**
+
+Pedido: tirar os 2 SIM errados com o mesmo aperto de página de site/menu da T2, reutilizando a
+função, sem perder os 51 certos. **Não é possível com essa função** — medido
+(`scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json`, lista `ANCORAS["T2"]["PAGINA_DE_SITE"]`
+reutilizada, nenhuma cópia):
+
+| Variante | Certos (de 55) | Errados (de 80) | Acervo 1.309 |
+|---|---|---|---|
+| atual | **51** | 2 | 57 SIM |
+| A — lista da T2 inteira | 39 (perde 12) | 1 | 17 SIM → NAO_SEI |
+| B — só página de site com o mínimo de 2 momentos | 50 (perde 1) | 1 | 5 SIM → NAO_SEI |
+
+- **Porquê**: os boletins ARPAV «Agrometeo Informa» trazem um link `…/newsletter/bollettino-colture-erbacee`;
+  na T2 isso não os afetava porque lá a lista só vale para a via `agrometeo`, e eles entram pela via
+  forte. Em T1 a lista apanha-os.
+- A variante B tira a página-menu da Campania mas tira também a página de monitorização da mosca da
+  oliveira da Terre dell'Etruria (certa): troca um erro por uma perda.
+- A publicação sobre inovação (PDF, 172 mil caracteres) **não tem marca de site**: nenhuma variante a
+  tira.
+- **A régua fica como estava** (51/55, 2 errados). Os 2 erros ficam declarados.
+
+### 2. Prova CEGA (30 textos que a régua nunca viu)
+
+Regra de escolha commitada **antes de olhar** (`selecionar_cega.py`): textos do acervo fora dos 181
+do gabarito, com ≥ 400 caracteres (463 no total); 15 ao acaso entre os que nomeiam uma cultura (110),
+15 ao acaso entre os restantes; semente 25092026. **Rótulos escritos e commitados ANTES de aplicar a
+régua** (`rotulos/rotulos-cega.tsv`). Resultado (`PROVA-CEGA-T1-V1.json`):
+
+| | Resultado |
+|---|---|
+| Rótulo (lido às cegas) | 0 YES · 29 NO · 1 NAO_SEI |
+| Régua | **0 SIM** · 16 NAO_SEI · 14 NAO |
+| Falsos SIM | **0 em 29 NO** (no gabarito: 2 em 80) — os erros às cegas **não foram maiores** |
+
+⚠️ **Limite desta prova**: nenhum dos 30 era janela — o acervo fora do gabarito quase não tem
+boletins (os que havia foram para o gabarito). Por isso a prova cega mede que a régua **não inventa**
+janelas; **não mede se as encontra**. Para medir isso às cegas é preciso boletins novos pela rede
+(a mesma missão de gabarito da rede que a notícia de campo pede).
+
+## PLANO DE INSTALAÇÃO (atualizado — substitui o anterior)
+
+Nada mudou no código de produção desde `c40394e8`: o aperto foi medido e não aplicado.
+
+1. Juntar `regua-t1-janela-v1` na linha instalada (conflito esperado só nos `*.generated.json` →
+   regerar pela cadeia).
+2. `py -m unittest tests.test_regua_t1 tests.test_regua_t2 tests.test_a_regra_de_t2
+   tests.test_o_canario_da_collection tests.test_egresso_consenso` (aqui: OK, fora o erro
+   pré-existente `test_correr_julga_a_unidade_da_fronteira`).
+3. `pacote/metricas_canonicas.py --sync` com o PyYAML emprestado.
+4. Efeito: T1 57 SIM / 833 NAO_SEI / 419 NAO no acervo; 0 mudanças nos outros universos;
+   `VERSAO_DA_REGRA = "9"`. Os 2 falsos SIM conhecidos entram (a publicação sobre inovação e a
+   página-menu do Serviço Fitossanitário da Campania).
+5. Voltar atrás = reverter o merge.
