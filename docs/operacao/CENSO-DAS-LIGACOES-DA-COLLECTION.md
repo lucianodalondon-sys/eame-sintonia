@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  417ca90b9ca12bf0173f4be34a0b19bb31ba2d07
+HEAD_DA_MEDICAO  7bfb8b30604aeecb3209904f8d94c8c4a5a1c2a4
 BRANCH           bc4-correcoes-v1
-GERADO_EM        2026-09-24T02:01:58-03:00
+GERADO_EM        2026-09-24T02:40:02-03:00
 CARDS            91
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
