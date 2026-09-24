@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T21:30:11+00:00",
-  "HEAD": "caeeb2525b36794ce5e2c97a0d04806dedcad2cf",
+  "GENERATED_AT": "2026-09-24T21:45:09+00:00",
+  "HEAD": "c202959630a0e90ce39d808b63b82c313cdacbf6",
   "BRANCH": "yt-metadados-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "8356b11651142750874d535937821833ae218a893704d28e99995527cd08db1e",
+  "SOURCE_TREE_FINGERPRINT": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278",
   "FICHEIROS_NA_IMPRESSAO": 2993,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -300,7 +300,7 @@
    {
     "PATH": "coleta/adaptador_youtube.py",
     "PAPEL": "FONTE",
-    "VERSAO": "d0d36381c1deb8bec7a8c27f788618e3f3768152",
+    "VERSAO": "9b4c020dcecf06edee961f368af8209d8b5592a0",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1700,7 +1700,7 @@
    {
     "PATH": "leis/social_matriz.py",
     "PAPEL": "FONTE",
-    "VERSAO": "eb3dd8945b990e24fbb41dbcb5e8d2cd312efe87",
+    "VERSAO": "d5d1906f524cc462c6927b2177462caab047b06a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3744,14 +3744,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8356b11651142750874d535937821833ae218a893704d28e99995527cd08db1e",
+    "VERSAO": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8356b11651142750874d535937821833ae218a893704d28e99995527cd08db1e",
+    "VERSAO": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5630,10 +5630,17 @@
     "VERSAO": "9a0f0ba0de69ed390d28d20fd52ca7c107773825",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_yt_metadados_do_audio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4e732781762d87e65748d4f49fd2d31d54d1d9ba",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 799,
-  "INPUTS_DIGEST": "238bde5b5a5e4bc23d01ba0b559a26301058a0d449047d78b90b2e2dbe4bb0ca",
+  "INPUTS_COUNT": 800,
+  "INPUTS_DIGEST": "0ae8c1cb3055ccbcb6effb4b30e904414d45a604b182c6333184493fb07ad292",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5666,8 +5673,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "d7f8e67d536cda87fa205c5b2b565efbd373e2ca8cd34441045def16e5a60b3e",
-  "SEMANTIC_HASH": "7b859cfed7a5c9c118f6dcb3d08426ff91d40efcf495616aa736ddfea5d038ee"
+  "MEASUREMENT_HASH": "05a23b62983d2df1331815be69d690f3894c07793964619dfb8d2bbe52db64a9",
+  "SEMANTIC_HASH": "05a83887d6939fd000424a4463890ff969dcb245fa40af5e91087acbf0843100"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13995,7 +14002,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "leis/social_matriz.py",
-      "LINHA": 696,
+      "LINHA": 713,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -14367,6 +14374,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-PUBLICA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-COLETA-YOUTUBE--IMPORTS-->C-SCRAP-SOCIAL",
+    "FROM": "C-COLETA-YOUTUBE",
+    "TO": "C-SCRAP-SOCIAL",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "coleta/adaptador_youtube.py",
+      "LINHA": 850,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-COLETA-YOUTUBE--IMPORTS-->C-SCRAP-SOCIAL",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -37431,6 +37460,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_yt_metadados_do_audio.py",
+      "LINHA": 146,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -42865,12 +42902,12 @@
     ]
    }
   ],
-  "COUNT": 1200
+  "COUNT": 1201
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 181,
   "CARTOES_AUDITADOS": 181,
-  "ARESTAS_RELACIONADAS": 1200,
+  "ARESTAS_RELACIONADAS": 1201,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43281,7 +43318,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 215,
+   "CODE": 216,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 386,
@@ -45004,7 +45041,7 @@
     "this"
    ],
    "ENTRAM": 6,
-   "SAEM": 2,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -45012,6 +45049,7 @@
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
+    "CODE",
     "PROOF"
    ],
    "PORQUE_SOZINHO": null,
@@ -51122,7 +51160,8 @@
     "tests/test_scrap_sr02_autorizacao_de_gasto.py",
     "tests/test_social_sessao.py",
     "tests/test_telemetria.py",
-    "tests/test_trava_da_inteligencia.py"
+    "tests/test_trava_da_inteligencia.py",
+    "tests/test_yt_metadados_do_audio.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": true,
@@ -51296,7 +51335,7 @@
     "novo",
     "the"
    ],
-   "ENTRAM": 25,
+   "ENTRAM": 26,
    "SAEM": 25,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -52000,7 +52039,8 @@
     "tests/test_youtube_antidrift.py",
     "tests/test_youtube_checkpoint_pg.py",
     "tests/test_youtube_oficial.py",
-    "tests/test_youtube_piloto.py"
+    "tests/test_youtube_piloto.py",
+    "tests/test_yt_metadados_do_audio.py"
    ],
    "CHAMADORES_DE_RUNTIME": [
     ".github/workflows/auditoria-live.yml",

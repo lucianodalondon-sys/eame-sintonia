@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "yt-metadados-v1",
-    "HEAD": "caeeb2525b36794ce5e2c97a0d04806dedcad2cf",
-    "GENERATED_AT": "2026-09-24T17:57:51-03:00",
-    "SOURCE_TREE_FINGERPRINT": "8356b11651142750874d535937821833ae218a893704d28e99995527cd08db1e"
+    "HEAD": "c202959630a0e90ce39d808b63b82c313cdacbf6",
+    "GENERATED_AT": "2026-09-24T18:32:02-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278"
   },
   "FILES": [
     {
@@ -1697,7 +1697,7 @@
     },
     {
       "path": "coleta/adaptador_youtube.py",
-      "sha": "d0d36381c1deb8bec7a8c27f788618e3f3768152",
+      "sha": "9b4c020dcecf06edee961f368af8209d8b5592a0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13639,7 +13639,7 @@
     },
     {
       "path": "leis/social_matriz.py",
-      "sha": "eb3dd8945b990e24fbb41dbcb5e8d2cd312efe87",
+      "sha": "d5d1906f524cc462c6927b2177462caab047b06a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14781,6 +14781,13 @@
     {
       "path": "provas/_mutantes_d24.py",
       "sha": "01643a8abee4fe5eb8ee97fcfd761f1345ff4aaa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_mutantes_yt_metadados.py",
+      "sha": "5fa61c4cad284f4ed9affdd8c2b7d8146de0d626",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19903,6 +19910,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_yt_metadados_do_audio.py",
+      "sha": "4e732781762d87e65748d4f49fd2d31d54d1d9ba",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "vercel.json",
       "sha": "2762eeafa1a9a2579edf613e1838d9d60a037a85",
       "ext": ".json",
@@ -22098,6 +22112,17 @@
         "file": "coleta/adaptador_youtube.py",
         "line": 36,
         "snippet": "import social_envelope as env  # noqa: E402  — o envelope canonico"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "coleta/youtube_janela.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 850,
+        "snippet": "import youtube_janela as jan    # noqa: PLC0415 — o dono da janela publica"
       }
     },
     {
@@ -40202,7 +40227,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 696,
+        "line": 713,
         "snippet": "'scripts/instagram_janela.py'),"
       }
     },
@@ -40213,7 +40238,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 783,
+        "line": 800,
         "snippet": "'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md',"
       }
     },
@@ -40224,7 +40249,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 497,
+        "line": 514,
         "snippet": "'docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md'),"
       }
     },
@@ -40235,7 +40260,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 526,
+        "line": 543,
         "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md',"
       }
     },
@@ -40246,7 +40271,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 978,
+        "line": 995,
         "snippet": "'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md',"
       }
     },
@@ -40257,7 +40282,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 847,
+        "line": 864,
         "snippet": "'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',"
       }
     },
@@ -48190,6 +48215,39 @@
         "file": "provas/_mutantes_d24.py",
         "line": 22,
         "snippet": "import social_matriz as mz"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_yt_metadados.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_mutantes_yt_metadados.py",
+        "line": 31,
+        "snippet": "import _gavetas  # noqa: F401"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_yt_metadados.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_mutantes_yt_metadados.py",
+        "line": 33,
+        "snippet": "import youtube_transcrever as ytv   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_yt_metadados.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_mutantes_yt_metadados.py",
+        "line": 32,
+        "snippet": "import social_matriz as mz          # noqa: E402"
       }
     },
     {
@@ -82687,6 +82745,72 @@
         "line": 23,
         "snippet": "import falhas                      # noqa: E402"
       }
+    },
+    {
+      "from_file": "tests/test_yt_metadados_do_audio.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_yt_metadados_do_audio.py",
+        "line": 37,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_yt_metadados_do_audio.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_yt_metadados_do_audio.py",
+        "line": 38,
+        "snippet": "import adaptador_youtube as ay     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_yt_metadados_do_audio.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_yt_metadados_do_audio.py",
+        "line": 39,
+        "snippet": "import fala_local as fl            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_yt_metadados_do_audio.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_yt_metadados_do_audio.py",
+        "line": 41,
+        "snippet": "import youtube_transcrever as ytv  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_yt_metadados_do_audio.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_yt_metadados_do_audio.py",
+        "line": 40,
+        "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_yt_metadados_do_audio.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_yt_metadados_do_audio.py",
+        "line": 146,
+        "snippet": "self.assertEqual(self.objeto()['AUTORIZACAO_DE'], 'leis/social_matriz.py')"
+      }
     }
   ],
   "ESCRITAS_EM_PASTA": {
@@ -83252,10 +83376,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2843,
-    "files_readable": 1301,
-    "files_code_dir": 1123,
-    "file_edges": 5707,
+    "files_tracked": 2845,
+    "files_readable": 1303,
+    "files_code_dir": 1125,
+    "file_edges": 5717,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

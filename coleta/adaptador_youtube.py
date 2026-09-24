@@ -809,6 +809,119 @@ def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=Non
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# A LISTA DE VIDEOS DE UM CANAL SEM CHAVE — a pagina publica, e so ela
+# ══════════════════════════════════════════════════════════════════════════
+ROTA_CANAL_PUBLICO = 'youtube:pagina-publica-do-canal'
+LIMITE_CANAL_PUBLICO = 'PUBLIC_CHANNEL_LISTING_ONLY'
+#: A pagina publica do canal. `/channel/<id>/videos` NAO esta em `Disallow` —
+#: medido em 2026-09-24 no `robots.txt` vivo; e o feed `/feeds/videos.xml` ESTA,
+#: e por isso NAO se usa (a matriz ja o declara `ROUTE_NOT_ALLOWED`).
+PAGINA_DO_CANAL = 'https://www.youtube.com/channel/%s/videos'
+
+
+def youtube_canal_publico(*, run_id, country_scope, canal_id=None, canal_url=None,
+                          limit=25, medida=None, **_):
+    """A LISTA de videos de um canal, SEM CHAVE DE API e sem conta.
+
+    POR QUE ESTA ROTA EXISTE
+    ------------------------
+    A SOC-ONDA2 mediu 11 canais novos: a receita deles usa o coletor de CANAIS
+    (Data API), que so corre onde esta a chave — e a chave so existe no GitHub.
+    Localmente o orquestrador responde `CREDENTIAL_MISSING` e o canal nunca vira
+    READY. Esta rota tira essa dependencia do caminho.
+
+    QUEM LE A PAGINA E O DONO, E NAO ESTA FUNCAO
+    --------------------------------------------
+    A leitura e o parsing da pagina publica sao de `coleta/youtube_janela.py`
+    (as duas portas: `urllib` primeiro, navegador quando ela nao serve). Aqui
+    so se compoe e se veste o resultado na lingua da porta.
+
+        UM LEITOR SO PARA A MESMA PERGUNTA. Um segundo `re` da grade do YouTube
+        daria dois resultados para a mesma duvida — e o dia em que o formato
+        mudar, um deles fica para tras em silencio.
+
+    O QUE ESTA ROTA **NAO** FAZ
+    ---------------------------
+    Nao usa chave, conta, cookie de sessao, navegador logado nem rota paga; nao
+    toca o feed `/feeds/videos.xml` (proibido no `robots.txt`, medido) e nao
+    contorna bloqueio nenhum. Sem a pagina, a resposta e uma lista VAZIA com o
+    motivo escrito — nunca uma lista inventada.
+    """
+    import youtube_janela as jan    # noqa: PLC0415 — o dono da janela publica
+
+    alvo = canal_url or (PAGINA_DO_CANAL % canal_id if canal_id else '')
+    if not alvo:
+        raise ValueError('canal ausente: sem `canal_id` nem `canal_url` nao ha alvo')
+    if '/feeds/videos.xml' in alvo:
+        # FRONTEIRA, e ela nao se negocia: o feed esta em `Disallow`.
+        raise ValueError('o feed do canal esta proibido no robots.txt (medido)')
+
+    html, porta, motivo = jan._abrir(alvo)
+    if not html:
+        return []
+    videos, porque = jan._videos_do_html(html)
+    if not videos:
+        return []
+
+    import social_matriz as mz                                       # noqa: PLC0415
+    try:
+        decisao = mz.decisao(PLATAFORMA, 'INCREMENTAL')
+    except Exception as e:                                           # noqa: BLE001
+        decisao = {'PORQUE': 'DECISAO_ILEGIVEL: %s' % str(e)[:120]}
+    agora = env.agora()
+
+    objetos = []
+    for v in videos[:int(limit or 25)]:
+        vid = v.get('VIDEO_ID') or v.get('VIDEOID') or v.get('videoId')
+        if not vid:
+            continue
+        objetos.append({
+            'OBJECT_KIND': 'PUBLIC_CHANNEL_LISTING',
+            'NATIVE_ID': vid,
+            'SOURCE_URL': 'https://www.youtube.com/watch?v=' + vid,
+            'CANAL_URL': alvo,
+            'CHANNEL_ID': canal_id or '',
+            'TITLE': v.get('TITLE') or v.get('title') or '',
+            'RUN_ID': run_id,
+            'ROUTE': ROTA_CANAL_PUBLICO,
+            'EXECUTOR': 'adaptador_youtube.youtube_canal_publico',
+            'PORTA_USADA': porta,
+            'LIMITE': LIMITE_CANAL_PUBLICO,
+            'COUNTRY_SCOPE': country_scope,
+            'COLLECTED_AT': agora,
+            'OWNER_AUTHORIZED': decisao.get('OWNER_AUTHORIZED'),
+            'PLATFORM_POLICY_STATUS': decisao.get('PLATFORM_POLICY_STATUS'),
+            'AUTORIZACAO_DE': 'leis/social_matriz.py',
+            # ⚠️ A LISTA NAO TRAZ DATA. Medido: em `--flat-playlist` o yt-dlp
+            # devolve `upload_date = None`; e a pagina do canal nao declara a
+            # data de cada video na grade. Quem a tem e o METADADO do video,
+            # que e outra chamada — e por isso a data NAO se inventa aqui.
+            'PUBLISHED_AT': 'NAO SEI',
+            'PUBLISHED_AT_PORQUE': ('a grade do canal nao declara a data de cada '
+                                    'video; ela vem do metadado do video'),
+            'FACT_TIME': 'NAO SEI',
+            'NAO_E_UMA_OBSERVACAO_DO_VIDEO': (
+                'uma LISTA de videos nao e uma observacao deles: o item do video '
+                'nasce na fase que o adquire'),
+        })
+    if medida is not None:
+        medida['ROUTE'] = ROTA_CANAL_PUBLICO
+        medida['PORTA_USADA'] = porta
+        medida['VIDEOS_NA_PAGINA'] = len(videos)
+    return objetos
+
+
+def pronto_para_canal_publico(**_):
+    """A rota publica nao tem credencial nenhuma para estar pronta.
+
+    A pergunta que ela responde e outra: o ambiente tem como falar com a pagina
+    publica? Sem rede, a fase falha ao abrir — e falha com o motivo, nao com um
+    silencio.
+    """
+    return (True, '')
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
 reg.registar(PLATAFORMA, 'youtube.channel.resolve', adaptador=NOME,

@@ -421,6 +421,23 @@ MATRIZ = {
               'exata, título, descrição INTEIRA (586-1148 chars) e views. Excelente e '
               'proibido: `Disallow: /feeds/videos.xml`.',
               'https://www.youtube.com/robots.txt'),
+            r('youtube:pagina-publica-do-canal', 'PUBLIC_NATIVE', 'SIM', 'PROVED', 'zero',
+              'A LISTA DE VIDEOS DE UM CANAL SEM CHAVE DE API, medida em 2026-09-24: '
+              '`/channel/<id>/videos` respondeu HTTP 200 com 1 203 861 bytes e 30 '
+              'videoIds distintos (com token de continuation); a leitura e a de '
+              '`coleta/youtube_janela.py` (urllib primeiro, navegador quando ela nao '
+              'serve), e o executor e '
+              '`adaptador_youtube.youtube_canal_publico`. `/channel/` NAO esta em '
+              '`Disallow` — conferido no robots.txt vivo do mesmo dia; o feed '
+              '`/feeds/videos.xml` CONTINUA proibido e NAO se usa. '
+              '⚠️ MEDIDO TAMBEM: o `yt-dlp --flat-playlist` lista (3 entradas), mas o '
+              'extrator do yt-dlp chama `youtubei/v1/` (`extractor/youtube/_base.py`), '
+              'que esta em `Disallow` — por isso NAO se declara aquela via como rota '
+              'permitida sem medicao de rede propria. '
+              'FRONTEIRA: so LISTA — nao traz data (medido: a grade nao declara a data '
+              'de cada video) e nao e observacao do video; sem conta, sem cookie, sem '
+              'rota paga e sem contornar bloqueio.',
+              'https://www.youtube.com/robots.txt'),
         ],
         'FETCH_VIDEO_METADATA': [
             r('youtube-data-api-v3:videos.list', 'OFFICIAL_API_FREE', 'SIM',

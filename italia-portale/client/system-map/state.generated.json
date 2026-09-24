@@ -2168,6 +2168,7 @@
       "provas/_flow01_janela_falsa.py",
       "provas/_mutantes_c13_d23.py",
       "provas/_mutantes_d24.py",
+      "provas/_mutantes_yt_metadados.py",
       "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
       "provas/a_collection_preserva_o_fato.py",
@@ -2916,7 +2917,8 @@
       "tests/test_youtube_antidrift.py",
       "tests/test_youtube_checkpoint_pg.py",
       "tests/test_youtube_oficial.py",
-      "tests/test_youtube_piloto.py"
+      "tests/test_youtube_piloto.py",
+      "tests/test_yt_metadados_do_audio.py"
     ]
   },
   "ACHADOS": [
@@ -3437,9 +3439,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "yt-metadados-v1",
-    "HEAD": "caeeb2525b36794ce5e2c97a0d04806dedcad2cf",
-    "GENERATED_AT": "2026-09-24T17:57:51-03:00",
-    "SOURCE_TREE_FINGERPRINT": "8356b11651142750874d535937821833ae218a893704d28e99995527cd08db1e"
+    "HEAD": "c202959630a0e90ce39d808b63b82c313cdacbf6",
+    "GENERATED_AT": "2026-09-24T18:32:02-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278"
   },
   "FAMILIES": [
     {
@@ -4936,8 +4938,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 629",
-        "desses, mostrados aqui: 40 (ficam de fora 589)"
+        "enderecos que o codigo realmente chama: 630",
+        "desses, mostrados aqui: 40 (ficam de fora 590)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -33470,6 +33472,7 @@
       ],
       "outbound": [
         "C-PROVA-COLETA",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -51165,9 +51168,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 582,
+        "palavras": 588,
         "por_lingua": {},
-        "sem_marca_de_lingua": 582,
+        "sem_marca_de_lingua": 588,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -51361,6 +51364,7 @@
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
+        "C-COLETA-YOUTUBE",
         "C-CONTRATO-ARTEFATO",
         "C-DERIVACAO-FORWARD",
         "C-DETECTOR-CAPA-GABARITO",
@@ -54467,9 +54471,10 @@
         "tests/test_youtube_antidrift.py",
         "tests/test_youtube_checkpoint_pg.py",
         "tests/test_youtube_oficial.py",
-        "tests/test_youtube_piloto.py"
+        "tests/test_youtube_piloto.py",
+        "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 230,
+      "file_count": 231,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -54709,6 +54714,7 @@
           "CORRIDA",
           "DECISOES_ANTIGAS",
           "DECISOES_NASCIDAS_DEPOIS",
+          "DECLARADO",
           "DEFEITO_MEDIDO",
           "DELEGADAS",
           "DEPOIS",
@@ -54768,13 +54774,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1285,
+        "palavras": 1307,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1273,
+        "sem_marca_de_lingua": 1295,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -71844,7 +71850,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 696,
+          "line": 713,
           "snippet": "'scripts/instagram_janela.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -72677,6 +72683,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-COLETA-YOUTUBE",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o YouTube tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 850,
+          "snippet": "import youtube_janela as jan    # noqa: PLC0415 — o dono da janela publica",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-YOUTUBE--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-COLETA-YOUTUBE",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -112762,7 +112803,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 58 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 59 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -112973,7 +113014,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -113107,6 +113148,22 @@
           "file": "tests/test_trava_da_inteligencia.py",
           "line": 275,
           "snippet": "self.assertEqual(v[\"FUNDACAO_DONO\"], \"leis/fundacao_da_coleta.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_yt_metadados_do_audio.py",
+          "line": 146,
+          "snippet": "self.assertEqual(self.objeto()['AUTORIZACAO_DE'], 'leis/social_matriz.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
             "FROM": "C-SCRAP-LEIS",
@@ -114928,7 +114985,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 154 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 155 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -120686,7 +120743,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 31 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 33 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -123182,8 +123239,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1611,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/_mutantes_yt_metadados.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1612,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123441,13 +123500,13 @@
     "components_pending": 202,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1266,
-    "edges_proven": 1202,
+    "edges": 1267,
+    "edges_proven": 1203,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2843,
-    "files_covered": 1232,
-    "files_code_unclaimed": 0,
+    "files_tracked": 2845,
+    "files_covered": 1233,
+    "files_code_unclaimed": 1,
     "roles_proven": 163,
     "roles_declared_only": 8,
     "roles_unknown": 70,

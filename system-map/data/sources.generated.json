@@ -2,11 +2,11 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T21:31:05+00:00",
-    "HEAD": "caeeb2525b36794ce5e2c97a0d04806dedcad2cf",
+    "GENERATED_AT": "2026-09-24T21:46:12+00:00",
+    "HEAD": "c202959630a0e90ce39d808b63b82c313cdacbf6",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "8356b11651142750874d535937821833ae218a893704d28e99995527cd08db1e",
+    "SOURCE_TREE_FINGERPRINT": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278",
     "FICHEIROS_NA_IMPRESSAO": 2993,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
@@ -30450,6 +30450,39 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/channel",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 819
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 450
+        },
+        {
+          "file": "curadoria/test_d21_heranca.py",
+          "line": 43
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 59
+        },
+        {
+          "file": "curadoria/test_soc_onda2_social.py",
+          "line": 125
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 806
+        },
+        {
+          "file": "tests/test_yt_metadados_do_audio.py",
+          "line": 55
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.arpae.it/it",
       "usado_por": [
         {
@@ -30599,31 +30632,6 @@
         {
           "file": "superficie/rede.py",
           "line": 202
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/channel",
-      "usado_por": [
-        {
-          "file": "coleta/youtube_oficial.py",
-          "line": 450
-        },
-        {
-          "file": "curadoria/test_d21_heranca.py",
-          "line": 43
-        },
-        {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 59
-        },
-        {
-          "file": "curadoria/test_soc_onda2_social.py",
-          "line": 125
-        },
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 806
         }
       ]
     },
@@ -30913,7 +30921,7 @@
         },
         {
           "file": "leis/social_matriz.py",
-          "line": 907
+          "line": 924
         },
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
@@ -31168,9 +31176,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 629,
+  "ENDPOINTS_FOUND": 630,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 589,
+  "ENDPOINTS_TRUNCATED": 590,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31188,9 +31196,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 629,
+    "endpoints": 630,
     "endpoints_published": 40,
-    "endpoints_truncated": 589,
+    "endpoints_truncated": 590,
     "candidates": 906,
     "coletores": 54,
     "coletores_com_data": 20,
