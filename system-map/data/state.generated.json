@@ -32,6 +32,7 @@
       "RELATORIO-B1-PONTE-PROVA-VIVA.md",
       "RELATORIO-B2-PONTE-PROMOCAO.md",
       "RELATORIO-B3-CONTRATO-UNICO.md",
+      "RELATORIO-B5-DEMOTION-VIVA.md",
       "RELATORIO-BRIDGE-FEEDER.md",
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
@@ -449,6 +450,11 @@
       "curadoria/provar_listagem.py",
       "curadoria/provar_ponte_curador.py",
       "curadoria/provar_supervisor.py",
+      "curadoria/provas-b5/B5-PROVA-COPIA-2.json",
+      "curadoria/provas-b5/B5-PROVA-COPIA.json",
+      "curadoria/provas-b5/B5-PROVA-COPIA.ndjson",
+      "curadoria/provas-b5/b5_prova.py",
+      "curadoria/provas-b5/b5_prova2.py",
       "curadoria/ready_split.py",
       "curadoria/reconciliar.py",
       "curadoria/reconciliar_livros.py",
@@ -3350,10 +3356,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
-    "GENERATED_AT": "2026-09-23T17:24:35-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1747c1700fd987dbdc47c4541ffb11e99f363b9d1c3a8794dbf439ffc0b3a054"
+    "BRANCH": "b5-demotion-viva-v1",
+    "HEAD": "6fe510e2bee47e08d963ad738210807f5a343008",
+    "GENERATED_AT": "2026-09-23T19:42:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e274747bf35e25ec03f0474a1b795c6e4af8f35e77b68b858edeb600f57de364"
   },
   "FAMILIES": [
     {
@@ -49307,7 +49313,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch b5-demotion-viva-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -113447,7 +113453,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1548,
+  "UNCLAIMED_FILES_COUNT": 1554,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -113709,7 +113715,7 @@
     "edges_proven": 1164,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2757,
+    "files_tracked": 2763,
     "files_covered": 1209,
     "files_code_unclaimed": 0,
     "roles_proven": 161,

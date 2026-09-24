@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
-    "GENERATED_AT": "2026-09-23T17:24:35-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1747c1700fd987dbdc47c4541ffb11e99f363b9d1c3a8794dbf439ffc0b3a054"
+    "BRANCH": "b5-demotion-viva-v1",
+    "HEAD": "6fe510e2bee47e08d963ad738210807f5a343008",
+    "GENERATED_AT": "2026-09-23T19:42:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e274747bf35e25ec03f0474a1b795c6e4af8f35e77b68b858edeb600f57de364"
   },
   "FILES": [
     {
@@ -312,6 +312,13 @@
     {
       "path": "RELATORIO-B3-CONTRATO-UNICO.md",
       "sha": "185037b725404b7285d214acd1d1093991926a3b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-B5-DEMOTION-VIVA.md",
+      "sha": "fb28380c9cea64c2ca7cb4d986ba7b5634cc298a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2979,6 +2986,41 @@
     {
       "path": "curadoria/provar_supervisor.py",
       "sha": "766d11063229c405b2a141ee11935b331eda4d48",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-b5/B5-PROVA-COPIA-2.json",
+      "sha": "e4665188b3d23cf1f2e10bcaac62aa01f264ba4a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-b5/B5-PROVA-COPIA.json",
+      "sha": "351e6c3704ba904256e3993bddf2ab5340e686b5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-b5/B5-PROVA-COPIA.ndjson",
+      "sha": "3ecaa8d4208bfe512b28f5c9fcad4517080a5e23",
+      "ext": ".ndjson",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-b5/b5_prova.py",
+      "sha": "0b709ec765d65c1fe9eb297ac738d58539ce6426",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-b5/b5_prova2.py",
+      "sha": "216192798247f2bface4bd97b6acc9fb1eb637f2",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -26677,6 +26719,94 @@
         "file": "curadoria/provar_supervisor.py",
         "line": 28,
         "snippet": "import supervisor as S # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-b5/b5_prova.py",
+      "to_file": "curadoria/provas-b5/B5-PROVA-COPIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-b5/b5_prova.py",
+        "line": 10,
+        "snippet": "SAIDA = D/\"B5-PROVA-COPIA.json\"; LOG = D/\"B5-PROVA-COPIA.ndjson\""
+      }
+    },
+    {
+      "from_file": "curadoria/provas-b5/b5_prova.py",
+      "to_file": "curadoria/provas-b5/B5-PROVA-COPIA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-b5/b5_prova.py",
+        "line": 49,
+        "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-b5/b5_prova.py",
+      "to_file": "curadoria/provas-b5/B5-PROVA-COPIA.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-b5/b5_prova.py",
+        "line": 10,
+        "snippet": "SAIDA = D/\"B5-PROVA-COPIA.json\"; LOG = D/\"B5-PROVA-COPIA.ndjson\""
+      }
+    },
+    {
+      "from_file": "curadoria/provas-b5/b5_prova.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-b5/b5_prova.py",
+        "line": 15,
+        "snippet": "r = subprocess.run([\"py\", \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], cwd=D, capture_output=True, text=True, encoding=\"utf-8\", errors=\"replace\", timeout"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-b5/b5_prova2.py",
+      "to_file": "curadoria/provas-b5/B5-PROVA-COPIA-2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-b5/b5_prova2.py",
+        "line": 10,
+        "snippet": "SAIDA = D/\"B5-PROVA-COPIA-2.json\"; LOG = D/\"B5-PROVA-COPIA.ndjson\""
+      }
+    },
+    {
+      "from_file": "curadoria/provas-b5/b5_prova2.py",
+      "to_file": "curadoria/provas-b5/B5-PROVA-COPIA-2.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-b5/b5_prova2.py",
+        "line": 66,
+        "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-b5/b5_prova2.py",
+      "to_file": "curadoria/provas-b5/B5-PROVA-COPIA.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-b5/b5_prova2.py",
+        "line": 25,
+        "snippet": "INICIO_PROVA = datetime.fromisoformat(json.loads(open(LOG, encoding=\"utf-8\").readline())[\"AT\"])"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-b5/b5_prova2.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-b5/b5_prova2.py",
+        "line": 15,
+        "snippet": "r = subprocess.run([\"py\", \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], cwd=D, capture_output=True, text=True, encoding=\"utf-8\", errors=\"replace\", timeout"
       }
     },
     {
@@ -80417,10 +80547,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2757,
-    "files_readable": 1262,
+    "files_tracked": 2763,
+    "files_readable": 1264,
     "files_code_dir": 1087,
-    "file_edges": 5504,
+    "file_edges": 5512,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
