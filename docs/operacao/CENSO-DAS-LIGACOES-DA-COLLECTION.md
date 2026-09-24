@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  4602a64bfb619ee4a731068727c93f8c0be36a21
+HEAD_DA_MEDICAO  3605a90d8da8c64113fb3852ab945043422f28ca
 BRANCH           curador-ate-pronta-v1
-GERADO_EM        2026-09-24T13:34:17-03:00
+GERADO_EM        2026-09-24T13:38:57-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

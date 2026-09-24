@@ -2374,7 +2374,8 @@
     "guarda/memoria_descartavel.py",
     "guarda/memoria_postgres.py",
     "guarda/portas_live.py",
-    "guarda/preservar_coleta.py"
+    "guarda/preservar_coleta.py",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md"
    ],
    "views": [
     "audit",
@@ -2660,7 +2661,8 @@
     "provas/entradas_do_scrap_v1.py",
     "provas/superficie_do_scrap_v1.py",
     "provas/prontidao_social_v1.py",
-    "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json"
+    "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
+    "provas/roteamento_youtube_proposta.py"
    ],
    "views": [
     "acervo",
@@ -4684,6 +4686,30 @@
    "files": [
     "scripts/reparo/medir_em_copia.py",
     "scripts/reparo/juntar_bancas.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-CUR-PRONTA",
+   "name": "CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Provas em copia dos livros vivos: uma volta do ciclo do Curator sem rede e voltas com rede pela VPN IT (AVANCAR + worker), a prova da orquestra (coleta e Curator ao mesmo tempo, com e sem a foto da onda), a medicao da janela de cultura (D29) e o ensaio da instalacao numa copia fiel do vivo.",
+   "why_here": "D28: o robo achava e parava; a medida de antes e depois e o ensaio da instalacao sao o que o coordenador verifica antes de decidir. Correm a mao, nunca no vivo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/cur_pronta/ciclo_uma_volta.py",
+    "provas/cur_pronta/ciclo_voltas.py",
+    "provas/cur_pronta/prova_orquestra.py",
+    "provas/cur_pronta/medir_janela.py",
+    "provas/cur_pronta/ensaio_instalacao.sh",
+    "PLANO-CUR-PRONTA.md"
    ]
   }
  ],
