@@ -391,6 +391,38 @@ def descobrir(max_pessoas=MAX_PESSOAS, refazer=False):
     return 0 if ok else 2
 
 
+# D29 (dono, 24/09): JANELAS DE CULTURA sao prioridade — fenologia/estadio, sementeira/colheita, momento de
+# tratamento, boletins fitossanitarios e agrometeorologicos, alertas de praga/doenca. Le-se na pagina oficial.
+D29_TEMAS = {
+    "FENOLOGIA": r"fenolog|phenolog|stadi[o]? fenologic|growth stage|ciclo colturale",
+    "FITOSSANIDADE": r"fitopatolog|patologia vegetale|plant patholog|malatti[ae] delle piante|entomolog|"
+                     r"difesa delle (?:piante|colture)|protezione delle piante|plant protection|fitosanitar|"
+                     r"parassit|patogen|lotta integrata|integrated pest|\bIPM\b|fitofarmac|agrofarmac",
+    "TRATAMENTO": r"trattament[oi] (?:fitosanitar|antiparassit)|momento del trattamento|spray timing|"
+                  r"decision support|DSS\b|modelli previsionali|forecasting model",
+    "AGROMETEO": r"agrometeo|agroclimat|meteorolog|clima(?:tic)?|bagnatura|irrigazion|evapotraspir",
+    "SEMENTEIRA_COLHEITA": r"semina|sementeira|raccolta|vendemmia|harvest|sowing",
+}
+
+
+def _texto_da_pagina(sha):
+    for base in (AQUI / "evidencia", EVID):
+        f = base / ((sha or "")[:16] + ".html")
+        if f.exists():
+            t = f.read_bytes().decode("utf-8", "replace")
+            t = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", t, flags=re.S | re.I)
+            return re.sub(r"\s+", " ", H.unescape(re.sub(r"<[^>]+>", " ", t)))
+    return None
+
+
+def temas_d29(sha):
+    """Temas D29 na pagina oficial da pessoa. None = pagina nao disponivel (NAO SEI, nao zero)."""
+    t = _texto_da_pagina(sha)
+    if t is None:
+        return None
+    return sorted(k for k, rx in D29_TEMAS.items() if re.search(rx, t, re.I))
+
+
 def achados():
     """Uma linha por (pessoa, perfil), com JA_CONHECIDO medido contra a casa inteira."""
     d = json.loads(SAIDA.read_text(encoding="utf-8"))
@@ -398,6 +430,8 @@ def achados():
     out = []
     for host, s in d["SEMENTES"].items():
         for p in s.get("PESSOAS", []):
+            if p.get("SOCIAIS") and "TEMAS_D29" not in p:
+                p["TEMAS_D29"] = temas_d29(p.get("SHA256"))
             for x in p.get("SOCIAIS", []):
                 nome = p.get("H1") or p.get("ANCORA") or p.get("TITULO")
                 slug = x["URL"].rstrip("/").rsplit("/", 1)[-1]
@@ -406,6 +440,7 @@ def achados():
                             "PAGINA_SHA256": p.get("SHA256"), "QUANDO": p.get("QUANDO"), "SEMENTE": host,
                             "DONO": s["DONO"], "FAMILIA": s["FAMILIA"],
                             "NOME_NO_SLUG": nome_casa_slug(p.get("ANCORA") or nome, slug),
+                            "TEMAS_D29": p.get("TEMAS_D29"),
                             "JA_CONHECIDO": k.get(FN.normalizar(x["URL"]))})
     return out
 
@@ -427,10 +462,11 @@ def registar():
         pais = "IT" if host.endswith(".it") else "NAO SEI"
         nota = ("P5 D24 · IDENTIDADE: a pagina oficial da pessoa %s (sha256 %s, lida %s; titulo «%s») liga a este "
                 "perfil %s — descoberta-indireta:site-da-organizacao · TERRITORIO: %s (dominio oficial %s) · "
-                "PESSOA: %s · CASA: %s (%s) · NOME NO ENDERECO: %d pedaco(s) · %s") % (
+                "PESSOA: %s · CASA: %s (%s) · NOME NO ENDERECO: %d pedaco(s) · D29 JANELAS: %s · %s") % (
             a["PAGINA_OFICIAL"], (a["PAGINA_SHA256"] or "?")[:16], (a["QUANDO"] or "")[:10],
             (a["PESSOA"] or "")[:80], a["PLATAFORMA"], pais, host, x["PESSOA"], a["DONO"], a["FAMILIA"],
-            a["NOME_NO_SLUG"], x["PORQUE"])
+            a["NOME_NO_SLUG"], ("NAO SEI" if a.get("TEMAS_D29") is None else ",".join(a["TEMAS_D29"]) or "nenhum tema"),
+            x["PORQUE"])
         antes = FN.carregar()["TOTAL"]
         linha = FN.registar(tipo=a["PLATAFORMA"], pais=pais, nome="%s — %s" % (x["PESSOA"], a["DONO"]),
                             url=a["URL"], para_que=x["PARA_QUE"],
