@@ -1,0 +1,59 @@
+{
+ "DATASET": "BC4D-MICRO-FINAL",
+ "MISSAO": "BC4d (24/09/2026): uma unica micro final na Sala real (decisao do bot Luciano 03:56)",
+ "REGRAS_ESCRITAS_EM": "2026-09-24T10:06:33Z",
+ "REGRAS_ESCRITAS_ANTES_DA_REDE": true,
+ "COORTE": "C:/bc/COORTE-BIG-COLLECTION.json (CONGELADA, 18, G3 62a7cade)",
+ "HISTORICO_SEM_REDE": {
+  "FONTE": "data/samples/LIVRO-DE-DECISOES.json do vivo (1249 decisoes)",
+  "SIM_POR_FONTE_DA_COORTE": {
+   "IT-T10-018": 27,
+   "outras 17": 0
+  },
+  "NUNCA_COLHIDAS": [
+   "IT-T5-090",
+   "IT-T7-112",
+   "IT-T7-117",
+   "IT-T7-118",
+   "IT-T7-121",
+   "IT-T7-123",
+   "IT-T7-135",
+   "IT-T7-141"
+  ],
+  "SIM_POR_UNIVERSO": {
+   "T10": "27/257",
+   "T5": "18/53",
+   "T7": "36/446",
+   "T2": "0/2 (sem regua: sempre NAO_SE_APLICA)"
+  }
+ },
+ "LOTE": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "PORQUE": "a UNICA fonte da coorte com SIM antes (27)",
+   "CONDICAO": "so entra se a listagem (1 GET do INDEX_URL https://www.myfruit.it/, sem abrir materia) mostrar >=1 URL que case o LINK_PATTERN do contrato e nao esteja no livro do coletor (observations.ndjson do vivo)",
+   "TETO_POR_HOST": 4,
+   "PORQUE_TETO_4": "o GET da listagem conta: 1 + (robots + indice + 2 materias) = 5 pedidos ao site"
+  },
+  {
+   "SOURCE_ID": "IT-T7-121",
+   "PORQUE": "CIA News (noticias agricolas), nunca colhida; T7 ja deu SIM noutras fontes (36)",
+   "TETO_POR_HOST": 5
+  },
+  {
+   "SOURCE_ID": "IT-T5-090",
+   "PORQUE": "ISTAT, unica T5 da coorte, nunca colhida; T5 tem a maior taxa de SIM (18/53)",
+   "TETO_POR_HOST": 5
+  }
+ ],
+ "SE_IT_T10_018_NAO_ENTRAR": "o lote fica IT-T7-121 + IT-T5-090; NAO se troca por outra fonte; fica escrito que o requisito 'pelo menos 1 com SIM antes' nao se cumpre porque nenhuma outra fonte da coorte teve SIM",
+ "FIXO": [
+  "nao se troca de fonte depois do primeiro pedido",
+  "VPN IT medida antes/durante/depois",
+  "backup da Sala provado antes",
+  "robots + <=5 pedidos por site (contando a listagem)",
+  "SINTONIA_ARMAZEM_RAIZ = ~/sintonia-sala-italia/armazem"
+ ],
+ "SUCESSO": ">=1 linha nova na Sala real com RAW + DERIVED + SIM + proveniencia completa (RUN/OBSERVATION/CONTENT/STORAGE OBJECT, COUNTRY=IT, egresso ao lado)",
+ "SE_0_SIM": "C4 FAIL, PARA, sem trocar fontes; medir rendimento das 18 (materias nao vistas hoje, so listagem; e SIM das ja colhidas)"
+}

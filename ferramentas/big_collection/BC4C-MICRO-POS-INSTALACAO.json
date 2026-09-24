@@ -1,0 +1,128 @@
+{
+ "DATASET": "BC4C-MICRO-POS-INSTALACAO",
+ "MISSAO": "BC4c (24/09/2026): a micro repetida na Sala real DEPOIS da BC4b instalada (bot dfec8873, ponte ebe000fb)",
+ "BOT_PARADO": {
+  "DE": "02:53:27",
+  "ATE": "02:57:33",
+  "COMO": "PARAR.flag marca BC4c + observador parado; volta pela Tarefa SINTONIA-Arranque"
+ },
+ "RECONCILIACAO_DOS_8": {
+  "FERRAMENTA": "ferramentas/big_collection/reconciliar_bytes_bc4.py --aplicar",
+  "RAIZ": "C:\\Users\\London1\\sintonia-sala-italia\\armazem",
+  "ACCOES": [
+   "raw 1406 COPIADO",
+   "raw 1407 COPIADO",
+   "raw 1408 COPIADO",
+   "raw 1409 COPIADO",
+   "derived 909 COPIADO",
+   "derived 910 COPIADO",
+   "derived 911 COPIADO",
+   "derived 912 COPIADO"
+  ],
+  "CONFERENCIA_DEPOIS": "JA_LA x8 (sha256 igual ao da Sala)",
+  "SALA_ANTES_E_DEPOIS": {
+   "sala_de_espera": 64,
+   "raw_asset": 1409,
+   "storage_object": 1101,
+   "derived_artifact": 912,
+   "collection_run": 391
+  },
+  "SALA_ESCRITA": 0
+ },
+ "BACKUP": {
+  "DUMP": "C:\\bc4\\backup2\\SALA-ANTES-DA-MICRO.dump",
+  "BYTES": 2187838,
+  "SHA256": "31ea8dd6b05647bbb05591bf12bbbbfc3664a9c02f261649c14daec858d5ad8a",
+  "RESTAURADO_IGUAL": true
+ },
+ "FONTES": [
+  "IT-T10-021",
+  "IT-T7-017",
+  "IT-T2-051"
+ ],
+ "CORRIDAS": [
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T10-2026-09-24-055450-490f0c5dade7527b",
+   "CODIGO": 0,
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-055501-ba7a58de7bf4bbab",
+   "CODIGO": 0,
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T2-2026-09-24-055520-31b34e3515d84eab",
+   "CODIGO": 0,
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  }
+ ],
+ "PROVAS": {
+  "BYTES_NO_ARMAZEM_DA_SALA": "+4 em ~/sintonia-sala-italia/armazem (1634 -> 1638): 2 OBSERVATION + 2 derivados",
+  "BYTES_NA_ARVORE_DO_CODIGO": "0 novos (XX/, NAO_SEI/, IT/: 8 -> 8, so os 8 antigos da BC4)",
+  "RUN_MANIFEST_COUNTRY": "IT nas 3 corridas; RUN_ID IT-T10-/IT-T7-/IT-T2-",
+  "SOURCE_COUNTRY_NA_SALA": "NAO_SEI (decisao do coordenador: fica nesta onda; missao propria)",
+  "PREFIXO_DO_CAMINHO": "XX/ e NAO_SEI/ (idem)",
+  "RELATORIO_ACHA_OS_BYTES_SEM_AJUDA": "C2 PASS, SEM_BYTES 0 (na BC4 precisou de SINTONIA_ARMAZEM_RAIZ apontada a arvore)",
+  "CORTESIA": {
+   "plantgest.imagelinenetwork.com": 2,
+   "riuniteciv.com": 3,
+   "arpae.it": 3,
+   "ROBOTS": "LIDO x3",
+   "RECUSAS": 0
+  },
+  "EGRESSO_REGISTADO_AO_LADO": "VPN_COUNTRY IT nos 3 registos do coletor"
+ },
+ "SALA": {
+  "ANTES": {
+   "sala_de_espera": 64,
+   "raw_asset": 1409,
+   "storage_object": 1101,
+   "derived_artifact": 912,
+   "collection_run": 391
+  },
+  "DEPOIS": {
+   "sala_de_espera": 64,
+   "raw_asset": 1411,
+   "storage_object": 1103,
+   "derived_artifact": 914,
+   "collection_run": 393
+  },
+  "DELTA_SALA_DE_ESPERA": 0,
+  "PORQUE_ZERO": "2 documentos novos (30 ja conhecidos pulados); Admission: IT-T7-017 NAO (noticia de premios de musica em Verona), IT-T2-051 NAO_SE_APLICA (vaga de emprego da ARPAE); IT-T10-021 0 documentos novos. Nenhum SIM -> nada a pousar. Decisao correcta, nao defeito."
+ },
+ "CRITERIOS": {
+  "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+  "C2_MATERIA_NAO_CAPA": "PASS",
+  "C3_PONTE_EM_RUNTIME": "PASS",
+  "C4_PROVENIENCIA_COMPLETA": "FAIL",
+  "C5_FACT_TIME_LOCATION": "PASS",
+  "C6_ZERO_BYPASS": "PASS",
+  "C7_PROPORCAO_POR_FONTE_E_CLASSE": "PASS",
+  "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+  "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+ },
+ "CRITERIOS_NOTA": "C4 FAIL so por SALA_LINHAS=0 (nenhum SIM); as 2 observacoes tem storage, derivado e decisao. C8 NAO_SE_APLICA: nenhum item no gabarito.",
+ "DEFEITO_DO_ARRANQUE_REGISTADO": {
+  "O_QUE": "02:48:54 o arranque disse 'OBSERVADOR ja a correr' e nao estava (o coordenador religou a mao). As 02:56:49 lancou-o certo.",
+  "HIPOTESE_NAO_PROVADA": "Procs() conta QUALQUER python/py/bash cuja linha de comando contenha 'ponte_automatica.py --servir' - um comando de outra sessao com esse texto, ou o py.exe de um observador a morrer, conta como vivo. Nao consertado (ordem do coordenador)."
+ }
+}
