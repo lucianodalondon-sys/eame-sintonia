@@ -801,7 +801,88 @@ def vereditos(resolucao, rotas):
     }
 
 
-def main():
+# ═════════════════════════════════════════════════════════════════════════
+# O LIVRO QUE O COLETOR LÊ — medido ao lado, sem mudar a regra da trava
+# ═════════════════════════════════════════════════════════════════════════
+# Até 24/09/2026 este censo só conhecia o CATALOGO (54 fontes). O coletor da
+# produção lê outro livro — `regras/italy_contracts_onboarded.json`, 193 fontes
+# com contrato — e as duas listas têm 2 fontes em comum. A fonte que rendeu 3
+# SIM na Sala real na 1.ª onda da Big Collection (IT-T10-018) não aparecia aqui.
+#
+#     UM MEDIDOR QUE SÓ VÊ O QUE JÁ CONHECE NÃO MEDE A CASA.
+#
+# O que este bloco NÃO faz, de propósito:
+#   · não muda o universo do veredito — `COLLECTION_FOUNDATION_CLOSED` e o
+#     critério A continuam sobre o CATALOGO até decisão escrita do dono;
+#   · não atribui classe de estrada: o modelo não declara a que classe pertence
+#     cada STRATEGY/LOTE, e atribuir uma aqui seria fabricar o critério A.
+LIVRO_DO_COLETOR = os.path.join(RAIZ, 'regras', 'italy_contracts_onboarded.json')
+LIVRO_DO_CURADOR = os.path.join(RAIZ, 'curadoria', 'LIFECYCLE-LEDGER-V1.json')
+SEM_CLASSE = 'NAO_SEI'
+
+
+def _estado_no_curador():
+    """O último NEW_STATE de cada fonte no livro do curador (o que está no Git)."""
+    if not os.path.exists(LIVRO_DO_CURADOR):
+        return {}
+    with open(LIVRO_DO_CURADOR, encoding='utf-8') as f:
+        transicoes = json.load(f).get('TRANSICOES') or []
+    ultimo = {}
+    for t in transicoes:
+        ultimo[t.get('SOURCE_ID')] = t.get('NEW_STATE')
+    return ultimo
+
+
+def universo_do_coletor():
+    with open(LIVRO_DO_COLETOR, encoding='utf-8') as f:
+        linhas = json.load(f).get('FONTES') or []
+    catalogo = {f.get('SOURCE_ID') for f in fontes_it()}
+    curador = _estado_no_curador()
+    por_fonte = []
+    for r in sorted(linhas, key=lambda x: x.get('SOURCE_ID') or ''):
+        aq = r.get('ACQUISITION') or {}
+        evid = r.get('EVIDENCE') or ''
+        por_fonte.append({
+            'SOURCE_ID': r.get('SOURCE_ID'),
+            'LOTE': r.get('BATCH_ID'),
+            'STRATEGY': aq.get('STRATEGY'),
+            'OUTPUT_TYPE': r.get('OUTPUT_TYPE'),
+            'EVIDENCIA_NO_GIT': bool(evid) and os.path.exists(os.path.join(RAIZ, evid)),
+            'ESTADO_NO_CURADOR': curador.get(r.get('SOURCE_ID')) or 'SEM_REGISTO',
+            'NO_CATALOGO_DA_TRAVA': r.get('SOURCE_ID') in catalogo,
+            'ROUTE_CLASS_ID': SEM_CLASSE,
+        })
+    ids = {f['SOURCE_ID'] for f in por_fonte}
+    return {
+        'LIVRO': os.path.relpath(LIVRO_DO_COLETOR, RAIZ).replace('\\', '/'),
+        'O_QUE_E': 'o livro de contratos que o coletor da producao le',
+        'TOTAL': len(por_fonte),
+        'TAMBEM_NO_CATALOGO_DA_TRAVA': len(ids & catalogo),
+        'SO_NO_LIVRO_DO_COLETOR': len(ids - catalogo),
+        'SO_NO_CATALOGO_DA_TRAVA': len(catalogo - ids),
+        'POR_LOTE': dict(sorted(collections.Counter(
+            '%s · %s · %s' % (f['LOTE'], f['STRATEGY'], f['OUTPUT_TYPE'])
+            for f in por_fonte).items())),
+        'COM_EVIDENCIA_NO_GIT': sum(1 for f in por_fonte if f['EVIDENCIA_NO_GIT']),
+        'ESTADO_NO_CURADOR': dict(sorted(collections.Counter(
+            f['ESTADO_NO_CURADOR'] for f in por_fonte).items())),
+        'ESTADO_NO_CURADOR_ORIGEM': (
+            os.path.relpath(LIVRO_DO_CURADOR, RAIZ).replace('\\', '/')
+            + ' — ultimo NEW_STATE por fonte, como esta no Git. NAO e o veredito '
+              'do portao no instante: esse depende do relogio (canario <= 7 dias) '
+              'e dos livros vivos do bot, que nao estao no Git.'),
+        'ROUTE_CLASS_CONHECIDA': sum(1 for f in por_fonte
+                                     if f['ROUTE_CLASS_ID'] != SEM_CLASSE),
+        'CRITERIO_A_NESTE_UNIVERSO': 'SEM_REGRA_DE_CORRESPONDENCIA',
+        'PORQUE_SEM_CLASSE': (
+            'o modelo (system-map/data/estradas-it.model.json) nao declara a que '
+            'classe de estrada pertence cada STRATEGY/LOTE. Declarar e decisao do '
+            'dono do modelo; inventar aqui seria fabricar o criterio A.'),
+        'POR_FONTE': por_fonte,
+    }
+
+
+def relatorio():
     fontes = ordenadas = fontes_it()
     dec, perm, sem_razao = classes_sociais()
     ap_def, ap_fb = apify()
@@ -920,7 +1001,35 @@ def main():
         'ORQUESTRADOR': orquestrador(),
         'COLLECTION_FOUNDATION_CLOSED': fdc.COLLECTION_FOUNDATION_CLOSED,
         'VEREDITOS': vereditos(resolucao, rotas),
+        'UNIVERSO_DO_VEREDITO': {
+            'CATALOGO': os.path.relpath(CATALOGO, RAIZ).replace('\\', '/'),
+            'FONTES': len(fontes),
+            'DECISAO': 'PENDENTE_DO_DONO',
+            'PORQUE': ('FONTES_IT, RESOLUCAO_POR_FONTE e o criterio A da trava '
+                       'continuam medidos sobre este catalogo. Que lista vale '
+                       '(catalogo, livro do coletor ou livro do curador) e '
+                       'decisao escrita do dono — este censo mede as duas e nao '
+                       'escolhe.'),
+        },
+        'UNIVERSO_DO_COLETOR': universo_do_coletor(),
     }
+    return rel, dict(provadas=provadas, candidatas=candidatas,
+                     desconhecidas=desconhecidas, por_estado=por_estado,
+                     regs=regs, por_membership=por_membership, rotas=rotas,
+                     fechadas=fechadas, observadas=observadas, em_banco=em_banco,
+                     bloqueadas=bloqueadas, dividas=dividas, dec=dec,
+                     ap_def=ap_def, ap_fb=ap_fb)
+
+
+def main():
+    rel, m = relatorio()
+    provadas, candidatas, desconhecidas = (m['provadas'], m['candidatas'],
+                                           m['desconhecidas'])
+    por_estado, regs, por_membership = (m['por_estado'], m['regs'],
+                                        m['por_membership'])
+    rotas, fechadas, observadas = m['rotas'], m['fechadas'], m['observadas']
+    em_banco, bloqueadas, dividas = m['em_banco'], m['bloqueadas'], m['dividas']
+    dec, ap_def, ap_fb = m['dec'], m['ap_def'], m['ap_fb']
     with open(SAIDA, 'w', encoding='utf-8') as f:
         json.dump(rel, f, ensure_ascii=False, indent=1)
     print('FONTES IT %d · com rota PROVADA %d · so CANDIDATA %d · UNKNOWN %d · BLOCKED %d'
@@ -950,6 +1059,13 @@ def main():
              if orq['EXISTE'] else ''))
     print('COLLECTION_FOUNDATION_CLOSED = %s'
           % ('SIM' if rel['COLLECTION_FOUNDATION_CLOSED'] else 'NAO'))
+    u = rel['UNIVERSO_DO_COLETOR']
+    print('UNIVERSO DO VEREDITO: %s (%d fontes) · decisao %s'
+          % (rel['UNIVERSO_DO_VEREDITO']['CATALOGO'], rel['UNIVERSO_DO_VEREDITO']['FONTES'],
+             rel['UNIVERSO_DO_VEREDITO']['DECISAO']))
+    print('LIVRO DO COLETOR: %d fontes · %d tambem no catalogo · %d com evidencia no Git · classe conhecida %d'
+          % (u['TOTAL'], u['TAMBEM_NO_CATALOGO_DA_TRAVA'], u['COM_EVIDENCIA_NO_GIT'],
+             u['ROUTE_CLASS_CONHECIDA']))
     print('\nescrito em %s' % os.path.relpath(SAIDA, RAIZ).replace('\\', '/'))
 
 

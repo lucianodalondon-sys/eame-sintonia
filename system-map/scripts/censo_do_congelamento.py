@@ -202,6 +202,60 @@ def _especie(rel, texto):
     return "IMPLEMENTATION"
 
 
+# ⚠️ A FOTOGRAFIA DE REFERÊNCIA É A DA TRAVA, NÃO A DESTA CORRIDA.
+# Até 24/09/2026 este censo gravava `FROZEN_AT_HEAD = HEAD de agora` e os blobs
+# de agora: comparava a árvore consigo mesma e dava 0 diferenças sempre. Medido
+# nesse dia contra a produção: 16 dos 73 artefactos da fotografia tinham mudado
+# de blob, e 5 novos tinham aparecido — e este ficheiro dizia «nada mudou».
+#
+#     UM ALARME QUE SE COMPARA CONSIGO NUNCA TOCA.
+#
+# A fotografia vive em `docs/operacao/TRAVA-DA-INTELIGENCIA.json`
+# (`FREEZE_MANIFEST`). Aqui só se LÊ: quem a tira e quem a muda é o dono da
+# trava, com decisão escrita.
+TRAVA = os.path.join(RAIZ, "docs", "operacao", "TRAVA-DA-INTELIGENCIA.json")
+
+
+def contra_a_fotografia(manifesto, congelados_hoje, blob_de):
+    """Compara a árvore de agora com a fotografia da trava.
+
+    `blob_de(path)` devolve o blob de agora, ou None/"" se o ficheiro sumiu.
+    Três violações, e são três porque se escondem de maneiras diferentes:
+
+        MUDARAM  um artefacto congelado mudou de blob
+        SUMIRAM  apagar não é congelar
+        NOVOS    não mexer em nada e escrever inteligência ao lado
+    """
+    mudaram, sumiram = [], []
+    for a in manifesto["FROZEN_INTELLIGENCE_ARTIFACTS"]:
+        agora = blob_de(a["PATH"])
+        if not agora:
+            sumiram.append(a["PATH"])
+        elif agora != a["GIT_BLOB_SHA"]:
+            mudaram.append({"PATH": a["PATH"], "SPECIES": a["SPECIES"],
+                            "CONGELADO": a["GIT_BLOB_SHA"], "AGORA": agora})
+    na_foto = {a["PATH"] for a in manifesto["FROZEN_INTELLIGENCE_ARTIFACTS"]}
+    novos = [{"PATH": a["PATH"], "SPECIES": a["SPECIES"]}
+             for a in congelados_hoje if a["PATH"] not in na_foto]
+    return {
+        "REFERENCIA": "docs/operacao/TRAVA-DA-INTELIGENCIA.json · FREEZE_MANIFEST",
+        "FROZEN_AT_HEAD": manifesto["FROZEN_AT_HEAD"],
+        "ARTEFATOS_NA_FOTOGRAFIA": len(manifesto["FROZEN_INTELLIGENCE_ARTIFACTS"]),
+        "MUDARAM": sorted(mudaram, key=lambda x: x["PATH"]),
+        "SUMIRAM": sorted(sumiram),
+        "NOVOS": sorted(novos, key=lambda x: x["PATH"]),
+        "CONGELAMENTO_RESPEITADO": not (mudaram or sumiram or novos),
+        "O_QUE_ISTO_NAO_DIZ": (
+            "se cada mudanca e conserto permitido pela trava («corrigir um "
+            "defeito que ameace dados») ou avanco proibido. Isso le-se no diff, "
+            "e decide-se por escrito — nao aqui."),
+    }
+
+
+def _blob_se_existe(rel):
+    return sha_do_blob(rel) if os.path.isfile(os.path.join(RAIZ, rel)) else ""
+
+
 def censo():
     achados = []
     for rel in _ficheiros():
@@ -229,6 +283,10 @@ def censo():
 
     cabeca = subprocess.run(["git", "rev-parse", "HEAD"], cwd=RAIZ,
                             capture_output=True, text=True).stdout.strip()
+    with open(TRAVA, encoding="utf-8") as f:
+        manifesto = json.load(f)["FREEZE_MANIFEST"]
+    congelados = [a for a in achados
+                  if a["SPECIES"] in ("IMPLEMENTATION", "CONTRACT", "PORTAL_UI")]
     return {
         "O_QUE_E": (
             "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que "
@@ -238,11 +296,15 @@ def censo():
             "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e "
             "dai eu escrevi «zero areas implementadas». A afirmacao era maior "
             "do que a prova: nao havia pasta, havia artefatos espalhados."),
-        "FROZEN_AT_HEAD": cabeca,
+        "FROZEN_AT_HEAD": manifesto["FROZEN_AT_HEAD"],
         "O_QUE_FROZEN_AT_HEAD_E": (
-            "a marca historica: o ponto em que a fotografia foi tirada. NAO e o "
-            "ponto em que se mede — mede-se sempre a arvore de trabalho de "
-            "agora, contra os sha que essa fotografia guardou."),
+            "a marca historica: o ponto em que a fotografia da TRAVA foi tirada "
+            "(lido de FREEZE_MANIFEST, nunca o HEAD desta corrida). Mede-se a "
+            "arvore de trabalho de agora contra os sha que essa fotografia "
+            "guardou — ver CONTRA_A_FOTOGRAFIA."),
+        "MEDIDO_NO_HEAD": cabeca,
+        "CONTRA_A_FOTOGRAFIA": contra_a_fotografia(
+            manifesto, congelados, _blob_se_existe),
         "ARTEFATOS": len(achados),
         "POR_ESPECIE": dict(sorted(por_especie.items())),
         "O_QUE_A_TRAVA_SEGURA": ["IMPLEMENTATION", "CONTRACT", "PORTAL_UI"],
@@ -252,10 +314,8 @@ def censo():
             "congela-se o gerador, nao a saida; COLLECTION_ONLY e coleta com a "
             "palavra dentro. Congelar tudo impediria consertar coleta, e uma "
             "trava que impede o trabalho certo e desligada na primeira semana."),
-        "FROZEN_INTELLIGENCE_ARTIFACTS": sorted(
-            (a for a in achados
-             if a["SPECIES"] in ("IMPLEMENTATION", "CONTRACT", "PORTAL_UI")),
-            key=lambda x: x["PATH"]),
+        "FROZEN_INTELLIGENCE_ARTIFACTS": sorted(congelados,
+                                                key=lambda x: x["PATH"]),
         "OUTROS_ARTEFATOS": sorted(
             ({"PATH": a["PATH"], "SPECIES": a["SPECIES"]} for a in achados
              if a["SPECIES"] not in ("IMPLEMENTATION", "CONTRACT", "PORTAL_UI")),
@@ -270,9 +330,15 @@ def main():
     with open(destino, "w", encoding="utf-8") as f:
         json.dump(fora, f, ensure_ascii=False, indent=2)
         f.write("\n")
+    foto = fora["CONTRA_A_FOTOGRAFIA"]
     print("artefatos=%d · por especie=%s · congelados=%d · HEAD=%s" % (
         fora["ARTEFATOS"], fora["POR_ESPECIE"],
-        len(fora["FROZEN_INTELLIGENCE_ARTIFACTS"]), fora["FROZEN_AT_HEAD"][:8]))
+        len(fora["FROZEN_INTELLIGENCE_ARTIFACTS"]), fora["MEDIDO_NO_HEAD"][:8]))
+    print("contra a fotografia da trava (%s): mudaram=%d · sumiram=%d · novos=%d"
+          " · CONGELAMENTO_RESPEITADO=%s" % (
+              foto["FROZEN_AT_HEAD"][:8], len(foto["MUDARAM"]),
+              len(foto["SUMIRAM"]), len(foto["NOVOS"]),
+              "SIM" if foto["CONGELAMENTO_RESPEITADO"] else "NAO"))
     return 0
 
 
