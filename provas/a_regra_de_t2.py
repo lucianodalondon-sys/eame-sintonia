@@ -241,8 +241,16 @@ def _texto(caminho):
 
 
 def _decide(texto, palavras):
-    """A decisao REAL, pela funcao real. Nao ha aqui reimplementacao."""
-    return adm._do_universo({"texto": texto}, "T2", palavras)
+    """A decisao REAL, pela funcao real. Nao ha aqui reimplementacao.
+
+    ⚠️ (T2-REGUA, 2026-09-24) A chave `"T2"` passou a ter mecanismo proprio na
+    porta (palavra inteira + ancora agricola, D29). Esta prova mede as SUAS
+    candidatas pelo mecanismo antigo (pedaco de palavra, sem ancora) — por isso
+    pergunta com um nome de universo que nao tem mecanismo nenhum. O resultado
+    desta prova fica exactamente o que era; a regua D29 mede-se em
+    `scripts/regua_t2/medir_regua_t2.py`.
+    """
+    return adm._do_universo({"texto": texto}, "T2_CANDIDATA_V0", palavras)
 
 
 def _matriz(nome, palavras, textos):

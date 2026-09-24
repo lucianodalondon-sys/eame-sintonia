@@ -321,7 +321,12 @@ class ARotaCanonicaProvadaACorrer(Bancada):
 
     def test_a_rota_julga_a_unidade_da_fronteira_e_nao_o_item_original(self):
         entrada = self.orq.pela_entrada([self.unidade()], dict(CORRIDA))
-        r = self.orq.pela_porta(entrada["PARA_A_PORTA"], "T2", CORRIDA["RUN_ID"])
+        # ⚠️ (T2-REGUA, 24/09) ERA "T2", escolhido por nao ter regua: a unica
+        # resposta que podia dar NAO_SEI era a do TEMPO, que e o que este teste
+        # mede. T2 ganhou regua (D29) e o boletim de prova — sem ligacao agricola
+        # escrita — passa a dar NAO_SEI pelo UNIVERSO, o que nao e o assunto
+        # daqui. `T1` continua sem regua: a pergunta do teste fica a mesma.
+        r = self.orq.pela_porta(entrada["PARA_A_PORTA"], "T1", CORRIDA["RUN_ID"])
         self.assertEqual(r["itens"], 1)
         # com estagio preservado, a porta NAO cobra o tempo do FATO
         self.assertNotIn(adm.NAO_SEI, r["por_resultado"],

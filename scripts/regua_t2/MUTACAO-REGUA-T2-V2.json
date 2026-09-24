@@ -1,0 +1,51 @@
+{
+ "DATASET": "MUTACAO-REGUA-T2-V2",
+ "COMMIT_ATACADO": "475ea3be",
+ "COPIA": "C:/regua-t2-base (worktree destacada)",
+ "TESTES": [
+  "tests.test_regua_t2",
+  "tests.test_a_regra_de_t2"
+ ],
+ "PYTHONDONTWRITEBYTECODE": "1",
+ "HISTORIA": "1.a corrida em 1fc1e794: 7/9 mortos; sobreviveram transversal_off (codigo redundante: a prova-noutro-universo nao lia 'forma|forma') e casa_substring (teste com exemplo falso: 'seca' nao vive em 'biblioteca'). Consertados em 475ea3be.",
+ "MUTANTES": {
+  "transversal_off": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=6)"
+  },
+  "e_vira_ou": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=7)"
+  },
+  "agrometeo_1_condicao": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=2)"
+  },
+  "palavra_inteira_off": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=11)"
+  },
+  "casa_substring": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=1)"
+  },
+  "metade_vira_nao": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=9)"
+  },
+  "sem_d2": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=1)"
+  },
+  "ancora_en_off": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=1)"
+  },
+  "regua_t2_apagada": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=3, errors=13)"
+  }
+ },
+ "MORTOS": 9,
+ "TOTAL": 9
+}

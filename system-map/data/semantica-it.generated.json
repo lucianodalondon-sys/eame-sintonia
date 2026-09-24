@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "7d7c080755591228638b2de1423138e63ac7f121"
+    "HEAD": "61335f880808dcd0d792d8e9fee8bf4335daa13b"
   },
   "VOCABULARIOS": [
     {
@@ -1248,16 +1248,16 @@
       "OWNER": "admissao",
       "ROLE": "ADMISSAO",
       "O_QUE_E": "as palavras que decidem se o item pertence ao universo pedido",
-      "TOTAL_TERMS": 103,
+      "TOTAL_TERMS": 121,
       "POR_ESCOPO": {
-        "UNKNOWN": 43,
+        "UNKNOWN": 61,
         "IT_ONLY": 32,
         "PT_ONLY": 20,
         "SHARED_MULTILINGUAL": 6,
         "INTERNATIONAL": 2
       },
       "CLASSIFIED": 60,
-      "UNKNOWN": 43,
+      "UNKNOWN": 61,
       "FECHA": true,
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
@@ -1329,6 +1329,9 @@
         "scripts/diagnostico_sala/onde_casou.py",
         "scripts/micro_coleta/ensaio_offline.py",
         "scripts/micro_coleta/micro_coleta.py",
+        "scripts/regua_t2/medir_regua_t2.py",
+        "scripts/regua_t2/medir_via_agrometeo.py",
+        "scripts/regua_t2/mutar_regua_t2.py",
         "system-map/scripts/censo_das_derivacoes.py",
         "system-map/scripts/censo_semantico_it.py",
         "system-map/scripts/generate_system_map.py",
@@ -1372,6 +1375,7 @@
         "tests/test_quarentena_naosei.py",
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao_trava.py",
+        "tests/test_regua_t2.py",
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_sala_duravel.py",
         "tests/test_sala_idempotente_por_documento.py",
@@ -1792,15 +1796,87 @@
         {
           "termo": "exportacoes",
           "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "pioggia|piogge|precipitazione|precipitazioni|chuva|chuvas|precipitacao|precipitacoes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "temperatura|temperature|temperaturas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "siccita|seca|secas|estiagem",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "gelata|gelate|brina|brinate|geada|geadas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "grandine|grandinata|grandinate|granizo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ondata di calore|ondate di calore|onda de calor|ondas de calor",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "umidita del suolo|umidade do solo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "stress idrico|deficit idrico|bilancio idrico|estresse hidrico|deficit hidrico|balanco hidrico",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "eventi estremi|evento estremo|eventos extremos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "evapotraspirazione|evapotranspiracao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "irrigazione|irrigazioni|irrigacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "risorsa idrica|risorse idriche|recurso hidrico|recursos hidricos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "anticiclone|anticicloni|anticiclonico|anticiclonica|anticiclones",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "saccatura|saccature|cavado|cavados",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "perturbazione|perturbazioni|perturbacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "temporalesco|temporaleschi|temporalesca|temporalesche|trovoada|trovoadas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "nuvolosita|nuvolosa|nuvoloso|nebulosidade",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "pluviometro|pluviometri|pluviometrico|pluviometrica|anemometro|anemometri",
+          "escopo": "UNKNOWN"
         }
       ]
     }
   ],
   "COUNTS": {
     "vocabularios": 10,
-    "termos_ao_todo": 345,
+    "termos_ao_todo": 363,
     "por_papel": {
-      "ADMISSAO": 103,
+      "ADMISSAO": 121,
       "BUSCA": 68,
       "CLASSIFICACAO": 139,
       "EXTRACAO": 35

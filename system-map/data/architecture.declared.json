@@ -722,6 +722,55 @@
    ]
   },
   {
+   "id": "C-REGUA-T2-JANELA",
+   "name": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Gabarito T2 rotulado a mao a partir do acervo, sem rede (inventario de 504 textos; T2-V1 no eixo clima, T2-V2 no eixo JANELA da D29: 45 YES / 225 NO / 117 NAO_SEI), medicao da regua T2 de admissao/admissao.py pelo caminho da porta (_do_universo) com os vizinhos T3 T4 T5 T7 T9 T10 julgados antes/depois (0 mudados em 7.554), mutacao numa copia (9/9 mortos) e o portao que as guardas de T2 leem (portao_t2.py). A regua: SIM pede condicao do campo E ligacao agricola escrita; metade fica NAO_SEI com marca D2 REROUTE_POSSIVEL. A porta nao decide a janela (CAP-WIN da Intelligence). Testes: tests/test_regua_t2.py (peca C-TESTES).",
+   "why_here": "A 1.a onda da Big Collection (BC5) mediu que T2 nunca dava SIM (sem regua). A medicao antiga de provas/a_regra_de_t2.py fechou o portao para a pergunta clima-vs-praga; a D29 mudou a pergunta e os boletins fitossanitarios passaram a ser o que tem de entrar. Precisao/recall sao DENTRO da amostra; os textos vivem fora do Git (%USERPROFILE%/sintonia-gabarito/REGUA-T2-V1) com sha256 no gabarito.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
+    "scripts/regua_t2/inventariar_t2.py",
+    "scripts/regua_t2/montar_gabarito_t2.py",
+    "scripts/regua_t2/GABARITO-T2-V1.json",
+    "scripts/regua_t2/GABARITO-T2-V2.json",
+    "scripts/regua_t2/medir_regua_t2.py",
+    "scripts/regua_t2/MEDICAO-REGUA-T2-V1.json",
+    "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
+    "scripts/regua_t2/portao_t2.py",
+    "scripts/regua_t2/mutar_regua_t2.py",
+    "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
+    "scripts/regua_t2/PROVA-D29-PORTA-CANONICA-OFFLINE.json",
+    "scripts/regua_t2/prova_d29_porta.py",
+    "scripts/regua_t2/rotulos/rotulos.tsv",
+    "scripts/regua_t2/rotulos/rotulos-janela.tsv",
+    "scripts/regua_t2/rotulos/A-ROTULAR.json",
+    "scripts/regua_t2/rotulos/A-ROTULAR-JANELA.json",
+    "scripts/regua_t2/recolher_boletins.py",
+    "scripts/regua_t2/RECOLHA-BOLETINS-V1.json",
+    "scripts/regua_t2/RECOLHA-BOLETINS-V2.json",
+    "scripts/regua_t2/RECOLHA-BOLETINS-V3.json",
+    "scripts/regua_t2/GABARITO-T2-V3.json",
+    "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+    "scripts/regua_t2/rotulos/rotulos-recolha.tsv",
+    "scripts/regua_t2/rotulos/A-ROTULAR-RECOLHA.json",
+    "scripts/regua_t2/medir_via_agrometeo.py",
+    "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
+    "scripts/regua_t2/medir_t2c.py",
+    "scripts/regua_t2/MEDICAO-T2C-V1.json",
+    "scripts/regua_t2/MUTACAO-REGUA-T2-V3.json"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",
