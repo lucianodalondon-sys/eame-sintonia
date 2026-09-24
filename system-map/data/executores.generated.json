@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
+  "HEAD": "03daf205ac08607fa8fc4f50f8d9c72829f76f1a",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -209,13 +209,13 @@
   "TOTAL_FILES_SCANNED": 81,
   "TOTAL_RELEVANT_PATHS": 68,
   "TOTAL_EXECUTORS_PROVEN": 2,
-  "TOTAL_EXECUTORS_BY_ROLE": 11,
+  "TOTAL_EXECUTORS_BY_ROLE": 10,
   "TOTAL_ORCHESTRATORS": 6,
   "TOTAL_ADAPTERS": 8,
   "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 4,
   "TOTAL_TELEMETRY_EMITTERS": 4,
-  "TOTAL_UNKNOWN": 37,
+  "TOTAL_UNKNOWN": 38,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
  "PORQUE_ESSE": "corre sem rede, sem API paga e sem producao, e ja fala a lingua das falhas — instrumenta-lo custa o writer, e nao um ambiente.",
@@ -943,7 +943,7 @@
   {
    "EXECUTOR_ID": "coleta/instagram_janela.py",
    "GAVETA": "coleta",
-   "LINHAS": 846,
+   "LINHAS": 855,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -959,7 +959,7 @@
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
    "PAPEIS": [
-    "EXECUTOR"
+    "UNKNOWN"
    ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
