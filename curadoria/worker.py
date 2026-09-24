@@ -59,6 +59,7 @@ import fonte_nova as FN            # noqa: E402
 import gate_de_rota as GATE        # noqa: E402
 import lifecycle as LC             # noqa: E402
 import ready_split as RS           # noqa: E402
+import revisao_ready as REV        # noqa: E402
 
 CONTRATO = "SOURCE_CURATOR_WORKER/v1"
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
@@ -680,6 +681,18 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
                 return {"TASK_ID": tid, "SOURCE_ID": sid, "TASK_TYPE": tipo,
                         "RESULTADO": "PASS_PARCIAL", "EVIDENCE_REF": ref,
                         "FONTE_FALHOU": False, "PORQUE": regua["PORQUE"][:160]}
+            # ⚠️ A REGUA NAO LE. A revisao da R1 (curadoria/revisao_ready.py) retem
+            # o que a leitura achou pagina fixa, texto de terceiros ou listagem, e
+            # o que o reparo trouxe e ninguem leu. O motivo vai para o livro.
+            rev = REV.decisao(sid, contrato)
+            if rev and rev["ACAO"] == "RETER":
+                if LC.estado_de(sid) != rev["ESTADO"]:
+                    LC.registar(sid, rev["ESTADO"], rev["RAZAO"], evidence_ref=ref)
+                return {"TASK_ID": tid, "SOURCE_ID": sid, "TASK_TYPE": tipo,
+                        "RESULTADO": "PASS_RETIDO_PELA_REVISAO", "EVIDENCE_REF": ref,
+                        "FONTE_FALHOU": False, "PORQUE": rev["RAZAO"][:160]}
+            if rev and rev["ACAO"] == "PROMOVER_COM_NOTA":
+                razao = ("%s · %s" % (razao, rev["NOTA"]))[:200]
             de = LC.estado_de(sid)
             if de not in LC.PODEM_PROMOVER:
                 LC.registar(sid, LC.CANARY_PENDING,
