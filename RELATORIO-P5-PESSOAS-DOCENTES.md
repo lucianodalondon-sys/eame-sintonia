@@ -67,3 +67,12 @@ fileira avícola: produção, não saúde animal; fica aqui escrita para quem de
 - Mapa: REGERAR feito (ae465951); VALIDAR reprovou só em P9 (as 8 páginas de prova sem peça). Já ligadas à peça C-PESSOAS-DOCENTES; falta regerar e validar outra vez.
 
 **FALTA AO RETOMAR:** com LOCK-PESADO.txt, cadeia REGERAR → commit → VALIDAR (esperado PASS); com VPN IT, `--descobrir` das 5 casas D29, decisões, `--registar` sobre a fila atual; know-how § e entrega.
+
+## P5b · 24/09 noite — as 5 casas D29
+
+- Portão de consenso trazido (`superficie/rede.py` de `origin/egresso-consenso-v1`): o antigo só lia o ipinfo.io, que estava em 429, e dava UNKNOWN falso. A partir daí, 12 portões PASS IT, 269 pedidos.
+- Fondazione Edmund Mach: o `robots.txt` do site proíbe `/La-Fondazione/Personale` → respeitado, 0 pessoas.
+- DiSSPA Bari: a página do departamento não abre (urllib URLError; curl 302 sem corpo) → declarada, sem insistir.
+- SAAF Palermo: 163 pessoas lidas, 0 perfis. Agraria Sassari: a casa só liga à rubrica geral da Uniss; 2 pessoas, 0 perfis.
+- Biotecnologie Verona: 74 pessoas, 1 LinkedIn → **CAND-0915 Claudio Zaccone** (AGRI-06/B chimica agraria, ciência do solo; sinal D29 AGROMETEO: «stress idrico delle colture» na ficha). 2 ResearchGate FICA_FORA.
+- Total P5: **9 candidatas (CAND-0907..0915)**, fila 906 → 915, 0 linhas antigas alteradas; 1027 páginas com sha256 em `EVIDENCIA-P5.json`, as 9 páginas-prova no ramo.
