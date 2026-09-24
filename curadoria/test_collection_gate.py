@@ -519,10 +519,17 @@ class OLivroRealPassaPelaMesmaRegra(unittest.TestCase):
         com_revisao = [l for l in self.inv
                        if l["READY_RULE"] == RS.REGUA_CURRENT
                        and l["HUMAN_REVIEW_REQUIRED"]]
+        contratos = RS._contratos()
         for l in com_revisao:
             with self.subTest(sid=l["SOURCE_ID"]):
                 self.assertFalse(l["COLLECTION_ELIGIBLE"])
-                self.assertEqual(CG.HUMAN_REVIEW_REQUIRED, l["MOTIVO"])
+                # A retirada por decisao (D9) e a primeira porta: uma fonte retirada
+                # E com pedido de olho humano sai pela retirada (IT-T12-095 no livro
+                # vivo de 23/09). So essa excepcao, e so com a marca no contrato.
+                retirada = ((contratos.get(l["SOURCE_ID"]) or {}).get("ESTADO_CATALOGO")
+                            == CG.RETIRADA_POR_DECISAO)
+                self.assertEqual(CG.RETIRADA_POR_DECISAO if retirada
+                                 else CG.HUMAN_REVIEW_REQUIRED, l["MOTIVO"])
 
     def test_nenhuma_READY_LEGACY_do_livro_real_entra(self):
         vazou = [l["SOURCE_ID"] for l in self.inv
