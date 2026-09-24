@@ -394,14 +394,16 @@ def descobrir(max_pessoas=MAX_PESSOAS, refazer=False):
 # D29 (dono, 24/09): JANELAS DE CULTURA sao prioridade — fenologia/estadio, sementeira/colheita, momento de
 # tratamento, boletins fitossanitarios e agrometeorologicos, alertas de praga/doenca. Le-se na pagina oficial.
 D29_TEMAS = {
-    "FENOLOGIA": r"fenolog|phenolog|stadi[o]? fenologic|growth stage|ciclo colturale",
-    "FITOSSANIDADE": r"fitopatolog|patologia vegetale|plant patholog|malatti[ae] delle piante|entomolog|"
+    "FENOLOGIA": r"fenolog|phenolog|stadi[o]? fenologic|growth stages?(?![A-Za-z])|ciclo colturale",
+    "FITOSSANIDADE": r"fitopatolog|patologia vegetale|plant patholog|malatti[ae] delle piante|plant disease|entomolog|"
                      r"difesa delle (?:piante|colture)|protezione delle piante|plant protection|fitosanitar|"
-                     r"parassit|patogen|lotta integrata|integrated pest|\bIPM\b|fitofarmac|agrofarmac",
+                     r"lotta integrata|integrated pest|(?<![A-Za-z])IPM(?![A-Za-z])|fitofarmac|agrofarmac|patogeni vegetali|plant pathogen",
     "TRATAMENTO": r"trattament[oi] (?:fitosanitar|antiparassit)|momento del trattamento|spray timing|"
-                  r"decision support|DSS\b|modelli previsionali|forecasting model",
-    "AGROMETEO": r"agrometeo|agroclimat|meteorolog|clima(?:tic)?|bagnatura|irrigazion|evapotraspir",
-    "SEMENTEIRA_COLHEITA": r"semina|sementeira|raccolta|vendemmia|harvest|sowing",
+                  r"supporto alle decisioni|decision support system|modelli previsionali|forecasting model",
+    # «cambiamenti climatici»/«climate change» NAO contam: no IBBA vem num bloco de projeto repetido em varias
+    # fichas e nao diz nada sobre janela (P5b, 24/09 — 7 das 8 acendiam por isso).
+    "AGROMETEO": r"agrometeo|agroclimat|bagnatura fogliare|evapotraspir|stress (?:idrico|termico)",
+    "SEMENTEIRA_COLHEITA": r"epoca di (?:semina|raccolta)|data di semina|sowing date|harvest(?:ing)? time|vendemmia",
 }
 
 

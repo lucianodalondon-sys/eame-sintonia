@@ -49,6 +49,17 @@ class AFormaDosLinks(unittest.TestCase):
         self.assertEqual(P.nome_casa_slug("Prof. Niccolò Pàstore", "niccolo-pastore-1a2b"), 2)
         self.assertEqual(P.nome_casa_slug("Mario Rossi", "agrolab-unipd"), 0)
 
+    def test_5b_marca_d29_nao_acende_por_palavra_solta(self):
+        """IPM so como palavra inteira (o \\b perdido virou 0x08 no heredoc e «shipment» passava);
+        «cambiamenti climatici» sozinho nao e janela de cultura."""
+        import re
+        self.assertFalse(re.search(P.D29_TEMAS["FITOSSANIDADE"], "shipment of goods", re.I))
+        self.assertTrue(re.search(P.D29_TEMAS["FITOSSANIDADE"], "un approccio IPM per la vite", re.I))
+        self.assertFalse(re.search(P.D29_TEMAS["AGROMETEO"], "impatti dei cambiamenti climatici", re.I))
+        self.assertTrue(re.search(P.D29_TEMAS["AGROMETEO"], "rete agrometeorologica regionale", re.I))
+        with open(P.__file__, encoding="utf-8") as f:
+            self.assertNotIn("\x08", f.read())
+
     def test_5_crea_e_bologna_ficam_com_a_p4(self):
         s = _j("SEMENTES-P5.json")
         hosts = " ".join(x["URL"] for x in s["SEMENTES"])
