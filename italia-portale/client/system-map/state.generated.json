@@ -483,6 +483,7 @@
       "curadoria/test_abastecimento.py",
       "curadoria/test_avancar_fontes.py",
       "curadoria/test_canario_detalhe.py",
+      "curadoria/test_canario_hrefs.py",
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
       "curadoria/test_cartao_de_fonte.py",
@@ -510,6 +511,7 @@
       "curadoria/test_ponte_cadeia.py",
       "curadoria/test_ponte_candidatas.py",
       "curadoria/test_ponte_promocao.py",
+      "curadoria/test_qualify_fora_de_it.py",
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
       "curadoria/test_reparar_contrato.py",
@@ -2237,14 +2239,19 @@
       "provas/gpu_asr_smoke.py",
       "provas/hardware_local.py",
       "provas/ia_cur/DECISOES-IA-CUR-V1.json",
+      "provas/ia_cur/ESTADO-FINAL-30.json",
       "provas/ia_cur/FOTO-1511.sha256",
+      "provas/ia_cur/PAGINAS-LIDAS-COM-REDE.jsonl",
       "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
       "provas/ia_cur/RELATORIO-IA-CUR.md",
       "provas/ia_cur/RESULTADO-PILOTO-IA-CUR.json",
+      "provas/ia_cur/buscar_pagina.py",
       "provas/ia_cur/ciclo_ia.py",
       "provas/ia_cur/decidir_territorio.py",
       "provas/ia_cur/ler_paginas.py",
+      "provas/ia_cur/propor_arsac.py",
       "provas/ia_cur/registar_propostas.py",
+      "provas/ia_cur/seguir_territorios.py",
       "provas/implementacoes_candidatas.py",
       "provas/instagram_audio_only.py",
       "provas/inventario_esperado.py",
@@ -3449,9 +3456,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "curador-ate-pronta-v1",
-    "HEAD": "14dbd36bc33bd6b26bbf9ae1fafb2dfa789ebe41",
-    "GENERATED_AT": "2026-09-24T15:27:33-03:00",
-    "SOURCE_TREE_FINGERPRINT": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f"
+    "HEAD": "2786cbc4411e278a433836c6d034052f24eace2c",
+    "GENERATED_AT": "2026-09-24T16:21:08-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9b891df89b3d69ceee6f2bebba1eae5b4787b0b89f90717e8a9002fd9e8a5015"
   },
   "FAMILIES": [
     {
@@ -4948,8 +4955,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 630",
-        "desses, mostrados aqui: 40 (ficam de fora 590)"
+        "enderecos que o codigo realmente chama: 636",
+        "desses, mostrados aqui: 40 (ficam de fora 596)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -45757,12 +45764,15 @@
         "provas/cur_pronta/medir_janela.py",
         "provas/cur_pronta/prova_orquestra.py",
         "provas/ia_cur/RELATORIO-IA-CUR.md",
+        "provas/ia_cur/buscar_pagina.py",
         "provas/ia_cur/ciclo_ia.py",
         "provas/ia_cur/decidir_territorio.py",
         "provas/ia_cur/ler_paginas.py",
-        "provas/ia_cur/registar_propostas.py"
+        "provas/ia_cur/propor_arsac.py",
+        "provas/ia_cur/registar_propostas.py",
+        "provas/ia_cur/seguir_territorios.py"
       ],
-      "file_count": 11,
+      "file_count": 14,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -45787,13 +45797,14 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ALVO",
           "CAPA",
           "DECIDE",
           "NAO_SEI"
         ],
-        "palavras": 46,
+        "palavras": 54,
         "por_lingua": {},
-        "sem_marca_de_lingua": 46,
+        "sem_marca_de_lingua": 54,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -45819,12 +45830,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "OPERATIONAL_STEP",
-        "MEASURED_WHY": "provas/ia_cur/ler_paginas.py abre ligacao de rede: vai buscar dado fora da arvore",
+        "MEASURED_WHY": "provas/ia_cur/buscar_pagina.py abre ligacao de rede: vai buscar dado fora da arvore",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (provas/ia_cur/ler_paginas.py abre ligacao de rede: vai buscar dado fora da arvore) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (provas/ia_cur/buscar_pagina.py abre ligacao de rede: vai buscar dado fora da arvore) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -63027,7 +63038,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 3 linhas de codigo.",
+      "reason": "Ask Sintonia alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cur_pronta/ciclo_uma_volta.py",
@@ -63049,6 +63060,22 @@
           "file": "provas/cur_pronta/ciclo_voltas.py",
           "line": 6,
           "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], capture_output=True, text=True)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/buscar_pagina.py",
+          "line": 14,
+          "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], cwd=RAIZ,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
             "FROM": "C-ASK-SINTONIA",
@@ -123493,7 +123520,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1612,
+  "UNCLAIMED_FILES_COUNT": 1616,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123755,8 +123782,8 @@
     "edges_proven": 1207,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2855,
-    "files_covered": 1243,
+    "files_tracked": 2862,
+    "files_covered": 1246,
     "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,

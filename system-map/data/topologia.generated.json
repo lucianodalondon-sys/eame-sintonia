@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T18:32:34+00:00",
-  "HEAD": "14dbd36bc33bd6b26bbf9ae1fafb2dfa789ebe41",
+  "GENERATED_AT": "2026-09-24T19:36:02+00:00",
+  "HEAD": "2786cbc4411e278a433836c6d034052f24eace2c",
   "BRANCH": "curador-ate-pronta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f",
-  "FICHEIROS_NA_IMPRESSAO": 3003,
+  "SOURCE_TREE_FINGERPRINT": "9b891df89b3d69ceee6f2bebba1eae5b4787b0b89f90717e8a9002fd9e8a5015",
+  "FICHEIROS_NA_IMPRESSAO": 3010,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2790,6 +2790,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/ia_cur/buscar_pagina.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2b6240ec87de0499afed1020b0e085e039439104",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/ia_cur/ciclo_ia.py",
     "PAPEL": "FONTE",
     "VERSAO": "209005c121ae6ba6f6071c0fe628e1b1f47f1a14",
@@ -2799,7 +2806,7 @@
    {
     "PATH": "provas/ia_cur/decidir_territorio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "eb71e27cee8a555d0587c973ee8042cd52904954",
+    "VERSAO": "15b771634db42effaa07e277336a2bc380c80a3d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -2811,9 +2818,23 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/ia_cur/propor_arsac.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "3ad21c56d6f8cce4adfa9eedccd7f1638e626a26",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/ia_cur/registar_propostas.py",
     "PAPEL": "FONTE",
     "VERSAO": "b15921a248b148f3c55d5b7519ef733310335762",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/ia_cur/seguir_territorios.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "1f1cfa021bfb2eb661b939c5721451f1268af828",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3786,14 +3807,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f",
+    "VERSAO": "9b891df89b3d69ceee6f2bebba1eae5b4787b0b89f90717e8a9002fd9e8a5015",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f",
+    "VERSAO": "9b891df89b3d69ceee6f2bebba1eae5b4787b0b89f90717e8a9002fd9e8a5015",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5674,8 +5695,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 805,
-  "INPUTS_DIGEST": "c19ea488e087388ff9bdc8d44bc8c40cc529c3b69053ded0009dadbf70a06e68",
+  "INPUTS_COUNT": 808,
+  "INPUTS_DIGEST": "282b2521f167b8c8548f797b6b9535172f92c01bec83f0db3f7c050e94b9a012",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5708,8 +5729,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "a318ed1d705dbd2d331e6f5e9a437d305b63551786d72458b887f31bbc409512",
-  "SEMANTIC_HASH": "01a5750f0538d8e1000e27f23c5a28819c8f59af045e15691a93cd49d1029466"
+  "MEASUREMENT_HASH": "f50f39ebfced2550cd0e4a97d087859a1f6f6ad136ef24720a13a0212494f585",
+  "SEMANTIC_HASH": "60f8bc8fb015ef11ad7634566545f437542edc7f0228c6f9d90c95ae6342c1a4"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -9194,6 +9215,14 @@
      {
       "FICHEIRO": "provas/cur_pronta/ciclo_voltas.py",
       "LINHA": 6,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/ia_cur/buscar_pagina.py",
+      "LINHA": 14,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
@@ -43880,6 +43909,7 @@
     "provas/canario_d24_video_youtube_de_pessoa.py",
     "provas/cur_pronta/ciclo_uma_volta.py",
     "provas/cur_pronta/ciclo_voltas.py",
+    "provas/ia_cur/buscar_pagina.py",
     "provas/ia_cur/ciclo_ia.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
@@ -49276,10 +49306,13 @@
     "provas/cur_pronta/medir_janela.py",
     "provas/cur_pronta/prova_orquestra.py",
     "provas/ia_cur/RELATORIO-IA-CUR.md",
+    "provas/ia_cur/buscar_pagina.py",
     "provas/ia_cur/ciclo_ia.py",
     "provas/ia_cur/decidir_territorio.py",
     "provas/ia_cur/ler_paginas.py",
-    "provas/ia_cur/registar_propostas.py"
+    "provas/ia_cur/propor_arsac.py",
+    "provas/ia_cur/registar_propostas.py",
+    "provas/ia_cur/seguir_territorios.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
@@ -51937,6 +51970,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/a_taxonomia_tem_um_dono.py",
+    "provas/ia_cur/seguir_territorios.py",
     "provas/o_censo_da_sala_de_espera.py",
     "system-map/scripts/scan_sources.py",
     "tests/test_a_regra_de_t2.py"
