@@ -1547,6 +1547,7 @@
       "ferramentas/big_collection/BC2-SALA-RELIGADA.json",
       "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
       "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/cutover/CUTOVER-ENSAIO-V1.json",
@@ -2671,12 +2672,14 @@
       "tests/test_aprender_com_a_fonte.py",
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
+      "tests/test_armazem_operacional_protegido.py",
       "tests/test_as_duas_portas_do_scrap.py",
       "tests/test_atomicidade_da_intelligence.py",
       "tests/test_audio_youtube_wiring.py",
       "tests/test_ausencia_na_fronteira_da_corrida.py",
       "tests/test_autoridade_da_fonte.py",
       "tests/test_autorizacao_de_gasto.py",
+      "tests/test_bc4_armazem_e_pais.py",
       "tests/test_biblia.py",
       "tests/test_c10_1_source_id.py",
       "tests/test_c10_2_origin_gate.py",
@@ -3386,10 +3389,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "1a88c4772e3302103c956010fcfe78aec5c53974",
-    "GENERATED_AT": "2026-09-24T00:03:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a84acd42dbffb1688d7fc01ebfb92400540e673f02e7aa5b59339d182985919c"
+    "BRANCH": "bc4-correcoes-v1",
+    "HEAD": "7603a22b2aa11d134e79911d84dbdbbf71e792d3",
+    "GENERATED_AT": "2026-09-24T01:57:41-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e343daff87c6230adc6a559b436412f6c186cc8bba80cf1c14d27076ed7aeffe"
   },
   "FAMILIES": [
     {
@@ -30797,7 +30800,7 @@
         "PROVA": [
           "ferramentas/unificacao/provar_em_copia.py:119",
           "scripts/desbloqueio/aplicar_desbloqueio.py:186",
-          "scripts/micro_coleta/micro_coleta.py:121",
+          "scripts/micro_coleta/micro_coleta.py:148",
           "tests/test_gabarito_t2_t12.py:9"
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -34951,7 +34954,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "scripts/micro_coleta/micro_coleta.py:210",
+          "scripts/micro_coleta/micro_coleta.py:237",
           "tests/test_aplicar_desbloqueio.py:16"
         ],
         "PORQUE": "estas pecas importam-na — C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -41938,11 +41941,12 @@
           "COORTE_G1",
           "FILTROS",
           "TABELAS",
+          "VARIAVEIS_DA_SALA",
           "_PALAVRAS"
         ],
-        "palavras": 112,
+        "palavras": 117,
         "por_lingua": {},
-        "sem_marca_de_lingua": 112,
+        "sem_marca_de_lingua": 117,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -42019,7 +42023,7 @@
           "ferramentas/big_collection/coorte_unica.py:37",
           "regras/italy_contracts.mjs:579",
           "scripts/coorte_micro/funil.py:70",
-          "tests/test_ensaio_offline_micro.py:17"
+          "tests/test_bc4_armazem_e_pais.py:36"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -54040,12 +54044,14 @@
         "tests/test_aprender_com_a_fonte.py",
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
+        "tests/test_armazem_operacional_protegido.py",
         "tests/test_as_duas_portas_do_scrap.py",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_audio_youtube_wiring.py",
         "tests/test_ausencia_na_fronteira_da_corrida.py",
         "tests/test_autoridade_da_fonte.py",
         "tests/test_autorizacao_de_gasto.py",
+        "tests/test_bc4_armazem_e_pais.py",
         "tests/test_biblia.py",
         "tests/test_c10_1_source_id.py",
         "tests/test_c10_2_origin_gate.py",
@@ -54237,7 +54243,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 227,
+      "file_count": 229,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -54438,7 +54444,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 52,
+        "ITALIA": 53,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -54536,13 +54542,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1284,
+        "palavras": 1285,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1272,
+        "sem_marca_de_lingua": 1273,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -56984,7 +56990,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch bc4-correcoes-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -60075,7 +60081,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 37 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 38 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -65859,7 +65865,7 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
-          "line": 121,
+          "line": 148,
           "snippet": "\"DADOS\": \"curadoria/ROTAS-ELEGIVEIS-V1.json\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -65875,7 +65881,7 @@
         },
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
-          "line": 123,
+          "line": 150,
           "snippet": "\"DADOS\": \"curadoria/RELEVANCIA-ELEGIVEIS-V1.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -65945,7 +65951,7 @@
       "evidence": [
         {
           "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 184,
+          "line": 188,
           "snippet": "for c in (\"curadoria/RELEVANCIA-ELEGIVEIS-V1.json\", \"RELATORIO-RELEVANCIA-ELEGIVEIS.md\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -65961,7 +65967,7 @@
         },
         {
           "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 185,
+          "line": 189,
           "snippet": "\"curadoria/ROTAS-ELEGIVEIS-V1.json\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -69796,7 +69802,7 @@
       "evidence": [
         {
           "file": "orquestrador/persistencia.py",
-          "line": 210,
+          "line": 229,
           "snippet": "import coleta_checkpoint as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
@@ -72673,7 +72679,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 299,
+          "line": 301,
           "snippet": "\"VOCABULARIO\": \"leis/artefato.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
@@ -75996,7 +76002,7 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
-          "line": 210,
+          "line": 237,
           "snippet": "G1 = RAIZ / \"scripts\" / \"desbloqueio\" / \"FUNIL-APOS-ENSAIO-G1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -76946,7 +76952,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 91,
+          "line": 93,
           "snippet": "import diagnostico as dg                                    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DIAGNOSTICO--IMPORTS-->C-INGRESSO",
@@ -77474,7 +77480,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A composicao da persistencia na porta CLI · a aresta que o workflow nao tinha. Provado por 3 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A composicao da persistencia na porta CLI · a aresta que o workflow nao tinha. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "orquestrador/persistencia.py",
@@ -77510,7 +77516,23 @@
         },
         {
           "file": "orquestrador/persistencia.py",
-          "line": 209,
+          "line": 142,
+          "snippet": "from guarda.preservar_coleta import raiz_do_armazem_local   # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
+            "FROM": "C-DONO-DA-ESCRITA",
+            "TO": "C-PERSISTENCIA-DA-PORTA-CLI",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/persistencia.py",
+          "line": 228,
           "snippet": "from guarda.memoria_postgres import MemoriaPostgres",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
@@ -87669,12 +87691,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 42,
           "snippet": "import italy_executor as adapter                            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_bc4_armazem_e_pais.py",
+          "line": 107,
+          "snippet": "import italy_executor as adapter",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -90297,7 +90335,7 @@
         },
         {
           "file": "scripts/micro_coleta/ensaio_offline.py",
-          "line": 536,
+          "line": 539,
           "snippet": "[r for r in ler_ndjson(led / \"runs.ndjson\") if r.get(\"RUN_ID\") in ids2],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -90313,7 +90351,7 @@
         },
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
-          "line": 480,
+          "line": 507,
           "snippet": "p = (pasta or ledger_do_coletor()) / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -90329,7 +90367,7 @@
         },
         {
           "file": "scripts/micro_coleta/micro_rede_real.py",
-          "line": 291,
+          "line": 294,
           "snippet": "obs1 = E.ler_ndjson(led / \"observations.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -90345,7 +90383,7 @@
         },
         {
           "file": "scripts/micro_coleta/micro_rede_real.py",
-          "line": 292,
+          "line": 295,
           "snippet": "runs_nd = E.ler_ndjson(led / \"runs.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -91482,7 +91520,7 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/ensaio_offline.py",
-          "line": 472,
+          "line": 475,
           "snippet": "lanc = [sys.executable, \"medidas/corrida_sem_rede.py\", f\"--saida={medida}\", \"--\"] + cmd[2:]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -94104,8 +94142,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_bc4_armazem_e_pais.py",
+          "line": 36,
+          "snippet": "\"micro_coleta_bc4\", os.path.join(RAIZ, \"scripts\", \"micro_coleta\", \"micro_coleta.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_ensaio_offline_micro.py",
           "line": 17,
@@ -95435,8 +95489,8 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
-          "line": 99,
-          "snippet": "return [sys.executable, \"orquestrador/orquestrador.py\", apelido_de(u) or u,",
+          "line": 122,
+          "snippet": "cmd = [sys.executable, \"orquestrador/orquestrador.py\", apelido_de(u) or u,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MICRO-COLETA-INSTRUMENTO",
             "FROM": "C-ORQUESTRADOR",
@@ -96228,7 +96282,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -96250,6 +96304,38 @@
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 181,
           "snippet": "import orquestrador as orq",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_armazem_operacional_protegido.py",
+          "line": 29,
+          "snippet": "from orquestrador import persistencia  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_bc4_armazem_e_pais.py",
+          "line": 32,
+          "snippet": "from orquestrador import persistencia  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -96389,38 +96475,6 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_raw_observation_id_volta.py",
-          "line": 467,
-          "snippet": "import orquestrador as orq",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_runtime_so_deixa_passar_colheita.py",
-          "line": 24,
-          "snippet": "import orquestrador as orq  # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -96439,7 +96493,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 23 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 24 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -96554,6 +96608,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_bc4_armazem_e_pais.py",
+          "line": 78,
+          "snippet": "fonte = Path(RAIZ, \"orquestrador\", \"orquestrador.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_c10_6d_portas_canonicas.py",
           "line": 185,
           "snippet": "ENTRADAS_CANONICAS = ('social_scrap.py', 'orquestrador/orquestrador.py')",
@@ -96605,22 +96675,6 @@
           "file": "tests/test_fase_italiana_no_workflow.py",
           "line": 130,
           "snippet": "self.assertIn(\"orquestrador/orquestrador.py\", self.ramo)",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_italia_na_porta_canonica.py",
-          "line": 180,
-          "snippet": "fonte = io.open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -97572,7 +97626,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -97594,6 +97648,22 @@
           "file": "tests/test_audio_youtube_wiring.py",
           "line": 33,
           "snippet": "from pedido import Pedido                          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_bc4_armazem_e_pais.py",
+          "line": 109,
+          "snippet": "from pedido import de_uma_frase",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -100365,7 +100435,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 97,
+          "line": 99,
           "snippet": "import proveniencia as pv                                   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-INGRESSO",
@@ -104473,7 +104543,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 90,
+          "line": 92,
           "snippet": "import rastro_da_coleta as rastro                           # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RASTRO--IMPORTS-->C-INGRESSO",
@@ -118454,7 +118524,7 @@
       "evidence": [
         {
           "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 38,
+          "line": 39,
           "snippet": "\"curadoria/ROTAS-ELEGIVEIS-V1.json\": json.dumps({\"LINHAS\": [",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -118470,7 +118540,7 @@
         },
         {
           "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 40,
+          "line": 41,
           "snippet": "\"curadoria/RELEVANCIA-ELEGIVEIS-V1.json\": json.dumps({\"FONTES\": [",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -118862,7 +118932,7 @@
         },
         {
           "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 308,
+          "line": 312,
           "snippet": "(led / \"runs.ndjson\").write_text(\"\".join(json.dumps(x) + \"\\n\" for x in linhas),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
@@ -122531,8 +122601,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1570,
+  "UNCLAIMED_CODE_FILES": [
+    "ferramentas/big_collection/reconciliar_bytes_bc4.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1571,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -122794,9 +122866,9 @@
     "edges_proven": 1196,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2793,
-    "files_covered": 1223,
-    "files_code_unclaimed": 0,
+    "files_tracked": 2796,
+    "files_covered": 1225,
+    "files_code_unclaimed": 1,
     "roles_proven": 162,
     "roles_declared_only": 8,
     "roles_unknown": 69,
