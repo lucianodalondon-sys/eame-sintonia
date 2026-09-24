@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "egresso-consenso-v1",
-    "HEAD": "fa17ccdf189083b52bb50cd0bd912397b78a6a9b",
-    "GENERATED_AT": "2026-09-24T16:07:04-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a640723d0d1d6c758143467845c8f15c057b5574ab6dd14e391cae5b7c6ddb00"
+    "BRANCH": "trava-medidores-v1",
+    "HEAD": "2157cdfef21a894a7384534bf153b79c1d1c107f",
+    "GENERATED_AT": "2026-09-24T17:33:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844"
   },
   "FILES": [
     {
@@ -5084,6 +5084,62 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/mutacao-RESULTADO.txt",
+      "sha": "79c9a401e6ecb6349e637ff8579a810692183063",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/mutacao.py.txt",
+      "sha": "161c8450bfcbc749d377fd121323a9efabb84060",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-ANTES.txt",
+      "sha": "250ee68b8083351b78fccdc43c6d03e826dadc46",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-DEPOIS.txt",
+      "sha": "1a2a8b9664e3b940ed386eb646f0a890fffa304d",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-cadeia-ANTES.txt",
+      "sha": "85cdb14ef2f06bc0ab0f7ff503b4429d73ffec21",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-cadeia-DEPOIS.txt",
+      "sha": "398568f39de72aada91305e033eb376a5eba2f37",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-ANTES.txt",
+      "sha": "0529134fbf7a1baea4f0c3e06ea74f000d4d9cd7",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-DEPOIS.txt",
+      "sha": "aad85b99e2b7eefad4c64b0ef5f95b96b5b5d735",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/texto/RAW-024abdb692be926a.txt",
       "sha": "1425d1ce388243a2413a1a6146abcd778524d152",
       "ext": ".txt",
@@ -9938,6 +9994,13 @@
       "path": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
       "sha": "3cf19203ad5e0f3a0f274ef65358665e6c960193",
       "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/TRAVA-MEDIDORES-V1.md",
+      "sha": "a557b91c680bc31822fc33ae7f7ccdd3a8037c36",
+      "ext": ".md",
       "readable": false,
       "code_dir": false
     },
@@ -17643,7 +17706,7 @@
     },
     {
       "path": "system-map/scripts/CADEIA-DO-MAPA.json",
-      "sha": "5b8e35291afcd34f5766bff9a9bbd87fedd91f05",
+      "sha": "815d749cad6a83b2a066b646ef4d1739901adfb9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17692,7 +17755,7 @@
     },
     {
       "path": "system-map/scripts/censo_das_estradas_it.py",
-      "sha": "3cd0b6fea72790db8decf4a8788ce532e0ee04a5",
+      "sha": "8d73e5019c3de0a8b17ab53352f4a9337ff080f4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17713,7 +17776,7 @@
     },
     {
       "path": "system-map/scripts/censo_do_congelamento.py",
-      "sha": "cbe94a476818d91924434f597662873f71f2fd61",
+      "sha": "415b77a62bc0bfdf869bd5cd62b6c07d9a79ae0a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19205,6 +19268,13 @@
     {
       "path": "tests/test_operacao.py",
       "sha": "5ea75fb6c76062f21484df7da28073be23fc69a6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_os_medidores_da_trava_veem.py",
+      "sha": "cc22f150b4c42e03a2adaffb194c2e012875665e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -61255,6 +61325,17 @@
     },
     {
       "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 828,
+        "snippet": "with open(LIVRO_DO_CURADOR, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
       "to_file": "data/collection-ledger/italy/observations.ndjson",
       "type": "READS",
       "payload": "artefacto",
@@ -61326,7 +61407,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 856,
+        "line": 937,
         "snippet": "'MATRIZ': 'leis/social_matriz.py',"
       }
     },
@@ -61350,6 +61431,17 @@
         "file": "system-map/scripts/censo_das_estradas_it.py",
         "line": 708,
         "snippet": "import receitas                                    # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 837,
+        "snippet": "with open(LIVRO_DO_COLETOR, encoding='utf-8') as f:"
       }
     },
     {
@@ -61460,6 +61552,17 @@
         "file": "system-map/scripts/censo_do_congelamento.py",
         "line": 144,
         "snippet": "\"controle/AUTORIDADES-CANONICAS.json\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_do_congelamento.py",
+      "to_file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_do_congelamento.py",
+        "line": 286,
+        "snippet": "with open(TRAVA, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -76852,6 +76955,39 @@
       }
     },
     {
+      "from_file": "tests/test_os_medidores_da_trava_veem.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_medidores_da_trava_veem.py",
+        "line": 33,
+        "snippet": "CATALOGO = os.path.join(RAIZ, \"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_os_medidores_da_trava_veem.py",
+      "to_file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_medidores_da_trava_veem.py",
+        "line": 34,
+        "snippet": "TRAVA = os.path.join(RAIZ, \"docs\", \"operacao\", \"TRAVA-DA-INTELIGENCIA.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_os_medidores_da_trava_veem.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_medidores_da_trava_veem.py",
+        "line": 32,
+        "snippet": "LIVRO_DO_COLETOR = os.path.join(RAIZ, \"regras\", \"italy_contracts_onboarded.json\")"
+      }
+    },
+    {
       "from_file": "tests/test_pacote_de_revisao_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -81951,7 +82087,7 @@
     "system-map/scripts/censo_das_estradas_it.py": [
       {
         "pasta": "system-map",
-        "line": 924,
+        "line": 1033,
         "constante": "SAIDA"
       }
     ],
@@ -81972,7 +82108,7 @@
     "system-map/scripts/censo_do_congelamento.py": [
       {
         "pasta": "system-map",
-        "line": 270,
+        "line": 330,
         "constante": "destino"
       }
     ],
@@ -82027,10 +82163,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2809,
-    "files_readable": 1282,
-    "files_code_dir": 1121,
-    "file_edges": 5616,
+    "files_tracked": 2819,
+    "files_readable": 1283,
+    "files_code_dir": 1122,
+    "file_edges": 5622,
     "escritas_em_pasta": 84,
     "declared_missing_here": 0
   },

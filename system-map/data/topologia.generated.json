@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T19:22:35+00:00",
-  "HEAD": "fa17ccdf189083b52bb50cd0bd912397b78a6a9b",
-  "BRANCH": "egresso-consenso-v1",
+  "GENERATED_AT": "2026-09-24T20:37:48+00:00",
+  "HEAD": "2157cdfef21a894a7384534bf153b79c1d1c107f",
+  "BRANCH": "trava-medidores-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a640723d0d1d6c758143467845c8f15c057b5574ab6dd14e391cae5b7c6ddb00",
-  "FICHEIROS_NA_IMPRESSAO": 2957,
+  "SOURCE_TREE_FINGERPRINT": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844",
+  "FICHEIROS_NA_IMPRESSAO": 2967,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3723,14 +3723,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a640723d0d1d6c758143467845c8f15c057b5574ab6dd14e391cae5b7c6ddb00",
+    "VERSAO": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a640723d0d1d6c758143467845c8f15c057b5574ab6dd14e391cae5b7c6ddb00",
+    "VERSAO": "a9d59a169b06227337f2bbabf38acc55c91f10f1441513aae32693d7667fe844",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3758,7 +3758,7 @@
    {
     "PATH": "system-map/scripts/censo_das_estradas_it.py",
     "PAPEL": "FONTE",
-    "VERSAO": "3cd0b6fea72790db8decf4a8788ce532e0ee04a5",
+    "VERSAO": "8d73e5019c3de0a8b17ab53352f4a9337ff080f4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5156,6 +5156,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_os_medidores_da_trava_veem.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "cc22f150b4c42e03a2adaffb194c2e012875665e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_pacote_de_revisao_t3.py",
     "PAPEL": "FONTE",
     "VERSAO": "5b45ce4c0360f8fe5fbf3c0e40a3a165fc081b19",
@@ -5611,8 +5618,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 796,
-  "INPUTS_DIGEST": "66592fe5d32d220210db26cba3eaa7a2ba45d1bea0efa28d21eca4c6ba04170f",
+  "INPUTS_COUNT": 797,
+  "INPUTS_DIGEST": "8bc6882059f672cefe11e5b42ad1039cd4c6a212a4399adf414a637194ce2dae",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5638,15 +5645,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 499,
+  "DOCUMENTOS_LIDOS": 500,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "32d03d18834b4e46729eccaeee0bc1d6f751739b567ff94614bbc5a10fe58eba",
-  "SEMANTIC_HASH": "8b7003e6c1f93c3bb46e4cc49e832ee31401bd6da0349ee2c542b6d0e7f98210"
+  "MEASUREMENT_HASH": "8bcb8ecf5e3639ffbf4c876bd5ca1d8aa71f57c6bc0c5012c364b06b3a9c4453",
+  "SEMANTIC_HASH": "64f8afc8bfb1a92e4fd78b79dae8e886541fc572ab94602fa22b8e86cfcb4b9e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -17019,6 +17026,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ESTRADAS-IT",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-ESTRADAS-IT",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+      "LINHA": 828,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ESTRADAS-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-MICRO-COLETA-INSTRUMENTO",
     "FROM": "C-DETECTOR-CAPA-GABARITO",
     "TO": "C-MICRO-COLETA-INSTRUMENTO",
@@ -22910,6 +22939,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_os_medidores_da_trava_veem.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_source_id.py",
       "LINHA": 38,
       "SUPPORTS": "YES",
@@ -27230,6 +27267,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ESTRADAS-IT",
+    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+    "TO": "C-ESTRADAS-IT",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+      "LINHA": 837,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ESTRADAS-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-IT-CONTRATOS",
     "FROM": "C-MICRO-COLETA-INSTRUMENTO",
     "TO": "C-IT-CONTRATOS",
@@ -27314,6 +27373,14 @@
      {
       "FICHEIRO": "tests/test_micro_rede_real.py",
       "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_os_medidores_da_trava_veem.py",
+      "LINHA": 32,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
@@ -37391,7 +37458,7 @@
      },
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 856,
+      "LINHA": 937,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -42938,12 +43005,12 @@
     ]
    }
   ],
-  "COUNT": 1205
+  "COUNT": 1207
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 181,
   "CARTOES_AUDITADOS": 181,
-  "ARESTAS_RELACIONADAS": 1205,
+  "ARESTAS_RELACIONADAS": 1207,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43360,7 +43427,7 @@
    "DATA": 30,
    "PROOF": 383,
    "READ": 281,
-   "RULE": 215,
+   "RULE": 217,
    "WRITE": 9
   },
   "GAPS_NOMEADOS": [
@@ -45687,7 +45754,7 @@
     "urllib"
    ],
    "ENTRAM": 11,
-   "SAEM": 12,
+   "SAEM": 13,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -46078,6 +46145,7 @@
     "tests/test_arestas.py",
     "tests/test_estradas_it.py",
     "tests/test_m2_rota_forward.py",
+    "tests/test_os_medidores_da_trava_veem.py",
     "tests/test_route_membership.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -46095,7 +46163,7 @@
     "ajudante",
     "derived_artifact"
    ],
-   "ENTRAM": 7,
+   "ENTRAM": 9,
    "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -46914,6 +46982,7 @@
     "tests/test_fila_italia_decisoes.py",
     "tests/test_forward_instrumentado.py",
     "tests/test_m2_rota_forward.py",
+    "tests/test_os_medidores_da_trava_veem.py",
     "tests/test_source_id.py",
     "tests/test_source_owner_identity.py"
    ],
@@ -47849,7 +47918,7 @@
     "urllib"
    ],
    "ENTRAM": 14,
-   "SAEM": 4,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -52007,6 +52076,7 @@
     "tests/test_observabilidade_estrada.py",
     "tests/test_onboardar_rotas_provadas.py",
     "tests/test_operacao.py",
+    "tests/test_os_medidores_da_trava_veem.py",
     "tests/test_pacote_de_revisao_t3.py",
     "tests/test_persistencia_operacional.py",
     "tests/test_pipeline.py",
