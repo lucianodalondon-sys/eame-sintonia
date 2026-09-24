@@ -453,12 +453,12 @@ class Alimentador(_Pasta):
             r2 = GD.reparar_encalhadas(AGORA)                       # abertas nao se repetem
         self.assertEqual(5, len(r2["ENFILEIRADAS"]))
 
-    def test_youtube_barrado_pelo_texto_antigo_volta_a_qualify(self):
+    def test_youtube_barrado_nao_e_reaberto_sem_a_rota_do_scrap(self):
         self._contratos()
         F.FILA.write_text(json.dumps({"PROXIMO_ID": 3, "TAREFAS": [
             {"TASK_ID": "T1", "SOURCE_ID": "CAND-0001", "TASK_TYPE": F.QUALIFY, "PRIORITY": 30,
              "STATUS": F.BLOCKED, "ATTEMPTS": 0, "NEXT_ATTEMPT_AT": None, "MOTIVO": "",
-             "LAST_ERROR": GD.ASSINATURA_YOUTUBE_ANTIGA + " (conteudo real)",
+             "LAST_ERROR": "YouTube exige channel_id e molde de video (conteudo real)",
              "CREATED_AT": "x", "UPDATED_AT": "x"},
             {"TASK_ID": "T2", "SOURCE_ID": "CAND-0002", "TASK_TYPE": F.QUALIFY, "PRIORITY": 30,
              "STATUS": F.BLOCKED, "ATTEMPTS": 0, "NEXT_ATTEMPT_AT": None, "MOTIVO": "",
@@ -466,9 +466,9 @@ class Alimentador(_Pasta):
              "CREATED_AT": "x", "UPDATED_AT": "x"}]}), encoding="utf-8")
         with mock.patch.object(GD, "requalificar_se_a_prova_mudou", return_value=[]):
             r = GD.reparar_encalhadas(AGORA)
-        self.assertEqual(1, r["QUALIFY_YOUTUBE_DESBLOQUEADAS"])
+        self.assertEqual(0, r["QUALIFY_REQUALIFICADAS"])
         st = {t["TASK_ID"]: t["STATUS"] for t in F._ler()["TAREFAS"]}
-        self.assertEqual({"T1": F.PENDING, "T2": F.BLOCKED}, st)
+        self.assertEqual({"T1": F.BLOCKED, "T2": F.BLOCKED}, st)     # sem eco: o worker barra-a outra vez
 
     def test_sem_territorio_so_volta_com_prova_nova(self):
         self._contratos()

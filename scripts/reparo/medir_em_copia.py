@@ -90,9 +90,9 @@ def main(argv=None) -> int:
         feitos = W.correr(pausa=0.3, verboso=True)
         voltas.append({"VOLTA": i + 1, "ENFILEIRADAS": len(rp["ENFILEIRADAS"]),
                        "RESTAM": rp["RESTAM"], "TAREFAS": len(feitos),
-                       "YT": rp["QUALIFY_YOUTUBE_DESBLOQUEADAS"]})
+                       "YT": rp["QUALIFY_REQUALIFICADAS"]})
         print("VOLTA", voltas[-1], flush=True)
-        if not rp["ENFILEIRADAS"] and not feitos and not rp["QUALIFY_YOUTUBE_DESBLOQUEADAS"]:
+        if not rp["ENFILEIRADAS"] and not feitos and not rp["QUALIFY_REQUALIFICADAS"]:
             break
     depois = collections.Counter(LC.snapshot().values())
     novas = json.loads(LC.LIVRO.read_text(encoding="utf-8"))["TRANSICOES"][n0:]

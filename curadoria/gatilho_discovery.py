@@ -283,9 +283,12 @@ def revalidar_elegiveis(agora: datetime, *, ctx: dict | None = None,
 REPARAR_POR_VOLTA = 20
 REPARO_RETOMA_S = 86400
 REVALIDAR_PENDENTE_S = 86400
-# QUALIFY de YouTube barradas pelo texto de um bloqueio que o codigo ja nao tem
-# (a SOC2 deu rota ao canal). Assinatura exacta do texto antigo.
-ASSINATURA_YOUTUBE_ANTIGA = "YouTube exige channel_id e molde de video"
+# ⚠️ AS QUALIFY DE YOUTUBE NAO SE DESBLOQUEIAM AQUI (reparo-fontes-v2). Na v1 o
+# gatilho reabria as barradas pelo texto «YouTube exige channel_id e molde de
+# video», porque o worker dessa linha (com a SOC2) ja dava rota ao canal. Esta
+# linha retirou a SOC2: o worker de hoje escreve ESSE MESMO texto. Reabri-las
+# seria um eco sem fim — reabre, o worker volta a barrar, a volta seguinte
+# reabre. O YouTube volta quando a rota do Scrap voltar a linha, com o dono dela.
 _ABERTAS = frozenset({F.PENDING, F.IN_PROGRESS, F.WAITING_RETRY})
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
 
@@ -394,8 +397,7 @@ def requalificar_se_a_prova_mudou(agora: datetime) -> list[str]:
 
 def reparar_encalhadas(agora: datetime, **kw) -> dict:
     """Enfileira ate REPARAR_POR_VOLTA. Devolve o que fez e quanto ficou."""
-    desbloq = F.recuperar_bloqueadas_por_defeito([ASSINATURA_YOUTUBE_ANTIGA], {F.QUALIFY}, agora)
-    desbloq = desbloq + requalificar_se_a_prova_mudou(agora)
+    desbloq = requalificar_se_a_prova_mudou(agora)
     cands = candidatas_a_reparar(agora, **kw)
     feitas = []
     for c in cands[:REPARAR_POR_VOLTA]:
@@ -405,7 +407,7 @@ def reparar_encalhadas(agora: datetime, **kw) -> dict:
         feitas.append({k: c[k] for k in ("SOURCE_ID", "TASK_TYPE")})
     return {"CANDIDATAS": len(cands), "ENFILEIRADAS": feitas,
             "RESTAM": max(0, len(cands) - len(feitas)),
-            "QUALIFY_YOUTUBE_DESBLOQUEADAS": len(desbloq)}
+            "QUALIFY_REQUALIFICADAS": len(desbloq)}
 
 
 def talvez_alimentar(estado: dict | None = None, *,
@@ -452,7 +454,7 @@ def talvez_alimentar(estado: dict | None = None, *,
     # Nivel 0c — REPARAR: fonte ja achada e encalhada volta a ser trabalho (R1).
     rp = reparar_encalhadas(agora)
     m["REPARAR"] = rp
-    if rp["ENFILEIRADAS"] or rp["QUALIFY_YOUTUBE_DESBLOQUEADAS"]:
+    if rp["ENFILEIRADAS"] or rp["QUALIFY_REQUALIFICADAS"]:
         m["ACCOES"].append("REPARAR")
 
     # Nivel 1 — FEEDER: drenar o acervo para a fila (barato).
