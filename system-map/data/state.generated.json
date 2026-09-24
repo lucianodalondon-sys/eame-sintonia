@@ -73,6 +73,7 @@
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
       "RELATORIO-SOC1-SOCIAL.md",
+      "RELATORIO-T2-REGUA.md",
       "RELATORIO-TTL-MUTABLE-T1.md",
       "RELATORIO-UNIFICACAO.md",
       "RELATORIO-V1A-V1-LIGADA.md",
@@ -2483,7 +2484,24 @@
       "scripts/receitas/medir_efeito.py",
       "scripts/receitas/propor_receitas_v3.py",
       "scripts/receitas/propor_receitas_v4.py",
-      "scripts/receitas/provar_indices.py"
+      "scripts/receitas/provar_indices.py",
+      "scripts/regua_t2/GABARITO-T2-V1.json",
+      "scripts/regua_t2/GABARITO-T2-V2.json",
+      "scripts/regua_t2/MEDICAO-REGUA-T2-V1.json",
+      "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
+      "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
+      "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
+      "scripts/regua_t2/PROVA-D29-PORTA-CANONICA-OFFLINE.json",
+      "scripts/regua_t2/inventariar_t2.py",
+      "scripts/regua_t2/medir_regua_t2.py",
+      "scripts/regua_t2/montar_gabarito_t2.py",
+      "scripts/regua_t2/mutar_regua_t2.py",
+      "scripts/regua_t2/portao_t2.py",
+      "scripts/regua_t2/prova_d29_porta.py",
+      "scripts/regua_t2/rotulos/A-ROTULAR-JANELA.json",
+      "scripts/regua_t2/rotulos/A-ROTULAR.json",
+      "scripts/regua_t2/rotulos/rotulos-janela.tsv",
+      "scripts/regua_t2/rotulos/rotulos.tsv"
     ],
     "security": [
       "security/ACCOES-DE-ADMINISTRADOR.md",
@@ -2842,6 +2860,7 @@
       "tests/test_red_team_estrada.py",
       "tests/test_reel_transcricao.py",
       "tests/test_reel_transcricao_trava.py",
+      "tests/test_regua_t2.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_relevance_priority_sobrecarga.py",
       "tests/test_retirada_por_decisao.py",
@@ -3397,10 +3416,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "bc4-correcoes-v1",
-    "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
-    "GENERATED_AT": "2026-09-24T09:15:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505"
+    "BRANCH": "regua-t2-v1",
+    "HEAD": "bd47aeb54950e14bedc1f2a47828ff2f31d345d9",
+    "GENERATED_AT": "2026-09-24T14:02:59-03:00",
+    "SOURCE_TREE_FINGERPRINT": "dc2277c4e4dd70398174d6a08ce3154a6dbcfdfb20dd3179d3132d0b92ee7be7"
   },
   "FAMILIES": [
     {
@@ -3428,7 +3447,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 92
+      "count": 93
     },
     {
       "id": "F-ESPERA",
@@ -3686,7 +3705,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 23
+      "count": 24
     },
     {
       "id": "Z-ADMISSAO",
@@ -4370,6 +4389,7 @@
       "inbound": [
         "C-DONO-DA-ESCRITA",
         "C-IT-TEXTO-DERIVADO",
+        "C-REGUA-T2-JANELA",
         "C-ROTA-M2",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
@@ -4407,6 +4427,7 @@
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-READY",
         "C-RECALL-PORTA-IT",
+        "C-REGUA-T2-JANELA",
         "C-RELEVANCIA-DA-FONTE",
         "C-ROTA-M2",
         "C-TESTES"
@@ -4425,12 +4446,12 @@
           "PERGUNTAS_DO_UNIVERSO",
           "PERGUNTAS_EN"
         ],
-        "palavras": 300,
+        "palavras": 324,
         "por_lingua": {
           "IT": 31,
           "PT": 19
         },
-        "sem_marca_de_lingua": 250,
+        "sem_marca_de_lingua": 274,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -29550,6 +29571,7 @@
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-ROTAS-REAIS",
+        "C-REGUA-T2-JANELA",
         "C-TESTES"
       ],
       "paises": {},
@@ -30759,6 +30781,7 @@
         "C-CENSO-UNIFICACAO",
         "C-DESBLOQUEIO-PACOTE",
         "C-MICRO-COLETA-INSTRUMENTO",
+        "C-REGUA-T2-JANELA",
         "C-TESTES"
       ],
       "paises": {},
@@ -30824,7 +30847,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "MEASURES",
-      "rule_role_evidence": "escreve curadoria/CATALOGO-PROVA-V1.json, e quem le nao esta na esteira: C-DESBLOQUEIO-PACOTE, C-MICRO-COLETA-INSTRUMENTO, C-TESTES",
+      "rule_role_evidence": "escreve curadoria/CATALOGO-PROVA-V1.json, e quem le nao esta na esteira: C-DESBLOQUEIO-PACOTE, C-MICRO-COLETA-INSTRUMENTO, C-REGUA-T2-JANELA",
       "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M3_REGUA_QUE_MEDE",
@@ -30832,7 +30855,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/CATALOGO-PROVA-V1.json, e quem le nao esta na esteira: C-DESBLOQUEIO-PACOTE, C-MICRO-COLETA-INSTRUMENTO, C-TESTES",
+      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/CATALOGO-PROVA-V1.json, e quem le nao esta na esteira: C-DESBLOQUEIO-PACOTE, C-MICRO-COLETA-INSTRUMENTO, C-REGUA-T2-JANELA",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -30885,9 +30908,9 @@
           "ferramentas/unificacao/provar_em_copia.py:119",
           "scripts/desbloqueio/aplicar_desbloqueio.py:186",
           "scripts/micro_coleta/micro_coleta.py:148",
-          "tests/test_gabarito_t2_t12.py:9"
+          "scripts/regua_t2/inventariar_t2.py:70"
         ],
-        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO · C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 11725,
       "y": 360
@@ -42376,6 +42399,7 @@
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-PROVA-SALA-ITALIANA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+        "C-REGUA-T2-JANELA",
         "C-ROTULOS",
         "C-SCRAP-COLHEITA",
         "C-SUPERFICIE-SCRAP-V1",
@@ -45249,6 +45273,7 @@
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-RECEITAS",
+        "C-REGUA-T2-JANELA",
         "C-RELEVANCIA-DA-FONTE",
         "C-ROTA-M2",
         "C-SALA-DE-ESPERA",
@@ -47243,6 +47268,7 @@
         "C-SALA-DE-ESPERA"
       ],
       "outbound": [
+        "C-REGUA-T2-JANELA",
         "C-TESTES"
       ],
       "paises": {},
@@ -47302,15 +47328,14 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-TESTES"
-        ],
-        "PLANO": "CODE",
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
         "PROVA": [
+          "scripts/regua_t2/prova_d29_porta.py:39",
           "tests/test_a_porta_cli_liga_o_banco.py:378"
         ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+        "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 21680,
       "y": 6800
@@ -49836,6 +49861,172 @@
       "y": 8410
     },
     {
+      "id": "C-REGUA-T2-JANELA",
+      "name": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Gabarito T2 rotulado a mao a partir do acervo, sem rede (inventario de 504 textos; T2-V1 no eixo clima, T2-V2 no eixo JANELA da D29: 45 YES / 225 NO / 117 NAO_SEI), medicao da regua T2 de admissao/admissao.py pelo caminho da porta (_do_universo) com os vizinhos T3 T4 T5 T7 T9 T10 julgados antes/depois (0 mudados em 7.554), mutacao numa copia (9/9 mortos) e o portao que as guardas de T2 leem (portao_t2.py). A regua: SIM pede condicao do campo E ligacao agricola escrita; metade fica NAO_SEI com marca D2 REROUTE_POSSIVEL. A porta nao decide a janela (CAP-WIN da Intelligence).",
+      "why_here": "A 1.a onda da Big Collection (BC5) mediu que T2 nunca dava SIM (sem regua). A medicao antiga de provas/a_regra_de_t2.py fechou o portao para a pergunta clima-vs-praga; a D29 mudou a pergunta e os boletins fitossanitarios passaram a ser o que tem de entrar. Precisao/recall sao DENTRO da amostra; os textos vivem fora do Git (%USERPROFILE%/sintonia-gabarito/REGUA-T2-V1) com sha256 no gabarito.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/regua_t2/GABARITO-T2-V1.json",
+        "scripts/regua_t2/GABARITO-T2-V2.json",
+        "scripts/regua_t2/MEDICAO-REGUA-T2-V1.json",
+        "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
+        "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
+        "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
+        "scripts/regua_t2/PROVA-D29-PORTA-CANONICA-OFFLINE.json",
+        "scripts/regua_t2/inventariar_t2.py",
+        "scripts/regua_t2/medir_regua_t2.py",
+        "scripts/regua_t2/montar_gabarito_t2.py",
+        "scripts/regua_t2/mutar_regua_t2.py",
+        "scripts/regua_t2/portao_t2.py",
+        "scripts/regua_t2/prova_d29_porta.py",
+        "scripts/regua_t2/rotulos/A-ROTULAR-JANELA.json",
+        "scripts/regua_t2/rotulos/A-ROTULAR.json",
+        "scripts/regua_t2/rotulos/rotulos-janela.tsv",
+        "scripts/regua_t2/rotulos/rotulos.tsv",
+        "tests/test_regua_t2.py"
+      ],
+      "file_count": 18,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-ASK-SINTONIA",
+        "C-CANARIO-ROTAS-ELEGIVEIS",
+        "C-ORQUESTRADOR",
+        "C-PROVA-PORTA-CLI-LIGA-O-BANCO"
+      ],
+      "outbound": [
+        "C-ADMISSAO",
+        "C-PROVA-COLETA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "APELIDO",
+          "FONTES",
+          "M",
+          "OFFLINE"
+        ],
+        "palavras": 38,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 38,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "admissao",
+          "prova": {
+            "file": "scripts/regua_t2/mutar_regua_t2.py",
+            "line": 24,
+            "snippet": "escreve em F"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "admissao/admissao.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/a_regra_de_t2.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/regua_t2/GABARITO-T2-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/regua_t2/GABARITO-T2-V2.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve admissao/admissao.py, e quem le nao esta na esteira: C-CENSO-DERIVACOES, C-CENSO-SEMANTICO-IT, C-DETECTOR-CAPA-GABARITO",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: escreve admissao/admissao.py, e quem le nao esta na esteira: C-CENSO-DERIVACOES, C-CENSO-SEMANTICO-IT, C-DETECTOR-CAPA-GABARITO",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "admissao/admissao.py",
+        "admissao/idioma.py",
+        "curadoria/CATALOGO-PROVA-V1.json",
+        "orquestrador/orquestrador.py",
+        "scripts/regua_t2/GABARITO-T2-V2.json",
+        "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
+        "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
+        "scripts/regua_t2/rotulos/A-ROTULAR.json",
+        "scripts/regua_t2/rotulos/rotulos-janela.tsv",
+        "scripts/regua_t2/rotulos/rotulos.tsv",
+        "superficie/rede.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_a_regra_de_t2.py:128"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 11310,
+      "y": 2614
+    },
+    {
       "id": "C-RELATORIO-FLUXO",
       "name": "Relatório do fluxo",
       "territory": "Z-MEDIDAS",
@@ -49918,7 +50109,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -50735,7 +50926,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2614
     },
     {
@@ -54547,6 +54738,7 @@
         "C-RECEITAS-PROPOSTA",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
+        "C-REGUA-T2-JANELA",
         "C-RELEVANCIA",
         "C-RELEVANCIA-DA-FONTE",
         "C-ROTA-M2",
@@ -55175,6 +55367,7 @@
         "scripts/micro_coleta/provar_backup_da_sala.py",
         "scripts/receitas/censo_e_proposta.py",
         "scripts/receitas/propor_receitas_v3.py",
+        "scripts/regua_t2/portao_t2.py",
         "security/drift_db.py",
         "security/live-db-expected.json",
         "security/projeccao.py",
@@ -57150,7 +57343,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch bc4-correcoes-v1"
+        "branch regua-t2-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -60112,7 +60305,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1459,
+          "line": 1681,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -60156,6 +60349,124 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-REGUA-T2-JANELA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t2/medir_regua_t2.py",
+          "line": 34,
+          "snippet": "import admissao as A  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T2-JANELA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-REGUA-T2-JANELA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_regua_t2.py",
+          "line": 22,
+          "snippet": "import admissao as adm  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T2-JANELA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-REGUA-T2-JANELA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-REGUA-T2-JANELA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t2/medir_regua_t2.py",
+          "line": 51,
+          "snippet": "for nome in (\"admissao.py\", \"idioma.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-REGUA-T2-JANELA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-REGUA-T2-JANELA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/regua_t2/medir_regua_t2.py",
+          "line": 51,
+          "snippet": "for nome in (\"admissao.py\", \"idioma.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-REGUA-T2-JANELA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-REGUA-T2-JANELA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/regua_t2/mutar_regua_t2.py",
+          "line": 4,
+          "snippet": "orig=open(F,encoding='utf-8').read()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-REGUA-T2-JANELA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-REGUA-T2-JANELA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -62835,6 +63146,41 @@
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-ROTAS-REAIS",
             "FROM": "C-ASK-SINTONIA",
             "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-REGUA-T2-JANELA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t2/prova_d29_porta.py",
+          "line": 58,
+          "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-REGUA-T2-JANELA",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-REGUA-T2-JANELA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -66047,6 +66393,41 @@
             "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
             "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
             "TO": "C-MICRO-COLETA-INSTRUMENTO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "to": "C-REGUA-T2-JANELA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O canario das rotas das fontes aprovadas alimenta Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t2/inventariar_t2.py",
+          "line": 70,
+          "snippet": "cat = json.load(open(RAIZ / \"curadoria\" / \"CATALOGO-PROVA-V1.json\", encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-REGUA-T2-JANELA",
+            "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "TO": "C-REGUA-T2-JANELA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -87922,7 +88303,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 351,
+          "line": 356,
           "snippet": "import italy_executor as adapter",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
@@ -96353,6 +96734,41 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-REGUA-T2-JANELA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t2/prova_d29_porta.py",
+          "line": 97,
+          "snippet": "cmd = [sys.executable, \"orquestrador/orquestrador.py\", \"colete clima da italia\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-REGUA-T2-JANELA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-REGUA-T2-JANELA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-ROTULOS",
       "type": "RUNS",
       "raw_type": "RUNS",
@@ -97908,7 +98324,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 353,
+          "line": 358,
           "snippet": "from pedido import de_uma_frase",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -97940,7 +98356,7 @@
         },
         {
           "file": "tests/test_o_canario_da_collection.py",
-          "line": 86,
+          "line": 93,
           "snippet": "from pedido import ALVOS",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -104145,6 +104561,41 @@
     },
     {
       "from": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+      "to": "C-REGUA-T2-JANELA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a porta CLI liga o banco — como PROCESSO, contra Postgres 16 real tem o seu codigo importado por Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t2/prova_d29_porta.py",
+          "line": 39,
+          "snippet": "import a_porta_cli_liga_o_banco as P",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--IMPORTS-->C-REGUA-T2-JANELA",
+            "FROM": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+            "TO": "C-REGUA-T2-JANELA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -106430,6 +106881,143 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-REGRA-COLETA--READS-->C-TESTES",
             "FROM": "C-REGRA-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REGUA-T2-JANELA",
+      "to": "C-ADMISSAO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao escreve em A porta de admissao. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t2/medir_regua_t2.py",
+          "line": 54,
+          "snippet": "open(os.path.join(d, \"admissao_base.py\" if nome == \"admissao.py\" else nome), \"w\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--WRITES-->C-ADMISSAO",
+            "FROM": "C-REGUA-T2-JANELA",
+            "TO": "C-ADMISSAO",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/regua_t2/mutar_regua_t2.py",
+          "line": 19,
+          "snippet": "open(F,'w',encoding='utf-8',newline='').write(orig.replace(a,b))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--WRITES-->C-ADMISSAO",
+            "FROM": "C-REGUA-T2-JANELA",
+            "TO": "C-ADMISSAO",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REGUA-T2-JANELA",
+      "to": "C-PROVA-COLETA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao escreve em Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t2/inventariar_t2.py",
+          "line": 83,
+          "snippet": "for linha in open(RAIZ / \"provas\" / \"a_regra_de_t2.py\", encoding=\"utf-8\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--WRITES-->C-PROVA-COLETA",
+            "FROM": "C-REGUA-T2-JANELA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REGUA-T2-JANELA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_regra_de_t2.py",
+          "line": 128,
+          "snippet": "\"portao_t2\", os.path.join(RAIZ, \"scripts\", \"regua_t2\", \"portao_t2.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
+            "FROM": "C-REGUA-T2-JANELA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_o_canario_da_collection.py",
+          "line": 74,
+          "snippet": "\"portao_t2\", os.path.join(RAIZ, \"scripts\", \"regua_t2\", \"portao_t2.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
+            "FROM": "C-REGUA-T2-JANELA",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -122832,9 +123420,25 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1577,
-  "OWNERSHIP_CONFLICTS": [],
+  "UNCLAIMED_FILES_COUNT": 1578,
+  "OWNERSHIP_CONFLICTS": [
+    {
+      "file": "tests/test_regua_t2.py",
+      "claimed_by": [
+        "C-REGUA-T2-JANELA",
+        "C-TESTES"
+      ]
+    }
+  ],
   "ARTEFACT_MULTIPLE_AUTHORS": [
+    {
+      "file": "admissao/admissao.py",
+      "written_by": [
+        "C-REGUA-T2-JANELA",
+        "C-TESTES"
+      ],
+      "owner_elected": "C-ADMISSAO"
+    },
     {
       "file": "candidatas/FONTES-CANDIDATAS.json",
       "written_by": [
@@ -123069,7 +123673,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 216,
+      "PECAS_EM_DESACORDO": 217,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -123081,23 +123685,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 241
+      "TOTAL_DE_PECAS": 242
     }
   ],
   "COUNTS": {
-    "components": 241,
+    "components": 242,
     "components_proven": 31,
-    "components_pending": 202,
+    "components_pending": 203,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1262,
-    "edges_proven": 1198,
+    "edges": 1271,
+    "edges_proven": 1207,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2804,
-    "files_covered": 1227,
+    "files_tracked": 2823,
+    "files_covered": 1245,
     "files_code_unclaimed": 0,
-    "roles_proven": 163,
+    "roles_proven": 164,
     "roles_declared_only": 8,
     "roles_unknown": 70,
     "roles_conflict": 37,
