@@ -3436,10 +3436,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "social-onda2-v1",
-    "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
-    "GENERATED_AT": "2026-09-24T17:45:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e"
+    "BRANCH": "yt-metadados-v1",
+    "HEAD": "caeeb2525b36794ce5e2c97a0d04806dedcad2cf",
+    "GENERATED_AT": "2026-09-24T17:57:51-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8356b11651142750874d535937821833ae218a893704d28e99995527cd08db1e"
   },
   "FAMILIES": [
     {
@@ -55384,15 +55384,16 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_PUBLICOS",
           "COMPUTE_DEGRADACAO",
           "CONTENTORES",
           "EXT_AUDIO",
           "MODELOS_POR_CHAMADOR",
           "_LEITURA_DO_YTDLP"
         ],
-        "palavras": 90,
+        "palavras": 106,
         "por_lingua": {},
-        "sem_marca_de_lingua": 90,
+        "sem_marca_de_lingua": 106,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -57216,7 +57217,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch social-onda2-v1"
+        "branch yt-metadados-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -112416,7 +112417,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 11 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
@@ -112454,6 +112455,22 @@
           "file": "coleta/adaptador_linkedin.py",
           "line": 570,
           "snippet": "import social_matriz as mz",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 716,
+          "snippet": "import social_matriz as mz                                       # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SCRAP-SOCIAL",
             "FROM": "C-SCRAP-LEIS",
@@ -112611,12 +112628,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
           "line": 90,
           "snippet": "return {'POLICY_OWNER': 'leis/social_matriz.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-SCRAP-SOCIAL",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 790,
+          "snippet": "'AUTORIZACAO_DE': 'leis/social_matriz.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-SCRAP-SOCIAL",
             "FROM": "C-SCRAP-LEIS",

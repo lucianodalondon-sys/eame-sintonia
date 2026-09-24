@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
+  "HEAD": "caeeb2525b36794ce5e2c97a0d04806dedcad2cf",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -353,9 +353,10 @@
   {
    "EXECUTOR_ID": "coleta/adaptador_youtube.py",
    "GAVETA": "coleta",
-   "LINHAS": 780,
+   "LINHAS": 846,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
+    "FETCH",
     "RAW"
    ],
    "HAS_PRESERVED_INPUT": false,
@@ -2203,7 +2204,7 @@
   {
    "EXECUTOR_ID": "ferramentas/youtube_transcrever.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 342,
+   "LINHAS": 431,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,

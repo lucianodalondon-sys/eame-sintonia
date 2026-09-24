@@ -688,6 +688,37 @@ def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=Non
     dur = fl.duracao(caminho)
     _v, _a, _p = fl.fluxos(caminho)
 
+    # ── O QUE A PLATAFORMA DECLARA DO VIDEO ────────────────────────────────
+    # ⚠️ ISTO FALTAVA, E A SOC-ONDA2 MEDIU-O EM 11 CANAIS: 11/11 trouxeram som e
+    # transcricao, e ZERO chegaram a READY — porque o item entrava sem data de
+    # publicacao, sem dizer de que canal veio e sem o carimbo do dono.
+    #
+    #     O SOM PROVA QUE ALGUEM DISSE AQUILO. NAO PROVA QUANDO, NEM ONDE.
+    #
+    # Os tres tempos ficam SEPARADOS e nenhum se deduz do outro:
+    #
+    #     FACT_TIME      quando o FACTO aconteceu       -> NAO SEI, e fica escrito
+    #     PUBLISHED_AT   o que a PLATAFORMA declara     -> medido, com precisao
+    #     COLLECTED_AT   o relogio DESTA casa, na hora  -> medido
+    #
+    #     PUBLICACAO NAO VIRA FACT_TIME.
+    #
+    # Sem metadados, o objeto sai com `NAO SEI` E COM O MOTIVO — nunca com uma
+    # data aproximada, que entraria no acervo com cara de facto.
+    md, porque_md = ytv.metadados(vid)
+    publicado_em, precisao = ytv.declarado_em(md)
+    agora = env.agora()
+
+    # ── O CARIMBO VEM DA MATRIZ, QUE E A DONA DA POLITICA ──────────────────
+    # Escrever `SIM` aqui dentro seria uma segunda lei, escrita por quem so
+    # executa. Quem decide se ha autorizacao do dono e a matriz; esta funcao
+    # copia a decisao para o objeto que viaja — e copia tambem a plataforma.
+    import social_matriz as mz                                       # noqa: PLC0415
+    try:
+        decisao = mz.decisao(PLATAFORMA, 'FETCH_AUDIO_BYTES')
+    except Exception as e:                                           # noqa: BLE001
+        decisao = {'PORQUE': 'DECISAO_ILEGIVEL: %s' % str(e)[:120]}
+
     return [{
         'OBJECT_KIND': 'PUBLIC_AUDIO',
         # O VIDEO_ID e identidade NATIVA da publicacao, preservada como veio.
@@ -731,7 +762,42 @@ def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=Non
         'STREAMS': {'AUDIO': audio_streams, 'VIDEO': video_streams},
         'LIMITE': LIMITE_AUDIO_PUBLICO,
         'COUNTRY_SCOPE': country_scope,
-        'CAPTURED_AT': env.agora(),
+        'CAPTURED_AT': agora,
+        # ── A IDENTIDADE NATIVA DA PUBLICACAO ──────────────────────────────
+        # `VIDEO_ID` ja viajava; `NATIVE_ID` e o nome que a PORTA usa para a
+        # mesma coisa, e sem ele o item chegava a Sala sem identidade.
+        'NATIVE_ID': vid,
+        # ── OS TRES TEMPOS, SEPARADOS, NENHUM DEDUZIDO DO OUTRO ────────────
+        'PUBLISHED_AT': publicado_em,
+        'PUBLISHED_AT_PRECISION': precisao,
+        'PUBLISHED_AT_SOURCE': ('PLATAFORMA — yt-dlp `timestamp`/`upload_date`, '
+                                'sem chave e sem conta'),
+        'PUBLISHED_AT_COMO_OBTIDO': porque_md,
+        'COLLECTED_AT': agora,
+        'FACT_TIME': 'NAO SEI',
+        'FACT_TIME_PORQUE': ('a publicacao nao e o facto: o video fala de um dia '
+                             'que nao tem de ser o da publicacao'),
+        # ── DE QUE CANAL VEIO (a fonte de onde a publicacao saiu) ──────────
+        'CHANNEL_ID': md.get('channel_id'),
+        'CHANNEL_URL': md.get('channel_url') or md.get('uploader_url'),
+        'CHANNEL_NAME': md.get('channel') or md.get('uploader'),
+        'CHANNEL_ID_ESTADO': 'DECLARADO_PELA_PLATAFORMA' if md.get('channel_id')
+                             else 'NAO SEI',
+        # ── O CARIMBO DO DONO, COPIADO DA MATRIZ ───────────────────────────
+        # DUAS FRASES, SEMPRE LADO A LADO: quem autorizou, e quem proibe.
+        'OWNER_AUTHORIZED': decisao.get('OWNER_AUTHORIZED'),
+        'PLATFORM_POLICY_STATUS': decisao.get('PLATFORM_POLICY_STATUS'),
+        'AUTORIZACAO_DE': 'leis/social_matriz.py',
+        # ── O QUE A REGUA LE PARA CONFERIR O AUTOR ────────────────────────
+        # `curadoria/regua_social.py::autor()` le `OBSERVACAO.RAW.CREATOR_*`.
+        # Sem isto, o item de um canal do YouTube chegava sem autor — e uma
+        # republicacao de outra organizacao passaria por publicacao da fonte.
+        'RAW': {'CREATOR_NAME': md.get('channel') or md.get('uploader'),
+                'CREATOR_URL': md.get('channel_url') or md.get('uploader_url'),
+                'CHANNEL_ID': md.get('channel_id'),
+                'NATIVE_ID': vid,
+                'TITLE': md.get('title'),
+                'PUBLISHED_AT': publicado_em},
         # A LINHAGEM ATE AO VIDEO PAI. O som e DERIVADO do video: guardar o pai
         # e o que permite a quem ler daqui a um ano saber de que video estes
         # bytes sao o som.

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "social-onda2-v1",
-    "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
-    "GENERATED_AT": "2026-09-24T17:45:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e"
+    "BRANCH": "yt-metadados-v1",
+    "HEAD": "caeeb2525b36794ce5e2c97a0d04806dedcad2cf",
+    "GENERATED_AT": "2026-09-24T17:57:51-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8356b11651142750874d535937821833ae218a893704d28e99995527cd08db1e"
   },
   "FILES": [
     {
@@ -1697,7 +1697,7 @@
     },
     {
       "path": "coleta/adaptador_youtube.py",
-      "sha": "9c0e7b49b5b6841f5f945f4f57114eb8582131e1",
+      "sha": "d0d36381c1deb8bec7a8c27f788618e3f3768152",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11280,7 +11280,7 @@
     },
     {
       "path": "ferramentas/youtube_transcrever.py",
-      "sha": "7bd25e8262b71709e587d7541735d2bee0ae1418",
+      "sha": "8b6340b1822c44c75a4f314e767296cf7b321afd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22142,6 +22142,28 @@
         "file": "coleta/adaptador_youtube.py",
         "line": 644,
         "snippet": "import youtube_transcrever as ytv"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 716,
+        "snippet": "import social_matriz as mz                                       # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 790,
+        "snippet": "'AUTORIZACAO_DE': 'leis/social_matriz.py',"
       }
     },
     {
@@ -33624,7 +33646,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/youtube_transcrever.py",
-        "line": 59,
+        "line": 60,
         "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
       }
     },
@@ -33635,7 +33657,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/youtube_transcrever.py",
-        "line": 64,
+        "line": 65,
         "snippet": "import fala_local as fl  # noqa: E402"
       }
     },
@@ -83233,7 +83255,7 @@
     "files_tracked": 2843,
     "files_readable": 1301,
     "files_code_dir": 1123,
-    "file_edges": 5705,
+    "file_edges": 5707,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
