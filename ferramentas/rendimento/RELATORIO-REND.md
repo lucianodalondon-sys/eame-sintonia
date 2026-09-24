@@ -1,7 +1,7 @@
 # REND — rendimento por fonte antes da próxima onda
 
 Missão: `auditoria-madrugada/missao-rend-coorte.txt` · ramo `rendimento-fontes-v1` (de `origin/bc4-correcoes-v1` @ cffaad2d).
-Medido em 24/09/2026, ~13:30–14:10 UTC. Nada foi escrito no vivo, no livro do coletor, no armazém ou na Sala.
+Medido em 24/09/2026, 13:23–13:47 UTC (5 passagens). Nada foi escrito no vivo, no livro do coletor, no armazém ou na Sala.
 
 ## Em palavras simples
 
@@ -23,10 +23,10 @@ semanal para as outras da coorte até alguém rever a janela `MAX_TARGETS`; para
 
 1. «Anuncia» = endereços na capa que casam com o padrão do contrato. **Não abrimos nenhuma matéria**: alguns podem ser páginas institucionais (o juiz de capa já errou assim antes). É um teto, não uma contagem de matérias boas.
 2. «Nova» = o livro do coletor (`observations.ndjson` do bot, 541 linhas) não tem documento desse endereço. A coluna `NOVAS_PARA_O_ACERVO` confere também contra os 979 endereços já guardados na Sala: deu igual em quase todas.
-3. **As 40 da R1 que precisavam de reparo foram medidas com o contrato de ANTES do reparo.** O contrato reparado só existia nas bancas temporárias da R1 (`%TEMP%\r1v3-banca-0..3`), que foram apagadas entre 13:46 e 13:52 UTC, a meio desta medição (vi-as às 13:4x, já não existiam às 13:5x). Por isso, para essas 40, o número da capa é **indicativo**. Não muda o veredito: nenhuma delas tem contrato no coletor.
+3. **As 40 da R1 que precisavam de reparo foram medidas com o contrato de ANTES do reparo.** O contrato reparado só existia nas bancas temporárias da R1 (`%TEMP%\r1v3-banca-0..3`), que foram apagadas por outra sessão depois de eu as ler (antes de 13:23 UTC) e antes da medição da R1 (13:41 UTC); a hora exacta não sei. Por isso, para essas 40, o número da capa é **indicativo**. Não muda o veredito: nenhuma delas tem contrato no coletor.
 4. IT-T7-141 deu `EMPTY_LIST` na BC5 de manhã e hoje a capa anuncia 11 endereços. Não sei se a capa mudou ou se foi outra coisa. Vale confirmar antes de contar com ela.
 5. A régua conta pelo código instalado (fca4f2b6): T3, T4, T5, T7, T9, T10. A régua T8 do ramo `youtube-regua-t8-v1` não está instalada.
-6. Cortesia: teto de 5 pedidos por site por corrida. O cia.it e o terraevita.edagricole.it precisaram de 2 a 3 passagens separadas. Total: 170 pedidos em 5 passagens, egresso IT (Proton, Milão) antes e depois de cada uma.
+6. Cortesia: teto de 5 pedidos por site por corrida. O cia.it e o terraevita.edagricole.it precisaram de 2 a 3 passagens separadas. Total: 173 pedidos (68+5+3+93+4) em 5 passagens, egresso IT (Proton, Milão) antes e depois de cada uma.
 
 ## Como se refaz
 
