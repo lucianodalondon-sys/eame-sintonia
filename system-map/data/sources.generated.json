@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T12:16:44+00:00",
-    "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
+    "GENERATED_AT": "2026-09-24T17:21:15+00:00",
+    "HEAD": "57818e7a95891167e27cfc68b1987acb500b2d8d",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
-    "FICHEIROS_NA_IMPRESSAO": 2952,
+    "SOURCE_TREE_FINGERPRINT": "e8252ab25afbfb84163264290059d5f6ac23bc0ad25eb38314dd9fdb61112880",
+    "FICHEIROS_NA_IMPRESSAO": 2967,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "candidatas/FONTES-CANDIDATAS.json",
         "PAPEL": "FONTE",
-        "VERSAO": "fcc898553ec2c7cb60a947292bb360ef0d1bb177",
+        "VERSAO": "2b2d2edb9761db103bee356aebb5075ecac12591",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "a_fila() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "6f3b36e478e6c06a1ec475d876dbbb24219f8e3b6059642dfc49fe5e04c583db",
+    "INPUTS_DIGEST": "6f4bd570d73071c39c2ff1893fc1e5a81fffb63b8b5e3e19a4a755bdf1124b76",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -10556,7 +10556,7 @@
         "degrau": 1,
         "nome": "CANDIDATA",
         "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-        "quantas": 0,
+        "quantas": 8,
         "onde": "candidatas/FONTES-CANDIDATAS.json",
         "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
       },
@@ -10591,9 +10591,9 @@
       "FACEBOOK": 20,
       "IMPRENSA": 22,
       "INSTAGRAM": 25,
-      "LINKEDIN": 44,
+      "LINKEDIN": 51,
       "ORGANIZACAO": 407,
-      "YOUTUBE": 81
+      "YOUTUBE": 82
     },
     "candidatas": [
       {
@@ -17928,6 +17928,22 @@
         }
       },
       {
+        "CANDIDATA_ID": "CAND-0910",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Barbara Menin — CNR — IBBA",
+        "URL": "https://www.linkedin.com/in/barbara-menin-6b42a449",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): videos/posts tecnicos sobre biotecnologias e genetica vegetal",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://ibba.cnr.it/staff/barbara-menin/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://ibba.cnr.it/staff/barbara-menin/ (sha256 3de55b628c804355, lida 2026-09-24; titulo «Staff Barbara Menin») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial ibba.cnr.it) · PESSOA: Barbara Menin · CASA: CNR — IBBA (CNR) · NOME NO ENDERECO: 2 pedaco(s) · a pagina oficial da pessoa liga a este perfil; tema no foco agronomico (D26)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0112",
         "TIPO": "LINKEDIN",
         "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
@@ -18298,6 +18314,22 @@
         }
       },
       {
+        "CANDIDATA_ID": "CAND-0911",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Cristian Perna — CNR — IBBA",
+        "URL": "https://www.linkedin.com/in/cristianperna98",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): videos/posts tecnicos sobre germoplasma vegetal (colecao de Lemnaceae), propagacao in vitro",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://ibba.cnr.it/staff/cristian-perna/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://ibba.cnr.it/staff/cristian-perna/ (sha256 15dbef1200315d9b, lida 2026-09-24; titulo «Staff Cristian Perna») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial ibba.cnr.it) · PESSOA: Cristian Perna · CASA: CNR — IBBA (CNR) · NOME NO ENDERECO: 2 pedaco(s) · a pagina oficial da pessoa liga a este perfil; tema no foco agronomico (D26)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0116",
         "TIPO": "LINKEDIN",
         "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
@@ -18409,6 +18441,22 @@
         }
       },
       {
+        "CANDIDATA_ID": "CAND-0912",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Francesca Sparvoli — CNR — IBBA",
+        "URL": "https://www.linkedin.com/in/francesca-sparvoli-4a6aaa34",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): videos/posts tecnicos sobre qualidade nutricional e biofortificacao de sementes de feijao",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://ibba.cnr.it/staff/francesca-sparvoli/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://ibba.cnr.it/staff/francesca-sparvoli/ (sha256 26e4304ee741b3d5, lida 2026-09-24; titulo «Staff Francesca Sparvoli») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial ibba.cnr.it) · PESSOA: Francesca Sparvoli · CASA: CNR — IBBA (CNR) · NOME NO ENDERECO: 2 pedaco(s) · a pagina oficial da pessoa liga a este perfil; tema no foco agronomico (D26)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0117",
         "TIPO": "LINKEDIN",
         "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
@@ -18444,6 +18492,38 @@
           "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
           "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694"
         }
+      },
+      {
+        "CANDIDATA_ID": "CAND-0908",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Giovanna Frugis — CNR — IBBA",
+        "URL": "https://www.linkedin.com/in/giovanna-frugis-99260429",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): videos/posts tecnicos sobre biologia molecular e desenvolvimento vegetal, genomica funcional",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://ibba.cnr.it/staff/giovanna-frugis/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://ibba.cnr.it/staff/giovanna-frugis/ (sha256 1ebebd297aa7f386, lida 2026-09-24; titulo «Staff Giovanna Frugis») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial ibba.cnr.it) · PESSOA: Giovanna Frugis · CASA: CNR — IBBA (CNR) · NOME NO ENDERECO: 2 pedaco(s) · a pagina oficial da pessoa liga a este perfil; tema no foco agronomico (D26)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0914",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Giulio Senes — Universita di Milano — DISAA (Agraria)",
+        "URL": "https://www.linkedin.com/in/giulio-senes-81515321",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): videos/posts tecnicos sobre AGRI-04/C costruzioni rurali e territorio agroforestale (DISAA)",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://www.unimi.it/it/ugov/rubrica/person0000016159",
+        "QUANDO": "2026-09-24",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://www.unimi.it/it/ugov/rubrica/person0000016159 (sha256 323260c2e072f991, lida 2026-09-23; titulo «Senes Giulio») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial www.unimi.it) · PESSOA: Giulio Senes · CASA: Universita di Milano — DISAA (Agraria) (AGRARIA) · NOME NO ENDERECO: 2 pedaco(s) · a pagina oficial da pessoa liga a este perfil; tema no foco agronomico (D26)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0118",
@@ -18925,6 +19005,38 @@
           "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
           "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694"
         }
+      },
+      {
+        "CANDIDATA_ID": "CAND-0909",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Stefano Gattolin — CNR — IBBA",
+        "URL": "https://www.linkedin.com/in/stefano-gattolin-35b45a4a",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): videos/posts tecnicos sobre fisiologia das plantas e resposta a stress ambiental",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://ibba.cnr.it/staff/stefano-gattolin/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://ibba.cnr.it/staff/stefano-gattolin/ (sha256 80c2d53b5e7bc36e, lida 2026-09-24; titulo «Staff Stefano Gattolin») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial ibba.cnr.it) · PESSOA: Stefano Gattolin · CASA: CNR — IBBA (CNR) · NOME NO ENDERECO: 2 pedaco(s) · a pagina oficial da pessoa liga a este perfil; tema no foco agronomico (D26)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0907",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Tania Bobbo — CNR — IBBA",
+        "URL": "https://www.linkedin.com/in/tania-bobbo-b9455042",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): videos/posts tecnicos sobre IA aplicada a dados vegetais; projeto FREECLIMB (resiliencia de frutiferas ao clima)",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://ibba.cnr.it/staff/tania-bobbo/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://ibba.cnr.it/staff/tania-bobbo/ (sha256 9d4d555a83d48135, lida 2026-09-24; titulo «Staff Tania Bobbo») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial ibba.cnr.it) · PESSOA: Tania Bobbo · CASA: CNR — IBBA (CNR) · NOME NO ENDERECO: 2 pedaco(s) · a pagina oficial da pessoa liga a este perfil; tema no foco agronomico (D26)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0099",
@@ -27053,6 +27165,22 @@
         "DECIDIDA_EM": "2026-09-15"
       },
       {
+        "CANDIDATA_ID": "CAND-0913",
+        "TIPO": "YOUTUBE",
+        "TIPO_SIGNIFICA": "Canal publico no YouTube.",
+        "PAIS": "IT",
+        "NOME": "Simon Pierce — Universita di Milano — DISAA (Agraria)",
+        "URL": "https://www.youtube.com/channel/UCcDDOA0UU5DmHcEDCUOzVFw",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): videos/posts tecnicos sobre BIOS-01/C botanica ambientale e applicata (DISAA); canal no campo «Sito web» da ficha oficial",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://www.unimi.it/it/ugov/rubrica/person0000017592",
+        "QUANDO": "2026-09-24",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://www.unimi.it/it/ugov/rubrica/person0000017592 (sha256 fc32fc2c7cda2f1f, lida 2026-09-23; titulo «Pierce Simon») liga a este perfil YOUTUBE — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial www.unimi.it) · PESSOA: Simon Pierce · CASA: Universita di Milano — DISAA (Agraria) (AGRARIA) · NOME NO ENDERECO: 0 pedaco(s) · a pagina oficial da pessoa liga a este perfil; tema no foco agronomico (D26)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0221",
         "TIPO": "YOUTUBE",
         "TIPO_SIGNIFICA": "Canal publico no YouTube.",
@@ -30211,6 +30339,10 @@
           "line": 290
         },
         {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 42
+        },
+        {
           "file": "tests/test_reel_transcricao.py",
           "line": 116
         },
@@ -30274,6 +30406,10 @@
         {
           "file": "tests/test_linkedin_op_01_operacional.py",
           "line": 42
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 36
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
@@ -30356,6 +30492,10 @@
         {
           "file": "provas/_flow01_janela_falsa.py",
           "line": 21
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 41
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
@@ -30533,6 +30673,81 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/%s",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 374
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 671
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 265
+        },
+        {
+          "file": "provas/canario_reels_instagram.py",
+          "line": 109
+        },
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 136
+        }
+      ]
+    },
+    {
+      "endpoint": "https://%s/robots.txt",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 859
+        },
+        {
+          "file": "curadoria/gate_de_rota.py",
+          "line": 80
+        },
+        {
+          "file": "curadoria/medir_fila_do_bot.py",
+          "line": 82
+        },
+        {
+          "file": "medidas/micro_colheita.py",
+          "line": 137
+        },
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 198
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/in",
+      "usado_por": [
+        {
+          "file": "leis/social_matriz.py",
+          "line": 907
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 58
+        },
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 133
+        },
+        {
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 119
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 35
+        }
+      ]
+    },
+    {
       "endpoint": "https://bsky.app/profile",
       "usado_por": [
         {
@@ -30659,27 +30874,6 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/%s",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 374
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 671
-        },
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 265
-        },
-        {
-          "file": "provas/canario_reels_instagram.py",
-          "line": 109
-        }
-      ]
-    },
-    {
       "endpoint": "https://ipinfo.io/json',",
       "usado_por": [
         {
@@ -30781,27 +30975,6 @@
         {
           "file": "curadoria/test_pais_das_candidatas.py",
           "line": 22
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/robots.txt",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 859
-        },
-        {
-          "file": "curadoria/gate_de_rota.py",
-          "line": 80
-        },
-        {
-          "file": "curadoria/medir_fila_do_bot.py",
-          "line": 82
-        },
-        {
-          "file": "medidas/micro_colheita.py",
-          "line": 137
         }
       ]
     },
@@ -31105,28 +31278,11 @@
           "line": 173
         }
       ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "leis/social_matriz.py",
-          "line": 907
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 58
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 119
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 604,
+  "ENDPOINTS_FOUND": 610,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 564,
+  "ENDPOINTS_TRUNCATED": 570,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31144,10 +31300,10 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 604,
+    "endpoints": 610,
     "endpoints_published": 40,
-    "endpoints_truncated": 564,
-    "candidates": 906,
+    "endpoints_truncated": 570,
+    "candidates": 914,
     "coletores": 54,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,

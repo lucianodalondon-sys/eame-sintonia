@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e18ce992cba8e915259f338b7e0a671dd51628ab
-BRANCH           bc4-correcoes-v1
-GERADO_EM        2026-09-24T09:15:43-03:00
-CARDS            92
+HEAD_DA_MEDICAO  57818e7a95891167e27cfc68b1987acb500b2d8d
+BRANCH           pessoas-docentes-v1
+GERADO_EM        2026-09-24T13:18:13-03:00
+CARDS            93
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -614,18 +614,18 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | candidatas/decidir_fila_italia.py:100; curadoria/test_discovery.py:59; curadoria/test_discovery.py:50 |
-| **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA · C-PESSOAS-DOCENTES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 5 |
-| **arestas provadas** | entram 1 · saem 5 |
+| **arestas no mapa** | entram 1 · saem 7 |
+| **arestas provadas** | entram 1 · saem 7 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 6 |
+| **prova das ligações** | CODE 8 |
 | **lei da Bíblia** | COL-LAW-053 · a fonte tem cadastro unico e reconciliado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1766,6 +1766,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
+### `C-PESSOAS-DOCENTES` · Pessoas pelo site oficial (P5, D24) — pagina de cada docente/investigador
+
+| | |
+|---|---|
+| **peça real** | `scripts/pessoas_docentes/DECISOES-P5-V1.json`, `scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json`, `scripts/pessoas_docentes/SEMENTES-P5.json`, `scripts/pessoas_docentes/pessoas_docentes.py` |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **dono** | ENGENHARIA · INTELIGENCIA |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
+| **prova de quem ativa** | tests/test_pessoas_docentes.py:64 _(plano CODE)_ |
+| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `scripts/pessoas_docentes/DECISOES-P5-V1.json`, `scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 3 · saem 1 |
+| **arestas provadas** | entram 3 · saem 1 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 4 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
+| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
+
 ### `C-RASTRO` · O rastro da coleta — etapa, aresta, contagem e falha
 
 | | |
@@ -2358,9 +2383,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
 OK                 37
 UNKNOWN            29
-SYSTEM_GAP         10
+SYSTEM_GAP         11
 TERMINAL           8
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              92
+TOTAL              93
 ```
