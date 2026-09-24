@@ -289,6 +289,8 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
         # A4/A5: a micro-coleta com rede real (VPN IT) sobre uma Sala DESCARTAVEL,
         # corrida a mao. Desde a A5 cita o coletor na docstring (o transporte e dele).
         "scripts/micro_coleta/micro_rede_real.py": ("MANUAL_TOOL", False),
+        # SOC2: importa `alvosDe` para provar a guarda COLETADO_POR; nao colhe.
+        "curadoria/test_soc2_curator_youtube.py": ("TEST_ONLY", False),
         # V1A: o retrato de um HTML (mede bytes: HTML_KIND, TEXT_SHA256). E uma
         # biblioteca que o coletor usa; so CITA o coletor num comentario. Nao
         # arranca coleta nenhuma.

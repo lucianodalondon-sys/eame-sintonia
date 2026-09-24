@@ -3,6 +3,7 @@
     py scripts/desbloqueio/aplicar_desbloqueio.py --livro=<italy_contracts_curator.json>
                                                    --tabela=<italy_contracts_onboarded.json>
                                                    [--escrever] [--ledger=<ficheiro .jsonl>]
+                                                   [--rota-scrap=SOC2]   # bloco 4
 
 Sem --escrever: so relatorio (antes/depois por SOURCE_ID). Com --escrever: grava os
 dois livros e acrescenta ao ledger uma linha por alteracao (MISSAO, PROVA, AT).
@@ -42,6 +43,11 @@ integra (cada ficheiro existe em disco e o sha256 bate). UNKNOWN e MANTER intoca
             Se a prova tiver uma noticia SINTONIA_RELEVANT = YES, vale a D2 (REROUTE): SALTA.
   · a tabela do coletor recebe a mesma marca/universo, se a fonte la estiver.
   · ledger com DECISAO = D9.
+
+BLOCO 4 — ROTA DO SCRAP (SOC2, D17.4), so com --rota-scrap=SOC2: as fontes YouTube do livro
+passam a nomear a fase canal-youtube do Scrap; a tabela do coletor ganha COLETADO_POR. So com
+prova de identidade (canal do livro = tabela, IDENTITY_MATCH = YES, um canal = uma fonte) e com
+o Scrap a declarar HOJE a rota. Nunca muda SOURCE_ID, grupo T, BATCH_ID nem o canal.
 """
 from __future__ import annotations
 
@@ -227,7 +233,8 @@ def propostas() -> list[tuple[str, dict]]:
 
 def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico=None,
             m3=None, canario=None, peca=None, catalogo=None,
-            livro_bot: dict | None = None, d10: str | None = None) -> dict:
+            livro_bot: dict | None = None, d10: str | None = None,
+            rota_scrap: bool = False, declarado: dict | None = None) -> dict:
     guardadas = paginas_guardadas() if guardadas is None else guardadas
     capas = capas_do_gabarito() if capas is None else capas
     e_generico = guarda() if e_generico is None else e_generico
@@ -404,10 +411,16 @@ def planear(livro: dict, tabela: dict, *, guardadas=None, capas=None, e_generico
             continue
         _d9_tabela(sid, mud, a)
 
+    # 4) BLOCO 4 — A ROTA DO SCRAP PARA OS CANAIS YOUTUBE (SOC2, D17.4)
+    autorizadas_scrap = set()
+    if rota_scrap:
+        acoes_scrap, autorizadas_scrap = rota_do_scrap(novo_livro, nova_tabela, T, declarado)
+        acoes.extend(acoes_scrap)
+
     livro_out = dict(livro, FONTES=[novo_livro[c["SOURCE_ID"]] for c in livro["FONTES"]])
     ordem = [c["SOURCE_ID"] for c in tabela["FONTES"]] + [s for s in nova_tabela if s not in T]
     tabela_out = dict(tabela, FONTES=[nova_tabela[s] for s in ordem])
-    invariantes(livro, livro_out, tabela, tabela_out, autorizadas_d9)
+    invariantes(livro, livro_out, tabela, tabela_out, autorizadas_d9, autorizadas_scrap)
     out = {"ACOES": acoes, "LIVRO": livro_out, "TABELA": tabela_out}
 
     # 4) BLOCO 3 — CONTRATO UNICO (D10)
@@ -517,6 +530,138 @@ def contrato_unico(livro_portao: dict, livro_bot: dict, provas: list, dono_do_do
     return bot_out, acoes
 
 
+# ── BLOCO 4 — A ROTA DO SCRAP PARA OS CANAIS YOUTUBE (SOC2, D17.4) ─────────────
+#
+# As 50 fontes YouTube que o Curator contratou apontam para o FEED do canal
+# (`YOUTUBE_CHANNEL_FEED`), que esta em `Disallow` e que a matriz do Scrap marca
+# ROUTE_NOT_ALLOWED; a tabela do coletor aponta-as para `CANAL_PUBLICO_YOUTUBE_V1`,
+# um adapter JS que nao existe nesta arvore. A propria nota do contrato dizia:
+# «so a ROTA de aquisicao tem de mudar antes de coletar. Rota permitida por medir:
+# playlistItems.list». Este bloco faz essa mudanca, e so essa:
+#
+#   · livro do Curator: a ACQUISITION passa a nomear a fase `canal-youtube` do
+#     Scrap (`rota_do_scrap_youtube.acquisition`), e os campos que descreviam o
+#     FEED passam a descrever essa rota; o anterior fica em ROTA_DO_SCRAP;
+#   · tabela do coletor: ACRESCENTA `COLETADO_POR` (executor, fase, filtro). A
+#     ACQUISITION do motor fica como esta — e o que o motor le, e os testes do
+#     motor fixam-na; `COLETADO_POR` e que diz que nao e ele quem colhe;
+#   · SO com prova: o canal do livro = o da tabela = SOURCE_NATIVE_ID, a sondagem
+#     da tabela diz IDENTITY_MATCH = YES, o canal e de UMA so fonte na casa, e o
+#     Scrap declara HOJE a rota (fase, capacidade, filtro, matriz ALLOWED);
+#   · nunca muda SOURCE_ID, TERRITORY, BATCH_ID nem o canal; nunca acrescenta nem
+#     retira fonte; ledger com DECISAO = D17.4.
+#
+# O bloco NAO promove: a fonte continua no estado em que o livro de estado a tem
+# (RECONCILIATION_REQUIRED / CONTRACT_READY_ROUTE_BLOCKED). Quem a leva a READY e
+# o circuito, com o canario do Scrap.
+CAMPOS_DA_ROTA_DO_SCRAP = ("ACQUISITION", "IDENTITY", "DOCUMENT_DATE_FIELD", "EXPECTED_FAILURES",
+                           "FAIL_CLOSED_RULE", "FALLBACK", "NEGATIVE_CONTROL", "ROUTE_POLICY_STATUS",
+                           "ROUTE_POLICY_EVIDENCE", "ROUTE_POLICY_NOTE", "ROTA_DO_SCRAP",
+                           "SOURCE_CONTRACT_HASH")
+MISSAO_SCRAP = "SOC2-CURATOR-YOUTUBE"
+
+
+def _rsy():
+    sys.path.insert(0, str(RAIZ / "curadoria"))
+    import rota_do_scrap_youtube as RSY
+    return RSY
+
+
+def _hash_do_contrato(c: dict) -> str:
+    """A formula do worker ao contratar (a mesma de integrar_gate_de_detalhe)."""
+    sys.path.insert(0, str(RAIZ / "curadoria"))
+    import escrever_contratos as EC
+    d = {k: v for k, v in c.items() if k != "SOURCE_CONTRACT_HASH"}
+    d["SOURCE_CONTRACT_VERSION"] = EC.VERSAO
+    return EC.hash_do_contrato(d)
+
+
+def coletado_por(canal: str, declarado: dict) -> dict:
+    RSY = _rsy()
+    return {"EXECUTOR": RSY.EXECUTOR, "FASE": RSY.FASE, "FILTROS": {RSY.FILTRO: canal},
+            "CAPACIDADE": RSY.CAPACIDADE, "ROTA": declarado.get("ROTA"),
+            "DECISAO": "D17.4", "MISSAO": MISSAO_SCRAP,
+            "ACQUISITION_DO_MOTOR": ("inerte: o coletor JS nao colhe esta fonte; quem a colhe "
+                                     "e o Scrap pela fase acima")}
+
+
+def rota_do_scrap(novo_livro: dict, nova_tabela: dict, tabela_antes: dict,
+                  declarado: dict | None = None) -> tuple[list, set]:
+    """Muda `novo_livro` e `nova_tabela` no sitio. Devolve (accoes, autorizadas)."""
+    sys.path.insert(0, str(RAIZ / "curadoria"))
+    import escrever_contratos as EC
+    RSY = _rsy()
+    declarado = RSY.o_que_o_scrap_declara() if declarado is None else declarado
+    livro_antes = {s: copy.deepcopy(c) for s, c in novo_livro.items()}
+    acoes, autorizadas = [], set()
+    for sid in sorted(novo_livro):
+        c = novo_livro[sid]
+        aq = c.get("ACQUISITION") or {}
+        if aq.get("STRATEGY") not in ("YOUTUBE_CHANNEL_FEED", RSY.STRATEGY):
+            continue
+        canal = aq.get("CHANNEL_ID")
+        a = {"LIVRO": "livro", "SOURCE_ID": sid, "CAMPO": "ACQUISITION", "DECISAO": "D17.4",
+             "ORIGEM": MISSAO_SCRAP}
+        t = nova_tabela.get(sid)
+        porque = None
+        if not RSY.RE_CANAL.match(canal or ""):
+            porque = "CHANNEL_ID invalido no livro: %r" % canal
+        elif c.get("SOURCE_NATIVE_ID") != canal:
+            porque = "o SOURCE_NATIVE_ID do livro nao e o CHANNEL_ID da aquisicao"
+        elif not t:
+            porque = "a fonte nao esta na tabela do coletor: a identidade nao foi sondada la"
+        elif t.get("SOURCE_NATIVE_ID") != canal or (t.get("ACQUISITION") or {}).get("CHANNEL_ID") != canal:
+            porque = "o canal da tabela nao e o do livro"
+        elif (t.get("SONDAGEM") or {}).get("IDENTITY_MATCH") != "YES":
+            porque = "a sondagem da tabela nao provou a identidade do canal (IDENTITY_MATCH != YES)"
+        else:
+            donos = RSY.canal_conhecido(canal, tabela={"FONTES": list(tabela_antes.values())},
+                                        livro={"FONTES": list(livro_antes.values())})
+            if donos != [sid]:
+                porque = "o canal esta ligado a %s: colisao de identidade, decisao humana" % donos
+        if porque:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE=porque))
+            continue
+        nova_aq = RSY.acquisition(canal, declarado)
+        ok, porque_rota = RSY.conferir(nova_aq, declarado)
+        if not ok:
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="o Scrap nao declara a rota hoje: %s" % porque_rota))
+            continue
+        autorizadas.add(sid)
+        # livro
+        if aq == nova_aq:
+            acoes.append(dict(a, ACAO="JA_APLICADA"))
+        else:
+            molde = EC.contrato_youtube_scrap({"SOURCE_ID": sid, "NOME": c.get("NAME") or c.get("OWNER") or sid,
+                                               "TERRITORY": c["TERRITORY"],
+                                               "URL": c.get("CANONICAL_ENTRY_URL")}, canal, declarado)
+            antes = {k: copy.deepcopy(c.get(k)) for k in CAMPOS_DA_ROTA_DO_SCRAP if k in c}
+            for k in ("ACQUISITION", "IDENTITY", "DOCUMENT_DATE_FIELD", "EXPECTED_FAILURES",
+                      "FAIL_CLOSED_RULE", "FALLBACK", "NEGATIVE_CONTROL"):
+                c[k] = copy.deepcopy(molde[k])
+            c["ROUTE_POLICY_STATUS"] = "ALLOWED"
+            c["ROUTE_POLICY_EVIDENCE"] = ("leis/social_matriz.py decisao(YOUTUBE, INCREMENTAL) = ALLOWED · "
+                                          + porque_rota)
+            c["ROUTE_POLICY_NOTE"] = ("a rota e a fase %s do Scrap (API oficial); o feed continua em "
+                                      "Disallow e nao e usado" % RSY.FASE)
+            c["ROTA_DO_SCRAP"] = {"DECISAO": "D17.4", "MISSAO": MISSAO_SCRAP, "APLICADO_EM": agora(),
+                                  "ANTES": antes, "PRECISA_DE_CANARIO_DO_SCRAP": True,
+                                  "NOTA": "nao promove: o canario desta rota e uma colheita do Scrap"}
+            c["SOURCE_CONTRACT_HASH"] = _hash_do_contrato(c)
+            acoes.append(dict(a, ACAO="APLICA", ANTES=aq, DEPOIS=nova_aq, PROVA=porque_rota))
+        # tabela
+        b = {"LIVRO": "tabela", "SOURCE_ID": sid, "CAMPO": "COLETADO_POR", "DECISAO": "D17.4",
+             "ORIGEM": MISSAO_SCRAP}
+        cp = coletado_por(canal, declarado)
+        if t.get("COLETADO_POR") == cp:
+            acoes.append(dict(b, ACAO="JA_APLICADA"))
+        else:
+            nova_tabela[sid] = dict(t, COLETADO_POR=cp)
+            acoes.append(dict(b, ACAO="APLICA", ANTES=t.get("COLETADO_POR"), DEPOIS=cp,
+                              PROVA="IDENTITY_MATCH=YES em %s" % (t.get("SONDAGEM") or {}).get("SONDADO_EM")))
+    return acoes, autorizadas
+
+
 def invariantes_do_bot(antes: dict, depois: dict, autorizadas: set) -> None:
     """No livro do bot: as mesmas fontes, pela mesma ordem; so as autorizadas mudam, e
     so em ACQUISITION e CONTRATO_UNICO. Grupo T e SOURCE_ID nunca."""
@@ -538,7 +683,7 @@ def invariantes_do_bot(antes: dict, depois: dict, autorizadas: set) -> None:
 
 
 def invariantes(livro_a: dict, livro_d: dict, tab_a: dict, tab_d: dict,
-                autorizadas_d9=frozenset()) -> None:
+                autorizadas_d9=frozenset(), autorizadas_scrap=frozenset()) -> None:
     """Nunca muda grupo T nem outro campo — EXCEPTO as linhas do catalogo que a D9
     autorizou e cuja prova bateu: essas podem mudar TERRITORY, ESTADO_CATALOGO e
     CATALOGO_D9, e mais nada."""
@@ -552,6 +697,14 @@ def invariantes(livro_a: dict, livro_d: dict, tab_a: dict, tab_d: dict,
             for k in ("TERRITORY", "ESTADO_CATALOGO", "CATALOGO_D9"):
                 a.pop(k, None)
                 d.pop(k, None)
+        if s in autorizadas_scrap:
+            # o canal e a identidade nao mudam; o resto dos campos da ROTA muda
+            if (A[s].get("SOURCE_NATIVE_ID") != D[s].get("SOURCE_NATIVE_ID")
+                    or A[s]["ACQUISITION"].get("CHANNEL_ID") != D[s]["ACQUISITION"].get("CHANNEL_ID")):
+                raise InvarianteQuebrado(f"{s}: o bloco da rota do Scrap mudou o canal")
+            for k in CAMPOS_DA_ROTA_DO_SCRAP:
+                a.pop(k, None)
+                d.pop(k, None)
         if a.get("TERRITORY") != d.get("TERRITORY"):
             raise InvarianteQuebrado(f"{s}: grupo T mudou")
         for k in CAMPOS_DO_LIVRO:
@@ -561,6 +714,16 @@ def invariantes(livro_a: dict, livro_d: dict, tab_a: dict, tab_d: dict,
             raise InvarianteQuebrado(f"{s}: mudou um campo do livro que o pacote nao pode mudar")
     TA = {c["SOURCE_ID"]: c for c in tab_a["FONTES"]}
     TD = {c["SOURCE_ID"]: c for c in tab_d["FONTES"]}
+    # Na tabela do coletor o bloco 4 so ACRESCENTA `COLETADO_POR`: a aquisicao do
+    # motor, a identidade e o resto da linha ficam como estavam.
+    for s in TA:
+        if s in TD and TA[s] != TD[s]:
+            a2 = {k: v for k, v in TA[s].items() if k != "COLETADO_POR"}
+            d2 = {k: v for k, v in TD[s].items() if k != "COLETADO_POR"}
+            if s in autorizadas_scrap and a2 != d2 and s not in autorizadas_d9:
+                raise InvarianteQuebrado(f"{s}: o bloco da rota do Scrap mudou a tabela alem de COLETADO_POR")
+            if s not in autorizadas_scrap and TA[s].get("COLETADO_POR") != TD[s].get("COLETADO_POR"):
+                raise InvarianteQuebrado(f"{s}: COLETADO_POR mudou sem autorizacao do bloco 4")
     if not set(TA) <= set(TD):
         raise InvarianteQuebrado("a tabela perdeu fontes")
     for s in TA:
@@ -587,7 +750,8 @@ def main(argv=None) -> int:
     bot_p = Path(arg["livro-bot"]) if "livro-bot" in arg else None
     livro_bot = _json(bot_p) if bot_p else None
     try:
-        plano = planear(livro, tabela, livro_bot=livro_bot, d10=arg.get("d10"))
+        plano = planear(livro, tabela, livro_bot=livro_bot, d10=arg.get("d10"),
+                        rota_scrap=arg.get("rota-scrap") == "SOC2")
     except InvarianteQuebrado as ex:
         print(f"INVARIANTE QUEBRADO — nada escrito: {ex}", file=sys.stderr)
         return 4

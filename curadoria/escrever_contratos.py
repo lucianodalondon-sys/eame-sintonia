@@ -153,6 +153,44 @@ def contrato_youtube(n: dict, f: dict, native: str) -> dict:
     }
 
 
+def contrato_youtube_scrap(n: dict, native: str, declarado: dict | None = None) -> dict:
+    """SOC2 · o molde do canal YouTube que NOMEIA A ROTA DO SCRAP.
+
+    O `contrato_youtube` acima copia o IT-T8-001 e aponta para o FEED — que esta
+    em `Disallow` e que a matriz do Scrap marca ROUTE_NOT_ALLOWED. Este molde e o
+    mesmo contrato com a aquisicao trocada: quem colhe e a fase `canal-youtube`
+    do Scrap (API oficial, D17.4), e o bloco e escrito por
+    `rota_do_scrap_youtube.acquisition`, que LE o que o Scrap declara hoje.
+
+        O CURATOR NOMEIA A ROTA; O SCRAP CORRE-A.
+    """
+    import rota_do_scrap_youtube as RSY
+    c = contrato_youtube(n, {}, native)
+    c["BATCH_ID"] = "LOTE-YOUTUBE-SCRAP"
+    c["ACQUISITION"] = RSY.acquisition(native, declarado)
+    c["ACCESS_INSTRUMENT"] = "SCRAP"
+    c["IDENTITY"] = {
+        "STRATEGY": "CONTENT_CAPTURE",
+        "CAPTURES": {"video": {"FROM": "SCRAP_ENVELOPE", "FIELD": "VIDEO_ID"}},
+        "DOCUMENT_ID": "%s:YT:{video.videoId}" % n["SOURCE_ID"],
+        "FACT_TIME": "UNKNOWN — PUBLISHED_AT e PUBLICATION_TIME, nao FACT_TIME",
+    }
+    c["DOCUMENT_DATE_FIELD"] = "PUBLISHED_AT (envelope do Scrap)"
+    c["EXPECTED_FAILURES"] = [
+        "video sem VIDEO_ID = FAILED por falta de identidade",
+        "canal sem nenhum video na lista = EMPTY_LIST -> FAILED",
+        "canal privado/removido = FAILED, nao DEGRADED",
+        "chave da API ausente = CREDENTIAL_MISSING no CHECK do Scrap: nao corre, nao e FAILED da fonte",
+    ]
+    c["FAIL_CLOSED_RULE"] = ("item sem VIDEO_ID ou sem PUBLISHED_AT nao tem identidade — "
+                             "FAILED. Nunca registar a lista do canal como documento.")
+    c["FALLBACK"] = ("nenhum. Sem feed, sem pagina do canal, sem yt-dlp de listagem: "
+                     "se o Scrap nao declarar a rota, o contrato reprova na validacao.")
+    c["NEGATIVE_CONTROL"] = {"descricao": "canal sem videos publicos",
+                             "esperado": "EMPTY_LIST -> FAILED"}
+    return c
+
+
 def contrato_html(n: dict, f: dict) -> dict:
     """Replica do molde contratoGenerico(): STRATEGY/MATCH/INDEX_URL/LINK_PATTERN."""
     return {
