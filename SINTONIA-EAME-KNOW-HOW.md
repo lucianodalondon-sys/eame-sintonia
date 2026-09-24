@@ -22454,3 +22454,38 @@ zero.
   gastas, e as 7 restantes GENERICA/UNKNOWN. Sinal honesto não fabrica fonte nova.
 - `tasklist //FI` no bash desta máquina dá erro e o `grep -q` lê isso como «processo
   morreu». Medir por `Get-Process -Id`.
+
+# §221 · REPARAR O CONTRATO NÃO É APROVAR A FONTE — O JUIZ DE MATÉRIA APROVA A REPARTIÇÃO
+
+> R1 (reparo-fontes-v1, 23/09/2026; refeita como reparo-fontes-v2 sobre a M5G, 24/09). Era §210 na v1; §210–§220 estão ocupados nesta linha. Relatório: RELATORIO-R1-REPARO-FONTES.md.
+
+**O SINTOMA.** 400 fontes em CONTRACTED_CANARY_FAILED e 102 em CANARY_PENDING, nenhuma com
+tarefa aberta. 344 das 400 paravam em «nenhum endereço da entrada casa com o padrão»: o
+LINK_PATTERN é o molde WordPress da missão 04. O bot marcava e parava.
+
+**O QUE SE FEZ.** Etapa REPAIR_CONTRACT (`curadoria/reparar_contrato.py`): lê a entrada, acha a
+família de links pelo método da casa (provar_listagem + esqueleto e guarda da 6-PREP-d), abre o
+item que o canário abriria e só aceita matéria; escreve o contrato pela porta do reparo e volta
+ao circuito normal (VALIDATE_ROUTE → CANARY → régua dos 4 passos). O gatilho enfileira 20 por
+volta, 1 reparo por fonte, e não faz discovery enquanto houver reparo pendente.
+
+**O QUE A MEDIÇÃO ENSINOU.**
+- Muitas «fontes» não são fontes: 76 são UMA notícia, 37 são páginas de serviço (Contatti,
+  Whistleblowing, troca de língua), 42 do crea.gov.it são sub-páginas do mesmo site.
+- Sem filtro, o reparo levou READY de 143 a 188 — e pelo menos 12 das 42 novas tinham como
+  «documento» uma página FIXA (accesso-civico, ufficio-gabinetto, area-personale-tributi). O
+  retrato_html mede texto e ligações: página institucional longa é MATÉRIA para ele, e a régua
+  passa-a. Com o filtro FAMILIA_ESTATICA: 143 → 179, e ainda ~5 fixas de título longo.
+
+    O JUIZ DE CAPA/MATÉRIA NÃO SEPARA NOTÍCIA DE PÁGINA INSTITUCIONAL.
+    UM READY NOVO TEM DE SER LIDO ANTES DE ENTRAR NUMA ONDA DA BIG COLLECTION.
+
+- «Aguarda qualificação pelo curator» é o bilhete que a ponte escreve em TODA QUALIFY, não um
+  impasse. As 200 barradas: 179 sem território pelo nome (0 com prova nova na casa) e 21 YouTube
+  barradas por um texto que o código já não tem (5 ganham SOURCE_ID ao desbloquear).
+- As 16 receitas da M6Pd JÁ estavam aplicadas no livro vivo (14; 2 trocadas pela D10).
+- A v1 destravava as QUALIFY do YouTube pelo texto antigo, porque a linha dela tinha a SOC2.
+  Nesta linha (sem SOC2) o worker escreve esse MESMO texto: destravar seria eco sem fim.
+
+    UMA REGRA QUE REABRE O QUE O WORKER FECHA SÓ VALE COM O WORKER QUE A ESCREVEU.
+
