@@ -742,3 +742,87 @@ FINAL_HEAD        = na entrega (descende de 05fd018a)
 ```
 
 Pronto para instalar no vivo pelo `CUTOVER-RUNBOOK.md`, com o bot quieto.
+
+---
+
+# 7.ª PASSAGEM — UNIFICACAO-G (M5G, 23-24/09/2026) — e o plano de instalação
+
+Base 4ec62114 (6.ª passagem + REELS + D24). Worktree `unificacao-v1-f`. **Nenhuma função nova**
+(ordem do dono, 19:20); nenhuma coleta; nada no vivo (só leitura); nada na Sala real;
+nenhum banco de teste aberto. A sessão morreu às ~19:44 (causa NÃO SEI) e foi retomada.
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | cortesia-coleta-v1 7688dffd (A5: robots, pausa e teto dentro do coletor) | 96925e68 |
+| — | portão: `micro_rede_real.py` declarado MANUAL_TOOL | a77e4451 |
+| 2 | coorte-unica-v1 790fb10f (G3; traz BC2 83ca6c60 e a história do cutover 5c02bbe4) | 1527bfbc |
+| — | `test_collection_gate`: precedência da D9 (IT-T12-095) | df815108 |
+| 3 | bot-impasse-v1 d4879316 (B4) | 73bfd089 |
+| — | know-how §215-§220 · métricas · mapa | 80ff7550 · … · e642c52a |
+| — | `PLANO-INSTALACAO-M5G.md` (passo I ensaiado, WRITESET M5G/R1/B5) · mapa | e411bdd7 · f24a459f |
+
+## ENTREGA-G
+
+```
+PONTAS JUNTAS     = 3 (+2 dentro): A5, G3 (com BC2), B4
+FORA (nomeado)    = P1b f5123e23 · P2 52a64e48 · YT3 ffb6e971: as candidatas novas usam numeros
+                    CAND que a producao ja deu a OUTRAS candidatas — 164/164, 29/29, 14/14 (YT3: 3
+                    enderecos ja na fila). Juntar punha dois CPFs iguais na fila. Falta: cada lane
+                    re-regista pela porta (candidatas/fonte_nova.py registar) sobre a fila de hoje.
+                  = SOC5 97728444: assenta em SOC2/SOC3 sem a retirada da 6.a passagem (worker.py,
+                    rota_do_scrap_youtube.py, prova de roteamento so funcionam com esse codigo).
+                  = R1 reparo-fontes-v1: a missao manda esperar o SHA de instalada no vivo; e o
+                    WRITESET dela reintroduz SOC2 no vivo (ver o plano).
+                  = P1 e20eb0ec (trava Vet/IZS): funcao nova; as 34 Vet/IZS estao na f5123e23,
+                    que ficou fora pela colisao de CAND.
+CONFLITOS         = 0 de codigo. architecture.declared.json por uniao a 3 vias por id de peca
+                    (A5: C-PROVA-CORTESIA + C-IT-COLETA; G3: C-COORTE-BIG-COLLECTION).
+DEFEITOS          = 2, corrigidos so em testes/declaracao (sem funcao nova):
+                    14. A5: a docstring de micro_rede_real.py passou a citar o coletor -> caminho
+                        sem classificacao no portao -> o red team da ponte saia com base vermelha.
+                        Declarado MANUAL_TOOL (ferramenta a mao, Sala descartavel).
+                    15. G3 (ja vermelho em 790fb10f): IT-T12-095 tem revisao humana E esta
+                        RETIRADA_POR_DECISAO (D9: «hub de sitios regionais», no contrato). O portao
+                        recusa pela retirada, que e a primeira porta. O teste passa a aceitar essa
+                        excepcao SO com a marca no contrato. Mutacoes: desligar revisao -> 11 FAIL;
+                        desligar a retirada -> FAIL em IT-T12-095. Livro vivo intocado.
+SUITE             = UMA vez, em f24a459f (~1h10): curadoria/ Ran 596, 1 vermelho · tests/ Ran 5060,
+                    97 vermelhos por nome. Contra a 6.a (de4dec2b: 0 e 91), por nome:
+                    SAIRAM 4 — os da SOC3 (dialeto psql, migration nova, migration executada, SQL da
+                    Sala fora do dono): a SOC3 saiu da linha.
+                    ENTRARAM 11, NENHUM nasce de uma juncao desta passagem com codigo novo:
+                     4 ja conhecidos da M5F (Reels, falham na propria lane nesta maquina):
+                       c10_6 P11 · cadeia_do_audio_offline 04, 05, 12
+                     4 do Scrap, vermelhos NA PROPRIA lane dos Reels aceite (233638e3), em c57987a4
+                       e em a8812861: scrap_flow01 rt01/rt02 · scrap_rc01 ns1/ns6. Estavam na
+                       linha desde a M5F e ESCAPARAM a medicao de entao (a suite nao correu de novo
+                       depois dos Reels). Declarado aqui.
+                     3 da G3, vermelhos na propria 790fb10f: testes presos a um retrato do livro
+                       real, que a G3 trocou pelo da producao —
+                       test_micro_coleta_instrumento: IT-T10-022 ja nao esta READY
+                       («GATE:ESTADO_NAO_READY») e o filtro da 3b de IT-T7-043 nao rebenta;
+                       curadoria test_reconciliar_livros.test_zy_censo: 985 != 1003.
+                    Mais um, so com os livros vivos (nao aparece na suite): test_nivel_da_fila.test_5
+                    (B4) da 4 != 0 tambem no vivo SEM instalar nada.
+NEW_RED_BY_NAME   = 0 vindo do codigo desta passagem. 11 novos por nome contra a ultima suite
+                    inteira, todos herdados e medidos na lane de origem (acima). Nao os escondo:
+                    NAO SEI se o coordenador aceita os 3 da G3 como «retrato do livro»; a decisao
+                    de os reescrever e do dono da micro (A2) e da reconciliacao.
+PROVAS_COPIA      = A5: cortesia_http_local 30/0 · red team cortesia 17/17 · recollection 16/14/8 ·
+                    incrementalidade 31/0 · test_cortesia + test_micro_rede_real 10 OK ·
+                    red team da ponte 17/17 (base verde) — em 96925e68 e outra vez em 73bfd089.
+                    G3: onboardar + integracao_04a 39 OK · italy_contract_test com as MESMAS 98
+                    linhas de falha antes e depois (por nome). B4: impasse + nivel da fila +
+                    gatilhos + ponte de candidatas OK.
+                    Achado sem conserto (funcao nova proibida): o red team da ponte escreve
+                    IT-T99-001 em italy_contracts_curator.json da copia (desde a M5F) — so em copia.
+KNOW_HOW_TABLE    = §215 A5 (era §199) · §216 BC1 · §217 BC2 · §218 G3 (sem numero) ·
+                    §219 B4 (era §205) · §220 micro A1 (sem numero desde 004c6cc7).
+                    Nada apagado. Proximo livre: §221.
+SYSTEM_MAP_CHECK  = PASS
+PLANO             = PLANO-INSTALACAO-M5G.md — ensaio em copia fiel do vivo: 0 conflitos, 13
+                    livros iguais byte a byte, arvore = FINAL, rollback por `git reset --keep`
+                    provado (bot e ponte). WRITESET: M5G 176 ficheiros no bot / 182 na ponte, 0
+                    livros; R1 20 ficheiros (5 ja iguais saem) + SOC2; B5 0. NAO instalado.
+FINAL_HEAD        = na entrega
+```
