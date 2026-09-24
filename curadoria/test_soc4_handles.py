@@ -52,9 +52,16 @@ class AsFormas(unittest.TestCase):
         self.assertEqual(RH.forma("https://www.youtube.com/watch?v=abc"), "OUTRO")
 
     def test_as_35_da_porta_real(self):
+        # SOC4 mediu 35 pendentes / 31 resolviveis em 23/09. A porta continua a
+        # receber candidatas (24/09: 42), e por isso o que se fixa e o piso e a
+        # coerencia com o registo da corrida, nao a fotografia do dia.
         p = RH.pendentes()
-        self.assertEqual(len(p), 35)
-        self.assertEqual(sum(c["FORMA"] in RH.RESOLVIVEIS for c in p), 31)
+        self.assertGreaterEqual(len(p), 35)
+        self.assertGreaterEqual(sum(c["FORMA"] in RH.RESOLVIVEIS for c in p), 31)
+        urls = {c["URL"] for c in p}
+        feitas = json.loads(RSY.RESOLUCAO.read_text(encoding="utf-8"))["LINHAS"]
+        self.assertTrue(all(l["URL"] in urls for l in feitas),
+                        "cada linha da resolucao e de uma candidata que a porta ainda tem")
 
 
 class OResolvedor(unittest.TestCase):
@@ -124,7 +131,8 @@ class OQualifyLeAResolucao(unittest.TestCase):
         doc = FN.carregar()
         doc["CANDIDATAS"].append({"CANDIDATA_ID": cand, "TIPO": "YOUTUBE",
                                   "NOME": "Consorzio Tutela Vini — Youtube ufficiale", "URL": url,
-                                  "PAIS": "IT", "ESTADO": "EM_ANALISE", "SOURCE_ID": None})
+                                  "PAIS": "IT", "ESTADO": "EM_ANALISE", "SOURCE_ID": None,
+                                  "ONDE_VIU": "declarado no site oficial do dono: https://www.vini.example.it/"})
         FN.gravar(doc)
         F.enfileirar(cand, F.QUALIFY, priority=30, motivo="teste")
         return W.correr(max_tarefas=1, pausa=0, verboso=False)[0]

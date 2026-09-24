@@ -92,8 +92,8 @@ def route_resolved(c: dict) -> tuple[bool, str]:
         # Scrap deixar de a declarar (ou a matriz deixar de a permitir), o
         # contrato reprova ANTES de chegar a fila — sem rede, sem gasto.
         sys.path.insert(0, str(RAIZ / "curadoria"))
-        import rota_do_scrap_youtube as RSY
-        return RSY.conferir(aq)
+        import rota_do_scrap_social as RSS
+        return RSS.conferir(aq)
     return False, "estrategia nao coberta"
 
 

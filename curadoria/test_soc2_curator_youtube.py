@@ -98,7 +98,9 @@ class _Lane(unittest.TestCase):
     def _qualify(self, cand, nome, url):
         doc = FN.carregar()
         doc["CANDIDATAS"].append({"CANDIDATA_ID": cand, "TIPO": "YOUTUBE", "NOME": nome,
-                                  "URL": url, "PAIS": "IT", "ESTADO": "EM_ANALISE", "SOURCE_ID": None})
+                                  "URL": url, "PAIS": "IT", "ESTADO": "EM_ANALISE", "SOURCE_ID": None,
+                                  # SOC-ONDA2: identidade provada = o site oficial aponta para o canal
+                                  "ONDE_VIU": "declarado no site oficial do dono: https://www.vini.example.it/"})
         FN.gravar(doc)
         F.enfileirar(cand, F.QUALIFY, priority=30, motivo="teste")
         return W.correr(max_tarefas=1, pausa=0, verboso=False)[0]
