@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ae465951a46ae047358b225e9d4429e2f3d3bd55
+HEAD_DA_MEDICAO  8ec6be4d2b3dddadb77537d32e242a83d1619dcf
 BRANCH           pessoas-docentes-v1
-GERADO_EM        2026-09-24T14:23:42-03:00
+GERADO_EM        2026-09-24T14:27:27-03:00
 CARDS            93
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1770,7 +1770,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/pessoas_docentes/DECISOES-P5-V1.json`, `scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json`, `scripts/pessoas_docentes/SEMENTES-P5.json`, `scripts/pessoas_docentes/pessoas_docentes.py` |
+| **peça real** | `scripts/pessoas_docentes/DECISOES-P5-V1.json`, `scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json`, `scripts/pessoas_docentes/EVIDENCIA-P5.json`, `scripts/pessoas_docentes/SEMENTES-P5.json`, `scripts/pessoas_docentes/evidencia/15dbef1200315d9b.html` _(e mais 8)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
