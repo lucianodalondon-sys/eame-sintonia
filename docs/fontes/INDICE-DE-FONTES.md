@@ -18,8 +18,8 @@ sabe buscar sozinha.
 | fichas completas no atlas | **297** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
-| endereços que o código realmente chama | **795** |
-| desses, publicados no mapa | **40** (truncados: 755) |
+| endereços que o código realmente chama | **797** |
+| desses, publicados no mapa | **40** (truncados: 757) |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
@@ -40,7 +40,7 @@ gente: nenhum degrau se sobe sozinho.
 
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
-| 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **222** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
+| 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **223** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
 | 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **260** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
 | 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
@@ -58,7 +58,7 @@ py candidatas/fonte_nova.py \
     --para-que "para que serve" --quem-viu voce --onde-viu "onde viu"
 ```
 
-Hoje há **1128** candidata(s) na fila,
+Hoje há **1129** candidata(s) na fila,
 em `candidatas/FONTES-CANDIDATAS.json`.
 
 `--para-que` é obrigatório de propósito: fonte sem uso declarado vira

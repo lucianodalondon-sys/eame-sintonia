@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T18:53:41+00:00",
-    "HEAD": "89ac30176ae414ef5663fd3be0f39586f5bf93bd",
+    "GENERATED_AT": "2026-09-24T19:44:44+00:00",
+    "HEAD": "729406c646f83e0efd7e77825b467ef5ec55c18d",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "52dfcc5e2fe885d29b76489d5e4fde43a1b9d76d0ad7d2088d0196f43c97a675",
-    "FICHEIROS_NA_IMPRESSAO": 2994,
+    "SOURCE_TREE_FINGERPRINT": "98dcac48d4247017f81a72220f7496d3fc9a1175f4a0ad51e5489c500b4df552",
+    "FICHEIROS_NA_IMPRESSAO": 2997,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "candidatas/FONTES-CANDIDATAS.json",
         "PAPEL": "FONTE",
-        "VERSAO": "991122ae109f35c4e150d2f9c72a0cd10ae4a2ba",
+        "VERSAO": "d182dbb06f5080f4c97274586803e162903934e4",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "a_fila() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "21db2c5ab2fca8b3cddee19db9dffe38cc4dbfe2f54e209ca2418152b188cc7b",
+    "INPUTS_DIGEST": "0b914a3fdecce521ba68c6e2509bba22a33cfb4990eb9219a36574e671b2bea0",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -10556,7 +10556,7 @@
         "degrau": 1,
         "nome": "CANDIDATA",
         "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-        "quantas": 222,
+        "quantas": 223,
         "onde": "candidatas/FONTES-CANDIDATAS.json",
         "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
       },
@@ -10587,7 +10587,7 @@
     ],
     "por_tipo": {
       "BASE_OFICIAL": 348,
-      "CIENCIA": 83,
+      "CIENCIA": 84,
       "FACEBOOK": 20,
       "IMPRENSA": 25,
       "INSTAGRAM": 25,
@@ -16827,6 +16827,22 @@
         "ONDE_VIU": "https://www.unifi.it/dipartimenti/dagri",
         "QUANDO": "2026-09-24",
         "NOTA": "DISCOVERED_FROM=https://www.unifi.it/dipartimenti/dagri | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:43:21.743144+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1 | RE-REGISTADA_DE=pesquisadores-v1 CAND-0485 (M5G: o CAND-id colidia com a producao)",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-1129",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "DIBAF — Innovazione nei sistemi biologici, agroalimentari e forestali, Univ. Tuscia",
+        "URL": "https://www.unitus.it/dipartimenti/dibaf/",
+        "PARA_QUE_SERVE": "ricerca agroalimentare e forestale Viterbo",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.unitus.it/ateneo/aq/attori-dell-assicurazione-qualita/dipartimenti-e-altre-strutture-di-ricerca/",
+        "QUANDO": "2026-09-24",
+        "NOTA": "DISCOVERED_FROM=https://www.unitus.it/ateneo/aq/attori-dell-assicurazione-qualita/dipartimenti-e-altre-strutture-di-ricerca/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-24T19:08:37.666061+00:00 | DISCOVERED_HTTP=200 | PROVA=mesmo padrao /dipartimenti/<sigla>/ do DAFNE ligado pela pagina oficial da Tuscia | TITULO=DIBAF - Unitus | MISSAO=PESQUISADORES-P1B",
         "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
@@ -34712,9 +34728,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 795,
+  "ENDPOINTS_FOUND": 797,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 755,
+  "ENDPOINTS_TRUNCATED": 757,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -34732,10 +34748,10 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 795,
+    "endpoints": 797,
     "endpoints_published": 40,
-    "endpoints_truncated": 755,
-    "candidates": 1128,
+    "endpoints_truncated": 757,
+    "candidates": 1129,
     "coletores": 54,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,
