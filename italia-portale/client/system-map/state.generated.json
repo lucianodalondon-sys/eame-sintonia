@@ -2495,6 +2495,7 @@
       "scripts/regua_t2/MEDICAO-REGUA-T2-V1.json",
       "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
       "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+      "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
       "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
       "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
       "scripts/regua_t2/PROVA-D29-PORTA-CANONICA-OFFLINE.json",
@@ -2503,6 +2504,7 @@
       "scripts/regua_t2/RECOLHA-BOLETINS-V3.json",
       "scripts/regua_t2/inventariar_t2.py",
       "scripts/regua_t2/medir_regua_t2.py",
+      "scripts/regua_t2/medir_via_agrometeo.py",
       "scripts/regua_t2/montar_gabarito_t2.py",
       "scripts/regua_t2/mutar_regua_t2.py",
       "scripts/regua_t2/portao_t2.py",
@@ -3430,9 +3432,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t2-v1",
-    "HEAD": "087a61f710691f1db51087cac9622e9030ccd201",
-    "GENERATED_AT": "2026-09-24T16:09:00-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7ee7405dcf4e12a0ee81558bb006fc943855a2b6d6c7a2dbc996d052063cae56"
+    "HEAD": "1d33589e96ada2f69fe150af8a7d23942ce4c176",
+    "GENERATED_AT": "2026-09-24T16:31:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e40320ee49c80abe53fe80e8f74539ae35713a149a1b83e8c49c77618edf7f48"
   },
   "FAMILIES": [
     {
@@ -49950,6 +49952,7 @@
         "scripts/regua_t2/MEDICAO-REGUA-T2-V1.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+        "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
         "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
         "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
         "scripts/regua_t2/PROVA-D29-PORTA-CANONICA-OFFLINE.json",
@@ -49958,6 +49961,7 @@
         "scripts/regua_t2/RECOLHA-BOLETINS-V3.json",
         "scripts/regua_t2/inventariar_t2.py",
         "scripts/regua_t2/medir_regua_t2.py",
+        "scripts/regua_t2/medir_via_agrometeo.py",
         "scripts/regua_t2/montar_gabarito_t2.py",
         "scripts/regua_t2/mutar_regua_t2.py",
         "scripts/regua_t2/portao_t2.py",
@@ -49970,7 +49974,7 @@
         "scripts/regua_t2/rotulos/rotulos-recolha.tsv",
         "scripts/regua_t2/rotulos/rotulos.tsv"
       ],
-      "file_count": 25,
+      "file_count": 27,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -49999,13 +50003,14 @@
           "FONTES",
           "M",
           "OFFLINE",
+          "PASTAS",
           "PDFS_IDA3",
           "SITES",
           "SITES_IDA2"
         ],
-        "palavras": 128,
+        "palavras": 142,
         "por_lingua": {},
-        "sem_marca_de_lingua": 128,
+        "sem_marca_de_lingua": 142,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -50071,6 +50076,7 @@
         "orquestrador/orquestrador.py",
         "scripts/regua_t2/GABARITO-T2-V2.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+        "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
         "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
         "scripts/regua_t2/RECOLHA-BOLETINS-V1.json",
         "scripts/regua_t2/RECOLHA-BOLETINS-V2.json",
@@ -60456,11 +60462,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 1 linha de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/regua_t2/medir_regua_t2.py",
           "line": 34,
+          "snippet": "import admissao as A  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T2-JANELA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-REGUA-T2-JANELA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/regua_t2/medir_via_agrometeo.py",
+          "line": 24,
           "snippet": "import admissao as A  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T2-JANELA",
@@ -124248,8 +124270,8 @@
     "edges_proven": 1217,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2836,
-    "files_covered": 1257,
+    "files_tracked": 2838,
+    "files_covered": 1259,
     "files_code_unclaimed": 0,
     "roles_proven": 164,
     "roles_declared_only": 8,

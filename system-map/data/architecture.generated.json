@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t2-v1",
-    "HEAD": "087a61f710691f1db51087cac9622e9030ccd201",
-    "GENERATED_AT": "2026-09-24T16:09:00-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7ee7405dcf4e12a0ee81558bb006fc943855a2b6d6c7a2dbc996d052063cae56"
+    "HEAD": "1d33589e96ada2f69fe150af8a7d23942ce4c176",
+    "GENERATED_AT": "2026-09-24T16:31:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e40320ee49c80abe53fe80e8f74539ae35713a149a1b83e8c49c77618edf7f48"
   },
   "FILES": [
     {
@@ -612,7 +612,7 @@
     },
     {
       "path": "RELATORIO-T2-REGUA.md",
-      "sha": "6b294ce82d5ec277ca58c8bd866af01e9fefa7a6",
+      "sha": "a76126939eb5271007483939b7e5dc86c1f375b5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17019,6 +17019,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
+      "sha": "4d10c066b16b5049cdc56462f08372270b99a0aa",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/regua_t2/MUTACAO-REGUA-T2-V2.json",
       "sha": "6f9f58cb65189b1cba199d5e2bbb9564f5921d23",
       "ext": ".json",
@@ -17070,6 +17077,13 @@
     {
       "path": "scripts/regua_t2/medir_regua_t2.py",
       "sha": "16d37e4ea0df9f3b0777d826e32657275c9f1d23",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t2/medir_via_agrometeo.py",
+      "sha": "269ab4a502470af338224a34535c4cdce36b2e67",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17748,7 +17762,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "672c725fd05af893988ca1fc75aacbc08e00ab79",
+      "sha": "4e560836d865fd04a055714e70edfb58342d7487",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -60684,6 +60698,39 @@
       }
     },
     {
+      "from_file": "scripts/regua_t2/medir_via_agrometeo.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_t2/medir_via_agrometeo.py",
+        "line": 24,
+        "snippet": "import admissao as A  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t2/medir_via_agrometeo.py",
+      "to_file": "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/medir_via_agrometeo.py",
+        "line": 30,
+        "snippet": "SAIDA = Path(__file__).parent / \"MEDICAO-VIA-AGROMETEO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/regua_t2/medir_via_agrometeo.py",
+      "to_file": "scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t2/medir_via_agrometeo.py",
+        "line": 64,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10), encoding=\"utf-8\", newline=chr(10))"
+      }
+    },
+    {
       "from_file": "scripts/regua_t2/montar_gabarito_t2.py",
       "to_file": "scripts/regua_t2/GABARITO-T2-V1.json",
       "type": "WRITES",
@@ -82619,10 +82666,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2836,
-    "files_readable": 1290,
-    "files_code_dir": 1147,
-    "file_edges": 5652,
+    "files_tracked": 2838,
+    "files_readable": 1291,
+    "files_code_dir": 1149,
+    "file_edges": 5655,
     "escritas_em_pasta": 85,
     "declared_missing_here": 0
   },
