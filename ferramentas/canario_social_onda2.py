@@ -21,7 +21,7 @@ WT = r"C:\soc2\copia"
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ESTADO = os.path.join(AQUI, "banco.json")
 RES = os.path.join(AQUI, "resultados.json")
-PG = r"C:\Users\London1\orca\pgtmp\pgsql\bin"
+PG = os.path.join(os.path.expanduser("~"), "orca", "pgtmp", "pgsql", "bin")
 APELIDO = {"T1": "culturas", "T2": "clima", "T3": "pragas", "T4": "regulatorio", "T5": "ciencia",
            "T7": "cooperativas", "T8": "agricultores", "T9": "concorrentes", "T10": "mercado",
            "T11": "feiras", "T12": "politica", "T13": "distribuidores"}

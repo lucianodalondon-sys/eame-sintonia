@@ -157,7 +157,7 @@ def avaliar(source_id: str, *, livro: dict | None = None,
         linha["MOTIVO"] = NUNCA_PROMOVIDA
         linha["PORQUE"] = "esta READY sem nenhuma linha de promocao no livro"
         return linha
-    if regua != RS.REGUA_CURRENT:
+    if regua not in RS.REGUAS_QUE_ADMITEM:
         linha["MOTIVO"] = READY_LEGACY
         linha["PORQUE"] = ("promovida pela regua antiga (%s); a regua de hoje e "
                            "%s — item aberto, retratado e com corpo util"
@@ -170,7 +170,7 @@ def avaliar(source_id: str, *, livro: dict | None = None,
     linha["COLLECTION_ELIGIBLE"] = True
     linha["MOTIVO"] = ELEGIVEL
     linha["PORQUE"] = ("READY_CURRENT pela regua %s, sem pedido de olho humano"
-                       % RS.REGUA_CURRENT)
+                       % regua)
     return linha
 
 

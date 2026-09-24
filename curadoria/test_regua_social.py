@@ -90,5 +90,30 @@ class OAutor(unittest.TestCase):
         self.assertIn("nenhuma palavra", p)
 
 
+class OPortaoConheceARegua(unittest.TestCase):
+    """ready_split/collection_gate: a promocao social so vale pelo veredito da regua social."""
+
+    def setUp(self):
+        import ready_split as RS
+        self.RS = RS
+        self.promo = {"OBSERVED_AT": "2026-09-24T14:30:00+00:00", "EVIDENCE_REF": "EV-X"}
+        self.social = {"ACQUISITION": {"STRATEGY": "SCRAP_FASE", "FASE": FASE}}
+
+    def test_veredito_ready_da_fase_do_contrato_e_social(self):
+        r = self.RS.passos_da_promocao(self.promo, {"DADOS": {"VEREDITO": "READY", "FASE": FASE}}, self.social)
+        self.assertEqual(r["REGUA"], self.RS.REGUA_SOCIAL)
+        self.assertIn(r["REGUA"], self.RS.REGUAS_QUE_ADMITEM)
+
+    def test_sem_veredito_ou_de_outra_fase_e_legacy(self):
+        for dados in ({}, {"VEREDITO": "ZERO", "FASE": FASE}, {"VEREDITO": "READY", "FASE": "canal-youtube"}):
+            r = self.RS.passos_da_promocao(self.promo, {"DADOS": dados}, self.social)
+            self.assertEqual(r["REGUA"], self.RS.REGUA_LEGACY, dados)
+
+    def test_contrato_html_nao_se_promove_pela_regua_social(self):
+        html = {"ACQUISITION": {"STRATEGY": "HTML_LINK_DISCOVERY", "INDEX_URL": "https://x.it/news"}}
+        r = self.RS.passos_da_promocao(self.promo, {"DADOS": {"VEREDITO": "READY", "FASE": FASE}}, html)
+        self.assertEqual(r["REGUA"], self.RS.REGUA_LEGACY)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
