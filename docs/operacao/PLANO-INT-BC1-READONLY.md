@@ -294,3 +294,123 @@ agronómico, risco de cultura ou recomendação técnica.
 - se `FACT_TIME` continua `NAO SEI` (expectativa, não facto);
 - os critérios A..N da trava depois de 2026-09-08 (dono: o contrato da trava);
 - o teste do motor (`test_a_primeira_corrida_da_inteligencia.py`) — não corrido (RAM).
+
+---
+
+## ANEXO A · DATA DEMAND CONTRACT — `CAP-WIN` (janelas de cultura)
+
+```text
+ESTADO        = PROPOSTA / NOT_ACTIVE
+ORIGEM        = adendo D29 (bot Luciano, delegação do dono, 24/09 12:45)
+O QUE D29 FAZ = orienta a COLLECTION (janelas de cultura viram prioridade de dados)
+O QUE NÃO FAZ = destravar a Intelligence. A §32 continua como está, e bloqueada pela TRAVA.
+```
+
+Este anexo **não** é execução, código, crossing, finding, judgment, opportunity nem Portal.
+É a lista do que a capacidade `CAP-WIN` vai **pedir** à Collection no dia em que puder
+existir — escrita agora para que a Collection saiba o que preservar desde já. A Collection
+preserva o que a fonte disse e decide **como**; **não** decide `ACT_NOW`.
+
+Dono da definição da capacidade: Bíblia V0.3, bloco `CAP-WIN` («AGRONOMIC / CROP WINDOW
+INTELLIGENCE»). Nada abaixo a altera; só a desdobra em procura de dados.
+
+### A.1 · A pergunta analítica
+
+> **Nesta cultura e nesta região, qual é a janela em que agir ainda faz diferença?**
+> (Bíblia, `CAP-WIN.BUSINESS_QUESTION`)
+
+Saída prevista, quando autorizada: `ANALYTIC_JUDGMENT` de janela com estado temporal
+(`ACT_NOW · PLAN_NEXT_CYCLE · MONITOR · STALE_FOR_ACTION · UNKNOWN_WINDOW`, INT-LAW-105 —
+taxonomia ainda candidata). Sem janela factual suficiente: `ACT_NOW = NOT_PROVED`
+(INT-LAW-104).
+
+### A.2 · Chaves de junção
+
+```text
+CROP_ID  x  REGION_ID  x  PHENOLOGY_STAGE  x  TIME_WINDOW
+```
+
+Falta uma → o crossing é `NOT_POSSIBLE` com a chave nomeada (INT-LAW-091). Nunca se tira a
+chave do corpo do texto para fechar a junção (foi o que o piloto R2 recusou, e bem).
+
+### A.3 · As quatro famílias e o que cada uma traz
+
+| família | o que responde na janela | tipo de fonte IT (exemplo, não compromisso) | na 1.ª onda |
+|---|---|---|---|
+| **agronómica** | cultura, fase fenológica observada, praga/doença, tema operacional | boletins fitossanitários regionais (T3) | **0 fontes** (0 T3 na coorte) |
+| **climática** | condição que abre/fecha/desloca a janela (graus-dia, chuva, humidade) | ARPA regionais (T2) | 2 fontes (IT-T2-034, IT-T2-051), **0 itens admitidos** |
+| **rótulo** | o que pode ser aplicado, em que cultura, em que fase, com que intervalo | rótulos ADAMA (`referencia/adama/AUTHORIZED-USES.json`) e registo ministerial | referência existente; não é coleta da onda |
+| **regulatória** | restrição de aplicação (fase, período, zona, derrogação) | Ministero / regiões | **NOT_MEASURED** |
+
+### A.4 · Crossings necessários (propostos, NÃO executados)
+
+| # | crossing | pergunta que responde | chaves |
+|---|---|---|---|
+| X1 | agronómica × climática | a fase observada nesta região está a ser antecipada/atrasada pelo tempo deste ano? | CROP_ID, REGION_ID, PHENOLOGY_STAGE, TIME_WINDOW |
+| X2 | agronómica × rótulo | há uso autorizado para esta cultura **nesta fase**? | CROP_ID, PHENOLOGY_STAGE (+ alvo) |
+| X3 | rótulo × regulatória | alguma restrição fecha a janela que o rótulo abriria? | CROP_ID, REGION_ID, TIME_WINDOW |
+| X4 | janela × janela (anos) | esta janela é **deste** ano ou foi herdada de outro? | CROP_ID, REGION_ID, safra/ciclo |
+
+X4 existe por causa do `MUST_NOT_DO` da Bíblia: *tratar janela de um ano como janela deste*.
+Correlação entre X1..X3 **não** vira causa (INT-LAW-095).
+
+### A.5 · Estado da prova (tudo por medir)
+
+| grandeza | agronómica | climática | rótulo | regulatória |
+|---|---|---|---|---|
+| `DATA_EXISTS` | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN |
+| `DATA_QUERIED` | NOT_MEASURED | NOT_MEASURED | NOT_MEASURED | NOT_MEASURED |
+| `DATA_CAN_JOIN` | NOT_MEASURED | NOT_MEASURED | NOT_MEASURED | NOT_MEASURED |
+| `DATA_SUPPORTS_ANALYSIS` | NOT_MEASURED | NOT_MEASURED | NOT_MEASURED | NOT_MEASURED |
+
+⚠️ «Existe um ficheiro de rótulos no repo» **não** é `DATA_EXISTS = SIM` para esta pergunta:
+o que conta é o uso com cultura **e fase** e versão de registo, e isso não foi medido.
+A Bíblia diz que `CAP-WIN` é hoje a única superfície do Portal `ALIMENTADO_POR_REAL`; isso
+é afirmação dela sobre o Portal, **não** prova de que os dados acima existem ou juntam.
+
+### A.6 · Campos mínimos que a Collection deve preservar em cada item de janela
+
+Coluna «no contrato READY hoje» = lido no código (`provas/espinha_da_intelligence.py`,
+`CAMPOS_DO_READY`, 19 campos, e `admissao/sala_de_espera.py`), **não** medido na Sala.
+Estar no contrato ≠ vir preenchido.
+
+| # | campo mínimo | para quê | no contrato READY hoje |
+|---|---|---|---|
+| 1 | `ITEM_ID` | identidade do item | sim |
+| 2 | `SOURCE_ID` | quem publicou | sim |
+| 3 | `COLLECTION_RUN_ID` | que corrida trouxe | sim, como `CORRIDA` |
+| 4 | `RAW_OBSERVATION_ID` + sha256 dos bytes | linhagem até o bruto | id sim; **sha não atravessa** (fica no `raw_asset`) |
+| 5 | trecho/página exata de onde vem a janela | provar o que a fonte disse, não o resumo | **não** |
+| 6 | texto original | reler | sim (`TEXTO`) |
+| 7 | idioma | o instrumento da micro mede-o (C9), mas **não** o grava no item | **não** |
+| 8 | proveniência (url, captured_at, quem admitiu) | auditoria | parcial (`CAPTURED_AT`, `ADMITIDO_POR`) |
+| 9 | `CROP_ID` + nome original da cultura | chave 1 | **não** (é o gargalo `CROP` da R2) |
+| 10 | `REGION_ID` / `FACT_LOCATION` + precisão + base | chave 2 — **nunca** herdar `SOURCE_LOCATION` (INT-LAW-101) | `FACT_LOCATION` + `FACT_LOCATION_BASIS` sim; `REGION_ID` e precisão **não** |
+| 11 | `PHENOLOGY_STAGE` + expressão original + evidência | chave 3 — a fenologia manda, não o calendário | **não** |
+| 12 | janela = intervalo (início, fim) + safra/ciclo/ano de referência + precisão | chave 4 — **não** uma data solta | **não** |
+| 13 | `FACT_TIME`, `PUBLISHED_AT`, `OBSERVED_AT`, `COLLECTED_AT` separados | INT-LAW-100 | sim os quatro (`COLLECTED_AT` = `CAPTURED_AT`) |
+| 14 | tema operacional (praga/doença, tratamento, sementeira, colheita, rega, …) | o que a janela abre | **não** |
+| 15 | contexto climático, quando aplicável | X1 | **não** |
+| 16 | restrição de rótulo/regulatória, quando aplicável | X2, X3 | **não** |
+| 17 | valor original + valor normalizado + regra/versão da normalização | normalizar sem apagar a origem (INT-LAW-080/082/084) | **não** |
+| 18 | `UNKNOWN` quando não provado | não preencher o que a fonte não disse | sim, como convenção `NAO SEI` |
+
+`FATO` (o envelope do facto) pode já carregar alguns destes; **NOT_MEASURED** — não o li
+na Sala.
+
+### A.7 · Gaps que voltam à Collection (escritos, não despachados — INT-LAW-020)
+
+| gap | o que falta | prova que existe hoje |
+|---|---|---|
+| `GAP-WIN-01` | nenhuma fonte agronómica (T3) na coorte da 1.ª onda | coorte congelada: 0 de 18 |
+| `GAP-WIN-02` | `CROP_ID` não é campo do READY | contrato de 19 campos; R2: cultura só no texto (`LOST_IN_DERIVATION`) |
+| `GAP-WIN-03` | nos boletins T3 a cultura vem como coluna, título de tabela **ou ícone sem texto** | medido em 20/09 nos bytes de 3 boletins (Salerno, APOL, ARIF): extrair texto não chega |
+| `GAP-WIN-04` | `PHENOLOGY_STAGE` e a janela (intervalo + safra) não têm campo | contrato de 19 campos |
+| `GAP-WIN-05` | `FACT_TIME` e `FACT_LOCATION` chegavam `NAO SEI` | R2 (20/09): 46/46 em ambos; depois da onda **NOT_MEASURED** |
+| `GAP-WIN-06` | `PUBLISHED_AT` pode ser a hora da nossa visita (metadados do site reescritos a cada pedido) | medido 21/09: 83 de 85 documentos «mudaram» só pelo carimbo |
+| `GAP-WIN-07` | trecho/página, idioma e sha não atravessam para o item | contrato de 19 campos; idioma medido só pelo instrumento C9 |
+| `GAP-WIN-08` | as climáticas (T2) correram na onda e não admitiram nada | prova BC5: IT-T2-034 e IT-T2-051 sem SIM |
+| `GAP-WIN-09` | restrição regulatória por fase/zona: nenhuma fonte identificada | NOT_MEASURED |
+
+Nenhum destes gaps é pedido a um coletor pela Intelligence: vão pela Collection canónica
+(`COLLECTION_GAP_REQUEST → orquestrador → …`), e é a Collection que decide rota e ordem.
