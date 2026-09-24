@@ -1264,6 +1264,11 @@ def observacoes_confirmadas(run: dict, linhas: list, pos_escrita: dict) -> list:
             #
             #     RAW_OBSERVATION_ID = raw_asset.id, E MAIS NADA.
             PASSAGENS: list(alcas.get(ident) or []),
+            # V1A: o ENDERECO de onde vieram os bytes. `raw_asset.source_url`
+            # e escrito por esta peca e `objetos_da_corrida()` ja o le nas
+            # duas implementacoes. A porta precisa dele para a V1 (a pagina e
+            # o INDEX_URL do contrato?). Ausente continua ausente (None).
+            "SOURCE_URL": linha.get("source_url"),
         })
     return fora
 

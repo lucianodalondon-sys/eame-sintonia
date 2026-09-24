@@ -1,0 +1,137 @@
+{
+ "EGRESS_GATE_BEFORE": {
+  "VALOR": "PASS",
+  "PORQUE": "o portao do dono (superficie/rede.py), ANTES de qualquer pedido"
+ },
+ "EGRESS_COUNTRY_BEFORE": {
+  "VALOR": "IT",
+  "PORQUE": "medido na hora, e nao o que a missao dizia"
+ },
+ "MATRIZ_DECISAO": {
+  "VALOR": "ALLOWED",
+  "PORQUE": "sem estagio nenhum nesta corrida"
+ },
+ "MATRIZ_ROTA": {
+  "VALOR": "apify:transcricao",
+  "PORQUE": "a rota provada que a matriz declara"
+ },
+ "OEMBED_HTTP": {
+  "VALOR": 200,
+  "PORQUE": "a plataforma respondeu a convidado, sem chave"
+ },
+ "PLATAFORMA_DECLARA_TITULO": {
+  "VALOR": "Monitoraggio dell'Oliveto con xFarm: l'esperienza di Dr. Agricultura 🫒",
+  "PORQUE": "titulo como a plataforma o serve"
+ },
+ "PLATAFORMA_DECLARA_CANAL": {
+  "VALOR": "xFarm",
+  "PORQUE": "quem publica, segundo a plataforma"
+ },
+ "PESSOA_ALVO": {
+  "VALOR": "Alessandro Giglietti · dr.agricultura",
+  "PORQUE": "identificada fora da plataforma, e nao por inferencia do handle"
+ },
+ "ROUTE": {
+  "VALOR": "yt-dlp:public_audio",
+  "PORQUE": "a rota que a matriz declara"
+ },
+ "EXECUTOR": {
+  "VALOR": "adaptador_youtube.youtube_audio_publico",
+  "PORQUE": "quem executou"
+ },
+ "LIMITE": {
+  "VALOR": "PUBLIC_AUDIO_ONLY",
+  "PORQUE": "o limite da rota"
+ },
+ "MEDIA_KIND": {
+  "VALOR": "AUDIO",
+  "PORQUE": "a especie do que veio"
+ },
+ "CONTENT_TYPE": {
+  "VALOR": "audio/wav",
+  "PORQUE": "declarado por quem mediu os bytes"
+ },
+ "AUDIO_BYTES": {
+  "VALOR": 5791320,
+  "PORQUE": "bytes de som medidos no ficheiro"
+ },
+ "AUDIO_SHA256": {
+  "VALOR": "d8564d4797c3341f6aae12fb4277b8425f9955eaeeff30dbcff340429f85b53c",
+  "PORQUE": "o hash que nao se finge"
+ },
+ "AUDIO_DURATION_S": {
+  "VALOR": 180.98,
+  "PORQUE": "duracao medida pelo dono do ffprobe"
+ },
+ "STREAMS_VIDEO": {
+  "VALOR": 0,
+  "PORQUE": "zero: o ficheiro e som, e chama-lo de video seria a 1a mentira"
+ },
+ "STREAMS_AUDIO": {
+  "VALOR": 1,
+  "PORQUE": "faixas de som"
+ },
+ "VIDEO_ID_DE_ORIGEM": {
+  "VALOR": "WOrq-i7JXJc",
+  "PORQUE": "o VIDEO fica preservado como PAI do som"
+ },
+ "COUNTRY_SCOPE": {
+  "VALOR": "IT",
+  "PORQUE": "o escopo declarado no objeto"
+ },
+ "SHA_CONFERIDO_NO_DISCO": {
+  "VALOR": true,
+  "PORQUE": "recalculado agora, fora do objeto"
+ },
+ "BYTES_NO_DISCO": {
+  "VALOR": 5791320,
+  "PORQUE": "o ficheiro existe e mede-se"
+ },
+ "VIDEO_BYTES": {
+  "VALOR": "NOT_RUN",
+  "PORQUE": "a matriz so declara audio para o YouTube; bytes de imagem = capability nova"
+ },
+ "TRANSCRIPT_STATE": {
+  "VALOR": "NOT_RUN",
+  "PORQUE": "transcrever e outra capacidade (ferramentas/youtube_transcrever.py), e a fila nao foi tocada"
+ },
+ "CUSTO_USD": {
+  "VALOR": 0.0,
+  "PORQUE": "rota gratuita por decisao do dono"
+ },
+ "EGRESS_GATE_AFTER": {
+  "VALOR": "PASS",
+  "PORQUE": "o mesmo portao do dono, DEPOIS"
+ },
+ "EGRESS_COUNTRY_AFTER": {
+  "VALOR": "IT",
+  "PORQUE": "a corrida INTEIRA saiu por IT?"
+ },
+ "EGRESSO_UNICO_NA_CORRIDA": {
+  "VALOR": true,
+  "PORQUE": "antes e depois dao o mesmo pais exigido"
+ },
+ "RESULTADO": {
+  "VALOR": "ADQUIRIDO",
+  "PORQUE": "o veredito desta corrida"
+ },
+ "_O_QUE_ISTO_E": "O video publico de um agronomo ITALIANO (a mesma pessoa do canario do Reel), adquirido pela rota PUBLIC_AUDIO_ONLY do YouTube, sem conta, sem login, sem cookie e por US$ 0. O que se mede sao os BYTES DE SOM: a matriz nao declara rota para os bytes de imagem do YouTube.",
+ "_COMO_REFAZER": "python provas/canario_d24_video_youtube_de_pessoa.py (com `python`, que tem yt-dlp — nao com `py`)",
+ "_PESSOA": {
+  "NOME_PUBLICO": "Alessandro Giglietti",
+  "HANDLE": "dr.agricultura",
+  "PAPEL": "dottore agronomo (laureado em Agraria, Univ. Firenze) — divulgador",
+  "PAPEL_EVIDENCIA": "a propria plataforma o nomeia na descricao da publicacao (canal xFarm); imprensa italiana (Gazzetta di Siena, Corriere.it) liga o handle a pessoa",
+  "MESMA_PESSOA_DO_CANARIO": "provas/canario_d24_reel_de_pessoa.py"
+ },
+ "_ALVO": "https://www.youtube.com/watch?v=WOrq-i7JXJc",
+ "_LIMITES": {
+  "SEM_CONTA": true,
+  "SEM_LOGIN": true,
+  "SEM_COOKIE": true,
+  "SEM_NAVEGADOR_LOGADO": true,
+  "SEM_ROTA_PAGA": true,
+  "SEM_CONTORNAR_MURO": true,
+  "SO_PUBLICO": true
+ }
+}

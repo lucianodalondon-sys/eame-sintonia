@@ -119,6 +119,17 @@ def permitido(url):
         return False, 'robots.txt ilegível deste host — não afirmamos permissão que não lemos'
     ok = rp.can_fetch(AGENTE, url)
     if not ok:
+        # ── A EXCECAO DO DONO, E ELA SO VALE COM A POLITICA MEDIDA ────────
+        # ⚠️ ESTE `if` NAO ALCANCA O `ILEGIVEL` ACIMA, E ISSO E DE PROPOSITO.
+        # La nao houve medicao nenhuma — ha um robots que nao se conseguiu ler —
+        # e uma autorizacao que atravessa uma politica NAO MEDIDA e o terceiro
+        # estado que a casa recusa por nome: `AUTORIZAR NAO E MEDIR`. Aqui, ao
+        # contrario, a politica FOI medida: o robots foi lido e este caminho
+        # esta barrado. E exactamente essa medicao que o `motivo` carrega.
+        autorizacao = autorizacao_actual()
+        if autorizacao is not None and autorizacao.alcanca(url):
+            autorizacao.pedidos += 1
+            return True, autorizacao.motivo(url)
         return False, 'robots.txt do host barra este caminho para %s' % AGENTE.split('/')[0]
     return True, 'robots.txt do host permite este caminho'
 
@@ -180,6 +191,104 @@ _LOCAL_HOSTS = threading.local()
 
 def _hosts_proibidos_da_chamada():
     return getattr(_LOCAL_HOSTS, 'hosts', ()) or ()
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A AUTORIZACAO DO DONO — a excecao que NAO se esconde
+# ══════════════════════════════════════════════════════════════════════════
+# O portao acima responde a uma pergunta so — «o robots.txt deste host deixa
+# este caminho?» — e enquanto ela bastou, ele RECUSOU rota que funcionava
+# (o `feeds/videos.xml` do YouTube, medido). Isso e o trabalho dele.
+#
+# Mas ha um caso que a pergunta sozinha nao cobre, e a casa ja o conhece pelo
+# nome: a plataforma PROIBE, o DONO DO PROJETO AUTORIZA, e o risco e dele. O
+# `yt-dlp:public_audio` (C13/D17.4) foi o primeiro; o video de organizacao do
+# LinkedIn (D23) e o segundo. `leis/social_matriz.py` ja sabe declarar os dois
+# eixos lado a lado (`OWNER_AUTHORIZED` + `PLATFORM_POLICY_STATUS`).
+#
+# Faltava o degrau de baixo: quem EXECUTA a rota nao conseguia atravessar o
+# portao, porque o portao le o robots e recusa. E as tres saidas faceis estao
+# todas erradas:
+#
+#   · enfraquecer o `permitido()` para todos ...... abriria a porta a todas as
+#                                                  rotas, para resolver uma;
+#   · abrir uma ligacao por fora do portao ........ e o caminho lateral que a
+#                                                  sentinela desta casa proibe;
+#   · marcar a rota como permitida e calar o
+#     robots ...................................... esconderia a politica da
+#                                                  plataforma, que e medicao.
+#
+# O que se faz e o que a casa faz sempre que dois donos precisam de coexistir:
+# a rota DECLARA os hosts que lhe pertencem, e o portao abre SO para eles,
+# SO enquanto ela corre, e SEMPRE ESCREVENDO as duas frases — a autorizacao do
+# dono E a proibicao da plataforma.
+#
+#     ABRIR SEM DECLARAR E UM BYPASS. ABRIR DECLARANDO E UMA DECISAO.
+#
+# E o robots CONTINUA A SER LIDO: e ele que transforma «a plataforma proibe»
+# numa medicao em vez de uma suposicao, e e por isso que uma rota autorizada
+# nao sai daqui com menos verdade do que uma rota barrada — sai com mais.
+_LOCAL_AUTORIZADA = threading.local()
+
+
+class AutorizacaoDoDono(object):
+    """A decisao do dono, com o nome dela, viva enquanto a rota corre.
+
+    Nao e uma permissao global: e da ROTA, e dos hosts que ELA declarou. Um
+    host que ela nao declarou continua a bater no robots.
+    """
+
+    def __init__(self, rota, hosts, *, decisao, plataforma=None):
+        self.rota = str(rota)
+        self.hosts = tuple(str(h).lower().lstrip('.').rstrip('.') for h in hosts)
+        self.decisao = str(decisao)
+        self.plataforma = plataforma
+        self.pedidos = 0
+
+    def alcanca(self, url):
+        """→ o host desta URL, se ele for um dos declarados por esta rota."""
+        return host_na_lista(url, self.hosts)
+
+    def motivo(self, url):
+        return ('AUTORIZADA PELO DONO: a rota «%s» declara OWNER_AUTHORIZED=SIM e '
+                'PLATFORM_POLICY_STATUS=DISALLOWED MEDIDO — o robots.txt do host '
+                'barra este caminho, e a decisao que o atravessa e do dono do '
+                'projeto (%s). PLATFORM_POLICY_STATUS nao se apaga: viaja no rasto. '
+                '· %s' % (self.rota, self.decisao, url))
+
+
+@contextlib.contextmanager
+def autorizacao_do_dono(rota, hosts, *, decisao, plataforma=None):
+    """Declara, para o bloco, a rota do dono e os hosts que ela pode alcancar.
+
+    Fail-closed em dois pontos, e os dois importam:
+
+        sem hosts declarados   ->  NADA e autorizado (uma lista vazia nao abre);
+        sem decisao escrita    ->  NADA e autorizado (autorizacao sem nome de
+                                   quem decidiu e uma autorizacao sem dono).
+    """
+    if not hosts or not str(decisao or '').strip():
+        raise ValueError(
+            'autorizacao_do_dono sem hosts declarados ou sem a decisao escrita. '
+            'Uma excecao que nao diz quem a autorizou nem ate onde vale nao e '
+            'uma excecao: e um bypass com outro nome.')
+    autorizacao = AutorizacaoDoDono(rota, hosts, decisao=decisao, plataforma=plataforma)
+    anterior = getattr(_LOCAL_AUTORIZADA, 'actual', None)
+    _LOCAL_AUTORIZADA.actual = autorizacao
+    try:
+        yield autorizacao
+    finally:
+        _LOCAL_AUTORIZADA.actual = anterior
+
+
+def autorizacao_actual():
+    """A autorizacao viva nesta chamada, ou None. Quem colhe le daqui.
+
+    Existe para que o rasto possa escrever `OWNER_AUTHORIZED` e
+    `PLATFORM_POLICY_STATUS` sem os adivinhar: quem os sabe e a autorizacao que
+    efectivamente atravessou o portao.
+    """
+    return getattr(_LOCAL_AUTORIZADA, 'actual', None)
 
 
 def host_de(url):
@@ -315,6 +424,55 @@ def buscar(url, *, aceitar_json=True):
     finally:
         time.sleep(PAUSA_ENTRE_CHAMADAS)
     return corpo
+
+
+def buscar_bytes(url, *, aceitar='*/*', cabecalhos=None):
+    """GET de BYTES com o portão na frente. → (bytes, meta).
+
+    ⚠️ PORQUE ISTO NAO E `buscar()`. O `buscar` decodifica o corpo com
+    `'replace'` e devolve TEXTO, e isso serve um JSON e um HTML. Sobre um MP4
+    ele produziria uma string cheia de `?` — bytes destruidos com a forma de
+    bytes lidos, que e o pior estado possivel: parece que correu.
+
+        UM FICHEIRO DE MIDIA QUE PASSA POR DECODIFICADOR DE TEXTO
+        JA NAO E O FICHEIRO. E nao da erro nenhum.
+
+    Tudo o resto e o mesmo portao, pelo mesmo caminho: a lista de hosts
+    proibidos da chamada, o robots vivo, a autorizacao do dono quando ela
+    existe, o orcamento de rede, a pausa de cortesia e o tipo de pedido que o
+    teto cobra. Abrir uma segunda ligacao por fora disto seria um caminho
+    lateral com outro nome.
+    """
+    mau = host_na_lista(url, _hosts_proibidos_da_chamada())
+    if mau is not None:
+        raise RotaNaoPermitida(
+            'a chamada declarou %s como host proibido para ela · %s' % (mau, url))
+    ok, motivo = permitido(url)
+    if not ok:
+        raise RotaNaoPermitida('%s · %s' % (motivo, url))
+    h = {'User-Agent': AGENTE, 'Accept': aceitar}
+    h.update(cabecalhos or {})
+    req = urllib.request.Request(url, headers=h)
+    req.tipo_de_pedido = PEDIDO_ROTA
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
+            corpo = f.read()
+            meta = {'STATUS': getattr(f, 'status', None),
+                    'CONTENT_TYPE': f.headers.get('Content-Type'),
+                    'CONTENT_LENGTH': f.headers.get('Content-Length')}
+    except urllib.error.HTTPError as e:
+        raise RotaBloqueada('HTTP %s em %s' % (e.code, url))
+    except (RotaNaoPermitida, SemOrcamentoDeRede):
+        # Pela mesma razão que no `buscar`: uma recusa NOSSA não se traduz para
+        # «a plataforma impediu-nos».
+        raise
+    except Exception as e:                                            # noqa: BLE001
+        raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
+    finally:
+        time.sleep(PAUSA_ENTRE_CHAMADAS)
+    meta['BYTES'] = len(corpo)
+    meta['URL'] = url
+    return corpo, meta
 
 
 # ══════════════════════════════════════════════════════════════════════════

@@ -375,12 +375,25 @@ class NemPelaPortaDosFundos(unittest.TestCase):
                 continue
             fn = r['EXECUTA'] or r['ROTA']
             donos.append((capac, r['ADAPTADOR'], getattr(fn, '__module__', None)))
-        self.assertEqual(len(donos), 1,
-                         'TRANSCRIPTION do Instagram tem %d donos registrados: %s'
-                         % (len(donos), donos))
-        capac, adaptador, modulo = donos[0]
-        self.assertEqual(capac, 'instagram.reel.transcribe')
-        self.assertNotIn('instagram_transcrever', modulo or '')
+        # ⚠️ A CONTAGEM ERA `len(donos) == 1`, E DEIXOU DE SER A PERGUNTA CERTA.
+        # As tres capacidades de Reel declaram a MESMA rota grossa porque sao um
+        # acto so — e agora declaram, para que a matriz possa ser perguntada
+        # (era o defeito do SOC1: sem rota grossa o `CHECK` respondia sozinho e
+        # respondia errado). O que continua a nao poder haver e mais de UMA a
+        # ATRAVESSAR o portao, nem nenhuma a correr a rota aposentada.
+        #
+        #     TRES NOMES PARA UM ACTO NAO SAO TRES DONOS DA ROTA.
+        for capac, _adaptador, modulo in donos:
+            self.assertNotIn('instagram_transcrever', modulo or '',
+                             '%s corre a rota aposentada' % capac)
+        atravessam = [c for (c, _a, _m) in donos
+                      if reg.adaptador_de('INSTAGRAM', c)['ROTA']]
+        self.assertEqual(['instagram.reel.transcribe'], atravessam,
+                         'quem atravessa o portao tem de ser UM: %s' % atravessam)
+        self.assertEqual('instagram.reel.transcribe',
+                         cap.pela_matriz('INSTAGRAM', 'FETCH_TRANSCRIPT'),
+                         'a traducao inversa nao pode depender da ordem do '
+                         'dicionario — quem responde e quem atravessa o portao')
 
 
 class OMapaNaoDeclaraUmaArestaQueNaoExiste(unittest.TestCase):
@@ -460,11 +473,21 @@ class AJanelaFicouDePe(unittest.TestCase):
 
 class UmOwnerSo(unittest.TestCase):
 
-    def test_a_politica_nao_mudou_nesta_missao(self):
+    def test_a_politica_do_reel_mudou_por_D22_e_o_motor_continua_o_mesmo(self):
+        # ⚠️ Dizia `NAO`/`ROUTE_NOT_ALLOWED` desde a C10.5D. O dono decidiu
+        # (D22, 2026-09-23) e a linha mudou; o que NAO mudou — e e o que este
+        # ficheiro existe para guardar — e o dono do motor: continua um so.
         rotas = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
-        self.assertEqual(len(rotas), 1)
-        self.assertEqual(rotas[0]['PERMITIDA'], 'NAO')
-        self.assertEqual(rotas[0]['ESTADO'], 'ROUTE_NOT_ALLOWED')
+        # UMA rota (um so NOME, um so motor), em DUAS linhas desde a D22 + D24: uma
+        # por limite. Nascer um NOME novo aqui continua a reprovar (UNIFICACAO-V1-F).
+        self.assertEqual({r['ROTA'] for r in rotas}, {'instagram_transcrever.py:faster-whisper'},
+                         'nasceu rota nova em FETCH_TRANSCRIPT')
+        self.assertEqual(sorted(r.get('LIMITE') for r in rotas),
+                         ['PUBLIC_PERSON_VIDEO_ONLY', 'PUBLIC_REEL_BY_URL_ONLY'])
+        self.assertEqual(rotas[0]['PERMITIDA'], 'SIM')
+        self.assertEqual(rotas[0]['ESTADO'], 'PROVED')
+        self.assertEqual(rotas[0]['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(rotas[0]['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
 
     def test_o_reconhecedor_continua_a_ter_um_dono_so(self):
         donos = []

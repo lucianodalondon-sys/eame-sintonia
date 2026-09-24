@@ -581,9 +581,18 @@ class ODinheiroNaoAbreRotaProibida(unittest.TestCase):
 # RT15–RT20 · A RELEVÂNCIA GUARDA O GASTO, NÃO A OBSERVAÇÃO
 # ══════════════════════════════════════════════════════════════════════════
 class ARelevanciaGuardaOGasto(unittest.TestCase):
+    """⚠️ O LIVRO DESTES TESTES E VAZIO, E E VAZIO DE PROPOSITO.
+
+    Foram escritos (3739d9fd) quando o livro real de relevancia estava vazio. Hoje
+    tem 7 decisoes humanas (todas SIM), e um teste que le o livro real passa a
+    medir o livro e nao a regra. O livro vazio vive numa pasta temporaria: e o
+    mesmo `ler_livro` do runtime, a apontar para uma raiz onde o livro nao existe.
+    """
 
     def setUp(self):
-        self.livro = rl.ler_livro(RAIZ)
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.livro = rl.ler_livro(self._tmp.name)
 
     def _portao(self, **kw):
         kw.setdefault('custo', rl.CUSTO_DECLARADO_GRATUITO)
@@ -611,6 +620,11 @@ class ARelevanciaGuardaOGasto(unittest.TestCase):
     def test_rt20_o_livro_esta_vazio_e_diz_se(self):
         """NÃO FABRICAR SIM. O livro vazio é um facto, não um bug."""
         self.assertEqual(self.livro, [])
+        v = self._portao()
+        self.assertEqual(rl.NAO_AVALIADA, v['ESTADO_DA_RELEVANCIA'])
+        self.assertIsNone(v['DECISAO'])
+        self.assertNotEqual(rl.SIM, v['ESTADO_DA_RELEVANCIA'])
+        self.assertFalse(v['PODE_GASTAR'])
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -768,6 +782,15 @@ class UmaRotaQueNaoCorreuNaoObservouNada(unittest.TestCase):
     cadeia real devolve AGORA, medido em `setUpClass` pelo caminho real.
 
         UM TRACE INVENTADO PROVA UMA SITUAÇÃO INVENTADA.
+
+    ⚠️ DEPOIS DA D22 A ROTA DEIXOU DE SER RECUSADA (M5G, 24/09). A matriz
+    autoriza o Reel de organização; a cadeia chega ao Reel, não corre
+    fornecedor nenhum (`COST_STATE = NOT_RUN`, `RESULT =
+    AUDIO_ONLY_UNAVAILABLE`) e devolve na mesma o esqueleto. A premissa da
+    bateria — UMA ROTA QUE NÃO CORREU E DEVOLVE UM OBJETO — continua medida,
+    agora pelo custo e não pela palavra da recusa. E a recusa continua coberta
+    em NS1: com a matriz a recusar SÓ dentro do teste, a porta (SOC1) recusa
+    antes da cadeia e não sai objeto nenhum.
     """
 
     @classmethod
@@ -797,8 +820,36 @@ class UmaRotaQueNaoCorreuNaoObservouNada(unittest.TestCase):
         Se a cadeia deixar de devolver o esqueleto, as sentinelas abaixo
         passariam a provar o vazio. Então mede-se a premissa primeiro.
         """
-        self.assertEqual(self.trace['RESULT'], 'ROUTE_NOT_ALLOWED')
+        self.assertEqual(self.trace['COST_STATE'], sc.NAO_CORREU)
+        self.assertIsNone(self.trace['PROVIDER_USED'])
         self.assertEqual(len(self.objetos), 1)
+
+    def test_ns1b_a_rota_que_a_matriz_recusa_nao_devolve_nada(self):
+        """A RECUSA, MEDIDA COM A MATRIZ A RECUSAR SÓ AQUI DENTRO.
+
+        A política real não muda: a resposta de `social_matriz.decisao` é
+        trocada durante uma chamada e reposta no `finally`.
+        """
+        real = sx.mz.decisao
+
+        def recusa(plat, *a, **k):
+            d = dict(real(plat, *a, **k))
+            if plat == 'INSTAGRAM':
+                d['DECISAO'] = sx.mz.NAO_PERMITIDA
+            return d
+        pinar_o_banco()
+        sx.mz.decisao = recusa
+        try:
+            objetos, trace = sx.COLLECT(
+                platform='INSTAGRAM', capability='instagram.reel.capture',
+                run_id='NS01-RECUSA-LOCAL',
+                url='https://www.instagram.com/reel/EXEMPLO/')
+        finally:
+            sx.mz.decisao = real
+        self.assertEqual(trace['RESULT'], sx.mz.NAO_PERMITIDA)
+        self.assertEqual(trace['COST_STATE'], sc.NAO_CORREU)
+        self.assertEqual(objetos, [])
+        self.assertEqual(self._colher_com(objetos, trace)['COLHEITA'], [])
 
     def test_ns2_e_o_dono_do_custo_diz_que_ela_nao_correu(self):
         """NOT_RUN != COST 0. O SINAL É DO DONO DO CUSTO, NÃO DO ESTADO DE FALHA."""
@@ -831,7 +882,7 @@ class UmaRotaQueNaoCorreuNaoObservouNada(unittest.TestCase):
         env = self._colher_com(self.objetos, self.trace)
         porque = env['PORQUE_ZERO_COLHEITA']
         self.assertIn(sc.NAO_CORREU, porque)
-        self.assertIn('ROUTE_NOT_ALLOWED', porque)
+        self.assertIn(self.trace['RESULT'], porque)
         self.assertEqual(env['ESTADO'], rc.PARTIAL)
         self.assertEqual(rc.conferir(env, RAIZ), [])
 

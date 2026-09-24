@@ -113,6 +113,13 @@ def canario_youtube(c: dict) -> dict:
             "PRIMEIRO_PUBLISHED": pub.group(1).decode()[:10] if pub else "NAO SEI"}
 
 
+def _regua_manda(source_id) -> bool:
+    """V1A: le o dono (ready_split.regua_manda). Import tardio: ready_split le o
+    livro do lifecycle, e o canario nao precisa dele para mais nada."""
+    import ready_split as RS  # noqa: PLC0415
+    return RS.regua_manda(source_id)
+
+
 def canario_html(c: dict) -> dict:
     """Abre a entrada, aplica o LINK_PATTERN e prova que sai um ITEM (nao o indice)."""
     aq = c["ACQUISITION"]
@@ -179,7 +186,9 @@ def canario_html(c: dict) -> dict:
         return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
                     PORQUE="ITEM_SEM_TEXTO: o item abriu e nao tem texto visivel "
                            "— sem BODY util nao ha materia")
-    gate = RH.gate_capa_nao_e_materia(c, ret)
+    # V1A: o gate recebe a morada do item e se a regua dos 4 passos manda na
+    # fonte (a V1: o INDEX_URL do contrato e capa, so com a regua a mandar).
+    gate = RH.gate_capa_nao_e_materia(c, ret, url=alvo, regua_a_mandar=_regua_manda(c.get("SOURCE_ID")))
     if gate:
         return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
                     PORQUE=gate)

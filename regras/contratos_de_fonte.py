@@ -234,6 +234,161 @@ def regra_do_lugar_do_fato(source_id: str) -> str:
     return (declarados().get(source_id) or {}).get("FACT_LOCATION_RULE") or NAO_SEI
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O `DOCUMENT_ID` QUE O CONTRATO DECLARA — MATERIALIZADO AQUI, E NUNCA FORA
+# ══════════════════════════════════════════════════════════════════════════
+# ⚠️ ESTE ERA O `DOCUMENT_ID_WIRING_GAP` (§155), E O DONO DO CONTRATO É O
+# CONTRATO. Medido no HEAD:
+#
+#     regras/italy_contracts.mjs::IT-T8-001
+#         DOCUMENT_ID_RULE  "AGRONOTIZIE:YT:{VIDEO_ID}  —  o video_id nativo do
+#                            YouTube e a identidade do ITEM, nao da FONTE."
+#     186 de 186 contratos declaram DOCUMENT_ID_RULE
+#      63 deles declaram um MOLDE com `{PLACEHOLDER}`
+#
+# E `coleta/scrap_colheita.py::unidade()` respondia `NAO SEI` a todos, porque
+# nenhum owner o materializava — `contratos_de_fonte` só validava que a REGRA
+# existia. O resultado medido no canário real do YouTube:
+#
+#     DOCUMENT_ID = NAO SEI     com o contrato a declarar a identidade
+#
+#     UM `NAO SEI` ONDE O CONTRATO DECLARA UM ID NÃO É HONESTIDADE: É UMA
+#     IDENTIDADE QUE FICOU POR LIGAR.
+#
+# POR QUE A MATERIALIZAÇÃO VIVE AQUI, E NÃO NO ADAPTADOR
+# ------------------------------------------------------
+# Porque quem sabe o que o contrato governa é o contrato, e o único leitor dele
+# é este ficheiro. Inventar a identidade dentro do adaptador do YouTube seria o
+# adaptador a decidir o que o contrato declara — e no dia em que o contrato
+# mudasse, o adaptador continuaria a responder com a regra velha.
+#
+#     O ADAPTADOR DIZ O QUE OBSERVOU. O CONTRATO DIZ QUE IDENTIDADE ISSO TEM.
+#
+# E O QUE ESTA FUNÇÃO NÃO FAZ
+# ----------------------------
+#   · não inventa placeholder em falta — devolve `NAO SEI` e diz QUAL falta;
+#   · não preenche com o sha, com a URL, com o caminho nem com a data;
+#   · não adivinha o valor a partir do nome do placeholder;
+#   · não corta o molde a meio para o resultado parecer completo.
+#
+#     IDENTIDADE INCOMPLETA NÃO É IDENTIDADE. MEIO ID É PIOR DO QUE NENHUM:
+#     ENTRA NO ACERVO COM A CARA DE FACTO E NINGUÉM VOLTA A PERGUNTAR.
+#
+#: O separador entre a REGRA e a EXPLICAÇÃO dela, nos contratos reais. Medido
+#: em 2026-09-22 nas 186 linhas: a explicação vem depois de `  —  ` (travessão)
+#: ou de ` - ` (hífen), sempre cercado de espaço. É só a FRASE que se corta; a
+#: regra original viaja inteira no recibo, para nada se perder (COL-LAW-203).
+_EXPLICACAO = re.compile(r"\s+(?:—|–|-)\s+")
+
+#: Um valor entre chaves. `{VIDEO_ID}` é um campo; `{caminho do endereco}` é
+#: PROSA — e prosa não se preenche.
+_PLACEHOLDER = re.compile(r"\{([^{}]*)\}")
+
+#: O que tem FORMA de nome de campo. O resto é explicação escrita dentro do
+#: molde, e essa não é um valor que alguém possa declarar.
+_NOME_DE_VALOR = re.compile(r"^[A-Z][A-Z0-9_]*$")
+
+#: As confissões que NÃO identificam nada. Um valor que é uma confissão não
+#: preenche um molde de identidade — `VIDEO_ID = NAO SEI` produziria
+#: `AGRONOTIZIE:YT:NAO SEI`, que é um identificador com a cara de facto.
+#:
+#:     UMA CONFISSAO DENTRO DE UM ID E UM ID FABRICADO.
+_SENTINELAS = frozenset(("NAO SEI", "NAO_SEI", "NÃO SEI", "NAO_SE_APLICA",
+                         "UNKNOWN", "NOT_KNOWN", "NONE", "NOT_PRESERVED"))
+
+
+def regra_do_documento(source_id: str) -> str:
+    """O `DOCUMENT_ID_RULE`, tal e qual. Ausente: `NAO SEI`."""
+    return (declarados().get(source_id) or {}).get("DOCUMENT_ID_RULE") or NAO_SEI
+
+
+def molde_do_documento(source_id: str) -> str:
+    """A parte da regra que é o MOLDE, sem a explicação que a segue.
+
+    `AGRONOTIZIE:YT:{VIDEO_ID}  —  o video_id nativo...` → `AGRONOTIZIE:YT:{VIDEO_ID}`
+
+    `NAO SEI` quando o contrato não declara regra. Uma regra sem placeholder
+    (ex.: uma identidade fixa) devolve-se inteira: ela é o valor.
+    """
+    regra = regra_do_documento(source_id)
+    if regra == NAO_SEI:
+        return NAO_SEI
+    return _EXPLICACAO.split(regra, 1)[0].strip()
+
+
+def document_id_declarado(source_id: str, valores: dict = None) -> dict:
+    """→ o `DOCUMENT_ID` que o CONTRATO declara, com o molde preenchido.
+
+    `valores` são os valores que a OBSERVAÇÃO declara (`VIDEO_ID`, …). Esta
+    função não os vai procurar a lado nenhum: quem tem a observação na mão é
+    quem os passa. Devolve sempre o recibo inteiro — o valor, o molde, a regra
+    original, o que se usou, o que faltou e a autoridade — para que um `NAO SEI`
+    seja uma MEDIÇÃO e não um silêncio.
+
+        UM `NAO SEI` COM RAZAO E UMA MEDICAÇÃO.
+        UM `NAO SEI` SEM RAZAO E INDISTINGUIVEL DE DESLEIXO.
+    """
+    regra = regra_do_documento(source_id)
+    fora = {"DOCUMENT_ID": NAO_SEI, "MOLDE": NAO_SEI, "REGRA_ORIGINAL": regra,
+            "VALORES_USADOS": {}, "VALORES_EM_FALTA": [],
+            "ESPECIE": "DOCUMENT_ID", "AUTORIDADE": "regras/italy_contracts.mjs"}
+    if regra == NAO_SEI:
+        fora["BASE"] = ("o contrato de fonte «%s» nao declara DOCUMENT_ID_RULE. "
+                        "Sem regra nao ha identidade documental a materializar."
+                        % source_id)
+        return fora
+
+    molde = molde_do_documento(source_id)
+    fora["MOLDE"] = molde
+    pedidos = _PLACEHOLDER.findall(molde)
+    if not pedidos:
+        # Uma regra sem chaves é a identidade escrita por extenso. Não se
+        # completa: devolve-se como está.
+        fora["DOCUMENT_ID"] = molde
+        fora["BASE"] = ("DECLARADO_NO_CONTRATO_DE_FONTE: a regra nao tem molde a "
+                        "preencher — a identidade esta escrita por extenso.")
+        return fora
+
+    valores = {str(k).strip().upper(): v for k, v in (valores or {}).items()}
+    usados, em_falta = {}, []
+    for nome in pedidos:
+        if not _NOME_DE_VALOR.match(nome):
+            # `{caminho do endereco}` é prosa dentro do molde: nenhum campo da
+            # observação se chama assim, e adivinhar o que ela quer seria
+            # inventar identidade.
+            em_falta.append(nome)
+            continue
+        v = valores.get(nome)
+        if v in (None, "") or str(v).strip().upper() in _SENTINELAS:
+            em_falta.append(nome)
+            continue
+        usados[nome] = v
+
+    fora["VALORES_USADOS"], fora["VALORES_EM_FALTA"] = usados, em_falta
+    if em_falta:
+        fora["BASE"] = ("MOLDE_INCOMPLETO: o contrato declara «%s» e a observacao "
+                        "nao traz %s. Identidade incompleta nao e identidade — "
+                        "meio id entra no acervo com a cara de facto."
+                        % (molde, ", ".join(sorted(em_falta))))
+        return fora
+
+    completo = molde
+    for nome, v in usados.items():
+        completo = completo.replace("{%s}" % nome, str(v))
+    if _PLACEHOLDER.search(completo):
+        # Contraprova do preenchimento: sobrou chave. Não pode sair daqui um
+        # identificador com chaves dentro.
+        fora["BASE"] = ("MOLDE_NAO_FECHOU: sobrou um placeholder depois de "
+                        "preencher «%s». Nao se devolve um id a meio." % molde)
+        return fora
+    fora["DOCUMENT_ID"] = completo
+    fora["BASE"] = ("MATERIALIZADO_PELO_CONTRATO_DE_FONTE: o molde «%s» foi "
+                    "preenchido com os valores que a observacao declarou (%s). "
+                    "Nenhum valor foi derivado do sha, do caminho, da URL ou da data."
+                    % (molde, ", ".join("%s=%s" % (k, v) for k, v in sorted(usados.items()))))
+    return fora
+
+
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     d = declarados()

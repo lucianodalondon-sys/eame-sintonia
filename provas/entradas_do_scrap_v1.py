@@ -62,6 +62,7 @@ for _p in ('pedido', 'coleta', 'leis', 'system-map/scripts', ''):
     sys.path.insert(0, os.path.join(RAIZ, _p) if _p else RAIZ)
 
 import censo_da_coleta as _censo           # noqa: E402
+import generate_system_map as _dono_da_prosa  # noqa: E402
 import receitas as rec                     # noqa: E402
 import scrap_capacidades as cap            # noqa: E402
 import superficie_do_scrap_v1 as sup       # noqa: E402
@@ -100,8 +101,14 @@ def sem_comentarios(texto):
 
     Então esta função passa a ser uma chamada ao dono, e continua a existir só
     para que quem lê esta prova saiba onde ela mora.
+
+    ⚠️ O DONO MUDOU DE SÍTIO. `867f2f1d` tirou `_linhas_de_comando` do
+    `censo_da_coleta.py` e esta chamada ficou a apontar para o vazio (o
+    setUpClass do RC01 rebentava com AttributeError). O corte de prosa que a
+    cadeia do mapa usa hoje é `generate_system_map.sem_comentarios`. Medido na
+    M5G: `medir()` devolve o MESMO resultado com a função antiga e com esta.
     """
-    return _censo._linhas_de_comando(texto)
+    return _dono_da_prosa.sem_comentarios(texto)
 
 
 def superficie_ready():
@@ -162,7 +169,7 @@ def _sai_para_fora(alvos):
         if not os.path.isfile(caminho):
             continue
         with open(caminho, encoding='utf-8', errors='replace') as f:
-            if _censo.SAI_PARA_FORA.search(_censo._linhas_de_comando(f.read())):
+            if _censo.SAI_PARA_FORA.search(_dono_da_prosa.sem_comentarios(f.read())):
                 return True
     return False
 

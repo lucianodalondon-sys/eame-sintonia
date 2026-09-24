@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "b4003769c60e3561ae334534d2517858b6306394"
+    "HEAD": "1a88c4772e3302103c956010fcfe78aec5c53974"
   },
   "VOCABULARIOS": [
     {
@@ -1271,7 +1271,9 @@
         "ferramentas/reel_transcricao.py",
         "leis/artefato.py",
         "leis/relevancia_da_fonte.py",
+        "medidas/medir_v1a.py",
         "medidas/micro_colheita.py",
+        "medidas/mutacao_v1a.py",
         "medidas/o_contrato_do_universo.py",
         "medidas/porque_a_sala_nao_recebeu.py",
         "medidas/relevancia_antes_da_coleta.py",
@@ -1296,6 +1298,9 @@
         "provas/arbitragem_da_intelligence.py",
         "provas/auditoria_agro_fronteira.py",
         "provas/benchmark_tematico.py",
+        "provas/canario_d23_linkedin_video.py",
+        "provas/canario_d24_video_de_pessoa.py",
+        "provas/canario_reels_instagram.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/ensaio_do_texto_na_collection.py",
@@ -1322,6 +1327,7 @@
         "provas/testa_golden_path_pdf.py",
         "scripts/diagnostico_sala/ler_os_76.py",
         "scripts/diagnostico_sala/onde_casou.py",
+        "scripts/micro_coleta/ensaio_offline.py",
         "scripts/micro_coleta/micro_coleta.py",
         "system-map/scripts/censo_das_derivacoes.py",
         "system-map/scripts/censo_semantico_it.py",
@@ -1345,9 +1351,11 @@
         "tests/test_amostragem_neutra_t3.py",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_c10_2_origin_gate.py",
+        "tests/test_cadeia_do_audio_offline.py",
         "tests/test_candidatos_tematicos.py",
         "tests/test_censo_corpus_rotulado_admission.py",
         "tests/test_col_e7_contrato_do_texto.py",
+        "tests/test_d1_detector_d14.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
         "tests/test_fonte_atravessa.py",
         "tests/test_fronteira_mede_producao.py",
@@ -1365,9 +1373,11 @@
         "tests/test_reel_transcricao_trava.py",
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_sala_duravel.py",
+        "tests/test_sala_idempotente_por_documento.py",
         "tests/test_ui_revisao_t3_ptbr.py",
         "tests/test_universo_explicito.py",
-        "tests/test_universo_vem_do_pedido.py"
+        "tests/test_universo_vem_do_pedido.py",
+        "tests/test_v1a_v1_ligada.py"
       ],
       "TERMOS": [
         {

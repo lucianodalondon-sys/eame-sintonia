@@ -76,6 +76,21 @@ class Ponte(unittest.TestCase):
         self.assertEqual(["IT-T2-001"], [l["SOURCE_ID"] for l in p["ENTRA"]])
         self.assertIn("DUPLICADA", p["FICA"][0]["PORQUE"])
 
+    def test_mesmo_site_e_padrao_de_fonte_ja_contratada_fica_como_duplicada(self):
+        outra_porta = dict(AQ, INDEX_URL="https://www.a.it/@@seletor-de-lingua/it")
+        p = self.planear(["IT-T2-002"], [_prova("IT-T2-002", aq=outra_porta)],
+                         [_cur("IT-T2-001"), _cur("IT-T2-002", aq=outra_porta)],
+                         com_contrato=["IT-T2-001"])
+        self.assertEqual([], p["ENTRA"])
+        self.assertIn("DUPLICADA de fonte ja contratada: IT-T2-001", p["FICA"][0]["PORQUE"])
+
+    def test_outro_site_com_o_mesmo_padrao_nao_e_duplicada(self):
+        outro = dict(AQ, INDEX_URL="https://b.it/")
+        p = self.planear(["IT-T2-002"], [_prova("IT-T2-002", aq=outro)],
+                         [_cur("IT-T2-001"), _cur("IT-T2-002", aq=outro)],
+                         com_contrato=["IT-T2-001"])
+        self.assertEqual(["IT-T2-002"], [l["SOURCE_ID"] for l in p["ENTRA"]])
+
     def test_aplicar_acrescenta_sem_repetir(self):
         with tempfile.TemporaryDirectory() as d:
             t = Path(d, "t.json")

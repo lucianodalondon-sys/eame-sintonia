@@ -403,8 +403,31 @@ def derivar(banco, *, unidade, run_id, armazem, memoria, tentativa=None):
     # (run_id, etapa, tentativa) — e a linha da segunda derivacao perdia-se.
     tentativa = _tentativa(banco, run_id, 'DERIVED') if tentativa is None \
         else tentativa
+    # ⚠️ A ESPÉCIE VIAJA COM A UNIDADE, E SEM ELA A ESCOLHA NÃO ACONTECE.
+    #
+    # `derivacao_forward` pergunta a `ingresso.executor_para(MEDIA_TYPE)` QUEM
+    # abre estes bytes, e quando a espécie não chega ele cai no executor de
+    # PDF — que é o que esta casa sempre fez, e que está certo para uma árvore
+    # onde só havia PDF. Para MÍDIA é o defeito medido no §155: um WAV de sete
+    # megabytes a caminho do `pdftotext`.
+    #
+    #     UMA FERRAMENTA QUE RECEBE O QUE NÃO SABE ABRIR NÃO FALHOU:
+    #     FOI CHAMADA PARA O TRABALHO ERRADO.
+    #
+    # E isto não é uma decisão nova: `ingresso.unidades_para_a_derivacao` já
+    # põe `MEDIA_TYPE` na unidade desde a C-MAKE-RAW-OBSERVABLE-V1, e esta rota
+    # deitava-a fora ao remontar o dicionário. Aqui só se deixa de a perder.
+    #
+    # `CAPTURED_AT` e `SOURCE_ID` vão pelo mesmo motivo: o runner transporta-os
+    # para o rastro, e uma unidade sem eles carimba o derivado com a hora da
+    # derivação em vez da hora da captura.
+    unidade_para_o_runner = {
+        'RAW_ASSET_ID': unidade['RAW_ASSET_ID'], 'PDF': unidade['PDF'],
+        'MEDIA_TYPE': unidade.get('MEDIA_TYPE') or unidade.get('CONTENT_TYPE'),
+        'CAPTURED_AT': unidade.get('CAPTURED_AT'),
+        'SOURCE_ID': unidade.get('SOURCE_ID')}
     return deriv.correr(
-        [{'RAW_ASSET_ID': unidade['RAW_ASSET_ID'], 'PDF': unidade['PDF']}],
+        [unidade_para_o_runner],
         banco_do_rastro=banco, run_id=run_id, armazem=armazem, memoria=memoria,
         source_id=unidade.get('SOURCE_ID'),
         route_class_id=unidade.get('ROUTE_CLASS_ID'),

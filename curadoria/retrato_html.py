@@ -110,21 +110,75 @@ def retrato_do_html(b: bytes) -> dict:
     }
 
 
-def gate_capa_nao_e_materia(contrato: dict, retrato: dict) -> str | None:
+def _sem_barra(u: str) -> str:
+    """A mesma normalizacao de `ready_split._sem_barra` (a regua dos 4 passos)."""
+    return (u or "").strip().rstrip("/").lower()
+
+
+# ── V1: O INDEX_URL DO CONTRATO E CAPA (LD3 → K1 → V1A, 2026-09-23) ─────────
+# A morada so manda quando e EXACTAMENTE a pagina de entrada que o contrato
+# declara — e so quando a REGUA MANDA: a fonte passa os 4 passos
+# (`ready_split.regua_de == DETAIL/v1`). Numa fonte que nao os passa, o
+# INDEX_URL nao esta provado, e usa-lo para julgar seria julgar pela morada que
+# ninguem conferiu. Nessas, o detector de hoje, sem mudanca.
+#
+# So HTML_LINK_DISCOVERY: numa rota fixa o INDEX_URL E o documento.
+#
+# Criterio fixado ANTES de medir (briefing LD2): «so se dominar o ACTUAL nos dois
+# erros em todos os gabaritos». Medido na K1 (receitas V4): capas que entram
+# 37->30 · 6->5 · 4->3 (cego); noticias barradas e retidas iguais nos tres.
+#
+#     O PAR TEM DE MUDAR JUNTO: `coleta/retrato_html.mjs` tem a mesma regra.
+V1_LIGADA = True
+REGRA_V1 = "V1_INDEX_URL_E_CAPA"
+
+
+def e_o_indice_do_contrato(url: str, contrato: dict | None) -> bool:
+    aq = (contrato or {}).get("ACQUISITION") or {}
+    if aq.get("STRATEGY") != "HTML_LINK_DISCOVERY":
+        return False
+    indice = _sem_barra(aq.get("INDEX_URL") or "")
+    return bool(indice) and _sem_barra(url) == indice
+
+
+def veredito(retrato: dict | None, *, url: str | None, contrato: dict | None,
+             regua_a_mandar: bool) -> str:
+    """CAPA_OU_MATERIA com a V1: o retrato, salvo se a pagina e o INDEX_URL de
+    uma fonte que passa os 4 passos — entao CAPA_PROVAVEL. Sem `url`, a V1 nao
+    se aplica (NAO SEI se e o indice): fica o detector.
+
+    `url`, `contrato` e `regua_a_mandar` sao OBRIGATORIOS por nome: um chamador
+    esquecido rebenta, em vez de julgar calado sem a regra."""
+    k = (retrato or {}).get("CAPA_OU_MATERIA")
+    if V1_LIGADA and regua_a_mandar is True and url and e_o_indice_do_contrato(url, contrato):
+        return "CAPA_PROVAVEL"
+    return k
+
+
+def gate_capa_nao_e_materia(contrato: dict, retrato: dict, *, url: str | None,
+                            regua_a_mandar: bool) -> str | None:
     """O GATE: um contrato que declara ITENS DE DETALHE (HTML_LINK_DISCOVERY
     com saida HTML) nao pode dar por bom uma capa como conteudo final.
     Devolve None quando nao ha nada a dizer, ou a razao da reprovacao.
 
     Rota fixa (STATIC_ENDPOINT) e PDF NAO sao julgados: uma capa numa rota
     fixa e a rota fixa, e um PDF nao tem ligacoes para contar.
+
+    V1A: recebe o endereco da pagina e se a regua dos 4 passos manda na fonte.
     """
     aq = (contrato or {}).get("ACQUISITION") or {}
     if aq.get("STRATEGY") != "HTML_LINK_DISCOVERY":
         return None
     if str((contrato or {}).get("OUTPUT_TYPE") or "").upper() != "HTML":
         return None
-    if not retrato or retrato.get("CAPA_OU_MATERIA") != "CAPA_PROVAVEL":
+    if not retrato:
         return None
+    k = veredito(retrato, url=url, contrato=contrato, regua_a_mandar=regua_a_mandar)
+    if k != "CAPA_PROVAVEL":
+        return None
+    if retrato.get("CAPA_OU_MATERIA") != "CAPA_PROVAVEL":
+        return ("CAPA_NAO_E_MATERIA (%s): a pagina e o proprio INDEX_URL do contrato, e a "
+                "fonte passa os 4 passos" % REGRA_V1)
     return ("CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece "
             "listagem/navegacao (%d ligacoes para %d caracteres, %d em paragrafos)"
             % (retrato["LINKS"], retrato["NON_WHITESPACE_CHARACTERS"],

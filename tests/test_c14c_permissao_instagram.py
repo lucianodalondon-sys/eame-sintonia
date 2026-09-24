@@ -108,9 +108,47 @@ class OVocabularioGanhouUmLimite(unittest.TestCase):
         self.assertIn('PUBLIC_AUDIO_ONLY', mz.LIMITES)
 
     def test_3_o_vocabulario_continua_FECHADO(self):
-        """Ampliar não é abrir: só estes dois, e um terceiro exige decisão."""
-        self.assertEqual({'PUBLIC_AUDIO_ONLY', 'PUBLIC_PROFILE_DISCOVERY_ONLY'},
-                         set(mz.LIMITES))
+        """Ampliar não é abrir: cada limite existe por uma decisão ESCRITA.
+
+        ⚠️ O CONJUNTO PASSOU DE DOIS PARA TRÊS EM 2026-09-23, e cresceu
+        DECLARADO. `PUBLIC_ORG_VIDEO_ONLY` nasceu da decisão do dono (D23,
+        `DECISOES-DONO-2026-09-23.md`): VÍDEO e legenda de páginas de
+        ORGANIZAÇÃO no LinkedIn, com o risco assumido e a política da
+        plataforma medida ao lado (`DISALLOWED`).
+
+        ⚠️ E PASSOU DE TRÊS PARA QUATRO NO MESMO DIA, pela mesma porta e pelo
+        mesmo dono: `PUBLIC_PERSON_VIDEO_ONLY` nasceu do **D24** — o dono
+        autorizou, também por escrito, o VÍDEO de PESSOAS do agro. O limite
+        nomeia o que abre (vídeo, legenda e o texto do próprio post) e o que
+        NÃO abre (contatos, seguidores, mensagens, comentários de terceiros,
+        perfil, pontuação de pessoa). O que ele NÃO reabre continua com o dono
+        dele: a tela de pessoas nomeadas é da revisão jurídica.
+
+            UM LIMITE NOVO POR DECISÃO NÃO É UM VOCABULÁRIO ABERTO.
+            É UM VOCABULÁRIO QUE REGISTA QUEM O AMPLIOU.
+
+        O que o teste guarda continua inteiro, e passa a ser medido em dois
+        passos: a lista é FECHADA, e nenhum nome dela é decorativo.
+        """
+        # E o QUINTO, pelo mesmo dono e no mesmo dia: `PUBLIC_REEL_BY_URL_ONLY`
+        # (D22) — o Reel publico por URL directa. As tres decisoes (D22, D23,
+        # D24) convivem na linha unificada (UNIFICACAO-V1-F).
+        self.assertEqual({'PUBLIC_AUDIO_ONLY', 'PUBLIC_REEL_BY_URL_ONLY',
+                          'PUBLIC_PROFILE_DISCOVERY_ONLY',
+                          'PUBLIC_ORG_VIDEO_ONLY',
+                          'PUBLIC_PERSON_VIDEO_ONLY'}, set(mz.LIMITES))
+        # Nenhum limite é vocabulário decorativo: cada um é DECLARADO por pelo
+        # menos uma rota da matriz. Um limite que ninguém usa promete travar o
+        # que já ninguém faz.
+        usados = set()
+        for plat, caps in mz.MATRIZ.items():
+            if plat.startswith('_'):
+                continue
+            for rota in [r for rs in caps.values() if isinstance(rs, list) for r in rs]:
+                if rota.get('LIMITE'):
+                    usados.add(rota['LIMITE'])
+        self.assertEqual(set(mz.LIMITES), usados,
+                         'há limite no vocabulário que nenhuma rota declara')
 
     def test_4_nao_se_criou_segundo_vocabulario(self):
         """O limite vive em `LIMITES`, e só lá."""
@@ -176,9 +214,31 @@ class ANENHUMASAIDASEMPORTEIRO(unittest.TestCase):
     """O gate central: REMOTE_CAPABILITIES_WITHOUT_GATE = 0."""
 
     def test_13_nenhuma_capability_instagram_esta_ALLOWED(self):
-        abertas = [c for c in AS_QUATRO if _remote_allowed(c)]
-        self.assertEqual([], abertas,
-                         'capability remota sem portão: %s' % abertas)
+        """ATUALIZADO PELA D22/D24 (2026-09-23) — a intenção fica MAIS FORTE.
+
+        Antes: nenhuma das quatro podia estar `ALLOWED`. Depois do dono autorizar
+        os Reels por URL directa (D22) e o vídeo de pessoas do agro (D24), três
+        delas ESTÃO autorizadas — e o que o gate passa a exigir é o que sempre
+        importou:
+
+            UMA CAPABILITY ALLOWED TEM DE TRAZER OS DOIS EIXOS ESCRITOS.
+
+        Porta aberta sem os eixos declarados continua a ser o defeito que este
+        teste existe para apanhar — só que agora medido pela régua certa.
+        """
+        for c in AS_QUATRO:
+            grossa = cap.da_matriz(c)
+            if not grossa:
+                continue
+            d = mz.decisao('INSTAGRAM', grossa)
+            if d['DECISAO'] != mz.PERMITIDA_SIM:
+                continue
+            for eixo in mz.EIXOS:
+                self.assertIn(eixo, d,
+                              '%s ALLOWED sem declarar o eixo %s' % (c, eixo))
+            self.assertEqual('SIM', d['OWNER_AUTHORIZED'], c)
+            self.assertEqual('DISALLOWED', d['PLATFORM_POLICY_STATUS'], c)
+        self.assertTrue(True)
 
     def test_14_todas_as_capacidades_grossas_alcancaveis_tem_portao(self):
         """Não só as quatro conhecidas — TODA capacidade ALCANÇÁVEL.
@@ -210,17 +270,25 @@ class ANENHUMASAIDASEMPORTEIRO(unittest.TestCase):
         pessoa a ligar uma delas teria de declarar os eixos na mesma.
         """
         import scrap_registo as SR
-        abertas = []
+        novas = []
         for fina in cap.DECLARADAS:
             if not fina.startswith('instagram'):
                 continue
             registo = SR._MAPA.get(('INSTAGRAM', fina))
             if not (registo and (registo.get('ROTA') or registo.get('EXECUTA'))):
                 continue                      # não alcançável: nada a pedir
-            if _remote_allowed(fina):
-                abertas.append(fina)
-        self.assertEqual([], abertas,
-                         'capability alcançável e ALLOWED sem eixos: %s' % abertas)
+            if not _remote_allowed(fina):
+                continue
+            # ATUALIZADO PELA D22/D24: alcançável e ALLOWED deixou de ser defeito
+            # quando o dono assumiu o risco. O defeito passou a ser OUTRO, e é
+            # este que se mede: ALLOWED sem os eixos declarados.
+            grossa = cap.da_matriz(fina)
+            d = mz.decisao('INSTAGRAM', grossa)
+            faltando = [e for e in mz.EIXOS if e not in d]
+            if faltando:
+                novas.append((fina, faltando))
+        self.assertEqual([], novas,
+                         'capability alcançável e ALLOWED sem eixos: %s' % novas)
 
 
 class AProvaCritica(unittest.TestCase):
@@ -278,9 +346,31 @@ class NaoSeHerdaAutorizacao(unittest.TestCase):
         self.assertEqual('FETCH_TRANSCRIPT', cap.da_matriz('instagram.reel.transcribe'))
 
     def test_18_o_limite_da_descoberta_nao_viaja_para_o_reel(self):
-        """Autorizar discovery não autoriza mídia."""
+        """⚠️ AUTORIZAR DISCOVERY CONTINUA A NÃO AUTORIZAR MÍDIA.
+
+        O que este teste media era a recusa do reel — e a recusa caiu (D22).
+        O que ele passa a medir é a COISA QUE IMPORTA e que não mudou: o reel
+        não herda o limite da descoberta. Cada rota tem o seu, e o do reel é
+        mais estreito no que traz (bytes de um reel dado) e mais largo no que
+        faz (adquire mídia) — o que ele NÃO permite é o que a descoberta
+        permite: varrer um perfil.
+        """
         reel = mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')
-        self.assertNotEqual(mz.PERMITIDA_SIM, reel['DECISAO'])
+        self.assertEqual(mz.PERMITIDA_SIM, reel['DECISAO'])
+        linha = [r for r in mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
+                 if r.get('ROTA') == reel['ROTA']][0]
+        self.assertEqual('PUBLIC_REEL_BY_URL_ONLY', linha['LIMITE'])
+        self.assertNotEqual('PUBLIC_PROFILE_DISCOVERY_ONLY', linha['LIMITE'])
+        # e a descoberta continua fechada: o limite dela não abre o reel, e o
+        # do reel não abre a descoberta.
+        self.assertEqual(mz.NAO_PERMITIDA,
+                         mz.decisao('INSTAGRAM', 'INCREMENTAL')['DECISAO'])
+        # D24: a SEGUNDA linha da mesma rota e a do video de PESSOA — outro limite,
+        # e tambem ele nao e o da descoberta.
+        pessoa = [r for r in mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
+                  if r.get('LIMITE') == 'PUBLIC_PERSON_VIDEO_ONLY']
+        self.assertEqual(len(pessoa), 1)
+        self.assertNotEqual('PUBLIC_PROFILE_DISCOVERY_ONLY', pessoa[0]['LIMITE'])
 
     def test_19_o_limite_da_descoberta_nao_viaja_para_o_youtube(self):
         for rotas in (mz.MATRIZ.get('YOUTUBE') or {}).values():

@@ -44,7 +44,46 @@ DECISOES_ANTIGAS = {
     'INSTAGRAM/FETCH_COMMENTS': ('ALLOWED', 'apify:comments', 'CONDICIONAL', 'PROVED'),
     'INSTAGRAM/FETCH_POST': ('ALLOWED', 'instagram_janela.py:embed', 'CONDICIONAL', 'PROVED'),
     'INSTAGRAM/FETCH_PROFILE': ('ALLOWED', 'graph:business_discovery', 'CONDICIONAL', 'CREDENTIAL_MISSING'),
-    'INSTAGRAM/FETCH_TRANSCRIPT': ('ROUTE_NOT_ALLOWED', None, None, None),
+    # ── MUDOU EM 2026-09-23, DE PROPÓSITO E COM PROVA (D22) ─────────────────
+    # Esta linha dizia `('ROUTE_NOT_ALLOWED', None, None, None)` desde a C10.5D,
+    # quando se leu o `robots.txt` vivo de instagram.com (`Disallow: /`).
+    #
+    # A LEITURA NÃO MUDOU. Mudou quem assume o risco: o dono do projeto
+    # autorizou nomeadamente a coleta de REELS do Instagram POR URL DIRECTA,
+    # sem login, sem conta e sem rota paga (D22, 2026-09-23), com o risco
+    # assumido por ele — como a D17.4 fez com o som do YouTube. A rota passou a
+    # declarar os três eixos, e é isso que ela diz agora:
+    #
+    #     OWNER_AUTHORIZED = SIM          D22 (decisão do PROJETO)
+    #     PLATFORM_POLICY_STATUS = DISALLOWED   (medição da PLATAFORMA)
+    #     LIMITE = PUBLIC_REEL_BY_URL_ONLY
+    #
+    #     MEDIR A POLÍTICA NÃO É OBEDECER-LHE: É SABER O QUE SE ASSUME.
+    #
+    # ── E ESTA É A ÚNICA LINHA QUE MUDOU. As outras 31 continuam congeladas, e
+    # este teste continua a MORRER se qualquer uma delas mudar — é para isso que
+    # ele existe. Prova por mutação: `tests/mutacao_do_scrap_portas.py`, caso
+    # M7, mexe na rota do REDDIT (outra plataforma, outro dono) e exige vermelho
+    # AQUI.
+    #
+    # ── E A D24 (mesmo dia), dita pela lane que a trouxe: ──
+    # ── MUDOU NA D22/D24 (2026-09-23), DE PROPÓSITO E COM PROVA ────────────
+    # Esta linha dizia `('ROUTE_NOT_ALLOWED', None, None, None)`, e a C10.5D
+    # tinha-a escrito assim ao medir o `robots.txt` VIVO do `instagram.com`
+    # (`Disallow: /`). O que a C10.5D não podia ver era o SEGUNDO eixo: o dono
+    # REAL autorizou os Reels por URL directa (**D22**, substituindo a D19) e o
+    # vídeo de PESSOAS do agro (**D24**), por escrito, com o risco assumido — o
+    # mesmo desenho que a casa já usava no áudio do YouTube (D17.4/C13) e no
+    # vídeo de organização do LinkedIn (D23).
+    #
+    #     A PLATAFORMA CONTINUA A PROIBIR. QUEM MUDOU FOI O DONO DO RISCO.
+    #
+    # Prova medida, e é ela que sustenta esta linha: o canário
+    # `provas/canario_d24_reel_de_pessoa.py` adquiriu um Reel PÚBLICO de uma
+    # pessoa do agro italiano (@dr.agricultura) por URL directa, em aquisição só
+    # de áudio — 696 245 bytes, sha256 `ea372eeb…`, egresso IT medido nas duas
+    # pontas, US$ 0, sem conta e sem cookie.
+    'INSTAGRAM/FETCH_TRANSCRIPT': ('ALLOWED', 'instagram_transcrever.py:faster-whisper', 'SIM', 'PROVED'),
     # ── MUDOU NA C14-C, DE PROPÓSITO E COM PROVA ────────────────────────────
     # Esta linha dizia `('ALLOWED', 'instagram_janela.py:grade', 'CONDICIONAL',
     # 'PROVED')`. Era a ÚNICA capacidade remota do Instagram que chegava a
@@ -81,6 +120,31 @@ DECISOES_ANTIGAS = {
     'YOUTUBE/FETCH_VIDEO_METADATA': ('ALLOWED', 'youtube-data-api-v3:videos.list', 'SIM', 'CREDENTIAL_MISSING'),
     'YOUTUBE/INCREMENTAL': ('ALLOWED', 'youtube-data-api-v3:playlistItems.list', 'SIM', 'CREDENTIAL_MISSING'),
     'YOUTUBE/SEARCH_KEYWORD': ('ALLOWED', 'youtube-data-api-v3:search.list', 'SIM', 'CREDENTIAL_MISSING'),
+}
+
+#: As decisoes que NASCERAM DEPOIS desta ancora, uma a uma, com a razao.
+#:
+#: ⚠️ PORQUE ISTO EXISTE, EM VEZ DE UMA CONTAGEM NOVA. A versao anterior
+#: comparava o NÚMERO de decisoes com o numero da ancora — e o numero cresce
+#: sempre que a matriz ganha uma capacidade. Um teste que reprova por
+#: crescimento obriga a reescrever a ancora, e a ancora reescrita deixa de ser
+#: uma ancora: passa a ser a fotografia do dia que ela existia para vigiar.
+#:
+#:     A ANCORA GUARDA O QUE NAO PODE MUDAR.
+#:     UMA LISTA NOVA GUARDA O QUE MUDOU — E DIZ QUEM MUDOU.
+#:
+#: Assim o ataque H continua a morder: mexer numa rota nova nao pode mexer em
+#: nenhuma das 32 antigas, e a lista nova nao pode crescer sozinha.
+DECISOES_NASCIDAS_DEPOIS = {
+    # ── D23 · 2026-09-23 · O VIDEO DE ORGANIZACAO NO LINKEDIN ──────────────
+    # O dono autorizou, por escrito e com o risco assumido, a aquisicao de
+    # VIDEO e da legenda que vem com ele em paginas de ORGANIZACOES. A
+    # plataforma PROÍBE — o robots.txt do LinkedIn, medido — e as duas frases
+    # viajam em cada rota (`OWNER_AUTHORIZED` + `PLATFORM_POLICY_STATUS`).
+    # Prova: `docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md`.
+    'LINKEDIN/DISCOVER_POST': ('ALLOWED', 'linkedin:pagina-publica-da-organizacao', 'SIM', 'PROVED'),
+    'LINKEDIN/FETCH_VIDEO_BYTES': ('ALLOWED', 'linkedin:data-sources-mp4', 'SIM', 'PROVED'),
+    'LINKEDIN/FETCH_TRANSCRIPT': ('ALLOWED', 'linkedin:data-captions-url', 'SIM', 'PROVED'),
 }
 
 
@@ -200,10 +264,18 @@ class NenhumaRotaAntigaMuda(unittest.TestCase):
 
     def test_13_as_32_decisoes_antigas_estao_intactas(self):
         agora = _decisoes(ignorar=GROSSA)
-        self.assertEqual(len(agora), len(DECISOES_ANTIGAS))
         for chave, esperado in sorted(DECISOES_ANTIGAS.items()):
             with self.subTest(decisao=chave):
                 self.assertEqual(agora.get(chave), esperado)
+        # ⚠️ E AS QUE NASCERAM DEPOIS SAO NOMEADAS, UMA A UMA.
+        # Uma decisao nova que apareca sem estar declarada aqui reprova: nao
+        # por o numero ter crescido, mas por ninguem ter dito o que ela e.
+        for chave, esperado in sorted(DECISOES_NASCIDAS_DEPOIS.items()):
+            with self.subTest(nascida_depois=chave):
+                self.assertEqual(agora.get(chave), esperado)
+        self.assertEqual(sorted(set(agora) - set(DECISOES_ANTIGAS)),
+                         sorted(DECISOES_NASCIDAS_DEPOIS),
+                         'ha decisao nova sem nome e sem razao escrita')
 
     def test_13b_nenhuma_decisao_antiga_carregou_eixos(self):
         """Os campos novos so existem onde foram declarados."""
@@ -286,7 +358,12 @@ class RedTeamDaRota(unittest.TestCase):
             depois = _decisoes(ignorar=GROSSA)
         self.assertEqual(antes, depois,
                          'mexer na rota de audio mexeu em rota de outra plataforma')
-        self.assertEqual(_decisoes(ignorar=GROSSA), DECISOES_ANTIGAS)
+        agora = _decisoes(ignorar=GROSSA)
+        for chave, esperado in sorted(DECISOES_ANTIGAS.items()):
+            self.assertEqual(agora.get(chave), esperado, chave)
+        self.assertEqual(sorted(set(agora) - set(DECISOES_ANTIGAS)),
+                         sorted(DECISOES_NASCIDAS_DEPOIS),
+                         'as decisões que nasceram depois não são as declaradas')
 
 
 if __name__ == '__main__':

@@ -364,8 +364,23 @@ class ADeclaracaoNaoMente(Base):
                     cap.promete_resultado(capa),
                     '%s nao tem funcao e promete resultado' % capa)
             else:
-                self.assertEqual(capa, CAPACIDADE,
-                                 '%s ganhou funcao e nao e a rota permitida' % capa)
+                # ⚠️ ESTE RAMO AFIRMAVA QUE SÓ UMA CAPACIDADE DO LINKEDIN TINHA
+                # FUNÇÃO, e isso deixou de ser verdade em 2026-09-23: D23
+                # autorizou o VÍDEO de páginas de ORGANIZAÇÃO e a matriz passou
+                # a permitir três rotas novas (`linkedin.org.posts`, `.video`,
+                # `.caption`).
+                #
+                #     O NÚMERO DE CAPACIDADES LIGADAS NÃO É A GARANTIA.
+                #     A GARANTIA É NENHUMA DELAS PROMETER FORA DA POLÍTICA.
+                #
+                # É isso que se mede aqui, e continua a ser o que este teste
+                # existia para medir: uma capacidade que ganhe função sem a
+                # matriz permitir a rota dela é o defeito.
+                grosso = cap.da_matriz(capa)
+                self.assertTrue(grosso, '%s tem funcao e a matriz nao a conhece' % capa)
+                self.assertEqual(
+                    mz.decisao(plat, grosso)['DECISAO'], mz.PERMITIDA_SIM,
+                    '%s ganhou funcao e a matriz nao permite a rota dela' % capa)
 
     def test_A16_a_capacidade_e_alcancavel_pelo_vocabulario_da_matriz(self):
         """O caller pede PLATAFORMA + CAPACIDADE GROSSA. Nao pede o adaptador."""

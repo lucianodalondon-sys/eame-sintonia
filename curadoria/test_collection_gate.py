@@ -281,6 +281,18 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
         "ferramentas/italy-forward-only-live.cmd": ("PRODUCTION_LAUNCHER", False),
         ".github/workflows/sintonia-scrap.yml": ("TEST_ONLY", False),
         "curadoria/test_collection_gate.py": ("TEST_ONLY", False),
+        # A2 (micro-pronta-v2): ensaio OFFLINE da micro-coleta. Corre o coletor com
+        # TODA a rede desviada para 127.0.0.1 (bytes ja guardados), um Postgres
+        # descartavel e uma worktree temporaria — a Sala real nao e tocada.
+        # Ferramenta corrida a mao; nao arranca coleta de producao.
+        "scripts/micro_coleta/ensaio_offline.py": ("MANUAL_TOOL", False),
+        # A4/A5: a micro-coleta com rede real (VPN IT) sobre uma Sala DESCARTAVEL,
+        # corrida a mao. Desde a A5 cita o coletor na docstring (o transporte e dele).
+        "scripts/micro_coleta/micro_rede_real.py": ("MANUAL_TOOL", False),
+        # V1A: o retrato de um HTML (mede bytes: HTML_KIND, TEXT_SHA256). E uma
+        # biblioteca que o coletor usa; so CITA o coletor num comentario. Nao
+        # arranca coleta nenhuma.
+        "coleta/retrato_html.mjs": ("LIBRARY", False),
     }
     PREFIXOS_DECLARADOS = {
         "regras/": "TEST_ONLY",      # guardas e motor de rota, nao correm coleta
@@ -507,10 +519,17 @@ class OLivroRealPassaPelaMesmaRegra(unittest.TestCase):
         com_revisao = [l for l in self.inv
                        if l["READY_RULE"] == RS.REGUA_CURRENT
                        and l["HUMAN_REVIEW_REQUIRED"]]
+        contratos = RS._contratos()
         for l in com_revisao:
             with self.subTest(sid=l["SOURCE_ID"]):
                 self.assertFalse(l["COLLECTION_ELIGIBLE"])
-                self.assertEqual(CG.HUMAN_REVIEW_REQUIRED, l["MOTIVO"])
+                # A retirada por decisao (D9) e a primeira porta: uma fonte retirada
+                # E com pedido de olho humano sai pela retirada (IT-T12-095 no livro
+                # vivo de 23/09). So essa excepcao, e so com a marca no contrato.
+                retirada = ((contratos.get(l["SOURCE_ID"]) or {}).get("ESTADO_CATALOGO")
+                            == CG.RETIRADA_POR_DECISAO)
+                self.assertEqual(CG.RETIRADA_POR_DECISAO if retirada
+                                 else CG.HUMAN_REVIEW_REQUIRED, l["MOTIVO"])
 
     def test_nenhuma_READY_LEGACY_do_livro_real_entra(self):
         vazou = [l["SOURCE_ID"] for l in self.inv

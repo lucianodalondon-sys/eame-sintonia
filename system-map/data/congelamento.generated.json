@@ -1,19 +1,19 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "b4003769c60e3561ae334534d2517858b6306394",
+  "FROZEN_AT_HEAD": "1a88c4772e3302103c956010fcfe78aec5c53974",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 272,
+  "ARTEFATOS": 276,
   "POR_ESPECIE": {
     "CONTRACT": 3,
-    "DATA_SAMPLE": 97,
-    "DOCUMENTATION": 4,
+    "DATA_SAMPLE": 98,
+    "DOCUMENTATION": 5,
     "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 10,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 45,
+    "MENCAO_FRACA_APENAS": 46,
     "PORTAL_UI": 65,
-    "TEST": 16
+    "TEST": 17
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -563,7 +563,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "f98012a0ca0ed601ba7b5818b202e5cb692b4a1c",
+      "GIT_BLOB_SHA": "562361ac81f97fb57eedb409f33761e9cf18b4dc",
       "MARCAS_FORTES": []
     }
   ],
@@ -727,6 +727,10 @@
     {
       "PATH": "curadoria/status_live.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "curadoria/test_impasse_b4.py",
+      "SPECIES": "DOCUMENTATION"
     },
     {
       "PATH": "curadoria/test_nivel_da_fila.py",
@@ -953,6 +957,10 @@
       "SPECIES": "DATA_SAMPLE"
     },
     {
+      "PATH": "ferramentas/unificacao/m5/suite-unificado-f24a459f.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
       "PATH": "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
       "SPECIES": "DATA_SAMPLE"
     },
@@ -1099,6 +1107,10 @@
     {
       "PATH": "leis/fundacao_da_coleta.py",
       "SPECIES": "INSTRUMENT"
+    },
+    {
+      "PATH": "leis/social_matriz.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
       "PATH": "motor/corrida_da_inteligencia.py",
@@ -1310,6 +1322,10 @@
     },
     {
       "PATH": "tests/test_completude_oportunidade.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_d24_video_de_pessoa.py",
       "SPECIES": "TEST"
     },
     {

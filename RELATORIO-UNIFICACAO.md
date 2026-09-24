@@ -601,3 +601,275 @@ e `aplicar_d15_politica.py` (idempotentes, com `--porta`), a prova dos termos
 (`candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json` + `candidatas/prova-termos/`), e a medida
 offline do REVALIDAR (6 candidatas CONTRATO_NOVO, 5 por volta). A X2 ensaia sobre o FINAL_HEAD
 desta passagem.
+
+---
+
+# 5.ª PASSAGEM — UNIFICACAO-V1-E (23/09/2026)
+
+Base 516132fe (4.ª passagem aceite). Nenhuma coleta corrida; nenhum serviço vivo tocado.
+**A linha descende de 05fd018a** (`origin/cutover-ensaio-v1`, o FINAL da troca real X3): o que
+esta passagem trouxe entra no vivo por fast-forward.
+Fora, de propósito: `v1-ligada` (não existe no origin), scrap-portas-v1, sala-duplicados-v1 (A3),
+curator-youtube-v1 (SOC2), youtube-regua-t8-v1 (YT2).
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | ttl-mutable-v1 8ee85e5a (T1: TTL 3 dias para Riunite/Zootecnica) | 023eaa18 |
+| 2 | micro-pronta-v2 b3f548eb (A2: coorte do portão, RAW ≠ falha, backup da Sala, MICRO-RUNBOOK) | b8056918 |
+| 3 | social-prontidao-v1 ffef59cf (SOC1: prova de prontidão social, termos com sha256) | 5983ffe5 |
+| 4 | youtube-oficial-v1 7f651aa7 (YT1: canário YouTube) | 6096726a |
+| — | know-how §196-§199 | 65e5c615 |
+| 5 | cutover-ensaio-v1 05fd018a (X2: observador com `--lane` e trava) | (ver git log) |
+| — | defeito escondido da A2 no portão; mapa | 75e9ce3e |
+| — | este relatório; mapa | FINAL_HEAD |
+
+## ENTREGA-E
+
+```
+PONTAS            = 5 (T1, A2, SOC1, YT1 + cutover-ensaio-v1 pedida a meio)
+CONFLITOS         = 0 de codigo. Know-how: 5 blocos, uniao. Docs com marcadores de metricas
+                    (HANDOFF, docs/piloto, docs/apresentacao...): lado da base e --sync.
+                    Gerados e censos: lado da base, regerados pela cadeia.
+                    SOC1 guarda 4 paginas de termos em candidatas/prova-termos/ (ja -text pela
+                    D15): os 4 sha256 do PROVA-TERMOS-SOC1-V1.json batem depois da juncao.
+                    T1 mexe na tabela do coletor (regras/italy_contracts_onboarded.json):
+                    italy_contract_test com as mesmas 76 falhas da base; RETIRADA verde.
+DEFEITOS ESCONDIDOS = 2 (12.o e 13.o da unificacao):
+                    12. a A2 trouxe scripts/micro_coleta/ensaio_offline.py,
+                    um caminho novo ate ao coletor italiano sem classificacao no portao
+                    (test_collection_gate). Isso punha VERMELHA a suite de base do red team da
+                    ponte: o red team saia com rc 1 («BASE suite=False») apesar de 17/17 mortos —
+                    mortos contra uma base vermelha nao provam nada. Declarado MANUAL_TOOL (o
+                    ensaio desvia toda a rede para 127.0.0.1 e usa um Postgres descartavel).
+                    Ja estava vermelho na propria b3f548eb.
+                    13. a SOC1 escrevia a chave PERMITIDA na sua prova (copia da matriz), e a
+                    regra «so a matriz declara PERMITIDA» (test_c10_4_route_gate) via ali um
+                    segundo portao. A chave passou a PERMITIDA_NA_MATRIZ (prova, fixture e JSON
+                    da SOC1). Ja estava vermelho na propria ffef59cf. A regra nao mudou.
+SUITE             = antes 5f514c9f (4.a): curadoria/ Ran 572 OK · tests/ Ran 5164, 90 vermelhos por nome
+                    depois 75e9ce3e: curadoria/ Ran 576 OK · tests/ 90 vermelhos por nome
+                    Por nome: saiu test_M5_o_ponto_fixo (o commit medido ja passou pela cadeia);
+                    entrou test_so_a_matriz_declara_permitida, herdado da SOC1 — corrigido a
+                    seguir (defeito 13) e re-medido modulo a modulo: test_c10_4_route_gate +
+                    test_prontidao_social_v1 44/44. NEW_RED_BY_NAME no FINAL_HEAD = 0.
+                    A suite inteira nao foi corrida outra vez depois desse conserto (1 h).
+PROVAS_COPIA      (75e9ce3e, copia descartavel; ensaios numa copia sem .git) — todas PASS
+  ponte · red team 17/17 com BASE verde · ponte B2 · supervisor · worker pendurado ·
+  gatilho ocioso · fila windows · 183/183 modulos de prova · NAO SEI/quarentena 28/28 ·
+  R1/R2 node 15/15, 13/13, 8/8
+  novas desta passagem (aad63db1, copia): ttl_mutable_local 12/0 · incrementalidade_test 31/0 ·
+  test_ensaio_offline_micro + test_micro_coleta_instrumento + test_prontidao_social_v1 65/65
+  X2 (1f3159da): test_ponte_automatica + guarda 22/22 · test_medir_cutover 11/11
+KNOW_HOW_TABLE    = §196 TTL-1 · MUTABLE COM PRAZO (T1; chegou sem numero)
+                    §197 A COORTE VEM DO PORTAO, A FALHA NAO E DOCUMENTO (A2; era §196)
+                    §198 O SCRAP DIZ «CONSIGO», A PORTA DIZ «NAO PODES» (SOC1; ja era §198)
+                    §199 YT1 · O SOM DO YOUTUBE ATRAVESSA ATE AO TEXTO (YT1; era §196;
+                         RELATORIO-YT1-CANARIO.md aponta agora para §199)
+                    §200 UM PLANO SEGUIDO A LETRA NUMA COPIA NAO E UM PLANO ENSAIADO (X1; sem numero)
+                    §201 A CASA DA PONTE NAO PODE SER A PASTA DO BOT (X2; era §196)
+                    Ordem: §196-§199 por ordem de chegada; X1/X2 chegaram depois de §199 estar
+                    publicado nesta linha e foram para o proximo livre depois do maior.
+                    Nada apagado. Proximo livre: §202.
+SYSTEM_MAP_CHECK  = PASS
+FINAL_HEAD        = (na entrega ao coordenador) — para a X2/X3: descende de 05fd018a
+```
+
+O plano da troca continua a ser o `CUTOVER-RUNBOOK.md` (X1/X2). Os 2 vermelhos conhecidos de
+`tests/test_fila_italia_decisoes` (amostras e população de SOURCE_ID) estão com a A3 e não foram
+mexidos.
+
+---
+
+# 6.ª PASSAGEM — UNIFICACAO-V1-F (23/09/2026) — com tela azul a meio
+
+Base 940f3b14 (5.ª passagem). Worktree nova: **`unificacao-v1-f`** (a `unificacao-v1` antiga foi
+usada por outra sessão, ver abaixo). Nenhuma coleta; nenhum serviço vivo tocado; nada na Sala real.
+D25 (a Big Collection não espera pelas fontes; coorte = READY do portão no arranque): não muda
+código desta junção — o portão está verde e é ele que dá a coorte.
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | sala-duplicados-v1 a0111921 (A3: Sala idempotente por documento) | 6dfc75a5 |
+| 2 | micro-rede-real-v1 dbbd7271 (A4: micro com rede real) | a21901a2 |
+| 3 | v1-ligada 039c0160 (V1A; traz K1 receitas V4 e D1 detector D14) | 22ae87ee |
+| — | retira o que a sessão P1 escreveu nesta worktree | accd8f44 |
+| 4 | retencao-youtube-v1 f899ed7f (SOC3 + SOC2) — **depois retirada** | f07349e3 → revert 63169df3 |
+| — | know-how §202-§208, métricas, mapa | até FINAL_HEAD |
+
+## ENTREGA-F
+
+```
+PONTAS JUNTAS     = 3: A3, A4, V1A (com K1 e D1 dentro)
+FORA (declarado)  = SOC3+SOC2 (f899ed7f): juntada, medida e RETIRADA por revert — a propria
+                    lane reprova 4 leis da casa (SQL da Sala fora do dono, 2.o dialeto psql no
+                    runtime, migration 033 sem marca de proposta, migration nova desde o tronco).
+                    A 033 nao se corrige aqui: o sha256 e guardado pela cadeia do banco e NAO SEI
+                    se ja foi aplicada. Ref confirmada: f899ed7f esta em origin/retencao-youtube-v1.
+                  = REELS scrap-portas-v1: 0c3bd0a2 (ultimo antes da queda) tem 27 vermelhos
+                    proprios nos testes do Scrap (a decisao do Instagram mudou para ALLOWED e os
+                    testes antigos exigem NAO; o teste novo das duas portas rebenta a ler o
+                    workflow); o head no origin passou a um CHECKPOINT pos-queda com
+                    data/samples/RUN-MANIFEST.json CORTADO A MEIO (JSON invalido na linha 19349).
+                  = LINKEDIN scrap-linkedin-v1: 8f3ddca5 (ultimo antes da queda) tem 14 vermelhos
+                    nesses testes (a base tem 5); o head no origin e tambem um CHECKPOINT pos-queda.
+CONFLITOS         = 0 de codigo nas 3 que ficaram; test_collection_gate por uniao (SOC3, depois
+                    revertida). Know-how por uniao; gerados e censos pela cadeia.
+DEFEITOS          = 2 corrigidos: coleta/retrato_html.mjs (V1A) cita o coletor e nao estava
+                    declarado no portao (declarado LIBRARY); a guarda de isolamento passou a
+                    aceitar redirecionamento por tabela `(W, "PULSO")` + setattr (alarme falso nos
+                    testes da SOC2; mutacao: tirar a entrada da tabela -> reprova).
+INCIDENTES        = (1) as 12:4x a sessao P1 «pesquisadores» fez `checkout -b pesquisadores-v1`
+                    NESTA worktree e escreveu 4 ficheiros (pesquisadores.py, PESQUISADORES-PROOF,
+                    FONTES-CANDIDATAS +306 linhas, DISCOVERY-VISITED); os meus merges cairam no ramo
+                    dela e um `git add -A` levou os ficheiros dela. Retirados em accd8f44; o trabalho
+                    dela ficou inteiro no ramo local pesquisadores-v1 @ a803d6b7 e em
+                    %TEMP%/m5/intruso-1247. A unificacao mudou para a worktree unificacao-v1-f.
+                    (2) tela azul 12:50: repositorio integro (0 objetos em falta na linha; fsck limpo);
+                    a juncao da SOC3 que estava aberta retomou-se sem perda.
+SUITE             = UMA vez, em de4dec2b: curadoria/ Ran 618 OK · tests/ 91 vermelhos por nome.
+                    Contra a 5.a (75e9ce3e, 90): sairam 3 (os 2 da fila italiana — A3 — e o da
+                    PERMITIDA); entraram 4, todos da SOC3. Depois do revert (63169df3) os 4
+                    medidos de novo, modulo a modulo, numa copia: ja nao reprovam.
+NEW_RED_BY_NAME   = 0 no FINAL_HEAD (a suite inteira nao correu de novo depois do revert: 1 h).
+PROVAS_COPIA      (de4dec2b) todas PASS: ponte, red team 17/17 com base verde, B2, supervisor,
+                  worker pendurado, gatilho ocioso, fila windows, 183 + 28 modulos, R1/R2 node
+                  15/13/8. A3 41/41 · A4 5/5 + portao · V1A+K1+D1 133/133.
+KNOW_HOW_TABLE    = §202 D1 · §203 K1 (era §196) · §204 V1A (era §197) · §205 SOC2 (era §199;
+                    codigo fora) · §206 A3 (era §197) · §207 SOC3 (era §200; codigo fora) ·
+                    §208 A4 (era §198). Proximo livre: §209.
+SYSTEM_MAP_CHECK  = PASS
+FINAL_HEAD        = na entrega (descende de 05fd018a)
+```
+
+Pronto para instalar no vivo pelo `CUTOVER-RUNBOOK.md`, com o bot quieto.
+
+---
+
+# 7.ª PASSAGEM — UNIFICACAO-G (M5G, 23-24/09/2026) — e o plano de instalação
+
+Base 4ec62114 (6.ª passagem + REELS + D24). Worktree `unificacao-v1-f`. **Nenhuma função nova**
+(ordem do dono, 19:20); nenhuma coleta; nada no vivo (só leitura); nada na Sala real;
+nenhum banco de teste aberto. A sessão morreu às ~19:44 (causa NÃO SEI) e foi retomada.
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | cortesia-coleta-v1 7688dffd (A5: robots, pausa e teto dentro do coletor) | 96925e68 |
+| — | portão: `micro_rede_real.py` declarado MANUAL_TOOL | a77e4451 |
+| 2 | coorte-unica-v1 790fb10f (G3; traz BC2 83ca6c60 e a história do cutover 5c02bbe4) | 1527bfbc |
+| — | `test_collection_gate`: precedência da D9 (IT-T12-095) | df815108 |
+| 3 | bot-impasse-v1 d4879316 (B4) | 73bfd089 |
+| — | know-how §215-§220 · métricas · mapa | 80ff7550 · … · e642c52a |
+| — | `PLANO-INSTALACAO-M5G.md` (passo I ensaiado, WRITESET M5G/R1/B5) · mapa | e411bdd7 · f24a459f |
+
+## ENTREGA-G
+
+```
+PONTAS JUNTAS     = 3 (+2 dentro): A5, G3 (com BC2), B4
+FORA (nomeado)    = P1b f5123e23 · P2 52a64e48 · YT3 ffb6e971: as candidatas novas usam numeros
+                    CAND que a producao ja deu a OUTRAS candidatas — 164/164, 29/29, 14/14 (YT3: 3
+                    enderecos ja na fila). Juntar punha dois CPFs iguais na fila. Falta: cada lane
+                    re-regista pela porta (candidatas/fonte_nova.py registar) sobre a fila de hoje.
+                  = SOC5 97728444: assenta em SOC2/SOC3 sem a retirada da 6.a passagem (worker.py,
+                    rota_do_scrap_youtube.py, prova de roteamento so funcionam com esse codigo).
+                  = R1 reparo-fontes-v1: a missao manda esperar o SHA de instalada no vivo; e o
+                    WRITESET dela reintroduz SOC2 no vivo (ver o plano).
+                  = P1 e20eb0ec (trava Vet/IZS): funcao nova; as 34 Vet/IZS estao na f5123e23,
+                    que ficou fora pela colisao de CAND.
+CONFLITOS         = 0 de codigo. architecture.declared.json por uniao a 3 vias por id de peca
+                    (A5: C-PROVA-CORTESIA + C-IT-COLETA; G3: C-COORTE-BIG-COLLECTION).
+DEFEITOS          = 2, corrigidos so em testes/declaracao (sem funcao nova):
+                    14. A5: a docstring de micro_rede_real.py passou a citar o coletor -> caminho
+                        sem classificacao no portao -> o red team da ponte saia com base vermelha.
+                        Declarado MANUAL_TOOL (ferramenta a mao, Sala descartavel).
+                    15. G3 (ja vermelho em 790fb10f): IT-T12-095 tem revisao humana E esta
+                        RETIRADA_POR_DECISAO (D9: «hub de sitios regionais», no contrato). O portao
+                        recusa pela retirada, que e a primeira porta. O teste passa a aceitar essa
+                        excepcao SO com a marca no contrato. Mutacoes: desligar revisao -> 11 FAIL;
+                        desligar a retirada -> FAIL em IT-T12-095. Livro vivo intocado.
+SUITE             = UMA vez, em f24a459f (~1h10): curadoria/ Ran 596, 1 vermelho · tests/ Ran 5060,
+                    97 vermelhos por nome. Contra a 6.a (de4dec2b: 0 e 91), por nome:
+                    SAIRAM 4 — os da SOC3 (dialeto psql, migration nova, migration executada, SQL da
+                    Sala fora do dono): a SOC3 saiu da linha.
+                    ENTRARAM 11, NENHUM nasce de uma juncao desta passagem com codigo novo:
+                     4 ja conhecidos da M5F (Reels, falham na propria lane nesta maquina):
+                       c10_6 P11 · cadeia_do_audio_offline 04, 05, 12
+                     4 do Scrap, vermelhos NA PROPRIA lane dos Reels aceite (233638e3), em c57987a4
+                       e em a8812861: scrap_flow01 rt01/rt02 · scrap_rc01 ns1/ns6. Estavam na
+                       linha desde a M5F e ESCAPARAM a medicao de entao (a suite nao correu de novo
+                       depois dos Reels). Declarado aqui.
+                     3 da G3, vermelhos na propria 790fb10f: testes presos a um retrato do livro
+                       real, que a G3 trocou pelo da producao —
+                       test_micro_coleta_instrumento: IT-T10-022 ja nao esta READY
+                       («GATE:ESTADO_NAO_READY») e o filtro da 3b de IT-T7-043 nao rebenta;
+                       curadoria test_reconciliar_livros.test_zy_censo: 985 != 1003.
+                    Mais um, so com os livros vivos (nao aparece na suite): test_nivel_da_fila.test_5
+                    (B4) da 4 != 0 tambem no vivo SEM instalar nada.
+NEW_RED_BY_NAME   = 0 vindo do codigo desta passagem. 11 novos por nome contra a ultima suite
+                    inteira, todos herdados e medidos na lane de origem (acima). Nao os escondo:
+                    NAO SEI se o coordenador aceita os 3 da G3 como «retrato do livro»; a decisao
+                    de os reescrever e do dono da micro (A2) e da reconciliacao.
+PROVAS_COPIA      = A5: cortesia_http_local 30/0 · red team cortesia 17/17 · recollection 16/14/8 ·
+                    incrementalidade 31/0 · test_cortesia + test_micro_rede_real 10 OK ·
+                    red team da ponte 17/17 (base verde) — em 96925e68 e outra vez em 73bfd089.
+                    G3: onboardar + integracao_04a 39 OK · italy_contract_test com as MESMAS 98
+                    linhas de falha antes e depois (por nome). B4: impasse + nivel da fila +
+                    gatilhos + ponte de candidatas OK.
+                    Achado sem conserto (funcao nova proibida): o red team da ponte escreve
+                    IT-T99-001 em italy_contracts_curator.json da copia (desde a M5F) — so em copia.
+KNOW_HOW_TABLE    = §215 A5 (era §199) · §216 BC1 · §217 BC2 · §218 G3 (sem numero) ·
+                    §219 B4 (era §205) · §220 micro A1 (sem numero desde 004c6cc7).
+                    Nada apagado. Proximo livre: §221.
+SYSTEM_MAP_CHECK  = PASS
+PLANO             = PLANO-INSTALACAO-M5G.md — ensaio em copia fiel do vivo: 0 conflitos, 13
+                    livros iguais byte a byte, arvore = FINAL, rollback por `git reset --keep`
+                    provado (bot e ponte). WRITESET: M5G 176 ficheiros no bot / 182 na ponte, 0
+                    livros; R1 20 ficheiros (5 ja iguais saem) + SOC2; B5 0. NAO instalado.
+FINAL_HEAD        = na entrega
+```
+
+### ADENDO C1 (ordem da coordenação, 24/09): os 4 do Scrap eram TEST/PROBE STALE — consertados só em testes/provas
+
+A coordenação mediu os 2 módulos num clone de `f24a459f` (106 testes, 5 FAIL + 1 ERROR, os
+mesmos nomes) e decidiu: corrigir DENTRO da M5G só testes e provas, zero função de produto,
+sem reverter `233638e3`/`c57987a4`. Feito em `54ac31c8`:
+
+```
+setUpClass RC01   provas/entradas_do_scrap_v1 chamava censo_da_coleta._linhas_de_comando, que
+                  867f2f1d removeu. Religada ao dono do corte de prosa que a cadeia usa hoje
+                  (generate_system_map.sem_comentarios). Nenhum parser novo. medir() devolve o
+                  MESMO resultado com a funcao antiga e com esta (9.934 caracteres iguais).
+RT20              o livro de relevancia real tem 7 decisoes humanas (SIM); a classe passa a ler
+                  um livro VAZIO numa pasta temporaria, pelo mesmo ler_livro do runtime. RT20
+                  continua a exigir: livro vazio -> NAO_AVALIADA, DECISAO None, sem SIM, sem gasto.
+NS1/NS6           depois da D22 a rota do Reel e autorizada; a cadeia nao corre fornecedor
+                  (COST_STATE=NOT_RUN, RESULT=AUDIO_ONLY_UNAVAILABLE) e devolve o esqueleto. A
+                  premissa passa a medir-se pelo custo; NS6 exige o RESULT que a propria cadeia
+                  escreveu. NS1b (novo, so teste): matriz a recusar SO dentro do teste -> a porta
+                  (SOC1) recusa antes da cadeia: 0 objetos, 0 colheita. Forcar a recusa na
+                  fixture da classe inteira NAO servia: tirava o esqueleto que NS3-NS5 examinam.
+RT01/RT02         o ramo janela recusa fail-closed (D19). RT01: o ramo tem de comecar por
+                  `recusar` e nao executar programa nenhum (.py/.mjs/py/node). RT02: COLLECT por
+                  palavra inteira (a especie da recusa chama-se COLLECTION_DISCOVER).
+FOCADOS           test_scrap_flow01 + test_scrap_rc01: Ran 113, OK (eram 106 com 5 FAIL + 1 ERROR;
+                  +6 que o setUpClass partido escondia, +1 NS1b).
+MUTACAO           (copia C:/mut, apagada) 5 de 6 mortos: K1 ramo volta a chamar o script direto ·
+                  K2 ramo deixa de recusar e corre o orquestrador · K3 o disparador chama COLLECT ·
+                  K4 a porta SOC1 deixa de recusar o que a matriz recusa · K5 o portao de
+                  relevancia le um SIM fabricado. SOBREVIVE K6 (a prova deixa de cortar a prosa):
+                  hoje nenhum comentario do workflow produz entrada falsa, e a bateria nao tem
+                  sentinela desse corte. LACUNA DECLARADA; nao ha teste novo porque a ordem era
+                  so consertar o que estava desactualizado.
+PRODUCT           nenhum invariante do runtime quebrado: o motivo escrito pela cadeia para o zero
+                  continua a dizer «a rota nao correu … um esqueleto carimbado com SOURCE_ID seria
+                  observacao fabricada».
+```
+
+Balanço dos vermelhos por nome depois do C1 (medido modulo a modulo; a suite inteira fica para
+o gate posterior, D27): dos 11 que entraram, **4 consertados** (Scrap); ficam **7 herdados e
+nomeados** — 4 dos Reels que falham nesta maquina na propria lane (c10_6 P11, audio offline
+04/05/12) e 3 da G3 presos ao retrato do livro real (micro_coleta_instrumento x2,
+reconciliar_livros.test_zy_censo).
+
+Ensaio de instalacao repetido em `7ee87573` (C1 + mapa): os mesmos resultados — 0 conflitos,
+13 livros iguais, arvore = FINAL, desfazer provado. WRITESET da M5G: 181 ficheiros no bot
+(89 novos, 92 alterados), 187 na ponte, 0 livros. R1 e B5 como no plano.

@@ -1,0 +1,783 @@
+{
+ "DATASET": "SOC1-PRONTIDAO-SOCIAL-V1",
+ "MEDIDO_EM": "2026-09-23T10:51:12Z",
+ "LEI": "D16/D17: social é requisito da Big Collection; rota paga só como último recurso; nenhuma conta pessoal; YouTube pelas rotas que o Scrap declara. Esta matriz é MEDIDA no runtime, sem rede e sem gasto.",
+ "LINHAS": [
+  {
+   "PLATFORM": "INSTAGRAM",
+   "CAPABILITY": "instagram.post.comments",
+   "MATRIZ_CAPABILITY": "FETCH_COMMENTS",
+   "DECLARED_STATE": "BLOCKED",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [
+    {
+     "ROTA": "apify:comments",
+     "CLASSE": "APIFY",
+     "TIPO": "PAGA",
+     "PERMITIDA_NA_MATRIZ": "CONDICIONAL",
+     "ESTADO": "PROVED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "APIFY_TOKEN_POOL"
+    }
+   ],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "NAO_EXISTE rota grátis permitida na matriz",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "INSTAGRAM",
+   "CAPABILITY": "instagram.profile.discovery",
+   "MATRIZ_CAPABILITY": "INCREMENTAL",
+   "DECLARED_STATE": "PARTIAL",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [
+    [
+     "janela",
+     "COLHEITA"
+    ],
+    [
+     "janela-objetos",
+     "COLHEITA"
+    ],
+    [
+     "janela-perfis",
+     "COLHEITA"
+    ]
+   ],
+   "CHECK_STATE": "CAN_COLLECT_NOW",
+   "CAN": true,
+   "V1_DA_SUPERFICIE": "READY",
+   "ROTAS": [
+    {
+     "ROTA": "instagram_janela.py:grade",
+     "CLASSE": "PUBLIC_BROWSER",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "CONDICIONAL",
+     "ESTADO": "PROVED",
+     "OWNER_AUTHORIZED": "SIM",
+     "PLATFORM_POLICY_STATUS": "NOT_MEASURED",
+     "CREDENCIAL": null
+    }
+   ],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": [
+    "instagram_janela.py:grade: dono autorizou (OWNER_AUTHORIZED=SIM) e a plataforma diz NOT_MEASURED"
+   ]
+  },
+  {
+   "PLATFORM": "INSTAGRAM",
+   "CAPABILITY": "instagram.reel.audio",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "PROVEN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [],
+   "CHECK_STATE": "CAN_COLLECT_NOW",
+   "CAN": true,
+   "V1_DA_SUPERFICIE": "READY",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem fase em scrap_colheita (ninguém a pede)",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "INSTAGRAM",
+   "CAPABILITY": "instagram.reel.capture",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "PROVEN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [],
+   "CHECK_STATE": "CAN_COLLECT_NOW",
+   "CAN": true,
+   "V1_DA_SUPERFICIE": "READY",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem fase em scrap_colheita (ninguém a pede)",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "INSTAGRAM",
+   "CAPABILITY": "instagram.reel.transcribe",
+   "MATRIZ_CAPABILITY": "FETCH_TRANSCRIPT",
+   "DECLARED_STATE": "PROVEN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [],
+   "CHECK_STATE": "CAN_COLLECT_NOW",
+   "CAN": true,
+   "V1_DA_SUPERFICIE": "READY",
+   "ROTAS": [
+    {
+     "ROTA": "instagram_transcrever.py:faster-whisper",
+     "CLASSE": "LOCAL_EXECUTOR",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "ROUTE_NOT_ALLOWED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": null
+    }
+   ],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "NAO_EXISTE rota grátis permitida na matriz",
+    "ENGENHARIA: sem fase em scrap_colheita (ninguém a pede)",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "INSTAGRAM",
+   "CAPABILITY": "instagram.story.capture",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "UNKNOWN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "INSTAGRAM",
+   "CAPABILITY": "instagram.story.transcribe",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "NOT_EXECUTED",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "LINKEDIN",
+   "CAPABILITY": "linkedin.comments",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "UNKNOWN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "LINKEDIN",
+   "CAPABILITY": "linkedin.direct_post",
+   "MATRIZ_CAPABILITY": "FETCH_POST",
+   "DECLARED_STATE": "BLOCKED",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [
+    {
+     "ROTA": "linkedin:Community Management API",
+     "CLASSE": "OFFICIAL_API_PAID",
+     "TIPO": "PAGA",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "ROUTE_NOT_ALLOWED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": null
+    },
+    {
+     "ROTA": "apify:harvestapi~linkedin-*",
+     "CLASSE": "APIFY",
+     "TIPO": "PAGA",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "ROUTE_NOT_ALLOWED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "APIFY_TOKEN_POOL"
+    }
+   ],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "NAO_EXISTE rota grátis permitida na matriz",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "LINKEDIN",
+   "CAPABILITY": "linkedin.documents",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "NOT_EXECUTED",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "LINKEDIN",
+   "CAPABILITY": "linkedin.history.discovery",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "UNKNOWN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "LINKEDIN",
+   "CAPABILITY": "linkedin.identity.discovery",
+   "MATRIZ_CAPABILITY": "DISCOVER_ACCOUNT",
+   "DECLARED_STATE": "PARTIAL",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [
+    [
+     "identidade-linkedin",
+     "CATALOG"
+    ]
+   ],
+   "CHECK_STATE": "CAN_COLLECT_NOW",
+   "CAN": true,
+   "V1_DA_SUPERFICIE": "READY",
+   "ROTAS": [
+    {
+     "ROTA": "descoberta-indireta:site-da-organizacao",
+     "CLASSE": "DIRECT_HTTP",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "SIM",
+     "ESTADO": "POSSIBLE_NOT_PROVED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": null
+    }
+   ],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "CATALOG: identidade/descoberta — não atravessa a porta de ingresso",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "LINKEDIN",
+   "CAPABILITY": "linkedin.native_caption",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "BLOCKED",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "LINKEDIN",
+   "CAPABILITY": "linkedin.native_video",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "BLOCKED",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "LINKEDIN",
+   "CAPABILITY": "linkedin.recent.discovery",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "BLOCKED",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "POLICY_BLOCK",
+   "WORKER_QUALIFY": "BLOCK/POLICY",
+   "PRONTIDAO": "ROUTE_NOT_ALLOWED",
+   "FALTA": [
+    "DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada",
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/POLICY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "CAPABILITY": "youtube.channel.discovery",
+   "MATRIZ_CAPABILITY": "INCREMENTAL",
+   "DECLARED_STATE": "PROVEN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [
+    [
+     "canal-youtube",
+     "COLHEITA"
+    ]
+   ],
+   "CHECK_STATE": "CREDENTIAL_MISSING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "READY_PENDING_CREDENTIAL",
+   "ROTAS": [
+    {
+     "ROTA": "youtube-data-api-v3:playlistItems.list",
+     "CLASSE": "OFFICIAL_API_FREE",
+     "TIPO": "GRATIS_OFICIAL",
+     "PERMITIDA_NA_MATRIZ": "SIM",
+     "ESTADO": "CREDENTIAL_MISSING",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "YOUTUBE_DATA_API_KEY"
+    },
+    {
+     "ROTA": "feeds/videos.xml",
+     "CLASSE": "PUBLIC_NATIVE",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "ROUTE_NOT_ALLOWED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": null
+    }
+   ],
+   "PORTA_PONTE": "ENFILAVEL",
+   "WORKER_QUALIFY": "BLOCK/CAPABILITY",
+   "PRONTIDAO": "READY_PENDING_CREDENTIAL",
+   "FALTA": [
+    "CREDENCIAL: ausente neste shell; declarada só em scrap-social.yml",
+    "CURATOR: QUALIFY devolve BLOCK/CAPABILITY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "CAPABILITY": "youtube.channel.resolve",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "PARTIAL",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [],
+   "CHECK_STATE": "CREDENTIAL_MISSING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "READY_PENDING_CREDENTIAL",
+   "ROTAS": [],
+   "PORTA_PONTE": "ENFILAVEL",
+   "WORKER_QUALIFY": "BLOCK/CAPABILITY",
+   "PRONTIDAO": "READY_PENDING_CREDENTIAL",
+   "FALTA": [
+    "CREDENCIAL: ausente neste shell; declarada só em nenhum workflow",
+    "ENGENHARIA: sem fase em scrap_colheita (ninguém a pede)",
+    "CURATOR: QUALIFY devolve BLOCK/CAPABILITY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "CAPABILITY": "youtube.comments",
+   "MATRIZ_CAPABILITY": "FETCH_COMMENTS",
+   "DECLARED_STATE": "PROVEN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [
+    [
+     "comentarios-youtube",
+     "COLHEITA"
+    ]
+   ],
+   "CHECK_STATE": "CREDENTIAL_MISSING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "READY_PENDING_CREDENTIAL",
+   "ROTAS": [
+    {
+     "ROTA": "youtube-data-api-v3:commentThreads.list",
+     "CLASSE": "OFFICIAL_API_FREE",
+     "TIPO": "GRATIS_OFICIAL",
+     "PERMITIDA_NA_MATRIZ": "SIM",
+     "ESTADO": "CREDENTIAL_MISSING",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "YOUTUBE_DATA_API_KEY"
+    }
+   ],
+   "PORTA_PONTE": "ENFILAVEL",
+   "WORKER_QUALIFY": "BLOCK/CAPABILITY",
+   "PRONTIDAO": "READY_PENDING_CREDENTIAL",
+   "FALTA": [
+    "CREDENCIAL: ausente neste shell; declarada só em scrap-social.yml",
+    "CURATOR: QUALIFY devolve BLOCK/CAPABILITY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "CAPABILITY": "youtube.media",
+   "MATRIZ_CAPABILITY": null,
+   "DECLARED_STATE": "BLOCKED",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": false,
+   "FASES": [],
+   "CHECK_STATE": "CAPABILITY_STATE_PROMISES_NOTHING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "FAIL_CLOSED",
+   "ROTAS": [],
+   "PORTA_PONTE": "ENFILAVEL",
+   "WORKER_QUALIFY": "BLOCK/CAPABILITY",
+   "PRONTIDAO": "FAIL_CLOSED",
+   "FALTA": [
+    "ENGENHARIA: sem rota ligada no Scrap",
+    "CURATOR: QUALIFY devolve BLOCK/CAPABILITY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "CAPABILITY": "youtube.native_caption",
+   "MATRIZ_CAPABILITY": "FETCH_TRANSCRIPT",
+   "DECLARED_STATE": "PARTIAL",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [],
+   "CHECK_STATE": "CREDENTIAL_MISSING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "READY_PENDING_CREDENTIAL",
+   "ROTAS": [
+    {
+     "ROTA": "youtube-data-api-v3:captions.download",
+     "CLASSE": "OFFICIAL_API_FREE",
+     "TIPO": "GRATIS_OFICIAL",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "REQUIRES_OWNER_PERMISSION",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "YOUTUBE_DATA_API_KEY"
+    },
+    {
+     "ROTA": "youtube-data-api-v3:captions.list",
+     "CLASSE": "OFFICIAL_API_FREE",
+     "TIPO": "GRATIS_OFICIAL",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "REQUIRES_AUTHORIZATION",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "YOUTUBE_DATA_API_KEY"
+    },
+    {
+     "ROTA": "timedtext",
+     "CLASSE": "DIRECT_HTTP",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "ROUTE_NOT_ALLOWED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": null
+    },
+    {
+     "ROTA": "apify:transcricao",
+     "CLASSE": "APIFY",
+     "TIPO": "PAGA",
+     "PERMITIDA_NA_MATRIZ": "CONDICIONAL",
+     "ESTADO": "PARTIAL",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "APIFY_TOKEN_POOL"
+    }
+   ],
+   "PORTA_PONTE": "ENFILAVEL",
+   "WORKER_QUALIFY": "BLOCK/CAPABILITY",
+   "PRONTIDAO": "READY_PENDING_CREDENTIAL",
+   "FALTA": [
+    "NAO_EXISTE rota grátis permitida na matriz",
+    "CREDENCIAL: ausente neste shell; declarada só em apify-conexao.yml, apify-sensores.yml, comunicacao-publica.yml, scrap-social.yml, sintonia-scrap.yml",
+    "ENGENHARIA: sem fase em scrap_colheita (ninguém a pede)",
+    "CURATOR: QUALIFY devolve BLOCK/CAPABILITY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "CAPABILITY": "youtube.public_audio",
+   "MATRIZ_CAPABILITY": "FETCH_AUDIO_BYTES",
+   "DECLARED_STATE": "PROVEN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [
+    [
+     "audio-youtube",
+     "COLHEITA"
+    ]
+   ],
+   "CHECK_STATE": "CAN_COLLECT_NOW",
+   "CAN": true,
+   "V1_DA_SUPERFICIE": "READY",
+   "ROTAS": [
+    {
+     "ROTA": "yt-dlp:public_audio",
+     "CLASSE": "LOCAL_EXECUTOR",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "SIM",
+     "ESTADO": "PROVED",
+     "OWNER_AUTHORIZED": "SIM",
+     "PLATFORM_POLICY_STATUS": "DISALLOWED",
+     "CREDENCIAL": null
+    }
+   ],
+   "PORTA_PONTE": "ENFILAVEL",
+   "WORKER_QUALIFY": "BLOCK/CAPABILITY",
+   "PRONTIDAO": "READY",
+   "FALTA": [
+    "CURATOR: QUALIFY devolve BLOCK/CAPABILITY — a candidata não chega à fase"
+   ],
+   "AVISOS": [
+    "yt-dlp:public_audio: dono autorizou (OWNER_AUTHORIZED=SIM) e a plataforma diz DISALLOWED"
+   ]
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "CAPABILITY": "youtube.search",
+   "MATRIZ_CAPABILITY": "SEARCH_KEYWORD",
+   "DECLARED_STATE": "PROVEN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [
+    [
+     "busca-youtube",
+     "CATALOG"
+    ]
+   ],
+   "CHECK_STATE": "CREDENTIAL_MISSING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "READY_PENDING_CREDENTIAL",
+   "ROTAS": [
+    {
+     "ROTA": "youtube-data-api-v3:search.list",
+     "CLASSE": "OFFICIAL_API_FREE",
+     "TIPO": "GRATIS_OFICIAL",
+     "PERMITIDA_NA_MATRIZ": "SIM",
+     "ESTADO": "CREDENTIAL_MISSING",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "YOUTUBE_DATA_API_KEY"
+    },
+    {
+     "ROTA": "yt-dlp:ytsearch",
+     "CLASSE": "LOCAL_EXECUTOR",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "ROUTE_NOT_ALLOWED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": null
+    }
+   ],
+   "PORTA_PONTE": "ENFILAVEL",
+   "WORKER_QUALIFY": "BLOCK/CAPABILITY",
+   "PRONTIDAO": "READY_PENDING_CREDENTIAL",
+   "FALTA": [
+    "CREDENCIAL: ausente neste shell; declarada só em scrap-social.yml",
+    "CATALOG: identidade/descoberta — não atravessa a porta de ingresso",
+    "CURATOR: QUALIFY devolve BLOCK/CAPABILITY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  },
+  {
+   "PLATFORM": "YOUTUBE",
+   "CAPABILITY": "youtube.video.metadata",
+   "MATRIZ_CAPABILITY": "FETCH_VIDEO_METADATA",
+   "DECLARED_STATE": "PROVEN",
+   "MODULE_EXISTS": true,
+   "EDGE_EXISTS": true,
+   "FASES": [
+    [
+     "video-youtube",
+     "COLHEITA"
+    ]
+   ],
+   "CHECK_STATE": "CREDENTIAL_MISSING",
+   "CAN": false,
+   "V1_DA_SUPERFICIE": "READY_PENDING_CREDENTIAL",
+   "ROTAS": [
+    {
+     "ROTA": "youtube-data-api-v3:videos.list",
+     "CLASSE": "OFFICIAL_API_FREE",
+     "TIPO": "GRATIS_OFICIAL",
+     "PERMITIDA_NA_MATRIZ": "SIM",
+     "ESTADO": "CREDENTIAL_MISSING",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": "YOUTUBE_DATA_API_KEY"
+    },
+    {
+     "ROTA": "youtube:oembed",
+     "CLASSE": "PUBLIC_NATIVE",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "CONDICIONAL",
+     "ESTADO": "PROVED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": null
+    },
+    {
+     "ROTA": "yt-dlp:extract_info",
+     "CLASSE": "LOCAL_EXECUTOR",
+     "TIPO": "GRATIS_PUBLICA",
+     "PERMITIDA_NA_MATRIZ": "NAO",
+     "ESTADO": "BLOCKED",
+     "OWNER_AUTHORIZED": null,
+     "PLATFORM_POLICY_STATUS": null,
+     "CREDENCIAL": null
+    }
+   ],
+   "PORTA_PONTE": "ENFILAVEL",
+   "WORKER_QUALIFY": "BLOCK/CAPABILITY",
+   "PRONTIDAO": "READY_PENDING_CREDENTIAL",
+   "FALTA": [
+    "CREDENCIAL: ausente neste shell; declarada só em scrap-social.yml",
+    "CURATOR: QUALIFY devolve BLOCK/CAPABILITY — a candidata não chega à fase"
+   ],
+   "AVISOS": []
+  }
+ ],
+ "CREDENCIAIS": [
+  {
+   "NOME": "APIFY_TOKEN_POOL",
+   "LOCAL": "ABSENT_LOCAL",
+   "GLOBAL": "DECLARED_IN_WORKFLOW",
+   "WORKFLOWS": [
+    "apify-conexao.yml",
+    "apify-sensores.yml",
+    "comunicacao-publica.yml",
+    "sintonia-scrap.yml"
+   ],
+   "SECRET_PREENCHIDO_NO_GITHUB": "NAO_SEI",
+   "SECRET_WIRING_GAP": "NAO"
+  },
+  {
+   "NOME": "YOUTUBE_DATA_API_KEY",
+   "LOCAL": "ABSENT_LOCAL",
+   "GLOBAL": "DECLARED_IN_WORKFLOW",
+   "WORKFLOWS": [
+    "scrap-social.yml"
+   ],
+   "SECRET_PREENCHIDO_NO_GITHUB": "NAO_SEI",
+   "SECRET_WIRING_GAP": "NAO"
+  }
+ ]
+}

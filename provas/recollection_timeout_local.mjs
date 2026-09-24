@@ -41,9 +41,14 @@ const FOLGA_S = 25;
 const enchimento = "<p>" + "Testo dell'articolo. ".repeat(80) + "</p>";
 const SLUGS = ["mele-prezzi-in-calo", "pere-export-germania", "kiwi-raccolta-anticipata"];
 let MODO = { indice: "ok", materias: "pendura", lenta: null };
-const PEDIDOS = [], SOCKETS = new Set();
+const PEDIDOS = [], ROBOTS_PEDIDOS = [], SOCKETS = new Set();
 const servidor = createServer((req, res) => {
   const p = req.url;
+  // ⚠️ A5 · O COLETOR LE O ROBOTS.TXT ANTES DE PEDIR (a cortesia vive em
+  // `baixar()`). Este servidor nao publica robots — 404, «sem ficheiro = sem
+  // proibicao» — e conta essas idas A PARTE: as contas desta prova sao de
+  // documentos, e continuam exactamente as mesmas.
+  if (p === "/robots.txt") { ROBOTS_PEDIDOS.push(Date.now()); res.writeHead(404); res.end("non trovato"); return; }
   PEDIDOS.push(p);
   const pendura = p === "/news/" ? MODO.indice === "pendura" : MODO.materias === "pendura";
   if (pendura) return;                                   // aceita e nunca responde

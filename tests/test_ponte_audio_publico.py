@@ -255,10 +255,31 @@ class AProcedenciaSobrevive(unittest.TestCase):
         u, _f, _ = _atravessar(self.wav)
         self.assertEqual('VIDEO', u['OBSERVACAO']['PARENT']['KIND'])
 
-    def test_20_o_document_id_continua_NAO_SEI(self):
+    def test_20_o_document_id_e_o_que_o_CONTRATO_declara(self):
+        """⚠️ ESTA PROVA EXIGIA `NAO SEI`, E ISSO ERA O GAP — NÃO A LEI.
+
+        O contrato de fonte declara a identidade do ITEM desde sempre:
+
+            regras/italy_contracts.mjs::IT-T8-001
+                DOCUMENT_ID_RULE = "AGRONOTIZIE:YT:{VIDEO_ID}  —  …"
+
+        e `unidade()` respondia `NAO SEI` a todos porque nenhum owner
+        materializava a regra. O dono do contrato é o contrato, e quem o lê é
+        `regras/contratos_de_fonte.py::document_id_declarado` — é ele que
+        preenche o molde, com os valores que a OBSERVAÇÃO declara.
+
+            UM `NAO SEI` ONDE O CONTRATO DECLARA UM ID NÃO É HONESTIDADE:
+            É UMA IDENTIDADE QUE FICOU POR LIGAR.
+        """
         u, _f, _ = _atravessar(self.wav)
-        self.assertEqual('NAO SEI', u['DOCUMENT_ID'],
-                         'DOCUMENT_ID_WIRING_GAP continua aberto, e declarado')
+        self.assertEqual('AGRONOTIZIE:YT:%s' % VIDEO, u['DOCUMENT_ID'])
+        self.assertIn('MATERIALIZADO_PELO_CONTRATO_DE_FONTE', u['DOCUMENT_ID_BASE'])
+
+    def test_20b_sem_o_valor_declarado_continua_NAO_SEI_com_motivo(self):
+        """E o que NÃO mudou: molde que não fecha não devolve meio id."""
+        u, _f, _ = _atravessar(self.wav, VIDEO_ID=None)
+        self.assertEqual('NAO SEI', u['DOCUMENT_ID'])
+        self.assertIn('MOLDE_INCOMPLETO', u['DOCUMENT_ID_BASE'])
 
     def test_21_o_source_id_nao_virou_o_video_id(self):
         u, _f, _ = _atravessar(self.wav)

@@ -182,6 +182,11 @@
       "  FAIL  TTL que nao da para calcular NAO expira — nao sei nao autoriza rede",
       "  FAIL  evidencia canonica que exige -> REVALIDATE nomeado",
       "  FAIL  toda razao devolvida pertence ao vocabulario fechado",
+      "  FAIL  MUTABLE com prazo, dentro do prazo -> SKIP_KNOWN declarado (nao revisita)",
+      "  FAIL  MUTABLE com prazo, prazo vencido -> REVALIDATE por TTL_EXPIRED",
+      "  FAIL  MUTABLE com prazo, mesmo no limite -> ainda nao revisita",
+      "  FAIL  MUTABLE com prazo e idade ILEGIVEL -> revisita (o nao sei nao cega o que muda)",
+      "  FAIL  MUTABLE SEM prazo continua a revisitar em todas as corridas (boletim na mesma morada)",
       "  FAIL  sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara",
       "  FAIL  com ETag guardado, dispara — e diz que o condicional e mesmo possivel",
       "  FAIL  REVALIDATE sem validador confessa que o pedido NAO pode ser condicional",
@@ -238,7 +243,6 @@
       "  FAIL  SEEN_AGAIN significa QUE SE TEM o documento — nao que nao se trouxe nada",
       "  FAIL  a decisao NAO muda quando os bytes mudam — nem sabe o que e um byte",
       "  FAIL  DOCUMENT_CHANGED_IN_PLACE no livro NAO justifica tornar a ir",
-      "  FAIL  TTL vencido -> REVALIDATE; TTL por vencer -> SKIP",
       "  FAIL  TTL que nao da para calcular NAO expira — nao sei nao autoriza rede",
       "  FAIL  evidencia canonica que exige -> REVALIDATE nomeado",
       "  FAIL  sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara",
@@ -254,7 +258,6 @@
      "PRIMEIRA_FALHA": "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
      "TODAS": [
       "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
-      "  FALHA TTL expirado -> REVALIDATE; TTL fresco -> SKIP",
       "  FALHA SKIP nao gasta pedido; e o censo da UNNECESSARY_REFETCHES = 0",
       "  FALHA com a regra ligada, a RUN2 nao teria batido a porta a nenhum detalhe"
      ]
@@ -289,6 +292,8 @@
       "  FAIL  DOCUMENT_CHANGED_IN_PLACE no livro NAO justifica tornar a ir",
       "  FAIL  TTL vencido -> REVALIDATE; TTL por vencer -> SKIP",
       "  FAIL  TTL que nao da para calcular NAO expira — nao sei nao autoriza rede",
+      "  FAIL  MUTABLE com prazo, dentro do prazo -> SKIP_KNOWN declarado (nao revisita)",
+      "  FAIL  MUTABLE com prazo, mesmo no limite -> ainda nao revisita",
       "  FAIL  sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara",
       "  FAIL  RECOLLECTION ausente = UNKNOWN, e UNKNOWN nao autoriza rede",
       "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION",

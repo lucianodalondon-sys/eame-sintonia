@@ -282,13 +282,32 @@ export function decidirSobreDetalhe(url, {
   const rec = recolheitaDoContrato(sourceId || conhecido.SOURCE_ID, contrato);
   const razoes = [];
 
-  if (rec.DETAIL_CONTENT === "MUTABLE") razoes.push("CONTRACT_DECLARES_MUTABLE");
+  const idade = conhecido.QUANDO && agora
+    ? (Date.parse(agora) - Date.parse(conhecido.QUANDO)) / 1000 : NaN;
 
-  if (rec.TTL_SECONDS && conhecido.QUANDO && agora) {
-    const idade = (Date.parse(agora) - Date.parse(conhecido.QUANDO)) / 1000;
-    // ⚠️ UM TTL QUE NAO DA PARA CALCULAR NAO EXPIRA. Se a data nao se le, a
-    // resposta e «nao sei» — e «nao sei» nao autoriza gastar rede.
-    if (Number.isFinite(idade) && idade > rec.TTL_SECONDS) razoes.push("TTL_EXPIRED");
+  // ── MUTABLE COM PRAZO (T1, 2026-09-23) ────────────────────────────────────
+  // ⚠️ ATE AQUI `MUTABLE` REVISITAVA TODAS AS CONHECIDAS EM TODAS AS CORRIDAS,
+  // e o `TTL_SECONDS` so acrescentava uma razao a quem ja ia. Medido na T1
+  // (provas/ttl_mutable_simulacao.py, datas declaradas por 52 materias das 3
+  // fontes MUTABLE de noticias): ~47 revisitas por corrida, para 26 edicoes
+  // espalhadas de 1 a 72 dias depois da publicacao.
+  //
+  // Agora: MUTABLE SEM prazo continua a revisitar sempre — e o caso dos
+  // boletins reescritos na mesma morada, onde a revisita E a coleta. MUTABLE
+  // COM prazo revisita quando a ultima visita passou do prazo. Nenhuma edicao
+  // se perde (a materia continua a ser revisitada enquanto o indice a
+  // anunciar); o preco e o atraso, e o atraso tem tecto: o prazo.
+  //
+  //     MUTABLE + PRAZO = «VOLTA, MAS NAO TODOS OS DIAS».
+  //     MUTABLE + IDADE ILEGIVEL = VOLTA. O «NAO SEI» NAO CEGA UMA MATERIA
+  //     QUE O DONO DISSE QUE MUDA.
+  if (rec.DETAIL_CONTENT === "MUTABLE") {
+    if (!rec.TTL_SECONDS || !Number.isFinite(idade)) razoes.push("CONTRACT_DECLARES_MUTABLE");
+    else if (idade > rec.TTL_SECONDS) razoes.push("TTL_EXPIRED");
+  } else if (rec.TTL_SECONDS && Number.isFinite(idade) && idade > rec.TTL_SECONDS) {
+    // ⚠️ FORA DE MUTABLE, UM TTL QUE NAO DA PARA CALCULAR NAO EXPIRA. Se a
+    // data nao se le, a resposta e «nao sei» — e «nao sei» nao autoriza gastar rede.
+    razoes.push("TTL_EXPIRED");
   }
 
   // ⚠️ SO CONTA COMO RAZAO SE O VALIDADOR EXISTIR MESMO. Sem ETag nem
@@ -317,7 +336,9 @@ export function decidirSobreDetalhe(url, {
       PORQUE: declarado
         ? `ja se tem este documento (${conhecido.ULTIMO_RESULTADO}` +
           (conhecido.QUANDO ? ` em ${conhecido.QUANDO}` : "") +
-          `) e o contrato declara DETAIL_CONTENT=${rec.DETAIL_CONTENT}`
+          `) e o contrato declara DETAIL_CONTENT=${rec.DETAIL_CONTENT}` +
+          (rec.DETAIL_CONTENT === "MUTABLE"
+            ? ` com prazo de ${rec.TTL_SECONDS} s; a ultima visita tem ${Math.round(idade)} s` : "")
         : `ja se tem este documento (${conhecido.ULTIMO_RESULTADO}` +
           (conhecido.QUANDO ? ` em ${conhecido.QUANDO}` : "") +
           `) e NINGUEM classificou esta fonte — salta-se por ignorancia, nao por saber`,

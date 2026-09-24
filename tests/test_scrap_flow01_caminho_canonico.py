@@ -88,23 +88,38 @@ def _executor_da_fase(fase, fonte=FONTE):
 class ODisparadorPedeNaoConduz(unittest.TestCase):
 
     def test_rt01_a_fase_migrada_nao_chama_mais_o_script(self):
-        """SELECTED_ENTRYPOINT_DIRECT_BYPASS = NO."""
+        """SELECTED_ENTRYPOINT_DIRECT_BYPASS = NO.
+
+        ⚠️ O RAMO MUDOU DE COMPORTAMENTO, E ESTE TESTE FICOU PARA TRÁS (M5G).
+        Escrito em e3639f19 (12/09), quando a janela seguia pelo orquestrador.
+        Hoje (D19) a descoberta de perfis do Instagram é recusada fail-closed:
+        o ramo chama `recusar` e sai com 2. A D22 abriu os Reels, não este
+        ramo. O que o teste protege não mudou: o disparador não executa
+        coletor nenhum direto — nem o script antigo, nem outro.
+        """
         y = _sem_comentarios(_fonte(WORKFLOW))
         ramo = y[y.index('janela|janela-perfis|janela-objetos)'):]
         ramo = ramo[:ramo.index(';;')]
-        self.assertIn('orquestrador/orquestrador.py', ramo)
+        self.assertRegex(ramo, r'^\s*janela\|janela-perfis\|janela-objetos\)\s*\n\s*recusar\b',
+                         'o ramo deixou de recusar fail-closed')
         self.assertNotIn('social_scrap.py', ramo,
                          'a fase migrada voltou a chamar o script direto')
+        self.assertIsNone(re.search(r'\.(py|mjs|js)\b|\bpy(thon)?\s|\bnode\s', ramo),
+                          'o ramo recusado passou a executar um programa')
 
     def test_rt02_o_disparador_nao_conhece_ator_rota_nem_provider(self):
         """WORKFLOW É DISPARADOR. WORKFLOW NÃO É MOTOR."""
         y = _sem_comentarios(_fonte(WORKFLOW))
         ramo = y[y.index('janela|janela-perfis|janela-objetos)'):]
         ramo = ramo[:ramo.index(';;')]
-        for proibido in ('instagram_janela', 'adaptador_', 'apify', 'COLLECT',
+        # `COLLECT` por palavra inteira: a espécie da recusa chama-se
+        # COLLECTION_DISCOVER, e isso é o nome do que foi recusado, não uma
+        # chamada ao `sx.COLLECT` (M5G).
+        for proibido in ('instagram_janela', 'adaptador_', 'apify', r'\bCOLLECT\b',
                          'scrap_executor', 'instagram.profile'):
-            self.assertNotIn(proibido, ramo,
-                             'o disparador passou a conhecer %s' % proibido)
+            self.assertIsNone(re.search(proibido if proibido.startswith('\\b')
+                                        else re.escape(proibido), ramo),
+                              'o disparador passou a conhecer %s' % proibido)
 
     def test_rt03_o_pedido_nao_conhece_o_ator(self):
         """O request diz O QUE quer; quem escolhe COMO é o orquestrador."""
