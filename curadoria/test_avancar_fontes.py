@@ -178,6 +178,9 @@ class OGatilhoAvancaAntesDeProcurar(unittest.TestCase):
         GD.CANDIDATAS.write_text(json.dumps({"CANDIDATAS": []}), encoding="utf-8")
         self.addCleanup(setattr, GD, "revalidar_elegiveis", GD.revalidar_elegiveis)
         GD.revalidar_elegiveis = lambda agora, **k: {"CANDIDATAS": 0, "ENFILEIRADAS": []}
+        self.addCleanup(setattr, GD, "reparar_encalhadas", GD.reparar_encalhadas)
+        GD.reparar_encalhadas = lambda agora, **k: {"CANDIDATAS": 0, "ENFILEIRADAS": [],
+                                                    "RESTAM": 0, "QUALIFY_REQUALIFICADAS": 0}
         self.descobertas = 0
 
     def _descobrir(self):
@@ -271,8 +274,6 @@ class AMaquinaDoFunil(unittest.TestCase):
             if ":" not in quem:
                 continue
             mod, fn = quem.split(":")
-            if mod == "gatilho_discovery" and fn == "candidatas_a_reparar":
-                continue          # R1: existe no ramo dela; nesta arvore e buraco declarado
             with self.subTest(estado=estado):
                 self.assertTrue(hasattr(importlib.import_module(mod), fn), quem)
 

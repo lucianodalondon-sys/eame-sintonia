@@ -47,8 +47,8 @@ MAQUINA = {
                     "estado de passagem: a QUALIFY aloca SOURCE_ID ou bloqueia com motivo"),
     LC.CONTRACT_PENDING: ("BUILD_CONTRACT", "avancar_fontes:avancar", True,
                           "o worker enfileira-a apos a QUALIFY; sem tarefa, o AVANCAR repoe"),
-    LC.CANARY_PENDING: ("VALIDATE_ROUTE/CANARY", "gatilho_discovery:candidatas_a_reparar", False,
-                        "a cadeia do worker enfileira; ORFAS sem tarefa sao da R1 (nao instalada)"),
+    LC.CANARY_PENDING: ("VALIDATE_ROUTE/CANARY", "gatilho_discovery:reparar_encalhadas", True,
+                        "a cadeia do worker enfileira; ORFAS sem tarefa: REPARAR da R1 (nivel 0c)"),
     LC.RETRY_AFTER: ("VALIDATE_ROUTE", "avancar_fontes:avancar", True,
                      "a tarefa volta pelo relogio da fila; sem tarefa ha > 24 h, o AVANCAR repoe"),
     LC.READY_FOR_COLLECTION: ("VALIDATE_ROUTE", "avancar_fontes:avancar", True,
@@ -58,9 +58,9 @@ MAQUINA = {
     LC.DEGRADED: ("REPAIR/BUILD_CONTRACT", "avancar_fontes:avancar", True,
                   "com contrato do robo: REPAIR; so na tabela do coletor: importar e re-medir"),
     LC.REPAIRING: ("REPAIR", "avancar_fontes:avancar", True, "como DEGRADED"),
-    LC.CONTRACTED_CANARY_FAILED: ("REPAIR_CONTRACT", "gatilho_discovery:candidatas_a_reparar", False,
-                                  "dono R1 (reparo-fontes-v1): reparo deterministico do padrao; "
-                                  "nao instalada — hoje NINGUEM as move"),
+    LC.CONTRACTED_CANARY_FAILED: ("REPAIR_CONTRACT", "gatilho_discovery:reparar_encalhadas", True,
+                                  "dono R1 (reparo-fontes-v2, junta neste ramo): reparo "
+                                  "deterministico do padrao, UM por fonte; o que ele recusa fica aqui"),
     LC.SEMANTIC_REVIEW: ("—", "canal_da_decisao_semantica (humano/Opus)", False,
                          "decisao com prova no DECISOES-SEMANTICAS; a QUALIFY le-a; nao e maquina"),
     LC.UNKNOWN: ("—", "NINGUEM", False, "BURACO: estado sem tarefa que o avance"),

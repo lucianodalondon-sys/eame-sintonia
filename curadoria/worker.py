@@ -76,7 +76,10 @@ NAO_INSISTIR = {"POLICY", "AUTH", "ROBOTS"}
 # existe para produzir o contrato. Exigir contrato a qualquer uma das duas seria
 # pedir o resultado como pre-condicao de si proprio. Todas as outras etapas
 # operam SOBRE um contrato e por isso continuam a exigi-lo.
-SEM_CONTRATO_POR_DESENHO = frozenset({F.BUILD_CONTRACT, F.QUALIFY})
+SEM_CONTRATO_POR_DESENHO = frozenset({F.BUILD_CONTRACT, F.QUALIFY, F.REPAIR_CONTRACT})
+# REPAIR_CONTRACT tambem: 25 das falhadas nunca tiveram contrato — o molde foi
+# reprovado pelo validador («LINK_PATTERN casa com a propria INDEX_URL»). O
+# reparo parte do mesmo molde e so o grava se o padrao novo passar a porta.
 
 # Tipos sociais barrados por politica/capacidade conhecida (mesma lei da ponte).
 _SOCIAL_POLICY = frozenset({"LINKEDIN", "INSTAGRAM"})
@@ -646,7 +649,79 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
                             % (cand_id, sid_real, territorio)}
 
 
+def _contrato_do_molde(source_id: str) -> dict | None:
+    """O contrato do molde da missao 04 para uma fonte com identidade e sem
+    contrato na tabela — o ponto de partida do reparo, nunca gravado assim."""
+    import escrever_contratos as EC
+    n = next((x for x in _ler_alloc().get("NOVAS", []) if x.get("SOURCE_ID") == source_id), None)
+    if not n or not n.get("URL") or n.get("FAMILY") == "YOUTUBE":
+        return None
+    car = RAIZ / "curadoria" / "SOURCE-CHARACTERIZATION-V1.json"
+    f = {}
+    if car.exists():
+        f = next((x for x in json.loads(car.read_text(encoding="utf-8"))["FONTES"]
+                  if x.get("CANDIDATE_ID") == n.get("CANDIDATE_ID")), {})
+    c = EC.contrato_html(n, f)
+    c["SOURCE_CONTRACT_VERSION"] = EC.VERSAO
+    c["ONBOARDED_BY"] = ("SOURCE-CURATOR-WORKER · contrato escrito pelo reparo (REPAIR_CONTRACT) "
+                         "a partir do molde da missao 04")
+    return c
+
+
+def etapa_repair_contract(source_id: str, contrato: dict | None) -> tuple[str, dict]:
+    """REPARO-FONTES-V1: le a entrada, infere o padrao pelo metodo da casa e
+    escreve o contrato novo pela porta do reparo (`reparar_contrato.aplicar`).
+
+    OK   -> contrato reescrito; o worker poe CANARY_PENDING e VALIDATE_ROUTE
+    FAIL -> REPARO_RECUSADO com o motivo (institucional, noticia, duplicada...)
+    RETRY/BLOCK -> como no resto do worker. NUNCA promove READY.
+    """
+    import reparar_contrato as RC
+    base = contrato or _contrato_do_molde(source_id)
+    if not base:
+        return "FAIL", {"PORQUE": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem "
+                                  "alocacao HTML com endereco para partir"}
+    if LC.estado_de(source_id) != LC.REPAIRING:
+        LC.registar(source_id, LC.REPAIRING,
+                    "reparo do contrato: ler a entrada e inferir o padrao dos itens (%s)" % RC.METODO,
+                    evidence_ref=None)
+    livro = json.loads(CONTRATOS.read_text(encoding="utf-8"))
+    estados = LC.snapshot()
+    # os documentos que ja tem dono: fontes READY e as ja reparadas
+    outros = {c["SOURCE_ID"]: c for c in livro["FONTES"]
+              if c["SOURCE_ID"] != source_id
+              and (estados.get(c["SOURCE_ID"]) == LC.READY_FOR_COLLECTION
+                   or c.get("REPARO_DE_CONTRATO"))}
+    p = RC.inferir(base, outros=outros)
+    resumo = {k: p.get(k) for k in ("DESFECHO", "MOTIVO", "CLASSE", "INDEX_URL", "LINK_PATTERN",
+                                   "COMO", "ALVOS_NA_LISTAGEM", "ITEM_LIDO", "ENTRADA",
+                                   "ENTRADA_RETRATO", "SECCAO_TENTADA", "FAMILIAS_VISTAS",
+                                   "TENTADOS", "PEDIDOS", "PAGINAS_LIDAS", "METODO")
+              if p.get(k) is not None}
+    if p["DESFECHO"] == "RETRY":
+        return "RETRY", dict(resumo, PORQUE=p["PORQUE"])
+    if p["DESFECHO"] == "BLOCK":
+        return "BLOCK", dict(resumo, CLASSE=p.get("CLASSE", "UNKNOWN"), PORQUE=p["PORQUE"])
+    if p["DESFECHO"] != "PADRAO_NOVO":
+        return "FAIL", dict(resumo, PORQUE="REPARO_RECUSADO: %s — %s"
+                            % (p.get("MOTIVO"), p.get("PORQUE", "")))
+    try:
+        novo = RC.aplicar(base, p)
+    except RC.ReparoInvalido as e:
+        return "FAIL", dict(resumo, PORQUE="REPARO_RECUSADO: PORTA — %s" % e)
+    livro = json.loads(CONTRATOS.read_text(encoding="utf-8"))
+    for i, c in enumerate(livro["FONTES"]):
+        if c["SOURCE_ID"] == source_id:
+            livro["FONTES"][i] = novo
+            break
+    else:
+        livro["FONTES"].append(novo)
+    CONTRATOS.write_text(json.dumps(livro, ensure_ascii=False, indent=1), encoding="utf-8")
+    return "OK", dict(resumo, CONTRATO=source_id, PORQUE="contrato reparado: %s" % p["PORQUE"])
+
+
 ETAPAS = {
+    F.REPAIR_CONTRACT: etapa_repair_contract,
     F.QUALIFY: etapa_qualify,
     F.VALIDATE_ROUTE: etapa_validate_route,
     F.CANARY: etapa_canary,
@@ -721,6 +796,14 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
                             evidence_ref=ref)
             F.enfileirar(sid, F.VALIDATE_ROUTE, priority=55,
                          motivo="contrato novo — validar rota e canariar")
+        elif tipo == F.REPAIR_CONTRACT:
+            # Contrato novo = hipotese nova. Quem a julga e o circuito normal:
+            # VALIDATE_ROUTE -> CANARY -> regua dos quatro passos.
+            LC.registar(sid, LC.CANARY_PENDING,
+                        ("contrato reparado (%s); falta provar a rota"
+                         % detalhe.get("COMO", "?"))[:200], evidence_ref=ref)
+            F.enfileirar(sid, F.VALIDATE_ROUTE, priority=55,
+                         motivo="contrato reparado — validar rota e canariar")
         elif tipo == F.VALIDATE_ROUTE:
             do_scrap = (contrato or {}).get("ACQUISITION", {}).get("STRATEGY") == RSY.STRATEGY
             if LC.estado_de(sid) != LC.CANARY_PENDING:
@@ -895,7 +978,7 @@ def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> li
         # vez no arranque nao ve o contrato que acabou de nascer, e o canario
         # seguinte diria «sem contrato» sobre a fonte que o Bot acabou de
         # contratar — um falso BLOCK produzido por cache, nao pela fonte.
-        if r.get("TASK_TYPE") == F.BUILD_CONTRACT and r["RESULTADO"] == "OK":
+        if r.get("TASK_TYPE") in (F.BUILD_CONTRACT, F.REPAIR_CONTRACT) and r["RESULTADO"] == "OK":
             contratos = _contratos()
         feitos.append(r)
         # ⚠️ PULSO POR TAREFA. O diario so recebe a VOLTA no fim de todas as

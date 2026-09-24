@@ -250,6 +250,173 @@ def revalidar_elegiveis(agora: datetime, *, ctx: dict | None = None,
     return {"CANDIDATAS": len(cands), "ENFILEIRADAS": feitas}
 
 
+# ── REPARO ANTES DE DISCOVERY (REPARO-FONTES-V1, R1, 23/09/2026) ──────────────
+# Pergunta do dono: «porque o bot esta procurando fontes novas e nao esta
+# validando as que ja achou?». Medido no livro vivo as 15:10: 400 fontes em
+# CONTRACTED_CANARY_FAILED e 102 em CANARY_PENDING, nenhuma com tarefa aberta.
+# O alimentador nao tinha caminho de volta para elas: o REVALIDATE do
+# `alimentar_fila.py` so corre a mao, e re-canariar o MESMO contrato da o MESMO
+# EMPTY_LIST. O que faltava era reparar o contrato (worker REPAIR_CONTRACT).
+#
+#   CONTRACTED_CANARY_FAILED (HTML ou sem contrato), nunca reparada -> REPAIR_CONTRACT
+#   CANARY_PENDING sem tarefa aberta e com contrato HTML             -> VALIDATE_ROUTE
+#       (re-canariar com o detector de hoje; se falhar, cai na linha de cima)
+#   CANARY_PENDING sem contrato                                      -> REPAIR_CONTRACT
+#
+# UM reparo por fonte: se o canario do contrato reparado tambem falha, a fonte
+# fica CONTRACTED_CANARY_FAILED com as duas provas, e nao volta — um segundo
+# reparo leria a mesma pagina e acharia o mesmo padrao. So um reparo que morreu
+# por transporte (FAILED) volta, passado REPARO_RETOMA_S.
+#
+# E DISCOVERY SO QUANDO NAO HA REPARO ELEGIVEL: fonte ja achada vem antes de
+# fonte nova (talvez_alimentar, Nivel 2).
+#
+# REPARAR_POR_VOLTA = 20
+#   WHY: progressivo como o resto deste ficheiro (o gatilho so corre com a fila
+#   elegivel <= QUEUE_LOW_WATERMARK). 20 reparos x <= 4 pedidos + o canario de
+#   cada (<= 2) ~ 120 pedidos por volta, abaixo dos 250 de uma DISCOVERY.
+# REPARO_RETOMA_S = 86400
+#   WHY: o mesmo ritmo de «intermitente» da fila (6h/24h/72h), no degrau do meio.
+# REVALIDAR_PENDENTE_S = 86400
+#   WHY: uma CANARY_PENDING cujo canario correu ha menos de um dia e ficou la e
+#   uma que o circuito ja viu hoje; re-medir antes disso e eco.
+REPARAR_POR_VOLTA = 20
+REPARO_RETOMA_S = 86400
+REVALIDAR_PENDENTE_S = 86400
+# ⚠️ AS QUALIFY DE YOUTUBE NAO SE DESBLOQUEIAM AQUI (reparo-fontes-v2). Na v1 o
+# gatilho reabria as barradas pelo texto «YouTube exige channel_id e molde de
+# video», porque o worker dessa linha (com a SOC2) ja dava rota ao canal. Esta
+# linha retirou a SOC2: o worker de hoje escreve ESSE MESMO texto. Reabri-las
+# seria um eco sem fim — reabre, o worker volta a barrar, a volta seguinte
+# reabre. O YouTube volta quando a rota do Scrap voltar a linha, com o dono dela.
+_ABERTAS = frozenset({F.PENDING, F.IN_PROGRESS, F.WAITING_RETRY})
+CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
+
+
+def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
+                         contratos: dict | None = None,
+                         tarefas: list | None = None) -> list[dict]:
+    """[{SOURCE_ID, TASK_TYPE, MOTIVO}] por ordem. Nao escreve nada."""
+    import lifecycle as LC         # noqa: E402
+    estados = estados if estados is not None else LC.snapshot()
+    if contratos is None:
+        contratos = ({c["SOURCE_ID"]: c for c in
+                      json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
+                     if CONTRATOS.exists() else {})
+    tarefas = tarefas if tarefas is not None else F._ler()["TAREFAS"]
+    abertas, reparos, ultima_rota = set(), {}, {}
+    for t in tarefas:
+        sid = t["SOURCE_ID"]
+        if t["STATUS"] in _ABERTAS:
+            abertas.add(sid)
+        if t["TASK_TYPE"] == F.REPAIR_CONTRACT:
+            reparos.setdefault(sid, []).append(t)
+        if t["TASK_TYPE"] in (F.VALIDATE_ROUTE, F.CANARY):
+            u = _quando(t.get("UPDATED_AT"))
+            if u and (sid not in ultima_rota or u > ultima_rota[sid]):
+                ultima_rota[sid] = u
+
+    def _ja_reparada(sid: str) -> bool:
+        for t in reparos.get(sid, []):
+            if t["STATUS"] != F.FAILED:
+                return True
+            u = _quando(t.get("UPDATED_AT"))
+            if u and (agora - u).total_seconds() < REPARO_RETOMA_S:
+                return True
+        return False
+
+    def _html(c: dict | None) -> bool:
+        return (c or {}).get("ACQUISITION", {}).get("STRATEGY") in (None, "HTML_LINK_DISCOVERY")
+
+    out = []
+    for sid in sorted(estados):
+        e = estados[sid]
+        if not sid.startswith("IT-") or sid in abertas:
+            continue
+        c = contratos.get(sid)
+        if e == LC.CONTRACTED_CANARY_FAILED:
+            if _html(c) and not _ja_reparada(sid):
+                out.append({"SOURCE_ID": sid, "TASK_TYPE": F.REPAIR_CONTRACT, "ORDEM": 1,
+                            "MOTIVO": "canario falhou e o contrato nunca foi reparado"})
+        elif e == LC.CANARY_PENDING:
+            if c is None:
+                if not _ja_reparada(sid):
+                    out.append({"SOURCE_ID": sid, "TASK_TYPE": F.REPAIR_CONTRACT, "ORDEM": 1,
+                                "MOTIVO": "CANARY_PENDING sem contrato: escrever pelo reparo"})
+            elif _html(c):
+                u = ultima_rota.get(sid)
+                if u is None or (agora - u).total_seconds() >= REVALIDAR_PENDENTE_S:
+                    out.append({"SOURCE_ID": sid, "TASK_TYPE": F.VALIDATE_ROUTE, "ORDEM": 0,
+                                "MOTIVO": "CANARY_PENDING sem tarefa: re-canariar com o detector de hoje"})
+    # D29 (24/09): fonte de JANELA DE CULTURA passa a frente no reparo tambem.
+    import janela_de_cultura as JC   # noqa: E402
+    for x in out:
+        x["JANELA"] = JC.e_janela(x["SOURCE_ID"], contratos.get(x["SOURCE_ID"]))
+    out.sort(key=lambda x: (not x["JANELA"], x["ORDEM"], x["SOURCE_ID"]))
+    return out
+
+
+ASSINATURA_SEM_TERRITORIO = "territorio indeterminado pelo nome"
+
+
+def requalificar_se_a_prova_mudou(agora: datetime) -> list[str]:
+    """QUALIFY barrada por «territorio indeterminado» volta a PENDING SO se a
+    prova da casa, HOJE, decide: a regra do nome (`territorio_de`) ou uma
+    decisao semantica com PAIS=IT (`decisao_semantica`). Sem prova nova, fica
+    onde esta — e continua SEMANTIC_REVIEW, que e a verdade (NAO SEI).
+
+    Medido na copia de 23/09 18:21Z: 179 barradas assim, 0 com prova nova. A
+    funcao existe para a proxima regra ou decisao nao ficar outra vez sem
+    caminho de volta, como ficaram as 21 do YouTube."""
+    import atribuir_source_id as ASI   # noqa: E402
+    import decisao_semantica as DS     # noqa: E402
+    sys.path.insert(0, str(RAIZ / "candidatas"))
+    import fonte_nova as FN            # noqa: E402
+    fichas = {c.get("CANDIDATA_ID"): c for c in FN.carregar().get("CANDIDATAS", [])}
+    alvo = []
+    for t in F._ler()["TAREFAS"]:
+        if (t["TASK_TYPE"] != F.QUALIFY or t["STATUS"] != F.BLOCKED
+                or not (t.get("LAST_ERROR") or "").startswith(ASSINATURA_SEM_TERRITORIO)):
+            continue
+        f = fichas.get(t["SOURCE_ID"])
+        if not f:
+            continue
+        terr, _ = ASI.territorio_de({"NOME": f.get("NOME", ""), "URL": f.get("URL", ""),
+                                     "CONTENT_VALUE_TYPE": []})
+        d, _ = DS.decisao_para(t["SOURCE_ID"], f) if terr == "NAO SEI" else (None, "")
+        if terr != "NAO SEI" or (d and d.get("PAIS") == "IT"):
+            alvo.append(t["TASK_ID"])
+    if not alvo:
+        return []
+    d = F._ler()
+    for t in d["TAREFAS"]:
+        if t["TASK_ID"] in alvo and t["STATUS"] == F.BLOCKED:
+            t["STATUS"] = F.PENDING
+            t["LAST_ERROR"] = "reenfileirada: a prova da casa decide hoje o territorio (era: %s)" \
+                              % (t.get("LAST_ERROR") or "")[:80]
+            t["UPDATED_AT"] = agora.isoformat()
+    F._gravar(d)
+    return alvo
+
+
+def reparar_encalhadas(agora: datetime, **kw) -> dict:
+    """Enfileira ate REPARAR_POR_VOLTA. Devolve o que fez e quanto ficou."""
+    desbloq = requalificar_se_a_prova_mudou(agora)
+    cands = candidatas_a_reparar(agora, **kw)
+    feitas = []
+    for c in cands[:REPARAR_POR_VOLTA]:
+        import avancar_fontes as AV   # noqa: E402  (o mesmo bonus D29 do AVANCAR)
+        F.enfileirar(c["SOURCE_ID"], c["TASK_TYPE"],
+                     priority=(55 if c["TASK_TYPE"] == F.VALIDATE_ROUTE else 50)
+                     + (AV.JANELA_BONUS if c.get("JANELA") else 0),
+                     motivo=("JANELA DE CULTURA (D29) · " if c.get("JANELA") else "")
+                     + "reparo antes de discovery: %s" % c["MOTIVO"])
+        feitas.append({k: c[k] for k in ("SOURCE_ID", "TASK_TYPE")})
+    return {"CANDIDATAS": len(cands), "ENFILEIRADAS": feitas,
+            "RESTAM": max(0, len(cands) - len(feitas)),
+            "QUALIFY_REQUALIFICADAS": len(desbloq)}
+
+
 def talvez_alimentar(estado: dict | None = None, *,
                      feeder_fn=None, descobrir_fn=None, avancar_fn=None,
                      agora: datetime | None = None) -> dict:
@@ -291,7 +458,13 @@ def talvez_alimentar(estado: dict | None = None, *,
         m["REVALIDAR"] = rv
         m["ACCOES"].append("REVALIDAR")
 
-    # Nivel 0c — AVANCAR (CUR-PRONTA, D28, 24/09): o que ja esta no livro e parou
+    # Nivel 0c — REPARAR: fonte ja achada e encalhada volta a ser trabalho (R1).
+    rp = reparar_encalhadas(agora)
+    m["REPARAR"] = rp
+    if rp["ENFILEIRADAS"] or rp["QUALIFY_REQUALIFICADAS"]:
+        m["ACCOES"].append("REPARAR")
+
+    # Nivel 0d — AVANCAR (CUR-PRONTA, D28, 24/09): o que ja esta no livro e parou
     # num estado que nada acima olha — READY pela regua antiga, degradada, sem
     # contrato, adiada sem tarefa, canal YouTube caracterizado sem numero.
     # Medido na copia do livro vivo: 1040 fontes e ZERO com tarefa aberta.
@@ -344,6 +517,15 @@ def talvez_alimentar(estado: dict | None = None, *,
 
     if eligible_agora > QUEUE_LOW_WATERMARK or pend > CANDIDATE_LOW_WATERMARK:
         m["DECISAO"] = "FEEDER_SO — acervo ainda chega"
+        return m
+
+    # ⚠️ REPARO ANTES DE DISCOVERY (R1). Enquanto houver fonte ja achada por
+    # reparar — na fila ou a espera da proxima volta — nao se procura fonte nova.
+    reparo_aberto = sum(1 for t in F._ler()["TAREFAS"]
+                        if t["TASK_TYPE"] == F.REPAIR_CONTRACT and t["STATUS"] in _ABERTAS)
+    m["REPARO_PENDENTE"] = rp["RESTAM"] + reparo_aberto
+    if m["REPARO_PENDENTE"] > 0:
+        m["DECISAO"] = "REPARO_ANTES_DE_DISCOVERY"
         return m
 
     # ⚠️ AVANCO ANTES DE DISCOVERY (D28). Fonte ja achada que ainda pode andar

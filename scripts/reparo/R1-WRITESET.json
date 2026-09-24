@@ -1,0 +1,50 @@
+{
+ "DATASET": "R1-WRITESET",
+ "VERSAO": "v2 — reparo-fontes-v2 sobre o vivo atual (servico-20260923-0923 @ fca4f2b6 = M5G + BC4b + docs BC5), sem SOC2",
+ "SHA_A_INSTALAR": "3be6265a (ou o HEAD de reparo-fontes-v2: depois dele so relatorio, este ficheiro, medicoes e mapa gerado — conferir com git diff --stat 3be6265a reparo-fontes-v2)",
+ "VIVO": "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1",
+ "BASE_DO_VIVO_MEDIDA": "servico-20260923-0923 @ fca4f2b6",
+ "MEDIDO_EM": "2026-09-24 (reensaio)",
+ "COMO_INSTALAR": "no ramo do bot, com o bot quieto: git merge --no-ff reparo-fontes-v2. Reensaiado em copia fiel de fca4f2b6: rc 0, 0 conflitos (o ramo ja junta fca4f2b6), livros sujos (14) iguais byte a byte, arvore == 3be6265a. NAO por git checkout de ficheiros.",
+ "DESFAZER": "git reset --keep fca4f2b6 (reensaiado: rc 0, 0 codigo diferente, livros iguais)",
+ "1_INSTALACAO_ESCREVE_CODIGO": {
+  "FICHEIROS": [
+   "curadoria/reparar_contrato.py (novo)",
+   "curadoria/worker.py",
+   "curadoria/fila.py",
+   "curadoria/gatilho_discovery.py",
+   "curadoria/canario.py",
+   "curadoria/red_team_service.py",
+   "curadoria/test_reparar_contrato.py (novo)",
+   "curadoria/test_gatilho_discovery.py",
+   "curadoria/test_abastecimento.py",
+   "curadoria/test_impasse_b4.py",
+   "scripts/reparo/medir_em_copia.py (novo)",
+   "scripts/reparo/juntar_bancas.py (novo)",
+   "scripts/reparo/*.json (medicoes e este writeset — documentos)",
+   "RELATORIO-R1-REPARO-FONTES.md",
+   "SINTONIA-EAME-KNOW-HOW.md (§221)",
+   "system-map/data/architecture.declared.json",
+   "docs/fontes/INDICE-DE-FONTES.md",
+   "+ os gerados do mapa (*.generated.json, CENSO-DAS-LIGACOES) que a cadeia reescreve"
+  ],
+  "SOC2": "nenhum ficheiro da SOC2: rota_do_scrap_youtube.py nao existe na arvore e o worker nao o importa (medido na copia: modulo nao carregado)",
+  "NAO_ESCREVE": "nenhum livro (.json de estado) na instalacao"
+ },
+ "2_EM_FUNCIONAMENTO_O_BOT_PASSA_A_ESCREVER": {
+  "curadoria/italy_contracts_curator.json": "REPAIR_CONTRACT reescreve ACQUISITION (INDEX_URL, LINK_PATTERN) e acrescenta REPARO_DE_CONTRATO + ROUTE_PROVENANCE; ou ACRESCENTA contrato para fontes com identidade e sem contrato. Nunca muda SOURCE_ID, TERRITORY, BATCH_ID.",
+  "curadoria/LIFECYCLE-LEDGER-V1.json": "linhas novas: REPAIRING, CANARY_PENDING, CONTRACTED_CANARY_FAILED (REPARO_RECUSADO: <motivo>), READY_FOR_COLLECTION (so pelo canario e a regua), RETRY_AFTER, AUTH_BLOCK, CONTRACT_READY_ROUTE_BLOCKED. Append-only.",
+  "curadoria/LIFECYCLE-QUEUE-V1.json": "tarefas REPAIR_CONTRACT (tipo novo) e VALIDATE_ROUTE; reabre QUALIFY SEMANTIC so com prova nova da casa (0 hoje). NAO reabre as QUALIFY do YouTube (sem a SOC2 seria eco).",
+  "curadoria/LIFECYCLE-EVIDENCE-V1.json": "provas por etapa (EV-<sid>-REPAIR_CONTRACT-n), com as paginas lidas",
+  "ESTADO_DO_SUPERVISOR": "o resultado do gatilho passa a ter REPARAR, REPARO_PENDENTE e DECISAO=REPARO_ANTES_DE_DISCOVERY"
+ },
+ "3_NAO_ESCREVE": [
+  "curadoria/SOURCE-ID-ALLOCATION-V1.json (so a v1 escrevia, pelo YouTube)",
+  "candidatas/FONTES-CANDIDATAS.json",
+  "regras/italy_contracts_onboarded.json",
+  "admissao/, Sala, banco",
+  "nenhum ficheiro novo no vivo"
+ ],
+ "4_TRABALHO_A_ESPERA_NO_LIVRO_VIVO_COPIADO": "505 fontes: 432 REPAIR_CONTRACT + 73 VALIDATE_ROUTE (20 por volta do gatilho; discovery parado ate acabar)",
+ "5_REDE": "ate 4 pedidos por reparo + o canario de sempre; robots da casa; 2 s entre pedidos ao mesmo anfitriao"
+}
