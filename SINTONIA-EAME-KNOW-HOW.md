@@ -22489,3 +22489,37 @@ volta, 1 reparo por fonte, e não faz discovery enquanto houver reparo pendente.
 
     UMA REGRA QUE REABRE O QUE O WORKER FECHA SÓ VALE COM O WORKER QUE A ESCREVEU.
 
+# §222 · O ROBÔ ACHAVA E PARAVA — E A COLETA NÃO PRECISAVA DE O PARAR (CUR-PRONTA, D28/D29)
+
+> CUR-PRONTA, 24/09/2026, ramo `curador-ate-pronta-v1` (descende da R1 v2 9c05877e). Nada instalado.
+
+**1040 fontes no livro e ZERO com tarefa aberta.** O ciclo vivo alimentava REVIVER, REVALIDAR (só as
+elegíveis) e a PONTE (candidata nova, uma vez) — e ia procurar mais. O que parava num estado que
+nenhum dos três olhava ficava lá: READY pela régua antiga, DEGRADED, CONTRACT_PENDING sem tarefa,
+canais YouTube caracterizados sem número. O `alimentar_fila.py` sabia pô-los na fila e só corria à
+mão. `curadoria/avancar_fontes.py` (nível 0d do gatilho) é essa lista, ligada ao ciclo; a R1 (0c)
+repara; a procura só abre com reparo **e** avanço a zero.
+
+    UMA TABELA DE ESTADOS SEM DONO POR ESTADO É O «PROCURANDO PROCURANDO» DO DONO.
+    `funil_do_curador.MAQUINA` reprova o estado novo que chega sem linha.
+
+Três lições com número:
+
+1. **A colisão coleta × Curator era de LEITURA, não de escrita.** Nenhum escreve nos ficheiros do
+   outro; o executor pergunta ao portão VIVO antes de cada fonte. Com o Curator a re-medir, a
+   coorte inteira é recusada a meio da onda: **0/111 admitidas** sem foto, **111/111** com a foto
+   congelada (`onda_em_curso.py`), 0 falhas de escrita do Curator nos dois casos. Parar o bot era
+   o remédio caro para um problema de leitura.
+2. **Contrato só na tabela do coletor = READY que nunca sai de LEGACY.** A régua e o portão leem o
+   contrato do robô; 24 READY e as 18 DEGRADED tinham-no só do lado da coleta. Importar (molde da
+   casa, ACQUISITION igual byte a byte, `INTEGRADO_EM` = agora) e re-medir: com rede, READY pela
+   régua de hoje **43 → 57** e elegíveis **37 → 50**; o validador do robô recusou importar dois
+   contratos cujo LINK_PATTERN casa com a própria listagem (a coleta pode estar a guardar a
+   listagem como item).
+3. **Palavra solta não é categoria.** «Janela de cultura» por palavras deu 59, com a gazeta
+   regional e «bandi e avvisi»; por frases + T3 do Atlas, 21. E a QUALIFY que acha um canal que já
+   é fonte **não duplica** — 28 de 30 canais «novos» já estavam no livro.
+
+A IA contínua ficou desenhada (propõe com prova, volta pelas portas determinísticas, nunca
+promove) e **não ligada**: «sem pago». A única taxa medida da casa é o lote S2/S3 — 25/181
+decididas, 5 READY hoje.
