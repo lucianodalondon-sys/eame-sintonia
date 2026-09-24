@@ -1,0 +1,174 @@
+{
+ "DATASET": "REND-PROVA-B-POSTGRES-DESCARTAVEL-2B5",
+ "PERGUNTA": "as falhas do job postgres-descartavel (passo 2b5 'a sala de espera sobrevive ao processo') sao herdadas desde 13/09 ou novas?",
+ "RESPOSTA": "HERDADA",
+ "PORQUE": [
+  "o workflow banco-descartavel.yml cria o banco 'sala' e passa BANCO_DESCARTAVEL_URL=.../sala; a guarda guarda/banco_descartavel.py so aceita BANCOS_PERMITIDOS=(descartavel, derivado, social, objeto) -> 'RECUSADO: banco fora da lista descartavel', exit 2, antes de escrever nada",
+  "a mesma mensagem ja aparece em 17/09 16:20Z (308df986, run 35245984140); em 14/09 22:19Z (3dc33681, 1.o dia do passo) o 2b5 ja falhava, mas com traceback (outra causa)",
+  "de 17/09 a 24/09 o 1.o passo vermelho do job e o 2b5 em todas as amostras (primeira e ultima corrida vermelha de cada dia)",
+  "em dfec8873 (run 35961862942, 24/09 05:52Z): postgres-descartavel=failure no 2b5, portao-big-collection=success, ponte-de-midia=success",
+  "o job para no 1.o passo vermelho: os passos depois do 2b5 NAO correm desde 17/09 - nao sabemos se passariam"
+ ],
+ "O_QUE_NAO_MUDA": "a prova recusa ANTES de escrever (falha fechada); nao ha estrago; mas ha 7 dias sem medir o que vem depois do 2b5",
+ "CONSERTO_SUGERIDO_NAO_FEITO": "ou o workflow usa um nome que a guarda aceita, ou a guarda passa a aceitar 'sala' no localhost do runner - decisao do coordenador, fora da REND",
+ "RUNS_BANCO_DESCARTAVEL": {
+  "TOTAL_LIDAS": 162,
+  "TODAS_FAILURE_DESDE": "2026-09-14"
+ },
+ "AMOSTRAS_1O_PASSO_VERMELHO": [
+  {
+   "QUANDO": "2",
+   "SHA": "·",
+   "PASSO": "a mesma garantia, contra Postgres 16 real"
+  },
+  {
+   "QUANDO": "2b",
+   "SHA": "·",
+   "PASSO": "a casa do derivado aplica e as travas mordem"
+  },
+  {
+   "QUANDO": "2f",
+   "SHA": "·",
+   "PASSO": "a estrada forward emite, e termina onde termina de verdade"
+  },
+  {
+   "QUANDO": "2f",
+   "SHA": "·",
+   "PASSO": "a estrada forward emite, e termina onde termina de verdade"
+  },
+  {
+   "QUANDO": "2j",
+   "SHA": "·",
+   "PASSO": "o RUN sobrevive ao processo (C10.6B)"
+  },
+  {
+   "QUANDO": "2j",
+   "SHA": "·",
+   "PASSO": "o RUN sobrevive ao processo (C10.6B)"
+  },
+  {
+   "QUANDO": "2b4",
+   "SHA": "·",
+   "PASSO": "a fase 10 entra num acervo que ja existe"
+  },
+  {
+   "QUANDO": "2j",
+   "SHA": "·",
+   "PASSO": "o RUN sobrevive ao processo (C10.6B)"
+  },
+  {
+   "QUANDO": "2b6",
+   "SHA": "·",
+   "PASSO": "o egresso mede-se ANTES de adquirir, e UNKNOWN fecha a porta"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2g2",
+   "SHA": "·",
+   "PASSO": "o SCRAP chega ao acervo, e nao so o atravessa"
+  },
+  {
+   "QUANDO": "2g2",
+   "SHA": "·",
+   "PASSO": "o SCRAP chega ao acervo, e nao so o atravessa"
+  },
+  {
+   "QUANDO": "2g2",
+   "SHA": "·",
+   "PASSO": "o SCRAP chega ao acervo, e nao so o atravessa"
+  },
+  {
+   "QUANDO": "2b7",
+   "SHA": "·",
+   "PASSO": "as leis da sala duravel mordem (mutacao)"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  },
+  {
+   "QUANDO": "2b5",
+   "SHA": "·",
+   "PASSO": "a sala de espera sobrevive ao processo que a escreveu"
+  }
+ ],
+ "LOG_DFEC8873": {
+  "CAMINHO": "C:/rend/log-postgres-descartavel-dfec8873.txt",
+  "SHA256": "5b19f4acc34b06b8a5e4e06627e9972667863728ea07ca99061d91d8f719cc6c"
+ }
+}
