@@ -28,6 +28,19 @@ semanal para as outras da coorte até alguém rever a janela `MAX_TARGETS`; para
 5. A régua conta pelo código instalado (fca4f2b6): T3, T4, T5, T7, T9, T10. A régua T8 do ramo `youtube-regua-t8-v1` não está instalada.
 6. Cortesia: teto de 5 pedidos por site por corrida. O cia.it e o terraevita.edagricole.it precisaram de 2 a 3 passagens separadas. Total: 173 pedidos (68+5+3+93+4) em 5 passagens, egresso IT (Proton, Milão) antes e depois de cada uma.
 
+## Retoma com a rede de volta (24/09, depois das 15:45)
+
+As 4 fontes cujo robots.txt «não respondeu» foram repetidas com o portão de egresso por consenso (`superficie/rede.py`, bot 5c4daf5a): **PASS IT antes e depois**. Continuam paradas, e a culpa é **do site, não da nossa rede** (google.it respondeu 200 no mesmo minuto):
+
+| Fonte | Site | O que acontece |
+|---|---|---|
+| IT-T7-053 | veneto.coldiretti.it | o site corta a ligação (a Coldiretti já recusava a saída Proton) |
+| IT-T7-058 | unaprol.it | o site corta a ligação |
+| IT-T5-080 | creafuturo.crea.gov.it | certificado do site **revogado** |
+| IT-T7-049 | copagri.it | certificado emitido para **outro nome** |
+
+Não se contorna certificado inválido. Prova: `medidas/entrada-retoma-rede.json`. A tabela não muda: as 4 já estavam «NÃO».
+
 ## Prova (a) — conferência independente da 1.ª onda na Sala real (só leitura)
 
 `ferramentas/rendimento/conferir_1a_onda.py` → `medidas/conferencia-1a-onda.json`. Pergunta ao banco e ao disco, a partir só dos 18 RUN_ID.

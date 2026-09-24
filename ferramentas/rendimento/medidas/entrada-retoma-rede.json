@@ -1,0 +1,74 @@
+{
+ "DATASET": "REND-ENTRADA-V1",
+ "MEDIDO_EM": "2026-09-24T18:37:57.546Z",
+ "ARVORE": "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1",
+ "PEDIDOS_HTTP": 4,
+ "PEDIDOS_POR_SITE": {
+  "veneto.coldiretti.it": 1,
+  "unaprol.it": 1,
+  "creafuturo.crea.gov.it": 1,
+  "copagri.it": 1
+ },
+ "TETO_POR_SITE": 5,
+ "PAUSA_S": 1,
+ "MEMORIA_DO_COLETOR": {
+  "OBSERVACOES": 541,
+  "ENDERECOS": 169
+ },
+ "ACERVO_URLS": 979,
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T7-053",
+   "UNIVERSO": "T7",
+   "CONTRATO": "SO_CURADOR:C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1/curadoria/italy_contracts_curator.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "https://veneto.coldiretti.it/",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "UNKNOWN",
+   "PEDIDO_EM": "2026-09-24T18:38:17.840Z",
+   "ESTADO": "ADIADA_POR_CORTESIA:ROBOTS_INDISPONIVEL"
+  },
+  {
+   "SOURCE_ID": "IT-T7-058",
+   "UNIVERSO": "T7",
+   "CONTRATO": "SO_CURADOR:C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1/curadoria/italy_contracts_curator.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "https://www.unaprol.it/",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "UNKNOWN",
+   "PEDIDO_EM": "2026-09-24T18:38:38.320Z",
+   "ESTADO": "ADIADA_POR_CORTESIA:ROBOTS_INDISPONIVEL"
+  },
+  {
+   "SOURCE_ID": "IT-T5-080",
+   "UNIVERSO": "T5",
+   "CONTRATO": "SO_CURADOR:C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1/curadoria/italy_contracts_curator.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "https://creafuturo.crea.gov.it/",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "UNKNOWN",
+   "PEDIDO_EM": "2026-09-24T18:38:39.432Z",
+   "ESTADO": "ADIADA_POR_CORTESIA:ROBOTS_INDISPONIVEL"
+  },
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "UNIVERSO": "T7",
+   "CONTRATO": "SO_CURADOR:C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1/curadoria/italy_contracts_curator.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "https://www.copagri.it/",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "UNKNOWN",
+   "PEDIDO_EM": "2026-09-24T18:38:40.560Z",
+   "ESTADO": "ADIADA_POR_CORTESIA:ROBOTS_INDISPONIVEL"
+  }
+ ],
+ "PORTAO_DE_EGRESSO": "superficie/rede.py --portao-de-egresso IT no bot 5c4daf5a: PASS antes e depois (consenso, DA_CACHE true)",
+ "CAUSA_MEDIDA_A_MAO": {
+  "IT-T7-053": "veneto.coldiretti.it: curl (35) Recv failure: Connection was reset — o site corta a ligacao (Coldiretti ja recusava a saida Proton)",
+  "IT-T7-058": "www.unaprol.it: curl (35) Recv failure: Connection was reset",
+  "IT-T5-080": "creafuturo.crea.gov.it: curl (35) CRYPT_E_REVOKED — certificado do site revogado",
+  "IT-T7-049": "www.copagri.it: curl (60) SEC_E_WRONG_PRINCIPAL — certificado emitido para outro nome"
+ },
+ "CONTROLO": "https://www.google.it/robots.txt -> 200 no mesmo minuto: a nossa rede sai",
+ "CONCLUSAO": "NAO era falta de rede nossa: os 4 ficam PARADOS por causa do site; nao se contorna certificado (sem -k)"
+}
