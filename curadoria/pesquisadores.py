@@ -613,7 +613,7 @@ def escrever_lista() -> dict:
     por_familia: dict[str, int] = {}
     linhas = []
     fam_p1b = {}
-    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1[BC]-*PROOF-V1.json")):
+    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1[BCD]-*PROOF-V1.json")):
         for e in json.loads(prova.read_text(encoding="utf-8"))["LOG"]:
             fam_p1b[normalizar(e["url"])] = e["familia"]
     for c in sorted(cands, key=lambda c: c["CANDIDATA_ID"]):
@@ -852,10 +852,10 @@ def tentar(cand: dict, orcam, ctx: dict, sub: bool = False) -> None:
                    orcam, ctx, sub=False)
 
 
-def correr_p1b(catalogo: list, orcamento: int = 380, prova_path=None) -> dict:
+def correr_p1b(catalogo: list, orcamento: int = 380, prova_path=None, por_dominio: int = 8) -> dict:
     ctx = {"log": [], "visitados": D._ler_visitados(), "conhecidos": D._construir_set_conhecido(),
-           "p2": conhecidos_da_p2(), "n": 0, "vigias": [vigia()]}
-    orcam = D.Orcamento(total=orcamento)
+           "p2": conhecidos_da_p2() | conhecidos_das_lanes(), "n": 0, "vigias": [vigia()]}
+    orcam = D.Orcamento(total=orcamento, por_dominio=por_dominio)
     inicio = datetime.now(timezone.utc).isoformat()
     parou = None
     try:
@@ -1285,6 +1285,111 @@ def listar_fora_do_foco(aplicar: bool = False) -> dict:
     return out
 
 
+# ---------------------------------------------------------------------------
+# Catalogo P1d (24/09) — sobre a fila da producao: Sicilia (CONAF), CNR agri,
+# revistas tecnicas (Edagricole e imprensa), mercado agricola, pesquisadores CREA.
+# ---------------------------------------------------------------------------
+PROOF_P1D = RAIZ / "curadoria" / "PESQUISADORES-P1D-PROOF-V1.json"
+CREA_SOCIAL = RAIZ / "curadoria" / "PESQUISADORES-P1D-CREA-PERFIS.json"
+_OUTRAS_LANES = ("origin/pesquisa-projetos-v1", "origin/pessoas-agro-v1", "origin/pessoas-agro-v2",
+                 "origin/pessoas-docentes-v1", "origin/canais-pessoas-v1")
+_SIC = "https://www.conaf.it/ordini-e-federazioni/lordine-piu-vicino-a-te/ordini-afferenti-federazione-sicilia/"
+_EDA = "https://www.edagricole.it/"
+
+
+def conhecidos_das_lanes() -> set[str]:
+    """URLs registadas por outras frentes que ainda nao estao na producao."""
+    out: set[str] = set()
+    for ref in _OUTRAS_LANES:
+        try:
+            bruto = subprocess.run(["git", "show", ref + ":candidatas/FONTES-CANDIDATAS.json"],
+                                   cwd=str(RAIZ), capture_output=True, check=True).stdout
+            out |= {normalizar(c["URL"]) for c in json.loads(bruto)["CANDIDATAS"]}
+        except Exception:
+            pass
+    return out
+
+
+def _sic(nome, url):
+    return _c("ORDINI_COLLEGI", "ORGANIZACAO", "Dottori Agronomi e Forestali — %s (sicilia)" % nome, url,
+              "ordine territoriale agronomi e forestali (sicilia): notizie, eventi e formazione", _SIC,
+              titulo_re=_T_ORD, pausa=3, prova="listado pela pagina oficial CONAF da regiao sicilia")
+
+
+def _eda(nome, url, para_que):
+    return _c("RIVISTE_TECNICHE", "IMPRENSA", nome, url, para_que, _EDA,
+              prova="listada pela editora na pagina Le nostre riviste (edagricole.it)")
+
+
+def _imp(familia, nome, url, para_que, titulo_re):
+    return _dns(familia, "IMPRENSA", nome, url, para_que, titulo_re, sub=False)
+
+
+CATALOGO_P1D: list[dict] = [
+    _sic("federazione sicilia", "https://federazionesicilia.conaf.it/"),
+    _sic("ordine agrigento", "https://ordineagrigento.conaf.it/"),
+    _sic("ordine catania", "https://ordinecatania.conaf.it/"),
+    _sic("ordine trapani", "https://ordinetrapani.conaf.it/"),
+    _sic("ordine caltanissetta", "http://www.agronomicl.it/"),
+    _sic("ordine enna", "http://www.agronomienna.it/"),
+    _sic("ordine messina", "https://www.agronomimessina.it/"),
+    _sic("ordine palermo", "http://agronomiforestalipalermo.it/"),
+    _sic("ordine ragusa", "http://www.agronomiragusa.it/"),
+    _sic("ordine siracusa", "http://www.agronomiforestalisiracusa.it/"),
+
+    _dns("CNR", "CIENCIA", "CNR IBBA — Istituto di Biologia e Biotecnologia Agraria", "https://www.ibba.cnr.it/",
+         "biotecnologie vegetali e agrarie", r"IBBA|biolog|agrar"),
+    _dns("CNR", "CIENCIA", "CNR IRET — Istituto di Ricerca sugli Ecosistemi Terrestri", "https://www.iret.cnr.it/",
+         "suolo, ecosistemi agrari e forestali", r"IRET|ecosistem"),
+    _dns("CNR", "CIENCIA", "CNR DiSBA — Dipartimento Scienze Bio-Agroalimentari", "https://www.disba.cnr.it/",
+         "rete CNR della ricerca agroalimentare", r"DiSBA|bio-agro|agroalimentar"),
+    _dns("UNIVERSITA", "CIENCIA", "Dip. Biotecnologie, Univ. Verona", "https://www.dbt.univr.it/",
+         "ricerca su vite, colture e biotecnologie vegetali Verona", r"biotecnolog"),
+
+    _eda("Rivista di Orticoltura e Floricoltura (Edagricole)", "https://rivistaorticoltura.edagricole.it/",
+         "rivista tecnica di orticoltura e floricoltura"),
+    _eda("Rivista di Frutticoltura e Ortofloricoltura (Edagricole)", "https://rivistafrutticoltura.edagricole.it/",
+         "rivista tecnica di frutticoltura"),
+    _eda("Macchine Agricole News (Edagricole)", "https://macchineagricolenews.edagricole.it/",
+         "meccanizzazione agricola e agricoltura di precisione"),
+    _eda("VVQ Vigne, Vini e Qualita (Edagricole)", "https://vigneviniequalita.edagricole.it/",
+         "rivista tecnica di viticoltura ed enologia"),
+
+    _imp("MERCATO_AGRICOLO", "Italiafruit News", "https://www.italiafruit.net/",
+         "mercati e prezzi dell'ortofrutta italiana", r"italiafruit|ortofrutt|frutta"),
+    _imp("MERCATO_AGRICOLO", "FreshPlaza Italia", "https://www.freshplaza.it/",
+         "notizie di mercato ortofrutticolo", r"freshplaza|ortofrutt"),
+    _dns("MERCATO_AGRICOLO", "BASE_OFICIAL", "AGER Borsa Merci Bologna", "https://www.agerborsamerci.it/",
+         "listini settimanali di cereali, foraggi e prodotti agricoli", r"borsa|merci|ager", sub=False),
+    _dns("MERCATO_AGRICOLO", "BASE_OFICIAL", "BMTI — Borsa Merci Telematica Italiana", "https://www.bmti.it/",
+         "prezzi all'ingrosso dei prodotti agricoli", r"borsa|BMTI|merci", sub=False),
+    _imp("RIVISTE_TECNICHE", "Teatro Naturale", "https://www.teatronaturale.it/",
+         "olio, olivicoltura e agroalimentare", r"teatro|olio|natural"),
+    _imp("RIVISTE_TECNICHE", "Olivonews", "https://www.olivonews.it/", "olivicoltura e olio", r"olivo|olio"),
+    _imp("RIVISTE_TECNICHE", "Agrisole (Il Sole 24 Ore)", "https://www.agrisole.it/",
+         "economia e mercati agricoli", r"agrisole|agricolt"),
+    _imp("RIVISTE_TECNICHE", "Agricultura.it", "https://www.agricultura.it/", "notizie agricole", r"agricultura|agricolt"),
+    _imp("RIVISTE_TECNICHE", "Il Nuovo Agricoltore", "https://www.ilnuovoagricoltore.it/",
+         "notizie tecniche per agricoltori", r"agricolt"),
+    _imp("RIVISTE_TECNICHE", "AgrifoodToday", "https://www.agrifoodtoday.it/", "notizie agroalimentari", r"agrifood"),
+]
+
+
+def pesquisadores_crea() -> list[dict]:
+    """Perfis academicos ligados pela pagina oficial do pesquisador no CREA."""
+    d = json.loads(CREA_SOCIAL.read_text(encoding="utf-8"))
+    out = []
+    for perfil, a in d["PERFIS"].items():
+        for link in a["pessoais"]:
+            if "researchgate.net/profile/" not in link:
+                continue
+            out.append(_c("PESSOAS_PESQUISADORES", "CIENCIA", "%s (CREA %s) — ResearchGate" % (a["nome"], a["centro"]),
+                          link, "pubblicazioni del ricercatore CREA %s" % a["nome"], perfil, pausa=3,
+                          method="link_da_pagina_oficial_do_pesquisador",
+                          prova="ligado pela pagina oficial do pesquisador no CREA (%s)" % perfil))
+    return out
+
+
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser(
@@ -1293,6 +1398,8 @@ def main() -> int:
     ap.add_argument("--listar", action="store_true")
     ap.add_argument("--p1b", action="store_true",
                     help="fase P1b: releitura, IZS, Veterinaria, Ordini (rede, VPN IT)")
+    ap.add_argument("--p1d", action="store_true",
+                    help="24/09: Sicilia, CNR agri, revistas tecnicas, mercado, pesquisadores CREA (rede)")
     ap.add_argument("--p1c", action="store_true",
                     help="3.a volta: IZS, Vet/Agraria, servicos regionais, revistas (rede, VPN IT)")
     ap.add_argument("--fora-do-foco", dest="fora_do_foco", action="store_true",
@@ -1302,6 +1409,16 @@ def main() -> int:
     ap.add_argument("--lista", action="store_true",
                     help="so escreve PESQUISADORES-LISTA-V1.json, sem rede")
     a = ap.parse_args()
+
+    if a.p1d:
+        r = correr_p1b(CATALOGO_P1D + pesquisadores_crea(), orcamento=a.orcamento,
+                       prova_path=PROOF_P1D, por_dominio=20)
+        l = escrever_lista()
+        for k in ("CANDIDATAS_NOVAS", "POR_FAMILIA", "ACOES", "DUPLICADAS_EVITADAS",
+                  "PEDIDOS_DE_REDE", "MAX_PEDIDOS_UM_DOMINIO", "VIGIA_PAROU", "VIGIAS"):
+            print(k, r[k])
+        print("LISTA_CUMULATIVA", l["CANDIDATAS_NOVAS"], l["POR_FAMILIA"])
+        return 0
 
     if a.p1b or a.p1c:
         cat = (CATALOGO_P1C + sfr_regionais()) if a.p1c else (CATALOGO_P1B + ordini_do_conaf())
