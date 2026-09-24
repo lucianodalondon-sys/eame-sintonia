@@ -2236,6 +2236,15 @@
       "provas/gate_de_aceitacao_tematica.py",
       "provas/gpu_asr_smoke.py",
       "provas/hardware_local.py",
+      "provas/ia_cur/DECISOES-IA-CUR-V1.json",
+      "provas/ia_cur/FOTO-1511.sha256",
+      "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
+      "provas/ia_cur/RELATORIO-IA-CUR.md",
+      "provas/ia_cur/RESULTADO-PILOTO-IA-CUR.json",
+      "provas/ia_cur/ciclo_ia.py",
+      "provas/ia_cur/decidir_territorio.py",
+      "provas/ia_cur/ler_paginas.py",
+      "provas/ia_cur/registar_propostas.py",
       "provas/implementacoes_candidatas.py",
       "provas/instagram_audio_only.py",
       "provas/inventario_esperado.py",
@@ -3440,9 +3449,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "curador-ate-pronta-v1",
-    "HEAD": "cc1d585ee4258b0f5be19e6c50312702b604cbc2",
-    "GENERATED_AT": "2026-09-24T13:59:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ba07f9760bff8adc29409a57b67b64e03fc16a98c141228d85d0dd34bb1b7dcb"
+    "HEAD": "14dbd36bc33bd6b26bbf9ae1fafb2dfa789ebe41",
+    "GENERATED_AT": "2026-09-24T15:27:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f"
   },
   "FAMILIES": [
     {
@@ -4939,8 +4948,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 629",
-        "desses, mostrados aqui: 40 (ficam de fora 589)"
+        "enderecos que o codigo realmente chama: 630",
+        "desses, mostrados aqui: 40 (ficam de fora 590)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -43299,6 +43308,7 @@
         "C-CENSO-UNIFICACAO",
         "C-DECISAO-DA-FILA",
         "C-MAPA-SCAN",
+        "C-PROVA-CUR-PRONTA",
         "C-TESTES"
       ],
       "paises": {},
@@ -43363,7 +43373,7 @@
           "candidatas/decidir_fila_italia.py:100",
           "curadoria/test_discovery.py:59",
           "curadoria/test_discovery.py:50",
-          "system-map/scripts/scan_sources.py:480"
+          "provas/ia_cur/decidir_territorio.py:58"
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -45745,56 +45755,90 @@
         "provas/cur_pronta/ciclo_voltas.py",
         "provas/cur_pronta/ensaio_instalacao.sh",
         "provas/cur_pronta/medir_janela.py",
-        "provas/cur_pronta/prova_orquestra.py"
+        "provas/cur_pronta/prova_orquestra.py",
+        "provas/ia_cur/RELATORIO-IA-CUR.md",
+        "provas/ia_cur/ciclo_ia.py",
+        "provas/ia_cur/decidir_territorio.py",
+        "provas/ia_cur/ler_paginas.py",
+        "provas/ia_cur/registar_propostas.py"
       ],
-      "file_count": 6,
+      "file_count": 11,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json"
+      ],
       "inbound": [
         "C-ASK-SINTONIA",
         "C-CENSO-UNIFICACAO",
         "C-DETECTOR-CAPA-GABARITO",
         "C-IT-COLETA",
         "C-MICRO-COLETA-INSTRUMENTO",
+        "C-PORTA-FONTE",
         "C-TESTES"
       ],
       "outbound": [],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 4
+        "ITALIA": 5
       },
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAPA",
+          "DECIDE",
+          "NAO_SEI"
+        ],
+        "palavras": 46,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 46,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "PROOF",
-      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE": "UNKNOWN",
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
-        "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 7 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "provas/ia_cur/ler_paginas.py abre ligacao de rede: vai buscar dado fora da arvore",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 7 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (provas/ia_cur/ler_paginas.py abre ligacao de rede: vai buscar dado fora da arvore) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "candidatas/FONTES-CANDIDATAS.json",
+        "curadoria/DECISOES-SEMANTICAS-V1.json",
         "curadoria/LIFECYCLE-EVIDENCE-V1.json",
         "curadoria/LIFECYCLE-LEDGER-V1.json",
         "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/SOURCE-ID-ALLOCATION-V1.json",
         "curadoria/italy_contracts_curator.json",
+        "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+        "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
         "regras/italy_contracts_onboarded.json",
         "superficie/rede.py"
       ],
@@ -62983,7 +63027,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 2 linhas de codigo.",
+      "reason": "Ask Sintonia alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cur_pronta/ciclo_uma_volta.py",
@@ -63005,6 +63049,22 @@
           "file": "provas/cur_pronta/ciclo_voltas.py",
           "line": 6,
           "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], capture_output=True, text=True)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/ia_cur/ciclo_ia.py",
+          "line": 10,
+          "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], cwd=\"C:/cur/ia-copia\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
             "FROM": "C-ASK-SINTONIA",
@@ -99039,6 +99099,41 @@
     },
     {
       "from": "C-PORTA-FONTE",
+      "to": "C-PROVA-CUR-PRONTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta CUR-PRONTA — o robo leva a fonte ate pronta: ciclo com e sem rede, orquestra, janela, ensaio. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/ia_cur/decidir_territorio.py",
+          "line": 58,
+          "snippet": "cand = {c[\"CANDIDATA_ID\"]: c for c in json.load(open(RAIZ + \"/candidatas/FONTES-CANDIDATAS.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-CUR-PRONTA",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-PROVA-CUR-PRONTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTE",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -123398,7 +123493,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1609,
+  "UNCLAIMED_FILES_COUNT": 1612,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123656,12 +123751,12 @@
     "components_pending": 203,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1270,
-    "edges_proven": 1206,
+    "edges": 1271,
+    "edges_proven": 1207,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2846,
-    "files_covered": 1237,
+    "files_tracked": 2855,
+    "files_covered": 1243,
     "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T17:02:57+00:00",
-  "HEAD": "cc1d585ee4258b0f5be19e6c50312702b604cbc2",
+  "GENERATED_AT": "2026-09-24T18:32:34+00:00",
+  "HEAD": "14dbd36bc33bd6b26bbf9ae1fafb2dfa789ebe41",
   "BRANCH": "curador-ate-pronta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ba07f9760bff8adc29409a57b67b64e03fc16a98c141228d85d0dd34bb1b7dcb",
-  "FICHEIROS_NA_IMPRESSAO": 2994,
+  "SOURCE_TREE_FINGERPRINT": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f",
+  "FICHEIROS_NA_IMPRESSAO": 3003,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2790,6 +2790,34 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/ia_cur/ciclo_ia.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "209005c121ae6ba6f6071c0fe628e1b1f47f1a14",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/ia_cur/decidir_territorio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "eb71e27cee8a555d0587c973ee8042cd52904954",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/ia_cur/ler_paginas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7669c213ab732c7e75d0a9072f48e5e720803522",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/ia_cur/registar_propostas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "b15921a248b148f3c55d5b7519ef733310335762",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/implementacoes_candidatas.py",
     "PAPEL": "FONTE",
     "VERSAO": "a2f5a7419752751aca3ec1124b46c12aa1f359b5",
@@ -3758,14 +3786,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ba07f9760bff8adc29409a57b67b64e03fc16a98c141228d85d0dd34bb1b7dcb",
+    "VERSAO": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ba07f9760bff8adc29409a57b67b64e03fc16a98c141228d85d0dd34bb1b7dcb",
+    "VERSAO": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5646,8 +5674,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 801,
-  "INPUTS_DIGEST": "f521469f49ac837471cce09ad842ab839030f62cedfc2fdf26c6e586e10eaab9",
+  "INPUTS_COUNT": 805,
+  "INPUTS_DIGEST": "c19ea488e087388ff9bdc8d44bc8c40cc529c3b69053ded0009dadbf70a06e68",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5673,15 +5701,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 502,
+  "DOCUMENTOS_LIDOS": 503,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "67bfefdab124a3ec781051de280fe2f0c5ae357ab30be19966b46a66edba8127",
-  "SEMANTIC_HASH": "18fce69cf65d0c2ea9f4900c4925e7e6f0f8f98cc2a309e13f641cb4a0576b1d"
+  "MEASUREMENT_HASH": "a318ed1d705dbd2d331e6f5e9a437d305b63551786d72458b887f31bbc409512",
+  "SEMANTIC_HASH": "01a5750f0538d8e1000e27f23c5a28819c8f59af045e15691a93cd49d1029466"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -9166,6 +9194,14 @@
      {
       "FICHEIRO": "provas/cur_pronta/ciclo_voltas.py",
       "LINHA": 6,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/ia_cur/ciclo_ia.py",
+      "LINHA": 10,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CUR-PRONTA",
@@ -29658,6 +29694,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-CUR-PRONTA",
+    "FROM": "C-PORTA-FONTE",
+    "TO": "C-PROVA-CUR-PRONTA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/ia_cur/decidir_territorio.py",
+      "LINHA": 58,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-CUR-PRONTA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
     "FROM": "C-PORTA-FONTE",
     "TO": "C-TESTES",
@@ -42961,12 +43019,12 @@
     ]
    }
   ],
-  "COUNT": 1204
+  "COUNT": 1205
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 182,
   "CARTOES_AUDITADOS": 182,
-  "ARESTAS_RELACIONADAS": 1204,
+  "ARESTAS_RELACIONADAS": 1205,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43384,7 +43442,7 @@
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 384,
-   "READ": 274,
+   "READ": 275,
    "RULE": 218,
    "WRITE": 9
   },
@@ -43822,6 +43880,7 @@
     "provas/canario_d24_video_youtube_de_pessoa.py",
     "provas/cur_pronta/ciclo_uma_volta.py",
     "provas/cur_pronta/ciclo_voltas.py",
+    "provas/ia_cur/ciclo_ia.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
     "provas/orcamento_de_rede.py",
@@ -48287,6 +48346,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/ia_cur/decidir_territorio.py",
     "system-map/scripts/generate_system_map.py",
     "system-map/scripts/scan_repo.py",
     "system-map/scripts/scan_sources.py",
@@ -48309,7 +48369,7 @@
     "pathlib"
    ],
    "ENTRAM": 1,
-   "SAEM": 5,
+   "SAEM": 6,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -49214,7 +49274,12 @@
     "provas/cur_pronta/ciclo_voltas.py",
     "provas/cur_pronta/ensaio_instalacao.sh",
     "provas/cur_pronta/medir_janela.py",
-    "provas/cur_pronta/prova_orquestra.py"
+    "provas/cur_pronta/prova_orquestra.py",
+    "provas/ia_cur/RELATORIO-IA-CUR.md",
+    "provas/ia_cur/ciclo_ia.py",
+    "provas/ia_cur/decidir_territorio.py",
+    "provas/ia_cur/ler_paginas.py",
+    "provas/ia_cur/registar_propostas.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
@@ -49224,9 +49289,11 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [
-    "pathlib"
+    "datetime",
+    "pathlib",
+    "urllib"
    ],
-   "ENTRAM": 6,
+   "ENTRAM": 7,
    "SAEM": 0,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",

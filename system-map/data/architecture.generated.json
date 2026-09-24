@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "curador-ate-pronta-v1",
-    "HEAD": "cc1d585ee4258b0f5be19e6c50312702b604cbc2",
-    "GENERATED_AT": "2026-09-24T13:59:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ba07f9760bff8adc29409a57b67b64e03fc16a98c141228d85d0dd34bb1b7dcb"
+    "HEAD": "14dbd36bc33bd6b26bbf9ae1fafb2dfa789ebe41",
+    "GENERATED_AT": "2026-09-24T15:27:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "53de71cd8b4792c2f6b293d4fdbc08c6a3a9c8ea70b7faa25ead6de3a319903f"
   },
   "FILES": [
     {
@@ -15262,6 +15262,69 @@
       "code_dir": true
     },
     {
+      "path": "provas/ia_cur/DECISOES-IA-CUR-V1.json",
+      "sha": "85584e42ee438fe388df742a1a8d7c2eb2b0166a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/FOTO-1511.sha256",
+      "sha": "7e6281e93ce647c053e2998767bbe2b6208031a1",
+      "ext": ".sha256",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
+      "sha": "f1014ca7f317a0f411b3fef35033513d793dcb7d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/RELATORIO-IA-CUR.md",
+      "sha": "7b95d8f31583b012bf098596d9e33e2600656987",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/RESULTADO-PILOTO-IA-CUR.json",
+      "sha": "2d99a7c0088f76dbd860550fed28967e3eda6a58",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/ciclo_ia.py",
+      "sha": "209005c121ae6ba6f6071c0fe628e1b1f47f1a14",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/decidir_territorio.py",
+      "sha": "eb71e27cee8a555d0587c973ee8042cd52904954",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/ler_paginas.py",
+      "sha": "7669c213ab732c7e75d0a9072f48e5e720803522",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/registar_propostas.py",
+      "sha": "b15921a248b148f3c55d5b7519ef733310335762",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/implementacoes_candidatas.py",
       "sha": "a2f5a7419752751aca3ec1124b46c12aa1f359b5",
       "ext": ".py",
@@ -17825,7 +17888,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8eeea707c371d5c40825542d2f8ab60820cb03a2",
+      "sha": "ffb5d2de1e50e37e35bf2b3d0e0536bea27cfe4b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -53626,6 +53689,72 @@
       }
     },
     {
+      "from_file": "provas/ia_cur/ciclo_ia.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ia_cur/ciclo_ia.py",
+        "line": 10,
+        "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"], cwd=\"C:/cur/ia-copia\","
+      }
+    },
+    {
+      "from_file": "provas/ia_cur/decidir_territorio.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ia_cur/decidir_territorio.py",
+        "line": 58,
+        "snippet": "cand = {c[\"CANDIDATA_ID\"]: c for c in json.load(open(RAIZ + \"/candidatas/FONTES-CANDIDATAS.json\","
+      }
+    },
+    {
+      "from_file": "provas/ia_cur/decidir_territorio.py",
+      "to_file": "curadoria/DECISOES-SEMANTICAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ia_cur/decidir_territorio.py",
+        "line": 61,
+        "snippet": "doc = json.load(open(p, encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "provas/ia_cur/registar_propostas.py",
+      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ia_cur/registar_propostas.py",
+        "line": 34,
+        "snippet": "t305 = S + \"/acervo-coletor-bcr/data/collection-store/italy/IT-T3-005/TERRETRURIA_07-09-2026_13-09-2026/v1_bced66652f25/monitoraggio.html\""
+      }
+    },
+    {
+      "from_file": "provas/ia_cur/registar_propostas.py",
+      "to_file": "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ia_cur/registar_propostas.py",
+        "line": 59,
+        "snippet": "doc = json.load(open(p, encoding=\"utf-8\")) if os.path.exists(p) else {"
+      }
+    },
+    {
+      "from_file": "provas/ia_cur/registar_propostas.py",
+      "to_file": "provas/ia_cur/PROPOSTAS-IA-CUR-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ia_cur/registar_propostas.py",
+        "line": 63,
+        "snippet": "open(p, \"w\", encoding=\"utf-8\").write(json.dumps(doc, ensure_ascii=False, indent=1) + \"\\n\")"
+      }
+    },
+    {
       "from_file": "provas/implementacoes_candidatas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -83328,10 +83457,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2846,
-    "files_readable": 1301,
-    "files_code_dir": 1139,
-    "file_edges": 5712,
+    "files_tracked": 2855,
+    "files_readable": 1305,
+    "files_code_dir": 1148,
+    "file_edges": 5718,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
