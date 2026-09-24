@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T00:49:28+00:00",
-  "HEAD": "e97185c60cc442ac07c5f0591ca1a72493b3536d",
+  "GENERATED_AT": "2026-09-24T01:03:37+00:00",
+  "HEAD": "e411bdd7e6147549b6d0b4d136acf17b1a5ae810",
   "BRANCH": "unificacao-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "c55bbcd6b963afcea3d1e6290cae35477a224c8576cd9384ee1b2517c88fca98",
-  "FICHEIROS_NA_IMPRESSAO": 2939,
+  "SOURCE_TREE_FINGERPRINT": "7f3732bf413437bc3b91cac6e4b5a7bd67b585ac298ee5fa56860d74b81b0c7b",
+  "FICHEIROS_NA_IMPRESSAO": 2940,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3702,14 +3702,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c55bbcd6b963afcea3d1e6290cae35477a224c8576cd9384ee1b2517c88fca98",
+    "VERSAO": "7f3732bf413437bc3b91cac6e4b5a7bd67b585ac298ee5fa56860d74b81b0c7b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c55bbcd6b963afcea3d1e6290cae35477a224c8576cd9384ee1b2517c88fca98",
+    "VERSAO": "7f3732bf413437bc3b91cac6e4b5a7bd67b585ac298ee5fa56860d74b81b0c7b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5570,7 +5570,7 @@
    }
   ],
   "INPUTS_COUNT": 790,
-  "INPUTS_DIGEST": "b9a2acab8bc63e2f0d23af48e27da09d90dcc2f554ef9c8b13c744f12c819861",
+  "INPUTS_DIGEST": "9da9ffc005761dbb3b2d0122bf60a18947d9f8cf895a85544366c4138d7cc7a7",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5596,15 +5596,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 496,
+  "DOCUMENTOS_LIDOS": 497,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6cb5b01b9aed0721afd81250749b9f6074e030486be060df045800f4c2222b1a",
-  "SEMANTIC_HASH": "9ddb00a35dd343a4851d3e23167a3f30df32327f389c679d95d4ddfa36fc25da"
+  "MEASUREMENT_HASH": "5df78a10e18254e4e3b7cf98397bbf6cca44f22d358e7b4898ec47ded9326f4c",
+  "SEMANTIC_HASH": "2b293b1bf1bb14511de0a0186d3910c3b50643a80bab3e59b6ac21557eafe782"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -44213,6 +44213,7 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "CUTOVER-RUNBOOK.md",
+    "PLANO-INSTALACAO-M5G.md",
     "RELATORIO-UNIFICACAO.md"
    ],
    "E_ENTRYPOINT": false,
