@@ -1,0 +1,247 @@
+{
+ "DATASET": "R1-ANTES-DEPOIS-EM-COPIA",
+ "FOTO": "C:\\Users\\London1\\AppData\\Local\\Temp\\r1v5-snap-20260924T202844Z",
+ "BANCAS": [
+  "C:/Users/London1/AppData/Local/Temp/r1v5-banca-0",
+  "C:/Users/London1/AppData/Local/Temp/r1v5-banca-1",
+  "C:/Users/London1/AppData/Local/Temp/r1v5-banca-2",
+  "C:/Users/London1/AppData/Local/Temp/r1v5-banca-3"
+ ],
+ "READY_ANTES": 143,
+ "READY_DEPOIS": 168,
+ "ESTADOS_ANTES": {
+  "READY_FOR_COLLECTION": 143,
+  "CANARY_PENDING": 102,
+  "RETRY_AFTER": 11,
+  "CONTRACTED_CANARY_FAILED": 403,
+  "CAPABILITY_BLOCK": 39,
+  "UNKNOWN": 34,
+  "POLICY_BLOCK": 69,
+  "CONTRACT_PENDING": 5,
+  "DEGRADED": 18,
+  "SEMANTIC_REVIEW": 198,
+  "CONTRACT_READY_ROUTE_BLOCKED": 13,
+  "AUTH_BLOCK": 5
+ },
+ "ESTADOS_DEPOIS": {
+  "READY_FOR_COLLECTION": 168,
+  "CONTRACTED_CANARY_FAILED": 463,
+  "RETRY_AFTER": 11,
+  "CAPABILITY_BLOCK": 39,
+  "UNKNOWN": 34,
+  "POLICY_BLOCK": 69,
+  "CONTRACT_PENDING": 5,
+  "DEGRADED": 18,
+  "SEMANTIC_REVIEW": 200,
+  "CONTRACT_READY_ROUTE_BLOCKED": 25,
+  "AUTH_BLOCK": 8
+ },
+ "FONTES_QUE_MUDARAM": 505,
+ "DUPLAS": [],
+ "POR_CAUSA": {
+  "A_REPARO": {
+   "CANARY_PENDING -> CONTRACTED_CANARY_FAILED": 95,
+   "CANARY_PENDING -> READY_FOR_COLLECTION": 4,
+   "CONTRACTED_CANARY_FAILED -> CONTRACTED_CANARY_FAILED": 368,
+   "CONTRACTED_CANARY_FAILED -> SEMANTIC_REVIEW": 2,
+   "CONTRACTED_CANARY_FAILED -> READY_FOR_COLLECTION": 19,
+   "CONTRACTED_CANARY_FAILED -> CONTRACT_READY_ROUTE_BLOCKED": 11,
+   "CONTRACTED_CANARY_FAILED -> AUTH_BLOCK": 3
+  },
+  "B_RECANARIO": {
+   "CANARY_PENDING -> READY_FOR_COLLECTION": 2,
+   "CANARY_PENDING -> CONTRACT_READY_ROUTE_BLOCKED": 1
+  }
+ },
+ "MOTIVO_FINAL_POR_CAUSA": {
+  "A_REPARO": {
+   "REPARO_RECUSADO:ITEM_NAO_E_MATERIA": 149,
+   "REPARO_RECUSADO:SEM_FAMILIA_DE_ITENS": 116,
+   "REPARO_RECUSADO:ENTRADA_E_MATERIA": 78,
+   "REPARO_RECUSADO:ENTRADA_INSTITUCIONAL": 44,
+   "REPARO_RECUSADO:SEM_IDENTIDADE": 29,
+   "CAPA_NAO_E_MATERIA": 23,
+   "REPARO_RECUSADO:FAMILIA_ESTATICA": 18,
+   "o endereco casa com Disallow no robots vivo": 10,
+   "REPARO_RECUSADO:DUPLICADA": 10,
+   "HTTP N na entrada: a fonte respondeu que nao a esta identida": 3,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página fixa institucio": 2,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página inicial de um p": 1,
+   "REVISAO_RN: TEXTO_NAO_E_MATERIA: crpv.it reencaminha para a ": 1,
+   "REVISAO_RN: LISTA_COMO_ITEM: o item é a própria listagem «Ar": 1,
+   "TEMA_A_CONFIRMAR (DN: gaveta certa + relevancia): notícia, m": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página fixa de ativida": 1,
+   "destino https://authra.regione.abruzzo.it/if/flow/default-au": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: repartição: página do ": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página educativa fixa ": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página de serviço: lis": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: ficha de curso de form": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página de serviço: Áre": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página de serviço: pra": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página temática fixa (": 1,
+   "bytes nao sao HTML — BYTE_VALIDATION_FAILED": 1,
+   "REVISAO_PENDENTE: contrato reparado pela RN passou a regua, ": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página de projeto das ": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página de serviço: des": 1,
+   "REVISAO_RN: SERVICO_OU_INSTITUCIONAL: página fixa de projeto": 1,
+   "REVISAO_RN: TEXTO_NAO_E_MATERIA: o texto lido é o do leitor ": 1,
+   "TEMA_A_CONFIRMAR (DN: gaveta certa + relevancia): notícia un": 1
+  },
+  "B_RECANARIO": {
+   "CAPA_NAO_E_MATERIA": 2,
+   "o endereco do contrato casa com Disallow no robots vivo": 1
+  }
+ },
+ "READY_NOVAS": [
+  {
+   "SOURCE_ID": "IT-T12-024",
+   "CAUSA": "B_RECANARIO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-104",
+   "CAUSA": "A_REPARO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-117",
+   "CAUSA": "B_RECANARIO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-129",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-130",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1) · ACESSO_PARCIAL: artigo para assinantes: só o início é público"
+  },
+  {
+   "SOURCE_ID": "IT-T12-131",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1) · ACESSO_PARCIAL: artigo para assinantes: só o início é público"
+  },
+  {
+   "SOURCE_ID": "IT-T2-032",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-037",
+   "CAUSA": "A_REPARO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-050",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T3-023",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1) · ACESSO_PARCIAL: artigo para assinantes: só o início é público"
+  },
+  {
+   "SOURCE_ID": "IT-T5-056",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-080",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-111",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-113",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-048",
+   "CAUSA": "A_REPARO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "CAUSA": "A_REPARO",
+   "DE": "CANARY_PENDING",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-103",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-125",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-139",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-163",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-022",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-024",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-041",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-042",
+   "CAUSA": "A_REPARO",
+   "DE": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1) · ACESSO_PARCIAL: artigo para assinantes: só o início é público"
+  }
+ ]
+}

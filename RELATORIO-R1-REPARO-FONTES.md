@@ -199,3 +199,40 @@ Banca nova (foto do vivo 12:21Z + `reparo-fontes-v2`), reparo re-corrido só par
 
 Os sinais automáticos (`CAMINHO_DE_SERVICO`, `SEM_DATA`) só apontam; 4 foram falsos («contributi» casa «tribut», «corso di aggiornamento» é notícia). O veredito é da leitura.
 Para a REND: o contrato reparado de cada fonte (INDEX_URL, LINK_PATTERN) e o item lido estão no mesmo JSON.
+
+## 11 · Plano de instalação da R1 revista sobre o vivo atual (24/09, `5c4daf5a`)
+
+O vivo passou a `5c4daf5a` (EGR: portão de egresso por consenso). Juntei-o em `reparo-fontes-v2` (`df1e9f87`, mapa em `e7cba2d6`): o ramo já traz o portão novo e a instalação entra sem conflito.
+
+**Ensaio em cópia fiel** (`C:/ens-r1`: worktree em `5c4daf5a` + os 14 livros sujos do vivo, só lidos; apagada no fim):
+
+```
+1. merge --no-ff e7cba2d6                rc=0  conflitos=0
+2. livros sujos (14)                     IGUAIS byte a byte
+3. arvore vs e7cba2d6                    0 ficheiros diferentes; rota_do_scrap_youtube nao carrega
+4. 598 contratos validos, 0 invalidos; a espera: 505 (432 REPAIR_CONTRACT + 73 VALIDATE_ROUTE)
+5. testes na copia instalada: 136, 1 FAIL = test_nivel_da_fila.test_5 (pre-existente); livros IGUAIS
+6. DESFAZER git reset --keep 5c4daf5a    rc=0  0 codigo diferente  livros IGUAIS
+```
+
+**Quantas READY saem** (4 bancas com rede, foto do vivo 20:28Z, portão por consenso = PASS IT; `scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json`):
+
+```
+READY                                        143 -> 168  (+25 = 21 limpas + 4 ACESSO_PARCIAL) = o esperado
+limpas/parciais que nao chegaram             0
+retidas pela revisao                         21 (16 servico/institucional, 2 texto nao e materia,
+                                                1 lista como item -> CANARY_FAILED; 2 tema -> SEMANTIC_REVIEW)
+REVISAO_PENDENTE (reparada, ninguem leu)     1 = IT-T8-058 (Agrisole)
+nota ACESSO_PARCIAL no livro                 inteira (IT-T8-042: «... · ACESSO_PARCIAL: artigo para assinantes: só o início é público»)
+```
+
+**Passos** (padrão B4/M2e; só com o OK do coordenador, um escritor no vivo):
+1. Fotografar processos (1 supervisor, 1 ponte), sha256 dos 14 livros sujos, cópia em `C:\cutover\r1-<hora>\antes`.
+2. `PARAR.flag` → o supervisor sai sozinho; confirmar 0 worker.
+3. No ramo do bot: `git merge --no-ff origin/reparo-fontes-v2`; conferir os livros com o sha256 de antes; push.
+4. Portão de egresso por consenso = PASS IT → apagar `PARAR.flag` → relançar o supervisor como hoje.
+5. Provar ao vivo: tarefas REPAIR_CONTRACT a aparecer na fila; READY a subir para ~168 em 2–3 h; as 21 retidas com o motivo no livro.
+
+**DESFAZER:** `PARAR.flag` → `git reset --keep 5c4daf5a` → relançar. O que o bot já escreveu fica no livro (append-only); cada contrato reparado guarda o anterior em `REPARO_DE_CONTRATO.ACQUISITION_ANTERIOR`.
+
+**Falta:** repetir SÓ o ensaio com a junção da IA-CUR (conserto do leitor do canário em `canario.py`; o ramo dela já tem a R1 antiga `9c05877e`) quando ela publicar a medição do livro inteiro.

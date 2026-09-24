@@ -1,26 +1,28 @@
 {
  "DATASET": "R1-WRITESET",
- "VERSAO": "v2 — reparo-fontes-v2 sobre o vivo atual (servico-20260923-0923 @ fca4f2b6 = M5G + BC4b + docs BC5), sem SOC2",
- "SHA_A_INSTALAR": "3be6265a (ou o HEAD de reparo-fontes-v2: depois dele so relatorio, este ficheiro, medicoes e mapa gerado — conferir com git diff --stat 3be6265a reparo-fontes-v2)",
+ "VERSAO": "v2 revista — reparo-fontes-v2 sobre o vivo atual (servico-20260923-0923 @ 5c4daf5a = EGR consenso), sem SOC2, com a revisao das READY (REVISAO-READY-V1)",
+ "SHA_A_INSTALAR": "e7cba2d6 (ou o HEAD de reparo-fontes-v2: depois dele so relatorio, medicoes, este ficheiro e mapa gerado — conferir com git diff --stat e7cba2d6 reparo-fontes-v2)",
  "VIVO": "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1",
- "BASE_DO_VIVO_MEDIDA": "servico-20260923-0923 @ fca4f2b6",
- "MEDIDO_EM": "2026-09-24 (reensaio)",
- "COMO_INSTALAR": "no ramo do bot, com o bot quieto: git merge --no-ff reparo-fontes-v2. Reensaiado em copia fiel de fca4f2b6: rc 0, 0 conflitos (o ramo ja junta fca4f2b6), livros sujos (14) iguais byte a byte, arvore == 3be6265a. NAO por git checkout de ficheiros.",
- "DESFAZER": "git reset --keep fca4f2b6 (reensaiado: rc 0, 0 codigo diferente, livros iguais)",
+ "BASE_DO_VIVO_MEDIDA": "servico-20260923-0923 @ 5c4daf5a",
+ "MEDIDO_EM": "2026-09-24 (plano de instalacao, missao-r1-instalacao)",
+ "COMO_INSTALAR": "com o bot quieto (PARAR.flag, supervisor saiu), no ramo do bot: git merge --no-ff reparo-fontes-v2. Ensaiado em copia fiel de 5c4daf5a: rc 0, 0 conflitos (o ramo ja junta 5c4daf5a), livros sujos (14) iguais byte a byte, arvore == e7cba2d6. NAO por git checkout de ficheiros.",
+ "DESFAZER": "PARAR.flag; git reset --keep 5c4daf5a (ensaiado: rc 0, 0 codigo diferente, livros iguais); relancar o supervisor",
  "1_INSTALACAO_ESCREVE_CODIGO": {
   "FICHEIROS": [
    "curadoria/reparar_contrato.py (novo)",
+   "curadoria/revisao_ready.py (novo)",
+   "curadoria/REVISAO-READY-V1.json (novo: a leitura das 46, so lida pelo worker)",
    "curadoria/worker.py",
    "curadoria/fila.py",
    "curadoria/gatilho_discovery.py",
    "curadoria/canario.py",
    "curadoria/red_team_service.py",
    "curadoria/test_reparar_contrato.py (novo)",
+   "curadoria/test_revisao_ready.py (novo)",
    "curadoria/test_gatilho_discovery.py",
    "curadoria/test_abastecimento.py",
    "curadoria/test_impasse_b4.py",
-   "scripts/reparo/medir_em_copia.py (novo)",
-   "scripts/reparo/juntar_bancas.py (novo)",
+   "scripts/reparo/*.py (medir_em_copia, juntar_bancas, revisar_ready — novos)",
    "scripts/reparo/*.json (medicoes e este writeset — documentos)",
    "RELATORIO-R1-REPARO-FONTES.md",
    "SINTONIA-EAME-KNOW-HOW.md (§221)",
@@ -33,7 +35,7 @@
  },
  "2_EM_FUNCIONAMENTO_O_BOT_PASSA_A_ESCREVER": {
   "curadoria/italy_contracts_curator.json": "REPAIR_CONTRACT reescreve ACQUISITION (INDEX_URL, LINK_PATTERN) e acrescenta REPARO_DE_CONTRATO + ROUTE_PROVENANCE; ou ACRESCENTA contrato para fontes com identidade e sem contrato. Nunca muda SOURCE_ID, TERRITORY, BATCH_ID.",
-  "curadoria/LIFECYCLE-LEDGER-V1.json": "linhas novas: REPAIRING, CANARY_PENDING, CONTRACTED_CANARY_FAILED (REPARO_RECUSADO: <motivo>), READY_FOR_COLLECTION (so pelo canario e a regua), RETRY_AFTER, AUTH_BLOCK, CONTRACT_READY_ROUTE_BLOCKED. Append-only.",
+  "curadoria/LIFECYCLE-LEDGER-V1.json": "linhas novas: REPAIRING, CANARY_PENDING, CONTRACTED_CANARY_FAILED (REPARO_RECUSADO / REVISAO_R1 / REVISAO_PENDENTE com o motivo), SEMANTIC_REVIEW (TEMA_A_CONFIRMAR), READY_FOR_COLLECTION (so pelo canario, a regua e a revisao; ACESSO_PARCIAL na razao), RETRY_AFTER, AUTH_BLOCK, CONTRACT_READY_ROUTE_BLOCKED. Append-only.",
   "curadoria/LIFECYCLE-QUEUE-V1.json": "tarefas REPAIR_CONTRACT (tipo novo) e VALIDATE_ROUTE; reabre QUALIFY SEMANTIC so com prova nova da casa (0 hoje). NAO reabre as QUALIFY do YouTube (sem a SOC2 seria eco).",
   "curadoria/LIFECYCLE-EVIDENCE-V1.json": "provas por etapa (EV-<sid>-REPAIR_CONTRACT-n), com as paginas lidas",
   "ESTADO_DO_SUPERVISOR": "o resultado do gatilho passa a ter REPARAR, REPARO_PENDENTE e DECISAO=REPARO_ANTES_DE_DISCOVERY"
@@ -46,5 +48,18 @@
   "nenhum ficheiro novo no vivo"
  ],
  "4_TRABALHO_A_ESPERA_NO_LIVRO_VIVO_COPIADO": "505 fontes: 432 REPAIR_CONTRACT + 73 VALIDATE_ROUTE (20 por volta do gatilho; discovery parado ate acabar)",
- "5_REDE": "ate 4 pedidos por reparo + o canario de sempre; robots da casa; 2 s entre pedidos ao mesmo anfitriao"
+ "5_REDE": "ate 4 pedidos por reparo + o canario de sempre; robots da casa; 2 s entre pedidos ao mesmo anfitriao",
+ "6_ESPERADO_AO_VIVO": {
+  "READY": "143 -> 168 (+25 = 21 limpas + 4 ACESSO_PARCIAL), medido em copia do vivo 20:28Z (scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json)",
+  "RETIDAS_PELA_REVISAO": "21 = 16 SERVICO_OU_INSTITUCIONAL + 2 TEXTO_NAO_E_MATERIA + 1 LISTA_COMO_ITEM (CONTRACTED_CANARY_FAILED) + 2 TEMA_A_CONFIRMAR (SEMANTIC_REVIEW)",
+  "REVISAO_PENDENTE": "1 = IT-T8-058 (Agrisole): o reparo passou a regua com um contrato que ninguem leu",
+  "DURACAO": "~40 min em 4 bancas; no vivo, uma fila so: ~2-3 h"
+ },
+ "7_PROVAS_FORA_DO_GIT": {
+  "FOTO_DO_VIVO": "%TEMP%/r1v5-snap-20260924T202844Z",
+  "LIFECYCLE-LEDGER-V1.json": "c63fe0fbfb3519d7ab83fde1b73fc5586cc29730ca2e08c30e59745df729d461",
+  "LIFECYCLE-QUEUE-V1.json": "4786b390277ca0e2a7ab334fd36d62a8adca77768ffe65da560063035fa3111b",
+  "italy_contracts_curator.json": "a7abd28091abdef10f49ae4e86bf38887fdc1847ffc3f5cb779eee25c86abc84",
+  "SHA_DOS_14_LIVROS_SUJOS_ANTES": "%TEMP%/r1v5-sha-antes.txt sha256=7a07a38fd69cbbaab6aa7b0e808a762cd77fd3060132676eee97464f5326f9de"
+ }
 }
