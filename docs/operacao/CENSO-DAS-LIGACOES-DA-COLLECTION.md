@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a1dfac699148cc30f77d70b40af7c0071d365229
+HEAD_DA_MEDICAO  2ed22c8220cd3566dd3c8aed6dae6da1bf4795b9
 BRANCH           rendimento-fontes-v1
-GERADO_EM        2026-09-24T16:06:40-03:00
+GERADO_EM        2026-09-24T17:15:09-03:00
 CARDS            93
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

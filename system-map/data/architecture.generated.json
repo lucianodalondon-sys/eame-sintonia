@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "rendimento-fontes-v1",
-    "HEAD": "a1dfac699148cc30f77d70b40af7c0071d365229",
-    "GENERATED_AT": "2026-09-24T16:06:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3d8a69851d8894ae9f38593eded0f5cf4043beb37d320b38f7b79864c2f25053"
+    "HEAD": "2ed22c8220cd3566dd3c8aed6dae6da1bf4795b9",
+    "GENERATED_AT": "2026-09-24T17:15:09-03:00",
+    "SOURCE_TREE_FINGERPRINT": "02eb4eeeedc66f3dd4ba6f57c00a8ed6bc898093e80d0806123380b5ceb358df"
   },
   "FILES": [
     {
@@ -10811,14 +10811,14 @@
     },
     {
       "path": "ferramentas/rendimento/RELATORIO-REND.md",
-      "sha": "4646762124ad0571af7cdd4aca5dd19b9ec5f775",
+      "sha": "6c3272601e0502e35ef19c1b3a94115382f7b7c3",
       "ext": ".md",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "ferramentas/rendimento/REND-TABELA-V1.json",
-      "sha": "f59ca307ea5c8a1d6a36bd7bf81c1f4198af2250",
+      "sha": "e0a72a810ab3fb5be6c6da3ef339e5d4629494f8",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10832,14 +10832,28 @@
     },
     {
       "path": "ferramentas/rendimento/janelas.py",
-      "sha": "c5a0dca5bd8f94fbdcb687bc5286bbf8d289450a",
+      "sha": "764a39ce07718d0247b86edf9b94737855f80aff",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
+      "path": "ferramentas/rendimento/medidas/banca-livros-sha256.txt",
+      "sha": "5b07202ef93944eefa194c8138734eae66e6c81b",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/rendimento/medidas/conferencia-1a-onda.json",
       "sha": "733c46b02084b0abe3683d6d370cb3be868b133a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/contratos-r1-reparados.json",
+      "sha": "b5fd92b64bbfd2f193fb4efbb7022daeabc6b7b0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10873,6 +10887,20 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/rendimento/medidas/entrada-r1-reparado-passo2.json",
+      "sha": "3040fd10c019ae7f3f51256470dc671d4720c963",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/entrada-r1-reparado.json",
+      "sha": "92937c7ba9fbe48a523cfdf8b85078eb89e7e1e1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/rendimento/medidas/entrada-r1.json",
       "sha": "bfed97f6a1e33c2a4a71327561f2b24d66ea08d9",
       "ext": ".json",
@@ -10895,7 +10923,7 @@
     },
     {
       "path": "ferramentas/rendimento/medidas/janelas.json",
-      "sha": "3d1fbb7b4a07cf0f99fb0afdeac63c1772b0bedf",
+      "sha": "096aa531d02d453198db56ca0961e49cc4bf88b9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10930,7 +10958,7 @@
     },
     {
       "path": "ferramentas/rendimento/tabela.py",
-      "sha": "2d6933e38b72a8b1cccd89531910371d516be754",
+      "sha": "1fd305f5dce54e15145f1d5c78348324d096e2dc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31888,12 +31916,34 @@
     },
     {
       "from_file": "ferramentas/rendimento/janelas.py",
+      "to_file": "ferramentas/rendimento/medidas/entrada-r1-passo2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/janelas.py",
+        "line": 92,
+        "snippet": "antigos = {\"entrada-r1.json\", \"entrada-r1-passo2.json\"}"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/janelas.py",
+      "to_file": "ferramentas/rendimento/medidas/entrada-r1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/janelas.py",
+        "line": 92,
+        "snippet": "antigos = {\"entrada-r1.json\", \"entrada-r1-passo2.json\"}"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/janelas.py",
       "to_file": "ferramentas/rendimento/medidas/janelas.json",
       "type": "WRITES",
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/rendimento/janelas.py",
-        "line": 121,
+        "line": 123,
         "snippet": "(AQUI / \"medidas\" / \"janelas.json\").write_text(json.dumps("
       }
     },
@@ -31970,8 +32020,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/rendimento/tabela.py",
-        "line": 143,
+        "line": 159,
         "snippet": "(AQUI / \"REND-TABELA-V1.json\").write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/contratos-r1-reparados.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 74,
+        "snippet": "rev = {x[\"SOURCE_ID\"]: x for x in ler(M / \"contratos-r1-reparados.json\")[\"REVISAO\"][\"FONTES\"]}"
       }
     },
     {
@@ -32009,24 +32070,24 @@
     },
     {
       "from_file": "ferramentas/rendimento/tabela.py",
-      "to_file": "ferramentas/rendimento/medidas/entrada-r1-passo2.json",
+      "to_file": "ferramentas/rendimento/medidas/entrada-r1-reparado-passo2.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/rendimento/tabela.py",
-        "line": 70,
-        "snippet": "er1 = linhas_de(\"entrada-r1.json\", \"entrada-r1-passo2.json\")"
+        "line": 73,
+        "snippet": "er1 = linhas_de(\"entrada-r1-reparado.json\", \"entrada-r1-reparado-passo2.json\")"
       }
     },
     {
       "from_file": "ferramentas/rendimento/tabela.py",
-      "to_file": "ferramentas/rendimento/medidas/entrada-r1.json",
+      "to_file": "ferramentas/rendimento/medidas/entrada-r1-reparado.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/rendimento/tabela.py",
-        "line": 70,
-        "snippet": "er1 = linhas_de(\"entrada-r1.json\", \"entrada-r1-passo2.json\")"
+        "line": 73,
+        "snippet": "er1 = linhas_de(\"entrada-r1-reparado.json\", \"entrada-r1-reparado-passo2.json\")"
       }
     },
     {
@@ -32047,7 +32108,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/rendimento/tabela.py",
-        "line": 73,
+        "line": 77,
         "snippet": "if (M / \"janelas.json\").exists():"
       }
     },
@@ -82069,10 +82130,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2822,
+    "files_tracked": 2826,
     "files_readable": 1285,
-    "files_code_dir": 1135,
-    "file_edges": 5616,
+    "files_code_dir": 1139,
+    "file_edges": 5619,
     "escritas_em_pasta": 77,
     "declared_missing_here": 0
   },
