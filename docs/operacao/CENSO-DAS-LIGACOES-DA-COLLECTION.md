@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2d605ef6213a23d9cd7c7612e3a42a14500bdc7f
+HEAD_DA_MEDICAO  62a7cade0b78b412d25ab19aec593cbdbf16fa7d
 BRANCH           coorte-unica-v1
-GERADO_EM        2026-09-23T19:23:28-03:00
+GERADO_EM        2026-09-24T00:31:00-03:00
 CARDS            90
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
