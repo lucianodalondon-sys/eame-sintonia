@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "cacd3e2eccd863614fb2d84b37bc0d07b96fc92a",
-    "GENERATED_AT": "2026-09-24T13:48:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2aeb5fddb2b2d8a766e3559b4b312464cbd0fc72a366bd9c6e18183e74b0dcf1"
+    "HEAD": "bb34d38683c26547042285b2ec145110a3a2d62d",
+    "GENERATED_AT": "2026-09-24T16:27:50-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0d458bebf70ae035f2c96ca978ff665bcdc59d076e61c49270131b174b2f0cd1"
   },
   "FILES": [
     {
@@ -2209,6 +2209,13 @@
     {
       "path": "curadoria/BRIDGE-PROOF-V1.json",
       "sha": "ac6b21689a4a967cd8cf0ab034f19586f511689b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/CANARIO-YOUTUBE-SOC-ONDA2-VIDEOS.json",
+      "sha": "5d754d82473f6f2fc37969dec60984b24fa78952",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -26510,6 +26517,28 @@
         "file": "curadoria/listar_videos_soc_onda2.py",
         "line": 46,
         "snippet": "import scrap_executor as sx"
+      }
+    },
+    {
+      "from_file": "curadoria/listar_videos_soc_onda2.py",
+      "to_file": "curadoria/CANARIO-YOUTUBE-SOC-ONDA2-VIDEOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/listar_videos_soc_onda2.py",
+        "line": 29,
+        "snippet": "REGISTO = RAIZ / \"curadoria\" / \"CANARIO-YOUTUBE-SOC-ONDA2-VIDEOS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/listar_videos_soc_onda2.py",
+      "to_file": "curadoria/CANARIO-YOUTUBE-SOC-ONDA2-VIDEOS.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/listar_videos_soc_onda2.py",
+        "line": 73,
+        "snippet": "REGISTO.write_text(json.dumps({"
       }
     },
     {
@@ -83187,10 +83216,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2840,
+    "files_tracked": 2841,
     "files_readable": 1301,
     "files_code_dir": 1123,
-    "file_edges": 5703,
+    "file_edges": 5705,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
