@@ -49,6 +49,9 @@ class OSimPedeAsDuasCoisas(unittest.TestCase):
     def test_agrometeo_so_conta_com_duas_condicoes(self):
         self.assertEqual(t2("Agrometeo · siccita in pianura")[0], adm.NAO_SEI,
                          "o menu «Agrometeo» com uma palavra de tempo entrou")
+        # com corpo de boletim (edicao) e UMA so condicao continua NAO_SEI: as 2 condicoes
+        # sao outra exigencia, e esta frase e a que a separa (mutante `agrometeo_1_condicao`)
+        self.assertEqual(t2("Bollettino agrometeorologico n. 36/2026: siccita in pianura")[0], adm.NAO_SEI)
         # T2C: a via tambem pede corpo de boletim (aqui, o numero da edicao)
         self.assertEqual(t2("Bollettino agrometeorologico n. 36/2026: siccita e temperature record")[0], adm.SIM)
 
