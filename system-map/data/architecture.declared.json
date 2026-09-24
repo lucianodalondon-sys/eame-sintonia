@@ -722,6 +722,29 @@
    ]
   },
   {
+   "id": "C-PESSOAS-DOCENTES",
+   "name": "Pessoas pelo site oficial (P5, D24) — pagina de cada docente/investigador",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Percorre departamentos de Agraria e institutos agrarios do CNR: casa -> listagem de pessoal -> pagina de cada pessoa -> ligacoes a LinkedIn (/in/), Instagram, YouTube e ResearchGate. Robots, pausa de 2 s e portao de egresso IT antes, a cada 20 pedidos e depois. O rodape da casa (o que ja estava na casa/listagem ou se repete em >=3 pessoas) nunca conta como pessoa. Regista pela porta canonica (candidatas/fonte_nova.py) so o que DECISOES-P5-V1.json diz ENTRA, com a pagina oficial da pessoa (sha256) na NOTA.",
+   "why_here": "A YT3 provou que a pagina de uma ORGANIZACAO liga ao canal da organizacao; a prova de que um perfil e de uma PESSOA e a pagina da propria pessoa no site oficial. Rota unica permitida pela matriz para achar contas: descoberta-indireta:site-da-organizacao. Veterinaria fora (D26); CREA e Bologna ficam com a P4.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/pessoas_docentes/pessoas_docentes.py",
+    "scripts/pessoas_docentes/SEMENTES-P5.json",
+    "scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json",
+    "scripts/pessoas_docentes/DECISOES-P5-V1.json"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",
