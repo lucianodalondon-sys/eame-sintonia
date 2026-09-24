@@ -1,0 +1,36 @@
+{
+ "BOT_VIVO": "55b50a63551e049f167a88bd03ff072f9926891c",
+ "PORTAO_DO_CURATOR": {
+  "IT-T10-018": {
+   "STATE": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1",
+   "COLLECTION_ELIGIBLE": true,
+   "MOTIVO": "ELIGIBLE"
+  },
+  "IT-T2-002": {
+   "STATE": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "READY_LEGACY"
+  },
+  "IT-T7-041": {
+   "STATE": "CONTRACTED_CANARY_FAILED",
+   "READY_RULE": "LEGACY",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "ESTADO_NAO_READY"
+  }
+ },
+ "SALA": {
+  "sala_de_espera": 69,
+  "raw_asset": 1425,
+  "derived_artifact": 927,
+  "collection_run": 402
+ },
+ "EGRESSO": {
+  "EGRESS_GATE": "PASS",
+  "EGRESS_VERDICT": "PASS",
+  "DA_CACHE": true
+ },
+ "R1_INSTALADA": false,
+ "CAPAS_MEDIDAS": "medidas/entrada-lote.json (24/09, portao de egresso PASS antes e depois)"
+}
