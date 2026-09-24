@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T16:47:59+00:00",
-  "HEAD": "3f4ce497e7581f5237c01f1e9bb0b466f1e00551",
+  "GENERATED_AT": "2026-09-24T16:51:54+00:00",
+  "HEAD": "cacd3e2eccd863614fb2d84b37bc0d07b96fc92a",
   "BRANCH": "social-onda2-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "4dd4b1dbae83e4dbd408cbf54b37b727436c4913b5ed942c40bb93792931ede3",
+  "SOURCE_TREE_FINGERPRINT": "2aeb5fddb2b2d8a766e3559b4b312464cbd0fc72a366bd9c6e18183e74b0dcf1",
   "FICHEIROS_NA_IMPRESSAO": 2988,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -728,13 +728,6 @@
     "PATH": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
     "PAPEL": "FONTE",
     "VERSAO": "00f2632379959e774dd61d24d87c874ab51dfd11",
-    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-    "LIDO_POR": "escreve_le() · open"
-   },
-   {
-    "PATH": "ferramentas/canario_social_onda2.py",
-    "PAPEL": "FONTE",
-    "VERSAO": "5e520e604b437d00c56c46e8e8160e8bf658d23e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2643,6 +2636,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/canario_social_onda2.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5e520e604b437d00c56c46e8e8160e8bf658d23e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/candidatos_tematicos.py",
     "PAPEL": "FONTE",
     "VERSAO": "af59736a246110751ff40c000d3141cacf7e26a8",
@@ -3744,14 +3744,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4dd4b1dbae83e4dbd408cbf54b37b727436c4913b5ed942c40bb93792931ede3",
+    "VERSAO": "2aeb5fddb2b2d8a766e3559b4b312464cbd0fc72a366bd9c6e18183e74b0dcf1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4dd4b1dbae83e4dbd408cbf54b37b727436c4913b5ed942c40bb93792931ede3",
+    "VERSAO": "2aeb5fddb2b2d8a766e3559b4b312464cbd0fc72a366bd9c6e18183e74b0dcf1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5633,7 +5633,7 @@
    }
   ],
   "INPUTS_COUNT": 799,
-  "INPUTS_DIGEST": "20f61a513283db533f75dd31f951c006ded6ff986a985585a1b6983b9e7b9d5f",
+  "INPUTS_DIGEST": "83aed4a38c8ded0d3a58a71667a31d4cb1e5d09a47f4fe379742fa5bb1b49d50",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5666,8 +5666,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3c2b6e8fabaa3e880ed065d434d894168c8b304ef6915fd7ff32af695f2c7fa5",
-  "SEMANTIC_HASH": "49af54ff78a97a1ab8adf5bfd1a8d0c1df7ee45d20044843a07edc8e86cf1ea6"
+  "MEASUREMENT_HASH": "49b1477513f08fbd2a7069b5f5e79604aa2a2332c91266aeb0314e4dbf313fa1",
+  "SEMANTIC_HASH": "44ae2c1eb8517c757f7660e78f95bb0f1c7db462632f2e1e56d5005bb36f560b"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -9162,7 +9162,7 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "ferramentas/canario_social_onda2.py",
+      "FICHEIRO": "provas/canario_social_onda2.py",
       "LINHA": 63,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -11480,7 +11480,7 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "ferramentas/canario_social_onda2.py",
+      "FICHEIRO": "provas/canario_social_onda2.py",
       "LINHA": 79,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -28140,7 +28140,7 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "ferramentas/canario_social_onda2.py",
+      "FICHEIRO": "provas/canario_social_onda2.py",
       "LINHA": 103,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -32328,7 +32328,7 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "ferramentas/canario_social_onda2.py",
+      "FICHEIRO": "provas/canario_social_onda2.py",
       "LINHA": 43,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -43705,6 +43705,7 @@
     "provas/a_rota_gratuita_ainda_e_gratuita.py",
     "provas/canario_d24_video_de_pessoa.py",
     "provas/canario_d24_video_youtube_de_pessoa.py",
+    "provas/canario_social_onda2.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
     "provas/orcamento_de_rede.py",
@@ -47860,6 +47861,7 @@
    "SO_MEDEM_ESTE": [
     "provas/a_porta_cli_liga_o_banco.py",
     "provas/a_sala_de_espera_nao_tem_morada.py",
+    "provas/canario_social_onda2.py",
     "provas/entradas_do_scrap_v1.py",
     "provas/medir_admission_t3_atual.py",
     "provas/mutacao_da_release_v1.py",
@@ -51664,7 +51666,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
-    "ferramentas/canario_social_onda2.py",
+    "provas/canario_social_onda2.py",
     "provas/entradas_do_scrap_v1.py",
     "provas/prontidao_social_v1.py",
     "provas/roteamento_youtube_proposta.py",

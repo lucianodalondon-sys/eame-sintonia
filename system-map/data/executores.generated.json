@@ -1,94 +1,94 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "3f4ce497e7581f5237c01f1e9bb0b466f1e00551",
+  "HEAD": "cacd3e2eccd863614fb2d84b37bc0d07b96fc92a",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 82,
- "TOTAL_CAMINHOS_RELEVANTES": 69,
+ "TOTAL_FICHEIROS": 81,
+ "TOTAL_CAMINHOS_RELEVANTES": 68,
  "POR_ESTADO": {
   "NOT_APPLICABLE": 13,
-  "NOT_INSTRUMENTED": 64,
+  "NOT_INSTRUMENTED": 63,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
  },
  "PROXIMO_MAIS_BARATO": [
-  "ferramentas/canario_social_onda2.py",
   "coleta/italy_executor.py",
   "guarda/preservar_derivado.py",
   "orquestrador/persistencia.py",
-  "guarda/preservar_coleta.py"
+  "guarda/preservar_coleta.py",
+  "coleta/adaptador_linkedin.py"
  ],
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 66,
    "NOT_APPLICABLE": 0
   }
  },
@@ -206,12 +206,12 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 82,
-  "TOTAL_RELEVANT_PATHS": 69,
+  "TOTAL_FILES_SCANNED": 81,
+  "TOTAL_RELEVANT_PATHS": 68,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 11,
-  "TOTAL_ORCHESTRATORS": 7,
-  "TOTAL_ADAPTERS": 9,
+  "TOTAL_ORCHESTRATORS": 6,
+  "TOTAL_ADAPTERS": 8,
   "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 4,
   "TOTAL_TELEMETRY_EMITTERS": 4,
@@ -2042,34 +2042,6 @@
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
    "PAPEIS": [
-    "ADAPTER"
-   ],
-   "GOOD_PATH_PROVED": false,
-   "FAULT_PATH_PROVED": false,
-   "PROVA": null,
-   "STATE": "NOT_INSTRUMENTED"
-  },
-  {
-   "EXECUTOR_ID": "ferramentas/canario_social_onda2.py",
-   "GAVETA": "ferramentas",
-   "LINHAS": 161,
-   "TEM_PORTA": true,
-   "ETAPAS_NOMEADAS": [
-    "RAW",
-    "DERIVED"
-   ],
-   "HAS_PRESERVED_INPUT": true,
-   "USA_CONTRATO_ARTEFATO": false,
-   "NETWORK_REQUIRED": false,
-   "PAID": false,
-   "PRODUCTION_REQUIRED": false,
-   "CAN_RUN_OFFLINE": true,
-   "USA_TELEMETRIA": false,
-   "USA_FALHAS": false,
-   "USA_DIAGNOSTICO": false,
-   "USA_CHECKPOINT": false,
-   "PAPEIS": [
-    "ORCHESTRATOR",
     "ADAPTER"
    ],
    "GOOD_PATH_PROVED": false,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3f4ce497e7581f5237c01f1e9bb0b466f1e00551
+HEAD_DA_MEDICAO  cacd3e2eccd863614fb2d84b37bc0d07b96fc92a
 BRANCH           social-onda2-v1
-GERADO_EM        2026-09-24T13:43:37-03:00
+GERADO_EM        2026-09-24T13:48:03-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -794,7 +794,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | ferramentas/big_collection/coorte_unica.py:37; ferramentas/canario_social_onda2.py:79; medidas/medir_k1.py:42 |
+| **prova de quem ativa** | ferramentas/big_collection/coorte_unica.py:37; medidas/medir_k1.py:42; medidas/micro_colheita.py:72 |
 | **porquê** | estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `curadoria/BRIDGE-LEDGER-V1.json`, `curadoria/DISCOVERY-VISITED.json` |
