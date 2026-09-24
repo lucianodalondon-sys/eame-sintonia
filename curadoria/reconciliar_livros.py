@@ -139,7 +139,9 @@ FAMILIA_NOT_READY = frozenset({
 TIPOS_POLITICA = {"LINKEDIN": "linkedin.com", "INSTAGRAM": "instagram.com"}
 TIPOS_CAPACIDADE = {"FACEBOOK": "facebook.com"}
 
-SOURCE_ID_RE = re.compile(r"^IT-T\d{1,2}-\d{3}$")
+# D31/D32 (24/09): EU- e INT- atravessam a ponte como SOURCE_ID (numeracao autorizada na
+# decisao, na QUALIFY). Qualquer outro prefixo continua INVALIDO — falha fechada.
+SOURCE_ID_RE = re.compile(r"^(IT|EU|INT)-T\d{1,2}-\d{3}$")
 CANDIDATA_RE = re.compile(r"^CAND-\d{4}$")
 
 BCR_INSTITUCIONAL = "BCR_ALVO_INSTITUCIONAL"
