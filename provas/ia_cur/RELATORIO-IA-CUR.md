@@ -51,14 +51,46 @@ guardada:
 - IT-T3-005 **Terre dell'Etruria**: boletim semanal da mosca-da-azeitona (Toscana), já colhido
   com sucesso; falta a ficha no Atlas — proposta com o sha256 do boletim guardado.
 
+## 1b · Com rede (portão por consenso instalado às 15:45; PASS IT em cada lote)
+
+Cópia `C:/cur/ia-copia2` (foto 15:11 + este ramo). O agente leu **15 páginas vivas** pelo MESMO
+transporte do robô (`canario.buscar`, robots pela porta do robô, 2 s entre pedidos, sha256 em
+`PAGINAS-LIDAS-COM-REDE.jsonl`); 1 recusada pelo robots (Lombardia: o portal do SFR está em
+Disallow). Ordem da casa respeitada: **o determinístico primeiro** (importar da tabela do coletor →
+REPAIR_CONTRACT da R1 → VALIDATE_ROUTE → CANARY); o agente só entrou onde a R1 recusou.
+
+**Achado do agente que é defeito da casa**: `canario.hrefs_da_entrada` deitava fora a ligação
+relativa sem barra («news_open.php?EW_ID=15142») e não desfazia `&amp;`. A Assomao tem 44 notícias
+assim e o canário via 0 — e a R1, que lê pelo mesmo leitor, dizia SEM_FAMILIA_DE_ITENS. Consertado
+no ramo (5239309a, com teste); o reparo da R1 foi repetido à mão, na cópia, depois do conserto.
+
+**D31 (candidatas EU/INT)**: a QUALIFY aceita EU/INT só com `NUMERACAO_FORA_DE_IT` escrito na
+decisão (b69febce) e o validador de contratos aceita `EU-`/`INT-` (55588d50). CropLife Europe →
+**EU-T9-003**, IFA → **INT-T10-001**, Club of Bologna → **INT-T11-001**: contrato OK; CropLife e Club
+of Bologna falham o canário (EMPTY_LIST; a R1 não acha família); a IFA tem o endereço em
+**Disallow no robots** (ROUTE_BLOCKED). ⚠️ `reconciliar_livros.SOURCE_ID_RE` (a ponte para a produção)
+só aceita `IT-` — EU/INT não atravessam a ponte até alguém a alargar.
+
 ## 2 · X/30 destravadas, e comparação com S2/S3
+
+**Estado final dos 30 na cópia com rede** (`ESTADO-FINAL-30.json`):
+
+| resultado | N | casos |
+|---|---:|---|
+| **READY_FOR_COLLECTION pela régua** | **6** | por proposta do agente: **Assomao IT-T10-046**, **Soc. Entomologica IT-T3-020**, **AIAM IT-T2-015** · pelo determinístico dentro do piloto (import CUR + R1): **SFR Toscana IT-T3-015**, **SIPaV IT-T3-021**, **Difesa fitosanitaria IT-T3-023** |
+| a régua recusou a proposta do agente | 2 | ARSAC (achou os 5 boletins; o item é MIXED — corpo útil não provado), IPSP (o item parecia navegação) |
+| andaram (SOURCE_ID + contrato) e pararam no canário/robots | 7 | CeMi IT-T11-014, Agridigital IT-T10-045, Assotrattori IT-T10-047 e Comacomp IT-T10-048 (comunicados em .docx, fora do HTML), EU-T9-003, INT-T11-001, INT-T10-001 (robots) |
+| propostas para decisão humana/dono | 10 | ficha Atlas Terre dell'Etruria (boletim da mosca-da-azeitona), 5 recusas de relevância, SFN (os itens são PDF DTU: OUTPUT_TYPE), Campania agrometeo (é tabela: outra estratégia), Campania autorizações (app com login), SFR Lombardia (robots proíbe) |
+| NÃO SEI | 5 | Italia Cooperativa (sem institucional), SFR Emilia-Romagna (boletins montados por JavaScript; importação recusada), CNR ISPA (importação recusada), Veneto (a newsletter-sr é do desenvolvimento rural), Agroinnova (entrada institucional) |
+
+**6/30 chegaram a READY** (20 %); 3 delas por proposta do agente, 3 pelo caminho determinístico que o
+piloto destravou (a importação do contrato da tabela do coletor, da CUR, e o reparo da R1).
 
 | medida | piloto IA-CUR | S2/S3 (lote Opus 181) |
 |---|---:|---|
 | território decidido com prova | 8 / 14 dos casos de território (57 %) — **8 / 28** das NÃO SEI da S2 com bytes guardados (29 %) | 25 / 181 (14 %) |
 | a andar no ciclo (SOURCE_ID + contrato) | **5 / 30** | 18 / 181 viraram SOURCE_ID |
-| READY_FOR_COLLECTION | **0 / 30 — sem rede não há canário** | 5 / 181 hoje |
-| NÃO SEI por falta de rede | 16 / 30 | — |
+| READY_FOR_COLLECTION | **6 / 30** (3 por proposta do agente) | 5 / 181 hoje |
 
 Leitura honesta: a taxa de decisão é mais alta que a da S2 porque o agente relê bytes já lidos e
 aceita como CONTEÚDO as listagens datadas de comunicados que a S2 recusou (FederUnacoma); essa é uma
@@ -68,9 +100,10 @@ irmãs a colher o mesmo. «Chegam a READY» **não foi medido**: exige o canári
 
 ## 3 · Quanto gastou (medido na sessão)
 
-Registo desta sessão (`~/.claude/projects/.../*.jsonl`), desde a mensagem da missão: **28 respostas,
-34 mil tokens de saída, 20,7 milhões de tokens de entrada — dos quais 20,6 milhões releitura de
-cache**. Em preço de API (Opus 5.5) seria ≈ US$ 5,17; pela assinatura, é cota. **Não consigo ler o
+Registo desta sessão (`~/.claude/projects/.../*.jsonl`), desde a mensagem da missão até ao fim do
+piloto com rede: **77 respostas, 101 mil tokens de saída, 61,4 milhões de tokens de entrada — dos
+quais 61,2 milhões releitura de cache** (a parte sem rede, sozinha: 28 respostas, 34 mil de saída).
+Em preço de API (Opus 5.5) seria ≈ US$ 15; pela assinatura, é cota. **Não consigo ler o
 medidor de cota da assinatura** a partir daqui — só os tokens.
 
 ⚠️ A entrada é dominada pelo tamanho DESTA conversa (muito longa, relida a cada resposta), não pelo
@@ -104,7 +137,8 @@ VALIDATE_ROUTE → CANARY → régua  (quem promove é a régua; o agente nunca)
 
 ## 5 · O que falta (com dono)
 
-- 16 casos precisam de rede: repetir quando o egresso IT voltar (missão EGR).
+- a ponte para a produção (`reconciliar_livros.SOURCE_ID_RE`) só aceita `IT-`: EU/INT (D31) não atravessam;
+- o conserto do leitor do canário muda o que a R1 vê em TODAS as fontes com ligações relativas: medir no livro inteiro antes de instalar;
 - A fila `FILA-PRECISA-DE-IA` e o agendamento da bancada: desenhados, **não construídos**.
 - EU/INT: a numeração fora de IT é decisão do dono (3 decisões aceites e paradas por isso).
 - Terre dell'Etruria no Atlas: decisão humana.
