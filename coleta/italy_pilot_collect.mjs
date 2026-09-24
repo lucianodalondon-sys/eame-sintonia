@@ -30,7 +30,7 @@ import { execFileSync, execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, appendFileSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { pathToFileURL } from "node:url";
+import { pathToFileURL, fileURLToPath } from "node:url";
 // ⚠️ `./italy_contracts.mjs` NAO EXISTE AQUI desde a mudanca para gavetas: os
 // contratos moraram sempre em `regras/`. O Python ganhou `_gavetas.py` para
 // resolver os nomes curtos; o lado Node ficou com os imports da pasta unica, e
@@ -754,7 +754,14 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   // fonte, nao entra no teto de nenhum site nem no robots de ninguem. E a unica
   // saida deste coletor fora do transporte, e esta nomeada aqui.
   if (!forcarBuf) {
-    try { egress = JSON.parse((await run("curl", ["-s", "--max-time", "15", "https://ipinfo.io/json"], { encoding: "utf8" })).stdout); } catch { }
+    // EGR (24/09): o pais pelo DONO (superficie/rede.py, consenso de 3 + cache de 3 min),
+    // nunca por um servico direto. O dono nao devolve IP: fica NAO_REGISTADO quando ha pais.
+    const PY = process.env.SINTONIA_PY || (process.platform === "win32" ? "py" : "python3");
+    try {
+      const out = (await run(PY, [fileURLToPath(new URL("../superficie/rede.py", import.meta.url)), "--egresso"], { encoding: "utf8", timeout: 90000 })).stdout;
+      const j = JSON.parse(out.slice(out.indexOf("{")));
+      if (j.EGRESS_COUNTRY_CODE && j.EGRESS_COUNTRY_CODE !== "UNKNOWN") egress = { country: j.EGRESS_COUNTRY_CODE, ip: "NAO_REGISTADO", votos: j.VOTOS };
+    } catch { }
   }
   const GIT_HEAD = (() => { try { return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(); } catch { return "NAO SEI"; } })();
 
