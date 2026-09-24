@@ -79,17 +79,18 @@ UAS = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
 
 
 def egresso():
-    """De que país e de que operadora esta prova saiu. Sem credencial."""
-    try:
-        with urllib.request.urlopen('https://ipinfo.io/json', timeout=20) as r:
-            d = json.loads(r.read().decode('utf-8', 'replace'))
-        return {'NETWORK_EXIT_COUNTRY': d.get('country'),
-                'NETWORK_EXIT_REGION': d.get('region'),
-                'NETWORK_EXIT_ORG': (d.get('org') or '')[:60],
-                'NETWORK_EXIT_HOW': 'ipinfo.io — serviço público, sem credencial'}
-    except Exception as e:                                     # noqa: BLE001
-        return {'NETWORK_EXIT_COUNTRY': 'NAO SEI', 'NETWORK_EXIT_WHY':
-                type(e).__name__}
+    """EGR (24/09): o pais pelo DONO — superficie/rede.py, consenso de 3 verificadores
+    com cache de 3 min. Nenhum consumidor pergunta a um servico diretamente (o
+    ipinfo.io em 429 parou tudo das 13:05 as 15:05). O IP nao sai do dono."""
+    import importlib.util as _u, os as _os
+    _s = _u.spec_from_file_location("rede_egresso", _os.path.join(str(RAIZ), "superficie", "rede.py"))
+    _r = _u.module_from_spec(_s)
+    _s.loader.exec_module(_r)
+    e = _r.egresso()
+    pais = e["EGRESS_COUNTRY_CODE"] if e["EGRESS_COUNTRY_CODE"] != "UNKNOWN" else None
+    return {'NETWORK_EXIT_COUNTRY': pais or 'NAO SEI',
+            'NETWORK_EXIT_HOW': 'superficie/rede.py — consenso de 3 verificadores publicos',
+            'VOTOS': e['VOTOS']}
 
 
 def lista_de_reels(perfil, teto, relato):

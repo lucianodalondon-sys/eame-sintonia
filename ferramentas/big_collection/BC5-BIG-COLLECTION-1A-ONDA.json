@@ -1,0 +1,1076 @@
+{
+ "DATASET": "BC5-BIG-COLLECTION-1A-ONDA",
+ "BOT_INSTALADO": "fca4f2b6 (codigo = dfec8873)",
+ "COORTE": "C:/bc/COORTE-BIG-COLLECTION.json = G3 62a7cade (18 SOURCE_ID iguais e na mesma ordem; JSON igual; sha256 do ficheiro difere so por CRLF: 1688c330... vs e028ebbc... sem CR)",
+ "BOT_PARADO": {
+  "DE": "09:04:00",
+  "ATE": "09:13:53"
+ },
+ "CHECKPOINT_DA_SALA": {
+  "DUMP": "C:\\bc5\\backup\\SALA-ANTES-DA-MICRO.dump",
+  "BYTES": 2209010,
+  "SHA256": "562513b01dc0e4073c803768b63dc12976834b9849f2987d166aee9daf391101",
+  "RESTAURADO_IGUAL": true,
+  "PROVA_VALE": true
+ },
+ "CONDUTOR": "ferramentas/big_collection/bc5_big_collection.py (1 fonte de cada vez via micro_coleta.correr; disjuntores do runbook §6)",
+ "RESULTADO": {
+  "FONTES_CORRIDAS": 18,
+  "SUCCESS": 18,
+  "DISJUNTORES": 0,
+  "EGRESSO_IT_ANTES_E_DEPOIS": "18/18",
+  "RAW_DOCUMENTOS": 9,
+  "RAW_REGISTO_DE_FALHA": 1,
+  "DERIVED": 9,
+  "ADMISSION": {
+   "SIM": 3,
+   "NAO": 3,
+   "NAO_SEI": 3
+  },
+  "SALA_ANTES": {
+   "sala_de_espera": 66,
+   "raw_asset": 1415,
+   "storage_object": 1107,
+   "derived_artifact": 918,
+   "collection_run": 396
+  },
+  "SALA_DEPOIS": {
+   "sala_de_espera": 69,
+   "raw_asset": 1425,
+   "storage_object": 1117,
+   "derived_artifact": 927,
+   "collection_run": 402
+  },
+  "BYTES": "armazem da Sala 1646 -> 1665 (+19); arvore do codigo +0",
+  "C2_PENDENTE_HUMANO": [
+   "IT-T7-042",
+   "IT-T7-135"
+  ],
+  "ISTAT_SIM_DA_BC4D": "marcado para revisao humana (pode ser pagina-lista)",
+  "REGISTO_DE_FALHA": "IT-T7-141 raw 1425: DISCOVERY_FAILED EMPTY_LIST (o indice nao anuncia endereco que case com o LINK_PATTERN)",
+  "SEM_NADA_NOVO": "12 de 18 fontes: 0 documentos novos (ja conhecidas ou indice sem alvo)"
+ },
+ "NOTA_C4": "C4 aparece FAIL nas fontes sem SIM porque o criterio exige linha na Sala; nenhuma linha partida (SALA_LINHAS = SALA_COM_CADEIA_INTEIRA em todas)",
+ "FONTES": [
+  {
+   "N": 1,
+   "SOURCE_ID": "IT-T10-018",
+   "HORA": "09:05:31",
+   "SEGUNDOS": 43,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T10-2026-09-24-120449-0196c6a5c9db1619",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "myfruit.it": 5
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 3,
+   "DERIVED": 3,
+   "ADMISSION": {
+    "SIM": 3
+   },
+   "SALA_ANTES": 66,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 3,
+    "SALA_COM_CADEIA_INTEIRA": 3,
+    "OBSERVACOES": 3,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 3,
+    "COM_DERIVADO": 3,
+    "COM_DECISAO": 3,
+    "PASSA": true
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "PASS",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "PASS",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "PASS",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 3,
+    "NETWORK_REQUESTS": 4,
+    "SKIPPED_KNOWN": 18,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 2,
+   "SOURCE_ID": "IT-T10-021",
+   "HORA": "09:05:45",
+   "SEGUNDOS": 11,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T10-2026-09-24-120535-aca2ff1907ff2feb",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "plantgest.imagelinenetwork.com": 2
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 1,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 3,
+   "SOURCE_ID": "IT-T10-022",
+   "HORA": "09:06:08",
+   "SEGUNDOS": 16,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T10-2026-09-24-120549-b9691524b3d72bf9",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "zootecnicainternational.com": 2
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 9,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 4,
+   "SOURCE_ID": "IT-T2-034",
+   "HORA": "09:06:24",
+   "SEGUNDOS": 12,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T2-2026-09-24-120612-b208ffc4fa4c3c02",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "arpa.marche.it": 2
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 1,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 5,
+   "SOURCE_ID": "IT-T2-051",
+   "HORA": "09:06:51",
+   "SEGUNDOS": 21,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T2-2026-09-24-120628-e949de3f2028f5a6",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "arpae.it": 2
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 1,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 6,
+   "SOURCE_ID": "IT-T5-090",
+   "HORA": "09:07:14",
+   "SEGUNDOS": 17,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T5-2026-09-24-120659-28de4cf8838e32c0",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "istat.it": 3
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 1,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 7,
+   "SOURCE_ID": "IT-T7-017",
+   "HORA": "09:07:30",
+   "SEGUNDOS": 13,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-120718-1dd512d86936c8ee",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "riuniteciv.com": 2
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 30,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 8,
+   "SOURCE_ID": "IT-T7-021",
+   "HORA": "09:08:02",
+   "SEGUNDOS": 26,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-120737-b9d168ef521cb4d9",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "etvilloresi.it": 5
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO",
+    "LIDO"
+   ],
+   "RAW": 1,
+   "DERIVED": 1,
+   "ADMISSION": {
+    "NAO_SEI": 1
+   },
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 1,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 1,
+    "COM_DERIVADO": 1,
+    "COM_DECISAO": 1,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "PASS",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "PASS",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 1,
+    "NETWORK_REQUESTS": 2,
+    "SKIPPED_KNOWN": 0,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 9,
+   "SOURCE_ID": "IT-T7-033",
+   "HORA": "09:08:16",
+   "SEGUNDOS": 11,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-120806-cc94562676995890",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "chianticlassico.com": 2
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 15,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 10,
+   "SOURCE_ID": "IT-T7-042",
+   "HORA": "09:08:59",
+   "SEGUNDOS": 39,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-120820-4682d316adbce27d",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "consorziobalsamico.it": 5
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 3,
+   "DERIVED": 3,
+   "ADMISSION": {
+    "NAO": 1,
+    "NAO_SEI": 2
+   },
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 3,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 3,
+    "COM_DERIVADO": 3,
+    "COM_DECISAO": 3,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "PENDENTE_HUMANO",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "PASS",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 4,
+    "SKIPPED_KNOWN": 0,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 11,
+   "SOURCE_ID": "IT-T7-043",
+   "HORA": "09:09:13",
+   "SEGUNDOS": 11,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-120903-980638d6d83ae55c",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "agrofarma.federchimica.it": 2
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "AUSENTE"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 2,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 12,
+   "SOURCE_ID": "IT-T7-112",
+   "HORA": "09:09:33",
+   "SEGUNDOS": 15,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-120918-f5baf4cfd49e79aa",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "cia.it": 3
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "AUSENTE"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 1,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 13,
+   "SOURCE_ID": "IT-T7-117",
+   "HORA": "09:10:05",
+   "SEGUNDOS": 27,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-120938-51efde19469b3350",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "caf-cia.it": 4
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "AUSENTE"
+   ],
+   "RAW": 1,
+   "DERIVED": 1,
+   "ADMISSION": {
+    "NAO": 1
+   },
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 1,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 1,
+    "COM_DERIVADO": 1,
+    "COM_DECISAO": 1,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "PASS",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "PASS",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 1,
+    "NETWORK_REQUESTS": 2,
+    "SKIPPED_KNOWN": 0,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 14,
+   "SOURCE_ID": "IT-T7-118",
+   "HORA": "09:10:25",
+   "SEGUNDOS": 15,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-121010-6ba3d7e3c78df7fc",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "cia.it": 3
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "AUSENTE"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 1,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 15,
+   "SOURCE_ID": "IT-T7-121",
+   "HORA": "09:10:51",
+   "SEGUNDOS": 20,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-121031-dbc866e6e3666923",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "cia.it": 3
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "AUSENTE"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 1,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 16,
+   "SOURCE_ID": "IT-T7-123",
+   "HORA": "09:11:09",
+   "SEGUNDOS": 14,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-121055-964193783673088f",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "cia.it": 3
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "AUSENTE"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 1,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 17,
+   "SOURCE_ID": "IT-T7-135",
+   "HORA": "09:11:45",
+   "SEGUNDOS": 33,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-121113-bcac8be0b7e36d61",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "cia.it": 4
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "AUSENTE"
+   ],
+   "RAW": 1,
+   "DERIVED": 1,
+   "ADMISSION": {
+    "NAO": 1
+   },
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 1,
+    "TENTATIVAS_FALHADAS_A_PARTE": 0,
+    "COM_STORAGE": 1,
+    "COM_DERIVADO": 1,
+    "COM_DECISAO": 1,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "PENDENTE_HUMANO",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "PASS",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 1,
+    "NETWORK_REQUESTS": 2,
+    "SKIPPED_KNOWN": 0,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 0
+   }
+  },
+  {
+   "N": 18,
+   "SOURCE_ID": "IT-T7-141",
+   "HORA": "09:12:07",
+   "SEGUNDOS": 15,
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-121149-72a657907d399e48",
+   "PORQUE_NAO_CORREU": null,
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "VPN_NO_COLETOR": "IT",
+   "PEDIDOS_POR_SITE": {
+    "ciatoscana.eu": 2
+   },
+   "TETO": 5,
+   "ROBOTS": [
+    "LIDO"
+   ],
+   "RAW": 0,
+   "DERIVED": 0,
+   "ADMISSION": {},
+   "SALA_ANTES": 69,
+   "SALA_DEPOIS": 69,
+   "C4": {
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0,
+    "OBSERVACOES": 0,
+    "TENTATIVAS_FALHADAS_A_PARTE": 1,
+    "COM_STORAGE": 0,
+    "COM_DERIVADO": 0,
+    "COM_DECISAO": 0,
+    "PASSA": false
+   },
+   "CRITERIOS": {
+    "C1_EGRESSO_IT_POR_CORRIDA": "PASS",
+    "C2_MATERIA_NAO_CAPA": "FAIL",
+    "C3_PONTE_EM_RUNTIME": "PASS",
+    "C4_PROVENIENCIA_COMPLETA": "FAIL",
+    "C5_FACT_TIME_LOCATION": "PASS",
+    "C6_ZERO_BYPASS": "PASS",
+    "C7_PROPORCAO_POR_FONTE_E_CLASSE": "FAIL",
+    "C8_DUAS_PERGUNTAS": "NAO_SE_APLICA",
+    "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+   },
+   "COLETOR": {
+    "DETAIL_DOCUMENTS": 0,
+    "NETWORK_REQUESTS": 1,
+    "SKIPPED_KNOWN": 0,
+    "UNNECESSARY_REFETCHES": 0,
+    "SOURCES_FAILED": 1
+   }
+  }
+ ]
+}
