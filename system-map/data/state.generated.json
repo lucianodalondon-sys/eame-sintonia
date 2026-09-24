@@ -3439,9 +3439,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "yt-metadados-v1",
-    "HEAD": "c202959630a0e90ce39d808b63b82c313cdacbf6",
-    "GENERATED_AT": "2026-09-24T18:32:02-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278"
+    "HEAD": "cbccda90fafd0b70e42be480d34fb9559cee28f7",
+    "GENERATED_AT": "2026-09-24T18:46:57-03:00",
+    "SOURCE_TREE_FINGERPRINT": "00cfc91abff75adf48895932e404e18edd32816cc7c799a1b7cf7146ccf7a4de"
   },
   "FAMILIES": [
     {
@@ -47892,6 +47892,7 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/_mutantes_yt_metadados.py",
         "provas/a_corrida_existe_em_cada_rota.py",
         "provas/a_legenda_e_o_audio_do_youtube.py",
         "provas/a_ponte_de_midia_atravessa.py",
@@ -47901,7 +47902,7 @@
         "provas/o_raw_local_nao_e_duravel.py",
         "provas/o_video_tem_consumidor.py"
       ],
-      "file_count": 8,
+      "file_count": 9,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -112302,8 +112303,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/_mutantes_yt_metadados.py",
+          "line": 32,
+          "snippet": "import social_matriz as mz          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/a_legenda_e_o_audio_do_youtube.py",
           "line": 188,
@@ -120514,6 +120531,41 @@
     {
       "from": "C-TRANSCRICAO",
       "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_yt_metadados.py",
+          "line": 33,
+          "snippet": "import youtube_transcrever as ytv   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-PROVA-ROTAS-REAIS",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -123239,10 +123291,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/_mutantes_yt_metadados.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1612,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1611,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123500,13 +123550,13 @@
     "components_pending": 202,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1267,
-    "edges_proven": 1203,
+    "edges": 1268,
+    "edges_proven": 1204,
     "edges_unknown": 64,
     "business_edges": 4,
     "files_tracked": 2845,
-    "files_covered": 1233,
-    "files_code_unclaimed": 1,
+    "files_covered": 1234,
+    "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,
     "roles_unknown": 70,

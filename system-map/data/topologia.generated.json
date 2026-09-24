@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T21:45:09+00:00",
-  "HEAD": "c202959630a0e90ce39d808b63b82c313cdacbf6",
+  "GENERATED_AT": "2026-09-24T21:53:07+00:00",
+  "HEAD": "cbccda90fafd0b70e42be480d34fb9559cee28f7",
   "BRANCH": "yt-metadados-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278",
+  "SOURCE_TREE_FINGERPRINT": "00cfc91abff75adf48895932e404e18edd32816cc7c799a1b7cf7146ccf7a4de",
   "FICHEIROS_NA_IMPRESSAO": 2993,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2307,6 +2307,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/_mutantes_yt_metadados.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5fa61c4cad284f4ed9affdd8c2b7d8146de0d626",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/_rc01_mundo_falso.py",
     "PAPEL": "FONTE",
     "VERSAO": "78a72bace16dbd77766c6ea0913223452a62f9b5",
@@ -3744,14 +3751,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278",
+    "VERSAO": "00cfc91abff75adf48895932e404e18edd32816cc7c799a1b7cf7146ccf7a4de",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f782368f9beb803ab0070f4aed85c22b2bc5acd5b4fbee3515c9e16f54f25278",
+    "VERSAO": "00cfc91abff75adf48895932e404e18edd32816cc7c799a1b7cf7146ccf7a4de",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5639,8 +5646,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 800,
-  "INPUTS_DIGEST": "0ae8c1cb3055ccbcb6effb4b30e904414d45a604b182c6333184493fb07ad292",
+  "INPUTS_COUNT": 801,
+  "INPUTS_DIGEST": "665dc6fb1f2d8b34893fddb52bdd43c6bd38a684a9b6cc5dc75d60d8470f4673",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5673,8 +5680,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "05a23b62983d2df1331815be69d690f3894c07793964619dfb8d2bbe52db64a9",
-  "SEMANTIC_HASH": "05a83887d6939fd000424a4463890ff969dcb245fa40af5e91087acbf0843100"
+  "MEASUREMENT_HASH": "445d33662cca4a90e8000526e14c4a259b4c0cfc4ae8a7e90240da98363c801b",
+  "SEMANTIC_HASH": "9b9dfb24039bd9b7fe11e0fba0d3d5b36e9692988f11b582c4fe8e8aab41808e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -36878,6 +36885,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "provas/_mutantes_yt_metadados.py",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-PROVA-ROTAS-REAIS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/a_legenda_e_o_audio_do_youtube.py",
       "LINHA": 188,
       "SUPPORTS": "YES",
@@ -41470,6 +41485,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-PROVA-ROTAS-REAIS",
+    "FROM": "C-TRANSCRICAO",
+    "TO": "C-PROVA-ROTAS-REAIS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_yt_metadados.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-PROVA-ROTAS-REAIS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-SCRAP-SOCIAL",
     "FROM": "C-TRANSCRICAO",
     "TO": "C-SCRAP-SOCIAL",
@@ -42902,12 +42939,12 @@
     ]
    }
   ],
-  "COUNT": 1201
+  "COUNT": 1202
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 181,
   "CARTOES_AUDITADOS": 181,
-  "ARESTAS_RELACIONADAS": 1201,
+  "ARESTAS_RELACIONADAS": 1202,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43318,7 +43355,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 216,
+   "CODE": 217,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 386,
@@ -49990,6 +50027,7 @@
    "KIND": "proof",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "provas/_mutantes_yt_metadados.py",
     "provas/a_corrida_existe_em_cada_rota.py",
     "provas/a_legenda_e_o_audio_do_youtube.py",
     "provas/a_ponte_de_midia_atravessa.py",
@@ -50027,7 +50065,7 @@
     "receitas",
     "sala_de_espera"
    ],
-   "ENTRAM": 27,
+   "ENTRAM": 28,
    "SAEM": 0,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -52245,7 +52283,7 @@
     "importlib"
    ],
    "ENTRAM": 3,
-   "SAEM": 17,
+   "SAEM": 18,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "RULE"
