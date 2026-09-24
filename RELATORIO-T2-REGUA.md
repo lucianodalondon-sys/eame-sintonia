@@ -184,3 +184,18 @@ Base: este ramo já tem a linha instalada (`5c4daf5a`) juntada (merge `2b7c5238`
 4. Efeito esperado em produção: pares (item, T2) deixam de sair `NAO_SE_APLICA`. No acervo medido (1.309 textos): **75 SIM · 765 NAO_SEI · 469 NAO** em T2; **0 mudanças** nos outros 6 universos (7.854 julgamentos). O que a v7 deu a T2 pode ser reaberto pela versão 8.
 5. Decidir a via `agrometeo` (tabela acima) — ANTES ou DEPOIS de instalar; se mudar, medir de novo com textos novos.
 6. Voltar atrás = reverter o merge (a versão da regra volta a 7).
+
+## DECISÃO `agrometeo` (coordenação, 24/09): FICA na régua antes de instalar — o efeito medido
+
+`scripts/regua_t2/MEDICAO-VIA-AGROMETEO-V1.json` (`medir_via_agrometeo.py`), no mesmo acervo de 1.309
+textos, a régua COM a via contra a régua SEM ela:
+
+- **16 textos passam de NAO_SEI a SIM.** **0 passam de NAO a SIM.** (16 passam de NAO a NAO_SEI: têm
+  «agrometeo» mas só uma palavra de tempo.) SIM em T2: 59 sem a via → **75** com ela.
+- **Lidos os 16** (não há 20 para amostrar): **8 certos** — os boletins agrometeorológicos semanais da
+  ARPAE (×5), o boletim agrometeorológico regional n.º 21, o diário da ARIF e o «Meteo Veneto» mensal
+  com a secção de agrometeorologia — e **8 errados**: páginas de site onde «agrometeo» é nome de menu
+  ou de serviço (LaMMA ×3, ARPAV ×2, ARPAE, Campania, Puglia).
+- No caminho real, dos 8 errados o detector de capa **barra 4**, põe **2 em quarentena**, e **2 chegam
+  à Sala** (a página do centro agrometeorológico da Campania e a de inscrição em boletins da ARPAV).
+- Os 8 certos são todos boletins em PDF; os 8 errados são todos HTML.
