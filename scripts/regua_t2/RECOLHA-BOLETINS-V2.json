@@ -1,0 +1,555 @@
+{
+ "DATASET": "RECOLHA-BOLETINS-V2",
+ "PROTOCOLO": "PROTOCOLO-GABARITO-T2.md#adenda-2",
+ "REGRA": "egresso por consenso antes de cada site; robots; teto 6/anfitriao; 2 s; alvos por regra fixa",
+ "BYTES_EM": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha",
+ "SITES": [
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE · bollettino agrofenologico",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettino-agrofenologico",
+   "ORIGEM_DO_ENDERECO": "link em .../bollettini-e-rapporti-agrometeo (1.a ida)",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini 2026",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "ORIGEM_DO_ENDERECO": "entrada do contrato; na 1.a ida a regra pegou a navegacao antes dos PDF",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo bollettini",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "ORIGEM_DO_ENDERECO": "entrada do contrato; idem",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di olivicoltura",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-olivicoltura.html",
+   "ORIGEM_DO_ENDERECO": "link em agrometeo-caar.html (1.a ida)",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di viticoltura",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-viticoltura.html",
+   "ORIGEM_DO_ENDERECO": "link em agrometeo-caar.html (1.a ida)",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Trentino · FEM bollettini tecnici",
+   "ENTRADA": "https://www.fmach.it/Servizi/Bollettini-tecnici",
+   "ORIGEM_DO_ENDERECO": "link na pagina inicial da FEM (1.a ida)",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 5
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL bollettini 2026",
+   "ENTRADA": "http://www.apol.it/press/item/bollettini-fitosanitari-mosca-dell-olivo-2026",
+   "ORIGEM_DO_ENDERECO": "1.a ida",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ],
+    "DA_CACHE": true
+   },
+   "PEDIDOS": 5
+  }
+ ],
+ "ITENS": [
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE · bollettino agrofenologico",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettino-agrofenologico",
+   "HTTP": 200,
+   "BYTES": 30496,
+   "SHA256": "026c79d8cd8923a37f5da16b13e1d683b6f03f2c8fc52522d4543f69304350a2",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\026c79d8cd8923a3.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "ba3401cbf9bd0dcad5a3985c8fbeff54d13117d51c5f24e85511eb0a1879cb3c",
+   "NON_WHITESPACE_CHARACTERS": 1719,
+   "OBTIDO_EM": "2026-09-24T18:55:39.208271+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE · bollettino agrofenologico",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettino-agrofenologico",
+   "HTTP": 200,
+   "BYTES": 33128,
+   "SHA256": "79925abf4b97cac413952303f780f297570da4b75c84be2bf374803f35bc5e30",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\79925abf4b97cac4.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "b662ee180a543ce16dff3b9c49a2139e6005527d523a26264fdfdb5e0d5be86f",
+   "NON_WHITESPACE_CHARACTERS": 2030,
+   "OBTIDO_EM": "2026-09-24T18:55:42.479311+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE · bollettino agrofenologico",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-mensili",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettino-agrofenologico",
+   "HTTP": 200,
+   "BYTES": 45486,
+   "SHA256": "436aae3eb3928fa7a57221bc3cac6fba7bdb669857113807b62fb2f1107424be",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\436aae3eb3928fa7.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "12fab6cefbedd96ba019638d9c8ccd55f58f7cfcc6b3e2b3b9543f5dc7f6ee08",
+   "NON_WHITESPACE_CHARACTERS": 2446,
+   "OBTIDO_EM": "2026-09-24T18:55:45.815495+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE · bollettino agrofenologico",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-innevamento",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettino-agrofenologico",
+   "HTTP": 200,
+   "BYTES": 41539,
+   "SHA256": "06b6fd23a83b20e3ea16859831464ab1e0cb3acabc73ec193882da2ca6bf247a",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\06b6fd23a83b20e3.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "ffd74e301b08b8a35d9a4fd78afa427f12a01d3ef179c5b9c51782a870c14a43",
+   "NON_WHITESPACE_CHARACTERS": 2397,
+   "OBTIDO_EM": "2026-09-24T18:55:49.171630+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini 2026",
+   "URL": "https://agricoltura.regione.campania.it/difesa/difesa.html",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HTTP": 200,
+   "BYTES": 28281,
+   "SHA256": "f49eeddd2a27dc7d16db5dd460759ba0587b09c3352516c2e8549a24a102ff8f",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\f49eeddd2a27dc7d.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "6c95ce37313920f022c02e4e9f774e61e78d318a3fdbd75fa923d0bd5a889d23",
+   "NON_WHITESPACE_CHARACTERS": 3946,
+   "OBTIDO_EM": "2026-09-24T18:55:59.234719+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini 2026",
+   "URL": "https://agricoltura.regione.campania.it/difesa/disciplinari.html",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HTTP": 200,
+   "BYTES": 26583,
+   "SHA256": "535356f486454fb47c719195f588e5570251102c429223ef94d72aae80adf730",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\535356f486454fb4.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "d837b05cb8a886e9be2753b6676282d9dc8491f2d4ed7025594d253cf9e33c6c",
+   "NON_WHITESPACE_CHARACTERS": 5848,
+   "OBTIDO_EM": "2026-09-24T18:56:03.237778+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini 2026",
+   "URL": "https://agricoltura.regione.campania.it/formazione/formazione_index.html",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HTTP": 200,
+   "BYTES": 12908,
+   "SHA256": "817cbb6d570bfc5b316689f0ebe6991bc57b43fdd6847b7ef81e590e7903be92",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\817cbb6d570bfc5b.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "89db8970f864fdd017dee3db1e92702ec205f96a3e58dbc0402141f710282153",
+   "NON_WHITESPACE_CHARACTERS": 2131,
+   "OBTIDO_EM": "2026-09-24T18:56:06.788375+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini 2026",
+   "URL": "https://agricoltura.regione.campania.it/meteo/agrometeo.htm",
+   "ENTRADA": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HTTP": 200,
+   "BYTES": 9690,
+   "SHA256": "27c59d4c6078bb15343a9238a79042df571133201ebdc26269e1f3b7a362bf03",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\27c59d4c6078bb15.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "329f4a17ed0a8888e27672f5392ba041bffa51a1f0b1b48d35705e2f246b0100",
+   "NON_WHITESPACE_CHARACTERS": 1520,
+   "OBTIDO_EM": "2026-09-24T18:56:10.240675+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo bollettini",
+   "URL": "https://www.agrometeopuglia.it/",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HTTP": 200,
+   "BYTES": 36522,
+   "SHA256": "93f43dcf7964f65f303a34f36ea45a9a92d7e242194a323cc585d248d1671c06",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\93f43dcf7964f65f.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "48b40aa9509b1c9ebddbae429dc8a8297ae01ae100e041241bc9c1043df1e3b9",
+   "NON_WHITESPACE_CHARACTERS": 2816,
+   "OBTIDO_EM": "2026-09-24T18:56:20.099733+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo bollettini",
+   "URL": "https://www.agrometeopuglia.it/osservazioni/mappa-stazioni-meteo",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HTTP": 200,
+   "BYTES": 38435,
+   "SHA256": "7c71602e85fda4a05528825fe0fd0a2d9a3c68f68e5daae404c5bb1dc8a61531",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\7c71602e85fda4a0.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "6326b0d36587fc87cb5176d829a11d44417037b7f039026ce00a2569753c0e16",
+   "NON_WHITESPACE_CHARACTERS": 1338,
+   "OBTIDO_EM": "2026-09-24T18:56:23.556177+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo bollettini",
+   "URL": "https://www.agrometeopuglia.it/osservazioni/mappa-dati-rilevati",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HTTP": 200,
+   "BYTES": 37547,
+   "SHA256": "b702664c9180e45ccc2abe2b297369d26bd8614d4ab05b973ffb8be90e4b4fbc",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\b702664c9180e45c.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "1cde235e4334972adbfe65707a162a4f3a64cbef36cfc174bc4c733dd824a9e2",
+   "NON_WHITESPACE_CHARACTERS": 923,
+   "OBTIDO_EM": "2026-09-24T18:56:27.054753+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · agrometeo bollettini",
+   "URL": "https://www.agrometeopuglia.it/osservazioni/mappe-dati-stazione",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HTTP": 200,
+   "BYTES": 23274,
+   "SHA256": "9116034b87215f6c563ae37e4b8562ae9e06378af3a389ea248e556a5fa59bc1",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\9116034b87215f6c.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "5597c40b2916bf33a50d55acae96128c42a96aa22696dc8722591afe3794f6d6",
+   "NON_WHITESPACE_CHARACTERS": 741,
+   "OBTIDO_EM": "2026-09-24T18:56:30.301720+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di olivicoltura",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-olivicoltura.html",
+   "HTTP": 200,
+   "BYTES": 59215,
+   "SHA256": "c46ee8dc87ea86e772520b6dc4d6adc6b3a830952d74f9c7f1d12cec4bdb341f",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\c46ee8dc87ea86e7.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "712ae395e5761b4f19a830188170c0198a3ec617c51dfe50d04d4048ac9136cf",
+   "NON_WHITESPACE_CHARACTERS": 7376,
+   "OBTIDO_EM": "2026-09-24T18:56:40.561115+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di olivicoltura",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-olivicoltura.html",
+   "HTTP": 200,
+   "BYTES": 55618,
+   "SHA256": "3c4593335519f65012cdf13f9158a814a53847d1095403e14a3f1d58e227f922",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\3c4593335519f650.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "ae880949f1a9f97d22b9f11de90b1ae3a78294ff417fb1d068334580e08c3619",
+   "NON_WHITESPACE_CHARACTERS": 6267,
+   "OBTIDO_EM": "2026-09-24T18:56:44.173462+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di olivicoltura",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/registro-operatori-professionali-ruop.html",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-olivicoltura.html",
+   "HTTP": 200,
+   "BYTES": 40166,
+   "SHA256": "58767b04c843606546b0f8130ddcfbad7a7e0615fa6ce6695dedddfcf6f704e5",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\58767b04c8436065.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "7a0d47529cd1081bcba39329e17bf69a24e139a7d76116c7c7d97064fd1e2636",
+   "NON_WHITESPACE_CHARACTERS": 5645,
+   "OBTIDO_EM": "2026-09-24T18:56:47.588096+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di olivicoltura",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/passaporto-piante/autorizzazione-all-uso-del-passaporto-delle-piante-richiesta-aggiornamento-recesso.html",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-olivicoltura.html",
+   "HTTP": 200,
+   "BYTES": 39791,
+   "SHA256": "bcca25b674e2186bd7d71da680cc1a395af8d31a8406e46c5676b5035f34f0fc",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\bcca25b674e2186b.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "44ad9a0cbfd5cd649574313d1d012260882c4987713994ac6f9815ae0b45242c",
+   "NON_WHITESPACE_CHARACTERS": 4816,
+   "OBTIDO_EM": "2026-09-24T18:56:51.084105+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di viticoltura",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-viticoltura.html",
+   "HTTP": 200,
+   "BYTES": 59215,
+   "SHA256": "f5522810da8672e3e6edb779c99e63ab879f61e0ea222b0fe68a231ea6182c5d",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\f5522810da8672e3.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "290dd720d1f4a23e3bbcfd6f3230eb674714d1d851e27994e468a396ab50ce5e",
+   "NON_WHITESPACE_CHARACTERS": 7376,
+   "OBTIDO_EM": "2026-09-24T18:57:01.247051+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di viticoltura",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-viticoltura.html",
+   "HTTP": 200,
+   "BYTES": 55618,
+   "SHA256": "22263809267fd0eb38d722741119c4621bb4ee24dfc142378181f93496666a2b",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\22263809267fd0eb.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "371aa673910520bccbeda1dc60269da36962164e218618bb2b1faf8d85813565",
+   "NON_WHITESPACE_CHARACTERS": 6267,
+   "OBTIDO_EM": "2026-09-24T18:57:04.852494+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di viticoltura",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/registro-operatori-professionali-ruop.html",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-viticoltura.html",
+   "HTTP": 200,
+   "BYTES": 40166,
+   "SHA256": "58767b04c843606546b0f8130ddcfbad7a7e0615fa6ce6695dedddfcf6f704e5",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\58767b04c8436065.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "7a0d47529cd1081bcba39329e17bf69a24e139a7d76116c7c7d97064fd1e2636",
+   "NON_WHITESPACE_CHARACTERS": 5645,
+   "OBTIDO_EM": "2026-09-24T18:57:08.260026+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Liguria · bollettino di viticoltura",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/passaporto-piante/autorizzazione-all-uso-del-passaporto-delle-piante-richiesta-aggiornamento-recesso.html",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/bollettino-di-viticoltura.html",
+   "HTTP": 200,
+   "BYTES": 39791,
+   "SHA256": "bcca25b674e2186bd7d71da680cc1a395af8d31a8406e46c5676b5035f34f0fc",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\bcca25b674e2186b.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "44ad9a0cbfd5cd649574313d1d012260882c4987713994ac6f9815ae0b45242c",
+   "NON_WHITESPACE_CHARACTERS": 4816,
+   "OBTIDO_EM": "2026-09-24T18:57:11.675452+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Trentino · FEM bollettini tecnici",
+   "URL": "https://fmach.it/Comunicazione/Notizie/A-come-Alpi-_-Rubrica-FEM-_Difesa-sostenibile-il-vigneto-vibrazionale-oggi-e-ancora-piu-hi-tech_-il-punto-orto",
+   "ENTRADA": "https://www.fmach.it/Servizi/Bollettini-tecnici",
+   "HTTP": 200,
+   "BYTES": 75431,
+   "SHA256": "adf8dff8b9d0d920b4336d92ca7d23b2eb0d55e496e0bb722c680551a94f3380",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\adf8dff8b9d0d920.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "4a4b9119ffd9fad9899803afef1a23621a5c9fe9acb8dd4f54d30a8432b17808",
+   "NON_WHITESPACE_CHARACTERS": 5002,
+   "OBTIDO_EM": "2026-09-24T18:57:23.039651+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Trentino · FEM bollettini tecnici",
+   "URL": "https://fmach.it/Servizi/Bollettini-tecnici",
+   "ENTRADA": "https://www.fmach.it/Servizi/Bollettini-tecnici",
+   "HTTP": 200,
+   "BYTES": 72924,
+   "SHA256": "2dfac18dbd89137975b1c502dab76336dcdb08b0ea96af674882142fb0d2a840",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\2dfac18dbd891379.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "ab1aeffcb5eaad1ef8de4ab731788475db11db8e70fb670c97416acfb1a2ba96",
+   "NON_WHITESPACE_CHARACTERS": 2581,
+   "OBTIDO_EM": "2026-09-24T18:57:26.820239+00:00"
+  },
+  {
+   "SOURCE_ID": "NAO_CATALOGADO",
+   "SERVICO": "Trentino · FEM bollettini tecnici",
+   "URL": "https://fmach.it/content/view/full/10098",
+   "ENTRADA": "https://www.fmach.it/Servizi/Bollettini-tecnici",
+   "HTTP": 200,
+   "BYTES": 77454,
+   "SHA256": "b66797eb7aa1ed558596b634f4f5bf217a1f3f392edf02c9725808a4cd3545ec",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\b66797eb7aa1ed55.html",
+   "EXTRACAO": "HTML:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "daebd2b938db21ea39a3e7aeaf7861c41fdbb58bdc9912ee139290f75cafdcfe",
+   "NON_WHITESPACE_CHARACTERS": 6303,
+   "OBTIDO_EM": "2026-09-24T18:57:30.486268+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL bollettini 2026",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_11_del_21_09_2026.pdf",
+   "ENTRADA": "http://www.apol.it/press/item/bollettini-fitosanitari-mosca-dell-olivo-2026",
+   "HTTP": 200,
+   "BYTES": 1641358,
+   "SHA256": "3d698b3a0068efa8616b185bece8c7d50b340f4002ab4663e2ea920cd1f42b33",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\3d698b3a0068efa8.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "d880146d6344a770d860c541661ecb9de9d3de694e884c46168392e2b2fe0430",
+   "NON_WHITESPACE_CHARACTERS": 21374,
+   "OBTIDO_EM": "2026-09-24T18:57:41.089024+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL bollettini 2026",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
+   "ENTRADA": "http://www.apol.it/press/item/bollettini-fitosanitari-mosca-dell-olivo-2026",
+   "HTTP": 200,
+   "BYTES": 1652152,
+   "SHA256": "2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\2ba23d223429131e.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "63430c6290ceed39003c57832146a82cfaf09472cb7e060db9f855d1f68f56d2",
+   "NON_WHITESPACE_CHARACTERS": 20915,
+   "OBTIDO_EM": "2026-09-24T18:57:45.668246+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERVICO": "Puglia · APOL bollettini 2026",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+   "ENTRADA": "http://www.apol.it/press/item/bollettini-fitosanitari-mosca-dell-olivo-2026",
+   "HTTP": 200,
+   "BYTES": 1653200,
+   "SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\59da05274359eff6.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "1480770a83a634322cd6ec86ca5edf895bcf92affb295ae3af189c4a2b2b6003",
+   "NON_WHITESPACE_CHARACTERS": 21454,
+   "OBTIDO_EM": "2026-09-24T18:57:50.210001+00:00"
+  }
+ ],
+ "CONTAGEM": {
+  "SITES": 7,
+  "ITENS": 26,
+  "TEXTOS_DISTINTOS": 24,
+  "PEDIDOS": 40
+ }
+}

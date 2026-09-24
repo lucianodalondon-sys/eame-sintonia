@@ -160,3 +160,13 @@ a página da 1.ª ida onde apareceu) e muda UMA coisa na regra: **os links para 
 e só depois os outros links pela mesma regra. Mesmo teto (6 por anfitrião, contando a 1.ª ida não —
 é outra visita, noutro dia de rede não; fica declarado), mesma pausa, mesmo egresso por consenso.
 Saída: `RECOLHA-BOLETINS-V2.json`.
+
+### Adenda 2 · 3.ª ida — pelas ROTAS DOS CONTRATOS (escrita ANTES dela)
+
+A 2.ª ida mostrou que as páginas-índice apontam para os PDFs por outro caminho (Plone `/view`,
+outro anfitrião, JS). Os contratos da casa (`regras/italy_contracts.mjs`) já escrevem a rota de cada
+PDF (`ROUTE_TEMPLATE`). A 3.ª ida pede SÓ esses PDFs, com as datas das edições mais recentes pela
+frequência que o próprio contrato declara (ARPAE semanal, ARIF quarta-feira, Campania quarta-feira
+por província, ARPAV zona fixa), saltando as edições que já estão no acervo. Uma data sem edição dá
+404 e fica contada (o contrato diz que é esperado). Teto 6 pedidos por anfitrião, robots, 2 s,
+egresso por consenso, assinatura `%PDF` obrigatória. APOL fica de fora: já teve 10 pedidos hoje.

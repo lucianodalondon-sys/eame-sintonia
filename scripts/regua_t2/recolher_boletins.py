@@ -99,6 +99,22 @@ SITES_IDA2 = [
      "http://www.apol.it/press/item/bollettini-fitosanitari-mosca-dell-olivo-2026", "1.a ida"),
 ]
 
+# 3.a ida (Adenda 2): PDFs pelas ROUTE_TEMPLATE dos contratos; datas pela frequencia declarada.
+_CAMP = "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/%s.pdf"
+_ARIF = ("https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/"
+         "Notiziario_Agrometeorologico_N%s_%s.pdf")
+_ARPAE = ("https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/"
+          "bollettini-agrometeo/bollettini-2026/%s_boll_agro_%s.pdf")
+_ARPAV = "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_%s.pdf"
+PDFS_IDA3 = [
+    ("IT-T2-001", "ARPAE · bollettino agrometeo", [_ARPAE % ("36", "20260907"), _ARPAE % ("38", "20260921")]),
+    ("IT-T3-008", "Puglia · notiziario agrometeorologico e fitosanitario",
+     [_ARIF % ("37", "09-09-2026"), _ARIF % ("38", "16-09-2026"), _ARIF % ("39", "23-09-2026")]),
+    ("IT-T3-002", "Campania · SFR bollettini per provincia",
+     [_CAMP % x for x in ("NA-16-09", "AV-16-09", "CE-23-09", "BN-23-09", "SA-23-09")]),
+    ("IT-T2-002", "ARPAV · Agrometeo Informa por zona", [_ARPAV % z for z in ("05", "12", "20", "28")]),
+]
+
 REGRA = re.compile(r"bollettin|notiziario|agrometeo|fitosanitar|difesa", re.I)
 _NAV = re.compile(r"privacy|cookie|contatt|accessibil|login|facebook|twitter|instagram|"
                   r"youtube|linkedin|mailto:|javascript:|#", re.I)
@@ -130,8 +146,62 @@ def alvos_da_pagina(corpo: bytes, base: str, n: int) -> list[str]:
 PDF_PRIMEIRO = False
 
 
+def ida3() -> int:
+    """So os PDFs das rotas dos contratos; `%PDF` obrigatorio."""
+    saida = Path(__file__).parent / "RECOLHA-BOLETINS-V3.json"
+    PASTA.mkdir(parents=True, exist_ok=True)
+    sites, itens = [], []
+    for sid, nome, urls in PDFS_IDA3:
+        eg = REDE.portao_de_egresso("IT")
+        reg = {"SOURCE_ID": sid, "SERVICO": nome, "ROTA": "ROUTE_TEMPLATE do contrato",
+               "EGRESSO": {"GATE": eg["EGRESS_GATE"], "VOTOS": [(v["VERIFICADOR"], v["PAIS"]) for v in eg["VOTOS"]]},
+               "PEDIDOS": 0}
+        sites.append(reg)
+        if eg["EGRESS_GATE"] != "PASS":
+            reg["PARADO"] = "EGRESSO NAO PASS — recolha interrompida"
+            break
+        rp, txt = GATE.robots_de(urlparse(urls[0]).hostname)
+        reg["PEDIDOS"] += 1
+        if "inacessivel" in txt:
+            reg["PARADO"] = "robots: " + txt[:100]
+            continue
+        for u in urls:
+            if reg["PEDIDOS"] >= TETO:
+                break
+            if not GATE.permitido(u, rp):
+                reg.setdefault("RECUSAS", []).append("robots proibe " + u)
+                continue
+            time.sleep(PAUSA_S)
+            st, c, err = CAN.buscar(u)
+            reg["PEDIDOS"] += 1
+            if st != 200 or c[:5] != b"%PDF-":
+                reg.setdefault("RECUSAS", []).append("HTTP %s %s %s" % (st, "sem %PDF" if st == 200 else err, u))
+                print("%-15s %s %s" % (nome[:15], st, u[-60:]), flush=True)
+                continue
+            sha = hashlib.sha256(c).hexdigest()
+            f = PASTA / (sha[:16] + ".pdf")
+            f.write_bytes(c)
+            texto, estado = INV.extrair(c)
+            norm = INV.normalizar(texto)
+            itens.append({"SOURCE_ID": sid, "SERVICO": nome, "URL": u, "HTTP": st, "BYTES": len(c),
+                          "SHA256": sha, "FICHEIRO_FORA_DO_GIT": str(f), "EXTRACAO": estado,
+                          "TEXTO_SHA256": hashlib.sha256(norm.encode("utf-8")).hexdigest(),
+                          "NON_WHITESPACE_CHARACTERS": len(norm.replace(" ", "")),
+                          "OBTIDO_EM": datetime.now(timezone.utc).isoformat()})
+            print("%-15s PDF %d B %s" % (nome[:15], len(c), u[-60:]), flush=True)
+    out = {"DATASET": "RECOLHA-BOLETINS-V3", "PROTOCOLO": "PROTOCOLO-GABARITO-T2.md#adenda-2 (3.a ida)",
+           "BYTES_EM": str(PASTA), "SITES": sites, "ITENS": itens,
+           "CONTAGEM": {"ITENS": len(itens), "TEXTOS_DISTINTOS": len({i["TEXTO_SHA256"] for i in itens}),
+                        "PEDIDOS": sum(s["PEDIDOS"] for s in sites)}}
+    saida.write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10), encoding="utf-8", newline=chr(10))
+    print(json.dumps(out["CONTAGEM"]))
+    return 0
+
+
 def main() -> int:
     global PDF_PRIMEIRO, SAIDA
+    if "--ida=3" in sys.argv:
+        return ida3()
     ida2 = "--ida=2" in sys.argv
     if ida2:
         PDF_PRIMEIRO = True
