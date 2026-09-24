@@ -126,6 +126,8 @@ Com a A5 na linha: `py scripts/micro_coleta/micro_coleta.py correr --autorizado-
 portão no instante. O comando exato é o que a A5 entregar (robots lido antes de cada
 fonte, ritmo dentro da fonte, teto de pedidos por site).
 
+> **Micro real com a Sala real (BC4, 24/09 00:53–01:00, linha instalada 8eec2e2a):** IT-T10-018, IT-T7-033, IT-T2-034 (coorte G3 62a7cade), backup provado antes (dump 2 166 408 bytes restaurado igual), egresso IT antes/depois das 3, robots lido, pedidos por site 5/2/3 (teto 5), RAW +4, DERIVED +4, Admission SIM 3 + NAO_SE_APLICA 1, Sala 61 → 64, nada desceu. ⚠️ Dois defeitos por consertar antes da onda inteira: (1) os bytes vão para `<árvore do bot>/XX/` (pasta ignorada que a suíte já apagou), não para `~/sintonia-sala-italia/armazem`; o relatório só os acha com `SINTONIA_ARMAZEM_RAIZ=<árvore do bot>`; (2) o comando da micro não passa `--filtro pais=IT` e as corridas nascem `XX-…`. Prova: `ferramentas/big_collection/BC4-MICRO-SALA-REAL.json`.
+
 ### 6 · Circuit breakers (§27) — o que se olha e o que se faz
 
 | disjuntor | detector concreto | acção |

@@ -1,0 +1,38 @@
+{
+ "DATASET": "BC4-VERMELHOS-HERDADOS-M5G",
+ "FONTE": "RELATORIO-UNIFICACAO.md (origin/unificacao-v1), balanco depois do ADENDO C1: 7 herdados",
+ "COMO_SE_MEDIU": "copias limpas (git worktree --detach) em C:/bc4/{inst=98ec8fbf instalado, reels=233638e3, g3=790fb10f}; python -m unittest por NOME; Python 3.12.10 do runner",
+ "PORTAO_DA_BIG_COLLECTION": "provas/o_portao_da_big_collection.py importa admissao, coleta_checkpoint, sala_de_espera, provas/preservar_coleta_no_postgres, guarda.preservar_coleta; canario = PDF T3 (pdftotext). Nenhum dos 7 passa por codigo que o portao usa de forma a mudar o veredito dele.",
+ "VERMELHOS": [
+  {
+   "NOME": "tests.test_c10_6_crash_retry...test_P11_guardar_false_nao_deixa_nada_no_bruto_real",
+   "ORIGEM": "Reels 233638e3",
+   "REPRODUZ": "SIM em 98ec8fbf e 233638e3, so se data/raw/REEL-MIDIA existir VAZIA (era o caso na worktree unificacao-v1-f); pasta ausente -> skip; pasta com os 6 ficheiros do canario -> OK",
+   "CAUSA": "AMBIENTE: gaveta de midia vazia na arvore onde a suite correu",
+   "DO_PORTAO": "NAO"
+  },
+  {
+   "NOME": "tests.test_cadeia_do_audio_offline test_04, test_05, test_12",
+   "ORIGEM": "Reels 233638e3",
+   "REPRODUZ": "SIM em 98ec8fbf e 233638e3 (3 FAIL de 11) com o Python 3.12; com o Python 3.11 (venv do hermes) + ~/.sintonia-libs: 11/11 OK",
+   "CAUSA": "AMBIENTE: ferramentas/fala_local.py poe ~/.sintonia-libs no caminho, e la o numpy e o ctranslate2 sao cp311; no 3.12 o import do faster-whisper falha -> DERIVED ERROR (ASR_INDISPONIVEL) -> 05 da NAO_SEI por falta de texto. O 05 usa admissao, mas falha a montante (sem texto), nao na regua",
+   "DO_PORTAO": "NAO",
+   "RISCO_REAL": "a transcricao de audio/video (YouTube/Reels) na PRODUCAO desta maquina, que corre em 3.12, fica ASR_INDISPONIVEL enquanto ~/.sintonia-libs for cp311 - nao afeta a 1.a onda web, afeta qualquer fonte de audio"
+  },
+  {
+   "NOME": "tests.test_micro_coleta_instrumento TestPlano.test_fica_fora_da_3b_nao_barra_a_fonte + TestFiltroAusenteFalhaAlto.test_relatorio_e_dados_da_3b_desencontrados_rebentam",
+   "ORIGEM": "G3 790fb10f",
+   "REPRODUZ": "SIM, iguais, em 790fb10f e 98ec8fbf ('BLOQUEADA' != 'PRONTA'; FiltroAusente not raised)",
+   "CAUSA": "TESTE PRESO AO RETRATO DO LIVRO: IT-T10-022 no livro commitado ja nao esta READY; IT-T7-043 ja tem decisao na 3b. No livro VIVO de hoje IT-T10-022 e PRONTA (plano 03:42Z)",
+   "DO_PORTAO": "NAO (scripts/micro_coleta/micro_coleta.py; o portao nao o importa). Mas e o instrumento da micro/Big Collection: o plano REAL correu certo hoje (18 PRONTAS = coorte G3)"
+  },
+  {
+   "NOME": "curadoria test_reconciliar_livros.OsLivrosReais.test_zy_censo_dos_livros_reais",
+   "ORIGEM": "G3 790fb10f",
+   "REPRODUZ": "SIM, igual, em 790fb10f e 98ec8fbf (985 != 1003)",
+   "CAUSA": "TESTE PRESO AO RETRATO DO LIVRO (censo contado num livro que a G3 trocou pelo da producao)",
+   "DO_PORTAO": "NAO"
+  }
+ ],
+ "RESUMO": "7/7 reproduzidos pelo nome nas duas bases; 0 pertencem ao portao da Big Collection; 4 sao ambiente desta maquina (1 gaveta vazia + 3 Python 3.12 vs bibliotecas cp311), 3 sao testes presos a um retrato antigo do livro"
+}

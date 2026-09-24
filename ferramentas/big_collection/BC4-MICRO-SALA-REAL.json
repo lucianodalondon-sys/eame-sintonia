@@ -1,0 +1,159 @@
+{
+ "DATASET": "BC4-MICRO-SALA-REAL",
+ "MISSAO": "BC4 prova 2 (24/09/2026): micro real com a Sala REAL sobre a linha instalada (bot 8eec2e2a)",
+ "COORTE": "G3 congelada 62a7cade (18) == plano do vivo as 03:42Z (18, mesma lista)",
+ "FONTES": [
+  "IT-T10-018",
+  "IT-T7-033",
+  "IT-T2-034"
+ ],
+ "BOT_PARADO": {
+  "DE": "00:53:26",
+  "ATE": "01:00:00",
+  "COMO": "PARAR.flag com marca BC4 + observador parado; volta pela Tarefa SINTONIA-Arranque"
+ },
+ "BACKUP": {
+  "DUMP": "C:\\bc4\\backup\\SALA-ANTES-DA-MICRO.dump",
+  "BYTES": 2166408,
+  "SHA256": "15d0a8d216392d4618ead7eb6ba7c55e7ac8ba2f424b8242c451db5ad27d379a",
+  "RESTAURADO_EM_DESCARTAVEL_IGUAL": true,
+  "PROVA_VALE": true,
+  "DESCARTAVEL_DESLIGADO": true
+ },
+ "SALA_ANTES": {
+  "sala_de_espera": 61,
+  "raw_asset": 1405,
+  "storage_object": 1097,
+  "derived_artifact": 908,
+  "collection_run": 389
+ },
+ "SALA_DEPOIS": {
+  "sala_de_espera": 64,
+  "raw_asset": 1409,
+  "storage_object": 1101,
+  "derived_artifact": 912,
+  "collection_run": 391
+ },
+ "SALA_DELTA": {
+  "sala_de_espera": 3,
+  "raw_asset": 4,
+  "storage_object": 4,
+  "derived_artifact": 4,
+  "collection_run": 2
+ },
+ "CORRIDAS": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "XX-T10-2026-09-24-035431-62acfb3dc0158ff7",
+   "CODIGO": 0,
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "XX-T7-2026-09-24-035512-9bd11aac9f9b40ba",
+   "CODIGO": 0,
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "XX-T2-2026-09-24-035522-2d51a1006eec21f2",
+   "CODIGO": 0,
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  }
+ ],
+ "COLETOR": {
+  "RUNS_NO_LEDGER": 3,
+  "RUNS_SEM_LEDGER": [],
+  "SOURCES_SUCCESS": 3,
+  "SOURCES_DEGRADED": 0,
+  "SOURCES_FAILED": 0,
+  "DETAIL_DOCUMENTS": 4,
+  "DETAIL_REQUESTS": 4,
+  "NETWORK_REQUESTS": 7,
+  "UNNECESSARY_REFETCHES": 0,
+  "SKIPPED_KNOWN": 35,
+  "LEDGER": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\source-curator-service-v1\\data\\collection-ledger\\italy\\runs.ndjson"
+ },
+ "CORTESIA_PEDIDOS_POR_SITE": {
+  "myfruit.it": 5,
+  "chianticlassico.com": 2,
+  "arpa.marche.it": 3
+ },
+ "CORTESIA": "robots.txt LIDO nos 3; pausa 1 s; teto 5/site; myfruit bateu o teto e o coletor RECUSOU os pedidos a mais",
+ "RAW_DERIVED_ADMISSION_SALA": {
+  "RAW": 4,
+  "DERIVED": 4,
+  "ADMISSION": {
+   "IT-T10-018": {
+    "SIM": 3
+   },
+   "IT-T2-034": {
+    "NAO_SE_APLICA": 1
+   }
+  },
+  "SALA": 3
+ },
+ "CRITERIOS": {
+  "C1_EGRESSO_IT_POR_CORRIDA": {
+   "PASSA": false,
+   "ESTADO": null
+  },
+  "C2_MATERIA_NAO_CAPA": {
+   "PASSA": true,
+   "ESTADO": "PASS"
+  },
+  "C3_PONTE_EM_RUNTIME": {
+   "PASSA": false,
+   "ESTADO": null
+  },
+  "C4_PROVENIENCIA_COMPLETA": {
+   "PASSA": true,
+   "ESTADO": null
+  },
+  "C5_FACT_TIME_LOCATION": {
+   "PASSA": true,
+   "ESTADO": null
+  },
+  "C6_ZERO_BYPASS": {
+   "PASSA": true,
+   "ESTADO": null
+  },
+  "C7_PROPORCAO_POR_FONTE_E_CLASSE": {
+   "PASSA": true,
+   "ESTADO": null
+  },
+  "C8_DUAS_PERGUNTAS": {
+   "PASSA": false,
+   "ESTADO": "NAO_SE_APLICA"
+  },
+  "C9_IDIOMA_NAO_DA_NAO_SEI": {
+   "PASSA": true,
+   "ESTADO": null
+  }
+ },
+ "CRITERIOS_NOTA": "C8 NAO_SE_APLICA: nenhum item destas 3 fontes esta no gabarito do dono (0/0) - nao e SIM errado. C2 e C9 so passam com SINTONIA_ARMAZEM_RAIZ = arvore do bot (ver ACHADOS 1); na corrida sem ela o relatorio deu C2 FAIL por SEM_BYTES=4",
+ "ACHADOS": [
+  "1. Os bytes das 4 materias foram gravados em <arvore do bot>/XX/... (orquestrador: ArmazemLocal(RAIZ)), NAO em ~/sintonia-sala-italia/armazem, que e onde o relatorio da micro os procura. Pasta ignorada pelo Git, e a suite ja apagou XX/ antes (memoria 'a suite apaga o armazem XX'). A Sala real aponta para eles por caminho relativo. Copia de seguranca: C:/bc4/micro/bytes-copia (4 ficheiros). NAO consertado (funcao nova).",
+  "2. micro_coleta.comando() nao passa --filtro pais=IT: as corridas nascem 'XX-T..' (pais desconhecido) embora o egresso tenha sido IT antes e depois. NAO consertado.",
+  "3. IT-T7-033: SUCCESS com 0 documentos novos (tudo ja conhecido); 2 pedidos."
+ ],
+ "NAO_FEITO": [
+  "rollback na Sala real (nao foi preciso; provado so em descartavel)",
+  "C2 lido por pessoa: 0 capas apontadas, nada a confirmar"
+ ]
+}
