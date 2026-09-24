@@ -77,7 +77,8 @@ class APortaDaLinhaDeComando(unittest.TestCase):
         """main() apanha a recusa e sai 2 — nunca corre sem armazem."""
         fonte = Path(RAIZ, "orquestrador", "orquestrador.py").read_text(encoding="utf-8")
         corpo = fonte.split("def main()", 1)[1]
-        self.assertIn("ArmazemOperacionalSemRaiz", corpo.split("return 2", 1)[0])
+        recusas = corpo.split("persistencia.dependencias_do_runtime()", 1)[1].split("return 2", 1)[0]
+        self.assertIn("ArmazemOperacionalSemRaiz", recusas)
         self.assertIn("raiz_do_armazem=runtime.raiz_do_armazem", corpo)
 
 
@@ -152,7 +153,9 @@ class ACorridaGuardaOsBytesNaRaizQueLheDao(unittest.TestCase):
     def test_o_bruto_aterra_no_armazem_entregue_e_nao_no_residuo(self):
         self.assertIn("raiz_do_armazem", inspect.signature(self.orq.correr).parameters,
                       "correr() nao recebe a raiz dos bytes")
-        recibo = self.orq.correr(self.frase("colete clima e tempo"), so_a_porta=True,
+        pedido = self.frase("colete clima e tempo")
+        pedido.filtros["universo"] = "T2"          # a rota exige o universo do PEDIDO
+        recibo = self.orq.correr(pedido, so_a_porta=True,
                                  colheita_da_corrida=self.run_id,
                                  raiz_do_armazem=self.armazem)
         self.assertEqual(recibo["INGRESSO"]["PRESERVADOS"], 1, recibo["INGRESSO"])

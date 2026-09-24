@@ -800,7 +800,7 @@ def guardar_recibo(recibo: dict) -> None:
 
 def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
            so_a_porta: bool = False, memoria=None, banco_do_rastro=None,
-           colheita_da_corrida: str = "") -> dict:
+           colheita_da_corrida: str = "", raiz_do_armazem=None) -> dict:
     """Do pedido ao recibo. Devolve o recibo, sempre — mesmo quando falha."""
     plano = resolver(p)
 
@@ -994,7 +994,12 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # ⚠️ O ARMAZEM NASCE AQUI, E UM SO SERVE AS DUAS ETAPAS. O bruto e o
     # derivado sao dois bytes da mesma corrida; dois armazens dariam ao
     # derivado uma morada que o bruto nao conhece.
-    armazem = ing.ArmazemLocal(RAIZ)
+    # ⚠️ E A RAIZ DOS BYTES VEM DA PERSISTENCIA, NAO DA ARVORE. Medido em
+    # 20/09/2026 (BC2: 107 objectos apagados pela suite) e em 24/09/2026 (micro
+    # real da BC4: 4 materias da Sala real em `<arvore do bot>/XX/`). Sem raiz
+    # entregue (modo DESCARTAVEL/AUSENTE, provas), a arvore continua a ser a
+    # raiz, exactamente como era.
+    armazem = ing.ArmazemLocal(raiz_do_armazem or RAIZ)
     if itens and (so_a_porta or not seco):
         recibo["INGRESSO"] = pela_entrada(itens, recibo, memoria=memoria,
                                           banco_do_rastro=banco_do_rastro,
@@ -1140,14 +1145,16 @@ def main() -> int:
         runtime = persistencia.dependencias_do_runtime()
     except (persistencia.BancoRecusado,
             persistencia.BancoOperacionalRecusado,
-            persistencia.ModosEmConflito) as ex:
+            persistencia.ModosEmConflito,
+            ing.ArmazemOperacionalSemRaiz) as ex:
         print(str(ex))
         return 2
 
     recibo = correr(p, so_plano=so_plano, seco=seco, so_a_porta=so_a_porta,
                     colheita_da_corrida=colheita_de,
                     memoria=runtime.memoria,
-                    banco_do_rastro=runtime.banco_do_rastro)
+                    banco_do_rastro=runtime.banco_do_rastro,
+                    raiz_do_armazem=runtime.raiz_do_armazem)
     recibo["PERSISTENCIA"] = runtime.para_json()
     plano = recibo.pop("_plano")
     print(plano.em_palavras())
