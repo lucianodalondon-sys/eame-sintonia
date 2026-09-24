@@ -15,17 +15,17 @@ sabe buscar sozinha.
 
 | | |
 |---|---|
-| fichas completas no atlas | **297** |
+| fichas completas no atlas | **298** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
-| endereços que o código realmente chama | **636** |
-| desses, publicados no mapa | **40** (truncados: 596) |
+| endereços que o código realmente chama | **641** |
+| desses, publicados no mapa | **40** (truncados: 601) |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
-> O cabeçalho do atlas diz **277 fontes registradas**
+> O cabeçalho do atlas diz **278 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **297**. Faltam **-20**.
+> **298**. Faltam **-20**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:
@@ -41,7 +41,7 @@ gente: nenhum degrau se sobe sozinho.
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
 | 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
-| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **260** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
+| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **261** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
 | 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
@@ -165,7 +165,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · REGULATORY | 🟢 GREEN | sim |
 | `FR-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### ITALIA · 244 fontes · 1 com contrato de busca
+### ITALIA · 245 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
@@ -258,6 +258,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T2-030` | Nomisma | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T3-001` | IT-T3-001 | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
 | `IT-T3-002` | Campania — Bollettini fitosanitari regionali | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
+| `IT-T3-005` | Terre dell'Etruria — Monitoraggio mosca dell'olivo (Serviz | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
 | `IT-T3-008` | ARIF Puglia / Agrometeo Puglia — rete fitosanitaria | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
 | `IT-T3-010` | APOL Lecce — monitoraggio olivicolo | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
 | `IT-T3-011` | AGRIOS — direttive, aggiornamenti e deroghe per la produzi | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |

@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T19:36:36+00:00",
-    "HEAD": "2786cbc4411e278a433836c6d034052f24eace2c",
+    "GENERATED_AT": "2026-09-24T21:04:56+00:00",
+    "HEAD": "68d8b4b9f04a2c5386565ecc69b050e1f1e6bf6b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "9b891df89b3d69ceee6f2bebba1eae5b4787b0b89f90717e8a9002fd9e8a5015",
-    "FICHEIROS_NA_IMPRESSAO": 3010,
+    "SOURCE_TREE_FINGERPRINT": "5651111c6b478d48aacf06f9db424414144be8a2e5a870ff302c314f3b6074ac",
+    "FICHEIROS_NA_IMPRESSAO": 3034,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -55,7 +55,7 @@
       {
         "PATH": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "PAPEL": "FONTE",
-        "VERSAO": "e6497636dd3f1d7f4407f41a1960d46b09266bc2",
+        "VERSAO": "949180fdd21425c452e96da31340b40d8eb91574",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "as_fontes() · linhas()"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "6f3b36e478e6c06a1ec475d876dbbb24219f8e3b6059642dfc49fe5e04c583db",
+    "INPUTS_DIGEST": "821a97b8a09b652f8eebaa252aa67965e3969221db693e3f0d6d28ca13f6baf7",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -4126,6 +4126,34 @@
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "line": 6600,
         "snippet": "bloco IT-T3-002 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
+      "source_id": "IT-T3-005",
+      "name": "Terre dell'Etruria — Monitoraggio mosca dell'olivo (Servizio Agronomico)",
+      "owner": "NAO SEI - nao medido nesta missao",
+      "country": "ITALIA",
+      "territory": "T3",
+      "territory_name": "PEST / DISEASE / WEEDS",
+      "type": "WEB_PORTAL - portal institucional",
+      "url": "https://www.terretruria.it/monitoraggio",
+      "access_method": "HTTP publico - pagina fixa /monitoraggio, atualizada por periodo",
+      "language": "it",
+      "update_frequency": "ATIVO - publicacao semanal ou mais frequente",
+      "historical_depth": "NAO SEI - so o boletim corrente e o seguinte foram vistos",
+      "automation": "MEDIUM - rota generica por descoberta de link",
+      "collection": "COLHIDA COM SUCESSO NA BCR - contrato escrito a mao em regras/ (piloto), nao no livro do robo",
+      "risk": "canal publico; sem login, sem sessao, sem contorno de muro",
+      "use_case": "NAO SEI - relevancia tematica medida (SIM - janela de cultura (D29): mosca-da-azeitona, 139 pontos de armadilha), uso por definir",
+      "real_example": "Bollettino del periodo dal 07-09-2026 al 13-09-2026 — monitoraggio mosca dell'olivo (2026-09-07)",
+      "evidence_path": "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json (sha256 no proprio manifesto; boletim BCR 07-13/09 tambem guardado no acervo)",
+      "verdict": "YELLOW",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 10276,
+        "snippet": "bloco IT-T3-005 no atlas de fontes"
       },
       "contract": null,
       "sabe_coletar": false
@@ -10054,7 +10082,6 @@
       "IT-T2-005",
       "IT-T3-003",
       "IT-T3-004",
-      "IT-T3-005",
       "IT-T3-006",
       "IT-T3-007",
       "IT-T3-009",
@@ -10087,6 +10114,7 @@
       "IT-T2-004",
       "IT-T3-001",
       "IT-T3-002",
+      "IT-T3-005",
       "IT-T3-008",
       "IT-T3-010",
       "IT-T3-011",
@@ -10105,7 +10133,7 @@
       "IT-T4-002"
     ],
     "total_distintas": 338,
-    "leitura": "297 tem ficha no atlas, 54 estao no levantamento italiano, 17 estao nos dois. 37 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico."
+    "leitura": "298 tem ficha no atlas, 54 estao no levantamento italiano, 18 estao nos dois. 36 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico."
   },
   "ACCOUNTS": {
     "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
@@ -10564,7 +10592,7 @@
         "degrau": 2,
         "nome": "REGISTADA",
         "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
-        "quantas": 260,
+        "quantas": 261,
         "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
       },
@@ -29925,6 +29953,7 @@
       "IT-T2-030",
       "IT-T3-001",
       "IT-T3-002",
+      "IT-T3-005",
       "IT-T3-008",
       "IT-T3-010",
       "IT-T3-011",
@@ -30541,11 +30570,36 @@
       ]
     },
     {
+      "endpoint": "https://ipinfo.io/json',",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 442
+        },
+        {
+          "file": "provas/canario_d23_linkedin_video.py",
+          "line": 82
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 80
+        },
+        {
+          "file": "provas/canario_reels_instagram.py",
+          "line": 84
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 202
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/feeds",
       "usado_por": [
         {
           "file": "curadoria/canario.py",
-          "line": 56
+          "line": 57
         },
         {
           "file": "curadoria/capturador.py",
@@ -30709,27 +30763,6 @@
         {
           "file": "provas/canario_reels_instagram.py",
           "line": 109
-        }
-      ]
-    },
-    {
-      "endpoint": "https://ipinfo.io/json',",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 442
-        },
-        {
-          "file": "provas/canario_d23_linkedin_video.py",
-          "line": 82
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 80
-        },
-        {
-          "file": "provas/canario_reels_instagram.py",
-          "line": 84
         }
       ]
     },
@@ -31140,29 +31173,29 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 636,
+  "ENDPOINTS_FOUND": 641,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 596,
+  "ENDPOINTS_TRUNCATED": 601,
   "COUNTS": {
-    "sources": 297,
+    "sources": 298,
     "with_contract": 5,
     "by_country": {
       "ESPANHA": 34,
       "EUROPA": 13,
       "FRANCA": 6,
-      "ITALIA": 244
+      "ITALIA": 245
     },
     "by_verdict": {
       "GREEN": 175,
       "NAO SEI": 10,
       "PARCIAL": 27,
-      "YELLOW": 85
+      "YELLOW": 86
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 636,
+    "endpoints": 641,
     "endpoints_published": 40,
-    "endpoints_truncated": 596,
+    "endpoints_truncated": 601,
     "candidates": 906,
     "coletores": 54,
     "coletores_com_data": 20,
@@ -31172,11 +31205,11 @@
     "corridas_registadas": 108,
     "observacoes_registadas": 521,
     "fontes_ja_coletadas": 4,
-    "fontes_nunca_coletadas": 297,
+    "fontes_nunca_coletadas": 298,
     "citadas_sem_ficha": 4,
     "fontes_no_master_italiano": 54,
     "fontes_distintas": 338,
-    "levantadas_sem_ficha": 37,
+    "levantadas_sem_ficha": 36,
     "coletadas_sem_ficha": 3,
     "accounts": 44,
     "accounts_authorized": 22
@@ -31187,13 +31220,13 @@
     "ES-T8-003"
   ],
   "HEADER_CLAIM": {
-    "total": 277,
+    "total": 278,
     "line": 9,
     "green": 90,
     "yellow": 83,
     "nao_sei": 17,
-    "fichas_completas": 297,
-    "ids_mencionados_no_atlas": 284,
+    "fichas_completas": 298,
+    "ids_mencionados_no_atlas": 285,
     "mencionados_sem_ficha": [
       "ES-T1-001",
       "ES-T13-001",
@@ -31209,8 +31242,8 @@
       "IT-T4-002",
       "IT-T4-003"
     ],
-    "os_tres_numeros": "277 = o que o CABECALHO declara · 284 = SOURCE_IDs MENCIONADOS no texto · 297 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
+    "os_tres_numeros": "278 = o que o CABECALHO declara · 285 = SOURCE_IDs MENCIONADOS no texto · 298 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
     "divergencia": -20,
-    "leitura": "O cabecalho do atlas diz 277 fontes registradas; fichas completas, com SOURCE_ID valido, ha 297. Faltam -20 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+    "leitura": "O cabecalho do atlas diz 278 fontes registradas; fichas completas, com SOURCE_ID valido, ha 298. Faltam -20 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
   }
 }
