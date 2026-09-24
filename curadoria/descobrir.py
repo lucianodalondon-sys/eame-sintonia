@@ -86,7 +86,6 @@ import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
-import urllib.robotparser
 import html.parser as _htmlparser
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
@@ -96,6 +95,8 @@ from typing import Optional
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "candidatas"))
 sys.path.insert(0, str(RAIZ / "curadoria"))
+sys.path.append(str(RAIZ / "coleta"))
+import robots_rfc9309 as RR  # noqa: E402  (o leitor unico de robots.txt, D34)
 
 from fonte_nova import normalizar, registar, carregar, recusar  # noqa: E402
 
@@ -849,26 +850,24 @@ class Orcamento:
         return max(self._por_dom.values()) if self._por_dom else 0
 
 
-# Cache de robots por host — lido uma vez por sessao.
-_robots_cache: dict[str, urllib.robotparser.RobotFileParser] = {}
+# Cache de robots por host — lido uma vez por sessao. QUEM LE e o dono unico,
+# `coleta/robots_rfc9309.py` (D34): regra mais especifica vence, 4xx = sem robots,
+# 5xx/rede = tudo proibido (NAO SEI), HTML no lugar = ilegivel = recusa.
+_robots_cache: dict[str, "RR.Robots"] = {}
 
 
-def _robots_de(host: str) -> urllib.robotparser.RobotFileParser:
+def _robots_de(host: str) -> "RR.Robots":
     if host in _robots_cache:
         return _robots_cache[host]
     url = "https://%s/robots.txt" % host
     req = urllib.request.Request(url, headers={"User-Agent": UA})
-    rp  = urllib.robotparser.RobotFileParser()
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT_S, context=CTX) as r:
-            rp.parse(r.read().decode("utf-8", "replace").splitlines())
+            rp = RR.de_resposta(r.status, r.read())
     except urllib.error.HTTPError as e:
-        if e.code in (404, 410):
-            rp.parse([])          # sem ficheiro = sem proibicao
-        else:
-            rp.parse(["User-agent: *", "Disallow: /"])
-    except Exception:
-        rp.parse(["User-agent: *", "Disallow: /"])  # UNKNOWN -> prudencia
+        rp = RR.de_resposta(e.code)
+    except Exception as e:
+        rp = RR.de_resposta(None, erro=type(e).__name__)   # UNKNOWN -> prudencia
     _robots_cache[host] = rp
     return rp
 

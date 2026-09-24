@@ -352,8 +352,13 @@ class OPortaoDeTransporteTemUmDonoSo(unittest.TestCase):
                 if 'RobotFileParser' in io.open(os.path.join(raiz, f),
                                                 encoding='utf-8').read():
                     leitores.append(rel)
-        self.assertEqual(leitores, ['coleta/scrap_http.py'],
-                         'nasceu um segundo leitor de robots.txt')
+        # D34 (24/09): o leitor unico e `coleta/robots_rfc9309.py` (RFC 9309); `scrap_http`
+        # continua dono do TRANSPORTE e pergunta-lhe. `RobotFileParser` nao sobra em lado
+        # nenhum; a lei inteira (incluindo o 2.o leitor sem urllib) vive em
+        # tests/test_robots_rfc9309.py::NenhumSegundoLeitor.
+        self.assertEqual(leitores, [], 'voltou um leitor de robots.txt com urllib.robotparser')
+        self.assertIn('import robots_rfc9309 as RR',
+                      io.open(os.path.join(RAIZ, 'coleta', 'scrap_http.py'), encoding='utf-8').read())
 
     def test_o_portao_de_transporte_continua_chamavel_por_quem_precisar(self):
         # Ele existe, e nao importa o roteador para existir. Quando a decisao

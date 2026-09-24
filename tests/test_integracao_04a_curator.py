@@ -363,7 +363,10 @@ class ACuradoriaERegistoNaoFerramenta(unittest.TestCase):
     # Os dois leitores herdados, nomeados um a um. A lista nao e um limite
     # numerico — e a identidade de cada divida conhecida. Um leitor novo, mesmo
     # que outro desapareca, reprova.
-    LEITORES_HERDADOS_EM_CURADORIA = ("curadoria/descobrir.py", "curadoria/gate_de_rota.py")
+    #
+    # D34 (24/09/2026): DIVIDA PAGA. Os dois leitores herdados passaram a perguntar ao leitor
+    # unico `coleta/robots_rfc9309.py` (RFC 9309) e ficaram sem `RobotFileParser`.
+    LEITORES_HERDADOS_EM_CURADORIA = ()
 
     def test_curadoria_tem_codigo_nesta_linha_e_isso_e_declarado(self):
         """A revogacao e um FACTO medido, nao uma frase num comentario."""

@@ -47,7 +47,6 @@ import sys
 import time
 import urllib.error
 import urllib.request
-import urllib.robotparser
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -55,31 +54,31 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 import capturador as CAP  # noqa: E402
+sys.path.append(str(RAIZ / "coleta"))
+import robots_rfc9309 as RR  # noqa: E402  (o leitor unico de robots.txt, D34)
 
 CTX = ssl.create_default_context()
 CTX.check_hostname = False
 CTX.verify_mode = ssl.CERT_NONE
 
 
-def robots_de(host: str) -> tuple[urllib.robotparser.RobotFileParser, str]:
-    """Le o robots.txt VIVO. Nao decorado, nao presumido.
+def robots_de(host: str) -> tuple["RR.Robots", str]:
+    """Busca o robots.txt VIVO; QUEM O LE e o dono unico, `coleta/robots_rfc9309.py` (D34).
 
     ⚠️ LER NA HORA E A REGRA DA CASA (`scrap_http.py`): «O ROBOTS E LIDO NA
     HORA, NAO DECORADO NO CODIGO.» Um Disallow copiado para uma constante
     envelhece em silencio.
 
-    ⚠️ E 404 NO ROBOTS NAO E «PROIBIDO». Medido: um dos hosts HTML devolve
-    404 em /robots.txt. Um site que nunca escreveu robots.txt nao proibiu
-    nada — a norma diz que ausencia de ficheiro e permissao. Tratar 404 como
-    bloqueio reprovaria fontes boas por um ficheiro que nao existe; tratar
-    erro de REDE como permissao aprovaria as barradas quando a rede falha.
-    As duas coisas sao diferentes e ficam separadas.
+    ⚠️ AUSENCIA DE REGRA != REGRA DE AUSENCIA. Pela RFC 9309: 4xx no robots
+    (404, 410, e tambem 401/403) = «indisponivel», pode aceder (§2.3.1.3) —
+    antes da D34 este portao tratava 401/403 como Disallow total; 5xx ou rede
+    em baixo = tudo proibido (§2.3.1.4), e o estado e NAO SEI, nao condenacao.
+    HTML no lugar do robots = ilegivel = recusa (regra da casa, mantida).
 
-        AUSENCIA DE REGRA != REGRA DE AUSENCIA.
+    Devolve (robots, texto-ou-porque), como antes.
     """
     url = "https://%s/robots.txt" % host
     req = urllib.request.Request(url, headers={"User-Agent": CAP.UA})
-    rp = urllib.robotparser.RobotFileParser()
     # ⚠️ UMA SO TENTATIVA CONDENA POR LENTIDAO. Medido: `nomisma.it` esgotou o
     # tempo a primeira vez e foi classificado «barrado»; a segunda leitura
     # devolveu HTTP 200 em 1,2 s com `Disallow:` VAZIO — ou seja, permite tudo.
@@ -89,29 +88,34 @@ def robots_de(host: str) -> tuple[urllib.robotparser.RobotFileParser, str]:
     for tentativa, espera in ((1, 25), (2, 45)):
         try:
             with urllib.request.urlopen(req, timeout=espera, context=CTX) as r:
-                txt = r.read().decode("utf-8", "replace")
-            rp.parse(txt.splitlines())
-            return rp, txt
+                corpo = r.read()
+                rp = RR.de_resposta(r.status, corpo)
+            return rp, (rp.texto if rp.estado == RR.LIDO else rp.porque)
         except urllib.error.HTTPError as e:
-            if e.code in (404, 410):
-                rp.parse([])                   # sem ficheiro = sem proibicao
-                return rp, "HTTP %d — o host nao publica robots.txt" % e.code
-            # 401/403 no proprio robots: a norma manda tratar como Disallow total
-            rp.parse(["User-agent: *", "Disallow: /"])
-            return rp, "HTTP %d no robots.txt — tratado como Disallow total" % e.code
+            if e.code >= 500 and tentativa == 1:
+                ultimo = e
+                time.sleep(2)
+                continue
+            rp = RR.de_resposta(e.code)
+            return rp, "HTTP %d no robots.txt — %s" % (e.code, rp.estado)
         except Exception as e:
             ultimo = e
             time.sleep(2)
     # ⚠️ NAO SEI != PERMITIDO. Rede em baixo nao liberta ninguem — mas o estado
     # que se regista e UNKNOWN, nao DISALLOWED: a fonte nao foi condenada, foi
     # deixada por medir.
-    rp.parse(["User-agent: *", "Disallow: /"])
+    rp = RR.de_resposta(getattr(ultimo, "code", None), erro=type(ultimo).__name__)
     return rp, ("robots inacessivel apos 2 tentativas (%s) — UNKNOWN, tratado "
                 "como barrado por prudencia" % type(ultimo).__name__)
 
 
 def permitido(url: str, rp) -> bool:
     return rp.can_fetch(CAP.UA, url)
+
+
+def decisao(url: str, rp) -> "RR.Decisao":
+    """A decisao com a regra que decidiu (para prova e medicao)."""
+    return rp.decidir(CAP.UA, url)
 
 
 def main() -> int:
@@ -195,9 +199,11 @@ def main() -> int:
         "RECLASSIFICADOS": mudados,
         "O_QUE_NAO_FOI_APAGADO": ("SOURCE_ID, ficha no Atlas, caracterizacao, "
                                   "contrato e canario ficam todos de pe"),
-        "EVIDENCIA": {h: ([l for l in t.splitlines() if l.startswith("Disallow")][:24]
-                          or [t.splitlines()[0] if t else "(sem Disallow)"])
-                      for h, t in evid.items()},
+        # D34: as regras do NOSSO grupo, como o dono unico as leu (Allow tambem decide)
+        "EVIDENCIA": {h: (["%s: %s" % ("Allow" if pode else "Disallow", c)
+                           for pode, c in (cache[h].grupo(CAP.UA) or RR.Grupo()).regras][:24]
+                          or [cache[h].porque or "(sem regras para o nosso grupo)"])
+                      for h in evid},
     }
     (RAIZ / "curadoria" / "READY-FOR-COLLECTION-V1.json").write_text(
         json.dumps(ready, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
