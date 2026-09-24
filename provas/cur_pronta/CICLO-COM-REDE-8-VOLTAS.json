@@ -1,0 +1,1989 @@
+{
+ "DEPOIS": {
+  "DATASET": "FUNIL-DO-CURADOR",
+  "CONTRATO": "FUNIL_DO_CURADOR/v1",
+  "MEDIDO_EM": "2026-09-24T13:51:08.236132+00:00",
+  "FONTES_NO_LIVRO": 1071,
+  "COM_TAREFA_ABERTA": 7,
+  "TAREFAS_ABERTAS": 7,
+  "FUNIL": {
+   "WEB": {
+    "CANDIDATAS_SEM_SOURCE_ID": 762,
+    "QUALIFICADAS": 1019,
+    "COM_CONTRATO": 654,
+    "ROTA_EM_PROVA_OU_PROVADA": 627,
+    "READY": 69,
+    "READY_CURRENT": 57,
+    "READY_LEGACY": 12,
+    "ELEGIVEIS_NO_PORTAO": 50
+   },
+   "SOCIAL": {
+    "CANDIDATAS_SEM_SOURCE_ID": 170,
+    "QUALIFICADAS": 52,
+    "COM_CONTRATO": 52,
+    "ROTA_EM_PROVA_OU_PROVADA": 43,
+    "READY": 41,
+    "READY_CURRENT": 0,
+    "READY_LEGACY": 41,
+    "ELEGIVEIS_NO_PORTAO": 0
+   }
+  },
+  "MAQUINA": [
+   {
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "N": 452,
+    "WEB": 452,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 452,
+    "DIAS_PARADO_MEDIANA": 1.06,
+    "DIAS_PARADO_MAX": 3.67,
+    "TAREFA_QUE_AVANCA": "REPAIR_CONTRACT",
+    "QUEM_ENFILEIRA": "gatilho_discovery:candidatas_a_reparar",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "dono R1 (reparo-fontes-v1): reparo deterministico do padrao; nao instalada — hoje NINGUEM as move"
+   },
+   {
+    "ESTADO": "SEMANTIC_REVIEW",
+    "N": 200,
+    "WEB": 200,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 200,
+    "DIAS_PARADO_MEDIANA": 1.06,
+    "DIAS_PARADO_MAX": 2.94,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "canal_da_decisao_semantica (humano/Opus)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "decisao com prova no DECISOES-SEMANTICAS; a QUALIFY le-a; nao e maquina"
+   },
+   {
+    "ESTADO": "READY_FOR_COLLECTION",
+    "N": 110,
+    "WEB": 69,
+    "SOCIAL": 41,
+    "COM_TAREFA_ABERTA": 3,
+    "SEM_TAREFA": 107,
+    "DIAS_PARADO_MEDIANA": 1.8,
+    "DIAS_PARADO_MAX": 2.94,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "LEGACY: AVANCAR re-mede (HTML) ou importa o contrato do coletor; CURRENT elegivel: REVALIDAR (B3) com prova > 7 dias; YouTube pelo feed: rota do Scrap (buraco social)"
+   },
+   {
+    "ESTADO": "CANARY_PENDING",
+    "N": 104,
+    "WEB": 102,
+    "SOCIAL": 2,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 104,
+    "DIAS_PARADO_MEDIANA": 1.82,
+    "DIAS_PARADO_MAX": 2.94,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE/CANARY",
+    "QUEM_ENFILEIRA": "gatilho_discovery:candidatas_a_reparar",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "a cadeia do worker enfileira; ORFAS sem tarefa sao da R1 (nao instalada)"
+   },
+   {
+    "ESTADO": "POLICY_BLOCK",
+    "N": 69,
+    "WEB": 69,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 69,
+    "DIAS_PARADO_MEDIANA": 2.94,
+    "DIAS_PARADO_MAX": 2.94,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "decisao do dono (D15/D22/D23/D24)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "CAPABILITY_BLOCK",
+    "N": 66,
+    "WEB": 66,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 66,
+    "DIAS_PARADO_MEDIANA": 1.06,
+    "DIAS_PARADO_MAX": 3.62,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "capacidade nova (SCRAP ENGINEER)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "UNKNOWN",
+    "N": 34,
+    "WEB": 34,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 34,
+    "DIAS_PARADO_MEDIANA": 2.94,
+    "DIAS_PARADO_MAX": 2.94,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "NINGUEM",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "BURACO: estado sem tarefa que o avance"
+   },
+   {
+    "ESTADO": "CONTRACT_READY_ROUTE_BLOCKED",
+    "N": 24,
+    "WEB": 15,
+    "SOCIAL": 9,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 24,
+    "DIAS_PARADO_MEDIANA": 1.89,
+    "DIAS_PARADO_MAX": 1.89,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "rota nova (robots)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "AUTH_BLOCK",
+    "N": 8,
+    "WEB": 8,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 8,
+    "DIAS_PARADO_MEDIANA": 1.45,
+    "DIAS_PARADO_MAX": 1.45,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "decisao do dono",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "RETRY_AFTER",
+    "N": 4,
+    "WEB": 4,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 4,
+    "SEM_TAREFA": 0,
+    "DIAS_PARADO_MEDIANA": 0.0,
+    "DIAS_PARADO_MAX": 0.02,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "a tarefa volta pelo relogio da fila; sem tarefa ha > 24 h, o AVANCAR repoe"
+   }
+  ],
+  "AVANCO_ELEGIVEL": {
+   "TOTAL": 0,
+   "POR_REGRA": {}
+  }
+ },
+ "WORKER": [
+  {
+   "TASK_ID": "T02715",
+   "SOURCE_ID": "IT-T10-030",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-030-VALIDATE_ROUTE-3373",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02735",
+   "SOURCE_ID": "IT-T10-030",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T10-030-CANARY-3374",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02716",
+   "SOURCE_ID": "IT-T10-035",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-035-VALIDATE_ROUTE-3375",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02736",
+   "SOURCE_ID": "IT-T10-035",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T10-035-CANARY-3376",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02717",
+   "SOURCE_ID": "IT-T11-010",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T11-010-VALIDATE_ROUTE-3377",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02737",
+   "SOURCE_ID": "IT-T11-010",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T11-010-CANARY-3378",
+   "FONTE_FALHOU": false,
+   "PORQUE": "PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "TASK_ID": "T02718",
+   "SOURCE_ID": "IT-T12-019",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T12-019-VALIDATE_ROUTE-3379",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02738",
+   "SOURCE_ID": "IT-T12-019",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T12-019-CANARY-3380",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02719",
+   "SOURCE_ID": "IT-T12-089",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T12-089-VALIDATE_ROUTE-3381",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02739",
+   "SOURCE_ID": "IT-T12-089",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T12-089-CANARY-3382",
+   "FONTE_FALHOU": false,
+   "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (194 ligacoes para 7715 caracteres, 948 em paragrafos)"
+  },
+  {
+   "TASK_ID": "T02720",
+   "SOURCE_ID": "IT-T2-049",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-049-VALIDATE_ROUTE-3383",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02740",
+   "SOURCE_ID": "IT-T2-049",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T2-049-CANARY-3384",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02721",
+   "SOURCE_ID": "IT-T2-107",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-107-VALIDATE_ROUTE-3385",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02741",
+   "SOURCE_ID": "IT-T2-107",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T2-107-CANARY-3386",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02722",
+   "SOURCE_ID": "IT-T2-113",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-113-VALIDATE_ROUTE-3387",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02742",
+   "SOURCE_ID": "IT-T2-113",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T2-113-CANARY-3388",
+   "FONTE_FALHOU": false,
+   "PORQUE": "PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "TASK_ID": "T02723",
+   "SOURCE_ID": "IT-T2-114",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-114-VALIDATE_ROUTE-3389",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02743",
+   "SOURCE_ID": "IT-T2-114",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T2-114-CANARY-3390",
+   "FONTE_FALHOU": false,
+   "PORQUE": "PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "TASK_ID": "T02683",
+   "SOURCE_ID": "IT-T1-014",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T1-014-VALIDATE_ROUTE-3391",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02724",
+   "SOURCE_ID": "IT-T2-115",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-115-VALIDATE_ROUTE-3392",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02744",
+   "SOURCE_ID": "IT-T2-115",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T2-115-CANARY-3393",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02725",
+   "SOURCE_ID": "IT-T5-051",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-051-VALIDATE_ROUTE-3394",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02745",
+   "SOURCE_ID": "IT-T5-051",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T5-051-CANARY-3395",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02726",
+   "SOURCE_ID": "IT-T5-082",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T5-082-VALIDATE_ROUTE-3396",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02727",
+   "SOURCE_ID": "IT-T5-089",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-089-VALIDATE_ROUTE-3397",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02746",
+   "SOURCE_ID": "IT-T5-089",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T5-089-CANARY-3398",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02728",
+   "SOURCE_ID": "IT-T7-040",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T7-040-VALIDATE_ROUTE-3399",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02747",
+   "SOURCE_ID": "IT-T7-040",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T7-040-CANARY-3400",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02729",
+   "SOURCE_ID": "IT-T7-050",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-050-VALIDATE_ROUTE-3401",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02730",
+   "SOURCE_ID": "IT-T7-051",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-051-VALIDATE_ROUTE-3402",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02731",
+   "SOURCE_ID": "IT-T7-052",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-052-VALIDATE_ROUTE-3403",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02729",
+   "SOURCE_ID": "IT-T7-050",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-050-VALIDATE_ROUTE-3404",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02730",
+   "SOURCE_ID": "IT-T7-051",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-051-VALIDATE_ROUTE-3405",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02731",
+   "SOURCE_ID": "IT-T7-052",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-052-VALIDATE_ROUTE-3406",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02732",
+   "SOURCE_ID": "IT-T7-130",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T7-130-VALIDATE_ROUTE-3407",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02748",
+   "SOURCE_ID": "IT-T7-130",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T7-130-CANARY-3408",
+   "FONTE_FALHOU": false,
+   "PORQUE": "HTTP 403"
+  },
+  {
+   "TASK_ID": "T02733",
+   "SOURCE_ID": "IT-T7-137",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T7-137-VALIDATE_ROUTE-3409",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02749",
+   "SOURCE_ID": "IT-T7-137",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T7-137-CANARY-3410",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02734",
+   "SOURCE_ID": "IT-T7-142",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T7-142-VALIDATE_ROUTE-3411",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02750",
+   "SOURCE_ID": "IT-T7-142",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T7-142-CANARY-3412",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02751",
+   "SOURCE_ID": "IT-T8-023",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T8-023-VALIDATE_ROUTE-3413",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02771",
+   "SOURCE_ID": "IT-T8-023",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T8-023-CANARY-3414",
+   "FONTE_FALHOU": false,
+   "PORQUE": "PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "TASK_ID": "T02752",
+   "SOURCE_ID": "IT-T8-032",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T8-032-VALIDATE_ROUTE-3415",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02772",
+   "SOURCE_ID": "IT-T8-032",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T8-032-CANARY-3416",
+   "FONTE_FALHOU": false,
+   "PORQUE": "PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "TASK_ID": "T02753",
+   "SOURCE_ID": "IT-T8-037",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T8-037-VALIDATE_ROUTE-3417",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02773",
+   "SOURCE_ID": "IT-T8-037",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T8-037-CANARY-3418",
+   "FONTE_FALHOU": false,
+   "PORQUE": "HTTP 403"
+  },
+  {
+   "TASK_ID": "T02754",
+   "SOURCE_ID": "IT-T8-048",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T8-048-VALIDATE_ROUTE-3419",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02774",
+   "SOURCE_ID": "IT-T8-048",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T8-048-CANARY-3420",
+   "FONTE_FALHOU": false,
+   "PORQUE": "PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "TASK_ID": "T02755",
+   "SOURCE_ID": "IT-T1-005",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-005-BUILD_CONTRACT-3421",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02775",
+   "SOURCE_ID": "IT-T1-005",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-005-VALIDATE_ROUTE-3422",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02776",
+   "SOURCE_ID": "IT-T1-005",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-005-CANARY-3423",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02756",
+   "SOURCE_ID": "IT-T1-007",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-007-BUILD_CONTRACT-3424",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02777",
+   "SOURCE_ID": "IT-T1-007",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-007-VALIDATE_ROUTE-3425",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02778",
+   "SOURCE_ID": "IT-T1-007",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-007-CANARY-3426",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02757",
+   "SOURCE_ID": "IT-T1-009",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-009-BUILD_CONTRACT-3427",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02779",
+   "SOURCE_ID": "IT-T1-009",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-009-VALIDATE_ROUTE-3428",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02780",
+   "SOURCE_ID": "IT-T1-009",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-009-CANARY-3429",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02758",
+   "SOURCE_ID": "IT-T1-010",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-010-BUILD_CONTRACT-3430",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02781",
+   "SOURCE_ID": "IT-T1-010",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-010-VALIDATE_ROUTE-3431",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02782",
+   "SOURCE_ID": "IT-T1-010",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-010-CANARY-3432",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02759",
+   "SOURCE_ID": "IT-T1-011",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-011-BUILD_CONTRACT-3433",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02783",
+   "SOURCE_ID": "IT-T1-011",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-011-VALIDATE_ROUTE-3434",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02784",
+   "SOURCE_ID": "IT-T1-011",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T1-011-CANARY-3435",
+   "FONTE_FALHOU": false,
+   "PORQUE": "PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "TASK_ID": "T02760",
+   "SOURCE_ID": "IT-T1-016",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-016-BUILD_CONTRACT-3436",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02785",
+   "SOURCE_ID": "IT-T1-016",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-016-VALIDATE_ROUTE-3437",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02786",
+   "SOURCE_ID": "IT-T1-016",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-016-CANARY-3438",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02761",
+   "SOURCE_ID": "IT-T1-018",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-018-BUILD_CONTRACT-3439",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02787",
+   "SOURCE_ID": "IT-T1-018",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-018-VALIDATE_ROUTE-3440",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02788",
+   "SOURCE_ID": "IT-T1-018",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-018-CANARY-3441",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02762",
+   "SOURCE_ID": "IT-T1-022",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-022-BUILD_CONTRACT-3442",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02789",
+   "SOURCE_ID": "IT-T1-022",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-022-VALIDATE_ROUTE-3443",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02790",
+   "SOURCE_ID": "IT-T1-022",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-022-CANARY-3444",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02763",
+   "SOURCE_ID": "IT-T10-009",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-009-BUILD_CONTRACT-3445",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02791",
+   "SOURCE_ID": "IT-T10-009",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-009-VALIDATE_ROUTE-3446",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02792",
+   "SOURCE_ID": "IT-T10-009",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T10-009-CANARY-3447",
+   "FONTE_FALHOU": false,
+   "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (69 ligacoes para 2293 caracteres, 0 em paragrafos)"
+  },
+  {
+   "TASK_ID": "T02764",
+   "SOURCE_ID": "IT-T10-010",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T10-010-BUILD_CONTRACT-3448",
+   "FONTE_FALHOU": false,
+   "PORQUE": "linha do coletor sem INDEX_URL: nada a importar"
+  },
+  {
+   "TASK_ID": "T02765",
+   "SOURCE_ID": "IT-T11-005",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T11-005-BUILD_CONTRACT-3449",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02793",
+   "SOURCE_ID": "IT-T11-005",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T11-005-VALIDATE_ROUTE-3450",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02794",
+   "SOURCE_ID": "IT-T11-005",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T11-005-CANARY-3451",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02766",
+   "SOURCE_ID": "IT-T2-006",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-006-BUILD_CONTRACT-3452",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02795",
+   "SOURCE_ID": "IT-T2-006",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-006-VALIDATE_ROUTE-3453",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02796",
+   "SOURCE_ID": "IT-T2-006",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-006-CANARY-3454",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02729",
+   "SOURCE_ID": "IT-T7-050",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-050-VALIDATE_ROUTE-3455",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02730",
+   "SOURCE_ID": "IT-T7-051",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-051-VALIDATE_ROUTE-3456",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02731",
+   "SOURCE_ID": "IT-T7-052",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-052-VALIDATE_ROUTE-3457",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02767",
+   "SOURCE_ID": "IT-T2-008",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-008-BUILD_CONTRACT-3458",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02797",
+   "SOURCE_ID": "IT-T2-008",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-008-VALIDATE_ROUTE-3459",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02798",
+   "SOURCE_ID": "IT-T2-008",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T2-008-CANARY-3460",
+   "FONTE_FALHOU": false,
+   "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (153 ligacoes para 5402 caracteres, 1294 em paragrafos)"
+  },
+  {
+   "TASK_ID": "T02768",
+   "SOURCE_ID": "IT-T2-014",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T2-014-BUILD_CONTRACT-3461",
+   "FONTE_FALHOU": false,
+   "PORQUE": "linha do coletor sem INDEX_URL: nada a importar"
+  },
+  {
+   "TASK_ID": "T02769",
+   "SOURCE_ID": "IT-T5-006",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-006-BUILD_CONTRACT-3462",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02799",
+   "SOURCE_ID": "IT-T5-006",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T5-006-VALIDATE_ROUTE-3463",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02770",
+   "SOURCE_ID": "IT-T5-015",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-015-BUILD_CONTRACT-3464",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02800",
+   "SOURCE_ID": "IT-T5-015",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-015-VALIDATE_ROUTE-3465",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02801",
+   "SOURCE_ID": "IT-T5-015",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T5-015-CANARY-3466",
+   "FONTE_FALHOU": false,
+   "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (151 ligacoes para 4038 caracteres, 1088 em paragrafos)"
+  },
+  {
+   "TASK_ID": "T02802",
+   "SOURCE_ID": "IT-T5-018",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T5-018-BUILD_CONTRACT-3467",
+   "FONTE_FALHOU": false,
+   "PORQUE": "linha do coletor sem INDEX_URL: nada a importar"
+  },
+  {
+   "TASK_ID": "T02803",
+   "SOURCE_ID": "IT-T5-024",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-024-BUILD_CONTRACT-3468",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02822",
+   "SOURCE_ID": "IT-T5-024",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-024-VALIDATE_ROUTE-3469",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02823",
+   "SOURCE_ID": "IT-T5-024",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T5-024-CANARY-3470",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02804",
+   "SOURCE_ID": "IT-T5-025",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T5-025-BUILD_CONTRACT-3471",
+   "FONTE_FALHOU": false,
+   "PORQUE": "contrato importado reprovado: {'SOURCE_ID': 'IT-T5-025', 'FALHAS': ['ROUTE_RESOLVED: LINK_PATTERN casa com a propria INDEX_URL (listagem viraria item)']}"
+  },
+  {
+   "TASK_ID": "T02805",
+   "SOURCE_ID": "IT-T5-027",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-027-BUILD_CONTRACT-3472",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02824",
+   "SOURCE_ID": "IT-T5-027",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-027-VALIDATE_ROUTE-3473",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02825",
+   "SOURCE_ID": "IT-T5-027",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T5-027-CANARY-3474",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 88 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02799",
+   "SOURCE_ID": "IT-T5-006",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T5-006-VALIDATE_ROUTE-3475",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02806",
+   "SOURCE_ID": "IT-T5-030",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-030-BUILD_CONTRACT-3476",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02826",
+   "SOURCE_ID": "IT-T5-030",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-030-VALIDATE_ROUTE-3477",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02827",
+   "SOURCE_ID": "IT-T5-030",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T5-030-CANARY-3478",
+   "FONTE_FALHOU": false,
+   "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (326 ligacoes para 6023 caracteres, 671 em paragrafos)"
+  },
+  {
+   "TASK_ID": "T02807",
+   "SOURCE_ID": "IT-T5-033",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-033-BUILD_CONTRACT-3479",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02828",
+   "SOURCE_ID": "IT-T5-033",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-033-VALIDATE_ROUTE-3480",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02829",
+   "SOURCE_ID": "IT-T5-033",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T5-033-CANARY-3481",
+   "FONTE_FALHOU": false,
+   "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (113 ligacoes para 3334 caracteres, 1159 em paragrafos)"
+  },
+  {
+   "TASK_ID": "T02808",
+   "SOURCE_ID": "IT-T9-009",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T9-009-BUILD_CONTRACT-3482",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02830",
+   "SOURCE_ID": "IT-T9-009",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T9-009-VALIDATE_ROUTE-3483",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02831",
+   "SOURCE_ID": "IT-T9-009",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T9-009-CANARY-3484",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02809",
+   "SOURCE_ID": "IT-T9-011",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T9-011-BUILD_CONTRACT-3485",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02832",
+   "SOURCE_ID": "IT-T9-011",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T9-011-VALIDATE_ROUTE-3486",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02833",
+   "SOURCE_ID": "IT-T9-011",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T9-011-CANARY-3487",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02810",
+   "SOURCE_ID": "IT-T1-001",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T1-001-BUILD_CONTRACT-3488",
+   "FONTE_FALHOU": false,
+   "PORQUE": "sem identidade alocada para esta fonte"
+  },
+  {
+   "TASK_ID": "T02811",
+   "SOURCE_ID": "IT-T10-031",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-031-BUILD_CONTRACT-3489",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02834",
+   "SOURCE_ID": "IT-T10-031",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-031-VALIDATE_ROUTE-3490",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02835",
+   "SOURCE_ID": "IT-T10-031",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T10-031-CANARY-3491",
+   "FONTE_FALHOU": false,
+   "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (297 ligacoes para 9430 caracteres, 2184 em paragrafos)"
+  },
+  {
+   "TASK_ID": "T02812",
+   "SOURCE_ID": "IT-T7-002",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T7-002-BUILD_CONTRACT-3492",
+   "FONTE_FALHOU": false,
+   "PORQUE": "sem identidade alocada para esta fonte"
+  },
+  {
+   "TASK_ID": "T02813",
+   "SOURCE_ID": "IT-T8-001",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T8-001-BUILD_CONTRACT-3493",
+   "FONTE_FALHOU": false,
+   "PORQUE": "sem identidade alocada para esta fonte"
+  },
+  {
+   "TASK_ID": "T02814",
+   "SOURCE_ID": "IT-T9-008",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T9-008-BUILD_CONTRACT-3494",
+   "FONTE_FALHOU": false,
+   "PORQUE": "sem identidade alocada para esta fonte"
+  },
+  {
+   "TASK_ID": "T02815",
+   "SOURCE_ID": "IT-T12-067",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T12-067-VALIDATE_ROUTE-3495",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02836",
+   "SOURCE_ID": "IT-T12-067",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T12-067-CANARY-3496",
+   "FONTE_FALHOU": false,
+   "PORQUE": "HTTP 422"
+  },
+  {
+   "TASK_ID": "T02816",
+   "SOURCE_ID": "IT-T5-042",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T5-042-VALIDATE_ROUTE-3497",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02817",
+   "SOURCE_ID": "IT-T5-043",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T5-043-VALIDATE_ROUTE-3498",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02818",
+   "SOURCE_ID": "IT-T5-044",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T5-044-VALIDATE_ROUTE-3499",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02819",
+   "SOURCE_ID": "IT-T5-045",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T5-045-VALIDATE_ROUTE-3500",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02820",
+   "SOURCE_ID": "IT-T5-047",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T5-047-VALIDATE_ROUTE-3501",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02821",
+   "SOURCE_ID": "IT-T5-048",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T5-048-VALIDATE_ROUTE-3502",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02837",
+   "SOURCE_ID": "IT-T5-050",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T5-050-VALIDATE_ROUTE-3503",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02838",
+   "SOURCE_ID": "IT-T7-016",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T7-016-VALIDATE_ROUTE-3504",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02839",
+   "SOURCE_ID": "IT-T7-018",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T7-018-VALIDATE_ROUTE-3505",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02840",
+   "SOURCE_ID": "IT-T7-045",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T7-045-VALIDATE_ROUTE-3506",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02857",
+   "SOURCE_ID": "IT-T7-045",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-045-CANARY-3507",
+   "FONTE_FALHOU": false,
+   "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h"
+  },
+  {
+   "TASK_ID": "T02683",
+   "SOURCE_ID": "IT-T1-014",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T1-014-VALIDATE_ROUTE-3508",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02841",
+   "SOURCE_ID": "CAND-0182",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0182-QUALIFY-3509",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@VinidAbruzzo): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.chan"
+  },
+  {
+   "TASK_ID": "T02842",
+   "SOURCE_ID": "CAND-0184",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0184-QUALIFY-3510",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCEg22ii3Awy6eyRybNqO-8Q ja e IT-T12-007: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02843",
+   "SOURCE_ID": "CAND-0185",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0185-QUALIFY-3511",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCOiX7jy7G-NMPtaA9QaNQrg ja e IT-T5-037: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02844",
+   "SOURCE_ID": "CAND-0186",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0186-QUALIFY-3512",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UC3HdHdHUZomg1l3K_UWv9PQ ja e IT-T5-038: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02845",
+   "SOURCE_ID": "CAND-0187",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0187-QUALIFY-3513",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@AgroNotizie): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.chann"
+  },
+  {
+   "TASK_ID": "T02846",
+   "SOURCE_ID": "CAND-0188",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0188-QUALIFY-3514",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@rinovaricerche): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.ch"
+  },
+  {
+   "TASK_ID": "T02847",
+   "SOURCE_ID": "CAND-0189",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0189-QUALIFY-3515",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCHm8wgnyeNFP2luUq_lMPMg ja e IT-T7-016: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02848",
+   "SOURCE_ID": "CAND-0190",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0190-QUALIFY-3516",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/cifospa): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.chann"
+  },
+  {
+   "TASK_ID": "T02836",
+   "SOURCE_ID": "IT-T12-067",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T12-067-CANARY-3517",
+   "FONTE_FALHOU": false,
+   "PORQUE": "HTTP 422"
+  },
+  {
+   "TASK_ID": "T02849",
+   "SOURCE_ID": "CAND-0191",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0191-QUALIFY-3518",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCB3cnpKOvT56elhTKE7cjSg ja e IT-T9-014: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02850",
+   "SOURCE_ID": "CAND-0192",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0192-QUALIFY-3519",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@fondazionenavarra_Ferrara): @handle, /user/, /c/ e playlist so se resolvem pela API "
+  },
+  {
+   "TASK_ID": "T02851",
+   "SOURCE_ID": "CAND-0193",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0193-QUALIFY-3520",
+   "FONTE_FALHOU": false,
+   "PORQUE": "territorio indeterminado pelo nome (Granarolo — Youtube ufficiale) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou caracte"
+  },
+  {
+   "TASK_ID": "T02852",
+   "SOURCE_ID": "CAND-0194",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0194-QUALIFY-3521",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCS-EXLzpmRwcnJNsm9SWJdA ja e IT-T11-006: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02853",
+   "SOURCE_ID": "CAND-0195",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0195-QUALIFY-3522",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCrCabYjtyqdzu1zXo95o7Jw ja e IT-T8-004: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02854",
+   "SOURCE_ID": "CAND-0196",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0196-QUALIFY-3523",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCDNXhv9mPzYo5FQKkg_oSWw ja e IT-T5-043: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02855",
+   "SOURCE_ID": "CAND-0197",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0197-QUALIFY-3524",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@arpa_lazio): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.channe"
+  },
+  {
+   "TASK_ID": "T02856",
+   "SOURCE_ID": "CAND-0198",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0198-QUALIFY-3525",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCTK_ULXg3gzn8el_oFk-5eA ja e IT-T2-026: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02858",
+   "SOURCE_ID": "CAND-0199",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0199-QUALIFY-3526",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCamw8rL1JPLjfa3Bx6ax8Eg ja e IT-T2-027: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02859",
+   "SOURCE_ID": "CAND-0200",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0200-QUALIFY-3527",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCfqqPifpfaZUI30hxiygmJw ja e IT-T7-018: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02860",
+   "SOURCE_ID": "CAND-0201",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0201-QUALIFY-3528",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@consorziodibonificaesttici5074): @handle, /user/, /c/ e playlist so se resolvem pela"
+  },
+  {
+   "TASK_ID": "T02861",
+   "SOURCE_ID": "CAND-0202",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0202-QUALIFY-3529",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@GranaPadanoDOP): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.ch"
+  },
+  {
+   "TASK_ID": "T02862",
+   "SOURCE_ID": "CAND-0203",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0203-QUALIFY-3530",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/Fondazioneminoprio): @handle, /user/, /c/ e playlist so se resolvem pela API (yo"
+  },
+  {
+   "TASK_ID": "T02863",
+   "SOURCE_ID": "CAND-0204",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0204-QUALIFY-3531",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCtBD35n-HE7x_MWnjc1kt7g ja e IT-T2-028: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02857",
+   "SOURCE_ID": "IT-T7-045",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T7-045-CANARY-3532",
+   "FONTE_FALHOU": false,
+   "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h"
+  },
+  {
+   "TASK_ID": "T02864",
+   "SOURCE_ID": "CAND-0205",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0205-QUALIFY-3533",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCpiryXByW32kGxQXTlbnSXA ja e IT-T12-008: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02865",
+   "SOURCE_ID": "CAND-0206",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0206-QUALIFY-3534",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCH_LCqE9qGb6TvpXwGudNbQ ja e IT-T12-010: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02866",
+   "SOURCE_ID": "CAND-0207",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0207-QUALIFY-3535",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCFkdwOroXwCFMXHneVMeYqQ ja e IT-T7-023: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02867",
+   "SOURCE_ID": "CAND-0208",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0208-QUALIFY-3536",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCdJ3sb6r1X0pjU6XR9OMdGw ja e IT-T7-024: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02868",
+   "SOURCE_ID": "CAND-0209",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0209-QUALIFY-3537",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/CiaAgricoltori): @handle, /user/, /c/ e playlist so se resolvem pela API (youtub"
+  },
+  {
+   "TASK_ID": "T02869",
+   "SOURCE_ID": "CAND-0210",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0210-QUALIFY-3538",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UC4LCuwIcRPhrE2mFJ8ZXtLg ja e IT-T7-026: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02870",
+   "SOURCE_ID": "CAND-0211",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0211-QUALIFY-3539",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCEgJbey3UogPJPmdlBEAjKQ ja e IT-T7-027: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02871",
+   "SOURCE_ID": "CAND-0212",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0212-QUALIFY-3540",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCJbuSrQ57Z-dAYGI7n2VwPg ja e IT-T7-028: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02872",
+   "SOURCE_ID": "CAND-0213",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0213-QUALIFY-3541",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UC84-4aKRmQbIG5eprbIaR9Q ja e IT-T9-016: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02873",
+   "SOURCE_ID": "CAND-0214",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0214-QUALIFY-3542",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/FederBioItalia): @handle, /user/, /c/ e playlist so se resolvem pela API (youtub"
+  },
+  {
+   "TASK_ID": "T02874",
+   "SOURCE_ID": "CAND-0215",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0215-QUALIFY-3543",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/ISPRAVIDEO): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.ch"
+  },
+  {
+   "TASK_ID": "T02875",
+   "SOURCE_ID": "CAND-0216",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0216-QUALIFY-3544",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCmPpv0_TilfaF9Df5SzeFiQ ja e IT-T9-017: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02876",
+   "SOURCE_ID": "CAND-0217",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0217-QUALIFY-3545",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/myfruitvideo): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube."
+  },
+  {
+   "TASK_ID": "T02877",
+   "SOURCE_ID": "CAND-0218",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0218-QUALIFY-3546",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@NoiSiamoAgricoltura): @handle, /user/, /c/ e playlist so se resolvem pela API (youtu"
+  },
+  {
+   "TASK_ID": "T02878",
+   "SOURCE_ID": "CAND-0219",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0219-QUALIFY-3547",
+   "FONTE_FALHOU": false,
+   "PORQUE": "qualificada: CAND-0219 -> IT-T5-157 (T5)"
+  },
+  {
+   "TASK_ID": "T02898",
+   "SOURCE_ID": "IT-T5-157",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-157-BUILD_CONTRACT-3548",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02899",
+   "SOURCE_ID": "IT-T5-157",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-157-VALIDATE_ROUTE-3549",
+   "FONTE_FALHOU": false,
+   "PORQUE": "rota do Scrap: canal-youtube · youtube-data-api-v3:playlistItems.list · ALLOWED"
+  },
+  {
+   "TASK_ID": "T02879",
+   "SOURCE_ID": "CAND-0220",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0220-QUALIFY-3550",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/reterurale): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.ch"
+  },
+  {
+   "TASK_ID": "T02880",
+   "SOURCE_ID": "CAND-0221",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0221-QUALIFY-3551",
+   "FONTE_FALHOU": false,
+   "PORQUE": "qualificada: CAND-0221 -> IT-T3-025 (T3)"
+  },
+  {
+   "TASK_ID": "T02900",
+   "SOURCE_ID": "IT-T3-025",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T3-025-BUILD_CONTRACT-3552",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02901",
+   "SOURCE_ID": "IT-T3-025",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T3-025-VALIDATE_ROUTE-3553",
+   "FONTE_FALHOU": false,
+   "PORQUE": "rota do Scrap: canal-youtube · youtube-data-api-v3:playlistItems.list · ALLOWED"
+  },
+  {
+   "TASK_ID": "T02881",
+   "SOURCE_ID": "CAND-0222",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0222-QUALIFY-3554",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@statobrado): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.channe"
+  },
+  {
+   "TASK_ID": "T02882",
+   "SOURCE_ID": "CAND-0223",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0223-QUALIFY-3555",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@Agromoderni): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.chann"
+  },
+  {
+   "TASK_ID": "T02883",
+   "SOURCE_ID": "CAND-0224",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0224-QUALIFY-3556",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/LaRegionePiemonte): @handle, /user/, /c/ e playlist so se resolvem pela API (you"
+  },
+  {
+   "TASK_ID": "T02884",
+   "SOURCE_ID": "CAND-0225",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0225-QUALIFY-3557",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/Agrilevante/feed): @handle, /user/, /c/ e playlist so se resolvem pela API (yout"
+  },
+  {
+   "TASK_ID": "T02885",
+   "SOURCE_ID": "CAND-0226",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0226-QUALIFY-3558",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/unialdomoro): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.c"
+  },
+  {
+   "TASK_ID": "T02886",
+   "SOURCE_ID": "CAND-0227",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0227-QUALIFY-3559",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCKdQcnPtPZs3k08e5jrFSNQ ja e IT-T5-048: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02887",
+   "SOURCE_ID": "CAND-0228",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0228-QUALIFY-3560",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/vinochianticlassico): @handle, /user/, /c/ e playlist so se resolvem pela API (y"
+  },
+  {
+   "TASK_ID": "T02888",
+   "SOURCE_ID": "CAND-0229",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0229-QUALIFY-3561",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/brunello1888): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube."
+  },
+  {
+   "TASK_ID": "T02889",
+   "SOURCE_ID": "CAND-0230",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0230-QUALIFY-3562",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCosKzVZGcw6VR3sW9QKGkVw ja e IT-T7-035: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02890",
+   "SOURCE_ID": "CAND-0231",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0231-QUALIFY-3563",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/c/RegioneToscanaUfficiale): @handle, /user/, /c/ e playlist so se resolvem pela API ("
+  },
+  {
+   "TASK_ID": "T02891",
+   "SOURCE_ID": "CAND-0232",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0232-QUALIFY-3564",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/winetv): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.channe"
+  },
+  {
+   "TASK_ID": "T02892",
+   "SOURCE_ID": "CAND-0233",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0233-QUALIFY-3565",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCxIuSXfCNVnzTLD3EJFcQng ja e IT-T12-015: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02893",
+   "SOURCE_ID": "CAND-0234",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0234-QUALIFY-3566",
+   "FONTE_FALHOU": false,
+   "PORQUE": "territorio indeterminado pelo nome (Interpoma — Youtube ufficiale) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou caracte"
+  },
+  {
+   "TASK_ID": "T02894",
+   "SOURCE_ID": "CAND-0235",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0235-QUALIFY-3567",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCWRr0vMGqdmyqzdm3bNGY4Q ja e IT-T5-050: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02895",
+   "SOURCE_ID": "CAND-0236",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0236-QUALIFY-3568",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/Agriumbria): @handle, /user/, /c/ e playlist so se resolvem pela API (youtube.ch"
+  },
+  {
+   "TASK_ID": "T02896",
+   "SOURCE_ID": "CAND-0237",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0237-QUALIFY-3569",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UC4wxlAIQauBZe7CDnLXkWqA ja e IT-T12-016: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02897",
+   "SOURCE_ID": "CAND-0238",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0238-QUALIFY-3570",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/user/ProseccoSuperiore): @handle, /user/, /c/ e playlist so se resolvem pela API (you"
+  },
+  {
+   "TASK_ID": "T02902",
+   "SOURCE_ID": "CAND-0239",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0239-QUALIFY-3571",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCpdWeEtUCU1aHhJnj2TwheA ja e IT-T7-037: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02903",
+   "SOURCE_ID": "CAND-0240",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-CAND-0240-QUALIFY-3572",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o canal UCmRWXB6nOPLc5x42XXhGrWg ja e IT-T7-039: nenhum numero novo; o contrato dessa fonte e que nomeia a rota"
+  },
+  {
+   "TASK_ID": "T02904",
+   "SOURCE_ID": "CAND-0241",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-CAND-0241-QUALIFY-3573",
+   "FONTE_FALHOU": false,
+   "PORQUE": "NAO SEI: canal YouTube sem channel_id no endereco (https://www.youtube.com/@informatoreagrario): @handle, /user/, /c/ e playlist so se resolvem pela API (youtub"
+  }
+ ]
+}

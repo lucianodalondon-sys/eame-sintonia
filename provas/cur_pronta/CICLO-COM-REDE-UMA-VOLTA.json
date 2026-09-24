@@ -1,0 +1,1041 @@
+{
+ "ANTES": {
+  "DATASET": "FUNIL-DO-CURADOR",
+  "CONTRATO": "FUNIL_DO_CURADOR/v1",
+  "MEDIDO_EM": "2026-09-24T13:25:33.969133+00:00",
+  "FONTES_NO_LIVRO": 1040,
+  "COM_TAREFA_ABERTA": 0,
+  "TAREFAS_ABERTAS": 0,
+  "FUNIL": {
+   "WEB": {
+    "CANDIDATAS_SEM_SOURCE_ID": 762,
+    "QUALIFICADAS": 990,
+    "COM_CONTRATO": 653,
+    "ROTA_EM_PROVA_OU_PROVADA": 627,
+    "READY": 102,
+    "READY_CURRENT": 43,
+    "READY_LEGACY": 59,
+    "ELEGIVEIS_NO_PORTAO": 37
+   },
+   "SOCIAL": {
+    "CANDIDATAS_SEM_SOURCE_ID": 170,
+    "QUALIFICADAS": 50,
+    "COM_CONTRATO": 50,
+    "ROTA_EM_PROVA_OU_PROVADA": 50,
+    "READY": 41,
+    "READY_CURRENT": 0,
+    "READY_LEGACY": 41,
+    "ELEGIVEIS_NO_PORTAO": 0
+   }
+  },
+  "MAQUINA": [
+   {
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "N": 403,
+    "WEB": 403,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 403,
+    "DIAS_PARADO_MEDIANA": 1.04,
+    "DIAS_PARADO_MAX": 3.65,
+    "TAREFA_QUE_AVANCA": "REPAIR_CONTRACT",
+    "QUEM_ENFILEIRA": "gatilho_discovery:candidatas_a_reparar",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "dono R1 (reparo-fontes-v1): reparo deterministico do padrao; nao instalada — hoje NINGUEM as move"
+   },
+   {
+    "ESTADO": "SEMANTIC_REVIEW",
+    "N": 198,
+    "WEB": 198,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 198,
+    "DIAS_PARADO_MEDIANA": 1.04,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "canal_da_decisao_semantica (humano/Opus)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "decisao com prova no DECISOES-SEMANTICAS; a QUALIFY le-a; nao e maquina"
+   },
+   {
+    "ESTADO": "READY_FOR_COLLECTION",
+    "N": 143,
+    "WEB": 102,
+    "SOCIAL": 41,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 143,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 3.39,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "LEGACY: AVANCAR re-mede (HTML) ou importa o contrato do coletor; CURRENT elegivel: REVALIDAR (B3) com prova > 7 dias; YouTube pelo feed: rota do Scrap (buraco social)"
+   },
+   {
+    "ESTADO": "CANARY_PENDING",
+    "N": 102,
+    "WEB": 102,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 102,
+    "DIAS_PARADO_MEDIANA": 1.8,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE/CANARY",
+    "QUEM_ENFILEIRA": "gatilho_discovery:candidatas_a_reparar",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "a cadeia do worker enfileira; ORFAS sem tarefa sao da R1 (nao instalada)"
+   },
+   {
+    "ESTADO": "POLICY_BLOCK",
+    "N": 69,
+    "WEB": 69,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 69,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "decisao do dono (D15/D22/D23/D24)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "CAPABILITY_BLOCK",
+    "N": 39,
+    "WEB": 39,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 39,
+    "DIAS_PARADO_MEDIANA": 1.87,
+    "DIAS_PARADO_MAX": 3.6,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "capacidade nova (SCRAP ENGINEER)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "UNKNOWN",
+    "N": 34,
+    "WEB": 34,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 34,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "NINGUEM",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "BURACO: estado sem tarefa que o avance"
+   },
+   {
+    "ESTADO": "DEGRADED",
+    "N": 18,
+    "WEB": 18,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 18,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "REPAIR/BUILD_CONTRACT",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "com contrato do robo: REPAIR; so na tabela do coletor: importar e re-medir"
+   },
+   {
+    "ESTADO": "CONTRACT_READY_ROUTE_BLOCKED",
+    "N": 13,
+    "WEB": 13,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 13,
+    "DIAS_PARADO_MEDIANA": 1.87,
+    "DIAS_PARADO_MAX": 1.87,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "rota nova (robots)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "RETRY_AFTER",
+    "N": 11,
+    "WEB": 2,
+    "SOCIAL": 9,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 11,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "a tarefa volta pelo relogio da fila; sem tarefa ha > 24 h, o AVANCAR repoe"
+   },
+   {
+    "ESTADO": "CONTRACT_PENDING",
+    "N": 5,
+    "WEB": 5,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 5,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "BUILD_CONTRACT",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "o worker enfileira-a apos a QUALIFY; sem tarefa, o AVANCAR repoe"
+   },
+   {
+    "ESTADO": "AUTH_BLOCK",
+    "N": 5,
+    "WEB": 5,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 5,
+    "DIAS_PARADO_MEDIANA": 1.43,
+    "DIAS_PARADO_MAX": 1.43,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "decisao do dono",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   }
+  ],
+  "AVANCO_ELEGIVEL": {
+   "TOTAL": 143,
+   "POR_REGRA": {
+    "DEGRADADA_COLETOR": 18,
+    "READY_LEGACY": 26,
+    "LEGACY_COLETOR": 24,
+    "SEM_CONTRATO": 5,
+    "ADIADA": 11,
+    "SOCIAL_QUALIFY": 59
+   }
+  }
+ },
+ "DEPOIS": {
+  "DATASET": "FUNIL-DO-CURADOR",
+  "CONTRATO": "FUNIL_DO_CURADOR/v1",
+  "MEDIDO_EM": "2026-09-24T13:28:46.439751+00:00",
+  "FONTES_NO_LIVRO": 1040,
+  "COM_TAREFA_ABERTA": 1,
+  "TAREFAS_ABERTAS": 1,
+  "FUNIL": {
+   "WEB": {
+    "CANDIDATAS_SEM_SOURCE_ID": 762,
+    "QUALIFICADAS": 990,
+    "COM_CONTRATO": 653,
+    "ROTA_EM_PROVA_OU_PROVADA": 625,
+    "READY": 102,
+    "READY_CURRENT": 45,
+    "READY_LEGACY": 57,
+    "ELEGIVEIS_NO_PORTAO": 38
+   },
+   "SOCIAL": {
+    "CANDIDATAS_SEM_SOURCE_ID": 170,
+    "QUALIFICADAS": 50,
+    "COM_CONTRATO": 50,
+    "ROTA_EM_PROVA_OU_PROVADA": 50,
+    "READY": 41,
+    "READY_CURRENT": 0,
+    "READY_LEGACY": 41,
+    "ELEGIVEIS_NO_PORTAO": 0
+   }
+  },
+  "MAQUINA": [
+   {
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "N": 418,
+    "WEB": 418,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 418,
+    "DIAS_PARADO_MEDIANA": 1.04,
+    "DIAS_PARADO_MAX": 3.65,
+    "TAREFA_QUE_AVANCA": "REPAIR_CONTRACT",
+    "QUEM_ENFILEIRA": "gatilho_discovery:candidatas_a_reparar",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "dono R1 (reparo-fontes-v1): reparo deterministico do padrao; nao instalada — hoje NINGUEM as move"
+   },
+   {
+    "ESTADO": "SEMANTIC_REVIEW",
+    "N": 198,
+    "WEB": 198,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 198,
+    "DIAS_PARADO_MEDIANA": 1.04,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "canal_da_decisao_semantica (humano/Opus)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "decisao com prova no DECISOES-SEMANTICAS; a QUALIFY le-a; nao e maquina"
+   },
+   {
+    "ESTADO": "READY_FOR_COLLECTION",
+    "N": 143,
+    "WEB": 102,
+    "SOCIAL": 41,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 143,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 3.4,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "LEGACY: AVANCAR re-mede (HTML) ou importa o contrato do coletor; CURRENT elegivel: REVALIDAR (B3) com prova > 7 dias; YouTube pelo feed: rota do Scrap (buraco social)"
+   },
+   {
+    "ESTADO": "CANARY_PENDING",
+    "N": 102,
+    "WEB": 102,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 102,
+    "DIAS_PARADO_MEDIANA": 1.8,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE/CANARY",
+    "QUEM_ENFILEIRA": "gatilho_discovery:candidatas_a_reparar",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "a cadeia do worker enfileira; ORFAS sem tarefa sao da R1 (nao instalada)"
+   },
+   {
+    "ESTADO": "POLICY_BLOCK",
+    "N": 69,
+    "WEB": 69,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 69,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "decisao do dono (D15/D22/D23/D24)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "CAPABILITY_BLOCK",
+    "N": 39,
+    "WEB": 39,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 39,
+    "DIAS_PARADO_MEDIANA": 1.88,
+    "DIAS_PARADO_MAX": 3.61,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "capacidade nova (SCRAP ENGINEER)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "UNKNOWN",
+    "N": 34,
+    "WEB": 34,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 34,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "NINGUEM",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "BURACO: estado sem tarefa que o avance"
+   },
+   {
+    "ESTADO": "CONTRACT_READY_ROUTE_BLOCKED",
+    "N": 14,
+    "WEB": 14,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 14,
+    "DIAS_PARADO_MEDIANA": 1.88,
+    "DIAS_PARADO_MAX": 1.88,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "rota nova (robots)",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "RETRY_AFTER",
+    "N": 12,
+    "WEB": 3,
+    "SOCIAL": 9,
+    "COM_TAREFA_ABERTA": 1,
+    "SEM_TAREFA": 11,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "VALIDATE_ROUTE",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "a tarefa volta pelo relogio da fila; sem tarefa ha > 24 h, o AVANCAR repoe"
+   },
+   {
+    "ESTADO": "AUTH_BLOCK",
+    "N": 6,
+    "WEB": 6,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 6,
+    "DIAS_PARADO_MEDIANA": 1.43,
+    "DIAS_PARADO_MAX": 1.43,
+    "TAREFA_QUE_AVANCA": "—",
+    "QUEM_ENFILEIRA": "decisao do dono",
+    "AUTOMATICO_NO_CICLO": false,
+    "NOTA": "PARADO por desenho"
+   },
+   {
+    "ESTADO": "CONTRACT_PENDING",
+    "N": 5,
+    "WEB": 5,
+    "SOCIAL": 0,
+    "COM_TAREFA_ABERTA": 0,
+    "SEM_TAREFA": 5,
+    "DIAS_PARADO_MEDIANA": 2.92,
+    "DIAS_PARADO_MAX": 2.92,
+    "TAREFA_QUE_AVANCA": "BUILD_CONTRACT",
+    "QUEM_ENFILEIRA": "avancar_fontes:avancar",
+    "AUTOMATICO_NO_CICLO": true,
+    "NOTA": "o worker enfileira-a apos a QUALIFY; sem tarefa, o AVANCAR repoe"
+   }
+  ],
+  "AVANCO_ELEGIVEL": {
+   "TOTAL": 123,
+   "POR_REGRA": {
+    "READY_LEGACY": 24,
+    "LEGACY_COLETOR": 24,
+    "SEM_CONTRATO": 5,
+    "ADIADA": 11,
+    "SOCIAL_QUALIFY": 59
+   }
+  }
+ },
+ "GATILHO": {
+  "ACCOES": [
+   "AVANCAR",
+   "FEEDER"
+  ],
+  "QUEUE_ELIGIBLE": 0,
+  "AVANCO_ELEGIVEL": 143,
+  "AVANCAR": {
+   "CANDIDATAS": 143,
+   "POR_REGRA": {
+    "DEGRADADA_COLETOR": 18,
+    "READY_LEGACY": 26,
+    "LEGACY_COLETOR": 24,
+    "SEM_CONTRATO": 5,
+    "ADIADA": 11,
+    "SOCIAL_QUALIFY": 59
+   },
+   "ENFILEIRADAS": [
+    {
+     "SOURCE_ID": "IT-T1-004",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T1-012",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T1-014",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T1-015",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T1-017",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T1-020",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T1-023",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T10-002",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T10-006",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T10-008",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T10-014",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T10-016",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T2-018",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T2-021",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T2-023",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T3-017",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T3-021",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T5-021",
+     "REGRA": "DEGRADADA_COLETOR",
+     "TASK_TYPE": "BUILD_CONTRACT"
+    },
+    {
+     "SOURCE_ID": "IT-T1-025",
+     "REGRA": "READY_LEGACY",
+     "TASK_TYPE": "VALIDATE_ROUTE"
+    },
+    {
+     "SOURCE_ID": "IT-T10-026",
+     "REGRA": "READY_LEGACY",
+     "TASK_TYPE": "VALIDATE_ROUTE"
+    }
+   ]
+  },
+  "FEEDER": {
+   "CANDIDATAS_LIDAS": 932,
+   "ENFILEIRADAS": 0,
+   "CLASSIFICADAS_BARRADAS": 0,
+   "UNKNOWN": 0,
+   "JA_PROCESSADAS_IGNORADAS": 932,
+   "TAREFAS_CRIADAS": 0,
+   "SOCIAIS_ENFILEIRADAS": 0,
+   "QUEUE_DEPTH_ANTES": 2582,
+   "QUEUE_DEPTH_DEPOIS": 2582
+  },
+  "CANDIDATAS_POR_QUALIFICAR": 0,
+  "QUEUE_ELIGIBLE_APOS_FEEDER": 20,
+  "DECISAO": "FEEDER_SO — acervo ainda chega"
+ },
+ "WORKER": [
+  {
+   "TASK_ID": "T02661",
+   "SOURCE_ID": "IT-T1-004",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-004-BUILD_CONTRACT-3318",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02662",
+   "SOURCE_ID": "IT-T1-012",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-012-BUILD_CONTRACT-3319",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02663",
+   "SOURCE_ID": "IT-T1-014",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-014-BUILD_CONTRACT-3320",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02664",
+   "SOURCE_ID": "IT-T1-015",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-015-BUILD_CONTRACT-3321",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02665",
+   "SOURCE_ID": "IT-T1-017",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-017-BUILD_CONTRACT-3322",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02666",
+   "SOURCE_ID": "IT-T1-020",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-020-BUILD_CONTRACT-3323",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02667",
+   "SOURCE_ID": "IT-T1-023",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-023-BUILD_CONTRACT-3324",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02668",
+   "SOURCE_ID": "IT-T10-002",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-002-BUILD_CONTRACT-3325",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02669",
+   "SOURCE_ID": "IT-T10-006",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-006-BUILD_CONTRACT-3326",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02670",
+   "SOURCE_ID": "IT-T10-008",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-008-BUILD_CONTRACT-3327",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02671",
+   "SOURCE_ID": "IT-T10-014",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-014-BUILD_CONTRACT-3328",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02672",
+   "SOURCE_ID": "IT-T10-016",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-016-BUILD_CONTRACT-3329",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02673",
+   "SOURCE_ID": "IT-T2-018",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-018-BUILD_CONTRACT-3330",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02674",
+   "SOURCE_ID": "IT-T2-021",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-021-BUILD_CONTRACT-3331",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02675",
+   "SOURCE_ID": "IT-T2-023",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T2-023-BUILD_CONTRACT-3332",
+   "FONTE_FALHOU": false,
+   "PORQUE": "contrato importado reprovado: {'SOURCE_ID': 'IT-T2-023', 'FALHAS': ['ROUTE_RESOLVED: LINK_PATTERN casa com a propria INDEX_URL (listagem viraria item)']}"
+  },
+  {
+   "TASK_ID": "T02676",
+   "SOURCE_ID": "IT-T3-017",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T3-017-BUILD_CONTRACT-3333",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02677",
+   "SOURCE_ID": "IT-T3-021",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T3-021-BUILD_CONTRACT-3334",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02678",
+   "SOURCE_ID": "IT-T5-021",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-021-BUILD_CONTRACT-3335",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02679",
+   "SOURCE_ID": "IT-T1-025",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-025-VALIDATE_ROUTE-3336",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02698",
+   "SOURCE_ID": "IT-T1-025",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T1-025-CANARY-3337",
+   "FONTE_FALHOU": false,
+   "PORQUE": "PASS_PARCIAL: falta DETAIL_LINKS"
+  },
+  {
+   "TASK_ID": "T02680",
+   "SOURCE_ID": "IT-T10-026",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-026-VALIDATE_ROUTE-3338",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02699",
+   "SOURCE_ID": "IT-T10-026",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T10-026-CANARY-3339",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02681",
+   "SOURCE_ID": "IT-T1-004",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T1-004-VALIDATE_ROUTE-3340",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "TASK_ID": "T02682",
+   "SOURCE_ID": "IT-T1-012",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-012-VALIDATE_ROUTE-3341",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02700",
+   "SOURCE_ID": "IT-T1-012",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T1-012-CANARY-3342",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 124 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02683",
+   "SOURCE_ID": "IT-T1-014",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T1-014-VALIDATE_ROUTE-3343",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02684",
+   "SOURCE_ID": "IT-T1-015",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-015-VALIDATE_ROUTE-3344",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02701",
+   "SOURCE_ID": "IT-T1-015",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T1-015-CANARY-3345",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02685",
+   "SOURCE_ID": "IT-T1-017",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-017-VALIDATE_ROUTE-3346",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02702",
+   "SOURCE_ID": "IT-T1-017",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "BLOCK",
+   "EVIDENCE_REF": "EV-IT-T1-017-CANARY-3347",
+   "FONTE_FALHOU": false,
+   "PORQUE": "HTTP 403"
+  },
+  {
+   "TASK_ID": "T02686",
+   "SOURCE_ID": "IT-T1-020",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-020-VALIDATE_ROUTE-3348",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02703",
+   "SOURCE_ID": "IT-T1-020",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T1-020-CANARY-3349",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 105 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02687",
+   "SOURCE_ID": "IT-T1-023",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T1-023-VALIDATE_ROUTE-3350",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02704",
+   "SOURCE_ID": "IT-T1-023",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T1-023-CANARY-3351",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 273 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02688",
+   "SOURCE_ID": "IT-T10-002",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-002-VALIDATE_ROUTE-3352",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02705",
+   "SOURCE_ID": "IT-T10-002",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T10-002-CANARY-3353",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 93 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02689",
+   "SOURCE_ID": "IT-T10-006",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-006-VALIDATE_ROUTE-3354",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02706",
+   "SOURCE_ID": "IT-T10-006",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T10-006-CANARY-3355",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 73 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02690",
+   "SOURCE_ID": "IT-T10-008",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-008-VALIDATE_ROUTE-3356",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02707",
+   "SOURCE_ID": "IT-T10-008",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T10-008-CANARY-3357",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02691",
+   "SOURCE_ID": "IT-T10-014",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-014-VALIDATE_ROUTE-3358",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02708",
+   "SOURCE_ID": "IT-T10-014",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T10-014-CANARY-3359",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 98 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02692",
+   "SOURCE_ID": "IT-T10-016",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-016-VALIDATE_ROUTE-3360",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02709",
+   "SOURCE_ID": "IT-T10-016",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T10-016-CANARY-3361",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02683",
+   "SOURCE_ID": "IT-T1-014",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "RETRY",
+   "EVIDENCE_REF": "EV-IT-T1-014-VALIDATE_ROUTE-3362",
+   "FONTE_FALHOU": false,
+   "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"
+  },
+  {
+   "TASK_ID": "T02693",
+   "SOURCE_ID": "IT-T2-018",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-018-VALIDATE_ROUTE-3363",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02710",
+   "SOURCE_ID": "IT-T2-018",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-018-CANARY-3364",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02694",
+   "SOURCE_ID": "IT-T2-021",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T2-021-VALIDATE_ROUTE-3365",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02711",
+   "SOURCE_ID": "IT-T2-021",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T2-021-CANARY-3366",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 38 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02695",
+   "SOURCE_ID": "IT-T3-017",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T3-017-VALIDATE_ROUTE-3367",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02712",
+   "SOURCE_ID": "IT-T3-017",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "PASS_PARCIAL",
+   "EVIDENCE_REF": "EV-IT-T3-017-CANARY-3368",
+   "FONTE_FALHOU": false,
+   "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+  },
+  {
+   "TASK_ID": "T02696",
+   "SOURCE_ID": "IT-T3-021",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T3-021-VALIDATE_ROUTE-3369",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02713",
+   "SOURCE_ID": "IT-T3-021",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T3-021-CANARY-3370",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 74 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  },
+  {
+   "TASK_ID": "T02697",
+   "SOURCE_ID": "IT-T5-021",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "EVIDENCE_REF": "EV-IT-T5-021-VALIDATE_ROUTE-3371",
+   "FONTE_FALHOU": false,
+   "PORQUE": ""
+  },
+  {
+   "TASK_ID": "T02714",
+   "SOURCE_ID": "IT-T5-021",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "FAIL",
+   "EVIDENCE_REF": "EV-IT-T5-021-CANARY-3372",
+   "FONTE_FALHOU": false,
+   "PORQUE": "nenhum dos 42 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve"
+  }
+ ]
+}

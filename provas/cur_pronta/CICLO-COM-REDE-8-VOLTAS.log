@@ -1,0 +1,14 @@
+Could not find platform independent libraries <prefix>
+volta 0 avanco_elegivel 123 enfileiradas 20 tarefas 40 {('VALIDATE_ROUTE', 'OK'): 16, ('CANARY', 'PASS_PARCIAL'): 13, ('CANARY', 'FAIL'): 1, ('VALIDATE_ROUTE', 'RETRY'): 7, ('VALIDATE_ROUTE', 'BLOCK'): 1, ('CANARY', 'BLOCK'): 1, ('CANARY', 'OK'): 1}
+volta 1 avanco_elegivel 103 enfileiradas 20 tarefas 54 {('VALIDATE_ROUTE', 'OK'): 17, ('CANARY', 'PASS_PARCIAL'): 4, ('CANARY', 'BLOCK'): 1, ('BUILD_CONTRACT', 'OK'): 14, ('CANARY', 'OK'): 9, ('CANARY', 'FAIL'): 3, ('BUILD_CONTRACT', 'FAIL'): 2, ('VALIDATE_ROUTE', 'RETRY'): 4}
+volta 2 avanco_elegivel 83 enfileiradas 20 tarefas 36 {('BUILD_CONTRACT', 'FAIL'): 6, ('BUILD_CONTRACT', 'OK'): 7, ('VALIDATE_ROUTE', 'OK'): 8, ('CANARY', 'PASS_PARCIAL'): 1, ('CANARY', 'FAIL'): 4, ('VALIDATE_ROUTE', 'RETRY'): 1, ('CANARY', 'OK'): 2, ('CANARY', 'RETRY'): 1, ('VALIDATE_ROUTE', 'BLOCK'): 6}
+volta 3 avanco_elegivel 63 enfileiradas 20 tarefas 23 {('VALIDATE_ROUTE', 'BLOCK'): 3, ('VALIDATE_ROUTE', 'OK'): 1, ('CANARY', 'RETRY'): 2, ('VALIDATE_ROUTE', 'RETRY'): 1, ('QUALIFY', 'BLOCK'): 7, ('QUALIFY', 'OK'): 9}
+volta 4 avanco_elegivel 43 enfileiradas 20 tarefas 21 {('QUALIFY', 'OK'): 12, ('QUALIFY', 'BLOCK'): 8, ('CANARY', 'RETRY'): 1}
+volta 5 avanco_elegivel 23 enfileiradas 20 tarefas 24 {('QUALIFY', 'OK'): 7, ('BUILD_CONTRACT', 'OK'): 2, ('VALIDATE_ROUTE', 'OK'): 2, ('QUALIFY', 'BLOCK'): 13}
+volta 6 avanco_elegivel 3 enfileiradas 3 tarefas 3 {('QUALIFY', 'OK'): 2, ('QUALIFY', 'BLOCK'): 1}
+volta 7 avanco_elegivel 0 enfileiradas 0 tarefas 0 {}
+EGRESSO no fim: PASS
+FUNIL WEB {'CANDIDATAS_SEM_SOURCE_ID': 762, 'QUALIFICADAS': 1019, 'COM_CONTRATO': 654, 'ROTA_EM_PROVA_OU_PROVADA': 627, 'READY': 69, 'READY_CURRENT': 57, 'READY_LEGACY': 12, 'ELEGIVEIS_NO_PORTAO': 50}
+FUNIL SOCIAL {'CANDIDATAS_SEM_SOURCE_ID': 170, 'QUALIFICADAS': 52, 'COM_CONTRATO': 52, 'ROTA_EM_PROVA_OU_PROVADA': 43, 'READY': 41, 'READY_CURRENT': 0, 'READY_LEGACY': 41, 'ELEGIVEIS_NO_PORTAO': 0}
+MAQUINA {'CONTRACTED_CANARY_FAILED': 452, 'SEMANTIC_REVIEW': 200, 'READY_FOR_COLLECTION': 110, 'CANARY_PENDING': 104, 'POLICY_BLOCK': 69, 'CAPABILITY_BLOCK': 66, 'UNKNOWN': 34, 'CONTRACT_READY_ROUTE_BLOCKED': 24, 'AUTH_BLOCK': 8, 'RETRY_AFTER': 4}
+AVANCO {'TOTAL': 0, 'POR_REGRA': {}}
