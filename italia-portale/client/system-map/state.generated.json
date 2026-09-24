@@ -1549,9 +1549,11 @@
       "ferramentas/big_collection/BC4C-MICRO-POS-INSTALACAO.json",
       "ferramentas/big_collection/BC4D-MICRO-FINAL-REGRAS.json",
       "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json",
+      "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
       "ferramentas/big_collection/BC5-PASSO-A.json",
       "ferramentas/big_collection/BC5-SUITE-dfec8873.json",
       "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+      "ferramentas/big_collection/bc5_big_collection.py",
       "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/cdp.py",
@@ -3396,9 +3398,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "bc4-correcoes-v1",
-    "HEAD": "52a9a67d2314958725fb354417f217cfd15d281d",
-    "GENERATED_AT": "2026-09-24T08:53:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c0126f02c63ea0e863594aba39df6a892e6465c6a20550053db7e3c3ce537acd"
+    "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
+    "GENERATED_AT": "2026-09-24T09:15:43-03:00",
+    "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505"
   },
   "FAMILIES": [
     {
@@ -3426,7 +3428,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 91
+      "count": 92
     },
     {
       "id": "F-ESPERA",
@@ -3621,7 +3623,7 @@
       "y": 190,
       "w": 820,
       "h": 9056,
-      "count": 7
+      "count": 8
     },
     {
       "id": "Z-ACOES",
@@ -30518,6 +30520,82 @@
       "y": 360
     },
     {
+      "id": "C-BIG-COLLECTION-CONDUTOR-BC5",
+      "name": "Condutor da Big Collection (1.a onda, BC5)",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "Corre a coorte congelada UMA fonte de cada vez pela porta canonica (micro_coleta.correr), fotografa a Sala antes/depois de cada fonte e aplica os disjuntores do BIG-COLLECTION-RUNBOOK §6 (egresso fora de IT, Sala a descer, >30 min, 3 FAILED seguidas, C6, proveniencia partida, pedidos acima do teto). Nao decide elegibilidade nem admissao: pergunta aos donos.",
+      "why_here": "BC5 (24/09/2026): o arranque da 1.a onda pedia uma fonte de cada vez com paragem automatica; o correr da micro corre a lista inteira sem disjuntores entre fontes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/big_collection/bc5_big_collection.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-PRESERVAR"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/collection-ledger/italy/runs.ndjson"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6415,
+      "y": 360
+    },
+    {
       "id": "C-CADEIA-V21",
       "name": "Cadeia canonica V2.1",
       "territory": "Z-MOTOR",
@@ -32399,8 +32477,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6415,
-      "y": 360
+      "x": 6000,
+      "y": 682
     },
     {
       "id": "C-CI-COLETA",
@@ -33883,7 +33961,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 682
     },
     {
@@ -39939,6 +40017,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-BIG-COLLECTION-CONDUTOR-BC5",
         "C-CENSO-IDENTIDADE-IT",
         "C-CORRIDA-CANONICA",
         "C-ESTRADAS-IT",
@@ -40002,11 +40081,11 @@
         "PLANO": null,
         "PROVA": [
           "coleta/italy_executor.py:87",
+          "ferramentas/big_collection/bc5_big_collection.py:31",
           "medidas/coorte_da_micro_collection.py:66",
-          "medidas/corrida_canonica.py:85",
-          "medidas/padrao_da_coleta.py:65"
+          "medidas/corrida_canonica.py:85"
         ],
-        "PORQUE": "estas pecas importam-na — C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS · C-LASTMILE-MEDIDORES · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS · C-LASTMILE-MEDIDORES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 8655,
       "y": 1326
@@ -40699,8 +40778,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6415,
-      "y": 682
+      "x": 6000,
+      "y": 1004
     },
     {
       "id": "C-LUGAR-COLETA",
@@ -42225,7 +42304,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1004
     },
     {
@@ -49429,8 +49508,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
-      "y": 1004
+      "x": 6000,
+      "y": 1326
     },
     {
       "id": "C-RECORRENCIA",
@@ -55291,7 +55370,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -90065,6 +90144,41 @@
     },
     {
       "from": "C-IT-PRESERVAR",
+      "to": "C-BIG-COLLECTION-CONDUTOR-BC5",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Condutor da Big Collection (1.a onda, BC5). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/bc5_big_collection.py",
+          "line": 31,
+          "snippet": "LEDGER = Path(\"data/collection-ledger/italy/runs.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-BIG-COLLECTION-CONDUTOR-BC5",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-BIG-COLLECTION-CONDUTOR-BC5",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
       "to": "C-CENSO-IDENTIDADE-IT",
       "type": "READS",
       "payload": "artefacto",
@@ -122718,7 +122832,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1576,
+  "UNCLAIMED_FILES_COUNT": 1577,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -122955,7 +123069,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 215,
+      "PECAS_EM_DESACORDO": 216,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -122967,23 +123081,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 240
+      "TOTAL_DE_PECAS": 241
     }
   ],
   "COUNTS": {
-    "components": 240,
+    "components": 241,
     "components_proven": 31,
-    "components_pending": 201,
+    "components_pending": 202,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1261,
-    "edges_proven": 1197,
+    "edges": 1262,
+    "edges_proven": 1198,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2802,
-    "files_covered": 1226,
+    "files_tracked": 2804,
+    "files_covered": 1227,
     "files_code_unclaimed": 0,
-    "roles_proven": 162,
+    "roles_proven": 163,
     "roles_declared_only": 8,
     "roles_unknown": 70,
     "roles_conflict": 37,

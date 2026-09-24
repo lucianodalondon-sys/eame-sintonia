@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  52a9a67d2314958725fb354417f217cfd15d281d
+HEAD_DA_MEDICAO  e18ce992cba8e915259f338b7e0a671dd51628ab
 BRANCH           bc4-correcoes-v1
-GERADO_EM        2026-09-24T08:53:42-03:00
-CARDS            91
+GERADO_EM        2026-09-24T09:15:43-03:00
+CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -760,6 +760,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
+### `C-BIG-COLLECTION-CONDUTOR-BC5` · Condutor da Big Collection (1.a onda, BC5)
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/big_collection/bc5_big_collection.py` |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `data/collection-ledger/italy/runs.ndjson` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 1 · saem 0 |
+| **arestas provadas** | entram 1 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 1 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+
 ### `C-CENSO-UNIFICACAO` · Censo das lanes antes de unificar
 
 | | |
@@ -1198,19 +1223,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe teste que exercita isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/italy_executor.py:87; medidas/coorte_da_micro_collection.py:66; medidas/corrida_canonica.py:85 |
-| **porquê** | estas pecas importam-na — C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS · C-LASTMILE-MEDIDORES · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | coleta/italy_executor.py:87; ferramentas/big_collection/bc5_big_collection.py:31; medidas/coorte_da_micro_collection.py:66 |
+| **porquê** | estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS · C-LASTMILE-MEDIDORES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `superficie/rede.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 2 · saem 19 |
-| **arestas provadas** | entram 2 · saem 19 |
+| **arestas no mapa** | entram 2 · saem 20 |
+| **arestas provadas** | entram 2 · saem 20 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 21 |
+| **prova das ligações** | CODE 22 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2334,8 +2359,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 OK                 37
 UNKNOWN            29
 SYSTEM_GAP         10
-TERMINAL           7
+TERMINAL           8
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              91
+TOTAL              92
 ```

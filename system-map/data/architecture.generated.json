@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "bc4-correcoes-v1",
-    "HEAD": "52a9a67d2314958725fb354417f217cfd15d281d",
-    "GENERATED_AT": "2026-09-24T08:53:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c0126f02c63ea0e863594aba39df6a892e6465c6a20550053db7e3c3ce537acd"
+    "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
+    "GENERATED_AT": "2026-09-24T09:15:43-03:00",
+    "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505"
   },
   "FILES": [
     {
@@ -10642,6 +10642,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
+      "sha": "5de283160b227138bc2512a923fc49f1135a3cc4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/big_collection/BC5-PASSO-A.json",
       "sha": "67b7e0f9c4a1014728fb7c8b875566781fc02024",
       "ext": ".json",
@@ -10660,6 +10667,13 @@
       "sha": "793c99e84143b50ee57cb34bf340c45a70dfe94d",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/big_collection/bc5_big_collection.py",
+      "sha": "e83cf8195c8fd32a1f06c549250b4d327bf019ed",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -17524,7 +17538,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8cca2fcbe4058bd81857b621d862cc97737a8c97",
+      "sha": "e0ad7cf32e30fdd8f53f653e7f57f19713f4331b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -31337,6 +31351,17 @@
         "file": "ferramentas/apify_pool.py",
         "line": 105,
         "snippet": "import falhas"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/bc5_big_collection.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/bc5_big_collection.py",
+        "line": 31,
+        "snippet": "LEDGER = Path(\"data/collection-ledger/italy/runs.ndjson\")"
       }
     },
     {
@@ -81733,10 +81758,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2802,
-    "files_readable": 1279,
-    "files_code_dir": 1115,
-    "file_edges": 5595,
+    "files_tracked": 2804,
+    "files_readable": 1280,
+    "files_code_dir": 1117,
+    "file_edges": 5596,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
