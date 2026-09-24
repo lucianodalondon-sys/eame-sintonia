@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "pesquisadores-v2",
-    "HEAD": "dd299df238725d1a7a81b061a1336e18e1a4ed76",
-    "GENERATED_AT": "2026-09-24T13:10:08-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c1420863d3149ec08cfa8bb94fa422b54806257d4923ce17a3aed79ad2f9c2bf"
+    "HEAD": "89ac30176ae414ef5663fd3be0f39586f5bf93bd",
+    "GENERATED_AT": "2026-09-24T15:41:54-03:00",
+    "SOURCE_TREE_FINGERPRINT": "52dfcc5e2fe885d29b76489d5e4fde43a1b9d76d0ad7d2088d0196f43c97a675"
   },
   "FILES": [
     {
@@ -1438,7 +1438,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "611ab15f9b2787f96a27d74d008c85181f755bd9",
+      "sha": "991122ae109f35c4e150d2f9c72a0cd10ae4a2ba",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -2299,7 +2299,7 @@
     },
     {
       "path": "curadoria/DISCOVERY-VISITED.json",
-      "sha": "b0c9d81065e74bf0cd08480cc477e0263dff6045",
+      "sha": "046b4ec7c90b3bfb71e24bb6097f68a6cae828b4",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2446,7 +2446,7 @@
     },
     {
       "path": "curadoria/PESQUISADORES-LISTA-V1.json",
-      "sha": "f5eb77d679786456322471e40fc7e2e936eaab97",
+      "sha": "abb8e22078f2f3f16720a23a4a9c18cd9f12c7c1",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2503,6 +2503,13 @@
     {
       "path": "curadoria/PESQUISADORES-P1D-PROOF-V1.json",
       "sha": "73706d4af3e92e008f0f41005a3d5ff360ef0a1f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-P1E-PROOF-V1.json",
+      "sha": "cfdf68521f0f7365101c1b956dc10a833fdaf735",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -17755,7 +17762,7 @@
     },
     {
       "path": "superficie/rede.py",
-      "sha": "7b746ad737c93858fabd3620c38ba6b0fe2e1bc1",
+      "sha": "84e8afb0e69c729ff98e115ed86f6ecc35f9a39f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19000,6 +19007,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_egresso_consenso.py",
+      "sha": "3f84054142ecc328191dbe56d9ddcdd082bb6d37",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_ensaio_offline_micro.py",
       "sha": "cce3f6aa96b9a797d545e2890d462509de3484aa",
       "ext": ".py",
@@ -19533,7 +19547,7 @@
     },
     {
       "path": "tests/test_preflight_de_egresso.py",
-      "sha": "25563ea78599e4ce49905fc6f5b644766bd24442",
+      "sha": "b00624729e7a3baf1d636b428a78b7d38df11b16",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26736,6 +26750,17 @@
         "file": "curadoria/pesquisadores.py",
         "line": 1292,
         "snippet": "PROOF_P1D = RAIZ / \"curadoria\" / \"PESQUISADORES-P1D-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/PESQUISADORES-P1E-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 1398,
+        "snippet": "PROOF_P1E = RAIZ / \"curadoria\" / \"PESQUISADORES-P1E-PROOF-V1.json\""
       }
     },
     {
@@ -72356,6 +72381,39 @@
       }
     },
     {
+      "from_file": "tests/test_egresso_consenso.py",
+      "to_file": "provas/recollection_http_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_egresso_consenso.py",
+        "line": 206,
+        "snippet": "permitidos = {\"provas/recollection_http_local.mjs\"}"
+      }
+    },
+    {
+      "from_file": "tests/test_egresso_consenso.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_egresso_consenso.py",
+        "line": 17,
+        "snippet": "import rede  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_egresso_consenso.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_egresso_consenso.py",
+        "line": 204,
+        "snippet": "donos = sorted(set(r.stdout.split()) - {\"superficie/rede.py\"})"
+      }
+    },
+    {
       "from_file": "tests/test_ensaio_offline_micro.py",
       "to_file": "data/collection-ledger/italy/observations.ndjson",
       "type": "WRITES",
@@ -77598,7 +77656,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preflight_de_egresso.py",
-        "line": 167,
+        "line": 170,
         "snippet": "YML = os.path.join(RAIZ, \".github\", \"workflows\", \"sintonia-scrap.yml\")"
       }
     },
@@ -77620,7 +77678,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preflight_de_egresso.py",
-        "line": 214,
+        "line": 217,
         "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")"
       }
     },
@@ -77631,7 +77689,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preflight_de_egresso.py",
-        "line": 173,
+        "line": 176,
         "snippet": "orq = s.find(\"orquestrador/orquestrador.py\")"
       }
     },
@@ -82093,10 +82151,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2844,
-    "files_readable": 1282,
-    "files_code_dir": 1117,
-    "file_edges": 5601,
+    "files_tracked": 2846,
+    "files_readable": 1283,
+    "files_code_dir": 1118,
+    "file_edges": 5605,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

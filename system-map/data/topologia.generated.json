@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T16:20:54+00:00",
-  "HEAD": "dd299df238725d1a7a81b061a1336e18e1a4ed76",
+  "GENERATED_AT": "2026-09-24T18:56:58+00:00",
+  "HEAD": "89ac30176ae414ef5663fd3be0f39586f5bf93bd",
   "BRANCH": "pesquisadores-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "c1420863d3149ec08cfa8bb94fa422b54806257d4923ce17a3aed79ad2f9c2bf",
-  "FICHEIROS_NA_IMPRESSAO": 2992,
+  "SOURCE_TREE_FINGERPRINT": "52dfcc5e2fe885d29b76489d5e4fde43a1b9d76d0ad7d2088d0196f43c97a675",
+  "FICHEIROS_NA_IMPRESSAO": 2994,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3709,21 +3709,21 @@
    {
     "PATH": "superficie/rede.py",
     "PAPEL": "FONTE",
-    "VERSAO": "7b746ad737c93858fabd3620c38ba6b0fe2e1bc1",
+    "VERSAO": "84e8afb0e69c729ff98e115ed86f6ecc35f9a39f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c1420863d3149ec08cfa8bb94fa422b54806257d4923ce17a3aed79ad2f9c2bf",
+    "VERSAO": "52dfcc5e2fe885d29b76489d5e4fde43a1b9d76d0ad7d2088d0196f43c97a675",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c1420863d3149ec08cfa8bb94fa422b54806257d4923ce17a3aed79ad2f9c2bf",
+    "VERSAO": "52dfcc5e2fe885d29b76489d5e4fde43a1b9d76d0ad7d2088d0196f43c97a675",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4687,6 +4687,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_egresso_consenso.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "3f84054142ecc328191dbe56d9ddcdd082bb6d37",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_ensaio_offline_micro.py",
     "PAPEL": "FONTE",
     "VERSAO": "cce3f6aa96b9a797d545e2890d462509de3484aa",
@@ -5221,7 +5228,7 @@
    {
     "PATH": "tests/test_preflight_de_egresso.py",
     "PAPEL": "FONTE",
-    "VERSAO": "25563ea78599e4ce49905fc6f5b644766bd24442",
+    "VERSAO": "b00624729e7a3baf1d636b428a78b7d38df11b16",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5597,8 +5604,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 794,
-  "INPUTS_DIGEST": "4781525ba5e89a226ed31817da83859a8d07e223c02f0d450f933395e6683ad2",
+  "INPUTS_COUNT": 795,
+  "INPUTS_DIGEST": "58b16c1ec08b60c6669c18491bcdd574976d6b554739db1f466989225cde79d4",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5631,8 +5638,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "8ed80481238e50b9d9ebf3a03d169c88583ce5d38e16d9d10f90465e7268435c",
-  "SEMANTIC_HASH": "30443ed83b8fe63fdbc65cb7770724cb10181bc6853e02c81ac71d90cfb3aa96"
+  "MEASUREMENT_HASH": "cc4d5382b5be6097fb5289f361dded50d2c43de7b998c27bc910e6a3ccfed13c",
+  "SEMANTIC_HASH": "5d01719f60d45a40cc105a2642229f94f6e82c993eaa9248951b3ffe2f6a5d5e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -8987,6 +8994,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_egresso_consenso.py",
+      "LINHA": 17,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_preflight_de_egresso.py",
       "LINHA": 25,
       "SUPPORTS": "YES",
@@ -9137,6 +9152,14 @@
      {
       "FICHEIRO": "tests/test_coleta_externa.py",
       "LINHA": 672,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_egresso_consenso.py",
+      "LINHA": 204,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-TESTES",
@@ -32077,6 +32100,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROVA-PARIDADE--READS-->C-TESTES",
+    "FROM": "C-PROVA-PARIDADE",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_egresso_consenso.py",
+      "LINHA": 206,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-PARIDADE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--READS-->C-TESTES",
     "FROM": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
     "TO": "C-TESTES",
@@ -35183,7 +35228,7 @@
      },
      {
       "FICHEIRO": "tests/test_preflight_de_egresso.py",
-      "LINHA": 214,
+      "LINHA": 217,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
@@ -38795,7 +38840,7 @@
      },
      {
       "FICHEIRO": "tests/test_preflight_de_egresso.py",
-      "LINHA": 167,
+      "LINHA": 170,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
@@ -42540,12 +42585,12 @@
     ]
    }
   ],
-  "COUNT": 1193
+  "COUNT": 1194
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 181,
   "CARTOES_AUDITADOS": 181,
-  "ARESTAS_RELACIONADAS": 1193,
+  "ARESTAS_RELACIONADAS": 1194,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -42960,7 +43005,7 @@
    "CODE": 215,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 382,
+   "PROOF": 383,
    "READ": 272,
    "RULE": 212,
    "WRITE": 9
@@ -43404,6 +43449,7 @@
     "system-map/scripts/scan_repo.py",
     "system-map/tests/test_system_map.py",
     "tests/test_coleta_externa.py",
+    "tests/test_egresso_consenso.py",
     "tests/test_metricas.py",
     "tests/test_preflight_de_egresso.py"
    ],
@@ -43416,7 +43462,8 @@
    "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
-    "collections"
+    "collections",
+    "concurrent"
    ],
    "ENTRAM": 2,
    "SAEM": 11,
@@ -49310,7 +49357,8 @@
     "provas/paridade_red_team.mjs",
     "provas/recollection_http_local.mjs",
     "provas/recollection_red_team.mjs",
-    "provas/ttl_mutable_simulacao.py"
+    "provas/ttl_mutable_simulacao.py",
+    "tests/test_egresso_consenso.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIG-COLLECTION-GATES.md"
@@ -49325,12 +49373,13 @@
     "urllib"
    ],
    "ENTRAM": 5,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
     "READ"
    ],
    "PORQUE_SOZINHO": null,
@@ -51529,6 +51578,7 @@
     "tests/test_cortesia_no_transporte.py",
     "tests/test_d1_detector_d14.py",
     "tests/test_d24_video_de_pessoa.py",
+    "tests/test_egresso_consenso.py",
     "tests/test_ensaio_offline_micro.py",
     "tests/test_espinha_da_intelligence.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
@@ -51784,7 +51834,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 201,
+   "ENTRAM": 202,
    "SAEM": 28,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
