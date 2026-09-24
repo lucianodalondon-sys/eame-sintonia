@@ -1,0 +1,115 @@
+{
+ "DECISAO": "D32 (1) — duplicados entre irmas pela identidade do item",
+ "BUSCA": {
+  "INDICE": "C:\\cur\\irmas\\BUSCA.jsonl",
+  "SHA256": "a9634bcfba254e3f13a6cebf10db30590085577213bafed1f3c3077cbcc8d3aa",
+  "BYTES_EM": "C:\\cur\\irmas\\bytes",
+  "EGRESSO": "IT (consenso)",
+  "PEDIDOS": 27
+ },
+ "IDENTIDADE": "ITEM_IDENTITY/v1 (sha256 do maior paragrafo, >= 200 caracteres)",
+ "ITENS_NA_LISTAGEM": {
+  "IT-T10-045": 44,
+  "IT-T10-046": 44,
+  "IT-T10-047": 44,
+  "IT-T10-048": 0
+ },
+ "PARES": [
+  {
+   "A": "IT-T10-045",
+   "B": "IT-T10-046",
+   "EW_ID_COMUNS": 44,
+   "DE_A": 44,
+   "DE_B": 44
+  },
+  {
+   "A": "IT-T10-045",
+   "B": "IT-T10-047",
+   "EW_ID_COMUNS": 44,
+   "DE_A": 44,
+   "DE_B": 44
+  },
+  {
+   "A": "IT-T10-046",
+   "B": "IT-T10-047",
+   "EW_ID_COMUNS": 44,
+   "DE_A": 44,
+   "DE_B": 44
+  }
+ ],
+ "ITENS_ABERTOS_COMPARADOS": [
+  {
+   "EW_ID": "14992",
+   "FONTES": [
+    "IT-T10-045",
+    "IT-T10-046",
+    "IT-T10-047"
+   ],
+   "PAGINAS_DIFERENTES": 3,
+   "RETRATOS_DIFERENTES": 3,
+   "IDENTIDADES_DIFERENTES": 1,
+   "TODOS_MATERIA": true
+  },
+  {
+   "EW_ID": "14997",
+   "FONTES": [
+    "IT-T10-045",
+    "IT-T10-046",
+    "IT-T10-047"
+   ],
+   "PAGINAS_DIFERENTES": 3,
+   "RETRATOS_DIFERENTES": 3,
+   "IDENTIDADES_DIFERENTES": 1,
+   "TODOS_MATERIA": true
+  },
+  {
+   "EW_ID": "14998",
+   "FONTES": [
+    "IT-T10-045",
+    "IT-T10-046",
+    "IT-T10-047"
+   ],
+   "PAGINAS_DIFERENTES": 3,
+   "RETRATOS_DIFERENTES": 3,
+   "IDENTIDADES_DIFERENTES": 1,
+   "TODOS_MATERIA": true
+  },
+  {
+   "EW_ID": "15001",
+   "FONTES": [
+    "IT-T10-045",
+    "IT-T10-046",
+    "IT-T10-047"
+   ],
+   "PAGINAS_DIFERENTES": 3,
+   "RETRATOS_DIFERENTES": 3,
+   "IDENTIDADES_DIFERENTES": 1,
+   "TODOS_MATERIA": true
+  },
+  {
+   "EW_ID": "15003",
+   "FONTES": [
+    "IT-T10-045",
+    "IT-T10-046",
+    "IT-T10-047"
+   ],
+   "PAGINAS_DIFERENTES": 3,
+   "RETRATOS_DIFERENTES": 3,
+   "IDENTIDADES_DIFERENTES": 1,
+   "TODOS_MATERIA": true
+  },
+  {
+   "EW_ID": "15006",
+   "FONTES": [
+    "IT-T10-045",
+    "IT-T10-046",
+    "IT-T10-047"
+   ],
+   "PAGINAS_DIFERENTES": 3,
+   "RETRATOS_DIFERENTES": 3,
+   "IDENTIDADES_DIFERENTES": 1,
+   "TODOS_MATERIA": true
+  }
+ ],
+ "LEITURA": "As listagens partilham os mesmos EW_ID; a pagina (sha256) e o texto visivel do retrato diferem de irma para irma (rodape com o nome da associacao), a identidade do item nao. Por isso: a primeira irma que chega a READY colhe; as outras, com o mesmo item, ficam CONTRACTED_CANARY_FAILED com DUPLICADA_DE_IRMA e o nome da irma."
+}

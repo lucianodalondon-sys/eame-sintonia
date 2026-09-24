@@ -44,6 +44,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 import capturador as CAP  # noqa: E402  (UA ja medido: sem `Safari/`)
 import retrato_html as RH  # noqa: E402  (o gate CAPA != MATERIA, mesmos limiares do coletor)
+import irmas_por_item as IPI  # noqa: E402  (D32 (1): identidade do item entre irmas)
 
 TIMEOUT = 25
 CTX = ssl.create_default_context()
@@ -249,7 +250,9 @@ def canario_html(c: dict) -> dict:
             "LINKS": ret["LINKS"],
             "NON_WHITESPACE_CHARACTERS": ret["NON_WHITESPACE_CHARACTERS"],
             "PARAGRAPH_CHARACTERS": ret["PARAGRAPH_CHARACTERS"],
-            "TEXT_SHA256": ret["TEXT_SHA256"]}
+            "TEXT_SHA256": ret["TEXT_SHA256"],
+            # D32 (1): o que e igual entre irmas e o corpo, nao a pagina (irmas_por_item)
+            "ITEM_IDENTITY": IPI.identidade_do_item(b2)}
     base_r = {"HTTP": st2, "ALVO": alvo, "ALVOS_DESCOBERTOS": len(alvos),
               "DETAIL_ENUMERATED": len(alvos), "ITEM_ABERTO": item,
               "DETAIL_GATE": RH.GATE_VERSAO, "BYTES": len(b2)}

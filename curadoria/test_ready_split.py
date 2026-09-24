@@ -159,7 +159,11 @@ class OsDoisReady(unittest.TestCase):
                     evidence_ref="EV-x")
         F.enfileirar(NUNCA, F.REVALIDATE, priority=40)
         with mock.patch.object(CAN, "buscar", rede({INDEX: indice_com_itens(),
-                                                    "https://ex.it/news/mosca-olivo-calo-termico/": artigo_sintetico()})):
+                                                    # D32 (1): corpo proprio — o mesmo corpo de outra
+                                                    # fonte READY seria DUPLICADA_DE_IRMA, e nao e isso
+                                                    # que este teste mede
+                                                    "https://ex.it/news/mosca-olivo-calo-termico/": artigo_sintetico(
+                                                        corpo="La mosca dell'olivo rallenta con il caldo. " * 40)})):
             r = W.executar_uma(F.proxima(), W._contratos())
         self.assertEqual("OK", r["RESULTADO"])
         self.assertEqual(LC.READY_FOR_COLLECTION, LC.estado_de(NUNCA))

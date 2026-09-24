@@ -83,7 +83,7 @@ def uma_volta(pausa: float) -> dict:
     v = {"EVENTO": "VOLTA", "ORFAS_RECUPERADAS": len(orfas),
          "TAREFAS_EXECUTADAS": len(feitos),
          "RESULTADOS": {r: sum(1 for x in feitos if x["RESULTADO"] == r)
-                        for r in ("OK", "PASS_PARCIAL", "RETRY", "BLOCK", "FAIL")},
+                        for r in ("OK", "PASS_PARCIAL", "DUPLICADA_DE_IRMA", "RETRY", "BLOCK", "FAIL")},
          # FONTE FALHOU != SERVICO MORREU: etapas que levantaram excecao e
          # foram adiadas pelo worker. A volta sobreviveu — esta linha e a prova.
          "FONTES_REBENTARAM": sum(1 for x in feitos if x.get("FONTE_FALHOU")),

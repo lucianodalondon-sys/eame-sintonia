@@ -57,6 +57,7 @@ import decisao_semantica as DS     # noqa: E402
 import fila as F                   # noqa: E402
 import fonte_nova as FN            # noqa: E402
 import gate_de_rota as GATE        # noqa: E402
+import irmas_por_item as IPI       # noqa: E402
 import lifecycle as LC             # noqa: E402
 import rota_do_scrap_youtube as RSY  # noqa: E402
 import ready_split as RS           # noqa: E402
@@ -894,6 +895,25 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
                 return {"TASK_ID": tid, "SOURCE_ID": sid, "TASK_TYPE": tipo,
                         "RESULTADO": "PASS_PARCIAL", "EVIDENCE_REF": ref,
                         "FONTE_FALHOU": False, "PORQUE": regua["PORQUE"][:160]}
+            # ⚠️ D32 (1): IRMA QUE JA COLHE O MESMO ITEM NAO GANHA UM SEGUNDO READY.
+            # Medido na FederUnacoma: tres sites, uma base de noticias (44/44 iguais).
+            # O item e o mesmo pelo corpo (irmas_por_item), nao pela morada. Nao ha
+            # estado novo: fica CONTRACTED_CANARY_FAILED com a irma escrita.
+            identidade = (detalhe.get("ITEM_ABERTO") or {}).get("ITEM_IDENTITY")
+            if identidade:
+                provas = (json.loads(EVIDENCIA.read_text(encoding="utf-8")).get("PROVAS") or []
+                          if EVIDENCIA.exists() else [])
+                ready = {s for s, e in LC.snapshot().items() if e == LC.READY_FOR_COLLECTION}
+                irma = IPI.irma_que_ja_colhe(identidade, sid, provas, ready)
+                if irma:
+                    porque = ("DUPLICADA_DE_IRMA: o item aberto e o mesmo que %s (READY) ja "
+                              "colhe — %s" % (irma, IPI.VERSAO))
+                    if LC.estado_de(sid) != LC.CONTRACTED_CANARY_FAILED:
+                        LC.registar(sid, LC.CONTRACTED_CANARY_FAILED, porque[:200],
+                                    evidence_ref=ref, extra={"IRMA_QUE_JA_COLHE": irma})
+                    return {"TASK_ID": tid, "SOURCE_ID": sid, "TASK_TYPE": tipo,
+                            "RESULTADO": "DUPLICADA_DE_IRMA", "EVIDENCE_REF": ref,
+                            "FONTE_FALHOU": False, "PORQUE": porque[:160]}
             de = LC.estado_de(sid)
             if de not in LC.PODEM_PROMOVER:
                 LC.registar(sid, LC.CANARY_PENDING,
