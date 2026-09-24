@@ -193,18 +193,52 @@ class ACache(unittest.TestCase):
         self.assertIsNone(rede.ler_cache())
 
 
+# Quem pode citar o URL do ipinfo: SO os ficheiros que PROVAM a regra, nunca um
+# consumidor. Cada um com o porque — um nome sem razao ao lado nao guarda nada.
+PERMITIDOS = {
+    # o dono: o ipinfo vive la como TELEMETRIA, sem voto
+    "superficie/rede.py": "o dono; ipinfo so como telemetria",
+    # prova offline: demonstra que o pedido ao ipinfo NAO sai numa corrida sem rede
+    "provas/recollection_http_local.mjs": "prova que o ipinfo nao sai offline",
+    # o ataque de mutacao: escreve o ipinfo como VERIFICADOR para provar que os testes o matam
+    "scripts/egresso/mutar_egresso.py": "mutante `ipinfo_vota` (tem de morrer)",
+    # este teste: o URL aparece no grep que ele proprio corre e nas respostas injetadas
+    "tests/test_egresso_consenso.py": "a propria guarda (o padrao do grep)",
+}
+URL_DO_IPINFO = "https://ipinfo.io/json"
+
+
+def quem_cita_o_ipinfo(extra_untracked=False):
+    import subprocess
+    cmd = ["git", "-C", RAIZ, "grep", "-l"] + (["--untracked"] if extra_untracked else [])
+    cmd += ["-F", URL_DO_IPINFO, "--", "*.py", "*.mjs", "*.ps1", "*.sh", "*.yml"]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    return sorted(set(r.stdout.split()) - set(PERMITIDOS))
+
+
 class NinguemPerguntaAoServicoDirectamente(unittest.TestCase):
     """Os consumidores leem a medida pelo rede.py (EGR)."""
 
-    def test_nenhum_consumidor_de_coleta_chama_o_ipinfo(self):
-        import subprocess
-        r = subprocess.run(["git", "-C", RAIZ, "grep", "-l", "-F", "https://ipinfo.io/json", "--",
-                            "*.py", "*.mjs", "*.ps1", "*.sh", "*.yml"],
-                           capture_output=True, text=True)
-        donos = sorted(set(r.stdout.split()) - {"superficie/rede.py"})
-        # provas que PROVAM que o ipinfo nao sai numa corrida offline podem cita-lo
-        permitidos = {"provas/recollection_http_local.mjs"}
-        self.assertEqual(sorted(set(donos) - permitidos), [])
+    def test_nenhum_consumidor_chama_o_ipinfo(self):
+        self.assertEqual(quem_cita_o_ipinfo(), [])
+
+    def test_cada_permitido_existe_e_diz_porque(self):
+        """Um permitido que ja nao existe e uma porta aberta sem dono."""
+        for f, porque in PERMITIDOS.items():
+            with self.subTest(f=f):
+                self.assertTrue(os.path.isfile(os.path.join(RAIZ, f)), f)
+                self.assertGreater(len(porque), 10)
+
+    def test_a_guarda_morde_um_consumidor_novo(self):
+        """O contraponto: um coletor novo com o URL do ipinfo poe a guarda vermelha."""
+        falso = os.path.join(RAIZ, "coleta", "_consumidor_falso_egr.py")
+        with open(falso, "w", encoding="utf-8") as f:
+            f.write("URL = '%s'" % URL_DO_IPINFO + chr(10))
+        try:
+            self.assertEqual(quem_cita_o_ipinfo(extra_untracked=True),
+                             ["coleta/_consumidor_falso_egr.py"])
+        finally:
+            os.remove(falso)
 
 
 if __name__ == "__main__":
