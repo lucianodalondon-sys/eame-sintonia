@@ -137,7 +137,13 @@ def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
         h = _html.unescape(h).strip()
         if re.match(r"^[a-z][a-z0-9+.-]*:", h, re.I) and not h.lower().startswith(("http:", "https:")):
             continue
-        h = urljoin(index_url, h)
+        # ⚠️ Medido no livro inteiro (24/09): uma ligacao malformada («http://[x»)
+        # faz o urljoin rebentar com ValueError — e o canario inteiro da fonte caia
+        # em excecao. O leitor antigo nunca rebentava; esta ligacao salta-se.
+        try:
+            h = urljoin(index_url, h)
+        except ValueError:
+            continue
         if h.startswith(("http://", "https://")):
             hrefs.add(h.split("#")[0])
     return hrefs

@@ -36,5 +36,14 @@ class OLeitorDoCanario(unittest.TestCase):
         self.assertEqual(len(h), 5)
 
 
+class ALigacaoMalformada(unittest.TestCase):
+    """Medido no livro inteiro (24/09): «http://[x» fazia o urljoin rebentar e o canario caia."""
+
+    def test_ligacao_malformada_salta_se_e_o_resto_continua(self):
+        pagina = b'<a href="http://[malformada/x">m</a><a href="news_open.php?EW_ID=7">ok</a>'
+        h = C.hrefs_da_entrada(pagina, INDEX)
+        self.assertEqual(h, {"https://www.assomao.it/it/news_open.php?EW_ID=7"})
+
+
 if __name__ == "__main__":
     unittest.main()
