@@ -25,6 +25,8 @@
 # Uma so instancia: mutex «SINTONIA-ARRANQUE». A segunda sai logo, e diz porque.
 # -UmaVolta: faz 1-5 e sai (para provar). -SimularEgresso: finge o veredito do portao
 # (so para provar que o supervisor NAO arranca fora de IT; nao toca na rede).
+# -SimularEgresso @ficheiro: le o veredito do ficheiro a CADA medicao (ex.: «PASS IT», depois
+# «BLOCKED BR»), para provar a GUARDA sem desligar a VPN de ninguem (BC4, 24/09/2026).
 
 param([switch]$UmaVolta, [string]$SimularEgresso = "")
 
@@ -56,6 +58,7 @@ function Procs([string]$padrao) {
 function SalaPronta { & "$PGBIN\pg_isready.exe" -h 127.0.0.1 -p 54330 *> $null; return ($LASTEXITCODE -eq 0) }
 
 function Egresso {
+    if ($SimularEgresso -like "@*") { return ((Get-Content $SimularEgresso.Substring(1) -Raw) -replace '\s+$', '') }
     if ($SimularEgresso) { return $SimularEgresso }
     Push-Location $VIVA
     $env:PYTHONUTF8 = "1"

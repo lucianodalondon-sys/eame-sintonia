@@ -1,0 +1,61 @@
+{
+ "DATASET": "BC4-PROVA-RUNTIME-ARRANQUE",
+ "MISSAO": "BC4 (24/09/2026) prova 1 - o arranque BC3 no runtime INSTALADO (bot 8eec2e2a, ponte 98ec8fbf), sem reiniciar o PC",
+ "ANTES": {
+  "SUPERVISOR_PID": 47036,
+  "OBSERVADOR_PID": 48204,
+  "VIGIA_PID": 39516,
+  "TAREFA_PID": 17180,
+  "SALA_54330": "de pe, NAO tocada"
+ },
+ "PASSOS": [
+  "Stop-ScheduledTask: a tarefa (17180) morreu, os filhos (ex.: shell 44480) ficaram vivos -> parar a Tarefa nao derruba o bot",
+  "PARAR.flag com marca BC4 -> supervisor 47036 saiu limpo em <=5 s (STOPPED, worker IDLE); flag BC4 retirado",
+  "observador 48204/35068 e vigia 39516/38388 mortos a forca -> 0 processos dos tres",
+  "Start-ScheduledTask 00:29:10 -> vigia 00:29:14, observador 00:29:19, egresso IT 2x, supervisor 00:29:58 (vivo 00:30:07): 57 s",
+  "2.a instancia manual -> 'ARRANQUE ja a correr noutra instancia' (mutex) rc 0; Start-ScheduledTask repetido -> 1 arranque so (IgnoreNew)",
+  "contagem depois: supervisor python 1, observador python 1, vigia 1 arvore, arranque 1; ponte SAUDAVEL (volta 03:31:20Z)",
+  "GUARDA com egresso simulado por ficheiro (-SimularEgresso @ficheiro, a VPN real ficou IT): PASS IT -> BLOCKED BR 00:32:41 -> 2 medicoes BR (00:35:17, 00:38:17) -> PARAR.flag da guarda -> supervisor saiu (0 processos, STOPPED) -> PASS IT 00:38:48 -> 1.a boa 00:41:17 (espera) -> 2.a boa 00:44:18 -> flag da guarda retirado, supervisor relancado 00:44:29 (PID 18956)",
+  "copia de simulacao morta; Tarefa real relancada 00:45:15: tudo 'ja vivo', nada duplicado"
+ ],
+ "VEREDITO": {
+  "VOLTAM_SOZINHOS": "PASS",
+  "UMA_SO_INSTANCIA": "PASS",
+  "GUARDA_PARA_O_BOT_FORA_DE_IT": "PASS (egresso simulado; a VPN real nao foi desligada)",
+  "GUARDA_RELANCA_SO_COM_2_IT": "PASS"
+ },
+ "NAO_PROVADO": [
+  "reinicio real do PC (logon) - pedido: sem reiniciar",
+  "a queda REAL da VPN com este runtime (visto na BC3 em 23/09 17:54 e 18:27, com o bot antigo)"
+ ],
+ "LOG": [
+  "2026-09-24 00:29:12 === ARRANQUE (UmaVolta=False, SimularEgresso='') ===",
+  "2026-09-24 00:29:13 SALA ja responde em 54330",
+  "2026-09-24 00:29:17 VIGIA lancado; processos: 3",
+  "2026-09-24 00:29:22 OBSERVADOR lancado da casa C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-viva; processos: 2",
+  "2026-09-24 00:29:24 EGRESSO PASS IT",
+  "2026-09-24 00:29:56 EGRESSO (2.a medicao) PASS IT",
+  "2026-09-24 00:30:07 SUPERVISOR lancado; vivo agora: True",
+  "2026-09-24 00:30:39 ARRANQUE ja a correr noutra instancia: esta sai sem fazer nada",
+  "2026-09-24 00:31:45 === ARRANQUE (UmaVolta=False, SimularEgresso='@C:\\Users\\London1\\auditoria-madrugada\\bc4-egresso-simulado.txt') ===",
+  "2026-09-24 00:31:46 SALA ja responde em 54330",
+  "2026-09-24 00:31:46 VIGIA ja a correr",
+  "2026-09-24 00:31:46 OBSERVADOR ja a correr",
+  "2026-09-24 00:31:46 EGRESSO PASS IT",
+  "2026-09-24 00:32:16 EGRESSO (2.a medicao) PASS IT",
+  "2026-09-24 00:32:17 SUPERVISOR ja vivo (o --estado dele diz SUPERVISOR_ALIVE): nao se lanca outro",
+  "2026-09-24 00:35:17 GUARDA: egresso BLOCKED BR (1 seguida(s))",
+  "2026-09-24 00:38:17 GUARDA: egresso BLOCKED BR (2 seguida(s))",
+  "2026-09-24 00:38:17 GUARDA: PARAR.flag escrito — o bot fica quieto ate o egresso voltar a IT",
+  "2026-09-24 00:41:17 GUARDA: egresso IT (PASS IT), 1.a medicao boa — espera a 2.a antes de relancar",
+  "2026-09-24 00:44:18 GUARDA: egresso em IT ha 2 medicoes seguidas (PASS IT)",
+  "2026-09-24 00:44:18 PARAR.flag da guarda retirado",
+  "2026-09-24 00:44:29 SUPERVISOR lancado; vivo agora: True",
+  "2026-09-24 00:45:15 === ARRANQUE (UmaVolta=False, SimularEgresso='') ===",
+  "2026-09-24 00:45:15 SALA ja responde em 54330",
+  "2026-09-24 00:45:16 VIGIA ja a correr",
+  "2026-09-24 00:45:16 OBSERVADOR ja a correr",
+  "2026-09-24 00:45:18 EGRESSO PASS IT",
+  "2026-09-24 00:45:50 EGRESSO (2.a medicao) PASS IT"
+ ]
+}

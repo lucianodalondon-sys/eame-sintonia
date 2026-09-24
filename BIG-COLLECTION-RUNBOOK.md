@@ -82,6 +82,8 @@ for f in candidatas/FONTES-CANDIDATAS.json curadoria/LIFECYCLE-LEDGER-V1.json cu
 | 0.7 | memória livre | o dono pode estar a editar vídeo | falta de memória: **esperar e repetir**, nunca reduzir a coorte |
 | 0.8 | tudo de pé, e de pé sozinho | a Tarefa `SINTONIA-Arranque` (BC3) liga no logon: Sala → vigia → observador → portão de egresso IT → supervisor, e fica de guarda (2 medições fora de IT → `PARAR.flag`; de volta a IT → relança). Log: `~/auditoria-madrugada/arranque-AAAAMMDD.log`. Conferir: `Get-ScheduledTask SINTONIA-Arranque` = Running; supervisor, observador e Sala de pé | algum em baixo, ou `SUPERVISOR NAO arranca` no log (egresso ≠ IT) |
 
+> **0.8 provado no runtime instalado (BC4, 24/09 00:29–00:46, bot 8eec2e2a / ponte 98ec8fbf):** supervisor, observador e vigia desligados → `Start-ScheduledTask` → os três de volta em 57 s, um de cada; 2.ª instância sai pelo mutex; guarda com egresso simulado (`-SimularEgresso @ficheiro`) parou o bot com 2 medições BR e relançou-o com 2 IT. `Stop-ScheduledTask` não derruba o bot (os filhos ficam). Prova: `ferramentas/arranque/BC4-PROVA-RUNTIME.json`.
+
 ### 1 · Parar a escrita concorrente
 
 `PARAR.flag` no bot (esperar o supervisor sair) e parar o observador. O portão fica
