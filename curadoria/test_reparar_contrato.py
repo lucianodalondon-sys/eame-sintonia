@@ -492,6 +492,16 @@ class Alimentador(_Pasta):
 
 
 class ReparoAntesDeDiscovery(_Pasta):
+    def setUp(self):
+        super().setUp()
+        # CUR-PRONTA: o gatilho chama tambem o AVANCAR, que le candidatas e a tabela
+        # do coletor verdadeiras. Esta classe mede o REPARO: o avanco fica a zero
+        # (tem testes proprios em test_avancar_fontes.py).
+        import avancar_fontes as _AV
+        self.addCleanup(setattr, _AV, "avancar", _AV.avancar)
+        _AV.avancar = lambda agora=None, **_k: {"CANDIDATAS": 0, "POR_REGRA": {},
+                                                "ENFILEIRADAS": []}
+
     def test_com_reparo_elegivel_nao_ha_discovery(self):
         self._contratos(_contrato("IT-T7-001"))
         self._estado("IT-T7-001", LC.CONTRACTED_CANARY_FAILED)
