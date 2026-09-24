@@ -73,3 +73,56 @@ Mantém-se a convenção dos rótulos V2/V3: o mesmo texto não é re-rotulado �
 
 Os textos ficam FORA do Git (`%USERPROFILE%\sintonia-gabarito\REGUA-T2-V1\`); no Git fica o
 manifesto com sha256, a origem e o trecho que decidiu o rótulo.
+
+---
+
+## ADENDA 1 · D29 — A PERGUNTA MUDA PARA JANELAS DE CULTURA (2026-09-24, escrita ANTES do re-rótulo)
+
+A coordenação trouxe a prioridade do dono (D29, `DECISOES-DONO-2026-09-23.md`): «na coleta precisamos
+coletar informações relevantes sobre as JANELAS DE CULTURA». A régua T2 passa a servir isto.
+Base: Bíblia da Intelligence `CAP-WIN` (`BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:1795`) — join keys
+`CROP × REGION × PHENOLOGY_STAGE × TIME_WINDOW`.
+
+O que ficou do corpo acima: a origem dos textos, o extractor, a regra dos distintos, o `NAO_SEI`
+fora da conta, o mínimo 20/20, os vizinhos a 0. O que muda é o **eixo que a régua mede**.
+
+### O eixo novo: `JANELA` (é isto que a régua T2 mede a partir daqui)
+
+> **Este conteúdo sustenta uma janela de cultura?** — diz, para uma cultura agrícola, em que
+> estado ela está ou em que condição o campo está, de forma a abrir ou fechar o momento de agir.
+
+- **YES** — boletim agrometeorológico; boletim fitossanitário regional / de defesa integrada;
+  fenologia ou estádio; alerta de praga ou doença com monitorização (capturas, voos, infestação,
+  limiar de intervenção); sementeira ou colheita com data/estádio; momento de tratamento; condição
+  meteorológica ligada por escrito a uma cultura ou prática agrícola (rega, balanço hídrico da
+  cultura, geada na floração...). Tem de haver **ligação agrícola escrita** no texto.
+- **NO** — ambiente sem ligação agrícola (ar urbano, pólen, radioatividade, resíduos, solo
+  contaminado industrial, balneares), vida administrativa, menu/índice, e conteúdo agrícola que não
+  fala de momento de agir (mercado, prémio de vinho, história de associação, programa de fundos).
+  Os que são clima/água/solo **sem** ligação agrícola levam `ACTION = REROUTE` (D2): não são lixo,
+  são de outra pergunta.
+- **NAO_SEI** — tempo meteorológico puro (previsão, tabela de chuva) sem uma palavra de cultura ou
+  prática: pode abrir uma janela, mas o texto não o diz — fica fora da conta, contado. E o resto
+  do costume (texto curto, só título).
+
+`UNIVERSE_MATCH` (clima/água/solo, a pergunta antiga) e `SINTONIA_RELEVANT` continuam registados
+nos itens que já os tinham; não são re-rotulados.
+
+### O que a Admissão faz e NÃO faz com isto (leis da coordenação)
+
+- A Admissão **não decide a janela** — isso é da Intelligence (`CAP-WIN`). Só admite e preserva os
+  campos (cultura, região, tempo) que o item traz.
+- data de calendário ≠ janela · data regulatória ≠ janela · `FACT_TIME` ≠ `PUBLICATION_TIME` ·
+  `SOURCE_LOCATION` ≠ `FACT_LOCATION`. A régua não lê datas e não escreve nenhum destes campos.
+
+### Material acrescentado ao corpus (só acervo, sem rede)
+
+- `data/derivados/texto/RAW-*.txt` do Git — os 43 textos já derivados, que incluem o gabarito de
+  46 documentos de `provas/a_regra_de_t2.py` (boletins ARPAV fitossanitário, Campania SFR, FEM,
+  APOL, ARIF, Molise, Direttive frutticoltura). Esse gabarito foi rotulado por OUTRA sessão para a
+  pergunta antiga (clima vs praga); aqui é re-lido para a pergunta nova, e a diferença fica dita.
+
+### T1
+
+Pedido da coordenação: medir se T1 (CROP & PRODUCTION) já cobre fenologia/tratamento. Mede-se
+lendo `PERGUNTAS_DO_UNIVERSO` e julgando o gabarito com T1 — sem escrever régua T1.
