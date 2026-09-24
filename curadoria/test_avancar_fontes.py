@@ -116,6 +116,33 @@ class AsRegras(unittest.TestCase):
         self.assertEqual([c["SOURCE_ID"] for c in cs], ["Z", "A"])
 
 
+class AJanelaDeCultura(unittest.TestCase):
+    """D29: a fonte de janela sobe na fila; a classificacao nao aceita palavra solta."""
+
+    def test_o_que_e_e_o_que_nao_e_janela(self):
+        import janela_de_cultura as JC
+        ficha = lambda nome, url: {"NAME": nome, "ACQUISITION": {"INDEX_URL": url}}
+        self.assertTrue(JC.e_janela("IT-T3-001"))
+        self.assertTrue(JC.e_janela("IT-T1-006", ficha("ARSAC", "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario/")))
+        self.assertTrue(JC.e_janela("IT-T2-015", ficha("AIAM — Associazione Italiana di Agrometeorologia", "https://www.agrometeorologia.it/")))
+        # os falsos positivos medidos na copia (24/09) com a regra de palavras soltas
+        self.assertFalse(JC.e_janela("IT-T12-040", ficha("Bandi e avvisi pubblici", "https://www.regione.sicilia.it/x")))
+        self.assertFalse(JC.e_janela("IT-T12-042", ficha("Bollettino ufficiale", "http://www.bollettino.regione.lombardia.it/")))
+        self.assertFalse(JC.e_janela("IT-T5-113", ficha("Notizie", "https://www.crea.gov.it/web/difesa-e-certificazione/notizie")))
+        self.assertFalse(JC.e_janela("IT-T5-093", ficha("Non solo meteo: Arpal alla notte europea della ricerca", "https://www.arpal.liguria.it/n")))
+
+    def test_janela_passa_a_frente_e_sobe_a_prioridade(self):
+        cs = AV.candidatas_a_avancar(
+            AGORA, estados={"IT-T1-001": LC.DEGRADED, "IT-T3-009": LC.CONTRACT_PENDING},
+            contratos={"IT-T1-001": HTML}, tarefas=[], reguas={}, tabela={},
+            candidatas=[], caract=[], ponte={})
+        self.assertEqual([c["SOURCE_ID"] for c in cs], ["IT-T3-009", "IT-T1-001"])
+        self.assertTrue(cs[0]["JANELA"])
+        self.assertEqual(cs[0]["PRIORITY"], 45 + AV.JANELA_BONUS)
+        self.assertIn("D29", cs[0]["MOTIVO"])
+        self.assertEqual(cs[1]["PRIORITY"], 80)
+
+
 class NaFila(unittest.TestCase):
 
     def setUp(self):
