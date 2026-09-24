@@ -3403,9 +3403,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "egresso-consenso-v1",
-    "HEAD": "7d7c080755591228638b2de1423138e63ac7f121",
-    "GENERATED_AT": "2026-09-24T15:19:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "56b661c7b77af071d835b6d7c885631adc88b9f14d4db629a7ceabf336a5069f"
+    "HEAD": "4f3b938c2054b47a7f931bbd5366d09b0c7f5cf9",
+    "GENERATED_AT": "2026-09-24T15:39:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "61f89d1de0f0c1535a62bd527b4664f913d2499c9c165dfbfa507c0c4e410213"
   },
   "FAMILIES": [
     {
@@ -47252,7 +47252,7 @@
         "PLANO": null,
         "PROVA": [
           "ferramentas/unificacao/provar_em_copia.py:111",
-          "tests/test_egresso_consenso.py:206"
+          "tests/test_egresso_consenso.py:202"
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -54734,6 +54734,7 @@
           "PASTAS_DE_RUNTIME",
           "PASTAS_PY",
           "PEDIDOS",
+          "PERMITIDOS",
           "POSITIVOS",
           "PROIBIDO",
           "PRONTO",
@@ -54759,13 +54760,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1285,
+        "palavras": 1293,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1273,
+        "sem_marca_de_lingua": 1281,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -54773,6 +54774,14 @@
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [
+        {
+          "pasta": "coleta",
+          "prova": {
+            "file": "tests/test_egresso_consenso.py",
+            "line": 235,
+            "snippet": "escreve em falso"
+          }
+        },
         {
           "pasta": "system-map",
           "prova": {
@@ -55227,6 +55236,7 @@
         "scripts/coorte_micro/funil.py",
         "scripts/desbloqueio/aplicar_desbloqueio.py",
         "scripts/detector_capa/medir_apos_receitas.py",
+        "scripts/egresso/mutar_egresso.py",
         "scripts/micro_coleta/ensaio_offline.py",
         "scripts/micro_coleta/micro_coleta.py",
         "scripts/micro_coleta/micro_rede_real.py",
@@ -63362,7 +63372,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Ask Sintonia alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canonico.py",
@@ -63398,8 +63408,24 @@
         },
         {
           "file": "tests/test_egresso_consenso.py",
+          "line": 200,
+          "snippet": "\"superficie/rede.py\": \"o dono; ipinfo so como telemetria\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-TESTES",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_egresso_consenso.py",
           "line": 204,
-          "snippet": "donos = sorted(set(r.stdout.split()) - {\"superficie/rede.py\"})",
+          "snippet": "\"scripts/egresso/mutar_egresso.py\": \"mutante `ipinfo_vota` (tem de morrer)\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-TESTES",
             "FROM": "C-ASK-SINTONIA",
@@ -104622,8 +104648,8 @@
       "evidence": [
         {
           "file": "tests/test_egresso_consenso.py",
-          "line": 206,
-          "snippet": "permitidos = {\"provas/recollection_http_local.mjs\"}",
+          "line": 202,
+          "snippet": "\"provas/recollection_http_local.mjs\": \"prova que o ipinfo nao sai offline\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-PARIDADE--READS-->C-TESTES",
             "FROM": "C-PROVA-PARIDADE",

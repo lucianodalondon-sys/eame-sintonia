@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "egresso-consenso-v1",
-    "HEAD": "7d7c080755591228638b2de1423138e63ac7f121",
-    "GENERATED_AT": "2026-09-24T15:19:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "56b661c7b77af071d835b6d7c885631adc88b9f14d4db629a7ceabf336a5069f"
+    "HEAD": "4f3b938c2054b47a7f931bbd5366d09b0c7f5cf9",
+    "GENERATED_AT": "2026-09-24T15:39:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "61f89d1de0f0c1535a62bd527b4664f913d2499c9c165dfbfa507c0c4e410213"
   },
   "FILES": [
     {
@@ -18749,7 +18749,7 @@
     },
     {
       "path": "tests/test_egresso_consenso.py",
-      "sha": "3f84054142ecc328191dbe56d9ddcdd082bb6d37",
+      "sha": "94d7836f821548fa34d904bf523af4cd8b628a76",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -72205,8 +72205,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_egresso_consenso.py",
-        "line": 206,
-        "snippet": "permitidos = {\"provas/recollection_http_local.mjs\"}"
+        "line": 202,
+        "snippet": "\"provas/recollection_http_local.mjs\": \"prova que o ipinfo nao sai offline\","
+      }
+    },
+    {
+      "from_file": "tests/test_egresso_consenso.py",
+      "to_file": "scripts/egresso/mutar_egresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_egresso_consenso.py",
+        "line": 204,
+        "snippet": "\"scripts/egresso/mutar_egresso.py\": \"mutante `ipinfo_vota` (tem de morrer)\","
       }
     },
     {
@@ -72227,8 +72238,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_egresso_consenso.py",
-        "line": 204,
-        "snippet": "donos = sorted(set(r.stdout.split()) - {\"superficie/rede.py\"})"
+        "line": 200,
+        "snippet": "\"superficie/rede.py\": \"o dono; ipinfo so como telemetria\","
       }
     },
     {
@@ -81993,6 +82004,13 @@
         "constante": "SAIDA"
       }
     ],
+    "tests/test_egresso_consenso.py": [
+      {
+        "pasta": "coleta",
+        "line": 235,
+        "constante": "falso"
+      }
+    ],
     "tests/test_estradas_it.py": [
       {
         "pasta": "system-map",
@@ -82012,8 +82030,8 @@
     "files_tracked": 2809,
     "files_readable": 1282,
     "files_code_dir": 1121,
-    "file_edges": 5615,
-    "escritas_em_pasta": 83,
+    "file_edges": 5616,
+    "escritas_em_pasta": 84,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
