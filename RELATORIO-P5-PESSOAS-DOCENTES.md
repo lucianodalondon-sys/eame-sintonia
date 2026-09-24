@@ -49,3 +49,13 @@ TESTES                 = tests/test_pessoas_docentes.py 5 OK + 4 saltados (so co
 Nenhuma candidata desse tipo foi registada por esta bancada hoje (P5: 0 registos; YT3: 14 canais de
 organizações agrícolas, nenhum de Veterinária/IZS/saúde animal — a UNAITALIA, CAND-0490, é a associação da
 fileira avícola: produção, não saúde animal; fica aqui escrita para quem decidir).
+
+## P5b · 24/09 — retomada e ESTACIONADA (pausa de memória)
+
+- Fila da produção trazida (merge de `origin/bc4-correcoes-v1`, 906 linhas); 2.ª volta completa com VPN IT (39 portões PASS IT): 574 páginas de pessoas, 69 perfis.
+- `DECISOES-P5-V1.json`: 8 ENTRA, 59 FICA_FORA com motivo (D26 aplicada: 7 da área animal fora).
+- **Registadas pela porta canónica: CAND-0907..0914** — LinkedIn: Tania Bobbo, Giovanna Frugis, Stefano Gattolin, Barbara Menin, Cristian Perna, Francesca Sparvoli (CNR IBBA), Giulio Senes (Unimi DISAA); YouTube: Simon Pierce (Unimi DISAA). 906 linhas antigas inalteradas; dedupe por URL e por slug contra produção, P1/P1d, P2, P4/P4b, YT3 (0 colisões).
+- Provas: as 8 páginas oficiais estão no ramo em `scripts/pessoas_docentes/evidencia/`; as 777 páginas lidas estão listadas com caminho e sha256 em `EVIDENCIA-P5.json` (ficheiros em `%TEMP%\p5-evidencia`).
+- Peça `C-PESSOAS-DOCENTES` declarada em `system-map/data/architecture.declared.json`.
+
+**FALTA AO RETOMAR:** correr a cadeia do System Map com o `LOCK-PESADO.txt` (REGERAR → commit → VALIDAR), know-how § e memória; depois entrega curta.
