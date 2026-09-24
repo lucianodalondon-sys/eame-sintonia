@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T12:20:26+00:00",
-  "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
-  "BRANCH": "bc4-correcoes-v1",
+  "GENERATED_AT": "2026-09-24T16:31:37+00:00",
+  "HEAD": "7f1049ce6cfb9719469cbf9aec1df13b2c1da4c1",
+  "BRANCH": "rendimento-fontes-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
-  "FICHEIROS_NA_IMPRESSAO": 2952,
+  "SOURCE_TREE_FINGERPRINT": "6b8787ff6456e54976bb04b41e9447cf6810c8019d6bc6e121bc386496bcd02e",
+  "FICHEIROS_NA_IMPRESSAO": 2969,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -819,6 +819,41 @@
     "PATH": "ferramentas/reel_transcricao.py",
     "PAPEL": "FONTE",
     "VERSAO": "80f7de73ecce7e34ef8bc113435fea30ca629634",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/rendimento/conferir_1a_onda.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "1cf98c48d892a08851f7346f92559ec37e2b9442",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/rendimento/janelas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c5a0dca5bd8f94fbdcb687bc5286bbf8d289450a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/rendimento/medir_entrada.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "be7dbaa9c4ab5a50e989b16ddeb1a0c021ff4fca",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/rendimento/sala_por_fonte.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "593fd1f6e5b1cd3f9fb1292f2402e08bb05beed9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/rendimento/tabela.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2d6933e38b72a8b1cccd89531910371d516be754",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3716,14 +3751,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
+    "VERSAO": "6b8787ff6456e54976bb04b41e9447cf6810c8019d6bc6e121bc386496bcd02e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
+    "VERSAO": "6b8787ff6456e54976bb04b41e9447cf6810c8019d6bc6e121bc386496bcd02e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5597,8 +5632,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 794,
-  "INPUTS_DIGEST": "9def2eb543b1069ad1cad74456878c92e07a32c2c8d9c4f62361ee2ba751e7b1",
+  "INPUTS_COUNT": 799,
+  "INPUTS_DIGEST": "bd09a2bea3e9ffbf140df9e22cd5fe49123e6029ff5c7d6050543776c076929a",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5624,15 +5659,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 498,
+  "DOCUMENTOS_LIDOS": 499,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bb2fce8d895524d95c85c9ad08fa243bb3d22742d67429e023ab531e695bd2fb",
-  "SEMANTIC_HASH": "adee83a8cf46ad16eaeec03b61c0876fb53e163b42b0a37befcc5739fa534be9"
+  "MEASUREMENT_HASH": "c0a4d435182262f8964d9667449a7999b7ede9d7bffc82120b6eb38cff1e4ca4",
+  "SEMANTIC_HASH": "cc545b3860409793f5adf71a5b21786c2d45817d6411870592cc34be0732f882"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5718,6 +5753,7 @@
    "C-RECONCILIAR-BYTES-BC4",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
+   "C-REND-RENDIMENTO-POR-FONTE",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -5737,7 +5773,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 93
+  "COUNT": 94
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5998,6 +6034,7 @@
    "C-RELATORIO-FLUXO",
    "C-RELEVANCIA",
    "C-RELEVANCIA-DA-FONTE",
+   "C-REND-RENDIMENTO-POR-FONTE",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -6025,16 +6062,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 181
+  "COUNT": 182
  },
  "ARITMETICA": {
-  "COLLECTION": 93,
+  "COLLECTION": 94,
   "BOUNDARY": 88,
-  "SOMA": 181,
-  "EXPANDED": 181,
+  "SOMA": 182,
+  "EXPANDED": 182,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 181,
+  "RESUMO_CARTOES_NO_UNIVERSO": 182,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -23266,6 +23303,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-COLETA--READS-->C-REND-RENDIMENTO-POR-FONTE",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-REND-RENDIMENTO-POR-FONTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/rendimento/medir_entrada.mjs",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-REND-RENDIMENTO-POR-FONTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
     "FROM": "C-IT-COLETA",
     "TO": "C-TESTES",
@@ -23938,6 +23997,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-REND-RENDIMENTO-POR-FONTE",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-REND-RENDIMENTO-POR-FONTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/rendimento/medir_entrada.mjs",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-REND-RENDIMENTO-POR-FONTE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/rendimento/medir_entrada.mjs",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-REND-RENDIMENTO-POR-FONTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-TESTES",
@@ -24288,6 +24377,28 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
       "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-REND-RENDIMENTO-POR-FONTE",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-REND-RENDIMENTO-POR-FONTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/rendimento/medir_entrada.mjs",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-REND-RENDIMENTO-POR-FONTE",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -25208,6 +25319,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-RELATORIO-FLUXO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-REND-RENDIMENTO-POR-FONTE",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-REND-RENDIMENTO-POR-FONTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/rendimento/conferir_1a_onda.py",
+      "LINHA": 73,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-REND-RENDIMENTO-POR-FONTE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -42670,12 +42803,12 @@
     ]
    }
   ],
-  "COUNT": 1196
+  "COUNT": 1200
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 181,
-  "CARTOES_AUDITADOS": 181,
-  "ARESTAS_RELACIONADAS": 1196,
+  "CARTOES_NO_UNIVERSO": 182,
+  "CARTOES_AUDITADOS": 182,
+  "ARESTAS_RELACIONADAS": 1200,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -42890,6 +43023,7 @@
    "C-RECONCILIAR-BYTES-BC4",
    "C-RECORRENCIA",
    "C-RELATORIO-FLUXO",
+   "C-REND-RENDIMENTO-POR-FONTE",
    "C-ROTULOS",
    "C-SAUDE-FONTE",
    "C-SUPERFICIE-SCRAP-V1"
@@ -42918,6 +43052,7 @@
    "C-PROVA-SALA-ITALIANA",
    "C-RECALL-PORTA-IT",
    "C-RECONCILIAR-BYTES-BC4",
+   "C-REND-RENDIMENTO-POR-FONTE",
    "C-SAUDE-FONTE",
    "C-SUPERFICIE-SCRAP-V1"
   ],
@@ -43091,8 +43226,8 @@
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 382,
-   "READ": 272,
-   "RULE": 215,
+   "READ": 274,
+   "RULE": 217,
    "WRITE": 9
   },
   "GAPS_NOMEADOS": [
@@ -46721,7 +46856,7 @@
     "coleta"
    ],
    "ENTRAM": 11,
-   "SAEM": 21,
+   "SAEM": 22,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -46824,7 +46959,7 @@
     "pathlib"
    ],
    "ENTRAM": 9,
-   "SAEM": 19,
+   "SAEM": 20,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -46868,7 +47003,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 4,
-   "SAEM": 10,
+   "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
@@ -46992,7 +47127,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 2,
-   "SAEM": 20,
+   "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ"
@@ -50514,6 +50649,51 @@
     "PROOF",
     "RULE"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-REND-RENDIMENTO-POR-FONTE",
+   "NOME": "Rendimento por fonte (REND)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/rendimento/conferir_1a_onda.py",
+    "ferramentas/rendimento/janelas.py",
+    "ferramentas/rendimento/medir_entrada.mjs",
+    "ferramentas/rendimento/sala_por_fonte.py",
+    "ferramentas/rendimento/tabela.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "ferramentas/rendimento/RELATORIO-REND.md"
+   ],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "collection_run",
+    "datetime",
+    "derived_artifact",
+    "documento_estruturado",
+    "pathlib",
+    "raw_asset",
+    "sala_de_espera",
+    "sala_por_fonte",
+    "urllib"
+   ],
+   "ENTRAM": 4,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null

@@ -4682,6 +4682,28 @@
    "files": [
     "ferramentas/big_collection/bc5_big_collection.py"
    ]
+  },
+  {
+   "id": "C-REND-RENDIMENTO-POR-FONTE",
+   "name": "Rendimento por fonte (REND)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Mede, so pela pagina de entrada (1 pedido por fonte, robots, pausa 1 s, teto 5/site), quantas materias nunca vistas cada fonte anuncia hoje, com as pecas do proprio coletor (alvosDoContrato, memoriaDosDetalhes, decidirSobreDetalhe); le da Sala (so leitura) o historico RAW/DERIVED/SIM e os indicios de janela de cultura; junta tudo numa tabela 'vale a pena correr agora?' com cadencia SUGERIDA. Nao escreve em livro, armazem, Sala nem agenda: quem decide e o Curator/Collection. Traz tambem a conferencia independente da 1.a onda na Sala real (so leitura).",
+   "why_here": "REND (24/09/2026): a 1.a onda deu 3 SIM em 18 fontes; antes da 2.a onda o coordenador pediu o rendimento medido fonte a fonte, sem abrir materias.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/rendimento/medir_entrada.mjs",
+    "ferramentas/rendimento/sala_por_fonte.py",
+    "ferramentas/rendimento/tabela.py",
+    "ferramentas/rendimento/janelas.py",
+    "ferramentas/rendimento/conferir_1a_onda.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "bc4-correcoes-v1",
-    "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
-    "GENERATED_AT": "2026-09-24T09:15:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505"
+    "BRANCH": "rendimento-fontes-v1",
+    "HEAD": "7f1049ce6cfb9719469cbf9aec1df13b2c1da4c1",
+    "GENERATED_AT": "2026-09-24T13:14:30-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6b8787ff6456e54976bb04b41e9447cf6810c8019d6bc6e121bc386496bcd02e"
   },
   "FILES": [
     {
@@ -10810,6 +10810,125 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/rendimento/RELATORIO-REND.md",
+      "sha": "be470c4240f4d2a061488d02a06eb88a115480c2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/REND-TABELA-V1.json",
+      "sha": "f59ca307ea5c8a1d6a36bd7bf81c1f4198af2250",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/conferir_1a_onda.py",
+      "sha": "1cf98c48d892a08851f7346f92559ec37e2b9442",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/janelas.py",
+      "sha": "c5a0dca5bd8f94fbdcb687bc5286bbf8d289450a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/conferencia-1a-onda.json",
+      "sha": "733c46b02084b0abe3683d6d370cb3be868b133a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/entrada-37-passo2.json",
+      "sha": "55709b5179b7f628ecac10ba6d4a3061c4b03035",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/entrada-37-passo3.json",
+      "sha": "83cc11cd0e0f29550af355af5a0fe30ed1635195",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/entrada-37.json",
+      "sha": "0189a28f77ec07489f013d50720f31b67b279c27",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/entrada-r1-passo2.json",
+      "sha": "8dd0710d575e4ad2a679f2bb1a83136cdc587ec0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/entrada-r1.json",
+      "sha": "bfed97f6a1e33c2a4a71327561f2b24d66ea08d9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/gate-vivo.json",
+      "sha": "2cf5e9dc4754d2b0a159efbcc5a838a6df1317c4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/janelas.json",
+      "sha": "3d1fbb7b4a07cf0f99fb0afdeac63c1772b0bedf",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/prova-b-postgres-descartavel-2b5.json",
+      "sha": "2b2f95f358bdfa5cde49b42fa00e93b4191f86fc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medidas/sala-por-fonte.json",
+      "sha": "3efbc66d8ed83c9ca4c950217a40b52f873ea500",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medir_entrada.mjs",
+      "sha": "be7dbaa9c4ab5a50e989b16ddeb1a0c021ff4fca",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/sala_por_fonte.py",
+      "sha": "593fd1f6e5b1cd3f9fb1292f2402e08bb05beed9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/tabela.py",
+      "sha": "2d6933e38b72a8b1cccd89531910371d516be754",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "sha": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
       "ext": ".py",
@@ -17538,7 +17657,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e0ad7cf32e30fdd8f53f653e7f57f19713f4331b",
+      "sha": "72ba4a3d27ded6d5c2655255831b459fc0196c03",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -31714,6 +31833,226 @@
         "file": "ferramentas/reel_transcricao.py",
         "line": 93,
         "snippet": "import social_matriz as mz      # noqa: E402 — a política de rota, dono único"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/conferir_1a_onda.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/conferir_1a_onda.py",
+        "line": 73,
+        "snippet": "for l in (bot / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\").read_text(encoding=\"utf-8\").splitlines():"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/conferir_1a_onda.py",
+      "to_file": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/conferir_1a_onda.py",
+        "line": 47,
+        "snippet": "bc5 = json.loads((AQUI.parent / \"big_collection\" / \"BC5-BIG-COLLECTION-1A-ONDA.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/conferir_1a_onda.py",
+      "to_file": "ferramentas/rendimento/sala_por_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/rendimento/conferir_1a_onda.py",
+        "line": 23,
+        "snippet": "from sala_por_fonte import psql  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/janelas.py",
+      "to_file": "ferramentas/rendimento/REND-TABELA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/janelas.py",
+        "line": 77,
+        "snippet": "t = json.loads((AQUI / \"REND-TABELA-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/janelas.py",
+      "to_file": "ferramentas/rendimento/medidas/janelas.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/janelas.py",
+        "line": 121,
+        "snippet": "(AQUI / \"medidas\" / \"janelas.json\").write_text(json.dumps("
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/janelas.py",
+      "to_file": "ferramentas/rendimento/sala_por_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/rendimento/janelas.py",
+        "line": 29,
+        "snippet": "from sala_por_fonte import psql  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/medir_entrada.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/medir_entrada.mjs",
+        "line": 32,
+        "snippet": "const { lerRobots, grupoQueVale, robotsPermite, siteDe, CORTESIA_PADRAO } = await importar(\"coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/medir_entrada.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/medir_entrada.mjs",
+        "line": 31,
+        "snippet": "const { memoriaDosDetalhes, decidirSobreDetalhe, recolheitaDoContrato } = await importar(\"regras/incrementalidade.mjs\");"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/medir_entrada.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/medir_entrada.mjs",
+        "line": 29,
+        "snippet": "const { CONTRACTS } = await importar(\"regras/italy_contracts.mjs\");"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/medir_entrada.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/medir_entrada.mjs",
+        "line": 30,
+        "snippet": "const { alvosDoContrato } = await importar(\"regras/motor_de_rota.mjs\");"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 65,
+        "snippet": "coorte = ler(AQUI.parent / \"big_collection\" / \"COORTE-BIG-COLLECTION-V1.json\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/REND-TABELA-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 143,
+        "snippet": "(AQUI / \"REND-TABELA-V1.json\").write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/entrada-37-passo2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 69,
+        "snippet": "e37 = linhas_de(\"entrada-37.json\", \"entrada-37-passo2.json\", \"entrada-37-passo3.json\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/entrada-37-passo3.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 69,
+        "snippet": "e37 = linhas_de(\"entrada-37.json\", \"entrada-37-passo2.json\", \"entrada-37-passo3.json\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/entrada-37.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 69,
+        "snippet": "e37 = linhas_de(\"entrada-37.json\", \"entrada-37-passo2.json\", \"entrada-37-passo3.json\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/entrada-r1-passo2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 70,
+        "snippet": "er1 = linhas_de(\"entrada-r1.json\", \"entrada-r1-passo2.json\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/entrada-r1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 70,
+        "snippet": "er1 = linhas_de(\"entrada-r1.json\", \"entrada-r1-passo2.json\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/gate-vivo.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 64,
+        "snippet": "gate = ler(M / \"gate-vivo.json\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/janelas.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 73,
+        "snippet": "if (M / \"janelas.json\").exists():"
+      }
+    },
+    {
+      "from_file": "ferramentas/rendimento/tabela.py",
+      "to_file": "ferramentas/rendimento/medidas/sala-por-fonte.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/rendimento/tabela.py",
+        "line": 63,
+        "snippet": "sala = ler(M / \"sala-por-fonte.json\")[\"POR_FONTE\"]"
       }
     },
     {
@@ -81320,27 +81659,6 @@
         "constante": "SAIDA"
       }
     ],
-    "medidas/coorte_da_micro_collection.py": [
-      {
-        "pasta": "medidas",
-        "line": 292,
-        "constante": "SAIDA"
-      }
-    ],
-    "medidas/duas_portas_reprocessa.py": [
-      {
-        "pasta": "medidas",
-        "line": 196,
-        "constante": "SAIDA"
-      }
-    ],
-    "medidas/o_contrato_do_universo.py": [
-      {
-        "pasta": "medidas",
-        "line": 186,
-        "constante": "SAIDA"
-      }
-    ],
     "medidas/padrao_da_coleta.py": [
       {
         "pasta": "data/samples",
@@ -81348,24 +81666,10 @@
         "constante": "CHAO"
       }
     ],
-    "medidas/porque_a_sala_nao_recebeu.py": [
-      {
-        "pasta": "medidas",
-        "line": 182,
-        "constante": "SAIDA"
-      }
-    ],
     "medidas/portoes_eame.py": [
       {
         "pasta": "data/samples",
         "line": 357,
-        "constante": "SAIDA"
-      }
-    ],
-    "medidas/ultima_milha.py": [
-      {
-        "pasta": "medidas",
-        "line": 261,
         "constante": "SAIDA"
       }
     ],
@@ -81758,11 +82062,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2804,
-    "files_readable": 1280,
-    "files_code_dir": 1117,
-    "file_edges": 5596,
-    "escritas_em_pasta": 82,
+    "files_tracked": 2821,
+    "files_readable": 1285,
+    "files_code_dir": 1134,
+    "file_edges": 5616,
+    "escritas_em_pasta": 77,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

@@ -105,6 +105,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **Condutor da Big Collection (1.a onda, BC5)** — Corre a coorte congelada UMA fonte de cada vez pela porta canonica (micro_coleta.correr), fotografa a Sala antes/depois de cada fonte e aplica os disjuntores do BIG-COLLECTION-RUNBOOK §6 (egresso fora de IT, Sala a descer, >30 min, 3 FAILED seguidas, C6, proveniencia partida, pedidos acima do teto). Nao decide elegibilidade nem admissao: pergunta aos donos.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
 - **Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)** — Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.
+- **Rendimento por fonte (REND)** — Mede, so pela pagina de entrada (1 pedido por fonte, robots, pausa 1 s, teto 5/site), quantas materias nunca vistas cada fonte anuncia hoje, com as pecas do proprio coletor (alvosDoContrato, memoriaDosDetalhes, decidirSobreDetalhe); le da Sala (so leitura) o historico RAW/DERIVED/SIM e os indicios de janela de cultura; junta tudo numa tabela 'vale a pena correr agora?' com cadencia SUGERIDA. Nao escreve em livro, armazem, Sala nem agenda: quem decide e o Curator/Collection. Traz tambem a conferencia independente da 1.a onda na Sala real (so leitura).
 
 ---
 
@@ -150,4 +151,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 8 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 9 ferramentas e 2 peças de fonte declaradas no mapa.
