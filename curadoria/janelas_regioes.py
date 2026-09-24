@@ -292,3 +292,48 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+_SUBBOLETIM_RE = re.compile(r"bollettin|avvis|notiziari|agrometeo|fenolog|difesa|archivio", re.I)
+
+
+def aprofundar(orcamento: int = 120) -> dict:
+    """Para as celulas sem exemplo datado: abre ate 2 subpaginas de boletins do mesmo site
+    e procura la um boletim com data. So mede; nao regista subpaginas."""
+    r = json.loads(SAIDA.read_text(encoding="utf-8"))
+    orcam = D.Orcamento(total=orcamento, por_dominio=6)
+    vigias, n = [vigia()], 0
+    for l in r["CELULAS"]:
+        if l.get("EXEMPLO") or l.get("ESTADO_MEDIDO") != "PUBLICO_SEM_BOLETIM_DATADO" or l["COLUNA"] == "CONSORZIO":
+            continue
+        n += 1
+        if n % VIGIA_A_CADA == 0:
+            vigias.append(vigia())
+        host = urllib.parse.urlsplit(l["URL"]).netloc.lower()
+        html, code, ct = D._buscar_pagina_html(l["URL"], orcam)
+        subs = []
+        for u, a in D.extrair_links(html or "", l["URL"]):
+            u = u.split("#")[0]
+            if urllib.parse.urlsplit(u).netloc.lower() != host or u.rstrip("/") == l["URL"].rstrip("/"):
+                continue
+            if _SUBBOLETIM_RE.search(u + " " + a) and u not in subs and not u.lower().endswith(".pdf"):
+                subs.append(u)
+        tentados = []
+        for u in subs[:2]:
+            m = inspecionar(u, orcam)
+            tentados.append({"URL": u, "ESTADO_MEDIDO": m.get("ESTADO_MEDIDO")})
+            if m.get("EXEMPLO"):
+                l["EXEMPLO"] = dict(m["EXEMPLO"], VIA=u)
+                l["FORMATO"] = m.get("FORMATO")
+                break
+            time.sleep(1)
+        l["APROFUNDADO"] = tentados or "sem subpagina de boletins no mesmo site"
+        time.sleep(1)
+    vigias.append(vigia())
+    r["APROFUNDAMENTO"] = {"PEDIDOS": orcam.pedidos_feitos, "VIGIAS": vigias,
+                           "COM_EXEMPLO_AGORA": sum(1 for l in r["CELULAS"] if l.get("EXEMPLO"))}
+    fd, tmp = tempfile.mkstemp(dir=str(SAIDA.parent), suffix=".tmp")
+    with os.fdopen(fd, "w", encoding="utf-8") as fh:
+        json.dump(r, fh, ensure_ascii=False, indent=1)
+    os.replace(tmp, SAIDA)
+    return r["APROFUNDAMENTO"]
