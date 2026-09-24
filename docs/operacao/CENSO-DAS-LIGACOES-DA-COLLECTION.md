@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  172403557aee3db298417a08ac34617325c8b8ca
+HEAD_DA_MEDICAO  3e1b131148159a6fa73a303016bbf02fd529ce05
 BRANCH           reparo-fontes-v2
-GERADO_EM        2026-09-24T09:10:27-03:00
+GERADO_EM        2026-09-24T10:06:19-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
