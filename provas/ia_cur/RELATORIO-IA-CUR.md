@@ -7,9 +7,10 @@
 
 ## 1 · O piloto — 30 casos parados
 
-Egresso IT **BLOCKED** durante toda a missão (`EGRESS_COUNTRY_CODE = UNKNOWN`, o serviço de
-medição não devolveu país). Por isso o agente trabalhou **só com bytes já guardados**, e os casos
-que precisam de página viva ficaram para o fim — e ficaram NÃO SEI.
+Egresso IT **BLOCKED** na primeira metade da missão (`EGRESS_COUNTRY_CODE = UNKNOWN`, o serviço
+de medição não devolveu país): o agente trabalhou primeiro **só com bytes já guardados** e deixou
+para o fim os casos que precisavam de página viva. Às 15:45 o portão por consenso foi instalado e
+deu PASS IT — a segunda metade (§1b) correu com rede.
 
 | grupo | casos | de onde o agente leu | resultado |
 |---|---:|---|---|
@@ -89,14 +90,15 @@ piloto destravou (a importação do contrato da tabela do coletor, da CUR, e o r
 | medida | piloto IA-CUR | S2/S3 (lote Opus 181) |
 |---|---:|---|
 | território decidido com prova | 8 / 14 dos casos de território (57 %) — **8 / 28** das NÃO SEI da S2 com bytes guardados (29 %) | 25 / 181 (14 %) |
-| a andar no ciclo (SOURCE_ID + contrato) | **5 / 30** | 18 / 181 viraram SOURCE_ID |
+| SOURCE_ID novo + contrato | **8 / 30** (5 IT + 3 EU/INT pela D31) | 18 / 181 viraram SOURCE_ID |
 | READY_FOR_COLLECTION | **6 / 30** (3 por proposta do agente) | 5 / 181 hoje |
 
 Leitura honesta: a taxa de decisão é mais alta que a da S2 porque o agente relê bytes já lidos e
 aceita como CONTEÚDO as listagens datadas de comunicados que a S2 recusou (FederUnacoma); essa é uma
 régua mais larga, escrita no PORQUE de cada decisão. Se o dono preferir a régua da S2, as 4
 FederUnacoma voltam a NÃO SEI — e as 4 são a mesma família (FederUnacoma), com risco de fontes
-irmãs a colher o mesmo. «Chegam a READY» **não foi medido**: exige o canário com rede.
+irmãs a colher o mesmo. A amostra do piloto não é aleatória (escolhida entre as que tinham texto
+ou prioridade D29), por isso 20 % READY não é a taxa esperada no livro inteiro.
 
 ## 3 · Quanto gastou (medido na sessão)
 
