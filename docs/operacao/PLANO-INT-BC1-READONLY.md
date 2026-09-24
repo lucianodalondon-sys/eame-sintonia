@@ -1,6 +1,7 @@
 # PLANO — C-INT-BC1-READONLY (fase 1 = PREPARAR)
 
-> **Estado: PLANO, revisto pela CORREÇÃO DE ESCOPO do coordenador (24/09).** Nada foi
+> **Estado: PLANO FECHADO (fase 1), depois da 1.ª onda (BC5, Sala 66 → 69).** Revisto pela
+> CORREÇÃO DE ESCOPO do coordenador (24/09) e fechado sobre a prova da onda. Nada foi
 > executado: nenhuma leitura da Sala, nenhum banco aberto, nenhum motor corrido, nenhuma
 > suite. A fase 1 (ler e planear) é permitida pela trava («medir o que a inteligência futura
 > vai esperar da coleta»).
@@ -31,9 +32,21 @@ parte passou para a secção 4, como proposta.
 
 ## 1 · A TRAVA, RE-MEDIDA PELO DONO (sem editar)
 
-Dono da medição: `system-map/data/estradas-it.generated.json` (último commit que o tocou:
-`4ec62114`, 23/09 18:12 −03; a regeneração da cadeia nesta árvore **não** o alterou). Lido
-nesta árvore, em HEAD `ac2d4c8b`:
+Dono da medição: `system-map/data/estradas-it.generated.json`. **Re-medido depois da 1.ª
+onda** (24/09, depois da troca de conta), em quatro linhas — o ficheiro é **o mesmo blob**
+(`8be989c7`) em todas, e o do contrato da trava também (`3cf19203`):
+
+| linha | commit | `estradas-it` | último toque |
+|---|---|---|---|
+| esta árvore | `e73cf8fe` | `8be989c7` | `4ec62114`, 23/09 18:12 −03 |
+| `origin/unificacao-v1` | `98ec8fbf` | `8be989c7` | idem |
+| `origin/bc4-correcoes-v1` (com a prova da BC5) | `cffaad2d` | `8be989c7` | idem |
+| bot instalado | `fca4f2b6` | `8be989c7` | idem |
+
+⚠️ O ficheiro **não foi regenerado depois da onda** em nenhuma linha. A onda não é, por si,
+motivo para a trava mudar (18 fontes em rotas já conhecidas), mas isto é o que o dono diz
+**em 23/09 18:12**, não uma medição feita depois da onda. Não o regenero: não é desta
+missão. Valores:
 
 | grandeza | valor medido | o que a trava pede |
 |---|---|---|
@@ -62,7 +75,7 @@ dos dois é desta Bíblia para abrir**:
 | gate da §32 | 2026-09-14 | hoje (sem ler a Sala) |
 |---|---|---|
 | `TRAVA-DA-INTELIGENCIA.json` | `NAO` | **`NAO`** — medido acima |
-| `ONE REAL WAITING_ROOM ITEM` | 0 itens | **aberto por relato**: a BC4d pousou 2 SIM na Sala real (64 → 66: `IT-T10-018`, `IT-T5-090`, commit `0b62adb3` em `origin/bc4-correcoes-v1`). Não verificado por mim — ler a Sala está proibido nesta fase |
+| `ONE REAL WAITING_ROOM ITEM` | 0 itens | **aberto por prova escrita, não por leitura minha**: a 1.ª onda pousou **3 SIM** (Sala 66 → 69), todos de `IT-T10-018` (myfruit.it) numa só corrida — `ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json` em `origin/bc4-correcoes-v1` @ `e18ce992`. Antes, a BC4d tinha pousado 2 (64 → 66). Ler a Sala continua proibido nesta fase |
 
 Portanto a fase 2 **precisa de uma de duas coisas, escritas pelo dono**, e não sou eu que
 escolho:
@@ -98,15 +111,37 @@ ONE REAL WAITING_ROOM ITEM
 
 A §32 diz **um** item. O coordenador pediu «os itens novos da 1.ª onda». Para não esticar a
 lei, a fase 2 corre **um** `INTELLIGENCE_RUN` sobre **um** item; mais itens são outra
-autorização. Regra de escolha, fixada agora:
+autorização. Regra de escolha (fixada no commit `e73cf8fe`, antes de a onda existir):
 
 ```text
 ITEM_32 = o primeiro (RUN_ID, ORDEM), por ordem crescente, entre as linhas da Sala cujo
-          RUN_ID pertence às corridas da 1.ª onda (lista lida do relatório da corrida,
-          C:\bc\corrida) e cujo SOURCE_ID está nas 18 da coorte.
-Se a onda não tiver pousado nenhum item → ITEM_32 = IT-T10-018 da BC4d (o 1.º SIM real
-          já na Sala), declarado como substituto, não como item da onda.
+          RUN_ID pertence às corridas da 1.ª onda e cujo SOURCE_ID está nas 18 da coorte.
 ```
+
+**Aplicada à prova da onda (`BC5-BIG-COLLECTION-1A-ONDA.json`, sem ler a Sala):**
+
+| fonte | `RUN_ID` | Admission | Sala |
+|---|---|---|---|
+| `IT-T10-018` | `IT-T10-2026-09-24-120449-0196c6a5c9db1619` | **SIM 3** | 66 → 69 |
+| `IT-T7-021` | `IT-T7-2026-09-24-120737-b9d168ef521cb4d9` | NAO_SEI 1 | 69 → 69 |
+| `IT-T7-042` | `IT-T7-2026-09-24-120820-4682d316adbce27d` | NAO 1, NAO_SEI 2 | 69 → 69 |
+| `IT-T7-117` | `IT-T7-2026-09-24-120938-51efde19469b3350` | NAO 1 | 69 → 69 |
+| `IT-T7-135` | `IT-T7-2026-09-24-121113-bcac8be0b7e36d61` | NAO 1 | 69 → 69 |
+| as outras 13 | — | nada admitido | +0 |
+
+Só uma corrida da onda pousou linhas na Sala. Logo:
+
+```text
+ITEM_32 = (RUN_ID = IT-T10-2026-09-24-120449-0196c6a5c9db1619, ORDEM = 0)
+          SOURCE_ID = IT-T10-018 (myfruit.it, T10 mercado) · critérios C1–C6 PASS na prova
+```
+
+As ORDEM 1 e 2 da mesma corrida **não** entram: são o 2.º e o 3.º item, e a §32 é um.
+O substituto da versão anterior (o SIM da BC4d) deixa de ser preciso e sai do plano.
+
+Conferências antes de correr (fase 2, passo 2): a corrida devolve **3** itens pelo dono da
+Sala (= +3 da prova); `sala_de_espera` = **69** (= `SALA_DEPOIS` da prova). Se não bater →
+PARAR: a Sala mudou depois da onda, e a escolha refaz-se pela mesma regra.
 
 A escolha não olha para o conteúdo: escolher o item «mais interessante» seria procurar
 card (INT-LAW-014).
@@ -131,9 +166,9 @@ O **piloto da Sala** (`provas/o_piloto_da_sala.py`, só em `claude/int-pilot-sal
 
 | # | passo | escreve em | lê |
 |---|---|---|---|
-| 0 | conferir: decisão escrita da secção 1; ordem do coordenador; onda fechada e reconciliada; bot/coletor parados; RAM livre | — | — |
+| 0 | conferir: decisão escrita da secção 1; ordem do coordenador; volumes da onda reconciliados; bot/coletor parados; RAM livre | — | — |
 | 1 | fotografia `SALA_ANTES` (5 contagens: `sala_de_espera`, `raw_asset`, `storage_object`, `derived_artifact`, `collection_run`) | `data/derivados/BC1-S32/` | Sala, só-leitura |
-| 2 | escolher `ITEM_32` pela regra 2.1 | `data/derivados/BC1-S32/` | relatório da corrida; Sala, só-leitura |
+| 2 | confirmar `ITEM_32` pela regra 2.1 (a corrida tem 3 itens; Sala = 69) | `data/derivados/BC1-S32/` | prova da BC5; Sala, só-leitura |
 | 3 | `sala_de_espera.ler(RUN_ID)` com `PGOPTIONS="-c default_transaction_read_only=on"`; guardar só o item de `ITEM_32` (ver nota ORDEM), com o sha256 do ficheiro | `data/derivados/BC1-S32/` | Sala, só-leitura |
 | 4 | `py motor/corrida_da_inteligencia.py <item.json> > <livro.json>` — o `main()` **imprime** o livro (não chama `gravar()`); guarda-se a saída tal como sai | `data/derivados/BC1-S32/` | o ficheiro do passo 3 |
 | 5 | fotografia `SALA_DEPOIS` — **igual** à do passo 1, ou PARAR | `data/derivados/BC1-S32/` | Sala, só-leitura |
@@ -244,17 +279,18 @@ agronómico, risco de cultura ou recomendação técnica.
 | esticar «um item» para «todos os novos» | a §32 vira a proposta da secção 4 por baixo da porta | 1 item, 1 corrida, HARD STOP |
 | escolher o item pelo conteúdo | procurar card | regra 2.1 fixada antes de ver a Sala |
 | DSN do dono pode escrever | escrita acidental na Sala | `PGOPTIONS` só-leitura; só `ler()`; fotografia antes/depois |
-| a onda não pousar nenhum item | não há «item da onda» | substituto declarado: `IT-T10-018` da BC4d |
+| os 3 SIM são da mesma fonte e da mesma corrida | nada a ver com a §32: ela prova o contrato, não a diversidade | declarado; diversidade é pergunta da proposta (secção 4) |
+| a trava lida é de 23/09, antes da onda | decidir sobre uma medição velha | declarado na secção 1; regenerar é do dono do mapa |
 | `IT-T10-022` (avicultura) ser o 1.º por ordem | item fora de foco | a regra não muda; o item corre só pelo G0, sem tema — a §32 não analisa conteúdo |
 | RAM partilhada (suite BC5 + coleta) | medição truncada | só com ordem do coordenador e máquina livre |
-| os 2 SIM da BC4d vêm de relato | o gate «item real» pode não estar como dito | o passo 1 conta; o passo 3 lê a linha pelo dono |
+| os 3 SIM da onda vêm da prova da BC5, não de leitura minha | o gate «item real» pode não estar como dito | o passo 1 conta; o passo 3 lê a linha pelo dono |
 
 ---
 
 ## 6 · O QUE NÃO FOI VERIFICADO
 
-- o conteúdo real da Sala hoje, e os 2 SIM da BC4d (proibido ler nesta fase);
-- os RUN_ID da onda (ainda não existem);
+- o conteúdo real da Sala hoje e os 3 SIM da onda (proibido ler nesta fase) — sei deles pela prova da BC5, não por leitura;
+- o `FACT_TIME` dos 3 SIM: o critério C5 da prova só diz que **nenhum** foi fabricado a partir de `CAPTURED_AT`, não quantos são `NAO SEI`;
 - se `FACT_TIME` continua `NAO SEI` (expectativa, não facto);
 - os critérios A..N da trava depois de 2026-09-08 (dono: o contrato da trava);
 - o teste do motor (`test_a_primeira_corrida_da_inteligencia.py`) — não corrido (RAM).
