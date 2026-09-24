@@ -59,3 +59,11 @@ fileira avícola: produção, não saúde animal; fica aqui escrita para quem de
 - Peça `C-PESSOAS-DOCENTES` declarada em `system-map/data/architecture.declared.json`.
 
 **FALTA AO RETOMAR:** correr a cadeia do System Map com o `LOCK-PESADO.txt` (REGERAR → commit → VALIDAR), know-how § e memória; depois entrega curta.
+
+## P5b · 24/09 tarde — ESTACIONADA de novo (pausa de memória)
+
+- Marca D29 (temas de janela de cultura na página oficial) feita e testada; a leitura honesta: nenhuma das 8 registadas tem sinal forte de D29 (o «clima» que acendia era um bloco de projeto repetido nas fichas do IBBA).
+- 5 casas novas D29 na lista (FEM, DiSSPA Bari, SAAF Palermo, DBT Verona, Agraria Sassari) — NÃO visitadas: VPN fora da Itália de 13:05 a pelo menos 14:17 (7 portões BLOCKED, 0 pedidos).
+- Mapa: REGERAR feito (ae465951); VALIDAR reprovou só em P9 (as 8 páginas de prova sem peça). Já ligadas à peça C-PESSOAS-DOCENTES; falta regerar e validar outra vez.
+
+**FALTA AO RETOMAR:** com LOCK-PESADO.txt, cadeia REGERAR → commit → VALIDAR (esperado PASS); com VPN IT, `--descobrir` das 5 casas D29, decisões, `--registar` sobre a fila atual; know-how § e entrega.
