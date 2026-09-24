@@ -60,7 +60,29 @@
     "infestazione|infestazioni|infestacao|catture|capturas",
     "trattamento fitosanitario|trattamenti fitosanitari|trattamento insetticida|trattamenti insetticidi|intervento fitosanitario|interventi fitosanitari|tratamento fitossanitario|tratamentos fitossanitarios"
    ],
-   "AGROMETEO": "agrometeorologico|agrometeorologica|agrometeorologici|agrometeorologiche|agrometeorologia|agrometeo"
+   "AGROMETEO": "agrometeorologico|agrometeorologica|agrometeorologici|agrometeorologiche|agrometeorologia|agrometeo",
+   "EDICAO": [
+    "\\b(bollettino|notiziario|settimanale|giornaliero)\\b[^.]{0,80}?\\b(n\\.?|n°|nr\\.?)\\s*\\d{1,3}\\b",
+    "\\bn\\.?\\s*\\d{1,3}\\s*/\\s*20\\d\\d\\b",
+    "\\b\\d{1,2}\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+20\\d\\d\\s*-\\s*\\d{1,2}\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+20\\d\\d",
+    "\\bdel\\s+\\d{1,2}[./-]\\d{1,2}[./-]20\\d\\d\\b"
+   ],
+   "CULTURA": "vigneto|vigneti|vite|oliveto|oliveti|olivo|frutteto|frutteti|frumento|grano|mais|pomodoro|nocciolo|agrumi|barbabietola|colture",
+   "PAGINA_DE_SITE": [
+    "salta al contenuto",
+    "vai al contenuto",
+    "skip to content",
+    "toggle navigation",
+    "main navigation",
+    "menu principale",
+    "chi siamo",
+    "iscrizione",
+    "iscriviti",
+    "newsletter",
+    "area riservata",
+    "accesso rapido",
+    "centro agrometeorologico"
+   ]
   },
   "ANCORAS_EN": {
    "FORTES": [
@@ -91,6 +113,15 @@
    "FN": 0,
    "PRECISAO": 0.974,
    "RECALL": 1.0
+  },
+  "FORA_DA_AMOSTRA": {
+   "ITENS_YES_NO": 0,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0,
+   "PRECISAO": null,
+   "RECALL": null,
+   "MATRIZ": {}
   },
   "YES_QUE_SAIRAM_NAO": 0,
   "YES_QUE_FICARAM_NAO_SEI": 0,
@@ -126,7 +157,8 @@
     ],
     "FALTA": null,
     "IDIOMA": null,
-    "OUTRO": null
+    "OUTRO": null,
+    "FORA": false
    }
   ]
  },
@@ -138,7 +170,7 @@
   "ATLAS_T1": "docs/fontes/ATLAS-DE-FONTES-EAME.md:45 — area plantada, producao, produtividade, calendario agricola, desenvolvimento da cultura, previsao de safra, regioes produtoras, historico"
  },
  "VIZINHOS": {
-  "TEXTOS_NO_CORPUS": 1259,
+  "TEXTOS_NO_CORPUS": 1309,
   "UNIVERSOS": [
    "T3",
    "T4",
@@ -147,20 +179,38 @@
    "T9",
    "T10"
   ],
-  "JULGAMENTOS": 7554,
+  "JULGAMENTOS": 7854,
   "VEREDITOS_VIZINHOS_MUDADOS": 0,
   "MUDANCAS": []
  },
  "T2_NO_CORPUS_ANTES_DEPOIS": {
-  "NAO_SE_APLICA->NAO": 465,
-  "NAO_SE_APLICA->NAO_SEI": 745,
-  "NAO_SE_APLICA->SIM": 49
+  "NAO_SE_APLICA->NAO": 469,
+  "NAO_SE_APLICA->NAO_SEI": 773,
+  "NAO_SE_APLICA->SIM": 67
  },
  "FORA_DO_GABARITO_SIM": {
-  "N": 2,
+  "N": 20,
   "AMOSTRA_25_PARA_LER": [
+   "textos:b6e1dc18c529b59c.txt",
+   "textos:9f62cce86dc3911c.txt",
+   "textos:98769f390b34e392.txt",
    "textos:ed0840d5084a8905.txt",
-   "textos:22a92de22c12ca28.txt"
+   "textos:1d05f3f5a45b9776.txt",
+   "textos:d880146d6344a770.txt",
+   "textos:ece748ebe0e8678a.txt",
+   "textos:6282c018d9d91acb.txt",
+   "textos:8d4ff96a1387f2ee.txt",
+   "textos:a018e7f0dfdd9311.txt",
+   "textos:22a92de22c12ca28.txt",
+   "textos:579c6fa68d0bd898.txt",
+   "textos:7f5856128d014f9a.txt",
+   "textos:371aa673910520bc.txt",
+   "textos:fce0cc8c80d93e79.txt",
+   "textos:85eea8b603406452.txt",
+   "textos:63430c6290ceed39.txt",
+   "textos:ae880949f1a9f97d.txt",
+   "textos:7fcdf3e3a884992e.txt",
+   "textos:eb87d60ab10c7c5a.txt"
   ]
  }
 }

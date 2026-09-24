@@ -841,7 +841,8 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
         anc = (ANCORAS_EN if lingua == "en" else ANCORAS)[universo]
         fortes = [p.split("|")[0] for p in anc["FORTES"] if _casa(p, texto)]
         agro = _casa(anc["AGROMETEO"], texto)
-        if (achadas and fortes) or (agro and len(achadas) >= SINAIS_MINIMOS):
+        via_agro = agro and len(achadas) >= SINAIS_MINIMOS and _corpo_de_boletim(texto, anc)
+        if (achadas and fortes) or via_agro:
             ancoras = fortes + (["agrometeo"] if agro else [])
             return SIM, (f"fala de {', '.join(achadas[:3])} e de {', '.join(ancoras[:3])} — "
                          f"condicao do campo com ligacao agricola escrita, que e o que "
@@ -1306,6 +1307,37 @@ IDIOMAS_SEM_REGUA = ("fr", "es", "de")
 #     DE UMA JANELA.
 # ⚠️ `agrometeo...` e o nome de muitos menus («Agrometeo») e de seccoes de
 #    jornal (AgroNotizie): so conta com DUAS condicoes escritas.
+# ── T2C (24/09): A VIA `agrometeo` SO COM CORPO DE BOLETIM ─────────────────
+# Medido nos 1.309 textos: a via `agrometeo` + 2 condicoes acrescentava 16 SIM, e so 8
+# eram boletins (PDF); os outros 8 eram PAGINAS DE SITE onde «Agrometeo» e item de menu
+# ou nome de servico (LaMMA x3, ARPAV x2, ARPAE, Campania, Puglia) — 2 chegariam a Sala.
+#
+#     O NOME DO SERVICO NAO E O BOLETIM DO SERVICO.
+#
+# Por isso a via so da SIM quando ha CORPO DE BOLETIM — uma marca de edicao (numero,
+# «n. 34/2026», periodo «17 agosto 2026 - 23 agosto 2026», «del 07-09-2026») OU uma
+# cultura nomeada — E o texto NAO traz marcas de pagina de site (navegacao, «chi siamo»,
+# inscricao, newsletter, «accesso rapido», a descricao do «centro agrometeorologico»).
+# O resto da regua nao muda: a via forte (condicao + fenologia/defesa/limiar...) nao
+# olha para isto.
+_MESES = "gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre"
+_EDICAO_DE_BOLETIM = (
+    r"\b(bollettino|notiziario|settimanale|giornaliero)\b[^.]{0,80}?\b(n\.?|n°|nr\.?)\s*\d{1,3}\b",
+    r"\bn\.?\s*\d{1,3}\s*/\s*20\d\d\b",
+    r"\b\d{1,2}\s+(%s)\s+20\d\d\s*-\s*\d{1,2}\s+(%s)\s+20\d\d" % (_MESES, _MESES),
+    r"\bdel\s+\d{1,2}[./-]\d{1,2}[./-]20\d\d\b",
+)
+
+
+def _corpo_de_boletim(texto_dobrado: str, anc: dict) -> bool:
+    """A via `agrometeo` pede corpo de boletim e recusa pagina de site (T2C)."""
+    import re
+    if any(_casa(m, texto_dobrado) for m in anc.get("PAGINA_DE_SITE", ())):
+        return False
+    return (any(re.search(r, texto_dobrado) for r in anc.get("EDICAO", ()))
+            or _casa(anc.get("CULTURA", ""), texto_dobrado))
+
+
 ANCORAS = {
     "T2": {
         # basta UMA destas com UMA condicao
@@ -1322,6 +1354,14 @@ ANCORAS = {
         # condicoes escritas (o boletim traz chuva E temperatura; o menu nao traz nada)
         "AGROMETEO": "agrometeorologico|agrometeorologica|agrometeorologici|agrometeorologiche"
                      "|agrometeorologia|agrometeo",
+        # T2C: o que faz de `agrometeo` um boletim, e o que faz dele um menu
+        "EDICAO": _EDICAO_DE_BOLETIM,
+        "CULTURA": "vigneto|vigneti|vite|oliveto|oliveti|olivo|frutteto|frutteti|frumento|grano"
+                   "|mais|pomodoro|nocciolo|agrumi|barbabietola|colture",
+        "PAGINA_DE_SITE": ("salta al contenuto", "vai al contenuto", "skip to content",
+                           "toggle navigation", "main navigation", "menu principale", "chi siamo",
+                           "iscrizione", "iscriviti", "newsletter", "area riservata",
+                           "accesso rapido", "centro agrometeorologico"),
     },
 }
 # Os mesmos conceitos em ingles. ⚠️ NAO MEDIDO: o gabarito nao tem texto ingles de

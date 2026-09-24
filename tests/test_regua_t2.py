@@ -49,7 +49,8 @@ class OSimPedeAsDuasCoisas(unittest.TestCase):
     def test_agrometeo_so_conta_com_duas_condicoes(self):
         self.assertEqual(t2("Agrometeo · siccita in pianura")[0], adm.NAO_SEI,
                          "o menu «Agrometeo» com uma palavra de tempo entrou")
-        self.assertEqual(t2("Bollettino agrometeorologico: siccita e temperature record")[0], adm.SIM)
+        # T2C: a via tambem pede corpo de boletim (aqui, o numero da edicao)
+        self.assertEqual(t2("Bollettino agrometeorologico n. 36/2026: siccita e temperature record")[0], adm.SIM)
 
     def test_a_metade_nunca_vira_nao(self):
         for texto in ("piogge e temperature", "fase fenologica e catture"):
@@ -128,6 +129,45 @@ class APortaNaoDecideAJanela(unittest.TestCase):
         self.assertEqual(item, antes, "a porta mexeu no item")
 
 
+class AViaAgrometeoPedeCorpoDeBoletim(unittest.TestCase):
+    """T2C (24/09): 16 SIM pela via `agrometeo`, 8 eram paginas de site. So com corpo de boletim."""
+
+    MENU = ("Salta al contenuto Toggle navigation Home Rete Agrometeo Mappa stazioni agrometeo "
+            "Ultimi dati rilevati: pioggia e temperatura per stazione")
+    CAR = ("Regione campania - rete agrometeorologica HOME Accesso Rapido Descrizione Il Centro "
+           "Agrometeorologico Regionale raccoglie pioggia e temperatura per le colture")
+    BOLETIM = ("Bollettino AgroMeteorologico Settimanale n. 34/2026 del 24 agosto 2026 17 agosto 2026 - "
+               "23 agosto 2026 Diario meteorologico: intense precipitazioni e temperature prossime alla media")
+    MENSAL = ("Meteo Veneto: luglio molto caldo, poche piogge. Agrometeorologia: evapotraspirazione, "
+              "sommatoria termica per colture frutticole, pomodoro, olivo")
+
+    def test_pagina_de_site_com_agrometeo_e_tempo_nao_entra(self):
+        for t in (self.MENU, self.CAR):
+            with self.subTest(t=t[:30]):
+                self.assertEqual(t2(t)[0], adm.NAO_SEI)
+
+    def test_boletim_com_edicao_entra(self):
+        self.assertEqual(t2(self.BOLETIM)[0], adm.SIM)
+
+    def test_boletim_com_cultura_nomeada_entra(self):
+        self.assertEqual(t2(self.MENSAL)[0], adm.SIM)
+
+    def test_boletim_dentro_de_uma_pagina_de_site_nao_entra_pela_via(self):
+        """A marca de site ganha: um boletim colado num menu fica NAO_SEI (vai-se ver)."""
+        self.assertEqual(t2("Chi siamo Newsletter " + self.BOLETIM)[0], adm.NAO_SEI)
+
+    def test_a_via_forte_nao_olha_para_isto(self):
+        """Condicao + fenologia continua SIM mesmo numa pagina com menu (a via forte nao muda)."""
+        self.assertEqual(t2("Salta al contenuto · fase fenologica invaiatura, piogge e temperature")[0], adm.SIM)
+
+    def test_a_medicao_t2c_cumpre_os_tres_criterios(self):
+        m = json.load(open(os.path.join(AQUI, "MEDICAO-T2C-V1.json"), encoding="utf-8"))
+        self.assertEqual(m["CRITERIO"], {"CERTOS_CONTINUAM_SIM": True, "ERRADOS_DEIXAM_DE_SER_SIM": True,
+                                         "NADA_MAIS_MUDA": True})
+        self.assertEqual(len(m["OS_8_CERTOS_DEPOIS"]), 8)
+        self.assertEqual(len(m["OS_8_ERRADOS_DEPOIS"]), 8)
+
+
 class OIngles(unittest.TestCase):
 
     def test_boletim_ingles_entra_pela_lista_inglesa(self):
@@ -162,7 +202,7 @@ class OGabaritoEAMedicao(unittest.TestCase):
     def test_a_medicao_e_da_regua_que_esta_escrita(self):
         """Mudar a lista sem voltar a medir deixa esta medicao a descrever outra regua."""
         self.assertEqual(self.m["REGUA"]["IT_PT"], adm.PERGUNTAS_DO_UNIVERSO["T2"])
-        self.assertEqual(self.m["REGUA"]["ANCORAS"], adm.ANCORAS["T2"])
+        self.assertEqual(self.m["REGUA"]["ANCORAS"], json.loads(json.dumps(adm.ANCORAS["T2"])))
         self.assertEqual(self.m["VERSAO_DA_REGRA"], adm.VERSAO_DA_REGRA)
 
     def test_os_vizinhos_nao_mudaram(self):

@@ -60,7 +60,29 @@
     "infestazione|infestazioni|infestacao|catture|capturas",
     "trattamento fitosanitario|trattamenti fitosanitari|trattamento insetticida|trattamenti insetticidi|intervento fitosanitario|interventi fitosanitari|tratamento fitossanitario|tratamentos fitossanitarios"
    ],
-   "AGROMETEO": "agrometeorologico|agrometeorologica|agrometeorologici|agrometeorologiche|agrometeorologia|agrometeo"
+   "AGROMETEO": "agrometeorologico|agrometeorologica|agrometeorologici|agrometeorologiche|agrometeorologia|agrometeo",
+   "EDICAO": [
+    "\\b(bollettino|notiziario|settimanale|giornaliero)\\b[^.]{0,80}?\\b(n\\.?|n°|nr\\.?)\\s*\\d{1,3}\\b",
+    "\\bn\\.?\\s*\\d{1,3}\\s*/\\s*20\\d\\d\\b",
+    "\\b\\d{1,2}\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+20\\d\\d\\s*-\\s*\\d{1,2}\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+20\\d\\d",
+    "\\bdel\\s+\\d{1,2}[./-]\\d{1,2}[./-]20\\d\\d\\b"
+   ],
+   "CULTURA": "vigneto|vigneti|vite|oliveto|oliveti|olivo|frutteto|frutteti|frumento|grano|mais|pomodoro|nocciolo|agrumi|barbabietola|colture",
+   "PAGINA_DE_SITE": [
+    "salta al contenuto",
+    "vai al contenuto",
+    "skip to content",
+    "toggle navigation",
+    "main navigation",
+    "menu principale",
+    "chi siamo",
+    "iscrizione",
+    "iscriviti",
+    "newsletter",
+    "area riservata",
+    "accesso rapido",
+    "centro agrometeorologico"
+   ]
   },
   "ANCORAS_EN": {
    "FORTES": [
@@ -81,44 +103,44 @@
   "OURO_NO": 255,
   "OURO_NAO_SEI_FORA_DA_CONTA": 121,
   "TP": 61,
-  "FP": 9,
+  "FP": 3,
   "FN": 0,
-  "PRECISAO": 0.871,
+  "PRECISAO": 0.953,
   "RECALL": 1.0,
   "SEM_SERIE_ARPAV": {
    "TP": 49,
-   "FP": 9,
+   "FP": 3,
    "FN": 0,
-   "PRECISAO": 0.845,
+   "PRECISAO": 0.942,
    "RECALL": 1.0
   },
   "FORA_DA_AMOSTRA": {
    "ITENS_YES_NO": 46,
    "TP": 16,
-   "FP": 8,
+   "FP": 2,
    "FN": 0,
-   "PRECISAO": 0.667,
+   "PRECISAO": 0.889,
    "RECALL": 1.0,
    "MATRIZ": {
-    "NO->NAO_SEI": 18,
-    "NO->SIM": 8,
+    "NO->NAO_SEI": 24,
     "NO->NAO": 4,
-    "YES->SIM": 16
+    "YES->SIM": 16,
+    "NO->SIM": 2
    }
   },
   "YES_QUE_SAIRAM_NAO": 0,
   "YES_QUE_FICARAM_NAO_SEI": 0,
   "CONTROLO_NEGATIVO": {
    "NO_DO_GABARITO": 255,
-   "QUE_ENTRARAM_COMO_SIM": 9
+   "QUE_ENTRARAM_COMO_SIM": 3
   },
   "MATRIZ_OURO_REGUA": {
    "NAO_SEI->NAO": 8,
-   "NAO_SEI->NAO_SEI": 110,
-   "NAO_SEI->SIM": 3,
+   "NAO_SEI->NAO_SEI": 112,
+   "NAO_SEI->SIM": 1,
    "NO->NAO": 175,
-   "NO->NAO_SEI": 71,
-   "NO->SIM": 9,
+   "NO->NAO_SEI": 77,
+   "NO->SIM": 3,
    "YES->SIM": 61
   },
   "ERROS": [
@@ -142,123 +164,6 @@
     "IDIOMA": null,
     "OUTRO": null,
     "FORA": false
-   },
-   {
-    "TEXTO_ID": "b662ee180a543ce1",
-    "SOURCE_ID": "IT-T2-001",
-    "SERIE": null,
-    "OURO": "NO",
-    "REGUA": "SIM",
-    "SINAIS": 4,
-    "PALAVRAS": [
-     "siccita",
-     "gelata",
-     "grandine"
-    ],
-    "ANCORAS": [
-     "agrometeo"
-    ],
-    "FALTA": null,
-    "IDIOMA": null,
-    "OUTRO": null,
-    "FORA": true
-   },
-   {
-    "TEXTO_ID": "d89beec6225962a5",
-    "SOURCE_ID": "IT-T2-002",
-    "SERIE": null,
-    "OURO": "NO",
-    "REGUA": "SIM",
-    "SINAIS": 4,
-    "PALAVRAS": [
-     "gelata",
-     "grandine",
-     "irrigazione"
-    ],
-    "ANCORAS": [
-     "agrometeo"
-    ],
-    "FALTA": null,
-    "IDIOMA": null,
-    "OUTRO": null,
-    "FORA": true
-   },
-   {
-    "TEXTO_ID": "46126e827da9de95",
-    "SOURCE_ID": "IT-T2-002",
-    "SERIE": null,
-    "OURO": "NO",
-    "REGUA": "SIM",
-    "SINAIS": 3,
-    "PALAVRAS": [
-     "temperatura",
-     "gelata"
-    ],
-    "ANCORAS": [
-     "agrometeo"
-    ],
-    "FALTA": null,
-    "IDIOMA": null,
-    "OUTRO": null,
-    "FORA": true
-   },
-   {
-    "TEXTO_ID": "329f4a17ed0a8888",
-    "SOURCE_ID": "IT-T3-002",
-    "SERIE": null,
-    "OURO": "NO",
-    "REGUA": "SIM",
-    "SINAIS": 3,
-    "PALAVRAS": [
-     "pioggia",
-     "temperatura"
-    ],
-    "ANCORAS": [
-     "agrometeo"
-    ],
-    "FALTA": null,
-    "IDIOMA": null,
-    "OUTRO": null,
-    "FORA": true
-   },
-   {
-    "TEXTO_ID": "1cde235e4334972a",
-    "SOURCE_ID": "IT-T3-008",
-    "SERIE": null,
-    "OURO": "NO",
-    "REGUA": "SIM",
-    "SINAIS": 3,
-    "PALAVRAS": [
-     "pioggia",
-     "temperatura"
-    ],
-    "ANCORAS": [
-     "agrometeo"
-    ],
-    "FALTA": null,
-    "IDIOMA": null,
-    "OUTRO": null,
-    "FORA": true
-   },
-   {
-    "TEXTO_ID": "e4a33710dde15b99",
-    "SOURCE_ID": "NAO_CATALOGADO",
-    "SERIE": null,
-    "OURO": "NO",
-    "REGUA": "SIM",
-    "SINAIS": 4,
-    "PALAVRAS": [
-     "pioggia",
-     "siccita",
-     "nuvolosita"
-    ],
-    "ANCORAS": [
-     "agrometeo"
-    ],
-    "FALTA": null,
-    "IDIOMA": null,
-    "OUTRO": null,
-    "FORA": true
    },
    {
     "TEXTO_ID": "371aa673910520bc",
@@ -327,8 +232,8 @@
  },
  "T2_NO_CORPUS_ANTES_DEPOIS": {
   "NAO_SE_APLICA->NAO": 469,
-  "NAO_SE_APLICA->NAO_SEI": 765,
-  "NAO_SE_APLICA->SIM": 75
+  "NAO_SE_APLICA->NAO_SEI": 773,
+  "NAO_SE_APLICA->SIM": 67
  },
  "FORA_DO_GABARITO_SIM": {
   "N": 2,
@@ -336,29 +241,5 @@
    "textos:ed0840d5084a8905.txt",
    "textos:22a92de22c12ca28.txt"
   ]
- },
- "FORA_DA_AMOSTRA_NO_CAMINHO_REAL": {
-  "O_QUE": "os 8 SIM errados fora da amostra passados pelo detector de capa da porta (curadoria/retrato_html.py::veredito, sem contrato)",
-  "CAPA_PROVAVEL_BARRADA": 3,
-  "NAO_SEI_QUARENTENA": 1,
-  "MATERIA_PROVAVEL_CHEGA_A_SALA": 4,
-  "DESSES_TEXTOS_DISTINTOS": 3,
-  "PDF_SEM_DETECTOR": 0,
-  "NOTA": "7 dos 8 entram pela via `agrometeo` + 2 condicoes: paginas que DESCREVEM um servico agrometeo."
- },
- "ALTERNATIVAS_MEDIDAS_NAO_APLICADAS": {
-  "AVISO": "medidas DEPOIS de ver os textos de fora: aplicar qualquer uma torna-os dentro da amostra. Decisao do dono/coordenacao.",
-  "ATUAL_agro_mais_2": {
-   "DENTRO": "TP45 FP1 FN0",
-   "FORA": "TP16 FP8 FN0 prec 0.67 rec 1.00"
-  },
-  "agro_mais_3": {
-   "DENTRO": "TP45 FP1 FN0",
-   "FORA": "TP16 FP5 FN0 prec 0.76 rec 1.00"
-  },
-  "sem_via_agrometeo": {
-   "DENTRO": "TP39 FP1 FN6",
-   "FORA": "TP14 FP2 FN2 prec 0.88 rec 0.88"
-  }
  }
 }
