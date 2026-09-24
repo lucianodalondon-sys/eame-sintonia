@@ -124,17 +124,22 @@ def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
     """Os enderecos que o canario ve numa pagina de entrada. UM so dono: o
     reparo de contratos (reparar_contrato.py) infere o padrao sobre ESTE
     conjunto, para propor exactamente o que o canario vai casar depois."""
-    html = b.decode("utf-8", "replace")
-    base = re.match(r"^(https?://[^/]+)", index_url).group(1)
+    # ⚠️ IA-CUR (24/09): a ligacao RELATIVA sem barra («news_open.php?EW_ID=15142») era
+    # descartada, e o `&amp;` do HTML ficava literal. Medido na Assomao: a listagem tem 44
+    # noticias e o canario via 0 — e a R1 dizia SEM_FAMILIA_DE_ITENS pela mesma razao (le por
+    # este leitor). Resolve-se contra o endereco da pagina, como um navegador faz.
+    # `mailto:`, `javascript:`, `tel:` e afins continuam fora.
+    import html as _html
+    from urllib.parse import urljoin
+    texto = b.decode("utf-8", "replace")
     hrefs = set()
-    for h in re.findall(r'href=["\']([^"\']+)["\']', html):
-        if h.startswith("//"):
-            h = "https:" + h
-        elif h.startswith("/"):
-            h = base + h
-        elif not h.startswith("http"):
+    for h in re.findall(r'href=["\']([^"\']+)["\']', texto):
+        h = _html.unescape(h).strip()
+        if re.match(r"^[a-z][a-z0-9+.-]*:", h, re.I) and not h.lower().startswith(("http:", "https:")):
             continue
-        hrefs.add(h.split("#")[0])
+        h = urljoin(index_url, h)
+        if h.startswith(("http://", "https://")):
+            hrefs.add(h.split("#")[0])
     return hrefs
 
 
