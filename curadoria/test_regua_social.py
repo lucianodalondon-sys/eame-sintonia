@@ -90,6 +90,16 @@ class OAutor(unittest.TestCase):
         self.assertIn("nenhuma palavra", p)
 
 
+class AFaseEDoContrato(unittest.TestCase):
+    def test_a_fase_exigida_vem_do_contrato(self):
+        c = {"ACQUISITION": {"STRATEGY": "SCRAP_FASE", "FASE": "canal-youtube"}}
+        self.assertEqual(RG.fase_do_contrato(c), "canal-youtube")
+        v, p = RG.julgar(_env([_item()], fase="audio-youtube"), SID, RG.fase_do_contrato(c), 1)
+        self.assertEqual(v, RG.FALHA)
+        self.assertIn("contrato pede canal-youtube", p)
+        self.assertIsNone(RG.fase_do_contrato({}))
+
+
 class OPortaoConheceARegua(unittest.TestCase):
     """ready_split/collection_gate: a promocao social so vale pelo veredito da regua social."""
 

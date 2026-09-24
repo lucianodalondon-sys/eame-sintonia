@@ -135,6 +135,13 @@ def julgar(env: dict, sid: str, fase: str, raw_no_banco: int | None,
                    % (fase, len(itens), len(proprios), raw_no_banco))
 
 
+def fase_do_contrato(c: dict) -> str | None:
+    """A fase que a régua exige é a do CONTRATO da fonte, nunca a que a corrida
+    declara de si própria. Medido em 24/09: comparar com a fase da corrida deixava
+    passar um canário de `audio-youtube` para um contrato de `canal-youtube`."""
+    return (c.get("ACQUISITION") or {}).get("FASE")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--corridas", required=True, help="resultados.json do canario (SOURCE_ID, FASE, RUN_ID, MEDIDA.RAW)")
@@ -153,9 +160,10 @@ def main() -> int:
         med = x.get("MEDIDA") if isinstance(x.get("MEDIDA"), dict) else {}
         c = contratos.get(x["SOURCE_ID"]) or {}
         slug = (c.get("ACQUISITION") or {}).get("LINKEDIN_SLUG")
-        v, porque = julgar(env, x["SOURCE_ID"], x["FASE"], len(med.get("RAW") or []) if med else None,
+        v, porque = julgar(env, x["SOURCE_ID"], fase_do_contrato(c), len(med.get("RAW") or []) if med else None,
                            slug=slug, nome_da_fonte=c.get("NAME"))
-        linhas.append({"SOURCE_ID": x["SOURCE_ID"], "FASE": x["FASE"], "RUN_ID": x.get("RUN_ID"),
+        linhas.append({"SOURCE_ID": x["SOURCE_ID"], "FASE": fase_do_contrato(c),
+                       "FASE_DA_CORRIDA": x.get("FASE"), "RUN_ID": x.get("RUN_ID"),
                        "VEREDITO": v, "PORQUE": porque})
     print(dict(Counter(l["VEREDITO"] for l in linhas)))
     if a.aplicar:

@@ -69,13 +69,27 @@ def ambiente(url):
     e = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8",
              BANCO_DESCARTAVEL_URL=url, SINTONIA_PSQL_EXE=os.path.join(PG, "psql.exe"),
              SINTONIA_SALA_BACKEND="POSTGRES", SINTONIA_SALA_DSN=url,
-             SINTONIA_ARMAZEM_RAIZ=os.path.join(AQUI, "armazem"))
+             SINTONIA_ARMAZEM_RAIZ=os.path.join(AQUI, "armazem"),
+             # o som do YouTube: as mesmas libs do canario SOC5 (ASR na placa)
+             SINTONIA_LIBS=os.path.join(os.path.expanduser("~"), "AppData", "Local", "Programs", "Python",
+                                        "Python312", "Lib", "site-packages"),
+             SINTONIA_ASR_DEVICE="AUTO",
+             PYTHONPATH=os.pathsep.join([os.path.expanduser("~/.sintonia-libs"), os.path.join(os.path.expanduser("~"), "soc5-libs")]))
     e.pop("SINTONIA_COLLECTION_DSN", None)
     e["PATH"] = PG + os.pathsep + e.get("PATH", "")
     return e
 
 
 def alvos(fase):
+    if fase == "audio-youtube":
+        # os VIDEO_ID vieram da fase canal-youtube corrida onde a chave vive (GitHub, run 36028407680)
+        lista = json.load(open(r"C:\soc-onda2\curadoria\CANARIO-YOUTUBE-SOC-ONDA2-VIDEOS.json", encoding="utf-8"))
+        return [(l["SOURCE_ID"], l["TERRITORY"], {"video": l["VIDEO_IDS"][0]})
+                for l in lista["LINHAS"] if l.get("VIDEO_IDS")]
+    return _alvos_do_contrato(fase)
+
+
+def _alvos_do_contrato(fase):
     d = json.load(open(os.path.join(WT, "curadoria", "italy_contracts_curator.json"), encoding="utf-8"))
     ens = json.load(open(r"C:\soc2\ensaio_qualify.json", encoding="utf-8"))
     novos = {n["SOURCE_ID"] for n in ens["NOVAS"]}

@@ -65,3 +65,21 @@ O Pedido é montado **em processo**: pela CLI, o endereço «agricultural» fez 
 (soc2, soc4, worker_qualify, d21, ponte_candidatas, contrato_unico, ready_split, collection_gate,
 um_so_canario_promove, canario_detalhe, prontidao_social_v1) passam.
 O `test_prontidao_social_v1` mudou uma linha: o LinkedIn deixa de ser POLICY no QUALIFY (D23).
+
+## ADENDA (24/09, tarde) — canário YouTube e o portão de consenso
+- A junção `bb34d386` foi feita pelo coordenador; mapa regerado por cima (PASS) e publicado.
+- `superficie/rede.py` passou a ser o de `origin/egresso-consenso-v1` (commit «traz portao de consenso»).
+  A 1.ª tentativa do canário YouTube parou antes de baixar qualquer coisa: o `rede.py` antigo da cópia só
+  perguntava ao ipinfo, que estava em 429, e respondia UNKNOWN.
+- **Canário YouTube**: 11 canais, 1 vídeo cada. Os VIDEO_ID vieram da fase `canal-youtube`, corrida no GitHub.
+  Pela porta canónica local correu a fase `audio-youtube`: **11/11 RAW, 11/11 DERIVED (transcrição), 4 na Sala**,
+  egresso IT 11/11. Provas em `curadoria/SOC-ONDA2-CANARIO-YOUTUBE-V1.json`.
+- **READY YouTube = 0**, por duas razões medidas:
+  1. a fase do contrato é `canal-youtube`, e ela não corre pela porta local (a chave só existe no GitHub);
+  2. o item de `audio-youtube` não traz PUBLISHED_AT, OWNER_AUTHORIZED, PLATFORM_POLICY_STATUS nem o canal
+     de onde veio. A ligação vídeo↔canal só existe na lista do GitHub. Dono: engenheiro do Scrap
+     (o adaptador de áudio carimbar a data e a autorização).
+  Não se aplicou FALHA ao livro: a rota funciona, e o que falta é da porta (chave) e do adaptador. As 11 ficam CANARY_PENDING.
+- **Defeito meu, corrigido**: a régua comparava a fase da corrida com a fase anotada na própria corrida.
+  Agora compara com a fase do CONTRATO (`fase_do_contrato`, com teste). O LinkedIn não muda: 9/23/5.
+- Instagram: 0 contas qualificadas, portanto 0 canários — não há rota para listar uma conta (ver passo 2).
