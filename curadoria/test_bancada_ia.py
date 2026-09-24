@@ -69,6 +69,24 @@ class APortaDasReceitas(unittest.TestCase):
                                                     consumida_em=BIA._t(T2)))
 
 
+class ARespostaSemReceita(unittest.TestCase):
+
+    def test_sem_receita_tira_da_fila_e_o_reparo_ignora(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            cam = Path(d) / "P.json"
+            with self.assertRaises(BIA.PropostaInvalida):
+                BIA.responder_sem_receita({"SOURCE_ID": "IT-T7-001", "PORQUE": "x", "PROPOSTO_EM": T2,
+                                           "PROPOSTO_POR": "a", "PAGINAS_LIDAS": []}, cam)
+            r = BIA.responder_sem_receita({"SOURCE_ID": "IT-T7-001", "PORQUE": "1.o item com 590 letras",
+                                           "PROPOSTO_EM": T2, "PROPOSTO_POR": "a",
+                                           "PAGINAS_LIDAS": [{"URL": "https://x.it/", "SHA256": SHA}]}, cam)
+            self.assertIsNone(BIA.proposta_pendente("IT-T7-001", {}, caminho=cam))
+            f = BIA.construir(transicoes=[t("IT-T7-001", LC.CONTRACTED_CANARY_FAILED, T1, "CAPA_NAO_E_MATERIA: x")],
+                              decisoes=[], propostas=[r], contratos={})
+            self.assertEqual([], f["CASOS"])
+
+
 class AFila(unittest.TestCase):
 
     def fila(self, transicoes, decisoes=(), propostas=()):

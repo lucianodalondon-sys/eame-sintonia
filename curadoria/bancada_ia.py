@@ -106,6 +106,25 @@ def propor_receita(p: dict, caminho: Path | None = None) -> dict:
     return p
 
 
+def responder_sem_receita(r: dict, caminho: Path | None = None) -> dict:
+    """A resposta «li e nao ha receita» tambem e uma resposta: com prova, fica na porta, e o caso
+    sai da fila ate haver prova nova. O reparo ignora-a (nao e PADRAO_NOVO)."""
+    caminho = caminho or PROPOSTAS
+    for k in ("SOURCE_ID", "PORQUE", "PROPOSTO_EM", "PROPOSTO_POR"):
+        if not r.get(k):
+            raise PropostaInvalida("falta %s" % k)
+    if not [x for x in r.get("PAGINAS_LIDAS") or [] if _SHA.match(str(x.get("SHA256", "")))]:
+        raise PropostaInvalida("sem PAGINAS_LIDAS com URL + sha256")
+    r = dict(r, RESPOSTA="SEM_RECEITA")
+    d = (json.loads(caminho.read_text(encoding="utf-8")) if caminho.exists() else
+         {"DATASET": "PROPOSTAS-DE-RECEITA-V1",
+          "LEI": "escritor: a bancada (agente). O robo so le, no REPAIR_CONTRACT; quem promove e a regua.",
+          "PROPOSTAS": []})
+    d["PROPOSTAS"].append(r)
+    caminho.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    return r
+
+
 def proposta_pendente(source_id: str, contrato: dict | None, *, caminho: Path | None = None,
                       consumida_em: datetime | None = None) -> dict | None:
     """A proposta valida mais recente para esta fonte, ainda nao aplicada.
@@ -115,7 +134,7 @@ def proposta_pendente(source_id: str, contrato: dict | None, *, caminho: Path | 
     volta a fila a cada volta."""
     validas = []
     for p in _json(caminho or PROPOSTAS, "PROPOSTAS"):
-        if p.get("SOURCE_ID") != source_id:
+        if p.get("SOURCE_ID") != source_id or p.get("RESPOSTA") == "SEM_RECEITA":
             continue
         try:
             validar_proposta(p)
