@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "bb34d38683c26547042285b2ec145110a3a2d62d",
-    "GENERATED_AT": "2026-09-24T16:27:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0d458bebf70ae035f2c96ca978ff665bcdc59d076e61c49270131b174b2f0cd1"
+    "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
+    "GENERATED_AT": "2026-09-24T17:45:40-03:00",
+    "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e"
   },
   "FILES": [
     {
@@ -612,7 +612,7 @@
     },
     {
       "path": "RELATORIO-SOC-ONDA2.md",
-      "sha": "d9cee36d4e9800d88ecaf552e9e4b0fde4cfad98",
+      "sha": "b4b8e671992e975b5de31368c50191cc1738db67",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2683,6 +2683,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/SOC-ONDA2-CANARIO-YOUTUBE-V1.json",
+      "sha": "beddaa59a27daecd9016a4da5331f8a34572cc69",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/SOC-ONDA2-ENSAIO-QUALIFY-V1.json",
       "sha": "68a208ba7e8a921dddc601b493ba2c3f5fdabb9b",
       "ext": ".json",
@@ -2713,6 +2720,13 @@
     {
       "path": "curadoria/SOC-ONDA2-REGUA-LINKEDIN-V1.json",
       "sha": "dd1af9a477a39c708e4367c306e0d97fb19cc9e4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/SOC-ONDA2-REGUA-YOUTUBE-V1.json",
+      "sha": "0d254d51feff94d3e2856b86b81dbb313957b714",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3216,7 +3230,7 @@
     },
     {
       "path": "curadoria/regua_social.py",
-      "sha": "372704dfe23cd091a51ea5823b5689c2f92f912c",
+      "sha": "8ce90575ccf937b783cef2bb35a9dcc9828fa0b2",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3503,7 +3517,7 @@
     },
     {
       "path": "curadoria/test_regua_social.py",
-      "sha": "dd4c4e317024883cc85d677902e98b7df025cc23",
+      "sha": "2e854952dca3f33fc555317d6bf9e3b13fc8ddf5",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -15102,7 +15116,7 @@
     },
     {
       "path": "provas/canario_social_onda2.py",
-      "sha": "5e520e604b437d00c56c46e8e8160e8bf658d23e",
+      "sha": "47d7fb9553776104af1da190ea3564fe7ae97dfe",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17727,7 +17741,7 @@
     },
     {
       "path": "superficie/rede.py",
-      "sha": "7b746ad737c93858fabd3620c38ba6b0fe2e1bc1",
+      "sha": "84e8afb0e69c729ff98e115ed86f6ecc35f9a39f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19505,7 +19519,7 @@
     },
     {
       "path": "tests/test_preflight_de_egresso.py",
-      "sha": "25563ea78599e4ce49905fc6f5b644766bd24442",
+      "sha": "b00624729e7a3baf1d636b428a78b7d38df11b16",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28154,7 +28168,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 148,
+        "line": 155,
         "snippet": "(RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
       }
     },
@@ -28165,7 +28179,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 165,
+        "line": 173,
         "snippet": "import lifecycle as LC"
       }
     },
@@ -28176,7 +28190,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 166,
+        "line": 174,
         "snippet": "import worker as W"
       }
     },
@@ -30387,7 +30401,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_regua_social.py",
-        "line": 97,
+        "line": 107,
         "snippet": "import ready_split as RS"
       }
     },
@@ -52200,7 +52214,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/canario_social_onda2.py",
-        "line": 79,
+        "line": 93,
         "snippet": "d = json.load(open(os.path.join(WT, \"curadoria\", \"italy_contracts_curator.json\"), encoding=\"utf-8\"))"
       }
     },
@@ -52211,7 +52225,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/canario_social_onda2.py",
-        "line": 103,
+        "line": 117,
         "snippet": "cmd = [sys.executable, \"orquestrador/orquestrador.py\", \"colete %s\" % APELIDO[terr],"
       }
     },
@@ -78666,7 +78680,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preflight_de_egresso.py",
-        "line": 167,
+        "line": 170,
         "snippet": "YML = os.path.join(RAIZ, \".github\", \"workflows\", \"sintonia-scrap.yml\")"
       }
     },
@@ -78688,7 +78702,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preflight_de_egresso.py",
-        "line": 214,
+        "line": 217,
         "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")"
       }
     },
@@ -78699,7 +78713,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preflight_de_egresso.py",
-        "line": 173,
+        "line": 176,
         "snippet": "orq = s.find(\"orquestrador/orquestrador.py\")"
       }
     },
@@ -83216,7 +83230,7 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2841,
+    "files_tracked": 2843,
     "files_readable": 1301,
     "files_code_dir": 1123,
     "file_edges": 5705,

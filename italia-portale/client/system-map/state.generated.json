@@ -406,11 +406,13 @@
       "curadoria/SAMPLE-MANIFEST-V1.json",
       "curadoria/SERVICO-SOURCE-CURATOR.md",
       "curadoria/SOC-ONDA2-CANARIO-LINKEDIN-V1.json",
+      "curadoria/SOC-ONDA2-CANARIO-YOUTUBE-V1.json",
       "curadoria/SOC-ONDA2-ENSAIO-QUALIFY-V1.json",
       "curadoria/SOC-ONDA2-IDENTIDADE-V1.json",
       "curadoria/SOC-ONDA2-PLANO-ONDA-SOCIAL-V1.json",
       "curadoria/SOC-ONDA2-PROVAS-FORA-DO-GIT.txt",
       "curadoria/SOC-ONDA2-REGUA-LINKEDIN-V1.json",
+      "curadoria/SOC-ONDA2-REGUA-YOUTUBE-V1.json",
       "curadoria/SOC2-LINKEDIN-PELO-SITE-V1.json",
       "curadoria/SOC2-QUALIFY-YOUTUBE-ENSAIO-V1.json",
       "curadoria/SOURCE-CAPABILITY-GAPS-V1.json",
@@ -3435,9 +3437,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "bb34d38683c26547042285b2ec145110a3a2d62d",
-    "GENERATED_AT": "2026-09-24T16:27:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0d458bebf70ae035f2c96ca978ff665bcdc59d076e61c49270131b174b2f0cd1"
+    "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
+    "GENERATED_AT": "2026-09-24T17:45:40-03:00",
+    "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e"
   },
   "FAMILIES": [
     {
@@ -4934,8 +4936,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 628",
-        "desses, mostrados aqui: 40 (ficam de fora 588)"
+        "enderecos que o codigo realmente chama: 629",
+        "desses, mostrados aqui: 40 (ficam de fora 589)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -29602,11 +29604,13 @@
         "listas": [
           "BENCH",
           "FRESHNESS",
-          "HOSTS"
+          "HOSTS",
+          "VERIFICADORES",
+          "_VARIAVEIS_DE_REDE"
         ],
-        "palavras": 247,
+        "palavras": 267,
         "por_lingua": {},
-        "sem_marca_de_lingua": 247,
+        "sem_marca_de_lingua": 267,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -67600,7 +67604,7 @@
       "evidence": [
         {
           "file": "provas/canario_social_onda2.py",
-          "line": 79,
+          "line": 93,
           "snippet": "d = json.load(open(os.path.join(WT, \"curadoria\", \"italy_contracts_curator.json\"), encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -96648,7 +96652,7 @@
       "evidence": [
         {
           "file": "provas/canario_social_onda2.py",
-          "line": 103,
+          "line": 117,
           "snippet": "cmd = [sys.executable, \"orquestrador/orquestrador.py\", \"colete %s\" % APELIDO[terr],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -109732,7 +109736,7 @@
         },
         {
           "file": "tests/test_preflight_de_egresso.py",
-          "line": 214,
+          "line": 217,
           "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
@@ -116577,7 +116581,7 @@
         },
         {
           "file": "tests/test_preflight_de_egresso.py",
-          "line": 167,
+          "line": 170,
           "snippet": "YML = os.path.join(RAIZ, \".github\", \"workflows\", \"sintonia-scrap.yml\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
@@ -123146,7 +123150,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1609,
+  "UNCLAIMED_FILES_COUNT": 1611,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123408,7 +123412,7 @@
     "edges_proven": 1202,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2841,
+    "files_tracked": 2843,
     "files_covered": 1232,
     "files_code_unclaimed": 0,
     "roles_proven": 163,

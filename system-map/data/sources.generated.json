@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T19:56:58+00:00",
-    "HEAD": "bb34d38683c26547042285b2ec145110a3a2d62d",
+    "GENERATED_AT": "2026-09-24T20:55:20+00:00",
+    "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "0d458bebf70ae035f2c96ca978ff665bcdc59d076e61c49270131b174b2f0cd1",
-    "FICHEIROS_NA_IMPRESSAO": 2989,
+    "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e",
+    "FICHEIROS_NA_IMPRESSAO": 2991,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -30578,6 +30578,31 @@
       ]
     },
     {
+      "endpoint": "https://ipinfo.io/json',",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 442
+        },
+        {
+          "file": "provas/canario_d23_linkedin_video.py",
+          "line": 82
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 80
+        },
+        {
+          "file": "provas/canario_reels_instagram.py",
+          "line": 84
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 202
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/channel",
       "usado_por": [
         {
@@ -30771,27 +30796,6 @@
         {
           "file": "provas/canario_reels_instagram.py",
           "line": 109
-        }
-      ]
-    },
-    {
-      "endpoint": "https://ipinfo.io/json',",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 442
-        },
-        {
-          "file": "provas/canario_d23_linkedin_video.py",
-          "line": 82
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 80
-        },
-        {
-          "file": "provas/canario_reels_instagram.py",
-          "line": 84
         }
       ]
     },
@@ -31164,9 +31168,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 628,
+  "ENDPOINTS_FOUND": 629,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 588,
+  "ENDPOINTS_TRUNCATED": 589,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31184,9 +31188,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 628,
+    "endpoints": 629,
     "endpoints_published": 40,
-    "endpoints_truncated": 588,
+    "endpoints_truncated": 589,
     "candidates": 906,
     "coletores": 54,
     "coletores_com_data": 20,

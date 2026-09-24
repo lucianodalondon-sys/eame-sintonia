@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T19:59:33+00:00",
-  "HEAD": "bb34d38683c26547042285b2ec145110a3a2d62d",
+  "GENERATED_AT": "2026-09-24T20:57:48+00:00",
+  "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
   "BRANCH": "social-onda2-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "0d458bebf70ae035f2c96ca978ff665bcdc59d076e61c49270131b174b2f0cd1",
-  "FICHEIROS_NA_IMPRESSAO": 2989,
+  "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e",
+  "FICHEIROS_NA_IMPRESSAO": 2991,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2638,7 +2638,7 @@
    {
     "PATH": "provas/canario_social_onda2.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5e520e604b437d00c56c46e8e8160e8bf658d23e",
+    "VERSAO": "47d7fb9553776104af1da190ea3564fe7ae97dfe",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3737,21 +3737,21 @@
    {
     "PATH": "superficie/rede.py",
     "PAPEL": "FONTE",
-    "VERSAO": "7b746ad737c93858fabd3620c38ba6b0fe2e1bc1",
+    "VERSAO": "84e8afb0e69c729ff98e115ed86f6ecc35f9a39f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0d458bebf70ae035f2c96ca978ff665bcdc59d076e61c49270131b174b2f0cd1",
+    "VERSAO": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0d458bebf70ae035f2c96ca978ff665bcdc59d076e61c49270131b174b2f0cd1",
+    "VERSAO": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5249,7 +5249,7 @@
    {
     "PATH": "tests/test_preflight_de_egresso.py",
     "PAPEL": "FONTE",
-    "VERSAO": "25563ea78599e4ce49905fc6f5b644766bd24442",
+    "VERSAO": "b00624729e7a3baf1d636b428a78b7d38df11b16",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5633,7 +5633,7 @@
    }
   ],
   "INPUTS_COUNT": 799,
-  "INPUTS_DIGEST": "1f49490dfdd791d9a226078f283b20e3daec893eaa3a4367bd0e31a9d9a67af5",
+  "INPUTS_DIGEST": "80be23ce9d7786736af19daab932310138a611a3649a56f880f7ebd28e0803ea",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5666,8 +5666,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "49b1477513f08fbd2a7069b5f5e79604aa2a2332c91266aeb0314e4dbf313fa1",
-  "SEMANTIC_HASH": "3da9c1bd57bc62fa88bc40cfeb82f4b7bcd29e36fa8ccfe5838c981ff8851fc3"
+  "MEASUREMENT_HASH": "79084140110a0f87a3a5907caccad5455a6e3a3e7c14699c93fd9a14c3ee81b5",
+  "SEMANTIC_HASH": "4ea518936106a272a8b9fead9808480e55e71ed344b5acb8ac370e9c13e37181"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -11481,7 +11481,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/canario_social_onda2.py",
-      "LINHA": 79,
+      "LINHA": 93,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -28141,7 +28141,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/canario_social_onda2.py",
-      "LINHA": 103,
+      "LINHA": 117,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -35460,7 +35460,7 @@
      },
      {
       "FICHEIRO": "tests/test_preflight_de_egresso.py",
-      "LINHA": 214,
+      "LINHA": 217,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
@@ -39088,7 +39088,7 @@
      },
      {
       "FICHEIRO": "tests/test_preflight_de_egresso.py",
-      "LINHA": 167,
+      "LINHA": 170,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
@@ -43725,7 +43725,8 @@
    "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
-    "collections"
+    "collections",
+    "concurrent"
    ],
    "ENTRAM": 2,
    "SAEM": 12,
