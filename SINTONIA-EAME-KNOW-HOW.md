@@ -20736,7 +20736,9 @@ relatório `RELATORIO-LISTING-DETAIL-V3.md`.*
   (mudar só as chaves certas) e confirmar o URL antes de gastar o pedido.
 - **Preparar sem ligar tem prova.** `politica_nao_sei.py` tem as três respostas da D11 e um
   teste que falha se algum ficheiro a importar antes da decisão.
-# § (sem número) · A MICRO-COLETA ENSAIADA SEM INTERNET — E O QUE O INSTRUMENTO AINDA NÃO LÊ
+# §220 · A MICRO-COLETA ENSAIADA SEM INTERNET — E O QUE O INSTRUMENTO AINDA NÃO LÊ
+
+> Numerada na unificação (UNIFICACAO-V1-G, 23/09/2026), por ordem de chegada: chegou sem número em micro A1 (004c6cc7; escapou à numeração das passagens E e F). Nada foi apagado.
 
 **O ENSAIO.** `scripts/micro_coleta/ensaio_offline.py` corre o caminho inteiro da micro
 (orquestrador → coletor Node → RAW → DERIVED → Admission → Sala) pelo mesmo comando da
@@ -22225,7 +22227,9 @@ UMA ROTA NÃO É UMA LINHA: É UM NOME. DUAS DECISÕES DO DONO SOBRE A MESMA ROT
 
 O que a junção mostrou, e custou: as duas baterias de mutação miravam «a primeira linha» — a da D24 estragava a linha da D22 e 4 mutantes sobreviviam; o M1 dos Reels nem chegava a ser aplicado (a âncora passou a casar duas vezes, e a linha da D24 vinha com 8 espaços a mais). Depois de mirar pelo significado: D24 10/10, REELS 10/10. E o ramo do Reel no workflow chamava `fonte_obrigatoria`, que não existia em versão nenhuma do ficheiro — a fase do Reel ficaria sem fonte em produção.
 
-# §199 · A CORTESIA VIVE NO TRANSPORTE: ROBOTS, PAUSA E TETO DENTRO DE `baixar()`
+# §215 · A CORTESIA VIVE NO TRANSPORTE: ROBOTS, PAUSA E TETO DENTRO DE `baixar()`
+
+> Numerada na unificação (UNIFICACAO-V1-G, 23/09/2026), por ordem de chegada: chegou como §199, número já ocupado em cortesia-coleta-v1 (A5). Nada foi apagado.
 
 **O QUE MUDOU (A5, 23/09).** A A4 mediu que o coletor Node (`coleta/italy_pilot_collect.mjs`)
 não lia robots.txt nem espaçava pedidos — quem o fazia era o condutor da micro, por fora.
@@ -22314,7 +22318,9 @@ test_cortesia_no_transporte.py`). As falhas que existem já estavam na base, com
 `medidas/INCREMENTALIDADE-V1.json` ao correr — repor com `git checkout` antes de commitar.
 ---
 
-# § (sem número) · A LINHA NÃO É A PRODUÇÃO, E UM FF SOBRE ELA APAGAVA A TROCA — BC1, O RUNBOOK DA BIG COLLECTION
+# §216 · A LINHA NÃO É A PRODUÇÃO, E UM FF SOBRE ELA APAGAVA A TROCA — BC1, O RUNBOOK DA BIG COLLECTION
+
+> Numerada na unificação (UNIFICACAO-V1-G, 23/09/2026), por ordem de chegada: chegou sem número em big-collection-runbook-v1 (BC1). Nada foi apagado.
 
 **O QUE SE MEDIU (23/09).** Os 20 gates do §25 (o pedido dizia 25; o mandato tem 20),
 contra `940f3b14` e a produção, só com leitura no vivo: **12/20 YES**, 6 deles só sem
@@ -22351,7 +22357,9 @@ colheram: 55 = 55 = 55, Sala +12, C3..C9 PASS, rollback 8 → 12 → 8 com md5 i
 
 ---
 
-# § (sem número) · ELEGÍVEL SEM CONTRATO TINHA DONO — E O DONO NÃO VIA A DUPLICADA DE QUEM JÁ ESTAVA DENTRO (BC2)
+# §217 · ELEGÍVEL SEM CONTRATO TINHA DONO — E O DONO NÃO VIA A DUPLICADA DE QUEM JÁ ESTAVA DENTRO (BC2)
+
+> Numerada na unificação (UNIFICACAO-V1-G, 23/09/2026), por ordem de chegada: chegou sem número em big-collection-runbook-v1 (BC2). Nada foi apagado.
 
 **O QUE SE FEZ (23/09).** 27 fontes READY no portão sem contrato no coletor. Não se escreveu
 contrato à mão. Passaram pelo canário real (`medidas/canario_rotas_elegiveis.py`, robots
@@ -22385,7 +22393,9 @@ diferentes; a Sala é idempotente por documento) e ficam para o dono da identida
 
 ---
 
-# § (sem número) · TRÊS CADERNOS DO COLETOR, NENHUM CONTINHA OS OUTROS — E A INSTALAÇÃO APAGAVA O MAIS NOVO (G3)
+# §218 · TRÊS CADERNOS DO COLETOR, NENHUM CONTINHA OS OUTROS — E A INSTALAÇÃO APAGAVA O MAIS NOVO (G3)
+
+> Numerada na unificação (UNIFICACAO-V1-G, 23/09/2026), por ordem de chegada: chegou sem número em coorte-unica-v1 (G3). Nada foi apagado.
 
 G3 (23/09/2026). A coorte da Big Collection (D25) é medida pelo `micro_coleta.py plano`
 sobre a tabela do coletor (`regras/italy_contracts_onboarded.json`). Havia três:
@@ -22407,7 +22417,9 @@ sustenta: +17, e **IT-T7-100 ficou de fora** — com as duas tabelas juntas a re
 duplicadas viu que o documento dela é o mesmo da IT-T7-043. Separadas, as duas entravam.
 Coorte: 18, cada uma com contrato executável, régua DETAIL/v1 e canário com prova ≤ 7 dias,
 num só JSON que o runbook lê.
-# §205 · «JÁ PROCESSADA» E «BACKLOG» SÃO DOIS LIVROS — E O INTERVALO PROTEGE CONTRA A RAJADA, NÃO CONTRA O TRABALHO
+# §219 · «JÁ PROCESSADA» E «BACKLOG» SÃO DOIS LIVROS — E O INTERVALO PROTEGE CONTRA A RAJADA, NÃO CONTRA O TRABALHO
+
+> Numerada na unificação (UNIFICACAO-V1-G, 23/09/2026), por ordem de chegada: chegou como §205, número já ocupado em bot-impasse-v1 (B4). Nada foi apagado.
 
 > B4 (bot-impasse-v1, 23/09/2026). §202–§204 estão ocupados noutros ramos (gates-medidos-v1, youtube-pronto-v1).
 
