@@ -142,3 +142,60 @@ Motivo final das que não chegaram (reparo): 148 item não é matéria · 117 se
 - Ensaio em cópia fiel: sha256 dos 14 livros sujos antes/depois em `%TEMP%/r1v3-sha-antes.txt` (`83fbf6505c14d6fcd378bddc231367ea7da12b5b88b2a9dcbc6ebe15cdc4b848`); a cópia `C:/ens-r1` e as bancas foram apagadas.
 - O resultado de cada medição com rede está no ramo: `R1-REENSAIO-ANTES-DEPOIS-fca4f2b6.json`, `R1-ANTES-DEPOIS-EM-COPIA.json`, `R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json`.
 
+## 10 · Revisão uma a uma das +46 READY (24/09, `scripts/reparo/R1-REVISAO-READY.json`)
+
+Banca nova (foto do vivo 12:21Z + `reparo-fontes-v2`), reparo re-corrido só para as 46, portão de egresso por **consenso** (2×IT + 1×US = PASS; o portão antigo desta árvore só tinha o ipinfo, em 429). Detector capa/matéria = o instalado. **As 46 voltam a chegar a READY.** Depois reabri o item de cada uma e li título, h1, data e início do texto.
+
+**27 LIMPAS · 19 SUSPEITAS.** Das limpas, 4 são artigos para assinantes (só o início é público) e 2 têm tema a confirmar.
+
+| fonte | veredito | motivo |
+|---|---|---|
+| IT-T12-023 | SUSPEITA | página inicial de um projeto (Contratto di Fiume), fixa — não é notícia |
+| IT-T12-042 | SUSPEITA | página de serviço: Área Pessoal de Tributos da Região |
+| IT-T12-043 | SUSPEITA | página de serviço: prazos do imposto automóvel (fora do agro) |
+| IT-T12-044 | SUSPEITA | página fixa de projeto PNRR («1000 Esperti»), sem fluxo de notícias |
+| IT-T12-073 | SUSPEITA | página de projeto das Olimpíadas 2026 (comboios) — fora do agro |
+| IT-T12-081 | SUSPEITA | página fixa institucional (Accordo per lo Sviluppo e la Coesione) |
+| IT-T12-102 | SUSPEITA | repartição: página do Gabinete da Região |
+| IT-T12-134 | SUSPEITA | página educativa fixa para alunos («Conosci la frutta») |
+| IT-T2-033 | SUSPEITA | página temática fixa (campos eletromagnéticos), não notícia |
+| IT-T2-063 | SUSPEITA | página fixa institucional (acreditação dos laboratórios) |
+| IT-T2-070 | SUSPEITA | o texto lido é o do leitor Issuu («Transform any piece of content…»), não a publicação |
+| IT-T5-041 | SUSPEITA | crpv.it reencaminha para a Ri.Nova; o texto lido é a apresentação institucional |
+| IT-T7-031 | SUSPEITA | página de projeto/campanha (Being Organic in EU), não notícia |
+| IT-T7-041 | SUSPEITA | página fixa de atividade do consórcio (difesa idraulica) |
+| IT-T7-105 | SUSPEITA | página de serviço: lista fixa de feiras |
+| IT-T7-150 | SUSPEITA | ficha de curso de formação (catálogo), não notícia |
+| IT-T8-010 | SUSPEITA | página de serviço: descrição da newsletter UIVLex |
+| IT-T9-015 | SUSPEITA | «Lavora con noi» — página de recrutamento |
+| IT-T9-019 | SUSPEITA | o item é a própria listagem «Articoli e pubblicazioni», não uma matéria |
+| IT-T12-024 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T12-075 | LIMPA | notícia/publicação datada ou com título de matéria — ⚠️ notícia, mas de educação (tema a confirmar pelo dono) |
+| IT-T12-104 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T12-117 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T12-129 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T12-130 | LIMPA | notícia/publicação datada ou com título de matéria — ⚠️ artigo para assinantes: só o início é público |
+| IT-T12-131 | LIMPA | notícia/publicação datada ou com título de matéria — ⚠️ artigo para assinantes: só o início é público |
+| IT-T2-032 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T2-037 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T2-050 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T3-023 | LIMPA | notícia/publicação datada ou com título de matéria — ⚠️ artigo para assinantes: só o início é público |
+| IT-T5-056 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T5-080 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T5-104 | LIMPA | notícia/publicação datada ou com título de matéria — ⚠️ notícia universitária de algoritmos (tema a confirmar pelo dono) |
+| IT-T5-111 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T5-113 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T7-019 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T7-048 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T7-049 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T7-103 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T7-125 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T7-139 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T7-163 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T8-022 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T8-024 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T8-041 | LIMPA | notícia/publicação datada ou com título de matéria |
+| IT-T8-042 | LIMPA | notícia/publicação datada ou com título de matéria — ⚠️ artigo para assinantes: só o início é público |
+
+Os sinais automáticos (`CAMINHO_DE_SERVICO`, `SEM_DATA`) só apontam; 4 foram falsos («contributi» casa «tribut», «corso di aggiornamento» é notícia). O veredito é da leitura.
+Para a REND: o contrato reparado de cada fonte (INDEX_URL, LINK_PATTERN) e o item lido estão no mesmo JSON.
