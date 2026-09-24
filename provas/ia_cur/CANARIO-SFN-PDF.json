@@ -1,0 +1,45 @@
+{
+ "SOURCE_ID": "IT-T3-014",
+ "OBSERVED_AT": "2026-09-24T20:00:45.659466+00:00",
+ "ONDE": "COPIA — nada instalado",
+ "CONTRATO_DA_LINHA_DO_COLETOR": {
+  "OUTPUT_TYPE": "HTML",
+  "LINK_PATTERN": "^https?://(www\\.)?protezionedellepiante\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$"
+ },
+ "CONTRATO_DA_COPIA": {
+  "OUTPUT_TYPE": "PDF",
+  "LINK_PATTERN": "^https?://(www\\.)?protezionedellepiante\\.it/wp-content/uploads/\\d{4}/\\d{2}/dtu-[^/?#]+\\.pdf(\\?|#|$)"
+ },
+ "CANARIO": {
+  "HTTP": 200,
+  "ALVO": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+  "ALVOS_DESCOBERTOS": 10,
+  "DETAIL_ENUMERATED": 10,
+  "DETAIL_GATE": "PDF_TEXT_LAYER/v1",
+  "BYTES": 410589,
+  "ITEM_ABERTO": {
+   "URL": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+   "HTTP": 200,
+   "BYTES": 410589,
+   "DOC_KIND": "PDF",
+   "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+   "TEXT_CHARACTERS": 10305,
+   "TEXT_SHA256": "3c14365050310883889304c10a49b1740ccaed791abc4b607d39b9962aca97c2"
+  },
+  "PASS": true,
+  "CLASSE": "OK",
+  "DETAIL_GATE_PASSED": true,
+  "DOCUMENT_ID": "IT-T3-014:wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf"
+ },
+ "REGUA": {
+  "REGUA": "DETAIL/v1",
+  "PASSOS": {
+   "INDEX_URL": true,
+   "DETAIL_LINKS": true,
+   "ITEM_ABERTO": true,
+   "BODY_UTIL": true,
+   "CONTRATO_ATUAL": true
+  },
+  "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+ }
+}

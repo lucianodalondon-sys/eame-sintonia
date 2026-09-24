@@ -1,0 +1,39 @@
+{
+ "SOURCE_ID": "IT-T2-109",
+ "DECISAO": "D32 (4): Campania agrometeo — receita propria para tabela, reutilizando capacidade existente",
+ "ESTADO": "PROPOSTA — nao aplicada ao livro nem a tabela do coletor",
+ "O_QUE_A_FONTE_PUBLICA": {
+  "ENTRADA": "https://agricoltura.regione.campania.it/meteo/meteo_2026.html",
+  "ESTACOES": "38 paginas dati_2026/<estacao>_2026.html (1 por estacao da rede agrometeorologica regional)",
+  "ITEM_REAL": "1 folha Excel por estacao por semana: dati_2026/dati/<Estacao>-<N>.xlsx (N = semana do ano)",
+  "CADENCIA": "semanal, publicada as tercas (a propria pagina o diz)"
+ },
+ "RECEITA": {
+  "PASSO_1": "HTML_LINK_DISCOVERY na entrada, LINK_PATTERN ^https?://agricoltura\\.regione\\.campania\\.it/meteo/dati_2026/[a-z-]+_2026\\.html$ -> as 38 paginas de estacao",
+  "PASSO_2": "em cada pagina de estacao, o .xlsx da semana mais recente (dati/<Estacao>-<N>.xlsx)",
+  "PASSO_3": "ler o .xlsx com candidatas/xlsx_simples.py (biblioteca padrao, ja na casa) -> linhas por dia"
+ },
+ "PROVA_COM_REDE_2026_09_24": {
+  "EGRESSO": "IT (portao de consenso, superficie/rede.py)",
+  "ROBOTS": "permitido para as tres moradas (gate_de_rota)",
+  "ENTRADA": {"URL": "https://agricoltura.regione.campania.it/meteo/meteo_2026.html",
+              "SHA256": "3a6fc772238e1f095d6ff153d62420f355f1f7220b6c45e71d2e8e991e1cc608", "BYTES": 42464},
+  "ESTACAO": {"URL": "https://agricoltura.regione.campania.it/meteo/dati_2026/acerra_2026.html",
+              "SHA256": "8832987ab7f63cd8889d13fbe8d9edd8ff5030961d06731a233306bae193dd0f", "BYTES": 32302,
+              "RETRATO_HTML": {"HTML_KIND": "MIXED", "CAPA_OU_MATERIA": "NAO_SEI", "LINKS": 43,
+                               "PARAGRAPH_CHARACTERS": 83}},
+  "FOLHA": {"URL": "https://agricoltura.regione.campania.it/meteo/dati_2026/dati/Acerra-38.xlsx",
+            "SHA256": "27f0a27046f0eba60f5c6f56f4b9d6390cd4f4bc0b940b12906318c169c533b7", "BYTES": 64385,
+            "LIDA_COM": "candidatas/xlsx_simples.py",
+            "FOLHAS": {"Sheet1": 9}, "LINHAS_DE_DADOS": 8,
+            "PRIMEIRA_DATA": "46279 (serie Excel = 2026-09-14; a pagina diz semana 38 = 14-20 setembro)",
+            "COLUNAS_EXEMPLO": ["Bagnatura fogliare (min)", "Direzione vento (N)", "..."]},
+  "BYTES_GUARDADOS_FORA_DO_GIT": "C:/cur/ia/paginas/IT-T2-109/ (00.bin, acerra_2026.bin, Acerra-38.xlsx)"
+ },
+ "PORQUE_NAO_CHEGA_A_READY_HOJE": [
+  "A pagina de estacao, julgada como HTML, e MIXED/NAO_SEI com 83 caracteres em paragrafo: a regua DETAIL/v1 (BODY_UTIL >= 800) nao passa — e e correto, o conteudo nao esta ali.",
+  "O item real e .xlsx e a Collection so conhece OUTPUT_TYPE HTML, PDF e VIDEO_METADATA (curadoria/validar_contratos.py OUTPUTS). A leitura existe (xlsx_simples); a esteira de colheita de folha de calculo NAO existe.",
+  "Por um READY que o coletor nao sabe colher seria etapa registada sem unidade produzida."
+ ],
+ "PARA_O_DONO": "Abrir OUTPUT_TYPE de folha de calculo na Collection (esteira nova, leitor ja existente) — ou deixar a fonte parada. ADAMA_DESIGN_SYSTEM_MATCH = N/A (nada visual)."
+}

@@ -1,0 +1,38 @@
+{
+ "ONDE": "COPIA do livro vivo — nada instalado",
+ "LIVRO_DA_COPIA": "C:\\cur\\d32\\LIVRO-COPIA.json",
+ "TRANSICOES": [
+  {
+   "SOURCE_ID": "IT-T3-024",
+   "ANTES": "CONTRACTED_CANARY_FAILED",
+   "DEPOIS": "AUTH_BLOCK"
+  },
+  {
+   "SOURCE_ID": "IT-T3-022",
+   "ANTES": "CANARY_PENDING",
+   "DEPOIS": "CONTRACT_READY_ROUTE_BLOCKED"
+  }
+ ],
+ "SEM_MUDANCA": {
+  "IT-T2-109": "receita de tabela proposta: provas/ia_cur/RECEITA-CAMPANIA-AGROMETEO.json",
+  "IT-T3-014": "canario PDF PASS na copia (provas/ia_cur/CANARIO-SFN-PDF.json); READY so quando a linha do coletor disser OUTPUT_TYPE=PDF (onboardar_rotas_provadas)"
+ },
+ "ACHADO_ROBOTS": {
+  "HOST": "www.fitosanitario.regione.lombardia.it",
+  "ROBOTS": [
+   "User-agent: *",
+   "Disallow: /wps/",
+   "Allow: /wps/portal/site/sfr",
+   "Allow: /wps/wcm/connect",
+   "Crawl-delay: 1"
+  ],
+  "LEITOR_DA_CASA": "urllib.robotparser: primeira regra que casa -> /wps/portal/site/sfr PROIBIDO",
+  "RFC_9309": "regra mais especifica (a mais longa) vence -> /wps/portal/site/sfr PERMITIDO",
+  "ONDE_A_CASA_LE_ASSIM": [
+   "curadoria/gate_de_rota.py",
+   "curadoria/descobrir.py",
+   "coleta/scrap_http.py"
+  ],
+  "DECISAO_PEDIDA": "manter o bloqueio (lado seguro) ou ler robots pela RFC 9309 em toda a casa"
+ }
+}
