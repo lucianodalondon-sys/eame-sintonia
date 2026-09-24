@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T17:09:56+00:00",
-  "HEAD": "bd47aeb54950e14bedc1f2a47828ff2f31d345d9",
+  "GENERATED_AT": "2026-09-24T17:14:00+00:00",
+  "HEAD": "3966041cdcfd5edd4e95a79d381c8627a4c6f134",
   "BRANCH": "regua-t2-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "dc2277c4e4dd70398174d6a08ce3154a6dbcfdfb20dd3179d3132d0b92ee7be7",
+  "SOURCE_TREE_FINGERPRINT": "a8eadfdd8dfe9229cbdc3125c03c9b9cac353d4d67497da02b1931aa41f86ec3",
   "FICHEIROS_NA_IMPRESSAO": 2971,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -3758,14 +3758,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "dc2277c4e4dd70398174d6a08ce3154a6dbcfdfb20dd3179d3132d0b92ee7be7",
+    "VERSAO": "a8eadfdd8dfe9229cbdc3125c03c9b9cac353d4d67497da02b1931aa41f86ec3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "dc2277c4e4dd70398174d6a08ce3154a6dbcfdfb20dd3179d3132d0b92ee7be7",
+    "VERSAO": "a8eadfdd8dfe9229cbdc3125c03c9b9cac353d4d67497da02b1931aa41f86ec3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5647,7 +5647,7 @@
    }
   ],
   "INPUTS_COUNT": 801,
-  "INPUTS_DIGEST": "10e95305d9f3c0ab7fa14edfa3a5352e73d52c76762efcc3fffd217c051ec109",
+  "INPUTS_DIGEST": "3072dd8473193e330d86848712d8ea5e87fbd288a58fbd7044a114ab738be072",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5680,8 +5680,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "fc9e057af02776e6bb762cb8bef6d489a050ff4b71d6d4d224993bd1bf54787d",
-  "SEMANTIC_HASH": "ca6a43796f4077757281ba7d79eb11e6bc51abc92f3dc2ad5a421731150c4587"
+  "MEASUREMENT_HASH": "01e77e9e4a8b1bf28b189c81b9b111a9e6ecc85389b12987270e4caf826b8bea",
+  "SEMANTIC_HASH": "ba42899f814649a9d462b908390ad4eecd4e77ea5fd45c9360b0eb79848aeeb8"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7418,14 +7418,6 @@
      {
       "FICHEIRO": "scripts/regua_t2/medir_regua_t2.py",
       "LINHA": 34,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T2-JANELA",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_regua_t2.py",
-      "LINHA": 22,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T2-JANELA",
@@ -33756,6 +33748,22 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_regua_t2.py",
+      "LINHA": 147,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_regua_t2.py",
+      "LINHA": 148,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -50715,8 +50723,7 @@
     "scripts/regua_t2/rotulos/A-ROTULAR-JANELA.json",
     "scripts/regua_t2/rotulos/A-ROTULAR.json",
     "scripts/regua_t2/rotulos/rotulos-janela.tsv",
-    "scripts/regua_t2/rotulos/rotulos.tsv",
-    "tests/test_regua_t2.py"
+    "scripts/regua_t2/rotulos/rotulos.tsv"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -52113,6 +52120,7 @@
     "tests/test_red_team_estrada.py",
     "tests/test_reel_transcricao.py",
     "tests/test_reel_transcricao_trava.py",
+    "tests/test_regua_t2.py",
     "tests/test_relatorio_do_fluxo.py",
     "tests/test_relevance_priority_sobrecarga.py",
     "tests/test_retirada_por_decisao.py",

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  bd47aeb54950e14bedc1f2a47828ff2f31d345d9
+HEAD_DA_MEDICAO  3966041cdcfd5edd4e95a79d381c8627a4c6f134
 BRANCH           regua-t2-v1
-GERADO_EM        2026-09-24T14:02:59-03:00
+GERADO_EM        2026-09-24T14:10:13-03:00
 CARDS            93
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1870,7 +1870,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/regua_t2/GABARITO-T2-V1.json`, `scripts/regua_t2/GABARITO-T2-V2.json`, `scripts/regua_t2/MEDICAO-REGUA-T2-V1.json`, `scripts/regua_t2/MEDICAO-REGUA-T2-V2.json`, `scripts/regua_t2/MUTACAO-REGUA-T2-V2.json` _(e mais 13)_ |
+| **peça real** | `scripts/regua_t2/GABARITO-T2-V1.json`, `scripts/regua_t2/GABARITO-T2-V2.json`, `scripts/regua_t2/MEDICAO-REGUA-T2-V1.json`, `scripts/regua_t2/MEDICAO-REGUA-T2-V2.json`, `scripts/regua_t2/MUTACAO-REGUA-T2-V2.json` _(e mais 12)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |

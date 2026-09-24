@@ -3417,9 +3417,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t2-v1",
-    "HEAD": "bd47aeb54950e14bedc1f2a47828ff2f31d345d9",
-    "GENERATED_AT": "2026-09-24T14:02:59-03:00",
-    "SOURCE_TREE_FINGERPRINT": "dc2277c4e4dd70398174d6a08ce3154a6dbcfdfb20dd3179d3132d0b92ee7be7"
+    "HEAD": "3966041cdcfd5edd4e95a79d381c8627a4c6f134",
+    "GENERATED_AT": "2026-09-24T14:10:13-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a8eadfdd8dfe9229cbdc3125c03c9b9cac353d4d67497da02b1931aa41f86ec3"
   },
   "FAMILIES": [
     {
@@ -49865,7 +49865,7 @@
       "name": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao",
       "territory": "Z-MEDIDAS",
       "kind": "engine",
-      "what": "Gabarito T2 rotulado a mao a partir do acervo, sem rede (inventario de 504 textos; T2-V1 no eixo clima, T2-V2 no eixo JANELA da D29: 45 YES / 225 NO / 117 NAO_SEI), medicao da regua T2 de admissao/admissao.py pelo caminho da porta (_do_universo) com os vizinhos T3 T4 T5 T7 T9 T10 julgados antes/depois (0 mudados em 7.554), mutacao numa copia (9/9 mortos) e o portao que as guardas de T2 leem (portao_t2.py). A regua: SIM pede condicao do campo E ligacao agricola escrita; metade fica NAO_SEI com marca D2 REROUTE_POSSIVEL. A porta nao decide a janela (CAP-WIN da Intelligence).",
+      "what": "Gabarito T2 rotulado a mao a partir do acervo, sem rede (inventario de 504 textos; T2-V1 no eixo clima, T2-V2 no eixo JANELA da D29: 45 YES / 225 NO / 117 NAO_SEI), medicao da regua T2 de admissao/admissao.py pelo caminho da porta (_do_universo) com os vizinhos T3 T4 T5 T7 T9 T10 julgados antes/depois (0 mudados em 7.554), mutacao numa copia (9/9 mortos) e o portao que as guardas de T2 leem (portao_t2.py). A regua: SIM pede condicao do campo E ligacao agricola escrita; metade fica NAO_SEI com marca D2 REROUTE_POSSIVEL. A porta nao decide a janela (CAP-WIN da Intelligence). Testes: tests/test_regua_t2.py (peca C-TESTES).",
       "why_here": "A 1.a onda da Big Collection (BC5) mediu que T2 nunca dava SIM (sem regua). A medicao antiga de provas/a_regra_de_t2.py fechou o portao para a pergunta clima-vs-praga; a D29 mudou a pergunta e os boletins fitossanitarios passaram a ser o que tem de entrar. Precisao/recall sao DENTRO da amostra; os textos vivem fora do Git (%USERPROFILE%/sintonia-gabarito/REGUA-T2-V1) com sha256 no gabarito.",
       "departments": [
         "ENGENHARIA",
@@ -49897,10 +49897,9 @@
         "scripts/regua_t2/rotulos/A-ROTULAR-JANELA.json",
         "scripts/regua_t2/rotulos/A-ROTULAR.json",
         "scripts/regua_t2/rotulos/rotulos-janela.tsv",
-        "scripts/regua_t2/rotulos/rotulos.tsv",
-        "tests/test_regua_t2.py"
+        "scripts/regua_t2/rotulos/rotulos.tsv"
       ],
-      "file_count": 18,
+      "file_count": 17,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -49996,7 +49995,6 @@
         "admissao/idioma.py",
         "curadoria/CATALOGO-PROVA-V1.json",
         "orquestrador/orquestrador.py",
-        "scripts/regua_t2/GABARITO-T2-V2.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
         "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md",
         "scripts/regua_t2/rotulos/A-ROTULAR.json",
@@ -54557,6 +54555,7 @@
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao.py",
         "tests/test_reel_transcricao_trava.py",
+        "tests/test_regua_t2.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_retirada_por_decisao.py",
@@ -54594,7 +54593,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 229,
+      "file_count": 230,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -55367,6 +55366,8 @@
         "scripts/micro_coleta/provar_backup_da_sala.py",
         "scripts/receitas/censo_e_proposta.py",
         "scripts/receitas/propor_receitas_v3.py",
+        "scripts/regua_t2/GABARITO-T2-V2.json",
+        "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
         "scripts/regua_t2/portao_t2.py",
         "security/drift_db.py",
         "security/live-db-expected.json",
@@ -60364,28 +60365,12 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "scripts/regua_t2/medir_regua_t2.py",
           "line": 34,
           "snippet": "import admissao as A  # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T2-JANELA",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-REGUA-T2-JANELA",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_regua_t2.py",
-          "line": 22,
-          "snippet": "import admissao as adm  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T2-JANELA",
             "FROM": "C-ADMISSAO",
@@ -60552,7 +60537,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 38 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 39 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -106993,7 +106978,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -107015,6 +107000,38 @@
           "file": "tests/test_o_canario_da_collection.py",
           "line": 74,
           "snippet": "\"portao_t2\", os.path.join(RAIZ, \"scripts\", \"regua_t2\", \"portao_t2.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
+            "FROM": "C-REGUA-T2-JANELA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_regua_t2.py",
+          "line": 147,
+          "snippet": "self.g = json.load(open(os.path.join(AQUI, \"GABARITO-T2-V2.json\"), encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
+            "FROM": "C-REGUA-T2-JANELA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_regua_t2.py",
+          "line": 148,
+          "snippet": "self.m = json.load(open(os.path.join(AQUI, \"MEDICAO-REGUA-T2-V2.json\"), encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
             "FROM": "C-REGUA-T2-JANELA",
@@ -123421,15 +123438,7 @@
   ],
   "UNCLAIMED_CODE_FILES": [],
   "UNCLAIMED_FILES_COUNT": 1578,
-  "OWNERSHIP_CONFLICTS": [
-    {
-      "file": "tests/test_regua_t2.py",
-      "claimed_by": [
-        "C-REGUA-T2-JANELA",
-        "C-TESTES"
-      ]
-    }
-  ],
+  "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
       "file": "admissao/admissao.py",
