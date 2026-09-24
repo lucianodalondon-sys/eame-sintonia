@@ -199,3 +199,55 @@ textos, a régua COM a via contra a régua SEM ela:
 - No caminho real, dos 8 errados o detector de capa **barra 4**, põe **2 em quarentena**, e **2 chegam
   à Sala** (a página do centro agrometeorológico da Campania e a de inscrição em boletins da ARPAV).
 - Os 8 certos são todos boletins em PDF; os 8 errados são todos HTML.
+
+---
+
+## T2C (24/09) — a via `agrometeo` só com CORPO DE BOLETIM (conserto pedido antes de instalar)
+
+**Em palavras simples:** a palavra «agrometeo» aparece em boletins e também em menus de sites. Agora
+ela só ajuda a dizer SIM quando o texto tem cara de boletim — número de edição («n. 34/2026»), período
+(«17 agosto 2026 - 23 agosto 2026»), data da edição, ou uma cultura nomeada — **e** não tem marcas de
+página de site (navegação, «chi siamo», inscrição, newsletter, «accesso rapido», a descrição do
+«centro agrometeorologico»). O resto da régua não mudou.
+
+| Critério da coordenação (1.309 textos × 7 universos = 9.163 julgamentos) | Resultado |
+|---|---|
+| os 8 boletins certos continuam SIM | **sim, 8/8** |
+| as 8 páginas de site deixam de ser SIM | **sim, 8/8 → NAO_SEI** |
+| nada mais muda | **sim: só essas 8 mudaram, 0 nos outros 6 universos** |
+| T2 no acervo | 67 SIM · 773 NAO_SEI · 469 NAO (antes: 75 · 765 · 469) |
+
+- Gabarito T2-V3: precisão 0,953, recall 1,0. Fora da amostra: 16/16 apanhados, **2** falsos SIM (eram
+  8) — os 2 que sobram são a página do centro agrometeorológico da Liguria (2 capturas), que entra
+  pela via forte («fenologia»), não pela via `agrometeo`.
+  ⚠️ A regra nova foi desenhada olhando para esses textos: para eles o número deixou de ser «de fora».
+- Mutação numa cópia: **12/12 mortos** (`MUTACAO-REGUA-T2-V3.json`). O mutante que tira a condição
+  nova põe os 8 errados de volta a SIM nos 1.309 e o critério fica vermelho. Um mutante sobreviveu
+  à 1.ª corrida (`agrometeo_1_condicao`): faltava um teste com edição e UMA só condição — acrescentado.
+- Armadilha repetida e apanhada: `\b` escrito por heredoc virou o carácter invisível U+0008 dentro
+  do regex; foram trocados 9 antes de medir (ver memória «caractere invisível»).
+
+## PLANO DE INSTALAÇÃO (atualizado — substitui o anterior; o coordenador instala)
+
+Ramo `regua-t2-v1` (último commit no fim desta secção), já com a linha instalada `5c4daf5a` juntada
+(merge `2b7c5238`) e com os consertos da EGR:
+- **`4f3b938c`** — a guarda do ipinfo permite só quem prova a regra (+ contraprova);
+- **`fa17ccdf`** — o teste da chave de ambiente da cache deixa de depender do proxy do ambiente.
+  (Os mesmos dois estão em `egresso-consenso-v1 @ a310487f`; instalar por este ramo leva-os.)
+
+**Writeset** (fora os gerados do mapa):
+
+| Ficheiro | Muda |
+|---|---|
+| `admissao/admissao.py` | **único código de produção**: régua T2 D29 + T2C, `VERSAO_DA_REGRA = "8"` |
+| `provas/a_regra_de_t2.py` | a prova antiga mede pelo mecanismo antigo |
+| `tests/test_regua_t2.py` (novo), `tests/test_a_regra_de_t2.py`, `tests/test_o_canario_da_collection.py`, `tests/test_estagio_atravessa_a_fronteira.py` | guardas de T2 pela medição (`portao_t2.py`) |
+| `tests/test_egresso_consenso.py` | os 2 consertos EGR |
+| `scripts/regua_t2/**`, `RELATORIO-T2-REGUA.md`, `system-map/data/architecture.declared.json` | evidência e mapa |
+
+**Passos:** 1) juntar `regua-t2-v1` na linha instalada (conflito só nos `*.generated.json` → regerar
+pela cadeia); 2) `py -m unittest tests.test_regua_t2 tests.test_a_regra_de_t2
+tests.test_o_canario_da_collection tests.test_egresso_consenso` (aqui: OK); 3)
+`pacote/metricas_canonicas.py --sync` com o PyYAML emprestado (testes novos); 4) efeito esperado:
+T2 **67 SIM / 773 NAO_SEI / 469 NAO** nos 1.309; 0 mudanças nos outros 6 universos; 5) voltar atrás
+= reverter o merge (a versão da regra volta a 7).
