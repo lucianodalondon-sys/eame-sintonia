@@ -10264,3 +10264,43 @@ ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso po
 EVIDENCE:                     curadoria/evidencia/CAND-0167/Sezione_Trasparenza_Legacoop_Agroalimentare_2025_A11.pdf (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 4 itens
 ```
+
+---
+
+## D32 (3) — ficha pela porta canonica, 2026-09-24
+
+*Proposta do agente IA-CUR, decidida pelo bot Luciano por delegacao (D32). Fonte ja colhida com sucesso pela BCR; faltava a ficha. Os campos a `NAO SEI` sao medidas que faltam.*
+
+#### IT-T3-005 · Terre dell'Etruria — Monitoraggio mosca dell'olivo (Servizio Agronomico)
+
+```
+SOURCE_ID:                    IT-T3-005
+SOURCE_NAME:                  Terre dell'Etruria — Monitoraggio mosca dell'olivo (Servizio Agronomico)
+SOURCE_OWNER:                 NAO SEI - nao medido nesta missao
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     it
+TERRITORY:                    T3
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.terretruria.it/monitoraggio
+ACCESS_METHOD:                HTTP publico - pagina fixa /monitoraggio, atualizada por periodo
+CROPS:                        olivo
+TOPICS:                       mosca dell'olivo (monitoraggio voli e infestazione attiva), fase fenologica, clima, difesa: caolino e adacquamenti
+GEOGRAPHIC_GRANULARITY:       regiao (Toscana) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             NAO SEI - so o boletim corrente e o seguinte foram vistos
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 1 de 1 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       COLHIDA COM SUCESSO NA BCR - contrato escrito a mao em regras/ (piloto), nao no livro do robo
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Bollettino del periodo dal 07-09-2026 al 13-09-2026 — monitoraggio mosca dell'olivo (2026-09-07)
+REPRESENTATIVE_SAMPLE:        1 itens reais, periodo 2026-09-07 .. 2026-09-13
+EXPECTED_YIELD:               1 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   SEMANAL NA ESTACAO - um boletim por periodo semanal; o proprio site avisa que o monitoramento para fora da estacao
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (SIM - janela de cultura (D29): mosca-da-azeitona, 139 pontos de armadilha), uso por definir
+EVIDENCE:                     data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json (sha256 no proprio manifesto; boletim BCR 07-13/09 tambem guardado no acervo)
+VERDICT:                      YELLOW - fonte aberta e exemplo real capturado, mas o padrao ainda nao estabilizou em 1 itens
+```
