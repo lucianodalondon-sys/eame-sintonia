@@ -76,3 +76,4 @@ fileira avícola: produção, não saúde animal; fica aqui escrita para quem de
 - SAAF Palermo: 163 pessoas lidas, 0 perfis. Agraria Sassari: a casa só liga à rubrica geral da Uniss; 2 pessoas, 0 perfis.
 - Biotecnologie Verona: 74 pessoas, 1 LinkedIn → **CAND-0915 Claudio Zaccone** (AGRI-06/B chimica agraria, ciência do solo; sinal D29 AGROMETEO: «stress idrico delle colture» na ficha). 2 ResearchGate FICA_FORA.
 - Total P5: **9 candidatas (CAND-0907..0915)**, fila 906 → 915, 0 linhas antigas alteradas; 1027 páginas com sha256 em `EVIDENCIA-P5.json`, as 9 páginas-prova no ramo.
+**FALTA AO RETOMAR (24/09 18:2x):** cadeia do mapa sob LOCK-PESADO (REGERAR → commit → VALIDAR, esperado PASS; peça já declara as 9 provas), memória e entrega final. Rede: nada por fazer.
