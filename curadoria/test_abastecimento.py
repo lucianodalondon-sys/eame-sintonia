@@ -37,6 +37,14 @@ def _tarefa(i, status, erro=None, updated=T0, attempts=0):
 
 class _Isolado(unittest.TestCase):
     def setUp(self):
+        # CUR-PRONTA: o gatilho passou a chamar o AVANCAR antes do discovery, e
+        # o AVANCAR le o livro VERDADEIRO do repositorio. Esta classe mede a
+        # procura de fontes novas: o avanco fica a zero aqui (tem testes
+        # proprios em test_avancar_fontes.py).
+        import avancar_fontes as _AV
+        self.addCleanup(setattr, _AV, "avancar", _AV.avancar)
+        _AV.avancar = lambda agora=None, **_k: {"CANDIDATAS": 0, "POR_REGRA": {},
+                                                "ENFILEIRADAS": []}
         self._td = tempfile.TemporaryDirectory(prefix="abastecimento-")
         self.tmp = Path(self._td.name)
         self._orig = (F.FILA, GD.CANDIDATAS)

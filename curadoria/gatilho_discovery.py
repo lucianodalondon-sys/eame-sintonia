@@ -251,7 +251,7 @@ def revalidar_elegiveis(agora: datetime, *, ctx: dict | None = None,
 
 
 def talvez_alimentar(estado: dict | None = None, *,
-                     feeder_fn=None, descobrir_fn=None,
+                     feeder_fn=None, descobrir_fn=None, avancar_fn=None,
                      agora: datetime | None = None) -> dict:
     """Decide e executa a realimentacao. Devolve o que fez, sempre.
 
@@ -291,6 +291,21 @@ def talvez_alimentar(estado: dict | None = None, *,
         m["REVALIDAR"] = rv
         m["ACCOES"].append("REVALIDAR")
 
+    # Nivel 0c — AVANCAR (CUR-PRONTA, D28, 24/09): o que ja esta no livro e parou
+    # num estado que nada acima olha — READY pela regua antiga, degradada, sem
+    # contrato, adiada sem tarefa, canal YouTube caracterizado sem numero.
+    # Medido na copia do livro vivo: 1040 fontes e ZERO com tarefa aberta.
+    # Sem rede propria: so enfileira; a rede e a do worker. As regras e o que
+    # fica de fora (a R1 e dona do reparo de contrato) estao em avancar_fontes.
+    if avancar_fn is None:
+        import avancar_fontes as AV   # noqa: E402  (so aqui: injectavel nos testes)
+        avancar_fn = AV.avancar
+    av = avancar_fn(agora)
+    m["AVANCO_ELEGIVEL"] = av["CANDIDATAS"]
+    if av["ENFILEIRADAS"]:
+        m["AVANCAR"] = av
+        m["ACCOES"].append("AVANCAR")
+
     # Nivel 1 — FEEDER: drenar o acervo para a fila (barato).
     #
     # ⚠️ SEM CONDICAO NOVA, NAO HA FEEDER. Medido em 22/09: com a fila elegivel
@@ -329,6 +344,16 @@ def talvez_alimentar(estado: dict | None = None, *,
 
     if eligible_agora > QUEUE_LOW_WATERMARK or pend > CANDIDATE_LOW_WATERMARK:
         m["DECISAO"] = "FEEDER_SO — acervo ainda chega"
+        return m
+
+    # ⚠️ AVANCO ANTES DE DISCOVERY (D28). Fonte ja achada que ainda pode andar
+    # vem antes de fonte nova: enquanto houver avanco elegivel (mesmo o que nao
+    # coube nesta volta), nao se vai procurar mais. So o avanco a zero abre a
+    # porta ao crawl.
+    #
+    #     PROCURAR SEM ACABAR O QUE SE ACHOU E O «PROCURANDO PROCURANDO» DO DONO.
+    if av["CANDIDATAS"] > 0:
+        m["DECISAO"] = "AVANCO_ANTES_DE_DISCOVERY"
         return m
 
     last = estado.get("LAST_DISCOVERY_AT")

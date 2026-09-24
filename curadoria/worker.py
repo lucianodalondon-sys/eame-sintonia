@@ -92,6 +92,31 @@ def _contratos() -> dict:
     return {c["SOURCE_ID"]: c for c in d["FONTES"]}
 
 
+def _gravar_atomico(p: Path, d: dict) -> None:
+    """Temporario na mesma pasta + os.replace (com a paciencia da fila no Windows).
+
+    ⚠️ CUR-PRONTA (24/09): a evidencia e os contratos eram escritos com
+    `write_text`, POR CIMA do ficheiro. Quem le a meio (o portao da coleta, a
+    ponte, o painel) apanhava JSON cortado: o portao respondia GATE_NAO_RESPONDEU
+    e a fonte era recusada a meio da onda. O livro de estados e a fila ja
+    escreviam assim; estes dois ficheiros eram os que faltavam.
+
+        UM LEITOR NUNCA PODE VER UM FICHEIRO A MEIO.
+    """
+    import os
+    import tempfile
+    fd, tmp = tempfile.mkstemp(dir=str(p.parent), prefix=p.name + ".", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            fh.write(json.dumps(d, ensure_ascii=False, indent=1))
+            fh.flush()
+            os.fsync(fh.fileno())
+        F._com_paciencia(lambda: os.replace(tmp, p), "GRAVAR")
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+
+
 def _guardar_evidencia(source_id: str, etapa: str, dados: dict) -> str:
     """A prova fica num ficheiro proprio do Curator, e a transicao guarda a
     referencia. O livro de estado nao engorda com payloads."""
@@ -104,8 +129,7 @@ def _guardar_evidencia(source_id: str, etapa: str, dados: dict) -> str:
     ref = "EV-%s-%s-%04d" % (source_id, etapa, len(d["PROVAS"]) + 1)
     d["PROVAS"].append({"EVIDENCE_REF": ref, "SOURCE_ID": source_id,
                         "ETAPA": etapa, "OBSERVED_AT": agora(), "DADOS": dados})
-    EVIDENCIA.write_text(json.dumps(d, ensure_ascii=False, indent=1),
-                         encoding="utf-8")
+    _gravar_atomico(EVIDENCIA, d)
     return ref
 
 
@@ -230,6 +254,9 @@ def etapa_build_contract(source_id: str, contrato: dict | None) -> tuple[str, di
     alloc = _ler_alloc()
     n = next((x for x in alloc["NOVAS"] if x["SOURCE_ID"] == source_id), None)
     if not n:
+        linha = _linha_do_coletor(source_id)
+        if linha:
+            return _importar_do_coletor(source_id, linha)
         return "FAIL", {"PORQUE": "sem identidade alocada para esta fonte"}
     if not n.get("URL"):
         return "FAIL", {"PORQUE": "identidade sem endereco canonico"}
@@ -301,8 +328,7 @@ def etapa_build_contract(source_id: str, contrato: dict | None) -> tuple[str, di
     if any(c["SOURCE_ID"] == source_id for c in d["FONTES"]):
         return "OK", {"CONTRATO": source_id, "NOTA": "ja existia; nada reescrito"}
     d["FONTES"].append(novo)
-    CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),
-                         encoding="utf-8")
+    _gravar_atomico(CONTRATOS, d)
     return "OK", {"CONTRATO": source_id,
                   "STRATEGY": novo["ACQUISITION"]["STRATEGY"],
                   "INDEX_URL": (novo["ACQUISITION"].get("INDEX_URL")
@@ -340,6 +366,68 @@ def _ler_alloc() -> dict:
         return json.loads(ALLOCATION.read_text(encoding="utf-8"))
     return {"DATASET": "SOURCE-ID-ALLOCATION-V1",
             "MAIOR_POR_TERRITORIO_ANTES": {}, "ATRIBUIDOS": 0, "NOVAS": []}
+
+
+TABELA_DO_COLETOR = RAIZ / "regras" / "italy_contracts_onboarded.json"
+
+
+def _linha_do_coletor(source_id: str) -> dict | None:
+    if not TABELA_DO_COLETOR.exists():
+        return None
+    for x in json.loads(TABELA_DO_COLETOR.read_text(encoding="utf-8"))["FONTES"]:
+        if x.get("SOURCE_ID") == source_id and (x.get("ACQUISITION") or {}).get("STRATEGY"):
+            return x
+    return None
+
+
+def _importar_do_coletor(source_id: str, linha: dict) -> tuple[str, dict]:
+    """READY pela regua antiga sem contrato do robo, com linha na tabela do coletor.
+
+    ⚠️ CUR-PRONTA (24/09): 24 das 100 READY_LEGACY tem o contrato SO na tabela
+    do coletor (`regras/italy_contracts_onboarded.json`). A regua de hoje e o
+    portao leem o contrato do ROBO: sem ele, a fonte nunca sai de LEGACY, por
+    muito que o site responda. A tabela e LIDA, nunca escrita aqui (o dono
+    dela e `onboardar_rotas_provadas.py`, pela mao do dono).
+
+    O contrato nasce do MOLDE da casa (`escrever_contratos.contrato_html`) com
+    a ACQUISITION da tabela COPIADA, igual byte a byte: o canario a seguir mede
+    exactamente o que a coleta corre. `ROUTE_PROVENANCE.INTEGRADO_EM` = agora,
+    para que a promocao ANTIGA continue LEGACY e so um canario novo conte.
+    """
+    import copy
+    import escrever_contratos as EC
+    import validar_contratos as VC
+    aq = copy.deepcopy(linha["ACQUISITION"])
+    url = aq.get("INDEX_URL") or linha.get("CANONICAL_ENTRY_URL") or ""
+    if not url:
+        return "FAIL", {"PORQUE": "linha do coletor sem INDEX_URL: nada a importar"}
+    novo = EC.contrato_html({"SOURCE_ID": source_id, "NOME": linha.get("NAME") or source_id,
+                             "TERRITORY": linha.get("TERRITORY"), "URL": url}, {})
+    novo["ACQUISITION"] = aq
+    for k in ("OWNER", "BATCH_ID", "OUTPUT_TYPE"):
+        if linha.get(k):
+            novo[k] = linha[k]
+    novo["ROUTE_PROVENANCE"] = {
+        "ORIGEM": "TABELA_DO_COLETOR",
+        "FICHEIRO": "regras/italy_contracts_onboarded.json",
+        "INTEGRADO_EM": agora(),
+        "ACQUISITION_IGUAL_A_DA_COLETA": True,
+    }
+    novo["SOURCE_CONTRACT_VERSION"] = EC.VERSAO
+    novo["SOURCE_CONTRACT_HASH"] = EC.hash_do_contrato(novo)
+    novo["ONBOARDED_BY"] = ("SOURCE-CURATOR-WORKER · importado da tabela do coletor "
+                            "(CUR-PRONTA): READY pela regua antiga sem contrato do robo")
+    ok, falhas = VC.validar([novo])
+    if falhas:
+        return "FAIL", {"PORQUE": "contrato importado reprovado: %s" % str(falhas[0])[:140],
+                        "CONTRATO": source_id}
+    d = json.loads(CONTRATOS.read_text(encoding="utf-8"))
+    if any(c["SOURCE_ID"] == source_id for c in d["FONTES"]):
+        return "OK", {"CONTRATO": source_id, "NOTA": "ja existia; nada reescrito"}
+    d["FONTES"].append(novo)
+    _gravar_atomico(CONTRATOS, d)
+    return "OK", {"CONTRATO": source_id, "ORIGEM": "TABELA_DO_COLETOR",
+                  "STRATEGY": aq.get("STRATEGY"), "INDEX_URL": url[:110]}
 
 
 def _donos_do_canal(canal: str) -> list[str]:

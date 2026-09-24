@@ -282,6 +282,14 @@ class TestD3DispararImediato(unittest.TestCase):
     """Com fila=0 e acervo=0, discovery dispara imediatamente."""
 
     def setUp(self):
+        # CUR-PRONTA: o gatilho passou a chamar o AVANCAR antes do discovery, e
+        # o AVANCAR le o livro VERDADEIRO do repositorio. Esta classe mede a
+        # procura de fontes novas: o avanco fica a zero aqui (tem testes
+        # proprios em test_avancar_fontes.py).
+        import avancar_fontes as _AV
+        self.addCleanup(setattr, _AV, "avancar", _AV.avancar)
+        _AV.avancar = lambda agora=None, **_k: {"CANDIDATAS": 0, "POR_REGRA": {},
+                                                "ENFILEIRADAS": []}
         self._td = tempfile.TemporaryDirectory(prefix="b4-d3-")
         self.addCleanup(self._td.cleanup)
         self.tmp = Path(self._td.name)
