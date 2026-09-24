@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T05:01:46+00:00",
-  "HEAD": "7603a22b2aa11d134e79911d84dbdbbf71e792d3",
+  "GENERATED_AT": "2026-09-24T05:06:11+00:00",
+  "HEAD": "417ca90b9ca12bf0173f4be34a0b19bb31ba2d07",
   "BRANCH": "bc4-correcoes-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "e343daff87c6230adc6a559b436412f6c186cc8bba80cf1c14d27076ed7aeffe",
+  "SOURCE_TREE_FINGERPRINT": "e065732176a72f7a370ee920114117c4be856bcd940e3f177d2f6aac542e8ff8",
   "FICHEIROS_NA_IMPRESSAO": 2944,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -700,6 +700,13 @@
     "PATH": "ferramentas/big_collection/coorte_unica.py",
     "PAPEL": "FONTE",
     "VERSAO": "d4daac87cfc163568a49e2f9e212b3c9d0cd74f9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "00f2632379959e774dd61d24d87c874ab51dfd11",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3702,14 +3709,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e343daff87c6230adc6a559b436412f6c186cc8bba80cf1c14d27076ed7aeffe",
+    "VERSAO": "e065732176a72f7a370ee920114117c4be856bcd940e3f177d2f6aac542e8ff8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e343daff87c6230adc6a559b436412f6c186cc8bba80cf1c14d27076ed7aeffe",
+    "VERSAO": "e065732176a72f7a370ee920114117c4be856bcd940e3f177d2f6aac542e8ff8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5583,8 +5590,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 792,
-  "INPUTS_DIGEST": "2e739c84ed30cb2d2b9d05b841ed2609913bed155dc6c2b3bc4c5924d1c0a3d9",
+  "INPUTS_COUNT": 793,
+  "INPUTS_DIGEST": "5bac6efe10f8e3928ba7957d035231353de527e61102371320335a04d1bb9113",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5617,8 +5624,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b05f3536b10effdba30b77c4cb2065869ebcadcb792f9b01f35699f2f616d124",
-  "SEMANTIC_HASH": "2035688dd7aac895aa371b793fca0cdc6712c96e6753a2117c8423688427e8eb"
+  "MEASUREMENT_HASH": "92e505044fbd5a91e219e4de6411a15a231b75096fc18c5b6523051a83e1f9aa",
+  "SEMANTIC_HASH": "851190c22ee21f673fc854ea52a985931966862e4b6f903f89c27a9c92096bf8"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5700,6 +5707,7 @@
    "C-RECEITAS",
    "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
+   "C-RECONCILIAR-BYTES-BC4",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
    "C-ROTA-M2",
@@ -5721,7 +5729,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 91
+  "COUNT": 92
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5975,6 +5983,7 @@
    "C-RECEITAS",
    "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
+   "C-RECONCILIAR-BYTES-BC4",
    "C-RECORRENCIA",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
@@ -6007,16 +6016,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 179
+  "COUNT": 180
  },
  "ARITMETICA": {
-  "COLLECTION": 91,
+  "COLLECTION": 92,
   "BOUNDARY": 88,
-  "SOMA": 179,
-  "EXPANDED": 179,
+  "SOMA": 180,
+  "EXPANDED": 180,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 179,
+  "RESUMO_CARTOES_NO_UNIVERSO": 180,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -17798,6 +17807,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-RECONCILIAR-BYTES-BC4",
+    "FROM": "C-DONO-DA-ESCRITA",
+    "TO": "C-RECONCILIAR-BYTES-BC4",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "LINHA": 44,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-RECONCILIAR-BYTES-BC4",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -42608,12 +42639,12 @@
     ]
    }
   ],
-  "COUNT": 1194
+  "COUNT": 1195
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 179,
-  "CARTOES_AUDITADOS": 179,
-  "ARESTAS_RELACIONADAS": 1194,
+  "CARTOES_NO_UNIVERSO": 180,
+  "CARTOES_AUDITADOS": 180,
+  "ARESTAS_RELACIONADAS": 1195,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -42824,6 +42855,7 @@
    "C-RECALL-PORTA-IT",
    "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
+   "C-RECONCILIAR-BYTES-BC4",
    "C-RECORRENCIA",
    "C-RELATORIO-FLUXO",
    "C-ROTULOS",
@@ -42872,6 +42904,7 @@
    "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
    "C-PROVA-GATE-1D",
    "C-RECOLLECTION-CENSO",
+   "C-RECONCILIAR-BYTES-BC4",
    "C-RELATORIO-FLUXO"
   ],
   "SEM_LIGACAO": {
@@ -43021,7 +43054,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 214,
+   "CODE": 215,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 382,
@@ -45464,7 +45497,7 @@
     "urllib"
    ],
    "ENTRAM": 1,
-   "SAEM": 28,
+   "SAEM": 29,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE"
    ],
@@ -50174,6 +50207,40 @@
    "CATEGORIAS_QUE_ENTRAM": [
     "READ",
     "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-RECONCILIAR-BYTES-BC4",
+   "NOME": "Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/big_collection/reconciliar_bytes_bc4.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "derived_artifact",
+    "guarda",
+    "pathlib",
+    "raw_asset"
+   ],
+   "ENTRAM": 1,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE"
    ],
    "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
