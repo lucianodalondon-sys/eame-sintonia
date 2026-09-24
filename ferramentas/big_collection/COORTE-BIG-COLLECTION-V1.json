@@ -1,13 +1,17 @@
 {
  "DATASET": "COORTE-BIG-COLLECTION-V1",
  "DECISAO": "D25 (dono real, 23/09 ~15:20)",
- "ESTADO": "PROVISORIA",
- "CONGELAMENTO": "so depois da instalacao (passo I) e da demotion (B5) — bot Luciano, 23/09 19:20",
+ "ESTADO": "CONGELADA",
+ "CONGELAMENTO": {
+  "INSTALACAO": "8eec2e2a",
+  "DEMOTION_B5": "B5: ninguem sai (bot Luciano, 24/09 00:30)",
+  "EM": "2026-09-24T03:29:47+00:00"
+ },
  "NAO_E": "a contagem de READY do livro (READY_TOTAL do painel); a coorte e so a lista COORTE",
- "MEDIDO_EM": "2026-09-23T20:57:20+00:00",
- "ARVORE": "423226d3",
+ "MEDIDO_EM": "2026-09-24T03:29:47+00:00",
+ "ARVORE": "8eec2e2a",
  "PLANO": {
-  "GERADO_EM": "2026-09-23T20:56:30Z",
+  "GERADO_EM": "2026-09-24T03:29:35Z",
   "PAINEL_DO_GATE": {
    "READY_TOTAL": 143,
    "READY_CURRENT_TOTAL": 43,
@@ -19,9 +23,9 @@
   "BLOQUEADAS": 19
  },
  "LIVROS_SHA256": {
-  "curadoria/LIFECYCLE-LEDGER-V1.json": "2ff31e03a4cb6f68ae858cfba099400ae8e1e42e2ea93d069d9f6725a1892920",
-  "curadoria/LIFECYCLE-EVIDENCE-V1.json": "5d3a728b7b7f69cc262fa244a3194caa35fa59282220c7d9ec281c7a3dbaa48a",
-  "curadoria/italy_contracts_curator.json": "50ec818bb8045ccfd0b5ffac62c8da6817a448182b5ef242bd3f246d5d33429b",
+  "curadoria/LIFECYCLE-LEDGER-V1.json": "c63fe0fbfb3519d7ab83fde1b73fc5586cc29730ca2e08c30e59745df729d461",
+  "curadoria/LIFECYCLE-EVIDENCE-V1.json": "2e7f668ef18943acaaf349cbc9ac90663ba449adad33779c8b231ceca74b0cf8",
+  "curadoria/italy_contracts_curator.json": "a7abd28091abdef10f49ae4e86bf38887fdc1847ffc3f5cb779eee25c86abc84",
   "regras/italy_contracts_onboarded.json": "856f833f08043024a50d295b0d46d548ccbd54dab69f6312fc352b061f6b3272"
  },
  "REGRA": "PRONTA no micro_coleta plano E contrato executavel no coletor E rota validada (portao ELIGIBLE, DETAIL/v1) E canario com prova <= 7 dias",
@@ -31,9 +35,9 @@
    "SOURCE_ID": "IT-T10-018",
    "UNIVERSO": "T10",
    "ULTIMO_CANARIO": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@disco:3ee3a425a8c8:EV-IT-T10-018-CANARY-3172",
+    "EVIDENCE_REF": "EV-IT-T10-018-CANARY-3172",
     "OBSERVED_AT": "2026-09-23T12:37:16.745190+00:00",
-    "IDADE_DIAS": 0.35,
+    "IDADE_DIAS": 0.62,
     "ITEM_ABERTO": "https://www.myfruit.it/news/annamaria-medici-in-ortofrutta-vince-il-valore-percepito"
    },
    "INDEX_URL": "https://www.myfruit.it/",
@@ -49,7 +53,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T10-021-CANARY-1334",
     "OBSERVED_AT": "2026-09-22T18:37:08.901143+00:00",
-    "IDADE_DIAS": 1.1,
+    "IDADE_DIAS": 1.37,
     "ITEM_ABERTO": "https://plantgest.imagelinenetwork.com/it/eventi/giornate-tecniche-sul-noce-da-frutto/63565"
    },
    "INDEX_URL": "https://plantgest.imagelinenetwork.com/",
@@ -63,9 +67,9 @@
    "SOURCE_ID": "IT-T10-022",
    "UNIVERSO": "T10",
    "ULTIMO_CANARIO": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@disco:3ee3a425a8c8:EV-IT-T10-022-CANARY-3174",
+    "EVIDENCE_REF": "EV-IT-T10-022-CANARY-3174",
     "OBSERVED_AT": "2026-09-23T12:37:27.941110+00:00",
-    "IDADE_DIAS": 0.35,
+    "IDADE_DIAS": 0.62,
     "ITEM_ABERTO": "https://zootecnicainternational.com/news/bob-buresh-2026-psa-poultry-industry-award/"
    },
    "INDEX_URL": "https://zootecnicainternational.com/news/",
@@ -81,7 +85,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-034-CANARY-1340",
     "OBSERVED_AT": "2026-09-22T18:37:52.815887+00:00",
-    "IDADE_DIAS": 1.1,
+    "IDADE_DIAS": 1.37,
     "ITEM_ABERTO": "https://www.arpa.marche.it/notizie-2026/1688-rrqa-migrazione-al-sistema-informativo-opas"
    },
    "INDEX_URL": "https://www.arpa.marche.it/",
@@ -97,7 +101,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-051-CANARY-1342",
     "OBSERVED_AT": "2026-09-22T18:38:02.187328+00:00",
-    "IDADE_DIAS": 1.1,
+    "IDADE_DIAS": 1.37,
     "ITEM_ABERTO": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente"
    },
    "INDEX_URL": "https://www.arpae.it/it",
@@ -113,7 +117,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "EV-IT-T5-090-CANARY-1844",
     "OBSERVED_AT": "2026-09-23T04:36:42.336805+00:00",
-    "IDADE_DIAS": 0.68,
+    "IDADE_DIAS": 0.95,
     "ITEM_ABERTO": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/"
    },
    "INDEX_URL": "https://www.istat.it/it/",
@@ -127,9 +131,9 @@
    "SOURCE_ID": "IT-T7-017",
    "UNIVERSO": "T7",
    "ULTIMO_CANARIO": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@disco:3ee3a425a8c8:EV-IT-T7-017-CANARY-3178",
+    "EVIDENCE_REF": "EV-IT-T7-017-CANARY-3178",
     "OBSERVED_AT": "2026-09-23T12:37:47.473974+00:00",
-    "IDADE_DIAS": 0.35,
+    "IDADE_DIAS": 0.62,
     "ITEM_ABERTO": "https://www.riuniteciv.com/news-e-eventi/beer-food-attraction-rimini-presentazione-prodotti/"
    },
    "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
@@ -145,7 +149,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T7-021-CANARY-1346",
     "OBSERVED_AT": "2026-09-22T18:38:31.396132+00:00",
-    "IDADE_DIAS": 1.1,
+    "IDADE_DIAS": 1.37,
     "ITEM_ABERTO": "https://etvilloresi.it/attivita/progetti/progetto-la-via-del-marmo/"
    },
    "INDEX_URL": "https://www.etvilloresi.it/",
@@ -159,9 +163,9 @@
    "SOURCE_ID": "IT-T7-033",
    "UNIVERSO": "T7",
    "ULTIMO_CANARIO": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@disco:3ee3a425a8c8:EV-IT-T7-033-CANARY-3180",
+    "EVIDENCE_REF": "EV-IT-T7-033-CANARY-3180",
     "OBSERVED_AT": "2026-09-23T12:37:56.015474+00:00",
-    "IDADE_DIAS": 0.35,
+    "IDADE_DIAS": 0.62,
     "ITEM_ABERTO": "https://www.chianticlassico.com/news/27-ottobre-2025-milano-degustazione-chianticlassicodocg/"
    },
    "INDEX_URL": "https://www.chianticlassico.com/news/",
@@ -175,9 +179,9 @@
    "SOURCE_ID": "IT-T7-042",
    "UNIVERSO": "T7",
    "ULTIMO_CANARIO": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@disco:3ee3a425a8c8:EV-IT-T7-042-CANARY-3182",
+    "EVIDENCE_REF": "EV-IT-T7-042-CANARY-3182",
     "OBSERVED_AT": "2026-09-23T12:38:06.526809+00:00",
-    "IDADE_DIAS": 0.35,
+    "IDADE_DIAS": 0.62,
     "ITEM_ABERTO": "https://www.consorziobalsamico.it/news-blog/a-sostegno-della-filiera-del-vino-italiano/"
    },
    "INDEX_URL": "https://www.consorziobalsamico.it/news-blog/",
@@ -191,9 +195,9 @@
    "SOURCE_ID": "IT-T7-043",
    "UNIVERSO": "T7",
    "ULTIMO_CANARIO": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@disco:3ee3a425a8c8:EV-IT-T7-043-CANARY-3184",
+    "EVIDENCE_REF": "EV-IT-T7-043-CANARY-3184",
     "OBSERVED_AT": "2026-09-23T12:38:14.268437+00:00",
-    "IDADE_DIAS": 0.35,
+    "IDADE_DIAS": 0.62,
     "ITEM_ABERTO": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana"
    },
    "INDEX_URL": "https://agrofarma.federchimica.it/news-ed-eventi",
@@ -209,7 +213,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "EV-IT-T7-112-CANARY-1930",
     "OBSERVED_AT": "2026-09-23T04:40:10.768399+00:00",
-    "IDADE_DIAS": 0.68,
+    "IDADE_DIAS": 0.95,
     "ITEM_ABERTO": "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/"
    },
    "INDEX_URL": "https://www.cia.it/associazioni-cia/agia/",
@@ -225,7 +229,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "EV-IT-T7-117-CANARY-1975",
     "OBSERVED_AT": "2026-09-23T04:42:24.291566+00:00",
-    "IDADE_DIAS": 0.68,
+    "IDADE_DIAS": 0.95,
     "ITEM_ABERTO": "https://www.caf-cia.it/news/notizie/730-2025-provvedimento-agenzia-delle-entrate/"
    },
    "INDEX_URL": "https://www.caf-cia.it/",
@@ -241,7 +245,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "EV-IT-T7-118-CANARY-2008",
     "OBSERVED_AT": "2026-09-23T04:43:44.340590+00:00",
-    "IDADE_DIAS": 0.68,
+    "IDADE_DIAS": 0.95,
     "ITEM_ABERTO": "https://www.cia.it/news/notizie/a-firenze-la-presentazione-del-libro-il-mondo-delle-donne/"
    },
    "INDEX_URL": "https://www.cia.it/associazioni-cia/donne-in-campo/",
@@ -257,7 +261,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "EV-IT-T7-121-CANARY-2081",
     "OBSERVED_AT": "2026-09-23T04:47:09.407543+00:00",
-    "IDADE_DIAS": 0.67,
+    "IDADE_DIAS": 0.95,
     "ITEM_ABERTO": "https://www.cia.it/news/notizie/aree-interne-cia-parte-il-roadshow-territori-che-rigenerano-da-nord-a-sud-italia/"
    },
    "INDEX_URL": "https://www.cia.it/news/news/",
@@ -273,7 +277,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "EV-IT-T7-123-CANARY-2089",
     "OBSERVED_AT": "2026-09-23T04:47:38.650566+00:00",
-    "IDADE_DIAS": 0.67,
+    "IDADE_DIAS": 0.95,
     "ITEM_ABERTO": "https://www.cia.it/news/notizie/cia-cuneo-fruitlab-2026-tecnologia-al-servizio-degli-agricoltori/"
    },
    "INDEX_URL": "https://www.cia.it/news/dal-territorio/",
@@ -289,7 +293,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "EV-IT-T7-135-CANARY-2214",
     "OBSERVED_AT": "2026-09-23T04:53:14.297878+00:00",
-    "IDADE_DIAS": 0.67,
+    "IDADE_DIAS": 0.94,
     "ITEM_ABERTO": "https://cia.it/news/notizie/agrichef-festival-la-campania-porta-alla-finale-gli-involtini-di-verza-e-provola-del-monaco/"
    },
    "INDEX_URL": "https://cia.it/agrichef-1/",
@@ -305,7 +309,7 @@
    "ULTIMO_CANARIO": {
     "EVIDENCE_REF": "EV-IT-T7-141-CANARY-2576",
     "OBSERVED_AT": "2026-09-23T07:05:57.088029+00:00",
-    "IDADE_DIAS": 0.58,
+    "IDADE_DIAS": 0.85,
     "ITEM_ABERTO": "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2016/"
    },
    "INDEX_URL": "https://www.ciatoscana.eu/home/",

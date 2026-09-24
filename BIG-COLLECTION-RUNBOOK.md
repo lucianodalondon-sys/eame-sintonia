@@ -120,6 +120,32 @@ py ferramentas/big_collection/coorte_unica.py --plano=C:\bc\plano.json --congela
 Sem os dois o `--congelar` recusa. **Nunca** usar a contagem de READY do livro (143) como coorte:
 a coorte é só a lista `COORTE` do ficheiro.
 
+✅ **CONGELADA em 24/09 03:29Z (1.ª onda, sem a R1 — D25; B5 = ninguém sai, bot Luciano 00:30).**
+Sobre o vivo instalado: bot `source-curator-service-v1` @ **`8eec2e2a`** (M5G), supervisor
+STOPPED e worker DOWN durante a leitura, egresso IT PASS antes e depois. Os 4 livros tinham o
+mesmo sha256 antes e depois (os do `LIVROS_SHA256` do ficheiro). Plano do vivo: 37 ELIGIBLE →
+18 PRONTAS / 19 BLOQUEADAS. **COORTE_BIG_COLLECTION = 18**, 0 duplicadas, `ESTADO: CONGELADA`
+(`ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json` = `C:\bc\COORTE-BIG-COLLECTION.json`).
+IT-T5-049 fica FORA pelo próprio plano (`ROTA:CAPABILITY_BLOCK`). Nenhuma Veterinária/IZS (D26);
+fronteira listada: IT-T10-022 (Zootecnica International, imprensa de avicultura = produção animal,
+não vet/IZS) — fica, o Curator decide.
+
+A ferramenta do vivo (`8eec2e2a`) ainda é a de antes do `--congelar`; correu-se a deste ramo
+(`0bb7eafd`) sobre os livros do vivo, trocando só a linha `RAIZ`, sem `.pyc` e com `--saida` fora
+do vivo (nada escrito no vivo; `git status` do vivo: os mesmos 10 livros sujos):
+
+```
+# C:\bc\g3\correr_no_vivo.py <coorte_unica.py> <raiz do vivo> <args...>
+src = Path(sys.argv[1]).read_text(encoding="utf-8")
+src = src.replace("RAIZ = Path(__file__).resolve().parents[2]", "RAIZ = Path(%r)" % sys.argv[2])
+sys.argv = [sys.argv[1]] + sys.argv[3:]; exec(compile(src, sys.argv[0], "exec"), {"__name__": "__main__"})
+
+(no vivo) PYTHONDONTWRITEBYTECODE=1 py scripts/micro_coleta/micro_coleta.py plano > C:\bc\g3\plano.json
+PYTHONDONTWRITEBYTECODE=1 py C:\bc\g3\correr_no_vivo.py ferramentas/big_collection/coorte_unica.py <vivo> ^
+   --plano=C:\bc\g3\plano.json --congelar --instalacao=8eec2e2a ^
+   --demotion="B5: ninguem sai (bot Luciano, 24/09 00:30)" --saida=C:\bc\g3\COORTE-BIG-COLLECTION.json
+```
+
 Medido na BC2 (23/09 ~15:30), depois do onboardar: portão **37** → **19 PRONTAS**
 (IT-T10-018, -021, -022, IT-T2-034, IT-T2-051, IT-T5-090, IT-T7-017, -021, -033, -042,
 -043, -100, -112, -117, -118, -121, -123, -135, -141), **18 bloqueadas** com motivo. (BC1,
