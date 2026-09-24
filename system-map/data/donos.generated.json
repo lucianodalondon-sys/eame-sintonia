@@ -199,7 +199,7 @@
     "coleta/executor_transcricao_midia.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 188,
+   "QUANTOS_LEEM": 184,
    "INSTRUMENTOS_QUE_CITAM": 216,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -247,7 +247,6 @@
    "ESCREVEM": [],
    "LEEM": [
     "coleta/italy_executor.py",
-    "curadoria/reparar_contrato.py",
     "curadoria/test_collection_gate.py",
     "leis/relevancia_da_fonte.py",
     "leis/retorno_da_coleta.py",
@@ -257,9 +256,10 @@
     "medidas/medir_k1.py",
     "medidas/medir_v1a.py",
     "orquestrador/orquestrador.py",
-    "pacote/v21_handoff_json.py"
+    "pacote/v21_handoff_json.py",
+    "scripts/coorte_micro/funil.py"
    ],
-   "QUANTOS_LEEM": 24,
+   "QUANTOS_LEEM": 23,
    "INSTRUMENTOS_QUE_CITAM": 45,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -363,7 +363,7 @@
     "coleta/scrap_fornecedores.py",
     "coleta/social_rotas.py"
    ],
-   "QUANTOS_LEEM": 81,
+   "QUANTOS_LEEM": 80,
    "INSTRUMENTOS_QUE_CITAM": 36,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -393,15 +393,16 @@
     "coleta/executor_texto_de_pdf.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 142,
+   "QUANTOS_LEEM": 143,
    "INSTRUMENTOS_QUE_CITAM": 111,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "HISTORY",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "4 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "5 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
+    "ferramentas/big_collection/bc5_big_collection.py",
     "medidas/corrida_canonica.py",
     "medidas/padrao_da_coleta.py",
     "scripts/micro_coleta/ensaio_offline.py",

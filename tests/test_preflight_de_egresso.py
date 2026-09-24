@@ -139,9 +139,12 @@ class OSegredoNaoViaja(unittest.TestCase):
         self.assertNotIn("AS64500", texto)
 
     def test_o_que_fica_e_pais_momento_e_checker(self):
+        # EGR (24/09): o consenso acrescenta QUEM votou O QUE (so paises, nunca IP),
+        # a discordancia, a telemetria sem voto e se a medida veio da cache.
         v = rede.egresso(bruto=self.CORPO, quando="2026-09-13")
         self.assertEqual({"EGRESS_COUNTRY_CODE", "CHECKED_AT", "CHECKER",
-                          "PORQUE"}, set(v))
+                          "PORQUE", "VOTOS", "VOTOS_VALIDOS", "DISCORDANCIA",
+                          "TELEMETRIA_SEM_VOTO", "DA_CACHE"}, set(v))
 
 
 class OLimiteEstaDeclarado(unittest.TestCase):

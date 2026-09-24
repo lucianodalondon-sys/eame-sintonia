@@ -437,15 +437,24 @@ def saida_de_rede():
     """
     if _SAIDA_DE_REDE:
         return _SAIDA_DE_REDE
-    import urllib.request
+    # EGR (24/09): o país pelo DONO — superficie/rede.py, consenso de 3 verificadores
+    # com cache de 3 min — e nunca por um serviço direto (o ipinfo.io em 429 parou
+    # tudo das 13:05 às 15:05). O dono só devolve o PAÍS: região e operadora ficam
+    # NAO_SEI, e isso fica dito.
     try:
-        with urllib.request.urlopen('https://ipinfo.io/json', timeout=15) as r:
-            d = json.loads(r.read().decode('utf-8', 'replace'))
+        import importlib.util as _u
+        _s = _u.spec_from_file_location(
+            'rede_egresso', os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                         'superficie', 'rede.py'))
+        _r = _u.module_from_spec(_s)
+        _s.loader.exec_module(_r)
+        e = _r.egresso()
+        pais = e['EGRESS_COUNTRY_CODE']
         _SAIDA_DE_REDE.update({
-            'NETWORK_EXIT_COUNTRY': d.get('country') or NAO_SEI,
-            'NETWORK_EXIT_REGION': d.get('region') or NAO_SEI,
-            'NETWORK_EXIT_ORG': (d.get('org') or NAO_SEI)[:60],
-            'NETWORK_EXIT_HOW': 'ipinfo.io — serviço público, sem credencial',
+            'NETWORK_EXIT_COUNTRY': pais if pais != 'UNKNOWN' else NAO_SEI,
+            'NETWORK_EXIT_REGION': NAO_SEI,
+            'NETWORK_EXIT_ORG': NAO_SEI,
+            'NETWORK_EXIT_HOW': 'superficie/rede.py — consenso de 3 verificadores públicos, sem credencial',
         })
     except Exception as e:                                    # noqa: BLE001
         _SAIDA_DE_REDE.update({

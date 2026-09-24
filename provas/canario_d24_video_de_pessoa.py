@@ -76,15 +76,16 @@ def mede(nome, valor, porque=''):
 
 
 def egresso():
-    import urllib.request
-    req = urllib.request.Request('https://ipinfo.io/json',
-                                 headers={'User-Agent': http.AGENTE})
-    try:
-        with urllib.request.urlopen(req, timeout=25) as f:
-            d = json.loads(f.read().decode('utf-8', 'replace'))
-        return {k: d.get(k) for k in ('ip', 'org', 'city', 'country')}
-    except Exception as e:                                          # noqa: BLE001
-        return {'ERRO': '%s: %s' % (type(e).__name__, str(e)[:120])}
+    """EGR (24/09): o pais pelo DONO — superficie/rede.py, consenso de 3 verificadores
+    com cache de 3 min. Nenhum consumidor pergunta a um servico diretamente (o
+    ipinfo.io em 429 parou tudo das 13:05 as 15:05). O IP nao sai do dono."""
+    import importlib.util as _u, os as _os
+    _s = _u.spec_from_file_location("rede_egresso", _os.path.join(str(RAIZ), "superficie", "rede.py"))
+    _r = _u.module_from_spec(_s)
+    _s.loader.exec_module(_r)
+    e = _r.egresso()
+    pais = e["EGRESS_COUNTRY_CODE"] if e["EGRESS_COUNTRY_CODE"] != "UNKNOWN" else None
+    return {'country': pais, 'VOTOS': e['VOTOS']}
 
 
 def mede_a_porta_fechada():

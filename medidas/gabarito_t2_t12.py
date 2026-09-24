@@ -123,12 +123,16 @@ _ITEM = re.compile(r"(?:[a-z0-9]+-){2,}[a-z0-9]+|(?:19|20)\d{2}|\d{3,}", re.I)
 
 
 def egresso() -> dict:
-    try:
-        with urllib.request.urlopen("https://ipinfo.io/json", timeout=15) as r:
-            d = json.loads(r.read())
-        return {"IP": d.get("ip"), "CITY": d.get("city"), "COUNTRY": d.get("country")}
-    except Exception as e:                                      # noqa: BLE001
-        return {"IP": None, "COUNTRY": "NAO SEI", "ERRO": type(e).__name__}
+    """EGR (24/09): o pais pelo DONO — superficie/rede.py, consenso de 3 verificadores
+    com cache de 3 min. Nenhum consumidor pergunta a um servico diretamente (o
+    ipinfo.io em 429 parou tudo das 13:05 as 15:05). O IP nao sai do dono."""
+    import importlib.util as _u, os as _os
+    _s = _u.spec_from_file_location("rede_egresso", _os.path.join(str(RAIZ), "superficie", "rede.py"))
+    _r = _u.module_from_spec(_s)
+    _s.loader.exec_module(_r)
+    e = _r.egresso()
+    pais = e["EGRESS_COUNTRY_CODE"] if e["EGRESS_COUNTRY_CODE"] != "UNKNOWN" else None
+    return {"IP": None, "COUNTRY": pais or "NAO SEI", "VOTOS": e["VOTOS"]}
 
 
 def itens_da_entrada(html: bytes, base: str, n: int = 3) -> list[str]:

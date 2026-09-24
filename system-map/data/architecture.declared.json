@@ -1419,7 +1419,7 @@
    "name": "Ask Sintonia",
    "territory": "Z-SUPERFICIE",
    "kind": "engine",
-   "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou.",
+   "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou. EGR (2026-09-24): o pais por CONSENSO de 3 verificadores (ipwho.is, ip-api.com, ifconfig.co); PASS/BLOCKED com >=2 votos validos, UNKNOWN (menos de 2 ou empate) bloqueia, um discordante nao tem veto e fica em DISCORDANCIA; ipinfo.io so telemetria; cache de 3 min partilhada entre processos (fora do Git, gravacao atomica, chave = variaveis de proxy). Todos os consumidores leem por aqui.",
    "why_here": "E a unica peca desenhada para quem nao sabe onde procurar.",
    "departments": [
     "COMERCIAL",
@@ -1428,7 +1428,10 @@
    ],
    "files": [
     "superficie/ask_sintonia.py",
-    "superficie/rede.py"
+    "superficie/rede.py",
+    "scripts/egresso/mutar_egresso.py",
+    "scripts/egresso/MUTACAO-EGRESSO-CONSENSO-V1.json",
+    "scripts/egresso/CANARIO-EGRESSO-CONSENSO-V1.json"
    ],
    "views": [],
    "icon": "⚙"
@@ -4663,6 +4666,24 @@
    ],
    "files": [
     "ferramentas/big_collection/reconciliar_bytes_bc4.py"
+   ]
+  },
+  {
+   "id": "C-BIG-COLLECTION-CONDUTOR-BC5",
+   "name": "Condutor da Big Collection (1.a onda, BC5)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Corre a coorte congelada UMA fonte de cada vez pela porta canonica (micro_coleta.correr), fotografa a Sala antes/depois de cada fonte e aplica os disjuntores do BIG-COLLECTION-RUNBOOK §6 (egresso fora de IT, Sala a descer, >30 min, 3 FAILED seguidas, C6, proveniencia partida, pedidos acima do teto). Nao decide elegibilidade nem admissao: pergunta aos donos.",
+   "why_here": "BC5 (24/09/2026): o arranque da 1.a onda pedia uma fonte de cada vez com paragem automatica; o correr da micro corre a lista inteira sem disjuntores entre fontes.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/big_collection/bc5_big_collection.py"
    ]
   },
   {
