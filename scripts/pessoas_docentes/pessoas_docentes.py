@@ -59,9 +59,12 @@ SAIDA = Path(os.environ.get("P5_SAIDA") or AQUI / "DESCOBERTA-PESSOAS-DOCENTES-V
 DECISOES = AQUI / "DECISOES-P5-V1.json"
 EVID = Path(os.environ.get("TEMP", "/tmp")) / "p5-evidencia"
 # Filas irmas: P1, P2, YT3 e a P4 (a P4 pode ainda nao ter publicado: le-se tambem o disco dela).
-BRANCHES_IRMAS = ("origin/pesquisadores-v1", "origin/pesquisa-projetos-v1", "origin/canais-pessoas-v1",
-                  "origin/pessoas-agro-v1")
-P4_WORKTREE = Path(r"C:\Users\London1\orca\workspaces\eame-sintonia\pessoas-agro-v1")
+BRANCHES_IRMAS = ("origin/bc4-correcoes-v1", "origin/pesquisadores-v1", "origin/pesquisadores-v2",
+                  "origin/pesquisa-projetos-v1", "origin/canais-pessoas-v1", "origin/pessoas-agro-v1")
+# P1d e P4b correm em paralelo (24/09) e podem nao ter publicado: le-se a fila no disco de cada bancada irma.
+_WT = Path(r"C:\Users\London1\orca\workspaces\eame-sintonia")
+WORKTREES_IRMAS = tuple(_WT / n for n in ("pesquisadores-v1", "pesquisadores-v2", "pessoas-agro-v1",
+                                          "pesquisa-projetos-v1", "provas-p1"))
 P4_ACHADOS = Path(r"C:\Users\London1\auditoria-madrugada")
 PAUSA_S = 2.0
 TIMEOUT_S = 20
@@ -89,10 +92,11 @@ def conhecidos():
     for rev in (None,) + BRANCHES_IRMAS:
         for c in _fila_de(rev):
             k.setdefault(FN.normalizar(c["URL"]), "fila %s %s" % (rev or "desta linha", c["CANDIDATA_ID"]))
-    f = P4_WORKTREE / "candidatas" / "FONTES-CANDIDATAS.json"
-    if f.exists():
-        for c in json.loads(f.read_text(encoding="utf-8"))["CANDIDATAS"]:
-            k.setdefault(FN.normalizar(c["URL"]), "fila em disco da P4 %s" % c["CANDIDATA_ID"])
+    for wt in WORKTREES_IRMAS:
+        f = wt / "candidatas" / "FONTES-CANDIDATAS.json"
+        if f.exists():
+            for c in json.loads(f.read_text(encoding="utf-8"))["CANDIDATAS"]:
+                k.setdefault(FN.normalizar(c["URL"]), "fila em disco de %s %s" % (wt.name, c["CANDIDATA_ID"]))
     for j in sorted(P4_ACHADOS.glob("_p4_*.jsonl")):
         for linha in j.read_text(encoding="utf-8", errors="replace").splitlines():
             for u in re.findall(r"https?://[^\"\s]+", linha):
