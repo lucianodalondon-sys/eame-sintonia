@@ -130,8 +130,10 @@ bytes (sha256 `e6388fc09970…`), `IGUAL_A_SALA_REAL: true`. SALA_BEFORE: `sala_
 
 ### 4 · As variáveis da Sala
 
-As quatro do `MICRO-RUNBOOK.md` passo 4, e `BANCO_DESCARTAVEL_URL` vazia. Sem
-`SINTONIA_SALA_BACKEND=POSTGRES`, a Sala cai calada num ficheiro.
+As cinco do `MICRO-RUNBOOK.md` passo 4, e `BANCO_DESCARTAVEL_URL` vazia. Sem
+`SINTONIA_SALA_BACKEND=POSTGRES`, a Sala cai calada num ficheiro. Sem
+`SINTONIA_ARMAZEM_RAIZ=%USERPROFILE%\sintonia-sala-italia\armazem` a corrida é recusada
+(BC4, 24/09: sem ela os bytes caíam em `<árvore do bot>/XX/`, resíduo que a suíte apaga).
 
 ### 5 · Correr (só com B2 fechado)
 

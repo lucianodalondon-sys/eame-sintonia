@@ -274,20 +274,23 @@ def main(argv=None) -> int:
     env.update({"CURL_HOME": str(D / "curl"), "ITALY_OPS_ROOT": str(D / "ops"),
                 "SINTONIA_COLLECTION_DSN": base.url, "SINTONIA_SALA_DSN": base.url,
                 "SINTONIA_SALA_BACKEND": "POSTGRES", "SINTONIA_PSQL_EXE": base.exe("psql"),
-                "SINTONIA_ARMAZEM_RAIZ": str(arvore), "PYTHONUTF8": "1",
+                # ⚠️ FORA da arvore: a bancada e OPERACIONAL (SINTONIA_COLLECTION_DSN),
+                # e raiz_do_armazem_local recusa armazem operacional dentro do repo (BC4).
+                "SINTONIA_ARMAZEM_RAIZ": str(D / "armazem"), "PYTHONUTF8": "1",
                 "PATH": str(E.PG_BIN) + os.pathsep + os.environ.get("PATH", "")})
     led = D / "ops" / "data" / "collection-ledger" / "italy"
     robots_lidos: dict = {}
     try:
         resultado["BASE"] = base.subir(arvore, env)
-        os.environ.update({k: env[k] for k in ("SINTONIA_SALA_DSN", "SINTONIA_PSQL_EXE", "ITALY_OPS_ROOT")})
+        os.environ.update({k: env[k] for k in ("SINTONIA_SALA_DSN", "SINTONIA_PSQL_EXE", "ITALY_OPS_ROOT",
+                                               "SINTONIA_ARMAZEM_RAIZ")})
         antes = E.contagens()
         c1, parou1 = passagem("1a", fontes, arvore, env, saida, contratos, robots_lidos, log, ajudas)
         depois1 = E.contagens()
         runs1 = [c["RUN_ID"] for c in c1 if c.get("RUN_ID") not in (None, AUSENCIA)]
         rel = MC.relatorio(runs1, corridas=[c for c in c1 if c.get("CORREU")],
                            livro=arvore / "data" / "samples" / "LIVRO-DE-DECISOES.json",
-                           armazem=arvore, saida=saida, ledger=led) if runs1 else None
+                           armazem=D / "armazem", saida=saida, ledger=led) if runs1 else None
         obs1 = E.ler_ndjson(led / "observations.ndjson")
         runs_nd = E.ler_ndjson(led / "runs.ndjson")
         resultado["PRIMEIRA"] = {

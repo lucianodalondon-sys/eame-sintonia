@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T05:15:58+00:00",
-  "HEAD": "f7eadff811c96ea06e273c1e37c6d35a3a0a67bc",
-  "BRANCH": "reparo-fontes-v2",
+  "GENERATED_AT": "2026-09-24T11:56:28+00:00",
+  "HEAD": "52a9a67d2314958725fb354417f217cfd15d281d",
+  "BRANCH": "bc4-correcoes-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "86cdb4e92cde5b73f9d04226e4c40a64bf1940909729c9a6567343718e3c4766",
-  "FICHEIROS_NA_IMPRESSAO": 2949,
+  "SOURCE_TREE_FINGERPRINT": "c0126f02c63ea0e863594aba39df6a892e6465c6a20550053db7e3c3ce537acd",
+  "FICHEIROS_NA_IMPRESSAO": 2950,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -433,7 +433,7 @@
    {
     "PATH": "coleta/ingresso.py",
     "PAPEL": "FONTE",
-    "VERSAO": "28fb6ffbaf7acf7fe31ef7d2e13a560847cfcefd",
+    "VERSAO": "f05aa6b0cca3b9d71ab7dd6f79fae21cf70c7821",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -700,6 +700,13 @@
     "PATH": "ferramentas/big_collection/coorte_unica.py",
     "PAPEL": "FONTE",
     "VERSAO": "d4daac87cfc163568a49e2f9e212b3c9d0cd74f9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "00f2632379959e774dd61d24d87c874ab51dfd11",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1042,7 +1049,7 @@
    {
     "PATH": "guarda/preservar_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e1097f355d46ea1761359aac1bf1b0d6ddd16cb6",
+    "VERSAO": "b8e4762380ad04eaf18d1e89ae329570d896d107",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2057,14 +2064,14 @@
    {
     "PATH": "orquestrador/orquestrador.py",
     "PAPEL": "FONTE",
-    "VERSAO": "ca4aa6920ec82c105f40d34bacc4f04a6b28a22b",
+    "VERSAO": "971e41e0464c64ce396ddf575704cdfc11d61ba5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "orquestrador/persistencia.py",
     "PAPEL": "FONTE",
-    "VERSAO": "bad64bae1be1c8db8a52e7cf61b110e232ab75c7",
+    "VERSAO": "fde4230200b250d1cc1870e0e09a6c9289e65d6a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3254,7 +3261,7 @@
    {
     "PATH": "provas/red_team_persistencia_operacional.py",
     "PAPEL": "FONTE",
-    "VERSAO": "704fb7b972de57350ab862c32aa0f5bf5ace1804",
+    "VERSAO": "767ca85cfcbe192f963a70e98e98f463c1c3ad4b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3583,7 +3590,7 @@
    {
     "PATH": "scripts/micro_coleta/ensaio_offline.py",
     "PAPEL": "FONTE",
-    "VERSAO": "ad23b79a713491f2be82746bbf87af10b4708d3b",
+    "VERSAO": "6eaa340dc8c882f289f8e8b2441e96901fec56d0",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3597,14 +3604,14 @@
    {
     "PATH": "scripts/micro_coleta/micro_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "84b157afb93da33fcd8a69609b906d4feaba6696",
+    "VERSAO": "dbe4ca56838839d21569ddf3a73c447c2ef26dde",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "scripts/micro_coleta/micro_rede_real.py",
     "PAPEL": "FONTE",
-    "VERSAO": "db8ff406b8a57c628916e9ae2349f75ae3c09fcd",
+    "VERSAO": "f3090a38e382a5d79d4239448723029c749b5d36",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3647,20 +3654,6 @@
     "PATH": "scripts/receitas/provar_indices.py",
     "PAPEL": "FONTE",
     "VERSAO": "36277086c8e454656febfd4278efd98c6c6d7ab7",
-    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-    "LIDO_POR": "escreve_le() · open"
-   },
-   {
-    "PATH": "scripts/reparo/juntar_bancas.py",
-    "PAPEL": "FONTE",
-    "VERSAO": "14a496fb6accddfd9080f26d88300fa4a7c2c7d5",
-    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-    "LIDO_POR": "escreve_le() · open"
-   },
-   {
-    "PATH": "scripts/reparo/medir_em_copia.py",
-    "PAPEL": "FONTE",
-    "VERSAO": "7fda06472018d6a48975eac526f969ad56053cbf",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3716,14 +3709,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "86cdb4e92cde5b73f9d04226e4c40a64bf1940909729c9a6567343718e3c4766",
+    "VERSAO": "c0126f02c63ea0e863594aba39df6a892e6465c6a20550053db7e3c3ce537acd",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "86cdb4e92cde5b73f9d04226e4c40a64bf1940909729c9a6567343718e3c4766",
+    "VERSAO": "c0126f02c63ea0e863594aba39df6a892e6465c6a20550053db7e3c3ce537acd",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4211,6 +4204,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_armazem_operacional_protegido.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "fe0dea12ad1bc2640c0c687d36d0667ed5b44aa6",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_as_duas_portas_do_scrap.py",
     "PAPEL": "FONTE",
     "VERSAO": "68e9300ccee69438dfa9533c727872b1aeef393d",
@@ -4249,6 +4249,13 @@
     "PATH": "tests/test_autorizacao_de_gasto.py",
     "PAPEL": "FONTE",
     "VERSAO": "f825d9dfb2361f7e39d18cdf9717245d73aff869",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_bc4_armazem_e_pais.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0e3cc3d8fcae284b3c2f8e0b8b081d9fbc38a497",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4997,7 +5004,7 @@
    {
     "PATH": "tests/test_micro_coleta_instrumento.py",
     "PAPEL": "FONTE",
-    "VERSAO": "1dff049fafd953bd65be609f542207473dd09c0c",
+    "VERSAO": "a302bc8f8cf1bf34a79bb66d59c4616c20854972",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5137,7 +5144,7 @@
    {
     "PATH": "tests/test_persistencia_operacional.py",
     "PAPEL": "FONTE",
-    "VERSAO": "d3920253d0a0a2f07bd14b2a14e68e06cee9bcca",
+    "VERSAO": "efb867ef0fd6a34a81a474e65448bc44f43fe7e4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5583,8 +5590,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 792,
-  "INPUTS_DIGEST": "05d3a3fe476bdbaf71f761b07cbcb6e97f5cb301e8b66ea61423cfc0e1484e2e",
+  "INPUTS_COUNT": 793,
+  "INPUTS_DIGEST": "6180c9ae94da64b106d59412daf774f3cf864af2d0f4a740bf0c477694b3b395",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5617,8 +5624,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "840c90fe5cdc79d4cddef6e2e91b5e40d2148814884bb73212c770521d1f3b05",
-  "SEMANTIC_HASH": "2950b897582681a6943efc86b940820c1e82c8a15191951cb1ed1cf8b8ab3a98"
+  "MEASUREMENT_HASH": "fe6d960b7e77254914949fa7c29a3cb3f90f0744cd849586b50e049f5ea18303",
+  "SEMANTIC_HASH": "742d6e24a160fd2b647a7601c578b4231760d68ff7f3fa6d93ecd4b4f07382c1"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5700,9 +5707,9 @@
    "C-RECEITAS",
    "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
+   "C-RECONCILIAR-BYTES-BC4",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
-   "C-REPARO-MEDICAO",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -5976,12 +5983,12 @@
    "C-RECEITAS",
    "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
+   "C-RECONCILIAR-BYTES-BC4",
    "C-RECORRENCIA",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
    "C-RELEVANCIA",
    "C-RELEVANCIA-DA-FONTE",
-   "C-REPARO-MEDICAO",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -10626,7 +10633,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 121,
+      "LINHA": 148,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -10634,7 +10641,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 123,
+      "LINHA": 150,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -10656,7 +10663,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 184,
+      "LINHA": 188,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -10664,7 +10671,7 @@
      },
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 185,
+      "LINHA": 189,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -11390,28 +11397,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLHEITA",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
-    "FROM": "C-CENSO-UNIFICACAO",
-    "TO": "C-REPARO-MEDICAO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "scripts/reparo/juntar_bancas.py",
-      "LINHA": 71,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -12860,7 +12845,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "orquestrador/persistencia.py",
-      "LINHA": 210,
+      "LINHA": 229,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
@@ -14728,7 +14713,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/ingresso.py",
-      "LINHA": 299,
+      "LINHA": 301,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
@@ -16482,7 +16467,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 210,
+      "LINHA": 237,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -16839,28 +16824,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
-    "FROM": "C-DETECTOR-CAPA-GABARITO",
-    "TO": "C-REPARO-MEDICAO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "RULE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "scripts/reparo/juntar_bancas.py",
-      "LINHA": 60,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-SCRAP-SOCIAL",
     "FROM": "C-DETECTOR-CAPA-GABARITO",
     "TO": "C-SCRAP-SOCIAL",
@@ -17060,7 +17023,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/ingresso.py",
-      "LINHA": 91,
+      "LINHA": 93,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DIAGNOSTICO--IMPORTS-->C-INGRESSO",
@@ -17374,7 +17337,15 @@
      },
      {
       "FICHEIRO": "orquestrador/persistencia.py",
-      "LINHA": 209,
+      "LINHA": 142,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "orquestrador/persistencia.py",
+      "LINHA": 228,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
@@ -17836,6 +17807,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-RECONCILIAR-BYTES-BC4",
+    "FROM": "C-DONO-DA-ESCRITA",
+    "TO": "C-RECONCILIAR-BYTES-BC4",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "LINHA": 44,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-RECONCILIAR-BYTES-BC4",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -22848,6 +22841,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_bc4_armazem_e_pais.py",
+      "LINHA": 107,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_estagio_atravessa_a_fronteira.py",
       "LINHA": 351,
       "SUPPORTS": "YES",
@@ -24838,7 +24839,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
-      "LINHA": 536,
+      "LINHA": 539,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -24846,7 +24847,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 480,
+      "LINHA": 507,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -24854,7 +24855,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
-      "LINHA": 291,
+      "LINHA": 294,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -24862,7 +24863,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
-      "LINHA": 292,
+      "LINHA": 295,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -25563,7 +25564,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
-      "LINHA": 472,
+      "LINHA": 475,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -26964,6 +26965,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_bc4_armazem_e_pais.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_ensaio_offline_micro.py",
       "LINHA": 17,
       "SUPPORTS": "YES",
@@ -27617,6 +27626,22 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_armazem_operacional_protegido.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_bc4_armazem_e_pais.py",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_col_e7_contrato_do_texto.py",
       "LINHA": 480,
       "SUPPORTS": "YES",
@@ -27675,22 +27700,6 @@
      {
       "FICHEIRO": "tests/test_quarentena_naosei.py",
       "LINHA": 19,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_raw_observation_id_volta.py",
-      "LINHA": 467,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_runtime_so_deixa_passar_colheita.py",
-      "LINHA": 24,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
@@ -27844,7 +27853,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 99,
+      "LINHA": 122,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -28077,6 +28086,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_bc4_armazem_e_pais.py",
+      "LINHA": 78,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_c10_6d_portas_canonicas.py",
       "LINHA": 185,
       "SUPPORTS": "YES",
@@ -28103,14 +28120,6 @@
      {
       "FICHEIRO": "tests/test_fase_italiana_no_workflow.py",
       "LINHA": 130,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_italia_na_porta_canonica.py",
-      "LINHA": 180,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
@@ -28971,6 +28980,14 @@
      {
       "FICHEIRO": "tests/test_audio_youtube_wiring.py",
       "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_bc4_armazem_e_pais.py",
+      "LINHA": 109,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -30104,7 +30121,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/ingresso.py",
-      "LINHA": 97,
+      "LINHA": 99,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-INGRESSO",
@@ -32514,7 +32531,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/ingresso.py",
-      "LINHA": 90,
+      "LINHA": 92,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RASTRO--IMPORTS-->C-INGRESSO",
@@ -40757,7 +40774,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 38,
+      "LINHA": 39,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -40765,7 +40782,7 @@
      },
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 40,
+      "LINHA": 41,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -40923,7 +40940,7 @@
      },
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 308,
+      "LINHA": 312,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
@@ -42622,12 +42639,12 @@
     ]
    }
   ],
-  "COUNT": 1196
+  "COUNT": 1195
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 180,
   "CARTOES_AUDITADOS": 180,
-  "ARESTAS_RELACIONADAS": 1196,
+  "ARESTAS_RELACIONADAS": 1195,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -42838,9 +42855,9 @@
    "C-RECALL-PORTA-IT",
    "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
+   "C-RECONCILIAR-BYTES-BC4",
    "C-RECORRENCIA",
    "C-RELATORIO-FLUXO",
-   "C-REPARO-MEDICAO",
    "C-ROTULOS",
    "C-SAUDE-FONTE",
    "C-SUPERFICIE-SCRAP-V1"
@@ -42868,6 +42885,7 @@
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-SALA-ITALIANA",
    "C-RECALL-PORTA-IT",
+   "C-RECONCILIAR-BYTES-BC4",
    "C-SAUDE-FONTE",
    "C-SUPERFICIE-SCRAP-V1"
   ],
@@ -42887,8 +42905,7 @@
    "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
    "C-PROVA-GATE-1D",
    "C-RECOLLECTION-CENSO",
-   "C-RELATORIO-FLUXO",
-   "C-REPARO-MEDICAO"
+   "C-RELATORIO-FLUXO"
   ],
   "SEM_LIGACAO": {
    "C-ARMAZEM-IT-SEM-LIVRO": "ARMAZEM",
@@ -42999,9 +43016,6 @@
    "C-RELEVANCIA": [
     "science"
    ],
-   "C-REPARO-MEDICAO": [
-    "collection-strategy"
-   ],
    "C-SAUDE-FONTE": [
     "acervo"
    ],
@@ -43040,12 +43054,12 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 214,
+   "CODE": 215,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 382,
-   "READ": 272,
-   "RULE": 216,
+   "READ": 271,
+   "RULE": 215,
    "WRITE": 9
   },
   "GAPS_NOMEADOS": [
@@ -44294,7 +44308,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 9,
-   "SAEM": 8,
+   "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -45330,7 +45344,7 @@
     "urllib"
    ],
    "ENTRAM": 10,
-   "SAEM": 13,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -45483,7 +45497,7 @@
     "urllib"
    ],
    "ENTRAM": 1,
-   "SAEM": 28,
+   "SAEM": 29,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE"
    ],
@@ -47462,6 +47476,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "tests/test_bc4_armazem_e_pais.py",
     "tests/test_ensaio_offline_micro.py",
     "tests/test_micro_coleta_instrumento.py",
     "tests/test_micro_rede_real.py",
@@ -47625,6 +47640,7 @@
     "tests/test_a_sala_de_espera_nao_tem_morada.py",
     "tests/test_a_sala_de_espera_tem_um_dono.py",
     "tests/test_as_duas_portas_do_scrap.py",
+    "tests/test_bc4_armazem_e_pais.py",
     "tests/test_c10_6d_portas_canonicas.py",
     "tests/test_c10_6e_runtime_pago.py",
     "tests/test_c2_youtube_oficial.py",
@@ -50198,6 +50214,42 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-RECONCILIAR-BYTES-BC4",
+   "NOME": "Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/big_collection/reconciliar_bytes_bc4.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "PLANO-INSTALACAO-BC4B.md"
+   ],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "derived_artifact",
+    "guarda",
+    "pathlib",
+    "raw_asset"
+   ],
+   "ENTRAM": 1,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-RECORRENCIA",
    "NOME": "A prova de que o fato se refaz",
    "FAMILIA": "F-GOVERNANCA",
@@ -50400,43 +50452,6 @@
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
-   "GAP": null
-  },
-  {
-   "CARD_ID": "C-REPARO-MEDICAO",
-   "NOME": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
-   "FAMILIA": "F-COLETA",
-   "TERRITORIO": "Z-MEDIDAS",
-   "KIND": "engine",
-   "STATUS": "PENDING",
-   "FICHEIROS": [
-    "scripts/reparo/juntar_bancas.py",
-    "scripts/reparo/medir_em_copia.py"
-   ],
-   "CHAMADORES_DE_RUNTIME": [],
-   "SO_MEDEM_ESTE": [],
-   "DOCUMENTADO_COMO_CLI": [],
-   "E_ENTRYPOINT": false,
-   "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
-   "ESCREVE_EM": [],
-   "LE_DE": [
-    "__future__",
-    "datetime",
-    "pathlib",
-    "urllib"
-   ],
-   "ENTRAM": 2,
-   "SAEM": 0,
-   "CATEGORIAS_QUE_ENTRAM": [
-    "READ",
-    "RULE"
-   ],
-   "CATEGORIAS_QUE_SAEM": [],
-   "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "collection-strategy"
-   ],
    "GAP": null
   },
   {
@@ -51512,12 +51527,14 @@
     "tests/test_aprender_com_a_fonte.py",
     "tests/test_arestas.py",
     "tests/test_armazem_italiano.py",
+    "tests/test_armazem_operacional_protegido.py",
     "tests/test_as_duas_portas_do_scrap.py",
     "tests/test_atomicidade_da_intelligence.py",
     "tests/test_audio_youtube_wiring.py",
     "tests/test_ausencia_na_fronteira_da_corrida.py",
     "tests/test_autoridade_da_fonte.py",
     "tests/test_autorizacao_de_gasto.py",
+    "tests/test_bc4_armazem_e_pais.py",
     "tests/test_biblia.py",
     "tests/test_c10_1_source_id.py",
     "tests/test_c10_2_origin_gate.py",
@@ -51752,6 +51769,7 @@
     "tests/test_metricas.py",
     "tests/test_operacao.py",
     "tests/test_pacote_de_revisao_t3.py",
+    "tests/test_persistencia_operacional.py",
     "tests/test_politica_nao_sei.py",
     "tests/test_preservar_coleta_no_banco.py",
     "tests/test_scrap_rc01_release_candidate.py",

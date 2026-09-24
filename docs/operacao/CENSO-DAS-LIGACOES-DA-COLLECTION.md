@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  f7eadff811c96ea06e273c1e37c6d35a3a0a67bc
-BRANCH           reparo-fontes-v2
-GERADO_EM        2026-09-24T02:12:01-03:00
+HEAD_DA_MEDICAO  52a9a67d2314958725fb354417f217cfd15d281d
+BRANCH           bc4-correcoes-v1
+GERADO_EM        2026-09-24T08:53:42-03:00
 CARDS            91
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -775,13 +775,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `curadoria/BRIDGE-LEDGER-V1.json`, `curadoria/DISCOVERY-VISITED.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `curadoria/RED-TEAM-TELEMETRIA-V1.json`, `curadoria/italy_contracts_curator.json` |
-| **arestas no mapa** | entram 9 · saem 8 |
-| **arestas provadas** | entram 9 · saem 8 |
+| **arestas no mapa** | entram 9 · saem 7 |
+| **arestas provadas** | entram 9 · saem 7 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 17 |
+| **prova das ligações** | CODE 16 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -859,6 +859,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 7 · NÃO SEI 2 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
+
+### `C-RECONCILIAR-BYTES-BC4` · Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/big_collection/reconciliar_bytes_bc4.py` |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — biblioteca que ninguem importa nem carrega. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 1 · saem 0 |
+| **arestas provadas** | entram 1 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 1 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
 ### `C-TRANSCRICAO` · A fala vira texto, sem fatura
 
@@ -1054,13 +1079,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 28 |
-| **arestas provadas** | entram 1 · saem 28 |
+| **arestas no mapa** | entram 1 · saem 29 |
+| **arestas provadas** | entram 1 · saem 29 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 29 |
+| **prova das ligações** | CODE 30 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1325,7 +1350,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | ferramentas/unificacao/provar_em_copia.py:119; scripts/desbloqueio/aplicar_desbloqueio.py:186; scripts/micro_coleta/micro_coleta.py:121 |
+| **prova de quem ativa** | ferramentas/unificacao/provar_em_copia.py:119; scripts/desbloqueio/aplicar_desbloqueio.py:186; scripts/micro_coleta/micro_coleta.py:148 |
 | **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/CATALOGO-PROVA-V1.json`, `curadoria/GABARITO-T2-T12-V1.json`, `curadoria/GABARITO-T2-T12-V2.json` |
@@ -1500,7 +1525,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | scripts/micro_coleta/micro_coleta.py:210; tests/test_aplicar_desbloqueio.py:16 |
+| **prova de quem ativa** | scripts/micro_coleta/micro_coleta.py:237; tests/test_aplicar_desbloqueio.py:16 |
 | **porquê** | estas pecas importam-na — C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/PROPOSTA-CATALOGO-V1.json`, `curadoria/PROPOSTA-RECEITAS-V1.json`, `curadoria/PROPOSTA-RECEITAS-V2.json` |
@@ -1531,13 +1556,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/retrato_html.mjs` |
 | **o que sai · dado** | C-CENSO-UNIFICACAO |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `handoff/paused-v2/MANIFESTO.json` |
-| **arestas no mapa** | entram 10 · saem 13 |
-| **arestas provadas** | entram 10 · saem 13 |
+| **arestas no mapa** | entram 10 · saem 12 |
+| **arestas provadas** | entram 10 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 23 |
+| **prova das ligações** | CODE 22 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1829,31 +1854,6 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson` |
-| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 2 · saem 0 |
-| **arestas provadas** | entram 2 · saem 0 |
-| **OBSERVADAS** | 0 |
-| **control plane** | entram 0 · saem 0 |
-| **data plane** | entram 0 · saem 0 |
-| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 2 |
-| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
-| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
-
-### `C-REPARO-MEDICAO` · Medicao do reparo de fontes numa copia do livro vivo (R1)
-
-| | |
-|---|---|
-| **peça real** | `scripts/reparo/juntar_bancas.py`, `scripts/reparo/medir_em_copia.py` |
-| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
-| **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
-| **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | — NÃO SEI |
-| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
-| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/LIFECYCLE-QUEUE-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 2 · saem 0 |

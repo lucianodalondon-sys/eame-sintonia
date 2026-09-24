@@ -88,11 +88,19 @@ set SINTONIA_SALA_BACKEND=POSTGRES
 set SINTONIA_SALA_DSN=<conteudo de %USERPROFILE%\sintonia-sala-italia\SALA_DSN.txt>
 set SINTONIA_COLLECTION_DSN=<a mesma DSN>
 set SINTONIA_PSQL_EXE=%USERPROFILE%\orca\pgtmp\pgsql\bin\psql.exe
+set SINTONIA_ARMAZEM_RAIZ=%USERPROFILE%\sintonia-sala-italia\armazem
 set BANCO_DESCARTAVEL_URL=
 ```
 
 ⚠️ Sem `SINTONIA_SALA_BACKEND=POSTGRES`, a Sala cai calada num FICHEIRO. O `correr` recusa
-arrancar sem as quatro, e com `BANCO_DESCARTAVEL_URL` definido.
+arrancar sem as cinco, e com `BANCO_DESCARTAVEL_URL` definido.
+
+⚠️ **`SINTONIA_ARMAZEM_RAIZ` é a quinta, e é obrigatória (BC4, 24/09/2026).** Sem ela, a micro
+real pousou na Sala real 4 matérias com os bytes em `<árvore do bot>/XX/` — resíduo de medição,
+ignorado pelo Git, que a suíte já apagou uma vez (BC2, 20/09). Hoje o orquestrador recusa
+(`ARMAZEM_OPERACIONAL_SEM_RAIZ`) e o `correr` também, antes da rede. A raiz tem de estar FORA do
+repositório; a da Sala real já tem o marcador `ARMAZEM_OPERACIONAL.json`. E o comando de cada
+fonte leva `--filtro pais=<prefixo do SOURCE_ID>` (o país declarado da fonte, nunca o da VPN).
 
 ## 5. A corrida (a única porta para a rede)
 
