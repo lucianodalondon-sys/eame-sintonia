@@ -613,7 +613,7 @@ def escrever_lista() -> dict:
     por_familia: dict[str, int] = {}
     linhas = []
     fam_p1b = {}
-    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1[BCD]-*PROOF-V1.json")):
+    for prova in sorted(PROOF_P1B.parent.glob("PESQUISADORES-P1[BCDE]-*PROOF-V1.json")):
         for e in json.loads(prova.read_text(encoding="utf-8"))["LOG"]:
             fam_p1b[normalizar(e["url"])] = e["familia"]
     for c in sorted(cands, key=lambda c: c["CANDIDATA_ID"]):
@@ -1390,6 +1390,106 @@ def pesquisadores_crea() -> list[dict]:
     return out
 
 
+# ---------------------------------------------------------------------------
+# Catalogo P1e (24/09, D29 «janelas de cultura»): paginas de BOLETINS dos
+# servicos regionais (difesa integrata, avvisi, agrometeo, fenologia) e
+# consorzi di difesa. Links tirados das paginas oficiais em p1e_e1.txt.
+# ---------------------------------------------------------------------------
+PROOF_P1E = RAIZ / "curadoria" / "PESQUISADORES-P1E-PROOF-V1.json"
+
+
+def _bol(familia, nome, url, para_que, de):
+    return _c(familia, "BASE_OFICIAL", nome, url, para_que, de,
+              prova="ligada pela pagina oficial do servico regional %s" % de)
+
+
+_VDA = "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/default_i.asp"
+_ER = "https://agricoltura.regione.emilia-romagna.it/fitosanitario"
+_VEN = "https://www.regione.veneto.it/web/fitosanitario"
+_FVG = "https://www.ersa.fvg.it/cms/hp/"
+_CAM = "http://www.agricoltura.regione.campania.it/difesa/difesa.html"
+_SAR = "https://www.sar.sardegna.it/"
+
+CATALOGO_P1E: list[dict] = [
+    _bol("BOLLETTINI_DIFESA", "Valle d'Aosta — Avvisi fitosanitari per frutticoltori",
+         "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+         "avvisi di difesa per melo, pero e frutta (momento del trattamento)", _VDA),
+    _bol("BOLLETTINI_DIFESA", "Valle d'Aosta — Avvisi fitosanitari per viticoltori",
+         "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/viticoltura_i.asp",
+         "avvisi di difesa della vite (peronospora, oidio, fenologia)", _VDA),
+    _bol("BOLLETTINI_DIFESA", "Piemonte — Bacheca dei bollettini fitosanitari",
+         "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan/bacheca-dei-bollettini",
+         "bollettini di difesa integrata per coltura e zona", "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan"),
+    _bol("BOLLETTINI_DIFESA", "Liguria — Sorveglianza del territorio e monitoraggio organismi nocivi",
+         "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/sorveglianza-del-territorio-carte-di-diffusione-e-monitoraggio-degli-organismi-nocivi.html",
+         "carte di diffusione e monitoraggio di parassiti", "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html"),
+    _bol("BOLLETTINI_AGROMETEO", "Liguria — Centro di agrometeorologia (CAAR)",
+         "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+         "bollettini agrometeorologici Liguria", "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html"),
+    _bol("BOLLETTINI_DIFESA", "Emilia-Romagna — Bollettini territoriali di produzione integrata e biologica",
+         "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini",
+         "bollettini settimanali di difesa integrata per provincia", _ER),
+    _bol("BOLLETTINI_DIFESA", "Veneto — Bollettini fitosanitari 2026",
+         "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+         "bollettini fitosanitari regionali", _VEN),
+    _bol("BOLLETTINI_DIFESA", "Veneto — Difesa delle colture (bollettini e materiali tecnici)",
+         "https://www.regione.veneto.it/web/fitosanitario/difesa-colture",
+         "bollettini, disciplinari e materiali tecnici per la difesa", _VEN),
+    _bol("BOLLETTINI_DIFESA", "ERSA FVG — Bollettini di difesa integrata e biologica",
+         "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+         "bollettini di difesa per coltura in Friuli Venezia Giulia", _FVG),
+    _bol("BOLLETTINI_DIFESA", "ERSA FVG — Avvisi e comunicazioni",
+         "http://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/index.html",
+         "avvisi fitosanitari e schede di difesa", _FVG),
+    _bol("BOLLETTINI_DIFESA", "Campania — Bollettini fitosanitari 2026",
+         "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+         "bollettini fitosanitari regionali", _CAM),
+    _bol("BOLLETTINI_DIFESA", "Campania — SIMFITO, monitoraggio fitosanitario",
+         "https://simfito.regione.campania.it/", "rete di monitoraggio di parassiti e malattie", _CAM),
+    _bol("BOLLETTINI_AGROMETEO", "Campania — Agrometeorologia",
+         "http://www.agricoltura.regione.campania.it/meteo/agrometeo.htm",
+         "dati e bollettini agrometeo delle centraline regionali", _CAM),
+    _bol("BOLLETTINI_DIFESA", "Umbria — Bollettini fitosanitari 2026",
+         "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale/in-evidenza/-/asset_publisher/PONvICXXT7f8/content/bollettini-fitosanitari-2026",
+         "bollettini fitosanitari regionali", "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale"),
+    _bol("BOLLETTINI_DIFESA", "ARSAC Calabria — Bollettino agrometeorologico e fitosanitario (agrumi, olivo, vite)",
+         "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/",
+         "avvisi di difesa per agrumi, olivo e vite", "https://www.regione.calabria.it/website/organizzazione/dipartimento8/subsite/fitosanitario/"),
+    _bol("BOLLETTINI_DIFESA", "Molise — Bollettini e comunicati fitosanitari",
+         "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+         "bollettini fitosanitari regionali", "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/4130"),
+    _bol("BOLLETTINI_DIFESA", "Sicilia — Difesa fitosanitaria",
+         "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/difesa-fitosanitaria",
+         "difesa fitosanitaria regionale e avvisi", "https://www.regione.sicilia.it/"),
+    _bol("BOLLETTINI_AGROMETEO", "LaMMA — Bollettino agrometeo",
+         "https://www.lamma.toscana.it/agrometeo/firenze", "bollettino agrometeorologico Toscana", "https://www.lamma.toscana.it/"),
+    _bol("BOLLETTINI_AGROMETEO", "ARSARP Molise — Agrometeorologia",
+         "https://www.arsarp.it/category/agrometeorologia-2/", "agrometeorologia Molise", "https://www.arsarp.it/"),
+    _bol("BOLLETTINI_AGROMETEO", "ARPAS Sardegna — Bollettino fenologico",
+         "http://www.sar.sardegna.it/servizi/agro/bollfenologico.asp", "fasi fenologiche delle colture in Sardegna", _SAR),
+    _bol("BOLLETTINI_AGROMETEO", "ARPAS Sardegna — Bollettino decadale di siccita",
+         "http://www.sar.sardegna.it/servizi/agro/monit_siccita.asp", "siccita e bilancio idrico agrario", _SAR),
+    _bol("BOLLETTINI_AGROMETEO", "ARPAS Sardegna — Riepilogo mensile agrometeorologico",
+         "http://www.sar.sardegna.it/pubblicazioni/riepiloghimensili/mensili.asp", "riepiloghi mensili agrometeo", _SAR),
+
+    # consorzi di difesa e servizi di avviso (DNS confirmado 24/09; identidade pelo titulo)
+    _dns("CONSORZI_DIFESA", "ORGANIZACAO", "ASNACODI — Associazione Nazionale Consorzi di Difesa",
+         "https://www.asnacodi.it/", "rete nazionale dei consorzi di difesa delle produzioni agricole", r"asnacodi|consorzi|difesa"),
+    _dns("CONSORZI_DIFESA", "ORGANIZACAO", "CODIPRA Trento — Consorzio Difesa Produttori Agricoli",
+         "https://www.codipra.it/", "avvisi, meteo e difesa delle produzioni in Trentino", r"codipra|difesa"),
+    _dns("CONSORZI_DIFESA", "ORGANIZACAO", "Condifesa TVB (Treviso, Vicenza, Belluno)",
+         "https://www.condifesatvb.it/", "consorzio di difesa: avvisi e servizi agrometeo", r"condifesa|difesa"),
+    _dns("CONSORZI_DIFESA", "ORGANIZACAO", "Condifesa Lombardia Nord-Est",
+         "https://www.condifesalombardianordest.it/", "consorzio di difesa: avvisi e servizi", r"condifesa|difesa"),
+    _dns("CONSORZI_DIFESA", "ORGANIZACAO", "Condifesa Veneto", "https://www.condifesaveneto.it/",
+         "consorzi di difesa del Veneto", r"condifesa|difesa"),
+    _dns("CONSORZI_DIFESA", "ORGANIZACAO", "Consorzio fitosanitario di Reggio Emilia", "https://www.fitosanitario.re.it/",
+         "bollettini di produzione integrata della provincia di Reggio Emilia", r"fitosanitari|consorzio"),
+    _dns("CONSORZI_DIFESA", "ORGANIZACAO", "Horta — servizi di supporto alle decisioni (vite.net)", "https://www.horta-srl.it/",
+         "modelli fenologici e momento del trattamento (DSS)", r"horta"),
+]
+
+
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser(
@@ -1398,6 +1498,8 @@ def main() -> int:
     ap.add_argument("--listar", action="store_true")
     ap.add_argument("--p1b", action="store_true",
                     help="fase P1b: releitura, IZS, Veterinaria, Ordini (rede, VPN IT)")
+    ap.add_argument("--p1e", action="store_true",
+                    help="D29 janelas de cultura: boletins regionais e consorzi di difesa (rede)")
     ap.add_argument("--p1d", action="store_true",
                     help="24/09: Sicilia, CNR agri, revistas tecnicas, mercado, pesquisadores CREA (rede)")
     ap.add_argument("--p1c", action="store_true",
@@ -1410,9 +1512,10 @@ def main() -> int:
                     help="so escreve PESQUISADORES-LISTA-V1.json, sem rede")
     a = ap.parse_args()
 
-    if a.p1d:
-        r = correr_p1b(CATALOGO_P1D + pesquisadores_crea(), orcamento=a.orcamento,
-                       prova_path=PROOF_P1D, por_dominio=20)
+    if a.p1d or a.p1e:
+        cat = CATALOGO_P1E if a.p1e else (CATALOGO_P1D + pesquisadores_crea())
+        r = correr_p1b(cat, orcamento=a.orcamento,
+                       prova_path=PROOF_P1E if a.p1e else PROOF_P1D, por_dominio=20)
         l = escrever_lista()
         for k in ("CANDIDATAS_NOVAS", "POR_FAMILIA", "ACOES", "DUPLICADAS_EVITADAS",
                   "PEDIDOS_DE_REDE", "MAX_PEDIDOS_UM_DOMINIO", "VIGIA_PAROU", "VIGIAS"):
