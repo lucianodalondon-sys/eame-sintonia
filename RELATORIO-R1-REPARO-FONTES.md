@@ -112,3 +112,9 @@ Cópia fiel (`C:/ens-r1`: worktree em `fca4f2b6` + os 14 ficheiros sujos do vivo
 6. DESFAZER git reset --keep fca4f2b6  rc=0  0 codigo diferente  livros IGUAIS
 ```
 
+### 8.1 · Medição com rede na cópia do vivo atual — PARCIAL (interrompida pela troca de conta)
+
+Foto do vivo `%TEMP%/r1v3-snap-20260924T122126Z`, 4 bancas `%TEMP%/r1v3-banca-0..3` em `3be6265a`, portão de egresso IT = PASS antes de arrancar.
+Fatias acabadas: banca 0 → READY 143→160 · banca 2 → 143→150 · banca 3 → 143→153. Banca 1 ainda a correr (processo próprio, não depende do Claude).
+Falta: `py scripts/reparo/juntar_bancas.py --foto <snap> --banca <b0..b3> --saida ...` quando a banca 1 acabar → READY total e quantas das 432 «para consertar» chegaram a READY.
+
