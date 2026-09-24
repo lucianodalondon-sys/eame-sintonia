@@ -58,6 +58,7 @@ import fila as F                   # noqa: E402
 import fonte_nova as FN            # noqa: E402
 import gate_de_rota as GATE        # noqa: E402
 import irmas_por_item as IPI       # noqa: E402
+import bancada_ia as BIA           # noqa: E402
 import lifecycle as LC             # noqa: E402
 import rota_do_scrap_youtube as RSY  # noqa: E402
 import ready_split as RS           # noqa: E402
@@ -716,7 +717,10 @@ def etapa_repair_contract(source_id: str, contrato: dict | None) -> tuple[str, d
               if c["SOURCE_ID"] != source_id
               and (estados.get(c["SOURCE_ID"]) == LC.READY_FOR_COLLECTION
                    or c.get("REPARO_DE_CONTRATO"))}
-    p = RC.inferir(base, outros=outros)
+    # D32 (7): a receita que a bancada propos (com URL + sha256 das paginas lidas) entra aqui,
+    # no lugar da inferencia — pela MESMA porta `RC.aplicar`, e o canario + regua decidem.
+    pa = BIA.proposta_pendente(source_id, base)
+    p = BIA.como_desfecho(pa) if pa else RC.inferir(base, outros=outros)
     resumo = {k: p.get(k) for k in ("DESFECHO", "MOTIVO", "CLASSE", "INDEX_URL", "LINK_PATTERN",
                                    "COMO", "ALVOS_NA_LISTAGEM", "ITEM_LIDO", "ENTRADA",
                                    "ENTRADA_RETRATO", "SECCAO_TENTADA", "FAMILIAS_VISTAS",

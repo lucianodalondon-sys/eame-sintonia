@@ -298,6 +298,7 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
                          tarefas: list | None = None) -> list[dict]:
     """[{SOURCE_ID, TASK_TYPE, MOTIVO}] por ordem. Nao escreve nada."""
     import lifecycle as LC         # noqa: E402
+    import bancada_ia as BIA       # noqa: E402
     estados = estados if estados is not None else LC.snapshot()
     if contratos is None:
         contratos = ({c["SOURCE_ID"]: c for c in
@@ -334,6 +335,16 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
         if not sid.startswith("IT-") or sid in abertas:
             continue
         c = contratos.get(sid)
+        # D32 (7): receita proposta pela bancada, ainda nao consumida -> reparo, mesmo que a
+        # fonte ja tenha sido reparada (a proposta e prova nova). Consumida = um reparo correu
+        # depois dela, ou o contrato ja a aplicou: nao volta a cada volta.
+        ultimo_reparo = max((_quando(t.get("UPDATED_AT")) for t in reparos.get(sid, [])
+                             if _quando(t.get("UPDATED_AT"))), default=None)
+        if (e in (LC.CONTRACTED_CANARY_FAILED, LC.CANARY_PENDING)
+                and BIA.proposta_pendente(sid, c, consumida_em=ultimo_reparo)):
+            out.append({"SOURCE_ID": sid, "TASK_TYPE": F.REPAIR_CONTRACT, "ORDEM": 0,
+                         "MOTIVO": "receita proposta pela bancada (D32 7)"})
+            continue
         if e == LC.CONTRACTED_CANARY_FAILED:
             if _html(c) and not _ja_reparada(sid):
                 out.append({"SOURCE_ID": sid, "TASK_TYPE": F.REPAIR_CONTRACT, "ORDEM": 1,
