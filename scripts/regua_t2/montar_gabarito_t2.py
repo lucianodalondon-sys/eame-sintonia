@@ -9,7 +9,14 @@ Entrada (fora do Git, em DIR = %USERPROFILE%\\sintonia-gabarito\\REGUA-T2-V1):
     A-ROTULAR.json    a ordem dos textos lidos a mao
     rotulos.tsv       N \\t UNIVERSE_MATCH \\t SINTONIA_RELEVANT \\t CONTEUDO \\t PORQUE \\t TRECHO
                       (uma linha repetida mais abaixo substitui a de cima)
-Saida (no Git): scripts/regua_t2/GABARITO-T2-V1.json
+    rotulos-janela.tsv TEXTO_ID 	 JANELA 	 ACTION 	 PORQUE  (ADENDA 1, D29)
+Saida (no Git): scripts/regua_t2/GABARITO-T2-V1.json (eixo UNIVERSE_MATCH, clima)
+                scripts/regua_t2/GABARITO-T2-V2.json (eixo JANELA, o que a regua mede)
+
+JANELA (ADENDA 1): o que foi re-lido esta em rotulos-janela.tsv; o resto herda do
+eixo antigo so quando a resposta nao pode mudar — um NO de menu, administracao ou
+ambiente continua NO (nao sustenta janela nenhuma), e um NAO_SEI continua NAO_SEI.
+Todo o YES antigo e todo o texto com conteudo T3 foi re-lido, sem heranca.
 
 Os rotulos antigos (GABARITO-T2-T12-V2/V3) nao sao refeitos: YES se o conteudo
 foi julgado T2 (inclui os REROUTE:T2), NO se foi julgado de outro universo ou de
@@ -79,6 +86,44 @@ def main() -> int:
                         "YES_DE_ROTULO_ANTIGO": sum(1 for i in pos if not i["ROTULO_DE"].startswith("T2-REGUA")),
                         "SINTONIA_RELEVANT_NOS_YES": dict(Counter(i["SINTONIA_RELEVANT"] for i in pos))},
            "ITENS": sorted(itens, key=lambda i: (i["UNIVERSE_MATCH"], i["SOURCE_ID"], i["TEXTO_ID"]))}
+    if (d / "rotulos-janela.tsv").is_file():
+        jan = {}
+        for linha in open(d / "rotulos-janela.tsv", encoding="utf-8"):
+            if linha.strip():
+                tid, j, acc, porque = (linha.rstrip(chr(10)).split(chr(9)) + [""] * 4)[:4]
+                jan[tid] = (j, acc or None, porque)
+        v2 = []
+        for tid, it in inv.items():
+            base = next((i for i in itens if i["TEXTO_ID"] == tid), None)
+            if tid in jan:
+                j, acc, porque = jan[tid]
+                de = "T2-REGUA-V1 ADENDA-1 (Claude, re-lido)"
+            elif base is not None and base["UNIVERSE_MATCH"] in ("NO", "NAO_SEI"):
+                j, acc, porque = base["UNIVERSE_MATCH"], None, base.get("PORQUE")
+                de = "herdado de %s" % base["ROTULO_DE"]
+            else:
+                continue
+            v2.append({"TEXTO_ID": tid, "TEXTO_SHA256": it["TEXTO_SHA256"], "SOURCE_ID": it["SOURCE_ID"],
+                       "ORIGEM": it["ORIGEM"], "URL": it.get("URL"), "CAMINHO_FORA_DO_GIT": it["CAMINHO"],
+                       "BYTES_SHA256": it["BYTES_SHA256"], "SERIE": serie(it), "JANELA": j, "ACTION": acc,
+                       "PORQUE": porque, "ROTULO_DE": de,
+                       "UNIVERSE_MATCH_V1": base["UNIVERSE_MATCH"] if base else None})
+        cj = Counter(i["JANELA"] for i in v2)
+        pj = [i for i in v2 if i["JANELA"] == "YES"]
+        o2 = {"DATASET": "GABARITO-T2-V2", "EIXO": "JANELA (ADENDA 1, D29)",
+              "PROTOCOLO": "scripts/regua_t2/PROTOCOLO-GABARITO-T2.md#adenda-1", "VALIDADO_POR_HUMANO": "NAO",
+              "CONTAGEM": {"ITENS": len(v2), "YES": cj["YES"], "NO": cj["NO"], "NAO_SEI": cj["NAO_SEI"],
+                           "MINIMO": 20, "PRONTO": cj["YES"] >= 20 and cj["NO"] >= 20,
+                           "RE_LIDOS": len(jan), "HERDADOS": len(v2) - len(jan),
+                           "REROUTE": sum(1 for i in v2 if i["ACTION"] == "REROUTE"),
+                           "YES_POR_SERIE": dict(Counter(i["SERIE"] or "(avulso)" for i in pj)),
+                           "YES_POR_FONTE": dict(Counter(i["SOURCE_ID"] for i in pj)),
+                           "YES_V1_QUE_SAO_NO_OU_NAO_SEI_EM_V2": sum(1 for i in v2 if i["UNIVERSE_MATCH_V1"] == "YES" and i["JANELA"] != "YES"),
+                           "NO_V1_QUE_SAO_YES_EM_V2": sum(1 for i in v2 if i["UNIVERSE_MATCH_V1"] == "NO" and i["JANELA"] == "YES")},
+              "ITENS": sorted(v2, key=lambda i: (i["JANELA"], i["SOURCE_ID"], i["TEXTO_ID"]))}
+        (AQUI / "GABARITO-T2-V2.json").write_text(json.dumps(o2, ensure_ascii=False, indent=1) + chr(10),
+                                                  encoding="utf-8", newline=chr(10))
+        print(json.dumps(o2["CONTAGEM"], ensure_ascii=False, indent=1))
     (AQUI / "GABARITO-T2-V1.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n",
                                               encoding="utf-8", newline="\n")
     print(json.dumps(out["CONTAGEM"], ensure_ascii=False, indent=1))

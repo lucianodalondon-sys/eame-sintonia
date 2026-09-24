@@ -76,6 +76,20 @@ def origens():
         if p.is_file() and p.suffix.lower() in (".pdf", ".html", ".htm"):
             sid = p.relative_to(RAIZ / "data" / "collection-store" / "italy").parts[0]
             yield ("GIT-COLLECTION-STORE", sid, None, p, None)
+    # ADENDA 1 (D29): os textos ja derivados do Git, onde vive o gabarito de
+    # `provas/a_regra_de_t2.py`. A fonte e a que esse gabarito declara («Ficha
+    # IT-Tn-nnn»); sem ela, NAO SEI.
+    ficha = {}
+    for linha in open(RAIZ / "provas" / "a_regra_de_t2.py", encoding="utf-8"):
+        m = re.search(r'"(data/derivados/texto/RAW-[0-9a-f]+\.txt)"', linha)
+        if m:
+            ultimo = m.group(1)
+        f = re.search(r"Ficha (IT-T\d+-\d+)", linha)
+        if f and "ultimo" in locals():
+            ficha.setdefault(ultimo, f.group(1))
+    for p in sorted((RAIZ / "data" / "derivados" / "texto").glob("RAW-*.txt")):
+        rel = p.relative_to(RAIZ).as_posix()
+        yield ("GIT-DERIVADOS-TEXTO", ficha.get(rel, "NAO SEI"), None, p, None)
     if ARMAZEM.is_dir():
         for d in sorted(ARMAZEM.iterdir()):
             if not re.match(r"it-t(2|12)-\d+$", d.name):
@@ -91,7 +105,10 @@ def main() -> int:
     vistos, itens, curtos, sem_texto = {}, [], 0, 0
     for origem, sid, url, caminho, rot in origens():
         corpo = caminho.read_bytes()
-        texto, extr = extrair(corpo)
+        if caminho.suffix == ".txt":
+            texto, extr = corpo.decode("utf-8", "replace"), "TXT:JA_DERIVADO"
+        else:
+            texto, extr = extrair(corpo)
         norm = normalizar(texto)
         if len(norm.replace(" ", "")) < 200:
             sem_texto += 1 if not norm else 0
