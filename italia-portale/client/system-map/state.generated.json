@@ -3434,9 +3434,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "5ef94ffd6718e06dab3b9418e756868833af9146",
-    "GENERATED_AT": "2026-09-24T13:40:15-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b571911110306fb41f91cf35578341aa660b9010939dc7bc618f9468cc8b08c3"
+    "HEAD": "3f4ce497e7581f5237c01f1e9bb0b466f1e00551",
+    "GENERATED_AT": "2026-09-24T13:43:37-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4dd4b1dbae83e4dbd408cbf54b37b727436c4913b5ed942c40bb93792931ede3"
   },
   "FAMILIES": [
     {
@@ -29586,6 +29586,7 @@
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-ROTAS-REAIS",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -32357,6 +32358,7 @@
         "C-DETECTOR-CAPA-GABARITO",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -32507,9 +32509,9 @@
         "PLANO": null,
         "PROVA": [
           "ferramentas/big_collection/coorte_unica.py:37",
+          "ferramentas/canario_social_onda2.py:79",
           "medidas/medir_k1.py:42",
-          "medidas/micro_colheita.py:72",
-          "medidas/prova_b2_ponte_em_copia.py:35"
+          "medidas/micro_colheita.py:72"
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -42046,6 +42048,7 @@
         "C-COORTE-BIG-COLLECTION",
         "C-COORTE-MICRO-FUNIL",
         "C-IT-CONTRATOS",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -42144,9 +42147,9 @@
         "PLANO": null,
         "PROVA": [
           "ferramentas/big_collection/coorte_unica.py:37",
+          "provas/roteamento_youtube_proposta.py:38",
           "regras/italy_contracts.mjs:579",
-          "scripts/coorte_micro/funil.py:70",
-          "tests/test_bc4_armazem_e_pais.py:36"
+          "scripts/coorte_micro/funil.py:70"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -47280,6 +47283,7 @@
         "C-SALA-DE-ESPERA"
       ],
       "outbound": [
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -47341,10 +47345,12 @@
       "ATIVACAO": {
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
+          "C-SUPERFICIE-SCRAP-V1",
           "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
+          "ferramentas/canario_social_onda2.py:43",
           "tests/test_a_porta_cli_liga_o_banco.py:378"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
@@ -51064,7 +51070,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/scrap-social.yml:277",
+          ".github/workflows/curator-youtube-handles.yml:64",
+          ".github/workflows/curator-youtube-soc-onda2.yml:45",
           ".github/workflows/security-check.yml:58"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
@@ -51231,11 +51238,13 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        ".github/workflows/curator-youtube-handles.yml",
+        ".github/workflows/curator-youtube-soc-onda2.yml",
         ".github/workflows/scrap-social.yml"
       ],
-      "file_count": 1,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -51265,7 +51274,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "DISPATCH_ENTRYPOINT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "1 ficheiro(s), todos manifestos de workflow: quem os corre e o GitHub Actions, e nada na arvore os importa",
+      "ROLE_EVIDENCE": "3 ficheiro(s), todos manifestos de workflow: quem os corre e o GitHub Actions, e nada na arvore os importa",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -51282,15 +51291,17 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "EXTERNO_MANUAL",
+        "CLASSE": "EXTERNO_EVENTO",
         "QUEM": [
           "EXTERNO"
         ],
         "PLANO": "CODE",
         "PROVA": [
+          ".github/workflows/curator-youtube-handles.yml · on: push, workflow_dispatch",
+          ".github/workflows/curator-youtube-soc-onda2.yml · on: push, workflow_dispatch",
           ".github/workflows/scrap-social.yml · on: workflow_dispatch"
         ],
-        "PORQUE": "o `on:` so tem `workflow_dispatch`: a unica porta e a mao de alguem. NENHUM orquestrador o dispara, e `workflow_dispatch` prova exactamente isso."
+        "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
       "x": 4590,
       "y": 682
@@ -52274,21 +52285,27 @@
       "family": "F-GOVERNANCA",
       "files": [
         "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
+        "ferramentas/canario_social_onda2.py",
         "provas/entradas_do_scrap_v1.py",
         "provas/prontidao_social_v1.py",
+        "provas/roteamento_youtube_proposta.py",
         "provas/superficie_do_scrap_v1.py"
       ],
-      "file_count": 4,
+      "file_count": 6,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-ASK-SINTONIA",
         "C-AUTORIZACAO-DE-GASTO",
+        "C-CENSO-UNIFICACAO",
         "C-COLETA-BASE",
+        "C-MICRO-COLETA-INSTRUMENTO",
         "C-ORQUESTRADOR",
         "C-PEDIDO",
         "C-PROVA-COLETA",
+        "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
         "C-RECEITAS",
         "C-SCRAP-COLHEITA",
         "C-SCRAP-LEIS",
@@ -52300,17 +52317,20 @@
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
       "pais": "TRANSVERSAL",
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "APELIDO",
           "CREDENCIAL_DA_ROTA",
           "TIPO_DA_CLASSE"
         ],
-        "palavras": 21,
+        "palavras": 37,
         "por_lingua": {},
-        "sem_marca_de_lingua": 21,
+        "sem_marca_de_lingua": 37,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -52327,12 +52347,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 9 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 6 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 9 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -52340,10 +52360,13 @@
       "consumes": [
         "coleta/scrap_colheita.py",
         "coleta/social_scrap.py",
+        "curadoria/italy_contracts_curator.json",
         "orquestrador/orquestrador.py",
         "provas/linkedin_local_first.py",
         "provas/o_canario_do_scrap_v1.py",
-        "regras/sensor_coleta.py"
+        "regras/italy_contracts_onboarded.json",
+        "regras/sensor_coleta.py",
+        "superficie/rede.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -62892,6 +62915,41 @@
     },
     {
       "from": "C-ASK-SINTONIA",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/canario_social_onda2.py",
+          "line": 63,
+          "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -67522,6 +67580,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/canario_social_onda2.py",
+          "line": 79,
+          "snippet": "d = json.load(open(os.path.join(WT, \"curadoria\", \"italy_contracts_curator.json\"), encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -94404,6 +94497,41 @@
     },
     {
       "from": "C-MICRO-COLETA-INSTRUMENTO",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/roteamento_youtube_proposta.py",
+          "line": 38,
+          "snippet": "d = json.load(open(TABELA, encoding='utf-8'))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MICRO-COLETA-INSTRUMENTO",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -96515,8 +96643,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "reason": "O orquestrador alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "ferramentas/canario_social_onda2.py",
+          "line": 103,
+          "snippet": "cmd = [sys.executable, \"orquestrador/orquestrador.py\", \"colete %s\" % APELIDO[terr],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 77,
@@ -97859,12 +98003,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 313,
           "snippet": "import pedido as _pd",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-PEDIDO",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/roteamento_youtube_proposta.py",
+          "line": 31,
+          "snippet": "import pedido as PD      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-PEDIDO",
@@ -104183,6 +104343,41 @@
     },
     {
       "from": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a porta CLI liga o banco — como PROCESSO, contra Postgres 16 real tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/canario_social_onda2.py",
+          "line": 43,
+          "snippet": "import a_porta_cli_liga_o_banco as P",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -105840,12 +106035,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 66,
           "snippet": "import receitas as rec                     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-RECEITAS",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/roteamento_youtube_proposta.py",
+          "line": 32,
+          "snippet": "import receitas as R     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-RECEITAS",
@@ -112973,8 +113184,40 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": ".github/workflows/curator-youtube-handles.yml",
+          "line": 64,
+          "snippet": "run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
+            "FROM": "C-SCRAP-ROTA",
+            "TO": "C-SCRAP-GUARDA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/curator-youtube-soc-onda2.yml",
+          "line": 45,
+          "snippet": "run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
+            "FROM": "C-SCRAP-ROTA",
+            "TO": "C-SCRAP-GUARDA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": ".github/workflows/scrap-social.yml",
           "line": 277,
@@ -118046,12 +118289,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_prontidao_social_v1.py",
           "line": 27,
           "snippet": "import prontidao_social_v1 as ps   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SUPERFICIE-SCRAP-V1--IMPORTS-->C-TESTES",
+            "FROM": "C-SUPERFICIE-SCRAP-V1",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_roteamento_youtube_proposta.py",
+          "line": 22,
+          "snippet": "import roteamento_youtube_proposta as RP  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPERFICIE-SCRAP-V1--IMPORTS-->C-TESTES",
             "FROM": "C-SUPERFICIE-SCRAP-V1",
@@ -122885,13 +123144,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    ".github/workflows/curator-youtube-handles.yml",
-    ".github/workflows/curator-youtube-soc-onda2.yml",
-    "ferramentas/canario_social_onda2.py",
-    "provas/roteamento_youtube_proposta.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1612,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1608,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123149,13 +123403,13 @@
     "components_pending": 202,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1262,
-    "edges_proven": 1198,
+    "edges": 1266,
+    "edges_proven": 1202,
     "edges_unknown": 64,
     "business_edges": 4,
     "files_tracked": 2840,
-    "files_covered": 1228,
-    "files_code_unclaimed": 4,
+    "files_covered": 1232,
+    "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,
     "roles_unknown": 70,
