@@ -96,3 +96,19 @@ A M5G entrou na produção (bot `8eec2e2a`, árvore igual a `origin/unificacao-v
 
 - **Writeset novo:** `scripts/reparo/R1-WRITESET.json` (v2). Instala por `git merge --no-ff reparo-fontes-v2` no ramo do bot, nunca por `checkout` de ficheiros. Escreve 12 ficheiros de código + a declaração e os gerados do mapa; nenhum livro na instalação. Em funcionamento: contratos, livro de estado, fila, evidência. **Já não escreve** `SOURCE-ID-ALLOCATION-V1.json` (isso vinha do YouTube).
 - **NÃO instalado.** Ordem do coordenador: a R1 só com OK dele, um escritor no vivo de cada vez.
+
+## 8 · Reensaio sobre o vivo atual (24/09, D28)
+
+O vivo passou a `fca4f2b6` (= `8eec2e2a` + BC4b `ebe000fb` + docs BC5 `4a5afc27`). Só o mapa se sobrepunha à R1: juntei `fca4f2b6` em `reparo-fontes-v2` (`17240355`; declaração do mapa unida, gerados pela cadeia em `3be6265a`), para a instalação entrar sem conflito.
+
+Cópia fiel (`C:/ens-r1`: worktree em `fca4f2b6` + os 14 ficheiros sujos do vivo, só lidos):
+
+```
+1. merge --no-ff 3be6265a              rc=0  conflitos=0
+2. livros sujos (14)                   IGUAIS byte a byte
+3. arvore vs 3be6265a                  0 ficheiros diferentes; rota_do_scrap_youtube nao existe / nao carrega
+4. 598 contratos validos, 0 invalidos; reparo elegivel: 505 (432 REPAIR_CONTRACT + 73 VALIDATE_ROUTE)
+5. testes na copia instalada: 121, 1 FAIL = test_nivel_da_fila.test_5 (pre-existente); livros IGUAIS
+6. DESFAZER git reset --keep fca4f2b6  rc=0  0 codigo diferente  livros IGUAIS
+```
+
