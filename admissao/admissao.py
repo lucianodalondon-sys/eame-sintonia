@@ -144,7 +144,11 @@ AUSENCIA_NAO_SE_APLICA = art.NAO_SE_APLICA
 #     pela regua medida em `scripts/regua_t2/`. Nenhum outro universo muda de
 #     veredito (T2 e transversal — ver `TRANSVERSAIS`). O que a v7 deu a T2 pode
 #     ser reaberto pela versao.
-VERSAO_DA_REGRA = "8"
+# 9 · T1 (CROP & PRODUCTION) ganha regua para janelas de cultura (T1-JANELA,
+#     2026-09-24): cultura nomeada E dois momentos. Antes todo o par (item, T1) saia
+#     `NAO_SE_APLICA`. T1 e transversal: nenhum outro universo muda de veredito
+#     (medido em `scripts/regua_t1/`). O que a v8 deu a T1 pode ser reaberto pela versao.
+VERSAO_DA_REGRA = "9"
 
 
 @dataclass
@@ -765,8 +769,8 @@ SINAIS_MINIMOS = 2
 #     (medido: 0 vereditos vizinhos mudados, `MEDICAO-REGUA-T2-V1.json`).
 #
 #     FALAR DO TEMPO NAO E MUDAR DE ASSUNTO.
-PALAVRA_INTEIRA = frozenset({"T2"})
-TRANSVERSAIS = frozenset({"T2"})
+PALAVRA_INTEIRA = frozenset({"T2", "T1"})
+TRANSVERSAIS = frozenset({"T2", "T1"})
 
 
 def _casa(termo: str, texto_dobrado: str) -> bool:
@@ -837,6 +841,23 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
         achadas = [p.split("|")[0] for p in palavras if _casa(p, texto)]
     else:
         achadas = [p for p in palavras if _dobrar(p) in texto]
+    if universo in CULTURA_OBRIGATORIA:
+        # T1-JANELA (24/09): cultura nomeada E dois momentos distintos (fase, estadio,
+        # colheita/sementeira, tratamento, limiar...). Ver CULTURA_OBRIGATORIA.
+        cult = (CULTURA_OBRIGATORIA_EN if lingua == "en" else CULTURA_OBRIGATORIA)[universo]
+        tem_cultura = _casa(cult, texto)
+        if tem_cultura and len(achadas) >= SINAIS_MINIMOS:
+            return SIM, (f"nomeia uma cultura e fala de {', '.join(achadas[:3])} — fase ou momento "
+                         f"de operacao, que e o que «{universo}» (janela de cultura, D29) pede. A "
+                         f"janela em si nao e decidida aqui: e da Intelligence (CAP-WIN)"), \
+                {"palavras": achadas[:8], "cultura": True, "sinais": len(achadas)}
+        if achadas or tem_cultura:
+            falta = ("SEM_CULTURA_NOMEADA" if not tem_cultura else
+                     "SEM_MOMENTO" if not achadas else "UM_SO_MOMENTO")
+            return NAO_SEI, (
+                f"{falta}: «{universo}» (D29) pede uma cultura nomeada E dois sinais de momento "
+                f"(fase, colheita, sementeira, tratamento). Com menos, fica NAO_SEI — nao entra e "
+                f"nao e rejeitado."), {"palavras": achadas, "cultura": tem_cultura, "falta": falta}
     if universo in ANCORAS:
         anc = (ANCORAS_EN if lingua == "en" else ANCORAS)[universo]
         fortes = [p.split("|")[0] for p in anc["FORTES"] if _casa(p, texto)]
@@ -1173,6 +1194,20 @@ PERGUNTAS_DO_UNIVERSO = {
     # `temporale`/`temporali`     SAIRAM. Sao tambem «serie temporali». Ficam
     #                             `temporalesco` e familia.
     # `previsioni meteo`          SAIU. 1 YES e 1 NO: o menu da Arpal.
+    # T1 · os MOMENTOS da janela (fase, estadio, colheita/sementeira em frase, defesa,
+    # limiar, capturas, tratamento). A CULTURA vive em CULTURA_OBRIGATORIA.
+    "T1": ["fenologia|fenologica|fenologico|fenologiche|fenologici|bbch|estadio fenologico",
+           "fioritura|allegagione|invaiatura|germogliamento|ingrossamento|inolizione"
+           "|floracao|florescimento",
+           "difesa integrata|lotta integrata|producao integrada|manejo integrado",
+           "soglia di intervento|soglia di trattamento|nivel de controle|nivel de dano",
+           "infestazione|infestazioni|infestacao|catture|capturas",
+           "trattamento fitosanitario|trattamenti fitosanitari|trattamento insetticida"
+           "|trattamenti insetticidi|intervento fitosanitario|interventi fitosanitari"
+           "|tratamento fitossanitario|tratamentos fitossanitarios",
+           "inizio della raccolta|avvio della raccolta|raccolta iniziata|epoca di raccolta"
+           "|tempi di raccolta|in corso di raccolta|la raccolta 2026|prime vendemmie"
+           "|vendemmia in corso|semina|semine|trebbiatura|inicio da colheita|semeadura"],
     "T2": ["pioggia|piogge|precipitazione|precipitazioni"        # it
            "|chuva|chuvas|precipitacao|precipitacoes",           # pt
            "temperatura|temperature|temperaturas",
@@ -1245,6 +1280,13 @@ PERGUNTAS_EN = {
     # ⚠️ NAO MEDIDO: o gabarito T2-V1 nao tem nenhum texto ingles de T2. Fica
     # escrito para a porta nao se calar com um boletim em ingles, e o numero
     # dele e `NAO SEI` ate haver exemplos.
+    "T1": ["phenology|phenological|bbch|growth stage",
+           "flowering|fruit set|veraison|bud break|budbreak",
+           "integrated pest management|integrated production",
+           "action threshold|intervention threshold|economic threshold",
+           "infestation|trap catches|trap catch",
+           "crop protection treatment|insecticide treatment|fungicide treatment",
+           "harvest started|start of harvest|harvest time|sowing|planting|threshing"],
     "T2": ["rain|rainfall|precipitation",
            "temperature|temperatures",
            "drought|droughts",
@@ -1364,6 +1406,36 @@ ANCORAS = {
                            "accesso rapido", "centro agrometeorologico"),
     },
 }
+# ── T1 · CROP & PRODUCTION, PARA JANELAS DE CULTURA (T1-JANELA, 2026-09-24) ──
+# D29: a Intelligence (CAP-WIN) precisa de CULTURA x REGIAO x FASE x JANELA. T1 nunca
+# teve regua: tudo saia NAO_SE_APLICA. Esta regua cobre a parte «calendario agricola /
+# desenvolvimento da cultura» do Atlas (docs/fontes/ATLAS-DE-FONTES-EAME.md:45); area,
+# producao, preco e previsao de safra NAO estao nela, e isso fica dito.
+#
+#     SEM CULTURA NOMEADA NAO HA JANELA DE CULTURA.
+#
+# SIM pede uma cultura nomeada E dois sinais de momento distintos (SINAIS_MINIMOS).
+# Medido no gabarito T1-V1 (scripts/regua_t1/): com UM so momento entravam paginas de
+# servico (ERSA, CAAR «modellistica fenologica») e a campanha de uma marca de macas
+# («fioritura primaverile») — 8 falsos SIM; com dois, 2. O preco: as noticias de
+# colheita («la raccolta e iniziata») ficam NAO_SEI — vai-se ver, nao se rejeita.
+# `raccolta` solto NAO e momento («raccolta dati», «raccolta differenziata»): so em frase.
+# `pero` (= «pero», mas), `riso` (= riso) e `mais` (= «mais» pt) nao sao cultura.
+# T1 e TRANSVERSAL: uma cultura nunca prova que um texto NAO e de outro universo.
+CULTURA_OBRIGATORIA = {
+    "T1": "vite|vigneto|vigneti|uva|uve|olivo|olive|oliveto|oliveti|drupe|melo|mele|meleto"
+          "|pere|pesco|pesche|ciliegio|ciliegie|actinidia|kiwi|frumento|grano|pomodoro|pomodori"
+          "|patata|patate|nocciolo|nocciole|noccioleto|agrumi|arancio|limone|fragola|fragole"
+          "|soia|orzo|girasole|barbabietola|arachidi|castagno|castagne|albicocco|susino|nettarine"
+          "|videira|oliveira|trigo|milho|soja|batata|tomate",
+}
+# ⚠️ NAO MEDIDO (nenhum texto ingles no gabarito T1-V1).
+CULTURA_OBRIGATORIA_EN = {
+    "T1": "vine|vines|vineyard|vineyards|grapes|olive|olives|olive grove|apple|apples|pear|pears"
+          "|peach|cherry|kiwifruit|wheat|tomato|tomatoes|potato|potatoes|hazelnut|hazelnuts"
+          "|citrus|strawberry|strawberries|soybean|barley|sunflower|sugar beet|maize|corn",
+}
+
 # Os mesmos conceitos em ingles. ⚠️ NAO MEDIDO: o gabarito nao tem texto ingles de
 # janela de cultura; o numero fica NAO SEI ate haver exemplos.
 ANCORAS_EN = {
