@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  61335f880808dcd0d792d8e9fee8bf4335daa13b
-BRANCH           regua-t2-v1
-GERADO_EM        2026-09-24T17:08:05-03:00
+HEAD_DA_MEDICAO  dc9d1f1eba16202a7574cd71412413c76e6fe055
+BRANCH           fila-unica-v1
+GERADO_EM        2026-09-24T17:55:53-03:00
 CARDS            93
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "regua-t2-v1",
-    "HEAD": "61335f880808dcd0d792d8e9fee8bf4335daa13b",
-    "GENERATED_AT": "2026-09-24T17:08:05-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ac39ac5f8830b64e3cbf294a781bc9fcd43cb11f80227224a08b9dc52b551365"
+    "BRANCH": "fila-unica-v1",
+    "HEAD": "dc9d1f1eba16202a7574cd71412413c76e6fe055",
+    "GENERATED_AT": "2026-09-24T17:55:53-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e0ada98fb9ae05f58226f352406546b1088d57f8dbafc2436811cd7e2550f0a2"
   },
   "FILES": [
     {
@@ -1452,7 +1452,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "fcc898553ec2c7cb60a947292bb360ef0d1bb177",
+      "sha": "cc06c2fe21ae11919a74af5e788bb09c2e822d7e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -2326,6 +2326,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/FILA-UNICA-CORRESPONDENCIA-V1.json",
+      "sha": "9413a8f32df05edb280b01c6880e53b35c8e0982",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/FILA-WINDOWS-PROOF-V1.json",
       "sha": "c1ed96344dd9df0d2e2b9282b62922ab5f7780e9",
       "ext": ".json",
@@ -2897,6 +2904,13 @@
       "sha": "0103db1f4cd3cad0a5cc6c7f5f3d23af1fc16026",
       "ext": ".json",
       "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/juntar_filas.py",
+      "sha": "19a56482335b6531b885b7b41c98a0db0b8b89f6",
+      "ext": ".py",
+      "readable": true,
       "code_dir": false
     },
     {
@@ -26220,6 +26234,39 @@
         "file": "curadoria/interface_collection.py",
         "line": 52,
         "snippet": "import lifecycle as LC        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/juntar_filas.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/juntar_filas.py",
+        "line": 35,
+        "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/juntar_filas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/juntar_filas.py",
+        "line": 28,
+        "snippet": "from fonte_nova import registar, recusar, normalizar, carregar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/juntar_filas.py",
+      "to_file": "curadoria/FILA-UNICA-CORRESPONDENCIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/juntar_filas.py",
+        "line": 30,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"FILA-UNICA-CORRESPONDENCIA-V1.json\""
       }
     },
     {
@@ -82775,10 +82822,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2841,
-    "files_readable": 1292,
+    "files_tracked": 2843,
+    "files_readable": 1293,
     "files_code_dir": 1152,
-    "file_edges": 5663,
+    "file_edges": 5666,
     "escritas_em_pasta": 85,
     "declared_missing_here": 0
   },
