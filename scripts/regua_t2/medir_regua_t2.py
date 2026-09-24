@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """T2-REGUA · MEDIR A REGUA T2 NO GABARITO, E PROVAR QUE OS VIZINHOS NAO MUDARAM.
 
-    py scripts/regua_t2/medir_regua_t2.py [--textos=DIR] [--corpus=DIR;DIR] [--base=REV]
+    py scripts/regua_t2/medir_regua_t2.py [--gabarito=V2|V1] [--textos=DIR] [--corpus=DIR;DIR] [--base=REV]
 
 SEM REDE. Le os textos FORA do Git (confere o sha256 de cada um contra o
 GABARITO-T2-V1.json antes de o usar) e julga cada um com `admissao._do_universo`
@@ -34,8 +34,9 @@ sys.path[:0] = [str(RAIZ / "admissao"), str(RAIZ)]
 import admissao as A  # noqa: E402
 
 AQUI = Path(__file__).parent
-GAB = AQUI / "GABARITO-T2-V1.json"
-SAIDA = AQUI / "MEDICAO-REGUA-T2-V1.json"
+VERSAO_GAB = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--gabarito=")), "V2")
+GAB = AQUI / ("GABARITO-T2-%s.json" % VERSAO_GAB)
+SAIDA = AQUI / ("MEDICAO-REGUA-T2-%s.json" % VERSAO_GAB)
 VIZINHOS = ("T3", "T4", "T5", "T7", "T9", "T10")
 CASA = Path(os.environ.get("USERPROFILE", str(Path.home())))
 
@@ -86,8 +87,8 @@ def main():
             continue
         r, ev = julgar(A, b.decode("utf-8"), "T2")
         itens.append({"TEXTO_ID": it["TEXTO_ID"], "SOURCE_ID": it["SOURCE_ID"], "SERIE": it.get("SERIE"),
-                      "OURO": it["UNIVERSE_MATCH"], "REGUA": r, "SINAIS": ev.get("sinais"),
-                      "PALAVRAS": ev.get("palavras"), "IDIOMA": ev.get("idioma"),
+                      "OURO": it.get("JANELA") or it["UNIVERSE_MATCH"], "REGUA": r, "SINAIS": ev.get("sinais"),
+                      "PALAVRAS": ev.get("palavras"), "ANCORAS": ev.get("ancoras"), "FALTA": ev.get("falta"), "IDIOMA": ev.get("idioma"),
                       "OUTRO": ev.get("achado_noutro")})
     ouro = [i for i in itens if i["OURO"] in ("YES", "NO")]
     tp = sum(1 for i in ouro if i["OURO"] == "YES" and i["REGUA"] == A.SIM)
@@ -102,6 +103,13 @@ def main():
     fp2 = sum(1 for i in fora if i["OURO"] == "NO" and i["REGUA"] == A.SIM)
     fn2 = sum(1 for i in fora if i["OURO"] == "YES" and i["REGUA"] != A.SIM)
 
+    # ── 1b · T1 (pedido da coordenacao): T1 ja cobre fenologia/tratamento? ─
+    t1 = Counter()
+    for it in g["ITENS"]:
+        if (it.get("JANELA") or it["UNIVERSE_MATCH"]) == "YES":
+            t = (textos / (it["TEXTO_ID"] + ".txt")).read_text(encoding="utf-8")
+            t1[julgar(A, t, "T1")[0]] += 1
+
     # ── 2 · OS VIZINHOS ──────────────────────────────────────────────────
     antes = admissao_da_revisao(base)
     corpus, vistos = [], set()
@@ -114,6 +122,8 @@ def main():
             if h not in vistos:
                 vistos.add(h)
                 corpus.append((d.name + ":" + p.name, t))
+    no_gabarito = {i["TEXTO_SHA256"] for i in g["ITENS"]}
+    fora_sim = []
     mudou, t2_antes_depois = [], Counter()
     for nome, texto in corpus:
         for uv in VIZINHOS:
@@ -124,12 +134,15 @@ def main():
         a, _ = julgar(antes, texto, "T2")
         d, _ = julgar(A, texto, "T2")
         t2_antes_depois["%s->%s" % (a, d)] += 1
+        if d == A.SIM and hashlib.sha256(texto.encode("utf-8")).hexdigest() not in no_gabarito:
+            fora_sim.append(nome)
 
-    out = {"DATASET": "MEDICAO-REGUA-T2-V1", "GABARITO": GAB.name, "BASE": base,
+    out = {"DATASET": "MEDICAO-REGUA-T2-" + VERSAO_GAB, "GABARITO": GAB.name, "BASE": base,
            "VERSAO_DA_REGRA": A.VERSAO_DA_REGRA,
            "REGUA": {"IT_PT": A.PERGUNTAS_DO_UNIVERSO.get("T2"), "EN": A.PERGUNTAS_EN.get("T2"),
                      "SINAIS_MINIMOS": A.SINAIS_MINIMOS, "PALAVRA_INTEIRA": sorted(A.PALAVRA_INTEIRA),
-                     "TRANSVERSAIS": sorted(A.TRANSVERSAIS)},
+                     "TRANSVERSAIS": sorted(A.TRANSVERSAIS),
+                     "ANCORAS": A.ANCORAS.get("T2"), "ANCORAS_EN": A.ANCORAS_EN.get("T2")},
            "SHA_NAO_CONFERE": sha_mau,
            "T2": {"MEDIDO_DENTRO_DA_AMOSTRA": True,
                   "OURO_YES": sum(1 for i in ouro if i["OURO"] == "YES"),
@@ -145,10 +158,18 @@ def main():
                                         "QUE_ENTRARAM_COMO_SIM": fp},
                   "MATRIZ_OURO_REGUA": dict(sorted(matriz.items())),
                   "ERROS": [i for i in ouro if (i["OURO"] == "YES") != (i["REGUA"] == A.SIM)]},
+           "T1": {"TEM_REGUA": "T1" in A.PERGUNTAS_DO_UNIVERSO,
+                  "JANELAS_DO_GABARITO_JULGADAS_EM_T1": dict(t1),
+                  "ATLAS_T1": "docs/fontes/ATLAS-DE-FONTES-EAME.md:45 — area plantada, producao, "
+                              "produtividade, calendario agricola, desenvolvimento da cultura, "
+                              "previsao de safra, regioes produtoras, historico"},
            "VIZINHOS": {"TEXTOS_NO_CORPUS": len(corpus), "UNIVERSOS": list(VIZINHOS),
                         "JULGAMENTOS": len(corpus) * len(VIZINHOS),
                         "VEREDITOS_VIZINHOS_MUDADOS": len(mudou), "MUDANCAS": mudou[:50]},
-           "T2_NO_CORPUS_ANTES_DEPOIS": dict(sorted(t2_antes_depois.items()))}
+           "T2_NO_CORPUS_ANTES_DEPOIS": dict(sorted(t2_antes_depois.items())),
+           "FORA_DO_GABARITO_SIM": {"N": len(fora_sim),
+                                    "AMOSTRA_25_PARA_LER": __import__("random").Random(24092026).sample(
+                                        sorted(fora_sim), min(25, len(fora_sim)))}}
     SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({k: out["T2"][k] for k in ("OURO_YES", "OURO_NO", "TP", "FP", "FN", "PRECISAO",
                                                  "RECALL", "SEM_SERIE_ARPAV", "YES_QUE_SAIRAM_NAO",
@@ -156,7 +177,7 @@ def main():
                      ensure_ascii=False))
     print(json.dumps({"SHA_NAO_CONFERE": len(sha_mau), **{k: out["VIZINHOS"][k] for k in
                       ("TEXTOS_NO_CORPUS", "JULGAMENTOS", "VEREDITOS_VIZINHOS_MUDADOS")},
-                      "T2_NO_CORPUS": out["T2_NO_CORPUS_ANTES_DEPOIS"]}, ensure_ascii=False))
+                      "T2_NO_CORPUS": out["T2_NO_CORPUS_ANTES_DEPOIS"], "FORA_DO_GABARITO_SIM": len(fora_sim)}, ensure_ascii=False))
     return 0 if not mudou and not sha_mau else 1
 
 

@@ -837,6 +837,28 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
         achadas = [p.split("|")[0] for p in palavras if _casa(p, texto)]
     else:
         achadas = [p for p in palavras if _dobrar(p) in texto]
+    if universo in ANCORAS:
+        anc = (ANCORAS_EN if lingua == "en" else ANCORAS)[universo]
+        fortes = [p.split("|")[0] for p in anc["FORTES"] if _casa(p, texto)]
+        agro = _casa(anc["AGROMETEO"], texto)
+        if (achadas and fortes) or (agro and len(achadas) >= SINAIS_MINIMOS):
+            ancoras = fortes + (["agrometeo"] if agro else [])
+            return SIM, (f"fala de {', '.join(achadas[:3])} e de {', '.join(ancoras[:3])} — "
+                         f"condicao do campo com ligacao agricola escrita, que e o que "
+                         f"«{universo}» (janela de cultura, D29) pede. A janela em si nao e "
+                         f"decidida aqui: e da Intelligence (CAP-WIN)"),                 {"palavras": achadas[:8], "ancoras": ancoras[:8],
+                 "sinais": len(achadas) + len(ancoras)}
+        ancoras = fortes + (["agrometeo"] if agro else [])
+        if achadas or ancoras:
+            falta = "SEM_LIGACAO_AGRICOLA" if not ancoras else "SEM_CONDICAO_DO_CAMPO"
+            return NAO_SEI, (
+                f"{falta}: ha {', '.join((achadas or ancoras)[:3])}, mas «{universo}» (D29) "
+                f"pede as duas coisas juntas — a condicao (tempo, agua, solo) E a ligacao "
+                f"agricola escrita (fenologia, defesa, monitorizacao). "
+                + ("Tempo sem cultura pode ser de outra pergunta (D2: REROUTE); "
+                   if not ancoras else "")
+                + "Com metade, fica NAO_SEI — nao entra e nao e rejeitado."),                 {"palavras": achadas, "ancoras": ancoras, "falta": falta,
+                 "d2": "REROUTE_POSSIVEL" if not ancoras else None}
     # ── UMA PALAVRA SOLTA NAO PROMOVE ───────────────────────────────────────
     # Medido: `sintoma` (pt) casa dentro de `sintomatologia` (it), `prova` casa
     # dentro de `approvazione`. Uma unica palavra pode ser um acidente de
@@ -1239,6 +1261,79 @@ PERGUNTAS_EN = {
            "rain gauge|rain gauges|anemometer|anemometers"],
 }
 IDIOMAS_SEM_REGUA = ("fr", "es", "de")
+
+
+# ── T2 · A LIGACAO AGRICOLA ESCRITA (D29 — JANELAS DE CULTURA, 2026-09-24) ──
+# O dono (D29): «na coleta precisamos coletar informacoes relevantes sobre as
+# JANELAS DE CULTURA». A regua T2 deixa de perguntar «isto fala de clima?» e passa
+# a perguntar «isto sustenta uma janela de cultura?» (Biblia `CAP-WIN`, join keys
+# CROP x REGION x PHENOLOGY_STAGE x TIME_WINDOW).
+#
+#     O TEMPO SO ABRE UMA JANELA QUANDO HA UMA CULTURA DO OUTRO LADO.
+#
+# Por isso SIM pede as DUAS coisas no texto: um conceito de CONDICAO do campo
+# (`PERGUNTAS_DO_UNIVERSO["T2"]`: chuva, temperatura, seca, rega...) E um conceito
+# FORTE daqui — a ligacao agricola escrita (fenologia, estadio, defesa integrada,
+# limiar, capturas, tratamento fitossanitario) —, ou `agrometeo` com DUAS
+# condicoes. So condicao (a previsao do tempo, a tabela
+# de chuva, o verao de calor recorde) fica NAO_SEI com motivo SEM_LIGACAO_AGRICOLA
+# e a marca D2 REROUTE_POSSIVEL: nao e lixo, e de outra pergunta. So ancora (o
+# premio do vinho que fala da vindima) fica NAO_SEI tambem. Nenhuma das metades
+# vira NAO: ausencia de evidencia nao e evidencia de ausencia.
+#
+# A ADMISSAO NAO DECIDE A JANELA. Nao le datas, nao escreve FACT_TIME nem
+# FACT_LOCATION: data de calendario != janela, data regulatoria != janela,
+# FACT_TIME != PUBLICATION_TIME, SOURCE_LOCATION != FACT_LOCATION. Admite e
+# deixa os campos do item como vieram; a janela e da Intelligence.
+#
+# ── O QUE FICOU DE FORA, E PORQUE — MEDIDO NO GABARITO T2-V2 ──────────────
+# `trattamento`/`trattamenti`  SAIRAM soltos: 37 dos 225 NO — «trattamento dei
+#                              dati personali» no rodape de privacidade. Ficam as
+#                              formas `trattamento fitosanitario`/`insetticida`.
+# `raccolta`                   SAIU: «raccolta differenziata» (lixo), 28 NO.
+# `semina`, `plantio`          SAIRAM: casavam em programas de fundos e menus.
+# `vite`                       SAIU: em italiano e tambem «vidas».
+# `coltura`/`colture`          SAIRAM: «Difesa delle colture» e nome de servico.
+# NOMES DE CULTURA E `vendemmia`/`trebbiatura`/`colheita` SAIRAM COMO ANCORA.
+#     Mediu-se FORA do gabarito (1.259 textos, os 14 SIM lidos um a um): a
+#     noticia de mercado fala de tomate e de onda de calor, o premio do vinho
+#     fala da vindima e da temperatura — e nenhuma diz o momento de agir. Os
+#     boletins que falam de colheita trazem tambem fenologia ou limiar, e entram
+#     por ai. A CULTURA E O ASSUNTO DE QUASE TUDO O QUE E AGRICOLA; NAO E A PROVA
+#     DE UMA JANELA.
+# ⚠️ `agrometeo...` e o nome de muitos menus («Agrometeo») e de seccoes de
+#    jornal (AgroNotizie): so conta com DUAS condicoes escritas.
+ANCORAS = {
+    "T2": {
+        # basta UMA destas com UMA condicao
+        "FORTES": ["fenologia|fenologica|fenologico|fenologiche|fenologici|bbch|estadio fenologico",
+                   "fioritura|allegagione|invaiatura|germogliamento|ingrossamento|inolizione"
+                   "|floracao|florescimento",
+                   "difesa integrata|lotta integrata|producao integrada|manejo integrado",
+                   "soglia di intervento|soglia di trattamento|nivel de controle|nivel de dano",
+                   "infestazione|infestazioni|infestacao|catture|capturas",
+                   "trattamento fitosanitario|trattamenti fitosanitari|trattamento insetticida"
+                   "|trattamenti insetticidi|intervento fitosanitario|interventi fitosanitari"
+                   "|tratamento fitossanitario|tratamentos fitossanitarios"],
+        # `agrometeo` e tambem nome de menu e de seccao de jornal: so conta com DUAS
+        # condicoes escritas (o boletim traz chuva E temperatura; o menu nao traz nada)
+        "AGROMETEO": "agrometeorologico|agrometeorologica|agrometeorologici|agrometeorologiche"
+                     "|agrometeorologia|agrometeo",
+    },
+}
+# Os mesmos conceitos em ingles. ⚠️ NAO MEDIDO: o gabarito nao tem texto ingles de
+# janela de cultura; o numero fica NAO SEI ate haver exemplos.
+ANCORAS_EN = {
+    "T2": {
+        "FORTES": ["phenology|phenological|bbch|growth stage",
+                   "flowering|fruit set|veraison|bud break|budbreak",
+                   "integrated pest management|integrated production",
+                   "action threshold|intervention threshold|economic threshold",
+                   "infestation|trap catches|trap catch",
+                   "crop protection treatment|insecticide treatment|fungicide treatment"],
+        "AGROMETEO": "agrometeorological|agrometeorology",
+    },
+}
 
 
 def _lingua_do_item(item: dict) -> str:
