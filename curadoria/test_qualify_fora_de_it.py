@@ -82,5 +82,20 @@ class AQualifyForaDeIT(unittest.TestCase):
         self.assertRegex(det["SOURCE_ID_REAL"], r"^IT-T9-\d{3}$")
 
 
+class OValidadorDeContratosD31(unittest.TestCase):
+
+    def test_eu_e_int_passam_o_formato_e_outro_prefixo_nao(self):
+        import validar_contratos as VC
+        import escrever_contratos as EC
+        for sid, ok in (("EU-T9-003", True), ("INT-T10-001", True), ("IT-T9-001", True),
+                        ("FR-T4-009", False), ("EUX-T9-001", False)):
+            c = EC.contrato_html({"SOURCE_ID": sid, "NOME": "x", "TERRITORY": "T9",
+                                  "URL": "https://ex.example/news/"}, {})
+            c["SOURCE_CONTRACT_VERSION"] = EC.VERSAO
+            c["SOURCE_CONTRACT_HASH"] = EC.hash_do_contrato(c)
+            with self.subTest(sid=sid):
+                self.assertEqual(VC.schema_valid(c)[0], ok, VC.schema_valid(c))
+
+
 if __name__ == "__main__":
     unittest.main()

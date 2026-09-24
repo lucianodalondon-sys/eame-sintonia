@@ -48,8 +48,10 @@ def schema_valid(c: dict) -> tuple[bool, str]:
     falta = [k for k in OBRIGATORIOS if not c.get(k)]
     if falta:
         return False, "campos em falta: %s" % ", ".join(falta)
-    if not re.match(r"^IT-T\d+-\d{3}$", c["SOURCE_ID"]):
-        return False, "SOURCE_ID fora do formato IT-T<n>-<nnn>: %s" % c["SOURCE_ID"]
+    # D31 (24/09): EU- e INT- entram como fontes (numeracao pela decisao, na QUALIFY);
+    # qualquer outro prefixo continua fora.
+    if not re.match(r"^(IT|EU|INT)-T\d+-\d{3}$", c["SOURCE_ID"]):
+        return False, "SOURCE_ID fora do formato (IT|EU|INT)-T<n>-<nnn>: %s" % c["SOURCE_ID"]
     if c["OUTPUT_TYPE"] not in OUTPUTS:
         return False, "OUTPUT_TYPE desconhecido: %s" % c["OUTPUT_TYPE"]
     if c["ROUTE_TYPE"] not in ROTAS:
