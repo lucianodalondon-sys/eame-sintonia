@@ -112,9 +112,19 @@ Cópia fiel (`C:/ens-r1`: worktree em `fca4f2b6` + os 14 ficheiros sujos do vivo
 6. DESFAZER git reset --keep fca4f2b6  rc=0  0 codigo diferente  livros IGUAIS
 ```
 
-### 8.1 · Medição com rede na cópia do vivo atual — PARCIAL (interrompida pela troca de conta)
+### 8.1 · Medição com rede na cópia do vivo atual (`scripts/reparo/R1-REENSAIO-ANTES-DEPOIS-fca4f2b6.json`)
 
-Foto do vivo `%TEMP%/r1v3-snap-20260924T122126Z`, 4 bancas `%TEMP%/r1v3-banca-0..3` em `3be6265a`, portão de egresso IT = PASS antes de arrancar.
-Fatias acabadas: banca 0 → READY 143→160 · banca 2 → 143→150 · banca 3 → 143→153. Banca 1 ainda a correr (processo próprio, não depende do Claude).
-Falta: `py scripts/reparo/juntar_bancas.py --foto <snap> --banca <b0..b3> --saida ...` quando a banca 1 acabar → READY total e quantas das 432 «para consertar» chegaram a READY.
+Foto do vivo `%TEMP%/r1v3-snap-20260924T122126Z` (bot parado pela BC5), 4 bancas em `3be6265a` por fatia de anfitrião, portão de egresso IT = PASS antes de arrancar; robots da casa, 2 s entre pedidos ao mesmo anfitrião.
 
+```
+READY na copia                       143 -> 189  (+46)
+das 432 «para consertar»             29 READY · 389 CONTRACTED_CANARY_FAILED (recusa com motivo) · 11 robots proibe · 3 AUTH
+das 73 «testar de novo»              17 READY (6 so com o re-canario; 11 depois de reparadas)
+fontes contadas em duas bancas       0
+```
+
+Motivo final das que não chegaram (reparo): 148 item não é matéria · 117 sem família de itens · 78 a entrada é uma notícia · 44 página de serviço · 40 capa no canário · 29 sem identidade · 17 família estática · 10 duplicada · 10 robots.
+
+⚠️ Continua a valer §4: parte das READY novas pode ser página fixa de título longo (IT-T12-134, IT-T2-063, IT-T7-105, IT-T7-041, IT-T12-044 estão na lista) e IT-T9-015 aponta para «lavora-con-noi». Ler antes de uma onda da Big Collection.
+
+**Pronto para instalar** depois da 1.ª onda, com o OK do coordenador: `git merge --no-ff reparo-fontes-v2` no ramo do bot; desfazer `git reset --keep fca4f2b6`.
