@@ -527,7 +527,7 @@ relatório.** Há teste que varre o repositório atrás de padrão de token.
 ## T · FONTES / ATLAS
 
 Documento dono: `docs/fontes/ATLAS-DE-FONTES-EAME.md`.
-**<!--M:SOURCE_ID_COUNT-->277<!--/M--> SOURCE_IDs · <!--M:SOURCE_FICHA_COUNT-->266<!--/M--> fichas · <!--M:SOURCE_GREEN_COUNT-->90<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI.**
+**<!--M:SOURCE_ID_COUNT-->278<!--/M--> SOURCE_IDs · <!--M:SOURCE_FICHA_COUNT-->267<!--/M--> fichas · <!--M:SOURCE_GREEN_COUNT-->90<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI.**
 
 ### As que a próxima conta precisa conhecer primeiro
 
