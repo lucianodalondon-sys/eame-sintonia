@@ -1,0 +1,25 @@
+VIVO bot   servico-20260923-0923 @ fca4f2b6  sujos=34
+VIVO ponte cutover-20260923-0923 @ 4a5afc27  sujos=3
+FINAL      ce2e8fb7
+  14 ficheiros sujos copiados de $ORCA/source-curator-service-v1
+BOT 1. merge --no-ff ce2e8fb77863843978acde537e5559fca2157b19 (com os livros sujos no sitio)
+   rc=0  conflitos=0
+     
+   conflitos fora do mapa gerado = 0
+BOT 2. livros sujos: IGUAIS byte a byte (14)
+BOT 3. arvore commitada vs FINAL: 0 ficheiros diferentes
+BOT 4. testes na copia instalada:
+     Ran 93 tests in 13.739s
+     OK
+     portao com os livros vivos: elegiveis = 37 de 143
+BOT 5. DESFAZER: git reset --keep fca4f2b6
+   rc=0  HEAD=fca4f2b6  arvore vs vivo: 0 codigo diferente
+   livros sujos depois do desfazer: IGUAIS
+  3 ficheiros sujos copiados de $ORCA/ponte-viva
+PONTE 1. 4a5afc27 esta na linha: avanco rapido (ff-only)
+   rc=0 HEAD=ce2e8fb7
+PONTE 2. livros sujos: IGUAIS (3)
+PONTE 3. --lane presente (LANE=SIM)
+PONTE 4. DESFAZER rc=0 HEAD=4a5afc27 livros IGUAIS
+VIVO depois: bot @ fca4f2b6, ponte @ 4a5afc27
+copias apagadas

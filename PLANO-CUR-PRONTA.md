@@ -210,3 +210,27 @@ por quem a abre e só lida pelo resto.
 Passos: os do `CUTOVER-RUNBOOK.md` / `PLANO-INSTALACAO-M5G.md` (parar com PARAR.flag, foto dos
 livros, `merge --no-ff` no bot + ff na ponte, conferir 0 livros mudados, relançar, medir; DESFAZER
 = `git reset --keep <HEAD_antes>`). Ensaio desta árvore sobre a cópia fiel: §9.
+
+## 9 · Ensaio da instalação (feito) — cópia fiel do vivo, 24/09 ~13:25
+
+`provas/cur_pronta/ensaio_instalacao.sh` + `ENSAIO-INSTALACAO.log` (só lê o vivo; bot parado por
+PARAR.flag de outra operação nessa hora — não tocado):
+
+```
+VIVO bot   servico-20260923-0923 @ fca4f2b6  (14 livros alterados + 20 pastas novas do acervo)
+VIVO ponte cutover-20260923-0923 @ 4a5afc27  (3 livros alterados)
+FINAL      ce2e8fb7
+BOT 1. merge --no-ff (com os livros no sitio)      rc=0  conflitos=0
+BOT 2. livros alterados: IGUAIS byte a byte (14)
+BOT 3. arvore commitada vs FINAL: 0 ficheiros diferentes
+BOT 4. testes na copia instalada: 93 corridos, OK (portao, guarda, avancar, onda, reparo)
+       portao com os livros vivos: elegiveis = 37 de 143
+BOT 5. DESFAZER: git reset --keep fca4f2b6   rc=0, 0 codigo diferente, livros IGUAIS
+PONTE  4a5afc27 esta na linha: avanco rapido rc=0; livros IGUAIS (3); --lane presente;
+       DESFAZER rc=0, livros IGUAIS
+```
+
+Medida conjunta CUR + R1 com rede: parada à porta — o portão de egresso deu
+`EGRESS_COUNTRY_CODE = UNKNOWN` (o serviço de medição não devolveu país) desde as 13:15; o
+lançador tenta de 2 em 2 min e não faz nenhum pedido sem IT. A medida da R1 sozinha, na cópia
+do vivo, está no ramo dela (143 → 189 READY; 29 das 432 por reparar chegam a READY).
