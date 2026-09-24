@@ -60,10 +60,11 @@ DECISOES = AQUI / "DECISOES-P5-V1.json"
 EVID = Path(os.environ.get("TEMP", "/tmp")) / "p5-evidencia"
 # Filas irmas: P1, P2, YT3 e a P4 (a P4 pode ainda nao ter publicado: le-se tambem o disco dela).
 BRANCHES_IRMAS = ("origin/bc4-correcoes-v1", "origin/pesquisadores-v1", "origin/pesquisadores-v2",
-                  "origin/pesquisa-projetos-v1", "origin/canais-pessoas-v1", "origin/pessoas-agro-v1")
+                  "origin/pesquisa-projetos-v1", "origin/canais-pessoas-v1", "origin/pessoas-agro-v1",
+                  "origin/pessoas-agro-v2")
 # P1d e P4b correm em paralelo (24/09) e podem nao ter publicado: le-se a fila no disco de cada bancada irma.
 _WT = Path(r"C:\Users\London1\orca\workspaces\eame-sintonia")
-WORKTREES_IRMAS = tuple(_WT / n for n in ("pesquisadores-v1", "pesquisadores-v2", "pessoas-agro-v1",
+WORKTREES_IRMAS = tuple(_WT / n for n in ("pesquisadores-v1", "pesquisadores-v2", "pessoas-agro-v1", "pessoas-agro-v2",
                                           "pesquisa-projetos-v1", "provas-p1"))
 P4_ACHADOS = Path(r"C:\Users\London1\auditoria-madrugada")
 PAUSA_S = 2.0
