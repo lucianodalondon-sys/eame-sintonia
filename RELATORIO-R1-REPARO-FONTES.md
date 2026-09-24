@@ -236,3 +236,23 @@ nota ACESSO_PARCIAL no livro                 inteira (IT-T8-042: «... · ACESSO
 **DESFAZER:** `PARAR.flag` → `git reset --keep 5c4daf5a` → relançar. O que o bot já escreveu fica no livro (append-only); cada contrato reparado guarda o anterior em `REPARO_DE_CONTRATO.ACQUISITION_ANTERIOR`.
 
 **Falta:** repetir SÓ o ensaio com a junção da IA-CUR (conserto do leitor do canário em `canario.py`; o ramo dela já tem a R1 antiga `9c05877e`) quando ela publicar a medição do livro inteiro.
+
+## 12 · Ajuste antes da instalação: o vivo passou a `55b50a63` (régua T2)
+
+Juntei `55b50a63` (= `origin/regua-t2-v1` @ `84c235da` + testes EGR) em `reparo-fontes-v2` (`ba3d2153`); só conflitavam gerados, regerados pela cadeia com LOCK-PESADO (`3de79d75`).
+
+**Ensaio em cópia fiel** (`C:/ens-r1`: worktree em `55b50a63` + os 14 livros sujos do vivo; apagada no fim):
+
+```
+1. merge --no-ff 3de79d75               rc=0  conflitos=0
+2. livros sujos (14)                    IGUAIS byte a byte
+3. arvore vs 3de79d75                   0 ficheiros diferentes; rota_do_scrap_youtube nao carrega
+4. 598 contratos validos; a espera 505 (432 REPAIR_CONTRACT + 73 VALIDATE_ROUTE); READY vivo 143
+5. testes R1 + curador: 136, 1 FAIL = test_nivel_da_fila.test_5 (pre-existente)
+   regua T2 (test_a_regra_de_t2, test_gabarito_t2_t12, test_regua_t2): 42/42 OK; livros IGUAIS
+6. DESFAZER git reset --keep 55b50a63   rc=0  0 codigo diferente  livros IGUAIS
+```
+
+**READY esperadas: 25** (143 → 168). ⚠️ Não re-contei com rede sobre `55b50a63`: a VPN caiu para o Brasil (portão por consenso BR, BR, US = BLOCKED, medido 4× entre 22:00 e 22:10Z). O número da §11 vale para esta instalação porque as duas entradas são as mesmas: o código do robô é idêntico (`git diff e7cba2d6 3de79d75 -- curadoria candidatas superficie` = 0 linhas — a régua T2 não toca nesses directórios) e os 14 livros do vivo são iguais byte a byte aos da medição das 20:28Z. O que pode mudar é só o que os sites respondem hoje.
+
+**Instalar:** `PARAR.flag` → `git merge --no-ff origin/reparo-fontes-v2` no ramo do bot → conferir livros → portão por consenso = PASS IT → relançar. **Desfazer:** `PARAR.flag` → `git reset --keep 55b50a63` → relançar.

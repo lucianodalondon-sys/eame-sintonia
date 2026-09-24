@@ -1,12 +1,12 @@
 {
  "DATASET": "R1-WRITESET",
- "VERSAO": "v2 revista — reparo-fontes-v2 sobre o vivo atual (servico-20260923-0923 @ 5c4daf5a = EGR consenso), sem SOC2, com a revisao das READY (REVISAO-READY-V1)",
- "SHA_A_INSTALAR": "e7cba2d6 (ou o HEAD de reparo-fontes-v2: depois dele so relatorio, medicoes, este ficheiro e mapa gerado — conferir com git diff --stat e7cba2d6 reparo-fontes-v2)",
+ "VERSAO": "v2 revista — reparo-fontes-v2 sobre o vivo atual (servico-20260923-0923 @ 55b50a63 = regua T2 84c235da + EGR), sem SOC2, com a revisao das READY",
+ "SHA_A_INSTALAR": "3de79d75 (ou o HEAD de reparo-fontes-v2: depois dele so relatorio, este ficheiro e mapa gerado — conferir com git diff --stat 3de79d75 reparo-fontes-v2)",
  "VIVO": "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1",
- "BASE_DO_VIVO_MEDIDA": "servico-20260923-0923 @ 5c4daf5a",
+ "BASE_DO_VIVO_MEDIDA": "servico-20260923-0923 @ 55b50a63",
  "MEDIDO_EM": "2026-09-24 (plano de instalacao, missao-r1-instalacao)",
- "COMO_INSTALAR": "com o bot quieto (PARAR.flag, supervisor saiu), no ramo do bot: git merge --no-ff reparo-fontes-v2. Ensaiado em copia fiel de 5c4daf5a: rc 0, 0 conflitos (o ramo ja junta 5c4daf5a), livros sujos (14) iguais byte a byte, arvore == e7cba2d6. NAO por git checkout de ficheiros.",
- "DESFAZER": "PARAR.flag; git reset --keep 5c4daf5a (ensaiado: rc 0, 0 codigo diferente, livros iguais); relancar o supervisor",
+ "COMO_INSTALAR": "com o bot quieto (PARAR.flag, supervisor saiu), no ramo do bot: git merge --no-ff origin/reparo-fontes-v2. Ensaiado em copia fiel de 55b50a63: rc 0, 0 conflitos, livros sujos (14) iguais byte a byte, arvore == 3de79d75; testes R1+curador 136 (1 FAIL pre-existente test_nivel_da_fila.test_5) e regua T2 42/42 OK.",
+ "DESFAZER": "PARAR.flag; git reset --keep 55b50a63 (ensaiado: rc 0, 0 codigo diferente, livros iguais); relancar o supervisor",
  "1_INSTALACAO_ESCREVE_CODIGO": {
   "FICHEIROS": [
    "curadoria/reparar_contrato.py (novo)",
@@ -50,7 +50,7 @@
  "4_TRABALHO_A_ESPERA_NO_LIVRO_VIVO_COPIADO": "505 fontes: 432 REPAIR_CONTRACT + 73 VALIDATE_ROUTE (20 por volta do gatilho; discovery parado ate acabar)",
  "5_REDE": "ate 4 pedidos por reparo + o canario de sempre; robots da casa; 2 s entre pedidos ao mesmo anfitriao",
  "6_ESPERADO_AO_VIVO": {
-  "READY": "143 -> 168 (+25 = 21 limpas + 4 ACESSO_PARCIAL), medido em copia do vivo 20:28Z (scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json)",
+  "READY": "143 -> 168 (+25 = 21 limpas + 4 ACESSO_PARCIAL), medido com rede em copia do vivo 20:28Z sobre 5c4daf5a. Nao re-medido sobre 55b50a63 porque a VPN caiu para BR (portao por consenso BR,BR,US = BLOCKED, 22:00-22:10Z); valido porque o codigo do robo e identico (git diff e7cba2d6 3de79d75 -- curadoria candidatas superficie = 0 linhas; a regua T2 nao toca nesses directorios) e os 14 livros do vivo sao iguais byte a byte aos da medicao.",
   "RETIDAS_PELA_REVISAO": "21 = 16 SERVICO_OU_INSTITUCIONAL + 2 TEXTO_NAO_E_MATERIA + 1 LISTA_COMO_ITEM (CONTRACTED_CANARY_FAILED) + 2 TEMA_A_CONFIRMAR (SEMANTIC_REVIEW)",
   "REVISAO_PENDENTE": "1 = IT-T8-058 (Agrisole): o reparo passou a regua com um contrato que ninguem leu",
   "DURACAO": "~40 min em 4 bancas; no vivo, uma fila so: ~2-3 h"
@@ -60,6 +60,7 @@
   "LIFECYCLE-LEDGER-V1.json": "c63fe0fbfb3519d7ab83fde1b73fc5586cc29730ca2e08c30e59745df729d461",
   "LIFECYCLE-QUEUE-V1.json": "4786b390277ca0e2a7ab334fd36d62a8adca77768ffe65da560063035fa3111b",
   "italy_contracts_curator.json": "a7abd28091abdef10f49ae4e86bf38887fdc1847ffc3f5cb779eee25c86abc84",
-  "SHA_DOS_14_LIVROS_SUJOS_ANTES": "%TEMP%/r1v5-sha-antes.txt sha256=7a07a38fd69cbbaab6aa7b0e808a762cd77fd3060132676eee97464f5326f9de"
+  "SHA_DOS_14_LIVROS_SUJOS_ANTES": "%TEMP%/r1v5-sha-antes.txt sha256=7a07a38fd69cbbaab6aa7b0e808a762cd77fd3060132676eee97464f5326f9de",
+  "SHA_DOS_14_LIVROS_SUJOS_55b50a63": "%TEMP%/r1v6-sha-antes.txt sha256=7a07a38fd69cbbaab6aa7b0e808a762cd77fd3060132676eee97464f5326f9de"
  }
 }
