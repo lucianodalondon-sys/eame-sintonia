@@ -1,0 +1,216 @@
+{
+ "DATASET": "MEDICAO-REGUA-T2-V2",
+ "GABARITO": "GABARITO-T2-V2.json",
+ "BASE": "origin/bc4-correcoes-v1",
+ "VERSAO_DA_REGRA": "8",
+ "REGUA": {
+  "IT_PT": [
+   "pioggia|piogge|precipitazione|precipitazioni|chuva|chuvas|precipitacao|precipitacoes",
+   "temperatura|temperature|temperaturas",
+   "siccita|seca|secas|estiagem",
+   "gelata|gelate|brina|brinate|geada|geadas",
+   "grandine|grandinata|grandinate|granizo",
+   "ondata di calore|ondate di calore|onda de calor|ondas de calor",
+   "umidita del suolo|umidade do solo",
+   "stress idrico|deficit idrico|bilancio idrico|estresse hidrico|deficit hidrico|balanco hidrico",
+   "eventi estremi|evento estremo|eventos extremos",
+   "evapotraspirazione|evapotranspiracao",
+   "irrigazione|irrigazioni|irrigacao",
+   "risorsa idrica|risorse idriche|recurso hidrico|recursos hidricos",
+   "anticiclone|anticicloni|anticiclonico|anticiclonica|anticiclones",
+   "saccatura|saccature|cavado|cavados",
+   "perturbazione|perturbazioni|perturbacao",
+   "temporalesco|temporaleschi|temporalesca|temporalesche|trovoada|trovoadas",
+   "nuvolosita|nuvolosa|nuvoloso|nebulosidade",
+   "pluviometro|pluviometri|pluviometrico|pluviometrica|anemometro|anemometri"
+  ],
+  "EN": [
+   "rain|rainfall|precipitation",
+   "temperature|temperatures",
+   "drought|droughts",
+   "frost|frosts",
+   "hail|hailstorm|hailstorms",
+   "heatwave|heatwaves|heat wave|heat waves",
+   "soil moisture",
+   "water stress|water deficit|water balance",
+   "extreme events|extreme weather",
+   "evapotranspiration",
+   "irrigation",
+   "water resources|water resource",
+   "anticyclone|anticyclones|anticyclonic",
+   "trough",
+   "weather front|cold front|warm front",
+   "thunderstorm|thunderstorms",
+   "cloud cover|cloudiness",
+   "rain gauge|rain gauges|anemometer|anemometers"
+  ],
+  "SINAIS_MINIMOS": 2,
+  "PALAVRA_INTEIRA": [
+   "T2"
+  ],
+  "TRANSVERSAIS": [
+   "T2"
+  ],
+  "ANCORAS": {
+   "FORTES": [
+    "fenologia|fenologica|fenologico|fenologiche|fenologici|bbch|estadio fenologico",
+    "fioritura|allegagione|invaiatura|germogliamento|ingrossamento|inolizione|floracao|florescimento",
+    "difesa integrata|lotta integrata|producao integrada|manejo integrado",
+    "soglia di intervento|soglia di trattamento|nivel de controle|nivel de dano",
+    "infestazione|infestazioni|infestacao|catture|capturas",
+    "trattamento fitosanitario|trattamenti fitosanitari|trattamento insetticida|trattamenti insetticidi|intervento fitosanitario|interventi fitosanitari|tratamento fitossanitario|tratamentos fitossanitarios"
+   ],
+   "AGROMETEO": "agrometeorologico|agrometeorologica|agrometeorologici|agrometeorologiche|agrometeorologia|agrometeo",
+   "EDICAO": [
+    "\\b(bollettino|notiziario|settimanale|giornaliero)\\b[^.]{0,80}?\\b(n\\.?|n°|nr\\.?)\\s*\\d{1,3}\\b",
+    "\\bn\\.?\\s*\\d{1,3}\\s*/\\s*20\\d\\d\\b",
+    "\\b\\d{1,2}\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+20\\d\\d\\s*-\\s*\\d{1,2}\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+20\\d\\d",
+    "\\bdel\\s+\\d{1,2}[./-]\\d{1,2}[./-]20\\d\\d\\b"
+   ],
+   "CULTURA": "vigneto|vigneti|vite|oliveto|oliveti|olivo|frutteto|frutteti|frumento|grano|mais|pomodoro|nocciolo|agrumi|barbabietola|colture",
+   "PAGINA_DE_SITE": [
+    "salta al contenuto",
+    "vai al contenuto",
+    "skip to content",
+    "toggle navigation",
+    "main navigation",
+    "menu principale",
+    "chi siamo",
+    "iscrizione",
+    "iscriviti",
+    "newsletter",
+    "area riservata",
+    "accesso rapido",
+    "centro agrometeorologico"
+   ]
+  },
+  "ANCORAS_EN": {
+   "FORTES": [
+    "phenology|phenological|bbch|growth stage",
+    "flowering|fruit set|veraison|bud break|budbreak",
+    "integrated pest management|integrated production",
+    "action threshold|intervention threshold|economic threshold",
+    "infestation|trap catches|trap catch",
+    "crop protection treatment|insecticide treatment|fungicide treatment"
+   ],
+   "AGROMETEO": "agrometeorological|agrometeorology"
+  }
+ },
+ "SHA_NAO_CONFERE": [],
+ "T2": {
+  "MEDIDO_DENTRO_DA_AMOSTRA": true,
+  "OURO_YES": 45,
+  "OURO_NO": 225,
+  "OURO_NAO_SEI_FORA_DA_CONTA": 117,
+  "TP": 45,
+  "FP": 1,
+  "FN": 0,
+  "PRECISAO": 0.978,
+  "RECALL": 1.0,
+  "SEM_SERIE_ARPAV": {
+   "TP": 37,
+   "FP": 1,
+   "FN": 0,
+   "PRECISAO": 0.974,
+   "RECALL": 1.0
+  },
+  "FORA_DA_AMOSTRA": {
+   "ITENS_YES_NO": 0,
+   "TP": 0,
+   "FP": 0,
+   "FN": 0,
+   "PRECISAO": null,
+   "RECALL": null,
+   "MATRIZ": {}
+  },
+  "YES_QUE_SAIRAM_NAO": 0,
+  "YES_QUE_FICARAM_NAO_SEI": 0,
+  "CONTROLO_NEGATIVO": {
+   "NO_DO_GABARITO": 225,
+   "QUE_ENTRARAM_COMO_SIM": 1
+  },
+  "MATRIZ_OURO_REGUA": {
+   "NAO_SEI->NAO": 8,
+   "NAO_SEI->NAO_SEI": 108,
+   "NAO_SEI->SIM": 1,
+   "NO->NAO": 171,
+   "NO->NAO_SEI": 53,
+   "NO->SIM": 1,
+   "YES->SIM": 45
+  },
+  "ERROS": [
+   {
+    "TEXTO_ID": "54adfdf6d4392940",
+    "SOURCE_ID": "IT-T12-006",
+    "SERIE": null,
+    "OURO": "NO",
+    "REGUA": "SIM",
+    "SINAIS": 5,
+    "PALAVRAS": [
+     "temperatura",
+     "evapotraspirazione",
+     "irrigazione",
+     "risorsa idrica"
+    ],
+    "ANCORAS": [
+     "trattamento fitosanitario"
+    ],
+    "FALTA": null,
+    "IDIOMA": null,
+    "OUTRO": null,
+    "FORA": false
+   }
+  ]
+ },
+ "T1": {
+  "TEM_REGUA": false,
+  "JANELAS_DO_GABARITO_JULGADAS_EM_T1": {
+   "NAO_SE_APLICA": 45
+  },
+  "ATLAS_T1": "docs/fontes/ATLAS-DE-FONTES-EAME.md:45 — area plantada, producao, produtividade, calendario agricola, desenvolvimento da cultura, previsao de safra, regioes produtoras, historico"
+ },
+ "VIZINHOS": {
+  "TEXTOS_NO_CORPUS": 1309,
+  "UNIVERSOS": [
+   "T3",
+   "T4",
+   "T5",
+   "T7",
+   "T9",
+   "T10"
+  ],
+  "JULGAMENTOS": 7854,
+  "VEREDITOS_VIZINHOS_MUDADOS": 0,
+  "MUDANCAS": []
+ },
+ "T2_NO_CORPUS_ANTES_DEPOIS": {
+  "NAO_SE_APLICA->NAO": 469,
+  "NAO_SE_APLICA->NAO_SEI": 773,
+  "NAO_SE_APLICA->SIM": 67
+ },
+ "FORA_DO_GABARITO_SIM": {
+  "N": 20,
+  "AMOSTRA_25_PARA_LER": [
+   "textos:b6e1dc18c529b59c.txt",
+   "textos:9f62cce86dc3911c.txt",
+   "textos:98769f390b34e392.txt",
+   "textos:ed0840d5084a8905.txt",
+   "textos:1d05f3f5a45b9776.txt",
+   "textos:d880146d6344a770.txt",
+   "textos:ece748ebe0e8678a.txt",
+   "textos:6282c018d9d91acb.txt",
+   "textos:8d4ff96a1387f2ee.txt",
+   "textos:a018e7f0dfdd9311.txt",
+   "textos:22a92de22c12ca28.txt",
+   "textos:579c6fa68d0bd898.txt",
+   "textos:7f5856128d014f9a.txt",
+   "textos:371aa673910520bc.txt",
+   "textos:fce0cc8c80d93e79.txt",
+   "textos:85eea8b603406452.txt",
+   "textos:63430c6290ceed39.txt",
+   "textos:ae880949f1a9f97d.txt",
+   "textos:7fcdf3e3a884992e.txt",
+   "textos:eb87d60ab10c7c5a.txt"
+  ]
+ }
+}

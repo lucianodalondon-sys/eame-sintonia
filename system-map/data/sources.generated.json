@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T21:20:49+00:00",
-    "HEAD": "0aee14fe58866544ca92a479f386bb0d47a2f47a",
+    "GENERATED_AT": "2026-09-24T20:10:00+00:00",
+    "HEAD": "61335f880808dcd0d792d8e9fee8bf4335daa13b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "4a422e02a57fcfe85d02ec1f559de48134ba7a474fe99933d6f3fd13653f1cdf",
-    "FICHEIROS_NA_IMPRESSAO": 2973,
+    "SOURCE_TREE_FINGERPRINT": "ac39ac5f8830b64e3cbf294a781bc9fcd43cb11f80227224a08b9dc52b551365",
+    "FICHEIROS_NA_IMPRESSAO": 2989,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -30364,6 +30364,43 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 177
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 827
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 22
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 54
+        },
+        {
+          "file": "provas/medir_validadores_coorte.py",
+          "line": 41
+        },
+        {
+          "file": "scripts/receitas/provar_indices.py",
+          "line": 24
+        },
+        {
+          "file": "scripts/regua_t2/recolher_boletins.py",
+          "line": 50
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 58
+        }
+      ]
+    },
+    {
       "endpoint": "https://ex.it/news",
       "usado_por": [
         {
@@ -30430,39 +30467,6 @@
         {
           "file": "tests/test_ponte_audio_publico.py",
           "line": 82
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.arpae.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 177
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 827
-        },
-        {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 22
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 54
-        },
-        {
-          "file": "provas/medir_validadores_coorte.py",
-          "line": 41
-        },
-        {
-          "file": "scripts/receitas/provar_indices.py",
-          "line": 24
-        },
-        {
-          "file": "tests/test_ld2_aditamento.py",
-          "line": 58
         }
       ]
     },
@@ -30710,6 +30714,27 @@
       ]
     },
     {
+      "endpoint": "https://www.assam.marche.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 209
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 986
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 93
+        },
+        {
+          "file": "scripts/regua_t2/recolher_boletins.py",
+          "line": 66
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.coldiretti.it/",
       "usado_por": [
         {
@@ -30790,27 +30815,6 @@
         {
           "file": "tests/test_comunicacao.py",
           "line": 78
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.exemplo.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 462
-        },
-        {
-          "file": "curadoria/test_reparar_contrato.py",
-          "line": 42
-        },
-        {
-          "file": "curadoria/test_revisao_ready.py",
-          "line": 19
-        },
-        {
-          "file": "tests/test_fila_italia_decisoes.py",
-          "line": 196
         }
       ]
     },
@@ -30938,23 +30942,6 @@
       ]
     },
     {
-      "endpoint": "https://www.assam.marche.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 209
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 986
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 93
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.crea.gov.it/",
       "usado_por": [
         {
@@ -30980,7 +30967,7 @@
         },
         {
           "file": "curadoria/test_abastecimento.py",
-          "line": 208
+          "line": 202
         },
         {
           "file": "curadoria/test_discovery.py",
@@ -30997,7 +30984,7 @@
         },
         {
           "file": "curadoria/test_abastecimento.py",
-          "line": 197
+          "line": 191
         },
         {
           "file": "medidas/gabarito_t2_t12.py",
@@ -31106,11 +31093,28 @@
           "line": 148
         }
       ]
+    },
+    {
+      "endpoint": "https://exemplo.tld/x')",
+      "usado_por": [
+        {
+          "file": "provas/orcamento_de_rede.py",
+          "line": 287
+        },
+        {
+          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+          "line": 96
+        },
+        {
+          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
+          "line": 207
+        }
+      ]
     }
   ],
-  "ENDPOINTS_FOUND": 608,
+  "ENDPOINTS_FOUND": 617,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 568,
+  "ENDPOINTS_TRUNCATED": 577,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31128,9 +31132,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 608,
+    "endpoints": 617,
     "endpoints_published": 40,
-    "endpoints_truncated": 568,
+    "endpoints_truncated": 577,
     "candidates": 906,
     "coletores": 54,
     "coletores_com_data": 20,

@@ -139,7 +139,12 @@ AUSENCIA_NAO_SE_APLICA = art.NAO_SE_APLICA
 #     CAPA, diga o detector o que disser (`retrato_html.veredito`). Nas fontes que
 #     nao passam os 4 passos nada muda. O que a v6 admitiu ou reteve de HTML pode
 #     ser reaberto pela versao.
-VERSAO_DA_REGRA = "7"
+# 8 · T2 (CLIMATE / WATER / SOIL) ganha regua (T2-REGUA, 2026-09-24). Ate aqui
+#     todo o par (item, T2) saia `NAO_SE_APLICA`; agora sai SIM / NAO / NAO_SEI
+#     pela regua medida em `scripts/regua_t2/`. Nenhum outro universo muda de
+#     veredito (T2 e transversal — ver `TRANSVERSAIS`). O que a v7 deu a T2 pode
+#     ser reaberto pela versao.
+VERSAO_DA_REGRA = "8"
 
 
 @dataclass
@@ -737,6 +742,42 @@ def _dobrar(texto: str) -> str:
 #: Um so fica `NAO_SEI` — ver `_do_universo`.
 SINAIS_MINIMOS = 2
 
+# ── T2: POR CONCEITO, PALAVRA INTEIRA, E TRANSVERSAL (T2-REGUA, 2026-09-24) ──
+# O mesmo desenho da regua T8 (YT2, branch `youtube-regua-t8-v1`), com os
+# mesmos nomes, para as duas se juntarem sem conflito de ideia: quando T8
+# entrar, os conjuntos passam a {"T2", "T8"}.
+#
+# 1 · UM TERMO DE T2 E UM CONCEITO, e as formas dele vao separadas por «|»
+#     («pioggia|piogge|precipitazione|...»). Conta UMA vez: chuva no singular e
+#     no plural e o mesmo indicio, e SINAIS_MINIMOS exige dois indicios
+#     independentes.
+# 2 · PALAVRA INTEIRA, SO NOS UNIVERSOS DESTE CONJUNTO. Medido no gabarito:
+#     `temporale` (trovoada) e tambem «serie TEMPORALI» (series temporais) numa
+#     carta de servicos de laboratorio; `seca` vive dentro de «biblioteca». As
+#     reguas antigas ficam como estao — muda-las e outra missao, com outra
+#     medicao.
+# 3 · T2 E TRANSVERSAL. O tempo que faz esta em quase tudo o que e agricola: o
+#     boletim fitossanitario diz que «as chuvas da semana passada aumentaram os
+#     voos da mosca», a noticia de mercado diz que «a seca subiu o preco». Isso
+#     nao prova que o boletim NAO e T3 nem que a noticia NAO e T10. Por isso um
+#     termo de T2 NUNCA serve de «prova de outro universo» para dizer NAO a
+#     outro universo — e as decisoes antigas nao mudam por T2 existir
+#     (medido: 0 vereditos vizinhos mudados, `MEDICAO-REGUA-T2-V1.json`).
+#
+#     FALAR DO TEMPO NAO E MUDAR DE ASSUNTO.
+PALAVRA_INTEIRA = frozenset({"T2"})
+TRANSVERSAIS = frozenset({"T2"})
+
+
+def _casa(termo: str, texto_dobrado: str) -> bool:
+    """Uma das formas do conceito (separadas por «|») esta no texto como PALAVRA INTEIRA?"""
+    import re
+    for forma in str(termo).split("|"):
+        f = _dobrar(forma)
+        if f and re.search(r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])", texto_dobrado):
+            return True
+    return False
+
 
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
@@ -792,7 +833,33 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     if lingua == "en":
         reguas = PERGUNTAS_EN
         palavras = PERGUNTAS_EN.get(universo, [])
-    achadas = [p for p in palavras if _dobrar(p) in texto]
+    if universo in PALAVRA_INTEIRA:
+        achadas = [p.split("|")[0] for p in palavras if _casa(p, texto)]
+    else:
+        achadas = [p for p in palavras if _dobrar(p) in texto]
+    if universo in ANCORAS:
+        anc = (ANCORAS_EN if lingua == "en" else ANCORAS)[universo]
+        fortes = [p.split("|")[0] for p in anc["FORTES"] if _casa(p, texto)]
+        agro = _casa(anc["AGROMETEO"], texto)
+        via_agro = agro and len(achadas) >= SINAIS_MINIMOS and _corpo_de_boletim(texto, anc)
+        if (achadas and fortes) or via_agro:
+            ancoras = fortes + (["agrometeo"] if agro else [])
+            return SIM, (f"fala de {', '.join(achadas[:3])} e de {', '.join(ancoras[:3])} — "
+                         f"condicao do campo com ligacao agricola escrita, que e o que "
+                         f"«{universo}» (janela de cultura, D29) pede. A janela em si nao e "
+                         f"decidida aqui: e da Intelligence (CAP-WIN)"),                 {"palavras": achadas[:8], "ancoras": ancoras[:8],
+                 "sinais": len(achadas) + len(ancoras)}
+        ancoras = fortes + (["agrometeo"] if agro else [])
+        if achadas or ancoras:
+            falta = "SEM_LIGACAO_AGRICOLA" if not ancoras else "SEM_CONDICAO_DO_CAMPO"
+            return NAO_SEI, (
+                f"{falta}: ha {', '.join((achadas or ancoras)[:3])}, mas «{universo}» (D29) "
+                f"pede as duas coisas juntas — a condicao (tempo, agua, solo) E a ligacao "
+                f"agricola escrita (fenologia, defesa, monitorizacao). "
+                + ("Tempo sem cultura pode ser de outra pergunta (D2: REROUTE); "
+                   if not ancoras else "")
+                + "Com metade, fica NAO_SEI — nao entra e nao e rejeitado."),                 {"palavras": achadas, "ancoras": ancoras, "falta": falta,
+                 "d2": "REROUTE_POSSIVEL" if not ancoras else None}
     # ── UMA PALAVRA SOLTA NAO PROMOVE ───────────────────────────────────────
     # Medido: `sintoma` (pt) casa dentro de `sintomatologia` (it), `prova` casa
     # dentro de `approvazione`. Uma unica palavra pode ser um acidente de
@@ -819,9 +886,12 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
     noutros = {}
     for outro, termos in reguas.items():
-        if outro == universo:
+        if outro == universo or outro in TRANSVERSAIS:
             continue
-        casou = [t for t in termos if t.lower() in texto]
+        # um universo por conceito («forma|forma») so casa pelas suas formas, e por
+        # palavra inteira; os antigos continuam como estavam.
+        casou = [t.split("|")[0] for t in termos
+                 if (_casa(t, texto) if outro in PALAVRA_INTEIRA else t.lower() in texto)]
         if casou:
             noutros[outro] = casou[:4]
     if noutros:
@@ -1065,6 +1135,64 @@ PERGUNTAS_DO_UNIVERSO = {
             "precos", "cotacao", "cotacoes",
             "importacao", "importacoes",
             "exportacao", "exportacoes"],                    # pt
+    # T2 · CLIMATE / WATER / SOIL
+    #
+    # ⚠️ ESTE UNIVERSO NUNCA TEVE REGUA. Medido na 1.a onda da Big Collection
+    # (BC5, 24/09): as fontes T2 (ARPA Marche, ARPAE) nunca podiam dar SIM, e
+    # 12 dos 50 canais YouTube vivem em T2/T12 (SOC5).
+    #
+    # DE ONDE VEM CADA CONCEITO. Dos dois donos que ja declaram o que T2 e:
+    #     docs/fontes/ATLAS-DE-FONTES-EAME.md:46  «chuva, temperatura, seca,
+    #         geada, ondas de calor, umidade do solo, estresse hidrico, eventos
+    #         extremos, indicadores agronomicos»
+    #     leis/territorios.py::APELIDOS            clima · tempo · meteorologia ·
+    #         chuva · seca · solo · agua · irrigacao
+    # e do vocabulario do BOLETIM DO TEMPO (anticiclone, saccatura,
+    # perturbazione, nuvolosita, temporalesco, pluviometro) — que o gabarito
+    # mostrou ser a forma como «tempo/meteorologia» aparece no corpo de um
+    # texto. Esta ultima parte foi lida no gabarito: e medida DENTRO da amostra.
+    #
+    # ── O QUE FICOU DE FORA, E PORQUE — MEDIDO NO GABARITO T2-V1 ──────────
+    #     O MENU DO SITE NAO E O ASSUNTO DA PAGINA.
+    # Toda a pagina de uma ARPA traz o menu «Meteo e clima · Agrometeo ·
+    # Cambiamenti climatici · Suolo · Acque». Casavam em paginas de concursos,
+    # tarifarios e comites de garantia:
+    # `clima`                     SAIU. 45 dos 217 NO, 2 dos 27 YES.
+    # `meteorologia` e familia    SAIRAM. 19 NO («Servizio meteorologico» no
+    #                             menu e no rodape), e os YES ja tem o boletim.
+    # `agrometeo`/`agrometeorologia`/`agrometeorologico` SAIRAM. 6 a 14 NO: o
+    #                             item de menu e o nome da rede de estacoes.
+    # `cambiamento/i climatico/i` SAIRAM. 17 e 16 NO: tema de menu, e o slogan
+    #                             de qualquer programa europeu.
+    # `suolo`, `acqua`, `acque`   SAIRAM. 76 e 52 NO: menu. Fica o SOLO pela
+    #                             `umidita del suolo` e a AGUA pela
+    #                             `risorsa idrica` e pela `irrigazione`.
+    # `irrigue`/`irrigua`         SAIRAM. «Consorzi di ... acque irrigue» e o
+    #                             NOME da ANBI, no rodape de cada pagina dela —
+    #                             o nome de quem publica nao e o assunto.
+    # `temporale`/`temporali`     SAIRAM. Sao tambem «serie temporali». Ficam
+    #                             `temporalesco` e familia.
+    # `previsioni meteo`          SAIU. 1 YES e 1 NO: o menu da Arpal.
+    "T2": ["pioggia|piogge|precipitazione|precipitazioni"        # it
+           "|chuva|chuvas|precipitacao|precipitacoes",           # pt
+           "temperatura|temperature|temperaturas",
+           "siccita|seca|secas|estiagem",
+           "gelata|gelate|brina|brinate|geada|geadas",
+           "grandine|grandinata|grandinate|granizo",
+           "ondata di calore|ondate di calore|onda de calor|ondas de calor",
+           "umidita del suolo|umidade do solo",
+           "stress idrico|deficit idrico|bilancio idrico"
+           "|estresse hidrico|deficit hidrico|balanco hidrico",
+           "eventi estremi|evento estremo|eventos extremos",
+           "evapotraspirazione|evapotranspiracao",
+           "irrigazione|irrigazioni|irrigacao",
+           "risorsa idrica|risorse idriche|recurso hidrico|recursos hidricos",
+           "anticiclone|anticicloni|anticiclonico|anticiclonica|anticiclones",
+           "saccatura|saccature|cavado|cavados",
+           "perturbazione|perturbazioni|perturbacao",
+           "temporalesco|temporaleschi|temporalesca|temporalesche|trovoada|trovoadas",
+           "nuvolosita|nuvolosa|nuvoloso|nebulosidade",
+           "pluviometro|pluviometri|pluviometrico|pluviometrica|anemometro|anemometri"],
 }
 
 
@@ -1113,8 +1241,142 @@ PERGUNTAS_EN = {
            "downy mildew", "powdery mildew", "botrytis", "apple scab"],
     "T10": ["commodity",                                      # sem lingua
             "price", "quotation", "imports", "exports", "supply and demand"],
+    # T2 · os mesmos conceitos da lista it/pt, um a um, por PALAVRA INTEIRA.
+    # ⚠️ NAO MEDIDO: o gabarito T2-V1 nao tem nenhum texto ingles de T2. Fica
+    # escrito para a porta nao se calar com um boletim em ingles, e o numero
+    # dele e `NAO SEI` ate haver exemplos.
+    "T2": ["rain|rainfall|precipitation",
+           "temperature|temperatures",
+           "drought|droughts",
+           "frost|frosts",
+           "hail|hailstorm|hailstorms",
+           "heatwave|heatwaves|heat wave|heat waves",
+           "soil moisture",
+           "water stress|water deficit|water balance",
+           "extreme events|extreme weather",
+           "evapotranspiration",
+           "irrigation",
+           "water resources|water resource",
+           "anticyclone|anticyclones|anticyclonic",
+           "trough",
+           "weather front|cold front|warm front",
+           "thunderstorm|thunderstorms",
+           "cloud cover|cloudiness",
+           "rain gauge|rain gauges|anemometer|anemometers"],
 }
 IDIOMAS_SEM_REGUA = ("fr", "es", "de")
+
+
+# ── T2 · A LIGACAO AGRICOLA ESCRITA (D29 — JANELAS DE CULTURA, 2026-09-24) ──
+# O dono (D29): «na coleta precisamos coletar informacoes relevantes sobre as
+# JANELAS DE CULTURA». A regua T2 deixa de perguntar «isto fala de clima?» e passa
+# a perguntar «isto sustenta uma janela de cultura?» (Biblia `CAP-WIN`, join keys
+# CROP x REGION x PHENOLOGY_STAGE x TIME_WINDOW).
+#
+#     O TEMPO SO ABRE UMA JANELA QUANDO HA UMA CULTURA DO OUTRO LADO.
+#
+# Por isso SIM pede as DUAS coisas no texto: um conceito de CONDICAO do campo
+# (`PERGUNTAS_DO_UNIVERSO["T2"]`: chuva, temperatura, seca, rega...) E um conceito
+# FORTE daqui — a ligacao agricola escrita (fenologia, estadio, defesa integrada,
+# limiar, capturas, tratamento fitossanitario) —, ou `agrometeo` com DUAS
+# condicoes. So condicao (a previsao do tempo, a tabela
+# de chuva, o verao de calor recorde) fica NAO_SEI com motivo SEM_LIGACAO_AGRICOLA
+# e a marca D2 REROUTE_POSSIVEL: nao e lixo, e de outra pergunta. So ancora (o
+# premio do vinho que fala da vindima) fica NAO_SEI tambem. Nenhuma das metades
+# vira NAO: ausencia de evidencia nao e evidencia de ausencia.
+#
+# A ADMISSAO NAO DECIDE A JANELA. Nao le datas, nao escreve FACT_TIME nem
+# FACT_LOCATION: data de calendario != janela, data regulatoria != janela,
+# FACT_TIME != PUBLICATION_TIME, SOURCE_LOCATION != FACT_LOCATION. Admite e
+# deixa os campos do item como vieram; a janela e da Intelligence.
+#
+# ── O QUE FICOU DE FORA, E PORQUE — MEDIDO NO GABARITO T2-V2 ──────────────
+# `trattamento`/`trattamenti`  SAIRAM soltos: 37 dos 225 NO — «trattamento dei
+#                              dati personali» no rodape de privacidade. Ficam as
+#                              formas `trattamento fitosanitario`/`insetticida`.
+# `raccolta`                   SAIU: «raccolta differenziata» (lixo), 28 NO.
+# `semina`, `plantio`          SAIRAM: casavam em programas de fundos e menus.
+# `vite`                       SAIU: em italiano e tambem «vidas».
+# `coltura`/`colture`          SAIRAM: «Difesa delle colture» e nome de servico.
+# NOMES DE CULTURA E `vendemmia`/`trebbiatura`/`colheita` SAIRAM COMO ANCORA.
+#     Mediu-se FORA do gabarito (1.259 textos, os 14 SIM lidos um a um): a
+#     noticia de mercado fala de tomate e de onda de calor, o premio do vinho
+#     fala da vindima e da temperatura — e nenhuma diz o momento de agir. Os
+#     boletins que falam de colheita trazem tambem fenologia ou limiar, e entram
+#     por ai. A CULTURA E O ASSUNTO DE QUASE TUDO O QUE E AGRICOLA; NAO E A PROVA
+#     DE UMA JANELA.
+# ⚠️ `agrometeo...` e o nome de muitos menus («Agrometeo») e de seccoes de
+#    jornal (AgroNotizie): so conta com DUAS condicoes escritas.
+# ── T2C (24/09): A VIA `agrometeo` SO COM CORPO DE BOLETIM ─────────────────
+# Medido nos 1.309 textos: a via `agrometeo` + 2 condicoes acrescentava 16 SIM, e so 8
+# eram boletins (PDF); os outros 8 eram PAGINAS DE SITE onde «Agrometeo» e item de menu
+# ou nome de servico (LaMMA x3, ARPAV x2, ARPAE, Campania, Puglia) — 2 chegariam a Sala.
+#
+#     O NOME DO SERVICO NAO E O BOLETIM DO SERVICO.
+#
+# Por isso a via so da SIM quando ha CORPO DE BOLETIM — uma marca de edicao (numero,
+# «n. 34/2026», periodo «17 agosto 2026 - 23 agosto 2026», «del 07-09-2026») OU uma
+# cultura nomeada — E o texto NAO traz marcas de pagina de site (navegacao, «chi siamo»,
+# inscricao, newsletter, «accesso rapido», a descricao do «centro agrometeorologico»).
+# O resto da regua nao muda: a via forte (condicao + fenologia/defesa/limiar...) nao
+# olha para isto.
+_MESES = "gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre"
+_EDICAO_DE_BOLETIM = (
+    r"\b(bollettino|notiziario|settimanale|giornaliero)\b[^.]{0,80}?\b(n\.?|n°|nr\.?)\s*\d{1,3}\b",
+    r"\bn\.?\s*\d{1,3}\s*/\s*20\d\d\b",
+    r"\b\d{1,2}\s+(%s)\s+20\d\d\s*-\s*\d{1,2}\s+(%s)\s+20\d\d" % (_MESES, _MESES),
+    r"\bdel\s+\d{1,2}[./-]\d{1,2}[./-]20\d\d\b",
+)
+
+
+def _corpo_de_boletim(texto_dobrado: str, anc: dict) -> bool:
+    """A via `agrometeo` pede corpo de boletim e recusa pagina de site (T2C)."""
+    import re
+    if any(_casa(m, texto_dobrado) for m in anc.get("PAGINA_DE_SITE", ())):
+        return False
+    return (any(re.search(r, texto_dobrado) for r in anc.get("EDICAO", ()))
+            or _casa(anc.get("CULTURA", ""), texto_dobrado))
+
+
+ANCORAS = {
+    "T2": {
+        # basta UMA destas com UMA condicao
+        "FORTES": ["fenologia|fenologica|fenologico|fenologiche|fenologici|bbch|estadio fenologico",
+                   "fioritura|allegagione|invaiatura|germogliamento|ingrossamento|inolizione"
+                   "|floracao|florescimento",
+                   "difesa integrata|lotta integrata|producao integrada|manejo integrado",
+                   "soglia di intervento|soglia di trattamento|nivel de controle|nivel de dano",
+                   "infestazione|infestazioni|infestacao|catture|capturas",
+                   "trattamento fitosanitario|trattamenti fitosanitari|trattamento insetticida"
+                   "|trattamenti insetticidi|intervento fitosanitario|interventi fitosanitari"
+                   "|tratamento fitossanitario|tratamentos fitossanitarios"],
+        # `agrometeo` e tambem nome de menu e de seccao de jornal: so conta com DUAS
+        # condicoes escritas (o boletim traz chuva E temperatura; o menu nao traz nada)
+        "AGROMETEO": "agrometeorologico|agrometeorologica|agrometeorologici|agrometeorologiche"
+                     "|agrometeorologia|agrometeo",
+        # T2C: o que faz de `agrometeo` um boletim, e o que faz dele um menu
+        "EDICAO": _EDICAO_DE_BOLETIM,
+        "CULTURA": "vigneto|vigneti|vite|oliveto|oliveti|olivo|frutteto|frutteti|frumento|grano"
+                   "|mais|pomodoro|nocciolo|agrumi|barbabietola|colture",
+        "PAGINA_DE_SITE": ("salta al contenuto", "vai al contenuto", "skip to content",
+                           "toggle navigation", "main navigation", "menu principale", "chi siamo",
+                           "iscrizione", "iscriviti", "newsletter", "area riservata",
+                           "accesso rapido", "centro agrometeorologico"),
+    },
+}
+# Os mesmos conceitos em ingles. ⚠️ NAO MEDIDO: o gabarito nao tem texto ingles de
+# janela de cultura; o numero fica NAO SEI ate haver exemplos.
+ANCORAS_EN = {
+    "T2": {
+        "FORTES": ["phenology|phenological|bbch|growth stage",
+                   "flowering|fruit set|veraison|bud break|budbreak",
+                   "integrated pest management|integrated production",
+                   "action threshold|intervention threshold|economic threshold",
+                   "infestation|trap catches|trap catch",
+                   "crop protection treatment|insecticide treatment|fungicide treatment"],
+        "AGROMETEO": "agrometeorological|agrometeorology",
+    },
+}
 
 
 def _lingua_do_item(item: dict) -> str:
