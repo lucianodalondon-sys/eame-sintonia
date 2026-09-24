@@ -1,0 +1,191 @@
+{
+ "EGRESS_GATE_BEFORE": {
+  "VALOR": "PASS",
+  "PORQUE": "o portao do dono (superficie/rede.py), ANTES de qualquer pedido"
+ },
+ "EGRESS_COUNTRY_BEFORE": {
+  "VALOR": "IT",
+  "PORQUE": "o pais de saida medido na hora, e nao o que a missao dizia"
+ },
+ "EGRESSO": {
+  "VALOR": "149.22.91.162 · AS212238 Datacamp Limited",
+  "PORQUE": "por aqui saiu a corrida (IT)"
+ },
+ "CUSTO_USD": {
+  "VALOR": 0.0,
+  "PORQUE": "rota gratuita, por decisao do dono"
+ },
+ "LOGIN_USADO": {
+  "VALOR": "NAO",
+  "PORQUE": "nenhuma conta, nenhum cookie de sessao"
+ },
+ "ROTA_PAGA": {
+  "VALOR": "NAO",
+  "PORQUE": "nenhum provedor pago envolvido"
+ },
+ "PERFIL_HTTP": {
+  "VALOR": "999",
+  "PORQUE": "HTTP 999 e o `authwall` da plataforma"
+ },
+ "PERFIL_BYTES": {
+  "VALOR": "1530",
+  "PORQUE": "corpo da recusa"
+ },
+ "PERFIL_AUTHWALL": {
+  "VALOR": true,
+  "PORQUE": "o muro esta no corpo, e nao se contorna"
+ },
+ "PERFIL_ACTIVITY_IDS": {
+  "VALOR": 0,
+  "PORQUE": "zero: a pagina nao serve conteudo nenhum"
+ },
+ "TRAVA_CONTATOS": {
+  "VALOR": "RECUSADO",
+  "PORQUE": "RotaNaoPermitida"
+ },
+ "TRAVA_SEGUIDORES": {
+  "VALOR": "RECUSADO",
+  "PORQUE": "RotaNaoPermitida"
+ },
+ "TRAVA_MENSAGENS": {
+  "VALOR": "RECUSADO",
+  "PORQUE": "RotaNaoPermitida"
+ },
+ "TRAVA_COMENTARIOS": {
+  "VALOR": "RECUSADO",
+  "PORQUE": "RotaNaoPermitida"
+ },
+ "TRAVA_ECRA_DE_LOGIN": {
+  "VALOR": "RECUSADO",
+  "PORQUE": "RotaNaoPermitida"
+ },
+ "OBJETOS_ADQUIRIDOS": {
+  "VALOR": 1,
+  "PORQUE": "um por publicacao com video"
+ },
+ "PEDIDOS_DE_REDE": {
+  "VALOR": 4,
+  "PORQUE": "post + salto + MP4 + legenda"
+ },
+ "ROUTE": {
+  "VALOR": "linkedin:data-sources-mp4-de-pessoa",
+  "PORQUE": "a rota que a matriz declara"
+ },
+ "DECISAO_DO_DONO": {
+  "VALOR": "D24",
+  "PORQUE": "a excecao que autorizou"
+ },
+ "LIMITE": {
+  "VALOR": "PUBLIC_PERSON_VIDEO_ONLY",
+  "PORQUE": "o limite da pessoa, e nao o da organizacao"
+ },
+ "PUBLISHED_AT": {
+  "VALOR": "2026-04-01T16:05:33.664Z",
+  "PORQUE": "declarado pela plataforma (JSON-LD)"
+ },
+ "IDENTITY_CROSSCHECK": {
+  "VALOR": "CONFIRMADA_PELO_ASSET_DO_JSON_LD",
+  "PORQUE": "a ligacao do video ao post, conferida"
+ },
+ "VIDEO_MP4_DESTA_PESSOA": {
+  "VALOR": 1,
+  "PORQUE": "MP4 desta publicacao, e nao os de outra missao"
+ },
+ "LEGENDA_VTT_DESTA_PESSOA": {
+  "VALOR": 1,
+  "PORQUE": "legendas desta publicacao"
+ },
+ "BYTES_NA_PASTA_EM_TOTAL": {
+  "VALOR": 6,
+  "PORQUE": "o que a pasta compartilhada tem, ao lado"
+ },
+ "  MP4_BYTES": {
+  "VALOR": 6935096,
+  "PORQUE": "7445139302390382592__bff909e51 · sha bff909e51443dc63"
+ },
+ "  LEGENDA_BYTES": {
+  "VALOR": 1371,
+  "PORQUE": "7445139302390382592__097128706 · sha 097128706c463d8b"
+ },
+ "OBJETOS_RECONSTRUIDOS": {
+  "VALOR": 1,
+  "PORQUE": "a partir do bruto preservado"
+ },
+ "BYTES_SERVIDOS_DO_DISCO": {
+  "VALOR": 2,
+  "PORQUE": "nenhuma ida a rede nesta metade"
+ },
+ "INGRESSO_ACEITES": {
+  "VALOR": 1,
+  "PORQUE": "observacoes que a porta aceitou"
+ },
+ "INGRESSO_RECUSAS": {
+  "VALOR": 0,
+  "PORQUE": "[]"
+ },
+ "RAW_LINHAS_GRAVADAS": {
+  "VALOR": 0,
+  "PORQUE": "linhas que o dono do RAW planeou escrever"
+ },
+ "RAW_RECUSADOS_SEM_IDENTIDADE": {
+  "VALOR": 1,
+  "PORQUE": "sem SOURCE_ID real nao ha estado de identidade possi"
+ },
+ "  DOCUMENT_ID": {
+  "VALOR": "NAO SEI",
+  "PORQUE": "a identidade do documento"
+ },
+ "  PUBLISHED_AT": {
+  "VALOR": "2026-04-01T16:05:33.664Z",
+  "PORQUE": "declarado pela plataforma"
+ },
+ "LINHAS_RAW_NA_BASE": {
+  "VALOR": 0,
+  "PORQUE": "lidas do banco descartavel, nao do recibo"
+ },
+ "DERIVED_UNIDADES": {
+  "VALOR": 2,
+  "PORQUE": "textos com conteudo"
+ },
+ "DERIVED_KINDS": {
+  "VALOR": "AUTHOR_TEXT + NATIVE_CAPTION",
+  "PORQUE": "a especie de cada texto, declarada"
+ },
+ "DERIVED_CHARS": {
+  "VALOR": 2419,
+  "PORQUE": "caracteres de fala real"
+ },
+ "DERIVED_AMOSTRA": {
+  "VALOR": "🌿🫒 Syllit® Max, el original que lo cambia todo. En olivo, proteger a tiempo marca la diferencia. Syllit® Max o",
+  "PORQUE": "primeiros caracteres"
+ },
+ "ADMISSAO_IMPORTAVEL": {
+  "VALOR": "NAO (No module named 'fcntl')",
+  "PORQUE": "o que impede a regua de correr aqui"
+ },
+ "EGRESS_GATE_AFTER": {
+  "VALOR": "PASS",
+  "PORQUE": "o mesmo portao do dono, DEPOIS da corrida inteira"
+ },
+ "EGRESS_COUNTRY_AFTER": {
+  "VALOR": "IT",
+  "PORQUE": "a corrida INTEIRA saiu por IT?"
+ },
+ "EGRESSO_UNICO_NA_CORRIDA": {
+  "VALOR": true,
+  "PORQUE": "antes e depois dão o mesmo pais exigido — sem troca a meio"
+ },
+ "_O_QUE_ISTO_E": "O canario real do D24: o video e a legenda de uma PESSOA do agro, adquiridos da pagina PUBLICA do post dela, sem conta, sem login, sem contornar muro e por US$ 0. O perfil da mesma pessoa foi medido e esta fechado (999/authwall) — e nao se contorna.",
+ "_COMO_REFAZER": "py provas/canario_d24_video_de_pessoa.py",
+ "_O_NUMERO_CONTA_SO_ESTA_PESSOA": "A pasta `data/raw/LINKEDIN` e compartilhada entre missoes: `VIDEO_MP4_DESTA_PESSOA` conta os bytes desta publicacao (7445139302390382592), e `BYTES_NA_PASTA_EM_TOTAL` diz o que mais la esta. Dois trabalhos somados num numero so nao medem nenhum deles.",
+ "_LIMITES": {
+  "SEM_CONTA": true,
+  "SEM_LOGIN": true,
+  "SEM_COOKIE": true,
+  "SEM_NAVEGADOR": true,
+  "SEM_ROTA_PAGA": true,
+  "SEM_CONTORNAR_MURO": true,
+  "SO_PUBLICO": true,
+  "PESSOAS": "UMA, e so o que ela publicou publicamente"
+ }
+}

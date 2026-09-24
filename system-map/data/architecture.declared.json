@@ -368,7 +368,7 @@
    "views": [
     "acervo"
    ],
-   "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental.",
+   "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte.",
    "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
    "departments": [
     "INTELIGENCIA",
@@ -4533,6 +4533,154 @@
     "provas/recollection_red_team.mjs",
     "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
     "provas/recollection_red_team_estrito.mjs"
+   ]
+  },
+      {
+   "id": "C-PROVA-CANARIO-D24-PESSOA",
+   "name": "O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊞",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Corre a aquisicao do video de uma PESSOA do agro PELA PORTA PUBLICA DO POST — `adaptador_linkedin.video_de_post_publico` — e mede as QUATRO metades: (1) a porta que a plataforma FECHOU, com um pedido real ao perfil da pessoa (HTTP 999, `authwall`, zero `urn:li:activity`) registado em vez de contornado; (2) as travas do D24 SEM REDE, com contatos, seguidores, mensagens, comentarios de terceiros e ecra de login a morrerem antes de qualquer pedido; (3) a rede, com o MP4 e a legenda da publicacao publica; e (4) a CADEIA com o bruto ja em disco — `unidade()` -> `coleta/ingresso.py` -> o dono do RAW — contra uma base DESCARTÁVEL, com um duble que so serve bytes que o bruto preservado conhece. Escreve o artefacto `data/samples/CANARIO-D24-PESSOA-V1.json`. Traz tambem os SEIS MUTANTES de `test_d24_video_de_pessoa`: o estado, o dono autorizado, o limite, o nome da decisao na nota, o nome da rota e a porta de contatos — os seis tem de fazer o teste MORRER, e os seis o fazem. O mutante NAO escreve `PERMITIDA`: mudar um valor nao e declarar uma lei, e ha uma prova nesta casa que exige que a politica seja escrita so pela matriz.",
+   "why_here": "A D24 autorizou por escrito o video de PESSOAS do agro, e a medicao mostrou que a porta da pessoa sao DUAS: o perfil responde 999/authwall e NAO se contorna; a pagina do post publico responde 200 e e por ali que o video se le. Sem esta prova, a rota nova ficaria ligada ao adaptador sem nenhuma medicao que a sustente — e sem os mutantes, ninguem saberia se o teste que a guarda morre quando ela muda.",
+   "department": "COLETA",
+   "files": [
+    "provas/canario_d24_video_de_pessoa.py",
+    "provas/_mutantes_d24.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-CANARIO-D24-REEL-PESSOA",
+   "name": "O canário do Reel de PESSOA no Instagram (D22/D24) — medido com a lei restaurada no fim",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊞",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Corre o canário do REEL PÚBLICO de uma PESSOA do agro no Instagram, por URL directa e sem conta, e mede por esta ordem: (1) o portão de egresso IT ANTES — o ambiente de rede é medido, não suposto; (2) o ponto de partida da matriz SEM estágio, com a decisão que recusa escrita para ficar registada; (3) o estágio declarado da rota D24 EM MEMÓRIA e só neste processo, com os DOIS eixos lado a lado (`OWNER_AUTHORIZED = SIM`, `PLATFORM_POLICY_STATUS = DISALLOWED`, `LIMITE = PUBLIC_PERSON_VIDEO_ONLY`); (4) a aquisição pela cadeia já provada (`reel_transcricao.transcrever_reel`) contra uma base DESCARTÁVEL (`guardar=False` → oficina em `tempfile.mkdtemp`, nada entra no acervo); (5) os bytes medidos NO DISCO com bytes e sha256, e não com um código de estado; (6) o portão de egresso IT DEPOIS — a corrida inteira aconteceu em IT?; e (7) a matriz RESTAURADA, com a prova de que voltou ao que era. Não usa conta, login, cookie de sessão, navegador logado, CAPTCHA nem rota paga; não recolhe contatos, seguidores, mensagens nem comentários de terceiros; o alvo é a PUBLICAÇÃO, não o perfil como fonte. Custo US$ 0.",
+   "why_here": "A D24 autorizou por escrito o vídeo de PESSOAS do agro em qualquer plataforma já coberta pela matriz do Scrap, e a D22 já tinha autorizado os Reels do Instagram por URL directa — nas duas, o dono assumiu o risco e a plataforma continua a proibir, e o desenho da casa é escrever as DUAS frases lado a lado. O que faltava era a MEDIÇÃO desta metade: um Reel público de uma pessoa do agro, por URL directa, sem conta e sem muro contornado. Sem este canário, a rota `instagram:reel-publico-de-pessoa-do-agro` ficaria ligada à matriz sem nenhum número que a sustentasse. UM CANÁRIO QUE MUDASSE A LEI PARA SI PRÓPRIO NÃO MEDIRIA NADA — por isso a lei só passa a `PROVED` depois de ele devolver os números, e por isso o estágio é restaurado no fim.",
+   "department": "COLETA",
+   "files": [
+    "provas/canario_d24_reel_de_pessoa.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
+   "name": "O canário do vídeo de um AGRÓNOMO ITALIANO no YouTube (D24) — a metade que faltava",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊞",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Corre o canário do VÍDEO PÚBLICO de um agrónomo italiano no YouTube e mede, por esta ordem: (1) o portão de egresso do DONO (`superficie/rede.py`) ANTES — fora de IT a corrida não começa e o artefacto não é escrito; (2) a lei SEM estágio, lida da matriz na acção que esta corrida usa (`FETCH_AUDIO_BYTES` → `yt-dlp:public_audio`, `LIMITE = PUBLIC_AUDIO_ONLY`, `OWNER_AUTHORIZED = SIM` e `PLATFORM_POLICY_STATUS = DISALLOWED` lado a lado) — com a rota da TRANSCRIÇÃO (`apify:transcricao`, PAGA) registada ao lado para que ninguém leia o `yt-dlp` e conclua que esta corrida pagou algo; (3) o que a PRÓPRIA PLATAFORMA declara da publicação, pelo `oembed` (gratuito, sem chave, HTTP 200); (4) a aquisição pela rota provada — 5 791 320 bytes de som, sha256 recalculado no disco, 180,98 s, ZERO fluxos de imagem e 1 de som, com o VIDEO preservado como PAI (`PARENT.VIDEO_ID`); e (5) o mesmo portão DEPOIS, a provar que a corrida INTEIRA saiu por IT. Declara o que NÃO mede: `VIDEO_BYTES = NOT_RUN`, porque a matriz não tem rota para os bytes de imagem do YouTube, e `TRANSCRIPT_STATE = NOT_RUN`, porque transcrever é outra capacidade e a fila não foi tocada. Custo US$ 0.",
+   "why_here": "A doc do D24 fechou a metade espanhola (o Reel do Instagram de pessoa) e deixou escrito `ITALIANO = NÃO ENCONTRADO NA AMOSTRA` — 4 posts de pessoa italiana medidos, 0 com vídeo. Este canário mede a metade que faltava, numa SEGUNDA plataforma, e com a MESMA pessoa do canário do Reel (`dr.agricultura`): a mesma pessoa provada em duas plataformas mede a MATRIZ, e não só mais um vídeo. E mede a fronteira em voz alta: a rota do YouTube desta casa é ÁUDIO-ONLY (D17.4/C13), assinatura que continua verdadeira — os bytes de som foram adquiridos, os de imagem não têm rota declarada.",
+   "files": [
+    "provas/canario_d24_video_youtube_de_pessoa.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-CANARIO-D23-LINKEDIN",
+   "name": "O canário do vídeo de organização no LinkedIn (D23) — e os dois bisturis da cadeia",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊟",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Corre a fase `video-linkedin` PELA PORTA CANÓNICA — a mesma linha de comando que o workflow corre, em subprocesso — sobre a página pública de uma ORGANIZAÇÃO, e mede: os MP4 servidos a convidado (bytes e sha256), as faixas de legenda (formato declarado no endereço E medido nos bytes), o `PUBLISHED_AT` que a plataforma declara no JSON-LD, a contraprova de identidade pelo asset, e depois a CADEIA com o bruto já em disco — `unidade()` -> `coleta/ingresso.py` -> o dono do RAW — contra uma base DESCARTÁVEL (SQLite + armazém em pasta temporária). Os dois ficheiros `_diag_` são os bisturis que a missão usou para ler, sem resumir, o que o dono do RAW respondia: um imprime as quebras de contrato do artefacto e das unidades de texto, o outro imprime o recibo inteiro do RAW, incluindo os recusados. Nada aqui toca a Sala real, e o custo é US$ 0. Traz tambem os TRES MUTANTES de `test_c13_route_gate` que provam que a ancora das decisoes antigas ainda morde: uma rota ANTIGA que mude de estado, a rota NOVA do D23 que mude de estado, e uma rota NOVA que apareca sem estar declarada — as tres tem de fazer o teste MORRER, e as tres o fazem (2, 1 e 2 provas caem).",
+   "why_here": "A aquisição de vídeo do LinkedIn estava PROVADA tecnicamente e RECUSADA por política; o dono assumiu o risco (D23, `DECISOES-DONO-2026-09-23.md`) e o que faltava passou a ser a excepção saber dizer o próprio nome. Duas coisas só se podem afirmar com estes ficheiros, e nenhuma delas com um teste de unidade: (1) que a rede serve os bytes a convidado, sem conta, sem cookie e sem navegador — medido com bytes e sha, e não com um código de estado; e (2) que a cadeia ACEITA as observações e que quem recusa a linha canónica é o dono do RAW, com o motivo escrito: «sem SOURCE_ID real nao ha estado de identidade possivel, e nenhum se inventa». Essa segunda metade é a que impede a leitura errada mais provável desta missão — a de que «o vídeo funciona» equivaleria a «entra na Collection». Não equivale: a identidade é decisão de CATÁLOGO. Os dois `_diag_` existem porque o primeiro `INGRESS_CONTRATO_QUEBRADO` que a cadeia deu era desta missão (dois nomes inventados no campo `DERIVATION_METHOD`, que tem vocabulário fechado com dono), e não se conserta o que não se consegue ler por inteiro.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/canario_d23_linkedin_video.py",
+    "provas/_diag_canario_d23.py",
+    "provas/_diag_canario_d23_b.py",
+    "provas/_mutantes_c13_d23.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-CORTESIA",
+   "name": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Uma prova de ZERO REDE EXTERNA que liga o transporte real do coletor (curl) contra um servidor HTTP em 127.0.0.1 e conta os pedidos NO SERVIDOR: robots que proibe um caminho da 0 pedidos a ele; robots que proibe o indice deixa a fonte UNKNOWN e o livro intacto; a pausa minima (1 s, 2 s configurada, Crawl-delay 3) mede-se entre chegadas; o teto de 5 (D7) e o configurado cortam exactamente; robots ilegivel e indisponivel nao deixam passar; o salto de redireccionamento pede licenca outra vez; `www.site` e `site` contam como UM site (o caso Villoresi, medido na rede real: 6 pedidos antes da correccao). E um red team de 17 mutantes, um por guarda, com bandeira que prova que a linha mutada correu, restauro conferido por sha.",
+   "why_here": "Medido na A4: o coletor nao lia robots nem espacava pedidos; quem o fazia era o condutor da micro, por fora — uma regra com dois donos vale para um e falta ao outro. A prova arranca o coletor, nao a regra, porque so assim mede a ROTA: um teste que importa `robotsPermite` provaria o leitor do robots e nunca veria o `baixar()` a ignora-lo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/cortesia_http_local.mjs",
+    "provas/cortesia_red_team.mjs",
+    "provas/CORTESIA-RED-TEAM-V1.json"
+   ]
+  },
+  {
+   "id": "C-COORTE-BIG-COLLECTION",
+   "name": "A coorte unica da Big Collection (D25)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Le o plano do runbook (micro_coleta.py plano), o portao, as provas do canario e o dono dos contratos do coletor, e escreve COORTE-BIG-COLLECTION-V1.json: as PRONTAS com contrato executavel + regua DETAIL/v1 + canario com prova <= 7 dias, fonte a fonte, com o sha256 dos livros lidos. Nao decide nada novo.",
+   "why_here": "G3 (23/09): havia tres tabelas do coletor (linha 173, producao 176, BC2 191) e nenhuma continha as outras; a instalacao da linha perdia as 18 da BC2. A tabela foi juntada pelo dono (onboardar_rotas_provadas) e a coorte ficou num so ficheiro que o runbook le.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/big_collection/coorte_unica.py"
+   ]
+  },
+  {
+   "id": "C-RECONCILIAR-BYTES-BC4",
+   "name": "Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.",
+   "why_here": "BC4 (24/09/2026): a linha instalada nao tinha a raiz operacional do armazem, e os bytes da micro real ficaram na arvore do bot (XX/, NAO_SEI/), residuo que a suite apaga. O conserto (raiz obrigatoria no modo OPERACIONAL) fecha o defeito para a frente; isto repoe os 8 ficheiros ja pousados sem mexer a mao na Sala.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/big_collection/reconciliar_bytes_bc4.py"
+   ]
+  },
+  {
+   "id": "C-BIG-COLLECTION-CONDUTOR-BC5",
+   "name": "Condutor da Big Collection (1.a onda, BC5)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Corre a coorte congelada UMA fonte de cada vez pela porta canonica (micro_coleta.correr), fotografa a Sala antes/depois de cada fonte e aplica os disjuntores do BIG-COLLECTION-RUNBOOK §6 (egresso fora de IT, Sala a descer, >30 min, 3 FAILED seguidas, C6, proveniencia partida, pedidos acima do teto). Nao decide elegibilidade nem admissao: pergunta aos donos.",
+   "why_here": "BC5 (24/09/2026): o arranque da 1.a onda pedia uma fonte de cada vez com paragem automatica; o correr da micro corre a lista inteira sem disjuntores entre fontes.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/big_collection/bc5_big_collection.py"
    ]
   }
  ],

@@ -3,9 +3,17 @@
 """
 C10.5D — A DECISAO DO INSTAGRAM, E AS TRES VERDADES QUE ELA NAO PODE COLAPSAR.
 
-    INSTAGRAM_REMOTE_ACQUISITION = ALLOWED (D22, 2026-09-23)  ← MUDOU
+    INSTAGRAM_REMOTE_ACQUISITION = ALLOWED (D22 Reel por URL + D24 video de pessoa, 2026-09-23)  ← MUDOU
     INSTAGRAM_LOCAL_ASR          = PROVEN
     REUSE_OF_PRESERVED_MEDIA     = ALLOWED
+
+⚠️ ATUALIZADO PELA D22/D24 (2026-09-23): a primeira linha era `NOT_ALLOWED` e
+passou a ser autorizada pelo dono real, POR ESCRITO, com a política da
+plataforma medida e escrita ao lado (`DISALLOWED`). O que muda é o EIXO DO DONO,
+não a política. Os testes de RECUSA que aqui viviam continuam a medir o mesmo —
+com o mundo antigo reposto em memória (`_RecusaDaMatriz`), porque
+
+    A RECUSA MUDOU DE LUGAR. NÃO DEIXOU DE SER MEDÍVEL.
 
 As tres sao verdadeiras ao mesmo tempo. Escrever «Instagram = bloqueado» juntava
 as tres numa so e perdia duas.
@@ -119,6 +127,42 @@ class _EspiaASR:
                 'IDIOMA': 'it', 'MODELO': 'espia'}
 
 
+class _RecusaDaMatriz:
+    """A MATRIZ DE VOLTA À RECUSA DO C10.5D, só dentro do `with`.
+
+    ⚠️ ATUALIZADO PELA **D22/D24** (2026-09-23). A decisão declarada para
+    `INSTAGRAM/FETCH_TRANSCRIPT` deixou de ser `NAO`: o dono real autorizou os
+    Reels por URL directa (D22) e o vídeo de PESSOAS do agro (D24), com os dois
+    eixos escritos ao lado (`OWNER_AUTHORIZED = SIM` +
+    `PLATFORM_POLICY_STATUS = DISALLOWED`). Medido, não suposto: o canário
+    `provas/canario_d24_reel_de_pessoa.py` adquiriu um Reel público de uma pessoa
+    do agro, em IT, por US$ 0.
+
+    O que estes testes mediam continua a ter de ser medido — só que agora com o
+    mundo ANTIGO em vigor, declarado aqui, em memória, e restaurado no fim:
+
+        A RECUSA MUDOU DE LUGAR. NÃO DEIXOU DE SER MEDÍVEL.
+
+    O que se prova aqui não é «a casa recusa»: é que **quando a lei recusa, nada
+    sai** — e é isso que faz do portão um portão e não um cartaz.
+    """
+
+    #: A linha histórica do C10.5D, com o nome com que foi escrita.
+    RECUSA = {'ROTA': 'instagram_transcrever.py:faster-whisper',
+              'CLASSE': 'LOCAL_EXECUTOR', 'PERMITIDA': 'NAO',
+              'ESTADO': 'ROUTE_NOT_ALLOWED', 'PRIORIDADE': 5,
+              'CUSTO': 'zero', 'NOTA': 'recusa do C10.5D, reposta em memória pelo teste'}
+
+    def __enter__(self):
+        self._orig = list(mz.MATRIZ['INSTAGRAM'][GROSSA])
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = [dict(self.RECUSA)]
+        return self
+
+    def __exit__(self, *_):
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = self._orig
+        return False
+
+
 def _ficheiro(tmp, nome='bytes.m4a'):
     """Um ficheiro de som REAL e minusculo, feito aqui.
 
@@ -192,8 +236,12 @@ class ADecisaoEstaTomadaEValeNoSocket(unittest.TestCase):
         d = mz.decisao('INSTAGRAM', GROSSA)
         self.assertEqual(d['DECISAO'], mz.PERMITIDA_SIM)
         rotas = mz.MATRIZ['INSTAGRAM'][GROSSA]
-        self.assertEqual([r['PERMITIDA'] for r in rotas], ['SIM'])
-        self.assertEqual([r['ESTADO'] for r in rotas], ['PROVED'])
+        # D22 + D24: a mesma rota em DUAS linhas, uma por limite (UNIFICACAO-V1-F).
+        self.assertEqual([r['PERMITIDA'] for r in rotas], ['SIM', 'SIM'])
+        self.assertEqual([r['ESTADO'] for r in rotas], ['PROVED', 'PROVED'])
+        self.assertEqual(rotas[1]['LIMITE'], 'PUBLIC_PERSON_VIDEO_ONLY')      # D24
+        self.assertEqual(rotas[1]['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(rotas[1]['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
         self.assertEqual(rotas[0]['ROTA'],
                          'instagram_transcrever.py:faster-whisper')
         self.assertEqual(rotas[0]['OWNER_AUTHORIZED'], 'SIM')       # D22
@@ -382,13 +430,13 @@ class NenhumaDasTresVerdadesMenteSobreAOutra(unittest.TestCase):
         """
         rotas = mz.MATRIZ['INSTAGRAM'][GROSSA]
         self.assertNotIn('BLOCKED', [r['ESTADO'] for r in rotas])
-        self.assertEqual([r['ESTADO'] for r in rotas], ['PROVED'])
+        self.assertEqual([r['ESTADO'] for r in rotas], ['PROVED', 'PROVED'])   # D22 + D24
         self.assertIn('ROUTE_NOT_ALLOWED', mz.ESTADOS)
         self.assertIn('BLOCKED', mz.ESTADOS)
         with _RotaRecusada():
             self.assertEqual([r['ESTADO'] for r in
                               mz.MATRIZ['INSTAGRAM'][GROSSA]],
-                             ['ROUTE_NOT_ALLOWED'])
+                             ['ROUTE_NOT_ALLOWED', 'ROUTE_NOT_ALLOWED'])   # as duas linhas (D22 + D24)
             self.assertNotIn('BLOCKED', [r['ESTADO'] for r in
                                          mz.MATRIZ['INSTAGRAM'][GROSSA]])
 

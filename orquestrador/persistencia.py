@@ -113,8 +113,15 @@ class Persistencia:
     declaração honesta de onde vieram."""
 
     def __init__(self, memoria, banco_do_rastro, estado, porque, morada="",
-                 retiradas=()):
+                 retiradas=(), raiz_do_armazem=None):
         self.memoria = memoria
+        # ── A RAIZ DOS BYTES ANDA COM A MEMORIA ──────────────────────────
+        # Medido em 20/09/2026 (BC2) e outra vez em 24/09/2026 (micro real da
+        # BC4, Sala 54330): memoria OPERACIONAL com bytes em `<repo>/XX/`
+        # (residuo de medicao, que a suite apaga). A raiz vem do dono dos bytes
+        # (`guarda/preservar_coleta.raiz_do_armazem_local`), e no modo
+        # OPERACIONAL e obrigatoria. Nos outros modos, e a arvore, como sempre.
+        self.raiz_do_armazem = raiz_do_armazem
         self.banco_do_rastro = banco_do_rastro
         self.ESTADO = estado
         self.PORQUE = porque
@@ -124,10 +131,16 @@ class Persistencia:
     def para_json(self) -> dict:
         return {"ESTADO": self.ESTADO, "MORADA": self.MORADA or None,
                 "PORQUE": self.PORQUE, "VARIAVEL": VARIAVEL,
+                "ARMAZEM_RAIZ": self.raiz_do_armazem,
                 "AMBIENTE_RETIRADO": list(self.AMBIENTE_RETIRADO),
                 "MEMORIA": type(self.memoria).__name__ if self.memoria else None,
                 "BANCO_DO_RASTRO": (type(self.banco_do_rastro).__name__
                                     if self.banco_do_rastro else None)}
+
+
+def _raiz_dos_bytes(estado, env):
+    from guarda.preservar_coleta import raiz_do_armazem_local   # noqa: PLC0415
+    return raiz_do_armazem_local(estado, env)
 
 
 def dependencias_do_runtime(env=None) -> Persistencia:
@@ -165,7 +178,8 @@ def dependencias_do_runtime(env=None) -> Persistencia:
             "%s nem %s declaradas: a corrida corre sem memoria canonica — RAW "
             "fica em ficheiro, RAW_OBSERVATIONS sai vazio e RASTRO=NAO_EMITIDO. "
             "Nunca se cai para SUPABASE_DB_URL nem para SINTONIA_SALA_DSN."
-            % (VARIAVEL, VARIAVEL_OPERACIONAL))
+            % (VARIAVEL, VARIAVEL_OPERACIONAL),
+            raiz_do_armazem=_raiz_dos_bytes(AUSENTE, e))
 
     if url_op:
         motivo = porque_nao_e_operacional(url_op)
@@ -188,6 +202,11 @@ def dependencias_do_runtime(env=None) -> Persistencia:
         escolhida, estado, qual = url, DESCARTAVEL, VARIAVEL
         porque = ("%s declarada e provada descartavel; memoria e rastro "
                   "ligados ao mesmo banco." % VARIAVEL)
+    # ⚠️ A raiz dos bytes resolve-se ANTES de a memoria nascer e antes de
+    # qualquer efeito no ambiente: no modo OPERACIONAL falha fechado sem
+    # `SINTONIA_ARMAZEM_RAIZ` — memoria operacional com bytes em residuo de
+    # medicao foi o defeito medido (BC2 20/09, BC4 24/09).
+    raiz_do_armazem = _raiz_dos_bytes(estado, e)
     # Os imports vivem aqui, e não no topo, de propósito: compor é o único
     # momento em que esta peça precisa deles, e importar este módulo não
     # deve arrastar o adaptador para quem só quer perguntar «há banco?».
@@ -210,4 +229,5 @@ def dependencias_do_runtime(env=None) -> Persistencia:
     import coleta_checkpoint as cc
     return Persistencia(
         MemoriaPostgres(escolhida), cc.Banco(escolhida), estado,
-        porque, morada_sem_segredo(escolhida), retiradas)
+        porque, morada_sem_segredo(escolhida), retiradas,
+        raiz_do_armazem=raiz_do_armazem)

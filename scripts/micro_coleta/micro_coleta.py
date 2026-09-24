@@ -56,7 +56,12 @@ LIVRO = RAIZ / "data" / "samples" / "LIVRO-DE-DECISOES.json"
 EXECUTOR = "coleta/italy_executor.py"
 
 VARIAVEIS_DA_SALA = ("SINTONIA_COLLECTION_DSN", "SINTONIA_SALA_DSN",
-                     "SINTONIA_SALA_BACKEND", "SINTONIA_PSQL_EXE")
+                     "SINTONIA_SALA_BACKEND", "SINTONIA_PSQL_EXE",
+                     # ⚠️ BC4 (24/09/2026): sem ela, a micro real pousou na Sala real
+                     # 4 materias com os bytes em <arvore do bot>/XX/ (residuo que a
+                     # suite apaga). O orquestrador tambem recusa; aqui recusa-se
+                     # antes da rede. Dono: guarda/preservar_coleta.raiz_do_armazem_local.
+                     "SINTONIA_ARMAZEM_RAIZ")
 AUSENCIA = "NAO SEI"
 
 
@@ -94,10 +99,32 @@ def receita_web(universo: str) -> dict | None:
     return None
 
 
+_SOURCE_ID_DO_ATLAS = re.compile(r"^([A-Z]{2})-T\d+-\d+$")
+
+
+def pais_de(source_id) -> str | None:
+    """O pais DECLARADO da fonte: o prefixo do SOURCE_ID, pela regra do Atlas
+    (`IT-T<territorio>-<seq>`, a mesma que o QUALIFY usa ao alocar).
+
+    ⚠️ MEDIDO NA BC4 (24/09/2026): o comando nao punha pais no pedido e as tres
+    corridas da micro real nasceram `XX-T..`, com `source_country = NAO_SEI` na
+    Sala, embora a fonte fosse italiana. O pais vem da IDENTIDADE — nunca do
+    egresso: o egresso medido fica registado ao lado (o coletor escreve
+    VPN_COUNTRY e EGRESS_IP), e VPN_LOCATION != SOURCE_LOCATION != FACT_LOCATION.
+    Sem identidade valida (candidata, `XX`, minusculas) nao se inventa: None.
+    """
+    m = _SOURCE_ID_DO_ATLAS.match(source_id or "")
+    return m.group(1) if m and m.group(1) != "XX" else None
+
+
 def comando(source_id: str) -> list[str]:
     u = universo_de(source_id)
-    return [sys.executable, "orquestrador/orquestrador.py", apelido_de(u) or u,
-            "--filtro", f"fonte={source_id}", "--filtro", f"universo={u}"]
+    cmd = [sys.executable, "orquestrador/orquestrador.py", apelido_de(u) or u,
+           "--filtro", f"fonte={source_id}", "--filtro", f"universo={u}"]
+    pais = pais_de(source_id)
+    if pais:
+        cmd += ["--filtro", f"pais={pais}"]
+    return cmd
 
 
 # ── FILTROS DE OUTRAS MISSOES ───────────────────────────────────────────────

@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T20:28:16+00:00",
-    "HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
+    "GENERATED_AT": "2026-09-24T12:20:02+00:00",
+    "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "1747c1700fd987dbdc47c4541ffb11e99f363b9d1c3a8794dbf439ffc0b3a054",
-    "FICHEIROS_NA_IMPRESSAO": 2905,
+    "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
+    "FICHEIROS_NA_IMPRESSAO": 2952,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -90,7 +90,7 @@
       {
         "PATH": ".github/workflows/sintonia-scrap.yml",
         "PAPEL": "FONTE",
-        "VERSAO": "51ee049da9fa753c06b5ec32e3077ec67512da9c",
+        "VERSAO": "46871d88288b1d6c196858e66a58665092390333",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "1747c1700fd987dbdc47c4541ffb11e99f363b9d1c3a8794dbf439ffc0b3a054",
+        "VERSAO": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "437dffd5e8012a59d85c39906dd83d1e21e215e4ebd496d5c9596714d650c37a",
+    "INPUTS_DIGEST": "3a689795ef81c3d2101d3fa598d20ac6e8316dade0a80fed95536b15b018b5ab",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -179,6 +179,18 @@
       "estado": "gray"
     },
     {
+      "id": "C-COORTE-BIG-COLLECTION",
+      "nome": "A coorte unica da Big Collection (D25)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
       "id": "C-LEITORES",
       "nome": "Abrir PDF, ODS e HTML",
       "zona": "· as ferramentas da execucao",
@@ -188,6 +200,18 @@
       "alguem_corre": false,
       "respostas": 2,
       "ficheiros": 5,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-BIG-COLLECTION-CONDUTOR-BC5",
+      "nome": "Condutor da Big Collection (1.a onda, BC5)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 1,
       "estado": "yellow"
     },
     {
@@ -225,6 +249,18 @@
       "respostas": 2,
       "ficheiros": 0,
       "estado": "green"
+    },
+    {
+      "id": "C-RECONCILIAR-BYTES-BC4",
+      "nome": "Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 1,
+      "estado": "yellow"
     },
     {
       "id": "C-DECISAO-DA-FILA",
@@ -840,10 +876,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 58,
+    "pecas_da_coleta": 61,
     "respondem_as_quatro": 26,
     "respondem_a_tres": 25,
-    "respondem_a_duas": 4,
+    "respondem_a_duas": 7,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

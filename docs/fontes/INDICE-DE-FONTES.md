@@ -18,8 +18,8 @@ sabe buscar sozinha.
 | fichas completas no atlas | **297** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
-| endereços que o código realmente chama | **594** |
-| desses, publicados no mapa | **40** (truncados: 554) |
+| endereços que o código realmente chama | **604** |
+| desses, publicados no mapa | **40** (truncados: 564) |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
@@ -58,7 +58,7 @@ py candidatas/fonte_nova.py \
     --para-que "para que serve" --quem-viu voce --onde-viu "onde viu"
 ```
 
-Hoje há **476** candidata(s) na fila,
+Hoje há **906** candidata(s) na fila,
 em `candidatas/FONTES-CANDIDATAS.json`.
 
 `--para-que` é obrigatório de propósito: fonte sem uso declarado vira

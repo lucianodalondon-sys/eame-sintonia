@@ -21,7 +21,8 @@ MC = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(MC)
 
 AMBIENTE_OK = {"SINTONIA_COLLECTION_DSN": "x", "SINTONIA_SALA_DSN": "x",
-               "SINTONIA_SALA_BACKEND": "POSTGRES", "SINTONIA_PSQL_EXE": "x"}
+               "SINTONIA_SALA_BACKEND": "POSTGRES", "SINTONIA_PSQL_EXE": "x",
+               "SINTONIA_ARMAZEM_RAIZ": "x"}
 
 
 # A coorte vem do PORTAO, no instante (A2). Os dados de fixture cobrem-na toda.
@@ -79,7 +80,10 @@ class TestCorrerNaoVaiARedeSemTudoCerto(unittest.TestCase):
         l = _Lancador()
         r = MC.correr(autorizado=True, lancar=l, egresso=lambda: {"PAIS": "IT"}, ambiente={})
         self.assertFalse(r["CORREU"])
-        self.assertEqual(len(r["FALTA"]), 4)
+        # 5 desde a BC4 (24/09/2026): SINTONIA_ARMAZEM_RAIZ — sem ela os bytes da Sala
+        # real caiam em <arvore>/XX/ (residuo que a suite apaga)
+        self.assertEqual(len(r["FALTA"]), 5)
+        self.assertIn("SINTONIA_ARMAZEM_RAIZ", r["FALTA"])
         self.assertEqual(l.comandos, [])
 
     def test_sala_em_ficheiro_ou_banco_descartavel_recusa(self):

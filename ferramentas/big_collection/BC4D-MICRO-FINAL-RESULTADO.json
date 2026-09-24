@@ -1,0 +1,137 @@
+{
+ "DATASET": "BC4D-MICRO-FINAL-RESULTADO",
+ "REGRAS": "BC4D-MICRO-FINAL-REGRAS.json (commit 47df0623, 10:06:33Z, antes da rede)",
+ "GUARDA_ANTES": "07:08:31: 1 python supervisor + 1 python ponte (o bot estivera parado pela guarda de egresso 04:22-07:08, 51 medicoes UNKNOWN)",
+ "BOT_PARADO": {
+  "DE": "07:09:44",
+  "ATE": "07:13:57"
+ },
+ "BACKUP": {
+  "DUMP": "C:\\bc4\\backup3\\SALA-ANTES-DA-MICRO.dump",
+  "BYTES": 2191286,
+  "SHA256": "7153f6a8036d35afe75a7ca35db9334a61ddf588857b8d75c301c0347b70ba24",
+  "RESTAURADO_IGUAL": true
+ },
+ "LISTAGEM_IT_T10_018": {
+  "PEDIDOS": 1,
+  "HTTP": 200,
+  "CANDIDATAS": 33,
+  "JA_VISTAS": 26,
+  "NOVAS": 7,
+  "DECISAO": "ENTRA (regra registada)"
+ },
+ "LOTE": [
+  "IT-T10-018",
+  "IT-T7-121",
+  "IT-T5-090"
+ ],
+ "TROCAS_DE_FONTE": 0,
+ "CORRIDAS": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T10-2026-09-24-101059-1ed4c40cefbca49b",
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-121",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T7-2026-09-24-101125-f5ba418537d0d7a6",
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T5-090",
+   "STATUS": "SUCCESS",
+   "RUN_ID": "IT-T5-2026-09-24-101155-4d2beff71b9a7014",
+   "GATE_NO_INSTANTE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ]
+  }
+ ],
+ "PEDIDOS_POR_SITE": {
+  "myfruit.it": "1 listagem + 4 do coletor (teto 4) = 5; 5 recusas do teto",
+  "cia.it": "4 (robots AUSENTE = sem ficheiro)",
+  "istat.it": "4 (robots LIDO)"
+ },
+ "RAW": 4,
+ "DERIVED": 4,
+ "ADMISSION": {
+  "IT-T10-018": {
+   "SIM": 1,
+   "NAO_SEI": 1
+  },
+  "IT-T7-121": {
+   "NAO": 1
+  },
+  "IT-T5-090": {
+   "SIM": 1
+  },
+  "TOTAL": {
+   "SIM": 2,
+   "NAO": 1,
+   "NAO_SEI": 1
+  }
+ },
+ "SALA": {
+  "ANTES": {
+   "sala_de_espera": 64,
+   "raw_asset": 1411,
+   "storage_object": 1103,
+   "derived_artifact": 914,
+   "collection_run": 393
+  },
+  "DEPOIS": {
+   "sala_de_espera": 66,
+   "raw_asset": 1415,
+   "storage_object": 1107,
+   "derived_artifact": 918,
+   "collection_run": 396
+  }
+ },
+ "C4": "PASS nas duas chamadas (SALA_LINHAS 1 + 1, ambas com cadeia inteira)",
+ "LINHAS_NOVAS_NA_SALA": [
+  {
+   "ITEM": "derived:915",
+   "SOURCE_ID": "IT-T10-018",
+   "RUN": "IT-T10-2026-09-24-101059-1ed4c40cefbca49b",
+   "OBSERVATION": 1413,
+   "URL": "https://www.myfruit.it/news/esselunga-amplia-gli-spazi-a-treviglio-bergamo",
+   "BYTES_E_TEXTO_NO_ARMAZEM_SHA_OK": true,
+   "DECISAO": "SIM",
+   "COUNTRY": "IT",
+   "EGRESSO_AO_LADO": "IT 205.147.30.20"
+  },
+  {
+   "ITEM": "derived:918",
+   "SOURCE_ID": "IT-T5-090",
+   "RUN": "IT-T5-2026-09-24-101155-4d2beff71b9a7014",
+   "OBSERVATION": 1415,
+   "URL": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/",
+   "BYTES_E_TEXTO_NO_ARMAZEM_SHA_OK": true,
+   "DECISAO": "SIM",
+   "COUNTRY": "IT",
+   "EGRESSO_AO_LADO": "IT 205.147.30.20",
+   "A_CONFIRMAR_POR_PESSOA": "a pagina do ISTAT e uma pagina de eventos das sociedades cientificas; o juiz de capa nao a apontou, mas pode ser pagina de listagem"
+  }
+ ],
+ "BYTES": {
+  "ARMAZEM_DA_SALA": "1638 -> 1646 (+8: 4 observacoes + 4 textos)",
+  "ARVORE_DO_CODIGO": "0 novos"
+ },
+ "CRITERIOS": {
+  "A (IT-T10-018)": "C1..C7 e C9 PASS, C8 NAO_SE_APLICA",
+  "B (IT-T7-121, IT-T5-090)": "C2 PENDENTE_HUMANO (IT-T7-121 'settore-comunicazione-contatti' apontada como capa; ela deu NAO), resto PASS, C8 NAO_SE_APLICA"
+ },
+ "SOURCE_COUNTRY_E_PREFIXO_XX": "NAO_SEI / XX (decisao do coordenador: fica nesta onda)",
+ "RESULTADO": "SUCESSO"
+}

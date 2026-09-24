@@ -215,7 +215,82 @@ LIMITES = ('PUBLIC_AUDIO_ONLY',
            # stories · comentários · listar reels de um perfil (isso é outra
            # rota, com outro limite) · qualquer rota paga.
            'PUBLIC_REEL_BY_URL_ONLY',
-           'PUBLIC_PROFILE_DISCOVERY_ONLY')
+           'PUBLIC_PROFILE_DISCOVERY_ONLY',
+           # ── O LIMITE DO VIDEO DE ORGANIZACAO NO LINKEDIN (D23) ──────────
+           # ⚠️ AMPLIAR ESTE VOCABULARIO E DECISAO DE DONO, E ELE TOMOU-A.
+           # O DONO REAL autorizou, por escrito, a aquisicao de VIDEO (e da
+           # legenda que vem com ele) de paginas de ORGANIZACOES no LinkedIn,
+           # assumindo o risco: `DECISOES-DONO-2026-09-23.md` -> D23.
+           #
+           #     OWNER_AUTHORIZED = SIM  +  PLATFORM_POLICY_STATUS = DISALLOWED
+           #
+           # Nenhum dos dois limites acima descreve isto, e reusar um deles
+           # faria o limite prometer o que nao trava:
+           #   · `PUBLIC_AUDIO_ONLY` descreve BYTES DE SOM publicos e nasceu
+           #     para o YouTube; aqui o que se adquire e VIDEO e TEXTO.
+           #   · `PUBLIC_PROFILE_DISCOVERY_ONLY` NAO adquire midia nenhuma.
+           #
+           # O QUE ELE PERMITE, e a lista e fechada:
+           #   · descobrir as publicacoes que uma pagina de ORGANIZACAO serve
+           #     publicamente, sem autenticacao;
+           #   · os BYTES do video que essa publicacao serve (MP4 progressivo);
+           #   · a FAIXA DE LEGENDA que a propria publicacao declara
+           #     (`data-captions-url`), com a especie do texto preservada;
+           #   · o texto que a organizacao escreveu na propria publicacao.
+           #
+           # O QUE ELE NAO PERMITE, e a lista e fechada de proposito:
+           #   conteudo de PERFIL DE PESSOA · autenticacao, conta, cookie de
+           #   sessao · contornar login wall, CAPTCHA ou bloqueio · texto de
+           #   comentarios · lista de quem reagiu · rota paga · escrita,
+           #   publicacao ou interacao de qualquer especie.
+           #
+           # E NAO SE HERDA: `fetch_post` (post publico fora de pagina de
+           # organizacao, ou por busca) continua `ROUTE_NOT_ALLOWED`, e nada
+           # nesta rota ganha aquela permissao por passar por aqui.
+           #
+           #     UM LIMITE QUE NAO DESCREVE O QUE A ROTA FAZ NAO E UM LIMITE.
+           'PUBLIC_ORG_VIDEO_ONLY',
+           # ── O LIMITE DO VIDEO DE PESSOA DO AGRO (D24) ───────────────────
+           # ⚠️ AMPLIAR ESTE VOCABULARIO E DECISAO DE DONO, E ELE TOMOU-A.
+           # O DONO REAL autorizou, POR ESCRITO, a aquisicao de VIDEO (e da
+           # legenda/transcricao e dos metadados publicos do proprio post) de
+           # PESSOAS do agro — pesquisador, doutor agronomo, perito agrario,
+           # agrotecnico, creator, influencer — em qualquer plataforma desta
+           # matriz, assumindo o risco: `DECISOES-DONO-2026-09-23.md` -> D24.
+           #
+           #     OWNER_AUTHORIZED = SIM  +  PLATFORM_POLICY_STATUS = DISALLOWED
+           #
+           # Nenhum dos limites acima descreve isto. `PUBLIC_ORG_VIDEO_ONLY`
+           # fala de PAGINA DE ORGANIZACAO, e uma pessoa nao tem pagina de
+           # organizacao; `PUBLIC_PROFILE_DISCOVERY_ONLY` nao adquire midia.
+           #
+           # O QUE ELE PERMITE, e a lista e fechada:
+           #   · descobrir e ler publicacoes PUBLICAS de pessoa do agro que
+           #     sejam servidas sem autenticacao;
+           #   · os BYTES do video dessas publicacoes;
+           #   · a FAIXA DE LEGENDA que a propria publicacao declara, com a
+           #     especie do texto preservada (nunca como prova da fala original);
+           #   · o texto que a propria pessoa escreveu na publicacao, e a
+           #     identidade PUBLICA dela como PUBLICADOR.
+           #
+           # O QUE ELE NAO PERMITE, e a lista e fechada de proposito:
+           #   CONTATOS · SEGUIDORES · MENSAGENS (DM) · COMENTARIOS DE
+           #   TERCEIROS · lista de quem reagiu · perfil privado · conteudo de
+           #   perfil que exija autenticacao · contornar login wall, CAPTCHA ou
+           #   bloqueio · rota paga · pontuar, ranquear ou classificar a pessoa
+           #   (`PERSONAL_SCORING`) · escrita, publicacao ou interacao.
+           #
+           # E O QUE ELE NAO REABRE, dito com o nome de quem decide:
+           #   `NAMED_RESEARCHER_PUBLIC_SCREEN` continua BLOCKED_PENDING_LEGAL_REVIEW
+           #   em `docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md`. Aquele bloqueio
+           #   e de TELA — o produto nao lista pessoas nomeadas. Autorizar a
+           #   AQUISICAO de um video publico nao autoriza nenhuma tela a listar
+           #   quem o publicou, e as duas coisas vivem em donos diferentes.
+           #
+           #     AUTORIZAR A COLETA NAO VIRA CONFORMIDADE JURIDICA.
+           #     O dono assumiu o risco da COLETA; a revisao juridica da ADAMA
+           #     continua a ser quem decide a TELA.
+           'PUBLIC_PERSON_VIDEO_ONLY')
 
 #: Os tres campos, na ordem em que se leem. Uma rota declara-os TODOS ou nenhum.
 EIXOS = ('OWNER_AUTHORIZED', 'PLATFORM_POLICY_STATUS', 'LIMITE')
@@ -316,7 +391,15 @@ MATRIZ = {
     'YOUTUBE': {
         '_NOTA': ('As três rotas gratuitas foram MEDIDAS funcionando nesta máquina em '
                   '2026-09-08 e as três estão em caminho `Disallow` do robots.txt. '
-                  'A única rota permitida é a Data API v3.'),
+                  'A única rota permitida é a Data API v3. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou por escrito o VÍDEO (e o áudio, a '
+                  'legenda e os metadados públicos) de PESSOAS do agro — pesquisador, '
+                  'agrônomo, creator, influencer. Aqui isso NÃO move nenhum estado, e vale '
+                  'dizê-lo: o que barra as rotas do YouTube é CREDENCIAL e ROBOTS, não o '
+                  'eixo da pessoa. Um canal pessoal nunca foi recusado por ser pessoal; o '
+                  'que a D24 acrescenta é que ele também está AUTORIZADO — e o canal '
+                  'pessoal passa a ter rota declarada, com o `yt-dlp:public_audio` a valer '
+                  'para ele como vale para qualquer canal público.'),
         'SEARCH_KEYWORD': [
             r('youtube-data-api-v3:search.list', 'OFFICIAL_API_FREE', 'SIM',
               'CREDENTIAL_MISSING', '1 unidade/chamada, bucket próprio de 100 buscas/dia',
@@ -528,7 +611,10 @@ MATRIZ = {
     'THREADS': {
         '_NOTA': ('Surpresa boa da pesquisa: a Meta publica um endpoint de busca por '
                   'palavra-chave em conteúdo público de terceiros. É o único da família '
-                  'Meta desenhado para isso.'),
+                  'Meta desenhado para isso. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou o VÍDEO de PESSOAS do agro nesta '
+                  'família também. A busca por palavra-chave continua a ser a rota oficial '
+                  'e o eixo da pessoa não a trava; nenhum estado muda por causa do D24.'),
         'SEARCH_KEYWORD': [
             r('threads:/v1.0/keyword_search', 'OFFICIAL_API_FREE', 'CONDICIONAL',
               'CREDENTIAL_MISSING', 'zero dentro da quota',
@@ -548,7 +634,12 @@ MATRIZ = {
 
     'FACEBOOK': {
         '_NOTA': ('`robots.txt` do facebook.com é `Disallow: /` para todo agente. Não '
-                  'existe rota de HTTP direto permitida. Tudo passa por App Review.'),
+                  'existe rota de HTTP direto permitida. Tudo passa por App Review. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou o VÍDEO de PESSOAS do agro '
+                  'também aqui. O eixo da pessoa deixa de ser impedimento; o impedimento '
+                  'que resta é o da PLATAFORMA (robots `Disallow: /` medido, e as rotas '
+                  'oficiais atrás de App Review) — e por isso nenhuma rota desta '
+                  'plataforma muda de estado por causa do D24.'),
         'DISCOVER_ACCOUNT': [
             r('graph:/pages/search', 'OFFICIAL_API_FREE', 'CONDICIONAL', 'CREDENTIAL_MISSING',
               'zero dentro da quota',
@@ -580,7 +671,25 @@ MATRIZ = {
     'INSTAGRAM': {
         '_NOTA': ('Estrada MADURA nesta casa — `instagram_janela.py` já mede a rota do '
                   'navegador público e `instagram_transcrever.py` já transcreve local. '
-                  'Esta missão NÃO reescreve nada disso; só declara onde a Apify sobra.'),
+                  'Esta missão NÃO reescreve nada disso; só declara onde a Apify sobra. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou TAMBÉM o VÍDEO de PESSOAS do agro '
+                                    '— e a D22 já tinha autorizado os Reels por URL directa, substituindo a '
+                                    'D19. A leitura ANTERIOR parava o Reel de pessoa ANTES da rede e '
+                                    'colapsava os DOIS eixos num só: dizia «a plataforma proíbe» e escondia '
+                                    'que o dono já tinha assumido esse risco — como o assumiu no áudio do '
+                                    'YouTube (D17.4/C13) e no vídeo de organização do LinkedIn (D23). O eixo '
+                                    'da PLATAFORMA continua MEDIDO e escrito ao lado de cada rota: o '
+                                    '`robots.txt` vivo do `instagram.com` proíbe a coleta automatizada sem '
+                                    'permissão escrita da plataforma. A autorização do dono é sobre o RISCO '
+                                    'DO PROJETO; ela NÃO É a «express written permission» da plataforma, e '
+                                    'nenhuma das duas se troca pela outra. '
+                                    'O QUE CONTINUA FECHADO, e não por efeito lateral: o PERFIL '
+                                    '(999/authwall medido, e o muro de login da grade por HTTP), login, '
+                                    'conta, cookie de sessão, contornar login wall/CAPTCHA/bloqueio, '
+                                    'CONTATOS, SEGUIDORES, MENSAGENS (DM), COMENTÁRIOS DE TERCEIROS, rota '
+                                    'paga, `PERSONAL_SCORING` e a TELA de pessoas nomeadas '
+                                    '(`NAMED_RESEARCHER_PUBLIC_SCREEN` — dono: revisão jurídica). '
+                                    'PONTEIRO: `docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md` §6.'),
         'FETCH_PROFILE': [
             r('instagram_janela.py:embed', 'PUBLIC_BROWSER', 'CONDICIONAL', 'PROVED', 'zero',
               'já medido nesta casa em 2026-09-02: bio, seguidores, denominador de posts',
@@ -674,6 +783,70 @@ MATRIZ = {
               'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md',
               owner_authorized='SIM', platform_policy='DISALLOWED',
               limite='PUBLIC_REEL_BY_URL_ONLY'),
+            # ── D24 (2026-09-23): a SEGUNDA linha da mesma rota — o VIDEO de PESSOA ──
+            # A D22 (linha acima) autorizou o Reel por URL directa com o limite
+            # PUBLIC_REEL_BY_URL_ONLY; a D24 autorizou o video de PESSOAS do agro com
+            # PUBLIC_PERSON_VIDEO_ONLY. Sao DUAS autorizacoes com dois limites e a
+            # matriz guarda as duas (UNIFICACAO-V1-F): nenhuma substitui a outra.
+            # decisao() devolve a primeira (a da D22); quem precisa da de pessoa
+            # procura-a pelo LIMITE.
+            # ── C10.5D (2026-09-11) mandou PARAR; D22/D24 (2026-09-23) mandaram
+            #    ANDAR — e o que separa as duas não é a capacidade, é o EIXO.
+            #
+            # A C10.5D leu o `robots.txt` VIVO de `instagram.com` — 6.256 bytes, o
+            # bloco `User-agent: *` / `Disallow: /` — e escreveu `NAO`. Isso estava
+            # certo enquanto a casa lia UM eixo só: dizia «a plataforma proíbe» e
+            # deixava por dizer quem tinha assumido o risco.
+            #
+            #     UMA LEITURA DE UM EIXO SÓ NÃO É UMA DECISÃO: É METADE DELA.
+            #
+            # A D22 (dono real) autorizou os Reels por URL directa, substituindo a
+            # D19; a D24 (o mesmo dono, por escrito) autorizou o VÍDEO de PESSOAS do
+            # agro. As duas trazem a mesma forma que a casa já usava no áudio do
+            # YouTube (D17.4/C13) e no vídeo de organização do LinkedIn (D23):
+            #
+            #     OWNER_AUTHORIZED = SIM  +  PLATFORM_POLICY_STATUS = DISALLOWED
+            #
+            # A plataforma continua a PROIBIR — isso está medido, e fica escrito ao
+            # lado em vez de apagado. Quem mudou foi o dono do risco.
+            #
+            # O QUE ESTA ABERTURA **NÃO** ABRE, e cada linha disto tem prova:
+            #   · PERFIL — 999/`authwall` medido; e a grade por HTTP devolve o muro
+            #     de login. Não se contorna;
+            #   · login, conta, cookie de sessão, CAPTCHA, bloqueio — nada disso;
+            #   · CONTATOS · SEGUIDORES · MENSAGENS (DM) · COMENTÁRIOS DE TERCEIROS;
+            #   · rota paga (D17.1) e `PERSONAL_SCORING`;
+            #   · a TELA de pessoas nomeadas — `NAMED_RESEARCHER_PUBLIC_SCREEN`
+            #     continua com a revisão jurídica, que é outro dono.
+            #
+            #     AUTORIZAR A COLETA NÃO VIRA CONFORMIDADE JURÍDICA.
+            #
+            # E O LIMITE NOMEIA O ALVO QUE FOI MEDIDO: `PUBLIC_PERSON_VIDEO_ONLY`.
+            # Um Reel de ORGANIZAÇÃO no Instagram não é este limite — a D22 fala
+            # deles, e quem os abrir declara o limite próprio. O vocabulário é
+            # fechado e cresce declarado, nunca por analogia.
+            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'SIM',
+              'PROVED',
+              'zero dólar, ~6 h/1.000 vídeos no modelo small',
+              'A ROTA SAI PARA A PLATAFORMA: baixa a mídia pública do Reel por URL '
+              'directa e só depois reconhece a fala. '
+              'MEDIDO em 2026-09-23, egresso IT (AS212238 · Palermo) nas DUAS pontas '
+              'da corrida, sem conta, sem login, sem cookie e sem contornar muro: um '
+              'Reel PÚBLICO de uma PESSOA do agro italiano (@dr.agricultura — '
+              'Alessandro Giglietti, dottore agronomo) foi adquirido por URL directa '
+              'em AQUISIÇÃO SÓ DE ÁUDIO — `MEDIA_STATE = MEDIA_OK`, '
+              '`AUDIO_ONLY_ACQUISITION = PROVEN`, 696 245 bytes, sha256 `ea372eeb…`, '
+              'e DUAS corridas independentes devolveram o MESMO sha256. A '
+              '`CAPTION_TEXT` (731 caracteres) viaja marcada como legenda, nunca como '
+              'fala. O alvo foi descoberto pela JANELA PÚBLICA da própria casa (grade '
+              'do perfil, deslogada) — nenhum buscador. '
+              'A PLATAFORMA PROÍBE (o `robots.txt` vivo responde `Disallow: /`); o '
+              'dono autorizou por escrito (D22/D24), e as duas frases andam juntas. '
+              'A página de PERFIL continua FECHADA (999/`authwall`, medido) e não se '
+              'contorna.',
+              'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_PERSON_VIDEO_ONLY'),
         ],
         'FETCH_COMMENTS': [
             r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',
@@ -695,7 +868,27 @@ MATRIZ = {
                   'abre com "The use of robots or other automated means to access LinkedIn '
                   'without the express permission of LinkedIn is strictly prohibited." '
                   'Só `LinkedInBot` tem `Allow: /`. Portanto: DESCOBERTA INDIRETA, e '
-                  'nenhum acesso automatizado ao linkedin.com.'),
+                  'nenhum acesso automatizado ao linkedin.com — COM UMA EXCEÇÃO DECLARADA. '
+                  '⚠️ D23 (2026-09-23): o DONO REAL autorizou, por escrito e com o risco '
+                  'assumido, a aquisição de VÍDEO e da legenda que vem com ele em páginas '
+                  'de ORGANIZAÇÕES. Essa autorização vive nas três rotas com eixos '
+                  '(`DISCOVER_POST`, `FETCH_VIDEO_BYTES`, `FETCH_TRANSCRIPT`), e ela NÃO '
+                  'se espalha: as rotas de `FETCH_POST` continuam `ROUTE_NOT_ALLOWED`, e '
+                  'perfis de PESSOAS continuam fora. A plataforma continua a PROIBIR — '
+                  'isso está medido e escrito em cada rota; quem mudou foi o dono do '
+                  'risco, e não a lei da plataforma. '
+                  '⚠️ D24 (2026-09-23): o MESMO dono autorizou, também por escrito, o '
+                  'VÍDEO de PESSOAS do agro (pesquisador, agrônomo, creator, influencer). '
+                  'Isso SUBSTITUI a frase «perfis de PESSOAS fora» da D23 — e só para '
+                  'vídeo/legenda/metadados públicos do próprio post. O que a medição '
+                  'mostrou, e que fica escrito: a PÁGINA DE PERFIL (`/in/<slug>/`) responde '
+                  '999 com `authwall`, com a nossa UA E com UA de navegador (medido, '
+                  'egresso IT/datacenter) — essa porta continua FECHADA e NÃO se contorna; '
+                  'a PÁGINA DO POST público de uma pessoa responde 200 a convidado (medido '
+                  'em agrônomos italianos), e é por ali que o vídeo pode ser lido. '
+                  'O QUE A D24 NÃO REABRE: contatos, seguidores, mensagens, comentários de '
+                  'terceiros, `PERSONAL_SCORING` e o `NAMED_RESEARCHER_PUBLIC_SCREEN` '
+                  '(este é de TELA, e o dono dele é a revisão jurídica).'),
         'DISCOVER_ACCOUNT': [
             r('descoberta-indireta:site-da-organizacao', 'DIRECT_HTTP', 'SIM',
               'POSSIBLE_NOT_PROVED', 'zero',
@@ -708,6 +901,20 @@ MATRIZ = {
               'Guarda DISCOVERY_SOURCE, DISCOVERED_URL, TARGET_TYPE, DISCOVERED_AT, e nunca '
               'conteúdo de post fabricado.',
               'https://www.linkedin.com/legal/user-agreement'),
+            r('linkedin:perfil-publico-de-pessoa', 'DIRECT_HTTP', 'NAO', 'BLOCKED',
+              'zero',
+              'MEDIDO 2026-09-23, e é o resultado que o D24 manda registar em vez de '
+              'contornar: `https://www.linkedin.com/in/<slug>/` responde HTTP 999 com '
+              '`authwall` no corpo — com a UA desta casa E com UA de navegador (Chrome), '
+              'egresso IT/datacenter, sem cookie e sem conta. Os três perfis italianos '
+              'testados deram o mesmo: 999, 1 530 bytes, sem um único `urn:li:activity`. '
+              'A MESMA UA, no mesmo egresso e no mesmo minuto, recebeu 200 na página de '
+              'ORGANIZAÇÃO — logo a recusa é da ROTA, e não do nosso robô. '
+              'NÃO SE CONTOURA: nem login wall, nem CAPTCHA, nem bloqueio. '
+              'A autorização do dono (D24) existe, e não muda o que a plataforma serve.',
+              'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_PERSON_VIDEO_ONLY'),
         ],
         'FETCH_POST': [
             r('linkedin:Community Management API', 'OFFICIAL_API_PAID', 'NAO',
@@ -727,6 +934,143 @@ MATRIZ = {
               'cláusula. A missão manda NÃO remover Apify agora; então fica declarado como '
               'dependência legada com risco jurídico aberto, para decisão humana.',
               'https://www.linkedin.com/legal/user-agreement'),
+        ],
+        # ═══════════════════════════════════════════════════════════════════
+        # D23 · A PÁGINA PÚBLICA DE ORGANIZAÇÃO — a porta que o dono abriu
+        # ═══════════════════════════════════════════════════════════════════
+        # MEDIDO em 2026-09-23, desta máquina, egresso IT/datacenter
+        # (AS212238, Palermo), sem conta, sem cookie, sem login, sem navegador
+        # e sem rota paga:
+        #
+        #     /company/<slug>/                        200 · 10 a 18 activity ids
+        #     <video data-sources="…">                 MP4 progressivo declarado
+        #     MP4 em dms.licdn.com                     206 · video/mp4 · 7,4 MB
+        #     data-captions-url                        200 · WebVTT e SRT reais
+        #
+        # E A POLÍTICA DA PLATAFORMA FOI MEDIDA, NÃO SE ESCONDE:
+        #
+        #     PLATFORM_POLICY_STATUS = DISALLOWED
+        #     (o robots.txt do LinkedIn abre com «The use of robots or other
+        #      automated means to access LinkedIn without the express
+        #      permission of LinkedIn is strictly prohibited.»)
+        #
+        # O que mudou NÃO foi a política da plataforma — foi o DONO. Ele
+        # autorizou, por escrito, com o risco assumido: D23,
+        # `DECISOES-DONO-2026-09-23.md`. É o mesmo desenho do
+        # `yt-dlp:public_audio` (C13/D17.4), e pela mesma razão:
+        #
+        #     AUTORIZAR NÃO É MEDIR. E AS DUAS COISAS FICAM ESCRITAS.
+        #
+        # Uma leitura apressada diria «o LinkedIn proíbe, então não se faz».
+        # A leitura certa é a que a casa já escreveu nos eixos: a plataforma
+        # proíbe, o dono assumiu o risco, e o dado viaja com as duas frases.
+        'DISCOVER_POST': [
+            r('linkedin:pagina-publica-da-organizacao', 'DIRECT_HTTP', 'SIM',
+              'PROVED', 'zero',
+              'MEDIDO 2026-09-23: a landing pública da organização responde 200 a '
+              'convidado e serve os cartões das publicações recentes, com o '
+              'activity id, o endereço canónico do post, o texto do autor e — '
+              'quando existe — o `<video data-sources>` com o MP4 e a legenda. '
+              'MEDIDO em 18 páginas de organizações italianas: 10 a 18 activity '
+              'ids cada, 9 delas com pelo menos um vídeo. O teto conhecido é a '
+              'PROFUNDIDADE: a página não expõe endereço de página seguinte. '
+              'PLATAFORMA PROÍBE (DISALLOWED); dono autorizou (D23).',
+              'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_ORG_VIDEO_ONLY'),
+            r('linkedin:post-publico-de-pessoa', 'DIRECT_HTTP', 'SIM', 'PROVED',
+              'zero',
+              'MEDIDO 2026-09-23: a PÁGINA DO POST de uma pessoa responde 200 a '
+              'convidado, e é a porta que resta quando a página de perfil está fechada. '
+              'Quatro posts de agrônomos italianos medidos um a um: 200 · 93 752 a '
+              '115 946 bytes · título e texto servidos em italiano (ex.: «Si è appena '
+              'concluso il corso di formazione sulla potatura e sulla gestione '
+              'dell\'olivo»). A D24 autoriza este alvo; e a descoberta NÃO usa buscador: os endereços saem do acervo '
+              'que a casa já tem, e a regra da D23 vale inteira — a URL vem de '
+              'propriedade ou de acervo próprio, nunca de serviço que revende LinkedIn. '
+              'A página de PERFIL continua 999 (rota declarada ao lado, `BLOCKED`).',
+              'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_PERSON_VIDEO_ONLY'),
+        ],
+        'FETCH_POST': [
+            r('linkedin:Community Management API', 'OFFICIAL_API_PAID', 'NAO',
+              'ROUTE_NOT_ALLOWED', 'programa de parceiro',
+              '`r_organization_social` é "restricted to organizations in which the '
+              'authenticated member has ADMINISTRATOR / DIRECT_SPONSORED_CONTENT_POSTER / '
+              'CONTENT_ADMIN". Lê a Página que o app ADMINISTRA — a nossa, não a do '
+              'concorrente. Não existe API que leia post público de organização de terceiro. '
+              'Para vigilância ampla de concorrente: NÃO EXISTE ROTA PERMITIDA. Isto é uma '
+              'resposta, não uma pendência.',
+              'https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api'),
+            r('apify:harvestapi~linkedin-*', 'APIFY', 'NAO', 'ROUTE_NOT_ALLOWED',
+              'US$ 4,03/1.000 medido nesta casa',
+              'RISCO REGISTADO, NÃO ENDOSSADO: esta casa JÁ gastou US$ 0,484 em 120 perfis '
+              'por esta rota. O §8.2 alcança explicitamente dado obtido "through third '
+              'parties (such as data aggregators or brokers)" — o intermediário não muda a '
+              'cláusula. A missão manda NÃO remover Apify agora; então fica declarado como '
+              'dependência legada com risco jurídico aberto, para decisão humana.',
+              'https://www.linkedin.com/legal/user-agreement'),
+        ],
+        'FETCH_VIDEO_BYTES': [
+            r('linkedin:data-sources-mp4', 'DIRECT_HTTP', 'SIM', 'PROVED', 'zero',
+              'MEDIDO 2026-09-23: a página pública da publicação declara o endereço '
+              'progressivo no atributo `data-sources` da etiqueta `<video>`, e o CDN '
+              '`dms.licdn.com` serve os bytes a convidado — HTTP 206, `video/mp4`, '
+              '7 464 653 e 14 687 975 bytes medidos em dois vídeos. O endereço traz '
+              '`e=2147483647`, e isso é `LONG_LIVED_OBSERVED` — uma observação, não '
+              'uma garantia documental. É MP4 PROGRESSIVO: nem HLS, nem DASH, logo '
+              'não há manifesto nem segmentos a remontar. PLATAFORMA PROÍBE '
+              '(DISALLOWED); dono autorizou (D23).',
+              'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_ORG_VIDEO_ONLY'),
+            r('linkedin:data-sources-mp4-de-pessoa', 'DIRECT_HTTP', 'SIM',
+              'PROVED', 'zero',
+              'A D24 autoriza este alvo. A MESMA técnica da D23, aplicada à página '
+              'pública do post de uma pessoa — e MEDIDA: o canário de 2026-09-23 '
+              'adquiriu, de um post público de pessoa, MP4 de 6 935 096 bytes '
+              '(`video/mp4`, sha `bff909e5…`) e legenda WebVTT de 1 371 bytes '
+              '(sha `09712870…`), US$ 0, sem conta e sem cookie. '
+              'E O CAMINHO ATÉ LÁ FICA ESCRITO, porque ele é o resultado: numa amostra '
+              'de 15 posts públicos de PESSOA, TODOS responderam 200 e apenas UM trazia '
+              'vídeo — e nenhum dos quatro posts de agrônomo ITALIANO medidos trazia. '
+              'Vídeo em post de pessoa é MINORIA, e um vídeo não encontrado é '
+              'resultado, não permissão inventada.',
+              'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_PERSON_VIDEO_ONLY'),
+        ],
+        'FETCH_TRANSCRIPT': [
+            r('linkedin:data-captions-url', 'DIRECT_HTTP', 'SIM', 'PROVED', 'zero',
+              'MEDIDO 2026-09-23: quando o vídeo tem faixa automática, a MESMA '
+              'etiqueta `<video>` declara o endereço dela em `data-captions-url`. '
+              'O endereço diz o formato em claro — `video-auto-caption-srt-…` ou '
+              '`video-auto-caption-webvtt-…` — e os bytes confirmam: 4 legenda(s) '
+              'obtidas, `text/vtt` e `text/plain`, 529 a 3 587 bytes, texto italiano '
+              'e inglês legível. É legenda AUTOMÁTICA: ASR de outra casa, mais '
+              'barata e não melhor — e por isso viaja com a espécie declarada, '
+              'nunca como se fosse prova da fala original. NÃO EXISTE EM TODO VÍDEO: '
+              'medido, 2 dos 5 vídeos de uma organização e nenhum dos 2 de outra. '
+              'Ausência de legenda é resultado, e não falha. PLATAFORMA PROÍBE '
+              '(DISALLOWED); dono autorizou (D23).',
+              'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_ORG_VIDEO_ONLY'),
+            r('linkedin:data-captions-url-de-pessoa', 'DIRECT_HTTP', 'SIM',
+              'PROVED', 'zero',
+              'A D24 autoriza este alvo, e vale o mesmo: a etiqueta declara '
+              '`data-captions-url` quando o vídeo tem faixa automática, e a espécie do '
+              'texto viaja declarada (ASR do provedor, nunca a fala original). '
+              'MEDIDA no mesmo canário: 1 371 bytes, `text/vtt`, WebVTT real, com o '
+              'formato declarado no endereço a bater com os BYTES. E a legenda do post '
+              'de pessoa reproduz o que a D23 já tinha medido na organização: a '
+              'plataforma DECLARA uma língua no `data-language` e serve o texto '
+              'noutra — o campo guarda o que ela declarou, e a nota da divergência '
+              'viaja no objeto.',
+              'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_PERSON_VIDEO_ONLY'),
         ],
     },
 
@@ -755,7 +1099,12 @@ MATRIZ = {
                   'anthropic-ai num bloco `Disallow: /`. E a Research API — a única que dá '
                   'dado público rico — EXCLUI empresa por desenho: exige instituição '
                   'acadêmica ou sem fins lucrativos, com revisão ética e independência de '
-                  'interesse comercial. A ADAMA não é elegível. Sobra o oEmbed.'),
+                  'interesse comercial. A ADAMA não é elegível. Sobra o oEmbed. '
+                  '⚠️ D24 (2026-09-23): o dono autorizou o VÍDEO de PESSOAS do agro também '
+                  'aqui. O eixo da pessoa deixa de ser impedimento; o que resta é a '
+                  'PLATAFORMA, que nomeia agentes automatizados num bloco `Disallow: /` — '
+                  'e por isso nenhuma rota desta plataforma muda de estado por causa do '
+                  'D24.'),
         'FETCH_VIDEO_METADATA': [
             r('tiktok:oembed', 'PUBLIC_NATIVE', 'CONDICIONAL', 'POSSIBLE_NOT_PROVED', 'zero',
               'Produto DOCUMENTADO pela TikTok, sem chave e sem login. MEDIDO: responde 200 '

@@ -1,19 +1,19 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
+  "FROZEN_AT_HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 272,
+  "ARTEFATOS": 277,
   "POR_ESPECIE": {
     "CONTRACT": 3,
-    "DATA_SAMPLE": 97,
-    "DOCUMENTATION": 4,
+    "DATA_SAMPLE": 99,
+    "DOCUMENTATION": 5,
     "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 10,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 45,
+    "MENCAO_FRACA_APENAS": 46,
     "PORTAL_UI": 65,
-    "TEST": 16
+    "TEST": 17
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -563,7 +563,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "96fa61b7fc0710a99970063c35feafcf87ed7265",
+      "GIT_BLOB_SHA": "e0ad7cf32e30fdd8f53f653e7f57f19713f4331b",
       "MARCAS_FORTES": []
     }
   ],
@@ -727,6 +727,10 @@
     {
       "PATH": "curadoria/status_live.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "curadoria/test_impasse_b4.py",
+      "SPECIES": "DOCUMENTATION"
     },
     {
       "PATH": "curadoria/test_nivel_da_fila.py",
@@ -945,11 +949,19 @@
       "SPECIES": "DATA_SAMPLE"
     },
     {
+      "PATH": "ferramentas/big_collection/BC5-SUITE-dfec8873.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
       "PATH": "ferramentas/unificacao/censo-2026-09-22.json",
       "SPECIES": "DATA_SAMPLE"
     },
     {
       "PATH": "ferramentas/unificacao/m5/livros-passo3-servico.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "ferramentas/unificacao/m5/suite-unificado-f24a459f.json",
       "SPECIES": "DATA_SAMPLE"
     },
     {
@@ -1099,6 +1111,10 @@
     {
       "PATH": "leis/fundacao_da_coleta.py",
       "SPECIES": "INSTRUMENT"
+    },
+    {
+      "PATH": "leis/social_matriz.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
       "PATH": "motor/corrida_da_inteligencia.py",
@@ -1310,6 +1326,10 @@
     },
     {
       "PATH": "tests/test_completude_oportunidade.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_d24_video_de_pessoa.py",
       "SPECIES": "TEST"
     },
     {

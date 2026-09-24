@@ -17,6 +17,11 @@ if RAIZ not in sys.path:
 import _gavetas  # noqa: E402,F401
 
 from orquestrador import persistencia as P  # noqa: E402
+from guarda import preservar_coleta as PC  # noqa: E402
+import tempfile  # noqa: E402
+
+#: BC4 (24/09/2026): a memoria operacional exige a raiz dos bytes fora da arvore.
+ARMAZEM = tempfile.mkdtemp(prefix="armazem-red-team-")
 
 SENHA = "SENHA-SECRETA-DO-RED-TEAM"
 OP_OK = "postgresql://postgres:%s@127.0.0.1:54330/sala_italia" % SENHA
@@ -108,8 +113,15 @@ recusa("porto nao numerico",
        {P.VARIAVEL_OPERACIONAL: "postgresql://u:x@127.0.0.1:porta/sala_italia"})
 recusa("url que nao e url", {P.VARIAVEL_OPERACIONAL: "sala_italia"})
 
+print("\n-- os bytes da memoria operacional nao caem no residuo (BC4)")
+recusa("operacional sem raiz dos bytes",
+       {P.VARIAVEL_OPERACIONAL: OP_OK}, PC.ArmazemOperacionalSemRaiz)
+recusa("operacional com raiz dentro da arvore",
+       {P.VARIAVEL_OPERACIONAL: OP_OK, PC.VARIAVEL_DA_RAIZ: os.path.join(RAIZ, "XX")},
+       PC.ArmazemOperacionalSemRaiz)
+
 print("\n-- o caminho bom continua bom (controlo)")
-r = P.dependencias_do_runtime({P.VARIAVEL_OPERACIONAL: OP_OK})
+r = P.dependencias_do_runtime({P.VARIAVEL_OPERACIONAL: OP_OK, PC.VARIAVEL_DA_RAIZ: ARMAZEM})
 if r.ESTADO == P.OPERACIONAL and r.memoria is not None:
     print("  ok    %-52s ligou em %s" % ("bancada operacional autorizada",
                                          r.MORADA))

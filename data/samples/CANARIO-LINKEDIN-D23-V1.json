@@ -1,0 +1,229 @@
+{
+ "O_QUE_ISTO_E": "O canario real do D23: video (e legenda) de pagina publica de ORGANIZACAO no LinkedIn, pela porta canonica do SCRAP, contra uma base descartavel e sem dolar.",
+ "COMO_REFAZER": "py provas/canario_d23_linkedin_video.py",
+ "DECISAO_DO_DONO": "D23 · DECISOES-DONO-2026-09-23.md",
+ "OWNER_AUTHORIZED": "SIM",
+ "PLATFORM_POLICY_STATUS": "DISALLOWED (robots.txt do LinkedIn, medido)",
+ "LIMITE": "PUBLIC_ORG_VIDEO_ONLY",
+ "ORGANIZACAO": "https://www.linkedin.com/company/gruppocaviro/",
+ "CANDIDATA": "CAND-0094",
+ "ORGANIZACAO_REGISTADA": "https://www.linkedin.com/company/image-line/",
+ "SOURCE_REGISTADO": "IT-T8-002",
+ "EGRESSO": {
+  "ip": "149.22.91.171",
+  "org": "AS212238 Datacamp Limited",
+  "city": "Palermo",
+  "country": "IT",
+  "hostname": "unn-149-22-91-171.datapacket.com"
+ },
+ "RUN_A": {
+  "RUN_ID": "CANARIO-D23-A",
+  "CMD": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\scrap-linkedin-v1\\coleta\\scrap_colheita.py video-linkedin --run-id=CANARIO-D23-A --pagina=https://www.linkedin.com/company/gruppocaviro/ --teto=3",
+  "EXIT": 0,
+  "SECS": 29.8,
+  "ENVELOPE": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\scrap-linkedin-v1\\data\\colheita\\scrap\\CANARIO-D23-A\\ENVELOPE.json",
+  "COLHEITA": 0,
+  "PORQUE_ZERO": "o pedido não nomeou fonte. O SCRAP observa PLATAFORMAS e a porta fala em FONTES; sem o SOURCE_ID vindo do pedido, estas 2 observações são CANDIDATAS e não observações de uma fonte provada. URL não é SOURCE_ID.",
+  "STDOUT": "SCRAP_COLHEITA\n  fase          video-linkedin\n  run_id        CANARIO-D23-A\n  source_id     NAO SEI\n  especie       COLHEITA\n  pagina        https://www.linkedin.com/company/gruppocaviro/\n  teto          3\n  colheita      0\n  suporte       2\n  envelope      data\\colheita\\scrap\\CANARIO-D23-A\\ENVELOPE.json\n  porque zero   o pedido não nomeou fonte. O SCRAP observa PLATAFORMAS e a porta fala em FONTES; sem o SOURCE_ID vindo do pedido, estas 2 observações são CANDIDATAS e não observações de uma fonte provada. URL não é SOURCE_ID.\n",
+  "STDERR": ""
+ },
+ "RUN_B": {
+  "RUN_ID": "CANARIO-D23-B",
+  "CMD": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\scrap-linkedin-v1\\coleta\\scrap_colheita.py video-linkedin --run-id=CANARIO-D23-B --pagina=https://www.linkedin.com/company/image-line/ --teto=3 --fonte=IT-T8-002",
+  "EXIT": 0,
+  "SECS": 7.0,
+  "ENVELOPE": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\scrap-linkedin-v1\\data\\colheita\\scrap\\CANARIO-D23-B\\ENVELOPE.json",
+  "COLHEITA": 0,
+  "PORQUE_ZERO": "a corrida correu e não observou nada. ZERO LEGÍTIMO NÃO É FALHA: ZERO_RESULTS",
+  "STDOUT": "SCRAP_COLHEITA\n  fase          video-linkedin\n  run_id        CANARIO-D23-B\n  source_id     IT-T8-002\n  especie       COLHEITA\n  pagina        https://www.linkedin.com/company/image-line/\n  teto          3\n  colheita      0\n  suporte       1\n  envelope      data\\colheita\\scrap\\CANARIO-D23-B\\ENVELOPE.json\n  porque zero   a corrida correu e não observou nada. ZERO LEGÍTIMO NÃO É FALHA: ZERO_RESULTS\n",
+  "STDERR": ""
+ },
+ "BRUTOS_EM_DISCO": [
+  {
+   "PAPEL": "video",
+   "CAMINHO": "data\\raw\\LINKEDIN\\video\\7488216289828753409__a5410dc9bbb4317a.mp4",
+   "BYTES": 2587646,
+   "SHA256": "a5410dc9bbb4317a7be788a56c3658f62a29b7827e3b9295169c7ee9f58ed50c"
+  },
+  {
+   "PAPEL": "video",
+   "CAMINHO": "data\\raw\\LINKEDIN\\video\\7490681050906439680__d17bc36161f51d22.mp4",
+   "BYTES": 3776684,
+   "SHA256": "d17bc36161f51d22171d8c3896a2b33fce02e0c5b804d2656f9b2b1df27378db"
+  },
+  {
+   "PAPEL": "legenda",
+   "CAMINHO": "data\\raw\\LINKEDIN\\legenda\\7488216289828753409__8dc3240c9ee70cb4.webvtt",
+   "BYTES": 529,
+   "SHA256": "8dc3240c9ee70cb4a668be5977404d9f052038e8a0ffca22ffe5890b0f847a1c"
+  },
+  {
+   "PAPEL": "legenda",
+   "CAMINHO": "data\\raw\\LINKEDIN\\legenda\\7490681050906439680__29171c594173815f.webvtt",
+   "BYTES": 819,
+   "SHA256": "29171c594173815f947c662a21fa2b01def4afa16ab73d88e1ccca40172b0b45"
+  }
+ ],
+ "BASE_DESCARTAVEL": "C:\\Users\\London1\\AppData\\Local\\Temp\\canario-d23-s9wiafj_",
+ "MEDIDO": {
+  "EGRESSO": {
+   "VALOR": "149.22.91.171 · AS212238 Datacamp Limited",
+   "PORQUE": "por aqui saiu a corrida (IT)"
+  },
+  "RUN_A_CMD": {
+   "VALOR": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\scrap-linkedin-v1\\colet",
+   "PORQUE": "a MESMA linha que o workflow corre"
+  },
+  "RUN_A_EXIT": {
+   "VALOR": 0,
+   "PORQUE": "subprocesso da porta"
+  },
+  "RUN_A_SECS": {
+   "VALOR": 29.8,
+   "PORQUE": "relogio de parede"
+  },
+  "VIDEO_MP4_ADQUIRIDOS": {
+   "VALOR": 2,
+   "PORQUE": "ficheiros de video em data/raw/LINKEDIN/video"
+  },
+  "LEGENDAS_ADQUIRIDAS": {
+   "VALOR": 2,
+   "PORQUE": "faixas de legenda em data/raw/LINKEDIN/legenda"
+  },
+  "  MP4_BYTES": {
+   "VALOR": 3776684,
+   "PORQUE": "7490681050906439680__d17bc36161f51 · sha d17bc36161f51d22"
+  },
+  "  LEGENDA_BYTES": {
+   "VALOR": 819,
+   "PORQUE": "7490681050906439680__29171c5941738 · sha 29171c594173815f"
+  },
+  "RUN_A_COLHEITA": {
+   "VALOR": 0,
+   "PORQUE": "o pedido não nomeou fonte. O SCRAP observa PLATAFORMAS e a porta fala "
+  },
+  "RUN_B_CMD": {
+   "VALOR": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\scrap-linkedin-v1\\colet",
+   "PORQUE": "com --fonte=IT-T8-002"
+  },
+  "RUN_B_COLHEITA": {
+   "VALOR": 0,
+   "PORQUE": "a corrida correu e não observou nada. ZERO LEGÍTIMO NÃO É FALHA: ZERO_"
+  },
+  "RUN_B_EXIT": {
+   "VALOR": 0,
+   "PORQUE": "a porta aceitou a fonte provada"
+  },
+  "OBJETOS_RECONSTRUIDOS": {
+   "VALOR": 2,
+   "PORQUE": "a partir do bruto preservado"
+  },
+  "BYTES_SERVIDOS_DO_DISCO": {
+   "VALOR": 4,
+   "PORQUE": "nenhuma ida a rede nesta metade"
+  },
+  "INGRESSO_ACEITES": {
+   "VALOR": 2,
+   "PORQUE": "observacoes que a porta aceitou"
+  },
+  "INGRESSO_RECUSAS": {
+   "VALOR": 0,
+   "PORQUE": "[]"
+  },
+  "RAW_LINHAS_GRAVADAS": {
+   "VALOR": 0,
+   "PORQUE": "linhas que o dono do RAW planeou escrever"
+  },
+  "RAW_RECUSADOS_SEM_IDENTIDADE": {
+   "VALOR": 2,
+   "PORQUE": "sem SOURCE_ID real nao ha estado de identidade possivel, e n"
+  },
+  "  DOCUMENT_ID": {
+   "VALOR": "NAO SEI",
+   "PORQUE": "None · "
+  },
+  "  PUBLISHED_AT": {
+   "VALOR": "2026-07-29T12:58:07.800Z",
+   "PORQUE": "declarado pela plataforma (JSON-LD)"
+  },
+  "  PAYLOAD": {
+   "VALOR": "PRESENTE",
+   "PORQUE": "data/raw/LINKEDIN/video/7488216289828753"
+  },
+  "LINHAS_RAW_NA_BASE": {
+   "VALOR": 0,
+   "PORQUE": "lidas do banco descartavel, nao do recibo"
+  },
+  "DERIVED_UNIDADES": {
+   "VALOR": 2,
+   "PORQUE": "legendas com texto, uma por video"
+  },
+  "DERIVED_KIND": {
+   "VALOR": "NATIVE_CAPTION",
+   "PORQUE": "DECLARED_BY_PROVIDER / ORIGINAL"
+  },
+  "DERIVED_CHARS": {
+   "VALOR": 1335,
+   "PORQUE": "caracteres de fala real"
+  },
+  "DERIVED_AMOSTRA": {
+   "VALOR": "WEBVTT 00:00:00.070 --> 00:00:02.320 Due anni fa. 00:00:02.320 --> 00:00:06.208 Con forti piogge. Fu lo fu l'anno che ri",
+   "PORQUE": "primeiros caracteres"
+  },
+  "ADMISSAO_IMPORTAVEL": {
+   "VALOR": "NAO",
+   "PORQUE": "fcntl ausente no Windows — medido: No module named 'fcntl'"
+  }
+ },
+ "RECIBO_DO_RAW": {
+  "PLANO": {
+   "REGISTOS_DE_ENTRADA": 0,
+   "CONTEUDOS_UNICOS": 0,
+   "OBJETOS_PLANEADOS": 0,
+   "OBSERVACOES_PLANEADAS": 0,
+   "RELACOES_SEM_BYTE_NOVO": 0,
+   "PORQUE_OS_TRES_NUMEROS_DIFEREM": "REGISTO nao e CONTEUDO, nao e OBJETO e nao e OBSERVACAO. Dois produtos que usam o mesmo documento da mesma fonte sao DOIS registos, UM conteudo, UM objeto e UMA observacao. O mesmo conteudo publicado em DUAS URLs e UM conteudo e DOIS objetos. DUAS FONTES a observar o mesmo endereco sao UM objeto e DUAS observacoes. Nenhuma destas contagens deriva das outras."
+  },
+  "RECUSADOS_SEM_IDENTIDADE": [
+   {
+    "SHA256": "d17bc36161f51d22171d8c3896a2b33fce02e0c5b804d2656f9b2b1df27378db",
+    "NAME": "7490681050906439680__d17bc36161f51d22.mp4",
+    "SOURCE_ID_RECEBIDO": "NAO SEI",
+    "PORQUE": "sem SOURCE_ID real nao ha estado de identidade possivel, e nenhum se inventa"
+   },
+   {
+    "SHA256": "a5410dc9bbb4317a7be788a56c3658f62a29b7827e3b9295169c7ee9f58ed50c",
+    "NAME": "7488216289828753409__a5410dc9bbb4317a.mp4",
+    "SOURCE_ID_RECEBIDO": "NAO SEI",
+    "PORQUE": "sem SOURCE_ID real nao ha estado de identidade possivel, e nenhum se inventa"
+   }
+  ],
+  "ENVIO": {
+   "NOVOS": 0,
+   "REAPROVEITADOS": 0,
+   "FALHADOS": []
+  },
+  "MEMORIA": {
+   "TENTADA": true,
+   "APLICADA": true,
+   "ERRO": null,
+   "LINHAS_ESPERADAS": 0,
+   "LINHAS_OBSERVADAS": 0,
+   "COMO_FOI_MEDIDO": "SELECT em raw_asset por run_id, filtrado pelos caminhos do plano. Leitura real do banco, nao contagem esperada."
+  }
+ },
+ "VIAS_QUE_RESTAM": {
+  "1": "PROMOVER A CANDIDATA A FONTE. A pagina do `gruppocaviro` e a candidata CAND-0094, com prova (a organizacao publica este endereco no site dela). O molde ja existe nesta casa: `IT-T8-002` («Image Line — pagina aziendale LinkedIn») e exactamente isto — uma PAGINA DE LINKEDIN como fonte registada. Com a ficha no atlas, o mesmo canario passa a gravar RAW com identidade, e o DOCUMENT_ID deixa de ser NAO SEI.",
+  "2": "A ADMISSAO corre no CI, onde ha Postgres e onde `fcntl` existe. Nesta maquina nao ha banco nem `fcntl` — medido, e por isso declarado em vez de fingido.",
+  "3": "O ASR (para video SEM legenda) continua a ser do dono unico (`ferramentas/fala_local.py`), e nao correu: nao faltou legenda neste canario, e nesta maquina o reconhecedor nao esta instalado. Os videos sem legenda saem com `DERIVED_TEXT = ASR_REQUIRED` e o dono nomeado — nunca mudos."
+ },
+ "PENDENTE": {
+  "COLLECTION_COM_IDENTIDADE": "a organizacao do RUN A e CANDIDATA (CAND-0094); a porta exige SOURCE_ID provado, e por isso a colheita sai zero e as observacoes ficam em SUPORTE. Promover a candidata no atlas e a decisao que falta — e ela nao e do engenheiro.",
+  "ADMISSAO": "exige banco real e `fcntl`; nesta maquina nao ha Postgres. O caminho e o CI (fases do workflow), onde a base e criada e deitada fora."
+ },
+ "CUSTO_USD": 0.0,
+ "LOGIN_USADO": "NAO",
+ "COOKIE_DE_SESSAO": "NAO",
+ "ROTA_PAGA": "NAO",
+ "CONTORNO_DE_ACESSO": "NAO"
+}

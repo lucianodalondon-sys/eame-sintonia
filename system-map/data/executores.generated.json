@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
+  "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -16,9 +16,9 @@
  "PROXIMO_MAIS_BARATO": [
   "coleta/italy_executor.py",
   "guarda/preservar_derivado.py",
-  "coleta/adaptador_linkedin.py",
-  "coleta/adaptador_instagram.py",
-  "coleta/golden_path_pdf.py"
+  "orquestrador/persistencia.py",
+  "guarda/preservar_coleta.py",
+  "coleta/adaptador_linkedin.py"
  ],
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
@@ -299,12 +299,13 @@
   {
    "EXECUTOR_ID": "coleta/adaptador_linkedin.py",
    "GAVETA": "coleta",
-   "LINHAS": 900,
+   "LINHAS": 1883,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
     "FETCH",
     "RAW",
+    "DERIVED",
     "READY"
    ],
    "HAS_PRESERVED_INPUT": false,
@@ -864,7 +865,7 @@
   {
    "EXECUTOR_ID": "coleta/ingresso.py",
    "GAVETA": "coleta",
-   "LINHAS": 1400,
+   "LINHAS": 1402,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1220,7 +1221,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_capacidades.py",
    "GAVETA": "coleta",
-   "LINHAS": 485,
+   "LINHAS": 522,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
@@ -1247,7 +1248,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_colheita.py",
    "GAVETA": "coleta",
-   "LINHAS": 900,
+   "LINHAS": 936,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -1325,7 +1326,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_http.py",
    "GAVETA": "coleta",
-   "LINHAS": 572,
+   "LINHAS": 730,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1878,12 +1879,12 @@
   {
    "EXECUTOR_ID": "guarda/preservar_coleta.py",
    "GAVETA": "guarda",
-   "LINHAS": 1564,
+   "LINHAS": 1703,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW"
    ],
-   "HAS_PRESERVED_INPUT": false,
+   "HAS_PRESERVED_INPUT": true,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": false,
    "PAID": false,
@@ -2226,7 +2227,7 @@
   {
    "EXECUTOR_ID": "orquestrador/orquestrador.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 1190,
+   "LINHAS": 1197,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -2254,12 +2255,12 @@
   {
    "EXECUTOR_ID": "orquestrador/persistencia.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 214,
+   "LINHAS": 234,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW"
    ],
-   "HAS_PRESERVED_INPUT": false,
+   "HAS_PRESERVED_INPUT": true,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": false,
    "PAID": false,
