@@ -3387,9 +3387,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "eeb84b6cb67702e6105b39fdf19535a5dabca2f2",
-    "GENERATED_AT": "2026-09-23T23:12:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "76870d40ab227b6602bb59d1dd17a485531d820ab8f34529035c8d42b6fee544"
+    "HEAD": "54ac31c8e51bf2057323577ecd3599f746b1b33a",
+    "GENERATED_AT": "2026-09-23T23:38:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cebcfe0a5b022296201887b2551585c6bc1e0cf14c6ca72c432261ef388790e4"
   },
   "FAMILIES": [
     {
@@ -70947,7 +70947,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 407,
+          "line": 414,
           "snippet": "import coletor as ct",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -71321,7 +71321,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 324,
+          "line": 339,
           "snippet": "no = _funcao('coleta/coletor.py', 'executar')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--READS-->C-TESTES",
@@ -71694,7 +71694,7 @@
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 909,
+          "line": 960,
           "snippet": "import instagram_janela as ij",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--IMPORTS-->C-TESTES",
@@ -71841,7 +71841,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 371,
+          "line": 386,
           "snippet": "self.assertIn(\"'coleta', 'instagram_janela.py'\", prova)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
@@ -84754,7 +84754,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 253,
+          "line": 268,
           "snippet": "no = _funcao('coleta/ingresso.py', 'receber')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -94529,7 +94529,7 @@
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 933,
+          "line": 984,
           "snippet": "import cdp",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-NAVEGADOR--IMPORTS-->C-TESTES",
@@ -96197,7 +96197,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 76,
+          "line": 77,
           "snippet": "ORQUESTRADOR = 'orquestrador/orquestrador.py'",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -97541,7 +97541,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 306,
+          "line": 313,
           "snippet": "import pedido as _pd",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -101235,7 +101235,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 633,
+          "line": 648,
           "snippet": "import proveniencia as pv",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-TESTES",
@@ -102669,7 +102669,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 429,
+          "line": 444,
           "snippet": "import o_fluxo_canonico_do_scrap as prova",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
@@ -105506,7 +105506,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 65,
+          "line": 66,
           "snippet": "import receitas as rec                     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -109998,7 +109998,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 285,
+          "line": 292,
           "snippet": "import scrap_colheita as _sc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -110065,7 +110065,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 284,
+          "line": 291,
           "snippet": "if rel.endswith('scrap_colheita.py'):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -110263,7 +110263,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 115,
+          "line": 130,
           "snippet": "self.assertEqual(e['roda'], ['coleta/scrap_colheita.py'])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
@@ -112096,7 +112096,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 354,
+          "line": 361,
           "snippet": "import social_matriz as mz",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -114147,7 +114147,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 66,
+          "line": 67,
           "snippet": "import scrap_capacidades as cap            # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -114163,7 +114163,7 @@
         },
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 266,
+          "line": 273,
           "snippet": "import social_scrap as _ss",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -114262,7 +114262,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 288,
+          "line": 295,
           "snippet": "if rel.endswith('social_scrap.py'):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -115009,7 +115009,7 @@
       "evidence": [
         {
           "file": "provas/entradas_do_scrap_v1.py",
-          "line": 371,
+          "line": 378,
           "snippet": "if not rel.endswith('sensor_coleta.py'):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SENSOR-COLETA--READS-->C-SUPERFICIE-SCRAP-V1",

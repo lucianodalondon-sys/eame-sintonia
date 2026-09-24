@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T02:15:40+00:00",
-  "HEAD": "eeb84b6cb67702e6105b39fdf19535a5dabca2f2",
+  "GENERATED_AT": "2026-09-24T02:50:50+00:00",
+  "HEAD": "54ac31c8e51bf2057323577ecd3599f746b1b33a",
   "BRANCH": "unificacao-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "76870d40ab227b6602bb59d1dd17a485531d820ab8f34529035c8d42b6fee544",
+  "SOURCE_TREE_FINGERPRINT": "cebcfe0a5b022296201887b2551585c6bc1e0cf14c6ca72c432261ef388790e4",
   "FICHEIROS_NA_IMPRESSAO": 2941,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2701,7 +2701,7 @@
    {
     "PATH": "provas/entradas_do_scrap_v1.py",
     "PAPEL": "FONTE",
-    "VERSAO": "870bd90a0deab4b46410e2838b42f27330e29fa0",
+    "VERSAO": "90fd99cfb9db1739eabe12ada4af1a274ff47993",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3702,14 +3702,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "76870d40ab227b6602bb59d1dd17a485531d820ab8f34529035c8d42b6fee544",
+    "VERSAO": "cebcfe0a5b022296201887b2551585c6bc1e0cf14c6ca72c432261ef388790e4",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "76870d40ab227b6602bb59d1dd17a485531d820ab8f34529035c8d42b6fee544",
+    "VERSAO": "cebcfe0a5b022296201887b2551585c6bc1e0cf14c6ca72c432261ef388790e4",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5382,14 +5382,14 @@
    {
     "PATH": "tests/test_scrap_flow01_caminho_canonico.py",
     "PAPEL": "FONTE",
-    "VERSAO": "33a3c5eef0cce7d96ef912d0dfefa188bf949d2f",
+    "VERSAO": "5e441579a0a6580803560905e39fcc412b5f7a93",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "tests/test_scrap_rc01_release_candidate.py",
     "PAPEL": "FONTE",
-    "VERSAO": "bb40cbb0ea17df192ff43bf9572e1c39a9891ec6",
+    "VERSAO": "fdea00286f80a726217b0187bf0d49937bb7ce62",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5570,7 +5570,7 @@
    }
   ],
   "INPUTS_COUNT": 790,
-  "INPUTS_DIGEST": "0f72744d538221a39754c74a5790843460271e30727aaa6898d1ddcb3892897a",
+  "INPUTS_DIGEST": "275c873a2f7d1de7a3f55a81ea96c4cd149e2134c2dadfb11f4171adcd2318ae",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5603,8 +5603,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5df78a10e18254e4e3b7cf98397bbf6cca44f22d358e7b4898ec47ded9326f4c",
-  "SEMANTIC_HASH": "6a93e4f6be395d3571a1c873e6c01919aaa21509426a06d06be824832ba2e3b2"
+  "MEASUREMENT_HASH": "f6c098d7dd6ecd552db9fd15520504b306c128c60b5685d15d27b5de262bbbe3",
+  "SEMANTIC_HASH": "ced0e24d2b2a08171323441da8cff0da888b9eaf3cd2ebbdd464e7235f8ccf09"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13370,7 +13370,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 407,
+      "LINHA": 414,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -13688,7 +13688,7 @@
      },
      {
       "FICHEIRO": "tests/test_scrap_flow01_caminho_canonico.py",
-      "LINHA": 324,
+      "LINHA": 339,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-BASE--READS-->C-TESTES",
@@ -13772,7 +13772,7 @@
      },
      {
       "FICHEIRO": "tests/test_scrap_rc01_release_candidate.py",
-      "LINHA": 909,
+      "LINHA": 960,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-INSTAGRAM--IMPORTS-->C-TESTES",
@@ -13984,7 +13984,7 @@
      },
      {
       "FICHEIRO": "tests/test_scrap_flow01_caminho_canonico.py",
-      "LINHA": 371,
+      "LINHA": 386,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
@@ -21426,7 +21426,7 @@
      },
      {
       "FICHEIRO": "tests/test_scrap_flow01_caminho_canonico.py",
-      "LINHA": 253,
+      "LINHA": 268,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -27169,7 +27169,7 @@
      },
      {
       "FICHEIRO": "tests/test_scrap_rc01_release_candidate.py",
-      "LINHA": 933,
+      "LINHA": 984,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-NAVEGADOR--IMPORTS-->C-TESTES",
@@ -27940,7 +27940,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 76,
+      "LINHA": 77,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -28880,7 +28880,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 306,
+      "LINHA": 313,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -30412,7 +30412,7 @@
      },
      {
       "FICHEIRO": "tests/test_scrap_flow01_caminho_canonico.py",
-      "LINHA": 633,
+      "LINHA": 648,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-TESTES",
@@ -30958,7 +30958,7 @@
      },
      {
       "FICHEIRO": "tests/test_scrap_flow01_caminho_canonico.py",
-      "LINHA": 429,
+      "LINHA": 444,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
@@ -33004,7 +33004,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 65,
+      "LINHA": 66,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -35513,7 +35513,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 285,
+      "LINHA": 292,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -35801,7 +35801,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 284,
+      "LINHA": 291,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -35831,7 +35831,7 @@
      },
      {
       "FICHEIRO": "tests/test_scrap_flow01_caminho_canonico.py",
-      "LINHA": 115,
+      "LINHA": 130,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
@@ -36785,7 +36785,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 354,
+      "LINHA": 361,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -37847,7 +37847,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 66,
+      "LINHA": 67,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -37855,7 +37855,7 @@
      },
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 266,
+      "LINHA": 273,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-SUPERFICIE-SCRAP-V1",
@@ -38233,7 +38233,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 288,
+      "LINHA": 295,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -38591,7 +38591,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/entradas_do_scrap_v1.py",
-      "LINHA": 371,
+      "LINHA": 378,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SENSOR-COLETA--READS-->C-SUPERFICIE-SCRAP-V1",
