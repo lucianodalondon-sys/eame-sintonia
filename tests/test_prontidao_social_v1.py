@@ -26,7 +26,7 @@ sys.path.insert(0, os.path.join(RAIZ, 'provas'))
 sys.path.insert(0, os.path.join(RAIZ, 'curadoria'))
 import prontidao_social_v1 as ps   # noqa: E402
 
-ISCA = 'AIzaSyISCA-SOC1-nunca-deve-aparecer-0000000'
+ISCA = 'AIzaSyISCA-SOC1-nunca-deve-aparecer-0000000'  # fake: isca com a forma de uma chave Google, nao e segredo
 
 _MEDIDA = {}
 
@@ -99,7 +99,10 @@ class AD15ContinuaAMandar(unittest.TestCase):
     def test_a_porta_e_medida_no_worker_real(self):
         m = _medida()
         por_plat = {l['PLATFORM']: l['WORKER_QUALIFY'] for l in m['LINHAS']}
-        self.assertEqual(por_plat['LINKEDIN'], 'BLOCK/POLICY')
+        # SOC-ONDA2 (24/09): a D23 abriu o video de pagina de ORGANIZACAO; o
+        # QUALIFY ja nao barra o LinkedIn por politica. A sonda (URL vazia, sem
+        # `/company/<slug>/`) para agora por falta de alvo que o Scrap leia.
+        self.assertEqual(por_plat['LINKEDIN'], 'BLOCK/CAPABILITY')
         self.assertEqual(por_plat['INSTAGRAM'], 'BLOCK/POLICY')
         self.assertEqual(por_plat['YOUTUBE'], 'BLOCK/CAPABILITY')
 

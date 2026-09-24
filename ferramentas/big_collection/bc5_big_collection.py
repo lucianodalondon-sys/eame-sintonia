@@ -27,7 +27,7 @@ import ensaio_offline as E    # noqa: E402
 SAIDA = Path(r"C:\bc5\big")
 SAIDA.mkdir(parents=True, exist_ok=True)
 COORTE = [x["SOURCE_ID"] for x in json.load(open(r"C:\bc\COORTE-BIG-COLLECTION.json", encoding="utf-8"))["COORTE"]]
-AVISO = Path(r"C:\Users\London1\auditoria-madrugada\bc4-aviso-vivo.txt")
+AVISO = Path.home() / "auditoria-madrugada" / "bc4-aviso-vivo.txt"
 LEDGER = Path("data/collection-ledger/italy/runs.ndjson")
 
 

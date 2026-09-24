@@ -220,7 +220,7 @@ FICHEIRO DIZ RUNNING != PROCESSO EXISTE.
 O painel pergunta ao SO. Nunca herda verde de um ficheiro velho. Distinga
 `STOPPED_FINISHED` de `STOPPED_BROKEN` de `IDLE`.
 
-Já existe `C:\Users\London1\orca-tools\operacao_live.py` (da coordenação, fora
+Já existe `<HOME>\orca-tools\operacao_live.py` (da coordenação, fora
 do repo) que mede assim. **Reutilize a ideia**; se o painel viver no repo,
 declare-o no System Map.
 
