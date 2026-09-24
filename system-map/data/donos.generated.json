@@ -152,7 +152,7 @@
   {
    "CONCEITO": "ADMISSION",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "30 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "31 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/admissao.py",
     "admissao/sala_de_espera.py",
@@ -162,6 +162,7 @@
     "curadoria/ciclo_continuo.py",
     "curadoria/collection_gate.py",
     "curadoria/emparelhar_com_atlas.py",
+    "curadoria/funil_do_curador.py",
     "curadoria/gate_de_rota.py",
     "curadoria/medir_abastecimento_vivo.py",
     "curadoria/provar_lifecycle.py",
@@ -199,8 +200,8 @@
     "coleta/executor_transcricao_midia.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 187,
-   "INSTRUMENTOS_QUE_CITAM": 216,
+   "QUANTOS_LEEM": 192,
+   "INSTRUMENTOS_QUE_CITAM": 218,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -232,18 +233,18 @@
     "coleta/scrap_colheita.py",
     "coleta/scrap_executor.py",
     "coleta/social_scrap.py",
+    "curadoria/rota_do_scrap_youtube.py",
     "ferramentas/big_collection/reconciliar_bytes_bc4.py",
-    "guarda/banco_descartavel.py",
-    "guarda/banco_operacional.py"
+    "guarda/banco_descartavel.py"
    ],
-   "QUANTOS_LEEM": 22,
-   "INSTRUMENTOS_QUE_CITAM": 113,
+   "QUANTOS_LEEM": 23,
+   "INSTRUMENTOS_QUE_CITAM": 114,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "RECEITAS",
    "ESTADO": "DONO_E_INSTRUMENTO",
-   "NOTA": "nenhum dono fora das gavetas de medida, e 45 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 47 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
    "ESCREVEM": [],
    "LEEM": [
     "coleta/italy_executor.py",
@@ -260,7 +261,7 @@
     "pacote/v21_handoff_json.py"
    ],
    "QUANTOS_LEEM": 24,
-   "INSTRUMENTOS_QUE_CITAM": 45,
+   "INSTRUMENTOS_QUE_CITAM": 47,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -363,7 +364,7 @@
     "coleta/scrap_fornecedores.py",
     "coleta/social_rotas.py"
    ],
-   "QUANTOS_LEEM": 81,
+   "QUANTOS_LEEM": 83,
    "INSTRUMENTOS_QUE_CITAM": 36,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },

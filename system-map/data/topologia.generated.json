@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T13:19:21+00:00",
-  "HEAD": "3e1b131148159a6fa73a303016bbf02fd529ce05",
-  "BRANCH": "reparo-fontes-v2",
+  "GENERATED_AT": "2026-09-24T16:37:59+00:00",
+  "HEAD": "4602a64bfb619ee4a731068727c93f8c0be36a21",
+  "BRANCH": "curador-ate-pronta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a322a56b00cbef8cf41586f35e2c6d0e114954b18b5d7ab580b414b84d25958f",
-  "FICHEIROS_NA_IMPRESSAO": 2959,
+  "SOURCE_TREE_FINGERPRINT": "b498f9be7d043fba222df36d283ad4d775897dea5f44042da44cb7f9123e3fe8",
+  "FICHEIROS_NA_IMPRESSAO": 2994,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -482,7 +482,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "b0c1eccbaee10748bcd794ad7e8d7720a80fc775",
+    "VERSAO": "8d3bf073b918f931e61a96c18079d2d3e3569e55",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3422,7 +3422,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+    "VERSAO": "49f5c2872c8e2ddab8461f3625003cc01d9b1267",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3527,7 +3527,7 @@
    {
     "PATH": "scripts/desbloqueio/aplicar_desbloqueio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "7c5de15f03df0c906dde7e759e798d97e6d2a02d",
+    "VERSAO": "e8ccaf16f395d53dff1b21ebc7ed343088e25f44",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3723,14 +3723,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a322a56b00cbef8cf41586f35e2c6d0e114954b18b5d7ab580b414b84d25958f",
+    "VERSAO": "b498f9be7d043fba222df36d283ad4d775897dea5f44042da44cb7f9123e3fe8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a322a56b00cbef8cf41586f35e2c6d0e114954b18b5d7ab580b414b84d25958f",
+    "VERSAO": "b498f9be7d043fba222df36d283ad4d775897dea5f44042da44cb7f9123e3fe8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5380,6 +5380,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_roteamento_youtube_proposta.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c65163d7734b4f90d717ef5500b0a2bcd197855a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_route_membership.py",
     "PAPEL": "FONTE",
     "VERSAO": "9a911b48c08323080c6ac5f47213fb96bd6440fd",
@@ -5604,8 +5611,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 795,
-  "INPUTS_DIGEST": "98829b909b6052deb900842ba4840aed3f179ee70698fdad83be320f86be130a",
+  "INPUTS_COUNT": 796,
+  "INPUTS_DIGEST": "c4b6acd9f2837a686703efae2c3d14610da03dd2e467d4289f97e216df38ba36",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5631,15 +5638,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 499,
+  "DOCUMENTOS_LIDOS": 502,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e725f863a2e5e30eaa4dce5c3297a6afec124e1d2986d1a7bb2b814b42576133",
-  "SEMANTIC_HASH": "6570b7c98e7ff83e28115e7679af54e714d12b8744763cc84b0e2155c4e4ff37"
+  "MEASUREMENT_HASH": "0ef5ce034ebd836cecc571aa70fdbdc1d7b4210339c5a93987e3faed0ec0198a",
+  "SEMANTIC_HASH": "6543f3f807f1cda765c8c6a444d77fe9134b00a2863acad01ba320e47f9b9ab6"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10611,7 +10618,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 186,
+      "LINHA": 192,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -10619,7 +10626,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 236,
+      "LINHA": 243,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15703,7 +15710,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 212,
+      "LINHA": 218,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -16763,7 +16770,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 67,
+      "LINHA": 73,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -16771,7 +16778,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 141,
+      "LINHA": 147,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -33345,7 +33352,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 212,
+      "LINHA": 218,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -33353,7 +33360,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 213,
+      "LINHA": 219,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -33361,7 +33368,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 214,
+      "LINHA": 220,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -43559,6 +43566,8 @@
     "provas/a_rota_gratuita_ainda_e_gratuita.py",
     "provas/canario_d24_video_de_pessoa.py",
     "provas/canario_d24_video_youtube_de_pessoa.py",
+    "provas/cur_pronta/ciclo_uma_volta.py",
+    "provas/cur_pronta/ciclo_voltas.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
     "provas/orcamento_de_rede.py",
@@ -43888,6 +43897,7 @@
     "docs/design/ITALY-V2.1-README-FIRST.md",
     "docs/operacao/C-SALA-PERSISTENTE-E-PREFLIGHT-REAL-V1.md",
     "docs/operacao/CENSO-DA-INTELLIGENCE.md",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md",
     "docs/operacao/PREFLIGHT-LIVE-COLLECTION-V1.md",
     "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
     "handoff/KNOW-HOW-DELTA-ARBITRAGEM-DA-INTELLIGENCE.md",
@@ -45337,7 +45347,8 @@
    "DOCUMENTADO_COMO_CLI": [
     "CUTOVER-RUNBOOK.md",
     "RELATORIO-DESBLOQUEIO-COORTE.md",
-    "RELATORIO-UNIFICACAO.md"
+    "RELATORIO-UNIFICACAO.md",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -50151,6 +50162,7 @@
     "provas/o_canario_da_collection.py",
     "provas/o_video_tem_consumidor.py",
     "provas/os_portoes_da_collection.py",
+    "provas/roteamento_youtube_proposta.py",
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/censo_do_congelamento.py",
     "system-map/scripts/generate_system_map.py",
@@ -50161,7 +50173,8 @@
     "tests/test_as_duas_portas_do_scrap.py",
     "tests/test_linkedin_op_01_operacional.py",
     "tests/test_medir_apos_receitas.py",
-    "tests/test_o_pedido_nao_mente.py"
+    "tests/test_o_pedido_nao_mente.py",
+    "tests/test_roteamento_youtube_proposta.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md"
@@ -51795,6 +51808,7 @@
     "tests/test_relevance_priority_sobrecarga.py",
     "tests/test_retirada_por_decisao.py",
     "tests/test_retorno_da_coleta.py",
+    "tests/test_roteamento_youtube_proposta.py",
     "tests/test_route_membership.py",
     "tests/test_runtime_so_deixa_passar_colheita.py",
     "tests/test_sala_duravel.py",

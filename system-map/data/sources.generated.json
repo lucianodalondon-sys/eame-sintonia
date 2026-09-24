@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T13:21:55+00:00",
-    "HEAD": "3e1b131148159a6fa73a303016bbf02fd529ce05",
+    "GENERATED_AT": "2026-09-24T16:38:28+00:00",
+    "HEAD": "4602a64bfb619ee4a731068727c93f8c0be36a21",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "a322a56b00cbef8cf41586f35e2c6d0e114954b18b5d7ab580b414b84d25958f",
-    "FICHEIROS_NA_IMPRESSAO": 2959,
+    "SOURCE_TREE_FINGERPRINT": "b498f9be7d043fba222df36d283ad4d775897dea5f44042da44cb7f9123e3fe8",
+    "FICHEIROS_NA_IMPRESSAO": 2994,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -30240,6 +30240,10 @@
           "line": 142
         },
         {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 339
+        },
+        {
           "file": "provas/_diag_canario_d23.py",
           "line": 22
         },
@@ -30327,6 +30331,47 @@
       ]
     },
     {
+      "endpoint": "https://ex.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_avancar_fontes.py",
+          "line": 31
+        },
+        {
+          "file": "curadoria/test_canario_detalhe.py",
+          "line": 32
+        },
+        {
+          "file": "curadoria/test_collection_gate.py",
+          "line": 49
+        },
+        {
+          "file": "curadoria/test_interface_collection.py",
+          "line": 34
+        },
+        {
+          "file": "curadoria/test_ready_split.py",
+          "line": 65
+        },
+        {
+          "file": "curadoria/test_reconciliar_livros.py",
+          "line": 45
+        },
+        {
+          "file": "curadoria/test_um_so_canario_promove.py",
+          "line": 31
+        },
+        {
+          "file": "curadoria/test_worker_volta_sobrevive.py",
+          "line": 63
+        },
+        {
+          "file": "tests/test_retirada_por_decisao.py",
+          "line": 49
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -30360,43 +30405,6 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 234
-        }
-      ]
-    },
-    {
-      "endpoint": "https://ex.it/news",
-      "usado_por": [
-        {
-          "file": "curadoria/test_canario_detalhe.py",
-          "line": 32
-        },
-        {
-          "file": "curadoria/test_collection_gate.py",
-          "line": 49
-        },
-        {
-          "file": "curadoria/test_interface_collection.py",
-          "line": 34
-        },
-        {
-          "file": "curadoria/test_ready_split.py",
-          "line": 65
-        },
-        {
-          "file": "curadoria/test_reconciliar_livros.py",
-          "line": 45
-        },
-        {
-          "file": "curadoria/test_um_so_canario_promove.py",
-          "line": 31
-        },
-        {
-          "file": "curadoria/test_worker_volta_sobrevive.py",
-          "line": 63
-        },
-        {
-          "file": "tests/test_retirada_por_decisao.py",
-          "line": 49
         }
       ]
     },
@@ -30529,6 +30537,31 @@
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
           "line": 368
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/feeds",
+      "usado_por": [
+        {
+          "file": "curadoria/canario.py",
+          "line": 56
+        },
+        {
+          "file": "curadoria/capturador.py",
+          "line": 585
+        },
+        {
+          "file": "curadoria/escrever_contratos.py",
+          "line": 121
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 63
+        },
+        {
+          "file": "curadoria/validar_contratos.py",
+          "line": 187
         }
       ]
     },
@@ -30701,23 +30734,23 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/feeds",
+      "endpoint": "https://www.youtube.com/channel",
       "usado_por": [
         {
-          "file": "curadoria/canario.py",
-          "line": 56
+          "file": "coleta/youtube_oficial.py",
+          "line": 450
         },
         {
-          "file": "curadoria/capturador.py",
-          "line": 585
+          "file": "curadoria/test_d21_heranca.py",
+          "line": 43
         },
         {
-          "file": "curadoria/escrever_contratos.py",
-          "line": 121
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 59
         },
         {
-          "file": "curadoria/validar_contratos.py",
-          "line": 178
+          "file": "regras/sensor_coleta.py",
+          "line": 806
         }
       ]
     },
@@ -31013,7 +31046,7 @@
         },
         {
           "file": "curadoria/test_abastecimento.py",
-          "line": 208
+          "line": 216
         },
         {
           "file": "curadoria/test_discovery.py",
@@ -31030,7 +31063,7 @@
         },
         {
           "file": "curadoria/test_abastecimento.py",
-          "line": 197
+          "line": 205
         },
         {
           "file": "medidas/gabarito_t2_t12.py",
@@ -31105,28 +31138,11 @@
           "line": 172
         }
       ]
-    },
-    {
-      "endpoint": "https://irac-online.org/mode-of-action",
-      "usado_por": [
-        {
-          "file": "fontes/adama_it_intelligence.py",
-          "line": 47
-        },
-        {
-          "file": "fontes/adama_it_moa.py",
-          "line": 21
-        },
-        {
-          "file": "motor/v21_ingest_c.py",
-          "line": 173
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 607,
+  "ENDPOINTS_FOUND": 629,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 567,
+  "ENDPOINTS_TRUNCATED": 589,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31144,9 +31160,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 607,
+    "endpoints": 629,
     "endpoints_published": 40,
-    "endpoints_truncated": 567,
+    "endpoints_truncated": 589,
     "candidates": 906,
     "coletores": 54,
     "coletores_com_data": 20,
