@@ -7,7 +7,7 @@ Lido pelas duas guardas que decidem se `T2` pode ter regra escrita
 import json
 import os
 
-MEDICAO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MEDICAO-REGUA-T2-V2.json")
+MEDICAO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MEDICAO-REGUA-T2-V3.json")
 
 
 def medicao_d29():

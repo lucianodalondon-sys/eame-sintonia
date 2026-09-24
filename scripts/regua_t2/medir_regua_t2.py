@@ -89,7 +89,7 @@ def main():
         itens.append({"TEXTO_ID": it["TEXTO_ID"], "SOURCE_ID": it["SOURCE_ID"], "SERIE": it.get("SERIE"),
                       "OURO": it.get("JANELA") or it["UNIVERSE_MATCH"], "REGUA": r, "SINAIS": ev.get("sinais"),
                       "PALAVRAS": ev.get("palavras"), "ANCORAS": ev.get("ancoras"), "FALTA": ev.get("falta"), "IDIOMA": ev.get("idioma"),
-                      "OUTRO": ev.get("achado_noutro")})
+                      "OUTRO": ev.get("achado_noutro"), "FORA": bool(it.get("FORA_DA_AMOSTRA"))})
     ouro = [i for i in itens if i["OURO"] in ("YES", "NO")]
     tp = sum(1 for i in ouro if i["OURO"] == "YES" and i["REGUA"] == A.SIM)
     fp = sum(1 for i in ouro if i["OURO"] == "NO" and i["REGUA"] == A.SIM)
@@ -102,6 +102,12 @@ def main():
     tp2 = sum(1 for i in fora if i["OURO"] == "YES" and i["REGUA"] == A.SIM)
     fp2 = sum(1 for i in fora if i["OURO"] == "NO" and i["REGUA"] == A.SIM)
     fn2 = sum(1 for i in fora if i["OURO"] == "YES" and i["REGUA"] != A.SIM)
+
+    # a medida FORA DA AMOSTRA: textos que a regua nunca viu (recolha pela rede, Adenda 2)
+    fo = [i for i in ouro if i.get("FORA")]
+    tpf = sum(1 for i in fo if i["OURO"] == "YES" and i["REGUA"] == A.SIM)
+    fpf = sum(1 for i in fo if i["OURO"] == "NO" and i["REGUA"] == A.SIM)
+    fnf = sum(1 for i in fo if i["OURO"] == "YES" and i["REGUA"] != A.SIM)
 
     # ── 1b · T1 (pedido da coordenacao): T1 ja cobre fenologia/tratamento? ─
     t1 = Counter()
@@ -152,6 +158,10 @@ def main():
                   "SEM_SERIE_ARPAV": {"TP": tp2, "FP": fp2, "FN": fn2,
                                       "PRECISAO": round(tp2 / (tp2 + fp2), 3) if tp2 + fp2 else None,
                                       "RECALL": round(tp2 / (tp2 + fn2), 3) if tp2 + fn2 else None},
+                  "FORA_DA_AMOSTRA": {"ITENS_YES_NO": len(fo), "TP": tpf, "FP": fpf, "FN": fnf,
+                                      "PRECISAO": round(tpf / (tpf + fpf), 3) if tpf + fpf else None,
+                                      "RECALL": round(tpf / (tpf + fnf), 3) if tpf + fnf else None,
+                                      "MATRIZ": dict(Counter("%s->%s" % (i["OURO"], i["REGUA"]) for i in fo))},
                   "YES_QUE_SAIRAM_NAO": sum(1 for i in ouro if i["OURO"] == "YES" and i["REGUA"] == A.NAO),
                   "YES_QUE_FICARAM_NAO_SEI": sum(1 for i in ouro if i["OURO"] == "YES" and i["REGUA"] == A.NAO_SEI),
                   "CONTROLO_NEGATIVO": {"NO_DO_GABARITO": sum(1 for i in ouro if i["OURO"] == "NO"),
@@ -172,7 +182,7 @@ def main():
                                         sorted(fora_sim), min(25, len(fora_sim)))}}
     SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({k: out["T2"][k] for k in ("OURO_YES", "OURO_NO", "TP", "FP", "FN", "PRECISAO",
-                                                 "RECALL", "SEM_SERIE_ARPAV", "YES_QUE_SAIRAM_NAO",
+                                                 "RECALL", "SEM_SERIE_ARPAV", "FORA_DA_AMOSTRA", "YES_QUE_SAIRAM_NAO",
                                                  "YES_QUE_FICARAM_NAO_SEI", "MATRIZ_OURO_REGUA")},
                      ensure_ascii=False))
     print(json.dumps({"SHA_NAO_CONFERE": len(sha_mau), **{k: out["VIZINHOS"][k] for k in
