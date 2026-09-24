@@ -115,3 +115,72 @@ estimativa de colheita, regiões produtoras); (3) decidir com o dono se a fenolo
 - inventário: `%USERPROFILE%\sintonia-gabarito\REGUA-T2-V1\INVENTARIO.json`.
 - rótulos brutos: `…\REGUA-T2-V1\rotulos.tsv` e `…\rotulos-janela.tsv` (o conteúdo está nos
   gabaritos do Git).
+
+---
+
+## T2B (24/09, tarde) — com a rede de volta
+
+### Em palavras simples
+
+Fui buscar boletins novos aos sites dos serviços regionais, com o portão de rede novo (consenso) a
+confirmar a Itália antes de cada site. Das três idas vieram **16 boletins de janela novos**, de 5
+serviços (ARPAE, ARIF Puglia, Campania — 5 províncias —, ARPAV — 4 zonas —, APOL). Juntos com os de
+antes, o gabarito tem agora **61 boletins reais que sustentam janela** (o pedido era ≥ 20).
+
+Estes 16 foram a **primeira prova de fora**: a régua nunca os tinha visto e **apanhou os 16**. Mas nas
+30 páginas novas que NÃO são janela, disse «sim» a **8** — precisão de fora **0,67** (dentro da amostra
+era 0,98). 7 desses 8 entraram pela via «agrometeo + 2 palavras de tempo»: são páginas que
+**descrevem** um serviço agrometeorológico (menus, «o que fazemos»), não boletins.
+
+No caminho real, antes da régua, o detector de capa barra 3 dessas páginas e põe 1 em quarentena:
+**chegariam à Sala 4 (3 textos distintos)**.
+
+### A decisão que fica para o dono/coordenação (medida, NÃO aplicada)
+
+| Opção | Dentro da amostra | Fora da amostra |
+|---|---|---|
+| **atual** (`agrometeo` + 2 condições) | 45/45 · 1 erro | 16/16 · **8 erros** (prec 0,67) |
+| `agrometeo` + 3 condições | 45/45 · 1 erro | 16/16 · 5 erros (prec 0,76) |
+| sem a via `agrometeo` | 39/45 · 1 erro | 14/16 · 2 erros (prec 0,88) |
+
+⚠️ Estas alternativas foram medidas DEPOIS de ver os textos de fora: aplicar uma torna-os dentro da
+amostra, e a próxima medida limpa precisa de textos novos outra vez.
+
+### Recolha (sem login, sem pago)
+
+- 3 idas, 15 serviços na 1.ª, **122 pedidos no total**, robots lidos, ≤ 6 pedidos por anfitrião por
+  ida, 2 s de pausa, egresso por consenso antes de cada site (PASS em todos). A 1.ª e a 2.ª ida
+  trouxeram sobretudo páginas-índice; a 3.ª usou as rotas dos contratos da casa: **14 PDFs em 18
+  pedidos**. Protocolo escrito antes de cada ida (`PROTOCOLO-GABARITO-T2.md`, Adenda 2).
+- Bytes fora do Git em `%USERPROFILE%\sintonia-gabarito\REGUA-T2-V1\recolha\`, sha256 de cada um
+  em `scripts/regua_t2/RECOLHA-BOLETINS-V1..V3.json`.
+
+### Dois defeitos meus achados e consertados
+
+1. EGR: a guarda do ipinfo contava `mutar_egresso.py` e o próprio teste → permitidos com o porquê,
+   e contraprova (um consumidor novo com o URL do ipinfo fica vermelho). `egresso-consenso-v1 @ f069cf8a`.
+2. EGR: o teste da chave de ambiente da cache falhava quando a máquina já corria com
+   `HTTPS_PROXY=127.0.0.1:9`. `egresso-consenso-v1 @ fa17ccdf`. **Os dois estão também neste ramo.**
+
+## PLANO DE INSTALAÇÃO DA RÉGUA T2 (o coordenador instala; eu NÃO instalo)
+
+Base: este ramo já tem a linha instalada (`5c4daf5a`) juntada (merge `2b7c5238`).
+
+**Writeset** (fora os gerados do mapa):
+
+| Ficheiro | O que muda |
+|---|---|
+| `admissao/admissao.py` | **o único código de produção**: régua T2 (condições + âncoras), `PALAVRA_INTEIRA`/`TRANSVERSAIS = {"T2"}`, `_casa`, prova-noutro-universo por conceito, `VERSAO_DA_REGRA = "8"` |
+| `provas/a_regra_de_t2.py` | a prova antiga mede pelo mecanismo antigo (`T2_CANDIDATA_V0`) |
+| `tests/test_regua_t2.py` (novo), `tests/test_a_regra_de_t2.py`, `tests/test_o_canario_da_collection.py`, `tests/test_estagio_atravessa_a_fronteira.py` | guardas de T2 seguem `scripts/regua_t2/portao_t2.py` (lê a medição V3); o teste da fronteira passa a usar T1 |
+| `tests/test_egresso_consenso.py` | os 2 consertos da EGR (também em `egresso-consenso-v1`) |
+| `scripts/regua_t2/**`, `RELATORIO-T2-REGUA.md` | gabaritos, medições, recolha, mutação, prova — evidência, não corre em produção |
+| `system-map/data/architecture.declared.json` | peça `C-REGUA-T2-JANELA` |
+
+**Passos**
+1. Juntar `regua-t2-v1` na linha instalada (esperar conflito só nos `*.generated.json` do mapa → regerar pela cadeia).
+2. Correr `tests.test_regua_t2 tests.test_a_regra_de_t2 tests.test_o_canario_da_collection tests.test_egresso_consenso` (aqui: OK).
+3. `pacote/metricas_canonicas.py --sync` com o PyYAML emprestado: há testes novos (aqui mede `NOT_MEASURABLE` por falta do PyYAML).
+4. Efeito esperado em produção: pares (item, T2) deixam de sair `NAO_SE_APLICA`. No acervo medido (1.309 textos): **75 SIM · 765 NAO_SEI · 469 NAO** em T2; **0 mudanças** nos outros 6 universos (7.854 julgamentos). O que a v7 deu a T2 pode ser reaberto pela versão 8.
+5. Decidir a via `agrometeo` (tabela acima) — ANTES ou DEPOIS de instalar; se mudar, medir de novo com textos novos.
+6. Voltar atrás = reverter o merge (a versão da regra volta a 7).
