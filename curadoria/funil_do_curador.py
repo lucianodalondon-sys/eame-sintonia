@@ -145,7 +145,13 @@ def medir(agora: datetime | None = None, *, com_portao: bool = True) -> dict:
                         "AUTOMATICO_NO_CICLO": auto, "NOTA": nota})
 
     # ── o funil ────────────────────────────────────────────────────────────
+    # ⚠️ A QUALIFY aloca o SOURCE_ID no registo de alocacao (CANDIDATE_ID ->
+    # SOURCE_ID) e NAO o escreve de volta na ficha da porta das candidatas
+    # (medido na copia, 24/09: 30 QUALIFY OK, 0 fichas com SOURCE_ID). Contar so
+    # pela ficha diria «sem numero» a quem ja tem. Conta-se pelos dois.
+    com_numero = {n.get("CANDIDATE_ID") for n in alloc.values() if n.get("CANDIDATE_ID")}
     sem_sid = [c for c in candidatas if not c.get("SOURCE_ID")
+               and c["CANDIDATA_ID"] not in com_numero
                and c.get("ESTADO") not in ("RECUSADA", "PROMOVIDA")]
     funil = {"WEB": {}, "SOCIAL": {}}
     for lado in funil:

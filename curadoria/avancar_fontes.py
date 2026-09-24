@@ -72,6 +72,11 @@ AVANCAR_POR_VOLTA = 20
 #   WHY: o degrau do meio do ritmo «intermitente» da fila (6h/24h/72h). Uma
 #   fonte cuja tarefa deste tipo acabou ha menos de um dia foi vista hoje.
 RETOMA_S = 86400
+# JANELA_BONUS = 15
+#   WHY (D29): a fonte de janela passa a frente de toda a tarefa da mesma regra e
+#   da regra de baixo (os degraus de REGRAS distam 5-25), sem passar a frente de
+#   um REPAIR de degradada que nao e janela (80) com uma VALIDATE_ROUTE (55+15=70).
+JANELA_BONUS = 15
 
 TABELA_DO_COLETOR = RAIZ / "regras" / "italy_contracts_onboarded.json"
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
@@ -165,13 +170,20 @@ def candidatas_a_avancar(agora: datetime, *, estados: dict | None = None,
         return OND._host((c.get("ACQUISITION") or {}).get("INDEX_URL")
                          or c.get("CANONICAL_ENTRY_URL") or "")
 
+    # D29: fonte de JANELA DE CULTURA sobe na fila (ordem da volta e prioridade
+    # da tarefa). So a ordem do Curator; a agenda da Collection nao e tocada.
+    import janela_de_cultura as JC   # noqa: E402
+
     def _por(sid, regra, motivo):
         tipo, prio = _TAREFA[regra]
         if na_onda and tipo != F.QUALIFY and _host_de(sid) in na_onda:
             return
         if _livre(sid, tipo):
+            jan = JC.e_janela(sid, contratos.get(sid), tabela.get(sid))
             out.append({"SOURCE_ID": sid, "REGRA": regra, "TASK_TYPE": tipo,
-                        "PRIORITY": prio, "MOTIVO": motivo})
+                        "PRIORITY": prio + (JANELA_BONUS if jan else 0),
+                        "JANELA": jan,
+                        "MOTIVO": ("JANELA DE CULTURA (D29) · " if jan else "") + motivo})
 
     for sid in sorted(estados):
         e = estados[sid]
@@ -213,7 +225,7 @@ def candidatas_a_avancar(agora: datetime, *, estados: dict | None = None,
             _por(cid, "SOCIAL_QUALIFY", "canal YouTube caracterizado ONBOARDING_READY sem "
                  "SOURCE_ID: a ponte salta-o e o alimentador so ve quem tem numero")
 
-    out.sort(key=lambda x: (_ORDEM[x["REGRA"]], x["SOURCE_ID"]))
+    out.sort(key=lambda x: (not x["JANELA"], _ORDEM[x["REGRA"]], x["SOURCE_ID"]))
     return out
 
 
