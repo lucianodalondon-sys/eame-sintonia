@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-24T12:17:01+00:00",
-    "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
+    "GENERATED_AT": "2026-09-24T16:41:16+00:00",
+    "HEAD": "5ef94ffd6718e06dab3b9418e756868833af9146",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
-    "FICHEIROS_NA_IMPRESSAO": 2952,
+    "SOURCE_TREE_FINGERPRINT": "b571911110306fb41f91cf35578341aa660b9010939dc7bc618f9468cc8b08c3",
+    "FICHEIROS_NA_IMPRESSAO": 2988,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -349,7 +349,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "b0c1eccbaee10748bcd794ad7e8d7720a80fc775",
+        "VERSAO": "8d3bf073b918f931e61a96c18079d2d3e3569e55",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -566,7 +566,7 @@
       {
         "PATH": "ferramentas/big_collection/bc5_big_collection.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e83cf8195c8fd32a1f06c549250b4d327bf019ed",
+        "VERSAO": "0921ca613d6f11120daf7c52e84f2bf776400f91",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -581,6 +581,13 @@
         "PATH": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
         "PAPEL": "FONTE",
         "VERSAO": "00f2632379959e774dd61d24d87c874ab51dfd11",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/canario_social_onda2.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "5e520e604b437d00c56c46e8e8160e8bf658d23e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -972,7 +979,7 @@
       {
         "PATH": "pedido/receitas.py",
         "PAPEL": "FONTE",
-        "VERSAO": "6f00da380cd2404530213d4764ecc3fb4b8d30e8",
+        "VERSAO": "05c469aee01322c095ad65a1f4cc7ba6d8a96f0d",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1028,7 +1035,7 @@
       {
         "PATH": "regras/italy_contracts.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+        "VERSAO": "49f5c2872c8e2ddab8461f3625003cc01d9b1267",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1117,8 +1124,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 158,
-    "INPUTS_DIGEST": "e7fae8d09d324b6d3e2e6542134b53b1cfaec8227e703697c4ec531bc61e5eb5",
+    "INPUTS_COUNT": 159,
+    "INPUTS_DIGEST": "ea948bf5cff7144aa7de535e57c7d660eb47ba32689085b67b57825593ba4872",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1154,7 +1161,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 812,
+      "linhas": 836,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1618,6 +1625,24 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/canario_social_onda2.py",
+      "gaveta": "ferramentas",
+      "linhas": 161,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
       "chamado_por": [],
       "no_ci": false
     },
@@ -2885,7 +2910,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 1253,
+      "linhas": 1261,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3716,7 +3741,7 @@
     {
       "ficheiro": "regras/italy_contracts.mjs",
       "gaveta": "regras",
-      "linhas": 704,
+      "linhas": 709,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -4388,14 +4413,14 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 158,
-    "pontos_de_entrada": 114,
+    "ficheiros_de_codigo": 159,
+    "pontos_de_entrada": 115,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 63,
+    "sem_chamador_e_fora_do_ci": 64,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 87,
-    "deitam_fora_alguma_coisa": 46,
-    "deitam_fora_SEM_escrever_o_motivo": 4,
+    "escrevem_ficheiro": 88,
+    "deitam_fora_alguma_coisa": 47,
+    "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 4,
     "decisoes_escondidas_ao_todo": 4
   },
@@ -4421,6 +4446,7 @@
       "ferramentas/big_collection/bc5_big_collection.py",
       "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/canario_social_onda2.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/cutover/congelar_extras.py",
@@ -4558,6 +4584,7 @@
       "ferramentas/big_collection/bc5_big_collection.py",
       "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/canario_social_onda2.py",
       "ferramentas/cutover/congelar_extras.py",
       "ferramentas/cutover/observador_ensaio.py",
       "ferramentas/cutover/passos_do_cutover.py",
@@ -4607,6 +4634,7 @@
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [
+      "ferramentas/canario_social_onda2.py",
       "ferramentas/unificacao/medir_suite.py",
       "ferramentas/unificacao/provar_em_copia.py",
       "coleta/ropf_pre_requisito.py",

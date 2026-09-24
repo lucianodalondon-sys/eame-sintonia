@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e18ce992cba8e915259f338b7e0a671dd51628ab
-BRANCH           bc4-correcoes-v1
-GERADO_EM        2026-09-24T09:15:43-03:00
+HEAD_DA_MEDICAO  5ef94ffd6718e06dab3b9418e756868833af9146
+BRANCH           social-onda2-v1
+GERADO_EM        2026-09-24T13:40:15-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1375,7 +1375,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | ferramentas/unificacao/provar_em_copia.py:119; scripts/desbloqueio/aplicar_desbloqueio.py:186; scripts/micro_coleta/micro_coleta.py:148 |
+| **prova de quem ativa** | ferramentas/unificacao/provar_em_copia.py:119; scripts/desbloqueio/aplicar_desbloqueio.py:192; scripts/micro_coleta/micro_coleta.py:148 |
 | **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/CATALOGO-PROVA-V1.json`, `curadoria/GABARITO-T2-T12-V1.json`, `curadoria/GABARITO-T2-T12-V2.json` |
@@ -1500,7 +1500,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | scripts/desbloqueio/aplicar_desbloqueio.py:212; tests/test_funil_coorte.py:13 |
+| **prova de quem ativa** | scripts/desbloqueio/aplicar_desbloqueio.py:218; tests/test_funil_coorte.py:13 |
 | **porquê** | estas pecas importam-na — C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/PROPOSTA-RECEITAS-V1.json`, `curadoria/PROPOSTA-RECEITAS-V2.json` |
@@ -1800,7 +1800,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | scripts/coorte_micro/funil.py:204; scripts/desbloqueio/aplicar_desbloqueio.py:212; tests/test_aplicar_desbloqueio.py:33 |
+| **prova de quem ativa** | scripts/coorte_micro/funil.py:204; scripts/desbloqueio/aplicar_desbloqueio.py:218; tests/test_aplicar_desbloqueio.py:33 |
 | **porquê** | estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/PROPOSTA-RECEITAS-V1.json`, `curadoria/PROPOSTA-RECEITAS-V3.json`, `curadoria/PROPOSTA-RECEITAS-V4.json` |

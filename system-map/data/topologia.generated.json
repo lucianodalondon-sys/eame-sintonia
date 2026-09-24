@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T12:20:26+00:00",
-  "HEAD": "e18ce992cba8e915259f338b7e0a671dd51628ab",
-  "BRANCH": "bc4-correcoes-v1",
+  "GENERATED_AT": "2026-09-24T16:43:22+00:00",
+  "HEAD": "5ef94ffd6718e06dab3b9418e756868833af9146",
+  "BRANCH": "social-onda2-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
-  "FICHEIROS_NA_IMPRESSAO": 2952,
+  "SOURCE_TREE_FINGERPRINT": "b571911110306fb41f91cf35578341aa660b9010939dc7bc618f9468cc8b08c3",
+  "FICHEIROS_NA_IMPRESSAO": 2988,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -77,6 +77,20 @@
     "PATH": ".github/workflows/comunicacao-publica.yml",
     "PAPEL": "FONTE",
     "VERSAO": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": ".github/workflows/curator-youtube-handles.yml",
+    "PAPEL": "FONTE",
+    "VERSAO": "4b4d8566818446456361e86eb5cf8280fb1ee319",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": ".github/workflows/curator-youtube-soc-onda2.yml",
+    "PAPEL": "FONTE",
+    "VERSAO": "da8cf27113cfc660de12202d0e8200b15664e366",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -482,7 +496,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "b0c1eccbaee10748bcd794ad7e8d7720a80fc775",
+    "VERSAO": "8d3bf073b918f931e61a96c18079d2d3e3569e55",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -699,7 +713,7 @@
    {
     "PATH": "ferramentas/big_collection/bc5_big_collection.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e83cf8195c8fd32a1f06c549250b4d327bf019ed",
+    "VERSAO": "0921ca613d6f11120daf7c52e84f2bf776400f91",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2211,7 +2225,7 @@
    {
     "PATH": "pedido/receitas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6f00da380cd2404530213d4764ecc3fb4b8d30e8",
+    "VERSAO": "05c469aee01322c095ad65a1f4cc7ba6d8a96f0d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3429,7 +3443,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+    "VERSAO": "49f5c2872c8e2ddab8461f3625003cc01d9b1267",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3534,7 +3548,7 @@
    {
     "PATH": "scripts/desbloqueio/aplicar_desbloqueio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "7c5de15f03df0c906dde7e759e798d97e6d2a02d",
+    "VERSAO": "e8ccaf16f395d53dff1b21ebc7ed343088e25f44",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3716,14 +3730,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
+    "VERSAO": "b571911110306fb41f91cf35578341aa660b9010939dc7bc618f9468cc8b08c3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "284c87b73d6a3d697d9df69d0b7970a56c76deec9b39c3a4cf0e40c094edc505",
+    "VERSAO": "b571911110306fb41f91cf35578341aa660b9010939dc7bc618f9468cc8b08c3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5256,7 +5270,7 @@
    {
     "PATH": "tests/test_prontidao_social_v1.py",
     "PAPEL": "FONTE",
-    "VERSAO": "fd8da4da2be310085e5023781c5c21ad7d1516ea",
+    "VERSAO": "c4d41e9ace63021d410fe9a87d9bca2da791e9b4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5369,6 +5383,13 @@
     "PATH": "tests/test_retorno_da_coleta.py",
     "PAPEL": "FONTE",
     "VERSAO": "507a94ffa7b2f68f6fb3946e64b19d8c08246c77",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_roteamento_youtube_proposta.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "865e4a785d622d8579ed036f6d23bd10fe554b2e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5597,8 +5618,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 794,
-  "INPUTS_DIGEST": "9def2eb543b1069ad1cad74456878c92e07a32c2c8d9c4f62361ee2ba751e7b1",
+  "INPUTS_COUNT": 797,
+  "INPUTS_DIGEST": "32ebbaf399125e640f6e5027e24bfeda6331c0d5436cf1dbc1fd270c412c54fd",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5624,15 +5645,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 498,
+  "DOCUMENTOS_LIDOS": 501,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bb2fce8d895524d95c85c9ad08fa243bb3d22742d67429e023ab531e695bd2fb",
-  "SEMANTIC_HASH": "adee83a8cf46ad16eaeec03b61c0876fb53e163b42b0a37befcc5739fa534be9"
+  "MEASUREMENT_HASH": "dee0b495a0471f88f26237e099346a3e6d7c6b89593ddbe4c54b0a32631f0078",
+  "SEMANTIC_HASH": "9be514d0cf7029883f4803c770372e85d7097ebc13eec47dd61b6db1d7229251"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10604,7 +10625,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 186,
+      "LINHA": 192,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -10612,7 +10633,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 236,
+      "LINHA": 243,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15674,7 +15695,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 212,
+      "LINHA": 218,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -16734,7 +16755,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 67,
+      "LINHA": 73,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -16742,7 +16763,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 141,
+      "LINHA": 147,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -29065,6 +29086,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_roteamento_youtube_proposta.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_scrap_flow01_caminho_canonico.py",
       "LINHA": 25,
       "SUPPORTS": "YES",
@@ -29083,14 +29112,6 @@
      {
       "FICHEIRO": "tests/test_universo_explicito.py",
       "LINHA": 46,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_universo_vem_do_pedido.py",
-      "LINHA": 40,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -33189,6 +33210,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_roteamento_youtube_proposta.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_scrap_flow01_caminho_canonico.py",
       "LINHA": 26,
       "SUPPORTS": "YES",
@@ -33316,7 +33345,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 212,
+      "LINHA": 218,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -33324,7 +33353,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 213,
+      "LINHA": 219,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -33332,7 +33361,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 214,
+      "LINHA": 220,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -42773,6 +42802,7 @@
    "C-PALAVRAS",
    "C-PEDIDO",
    "C-PERSISTENCIA-DA-PORTA-CLI",
+   "C-PORTA-FONTE",
    "C-PROCEDENCIA",
    "C-PROVA-AUTORIDADE-FONTE",
    "C-PROVA-BIBLIA",
@@ -42860,7 +42890,6 @@
    "C-MAPA-SCAN",
    "C-MICRO-COLETA-INSTRUMENTO",
    "C-MICRO-COLHEITA",
-   "C-PORTA-FONTE",
    "C-PROVA-ADAMA-REFERENCE",
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-ASR-LOCAL",
@@ -42911,7 +42940,6 @@
    "C-MAPA-GERADOR",
    "C-MAPA-SCAN",
    "C-MICRO-COLETA-INSTRUMENTO",
-   "C-PORTA-FONTE",
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-ITALIANA",
@@ -43887,6 +43915,7 @@
     "docs/design/ITALY-V2.1-README-FIRST.md",
     "docs/operacao/C-SALA-PERSISTENTE-E-PREFLIGHT-REAL-V1.md",
     "docs/operacao/CENSO-DA-INTELLIGENCE.md",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md",
     "docs/operacao/PREFLIGHT-LIVE-COLLECTION-V1.md",
     "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
     "handoff/KNOW-HOW-DELTA-ARBITRAGEM-DA-INTELLIGENCE.md",
@@ -45336,7 +45365,8 @@
    "DOCUMENTADO_COMO_CLI": [
     "CUTOVER-RUNBOOK.md",
     "RELATORIO-DESBLOQUEIO-COORTE.md",
-    "RELATORIO-UNIFICACAO.md"
+    "RELATORIO-UNIFICACAO.md",
+    "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -48035,8 +48065,8 @@
     "regras/LEIA-ANTES-DE-COLETAR.md"
    ],
    "E_ENTRYPOINT": false,
-   "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "ALCANCADO_POR_CORRIDA": true,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
     "datetime",
@@ -50150,6 +50180,7 @@
     "provas/o_canario_da_collection.py",
     "provas/o_video_tem_consumidor.py",
     "provas/os_portoes_da_collection.py",
+    "provas/roteamento_youtube_proposta.py",
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/censo_do_congelamento.py",
     "system-map/scripts/generate_system_map.py",
@@ -50829,6 +50860,8 @@
     "guarda/social_sessao.py"
    ],
    "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/curator-youtube-handles.yml",
+    ".github/workflows/curator-youtube-soc-onda2.yml",
     ".github/workflows/scrap-social.yml",
     ".github/workflows/security-check.yml"
    ],
@@ -51757,6 +51790,7 @@
     "tests/test_relevance_priority_sobrecarga.py",
     "tests/test_retirada_por_decisao.py",
     "tests/test_retorno_da_coleta.py",
+    "tests/test_roteamento_youtube_proposta.py",
     "tests/test_route_membership.py",
     "tests/test_runtime_so_deixa_passar_colheita.py",
     "tests/test_sala_duravel.py",
