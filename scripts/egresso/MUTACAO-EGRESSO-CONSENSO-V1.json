@@ -1,0 +1,124 @@
+{
+ "DATASET": "MUTACAO-EGRESSO-CONSENSO-V1",
+ "COPIA": "C:/egr-base",
+ "MUTANTES": {
+  "maioria_vira_1_voto": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=8, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_1_IT_e_2_429_e_unknown_e_bloqueia",
+    "test_2_US_e_1_IT_bloqueia",
+    "test_2_paises_diferentes_de_IT_bloqueiam",
+    "test_empate_e_unknown",
+    "test_tres_paises_diferentes_e_unknown_no_pais",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo",
+    "test_o_ipinfo_nao_vota"
+   ]
+  },
+  "discordante_com_veto": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=3, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_2_IT_e_1_US_passa",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo"
+   ]
+  },
+  "429_conta_como_voto": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=4, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo",
+    "test_429_com_pais_no_corpo_continua_sem_voto",
+    "test_429_nao_e_voto"
+   ]
+  },
+  "minimo_de_votos_1": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=10, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_1_IT_e_2_429_e_unknown_e_bloqueia",
+    "test_2_IT_e_1_US_passa",
+    "test_2_US_e_1_IT_bloqueia",
+    "test_2_paises_diferentes_de_IT_bloqueiam",
+    "test_empate_e_unknown",
+    "test_o_discordante_fica_registado",
+    "test_tres_paises_diferentes_e_unknown_no_pais",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo",
+    "test_o_ipinfo_nao_vota"
+   ]
+  },
+  "empate_escolhe_o_primeiro": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=5, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_1_IT_e_2_429_e_unknown_e_bloqueia",
+    "test_empate_e_unknown",
+    "test_tres_paises_diferentes_e_unknown_no_pais",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo"
+   ]
+  },
+  "ipinfo_vota": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=5, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_cache_expirada_mede_outra_vez",
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_o_discordante_fica_registado",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo",
+    "test_o_ipinfo_nao_vota"
+   ]
+  },
+  "sem_discordancia": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=3, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_o_discordante_fica_registado",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo"
+   ]
+  },
+  "cache_sem_validade": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=4, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_cache_expira_aos_3_minutos",
+    "test_cache_expirada_mede_outra_vez",
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo"
+   ]
+  },
+  "cache_sem_chave_de_ambiente": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=2, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo"
+   ]
+  },
+  "escrita_nao_atomica": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=3, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_a_escrita_usa_os_replace",
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo"
+   ]
+  },
+  "servico_que_falhou_vota": {
+   "RESULTADO": "MORTO",
+   "SAIDA": "FAILED (failures=3, errors=2)",
+   "TESTES_QUE_CAIRAM": [
+    "test_outro_ambiente_de_rede_nao_le_a_cache",
+    "test_nenhum_consumidor_de_coleta_chama_o_ipinfo",
+    "test_o_servico_que_diz_que_falhou_nao_vota"
+   ]
+  }
+ },
+ "MORTOS": 11,
+ "TOTAL": 11
+}

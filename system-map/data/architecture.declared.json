@@ -1455,7 +1455,7 @@
    "name": "Ask Sintonia",
    "territory": "Z-SUPERFICIE",
    "kind": "engine",
-   "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou.",
+   "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou. EGR (2026-09-24): o pais por CONSENSO de 3 verificadores (ipwho.is, ip-api.com, ifconfig.co); PASS/BLOCKED com >=2 votos validos, UNKNOWN (menos de 2 ou empate) bloqueia, um discordante nao tem veto e fica em DISCORDANCIA; ipinfo.io so telemetria; cache de 3 min partilhada entre processos (fora do Git, gravacao atomica, chave = variaveis de proxy). Todos os consumidores leem por aqui.",
    "why_here": "E a unica peca desenhada para quem nao sabe onde procurar.",
    "departments": [
     "COMERCIAL",
@@ -1464,7 +1464,10 @@
    ],
    "files": [
     "superficie/ask_sintonia.py",
-    "superficie/rede.py"
+    "superficie/rede.py",
+    "scripts/egresso/mutar_egresso.py",
+    "scripts/egresso/MUTACAO-EGRESSO-CONSENSO-V1.json",
+    "scripts/egresso/CANARIO-EGRESSO-CONSENSO-V1.json"
    ],
    "views": [],
    "icon": "⚙"

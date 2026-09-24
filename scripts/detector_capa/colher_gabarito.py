@@ -52,13 +52,16 @@ def agora():
 
 
 def egresso() -> dict:
-    r = subprocess.run(["curl", "-s", "-m", "15", "https://ipinfo.io/json"],
-                       capture_output=True, text=True, timeout=30)
-    try:
-        d = json.loads(r.stdout)
-        return {"PAIS": d.get("country"), "IP": d.get("ip"), "CIDADE": d.get("city")}
-    except ValueError:
-        return {"PAIS": "NAO SEI"}
+    """EGR (24/09): o pais pelo DONO — superficie/rede.py, consenso de 3 verificadores
+    com cache de 3 min. Nenhum consumidor pergunta a um servico diretamente (o
+    ipinfo.io em 429 parou tudo das 13:05 as 15:05). O IP nao sai do dono."""
+    import importlib.util as _u, os as _os
+    _s = _u.spec_from_file_location("rede_egresso", _os.path.join(str(RAIZ), "superficie", "rede.py"))
+    _r = _u.module_from_spec(_s)
+    _s.loader.exec_module(_r)
+    e = _r.egresso()
+    pais = e["EGRESS_COUNTRY_CODE"] if e["EGRESS_COUNTRY_CODE"] != "UNKNOWN" else None
+    return {"PAIS": pais or "NAO SEI", "VOTOS": e["VOTOS"]}
 
 
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"

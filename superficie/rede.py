@@ -169,102 +169,267 @@ def estado_do_proxy():
 # O EGRESSO — por que país sai esta máquina, e o portão que isso alimenta
 # ═════════════════════════════════════════════════════════════════════════
 
-# O serviço é o MESMO que `coleta/instagram_janela.py` já usava: público, sem
-# credencial, sem custo. Trazê-lo para aqui não é adotar um fornecedor novo — é
-# tirar de dentro de uma rota de aquisição uma pergunta que nunca foi dela.
-CHECKER_DE_EGRESSO = 'https://ipinfo.io/json'
+# ═════════════════════════════════════════════════════════════════════════
+# EGR (2026-09-24) · O PAÍS POR CONSENSO DE TRÊS VERIFICADORES
+# ═════════════════════════════════════════════════════════════════════════
+# MEDIDO: de 13:05 a 15:05 de 24/09 TUDO o que usa rede parou. A VPN estava em
+# IT (ipwho.is = IT, ip-api.com = IT), mas o ÚNICO verificador desta casa
+# (`ipinfo.io`) respondia 429 «Rate limit hit» — a cota gratuita, partilhada por
+# todas as sessões desta máquina, tinha acabado. 429 -> sem `country` -> UNKNOWN
+# -> BLOCKED. O portão fez o que devia; quem falhou foi ter UM só medidor.
+#
+#     UM PORTÃO COM UM SÓ MEDIDOR FECHA QUANDO O MEDIDOR ADOECE.
+#
+# A REGRA (decisão do bot Luciano 15:05, delegação do dono — não se inventa outra):
+#   * votam ipwho.is, ip-api.com e ifconfig.co; ipinfo.io sai do caminho crítico
+#     (é medido e registado como TELEMETRIA, sem voto);
+#   * cada verificador vota o SEU país; 429, timeout, resposta inválida ou país
+#     ausente = sem voto;
+#   * PASS se >= 2 votos válidos = exigido; BLOCKED se >= 2 votos válidos != exigido;
+#     UNKNOWN (que continua a BLOQUEAR) se < 2 votos válidos ou empate;
+#   * UM discordante não tem veto — e a discordância fica escrita (quem disse o quê).
+#
+# O dono continua a ser ESTE ficheiro. Guarda do arranque, vigia, missões e
+# coletores leem `--portao-de-egresso`/`--egresso`; nenhum pergunta aos serviços.
+VERIFICADORES = (
+    # (nome, url, campo do país, condição de sucesso escrita pelo próprio serviço)
+    ('ipwho.is', 'https://ipwho.is/', 'country_code', ('success', True)),
+    ('ip-api.com', 'http://ip-api.com/json/?fields=status,countryCode', 'countryCode',
+     ('status', 'success')),
+    ('ifconfig.co', 'https://ifconfig.co/json', 'country_iso', None),
+)
+# Só telemetria: medido e registado, NUNCA vota (esteve em 429 a 24/09).
+TELEMETRIA = ('ipinfo.io', 'https://ipinfo.io/json', 'country', None)
+# Compatibilidade: quem lia `CHECKER` recebe agora a lista dos que votam.
+CHECKER_DE_EGRESSO = ', '.join(v[0] for v in VERIFICADORES)
+VOTOS_MINIMOS = 2
 
 # `UNKNOWN` é um valor de primeira classe, e não um buraco. Ele existe para que
 # «não consegui medir» NUNCA se confunda com um país.
 EGRESSO_DESCONHECIDO = 'UNKNOWN'
 
-# ⚠️ UM SENTINELA, E NÃO `None`.
-# A primeira versão usava `bruto=None` para dizer «não me deram corpo, vai medir».
-# Só que `None` é TAMBÉM o que `_bruto_do_checker()` devolve quando não houve
-# resposta — e a prova do timeout, ao injetar `None`, foi à rede a sério e
-# voltou com um país verdadeiro. Um caso de red team passou por acidente.
+# ── A CACHE PARTILHADA (3 minutos) ─────────────────────────────────────────
+# Várias sessões e o vigia perguntavam o país ao mesmo serviço a cada poucos
+# segundos — foi assim que a cota do ipinfo acabou. Uma medição serve a todos os
+# processos durante 3 minutos. Fica FORA do Git, e a gravação é atómica (ficheiro
+# temporário na mesma pasta + os.replace): um leitor nunca vê meio ficheiro.
 #
-#     DOIS SIGNIFICADOS NO MESMO VALOR É COMO SE LÊ O ERRADO.
-#
-# Agora `None` quer dizer uma coisa só: o checker não respondeu.
+# ⚠️ A CACHE É DO AMBIENTE DE REDE, NÃO DA MÁQUINA. Uma prova offline (proxy morto
+# em 127.0.0.1:9) não pode ler o «IT» que a sessão ao lado mediu há um minuto pela
+# VPN — seria um país que nenhum pedido desta corrida viu. Por isso a chave da
+# cache inclui as variáveis de proxy e o CURL_HOME: outro ambiente, outra entrada.
+CACHE_SEGUNDOS = 180
+_VARIAVEIS_DE_REDE = ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'NO_PROXY',
+                      'http_proxy', 'https_proxy', 'all_proxy', 'no_proxy', 'CURL_HOME')
+
+
+def caminho_da_cache():
+    """`SINTONIA_EGRESSO_CACHE`, ou `%LOCALAPPDATA%` (ou `~/.cache`)/sintonia/egresso-cache.json."""
+    if os.environ.get('SINTONIA_EGRESSO_CACHE'):
+        return os.environ['SINTONIA_EGRESSO_CACHE']
+    base = os.environ.get('LOCALAPPDATA') or os.path.join(os.path.expanduser('~'), '.cache')
+    return os.path.join(base, 'sintonia', 'egresso-cache.json')
+
+
+def chave_do_ambiente(env=None):
+    import hashlib
+    env = os.environ if env is None else env
+    return hashlib.sha256('|'.join('%s=%s' % (k, env.get(k, ''))
+                                   for k in _VARIAVEIS_DE_REDE).encode()).hexdigest()[:16]
+
+
+def ler_cache(agora=None, caminho=None, chave=None):
+    """A medição guardada, se for DESTE ambiente e tiver menos de 3 minutos; senão None."""
+    import time
+    agora = time.time() if agora is None else agora
+    try:
+        with open(caminho or caminho_da_cache(), encoding='utf-8') as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return None
+    if not isinstance(d, dict) or d.get('CHAVE_DO_AMBIENTE') != (chave or chave_do_ambiente()):
+        return None
+    try:
+        idade = agora - float(d.get('MEDIDO_EM_EPOCH'))
+    except (TypeError, ValueError):
+        return None
+    if not 0 <= idade < CACHE_SEGUNDOS:
+        return None
+    return d
+
+
+def gravar_cache(medicao, caminho=None):
+    """Gravação atómica: escreve ao lado e troca de uma vez (os.replace)."""
+    import tempfile
+    caminho = caminho or caminho_da_cache()
+    pasta = os.path.dirname(caminho)
+    os.makedirs(pasta, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(prefix='.egresso-', suffix='.tmp', dir=pasta)
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(medicao, f, ensure_ascii=False)
+        os.replace(tmp, caminho)
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+
+
+# ⚠️ UM SENTINELA, E NÃO `None`. `None` quer dizer uma coisa só: não respondeu.
 _NAO_FORNECIDO = object()
 
 
-def _bruto_do_checker(timeout=15):
-    """O corpo cru do serviço, ou `None`. Esta é a única costura de rede.
-
-    Fica separada de propósito: as provas injetam corpos — `FR`, `US`, JSON
-    partido, campo ausente, minúsculas, espaços — sem depender de VPN nenhuma.
-
-        UM PORTÃO QUE SÓ SE TESTA COM A VPN LIGADA NÃO SE TESTA.
-    """
-    r = subprocess.run(['curl', '-sS', '-m', str(timeout), CHECKER_DE_EGRESSO],
-                       capture_output=True, text=True)
+def _pedir(url, timeout=10):
+    """(http_status, corpo) pelo curl, ou (None, None). A única costura de rede."""
+    r = subprocess.run(['curl', '-sS', '-m', str(timeout), '-w', '\n%{http_code}', url],
+                       capture_output=True, text=True, encoding='utf-8', errors='replace')
     if r.returncode != 0:
-        return None
-    return r.stdout
-
-
-def egresso(bruto=_NAO_FORNECIDO, quando='NÃO SEI'):
-    """`EGRESS_COUNTRY_CODE` desta máquina, ou `UNKNOWN`. Nunca um palpite.
-
-    ⚠️ O IP PÚBLICO NÃO SAI DAQUI. O serviço devolve-o; este dicionário não o
-    carrega, e por isso ele não entra em log, artefato nem registo. A pergunta
-    era o PAÍS, e guardar mais do que a pergunta é guardar o que ninguém pediu.
-
-        REGISTAR SÓ O QUE FOI PERGUNTADO.
-
-    A normalização é explícita, e é curta de propósito: tira espaços e sobe a
-    caixa. `it` e ` IT ` são o mesmo país; qualquer coisa que não sejam DUAS
-    letras não é um país e vira `UNKNOWN`.
-    """
-    if bruto is _NAO_FORNECIDO:
-        bruto = _bruto_do_checker()
-    fora = {'EGRESS_COUNTRY_CODE': EGRESSO_DESCONHECIDO,
-            'CHECKED_AT': quando, 'CHECKER': CHECKER_DE_EGRESSO}
-    if bruto is None:
-        fora['PORQUE'] = 'o checker nao respondeu (timeout, rede ou proxy)'
-        return fora
+        return None, None
+    corpo, _, cod = r.stdout.rpartition('\n')
     try:
-        d = json.loads(bruto)
+        return int(cod), corpo
+    except ValueError:
+        return None, None
+
+
+def voto(nome, resposta, campo='country', sucesso=None):
+    """O voto de UM verificador: {'VERIFICADOR', 'PAIS' (ou None = sem voto), 'PORQUE'}.
+
+    Sem voto: sem resposta, HTTP != 200 (429 incluído), JSON inválido, o serviço
+    a dizer que falhou, país ausente ou sem forma de país.
+    ⚠️ O IP, a cidade e a organização que o serviço devolve NÃO saem daqui.
+    """
+    v = {'VERIFICADOR': nome, 'PAIS': None}
+    status, corpo = resposta if isinstance(resposta, tuple) else (200, resposta)
+    if corpo is None or status is None:
+        v['PORQUE'] = 'nao respondeu (timeout, rede ou proxy)'
+        return v
+    if status != 200:
+        v['PORQUE'] = 'HTTP %s%s' % (status, ' (limite de pedidos)' if status == 429 else '')
+        return v
+    try:
+        d = json.loads(corpo)
     except (ValueError, TypeError):
-        fora['PORQUE'] = 'o checker respondeu algo que nao e JSON'
-        return fora
-    if not isinstance(d, dict) or 'country' not in d:
-        fora['PORQUE'] = 'a resposta nao traz o campo `country`'
-        return fora
-    pais = d.get('country')
+        v['PORQUE'] = 'respondeu algo que nao e JSON'
+        return v
+    if not isinstance(d, dict):
+        v['PORQUE'] = 'o JSON nao e um objeto'
+        return v
+    if sucesso and d.get(sucesso[0]) != sucesso[1]:
+        v['PORQUE'] = 'o proprio servico diz que falhou (%s=%r)' % (sucesso[0], d.get(sucesso[0]))
+        return v
+    if campo not in d:
+        v['PORQUE'] = 'a resposta nao traz o campo `%s`' % campo
+        return v
+    pais = d.get(campo)
     if not isinstance(pais, str):
-        fora['PORQUE'] = 'o campo `country` nao e texto'
-        return fora
+        v['PORQUE'] = 'o campo `%s` nao e texto' % campo
+        return v
     pais = pais.strip().upper()
     if len(pais) != 2 or not pais.isalpha():
-        fora['PORQUE'] = 'o campo `country` nao tem a forma de um codigo de pais'
-        return fora
-    fora['EGRESS_COUNTRY_CODE'] = pais
-    fora['PORQUE'] = 'medido pelo checker publico, sem credencial e sem custo'
+        v['PORQUE'] = 'o campo `%s` nao tem a forma de um codigo de pais' % campo
+        return v
+    v['PAIS'] = pais
+    v['PORQUE'] = 'voto valido'
+    return v
+
+
+def consenso(votos):
+    """(país com >= 2 votos válidos — ou UNKNOWN —, discordância). Empate = UNKNOWN."""
+    from collections import Counter
+    c = Counter(v['PAIS'] for v in votos if v.get('PAIS'))
+    fortes = [p for p, n in c.items() if n >= VOTOS_MINIMOS]
+    pais = fortes[0] if len(fortes) == 1 else EGRESSO_DESCONHECIDO
+    discordancia = ([{'VERIFICADOR': v['VERIFICADOR'], 'DISSE': v['PAIS']}
+                     for v in votos if v.get('PAIS') and v['PAIS'] != pais]
+                    if len(c) > 1 else [])
+    return pais, discordancia
+
+
+def medir(respostas=None, timeout=10):
+    """Pergunta aos TRÊS (em paralelo) e ao ipinfo (telemetria). `respostas` injeta
+    {nome: (http_status, corpo)} sem rede — é assim que as provas votam."""
+    import time
+    if respostas is None:
+        from concurrent.futures import ThreadPoolExecutor
+        todos = list(VERIFICADORES) + [TELEMETRIA]
+        with ThreadPoolExecutor(max_workers=len(todos)) as ex:
+            r = list(ex.map(lambda v: _pedir(v[1], timeout), todos))
+        respostas = {v[0]: x for v, x in zip(todos, r)}
+    votos = [voto(n, respostas.get(n, (None, None)), campo, suc)
+             for n, _u, campo, suc in VERIFICADORES]
+    tel = voto(TELEMETRIA[0], respostas.get(TELEMETRIA[0], (None, None)), TELEMETRIA[2])
+    return {'VOTOS': votos, 'TELEMETRIA': [tel], 'MEDIDO_EM_EPOCH': time.time()}
+
+
+def egresso(bruto=_NAO_FORNECIDO, quando='NÃO SEI', respostas=None, cache=True):
+    """`EGRESS_COUNTRY_CODE` por consenso, ou `UNKNOWN`. Nunca um palpite.
+
+    `bruto` (compatibilidade das provas antigas): o MESMO corpo, na forma
+    {"country": ..}, dado a cada verificador — três votos iguais. `respostas`:
+    uma resposta por verificador. Com qualquer injeção a cache não é lida nem
+    escrita. ⚠️ O IP PÚBLICO NÃO SAI DAQUI: a pergunta era o PAÍS.
+    """
+    m = None
+    if bruto is not _NAO_FORNECIDO:
+        m = {'VOTOS': [voto(n, (200, bruto) if bruto is not None else (None, None))
+                       for n, *_ in VERIFICADORES], 'TELEMETRIA': []}
+    elif respostas is not None:
+        m = medir(respostas)
+    else:
+        if cache:
+            m = ler_cache()
+            if m is not None:
+                m = dict(m, DA_CACHE=True)
+        if m is None:
+            m = medir()
+            if cache:
+                try:
+                    gravar_cache(dict(m, CHAVE_DO_AMBIENTE=chave_do_ambiente()))
+                except OSError:
+                    pass            # sem cache a medida continua certa; so fica mais cara
+    pais, disc = consenso(m['VOTOS'])
+    validos = sum(1 for v in m['VOTOS'] if v.get('PAIS'))
+    fora = {'EGRESS_COUNTRY_CODE': pais, 'CHECKED_AT': quando, 'CHECKER': CHECKER_DE_EGRESSO,
+            'VOTOS': [{'VERIFICADOR': v['VERIFICADOR'], 'PAIS': v['PAIS'] or EGRESSO_DESCONHECIDO,
+                       'PORQUE': v['PORQUE']} for v in m['VOTOS']],
+            'VOTOS_VALIDOS': validos, 'DISCORDANCIA': disc,
+            'TELEMETRIA_SEM_VOTO': [{'VERIFICADOR': t['VERIFICADOR'],
+                                     'PAIS': t['PAIS'] or EGRESSO_DESCONHECIDO,
+                                     'PORQUE': t['PORQUE']} for t in m.get('TELEMETRIA', [])],
+            'DA_CACHE': bool(m.get('DA_CACHE'))}
+    if pais == EGRESSO_DESCONHECIDO:
+        fora['PORQUE'] = ('%d voto(s) valido(s) — sao precisos %d iguais; empate ou falta de '
+                          'votos e UNKNOWN' % (validos, VOTOS_MINIMOS))
+    else:
+        fora['PORQUE'] = 'consenso de %d verificadores publicos, sem credencial e sem custo' % (
+            sum(1 for v in m['VOTOS'] if v.get('PAIS') == pais))
     return fora
 
 
-def portao_de_egresso(exigido='IT', bruto=_NAO_FORNECIDO, quando='NÃO SEI'):
+def portao_de_egresso(exigido='IT', bruto=_NAO_FORNECIDO, quando='NÃO SEI', respostas=None,
+                      cache=True):
     """O PORTÃO. Fecha por omissão, e `UNKNOWN` fecha-o também.
 
         UNKNOWN != IT.
 
-    Esta é a linha inteira da missão: um preflight que deixa passar o que não
-    conseguiu medir não é um preflight, é um carimbo. Qualquer resultado que não
-    seja exactamente o país exigido devolve `BLOCKED`.
+    PASS     >= 2 votos válidos = exigido
+    BLOCKED  >= 2 votos válidos != exigido — ou UNKNOWN (menos de 2 votos, empate)
+    Um discordante não tem veto; fica em DISCORDANCIA.
     """
-    e = egresso(bruto=bruto, quando=quando)
-    medido = e['EGRESS_COUNTRY_CODE']
-    passa = medido == str(exigido).strip().upper()
-    e['EGRESS_REQUIRED'] = str(exigido).strip().upper()
+    e = egresso(bruto=bruto, quando=quando, respostas=respostas, cache=cache)
+    exigido = str(exigido).strip().upper()
+    a_favor = sum(1 for v in e['VOTOS'] if v['PAIS'] == exigido)
+    contra = sum(1 for v in e['VOTOS'] if v['PAIS'] not in (exigido, EGRESSO_DESCONHECIDO))
+    passa = a_favor >= VOTOS_MINIMOS
+    e['EGRESS_REQUIRED'] = exigido
     e['EGRESS_GATE'] = 'PASS' if passa else 'BLOCKED'
+    e['EGRESS_VERDICT'] = ('PASS' if passa else
+                           'BLOCKED' if contra >= VOTOS_MINIMOS else EGRESSO_DESCONHECIDO)
     if not passa:
         e['PORQUE_BLOQUEADO'] = (
-            'EGRESS_COUNTRY_CODE = %s e o exigido e %s. UNKNOWN tambem bloqueia: '
-            'nao se adquire material real sobre um ambiente de rede por medir.'
-            % (medido, e['EGRESS_REQUIRED']))
+            'EGRESS_COUNTRY_CODE = %s (votos em %s: %d, noutro pais: %d) e o exigido e %s. '
+            'UNKNOWN tambem bloqueia: nao se adquire material real sobre um ambiente de rede '
+            'por medir.' % (e['EGRESS_COUNTRY_CODE'], exigido, a_favor, contra, exigido))
     e['O_QUE_ISTO_NAO_PROVA'] = (
         'VPN_LOCATION != SOURCE_LOCATION e VPN_LOCATION != FACT_LOCATION. '
         'Isto prova o ambiente de rede da execucao, nunca a geografia do dado.')
@@ -313,11 +478,11 @@ if __name__ == '__main__':
     if '--portao-de-egresso' in sys.argv:
         i = sys.argv.index('--portao-de-egresso')
         exigido = sys.argv[i + 1] if len(sys.argv) > i + 1 else 'IT'
-        v = portao_de_egresso(exigido)
+        v = portao_de_egresso(exigido, cache='--sem-cache' not in sys.argv)
         print(json.dumps(v, ensure_ascii=False, indent=1))
         sys.exit(0 if v['EGRESS_GATE'] == 'PASS' else 1)
     if '--egresso' in sys.argv:
-        print(json.dumps(egresso(), ensure_ascii=False, indent=1))
+        print(json.dumps(egresso(cache='--sem-cache' not in sys.argv), ensure_ascii=False, indent=1))
         sys.exit(0)
     if '--snapshot' in sys.argv:
         i = sys.argv.index('--snapshot')
