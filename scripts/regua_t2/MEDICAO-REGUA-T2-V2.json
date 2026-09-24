@@ -1,8 +1,8 @@
 {
  "DATASET": "MEDICAO-REGUA-T2-V2",
  "GABARITO": "GABARITO-T2-V2.json",
- "BASE": "origin/bc4-correcoes-v1",
- "VERSAO_DA_REGRA": "8",
+ "BASE": "84c235da",
+ "VERSAO_DA_REGRA": "9",
  "REGUA": {
   "IT_PT": [
    "pioggia|piogge|precipitazione|precipitazioni|chuva|chuvas|precipitacao|precipitacoes",
@@ -46,9 +46,11 @@
   ],
   "SINAIS_MINIMOS": 2,
   "PALAVRA_INTEIRA": [
+   "T1",
    "T2"
   ],
   "TRANSVERSAIS": [
+   "T1",
    "T2"
   ],
   "ANCORAS": {
@@ -163,9 +165,11 @@
   ]
  },
  "T1": {
-  "TEM_REGUA": false,
+  "TEM_REGUA": true,
   "JANELAS_DO_GABARITO_JULGADAS_EM_T1": {
-   "NAO_SE_APLICA": 45
+   "NAO": 5,
+   "SIM": 38,
+   "NAO_SEI": 2
   },
   "ATLAS_T1": "docs/fontes/ATLAS-DE-FONTES-EAME.md:45 — area plantada, producao, produtividade, calendario agricola, desenvolvimento da cultura, previsao de safra, regioes produtoras, historico"
  },
@@ -184,9 +188,9 @@
   "MUDANCAS": []
  },
  "T2_NO_CORPUS_ANTES_DEPOIS": {
-  "NAO_SE_APLICA->NAO": 469,
-  "NAO_SE_APLICA->NAO_SEI": 773,
-  "NAO_SE_APLICA->SIM": 67
+  "NAO->NAO": 469,
+  "NAO_SEI->NAO_SEI": 773,
+  "SIM->SIM": 67
  },
  "FORA_DO_GABARITO_SIM": {
   "N": 20,
