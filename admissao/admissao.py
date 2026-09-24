@@ -139,7 +139,12 @@ AUSENCIA_NAO_SE_APLICA = art.NAO_SE_APLICA
 #     CAPA, diga o detector o que disser (`retrato_html.veredito`). Nas fontes que
 #     nao passam os 4 passos nada muda. O que a v6 admitiu ou reteve de HTML pode
 #     ser reaberto pela versao.
-VERSAO_DA_REGRA = "7"
+# 8 · T2 (CLIMATE / WATER / SOIL) ganha regua (T2-REGUA, 2026-09-24). Ate aqui
+#     todo o par (item, T2) saia `NAO_SE_APLICA`; agora sai SIM / NAO / NAO_SEI
+#     pela regua medida em `scripts/regua_t2/`. Nenhum outro universo muda de
+#     veredito (T2 e transversal — ver `TRANSVERSAIS`). O que a v7 deu a T2 pode
+#     ser reaberto pela versao.
+VERSAO_DA_REGRA = "8"
 
 
 @dataclass
@@ -737,6 +742,42 @@ def _dobrar(texto: str) -> str:
 #: Um so fica `NAO_SEI` — ver `_do_universo`.
 SINAIS_MINIMOS = 2
 
+# ── T2: POR CONCEITO, PALAVRA INTEIRA, E TRANSVERSAL (T2-REGUA, 2026-09-24) ──
+# O mesmo desenho da regua T8 (YT2, branch `youtube-regua-t8-v1`), com os
+# mesmos nomes, para as duas se juntarem sem conflito de ideia: quando T8
+# entrar, os conjuntos passam a {"T2", "T8"}.
+#
+# 1 · UM TERMO DE T2 E UM CONCEITO, e as formas dele vao separadas por «|»
+#     («pioggia|piogge|precipitazione|...»). Conta UMA vez: chuva no singular e
+#     no plural e o mesmo indicio, e SINAIS_MINIMOS exige dois indicios
+#     independentes.
+# 2 · PALAVRA INTEIRA, SO NOS UNIVERSOS DESTE CONJUNTO. Medido no gabarito:
+#     `temporale` (trovoada) e tambem «serie TEMPORALI» (series temporais) numa
+#     carta de servicos de laboratorio; `seca` vive dentro de «biblioteca». As
+#     reguas antigas ficam como estao — muda-las e outra missao, com outra
+#     medicao.
+# 3 · T2 E TRANSVERSAL. O tempo que faz esta em quase tudo o que e agricola: o
+#     boletim fitossanitario diz que «as chuvas da semana passada aumentaram os
+#     voos da mosca», a noticia de mercado diz que «a seca subiu o preco». Isso
+#     nao prova que o boletim NAO e T3 nem que a noticia NAO e T10. Por isso um
+#     termo de T2 NUNCA serve de «prova de outro universo» para dizer NAO a
+#     outro universo — e as decisoes antigas nao mudam por T2 existir
+#     (medido: 0 vereditos vizinhos mudados, `MEDICAO-REGUA-T2-V1.json`).
+#
+#     FALAR DO TEMPO NAO E MUDAR DE ASSUNTO.
+PALAVRA_INTEIRA = frozenset({"T2"})
+TRANSVERSAIS = frozenset({"T2"})
+
+
+def _casa(termo: str, texto_dobrado: str) -> bool:
+    """Uma das formas do conceito (separadas por «|») esta no texto como PALAVRA INTEIRA?"""
+    import re
+    for forma in str(termo).split("|"):
+        f = _dobrar(forma)
+        if f and re.search(r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])", texto_dobrado):
+            return True
+    return False
+
 
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
@@ -792,7 +833,10 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     if lingua == "en":
         reguas = PERGUNTAS_EN
         palavras = PERGUNTAS_EN.get(universo, [])
-    achadas = [p for p in palavras if _dobrar(p) in texto]
+    if universo in PALAVRA_INTEIRA:
+        achadas = [p.split("|")[0] for p in palavras if _casa(p, texto)]
+    else:
+        achadas = [p for p in palavras if _dobrar(p) in texto]
     # ── UMA PALAVRA SOLTA NAO PROMOVE ───────────────────────────────────────
     # Medido: `sintoma` (pt) casa dentro de `sintomatologia` (it), `prova` casa
     # dentro de `approvazione`. Uma unica palavra pode ser um acidente de
@@ -819,7 +863,7 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
     noutros = {}
     for outro, termos in reguas.items():
-        if outro == universo:
+        if outro == universo or outro in TRANSVERSAIS:
             continue
         casou = [t for t in termos if t.lower() in texto]
         if casou:
@@ -1065,6 +1109,64 @@ PERGUNTAS_DO_UNIVERSO = {
             "precos", "cotacao", "cotacoes",
             "importacao", "importacoes",
             "exportacao", "exportacoes"],                    # pt
+    # T2 · CLIMATE / WATER / SOIL
+    #
+    # ⚠️ ESTE UNIVERSO NUNCA TEVE REGUA. Medido na 1.a onda da Big Collection
+    # (BC5, 24/09): as fontes T2 (ARPA Marche, ARPAE) nunca podiam dar SIM, e
+    # 12 dos 50 canais YouTube vivem em T2/T12 (SOC5).
+    #
+    # DE ONDE VEM CADA CONCEITO. Dos dois donos que ja declaram o que T2 e:
+    #     docs/fontes/ATLAS-DE-FONTES-EAME.md:46  «chuva, temperatura, seca,
+    #         geada, ondas de calor, umidade do solo, estresse hidrico, eventos
+    #         extremos, indicadores agronomicos»
+    #     leis/territorios.py::APELIDOS            clima · tempo · meteorologia ·
+    #         chuva · seca · solo · agua · irrigacao
+    # e do vocabulario do BOLETIM DO TEMPO (anticiclone, saccatura,
+    # perturbazione, nuvolosita, temporalesco, pluviometro) — que o gabarito
+    # mostrou ser a forma como «tempo/meteorologia» aparece no corpo de um
+    # texto. Esta ultima parte foi lida no gabarito: e medida DENTRO da amostra.
+    #
+    # ── O QUE FICOU DE FORA, E PORQUE — MEDIDO NO GABARITO T2-V1 ──────────
+    #     O MENU DO SITE NAO E O ASSUNTO DA PAGINA.
+    # Toda a pagina de uma ARPA traz o menu «Meteo e clima · Agrometeo ·
+    # Cambiamenti climatici · Suolo · Acque». Casavam em paginas de concursos,
+    # tarifarios e comites de garantia:
+    # `clima`                     SAIU. 45 dos 217 NO, 2 dos 27 YES.
+    # `meteorologia` e familia    SAIRAM. 19 NO («Servizio meteorologico» no
+    #                             menu e no rodape), e os YES ja tem o boletim.
+    # `agrometeo`/`agrometeorologia`/`agrometeorologico` SAIRAM. 6 a 14 NO: o
+    #                             item de menu e o nome da rede de estacoes.
+    # `cambiamento/i climatico/i` SAIRAM. 17 e 16 NO: tema de menu, e o slogan
+    #                             de qualquer programa europeu.
+    # `suolo`, `acqua`, `acque`   SAIRAM. 76 e 52 NO: menu. Fica o SOLO pela
+    #                             `umidita del suolo` e a AGUA pela
+    #                             `risorsa idrica` e pela `irrigazione`.
+    # `irrigue`/`irrigua`         SAIRAM. «Consorzi di ... acque irrigue» e o
+    #                             NOME da ANBI, no rodape de cada pagina dela —
+    #                             o nome de quem publica nao e o assunto.
+    # `temporale`/`temporali`     SAIRAM. Sao tambem «serie temporali». Ficam
+    #                             `temporalesco` e familia.
+    # `previsioni meteo`          SAIU. 1 YES e 1 NO: o menu da Arpal.
+    "T2": ["pioggia|piogge|precipitazione|precipitazioni"        # it
+           "|chuva|chuvas|precipitacao|precipitacoes",           # pt
+           "temperatura|temperature|temperaturas",
+           "siccita|seca|secas|estiagem",
+           "gelata|gelate|brina|brinate|geada|geadas",
+           "grandine|grandinata|grandinate|granizo",
+           "ondata di calore|ondate di calore|onda de calor|ondas de calor",
+           "umidita del suolo|umidade do solo",
+           "stress idrico|deficit idrico|bilancio idrico"
+           "|estresse hidrico|deficit hidrico|balanco hidrico",
+           "eventi estremi|evento estremo|eventos extremos",
+           "evapotraspirazione|evapotranspiracao",
+           "irrigazione|irrigazioni|irrigacao",
+           "risorsa idrica|risorse idriche|recurso hidrico|recursos hidricos",
+           "anticiclone|anticicloni|anticiclonico|anticiclonica|anticiclones",
+           "saccatura|saccature|cavado|cavados",
+           "perturbazione|perturbazioni|perturbacao",
+           "temporalesco|temporaleschi|temporalesca|temporalesche|trovoada|trovoadas",
+           "nuvolosita|nuvolosa|nuvoloso|nebulosidade",
+           "pluviometro|pluviometri|pluviometrico|pluviometrica|anemometro|anemometri"],
 }
 
 
@@ -1113,6 +1215,28 @@ PERGUNTAS_EN = {
            "downy mildew", "powdery mildew", "botrytis", "apple scab"],
     "T10": ["commodity",                                      # sem lingua
             "price", "quotation", "imports", "exports", "supply and demand"],
+    # T2 · os mesmos conceitos da lista it/pt, um a um, por PALAVRA INTEIRA.
+    # ⚠️ NAO MEDIDO: o gabarito T2-V1 nao tem nenhum texto ingles de T2. Fica
+    # escrito para a porta nao se calar com um boletim em ingles, e o numero
+    # dele e `NAO SEI` ate haver exemplos.
+    "T2": ["rain|rainfall|precipitation",
+           "temperature|temperatures",
+           "drought|droughts",
+           "frost|frosts",
+           "hail|hailstorm|hailstorms",
+           "heatwave|heatwaves|heat wave|heat waves",
+           "soil moisture",
+           "water stress|water deficit|water balance",
+           "extreme events|extreme weather",
+           "evapotranspiration",
+           "irrigation",
+           "water resources|water resource",
+           "anticyclone|anticyclones|anticyclonic",
+           "trough",
+           "weather front|cold front|warm front",
+           "thunderstorm|thunderstorms",
+           "cloud cover|cloudiness",
+           "rain gauge|rain gauges|anemometer|anemometers"],
 }
 IDIOMAS_SEM_REGUA = ("fr", "es", "de")
 
