@@ -148,6 +148,8 @@ def main() -> int:
     ap.add_argument("--envelopes", default=str(RAIZ / "data" / "colheita" / "scrap"))
     ap.add_argument("--aplicar", action="store_true")
     ap.add_argument("--copia", action="store_true")
+    ap.add_argument("--vivo", action="store_true",
+                    help="aplicar no vivo: so com o bot parado (curadoria/PARAR.flag presente)")
     ap.add_argument("--json")
     a = ap.parse_args()
     corridas = json.loads(Path(a.corridas).read_text(encoding="utf-8"))
@@ -167,8 +169,13 @@ def main() -> int:
                        "VEREDITO": v, "PORQUE": porque})
     print(dict(Counter(l["VEREDITO"] for l in linhas)))
     if a.aplicar:
-        if not a.copia or any(s in str(RAIZ).replace("\\", "/") for s in VIVOS):
-            print("RECUSADO: --aplicar so numa copia (--copia), nunca em %s" % ", ".join(VIVOS))
+        no_vivo = any(v in str(RAIZ).replace("\\", "/") for v in VIVOS)
+        parado = (RAIZ / "curadoria" / "PARAR.flag").exists()
+        if no_vivo and not (a.vivo and parado):
+            print("RECUSADO: no vivo so com --vivo E o bot parado (curadoria/PARAR.flag)")
+            return 2
+        if not no_vivo and not a.copia:
+            print("RECUSADO: fora do vivo, declare --copia")
             return 2
         import lifecycle as LC
         import worker as W
