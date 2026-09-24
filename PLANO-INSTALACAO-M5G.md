@@ -12,8 +12,9 @@
 ## O que vai para a produção
 
 `FINAL` = `origin/unificacao-v1` @ `7ee87573` — o commit ensaiado. Os commits depois dele (até
-o HEAD da entrega) só mudam `PLANO-INSTALACAO-M5G.md`, `RELATORIO-UNIFICACAO.md` e o mapa
-gerado: conferir com `git diff --stat 7ee87573 origin/unificacao-v1`. Se aparecer outro
+o HEAD da entrega) só mudam `PLANO-INSTALACAO-M5G.md`, `RELATORIO-UNIFICACAO.md`, o mapa
+gerado (`*.generated.json`) e o censo que a cadeia reescreve
+(`docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md`): conferir com `git diff --stat 7ee87573 origin/unificacao-v1`. Se aparecer outro
 ficheiro, **repetir o ensaio**. Desde o vivo, esta passagem traz: A5 (robots,
 pausa e teto dentro do coletor), G3+BC2 (coorte única, tabela do coletor 176 → 193), B4 (já
 está no vivo, por cópia de ficheiros — conteúdo idêntico), e as passagens 5 e 6 que o vivo
