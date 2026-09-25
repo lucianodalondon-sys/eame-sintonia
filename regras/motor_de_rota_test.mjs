@@ -407,6 +407,15 @@ await TA("D40 - tudo conhecido: volta VAZIO, com a conta, e sem inventar alvo", 
   assert.equal(alvos.D40.CONHECIDOS_SALTADOS, 6);
 });
 
+await TA("D40 - vale tambem para o padrao lido dentro do HTML (MATCH HTML)", async () => {
+  const alvos = await alvosDoContrato("X", { ACQUISITION: { STRATEGY: "HTML_LINK_DISCOVERY", MAX_TARGETS: 30,
+    INDEX_URL: "https://exemplo.it/i/", LINK_PATTERN: 'href="([^"]*\\.pdf)"' } }, {
+    buscar: indiceFalso(["a", "b", "c", "d", "e"].map((x) => `<a href="${x}.pdf">x</a>`).join("")),
+    classificar: (u) => (u.endsWith("/a.pdf") ? "CONHECIDO" : "NOVO") });
+  assert.deepEqual(alvos.map((x) => x.nome), ["b.pdf", "c.pdf", "d.pdf"]);
+  assert.equal(alvos.D40.CONHECIDOS_SALTADOS, 1);
+});
+
 await TA("D40 - sem `classificar` (canarios, provas) o motor corta como antes: MAX_TARGETS", async () => {
   const alvos = await alvosDoContrato("X", { ACQUISITION: AQ_D40 }, { buscar: buscarD40 });
   assert.deepEqual(alvos.map((x) => x.url), [url(1)]);
