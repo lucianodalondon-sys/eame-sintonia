@@ -28,6 +28,7 @@
       "HANDOFF-V2-PAUSE.md",
       "MISSAO-CANDIDATE-FEEDER-V1.md",
       "PERGUNTA-BOT-LUCIANO-HORIZONTE-DE-REVISITA.md",
+      "PERGUNTA-BOT-LUCIANO-ORDENS-63.md",
       "PLANO-INSTALACAO-BC4B.md",
       "PLANO-INSTALACAO-M5G.md",
       "PLANO-UNIFICACAO.md",
@@ -66,6 +67,8 @@
       "RELATORIO-MICRO-PREP-B.md",
       "RELATORIO-MICRO-PREP.md",
       "RELATORIO-MULTILINGUE.md",
+      "RELATORIO-ORDENS-63-V2.md",
+      "RELATORIO-ORDENS-63.md",
       "RELATORIO-PARIDADE.md",
       "RELATORIO-PONTE-CURADOR.md",
       "RELATORIO-PROPOSTA-CATALOGO.md",
@@ -355,6 +358,7 @@
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CONTRATOS-PASSO-2-V1.json",
       "curadoria/CRAWL-PROOF-V1.json",
+      "curadoria/DECISAO-D52-RETIRAR-V1.json",
       "curadoria/DECISOES-SEMANTICAS-V1.json",
       "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
       "curadoria/DIAGNOSTICO-FILA-DO-BOT-V1.json",
@@ -479,6 +483,8 @@
       "curadoria/red_team_service.py",
       "curadoria/red_team_telemetria.py",
       "curadoria/reparar_contrato.py",
+      "curadoria/retirar_duplicadas_d49.py",
+      "curadoria/retirar_por_decisao.py",
       "curadoria/retrato_html.py",
       "curadoria/revisao_ready.py",
       "curadoria/semear_lifecycle.py",
@@ -516,6 +522,8 @@
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
       "curadoria/test_reparar_contrato.py",
+      "curadoria/test_retirar_duplicadas_d49.py",
+      "curadoria/test_retirar_por_decisao.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_revisao_ready.py",
       "curadoria/test_status_liveness.py",
@@ -1594,6 +1602,22 @@
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/cdp.py",
+      "ferramentas/contrato44/CAPAS-4-PROVAS.json",
+      "ferramentas/contrato44/CIA-CLUSTER.json",
+      "ferramentas/contrato44/CIA-RONDA-1.json",
+      "ferramentas/contrato44/CIA-RONDA-2.json",
+      "ferramentas/contrato44/LISTA-44.json",
+      "ferramentas/contrato44/ONBOARD-COM-PROVA-NOVA.txt",
+      "ferramentas/contrato44/ONBOARD-SO-MOSTRAR.txt",
+      "ferramentas/contrato44/ONBOARD-V2.txt",
+      "ferramentas/contrato44/PERGUNTA-DUPLICADAS-BOT-LUCIANO.md",
+      "ferramentas/contrato44/PLANO-DEPOIS-NA-COPIA.json",
+      "ferramentas/contrato44/RELATORIO-E-PLANO-CONTRATO-44.md",
+      "ferramentas/contrato44/REPARO-3-RONDA-B.json",
+      "ferramentas/contrato44/ROBOTS-3-RONDA-A.json",
+      "ferramentas/contrato44/RONDAS.log",
+      "ferramentas/contrato44/ROTAS-PROVADAS-C44.json",
+      "ferramentas/contrato44/SHA-SUJOS.txt",
       "ferramentas/contrato_ator.py",
       "ferramentas/cutover/CUTOVER-ENSAIO-V1.json",
       "ferramentas/cutover/congelar_extras.py",
@@ -1602,6 +1626,27 @@
       "ferramentas/cutover/passos_do_cutover.py",
       "ferramentas/cutover/resolver_conflitos_ensaio.py",
       "ferramentas/fala_local.py",
+      "ferramentas/hr6/CANARIO-COLETOR-HR6-TODAS.json",
+      "ferramentas/hr6/ONBOARD-APLICAR.txt",
+      "ferramentas/hr6/ONBOARD-MOSTRAR.txt",
+      "ferramentas/hr6/PLANO-ANTES.txt",
+      "ferramentas/hr6/PLANO-DEPOIS.txt",
+      "ferramentas/hr6/RELATORIO-E-PLANO-HR6.md",
+      "ferramentas/hr6/RONDA-A1.json",
+      "ferramentas/hr6/RONDA-B1.json",
+      "ferramentas/hr6/RONDA-B2.json",
+      "ferramentas/hr6/RONDA-C1.json",
+      "ferramentas/hr6/RONDA-C2.json",
+      "ferramentas/hr6/ROTAS-PROVADAS-HR6.json",
+      "ferramentas/hr6/SHA-SUJOS-VIVO.txt",
+      "ferramentas/hr6/SHA256.txt",
+      "ferramentas/hr6/hr6-copia.sh",
+      "ferramentas/hr6/hr6-plano.sh",
+      "ferramentas/hr6/remedir_hr6.py",
+      "ferramentas/hr6/ronda_a_reparo_infere.py",
+      "ferramentas/hr6/ronda_bc_canario_curador.py",
+      "ferramentas/hr6/ronda_worker_uma_fonte.py",
+      "ferramentas/hr6/test_remedir_hr6.py",
       "ferramentas/html_text.mjs",
       "ferramentas/instagram_transcrever.py",
       "ferramentas/integra_onda2/ENSAIO-0-FOTO-DOS-LIVROS-DO-VIVO.txt",
@@ -1633,6 +1678,42 @@
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
+      "ferramentas/onda3_pacote/RELATORIO-E-PLANO-ONDA3.md",
+      "ferramentas/onda3_pacote/ensaio/0-FOTO-DOS-LIVROS.txt",
+      "ferramentas/onda3_pacote/ensaio/0-copia.txt",
+      "ferramentas/onda3_pacote/ensaio/0-pacote-toca-livros.txt",
+      "ferramentas/onda3_pacote/ensaio/0-vivo-status.txt",
+      "ferramentas/onda3_pacote/ensaio/1-livros-antes.sha",
+      "ferramentas/onda3_pacote/ensaio/1-livros-depois.sha",
+      "ferramentas/onda3_pacote/ensaio/1-merge.txt",
+      "ferramentas/onda3_pacote/ensaio/2-duplicadas-mostrar.txt",
+      "ferramentas/onda3_pacote/ensaio/2b-d52.txt",
+      "ferramentas/onda3_pacote/ensaio/3-onboarding-mostrar.txt",
+      "ferramentas/onda3_pacote/ensaio/3-onboarding.txt",
+      "ferramentas/onda3_pacote/ensaio/4-robo-vai-medir.txt",
+      "ferramentas/onda3_pacote/ensaio/5-PLANO-DEPOIS.err",
+      "ferramentas/onda3_pacote/ensaio/5-PLANO-DEPOIS.json",
+      "ferramentas/onda3_pacote/ensaio/5-depois.txt",
+      "ferramentas/onda3_pacote/ensaio/6-COORTE-ONDA3-PROVISORIA.json",
+      "ferramentas/onda3_pacote/ensaio/6-ONDA3-SO-PLANO.err",
+      "ferramentas/onda3_pacote/ensaio/6-ONDA3-SO-PLANO.json",
+      "ferramentas/onda3_pacote/ensaio/6-PROVA-TETO-ONDA3.json",
+      "ferramentas/onda3_pacote/ensaio/6-coorte.txt",
+      "ferramentas/onda3_pacote/ensaio/6-prova-teto.txt",
+      "ferramentas/onda3_pacote/ensaio/7-testes.txt",
+      "ferramentas/onda3_pacote/ensaio/8-antes-de-desfazer-status.txt",
+      "ferramentas/onda3_pacote/ensaio/8-d52-reverter.txt",
+      "ferramentas/onda3_pacote/ensaio/8-desfazer-reset.txt",
+      "ferramentas/onda3_pacote/ensaio/8-desfazer.txt",
+      "ferramentas/onda3_pacote/ensaio/8-livros-desfeito.sha",
+      "ferramentas/onda3_pacote/ensaio/A-PLANO-ANTES.err",
+      "ferramentas/onda3_pacote/ensaio/A-PLANO-ANTES.json",
+      "ferramentas/onda3_pacote/ensaio/A-antes.txt",
+      "ferramentas/onda3_pacote/ensaio/SHA256SUMS.txt",
+      "ferramentas/onda3_pacote/ensaio/onda3/ONDA-WEB-SO-PLANO.json",
+      "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "ferramentas/onda3_pacote/reparar_de_novo.py",
+      "ferramentas/onda3_pacote/test_reparar_de_novo.py",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/ponte_onboard/ENSAIO-1-antes-ENTRA0.txt",
       "ferramentas/ponte_onboard/ENSAIO-2-rotas-provadas-3rondas.json",
@@ -2580,6 +2661,13 @@
       "scripts/micro_coleta/micro_coleta.py",
       "scripts/micro_coleta/micro_rede_real.py",
       "scripts/micro_coleta/provar_backup_da_sala.py",
+      "scripts/ordens_63/ENSAIO-D52-V1.json",
+      "scripts/ordens_63/MEDIDA-ORDENS-V1.json",
+      "scripts/ordens_63/MUTACAO-D52-V1.json",
+      "scripts/ordens_63/ensaio_d52.py",
+      "scripts/ordens_63/gerar_d52.py",
+      "scripts/ordens_63/medir_ordens.py",
+      "scripts/ordens_63/mutar_d52.py",
       "scripts/receitas/ROTULOS-LD2.json",
       "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
       "scripts/receitas/censo_e_proposta.py",
@@ -2643,6 +2731,7 @@
       "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA.json",
       "scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json",
       "scripts/reparo/R1-REENSAIO-ANTES-DEPOIS-fca4f2b6.json",
+      "scripts/reparo/R1-REVISAO-15.json",
       "scripts/reparo/R1-REVISAO-READY.json",
       "scripts/reparo/R1-SUITE-POR-NOME.json",
       "scripts/reparo/R1-WRITESET.json",
@@ -3096,8 +3185,8 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "20 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-EVIDENCE-V1.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py … e mais 12",
+      "titulo": "21 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-EVIDENCE-V1.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py … e mais 13",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "curadoria/CATALOGO-PROVA-V1.json",
@@ -3571,10 +3660,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "onda3-pacote-v1",
+    "HEAD": "6e1ced9ebd087508be1c59b83b5950f2586492ce",
+    "GENERATED_AT": "2026-09-25T08:23:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "66025cdbd106c54aab742e2c4c001bd30112359e714031183836e92dd61f36b3"
   },
   "FAMILIES": [
     {
@@ -3602,7 +3691,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 99
+      "count": 100
     },
     {
       "id": "F-ESPERA",
@@ -3860,7 +3949,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 27
+      "count": 28
     },
     {
       "id": "Z-ADMISSAO",
@@ -5076,8 +5165,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 628",
-        "desses, mostrados aqui: 40 (ficam de fora 588)"
+        "enderecos que o codigo realmente chama: 633",
+        "desses, mostrados aqui: 40 (ficam de fora 593)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -37481,6 +37570,7 @@
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
         "C-MICRO-COLETA-INSTRUMENTO",
+        "C-ORDENS-63",
         "C-PACOTE-CAMADAS",
         "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-CANARIO-D24-PESSOA",
@@ -40465,6 +40555,7 @@
         "C-DETECTOR-CAPA-GABARITO",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
+        "C-ORDENS-63",
         "C-PONTE-ONBOARD",
         "C-REPARO-MEDICAO",
         "C-TESTES"
@@ -40616,10 +40707,10 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "curadoria/retirar_por_decisao.py:40",
           "ferramentas/big_collection/coorte_unica.py:42",
           "ferramentas/ponte_onboard/mutacao.py:19",
-          "medidas/canario_rotas_elegiveis.py:190",
-          "medidas/medir_k1.py:42"
+          "medidas/canario_rotas_elegiveis.py:190"
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -43263,6 +43354,7 @@
         "C-COORTE-BIG-COLLECTION",
         "C-COORTE-MICRO-FUNIL",
         "C-DESBLOQUEIO-PACOTE",
+        "C-ORDENS-63",
         "C-RECEITAS-PROPOSTA",
         "C-REPARO-MEDICAO",
         "C-TESTES"
@@ -50601,7 +50693,9 @@
       "status": "PENDING",
       "status_reason": "outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "ferramentas/onda3_pacote/ensaio/onda3/ONDA-WEB-SO-PLANO.json"
+      ],
       "inbound": [
         "C-INTEGRA-ONDA2",
         "C-IT-COLETA",
@@ -50616,14 +50710,25 @@
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
+      "parado_na_coleta": [
+        "ferramentas/onda3_pacote/ensaio/onda3/ONDA-WEB-SO-PLANO.json"
+      ],
       "momento": "NAO SEI",
       "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "ferramentas/onda3_pacote/ensaio/onda3/ONDA-WEB-SO-PLANO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
@@ -50663,6 +50768,140 @@
       },
       "x": 6415,
       "y": 1326
+    },
+    {
+      "id": "C-ORDENS-63",
+      "name": "Sites das ordens de agronomos (63) — ha forma util para a coleta?",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Mede, com 1 pedido por dominio, se as 63 ordens de agronomos paradas no canario publicam algo datado e com corpo: 59 do CONAF (1 feed de amostra) so avisos institucionais (~1/mes, 0-547 letras); Palermo ~0,7 noticias/dia, 6/10 >= 800 letras, coberta pela receita da RECEITAS-182; pergunta ao dono sobre retirar as 62 institucionais. D52: as 62 saem por decisao pela porta curadoria/retirar_por_decisao.py (marca da D9, por SOURCE_ID, reversivel); o gatilho e a alimentacao da fila saltam-nas.",
+      "why_here": "Proximo da fila da bancada (25/09): mais fontes elegiveis.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "PERGUNTA-BOT-LUCIANO-ORDENS-63.md",
+        "RELATORIO-ORDENS-63-V2.md",
+        "RELATORIO-ORDENS-63.md",
+        "curadoria/DECISAO-D52-RETIRAR-V1.json",
+        "curadoria/retirar_por_decisao.py",
+        "curadoria/test_retirar_por_decisao.py",
+        "scripts/ordens_63/ENSAIO-D52-V1.json",
+        "scripts/ordens_63/MEDIDA-ORDENS-V1.json",
+        "scripts/ordens_63/MUTACAO-D52-V1.json",
+        "scripts/ordens_63/ensaio_d52.py",
+        "scripts/ordens_63/gerar_d52.py",
+        "scripts/ordens_63/medir_ordens.py",
+        "scripts/ordens_63/mutar_d52.py"
+      ],
+      "file_count": 13,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ASK-SINTONIA",
+        "C-CENSO-UNIFICACAO",
+        "C-DETECTOR-CAPA-GABARITO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ALVOS",
+          "M",
+          "OUTRAS_CONAF"
+        ],
+        "palavras": 50,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 50,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "curadoria/DECISAO-D52-RETIRAR-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/ordens_63/ENSAIO-D52-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/ordens_63/MEDIDA-ORDENS-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "NAO SEI",
+      "rule_role_evidence": "escreve curadoria/DECISAO-D52-RETIRAR-V1.json e este mapa nao viu ninguem ler",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "scripts/ordens_63/medir_ordens.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/DECISAO-D52-RETIRAR-V1.json",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/alimentar_fila.py",
+        "curadoria/gatilho_discovery.py",
+        "curadoria/italy_contracts_curator.json",
+        "curadoria/retirar_por_decisao.py",
+        "scripts/ordens_63/MUTACAO-D52-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 12140,
+      "y": 1970
     },
     {
       "id": "C-ORQUESTRADOR",
@@ -51203,8 +51442,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 12140,
-      "y": 1970
+      "x": 11310,
+      "y": 2292
     },
     {
       "id": "C-PALAVRAS",
@@ -57338,7 +57577,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2292
     },
     {
@@ -57785,7 +58024,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2292
     },
     {
@@ -57887,8 +58126,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
-      "y": 2292
+      "x": 11310,
+      "y": 2614
     },
     {
       "id": "C-RECONCILIACAO-UNIVERSO",
@@ -58323,7 +58562,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -58568,7 +58807,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2614
     },
     {
@@ -58761,8 +59000,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
-      "y": 2614
+      "x": 11310,
+      "y": 2936
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -58847,7 +59086,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2936
     },
     {
@@ -59170,7 +59409,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2936
     },
     {
@@ -59745,8 +59984,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
-      "y": 2936
+      "x": 11310,
+      "y": 3258
     },
     {
       "id": "C-SCRAP-COLHEITA",
@@ -66196,7 +66435,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch micro-v3-fontes-v1"
+        "branch onda3-pacote-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -72117,6 +72356,41 @@
     },
     {
       "from": "C-ASK-SINTONIA",
+      "to": "C-ORDENS-63",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia tem o seu codigo importado por Sites das ordens de agronomos (63) — ha forma util para a coleta?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/ordens_63/medir_ordens.py",
+          "line": 27,
+          "snippet": "import rede                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-ORDENS-63",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-ORDENS-63",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -77737,6 +78011,73 @@
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLHEITA",
             "FROM": "C-CENSO-UNIFICACAO",
             "TO": "C-MICRO-COLHEITA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-ORDENS-63",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Sites das ordens de agronomos (63) — ha forma util para a coleta?. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/retirar_por_decisao.py",
+          "line": 40,
+          "snippet": "LIVRO = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-ORDENS-63",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/ordens_63/ensaio_d52.py",
+          "line": 29,
+          "snippet": "for f in (\"italy_contracts_curator.json\", \"LIFECYCLE-QUEUE-V1.json\", \"LIFECYCLE-LEDGER-V1.json\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-ORDENS-63",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/ordens_63/ensaio_d52.py",
+          "line": 29,
+          "snippet": "for f in (\"italy_contracts_curator.json\", \"LIFECYCLE-QUEUE-V1.json\", \"LIFECYCLE-LEDGER-V1.json\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-ORDENS-63",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -86922,6 +87263,57 @@
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
             "TO": "C-DESBLOQUEIO-PACOTE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-ORDENS-63",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Sites das ordens de agronomos (63) — ha forma util para a coleta?. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/ordens_63/ensaio_d52.py",
+          "line": 29,
+          "snippet": "for f in (\"italy_contracts_curator.json\", \"LIFECYCLE-QUEUE-V1.json\", \"LIFECYCLE-LEDGER-V1.json\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-ORDENS-63",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/ordens_63/gerar_d52.py",
+          "line": 27,
+          "snippet": "for t in json.loads((VIVO / \"curadoria\" / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-ORDENS-63",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -134643,8 +135035,19 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1649,
+  "UNCLAIMED_CODE_FILES": [
+    "ferramentas/hr6/hr6-copia.sh",
+    "ferramentas/hr6/hr6-plano.sh",
+    "ferramentas/hr6/remedir_hr6.py",
+    "ferramentas/hr6/ronda_a_reparo_infere.py",
+    "ferramentas/hr6/ronda_bc_canario_curador.py",
+    "ferramentas/hr6/ronda_worker_uma_fonte.py",
+    "ferramentas/hr6/test_remedir_hr6.py",
+    "ferramentas/onda3_pacote/ensaio_onda3.sh",
+    "ferramentas/onda3_pacote/reparar_de_novo.py",
+    "ferramentas/onda3_pacote/test_reparar_de_novo.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1724,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -134884,7 +135287,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 224,
+      "PECAS_EM_DESACORDO": 225,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -134896,23 +135299,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 249
+      "TOTAL_DE_PECAS": 250
     }
   ],
   "COUNTS": {
-    "components": 249,
+    "components": 250,
     "components_proven": 31,
-    "components_pending": 210,
+    "components_pending": 211,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1321,
-    "edges_proven": 1256,
+    "edges": 1324,
+    "edges_proven": 1259,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2978,
-    "files_covered": 1329,
-    "files_code_unclaimed": 0,
-    "roles_proven": 170,
+    "files_tracked": 3067,
+    "files_covered": 1343,
+    "files_code_unclaimed": 10,
+    "roles_proven": 171,
     "roles_declared_only": 8,
     "roles_unknown": 71,
     "roles_conflict": 38,

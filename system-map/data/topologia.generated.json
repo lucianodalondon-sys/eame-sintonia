@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T10:49:56+00:00",
-  "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-  "BRANCH": "micro-v3-fontes-v1",
+  "GENERATED_AT": "2026-09-25T11:28:07+00:00",
+  "HEAD": "6e1ced9ebd087508be1c59b83b5950f2586492ce",
+  "BRANCH": "onda3-pacote-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
-  "FICHEIROS_NA_IMPRESSAO": 3126,
+  "SOURCE_TREE_FINGERPRINT": "66025cdbd106c54aab742e2c4c001bd30112359e714031183836e92dd61f36b3",
+  "FICHEIROS_NA_IMPRESSAO": 3215,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -690,9 +690,23 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "curadoria/retirar_por_decisao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a33bb1c38528c75d22e758e623914d7e9892cdf1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "curadoria/sha_do_contrato.py",
     "PAPEL": "FONTE",
     "VERSAO": "2a0255ad2c00fd50d34a619fa44b271d7fe6b1b0",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "curadoria/test_retirar_por_decisao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c60de0760bfed70f37a177097f6d606bcedb90a1",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3756,6 +3770,34 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/ordens_63/ensaio_d52.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "91302b240bb7fee8c684f55f0c5d5ae2d894bc56",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/ordens_63/gerar_d52.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "81b77ca528fec167eb9942b83a6d33a717a54cae",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/ordens_63/medir_ordens.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "e8c7c3fe324dadfdca669b63a0e18eb7c1ec04dd",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/ordens_63/mutar_d52.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "63322475c169d59e67bc049294e1fac138141b33",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/receitas/censo_e_proposta.py",
     "PAPEL": "FONTE",
     "VERSAO": "3a61bce0177fcdd7672781c2b152a3e34f5e7a35",
@@ -3975,14 +4017,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "66025cdbd106c54aab742e2c4c001bd30112359e714031183836e92dd61f36b3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "66025cdbd106c54aab742e2c4c001bd30112359e714031183836e92dd61f36b3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5912,8 +5954,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 839,
-  "INPUTS_DIGEST": "40f2cdee567d0cc3a674061fb05d119fb7941b4b7a835e90f978b7bdb253c472",
+  "INPUTS_COUNT": 845,
+  "INPUTS_DIGEST": "1649ad1d1b90f211963962d383bc6184733b5f04b025f5c733c76a054d76c9cc",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5939,15 +5981,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 516,
+  "DOCUMENTOS_LIDOS": 523,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6afcd06017beba34794580a9520664b50831363dd44d157aeaf592ce022d6f56",
-  "SEMANTIC_HASH": "c5b340994ded1e1e82e5decffe174c1ef24ef66eed16fb03a0587b23343c9748"
+  "MEASUREMENT_HASH": "4db7ad64ae14ecfd43eef8c9c9188077ad191e37aa4e539f7206db9e4ba5d59e",
+  "SEMANTIC_HASH": "8c3c59d4ef2a094c4c6c0cbd48b5171badd8e987adbba89fe8ac3ea3a932b7b0"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6021,6 +6063,7 @@
    "C-MICRO-COLHEITA",
    "C-NAVEGADOR",
    "C-ONDA-WEB",
+   "C-ORDENS-63",
    "C-ORQUESTRADOR",
    "C-PADRAO-COLETA",
    "C-PALAVRAS",
@@ -6059,7 +6102,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 100
+  "COUNT": 101
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6266,6 +6309,7 @@
    "C-MICRO-COLHEITA",
    "C-NAVEGADOR",
    "C-ONDA-WEB",
+   "C-ORDENS-63",
    "C-ORQUESTRADOR",
    "C-PACOTE-CAMADAS",
    "C-PADRAO-COLETA",
@@ -6356,16 +6400,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 189
+  "COUNT": 190
  },
  "ARITMETICA": {
-  "COLLECTION": 100,
+  "COLLECTION": 101,
   "BOUNDARY": 89,
-  "SOMA": 189,
-  "EXPANDED": 189,
+  "SOMA": 190,
+  "EXPANDED": 190,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 189,
+  "RESUMO_CARTOES_NO_UNIVERSO": 190,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -9347,6 +9391,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-ORDENS-63",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-ORDENS-63",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/ordens_63/medir_ordens.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-ORDENS-63",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -12467,6 +12533,44 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLHEITA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-ORDENS-63",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/retirar_por_decisao.py",
+      "LINHA": 40,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/ordens_63/ensaio_d52.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/ordens_63/ensaio_d52.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -17843,6 +17947,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-ORDENS-63",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/ordens_63/ensaio_d52.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/ordens_63/gerar_d52.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -44667,12 +44801,12 @@
     ]
    }
   ],
-  "COUNT": 1255
+  "COUNT": 1258
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 189,
-  "CARTOES_AUDITADOS": 189,
-  "ARESTAS_RELACIONADAS": 1255,
+  "CARTOES_NO_UNIVERSO": 190,
+  "CARTOES_AUDITADOS": 190,
+  "ARESTAS_RELACIONADAS": 1258,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -44860,6 +44994,7 @@
    "C-MICRO-COLETA-INSTRUMENTO",
    "C-MICRO-COLHEITA",
    "C-ONDA-WEB",
+   "C-ORDENS-63",
    "C-PONTE-ONBOARD",
    "C-PORTA-FONTE",
    "C-PROVA-ADAMA-REFERENCE",
@@ -44917,6 +45052,7 @@
    "C-MAPA-GERADOR",
    "C-MAPA-SCAN",
    "C-MICRO-COLETA-INSTRUMENTO",
+   "C-ORDENS-63",
    "C-PORTA-FONTE",
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-CORTESIA",
@@ -44985,9 +45121,6 @@
    ],
    "C-DATA-CLOCK": [
     "science"
-   ],
-   "C-DETECTOR-CAPA-GABARITO": [
-    "diagnostic"
    ],
    "C-DIAGNOSTICO": [
     "evolution"
@@ -45101,12 +45234,12 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 220,
+   "CODE": 221,
    "CONTROL": 77,
    "DATA": 30,
    "PROOF": 390,
-   "READ": 296,
-   "RULE": 228,
+   "READ": 297,
+   "RULE": 229,
    "WRITE": 14
   },
   "GAPS_NOMEADOS": [
@@ -45574,7 +45707,7 @@
     "concurrent"
    ],
    "ENTRAM": 2,
-   "SAEM": 23,
+   "SAEM": 24,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -46464,7 +46597,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 9,
-   "SAEM": 9,
+   "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -47503,7 +47636,7 @@
     "urllib"
    ],
    "ENTRAM": 11,
-   "SAEM": 10,
+   "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -47515,9 +47648,7 @@
     "WRITE"
    ],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "diagnostic"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -48949,7 +49080,8 @@
     "BIBLIA-CANONICA-DA-COLETA.md",
     "RELATORIO-CAPA-MATERIA.md",
     "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
-    "ferramentas/integra_onda2/PLANO-INSTALACAO-INTEGRA-ONDA2.md"
+    "ferramentas/integra_onda2/PLANO-INSTALACAO-INTEGRA-ONDA2.md",
+    "ferramentas/onda3_pacote/RELATORIO-E-PLANO-ONDA3.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": true,
@@ -49837,6 +49969,57 @@
    "CATEGORIAS_QUE_SAEM": [
     "READ"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-ORDENS-63",
+   "NOME": "Sites das ordens de agronomos (63) — ha forma util para a coleta?",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "PERGUNTA-BOT-LUCIANO-ORDENS-63.md",
+    "RELATORIO-ORDENS-63-V2.md",
+    "RELATORIO-ORDENS-63.md",
+    "curadoria/DECISAO-D52-RETIRAR-V1.json",
+    "curadoria/retirar_por_decisao.py",
+    "curadoria/test_retirar_por_decisao.py",
+    "scripts/ordens_63/ENSAIO-D52-V1.json",
+    "scripts/ordens_63/MEDIDA-ORDENS-V1.json",
+    "scripts/ordens_63/MUTACAO-D52-V1.json",
+    "scripts/ordens_63/ensaio_d52.py",
+    "scripts/ordens_63/gerar_d52.py",
+    "scripts/ordens_63/medir_ordens.py",
+    "scripts/ordens_63/mutar_d52.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "RELATORIO-ORDENS-63-V2.md"
+   ],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "datetime",
+    "pathlib",
+    "unittest",
+    "urllib"
+   ],
+   "ENTRAM": 3,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
@@ -51141,7 +51324,8 @@
     "tests/test_teto_dominio.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "ferramentas/integra_onda2/PLANO-INSTALACAO-INTEGRA-ONDA2.md"
+    "ferramentas/integra_onda2/PLANO-INSTALACAO-INTEGRA-ONDA2.md",
+    "ferramentas/onda3_pacote/RELATORIO-E-PLANO-ONDA3.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -54297,7 +54481,8 @@
     "tests/test_ui_revisao_t3_ptbr.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "BIBLIA-CANONICA-DA-COLETA.md"
+    "BIBLIA-CANONICA-DA-COLETA.md",
+    "ferramentas/onda3_pacote/RELATORIO-E-PLANO-ONDA3.md"
    ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,

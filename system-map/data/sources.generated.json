@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T10:47:30+00:00",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
+    "GENERATED_AT": "2026-09-25T11:25:20+00:00",
+    "HEAD": "6e1ced9ebd087508be1c59b83b5950f2586492ce",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
-    "FICHEIROS_NA_IMPRESSAO": 3126,
+    "SOURCE_TREE_FINGERPRINT": "66025cdbd106c54aab742e2c4c001bd30112359e714031183836e92dd61f36b3",
+    "FICHEIROS_NA_IMPRESSAO": 3215,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38117,6 +38117,47 @@
       ]
     },
     {
+      "endpoint": "https://ex.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_canario_detalhe.py",
+          "line": 32
+        },
+        {
+          "file": "curadoria/test_collection_gate.py",
+          "line": 49
+        },
+        {
+          "file": "curadoria/test_interface_collection.py",
+          "line": 34
+        },
+        {
+          "file": "curadoria/test_ready_split.py",
+          "line": 65
+        },
+        {
+          "file": "curadoria/test_reconciliar_livros.py",
+          "line": 45
+        },
+        {
+          "file": "curadoria/test_um_so_canario_promove.py",
+          "line": 31
+        },
+        {
+          "file": "curadoria/test_worker_volta_sobrevive.py",
+          "line": 63
+        },
+        {
+          "file": "ferramentas/hr6/test_remedir_hr6.py",
+          "line": 28
+        },
+        {
+          "file": "tests/test_retirada_por_decisao.py",
+          "line": 49
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -38150,43 +38191,6 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 234
-        }
-      ]
-    },
-    {
-      "endpoint": "https://ex.it/news",
-      "usado_por": [
-        {
-          "file": "curadoria/test_canario_detalhe.py",
-          "line": 32
-        },
-        {
-          "file": "curadoria/test_collection_gate.py",
-          "line": 49
-        },
-        {
-          "file": "curadoria/test_interface_collection.py",
-          "line": 34
-        },
-        {
-          "file": "curadoria/test_ready_split.py",
-          "line": 65
-        },
-        {
-          "file": "curadoria/test_reconciliar_livros.py",
-          "line": 45
-        },
-        {
-          "file": "curadoria/test_um_so_canario_promove.py",
-          "line": 31
-        },
-        {
-          "file": "curadoria/test_worker_volta_sobrevive.py",
-          "line": 63
-        },
-        {
-          "file": "tests/test_retirada_por_decisao.py",
-          "line": 49
         }
       ]
     },
@@ -38877,9 +38881,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 628,
+  "ENDPOINTS_FOUND": 633,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 588,
+  "ENDPOINTS_TRUNCATED": 593,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -38897,9 +38901,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 628,
+    "endpoints": 633,
     "endpoints_published": 40,
-    "endpoints_truncated": 588,
+    "endpoints_truncated": 593,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,
