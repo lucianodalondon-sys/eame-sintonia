@@ -28,7 +28,7 @@ sys.path.insert(0, str(RAIZ / "candidatas"))
 from fonte_nova import registar, recusar, normalizar, carregar  # noqa: E402
 
 SAIDA = RAIZ / "curadoria" / "FILA-UNICA-CORRESPONDENCIA-V1.json"
-PRODUCAO = "origin/regua-t2-v1"
+PRODUCAO = os.environ.get("FILA_UNICA_PRODUCAO", "origin/servico-20260923-0923")
 RAMOS = [("P1d", "origin/pesquisadores-v2"), ("P1g", "origin/janelas-regioes-v1"),
          ("P5b", "origin/pessoas-docentes-v1"), ("P4b", "origin/pessoas-agro-v4"),
          ("SOC", "origin/social-onda2-v1")]
@@ -82,6 +82,9 @@ def _nota_corrigida(equipe: str, c: dict) -> str:
 
 
 def juntar(aplicar: bool = True) -> dict:
+    import hashlib
+    fila_path = RAIZ / FILA
+    base_sha = hashlib.sha256(fila_path.read_bytes()).hexdigest()
     prod = {normalizar(c["URL"]): c["CANDIDATA_ID"] for c in carregar()["CANDIDATAS"]}
     n_prod = len(prod)
     grupos: "OrderedDict[str, list]" = OrderedDict()
@@ -142,7 +145,8 @@ def juntar(aplicar: bool = True) -> dict:
         por_ramo[e]["RESULTADOS"] = dict(Counter(x["RESULTADO"].split()[0] for x in corr if x["RAMO"] == e))
     out = {"DATASET": "FILA-UNICA-CORRESPONDENCIA-V1", "GERADO_EM": datetime.now(timezone.utc).isoformat(),
            "PRODUCAO": "%s %s" % (PRODUCAO, _git("rev-parse", "--short", PRODUCAO).strip()),
-           "FILA_ANTES": n_prod, "FILA_DEPOIS": len(fila), "RAMOS": por_ramo,
+           "FILA_ANTES": n_prod, "FILA_ANTES_SHA256": base_sha,
+           "FILA_ANTES_ORIGEM": os.environ.get("FILA_UNICA_BASE_ORIGEM", "fila da arvore"), "FILA_DEPOIS": len(fila), "RAMOS": por_ramo,
            "FONTES_DISTINTAS": len(grupos), "RESULTADOS": dict(resultado),
            "CANDIDATAS_NOVAS": len(novas), "POR_FAMILIA": dict(sorted(fam_novas.items())),
            "JANELA_D29": {"ESTRITO": len(janela),
