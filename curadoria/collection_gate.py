@@ -218,6 +218,8 @@ def painel(*, ctx: dict | None = None) -> dict:
         "READY_TOTAL": len(inv),
         "READY_CURRENT_TOTAL": sum(1 for l in inv if l["READY_RULE"] == RS.REGUA_CURRENT),
         "READY_LEGACY_TOTAL": sum(1 for l in inv if l["READY_RULE"] == RS.REGUA_LEGACY),
+        # SOC-ONDA2: a promocao social (regua_social.py) conta a parte, e nunca como CURRENT.
+        "READY_SOCIAL_TOTAL": sum(1 for l in inv if l["READY_RULE"] == RS.REGUA_SOCIAL),
         "HUMAN_REVIEW_REQUIRED": sum(1 for l in inv if l["HUMAN_REVIEW_REQUIRED"]),
         "COLLECTION_ELIGIBLE": sum(1 for l in inv if l["COLLECTION_ELIGIBLE"]),
     }
@@ -260,7 +262,7 @@ def main(argv=None) -> int:
                          encoding="utf-8")
         print("escrito: %s" % SAIDA.relative_to(RAIZ))
     p = d["PAINEL"]
-    for k in ("READY_TOTAL", "READY_CURRENT_TOTAL", "READY_LEGACY_TOTAL",
+    for k in ("READY_TOTAL", "READY_CURRENT_TOTAL", "READY_LEGACY_TOTAL", "READY_SOCIAL_TOTAL",
               "HUMAN_REVIEW_REQUIRED", "COLLECTION_ELIGIBLE"):
         print("%-24s %d" % (k, p[k]))
     for l in linhas:
