@@ -15,7 +15,7 @@ import { strict as assert } from "node:assert";
 import { readFileSync } from "node:fs";
 import {
   alvosDoContrato, identidadeDoContrato, conferirAquisicao,
-  ContratoInvalido, ESTRATEGIAS, PROVIDERS, ligacoesDoIndice, nomeDoAlvo,
+  ContratoInvalido, ESTRATEGIAS, PROVIDERS, ligacoesDoIndice, nomeDoAlvo, ALVOS_POR_FONTE_D40,
   conferirIdentidade, ESTRATEGIAS_DE_IDENTIDADE, FONTES_DE_TEXTO,
 } from "./motor_de_rota.mjs";
 import { CONTRACTS } from "./italy_contracts.mjs";
@@ -355,6 +355,62 @@ T("CAPA-MATERIA - privacy, chi-siamo, newsletter e faq no ultimo troco ficam for
     `<a href="https://cia.it/news/notizie/un-vero-articolo-di-campo/">y</a>`;
   const aq = { ...AQ_CIA, LINK_PATTERN: "^https?://(www\\.)?cia\\.it/news/.+$" };
   assert.deepEqual(ligacoesDoIndice(html, aq), ["https://cia.it/news/notizie/un-vero-articolo-di-campo/"]);
+});
+
+// ── D40: o 1.o alvo ainda NAO coletado, ate 3 por fonte ─────────────────────
+const IDX_D40 = `<html>` + [1, 2, 3, 4, 5, 6].map((n) =>
+  `<a href="https://www.exemplo.it/news/artigo-numero-${n}-de-teste/">a${n}</a>`).join("") + `</html>`;
+const AQ_D40 = { STRATEGY: "HTML_LINK_DISCOVERY", MATCH: "URL", MAX_TARGETS: 1,
+  INDEX_URL: "https://www.exemplo.it/news/", LINK_PATTERN: "^https?://(www\\.)?exemplo\\.it/news/.+$" };
+const url = (n) => `https://www.exemplo.it/news/artigo-numero-${n}-de-teste/`;
+const pedidosD40 = [];
+const buscarD40 = async (u) => { pedidosD40.push(u); return { status: 200, buf: Buffer.from(IDX_D40, "latin1") }; };
+
+await TA("D40 - o conhecido sai ANTES do corte: com 1 e 2 no livro, os alvos sao 3, 4, 5", async () => {
+  pedidosD40.length = 0;
+  const conhecidos = new Set([url(1), url(2)]);
+  const alvos = await alvosDoContrato("X", { ACQUISITION: AQ_D40, OUTPUT_TYPE: "HTML" },
+    { buscar: buscarD40, classificar: (u) => (conhecidos.has(u) ? "CONHECIDO" : "NOVO") });
+  assert.deepEqual(alvos.map((a) => a.url), [url(3), url(4), url(5)]);
+  assert.deepEqual(pedidosD40, ["https://www.exemplo.it/news/"], "so o indice foi pedido: a escolha nao gasta rede");
+  assert.equal(alvos.D40.CONHECIDOS_SALTADOS, 2);
+});
+
+await TA("D40 - no maximo 3, mesmo com o contrato a pedir 1 ou 30", async () => {
+  for (const mt of [1, 30]) {
+    const alvos = await alvosDoContrato("X", { ACQUISITION: { ...AQ_D40, MAX_TARGETS: mt }, OUTPUT_TYPE: "HTML" },
+      { buscar: buscarD40, classificar: () => "NOVO" });
+    assert.equal(alvos.length, ALVOS_POR_FONTE_D40, `MAX_TARGETS=${mt}`);
+    assert.equal(ALVOS_POR_FONTE_D40, 3);
+  }
+});
+
+await TA("D40 - ordem estavel: a ordem do indice, duas corridas iguais", async () => {
+  const cls = (u) => (u === url(2) ? "CONHECIDO" : "NOVO");
+  const a = await alvosDoContrato("X", { ACQUISITION: AQ_D40 }, { buscar: buscarD40, classificar: cls });
+  const b = await alvosDoContrato("X", { ACQUISITION: AQ_D40 }, { buscar: buscarD40, classificar: cls });
+  assert.deepEqual(a.map((x) => x.url), [url(1), url(3), url(4)]);
+  assert.deepEqual(a.map((x) => x.url), b.map((x) => x.url));
+});
+
+await TA("D40 - o NOVO passa a frente da REVISITA, e a revisita so entra se sobrar lugar", async () => {
+  const cls = (u) => (u === url(1) || u === url(2) ? "REVISITA" : u === url(3) ? "CONHECIDO" : u === url(6) ? "NOVO" : "CONHECIDO");
+  const alvos = await alvosDoContrato("X", { ACQUISITION: AQ_D40 }, { buscar: buscarD40, classificar: cls });
+  assert.deepEqual(alvos.map((x) => x.url), [url(6), url(1), url(2)]);
+});
+
+await TA("D40 - tudo conhecido: volta VAZIO, com a conta, e sem inventar alvo", async () => {
+  const alvos = await alvosDoContrato("X", { ACQUISITION: AQ_D40 }, { buscar: buscarD40, classificar: () => "CONHECIDO" });
+  assert.equal(alvos.length, 0);
+  assert.ok(!alvos.erro, "tudo conhecido nao e erro da fonte");
+  assert.equal(alvos.D40.VAZIO_HONESTO, true);
+  assert.equal(alvos.D40.CONHECIDOS_SALTADOS, 6);
+});
+
+await TA("D40 - sem `classificar` (canarios, provas) o motor corta como antes: MAX_TARGETS", async () => {
+  const alvos = await alvosDoContrato("X", { ACQUISITION: AQ_D40 }, { buscar: buscarD40 });
+  assert.deepEqual(alvos.map((x) => x.url), [url(1)]);
+  assert.equal(alvos.D40, undefined);
 });
 
 T("URL - categoria, paginacao, activo estatico, feed e outro host ficam fora", () => {
