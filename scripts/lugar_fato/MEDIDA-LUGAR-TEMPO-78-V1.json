@@ -3,19 +3,21 @@
  "REGRAS": "D61 + D62 (EVENTO/MERCADO como tipo) + D63 (relativa com a conta)",
  "N": 78,
  "CONTAGENS": {
+  "SIMULADO_oggi_recusado_por_D64": 13,
+  "SIMULADO_tempo_relativa_contada_se_a_publicacao_fosse_provada": 0,
   "com_expressao_relativa": 18,
-  "com_expressao_relativa_presa_a_um_facto": 6,
-  "lugar_CAMPO": 1,
-  "lugar_EVENTO": 7,
-  "lugar_MERCADO": 4,
+  "com_expressao_relativa_presa_a_um_facto": 5,
+  "lugar_CAMPO": 3,
+  "lugar_EVENTO": 6,
+  "lugar_MERCADO": 3,
   "lugar_NAO SEI": 66,
   "lugar_extrator": 12,
   "lugar_leitor_sozinho": 1,
   "sem_corpo": 2,
-  "tempo_CAMPO": 13,
-  "tempo_EVENTO": 7,
-  "tempo_NAO SEI": 58,
-  "tempo_extrator": 20,
+  "tempo_CAMPO": 9,
+  "tempo_EVENTO": 9,
+  "tempo_NAO SEI": 60,
+  "tempo_extrator": 18,
   "tempo_leitor_sozinho": 18
  },
  "PUBLICATION_TIME_NA_SALA": "sem base provada em todas as linhas: nenhuma relativa pode ser contada (D63 -> NAO SEI)",
@@ -97,7 +99,7 @@
     ],
     [
      "oggi",
-     "CAMPO"
+     null
     ]
    ],
    "LEITOR_SOZINHO": {
@@ -133,7 +135,7 @@
    "fact_location": "Puglia",
    "fact_location_kind": "CAMPO",
    "fact_location_precision": "REGION",
-   "fact_location_basis": "CAMPO · CITADO · REGION · âncora «registrato» · OFFICIAL_OCCURRENCE · «Importante è sottolineare lo scarto climatico registrato nella settimana scorsa: + 6°C le massime e in generale dai + 2 ai + 3°C su gran parte della Puglia, ﬁno a + 4°C sull’area adriatica tra il nord»",
+   "fact_location_basis": "CAMPO · OCORRENCIA · CITADO · REGION · âncora «registrato» · OFFICIAL_OCCURRENCE · «Importante è sottolineare lo scarto climatico registrato nella settimana scorsa: + 6°C le massime e in generale dai + 2 ai + 3°C su gran parte della Puglia, ﬁno a + 4°C sull’area adriatica tra il nord»",
    "fact_time": "NAO SEI",
    "fact_time_kind": "NAO SEI",
    "fact_time_precision": "NOT_KNOWN",
@@ -162,7 +164,7 @@
     ],
     [
      "oggi",
-     "CAMPO"
+     null
     ]
    ],
    "LEITOR_SOZINHO": {
@@ -197,19 +199,22 @@
    "item_id": "derived:21",
    "source_id": "IT-T5-010",
    "universo": "T5",
-   "fact_location": "Veneto ; Ferrara ; Italia ; Roma",
-   "fact_location_kind": "EVENTO",
+   "fact_location": "Ferrara ; Italia",
+   "fact_location_kind": "CAMPO",
    "fact_location_precision": "PROVINCE",
-   "fact_location_basis": "EVENTO · CITADO · REGION · âncora «convegno» · OTHER · «Vorrei sottolineare il convegno sulla frutticoltura di pianura organizzato il 28/5/2010, nell’ambito delle Giornate della Frutticoltura, dalla Fondazione che ha accolto a proprie spese circa 300 stude» ; EVENTO · CITADO · PROVINCE · âncora «congressi» · OTHER · «Non a caso nel tempo sono stati organizzati a Ferrara congressi, convegni e varie",
+   "fact_location_basis": "CAMPO · PRODUCAO · CITADO · PROVINCE · âncora «ettari» · OTHER · «A Ferrara, la superficie è stata di poco più di 24mila ettari con una produzione di un milione e 346mila quintali”» ; CAMPO · PRODUCAO · CITADO · COUNTRY · âncora «sono prodotti» · OTHER · «” “In Italia lo scorso anno si sono prodotti 38milioni e 245mila quintali su una superficie di un milione e 257mila ettari, mentre a Ferrara la ",
    "fact_time": "campagna 2010",
    "fact_time_kind": "CAMPO",
    "fact_time_precision": "SEASON",
    "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · SEASON · «Nella campagna 2010, sono stati raccolti presso lo Stabilimento di Pomposa, diversi campioni di bucce e semi» · a data de publicação sozinha nunca preenche este campo",
-   "OUTROS_LUGARES": [],
+   "OUTROS_LUGARES": [
+    "Veneto (EVENTO)",
+    "Roma (EVENTO)"
+   ],
    "EXPRESSOES_RELATIVAS": [
     [
      "l’anno scorso",
-     "CAMPO"
+     null
     ],
     [
      "Oggi",
@@ -229,14 +234,6 @@
     ],
     [
      "oggi",
-     "CAMPO"
-    ],
-    [
-     "oggi",
-     "CAMPO"
-    ],
-    [
-     "recentemente",
      null
     ],
     [
@@ -249,11 +246,19 @@
     ],
     [
      "oggi",
-     "CAMPO"
+     null
+    ],
+    [
+     "recentemente",
+     null
     ],
     [
      "oggi",
      "CAMPO"
+    ],
+    [
+     "oggi",
+     null
     ],
     [
      "lo scorso anno",
@@ -261,10 +266,6 @@
     ],
     [
      "Oggi",
-     "CAMPO"
-    ],
-    [
-     "oggi",
      null
     ],
     [
@@ -293,7 +294,11 @@
     ],
     [
      "oggi",
-     "CAMPO"
+     null
+    ],
+    [
+     "oggi",
+     null
     ],
     [
      "oggi",
@@ -325,7 +330,7 @@
     ],
     [
      "l’anno scorso",
-     "CAMPO"
+     "EVENTO"
     ],
     [
      "l’anno scorso",
@@ -353,7 +358,7 @@
     ],
     [
      "oggi",
-     "CAMPO"
+     null
     ],
     [
      "oggi",
@@ -385,7 +390,7 @@
     ],
     [
      "oggi",
-     "CAMPO"
+     null
     ],
     [
      "oggi",
@@ -647,10 +652,10 @@
    "fact_location_kind": "NAO SEI",
    "fact_location_precision": "NAO SEI",
    "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Bari, Bologna, Catania, Ferrara, Italia, Milano, Napoli, Pavia)",
-   "fact_time": "2022",
-   "fact_time_kind": "CAMPO",
-   "fact_time_precision": "APPROXIMATE",
-   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · APPROXIMATE · «In questo contesto si segnala che l’Università di Verona ha dato l’avvio, nel 2022, alla Laurea Professionalizzante in Innovazione e sostenibilità nella produzione industriale di alimenti (ISPIA), in » · a data de publicação sozinha nunca preenche este campo",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): SERIE_DE_ANOS «2026, 2027 e 2028», INSTITUCIONAL_NAO_FATO «2022»; expressões relativas guardadas como evidência, sem conta (publicação não provada): «Recentemente», «recentemente» · a data de publicação sozinha nunca preenche este campo",
    "OUTROS_LUGARES": [],
    "EXPRESSOES_RELATIVAS": [
     [
@@ -675,7 +680,7 @@
    "fact_location": "Napoli",
    "fact_location_kind": "EVENTO",
    "fact_location_precision": "PROVINCE",
-   "fact_location_basis": "EVENTO · CITADO · PROVINCE · âncora «Workshop» · OTHER · «Siamo lieti di annunciare che il 6° Maria Ciaramella Memorial Workshop si terrà il 12 e 13 novembre 2026 presso la Sala Seminari dell’Area 1 della Città della Ricerca del CNR di Napoli»",
+   "fact_location_basis": "EVENTO · EVENTO · CITADO · PROVINCE · âncora «Seminari» · OTHER · «Siamo lieti di annunciare che il 6° Maria Ciaramella Memorial Workshop si terrà il 12 e 13 novembre 2026 presso la Sala Seminari dell’Area 1 della Città della Ricerca del CNR di Napoli»",
    "fact_time": "12-13 novembre 2026",
    "fact_time_kind": "EVENTO",
    "fact_time_precision": "APPROXIMATE",
@@ -795,11 +800,11 @@
    "fact_location": "Italy",
    "fact_location_kind": "EVENTO",
    "fact_location_precision": "COUNTRY",
-   "fact_location_basis": "EVENTO · CITADO · COUNTRY · âncora «evento» · OTHER · «L'evento metterà al centro due temi strategici per il contrasto allo spreco alimentare:\"Food Coalition for Food Loss and Waste: From Evidence to Action\", dedicato al passaggio dalle evidenze scientifi»",
+   "fact_location_basis": "EVENTO · EVENTO · CITADO · COUNTRY · âncora «evento» · OTHER · «L'evento metterà al centro due temi strategici per il contrasto allo spreco alimentare:\"Food Coalition for Food Loss and Waste: From Evidence to Action\", dedicato al passaggio dalle evidenze scientifi»",
    "fact_time": "29 settembre 2026",
-   "fact_time_kind": "CAMPO",
+   "fact_time_kind": "EVENTO",
    "fact_time_precision": "DATE_EXACT",
-   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · DATE_EXACT · «In occasione della VII Giornata Internazionale di Sensibilizzazione sulle Perdite e sugli Sprechi Alimentari, il 29 settembre 2026 la Sala Igea dell'Istituto dell'Enciclopedia Italiana Treccani ospite» · a data de publicação sozinha nunca preenche este campo",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · DATE_EXACT · âncora «Giornata Internazionale» · «In occasione della VII Giornata Internazionale di Sensibilizzazione sulle Perdite e sugli Sprechi Alimentari, il 29 settembre 2026 la Sala Igea dell'Istituto dell'Enciclopedia Italiana Treccani ospite» · a data de publicação sozinha nunca preenche este campo",
    "OUTROS_LUGARES": [],
    "EXPRESSOES_RELATIVAS": [],
    "LEITOR_SOZINHO": {
@@ -920,7 +925,7 @@
    "fact_location": "Napoli",
    "fact_location_kind": "EVENTO",
    "fact_location_precision": "PROVINCE",
-   "fact_location_basis": "EVENTO · CITADO · PROVINCE · âncora «Workshop» · OTHER · «Siamo lieti di annunciare che il 6° Maria Ciaramella Memorial Workshop si terrà il 12 e 13 novembre 2026 presso la Sala Seminari dell’Area 1 della Città della Ricerca del CNR di Napoli»",
+   "fact_location_basis": "EVENTO · EVENTO · CITADO · PROVINCE · âncora «Seminari» · OTHER · «Siamo lieti di annunciare che il 6° Maria Ciaramella Memorial Workshop si terrà il 12 e 13 novembre 2026 presso la Sala Seminari dell’Area 1 della Città della Ricerca del CNR di Napoli»",
    "fact_time": "12-13 novembre 2026",
    "fact_time_kind": "EVENTO",
    "fact_time_precision": "APPROXIMATE",
@@ -1060,11 +1065,11 @@
    "fact_location": "Italy",
    "fact_location_kind": "EVENTO",
    "fact_location_precision": "COUNTRY",
-   "fact_location_basis": "EVENTO · CITADO · COUNTRY · âncora «evento» · OTHER · «L'evento metterà al centro due temi strategici per il contrasto allo spreco alimentare:\"Food Coalition for Food Loss and Waste: From Evidence to Action\", dedicato al passaggio dalle evidenze scientifi»",
+   "fact_location_basis": "EVENTO · EVENTO · CITADO · COUNTRY · âncora «evento» · OTHER · «L'evento metterà al centro due temi strategici per il contrasto allo spreco alimentare:\"Food Coalition for Food Loss and Waste: From Evidence to Action\", dedicato al passaggio dalle evidenze scientifi»",
    "fact_time": "29 settembre 2026",
-   "fact_time_kind": "CAMPO",
+   "fact_time_kind": "EVENTO",
    "fact_time_precision": "DATE_EXACT",
-   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · DATE_EXACT · «In occasione della VII Giornata Internazionale di Sensibilizzazione sulle Perdite e sugli Sprechi Alimentari, il 29 settembre 2026 la Sala Igea dell'Istituto dell'Enciclopedia Italiana Treccani ospite» · a data de publicação sozinha nunca preenche este campo",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · DATE_EXACT · âncora «Giornata Internazionale» · «In occasione della VII Giornata Internazionale di Sensibilizzazione sulle Perdite e sugli Sprechi Alimentari, il 29 settembre 2026 la Sala Igea dell'Istituto dell'Enciclopedia Italiana Treccani ospite» · a data de publicação sozinha nunca preenche este campo",
    "OUTROS_LUGARES": [],
    "EXPRESSOES_RELATIVAS": [],
    "LEITOR_SOZINHO": {
@@ -1206,10 +1211,10 @@
    "fact_location_kind": "NAO SEI",
    "fact_location_precision": "NAO SEI",
    "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
-   "fact_time": "21 settembre",
-   "fact_time_kind": "CAMPO",
-   "fact_time_precision": "DATE_EXACT",
-   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · DATE_EXACT · «Si avvisano gli studenti interessati che l’esame del modulo di arboricoltura del corso integrato di ortofloroarboricoltura (L25) già previsto per il 21 settembre è spostato a mercoledì 23 settembre al» · a data de publicação sozinha nunca preenche este campo",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): INSTITUCIONAL_NAO_FATO «21 settembre», INSTITUCIONAL_NAO_FATO «23 settembre», INSTITUCIONAL_NAO_FATO «23 settembre» · a data de publicação sozinha nunca preenche este campo",
    "OUTROS_LUGARES": [],
    "EXPRESSOES_RELATIVAS": [],
    "LEITOR_SOZINHO": {
@@ -1475,7 +1480,7 @@
    "fact_location": "Sicilia ; Verona",
    "fact_location_kind": "MERCADO",
    "fact_location_precision": "PROVINCE",
-   "fact_location_basis": "MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «Secondo Toni Margiotta, rappresentante dei grossisti del mercato, la causa non è il caro energia, come spesso si pensa, ma la drastica riduzione della produzione dovuta alle ondate di calore che hanno» ; MERCADO · CITADO · PROVINCE · âncora «mercato» · OTHER · «Uve: la senza semi sopra i 2 euro, con i semi poco sopra l'euro Al mercato ortofru",
+   "fact_location_basis": "MERCADO · MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «Secondo Toni Margiotta, rappresentante dei grossisti del mercato, la causa non è il caro energia, come spesso si pensa, ma la drastica riduzione della produzione dovuta alle ondate di calore che hanno» ; MERCADO · MERCADO · CITADO · PROVINCE · âncora «mercato» · OTHER · «Uve: la senza semi sopra i 2 euro, con i semi poco sopra l'eur",
    "fact_time": "NAO SEI",
    "fact_time_kind": "NAO SEI",
    "fact_time_precision": "NOT_KNOWN",
@@ -1500,7 +1505,7 @@
    "fact_location": "Piemonte ; Lombardia",
    "fact_location_kind": "MERCADO",
    "fact_location_precision": "REGION",
-   "fact_location_basis": "MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «iN’S Mercato, due nuove aperture in Piemonte e Lombardia» ; MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «iN’S Mercato, due nuove aperture in Piemonte e Lombardia»",
+   "fact_location_basis": "MERCADO · MERCADO · CITADO · REGION · âncora «Mercato» · OTHER · «iN’S Mercato, due nuove aperture in Piemonte e Lombardia» ; MERCADO · MERCADO · CITADO · REGION · âncora «Mercato» · OTHER · «iN’S Mercato, due nuove aperture in Piemonte e Lombardia»",
    "fact_time": "NAO SEI",
    "fact_time_kind": "NAO SEI",
    "fact_time_precision": "NOT_KNOWN",
@@ -1587,9 +1592,9 @@
    "source_id": "IT-T10-018",
    "universo": "T10",
    "fact_location": "Sardegna",
-   "fact_location_kind": "MERCADO",
+   "fact_location_kind": "CAMPO",
    "fact_location_precision": "REGION",
-   "fact_location_basis": "MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «Più shelf-life per allargare i confini del mercato In Sardegna si producono tante fragole, ma le distanze impediscono una politica di export»",
+   "fact_location_basis": "CAMPO · PRODUCAO · CITADO · REGION · âncora «si producono» · OTHER · «Più shelf-life per allargare i confini del mercato In Sardegna si producono tante fragole, ma le distanze impediscono una politica di export»",
    "fact_time": "NAO SEI",
    "fact_time_kind": "NAO SEI",
    "fact_time_precision": "NOT_KNOWN",
@@ -1692,7 +1697,7 @@
    "fact_location": "Roma ; Milano ; Brescia ; Padova ; Napoli",
    "fact_location_kind": "EVENTO",
    "fact_location_precision": "PROVINCE",
-   "fact_location_basis": "EVENTO · CITADO · PROVINCE · âncora «Convegno» · OTHER · «Convegno Giornate di Studio Sulla Popolazione – Popdays 2023 – Roma, 1-4 febbraio 2023 – Università Roma Tre – Call for paper entro il 30 settembre 2022» ; EVENTO · CITADO · PROVINCE · âncora «Congressi» · OTHER · «Conferenza su “La trasformazione digitale nella scuola, negli ITS, nell’università e nella formazione professionale” – Milano, ",
+   "fact_location_basis": "EVENTO · EVENTO · CITADO · PROVINCE · âncora «Giornate di Studio» · OTHER · «Convegno Giornate di Studio Sulla Popolazione – Popdays 2023 – Roma, 1-4 febbraio 2023 – Università Roma Tre – Call for paper entro il 30 settembre 2022» ; EVENTO · EVENTO · CITADO · PROVINCE · âncora «Congressi» · OTHER · «Conferenza su “La trasformazione digitale nella scuola, negli ITS, nell’università e nella formazio",
    "fact_time": "1-4 febbraio 2023",
    "fact_time_kind": "EVENTO",
    "fact_time_precision": "APPROXIMATE",
@@ -1736,7 +1741,7 @@
    "fact_time": "2025",
    "fact_time_kind": "CAMPO",
    "fact_time_precision": "APPROXIMATE",
-   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · APPROXIMATE · «L’impegno della Regione per l’agroalimentare Nel 2025 la Regione ha destinato circa 86,7 milioni di euro ad agricoltura, caccia e pesca» · a data de publicação sozinha nunca preenche este campo",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · APPROXIMATE · «Per l’emergenza granchio blu, ai ristori statali si sono aggiunte risorse regionali destinate alla raccolta, al trasporto e allo smaltimento della specie invasiva, pari a 1,5 milioni di euro nel 2025» · a data de publicação sozinha nunca preenche este campo",
    "OUTROS_LUGARES": [],
    "EXPRESSOES_RELATIVAS": [
     [
@@ -1745,7 +1750,7 @@
     ],
     [
      "oggi",
-     "CAMPO"
+     null
     ]
    ],
    "LEITOR_SOZINHO": {
@@ -1781,7 +1786,7 @@
    "fact_location": "Rimini ; Piemonte ; Italia",
    "fact_location_kind": "EVENTO",
    "fact_location_precision": "PROVINCE",
-   "fact_location_basis": "EVENTO · CITADO · PROVINCE · âncora «Salone» · OTHER · «E' quanto emerso oggi durante la presentazione della 44esima edizione del Salone, in programma a Rimini dal 20 al 22 aprile 2027» ; EVENTO · CITADO · REGION · âncora «Fiera» · OTHER · «L'anteprima, l'ampliamento, il kiwi, il Piemonte, il Cile e gli stone fruit I dettagli operativi della 44esima edizione sono stati illustrati da Luigi Bianchi,",
+   "fact_location_basis": "EVENTO · EVENTO · CITADO · PROVINCE · âncora «in programma» · OTHER · «E' quanto emerso oggi durante la presentazione della 44esima edizione del Salone, in programma a Rimini dal 20 al 22 aprile 2027» ; EVENTO · EVENTO · CITADO · REGION · âncora «Fiera» · OTHER · «L'anteprima, l'ampliamento, il kiwi, il Piemonte, il Cile e gli stone fruit I dettagli operativi della 44esima edizione sono stati illu",
    "fact_time": "20-22 aprile 2027",
    "fact_time_kind": "EVENTO",
    "fact_time_precision": "APPROXIMATE",
@@ -1814,7 +1819,7 @@
    "fact_location": "Milano",
    "fact_location_kind": "MERCADO",
    "fact_location_precision": "PROVINCE",
-   "fact_location_basis": "MERCADO · CITADO · PROVINCE · âncora «mercato» · OTHER · «Ma quest’anno, avverte Umberto Maffioletti della ditta Arrigoni Chiara , storico operatore del mercato ortofrutticolo di Milano e profondo conoscitore del settore dei piccoli frutti, l’autunno‑inverno»",
+   "fact_location_basis": "MERCADO · MERCADO · CITADO · PROVINCE · âncora «mercato» · OTHER · «Ma quest’anno, avverte Umberto Maffioletti della ditta Arrigoni Chiara , storico operatore del mercato ortofrutticolo di Milano e profondo conoscitore del settore dei piccoli frutti, l’autunno‑inverno»",
    "fact_time": "NAO SEI",
    "fact_time_kind": "NAO SEI",
    "fact_time_precision": "NOT_KNOWN",
