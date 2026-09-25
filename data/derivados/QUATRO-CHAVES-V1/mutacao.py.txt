@@ -1,0 +1,70 @@
+# -*- coding: utf-8 -*-
+# QUATRO-CHAVES-V1 · mutacao: cada troca estraga UMA lei; a classe de teste tem de reprovar.
+# Guardado como .txt (registo do ensaio). Corre-se:
+#   HTTP(S)_PROXY=http://127.0.0.1:9 PYTHONDONTWRITEBYTECODE=1 PYTHONUTF8=1 py data/derivados/QUATRO-CHAVES-V1/mutacao.py.txt
+import hashlib
+import os
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__)))))
+A = "admissao/admissao.py"
+T = "tests.test_quatro_chaves"
+
+MUTANTES = [
+    ("M1 a regiao herda o lugar da fonte",
+     '    regiao = _valor(item.get("fact_location"))',
+     '    regiao = _valor(item.get("fact_location") or item.get("source_location"))'),
+    ("M2 a janela nasce da data de publicacao",
+     '        "JANELA": {"VALOR": NAO_SEI,',
+     '        "JANELA": {"VALOR": _valor(item.get("published_at")),'),
+    ("M3 o tempo do fato nasce da publicacao",
+     '        "TEMPOS": {"FACT_TIME": _valor(item.get("fact_time")),',
+     '        "TEMPOS": {"FACT_TIME": _valor(item.get("fact_time") or item.get("published_at")),'),
+    ("M4 a cultura e deitada fora",
+     '        culturas = _formas_que_casam(vocab[decisao.universo], texto)',
+     '        culturas = []'),
+    ("M5 outro universo inventa cultura e fase",
+     '    da_regua = decisao.universo in CULTURA_OBRIGATORIA',
+     '    da_regua = True'),
+    ("M6 ausencia vira vazio",
+     '        return NAO_SEI if v is None or str(v).strip() in ("", AUSENCIA) else v',
+     '        return "" if v is None or str(v).strip() in ("", AUSENCIA) else v'),
+    ("M7 a porta ganha um campo na evidencia",
+     '{"palavras": achadas[:8], "cultura": True, "sinais": len(achadas)}',
+     '{"palavras": achadas[:8], "cultura": True, "sinais": len(achadas), "culturas": []}'),
+]
+
+
+def sha(p):
+    with open(p, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+mortos = 0
+caminho = os.path.join(RAIZ, A)
+for nome, de, para in MUTANTES:
+    with open(caminho, "rb") as f:
+        original = f.read()
+    antes = sha(caminho)
+    texto = original.decode("utf-8").replace("\r\n", "\n")
+    assert texto.count(de) == 1, "%s: o alvo da troca nao e unico (%d)" % (nome, texto.count(de))
+    try:
+        with open(caminho, "wb") as f:
+            f.write(texto.replace(de, para).encode("utf-8"))
+        r = subprocess.run([sys.executable, "-m", "unittest", T], cwd=RAIZ, capture_output=True,
+                           text=True, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1"))
+        morto = r.returncode != 0
+    finally:
+        with open(caminho, "wb") as f:
+            f.write(original)
+    reposto = sha(caminho) == antes
+    mortos += morto
+    print("%-44s %s · reposto=%s" % (nome, "MORTO (o teste apanhou)" if morto
+                                     else "SOBREVIVEU  <-- o teste nao morde",
+                                     "SIM" if reposto else "NAO <-- GRAVE"))
+    if not reposto:
+        sys.exit(2)
+print("MUTANTES %d · MORTOS %d" % (len(MUTANTES), mortos))
+sys.exit(0 if mortos == len(MUTANTES) else 1)

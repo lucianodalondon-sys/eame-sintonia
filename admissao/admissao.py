@@ -783,6 +783,18 @@ def _casa(termo: str, texto_dobrado: str) -> bool:
     return False
 
 
+def _formas_que_casam(termo: str, texto_dobrado: str) -> list:
+    """QUAIS formas do conceito casam como palavra inteira — a mesma regra de `_casa`."""
+    import re
+    achadas = []
+    for forma in str(termo).split("|"):
+        f = _dobrar(forma)
+        if f and f not in achadas and re.search(
+                r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])", texto_dobrado):
+            achadas.append(f)
+    return achadas
+
+
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
 
@@ -1811,6 +1823,64 @@ def envelope_do_fato(item: dict, est: str):
     return {k: item[k] for k in sorted(item)
             if k not in JA_TEM_CAMPO_PROPRIO_NO_READY
             and not str(k).startswith("_")}
+
+
+def janela_declarada(item: dict, decisao: Decisao) -> dict:
+    """QUATRO-CHAVES (D29): o que a porta JA SABE sobre a janela, com a lei.
+
+        CULTURA × REGIAO DO FATO × FASE × JANELA
+
+    ⚠️ NAO ESTA LIGADO ao contrato READY nem a Sala: o contrato tem 19 campos com
+    dono (COL-LAW-043) e a Sala tem colunas fixas. Liga-lo e decisao do dono,
+    com migracao — ver `docs/operacao/QUATRO-CHAVES-V1.md`. Aqui so se prova que
+    o que a regua sabe cabe num registo que cumpre a lei:
+
+      · CULTURA e FASE vêm da evidencia da regua T1 (a porta ja as leu);
+      · REGIAO DO FATO vem de `fact_location` e NUNCA de `source_location`;
+      · a JANELA (intervalo + safra) a regua nao extrai — NAO SEI;
+      · FACT_TIME != PUBLISHED_AT != CAPTURED_AT, cada um no seu campo;
+      · ausencia = NAO SEI, nunca vazio nem None.
+    """
+    def _valor(v):
+        return NAO_SEI if v is None or str(v).strip() in ("", AUSENCIA) else v
+
+    ev = decisao.evidencia or {}
+    da_regua = decisao.universo in CULTURA_OBRIGATORIA
+    base = "regua %s v%s (admissao._do_universo, palavra inteira no texto)" % (
+        decisao.universo, decisao.versao)
+    # ⚠️ A PORTA NAO DECIDE A JANELA (tests/test_regua_t1.py::APortaNaoDecideAJanela):
+    # a evidencia dela so traz palavras/cultura/sinais/falta, e isso NAO muda aqui.
+    # A regua viu QUE havia cultura (`cultura: True`); QUAL e relida pela MESMA regra
+    # — mesmo texto dobrado, mesma lingua, mesmo vocabulario, palavra inteira.
+    culturas, momentos = [], []
+    if da_regua and ev.get("cultura"):
+        texto = _dobrar(" ".join(str(item.get(k) or "") for k in
+                                 ("texto", "title", "nome", "topics", "crops", "resumo")))
+        vocab = CULTURA_OBRIGATORIA_EN if _lingua_do_item(item) == "en" else CULTURA_OBRIGATORIA
+        culturas = _formas_que_casam(vocab[decisao.universo], texto)
+    if da_regua:
+        # no SIM a regua guarda ate 8 momentos (`palavras[:8]`); e o que ela sabe
+        momentos = list(ev.get("palavras") or [])
+    regiao = _valor(item.get("fact_location"))
+    return {
+        "CULTURA": {"VALOR": culturas or NAO_SEI,
+                    "BASE": base if culturas else NAO_SEI,
+                    "FORMA": "a do vocabulario da regua, sem normalizar (nao e EPPO)"},
+        "REGIAO_DO_FATO": {"VALOR": regiao,
+                           "BASE": _valor(item.get("fact_location_basis"))
+                           if regiao != NAO_SEI else NAO_SEI,
+                           "LEI": "nunca herdada de source_location (INT-LAW-101)"},
+        "FASE": {"VALOR": momentos or NAO_SEI,
+                 "BASE": base if momentos else NAO_SEI,
+                 "FORMA": "sinais de momento que a regua achou; nao e estadio normalizado"},
+        "JANELA": {"VALOR": NAO_SEI,
+                   "PORQUE": "a regua nao extrai intervalo nem safra; a janela e da CAP-WIN"},
+        "TEMPOS": {"FACT_TIME": _valor(item.get("fact_time")),
+                   "PUBLISHED_AT": _valor(item.get("published_at")),
+                   "CAPTURED_AT": _valor(item.get("captured_at"))},
+        "ORIGEM": {"REGRA": decisao.regra, "VERSAO": decisao.versao,
+                   "RESULTADO": decisao.resultado, "UNIVERSO": decisao.universo},
+    }
 
 
 def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
