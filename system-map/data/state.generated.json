@@ -76,6 +76,7 @@
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
       "RELATORIO-SOC-ONDA2.md",
+      "RELATORIO-SOC-TEMPO.md",
       "RELATORIO-SOC1-SOCIAL.md",
       "RELATORIO-SOC2-CURATOR-YOUTUBE.md",
       "RELATORIO-TTL-MUTABLE-T1.md",
@@ -489,6 +490,7 @@
       "curadoria/onboardar_rotas_provadas.py",
       "curadoria/onda-social/ESTADO-VIVO.json",
       "curadoria/onda-social/PLANO-ONDA-SOCIAL.md",
+      "curadoria/onda-social/SOC-TEMPO-BATERIA.txt",
       "curadoria/plano_onda_social.py",
       "curadoria/politica_nao_sei.py",
       "curadoria/ponte_automatica.py",
@@ -1610,7 +1612,8 @@
       "docs/sintonia-scrap/SCRAP-OWNER-01-AUTORIZACAO-CONVERGIDA.md",
       "docs/sintonia-scrap/SCRAP-RC-01-RELEASE-CANDIDATE-V1.md",
       "docs/sintonia-scrap/SCRAP-SR-02-AUTORIZACAO-DE-GASTO.md",
-      "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json"
+      "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
+      "docs/sintonia-scrap/YT-METADADOS-PROVA-3CANAIS.md"
     ],
     "ferramentas": [
       "ferramentas/apify_pool.py",
@@ -2021,6 +2024,7 @@
       "leis/fonte_do_atlas.py",
       "leis/fundacao_da_coleta.py",
       "leis/gestao_da_coleta.py",
+      "leis/lugar_da_organizacao.py",
       "leis/lugar_do_fato.py",
       "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
@@ -2205,7 +2209,10 @@
       "provas/_flow01_janela_falsa.py",
       "provas/_mutantes_c13_d23.py",
       "provas/_mutantes_d24.py",
+      "provas/_mutantes_d36_equivalencia.py",
       "provas/_mutantes_d37.py",
+      "provas/_mutantes_soc_tempo.py",
+      "provas/_mutantes_yt_metadados.py",
       "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
       "provas/a_collection_preserva_o_fato.py",
@@ -2824,6 +2831,7 @@
       "tests/test_cortesia_no_transporte.py",
       "tests/test_d1_detector_d14.py",
       "tests/test_d24_video_de_pessoa.py",
+      "tests/test_d36_envelope_equivalente.py",
       "tests/test_d37_campos_de_politica.py",
       "tests/test_ensaio_offline_micro.py",
       "tests/test_espinha_da_intelligence.py",
@@ -2936,6 +2944,7 @@
       "tests/test_security_drift_db.py",
       "tests/test_security_ratchet.py",
       "tests/test_security_secret_shapes.py",
+      "tests/test_soc_tempo_publicacao_e_lugar.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
       "tests/test_source_id.py",
@@ -2956,7 +2965,8 @@
       "tests/test_youtube_antidrift.py",
       "tests/test_youtube_checkpoint_pg.py",
       "tests/test_youtube_oficial.py",
-      "tests/test_youtube_piloto.py"
+      "tests/test_youtube_piloto.py",
+      "tests/test_yt_metadados_do_audio.py"
     ]
   },
   "ACHADOS": [
@@ -3016,7 +3026,7 @@
     {
       "id": "coleta-sem-data-nem-lugar",
       "titulo": "20 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_html.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
+      "texto": "16 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_html.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/adaptador_linkedin.py",
@@ -3476,10 +3486,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "social-onda2-v1",
-    "HEAD": "6a6f779e2616282f686fae406a9702e371af67f5",
-    "GENERATED_AT": "2026-09-25T09:44:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2323acdafc6476d87d3fbd997c1a8c6dc67b4264c74f75f70058d48a72a11db3"
+    "BRANCH": "social-tempo-v1",
+    "HEAD": "b944ebe34a72446c504402ab338eb8d9f1760983",
+    "GENERATED_AT": "2026-09-25T11:37:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "42de456c28bf64638ce21ba851646bb3f992440d00a9eb6d5f62e48807fd56d3"
   },
   "FAMILIES": [
     {
@@ -4976,8 +4986,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 631",
-        "desses, mostrados aqui: 40 (ficam de fora 591)"
+        "enderecos que o codigo realmente chama: 633",
+        "desses, mostrados aqui: 40 (ficam de fora 593)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -12194,9 +12204,10 @@
           "carimba_data": [],
           "carimba_lugar": [
             "COUNTRY",
+            "FACT_LOCATION",
             "SOURCE_LOCATION"
           ],
-          "separa_fonte_do_fato": false,
+          "separa_fonte_do_fato": true,
           "leis_que_obedece": [
             "proveniencia"
           ],
@@ -32401,6 +32412,7 @@
         "C-COORTE-BIG-COLLECTION",
         "C-COORTE-MICRO-FUNIL",
         "C-DETECTOR-CAPA-GABARITO",
+        "C-FONTE-DO-ATLAS",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
         "C-SUPERFICIE-SCRAP-V1",
@@ -32554,11 +32566,11 @@
         "PLANO": null,
         "PROVA": [
           "ferramentas/big_collection/coorte_unica.py:37",
+          "leis/lugar_da_organizacao.py:39",
           "medidas/medir_k1.py:42",
-          "medidas/micro_colheita.py:72",
-          "medidas/prova_b2_ponte_em_copia.py:35"
+          "medidas/micro_colheita.py:72"
         ],
-        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-FONTE-DO-ATLAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 6000,
       "y": 682
@@ -33510,6 +33522,7 @@
       ],
       "outbound": [
         "C-PROVA-COLETA",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -37018,15 +37031,17 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
-        "leis/fonte_do_atlas.py"
+        "leis/fonte_do_atlas.py",
+        "leis/lugar_da_organizacao.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DECISAO-DA-FILA, C-SCRAP-COLHEITA.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DECISAO-DA-FILA, C-SCRAP-COLHEITA.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
+        "C-CENSO-UNIFICACAO",
         "C-IT-CATALOGO",
         "C-TESTES"
       ],
@@ -37034,11 +37049,12 @@
         "C-DECISAO-DA-FILA",
         "C-PROVA-GATE-1D",
         "C-SCRAP-COLHEITA",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
@@ -37063,6 +37079,7 @@
       "consumes": [
         "candidatas/ITALY-SOURCE-MASTER-V1.json",
         "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+        "curadoria/italy_contracts_curator.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
       ],
       "consumes_plane": "CODE",
@@ -37080,8 +37097,8 @@
         "PROVA": [
           "candidatas/decidir_fila_italia.py:99",
           "coleta/scrap_colheita.py:78",
-          "provas/red_team_gate_fase_1d.py:126",
-          "tests/test_fila_italia_decisoes.py:34"
+          "provas/_mutantes_soc_tempo.py:21",
+          "provas/red_team_gate_fase_1d.py:126"
         ],
         "PORQUE": "estas pecas importam-na — C-DECISAO-DA-FILA · C-SCRAP-COLHEITA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -37943,6 +37960,7 @@
         "C-PROVA-ROTAS-REAIS",
         "C-PROVA-SALA-ITALIANA",
         "C-ROTA-M2",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -37960,9 +37978,9 @@
           "PARA_A_PORTA",
           "_SENTINELAS"
         ],
-        "palavras": 77,
+        "palavras": 85,
         "por_lingua": {},
-        "sem_marca_de_lingua": 77,
+        "sem_marca_de_lingua": 85,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -39758,7 +39776,7 @@
         "PROVA": [
           "candidatas/italy_write_matrix.mjs:2",
           "coleta/italy_pilot_collect.mjs:38",
-          "coleta/scrap_colheita.py:512",
+          "coleta/scrap_colheita.py:521",
           "ferramentas/big_collection/coorte_unica.py:46"
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-CORRIDA-CANONICA · C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -47931,6 +47949,8 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/_mutantes_d36_equivalencia.py",
+        "provas/_mutantes_yt_metadados.py",
         "provas/a_corrida_existe_em_cada_rota.py",
         "provas/a_legenda_e_o_audio_do_youtube.py",
         "provas/a_ponte_de_midia_atravessa.py",
@@ -47940,7 +47960,7 @@
         "provas/o_raw_local_nao_e_duravel.py",
         "provas/o_video_tem_consumidor.py"
       ],
-      "file_count": 8,
+      "file_count": 10,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -47969,6 +47989,7 @@
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
+        "C-TESTES",
         "C-TRANSCRICAO"
       ],
       "outbound": [],
@@ -47985,12 +48006,13 @@
           "COLUNAS",
           "DONOS_DO_RUN",
           "ESPERADO",
+          "MUTACOES",
           "OS_SETE",
           "ULTIMA_MEDICAO_CONHECIDA"
         ],
-        "palavras": 73,
+        "palavras": 87,
         "por_lingua": {},
-        "sem_marca_de_lingua": 73,
+        "sem_marca_de_lingua": 87,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -48023,6 +48045,7 @@
         "coleta/ropf_pre_requisito.py",
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py",
+        "curadoria/regua_social.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
         "ferramentas/reel_transcricao.py",
@@ -48030,7 +48053,8 @@
         "guarda/preservar_coleta.py",
         "guarda/social_guarda.py",
         "provas/preservar_coleta_no_postgres.py",
-        "superficie/rede.py"
+        "superficie/rede.py",
+        "tests/test_d36_envelope_equivalente.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -50891,9 +50915,9 @@
           "FASES",
           "NOMEADOS"
         ],
-        "palavras": 137,
+        "palavras": 145,
         "por_lingua": {},
-        "sem_marca_de_lingua": 137,
+        "sem_marca_de_lingua": 145,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -51207,9 +51231,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 582,
+        "palavras": 588,
         "por_lingua": {},
-        "sem_marca_de_lingua": 582,
+        "sem_marca_de_lingua": 588,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -51403,6 +51427,7 @@
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
+        "C-COLETA-YOUTUBE",
         "C-CONTRATO-ARTEFATO",
         "C-DERIVACAO-FORWARD",
         "C-DETECTOR-CAPA-GABARITO",
@@ -52334,15 +52359,16 @@
       "files": [
         "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
         "provas/_mutantes_d37.py",
+        "provas/_mutantes_soc_tempo.py",
         "provas/canario_social_onda2.py",
         "provas/entradas_do_scrap_v1.py",
         "provas/prontidao_social_v1.py",
         "provas/roteamento_youtube_proposta.py",
         "provas/superficie_do_scrap_v1.py"
       ],
-      "file_count": 7,
+      "file_count": 8,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -52350,6 +52376,8 @@
         "C-AUTORIZACAO-DE-GASTO",
         "C-CENSO-UNIFICACAO",
         "C-COLETA-BASE",
+        "C-FONTE-DO-ATLAS",
+        "C-INGRESSO",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-ORQUESTRADOR",
         "C-PEDIDO",
@@ -52379,9 +52407,9 @@
           "MUTANTES",
           "TIPO_DA_CLASSE"
         ],
-        "palavras": 54,
+        "palavras": 74,
         "por_lingua": {},
-        "sem_marca_de_lingua": 54,
+        "sem_marca_de_lingua": 74,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -52428,9 +52456,12 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "coleta/adaptador_linkedin.py",
+        "coleta/ingresso.py",
         "coleta/scrap_colheita.py",
         "coleta/social_scrap.py",
         "curadoria/italy_contracts_curator.json",
+        "curadoria/worker.py",
+        "leis/lugar_da_organizacao.py",
         "orquestrador/orquestrador.py",
         "provas/linkedin_local_first.py",
         "provas/o_canario_do_scrap_v1.py",
@@ -54402,6 +54433,7 @@
         "tests/test_cortesia_no_transporte.py",
         "tests/test_d1_detector_d14.py",
         "tests/test_d24_video_de_pessoa.py",
+        "tests/test_d36_envelope_equivalente.py",
         "tests/test_d37_campos_de_politica.py",
         "tests/test_ensaio_offline_micro.py",
         "tests/test_espinha_da_intelligence.py",
@@ -54514,6 +54546,7 @@
         "tests/test_security_drift_db.py",
         "tests/test_security_ratchet.py",
         "tests/test_security_secret_shapes.py",
+        "tests/test_soc_tempo_publicacao_e_lugar.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
         "tests/test_source_id.py",
@@ -54534,9 +54567,10 @@
         "tests/test_youtube_antidrift.py",
         "tests/test_youtube_checkpoint_pg.py",
         "tests/test_youtube_oficial.py",
-        "tests/test_youtube_piloto.py"
+        "tests/test_youtube_piloto.py",
+        "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 232,
+      "file_count": 235,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -54729,6 +54763,7 @@
         "C-PROVA-ADAMA-REFERENCE",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-ROTAS-REAIS",
         "C-REGRESSAO-NAVEGADOR",
         "C-SCRAP-GUARDA",
         "C-SCRAP-ROTA",
@@ -54777,6 +54812,7 @@
           "CORRIDA",
           "DECISOES_ANTIGAS",
           "DECISOES_NASCIDAS_DEPOIS",
+          "DECLARADO",
           "DEFEITO_MEDIDO",
           "DELEGADAS",
           "DEPOIS",
@@ -54812,6 +54848,7 @@
           "PASTAS_PY",
           "PEDIDOS",
           "POSITIVOS",
+          "POST_REAL",
           "PROIBIDO",
           "PRONTO",
           "QUEM_FALA_DE_RAW_ASSET",
@@ -54836,13 +54873,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1285,
+        "palavras": 1323,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1273,
+        "sem_marca_de_lingua": 1311,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -55098,6 +55135,7 @@
         "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
         "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
         "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
+        "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7490681050906439680__3fa4d7dc1dfd8eed.txt",
         "data/samples/SPAIN-DEMO-CONTENT-V1.json",
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
@@ -55452,15 +55490,16 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_PUBLICOS",
           "COMPUTE_DEGRADACAO",
           "CONTENTORES",
           "EXT_AUDIO",
           "MODELOS_POR_CHAMADOR",
           "_LEITURA_DO_YTDLP"
         ],
-        "palavras": 90,
+        "palavras": 106,
         "por_lingua": {},
-        "sem_marca_de_lingua": 90,
+        "sem_marca_de_lingua": 106,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -57284,7 +57323,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch social-onda2-v1"
+        "branch social-tempo-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -61891,11 +61930,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "AS FONTES alimenta O atlas conhece esta fonte?. Provado por 1 linha de codigo.",
+      "reason": "AS FONTES alimenta O atlas conhece esta fonte?. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "leis/fonte_do_atlas.py",
           "line": 71,
+          "snippet": "ATLAS = os.path.join(\"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AS-FONTES--READS-->C-FONTE-DO-ATLAS",
+            "FROM": "C-AS-FONTES",
+            "TO": "C-FONTE-DO-ATLAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "leis/lugar_da_organizacao.py",
+          "line": 38,
           "snippet": "ATLAS = os.path.join(\"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-FONTE-DO-ATLAS",
@@ -67592,6 +67647,41 @@
     },
     {
       "from": "C-CENSO-UNIFICACAO",
+      "to": "C-FONTE-DO-ATLAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta O atlas conhece esta fonte?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/lugar_da_organizacao.py",
+          "line": 39,
+          "snippet": "LIVRO_CURATOR = os.path.join(\"curadoria\", \"italy_contracts_curator.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-FONTE-DO-ATLAS",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-FONTE-DO-ATLAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
       "to": "C-MICRO-COLETA-INSTRUMENTO",
       "type": "READS",
       "payload": "artefacto",
@@ -71911,7 +72001,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 696,
+          "line": 713,
           "snippet": "'scripts/instagram_janela.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -72744,6 +72834,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-COLETA-YOUTUBE",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o YouTube tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 850,
+          "snippet": "import youtube_janela as jan    # noqa: PLC0415 — o dono da janela publica",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-YOUTUBE--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-COLETA-YOUTUBE",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -82332,12 +82457,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O atlas conhece esta fonte? tem o seu codigo importado por O adapter do SCRAP para a porta canonica · a aresta que faltava. Provado por 1 linha de codigo.",
+      "reason": "O atlas conhece esta fonte? tem o seu codigo importado por O adapter do SCRAP para a porta canonica · a aresta que faltava. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/scrap_colheita.py",
           "line": 78,
           "snippet": "import fonte_do_atlas as fa                                       # noqa: E402  — quem diz se a fonte existe",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTE-DO-ATLAS--IMPORTS-->C-SCRAP-COLHEITA",
+            "FROM": "C-FONTE-DO-ATLAS",
+            "TO": "C-SCRAP-COLHEITA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/scrap_colheita.py",
+          "line": 545,
+          "snippet": "import lugar_da_organizacao as lo                         # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTE-DO-ATLAS--IMPORTS-->C-SCRAP-COLHEITA",
             "FROM": "C-FONTE-DO-ATLAS",
@@ -82361,13 +82502,48 @@
     },
     {
       "from": "C-FONTE-DO-ATLAS",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O atlas conhece esta fonte? alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_soc_tempo.py",
+          "line": 21,
+          "snippet": "(\"a regiao de cobertura vira morada\", \"leis/lugar_da_organizacao.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTE-DO-ATLAS--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-FONTE-DO-ATLAS",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-FONTE-DO-ATLAS",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O atlas conhece esta fonte? tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O atlas conhece esta fonte? tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_fila_italia_decisoes.py",
@@ -82389,6 +82565,22 @@
           "file": "tests/test_fonte_do_atlas_alocacao.py",
           "line": 13,
           "snippet": "import fonte_do_atlas as fa  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTE-DO-ATLAS--IMPORTS-->C-TESTES",
+            "FROM": "C-FONTE-DO-ATLAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 21,
+          "snippet": "import lugar_da_organizacao as LO    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTE-DO-ATLAS--IMPORTS-->C-TESTES",
             "FROM": "C-FONTE-DO-ATLAS",
@@ -84810,13 +85002,48 @@
     },
     {
       "from": "C-INGRESSO",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_soc_tempo.py",
+          "line": 25,
+          "snippet": "(\"a base nao atravessa a porta\", \"coleta/ingresso.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-INGRESSO",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INGRESSO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -86690,12 +86917,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O levantamento das fontes italianas alimenta O atlas conhece esta fonte?. Provado por 1 linha de codigo.",
+      "reason": "O levantamento das fontes italianas alimenta O atlas conhece esta fonte?. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "leis/fonte_do_atlas.py",
           "line": 75,
           "snippet": "MASTER_IT = os.path.join(\"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CATALOGO--READS-->C-FONTE-DO-ATLAS",
+            "FROM": "C-IT-CATALOGO",
+            "TO": "C-FONTE-DO-ATLAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "leis/lugar_da_organizacao.py",
+          "line": 37,
+          "snippet": "MASTER = os.path.join(\"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-FONTE-DO-ATLAS",
             "FROM": "C-IT-CATALOGO",
@@ -89243,7 +89486,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_colheita.py",
-          "line": 512,
+          "line": 521,
           "snippet": "import contratos_de_fonte as cf                            # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-SCRAP-COLHEITA",
@@ -110715,8 +110958,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/_mutantes_soc_tempo.py",
+          "line": 12,
+          "snippet": "(\"a hora da coleta vira publicacao (D63)\", \"coleta/scrap_colheita.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 291,
@@ -110750,7 +111009,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -110868,6 +111127,22 @@
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 40,
           "snippet": "import scrap_colheita as sc                                       # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-TESTES",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 22,
+          "snippet": "import scrap_colheita as SC          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-TESTES",
             "FROM": "C-SCRAP-COLHEITA",
@@ -112344,8 +112619,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/_mutantes_yt_metadados.py",
+          "line": 32,
+          "snippet": "import social_matriz as mz          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/a_legenda_e_o_audio_do_youtube.py",
           "line": 188,
@@ -112500,7 +112791,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 11 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
@@ -112538,6 +112829,22 @@
           "file": "coleta/adaptador_linkedin.py",
           "line": 570,
           "snippet": "import social_matriz as mz",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 716,
+          "snippet": "import social_matriz as mz                                       # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SCRAP-SOCIAL",
             "FROM": "C-SCRAP-LEIS",
@@ -112695,12 +113002,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
           "line": 90,
           "snippet": "return {'POLICY_OWNER': 'leis/social_matriz.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-SCRAP-SOCIAL",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 790,
+          "snippet": "'AUTORIZACAO_DE': 'leis/social_matriz.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-SCRAP-SOCIAL",
             "FROM": "C-SCRAP-LEIS",
@@ -112813,7 +113136,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 58 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 59 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -113024,7 +113347,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -113078,6 +113401,22 @@
           "file": "tests/test_c10_6e_runtime_pago.py",
           "line": 125,
           "snippet": "publicas = [n.name for n in ast.walk(ast.parse(_fonte('leis/social_matriz.py')))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_d36_envelope_equivalente.py",
+          "line": 49,
+          "snippet": "\"AUTORIZACAO_DE\": \"leis/social_matriz.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
             "FROM": "C-SCRAP-LEIS",
@@ -113174,6 +113513,22 @@
           "file": "tests/test_trava_da_inteligencia.py",
           "line": 275,
           "snippet": "self.assertEqual(v[\"FUNDACAO_DONO\"], \"leis/fundacao_da_coleta.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_yt_metadados_do_audio.py",
+          "line": 146,
+          "snippet": "self.assertEqual(self.objeto()['AUTORIZACAO_DE'], 'leis/social_matriz.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
             "FROM": "C-SCRAP-LEIS",
@@ -114960,12 +115315,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_d37.py",
           "line": 28,
           "snippet": "original = open(ALVO, encoding=\"utf-8\").read()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/_mutantes_soc_tempo.py",
+          "line": 23,
+          "snippet": "(\"minuto vira segundo\", \"coleta/adaptador_linkedin.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-SCRAP-SOCIAL",
@@ -115011,7 +115382,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 155 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 157 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -120038,6 +120409,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_d36_equivalencia.py",
+          "line": 16,
+          "snippet": "TESTE = RAIZ / \"tests\" / \"test_d36_envelope_equivalente.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-REGRESSAO-NAVEGADOR",
       "type": "READS",
       "payload": "artefacto",
@@ -120610,6 +121016,41 @@
     {
       "from": "C-TRANSCRICAO",
       "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_yt_metadados.py",
+          "line": 33,
+          "snippet": "import youtube_transcrever as ytv   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-PROVA-ROTAS-REAIS",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -120839,7 +121280,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 31 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 33 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -123336,8 +123777,16 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1648,
-  "OWNERSHIP_CONFLICTS": [],
+  "UNCLAIMED_FILES_COUNT": 1651,
+  "OWNERSHIP_CONFLICTS": [
+    {
+      "file": "tests/test_d36_envelope_equivalente.py",
+      "claimed_by": [
+        "C-TESTES",
+        "C-PROVA-ROTAS-REAIS"
+      ]
+    }
+  ],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
       "file": "candidatas/FONTES-CANDIDATAS.json",
@@ -123594,12 +124043,12 @@
     "components_pending": 202,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1268,
-    "edges_proven": 1204,
+    "edges": 1274,
+    "edges_proven": 1210,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2883,
-    "files_covered": 1235,
+    "files_tracked": 2893,
+    "files_covered": 1242,
     "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,

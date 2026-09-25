@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T12:53:25+00:00",
-    "HEAD": "6a6f779e2616282f686fae406a9702e371af67f5",
+    "GENERATED_AT": "2026-09-25T14:38:37+00:00",
+    "HEAD": "b944ebe34a72446c504402ab338eb8d9f1760983",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "2323acdafc6476d87d3fbd997c1a8c6dc67b4264c74f75f70058d48a72a11db3",
-    "FICHEIROS_NA_IMPRESSAO": 3031,
+    "SOURCE_TREE_FINGERPRINT": "42de456c28bf64638ce21ba851646bb3f992440d00a9eb6d5f62e48807fd56d3",
+    "FICHEIROS_NA_IMPRESSAO": 3041,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -125,7 +125,7 @@
       {
         "PATH": "coleta/adaptador_linkedin.py",
         "PAPEL": "FONTE",
-        "VERSAO": "6eac57146d6deffba35a9b438d76cc5642aae53e",
+        "VERSAO": "2eda34b44aa89bdd532d38babfcda5e0f37da108",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -139,7 +139,7 @@
       {
         "PATH": "coleta/adaptador_youtube.py",
         "PAPEL": "FONTE",
-        "VERSAO": "9c0e7b49b5b6841f5f945f4f57114eb8582131e1",
+        "VERSAO": "9b4c020dcecf06edee961f368af8209d8b5592a0",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -300,7 +300,7 @@
       {
         "PATH": "coleta/ingresso.py",
         "PAPEL": "FONTE",
-        "VERSAO": "f05aa6b0cca3b9d71ab7dd6f79fae21cf70c7821",
+        "VERSAO": "6458a52a7c01ff49663af8d13071d6f089102b01",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -440,7 +440,7 @@
       {
         "PATH": "coleta/scrap_colheita.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e03299538186f752c0237f75128cf1b177072ec9",
+        "VERSAO": "377dc23d9da9bef02433dd87a13237419421d880",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -762,7 +762,7 @@
       {
         "PATH": "ferramentas/youtube_transcrever.py",
         "PAPEL": "FONTE",
-        "VERSAO": "7bd25e8262b71709e587d7541735d2bee0ae1418",
+        "VERSAO": "8b6340b1822c44c75a4f314e767296cf7b321afd",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1118,7 +1118,7 @@
       }
     ],
     "INPUTS_COUNT": 158,
-    "INPUTS_DIGEST": "bb4d65e8498967b182defc794d55c92539da3b4866cc5ebd8d20f3d72ca5b3f8",
+    "INPUTS_DIGEST": "4334f9f243b15321bbf818fa75a9be881c9efb5aed554071422191f1a6aa5e62",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2098,7 +2098,7 @@
     {
       "ficheiro": "ferramentas/youtube_transcrever.py",
       "gaveta": "ferramentas",
-      "linhas": 342,
+      "linhas": 431,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -2187,11 +2187,12 @@
     {
       "ficheiro": "coleta/adaptador_linkedin.py",
       "gaveta": "coleta",
-      "linhas": 1913,
+      "linhas": 1943,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
-        "LINKEDIN"
+        "LINKEDIN",
+        "YOUTUBE"
       ],
       "ferramentas": [
         "APIFY (rota paga)",
@@ -2227,7 +2228,7 @@
     {
       "ficheiro": "coleta/adaptador_youtube.py",
       "gaveta": "coleta",
-      "linhas": 780,
+      "linhas": 959,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -2724,7 +2725,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 1402,
+      "linhas": 1410,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3139,7 +3140,7 @@
     {
       "ficheiro": "coleta/scrap_colheita.py",
       "gaveta": "coleta",
-      "linhas": 936,
+      "linhas": 964,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3512,7 +3513,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/adaptador_youtube.py"
+      ],
       "no_ci": true
     },
     {

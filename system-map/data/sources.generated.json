@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T12:53:16+00:00",
-    "HEAD": "6a6f779e2616282f686fae406a9702e371af67f5",
+    "GENERATED_AT": "2026-09-25T14:38:26+00:00",
+    "HEAD": "b944ebe34a72446c504402ab338eb8d9f1760983",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "2323acdafc6476d87d3fbd997c1a8c6dc67b4264c74f75f70058d48a72a11db3",
-    "FICHEIROS_NA_IMPRESSAO": 3031,
+    "SOURCE_TREE_FINGERPRINT": "42de456c28bf64638ce21ba851646bb3f992440d00a9eb6d5f62e48807fd56d3",
+    "FICHEIROS_NA_IMPRESSAO": 3041,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -28335,9 +28335,10 @@
       "carimba_data": [],
       "carimba_lugar": [
         "COUNTRY",
+        "FACT_LOCATION",
         "SOURCE_LOCATION"
       ],
-      "separa_fonte_do_fato": false,
+      "separa_fonte_do_fato": true,
       "leis_que_obedece": [
         "proveniencia"
       ],
@@ -30343,6 +30344,43 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/channel",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 819
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 450
+        },
+        {
+          "file": "curadoria/test_d21_heranca.py",
+          "line": 43
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 59
+        },
+        {
+          "file": "curadoria/test_soc_onda2_social.py",
+          "line": 146
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 806
+        },
+        {
+          "file": "tests/test_d36_envelope_equivalente.py",
+          "line": 46
+        },
+        {
+          "file": "tests/test_yt_metadados_do_audio.py",
+          "line": 55
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -30549,6 +30587,35 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 179
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 818
+        },
+        {
+          "file": "curadoria/test_discovery_sementes.py",
+          "line": 22
+        },
+        {
+          "file": "curadoria/test_pais_das_candidatas.py",
+          "line": 86
+        },
+        {
+          "file": "curadoria/test_soc_onda2_social.py",
+          "line": 133
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 82
+        }
+      ]
+    },
+    {
       "endpoint": "https://it.linkedin.com/company",
       "usado_por": [
         {
@@ -30565,7 +30632,7 @@
         },
         {
           "file": "curadoria/test_soc_onda2_social.py",
-          "line": 182
+          "line": 203
         },
         {
           "file": "regras/comunicacao_identidade.py",
@@ -30574,6 +30641,31 @@
         {
           "file": "tests/test_comunicacao.py",
           "line": 78
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/feed",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 1437
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 206
+        },
+        {
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 137
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 152
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 35
         }
       ]
     },
@@ -30599,31 +30691,6 @@
         {
           "file": "superficie/rede.py",
           "line": 202
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/channel",
-      "usado_por": [
-        {
-          "file": "coleta/youtube_oficial.py",
-          "line": 450
-        },
-        {
-          "file": "curadoria/test_d21_heranca.py",
-          "line": 43
-        },
-        {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 59
-        },
-        {
-          "file": "curadoria/test_soc_onda2_social.py",
-          "line": 125
-        },
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 806
         }
       ]
     },
@@ -30678,7 +30745,7 @@
       "usado_por": [
         {
           "file": "coleta/adaptador_linkedin.py",
-          "line": 1401
+          "line": 1422
         },
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
@@ -30695,27 +30762,6 @@
       ]
     },
     {
-      "endpoint": "https://www.linkedin.com/feed",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_linkedin.py",
-          "line": 1416
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 206
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 137
-        },
-        {
-          "file": "tests/test_linkedin_op_01_operacional.py",
-          "line": 152
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.youtube.com/watch?v='",
       "usado_por": [
         {
@@ -30728,7 +30774,7 @@
         },
         {
           "file": "ferramentas/youtube_transcrever.py",
-          "line": 158
+          "line": 173
         },
         {
           "file": "tests/test_c13_executor_wiring.py",
@@ -30821,27 +30867,6 @@
       ]
     },
     {
-      "endpoint": "https://www.arpae.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 179
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 818
-        },
-        {
-          "file": "curadoria/test_discovery_sementes.py",
-          "line": 22
-        },
-        {
-          "file": "curadoria/test_pais_das_candidatas.py",
-          "line": 86
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.coldiretti.it/",
       "usado_por": [
         {
@@ -30913,7 +30938,7 @@
         },
         {
           "file": "leis/social_matriz.py",
-          "line": 907
+          "line": 924
         },
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
@@ -31066,6 +31091,23 @@
       ]
     },
     {
+      "endpoint": "https://www.arpalazio.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 285
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 64
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 87
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.crea.gov.it/",
       "usado_por": [
         {
@@ -31149,28 +31191,11 @@
           "line": 38
         }
       ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/user",
-      "usado_por": [
-        {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 147
-        },
-        {
-          "file": "curadoria/test_soc4_handles.py",
-          "line": 48
-        },
-        {
-          "file": "tests/test_comunicacao.py",
-          "line": 69
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 631,
+  "ENDPOINTS_FOUND": 633,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 591,
+  "ENDPOINTS_TRUNCATED": 593,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31188,14 +31213,14 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 631,
+    "endpoints": 633,
     "endpoints_published": 40,
-    "endpoints_truncated": 591,
+    "endpoints_truncated": 593,
     "candidates": 906,
     "coletores": 54,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,
-    "coletores_que_separam_fonte_do_fato": 21,
+    "coletores_que_separam_fonte_do_fato": 22,
     "coletores_que_registam_descarte": 20,
     "corridas_registadas": 108,
     "observacoes_registadas": 521,
