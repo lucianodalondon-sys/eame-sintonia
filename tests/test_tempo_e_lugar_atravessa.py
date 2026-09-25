@@ -265,10 +265,16 @@ class ChegaAoReady(unittest.TestCase):
 
     def test_D63_ieri_e_o_dia_exacto_antes_da_publicacao(self):
         item = self._relativa("ieri")
+        # D70: o dia calculado e o DIA (a D69 escrevia-o como intervalo de um dia)
         self.assertEqual(item["fact_time"], "2026-09-15")
-        self.assertIn("RELATIVA_A_PUBLICACAO", item["fact_time_basis"])
-        self.assertIn("ieri", item["fact_time_basis"])
-        self.assertIn("DATE_EXACT", item["fact_time_basis"])
+        # DA-7: a base e SO a palavra que a lei le — tal e qual, sem prefixo
+        self.assertEqual(item["fact_time_basis"], "RELATIVA_A_PUBLICACAO")
+        ev = item["tempo_lugar_evidencia"]
+        self.assertIn("ieri", ev["FACT_TIME_EVIDENCIA"])
+        self.assertEqual(ev["FACT_TIME_EXPRESSAO"], "ieri")
+        self.assertTrue(ev["FACT_TIME_PRECISION"].startswith("DATE_EXACT"))
+        self.assertEqual(ev["FACT_TIME_CALCULO"], "RELATIVA_A_PUBLICACAO")
+        self.assertEqual(ev["FACT_TIME_VEIO_DE"], "TEXTO")
         self.assertEqual(item["published_at"], "2026-09-16")
 
     def test_D64_oggi_sozinho_nao_conta_mas_fica_como_evidencia(self):
@@ -280,13 +286,18 @@ class ChegaAoReady(unittest.TestCase):
 
     def test_D63_oggi_com_marca_de_dia_conta_a_partir_da_publicacao(self):
         item = self._relativa("oggi 16 settembre")
+        # D70: o proprio dia da publicacao, e a base e a palavra de toda data
+        # calculada — e ela que diz «contado», nao a forma da data
         self.assertEqual(item["fact_time"], "2026-09-16")
-        self.assertIn("RELATIVA_A_PUBLICACAO", item["fact_time_basis"])
+        self.assertEqual(item["fact_time_basis"], "RELATIVA_A_PUBLICACAO")
+        self.assertEqual(item["tempo_lugar_evidencia"]["FACT_TIME_EXPRESSAO"], "oggi")
+        self.assertEqual(item["tempo_lugar_evidencia"]["FACT_TIME_CALCULO"],
+                         "RELATIVA_A_PUBLICACAO")
 
     def test_D63_a_semana_passada_e_um_intervalo_e_nao_um_dia(self):
         item = self._relativa("la settimana scorsa")
         self.assertEqual(item["fact_time"], "2026-09-07/2026-09-13")   # inicio-fim (D63)
-        self.assertIn("WEEK", item["fact_time_basis"])
+        self.assertIn("WEEK", item["tempo_lugar_evidencia"]["FACT_TIME_PRECISION"])
         self.assertNotRegex(item["fact_time"], r"^\d{4}-\d{2}-\d{2}$")
 
     def test_D63_a_scorsa_settimana_tambem(self):
@@ -347,6 +358,74 @@ class ChegaAoReady(unittest.TestCase):
         r = adm.pronto_para_inteligencia(item, d)
         for campo in ("PUBLISHED_AT", "SOURCE_LOCATION", "FACT_TIME", "FACT_LOCATION"):
             self.assertEqual(r[campo], NS, campo)
+
+
+def _pagina(data):
+    return ('<html><head><script type="application/ld+json">{"@type": "NewsArticle", '
+            '"datePublished": "%s"}</script></head><body><p>x</p></body></html>' % data).encode()
+
+
+class DA9DuasFontesDaPublicacao(unittest.TestCase):
+    """DA-9: 1.o o CONTRATO, 2.o a PAGINA; a outra fica como evidencia; conflito marca-se."""
+
+    def setUp(self):
+        _com_contratos(self)
+
+    def test_so_o_contrato(self):
+        t = ex.tempo_e_lugar(T3_002)
+        self.assertEqual((t["PUBLISHED_AT"], t["PUBLISHED_AT_PRECISION"]), ("2026-09-16", "DIA"))
+        self.assertNotIn("PUBLISHED_AT_OUTRA", t)
+
+    def test_so_a_pagina(self):
+        t = ex.tempo_e_lugar(HTML, _pagina("2026-09-20T08:00:00+02:00"))
+        self.assertEqual(t["PUBLISHED_AT"], "2026-09-20T08:00:00+02:00")
+        self.assertIn("JSON-LD", t["PUBLISHED_AT_BASIS"])
+        self.assertEqual(t["PUBLISHED_AT_PRECISION"], "INSTANTE")
+
+    def test_as_duas_de_acordo_fica_o_contrato_e_a_pagina_e_evidencia(self):
+        t = ex.tempo_e_lugar(T3_002, _pagina("2026-09-16T10:00:00+02:00"))
+        self.assertEqual(t["PUBLISHED_AT"], "2026-09-16")
+        self.assertEqual(t["PUBLISHED_AT_OUTRA"], "2026-09-16T10:00:00+02:00")
+        self.assertIn("JSON-LD", t["PUBLISHED_AT_OUTRA_BASIS"])
+        self.assertNotIn("PUBLISHED_AT_CONFLITO", t)
+
+    def test_as_duas_em_desacordo_ficam_as_duas_e_marca_conflito(self):
+        t = ex.tempo_e_lugar(T3_002, _pagina("2026-09-20T10:00:00+02:00"))
+        self.assertEqual(t["PUBLISHED_AT"], "2026-09-16")            # a ordem fixa
+        self.assertEqual(t["PUBLISHED_AT_OUTRA"], "2026-09-20T10:00:00+02:00")
+        self.assertTrue(t["PUBLISHED_AT_CONFLITO"].startswith("SIM"))
+        self.assertEqual(t["PUBLISHED_AT_PRECISION"], "CONFLITO")
+
+    def test_conflito_nao_ancora_a_data_relativa(self):
+        recado = ex.tempo_e_lugar(T3_002, _pagina("2026-09-20T10:00:00+02:00"))
+        est = _estruturado(recado)
+        est["TEXTO"] = ("Aggiornamento fitosanitario settimanale per le colture orticole. "
+                        "Peronospora constatata ieri a Grosseto su pomodoro in pieno campo "
+                        "dai tecnici regionali durante il sopralluogo.")
+        item = ORQ.item_documental_para_a_porta(est, source_id="IT-T3-002")
+        self.assertNotIn("fact_time", item)
+        ev = item["tempo_lugar_evidencia"]
+        self.assertTrue(ev["PUBLISHED_AT_CONFLITO"].startswith("SIM"))
+        self.assertEqual(ev["PUBLISHED_AT_PRECISION"], "CONFLITO")
+        self.assertEqual(item["published_at"], "2026-09-16")
+
+    def test_a_precisao_e_a_outra_fonte_chegam_a_evidencia_e_nao_a_porta(self):
+        recado = ex.tempo_e_lugar(T3_002, _pagina("2026-09-16T10:00:00+02:00"))
+        item = ORQ.item_documental_para_a_porta(_estruturado(recado), source_id="IT-T3-002")
+        ev = item["tempo_lugar_evidencia"]
+        self.assertEqual(ev["PUBLISHED_AT_OUTRA"], "2026-09-16T10:00:00+02:00")
+        self.assertEqual(ev["SOURCE_LOCATION_PRECISION"], recado["SOURCE_LOCATION_PRECISION"])
+        for k in ("PUBLISHED_AT_OUTRA", "published_at_outra", "PUBLISHED_AT_PRECISION"):
+            self.assertNotIn(k, item)
+
+    def test_bytes_com_sha_errado_nao_se_leem(self):
+        with tempfile.NamedTemporaryFile(suffix=".html", delete=False) as fh:
+            fh.write(_pagina("2026-09-20"))
+        self.addCleanup(os.unlink, fh.name)
+        self.assertIsNone(ex.bytes_da_pagina({"RAW_PATH": fh.name, "RAW_SHA256": "0" * 64}))
+        import hashlib
+        sha = hashlib.sha256(open(fh.name, "rb").read()).hexdigest()
+        self.assertIsNotNone(ex.bytes_da_pagina({"RAW_PATH": fh.name, "RAW_SHA256": sha}))
 
 
 if __name__ == "__main__":

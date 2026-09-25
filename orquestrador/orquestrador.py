@@ -519,7 +519,7 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
             "DONO": "guarda/preservar_documento.py"}
 
 
-def _fato_do_texto(texto, bruto):
+def _fato_do_texto(texto, bruto, publicacao=None):
     """FACT_TIME / FACT_LOCATION lidos do TEXTO, com a base — so o que falta.
 
     O extractor e da bancada LUGAR-FATO (`leis/fato_do_texto.py`), e ele NAO
@@ -531,25 +531,59 @@ def _fato_do_texto(texto, bruto):
     do coletor (sobre o documento) e o do texto (sobre o que se leu).
     """
     import fato_do_texto as FT                               # noqa: PLC0415
-    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"),
-                          bruto.get("PUBLISHED_AT_BASIS"))
+    publicacao = publicacao or {}
+    # DA-9: uma publicacao em CONFLITO nao e provada o bastante para contar
+    # «ieri» a partir dela: o leitor recebe-a SEM base, e a relativa fica NAO SEI.
+    base_pub = (None if publicacao.get("PUBLISHED_AT_CONFLITO")
+                else bruto.get("PUBLISHED_AT_BASIS"))
+    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"), base_pub)
     fora = {}
+    veio_de = {}
     for valor, base, v, b in (("FACT_TIME", "FACT_TIME_BASIS",
                                r["fact_time"], r["fact_time_basis"]),
                               ("FACT_LOCATION", "FACT_LOCATION_BASIS",
                                r["fact_location"], r["fact_location_basis"])):
         if bruto.get(valor) not in ing.NAO_E_AFIRMACAO:
+            veio_de[valor] = "LIVRO_DO_COLETOR"
             continue
         # D63 (dono, 25/09): data RELATIVA vale como FACT_TIME SO contada a
         # partir da PUBLICACAO PROVADA — e por isso o que entra no extractor e
-        # `PUBLISHED_AT` com a base dele, e NUNCA `COLLECTED_AT`. A base diz
-        # `RELATIVA_A_PUBLICACAO` e guarda a expressao original.
+        # `PUBLISHED_AT` com a base dele, e NUNCA `COLLECTED_AT`.
+        #
+        # ⚠️ DA-7 (LUGAR-FATO): com valor, a base vai TAL E QUAL. Para a data
+        # calculada ela e UMA palavra (`RELATIVA_A_PUBLICACAO` ou
+        # `PUBLISHED_AT_COM_PROVA`) — a que `leis/artefato.conferir` le. Um
+        # prefixo aqui estragava a palavra; a expressao e a conta vao na
+        # EVIDENCIA, abaixo.
         if v not in ing.NAO_E_AFIRMACAO:
-            fora[valor], fora[base] = v, "TEXTO: %s" % b
+            fora[valor], fora[base] = v, b
+            veio_de[valor] = "TEXTO"
         elif bruto.get(base):
             fora[base] = "%s · TEXTO: %s" % (bruto[base], b)
+            veio_de[valor] = ing.NAO_SEI_ID
         else:
             fora[base] = "TEXTO: %s" % b
+            veio_de[valor] = ing.NAO_SEI_ID
+    # ── A EVIDENCIA DA LEITURA, NUM CAMPO SO (033: `tempo_lugar_evidencia`) ──
+    # O que o extractor MEDIU e nao cabe no valor nem na base: a especie
+    # (CAMPO/EVENTO/MERCADO), a precisao, se a data foi CALCULADA e a
+    # expressao com a conta. Chaves ordenadas: a Sala assina o corpo.
+    ev = {"FACT_LOCATION_KIND": r["fact_location_kind"],
+          "FACT_LOCATION_PRECISION": r["fact_location_precision"],
+          "FACT_LOCATION_VEIO_DE": veio_de["FACT_LOCATION"],
+          "FACT_TIME_CALCULO": r["fact_time_calculo"],
+          "FACT_TIME_EVIDENCIA": r["fact_time_evidencia"],
+          # D70: a expressao original («ieri», «oggi»), a parte do trecho
+          "FACT_TIME_EXPRESSAO": r["fact_time_expressao"],
+          "FACT_TIME_KIND": r["fact_time_kind"],
+          "FACT_TIME_PRECISION": r["fact_time_precision"],
+          "FACT_TIME_VEIO_DE": veio_de["FACT_TIME"],
+          "LEITOR": "leis/fato_do_texto.campos_do_fato"}
+    # DA-9 / D62: a precisao e a segunda fonte da publicacao, e a precisao da
+    # sede. Ausentes dizem-se NAO SEI, nunca se omitem.
+    for k in ing.TEMPO_E_LUGAR_PARA_A_EVIDENCIA:
+        ev[k] = publicacao.get(k) or ing.NAO_SEI_ID
+    fora["TEMPO_LUGAR_EVIDENCIA"] = {k: ev[k] for k in sorted(ev)}
     return fora
 
 
@@ -625,7 +659,10 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     tl = estruturado.get("TEMPO_E_LUGAR") or {}
     bruto.update({k: tl[k] for k in ing.TEMPO_E_LUGAR
                   if tl.get(k) not in ing.NAO_E_AFIRMACAO})
-    bruto.update(_fato_do_texto(estruturado.get("TEXTO") or "", bruto))
+    publicacao = {k: bruto.pop(k) for k in ing.TEMPO_E_LUGAR_PARA_A_EVIDENCIA
+                  if k in bruto}
+    bruto.update(_fato_do_texto(estruturado.get("TEXTO") or "", bruto,
+                                publicacao))
     item = ing.para_a_porta(bruto)
     item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
                  "raw_asset_id": estruturado.get("RAW_ASSET_ID")})

@@ -345,6 +345,8 @@ PARA_A_PORTA = {
     "PUBLISHED_AT_PRECISION": "published_at_precision",
     "SOURCE_LOCATION_BASIS": "source_location_basis",
     "SOURCE_LOCATION_PRECISION": "source_location_precision",
+    # DA-7: a evidencia da leitura do tempo e do lugar (033).
+    "TEMPO_LUGAR_EVIDENCIA": "tempo_lugar_evidencia",
 }
 
 # ── TEMPO E LUGAR: O QUE A OBSERVACAO SABE, E TEM DE CHEGAR A PORTA ─────────
@@ -364,7 +366,14 @@ TEMPO_E_LUGAR = ("FACT_TIME", "FACT_TIME_BASIS",
                  "PUBLISHED_AT", "PUBLISHED_AT_BASIS",
                  "OBSERVED_AT",
                  "SOURCE_LOCATION", "SOURCE_LOCATION_BASIS",
-                 "FACT_LOCATION", "FACT_LOCATION_BASIS")
+                 "FACT_LOCATION", "FACT_LOCATION_BASIS") + (
+    # D62 / DA-9: a precisao e a segunda fonte da publicacao. NAO sao nomes da
+    # porta: `orquestrador.item_documental_para_a_porta` dobra-os para dentro
+    # de `TEMPO_LUGAR_EVIDENCIA` (033).
+    "PUBLISHED_AT_PRECISION", "SOURCE_LOCATION_PRECISION",
+    "PUBLISHED_AT_OUTRA", "PUBLISHED_AT_OUTRA_BASIS", "PUBLISHED_AT_CONFLITO")
+#: Os do recado que viajam para a evidencia, e nao como campo proprio.
+TEMPO_E_LUGAR_PARA_A_EVIDENCIA = TEMPO_E_LUGAR[9:]
 
 
 class TextoEmConflito(ValueError):

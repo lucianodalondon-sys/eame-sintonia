@@ -140,14 +140,15 @@ class ADecisaoDaPortaMudaDeVerdade(unittest.TestCase):
         """
         cru = {"id": "x", "texto": "Bollettino agrometeorologico con dati.",
                "source_id": "IT-T2-002", "FACT_TIME": "2026-09-02"}
-        antes = adm.decidir(cru, "T2", corrida="SEAM")
-        depois = adm.decidir(ing.para_a_porta(cru), "T2", corrida="SEAM")
-        self.assertIn("quando o fato aconteceu", antes.motivo,
-                      "o campo por traduzir devia parecer ausente")
-        self.assertNotIn("quando o fato aconteceu", depois.motivo,
+        # D62 (dono, 25/09): a falta de tempo ja NAO barra — a pergunta do
+        # tempo continua a ser feita e a resposta escrita. A sentinela passa a
+        # olhar para a RESPOSTA dessa pergunta, que e onde a traducao decide.
+        _, _, antes = adm._tem_quando(cru)
+        _, _, depois = adm._tem_quando(ing.para_a_porta(cru))
+        self.assertEqual(antes.get("que_tempo"), "NENHUM",
+                         "o campo por traduzir devia parecer ausente")
+        self.assertEqual(depois.get("que_tempo"), "FACT_TIME",
                          "o campo continua a parecer ausente depois de traduzir")
-        self.assertNotEqual(antes.regra, depois.regra,
-                            "traduzir nao moveu a porta para a proxima pergunta")
 
     def test_a_origem_recusa_a_confissao_de_ausencia(self):
         """O buraco que o SCRAP fechou, virado sentinela.

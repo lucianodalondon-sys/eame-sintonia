@@ -45,7 +45,7 @@
     "guarda/memoria_postgres.py"
    ],
    "QUANTOS_LEEM": 37,
-   "INSTRUMENTOS_QUE_CITAM": 62,
+   "INSTRUMENTOS_QUE_CITAM": 63,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -108,6 +108,8 @@
    ],
    "LEEM": [
     "admissao/admissao.py",
+    "admissao/reprocessar_tempo_lugar.py",
+    "admissao/sala_de_espera.py",
     "coleta/derivacao_forward.py",
     "coleta/eu_regulatorio_executor.py",
     "coleta/executor_texto_de_html.py",
@@ -116,12 +118,10 @@
     "coleta/ingresso.py",
     "coleta/italy_executor.py",
     "coleta/italy_pilot_collect.mjs",
-    "coleta/regulatorio_importar.py",
-    "coleta/rota_forward_documento.py",
-    "coleta/scrap_colheita.py"
+    "coleta/regulatorio_importar.py"
    ],
-   "QUANTOS_LEEM": 58,
-   "INSTRUMENTOS_QUE_CITAM": 94,
+   "QUANTOS_LEEM": 60,
+   "INSTRUMENTOS_QUE_CITAM": 95,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -133,6 +133,7 @@
    ],
    "LEEM": [
     "admissao/admissao.py",
+    "admissao/reprocessar_tempo_lugar.py",
     "coleta/derivacao_forward.py",
     "coleta/eu_regulatorio_executor.py",
     "ferramentas/big_collection/reconciliar_bytes_bc4.py",
@@ -142,19 +143,19 @@
     "guarda/preservar_documento.py",
     "medidas/coorte_da_micro_collection.py",
     "medidas/medir_v1a.py",
-    "medidas/relevancia_antes_da_coleta.py",
-    "medidas/ultima_milha.py"
+    "medidas/relevancia_antes_da_coleta.py"
    ],
-   "QUANTOS_LEEM": 20,
+   "QUANTOS_LEEM": 21,
    "INSTRUMENTOS_QUE_CITAM": 47,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ADMISSION",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "32 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "33 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/admissao.py",
+    "admissao/reprocessar_tempo_lugar.py",
     "admissao/sala_de_espera.py",
     "coleta/rota_forward_documento.py",
     "curadoria/baldes_das_candidatas.py",
@@ -201,8 +202,8 @@
     "coleta/executor_transcricao_midia.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 196,
-   "INSTRUMENTOS_QUE_CITAM": 222,
+   "QUANTOS_LEEM": 197,
+   "INSTRUMENTOS_QUE_CITAM": 225,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -228,6 +229,7 @@
    ],
    "LEEM": [
     "_gavetas.py",
+    "admissao/reprocessar_tempo_lugar.py",
     "coleta/comunicacao_coleta.py",
     "coleta/eu_regulatorio_executor.py",
     "coleta/ingresso.py",
@@ -237,11 +239,10 @@
     "coleta/scrap_executor.py",
     "coleta/social_scrap.py",
     "ferramentas/big_collection/reconciliar_bytes_bc4.py",
-    "guarda/banco_descartavel.py",
-    "guarda/banco_operacional.py"
+    "guarda/banco_descartavel.py"
    ],
-   "QUANTOS_LEEM": 22,
-   "INSTRUMENTOS_QUE_CITAM": 117,
+   "QUANTOS_LEEM": 23,
+   "INSTRUMENTOS_QUE_CITAM": 118,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -398,7 +399,7 @@
     "coleta/golden_path_pdf.py"
    ],
    "QUANTOS_LEEM": 150,
-   "INSTRUMENTOS_QUE_CITAM": 115,
+   "INSTRUMENTOS_QUE_CITAM": 116,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -414,6 +415,7 @@
     "scripts/micro_coleta/micro_rede_real.py"
    ],
    "LEEM": [
+    "admissao/reprocessar_tempo_lugar.py",
     "coleta/italy_executor.py",
     "coleta/italy_pilot_collect.mjs",
     "medidas/coorte_da_micro_collection.py",
@@ -424,10 +426,9 @@
     "medidas/ultima_milha.py",
     "regras/italy_pilot_guards.mjs",
     "regras/paridade_test.mjs",
-    "scripts/capa_materia/medir_d40.mjs",
-    "scripts/capa_materia/medir_filtro_institucional.py"
+    "scripts/capa_materia/medir_d40.mjs"
    ],
-   "QUANTOS_LEEM": 14,
+   "QUANTOS_LEEM": 15,
    "INSTRUMENTOS_QUE_CITAM": 27,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },

@@ -132,6 +132,10 @@ CAMPOS_READY = (
     "ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO", "TEXTO",
     "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
     "FACT_TIME_BASIS", "FACT_LOCATION_BASIS", "PUBLISHED_AT", "OBSERVED_AT",
+    # 033 (TEMPO-E-LUGAR, D61/D62): a base dos outros dois valores, e o grau
+    # de precisao do item. Sem elas, o VALOR chegava e a BASE parava na porta.
+    "PUBLISHED_AT_BASIS", "SOURCE_LOCATION_BASIS", "COMPLETUDE_TEMPO_LUGAR",
+    "TEMPO_LUGAR_EVIDENCIA",
     "SOURCE_DECLARED_EVIDENCE_CLASS", "FATO",
     "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR",
 )
@@ -142,6 +146,24 @@ PRONTO = "PRONTO_PARA_INTELIGENCIA"
 
 BACKEND_POSTGRES = "POSTGRES"
 BACKEND_FICHEIRO = "FICHEIRO"
+
+
+# ── 033 · O QUE SE PODE REVER, E ONDE ESTA A BASE ORIGINAL DE CADA UM ──────
+# O texto, a fonte, a identidade e a fila NAO se reveem: sao o que pousou, e a
+# assinatura da corrida e deles. A lista e a mesma da trava do banco
+# (`revisao_so_de_campo_revisivel`), e ha teste que compara as duas.
+CAMPOS_REVISIVEIS = {
+    "published_at": "published_at_basis",
+    "source_location": "source_location_basis",
+    "fact_time": "fact_time_basis",
+    "fact_location": "fact_location_basis",
+    "observed_at": None,
+    "completude_tempo_lugar": None,
+    "janela_declarada": None,
+    "tempo_lugar_evidencia": None,
+}
+#: A base de um campo que nao tem coluna de base: a original nao foi dita.
+AUSENCIA_REVISAO = "NAO SEI"
 
 
 class ConflitoDeCorrida(Exception):
@@ -393,6 +415,19 @@ class _Ficheiro(object):
             "o backend FICHEIRO nao sabe retirar: nao tem estado de fila. "
             "Use o backend canonico.")
 
+    def rever(self, run_id, ordem, revisoes, extrator, versao, motivo):
+        raise SalaIndisponivel(
+            "o backend FICHEIRO nao tem revisoes (migration 033): corrigir "
+            "sem historico seria reescrever. Use o backend canonico.")
+
+    def ler_atual(self, run_id):
+        return self.ler(run_id)
+
+    def linhas_para_revisao(self):
+        raise SalaIndisponivel(
+            "o backend FICHEIRO nao tem revisoes (migration 033). Use o "
+            "backend canonico.")
+
 
 # ═════════════════════════════════════════════════════════════════════════
 # BACKEND · POSTGRES — o canónico
@@ -586,7 +621,9 @@ class _Postgres(object):
             "source_id, source_location, fact_location, fact_time, "
             "captured_at, admitido_por, estagio, fact_time_basis, "
             "fact_location_basis, published_at, observed_at, "
-            "source_declared_evidence_class, fato "
+            "source_declared_evidence_class, fato, "
+            "published_at_basis, source_location_basis, completude_tempo_lugar, "
+            "tempo_lugar_evidencia "
             "from public.sala_de_espera where run_id = %s order by ordem"
             % _lit(run_id))
         if not linhas:
@@ -617,6 +654,10 @@ class _Postgres(object):
                 "FACT_LOCATION_BASIS": c[13],
                 "PUBLISHED_AT": c[14],
                 "OBSERVED_AT": c[15],
+                "PUBLISHED_AT_BASIS": c[18],
+                "SOURCE_LOCATION_BASIS": c[19],
+                "COMPLETUDE_TEMPO_LUGAR": json.loads(c[20]),
+                "TEMPO_LUGAR_EVIDENCIA": json.loads(c[21]),
                 "SOURCE_DECLARED_EVIDENCE_CLASS": c[16],
                 "FATO": json.loads(c[17]),
                 "ESTAGIO": c[11],
@@ -655,6 +696,11 @@ class _Postgres(object):
             # retry legítimo de um conflito.
             fato_sql = _lit(json.dumps(u["FATO"], ensure_ascii=False,
                                        sort_keys=True))
+            # 033: a completude vai como JSON pela mesma razao do fato.
+            completude_sql = _lit(json.dumps(u["COMPLETUDE_TEMPO_LUGAR"],
+                                             ensure_ascii=False, sort_keys=True))
+            evidencia_sql = _lit(json.dumps(u["TEMPO_LUGAR_EVIDENCIA"],
+                                            ensure_ascii=False, sort_keys=True))
             colunas = [_lit(run_id), str(i), _lit(u["ITEM_ID"]), obs_sql,
                        _lit(u["UNIVERSO"]), _lit(u["TEXTO"]),
                        _lit(u["SOURCE_ID"]), _lit(u["SOURCE_LOCATION"]),
@@ -664,7 +710,10 @@ class _Postgres(object):
                        _lit(u["ESTAGIO"]), _lit(u["FACT_TIME_BASIS"]),
                        _lit(u["FACT_LOCATION_BASIS"]), _lit(u["PUBLISHED_AT"]),
                        _lit(u["OBSERVED_AT"]),
-                       _lit(u["SOURCE_DECLARED_EVIDENCE_CLASS"]), fato_sql]
+                       _lit(u["SOURCE_DECLARED_EVIDENCE_CLASS"]), fato_sql,
+                       _lit(u["PUBLISHED_AT_BASIS"]),
+                       _lit(u["SOURCE_LOCATION_BASIS"]), completude_sql,
+                       evidencia_sql]
             valores.append("(" + ", ".join(colunas) + ")")
         # ⚠️ A INTERPOLAÇÃO AQUI É `str.format`, E NÃO `%`. O corpo plpgsql usa
         # `%` como marcador do `raise exception`, e um `%` do Python em cima
@@ -706,7 +755,9 @@ begin
        source_id, source_location, fact_location, fact_time, captured_at,
        admitido_por, corrida_sha256,
        estagio, fact_time_basis, fact_location_basis, published_at,
-       observed_at, source_declared_evidence_class, fato)
+       observed_at, source_declared_evidence_class, fato,
+       published_at_basis, source_location_basis, completude_tempo_lugar,
+       tempo_lugar_evidencia)
     values {valores};
     select count(*) into total from _entrada;
     insert into public.sala_de_espera
@@ -714,12 +765,16 @@ begin
        source_id, source_location, fact_location, fact_time, captured_at,
        admitido_por, corrida_sha256,
        estagio, fact_time_basis, fact_location_basis, published_at,
-       observed_at, source_declared_evidence_class, fato)
+       observed_at, source_declared_evidence_class, fato,
+       published_at_basis, source_location_basis, completude_tempo_lugar,
+       tempo_lugar_evidencia)
     select run_id, ordem, item_id, raw_observation_id, universo, texto,
            source_id, source_location, fact_location, fact_time, captured_at,
            admitido_por, corrida_sha256,
            estagio, fact_time_basis, fact_location_basis, published_at,
-           observed_at, source_declared_evidence_class, fato
+           observed_at, source_declared_evidence_class, fato,
+           published_at_basis, source_location_basis, completude_tempo_lugar,
+           tempo_lugar_evidencia
       from _entrada e
      where not exists (select 1 from public.sala_de_espera s
                         where s.item_id = e.item_id and s.universo = e.universo
@@ -760,6 +815,139 @@ select resultado from _recibo;
                               "JA_NA_SALA_POR_OUTRA_CORRIDA": (None if partes[2] == "-1"
                                                                else int(partes[2]))}
         return estado
+
+    # ── 033 · corrigir sem apagar: as revisoes ────────────────────────
+    def rever(self, run_id, ordem, revisoes, extrator, versao, motivo):
+        """Acrescenta revisoes a UMA linha da Sala. So INSERT; a linha nao muda.
+
+        `revisoes` = `[{"CAMPO", "VALOR", "BASE"}]`. Uma revisao so entra se
+        MUDA alguma coisa: o valor atual (a ultima revisao, senao a coluna
+        original) e a base atual sao comparados, e o igual nao se repete.
+
+            REPROCESSAR DUAS VEZES COM O MESMO CODIGO NAO ESCREVE NADA.
+
+        A decisao e tomada no banco, debaixo de uma trava por LINHA, na mesma
+        transacao da escrita — pela mesma razao de `pousar`.
+        """
+        for x in (extrator, versao, motivo):
+            if not x or not str(x).strip():
+                raise ValueError("revisao sem extrator, versao ou motivo")
+        blocos = []
+        for r in revisoes:
+            campo = r["CAMPO"]
+            if campo not in CAMPOS_REVISIVEIS:
+                raise ValueError("campo %r nao se reve (033)" % campo)
+            coluna_da_base = CAMPOS_REVISIVEIS[campo]
+            base_original = ("s." + coluna_da_base if coluna_da_base
+                             else _lit(AUSENCIA_REVISAO))
+            blocos.append("""
+  select r.valor, r.base into v_atual, b_atual
+    from public.sala_de_espera_revisao r
+   where r.run_id = {run} and r.ordem = {ordem} and r.campo = {campo}
+   order by r.revisao desc limit 1;
+  if not found then
+    select s.{campo_col}::text, {base_original} into v_atual, b_atual
+      from public.sala_de_espera s
+     where s.run_id = {run} and s.ordem = {ordem};
+    if not found then
+      raise exception 'SALA_REVISAO_SEM_LINHA: a sala nao tem (%, %)', {run}, {ordem};
+    end if;
+  end if;
+  if v_atual is distinct from {valor} or b_atual is distinct from {base} then
+    select coalesce(max(r.revisao), 0) + 1 into prox
+      from public.sala_de_espera_revisao r
+     where r.run_id = {run} and r.ordem = {ordem} and r.campo = {campo};
+    insert into public.sala_de_espera_revisao
+      (run_id, ordem, campo, revisao, valor, base, extrator,
+       versao_do_extrator, motivo)
+    values ({run}, {ordem}, {campo}, prox, {valor}, {base}, {extrator},
+            {versao}, {motivo});
+    n := n + 1;
+  else
+    iguais := iguais + 1;
+  end if;""".format(run=_lit(run_id), ordem=int(ordem), campo=_lit(campo),
+                  campo_col=campo, base_original=base_original,
+                  valor=_lit(r["VALOR"]), base=_lit(r["BASE"]),
+                  extrator=_lit(extrator), versao=_lit(versao),
+                  motivo=_lit(motivo)))
+        script = """
+create temporary table _recibo (resultado text) on commit drop;
+do $rev$
+declare
+  v_atual text;
+  b_atual text;
+  prox integer;
+  n integer := 0;
+  iguais integer := 0;
+begin
+  perform pg_advisory_xact_lock(hashtext('sala_de_espera_revisao:' || {run} || ':' || {ordem}));
+{blocos}
+  insert into _recibo values (n || ':' || iguais);
+end
+$rev$;
+select resultado from _recibo;
+""".format(run=_lit(run_id), ordem=int(ordem), blocos="".join(blocos))
+        codigo, saida, erro = self._executar(script)
+        if codigo != 0:
+            raise SalaIndisponivel(erro.strip() or "psql falhou sem dizer porque")
+        partes = (saida or "").strip().split(":")
+        if len(partes) != 2:
+            raise SalaIndisponivel("o banco nao devolveu recibo legivel: %r" % saida)
+        return {"INSERIDAS": int(partes[0]), "JA_ERAM_ASSIM": int(partes[1])}
+
+    def ler_atual(self, run_id):
+        """A corrida como a Intelligence a deve ler: pela vista `sala_de_espera_atual`.
+
+        ⚠️ NAO E `ler`. `ler` devolve o que POUSOU — e e com ele que `pousar`
+        distingue um retry de um conflito. Ler aqui as revisoes faria um retry
+        honesto parecer outra historia.
+        """
+        linhas = self._consultar(
+            "select ordem, item_id, raw_observation_id, universo, texto, "
+            "source_id, source_location, source_location_basis, fact_location, "
+            "fact_location_basis, fact_time, fact_time_basis, published_at, "
+            "published_at_basis, observed_at, completude_tempo_lugar, "
+            "janela_declarada, tempo_lugar_evidencia, captured_at, estagio, revisoes "
+            "from public.sala_de_espera_atual where run_id = %s order by ordem"
+            % _lit(run_id))
+        if not linhas:
+            return None
+        nomes = ("ORDEM", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO",
+                 "SOURCE_ID", "SOURCE_LOCATION", "SOURCE_LOCATION_BASIS",
+                 "FACT_LOCATION", "FACT_LOCATION_BASIS", "FACT_TIME",
+                 "FACT_TIME_BASIS", "PUBLISHED_AT", "PUBLISHED_AT_BASIS",
+                 "OBSERVED_AT", "COMPLETUDE_TEMPO_LUGAR", "JANELA_DECLARADA",
+                 "TEMPO_LUGAR_EVIDENCIA", "CAPTURED_AT", "ESTAGIO", "REVISOES")
+        itens = []
+        for l in linhas:
+            u = dict(zip(nomes, l.split(self.SEP)))
+            u["ORDEM"], u["REVISOES"] = int(u["ORDEM"]), int(u["REVISOES"])
+            u["RAW_OBSERVATION_ID"] = ("NAO SEI" if u["RAW_OBSERVATION_ID"] == ""
+                                       else int(u["RAW_OBSERVATION_ID"]))
+            u["COMPLETUDE_TEMPO_LUGAR"] = json.loads(u["COMPLETUDE_TEMPO_LUGAR"])
+            u["JANELA_DECLARADA"] = json.loads(u["JANELA_DECLARADA"])
+            u["TEMPO_LUGAR_EVIDENCIA"] = json.loads(u["TEMPO_LUGAR_EVIDENCIA"])
+            itens.append(u)
+        return {"RUN_ID": run_id, "ITENS": itens}
+
+    def linhas_para_revisao(self):
+        """Todas as linhas, pela vista, com o sha256 do bruto (para o livro)."""
+        nomes = ("RUN_ID", "ORDEM", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO",
+                 "SOURCE_ID", "CAPTURED_AT", "SHA256", "STORAGE_PATH",
+                 "MEDIA_TYPE", "TEXTO")
+        fora = []
+        for l in self._consultar(
+                "select a.run_id, a.ordem, a.item_id, a.raw_observation_id, "
+                "a.universo, a.source_id, a.captured_at, coalesce(r.sha256, ''), "
+                "coalesce(r.storage_path, ''), coalesce(r.media_type, ''), "
+                "a.texto from public.sala_de_espera_atual a "
+                "left join public.raw_asset r on r.id = a.raw_observation_id "
+                "order by a.pousado_em, a.run_id, a.ordem"):
+            u = dict(zip(nomes, l.split(self.SEP)))
+            u["ORDEM"] = int(u["ORDEM"])
+            u["SHA256"] = u["SHA256"].strip()
+            fora.append(u)
+        return fora
 
     # ── a fila ──────────────────────────────────────────────────────────
     def listar_pendentes(self, limite=None):
@@ -946,6 +1134,27 @@ def pousar(run_id: str, unidades: list) -> dict:
             "JA_NA_SALA_POR_OUTRA_CORRIDA": ("NAO SEI" if ja_na_sala is None else ja_na_sala),
             "BACKEND": b.NOME, "CANONICO": b.CANONICO,
             "PORQUE": porque}
+
+
+def rever(run_id: str, ordem: int, revisoes: list, *, extrator: str,
+          versao: str, motivo: str) -> dict:
+    """Corrige campos de UMA linha SEM a mudar: acrescenta revisoes (033).
+
+        O RAW NAO MUDA. A LINHA NAO MUDA. NUNCA HA UPDATE CALADO.
+
+    Devolve `{INSERIDAS, JA_ERAM_ASSIM}`. So a Sala canonica sabe fazer isto.
+    """
+    return backend().rever(run_id, ordem, revisoes, extrator, versao, motivo)
+
+
+def ler_atual(run_id: str):
+    """A corrida pela vista `sala_de_espera_atual` (ultima revisao, senao o original)."""
+    return backend().ler_atual(run_id)
+
+
+def linhas_para_revisao():
+    """Todas as linhas da Sala, pela vista, com o sha256 do bruto."""
+    return backend().linhas_para_revisao()
 
 
 def listar_pendentes(limite=None):

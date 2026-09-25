@@ -1,5 +1,14 @@
 # TEMPO-E-LUGAR · relatório (D61 · D62 · D63) · ramo `tempo-lugar-v1`
 
+> **ATUALIZAÇÃO (25/09, tarde) — ler primeiro.** As propostas B e C deste relatório viraram
+> a migração única **033** (D68), e o `tempo-lugar-v1` passou a apontar para o mesmo commit do
+> `migracao-sala-v1`. Juntou-se, por merge, a LUGAR-FATO até a D70 (`4d4ca5fc`) e a nuvem
+> tempo-publicacao (`007cccf5`); a DA-9 (duas fontes da publicação, ordem fixa, conflito
+> marcado) está ligada. **Os números atuais e o roteiro estão em `MIGRACAO-SALA.md`**: nas 78,
+> numa cópia da Sala real, publicação **36**, lugar da fonte **5**, data do facto **18**,
+> lugar do facto **12**. ⚠️ **Instalar só DEPOIS da 033** — sem ela, o 1.º `pousar` falha alto.
+> Os números abaixo são os da primeira medição (encanamento sem migração) e ficam como histórico.
+
 Base: `df0865e6` (produção). Rede fechada. **O vivo e a Sala real não foram tocados**: a Sala foi
 lida só com `default_transaction_read_only=on`. Todo o ensaio correu num Postgres **descartável**
 (banco `descartavel`, porta aleatória, desligado e apagado no fim).

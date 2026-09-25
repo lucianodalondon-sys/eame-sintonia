@@ -245,8 +245,6 @@ def data_do_documento_e_publicacao(source_id: str) -> dict:
     primeira = re.split(r"\s", especie.strip(), maxsplit=1)[0].upper()
     return {"E_PUBLICACAO": primeira == ESPECIE_QUE_E_PUBLICACAO,
             "ESPECIE": especie}
-
-
 #: A BASE que viaja com o `SOURCE_LOCATION` (D61). Uma palavra, para a Sala a
 #: poder contar; a frase inteira continua em `PORQUE`.
 BASE_CONTRATO = "CONTRATO"
