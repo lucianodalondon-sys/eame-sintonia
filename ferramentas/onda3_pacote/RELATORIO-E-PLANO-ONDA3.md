@@ -1,17 +1,24 @@
 # PACOTE-ONDA3 — as peças da 3.ª onda juntas, o ensaio integrado e o plano de instalação — 25/09/2026
 
 Ramo `onda3-pacote-v1`, a partir da produção `servico-20260923-0923 @ 290e7349`, depois alinhado com a
-produção nova **`df0865e6`** (a MICRO-V3 foi instalada entretanto: `onda_web --fontes/--lote`).
+produção nova **`df0865e6`** (MICRO-V3: `onda_web --fontes/--lote`).
 **NÃO instalado. NÃO disparado.** Ensaio com rede FECHADA; **0 pedidos de rede** nesta missão.
 
 ## Em palavras simples
 
 Juntei, **sem nenhum conflito**, quatro peças: a CONTRATO-44 (provas de rota + entrada no coletor), a v3
 dela (as duplicadas D49), a REVISAO-15 e a HR-6, e apliquei a D51.1 (a CONAF página inicial sai como
-duplicada da CONAF comunicados). Numa cópia fiel do vivo: **entram 33 fontes no coletor**, as prontas para
-colher passam de **18 para 41**, a coorte PROVISÓRIA da 3.ª onda tem **40** fontes, **30 correm**, **120 pedidos,
-no máximo 5 por domínio**, prova do teto **PASS**. O desfazer volta tudo ao vivo, provado.
-Duas peças ainda não estão: **RECEITA-T8** (bancada a trabalhar) e **ordens-63-v2** (ramo ainda não publicado).
+duplicada da CONAF comunicados). Numa cópia fiel do vivo **com os 16 livros do disco**: a tabela do coletor
+passa de **210 para 226 fontes (entram 16)**, as prontas para colher passam de **29 para 41**, a coorte
+PROVISÓRIA da 3.ª onda tem **40** fontes, **30 correm**, **120 pedidos, no máximo 5 por domínio**, prova do
+teto **PASS**. O pacote **não muda nenhum livro no Git**. O desfazer volta tudo ao vivo, provado.
+Falta: **ordens-63-v2** (conflito de CÓDIGO com a REVISAO-15 — parei, §8), **RECEITA-T8** (bancada a
+trabalhar) e o **mapa** (à espera da LOCK-PESADO).
+
+> ⚠️ **Correção (25/09 ~11:10Z):** a 1.ª versão deste relatório dizia «entram 33» e «as 17 da PONTE não estão
+> no coletor da produção». **Estava errado.** O ensaio copiava uma lista FIXA de 14 livros e leu a tabela do
+> coletor do Git (193 fontes) em vez da do disco do vivo (210, com as 17 da PONTE, entradas ~07:50 pelo
+> supervisor). O script agora lê os ficheiros sujos do vivo na hora e para se o pacote tocar algum.
 
 ## 1 · A junção
 
@@ -23,8 +30,8 @@ Duas peças ainda não estão: **RECEITA-T8** (bancada a trabalhar) e **ordens-6
 | 4 | hr6-v1 | e5825dc0 | nenhum |
 | + | D51.1 (commit próprio `1f086968`) | — | — |
 | + | produção nova df0865e6 (MICRO-V3) | — | nenhum |
-| ⏳ | receita-t8-v1 (D48) | 75947e77 | **à espera do PRONTO da bancada** |
-| ⏳ | ordens-63-v2 (D52) | — | **ramo ainda não existe na origem** |
+| ✋ | ordens-63-v2 (D52) | 9260aa2e | **CONFLITO DE CÓDIGO** em `curadoria/gatilho_discovery.py` — parei (§8) |
+| ⏳ | receita-t8-v1 (D48) | 75947e77 | à espera do PRONTO da bancada |
 
 **D51.1:** `curadoria/retirar_duplicadas_d49.py` passa a guardar, por linha, a decisão e o ficheiro da prova.
 As 4 da D49 ficam iguais; entra `IT-T7-170 → fica IT-T7-174`, `DECISAO = D51`, reversível, sem apagar.
@@ -32,24 +39,25 @@ As 4 da D49 ficam iguais; entra `IT-T7-170 → fica IT-T7-174`, `DECISAO = D51`,
 
 ## 2 · O ensaio integrado (`ensaio/`, script `ensaio_onda3.sh`)
 
-Cópia = worktree destacada no **HEAD do vivo (df0865e6)** + os 14 livros sujos do vivo (sha256 em
-`ensaio/0-FOTO-DOS-LIVROS.txt`); o pacote entra por `git merge --no-ff`, como na instalação. Rede
-fechada, conferida (www.cia.it recusado). O robô não correu.
+Cópia = worktree destacada no **HEAD do vivo (df0865e6)** + os **16 ficheiros sujos do vivo, lidos na hora**
+(foto 11:08:55Z, a meio do MICRO-V3 real — só leitura; sha256 em `ensaio/0-FOTO-DOS-LIVROS.txt`); o pacote
+entra por `git merge --no-ff`, como na instalação. Rede fechada, conferida (www.cia.it recusado). O robô não correu.
 
 | passo | antes (vivo de hoje) | depois |
 |---|---|---|
-| merge | — | rc=0, 0 conflitos, **14 livros iguais** |
-| duplicadas D49 + D51 | — | **5 APLICA** (IT-T2-056, IT-T2-106, IT-T7-100, IT-T7-170, IT-T8-068); 2.ª passagem 5 JA_APLICADA |
+| livros que o pacote muda no Git | — | **0** (dos 16) |
+| merge | — | rc=0, 0 conflitos, **16 livros iguais** |
+| duplicadas D49 + D51 | — | **5 APLICA** (IT-T2-056, IT-T2-106, IT-T7-100, IT-T7-170, IT-T8-068), nenhuma na tabela do coletor; 2.ª passagem 5 JA_APLICADA |
 | provas de rota (0 pedidos) | — | PONTE (59 linhas) + C44 (19) + HR6 (1) |
-| entrada no coletor | ENTRA=0 · FICA=44 | **ENTRA=33** · FICA=7 → 33 escritas |
+| tabela do coletor (disco) | **210** fontes · ENTRA=0 FICA=27 | **226** · **ENTRA=16** (as da C44) · FICA=7 |
 | portão: READY / elegíveis | 183 / 73 | 182 / **69** (−4 da D49; −1 READY = a T7-174 à espera do canário do robô) |
-| plano da coleta: prontas | **18** | **41** (+23, perdidas 0) |
+| plano da coleta: prontas | **29** | **41** (+12, perdidas 0) |
 | o que o robô vai medir | — | REVISAO-15: **15** VALIDATE_ROUTE; HR-6: IT-T7-174 |
-| coorte 3.ª onda (PROVISÓRIA) | 2.ª onda congelada: 28 | **40** (+12 novas, 0 saem; ISTAT fora, D45) |
+| coorte 3.ª onda (PROVISÓRIA) | 2.ª onda congelada: 28 | **40** (ISTAT fora, D45) |
 | `onda_web --so-plano` | — | **30 de 40 correm** · 120 pedidos · máximo 5 por domínio · PODE_CORRER=false (PROVISÓRIA) |
 | prova-teto sobre o plano | — | **PASS** · 120 previstos · 0 domínios acima de 5 |
 | testes | — | 89 (6 ficheiros do Curator) + 4 (hr6) + 17 + 10 + 1 + 6 + 29 + 19 (tests/) + motor 62/62 + teto local 7/7 — **todos OK** |
-| desfazer | — | `reset --keep` rc=0 · 0 ficheiros de código diferentes · HEAD = vivo · 14 livros = foto · prontas 18 |
+| desfazer | — | `reset --keep` rc=0 · 0 ficheiros de código diferentes · HEAD = vivo · 16 livros = foto · prontas 29 |
 
 **Saltam por teto nesta onda (10):** IT-T2-146, IT-T5-080, IT-T5-111, IT-T5-113, IT-T5-167, IT-T5-186,
 IT-T5-187, IT-T7-121, IT-T7-123, IT-T7-135; parcial IT-T7-118 (cia.it).
@@ -62,26 +70,43 @@ já explicados na CONTRATO-44 v2/v3); IT-T12-104 (sem contrato + sem receita); I
 ## 3 · O que só o vivo pode dar (rede, pelo robô)
 
 - **IT-T7-174 (HR-6):** a ferramenta põe-na a re-medir; o robô faz ~3 pedidos a conaf.it; se passar, fica
-  elegível e o gancho do supervisor dá-lhe entrada no coletor (a prova do coletor já está junta) → **+1 pronta**.
+  elegível e o gancho do supervisor dá-lhe entrada no coletor (a prova do coletor já está junta) → **+1 pronta (42)**.
 - **REVISAO-15:** 15 re-medidas uma vez. **+3 READY** se o canário ainda passar (IT-T2-157, IT-T7-171,
   IT-T8-064); 12 ficam retidas com o motivo no livro. Essas 3 **não** ficam prontas para colher: não têm
   contrato no coletor.
 
-## 4 · ⚠️ Achado: as 17 da PONTE não estão no coletor da produção
+## 4 · A tabela do coletor é um livro vivo (as duas perguntas do coordenador)
 
-No vivo de hoje a entrada no coletor diz `ENTRA=0 FICA=44` e a tabela do coletor é a do Git. Os passos 9–10
-da INTEGRA (juntar a prova da PONTE; o supervisor dar entrada) **não deixaram marca na produção**. Este pacote
-fá-las entrar (estão nas 33). A prova da PONTE vale só **até 02/10 06:38Z**.
+**(1) Como tratar `regras/italy_contracts_onboarded.json` na instalação — escolhi: o pacote NÃO muda o
+ficheiro no Git; quem escreve as 16 novas é o onboarding, no disco, como o supervisor já faz.**
+Porquê:
+- medido, o pacote muda **0** dos 16 livros no Git, por isso o `merge --ff-only` não recusa nem pisa nada;
+- a escrita fica na porta que já existe (`onboardar_rotas_provadas.py`, a mesma do supervisor), com «mostrar»
+  antes de «aplicar»;
+- **não** faço commit do estado vivo antes do merge: seria fotografar no Git um livro que o supervisor volta a
+  sujar em minutos, e cada ramo feito antes dessa foto passaria a colidir com ela. O backup com sha256
+  (passo 2) faz o papel de «estado antes».
 
-## 5 · Plano de instalação (executa: o coordenador; um escritor no vivo)
+**(2) Devia ser livro (fora do Git)? — Sim, é um livro:** é escrito em tempo de corrida pelo supervisor
+(onboarding) e pelas portas de decisão, como os outros 15. Hoje já vive no mesmo regime deles (rastreado e
+sujo). O perigo que isto mostrou: **ramos que mudam um livro no Git** (a PONTE-ONBOARD e a CONTRATOS-AJUSTE
+mudaram esta tabela no Git) e **leituras do HEAD em vez do disco** (o meu erro). Opções para o bot Luciano:
+- **A (recomendo agora):** fica rastreado, com a regra escrita «nenhum ramo muda um livro no Git; a mudança é
+  por porta, no vivo» — e a guarda que o ensaio já tem (`livros que o pacote muda no Git: 0`, senão PARA).
+- **B (desenho, depois):** tirar do Git (`.gitignore` + semente). Custa: um clone novo (bancadas, nuvem, CI)
+  fica sem tabela e o coletor não colhe nada; `regras/italy_contracts.mjs` e os testes leem-na.
+
+A mesma pergunta vale para `curadoria/ROTAS-ELEGIVEIS-V1.json` (também escrita no vivo pela junção de provas).
+
+## 5 · Plano de instalação (executa: o coordenador; um escritor no vivo; DEPOIS do MICRO-V3 real acabar)
 
 Comandos em Git Bash. Definir primeiro:
 ```bash
 VIVO=/c/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1
 PACOTE=<SHA entregue como PACOTE-ONDA3 PRONTO>
 D=$(date +%Y%m%d-%H%M); CORTE=/c/cutover/onda3-$D; mkdir -p $CORTE
-LIVROS="candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCLE-EVIDENCE-V1.json curadoria/LIFECYCLE-LEDGER-V1.json curadoria/LIFECYCLE-QUEUE-V1.json curadoria/READY-BATCHES-V1.json curadoria/SOURCE-ID-ALLOCATION-V1.json curadoria/italy_contracts_curator.json data/collection-ledger/italy/observations.ndjson data/collection-ledger/italy/runs.ndjson data/samples/LIVRO-DE-DECISOES.json data/samples/RUN-MANIFEST.json"
-MUDAM="regras/italy_contracts_onboarded.json curadoria/ROTAS-ELEGIVEIS-V1.json"
+# os livros = os ficheiros sujos do vivo, lidos na hora (hoje 16: os 14 + a tabela do coletor + a prova de rotas)
+LIVROS=$(git -C $VIVO --no-optional-locks status --short | grep '^ M' | awk '{print $2}' | tr '\n' ' ')
 ```
 
 **1 · Parar o robô** (⏱️ começa o tempo parado) — como na INTEGRA, passo 1: `PARAR.flag`, esperar o supervisor
@@ -90,16 +115,19 @@ sair (≤ 60 s), fechar o observador; confirmar 0 processos `supervisor|worker|p
 **2 · Backup com sha256**
 ```bash
 git -C $VIVO rev-parse --short HEAD          # TEM de dar df0865e6 — senão PARAR (refazer o ensaio)
-git -C $VIVO status --short | grep -v '^??'  # só os 14 LIVROS
-for f in $LIVROS $MUDAM; do mkdir -p $CORTE/$(dirname $f); cp $VIVO/$f $CORTE/$f; done
-( cd $CORTE && sha256sum $LIVROS $MUDAM > SHA256-ANTES.txt )
+echo $LIVROS | wc -w                         # 16 (se aparecer código sujo: PARAR)
+git -C $VIVO fetch origin onda3-pacote-v1
+git -C $VIVO diff --name-only HEAD $PACOTE -- $LIVROS | wc -l   # TEM de dar 0: o pacote não toca livros
+for f in $LIVROS; do mkdir -p $CORTE/$(dirname $f); cp $VIVO/$f $CORTE/$f; done
+( cd $CORTE && sha256sum $LIVROS > SHA256-ANTES.txt )
 git -C $VIVO rev-parse HEAD > $CORTE/HEAD-ANTES.txt
 ```
 
-**3 · Merge** — `git -C $VIVO fetch origin onda3-pacote-v1 && git -C $VIVO merge --ff-only $PACOTE`
-(df0865e6 é antepassado: avanço direto). Nenhum dos 14 livros muda.
+**3 · Merge** — `git -C $VIVO merge --ff-only $PACOTE` (df0865e6 é antepassado: avanço direto).
+Nenhum dos 16 livros muda (o git não recusa: não os toca).
 
-**4 · Livros iguais** — `( cd $VIVO && sha256sum $LIVROS ) | diff - <(grep -F -f <(echo "$LIVROS" | tr ' ' '\n') $CORTE/SHA256-ANTES.txt) && echo LIVROS IGUAIS` 🛑 se mudou: DESFAZER.
+**4 · Livros iguais** — `( cd $VIVO && sha256sum $LIVROS ) | diff - $CORTE/SHA256-ANTES.txt && echo LIVROS IGUAIS`
+🛑 se mudou: DESFAZER.
 
 **5 · Testes (sem rede)**
 ```bash
@@ -110,8 +138,7 @@ for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_do
 node regras/motor_de_rota_test.mjs ; node provas/teto_dominio_local.mjs                          # 62/62 · 7/7
 ```
 
-**6 · Mapa** — com a LOCK-PESADO: `py system-map/scripts/correr_a_cadeia.py VALIDAR` → `SYSTEM_MAP_CHECK=PASS`
-(**o mapa do ramo ainda NÃO foi regerado — ver §6**).
+**6 · Mapa** — com a LOCK-PESADO: `py system-map/scripts/correr_a_cadeia.py VALIDAR` → `SYSTEM_MAP_CHECK=PASS`.
 
 **7 · Duplicadas D49 + D51**
 ```bash
@@ -127,6 +154,7 @@ py -B ferramentas/hr6/remedir_hr6.py --fontes=IT-T7-174 --aplicar  # FEITO=true,
 ```
 
 **9 · Provas de rota (0 pedidos)** — válidas: PONTE até **02/10 06:38Z**, C44 até **02/10 ~09:46Z**, HR6 até **02/10 10:42Z**
+(juntar a da PONTE outra vez é inofensivo: `juntar` fica com a linha mais nova de cada fonte)
 ```bash
 cd $VIVO && HTTPS_PROXY=http://127.0.0.1:9 HTTP_PROXY=http://127.0.0.1:9 PYTHONUTF8=1 py -B - <<'EOF'
 import json, sys; sys.path[:0] = ["medidas", "."]
@@ -139,13 +167,15 @@ json.dump(v, open("curadoria/ROTAS-ELEGIVEIS-V1.json", "w", encoding="utf-8"), e
 EOF
 ```
 
-**10 · Entrada no coletor**
+**10 · Entrada no coletor (no DISCO — é livro; sem commit)**
 ```bash
-py -B curadoria/onboardar_rotas_provadas.py | tail -1    # esperado ENTRA=33 FICA=7
-py -B curadoria/onboardar_rotas_provadas.py --aplicar    # escritas na tabela: 33
+py -B curadoria/onboardar_rotas_provadas.py | tail -1    # esperado ENTRA=16 FICA=7 (a tabela já tem 210)
+py -B curadoria/onboardar_rotas_provadas.py --aplicar    # escritas na tabela: 16 → 226 fontes
 py -B scripts/micro_coleta/micro_coleta.py plano | grep -E '"PRONTAS"|"BLOQUEADAS"'   # esperado 41 / 28
-git -C $VIVO add $MUDAM && git -C $VIVO commit -m "instalar PACOTE-ONDA3: 33 no coletor (17 PONTE + 16 C44), D49+D51" && git -C $VIVO push origin HEAD:servico-20260923-0923
+git -C $VIVO push origin HEAD:servico-20260923-0923     # só o código do pacote (o merge do passo 3)
 ```
+(Também se pode deixar este passo para o gancho do supervisor, que corre a mesma porta ao religar; o
+«mostrar» continua a ser a conferência.)
 
 **11 · Religar o robô** (⏱️ acaba o tempo parado) — `rm $VIVO/curadoria/PARAR.flag`; supervisor pelo meio de sempre.
 O robô mede, com rede e pelo portão de egresso: as **15 da REVISAO-15** e a **IT-T7-174**.
@@ -165,25 +195,42 @@ py -B provas/prova_teto_dominio.py --plano $(cygpath -w $CORTE)/ONDA3-SO-PLANO.j
 Congelar (para correr) só por decisão, depois da 2.ª onda e com a RECEITA-T8 e a ORDENS dentro: o mesmo
 comando com `--congelar --instalacao=<commit> --demotion=<ref>`, como o passo 11 da INTEGRA.
 
-### DESFAZER (provado na cópia: 0 ficheiros de código diferentes, livros = foto, prontas 18)
+### DESFAZER (provado na cópia: 0 ficheiros de código diferentes, livros = foto, prontas 29)
 ```bash
 echo desfazer > $VIVO/curadoria/PARAR.flag      # esperar o supervisor sair
-cd $VIVO && git checkout HEAD -- $MUDAM && git reset --keep $(cat $CORTE/HEAD-ANTES.txt)
-for f in $LIVROS $MUDAM; do cp $CORTE/$f $VIVO/$f; done
-( cd $VIVO && sha256sum $LIVROS $MUDAM ) | diff - $CORTE/SHA256-ANTES.txt && echo "IGUAL AO ANTES"
+cd $VIVO && git reset --keep $(cat $CORTE/HEAD-ANTES.txt)      # o pacote não toca livros: nada recusa
+for f in $LIVROS; do cp $CORTE/$f $VIVO/$f; done
+( cd $VIVO && sha256sum $LIVROS ) | diff - $CORTE/SHA256-ANTES.txt && echo "IGUAL AO ANTES"
 rm $VIVO/curadoria/PARAR.flag
 # se o passo 10 JÁ fez push: NÃO forçar o push; a origem fica à frente do vivo e o coordenador decide
 # (revert na origem, ou apontar o ramo de produção de volta a df0865e6 com ordem explícita)
 ```
 ⚠️ Repor os livros só se o robô esteve parado desde o passo 1. Se já correu (passo 11), NÃO repor os livros
-(perdia-se trabalho dele): repor só a tabela do coletor e a prova (`$MUDAM`) e, para a D49/D51, tirar a marca
+(perdia-se trabalho dele): repor só a tabela do coletor e a prova de rotas e, para a D49/D51, tirar a marca
 `ESTADO_CATALOGO` das 5 (reversível por desenho).
 
 ## 6 · O que falta para «PRONTO»
 
-1. **Mapa do sistema:** não regerado nem validado neste ramo. A `LOCK-PRIORIDADE.txt` (06:20, «só a
-   INTEGRA-ONDA2 pega a LOCK-PESADO») continua no disco, embora a INTEGRA esteja FIM. Respeitei-a.
-   Com ordem: `LOCK-PESADO` → `py system-map/scripts/correr_a_cadeia.py REGERAR` → `VALIDAR` → commit.
-   (A nota da nuvem: o validador pode reprovar só pelo nome do ramo — a nuvem está a consertar; não se contorna.)
-2. **RECEITA-T8 (D48)** e **ordens-63-v2 (D52):** entram quando as bancadas disserem PRONTO; o ensaio repete-se
-   com o mesmo script (`bash ensaio_onda3.sh <sha> <pasta>`).
+1. **Mapa do sistema:** a LOCK-PRIORIDADE saiu; a LOCK-PESADO estava com a CONTRATOS-12 (08:07). Regero
+   pela cadeia assim que ela ficar livre (≥ 5 GB).
+2. **ordens-63-v2 (D52):** conflito de CÓDIGO — §8.
+3. **RECEITA-T8 (D48):** o ramo existe (75947e77), mas a bancada ainda diz TRABALHANDO; entra quando disser PRONTO.
+
+## 8 · ordens-63-v2: conflito de código (parei, como manda a missão)
+
+`git merge --no-ff origin/ordens-63-v2` → **CONFLICT em `curadoria/gatilho_discovery.py`**, função
+`candidatas_a_reparar`, no mesmo ponto: a REVISAO-15 acrescentou «fonte CONTRACTED_CANARY_FAILED com leitura
+nova → re-medir uma vez»; a D52 acrescentou «fonte RETIRADA_POR_DECISAO → saltar» antes do mesmo `if`.
+Junção desfeita (`git merge --abort`); o ramo ficou sem nada da D52.
+
+Resolução que proponho (não aplicada — é decisão do coordenador): **as duas, com a D52 primeiro**:
+```python
+        c = contratos.get(sid)
+        if RPD.retirada(c):          # D52: retirada por decisão não volta a ser trabalho
+            continue
+        if e == LC.CONTRACTED_CANARY_FAILED and _leitura_nova(sid):   # REVISAO-15
+            ...
+        elif e == LC.CONTRACTED_CANARY_FAILED:
+```
+Assim uma fonte retirada nunca é re-medida, nem pela REVISAO-15. Com a ordem de avançar: resolvo assim, corro
+os testes do gatilho, da revisão e da D52, e repito o ensaio.

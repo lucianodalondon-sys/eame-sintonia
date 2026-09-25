@@ -1,5 +1,5 @@
 {
- "GERADO_EM": "2026-09-25T11:01:49Z",
+ "GERADO_EM": "2026-09-25T11:09:11Z",
  "GATE": "COLLECTION_INTAKE_GATE/v1",
  "PAINEL_DO_GATE": {
   "READY_TOTAL": 183,
@@ -687,8 +687,8 @@
    "M3c-REGUA-T2-T12"
   ]
  },
- "PRONTAS": 18,
- "BLOQUEADAS": 55,
+ "PRONTAS": 29,
+ "BLOQUEADAS": 44,
  "LINHAS": [
   {
    "SOURCE_ID": "IT-T10-018",
@@ -746,7 +746,7 @@
    "UNIVERSO": "T12",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": false,
    "FRASE_RESOLVE": false,
    "ROTA_M3": "NAO_MEDIDA",
@@ -754,7 +754,6 @@
    "AMOSTRAS_3b": null,
    "ESTADO": "BLOQUEADA",
    "FALTA": [
-    "SEM_CONTRATO_DE_COLETA",
     "SEM_RECEITA_WEB_PARA_T12"
    ],
    "COMANDO": "orquestrador/orquestrador.py politica --filtro fonte=IT-T12-024 --filtro universo=T12 --filtro pais=IT"
@@ -782,7 +781,7 @@
    "UNIVERSO": "T12",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": false,
    "FRASE_RESOLVE": false,
    "ROTA_M3": "NAO_MEDIDA",
@@ -790,7 +789,6 @@
    "AMOSTRAS_3b": null,
    "ESTADO": "BLOQUEADA",
    "FALTA": [
-    "SEM_CONTRATO_DE_COLETA",
     "SEM_RECEITA_WEB_PARA_T12"
    ],
    "COMANDO": "orquestrador/orquestrador.py politica --filtro fonte=IT-T12-117 --filtro universo=T12 --filtro pais=IT"
@@ -800,7 +798,7 @@
    "UNIVERSO": "T12",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": false,
    "FRASE_RESOLVE": false,
    "ROTA_M3": "NAO_MEDIDA",
@@ -808,7 +806,6 @@
    "AMOSTRAS_3b": null,
    "ESTADO": "BLOQUEADA",
    "FALTA": [
-    "SEM_CONTRATO_DE_COLETA",
     "SEM_RECEITA_WEB_PARA_T12"
    ],
    "COMANDO": "orquestrador/orquestrador.py politica --filtro fonte=IT-T12-129 --filtro universo=T12 --filtro pais=IT"
@@ -818,7 +815,7 @@
    "UNIVERSO": "T12",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": false,
    "FRASE_RESOLVE": false,
    "ROTA_M3": "NAO_MEDIDA",
@@ -826,7 +823,6 @@
    "AMOSTRAS_3b": null,
    "ESTADO": "BLOQUEADA",
    "FALTA": [
-    "SEM_CONTRATO_DE_COLETA",
     "SEM_RECEITA_WEB_PARA_T12"
    ],
    "COMANDO": "orquestrador/orquestrador.py politica --filtro fonte=IT-T12-130 --filtro universo=T12 --filtro pais=IT"
@@ -836,7 +832,7 @@
    "UNIVERSO": "T12",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": false,
    "FRASE_RESOLVE": false,
    "ROTA_M3": "NAO_MEDIDA",
@@ -844,7 +840,6 @@
    "AMOSTRAS_3b": null,
    "ESTADO": "BLOQUEADA",
    "FALTA": [
-    "SEM_CONTRATO_DE_COLETA",
     "SEM_RECEITA_WEB_PARA_T12"
    ],
    "COMANDO": "orquestrador/orquestrador.py politica --filtro fonte=IT-T12-131 --filtro universo=T12 --filtro pais=IT"
@@ -871,16 +866,14 @@
    "UNIVERSO": "T2",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py clima --filtro fonte=IT-T2-032 --filtro universo=T2 --filtro pais=IT"
   },
   {
@@ -906,16 +899,14 @@
    "UNIVERSO": "T2",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py clima --filtro fonte=IT-T2-037 --filtro universo=T2 --filtro pais=IT"
   },
   {
@@ -923,16 +914,14 @@
    "UNIVERSO": "T2",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py clima --filtro fonte=IT-T2-050 --filtro universo=T2 --filtro pais=IT"
   },
   {
@@ -995,16 +984,14 @@
    "UNIVERSO": "T2",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py clima --filtro fonte=IT-T2-145 --filtro universo=T2 --filtro pais=IT"
   },
   {
@@ -1012,16 +999,14 @@
    "UNIVERSO": "T2",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py clima --filtro fonte=IT-T2-146 --filtro universo=T2 --filtro pais=IT"
   },
   {
@@ -1180,16 +1165,14 @@
    "UNIVERSO": "T5",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py ciencia --filtro fonte=IT-T5-160 --filtro universo=T5 --filtro pais=IT"
   },
   {
@@ -1197,16 +1180,14 @@
    "UNIVERSO": "T5",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py ciencia --filtro fonte=IT-T5-167 --filtro universo=T5 --filtro pais=IT"
   },
   {
@@ -1214,16 +1195,14 @@
    "UNIVERSO": "T5",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py ciencia --filtro fonte=IT-T5-185 --filtro universo=T5 --filtro pais=IT"
   },
   {
@@ -1231,16 +1210,14 @@
    "UNIVERSO": "T5",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py ciencia --filtro fonte=IT-T5-186 --filtro universo=T5 --filtro pais=IT"
   },
   {
@@ -1248,16 +1225,14 @@
    "UNIVERSO": "T5",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py ciencia --filtro fonte=IT-T5-187 --filtro universo=T5 --filtro pais=IT"
   },
   {
@@ -1661,16 +1636,14 @@
    "UNIVERSO": "T7",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": true,
    "FRASE_RESOLVE": true,
    "ROTA_M3": "NAO_MEDIDA",
    "RELEVANCIA_3b": "NAO_MEDIDA",
    "AMOSTRAS_3b": null,
-   "ESTADO": "BLOQUEADA",
-   "FALTA": [
-    "SEM_CONTRATO_DE_COLETA"
-   ],
+   "ESTADO": "PRONTA",
+   "FALTA": [],
    "COMANDO": "orquestrador/orquestrador.py agronomo --filtro fonte=IT-T7-172 --filtro universo=T7 --filtro pais=IT"
   },
   {
@@ -1886,7 +1859,7 @@
    "UNIVERSO": "T8",
    "GATE": "ELIGIBLE",
    "READY_RULE": "DETAIL/v1",
-   "CONTRATO": false,
+   "CONTRATO": true,
    "RECEITA_WEB": false,
    "FRASE_RESOLVE": false,
    "ROTA_M3": "NAO_MEDIDA",
@@ -1894,7 +1867,6 @@
    "AMOSTRAS_3b": null,
    "ESTADO": "BLOQUEADA",
    "FALTA": [
-    "SEM_CONTRATO_DE_COLETA",
     "SEM_RECEITA_WEB_PARA_T8"
    ],
    "COMANDO": "orquestrador/orquestrador.py agricultor --filtro fonte=IT-T8-062 --filtro universo=T8 --filtro pais=IT"
