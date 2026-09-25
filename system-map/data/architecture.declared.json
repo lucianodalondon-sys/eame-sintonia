@@ -851,7 +851,7 @@
     "audit",
     "diagnostic"
    ],
-   "what": "Taxonomia D62 proposta (8 tipos + NAO_SEI, 2 exemplos reais cada), gabarito de 114 textos (44 da Sala + 70 do acervo) e prova cega de 49 separada antes de ler; classificador leis/tipo_do_fato.py (peca C-LUGAR-COLETA) congelado antes da cega: 73 % no gabarito, 58 % na cega — NAO PRONTO. fato_com_tipo liga ao LUGAR-FATO: lugar de EVENTO/MERCADO nunca preenche facto CAMPO_*. Mutacao 17/17. Testes: tests/test_tipo_do_fato.py.",
+   "what": "Taxonomia D62 proposta (8 tipos + NAO_SEI, 2 exemplos reais cada), gabarito de 114 textos (44 da Sala + 70 do acervo) e prova cega de 49 separada antes de ler; classificador leis/tipo_do_fato.py (peca C-LUGAR-COLETA) congelado antes da cega: v1 73 % gabarito / 58 % cega; v2 (D71-D73: agro_fact_kind, MARKETING_CONCORRENCIA, MERCADO_VAREJO, INSTITUCIONAL/NAO_FATO) 77 % / 46 % — NAO PRONTO. fato_com_tipo liga ao LUGAR-FATO: lugar de EVENTO/MERCADO nunca preenche facto CAMPO_*. Mutacao 24/24. Testes: tests/test_tipo_do_fato.py.",
    "why_here": "D61/D62: a Intelligence precisa de saber que tipo de facto e cada item para usar data e lugar. So uma etiqueta: nao descarta, nao muda veredito; NAO_SEI e valido. Medido DENTRO da amostra e na cega; rotulos por Claude (VALIDADO_POR_HUMANO=NAO); textos fora do Git (%USERPROFILE%/sintonia-gabarito/REGUA-FATO-V1).",
    "departments": [
     "ENGENHARIA",
@@ -872,7 +872,12 @@
     "scripts/regua_fato/medir_sala_78.py",
     "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json",
     "scripts/regua_fato/PROPOSTA-TAXONOMIA-FACT-KIND.md",
-    "scripts/regua_fato/RELATORIO-REGUA-FATO.md"
+    "scripts/regua_fato/RELATORIO-REGUA-FATO.md",
+    "scripts/regua_fato/reetiquetar_v2.py",
+    "scripts/regua_fato/MEDICAO-FATO-GABARITO-V2.json",
+    "scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V2.json",
+    "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V2.json",
+    "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V2.json"
    ]
   },
   {
