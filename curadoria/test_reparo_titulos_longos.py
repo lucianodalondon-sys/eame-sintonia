@@ -57,6 +57,19 @@ class TestTitulosLongos(unittest.TestCase):
         self.assertTrue(recusa and "80%" in recusa, recusa)
         self.assertEqual([], _familias(muitas), "a versao estrita tambem passa pela guarda, e ela recusa")
 
+    def test_recusa_por_80_por_cento_nao_abre_a_versao_estrita(self):
+        # /notizie/<x>: 6 curtas + 3 longas + 1 outra -> o padrao largo casa 90 % (recusa que NAO e de
+        # navegacao); o estrito casaria so 3 de 10 e passaria — por isso nao pode ser tentado
+        curtas = [B + "/notizie/notizia-%s/" % n for n in ("uno", "due", "tre", "quattro", "cinque", "sei")]
+        longas = [B + "/notizie/la-vendemmia-2026-in-toscana-parte-con-anticipo-%d/" % i for i in range(3)]
+        links = curtas + longas + [B + "/servizi/"]
+        pad = r"^https?://(www\.)?exemplo\-wp\.it/notizie/" + R.RC._SLUG + "/?$"
+        recusa = R.RC.e_generico(pad, B + "/notizie/", links, [])
+        self.assertTrue(recusa and "80%" in recusa, recusa)
+        self.assertIsNone(R.RC.e_generico(R._so_titulos_longos(pad), B + "/notizie/", links, []),
+                          "o estrito passaria na guarda — so nao e tentado porque a recusa nao e de navegacao")
+        self.assertEqual([], [f for f in R.familias(set(links), B + "/notizie/") if R.COMO_TITULOS_LONGOS in f["COMO"]])
+
     def test_so_se_tenta_uma_vez(self):
         est = R._so_titulos_longos(r"^https?://(www\.)?exemplo\-wp\.it/" + R.RC._SLUG + "/?$")
         self.assertIsNone(R._so_titulos_longos(est), "a versao estrita nao gera outra versao")

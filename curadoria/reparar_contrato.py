@@ -230,7 +230,7 @@ _NAO_E_TITULO = (r"(?![^/]*(?:privacy|cookie|contatt|contact|trasparen|policy|st
 def _so_titulos_longos(padrao: str) -> str | None:
     """O mesmo padrao, com o ultimo pedaco obrigado a ser titulo longo — ou None."""
     fim = RC._SLUG + "/?$"
-    if not padrao.endswith(fim) or _NAO_E_TITULO in padrao:
+    if not padrao.endswith(fim):                   # a versao estrita ja nao acaba assim: uma vez so
         return None
     return (padrao[:-len(fim)] + _NAO_E_TITULO
             + r"[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+){%d,}/?$" % (FLUXO_PALAVRAS - 1))
