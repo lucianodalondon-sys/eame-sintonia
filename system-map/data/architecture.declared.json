@@ -857,6 +857,37 @@
    ]
   },
   {
+   "id": "C-RECEITAS-182",
+   "name": "Receitas das 183 que chumbaram no canario (FILA-UNICA) — forma, conserto do reparo e medida",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Classifica as 183 fontes novas paradas em CONTRACTED_CANARY_FAILED pela forma real, a partir da prova que o robo guardou (sem rede): 63 ordens profissionais, 25 menus, 22 listas com molde errado, 14 a espera de leitura humana... Conserto no reparo R1 (curadoria/reparar_contrato.py::familias): a familia recusada pela guarda por casar navegacao tenta uma versao estrita de titulos longos sem vocabulario institucional. Medido com rede (14 dominios, <=5 pedidos cada): 4 passam no canario.",
+   "why_here": "Mais fontes elegiveis para as proximas ondas (pedido do dono, 25/09). PDF e pagina=boletim sao da JANELA-FORMAS: so contados.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/receitas_182/CAPTURA-ENTRADAS-V1.json",
+    "scripts/receitas_182/CLASSIFICACAO-182-V1.json",
+    "scripts/receitas_182/EXTRACAO-182-V1.json",
+    "scripts/receitas_182/MEDICAO-COM-REDE-V1.json",
+    "scripts/receitas_182/MUTACAO-TITULOS-LONGOS-V1.json",
+    "scripts/receitas_182/capturar_entradas.py",
+    "scripts/receitas_182/classificar_182.py",
+    "scripts/receitas_182/extrair_182.py",
+    "scripts/receitas_182/medir_com_rede.py",
+    "scripts/receitas_182/mutar_titulos_longos.py",
+    "curadoria/test_reparo_titulos_longos.py",
+    "RELATORIO-RECEITAS-182.md"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",

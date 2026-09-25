@@ -9,13 +9,16 @@
    ]
   },
   "contorna_qualquer_recusa": {
-   "RESULTADO": "SOBREVIVEU",
-   "QUEDAS": []
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_recusa_por_80_por_cento_nao_abre_a_versao_estrita (test_reparo_titulos_longos.TestTitulosLongos.test_recusa_por_80_por_cento_nao_abre_a_versao_estrita)"
+   ]
   },
   "aceita_titulos_curtos": {
    "RESULTADO": "MORTO",
    "QUEDAS": [
     "FAIL: test_a_familia_recusada_por_navegacao_volta_so_com_titulos_longos (test_reparo_titulos_longos.TestTitulosLongos.test_a_familia_recusada_por_navegacao_volta_so_com_titulos_longos)",
+    "FAIL: test_recusa_por_80_por_cento_nao_abre_a_versao_estrita (test_reparo_titulos_longos.TestTitulosLongos.test_recusa_por_80_por_cento_nao_abre_a_versao_estrita)",
     "FAIL: test_sem_titulos_longos_nao_ha_familia (test_reparo_titulos_longos.TestTitulosLongos.test_sem_titulos_longos_nao_ha_familia)"
    ]
   },
@@ -25,12 +28,8 @@
     "FAIL: test_a_familia_recusada_por_navegacao_volta_so_com_titulos_longos (test_reparo_titulos_longos.TestTitulosLongos.test_a_familia_recusada_por_navegacao_volta_so_com_titulos_longos)",
     "FAIL: test_a_guarda_continua_a_valer_para_a_versao_estrita (test_reparo_titulos_longos.TestTitulosLongos.test_a_guarda_continua_a_valer_para_a_versao_estrita)"
    ]
-  },
-  "estrita_gera_outra_estrita": {
-   "RESULTADO": "SOBREVIVEU",
-   "QUEDAS": []
   }
  },
- "MORTOS": 3,
- "TOTAL": 5
+ "MORTOS": 4,
+ "TOTAL": 4
 }
