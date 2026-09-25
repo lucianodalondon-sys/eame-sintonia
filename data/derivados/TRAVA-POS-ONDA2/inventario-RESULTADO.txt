@@ -1,0 +1,160 @@
+== 0 sessao so-leitura
+ default_transaction_read_only 
+-------------------------------
+ on
+(1 linha)
+
+== 1 total
+ count 
+-------
+    78
+(1 linha)
+
+== 2 por universo
+ universo | count 
+----------+-------
+ T10      |    21
+ T2       |     1
+ T3       |     5
+ T5       |    45
+ T7       |     4
+ T9       |     2
+(6 linhas)
+
+== 3 por fonte
+ source_id  | universo | count 
+------------+----------+-------
+ IT-T10-018 | T10      |    21
+ IT-T5-049  | T5       |     4
+ IT-T5-185  | T5       |     3
+ IT-T3-002  | T3       |     2
+ IT-T3-008  | T3       |     2
+ IT-T5-015  | T5       |     2
+ IT-T5-024  | T5       |     2
+ IT-T5-025  | T5       |     2
+ IT-T5-027  | T5       |     2
+ IT-T5-028  | T5       |     2
+ IT-T5-030  | T5       |     2
+ IT-T5-033  | T5       |     2
+ IT-T5-034  | T5       |     2
+ IT-T5-035  | T5       |     2
+ IT-T5-036  | T5       |     2
+ IT-T5-167  | T5       |     2
+ IT-T7-013  | T7       |     2
+ IT-T9-011  | T9       |     2
+ IT-T2-034  | T2       |     1
+ IT-T3-010  | T3       |     1
+ IT-T5-009  | T5       |     1
+ IT-T5-010  | T5       |     1
+ IT-T5-011  | T5       |     1
+ IT-T5-012  | T5       |     1
+ IT-T5-014  | T5       |     1
+ IT-T5-016  | T5       |     1
+ IT-T5-017  | T5       |     1
+ IT-T5-018  | T5       |     1
+ IT-T5-019  | T5       |     1
+ IT-T5-020  | T5       |     1
+ IT-T5-022  | T5       |     1
+ IT-T5-026  | T5       |     1
+ IT-T5-029  | T5       |     1
+ IT-T5-039  | T5       |     1
+ IT-T5-090  | T5       |     1
+ IT-T5-160  | T5       |     1
+ IT-T7-033  | T7       |     1
+ IT-T7-041  | T7       |     1
+(38 linhas)
+
+== 4 por estagio e estado da fila
+  estagio  | estado_da_fila | count 
+-----------+----------------+-------
+ DOCUMENTO | WAITING        |    78
+(1 linha)
+
+== 5 pousado_em (quando entrou na Sala): min, max, por dia
+              min              |              max              
+-------------------------------+-------------------------------
+ 2026-09-18 13:42:16.060407+00 | 2026-09-25 11:21:35.231533+00
+(1 linha)
+
+    dia     | count 
+------------+-------
+ 2026-09-18 |     3
+ 2026-09-19 |     1
+ 2026-09-20 |    42
+ 2026-09-21 |    10
+ 2026-09-22 |     5
+ 2026-09-24 |     8
+ 2026-09-25 |     9
+(7 linhas)
+
+== 6 os quatro tempos: conhecido vs NAO SEI
+    campo     | nao_sei | total 
+--------------+---------+-------
+ fact_time    |      78 |    78
+ published_at |      78 |    78
+ observed_at  |      78 |    78
+ captured_at  |       0 |    78
+(4 linhas)
+
+== 7 base do fact_time e do fact_location
+        campo        |  valor  | count 
+---------------------+---------+-------
+ fact_location_basis | NAO SEI |    78
+ fact_time_basis     | NAO SEI |    78
+(2 linhas)
+
+== 8 fact_location conhecido vs NAO SEI, e igual ao source_location?
+ nao_sei | conhecido | igual_ao_da_fonte | count 
+---------+-----------+-------------------+-------
+      78 |         0 |                78 |    78
+(1 linha)
+
+== 9 published_at igual a captured_at (carimbo da nossa visita?)
+ iguais | count 
+--------+-------
+      0 |    78
+(1 linha)
+
+== 10 tipo do envelope FATO
+  tipo  | count 
+--------+-------
+ string |    78
+(1 linha)
+
+== 11 chaves do envelope FATO (quando e objeto)
+ k | count 
+---+-------
+(0 linha)
+
+== 12 evidencia declarada pela fonte
+  left   | count 
+---------+-------
+ NAO SEI |    78
+(1 linha)
+
+== 13 source_location (o lugar da FONTE, nunca o do fato)
+  left   | count 
+---------+-------
+ NAO SEI |    78
+(1 linha)
+
+== 14 valor do envelope FATO (string)
+      left       | count 
+-----------------+-------
+ "NAO_SE_APLICA" |    78
+(1 linha)
+
+== 15 admitido_por
+          left           | count 
+-------------------------+-------
+ pertence ao universo v5 |    61
+ pertence ao universo v9 |     9
+ pertence ao universo v7 |     8
+(3 linhas)
+
+== 16 consumido (a Intelligence ja leu algum?)
+ consumidos | count 
+------------+-------
+          0 |    78
+(1 linha)
+
