@@ -64,8 +64,9 @@ py -B curadoria/retirar_por_decisao.py --decisao D52 2>/dev/null | head -1 | sed
 C2=$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)
 py -B curadoria/retirar_por_decisao.py --decisao D52 --reverter --escrever 2>/dev/null | head -1 | sed 's/^/D52 reverter: /' | tee $OUT/2b-d52-reverter.txt
 [ "$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)" = "$C1" ] && echo "D52 reverter: livro de contratos = antes da D52 (byte a byte)" | tee -a $OUT/2b-d52-reverter.txt || echo "D52 reverter: DIFERENTE" | tee -a $OUT/2b-d52-reverter.txt
-py -B curadoria/retirar_por_decisao.py --decisao D52 --escrever 2>/dev/null >/dev/null
-[ "$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)" = "$C2" ] && echo "D52 re-aplicada: igual a 1.a aplicacao (byte a byte)" | tee -a $OUT/2b-d52-reverter.txt || echo "D52 re-aplicada: DIFERENTE" | tee -a $OUT/2b-d52-reverter.txt
+# re-aplicar: a marca grava APLICADO_EM (a hora), por isso os bytes nao se repetem; confere-se a contagem
+py -B curadoria/retirar_por_decisao.py --decisao D52 --escrever 2>/dev/null | head -1 | sed 's/^/D52 re-aplicada: /' | tee -a $OUT/2b-d52-reverter.txt
+py -B curadoria/retirar_por_decisao.py --decisao D52 2>/dev/null | head -1 | sed 's/^/D52 depois de re-aplicar: /' | tee -a $OUT/2b-d52-reverter.txt
 py -B - <<'EOF' | tee -a $OUT/2b-d52.txt
 import json
 d52 = {x.get("SOURCE_ID") for x in json.load(open("curadoria/DECISAO-D52-RETIRAR-V1.json", encoding="utf-8")).get("FONTES", [])}
