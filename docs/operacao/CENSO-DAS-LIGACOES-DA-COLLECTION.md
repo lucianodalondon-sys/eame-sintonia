@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  19b72fb0770849bae8c22e2134790bce2a2a12ef
+HEAD_DA_MEDICAO  fcfb36ff980d85bf293eeaf61418ac4e5840abed
 BRANCH           regua-fato-v1
-GERADO_EM        2026-09-25T14:40:27-03:00
+GERADO_EM        2026-09-25T15:26:56-03:00
 CARDS            103
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -2020,7 +2020,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/regua_fato/A-ROTULAR-FATO.json`, `scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json`, `scripts/regua_fato/MEDICAO-FATO-GABARITO-V2.json`, `scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json`, `scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V2.json` _(e mais 15)_ |
+| **peça real** | `scripts/regua_fato/A-ROTULAR-FATO.json`, `scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json`, `scripts/regua_fato/MEDICAO-FATO-GABARITO-V2.json`, `scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json`, `scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V2.json` _(e mais 16)_ |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
