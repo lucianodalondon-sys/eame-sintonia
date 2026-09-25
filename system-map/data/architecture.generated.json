@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "lugar-fato-v1",
+    "HEAD": "b28d74717f2447a7a643ed1bc43923dbccadd5cd",
+    "GENERATED_AT": "2026-09-25T11:19:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0e10d0017fee06c46e68be18c84d8ee865b7e3c56e7017d64235cabbba3af1b5"
   },
   "FILES": [
     {
@@ -515,6 +515,13 @@
     {
       "path": "RELATORIO-LOTE-76.md",
       "sha": "d6e96e3bca56b2bb7fbfbb0bec88ad2124a86bac",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-LUGAR-FATO.md",
+      "sha": "af9bf4db1b6d9065122973c87380b59c88d3b329",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -13841,6 +13848,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/fato_do_texto.py",
+      "sha": "98d92429806c93107e3f6f0fa635a7d2c4d806b2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/fato_local.py",
       "sha": "9b96ec65b95051632283a8106ed9d9a7f84702e6",
       "ext": ".py",
@@ -17551,6 +17565,34 @@
       "code_dir": true
     },
     {
+      "path": "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+      "sha": "ea2e92f2b5d990f6e834fa02e4b94eb73be8f955",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+      "sha": "47a9e9763e9944201d3cbd2d09ea03983267993b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/medir_78.py",
+      "sha": "9012a152a88fbff588f1b3c890a8dd04758ed6e7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "sha": "6350d47d10cba3981eedeef256e1ab0342203c6d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/micro_coleta/COORTE-PROPOSTA.json",
       "sha": "a5a2c277c23ed4a36cdb0afca97e45dd0c2a2b43",
       "ext": ".json",
@@ -18693,7 +18735,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6fbeb3259f859c03654c8d25eff0043e170be317",
+      "sha": "a1f6d357338dc3a1253c6d7c03156f0f08300c9f",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19954,6 +19996,13 @@
     {
       "path": "tests/test_fase_italiana_no_workflow.py",
       "sha": "3c45ab1ece65a32bf1a1c0fa180e0916c28f64fe",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fato_do_texto.py",
+      "sha": "06d8762f0f2f9e8d1329d5ca5a5d8573d0132577",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -40709,6 +40758,17 @@
         "file": "leis/diagnostico.py",
         "line": 35,
         "snippet": "import falhas    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/fato_do_texto.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/fato_do_texto.py",
+        "line": 55,
+        "snippet": "import fato_local as FL          # noqa: E402  (o leitor italiano: nao se reescreve aqui)"
       }
     },
     {
@@ -62283,6 +62343,61 @@
       }
     },
     {
+      "from_file": "scripts/lugar_fato/medir_78.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_78.py",
+        "line": 16,
+        "snippet": "import fato_do_texto as FT   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/medir_78.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_78.py",
+        "line": 17,
+        "snippet": "import fato_local as FL      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+        "line": 18,
+        "snippet": "ALVO = \"leis/fato_do_texto.py\""
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "to_file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+        "line": 115,
+        "snippet": "out = Path(__file__).with_name(\"MUTACAO-FATO-DO-TEXTO-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "to_file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+        "line": 116,
+        "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
       "from_file": "scripts/micro_coleta/ensaio_offline.py",
       "to_file": "admissao/admissao.py",
       "type": "READS",
@@ -75824,6 +75939,17 @@
       }
     },
     {
+      "from_file": "tests/test_fato_do_texto.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fato_do_texto.py",
+        "line": 14,
+        "snippet": "import fato_do_texto as FT   # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_fechar_ground_truth_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -85358,10 +85484,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2978,
-    "files_readable": 1333,
-    "files_code_dir": 1269,
-    "file_edges": 5810,
+    "files_tracked": 2985,
+    "files_readable": 1337,
+    "files_code_dir": 1275,
+    "file_edges": 5817,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

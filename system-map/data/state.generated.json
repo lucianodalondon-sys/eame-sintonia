@@ -61,6 +61,7 @@
       "RELATORIO-LISTING-DETAIL-V3.md",
       "RELATORIO-LISTING-DETAIL.md",
       "RELATORIO-LOTE-76.md",
+      "RELATORIO-LUGAR-FATO.md",
       "RELATORIO-MATERIA-PRIMA.md",
       "RELATORIO-MICRO-COLLECTION.md",
       "RELATORIO-MICRO-PREP-B.md",
@@ -2018,6 +2019,7 @@
       "leis/diagnostico.py",
       "leis/evolucao.py",
       "leis/falhas.py",
+      "leis/fato_do_texto.py",
       "leis/fato_local.py",
       "leis/fonte_do_atlas.py",
       "leis/fundacao_da_coleta.py",
@@ -2571,6 +2573,10 @@
       "scripts/egresso/CANARIO-EGRESSO-CONSENSO-V1.json",
       "scripts/egresso/MUTACAO-EGRESSO-CONSENSO-V1.json",
       "scripts/egresso/mutar_egresso.py",
+      "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+      "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+      "scripts/lugar_fato/medir_78.py",
+      "scripts/lugar_fato/mutar_fato_do_texto.py",
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
       "scripts/micro_coleta/GABARITO-MICRO-V1.json",
       "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
@@ -2925,6 +2931,7 @@
       "tests/test_execucao_standalone.py",
       "tests/test_falhas.py",
       "tests/test_fase_italiana_no_workflow.py",
+      "tests/test_fato_do_texto.py",
       "tests/test_fechar_ground_truth_t3.py",
       "tests/test_fila_italia_decisoes.py",
       "tests/test_fonte_atravessa.py",
@@ -3571,10 +3578,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "lugar-fato-v1",
+    "HEAD": "b28d74717f2447a7a643ed1bc43923dbccadd5cd",
+    "GENERATED_AT": "2026-09-25T11:19:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0e10d0017fee06c46e68be18c84d8ee865b7e3c56e7017d64235cabbba3af1b5"
   },
   "FAMILIES": [
     {
@@ -49088,10 +49095,16 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "RELATORIO-LUGAR-FATO.md",
+        "leis/fato_do_texto.py",
         "leis/fato_local.py",
-        "leis/lugar_do_fato.py"
+        "leis/lugar_do_fato.py",
+        "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+        "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+        "scripts/lugar_fato/medir_78.py",
+        "scripts/lugar_fato/mutar_fato_do_texto.py"
       ],
-      "file_count": 2,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -49110,47 +49123,64 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ANCORAS_DE_EVENTO",
           "ANCORAS_DE_TEMPO_DO_FATO",
           "ANCORAS_NEGATIVAS",
           "ANCORAS_POSITIVAS",
           "ESCADA_ADMINISTRATIVA",
           "MESES",
+          "MUTANTES",
           "ORIGENS_DO_LUGAR",
           "PAPEIS_NO_CONTEUDO",
           "PROVINCIAS",
           "REGIOES",
+          "RELATIVOS",
+          "RESOLUCAO",
           "RESOLUCAO_TEMPORAL",
-          "TIPOS_DE_EVIDENCIA"
+          "TIPOS_DE_EVIDENCIA",
+          "_DIAS_RAIZ"
         ],
-        "palavras": 241,
+        "palavras": 326,
         "por_lingua": {
           "IT": 1
         },
-        "sem_marca_de_lingua": 240,
+        "sem_marca_de_lingua": 325,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "rule_role": "DECLARES",
-      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "ROLE_MEASURED": "CONTRACT_OR_RULE",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "NAO SEI",
+      "rule_role_evidence": "escreve scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json e este mapa nao viu ninguem ler",
+      "ROLE_MEASURED": "UNKNOWN",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_ENUNCIA",
+      "ROLE_RULE": "SEM_REGRA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "CONTRACT_OR_RULE",
-      "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
       "OWNER": "INTELIGENCIA · TECNICO_CIENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "leis/fato_do_texto.py",
+        "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -49159,13 +49189,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SE_ATIVA",
+        "CLASSE": "NAO_SEI",
         "QUEM": [],
-        "PLANO": "CODE",
+        "PLANO": null,
         "PROVA": [
-          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+          "pedido/receitas.py:635",
+          "tests/test_c7_lugar_do_fato.py:225",
+          "tests/test_fato_do_texto.py:14"
         ],
-        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+        "PORQUE": "estas pecas importam-na — C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 20145,
       "y": 1326
@@ -63291,6 +63323,7 @@
         "tests/test_execucao_standalone.py",
         "tests/test_falhas.py",
         "tests/test_fase_italiana_no_workflow.py",
+        "tests/test_fato_do_texto.py",
         "tests/test_fechar_ground_truth_t3.py",
         "tests/test_fila_italia_decisoes.py",
         "tests/test_fonte_atravessa.py",
@@ -63419,7 +63452,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 237,
+      "file_count": 238,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -66196,7 +66229,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch micro-v3-fontes-v1"
+        "branch lugar-fato-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -103331,8 +103364,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_fato_do_texto.py",
+          "line": 14,
+          "snippet": "import fato_do_texto as FT   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_lugar_do_fato.py",
           "line": 22,
@@ -134909,12 +134958,12 @@
     "edges_proven": 1256,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2978,
-    "files_covered": 1329,
+    "files_tracked": 2985,
+    "files_covered": 1336,
     "files_code_unclaimed": 0,
-    "roles_proven": 170,
+    "roles_proven": 169,
     "roles_declared_only": 8,
-    "roles_unknown": 71,
+    "roles_unknown": 72,
     "roles_conflict": 38,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
