@@ -50,6 +50,12 @@ registável `conaf.it`: até 5 pedidos por reparo, dia após dia, para nada. O c
 é a marca de catálogo `RETIRADA_POR_DECISAO` (D9, reversível) — decisão do dono, não desta bancada.
 Pergunta escrita em `PERGUNTA-BOT-LUCIANO-ORDENS-63.md`.
 
+> ⚠️ **Correcção (ORDENS-63 v2, 25/09): a frase «volta a pedir o reparo a cada 24 h» está errada.** O gatilho só
+> volta a reparar quando a última tarefa de reparo ficou **FAILED** (`gatilho_discovery._ja_reparada`); as 62 — e as
+> 183 da RECEITAS-182 — têm a tarefa de reparo **DONE** (medido na fila viva). Hoje o robô já não as tenta. A D52
+> continua a valer: a marca é o que o portão da coleta, a tabela do coletor, o funil e a alimentação à mão leem, e é
+> o que impede que voltem se um reparo delas algum dia ficar FAILED. Ver `RELATORIO-ORDENS-63-V2.md`.
+
 ## Resumo
 
 | resultado | sites |

@@ -22,7 +22,7 @@ M = [
     ("reverte_marca_alheia", "retirar_por_decisao.py",
      'if (c.get("CATALOGO_D9") or {}).get("DECISAO") != dec["DECISAO"]:', "if False:"),
     ("invariante_cego", "retirar_por_decisao.py", 'if a["SOURCE_ID"] not in mudadas:', "if False:"),
-    ("reverte_para_lf", "retirar_por_decisao.py", 'newline=quebra) as f:', 'newline="\n") as f:'),
+    ("reverte_para_lf", "retirar_por_decisao.py", 'newline=quebra) as f:', 'newline="\\n") as f:'),
     ("marca_com_outro_nome", "retirar_por_decisao.py", 'c["ESTADO_CATALOGO"] = RETIRADA', 'c["ESTADO_CATALOGO"] = "RETIRADA"'),
 ]
 res = {}
