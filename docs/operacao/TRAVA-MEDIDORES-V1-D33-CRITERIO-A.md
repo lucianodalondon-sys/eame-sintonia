@@ -113,3 +113,40 @@ está. O que muda na **medição da trava**, critério a critério:
 Os donos únicos (RAW = `guarda/preservar_coleta.py`; persistência do checkpoint =
 `coleta/coleta_checkpoint.py`; escolha de rota = `orquestrador/orquestrador.py`) mudam **C, E, H**.
 O censo `donos` continua a dizer `DONO_DUPLICADO`. Pô-los no medidor é trabalho seguinte.
+
+## 6 · PROVA-DA-ONDA (25/09) — o passo da secção 4, implementado
+
+**O que mudou no medidor:** a lista de provas escrita à mão (`BC5` e `BC4D` pelo nome) saiu.
+O medidor lê **a pasta oficial inteira**, `ferramentas/big_collection/`, e reconhece uma prova
+pelo **formato** do registo que o disparador (`bc5_big_collection.py`) escreve por fonte —
+`SOURCE_ID, STATUS, RUN_ID, RAW, DERIVED, C4` — e pelo formato da micro
+(`LINHAS_NOVAS_NA_SALA` + `CORRIDAS`). **O registo da 2.ª onda conta sem mexer no medidor**,
+desde que entre no Git nesta pasta.
+
+**Quando uma fonte conta:** `STATUS = SUCCESS` **e** `RAW ≥ 1` **e** `DERIVED ≥ 1` **e**
+`C4.SALA_LINHAS == C4.SALA_COM_CADEIA_INTEIRA` (proveniência não partida). `SUCCESS` com 0
+documentos novos **não** conta: correu, mas não trouxe byte.
+
+**Conferido:** o registo no Git (`BC5-BIG-COLLECTION-1A-ONDA.json`) é igual, fonte a fonte, ao que
+o disparador gravou em `C:/bc5/big/BIG-COLLECTION-ESTADO.json` (sha256 `35be3056f90cde6c…`).
+
+**Teste com a prova REAL da 1.ª onda:** conta **exatamente** 5 — `IT-T10-018`, `IT-T7-021`,
+`IT-T7-042`, `IT-T7-117`, `IT-T7-135` — das 18 que correram com `SUCCESS` (as outras 13 não
+gravaram documento novo). E um registo inventado, com nome qualquer, na pasta, conta só a linha
+que cumpre as quatro condições.
+
+**Quanto o A sobe SÓ com a 1.ª onda** (`A-COM-E-SEM-A-1A-ONDA.txt`):
+
+```text
+sem a 1.a onda   CLASSE_PROVADA 94 · BLOQUEADA 29 · NAO_SEI 593
+com a 1.a onda   CLASSE_PROVADA 98 · BLOQUEADA 29 · NAO_SEI 589      (+4)
+```
+
+As 4 que mudaram: `IT-T7-021`, `IT-T7-042`, `IT-T7-117`, `IT-T7-135` (NAO_SEI → RC-1). A
+`IT-T10-018` já estava provada pela micro BC4D. **A continua NAO.**
+
+**Testes e mutação:** 23 de 23; **21 de 21 mutantes mortos** (6 novos: SUCCESS, RAW, DERIVED,
+proveniência partida, formato do registo, nome fixo da pasta). O mutante «RAW deixa de ser
+exigido» sobreviveu à 1.ª volta — nenhum exemplo tinha DERIVED sem RAW novo; acrescentado.
+
+**Não mexido:** o disparador e o vivo.

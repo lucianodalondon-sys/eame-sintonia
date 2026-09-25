@@ -910,10 +910,14 @@ def universo_do_coletor():
 # falam de SOURCE_ID do catálogo antigo; o mesmo código pode nomear outra fonte
 # noutro livro. Só entram provas do mundo do Curator: o próprio livro dele e os
 # relatórios da Big Collection/micro, que correram os contratos dele.
-PROVAS_DE_RESULTADO = (
-    os.path.join(RAIZ, 'ferramentas', 'big_collection', 'BC5-BIG-COLLECTION-1A-ONDA.json'),
-    os.path.join(RAIZ, 'ferramentas', 'big_collection', 'BC4D-MICRO-FINAL-RESULTADO.json'),
-)
+# ⚠️ O LUGAR OFICIAL, E NÃO UMA LISTA DE NOMES (PROVA-DA-ONDA, 25/09/2026).
+# Uma lista de ficheiros escrita à mão fazia a 2.ª onda correr e o critério A
+# ficar parado: o registo novo não estava na lista. O disparador
+# (`ferramentas/big_collection/bc5_big_collection.py`) grava o estado em
+# `C:/bc5/big/BIG-COLLECTION-ESTADO.json`, e o registo OFICIAL é o que entra no
+# Git nesta pasta. O medidor lê a pasta INTEIRA e reconhece a prova pelo
+# FORMATO do registo, não pelo nome.
+PASTA_DAS_PROVAS = os.path.join(RAIZ, 'ferramentas', 'big_collection')
 ESTRATEGIAS_DE_DOCUMENTO = ('HTML_LINK_DISCOVERY', 'STATIC_ENDPOINT')
 SAIDAS_DE_DOCUMENTO = ('PDF', 'HTML')
 SAIDAS_DE_DATASET = ('CSV', 'ODS', 'XLSX')
@@ -952,6 +956,60 @@ _SUCESSO_REAL = re.compile(
     r'^corrida real com sucesso na Big Collection \((\d+) observ')
 
 
+def _linha_de_corrida(x):
+    """É uma linha de registo de corrida do disparador? (o formato, não o nome)"""
+    return (isinstance(x, dict) and all(k in x for k in
+            ('SOURCE_ID', 'STATUS', 'RUN_ID', 'RAW', 'DERIVED')))
+
+
+def provas_da_pasta(pasta):
+    """SOURCE_ID -> referência da corrida real, lida no lugar oficial.
+
+    Conta uma fonte quando a corrida:
+        STATUS = SUCCESS · RAW >= 1 · DERIVED >= 1 ·
+        C4.SALA_LINHAS == C4.SALA_COM_CADEIA_INTEIRA (proveniência não partida)
+    SUCCESS com 0 documentos novos NÃO prova a estrada agora: correu e não
+    trouxe byte. E também lê o formato da micro (LINHAS_NOVAS_NA_SALA +
+    CORRIDAS): linha nova na Sala real é RAW + DERIVED + Admission."""
+    prova = {}
+    if not os.path.isdir(pasta):
+        return prova
+    for nome in sorted(os.listdir(pasta)):
+        if nome.endswith('.json'):
+            for sid, ref in provas_do_registo(os.path.join(pasta, nome)).items():
+                prova.setdefault(sid, ref)
+    return prova
+
+
+def provas_do_registo(caminho):
+    """As provas de UM registo da pasta oficial (vazio se não tiver o formato)."""
+    prova = {}
+    rel = 'ferramentas/big_collection/' + os.path.basename(caminho)
+    try:
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return prova
+    if not isinstance(d, dict):
+        return prova
+    for x in d.get('FONTES') or []:
+        if not _linha_de_corrida(x):
+            continue
+        c4 = x.get('C4') or {}
+        if (x['STATUS'] == 'SUCCESS' and (x['RAW'] or 0) >= 1
+                and (x['DERIVED'] or 0) >= 1
+                and c4.get('SALA_LINHAS') == c4.get('SALA_COM_CADEIA_INTEIRA')):
+            prova.setdefault(x['SOURCE_ID'], '%s · %s (RAW %d, DERIVED %d)'
+                             % (rel, x['RUN_ID'], x['RAW'], x['DERIVED']))
+    runs = {c.get('SOURCE_ID'): c.get('RUN_ID') for c in d.get('CORRIDAS') or []
+            if isinstance(c, dict)}
+    for x in d.get('LINHAS_NOVAS_NA_SALA') or []:
+        if isinstance(x, dict) and x.get('SOURCE_ID') in runs:
+            prova.setdefault(x['SOURCE_ID'], '%s · %s (linha nova na Sala real)'
+                             % (rel, runs[x['SOURCE_ID']]))
+    return prova
+
+
 def _provas_de_resultado(transicoes):
     """SOURCE_ID -> referência da corrida real que gravou RAW e DERIVED."""
     prova = {}
@@ -960,20 +1018,8 @@ def _provas_de_resultado(transicoes):
         if m and int(m.group(1)) > 0:
             prova.setdefault(t.get('SOURCE_ID'), 'curadoria/LIFECYCLE-LEDGER-V1.json · '
                              + str(t.get('EVIDENCE_REF')))
-    bc5, bc4d = PROVAS_DE_RESULTADO
-    if os.path.exists(bc5):
-        with open(bc5, encoding='utf-8') as f:
-            for x in json.load(f).get('FONTES') or []:
-                if (x.get('RAW') or 0) > 0 and (x.get('DERIVED') or 0) > 0:
-                    prova.setdefault(x['SOURCE_ID'], 'BC5-BIG-COLLECTION-1A-ONDA · %s (RAW %d, DERIVED %d)'
-                                     % (x.get('RUN_ID'), x['RAW'], x['DERIVED']))
-    if os.path.exists(bc4d):
-        with open(bc4d, encoding='utf-8') as f:
-            d = json.load(f)
-        runs = {c['SOURCE_ID']: c.get('RUN_ID') for c in d.get('CORRIDAS') or []}
-        for x in d.get('LINHAS_NOVAS_NA_SALA') or []:
-            prova.setdefault(x['SOURCE_ID'], 'BC4D-MICRO-FINAL-RESULTADO · %s (linha na Sala real, C4 PASS)'
-                             % runs.get(x['SOURCE_ID']))
+    for sid, ref in provas_da_pasta(PASTA_DAS_PROVAS).items():
+        prova.setdefault(sid, ref)
     return prova
 
 
@@ -1060,7 +1106,12 @@ def criterio_a_no_curador():
         'PROVAS_ACEITES': [
             'curadoria/LIFECYCLE-LEDGER-V1.json · REASON «corrida real com sucesso '
             'na Big Collection (N observacoes)», N > 0',
-        ] + [os.path.relpath(p, RAIZ).replace('\\', '/') for p in PROVAS_DE_RESULTADO],
+            'ferramentas/big_collection/*.json — registos de corrida do disparador '
+            '(STATUS SUCCESS, RAW>=1, DERIVED>=1, C4 sem proveniencia partida) e '
+            'linhas novas na Sala da micro; lidos pelo FORMATO, nao pelo nome',
+        ],
+        'PROVAS_DA_PASTA_OFICIAL': dict(sorted(collections.Counter(
+            ref.split(' · ')[0] for ref in provas_da_pasta(PASTA_DAS_PROVAS).values()).items())),
         'PROVAS_RECUSADAS': (
             'o ledger em Git e o canario do modelo: falam de SOURCE_ID do catalogo '
             'antigo, e o mesmo codigo pode nomear outra fonte noutro livro'),

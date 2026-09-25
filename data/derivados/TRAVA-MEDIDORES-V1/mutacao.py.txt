@@ -17,6 +17,7 @@ T = "tests.test_os_medidores_da_trava_veem."
 VIGIA = T + "OVigiaDoCongelamentoComparaComAFotografia"
 ESTRADAS = T + "OMedidorDasEstradasVeOLivroDoColetor"
 CURADOR = T + "OCriterioAMedeAsIdentidadesDoCurador"
+ONDA = T + "AProvaDaOndaConta"
 
 MUTANTES = [
     ("M1 o vigia compara o blob consigo", C,
@@ -62,6 +63,25 @@ MUTANTES = [
      "    contratos = contratos_do_coletor()\n",
      "    contratos = {r['SOURCE_ID']: r for r in json.load(open(LIVRO_DO_COLETOR, encoding='utf-8'))['FONTES']}\n",
      CURADOR),
+    # PROVA-DA-ONDA — o leitor da pasta oficial
+    ("M16 SUCCESS deixa de ser exigido", E,
+     "        if (x['STATUS'] == 'SUCCESS' and (x['RAW'] or 0) >= 1",
+     "        if ((x['RAW'] or 0) >= 1", ONDA),
+    ("M17 RAW deixa de ser exigido", E,
+     "        if (x['STATUS'] == 'SUCCESS' and (x['RAW'] or 0) >= 1",
+     "        if (x['STATUS'] == 'SUCCESS'", ONDA),
+    ("M18 DERIVED deixa de ser exigido", E,
+     "                and (x['DERIVED'] or 0) >= 1\n                and c4",
+     "                and c4", ONDA),
+    ("M19 proveniencia partida passa", E,
+     "                and c4.get('SALA_LINHAS') == c4.get('SALA_COM_CADEIA_INTEIRA')):",
+     "                ):", ONDA),
+    ("M20 qualquer FONTES serve de registo", E,
+     "    return (isinstance(x, dict) and all(k in x for k in",
+     "    return (isinstance(x, dict) or all(k in x for k in", ONDA),
+    ("M21 a pasta volta a ser um nome fixo", E,
+     "        if nome.endswith('.json'):",
+     "        if nome == 'BC5-BIG-COLLECTION-1A-ONDA.json':", ONDA),
     ("M11 o denominador volta ao catalogo", E,
      "    ultima = {s: t for s, t in ultima.items() if str(s).startswith('IT-')}",
      "    ultima = {s: t for s, t in ultima.items() if s in {f.get('SOURCE_ID') for f in fontes_it()}}", CURADOR),

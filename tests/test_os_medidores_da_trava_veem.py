@@ -228,5 +228,52 @@ class OVigiaDoCongelamentoComparaComAFotografia(unittest.TestCase):
             len(manifesto["FROZEN_INTELLIGENCE_ARTIFACTS"]))
 
 
+PASTA_OFICIAL = os.path.join(RAIZ, "ferramentas", "big_collection")
+
+
+class AProvaDaOndaConta(unittest.TestCase):
+    """PROVA-DA-ONDA: uma corrida real da Big Collection conta no critério A
+    quando o registo dela está no LUGAR OFICIAL (`ferramentas/big_collection/`),
+    pelo FORMATO do registo e não pelo nome do ficheiro — para a 2.ª onda contar
+    sem ninguém mexer no medidor."""
+
+    def _escrever(self, pasta, nome, dados):
+        with open(os.path.join(pasta, nome), "w", encoding="utf-8") as f:
+            json.dump(dados, f)
+
+    def test_a_1a_onda_real_conta_exatamente_as_que_gravaram(self):
+        """BC5: 18 SUCCESS, mas só 5 gravaram RAW + DERIVED. Nem mais, nem menos."""
+        da_onda = estradas.provas_do_registo(
+            os.path.join(PASTA_OFICIAL, "BC5-BIG-COLLECTION-1A-ONDA.json"))
+        self.assertEqual(set(da_onda), {"IT-T10-018", "IT-T7-021", "IT-T7-042",
+                                        "IT-T7-117", "IT-T7-135"})
+        # e a pasta inteira contém-nas (a leitura da pasta não as perde)
+        self.assertTrue(set(da_onda) <= set(estradas.provas_da_pasta(PASTA_OFICIAL)))
+
+    def test_a_prova_cita_a_corrida(self):
+        p = estradas.provas_da_pasta(PASTA_OFICIAL)["IT-T7-042"]
+        self.assertIn("IT-T7-2026-09-24-120820-4682d316adbce27d", p)
+
+    def test_uma_onda_nova_na_pasta_conta_sem_mudar_codigo(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            linha = {"C4": {"SALA_LINHAS": 1, "SALA_COM_CADEIA_INTEIRA": 1}}
+            self._escrever(d, "ONDA-2-QUALQUER-NOME.json", {"FONTES": [
+                dict(linha, SOURCE_ID="IT-A", STATUS="SUCCESS", RUN_ID="R-A", RAW=2, DERIVED=2),
+                dict(linha, SOURCE_ID="IT-B", STATUS="SUCCESS", RUN_ID="R-B", RAW=0, DERIVED=0),
+                dict(linha, SOURCE_ID="IT-C", STATUS="FAILED", RUN_ID="R-C", RAW=1, DERIVED=1),
+                dict(linha, SOURCE_ID="IT-D", STATUS="SUCCESS", RUN_ID="R-D", RAW=1, DERIVED=0),
+                # derivado de um RAW antigo, sem byte novo nesta corrida
+                dict(linha, SOURCE_ID="IT-G", STATUS="SUCCESS", RUN_ID="R-G", RAW=0, DERIVED=1),
+                {"SOURCE_ID": "IT-E", "STATUS": "SUCCESS", "RUN_ID": "R-E", "RAW": 1,
+                 "DERIVED": 1, "C4": {"SALA_LINHAS": 2, "SALA_COM_CADEIA_INTEIRA": 1}},
+            ]})
+            # um ficheiro com FONTES mas sem o formato de registo de corrida
+            self._escrever(d, "COORTE.json", {"FONTES": [{"SOURCE_ID": "IT-F", "CANARIO": 1}]})
+            p = estradas.provas_da_pasta(d)
+        self.assertEqual(set(p), {"IT-A"})
+        self.assertIn("R-A", p["IT-A"])
+
+
 if __name__ == "__main__":
     unittest.main()
