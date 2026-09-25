@@ -50,6 +50,7 @@ pasta que `scripts/` — a memória desta casa registra o acidente.
 import io
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -171,20 +172,62 @@ def _audio(video_id):
     if os.path.exists(wav) and os.path.getsize(wav) > 1000:
         return wav, 'CACHE'
     url = 'https://www.youtube.com/watch?v=' + video_id
+    global ULTIMO_TRAFEGO
+    # Ate prova em contrario, os pedidos desta ida nao estao contados.
+    ULTIMO_TRAFEGO = None
     try:
+        # `--print-traffic` (PROVA-TETO-SOCIAL): o `yt-dlp` e outro processo e
+        # os pedidos dele (pagina, player, stream em `googlevideo.com`) nao
+        # passam pelo portao do Scrap. Ele proprio escreve uma linha `send:`
+        # por pedido, com o Host — e e dai que a contagem sai, medida.
         r = subprocess.run(
             [sys.executable, '-m', 'yt_dlp', '-q', '--no-warnings',
+             '--print-traffic',
              '-f', 'bestaudio/best', '-x', '--audio-format', 'wav',
              '--postprocessor-args', '-ac 1 -ar 16000',
              '--write-info-json',
              '-o', os.path.join(MEDIA, '%(id)s.%(ext)s'), url],
-            capture_output=True, text=True, timeout=600)
+            capture_output=True, text=True, encoding='utf-8', errors='replace',
+            timeout=600)
     except subprocess.TimeoutExpired:
+        # Saida a meio nao e contagem: fica NAO contado, e diz-se.
         return None, 'YT_DLP_ESTOUROU_O_TEMPO'
+    ULTIMO_TRAFEGO = trafego_do_yt_dlp(r.stdout)
     if os.path.exists(wav) and os.path.getsize(wav) > 1000:
         return wav, 'BAIXADO'
-    erro = (r.stderr or r.stdout or '').strip().splitlines()
+    erro = [l for l in (r.stderr or '').strip().splitlines() if l.strip()]
+    erro = erro or [l for l in (r.stdout or '').strip().splitlines()
+                    if l.strip() and not _LINHA_DE_TRAFEGO.match(l)]
     return None, ('YT_DLP_NAO_ENTREGOU: %s' % (erro[-1][:150] if erro else 'sem mensagem'))
+
+
+#: Os pedidos da ultima ida do `yt-dlp`: {host: pedidos}, ou None quando nao
+#: foi possivel conta-los (tempo estourado, linha de pedido sem Host).
+ULTIMO_TRAFEGO = None
+
+# Uma linha `send:` do `--print-traffic` e o `repr()` dos bytes enviados. So as
+# que comecam por uma linha de pedido HTTP contam: um corpo de POST sai numa
+# segunda linha `send:`, e o CONNECT e o aperto de mao com um proxy, nao um
+# pedido ao site.
+_LINHA_DE_TRAFEGO = re.compile(r"^(send|reply|header|director):")
+_PEDIDO = re.compile(r"^send: b['\"](GET|POST|HEAD|PUT|DELETE|PATCH|OPTIONS) \S+ HTTP/")
+_HOST = re.compile(r"\\r\\nHost: ([^\\\s]+)\\r\\n", re.I)
+
+
+def trafego_do_yt_dlp(saida):
+    """→ {host: pedidos} lido da saida do `--print-traffic`, ou None se algum
+    pedido nao disser o Host. Zero pedidos com saida legivel e zero de verdade
+    (ex.: o `yt-dlp` recusou antes de ir a rede)."""
+    por_host = {}
+    for linha in (saida or '').splitlines():
+        if not _PEDIDO.match(linha):
+            continue
+        m = _HOST.search(linha)
+        if not m:
+            return None
+        h = m.group(1).split(':')[0].lower()
+        por_host[h] = por_host.get(h, 0) + 1
+    return por_host
 
 
 #: O que a plataforma DECLARA, e nada mais. A lista e fechada de proposito: um
