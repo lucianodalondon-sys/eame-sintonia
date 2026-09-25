@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T15:36:37+00:00",
-    "HEAD": "7e09e255b0b950b4559f7d902362d214f62ec086",
+    "GENERATED_AT": "2026-09-25T19:16:06+00:00",
+    "HEAD": "be2538f48aeec8961f52fdaa1b454ef68a2aa3ea",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "259c8f3718e1192c4475ef6a5f886a779538f78dd76b38248ce038cd88421649",
-    "FICHEIROS_NA_IMPRESSAO": 3134,
+    "SOURCE_TREE_FINGERPRINT": "5016a7563cc4b3dd5c8112c3b4f2ccc177844c1be113cb9991c00f009be8fba6",
+    "FICHEIROS_NA_IMPRESSAO": 3253,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -49,6 +49,20 @@
         "PATH": ".github/workflows/comunicacao-publica.yml",
         "PAPEL": "FONTE",
         "VERSAO": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "workflows() · read_text"
+      },
+      {
+        "PATH": ".github/workflows/curator-youtube-handles.yml",
+        "PAPEL": "FONTE",
+        "VERSAO": "4b4d8566818446456361e86eb5cf8280fb1ee319",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "workflows() · read_text"
+      },
+      {
+        "PATH": ".github/workflows/curator-youtube-soc-onda2.yml",
+        "PAPEL": "FONTE",
+        "VERSAO": "da8cf27113cfc660de12202d0e8200b15664e366",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
@@ -132,13 +146,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "259c8f3718e1192c4475ef6a5f886a779538f78dd76b38248ce038cd88421649",
+        "VERSAO": "5016a7563cc4b3dd5c8112c3b4f2ccc177844c1be113cb9991c00f009be8fba6",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
-    "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "f3b32b40598917ab96c63759122c849de3e65230059c0becd048149a8b6711cc",
+    "INPUTS_COUNT": 20,
+    "INPUTS_DIGEST": "3c3112f8fa2e45a4fdf3214c126a0d4f08339bb2a6a19d1c2153b27a04799f4b",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -619,7 +633,7 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 1,
+      "ficheiros": 2,
       "estado": "yellow"
     },
     {
@@ -823,7 +837,7 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 54,
+      "ficheiros": 56,
       "estado": "yellow"
     },
     {

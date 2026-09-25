@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "7e09e255b0b950b4559f7d902362d214f62ec086",
+  "HEAD": "be2538f48aeec8961f52fdaa1b454ef68a2aa3ea",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -299,7 +299,7 @@
   {
    "EXECUTOR_ID": "coleta/adaptador_linkedin.py",
    "GAVETA": "coleta",
-   "LINHAS": 1883,
+   "LINHAS": 1943,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
@@ -353,9 +353,10 @@
   {
    "EXECUTOR_ID": "coleta/adaptador_youtube.py",
    "GAVETA": "coleta",
-   "LINHAS": 780,
+   "LINHAS": 959,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
+    "FETCH",
     "RAW"
    ],
    "HAS_PRESERVED_INPUT": false,
@@ -607,7 +608,7 @@
   {
    "EXECUTOR_ID": "coleta/derivacao_forward.py",
    "GAVETA": "coleta",
-   "LINHAS": 613,
+   "LINHAS": 616,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -711,7 +712,7 @@
   {
    "EXECUTOR_ID": "coleta/executor_texto_de_html.py",
    "GAVETA": "coleta",
-   "LINHAS": 429,
+   "LINHAS": 832,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -865,7 +866,7 @@
   {
    "EXECUTOR_ID": "coleta/ingresso.py",
    "GAVETA": "coleta",
-   "LINHAS": 1402,
+   "LINHAS": 1492,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -995,7 +996,7 @@
   {
    "EXECUTOR_ID": "coleta/italy_executor.py",
    "GAVETA": "coleta",
-   "LINHAS": 546,
+   "LINHAS": 725,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1248,7 +1249,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_colheita.py",
    "GAVETA": "coleta",
-   "LINHAS": 936,
+   "LINHAS": 964,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -2203,7 +2204,7 @@
   {
    "EXECUTOR_ID": "ferramentas/youtube_transcrever.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 342,
+   "LINHAS": 431,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -2227,7 +2228,7 @@
   {
    "EXECUTOR_ID": "orquestrador/orquestrador.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 1197,
+   "LINHAS": 1285,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",

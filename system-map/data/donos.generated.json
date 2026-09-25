@@ -121,7 +121,7 @@
     "coleta/regulatorio_importar.py"
    ],
    "QUANTOS_LEEM": 60,
-   "INSTRUMENTOS_QUE_CITAM": 95,
+   "INSTRUMENTOS_QUE_CITAM": 96,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -146,13 +146,13 @@
     "medidas/relevancia_antes_da_coleta.py"
    ],
    "QUANTOS_LEEM": 21,
-   "INSTRUMENTOS_QUE_CITAM": 47,
+   "INSTRUMENTOS_QUE_CITAM": 48,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ADMISSION",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "33 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "34 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/admissao.py",
     "admissao/reprocessar_tempo_lugar.py",
@@ -169,6 +169,7 @@
     "curadoria/ready_split.py",
     "curadoria/reconciliar_livros.py",
     "curadoria/red_team_lifecycle.py",
+    "curadoria/regua_social.py",
     "curadoria/semear_lifecycle.py",
     "curadoria/telemetria_do_curador.py",
     "curadoria/test_discovery.py",
@@ -192,6 +193,7 @@
     "_gavetas.py",
     "candidatas/italy_profiles.mjs",
     "coleta/adaptador_linkedin.py",
+    "coleta/adaptador_youtube.py",
     "coleta/coletor.py",
     "coleta/comunicacao_medir.py",
     "coleta/corpus_pesquisador.py",
@@ -199,11 +201,10 @@
     "coleta/eu_regulatorio_executor.py",
     "coleta/executor_texto_de_html.py",
     "coleta/executor_texto_de_pdf.py",
-    "coleta/executor_transcricao_midia.py",
-    "coleta/golden_path_pdf.py"
+    "coleta/executor_transcricao_midia.py"
    ],
-   "QUANTOS_LEEM": 197,
-   "INSTRUMENTOS_QUE_CITAM": 225,
+   "QUANTOS_LEEM": 206,
+   "INSTRUMENTOS_QUE_CITAM": 227,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -230,6 +231,7 @@
    "LEEM": [
     "_gavetas.py",
     "admissao/reprocessar_tempo_lugar.py",
+    "coleta/adaptador_youtube.py",
     "coleta/comunicacao_coleta.py",
     "coleta/eu_regulatorio_executor.py",
     "coleta/ingresso.py",
@@ -238,20 +240,20 @@
     "coleta/scrap_colheita.py",
     "coleta/scrap_executor.py",
     "coleta/social_scrap.py",
-    "ferramentas/big_collection/reconciliar_bytes_bc4.py",
-    "guarda/banco_descartavel.py"
+    "curadoria/plano_onda_social.py"
    ],
-   "QUANTOS_LEEM": 23,
-   "INSTRUMENTOS_QUE_CITAM": 118,
+   "QUANTOS_LEEM": 32,
+   "INSTRUMENTOS_QUE_CITAM": 119,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "RECEITAS",
    "ESTADO": "DONO_E_INSTRUMENTO",
-   "NOTA": "nenhum dono fora das gavetas de medida, e 45 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 47 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
    "ESCREVEM": [],
    "LEEM": [
     "coleta/italy_executor.py",
+    "curadoria/plano_onda_social.py",
     "curadoria/reparar_contrato.py",
     "curadoria/test_collection_gate.py",
     "leis/relevancia_da_fonte.py",
@@ -261,11 +263,10 @@
     "medidas/corrida_canonica.py",
     "medidas/medir_k1.py",
     "medidas/medir_v1a.py",
-    "orquestrador/orquestrador.py",
-    "pacote/v21_handoff_json.py"
+    "orquestrador/orquestrador.py"
    ],
-   "QUANTOS_LEEM": 24,
-   "INSTRUMENTOS_QUE_CITAM": 45,
+   "QUANTOS_LEEM": 25,
+   "INSTRUMENTOS_QUE_CITAM": 47,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -352,7 +353,7 @@
   {
    "CONCEITO": "ERRORS",
    "ESTADO": "DONO_E_INSTRUMENTO",
-   "NOTA": "nenhum dono fora das gavetas de medida, e 36 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 37 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
    "ESCREVEM": [],
    "LEEM": [
     "candidatas/italy_fix_semantics.mjs",
@@ -368,8 +369,8 @@
     "coleta/scrap_fornecedores.py",
     "coleta/social_rotas.py"
    ],
-   "QUANTOS_LEEM": 85,
-   "INSTRUMENTOS_QUE_CITAM": 36,
+   "QUANTOS_LEEM": 87,
+   "INSTRUMENTOS_QUE_CITAM": 37,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -398,7 +399,7 @@
     "coleta/executor_texto_de_pdf.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 150,
+   "QUANTOS_LEEM": 151,
    "INSTRUMENTOS_QUE_CITAM": 116,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -458,7 +459,7 @@
     "curadoria/telemetria_do_curador.py"
    ],
    "QUANTOS_LEEM": 32,
-   "INSTRUMENTOS_QUE_CITAM": 24,
+   "INSTRUMENTOS_QUE_CITAM": 26,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   }
  ]

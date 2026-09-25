@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "7e09e255b0b950b4559f7d902362d214f62ec086"
+    "HEAD": "be2538f48aeec8961f52fdaa1b454ef68a2aa3ea"
   },
   "VOCABULARIOS": [
     {
@@ -1262,6 +1262,7 @@
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
         ".github/workflows/banco-descartavel.yml",
+        "admissao/reprocessar_tempo_lugar.py",
         "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
@@ -1323,6 +1324,7 @@
         "provas/red_team_collection_ate_a_sala.py",
         "provas/red_team_duas_portas.py",
         "provas/so_a_colheita_atravessa.py",
+        "provas/tempo_e_lugar_replay.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
         "scripts/diagnostico_sala/ler_os_76.py",
@@ -1342,6 +1344,7 @@
         "system-map/tests/test_system_map.py",
         "system-map/tests/test_verdade_das_ligacoes.py",
         "tests/medir_multilingue.py",
+        "tests/mutacao_tempo_e_lugar.py",
         "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_linhagem_do_ready.py",
         "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -1369,6 +1372,7 @@
         "tests/test_lingua_da_porta.py",
         "tests/test_m2_rota_forward.py",
         "tests/test_medir_admission_t3_atual.py",
+        "tests/test_migracao_033_sala.py",
         "tests/test_o_canario_da_collection.py",
         "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_pacote_de_revisao_t3.py",
@@ -1381,6 +1385,7 @@
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_sala_duravel.py",
         "tests/test_sala_idempotente_por_documento.py",
+        "tests/test_tempo_e_lugar_atravessa.py",
         "tests/test_ui_revisao_t3_ptbr.py",
         "tests/test_universo_explicito.py",
         "tests/test_universo_vem_do_pedido.py",
