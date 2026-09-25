@@ -52,3 +52,13 @@ Ramo `ponte-onboard-v1`, a partir da produção `servico-20260923-0923` @ 7cdb7e
 - **O canário continua a não correr sozinho.** O supervisor só onboarda o que tem prova recente. Depois de instalar, alguém corre as rondas do canário **uma vez** (comandos no plano de instalação), e a partir daí as provas valem 7 dias. Ligar o canário ao ciclo (tarefa do worker, com rede e cortesia) é o passo seguinte natural. **Não o fiz.**
 - As 17 provam **rota** (abrir uma notícia com corpo), não **SIM**. 5 são T12 e 1 é T8, sem régua. As T2 das ARPA não têm ligação agrícola no item provado.
 - As provas antigas do vivo não têm impressão. Por isso, até o canário ser refeito, **nenhuma fonte nova entra**. É a regra a funcionar: sem prova do contrato de agora, não entra.
+
+## D41.3 (regra nova de 25/09: cópia do robô começa com rede fechada)
+
+- **Este ensaio cumpre-a:**
+  - **não correu o robô** (worker/supervisor) na cópia;
+  - a rede foi só a do canário de rotas, **na lista filtrada** das 28 do `FICA`, com no máximo 4 pedidos por fonte e **1 fonte por domínio por ronda** (≤ 5 por domínio, D38), e o portão de consenso PASS IT antes e depois;
+  - o gancho do onboarding **não usa rede**.
+- **Confissão de uma corrida anterior** (REND, 24/09 à tarde, antes da D38 e da D41.3): na banca `C:/rend/banca` corri o `revisar_ready.py` da R1 com **rede aberta**.
+  - O worker processou 142 tarefas, **todas das 40 fontes pedidas**, e 0 de outras (medido no log).
+  - Mas 6 dessas fontes são do mesmo domínio (terraevita.edagricole.it), por isso **quase de certeza passou de 5 pedidos por esse domínio** nessa corrida.
