@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import tempfile
 from datetime import datetime, timezone
@@ -72,6 +73,20 @@ _MOTIVO = {
     "FACEBOOK":  ("FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada "
                   "para Facebook nesta instalacao."),
 }
+
+
+# D24 (dono real, 24/09 ~12:55, por escrito): perfis de PESSOAS do agro sao autorizados.
+# Um LinkedIn/Instagram de pessoa COM prova oficial de identidade (D21/D24: pagina ou CV
+# oficial que liga a pessoa ao perfil, escrita na NOTA pela porta) vai para QUALIFY como
+# qualquer fonte; SEM essa prova continua POLICY_BLOCK. Mesma regra que o guarda de
+# tests/test_fila_italia_decisoes.py (_PROVA_D24).
+_PROVA_D24 = re.compile(r"(PROVA_IDENTIDADE=|IDENTIDADE: a pagina oficial da pessoa )https?://\S+")
+MOTIVO_D24 = ("D24 (dono 24/09): perfil de pessoa com prova oficial de identidade — "
+              "vai a qualificacao, nao a POLICY_BLOCK")
+
+
+def tem_prova_d24(c: dict) -> bool:
+    return bool(_PROVA_D24.search(c.get("NOTA") or ""))
 
 
 def _agora() -> str:
@@ -154,8 +169,35 @@ def processar() -> dict:
         "JA_PROCESSADAS_IGNORADAS": 0,
         "TAREFAS_CRIADAS": 0,
         "SOCIAIS_ENFILEIRADAS": 0,
+        "PESSOAS_D24_ENFILEIRADAS": 0,
+        "D24_REAVALIADAS": 0,
         "QUEUE_DEPTH_ANTES": F.metricas()["QUEUE_TOTAL"],
     }
+
+    # D24 — REAVALIACAO, uma so vez por candidata: perfis de pessoa COM prova que a ponte
+    # antiga (sem D24) pos em POLICY_BLOCK saem por decisao humana escrita (D24), com a
+    # transicao no livro e o bloqueio antigo guardado. O ledger passa a QUALIFY, por isso
+    # a segunda corrida ja nao os ve aqui.
+    for c in candidatas:
+        cid = c["CANDIDATA_ID"]
+        e = ledger["PROCESSADAS"].get(cid)
+        if (not e or e.get("DESTINO") != "POLICY_BLOCK"
+                or c.get("TIPO") not in POLITICA or not tem_prova_d24(c)):
+            continue
+        if LC.estado_de(cid) == LC.POLICY_BLOCK:
+            LC.registar(cid, LC.QUALIFYING, MOTIVO_D24, evidence_ref="BRIDGE:D24")
+        tarefa = F.enfileirar(cid, F.QUALIFY, priority=30,
+                              motivo=f"bridge: {cid} ({c.get('TIPO')}) D24 — sai do "
+                                     "POLICY_BLOCK, aguarda qualificacao pelo curator")
+        if c.get("MOTIVO_DO_BLOQUEIO"):
+            c["BLOQUEIO_ANTERIOR"] = c.pop("MOTIVO_DO_BLOQUEIO")
+        c["ESTADO"] = "EM_ANALISE"
+        c["MOTIVO_DO_DESBLOQUEIO"] = MOTIVO_D24
+        e.update({"DESTINO": "QUALIFY", "DESTINO_ANTERIOR": "POLICY_BLOCK",
+                  "REAVALIADO_D24_EM": _agora(), "MOTIVO": MOTIVO_D24,
+                  "TASK_ID": tarefa.get("TASK_ID"), "TASK_STATUS": tarefa.get("STATUS")})
+        porta_modificada = True
+        m["D24_REAVALIADAS"] += 1
 
     for c in candidatas:
         cid = c["CANDIDATA_ID"]
@@ -179,7 +221,7 @@ def processar() -> dict:
             "PROCESSADO_EM": _agora(),
         }
 
-        if tipo in POLITICA:
+        if tipo in POLITICA and not tem_prova_d24(c):
             motivo = _MOTIVO[tipo]
             LC.registar(cid, LC.POLICY_BLOCK, motivo,
                         evidence_ref="BRIDGE:candidatas/FONTES-CANDIDATAS.json")
@@ -215,12 +257,19 @@ def processar() -> dict:
             entrada.update({"DESTINO": "CAPABILITY_BLOCK", "MOTIVO": motivo})
             m["CLASSIFICADAS_BARRADAS"] += 1
 
-        elif tipo in ENFILAVEIS:
+        elif tipo in ENFILAVEIS or tipo in POLITICA:
+            # tipo in POLITICA aqui = perfil de pessoa COM prova D24 (o ramo acima
+            # apanhou os que nao a tem)
+            d24 = tipo in POLITICA
             tarefa = F.enfileirar(
                 cid, F.QUALIFY, priority=30,
                 motivo=(f"bridge: {cid} ({tipo}) sem SOURCE_ID — "
-                        "aguarda qualificacao pelo curator"),
+                        "aguarda qualificacao pelo curator"
+                        + (" · " + MOTIVO_D24 if d24 else "")),
             )
+            if d24:
+                entrada["MOTIVO"] = MOTIVO_D24
+                m["PESSOAS_D24_ENFILEIRADAS"] += 1
             # Tarefa nova = criada agora pela ponte (não existia antes)
             nova = (tarefa.get("ATTEMPTS", 0) == 0
                     and tarefa.get("STATUS") == F.PENDING)

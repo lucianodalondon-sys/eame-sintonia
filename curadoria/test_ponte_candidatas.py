@@ -530,3 +530,89 @@ class T9_HardStopReady(Isolada):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+# ---------------------------------------------------------------------------
+# D24 — perfis de PESSOAS do agro (dono real, 24/09 ~12:55, por escrito)
+# Com prova oficial de identidade na NOTA: QUALIFY. Sem prova: POLICY_BLOCK com motivo.
+# ---------------------------------------------------------------------------
+_PROVA = "PROVA_IDENTIDADE=https://www.crea.gov.it/web/foreste-e-legno/-/pessoa-exemplo"
+
+
+class TD24_PessoasComProva(Isolada):
+
+    def _com_prova(self, cid, tipo):
+        c = self._cand(cid, tipo)
+        c["NOTA"] = "[P4b CAND-1] " + _PROVA
+        return c
+
+    def test_linkedin_de_pessoa_com_prova_d24_vai_a_qualify(self):
+        self._porta([self._com_prova("CAND-D001", "LINKEDIN")])
+        m = P.processar()
+        self.assertEqual(m["PESSOAS_D24_ENFILEIRADAS"], 1)
+        self.assertEqual(m["CLASSIFICADAS_BARRADAS"], 0)
+        self.assertEqual(self._queue_total(), 1)
+        self.assertNotEqual(LC.estado_de("CAND-D001"), LC.POLICY_BLOCK)
+        c = FN.carregar()["CANDIDATAS"][0]
+        self.assertEqual(c["ESTADO"], "EM_ANALISE")
+        self.assertEqual(P._carregar_ledger()["PROCESSADAS"]["CAND-D001"]["MOTIVO"], P.MOTIVO_D24)
+
+    def test_instagram_de_pessoa_com_prova_d24_vai_a_qualify(self):
+        self._porta([self._com_prova("CAND-D002", "INSTAGRAM")])
+        m = P.processar()
+        self.assertEqual(m["PESSOAS_D24_ENFILEIRADAS"], 1)
+        self.assertEqual(FN.carregar()["CANDIDATAS"][0]["ESTADO"], "EM_ANALISE")
+
+    def test_sem_prova_continua_policy_block_e_todo_policy_block_tem_motivo(self):
+        self._porta([self._cand("CAND-D003", "LINKEDIN"), self._cand("CAND-D004", "INSTAGRAM"),
+                     self._com_prova("CAND-D005", "LINKEDIN")])
+        P.processar()
+        cs = {c["CANDIDATA_ID"]: c for c in FN.carregar()["CANDIDATAS"]}
+        self.assertEqual(cs["CAND-D003"]["ESTADO"], "POLICY_BLOCK")
+        self.assertEqual(cs["CAND-D004"]["ESTADO"], "POLICY_BLOCK")
+        self.assertEqual(cs["CAND-D005"]["ESTADO"], "EM_ANALISE")
+        for c in cs.values():
+            if c["ESTADO"] == "POLICY_BLOCK":
+                with self.subTest(candidata=c["CANDIDATA_ID"]):
+                    self.assertTrue((c.get("MOTIVO_DO_BLOQUEIO") or "").strip(), "POLICY_BLOCK sem motivo")
+                    self.assertEqual(LC.estado_de(c["CANDIDATA_ID"]), LC.POLICY_BLOCK)
+        self.assertEqual(self._queue_total(), 1)
+
+    def test_reavalia_uma_vez_os_que_a_ponte_antiga_bloqueou(self):
+        self._porta([self._com_prova("CAND-D006", "LINKEDIN"), self._cand("CAND-D007", "LINKEDIN")])
+        real = P.tem_prova_d24
+        P.tem_prova_d24 = lambda c: False          # a ponte ANTES da D24
+        try:
+            P.processar()
+        finally:
+            P.tem_prova_d24 = real
+        self.assertEqual(LC.estado_de("CAND-D006"), LC.POLICY_BLOCK)
+        self.assertEqual(self._queue_total(), 0)
+
+        m = P.processar()                           # a ponte COM a D24
+        self.assertEqual(m["D24_REAVALIADAS"], 1)
+        self.assertEqual(LC.estado_de("CAND-D006"), LC.QUALIFYING)
+        self.assertEqual(LC.estado_de("CAND-D007"), LC.POLICY_BLOCK, "sem prova nao sai do bloqueio")
+        cs = {c["CANDIDATA_ID"]: c for c in FN.carregar()["CANDIDATAS"]}
+        self.assertEqual(cs["CAND-D006"]["ESTADO"], "EM_ANALISE")
+        self.assertTrue(cs["CAND-D006"].get("BLOQUEIO_ANTERIOR"), "o bloqueio antigo fica guardado")
+        self.assertEqual(cs["CAND-D006"].get("MOTIVO_DO_DESBLOQUEIO"), P.MOTIVO_D24)
+        e = P._carregar_ledger()["PROCESSADAS"]["CAND-D006"]
+        self.assertEqual((e["DESTINO"], e["DESTINO_ANTERIOR"]), ("QUALIFY", "POLICY_BLOCK"))
+        self.assertEqual(self._queue_total(), 1)
+
+        m = P.processar()                           # terceira corrida: nada de novo
+        self.assertEqual(m["D24_REAVALIADAS"], 0)
+        self.assertEqual(self._queue_total(), 1)
+
+    def test_mutacao_sem_o_detector_um_perfil_sem_prova_escaparia(self):
+        """RED TEAM: se o detector disser «tem prova» a tudo, o sem-prova sai do bloqueio.
+        Prova que o teste do sem-prova acima MORDE: com a mutacao, a asserção dele falharia."""
+        self._porta([self._cand("CAND-D008", "LINKEDIN")])
+        real = P.tem_prova_d24
+        P.tem_prova_d24 = lambda c: True
+        try:
+            P.processar()
+        finally:
+            P.tem_prova_d24 = real
+        self.assertNotEqual(FN.carregar()["CANDIDATAS"][0]["ESTADO"], "POLICY_BLOCK")
