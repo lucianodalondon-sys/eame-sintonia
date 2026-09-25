@@ -4883,6 +4883,25 @@
    ]
   },
   {
+   "id": "C-AJUSTES-MICRO",
+   "name": "Saltos que gastam o teto e a entrada no endereco final (AJUSTES-MICRO)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "medir_saltos.py le o livro de corridas (so leitura) e mede, por fonte, os pedidos gastos alem de robots+indice+materias e os saltos de ORIGEM (robots de duas origens na mesma corrida). entrada_final.py propoe a INDEX_URL na origem final so com prova sem rede (salto medido + materia ja colhida que o LINK_PATTERN aceita) e aplica pela porta do reparo (reparar_contrato.aplicar: so ACQUISITION, validador da casa, PRECISA_DE_REMEDIR).",
+   "why_here": "MICRO-V3: a Villoresi colheu 1 materia em vez de 3 porque o salto www->raiz gastou 2 dos 5 pedidos do teto D38. O teto nao se mexe; corrige-se a entrada do contrato pelo dono unico.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/rendimento/medir_saltos.py",
+    "curadoria/entrada_final.py"
+   ]
+  },
+  {
    "id": "C-INTEGRA-ONDA2",
    "name": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
    "territory": "Z-FERRAMENTAS",
