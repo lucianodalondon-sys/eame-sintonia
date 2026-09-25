@@ -252,6 +252,73 @@ class ChegaAoReady(unittest.TestCase):
         self.assertIn("Grosseto", item["fact_location_basis"])
         self.assertNotIn("Napoli", item["fact_location"])
 
+    # ── D63: a data relativa conta-se a partir da PUBLICACAO PROVADA ──────
+    # publicacao provada = 2026-09-16 (edicao do boletim); colhido a 2026-09-18.
+    FRASE = ("Aggiornamento fitosanitario settimanale per le colture orticole. "
+             "Peronospora constatata %s a Grosseto su pomodoro in pieno campo "
+             "dai tecnici regionali durante il sopralluogo.")
+
+    def _relativa(self, expressao, recado=None):
+        est = _estruturado(self.recado if recado is None else recado)
+        est["TEXTO"] = self.FRASE % expressao
+        return ORQ.item_documental_para_a_porta(est, source_id="IT-T3-002")
+
+    def test_D63_ieri_e_o_dia_exacto_antes_da_publicacao(self):
+        item = self._relativa("ieri")
+        self.assertEqual(item["fact_time"], "2026-09-15")
+        self.assertIn("RELATIVA_A_PUBLICACAO", item["fact_time_basis"])
+        self.assertIn("ieri", item["fact_time_basis"])
+        self.assertIn("DATE_EXACT", item["fact_time_basis"])
+        self.assertEqual(item["published_at"], "2026-09-16")
+
+    def test_D63_oggi_e_o_dia_da_publicacao_e_diz_que_foi_contado(self):
+        item = self._relativa("oggi")
+        self.assertEqual(item["fact_time"], "2026-09-16")
+        self.assertIn("RELATIVA_A_PUBLICACAO", item["fact_time_basis"])
+
+    def test_D63_a_semana_passada_e_um_intervalo_e_nao_um_dia(self):
+        item = self._relativa("la settimana scorsa")
+        self.assertEqual(item["fact_time"], "2026-W37")      # 7..13 de setembro
+        self.assertIn("WEEK", item["fact_time_basis"])
+        self.assertNotRegex(item["fact_time"], r"^\d{4}-\d{2}-\d{2}$")
+
+    def test_D63_sem_publicacao_provada_a_relativa_fica_NAO_SEI(self):
+        sem_pub = {k: v for k, v in self.recado.items() if not k.startswith("PUBLISHED_AT")}
+        item = self._relativa("ieri", sem_pub)
+        self.assertNotIn("fact_time", item)
+        self.assertIn("NAO SEI", item["fact_time_basis"])
+
+    def test_D63_publicacao_sem_base_nao_ancora(self):
+        sem_base = dict(self.recado)
+        sem_base.pop("PUBLISHED_AT_BASIS")
+        item = self._relativa("ieri", sem_base)
+        self.assertNotIn("fact_time", item)
+
+    def test_completude_diz_quais_das_quatro_estao_provadas(self):
+        c = adm.completude_tempo_lugar(self.ready)
+        self.assertEqual(c["PUBLICACAO"], adm.COMPLETUDE_PROVADA)
+        self.assertEqual(c["LOCAL_DA_FONTE"], adm.COMPLETUDE_PROVADA)
+        self.assertEqual(c["DATA_DO_FATO"], NS)
+        self.assertEqual(c["LOCAL_DO_FATO"], NS)
+        self.assertEqual(c["PROVADAS"], 2)
+
+    def test_completude_marca_a_data_calculada_D63(self):
+        item = self._relativa("ieri")
+        d = adm.Decisao(item=item["id"], universo="T3", resultado=adm.SIM,
+                        regra="teste", motivo="teste")
+        c = adm.completude_tempo_lugar(adm.pronto_para_inteligencia(item, d))
+        self.assertEqual(c["DATA_DO_FATO"], adm.COMPLETUDE_CALCULADA)
+        self.assertEqual(c["LOCAL_DO_FATO"], adm.COMPLETUDE_PROVADA)
+        self.assertEqual(c["PROVADAS"], 4)
+
+    def test_D62_falta_de_data_nao_barra_nenhum_estagio(self):
+        for item in ({"id": "f", "claim_id": "c", "subject": "praga",
+                      "texto": "prosa", "source_id": "IT-T7-001"},
+                     {"id": "d", "texto": "prosa", "source_id": "IT-T7-001"}):
+            r, _, ev = adm._tem_quando(item)
+            self.assertEqual(adm.SIM, r)
+            self.assertEqual(NS, ev["fact_time"])
+
     def test_o_que_o_coletor_provou_vence_o_texto(self):
         recado = dict(self.recado, FACT_TIME="2026-09-10", FACT_TIME_BASIS="declarado no livro")
         est = _estruturado(recado)

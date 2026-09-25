@@ -78,8 +78,11 @@ def main():
 
     tmp = Path(tempfile.mkdtemp(prefix="tempo-lugar-"))
     base = E.Base(tmp / "pg")
+    # ⚠️ O NOME TEM DE ESTAR NA LISTA DESCARTAVEL (guarda/banco_descartavel.py).
+    # `Base` cria `sala_italia`, e o portao da persistencia recusa-o — com razao.
+    base.url = base.url.rsplit("/", 1)[0] + "/descartavel"
     env_pg = {**os.environ, "PATH": str(E.PG_BIN) + os.pathsep + os.environ.get("PATH", "")}
-    r = base.subir(arvore, env_pg)
+    r = _subir(base, arvore, env_pg)
     if r["CODIGO"] != 0:
         base.descer()
         raise SystemExit("migrations falharam: %s" % r["ERRO"])
@@ -189,6 +192,25 @@ def main():
     with open(a.saida, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(out, fh, ensure_ascii=False, indent=1)
     print(json.dumps(resumo, ensure_ascii=False, indent=1))
+
+
+def _subir(base, arvore, env):
+    """`ensaio_offline.Base.subir`, com o banco chamado `descartavel`."""
+    subprocess.run([base.exe("initdb"), "-D", str(base.pasta), "-U", "postgres",
+                    "--auth=trust", "-E", "UTF8", "--no-sync"], check=True, capture_output=True)
+    # sem capture_output: o postmaster herda os pipes e o run() pendura
+    subprocess.run([base.exe("pg_ctl"), "-D", str(base.pasta), "-o",
+                    f"-p {base.porto} -h 127.0.0.1", "-l", str(base.pasta / "servidor.log"),
+                    "-w", "start"], check=True, stdin=subprocess.DEVNULL,
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run([base.exe("psql"), "-X", "-q", "-v", "ON_ERROR_STOP=1", "-c",
+                    "create database descartavel;",
+                    f"postgresql://postgres@127.0.0.1:{base.porto}/postgres"],
+                   check=True, capture_output=True)
+    r = subprocess.run([shutil.which("bash") or "bash", "motor/cadeia_canonica.sh",
+                        "migrations", base.url], cwd=str(arvore), env=env,
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    return {"CODIGO": r.returncode, "ERRO": r.stderr[-400:]}
 
 
 _CACHE_SHA = {}

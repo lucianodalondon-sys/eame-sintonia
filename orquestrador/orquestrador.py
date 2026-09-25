@@ -540,6 +540,10 @@ def _fato_do_texto(texto, bruto):
                                r["fact_location"], r["fact_location_basis"])):
         if bruto.get(valor) not in ing.NAO_E_AFIRMACAO:
             continue
+        # D63 (dono, 25/09): data RELATIVA vale como FACT_TIME SO contada a
+        # partir da PUBLICACAO PROVADA — e por isso o que entra no extractor e
+        # `PUBLISHED_AT` com a base dele, e NUNCA `COLLECTED_AT`. A base diz
+        # `RELATIVA_A_PUBLICACAO` e guarda a expressao original.
         if v not in ing.NAO_E_AFIRMACAO:
             fora[valor], fora[base] = v, "TEXTO: %s" % b
         elif bruto.get(base):

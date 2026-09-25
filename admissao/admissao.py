@@ -371,8 +371,18 @@ def _tem_quando(item: dict) -> tuple:
                      "declare (COL-LAW-031). O tempo do fato continua NAO SEI."), \
                {"quando": str(generica)[:40], "que_tempo": "TIME_UNDECLARED",
                 "campo": "data", "fact_time": "NAO SEI"}
-    return NAO_SEI, ("o item nao diz quando o fato aconteceu. Fica NAO_SEI, "
-                     "nao NAO: falta a prova, nao o valor."), {}
+    # ⚠️ D62 (dono, 25/09): «NUNCA reprovar/descartar um fato por lhe faltar
+    # dado (data, local…)». Ate aqui isto devolvia NAO_SEI, e um FATO sem data
+    # nenhuma NAO entrava na Sala. Agora a ausencia REGISTA-SE — na evidencia e,
+    # a jusante, em `FACT_TIME = NAO SEI` — e a porta segue para as outras
+    # perguntas. A precisao do item e da Intelligence, nao desta porta.
+    #
+    #     FALTA DE DATA E PRECISAO BAIXA, NAO E MOTIVO DE RECUSA.
+    return SIM, ("o item nao diz quando o fato aconteceu nem quando foi "
+                 "publicado: os dois ficam NAO SEI. Falta de data NAO barra "
+                 "(D62) — regista-se."), {"que_tempo": "NENHUM",
+                                          "fact_time": "NAO SEI",
+                                          "published_at": "NAO SEI"}
 
 
 def _tem_pai(item: dict) -> tuple:
@@ -1811,6 +1821,37 @@ def envelope_do_fato(item: dict, est: str):
     return {k: item[k] for k in sorted(item)
             if k not in JA_TEM_CAMPO_PROPRIO_NO_READY
             and not str(k).startswith("_")}
+
+
+# ── O GRAU DE PRECISAO DO ITEM EM TEMPO E LUGAR (D62 · D63, dono, 25/09) ────
+# «A Intelligence tem de saber o grau de precisao de cada item e o que fazer
+# com ele.» Nada disto barra: diz, por cada uma das quatro perguntas, se a
+# resposta esta PROVADA, se foi CALCULADA (data relativa contada a partir da
+# publicacao provada — D63) ou se e NAO SEI.
+COMPLETUDE_PROVADA, COMPLETUDE_CALCULADA = "PROVADA", "CALCULADA"
+QUATRO_DO_TEMPO_E_LUGAR = (("PUBLICACAO", "PUBLISHED_AT", None),
+                           ("LOCAL_DA_FONTE", "SOURCE_LOCATION", None),
+                           ("DATA_DO_FATO", "FACT_TIME", "FACT_TIME_BASIS"),
+                           ("LOCAL_DO_FATO", "FACT_LOCATION", "FACT_LOCATION_BASIS"))
+
+
+def completude_tempo_lugar(ready: dict) -> dict:
+    """`{PUBLICACAO|LOCAL_DA_FONTE|DATA_DO_FATO|LOCAL_DO_FATO: estado, PROVADAS: n}`.
+
+    Le so o contrato de saida (o READY, ou uma linha da Sala com os mesmos
+    nomes). Nao preenche nada e nao decide nada.
+    """
+    fora = {}
+    for nome, campo, base in QUATRO_DO_TEMPO_E_LUGAR:
+        v = ready.get(campo)
+        if v in (None, "", AUSENCIA, AUSENCIA_NAO_SE_APLICA, "NÃO SEI", "NAO_SEI"):
+            fora[nome] = AUSENCIA
+        elif base and "RELATIVA_A_PUBLICACAO" in str(ready.get(base) or ""):
+            fora[nome] = COMPLETUDE_CALCULADA
+        else:
+            fora[nome] = COMPLETUDE_PROVADA
+    fora["PROVADAS"] = sum(1 for n, _, _ in QUATRO_DO_TEMPO_E_LUGAR if fora[n] != AUSENCIA)
+    return fora
 
 
 def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:

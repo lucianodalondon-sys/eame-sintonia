@@ -64,6 +64,18 @@ CASOS = [
      '                               r["fact_location"], r["fact_location_basis"])):',
      '                               bruto.get("SOURCE_LOCATION") or r["fact_location"], r["fact_location_basis"])):',
      "M10 · a sede empurrada para o lugar do facto na ligacao do extractor"),
+    ("orquestrador/orquestrador.py",
+     '    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"),',
+     '    r = FT.campos_do_fato(texto, bruto.get("COLLECTED_AT"),',
+     "M11 · a relativa conta-se a partir da COLHEITA e nao da publicacao (D63)"),
+    ("admissao/admissao.py",
+     '    return SIM, ("o item nao diz quando o fato aconteceu nem quando foi "',
+     '    return NAO_SEI, ("o item nao diz quando o fato aconteceu nem quando foi "',
+     "M12 · a falta de data volta a barrar o item (D62)"),
+    ("admissao/admissao.py",
+     '        elif base and "RELATIVA_A_PUBLICACAO" in str(ready.get(base) or ""):',
+     '        elif False:',
+     "M13 · a completude esconde que a data foi calculada (D63)"),
 ]
 
 
