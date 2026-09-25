@@ -325,8 +325,9 @@ class ARotaCanonicaProvadaACorrer(Bancada):
         # resposta que podia dar NAO_SEI era a do TEMPO, que e o que este teste
         # mede. T2 ganhou regua (D29) e o boletim de prova — sem ligacao agricola
         # escrita — passa a dar NAO_SEI pelo UNIVERSO, o que nao e o assunto
-        # daqui. `T1` continua sem regua: a pergunta do teste fica a mesma.
-        r = self.orq.pela_porta(entrada["PARA_A_PORTA"], "T1", CORRIDA["RUN_ID"])
+        # daqui. ERA `T1`; e T1 ganhou regua (T1-JANELA, 24/09). `T11` continua sem
+        # regua: a pergunta do teste fica a mesma.
+        r = self.orq.pela_porta(entrada["PARA_A_PORTA"], "T11", CORRIDA["RUN_ID"])
         self.assertEqual(r["itens"], 1)
         # com estagio preservado, a porta NAO cobra o tempo do FATO
         self.assertNotIn(adm.NAO_SEI, r["por_resultado"],

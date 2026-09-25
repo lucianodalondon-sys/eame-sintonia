@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  732be16dae42a7fa8da6c0a15a088379a5dfd60c
-BRANCH           robots-rfc9309-v1
-GERADO_EM        2026-09-25T02:04:46-03:00
+HEAD_DA_MEDICAO  74a6fdc812c6cd0833832c17539996248495de91
+BRANCH           juncao
+GERADO_EM        2026-09-25T02:36:19-03:00
 CARDS            95
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -373,31 +373,6 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
-### `C-ROBOTS-RFC9309` · O leitor unico de robots.txt da casa — RFC 9309 (D34)
-
-| | |
-|---|---|
-| **peça real** | `coleta/robots_rfc9309.py` |
-| **papel** | OPERATIONAL_STEP · medido no plano CODE |
-| **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/scrap_http.py:53; provas/medir_validadores_coorte.py:25; provas/robots_rfc/medir_robots_com_rede.py:27 |
-| **porquê** | estas pecas importam-na — C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
-| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | — NÃO SEI |
-| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 5 |
-| **arestas provadas** | entram 0 · saem 5 |
-| **OBSERVADAS** | 0 |
-| **control plane** | entram 0 · saem 0 |
-| **data plane** | entram 0 · saem 0 |
-| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 5 |
-| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
-| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
-
 ### `C-ROTA-M2` · A rota forward do documento (M2)
 
 | | |
@@ -488,13 +463,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/instagram_janela.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 26 · saem 25 |
-| **arestas provadas** | entram 23 · saem 25 |
+| **arestas no mapa** | entram 24 · saem 25 |
+| **arestas provadas** | entram 21 · saem 25 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 45 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 43 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -515,13 +490,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/idioma.py`, `curadoria/politica_nao_sei.py`, `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 43 |
-| **arestas provadas** | entram 5 · saem 42 |
+| **arestas no mapa** | entram 8 · saem 45 |
+| **arestas provadas** | entram 6 · saem 44 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 45 · NÃO SEI 3 · OBSERVED 2 |
+| **prova das ligações** | CODE 48 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -588,7 +563,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
-| **prova de quem ativa** | tests/test_fila_italia_decisoes.py:33; tests/test_fila_italia_decisoes.py:470 _(plano CODE)_ |
+| **prova de quem ativa** | tests/test_fila_italia_decisoes.py:33; tests/test_fila_italia_decisoes.py:515 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-CONTRACT-CANDIDATES-2026-09-15.csv`, `candidatas/ITALY-SOURCE-DECISIONS-2026-09-15.csv`, `candidatas/ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx` |
@@ -1600,19 +1575,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 17 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/social_scrap.py:775; curadoria/test_supervisor.py:59; ferramentas/big_collection/coorte_unica.py:36 |
+| **prova de quem ativa** | curadoria/test_supervisor.py:59; ferramentas/big_collection/coorte_unica.py:36; medidas/prova_b2_ponte_em_copia.py:34 |
 | **porquê** | estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CENSO-UNIFICACAO · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/retrato_html.mjs` |
 | **o que sai · dado** | C-CENSO-UNIFICACAO |
-| **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `handoff/paused-v2/MANIFESTO.json` |
-| **arestas no mapa** | entram 11 · saem 14 |
-| **arestas provadas** | entram 11 · saem 14 |
+| **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json` |
+| **arestas no mapa** | entram 11 · saem 10 |
+| **arestas provadas** | entram 11 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 25 |
+| **prova das ligações** | CODE 21 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1731,13 +1706,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `RELATORIO-RELEVANCIA-ELEGIVEIS.md`, `admissao/admissao.py`, `coleta/italy_executor.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `regras/italy_contracts_onboarded.json` |
-| **arestas no mapa** | entram 14 · saem 4 |
-| **arestas provadas** | entram 14 · saem 4 |
+| **arestas no mapa** | entram 13 · saem 4 |
+| **arestas provadas** | entram 13 · saem 4 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 |
+| **prova das ligações** | CODE 17 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1891,6 +1866,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
+### `C-REGUA-T1-JANELA` · Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao
+
+| | |
+|---|---|
+| **peça real** | `RELATORIO-T1-JANELA.md`, `scripts/regua_t1/GABARITO-T1-V1.json`, `scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json`, `scripts/regua_t1/MEDICAO-REGUA-T1-V1.json`, `scripts/regua_t1/MUTACAO-REGUA-T1-V1.json` _(e mais 18)_ |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **dono** | ENGENHARIA · INTELIGENCIA |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
+| **prova de quem ativa** | tests/test_regua_t1.py:86 _(plano CODE)_ |
+| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `admissao/admissao.py`, `scripts/regua_t1/GABARITO-T1-V1.json`, `scripts/regua_t1/MUTACAO-REGUA-T1-V1.json` |
+| **o que sai · dado** | C-ADMISSAO |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 4 · saem 2 |
+| **arestas provadas** | entram 4 · saem 2 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 6 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
+| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
+
 ### `C-REGUA-T2-JANELA` · Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao
 
 | | |
@@ -1899,22 +1899,22 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
-| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
-| **prova de quem ativa** | tests/test_a_regra_de_t2.py:128 _(plano CODE)_ |
-| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
+| **porquê** | estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `admissao/admissao.py`, `admissao/idioma.py`, `curadoria/CATALOGO-PROVA-V1.json` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 3 |
-| **arestas provadas** | entram 6 · saem 3 |
+| **arestas no mapa** | entram 6 · saem 4 |
+| **arestas provadas** | entram 6 · saem 4 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 9 |
+| **prova das ligações** | CODE 10 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
-| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-RELATORIO-FLUXO` · Relatório do fluxo
 

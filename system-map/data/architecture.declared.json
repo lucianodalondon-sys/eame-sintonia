@@ -771,6 +771,48 @@
    ]
   },
   {
+   "id": "C-REGUA-T1-JANELA",
+   "name": "Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Gabarito T1-V1 lido a mao (181 textos do acervo por regra fixa: boletins T2, textos com colheita/sementeira, controlo ao acaso; 55 YES / 80 NO / 46 NAO_SEI) e medicao da regua T1 de admissao/admissao.py: SIM pede cultura nomeada E dois momentos (fase, estadio, colheita/sementeira em frase, defesa, limiar, capturas, tratamento); T1 transversal e palavra inteira. Vizinhos 0/9163; mutacao 8/8. Testes: tests/test_regua_t1.py (peca C-TESTES).",
+   "why_here": "D29: a CAP-WIN precisa de cultura e fase; T1 nao tinha regua (tudo NAO_SE_APLICA). Cobre so calendario/desenvolvimento do Atlas, nao area/producao/preco. Noticias de colheita ficam NAO_SEI (um so momento). Medido DENTRO da amostra.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/regua_t1/PROTOCOLO-GABARITO-T1.md",
+    "scripts/regua_t1/selecionar_t1.py",
+    "scripts/regua_t1/SELECAO-T1-V1.json",
+    "scripts/regua_t1/montar_gabarito_t1.py",
+    "scripts/regua_t1/GABARITO-T1-V1.json",
+    "scripts/regua_t1/medir_regua_t1.py",
+    "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
+    "scripts/regua_t1/mutar_regua_t1.py",
+    "scripts/regua_t1/MUTACAO-REGUA-T1-V1.json",
+    "scripts/regua_t1/rotulos/rotulos-1.tsv",
+    "scripts/regua_t1/rotulos/rotulos-2.tsv",
+    "scripts/regua_t1/rotulos/rotulos-3.tsv",
+    "RELATORIO-T1-JANELA.md",
+    "scripts/regua_t1/medir_aperto_site.py",
+    "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
+    "scripts/regua_t1/selecionar_cega.py",
+    "scripts/regua_t1/SELECAO-CEGA-T1-V1.json",
+    "scripts/regua_t1/PROVA-CEGA-T1-V1.json",
+    "scripts/regua_t1/rotulos/rotulos-cega.tsv",
+    "scripts/regua_t1/recolher_cega_positivos.py",
+    "scripts/regua_t1/RECOLHA-CEGA-POSITIVOS-V1.json",
+    "scripts/regua_t1/PROVA-CEGA-POSITIVOS-T1-V1.json",
+    "scripts/regua_t1/rotulos/rotulos-cega-positivos.tsv"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",
