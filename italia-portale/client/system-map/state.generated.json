@@ -3578,9 +3578,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "c9-idioma-v1",
-    "HEAD": "485e1f7ba7736553837cead4c6b87d71c73d1a3c",
-    "GENERATED_AT": "2026-09-25T08:22:06-03:00",
-    "SOURCE_TREE_FINGERPRINT": "852599e3cbf852f0c639a4467abe5d44224f60c84d27fd823fec55c7984c86e2"
+    "HEAD": "52be1067e8efd7e6d71021fd863711bd6cf9009a",
+    "GENERATED_AT": "2026-09-25T08:54:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6388ca8c0841092235c97d83effa837f710a0be0583584489fa19deddeea55d7"
   },
   "FAMILIES": [
     {
@@ -50276,12 +50276,11 @@
         "scripts/micro_coleta/mutar_c9.py",
         "scripts/micro_coleta/provar_backup_da_sala.py",
         "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
-        "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
-        "tests/test_c9_idioma.py"
+        "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt"
       ],
-      "file_count": 15,
+      "file_count": 14,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 14 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -50390,9 +50389,7 @@
         "scripts/micro_coleta/GABARITO-MICRO-V1.json",
         "scripts/micro_coleta/MUTACAO-C9-IDIOMA-V1.json",
         "scripts/micro_coleta/micro_coleta.py",
-        "superficie/rede.py",
-        "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
-        "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt"
+        "superficie/rede.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -63292,6 +63289,7 @@
         "tests/test_c6_especie_do_texto.py",
         "tests/test_c7_lugar_do_fato.py",
         "tests/test_c8_convergencia.py",
+        "tests/test_c9_idioma.py",
         "tests/test_cadeia_do_audio_offline.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canario_rotas_contrato_certo.py",
@@ -63451,7 +63449,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 237,
+      "file_count": 238,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -64296,6 +64294,8 @@
         "system-map/scripts/publicar_no_deploy.mjs",
         "system-map/scripts/scan_sources.py",
         "system-map/scripts/validate_system_map.py",
+        "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
+        "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
         "tests/fixtures/ARESTAS/codigo_real.py",
         "tests/fixtures/ARESTAS/owner_indireto.py",
         "tests/fixtures/ARESTAS/so_comentario.py",
@@ -105610,12 +105610,60 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_bc4_armazem_e_pais.py",
           "line": 36,
           "snippet": "\"micro_coleta_bc4\", os.path.join(RAIZ, \"scripts\", \"micro_coleta\", \"micro_coleta.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c9_idioma.py",
+          "line": 19,
+          "snippet": "_spec = importlib.util.spec_from_file_location(\"micro_coleta_c9\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c9_idioma.py",
+          "line": 25,
+          "snippet": "RAW_1436 = DADOS / \"raw-1436-arpae-mare-balneabile.txt\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c9_idioma.py",
+          "line": 26,
+          "snippet": "RAW_1437 = DADOS / \"raw-1437-arpae-portale-prelievi.txt\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
             "FROM": "C-MICRO-COLETA-INSTRUMENTO",
@@ -134677,15 +134725,7 @@
   ],
   "UNCLAIMED_CODE_FILES": [],
   "UNCLAIMED_FILES_COUNT": 1649,
-  "OWNERSHIP_CONFLICTS": [
-    {
-      "file": "tests/test_c9_idioma.py",
-      "claimed_by": [
-        "C-MICRO-COLETA-INSTRUMENTO",
-        "C-TESTES"
-      ]
-    }
-  ],
+  "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
       "file": "admissao/admissao.py",
