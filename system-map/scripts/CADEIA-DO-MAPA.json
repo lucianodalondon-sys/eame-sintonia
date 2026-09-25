@@ -243,9 +243,10 @@
             "admissao/*",
             "candidatas/*",
             "data/samples/*",
-            "data/collection-ledger/*"
+            "data/collection-ledger/*",
+            "ferramentas/big_collection/*"
           ],
-          "FILTRO_DONO": "system-map/scripts/censo_das_estradas_it.py · ETAPAS",
+          "FILTRO_DONO": "system-map/scripts/censo_das_estradas_it.py · ETAPAS + PASTA_DAS_PROVAS (lugar oficial dos registos de corrida da Big Collection, lidos pelo formato — PROVA-DA-ONDA)",
           "MEDIDO_VARRE": 19,
           "PORQUE": "o codigo e os livros que provam cada etapa da estrada italiana"
         },
@@ -253,6 +254,21 @@
           "KIND": "TRACKED_SOURCE_FILE",
           "PATH": "system-map/data/estradas-it.model.json",
           "PORQUE": "lido pelo nome, fora do seletor"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "regras/italy_contracts.mjs",
+          "PORQUE": "o livro que o coletor CARREGA (CONTRACTS: linhas + contratos feitos a mao), lido pelo node — CRITERIO_A_NO_CURADOR (TRAVA-MEDIDORES-V1, D33)"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "regras/italy_contracts_onboarded.json",
+          "PORQUE": "o livro que o coletor da producao le — UNIVERSO_DO_COLETOR, medido ao lado do catalogo (TRAVA-MEDIDORES-V1)"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "curadoria/LIFECYCLE-LEDGER-V1.json",
+          "PORQUE": "o ultimo NEW_STATE de cada fonte no livro do curador, como esta no Git (TRAVA-MEDIDORES-V1)"
         }
       ],
       "OUTPUTS": [
@@ -392,6 +408,11 @@
             "SCAN_SOURCES"
           ],
           "PORQUE_INCLUI_GERADOS": "o seletor apanha ficheiros que sao SAIDA de outros passos. Este passo nao os nomeia — depende deles pelo conjunto. Apagar isto apagaria a dependencia; declara-los um a um diria que ele os procura pelo nome."
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+          "PORQUE": "a FOTOGRAFIA de referencia (FREEZE_MANIFEST), lida pelo nome: o censo compara a arvore com ela e nao consigo (TRAVA-MEDIDORES-V1)"
         }
       ],
       "OUTPUTS": [

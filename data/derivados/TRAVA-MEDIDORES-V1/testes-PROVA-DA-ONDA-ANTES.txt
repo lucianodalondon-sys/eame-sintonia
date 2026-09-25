@@ -1,0 +1,38 @@
+Could not find platform independent libraries <prefix>
+test_a_1a_onda_real_conta_exatamente_as_que_gravaram (tests.test_os_medidores_da_trava_veem.AProvaDaOndaConta.test_a_1a_onda_real_conta_exatamente_as_que_gravaram)
+BC5: 18 SUCCESS, mas só 5 gravaram RAW + DERIVED. Nem mais, nem menos. ... ERROR
+test_a_prova_cita_a_corrida (tests.test_os_medidores_da_trava_veem.AProvaDaOndaConta.test_a_prova_cita_a_corrida) ... ERROR
+test_uma_onda_nova_na_pasta_conta_sem_mudar_codigo (tests.test_os_medidores_da_trava_veem.AProvaDaOndaConta.test_uma_onda_nova_na_pasta_conta_sem_mudar_codigo) ... ERROR
+
+======================================================================
+ERROR: test_a_1a_onda_real_conta_exatamente_as_que_gravaram (tests.test_os_medidores_da_trava_veem.AProvaDaOndaConta.test_a_1a_onda_real_conta_exatamente_as_que_gravaram)
+BC5: 18 SUCCESS, mas só 5 gravaram RAW + DERIVED. Nem mais, nem menos.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 246, in test_a_1a_onda_real_conta_exatamente_as_que_gravaram
+    provas = estradas.provas_da_pasta(PASTA_OFICIAL)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'censo_das_estradas_it' has no attribute 'provas_da_pasta'
+
+======================================================================
+ERROR: test_a_prova_cita_a_corrida (tests.test_os_medidores_da_trava_veem.AProvaDaOndaConta.test_a_prova_cita_a_corrida)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 253, in test_a_prova_cita_a_corrida
+    p = estradas.provas_da_pasta(PASTA_OFICIAL)["IT-T7-042"]
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'censo_das_estradas_it' has no attribute 'provas_da_pasta'
+
+======================================================================
+ERROR: test_uma_onda_nova_na_pasta_conta_sem_mudar_codigo (tests.test_os_medidores_da_trava_veem.AProvaDaOndaConta.test_uma_onda_nova_na_pasta_conta_sem_mudar_codigo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 270, in test_uma_onda_nova_na_pasta_conta_sem_mudar_codigo
+    p = estradas.provas_da_pasta(d)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'censo_das_estradas_it' has no attribute 'provas_da_pasta'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.030s
+
+FAILED (errors=3)

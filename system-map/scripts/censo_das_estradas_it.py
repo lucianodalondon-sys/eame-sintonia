@@ -21,6 +21,7 @@ memoria.
 import collections
 import json
 import os
+import re
 import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -801,7 +802,324 @@ def vereditos(resolucao, rotas):
     }
 
 
-def main():
+# ═════════════════════════════════════════════════════════════════════════
+# O LIVRO QUE O COLETOR LÊ — medido ao lado, sem mudar a regra da trava
+# ═════════════════════════════════════════════════════════════════════════
+# Até 24/09/2026 este censo só conhecia o CATALOGO (54 fontes). O coletor da
+# produção lê outro livro — `regras/italy_contracts_onboarded.json`, 193 fontes
+# com contrato — e as duas listas têm 2 fontes em comum. A fonte que rendeu 3
+# SIM na Sala real na 1.ª onda da Big Collection (IT-T10-018) não aparecia aqui.
+#
+#     UM MEDIDOR QUE SÓ VÊ O QUE JÁ CONHECE NÃO MEDE A CASA.
+#
+# O que este bloco NÃO faz, de propósito:
+#   · não muda o universo do veredito — `COLLECTION_FOUNDATION_CLOSED` e o
+#     critério A continuam sobre o CATALOGO até decisão escrita do dono;
+#   · não atribui classe de estrada: o modelo não declara a que classe pertence
+#     cada STRATEGY/LOTE, e atribuir uma aqui seria fabricar o critério A.
+LIVRO_DO_COLETOR = os.path.join(RAIZ, 'regras', 'italy_contracts_onboarded.json')
+LIVRO_DO_CURADOR = os.path.join(RAIZ, 'curadoria', 'LIFECYCLE-LEDGER-V1.json')
+SEM_CLASSE = 'NAO_SEI'
+
+
+def _estado_no_curador():
+    """O último NEW_STATE de cada fonte no livro do curador (o que está no Git)."""
+    if not os.path.exists(LIVRO_DO_CURADOR):
+        return {}
+    with open(LIVRO_DO_CURADOR, encoding='utf-8') as f:
+        transicoes = json.load(f).get('TRANSICOES') or []
+    ultimo = {}
+    for t in transicoes:
+        ultimo[t.get('SOURCE_ID')] = t.get('NEW_STATE')
+    return ultimo
+
+
+def universo_do_coletor():
+    with open(LIVRO_DO_COLETOR, encoding='utf-8') as f:
+        linhas = json.load(f).get('FONTES') or []
+    catalogo = {f.get('SOURCE_ID') for f in fontes_it()}
+    curador = _estado_no_curador()
+    por_fonte = []
+    for r in sorted(linhas, key=lambda x: x.get('SOURCE_ID') or ''):
+        aq = r.get('ACQUISITION') or {}
+        evid = r.get('EVIDENCE') or ''
+        por_fonte.append({
+            'SOURCE_ID': r.get('SOURCE_ID'),
+            'LOTE': r.get('BATCH_ID'),
+            'STRATEGY': aq.get('STRATEGY'),
+            'OUTPUT_TYPE': r.get('OUTPUT_TYPE'),
+            'EVIDENCIA_NO_GIT': bool(evid) and os.path.exists(os.path.join(RAIZ, evid)),
+            'ESTADO_NO_CURADOR': curador.get(r.get('SOURCE_ID')) or 'SEM_REGISTO',
+            'NO_CATALOGO_DA_TRAVA': r.get('SOURCE_ID') in catalogo,
+            'ROUTE_CLASS_ID': SEM_CLASSE,
+        })
+    ids = {f['SOURCE_ID'] for f in por_fonte}
+    return {
+        'LIVRO': os.path.relpath(LIVRO_DO_COLETOR, RAIZ).replace('\\', '/'),
+        'O_QUE_E': 'o livro de contratos que o coletor da producao le',
+        'TOTAL': len(por_fonte),
+        'TAMBEM_NO_CATALOGO_DA_TRAVA': len(ids & catalogo),
+        'SO_NO_LIVRO_DO_COLETOR': len(ids - catalogo),
+        'SO_NO_CATALOGO_DA_TRAVA': len(catalogo - ids),
+        'POR_LOTE': dict(sorted(collections.Counter(
+            '%s · %s · %s' % (f['LOTE'], f['STRATEGY'], f['OUTPUT_TYPE'])
+            for f in por_fonte).items())),
+        'COM_EVIDENCIA_NO_GIT': sum(1 for f in por_fonte if f['EVIDENCIA_NO_GIT']),
+        'ESTADO_NO_CURADOR': dict(sorted(collections.Counter(
+            f['ESTADO_NO_CURADOR'] for f in por_fonte).items())),
+        'ESTADO_NO_CURADOR_ORIGEM': (
+            os.path.relpath(LIVRO_DO_CURADOR, RAIZ).replace('\\', '/')
+            + ' — ultimo NEW_STATE por fonte, como esta no Git. NAO e o veredito '
+              'do portao no instante: esse depende do relogio (canario <= 7 dias) '
+              'e dos livros vivos do bot, que nao estao no Git.'),
+        'ROUTE_CLASS_CONHECIDA': sum(1 for f in por_fonte
+                                     if f['ROUTE_CLASS_ID'] != SEM_CLASSE),
+        'CRITERIO_A_NESTE_UNIVERSO': 'SEM_REGRA_DE_CORRESPONDENCIA',
+        'PORQUE_SEM_CLASSE': (
+            'o modelo (system-map/data/estradas-it.model.json) nao declara a que '
+            'classe de estrada pertence cada STRATEGY/LOTE. Declarar e decisao do '
+            'dono do modelo; inventar aqui seria fabricar o criterio A.'),
+        'POR_FONTE': por_fonte,
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# O CRITÉRIO A SOBRE AS IDENTIDADES DO CURATOR — decisão D33
+# ═════════════════════════════════════════════════════════════════════════
+# D33 (bot Luciano, delegação do dono, DECISOES-DONO-2026-09-23.md):
+#   · o denominador de A são as identidades italianas do Curator (o último
+#     estado de cada SOURCE_ID `IT-` no livro do curador);
+#   · a classe de cada fonte sai do caminho/executor/resultado REAIS — nunca de
+#     «3 estratégias = 3 classes»; na dúvida, NAO_SEI.
+#
+# A REGRA DE PROVA, e só ela:
+#
+#   RC-1  resultado real pela porta canónica (RAW + DERIVED gravados) E contrato
+#         do coletor com estratégia de documento HTTP. O caminho real dessas
+#         corridas é orquestrador -> coleta/italy_executor.py
+#         (-> coleta/italy_pilot_collect.mjs) -> guarda/preservar_coleta.py (RAW)
+#         -> executor_texto_de_pdf/html (DERIVED): o RAW e o DERIVED são os do
+#         modelo da RC-1. ⚠️ O FETCH do modelo da RC-1 é `coleta/texto_fonte.py`,
+#         e o real é outro: fica declarado em PORQUE_RC1, não escondido.
+#
+#   NAO_SEI  tudo o resto: só contrato, só canário, canal de YouTube (vai pelo
+#            Scrap, outra estrada), resultado real sem contrato que diga o
+#            executor, e fontes sem contrato.
+#
+# ⚠️ PROVA DE OUTRO LIVRO NÃO ATRAVESSA. O ledger em Git e o canário do modelo
+# falam de SOURCE_ID do catálogo antigo; o mesmo código pode nomear outra fonte
+# noutro livro. Só entram provas do mundo do Curator: o próprio livro dele e os
+# relatórios da Big Collection/micro, que correram os contratos dele.
+# ⚠️ O LUGAR OFICIAL, E NÃO UMA LISTA DE NOMES (PROVA-DA-ONDA, 25/09/2026).
+# Uma lista de ficheiros escrita à mão fazia a 2.ª onda correr e o critério A
+# ficar parado: o registo novo não estava na lista. O disparador
+# (`ferramentas/big_collection/bc5_big_collection.py`) grava o estado em
+# `C:/bc5/big/BIG-COLLECTION-ESTADO.json`, e o registo OFICIAL é o que entra no
+# Git nesta pasta. O medidor lê a pasta INTEIRA e reconhece a prova pelo
+# FORMATO do registo, não pelo nome.
+PASTA_DAS_PROVAS = os.path.join(RAIZ, 'ferramentas', 'big_collection')
+ESTRATEGIAS_DE_DOCUMENTO = ('HTML_LINK_DISCOVERY', 'STATIC_ENDPOINT')
+SAIDAS_DE_DOCUMENTO = ('PDF', 'HTML')
+SAIDAS_DE_DATASET = ('CSV', 'ODS', 'XLSX')
+
+# ⚠️ O LIVRO DO COLETOR É O QUE O COLETOR CARREGA, NÃO O JSON.
+# `coleta/italy_pilot_collect.mjs` importa `CONTRACTS` de
+# `regras/italy_contracts.mjs`: as linhas de `italy_contracts_onboarded.json`
+# MAIS os contratos feitos à mão (ARPAV, ARIF, o portfólio ADAMA...). Medido a
+# 25/09/2026: 206 contra 193. Ler só o JSON deixava 8 fontes que correram de
+# verdade sem contrato — e portanto sem classe.
+CONTRATOS_MJS = os.path.join(RAIZ, 'regras', 'italy_contracts.mjs')
+_DUMP_CONTRATOS = (
+    "import(process.argv[1]).then(m=>{const o={};for(const [k,c] of "
+    "Object.entries(m.CONTRACTS)){const a=c.ACQUISITION||{};o[k]={STRATEGY:"
+    "a.STRATEGY||null,OUTPUT_TYPE:c.OUTPUT_TYPE||null,ACCESS_INSTRUMENT:"
+    "c.ACCESS_INSTRUMENT||null,BROWSER_REQUIRED:(c.BROWSER_REQUIRED===undefined"
+    "?null:c.BROWSER_REQUIRED),ROUTE_TYPE:c.ROUTE_TYPE||null}}"
+    "process.stdout.write(JSON.stringify(o))})")
+
+
+def contratos_do_coletor():
+    """SOURCE_ID -> o que o contrato diz do caminho. Lido pelo próprio node.
+
+    Falha ALTO se o node não correr: um medidor que cai calado para o JSON
+    mediria outro livro e diria que é este."""
+    import subprocess
+    url = 'file:///' + CONTRATOS_MJS.replace('\\', '/').lstrip('/')
+    r = subprocess.run(['node', '-e', _DUMP_CONTRATOS, url], cwd=RAIZ,
+                       capture_output=True, text=True, encoding='utf-8')
+    if r.returncode != 0:
+        raise SystemExit('contratos_do_coletor: node falhou: %s' % r.stderr[-400:])
+    return json.loads(r.stdout)
+ESTADOS_BLOQUEADOS = ('POLICY_BLOCK', 'AUTH_BLOCK', 'CAPABILITY_BLOCK',
+                      'CONTRACT_READY_ROUTE_BLOCKED')
+_SUCESSO_REAL = re.compile(
+    r'^corrida real com sucesso na Big Collection \((\d+) observ')
+
+
+def _linha_de_corrida(x):
+    """É uma linha de registo de corrida do disparador? (o formato, não o nome)"""
+    return (isinstance(x, dict) and all(k in x for k in
+            ('SOURCE_ID', 'STATUS', 'RUN_ID', 'RAW', 'DERIVED')))
+
+
+def provas_da_pasta(pasta):
+    """SOURCE_ID -> referência da corrida real, lida no lugar oficial.
+
+    Conta uma fonte quando a corrida:
+        STATUS = SUCCESS · RAW >= 1 · DERIVED >= 1 ·
+        C4.SALA_LINHAS == C4.SALA_COM_CADEIA_INTEIRA (proveniência não partida)
+    SUCCESS com 0 documentos novos NÃO prova a estrada agora: correu e não
+    trouxe byte. E também lê o formato da micro (LINHAS_NOVAS_NA_SALA +
+    CORRIDAS): linha nova na Sala real é RAW + DERIVED + Admission."""
+    prova = {}
+    if not os.path.isdir(pasta):
+        return prova
+    for nome in sorted(os.listdir(pasta)):
+        if nome.endswith('.json'):
+            for sid, ref in provas_do_registo(os.path.join(pasta, nome)).items():
+                prova.setdefault(sid, ref)
+    return prova
+
+
+def provas_do_registo(caminho):
+    """As provas de UM registo da pasta oficial (vazio se não tiver o formato)."""
+    prova = {}
+    rel = 'ferramentas/big_collection/' + os.path.basename(caminho)
+    try:
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return prova
+    if not isinstance(d, dict):
+        return prova
+    for x in d.get('FONTES') or []:
+        if not _linha_de_corrida(x):
+            continue
+        c4 = x.get('C4') or {}
+        if (x['STATUS'] == 'SUCCESS' and (x['RAW'] or 0) >= 1
+                and (x['DERIVED'] or 0) >= 1
+                and c4.get('SALA_LINHAS') == c4.get('SALA_COM_CADEIA_INTEIRA')):
+            prova.setdefault(x['SOURCE_ID'], '%s · %s (RAW %d, DERIVED %d)'
+                             % (rel, x['RUN_ID'], x['RAW'], x['DERIVED']))
+    runs = {c.get('SOURCE_ID'): c.get('RUN_ID') for c in d.get('CORRIDAS') or []
+            if isinstance(c, dict)}
+    for x in d.get('LINHAS_NOVAS_NA_SALA') or []:
+        if isinstance(x, dict) and x.get('SOURCE_ID') in runs:
+            prova.setdefault(x['SOURCE_ID'], '%s · %s (linha nova na Sala real)'
+                             % (rel, runs[x['SOURCE_ID']]))
+    return prova
+
+
+def _provas_de_resultado(transicoes):
+    """SOURCE_ID -> referência da corrida real que gravou RAW e DERIVED."""
+    prova = {}
+    for t in transicoes:
+        m = _SUCESSO_REAL.match(t.get('REASON') or '')
+        if m and int(m.group(1)) > 0:
+            prova.setdefault(t.get('SOURCE_ID'), 'curadoria/LIFECYCLE-LEDGER-V1.json · '
+                             + str(t.get('EVIDENCE_REF')))
+    for sid, ref in provas_da_pasta(PASTA_DAS_PROVAS).items():
+        prova.setdefault(sid, ref)
+    return prova
+
+
+def classificar_fonte(sid, transicao, contrato, prova):
+    """UMA fonte -> classe de estrada. Pura: recebe o que foi lido, não lê nada.
+
+    `prova` é a referência da corrida real (ou None). A ordem das perguntas é a
+    regra D33: resultado real pelo caminho de documento > bloqueio com razão
+    escrita > NAO_SEI (e o porquê)."""
+    contrato = contrato or {}
+    estrategia = (contrato.get('STRATEGY')
+                  or (contrato.get('ACQUISITION') or {}).get('STRATEGY'))
+    saida = str(contrato.get('OUTPUT_TYPE') or '').upper()
+    # Contrato feito à mão (sem STRATEGY): conta como caminho HTTP só se ele o
+    # DIZ — instrumento HTTP e navegador não exigido. Senão é dúvida.
+    http_a_mao = (not estrategia
+                  and str(contrato.get('ACCESS_INSTRUMENT') or '').upper().startswith('HTTP')
+                  and contrato.get('BROWSER_REQUIRED') is False)
+    por_http = estrategia in ESTRATEGIAS_DE_DOCUMENTO or http_a_mao
+    classe, resolucao = SEM_CLASSE, 'NAO_SEI'
+    razao = (transicao.get('REASON') or '').strip()
+    if prova and por_http and saida in SAIDAS_DE_DATASET:
+        classe, resolucao = 'RC-10', 'CLASSE_PROVADA'
+        porque = 'resultado real + contrato %s por HTTP' % (saida or '?')
+    elif prova and por_http and (saida in SAIDAS_DE_DOCUMENTO or (estrategia and not saida)):
+        classe, resolucao = 'RC-1', 'CLASSE_PROVADA'
+        porque = 'resultado real + contrato %s' % (estrategia or 'feito a mao, %s por HTTP' % saida)
+    elif transicao.get('NEW_STATE') in ESTADOS_BLOQUEADOS and razao:
+        resolucao, porque = 'BLOQUEADA_COM_RAZAO', transicao.get('NEW_STATE')
+    elif prova:
+        porque = ('resultado real, mas o contrato (%s) nao diz que executor correu'
+                  % (estrategia or 'nenhum no livro do coletor'))
+    elif contrato:
+        porque = ('so contrato/canario (%s): o caminho existe, o resultado real '
+                  'nao esta provado' % estrategia)
+    else:
+        porque = 'sem contrato no livro do coletor'
+    return {
+        'SOURCE_ID': sid,
+        'ESTADO_NO_CURADOR': transicao.get('NEW_STATE'),
+        'STRATEGY': estrategia,
+        'ROUTE_CLASS_ID': classe,
+        'RESOLUCAO': resolucao,
+        'PROVA': prova if classe != SEM_CLASSE else None,
+        'RAZAO_DO_BLOQUEIO': razao if resolucao == 'BLOQUEADA_COM_RAZAO' else None,
+        'PORQUE': porque,
+    }
+
+
+def criterio_a_no_curador():
+    with open(LIVRO_DO_CURADOR, encoding='utf-8') as f:
+        transicoes = json.load(f).get('TRANSICOES') or []
+    contratos = contratos_do_coletor()
+    ultima = {}
+    for t in transicoes:
+        ultima[t.get('SOURCE_ID')] = t
+    ultima = {s: t for s, t in ultima.items() if str(s).startswith('IT-')}
+    prova = _provas_de_resultado(transicoes)
+
+    por_fonte = [classificar_fonte(sid, ultima[sid], contratos.get(sid), prova.get(sid))
+                 for sid in sorted(ultima)]
+    por_resolucao = collections.Counter(f['RESOLUCAO'] for f in por_fonte)
+    nao_sei_porque = collections.Counter(
+        f['PORQUE'].split(' (')[0].split(':')[0] for f in por_fonte
+        if f['RESOLUCAO'] == 'NAO_SEI')
+    return {
+        'DECISAO': 'D33',
+        'UNIVERSO': ('curadoria/LIFECYCLE-LEDGER-V1.json — ultimo estado de cada '
+                     'SOURCE_ID IT-'),
+        'TOTAL': len(por_fonte),
+        'POR_RESOLUCAO': dict(sorted(por_resolucao.items())),
+        'POR_CLASSE': dict(sorted(collections.Counter(
+            f['ROUTE_CLASS_ID'] for f in por_fonte).items())),
+        'NAO_SEI_POR_MOTIVO': dict(sorted(nao_sei_porque.items())),
+        'CRITERIO_A': 'NAO' if por_resolucao.get('NAO_SEI') else 'SIM',
+        'CRITERIO_A_PERGUNTA': ('toda fonte IT tem route class conhecida ou '
+                                'BLOCKED explicito'),
+        'PORQUE_RC1': (
+            'RAW (guarda/preservar_coleta.py) e DERIVED (executor_texto_de_pdf/html) '
+            'reais sao os do modelo da RC-1; o FETCH real (coleta/italy_executor.py '
+            '-> coleta/italy_pilot_collect.mjs) NAO e o FETCH do modelo '
+            '(coleta/texto_fonte.py). Divergencia do modelo, declarada; e o nome '
+            'OFFICIAL_HTTP_DOCUMENT nao foi verificado fonte a fonte.'),
+        'PROVAS_ACEITES': [
+            'curadoria/LIFECYCLE-LEDGER-V1.json · REASON «corrida real com sucesso '
+            'na Big Collection (N observacoes)», N > 0',
+            'ferramentas/big_collection/*.json — registos de corrida do disparador '
+            '(STATUS SUCCESS, RAW>=1, DERIVED>=1, C4 sem proveniencia partida) e '
+            'linhas novas na Sala da micro; lidos pelo FORMATO, nao pelo nome',
+        ],
+        'PROVAS_DA_PASTA_OFICIAL': dict(sorted(collections.Counter(
+            ref.split(' · ')[0] for ref in provas_da_pasta(PASTA_DAS_PROVAS).values()).items())),
+        'PROVAS_RECUSADAS': (
+            'o ledger em Git e o canario do modelo: falam de SOURCE_ID do catalogo '
+            'antigo, e o mesmo codigo pode nomear outra fonte noutro livro'),
+        'POR_FONTE': por_fonte,
+    }
+
+
+def relatorio():
     fontes = ordenadas = fontes_it()
     dec, perm, sem_razao = classes_sociais()
     ap_def, ap_fb = apify()
@@ -920,7 +1238,37 @@ def main():
         'ORQUESTRADOR': orquestrador(),
         'COLLECTION_FOUNDATION_CLOSED': fdc.COLLECTION_FOUNDATION_CLOSED,
         'VEREDITOS': vereditos(resolucao, rotas),
+        'UNIVERSO_DO_VEREDITO': {
+            'DECISAO': 'D33',
+            'CRITERIO_A': ('curadoria/LIFECYCLE-LEDGER-V1.json — as identidades '
+                           'italianas do Curator (ver CRITERIO_A_NO_CURADOR)'),
+            'CATALOGO_HISTORICO': os.path.relpath(CATALOGO, RAIZ).replace('\\', '/'),
+            'FONTES_NO_CATALOGO': len(fontes),
+            'PORQUE': ('D33 (bot Luciano, delegacao do dono): 54 nao e '
+                       'denominador; 193 e o recorte executado. FONTES_IT e '
+                       'RESOLUCAO_POR_FONTE continuam publicados sobre o catalogo, '
+                       'como historico — nao decidem A.'),
+        },
+        'UNIVERSO_DO_COLETOR': universo_do_coletor(),
+        'CRITERIO_A_NO_CURADOR': criterio_a_no_curador(),
     }
+    return rel, dict(provadas=provadas, candidatas=candidatas,
+                     desconhecidas=desconhecidas, por_estado=por_estado,
+                     regs=regs, por_membership=por_membership, rotas=rotas,
+                     fechadas=fechadas, observadas=observadas, em_banco=em_banco,
+                     bloqueadas=bloqueadas, dividas=dividas, dec=dec,
+                     ap_def=ap_def, ap_fb=ap_fb)
+
+
+def main():
+    rel, m = relatorio()
+    provadas, candidatas, desconhecidas = (m['provadas'], m['candidatas'],
+                                           m['desconhecidas'])
+    por_estado, regs, por_membership = (m['por_estado'], m['regs'],
+                                        m['por_membership'])
+    rotas, fechadas, observadas = m['rotas'], m['fechadas'], m['observadas']
+    em_banco, bloqueadas, dividas = m['em_banco'], m['bloqueadas'], m['dividas']
+    dec, ap_def, ap_fb = m['dec'], m['ap_def'], m['ap_fb']
     with open(SAIDA, 'w', encoding='utf-8') as f:
         json.dump(rel, f, ensure_ascii=False, indent=1)
     print('FONTES IT %d · com rota PROVADA %d · so CANDIDATA %d · UNKNOWN %d · BLOCKED %d'
@@ -950,6 +1298,13 @@ def main():
              if orq['EXISTE'] else ''))
     print('COLLECTION_FOUNDATION_CLOSED = %s'
           % ('SIM' if rel['COLLECTION_FOUNDATION_CLOSED'] else 'NAO'))
+    u = rel['UNIVERSO_DO_COLETOR']
+    ca = rel['CRITERIO_A_NO_CURADOR']
+    print('CRITERIO A (%s, %d identidades do Curator): %s · %s'
+          % (ca['DECISAO'], ca['TOTAL'], ca['CRITERIO_A'], ca['POR_RESOLUCAO']))
+    print('LIVRO DO COLETOR: %d fontes · %d tambem no catalogo · %d com evidencia no Git · classe conhecida %d'
+          % (u['TOTAL'], u['TAMBEM_NO_CATALOGO_DA_TRAVA'], u['COM_EVIDENCIA_NO_GIT'],
+             u['ROUTE_CLASS_CONHECIDA']))
     print('\nescrito em %s' % os.path.relpath(SAIDA, RAIZ).replace('\\', '/'))
 
 

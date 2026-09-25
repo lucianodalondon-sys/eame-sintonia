@@ -1,0 +1,125 @@
+# -*- coding: utf-8 -*-
+# Guardado como .txt de proposito: e o registo do ensaio de mutacao da missao
+# TRAVA-MEDIDORES-V1, nao codigo do sistema. Corre-se com:
+#     PYTHONDONTWRITEBYTECODE=1 py data/derivados/TRAVA-MEDIDORES-V1/mutacao.py.txt
+# Cada mutante: aplica UMA troca, corre SO a classe de teste que o deve apanhar,
+# repoe os bytes originais e confere o sha antes de passar ao seguinte.
+import hashlib
+import os
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__)))))
+E = "system-map/scripts/censo_das_estradas_it.py"
+C = "system-map/scripts/censo_do_congelamento.py"
+T = "tests.test_os_medidores_da_trava_veem."
+VIGIA = T + "OVigiaDoCongelamentoComparaComAFotografia"
+ESTRADAS = T + "OMedidorDasEstradasVeOLivroDoColetor"
+CURADOR = T + "OCriterioAMedeAsIdentidadesDoCurador"
+ONDA = T + "AProvaDaOndaConta"
+
+MUTANTES = [
+    ("M1 o vigia compara o blob consigo", C,
+     'elif agora != a["GIT_BLOB_SHA"]:', 'elif agora != agora:', VIGIA),
+    ("M2 FROZEN_AT_HEAD volta a ser o HEAD", C,
+     '"FROZEN_AT_HEAD": manifesto["FROZEN_AT_HEAD"],\n        "O_QUE',
+     '"FROZEN_AT_HEAD": cabeca,\n        "O_QUE', VIGIA),
+    ("M3 o vigia ignora os novos", C,
+     'for a in congelados_hoje if a["PATH"] not in na_foto]',
+     'for a in congelados_hoje if False]', VIGIA),
+    ("M4 o censo volta a ler so o catalogo", E,
+     "with open(LIVRO_DO_COLETOR, encoding='utf-8') as f:\n        linhas",
+     "with open(CATALOGO, encoding='utf-8') as f:\n        linhas", ESTRADAS),
+    ("M5 o censo inventa classe de estrada", E,
+     "'ROUTE_CLASS_ID': SEM_CLASSE,", "'ROUTE_CLASS_ID': 'RC-1',", ESTRADAS),
+    ("M6 a sobreposicao conta tudo", E,
+     "'TAMBEM_NO_CATALOGO_DA_TRAVA': len(ids & catalogo),",
+     "'TAMBEM_NO_CATALOGO_DA_TRAVA': len(ids),", ESTRADAS),
+    # D33 — o criterio A sobre as identidades do Curator
+    ("M7 so canario passa a provar classe", E,
+     "    elif contrato:\n        porque = ('so contrato/canario",
+     "    elif contrato:\n        classe, resolucao = 'RC-1', 'CLASSE_PROVADA'\n"
+     "        porque = ('so contrato/canario", CURADOR),
+    ("M8 o YouTube entra como documento", E,
+     "ESTRATEGIAS_DE_DOCUMENTO = ('HTML_LINK_DISCOVERY', 'STATIC_ENDPOINT')",
+     "ESTRATEGIAS_DE_DOCUMENTO = ('HTML_LINK_DISCOVERY', 'STATIC_ENDPOINT', 'CUSTOM_ADAPTER')", CURADOR),
+    ("M9 o criterio A diz SIM sempre", E,
+     "'CRITERIO_A': 'NAO' if por_resolucao.get('NAO_SEI') else 'SIM',",
+     "'CRITERIO_A': 'SIM',", CURADOR),
+    ("M10 a classe sai sem prova", E,
+     "'PROVA': prova if classe != SEM_CLASSE else None,",
+     "'PROVA': None,", CURADOR),
+    ("M12 bloqueio sem razao conta como bloqueado", E,
+     "elif transicao.get('NEW_STATE') in ESTADOS_BLOQUEADOS and razao:",
+     "elif transicao.get('NEW_STATE') in ESTADOS_BLOQUEADOS:", CURADOR),
+    ("M13 contrato a mao com navegador conta como HTTP", E,
+     "                  and contrato.get('BROWSER_REQUIRED') is False)",
+     "                  )", CURADOR),
+    ("M14 o dataset vira documento", E,
+     "    if prova and por_http and saida in SAIDAS_DE_DATASET:",
+     "    if False:", CURADOR),
+    ("M15 o livro do coletor volta a ser so o JSON", E,
+     "    contratos = contratos_do_coletor()\n",
+     "    contratos = {r['SOURCE_ID']: r for r in json.load(open(LIVRO_DO_COLETOR, encoding='utf-8'))['FONTES']}\n",
+     CURADOR),
+    # PROVA-DA-ONDA — o leitor da pasta oficial
+    ("M16 SUCCESS deixa de ser exigido", E,
+     "        if (x['STATUS'] == 'SUCCESS' and (x['RAW'] or 0) >= 1",
+     "        if ((x['RAW'] or 0) >= 1", ONDA),
+    ("M17 RAW deixa de ser exigido", E,
+     "        if (x['STATUS'] == 'SUCCESS' and (x['RAW'] or 0) >= 1",
+     "        if (x['STATUS'] == 'SUCCESS'", ONDA),
+    ("M18 DERIVED deixa de ser exigido", E,
+     "                and (x['DERIVED'] or 0) >= 1\n                and c4",
+     "                and c4", ONDA),
+    ("M19 proveniencia partida passa", E,
+     "                and c4.get('SALA_LINHAS') == c4.get('SALA_COM_CADEIA_INTEIRA')):",
+     "                ):", ONDA),
+    ("M20 qualquer FONTES serve de registo", E,
+     "    return (isinstance(x, dict) and all(k in x for k in",
+     "    return (isinstance(x, dict) or all(k in x for k in", ONDA),
+    ("M21 a pasta volta a ser um nome fixo", E,
+     "        if nome.endswith('.json'):",
+     "        if nome == 'BC5-BIG-COLLECTION-1A-ONDA.json':", ONDA),
+    ("M11 o denominador volta ao catalogo", E,
+     "    ultima = {s: t for s, t in ultima.items() if str(s).startswith('IT-')}",
+     "    ultima = {s: t for s, t in ultima.items() if s in {f.get('SOURCE_ID') for f in fontes_it()}}", CURADOR),
+]
+
+
+def sha(p):
+    with open(p, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+mortos = 0
+for nome, rel, de, para, alvo in MUTANTES:
+    caminho = os.path.join(RAIZ, rel)
+    with open(caminho, "rb") as f:
+        original = f.read()
+    antes = sha(caminho)
+    texto = original.decode("utf-8")
+    texto_norm = texto.replace("\r\n", "\n")
+    assert texto_norm.count(de) == 1, "%s: o alvo da troca nao e unico" % nome
+    mutado = texto_norm.replace(de, para)
+    try:
+        with open(caminho, "wb") as f:
+            f.write(mutado.encode("utf-8"))
+        r = subprocess.run([sys.executable, "-m", "unittest", alvo], cwd=RAIZ,
+                           capture_output=True, text=True,
+                           env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1",
+                                    PYTHONUTF8="1"))
+        morto = r.returncode != 0
+    finally:
+        with open(caminho, "wb") as f:
+            f.write(original)
+    reposto = sha(caminho) == antes
+    mortos += morto
+    print("%-42s %s · reposto=%s" % (nome, "MORTO (o teste apanhou)" if morto
+                                     else "SOBREVIVEU  <-- o teste nao morde",
+                                     "SIM" if reposto else "NAO <-- GRAVE"))
+    if not reposto:
+        sys.exit(2)
+print("MUTANTES %d · MORTOS %d" % (len(MUTANTES), mortos))
+sys.exit(0 if mortos == len(MUTANTES) else 1)

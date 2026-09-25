@@ -1,0 +1,50 @@
+Could not find platform independent libraries <prefix>
+setUpClass (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor) ... ERROR
+test_apanha_mudado_sumido_e_novo (tests.test_os_medidores_da_trava_veem.OVigiaDoCongelamentoComparaComAFotografia.test_apanha_mudado_sumido_e_novo) ... ERROR
+test_nada_mexido_da_respeitado (tests.test_os_medidores_da_trava_veem.OVigiaDoCongelamentoComparaComAFotografia.test_nada_mexido_da_respeitado) ... ERROR
+test_o_censo_real_usa_a_fotografia_da_trava_e_nao_o_head (tests.test_os_medidores_da_trava_veem.OVigiaDoCongelamentoComparaComAFotografia.test_o_censo_real_usa_a_fotografia_da_trava_e_nao_o_head)
+O defeito: FROZEN_AT_HEAD era o HEAD do momento. ... FAIL
+
+======================================================================
+ERROR: setUpClass (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 46, in setUpClass
+    cls.u = estradas.universo_do_coletor()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'censo_das_estradas_it' has no attribute 'universo_do_coletor'
+
+======================================================================
+ERROR: test_apanha_mudado_sumido_e_novo (tests.test_os_medidores_da_trava_veem.OVigiaDoCongelamentoComparaComAFotografia.test_apanha_mudado_sumido_e_novo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 98, in test_apanha_mudado_sumido_e_novo
+    r = congelamento.contra_a_fotografia(self.MANIFESTO, congelados_hoje,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'censo_do_congelamento' has no attribute 'contra_a_fotografia'
+
+======================================================================
+ERROR: test_nada_mexido_da_respeitado (tests.test_os_medidores_da_trava_veem.OVigiaDoCongelamentoComparaComAFotografia.test_nada_mexido_da_respeitado)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 110, in test_nada_mexido_da_respeitado
+    r = congelamento.contra_a_fotografia(self.MANIFESTO, hoje, agora.get)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'censo_do_congelamento' has no attribute 'contra_a_fotografia'
+
+======================================================================
+FAIL: test_o_censo_real_usa_a_fotografia_da_trava_e_nao_o_head (tests.test_os_medidores_da_trava_veem.OVigiaDoCongelamentoComparaComAFotografia.test_o_censo_real_usa_a_fotografia_da_trava_e_nao_o_head)
+O defeito: FROZEN_AT_HEAD era o HEAD do momento.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 118, in test_o_censo_real_usa_a_fotografia_da_trava_e_nao_o_head
+    self.assertEqual(c["FROZEN_AT_HEAD"], manifesto["FROZEN_AT_HEAD"])
+AssertionError: 'a310487f95479ace484e8bd5a09ef9940d911b7a' != '82ef1deb1f85975b3ce7ccffdc439f8ee2b3e4f7'
+- a310487f95479ace484e8bd5a09ef9940d911b7a
++ 82ef1deb1f85975b3ce7ccffdc439f8ee2b3e4f7
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 35.691s
+
+FAILED (failures=1, errors=3)

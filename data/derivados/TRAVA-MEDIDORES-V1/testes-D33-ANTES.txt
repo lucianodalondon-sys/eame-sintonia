@@ -1,0 +1,37 @@
+Could not find platform independent libraries <prefix>
+setUpClass (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador) ... ERROR
+test_a_fonte_que_rendeu_na_big_collection_esta_la (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor.test_a_fonte_que_rendeu_na_big_collection_esta_la)
+IT-T10-018 pousou 3 SIM na Sala real (BC5) e o censo não a via. ... ok
+test_declara_a_sobreposicao_com_o_catalogo_da_trava (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor.test_declara_a_sobreposicao_com_o_catalogo_da_trava) ... ok
+test_mede_todas_as_fontes_do_livro_do_coletor (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor.test_mede_todas_as_fontes_do_livro_do_coletor) ... ok
+test_nao_inventa_classe_de_estrada (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor.test_nao_inventa_classe_de_estrada)
+O modelo não diz a que classe pertence cada STRATEGY. Atribuir uma ... ok
+test_o_estado_do_curador_vem_do_livro_e_conta_todas (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor.test_o_estado_do_curador_vem_do_livro_e_conta_todas) ... ok
+test_o_veredito_declara_sobre_que_universo_fala (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor.test_o_veredito_declara_sobre_que_universo_fala)
+D33 (bot Luciano, delegação do dono): o critério A mede as identidades ... FAIL
+
+======================================================================
+ERROR: setUpClass (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 95, in setUpClass
+    cls.a = estradas.criterio_a_no_curador()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'censo_das_estradas_it' has no attribute 'criterio_a_no_curador'
+
+======================================================================
+FAIL: test_o_veredito_declara_sobre_que_universo_fala (tests.test_os_medidores_da_trava_veem.OMedidorDasEstradasVeOLivroDoColetor.test_o_veredito_declara_sobre_que_universo_fala)
+D33 (bot Luciano, delegação do dono): o critério A mede as identidades
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 79, in test_o_veredito_declara_sobre_que_universo_fala
+    self.assertEqual(u["DECISAO"], "D33")
+AssertionError: 'PENDENTE_DO_DONO' != 'D33'
+- PENDENTE_DO_DONO
++ D33
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 8.431s
+
+FAILED (failures=1, errors=1)
