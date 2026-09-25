@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T19:43:01+00:00",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
+    "GENERATED_AT": "2026-09-25T22:09:14+00:00",
+    "HEAD": "63aa2f82fb188147a57976603f1935290113286c",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
-    "FICHEIROS_NA_IMPRESSAO": 3253,
+    "SOURCE_TREE_FINGERPRINT": "fa1dd7c24697df8440c8a57c4c5c35bbb8ef820d0c6aec12fdcf8f2d01682874",
+    "FICHEIROS_NA_IMPRESSAO": 3465,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -146,13 +146,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
+        "VERSAO": "fa1dd7c24697df8440c8a57c4c5c35bbb8ef820d0c6aec12fdcf8f2d01682874",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 20,
-    "INPUTS_DIGEST": "1c5e6ae6bbd332832d1f98ef2904e81ee868153cdaefe008691f0f8b97eecdaf",
+    "INPUTS_DIGEST": "5223f0a65b7fd714752d27c0973eb30bb88f939492e7ddb48f7b254fd38ba71a",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -263,6 +263,18 @@
       "respostas": 2,
       "ficheiros": 0,
       "estado": "gray"
+    },
+    {
+      "id": "C-LEGACY-99",
+      "nome": "LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 3,
+      "estado": "yellow"
     },
     {
       "id": "V-HTTP",
@@ -481,6 +493,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-HR6",
+      "nome": "HR-6 — re-medir pelo caminho canonico as READY que o portao manda a olho humano",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 7,
+      "estado": "yellow"
+    },
+    {
       "id": "V-INSTAGRAM",
       "nome": "INSTAGRAM",
       "zona": "· IT · SCRAP — os canais",
@@ -598,6 +622,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 11,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-PACOTE-ONDA3",
+      "nome": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 4,
       "estado": "yellow"
     },
     {
@@ -926,10 +962,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 64,
+    "pecas_da_coleta": 67,
     "respondem_as_quatro": 25,
-    "respondem_a_tres": 28,
-    "respondem_a_duas": 8,
+    "respondem_a_tres": 30,
+    "respondem_a_duas": 9,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }
