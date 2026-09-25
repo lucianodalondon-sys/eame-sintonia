@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "reparo-fontes-v2",
-    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
-    "GENERATED_AT": "2026-09-24T19:11:05-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1"
+    "BRANCH": "sala-aguenta-v1",
+    "HEAD": "fe360778226a448ccf8e414e927b50d2edf3fdb6",
+    "GENERATED_AT": "2026-09-25T02:35:13-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c2cfdd42bfaf745ebb319e85985cbbfee92dfc24d1c8ce4d3fb26ed90896da4a"
   },
   "FILES": [
     {
@@ -606,6 +606,13 @@
     {
       "path": "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
       "sha": "cdd3124e346f7168145a0f71a951c1262124a93c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-SALA-AGUENTA.md",
+      "sha": "ae664291d82209dad7e218e874a5dc7d7c671d6d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -11175,7 +11182,7 @@
     },
     {
       "path": "guarda/banco_descartavel.py",
-      "sha": "39a75642656edc5b068774352247fd5ae3e7a854",
+      "sha": "6c9cfee55e64ff2428663cf85206a10be56ceff3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18469,7 +18476,7 @@
     },
     {
       "path": "tests/test_a_porta_cli_liga_o_banco.py",
-      "sha": "2b391414d412d1d37b97fd675e9f4a4d78dfbf5f",
+      "sha": "6e07fd1d3ea20126609bd7d5c503aa986fb2049e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19539,6 +19546,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+      "sha": "5b2fa7705ef937384ab4209665356ac6cf91312f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_pacote_de_revisao_t3.py",
       "sha": "5b45ce4c0360f8fe5fbf3c0e40a3a165fc081b19",
       "ext": ".py",
@@ -19547,7 +19561,7 @@
     },
     {
       "path": "tests/test_persistencia_operacional.py",
-      "sha": "efb867ef0fd6a34a81a474e65448bc44f43fe7e4",
+      "sha": "e03adc84e265db42a5f22d2ea558b3b60f1d47b5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19631,7 +19645,7 @@
     },
     {
       "path": "tests/test_preservar_coleta_no_banco.py",
-      "sha": "6fb6e3bdc141112f8d3a8337409ba54ed861a404",
+      "sha": "f65136ccac0219d219af58518afca7274fcdccea",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -65501,7 +65515,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 251,
+        "line": 254,
         "snippet": "yml = _fonte(\".github\", \"workflows\", \"sintonia-scrap.yml\")"
       }
     },
@@ -65523,7 +65537,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 162,
+        "line": 165,
         "snippet": "import coleta_checkpoint as cc"
       }
     },
@@ -65534,7 +65548,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 274,
+        "line": 277,
         "snippet": "(\"coleta/instagram_coleta.py\", \"corrigir_custo\"),"
       }
     },
@@ -65545,7 +65559,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 122,
+        "line": 125,
         "snippet": "if not nome.endswith(\".py\") or nome == \"banco_descartavel.py\":"
       }
     },
@@ -65556,7 +65570,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 161,
+        "line": 164,
         "snippet": "from guarda.memoria_postgres import MemoriaPostgres"
       }
     },
@@ -65567,7 +65581,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 343,
+        "line": 346,
         "snippet": "self.assertEqual(donos, [\"memoria_postgres.py\"])"
       }
     },
@@ -65578,7 +65592,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 332,
+        "line": 335,
         "snippet": "from guarda.portas_live import MemoriaSupabase"
       }
     },
@@ -65589,7 +65603,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 275,
+        "line": 278,
         "snippet": "(\"motor/corrida_da_inteligencia.py\", \"espinha_da_intelligence\"),"
       }
     },
@@ -65600,7 +65614,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 224,
+        "line": 227,
         "snippet": "arvore = ast.parse(_fonte(\"orquestrador\", \"orquestrador.py\"))"
       }
     },
@@ -65622,7 +65636,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 211,
+        "line": 214,
         "snippet": "fonte = _fonte(\"orquestrador\", \"persistencia.py\")"
       }
     },
@@ -65633,7 +65647,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 378,
+        "line": 381,
         "snippet": "[sys.executable, os.path.join(\"provas\", \"a_porta_cli_liga_o_banco.py\")],"
       }
     },
@@ -65644,7 +65658,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 115,
+        "line": 118,
         "snippet": "sala = _fonte(\"provas\", \"a_sala_sobrevive_ao_processo.py\")"
       }
     },
@@ -65655,7 +65669,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 347,
+        "line": 350,
         "snippet": "import preservar_coleta_no_postgres as pg"
       }
     },
@@ -65666,7 +65680,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_porta_cli_liga_o_banco.py",
-        "line": 112,
+        "line": 115,
         "snippet": "prova = _fonte(\"provas\", \"preservar_coleta_no_postgres.py\")"
       }
     },
@@ -77991,6 +78005,28 @@
       }
     },
     {
+      "from_file": "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+      "to_file": ".github/workflows/banco-descartavel.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+        "line": 32,
+        "snippet": "with open(WORKFLOW, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+      "to_file": "provas/a_sala_sobrevive_ao_processo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+        "line": 56,
+        "snippet": "self.assertIn(\"provas/a_sala_sobrevive_ao_processo.py\", t)"
+      }
+    },
+    {
       "from_file": "tests/test_pacote_de_revisao_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -78756,7 +78792,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 701,
+        "line": 704,
         "snippet": "fonte = open(os.path.join(RAIZ, \"guarda\", \"banco_descartavel.py\"),"
       }
     },
@@ -83228,10 +83264,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2857,
-    "files_readable": 1299,
-    "files_code_dir": 1162,
-    "file_edges": 5694,
+    "files_tracked": 2859,
+    "files_readable": 1300,
+    "files_code_dir": 1163,
+    "file_edges": 5696,
     "escritas_em_pasta": 85,
     "declared_missing_here": 0
   },

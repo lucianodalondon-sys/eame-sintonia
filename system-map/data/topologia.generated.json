@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T22:14:27+00:00",
-  "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
-  "BRANCH": "reparo-fontes-v2",
+  "GENERATED_AT": "2026-09-25T09:59:51+00:00",
+  "HEAD": "fe360778226a448ccf8e414e927b50d2edf3fdb6",
+  "BRANCH": "sala-aguenta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1",
-  "FICHEIROS_NA_IMPRESSAO": 3005,
+  "SOURCE_TREE_FINGERPRINT": "c2cfdd42bfaf745ebb319e85985cbbfee92dfc24d1c8ce4d3fb26ed90896da4a",
+  "FICHEIROS_NA_IMPRESSAO": 3007,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -979,7 +979,7 @@
    {
     "PATH": "guarda/banco_descartavel.py",
     "PAPEL": "FONTE",
-    "VERSAO": "39a75642656edc5b068774352247fd5ae3e7a854",
+    "VERSAO": "6c9cfee55e64ff2428663cf85206a10be56ceff3",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3807,14 +3807,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1",
+    "VERSAO": "c2cfdd42bfaf745ebb319e85985cbbfee92dfc24d1c8ce4d3fb26ed90896da4a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1",
+    "VERSAO": "c2cfdd42bfaf745ebb319e85985cbbfee92dfc24d1c8ce4d3fb26ed90896da4a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4171,7 +4171,7 @@
    {
     "PATH": "tests/test_a_porta_cli_liga_o_banco.py",
     "PAPEL": "FONTE",
-    "VERSAO": "2b391414d412d1d37b97fd675e9f4a4d78dfbf5f",
+    "VERSAO": "6e07fd1d3ea20126609bd7d5c503aa986fb2049e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5240,6 +5240,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5b2fa7705ef937384ab4209665356ac6cf91312f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_pacote_de_revisao_t3.py",
     "PAPEL": "FONTE",
     "VERSAO": "5b45ce4c0360f8fe5fbf3c0e40a3a165fc081b19",
@@ -5249,7 +5256,7 @@
    {
     "PATH": "tests/test_persistencia_operacional.py",
     "PAPEL": "FONTE",
-    "VERSAO": "efb867ef0fd6a34a81a474e65448bc44f43fe7e4",
+    "VERSAO": "e03adc84e265db42a5f22d2ea558b3b60f1d47b5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5333,7 +5340,7 @@
    {
     "PATH": "tests/test_preservar_coleta_no_banco.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6fb6e3bdc141112f8d3a8337409ba54ed861a404",
+    "VERSAO": "f65136ccac0219d219af58518afca7274fcdccea",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5702,8 +5709,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 809,
-  "INPUTS_DIGEST": "09b2a3e0aa9ac48f1d28cc08f34b20a31df417366fd99f5269cefd833d326f36",
+  "INPUTS_COUNT": 810,
+  "INPUTS_DIGEST": "80b2beedfecd4b7f0bd5d7789b2d10571d467e6fb840ee44c2a6473f4d783d00",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5729,15 +5736,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 502,
+  "DOCUMENTOS_LIDOS": 503,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6efe2ba47b4afd774c3637fb1876d299b88c16faf1a81821c168dbcc38e89c91",
-  "SEMANTIC_HASH": "74bb211e9107f6392266eb1e581f520a878da4d8e1a26729d23746c55bb740e9"
+  "MEASUREMENT_HASH": "609b0c3739323cab643b4ff34c5a26d182614e132de69f5ec522c04b78ef2169",
+  "SEMANTIC_HASH": "b467773f5135de9bdad06c13c3067f8833ea34ef9bc32f9682a68af0651e6832"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -12692,6 +12699,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_porta_de_producao.py",
       "LINHA": 451,
       "SUPPORTS": "YES",
@@ -13929,7 +13944,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 162,
+      "LINHA": 165,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-TESTES",
@@ -14465,7 +14480,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 274,
+      "LINHA": 277,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
@@ -18421,7 +18436,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 161,
+      "LINHA": 164,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-TESTES",
@@ -18429,7 +18444,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 332,
+      "LINHA": 335,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-TESTES",
@@ -18649,7 +18664,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 122,
+      "LINHA": 125,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -18657,7 +18672,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 343,
+      "LINHA": 346,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -18721,7 +18736,7 @@
      },
      {
       "FICHEIRO": "tests/test_preservar_coleta_no_banco.py",
-      "LINHA": 701,
+      "LINHA": 704,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -22369,7 +22384,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 275,
+      "LINHA": 278,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-CORRIDA--READS-->C-TESTES",
@@ -28635,7 +28650,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 224,
+      "LINHA": 227,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
@@ -29727,7 +29742,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 211,
+      "LINHA": 214,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PERSISTENCIA-DA-PORTA-CLI--READS-->C-TESTES",
@@ -31575,7 +31590,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 347,
+      "LINHA": 350,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
@@ -32123,7 +32138,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 112,
+      "LINHA": 115,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
@@ -32131,7 +32146,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 115,
+      "LINHA": 118,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
@@ -32805,7 +32820,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 378,
+      "LINHA": 381,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--READS-->C-TESTES",
@@ -39544,7 +39559,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_a_porta_cli_liga_o_banco.py",
-      "LINHA": 251,
+      "LINHA": 254,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
@@ -45188,8 +45203,11 @@
     "provas/preservar_coleta_no_postgres.py",
     "system-map/scripts/scan_repo.py",
     "system-map/tests/test_o_mapa_nao_esconde.py",
+    "tests/test_a_porta_cli_liga_o_banco.py",
     "tests/test_armazem_italiano.py",
     "tests/test_identidade_do_artefato.py",
+    "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+    "tests/test_persistencia_operacional.py",
     "tests/test_porta_de_producao.py",
     "tests/test_preservar_coleta_no_banco.py",
     "tests/test_sala_duravel.py",
@@ -46235,6 +46253,7 @@
     "tests/test_italia_na_porta_canonica.py",
     "tests/test_m2_rota_forward.py",
     "tests/test_o_controle_separa_lei_de_mencao.py",
+    "tests/test_os_bancos_do_workflow_passam_a_trava.py",
     "tests/test_porta_de_producao.py",
     "tests/test_preservar_coleta.py",
     "tests/test_preservar_coleta_no_banco.py",
@@ -49518,6 +49537,7 @@
     "tests/test_o_pedido_atravessa.py",
     "tests/test_o_pedido_t4_atravessa.py",
     "tests/test_o_raw_fala.py",
+    "tests/test_os_bancos_do_workflow_passam_a_trava.py",
     "tests/test_pacote_de_revisao_t3.py",
     "tests/test_porta_de_producao.py",
     "tests/test_portoes_da_collection.py",
@@ -52544,6 +52564,7 @@
     "tests/test_observabilidade_estrada.py",
     "tests/test_onboardar_rotas_provadas.py",
     "tests/test_operacao.py",
+    "tests/test_os_bancos_do_workflow_passam_a_trava.py",
     "tests/test_pacote_de_revisao_t3.py",
     "tests/test_persistencia_operacional.py",
     "tests/test_pipeline.py",

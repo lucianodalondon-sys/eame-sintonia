@@ -74,6 +74,7 @@
       "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
+      "RELATORIO-SALA-AGUENTA.md",
       "RELATORIO-SOC1-SOCIAL.md",
       "RELATORIO-T2-REGUA.md",
       "RELATORIO-TTL-MUTABLE-T1.md",
@@ -2865,6 +2866,7 @@
       "tests/test_observabilidade_estrada.py",
       "tests/test_onboardar_rotas_provadas.py",
       "tests/test_operacao.py",
+      "tests/test_os_bancos_do_workflow_passam_a_trava.py",
       "tests/test_pacote_de_revisao_t3.py",
       "tests/test_persistencia_operacional.py",
       "tests/test_pipeline.py",
@@ -3450,10 +3452,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "reparo-fontes-v2",
-    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
-    "GENERATED_AT": "2026-09-24T19:11:05-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1"
+    "BRANCH": "sala-aguenta-v1",
+    "HEAD": "fe360778226a448ccf8e414e927b50d2edf3fdb6",
+    "GENERATED_AT": "2026-09-25T02:35:13-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c2cfdd42bfaf745ebb319e85985cbbfee92dfc24d1c8ce4d3fb26ed90896da4a"
   },
   "FAMILIES": [
     {
@@ -35620,6 +35622,7 @@
         "papel": "NAO SEI",
         "listas": [
           "AMBIENTE_QUE_MUDA_O_DESTINO",
+          "BANCOS_PERMITIDOS",
           "CAMPOS_DA_LINHA",
           "COLS_DER",
           "COLS_DOC",
@@ -35631,9 +35634,9 @@
           "IDENTIDADE_IMUTAVEL",
           "SENTINELAS"
         ],
-        "palavras": 96,
+        "palavras": 101,
         "por_lingua": {},
-        "sem_marca_de_lingua": 96,
+        "sem_marca_de_lingua": 101,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -38667,7 +38670,7 @@
         "PROVA": [
           "provas/arbitragem_da_intelligence.py:101",
           "provas/consumo_da_referencia_adama.py:93",
-          "tests/test_a_porta_cli_liga_o_banco.py:275",
+          "tests/test_a_porta_cli_liga_o_banco.py:278",
           "tests/test_a_primeira_corrida_da_inteligencia.py:28"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
@@ -43281,7 +43284,7 @@
         "PROVA": [
           "orquestrador/orquestrador.py:62",
           "tests/test_a_porta_cli_liga_o_banco.py:42",
-          "tests/test_a_porta_cli_liga_o_banco.py:211"
+          "tests/test_a_porta_cli_liga_o_banco.py:214"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -47420,7 +47423,7 @@
         "PLANO": null,
         "PROVA": [
           "scripts/regua_t2/prova_d29_porta.py:39",
-          "tests/test_a_porta_cli_liga_o_banco.py:378"
+          "tests/test_a_porta_cli_liga_o_banco.py:381"
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -54724,6 +54727,7 @@
         "tests/test_observabilidade_estrada.py",
         "tests/test_onboardar_rotas_provadas.py",
         "tests/test_operacao.py",
+        "tests/test_os_bancos_do_workflow_passam_a_trava.py",
         "tests/test_pacote_de_revisao_t3.py",
         "tests/test_persistencia_operacional.py",
         "tests/test_pipeline.py",
@@ -54791,7 +54795,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 231,
+      "file_count": 232,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -57553,7 +57557,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch reparo-fontes-v2"
+        "branch sala-aguenta-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -70514,7 +70518,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_armazem_italiano.py",
@@ -70536,6 +70540,22 @@
           "file": "tests/test_identidade_do_artefato.py",
           "line": 247,
           "snippet": "wf = os.path.join(RAIZ, \".github\", \"workflows\", \"supabase-migrate.yml\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
+            "FROM": "C-CI-PERSIST",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_os_bancos_do_workflow_passam_a_trava.py",
+          "line": 32,
+          "snippet": "with open(WORKFLOW, encoding=\"utf-8\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
             "FROM": "C-CI-PERSIST",
@@ -72217,7 +72237,7 @@
       "evidence": [
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 162,
+          "line": 165,
           "snippet": "import coleta_checkpoint as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-TESTES",
@@ -72964,7 +72984,7 @@
       "evidence": [
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 274,
+          "line": 277,
           "snippet": "(\"coleta/instagram_coleta.py\", \"corrigir_custo\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
@@ -79886,7 +79906,7 @@
         },
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 161,
+          "line": 164,
           "snippet": "from guarda.memoria_postgres import MemoriaPostgres",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-TESTES",
@@ -79902,7 +79922,7 @@
         },
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 332,
+          "line": 335,
           "snippet": "from guarda.portas_live import MemoriaSupabase",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-TESTES",
@@ -80081,7 +80101,7 @@
       "evidence": [
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 122,
+          "line": 125,
           "snippet": "if not nome.endswith(\".py\") or nome == \"banco_descartavel.py\":",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -80097,7 +80117,7 @@
         },
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 343,
+          "line": 346,
           "snippet": "self.assertEqual(donos, [\"memoria_postgres.py\"])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -80225,7 +80245,7 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 701,
+          "line": 704,
           "snippet": "fonte = open(os.path.join(RAIZ, \"guarda\", \"banco_descartavel.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -86648,7 +86668,7 @@
       "evidence": [
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 275,
+          "line": 278,
           "snippet": "(\"motor/corrida_da_inteligencia.py\", \"espinha_da_intelligence\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--READS-->C-TESTES",
@@ -97914,7 +97934,7 @@
         },
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 224,
+          "line": 227,
           "snippet": "arvore = ast.parse(_fonte(\"orquestrador\", \"orquestrador.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
@@ -99281,7 +99301,7 @@
       "evidence": [
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 211,
+          "line": 214,
           "snippet": "fonte = _fonte(\"orquestrador\", \"persistencia.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PERSISTENCIA-DA-PORTA-CLI--READS-->C-TESTES",
@@ -104028,7 +104048,7 @@
         },
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 347,
+          "line": 350,
           "snippet": "import preservar_coleta_no_postgres as pg",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
@@ -104171,7 +104191,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 45 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 46 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_fase_10_entra_no_acervo.py",
@@ -104223,7 +104243,7 @@
         },
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 112,
+          "line": 115,
           "snippet": "prova = _fonte(\"provas\", \"preservar_coleta_no_postgres.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
@@ -104239,7 +104259,7 @@
         },
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 115,
+          "line": 118,
           "snippet": "sala = _fonte(\"provas\", \"a_sala_sobrevive_ao_processo.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
@@ -105364,7 +105384,7 @@
       "evidence": [
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 378,
+          "line": 381,
           "snippet": "[sys.executable, os.path.join(\"provas\", \"a_porta_cli_liga_o_banco.py\")],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-PORTA-CLI-LIGA-O-BANCO--READS-->C-TESTES",
@@ -117529,7 +117549,7 @@
       "evidence": [
         {
           "file": "tests/test_a_porta_cli_liga_o_banco.py",
-          "line": 251,
+          "line": 254,
           "snippet": "yml = _fonte(\".github\", \"workflows\", \"sintonia-scrap.yml\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
@@ -124198,7 +124218,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1592,
+  "UNCLAIMED_FILES_COUNT": 1593,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -124468,8 +124488,8 @@
     "edges_proven": 1219,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2857,
-    "files_covered": 1265,
+    "files_tracked": 2859,
+    "files_covered": 1266,
     "files_code_unclaimed": 0,
     "roles_proven": 165,
     "roles_declared_only": 8,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b
-BRANCH           reparo-fontes-v2
-GERADO_EM        2026-09-24T19:11:05-03:00
+HEAD_DA_MEDICAO  fe360778226a448ccf8e414e927b50d2edf3fdb6
+BRANCH           sala-aguenta-v1
+GERADO_EM        2026-09-25T02:35:13-03:00
 CARDS            94
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -2002,7 +2002,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | orquestrador/orquestrador.py:62; tests/test_a_porta_cli_liga_o_banco.py:42; tests/test_a_porta_cli_liga_o_banco.py:211 |
+| **prova de quem ativa** | orquestrador/orquestrador.py:62; tests/test_a_porta_cli_liga_o_banco.py:42; tests/test_a_porta_cli_liga_o_banco.py:214 |
 | **porquê** | estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
