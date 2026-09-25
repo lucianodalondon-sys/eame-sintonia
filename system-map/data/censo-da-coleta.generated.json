@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T05:38:15+00:00",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
+    "GENERATED_AT": "2026-09-25T07:02:47+00:00",
+    "HEAD": "b19aef7cf29e5529d851a86f997d1c7d66e09879",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
-    "FICHEIROS_NA_IMPRESSAO": 3036,
+    "SOURCE_TREE_FINGERPRINT": "4432715a52ef78e261cdb64b6a1cef10ba35cca9852f16caabe88154840b060b",
+    "FICHEIROS_NA_IMPRESSAO": 3048,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -349,7 +349,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "bfc3bb50cc6fd57cea53b2c977d3ab8009d27a59",
+        "VERSAO": "1e56d0cdec65823601a778af58bae6fd6f66375a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -399,6 +399,13 @@
         "PATH": "coleta/retrato_html.mjs",
         "PAPEL": "FONTE",
         "VERSAO": "625d31bcfb022bed595f9826fa404c6510a8f78d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/robots_rfc9309.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "b87936a92f05787d62393985b21f6bb15fcb66ca",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -461,7 +468,7 @@
       {
         "PATH": "coleta/scrap_http.py",
         "PAPEL": "FONTE",
-        "VERSAO": "8135ba85982820ad6bbe16ff1e1ece89287db037",
+        "VERSAO": "af317ca58b9a366f91a2b9b3e3ef573e414a173c",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1117,8 +1124,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 158,
-    "INPUTS_DIGEST": "539e5f93f6f8cf9741b251747591d9f3617a2d6761d9b8b117d106f19342d749",
+    "INPUTS_COUNT": 159,
+    "INPUTS_DIGEST": "e61677f141241c5d8ce8847eca694075bad0427190e82b608ba7619d73259d58",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2884,7 +2891,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 1260,
+      "linhas": 1270,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2900,6 +2907,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/retrato_html.mjs",
+        "coleta/robots_rfc9309.py",
         "pedido/receitas.py",
         "regras/incrementalidade.mjs",
         "regras/italy_pilot_guards.mjs",
@@ -3027,6 +3035,24 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "admissao/admissao.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/robots_rfc9309.py",
+      "gaveta": "coleta",
+      "linhas": 211,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": true,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/scrap_http.py"
       ],
       "no_ci": false
     },
@@ -3220,7 +3246,7 @@
     {
       "ficheiro": "coleta/scrap_http.py",
       "gaveta": "coleta",
-      "linhas": 730,
+      "linhas": 737,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -3244,6 +3270,7 @@
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
         "coleta/italy_pilot_collect.mjs",
+        "coleta/robots_rfc9309.py",
         "coleta/scrap_executor.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
@@ -4387,9 +4414,9 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 158,
+    "ficheiros_de_codigo": 159,
     "pontos_de_entrada": 114,
-    "executores_que_saem_para_fora": 22,
+    "executores_que_saem_para_fora": 23,
     "sem_chamador_e_fora_do_ci": 63,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 87,
@@ -4528,6 +4555,7 @@
       "coleta/eu_regulatorio_executor.py",
       "coleta/gire_mapas.py",
       "coleta/mapa_regfi.py",
+      "coleta/robots_rfc9309.py",
       "coleta/rotulos_baixar.py",
       "coleta/scrap_http.py",
       "coleta/speaker_identidade.py",

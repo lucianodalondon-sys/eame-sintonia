@@ -1,6 +1,6 @@
 # ROBOTS-RFC (D34) · um leitor único de robots.txt, pela RFC 9309
 
-Ramo `robots-rfc9309-v1`, sobre a produção `5ba9647e` (junta em 7df18f5d). **NÃO instalado.**
+Ramo `robots-rfc9309-v1`, sobre a produção `7cdb7ea4` (junta em b19aef7c). **NÃO instalado.** A secção 5 (D39) muda as secções 1–4 onde elas falam de 401/403 e de HTML.
 
 ## 1 · O que foi feito
 
@@ -73,7 +73,41 @@ Passos (quando o dono mandar):
 
 **Efeito depois de instalado (não é automático):** o portão só volta a ler o robots destas fontes quando a VALIDATE_ROUTE correr de novo. Para as 52 que mudam (lista em `ROBOTS-COM-REDE.json → MUDAM`) o dono decide se se enfileira a revalidação já; as 9 READY que fecham passariam a CONTRACT_READY_ROUTE_BLOCKED (as 6 ARPAE por Disallow real; as 3 com HTML como «NÃO SEI — ilegível»). O coletor já as recusa hoje, por isso a coleta não perde nada que colha hoje.
 
-## 4 · Decisões para o dono
+## 4 · Decisões para o dono (RESPONDIDAS pela D39 — ver secção 5)
 
 - **HTML no lugar do robots = recusa.** É a regra da casa (a D34 mandou manter). A RFC sozinha deixaria passar (lê o HTML como robots sem regras). Fecha 37 fontes, 3 delas READY.
 - **4xx = sem robots**, incluindo 401/403 (norma). Hoje abre 2 fontes; muitas vezes um 403 ao robots é um muro anti-robô, e a página também vai dar 403.
+
+## 5 · D39 (bot Luciano, 25/09) — aplicada
+
+| resposta ao pedido do robots.txt | estado | decisão |
+|---|---|---|
+| HTML no lugar do robots | **`ROBOTS_INVALID_CONTENT`** | RECUSA — não é Disallow |
+| 401 / 403 | **`ROBOTS_ACCESS_DENIED`** | RECUSA por prudência — **declarado mais conservador que a RFC 9309** (§2.3.1.3 diria «pode») — não é Disallow |
+| outros 4xx (404, 410, 429…) | AUSENTE | pode (RFC §2.3.1.3) |
+| 5xx / rede em baixo | INACESSÍVEL | NÃO SEI → recusa (RFC §2.3.1.4) |
+
+Onde os nomes aparecem:
+- no **leitor** (`coleta/robots_rfc9309.py`, versão `ROBOTS/RFC9309-v2 (D39)`);
+- no **gémeo Node**: nos estados e nas recusas contadas no resumo da cortesia;
+- no **transporte** (`scrap_http`): a recusa diz o nome, e a exceção do dono — que só atravessa um Disallow **lido** — não a alcança;
+- no **robô**: BLOCK com `CLASSE` = nome do estado. O livro de estados, que tem vocabulário fechado, diz `CONTRACT_READY_ROUTE_BLOCKED` com `ROBOTS_ESTADO` na mesma linha, e o motivo começa pelo nome — nunca por uma regra `Disallow:`.
+
+Testes: 22 em Python (`tests/test_robots_rfc9309.py`) e a prova local do coletor com 31 de 31 (C7: HTML → `ROBOTS_INVALID_CONTENT`; C9b: 403 → `ROBOTS_ACCESS_DENIED`, só o robots é pedido). **Mutação D39: 10 ataques, 10 apanhados** (`provas/robots_rfc/mutantes_d39.py`: 7 no Python, 3 no Node).
+
+**A medição relida pelo leitor D39** (offline, sobre os mesmos 298 robots baixados; `ROBOTS-COM-REDE-D39.json`), 703 fontes:
+- abrem **0**;
+- fecham **50**: 37 `ROBOTS_INVALID_CONTENT` e 13 por Disallow real;
+- **2** mantêm o veredito com nome novo (`ROBOTS_ACCESS_DENIED`);
+- a re-medir depois de instalar: **52**.
+
+**Enfileirar as 52** — `provas/robots_rfc/enfileirar_as_52.py`, **não corrido**:
+- entra pela porta canónica (`fila.enfileirar`, idempotente) com a tarefa VALIDATE_ROUTE;
+- as READY de fachada vão primeiro (prioridade 85, acima do REPAIR 80); as outras com 57;
+- por omissão só mostra, e só escreve com `--aplicar`; recusa correr se o leitor instalado não for o D39.
+
+Ensaio só-mostrar sobre cópia do livro vivo (7cdb7ea4): **49 entram (8 READY à frente), 3 ficam fora**. A IT-T11-005 (simei.it) está READY, mas o contrato dela só vive na tabela do coletor — a VALIDATE_ROUTE sem contrato é bloqueada. **Decisão do dono:** importar o contrato antes, ou rever esse READY.
+
+⚠️ Uma READY cuja VALIDATE_ROUTE passe (o site mudou entretanto) desce a CANARY_PENDING e volta a canariar. Pela medição, as 8 fecham.
+
+Instalação: **só depois do MICRO / 2.ª onda** (D39).
