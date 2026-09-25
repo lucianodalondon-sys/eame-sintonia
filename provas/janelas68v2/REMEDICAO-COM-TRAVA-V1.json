@@ -1,0 +1,940 @@
+{
+ "DATASET": "JANELAS-68-V2-REMEDICAO-COM-TRAVA",
+ "SEM_REDE": true,
+ "PEDIDOS": 0,
+ "CODIGO": "janelas-68-v2 @ ec7977c0",
+ "LIVRO_VIVO_LIDO": "df0865e6",
+ "BYTES": {
+  "R182": "C:\\Users\\London1\\receitas-182-20260925\\entradas",
+  "J68": "C:\\Users\\London1\\AppData\\Local\\Temp\\j68-bytes",
+  "SHA256": "conferido ficheiro a ficheiro"
+ },
+ "MEDIDAS": 46,
+ "PASSAVAM_ANTES": 13,
+ "PASSAM_COM_TRAVA": 6,
+ "DEIXARAM_DE_PASSAR": [
+  "IT-T8-067",
+  "IT-T3-041",
+  "IT-T3-047",
+  "IT-T3-049",
+  "IT-T3-052",
+  "IT-T2-135",
+  "IT-T2-159"
+ ],
+ "PASSAM_AGORA_E_NAO_ANTES": [],
+ "SEM_CONTRATO_NO_LIVRO_VIVO": [],
+ "FONTES": [
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T3-039",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada nem a seccao http://www.agricoltura.regione.campania.it/comunicati/comunicati.htm lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T12-151",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T2-134",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-c -> FAMILIA_E_MENU: 27 dos 27 enderecos da familia repetem-se de; https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-c -> FAMILIA_E_MENU: 15 dos 15 enderecos da familia repetem-se de; https://www.amap.marche.it/a"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T3-051",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada nem a seccao https://www.regione.vda.it/pressevda/default_i.asp lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T7-169",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada nem a seccao https://www.aissa.it/newsletter lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T5-164",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": true,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "ITEM": "https://www.iret.cnr.it/notte-della-ricerca-a-napoli-la-scienza-diventa-un-gioco/",
+   "DATA_DE_PUBLICACAO": "2026-09-24",
+   "DATA_PROVADA_POR": "META_DE_PUBLICACAO",
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "ALVO": "https://www.iret.cnr.it/notte-della-ricerca-a-napoli-la-scienza-diventa-un-gioco/"
+   },
+   "PORQUE": "FAMILIA_POR_ESQUELETO: 2 itens na listagem, o 1.o (o do canario) e materia com 1514 caracteres em paragrafos"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T5-177",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.crea.gov.it/web/agricoltura-e-ambiente -> FAMILIA_E_MENU: 12 dos 12 enderecos da familia repetem-se de; https://www.crea.gov.it/web/alimenti-e-nutrizione/-/ricerca-crea-alime -> DUPLICADA de IT-T5-113; https://www.crea.gov.it/atti-delle-amministrazioni-aggiudicatrici-e-de -> NAVIGATION/C"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T8-061",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://dsa3.unipg.it/dottorato-di-ricerca/corso-di-dottorato-in-biosc -> FAMILIA_E_MENU: 20 dos 20 enderecos da familia repetem-se de; https://dsa3.unipg.it/ricerca/centri-di-ricerca/envinet-social-network -> NAVIGATION/CAPA_PROVAVEL, 206 em paragrafos (< 800 ou nao e ; https://dsa3.unipg.it/serviz"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T8-065",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.sidea.org/wp2/attivita/convegni-annuali/133-2/ -> FAMILIA_E_MENU: 15 dos 15 enderecos da familia repetem-se de; https://www.sidea.org/wp2/attivita/attivita-istituzionali/ -> FAMILIA_E_MENU: 8 dos 8 enderecos da familia repetem-se dent; https://www.sidea.org/wp2/attivita/attivita-istituzi"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T8-066",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.soihs.it/soi/gruppi_di_lavoro/collezioni_vegetali_speciali -> FAMILIA_E_MENU: 40 dos 40 enderecos da familia repetem-se de; https://www.soihs.it/soi/assemblea_dei_soci_soi/assemblea_dei_soci_soi -> NAVIGATION/CAPA_PROVAVEL, 513 em paragrafos (< 800 ou nao e ; https://www.soihs.it/soi/gru"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T8-067",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_SEM_DATA_DE_PUBLICACAO"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.societaentomologicaitaliana.it/1-congresso-italiano-di-ort -> SEM_DATA_DE_PUBLICACAO: corpo de materia mas nenhuma data de"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T3-062",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": true,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "ITEM": "https://www.asnacodi.it/agrifondo-giuseppe-boatto-e-il-nuovo-direttore/",
+   "DATA_DE_PUBLICACAO": "2026-07-28",
+   "DATA_PROVADA_POR": "META_DE_PUBLICACAO",
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "ALVO": "https://www.asnacodi.it/agrifondo-giuseppe-boatto-e-il-nuovo-direttore/"
+   },
+   "PORQUE": "FAMILIA_POR_ESQUELETO: 12 itens na listagem, o 1.o (o do canario) e materia com 1629 caracteres em paragrafos"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T7-175",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.conaf.it/atti-ufficiali/protocolli-intesa/ -> FAMILIA_E_MENU: 24 dos 24 enderecos da familia repetem-se de; https://www.conaf.it/comunicazione-0/ufficio-stampa/foto-istituzionali -> NAVIGATION/CAPA_PROVAVEL, 357 em paragrafos (< 800 ou nao e ; https://www.conaf.it/professione-2/accesso-a"
+  },
+  {
+   "CONJUNTO": "R182",
+   "SOURCE_ID": "IT-T8-069",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": true,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "ITEM": "https://www.horta-srl.it/cambiamento-climatico-come-aiutare-le-piante-a-produrre-in-condizioni-difficili-2/",
+   "DATA_DE_PUBLICACAO": "2023-05-16",
+   "DATA_PROVADA_POR": "META_DE_PUBLICACAO",
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "ALVO": "https://www.horta-srl.it/cambiamento-climatico-come-aiutare-le-piante-a-produrre-in-condizioni-difficili-2/"
+   },
+   "PORQUE": "FAMILIA_POR_ESQUELETO: 10 itens na listagem, o 1.o (o do canario) e materia com 1125 caracteres em paragrafos"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-137",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-140",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-144",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.arpa.veneto.it/servizi/altri-servizi -> FAMILIA_E_MENU: 10 dos 10 enderecos da familia repetem-se de; https://www.arpa.veneto.it/arpav/albo-on-line -> FAMILIA_E_MENU: 7 dos 7 enderecos da familia repetem-se dent"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-149",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.arsarp.it/?p=1454 -> item nao abriu: NAO_MEDIDO: pagina nao guardada (sem rede)"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-151",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.agrometeopuglia.it/osservazioni/mappa-dati-rilevati -> MIXED/NAO_SEI, 93 em paragrafos (< 800 ou nao e materia); https://www.agrometeopuglia.it/climatologia/mappe-dati-clima -> NAVIGATION/CAPA_PROVAVEL, 35 em paragrafos (< 800 ou nao e m"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-028",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/vivaismo-e -> FAMILIA_E_MENU: 5 dos 5 enderecos da familia repetem-se dent; https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sos -> FAMILIA_E_MENU: 4 dos 4 enderecos da familia repetem-se dent; https://agricoltura.regione."
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T7-166",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.lamma.toscana.it/meteo/app-meteo -> FAMILIA_E_MENU: 12 dos 12 enderecos da familia repetem-se de; https://www.lamma.toscana.it/news/60-anni-dal-1966-firenze-riflette-su -> NAVIGATION/CAPA_PROVAVEL, 1824 em paragrafos (< 800 ou nao e; https://www.lamma.toscana.it/meteo/osservazioni-e-dati"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-032",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-155",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-034",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "FAMILIA_ESTATICA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "FAMILIA_ESTATICA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "so ha familias de paginas fixas (https://www.protezionedellepiante.it/nuova-disciplina-fitosanitaria/pa...): nenhuma tem cara de fluxo de publicacoes"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-158",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-037",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.regione.basilicata.it/alsia-seleziona-agricoltori-custodi- -> MIXED/NAO_SEI, 3116 em paragrafos (< 800 ou nao e materia)"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-038",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T5-157",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "FAMILIA_ESTATICA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "FAMILIA_ESTATICA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "so ha familias de paginas fixas (https://www.regione.calabria.it/website/organizzazione/dipartimento8/s...): nenhuma tem cara de fluxo de publicacoes"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-040",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni -> MIXED/NAO_SEI, 494 em paragrafos (< 800 ou nao e materia)"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-041",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_SEM_DATA_DE_PUBLICACAO"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.regione.lazio.it/modulistica/723 -> NAVIGATION/CAPA_PROVAVEL, 1276 em paragrafos (< 800 ou nao e; https://www.regione.lazio.it/cittadini/agricoltura/qualita-produzioni/ -> SEM_DATA_DE_PUBLICACAO: corpo de materia mas nenhuma data de; https://www.regione.lazio.it/documenti/82839 -> item n"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-042",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "FAMILIA_ESTATICA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "FAMILIA_ESTATICA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "so ha familias de paginas fixas (https://www.agriligurianet.it/it/impresa/modulistica/adempimenti-neces...): nenhuma tem cara de fluxo de publicacoes"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-043",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.amap.marche.it/servizi/fitosanitario/certificazione-fitosa -> NAVIGATION/CAPA_PROVAVEL, 2087 em paragrafos (< 800 ou nao e; https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-c -> NAVIGATION/CAPA_PROVAVEL, 319 em paragrafos (< 800 ou nao e ; https://www.amap.marche.it/s"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-047",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_SEM_DATA_DE_PUBLICACAO"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.regione.piemonte.it/web/temi/agricoltura/agroambiente-mete -> NAVIGATION/CAPA_PROVAVEL, 1041 em paragrafos (< 800 ou nao e; https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanit -> SEM_DATA_DE_PUBLICACAO: corpo de materia mas nenhuma data de; https://www.regione.piemonte"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-048",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T5-158",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali -> MIXED/NAO_SEI, 966 em paragrafos (< 800 ou nao e materia)"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-049",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_SEM_DATA_DE_PUBLICACAO"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.regione.toscana.it/-/accessibilita-e-uso-del-sito -> SEM_DATA_DE_PUBLICACAO: corpo de materia mas nenhuma data de"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-052",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_SEM_DATA_DE_PUBLICACAO"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.regione.veneto.it/web/fitosanitario/attivita-vivaistica -> SEM_DATA_DE_PUBLICACAO: corpo de materia mas nenhuma data de; https://www.regione.veneto.it/web/fitosanitario/dettaglio-news?article -> item nao abriu: NAO_MEDIDO: pagina nao guardada (sem rede); https://www.regione.veneto.it/web"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-055",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.regione.vda.it/allegato.aspx?pk=124385 -> MIXED/NAO_SEI, 0 em paragrafos (< 800 ou nao e materia)"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-060",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": true,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "ITEM": "https://www.asnacodi.it/70-forum-asnacodi-italia-rischio-climatico-via-alla-svolta-digitale-e-alla-semplificazione/",
+   "DATA_DE_PUBLICACAO": "2025-12-01",
+   "DATA_PROVADA_POR": "META_DE_PUBLICACAO",
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "ALVO": "https://www.asnacodi.it/70-forum-asnacodi-italia-rischio-climatico-via-alla-svolta-digitale-e-alla-semplificazione/"
+   },
+   "PORQUE": "FAMILIA_POR_ESQUELETO: 5 itens na listagem, o 1.o (o do canario) e materia com 2478 caracteres em paragrafos"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-063",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T9-024",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": true,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "ITEM": "https://www.horta-srl.it/cambiamento-climatico-come-aiutare-le-piante-a-produrre-in-condizioni-difficili-2/",
+   "DATA_DE_PUBLICACAO": "2023-05-16",
+   "DATA_PROVADA_POR": "META_DE_PUBLICACAO",
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "ALVO": "https://www.horta-srl.it/cambiamento-climatico-come-aiutare-le-piante-a-produrre-in-condizioni-difficili-2/"
+   },
+   "PORQUE": "FAMILIA_POR_ESQUELETO: 10 itens na listagem, o 1.o (o do canario) e materia com 1125 caracteres em paragrafos"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-132",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "SEM_FAMILIA_DE_ITENS"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-135",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_SEM_DATA_DE_PUBLICACAO"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://www.arpalombardia.it/temi-ambientali/campi-elettromagnetici/ -> FAMILIA_E_MENU: 8 dos 8 enderecos da familia repetem-se dent; https://www.arpalombardia.it/temi-ambientali/rifiuti/altri-impianti-di -> SEM_DATA_DE_PUBLICACAO: corpo de materia mas nenhuma data de; https://www.arpalombardia.it/u"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T3-029",
+   "PASSAVA_ANTES": false,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_NAO_E_MATERIA"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://fitoemergenze.fmach.it/colpo-di-fuoco/cosa-fare-in-caso-di-pia -> FAMILIA_E_MENU: 18 dos 18 enderecos da familia repetem-se de; https://fitoemergenze.fmach.it/flavescenza-dorata/bollettini-di-difesa -> NAVIGATION/CAPA_PROVAVEL, 56 em paragrafos (< 800 ou nao e m"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-157",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": true,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "ITEM": "https://meteo.regione.marche.it/News/Notizia/1372",
+   "DATA_DE_PUBLICACAO": "2026-03-18",
+   "DATA_PROVADA_POR": "DATA_SOB_O_TITULO",
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "ALVO": "https://meteo.regione.marche.it/News/Notizia/1372"
+   },
+   "PORQUE": "FAMILIA_POR_ESQUELETO: 40 itens na listagem, o 1.o (o do canario) e materia com 958 caracteres em paragrafos"
+  },
+  {
+   "CONJUNTO": "J68",
+   "SOURCE_ID": "IT-T2-159",
+   "PASSAVA_ANTES": true,
+   "PASSA_COM_TRAVA": false,
+   "ANTES": [
+    "PADRAO_NOVO",
+    null
+   ],
+   "AGORA": [
+    "RECUSA",
+    "ITEM_SEM_DATA_DE_PUBLICACAO"
+   ],
+   "ITEM": null,
+   "DATA_DE_PUBLICACAO": null,
+   "DATA_PROVADA_POR": null,
+   "CANARIO": null,
+   "PORQUE": "https://siarl.arsial.it/bi/superset/dashboard/10/ -> MIXED/NAO_SEI, 0 em paragrafos (< 800 ou nao e materia); https://siarl.arsial.it/?page_id=1041 -> FAMILIA_E_MENU: 10 dos 10 enderecos da familia repetem-se de; https://siarl.arsial.it/?p=1024 -> SEM_DATA_DE_PUBLICACAO: corpo de materia mas nenhuma"
+  }
+ ],
+ "REVISAO_HUMANA": {
+  "IT-T5-164": "BOM: noticia do CNR IRET «Notte della Ricerca» publicada 2026-09-24 — passa, certo",
+  "IT-T8-067": "PERDA HONESTA: post real (anuncio do congresso de ortotterologia) mas a pagina nao mostra data de publicacao, so as datas do evento — a trava reprova; custo da regra",
+  "OUTROS_6_QUE_CAIRAM": "os 6 falsos ja revistos na JANELAS-68 (paginas fixas) — caem, certo",
+  "OS_5_BONS_DA_JANELAS_68": "IT-T3-060, IT-T9-024, IT-T8-069, IT-T2-157, IT-T3-062 — continuam a passar"
+ },
+ "RESUMO": "46 fontes re-medidas sem rede nos mesmos bytes: passavam 13, passam 6 com a trava; das 7 que cairam, 6 eram paginas fixas e 1 era noticia sem data visivel",
+ "LIMITE": "das 182 da receitas-182 so 14 tinham sido medidas com rede (as outras foram so classificadas pela forma); aqui re-medem-se essas 14 + as 32 da JANELAS-68. As restantes nunca passaram pelo reparo com bytes: nao ha 'antes' para comparar"
+}
