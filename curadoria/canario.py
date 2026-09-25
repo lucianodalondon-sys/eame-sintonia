@@ -37,6 +37,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from urllib.parse import urlparse
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -133,6 +134,16 @@ def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
         elif h.startswith("/"):
             h = base + h
         elif not h.startswith("http"):
+            continue
+        # ⚠️ UM LINK MALFORMADO NA PAGINA NAO PODE DERRUBAR O REPARO (LEGACY-99, 25/09):
+        # IT-T12-019 (ersaf.lombardia.it) trazia um href com «[» e o `urlparse` do
+        # reparo rebentava com «ValueError: Invalid IPv6 URL» (reparar_contrato.familias).
+        # Este e o dono unico do conjunto: o que nao se consegue ler como endereco sai
+        # aqui, e nenhum consumidor a jusante tem de se proteger sozinho.
+        try:
+            p = urlparse(h)
+            p.hostname, p.port  # noqa: B018 — so validar: ambos levantam ValueError se malformado
+        except ValueError:
             continue
         hrefs.add(h.split("#")[0])
     return hrefs
