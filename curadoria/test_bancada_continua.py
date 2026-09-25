@@ -46,8 +46,28 @@ class OTransporte(unittest.TestCase):
         tr = transporte(pedidos)
         with tempfile.TemporaryDirectory() as d:
             estados = [tr.pegar("https://um.example/p%d" % i, Path(d))["ESTADO"] for i in range(7)]
-        self.assertEqual(["LIDO"] * BC.MAX_POR_ANFITRIAO + ["TETO_POR_ANFITRIAO"] * 2, estados)
+        self.assertEqual(["LIDO"] * BC.MAX_POR_ANFITRIAO + ["TETO_POR_DOMINIO"] * 2, estados)
         self.assertEqual(BC.MAX_POR_ANFITRIAO, len(pedidos))
+
+    def test_teto_conta_o_dominio_www_e_sem_www_sao_um(self):
+        pedidos = []
+        tr = transporte(pedidos)
+        with tempfile.TemporaryDirectory() as d:
+            estados = [tr.pegar("https://%sdois.example/p%d" % ("www." if i % 2 else "", i), Path(d))["ESTADO"]
+                       for i in range(6)]
+        self.assertEqual(["LIDO"] * 5 + ["TETO_POR_DOMINIO"], estados)
+
+    def test_sem_autorizacao_de_rede_recusa_d41_3(self):
+        pedidos = []
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaises(SystemExit):
+                BC.preparar(1, pasta=Path(d), transporte=transporte(pedidos), fila=fila(("IT-T3-001", {})))
+            p = BC.preparar(1, pasta=Path(d), transporte=transporte([]), fila=fila(("IT-T3-001", {})),
+                            rede_autorizada="missao X")
+            self.assertEqual("missao X", json.loads(p.read_text(encoding="utf-8"))["REDE_AUTORIZADA_POR"])
+            with self.assertRaises(SystemExit):
+                BC.extra(p, {"IT-T3-001": ["https://a.example/"]}, transporte=transporte(pedidos))
+        self.assertEqual([], pedidos, "sem autorizacao nenhum pedido sai")
 
     def test_robots_proibe_nao_vai_a_rede(self):
         pedidos = []
@@ -75,17 +95,18 @@ class PrepararEExtra(unittest.TestCase):
     def test_so_janela_e_no_maximo_duas_paginas(self):
         with tempfile.TemporaryDirectory() as d:
             f = fila(("IT-T3-001", {"JANELA_D29": True}), ("IT-T7-001", {}), ("IT-T2-001", {"JANELA_D29": True}))
-            p = BC.preparar(10, so_janela=True, pasta=Path(d), transporte=transporte([]), fila=f)
+            p = BC.preparar(10, so_janela=True, pasta=Path(d), transporte=transporte([]), fila=f, rede_autorizada="teste")
             lote = json.loads(p.read_text(encoding="utf-8"))
             self.assertEqual(["IT-T3-001", "IT-T2-001"], [c["CASO"] for c in lote["CASOS"]])
             self.assertTrue(all(len(c["PAGINAS"]) <= BC.MAX_POR_CASO_PREPARAR for c in lote["CASOS"]))
 
     def test_extra_tem_teto_por_caso(self):
         with tempfile.TemporaryDirectory() as d:
-            p = BC.preparar(1, pasta=Path(d), transporte=transporte([]), fila=fila(("IT-T3-001", {})))
+            p = BC.preparar(1, pasta=Path(d), transporte=transporte([]), fila=fila(("IT-T3-001", {})),
+                            rede_autorizada="teste")
             pedidos = []
             lote = BC.extra(p, {"IT-T3-001": ["https://a.example/%d" % i for i in range(4)]},
-                            transporte=transporte(pedidos))
+                            transporte=transporte(pedidos), rede_autorizada="teste")
             extras = [x for x in lote["CASOS"][0]["PAGINAS"] if x["PAPEL"] == "EXTRA"]
             self.assertEqual(["LIDO", "LIDO", "TETO_DE_EXTRAS", "TETO_DE_EXTRAS"], [x["ESTADO"] for x in extras])
             self.assertEqual(2, len(pedidos))
@@ -94,7 +115,8 @@ class PrepararEExtra(unittest.TestCase):
 class Ingerir(unittest.TestCase):
 
     def _lote(self, d):
-        return BC.preparar(1, pasta=Path(d), transporte=transporte([]), fila=fila(("IT-T3-001", {})))
+        return BC.preparar(1, pasta=Path(d), transporte=transporte([]), fila=fila(("IT-T3-001", {})),
+                           rede_autorizada="teste")
 
     def test_so_entra_resposta_que_cita_paginas_do_lote(self):
         with tempfile.TemporaryDirectory() as d:
@@ -114,6 +136,15 @@ class Ingerir(unittest.TestCase):
             p0 = json.loads(props.read_text(encoding="utf-8"))["PROPOSTAS"][0]
             self.assertEqual(64, len(p0["PAGINAS_LIDAS"][0]["SHA256"]))
             self.assertIsNotNone(BIA.proposta_pendente("IT-T3-001", {}, caminho=props))
+
+    def test_a_fila_distingue_sem_receita_de_receita_a_espera(self):
+        t = {"SOURCE_ID": "IT-T3-001", "NEW_STATE": "CONTRACTED_CANARY_FAILED", "REASON": "REPARO_RECUSADO: X",
+             "OBSERVED_AT": "2026-09-24T10:00:00+00:00", "EVIDENCE_REF": "EV"}
+        base = {"SOURCE_ID": "IT-T3-001", "PROPOSTO_EM": "2026-09-25T10:00:00+00:00"}
+        f1 = BIA.construir(transicoes=[t], decisoes=[], propostas=[dict(base, RESPOSTA="SEM_RECEITA")], contratos={})
+        f2 = BIA.construir(transicoes=[t], decisoes=[], propostas=[base], contratos={})
+        self.assertIn("respondida SEM_RECEITA depois da ultima prova (espera prova nova)", f1["FORA_DA_FILA"])
+        self.assertIn("receita proposta depois da ultima prova (espera o robo)", f2["FORA_DA_FILA"])
 
     def test_receita_que_a_porta_recusa_nao_entra(self):
         with tempfile.TemporaryDirectory() as d:

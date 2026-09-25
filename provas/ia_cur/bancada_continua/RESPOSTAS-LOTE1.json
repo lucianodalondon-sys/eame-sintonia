@@ -1,0 +1,253 @@
+[
+ {
+  "CASO": "IT-T1-006",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-al-4-agosto-2026/"
+  ],
+  "PORQUE": "[ROTA_FIXA] a pagina E o boletim agrometeorologico e fitossanitario (agrumi, olivo), actualizado no mesmo endereco; nao ha lista de itens"
+ },
+ {
+  "CASO": "IT-T2-109",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://agricoltura.regione.campania.it/meteo/agrometeo.htm"
+  ],
+  "PORQUE": "[FOLHA_XLSX] os dados sao folhas Excel semanais por estacao (medido em D32 4); a colheita de folha de calculo nao existe"
+ },
+ {
+  "CASO": "IT-T2-132",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.alsia.it/"
+  ],
+  "PORQUE": "[CASCA_VAZIA] a entrada devolve 293 bytes com 1 ligacao (redireccionamento/JS); nada para ler"
+ },
+ {
+  "CASO": "IT-T2-133",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.amap.marche.it/servizi/agrometeorologia",
+   "https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi"
+  ],
+  "PORQUE": "[ROTA_FIXA_PDF] pagina de servico; o boletim e UM pdf fixo (meteo.regione.marche.it/assets/previsioni/bollettino.pdf)"
+ },
+ {
+  "CASO": "IT-T2-134",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.amap.marche.it/pubblicazioni/agrometeorologia",
+   "https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi"
+  ],
+  "PORQUE": "[SEM_ITENS_NO_HTML] so ligacoes de menu (amministrazione trasparente); as publicacoes agrometeo nao estao no HTML"
+ },
+ {
+  "CASO": "IT-T2-136",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.arpalombardia.it/temi-ambientali/meteo-e-clima/bollettini-meteorologici/agrometeo/",
+   "https://www.arpalombardia.it/temi-ambientali/meteo-e-clima/bollettini-meteorologici/agrometeo/"
+  ],
+  "PORQUE": "[ROTA_FIXA] a pagina agrometeo e o proprio boletim; a pagina extra pedida e a mesma"
+ },
+ {
+  "CASO": "IT-T2-138",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/mappe-settimanali"
+  ],
+  "PORQUE": "[ROTA_FIXA] mapas semanais (imagens) numa pagina fixa; 0 itens"
+ },
+ {
+  "CASO": "IT-T2-139",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.arpae.it/it/temi-ambientali/meteo/previsioni-meteo/previsioni-agrometeo"
+  ],
+  "PORQUE": "[ROTA_FIXA] previsao agrometeo numa pagina fixa; 0 itens"
+ },
+ {
+  "CASO": "IT-T2-147",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.arpa.veneto.it/temi-ambientali/agrometeo",
+   "https://www.arpa.veneto.it/dati-ambientali/bollettini"
+  ],
+  "PORQUE": "[NAO_SEI] a pagina de boletins so lista PDFs de neve; o boletim agrometeo nao aparece nas 2 paginas lidas"
+ },
+ {
+  "CASO": "IT-T2-148",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/"
+  ],
+  "PORQUE": "[ROTA_FIXA] a pagina E o boletim (irma de IT-T1-006: arsacweb.it e arsac.calabria.it publicam o mesmo boletim)"
+ },
+ {
+  "CASO": "IT-T2-149",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.arsarp.it/category/agrometeorologia-2/",
+   "https://www.arsarp.it/news/latlante-dei-prodotti-tradizionali-del-molise/",
+   "https://www.arsarp.it/?p=1529"
+  ],
+  "PORQUE": "[LIGACOES_MORTAS] as noticias ?p=N devolvem 404 (?p=1454 no reparo, ?p=1529 aqui)"
+ },
+ {
+  "CASO": "IT-T2-150",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.agrometeopuglia.it/"
+  ],
+  "PORQUE": "[JAVASCRIPT] a home so tem menu (node/N); os boletins sao um modulo JS (Bollettini.css)"
+ },
+ {
+  "CASO": "IT-T2-151",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.agrometeopuglia.it/bollettini"
+  ],
+  "PORQUE": "[JAVASCRIPT] /bollettini tem 0 caracteres em paragrafo e o modulo Bollettini em JS: a lista nao esta no HTML"
+ },
+ {
+  "CASO": "IT-T2-152",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.lamma.toscana.it/agrometeo/firenze",
+   "https://www.lamma.toscana.it/meteo/bollettini-meteo/toscana-6-15"
+  ],
+  "PORQUE": "[ROTA_FIXA] o boletim agrometeorologico de Firenze e a propria pagina; as familias sao o menu do LaMMA"
+ },
+ {
+  "CASO": "IT-T2-153",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+   "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/item/download/10061_d1c1ea30b58c347b6d30b557c1900ba3.html"
+  ],
+  "PORQUE": "[ROTA_FIXA] o CAAR publica boletins em paginas fixas por cultura (bollettino-di-viticoltura.html, -olivicoltura, ...): varias rotas fixas, nao uma lista"
+ },
+ {
+  "CASO": "IT-T2-158",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.siarl-lazio.it/"
+  ],
+  "PORQUE": "[SITE_ENCERRADO] a entrada diz «Fine vita del sito web del SIARL»"
+ },
+ {
+  "CASO": "IT-T3-013",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026"
+  ],
+  "PORQUE": "[JAVASCRIPT] a pagina dos boletins interprovinciais e uma aplicacao (static/js): os boletins nao estao no HTML"
+ },
+ {
+  "CASO": "IT-T3-014",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/"
+  ],
+  "PORQUE": "[ITENS_PDF] 10 DTU em PDF na entrada; receita PDF: INDEX https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/ LINK_PATTERN ^https?://(www\\.)?protezionedellepiante\\.it/wp-content/uploads/\\d{4}/\\d{2}/dtu-[^/?#]+\\.pdf(\\?|#|$) — canario PDF ja PASS em D32 (4); precisa OUTPUT_TYPE=PDF"
+ },
+ {
+  "CASO": "IT-T3-015",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.regione.toscana.it/regione/approfondimenti"
+  ],
+  "PORQUE": "[FONTE_GENERICA] «Approfondimenti» da Regione Toscana: pagina geral, 0 caracteres em paragrafo, sem boletins fitossanitarios"
+ },
+ {
+  "CASO": "IT-T3-016",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.regione.veneto.it/web/guest/newsletter"
+  ],
+  "PORQUE": "[NAO_SEI] pagina de assinatura de newsletters; os numeros nao estao na pagina"
+ },
+ {
+  "CASO": "IT-T3-018",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.ispa.cnr.it/news-e-eventi"
+  ],
+  "PORQUE": "[JAVASCRIPT] news-e-eventi com 0 caracteres em paragrafo: lista montada por JS"
+ },
+ {
+  "CASO": "IT-T3-019",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca"
+  ],
+  "PORQUE": "[FONTE_GENERICA] pagina de projectos de investigacao; nao publica boletins"
+ },
+ {
+  "CASO": "IT-T3-022",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.fitosanitario.regione.lombardia.it/"
+  ],
+  "PORQUE": "[ESPERA_ROBOTS_RFC] a entrada (139 bytes) salta para /wps/portal/site/sfr, que o leitor de robots de hoje diz proibido e a RFC 9309 diz permitido (D34/D39, robots-rfc9309-v1, por instalar)"
+ },
+ {
+  "CASO": "IT-T3-024",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://autorizzazionifitosanitarie.regione.campania.it/"
+  ],
+  "PORQUE": "[SERVICO_COM_LOGIN] sistema de autorizacoes RUOP com SPID (AUTH_BLOCK decidido em D32 4)"
+ },
+ {
+  "CASO": "IT-T3-025",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/NA_2026.html"
+  ],
+  "PORQUE": "[ITENS_PDF] a entrada lista 5 provincias; cada uma lista os boletins em PDF (NA: 27). Receita PDF por provincia: INDEX .../bollettini_2026/NA_2026.html LINK_PATTERN ^https?://www\\.agricoltura\\.regione\\.campania\\.it/difesa/bollettini/bollettini_2026/pdf/NA-\\d{2}-\\d{2}\\.pdf$ — precisa OUTPUT_TYPE=PDF e 5 rotas (uma por provincia)"
+ },
+ {
+  "CASO": "IT-T3-026",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://simfito.regione.campania.it/"
+  ],
+  "PORQUE": "[JAVASCRIPT] SIMfito: os boletins vem de template.html por JS"
+ },
+ {
+  "CASO": "IT-T3-027",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+   "http://www.ersa.fvg.it/cms/aziende/bollettini-integrata/Actinidia/2026/Bollettino-produzione-integrata-actinidia-n.-12-2026.pdf"
+  ],
+  "PORQUE": "[ITENS_PDF] 23 boletins em PDF na entrada; receita PDF: INDEX http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html LINK_PATTERN ^https?://www\\.ersa\\.fvg\\.it/(cms/)?aziende/bollettini-(integrata|biologica)/.+\\.pdf$ — precisa OUTPUT_TYPE=PDF"
+ },
+ {
+  "CASO": "IT-T3-028",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini",
+   "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/elaborazione-modelli-previsionali-e-monitoraggi-aereobiologici-2024"
+  ],
+  "PORQUE": "[JAVASCRIPT] boletins territoriais: aplicacao (static/js); o item do canario era outra pagina de servico"
+ },
+ {
+  "CASO": "IT-T3-029",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://fitoemergenze.fmach.it/"
+  ],
+  "PORQUE": "[PAGINAS_TEMATICAS] 18 paginas informativas fixas por praga (colpo di fuoco, flavescenza...): conteudo de referencia, nao publicacao datada"
+ },
+ {
+  "CASO": "IT-T3-031",
+  "RESPOSTA": "SEM_RECEITA",
+  "PAGINAS_LIDAS": [
+   "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/sorveglianza-del-territorio-carte-di-diffusione-e-monitoraggio-degli-organismi-nocivi.html"
+  ],
+  "PORQUE": "[ROTA_FIXA] pagina informativa de vigilancia do territorio; so familias de paginas fixas (modulistica)"
+ }
+]

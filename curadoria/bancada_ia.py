@@ -227,7 +227,10 @@ def construir(*, transicoes: list[dict], decisoes: list[dict], propostas: list[d
                 continue
             ps = [p for p in prop.get(sid) or [] if _t(p.get("PROPOSTO_EM"))]
             if ps and prova_em and max(_t(p["PROPOSTO_EM"]) for p in ps) >= prova_em:
-                _fora("receita proposta depois da ultima prova (espera o robo)")
+                ultima = max(ps, key=lambda p: _t(p["PROPOSTO_EM"]))
+                _fora("respondida SEM_RECEITA depois da ultima prova (espera prova nova)"
+                      if ultima.get("RESPOSTA") == "SEM_RECEITA"
+                      else "receita proposta depois da ultima prova (espera o robo)")
                 continue
             caso = ("RECEITA", razao[:160])
         elif e == LC.SEMANTIC_REVIEW:

@@ -8,7 +8,7 @@ so o PRIMEIRO e o SEGUNDO vao a rede — pelo transporte do robo:
     preparar  o robo escolhe N casos da fila (D29 primeiro) e busca, por caso, a pagina de entrada
               e o item que o canario abriu (no maximo 2), com o portao de egresso de CONSENSO (IT)
               no inicio e de 20 em 20 pedidos, robots pela porta do robo, 2 s por anfitriao,
-              no maximo 5 pedidos por anfitriao por lote. Escreve o LOTE (json) e os bytes.
+              no maximo 5 pedidos por DOMINIO por lote (D38). Escreve o LOTE (json) e os bytes.
     extra     o agente pode pedir ate 2 paginas a mais por caso (ex.: a seccao dos boletins); o robo
               busca-as com as mesmas regras e acrescenta-as ao lote.
     ingerir   o agente (a assinatura, nesta maquina) entrega as respostas; cada uma so entra se citar
@@ -20,8 +20,10 @@ UM ESCRITOR POR FICHEIRO: o lote e os bytes sao do robo; as respostas sao do age
 (PROPOSTAS-DE-RECEITA-V1) sao do agente e o robo so as le. Nenhum livro de estado e escrito aqui.
 
 uso:
-  py curadoria/bancada_continua.py preparar --n 30 [--so-janela] [--pasta DIR]
-  py curadoria/bancada_continua.py extra <LOTE.json> <pedidos.json>
+  py curadoria/bancada_continua.py preparar --n 30 --rede-autorizada <missao> [--so-janela] [--pasta DIR]
+  py curadoria/bancada_continua.py extra <LOTE.json> <pedidos.json> --rede-autorizada <missao>
+
+D41.3: sem --rede-autorizada a bancada recusa ir a rede (uma copia comeca com a rede fechada).
   py curadoria/bancada_continua.py ingerir <LOTE.json> <respostas.json> [--propostas FICHEIRO]
 """
 from __future__ import annotations
@@ -76,9 +78,11 @@ class Transporte:
 
     def pegar(self, url: str, pasta: Path) -> dict:
         host = url.split("/")[2]
+        dominio = dominio_de(host)
         linha = {"URL": url, "LIDO_EM": agora()}
-        if self.por_host.get(host, 0) >= MAX_POR_ANFITRIAO:
-            return dict(linha, ESTADO="TETO_POR_ANFITRIAO")
+        # D38/D41.3: o teto conta o DOMINIO (www.site e site sao um so), como a cortesia do coletor
+        if self.por_host.get(dominio, 0) >= MAX_POR_ANFITRIAO:
+            return dict(linha, ESTADO="TETO_POR_DOMINIO")
         if host not in self.cache_robots:
             try:
                 self.cache_robots[host] = self._robots(host)
@@ -97,12 +101,28 @@ class Transporte:
         st, b, erro = self._buscar(url)
         self.ultimo[host] = time.time()
         self.pedidos += 1
-        self.por_host[host] = self.por_host.get(host, 0) + 1
+        self.por_host[dominio] = self.por_host.get(dominio, 0) + 1
         h = hashlib.sha256(b or b"").hexdigest()
         caminho = pasta / ("%s.bin" % h[:20])
         caminho.write_bytes(b or b"")
         return dict(linha, ESTADO="LIDO", HTTP=st, ERRO=erro, BYTES=len(b or b""), SHA256=h,
                     BYTES_EM=str(caminho), EGRESSO="IT (consenso)")
+
+
+def dominio_de(host: str) -> str:
+    h = host.lower().split(":")[0]
+    return h[4:] if h.startswith("www.") else h
+
+
+class RedeNaoAutorizada(SystemExit):
+    pass
+
+
+def exigir_autorizacao(autorizacao: str | None) -> str:
+    """D41.3: uma copia comeca com a rede FECHADA; so abre com a missao que a autoriza, por escrito."""
+    if not (autorizacao or "").strip():
+        raise RedeNaoAutorizada("RECUSA (D41.3): sem --rede-autorizada <missao> a bancada nao vai a rede")
+    return autorizacao.strip()
 
 
 def egresso_it() -> bool:
@@ -139,7 +159,8 @@ def _entrada(caso: dict, tabela: dict) -> str | None:
 # preparar · extra · ingerir
 # ---------------------------------------------------------------------------
 def preparar(n: int, *, so_janela: bool = False, pasta: Path | None = None, transporte=None,
-             fila: dict | None = None) -> Path:
+             fila: dict | None = None, rede_autorizada: str | None = None) -> Path:
+    autorizacao = exigir_autorizacao(rede_autorizada)
     pasta = pasta or PASTA
     fila = fila if fila is not None else BIA.construir_do_disco(escrever=True)
     casos = [c for c in fila["CASOS"] if c["PERGUNTA"] == "RECEITA" and (c["JANELA_D29"] or not so_janela)][:n]
@@ -156,14 +177,16 @@ def preparar(n: int, *, so_janela: bool = False, pasta: Path | None = None, tran
                    for u, papel in list(zip(urls, ("ENTRADA", "ITEM_DO_CANARIO")))[:MAX_POR_CASO_PREPARAR]]
         saida.append(dict(c, PAGINAS=paginas, EXTRA_PEDIDAS=0))
     lote = {"LOTE_ID": lote_id, "CRIADO_EM": agora(), "ESCRITOR": "o robo (bancada_continua.preparar)",
-            "SO_JANELA": so_janela, "PEDIDOS_A_REDE": tr.pedidos, "CASOS": saida}
+            "SO_JANELA": so_janela, "REDE_AUTORIZADA_POR": autorizacao, "PEDIDOS_A_REDE": tr.pedidos,
+            "CASOS": saida}
     p = dir_lote / "LOTE.json"
     p.write_text(json.dumps(lote, ensure_ascii=False, indent=1), encoding="utf-8")
     return p
 
 
-def extra(lote_p: Path, pedidos: dict, *, transporte=None) -> dict:
+def extra(lote_p: Path, pedidos: dict, *, transporte=None, rede_autorizada: str | None = None) -> dict:
     """pedidos = {CASO: [url, ...]}; no maximo MAX_EXTRA_POR_CASO por caso, no total do lote."""
+    exigir_autorizacao(rede_autorizada)
     lote = json.loads(lote_p.read_text(encoding="utf-8"))
     tr = transporte or Transporte()
     for c in lote["CASOS"]:
@@ -223,17 +246,19 @@ def main() -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     a1 = sub.add_parser("preparar"); a1.add_argument("--n", type=int, default=BIA.LOTE_CANARIO)
     a1.add_argument("--so-janela", action="store_true"); a1.add_argument("--pasta", type=Path)
+    a1.add_argument("--rede-autorizada", help="a missao que autoriza a rede (D41.3); sem isto, recusa")
     a2 = sub.add_parser("extra"); a2.add_argument("lote", type=Path); a2.add_argument("pedidos", type=Path)
+    a2.add_argument("--rede-autorizada", help="a missao que autoriza a rede (D41.3); sem isto, recusa")
     a3 = sub.add_parser("ingerir"); a3.add_argument("lote", type=Path); a3.add_argument("respostas", type=Path)
     a3.add_argument("--propostas", type=Path)
     a = ap.parse_args()
     if a.cmd == "preparar":
-        p = preparar(a.n, so_janela=a.so_janela, pasta=a.pasta)
+        p = preparar(a.n, so_janela=a.so_janela, pasta=a.pasta, rede_autorizada=a.rede_autorizada)
         lote = json.loads(p.read_text(encoding="utf-8"))
         print("LOTE %s · %d casos · %d pedidos a rede · %s" % (lote["LOTE_ID"], len(lote["CASOS"]),
                                                                lote["PEDIDOS_A_REDE"], p))
     elif a.cmd == "extra":
-        lote = extra(a.lote, json.loads(a.pedidos.read_text(encoding="utf-8")))
+        lote = extra(a.lote, json.loads(a.pedidos.read_text(encoding="utf-8")), rede_autorizada=a.rede_autorizada)
         print("LOTE %s · %d pedidos a rede no total" % (lote["LOTE_ID"], lote["PEDIDOS_A_REDE"]))
     else:
         out = ingerir(a.lote, json.loads(a.respostas.read_text(encoding="utf-8")), propostas=a.propostas)

@@ -1,0 +1,921 @@
+{
+ "LOTE_ID": "LOTE-20260925T072003Z",
+ "CRIADO_EM": "2026-09-25T07:22:12.991458+00:00",
+ "ESCRITOR": "o robo (bancada_continua.preparar)",
+ "SO_JANELA": true,
+ "PEDIDOS_A_REDE": 41,
+ "CASOS": [
+  {
+   "CASO": "IT-T1-006",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T1-006-REPAIR_CONTRACT-3465",
+   "DESDE": "2026-09-25T04:58:02.402706+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": null,
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-al-4-agosto-2026/",
+     "LIDO_EM": "2026-09-25T07:20:04.313003+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 183772,
+     "SHA256": "ee0f6233c6afbf378ab071f5a2c0ae251aaf859e79f7cc6692d8a891909cd798",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\ee0f6233c6afbf378ab0.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-109",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-109-REPAIR_CONTRACT-4573",
+   "DESDE": "2026-09-25T06:29:15.973565+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://agricoltura.regione.campania.it/meteo/agrometeo.htm",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://agricoltura.regione.campania.it/meteo/agrometeo.htm",
+     "LIDO_EM": "2026-09-25T07:20:10.857829+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 9690,
+     "SHA256": "27c59d4c6078bb15343a9238a79042df571133201ebdc26269e1f3b7a362bf03",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\27c59d4c6078bb15343a.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-132",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-132-REPAIR_CONTRACT-4593",
+   "DESDE": "2026-09-25T06:31:32.799367+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.alsia.it/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.alsia.it/",
+     "LIDO_EM": "2026-09-25T07:20:13.358484+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 293,
+     "SHA256": "4e2b86aae9d8f175ebf94a738a4aef365604731a8ce197d9b15cde1f32665047",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\4e2b86aae9d8f175ebf9.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-133",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-c -> NAVIGATION/CAPA_PROVAVEL, 319 em paragrafos (< 8",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-133-REPAIR_CONTRACT-4594",
+   "DESDE": "2026-09-25T06:31:51.992341+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.amap.marche.it/servizi/agrometeorologia",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.amap.marche.it/servizi/agrometeorologia",
+     "LIDO_EM": "2026-09-25T07:20:16.175896+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 161095,
+     "SHA256": "d53229f559aeaef9e174ac34f3e016c4a09e8ab1b02357f8388c01c23d703a66",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\d53229f559aeaef9e174.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi",
+     "LIDO_EM": "2026-09-25T07:20:19.894317+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 160956,
+     "SHA256": "a524bc1c4b6c44cde166b3841c168587fa7928a9f88e888f43f828dfd0ee6e1b",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\a524bc1c4b6c44cde166.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ITEM_DO_CANARIO"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-134",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.amap.marche.it/agenzia/amministrazione-trasparente/altri-c -> FAMILIA_E_MENU: 27 dos 27 enderecos da familia r",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-134-REPAIR_CONTRACT-4595",
+   "DESDE": "2026-09-25T06:32:10.170445+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.amap.marche.it/pubblicazioni/agrometeorologia",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.amap.marche.it/pubblicazioni/agrometeorologia",
+     "LIDO_EM": "2026-09-25T07:20:24.489933+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 156180,
+     "SHA256": "0bf515b2ffb6d8adaf9fd6f87476f12cff6708eff202bc5522dfa90fafb91e2d",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\0bf515b2ffb6d8adaf9f.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi",
+     "LIDO_EM": "2026-09-25T07:20:29.019148+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 160956,
+     "SHA256": "14597643cb5d93b40f4db62e0e0b24ebf5c65091d27a3ad50271473baa335dd7",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\14597643cb5d93b40f4d.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ITEM_DO_CANARIO"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-136",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arpalombardia.it/temi-ambientali/campi-elettromagnetici/ -> FAMILIA_E_MENU: 8 dos 8 enderecos da familia repet",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-136-REPAIR_CONTRACT-4599",
+   "DESDE": "2026-09-25T06:33:20.830172+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/meteo-e-clima/bollettini-meteorologici/agrometeo/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.arpalombardia.it/temi-ambientali/meteo-e-clima/bollettini-meteorologici/agrometeo/",
+     "LIDO_EM": "2026-09-25T07:20:33.538117+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 339840,
+     "SHA256": "03e689a5d72240469f20f34678bd5bb78e424f569fe72c073c40ad3b34b40544",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\03e689a5d72240469f20.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "https://www.arpalombardia.it/temi-ambientali/meteo-e-clima/bollettini-meteorologici/agrometeo/",
+     "LIDO_EM": "2026-09-25T07:23:36.905811+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 339840,
+     "SHA256": "03e689a5d72240469f20f34678bd5bb78e424f569fe72c073c40ad3b34b40544",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\03e689a5d72240469f20.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "EXTRA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 1
+  },
+  {
+   "CASO": "IT-T2-138",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-138-REPAIR_CONTRACT-4601",
+   "DESDE": "2026-09-25T06:33:29.297003+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/mappe-settimanali",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/mappe-settimanali",
+     "LIDO_EM": "2026-09-25T07:20:37.225166+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 30035,
+     "SHA256": "3a2bce026939e0dc4d85e1b94509d1f1b99234842897fa39b95f88346c89acfb",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\3a2bce026939e0dc4d85.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-139",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-139-REPAIR_CONTRACT-4602",
+   "DESDE": "2026-09-25T06:33:32.989820+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/previsioni-meteo/previsioni-agrometeo",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.arpae.it/it/temi-ambientali/meteo/previsioni-meteo/previsioni-agrometeo",
+     "LIDO_EM": "2026-09-25T07:20:40.411774+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 26360,
+     "SHA256": "0dd52cb0d27b8d5895f2805f6df4ec203f85a1542df96ca4f1b85b85b1829003",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\0dd52cb0d27b8d5895f2.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-147",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arpa.veneto.it/servizi/altri-servizi -> FAMILIA_E_MENU: 10 dos 10 enderecos da familia repetem-se de; https://",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-147-REPAIR_CONTRACT-4607",
+   "DESDE": "2026-09-25T06:34:10.327260+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.arpa.veneto.it/temi-ambientali/agrometeo",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.arpa.veneto.it/temi-ambientali/agrometeo",
+     "LIDO_EM": "2026-09-25T07:20:44.352554+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 254212,
+     "SHA256": "1fd218c9a7694af9d91b6a9d0422bcae75e4bf1dcd0f27787010d2314341c2a7",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\1fd218c9a7694af9d91b.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "https://www.arpa.veneto.it/dati-ambientali/bollettini",
+     "LIDO_EM": "2026-09-25T07:24:50.356324+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 262906,
+     "SHA256": "ba6b9c5cf485843fde994644a99575a868b5c4b8ee388b4a8585f0be9ecce664",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\ba6b9c5cf485843fde99.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "EXTRA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 1
+  },
+  {
+   "CASO": "IT-T2-148",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arsacweb.it/news/10/ -> MIXED/NAO_SEI, 112 em paragrafos (< 800 ou nao e materia)",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-148-REPAIR_CONTRACT-4608",
+   "DESDE": "2026-09-25T06:34:22.837408+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/",
+     "LIDO_EM": "2026-09-25T07:20:47.667294+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 205639,
+     "SHA256": "aa30bb40d951ede21fd4cc870bfb3115f235920860b0957350533eb8c415a575",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\aa30bb40d951ede21fd4.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-149",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arsarp.it/?p=1454 -> item nao abriu: HTTP 404",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-149-REPAIR_CONTRACT-4609",
+   "DESDE": "2026-09-25T06:34:33.066583+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.arsarp.it/category/agrometeorologia-2/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.arsarp.it/category/agrometeorologia-2/",
+     "LIDO_EM": "2026-09-25T07:20:50.796346+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 159641,
+     "SHA256": "6afb5d694c617ace6639e2ebec63034f02e1606c2f768c721b1c9e12da9962d7",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\6afb5d694c617ace6639.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "https://www.arsarp.it/news/latlante-dei-prodotti-tradizionali-del-molise/",
+     "LIDO_EM": "2026-09-25T07:20:54.522450+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 159157,
+     "SHA256": "d6972749234b4ed941b53401a6f0df3d74c387f0142ee1a156726945c1cb74be",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\d6972749234b4ed941b5.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ITEM_DO_CANARIO"
+    },
+    {
+     "URL": "https://www.arsarp.it/?p=1529",
+     "LIDO_EM": "2026-09-25T07:24:53.387129+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 404,
+     "ERRO": "HTTP 404",
+     "BYTES": 0,
+     "SHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\e3b0c44298fc1c149afb.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "EXTRA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 1
+  },
+  {
+   "CASO": "IT-T2-150",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.agrometeopuglia.it/node/18 -> FAMILIA_E_MENU: 5 dos 5 enderecos da familia repetem-se dent",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-150-REPAIR_CONTRACT-4610",
+   "DESDE": "2026-09-25T06:34:40.733012+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.agrometeopuglia.it/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.agrometeopuglia.it/",
+     "LIDO_EM": "2026-09-25T07:20:58.762423+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 36522,
+     "SHA256": "93f43dcf7964f65f303a34f36ea45a9a92d7e242194a323cc585d248d1671c06",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\93f43dcf7964f65f303a.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-151",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.agrometeopuglia.it/osservazioni/mappa-dati-rilevati -> MIXED/NAO_SEI, 93 em paragrafos (< 800 ou nao e materia",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-151-REPAIR_CONTRACT-4611",
+   "DESDE": "2026-09-25T06:34:50.953305+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.agrometeopuglia.it/bollettini",
+     "LIDO_EM": "2026-09-25T07:21:01.098750+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 25994,
+     "SHA256": "03acc9486a70c4cf48299e8937fb0698f9497d83c7e77901f1cc3e6723110496",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\03acc9486a70c4cf4829.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-152",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.lamma.toscana.it/meteo/app-meteo -> FAMILIA_E_MENU: 12 dos 13 enderecos da familia repetem-se de",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-152-REPAIR_CONTRACT-4612",
+   "DESDE": "2026-09-25T06:35:00.261447+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.lamma.toscana.it/agrometeo/firenze",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+     "LIDO_EM": "2026-09-25T07:21:04.547258+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 217690,
+     "SHA256": "ad3a76ffa7729ab42a292831141d1fe4db43c8de0b81886a2aae0ef62ee0f8e3",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\ad3a76ffa7729ab42a29.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "https://www.lamma.toscana.it/meteo/bollettini-meteo/toscana-6-15",
+     "LIDO_EM": "2026-09-25T07:21:07.617594+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 200719,
+     "SHA256": "4b6eff8d9a26afb4080042b33fe689dcf4b949e4611c64531273ee52618f7d1f",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\4b6eff8d9a26afb40800.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ITEM_DO_CANARIO"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-153",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-s -> FAMILIA_E_MENU: 6 dos 6 enderecos da familia rep",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-153-REPAIR_CONTRACT-4613",
+   "DESDE": "2026-09-25T06:35:08.555226+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+     "LIDO_EM": "2026-09-25T07:21:11.508125+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 55618,
+     "SHA256": "15a660ce48bbad7717bb786195f6886ea587f8cc0f465bd825259d304c506dd2",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\15a660ce48bbad7717bb.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar/item/download/10061_d1c1ea30b58c347b6d30b557c1900ba3.html",
+     "LIDO_EM": "2026-09-25T07:21:14.318214+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 224161,
+     "SHA256": "c81786597928894c96ca4f54d61d37460197db4b9a6aa5e79807135555b3086c",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\c81786597928894c96ca.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ITEM_DO_CANARIO"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T2-158",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T2-158-REPAIR_CONTRACT-4619",
+   "DESDE": "2026-09-25T06:35:46.839843+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.siarl-lazio.it/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.siarl-lazio.it/",
+     "LIDO_EM": "2026-09-25T07:21:18.274662+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 1146,
+     "SHA256": "9dc9aa013e2b852826aeac6e5db79cf56fa33727185bcf2b564fff11de637ae7",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\9dc9aa013e2b852826ae.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-013",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-013-REPAIR_CONTRACT-4623",
+   "DESDE": "2026-09-25T06:36:58.156655+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": null,
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026",
+     "LIDO_EM": "2026-09-25T07:21:21.184749+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 836342,
+     "SHA256": "203c8ff7c22820a079341f8095cbdd8a6cc422ffb944736f9ff908483ef04035",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\203c8ff7c22820a07934.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-014",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-014-REPAIR_CONTRACT-4624",
+   "DESDE": "2026-09-25T06:36:59.758560+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": null,
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
+     "LIDO_EM": "2026-09-25T07:21:24.763245+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 380650,
+     "SHA256": "bcf9d589e282c7e32235c03cf931b1b510fd0abaf5d0b2b02e03bd13c735c29c",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\bcf9d589e282c7e32235.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-015",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-015-REPAIR_CONTRACT-4625",
+   "DESDE": "2026-09-25T06:37:01.392492+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": null,
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.regione.toscana.it/regione/approfondimenti",
+     "LIDO_EM": "2026-09-25T07:21:30.710981+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 164237,
+     "SHA256": "f83f0b45c455ee851a6a4fec5a8c0ff76184d2572b9a343f1c513897ad56ac81",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\f83f0b45c455ee851a6a.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-016",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-016-REPAIR_CONTRACT-4626",
+   "DESDE": "2026-09-25T06:37:03.050550+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": null,
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.regione.veneto.it/web/guest/newsletter",
+     "LIDO_EM": "2026-09-25T07:21:34.361141+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 41264,
+     "SHA256": "caa3f3e4799712b5d73dd32f3faedb74420d03ea0ac720463b4912476d44437a",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\caa3f3e4799712b5d73d.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-018",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-018-REPAIR_CONTRACT-4627",
+   "DESDE": "2026-09-25T06:37:04.745133+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": null,
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.ispa.cnr.it/news-e-eventi",
+     "LIDO_EM": "2026-09-25T07:21:37.759129+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 11509,
+     "SHA256": "209b4116da13ba3d8844712dcc8787af4b9bf66f9f32056b761fe8106d900786",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\209b4116da13ba3d8844.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-019",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-019-REPAIR_CONTRACT-4628",
+   "DESDE": "2026-09-25T06:37:06.466057+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": null,
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca",
+     "LIDO_EM": "2026-09-25T07:21:39.602909+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 69444,
+     "SHA256": "50962b27fbc955d7b5e27ccb610a0c8279f461b7adba58ba476b78d7a839c6aa",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\50962b27fbc955d7b5e2.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-022",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-022-REPAIR_CONTRACT-4629",
+   "DESDE": "2026-09-25T06:37:11.705772+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.fitosanitario.regione.lombardia.it/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.fitosanitario.regione.lombardia.it/",
+     "LIDO_EM": "2026-09-25T07:21:42.326450+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 139,
+     "SHA256": "6e8c19a0ead51a2fa1ef528f0f6302cca024c23a2399e48e6d09573a3bf5e809",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\6e8c19a0ead51a2fa1ef.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-024",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-024-REPAIR_CONTRACT-4633",
+   "DESDE": "2026-09-25T06:37:34.517908+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://autorizzazionifitosanitarie.regione.campania.it/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://autorizzazionifitosanitarie.regione.campania.it/",
+     "LIDO_EM": "2026-09-25T07:21:45.320101+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 17725,
+     "SHA256": "c2df2c1b24142dcd2747ba5186859be3a20a398284fea8f9c83bd4902fecae0d",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\c2df2c1b24142dcd2747.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-025",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-025-REPAIR_CONTRACT-4634",
+   "DESDE": "2026-09-25T06:37:39.950924+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+     "LIDO_EM": "2026-09-25T07:21:48.554501+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 10911,
+     "SHA256": "9ad02e7fe97c33730621c9c56bc924c7466b5e978bffb5bc8503ec73aec7147f",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\9ad02e7fe97c33730621.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/NA_2026.html",
+     "LIDO_EM": "2026-09-25T07:24:59.147830+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 25810,
+     "SHA256": "e24f4f937574b5a709ccf90689f0940787582a742d11ff2e824c8709bc6a37fe",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\e24f4f937574b5a709cc.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "EXTRA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 1
+  },
+  {
+   "CASO": "IT-T3-026",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada nem a seccao https://simfito.regione.campania.it/bollettini lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-026-REPAIR_CONTRACT-4635",
+   "DESDE": "2026-09-25T06:37:49.825642+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://simfito.regione.campania.it/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://simfito.regione.campania.it/",
+     "LIDO_EM": "2026-09-25T07:21:51.833688+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 11052,
+     "SHA256": "ef6bd511616b79e83583774ac5ef631aedecba3fcc9ca645a217fb9ccfc25388",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\ef6bd511616b79e83583.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-027",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-027-REPAIR_CONTRACT-4636",
+   "DESDE": "2026-09-25T06:37:53.858783+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+     "LIDO_EM": "2026-09-25T07:21:54.213818+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 25150,
+     "SHA256": "658215d7ce7052e2b0997604b9924c1c5a3ee111a170b9dddc2328d72c259e98",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\658215d7ce7052e2b099.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "http://www.ersa.fvg.it/cms/aziende/bollettini-integrata/Actinidia/2026/Bollettino-produzione-integrata-actinidia-n.-12-2026.pdf",
+     "LIDO_EM": "2026-09-25T07:21:56.340384+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 590209,
+     "SHA256": "10792df218470d6ebe190210893e2ff4bfc66093f6cb8801df62392d434f8a3a",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\10792df218470d6ebe19.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ITEM_DO_CANARIO"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-028",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://agricoltura.regione.emilia-romagna.it/fitosanitario/vivaismo-e -> FAMILIA_E_MENU: 5 dos 5 enderecos da familia rep",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-028-REPAIR_CONTRACT-4637",
+   "DESDE": "2026-09-25T06:38:13.824308+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini",
+     "LIDO_EM": "2026-09-25T07:22:00.755380+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 852542,
+     "SHA256": "f77b796caa4a485dc65d898596898f86607a0198fe040279b0097576cbf1d4f8",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\f77b796caa4a485dc65d.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    },
+    {
+     "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/elaborazione-modelli-previsionali-e-monitoraggi-aereobiologici-2024",
+     "LIDO_EM": "2026-09-25T07:22:03.361074+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 830332,
+     "SHA256": "65951c38a89940e346876a51b296740b21789ae5c446e528ba0d23141c3dd0d3",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\65951c38a89940e34687.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ITEM_DO_CANARIO"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-029",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://fitoemergenze.fmach.it/colpo-di-fuoco/cosa-fare-in-caso-di-pia -> FAMILIA_E_MENU: 18 dos 18 enderecos da familia r",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-029-REPAIR_CONTRACT-4638",
+   "DESDE": "2026-09-25T06:38:29.201952+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://fitoemergenze.fmach.it/",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://fitoemergenze.fmach.it/",
+     "LIDO_EM": "2026-09-25T07:22:07.958708+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 160754,
+     "SHA256": "dc899c455174290dd4e3f8371eb8030abb871be1e1286818c589054f10448870",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\dc899c455174290dd4e3.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  },
+  {
+   "CASO": "IT-T3-031",
+   "PERGUNTA": "RECEITA",
+   "GATILHO": "REPARO_RECUSADO: FAMILIA_ESTATICA — so ha familias de paginas fixas (https://www.agriligurianet.it/it/impresa/modulistica/adempimenti-neces...): nenhuma tem car",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "PROVA_DO_ROBO": "EV-IT-T3-031-REPAIR_CONTRACT-4642",
+   "DESDE": "2026-09-25T06:38:51.502125+00:00",
+   "JANELA_D29": true,
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/sorveglianza-del-territorio-carte-di-diffusione-e-monitoraggio-degli-organismi-nocivi.html",
+   "PORTA": "PROPOSTAS-DE-RECEITA-V1 -> REPAIR_CONTRACT",
+   "PAGINAS": [
+    {
+     "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/sorveglianza-del-territorio-carte-di-diffusione-e-monitoraggio-degli-organismi-nocivi.html",
+     "LIDO_EM": "2026-09-25T07:22:11.772581+00:00",
+     "ESTADO": "LIDO",
+     "HTTP": 200,
+     "ERRO": "",
+     "BYTES": 39804,
+     "SHA256": "07ea5a772e20a39690c4b7cefbb79c155fb5f800aef9cd4edbc4fea7d93d9fe2",
+     "BYTES_EM": "C:\\cur\\banc30-lotes\\LOTE-20260925T072003Z\\07ea5a772e20a39690c4.bin",
+     "EGRESSO": "IT (consenso)",
+     "PAPEL": "ENTRADA"
+    }
+   ],
+   "EXTRA_PEDIDAS": 0
+  }
+ ]
+}
