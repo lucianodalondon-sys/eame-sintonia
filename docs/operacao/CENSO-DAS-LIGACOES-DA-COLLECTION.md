@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a25ac14122279c2a44506f5f56ae88ab308d31bb
+HEAD_DA_MEDICAO  262fa6f17a0a0ee08c1ac899747774e94c5fb6c5
 BRANCH           reroute-d2-v1
-GERADO_EM        2026-09-25T09:31:42-03:00
+GERADO_EM        2026-09-25T12:04:07-03:00
 CARDS            101
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
