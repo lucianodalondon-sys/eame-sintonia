@@ -105,8 +105,12 @@ def contrato_youtube(n: dict, f: dict, native: str) -> dict:
         "OWNER": re.sub(r"—.*$", "", n["NOME"]).strip(),
         "NAME": n["NOME"],
         "TERRITORY": n["TERRITORY"],
-        "BATCH_ID": "LOTE-YOUTUBE-FEED",
-        "OUTPUT_TYPE": "VIDEO_METADATA",
+        # LEGACY-99 B (25/09/2026): a rota do CANAL, a mesma que o coletor executa
+        # (tabela onboarded: CUSTOM_ADAPTER CANAL_PUBLICO_YOUTUBE_V1). O feed
+        # `feeds/videos.xml` esta em Disallow no robots do YouTube: um contrato novo
+        # nascido com ele parava no VALIDATE_ROUTE, como as 41 READY_LEGACY.
+        "BATCH_ID": "LOTE-YOUTUBE-CANAL",
+        "OUTPUT_TYPE": "HTML",
         "CANONICAL_ENTRY_URL": n["URL"],
         "SOURCE_NATIVE_ID": native or "NAO SEI",
         "SOURCE_NATIVE_ID_KIND": "YOUTUBE_CHANNEL_ID",
@@ -116,10 +120,9 @@ def contrato_youtube(n: dict, f: dict, native: str) -> dict:
             "handle, da URL ou do proprio channel_id e proibido."
             % (n["SOURCE_ID"], native or "o channel_id")),
         "ACQUISITION": {
-            "STRATEGY": "YOUTUBE_CHANNEL_FEED",
+            "STRATEGY": "CUSTOM_ADAPTER",
+            "ADAPTER_ID": "CANAL_PUBLICO_YOUTUBE_V1",
             "CHANNEL_ID": native or "NAO SEI",
-            "FEED_URL": ("https://www.youtube.com/feeds/videos.xml?channel_id=%s"
-                         % native) if native else "NAO SEI",
             "MAX_TARGETS": 15,
         },
         "CAPABILITIES_REUTILIZADAS": ["youtube.channel.discovery",
@@ -130,7 +133,7 @@ def contrato_youtube(n: dict, f: dict, native: str) -> dict:
         "SESSION_FORBIDDEN": "rota publica: sem cookie, sem login, sem sessao.",
         "IDENTITY": {
             "STRATEGY": "CONTENT_CAPTURE",
-            "CAPTURES": {"video": {"FROM": "FEED", "FIELD": "yt:videoId"}},
+            "CAPTURES": {"video": {"FROM": "PAGINA_DO_CANAL", "FIELD": "videoId"}},
             "DOCUMENT_ID": "%s:YT:{video.videoId}" % n["SOURCE_ID"],
             "FACT_TIME": ("UNKNOWN — published_at e PUBLICATION_TIME, nao FACT_TIME"),
         },

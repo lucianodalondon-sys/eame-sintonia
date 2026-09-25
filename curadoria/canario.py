@@ -57,6 +57,8 @@ CONTROLO = {
     "LOTE-YOUTUBE-FEED": ("https://www.youtube.com/feeds/videos.xml"
                           "?channel_id=UCUs2Mg7jvUTRt7_MSOFYM5Q"),   # IT-T8-001
     "LOTE-HTML-ARTIGO": "https://www.provincia.tn.it/",              # IT-T1-002
+    "LOTE-YOUTUBE-CANAL": ("https://www.youtube.com/channel/"
+                           "UCUs2Mg7jvUTRt7_MSOFYM5Q/videos"),         # IT-T8-001, rota do canal
 }
 
 
@@ -112,6 +114,50 @@ def canario_youtube(c: dict) -> dict:
                 "{video.videoId}", vid.group(1).decode()),
             "ITENS_NO_FEED": len(entradas),
             "PRIMEIRO_PUBLISHED": pub.group(1).decode()[:10] if pub else "NAO SEI"}
+
+
+# ── O CANAL YOUTUBE PELA ROTA QUE O COLETOR USA (LEGACY-99 B, 25/09/2026) ──────
+# ⚠️ MEDIDO: as 41 YouTube READY_LEGACY tinham no Curator a rota `feeds/videos.xml`,
+# e o robots do YouTube proibe-a — VALIDATE_ROUTE: «o endereco do contrato casa com
+# Disallow no robots vivo». O coletor ja colhe pela pagina publica do canal
+# (CUSTOM_ADAPTER `CANAL_PUBLICO_YOUTUBE_V1`, tabela onboarded). O Curator passa a
+# provar ESSA rota: a aba /videos do canal, um pedido.
+YOUTUBE_CANAL = "CANAL_PUBLICO_YOUTUBE_V1"
+
+
+def url_do_canal(channel_id: str) -> str:
+    return "https://www.youtube.com/channel/%s/videos" % channel_id
+
+
+def url_da_rota(aq: dict) -> str | None:
+    """O endereco que o portao do anfitriao (robots) tem de deixar: o dono e aqui,
+    para o VALIDATE_ROUTE e o canario lerem o MESMO."""
+    if aq.get("STRATEGY") == "CUSTOM_ADAPTER" and aq.get("ADAPTER_ID") == YOUTUBE_CANAL:
+        return url_do_canal(aq["CHANNEL_ID"]) if aq.get("CHANNEL_ID") else None
+    return aq.get("FEED_URL") or aq.get("INDEX_URL")
+
+
+def canario_youtube_canal(c: dict) -> dict:
+    """A pagina /videos do canal responde, e do canal certo, e dela sai um video com
+    identidade. Nao abre o video: a regua dos 4 passos e de HTML, e decidir se um
+    video e «materia» e pergunta da regua, nao deste canario."""
+    aq = c["ACQUISITION"]
+    cid = aq.get("CHANNEL_ID") or ""
+    st, b, err = buscar(url_do_canal(cid))
+    if st != 200 or not b:
+        return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err or "HTTP %s" % st, "HTTP": st}
+    if cid.encode() not in b:
+        return {"PASS": False, "CLASSE": "ROUTE_FAILURE", "HTTP": st,
+                "PORQUE": "a pagina nao e do canal %s" % cid}
+    vids = list(dict.fromkeys(re.findall(rb'"videoId":"([A-Za-z0-9_-]{11})"', b)))
+    if not vids:
+        return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st,
+                "PORQUE": "canal sem videos na aba /videos — EMPTY_LIST"}
+    modelo = ((c.get("IDENTITY") or {}).get("DOCUMENT_ID")
+              or "%s:YT:{video.videoId}" % c.get("SOURCE_ID", "?"))
+    return {"PASS": True, "CLASSE": "OK", "HTTP": st, "ROTA": "CANAL_PUBLICO",
+            "DOCUMENT_ID": modelo.replace("{video.videoId}", vids[0].decode()),
+            "ITENS_NO_CANAL": len(vids), "DETAIL_ENUMERATED": len(vids)}
 
 
 def _regua_manda(source_id) -> bool:

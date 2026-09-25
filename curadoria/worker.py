@@ -130,7 +130,7 @@ def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
     proposito: nao se bate a uma porta que ja se sabe estar proibida.
     """
     aq = contrato.get("ACQUISITION", {})
-    url = aq.get("FEED_URL") or aq.get("INDEX_URL")
+    url = CANARIO.url_da_rota(aq)   # LEGACY-99 B: o canal YouTube pela rota do coletor
     if not url:
         return "FAIL", {"PORQUE": "contrato sem endereco de aquisicao"}
     host = url.split("/")[2]
@@ -171,6 +171,8 @@ def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
     try:
         if estrategia == "YOUTUBE_CHANNEL_FEED":
             r = CANARIO.canario_youtube(contrato)
+        elif contrato.get("ACQUISITION", {}).get("ADAPTER_ID") == CANARIO.YOUTUBE_CANAL:
+            r = CANARIO.canario_youtube_canal(contrato)
         else:
             r = CANARIO.canario_html(contrato)
     except Exception as e:
