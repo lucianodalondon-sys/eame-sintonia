@@ -1105,9 +1105,19 @@ O contrato de saída é fixo, e a inteligência recebe **isto e mais nada**:
 ESTADO · ITEM_ID · RAW_OBSERVATION_ID · UNIVERSO · ESTAGIO · TEXTO · SOURCE_ID
 SOURCE_LOCATION · FACT_LOCATION · FACT_TIME
 FACT_TIME_BASIS · FACT_LOCATION_BASIS · PUBLISHED_AT · OBSERVED_AT
+PUBLISHED_AT_BASIS · SOURCE_LOCATION_BASIS · COMPLETUDE_TEMPO_LUGAR · TEMPO_LUGAR_EVIDENCIA
 SOURCE_DECLARED_EVIDENCE_CLASS · FATO
 CAPTURED_AT · CORRIDA · ADMITIDO_POR
 ```
+
+> **033 (MIGRACAO-SALA, 25/09 — D61/D62/DA-7/DA-9).** Os quatro da linha do meio
+> passaram a viajar porque o VALOR de `PUBLISHED_AT` e de `SOURCE_LOCATION`
+> chegava à Sala e a BASE parava na porta. `COMPLETUDE_TEMPO_LUGAR` diz, das
+> quatro perguntas (publicação, lugar da fonte, data e lugar do facto), quais
+> estão PROVADAS, CALCULADAS ou NÃO SEI — **nada disto barra** (D62).
+> `TEMPO_LUGAR_EVIDENCIA` guarda o que o leitor do texto mediu (espécie,
+> precisão, cálculo, expressão) e a 2.ª fonte da publicação com o CONFLITO (DA-9).
+> `IMPLEMENTATION_STATUS`: exige a migração 033 **antes** do código.
 
 ### Eram doze, e a própria lei dizia que doze não chegavam
 

@@ -1,4 +1,4 @@
-# RELATÓRIO · LUGAR-E-TEMPO-DO-FATO (D61 + D62 + D63 + D64 + DA-6 + D69) · ramo `lugar-fato-v1`
+# RELATÓRIO · LUGAR-E-TEMPO-DO-FATO (D61 + D62 + D63 + D64 + DA-6 + D70) · ramo `lugar-fato-v1`
 
 **DA-6:** o LUGAR-FATO é o **único** dono de `fact_time` / `fact_location` a partir do texto, incluindo as
 relativas D63/D64; a nuvem tempo-publicacao fica só com PUBLICATION_TIME e SOURCE_LOCATION.
@@ -35,12 +35,15 @@ r["fact_location_basis"]      # "CAMPO · OCORRENCIA · CITADO · PROVINCE · â
                               # "CAMPO · PRODUCAO · CITADO · REGION · âncora «si producono» · OTHER · «trecho»"  ou  "NAO SEI · porquê"
 r["fact_location_kind"]       # CAMPO | EVENTO | MERCADO | NAO SEI
 r["fact_location_precision"]  # COUNTRY | REGION | PROVINCE | NAO SEI
-r["fact_time"]                # "NAO SEI" | "12 settembre" | "12-13 novembre 2026" | "2026-09-22/2026-09-22" (dia calculado) | "2026-09-14/2026-09-20"
+r["fact_time"]                # "NAO SEI" | "12 settembre" | "12-13 novembre 2026" | "2026-09-22" (dia calculado) | "2026-09-14/2026-09-20"
 r["fact_time_basis"]          # "CAMPO · AMARRADO_AO_ACONTECIMENTO · DATE_EXACT · «trecho»"
                               # "RELATIVA_A_PUBLICACAO"    (D69: SEMPRE que a data foi calculada, também «oggi, lunedì»)
                               # "NAO SEI · porquê (e as expressões relativas guardadas)"
 r["fact_time_calculo"]        # "RELATIVA_A_PUBLICACAO" quando a data foi calculada; senão "NAO_SE_APLICA"
-r["fact_time_evidencia"]      # quando calculada: "CAMPO · DATE_EXACT+CALCULADA · «ieri» contado a partir da publicação provada 2026-09-23 (…) · «trecho»"; senão "NAO_SE_APLICA"
+r["fact_time_expressao"]      # quando calculada: a expressão original («ieri», «oggi»); senão "NAO_SE_APLICA"
+r["fact_time_evidencia"]      # quando calculada: o trecho onde a expressão está; senão "NAO_SE_APLICA"
+
+notas_para_o_artefato(r, publication_time_basis)   # D70: as NOTES com os nomes que leis/artefato.py::conferir lê
 r["fact_time_kind"]           # CAMPO | EVENTO | NAO SEI
 r["fact_time_precision"]      # DATE_EXACT | WEEK | MONTH | SEASON | APPROXIMATE | NOT_KNOWN, com "+CALCULADA" quando veio da conta
 r["EVIDENCIA"]                # LUGARES (todos, de todos os tipos, cada um com KIND, ESPECIE, PAPEL_NA_LEI e trecho),
@@ -178,12 +181,12 @@ certa mas de um evento fora do agro; **2 de 18 erradas** (eram 4 de 20).
 
 ## 5. Testes e mutação
 
-- `tests/test_fato_do_texto.py` — **38 testes, verdes** (33 + 5 da D69) (`py -m unittest tests.test_fato_do_texto`).
+- `tests/test_fato_do_texto.py` — **38 testes, verdes**; e `tests/test_artefato_tempo_do_fato.py` — **14 da lei** (D70) (`py -m unittest tests.test_fato_do_texto`).
   Novos nesta volta: D64 (5 formas de «oggi» que são o dia, 5 que não são, «oggi» sem publicação),
   (a) produção numa notícia de mercado é CAMPO/OTHER, mercado perto continua MERCADO, produção longe
   (>60 letras) não conta, (b) exame adiado = INSTITUCIONAL_NAO_FATO, «agricoltura» não amarra data,
   termo de comparação, duas contas = AMBIGUO.
-- `scripts/lugar_fato/mutar_fato_do_texto.py` → `MUTACAO-FATO-DO-TEXTO-V1.json`: **34 mutantes, 34 mortos** (31 + M28–M30 da D69).
+- `scripts/lugar_fato/mutar_fato_do_texto.py` → `MUTACAO-FATO-DO-TEXTO-V1.json`: **36 mutantes, 36 mortos**; e a lei: **11 de 11** (secção 6b).
   Só conta como morto se **um teste falhou** (asserção); erro de execução não conta.
   M1 source_location copiado · M2 publicação vira fact_time · M3 menu conta · M4 rodapé conta ·
   M5 relativa sem base da publicação · **M5b a conta usa a data de coleta (hoje) em vez da publicação** ·
@@ -216,42 +219,71 @@ e de agronegócio abaixo ficam **propostas** — hoje fazem falta nas 78:
 - **regra, não palavra**: exigir maiúscula no topónimo (`mencoes()` compara em minúsculas; «fermo» casa
   com Fermo). Aqui já se exige para EVENTO/MERCADO; no leitor ficaria para todos.
 
-## 6b. D69 (corrige a DA-7) · a data calculada, a lei do artefato e a forma de escrever o dia
+## 6b. D70 · a lei do tempo do fato confere a conta (corrige a DA-7 e a D69)
 
-**O que mudou da DA-7 para a D69.** A DA-7 punha `PUBLISHED_AT_COM_PROVA` quando «oggi, lunedì» dava o
-próprio dia da publicação. O bot Luciano corrigiu (D69): esse marcador afirma «o mesmo instante», e isso
-**não foi provado**. «oggi» dá o **dia** do facto, não a cópia do instante de publicação. Agora:
+**História curta.** A DA-7 punha `PUBLISHED_AT_COM_PROVA` quando «oggi, lunedì» dava o dia da publicação;
+a D69 tirou-o (afirma «o mesmo instante», não provado) e escreveu o dia calculado como intervalo desse dia,
+para a lei — que comparava **letras** — deixar passar. A D70 (bot Luciano) chamou-lhe o que era:
+**contorno da lei**, e autorizou corrigir a lei. Foi o que se fez.
 
-| a data… | `fact_time` | `fact_time_basis` | `fact_time_precision` | `fact_time_calculo` | `fact_time_evidencia` |
-|---|---|---|---|---|---|
-| calculada, um dia («oggi, lunedì», «ieri») | `2026-09-21/2026-09-21` | `RELATIVA_A_PUBLICACAO` | `DATE_EXACT+CALCULADA` | `RELATIVA_A_PUBLICACAO` | expressão + conta + trecho |
-| calculada, intervalo («la settimana scorsa») | `2026-09-14/2026-09-20` | `RELATIVA_A_PUBLICACAO` | `WEEK+CALCULADA` | `RELATIVA_A_PUBLICACAO` | expressão + conta + trecho |
-| escrita no texto | como o texto a diz | a base descritiva | a do leitor | `NAO_SE_APLICA` | `NAO_SE_APLICA` |
+**A lei nova (`leis/artefato.py::conferir`, regra 1):**
 
-**Porque o dia calculado se escreve como intervalo desse dia.** `leis/artefato.py::conferir` (linha 352)
-compara `FACT_TIME` e `PUBLISHED_AT` **como texto**: «2026-09-21» contra «2026-09-21» reprova. A D69 manda
-não contornar a lei e ajustar a **representação**, pelo padrão que o projeto já usa. Procurei, e o padrão é este:
-- `leis/calendario_handoff.py:127` — `DATE_EXACT` → «EXIBIR_COMO: intervalo de datas»;
-- `supabase/migrations/010_calendario_agronomico.sql` — `data_inicio` / `data_fim`;
-- as semanas e os meses deste extrator já saíam como intervalo ISO 8601 `início/fim`.
+1. **`FACT_TIME_BASIS == RELATIVA_A_PUBLICACAO`** — a data só fica de pé se a conta se **refizer** ali:
+   - exige, em `NOTES`: `PUBLISHED_AT_BASIS` (provada: não vazia, não `NAO SEI`/`UNKNOWN`, e **sem
+     conflito**, DA-9), `FACT_TIME_EXPRESSAO`, `FACT_TIME_EVIDENCIA` (o trecho), `FACT_TIME_CALCULO =
+     RELATIVA_A_PUBLICACAO` e `FACT_TIME_PRECISION` a acabar em `+CALCULADA`;
+   - exige `PUBLISHED_AT` que seja um dia ISO (ou instante, de onde se tira o dia);
+   - **refaz a conta** com a mesma função do extrator, `leis/fato_do_texto.py::verificar_relativa`
+     (dono único, DA-6): re-encontra a expressão no trecho, confere a D64 («oggi» só com marca de dia) e o
+     termo de comparação, e conta a partir do dia da publicação;
+   - reprova se a conta não der **exatamente** o `FACT_TIME`, ou se a precisão não for a da conta;
+   - a base tem de ser **só** a palavra (texto a mais reprova).
+2. **Nos outros casos, a proteção antiga, pelo SIGNIFICADO.** A data lê-se como um **dia**, um **intervalo de
+   dias** ou um **instante**; texto que não é data ISO («12 settembre») compara-se como antes, por letras.
+   Reprova sem `PUBLISHED_AT_COM_PROVA`:
+   - o mesmo dia escrito de outra maneira (`2026-09-21` = `2026-09-21/2026-09-21`);
+   - o dia do facto igual ao dia de uma publicação com hora;
+   - o mesmo instante noutro fuso (`07:00Z` = `09:00+02:00`);
+   - o mesmo intervalo.
+   Passa um **instante** do facto dentro do dia da publicação (é mais fino, não é cópia). A regra da hora
+   de trabalho (`COLLECTED_AT`/`DERIVED_AT`) passou a apanhar também o mesmo instante noutro fuso.
 
-Então **toda** data calculada sai como intervalo ISO: um dia calculado é `AAAA-MM-DD/AAAA-MM-DD`. Com isso,
-«oggi, lunedì» e a publicação «2026-09-21» deixam de ser o mesmo texto, e a lei passa **sem ser tocada**.
+**No extrator:**
+- o dia calculado volta a ser o **dia** (`2026-09-21`);
+- a expressão ganha campo próprio (`fact_time_expressao`);
+- `fact_time_evidencia` passa a ser o trecho: a frase, cortada a 150 letras de cada lado, **com a expressão
+  sempre dentro**;
+- `notas_para_o_artefato(r, base)` monta as `NOTES` com os nomes que a lei lê.
 
-⚠️ **Dito às claras, para o coordenador julgar:** a lei continua a comparar texto. Um valor em intervalo
-nunca é igual a uma data solta, por isso esta regra da lei deixa de apanhar datas calculadas. O que
-guarda a honestidade aqui é o resto: a base diz sempre `RELATIVA_A_PUBLICACAO`, a precisão diz
-`CALCULADA`, e a expressão e o trecho vão em `fact_time_evidencia`. **Nenhuma lei foi mexida.** Se o
-coordenador achar que isto é contornar, a alternativa é mudar a lei — e só com ordem.
+**Provas:**
+- `tests/test_artefato_tempo_do_fato.py` — **14 testes da lei**. Cobrem: «oggi, lunedì», «ieri» e a semana
+  passam; **cada nota ausente** (5 notas × 4 formas de ausência) reprova; **conta errada**, **intervalo
+  adulterado**, expressão ou trecho trocados, «ad oggi» e «rispetto a oggi» no trecho, **base trocada**,
+  precisão sem CALCULADA ou com a resolução errada, publicação não provada, **em conflito** ou não-ISO
+  reprovam. O mesmo dia, o mesmo instante e o mesmo intervalo, escritos de outra maneira, reprovam; datas
+  diferentes e texto que não é data passam; `PUBLISHED_AT_COM_PROVA` continua a valer onde já valia.
+- `tests/test_fato_do_texto.py` — **38 testes**.
+- Mutação **da lei**: `scripts/lugar_fato/mutar_lei_do_tempo.py` → `MUTACAO-LEI-DO-TEMPO-D70.json`,
+  **11 mutantes, 11 mortos**: nota ausente passa · conta errada passa · publicação não provada passa ·
+  conflito passa · base com texto a mais passa · compara letras · relativa de confiança (sem refazer) ·
+  precisão não conferida · instante só por letras · cálculo de outra espécie · intervalo de um dia ≠ dia.
+- Mutação **do extrator**: **36 de 36**. Novos: M28 o dia calculado volta a intervalo de fuga · M30/M31
+  perdem trecho ou expressão · M32 o trecho corta a expressão numa frase longa.
+- **Errei uma vez:** o M32 sobreviveu na primeira volta. O teste da frase longa tinha o «ieri» na letra
+  ~175, antes do corte das 200. Alonguei a frase («ieri» depois da letra 250), e o M32 morre.
+- **Bateria por nome, antes e depois** (`scripts/lugar_fato/bateria_por_nome.py`): 16 módulos de teste que
+  importam `leis/artefato.py` + a prova `provas/testa_golden_path_pdf.py`, rede fechada.
+  - antes = cópia limpa de `9b3b1a65`; depois = esta árvore;
+  - `BATERIA-D70-ANTES.json` · `BATERIA-D70-DEPOIS.json` · `BATERIA-D70-COMPARACAO.json`;
+  - **398 → 411 testes; NEW_FAILURES_BY_NAME = [] (0 vermelhos novos).**
+  - Os 2 vermelhos são **herdados**, iguais antes e depois:
+    - `test_o_mapa_da_porta_vive_num_sitio_so`;
+    - a prova da estrada dourada, que falha na **T25** («o orquestrador não carrega PDF»), a mesma antes e
+      depois. A **T7** («publicar não é acontecer») passa nas duas.
 
-Testes contra a lei verdadeira (`leis.artefato.conferir`):
-- «oggi, lunedì» com publicação só-dia **passa**; com publicação com hora também passa;
-- o mesmo resultado escrito como o dia solto **reprova** — é a prova de que o teste morde;
-- `PUBLISHED_AT_COM_PROVA` nunca aparece, nem na base nem na evidência.
-
-Mutantes da D69: M28 o dia calculado volta a ser o dia solto (morre); M29 `PUBLISHED_AT_COM_PROVA` volta
-(morre); M30 perde a evidência da conta (morre). **38 testes; mutação 34/34.** A medida nas 78 saiu igual:
-nenhuma data calculada nas 78, porque a Sala não guarda a base da publicação.
+**A medida nas 78 não mudou nos totais** (lugar 12, data 18, relativas contadas 0). Três expressões
+relativas mudaram de tipo na EVIDENCIA, porque o tipo passou a ler-se na **frase inteira**, e não nas
+primeiras 200 letras.
 
 ## 7. Coordenação com as outras bancadas
 

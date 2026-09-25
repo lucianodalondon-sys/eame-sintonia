@@ -15,9 +15,11 @@ Funcao PURA (sem rede, sem banco, sem ficheiros): recebe o texto de UM documento
     fact_time_precision      o vocabulario `lugar_do_fato.RESOLUCAO_TEMPORAL` (NOT_KNOWN quando NAO SEI),
                              com «+CALCULADA» quando a data veio da conta a partir da publicacao
     fact_time_calculo        RELATIVA_A_PUBLICACAO quando a data foi CALCULADA; NAO_SE_APLICA nos outros casos
-    fact_time_evidencia      quando CALCULADA: a expressao, o trecho e a conta; NAO_SE_APLICA nos outros casos
-                             (D69: com a data calculada, fact_time_basis e SO «RELATIVA_A_PUBLICACAO», e o valor
-                             e sempre um intervalo ISO — um dia calculado e «AAAA-MM-DD/AAAA-MM-DD»)
+    fact_time_expressao      quando CALCULADA: a expressao original («ieri», «oggi»); NAO_SE_APLICA nos outros
+    fact_time_evidencia      quando CALCULADA: o trecho onde a expressao esta; NAO_SE_APLICA nos outros casos
+                             (D69/D70: com a data calculada, fact_time_basis e SO «RELATIVA_A_PUBLICACAO»; um dia
+                             calculado escreve-se como dia, «AAAA-MM-DD». `leis/artefato.py::conferir` refaz a conta
+                             com `verificar_relativa` e reprova se nao der o mesmo valor)
     EVIDENCIA                tudo estruturado: todos os lugares de todos os tipos, os tempos,
                              as EXPRESSOES RELATIVAS encontradas e a publicacao, SEPARADA
 
@@ -142,12 +144,10 @@ def _regra(expr: str):
 
 
 def _um_dia(d: date) -> str:
-    """D69: o dia CALCULADO escreve-se como o intervalo desse dia, «2026-09-21/2026-09-21» — o padrao
-    que o projeto ja usa (`leis/calendario_handoff.py`: DATE_EXACT «EXIBIR_COMO intervalo de datas»; a
-    tabela do calendario guarda data_inicio/data_fim; as semanas e meses daqui ja sao «inicio/fim»).
-    «oggi» e o DIA do facto, nao a copia do instante de publicacao: por isso nunca se escreve igual a
-    PUBLISHED_AT, e a lei `leis/artefato.py::conferir` fica como esta."""
-    return "%s/%s" % (d.isoformat(), d.isoformat())
+    """O dia calculado escreve-se como o DIA: «2026-09-21». (A D69 escrevia-o como intervalo desse dia
+    so para fugir a comparacao de letras de `leis/artefato.py::conferir`; a D70 chamou-lhe contorno da
+    lei, e a lei passou a conferir a conta — ver `verificar_relativa`.)"""
+    return d.isoformat()
 
 
 def conta_relativa(expr: str, pub: date):
@@ -197,6 +197,41 @@ def _oggi_vale(expr: str, antes: str, depois: str) -> tuple[bool, str | None]:
 # passado e a regua, o facto e deste ano. O mesmo para «rispetto alla settimana scorsa».
 _RE_COMPARACAO = re.compile(r"(?:rispetto|confront\w*|paragon\w*|stesso\s+periodo|analogo\s+periodo|in\s+linea\s+con)"
                             r"[^.;!?]*$", re.I)
+
+
+# ── D70 · A VERIFICACAO UNICA DE UMA DATA RELATIVA ───────────────────────────
+# O extrator e a lei (`leis/artefato.py::conferir`) chamam ESTA funcao. Assim os dois nunca discordam:
+# a lei refaz, a partir da publicacao + expressao + trecho guardados, exatamente a conta do extrator.
+def verificar_relativa(expressao: str, trecho: str, publicacao: date | None):
+    """((valor, resolucao) | None, porque | None).
+
+    Confere, no TRECHO guardado: a expressao esta la; nao e «oggi» no sentido de «hoje em dia» (D64);
+    nao e termo de comparacao; e tem medida. Com `publicacao` (dia provado), faz a conta. Sem ela,
+    devolve (None, None) se a expressao e valida, e (None, porque) se nao e."""
+    t = str(trecho or "")
+    m = re.search(r"(?<![0-9a-zà-ÿ])%s(?![0-9a-zà-ÿ])" % re.escape(str(expressao or "")), t, re.I) if expressao else None
+    if not m:
+        return None, "a expressao «%s» nao esta no trecho guardado" % expressao
+    antes, depois = t[max(0, m.start() - 50):m.start()], t[m.end():m.end() + 40]
+    vale, porque = _oggi_vale(m.group(0), antes, depois)
+    if not vale:
+        return None, porque
+    if _RE_COMPARACAO.search(antes):
+        return None, "termo de comparação («%s»), não o tempo do facto" % _trecho(antes, 50)
+    if _regra(m.group(0))[0] == "SEM_MEDIDA":
+        return None, "«%s» não diz quanto tempo: sem medida, não vira data" % m.group(0)
+    if publicacao is None:
+        return None, None
+    return conta_relativa(m.group(0), publicacao), None
+
+
+def _janela(t: str, ini: int, fim: int) -> str:
+    """O trecho de uma expressao: a frase dela, cortada a 150 letras de cada lado — a expressao fica
+    SEMPRE dentro (a lei confere-a no trecho guardado)."""
+    a = max(t.rfind(c, 0, ini) for c in ".!?;\n") + 1
+    fins = [i for i in (t.find(c, fim) for c in ".!?;\n") if i != -1]
+    b = min(fins) if fins else len(t)
+    return _trecho(t[max(a, ini - 150):min(b, fim + 150)], 400)
 
 
 # ── as ancoras do leitor, mas com PALAVRA INTEIRA a esquerda ────────────────
@@ -281,8 +316,9 @@ def _tapar(t: str) -> tuple[str, list, list]:
     orig = t
 
     def _rel(m):
-        relativas.append({"EXPRESSAO": m.group(0), "TRECHO": _trecho(_frase_em(orig, m.start())),
-                          "_ANTES": orig[max(0, m.start() - 50):m.start()], "_DEPOIS": orig[m.end():m.end() + 40]})
+        # o TIPO decide-se pela FRASE INTEIRA; o TRECHO guardado e a janela onde a lei re-encontra a expressao
+        relativas.append({"EXPRESSAO": m.group(0), "TRECHO": _janela(orig, m.start(), m.end()),
+                          "_FRASE": _frase_em(orig, m.start())})
         return " " * len(m.group(0))
     t = _RE_RELATIVOS.sub(_rel, t)
     return t, tapados, relativas
@@ -432,18 +468,16 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
     # ── tempo · pela ordem: data explicita de CAMPO > relativa de CAMPO > data de EVENTO > relativa de EVENTO
     t, tapados, relativas = _tapar(c)
     for x in relativas:                    # a que tipo de facto a expressao esta presa, pela frase dela
-        antes, depois = x.pop("_ANTES"), x.pop("_DEPOIS")
-        if _RE_INSTITUCIONAL.search(x["TRECHO"]):
+        frase = x.pop("_FRASE")
+        if _RE_INSTITUCIONAL.search(frase):
             x["KIND"], x["PORQUE"] = None, "frase institucional (exame, aula, curso…): não é facto do agro"
         else:
-            x["KIND"] = CAMPO if _presa_ao_campo(x["TRECHO"]) else EVENTO if _RE_EVENTO.search(x["TRECHO"]) else None
+            x["KIND"] = CAMPO if _presa_ao_campo(frase) else EVENTO if _RE_EVENTO.search(frase) else None
             x["PORQUE"] = None if x["KIND"] else "a frase não fala de um acontecimento nem de um evento técnico"
-        vale, porque = _oggi_vale(x["EXPRESSAO"], antes, depois)
-        if vale and _RE_COMPARACAO.search(antes):
-            vale, porque = False, "termo de comparação («%s»), não o tempo do facto" % _trecho(antes, 50)
-        if not vale:
+        cr, porque = verificar_relativa(x["EXPRESSAO"], x["TRECHO"], pub)
+        if porque:
             x["PORQUE"] = porque
-        cr = conta_relativa(x["EXPRESSAO"], pub) if (pub and x["KIND"] and vale) else None
+        cr = cr if x["KIND"] else None
         x["CONTA"] = {"VALOR": cr[0], "RESOLUCAO": cr[1]} if cr else None
     r = _tempo_de_campo(t, pub, tapados)
     eventos = []
@@ -479,16 +513,15 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
     # D69 (corrige a DA-7): quando a data e CALCULADA, fact_time_basis = RELATIVA_A_PUBLICACAO, SEMPRE —
     # tambem para «oggi» marcado. PUBLISHED_AT_COM_PROVA afirmaria «o mesmo instante», o que nao foi provado.
     # O como/porque (expressao, conta, trecho) vai para fact_time_calculo / fact_time_evidencia.
-    fact_time_calculo = fact_time_evidencia = NAO_SE_APLICA
+    fact_time_calculo = fact_time_evidencia = fact_time_expressao = NAO_SE_APLICA
     if tempo:
         fact_time, fact_time_kind = tempo["VALOR"], tempo["KIND"]
         fact_time_precision = tempo["RESOLUCAO"] + ("+CALCULADA" if tempo.get("CALCULADA") else "")
         if tempo.get("CALCULADA"):
             fact_time_basis = RELATIVA
             fact_time_calculo = RELATIVA
-            fact_time_evidencia = ("%s · %s · «%s» contado a partir da publicação provada %s (%s) · «%s»"
-                                   % (tempo["KIND"], fact_time_precision, tempo["EXPRESSAO"], pub.isoformat(),
-                                      _trecho(publication_time_basis, 60), tempo["TRECHO"]))[:800]
+            fact_time_expressao = tempo["EXPRESSAO"]
+            fact_time_evidencia = tempo["TRECHO"]          # o trecho onde a lei re-encontra a expressao
         else:
             fact_time_basis = "%s · %s · %s%s · «%s»" % (tempo["KIND"], tempo["ORIGEM"], tempo["RESOLUCAO"],
                                                          " · âncora «%s»" % tempo["ANCORA"] if tempo.get("ANCORA") else "",
@@ -515,11 +548,21 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
             "fact_location_kind": kind_l or NAO_SEI, "fact_location_precision": fact_location_precision,
             "fact_time": fact_time, "fact_time_basis": fact_time_basis[:800],
             "fact_time_kind": fact_time_kind, "fact_time_precision": fact_time_precision,
-            "fact_time_calculo": fact_time_calculo, "fact_time_evidencia": fact_time_evidencia,
+            "fact_time_calculo": fact_time_calculo, "fact_time_expressao": fact_time_expressao,
+            "fact_time_evidencia": fact_time_evidencia,
             "EVIDENCIA": {"LUGARES": lugares, "TEMPO": tempo, "TEMPOS_DE_EVENTO": eventos,
                           "EXPRESSOES_RELATIVAS": relativas,
                           "PUBLICACAO_PROVADA": pub.isoformat() if pub else None,
                           "LINHAS_DE_CORPO": len(c.splitlines()) if c else 0}}
+
+
+def notas_para_o_artefato(r: dict, publication_time_basis: str | None) -> dict:
+    """As NOTES que `leis/artefato.py::conferir` le para refazer a conta de uma data relativa (D70).
+    Quem pousa o `campos_do_fato` num Artefato junta isto a NOTES — com os nomes que a lei espera."""
+    return {"FACT_TIME_BASIS": r["fact_time_basis"], "PUBLISHED_AT_BASIS": publication_time_basis or NAO_SEI,
+            "FACT_TIME_EXPRESSAO": r["fact_time_expressao"], "FACT_TIME_EVIDENCIA": r["fact_time_evidencia"],
+            "FACT_TIME_CALCULO": r["fact_time_calculo"], "FACT_TIME_PRECISION": r["fact_time_precision"],
+            "FACT_LOCATION_BASIS": r["fact_location_basis"]}
 
 
 if __name__ == "__main__":

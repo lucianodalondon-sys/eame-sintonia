@@ -573,6 +573,8 @@ def _fato_do_texto(texto, bruto, publicacao=None):
           "FACT_LOCATION_VEIO_DE": veio_de["FACT_LOCATION"],
           "FACT_TIME_CALCULO": r["fact_time_calculo"],
           "FACT_TIME_EVIDENCIA": r["fact_time_evidencia"],
+          # D70: a expressao original («ieri», «oggi»), a parte do trecho
+          "FACT_TIME_EXPRESSAO": r["fact_time_expressao"],
           "FACT_TIME_KIND": r["fact_time_kind"],
           "FACT_TIME_PRECISION": r["fact_time_precision"],
           "FACT_TIME_VEIO_DE": veio_de["FACT_TIME"],

@@ -1,0 +1,105 @@
+{
+ "DATASET": "MUTACAO-LEI-DO-TEMPO-D70",
+ "ALVO": "leis/artefato.py",
+ "TESTES": [
+  "tests.test_artefato_tempo_do_fato",
+  "tests.test_fato_do_texto"
+ ],
+ "ALVO_SHA256_LF": "f183ca8daebafaba95d291ce73afc6c299bd19b566919bb76f64a0bde5e92a10",
+ "MUTANTES": [
+  {
+   "MUTANTE": "L1_NOTA_AUSENTE_PASSA",
+   "REGRA": "cada nota da relativa ausente tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.144s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L2_CALCULO_ERRADO_PASSA",
+   "REGRA": "a conta refeita diferente do FACT_TIME tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.154s | FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L3_PUBLICACAO_NAO_PROVADA_PASSA",
+   "REGRA": "publicacao NAO SEI/UNKNOWN tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.149s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L4_CONFLITO_PASSA",
+   "REGRA": "publicacao em conflito (DA-9) tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.187s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L5_BASE_COM_TEXTO_A_MAIS_PASSA",
+   "REGRA": "base relativa com texto a mais tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.159s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L6_COMPARA_LETRAS",
+   "REGRA": "a protecao antiga tem de comparar o significado, nao as letras",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.164s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L7_RELATIVA_DE_CONFIANCA",
+   "REGRA": "a base relativa nao pode passar sem refazer a conta",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.177s | FAILED (failures=7)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L8_PRECISAO_NAO_CONFERIDA",
+   "REGRA": "a precisao sem CALCULADA ou com resolucao errada tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.151s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L9_INSTANTE_SO_POR_LETRAS",
+   "REGRA": "o mesmo instante noutro fuso tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.151s | FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L10_CALCULO_DE_OUTRA_ESPECIE_PASSA",
+   "REGRA": "FACT_TIME_CALCULO que nao e RELATIVA_A_PUBLICACAO tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.177s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "L11_INTERVALO_DE_UM_DIA_NAO_E_DIA",
+   "REGRA": "o intervalo de um dia igual ao dia da publicacao tem de reprovar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 52 tests in 0.153s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  }
+ ],
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "SAIDA": "Ran 52 tests in 0.166s | OK"
+ },
+ "MORTOS": 11,
+ "TOTAL": 11
+}

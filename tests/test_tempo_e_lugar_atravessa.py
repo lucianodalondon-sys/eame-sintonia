@@ -265,12 +265,13 @@ class ChegaAoReady(unittest.TestCase):
 
     def test_D63_ieri_e_o_dia_exacto_antes_da_publicacao(self):
         item = self._relativa("ieri")
-        # D69: o dia calculado e um intervalo ISO desse dia, nunca uma data solta
-        self.assertEqual(item["fact_time"], "2026-09-15/2026-09-15")
+        # D70: o dia calculado e o DIA (a D69 escrevia-o como intervalo de um dia)
+        self.assertEqual(item["fact_time"], "2026-09-15")
         # DA-7: a base e SO a palavra que a lei le — tal e qual, sem prefixo
         self.assertEqual(item["fact_time_basis"], "RELATIVA_A_PUBLICACAO")
         ev = item["tempo_lugar_evidencia"]
         self.assertIn("ieri", ev["FACT_TIME_EVIDENCIA"])
+        self.assertEqual(ev["FACT_TIME_EXPRESSAO"], "ieri")
         self.assertTrue(ev["FACT_TIME_PRECISION"].startswith("DATE_EXACT"))
         self.assertEqual(ev["FACT_TIME_CALCULO"], "RELATIVA_A_PUBLICACAO")
         self.assertEqual(ev["FACT_TIME_VEIO_DE"], "TEXTO")
@@ -285,11 +286,11 @@ class ChegaAoReady(unittest.TestCase):
 
     def test_D63_oggi_com_marca_de_dia_conta_a_partir_da_publicacao(self):
         item = self._relativa("oggi 16 settembre")
-        # D69: o proprio dia da publicacao, como intervalo — e a base e a mesma
-        # palavra de toda data calculada (PUBLISHED_AT_COM_PROVA deixou de existir)
-        self.assertEqual(item["fact_time"], "2026-09-16/2026-09-16")
-        self.assertNotEqual(item["fact_time"], item["published_at"])
+        # D70: o proprio dia da publicacao, e a base e a palavra de toda data
+        # calculada — e ela que diz «contado», nao a forma da data
+        self.assertEqual(item["fact_time"], "2026-09-16")
         self.assertEqual(item["fact_time_basis"], "RELATIVA_A_PUBLICACAO")
+        self.assertEqual(item["tempo_lugar_evidencia"]["FACT_TIME_EXPRESSAO"], "oggi")
         self.assertEqual(item["tempo_lugar_evidencia"]["FACT_TIME_CALCULO"],
                          "RELATIVA_A_PUBLICACAO")
 
