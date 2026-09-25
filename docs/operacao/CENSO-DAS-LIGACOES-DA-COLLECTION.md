@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ea96ad80a9fb4e13f088af2b50ce2f2519c39f17
-BRANCH           ajustes-micro-v1
-GERADO_EM        2026-09-25T08:36:03-03:00
-CARDS            100
+HEAD_DA_MEDICAO  5253506b95cb8959815e47b9266f1bd7701717b5
+BRANCH           reroute-d2-v1
+GERADO_EM        2026-09-25T09:22:00-03:00
+CARDS            101
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -490,13 +490,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/idioma.py`, `curadoria/politica_nao_sei.py`, `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 8 · saem 45 |
-| **arestas provadas** | entram 6 · saem 44 |
+| **arestas no mapa** | entram 8 · saem 46 |
+| **arestas provadas** | entram 6 · saem 45 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 48 · NÃO SEI 3 · OBSERVED 2 |
+| **prova das ligações** | CODE 49 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1007,6 +1007,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
 | **prova das ligações** | CODE 1 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+
+### `C-REROUTE-D2` · REROUTE da D2 na Admissao — medicao no acervo e ataque (D56)
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/reroute/medir_reroute.py`, `provas/reroute_mutacao.py` |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `admissao/admissao.py`, `ferramentas/reroute/MEDICAO-REROUTE-V1.json`, `scripts/regua_t2/medir_regua_t2.py` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | `ferramentas/reroute/MEDICAO-REROUTE-V1.json` |
+| **arestas no mapa** | entram 2 · saem 0 |
+| **arestas provadas** | entram 2 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
@@ -1996,7 +2021,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | | |
 |---|---|
 | **peça real** | `RELATORIO-T1-JANELA.md`, `scripts/regua_t1/GABARITO-T1-V1.json`, `scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json`, `scripts/regua_t1/MEDICAO-REGUA-T1-V1.json`, `scripts/regua_t1/MUTACAO-REGUA-T1-V1.json` _(e mais 18)_ |
-| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
@@ -2021,23 +2046,23 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | | |
 |---|---|
 | **peça real** | `scripts/regua_t2/GABARITO-T2-V1.json`, `scripts/regua_t2/GABARITO-T2-V2.json`, `scripts/regua_t2/GABARITO-T2-V3.json`, `scripts/regua_t2/MEDICAO-REGUA-T2-V1.json`, `scripts/regua_t2/MEDICAO-REGUA-T2-V2.json` _(e mais 25)_ |
-| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
-| **porquê** | estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | ferramentas/reroute/medir_reroute.py:30; scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
+| **porquê** | estas pecas importam-na — C-REGUA-T1-JANELA · C-REROUTE-D2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `admissao/admissao.py`, `admissao/idioma.py`, `curadoria/CATALOGO-PROVA-V1.json` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 4 |
-| **arestas provadas** | entram 6 · saem 4 |
+| **arestas no mapa** | entram 6 · saem 5 |
+| **arestas provadas** | entram 6 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 10 |
+| **prova das ligações** | CODE 11 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2559,9 +2584,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 OK                 40
 UNKNOWN            30
 SYSTEM_GAP         11
-TERMINAL           10
+TERMINAL           11
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
 ORPHAN             1
-TOTAL              100
+TOTAL              101
 ```

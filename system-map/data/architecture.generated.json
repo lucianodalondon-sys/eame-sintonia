@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "ajustes-micro-v1",
-    "HEAD": "ea96ad80a9fb4e13f088af2b50ce2f2519c39f17",
-    "GENERATED_AT": "2026-09-25T08:36:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449"
+    "BRANCH": "reroute-d2-v1",
+    "HEAD": "5253506b95cb8959815e47b9266f1bd7701717b5",
+    "GENERATED_AT": "2026-09-25T09:22:00-03:00",
+    "SOURCE_TREE_FINGERPRINT": "02a4566e328155224e92a3dd10359de9329b7ff2fa2f92be10f10743390cea88"
   },
   "FILES": [
     {
@@ -717,7 +717,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "624a2143320391e75c01298a57213c9c6dbb0611",
+      "sha": "bb8159509895831e7dbb98b9ebaf5e8f0529eab5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11377,6 +11377,48 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/reroute/BATERIA-ADMISSAO-ANTES-DEPOIS.json",
+      "sha": "2d994506bbe95c5cf99095b532a88dcf35035b8a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/reroute/HOJE-49-LIGADOS-AO-LIVRO.json",
+      "sha": "acfde1be586fd659b577c4d0c514f4cca98ffe3e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/reroute/INSUMOS-REROUTE.txt",
+      "sha": "962d9689c1ceb6583f62ff6a4245b24bbca151aa",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/reroute/MEDICAO-REROUTE-V1.json",
+      "sha": "14ed796620d75405e344a9d5aa247682dabf0c21",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/reroute/RELATORIO-REROUTE.md",
+      "sha": "e4a9b338bf9d57d378b00b9c993e11c7f1a4c938",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/reroute/medir_reroute.py",
+      "sha": "9ff8e01e60b766ec1046ecb15a452f6122cb53ce",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "sha": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
       "ext": ".py",
@@ -15017,6 +15059,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/REROUTE-MUTACAO.json",
+      "sha": "7893008aa07b91dd74bc4e1939884c55022bd16f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/TETO-DOMINIO-MUTACAO.json",
       "sha": "f6fe9f43b6d1626da23e83fe972c11d8804d884c",
       "ext": ".json",
@@ -16153,6 +16202,13 @@
     {
       "path": "provas/reel_fala_qualidade.py",
       "sha": "6927ebd7f240c5017a1e9e53a5ae51b20b957383",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_mutacao.py",
+      "sha": "db63259bd839dccb345b2ad4784e51f8dfa1d933",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18749,7 +18805,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "a702e6586a8444b6fdd522e014bf3c3051dc136c",
+      "sha": "07ca553d8431bc8a3ba9215d5bbf0dec45674868",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20668,6 +20724,13 @@
     {
       "path": "tests/test_relevance_priority_sobrecarga.py",
       "sha": "444da670945595bb81aa49f68aa8d92b4e4ea44f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_reroute_d2.py",
+      "sha": "f67e6c9e893dbb1f0aac8d9db7d0a6018721fc4b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -33816,6 +33879,50 @@
         "file": "ferramentas/reel_transcricao.py",
         "line": 93,
         "snippet": "import social_matriz as mz      # noqa: E402 — a política de rota, dono único"
+      }
+    },
+    {
+      "from_file": "ferramentas/reroute/medir_reroute.py",
+      "to_file": "ferramentas/reroute/MEDICAO-REROUTE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/reroute/medir_reroute.py",
+        "line": 150,
+        "snippet": "saida = Path(_arg(\"saida\", str(RAIZ / \"ferramentas\" / \"reroute\" / \"MEDICAO-REROUTE-V1.json\")))"
+      }
+    },
+    {
+      "from_file": "ferramentas/reroute/medir_reroute.py",
+      "to_file": "ferramentas/reroute/MEDICAO-REROUTE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/reroute/medir_reroute.py",
+        "line": 151,
+        "snippet": "saida.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/reroute/medir_reroute.py",
+      "to_file": "scripts/regua_t2/medir_regua_t2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/reroute/medir_reroute.py",
+        "line": 30,
+        "snippet": "_s = u.spec_from_file_location(\"mr\", R2 / \"medir_regua_t2.py\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/reroute/medir_reroute.py",
+      "to_file": "scripts/regua_t2/medir_via_agrometeo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/reroute/medir_reroute.py",
+        "line": 33,
+        "snippet": "_s = u.spec_from_file_location(\"mva\", R2 / \"medir_via_agrometeo.py\")"
       }
     },
     {
@@ -59801,6 +59908,17 @@
       }
     },
     {
+      "from_file": "provas/reroute_mutacao.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_mutacao.py",
+        "line": 20,
+        "snippet": "ALVO = \"admissao/admissao.py\""
+      }
+    },
+    {
       "from_file": "provas/run_duravel_no_postgres.py",
       "to_file": "coleta/coleta_checkpoint.py",
       "type": "IMPORTS",
@@ -82186,6 +82304,17 @@
       }
     },
     {
+      "from_file": "tests/test_reroute_d2.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_d2.py",
+        "line": 15,
+        "snippet": "import admissao as A  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_retirada_por_decisao.py",
       "to_file": "regras/italy_contracts.mjs",
       "type": "READS",
@@ -85450,10 +85579,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2988,
-    "files_readable": 1336,
-    "files_code_dir": 1278,
-    "file_edges": 5812,
+    "files_tracked": 2997,
+    "files_readable": 1339,
+    "files_code_dir": 1287,
+    "file_edges": 5818,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

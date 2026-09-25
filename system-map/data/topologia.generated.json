@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T11:39:31+00:00",
-  "HEAD": "ea96ad80a9fb4e13f088af2b50ce2f2519c39f17",
-  "BRANCH": "ajustes-micro-v1",
+  "GENERATED_AT": "2026-09-25T12:26:57+00:00",
+  "HEAD": "5253506b95cb8959815e47b9266f1bd7701717b5",
+  "BRANCH": "reroute-d2-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449",
-  "FICHEIROS_NA_IMPRESSAO": 3136,
+  "SOURCE_TREE_FINGERPRINT": "02a4566e328155224e92a3dd10359de9329b7ff2fa2f92be10f10743390cea88",
+  "FICHEIROS_NA_IMPRESSAO": 3145,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -160,7 +160,7 @@
    {
     "PATH": "admissao/admissao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "624a2143320391e75c01298a57213c9c6dbb0611",
+    "VERSAO": "bb8159509895831e7dbb98b9ebaf5e8f0529eab5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -861,6 +861,13 @@
     "PATH": "ferramentas/rendimento/medir_saltos.py",
     "PAPEL": "FONTE",
     "VERSAO": "f1ccfa3870bf094f63a502ab811bb0fc7f969a04",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/reroute/medir_reroute.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9ff8e01e60b766ec1046ecb15a452f6122cb53ce",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3336,6 +3343,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/reroute_mutacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "db63259bd839dccb345b2ad4784e51f8dfa1d933",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/run_duravel_no_postgres.py",
     "PAPEL": "FONTE",
     "VERSAO": "7394d2e6a3e168d65454fa7337d7707793e907b6",
@@ -3989,14 +4003,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449",
+    "VERSAO": "02a4566e328155224e92a3dd10359de9329b7ff2fa2f92be10f10743390cea88",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449",
+    "VERSAO": "02a4566e328155224e92a3dd10359de9329b7ff2fa2f92be10f10743390cea88",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5688,6 +5702,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_reroute_d2.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "f67e6c9e893dbb1f0aac8d9db7d0a6018721fc4b",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_retirada_por_decisao.py",
     "PAPEL": "FONTE",
     "VERSAO": "730f94111ee490b4c0394d5fd670b0d809542dc7",
@@ -5933,8 +5954,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 842,
-  "INPUTS_DIGEST": "8bce1049d8ab26742b944aadcacd8aa1b6351265ff47499f1cba0049639d9854",
+  "INPUTS_COUNT": 845,
+  "INPUTS_DIGEST": "8772b8c09f35c274970090eb213a67e908998971a81c2f7925757df688b73261",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5960,15 +5981,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 517,
+  "DOCUMENTOS_LIDOS": 518,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3161b07d5ddd444885bc6fb36b2eee3bdb1dbff709a021879ea310242baf71e9",
-  "SEMANTIC_HASH": "405db8e101ba0ee31526509ad3b7c8fb6df59b91f79d3dc8c4339b022fe471b7"
+  "MEASUREMENT_HASH": "938fed4bc2ae49ac9e008850d5eb8972b82502a727873238e8d6ced83548c87a",
+  "SEMANTIC_HASH": "1805d88bd958128b2d290d57b85efabafb80f31554055c280cdbb97c1a95978f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6062,6 +6083,7 @@
    "C-REGUA-T2-JANELA",
    "C-RELATORIO-FLUXO",
    "C-REPARO-MEDICAO",
+   "C-REROUTE-D2",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -6081,7 +6103,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 101
+  "COUNT": 102
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6352,6 +6374,7 @@
    "C-RELEVANCIA",
    "C-RELEVANCIA-DA-FONTE",
    "C-REPARO-MEDICAO",
+   "C-REROUTE-D2",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -6379,16 +6402,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 190
+  "COUNT": 191
  },
  "ARITMETICA": {
-  "COLLECTION": 101,
+  "COLLECTION": 102,
   "BOUNDARY": 89,
-  "SOMA": 190,
-  "EXPANDED": 190,
+  "SOMA": 191,
+  "EXPANDED": 191,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 190,
+  "RESUMO_CARTOES_NO_UNIVERSO": 191,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -7926,7 +7949,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "admissao/admissao.py",
-      "LINHA": 1816,
+      "LINHA": 1860,
       "SUPPORTS": "NO",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -8256,6 +8279,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-REGUA-T2-JANELA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ADMISSAO--READS-->C-REROUTE-D2",
+    "FROM": "C-ADMISSAO",
+    "TO": "C-REROUTE-D2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/reroute_mutacao.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-REROUTE-D2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -35445,6 +35490,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REROUTE-D2",
+    "FROM": "C-REGUA-T2-JANELA",
+    "TO": "C-REROUTE-D2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/reroute/medir_reroute.py",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REROUTE-D2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/reroute/medir_reroute.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REROUTE-D2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-TESTES",
     "FROM": "C-REGUA-T2-JANELA",
     "TO": "C-TESTES",
@@ -44690,12 +44765,12 @@
     ]
    }
   ],
-  "COUNT": 1255
+  "COUNT": 1257
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 190,
-  "CARTOES_AUDITADOS": 190,
-  "ARESTAS_RELACIONADAS": 1255,
+  "CARTOES_NO_UNIVERSO": 191,
+  "CARTOES_AUDITADOS": 191,
+  "ARESTAS_RELACIONADAS": 1257,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -44919,6 +44994,7 @@
    "C-REGUA-T2-JANELA",
    "C-RELATORIO-FLUXO",
    "C-REPARO-MEDICAO",
+   "C-REROUTE-D2",
    "C-ROTULOS",
    "C-SAUDE-FONTE",
    "C-SUPERFICIE-SCRAP-V1"
@@ -44974,7 +45050,8 @@
    "C-PROVA-GATE-1D",
    "C-RECOLLECTION-CENSO",
    "C-RELATORIO-FLUXO",
-   "C-REPARO-MEDICAO"
+   "C-REPARO-MEDICAO",
+   "C-REROUTE-D2"
   ],
   "SEM_LIGACAO": {
    "C-AJUSTES-MICRO": "UNKNOWN",
@@ -45089,6 +45166,9 @@
    "C-REPARO-MEDICAO": [
     "collection-strategy"
    ],
+   "C-REROUTE-D2": [
+    "infra"
+   ],
    "C-SAUDE-FONTE": [
     "acervo"
    ],
@@ -45133,8 +45213,8 @@
    "CONTROL": 77,
    "DATA": 30,
    "PROOF": 390,
-   "READ": 296,
-   "RULE": 228,
+   "READ": 297,
+   "RULE": 229,
    "WRITE": 14
   },
   "GAPS_NOMEADOS": [
@@ -45334,6 +45414,7 @@
     "provas/o_censo_da_sala_de_espera.py",
     "provas/os_portoes_da_collection.py",
     "provas/red_team_duas_portas.py",
+    "provas/reroute_mutacao.py",
     "provas/so_a_colheita_atravessa.py",
     "system-map/scripts/censo_da_topologia.py",
     "system-map/scripts/censo_das_derivacoes.py",
@@ -45372,7 +45453,7 @@
     "preservar_coleta"
    ],
    "ENTRAM": 8,
-   "SAEM": 45,
+   "SAEM": 46,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -45404,7 +45485,8 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
    "DOCUMENTADO_COMO_CLI": [
-    "ferramentas/rendimento/ajustes/RELATORIO-AJUSTES-MICRO.md"
+    "ferramentas/rendimento/ajustes/RELATORIO-AJUSTES-MICRO.md",
+    "ferramentas/reroute/RELATORIO-REROUTE.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -46021,7 +46103,8 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "ferramentas/integra_onda2/PLANO-INSTALACAO-INTEGRA-ONDA2.md",
-    "ferramentas/ponte_onboard/PLANO-INSTALACAO-PONTE-ONBOARD.md"
+    "ferramentas/ponte_onboard/PLANO-INSTALACAO-PONTE-ONBOARD.md",
+    "ferramentas/reroute/RELATORIO-REROUTE.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -50254,6 +50337,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/onda_web_mutacao.py",
+    "provas/reroute_mutacao.py",
     "provas/teto_dominio_mutacao.py",
     "tests/test_teto_dominio.py"
    ],
@@ -51102,6 +51186,7 @@
     "tests/test_preservar_coleta_no_banco.py",
     "tests/test_qualidade_t3.py",
     "tests/test_rastro_pg.py",
+    "tests/test_reroute_d2.py",
     "tests/test_sala_duravel.py",
     "tests/test_scrap_flow01_caminho_canonico.py",
     "tests/test_source_id_wiring_gap.py",
@@ -52849,7 +52934,7 @@
     "urllib"
    ],
    "ENTRAM": 6,
-   "SAEM": 4,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ",
@@ -53021,6 +53106,42 @@
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [
     "collection-strategy"
+   ],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-REROUTE-D2",
+   "NOME": "REROUTE da D2 na Admissao — medicao no acervo e ataque (D56)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/reroute/medir_reroute.py",
+    "provas/reroute_mutacao.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "pathlib"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "infra"
    ],
    "GAP": null
   },
@@ -54269,6 +54390,7 @@
     "tests/test_regua_t2.py",
     "tests/test_relatorio_do_fluxo.py",
     "tests/test_relevance_priority_sobrecarga.py",
+    "tests/test_reroute_d2.py",
     "tests/test_retirada_por_decisao.py",
     "tests/test_retorno_da_coleta.py",
     "tests/test_route_membership.py",
@@ -54326,6 +54448,7 @@
     "provas/raw_entre_jobs.py",
     "provas/red_team_adama_referencia.py",
     "provas/red_team_duas_portas.py",
+    "provas/reroute_mutacao.py",
     "provas/social_persistencia_no_postgres.py",
     "system-map/scripts/censo_do_armazem_it.py",
     "system-map/scripts/censo_do_congelamento.py",
