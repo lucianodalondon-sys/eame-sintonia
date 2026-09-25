@@ -43,7 +43,11 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 ARQUIVO = RAIZ / "curadoria" / "REVISAO-READY-V1.json"
 
-BLOQUEIAM = frozenset({"SERVICO_OU_INSTITUCIONAL", "TEXTO_NAO_E_MATERIA", "LISTA_COMO_ITEM"})
+# ALVO_ERRADO e NAO_SEI (REVISAO-15, 25/09): o padrao reparado aponta para outro tema
+# ou seccao que nao a da fonte (fitossanitario -> «qualita produzioni»); ou a leitura
+# nao decide. As duas retem, como as outras, com o motivo no livro.
+BLOQUEIAM = frozenset({"SERVICO_OU_INSTITUCIONAL", "TEXTO_NAO_E_MATERIA", "LISTA_COMO_ITEM",
+                       "ALVO_ERRADO", "NAO_SEI"})
 TEMA = "TEMA_A_CONFIRMAR"
 PARCIAL = "ACESSO_PARCIAL"
 LIMPA = "LIMPA"

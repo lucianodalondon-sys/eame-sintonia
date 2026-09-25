@@ -325,6 +325,18 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
                 return True
         return False
 
+    import revisao_ready as REV   # noqa: E402
+    revistas = {s: x for s, x in REV._ler().items() if x.get("REVISTO_EM")}
+
+    def _leitura_nova(sid: str) -> bool:
+        """So as leituras com data (REVISTO_EM) e mais novas que a ultima rota/canario."""
+        x = revistas.get(sid)
+        if not x:
+            return False
+        u = ultima_rota.get(sid)
+        r = _quando(x["REVISTO_EM"])
+        return r is not None and (u is None or u < r)
+
     def _html(c: dict | None) -> bool:
         return (c or {}).get("ACQUISITION", {}).get("STRATEGY") in (None, "HTML_LINK_DISCOVERY")
 
@@ -334,7 +346,14 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
         if not sid.startswith("IT-") or sid in abertas:
             continue
         c = contratos.get(sid)
-        if e == LC.CONTRACTED_CANARY_FAILED:
+        if e == LC.CONTRACTED_CANARY_FAILED and _leitura_nova(sid):
+            # REVISAO-15: a fonte ja reparada ganhou uma leitura DEPOIS do ultimo
+            # canario — re-medir UMA vez, para a trava da revisao decidir com ela
+            # (LIMPA -> READY pela regua; SUSPEITA -> o motivo fica no livro).
+            out.append({"SOURCE_ID": sid, "TASK_TYPE": F.VALIDATE_ROUTE, "ORDEM": 0,
+                        "MOTIVO": "revisao nova (%s) depois do ultimo canario: re-medir uma vez"
+                                  % revistas[sid]["REVISTO_EM"][:19]})
+        elif e == LC.CONTRACTED_CANARY_FAILED:
             if _html(c) and not _ja_reparada(sid):
                 out.append({"SOURCE_ID": sid, "TASK_TYPE": F.REPAIR_CONTRACT, "ORDEM": 1,
                             "MOTIVO": "canario falhou e o contrato nunca foi reparado"})
