@@ -822,7 +822,7 @@
     "audit",
     "diagnostic"
    ],
-   "what": "Diagnostico offline dos 6 NAO/NAO_SEI da 1.a onda (BC5) sobre os RAW guardados: IT-T7-135/121 escolhiam a pagina de contatos da cia.it (o LINK_PATTERN do molde so recusava 'contatti' no 1.o troco); conserto em regras/motor_de_rota.mjs (pagina institucional no ULTIMO troco nao e alvo). Mede no livro de coletas da producao (169 enderecos, 2 recusados, 0 materias) e rejulga a 1.a onda com T1+T2 (0 mudancas). D40 (ALVOS-NOVOS): a escolha passa a ser o 1.o alvo ainda NAO coletado, ate 3 por fonte (escolherAlvosD40 em regras/motor_de_rota.mjs; o coletor da-lhe o livro); medido com 14 indices (1 pedido por dominio): 30 documentos novos por corrida contra 4 do jeito antigo com o mesmo teto D38.",
+   "what": "Diagnostico offline dos 6 NAO/NAO_SEI da 1.a onda (BC5) sobre os RAW guardados: IT-T7-135/121 escolhiam a pagina de contatos da cia.it (o LINK_PATTERN do molde so recusava 'contatti' no 1.o troco); conserto em regras/motor_de_rota.mjs (pagina institucional no ULTIMO troco nao e alvo). Mede no livro de coletas da producao (169 enderecos, 2 recusados, 0 materias) e rejulga a 1.a onda com T1+T2 (0 mudancas). D40 (ALVOS-NOVOS): a escolha passa a ser o 1.o alvo ainda NAO coletado, ate 3 por fonte (escolherAlvosD40 em regras/motor_de_rota.mjs; o coletor da-lhe o livro); medido com 14 indices (1 pedido por dominio): 30 documentos novos por corrida contra 4 do jeito antigo com o mesmo teto D38. ALVOS-NOVOS-2: pagina de LISTA (ano sozinho, lista+ano, paginacao, tag/categoria/arquivo) nao e alvo — 0/169 do livro, 11/225 dos indices (todos ciatoscana); 30 -> 27.",
    "why_here": "Rendimento do MICRO/2.a onda (D35 > 16,7%). O falso CAPA da IT-T7-042 e do detector (noticia curta) e nao foi mexido: nao renderia SIM.",
    "departments": [
     "ENGENHARIA",
@@ -841,7 +841,11 @@
     "scripts/capa_materia/INDICES-D40-V1.json",
     "scripts/capa_materia/medir_d40.mjs",
     "scripts/capa_materia/MEDICAO-D40-V1.json",
-    "RELATORIO-ALVOS-NOVOS.md"
+    "RELATORIO-ALVOS-NOVOS.md",
+    "scripts/capa_materia/medir_filtro_lista.mjs",
+    "scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json",
+    "scripts/capa_materia/mutar_lista.py",
+    "scripts/capa_materia/MUTACAO-FILTRO-LISTA-V1.json"
    ]
   },
   {

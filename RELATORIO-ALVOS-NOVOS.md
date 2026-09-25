@@ -104,3 +104,63 @@ system-map/data/architecture.declared.json (C-CAPA-MATERIA) + gerados do mapa
 
 Só os dois primeiros mudam o comportamento da coleta. Instalar junto com (ou depois de) a G3, para
 o teto D38 estar activo; sem a G3, vale o teto antigo de 5 por host.
+
+---
+
+# ALVOS-NOVOS-2 (decisões do coordenador a/b/c)
+
+## (a) Página de LISTA não é alvo
+
+| o quê | ficheiro:linha |
+|---|---|
+| a regra | `regras/motor_de_rota.mjs:349` — `ePaginaDeLista(url)` (padrões nas linhas 344-347) |
+| onde corta | `regras/motor_de_rota.mjs:363` — dentro de `escolherAlvosD40`, **antes** de perguntar ao livro e antes do corte de 3; conta em `D40.LISTAS_RECUSADAS` |
+| o que o coletor diz | `coleta/italy_pilot_collect.mjs:816` — o vazio honesto separa "N são páginas de lista" de "o livro já conhece os outros" |
+
+Recusa só quando o ÚLTIMO pedaço do endereço é só lista: um ano sozinho (`/2026/`),
+palavras de lista + ano (`comunicati-stampa-2026`, `notizie-2025`), paginação (`/page/3/`),
+`tag`/`categoria`/`author` como pedaço anterior, ou `archivio`/`category`/`tag`/`page` como último.
+
+**Não se usou "termina em ano"**: a istat tem matérias como `prezzi-al-consumo-agosto-2026`
+e `linnovazione-nelle-imprese-anni-2022-2024`. O mutante que faz exatamente isso morre nos testes.
+
+Medido (`scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json`, sem rede):
+- livro da produção (sha256 `a054c336…e3e0e5`): recusaria **0 de 169** endereços — não perde matéria;
+- 14 índices da ALVOS-NOVOS (sha256 conferido): recusa **11 de 225** links, **todos da ciatoscana**
+  (`comunicati-stampa-2016` … `-2026`). A ciatoscana passa a voltar **vazia, com motivo**: o índice
+  dela só anuncia listas. Consertar é trocar o INDEX_URL/LINK_PATTERN do contrato — não é desta bancada.
+- documentos novos por corrida: 30 → **27** (os 3 que saem eram listas).
+- **istat não muda**: as páginas de secção (`ricercatori/promozione-della-ricerca`,
+  `pubblicazioni/rivista-di-statistica-ufficiale`) não têm ano nem palavra de lista. A regra mínima
+  não as distingue de uma matéria sem arriscar matérias; o conserto é no LINK_PATTERN da IT-T5-090
+  (as matérias vivem em `/comunicato-stampa/` e `/notizia/`). Fica para a bancada dos contratos.
+
+Testes: `motor_de_rota_test` 60/60 (3 novos). Mutação na cópia `C:/capa-base @ 9591050d`:
+**7/7 mortos** (`scripts/capa_materia/MUTACAO-FILTRO-LISTA-V1.json`). O teto não foi mexido.
+
+## (b) IT-T7-042: porque revisita — não é normalização
+
+- Os 10 endereços do índice estão no livro **com a mesma grafia**, guardados com documento
+  (44 linhas, 13 endereços, 6 corridas).
+- `decidirSobreDetalhe` devolve `REVALIDATE / CONTRACT_DECLARES_MUTABLE` para todos: o contrato
+  declara `RECOLLECTION.DETAIL_CONTENT = MUTABLE` com `TTL_SECONDS = null`, e a lei da casa
+  (`regras/incrementalidade.mjs`, «MUTABLE SEM prazo continua a revisitar sempre») manda voltar.
+- Conferido nas 14 fontes: dos 130 "novos", **0** são conhecidos escritos de outro jeito
+  (sem `www`, sem barra final, maiúsculas). Não há normalização a consertar; **não mexi**.
+- O que fecharia o gasto: dar prazo ao contrato (a própria RECOLLECTION-V1 mediu o maior atraso
+  de edição em 27,1 dias). É decisão de contrato/dono, não desta bancada.
+
+## (c) Ordem da cia.it
+
+Não mexida (bancada CONTRATOS-12).
+
+## Writeset do bloco 2
+
+```
+regras/motor_de_rota.mjs            (ePaginaDeLista; corte em escolherAlvosD40; LISTAS_RECUSADAS)
+coleta/italy_pilot_collect.mjs      (frase do vazio honesto)
+regras/motor_de_rota_test.mjs       (3 testes)
+scripts/capa_materia/medir_filtro_lista.mjs · MEDICAO-FILTRO-LISTA-V1.json
+scripts/capa_materia/mutar_lista.py · MUTACAO-FILTRO-LISTA-V1.json
+RELATORIO-ALVOS-NOVOS.md · system-map (declarado + gerados)
+```
