@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  81177c5811b994483459591f0890ec96816e12e8
-BRANCH           reguas-t4t5t9-v1
-GERADO_EM        2026-09-25T11:07:35-03:00
-CARDS            102
+HEAD_DA_MEDICAO  520e3d3de3a5d33754001c71a52104e1a455cd18
+BRANCH           regua-fato-v1
+GERADO_EM        2026-09-25T11:48:37-03:00
+CARDS            103
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -2016,6 +2016,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
+### `C-REGUA-FATO` · Tipo do facto (FACT_KIND, D62) — gabarito, classificador, prova cega e mutacao
+
+| | |
+|---|---|
+| **peça real** | `scripts/regua_fato/A-ROTULAR-FATO.json`, `scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json`, `scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json`, `scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json`, `scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json` _(e mais 10)_ |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA · INTELIGENCIA |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `leis/tipo_do_fato.py`, `scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json`, `scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 2 · saem 0 |
+| **arestas provadas** | entram 2 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 2 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+
 ### `C-REGUA-T1-JANELA` · Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao
 
 | | |
@@ -2608,10 +2633,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
 OK                 40
 UNKNOWN            31
+TERMINAL           12
 SYSTEM_GAP         11
-TERMINAL           11
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
 ORPHAN             1
-TOTAL              102
+TOTAL              103
 ```

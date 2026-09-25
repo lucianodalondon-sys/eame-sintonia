@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "reguas-t4t5t9-v1",
-    "HEAD": "81177c5811b994483459591f0890ec96816e12e8",
-    "GENERATED_AT": "2026-09-25T11:07:35-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7cb04466f742d4ccb4417af9f171f380489386c171189b6d356882d0a5eab37e"
+    "BRANCH": "regua-fato-v1",
+    "HEAD": "520e3d3de3a5d33754001c71a52104e1a455cd18",
+    "GENERATED_AT": "2026-09-25T11:48:37-03:00",
+    "SOURCE_TREE_FINGERPRINT": "47bedc1a550375978918182ed666b59386b1c483d4326026fc5e5f64c466e35a"
   },
   "FILES": [
     {
@@ -515,6 +515,13 @@
     {
       "path": "RELATORIO-LOTE-76.md",
       "sha": "d6e96e3bca56b2bb7fbfbb0bec88ad2124a86bac",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-LUGAR-FATO.md",
+      "sha": "af9bf4db1b6d9065122973c87380b59c88d3b329",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -13939,6 +13946,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/fato_do_texto.py",
+      "sha": "98d92429806c93107e3f6f0fa635a7d2c4d806b2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/fato_local.py",
       "sha": "9b96ec65b95051632283a8106ed9d9a7f84702e6",
       "ext": ".py",
@@ -14018,6 +14032,13 @@
     {
       "path": "leis/territorios.py",
       "sha": "13e9cd35faad206ceb2339d3f062f5710df16a2c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "leis/tipo_do_fato.py",
+      "sha": "6a890758d1aae85c391865b650d8aa10b7a537f4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17663,6 +17684,34 @@
       "code_dir": true
     },
     {
+      "path": "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+      "sha": "ea2e92f2b5d990f6e834fa02e4b94eb73be8f955",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+      "sha": "47a9e9763e9944201d3cbd2d09ea03983267993b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/medir_78.py",
+      "sha": "9012a152a88fbff588f1b3c890a8dd04758ed6e7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "sha": "6350d47d10cba3981eedeef256e1ab0342203c6d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/micro_coleta/COORTE-PROPOSTA.json",
       "sha": "a5a2c277c23ed4a36cdb0afca97e45dd0c2a2b43",
       "ext": ".json",
@@ -17772,6 +17821,111 @@
       "sha": "36277086c8e454656febfd4278efd98c6c6d7ab7",
       "ext": ".py",
       "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/A-ROTULAR-FATO.json",
+      "sha": "a1ae1fee28eb87f0fc808ed3777232e24111fcb2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json",
+      "sha": "10ca98e9cd0d70f609621e6b25ebedee5245e2ce",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json",
+      "sha": "c3e15d8ee5abba91ed1faa68daf60a6cafc4fc0d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json",
+      "sha": "4a5e0765e9c2fa079d4a3cdcee7807320e336046",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json",
+      "sha": "6fe18cb6ac8c7341e089673b667728db89c312b1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/PROPOSTA-TAXONOMIA-FACT-KIND.md",
+      "sha": "73c77d88e19eaaac6376dad4e03315dcf08c1474",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md",
+      "sha": "0d04aae8d1218c340fc2f2e5430d2af60a60f720",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/RELATORIO-REGUA-FATO.md",
+      "sha": "bc01f08dd9818d768cbfc06bf538663c49e04171",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/amostrar_fato.py",
+      "sha": "3a6a3e7b2702a0aa5cd6b120839f3614e4e289fa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/medir_fato.py",
+      "sha": "740ac09230d0e158cece8c9ae10541969965ec8b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/medir_sala_78.py",
+      "sha": "8a49488303ac11d1dc1bc37c855abd24af189ed4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/mutar_tipo_do_fato.py",
+      "sha": "9dc7c7b635af01bd83fc90737d918dc04ed40751",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/rotulos/CORRECOES-GABARITO.json",
+      "sha": "d89bd2dba48f79a7123e64e28544db88a62be063",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/rotulos/rotulos-cega.json",
+      "sha": "602b15a7cfb25d48b6c83be1b59a04f28f676e02",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_fato/rotulos/rotulos-gabarito.json",
+      "sha": "870e16e0c62f9165a071877ea603231f6e88553f",
+      "ext": ".json",
+      "readable": false,
       "code_dir": true
     },
     {
@@ -18875,7 +19029,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b696a9d009ce67555f3eb1740f5c0081de5fcaf1",
+      "sha": "3f3f88da705166850873c73811349eade5bc1192",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20155,6 +20309,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_fato_do_texto.py",
+      "sha": "06d8762f0f2f9e8d1329d5ca5a5d8573d0132577",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_fechar_ground_truth_t3.py",
       "sha": "b23dd7f9a37f6137ed7b48958ab76731a63b4e8d",
       "ext": ".py",
@@ -20948,6 +21109,13 @@
     {
       "path": "tests/test_thread_parcial.py",
       "sha": "55fdb804a0480dc405bbf2a4ad0e28b539803284",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_tipo_do_fato.py",
+      "sha": "93f1db4e9eaf9e83080a39ea8d77939ca067ed44",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -40970,6 +41138,17 @@
       }
     },
     {
+      "from_file": "leis/fato_do_texto.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/fato_do_texto.py",
+        "line": 55,
+        "snippet": "import fato_local as FL          # noqa: E402  (o leitor italiano: nao se reescreve aqui)"
+      }
+    },
+    {
       "from_file": "leis/fonte_do_atlas.py",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -41209,6 +41388,17 @@
         "file": "leis/territorios.py",
         "line": 80,
         "snippet": "ATLAS = os.path.join(\"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")"
+      }
+    },
+    {
+      "from_file": "leis/tipo_do_fato.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/tipo_do_fato.py",
+        "line": 37,
+        "snippet": "import fato_do_texto as FT      # noqa: E402  (o corpo, as ancoras de evento e o lugar/tempo por tipo)"
       }
     },
     {
@@ -62552,6 +62742,61 @@
       }
     },
     {
+      "from_file": "scripts/lugar_fato/medir_78.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_78.py",
+        "line": 16,
+        "snippet": "import fato_do_texto as FT   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/medir_78.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_78.py",
+        "line": 17,
+        "snippet": "import fato_local as FL      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+        "line": 18,
+        "snippet": "ALVO = \"leis/fato_do_texto.py\""
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "to_file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+        "line": 115,
+        "snippet": "out = Path(__file__).with_name(\"MUTACAO-FATO-DO-TEXTO-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "to_file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
+        "line": 116,
+        "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
       "from_file": "scripts/micro_coleta/ensaio_offline.py",
       "to_file": "admissao/admissao.py",
       "type": "READS",
@@ -63066,6 +63311,105 @@
         "file": "scripts/receitas/propor_receitas_v4.py",
         "line": 28,
         "snippet": "import propor_receitas_v3 as V3  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/amostrar_fato.py",
+      "to_file": "scripts/regua_fato/A-ROTULAR-FATO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_fato/amostrar_fato.py",
+        "line": 69,
+        "snippet": "(AQUI / \"A-ROTULAR-FATO.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/amostrar_fato.py",
+      "to_file": "scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_fato/amostrar_fato.py",
+        "line": 64,
+        "snippet": "out = {\"DATASET\": \"A-ROTULAR-FATO-V1\", \"PROTOCOLO\": \"scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md\","
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/medir_fato.py",
+      "to_file": "leis/tipo_do_fato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_fato/medir_fato.py",
+        "line": 19,
+        "snippet": "import tipo_do_fato as TF  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/medir_fato.py",
+      "to_file": "scripts/regua_fato/rotulos/rotulos-cega.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_fato/medir_fato.py",
+        "line": 28,
+        "snippet": "rot = json.loads((AQUI / \"rotulos\" / (\"rotulos-cega.json\" if cega else \"rotulos-gabarito.json\")).read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/medir_sala_78.py",
+      "to_file": "leis/tipo_do_fato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_fato/medir_sala_78.py",
+        "line": 20,
+        "snippet": "import tipo_do_fato as TF  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/medir_sala_78.py",
+      "to_file": "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_fato/medir_sala_78.py",
+        "line": 46,
+        "snippet": "(AQUI / \"MEDIDA-TIPO-DO-FATO-SALA-78-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/mutar_tipo_do_fato.py",
+      "to_file": "leis/tipo_do_fato.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_fato/mutar_tipo_do_fato.py",
+        "line": 19,
+        "snippet": "ALVO = \"leis/tipo_do_fato.py\""
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/mutar_tipo_do_fato.py",
+      "to_file": "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_fato/mutar_tipo_do_fato.py",
+        "line": 102,
+        "snippet": "out = Path(__file__).with_name(\"MUTACAO-TIPO-DO-FATO-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_fato/mutar_tipo_do_fato.py",
+      "to_file": "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_fato/mutar_tipo_do_fato.py",
+        "line": 103,
+        "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
       }
     },
     {
@@ -63869,17 +64213,6 @@
         "file": "scripts/regua_t4t5t9/medir.py",
         "line": 79,
         "snippet": "(AQUI / \"MEDICAO-REGUAS-T4T5T9-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\","
-      }
-    },
-    {
-      "from_file": "scripts/regua_t4t5t9/medir.py",
-      "to_file": "scripts/regua_t4t5t9/rotulos/rotulos-gabarito.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t4t5t9/medir.py",
-        "line": 36,
-        "snippet": "rot = json.loads((AQUI / \"rotulos\" / \"rotulos-gabarito.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -76214,6 +76547,17 @@
       }
     },
     {
+      "from_file": "tests/test_fato_do_texto.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fato_do_texto.py",
+        "line": 14,
+        "snippet": "import fato_do_texto as FT   # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_fechar_ground_truth_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -84266,6 +84610,17 @@
       }
     },
     {
+      "from_file": "tests/test_tipo_do_fato.py",
+      "to_file": "leis/tipo_do_fato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_tipo_do_fato.py",
+        "line": 13,
+        "snippet": "import tipo_do_fato as TF  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_trava_da_inteligencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -85759,10 +86114,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3007,
-    "files_readable": 1342,
-    "files_code_dir": 1297,
-    "file_edges": 5828,
+    "files_tracked": 3031,
+    "files_readable": 1352,
+    "files_code_dir": 1320,
+    "file_edges": 5845,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },
