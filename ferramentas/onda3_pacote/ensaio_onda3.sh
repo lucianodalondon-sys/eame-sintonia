@@ -9,15 +9,24 @@ REPO=C:/Users/London1/orca/workspaces/eame-sintonia/reparo-fontes-v1
 VIVO=C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1
 C=C:/ens-o3
 export HTTPS_PROXY=http://127.0.0.1:9 HTTP_PROXY=http://127.0.0.1:9 https_proxy=http://127.0.0.1:9 http_proxy=http://127.0.0.1:9 ALL_PROXY=http://127.0.0.1:9 NO_PROXY= PYTHONUTF8=1
-LIVROS="candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCLE-EVIDENCE-V1.json curadoria/LIFECYCLE-LEDGER-V1.json curadoria/LIFECYCLE-QUEUE-V1.json curadoria/READY-BATCHES-V1.json curadoria/SOURCE-ID-ALLOCATION-V1.json curadoria/italy_contracts_curator.json data/collection-ledger/italy/observations.ndjson data/collection-ledger/italy/runs.ndjson data/samples/LIVRO-DE-DECISOES.json data/samples/RUN-MANIFEST.json"
+# ⚠️ OS LIVROS SAO OS FICHEIROS SUJOS DO VIVO, LIDOS NA HORA — nunca uma lista fixa.
+# Medido (25/09): a lista fixa tinha 14; o vivo tinha 16 (+ a tabela do coletor e a prova de
+# rotas, escritas pelo onboarding do supervisor). A copia leu a tabela do Git (193) em vez da
+# do disco (210) e o ensaio disse «as 17 da PONTE nao entraram» — falso.
+# Leitura sem trancar o indice do vivo (--no-optional-locks).
+LIVROS=$(git -C $VIVO --no-optional-locks status --short | grep '^ M' | awk '{print $2}' | tr '
+' ' ')
 G="git -c user.name=ensaio -c user.email=ensaio@local -C $C"
 rm -rf "$OUT"; mkdir -p "$OUT"
 git -C $REPO worktree remove --force $C 2>/dev/null; rm -rf $C
 HEAD_VIVO=$(git -C $VIVO rev-parse HEAD)
 git -C $REPO worktree add -q --detach $C $HEAD_VIVO || exit 1
 echo "COPIA: worktree destacada no HEAD do vivo $(git -C $VIVO rev-parse --short HEAD) ($(git -C $VIVO branch --show-current)); pacote $PACOTE" | tee $OUT/0-copia.txt
-git -C $VIVO status --short | grep -v '^??' > $OUT/0-vivo-status.txt
-echo "FOTO $(date -u '+%F %TZ') dos livros do vivo" > $OUT/0-FOTO-DOS-LIVROS.txt
+git -C $VIVO --no-optional-locks status --short | grep -v '^??' > $OUT/0-vivo-status.txt
+echo "FOTO $(date -u '+%F %TZ') dos $(echo $LIVROS | wc -w) livros (ficheiros sujos) do vivo" > $OUT/0-FOTO-DOS-LIVROS.txt
+# o pacote NAO pode mudar nenhum livro no Git (senao o merge recusa ou pisa o livro vivo)
+TOCA=$(git -C $REPO diff --name-only $(git -C $VIVO rev-parse HEAD) $PACOTE -- $LIVROS | wc -l)
+echo "livros que o pacote muda no Git: $TOCA" | tee $OUT/0-pacote-toca-livros.txt; [ "$TOCA" = 0 ] || { echo "PACOTE TOCA LIVROS - PARAR"; exit 3; }
 for f in $LIVROS; do cp $VIVO/$f $C/$f; echo "$(sha256sum $VIVO/$f | cut -c1-64) $f" >> $OUT/0-FOTO-DOS-LIVROS.txt; done
 cd $C
 py -c "import urllib.request;urllib.request.urlopen('https://www.cia.it',timeout=5)" >/dev/null 2>&1 && { echo "REDE ABERTA - PARAR"; exit 2; } || echo "rede fechada: confirmada (www.cia.it recusado)" | tee -a $OUT/0-copia.txt
@@ -30,10 +39,11 @@ py -c "import json;p=json.load(open(r'$OUT/A-PLANO-ANTES.json',encoding='utf-8')
 
 # ── 1: merge do pacote, livros iguais ───────────────────────────────────────
 T0=$(sha256sum regras/italy_contracts_onboarded.json | cut -c1-8)
+py -c "import json;print('tabela do coletor (disco do vivo):',len(json.load(open('regras/italy_contracts_onboarded.json',encoding='utf-8'))['FONTES']),'fontes')" | tee -a $OUT/A-antes.txt
 ( for f in $LIVROS; do sha256sum $f; done ) > $OUT/1-livros-antes.sha
 $G merge --no-ff -q $PACOTE -m "ENSAIO: merge do pacote" > $OUT/1-merge.txt 2>&1; echo "merge rc=$? conflitos=$($G diff --name-only --diff-filter=U | wc -l)" | tee -a $OUT/1-merge.txt
 ( for f in $LIVROS; do sha256sum $f; done ) > $OUT/1-livros-depois.sha
-diff -q $OUT/1-livros-antes.sha $OUT/1-livros-depois.sha >/dev/null && echo "14 livros IGUAIS depois do merge" | tee -a $OUT/1-merge.txt || echo "LIVROS MUDARAM - PARAR" | tee -a $OUT/1-merge.txt
+diff -q $OUT/1-livros-antes.sha $OUT/1-livros-depois.sha >/dev/null && echo "livros IGUAIS depois do merge" | tee -a $OUT/1-merge.txt || echo "LIVROS MUDARAM - PARAR" | tee -a $OUT/1-merge.txt
 echo "tabela do coletor: vivo $T0 -> depois do merge $(sha256sum regras/italy_contracts_onboarded.json | cut -c1-8)" | tee -a $OUT/1-merge.txt
 
 # ── 2: D49 + D51 (duplicadas) ───────────────────────────────────────────────
@@ -61,6 +71,7 @@ EOF
 py -B curadoria/onboardar_rotas_provadas.py 2>/dev/null > $OUT/3-onboarding-mostrar.txt
 tail -1 $OUT/3-onboarding-mostrar.txt | sed 's/^/onboarding COM as provas: /' | tee -a $OUT/3-onboarding.txt
 py -B curadoria/onboardar_rotas_provadas.py --aplicar 2>/dev/null | grep -E "ENTRA=|escritas" | tee -a $OUT/3-onboarding.txt
+py -c "import json;print('tabela do coletor depois:',len(json.load(open('regras/italy_contracts_onboarded.json',encoding='utf-8'))['FONTES']),'fontes')" | tee -a $OUT/3-onboarding.txt
 
 # ── 4: o que o robo vai medir (sem rede: so a lista) ────────────────────────
 py -B - <<'EOF' | tee $OUT/4-robo-vai-medir.txt
@@ -98,13 +109,12 @@ echo "teto_dominio_local.mjs: $(node provas/teto_dominio_local.mjs 2>&1 | tail -
 
 # ── 8: DESFAZER provado ─────────────────────────────────────────────────────
 git status --short > $OUT/8-antes-de-desfazer-status.txt
-# como no vivo: os 2 ficheiros que o pacote muda voltam ao commit, o codigo volta por reset --keep,
-# e os livros escritos (contratos pela D49/D51; livro e fila pela HR-6) voltam da foto
-$G checkout HEAD -- regras/italy_contracts_onboarded.json curadoria/ROTAS-ELEGIVEIS-V1.json
+# como no vivo: o codigo volta por reset --keep (o pacote nao toca livros, por isso nada recusa),
+# e os livros escritos (contratos pela D49/D51; tabela e prova pelo onboarding; livro e fila pela HR-6) voltam da foto
 $G reset -q --keep $HEAD_VIVO; echo "reset --keep rc=$?" | tee $OUT/8-desfazer-reset.txt
 for f in $LIVROS; do cp $VIVO/$f $C/$f; done
 ( for f in $LIVROS; do sha256sum $f; done ) > $OUT/8-livros-desfeito.sha
-diff -q $OUT/1-livros-antes.sha $OUT/8-livros-desfeito.sha >/dev/null && echo "DESFAZER: 14 livros = foto do vivo" | tee $OUT/8-desfazer.txt || echo "DESFAZER: livros DIFERENTES" | tee $OUT/8-desfazer.txt
+diff -q $OUT/1-livros-antes.sha $OUT/8-livros-desfeito.sha >/dev/null && echo "DESFAZER: livros = foto do vivo" | tee $OUT/8-desfazer.txt || echo "DESFAZER: livros DIFERENTES" | tee $OUT/8-desfazer.txt
 # o codigo compara-se SEM os 14 livros (esses estao sujos no proprio vivo, por desenho)
 DIF=$($G diff --name-only $HEAD_VIVO | grep -v -x -F -f <(echo "$LIVROS" | tr ' ' '
 ') | wc -l)
