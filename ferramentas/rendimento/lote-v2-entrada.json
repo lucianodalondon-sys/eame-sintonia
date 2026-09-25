@@ -1,0 +1,102 @@
+{
+ "DATASET": "LOTE-MICRO-ENTRADA",
+ "VERSAO": "V2",
+ "DATASET_SAIDA": "LOTE-MICRO-V2",
+ "REGRA": "lote FIXO escolhido antes da rede (bot Luciano); superar 16,7 % de SIM; o coordenador corre pelo orquestrador oficial (R1 instalada 01:50, vivo 5ba9647e); >=1 boletim agrometeo/fitossanitario; fontes das 25 READY da R1",
+ "LOTE": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "PAPEL": "PRINCIPAL",
+   "PRECONDICAO": "nenhuma (ELIGIBLE no vivo 5ba9647e, contrato no coletor, na coorte da 1.a onda)",
+   "PORQUE": "11 materias novas na janela do contrato (URL nova: sim); 19 SIM em 46 textos na Sala (41 %); a regua T10 de hoje da SIM a 20 dos 46 textos ja colhidos",
+   "PREVISAO": {
+    "DOCUMENTOS": 3,
+    "SIM_ESPERADO": 1.2,
+    "INTERVALO": "0 a 3",
+    "BASE": "3 materias (teto 5/site) x 41 %"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "PAPEL": "BOLETIM_FITOSSANITARIO",
+   "PRECONDICAO": "REVALIDAR READY_LEGACY -> DETAIL/v1 no Curator (nao e a R1); sem isto o portao recusa e conta como NAO_CORREU",
+   "PORQUE": "boletim fitossanitario da Regione Campania (Salerno); edicao nova SA-23-09.pdf que o livro nunca viu; o coletor sabe colher (case); 2 SIM na Sala; regua T3 de hoje: 1 SIM em 1 texto",
+   "PREVISAO": {
+    "DOCUMENTOS": 1,
+    "SIM_ESPERADO": 0.9,
+    "INTERVALO": "0 a 1",
+    "BASE": "historico 100 % SIM (poucos textos); o case pega so o 1.o boletim do indice"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "PAPEL": "BOLETIM_FITOSSANITARIO",
+   "PRECONDICAO": "REVALIDAR READY_LEGACY -> DETAIL/v1 no Curator (nao e a R1); sem isto conta como NAO_CORREU",
+   "PORQUE": "Bollettino Mosca dell'Olivo (APOL), n.11 de 21/09/2026, nunca visto; o coletor sabe colher (case); 1 SIM na Sala; regua T3: 1 SIM em 1",
+   "PREVISAO": {
+    "DOCUMENTOS": 1,
+    "SIM_ESPERADO": 0.9,
+    "INTERVALO": "0 a 1",
+    "BASE": "historico 100 % SIM (1 texto)"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "PAPEL": "BOLETIM_AGROMETEO_T2",
+   "PRECONDICAO": "REVALIDAR READY_LEGACY -> DETAIL/v1 no Curator (nao e a R1); sem isto conta como NAO_CORREU",
+   "PORQUE": "boletim Agrometeo...informa da ARPAV por zona (fenologia, difesa integrata, evapotraspirazione); a regua T2 instalada da SIM a 4 de 4 textos ja colhidos; unica T2 de janela que o coletor sabe colher",
+   "PREVISAO": {
+    "DOCUMENTOS": 4,
+    "SIM_ESPERADO": 2.8,
+    "INTERVALO": "0 a 4",
+    "BASE": "4 zonas x 100 % x P(edicao nova desde 18/09) ~0,7 (nao se le a data na capa: JavaScript)"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-023",
+   "PAPEL": "R1",
+   "PRECONDICAO": "(1) READY no vivo pela trava de revisao da R1 (hoje CONTRACTED_CANARY_FAILED; o bot esta a processar) E (2) contrato na tabela do COLETOR (hoje so no curador: o orquestrador recusa como FONTE_DESCONHECIDA)",
+   "PORQUE": "da R1, revista ACESSO_PARCIAL; seccao «agrofarmaci-difesa» da Terra e Vita (pragas e defesa, T3 = regua); 18 novas na capa com o contrato revisto",
+   "PREVISAO": {
+    "DOCUMENTOS": 1,
+    "SIM_ESPERADO": 0.3,
+    "INTERVALO": "0 a 1",
+    "BASE": "so abre o inicio (assinantes): texto curto; a regua sobre titulo+inicio do item revisto deu NAO"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "PAPEL": "R1",
+   "PRECONDICAO": "as mesmas duas da IT-T3-023 (READY pela revisao E contrato no coletor)",
+   "PORQUE": "da R1, revista LIMPA; Copagri: 24 novas na capa; o item revisto e sobre maltempo e agricultura em emergencia",
+   "PREVISAO": {
+    "DOCUMENTOS": 1,
+    "SIM_ESPERADO": 0.2,
+    "INTERVALO": "0 a 1",
+    "BASE": "regua T7 sobre titulo+inicio do item revisto: NAO_SEI"
+   }
+  }
+ ],
+ "FORA": [
+  {
+   "SOURCE_ID": "as outras 23 READY revistas da R1",
+   "PORQUE": "nenhuma tem contrato no coletor; T12/T8 sem regua; T2 da R1 sem ligacao agricola; T5/T7 com a regua sobre o item revisto em NAO/NAO_SEI"
+  },
+  {
+   "SOURCE_ID": "IT-T7-141",
+   "PORQUE": "o endereco da janela e uma listagem"
+  },
+  {
+   "SOURCE_ID": "IT-T2-051 / IT-T2-034",
+   "PORQUE": "T2 prontas sem ligacao agricola na janela (historico 1 NAO em 1 cada)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "PORQUE": "a revisao da R1 nao a deixou sair READY (nao esta nas 25); era a candidata R1 do V1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "PORQUE": "boletim de Puglia: o indice precisa de navegador e o case adivinha a edicao por datas (ate 30 pedidos) — passa o teto de 5/site"
+  }
+ ]
+}

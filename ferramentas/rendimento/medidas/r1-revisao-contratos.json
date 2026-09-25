@@ -1,0 +1,46 @@
+{
+ "DATASET": "REND-CONTRATOS-DA-REVISAO-R1",
+ "O_QUE_E": "INDEX_URL+LINK_PATTERN que a REVISAO-READY-V1 leu (a trava so deixa sair READY com ESTE contrato); MATCH URL e MAX_TARGETS 1 como o molde do reparo",
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://copagri.org/",
+    "LINK_PATTERN": "^https?://(www\\.)?copagri\\.org/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-023",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/agrofarmaci\\-difesa/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://lombardia.confagricoltura.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?lombardia\\.confagricoltura\\.it/news/home/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-048",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "http://www.caiagromec.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?caiagromec\\.it/node/\\d+/?$",
+    "MAX_TARGETS": 1
+   }
+  }
+ ]
+}

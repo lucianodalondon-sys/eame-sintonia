@@ -1,0 +1,65 @@
+{
+ "DATASET": "LOTE-MICRO-ENTRADA",
+ "VERSAO": "V1",
+ "DATASET_SAIDA": "LOTE-MICRO-V1",
+ "LOTE": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "PAPEL": "PRINCIPAL",
+   "PRECONDICAO": "nenhuma (ELIGIBLE no vivo 55b50a63; esta na coorte da 1.a onda)",
+   "PORQUE": "unica fonte do portao com materia nova DENTRO da janela (11 novas nas 30 da janela); 19 SIM em 46 textos na Sala (41 %); tem a unica janela de cultura provada num texto (data de colheita da pera Conference)",
+   "PREVISAO": {
+    "DOCUMENTOS": 3,
+    "SIM_ESPERADO": 1.2,
+    "INTERVALO": "0 a 3",
+    "BASE": "3 materias (teto) x 41 % (19/46 na Sala); regua T10 de hoje sobre os 46 textos: 20 SIM"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "PAPEL": "T2_DE_JANELA",
+   "PRECONDICAO": "PROMOVER READY_LEGACY -> DETAIL/v1 (revalidar no Curator). NAO e a R1. Sem isto o portao recusa-a e ela CONTA COMO NAO_CORREU, nao como 0 SIM",
+   "PORQUE": "a unica T2 de janela que o coletor sabe colher (boletim Agrometeo...informa por zona: fenologia, difesa integrata, evapotraspirazione); a regua T2 instalada da SIM a 4 de 4 textos ja colhidos; ARPAE agrometeo (IT-T2-001) tambem da SIM mas o coletor nao tem rota para ela",
+   "PREVISAO": {
+    "DOCUMENTOS": 4,
+    "SIM_ESPERADO": 2.8,
+    "INTERVALO": "0 a 4",
+    "BASE": "4 zonas (robots + 4 = teto 5); 4/4 SIM na regua de hoje; P(edicao nova desde 18/09) ~0,7: 3 visitas anteriores (07, 14, 18/09) viram versao nova todas, mas a data da edicao nao se le na capa (JavaScript)"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "PAPEL": "R1",
+   "PRECONDICAO": "R1 instalada (o contrato ja esta na tabela do coletor)",
+   "PORQUE": "a unica da R1 com varias materias novas na janela (7 novas, 7 na janela; teto 3); T7 tem regua",
+   "PREVISAO": {
+    "DOCUMENTOS": 3,
+    "SIM_ESPERADO": 0.4,
+    "INTERVALO": "0 a 1",
+    "BASE": "1 texto na Sala, 1 SIM antigo mas a regua de hoje diz NAO_SEI; os titulos da janela sao semana da bonifica, eventos, avisos ANAC/concursos: institucional"
+   }
+  }
+ ],
+ "FORA": [
+  {
+   "SOURCE_ID": "IT-T7-141",
+   "PORQUE": "o unico endereco da janela (MAX_TARGETS 1) e uma LISTAGEM («comunicati-stampa-2026/»), nao uma materia: o gate de detalhe tende a recusa-la; 0 textos na Sala"
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "PORQUE": "T2 pronta, mas o endereco da janela e «30 anni per l'ambiente»: sem ligacao agricola a regua T2 da NAO_SEI; o historico da 1 NAO em 1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "PORQUE": "T2 pronta, 0 novas na janela (o 1.o link ja esta no livro); historico 1 NAO em 1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-031",
+   "PORQUE": "R1, 1 materia na janela (projecto europeu); historico 1 NAO em 1 — baixaria a taxa"
+  },
+  {
+   "SOURCE_ID": "IT-T2-032/033/037/050/063/070",
+   "PORQUE": "T2 da R1 SEM contrato no coletor (so no curador) e com endereco da janela sem ligacao agricola (polen, campos electromagneticos, aguas subterraneas, laboratorios)"
+  }
+ ]
+}

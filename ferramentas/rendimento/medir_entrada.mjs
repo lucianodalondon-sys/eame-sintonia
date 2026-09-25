@@ -46,8 +46,12 @@ const curadores = (arg("--curadores", "") || "").split(",").filter(Boolean).map(
   return { p, fontes: new Map((d.FONTES || []).map(f => [f.SOURCE_ID, f])) };
 });
 function contratoDe(id) {
+  if (CONTRACTS[id]?.ACQUISITION) return { c: CONTRACTS[id], ORIGEM: "COLETOR" };
+  // Fonte do coletor servida por `case` (sem ACQUISITION): mede-se com a mesma
+  // regra escrita como contrato (ex.: boletins IT-T3-002/010). Continua do coletor.
+  for (const k of curadores) if (k.fontes.get(id)?.ACQUISITION)
+    return { c: { ...(CONTRACTS[id] || {}), ...k.fontes.get(id) }, ORIGEM: CONTRACTS[id] ? `COLETOR_CASE:${k.p}` : `SO_CURADOR:${k.p}` };
   if (CONTRACTS[id]) return { c: CONTRACTS[id], ORIGEM: "COLETOR" };
-  for (const k of curadores) if (k.fontes.get(id)?.ACQUISITION) return { c: k.fontes.get(id), ORIGEM: `SO_CURADOR:${k.p}` };
   return { c: null, ORIGEM: "NENHUM" };
 }
 

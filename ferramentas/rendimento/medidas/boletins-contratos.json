@@ -1,0 +1,26 @@
+{
+ "DATASET": "REND-CONTRATOS-SINTETICOS-DOS-CASE",
+ "O_QUE_E": "a MESMA regra dos case do coletor (italy_pilot_collect.mjs alvosDe), escrita como HTML_LINK_DISCOVERY so para MEDIR a capa: o coletor pega links[0]",
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "INDEX_URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/SA_2026.html",
+    "LINK_PATTERN": "href=\"([^\"]*SA-\\d{2}-\\d{2}\\.pdf)\"",
+    "BASE_URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/",
+    "MAX_TARGETS": 1
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "INDEX_URL": "http://www.apol.it",
+    "LINK_PATTERN": "href=\"([^\"]*Bollettino_Mosca[^\"]*\\.pdf)\"",
+    "BASE_URL": "http://www.apol.it",
+    "MAX_TARGETS": 1
+   }
+  }
+ ]
+}

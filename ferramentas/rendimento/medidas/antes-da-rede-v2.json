@@ -1,0 +1,54 @@
+{
+ "BOT_VIVO": "5ba9647ed40ebff98356a93abf1131b6e442b9ff",
+ "PORTAO_DO_CURATOR": {
+  "IT-T10-018": {
+   "STATE": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1",
+   "COLLECTION_ELIGIBLE": true,
+   "MOTIVO": "ELIGIBLE"
+  },
+  "IT-T3-002": {
+   "STATE": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "READY_LEGACY"
+  },
+  "IT-T3-010": {
+   "STATE": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "READY_LEGACY"
+  },
+  "IT-T2-002": {
+   "STATE": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "READY_LEGACY"
+  },
+  "IT-T3-023": {
+   "STATE": "CONTRACTED_CANARY_FAILED",
+   "READY_RULE": "NAO SEI",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "ESTADO_NAO_READY"
+  },
+  "IT-T7-049": {
+   "STATE": "CANARY_PENDING",
+   "READY_RULE": "NAO SEI",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "ESTADO_NAO_READY"
+  }
+ },
+ "SALA": {
+  "sala_de_espera": 69,
+  "raw_asset": 1425,
+  "derived_artifact": 927,
+  "collection_run": 402
+ },
+ "EGRESSO": {
+  "EGRESS_GATE": "PASS",
+  "EGRESS_VERDICT": "PASS",
+  "DA_CACHE": true
+ },
+ "R1_INSTALADA": "sim, 01:50 (5ba9647e); das 25 revistas so IT-T12-024 esta READY neste instante",
+ "CAPAS_MEDIDAS": "medidas/entrada-lote.json (24/09) + medidas/entrada-boletins.json + medidas/entrada-r1-escolha.json (25/09 madrugada; portao PASS antes e depois)"
+}

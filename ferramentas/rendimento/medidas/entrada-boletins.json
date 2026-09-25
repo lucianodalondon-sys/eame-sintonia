@@ -1,0 +1,69 @@
+{
+ "DATASET": "REND-ENTRADA-V1",
+ "MEDIDO_EM": "2026-09-25T04:52:14.110Z",
+ "ARVORE": "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1",
+ "PEDIDOS_HTTP": 4,
+ "PEDIDOS_POR_SITE": {
+  "agricoltura.regione.campania.it": 2,
+  "apol.it": 2
+ },
+ "TETO_POR_SITE": 5,
+ "PAUSA_S": 1,
+ "MEMORIA_DO_COLETOR": {
+  "OBSERVACOES": 541,
+  "ENDERECOS": 169
+ },
+ "ACERVO_URLS": 979,
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "UNIVERSO": "T3",
+   "CONTRATO": "COLETOR_CASE:C:/rend/boletins-contratos.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/SA_2026.html",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "IMMUTABLE",
+   "PEDIDO_EM": "2026-09-25T04:52:18.444Z",
+   "INDEX_BYTES": 25757,
+   "INDEX_SHA256": "4816c915c7e457c2f87953b44ab0b0f75f30e384ea95af635640d714bde8a278",
+   "ANUNCIADAS": 26,
+   "NOVAS_PARA_O_COLETOR": 24,
+   "NOVAS_PARA_O_ACERVO": 24,
+   "NA_JANELA_DO_CONTRATO": 1,
+   "NOVAS_NA_JANELA": 1,
+   "REVISITAS_NA_JANELA": 0,
+   "UMA_CORRIDA_TRARIA": 1,
+   "EXEMPLOS_NOVAS": [
+    "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-23-09.pdf",
+    "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-09-09.pdf",
+    "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-26-08.pdf"
+   ],
+   "ESTADO": "MEDIDA"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "UNIVERSO": "T3",
+   "CONTRATO": "COLETOR_CASE:C:/rend/boletins-contratos.json",
+   "ESTRATEGIA": "HTML_LINK_DISCOVERY",
+   "INDEX_URL": "http://www.apol.it",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": "IMMUTABLE",
+   "PEDIDO_EM": "2026-09-25T04:52:22.017Z",
+   "INDEX_BYTES": 36552,
+   "INDEX_SHA256": "c15dc2b35c0c1a2ef1fa6ce4fc4113486a0dfd56d6155c4bbffa450b64ad4808",
+   "ANUNCIADAS": 39,
+   "NOVAS_PARA_O_COLETOR": 37,
+   "NOVAS_PARA_O_ACERVO": 37,
+   "NA_JANELA_DO_CONTRATO": 1,
+   "NOVAS_NA_JANELA": 1,
+   "REVISITAS_NA_JANELA": 0,
+   "UMA_CORRIDA_TRARIA": 1,
+   "EXEMPLOS_NOVAS": [
+    "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_11_del_21_09_2026.pdf",
+    "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_8_del_31_08_2026.pdf",
+    "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_7_del_24_08_2026.pdf"
+   ],
+   "ESTADO": "MEDIDA"
+  }
+ ]
+}
