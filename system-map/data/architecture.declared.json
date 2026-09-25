@@ -4801,6 +4801,25 @@
    ]
   },
   {
+   "id": "C-LOTE-MICRO",
+   "name": "Lote da micro-coleta por regra fixa (LOTE-MICRO-V3, D45)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Aplica a REGRA-LOTE-MICRO-V3.md (commitada antes de abrir os insumos) a coorte congelada do ensaio integrado, a medicao D40 e a 1.a onda, todos conferidos por sha256: myfruit obrigatoria, 2 agencias T2, 1 T1 se houver, resto pelo criterio C, no maximo 1 fonte por dominio registavel (D38). Escreve a previsao de documentos e SIM por fonte e o criterio D35 (SIM / fontes que correram). Sem rede.",
+   "why_here": "D45: o lote da micro que decide a 2.a onda tem de ser escolhido por uma regra escrita antes de ver resultados, para o >16,7% nao ser escolhido a dedo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/rendimento/lote_micro_v3.py",
+    "ferramentas/rendimento/LOTE-MICRO-V3.json"
+   ]
+  },
+  {
    "id": "C-REPARO-MEDICAO",
    "name": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
    "territory": "Z-MEDIDAS",
