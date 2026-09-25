@@ -1,0 +1,79 @@
+{
+ "DATASET": "WRITESET-PROVA-ROTA-CICLO",
+ "RAMO": "prova-rota-ciclo-v1",
+ "BASE_PRODUCAO": "7cdb7ea4",
+ "BASE_DO_RAMO": "7e3fed2c (ponte-onboard-v1)",
+ "INSTALA_COMO": "git merge --ff-only origin/prova-rota-ciclo-v1 (leva tambem a PONTE-ONBOARD)",
+ "LIVROS_TOCADOS": "nenhum na instalacao; em operacao: curadoria/ROTAS-ELEGIVEIS-V1.json (canario --juntar), curadoria/PROVA-ROTA-CICLO.log, regras/italy_contracts_onboarded.json (onboarding)",
+ "ESTA_MISSAO": [
+  {
+   "FICHEIRO": "curadoria/prova_rota_ciclo.py",
+   "SHA256_NO_GIT": "8fa664278b2f6e32b14ab063297fc23479448ca6fbf0611bc22111846d829e38"
+  },
+  {
+   "FICHEIRO": "curadoria/supervisor.py",
+   "SHA256_NO_GIT": "e298c6d6dad1f24a894a1d86759dc8d1e011986e7b5142dca0e112d12f4ce9c8"
+  },
+  {
+   "FICHEIRO": "ferramentas/prova_rota_ciclo/INCIDENTE-20260925T0801Z-canarios-dos-testes.log",
+   "SHA256_NO_GIT": "259f60448545767298d5eb031ca3cc6bdacbd6f87cc56d61c162be90c418f626"
+  },
+  {
+   "FICHEIRO": "ferramentas/prova_rota_ciclo/MUTACAO.json",
+   "SHA256_NO_GIT": "45606e0d9f8bcced71f571f02e6e09f4fd79d3fa15596a233b1909a1256c1096"
+  },
+  {
+   "FICHEIRO": "ferramentas/prova_rota_ciclo/mutacao.py",
+   "SHA256_NO_GIT": "8674ee2c17a427f1b152ab2b914ef3885ab6dbe7c0a6c1c4eb2d6cf10de91cf7"
+  },
+  {
+   "FICHEIRO": "tests/test_onboardar_rotas_provadas.py",
+   "SHA256_NO_GIT": "b2a209ca7a69987cdf0f45dbe02fd45c6ce11d295577af2a8299b48fb0dffb0f"
+  },
+  {
+   "FICHEIRO": "tests/test_prova_rota_ciclo.py",
+   "SHA256_NO_GIT": "92ef510a48f87258152eadb13bc2cab5c9b12170be0cd840226b1a2e72f1b77e"
+  }
+ ],
+ "TUDO_DESDE_A_PRODUCAO": [
+  "curadoria/onboardar_rotas_provadas.py",
+  "curadoria/prova_rota_ciclo.py",
+  "curadoria/sha_do_contrato.py",
+  "curadoria/supervisor.py",
+  "docs/fontes/INDICE-DE-FONTES.md",
+  "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+  "ferramentas/ponte_onboard/ENSAIO-1-antes-ENTRA0.txt",
+  "ferramentas/ponte_onboard/ENSAIO-2-rotas-provadas-3rondas.json",
+  "ferramentas/ponte_onboard/ENSAIO-3-gancho-do-supervisor.json",
+  "ferramentas/ponte_onboard/ENSAIO-4-depois-FICA11.txt",
+  "ferramentas/ponte_onboard/ENSAIO-5-sha256-antes-depois-desfazer.txt",
+  "ferramentas/ponte_onboard/MUTACAO.json",
+  "ferramentas/ponte_onboard/PLANO-BOLETINS-READY-LEGACY.md",
+  "ferramentas/ponte_onboard/PLANO-INSTALACAO-PONTE-ONBOARD.md",
+  "ferramentas/ponte_onboard/RELATORIO-PONTE-ONBOARD.md",
+  "ferramentas/ponte_onboard/WRITESET-PONTE-ONBOARD.json",
+  "ferramentas/ponte_onboard/mutacao.py",
+  "ferramentas/prova_rota_ciclo/INCIDENTE-20260925T0801Z-canarios-dos-testes.log",
+  "ferramentas/prova_rota_ciclo/MUTACAO.json",
+  "ferramentas/prova_rota_ciclo/mutacao.py",
+  "italia-portale/client/system-map/state.generated.json",
+  "medidas/canario_rotas_elegiveis.py",
+  "regras/LEIA-ANTES-DE-COLETAR.md",
+  "system-map/data/architecture.declared.json",
+  "system-map/data/architecture.generated.json",
+  "system-map/data/buracos.generated.json",
+  "system-map/data/casco.generated.json",
+  "system-map/data/censo-da-coleta.generated.json",
+  "system-map/data/congelamento.generated.json",
+  "system-map/data/executores.generated.json",
+  "system-map/data/pente-fino.generated.json",
+  "system-map/data/semantica-it.generated.json",
+  "system-map/data/sources.generated.json",
+  "system-map/data/state.generated.json",
+  "system-map/data/topologia.generated.json",
+  "tests/fixtures/ponte_onboard_17_contratos.json",
+  "tests/test_canario_rotas_contrato_certo.py",
+  "tests/test_onboardar_rotas_provadas.py",
+  "tests/test_prova_rota_ciclo.py"
+ ]
+}

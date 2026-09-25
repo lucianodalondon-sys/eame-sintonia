@@ -3169,14 +3169,16 @@
    "views": [
     "infra"
    ],
-   "what": "sha256 canonico de SOURCE_ID + OUTPUT_TYPE + ACQUISITION — exactamente o que onboardar_rotas_provadas escreve na tabela do coletor. O canario de rotas grava-o na prova (CONTRATO_SHA256, PROVADO_EM); o onboarding so escreve a linha se a impressao provada for igual a do contrato de agora e a prova tiver <= 7 dias. O supervisor chama o onboarding a cada volta (onboardar_se_mudou: so quando a prova muda ou de 10 em 10 min). mutacao.py desliga cada guarda e exige que um teste caia.",
+   "what": "sha256 canonico de SOURCE_ID + OUTPUT_TYPE + ACQUISITION — exactamente o que onboardar_rotas_provadas escreve na tabela do coletor. O canario de rotas grava-o na prova (CONTRATO_SHA256, PROVADO_EM); o onboarding so escreve a linha se a impressao provada for igual a do contrato de agora e a prova tiver <= 7 dias. O supervisor chama o onboarding a cada volta (onboardar_se_mudou: so quando a prova muda ou de 10 em 10 min). PROVA-ROTA-CICLO: o supervisor (so quando arrancado como servico, main) corre tambem o canario de rotas das ELIGIBLE sem prova recente do contrato de agora — 1 fonte por dominio registavel, <=8 por rodada, portao de consenso IT antes de cada rodada, processo proprio, 30 min entre rodadas (prova_rota_ciclo.provar_se_devido). mutacao.py desliga cada guarda e exige que um teste caia.",
    "why_here": "PONTE-ONBOARD (25/09/2026): o canario lia o contrato do Git HEAD e o bot escreve no disco sem commitar (HEAD 574 fontes, disco 762); 14 das 17 fontes a onboardar tinham no HEAD outro contrato. E ninguem chamava o onboarding: 0 fontes entraram no coletor com 28 ELIGIBLE a espera. Ensaio em copia do vivo: 0 -> 17.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "curadoria/sha_do_contrato.py",
-    "ferramentas/ponte_onboard/mutacao.py"
+    "ferramentas/ponte_onboard/mutacao.py",
+    "curadoria/prova_rota_ciclo.py",
+    "ferramentas/prova_rota_ciclo/mutacao.py"
    ]
   },
   {
