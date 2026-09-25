@@ -4952,6 +4952,28 @@
     "scripts/reparo/juntar_bancas.py",
     "scripts/reparo/revisar_ready.py"
    ]
+  },
+  {
+   "id": "C-LEGACY-99",
+   "name": "LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "revalidar_em_rondas.py: revalida READY_LEGACY numa COPIA pelo caminho canonico (ready_split.remedir -> worker), em rodadas de 1 fonte por dominio, com urlopen embrulhado (rede fechada por omissao, D41.3; teto 5 por dominio contado, D38) e o portao de consenso antes de cada rodada. video_com_o_guardado.py: as fontes YouTube pela regua VIDEO/v1 (D53) sobre as paginas /watch ja guardadas na Sala (so leitura, sha256 conferido), sem rede. mutacao*.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro.",
+   "why_here": "LEGACY-99 v1-v3 (25/09/2026): 99 READY_LEGACY promovidas pela regua antiga nunca voltavam (o re-check so olhava ELIGIBLE); em copia: 1/26 HTML (v1), 11/21 importadas do coletor (v2), 41 YouTube pela rota VIDEO (v3: 39 pelo guardado + 2 canais reais).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/legacy99/revalidar_em_rondas.py",
+    "ferramentas/legacy99v2/mutacao.py",
+    "ferramentas/legacy99v2/mutacao_ab.py",
+    "ferramentas/legacy99v3/mutacao_video.py",
+    "ferramentas/legacy99v3/video_com_o_guardado.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
