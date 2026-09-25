@@ -110,7 +110,9 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)** — revalidar_em_rondas.py: revalida READY_LEGACY numa COPIA pelo caminho canonico (ready_split.remedir -> worker), em rodadas de 1 fonte por dominio, com urlopen embrulhado (rede fechada por omissao, D41.3; teto 5 por dominio contado, D38) e o portao de consenso antes de cada rodada. video_com_o_guardado.py: as fontes YouTube pela regua VIDEO/v1 (D53) sobre as paginas /watch ja guardadas na Sala (so leitura, sha256 conferido), sem rede. mutacao*.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro. [onda3-pacote-v2: so A+C+D da v2; B inerte (DA-15/D67); sem a rota VIDEO]
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
 - **PACOTE-ONDA3 — o ensaio integrado da 3.a onda** — ensaio_onda3.sh: ensaio integrado numa worktree destacada no HEAD do vivo + os ficheiros sujos do vivo lidos na hora (para se o pacote tocar um livro no Git); D49/D51, D52, provas de rota ja feitas, onboarding, o que o robo vai medir, plano, coorte PROVISORIA da 3.a onda, onda_web --so-plano, prova do teto, desfazer a partir da foto. Sem rede.
+- **REROUTE da D2 na Admissao — medicao no acervo e ataque (D56)** — medir_reroute.py mede, sem rede e sem Sala, que nenhum veredito muda (base contra arvore, 8 gavetas x corpus) e quantos NAO da gaveta da fonte ganham SIM noutra gaveta, contra os rotulos humanos do gabarito; reroute_mutacao.py desliga cada peca do admissao.reencaminhar numa copia.
 - **Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)** — Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.
+- **Saltos que gastam o teto e a entrada no endereco final (AJUSTES-MICRO)** — medir_saltos.py le o livro de corridas (so leitura) e mede, por fonte, os pedidos gastos alem de robots+indice+materias e os saltos de ORIGEM (robots de duas origens na mesma corrida). entrada_final.py propoe a INDEX_URL na origem final so com prova sem rede (salto medido + materia ja colhida que o LINK_PATTERN aceita) e aplica pela porta do reparo (reparar_contrato.aplicar: so ACQUISITION, validador da casa, PRECISA_DE_REMEDIR).
 
 ---
 
@@ -156,4 +158,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 14 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 16 ferramentas e 2 peças de fonte declaradas no mapa.

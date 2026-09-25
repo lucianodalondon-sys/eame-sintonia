@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  44df17f2cbcdf01f5b92e5ab5134b81f31b32543
-BRANCH           onda3-pacote-v2
-GERADO_EM        2026-09-25T19:11:26-03:00
-CARDS            103
+HEAD_DA_MEDICAO  deca4f49648a573f639670a7084052320263007a
+BRANCH           instalacao-2-v1
+GERADO_EM        2026-09-25T20:09:07-03:00
+CARDS            105
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -490,13 +490,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/idioma.py`, `curadoria/politica_nao_sei.py`, `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 9 · saem 47 |
-| **arestas provadas** | entram 7 · saem 46 |
+| **arestas no mapa** | entram 9 · saem 48 |
+| **arestas provadas** | entram 7 · saem 47 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 51 · NÃO SEI 3 · OBSERVED 2 |
+| **prova das ligações** | CODE 52 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -735,6 +735,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ## Z-FERRAMENTAS · as ferramentas da execucao
 
+### `C-AJUSTES-MICRO` · Saltos que gastam o teto e a entrada no endereco final (AJUSTES-MICRO)
+
+| | |
+|---|---|
+| **peça real** | `curadoria/entrada_final.py`, `ferramentas/rendimento/medir_saltos.py` |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | gray — ⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 0 |
+| **arestas provadas** | entram 0 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** |  |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
+
 ### `C-APIFY-POOL` · Apify — a rota paga
 
 | | |
@@ -964,10 +989,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/big_collection/onda_web.py` |
+| **peça real** | `ferramentas/big_collection/onda_web.py`, `ferramentas/big_collection/ondas/MICRO-V3-20260925-0803-RESUMO.json`, `ferramentas/big_collection/ondas/ONDA2-WEB-20260925-0812-RESUMO.json`, `ferramentas/big_collection/resumo_da_onda.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2, C-PACOTE-ONDA3 |
 | **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:43; ferramentas/onda3_pacote/ensaio_onda3.sh:114; ferramentas/onda3_pacote/ensaio_onda3_v2.sh:158 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -975,13 +1000,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/italy_pilot_collect.mjs`, `data/collection-ledger/italy/runs.ndjson`, `ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 4 · saem 1 |
-| **arestas provadas** | entram 4 · saem 1 |
+| **arestas no mapa** | entram 5 · saem 3 |
+| **arestas provadas** | entram 5 · saem 3 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 5 |
+| **prova das ligações** | CODE 8 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -1057,6 +1082,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
 | **prova das ligações** | CODE 2 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+
+### `C-REROUTE-D2` · REROUTE da D2 na Admissao — medicao no acervo e ataque (D56)
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/reroute/medir_reroute.py` |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `ferramentas/reroute/MEDICAO-REROUTE-V1.json`, `scripts/regua_t2/medir_regua_t2.py`, `scripts/regua_t2/medir_via_agrometeo.py` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | `ferramentas/reroute/MEDICAO-REROUTE-V1.json` |
+| **arestas no mapa** | entram 1 · saem 0 |
+| **arestas provadas** | entram 1 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 1 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
@@ -1556,13 +1606,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json`, `regras/incrementalidade.mjs` |
 | **o que sai · dado** | C-IT-CONTRATOS |
 | **o que sai · ficheiros** | `regras/italy_contracts_onboarded.json` |
-| **arestas no mapa** | entram 8 · saem 11 |
-| **arestas provadas** | entram 7 · saem 11 |
+| **arestas no mapa** | entram 8 · saem 12 |
+| **arestas provadas** | entram 7 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 · NÃO SEI 1 |
+| **prova das ligações** | CODE 19 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1756,13 +1806,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/retrato_html.mjs` |
 | **o que sai · dado** | C-CENSO-UNIFICACAO |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json` |
-| **arestas no mapa** | entram 12 · saem 12 |
-| **arestas provadas** | entram 12 · saem 12 |
+| **arestas no mapa** | entram 12 · saem 13 |
+| **arestas provadas** | entram 12 · saem 13 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 24 |
+| **prova das ligações** | CODE 25 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1870,10 +1920,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/micro_coleta/COORTE-PROPOSTA.json`, `scripts/micro_coleta/GABARITO-MICRO-V1.json`, `scripts/micro_coleta/MICRO-CAMINHO-A1.md`, `scripts/micro_coleta/MICRO-RUNBOOK.md`, `scripts/micro_coleta/ensaio_offline.py` _(e mais 4)_ |
+| **peça real** | `RELATORIO-C9-IDIOMA.md`, `scripts/micro_coleta/COORTE-PROPOSTA.json`, `scripts/micro_coleta/GABARITO-MICRO-V1.json`, `scripts/micro_coleta/MICRO-CAMINHO-A1.md`, `scripts/micro_coleta/MICRO-RUNBOOK.md` _(e mais 9)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 14 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-HR6, C-INTEGRA-ONDA2, C-PACOTE-ONDA3 |
 | **prova de quem ativa** | ferramentas/hr6/hr6-plano.sh:10; ferramentas/integra_onda2/final/ensaio_integra.sh:37; ferramentas/onda3_pacote/ensaio_onda3.sh:40 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -1881,13 +1931,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `RELATORIO-RELEVANCIA-ELEGIVEIS.md`, `admissao/admissao.py`, `coleta/italy_executor.py` |
 | **o que sai · dado** | C-CAPA-MATERIA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 18 · saem 3 |
-| **arestas provadas** | entram 18 · saem 3 |
+| **arestas no mapa** | entram 18 · saem 4 |
+| **arestas provadas** | entram 18 · saem 4 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 3 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 21 |
+| **prova das ligações** | CODE 22 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2100,19 +2150,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe teste que exercita isto.  Mas ha 30 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
-| **porquê** | estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | ferramentas/reroute/medir_reroute.py:30; scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
+| **porquê** | estas pecas importam-na — C-REGUA-T1-JANELA · C-REROUTE-D2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `admissao/admissao.py`, `admissao/idioma.py`, `curadoria/CATALOGO-PROVA-V1.json` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 4 |
-| **arestas provadas** | entram 7 · saem 4 |
+| **arestas no mapa** | entram 7 · saem 5 |
+| **arestas provadas** | entram 7 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 11 |
+| **prova das ligações** | CODE 12 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2364,13 +2414,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 14 · saem 24 |
-| **arestas provadas** | entram 13 · saem 19 |
+| **arestas no mapa** | entram 14 · saem 25 |
+| **arestas provadas** | entram 13 · saem 20 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 32 · NÃO SEI 6 |
+| **prova das ligações** | CODE 33 · NÃO SEI 6 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2633,9 +2683,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
 OK                 41
 UNKNOWN            32
+TERMINAL           12
 SYSTEM_GAP         11
-TERMINAL           11
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              103
+ORPHAN             1
+TOTAL              105
 ```
