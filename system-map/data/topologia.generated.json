@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T09:52:58+00:00",
-  "HEAD": "3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1",
-  "BRANCH": "integra-onda2-v1",
+  "GENERATED_AT": "2026-09-25T10:49:56+00:00",
+  "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
+  "BRANCH": "micro-v3-fontes-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
-  "FICHEIROS_NA_IMPRESSAO": 3125,
+  "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+  "FICHEIROS_NA_IMPRESSAO": 3126,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -720,7 +720,7 @@
    {
     "PATH": "ferramentas/big_collection/onda_web.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5d921f1fb26c449b4c9836d54c81c1f5301b2abf",
+    "VERSAO": "f9f580ba7a840e9755e3eed9cf0ad21d0061ca49",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3975,14 +3975,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
+    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
+    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5415,6 +5415,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_onda_web_fontes.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "31c2bc6d8a6d67c4500786fd05bc166ad2371504",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_operacao.py",
     "PAPEL": "FONTE",
     "VERSAO": "5ea75fb6c76062f21484df7da28073be23fc69a6",
@@ -5905,8 +5912,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 838,
-  "INPUTS_DIGEST": "0812580283fdf39d93f17c99d17f419169a1cce26959bbc48316c44d42f3d4ff",
+  "INPUTS_COUNT": 839,
+  "INPUTS_DIGEST": "40f2cdee567d0cc3a674061fb05d119fb7941b4b7a835e90f978b7bdb253c472",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5939,8 +5946,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "2d5da9b06556f7a507cc073b629c6b19e3776e795b4f84b0d859f0ea90432296",
-  "SEMANTIC_HASH": "ef603ed9c526fd71e31c45c833db0e36612674976bbda79706f193c52002f2f6"
+  "MEASUREMENT_HASH": "6afcd06017beba34794580a9520664b50831363dd44d157aeaf592ce022d6f56",
+  "SEMANTIC_HASH": "c5b340994ded1e1e82e5decffe174c1ef24ef66eed16fb03a0587b23343c9748"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -54164,6 +54171,7 @@
     "tests/test_observabilidade_estrada.py",
     "tests/test_onboardar_rotas_provadas.py",
     "tests/test_onda_web.py",
+    "tests/test_onda_web_fontes.py",
     "tests/test_operacao.py",
     "tests/test_pacote_de_revisao_t3.py",
     "tests/test_persistencia_operacional.py",
