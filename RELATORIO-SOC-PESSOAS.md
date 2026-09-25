@@ -57,3 +57,53 @@ YouTube fora do GitHub para o canal de Simon Pierce.
 Fora do Git, com sha256: ver `C:/Users/London1/auditoria-madrugada/SOC-PESSOAS-PROVAS-SHA256.txt`.
 Rede: 3 blocos de leitura (5 + 1 diagnóstico + 5 pedidos de publicação), todos com portão PASS IT
 antes e depois; 0 bytes de vídeo (nenhuma das 5 publicações tinha vídeo); nenhum banco aberto.
+
+---
+
+## Retomada OFFLINE · 25/09 (portão de consenso BLOCKED BR às 01:40 → zero pedidos de rede)
+
+**1 · A janela medida pela régua da casa, e não pelo meu olho.** A régua T1-janela (cultura + dois
+momentos) e a T2 (clima/agrometeo), `admissao._do_universo` da `regua-t1-janela-v1` @ ba246704
+(VERSAO_DA_REGRA 9), correram offline sobre os 5 textos já lidos:
+
+| publicação | T1 | T2 | janela D29 |
+|---|---|---|---|
+| Senes 2025-06 (fórum de paisagismo) | NAO | NAO | NÃO |
+| Senes 2024-09 (jardim Alzheimer) | NAO | NAO | NÃO |
+| Senes 2024-04 (horticultura terapêutica) | NAO_SEI | NAO_SEI | NÃO_SEI |
+| Senes 2023-05 (curso healing gardens) | NAO_SEI | NAO_SEI | NÃO_SEI |
+| Sparvoli 2022-12 (sem texto do autor) | NAO_SEI | NAO_SEI | NÃO_SEI |
+| controle positivo (texto do teste da régua) | **SIM** | NAO_SEI | SIM |
+
+A régua confirma: **0 SIM de janela** em 5 publicações; a régua funciona (controle SIM).
+
+**2 · Numeração.** A lista usa agora os números da **FILA-ÚNICA** (`fila-unica-v1` @ c78da580):
+P4 = CAND-1156..1172, P5b = CAND-1148..1155, + CAND-1173 (Claudio Zaccone, P5b @ 754b4f8a).
+Os CAND-1130..1146 da `pessoas-agro-v4` ficam **superados** pela fila única (não juntar a v4 como fila).
+Lista completa em `curadoria/SOC-PESSOAS-LEITURAS-V1.json` → `LISTA_DAS_PESSOAS` (26 perfis de 25 pessoas:
+1 NÃO, 25 NÃO_SEI, cada um com o PORQUÊ e o PRÓXIMO passo).
+
+**3 · O método, pronto para quando a VPN voltar** (fora do Git, com sha256 em
+`C:/Users/London1/auditoria-madrugada/SOC-PESSOAS-PROVAS-SHA256.txt`):
+- `_soc_pessoas_runner.py` — lê uma lista de endereços de PUBLICAÇÃO; a trava e o pedido são os do
+  `adaptador_linkedin` da D24 (sem executor novo); o texto vem do envelope do Scrap e só cai para o
+  JSON-LD **do autor** quando o envelope vem vazio (o defeito), dizendo qual usou; a régua T1/T2 corre
+  **num processo próprio**, na cópia dela (as duas branches têm módulos com o mesmo nome — misturá-los
+  no mesmo processo partiu o `dataclass`); portão de consenso antes de cada publicação, e fora de IT
+  **zero pedidos** e estado `ESPERA VPN`.
+- **Testes offline 9/9** (rede, portão e páginas são duplos): comentário de terceiro nunca sai; perfil e
+  comentários recusados antes da rede; fora de IT zero pedidos; VPN a cair a meio pára; o texto do Scrap
+  tem precedência; o fallback declara-se; a régua diz SIM a um boletim e não a um texto sem janela.
+- **Mutação 7/7 mortos** (cópia nova por mutante, sem .pyc). Ressalva: M3 (sem portão a meio) morreu por
+  ERROR do teste, não por FAIL — morto, mas pela porta mais fraca.
+
+**4 · O que fica à espera**
+
+| o quê | estado |
+|---|---|
+| procurar endereços de publicação de Claudio Zaccone (P5b, novo) | **ESPERA VPN** |
+| reler Sparvoli quando o leitor do Scrap estiver corrigido | **ESPERA VPN** + correção do Scrap |
+| listar o canal de Simon Pierce | **ESPERA** chave do YouTube / runner do GitHub |
+| as 21 pessoas LinkedIn sem endereço de publicação | **ESPERA DECISÃO**: a casa não tem porta de descoberta de publicações de pessoa (D24 §5.3) |
+| Instagram de Fernanda Giorda | **ESPERA DECISÃO** (`janela` ROUTE_NOT_ALLOWED) |
+| `git push` desta branch | **ESPERA VPN** (commit só local até o portão dar PASS IT) |
