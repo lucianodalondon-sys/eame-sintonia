@@ -908,16 +908,6 @@
     "curadoria/janelas68v2_remedir.py",
     "curadoria/test_entrada_janela.py",
     "curadoria/test_reparo_data_publicacao.py",
-    "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
-    "provas/janelas68v2/ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json",
-    "provas/janelas68v2/ENTRADA-DE-JANELA-ENSAIO-V1.json",
-    "provas/janelas68v2/MUTACAO-TRAVA-V1.json",
-    "provas/janelas68v2/RELATORIO-JANELAS-68-V2.md",
-    "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
-    "provas/janelas68v2/TESTES-BASE-41d8751e.json",
-    "provas/janelas68v2/TESTES-RAMO.json",
-    "provas/janelas68v2/arsac_sonda.py",
-    "provas/janelas68v2/correr_testes.py",
     "tests/fixtures/janelas68_itens/.gitattributes",
     "tests/fixtures/janelas68_itens/IT-T2-135.html",
     "tests/fixtures/janelas68_itens/IT-T2-157.html",
@@ -931,6 +921,35 @@
     "tests/fixtures/janelas68_itens/IT-T8-069.html",
     "tests/fixtures/janelas68_itens/IT-T9-024.html",
     "tests/fixtures/janelas68_itens/MANIFESTO.json"
+   ]
+  },
+  {
+   "id": "C-JANELAS-68-V2-PROVAS",
+   "name": "JANELAS-68-v2 — provas (re-medicao, ensaio, mutacao, sonda ARSAC, testes)",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "As provas da C-JANELAS-68-V2: re-medicao com a trava (46 fontes, 13 -> 6, sem rede), ensaio da entrada de janela numa copia do livro (0 trocas), mutacao 5/5 e 3/3, sonda ARSAC autorizada (5 pedidos, portao IT) e a comparacao de testes base x ramo (0 falhas novas).",
+   "why_here": "Prova no ramo, com sha256 do que ficou fora do Git (regra da maquina partilhada, 24/09).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+    "provas/janelas68v2/ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json",
+    "provas/janelas68v2/ENTRADA-DE-JANELA-ENSAIO-V1.json",
+    "provas/janelas68v2/MUTACAO-TRAVA-V1.json",
+    "provas/janelas68v2/RELATORIO-JANELAS-68-V2.md",
+    "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+    "provas/janelas68v2/TESTES-BASE-41d8751e.json",
+    "provas/janelas68v2/TESTES-RAMO.json",
+    "provas/janelas68v2/arsac_sonda.py",
+    "provas/janelas68v2/correr_testes.py"
    ]
   },
   {
