@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t1-janela-v1",
-    "HEAD": "970ca6a3dc60f1837de3612b8e433fb92afc99b5",
-    "GENERATED_AT": "2026-09-25T01:47:04-03:00",
-    "SOURCE_TREE_FINGERPRINT": "adc96046c11f8d435fe1db1fb3601c7df08233ff28f172278bb1a4829d05dc56"
+    "HEAD": "dd259c6a3285128ccf9dc99687d4f6e6dae2d174",
+    "GENERATED_AT": "2026-09-25T02:05:12-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0b21f3b81d260684529dbad21bc67f43c3b5f32848610e7e48eb5e5d77bbc7a5"
   },
   "FILES": [
     {
@@ -619,7 +619,7 @@
     },
     {
       "path": "RELATORIO-T1-JANELA.md",
-      "sha": "7df930571ea5c354fa1e60d48ccfee2bd5fd3ba1",
+      "sha": "c29071eff8ebe2f75875a922747f556b76064320",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -682,7 +682,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "baefae2ef8aa3731561190b590d4f0c6212c2bc1",
+      "sha": "624a2143320391e75c01298a57213c9c6dbb0611",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17041,14 +17041,14 @@
     },
     {
       "path": "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
-      "sha": "91baa598a3373b51772689019bbefbce5a9bb521",
+      "sha": "a7f77cc2d32a1c66c6665185055603f26505cb21",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "scripts/regua_t1/MUTACAO-REGUA-T1-V1.json",
-      "sha": "27981b6094e681aa4a673abc485cf36b93d6b714",
+      "sha": "8dfa3bef6eb15a692f1fed68449dd9dcf638a9c8",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17061,8 +17061,22 @@
       "code_dir": true
     },
     {
+      "path": "scripts/regua_t1/PROVA-CEGA-POSITIVOS-T1-V1.json",
+      "sha": "1d12e60fab76bebe18f76b1d7f80c87837eeed84",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/regua_t1/PROVA-CEGA-T1-V1.json",
       "sha": "fda963940b6960e122728a9fd957f4c7ae86d084",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t1/RECOLHA-CEGA-POSITIVOS-V1.json",
+      "sha": "e23f01f29d91bd85c8d5729289aaea9e7c87be4e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17104,7 +17118,14 @@
     },
     {
       "path": "scripts/regua_t1/mutar_regua_t1.py",
-      "sha": "e6f318893aa9c730cf168f31b89d797ec90b5bdd",
+      "sha": "e4a2136e9f77c5733438d750652df92bb1a97e7a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t1/recolher_cega_positivos.py",
+      "sha": "dc2c0b3ee9728eaa51ba648b2a9e55433e7d8318",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17126,6 +17147,13 @@
     {
       "path": "scripts/regua_t1/rotulos/rotulos-3.tsv",
       "sha": "196249f90ee66b7724108ec17e1709e6afb218b2",
+      "ext": ".tsv",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t1/rotulos/rotulos-cega-positivos.tsv",
+      "sha": "6853a285da00d841086d50bbbc2fd28684136741",
       "ext": ".tsv",
       "readable": false,
       "code_dir": true
@@ -18028,7 +18056,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c5ce09af2289bcab8682e33e86e75581733f8450",
+      "sha": "c857091cb6fa4de1b85d3eae85bebe84065bbfd9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19876,7 +19904,7 @@
     },
     {
       "path": "tests/test_regua_t1.py",
-      "sha": "98f1804f784713d783d411b36deb8e63936cb645",
+      "sha": "85725870d7a2093f2157b51a8876b14b6eea3fa2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21597,7 +21625,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 1458,
+        "line": 1481,
         "snippet": "_sp = _iu.spec_from_file_location(\"admissao_idioma\", Path(__file__).resolve().parent / \"idioma.py\")"
       }
     },
@@ -61351,7 +61379,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/regua_t1/mutar_regua_t1.py",
-        "line": 31,
+        "line": 32,
         "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()"
       }
     },
@@ -61362,7 +61390,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/regua_t1/mutar_regua_t1.py",
-        "line": 40,
+        "line": 41,
         "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))"
       }
     },
@@ -61373,8 +61401,63 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/regua_t1/mutar_regua_t1.py",
-        "line": 50,
+        "line": 51,
         "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-REGUA-T1-V1.json\"), \"w\","
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/recolher_cega_positivos.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_t1/recolher_cega_positivos.py",
+        "line": 34,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/recolher_cega_positivos.py",
+      "to_file": "scripts/regua_t1/RECOLHA-CEGA-POSITIVOS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/recolher_cega_positivos.py",
+        "line": 46,
+        "snippet": "SAIDA = AQUI / \"RECOLHA-CEGA-POSITIVOS-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/recolher_cega_positivos.py",
+      "to_file": "scripts/regua_t1/RECOLHA-CEGA-POSITIVOS-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/recolher_cega_positivos.py",
+        "line": 115,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10), encoding=\"utf-8\", newline=chr(10))"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/recolher_cega_positivos.py",
+      "to_file": "scripts/regua_t2/inventariar_t2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/recolher_cega_positivos.py",
+        "line": 41,
+        "snippet": "_sp = importlib.util.spec_from_file_location(\"inv\", RAIZ / \"scripts\" / \"regua_t2\" / \"inventariar_t2.py\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t1/recolher_cega_positivos.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t1/recolher_cega_positivos.py",
+        "line": 38,
+        "snippet": "_sp = importlib.util.spec_from_file_location(\"rede\", RAIZ / \"superficie\" / \"rede.py\")"
       }
     },
     {
@@ -80139,7 +80222,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_regua_t1.py",
-        "line": 125,
+        "line": 152,
         "snippet": "self.g = json.load(open(os.path.join(AQUI, \"GABARITO-T1-V1.json\"), encoding=\"utf-8\"))"
       }
     },
@@ -80150,8 +80233,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_regua_t1.py",
-        "line": 126,
+        "line": 153,
         "snippet": "self.m = json.load(open(os.path.join(AQUI, \"MEDICAO-REGUA-T1-V1.json\"), encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_regua_t1.py",
+      "to_file": "scripts/regua_t1/PROVA-CEGA-POSITIVOS-T1-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_regua_t1.py",
+        "line": 86,
+        "snippet": "m = json.load(open(os.path.join(AQUI, \"PROVA-CEGA-POSITIVOS-T1-V1.json\"), encoding=\"utf-8\"))"
       }
     },
     {
@@ -83510,7 +83604,7 @@
     "scripts/regua_t1/mutar_regua_t1.py": [
       {
         "pasta": "admissao",
-        "line": 47,
+        "line": 48,
         "constante": "F"
       }
     ],
@@ -83628,10 +83722,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2877,
-    "files_readable": 1306,
-    "files_code_dir": 1181,
-    "file_edges": 5717,
+    "files_tracked": 2881,
+    "files_readable": 1307,
+    "files_code_dir": 1185,
+    "file_edges": 5723,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

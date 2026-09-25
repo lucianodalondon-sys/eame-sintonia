@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  970ca6a3dc60f1837de3612b8e433fb92afc99b5
+HEAD_DA_MEDICAO  dd259c6a3285128ccf9dc99687d4f6e6dae2d174
 BRANCH           regua-t1-janela-v1
-GERADO_EM        2026-09-25T01:47:04-03:00
+GERADO_EM        2026-09-25T02:05:12-03:00
 CARDS            95
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1870,24 +1870,24 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `RELATORIO-T1-JANELA.md`, `scripts/regua_t1/GABARITO-T1-V1.json`, `scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json`, `scripts/regua_t1/MEDICAO-REGUA-T1-V1.json`, `scripts/regua_t1/MUTACAO-REGUA-T1-V1.json` _(e mais 14)_ |
+| **peça real** | `RELATORIO-T1-JANELA.md`, `scripts/regua_t1/GABARITO-T1-V1.json`, `scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json`, `scripts/regua_t1/MEDICAO-REGUA-T1-V1.json`, `scripts/regua_t1/MUTACAO-REGUA-T1-V1.json` _(e mais 18)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
-| **prova de quem ativa** | tests/test_regua_t1.py:125 _(plano CODE)_ |
+| **prova de quem ativa** | tests/test_regua_t1.py:86 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `admissao/admissao.py`, `scripts/regua_t1/GABARITO-T1-V1.json`, `scripts/regua_t1/MUTACAO-REGUA-T1-V1.json` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 3 · saem 2 |
-| **arestas provadas** | entram 3 · saem 2 |
+| **arestas no mapa** | entram 4 · saem 2 |
+| **arestas provadas** | entram 4 · saem 2 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 5 |
+| **prova das ligações** | CODE 6 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 

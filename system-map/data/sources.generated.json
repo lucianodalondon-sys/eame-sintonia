@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T04:49:59+00:00",
-    "HEAD": "970ca6a3dc60f1837de3612b8e433fb92afc99b5",
+    "GENERATED_AT": "2026-09-25T05:25:07+00:00",
+    "HEAD": "dd259c6a3285128ccf9dc99687d4f6e6dae2d174",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "adc96046c11f8d435fe1db1fb3601c7df08233ff28f172278bb1a4829d05dc56",
-    "FICHEIROS_NA_IMPRESSAO": 3026,
+    "SOURCE_TREE_FINGERPRINT": "0b21f3b81d260684529dbad21bc67f43c3b5f32848610e7e48eb5e5d77bbc7a5",
+    "FICHEIROS_NA_IMPRESSAO": 3029,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -30327,6 +30327,47 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 177
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 827
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 22
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 54
+        },
+        {
+          "file": "provas/medir_validadores_coorte.py",
+          "line": 41
+        },
+        {
+          "file": "scripts/receitas/provar_indices.py",
+          "line": 24
+        },
+        {
+          "file": "scripts/regua_t1/recolher_cega_positivos.py",
+          "line": 53
+        },
+        {
+          "file": "scripts/regua_t2/recolher_boletins.py",
+          "line": 50
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 58
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -30360,43 +30401,6 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 234
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.arpae.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 177
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 827
-        },
-        {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 22
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 54
-        },
-        {
-          "file": "provas/medir_validadores_coorte.py",
-          "line": 41
-        },
-        {
-          "file": "scripts/receitas/provar_indices.py",
-          "line": 24
-        },
-        {
-          "file": "scripts/regua_t2/recolher_boletins.py",
-          "line": 50
-        },
-        {
-          "file": "tests/test_ld2_aditamento.py",
-          "line": 58
         }
       ]
     },
