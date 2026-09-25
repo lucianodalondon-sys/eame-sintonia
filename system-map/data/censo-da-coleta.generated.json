@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T08:14:15+00:00",
-    "HEAD": "ac4d953369fbd41d71c5b6c7881f84c71108a642",
+    "GENERATED_AT": "2026-09-25T09:24:16+00:00",
+    "HEAD": "91350473ce59a84fc24d851be23b021d69d67e11",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "e25478eff460b1f8c0dd52f7dcf9a5941a31dad0d65de590c1d0a51fb268bf90",
-    "FICHEIROS_NA_IMPRESSAO": 3057,
+    "SOURCE_TREE_FINGERPRINT": "5e380a12f7db12f36c4f2a63faf7846b0d8d6cdc64ca839c664e32d96d825323",
+    "FICHEIROS_NA_IMPRESSAO": 3125,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -349,7 +349,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "45b35a7dfa5c298dd6d6d07ae81d87b5c23090f2",
+        "VERSAO": "8b800f0bd7a2433b309171e7263bfea66e8f7a19",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -662,6 +662,20 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "bf46a5ea6f0e6b446da41aaab8c61439df11d9dd",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/integra_onda2/prova_teto_micro.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "cfb52a645c84311300c84f7140f7bf1d813a327d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/italy_extract_fields.mjs",
         "PAPEL": "FONTE",
         "VERSAO": "00faf5a979beb1d74960d3dbb2111aebf537245a",
@@ -686,6 +700,13 @@
         "PATH": "ferramentas/pdf_peek.mjs",
         "PAPEL": "FONTE",
         "VERSAO": "8bf939a51b4307b39bf0af5296b0a51e339e9164",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/ponte_onboard/mutacao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "85cc102b6289dd89c4bf146f96f8a23ef3d6a549",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1063,14 +1084,14 @@
       {
         "PATH": "regras/motor_de_rota.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "ac0087ef99084c227e27a1b51dfec0166cce1a6c",
+        "VERSAO": "d151ea28516248476a5c18ff2dfeb8e0da478c30",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "regras/motor_de_rota_test.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "ee354201e3aa6a10717da705a1907e33d88f9cf2",
+        "VERSAO": "981747710b9ae3e85d3ab91a238e0cd661c63c71",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1124,8 +1145,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 159,
-    "INPUTS_DIGEST": "bd0e3010236b53b9156b5d627f05a6a0d29a6ccb0bb7b283e348af27577dfda8",
+    "INPUTS_COUNT": 162,
+    "INPUTS_DIGEST": "706dbbac5b1be6003f3f46d80ea141e52a3d7bac2facde63f87123a57d22bea0",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1609,7 +1630,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "ferramentas/integra_onda2/final/ensaio_integra.sh"
+      ],
       "no_ci": false
     },
     {
@@ -1626,7 +1649,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
-        "ferramentas/big_collection/bc5_big_collection.py"
+        "ferramentas/big_collection/bc5_big_collection.py",
+        "ferramentas/integra_onda2/final/ensaio_integra.sh"
       ],
       "no_ci": false
     },
@@ -1854,6 +1878,40 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "gaveta": "ferramentas",
+      "linhas": 76,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/integra_onda2/prova_teto_micro.py",
+      "gaveta": "ferramentas",
+      "linhas": 64,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/italy_extract_fields.mjs",
       "gaveta": "ferramentas",
       "linhas": 94,
@@ -1922,6 +1980,22 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/ponte_onboard/mutacao.py",
+      "gaveta": "ferramentas",
+      "linhas": 85,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
       "chamado_por": [],
       "no_ci": false
     },
@@ -2909,7 +2983,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 1349,
+      "linhas": 1365,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3760,6 +3834,8 @@
         "coleta/italy_recurrent_collect.mjs",
         "coleta/scrap_colheita.py",
         "ferramentas/big_collection/coorte_unica.py",
+        "ferramentas/integra_onda2/final/ensaio_integra.sh",
+        "ferramentas/integra_onda2/prova_teto_micro.py",
         "pedido/receitas.py",
         "regras/contratos_de_fonte.py",
         "regras/italy_pilot_guards.mjs"
@@ -3819,7 +3895,7 @@
     {
       "ficheiro": "regras/motor_de_rota.mjs",
       "gaveta": "regras",
-      "linhas": 458,
+      "linhas": 544,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3837,7 +3913,7 @@
     {
       "ficheiro": "regras/motor_de_rota_test.mjs",
       "gaveta": "regras",
-      "linhas": 563,
+      "linhas": 740,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -4413,12 +4489,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 159,
-    "pontos_de_entrada": 115,
-    "executores_que_saem_para_fora": 22,
-    "sem_chamador_e_fora_do_ci": 63,
+    "ficheiros_de_codigo": 162,
+    "pontos_de_entrada": 118,
+    "executores_que_saem_para_fora": 23,
+    "sem_chamador_e_fora_do_ci": 65,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 88,
+    "escrevem_ficheiro": 91,
     "deitam_fora_alguma_coisa": 46,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -4457,9 +4533,12 @@
       "ferramentas/fala_local.py",
       "ferramentas/html_text.mjs",
       "ferramentas/instagram_transcrever.py",
+      "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "ferramentas/integra_onda2/prova_teto_micro.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/reel_transcricao.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
@@ -4545,6 +4624,7 @@
     "executores": [
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
+      "ferramentas/integra_onda2/final/ensaio_integra.sh",
       "ferramentas/reel_transcricao.py",
       "ferramentas/youtube_transcrever.py",
       "coleta/adaptador_instagram.py",
@@ -4581,15 +4661,17 @@
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
       "ferramentas/big_collection/bc5_big_collection.py",
-      "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/cutover/congelar_extras.py",
       "ferramentas/cutover/observador_ensaio.py",
       "ferramentas/cutover/passos_do_cutover.py",
       "ferramentas/cutover/resolver_conflitos_ensaio.py",
       "ferramentas/html_text.mjs",
+      "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "ferramentas/integra_onda2/prova_teto_micro.py",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo_lanes.py",

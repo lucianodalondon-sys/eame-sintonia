@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T08:14:04+00:00",
-    "HEAD": "ac4d953369fbd41d71c5b6c7881f84c71108a642",
+    "GENERATED_AT": "2026-09-25T09:24:06+00:00",
+    "HEAD": "91350473ce59a84fc24d851be23b021d69d67e11",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "e25478eff460b1f8c0dd52f7dcf9a5941a31dad0d65de590c1d0a51fb268bf90",
-    "FICHEIROS_NA_IMPRESSAO": 3057,
+    "SOURCE_TREE_FINGERPRINT": "5e380a12f7db12f36c4f2a63faf7846b0d8d6cdc64ca839c664e32d96d825323",
+    "FICHEIROS_NA_IMPRESSAO": 3125,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38252,7 +38252,7 @@
         },
         {
           "file": "tests/test_onboardar_rotas_provadas.py",
-          "line": 28
+          "line": 32
         }
       ]
     },
@@ -38488,6 +38488,27 @@
       ]
     },
     {
+      "endpoint": "https://www.cia.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 486
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 95
+        },
+        {
+          "file": "tests/test_onda_web.py",
+          "line": 57
+        },
+        {
+          "file": "tests/test_prova_teto_dominio.py",
+          "line": 90
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.coldiretti.it/",
       "usado_por": [
         {
@@ -38716,6 +38737,23 @@
       ]
     },
     {
+      "endpoint": "https://www.arpal.liguria.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 257
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 72
+        },
+        {
+          "file": "tests/test_prova_teto_dominio.py",
+          "line": 134
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.crea.gov.it/",
       "usado_por": [
         {
@@ -38746,23 +38784,6 @@
         {
           "file": "curadoria/test_discovery.py",
           "line": 954
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.cia.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 486
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 95
-        },
-        {
-          "file": "tests/test_onda_web.py",
-          "line": 57
         }
       ]
     },
@@ -38850,28 +38871,11 @@
           "line": 173
         }
       ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "leis/social_matriz.py",
-          "line": 907
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 58
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 119
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 620,
+  "ENDPOINTS_FOUND": 624,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 580,
+  "ENDPOINTS_TRUNCATED": 584,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -38889,9 +38893,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 620,
+    "endpoints": 624,
     "endpoints_published": 40,
-    "endpoints_truncated": 580,
+    "endpoints_truncated": 584,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,
