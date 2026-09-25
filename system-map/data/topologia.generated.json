@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T14:54:15+00:00",
-  "HEAD": "885fdd40891ba44dda94aedbe4434e5062ca7c89",
+  "GENERATED_AT": "2026-09-25T15:23:20+00:00",
+  "HEAD": "36207a882ff9aa1ff57df3730527ea848c32d844",
   "BRANCH": "claude/publication-time-source-location-ux4cuc",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "935534a0feabae9b0735fb2a77c0969044a0dc292c3d80e8f6d3d08e4299e5fc",
+  "SOURCE_TREE_FINGERPRINT": "a990f45c7cac54e0efa5af41e08694713e4572ebaf79a3bc4a97cb4902ea5834",
   "FICHEIROS_NA_IMPRESSAO": 3128,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -391,7 +391,7 @@
    {
     "PATH": "coleta/executor_texto_de_html.py",
     "PAPEL": "FONTE",
-    "VERSAO": "b80140904be261d6b0bf3b87091587af17c81cf4",
+    "VERSAO": "ec6a4184fe85dd93ab5769e9ea569663a3bf1199",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3975,14 +3975,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "935534a0feabae9b0735fb2a77c0969044a0dc292c3d80e8f6d3d08e4299e5fc",
+    "VERSAO": "a990f45c7cac54e0efa5af41e08694713e4572ebaf79a3bc4a97cb4902ea5834",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "935534a0feabae9b0735fb2a77c0969044a0dc292c3d80e8f6d3d08e4299e5fc",
+    "VERSAO": "a990f45c7cac54e0efa5af41e08694713e4572ebaf79a3bc4a97cb4902ea5834",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5802,7 +5802,7 @@
    {
     "PATH": "tests/test_tempo_e_lugar_da_publicacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "f838116d1240df7d78f19dfcaa87a80f9ff24a4c",
+    "VERSAO": "5b59c466df6d32d8310d57506bd5dd837a243fe0",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5920,7 +5920,7 @@
    }
   ],
   "INPUTS_COUNT": 840,
-  "INPUTS_DIGEST": "df2e50e53675ca830093bf0c4b9d4eec8c931eddfe07d03999a544e5cd05dfc7",
+  "INPUTS_DIGEST": "e3459dc18c116f93f2fe0d80410bf25a840e628d3d639d4b6ca8aa5c8120e4e0",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5953,8 +5953,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "491c5c02b3de86b00bdd5be24be3830ee915faf3f67315eac2363c9e366814ab",
-  "SEMANTIC_HASH": "603884a8b02dd1ad3525b6232354adc8cbc2326de3657ea09c5b14ef57cf9b65"
+  "MEASUREMENT_HASH": "b73970d0e7979f5dd7fc4db82c5de895bdbde1f36bb4c12f8e5ef0348aac62c6",
+  "SEMANTIC_HASH": "cf853d4dab01f438462f2ff1b5fddb0230212835ed1704395db9fd3359fc538b"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -19282,7 +19282,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/executor_texto_de_html.py",
-      "LINHA": 654,
+      "LINHA": 665,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -20082,6 +20082,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "LINHA": 451,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_v1a_v1_ligada.py",
       "LINHA": 23,
@@ -25511,7 +25519,15 @@
      },
      {
       "FICHEIRO": "tests/test_tempo_e_lugar_da_publicacao.py",
-      "LINHA": 291,
+      "LINHA": 292,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "LINHA": 451,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",

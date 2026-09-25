@@ -3112,8 +3112,8 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "20 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_html.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
+      "titulo": "19 coletores gravam registo sem data nem lugar.",
+      "texto": "16 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/adaptador_linkedin.py",
@@ -3574,9 +3574,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/publication-time-source-location-ux4cuc",
-    "HEAD": "885fdd40891ba44dda94aedbe4434e5062ca7c89",
-    "GENERATED_AT": "2026-09-25T14:52:19+00:00",
-    "SOURCE_TREE_FINGERPRINT": "935534a0feabae9b0735fb2a77c0969044a0dc292c3d80e8f6d3d08e4299e5fc"
+    "HEAD": "36207a882ff9aa1ff57df3730527ea848c32d844",
+    "GENERATED_AT": "2026-09-25T15:21:23+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a990f45c7cac54e0efa5af41e08694713e4572ebaf79a3bc4a97cb4902ea5834"
   },
   "FAMILIES": [
     {
@@ -12062,8 +12062,11 @@
           "ficheiro": "coleta/executor_texto_de_html.py",
           "como_se_chama": "coleta/executor_texto_de_html.py --ficha",
           "carimba_data": [],
-          "carimba_lugar": [],
-          "separa_fonte_do_fato": false,
+          "carimba_lugar": [
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
           "leis_que_obedece": [
             "proveniencia"
           ],
@@ -43823,7 +43826,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/executor_texto_de_html.py:654",
+          "coleta/executor_texto_de_html.py:665",
           "coleta/executor_texto_de_pdf.py:299",
           "coleta/executor_transcricao_midia.py:303",
           "guarda/memoria_descartavel.py:43"
@@ -63869,6 +63872,7 @@
         "coleta/comunicacao_medir.py",
         "coleta/derivacao_forward.py",
         "coleta/eu_regulatorio_executor.py",
+        "coleta/executor_texto_de_html.py",
         "coleta/executor_texto_de_pdf.py",
         "coleta/executor_transcricao_midia.py",
         "coleta/golden_path_pdf.py",
@@ -89416,7 +89420,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 654,
+          "line": 665,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -90919,8 +90923,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de HTML alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Executor · texto a partir de HTML alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+          "line": 451,
+          "snippet": "for f in (\"coleta/executor_texto_de_html.py\", \"regras/contratos_de_fonte.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_v1a_v1_ligada.py",
           "line": 23,
@@ -100100,7 +100120,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -100200,8 +100220,24 @@
         },
         {
           "file": "tests/test_tempo_e_lugar_da_publicacao.py",
-          "line": 291,
+          "line": 292,
           "snippet": "os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")).as_uri()))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+          "line": 451,
+          "snippet": "for f in (\"coleta/executor_texto_de_html.py\", \"regras/contratos_de_fonte.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
             "FROM": "C-IT-CONTRATOS",

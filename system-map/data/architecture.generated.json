@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/publication-time-source-location-ux4cuc",
-    "HEAD": "885fdd40891ba44dda94aedbe4434e5062ca7c89",
-    "GENERATED_AT": "2026-09-25T14:52:19+00:00",
-    "SOURCE_TREE_FINGERPRINT": "935534a0feabae9b0735fb2a77c0969044a0dc292c3d80e8f6d3d08e4299e5fc"
+    "HEAD": "36207a882ff9aa1ff57df3730527ea848c32d844",
+    "GENERATED_AT": "2026-09-25T15:21:23+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a990f45c7cac54e0efa5af41e08694713e4572ebaf79a3bc4a97cb4902ea5834"
   },
   "FILES": [
     {
@@ -304,7 +304,7 @@
     },
     {
       "path": "PLANO-INSTALACAO-TEMPO-PUBLICACAO.md",
-      "sha": "70f48befb8cdb2553be38194964d5581e64d6dc4",
+      "sha": "65af4db1e78605ac21ea57de8e35c0368cf3bf5d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1858,7 +1858,7 @@
     },
     {
       "path": "coleta/executor_texto_de_html.py",
-      "sha": "b80140904be261d6b0bf3b87091587af17c81cf4",
+      "sha": "ec6a4184fe85dd93ab5769e9ea569663a3bf1199",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20744,7 +20744,7 @@
     },
     {
       "path": "tests/test_tempo_e_lugar_da_publicacao.py",
-      "sha": "f838116d1240df7d78f19dfcaa87a80f9ff24a4c",
+      "sha": "5b59c466df6d32d8310d57506bd5dd837a243fe0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23605,7 +23605,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 777,
+        "line": 788,
         "snippet": "f = os.path.join(RAIZ, \"curadoria\", \"retrato_html.py\")"
       }
     },
@@ -23616,7 +23616,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 654,
+        "line": 665,
         "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
       }
     },
@@ -83808,8 +83808,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_tempo_e_lugar_da_publicacao.py",
-        "line": 30,
+        "line": 31,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "to_file": "coleta/executor_texto_de_html.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+        "line": 451,
+        "snippet": "for f in (\"coleta/executor_texto_de_html.py\", \"regras/contratos_de_fonte.py\"):"
       }
     },
     {
@@ -83819,7 +83830,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_tempo_e_lugar_da_publicacao.py",
-        "line": 345,
+        "line": 346,
         "snippet": "\"v1_2e488a8232ba/monitoraggio.html\")"
       }
     },
@@ -83830,8 +83841,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_tempo_e_lugar_da_publicacao.py",
-        "line": 47,
+        "line": 48,
         "snippet": "\"sversamento-nel-naviglio-grande-riprende-la-navigazione.html\")"
+      }
+    },
+    {
+      "from_file": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "to_file": "regras/contratos_de_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+        "line": 451,
+        "snippet": "for f in (\"coleta/executor_texto_de_html.py\", \"regras/contratos_de_fonte.py\"):"
       }
     },
     {
@@ -83841,7 +83863,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_tempo_e_lugar_da_publicacao.py",
-        "line": 291,
+        "line": 292,
         "snippet": "os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")).as_uri()))"
       }
     },
@@ -85419,7 +85441,7 @@
     "files_tracked": 2980,
     "files_readable": 1334,
     "files_code_dir": 1270,
-    "file_edges": 5814,
+    "file_edges": 5816,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },
