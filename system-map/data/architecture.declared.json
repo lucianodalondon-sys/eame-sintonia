@@ -5049,6 +5049,26 @@
     "scripts/reparo/juntar_bancas.py",
     "scripts/reparo/revisar_ready.py"
    ]
+  },
+  {
+   "id": "C-LEGACY-99",
+   "name": "LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "ensaio_na_copia.py: numa COPIA dos livros do vivo (recusa a arvore do bot), aplica o A (importar_do_coletor, HTML) e o B (pelo_scrap: o canal YouTube vai para a fase canal-youtube do Scrap pelo bloco 4 do desbloqueio) e conta os estados; nada promove. d53_nos_recibos_reais.py: passa os itens de recibos reais do Scrap ja guardados pela prova da D53 (regua_social.provas_do_video), so leitura. mutacao.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro.",
+   "why_here": "LEGACY-99 v4 / SEPARAR-A-B (25/09/2026): A (HTML importado do coletor) e B (canal YouTube) em commits separados, com a rota YouTube num so dono (o Scrap nomeado por rota_do_scrap_youtube, julgado por regua_social com a D53); em copia do vivo e5cd691f: 21 HTML e 41 YouTube a CANARY_PENDING, 0 READY.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+    "ferramentas/legacy99v4/ensaio_na_copia.py",
+    "ferramentas/legacy99v4/mutacao.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
