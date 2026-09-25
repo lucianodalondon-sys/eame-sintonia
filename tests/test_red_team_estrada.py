@@ -187,18 +187,24 @@ class J_EstagioDaPorta(unittest.TestCase):
         self.assertEqual("pertence ao universo", d.regra)
 
     def test_K_fato_sem_fact_time_continua_a_ser_perguntado(self):
+        # D62 (dono, 25/09): a pergunta continua a ser feita e a resposta
+        # continua escrita — mas a falta de data ja NAO barra o fato.
         fato = {"id": "c1", "claim_id": "c1", "subject": "praga",
                 "texto": "ensaio com doi", "source_id": "IT-T7-001"}
         self.assertEqual(adm.FATO, adm.estagio(fato))
+        r, motivo, ev = adm._tem_quando(fato)
+        self.assertEqual(adm.SIM, r)
+        self.assertEqual("NAO SEI", ev["fact_time"])
         d = adm.decidir(fato, "T5", corrida="red-team")
-        self.assertEqual("tempo do fato", d.regra)
-        self.assertEqual(adm.NAO_SEI, d.resultado)
+        self.assertNotEqual(("tempo do fato", adm.NAO_SEI), (d.regra, d.resultado))
 
     def test_K2_quem_nao_se_declara_mantem_a_regua_antiga(self):
         antigo = {"id": "z", "texto": "ensaio com doi", "source_id": "s"}
         self.assertEqual(adm.ESTAGIO_DESCONHECIDO, adm.estagio(antigo))
-        self.assertEqual("tempo do fato",
-                         adm.decidir(antigo, "T5", corrida="rt").regra)
+        # D62: a regua antiga continua a PERGUNTAR o tempo, sem barrar por ele.
+        self.assertEqual(adm.SIM, adm._tem_quando(antigo)[0])
+        self.assertNotEqual("tempo do fato",
+                            adm.decidir(antigo, "T5", corrida="rt").regra)
 
     def test_L_ausencia_nunca_vira_zero_nem_valor(self):
         doc = {"id": "d2", "artifact_type": "DERIVED",

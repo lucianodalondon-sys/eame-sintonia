@@ -138,8 +138,12 @@ class OIngressoDevolveAUnidadeQueApurou(Bancada):
 class OEstagioMudaAPerguntaENaoAResposta(Bancada):
 
     def test_sem_estagio_a_porta_cobra_o_tempo_do_fato(self):
-        d = adm.decidir(ing.para_a_porta(self.unidade()), "T2", corrida="x")
-        self.assertEqual(d.regra, "tempo do fato")
+        # D62 (dono, 25/09): pergunta-se, e a falta regista-se — nao barra.
+        u = ing.para_a_porta(self.unidade())
+        r, _, ev = adm._tem_quando(u)
+        self.assertEqual((adm.SIM, "NENHUM"), (r, ev["que_tempo"]))
+        d = adm.decidir(u, "T2", corrida="x")
+        self.assertNotEqual(d.regra, "tempo do fato")
 
     def test_com_estagio_a_porta_nao_cobra_o_tempo_do_fato(self):
         u = self.recebe(self.unidade())["PARA_A_PORTA"][0]
@@ -184,17 +188,18 @@ class OsDezAtaques(Bancada):
                        ARTIFACT_TYPE=art.DERIVED, PARENT_ARTIFACT_ID="RAW-1")
         self.assertNotIn("quando o fato aconteceu", d.motivo)
 
-    def test_3_FATO_sem_fact_time_continua_NAO_SEI(self):
-        """O outro lado da regra: um FATO sem tempo continua a ser NAO_SEI."""
+    def test_3_FATO_sem_fact_time_nao_e_barrado_pelo_tempo(self):
+        """D62 (dono, 25/09): um FATO sem tempo NAO e barrado por isso — a
+        falta regista-se (NAO SEI) e a porta segue para as outras perguntas."""
         d = self.porta(id="a", texto="prosa", SOURCE_ID="IT-T2-002",
                        CROP="VINE")
-        self.assertEqual(d.resultado, adm.NAO_SEI)
-        self.assertIn("quando o fato aconteceu", d.motivo)
+        self.assertNotEqual(d.regra, "tempo do fato")
+        self.assertNotIn("quando o fato aconteceu", d.motivo)
 
-    def test_4_estagio_desconhecido_sem_fact_time_continua_NAO_SEI(self):
-        """Quem não se declara continua medido pela régua antiga."""
+    def test_4_estagio_desconhecido_sem_fact_time_nao_e_barrado_pelo_tempo(self):
+        """Quem não se declara continua a ser perguntado — e a falta nao barra (D62)."""
         d = self.porta(id="a", texto="prosa", SOURCE_ID="IT-T2-002")
-        self.assertIn("quando o fato aconteceu", d.motivo)
+        self.assertNotEqual(d.regra, "tempo do fato")
 
     def test_5_RAW_com_fact_time_nao_e_estragado(self):
         d = self.porta(id="a", texto="prosa", SOURCE_ID="IT-T2-002",

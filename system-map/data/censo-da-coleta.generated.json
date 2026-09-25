@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T14:23:04+00:00",
-    "HEAD": "b28d74717f2447a7a643ed1bc43923dbccadd5cd",
+    "GENERATED_AT": "2026-09-25T14:50:17+00:00",
+    "HEAD": "9d233d664e60747ed0cf2047bab42ef44bca367e",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "0e10d0017fee06c46e68be18c84d8ee865b7e3c56e7017d64235cabbba3af1b5",
-    "FICHEIROS_NA_IMPRESSAO": 3133,
+    "SOURCE_TREE_FINGERPRINT": "031701553963fafd0584ad6db65ef34a2429b058121e14de313894bd7a282d23",
+    "FICHEIROS_NA_IMPRESSAO": 3139,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "624a2143320391e75c01298a57213c9c6dbb0611",
+        "VERSAO": "61f19d911e0a2a557e854ecc48c127b772022960",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -216,7 +216,7 @@
       {
         "PATH": "coleta/derivacao_forward.py",
         "PAPEL": "FONTE",
-        "VERSAO": "0c43c9beb0cd050bfd2c56d63e4fc376ac4c7648",
+        "VERSAO": "d804af4bd47aa42608ae7020a22b6f082a55bf6b",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -300,7 +300,7 @@
       {
         "PATH": "coleta/ingresso.py",
         "PAPEL": "FONTE",
-        "VERSAO": "f05aa6b0cca3b9d71ab7dd6f79fae21cf70c7821",
+        "VERSAO": "5cd1918b417ea4fdf919d9876b393ece7aac0c06",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -335,7 +335,7 @@
       {
         "PATH": "coleta/italy_executor.py",
         "PAPEL": "FONTE",
-        "VERSAO": "dcd676553b59d71269877067a8245b05e697d9a6",
+        "VERSAO": "a350b91c68f2e73be50fe38efbffe7a9ea3baecf",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1028,7 +1028,7 @@
       {
         "PATH": "regras/contratos_de_fonte.py",
         "PAPEL": "FONTE",
-        "VERSAO": "0e9a3c404a67da2b070484ae1278973b7fa29147",
+        "VERSAO": "86da372bd03e65c0c5742cf9b177d89324fe9c99",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1056,7 +1056,7 @@
       {
         "PATH": "regras/italy_contracts.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+        "VERSAO": "81635cd9783c5ff254b7d58e7b6c98f77a0a685c",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1146,7 +1146,7 @@
       }
     ],
     "INPUTS_COUNT": 162,
-    "INPUTS_DIGEST": "a8b99227a7322ef7846b6f68c52885ba38c478fbb55abe90dd42b0c7c8164aab",
+    "INPUTS_DIGEST": "09140cc3bb635808a7ece3a74ade25909c9c9ef06a69fc881195da85f8361cc3",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2582,7 +2582,7 @@
     {
       "ficheiro": "coleta/derivacao_forward.py",
       "gaveta": "coleta",
-      "linhas": 613,
+      "linhas": 616,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2823,7 +2823,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 1402,
+      "linhas": 1477,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2947,7 +2947,7 @@
     {
       "ficheiro": "coleta/italy_executor.py",
       "gaveta": "coleta",
-      "linhas": 498,
+      "linhas": 595,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3001,6 +3001,7 @@
         "coleta/retrato_html.mjs",
         "ferramentas/big_collection/onda_web.py",
         "pedido/receitas.py",
+        "regras/contratos_de_fonte.py",
         "regras/incrementalidade.mjs",
         "regras/italy_pilot_guards.mjs",
         "regras/motor_de_rota.mjs",
@@ -3740,7 +3741,7 @@
     {
       "ficheiro": "regras/contratos_de_fonte.py",
       "gaveta": "regras",
-      "linhas": 400,
+      "linhas": 431,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3753,6 +3754,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/italy_executor.py",
         "coleta/scrap_colheita.py"
       ],
       "no_ci": false
@@ -3815,7 +3817,7 @@
     {
       "ficheiro": "regras/italy_contracts.mjs",
       "gaveta": "regras",
-      "linhas": 704,
+      "linhas": 709,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -4087,7 +4089,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 1963,
+      "linhas": 2004,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [

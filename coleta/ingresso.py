@@ -256,6 +256,11 @@ FRONTEIRA_TRANSPORTA = {
     #     UM `NAO SEI` SEM RAZAO E INDISTINGUIVEL DE DESLEIXO.
     "FACT_TIME_BASIS": "como se sabe o FACT_TIME, ou porque NAO se sabe",
     "FACT_LOCATION_BASIS": "como se sabe o FACT_LOCATION, ou porque NAO se sabe",
+    # TEMPO-E-LUGAR (25/09): os outros dois valores tambem tem de dizer de
+    # onde vieram. A data de publicacao pode vir de um JSON-LD, de uma meta
+    # tag ou da edicao impressa — sao bases diferentes, e so a base as separa.
+    "PUBLISHED_AT_BASIS": "como se sabe o PUBLISHED_AT, ou porque NAO se sabe",
+    "SOURCE_LOCATION_BASIS": "como se sabe o SOURCE_LOCATION, ou porque NAO se sabe",
     # A especie probatoria que o CONTRATO DE FONTE declara antes de correr.
     # DECLARADO PELA FONTE != MEDIDO NESTE DOCUMENTO, e o nome diz qual e qual.
     "SOURCE_DECLARED_EVIDENCE_CLASS":
@@ -341,6 +346,25 @@ PARA_A_PORTA = {
     "SOURCE_LOCATION_BASIS": "source_location_basis",
     "SOURCE_LOCATION_PRECISION": "source_location_precision",
 }
+
+# ── TEMPO E LUGAR: O QUE A OBSERVACAO SABE, E TEM DE CHEGAR A PORTA ─────────
+# ⚠️ TEMPO-E-LUGAR (25/09). Medido na Sala real: 78 de 78 com os cinco campos
+# em `NAO SEI`. Nenhum sitio escrevia a constante — o valor MORRIA no caminho:
+# a rota documental leva a observacao ate `raw_asset` e dai ao texto derivado,
+# e nenhuma das tres paragens (`unidades_para_a_derivacao`,
+# `derivacao_forward`, `orquestrador.pela_estruturacao`) o levava.
+#
+#     UM RECADO PASSADO DE MAO EM MAO QUE NINGUEM REPETE.
+#
+# Esta lista e o recado, na lingua do contrato comum. Viaja com a unidade
+# desde a porta (onde o item original ainda esta em mao) ate
+# `orquestrador.item_documental_para_a_porta`, e so `para_a_porta` o traduz.
+# Cada valor vai com a sua base; o que nao se prova nao vai.
+TEMPO_E_LUGAR = ("FACT_TIME", "FACT_TIME_BASIS",
+                 "PUBLISHED_AT", "PUBLISHED_AT_BASIS",
+                 "OBSERVED_AT",
+                 "SOURCE_LOCATION", "SOURCE_LOCATION_BASIS",
+                 "FACT_LOCATION", "FACT_LOCATION_BASIS")
 
 
 class TextoEmConflito(ValueError):
@@ -691,7 +715,40 @@ def _quem_deriva_aceita(media_type) -> bool:
     return False
 
 
-def unidades_para_a_derivacao(recibo, armazem) -> tuple:
+def tempo_e_lugar_por_observacao(recibo, item_por_passagem) -> dict:
+    """`{RAW_OBSERVATION_ID: {campo de TEMPO_E_LUGAR: valor}}`.
+
+    O item original so esta em mao aqui, na porta. Liga-se a observacao pela
+    mesma alca que `_a_observacao_volta_ao_item` usa — sem procurar por sha,
+    caminho ou posicao.
+
+    ⚠️ N passagens da MESMA observacao que discordam num campo nao escolhem:
+    o campo sai ausente (a porta escreve `NAO SEI`). Escolher a primeira seria
+    escolher ao acaso com cara de determinismo.
+    """
+    fora = {}
+    for o in (recibo or {}).get("RAW_OBSERVATIONS") or []:
+        ident = o.get("RAW_OBSERVATION_ID")
+        if ident is None:
+            continue
+        vistos = []
+        for alca in (o.get(PASSAGENS) or []):
+            item = item_por_passagem.get(alca)
+            if item is not None:
+                vistos.append({k: item[k] for k in TEMPO_E_LUGAR
+                               if item.get(k) not in NAO_E_AFIRMACAO})
+        if not vistos:
+            continue
+        juntos = {}
+        for k in TEMPO_E_LUGAR:
+            valores = {json.dumps(v.get(k), sort_keys=True) for v in vistos}
+            if len(valores) == 1 and vistos[0].get(k) is not None:
+                juntos[k] = vistos[0][k]
+        fora[ident] = juntos
+    return fora
+
+
+def unidades_para_a_derivacao(recibo, armazem, tempo_e_lugar=None) -> tuple:
     """As observacoes DESTA passagem, com o endereco dos bytes delas.
 
     Devolve `(unidades, sem_bytes)`. Uma unidade e o que
@@ -772,6 +829,9 @@ def unidades_para_a_derivacao(recibo, armazem) -> tuple:
                          "SOURCE_ID": o.get("SOURCE_ID"),
                          # V1A: o endereco da observacao, ate a porta (V1).
                          "SOURCE_URL": o.get("SOURCE_URL"),
+                         # TEMPO-E-LUGAR: o recado da observacao, com as bases.
+                         "TEMPO_E_LUGAR": dict((tempo_e_lugar or {}).get(
+                             o["RAW_OBSERVATION_ID"]) or {}),
                          "PDF": local})
     return unidades, sem_bytes
 
@@ -828,6 +888,13 @@ def ficha(item: dict, *, corrida: dict, raiz: str = RAIZ) -> art.Artefato:
     comum = dict(RUN_ID=corrida.get("RUN_ID", art.NAO_SEI),
                  COLLECTED_AT=corrida.get("STARTED_AT") or art.agora())
     comum.update(declarados)
+    # ⚠️ AS BASES VAO PARA AS NOTAS DA FICHA, que e onde `art.conferir` as le.
+    # Sem isto, um `FACT_LOCATION` provado chegava a ficha sem a base e a
+    # porta recusava o item inteiro por «preenchido sem dizer de onde saiu».
+    notas = {k: item[k] for k in ("FACT_TIME_BASIS", "FACT_LOCATION_BASIS")
+             if item.get(k)}
+    if notas:
+        comum["NOTES"] = notas
 
     if abs_ and os.path.isfile(abs_):
         return art.raw_do_disco(abs_, raiz, **comum)
@@ -1306,6 +1373,9 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
     #
     #     POSICAO NAO E LIGACAO.
     por_passagem = {}
+    # TEMPO-E-LUGAR: o ITEM original de cada alca, para o recado de tempo e
+    # lugar viajar ate a derivacao (a unidade da porta ja fala outra lingua).
+    item_por_passagem = {}
     for i, item in enumerate(itens):
         if not isinstance(item, dict) or not item:
             recusas.append({"INDICE": i, "PORQUE": SEM_CONTEUDO,
@@ -1347,6 +1417,7 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
         unidade = unidade_para_a_porta(item, f)
         para_a_porta_.append(unidade)
         por_passagem[alca] = unidade
+        item_por_passagem[alca] = item
         para_o_raw.append(dict(para_o_dono_do_raw(f, item), **{PASSAGEM: alca}))
 
     recibo = None
@@ -1388,7 +1459,9 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
     #
     # Sem banco, `preservar()` nao devolve `RAW_OBSERVATIONS` e a lista sai
     # vazia — que e a verdade: nao ha observacao canonica para derivar.
-    para_derivar, sem_bytes = unidades_para_a_derivacao(recibo, armazem)
+    para_derivar, sem_bytes = unidades_para_a_derivacao(
+        recibo, armazem,
+        tempo_e_lugar_por_observacao(recibo, item_por_passagem))
 
     # `PARA_A_PORTA` sao os MESMOS aceites, com o conteudo intacto e o estagio
     # preservado. Nao e um terceiro objecto: e a unidade aceite, na lingua de

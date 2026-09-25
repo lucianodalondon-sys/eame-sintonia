@@ -89,6 +89,7 @@
       "RELATORIO-YT1-CANARIO.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
+      "TEMPO-E-LUGAR.md",
       "_gavetas.py",
       "package.json",
       "vercel.json"
@@ -2366,6 +2367,9 @@
       "provas/so_a_colheita_atravessa.py",
       "provas/social_persistencia_no_postgres.py",
       "provas/superficie_do_scrap_v1.py",
+      "provas/tempo_e_lugar_acervo.py",
+      "provas/tempo_e_lugar_medir.py",
+      "provas/tempo_e_lugar_replay.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
@@ -2825,6 +2829,7 @@
       "tests/fixtures/yt-raw-minimo.json",
       "tests/medir_multilingue.py",
       "tests/mutacao_do_scrap_portas.py",
+      "tests/mutacao_tempo_e_lugar.py",
       "tests/test_a_collection_preserva_o_fato.py",
       "tests/test_a_demanda_de_dados_da_italia.py",
       "tests/test_a_fase_10_entra_no_acervo.py",
@@ -3043,6 +3048,7 @@
       "tests/test_source_id_wiring_gap.py",
       "tests/test_source_owner_identity.py",
       "tests/test_telemetria.py",
+      "tests/test_tempo_e_lugar_atravessa.py",
       "tests/test_teto_dominio.py",
       "tests/test_thread_parcial.py",
       "tests/test_trava_da_inteligencia.py",
@@ -3118,7 +3124,7 @@
     {
       "id": "coleta-sem-data-nem-lugar",
       "titulo": "20 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_html.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
+      "texto": "16 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_html.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/adaptador_linkedin.py",
@@ -3578,10 +3584,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "lugar-fato-v1",
-    "HEAD": "b28d74717f2447a7a643ed1bc43923dbccadd5cd",
-    "GENERATED_AT": "2026-09-25T11:19:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0e10d0017fee06c46e68be18c84d8ee865b7e3c56e7017d64235cabbba3af1b5"
+    "BRANCH": "tempo-lugar-v1",
+    "HEAD": "9d233d664e60747ed0cf2047bab42ef44bca367e",
+    "GENERATED_AT": "2026-09-25T11:14:29-03:00",
+    "SOURCE_TREE_FINGERPRINT": "031701553963fafd0584ad6db65ef34a2429b058121e14de313894bd7a282d23"
   },
   "FAMILIES": [
     {
@@ -4609,14 +4615,15 @@
           "JA_TEM_CAMPO_PROPRIO_NO_READY",
           "NAO_E_ITEM",
           "PERGUNTAS_DO_UNIVERSO",
-          "PERGUNTAS_EN"
+          "PERGUNTAS_EN",
+          "QUATRO_DO_TEMPO_E_LUGAR"
         ],
-        "palavras": 343,
+        "palavras": 353,
         "por_lingua": {
           "IT": 31,
-          "PT": 19
+          "PT": 20
         },
-        "sem_marca_de_lingua": 293,
+        "sem_marca_de_lingua": 302,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -5083,8 +5090,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 628",
-        "desses, mostrados aqui: 40 (ficam de fora 588)"
+        "enderecos que o codigo realmente chama: 629",
+        "desses, mostrados aqui: 40 (ficam de fora 589)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -12223,8 +12230,11 @@
           "carimba_data": [
             "CAPTURED_AT"
           ],
-          "carimba_lugar": [],
-          "separa_fonte_do_fato": false,
+          "carimba_lugar": [
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
           "leis_que_obedece": [],
           "regista_descarte": []
         },
@@ -39036,7 +39046,7 @@
           "ferramentas/big_collection/coorte_unica.py:42",
           "ferramentas/integra_onda2/final/ensaio_integra.sh:61",
           "provas/prova_teto_dominio.py:167",
-          "regras/italy_contracts.mjs:579"
+          "regras/italy_contracts.mjs:584"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-INTEGRA-ONDA2 · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -41536,7 +41546,7 @@
           ".github/workflows/comunicacao-publica.yml:146",
           ".github/workflows/comunicacao-publica.yml:147",
           "pedido/receitas.py:372",
-          "orquestrador/orquestrador.py:905"
+          "orquestrador/orquestrador.py:956"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -42416,7 +42426,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:105",
-          "orquestrador/orquestrador.py:905"
+          "orquestrador/orquestrador.py:956"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -43917,7 +43927,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "orquestrador/orquestrador.py:517"
+          "orquestrador/orquestrador.py:519"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -44531,7 +44541,7 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           "pedido/receitas.py:122",
-          "orquestrador/orquestrador.py:905"
+          "orquestrador/orquestrador.py:956"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
@@ -45302,7 +45312,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:236",
-          "orquestrador/orquestrador.py:905"
+          "orquestrador/orquestrador.py:956"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -46021,11 +46031,12 @@
           "DO_COLETOR",
           "FRONTEIRA_TRANSPORTA",
           "PARA_A_PORTA",
+          "TEMPO_E_LUGAR",
           "_SENTINELAS"
         ],
-        "palavras": 77,
+        "palavras": 92,
         "por_lingua": {},
-        "sem_marca_de_lingua": 77,
+        "sem_marca_de_lingua": 92,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -47711,7 +47722,7 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           "pedido/receitas.py:170",
-          "orquestrador/orquestrador.py:905"
+          "orquestrador/orquestrador.py:956"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
@@ -47888,7 +47899,7 @@
         "ITALIA": 6
       },
       "paises_dado": {
-        "ITALIA": 46
+        "ITALIA": 47
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -47899,9 +47910,9 @@
           "CAMPOS_DECLARADOS",
           "_SENTINELAS"
         ],
-        "palavras": 15,
+        "palavras": 16,
         "por_lingua": {},
-        "sem_marca_de_lingua": 15,
+        "sem_marca_de_lingua": 16,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -48372,7 +48383,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/italy_executor.py:87",
+          "coleta/italy_executor.py:88",
           "ferramentas/big_collection/bc5_big_collection.py:39",
           "ferramentas/big_collection/onda_web.py:46",
           "ferramentas/integra_onda2/final/ensaio_integra.sh:14"
@@ -49106,7 +49117,7 @@
       ],
       "file_count": 8,
       "status": "PENDING",
-      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-ORQUESTRADOR.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "leis/fato_local.py",
         "leis/lugar_do_fato.py"
@@ -49114,6 +49125,8 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-ORQUESTRADOR",
+        "C-PROVA-COLETA",
         "C-RECEITAS",
         "C-TESTES"
       ],
@@ -49123,7 +49136,6 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "ANCORAS_DE_EVENTO",
           "ANCORAS_DE_TEMPO_DO_FATO",
           "ANCORAS_NEGATIVAS",
           "ANCORAS_POSITIVAS",
@@ -49137,14 +49149,13 @@
           "RELATIVOS",
           "RESOLUCAO",
           "RESOLUCAO_TEMPORAL",
-          "TIPOS_DE_EVIDENCIA",
-          "_DIAS_RAIZ"
+          "TIPOS_DE_EVIDENCIA"
         ],
-        "palavras": 326,
+        "palavras": 285,
         "por_lingua": {
           "IT": 1
         },
-        "sem_marca_de_lingua": 325,
+        "sem_marca_de_lingua": 284,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -49193,11 +49204,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "orquestrador/orquestrador.py:533",
           "pedido/receitas.py:635",
-          "tests/test_c7_lugar_do_fato.py:225",
-          "tests/test_fato_do_texto.py:14"
+          "provas/tempo_e_lugar_acervo.py:33",
+          "tests/test_c7_lugar_do_fato.py:225"
         ],
-        "PORQUE": "estas pecas importam-na — C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 20145,
       "y": 1326
@@ -50322,6 +50334,7 @@
       ],
       "outbound": [
         "C-CAPA-MATERIA",
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -50733,6 +50746,7 @@
         "C-DONO-DO-DOCUMENTO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-INGRESSO",
+        "C-LUGAR-COLETA",
         "C-MAPA-TESTES",
         "C-PEDIDO",
         "C-PERSISTENCIA-DA-PORTA-CLI",
@@ -51528,6 +51542,7 @@
       ],
       "outbound": [
         "C-ORQUESTRADOR",
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -51567,6 +51582,7 @@
         "PLANO": null,
         "PROVA": [
           "orquestrador/orquestrador.py:62",
+          "provas/tempo_e_lugar_replay.py:105",
           "tests/test_a_porta_cli_liga_o_banco.py:42",
           "tests/test_a_porta_cli_liga_o_banco.py:211"
         ],
@@ -53678,12 +53694,15 @@
         "provas/runtime_pago_no_postgres.py",
         "provas/so_a_colheita_atravessa.py",
         "provas/social_persistencia_no_postgres.py",
+        "provas/tempo_e_lugar_acervo.py",
+        "provas/tempo_e_lugar_medir.py",
+        "provas/tempo_e_lugar_replay.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 78,
+      "file_count": 81,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -53726,11 +53745,14 @@
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
+        "C-LUGAR-COLETA",
         "C-MAPA-TESTES",
+        "C-MICRO-COLETA-INSTRUMENTO",
         "C-NAVEGADOR",
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
         "C-PEDIDO",
+        "C-PERSISTENCIA-DA-PORTA-CLI",
         "C-PROCEDENCIA",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -53776,7 +53798,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 7,
+        "ITALIA": 10,
         "ESPANHA": 3
       },
       "pais": "TRANSVERSAL",
@@ -53791,6 +53813,7 @@
           "BOTOES",
           "CADEIA",
           "CAMADA_DE_ABSTENCAO",
+          "CAMPOS",
           "CAMPOS_DE_CAMINHO",
           "CAMPOS_DE_CONFIGURACAO",
           "CAMPOS_OBRIGATORIOS",
@@ -53833,6 +53856,7 @@
           "NEGACOES",
           "NOVAS",
           "ONDE_SE_FALA",
+          "PADROES_HTML",
           "PESADAS",
           "PROIBIDOS_NA_FILA_CEGA",
           "PROIBIDOS_NO_HTML",
@@ -53851,11 +53875,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1437,
+        "palavras": 1453,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1435,
+        "sem_marca_de_lingua": 1451,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -54096,6 +54120,7 @@
         "provas/preservar_coleta_no_postgres.py",
         "provas/superficie_do_scrap_v1.py",
         "regras/sensor_coleta.py",
+        "scripts/micro_coleta/ensaio_offline.py",
         "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
         "supabase/migrations/022_o_derivado_ganha_casa.sql",
         "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
@@ -59404,7 +59429,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "orquestrador/orquestrador.py:618",
+          "orquestrador/orquestrador.py:669",
           "provas/a_linhagem_do_ready.py:60",
           "provas/a_ponte_de_midia_no_postgres.py:67",
           "provas/a_rota_m2_atravessa.py:72"
@@ -59582,7 +59607,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:157",
-          "orquestrador/orquestrador.py:905"
+          "orquestrador/orquestrador.py:956"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -59883,7 +59908,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:410",
-          "orquestrador/orquestrador.py:905"
+          "orquestrador/orquestrador.py:956"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -63217,6 +63242,7 @@
         "tests/es/test_adama_es_import_rules.py",
         "tests/medir_multilingue.py",
         "tests/mutacao_do_scrap_portas.py",
+        "tests/mutacao_tempo_e_lugar.py",
         "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_demanda_de_dados_da_italia.py",
         "tests/test_a_fase_10_entra_no_acervo.py",
@@ -63435,6 +63461,7 @@
         "tests/test_source_id_wiring_gap.py",
         "tests/test_source_owner_identity.py",
         "tests/test_telemetria.py",
+        "tests/test_tempo_e_lugar_atravessa.py",
         "tests/test_teto_dominio.py",
         "tests/test_thread_parcial.py",
         "tests/test_trava_da_inteligencia.py",
@@ -63452,7 +63479,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 238,
+      "file_count": 240,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63660,7 +63687,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 55,
+        "ITALIA": 57,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -63723,6 +63750,7 @@
           "FORWARD",
           "GAVETAS_DE_RUNTIME",
           "HISTORICOS",
+          "HTML",
           "IDENT",
           "IMPLEMENTACOES",
           "INSTALADORES",
@@ -63742,6 +63770,7 @@
           "PRONTO",
           "QUEM_FALA_DE_RAW_ASSET",
           "QUINZE",
+          "RECADO",
           "RECUSA",
           "ROTA_M2",
           "ROTULO_ITALIA",
@@ -63753,6 +63782,8 @@
           "SINAL_VENETO",
           "SINTETICOS",
           "SO_FICHEIRO",
+          "T3_002",
+          "T3_010",
           "TRACE_GPU",
           "UNIDADE",
           "VALIDA",
@@ -63762,13 +63793,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1318,
+        "palavras": 1383,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1306,
+        "sem_marca_de_lingua": 1371,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -66229,7 +66260,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch lugar-fato-v1"
+        "branch tempo-lugar-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -68336,7 +68367,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 24 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 25 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -69191,7 +69222,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1816,
+          "line": 1857,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -69508,7 +69539,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 40 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 41 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -69719,12 +69750,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
           "line": 27,
           "snippet": "m.__file__ = str(RAIZ / \"admissao\" / \"admissao.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/mutacao_tempo_e_lugar.py",
+          "line": 71,
+          "snippet": "(\"admissao/admissao.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
             "FROM": "C-ADMISSAO",
@@ -75205,7 +75252,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "Cadeia canonica V2.1 alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fase_10_entra_no_acervo.py",
@@ -75243,6 +75290,22 @@
           "file": "provas/objeto_e_observacao_no_postgres.py",
           "line": 918,
           "snippet": "[\"bash\", os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CADEIA-V21--READS-->C-PROVA-COLETA",
+            "FROM": "C-CADEIA-V21",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/tempo_e_lugar_replay.py",
+          "line": 210,
+          "snippet": "r = subprocess.run([shutil.which(\"bash\") or \"bash\", \"motor/cadeia_canonica.sh\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CADEIA-V21--READS-->C-PROVA-COLETA",
             "FROM": "C-CADEIA-V21",
@@ -76219,7 +76282,7 @@
       "evidence": [
         {
           "file": "regras/italy_contracts.mjs",
-          "line": 579,
+          "line": 584,
           "snippet": "readFileSync(new URL(\"./italy_contracts_onboarded.json\", import.meta.url), \"utf8\"));",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CAPA-MATERIA--READS-->C-IT-CONTRATOS",
@@ -83221,7 +83284,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 301,
+          "line": 306,
           "snippet": "\"VOCABULARIO\": \"leis/artefato.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
@@ -83801,7 +83864,7 @@
       "evidence": [
         {
           "file": "coleta/italy_executor.py",
-          "line": 74,
+          "line": 75,
           "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno, COL-LAW-505",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-IT-COLETA",
@@ -89732,7 +89795,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 517,
+          "line": 519,
           "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DOCUMENTO--READS-->C-ORQUESTRADOR",
@@ -91321,7 +91384,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 559,
+          "line": 595,
           "snippet": "tool=\"coleta/executor_texto_de_pdf.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-ORQUESTRADOR",
@@ -94229,7 +94292,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_t4_italiana_atravessa.py",
@@ -94283,6 +94346,22 @@
           "file": "provas/so_a_colheita_atravessa.py",
           "line": 38,
           "snippet": "import ingresso as ing  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-INGRESSO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/tempo_e_lugar_replay.py",
+          "line": 102,
+          "snippet": "import ingresso as ing",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-INGRESSO",
@@ -94796,7 +94875,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -95007,8 +95086,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/mutacao_tempo_e_lugar.py",
+          "line": 35,
+          "snippet": "(\"coleta/ingresso.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
+            "FROM": "C-INGRESSO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_a_linhagem_do_ready.py",
           "line": 168,
@@ -97955,7 +98050,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_t4_italiana_atravessa.py",
@@ -97988,6 +98083,38 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/tempo_e_lugar_acervo.py",
+          "line": 34,
+          "snippet": "import italy_executor as ex  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/tempo_e_lugar_replay.py",
+          "line": 103,
+          "snippet": "import italy_executor as ex",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -98006,7 +98133,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_t4_italiana_atravessa.py",
@@ -98060,6 +98187,22 @@
           "file": "provas/so_a_colheita_atravessa.py",
           "line": 124,
           "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/tempo_e_lugar_replay.py",
+          "line": 127,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"tempo-lugar\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
             "FROM": "C-IT-COLETA",
@@ -98548,7 +98691,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -98584,7 +98727,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 357,
+          "line": 362,
           "snippet": "import italy_executor as adapter",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
@@ -98629,6 +98772,22 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_tempo_e_lugar_atravessa.py",
+          "line": 28,
+          "snippet": "import italy_executor as ex  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -98647,8 +98806,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/mutacao_tempo_e_lugar.py",
+          "line": 27,
+          "snippet": "(\"coleta/italy_executor.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 47,
@@ -98813,22 +98988,6 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 150,
           "snippet": "\"ACTOR\": \"coleta/italy_executor.py\",",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
-            "FROM": "C-IT-COLETA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_retorno_da_coleta.py",
-          "line": 27,
-          "snippet": "base = dict(RUN_ID=\"XX-T2-2026-09-11-000001\", EXECUTOR_ID=\"coleta/italy_executor.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -99473,8 +99632,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 3 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/italy_executor.py",
+          "line": 191,
+          "snippet": "import contratos_de_fonte as cf                         # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "coleta/italy_pilot_collect.mjs",
           "line": 38,
@@ -100088,12 +100263,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
           "line": 58,
           "snippet": "import contratos_de_fonte as cf          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_tempo_e_lugar_atravessa.py",
+          "line": 26,
+          "snippet": "import contratos_de_fonte as cf  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-TESTES",
             "FROM": "C-IT-CONTRATOS",
@@ -101584,7 +101775,7 @@
       "evidence": [
         {
           "file": "coleta/italy_executor.py",
-          "line": 87,
+          "line": 88,
           "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-IT-COLETA",
@@ -103314,6 +103505,92 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LUGAR-COLETA",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 533,
+          "snippet": "import fato_do_texto as FT                               # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-ORQUESTRADOR",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-ORQUESTRADOR",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LUGAR-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/tempo_e_lugar_acervo.py",
+          "line": 33,
+          "snippet": "import fato_do_texto as FT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/tempo_e_lugar_medir.py",
+          "line": 31,
+          "snippet": "import fato_local as FL  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -105621,6 +105898,41 @@
     },
     {
       "from": "C-MICRO-COLETA-INSTRUMENTO",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/tempo_e_lugar_replay.py",
+          "line": 71,
+          "snippet": "\"ensaio_offline\", arvore / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MICRO-COLETA-INSTRUMENTO",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -106212,7 +106524,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
@@ -106263,7 +106575,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
@@ -106489,7 +106801,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-EU-REGULATORIO-COLETA",
@@ -106557,7 +106869,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
@@ -106608,7 +106920,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -106640,7 +106952,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -106672,7 +106984,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -106704,7 +107016,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -106736,7 +107048,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -106768,7 +107080,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -106992,7 +107304,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_t4_italiana_atravessa.py",
@@ -107142,6 +107454,22 @@
           "file": "provas/so_a_colheita_atravessa.py",
           "line": 40,
           "snippet": "import orquestrador as orq  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/tempo_e_lugar_replay.py",
+          "line": 104,
+          "snippet": "import orquestrador as ORQ",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-ORQUESTRADOR",
@@ -107655,7 +107983,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
@@ -107706,7 +108034,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 905,
+          "line": 956,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
@@ -107789,7 +108117,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 19 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -107889,7 +108217,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 295,
+          "line": 300,
           "snippet": "import orquestrador as orq",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
@@ -108000,8 +108328,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 24 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/mutacao_tempo_e_lugar.py",
+          "line": 51,
+          "snippet": "(\"orquestrador/orquestrador.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_a_linhagem_do_ready.py",
           "line": 26,
@@ -108164,24 +108508,8 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 239,
+          "line": 244,
           "snippet": "with open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_fase_italiana_no_workflow.py",
-          "line": 130,
-          "snippet": "self.assertIn(\"orquestrador/orquestrador.py\", self.ramo)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -109185,7 +109513,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 359,
+          "line": 364,
           "snippet": "from pedido import de_uma_frase",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -109366,6 +109694,41 @@
       "declared_reason": "A porta CLI compoe as dependencias de persistencia ANTES de correr(): `orquestrador/orquestrador.py` importa `persistencia` (na convencao do scanner, a aresta vai de quem e importado para quem importa). Declarada porque o replay canario (run 35215565657) provou que ate 2026-09-17 esta aresta NAO existia: o workflow exportava BANCO_DESCARTAVEL_URL e ninguem a lia. O scanner encontra-a sozinho no import; a prova `provas/a_porta_cli_liga_o_banco.py` OBSERVA-a com a porta como processo contra Postgres 16 real.",
       "categoria": "CODE",
       "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PERSISTENCIA-DA-PORTA-CLI",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A composicao da persistencia na porta CLI · a aresta que o workflow nao tinha tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/tempo_e_lugar_replay.py",
+          "line": 105,
+          "snippet": "import persistencia as P",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PERSISTENCIA-DA-PORTA-CLI--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-PERSISTENCIA-DA-PORTA-CLI",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
       "PROVEN": "YES",
@@ -119212,7 +119575,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 618,
+          "line": 669,
           "snippet": "import rota_forward_documento as _rf                    # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--IMPORTS-->C-ORQUESTRADOR",
@@ -134693,7 +135056,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1649,
+  "UNCLAIMED_FILES_COUNT": 1650,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -134954,12 +135317,12 @@
     "components_pending": 210,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1321,
-    "edges_proven": 1256,
+    "edges": 1325,
+    "edges_proven": 1260,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2985,
-    "files_covered": 1336,
+    "files_tracked": 2991,
+    "files_covered": 1341,
     "files_code_unclaimed": 0,
     "roles_proven": 169,
     "roles_declared_only": 8,
