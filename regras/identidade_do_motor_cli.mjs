@@ -11,6 +11,7 @@
 import { readFileSync } from "node:fs";
 import { identidadeDoContrato, conferirIdentidade, recortar, ContratoInvalido } from "./motor_de_rota.mjs";
 import { textoVisivel } from "../coleta/retrato_html.mjs";
+import { textoDePdf } from "../coleta/texto_de_pdf.mjs";
 
 const pedido = JSON.parse(readFileSync(0, "utf8"));
 // D47: a porta da receita (curadoria/reparar_contrato.aplicar) confere uma IDENTITY nova por ESTE
@@ -30,6 +31,7 @@ const leitores = {
   RAW_UTF8: () => buf.toString("utf8"),
   RAW_LATIN1: () => buf.toString("latin1"),
   PAGE_TEXT: () => textoVisivel(buf),
+  PDF_TEXT: () => textoDePdf(buf),     // D61/D62: o mesmo leitor que o coletor injecta
 };
 try {
   const id = identidadeDoContrato(pedido.SOURCE_ID, pedido.CONTRATO, pedido.ALVO, { leitores }) || {};

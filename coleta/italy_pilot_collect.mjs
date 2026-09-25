@@ -40,6 +40,7 @@ import { CONTRACTS } from "../regras/italy_contracts.mjs";
 // do bloco `ACQUISITION` do contrato — e NAO le nenhum campo em prosa.
 import { alvosDoContrato, identidadeDoContrato } from "../regras/motor_de_rota.mjs";
 import { textoVisivel } from "./retrato_html.mjs";
+import { textoDePdf } from "./texto_de_pdf.mjs";
 // ── AS DUAS DEFESAS DA INCREMENTALIDADE ────────────────────────────────────
 // ⚠️ ESTAS DUAS LINHAS SAO A MISSAO INTEIRA, E O DEFEITO ERA A FALTA DELAS.
 // Medido em 2026-09-22: `regras/incrementalidade.mjs` tinha md5 IDENTICO no
@@ -695,6 +696,7 @@ function identidade(sourceId, alvo, buf) {
       RAW_UTF8: () => buf.toString("utf8"),
       RAW_LATIN1: () => buf.toString("latin1"),
       PAGE_TEXT: () => textoVisivel(buf),
+      PDF_TEXT: () => textoDePdf(buf, STORE),
       // a impressao do conteudo (CONTENT_SHA256) nao se injecta: o motor calcula-a do PAGE_TEXT,
       // recortado pelo CONTENT_SCOPE do contrato, e devolve-a ao lado da identidade
     };
@@ -702,16 +704,8 @@ function identidade(sourceId, alvo, buf) {
     if (ident) return ident;
   }
   // pdftotext 4.06 NAO aceita stdin. Grava temporario, le, apaga.
-  const t = () => {
-    try {
-      const tmp = `${STORE}/.tmp_${sha(buf).slice(0, 10)}.pdf`;
-      mkdirSync(STORE, { recursive: true });
-      writeFileSync(tmp, buf);
-      const out = execFileSync("pdftotext", ["-layout", "-enc", "UTF-8", tmp, "-"], { maxBuffer: 64e6, encoding: "utf8" });
-      rmSync(tmp, { force: true });
-      return out;
-    } catch { return ""; }
-  };
+  // D61/D62: PDF_TEXT (acima) e este `t` sao o MESMO leitor do canario do Curator (coleta/texto_de_pdf.mjs)
+  const t = () => textoDePdf(buf, STORE);
   switch (sourceId) {
     case "IT-T3-005": {
       const h = buf.toString("utf8");
@@ -1262,6 +1256,14 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         CONTENT_TYPE: r.contentType ?? null,
         SOURCE_DATE: ident.SOURCE_DATE, SOURCE_DATE_ISO: ident.SOURCE_DATE_ISO,
         FACT_TIME: ident.FACT_TIME ?? "UNKNOWN",
+        // D61/D62: data de emissao, periodo e area DECLARADOS PELO BOLETIM, cada um com a base — so
+        // quando o contrato os declara (os nomes sao os da fronteira: coleta/ingresso.py). NAO SEI com
+        // o porque quando o boletim nao os diz; o documento segue na mesma.
+        ...(ident.PUBLISHED_AT_BASIS ? {
+          PUBLISHED_AT: ident.PUBLISHED_AT, PUBLISHED_AT_BASIS: ident.PUBLISHED_AT_BASIS,
+          FACT_TIME_BASIS: ident.FACT_TIME_BASIS,
+          FACT_LOCATION: ident.FACT_LOCATION, FACT_LOCATION_BASIS: ident.FACT_LOCATION_BASIS,
+        } : {}),
         // D42 (2): a impressao do conteudo recortado (so com CONTENT_SCOPE) — a chave de dedupe
         ...(ident.CONTENT_SHA256 ? { CONTENT_SHA256: ident.CONTENT_SHA256 } : {}),
         CAPTURED_AT, COLLECTION_RUN_STARTED_AT: STARTED_AT,

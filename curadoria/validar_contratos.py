@@ -103,7 +103,9 @@ def identity_resolved(c: dict) -> tuple[bool, str]:
     for ref in re.findall(r"\{([a-z_]+)\.", idt["DOCUMENT_ID"]):
         if ref not in idt["CAPTURES"]:
             return False, "DOCUMENT_ID usa captura inexistente: %s" % ref
-    if "FACT_TIME" not in idt:
+    # D61/D62: `FACT_TIME_BASIS` sem molde E uma declaracao — o contrato diz que o boletim NAO traz o
+    # periodo, e porque (o motor devolve NAO SEI com essa razao). Nada e obrigatorio; o silencio e que nao vale.
+    if "FACT_TIME" not in idt and not str(idt.get("FACT_TIME_BASIS") or "").strip():
         return False, "sem declaracao de FACT_TIME"
     return True, "identidade prefixada e capturas coerentes"
 

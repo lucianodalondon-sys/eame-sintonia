@@ -570,8 +570,15 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
     if tipo is not None:
         if tipo not in TIPOS_DE_SAIDA_DA_RECEITA:
             raise ReparoInvalido("OUTPUT_TYPE da receita fora de %s: %r" % (sorted(TIPOS_DE_SAIDA_DA_RECEITA), tipo))
+        # D61/D62: muitos PDFs publicos nao tem «.pdf» no endereco (Molise `…/E/pdf?mode=download`, Valle
+        # d'Aosta `allegato.aspx?pk=N`, Umbria/Veneto Liferay `…/<uuid>?version=`). O padrao sem `.pdf` so
+        # passa com o PORQUE escrito (`PDF_SEM_EXTENSAO`), que fica na proveniencia; a garantia real
+        # continua a dos BYTES (`%PDF-`), conferida pelo canario e pelo coletor.
+        sem_ext = proposta.get("PDF_SEM_EXTENSAO")
         if tipo == "PDF" and not re.search(r"\\\.pdf", proposta.get("LINK_PATTERN") or "", re.I):
-            raise ReparoInvalido("receita PDF com LINK_PATTERN que nao aponta para .pdf")
+            if not (isinstance(sem_ext, str) and sem_ext.strip()):
+                raise ReparoInvalido("receita PDF com LINK_PATTERN que nao aponta para .pdf "
+                                     "(sem PDF_SEM_EXTENSAO com o porque)")
         novo["OUTPUT_TYPE"] = tipo
     aq = dict(novo.get("ACQUISITION") or {}, STRATEGY="HTML_LINK_DISCOVERY",
               INDEX_URL=proposta["INDEX_URL"], LINK_PATTERN=proposta["LINK_PATTERN"])
@@ -604,6 +611,7 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
         "ACQUISITION_ANTERIOR": proposta.get("ACQUISITION_ANTERIOR") or antes.get("ACQUISITION"),
         **({"OUTPUT_TYPE": tipo, "OUTPUT_TYPE_ANTERIOR": antes.get("OUTPUT_TYPE")} if tipo is not None else {}),
         **({"STRIP_SUFFIX": corte} if corte is not None else {}),
+        **({"PDF_SEM_EXTENSAO": proposta["PDF_SEM_EXTENSAO"]} if proposta.get("PDF_SEM_EXTENSAO") else {}),
         **({"IDENTITY_ANTERIOR": antes.get("IDENTITY")} if ident is not None else {}),
         "PROVA": {"ENTRADA": proposta.get("ENTRADA"), "ENTRADA_RETRATO": proposta.get("ENTRADA_RETRATO"),
                   "SECCAO_TENTADA": proposta.get("SECCAO_TENTADA"),

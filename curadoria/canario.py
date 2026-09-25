@@ -212,14 +212,42 @@ def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes) -> dict:
         return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
                     PORQUE="IDENTITY_FAILED: as capturas do contrato nao casam com o alvo")
     return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=ident["DOCUMENT_ID"],
-                TEMPOS={"PUBLICATION_TIME": ident.get("SOURCE_DATE_ISO") or ident.get("SOURCE_DATE") or "UNKNOWN",
-                        "FACT_TIME": ident.get("FACT_TIME") or "UNKNOWN",
-                        "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros dois)"})
+                TEMPOS=tempos_do_motor(ident))
 
 
 FORMA_PAGINA_E_BOLETIM = "PAGINA_E_BOLETIM"
 BOLETIM_GATE_VERSAO = "PAGINA_BOLETIM/v1"
 BOLETIM_MINIMO = 300     # caracteres sem espaco no recorte do boletim (um boletim curto ainda e boletim)
+
+
+# D61/D62: os seis campos de data e lugar que o motor devolve quando o contrato declara BASES — os
+# nomes da fronteira (coleta/ingresso.py). A data de COLETA vai a parte e nunca preenche nenhum.
+CAMPOS_DATA_E_LUGAR = ("PUBLISHED_AT", "PUBLISHED_AT_BASIS", "FACT_TIME", "FACT_TIME_BASIS",
+                       "FACT_LOCATION", "FACT_LOCATION_BASIS")
+
+
+def declara_data_e_lugar(c: dict) -> bool:
+    """O contrato entra no modo D61/D62 (declara pelo menos uma BASE de data/lugar)?"""
+    ident = c.get("IDENTITY") or {}
+    return any(ident.get(k) is not None for k in ("PUBLISHED_AT_BASIS", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS"))
+
+
+def tempos_do_motor(ident: dict) -> dict:
+    """O que o canario mostra de data e lugar: os seis campos, tal como o motor os deu (D61/D62), ou —
+    num contrato antigo sem BASE — o que ele tinha, com NAO SEI e o porque onde nao ha nada."""
+    if ident.get("PUBLISHED_AT_BASIS"):
+        t = {k: ident.get(k) for k in CAMPOS_DATA_E_LUGAR}
+    else:
+        pub = ident.get("SOURCE_DATE_ISO") or ident.get("SOURCE_DATE")
+        t = {"PUBLISHED_AT": pub if pub and pub != "UNKNOWN" else "NAO SEI",
+             "PUBLISHED_AT_BASIS": ("SOURCE_DATE_ISO do contrato (sem BASE declarada)" if pub and pub != "UNKNOWN"
+                                    else "NAO SEI · o contrato nao declara onde o boletim diz a emissao"),
+             "FACT_TIME": ident.get("FACT_TIME") or "NAO SEI",
+             "FACT_TIME_BASIS": "NAO SEI · o contrato nao declara FACT_TIME_BASIS",
+             "FACT_LOCATION": "NAO SEI",
+             "FACT_LOCATION_BASIS": "NAO SEI · o contrato nao declara a area do boletim"}
+    t["COLLECTION_TIME"] = "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    return t
 
 
 def identidade_pelo_motor(c: dict, url: str, b: bytes) -> dict:
@@ -274,7 +302,8 @@ def canario_pagina_boletim(c: dict) -> dict:
     if item["BOLETIM_CARACTERES"] < BOLETIM_MINIMO:
         return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
                     PORQUE="o boletim recortado tem so %d caracteres (< %d)" % (item["BOLETIM_CARACTERES"], BOLETIM_MINIMO))
-    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=item["DOCUMENT_ID"])
+    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=item["DOCUMENT_ID"],
+                TEMPOS=tempos_do_motor(ident))
 
 
 def canario_html(c: dict) -> dict:
@@ -342,6 +371,18 @@ def canario_html(c: dict) -> dict:
     if gate:
         return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
                     PORQUE=gate)
+    # D61/D62: um boletim em HTML que declara data e lugar (ex.: ARSAC, uma pagina por edicao) pergunta
+    # ao MOTOR, como o PDF. Os contratos sem BASE ficam exactamente como antes.
+    if declara_data_e_lugar(c):
+        ident = identidade_pelo_motor(c, alvo, b2)
+        if ident.get("ERRO"):
+            return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
+                        PORQUE="o motor do coletor nao deu identidade: %s" % str(ident["ERRO"])[:160])
+        if not ident.get("DOCUMENT_ID"):
+            return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                        PORQUE="IDENTITY_FAILED: as capturas do contrato nao casam com o alvo")
+        return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=ident["DOCUMENT_ID"],
+                    TEMPOS=tempos_do_motor(ident))
     return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True,
                 DOCUMENT_ID=c["IDENTITY"]["DOCUMENT_ID"].replace(
                     "{doc.1}", re.sub(r"^https?://[^/]+/?", "", alvo).rstrip("/")))

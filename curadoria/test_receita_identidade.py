@@ -96,9 +96,9 @@ class OCanarioPdfPerguntaOsTemposAoMotor(unittest.TestCase):
         r = self._correr(novo, pdf_com_texto("Bollettino agrometeorologico n. 38 del 21 settembre 2026 pioggia fenologia", 40))
         self.assertTrue(r["PASS"], r.get("PORQUE"))
         self.assertEqual("IT-T7-900:BOLETIM:AGROMETEO:2026-38", r["DOCUMENT_ID"])
-        self.assertEqual("2026-09-21", r["TEMPOS"]["PUBLICATION_TIME"])
+        self.assertEqual("2026-09-21", r["TEMPOS"]["PUBLISHED_AT"])
         self.assertTrue(r["TEMPOS"]["FACT_TIME"].startswith("UNKNOWN"))
-        self.assertNotEqual(r["TEMPOS"]["COLLECTION_TIME"], r["TEMPOS"]["PUBLICATION_TIME"])
+        self.assertNotEqual(r["TEMPOS"]["COLLECTION_TIME"], r["TEMPOS"]["PUBLISHED_AT"])
 
     def test_captura_que_nao_casa_e_identity_failed(self):
         from test_canario_pdf import pdf_com_texto
