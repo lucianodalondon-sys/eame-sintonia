@@ -4952,6 +4952,35 @@
     "scripts/reparo/juntar_bancas.py",
     "scripts/reparo/revisar_ready.py"
    ]
+  },
+  {
+   "id": "C-MICRO-VERIF",
+   "name": "Micro-verificacao D74 — escolha por regra, previsao e SELECTs so-leitura",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Plano de UMA micro (nao onda) para provar que a coleta real com o codigo instalado e5cd691f faz chegar a Sala itens novos com publicacao/lugar/data e bases: regra de escolha escrita antes (5 fontes, 5 dominios, 16 pedidos), alvos novos D40 medidos nos indices guardados, data-na-pagina medida no armazem, previsao com os leitores instalados, comando exato e SELECTs read-only (Q0-Q5) conferidos num Postgres descartavel com as 33 migracoes.",
+   "why_here": "D74: a proxima acao operacional e so uma micro de verificacao. Nada correu na rede. Achado: nenhuma das 28 fontes da coorte declara SOURCE_LOCATION no contrato, por isso o lugar da fonte sai NAO SEI em todos.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "ferramentas/micro_verif/DATA-NA-PAGINA-COORTE-V1.json",
+    "ferramentas/micro_verif/MEDICAO-D40-MICRO-VERIF.json",
+    "ferramentas/micro_verif/MICRO-VERIFICACAO-SELECTS.sql",
+    "ferramentas/micro_verif/MICRO-VERIFICACAO.json",
+    "ferramentas/micro_verif/MICRO-VERIFICACAO.md",
+    "ferramentas/micro_verif/ONDA-WEB-SO-PLANO.json",
+    "ferramentas/micro_verif/PREVISAO-COM-O-INSTALADO-V1.json",
+    "ferramentas/micro_verif/gerar_micro_verificacao.py",
+    "ferramentas/micro_verif/medir_data_na_pagina.py",
+    "ferramentas/micro_verif/prever_com_o_instalado.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

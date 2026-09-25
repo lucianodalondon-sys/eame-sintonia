@@ -1,0 +1,144 @@
+{
+ "DATASET": "MICRO-VERIFICACAO-V1",
+ "LEI": "D74 (proxima acao operacional; NAO e onda)",
+ "VIVO": "e5cd691f (origin/servico-20260923-0923)",
+ "REDE_NESTA_MISSAO": 0,
+ "COORTE": {
+  "FICHEIRO": "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+  "ESTADO": "CONGELADA",
+  "FONTES": 28,
+  "SHA256_DO_COMMIT": "06f87b97761d73281bc341d87d7a644ec0c5014a291265db2b8372732bf4977f"
+ },
+ "REGRA": "MICRO-VERIFICACAO.md §1 (commit 1d58b49c, antes de medir)",
+ "ESCOLHA": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "CATEGORIA": "A · myfruit",
+   "INDEX_URL": "https://www.myfruit.it/",
+   "ALVOS_NOVOS_NO_INDICE": 5,
+   "DOCUMENTOS_NOVOS_NA_CORRIDA": 3,
+   "DATA_NA_PAGINA_GUARDADA": "53 de 53",
+   "PREVISAO": {
+    "PUBLICACAO": "SIM (precisao INSTANTE), pelo leitor de pagina",
+    "LUGAR_DA_FONTE": "NAO — o contrato nao declara SOURCE_LOCATION_RULE (base NAO SEI com o porque)",
+    "DATA_DO_FATO_NAS_GUARDADAS": "16 de 53",
+    "LUGAR_DO_FATO_NAS_GUARDADAS": "14 de 53",
+    "TIPOS_DE_DATA": {
+     "EVENTO": 7,
+     "CAMPO": 9
+    },
+    "TIPOS_DE_LUGAR": {
+     "MERCADO": 8,
+     "EVENTO": 5,
+     "CAMPO": 1
+    }
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "CATEGORIA": "B · agencia T2 (melhor D40 entre as T2 medidas)",
+   "INDEX_URL": "https://www.arpa.marche.it/",
+   "ALVOS_NOVOS_NO_INDICE": 3,
+   "DOCUMENTOS_NOVOS_NA_CORRIDA": 3,
+   "DATA_NA_PAGINA_GUARDADA": "7 de 7",
+   "PREVISAO": {
+    "PUBLICACAO": "SIM (precisao INSTANTE), pelo leitor de pagina",
+    "LUGAR_DA_FONTE": "NAO — o contrato nao declara SOURCE_LOCATION_RULE (base NAO SEI com o porque)",
+    "DATA_DO_FATO_NAS_GUARDADAS": "4 de 7",
+    "LUGAR_DO_FATO_NAS_GUARDADAS": "3 de 7",
+    "TIPOS_DE_DATA": {
+     "CAMPO": 1,
+     "EVENTO": 3
+    },
+    "TIPOS_DE_LUGAR": {
+     "EVENTO": 3
+    }
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-160",
+   "CATEGORIA": "C · pesquisa (nenhuma C tem indice guardado: desempate por SOURCE_ID)",
+   "INDEX_URL": "https://www.ibba.cnr.it/",
+   "ALVOS_NOVOS_NO_INDICE": "NAO MEDIDO (sem indice guardado)",
+   "DOCUMENTOS_NOVOS_NA_CORRIDA": "NAO SEI",
+   "DATA_NA_PAGINA_GUARDADA": "1 de 1",
+   "PREVISAO": {
+    "PUBLICACAO": "SIM (precisao INSTANTE), pelo leitor de pagina",
+    "LUGAR_DA_FONTE": "NAO — o contrato nao declara SOURCE_LOCATION_RULE (base NAO SEI com o porque)",
+    "DATA_DO_FATO_NAS_GUARDADAS": "0 de 1",
+    "LUGAR_DO_FATO_NAS_GUARDADAS": "0 de 1",
+    "TIPOS_DE_DATA": {},
+    "TIPOS_DE_LUGAR": {}
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "CATEGORIA": "D · data na pagina (37/37 marcadas; o maior D40 entre as D com fracao 1.0)",
+   "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
+   "ALVOS_NOVOS_NO_INDICE": 19,
+   "DOCUMENTOS_NOVOS_NA_CORRIDA": 3,
+   "DATA_NA_PAGINA_GUARDADA": "37 de 37",
+   "PREVISAO": {
+    "PUBLICACAO": "SIM (precisao INSTANTE), pelo leitor de pagina",
+    "LUGAR_DA_FONTE": "NAO — o contrato nao declara SOURCE_LOCATION_RULE (base NAO SEI com o porque)",
+    "DATA_DO_FATO_NAS_GUARDADAS": "7 de 37",
+    "LUGAR_DO_FATO_NAS_GUARDADAS": "4 de 37",
+    "TIPOS_DE_DATA": {
+     "EVENTO": 3,
+     "CAMPO": 4
+    },
+    "TIPOS_DE_LUGAR": {
+     "EVENTO": 4
+    }
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "CATEGORIA": "5.a · outra T2 com >= 1 alvo novo e dominio novo",
+   "INDEX_URL": "https://www.arpae.it/it",
+   "ALVOS_NOVOS_NO_INDICE": 1,
+   "DOCUMENTOS_NOVOS_NA_CORRIDA": 1,
+   "DATA_NA_PAGINA_GUARDADA": "0 de 7",
+   "PREVISAO": {
+    "PUBLICACAO": "NAO (NAO SEI com o porque)",
+    "LUGAR_DA_FONTE": "NAO — o contrato nao declara SOURCE_LOCATION_RULE (base NAO SEI com o porque)",
+    "DATA_DO_FATO_NAS_GUARDADAS": "2 de 7",
+    "LUGAR_DO_FATO_NAS_GUARDADAS": "1 de 7",
+    "TIPOS_DE_DATA": {
+     "EVENTO": 1,
+     "CAMPO": 1
+    },
+    "TIPOS_DE_LUGAR": {
+     "EVENTO": 1
+    }
+   }
+  }
+ ],
+ "SO_PLANO": {
+  "PODE_CORRER": true,
+  "CORREM": 5,
+  "PEDIDOS_POR_DOMINIO": {
+   "myfruit.it": 5,
+   "arpa.marche.it": 2,
+   "arpae.it": 2,
+   "cnr.it": 5,
+   "riuniteciv.com": 2
+  },
+  "MAXIMO_POR_DOMINIO": 5,
+  "PEDIDOS_TOTAL_PREVISTO": 16,
+  "SALTAM_POR_TETO_DOMINIO": []
+ },
+ "COMANDO": "py ferramentas/big_collection/onda_web.py --correr --fontes=IT-T10-018,IT-T2-034,IT-T5-160,IT-T7-017,IT-T2-051 --sha256=06f87b97761d73281bc341d87d7a644ec0c5014a291265db2b8372732bf4977f --saida=C:\\bc\\micro-verif-<AAAAMMDD-HHMM>",
+ "SELECTS": "MICRO-VERIFICACAO-SELECTS.sql (READ ONLY + ROLLBACK; Q0 antes e depois; Q5 prova que foi o codigo novo)",
+ "EVIDENCIA_SHA256": {
+  "DATA-NA-PAGINA-COORTE-V1.json": "269f718c3d31bb1b6daa17c8d710b577ced3677501d9249bf4ae8fefb3c15818",
+  "gerar_micro_verificacao.py": "5196fe3b3840bc4c8f091234ad4a4a82862d56e4171634c7d2ee379fd77f7a03",
+  "MEDICAO-D40-MICRO-VERIF.json": "a35461c758f72aba96a4359fccdd43cf96c680c3f919f95591d48d21fb69b0d6",
+  "medir_data_na_pagina.py": "2725a8693a43d446f2b7388a8a862c8d579f46fc846402b0bf5a59e2e2a1fd60",
+  "MICRO-VERIFICACAO-SELECTS.sql": "ded3f9f9d8447f9fb0380acbb3327bd701c00972db0e33d015fb056a34b8f62f",
+  "MICRO-VERIFICACAO.md": "8f084beaa86a0ae592efce3086169b0d21d06c759598cefccf44f166a6acac63",
+  "ONDA-WEB-SO-PLANO.json": "a56a685f8fe30f4a2400ead40d033b7a5880d2e9b48d8430fc0763e58a0bc513",
+  "prever_com_o_instalado.py": "53eaf043fbbd7aa2227edc6b3a7bbf3f1e8d2d2934404a96c4de9eeebcbc259e",
+  "PREVISAO-COM-O-INSTALADO-V1.json": "5d6ee45d84d8b82c8c2f8f327d794d6354cc49d79b54ab1a34e9253c77196201"
+ }
+}

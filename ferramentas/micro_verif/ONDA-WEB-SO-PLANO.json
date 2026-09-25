@@ -1,0 +1,103 @@
+{
+ "DATASET": "ONDA-WEB-SO-PLANO",
+ "GERADO_EM": "2026-09-25T18:02:27-03:00",
+ "ARVORE": "e5cd691f",
+ "COORTE_FICHEIRO": "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+ "COORTE_SHA256_DO_COMMIT": "06f87b97761d73281bc341d87d7a644ec0c5014a291265db2b8372732bf4977f",
+ "COORTE_ESTADO": "CONGELADA",
+ "PODE_CORRER": true,
+ "SO_AS_FONTES": [
+  "IT-T10-018",
+  "IT-T2-034",
+  "IT-T5-160",
+  "IT-T7-017",
+  "IT-T2-051"
+ ],
+ "TETO_POR_DOMINIO_NA_ONDA": 5,
+ "FONTES": 5,
+ "CORREM": 5,
+ "SALTAM_POR_TETO_DOMINIO": [],
+ "PARCIAIS": [],
+ "PEDIDOS_POR_DOMINIO": {
+  "myfruit.it": 5,
+  "arpa.marche.it": 2,
+  "arpae.it": 2,
+  "cnr.it": 5,
+  "riuniteciv.com": 2
+ },
+ "MAXIMO_POR_DOMINIO": 5,
+ "PEDIDOS_TOTAL_PREVISTO": 16,
+ "PLANO_AGORA_NAO_PRONTAS": [],
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "INDEX_URL": "https://www.myfruit.it/",
+   "HOST": "www.myfruit.it",
+   "DOMINIO": "myfruit.it",
+   "PLANO_AGORA": "PRONTA",
+   "FALTA": [],
+   "ULTIMA_VEZ_ATENDIDA": "2026-09-24T12:04:49",
+   "PEDIDOS_PREVISTOS": 5,
+   "PREVISAO_VEM_DE": "1.a onda (BC5)",
+   "PEDIDOS_NA_ONDA": 5,
+   "PORQUE": null,
+   "NOTA": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "INDEX_URL": "https://www.arpa.marche.it/",
+   "HOST": "www.arpa.marche.it",
+   "DOMINIO": "arpa.marche.it",
+   "PLANO_AGORA": "PRONTA",
+   "FALTA": [],
+   "ULTIMA_VEZ_ATENDIDA": "2026-09-24T12:06:12",
+   "PEDIDOS_PREVISTOS": 2,
+   "PREVISAO_VEM_DE": "1.a onda (BC5)",
+   "PEDIDOS_NA_ONDA": 2,
+   "PORQUE": null,
+   "NOTA": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "INDEX_URL": "https://www.arpae.it/it",
+   "HOST": "www.arpae.it",
+   "DOMINIO": "arpae.it",
+   "PLANO_AGORA": "PRONTA",
+   "FALTA": [],
+   "ULTIMA_VEZ_ATENDIDA": "2026-09-24T12:06:28",
+   "PEDIDOS_PREVISTOS": 2,
+   "PREVISAO_VEM_DE": "1.a onda (BC5)",
+   "PEDIDOS_NA_ONDA": 2,
+   "PORQUE": null,
+   "NOTA": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-160",
+   "INDEX_URL": "https://www.ibba.cnr.it/",
+   "HOST": "www.ibba.cnr.it",
+   "DOMINIO": "cnr.it",
+   "PLANO_AGORA": "PRONTA",
+   "FALTA": [],
+   "ULTIMA_VEZ_ATENDIDA": "NUNCA",
+   "PEDIDOS_PREVISTOS": 5,
+   "PREVISAO_VEM_DE": "sem historico: o teto inteiro",
+   "PEDIDOS_NA_ONDA": 5,
+   "PORQUE": null,
+   "NOTA": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
+   "HOST": "www.riuniteciv.com",
+   "DOMINIO": "riuniteciv.com",
+   "PLANO_AGORA": "PRONTA",
+   "FALTA": [],
+   "ULTIMA_VEZ_ATENDIDA": "2026-09-24T12:07:18",
+   "PEDIDOS_PREVISTOS": 2,
+   "PREVISAO_VEM_DE": "1.a onda (BC5)",
+   "PEDIDOS_NA_ONDA": 2,
+   "PORQUE": null,
+   "NOTA": null
+  }
+ ]
+}
