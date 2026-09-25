@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T21:04:22+00:00",
-  "HEAD": "68d8b4b9f04a2c5386565ecc69b050e1f1e6bf6b",
+  "GENERATED_AT": "2026-09-25T07:46:24+00:00",
+  "HEAD": "8876c05c336cb7795bab5534a988634f58c3f886",
   "BRANCH": "curador-ate-pronta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "5651111c6b478d48aacf06f9db424414144be8a2e5a870ff302c314f3b6074ac",
-  "FICHEIROS_NA_IMPRESSAO": 3034,
+  "SOURCE_TREE_FINGERPRINT": "9e0ef52e079543015440a2b98aa28027915bc291c05e2d24e433057e4dbd9c3b",
+  "FICHEIROS_NA_IMPRESSAO": 3042,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2797,6 +2797,20 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/ia_cur/bancada_continua/ler_lote.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0511d8eb4643addb2fa5550b22517099e25b0efa",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/ia_cur/bancada_continua/respostas_lote1.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a67995949243ae32519d190a70118751649f20be",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/ia_cur/bancada_execucao_1.py",
     "PAPEL": "FONTE",
     "VERSAO": "01c156366bc44f89e57de8f99adfc741c3a52059",
@@ -3870,14 +3884,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "5651111c6b478d48aacf06f9db424414144be8a2e5a870ff302c314f3b6074ac",
+    "VERSAO": "9e0ef52e079543015440a2b98aa28027915bc291c05e2d24e433057e4dbd9c3b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "5651111c6b478d48aacf06f9db424414144be8a2e5a870ff302c314f3b6074ac",
+    "VERSAO": "9e0ef52e079543015440a2b98aa28027915bc291c05e2d24e433057e4dbd9c3b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5758,8 +5772,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 817,
-  "INPUTS_DIGEST": "70ab4312ff8db6025a0e0d0bb93cd7e4637a6daa815d0b7481aebed88cf327da",
+  "INPUTS_COUNT": 819,
+  "INPUTS_DIGEST": "7c3d861682585e73050834a95c0796f879859d269e708d3c26939c8f26c1c481",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5785,15 +5799,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 504,
+  "DOCUMENTOS_LIDOS": 505,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b6d1ea2b22d5da9e1d0cd6f83e57098a3eeab8937112c0f677e10346f40bb850",
-  "SEMANTIC_HASH": "c647a27f0ad366072a00ed5d8ae49053486463995137a1760a54cee1ceb1853c"
+  "MEASUREMENT_HASH": "38084b811d59d786297810dcadb56c5fe4b665b95584c0c4c75f63ff818d91fd",
+  "SEMANTIC_HASH": "f519646ad2fb108eaaebe3e8499ddc5cf9468ddf1bd1ec39f5145669e8134cdf"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -49500,6 +49514,8 @@
     "provas/cur_pronta/prova_orquestra.py",
     "provas/ia_cur/RELATORIO-IA-CUR.md",
     "provas/ia_cur/atlas_t3_005.py",
+    "provas/ia_cur/bancada_continua/ler_lote.py",
+    "provas/ia_cur/bancada_continua/respostas_lote1.py",
     "provas/ia_cur/bancada_execucao_1.py",
     "provas/ia_cur/buscar_lote.py",
     "provas/ia_cur/buscar_pagina.py",

@@ -417,6 +417,7 @@
       "curadoria/atribuir_source_id.py",
       "curadoria/avancar_fontes.py",
       "curadoria/baldes_das_candidatas.py",
+      "curadoria/bancada_continua.py",
       "curadoria/bancada_ia.py",
       "curadoria/canario.py",
       "curadoria/capturador.py",
@@ -484,6 +485,7 @@
       "curadoria/telemetria_do_curador.py",
       "curadoria/test_abastecimento.py",
       "curadoria/test_avancar_fontes.py",
+      "curadoria/test_bancada_continua.py",
       "curadoria/test_bancada_ia.py",
       "curadoria/test_canario_detalhe.py",
       "curadoria/test_canario_hrefs.py",
@@ -2261,6 +2263,12 @@
       "provas/ia_cur/RELATORIO-IA-CUR.md",
       "provas/ia_cur/RESULTADO-PILOTO-IA-CUR.json",
       "provas/ia_cur/atlas_t3_005.py",
+      "provas/ia_cur/bancada_continua/LOTE-20260925T072003Z.json",
+      "provas/ia_cur/bancada_continua/RELATORIO-BANCADA-CONTINUA.md",
+      "provas/ia_cur/bancada_continua/RESPOSTAS-LOTE1.json",
+      "provas/ia_cur/bancada_continua/RESULTADO-CANARIO-30-D29.json",
+      "provas/ia_cur/bancada_continua/ler_lote.py",
+      "provas/ia_cur/bancada_continua/respostas_lote1.py",
       "provas/ia_cur/bancada_execucao_1.py",
       "provas/ia_cur/buscar_lote.py",
       "provas/ia_cur/buscar_pagina.py",
@@ -3480,9 +3488,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "curador-ate-pronta-v1",
-    "HEAD": "68d8b4b9f04a2c5386565ecc69b050e1f1e6bf6b",
-    "GENERATED_AT": "2026-09-24T17:47:30-03:00",
-    "SOURCE_TREE_FINGERPRINT": "5651111c6b478d48aacf06f9db424414144be8a2e5a870ff302c314f3b6074ac"
+    "HEAD": "8876c05c336cb7795bab5534a988634f58c3f886",
+    "GENERATED_AT": "2026-09-25T04:31:57-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9e0ef52e079543015440a2b98aa28027915bc291c05e2d24e433057e4dbd9c3b"
   },
   "FAMILIES": [
     {
@@ -4979,8 +4987,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 641",
-        "desses, mostrados aqui: 40 (ficam de fora 601)"
+        "enderecos que o codigo realmente chama: 649",
+        "desses, mostrados aqui: 40 (ficam de fora 609)"
       ],
       "status_reason": "298 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 293, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -45807,6 +45815,8 @@
         "provas/cur_pronta/prova_orquestra.py",
         "provas/ia_cur/RELATORIO-IA-CUR.md",
         "provas/ia_cur/atlas_t3_005.py",
+        "provas/ia_cur/bancada_continua/ler_lote.py",
+        "provas/ia_cur/bancada_continua/respostas_lote1.py",
         "provas/ia_cur/bancada_execucao_1.py",
         "provas/ia_cur/buscar_lote.py",
         "provas/ia_cur/buscar_pagina.py",
@@ -45823,7 +45833,7 @@
         "provas/ia_cur/registar_propostas.py",
         "provas/ia_cur/seguir_territorios.py"
       ],
-      "file_count": 23,
+      "file_count": 25,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -45856,12 +45866,13 @@
           "E",
           "NAO_SEI",
           "PILOTO",
+          "R",
           "RECEITA",
           "TERRITORIO"
         ],
-        "palavras": 110,
+        "palavras": 170,
         "por_lingua": {},
-        "sem_marca_de_lingua": 110,
+        "sem_marca_de_lingua": 170,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -123827,7 +123838,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1631,
+  "UNCLAIMED_FILES_COUNT": 1637,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -124089,8 +124100,8 @@
     "edges_proven": 1208,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2886,
-    "files_covered": 1255,
+    "files_tracked": 2894,
+    "files_covered": 1257,
     "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,

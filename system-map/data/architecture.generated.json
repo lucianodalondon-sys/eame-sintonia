@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "curador-ate-pronta-v1",
-    "HEAD": "68d8b4b9f04a2c5386565ecc69b050e1f1e6bf6b",
-    "GENERATED_AT": "2026-09-24T17:47:30-03:00",
-    "SOURCE_TREE_FINGERPRINT": "5651111c6b478d48aacf06f9db424414144be8a2e5a870ff302c314f3b6074ac"
+    "HEAD": "8876c05c336cb7795bab5534a988634f58c3f886",
+    "GENERATED_AT": "2026-09-25T04:31:57-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9e0ef52e079543015440a2b98aa28027915bc291c05e2d24e433057e4dbd9c3b"
   },
   "FILES": [
     {
@@ -2760,8 +2760,15 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/bancada_continua.py",
+      "sha": "0d833bb94364a559505018a88d51fdcc18d16d51",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/bancada_ia.py",
-      "sha": "b1dee3b1db5aadb3b0149ef422bd9f482357767e",
+      "sha": "5783ca0b7167e50a6db6cc9e07cb69708babecf4",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2796,7 +2803,7 @@
     },
     {
       "path": "curadoria/ciclo_continuo.py",
-      "sha": "89dd94a62205bc27c614af4c3e1fc57c2eec0294",
+      "sha": "aba751415a9bec99385ed1bb48b5b3253ee77023",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3229,8 +3236,15 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_bancada_continua.py",
+      "sha": "c77ddc917e974f472dcc6bb706c7d8250afff8cb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_bancada_ia.py",
-      "sha": "f9bf63640845997a9865f27c294444cb14f2e9f7",
+      "sha": "3f803dd4ba840b1317b9a969411ec30a28d287bf",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3552,7 +3566,7 @@
     },
     {
       "path": "curadoria/test_worker_volta_sobrevive.py",
-      "sha": "cc01dd4fafd34b79be99034227476a00dd8b278a",
+      "sha": "383b1327eda1a11fde05536a3e32bfe626e58988",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -15437,6 +15451,48 @@
       "code_dir": true
     },
     {
+      "path": "provas/ia_cur/bancada_continua/LOTE-20260925T072003Z.json",
+      "sha": "841119e66952d63d16e8e06379170136f1c62de4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/bancada_continua/RELATORIO-BANCADA-CONTINUA.md",
+      "sha": "c96338d67a7a18f5957e8a73061264b3a301978e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/bancada_continua/RESPOSTAS-LOTE1.json",
+      "sha": "f233ca97fb4df2d3235492fc3c7aab78b2ff5b00",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/bancada_continua/RESULTADO-CANARIO-30-D29.json",
+      "sha": "61a6ac6abc171aab2c1f2e3e6ca91b88730f59ae",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/bancada_continua/ler_lote.py",
+      "sha": "0511d8eb4643addb2fa5550b22517099e25b0efa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ia_cur/bancada_continua/respostas_lote1.py",
+      "sha": "a67995949243ae32519d190a70118751649f20be",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/ia_cur/bancada_execucao_1.py",
       "sha": "01c156366bc44f89e57de8f99adfc741c3a52059",
       "ext": ".py",
@@ -18105,7 +18161,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8ff57d840da05db11a0ce3c69a71e1c891f0351a",
+      "sha": "748c5f24660e9845e8657fbadccf1e18171f9f8e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -25493,13 +25549,79 @@
       }
     },
     {
+      "from_file": "curadoria/bancada_continua.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/bancada_continua.py",
+        "line": 137,
+        "snippet": "for p in _json(RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\", \"PROVAS\"):"
+      }
+    },
+    {
+      "from_file": "curadoria/bancada_continua.py",
+      "to_file": "curadoria/bancada_ia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/bancada_continua.py",
+        "line": 44,
+        "snippet": "import bancada_ia as BIA   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/bancada_continua.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/bancada_continua.py",
+        "line": 70,
+        "snippet": "import canario as CAN            # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/bancada_continua.py",
+      "to_file": "curadoria/gate_de_rota.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/bancada_continua.py",
+        "line": 71,
+        "snippet": "import gate_de_rota as GATE      # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/bancada_continua.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/bancada_continua.py",
+        "line": 171,
+        "snippet": "tabela = {c[\"SOURCE_ID\"]: c for c in _json(RAIZ / \"regras\" / \"italy_contracts_onboarded.json\", \"FONTES\")}"
+      }
+    },
+    {
+      "from_file": "curadoria/bancada_continua.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/bancada_continua.py",
+        "line": 129,
+        "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\"],"
+      }
+    },
+    {
       "from_file": "curadoria/bancada_ia.py",
       "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/bancada_ia.py",
-        "line": 261,
+        "line": 264,
         "snippet": "for p in _json(RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\", \"PROVAS\")}"
       }
     },
@@ -25521,7 +25643,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/bancada_ia.py",
-        "line": 259,
+        "line": 262,
         "snippet": "_json(RAIZ / \"curadoria\" / \"italy_contracts_curator.json\", \"FONTES\")}"
       }
     },
@@ -25532,7 +25654,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/bancada_ia.py",
-        "line": 256,
+        "line": 259,
         "snippet": "import janela_de_cultura as JC   # noqa: PLC0415"
       }
     },
@@ -25545,6 +25667,17 @@
         "file": "curadoria/bancada_ia.py",
         "line": 182,
         "snippet": "import lifecycle as LC   # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/bancada_ia.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/bancada_ia.py",
+        "line": 266,
+        "snippet": "tabela = {c[\"SOURCE_ID\"]: c for c in _json(RAIZ / \"regras\" / \"italy_contracts_onboarded.json\", \"FONTES\")}"
       }
     },
     {
@@ -25721,6 +25854,17 @@
         "file": "curadoria/cartao_de_fonte.py",
         "line": 43,
         "snippet": "ATLAS_MD   = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "curadoria/ciclo_continuo.py",
+      "to_file": "curadoria/bancada_ia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ciclo_continuo.py",
+        "line": 97,
+        "snippet": "import bancada_ia as BIA   # noqa: PLC0415"
       }
     },
     {
@@ -29178,6 +29322,28 @@
       }
     },
     {
+      "from_file": "curadoria/test_bancada_continua.py",
+      "to_file": "curadoria/bancada_continua.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_bancada_continua.py",
+        "line": 16,
+        "snippet": "import bancada_continua as BC   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_bancada_continua.py",
+      "to_file": "curadoria/bancada_ia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_bancada_continua.py",
+        "line": 17,
+        "snippet": "import bancada_ia as BIA        # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_bancada_ia.py",
       "to_file": "curadoria/bancada_ia.py",
       "type": "IMPORTS",
@@ -31617,6 +31783,17 @@
         "file": "curadoria/test_worker_qualify.py",
         "line": 35,
         "snippet": "import worker as W"
+      }
+    },
+    {
+      "from_file": "curadoria/test_worker_volta_sobrevive.py",
+      "to_file": "curadoria/bancada_ia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_worker_volta_sobrevive.py",
+        "line": 227,
+        "snippet": "import bancada_ia as BIA   # noqa: PLC0415"
       }
     },
     {
@@ -84268,10 +84445,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2886,
-    "files_readable": 1325,
-    "files_code_dir": 1171,
-    "file_edges": 5772,
+    "files_tracked": 2894,
+    "files_readable": 1329,
+    "files_code_dir": 1177,
+    "file_edges": 5783,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
