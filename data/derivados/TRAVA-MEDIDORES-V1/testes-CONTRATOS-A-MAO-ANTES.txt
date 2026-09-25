@@ -1,0 +1,55 @@
+Could not find platform independent libraries <prefix>
+test_a_regra_dos_contratos_feitos_a_mao (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_a_regra_dos_contratos_feitos_a_mao) ... FAIL
+test_a_regra_numa_fonte_de_exemplo (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_a_regra_numa_fonte_de_exemplo)
+A regra pura, com fontes inventadas — cobre o que o livro de hoje não ... ok
+test_a_so_e_sim_sem_nenhum_nao_sei (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_a_so_e_sim_sem_nenhum_nao_sei) ... ok
+test_bloqueio_com_razao_escrita_conta_como_bloqueado (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_bloqueio_com_razao_escrita_conta_como_bloqueado) ... ok
+test_contrato_feito_a_mao_tambem_e_contrato_do_coletor (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_contrato_feito_a_mao_tambem_e_contrato_do_coletor)
+O coletor carrega `regras/italy_contracts.mjs` (as 193 linhas MAIS os ... ERROR
+test_dataset_por_http_com_resultado_e_rc10 (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_dataset_por_http_com_resultado_e_rc10)
+IT-T4-001: CSV por HTTP, correu de verdade a 20/09. ... FAIL
+test_nenhuma_classe_sem_prova (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_nenhuma_classe_sem_prova) ... ok
+test_o_denominador_e_o_livro_do_curador (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_o_denominador_e_o_livro_do_curador) ... ok
+test_resultado_real_pelo_caminho_de_documento_prova_rc1 (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_resultado_real_pelo_caminho_de_documento_prova_rc1)
+IT-T10-018: 3 RAW + 3 DERIVED na 1.ª onda, contrato HTML_LINK_DISCOVERY. ... ok
+test_so_canario_nao_prova_classe (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_so_canario_nao_prova_classe)
+IT-T10-021 está READY e correu na onda, mas colheu 0 documentos. ... ok
+test_youtube_nao_vira_rc1 (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_youtube_nao_vira_rc1) ... ok
+
+======================================================================
+ERROR: test_contrato_feito_a_mao_tambem_e_contrato_do_coletor (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_contrato_feito_a_mao_tambem_e_contrato_do_coletor)
+O coletor carrega `regras/italy_contracts.mjs` (as 193 linhas MAIS os
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 157, in test_contrato_feito_a_mao_tambem_e_contrato_do_coletor
+    c = estradas.contratos_do_coletor()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'censo_das_estradas_it' has no attribute 'contratos_do_coletor'
+
+======================================================================
+FAIL: test_a_regra_dos_contratos_feitos_a_mao (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_a_regra_dos_contratos_feitos_a_mao)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 172, in test_a_regra_dos_contratos_feitos_a_mao
+    self.assertEqual(estradas.classificar_fonte("IT-X-6", ok, mao_pdf, "p")["ROUTE_CLASS_ID"], "RC-1")
+AssertionError: 'NAO_SEI' != 'RC-1'
+- NAO_SEI
++ RC-1
+
+
+======================================================================
+FAIL: test_dataset_por_http_com_resultado_e_rc10 (tests.test_os_medidores_da_trava_veem.OCriterioAMedeAsIdentidadesDoCurador.test_dataset_por_http_com_resultado_e_rc10)
+IT-T4-001: CSV por HTTP, correu de verdade a 20/09.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_os_medidores_da_trava_veem.py", line 165, in test_dataset_por_http_com_resultado_e_rc10
+    self.assertEqual(self.por["IT-T4-001"]["ROUTE_CLASS_ID"], "RC-10")
+AssertionError: 'NAO_SEI' != 'RC-10'
+- NAO_SEI
++ RC-10
+
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.099s
+
+FAILED (failures=2, errors=1)

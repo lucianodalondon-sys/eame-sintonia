@@ -150,6 +150,33 @@ class OCriterioAMedeAsIdentidadesDoCurador(unittest.TestCase):
             "IT-X-5", {"NEW_STATE": "POLICY_BLOCK", "REASON": "termos proibem"}, None, None)
         self.assertEqual(f["RESOLUCAO"], "BLOQUEADA_COM_RAZAO")
 
+    def test_contrato_feito_a_mao_tambem_e_contrato_do_coletor(self):
+        """O coletor carrega `regras/italy_contracts.mjs` (as 193 linhas MAIS os
+        contratos feitos à mão). IT-T2-002 (ARPAV, PDF por HTTP) correu de
+        verdade a 20/09 e o contrato dele é feito à mão — não está no JSON."""
+        c = estradas.contratos_do_coletor()
+        self.assertIn("IT-T2-002", c)
+        self.assertGreater(len(c), len(_json(LIVRO_DO_COLETOR)["FONTES"]))
+        f = self.por["IT-T2-002"]
+        self.assertEqual((f["ROUTE_CLASS_ID"], f["RESOLUCAO"]), ("RC-1", "CLASSE_PROVADA"))
+
+    def test_dataset_por_http_com_resultado_e_rc10(self):
+        """IT-T4-001: CSV por HTTP, correu de verdade a 20/09."""
+        self.assertEqual(self.por["IT-T4-001"]["ROUTE_CLASS_ID"], "RC-10")
+
+    def test_a_regra_dos_contratos_feitos_a_mao(self):
+        ok = {"NEW_STATE": "READY_FOR_COLLECTION", "REASON": "x"}
+        mao_pdf = {"OUTPUT_TYPE": "PDF", "ACCESS_INSTRUMENT": "HTTP", "BROWSER_REQUIRED": False}
+        mao_csv = {"OUTPUT_TYPE": "CSV", "ACCESS_INSTRUMENT": "HTTP", "BROWSER_REQUIRED": False}
+        mao_nav = {"OUTPUT_TYPE": "PDF", "ACCESS_INSTRUMENT": "BROWSER", "BROWSER_REQUIRED": True}
+        self.assertEqual(estradas.classificar_fonte("IT-X-6", ok, mao_pdf, "p")["ROUTE_CLASS_ID"], "RC-1")
+        self.assertEqual(estradas.classificar_fonte("IT-X-7", ok, mao_csv, "p")["ROUTE_CLASS_ID"], "RC-10")
+        self.assertEqual(estradas.classificar_fonte("IT-X-8", ok, mao_nav, "p")["ROUTE_CLASS_ID"], "NAO_SEI")
+        self.assertEqual(estradas.classificar_fonte("IT-X-9", ok, mao_csv, None)["ROUTE_CLASS_ID"], "NAO_SEI")
+        # HTTP para baixar, mas o contrato diz que exige navegador: dúvida.
+        mao_http_nav = {"OUTPUT_TYPE": "PDF", "ACCESS_INSTRUMENT": "HTTP", "BROWSER_REQUIRED": True}
+        self.assertEqual(estradas.classificar_fonte("IT-X-10", ok, mao_http_nav, "p")["ROUTE_CLASS_ID"], "NAO_SEI")
+
     def test_a_so_e_sim_sem_nenhum_nao_sei(self):
         nao_sei = self.a["POR_RESOLUCAO"].get("NAO_SEI", 0)
         self.assertEqual(self.a["CRITERIO_A"], "NAO" if nao_sei else "SIM")

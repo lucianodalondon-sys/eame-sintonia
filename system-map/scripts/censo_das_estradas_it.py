@@ -915,6 +915,37 @@ PROVAS_DE_RESULTADO = (
     os.path.join(RAIZ, 'ferramentas', 'big_collection', 'BC4D-MICRO-FINAL-RESULTADO.json'),
 )
 ESTRATEGIAS_DE_DOCUMENTO = ('HTML_LINK_DISCOVERY', 'STATIC_ENDPOINT')
+SAIDAS_DE_DOCUMENTO = ('PDF', 'HTML')
+SAIDAS_DE_DATASET = ('CSV', 'ODS', 'XLSX')
+
+# ⚠️ O LIVRO DO COLETOR É O QUE O COLETOR CARREGA, NÃO O JSON.
+# `coleta/italy_pilot_collect.mjs` importa `CONTRACTS` de
+# `regras/italy_contracts.mjs`: as linhas de `italy_contracts_onboarded.json`
+# MAIS os contratos feitos à mão (ARPAV, ARIF, o portfólio ADAMA...). Medido a
+# 25/09/2026: 206 contra 193. Ler só o JSON deixava 8 fontes que correram de
+# verdade sem contrato — e portanto sem classe.
+CONTRATOS_MJS = os.path.join(RAIZ, 'regras', 'italy_contracts.mjs')
+_DUMP_CONTRATOS = (
+    "import(process.argv[1]).then(m=>{const o={};for(const [k,c] of "
+    "Object.entries(m.CONTRACTS)){const a=c.ACQUISITION||{};o[k]={STRATEGY:"
+    "a.STRATEGY||null,OUTPUT_TYPE:c.OUTPUT_TYPE||null,ACCESS_INSTRUMENT:"
+    "c.ACCESS_INSTRUMENT||null,BROWSER_REQUIRED:(c.BROWSER_REQUIRED===undefined"
+    "?null:c.BROWSER_REQUIRED),ROUTE_TYPE:c.ROUTE_TYPE||null}}"
+    "process.stdout.write(JSON.stringify(o))})")
+
+
+def contratos_do_coletor():
+    """SOURCE_ID -> o que o contrato diz do caminho. Lido pelo próprio node.
+
+    Falha ALTO se o node não correr: um medidor que cai calado para o JSON
+    mediria outro livro e diria que é este."""
+    import subprocess
+    url = 'file:///' + CONTRATOS_MJS.replace('\\', '/').lstrip('/')
+    r = subprocess.run(['node', '-e', _DUMP_CONTRATOS, url], cwd=RAIZ,
+                       capture_output=True, text=True, encoding='utf-8')
+    if r.returncode != 0:
+        raise SystemExit('contratos_do_coletor: node falhou: %s' % r.stderr[-400:])
+    return json.loads(r.stdout)
 ESTADOS_BLOQUEADOS = ('POLICY_BLOCK', 'AUTH_BLOCK', 'CAPABILITY_BLOCK',
                       'CONTRACT_READY_ROUTE_BLOCKED')
 _SUCESSO_REAL = re.compile(
@@ -952,12 +983,24 @@ def classificar_fonte(sid, transicao, contrato, prova):
     `prova` é a referência da corrida real (ou None). A ordem das perguntas é a
     regra D33: resultado real pelo caminho de documento > bloqueio com razão
     escrita > NAO_SEI (e o porquê)."""
-    estrategia = ((contrato or {}).get('ACQUISITION') or {}).get('STRATEGY')
+    contrato = contrato or {}
+    estrategia = (contrato.get('STRATEGY')
+                  or (contrato.get('ACQUISITION') or {}).get('STRATEGY'))
+    saida = str(contrato.get('OUTPUT_TYPE') or '').upper()
+    # Contrato feito à mão (sem STRATEGY): conta como caminho HTTP só se ele o
+    # DIZ — instrumento HTTP e navegador não exigido. Senão é dúvida.
+    http_a_mao = (not estrategia
+                  and str(contrato.get('ACCESS_INSTRUMENT') or '').upper().startswith('HTTP')
+                  and contrato.get('BROWSER_REQUIRED') is False)
+    por_http = estrategia in ESTRATEGIAS_DE_DOCUMENTO or http_a_mao
     classe, resolucao = SEM_CLASSE, 'NAO_SEI'
     razao = (transicao.get('REASON') or '').strip()
-    if prova and estrategia in ESTRATEGIAS_DE_DOCUMENTO:
+    if prova and por_http and saida in SAIDAS_DE_DATASET:
+        classe, resolucao = 'RC-10', 'CLASSE_PROVADA'
+        porque = 'resultado real + contrato %s por HTTP' % (saida or '?')
+    elif prova and por_http and (saida in SAIDAS_DE_DOCUMENTO or (estrategia and not saida)):
         classe, resolucao = 'RC-1', 'CLASSE_PROVADA'
-        porque = 'resultado real + contrato %s' % estrategia
+        porque = 'resultado real + contrato %s' % (estrategia or 'feito a mao, %s por HTTP' % saida)
     elif transicao.get('NEW_STATE') in ESTADOS_BLOQUEADOS and razao:
         resolucao, porque = 'BLOQUEADA_COM_RAZAO', transicao.get('NEW_STATE')
     elif prova:
@@ -983,8 +1026,7 @@ def classificar_fonte(sid, transicao, contrato, prova):
 def criterio_a_no_curador():
     with open(LIVRO_DO_CURADOR, encoding='utf-8') as f:
         transicoes = json.load(f).get('TRANSICOES') or []
-    with open(LIVRO_DO_COLETOR, encoding='utf-8') as f:
-        contratos = {r.get('SOURCE_ID'): r for r in json.load(f).get('FONTES') or []}
+    contratos = contratos_do_coletor()
     ultima = {}
     for t in transicoes:
         ultima[t.get('SOURCE_ID')] = t
