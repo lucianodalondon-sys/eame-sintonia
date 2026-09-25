@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T08:51:04+00:00",
-    "HEAD": "d0abfe90652cd036c3c8a98308f69589c0ce2447",
+    "GENERATED_AT": "2026-09-25T13:05:25+00:00",
+    "HEAD": "19dfbdf6d7b5edbd06891aa731aa5c62a2c5a2f9",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d5fb0fdf004e2a3b88683c766519daf95be18149be015a9899765ad7fdd61720",
-    "FICHEIROS_NA_IMPRESSAO": 3053,
+    "SOURCE_TREE_FINGERPRINT": "176d4ddbcd1ff7ba964d795f030a814a391d1ccc2c5f85b813268e9b77cb67db",
+    "FICHEIROS_NA_IMPRESSAO": 3107,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38058,6 +38058,14 @@
           "line": 41
         },
         {
+          "file": "provas/t2_boletins/canario_arpae.py",
+          "line": 47
+        },
+        {
+          "file": "provas/t2_boletins/fase1_onde_esta.py",
+          "line": 44
+        },
+        {
           "file": "scripts/receitas/provar_indices.py",
           "line": 24
         },
@@ -38228,6 +38236,39 @@
       ]
     },
     {
+      "endpoint": "https://%s/robots.txt",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 859
+        },
+        {
+          "file": "curadoria/gate_de_rota.py",
+          "line": 80
+        },
+        {
+          "file": "curadoria/medir_fila_do_bot.py",
+          "line": 82
+        },
+        {
+          "file": "medidas/micro_colheita.py",
+          "line": 137
+        },
+        {
+          "file": "provas/janela_formas/buscar_paginas_boletim.py",
+          "line": 62
+        },
+        {
+          "file": "provas/janela_formas/cjs/provas_d46.py",
+          "line": 70
+        },
+        {
+          "file": "provas/t2_boletins/fase1_onde_esta.py",
+          "line": 75
+        }
+      ]
+    },
+    {
       "endpoint": "https://a.it/news",
       "usado_por": [
         {
@@ -38257,31 +38298,6 @@
         {
           "file": "tests/test_onboardar_rotas_provadas.py",
           "line": 28
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/robots.txt",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 859
-        },
-        {
-          "file": "curadoria/gate_de_rota.py",
-          "line": 80
-        },
-        {
-          "file": "curadoria/medir_fila_do_bot.py",
-          "line": 82
-        },
-        {
-          "file": "medidas/micro_colheita.py",
-          "line": 137
-        },
-        {
-          "file": "provas/janela_formas/buscar_paginas_boletim.py",
-          "line": 62
         }
       ]
     },
@@ -38724,6 +38740,23 @@
       ]
     },
     {
+      "endpoint": "https://www.arpa.marche.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 278
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 67
+        },
+        {
+          "file": "provas/t2_boletins/fase1_onde_esta.py",
+          "line": 41
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.crea.gov.it/",
       "usado_por": [
         {
@@ -38858,28 +38891,11 @@
           "line": 119
         }
       ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/watch?v=%s",
-      "usado_por": [
-        {
-          "file": "provas/a_legenda_e_o_audio_do_youtube.py",
-          "line": 91
-        },
-        {
-          "file": "tests/test_as_duas_portas_do_scrap.py",
-          "line": 409
-        },
-        {
-          "file": "tests/test_cadeia_do_audio_offline.py",
-          "line": 148
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 632,
+  "ENDPOINTS_FOUND": 645,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 592,
+  "ENDPOINTS_TRUNCATED": 605,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -38897,9 +38913,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 632,
+    "endpoints": 645,
     "endpoints_published": 40,
-    "endpoints_truncated": 592,
+    "endpoints_truncated": 605,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,

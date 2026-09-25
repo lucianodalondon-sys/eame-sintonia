@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T08:50:26+00:00",
-  "HEAD": "d0abfe90652cd036c3c8a98308f69589c0ce2447",
-  "BRANCH": "janela-formas-v1",
+  "GENERATED_AT": "2026-09-25T13:08:07+00:00",
+  "HEAD": "19dfbdf6d7b5edbd06891aa731aa5c62a2c5a2f9",
+  "BRANCH": "t2-boletins-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d5fb0fdf004e2a3b88683c766519daf95be18149be015a9899765ad7fdd61720",
-  "FICHEIROS_NA_IMPRESSAO": 3053,
+  "SOURCE_TREE_FINGERPRINT": "176d4ddbcd1ff7ba964d795f030a814a391d1ccc2c5f85b813268e9b77cb67db",
+  "FICHEIROS_NA_IMPRESSAO": 3107,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3436,7 +3436,7 @@
    {
     "PATH": "regras/identidade_do_motor_cli.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "d3d4bac6f8fc2c471e8cac3232eca65c7818db08",
+    "VERSAO": "0dbe4773bba7b93db4ee26cf1c01d0b7719c184e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3891,14 +3891,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d5fb0fdf004e2a3b88683c766519daf95be18149be015a9899765ad7fdd61720",
+    "VERSAO": "176d4ddbcd1ff7ba964d795f030a814a391d1ccc2c5f85b813268e9b77cb67db",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d5fb0fdf004e2a3b88683c766519daf95be18149be015a9899765ad7fdd61720",
+    "VERSAO": "176d4ddbcd1ff7ba964d795f030a814a391d1ccc2c5f85b813268e9b77cb67db",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5801,7 +5801,7 @@
    }
   ],
   "INPUTS_COUNT": 823,
-  "INPUTS_DIGEST": "02430a1b5979c7dafdd2c546594a74a1b0837996c672689da57d65da58d154c5",
+  "INPUTS_DIGEST": "68a4690d5c675a15c5a670e1115a9aa4c5e20afc920f8902d7fe85fc10129a8f",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5827,15 +5827,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 506,
+  "DOCUMENTOS_LIDOS": 509,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5b1fe25907b08c26ff3b44175445a4a8de1d908983137e45b9052fdeac837887",
-  "SEMANTIC_HASH": "0d715112e0ae7c4bacd8708e812b178926cb6b71ac8ee8c22cb330913d6645b6"
+  "MEASUREMENT_HASH": "e234c3c5347c4c1279061319e4c26dd5c20f233ca430c1c6da5aaf0d90184674",
+  "SEMANTIC_HASH": "f6e53f041ce5d6206237ff1be8bbddc65fb1f2850500a0954f243264e7875ac3"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -19631,7 +19631,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/identidade_do_motor_cli.mjs",
-      "LINHA": 12,
+      "LINHA": 13,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-CONTRATOS",
@@ -19741,7 +19741,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/identidade_do_motor_cli.mjs",
-      "LINHA": 12,
+      "LINHA": 13,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -44641,11 +44641,18 @@
     "provas/canario_reels_instagram.py",
     "provas/janela_formas/buscar_paginas_boletim.py",
     "provas/janela_formas/canario_receita_pdf.py",
+    "provas/janela_formas/cjs/confirmar_js.py",
+    "provas/janela_formas/cjs/provas_d46.py",
+    "provas/janela_formas/cjs/provas_d46_js.py",
     "provas/medir_validadores_coorte.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
     "provas/orcamento_de_rede.py",
     "provas/red_team_duas_portas.py",
+    "provas/t2_boletins/canario_arpae.py",
+    "provas/t2_boletins/fase1_onde_esta.py",
+    "provas/t2_boletins/fase1b_arpav.py",
+    "provas/t2_boletins/umbria_pdf.py",
     "system-map/scripts/scan_repo.py",
     "system-map/tests/test_system_map.py",
     "tests/test_coleta_externa.py",
@@ -47086,6 +47093,7 @@
     "provas/nada_some_em_silencio.py",
     "provas/o_executor_conta_se.py",
     "provas/o_forward_conta_se.py",
+    "provas/t2_boletins/canario_arpae.py",
     "provas/testa_golden_path_pdf.py",
     "system-map/scripts/censo_das_derivacoes.py",
     "system-map/scripts/censo_dos_executores.py",
@@ -47921,6 +47929,7 @@
     "provas/recollection_http_local.mjs",
     "provas/recollection_indice_local.mjs",
     "provas/recollection_timeout_local.mjs",
+    "provas/t2_boletins/mutacao_strip_suffix.py",
     "provas/ttl_mutable_local.mjs",
     "system-map/scripts/scan_repo.py",
     "tests/mutacao_do_scrap_portas.py",

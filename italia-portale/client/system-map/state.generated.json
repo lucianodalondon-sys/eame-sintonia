@@ -511,12 +511,14 @@
       "curadoria/test_ponte_candidatas.py",
       "curadoria/test_ponte_promocao.py",
       "curadoria/test_ready_split.py",
+      "curadoria/test_receita_identidade.py",
       "curadoria/test_receita_pdf.py",
       "curadoria/test_reconciliar_livros.py",
       "curadoria/test_reparar_contrato.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_revisao_ready.py",
       "curadoria/test_status_liveness.py",
+      "curadoria/test_strip_suffix.py",
       "curadoria/test_supervisor.py",
       "curadoria/test_telemetria.py",
       "curadoria/test_travao_sementes.py",
@@ -2237,6 +2239,26 @@
       "provas/janela_formas/RELATORIO-JANELA-FORMAS.md",
       "provas/janela_formas/buscar_paginas_boletim.py",
       "provas/janela_formas/canario_receita_pdf.py",
+      "provas/janela_formas/cjs/INDICE.json",
+      "provas/janela_formas/cjs/RELATORIO-C-JS.md",
+      "provas/janela_formas/cjs/RELATORIO-D46.md",
+      "provas/janela_formas/cjs/bytes/.gitattributes",
+      "provas/janela_formas/cjs/bytes/4f6b71dffef27eb25411.bin",
+      "provas/janela_formas/cjs/bytes/888e05885c499f9116c8.bin",
+      "provas/janela_formas/cjs/bytes/bac2a9116137905a30a1.bin",
+      "provas/janela_formas/cjs/confirmar_js.py",
+      "provas/janela_formas/cjs/d46/.gitattributes",
+      "provas/janela_formas/cjs/d46/RESULTADO-D46.json",
+      "provas/janela_formas/cjs/d46/custom.js",
+      "provas/janela_formas/cjs/d46/er-bologna-e-ferrara.json",
+      "provas/janela_formas/cjs/d46/er-forli-cesena-ravenna-rimini.json",
+      "provas/janela_formas/cjs/d46/er-modena-reggio-emilia.json",
+      "provas/janela_formas/cjs/d46/er-parma-piacenza.json",
+      "provas/janela_formas/cjs/d46/extend_home.js",
+      "provas/janela_formas/cjs/d46/pagina-bollettini.html",
+      "provas/janela_formas/cjs/d46/robots-www.agrometeopuglia.it.txt",
+      "provas/janela_formas/cjs/provas_d46.py",
+      "provas/janela_formas/cjs/provas_d46_js.py",
       "provas/janela_formas/julgar_paginas_boletim.py",
       "provas/janela_formas/pagina_boletim_local.mjs",
       "provas/linkedin_local_first.py",
@@ -2318,6 +2340,38 @@
       "provas/so_a_colheita_atravessa.py",
       "provas/social_persistencia_no_postgres.py",
       "provas/superficie_do_scrap_v1.py",
+      "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T2-051.json",
+      "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T3-053.json",
+      "provas/t2_boletins/RELATORIO-T2-BOLETINS.md",
+      "provas/t2_boletins/canario_arpae.py",
+      "provas/t2_boletins/fase1_onde_esta.py",
+      "provas/t2_boletins/fase1b_arpav.py",
+      "provas/t2_boletins/mutacao_strip_suffix.py",
+      "provas/t2_boletins/rede/CANARIO-ARPAE.json",
+      "provas/t2_boletins/rede/FASE1.json",
+      "provas/t2_boletins/rede/FASE1B-ARPAV-HTML.json",
+      "provas/t2_boletins/rede/FASE1B-ARPAV.json",
+      "provas/t2_boletins/rede/PEDIDOS-POR-DOMINIO.json",
+      "provas/t2_boletins/rede/bytes/.gitattributes",
+      "provas/t2_boletins/rede/bytes/2260bddee8d809ec8d06.bin",
+      "provas/t2_boletins/rede/bytes/470206c0738773226242.bin",
+      "provas/t2_boletins/rede/bytes/920e5d6fd9929b8eaa21.bin",
+      "provas/t2_boletins/rede/bytes/a4bfbf4123a628fd6a8d.bin",
+      "provas/t2_boletins/rede/bytes/ae6395590f25cd3397f8.bin",
+      "provas/t2_boletins/rede/bytes/b5393e45b6059df348ca.bin",
+      "provas/t2_boletins/rede/bytes/c5bd2e8768b26760b9fc.bin",
+      "provas/t2_boletins/rede/bytes/cad52f939f9d1565d75b.bin",
+      "provas/t2_boletins/rede/bytes/dcb74726fa17e1b4fa8a.bin",
+      "provas/t2_boletins/rede/bytes/e3b0c44298fc1c149afb.bin",
+      "provas/t2_boletins/rede/bytes/f1a6b5e3f6e69a71c535.bin",
+      "provas/t2_boletins/rede/bytes/f6204bf5732bf9bb10d5.bin",
+      "provas/t2_boletins/umbria/.gitattributes",
+      "provas/t2_boletins/umbria/PEDIDOS-UMBRIA.json",
+      "provas/t2_boletins/umbria/UMBRIA-CANARIO.json",
+      "provas/t2_boletins/umbria/UMBRIA-LISTA.json",
+      "provas/t2_boletins/umbria/bytes/7f843b165d68a2a3e000.bin",
+      "provas/t2_boletins/umbria/bytes/c946b2f00952c710cd2d.bin",
+      "provas/t2_boletins/umbria_pdf.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
@@ -2985,8 +3039,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 922 ficheiros (91%) · ESPANHA 76 ficheiros (8%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 922 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 924 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 924 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -3498,10 +3552,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "janela-formas-v1",
-    "HEAD": "d0abfe90652cd036c3c8a98308f69589c0ce2447",
-    "GENERATED_AT": "2026-09-25T05:27:06-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d5fb0fdf004e2a3b88683c766519daf95be18149be015a9899765ad7fdd61720"
+    "BRANCH": "t2-boletins-v1",
+    "HEAD": "19dfbdf6d7b5edbd06891aa731aa5c62a2c5a2f9",
+    "GENERATED_AT": "2026-09-25T07:57:50-03:00",
+    "SOURCE_TREE_FINGERPRINT": "176d4ddbcd1ff7ba964d795f030a814a391d1ccc2c5f85b813268e9b77cb67db"
   },
   "FAMILIES": [
     {
@@ -5003,8 +5057,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 632",
-        "desses, mostrados aqui: 40 (ficam de fora 592)"
+        "enderecos que o codigo realmente chama: 645",
+        "desses, mostrados aqui: 40 (ficam de fora 605)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -54459,7 +54513,9 @@
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "provas/janela_formas/cjs/INDICE.json"
+      ],
       "inbound": [
         "C-ASK-SINTONIA",
         "C-CENSO-UNIFICACAO",
@@ -54491,9 +54547,18 @@
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/janela_formas/cjs/INDICE.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "PROOF",
       "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
@@ -54516,6 +54581,7 @@
         "coleta/italy_pilot_collect.mjs",
         "curadoria/italy_contracts_curator.json",
         "data/collection-ledger/italy/observations.ndjson",
+        "provas/janela_formas/cjs/INDICE.json",
         "regras/italy_contracts.mjs",
         "regras/italy_contracts_onboarded.json",
         "superficie/rede.py"
@@ -65639,7 +65705,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch janela-formas-v1"
+        "branch t2-boletins-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -89885,7 +89951,7 @@
       "evidence": [
         {
           "file": "regras/identidade_do_motor_cli.mjs",
-          "line": 12,
+          "line": 13,
           "snippet": "import { textoVisivel } from \"../coleta/retrato_html.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-CONTRATOS",
@@ -89920,7 +89986,7 @@
       "evidence": [
         {
           "file": "regras/identidade_do_motor_cli.mjs",
-          "line": 12,
+          "line": 13,
           "snippet": "import { textoVisivel } from \"../coleta/retrato_html.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -132777,8 +132843,20 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1604,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/janela_formas/cjs/confirmar_js.py",
+    "provas/janela_formas/cjs/d46/custom.js",
+    "provas/janela_formas/cjs/d46/extend_home.js",
+    "provas/janela_formas/cjs/d46/pagina-bollettini.html",
+    "provas/janela_formas/cjs/provas_d46.py",
+    "provas/janela_formas/cjs/provas_d46_js.py",
+    "provas/t2_boletins/canario_arpae.py",
+    "provas/t2_boletins/fase1_onde_esta.py",
+    "provas/t2_boletins/fase1b_arpav.py",
+    "provas/t2_boletins/mutacao_strip_suffix.py",
+    "provas/t2_boletins/umbria_pdf.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1657,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -133041,9 +133119,9 @@
     "edges_proven": 1231,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2905,
-    "files_covered": 1301,
-    "files_code_unclaimed": 0,
+    "files_tracked": 2959,
+    "files_covered": 1302,
+    "files_code_unclaimed": 11,
     "roles_proven": 166,
     "roles_declared_only": 8,
     "roles_unknown": 71,
