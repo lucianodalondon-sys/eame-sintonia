@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  63aa2f82fb188147a57976603f1935290113286c
+HEAD_DA_MEDICAO  44df17f2cbcdf01f5b92e5ab5134b81f31b32543
 BRANCH           onda3-pacote-v2
-GERADO_EM        2026-09-25T18:54:24-03:00
+GERADO_EM        2026-09-25T19:11:26-03:00
 CARDS            103
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
