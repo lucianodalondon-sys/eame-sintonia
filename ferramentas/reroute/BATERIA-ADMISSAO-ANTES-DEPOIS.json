@@ -1,0 +1,52 @@
+{
+ "DATASET": "BATERIA-ADMISSAO-ANTES-DEPOIS",
+ "MODULOS": 42,
+ "REDE": "proxy fechado",
+ "BASE": {
+  "ARVORE": "df0865e6 (git archive, SEM .git: testes que leem o git falham so aqui)",
+  "TESTES": [
+   "1004"
+  ],
+  "FALHAS": 38,
+  "SAIDA_SHA256": "f5ef7b21df8b8578ca5bdaddca2668884228bae63bbb6ad898f584621cc3d8b1"
+ },
+ "RAMO": {
+  "ARVORE": "reroute-d2-v1 (+ test_reroute_d2 + test_entrada_final)",
+  "TESTES": [
+   "1011"
+  ],
+  "FALHAS": 27,
+  "SAIDA_SHA256": "ee44aa7d0d7a360c4af05e7e41a708ffc7255cf66eed3ecf356f9d2d9362c239"
+ },
+ "NEW_FAILURES_BY_NAME": [],
+ "FALHAS_DO_RAMO_TODAS_JA_NA_BASE": true,
+ "FALHAS_DO_RAMO": [
+  "test_9_e_10_os_do_gabarito_antigo_e_os_sete_novos (tests.test_pacote_de_revisao_t3.ORedTeamDosCasosDificeis.test_9_e_10_os_do_gabarito_antigo_e_os_sete_novos)",
+  "test_a_impressao_digital_identifica_esta_medicao (tests.test_medir_admission_t3_atual.ANaoContaminacaoFoiProvada.test_a_impressao_digital_identifica_esta_medicao)",
+  "test_a_morada_tem_UM_dono_em_todo_o_runtime (tests.test_a_sala_de_espera_tem_um_dono.UMDonoEUmaMorada.test_a_morada_tem_UM_dono_em_todo_o_runtime)",
+  "test_a_porta_continua_sem_t2_e_com_os_quatro_de_sempre (tests.test_amostragem_neutra_t3.NadaFoiRotuladoNemAlterado.test_a_porta_continua_sem_t2_e_com_os_quatro_de_sempre)",
+  "test_a_porta_nao_mudou (tests.test_ui_revisao_t3_ptbr.NadaFoiRotuladoNemAlterado.test_a_porta_nao_mudou)",
+  "test_a_prova_de_mutacao_julga_a_suite_do_gate (tests.test_gate_de_aceitacao_tematica.AProvaDeMutacaoMordeMesmo.test_a_prova_de_mutacao_julga_a_suite_do_gate)",
+  "test_as_46_foram_reaproveitadas_e_7_acrescentadas (tests.test_pacote_de_revisao_t3.APopulacaoEOFrameNeutro.test_as_46_foram_reaproveitadas_e_7_acrescentadas)",
+  "test_correr_julga_a_unidade_da_fronteira (tests.test_estagio_atravessa_a_fronteira.ACorridaInteiraProvadaACorrer.test_correr_julga_a_unidade_da_fronteira)",
+  "test_nao_ficam_temporarios_na_sala (tests.test_a_sala_de_espera_tem_um_dono.OQueUmFicheiroExige.test_nao_ficam_temporarios_na_sala)",
+  "test_nenhuma_pasta_de_collection_foi_tocada (tests.test_atomicidade_da_intelligence.P12_AIntegracaoNaoTocouCollectionRuntime.test_nenhuma_pasta_de_collection_foi_tocada)",
+  "test_o_espelho_do_mapa_so_ganhou_as_pecas_declaradas (tests.test_atomicidade_da_intelligence.P12_AIntegracaoNaoTocouCollectionRuntime.test_o_espelho_do_mapa_so_ganhou_as_pecas_declaradas)",
+  "test_o_ficheiro_bate_com_o_gerador (tests.test_amostragem_neutra_t3.OFrameNaoTemRotulos.test_o_ficheiro_bate_com_o_gerador)",
+  "test_o_ficheiro_publicado_e_sempre_JSON_inteiro (tests.test_a_sala_de_espera_tem_um_dono.OQueUmFicheiroExige.test_o_ficheiro_publicado_e_sempre_JSON_inteiro)",
+  "test_o_frame_e_maior_que_o_pacote (tests.test_amostragem_neutra_t3.OVeredictoContinuaMedido.test_o_frame_e_maior_que_o_pacote)",
+  "test_o_json_no_disco_e_o_que_o_gerador_produz (tests.test_pacote_de_revisao_t3.OPacoteVersionadoBateComOGerador.test_o_json_no_disco_e_o_que_o_gerador_produz)",
+  "test_o_mapa_da_porta_vive_num_sitio_so (tests.test_lingua_da_porta.ORuntimeUsaOTradutorEUmSo.test_o_mapa_da_porta_vive_num_sitio_so)",
+  "test_o_mesmo_conteudo_outra_vez_diz_REUSED_e_nao_duplica (tests.test_a_sala_de_espera_tem_um_dono.OQueUmFicheiroExige.test_o_mesmo_conteudo_outra_vez_diz_REUSED_e_nao_duplica)",
+  "test_o_protocolo_nao_virou_lei (tests.test_pacote_de_revisao_t3.OPacoteNaoInfluenciaORevisor.test_o_protocolo_nao_virou_lei)",
+  "test_o_sha_do_gabarito_e_o_do_ficheiro (tests.test_medir_admission_t3_atual.OGabaritoNaoEToctado.test_o_sha_do_gabarito_e_o_do_ficheiro)",
+  "test_o_sql_da_sala_so_existe_dentro_do_dono (tests.test_sala_duravel.UmDonoSo.test_o_sql_da_sala_so_existe_dentro_do_dono)",
+  "test_os_publicadores_ausentes_entraram (tests.test_pacote_de_revisao_t3.APopulacaoEOFrameNeutro.test_os_publicadores_ausentes_entraram)",
+  "test_outra_historia_na_mesma_corrida_e_conflito_e_nao_overwrite (tests.test_a_sala_de_espera_tem_um_dono.OQueUmFicheiroExige.test_outra_historia_na_mesma_corrida_e_conflito_e_nao_overwrite)",
+  "test_pousar_escreve_e_devolve_PASSED (tests.test_a_sala_de_espera_tem_um_dono.OQueUmFicheiroExige.test_pousar_escreve_e_devolve_PASSED)",
+  "test_sao_53_fichas (tests.test_pacote_de_revisao_t3.APopulacaoEOFrameNeutro.test_sao_53_fichas)",
+  "test_so_um_ficheiro_declara_o_vocabulario_da_especie (tests.test_col_e7_contrato_do_texto.UmConceitoUmDono.test_so_um_ficheiro_declara_o_vocabulario_da_especie)",
+  "test_tudo_o_que_foi_modificado_tem_gerador_com_nome (tests.test_atomicidade_da_intelligence.P12_AIntegracaoNaoTocouCollectionRuntime.test_tudo_o_que_foi_modificado_tem_gerador_com_nome)",
+  "test_universo_sem_regua_continua_a_dizer_que_nao_tem_regua (tests.test_a_regra_de_t10.OMaterialInvalidoNaoEntra.test_universo_sem_regua_continua_a_dizer_que_nao_tem_regua)"
+ ]
+}

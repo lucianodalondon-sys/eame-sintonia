@@ -107,7 +107,9 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)** — Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos.
 - **INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO** — ensaio_integra.sh: o ensaio integrado numa copia fiel do vivo com a rede FECHADA (clone local + livros do vivo; onboarding com a prova de rotas ja feita, plano do runbook, coorte congelada so na copia, onda_web --so-plano, plano do MICRO, prova do teto sobre os dois planos, desfazer). prova_teto_micro.py: plano do MICRO so com as fontes de um lote e a prova independente do teto (C-PROVA-TETO-DOMINIO) no pior caso de 5 pedidos por fonte PRONTA. Sem rede.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
+- **REROUTE da D2 na Admissao — medicao no acervo e ataque (D56)** — medir_reroute.py mede, sem rede e sem Sala, que nenhum veredito muda (base contra arvore, 8 gavetas x corpus) e quantos NAO da gaveta da fonte ganham SIM noutra gaveta, contra os rotulos humanos do gabarito; reroute_mutacao.py desliga cada peca do admissao.reencaminhar numa copia.
 - **Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)** — Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.
+- **Saltos que gastam o teto e a entrada no endereco final (AJUSTES-MICRO)** — medir_saltos.py le o livro de corridas (so leitura) e mede, por fonte, os pedidos gastos alem de robots+indice+materias e os saltos de ORIGEM (robots de duas origens na mesma corrida). entrada_final.py propoe a INDEX_URL na origem final so com prova sem rede (salto medido + materia ja colhida que o LINK_PATTERN aceita) e aplica pela porta do reparo (reparar_contrato.aplicar: so ACQUISITION, validador da casa, PRECISA_DE_REMEDIR).
 
 ---
 
@@ -153,4 +155,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 11 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 13 ferramentas e 2 peças de fonte declaradas no mapa.

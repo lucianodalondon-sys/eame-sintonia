@@ -4837,7 +4837,8 @@
     "provas/teto_dominio_mutacao.py",
     "provas/TETO-DOMINIO-MUTACAO.json",
     "provas/onda_web_mutacao.py",
-    "provas/ONDA-WEB-MUTACAO.json"
+    "provas/ONDA-WEB-MUTACAO.json",
+    "provas/reroute_mutacao.py"
    ]
   },
   {
@@ -4933,6 +4934,43 @@
     "ferramentas/big_collection/resumo_da_onda.py",
     "ferramentas/big_collection/ondas/MICRO-V3-20260925-0803-RESUMO.json",
     "ferramentas/big_collection/ondas/ONDA2-WEB-20260925-0812-RESUMO.json"
+   ]
+  },
+  {
+   "id": "C-AJUSTES-MICRO",
+   "name": "Saltos que gastam o teto e a entrada no endereco final (AJUSTES-MICRO)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "medir_saltos.py le o livro de corridas (so leitura) e mede, por fonte, os pedidos gastos alem de robots+indice+materias e os saltos de ORIGEM (robots de duas origens na mesma corrida). entrada_final.py propoe a INDEX_URL na origem final so com prova sem rede (salto medido + materia ja colhida que o LINK_PATTERN aceita) e aplica pela porta do reparo (reparar_contrato.aplicar: so ACQUISITION, validador da casa, PRECISA_DE_REMEDIR).",
+   "why_here": "MICRO-V3: a Villoresi colheu 1 materia em vez de 3 porque o salto www->raiz gastou 2 dos 5 pedidos do teto D38. O teto nao se mexe; corrige-se a entrada do contrato pelo dono unico.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/rendimento/medir_saltos.py",
+    "curadoria/entrada_final.py"
+   ]
+  },
+  {
+   "id": "C-REROUTE-D2",
+   "name": "REROUTE da D2 na Admissao — medicao no acervo e ataque (D56)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "medir_reroute.py mede, sem rede e sem Sala, que nenhum veredito muda (base contra arvore, 8 gavetas x corpus) e quantos NAO da gaveta da fonte ganham SIM noutra gaveta, contra os rotulos humanos do gabarito; reroute_mutacao.py desliga cada peca do admissao.reencaminhar numa copia.",
+   "why_here": "D56: implementar o REROUTE da D2 para todas as fontes sem baixar regua; a medicao mostra precisao 8% contra o humano porque T4/T5/T9 sao reguas de palavras soltas.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/reroute/medir_reroute.py"
    ]
   },
   {
