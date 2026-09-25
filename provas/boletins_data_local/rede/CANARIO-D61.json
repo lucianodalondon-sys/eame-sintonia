@@ -1,7 +1,7 @@
 {
  "FASE": "BOLETINS D61/D62 fase 3 — contratos pela porta + canario",
- "REDE_AUTORIZADA_POR": "DA-2 D61/D62 D69 COORDENACAO 25/09",
- "EM": "2026-09-25T15:38:07.957190+00:00",
+ "REDE_AUTORIZADA_POR": "DA-11/12/13 COORDENACAO 25/09",
+ "EM": "2026-09-25T16:27:59.286718+00:00",
  "FONTES": {
   "IT-T2-148": {
    "CONTRATO_BASE_HASH": "c4a9f38f3a9ecfbc",
@@ -101,7 +101,7 @@
      "DECISAO": "R1",
      "MISSAO": "REPARO-FONTES-V1",
      "METODO": "REPARO-DE-CONTRATO/v1",
-     "APLICADO_EM": "2026-09-25T15:38:07.993842+00:00",
+     "APLICADO_EM": "2026-09-25T16:27:59.313724+00:00",
      "COMO": "D61/D62 boletins (bancada, agente)",
      "ACQUISITION_ANTERIOR": {
       "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -137,13 +137,13 @@
     "ROUTE_PROVENANCE": {
      "MISSAO": "REPARO-FONTES-V1",
      "FERRAMENTA": "curadoria/reparar_contrato.py",
-     "INTEGRADO_EM": "2026-09-25T15:38:07.993842+00:00",
-     "PROVADO_EM": "2026-09-25T15:38:07.993842+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:27:59.313724+00:00",
+     "PROVADO_EM": "2026-09-25T16:27:59.313724+00:00",
      "LISTAGEM": "https://arsac.calabria.it/category/ultime-notizie/",
      "OUTPUT_TYPE": "HTML",
      "OUTPUT_TYPE_ANTERIOR": "HTML"
     },
-    "SOURCE_CONTRACT_HASH": "2c1721994d22a211"
+    "SOURCE_CONTRACT_HASH": "8273f92f6ac5ea94"
    },
    "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
    "CANARIO": {
@@ -152,6 +152,7 @@
     "PORQUE": null,
     "DETAIL_ENUMERATED": 5,
     "ALVO": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-22-settembre-2026/",
+    "TEXTO_DA_LIGACAO": null,
     "DOCUMENT_ID": "IT-T2-148:URL:bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-22-settembre-2026",
     "TEMPOS": {
      "PUBLISHED_AT": "NAO SEI",
@@ -191,6 +192,7 @@
    "OUTROS_DOCUMENTOS_GUARDADOS": [
     {
      "URL": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-29-settembre-2026/",
+     "TEXTO_DA_LIGACAO": "BOLLETTINO agrometeorologico e fitosanitario â agrumi, olivo, vite e kiwi – valido fino a giorno 29 settembre 2026 | Leggi tutto",
      "DOCUMENT_ID": "IT-T2-148:URL:bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-29-settembre-2026",
      "TEMPOS": {
       "PUBLISHED_AT": "NAO SEI",
@@ -204,7 +206,9 @@
       "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
      }
     }
-   ]
+   ],
+   "ESTADO_DA11": "NAO_PRONTA",
+   "MOTIVO_DA11": "a pagina da edicao so anuncia o boletim (corpo nao provado: regua LEGACY); o texto vive em arsacagrometeo.it/bollettino_cover.php, que responde com erro do servidor (mysqli Access denied); arsacweb.it NAO parou — so a pagina de lista do contrato atual parou em 2022 (FILA-DE-REPARO-D61.json)"
   },
   "IT-T3-032": {
    "CONTRATO_BASE_HASH": "e77434dd817322c7",
@@ -247,6 +251,17 @@
        ],
        "FLAGS": "i"
       },
+      "lk": {
+       "FROM": "LINK_TEXT",
+       "PATTERN": "\\bdel\\s+(\\d{1,2})[-/.](\\d{1,2})[-/.](\\d{4})\\b",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      },
       "val": {
        "FROM": "PDF_TEXT",
        "PATTERN": "Inizio\\s+validit[àa]\\s+ore\\s+[\\d:.]+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})[\\s\\S]{0,300}?Fine\\s+validit[àa]\\s+ore\\s+[\\d:.]+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})",
@@ -277,8 +292,14 @@
       }
      },
      "DOCUMENT_ID": "IT-T3-032:URL:{doc.1}",
-     "PUBLISHED_AT": "{vig.3}-{vig.2:MES2}-{vig.1:DIA2}",
-     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» (so os de vigilanza; o «Comunicato fitosanitario N» medido nao traz data de emissao — a data esta so no titulo da lista)",
+     "PUBLISHED_AT": [
+      "{vig.3}-{vig.2:MES2}-{vig.1:DIA2}",
+      "{lk.3}-{lk.2:MES2}-{lk.1:DIA2}"
+     ],
+     "PUBLISHED_AT_BASIS": [
+      "EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA»",
+      "INDICE · o texto do link da lista «… del DD-MM-AAAA» (DA-13: so quando o PDF nao traz a data; o «Comunicato fitosanitario n.N/AAAA» nao traz data nem no link — fica NAO SEI)"
+     ],
      "FACT_TIME": "{prev.3}-{prev.2:MES2}-{prev.1:DIA2}/{prev.6}-{prev.5:MES2}-{prev.4:DIA2}",
      "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Previsione meteorologica per oggi DD/MM/AAAA … per domani DD/MM/AAAA» (o tempo previsto para esses dias; o comunicato fitossanitario nao o traz)",
      "BULLETIN_PERIOD": "{val.3}-{val.2:MES2}-{val.1:DIA2}/{val.6}-{val.5:MES2}-{val.4:DIA2}",
@@ -307,7 +328,7 @@
      "DECISAO": "R1",
      "MISSAO": "REPARO-FONTES-V1",
      "METODO": "REPARO-DE-CONTRATO/v1",
-     "APLICADO_EM": "2026-09-25T15:38:09.020664+00:00",
+     "APLICADO_EM": "2026-09-25T16:28:00.366570+00:00",
      "COMO": "D61/D62 boletins (bancada, agente)",
      "ACQUISITION_ANTERIOR": {
       "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -344,13 +365,13 @@
     "ROUTE_PROVENANCE": {
      "MISSAO": "REPARO-FONTES-V1",
      "FERRAMENTA": "curadoria/reparar_contrato.py",
-     "INTEGRADO_EM": "2026-09-25T15:38:09.020664+00:00",
-     "PROVADO_EM": "2026-09-25T15:38:09.020664+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:28:00.366570+00:00",
+     "PROVADO_EM": "2026-09-25T16:28:00.366570+00:00",
      "LISTAGEM": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
      "OUTPUT_TYPE": "PDF",
      "OUTPUT_TYPE_ANTERIOR": "HTML"
     },
-    "SOURCE_CONTRACT_HASH": "7c21cb40bc780a07"
+    "SOURCE_CONTRACT_HASH": "f77679198a8af265"
    },
    "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
    "CANARIO": {
@@ -359,10 +380,11 @@
     "PORQUE": null,
     "DETAIL_ENUMERATED": 13,
     "ALVO": "https://www.regione.molise.it/flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F1%252Fa%252FD.b63db74a4052c1514f91/P/BLOB%3AID%3D18077/E/pdf?mode=download",
+    "TEXTO_DA_LIGACAO": "Bollettino vigilanza del 10-06-2026 (331.08 KB)",
     "DOCUMENT_ID": "IT-T3-032:URL:flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F1%252Fa%252FD.b63db74a4052c1514f91/P/BLOB%3AID%3D18077/E/pdf?mode=download",
     "TEMPOS": {
      "PUBLISHED_AT": "2026-06-10",
-     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» (so os de vigilanza; o «Comunicato fitosanitario N» medido nao traz data de emissao — a data esta so no titulo da lista) · «Bollettino di Vigilanza Num. 163 del 10/06/2026»",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» · «Bollettino di Vigilanza Num. 163 del 10/06/2026» · forma 1 de 2",
      "FACT_TIME": "2026-06-10/2026-06-11",
      "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Previsione meteorologica per oggi DD/MM/AAAA … per domani DD/MM/AAAA» (o tempo previsto para esses dias; o comunicato fitossanitario nao o traz) · «Previsione meteorologica per oggi 10/06/2026 fino alle ore 23:59 L.T Stato del Cielo: Prevalenza di cielo sereno Temperature: stazionarie Venti: deboli o moderati meridionali Mare: calmo o poco mosso »",
      "FACT_LOCATION": "NAO SEI",
@@ -396,10 +418,11 @@
    "OUTROS_DOCUMENTOS_GUARDADOS": [
     {
      "URL": "https://www.regione.molise.it/flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F2%252F3%252FD.2160966648a1a772a1c6/P/BLOB%3AID%3D18077/E/pdf?mode=download",
+     "TEXTO_DA_LIGACAO": "Comunicato fitosanitario n°6/2026 (647.22 KB)",
      "DOCUMENT_ID": "IT-T3-032:URL:flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F2%252F3%252FD.2160966648a1a772a1c6/P/BLOB%3AID%3D18077/E/pdf?mode=download",
      "TEMPOS": {
       "PUBLISHED_AT": "NAO SEI",
-      "PUBLISHED_AT_BASIS": "NAO SEI · EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» (so os de vigilanza; o «Comunicato fitosanitario N» medido nao traz data de emissao — a data esta so no titulo da lista) · não está neste documento (captura vig sem resultado) — o documento não cai (D62)",
+      "PUBLISHED_AT_BASIS": "NAO SEI · forma 1: EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» · não está neste documento (captura vig sem resultado) — o documento não cai (D62) | forma 2: INDICE · o texto do link da lista «… del DD-MM-AAAA» (DA-13: so quando o PDF nao traz a data; o «Comunicato fitosanitario n.N/AAAA» nao traz data nem no link — fica NAO SEI) · não está neste documento (captura lk sem resultado) — o documento não cai (D62)",
       "FACT_TIME": "NAO SEI",
       "FACT_TIME_BASIS": "NAO SEI · PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Previsione meteorologica per oggi DD/MM/AAAA … per domani DD/MM/AAAA» (o tempo previsto para esses dias; o comunicato fitossanitario nao o traz) · não está neste documento (captura prev sem resultado) — o documento não cai (D62)",
       "FACT_LOCATION": "NAO SEI",
@@ -481,7 +504,7 @@
      "DECISAO": "R1",
      "MISSAO": "REPARO-FONTES-V1",
      "METODO": "REPARO-DE-CONTRATO/v1",
-     "APLICADO_EM": "2026-09-25T15:38:10.423416+00:00",
+     "APLICADO_EM": "2026-09-25T16:28:01.861576+00:00",
      "COMO": "D61/D62 boletins (bancada, agente)",
      "ACQUISITION_ANTERIOR": {
       "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -518,13 +541,13 @@
     "ROUTE_PROVENANCE": {
      "MISSAO": "REPARO-FONTES-V1",
      "FERRAMENTA": "curadoria/reparar_contrato.py",
-     "INTEGRADO_EM": "2026-09-25T15:38:10.423416+00:00",
-     "PROVADO_EM": "2026-09-25T15:38:10.423416+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:28:01.861576+00:00",
+     "PROVADO_EM": "2026-09-25T16:28:01.861576+00:00",
      "LISTAGEM": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
      "OUTPUT_TYPE": "PDF",
      "OUTPUT_TYPE_ANTERIOR": "HTML"
     },
-    "SOURCE_CONTRACT_HASH": "2245be70aa3842e0"
+    "SOURCE_CONTRACT_HASH": "d9be57fa9ca9b380"
    },
    "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
    "CANARIO": {
@@ -533,6 +556,7 @@
     "PORQUE": null,
     "DETAIL_ENUMERATED": 20,
     "ALVO": "https://www.regione.vda.it/allegato.aspx?pk=124385",
+    "TEXTO_DA_LIGACAO": "avviso del 27 febbraio 2026 - Primi interventi su Drupacee",
     "DOCUMENT_ID": "IT-T3-055:URL:allegato.aspx?pk=124385",
     "TEMPOS": {
      "PUBLISHED_AT": "2026-02-27",
@@ -570,6 +594,7 @@
    "OUTROS_DOCUMENTOS_GUARDADOS": [
     {
      "URL": "https://www.regione.vda.it/allegato.aspx?pk=130369",
+     "TEXTO_DA_LIGACAO": "Avviso del 15 settembre 2026- Maturazione mele varietà Golden delicious",
      "DOCUMENT_ID": "IT-T3-055:URL:allegato.aspx?pk=130369",
      "TEMPOS": {
       "PUBLISHED_AT": "2026-09-15",
@@ -676,7 +701,7 @@
      "DECISAO": "R1",
      "MISSAO": "REPARO-FONTES-V1",
      "METODO": "REPARO-DE-CONTRATO/v1",
-     "APLICADO_EM": "2026-09-25T15:38:11.552412+00:00",
+     "APLICADO_EM": "2026-09-25T16:28:03.563454+00:00",
      "COMO": "D61/D62 boletins (bancada, agente)",
      "ACQUISITION_ANTERIOR": {
       "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -713,13 +738,13 @@
     "ROUTE_PROVENANCE": {
      "MISSAO": "REPARO-FONTES-V1",
      "FERRAMENTA": "curadoria/reparar_contrato.py",
-     "INTEGRADO_EM": "2026-09-25T15:38:11.552412+00:00",
-     "PROVADO_EM": "2026-09-25T15:38:11.552412+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:28:03.563454+00:00",
+     "PROVADO_EM": "2026-09-25T16:28:03.563454+00:00",
      "LISTAGEM": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
      "OUTPUT_TYPE": "PDF",
      "OUTPUT_TYPE_ANTERIOR": "HTML"
     },
-    "SOURCE_CONTRACT_HASH": "23476e896953b83c"
+    "SOURCE_CONTRACT_HASH": "a9f1ce737f774e80"
    },
    "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
    "CANARIO": {
@@ -728,6 +753,7 @@
     "PORQUE": null,
     "DETAIL_ENUMERATED": 52,
     "ALVO": "https://www.regione.umbria.it/documents/18/0/bollettino+NOCCIOLO+n.10+del+17_07_2026/d07bdc4c-1fef-4eb5-832f-fdbafec578a1?version=1.0",
+    "TEXTO_DA_LIGACAO": "bollettino NOCCIOLO n.10 del 17_07_2026",
     "DOCUMENT_ID": "IT-T3-053:URL:documents/18/0/bollettino+NOCCIOLO+n.10+del+17_07_2026/d07bdc4c-1fef-4eb5-832f-fdbafec578a1?version=1.0",
     "TEMPOS": {
      "PUBLISHED_AT": "2026-07-17",
@@ -848,7 +874,7 @@
      "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:{b.2}-{b.1}",
      "SOURCE_DATE_ISO": "{b.2}-{b.3}-{b.4}",
      "FACT_TIME": "{per.3}-{per.2:MES_IT}-{per.1:DIA2}/{per.6}-{per.5:MES_IT}-{per.4:DIA2}",
-     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana)",
+     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana) — regra DECLARADA neste contrato, aceite pela coordenacao (DA-12)",
      "BULLETIN_PERIOD": "{cob.3}-{cob.2:MES_IT}-{cob.1:DIA2}/{cob.6}-{cob.5:MES_IT}-{cob.4:DIA2}",
      "BULLETIN_PERIOD_BASIS": "PERIODO_DECLARADO_NO_BOLETIM · 2.a linha «<data> - <data>» do PDF",
      "PUBLISHED_AT": [
@@ -886,7 +912,7 @@
      "DECISAO": "R1",
      "MISSAO": "REPARO-FONTES-V1",
      "METODO": "REPARO-DE-CONTRATO/v1",
-     "APLICADO_EM": "2026-09-25T15:38:13.504210+00:00",
+     "APLICADO_EM": "2026-09-25T16:28:04.371232+00:00",
      "COMO": "D61/D62 boletins (bancada, agente)",
      "ACQUISITION_ANTERIOR": {
       "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -923,13 +949,13 @@
     "ROUTE_PROVENANCE": {
      "MISSAO": "REPARO-FONTES-V1",
      "FERRAMENTA": "curadoria/reparar_contrato.py",
-     "INTEGRADO_EM": "2026-09-25T15:38:13.504210+00:00",
-     "PROVADO_EM": "2026-09-25T15:38:13.504210+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:28:04.371232+00:00",
+     "PROVADO_EM": "2026-09-25T16:28:04.371232+00:00",
      "LISTAGEM": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
      "OUTPUT_TYPE": "PDF",
      "OUTPUT_TYPE_ANTERIOR": "HTML"
     },
-    "SOURCE_CONTRACT_HASH": "e1e94c719b8f7fb3"
+    "SOURCE_CONTRACT_HASH": "a4e6c74db8630ca2"
    },
    "IDENTIDADE_DOCUMENT_ID_PRESERVADA": false,
    "CANARIO": {
@@ -938,12 +964,13 @@
     "PORQUE": null,
     "DETAIL_ENUMERATED": 30,
     "ALVO": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/09_boll_agro_20260302.pdf",
+    "TEXTO_DA_LIGACAO": "Bollettino agrometeo 2 marzo 2026",
     "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:2026-09",
     "TEMPOS": {
      "PUBLISHED_AT": "2026-03-02",
      "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «n. NN/AAAA del <data>» (forma 1) ou o nome AAAAMMDD (forma 2) · «n. 09/2026 del 2 marzo 2026» · forma 1 de 2",
      "FACT_TIME": "2026-02-23/2026-03-01",
-     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana) · «23 febbraio 2026 - 1 marzo 2026 Diario meteorologico»",
+     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana) — regra DECLARADA neste contrato, aceite pela coordenacao (DA-12) · «23 febbraio 2026 - 1 marzo 2026 Diario meteorologico»",
      "FACT_LOCATION": "NAO SEI",
      "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o boletim cobre a regiao mas nao a declara no cabecalho (lugares no corpo: leitor LUGAR-FATO)",
      "BULLETIN_PERIOD": "2026-02-23/2026-03-01",
@@ -975,12 +1002,13 @@
    "OUTROS_DOCUMENTOS_GUARDADOS": [
     {
      "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/38_boll_agro_20260921.pdf",
+     "TEXTO_DA_LIGACAO": "Bollettino agrometeo 21 settembre 2026",
      "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:2026-38",
      "TEMPOS": {
       "PUBLISHED_AT": "2026-09-21",
       "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «n. NN/AAAA del <data>» (forma 1) ou o nome AAAAMMDD (forma 2) · «n. 38/2026 del 21 settembre 2026» · forma 1 de 2",
       "FACT_TIME": "2026-09-14/2026-09-20",
-      "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana) · «14 settembre 2026 - 20 settembre 2026 Diario meteorologico»",
+      "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana) — regra DECLARADA neste contrato, aceite pela coordenacao (DA-12) · «14 settembre 2026 - 20 settembre 2026 Diario meteorologico»",
       "FACT_LOCATION": "NAO SEI",
       "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o boletim cobre a regiao mas nao a declara no cabecalho (lugares no corpo: leitor LUGAR-FATO)",
       "BULLETIN_PERIOD": "2026-09-14/2026-09-20",
@@ -1058,7 +1086,7 @@
      "DECISAO": "R1",
      "MISSAO": "REPARO-FONTES-V1",
      "METODO": "REPARO-DE-CONTRATO/v1",
-     "APLICADO_EM": "2026-09-25T15:38:14.862384+00:00",
+     "APLICADO_EM": "2026-09-25T16:28:05.453509+00:00",
      "COMO": "D61/D62 boletins (bancada, agente)",
      "ACQUISITION_ANTERIOR": {
       "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -1094,13 +1122,13 @@
     "ROUTE_PROVENANCE": {
      "MISSAO": "REPARO-FONTES-V1",
      "FERRAMENTA": "curadoria/reparar_contrato.py",
-     "INTEGRADO_EM": "2026-09-25T15:38:14.862384+00:00",
-     "PROVADO_EM": "2026-09-25T15:38:14.862384+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:28:05.453509+00:00",
+     "PROVADO_EM": "2026-09-25T16:28:05.453509+00:00",
      "LISTAGEM": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
      "OUTPUT_TYPE": "PDF",
      "OUTPUT_TYPE_ANTERIOR": "HTML"
     },
-    "SOURCE_CONTRACT_HASH": "e2d2f5bee6d895a9"
+    "SOURCE_CONTRACT_HASH": "6f6c24a2bb6dd665"
    },
    "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
    "CANARIO": {
@@ -1109,6 +1137,7 @@
     "PORQUE": null,
     "DETAIL_ENUMERATED": 10,
     "ALVO": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+    "TEXTO_DA_LIGACAO": "DTU n. 86 â Linee guida per la nomina e coordinamento delle attivitÃ degli esperti italiani nominati in seno allâEPPO",
     "DOCUMENT_ID": "IT-T3-014:URL:wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
     "TEMPOS": {
      "PUBLISHED_AT": "2026-05-14",
@@ -1215,7 +1244,7 @@
      "DECISAO": "R1",
      "MISSAO": "REPARO-FONTES-V1",
      "METODO": "REPARO-DE-CONTRATO/v1",
-     "APLICADO_EM": "2026-09-25T15:38:15.688747+00:00",
+     "APLICADO_EM": "2026-09-25T16:28:06.652772+00:00",
      "COMO": "D61/D62 boletins (bancada, agente)",
      "ACQUISITION_ANTERIOR": {
       "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -1251,13 +1280,13 @@
     "ROUTE_PROVENANCE": {
      "MISSAO": "REPARO-FONTES-V1",
      "FERRAMENTA": "curadoria/reparar_contrato.py",
-     "INTEGRADO_EM": "2026-09-25T15:38:15.688747+00:00",
-     "PROVADO_EM": "2026-09-25T15:38:15.688747+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:28:06.652772+00:00",
+     "PROVADO_EM": "2026-09-25T16:28:06.652772+00:00",
      "LISTAGEM": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
      "OUTPUT_TYPE": "PDF",
      "OUTPUT_TYPE_ANTERIOR": "HTML"
     },
-    "SOURCE_CONTRACT_HASH": "6140a75bb4c26f91"
+    "SOURCE_CONTRACT_HASH": "3ad2358ffe61c9c2"
    },
    "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
    "CANARIO": {
@@ -1266,6 +1295,7 @@
     "PORQUE": null,
     "DETAIL_ENUMERATED": 22,
     "ALVO": "http://www.ersa.fvg.it/cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
+    "TEXTO_DA_LIGACAO": "Colture erbacee - Seminativi biologici n. 15 dd. 7 ottobre 2025",
     "DOCUMENT_ID": "IT-T3-027:URL:cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
     "TEMPOS": {
      "PUBLISHED_AT": "2025-10-07",
@@ -1381,7 +1411,7 @@
      "DECISAO": "R1",
      "MISSAO": "REPARO-FONTES-V1",
      "METODO": "REPARO-DE-CONTRATO/v1",
-     "APLICADO_EM": "2026-09-25T15:38:16.639641+00:00",
+     "APLICADO_EM": "2026-09-25T16:28:07.505270+00:00",
      "COMO": "D61/D62 boletins (bancada, agente)",
      "ACQUISITION_ANTERIOR": {
       "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -1417,13 +1447,13 @@
     "ROUTE_PROVENANCE": {
      "MISSAO": "REPARO-FONTES-V1",
      "FERRAMENTA": "curadoria/reparar_contrato.py",
-     "INTEGRADO_EM": "2026-09-25T15:38:16.639641+00:00",
-     "PROVADO_EM": "2026-09-25T15:38:16.639641+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:28:07.505270+00:00",
+     "PROVADO_EM": "2026-09-25T16:28:07.505270+00:00",
      "LISTAGEM": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/NA_2026.html",
      "OUTPUT_TYPE": "PDF",
      "OUTPUT_TYPE_ANTERIOR": "HTML"
     },
-    "SOURCE_CONTRACT_HASH": "4355e6922be48d47"
+    "SOURCE_CONTRACT_HASH": "ac2b4d4d5dc0b38f"
    },
    "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
    "CANARIO": {
@@ -1432,6 +1462,7 @@
     "PORQUE": null,
     "DETAIL_ENUMERATED": 27,
     "ALVO": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
+    "TEXTO_DA_LIGACAO": "Scarica",
     "DOCUMENT_ID": "IT-T3-025:URL:difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
     "TEMPOS": {
      "PUBLISHED_AT": "2026-04-01",
@@ -1564,7 +1595,7 @@
     },
     "ROUTE_PROVENANCE": {
      "MISSAO": "D61/D62 (sobre a JANELA-FORMAS B)",
-     "INTEGRADO_EM": "2026-09-25T15:38:17.789940+00:00",
+     "INTEGRADO_EM": "2026-09-25T16:28:08.336804+00:00",
      "ANTERIOR": null
     }
    },

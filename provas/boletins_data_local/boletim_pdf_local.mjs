@@ -9,6 +9,8 @@
 //   P2  PDF sem cabeçalho nem período                                 -> COLETADO na mesma (D62), NAO SEI com o porquê
 //   P3  «del 31 febbraio 2026»                                        -> NAO SEI (nunca uma data inventada)
 //   P4  período sem ligação ao facto no texto (D69)                   -> FACT_TIME NAO SEI, período em BULLETIN_PERIOD
+//   P5  PDF sem data, link «… del 20-09-2026» (DA-13)                -> PUBLISHED_AT pelo INDICE
+//   P6  PDF com data e link com outra (DA-13)                         -> vale a do PDF
 // Em todas: CAPTURED_AT à parte, e nunca no lugar de PUBLISHED_AT / FACT_TIME.
 import { createServer } from "node:http";
 import { mkdtempSync, rmSync, readFileSync, existsSync, writeFileSync } from "node:fs";
@@ -74,10 +76,12 @@ Object.assign(CONTRACTS[FONTE], {
       per: opc(`${DATA_IT}\\s*-\\s*${DATA_IT}\\s*\\n\\s*Diario meteorologico`, 6, "i"),
       cob: opc(`${DATA_IT}\\s*-\\s*${DATA_IT}`, 6, "i"),
       area: opc("valido per la provincia di ([A-Z][a-z]+)", 1),
+      lk: { FROM: "LINK_TEXT", PATTERN: "\\bdel\\s+(\\d{1,2})[-/.](\\d{1,2})[-/.](\\d{4})\\b", REQUIRED: false, DEFAULTS: ["x", "x", "x"], FLAGS: "i" },
     },
     DOCUMENT_ID: `${FONTE}:BOLETIM:{b.2}-{b.1}`,
-    PUBLISHED_AT: "{em.3}-{em.2:MES_IT}-{em.1:DIA2}",
-    PUBLISHED_AT_BASIS: "EMISSAO_DECLARADA_NO_BOLETIM · cabeçalho «n. NN/AAAA del <data>»",
+    PUBLISHED_AT: ["{em.3}-{em.2:MES_IT}-{em.1:DIA2}", "{lk.3}-{lk.2:MES2}-{lk.1:DIA2}"],
+    PUBLISHED_AT_BASIS: ["EMISSAO_DECLARADA_NO_BOLETIM · cabeçalho «n. NN/AAAA del <data>»",
+                         "INDICE · o texto do link da lista «… del DD-MM-AAAA» (DA-13: só quando o PDF não traz a data)"],
     FACT_TIME: "{per.3}-{per.2:MES_IT}-{per.1:DIA2}/{per.6}-{per.5:MES_IT}-{per.4:DIA2}",
     FACT_TIME_BASIS: "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeça o «Diario meteorologico»",
     BULLETIN_PERIOD: "{cob.3}-{cob.2:MES_IT}-{cob.1:DIA2}/{cob.6}-{cob.5:MES_IT}-{cob.4:DIA2}",
@@ -91,10 +95,10 @@ const livro = () => {
   const f = join(RAIZ, "data/collection-ledger/italy/observations.ndjson");
   return existsSync(f) ? readFileSync(f, "utf8").split("\n").filter(Boolean).map(JSON.parse) : [];
 };
-async function rodada(nome, numero, linhas) {
+async function rodada(nome, numero, linhas, textoDoLink = `Bollettino ${numero}`) {
   const url = `/pdf/${numero}_boll_2026.pdf`;
   PDFS = { [url]: pdfComTexto(linhas) };
-  LISTA = `<!DOCTYPE html><html><body><h1>Bollettini</h1><a href="${url}">Bollettino ${numero}</a></body></html>`;
+  LISTA = `<!DOCTYPE html><html><body><h1>Bollettini</h1><a href="${url}">${textoDoLink}</a></body></html>`;
   const antes = livro().length;
   await M.executarRodada({ runId: `PROVA_BOLETIM_PDF_${nome}_${Date.now()}`, apenas: [FONTE], pularParse: true, nota: `prova ${nome}` });
   const novas = livro().slice(antes);
@@ -114,7 +118,7 @@ try {
     assert.match(p1.OBSERVATION_RESULT, /BASELINE_DOCUMENT|NEW_DOCUMENT/);
     assert.equal(p1.DOCUMENT_ID, `${FONTE}:BOLETIM:2026-38`);
     assert.equal(p1.PUBLISHED_AT, "2026-09-21");
-    assert.match(p1.PUBLISHED_AT_BASIS, /^EMISSAO_DECLARADA_NO_BOLETIM .*21 settembre 2026/);
+    assert.match(p1.PUBLISHED_AT_BASIS, /^EMISSAO_DECLARADA_NO_BOLETIM .*21 settembre 2026.*forma 1 de 2/);
     assert.equal(p1.FACT_TIME, "2026-09-14/2026-09-20");
     assert.match(p1.FACT_TIME_BASIS, /^PERIODO_LIGADO_AO_FATO_NO_TEXTO/);
     assert.equal(p1.BULLETIN_PERIOD, "2026-09-14/2026-09-20");
@@ -145,6 +149,18 @@ try {
     assert.equal(p4.FACT_TIME, "NAO SEI");
     assert.equal(p4.BULLETIN_PERIOD, "2026-10-05/2026-10-11");
     assert.match(p4.FACT_TIME_BASIS, /BULLETIN_PERIOD.*D69/);
+  });
+  const p5 = await rodada("P5", "42", texto(null, null, null), "Bollettino vigilanza del 20-09-2026 (331.09 KB)");
+  t("P5 (DA-13): PDF sem data -> a data do LINK da lista, com BASE INDICE", () => {
+    assert.equal(p5.PUBLISHED_AT, "2026-09-20");
+    assert.match(p5.PUBLISHED_AT_BASIS, /^INDICE .*del 20-09-2026.*forma 2 de 2/);
+    assert.equal(p5.FACT_TIME, "NAO SEI", "a data do link e publicacao, nunca facto");
+  });
+  const p6 = await rodada("P6", "43", texto("Bollettino Settimanale n. 43/2026 del 26 ottobre 2026", null, null),
+    "Bollettino vigilanza del 20-09-2026");
+  t("P6 (DA-13): PDF COM data -> vale a do PDF, o link nunca passa à frente", () => {
+    assert.equal(p6.PUBLISHED_AT, "2026-10-26");
+    assert.match(p6.PUBLISHED_AT_BASIS, /^EMISSAO_DECLARADA_NO_BOLETIM/);
   });
 } finally {
   Object.assign(CONTRACTS[FONTE], ORIGINAL);

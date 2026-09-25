@@ -129,5 +129,60 @@ class OCanarioHtmlDeUmBoletim(unittest.TestCase):
         self.assertNotIn("TEMPOS", r, "o canario HTML de um contrato sem BASE nao muda")
 
 
+LISTA_MOLISE = ('<ul><li><a href="/att/1/E/pdf?mode=download">Bollettino vigilanza del 20-09-2026 &nbsp;(331.09 KB)</a></li>'
+                '<li><a href="/att/2/E/pdf?mode=download">Comunicato fitosanitario n&#176;6/2026 (647.22 KB)</a></li></ul>').encode("latin-1")
+INDEX_MOLISE = "https://www.regione.molise.it/pagina/18077"
+
+
+class DA13OTextoDoLinkDoIndice(unittest.TestCase):
+
+    def test_o_canario_le_o_texto_de_cada_ligacao(self):
+        t = CAN.textos_das_ligacoes(LISTA_MOLISE, INDEX_MOLISE)
+        self.assertEqual("Bollettino vigilanza del 20-09-2026 (331.09 KB)", t["https://www.regione.molise.it/att/1/E/pdf?mode=download"])
+        self.assertEqual("Comunicato fitosanitario n°6/2026 (647.22 KB)", t["https://www.regione.molise.it/att/2/E/pdf?mode=download"])
+
+    @unittest.skipUnless(shutil.which("node"), "sem node nesta maquina")
+    def test_paridade_com_o_motor_do_coletor(self):
+        import json
+        import subprocess
+        js = ("import {textosDasLigacoes} from './regras/motor_de_rota.mjs';"
+              "const [html, aq] = JSON.parse(process.argv[1]);"
+              "console.log(JSON.stringify([...textosDasLigacoes(html, aq)]));")
+        r = subprocess.run(["node", "--input-type=module", "-e", js,
+                            json.dumps([LISTA_MOLISE.decode("latin-1"), {"INDEX_URL": INDEX_MOLISE}])],
+                           cwd=AQUI.parent, capture_output=True, text=True, encoding="utf-8", timeout=120)
+        self.assertEqual(0, r.returncode, r.stderr[-1500:])
+        do_motor = dict(json.loads(r.stdout.strip().splitlines()[-1]))
+        self.assertEqual(do_motor, CAN.textos_das_ligacoes(LISTA_MOLISE, INDEX_MOLISE))
+
+    @unittest.skipUnless(shutil.which("node") and shutil.which("pdftotext"), "sem node/pdftotext nesta maquina")
+    def test_o_canario_pdf_passa_o_link_ao_motor_base_indice(self):
+        from test_canario_pdf import pdf_com_texto
+        c = RC.aplicar(_contrato(), {
+            "DESFECHO": "PADRAO_NOVO", "INDEX_URL": INDEX_MOLISE, "OUTPUT_TYPE": "PDF",
+            "LINK_PATTERN": r"^https?://www\.regione\.molise\.it/att/1/E/pdf\?mode=download$",
+            "PDF_SEM_EXTENSAO": "ServeAttachment sem extensao", "COMO": "t", "PORQUE": "t",
+            "IDENTITY": {
+                "STRATEGY": "CONTENT_CAPTURE",
+                "CAPTURES": {"doc": URL_DOC,
+                             "lk": {"FROM": "LINK_TEXT", "PATTERN": r"\bdel\s+(\d{1,2})-(\d{1,2})-(\d{4})\b",
+                                    "REQUIRED": False, "DEFAULTS": ["x", "x", "x"]}},
+                "DOCUMENT_ID": _contrato()["SOURCE_ID"] + ":URL:{doc.1}",
+                "PUBLISHED_AT": "{lk.3}-{lk.2:MES2}-{lk.1:DIA2}",
+                "PUBLISHED_AT_BASIS": "INDICE · o texto do link da lista",
+                "FACT_TIME_BASIS": "NAO_DECLARADO · teste"}})
+        pdf = pdf_com_texto("Previsione meteorologica senza data di emissione nel testo", 40)
+        rede = {INDEX_MOLISE: (200, LISTA_MOLISE, ""), "https://www.regione.molise.it/att/1/E/pdf?mode=download": (200, pdf, "")}
+        antes, CAN.buscar = CAN.buscar, (lambda u: rede.get(u, (404, b"", "HTTP 404")))
+        try:
+            r = CAN.canario_html(c)
+        finally:
+            CAN.buscar = antes
+        self.assertTrue(r["PASS"], r.get("PORQUE"))
+        self.assertEqual("2026-09-20", r["TEMPOS"]["PUBLISHED_AT"])
+        self.assertTrue(r["TEMPOS"]["PUBLISHED_AT_BASIS"].startswith("INDICE"))
+        self.assertIn("del 20-09-2026", r["TEXTO_DA_LIGACAO"])
+
+
 if __name__ == "__main__":
     unittest.main()

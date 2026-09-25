@@ -110,3 +110,24 @@ Os contratos (`CONTRATOS-PROPOSTOS-D61.json`) **não** vão na instalação: ent
 ## PDFs fora do Git (sha256)
 
 Ver `rede/PDFS-FORA-DO-GIT.txt` (7 PDFs em `C:/cur/d61/bytes/`), mais os da D47/D51.3 já listados no relatório T2-BOLETINS.
+
+## Adenda DA-11 / DA-12 / DA-13 (COORDENACAO, 25/09)
+
+- **DA-11 · ARSAC NÃO PRONTA, com o motivo.** O canário marca `ESTADO_DA11 = NAO_PRONTA` e o porquê. A casa não
+  tem uma fila de reparo em ficheiro: o worker repara as fontes em `CONTRACTED_CANARY_FAILED`, e a IT-T2-148 **já
+  está nesse estado** no livro vivo. O diagnóstico para quem aplica o reparo — «arsacweb.it não parou, só a lista»
+  — está em `FILA-DE-REPARO-D61.json` (com as provas). Nenhum livro vivo foi escrito.
+- **DA-12 · ARPAE:** a ligação período ↔ facto («o período encabeça o Diario meteorologico») fica como **regra
+  declarada no contrato** (`FACT_TIME_BASIS` diz «regra DECLARADA neste contrato, aceite pela coordenação (DA-12)»).
+- **DA-13 · Molise: a data pelo texto do LINK da lista, BASE `INDICE`.**
+  - Motor: leitor novo `LINK_TEXT` (o texto do link que, no índice, apontava para o documento — vem no alvo, como
+    URL e FILENAME); `textosDasLigacoes` lê-o com o mesmo endereço que `ligacoesDoIndice` (STRIP_SUFFIX incluído);
+    a **BASE pode ser uma lista, uma por forma**.
+  - Contrato do Molise: `PUBLISHED_AT` = [forma 1: o cabeçalho do PDF «Bollettino di Vigilanza Num. N del …»;
+    forma 2: o link «… del DD-MM-AAAA», base `INDICE`]. A forma 2 **só** vale quando a 1 falha (PDF sem data).
+  - Real (bytes de hoje): o boletim de vigilanza sai pela forma 1 (2026-06-10, link «Bollettino vigilanza del
+    10-06-2026»); o «Comunicato fitosanitario n°6/2026» continua **NAO SEI** — o número não é data, e nada se inventa.
+  - Canário (Python) lê o texto do link como o coletor (**paridade provada** contra o motor) e passa-o ao motor.
+  - Provas: motor **29/29** (+6); coletor de verdade **6/6** (+P5 PDF sem data → data do link com BASE INDICE;
+    +P6 PDF com data → vale a do PDF); Curator **12/12**; **mutação 17/17** (+4 do DA-13; o do coletor conferido à
+    mão: morre pela P5).

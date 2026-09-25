@@ -161,7 +161,34 @@ PDF_GATE_VERSAO = "PDF_TEXT_LAYER/v1"
 PDF_MINIMO_DE_TEXTO = 800        # a mesma exigencia de corpo do HTML (BODY_UTIL: >= 800 caracteres)
 
 
-def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes) -> dict:
+def textos_das_ligacoes(b: bytes, index_url: str, strip_suffix: str | None = None) -> dict:
+    """DA-13: o texto de cada ligacao da entrada, pelo mesmo endereco que `hrefs_da_entrada` devolve — o
+    que o motor do coletor le como LINK_TEXT (`regras/motor_de_rota.mjs` · textosDasLigacoes). Latin-1, como
+    o motor le o indice; etiquetas fora; varias ligacoes para o mesmo endereco juntam-se com « | »."""
+    import html as _html
+    from urllib.parse import urljoin
+    texto = b.decode("latin-1")
+    textos: dict = {}
+    for h, corpo in re.findall(r'<a\b[^>]*?href\s*=\s*["\']([^"\'#]+)["\'][^>]*>([\s\S]*?)</a>', texto, re.I):
+        h = _html.unescape(h).strip()
+        try:
+            u = urljoin(index_url, h).split("#")[0]
+        except ValueError:
+            continue
+        if strip_suffix and u.endswith(strip_suffix):
+            u = u[:-len(strip_suffix)]
+        t = re.sub(r"\s+", " ", _html.unescape(re.sub(r"<[^>]+>", " ", corpo))).strip()
+        if not t:
+            continue
+        ja = textos.get(u)
+        if not ja:
+            textos[u] = t
+        elif t not in ja.split(" | "):
+            textos[u] = ja + " | " + t
+    return textos
+
+
+def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes, texto_da_ligacao: str = "") -> dict:
     """D32 (4): o item de um contrato OUTPUT_TYPE=PDF, julgado pela ESTEIRA DE PDF que ja existe.
 
     O texto sai pelo mesmo executor da Collection (`coleta/executor_texto_de_pdf.extrair`,
@@ -204,7 +231,7 @@ def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes) -> dict:
     # D47 (T2-BOLETINS): a identidade (e os tempos que ela declara) vem do MOTOR DO COLETOR, como na
     # «pagina e o boletim» — um motor so. Antes: um `replace("{doc.1}", caminho)` a mao, que so sabia
     # o molde por endereco e ignorava SOURCE_DATE_ISO/FACT_TIME de um contrato com capturas.
-    ident = identidade_pelo_motor(c, alvo, b2)
+    ident = identidade_pelo_motor(c, alvo, b2, texto_da_ligacao)
     if ident.get("ERRO"):
         return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
                     PORQUE="o motor do coletor nao deu identidade: %s" % str(ident["ERRO"])[:160])
@@ -212,7 +239,7 @@ def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes) -> dict:
         return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
                     PORQUE="IDENTITY_FAILED: as capturas do contrato nao casam com o alvo")
     return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=ident["DOCUMENT_ID"],
-                TEMPOS=tempos_do_motor(ident))
+                TEXTO_DA_LIGACAO=texto_da_ligacao, TEMPOS=tempos_do_motor(ident))
 
 
 FORMA_PAGINA_E_BOLETIM = "PAGINA_E_BOLETIM"
@@ -254,15 +281,17 @@ def tempos_do_motor(ident: dict) -> dict:
     return t
 
 
-def identidade_pelo_motor(c: dict, url: str, b: bytes) -> dict:
-    """A identidade do documento pelo MOTOR DO COLETOR (regras/motor_de_rota.mjs) — um motor so."""
+def identidade_pelo_motor(c: dict, url: str, b: bytes, texto_da_ligacao: str = "") -> dict:
+    """A identidade do documento pelo MOTOR DO COLETOR (regras/motor_de_rota.mjs) — um motor so.
+    DA-13: `texto_da_ligacao` e o texto do link do indice (LINK_TEXT), como o coletor o poe no alvo."""
     import subprocess
     import tempfile
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / "pagina.bin"
         p.write_bytes(b)
         pedido = {"SOURCE_ID": c["SOURCE_ID"], "CONTRATO": c, "BYTES_EM": str(p),
-                  "ALVO": {"url": url, "nome": (c.get("ACQUISITION") or {}).get("NAME") or url.rstrip("/").split("/")[-1]}}
+                  "ALVO": {"url": url, "nome": (c.get("ACQUISITION") or {}).get("NAME") or url.rstrip("/").split("/")[-1],
+                           "textoDaLigacao": texto_da_ligacao}}
         r = subprocess.run(["node", str(RAIZ / "regras" / "identidade_do_motor_cli.mjs")],
                            input=json.dumps(pedido), capture_output=True, text=True, encoding="utf-8", timeout=60)
     linha = (r.stdout.strip().splitlines() or ["{}"])[-1]
@@ -338,7 +367,8 @@ def canario_html(c: dict) -> dict:
     # listagens (CAND-0060): b'\xef\xbb\xbf<!DOC' reprovava como bytes errados.
     # D32 (4): contrato que declara PDF e julgado pela esteira de PDF, nao pelo retrato de HTML.
     if c.get("OUTPUT_TYPE") == "PDF":
-        return _canario_pdf(c, alvo, alvos, st2, b2)
+        return _canario_pdf(c, alvo, alvos, st2, b2,
+                            textos_das_ligacoes(b, aq["INDEX_URL"], aq.get("STRIP_SUFFIX")).get(alvo, ""))
     if not b2.lstrip().removeprefix(b"\xef\xbb\xbf")[:1] == b"<":
         return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st2,
                 "PORQUE": "bytes nao sao HTML — BYTE_VALIDATION_FAILED", "ALVO": alvo}

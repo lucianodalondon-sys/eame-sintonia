@@ -84,6 +84,10 @@ export const FONTES_DE_TEXTO = Object.freeze([
   // (+ a data comprovada). Os dois leitores são os do retrato (coleta/retrato_html.mjs), que o
   // coletor injecta — o motor continua a não abrir nada.
   "PAGE_TEXT",      // o texto visível normalizado da página (retrato_html.textoVisivel, injectado)
+  // DA-13: o texto do LINK que, no índice, apontava para este alvo («Bollettino vigilanza del 20-09-2026»).
+  // Vem no próprio alvo (alvosDoContrato), como URL e FILENAME. É o ÍNDICE a falar do documento — a base
+  // de um campo lido aqui diz INDICE, e só se usa quando o documento não diz o mesmo.
+  "LINK_TEXT",
   // ⚠️ A impressão do conteúdo NÃO é fonte de captura: hash é BYTE_ID, não identidade (a lei de
   // `motor_de_rota_test.mjs`). Ela sai AO LADO da identidade (CONTENT_SHA256, com CONTENT_SCOPE)
   // e serve para DEDUPLICAR versões do mesmo documento — nunca para o nomear.
@@ -194,13 +198,18 @@ const MOLDE = /\{([A-Za-z_][A-Za-z0-9_]*)\.(\d+)(?::([A-Z0-9_]+))?\}/g;
 function conferirTempoELugar(sourceId, spec, caps) {
   for (const campo of CAMPOS_TEMPO_E_LUGAR) {
     const base = spec[`${campo}_BASIS`];
-    if (campo !== "FACT_TIME" && spec[campo] != null && !ehTexto(base)) {
+    if (campo !== "FACT_TIME" && spec[campo] != null && !(ehTexto(base) || Array.isArray(base))) {
       throw new ContratoInvalido(`${sourceId}: ${campo} sem ${campo}_BASIS — como se sabe faz parte do que se sabe`);
     }
-    if (base != null && !ehTexto(base)) throw new ContratoInvalido(`${sourceId}: ${campo}_BASIS vazia`);
+    if (Array.isArray(base)) {
+      const n = Array.isArray(spec[campo]) ? spec[campo].length : -1;
+      if (base.length !== n || !base.every(ehTexto)) {
+        throw new ContratoInvalido(`${sourceId}: ${campo}_BASIS em lista tem de ter uma base de texto por forma (${n})`);
+      }
+    } else if (base != null && !ehTexto(base)) throw new ContratoInvalido(`${sourceId}: ${campo}_BASIS vazia`);
     if (campo === "FACT_TIME" && base == null) continue;      // o FACT_TIME antigo segue a regra antiga
     // D69: um molde de FACT_TIME num boletim só entra com a base a dizer que o texto liga o período ao facto
-    if (campo === "FACT_TIME" && spec.FACT_TIME != null && !String(base).startsWith(FACT_TIME_LIGADO)) {
+    if (campo === "FACT_TIME" && spec.FACT_TIME != null && !(Array.isArray(base) ? base : [base]).every((b) => String(b).startsWith(FACT_TIME_LIGADO))) {
       throw new ContratoInvalido(`${sourceId}: FACT_TIME num boletim exige FACT_TIME_BASIS «${FACT_TIME_LIGADO} · …» — `
         + "a validade/cobertura sem ligação ao facto no texto vai para BULLETIN_PERIOD (D69)");
     }
@@ -236,9 +245,11 @@ function campoDoBoletim(campo, spec, grupos, ausentes) {
     return [NAO_SEI, baseDeclarada ? `NAO SEI · ${baseDeclarada}` : `NAO SEI · o contrato não declara onde o boletim diz o ${campo}`];
   }
   const moldes = Array.isArray(spec[campo]) ? spec[campo] : [spec[campo]];
+  // DA-13: a BASE pode ser uma lista, uma por forma (ex.: a do PDF e a do INDICE)
+  const baseDe = (k) => (Array.isArray(baseDeclarada) ? baseDeclarada[k] : baseDeclarada);
   const porques = [];
   for (const [k, molde] of moldes.entries()) {
-    const [v, b] = umMolde(campo, molde, baseDeclarada, grupos, ausentes);
+    const [v, b] = umMolde(campo, molde, baseDe(k), grupos, ausentes);
     if (v !== NAO_SEI) return [v, moldes.length > 1 ? `${b} · forma ${k + 1} de ${moldes.length}` : b];
     porques.push(moldes.length > 1 ? `forma ${k + 1}: ${b.replace(/^NAO SEI · /, "")}` : b.replace(/^NAO SEI · /, ""));
   }
@@ -430,6 +441,28 @@ export function ligacoesDoIndice(html, aq) {
   return fora;
 }
 
+// DA-13 · O TEXTO DE CADA LIGAÇÃO DO ÍNDICE, pelo mesmo endereço que `ligacoesDoIndice` devolve (resolvido
+// contra o índice, com o STRIP_SUFFIX). Várias ligações para o mesmo endereço juntam-se com « | ». Etiquetas
+// fora, entidades básicas desfeitas, espaços colapsados. Só lê: não escolhe alvos.
+export function textosDasLigacoes(html, aq) {
+  const entrada = aq.INDEX_URL;
+  const textos = new Map();
+  const desfaz = (t) => t.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
+    .replace(/&#0*39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/\s+/g, " ").trim();
+  for (const m of String(html).matchAll(/<a\b[^>]*?href\s*=\s*["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
+    let u;
+    try { u = new URL(m[1].trim(), entrada).href; } catch { continue; }
+    if (aq.STRIP_SUFFIX && u.endsWith(aq.STRIP_SUFFIX)) u = u.slice(0, -aq.STRIP_SUFFIX.length);
+    const t = desfaz(m[2]);
+    if (!t) continue;
+    const ja = textos.get(u);
+    if (!ja) textos.set(u, t);
+    else if (!ja.split(" | ").includes(t)) textos.set(u, `${ja} | ${t}`);
+  }
+  return textos;
+}
+
 // O nome do ficheiro guardado nasce do último troço do caminho; um artigo
 // HTML raramente traz extensão, e o armazém precisa de uma.
 export function nomeDoAlvo(url, outputType) {
@@ -564,10 +597,14 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
       if (urls.length === 0) {
         return { erro: "EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN" };
       }
+      // DA-13: cada alvo leva o texto da ligacao que o anunciava (LINK_TEXT)
+      const textos = textosDasLigacoes(texto, aq);
+      // (na MESMA lista: o D40 pendura nela as suas contas — CONHECIDOS_SALTADOS, VAZIO_HONESTO…)
+      const comTexto = (as) => { if (Array.isArray(as)) for (const a of as) a.textoDaLigacao = textos.get(a.url) ?? ""; return as; };
       if (typeof classificar === "function") {
-        return escolherAlvosD40(urls, classificar, (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE));
+        return comTexto(escolherAlvosD40(urls, classificar, (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE)));
       }
-      return urls.slice(0, limite).map((url) => ({ url, nome: nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE) }));
+      return comTexto(urls.slice(0, limite).map((url) => ({ url, nome: nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE) })));
     }
     const re = new RegExp(aq.LINK_PATTERN, "gi");
     const achados = [...texto.matchAll(re)].map((m) => (m[1] !== undefined ? m[1] : m[0]));
@@ -658,6 +695,7 @@ export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} }
   const textoDe = (de) => {
     if (de === "FILENAME") return String(alvo.nome || "");
     if (de === "URL") return String(alvo.url || "");
+    if (de === "LINK_TEXT") return String(alvo.textoDaLigacao || "");
     if (!(de in textos)) {
       const ler = leitores[de];
       if (typeof ler !== "function") {

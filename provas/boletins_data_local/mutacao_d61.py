@@ -18,7 +18,7 @@ COLETOR = ["node", "provas/boletins_data_local/boletim_pdf_local.mjs"]
 M, C, P, V, K = "regras/motor_de_rota.mjs", "curadoria/canario.py", "curadoria/reparar_contrato.py", "curadoria/validar_contratos.py", "coleta/italy_pilot_collect.mjs"
 MUTANTES = [
     ("motor: D69 deixa a validade entrar no FACT_TIME", M,
-     'if (campo === "FACT_TIME" && spec.FACT_TIME != null && !String(base).startsWith(FACT_TIME_LIGADO)) {',
+     'if (campo === "FACT_TIME" && spec.FACT_TIME != null && !(Array.isArray(base) ? base : [base]).every((b) => String(b).startsWith(FACT_TIME_LIGADO))) {',
      'if (false) {', [MOTOR]),
     ("motor: aceita qualquer texto como data", M,
      "  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(iso)) return false;", "  return true;", [MOTOR]),
@@ -40,6 +40,16 @@ MUTANTES = [
     ("canario: boletim HTML nao pergunta ao motor", C, "    if declara_data_e_lugar(c):", "    if False:", [CURADOR]),
     ("coletor: sem leitor PDF_TEXT", K, "      PDF_TEXT: () => textoDePdf(buf, STORE),", "", [COLETOR]),
     ("coletor: data e lugar nao vao para a ficha", K, "        ...(ident.PUBLISHED_AT_BASIS ? {", "        ...(false ? {", [COLETOR]),
+    # DA-13 · o texto do link do indice (BASE INDICE)
+    ("DA-13 motor: LINK_TEXT sempre vazio", M,
+     '    if (de === "LINK_TEXT") return String(alvo.textoDaLigacao || "");', '    if (de === "LINK_TEXT") return "";', [MOTOR, CURADOR]),
+    ("DA-13 motor: os alvos nao levam o texto do link", M,
+     'for (const a of as) a.textoDaLigacao = textos.get(a.url) ?? "";', "for (const a of as) void a;", [COLETOR]),
+    ("DA-13 motor: a base por forma e ignorada", M,
+     "  const baseDe = (k) => (Array.isArray(baseDeclarada) ? baseDeclarada[k] : baseDeclarada);",
+     "  const baseDe = (k) => (Array.isArray(baseDeclarada) ? baseDeclarada[0] : baseDeclarada);", [MOTOR]),
+    ("DA-13 canario: nao passa o link ao motor", C,
+     'textos_das_ligacoes(b, aq["INDEX_URL"], aq.get("STRIP_SUFFIX")).get(alvo, ""))', '"")', [CURADOR]),
 ]
 FORA = {".git", "data", "italia-portale", "system-map", "build", "docs", "node_modules"}
 

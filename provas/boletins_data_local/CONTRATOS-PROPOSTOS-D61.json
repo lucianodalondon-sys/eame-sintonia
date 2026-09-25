@@ -94,7 +94,7 @@
    "DECISAO": "R1",
    "MISSAO": "REPARO-FONTES-V1",
    "METODO": "REPARO-DE-CONTRATO/v1",
-   "APLICADO_EM": "2026-09-25T15:38:07.993842+00:00",
+   "APLICADO_EM": "2026-09-25T16:27:59.313724+00:00",
    "COMO": "D61/D62 boletins (bancada, agente)",
    "ACQUISITION_ANTERIOR": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -130,13 +130,13 @@
   "ROUTE_PROVENANCE": {
    "MISSAO": "REPARO-FONTES-V1",
    "FERRAMENTA": "curadoria/reparar_contrato.py",
-   "INTEGRADO_EM": "2026-09-25T15:38:07.993842+00:00",
-   "PROVADO_EM": "2026-09-25T15:38:07.993842+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:27:59.313724+00:00",
+   "PROVADO_EM": "2026-09-25T16:27:59.313724+00:00",
    "LISTAGEM": "https://arsac.calabria.it/category/ultime-notizie/",
    "OUTPUT_TYPE": "HTML",
    "OUTPUT_TYPE_ANTERIOR": "HTML"
   },
-  "SOURCE_CONTRACT_HASH": "2c1721994d22a211"
+  "SOURCE_CONTRACT_HASH": "8273f92f6ac5ea94"
  },
  "IT-T3-032": {
   "SOURCE_ID": "IT-T3-032",
@@ -176,6 +176,17 @@
      ],
      "FLAGS": "i"
     },
+    "lk": {
+     "FROM": "LINK_TEXT",
+     "PATTERN": "\\bdel\\s+(\\d{1,2})[-/.](\\d{1,2})[-/.](\\d{4})\\b",
+     "REQUIRED": false,
+     "DEFAULTS": [
+      "x",
+      "x",
+      "x"
+     ],
+     "FLAGS": "i"
+    },
     "val": {
      "FROM": "PDF_TEXT",
      "PATTERN": "Inizio\\s+validit[àa]\\s+ore\\s+[\\d:.]+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})[\\s\\S]{0,300}?Fine\\s+validit[àa]\\s+ore\\s+[\\d:.]+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})",
@@ -206,8 +217,14 @@
     }
    },
    "DOCUMENT_ID": "IT-T3-032:URL:{doc.1}",
-   "PUBLISHED_AT": "{vig.3}-{vig.2:MES2}-{vig.1:DIA2}",
-   "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» (so os de vigilanza; o «Comunicato fitosanitario N» medido nao traz data de emissao — a data esta so no titulo da lista)",
+   "PUBLISHED_AT": [
+    "{vig.3}-{vig.2:MES2}-{vig.1:DIA2}",
+    "{lk.3}-{lk.2:MES2}-{lk.1:DIA2}"
+   ],
+   "PUBLISHED_AT_BASIS": [
+    "EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA»",
+    "INDICE · o texto do link da lista «… del DD-MM-AAAA» (DA-13: so quando o PDF nao traz a data; o «Comunicato fitosanitario n.N/AAAA» nao traz data nem no link — fica NAO SEI)"
+   ],
    "FACT_TIME": "{prev.3}-{prev.2:MES2}-{prev.1:DIA2}/{prev.6}-{prev.5:MES2}-{prev.4:DIA2}",
    "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Previsione meteorologica per oggi DD/MM/AAAA … per domani DD/MM/AAAA» (o tempo previsto para esses dias; o comunicato fitossanitario nao o traz)",
    "BULLETIN_PERIOD": "{val.3}-{val.2:MES2}-{val.1:DIA2}/{val.6}-{val.5:MES2}-{val.4:DIA2}",
@@ -236,7 +253,7 @@
    "DECISAO": "R1",
    "MISSAO": "REPARO-FONTES-V1",
    "METODO": "REPARO-DE-CONTRATO/v1",
-   "APLICADO_EM": "2026-09-25T15:38:09.020664+00:00",
+   "APLICADO_EM": "2026-09-25T16:28:00.366570+00:00",
    "COMO": "D61/D62 boletins (bancada, agente)",
    "ACQUISITION_ANTERIOR": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -273,13 +290,13 @@
   "ROUTE_PROVENANCE": {
    "MISSAO": "REPARO-FONTES-V1",
    "FERRAMENTA": "curadoria/reparar_contrato.py",
-   "INTEGRADO_EM": "2026-09-25T15:38:09.020664+00:00",
-   "PROVADO_EM": "2026-09-25T15:38:09.020664+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:28:00.366570+00:00",
+   "PROVADO_EM": "2026-09-25T16:28:00.366570+00:00",
    "LISTAGEM": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
    "OUTPUT_TYPE": "PDF",
    "OUTPUT_TYPE_ANTERIOR": "HTML"
   },
-  "SOURCE_CONTRACT_HASH": "7c21cb40bc780a07"
+  "SOURCE_CONTRACT_HASH": "f77679198a8af265"
  },
  "IT-T3-055": {
   "SOURCE_ID": "IT-T3-055",
@@ -348,7 +365,7 @@
    "DECISAO": "R1",
    "MISSAO": "REPARO-FONTES-V1",
    "METODO": "REPARO-DE-CONTRATO/v1",
-   "APLICADO_EM": "2026-09-25T15:38:10.423416+00:00",
+   "APLICADO_EM": "2026-09-25T16:28:01.861576+00:00",
    "COMO": "D61/D62 boletins (bancada, agente)",
    "ACQUISITION_ANTERIOR": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -385,13 +402,13 @@
   "ROUTE_PROVENANCE": {
    "MISSAO": "REPARO-FONTES-V1",
    "FERRAMENTA": "curadoria/reparar_contrato.py",
-   "INTEGRADO_EM": "2026-09-25T15:38:10.423416+00:00",
-   "PROVADO_EM": "2026-09-25T15:38:10.423416+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:28:01.861576+00:00",
+   "PROVADO_EM": "2026-09-25T16:28:01.861576+00:00",
    "LISTAGEM": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
    "OUTPUT_TYPE": "PDF",
    "OUTPUT_TYPE_ANTERIOR": "HTML"
   },
-  "SOURCE_CONTRACT_HASH": "2245be70aa3842e0"
+  "SOURCE_CONTRACT_HASH": "d9be57fa9ca9b380"
  },
  "IT-T3-053": {
   "SOURCE_ID": "IT-T3-053",
@@ -481,7 +498,7 @@
    "DECISAO": "R1",
    "MISSAO": "REPARO-FONTES-V1",
    "METODO": "REPARO-DE-CONTRATO/v1",
-   "APLICADO_EM": "2026-09-25T15:38:11.552412+00:00",
+   "APLICADO_EM": "2026-09-25T16:28:03.563454+00:00",
    "COMO": "D61/D62 boletins (bancada, agente)",
    "ACQUISITION_ANTERIOR": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -518,13 +535,13 @@
   "ROUTE_PROVENANCE": {
    "MISSAO": "REPARO-FONTES-V1",
    "FERRAMENTA": "curadoria/reparar_contrato.py",
-   "INTEGRADO_EM": "2026-09-25T15:38:11.552412+00:00",
-   "PROVADO_EM": "2026-09-25T15:38:11.552412+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:28:03.563454+00:00",
+   "PROVADO_EM": "2026-09-25T16:28:03.563454+00:00",
    "LISTAGEM": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
    "OUTPUT_TYPE": "PDF",
    "OUTPUT_TYPE_ANTERIOR": "HTML"
   },
-  "SOURCE_CONTRACT_HASH": "23476e896953b83c"
+  "SOURCE_CONTRACT_HASH": "a9f1ce737f774e80"
  },
  "IT-T2-051": {
   "SOURCE_ID": "IT-T2-051",
@@ -607,7 +624,7 @@
    "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:{b.2}-{b.1}",
    "SOURCE_DATE_ISO": "{b.2}-{b.3}-{b.4}",
    "FACT_TIME": "{per.3}-{per.2:MES_IT}-{per.1:DIA2}/{per.6}-{per.5:MES_IT}-{per.4:DIA2}",
-   "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana)",
+   "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana) — regra DECLARADA neste contrato, aceite pela coordenacao (DA-12)",
    "BULLETIN_PERIOD": "{cob.3}-{cob.2:MES_IT}-{cob.1:DIA2}/{cob.6}-{cob.5:MES_IT}-{cob.4:DIA2}",
    "BULLETIN_PERIOD_BASIS": "PERIODO_DECLARADO_NO_BOLETIM · 2.a linha «<data> - <data>» do PDF",
    "PUBLISHED_AT": [
@@ -645,7 +662,7 @@
    "DECISAO": "R1",
    "MISSAO": "REPARO-FONTES-V1",
    "METODO": "REPARO-DE-CONTRATO/v1",
-   "APLICADO_EM": "2026-09-25T15:38:13.504210+00:00",
+   "APLICADO_EM": "2026-09-25T16:28:04.371232+00:00",
    "COMO": "D61/D62 boletins (bancada, agente)",
    "ACQUISITION_ANTERIOR": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -682,13 +699,13 @@
   "ROUTE_PROVENANCE": {
    "MISSAO": "REPARO-FONTES-V1",
    "FERRAMENTA": "curadoria/reparar_contrato.py",
-   "INTEGRADO_EM": "2026-09-25T15:38:13.504210+00:00",
-   "PROVADO_EM": "2026-09-25T15:38:13.504210+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:28:04.371232+00:00",
+   "PROVADO_EM": "2026-09-25T16:28:04.371232+00:00",
    "LISTAGEM": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
    "OUTPUT_TYPE": "PDF",
    "OUTPUT_TYPE_ANTERIOR": "HTML"
   },
-  "SOURCE_CONTRACT_HASH": "e1e94c719b8f7fb3"
+  "SOURCE_CONTRACT_HASH": "a4e6c74db8630ca2"
  },
  "IT-T3-014": {
   "SOURCE_ID": "IT-T3-014",
@@ -755,7 +772,7 @@
    "DECISAO": "R1",
    "MISSAO": "REPARO-FONTES-V1",
    "METODO": "REPARO-DE-CONTRATO/v1",
-   "APLICADO_EM": "2026-09-25T15:38:14.862384+00:00",
+   "APLICADO_EM": "2026-09-25T16:28:05.453509+00:00",
    "COMO": "D61/D62 boletins (bancada, agente)",
    "ACQUISITION_ANTERIOR": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -791,13 +808,13 @@
   "ROUTE_PROVENANCE": {
    "MISSAO": "REPARO-FONTES-V1",
    "FERRAMENTA": "curadoria/reparar_contrato.py",
-   "INTEGRADO_EM": "2026-09-25T15:38:14.862384+00:00",
-   "PROVADO_EM": "2026-09-25T15:38:14.862384+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:28:05.453509+00:00",
+   "PROVADO_EM": "2026-09-25T16:28:05.453509+00:00",
    "LISTAGEM": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
    "OUTPUT_TYPE": "PDF",
    "OUTPUT_TYPE_ANTERIOR": "HTML"
   },
-  "SOURCE_CONTRACT_HASH": "e2d2f5bee6d895a9"
+  "SOURCE_CONTRACT_HASH": "6f6c24a2bb6dd665"
  },
  "IT-T3-027": {
   "SOURCE_ID": "IT-T3-027",
@@ -866,7 +883,7 @@
    "DECISAO": "R1",
    "MISSAO": "REPARO-FONTES-V1",
    "METODO": "REPARO-DE-CONTRATO/v1",
-   "APLICADO_EM": "2026-09-25T15:38:15.688747+00:00",
+   "APLICADO_EM": "2026-09-25T16:28:06.652772+00:00",
    "COMO": "D61/D62 boletins (bancada, agente)",
    "ACQUISITION_ANTERIOR": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -902,13 +919,13 @@
   "ROUTE_PROVENANCE": {
    "MISSAO": "REPARO-FONTES-V1",
    "FERRAMENTA": "curadoria/reparar_contrato.py",
-   "INTEGRADO_EM": "2026-09-25T15:38:15.688747+00:00",
-   "PROVADO_EM": "2026-09-25T15:38:15.688747+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:28:06.652772+00:00",
+   "PROVADO_EM": "2026-09-25T16:28:06.652772+00:00",
    "LISTAGEM": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
    "OUTPUT_TYPE": "PDF",
    "OUTPUT_TYPE_ANTERIOR": "HTML"
   },
-  "SOURCE_CONTRACT_HASH": "6140a75bb4c26f91"
+  "SOURCE_CONTRACT_HASH": "3ad2358ffe61c9c2"
  },
  "IT-T3-025": {
   "SOURCE_ID": "IT-T3-025",
@@ -986,7 +1003,7 @@
    "DECISAO": "R1",
    "MISSAO": "REPARO-FONTES-V1",
    "METODO": "REPARO-DE-CONTRATO/v1",
-   "APLICADO_EM": "2026-09-25T15:38:16.639641+00:00",
+   "APLICADO_EM": "2026-09-25T16:28:07.505270+00:00",
    "COMO": "D61/D62 boletins (bancada, agente)",
    "ACQUISITION_ANTERIOR": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
@@ -1022,13 +1039,13 @@
   "ROUTE_PROVENANCE": {
    "MISSAO": "REPARO-FONTES-V1",
    "FERRAMENTA": "curadoria/reparar_contrato.py",
-   "INTEGRADO_EM": "2026-09-25T15:38:16.639641+00:00",
-   "PROVADO_EM": "2026-09-25T15:38:16.639641+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:28:07.505270+00:00",
+   "PROVADO_EM": "2026-09-25T16:28:07.505270+00:00",
    "LISTAGEM": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/NA_2026.html",
    "OUTPUT_TYPE": "PDF",
    "OUTPUT_TYPE_ANTERIOR": "HTML"
   },
-  "SOURCE_CONTRACT_HASH": "4355e6922be48d47"
+  "SOURCE_CONTRACT_HASH": "ac2b4d4d5dc0b38f"
  },
  "IT-T2-152": {
   "SOURCE_ID": "IT-T2-152",
@@ -1123,7 +1140,7 @@
   },
   "ROUTE_PROVENANCE": {
    "MISSAO": "D61/D62 (sobre a JANELA-FORMAS B)",
-   "INTEGRADO_EM": "2026-09-25T15:38:17.789940+00:00",
+   "INTEGRADO_EM": "2026-09-25T16:28:08.336804+00:00",
    "ANTERIOR": null
   }
  }

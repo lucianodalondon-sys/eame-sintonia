@@ -9,7 +9,7 @@
 // reais (ARPAE n.º 38/2026, Umbria olivo n.13), escritos aqui à mão.
 
 import { strict as assert } from "node:assert";
-import { identidadeDoContrato, conferirIdentidade, ContratoInvalido, NAO_SEI } from "./motor_de_rota.mjs";
+import { identidadeDoContrato, conferirIdentidade, ContratoInvalido, NAO_SEI, textosDasLigacoes } from "./motor_de_rota.mjs";
 
 let ok = 0, mau = 0;
 const T = (nome, fn) => {
@@ -230,6 +230,62 @@ T("contrato antigo, sem BASE nenhuma, sai como antes (sem FACT_LOCATION)", () =>
   const id = identidadeDoContrato("X", velho, { url: "https://a.it/b", nome: "b" });
   assert.deepEqual(Object.keys(id).sort(), ["DOCUMENT_ID", "FACT_TIME", "SOURCE_DATE", "SOURCE_DATE_ISO"]);
   assert.equal(id.FACT_TIME, "UNKNOWN");
+});
+
+console.log("\n5 · DA-13: A DATA PELO TEXTO DO LINK DO ÍNDICE (BASE INDICE), SÓ QUANDO O PDF NÃO A TRAZ");
+
+const MOLISE = { IDENTITY: {
+  STRATEGY: "CONTENT_CAPTURE",
+  CAPTURES: {
+    doc: { FROM: "URL", PATTERN: "^https?://[^/]+/?(.*?)/?$" },
+    vig: opc("Bollettino\\s+di\\s+Vigilanza\\s+Num\\.\\s*\\d+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})", 3, { FLAGS: "i" }),
+    lk: { FROM: "LINK_TEXT", PATTERN: "\\bdel\\s+(\\d{1,2})[-/.](\\d{1,2})[-/.](\\d{4})\\b", REQUIRED: false, DEFAULTS: ["x", "x", "x"], FLAGS: "i" },
+  },
+  DOCUMENT_ID: "IT-T3-032:URL:{doc.1}",
+  PUBLISHED_AT: ["{vig.3}-{vig.2:MES2}-{vig.1:DIA2}", "{lk.3}-{lk.2:MES2}-{lk.1:DIA2}"],
+  PUBLISHED_AT_BASIS: ["EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA»",
+                       "INDICE · o texto do link da lista «… del DD-MM-AAAA»"],
+  FACT_TIME_BASIS: "NAO_DECLARADO · teste",
+} };
+const anexo = (lk) => ({ url: "https://www.regione.molise.it/x/E/pdf?mode=download", nome: "x", textoDaLigacao: lk });
+
+T("PDF sem data + link «Bollettino vigilanza del 20-09-2026» → 2026-09-20 com BASE INDICE", () => {
+  const id = identidadeDoContrato("IT-T3-032", MOLISE, anexo("Bollettino vigilanza del 20-09-2026 (331.09 KB)"), com("um PDF sem cabeçalho"));
+  assert.equal(id.PUBLISHED_AT, "2026-09-20");
+  assert.ok(id.PUBLISHED_AT_BASIS.startsWith("INDICE"), id.PUBLISHED_AT_BASIS);
+  assert.ok(id.PUBLISHED_AT_BASIS.includes("forma 2 de 2"));
+});
+
+T("PDF COM data: vale a do PDF, o link nunca passa à frente", () => {
+  const id = identidadeDoContrato("IT-T3-032", MOLISE, anexo("Bollettino vigilanza del 20-09-2026"),
+    com("Bollettino di Vigilanza Num. 163 del 10/06/2026"));
+  assert.equal(id.PUBLISHED_AT, "2026-06-10");
+  assert.ok(id.PUBLISHED_AT_BASIS.startsWith("EMISSAO_DECLARADA_NO_PDF"));
+});
+
+T("link sem data («Comunicato fitosanitario n°6/2026») e PDF sem data → NAO SEI (o número não é data)", () => {
+  const id = identidadeDoContrato("IT-T3-032", MOLISE, anexo("Comunicato fitosanitario n°6/2026 (647.22 KB)"), com("sem data"));
+  assert.equal(id.PUBLISHED_AT, NAO_SEI);
+  assert.ok(id.PUBLISHED_AT_BASIS.includes("forma 2: INDICE"));
+});
+
+T("sem texto do link no alvo → NAO SEI (o leitor LINK_TEXT nunca inventa)", () => {
+  const id = identidadeDoContrato("IT-T3-032", MOLISE, { url: "https://www.regione.molise.it/x", nome: "x" }, com(""));
+  assert.equal(id.PUBLISHED_AT, NAO_SEI);
+});
+
+T("BASE em lista com tamanho diferente dos moldes é contrato inválido", () => {
+  const c = structuredClone(MOLISE.IDENTITY);
+  c.PUBLISHED_AT_BASIS = ["só uma"];
+  assert.throws(() => conferirIdentidade("X", c), ContratoInvalido);
+});
+
+T("textosDasLigacoes: texto sem etiquetas, entidades desfeitas, STRIP_SUFFIX, links repetidos juntos", () => {
+  const html = '<a href="/a.pdf/view"><b>Bollettino</b> vigilanza&nbsp;del 20-09-2026</a>' +
+               '<a href="/a.pdf/view">Scarica</a><a href="/b.pdf">Comunicato n&#176;6/2026 &amp; allegati</a>';
+  const t = textosDasLigacoes(html, { INDEX_URL: "https://x.it/lista", STRIP_SUFFIX: "/view" });
+  assert.equal(t.get("https://x.it/a.pdf"), "Bollettino vigilanza del 20-09-2026 | Scarica");
+  assert.equal(t.get("https://x.it/b.pdf"), "Comunicato n°6/2026 & allegati");
 });
 
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}`);

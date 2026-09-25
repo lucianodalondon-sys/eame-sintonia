@@ -89,15 +89,17 @@ RECEITAS = {
             "CAPTURES": {
                 "doc": URL_DOC,
                 "vig": opc("PDF_TEXT", r"Bollettino\s+di\s+Vigilanza\s+Num\.\s*\d+\s+del\s+(\d{1,2})/(\d{1,2})/(\d{4})", 3, "i"),
+                "lk": opc("LINK_TEXT", r"\bdel\s+(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})\b", 3, "i"),
                 "val": opc("PDF_TEXT", r"Inizio\s+validit[àa]\s+ore\s+[\d:.]+\s+del\s+(\d{1,2})/(\d{1,2})/(\d{4})[\s\S]{0,300}?"
                                        r"Fine\s+validit[àa]\s+ore\s+[\d:.]+\s+del\s+(\d{1,2})/(\d{1,2})/(\d{4})", 6, "i"),
                 "prev": opc("PDF_TEXT", r"Previsione\s+meteorologica\s+per\s+oggi\s+(\d{1,2})/(\d{1,2})/(\d{4})[\s\S]{0,1500}?"
                                         r"Previsione\s+meteorologica\s+per\s+domani\s+(\d{1,2})/(\d{1,2})/(\d{4})", 6, "i"),
             },
             "DOCUMENT_ID": "IT-T3-032:URL:{doc.1}",
-            "PUBLISHED_AT": "{vig.3}-{vig.2:MES2}-{vig.1:DIA2}",
-            "PUBLISHED_AT_BASIS": ("EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» (so os de vigilanza; "
-                                   "o «Comunicato fitosanitario N» medido nao traz data de emissao — a data esta so no titulo da lista)"),
+            "PUBLISHED_AT": ["{vig.3}-{vig.2:MES2}-{vig.1:DIA2}", "{lk.3}-{lk.2:MES2}-{lk.1:DIA2}"],
+            "PUBLISHED_AT_BASIS": ["EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA»",
+                                   ("INDICE · o texto do link da lista «… del DD-MM-AAAA» (DA-13: so quando o PDF nao traz a "
+                                    "data; o «Comunicato fitosanitario n.N/AAAA» nao traz data nem no link — fica NAO SEI)")],
             "FACT_TIME": "{prev.3}-{prev.2:MES2}-{prev.1:DIA2}/{prev.6}-{prev.5:MES2}-{prev.4:DIA2}",
             "FACT_TIME_BASIS": ("PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Previsione meteorologica per oggi DD/MM/AAAA … per domani "
                                 "DD/MM/AAAA» (o tempo previsto para esses dias; o comunicato fitossanitario nao o traz)"),
@@ -167,7 +169,8 @@ RECEITAS = {
             "SOURCE_DATE_ISO": "{b.2}-{b.3}-{b.4}",
             "FACT_TIME": "{per.3}-{per.2:MES_IT}-{per.1:DIA2}/{per.6}-{per.5:MES_IT}-{per.4:DIA2}",
             "FACT_TIME_BASIS": ("PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» "
-                                "(o relato do tempo observado nessa semana)"),
+                                "(o relato do tempo observado nessa semana) — regra DECLARADA neste contrato, aceite pela "
+                                "coordenacao (DA-12)"),
             "BULLETIN_PERIOD": "{cob.3}-{cob.2:MES_IT}-{cob.1:DIA2}/{cob.6}-{cob.5:MES_IT}-{cob.4:DIA2}",
             "BULLETIN_PERIOD_BASIS": "PERIODO_DECLARADO_NO_BOLETIM · 2.a linha «<data> - <data>» do PDF",
             "PUBLISHED_AT": ["{em.3}-{em.2:MES_IT}-{em.1:DIA2}", "{nome.1}-{nome.2}-{nome.3}"],
@@ -335,7 +338,7 @@ for sid, rec in RECEITAS.items():
     lin["CONTRATO_PROPOSTO"] = novo
     lin["IDENTIDADE_DOCUMENT_ID_PRESERVADA"] = novo["IDENTITY"]["DOCUMENT_ID"] == (base.get("IDENTITY") or {}).get("DOCUMENT_ID")
     res = CAN.canario_html(novo)
-    lin["CANARIO"] = {k: res.get(k) for k in ("PASS", "CLASSE", "PORQUE", "DETAIL_ENUMERATED", "ALVO", "DOCUMENT_ID", "TEMPOS", "DETAIL_GATE")}
+    lin["CANARIO"] = {k: res.get(k) for k in ("PASS", "CLASSE", "PORQUE", "DETAIL_ENUMERATED", "ALVO", "TEXTO_DA_LIGACAO", "DOCUMENT_ID", "TEMPOS", "DETAIL_GATE")}
     lin["ITEM_ABERTO"] = res.get("ITEM_ABERTO")
     lin["REGUA"] = RS.passos_da_promocao({"OBSERVED_AT": datetime.now(timezone.utc).isoformat(), "EVIDENCE_REF": "copia"},
                                          {"DADOS": res}, novo) if res.get("PASS") else None
@@ -343,9 +346,17 @@ for sid, rec in RECEITAS.items():
     outros = []
     for url, em in list(BYTES_GUARDADOS.items()):
         if url != res.get("ALVO") and url != rec["INDEX_URL"] and __import__("re").match(rec["LINK_PATTERN"], url):
-            ident = CAN.identidade_pelo_motor(novo, url, Path(em).read_bytes())
-            outros.append({"URL": url, "DOCUMENT_ID": ident.get("DOCUMENT_ID"), "TEMPOS": CAN.tempos_do_motor(ident) if not ident.get("ERRO") else ident})
+            lista_b = Path(BYTES_GUARDADOS[rec["INDEX_URL"]]).read_bytes() if rec["INDEX_URL"] in BYTES_GUARDADOS else b""
+            texto_lk = CAN.textos_das_ligacoes(lista_b, rec["INDEX_URL"], rec.get("STRIP_SUFFIX")).get(url, "")
+            ident = CAN.identidade_pelo_motor(novo, url, Path(em).read_bytes(), texto_lk)
+            outros.append({"URL": url, "TEXTO_DA_LIGACAO": texto_lk, "DOCUMENT_ID": ident.get("DOCUMENT_ID"),
+                           "TEMPOS": CAN.tempos_do_motor(ident) if not ident.get("ERRO") else ident})
     lin["OUTROS_DOCUMENTOS_GUARDADOS"] = outros
+    if sid == "IT-T2-148":
+        lin["ESTADO_DA11"] = "NAO_PRONTA"
+        lin["MOTIVO_DA11"] = ("a pagina da edicao so anuncia o boletim (corpo nao provado: regua LEGACY); o texto vive em "
+                              "arsacagrometeo.it/bollettino_cover.php, que responde com erro do servidor (mysqli Access denied); "
+                              "arsacweb.it NAO parou — so a pagina de lista do contrato atual parou em 2022 (FILA-DE-REPARO-D61.json)")
     saida["FONTES"][sid] = lin
     t = res.get("TEMPOS") or {}
     print(sid, "PASS" if res.get("PASS") else "FALHA", res.get("CLASSE"), (res.get("PORQUE") or "")[:90], "|",
