@@ -1,0 +1,89 @@
+# -*- coding: utf-8 -*-
+# QUATRO-CHAVES-V1 · ponto 1 — re-julgar pela Admissao ATUAL (7cdb7ea4, regra v9)
+# os textos derivados ja guardados das fontes T1/T2. SEM REDE, SEM ESCRITA.
+# Guardado como .txt: e o registo do ensaio, nao codigo do sistema.
+#   HTTP(S)_PROXY=http://127.0.0.1:9 PYTHONUTF8=1 py data/derivados/QUATRO-CHAVES-V1/rejulgar.py.txt
+#
+# ⚠️ O ITEM E MONTADO PELA FUNCAO DA PRODUCAO, NAO A MAO.
+# A 1.a versao deste ensaio montava o item a mao e esquecia `artifact_type`: a
+# porta tratava-o como ESTAGIO_DESCONHECIDO e perguntava «tempo do fato», que
+# num DOCUMENTO nao se pergunta — 98 NAO_SEI que eram defeito do ENSAIO. Agora:
+#   orquestrador.item_documental_para_a_porta(estruturado, source_id=...)  (o mesmo da estrada)
+#   executor_texto_de_html._retrato(bytes do RAW)                          (o retrato da pergunta materia)
+#   admissao.decidir(item, universo)                                        (a porta inteira)
+# e A.escrever() NAO e chamado: julgar nao e registar.
+import collections
+import hashlib
+import json
+import os
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__)))))
+sys.path[:0] = [os.path.join(RAIZ, d) for d in ("admissao", "coleta", "orquestrador", "guarda", "leis", "regras")] + [RAIZ]
+import _gavetas  # noqa: E402,F401
+import admissao as A  # noqa: E402
+import orquestrador as O  # noqa: E402
+import executor_texto_de_html as H  # noqa: E402
+
+ARMAZEM = os.path.join(os.path.expanduser("~"), "sintonia-sala-italia", "armazem")
+LISTA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "derivados-T1-T2.lista")
+
+linhas = [l.rstrip("\n").split("\x1f") for l in open(LISTA, encoding="utf-8") if l.strip()]
+res = []
+for (rid, sid, run, dockey, url, mime, caminho, sha, did, rsha, rcaminho, rcap) in linhas:
+    universo = sid.split("-")[1]                     # IT-T1-xxx -> T1 ; IT-T2-xxx -> T2
+    f = os.path.join(ARMAZEM, caminho)
+    if not os.path.isfile(f):
+        res.append(dict(RAW=rid, SOURCE_ID=sid, UNIVERSO=universo, RESULTADO="SEM_TEXTO_NO_ARMAZEM"))
+        continue
+    b = open(f, "rb").read()
+    texto = b.decode("utf-8", "replace")
+    retrato = None
+    fr = os.path.join(ARMAZEM, rcaminho) if rcaminho else ""
+    if "html" in mime and fr and os.path.isfile(fr):
+        retrato = H._retrato(open(fr, "rb").read())
+    estruturado = {"TEXTO": texto, "SOURCE_ID": sid, "PARENT_SHA256": rsha or None,
+                   "RAW_ASSET_ID": int(rid), "DERIVED_ARTIFACT_ID": int(did),
+                   "CAPTURED_AT": rcap or None, "SOURCE_URL": url or None,
+                   "RETRATO_DO_DETECTOR": retrato}
+    item = O.item_documental_para_a_porta(estruturado, source_id=sid)
+    d = A.decidir(item, universo, corrida=run)
+    regua, _m, ev = A._do_universo({"texto": texto}, universo,
+                                   A.PERGUNTAS_DO_UNIVERSO.get(universo, []))
+    res.append(dict(RAW=rid, SOURCE_ID=sid, UNIVERSO=universo, RUN_ID=run, MIME_DO_RAW=mime,
+                    SHA_CONFERE=hashlib.sha256(b).hexdigest() == sha,
+                    RETRATO=(retrato or {}).get("CAPA_OU_MATERIA") if retrato else None,
+                    ESTAGIO=A.estagio(item), CARACTERES=len(texto), RESULTADO=d.resultado,
+                    REGRA=d.regra, MOTIVO=d.motivo[:220], SO_A_REGUA=regua,
+                    FALTA=ev.get("falta"), SINAIS=ev.get("sinais")))
+
+por = collections.Counter((r["UNIVERSO"], r["RESULTADO"]) for r in res)
+regua = collections.Counter((r["UNIVERSO"], str(r.get("SO_A_REGUA"))) for r in res)
+porque = collections.Counter((r["UNIVERSO"], r.get("REGRA"), (r.get("MOTIVO") or "")[:110])
+                             for r in res if r["RESULTADO"] != "SIM")
+saida = {
+    "O_QUE_E": ("re-julgamento SO-LEITURA pela admissao atual (regra v%s) dos textos T1/T2 ja "
+                "guardados, com o item montado pela funcao da producao" % A.VERSAO_DA_REGRA),
+    "VERSAO_DA_REGRA": A.VERSAO_DA_REGRA,
+    "TEXTOS": len(res),
+    "SHA_NAO_CONFERE": sum(1 for r in res if r.get("SHA_CONFERE") is False),
+    "ESTAGIO": dict(collections.Counter(str(r.get("ESTAGIO")) for r in res)),
+    "PORTA_INTEIRA_POR_UNIVERSO": {"%s %s" % k: v for k, v in sorted(por.items())},
+    "SO_A_REGUA_POR_UNIVERSO": {"%s %s" % k: v for k, v in sorted(regua.items())},
+    "SIM_POR_FONTE": dict(sorted(collections.Counter(r["SOURCE_ID"] for r in res
+                                                     if r["RESULTADO"] == "SIM").items())),
+    "FALTA_DA_REGUA": {"%s %s" % k: v for k, v in sorted(collections.Counter(
+        (r["UNIVERSO"], json.dumps(r.get("FALTA"), ensure_ascii=False)) for r in res).items())},
+    "PORQUE_NAO_SIM": ["%s · %s · %s · x%d" % (k[0], k[1], k[2], v)
+                       for k, v in porque.most_common(15)],
+    "ITENS": res,
+}
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "REJULGAMENTO-T1-T2.json")
+json.dump(saida, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+for k in ("VERSAO_DA_REGRA", "TEXTOS", "SHA_NAO_CONFERE", "ESTAGIO", "PORTA_INTEIRA_POR_UNIVERSO",
+          "SO_A_REGUA_POR_UNIVERSO", "SIM_POR_FONTE", "FALTA_DA_REGUA"):
+    print(k, "=", saida[k])
+print("PORQUE_NAO_SIM:")
+for x in saida["PORQUE_NAO_SIM"]:
+    print("  ", x)

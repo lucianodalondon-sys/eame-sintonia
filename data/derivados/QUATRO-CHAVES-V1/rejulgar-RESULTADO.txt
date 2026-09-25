@@ -1,0 +1,24 @@
+VERSAO_DA_REGRA = 9
+TEXTOS = 111
+SHA_NAO_CONFERE = 0
+ESTAGIO = {'DOCUMENTO': 98, 'None': 13}
+PORTA_INTEIRA_POR_UNIVERSO = {'T1 NAO': 14, 'T1 NAO_SEI': 4, 'T1 SEM_TEXTO_NO_ARMAZEM': 2, 'T2 NAO': 76, 'T2 NAO_SEI': 4, 'T2 SEM_TEXTO_NO_ARMAZEM': 11}
+SO_A_REGUA_POR_UNIVERSO = {'T1 NAO': 14, 'T1 NAO_SEI': 4, 'T1 None': 2, 'T2 NAO': 18, 'T2 NAO_SEI': 62, 'T2 None': 11}
+SIM_POR_FONTE = {}
+FALTA_DA_REGUA = {'T1 "SEM_MOMENTO"': 4, 'T1 null': 16, 'T2 "SEM_LIGACAO_AGRICOLA"': 6, 'T2 null': 85}
+PORQUE_NAO_SIM:
+   T2 · materia · o detector diz pagina de entrada (capa), nao materia — CAPA != MATERIA; fica no livro e volta a ser julgada no · x70
+   T2 · None ·  · x11
+   T1 · materia · o detector diz pagina de entrada (capa), nao materia — CAPA != MATERIA; fica no livro e volta a ser julgada no · x4
+   T2 · materia · QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de entrada. Nao entra na Sala; nada se apaga · x3
+   T1 · pertence ao universo · nao fala de «T1», e fala claramente de outro universo (T5: ricerca, universita). Isto e um NAO com prova a fav · x2
+   T1 · materia · QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de entrada. Nao entra na Sala; nada se apaga · x2
+   T1 · None ·  · x2
+   T1 · pertence ao universo · nao fala de «T1», e fala claramente de outro universo (T9: novita). Isto e um NAO com prova a favor — nao a si · x2
+   T1 · pertence ao universo · SEM_MOMENTO: «T1» (D29) pede uma cultura nomeada E dois sinais de momento (fase, colheita, sementeira, tratame · x2
+   T2 · pertence ao universo · nao fala de «T2», e fala claramente de outro universo (T5: ricerca, pubblicazione). Isto e um NAO com prova a  · x2
+   T2 · pertence ao universo · nao fala de «T2», e fala claramente de outro universo (T5: studio, pubblicazione, tesi; T9: prodotto). Isto e  · x2
+   T1 · pertence ao universo · nao fala de «T1», e fala claramente de outro universo (T5: revista, tesi). Isto e um NAO com prova a favor — n · x1
+   T1 · pertence ao universo · nao fala de «T1», e fala claramente de outro universo (T5: ricerca). Isto e um NAO com prova a favor — nao a s · x1
+   T1 · pertence ao universo · nao fala de «T1», e fala claramente de outro universo (T5: ricerca, universita; T7: assistenza tecnica; T9: la · x1
+   T1 · pertence ao universo · nao fala de «T1», e fala claramente de outro universo (T9: lancio; T10: esportazion). Isto e um NAO com prova  · x1
