@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T11:28:07+00:00",
-  "HEAD": "6e1ced9ebd087508be1c59b83b5950f2586492ce",
+  "GENERATED_AT": "2026-09-25T11:33:45+00:00",
+  "HEAD": "ea539001820ab6821a37f5157af475bc5924e2c8",
   "BRANCH": "onda3-pacote-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "66025cdbd106c54aab742e2c4c001bd30112359e714031183836e92dd61f36b3",
+  "SOURCE_TREE_FINGERPRINT": "c33359c689ba8a71f0b0b1074cce433394617f57c4769f2b9aec0e750fbe6c74",
   "FICHEIROS_NA_IMPRESSAO": 3215,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -802,6 +802,41 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "ferramentas/hr6/remedir_hr6.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "97a5cf65c266474015a82a32fb7bed05164fc027",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/hr6/ronda_a_reparo_infere.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a5777a54d40e91f42390e13fdb1d1ced0ebb58b3",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/hr6/ronda_bc_canario_curador.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "88362d8b4a4a0e5546bf9d4129732408bb9e2b45",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/hr6/ronda_worker_uma_fonte.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ea16524ef8750c9994396b68e140ec533c8fbfb9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/hr6/test_remedir_hr6.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "6a8f3f8bd678825e58d1aedb99b15f5a338de06e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "ferramentas/html_text.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "68d594d0ddab390834943caf08f1206c68dcb547",
@@ -840,6 +875,20 @@
     "PATH": "ferramentas/ods_peek.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "c9ae639b7bb399e36adc8dbf7a599ee56bf5b833",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/onda3_pacote/reparar_de_novo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "787d6326ac8d853d5f0be5a654e7e4f3ce3cffd4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/onda3_pacote/test_reparar_de_novo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "76f562885eea92e534459c84eb5932f6dbe52cdb",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4017,14 +4066,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "66025cdbd106c54aab742e2c4c001bd30112359e714031183836e92dd61f36b3",
+    "VERSAO": "c33359c689ba8a71f0b0b1074cce433394617f57c4769f2b9aec0e750fbe6c74",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "66025cdbd106c54aab742e2c4c001bd30112359e714031183836e92dd61f36b3",
+    "VERSAO": "c33359c689ba8a71f0b0b1074cce433394617f57c4769f2b9aec0e750fbe6c74",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5954,8 +6003,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 845,
-  "INPUTS_DIGEST": "1649ad1d1b90f211963962d383bc6184733b5f04b025f5c733c76a054d76c9cc",
+  "INPUTS_COUNT": 852,
+  "INPUTS_DIGEST": "92617bf882bf702f6b98d792dfa35cc14517d6a44cacb4feded243bcac2dcaf2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5988,8 +6037,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "4db7ad64ae14ecfd43eef8c9c9188077ad191e37aa4e539f7206db9e4ba5d59e",
-  "SEMANTIC_HASH": "8c3c59d4ef2a094c4c6c0cbd48b5171badd8e987adbba89fe8ac3ea3a932b7b0"
+  "MEASUREMENT_HASH": "2446999077bcd6ee011b82c24bb0b186e396c10eb20ed21aec563ea9435d5e59",
+  "SEMANTIC_HASH": "b73ea52c07d28d299e52118c1174671185c1269f4272058436f42f6acf616860"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6044,6 +6093,7 @@
    "C-EXECUTOR-TRANSCRICAO-MIDIA",
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
+   "C-HR6",
    "C-IDENTIDADE",
    "C-IMPORTAR",
    "C-INGRESSO",
@@ -6065,6 +6115,7 @@
    "C-ONDA-WEB",
    "C-ORDENS-63",
    "C-ORQUESTRADOR",
+   "C-PACOTE-ONDA3",
    "C-PADRAO-COLETA",
    "C-PALAVRAS",
    "C-PEDIDO",
@@ -6102,7 +6153,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 101
+  "COUNT": 103
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6278,6 +6329,7 @@
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
    "C-GESTAO-DA-COLETA",
+   "C-HR6",
    "C-IDENTIDADE",
    "C-IMPORTAR",
    "C-INGRESSO",
@@ -6312,6 +6364,7 @@
    "C-ORDENS-63",
    "C-ORQUESTRADOR",
    "C-PACOTE-CAMADAS",
+   "C-PACOTE-ONDA3",
    "C-PADRAO-COLETA",
    "C-PALAVRAS",
    "C-PEDIDO",
@@ -6400,16 +6453,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 190
+  "COUNT": 192
  },
  "ARITMETICA": {
-  "COLLECTION": 101,
+  "COLLECTION": 103,
   "BOUNDARY": 89,
-  "SOMA": 190,
-  "EXPANDED": 190,
+  "SOMA": 192,
+  "EXPANDED": 192,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 190,
+  "RESUMO_CARTOES_NO_UNIVERSO": 192,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -11726,6 +11779,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PACOTE-ONDA3",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-PACOTE-ONDA3",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 45,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-PACOTE-ONDA3",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-TETO-DOMINIO",
     "FROM": "C-CAPA-MATERIA",
     "TO": "C-PROVA-TETO-DOMINIO",
@@ -12489,6 +12564,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-HR6",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-HR6",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/hr6/ronda_a_reparo_infere.py",
+      "LINHA": 8,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-HR6",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -21496,6 +21593,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-HR6--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-HR6",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/hr6/hr6-plano.sh",
+      "LINHA": 10,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-HR6--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IDENTIDADE--IMPORTS-->C-TESTES",
     "FROM": "C-IDENTIDADE",
     "TO": "C-TESTES",
@@ -23528,6 +23647,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-PACOTE-ONDA3",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-PACOTE-ONDA3",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 77,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-PACOTE-ONDA3",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -29079,6 +29220,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-ORDENS-63--READS-->C-PACOTE-ONDA3",
+    "FROM": "C-ORDENS-63",
+    "TO": "C-PACOTE-ONDA3",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 67,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORDENS-63--READS-->C-PACOTE-ONDA3",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ORQUESTRADOR--ALIMENTA-->C-SCRAP-SOCIAL",
     "FROM": "C-ORQUESTRADOR",
     "TO": "C-SCRAP-SOCIAL",
@@ -30291,6 +30454,244 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-CAMADAS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-COORTE-BIG-COLLECTION",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-COORTE-BIG-COLLECTION",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 113,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-COORTE-BIG-COLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-HR6",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-HR6",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-HR6",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-IT-CONTRATOS",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 126,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 40,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-ONDA-WEB",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-ONDA-WEB",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 116,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-PROVA-CORTESIA",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-PROVA-CORTESIA",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 127,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-PROVA-TETO-DOMINIO",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-PROVA-TETO-DOMINIO",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 117,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-PROVA-TETO-DOMINIO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 124,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 124,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 124,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 124,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 124,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 124,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PACOTE-ONDA3--WRITES-->C-INTEGRA-ONDA2",
+    "FROM": "C-PACOTE-ONDA3",
+    "TO": "C-INTEGRA-ONDA2",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "LINHA": 84,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--WRITES-->C-INTEGRA-ONDA2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -44801,12 +45202,12 @@
     ]
    }
   ],
-  "COUNT": 1258
+  "COUNT": 1272
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 190,
-  "CARTOES_AUDITADOS": 190,
-  "ARESTAS_RELACIONADAS": 1258,
+  "CARTOES_NO_UNIVERSO": 192,
+  "CARTOES_AUDITADOS": 192,
+  "ARESTAS_RELACIONADAS": 1272,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -44974,6 +45375,7 @@
    "C-FONTES-EU",
    "C-FRONTEIRA-TELEMETRIA",
    "C-GESTAO-DA-COLETA",
+   "C-HR6",
    "C-INT-ARBITRAGEM",
    "C-INT-CONSUMO-ADAMA",
    "C-INT-CONVERGENCIA",
@@ -44995,6 +45397,7 @@
    "C-MICRO-COLHEITA",
    "C-ONDA-WEB",
    "C-ORDENS-63",
+   "C-PACOTE-ONDA3",
    "C-PONTE-ONBOARD",
    "C-PORTA-FONTE",
    "C-PROVA-ADAMA-REFERENCE",
@@ -45074,10 +45477,12 @@
    "C-DIAGNOSTICO-SALA",
    "C-DUAS-PORTAS-MEDIDORES",
    "C-ESPECIE-DO-TEXTO",
+   "C-HR6",
    "C-INT-CONSUMO-ADAMA",
    "C-INTEGRA-ONDA2",
    "C-IT-CONTAS",
    "C-IT-TEXTO-PESQUISAVEL",
+   "C-PACOTE-ONDA3",
    "C-PROVA-AUDIO-ONLY",
    "C-PROVA-CANARIO-D23-LINKEDIN",
    "C-PROVA-CANARIO-D24-PESSOA",
@@ -45235,12 +45640,12 @@
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
    "CODE": 221,
-   "CONTROL": 77,
+   "CONTROL": 85,
    "DATA": 30,
-   "PROOF": 390,
-   "READ": 297,
-   "RULE": 229,
-   "WRITE": 14
+   "PROOF": 391,
+   "READ": 299,
+   "RULE": 231,
+   "WRITE": 15
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -46170,7 +46575,7 @@
     "urllib"
    ],
    "ENTRAM": 8,
-   "SAEM": 8,
+   "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -46597,7 +47002,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 9,
-   "SAEM": 10,
+   "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -47236,7 +47641,7 @@
     "datetime",
     "pathlib"
    ],
-   "ENTRAM": 5,
+   "ENTRAM": 6,
    "SAEM": 0,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
@@ -48449,6 +48854,48 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-HR6",
+   "NOME": "HR-6 — re-medir pelo caminho canonico as READY que o portao manda a olho humano",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/hr6/hr6-copia.sh",
+    "ferramentas/hr6/hr6-plano.sh",
+    "ferramentas/hr6/remedir_hr6.py",
+    "ferramentas/hr6/ronda_a_reparo_infere.py",
+    "ferramentas/hr6/ronda_bc_canario_curador.py",
+    "ferramentas/hr6/ronda_worker_uma_fonte.py",
+    "ferramentas/hr6/test_remedir_hr6.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "pathlib",
+    "unittest",
+    "urllib"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CONTROL",
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "CONTROL"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-IDENTIDADE",
    "NOME": "Quem esta autorizado a ser coletado",
    "FAMILIA": "F-COLETA",
@@ -48850,8 +49297,8 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 7,
-   "SAEM": 9,
+   "ENTRAM": 8,
+   "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -49093,7 +49540,7 @@
     "leis",
     "pathlib"
    ],
-   "ENTRAM": 13,
+   "ENTRAM": 14,
    "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -49841,7 +50288,7 @@
     "sala_de_espera",
     "urllib"
    ],
-   "ENTRAM": 15,
+   "ENTRAM": 17,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -49960,7 +50407,7 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 3,
+   "ENTRAM": 4,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
@@ -50013,13 +50460,15 @@
     "urllib"
    ],
    "ENTRAM": 3,
-   "SAEM": 0,
+   "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ",
     "RULE"
    ],
-   "CATEGORIAS_QUE_SAEM": [],
+   "CATEGORIAS_QUE_SAEM": [
+    "RULE"
+   ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
@@ -50185,6 +50634,45 @@
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-PACOTE-ONDA3",
+   "NOME": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/onda3_pacote/ensaio_onda3.sh",
+    "ferramentas/onda3_pacote/reparar_de_novo.py",
+    "ferramentas/onda3_pacote/test_reparar_de_novo.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "pathlib",
+    "unittest"
+   ],
+   "ENTRAM": 3,
+   "SAEM": 9,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "CONTROL",
+    "PROOF",
+    "WRITE"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -51332,9 +51820,10 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 4,
+   "ENTRAM": 5,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
+    "CONTROL",
     "READ",
     "RULE"
    ],
@@ -52377,7 +52866,7 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 3,
+   "ENTRAM": 4,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
@@ -54553,7 +55042,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 207,
+   "ENTRAM": 208,
    "SAEM": 29,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
