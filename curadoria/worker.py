@@ -152,7 +152,9 @@ def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
                           "PORTAO": "matriz do Scrap", "PORQUE": porque}
         return "BLOCK", {"CLASSE": "CAPABILITY", "PORTAO": "matriz do Scrap",
                          "PORQUE": "a rota do Scrap nao confere: %s" % porque}
-    url = aq.get("FEED_URL") or aq.get("INDEX_URL")
+    # D42 (2): a rota fixa (STATIC_ENDPOINT) tem URL, nao INDEX_URL — sem isto, «a pagina e o
+    # boletim» falhava aqui («sem endereco») antes de o canario a ver
+    url = aq.get("FEED_URL") or aq.get("INDEX_URL") or aq.get("URL")
     if not url:
         return "FAIL", {"PORQUE": "contrato sem endereco de aquisicao"}
     host = url.split("/")[2]
@@ -206,6 +208,9 @@ def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
     try:
         if estrategia == "YOUTUBE_CHANNEL_FEED":
             r = CANARIO.canario_youtube(contrato)
+        elif contrato.get("FORMA") == CANARIO.FORMA_PAGINA_E_BOLETIM:
+            # D42 (2): a pagina e o boletim — a forma e explicita no contrato, nunca adivinhada
+            r = CANARIO.canario_pagina_boletim(contrato)
         else:
             r = CANARIO.canario_html(contrato)
     except Exception as e:
@@ -874,7 +879,9 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
             regua = RS.passos_da_promocao(
                 {"OBSERVED_AT": LC.agora(), "EVIDENCE_REF": ref},
                 {"DADOS": detalhe}, contrato)
-            if regua["REGUA"] != RS.REGUA_CURRENT:
+            if regua["REGUA"] not in RS.REGUAS_QUE_ADMITEM:   # a lista unica (DETAIL/v1 · PAGINA_BOLETIM/v1;
+                # SOCIAL/v1 nunca nasce aqui: o canario do Scrap nao e do worker, e a regua so a da com o
+                # veredito READY de curadoria/regua_social.py para a fase do contrato)
                 if LC.estado_de(sid) != LC.CONTRACTED_CANARY_FAILED:
                     LC.registar(sid, LC.CONTRACTED_CANARY_FAILED,
                                 ("canario resolveu, mas a regua dos quatro passos nao "

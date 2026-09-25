@@ -50,6 +50,18 @@ function decodificar(buf) {
   return b.toString("utf8");
 }
 
+// O texto visivel normalizado — o mesmo sobre o qual nasce TEXT_SHA256. Exportado para a
+// identidade de «a pagina e o boletim» (D42 (2)): o motor le-o como PAGE_TEXT e a impressao dele
+// como CONTENT_SHA256 — identidade de CONTEUDO, nao de bytes.
+export function textoVisivel(buf) {
+  const fonte = decodificar(buf).replace(INVISIVEL, " ");
+  return desentidar(fonte.replace(TAG, "\n")).split("\n").map((l) => l.replace(/\s+/g, " ").trim()).filter(Boolean).join("\n");
+}
+
+export function impressaoDoTexto(texto) {
+  return createHash("sha256").update(texto.replace(/\s+/g, " "), "utf8").digest("hex");
+}
+
 export function retratoDoHtml(buf) {
   const fonte = decodificar(buf).replace(INVISIVEL, " ");
   const ligacoes = (fonte.match(LIGACAO) || []).length;
@@ -57,14 +69,14 @@ export function retratoDoHtml(buf) {
   for (const m of fonte.matchAll(PARAGRAFO)) {
     paragrafo += desentidar(m[1].replace(TAG, " ")).replace(/\s+/g, "").length;
   }
-  const texto = desentidar(fonte.replace(TAG, "\n")).split("\n").map((l) => l.replace(/\s+/g, " ").trim()).filter(Boolean).join("\n");
+  const texto = textoVisivel(buf);
   const semBrancos = texto.replace(/\s+/g, "").length;
   const kind = semBrancos === 0 ? "EMPTY"
     : (paragrafo >= 800 && paragrafo >= 0.35 * semBrancos) ? "CONTENT"
     : (ligacoes && semBrancos / Math.max(ligacoes, 1) < 40) ? "NAVIGATION"
     : "MIXED";
   return {
-    TEXT_SHA256: createHash("sha256").update(texto.replace(/\s+/g, " "), "utf8").digest("hex"),
+    TEXT_SHA256: impressaoDoTexto(texto),
     NON_WHITESPACE_CHARACTERS: semBrancos,
     PARAGRAPH_CHARACTERS: paragrafo,
     LINKS: ligacoes,

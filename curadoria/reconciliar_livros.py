@@ -521,7 +521,7 @@ def veredito_a(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
         ev = ctx["EVIDENCIA_A"].get((promo or {}).get("EVIDENCE_REF") or "")
         c = ctx["CONTRATOS_A"].get(sid)
         r = RS.passos_da_promocao(promo, ev, c)
-        if r["REGUA"] in RS.REGUAS_QUE_ADMITEM:          # DETAIL/v1 ou SOCIAL/v1 (SOC-ONDA2)
+        if r["REGUA"] in RS.REGUAS_QUE_ADMITEM:          # DETAIL/v1, SOCIAL/v1 ou PAGINA_BOLETIM/v1 (lista unica)
             return READY_CURRENT, "A: " + r["PORQUE"], r
         if ev is None:
             return READY_LEGACY, "A: promovida com prova externa (%s) pela regua antiga; %s" % (
@@ -567,7 +567,7 @@ def veredito_c(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
             return (UNKNOWN, "C: READY citando prova que o manifesto do bot nao tem (%s) — "
                     "promocao sem canario nao promove" % (ref[:60] or "sem EVIDENCE_REF"), {})
         r = RS.passos_da_promocao(promo, ev, ctx.get("CONTRATOS_C", {}).get(sid))
-        if r["REGUA"] in RS.REGUAS_QUE_ADMITEM:          # DETAIL/v1 ou SOCIAL/v1 (SOC-ONDA2)
+        if r["REGUA"] in RS.REGUAS_QUE_ADMITEM:          # DETAIL/v1, SOCIAL/v1 ou PAGINA_BOLETIM/v1 (lista unica)
             return READY_CURRENT, "C: " + r["PORQUE"], r
         return READY_LEGACY, "C: " + r["PORQUE"], r
     if e == LC.DEGRADED:

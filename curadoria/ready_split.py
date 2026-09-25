@@ -48,12 +48,22 @@ SAIDA = RAIZ / "curadoria" / "READY-SPLIT-V1.json"
 
 REGUA_CURRENT = "DETAIL/v1"
 REGUA_LEGACY = "LEGACY"
-# SOC-ONDA2 (24/09): a rota do Scrap (`SCRAP_FASE`) nao tem INDEX_URL nem pagina de
-# detalhe — os quatro passos sao de HTML. O canario dela e uma corrida do
-# orquestrador, julgada por `curadoria/regua_social.py`; a promocao so vale por esta
-# regua se a evidencia for esse veredito, da fase do contrato. Nunca por omissao.
+# ── A LISTA UNICA DAS REGUAS QUE ADMITEM (BOLETINS-V2) ────────────────────
+# Um dono so: a Collection, o portao, a ponte, o worker e os red teams perguntam TODOS a esta lista.
+# Havia duas — REGUAS_QUE_ADMITEM (DETAIL/v1 + SOCIAL/v1, SOC-ONDA2) e REGUAS_CORRENTES (DETAIL/v1 +
+# PAGINA_BOLETIM/v1, D42 (2)) — e cada ramo so via a sua: juntar os dois deixava metade dos pontos a
+# recusar a regua do outro. Cada regua continua a ser o JUIZ da sua forma, e nenhuma e por omissao:
+#   DETAIL/v1          lista -> item: os quatro passos na evidencia do canario
+#   SOCIAL/v1          SOC-ONDA2 (24/09): a rota do Scrap (`SCRAP_FASE`) nao tem INDEX_URL nem pagina de
+#                      detalhe. O canario dela e uma corrida do orquestrador, julgada por
+#                      `curadoria/regua_social.py`; so vale se a evidencia for esse veredito, da fase do contrato
+#   PAGINA_BOLETIM/v1  D42 (2) «a pagina e o boletim» (FORMA = PAGINA_E_BOLETIM): a pagina fixa E o documento,
+#                      e a edicao identifica-se pela data comprovada (+ a impressao do recorte). Uma fonte dessa
+#                      forma nunca passa a DETAIL/v1 (nao tem itens), e uma de lista nunca passa a esta
 REGUA_SOCIAL = "SOCIAL/v1"
-REGUAS_QUE_ADMITEM = frozenset({REGUA_CURRENT, REGUA_SOCIAL})
+REGUA_PAGINA_BOLETIM = "PAGINA_BOLETIM/v1"
+REGUAS_QUE_ADMITEM = frozenset({REGUA_CURRENT, REGUA_SOCIAL, REGUA_PAGINA_BOLETIM})
+BOLETIM_MINIMO = 300
 OUTRO_LIVRO = "f98f234c"   # a arvore final de aquisicao-detalhe-v1
 
 
@@ -118,6 +128,8 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
               "BODY_UTIL": False, "CONTRATO_ATUAL": False}
     if not promocao:
         return {"REGUA": "NAO SEI", "PASSOS": passos, "PORQUE": "nunca promovida"}
+    if (contrato or {}).get("FORMA") == "PAGINA_E_BOLETIM":
+        return _passos_pagina_boletim(promocao, evidencia, contrato)
     dados = (evidencia or {}).get("DADOS") or {}
     acq = ((contrato or {}).get("ACQUISITION") or {})
     if acq.get("STRATEGY") == "SCRAP_FASE":
@@ -144,10 +156,15 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
               and _sem_barra(url_item) != _sem_barra(_homepage(url_item)))
     passos["ITEM_ABERTO"] = bool(aberto)
 
-    passos["BODY_UTIL"] = (dados.get("DETAIL_GATE_PASSED") is True
-                           and item.get("HTML_KIND") == "CONTENT"
-                           and item.get("CAPA_OU_MATERIA") == MATERIA
-                           and (item.get("PARAGRAPH_CHARACTERS") or 0) >= 800)
+    # D32 (4): um item PDF prova corpo pela camada de texto (a esteira de PDF da Collection),
+    # com a mesma exigencia de 800 caracteres; imagem sem texto (NEEDS_OCR) nao conta.
+    corpo_html = (item.get("HTML_KIND") == "CONTENT"
+                  and item.get("CAPA_OU_MATERIA") == MATERIA
+                  and (item.get("PARAGRAPH_CHARACTERS") or 0) >= 800)
+    corpo_pdf = (item.get("DOC_KIND") == "PDF"
+                 and item.get("TEXT_LAYER") == "TEXT_LAYER_PRESENT"
+                 and (item.get("TEXT_CHARACTERS") or 0) >= 800)
+    passos["BODY_UTIL"] = dados.get("DETAIL_GATE_PASSED") is True and (corpo_html or corpo_pdf)
 
     quando = ((contrato or {}).get("ROUTE_PROVENANCE") or {}).get("INTEGRADO_EM")
     if not quando:
@@ -169,6 +186,43 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
     else:
         porque = "PASS_PARCIAL: falta %s" % ",".join(faltam)
     return {"REGUA": REGUA_LEGACY, "PASSOS": passos, "PORQUE": porque}
+
+
+def _contrato_atual(promocao: dict, contrato: dict | None) -> bool:
+    quando = ((contrato or {}).get("ROUTE_PROVENANCE") or {}).get("INTEGRADO_EM")
+    if not quando:
+        return True
+    try:
+        return datetime.fromisoformat(quando) <= datetime.fromisoformat(promocao["OBSERVED_AT"])
+    except (ValueError, KeyError, TypeError):
+        return False
+
+
+def _passos_pagina_boletim(promocao: dict, evidencia: dict | None, contrato: dict | None) -> dict:
+    """PAGINA_BOLETIM/v1 — os passos NA EVIDENCIA do canario da forma. DATA_COMPROVADA e dita, mas
+    NAO e exigida: a D42 manda que a data ausente fique UNKNOWN e o boletim seja colhido na mesma."""
+    dados = (evidencia or {}).get("DADOS") or {}
+    item = dados.get("ITEM_ABERTO") or {}
+    c = contrato or {}
+    aq = c.get("ACQUISITION") or {}
+    passos = {
+        "URL_FIXA": aq.get("STRATEGY") == "STATIC_ENDPOINT" and bool(aq.get("URL")),
+        "RECOLHA_MUTAVEL": ((c.get("RECOLLECTION") or {}).get("DETAIL_CONTENT") == "MUTABLE"),
+        "IDENTIDADE": (item.get("FORMA") == "PAGINA_E_BOLETIM" and bool(item.get("DOCUMENT_ID"))
+                       and bool(item.get("CONTENT_SHA256"))),
+        "CORPO_DO_BOLETIM": (dados.get("DETAIL_GATE_PASSED") is True
+                             and (item.get("BOLETIM_CARACTERES") or 0) >= BOLETIM_MINIMO),
+        "CONTRATO_ATUAL": _contrato_atual(promocao, c),
+    }
+    info = {"DATA_COMPROVADA": item.get("DATA_COMPROVADA") is True,
+            "SOURCE_DATE_ISO": item.get("SOURCE_DATE_ISO") or "UNKNOWN"}
+    if all(passos.values()):
+        return {"REGUA": REGUA_PAGINA_BOLETIM, "PASSOS": passos, "INFO": info,
+                "PORQUE": "a pagina e o boletim: identidade pelo motor, corpo recortado, recolha mutavel"}
+    return {"REGUA": REGUA_LEGACY, "PASSOS": passos, "INFO": info,
+            "PORQUE": "PASS_PARCIAL (pagina = boletim): falta %s" % ",".join(k for k, v in passos.items() if not v)}
+
+
 
 
 def regua_de(source_id: str, *, livro: dict | None = None,

@@ -112,7 +112,9 @@ def identity_resolved(c: dict) -> tuple[bool, str]:
     for ref in re.findall(r"\{([a-z_]+)\.", idt["DOCUMENT_ID"]):
         if ref not in idt["CAPTURES"]:
             return False, "DOCUMENT_ID usa captura inexistente: %s" % ref
-    if "FACT_TIME" not in idt:
+    # D61/D62: `FACT_TIME_BASIS` sem molde E uma declaracao — o contrato diz que o boletim NAO traz o
+    # periodo, e porque (o motor devolve NAO SEI com essa razao). Nada e obrigatorio; o silencio e que nao vale.
+    if "FACT_TIME" not in idt and not str(idt.get("FACT_TIME_BASIS") or "").strip():
         return False, "sem declaracao de FACT_TIME"
     return True, "identidade prefixada e capturas coerentes"
 
@@ -130,10 +132,40 @@ def output_resolved(c: dict) -> tuple[bool, str]:
     return True, "falhas declaradas e fecham"
 
 
+FORMAS = frozenset({"PAGINA_E_BOLETIM"})
+
+
+def form_resolved(c: dict) -> tuple[bool, str]:
+    """D42 (2): a forma de publicacao, quando declarada, e EXPLICITA e completa.
+
+    PAGINA_E_BOLETIM = a pagina fixa E o boletim: rota fixa (STATIC_ENDPOINT com URL), saida HTML,
+    recolha MUTABLE (a revisita E a coleta), identidade pelo conteudo da pagina com o boletim
+    recortado (CONTENT_SCOPE) e um DOCUMENT_ID que diz BOLETIM e nao cita hash (hash e BYTE_ID)."""
+    forma = c.get("FORMA")
+    if forma is None:
+        return True, "sem FORMA declarada: lista -> item (omissao)"
+    if forma not in FORMAS:
+        return False, "FORMA fora do vocabulario %s: %r" % (sorted(FORMAS), forma)
+    aq = c.get("ACQUISITION") or {}
+    idt = c.get("IDENTITY") or {}
+    if aq.get("STRATEGY") != "STATIC_ENDPOINT" or not aq.get("URL"):
+        return False, "PAGINA_E_BOLETIM exige STATIC_ENDPOINT com URL"
+    if c.get("OUTPUT_TYPE") != "HTML":
+        return False, "PAGINA_E_BOLETIM exige OUTPUT_TYPE HTML"
+    if (c.get("RECOLLECTION") or {}).get("DETAIL_CONTENT") != "MUTABLE":
+        return False, "PAGINA_E_BOLETIM exige RECOLLECTION.DETAIL_CONTENT = MUTABLE (a revisita e a coleta)"
+    if idt.get("STRATEGY") != "CONTENT_CAPTURE" or not (idt.get("CONTENT_SCOPE") or {}).get("START"):
+        return False, "PAGINA_E_BOLETIM exige CONTENT_CAPTURE com CONTENT_SCOPE.START (o recorte do boletim)"
+    if ":BOLETIM:" not in str(idt.get("DOCUMENT_ID")) or re.search(r"SHA|HASH", str(idt.get("DOCUMENT_ID")), re.I):
+        return False, "DOCUMENT_ID da forma tem de dizer :BOLETIM: e nao pode citar hash"
+    return True, "a pagina e o boletim: rota fixa, recolha mutavel, identidade pelo conteudo recortado"
+
+
 PORTAS = (("CONTRACT_SCHEMA_VALID", schema_valid),
           ("ROUTE_RESOLVED", route_resolved),
           ("IDENTITY_RESOLVED", identity_resolved),
-          ("OUTPUT_RESOLVED", output_resolved))
+          ("OUTPUT_RESOLVED", output_resolved),
+          ("FORM_RESOLVED", form_resolved))
 
 
 def validar(contratos: list[dict]) -> tuple[list, list]:

@@ -84,7 +84,7 @@ ATAQUES = [
      "o que vem de outro livro deixa de dizer de onde veio"),
 
     ("RT-A10_portao_deixa_de_morder", "collection_gate.py",
-     '    if regua != RS.REGUA_CURRENT:',
+     '    if regua not in RS.REGUAS_QUE_ADMITEM:',
      '    if False:',
      "READY_LEGACY passa a entrar na Collection"),
 
