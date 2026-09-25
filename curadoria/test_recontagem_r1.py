@@ -61,9 +61,15 @@ class Portao(unittest.TestCase):
             (Path(d) / "LIFECYCLE-LEDGER-V1.json").write_text("{}", encoding="utf-8")
             with mock.patch.object(RC, "portao", return_value={"EGRESS_GATE": "BLOCKED", "EGRESS_COUNTRY_CODE": "BR"}), \
                     mock.patch.object(RC, "montar") as montar:
-                rc = RC.main(["--foto", d, "--sha", "abc"])
+                rc = RC._main_antigo(["--foto", d, "--sha", "abc"])
             self.assertEqual(RC.ESPERA_VPN, rc)
             montar.assert_not_called()
+
+    def test_retirado_pela_d41_3_nao_corre_nada(self):
+        with mock.patch.object(RC, "portao") as portao, mock.patch.object(RC, "montar") as montar:
+            self.assertEqual(2, RC.main(["--foto", ".", "--sha", "abc"]))
+        portao.assert_not_called()
+        montar.assert_not_called()
 
 
 class Observador(unittest.TestCase):
