@@ -263,6 +263,59 @@ class TestLeiDoArtefatoD70(unittest.TestCase):
                          (r["fact_time_calculo"], r["fact_time_expressao"], r["fact_time_evidencia"]))
 
 
+class TestEnsaioDoPacote(unittest.TestCase):
+    """Os casos do ensaio do PACOTE-TEMPO-LUGAR (25/09): incoerencia lugar/data, conselho, lugares perdidos."""
+
+    def test_mesma_frase_da_lugar_e_data(self):
+        # IT-T3-008: «registrato» e ancora de LUGAR do leitor, nao de TEMPO; a relativa tem de contar na mesma
+        t = ("Importante è sottolineare lo scarto climatico registrato nella settimana scorsa: + 6 gradi le massime "
+             "su gran parte della Puglia e fino a quattro gradi sull'area adriatica.\n")
+        r = FT.campos_do_fato(t, "2026-09-16", "meta article:published_time")
+        self.assertEqual("Puglia", r["fact_location"])
+        self.assertEqual(("2026-09-07/2026-09-13", "RELATIVA_A_PUBLICACAO"), (r["fact_time"], r["fact_time_basis"]))
+        self.assertEqual(FT.NAO_SEI, FT.campos_do_fato(t)["fact_time"], "sem publicacao continua NAO SEI")
+
+    def test_proximo_boletim_nao_e_facto(self):
+        t = "Il prossimo bollettino fitosanitario sarà pubblicato la prossima settimana sul sito del servizio regionale.\n"
+        r = FT.campos_do_fato(t, "2026-09-16", "meta article:published_time")
+        self.assertEqual(FT.NAO_SEI, r["fact_time"], r["fact_time_basis"])
+
+    def test_conselho_nao_e_facto(self):
+        t = ('Per la mosca delle olive i tecnici hanno rilevato catture basse in tutta la zona collinare.\n'
+             '- eseguire la "diagnosi precoce" in luglio e agosto per verificare la presenza di nuove infezioni non ancora evidenti\n'
+             'Si ricorda che la "diagnosi\nprecoce" in luglio e agosto per verificare la presenza di nuove infezioni non ancora evidenti\n')
+        r = FT.campos_do_fato(t)
+        self.assertEqual(FT.NAO_SEI, r["fact_time"], r["fact_time_basis"])
+        self.assertIn("RECOMENDACAO_NAO_FATO", r["fact_time_basis"])
+        self.assertEqual(["luglio"], [j["VALOR"] for j in r["EVIDENCIA"]["JANELA_RECOMENDADA"]])
+        r = FT.campos_do_fato("Si consiglia di intervenire la prossima settimana nei vigneti colpiti da peronospora in collina.\n",
+                              "2026-09-16", "meta article:published_time")
+        self.assertEqual(FT.NAO_SEI, r["fact_time"])
+        self.assertIn("conselho", r["fact_time_basis"])
+
+    def test_evento_com_a_palavra_depois_das_300_letras(self):
+        t = ("Giovedì 8 ottobre 2026 la Scuola di Legalità dell'Università di Teramo ospita il direttore del servizio "
+             "regionale, responsabile del centro nazionale per la protezione delle infrastrutture critiche del paese, "
+             "che interverrà sul tema della sicurezza delle aziende agricole e della filiera alimentare italiana nel "
+             "corso del seminario aperto agli studenti e ai tecnici delle organizzazioni professionali agricole.\n")
+        self.assertGreater(t.index("seminario"), 300)
+        r = FT.campos_do_fato(t)
+        self.assertEqual(("Teramo", "EVENTO"), (r["fact_location"], r["fact_location_kind"]))
+
+    def test_punti_vendita_e_mercado(self):
+        r = FT.campos_do_fato("L'Osservatorio Piccoli Frutti a Firenze ha visitato 14 punti vendita della grande "
+                              "distribuzione per rilevare i prezzi dei mirtilli.\n")
+        self.assertEqual(("Firenze", "MERCADO"), (r["fact_location"], r["fact_location_kind"]))
+
+    def test_pais_e_nome_maior_nao_sao_promovidos(self):
+        r = FT.campos_do_fato("Il convegno internazionale presenterà i nuovi risultati sullo spreco alimentare con focus "
+                              "sull'Italia e sul confronto tra paesi.\n")
+        self.assertEqual(FT.NAO_SEI, r["fact_location"], r["fact_location_basis"])
+        r = FT.campos_do_fato("La fiera punta a diversificare verso nuovi contesti internazionali, a partire dall'America "
+                              "Latina con il Cile paese partner.\n")
+        self.assertNotIn("Latina", r["fact_location"])
+
+
 class TestOggiD64(unittest.TestCase):
     """D64: «oggi» so conta quando o texto deixa claro que e o proprio dia."""
 
