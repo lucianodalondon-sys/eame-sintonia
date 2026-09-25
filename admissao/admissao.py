@@ -846,14 +846,17 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
         # colheita/sementeira, tratamento, limiar...). Ver CULTURA_OBRIGATORIA.
         cult = (CULTURA_OBRIGATORIA_EN if lingua == "en" else CULTURA_OBRIGATORIA)[universo]
         tem_cultura = _casa(cult, texto)
-        if tem_cultura and len(achadas) >= SINAIS_MINIMOS:
+        if tem_cultura and len(achadas) >= SINAIS_MINIMOS and not _momento_de_passagem(
+                texto, (PERGUNTAS_EN if lingua == "en" else PERGUNTAS_DO_UNIVERSO)[universo]):
             return SIM, (f"nomeia uma cultura e fala de {', '.join(achadas[:3])} — fase ou momento "
                          f"de operacao, que e o que «{universo}» (janela de cultura, D29) pede. A "
                          f"janela em si nao e decidida aqui: e da Intelligence (CAP-WIN)"), \
                 {"palavras": achadas[:8], "cultura": True, "sinais": len(achadas)}
         if achadas or tem_cultura:
             falta = ("SEM_CULTURA_NOMEADA" if not tem_cultura else
-                     "SEM_MOMENTO" if not achadas else "UM_SO_MOMENTO")
+                     "SEM_MOMENTO" if not achadas else
+                     "UM_SO_MOMENTO" if len(achadas) < SINAIS_MINIMOS else
+                     "MOMENTO_SO_DE_PASSAGEM")
             return NAO_SEI, (
                 f"{falta}: «{universo}» (D29) pede uma cultura nomeada E dois sinais de momento "
                 f"(fase, colheita, sementeira, tratamento). Com menos, fica NAO_SEI — nao entra e "
@@ -1422,6 +1425,26 @@ ANCORAS = {
 # `raccolta` solto NAO e momento («raccolta dati», «raccolta differenziata»): so em frase.
 # `pero` (= «pero», mas), `riso` (= riso) e `mais` (= «mais» pt) nao sao cultura.
 # T1 e TRANSVERSAL: uma cultura nunca prova que um texto NAO e de outro universo.
+# T1B (25/09): O MOMENTO TEM DE ESTAR NO CORPO, NAO SO DE PASSAGEM. Medido: um livro de
+# 172 mil caracteres sobre inovacao agricola nomeava culturas e citava «trattamento
+# fitosanitario» e «inizio della raccolta» UMA vez cada (0,1 por 10 mil caracteres) e
+# entrava. Nos boletins do gabarito e da prova cega a densidade mais baixa e 3,8. Abaixo de
+# 2 ocorrencias de momento por 10 mil caracteres o texto fica NAO_SEI
+# (MOMENTO_SO_DE_PASSAGEM). ⚠️ Limiar escolhido DENTRO da amostra (entre 0,1 e 3,8).
+DENSIDADE_MINIMA_DE_MOMENTO = 2.0      # ocorrencias por 10 mil caracteres
+
+
+def _momento_de_passagem(texto_dobrado: str, conceitos) -> bool:
+    import re
+    n = 0
+    for c in conceitos:
+        for forma in str(c).split("|"):
+            f = _dobrar(forma)
+            if f:
+                n += len(re.findall(r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])", texto_dobrado))
+    return n * 10000.0 / max(len(texto_dobrado), 1) < DENSIDADE_MINIMA_DE_MOMENTO
+
+
 CULTURA_OBRIGATORIA = {
     "T1": "vite|vigneto|vigneti|uva|uve|olivo|olive|oliveto|oliveti|drupe|melo|mele|meleto"
           "|pere|pesco|pesche|ciliegio|ciliegie|actinidia|kiwi|frumento|grano|pomodoro|pomodori"

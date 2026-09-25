@@ -1,6 +1,6 @@
 {
  "DATASET": "MEDICAO-REGUA-T1-V1",
- "BASE": "84c235da",
+ "BASE": "d1096331",
  "VERSAO_DA_REGRA": "9",
  "REGUA": {
   "MOMENTOS": [
@@ -19,18 +19,18 @@
  "MEDIDO_DENTRO_DA_AMOSTRA": true,
  "T1_TOTAL": {
   "TP": 51,
-  "FP": 2,
+  "FP": 1,
   "FN": 4,
-  "PRECISAO": 0.962,
+  "PRECISAO": 0.981,
   "RECALL": 0.927,
   "YES_QUE_SAIRAM_NAO": 0,
   "MATRIZ": {
    "NAO_SEI->NAO": 1,
-   "NAO_SEI->NAO_SEI": 41,
-   "NAO_SEI->SIM": 4,
+   "NAO_SEI->NAO_SEI": 43,
+   "NAO_SEI->SIM": 2,
    "NO->NAO": 44,
-   "NO->NAO_SEI": 34,
-   "NO->SIM": 2,
+   "NO->NAO_SEI": 35,
+   "NO->SIM": 1,
    "YES->NAO_SEI": 4,
    "YES->SIM": 51
   }
@@ -52,17 +52,17 @@
   },
   "2_COLHEITA": {
    "TP": 0,
-   "FP": 2,
+   "FP": 1,
    "FN": 3,
    "PRECISAO": 0.0,
    "RECALL": 0.0,
    "YES_QUE_SAIRAM_NAO": 0,
    "MATRIZ": {
-    "NAO_SEI->NAO_SEI": 3,
-    "NAO_SEI->SIM": 4,
+    "NAO_SEI->NAO_SEI": 5,
+    "NAO_SEI->SIM": 2,
     "NO->NAO": 20,
-    "NO->NAO_SEI": 28,
-    "NO->SIM": 2,
+    "NO->NAO_SEI": 29,
+    "NO->SIM": 1,
     "YES->NAO_SEI": 3
    }
   },
@@ -103,17 +103,6 @@
    "FALTA": "UM_SO_MOMENTO"
   },
   {
-   "ID": "54adfdf6d4392940",
-   "ESTRATO": "2_COLHEITA",
-   "OURO": "NO",
-   "REGUA": "SIM",
-   "PALAVRAS": [
-    "trattamento fitosanitario",
-    "inizio della raccolta"
-   ],
-   "FALTA": null
-  },
-  {
    "ID": "6549125fc17ec43d",
    "ESTRATO": "2_COLHEITA",
    "OURO": "YES",
@@ -150,8 +139,9 @@
   "MUDANCAS": []
  },
  "T1_NO_CORPUS_ANTES_DEPOIS": {
-  "NAO_SE_APLICA->NAO": 419,
-  "NAO_SE_APLICA->NAO_SEI": 833,
-  "NAO_SE_APLICA->SIM": 57
+  "NAO->NAO": 419,
+  "NAO_SEI->NAO_SEI": 833,
+  "SIM->NAO_SEI": 3,
+  "SIM->SIM": 54
  }
 }

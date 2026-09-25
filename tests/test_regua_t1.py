@@ -61,6 +61,33 @@ class CulturaEDoisMomentos(unittest.TestCase):
         self.assertEqual(t1("vite: fenologia, fase fenologica, fenologico")[0], adm.NAO_SEI)
 
 
+class OMomentoTemDeEstarNoCorpo(unittest.TestCase):
+    """T1B: um livro longo que cita o momento de passagem nao e janela."""
+
+    def test_livro_longo_com_momento_de_passagem_fica_nao_sei(self):
+        enchimento = "L'innovazione in agricoltura richiede investimenti e formazione. " * 400
+        texto = ("Il futuro dell'olivo e della vite. " + enchimento +
+                 " trattamento fitosanitario " + enchimento + " inizio della raccolta.")
+        r, m, _ev = t1(texto)
+        self.assertEqual(r, adm.NAO_SEI)
+        self.assertIn("MOMENTO_SO_DE_PASSAGEM", m)
+
+    def test_boletim_curto_e_denso_continua_sim(self):
+        self.assertEqual(t1("OLIVO: fase fenologica invaiatura; soglia di intervento 5%.")[0], adm.SIM)
+
+    def test_o_limiar_esta_escrito(self):
+        self.assertEqual(adm.DENSIDADE_MINIMA_DE_MOMENTO, 2.0)
+
+
+class AProvaCegaDePositivos(unittest.TestCase):
+    """19 boletins NOVOS pela rede, rotulados ANTES de correr a regua."""
+
+    def test_16_de_16_janelas_e_0_falsos(self):
+        m = json.load(open(os.path.join(AQUI, "PROVA-CEGA-POSITIVOS-T1-V1.json"), encoding="utf-8"))
+        self.assertIs(m["ROTULOS_ANTES_DA_REGUA"], True)
+        self.assertEqual(m["T1"], {"TP": 16, "FN": 0, "FP": 0, "RECALL": 1.0})
+
+
 class ORuidoQueFicouDeFora(unittest.TestCase):
 
     def test_raccolta_solta_nao_e_momento(self):

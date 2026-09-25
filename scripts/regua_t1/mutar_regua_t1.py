@@ -25,6 +25,7 @@ M = [
     ("t1_substring", 'PALAVRA_INTEIRA = frozenset({"T2", "T1"})', 'PALAVRA_INTEIRA = frozenset({"T2"})'),
     ("raccolta_solta", '"inizio della raccolta|avvio della raccolta|', '"raccolta|inizio della raccolta|avvio della raccolta|'),
     ("pero_e_pera", '"|pere|pesco|', '"|pere|pero|pesco|'),
+    ("densidade_desligada", "DENSIDADE_MINIMA_DE_MOMENTO = 2.0 ", "DENSIDADE_MINIMA_DE_MOMENTO = 0.0 "),
     ("regua_t1_apagada", '    "T1": ["fenologia|fenologica|fenologico|fenologiche|fenologici|bbch|estadio fenologico",',
      '    "T1_X": ["fenologia|fenologica|fenologico|fenologiche|fenologici|bbch|estadio fenologico",'),
 ]
