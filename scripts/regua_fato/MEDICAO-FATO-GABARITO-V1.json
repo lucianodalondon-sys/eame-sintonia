@@ -1,0 +1,853 @@
+{
+ "DATASET": "MEDICAO-FATO-GABARITO-V1",
+ "MEDIDO_DENTRO_DA_AMOSTRA": true,
+ "ITENS": 114,
+ "COBERTURA": {
+  "SAEM_DE_NAO_SEI": 37,
+  "DE": 114
+ },
+ "PRECISAO_GLOBAL_QUANDO_DIZ": {
+  "CERTOS": 27,
+  "DITOS": 37,
+  "PRECISAO": 0.73
+ },
+ "POR_TIPO": {
+  "CAMPO_FITOSSANITARIO": {
+   "OURO": 5,
+   "DITOS": 5,
+   "CERTOS": 3,
+   "PRECISAO": 0.6,
+   "RECALL": 0.6,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "CAMPO_CLIMA": {
+   "OURO": 4,
+   "DITOS": 3,
+   "CERTOS": 2,
+   "PRECISAO": 0.667,
+   "RECALL": 0.5,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "CAMPO_PRODUCAO_COLHEITA": {
+   "OURO": 2,
+   "DITOS": 2,
+   "CERTOS": 1,
+   "PRECISAO": 0.5,
+   "RECALL": 0.5,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "MERCADO_PRECO": {
+   "OURO": 9,
+   "DITOS": 9,
+   "CERTOS": 7,
+   "PRECISAO": 0.778,
+   "RECALL": 0.778,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "EVENTO_TECNICO": {
+   "OURO": 14,
+   "DITOS": 4,
+   "CERTOS": 4,
+   "PRECISAO": 1.0,
+   "RECALL": 0.286,
+   "ESTADO": "PRONTO"
+  },
+  "REGULATORIO_MOLECULA": {
+   "OURO": 0,
+   "DITOS": 0,
+   "CERTOS": 0,
+   "PRECISAO": null,
+   "RECALL": null,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "NEGOCIO_AGRO": {
+   "OURO": 9,
+   "DITOS": 4,
+   "CERTOS": 2,
+   "PRECISAO": 0.5,
+   "RECALL": 0.222,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "INSTITUCIONAL_NAO_FATO": {
+   "OURO": 47,
+   "DITOS": 10,
+   "CERTOS": 8,
+   "PRECISAO": 0.8,
+   "RECALL": 0.17,
+   "ESTADO": "NAO PRONTO"
+  }
+ },
+ "MATRIZ_ROTULO_CLASSIFICADOR": {
+  "CAMPO_CLIMA->CAMPO_CLIMA": 2,
+  "CAMPO_CLIMA->NAO_SEI": 2,
+  "CAMPO_FITOSSANITARIO->CAMPO_FITOSSANITARIO": 3,
+  "CAMPO_FITOSSANITARIO->NAO_SEI": 2,
+  "CAMPO_PRODUCAO_COLHEITA->CAMPO_PRODUCAO_COLHEITA": 1,
+  "CAMPO_PRODUCAO_COLHEITA->NAO_SEI": 1,
+  "EVENTO_TECNICO->EVENTO_TECNICO": 4,
+  "EVENTO_TECNICO->INSTITUCIONAL_NAO_FATO": 1,
+  "EVENTO_TECNICO->NAO_SEI": 9,
+  "INSTITUCIONAL_NAO_FATO->CAMPO_CLIMA": 1,
+  "INSTITUCIONAL_NAO_FATO->CAMPO_FITOSSANITARIO": 1,
+  "INSTITUCIONAL_NAO_FATO->INSTITUCIONAL_NAO_FATO": 8,
+  "INSTITUCIONAL_NAO_FATO->MERCADO_PRECO": 2,
+  "INSTITUCIONAL_NAO_FATO->NAO_SEI": 33,
+  "INSTITUCIONAL_NAO_FATO->NEGOCIO_AGRO": 2,
+  "MERCADO_PRECO->MERCADO_PRECO": 7,
+  "MERCADO_PRECO->NAO_SEI": 2,
+  "NAO_SEI->CAMPO_PRODUCAO_COLHEITA": 1,
+  "NAO_SEI->INSTITUCIONAL_NAO_FATO": 1,
+  "NAO_SEI->NAO_SEI": 22,
+  "NEGOCIO_AGRO->CAMPO_FITOSSANITARIO": 1,
+  "NEGOCIO_AGRO->NAO_SEI": 6,
+  "NEGOCIO_AGRO->NEGOCIO_AGRO": 2
+ },
+ "ERROS": [
+  {
+   "ID": "d699f9a0802930ab",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 23 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "5aa59558089218f1",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 2 conceitos: «prezzo», «vendita»"
+  },
+  {
+   "ID": "ef96db078e5e6b81",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "CAMPO_CLIMA",
+   "BASE": "CAMPO_CLIMA · 2 conceitos: «temperature», «siccità»"
+  },
+  {
+   "ID": "7006fd1a32262af6",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NEGOCIO_AGRO",
+   "BASE": "NEGOCIO_AGRO · 4 conceitos: «aziende», «startup», «investimenti», «packaging» · segundo: MERCADO_PRECO (3)"
+  },
+  {
+   "ID": "f5d85a483dd13b10",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "CAMPO_FITOSSANITARIO",
+   "BASE": "CAMPO_FITOSSANITARIO · 4 conceitos: «parassiti», «trattamenti», «biocontrollo», «acari predatori»"
+  },
+  {
+   "ID": "2c9f9efd062d9e40",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 4 conceitos: «prezzo», «euro/kg», «consumo», «vendita» · segundo: NEGOCIO_AGRO (3)"
+  },
+  {
+   "ID": "e3db40903238b87a",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "CAMPO_PRODUCAO_COLHEITA",
+   "BASE": "CAMPO_PRODUCAO_COLHEITA · 12 conceitos: «raccolto», «raccolta della frutta», «vendemmia», «fenologiche», «semina», «resa in olio» · segundo: NEGOCIO_AGRO (7)"
+  },
+  {
+   "ID": "ea4fd9f90f4b26e1",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 8 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "d7a61133b72f3140",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NEGOCIO_AGRO",
+   "BASE": "NEGOCIO_AGRO · 3 conceitos: «azienda», «investimenti», «imprenditoria» · segundo: MERCADO_PRECO (2)"
+  },
+  {
+   "ID": "1136deeef50023c3",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "CAMPO_FITOSSANITARIO",
+   "BASE": "CAMPO_FITOSSANITARIO · 2 conceitos: «Parassiti», «trappola»"
+  }
+ ],
+ "LINHAS": [
+  {
+   "ID": "510e88018e3c4e87",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 5 conceitos: «prezzi», «quotazioni», «mercato ortofrutticolo», «importazione», «vendita» · segundo: CAMPO_CLIMA (3)"
+  },
+  {
+   "ID": "5318cc3dbefa62d5",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: CAMPO_FITOSSANITARIO (1), MERCADO_PRECO (1)"
+  },
+  {
+   "ID": "54a2432d8d362a34",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: MERCADO_PRECO (1)"
+  },
+  {
+   "ID": "c8a70fb6b3177d3f",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 6 conceitos: «Prezzi», «quotazioni», «euro/kg», «Export», «rilevazioni», «in calo»"
+  },
+  {
+   "ID": "85eea8b603406452",
+   "ROTULO": "CAMPO_FITOSSANITARIO",
+   "CLASSIFICADOR": "CAMPO_FITOSSANITARIO",
+   "BASE": "CAMPO_FITOSSANITARIO · 17 conceitos: «mosca dell'olivo», «Bactrocera», «peronospora», «oidio», «Tignole», «infestazioni» · segundo: CAMPO_CLIMA (11)"
+  },
+  {
+   "ID": "e79afc0f677b3f1d",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "d699f9a0802930ab",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 23 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "1b50e5098c347ea1",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "a018e7f0dfdd9311",
+   "ROTULO": "CAMPO_FITOSSANITARIO",
+   "CLASSIFICADOR": "CAMPO_FITOSSANITARIO",
+   "BASE": "CAMPO_FITOSSANITARIO · 17 conceitos: «mosca dell'olivo», «Bactrocera», «peronospora», «oidio», «tignola», «infestazioni» · segundo: CAMPO_CLIMA (12)"
+  },
+  {
+   "ID": "5aa59558089218f1",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 2 conceitos: «prezzo», «vendita»"
+  },
+  {
+   "ID": "a87b5be7e2d198ee",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 4 conceitos: «prezzi», «quotazione», «euro/kg», «ribasso»"
+  },
+  {
+   "ID": "31189f686550e721",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "93c836dd2abab8ed",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «in programma» · ligação agro «ortofrutticola» · «Hm.Clause, a Fruit Attraction 2026 le nuove varietà Hm.Clause, azienda globale specializzata nelle sementi orticole e parte del Gruppo Limagrain, sarà pre"
+  },
+  {
+   "ID": "e9004489545b47a7",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 6 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "d8c4b58710b88070",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 6 conceitos: «prezzi», «quotazioni», «euro/kg», «Export», «rilevazione», «ribassi»"
+  },
+  {
+   "ID": "63430c6290ceed39",
+   "ROTULO": "CAMPO_FITOSSANITARIO",
+   "CLASSIFICADOR": "CAMPO_FITOSSANITARIO",
+   "BASE": "CAMPO_FITOSSANITARIO · 10 conceitos: «mosca dell'olivo», «infestazione», «parassita», «trappole», «catture», «soglia di intervento» · segundo: CAMPO_CLIMA (4)"
+  },
+  {
+   "ID": "aad0139335c32158",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 59 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "23972ee6be4f4449",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "3d0b3097013fd5d9",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: CAMPO_PRODUCAO_COLHEITA (1)"
+  },
+  {
+   "ID": "ef96db078e5e6b81",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "CAMPO_CLIMA",
+   "BASE": "CAMPO_CLIMA · 2 conceitos: «temperature», «siccità»"
+  },
+  {
+   "ID": "eab3930722b0787d",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 27 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "d3aec5e747c0da9f",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 7 conceitos: «prezzo», «quotazioni», «euro/kg», «vendita», «rilevazioni», «in aumento» · segundo: NEGOCIO_AGRO (4)"
+  },
+  {
+   "ID": "46d40197d6f6e742",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: CAMPO_CLIMA (1)"
+  },
+  {
+   "ID": "3cf76f39efd4d05b",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 11 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "7006fd1a32262af6",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NEGOCIO_AGRO",
+   "BASE": "NEGOCIO_AGRO · 4 conceitos: «aziende», «startup», «investimenti», «packaging» · segundo: MERCADO_PRECO (3)"
+  },
+  {
+   "ID": "11da3434b80601fa",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "f5d85a483dd13b10",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "CAMPO_FITOSSANITARIO",
+   "BASE": "CAMPO_FITOSSANITARIO · 4 conceitos: «parassiti», «trattamenti», «biocontrollo», «acari predatori»"
+  },
+  {
+   "ID": "15ffc25fc291a2db",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: MERCADO_PRECO (1)"
+  },
+  {
+   "ID": "2c9f9efd062d9e40",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 4 conceitos: «prezzo», «euro/kg», «consumo», «vendita» · segundo: NEGOCIO_AGRO (3)"
+  },
+  {
+   "ID": "80841439830e6926",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "20280db7ed9605c3",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 39 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "61ea161f0c4e89a1",
+   "ROTULO": "CAMPO_CLIMA",
+   "CLASSIFICADOR": "CAMPO_CLIMA",
+   "BASE": "CAMPO_CLIMA · 3 conceitos: «temperature», «caldo estremo», «anomalie termiche» · segundo: CAMPO_PRODUCAO_COLHEITA (2)"
+  },
+  {
+   "ID": "082836a5cc4ad298",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 76 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "b1338d69dd41eb79",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «Summer School» · ligação agro «Agrarie» · «Summer School Valutazione ambientale dei sistemi zootecnici mediante LCA (Life Cycle Assessment, 28.09-02.10, 2026) | Dipartimento di Scienze Agrarie e Ambienta"
+  },
+  {
+   "ID": "e3db40903238b87a",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "CAMPO_PRODUCAO_COLHEITA",
+   "BASE": "CAMPO_PRODUCAO_COLHEITA · 12 conceitos: «raccolto», «raccolta della frutta», «vendemmia», «fenologiche», «semina», «resa in olio» · segundo: NEGOCIO_AGRO (7)"
+  },
+  {
+   "ID": "ea4fd9f90f4b26e1",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 8 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "925a2a0f7c570077",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NEGOCIO_AGRO",
+   "BASE": "NEGOCIO_AGRO · 6 conceitos: «aziende», «startup», «brand», «fatturato», «stagione commerciale», «packaging» · segundo: MERCADO_PRECO (4)"
+  },
+  {
+   "ID": "aae3bdef0c33d972",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · empate: NEGOCIO_AGRO (4), MERCADO_PRECO (4)"
+  },
+  {
+   "ID": "910c5b1c6ec428fd",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «Salone» · ligação agro «agroalimentare» · «Macfrut, Neri: \"Siamo in simbiosi con gli espositori\" Macfrut è pronto a consolidare il proprio ruolo di hub strategico per l'intera filiera ortofrutticola. E' "
+  },
+  {
+   "ID": "5f23e208c8b4141e",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "1d8b39bdfabdfae2",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: MERCADO_PRECO (1)"
+  },
+  {
+   "ID": "435042598c0426b7",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 6 conceitos: «prezzi», «euro/kg», «esportazioni», «export», «vendite», «In aumento» · segundo: NEGOCIO_AGRO (4)"
+  },
+  {
+   "ID": "c306abc7b0b30965",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 5 conceitos: «prezzi», «mercato ortofrutticolo», «esportazione», «Export», «vendita»"
+  },
+  {
+   "ID": "7604ffb98135945e",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: MERCADO_PRECO (1)"
+  },
+  {
+   "ID": "70aad144c1f032b7",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 15 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "d8533ab71ebd16f2",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "01b015f3d06d6fd8",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "beaaef3b1b59e204",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "6db07c01152edd31",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "bdf4bb335ab8eece",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "f61a0ea79d923af1",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "6d69166af3969391",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "58e1524f9c1b9fb6",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: MERCADO_PRECO (1)"
+  },
+  {
+   "ID": "f6e6749e47dc9424",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "227d356a7af8c8cb",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "5971381966ec9908",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "8bcfde9f91d2cf3e",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "bc821d5f1eb0b803",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "32c376d275202ec5",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "ddf0b4cb4cb59c4b",
+   "ROTULO": "CAMPO_CLIMA",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "462d196cabd74e03",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 7 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "9f97f572c5f0af98",
+   "ROTULO": "CAMPO_PRODUCAO_COLHEITA",
+   "CLASSIFICADOR": "CAMPO_PRODUCAO_COLHEITA",
+   "BASE": "CAMPO_PRODUCAO_COLHEITA · 2 conceitos: «produttivo», «annate»"
+  },
+  {
+   "ID": "2861b5f8b60c6534",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "29a63c98a6555fcb",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "fdf4beded4ef5a6a",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "f71071c0d5b5fdc5",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "2823347302f0534d",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "727dc78fd96a3daa",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "e4a33710dde15b99",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "5516d144069162f7",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "3bd77581a8759797",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "1278eae73661b268",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "46cd08fa16c88e1a",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "4eea3adc3e821903",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "6e19b0698093e634",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NEGOCIO_AGRO",
+   "BASE": "NEGOCIO_AGRO · 7 conceitos: «aziende», «Start up», «investimenti», «Bando», «finanziamenti», «Contributi a fondo» · segundo: MERCADO_PRECO (3)"
+  },
+  {
+   "ID": "6c79505ab5238acd",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "dfa3b205d664793f",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "d7a61133b72f3140",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NEGOCIO_AGRO",
+   "BASE": "NEGOCIO_AGRO · 3 conceitos: «azienda», «investimenti», «imprenditoria» · segundo: MERCADO_PRECO (2)"
+  },
+  {
+   "ID": "86fb4aa594b49b8d",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "65a0d9441196d0ff",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "c9915bc3110537d5",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "287d113a0e8b7842",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "fca5cbf5f4c83b9d",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "421970a22ff8cc96",
+   "ROTULO": "CAMPO_CLIMA",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "0b2a3107402ba505",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "709ed7ffb7b08330",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "ad7d6243e7ab587b",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "1894785759925938",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "0d27ff4c949f3c8f",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "4bec0b706957aaaf",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "fc4d00830c2567ba",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "e6084275080cf3fb",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "1136deeef50023c3",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "CAMPO_FITOSSANITARIO",
+   "BASE": "CAMPO_FITOSSANITARIO · 2 conceitos: «Parassiti», «trappola»"
+  },
+  {
+   "ID": "f663281bf77867a2",
+   "ROTULO": "CAMPO_PRODUCAO_COLHEITA",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "a9914f76fc7dad1e",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "f18a3df5587eb5f5",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "ee2d385cab157e1d",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "3ec4bcf401997813",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "5190041491dddcb5",
+   "ROTULO": "CAMPO_CLIMA",
+   "CLASSIFICADOR": "CAMPO_CLIMA",
+   "BASE": "CAMPO_CLIMA · 2 conceitos: «siccità», «Caldo record»"
+  },
+  {
+   "ID": "23484839f9a0c297",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "f4c2204a1f7fc152",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "4fc275d2a21a2061",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "e02b6a5d70ca2289",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "cc23b6f10748d95c",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "31e50159291aecbf",
+   "ROTULO": "CAMPO_FITOSSANITARIO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "54057bf8ce21ec75",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "788ee868bbf76535",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "23584ab3236999de",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "1261b230914353e5",
+   "ROTULO": "CAMPO_FITOSSANITARIO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "c9da6dbf9fa87724",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «fiera» · ligação agro «agricoli» · «Dalla teoria alla pratica: a Interpoma 2026 , fiera internazionale della mela in programma dal 25 al 27 novembre a Fiera Bolzano , le tecnologie destinate a tra»"
+  },
+  {
+   "ID": "4c036b390058fa64",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "3275b3bef41f69a3",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "f5a7b27659028207",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "2f94e8c17f04eccd",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  }
+ ]
+}
