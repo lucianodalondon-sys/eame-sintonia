@@ -16,7 +16,8 @@ F = os.path.join(R, "regras", "motor_de_rota.mjs")
 M = [
     ("filtro_desligado", "    if (eInstitucional(u)) continue;\n", "\n"),
     ("palavra_em_qualquer_sitio", "|faq)$/i;", "|faq)/i;"),
-    ("so_o_primeiro_troco", 'pathname.split("/").filter(Boolean).pop()', 'pathname.split("/").filter(Boolean)[0]'),
+    ("so_o_primeiro_troco", 'ultimo = new URL(u).pathname.split("/").filter(Boolean).pop()',
+     'ultimo = new URL(u).pathname.split("/").filter(Boolean)[0]'),
 ]
 orig = open(F, encoding="utf-8", newline="").read()
 nl = chr(13) + chr(10) if chr(13) + chr(10) in orig else chr(10)
