@@ -48,6 +48,13 @@ SAIDA = RAIZ / "curadoria" / "READY-SPLIT-V1.json"
 
 REGUA_CURRENT = "DETAIL/v1"
 REGUA_LEGACY = "LEGACY"
+# D42 (2): a regua IRMA para a forma «a pagina e o boletim» (FORMA = PAGINA_E_BOLETIM). Nao ha
+# lista -> item: a pagina fixa E o documento, e a edicao identifica-se pela data comprovada (+ a
+# impressao do conteudo recortado). Uma fonte dessa forma nunca passa a DETAIL/v1 (nao tem itens),
+# e uma de lista nunca passa a PAGINA_BOLETIM/v1: a forma e explicita no contrato.
+REGUA_PAGINA_BOLETIM = "PAGINA_BOLETIM/v1"
+REGUAS_CORRENTES = frozenset({REGUA_CURRENT, REGUA_PAGINA_BOLETIM})
+BOLETIM_MINIMO = 300
 OUTRO_LIVRO = "f98f234c"   # a arvore final de aquisicao-detalhe-v1
 
 
@@ -112,6 +119,8 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
               "BODY_UTIL": False, "CONTRATO_ATUAL": False}
     if not promocao:
         return {"REGUA": "NAO SEI", "PASSOS": passos, "PORQUE": "nunca promovida"}
+    if (contrato or {}).get("FORMA") == "PAGINA_E_BOLETIM":
+        return _passos_pagina_boletim(promocao, evidencia, contrato)
     dados = (evidencia or {}).get("DADOS") or {}
     acq = ((contrato or {}).get("ACQUISITION") or {})
     index = acq.get("INDEX_URL") or (contrato or {}).get("CANONICAL_ENTRY_URL") or ""
@@ -160,6 +169,46 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
     else:
         porque = "PASS_PARCIAL: falta %s" % ",".join(faltam)
     return {"REGUA": REGUA_LEGACY, "PASSOS": passos, "PORQUE": porque}
+
+
+def _contrato_atual(promocao: dict, contrato: dict | None) -> bool:
+    quando = ((contrato or {}).get("ROUTE_PROVENANCE") or {}).get("INTEGRADO_EM")
+    if not quando:
+        return True
+    try:
+        return datetime.fromisoformat(quando) <= datetime.fromisoformat(promocao["OBSERVED_AT"])
+    except (ValueError, KeyError, TypeError):
+        return False
+
+
+def _passos_pagina_boletim(promocao: dict, evidencia: dict | None, contrato: dict | None) -> dict:
+    """PAGINA_BOLETIM/v1 — os passos NA EVIDENCIA do canario da forma. DATA_COMPROVADA e dita, mas
+    NAO e exigida: a D42 manda que a data ausente fique UNKNOWN e o boletim seja colhido na mesma."""
+    dados = (evidencia or {}).get("DADOS") or {}
+    item = dados.get("ITEM_ABERTO") or {}
+    c = contrato or {}
+    aq = c.get("ACQUISITION") or {}
+    passos = {
+        "URL_FIXA": aq.get("STRATEGY") == "STATIC_ENDPOINT" and bool(aq.get("URL")),
+        "RECOLHA_MUTAVEL": ((c.get("RECOLLECTION") or {}).get("DETAIL_CONTENT") == "MUTABLE"),
+        "IDENTIDADE": (item.get("FORMA") == "PAGINA_E_BOLETIM" and bool(item.get("DOCUMENT_ID"))
+                       and bool(item.get("CONTENT_SHA256"))),
+        "CORPO_DO_BOLETIM": (dados.get("DETAIL_GATE_PASSED") is True
+                             and (item.get("BOLETIM_CARACTERES") or 0) >= BOLETIM_MINIMO),
+        "CONTRATO_ATUAL": _contrato_atual(promocao, c),
+    }
+    info = {"DATA_COMPROVADA": item.get("DATA_COMPROVADA") is True,
+            "SOURCE_DATE_ISO": item.get("SOURCE_DATE_ISO") or "UNKNOWN"}
+    if all(passos.values()):
+        return {"REGUA": REGUA_PAGINA_BOLETIM, "PASSOS": passos, "INFO": info,
+                "PORQUE": "a pagina e o boletim: identidade pelo motor, corpo recortado, recolha mutavel"}
+    return {"REGUA": REGUA_LEGACY, "PASSOS": passos, "INFO": info,
+            "PORQUE": "PASS_PARCIAL (pagina = boletim): falta %s" % ",".join(k for k, v in passos.items() if not v)}
+
+
+def e_corrente(regua: str | None) -> bool:
+    """A regua de hoje, para qualquer forma declarada (DETAIL/v1 ou PAGINA_BOLETIM/v1)."""
+    return regua in REGUAS_CORRENTES
 
 
 def regua_de(source_id: str, *, livro: dict | None = None,
@@ -241,7 +290,7 @@ def separar(*, outro_livro: str | None = OUTRO_LIVRO,
                  "EVIDENCE_REF": p.get("EVIDENCE_REF") if p else None,
                  "CONTRATO_ALTERADO_DEPOIS_DO_READY": alt,
                  "SOURCE_CONTRACT_HASH": (contratos.get(sid) or {}).get("SOURCE_CONTRACT_HASH")}
-        (current if r == REGUA_CURRENT else legacy).append(linha)
+        (current if e_corrente(r) else legacy).append(linha)
         if alt:
             alterados.append(sid)
 

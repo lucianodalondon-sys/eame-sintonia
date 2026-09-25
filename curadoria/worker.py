@@ -130,7 +130,9 @@ def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
     proposito: nao se bate a uma porta que ja se sabe estar proibida.
     """
     aq = contrato.get("ACQUISITION", {})
-    url = aq.get("FEED_URL") or aq.get("INDEX_URL")
+    # D42 (2): a rota fixa (STATIC_ENDPOINT) tem URL, nao INDEX_URL — sem isto, «a pagina e o
+    # boletim» falhava aqui («sem endereco») antes de o canario a ver
+    url = aq.get("FEED_URL") or aq.get("INDEX_URL") or aq.get("URL")
     if not url:
         return "FAIL", {"PORQUE": "contrato sem endereco de aquisicao"}
     host = url.split("/")[2]
@@ -171,6 +173,9 @@ def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
     try:
         if estrategia == "YOUTUBE_CHANNEL_FEED":
             r = CANARIO.canario_youtube(contrato)
+        elif contrato.get("FORMA") == CANARIO.FORMA_PAGINA_E_BOLETIM:
+            # D42 (2): a pagina e o boletim — a forma e explicita no contrato, nunca adivinhada
+            r = CANARIO.canario_pagina_boletim(contrato)
         else:
             r = CANARIO.canario_html(contrato)
     except Exception as e:
@@ -672,7 +677,7 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
             regua = RS.passos_da_promocao(
                 {"OBSERVED_AT": LC.agora(), "EVIDENCE_REF": ref},
                 {"DADOS": detalhe}, contrato)
-            if regua["REGUA"] != RS.REGUA_CURRENT:
+            if not RS.e_corrente(regua["REGUA"]):   # D42 (2): DETAIL/v1 ou PAGINA_BOLETIM/v1
                 if LC.estado_de(sid) != LC.CONTRACTED_CANARY_FAILED:
                     LC.registar(sid, LC.CONTRACTED_CANARY_FAILED,
                                 ("canario resolveu, mas a regua dos quatro passos nao "

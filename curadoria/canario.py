@@ -198,6 +198,66 @@ def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes) -> dict:
                     "{doc.1}", re.sub(r"^https?://[^/]+/?", "", alvo).rstrip("/")))
 
 
+FORMA_PAGINA_E_BOLETIM = "PAGINA_E_BOLETIM"
+BOLETIM_GATE_VERSAO = "PAGINA_BOLETIM/v1"
+BOLETIM_MINIMO = 300     # caracteres sem espaco no recorte do boletim (um boletim curto ainda e boletim)
+
+
+def identidade_pelo_motor(c: dict, url: str, b: bytes) -> dict:
+    """A identidade do documento pelo MOTOR DO COLETOR (regras/motor_de_rota.mjs) — um motor so."""
+    import subprocess
+    import tempfile
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "pagina.bin"
+        p.write_bytes(b)
+        pedido = {"SOURCE_ID": c["SOURCE_ID"], "CONTRATO": c, "BYTES_EM": str(p),
+                  "ALVO": {"url": url, "nome": (c.get("ACQUISITION") or {}).get("NAME") or url.rstrip("/").split("/")[-1]}}
+        r = subprocess.run(["node", str(RAIZ / "regras" / "identidade_do_motor_cli.mjs")],
+                           input=json.dumps(pedido), capture_output=True, text=True, encoding="utf-8", timeout=60)
+    linha = (r.stdout.strip().splitlines() or ["{}"])[-1]
+    try:
+        return json.loads(linha)
+    except ValueError:
+        return {"ERRO": "o motor nao respondeu JSON: %s" % (r.stderr or linha)[-200:]}
+
+
+def canario_pagina_boletim(c: dict) -> dict:
+    """D42 (2): A PAGINA E O BOLETIM. A URL fixa nao identifica a edicao: quem a identifica e a data
+    comprovada (+ a impressao do conteudo recortado, para deduplicar). O canario abre a pagina uma
+    vez e pergunta ao MOTOR do coletor: sai identidade? o recorte do boletim tem corpo?
+      PASS            identidade construida e recorte com >= BOLETIM_MINIMO caracteres
+      SOURCE_FAILURE  sem o recorte / sem corpo / nao e HTML (a fonte nao tem o boletim ali)
+      UNKNOWN         o motor nao respondeu (problema nosso)
+    A data ausente NAO reprova: fica UNKNOWN (nunca a data de coleta) e o passo DATA_COMPROVADA diz."""
+    aq = c.get("ACQUISITION") or {}
+    url = aq.get("URL")
+    st, b, err = buscar(url)
+    base_r = {"HTTP": st, "ALVO": url, "DETAIL_GATE": BOLETIM_GATE_VERSAO, "BYTES": len(b or b""),
+              "DETAIL_ENUMERATED": 1}
+    if st != 200 or not b:
+        return dict(base_r, PASS=False, CLASSE="UNKNOWN", PORQUE=err or "HTTP %s" % st)
+    if not b.lstrip().removeprefix(b"\xef\xbb\xbf")[:1] == b"<":
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="bytes nao sao HTML — BYTE_VALIDATION_FAILED")
+    ident = identidade_pelo_motor(c, url, b)
+    if ident.get("ERRO"):
+        return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
+                    PORQUE="o motor recusou: %s" % ident["ERRO"][:160])
+    item = {"URL": url, "HTTP": st, "BYTES": len(b), "FORMA": FORMA_PAGINA_E_BOLETIM,
+            "DOCUMENT_ID": ident.get("DOCUMENT_ID"), "CONTENT_SHA256": ident.get("CONTENT_SHA256"),
+            "SOURCE_DATE": ident.get("SOURCE_DATE"), "SOURCE_DATE_ISO": ident.get("SOURCE_DATE_ISO"),
+            "FACT_TIME": ident.get("FACT_TIME"), "BOLETIM_CARACTERES": ident.get("BOLETIM_CARACTERES", 0),
+            "DATA_COMPROVADA": bool(ident.get("SOURCE_DATE_ISO")) and ident.get("SOURCE_DATE_ISO") != "UNKNOWN"}
+    base_r["ITEM_ABERTO"] = item
+    if not item["DOCUMENT_ID"]:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="IDENTITY_FAILED: o recorte do boletim (CONTENT_SCOPE) nao esta na pagina")
+    if item["BOLETIM_CARACTERES"] < BOLETIM_MINIMO:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="o boletim recortado tem so %d caracteres (< %d)" % (item["BOLETIM_CARACTERES"], BOLETIM_MINIMO))
+    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=item["DOCUMENT_ID"])
+
+
 def canario_html(c: dict) -> dict:
     """Abre a entrada, aplica o LINK_PATTERN e prova que sai um ITEM (nao o indice)."""
     aq = c["ACQUISITION"]
