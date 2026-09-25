@@ -49,6 +49,12 @@ def medir() -> dict:
     livro = _ler("curadoria/LIFECYCLE-LEDGER-V1.json")
     trans = livro.get("TRANSICOES", livro if isinstance(livro, list) else [])
     status = _ler("curadoria/SOURCE-CURATOR-STATUS-LIVE.json")
+    aloc = _ler("curadoria/SOURCE-ID-ALLOCATION-V1.json")
+    sid_de = {x["CANDIDATE_ID"]: x["SOURCE_ID"] for x in aloc.get("NOVAS", []) if x.get("SOURCE_ID")}
+    sem_terr = {x["CANDIDATE_ID"] for x in aloc.get("SEM_TERRITORIO_DETALHE", [])}
+    estado_de: dict = {}
+    for t in trans:
+        estado_de[t.get("SOURCE_ID")] = t.get("NEW_STATE")
     agora = datetime.now(timezone.utc)
 
     def conta(ids):
@@ -59,6 +65,9 @@ def medir() -> dict:
             "QUALIFY": dict(Counter(t["STATUS"] for t in tarefas if t["SOURCE_ID"] in ids)),
             "ESTADO_NA_PORTA": dict(Counter(porta[k]["ESTADO"] for k in ids if k in porta)),
             "NO_LIFECYCLE": len({t.get("SOURCE_ID") for t in trans if t.get("SOURCE_ID") in ids}),
+            "COM_SOURCE_ID": sum(1 for k in ids if k in sid_de),
+            "SEM_TERRITORIO": sum(1 for k in ids if k in sem_terr),
+            "ESTADO_DA_FONTE": dict(Counter(estado_de.get(sid_de[k], "SEM_TRANSICAO") for k in ids if k in sid_de)),
         }
 
     pend = [t for t in tarefas if t["STATUS"] == "PENDING"]
@@ -87,7 +96,10 @@ def escrever(m: dict, n: int) -> None:
            m["FILA_DE_TAREFAS"]["ELEGIVEIS_AGORA"], m["FILA_DE_TAREFAS"]["IN_PROGRESS"]),
         "- ponte: %d processadas, ultima %s" % (m["PONTE_TOTAL"], m["PONTE_ULTIMA"]),
         "- 267 novas: %d na ponte %s · QUALIFY %s · porta %s" % (a["NA_PONTE"], a["DESTINO_NA_PONTE"], a["QUALIFY"], a["ESTADO_NA_PORTA"]),
-        "- 84 de janela: %d na ponte · QUALIFY %s" % (j["NA_PONTE"], j["QUALIFY"]),
+        "- 267 depois da qualificacao: %d com SOURCE_ID, %d sem territorio; estado da fonte %s"
+        % (a["COM_SOURCE_ID"], a["SEM_TERRITORIO"], a["ESTADO_DA_FONTE"]),
+        "- 84 de janela: %d na ponte · QUALIFY %s · %d com SOURCE_ID · estado %s"
+        % (j["NA_PONTE"], j["QUALIFY"], j["COM_SOURCE_ID"], j["ESTADO_DA_FONTE"]),
         "- %d perfis D24: %d na ponte %s · porta %s" % (p["N"], p["NA_PONTE"], p["DESTINO_NA_PONTE"], p["ESTADO_NA_PORTA"]),
     ]
     if not MD.exists():
