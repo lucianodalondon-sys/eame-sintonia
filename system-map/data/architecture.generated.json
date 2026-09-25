@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "ajustes-micro-v1",
+    "HEAD": "ea96ad80a9fb4e13f088af2b50ce2f2519c39f17",
+    "GENERATED_AT": "2026-09-25T08:36:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449"
   },
   "FILES": [
     {
@@ -2902,6 +2902,13 @@
     {
       "path": "curadoria/ensaiar_worker_pendurado.py",
       "sha": "282343fbec7745c70ef16aa6da9732cdd4dbe6b8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/entrada_final.py",
+      "sha": "3b95ef45f9eaea8d8e478722c3ce8e9293433f96",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -11321,6 +11328,55 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/rendimento/ajustes/ENTRADA-FINAL-ENSAIO-NA-COPIA.json",
+      "sha": "069f14da6ad78f44839eda60a909f0ea1d3c62ec",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/ajustes/INSUMOS-E-ENSAIO.txt",
+      "sha": "a1972200b7a01e7c5e2c409277e1efeff7ea7bcf",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/ajustes/REJULGAR-16-DOCS-DO-MICRO.json",
+      "sha": "9e9c549b1aee62c2fb29a4dbadf866ca2b81a556",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/ajustes/RELATORIO-AJUSTES-MICRO.md",
+      "sha": "26761058b383a54a54d478b187dd4e9e2db933f4",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/ajustes/SALTOS-DA-COORTE.json",
+      "sha": "893d4e0a07f6fa25674614a0973a80920917e165",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/ajustes/TEXTOS-DO-MICRO-FORA-DO-GIT.sha256",
+      "sha": "8fbce9b75ce1f8666c7547b279384c0a7c95437b",
+      "ext": ".sha256",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/rendimento/medir_saltos.py",
+      "sha": "f1ccfa3870bf094f63a502ab811bb0fc7f969a04",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "sha": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
       "ext": ".py",
@@ -18693,7 +18749,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6fbeb3259f859c03654c8d25eff0043e170be317",
+      "sha": "a702e6586a8444b6fdd522e014bf3c3051dc136c",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19184,6 +19240,13 @@
     {
       "path": "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "sha": "c979c2ae47b027c1095585a28c09d49e07e3670f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/entrada_final_villoresi.json",
+      "sha": "ff471fa587e0cff3a77f6efa79d03ecd8f793ddb",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19898,6 +19961,13 @@
     {
       "path": "tests/test_ensaio_offline_micro.py",
       "sha": "cce3f6aa96b9a797d545e2890d462509de3484aa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_entrada_final.py",
+      "sha": "92fb361eeffcac431c41180bd2c90643621a37a5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26739,6 +26809,17 @@
         "file": "curadoria/ensaiar_worker_pendurado.py",
         "line": 40,
         "snippet": "import supervisor as S"
+      }
+    },
+    {
+      "from_file": "curadoria/entrada_final.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/entrada_final.py",
+        "line": 84,
+        "snippet": "import reparar_contrato as RC                          # noqa: E402 — a porta do reparo"
       }
     },
     {
@@ -75428,6 +75509,17 @@
       }
     },
     {
+      "from_file": "tests/test_entrada_final.py",
+      "to_file": "tests/fixtures/entrada_final_villoresi.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_entrada_final.py",
+        "line": 72,
+        "snippet": "base = json.loads((RAIZ / \"tests\" / \"fixtures\" / \"entrada_final_villoresi.json\").read_text(encoding=\"utf-8\"))[\"CONTRATO\"]"
+      }
+    },
+    {
       "from_file": "tests/test_espinha_da_intelligence.py",
       "to_file": "provas/espinha_da_intelligence.py",
       "type": "IMPORTS",
@@ -85358,10 +85450,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2978,
-    "files_readable": 1333,
-    "files_code_dir": 1269,
-    "file_edges": 5810,
+    "files_tracked": 2988,
+    "files_readable": 1336,
+    "files_code_dir": 1278,
+    "file_edges": 5812,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

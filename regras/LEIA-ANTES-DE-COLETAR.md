@@ -108,6 +108,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO** — ensaio_integra.sh: o ensaio integrado numa copia fiel do vivo com a rede FECHADA (clone local + livros do vivo; onboarding com a prova de rotas ja feita, plano do runbook, coorte congelada so na copia, onda_web --so-plano, plano do MICRO, prova do teto sobre os dois planos, desfazer). prova_teto_micro.py: plano do MICRO so com as fontes de um lote e a prova independente do teto (C-PROVA-TETO-DOMINIO) no pior caso de 5 pedidos por fonte PRONTA. Sem rede.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
 - **Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)** — Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.
+- **Saltos que gastam o teto e a entrada no endereco final (AJUSTES-MICRO)** — medir_saltos.py le o livro de corridas (so leitura) e mede, por fonte, os pedidos gastos alem de robots+indice+materias e os saltos de ORIGEM (robots de duas origens na mesma corrida). entrada_final.py propoe a INDEX_URL na origem final so com prova sem rede (salto medido + materia ja colhida que o LINK_PATTERN aceita) e aplica pela porta do reparo (reparar_contrato.aplicar: so ACQUISITION, validador da casa, PRECISA_DE_REMEDIR).
 
 ---
 
@@ -153,4 +154,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 11 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 12 ferramentas e 2 peças de fonte declaradas no mapa.

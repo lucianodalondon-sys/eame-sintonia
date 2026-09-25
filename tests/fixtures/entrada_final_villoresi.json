@@ -1,0 +1,85 @@
+{
+ "_LEIA": "copia do contrato do Curator do vivo (25/09 08:3x, sha do livro 42f0d9af) para o teste da entrada final; so leitura",
+ "CONTRATO": {
+  "SOURCE_ID": "IT-T7-021",
+  "OWNER": "Consorzio di Bonifica Est Ticino Villoresi",
+  "NAME": "Consorzio di Bonifica Est Ticino Villoresi",
+  "TERRITORY": "T7",
+  "BATCH_ID": "LOTE-HTML-ARTIGO",
+  "OUTPUT_TYPE": "HTML",
+  "CANONICAL_ENTRY_URL": "https://www.etvilloresi.it/",
+  "ACQUISITION": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.etvilloresi.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?etvilloresi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ROUTE_TYPE": "DISCOVERED_ROUTE",
+  "ACCESS_INSTRUMENT": "HTTP",
+  "AUTH_REQUIRED": false,
+  "BROWSER_REQUIRED": false,
+  "JS_REQUIRED": false,
+  "IDENTITY": {
+   "STRATEGY": "CONTENT_CAPTURE",
+   "CAPTURES": {
+    "doc": {
+     "FROM": "URL",
+     "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+    }
+   },
+   "DOCUMENT_ID": "IT-T7-021:URL:{doc.1}",
+   "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+  },
+  "IDENTITY_KEYS": [
+   "url_path"
+  ],
+  "IDENTITY_KIND": "URL_PATH",
+  "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+  "EXPECTED_FAILURES": [
+   "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+   "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+   "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+  ],
+  "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+  "FALLBACK": "nenhum",
+  "NEGATIVE_CONTROL": {
+   "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+   "esperado": "EMPTY_LIST -> FAILED"
+  },
+  "CARACTERIZACAO": {
+   "ACTIVITY_STATE": "UNKNOWN",
+   "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+   "CADENCE_REASON": "ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+   "EXPECTED_ITEMS_PER_WEEK": "NAO SEI",
+   "EXPECTED_ITEMS_PER_MONTH": "NAO SEI",
+   "CONTENT_VALUE_TYPE": [
+    "REGULATORY",
+    "SCIENCE"
+   ],
+   "TOPICS_OBSERVED": [
+    "REGULATORY",
+    "SCIENCE"
+   ],
+   "GEOGRAPHIES_OBSERVED": [
+    "lombardia"
+   ],
+   "LANGUAGES_OBSERVED": [
+    "it"
+   ],
+   "HISTORICAL_DEPTH_OBSERVED": "NAO SEI",
+   "SAMPLE_PERIOD": [
+    "2026-09-18",
+    "2026-09-18"
+   ],
+   "REPRESENTATIVE_SAMPLE_COUNT": 3,
+   "SOURCE_PATTERN_STABLE": "SIM",
+   "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0155/amostra",
+   "CARACTERIZADA_EM": "2026-09-20"
+  },
+  "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+  "SOURCE_CONTRACT_HASH": "2cebb9be67f9ed32",
+  "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
+  "EVIDENCE": "curadoria/evidencia/CAND-0155/amostra"
+ }
+}

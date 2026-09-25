@@ -438,6 +438,7 @@
       "curadoria/ensaiar_fila_windows.py",
       "curadoria/ensaiar_gatilho_ocioso.py",
       "curadoria/ensaiar_worker_pendurado.py",
+      "curadoria/entrada_final.py",
       "curadoria/escrever_contratos.py",
       "curadoria/escrever_no_atlas.py",
       "curadoria/fila.py",
@@ -1646,6 +1647,13 @@
       "ferramentas/ponte_onboard/WRITESET-PONTE-ONBOARD.json",
       "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/reel_transcricao.py",
+      "ferramentas/rendimento/ajustes/ENTRADA-FINAL-ENSAIO-NA-COPIA.json",
+      "ferramentas/rendimento/ajustes/INSUMOS-E-ENSAIO.txt",
+      "ferramentas/rendimento/ajustes/REJULGAR-16-DOCS-DO-MICRO.json",
+      "ferramentas/rendimento/ajustes/RELATORIO-AJUSTES-MICRO.md",
+      "ferramentas/rendimento/ajustes/SALTOS-DA-COORTE.json",
+      "ferramentas/rendimento/ajustes/TEXTOS-DO-MICRO-FORA-DO-GIT.sha256",
+      "ferramentas/rendimento/medir_saltos.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo-2026-09-22.json",
@@ -2815,6 +2823,7 @@
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
+      "tests/fixtures/entrada_final_villoresi.json",
       "tests/fixtures/ponte_onboard_17_contratos.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/medir_multilingue.py",
@@ -2917,6 +2926,7 @@
       "tests/test_d24_video_de_pessoa.py",
       "tests/test_egresso_consenso.py",
       "tests/test_ensaio_offline_micro.py",
+      "tests/test_entrada_final.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
       "tests/test_estradas_it.py",
@@ -3571,10 +3581,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "ajustes-micro-v1",
+    "HEAD": "ea96ad80a9fb4e13f088af2b50ce2f2519c39f17",
+    "GENERATED_AT": "2026-09-25T08:36:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449"
   },
   "FAMILIES": [
     {
@@ -3602,7 +3612,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 99
+      "count": 100
     },
     {
       "id": "F-ESPERA",
@@ -3797,7 +3807,7 @@
       "y": 190,
       "w": 820,
       "h": 9056,
-      "count": 11
+      "count": 12
     },
     {
       "id": "Z-ACOES",
@@ -4658,6 +4668,79 @@
       "y": 360
     },
     {
+      "id": "C-AJUSTES-MICRO",
+      "name": "Saltos que gastam o teto e a entrada no endereco final (AJUSTES-MICRO)",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "medir_saltos.py le o livro de corridas (so leitura) e mede, por fonte, os pedidos gastos alem de robots+indice+materias e os saltos de ORIGEM (robots de duas origens na mesma corrida). entrada_final.py propoe a INDEX_URL na origem final so com prova sem rede (salto medido + materia ja colhida que o LINK_PATTERN aceita) e aplica pela porta do reparo (reparar_contrato.aplicar: so ACQUISITION, validador da casa, PRECISA_DE_REMEDIR).",
+      "why_here": "MICRO-V3: a Villoresi colheu 1 materia em vez de 3 porque o salto www->raiz gastou 2 dos 5 pedidos do teto D38. O teto nao se mexe; corrige-se a entrada do contrato pelo dono unico.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "curadoria/entrada_final.py",
+        "ferramentas/rendimento/medir_saltos.py"
+      ],
+      "file_count": 2,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "curadoria/entrada_final.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6000,
+      "y": 360
+    },
+    {
       "id": "C-APIFY-POOL",
       "name": "Apify — a rota paga",
       "territory": "Z-FERRAMENTAS",
@@ -4767,7 +4850,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 360
     },
     {
@@ -5076,8 +5159,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 628",
-        "desses, mostrados aqui: 40 (ficam de fora 588)"
+        "enderecos que o codigo realmente chama: 637",
+        "desses, mostrados aqui: 40 (ficam de fora 597)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -38554,8 +38637,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
-      "y": 360
+      "x": 6000,
+      "y": 682
     },
     {
       "id": "C-CADEIA-V21",
@@ -40623,7 +40706,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 682
     },
     {
@@ -42114,8 +42197,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
-      "y": 682
+      "x": 6000,
+      "y": 1004
     },
     {
       "id": "C-COORTE-MICRO-FUNIL",
@@ -47463,7 +47546,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1004
     },
     {
@@ -49063,8 +49146,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6415,
-      "y": 1004
+      "x": 6000,
+      "y": 1326
     },
     {
       "id": "C-LUGAR-COLETA",
@@ -50572,7 +50655,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -50661,8 +50744,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
-      "y": 1326
+      "x": 6000,
+      "y": 1648
     },
     {
       "id": "C-ORQUESTRADOR",
@@ -51726,7 +51809,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -58077,8 +58160,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
-      "y": 1648
+      "x": 6000,
+      "y": 1970
     },
     {
       "id": "C-RECORRENCIA",
@@ -63283,6 +63366,7 @@
         "tests/test_d24_video_de_pessoa.py",
         "tests/test_egresso_consenso.py",
         "tests/test_ensaio_offline_micro.py",
+        "tests/test_entrada_final.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
         "tests/test_estradas_it.py",
@@ -63419,7 +63503,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 237,
+      "file_count": 238,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63648,6 +63732,7 @@
           "BINARIOS",
           "BINDINGS",
           "BLOQUEADAS",
+          "C",
           "CADEIA",
           "CAMINHOS_DE_INTELIGENCIA",
           "CAMPOS",
@@ -63729,13 +63814,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1318,
+        "palavras": 1326,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1306,
+        "sem_marca_de_lingua": 1314,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -64270,6 +64355,7 @@
         "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
         "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
         "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
+        "tests/fixtures/entrada_final_villoresi.json",
         "tests/fixtures/ponte_onboard_17_contratos.json",
         "tests/fixtures/yt-raw-minimo.json",
         "tests/test_c2_youtube_oficial.py",
@@ -64418,7 +64504,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1970
     },
     {
@@ -66196,7 +66282,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch micro-v3-fontes-v1"
+        "branch ajustes-micro-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -134644,7 +134730,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1649,
+  "UNCLAIMED_FILES_COUNT": 1656,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -134884,7 +134970,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 224,
+      "PECAS_EM_DESACORDO": 225,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -134896,23 +134982,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 249
+      "TOTAL_DE_PECAS": 250
     }
   ],
   "COUNTS": {
-    "components": 249,
+    "components": 250,
     "components_proven": 31,
     "components_pending": 210,
     "components_broken": 0,
-    "components_unknown": 8,
+    "components_unknown": 9,
     "edges": 1321,
     "edges_proven": 1256,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2978,
-    "files_covered": 1329,
+    "files_tracked": 2988,
+    "files_covered": 1332,
     "files_code_unclaimed": 0,
-    "roles_proven": 170,
+    "roles_proven": 171,
     "roles_declared_only": 8,
     "roles_unknown": 71,
     "roles_conflict": 38,
