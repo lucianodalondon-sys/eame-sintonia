@@ -57,8 +57,11 @@ boa só porque a fonte está na gaveta errada».
 ## 2. Saltos que gastam o teto (D38 intocado)
 
 **Medição** (`ferramentas/rendimento/medir_saltos.py` → `SALTOS-DA-COORTE.json`). Cada corrida foi ligada à
-sua fonte pelo RUN_ID dos estados da 1.ª onda (BC5), do MICRO e da 2.ª onda: **25 das 28 fontes têm
-corrida** (IT-T2-050, IT-T2-146 e IT-T5-186/187 só aparecem saltadas por TETO_DOMINIO ou não medidas).
+sua fonte pelo RUN_ID dos estados da 1.ª onda (BC5), do MICRO e da 2.ª onda: **24 das 28 fontes da coorte
+têm corrida medida**, mais a ISTAT (só na 1.ª onda). IT-T2-146, IT-T5-186 e IT-T5-187 só foram saltadas
+por TETO_DOMINIO. ⚠️ **IT-T2-050 (ARPA Campania) correu na 2.ª onda com STATUS=FAILED
+(RUN_ID IT-T2-2026-09-25-111643-da7749bc23d43306) e esse RUN_ID NÃO está no livro de corridas**
+(`runs.ndjson`, cópia das 08:28). Fica para quem cuida do coletor: uma corrida que falha tem de deixar recibo.
 Desperdício = pedidos − (1 robots + 1 índice + matérias). **17 pedidos gastos em 3 ondas:**
 
 | Tipo | Fontes | Pedidos gastos | Corrige-se pela entrada? |
