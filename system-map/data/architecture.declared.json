@@ -4902,6 +4902,25 @@
    ]
   },
   {
+   "id": "C-REROUTE-D2",
+   "name": "REROUTE da D2 na Admissao — medicao no acervo e ataque (D56)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "medir_reroute.py mede, sem rede e sem Sala, que nenhum veredito muda (base contra arvore, 8 gavetas x corpus) e quantos NAO da gaveta da fonte ganham SIM noutra gaveta, contra os rotulos humanos do gabarito; reroute_mutacao.py desliga cada peca do admissao.reencaminhar numa copia.",
+   "why_here": "D56: implementar o REROUTE da D2 para todas as fontes sem baixar regua; a medicao mostra precisao 8% contra o humano porque T4/T5/T9 sao reguas de palavras soltas.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/reroute/medir_reroute.py",
+    "provas/reroute_mutacao.py"
+   ]
+  },
+  {
    "id": "C-INTEGRA-ONDA2",
    "name": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
    "territory": "Z-FERRAMENTAS",
