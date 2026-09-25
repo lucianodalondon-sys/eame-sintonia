@@ -15,7 +15,7 @@ SOURCE_LOCATION  != FACT_LOCATION
 | saída | `publicacao_para_o_contrato()` | `PUBLISHED_AT` + `PUBLISHED_AT_BASIS` + `PUBLISHED_AT_PRECISION` (D62: INSTANTE · DIA · NAO SEI). `NAO SEI` nunca atravessa como valor; o porquê vai na BASE. Sem chave de facto. |
 | lugar | `regras/contratos_de_fonte.py` · `lugar_da_fonte()` / `lugar_para_o_contrato()` | `SOURCE_LOCATION` pelo CONTRATO (`SOURCE_LOCATION_RULE` conferido no gazetteer), `BASE=CONTRATO`, `SOURCE_LOCATION_PRECISION` (D62). **Nunca** o `REGION` do Atlas (é a região de que a fonte fala). |
 | contrato | `regras/italy_contracts.mjs` · `contratoGenerico` | a linha onboarded PODE declarar `SOURCE_LOCATION_RULE`. Hoje nenhuma declara (0/193): nenhum contrato muda. |
-| testes | `tests/test_tempo_e_lugar_da_publicacao.py` | 25 testes; HTML reais de `data/collection-store/italy/`. |
+| testes | `tests/test_tempo_e_lugar_da_publicacao.py` | 36 testes; HTML reais de `data/collection-store/italy/`. |
 
 **Efeito em runtime ao instalar: nenhum.** Ninguém chama as funções novas ainda —
 o encanamento dos 7 passos (derivado → estruturação → porta → admissão → Sala,
@@ -26,7 +26,7 @@ colunas `*_basis`) é da bancada local TEMPO-E-LUGAR. Sem migração, sem Sala.
 ```bash
 git fetch origin claude/publication-time-source-location-ux4cuc
 git cherry-pick <SHA do commit "D61 tempo-publicacao: extrator ...">
-python3 -m unittest tests/test_tempo_e_lugar_da_publicacao.py      # 25 OK
+python3 -m unittest tests/test_tempo_e_lugar_da_publicacao.py      # 36 OK
 python3 system-map/scripts/correr_a_cadeia.py REGERAR
 python3 system-map/scripts/correr_a_cadeia.py VALIDAR               # SYSTEM_MAP_CHECK=PASS
 git add system-map/data italia-portale/client/system-map docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md
@@ -54,9 +54,22 @@ Nada no banco a desfazer.
   devolvem sempre um recibo. O encanamento **não** pode usar `NAO SEI` como motivo de
   descarte — é só precisão menor.
 - **A precisão viaja** (`*_PRECISION`) para a Intelligence saber o grau de cada item.
-- **Data relativa não vira data** («ieri», «2 giorni fa»): esta régua lê só metadado da
-  página, nunca o texto. Guardar a EXPRESSÃO como evidência do facto é de outra peça
-  (FACT_TIME, depois) — NÃO SEI aqui.
+- ~~Data relativa não vira data~~ — **substituído pela D63** (abaixo). Continua verdade só
+  para a PUBLICAÇÃO: ela nunca sai de «ieri».
+
+## D63 (dono, 25/09 ~11:08) — data relativa conta, a partir da publicação
+
+| peça | o que faz |
+|---|---|
+| `tempo_do_fato_relativo(texto, publicacao)` | só com PUBLICATION_TIME **provada** (com BASE). «ieri» → dia exacto; «l'altro ieri», «N giorni fa» → dia; «la (scorsa) settimana scorsa», «N settimane fa» → intervalo ISO seg–dom `início/fim`; «il mese scorso» → intervalo do mês. Nunca um dia inventado dentro de um intervalo. |
+| `facto_relativo_para_o_contrato(r)` | `FACT_TIME` + `FACT_TIME_BASIS = "RELATIVA_A_PUBLICACAO «<expressão>»"` + `FACT_TIME_PRECISION = CALCULADA:DIA/SEMANA/MES`. |
+
+- Sem publicação provada → NÃO SEI. Duas contas diferentes no mesmo texto → NÃO SEI (AMBIGUO).
+- Fora, até haver caso medido: «oggi» («ad oggi» = até agora) e «l'anno scorso» (comparação de safra).
+- A publicação fica à parte e intacta; `leis/artefato.py::conferir` aceita a conta (≠ publicação).
+- Medido no armazém: 1 caso real (IT-T3-005, «le piogge della scorsa settimana») — e a página
+  não tem data de publicação, logo fica NÃO SEI. Contrato de saída ganha `FACT_TIME_PRECISION`:
+  é o encanamento que o leva à Sala.
 
 ## Limites declarados (NÃO SEI)
 

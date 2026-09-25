@@ -452,6 +452,139 @@ def publicacao_para_o_contrato(r: dict) -> dict:
             "PUBLISHED_AT_PRECISION": r.get("PRECISAO") or art.NAO_SEI}
 
 
+# ── D63 · A DATA RELATIVA DO TEXTO, CONTADA A PARTIR DA PUBLICAÇÃO ─────────
+#
+# O dono (25/09, D63): «Ontem ou semana passada pode ser considerada data do
+# fato sim, desde que o sistema pegue a data da publicação e faça a conta.»
+#
+#     FACT_TIME = PUBLICATION_TIME + a expressão, e SÓ com a publicação PROVADA.
+#
+# Isto NÃO copia a publicação para o facto — faz uma CONTA, e declara-a:
+# `FACT_TIME_BASIS = RELATIVA_A_PUBLICACAO`, com a expressão original como
+# evidência e a precisão a dizer `CALCULADA`. A publicação continua à parte.
+#
+# PRECISÃO HONESTA: «ieri» é um dia; «la settimana scorsa» é a semana anterior
+# INTEIRA (segunda a domingo, em intervalo ISO 8601 `início/fim`) — nunca um
+# dia inventado dentro dela.
+#
+# ⚠️ E UM TEXTO COM DUAS CONTAS DIFERENTES NÃO RESPONDE («ieri» e «la settimana
+# scorsa» no mesmo artigo): não se sabe qual é a do facto. NAO SEI, com porquê.
+#
+# ⚠️ FICAM DE FORA, e o porquê é de agro: «oggi» e «l'anno scorso». «Ad oggi»
+# é «até agora», e «rispetto all'anno scorso» é comparação de safra — nos dois
+# a expressão raramente data o facto. Ficam NAO SEI até haver caso medido.
+BASE_RELATIVA = "RELATIVA_A_PUBLICACAO"
+
+_NUM = {"un": 1, "uno": 1, "una": 1, "due": 2, "tre": 3, "quattro": 4,
+        "cinque": 5, "sei": 6, "sette": 7, "otto": 8, "nove": 9, "dieci": 10}
+_N = r"(\d{1,2}|un|uno|una|due|tre|quattro|cinque|sei|sette|otto|nove|dieci)"
+_APOS = r"[’'`]\s?"
+
+#: (padrão, espécie, como contar). A ORDEM importa: «l'altro ieri» antes de
+#: «ieri», para o segundo não roubar metade do primeiro.
+_RELATIVAS = (
+    (r"\b(?:l" + _APOS + r"altro\s?ieri|altroieri|ieri\s+l" + _APOS + r"altro)\b",
+     "DIA", lambda m: 2),
+    (r"\b(?:ieri|ontem|yesterday)\b", "DIA", lambda m: 1),
+    (r"\b" + _N + r"\s+giorni\s+fa\b", "DIA", lambda m: _NUM.get(m.group(1).lower()) or int(m.group(1))),
+    (r"\b(?:la\s+)?(?:settimana\s+scorsa|scorsa\s+settimana)\b|\b(?:semana\s+passada|last\s+week)\b",
+     "SEMANA", lambda m: 1),
+    (r"\b" + _N + r"\s+settimane\s+fa\b", "SEMANA",
+     lambda m: _NUM.get(m.group(1).lower()) or int(m.group(1))),
+    (r"\b(?:il\s+|lo\s+)?(?:mese\s+scorso|scorso\s+mese)\b|\b(?:m[eê]s\s+passado|last\s+month)\b",
+     "MES", lambda m: 1),
+)
+
+
+def _dia_da_publicacao(pub: dict):
+    """O DIA em que a fonte publicou, no fuso que ela escreveu. `None` sem prova."""
+    if not pub or pub.get("VALOR") in (art.NAO_SEI, "", None) \
+            or pub.get("BASE") in (art.NAO_SEI, "", None):
+        return None
+    try:
+        return datetime.date.fromisoformat(str(pub["VALOR"])[:10])
+    except ValueError:
+        return None
+
+
+def _conta(dia, especie, n):
+    if especie == "DIA":
+        d = dia - datetime.timedelta(days=n)
+        return d.isoformat(), d, d
+    if especie == "SEMANA":
+        seg = dia - datetime.timedelta(days=dia.weekday() + 7 * n)
+        dom = seg + datetime.timedelta(days=6)
+        return "%s/%s" % (seg.isoformat(), dom.isoformat()), seg, dom
+    a, m = dia.year, dia.month - n                     # MES
+    while m < 1:
+        a, m = a - 1, m + 12
+    ini = datetime.date(a, m, 1)
+    fim = (datetime.date(a + (m == 12), m % 12 + 1, 1)
+           - datetime.timedelta(days=1))
+    return "%s/%s" % (ini.isoformat(), fim.isoformat()), ini, fim
+
+
+def tempo_do_fato_relativo(texto, publicacao: dict) -> dict:
+    """FACT_TIME contado a partir da PUBLICATION_TIME provada (D63).
+
+    → `{"VALOR", "BASE", "PRECISAO", "EXPRESSAO", "INICIO", "FIM", "PORQUE"}`.
+    `VALOR` é um dia ISO (`2026-09-19`) ou um intervalo ISO (`início/fim`).
+    `PRECISAO` é `CALCULADA:DIA` · `CALCULADA:SEMANA` · `CALCULADA:MES`.
+    Sem publicação provada, sem expressão, ou com contas que se contradizem:
+    tudo `NAO SEI`, e `PORQUE` diz qual das três.
+    """
+    nada = {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI, "PRECISAO": art.NAO_SEI,
+            "EXPRESSAO": art.NAO_SEI, "INICIO": art.NAO_SEI, "FIM": art.NAO_SEI}
+    dia = _dia_da_publicacao(publicacao)
+    if dia is None:
+        return dict(nada, PORQUE="NAO SEI — sem PUBLICATION_TIME provada nao ha "
+                                 "de onde contar (D63)")
+    t = str(texto or "")
+    tomado = [False] * len(t)
+    contas = {}
+    for padrao, especie, quanto in _RELATIVAS:
+        for m in re.finditer(padrao, t, re.I):
+            if any(tomado[m.start():m.end()]):
+                continue
+            for i in range(m.start(), m.end()):
+                tomado[i] = True
+            n = quanto(m)
+            if not n:
+                continue
+            valor, ini, fim = _conta(dia, especie, n)
+            contas.setdefault(valor, (especie, m.group(0), ini, fim))
+    if not contas:
+        return dict(nada, PORQUE="NAO SEI — o texto nao traz expressao relativa "
+                                 "reconhecida")
+    if len(contas) > 1:
+        return dict(nada, PORQUE="NAO SEI — AMBIGUO: %d contas diferentes no texto "
+                                 "(%s); nao se sabe qual e a do facto"
+                    % (len(contas), "; ".join("«%s» -> %s" % (e[1], v)
+                                             for v, e in sorted(contas.items()))))
+    (valor, (especie, expr, ini, fim)), = contas.items()
+    return {"VALOR": valor, "BASE": BASE_RELATIVA,
+            "PRECISAO": "CALCULADA:%s" % especie, "EXPRESSAO": expr,
+            "INICIO": ini.isoformat(), "FIM": fim.isoformat(),
+            "PORQUE": "%s: «%s» contado a partir da publicacao %s (%s)"
+                      % (BASE_RELATIVA, expr, publicacao["VALOR"],
+                         publicacao["BASE"])}
+
+
+def facto_relativo_para_o_contrato(r: dict) -> dict:
+    """O recibo de `tempo_do_fato_relativo`, nos nomes do contrato comum.
+
+    `FACT_TIME_BASIS` leva a BASE **e** a expressão original como evidência.
+    Sem conta: só o porquê na BASE — `NAO SEI` nunca atravessa como valor, e
+    nada aqui reprova o item (D62).
+    """
+    if r.get("VALOR") in (art.NAO_SEI, "", None):
+        return {"FACT_TIME_BASIS": r.get("PORQUE") or art.NAO_SEI,
+                "FACT_TIME_PRECISION": art.NAO_SEI}
+    return {"FACT_TIME": r["VALOR"],
+            "FACT_TIME_BASIS": "%s «%s»" % (r["BASE"], r["EXPRESSAO"]),
+            "FACT_TIME_PRECISION": r["PRECISAO"]}
+
+
 def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,
                contexto_da_passagem=None) -> dict:
     """Um HTML, um pai canónico, um texto — pelo dono da escrita.

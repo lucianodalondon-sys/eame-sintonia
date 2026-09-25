@@ -318,7 +318,10 @@ class D62PrecisaoSemReprovar(unittest.TestCase):
         lugar = cdf.lugar_para_o_contrato(cdf.lugar_da_fonte("IT-T10-018"))
         self.assertEqual(NAO_SEI, lugar["SOURCE_LOCATION_PRECISION"])
 
-    def test_data_relativa_nao_vira_data(self):
+    def test_data_relativa_nao_vira_data_de_PUBLICACAO(self):
+        # ajuste DECLARADO (D63 substitui o ponto 3 da D62): a data relativa
+        # passou a valer para o FACTO (ver D63ContaAPartirDaPublicacao), mas
+        # continua a NUNCA ser a data de publicacao.
         for rel in ("ieri", "oggi", "la settimana scorsa", "2 giorni fa",
                     "yesterday", "ontem"):
             self.assertIsNone(ex.normalizar_instante(rel)[0], rel)
@@ -336,6 +339,103 @@ class D62PrecisaoSemReprovar(unittest.TestCase):
         r = ex.tempo_de_publicacao(p)
         self.assertEqual(("2026-09-20T09:00:00+00:00", ex.BASE_META),
                          (r["VALOR"], r["BASE"]))
+
+
+REAL_SCORSA_SETTIMANA = ("IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/"
+                         "v1_2e488a8232ba/monitoraggio.html")
+#: domingo 20/09/2026, meta provada
+PUB = {"VALOR": "2026-09-20T09:00:00+02:00", "BASE": ex.BASE_META}
+
+
+class D63ContaAPartirDaPublicacao(unittest.TestCase):
+    """D63: «ieri» / «la settimana scorsa» valem como FACT_TIME, CONTADOS a
+    partir da PUBLICATION_TIME provada, com a expressao como evidencia."""
+
+    def _r(self, texto, pub=PUB):
+        return ex.tempo_do_fato_relativo(texto, pub)
+
+    def test_ieri_e_um_dia_exacto(self):
+        r = self._r("Ieri la grandine ha colpito i vigneti.")
+        self.assertEqual(("2026-09-19", ex.BASE_RELATIVA, "CALCULADA:DIA", "Ieri"),
+                         (r["VALOR"], r["BASE"], r["PRECISAO"], r["EXPRESSAO"]))
+
+    def test_outros_dias(self):
+        self.assertEqual("2026-09-18", self._r("l’altro ieri")["VALOR"])
+        self.assertEqual("2026-09-18", self._r("ieri l'altro")["VALOR"])
+        self.assertEqual("2026-09-17", self._r("tre giorni fa")["VALOR"])
+        self.assertEqual("2026-09-15", self._r("5 giorni fa")["VALOR"])
+
+    def test_settimana_scorsa_e_o_intervalo_inteiro_nunca_um_dia(self):
+        r = self._r("Le piogge della scorsa settimana")
+        self.assertEqual("2026-09-07/2026-09-13", r["VALOR"])
+        self.assertEqual(("2026-09-07", "2026-09-13", "CALCULADA:SEMANA"),
+                         (r["INICIO"], r["FIM"], r["PRECISAO"]))
+        self.assertEqual("2026-08-31/2026-09-06", self._r("due settimane fa")["VALOR"])
+
+    def test_mese_scorso_atravessa_o_ano(self):
+        r = self._r("il mese scorso", {"VALOR": "2026-01-10", "BASE": ex.BASE_META})
+        self.assertEqual(("2025-12-01/2025-12-31", "CALCULADA:MES"),
+                         (r["VALOR"], r["PRECISAO"]))
+
+    def test_sem_publicacao_provada_e_NAO_SEI(self):
+        for pub in ({"VALOR": NAO_SEI, "BASE": NAO_SEI}, {}, None,
+                    {"VALOR": "2026-09-20", "BASE": NAO_SEI}):
+            r = self._r("ieri", pub)
+            self.assertEqual(NAO_SEI, r["VALOR"], pub)
+            self.assertIn("sem PUBLICATION_TIME provada", r["PORQUE"])
+
+    def test_o_caso_real_sem_publicacao_fica_NAO_SEI(self):
+        """IT-T3-005: «Le piogge della scorsa settimana», e a pagina nao diz
+        quando foi publicada. Sem ponto de partida, nao ha conta."""
+        b = _real(REAL_SCORSA_SETTIMANA)
+        texto = ex.extrair(b)[0]
+        self.assertIn("scorsa settimana", texto)
+        pub = ex.tempo_de_publicacao(b)
+        self.assertEqual(NAO_SEI, pub["VALOR"])
+        self.assertEqual(NAO_SEI, ex.tempo_do_fato_relativo(texto, pub)["VALOR"])
+        # com uma publicacao provada (aqui dada), a mesma frase conta-se
+        r = ex.tempo_do_fato_relativo(texto, PUB)
+        self.assertEqual("2026-09-07/2026-09-13", r["VALOR"])
+
+    def test_duas_contas_diferentes_nao_respondem(self):
+        r = self._r("ieri ha piovuto; la settimana scorsa grandine")
+        self.assertEqual(NAO_SEI, r["VALOR"])
+        self.assertIn("AMBIGUO", r["PORQUE"])
+        # a MESMA conta repetida nao e ambiguidade
+        self.assertEqual("2026-09-19", self._r("ieri... e ancora ieri")["VALOR"])
+
+    def test_oggi_e_anno_scorso_ficam_de_fora(self):
+        for t in ("ad oggi il raccolto", "rispetto all'anno scorso", "oggi"):
+            self.assertEqual(NAO_SEI, self._r(t)["VALOR"], t)
+
+    def test_publicacao_fica_a_parte_e_intacta(self):
+        pub = dict(PUB)
+        self._r("ieri", pub)
+        self.assertEqual(PUB, pub)
+        r = self._r("ieri")
+        self.assertNotEqual(PUB["VALOR"][:10], r["VALOR"])
+        self.assertFalse({"PUBLISHED_AT", "published_at"} & set(r))
+
+    def test_para_o_contrato_leva_a_expressao_como_evidencia(self):
+        c = ex.facto_relativo_para_o_contrato(self._r("la settimana scorsa"))
+        self.assertEqual({"FACT_TIME": "2026-09-07/2026-09-13",
+                          "FACT_TIME_BASIS": "RELATIVA_A_PUBLICACAO «la settimana scorsa»",
+                          "FACT_TIME_PRECISION": "CALCULADA:SEMANA"}, c)
+        sem = ex.facto_relativo_para_o_contrato(self._r("nulla"))
+        self.assertNotIn("FACT_TIME", sem)
+        self.assertTrue(sem["FACT_TIME_BASIS"].startswith("NAO SEI — "))
+        self.assertEqual(NAO_SEI, sem["FACT_TIME_PRECISION"])
+
+    def test_a_lei_do_artefato_aceita_a_conta_e_recusa_a_copia(self):
+        pub = ex.publicacao_para_o_contrato(ex.tempo_de_publicacao(_real(REAL_META)))
+        conta = ex.facto_relativo_para_o_contrato(
+            ex.tempo_do_fato_relativo("ieri", ex.tempo_de_publicacao(_real(REAL_META))))
+        a = art.Artefato(ARTIFACT_ID="x", ARTIFACT_TYPE=art.RAW,
+                         STORAGE_LOCATION="x.html", SHA256="0" * 64,
+                         PUBLISHED_AT=pub["PUBLISHED_AT"], FACT_TIME=conta["FACT_TIME"],
+                         NOTES={"FACT_TIME_BASIS": conta["FACT_TIME_BASIS"]})
+        self.assertEqual("2026-07-10", a.FACT_TIME)
+        self.assertEqual([], art.conferir(a))
 
 
 if __name__ == "__main__":
