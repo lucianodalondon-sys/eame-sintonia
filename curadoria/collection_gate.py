@@ -157,11 +157,11 @@ def avaliar(source_id: str, *, livro: dict | None = None,
         linha["MOTIVO"] = NUNCA_PROMOVIDA
         linha["PORQUE"] = "esta READY sem nenhuma linha de promocao no livro"
         return linha
-    if regua != RS.REGUA_CURRENT:
+    if not RS.e_corrente(regua):
         linha["MOTIVO"] = READY_LEGACY
-        linha["PORQUE"] = ("promovida pela regua antiga (%s); a regua de hoje e "
-                           "%s — item aberto, retratado e com corpo util"
-                           % (regua, RS.REGUA_CURRENT))
+        linha["PORQUE"] = ("promovida pela regua antiga (%s); as reguas de hoje sao "
+                           "%s — item aberto, retratado e com corpo util, ou a pagina que e o boletim"
+                           % (regua, " / ".join(sorted(RS.REGUAS_CORRENTES))))
         return linha
     if revisao:
         linha["MOTIVO"] = HUMAN_REVIEW_REQUIRED
@@ -169,8 +169,7 @@ def avaliar(source_id: str, *, livro: dict | None = None,
         return linha
     linha["COLLECTION_ELIGIBLE"] = True
     linha["MOTIVO"] = ELEGIVEL
-    linha["PORQUE"] = ("READY_CURRENT pela regua %s, sem pedido de olho humano"
-                       % RS.REGUA_CURRENT)
+    linha["PORQUE"] = ("READY_CURRENT pela regua %s, sem pedido de olho humano" % regua)
     return linha
 
 
@@ -216,7 +215,7 @@ def painel(*, ctx: dict | None = None) -> dict:
     inv = inventario(ctx=ctx)
     return {
         "READY_TOTAL": len(inv),
-        "READY_CURRENT_TOTAL": sum(1 for l in inv if l["READY_RULE"] == RS.REGUA_CURRENT),
+        "READY_CURRENT_TOTAL": sum(1 for l in inv if RS.e_corrente(l["READY_RULE"])),
         "READY_LEGACY_TOTAL": sum(1 for l in inv if l["READY_RULE"] == RS.REGUA_LEGACY),
         "HUMAN_REVIEW_REQUIRED": sum(1 for l in inv if l["HUMAN_REVIEW_REQUIRED"]),
         "COLLECTION_ELIGIBLE": sum(1 for l in inv if l["COLLECTION_ELIGIBLE"]),

@@ -39,6 +39,7 @@ import { CONTRACTS } from "../regras/italy_contracts.mjs";
 // O motor declarativo de rota. Ele responde «que enderecos buscar?» a partir
 // do bloco `ACQUISITION` do contrato — e NAO le nenhum campo em prosa.
 import { alvosDoContrato, identidadeDoContrato } from "../regras/motor_de_rota.mjs";
+import { textoVisivel } from "./retrato_html.mjs";
 // ── AS DUAS DEFESAS DA INCREMENTALIDADE ────────────────────────────────────
 // ⚠️ ESTAS DUAS LINHAS SAO A MISSAO INTEIRA, E O DEFEITO ERA A FALTA DELAS.
 // Medido em 2026-09-22: `regras/incrementalidade.mjs` tinha md5 IDENTICO no
@@ -687,7 +688,17 @@ function identidade(sourceId, alvo, buf) {
   //     DOCUMENT_ID_RULE_TEXT != IDENTITY_EXECUTABLE_SPEC.
   const _c = CONTRACTS[sourceId];
   if (_c && _c.IDENTITY) {
-    const ident = identidadeDoContrato(sourceId, _c, alvo);
+    // D42 (2): os leitores de texto que o motor pede por nome (FONTES_DE_TEXTO). Antes nenhum era
+    // injectado: um CONTENT_CAPTURE sobre o texto da pagina rebentava com «o coletor nao
+    // injectou esse leitor». Preguicosos: so correm se o contrato os pedir.
+    const leitores = {
+      RAW_UTF8: () => buf.toString("utf8"),
+      RAW_LATIN1: () => buf.toString("latin1"),
+      PAGE_TEXT: () => textoVisivel(buf),
+      // a impressao do conteudo (CONTENT_SHA256) nao se injecta: o motor calcula-a do PAGE_TEXT,
+      // recortado pelo CONTENT_SCOPE do contrato, e devolve-a ao lado da identidade
+    };
+    const ident = identidadeDoContrato(sourceId, _c, alvo, { leitores });
     if (ident) return ident;
   }
   // pdftotext 4.06 NAO aceita stdin. Grava temporario, le, apaga.
@@ -1111,7 +1122,17 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
 
         if (bytesAntes) conteudo = compararConteudo(bytesAntes, r.buf);
 
-        if (conteudo && conteudo.VEREDICTO === "VOLATILE_ONLY" && !conteudo.AVISO) {
+        // D42 (2) · «A PAGINA E O BOLETIM»: quando o contrato recorta o boletim (CONTENT_SCOPE), a
+        // pergunta «mudou?» responde-se pela impressao DESSE conteudo — a mesma impressao e a mesma
+        // edicao, por muito que o menu da pagina tenha mudado. Sem CONTENT_SCOPE, nada muda aqui.
+        const mesmaImpressao = ident.CONTENT_SHA256 && anteriorDoDoc?.CONTENT_SHA256 === ident.CONTENT_SHA256;
+        if (mesmaImpressao) {
+          OBSERVATION_RESULT = "SEEN_AGAIN";
+          DOCUMENT_VERSION_ID = anteriorDoDoc.DOCUMENT_VERSION_ID;
+          cont.SEEN_AGAIN++;
+          RECEIVED_RAW_SHA256 = RAW_SHA256;
+          RAW_SHA256 = anteriorDoDoc.RAW_SHA256;
+        } else if (conteudo && conteudo.VEREDICTO === "VOLATILE_ONLY" && !conteudo.AVISO) {
           // O documento e o mesmo. Fica a VERSAO que ja estava guardada, e
           // nao nasce um `v4` para arrumar ruido.
           OBSERVATION_RESULT = "SEEN_AGAIN";
@@ -1228,6 +1249,8 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         CONTENT_TYPE: r.contentType ?? null,
         SOURCE_DATE: ident.SOURCE_DATE, SOURCE_DATE_ISO: ident.SOURCE_DATE_ISO,
         FACT_TIME: ident.FACT_TIME ?? "UNKNOWN",
+        // D42 (2): a impressao do conteudo recortado (so com CONTENT_SCOPE) — a chave de dedupe
+        ...(ident.CONTENT_SHA256 ? { CONTENT_SHA256: ident.CONTENT_SHA256 } : {}),
         CAPTURED_AT, COLLECTION_RUN_STARTED_AT: STARTED_AT,
         OBSERVATION_RESULT,
         HEALTH_STATE: parseErro && saudeFonte === "FAILED" ? "FAILED" : parseErro ? "DEGRADED" : "HEALTHY",

@@ -1,0 +1,107 @@
+{
+ "CANARIO": "JANELA-FORMAS A — receita PDF",
+ "REDE_AUTORIZADA_POR": "JANELA-FORMAS A (missao-janela-formas.txt, D42)",
+ "EM": "2026-09-25T08:00:15.934580+00:00",
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T3-014",
+   "PORTA": "ACEITOU",
+   "OUTPUT_TYPE": "PDF",
+   "PROVENIENCIA": {
+    "OUTPUT_TYPE": "PDF",
+    "OUTPUT_TYPE_ANTERIOR": "HTML",
+    "LISTAGEM": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/"
+   },
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 10,
+    "ALVO": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+    "ITEM_ABERTO": {
+     "URL": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+     "HTTP": 200,
+     "BYTES": 410589,
+     "DOC_KIND": "PDF",
+     "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+     "TEXT_CHARACTERS": 10305,
+     "TEXT_SHA256": "3c14365050310883889304c10a49b1740ccaed791abc4b607d39b9962aca97c2"
+    }
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-027",
+   "PORTA": "ACEITOU",
+   "OUTPUT_TYPE": "PDF",
+   "PROVENIENCIA": {
+    "OUTPUT_TYPE": "PDF",
+    "OUTPUT_TYPE_ANTERIOR": "HTML",
+    "LISTAGEM": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html"
+   },
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 22,
+    "ALVO": "http://www.ersa.fvg.it/cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
+    "ITEM_ABERTO": {
+     "URL": "http://www.ersa.fvg.it/cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
+     "HTTP": 200,
+     "BYTES": 3416593,
+     "DOC_KIND": "PDF",
+     "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+     "TEXT_CHARACTERS": 8064,
+     "TEXT_SHA256": "a328d2a41b05822b0c62194e368c6b8957153cc85d766827837ec7fe2854a4ca"
+    }
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   }
+  }
+ ],
+ "PEDIDOS_A_REDE": [
+  {
+   "URL": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+   "HTTP": 200,
+   "BYTES": 410589,
+   "SHA256": "d390d8733b9e6be5e4861a6b16b0b1f23a509394924931f9acccfea9ef7fd637",
+   "ROBOTS_TXT": false,
+   "LIDO_EM": "2026-09-25T08:00:18.799779+00:00"
+  },
+  {
+   "URL": "http://www.ersa.fvg.it/cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
+   "HTTP": 200,
+   "BYTES": 3416593,
+   "SHA256": "61ab19c36b22cda3f0409756489dd6d96ca0b67890af9753968cd9fd05a8ef6b",
+   "ROBOTS_TXT": false,
+   "LIDO_EM": "2026-09-25T08:00:22.059002+00:00"
+  }
+ ],
+ "PEDIDOS_POR_DOMINIO": {
+  "protezionedellepiante.it": 1,
+  "ersa.fvg.it": 1
+ },
+ "ROBOTS": {
+  "www.protezionedellepiante.it": "COPIA C:\\cur\\rfc\\rede\\robots\\www.protezionedellepiante.it.txt",
+  "www.ersa.fvg.it": "COPIA C:\\cur\\rfc\\rede\\robots\\www.ersa.fvg.it.txt"
+ }
+}

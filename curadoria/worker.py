@@ -130,7 +130,9 @@ def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
     proposito: nao se bate a uma porta que ja se sabe estar proibida.
     """
     aq = contrato.get("ACQUISITION", {})
-    url = CANARIO.url_da_rota(aq)   # LEGACY-99 B: o canal YouTube pela rota do coletor
+    # o endereco que o robots tem de deixar: um dono so (canario.url_da_rota), que ja sabe o
+    # canal YouTube (LEGACY-99 B) e a rota fixa STATIC_ENDPOINT com URL (D42 (2), JANELA-FORMAS)
+    url = CANARIO.url_da_rota(aq)
     if not url:
         return "FAIL", {"PORQUE": "contrato sem endereco de aquisicao"}
     host = url.split("/")[2]
@@ -171,6 +173,9 @@ def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
     try:
         if estrategia == "YOUTUBE_CHANNEL_FEED":
             r = CANARIO.canario_youtube(contrato)
+        elif contrato.get("FORMA") == CANARIO.FORMA_PAGINA_E_BOLETIM:
+            # D42 (2): a pagina e o boletim — a forma e explicita no contrato, nunca adivinhada
+            r = CANARIO.canario_pagina_boletim(contrato)
         elif contrato.get("ACQUISITION", {}).get("ADAPTER_ID") == CANARIO.YOUTUBE_CANAL:
             r = CANARIO.canario_youtube_canal(contrato)
         else:
@@ -674,7 +679,7 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
             regua = RS.passos_da_promocao(
                 {"OBSERVED_AT": LC.agora(), "EVIDENCE_REF": ref},
                 {"DADOS": detalhe}, contrato)
-            if regua["REGUA"] != RS.REGUA_CURRENT:
+            if not RS.e_corrente(regua["REGUA"]):   # D42 (2): DETAIL/v1 ou PAGINA_BOLETIM/v1
                 if LC.estado_de(sid) != LC.CONTRACTED_CANARY_FAILED:
                     LC.registar(sid, LC.CONTRACTED_CANARY_FAILED,
                                 ("canario resolveu, mas a regua dos quatro passos nao "

@@ -35,6 +35,8 @@
 //     3 ESTRATÉGIAS COBREM OS 7 CASOS MEDIDOS.
 //     UM QUARTO NOME SERIA ARQUITETURA PARA UM CASO QUE NÃO EXISTE.
 
+import { createHash } from "node:crypto";
+
 export const ESTRATEGIAS = Object.freeze([
   // O endereço está escrito no contrato e não muda. Dois casos medidos:
   // `IT-T3-005` e `IT-T2-004`.
@@ -78,6 +80,13 @@ export const FONTES_DE_TEXTO = Object.freeze([
   "RAW_LATIN1",   // os bytes crus lidos como latin1 (metadados de PDF, HTML antigo)
   "RAW_UTF8",     // os bytes crus lidos como utf8 (HTML moderno)
   "PDF_TEXT",     // o texto extraído do PDF (pdftotext, injectado pelo coletor)
+  // D42 (2) · «A PÁGINA É O BOLETIM»: a URL fixa não identifica a edição. A edição é o CONTEÚDO
+  // (+ a data comprovada). Os dois leitores são os do retrato (coleta/retrato_html.mjs), que o
+  // coletor injecta — o motor continua a não abrir nada.
+  "PAGE_TEXT",      // o texto visível normalizado da página (retrato_html.textoVisivel, injectado)
+  // ⚠️ A impressão do conteúdo NÃO é fonte de captura: hash é BYTE_ID, não identidade (a lei de
+  // `motor_de_rota_test.mjs`). Ela sai AO LADO da identidade (CONTENT_SHA256, com CONTENT_SCOPE)
+  // e serve para DEDUPLICAR versões do mesmo documento — nunca para o nomear.
 ]);
 
 export class ContratoInvalido extends Error {}
@@ -129,8 +138,17 @@ export function conferirIdentidade(sourceId, spec) {
         throw new ContratoInvalido(`${sourceId}: CAPTURES.${nome} é opcional (REQUIRED=false) e por isso exige DEFAULTS`);
       }
     }
+    if (spec.CONTENT_SCOPE != null) {
+      const s = spec.CONTENT_SCOPE;
+      if (typeof s !== "object" || !ehTexto(s.START)) throw new ContratoInvalido(`${sourceId}: CONTENT_SCOPE precisa de START`);
+      for (const k of ["START", "END"]) {
+        if (s[k] == null) continue;
+        try { new RegExp(s[k], s.FLAGS || ""); }
+        catch (err) { throw new ContratoInvalido(`${sourceId}: CONTENT_SCOPE.${k} não compila: ${err.message}`); }
+      }
+    }
     // Todo `{nome.N}` dos moldes tem de apontar para uma captura declarada.
-    for (const campo of ["DOCUMENT_ID", "SOURCE_DATE", "SOURCE_DATE_ISO"]) {
+    for (const campo of ["DOCUMENT_ID", "SOURCE_DATE", "SOURCE_DATE_ISO", "FACT_TIME"]) {
       for (const m of String(spec[campo] || "").matchAll(/\{([A-Za-z_][A-Za-z0-9_]*)\.(\d+)\}/g)) {
         if (!caps[m[1]]) throw new ContratoInvalido(`${sourceId}: ${campo} usa {${m[1]}.${m[2]}}, e não há CAPTURES.${m[1]}`);
       }
@@ -473,6 +491,24 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
 // gente, e NÃO é lido aqui.
 //
 //     DOCUMENT_ID_RULE_TEXT != IDENTITY_EXECUTABLE_SPEC.
+// A parte do texto entre START (inclusive) e END (exclusive), ou o texto todo sem CONTENT_SCOPE.
+// null quando o contrato declara um recorte que o texto nao tem.
+export function recortar(texto, scope) {
+  const t = String(texto || "");
+  if (!scope) return t;
+  const i = t.search(new RegExp(scope.START, scope.FLAGS || ""));
+  if (i < 0) return null;
+  const resto = t.slice(i);
+  if (!scope.END) return resto;
+  const j = resto.slice(1).search(new RegExp(scope.END, scope.FLAGS || ""));
+  return j < 0 ? resto : resto.slice(0, j + 1);
+}
+
+// A mesma normalizacao do TEXT_SHA256 do retrato (coleta/retrato_html.mjs): espacos colapsados.
+export function impressao(texto) {
+  return createHash("sha256").update(String(texto).replace(/\s+/g, " ").trim(), "utf8").digest("hex");
+}
+
 export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} } = {}) {
   const spec = contrato && contrato.IDENTITY;
   if (!spec) return null;
@@ -518,6 +554,7 @@ export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} }
     return textos[de];
   };
   const grupos = {};
+  const ausentes = new Set();
   for (const [nome, c] of Object.entries(spec.CAPTURES)) {
     const m = textoDe(c.FROM).match(new RegExp(c.PATTERN, c.FLAGS || ""));
     if (m) {
@@ -526,17 +563,43 @@ export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} }
       grupos[nome] = m.map((g) => (g == null ? "" : String(g).trim()));
     } else if (c.REQUIRED === false) {
       grupos[nome] = ["", ...c.DEFAULTS.map(String)];
+      ausentes.add(nome);
     } else {
       return vazio;
     }
   }
   const põe = (molde) => String(molde).replace(/\{([A-Za-z_][A-Za-z0-9_]*)\.(\d+)\}/g,
     (_, n, i) => grupos[n]?.[Number(i)] ?? "");
+  // ⚠️ D42 (2): UM TEMPO QUE A FONTE NÃO DISSE É `UNKNOWN`, INTEIRO.
+  // Os DEFAULTS de uma captura opcional servem para a IDENTIDADE não ficar com buraco
+  // (ex.: «IT-T2-152:UNKNOWN:ab12…»). Num campo de TEMPO (SOURCE_DATE, SOURCE_DATE_ISO,
+  // FACT_TIME) um valor por omissão seria uma data inventada — e a data de coleta nunca entra
+  // no lugar dela. Se o molde de tempo usa uma captura ausente, o campo inteiro é UNKNOWN.
+  const tempo = (molde) => {
+    if (!molde) return null;
+    for (const m of String(molde).matchAll(/\{([A-Za-z_][A-Za-z0-9_]*)\.\d+\}/g)) {
+      if (ausentes.has(m[1])) return "UNKNOWN";
+    }
+    return põe(molde);
+  };
+  // ⚠️ A IMPRESSÃO MIRA O BOLETIM, NÃO A PÁGINA (COL-LAW-029). O texto visível inteiro leva menus,
+  // contadores e a hora da nossa visita. O contrato diz onde o boletim começa e acaba
+  // (CONTENT_SCOPE); sem o recorte, a identidade falha fechada (IDENTITY_FAILED) em vez de guardar
+  // lixo com cara de boletim. A impressão vai AO LADO da identidade, para deduplicar.
+  let CONTENT_SHA256;
+  if (spec.CONTENT_SCOPE) {
+    const parte = recortar(textoDe("PAGE_TEXT"), spec.CONTENT_SCOPE);
+    if (parte == null || !parte.trim()) return vazio;
+    CONTENT_SHA256 = impressao(parte);
+  }
   return {
     DOCUMENT_ID: põe(spec.DOCUMENT_ID),
-    SOURCE_DATE: spec.SOURCE_DATE ? põe(spec.SOURCE_DATE) : null,
-    SOURCE_DATE_ISO: spec.SOURCE_DATE_ISO ? põe(spec.SOURCE_DATE_ISO) : null,
-    FACT_TIME,
+    ...(CONTENT_SHA256 ? { CONTENT_SHA256 } : {}),
+    SOURCE_DATE: tempo(spec.SOURCE_DATE),
+    SOURCE_DATE_ISO: tempo(spec.SOURCE_DATE_ISO),
+    // FACT_TIME pode ser um molde com capturas (ex.: o periodo que o boletim cobre); sem
+    // capturas, e o literal do contrato ou UNKNOWN, como antes.
+    FACT_TIME: /\{[A-Za-z_][A-Za-z0-9_]*\.\d+\}/.test(FACT_TIME) ? tempo(FACT_TIME) : FACT_TIME,
   };
 }
 

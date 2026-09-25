@@ -64,7 +64,7 @@ def main() -> int:
            "entrega=%d inventario=%d" % (len(entregues), len(inv)))
 
     # 2b. NENHUMA fonte da regua antiga atravessou o portao.
-    vazou = [r["SOURCE_ID"] for r in ready_if if r["READY_RULE"] != RS.REGUA_CURRENT]
+    vazou = [r["SOURCE_ID"] for r in ready_if if not RS.e_corrente(r["READY_RULE"])]
     ataque("READY_LEGACY nao entra na Collection", not vazou,
            "vazaram: %s" % vazou if vazou else "0 de %d legacy no livro"
            % sum(1 for r in inv if r["READY_RULE"] == RS.REGUA_LEGACY))
