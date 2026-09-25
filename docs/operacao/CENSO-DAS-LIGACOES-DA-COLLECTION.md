@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e5076493a81624875bd1584492077f2b1a0f6669
+HEAD_DA_MEDICAO  01f771fd5338e9db4ead2d24f231a1c5077dddbe
 BRANCH           janelas-68-v2
-GERADO_EM        2026-09-25T10:34:49-03:00
+GERADO_EM        2026-09-25T10:46:40-03:00
 CARDS            100
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -800,13 +800,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `curadoria/BRIDGE-LEDGER-V1.json`, `curadoria/DISCOVERY-VISITED.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `curadoria/RED-TEAM-TELEMETRIA-V1.json`, `curadoria/italy_contracts_curator.json` |
-| **arestas no mapa** | entram 9 · saem 11 |
-| **arestas provadas** | entram 9 · saem 11 |
+| **arestas no mapa** | entram 9 · saem 12 |
+| **arestas provadas** | entram 9 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 20 |
+| **prova das ligações** | CODE 21 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1745,7 +1745,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `curadoria/entrada_janela.py`, `curadoria/janelas68v2_remedir.py`, `curadoria/test_entrada_janela.py`, `curadoria/test_reparo_data_publicacao.py`, `provas/janelas68v2/ARSAC-PROPOSTA-V1.json` _(e mais 22)_ |
+| **peça real** | `curadoria/entrada_janela.py`, `curadoria/janelas68v2_remedir.py`, `curadoria/test_entrada_janela.py`, `curadoria/test_reparo_data_publicacao.py`, `tests/fixtures/janelas68_itens/.gitattributes` _(e mais 12)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
@@ -1753,18 +1753,18 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/italy_contracts_curator.json`, `provas/janelas68v2/ARSAC-PROPOSTA-V1.json` |
-| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/italy_contracts_curator.json`, `provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json` |
+| **o que sai · dado** | C-JANELAS-68-V2-PROVAS |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 5 · saem 0 |
-| **arestas provadas** | entram 5 · saem 0 |
+| **arestas no mapa** | entram 5 · saem 1 |
+| **arestas provadas** | entram 5 · saem 1 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
-| **data plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 5 |
+| **prova das ligações** | CODE 6 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
-| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-LASTMILE-MEDIDORES` · Os medidores da ultima milha
 
@@ -2557,9 +2557,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 40
-UNKNOWN            30
+UNKNOWN            31
 SYSTEM_GAP         11
-TERMINAL           11
+TERMINAL           10
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
 TOTAL              100
