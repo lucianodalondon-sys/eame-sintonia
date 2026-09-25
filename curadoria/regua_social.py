@@ -97,13 +97,81 @@ def _resultado(env: dict) -> str | None:
     return None
 
 
+# --- D36 · A FASE EQUIVALENTE, E AS QUATRO PROVAS QUE A AUTORIZAM ----------------
+# O contrato pede uma fase e a corrida declara outra. Isso NAO passa a ser aceite em
+# geral: aceita-se UMA equivalencia, enumerada aqui — e so quando o ITEM provar as
+# quatro coisas da ligacao canal->video->audio. Falta uma, reprova com o nome dela.
+# (b) foi recusada pelo dono: uma lista de contas nao e uma observacao delas.
+FASES_EQUIVALENTES = {
+    ("canal-youtube", "audio-youtube"): (
+        "CANAL_DE_ORIGEM",           # 1. de que canal veio
+        "DATA_DE_PUBLICACAO",        # 2. quando foi publicado
+        "AUTORIZACAO_DO_DONO",       # 3. OWNER_AUTHORIZED (D17.4/D22-D24)
+        "LIGACAO_CANAL_VIDEO_AUDIO",  # 4. canal -> video -> audio, no MESMO item
+    ),
+}
+
+
+def provas_da_equivalencia(env: dict, fase: str, contrato: dict | None) -> list[str]:
+    """As provas que FALTAM para este envelope poder satisfazer a fase do contrato.
+
+    Lista vazia = a equivalencia esta provada. Nao olha para nomes nem para a fase
+    que a corrida se da a si propria: olha para o item e para o contrato.
+    """
+    exigidas = FASES_EQUIVALENTES.get((fase, env.get("FASE")))
+    if exigidas is None:
+        return ["A_EQUIVALENCIA_NAO_ESTA_DECLARADA"]
+    itens = env.get("COLHEITA") if isinstance(env.get("COLHEITA"), list) else []
+    if not itens:
+        return ["COLHEITA_VAZIA"]
+    canal_do_contrato = ((contrato or {}).get("ACQUISITION") or {}).get("CHANNEL_ID")
+    falta = []
+    for i, it in enumerate(itens):
+        ob = it.get("OBSERVACAO") or {}
+        if "CANAL_DE_ORIGEM" in exigidas and not (ob.get("CHANNEL_ID") or ob.get("CHANNEL_URL")):
+            falta.append("item %d: CANAL_DE_ORIGEM (sem CHANNEL_ID/CHANNEL_URL)" % i)
+        if "DATA_DE_PUBLICACAO" in exigidas:
+            pub = ob.get("PUBLISHED_AT")
+            if not pub or pub == "NAO SEI":
+                falta.append("item %d: DATA_DE_PUBLICACAO (sem PUBLISHED_AT)" % i)
+            elif not ob.get("PUBLISHED_AT_PRECISION"):
+                falta.append("item %d: DATA_DE_PUBLICACAO (data sem precisao declarada)" % i)
+        if "AUTORIZACAO_DO_DONO" in exigidas and ob.get("OWNER_AUTHORIZED") != "SIM":
+            falta.append("item %d: AUTORIZACAO_DO_DONO (OWNER_AUTHORIZED != SIM)" % i)
+        if "LIGACAO_CANAL_VIDEO_AUDIO" in exigidas:
+            if not canal_do_contrato:
+                falta.append("item %d: LIGACAO_CANAL_VIDEO_AUDIO (o contrato nao declara CHANNEL_ID)" % i)
+            elif ob.get("CHANNEL_ID") != canal_do_contrato:
+                falta.append("item %d: LIGACAO_CANAL_VIDEO_AUDIO (canal %r != %r do contrato)"
+                             % (i, ob.get("CHANNEL_ID"), canal_do_contrato))
+            video = ob.get("NATIVE_ID")
+            if not video:
+                falta.append("item %d: LIGACAO_CANAL_VIDEO_AUDIO (sem o video, NATIVE_ID)" % i)
+            if not (ob.get("AUDIO_SHA256") and (ob.get("AUDIO_BYTES") or 0) > 0):
+                falta.append("item %d: LIGACAO_CANAL_VIDEO_AUDIO (sem o audio adquirido)" % i)
+            elif video and video not in str(ob.get("AUDIO_REFERENCE") or ""):
+                falta.append("item %d: LIGACAO_CANAL_VIDEO_AUDIO (o audio guardado nao nomeia o video)"
+                             % i)
+    return falta
+
+
 def julgar(env: dict, sid: str, fase: str, raw_no_banco: int | None,
-           slug: str | None = None, nome_da_fonte: str | None = None) -> tuple[str, str]:
-    """→ (READY | ZERO | FALHA, porquê). Puro: sem disco, sem rede."""
+           slug: str | None = None, nome_da_fonte: str | None = None,
+           contrato: dict | None = None) -> tuple[str, str]:
+    """→ (READY | ZERO | FALHA, porquê). Puro: sem disco, sem rede.
+
+    D36: a fase declarada pela corrida pode satisfazer a fase do contrato — mas so
+    por equivalencia declarada (`FASES_EQUIVALENTES`) e com as quatro provas no item.
+    Fora disso, ou falta uma prova, reprova como sempre reprovou.
+    """
     if env.get("SOURCE_ID_DO_PEDIDO") != sid:
         return FALHA, "o envelope e de %r, nao de %s" % (env.get("SOURCE_ID_DO_PEDIDO"), sid)
     if env.get("FASE") != fase:
-        return FALHA, "o envelope e da fase %r, e o contrato pede %s" % (env.get("FASE"), fase)
+        falta = provas_da_equivalencia(env, fase, contrato)
+        if falta:
+            return FALHA, ("o envelope e da fase %r, e o contrato pede %s; a equivalencia "
+                           "nao se prova: %s" % (env.get("FASE"), fase, "; ".join(falta[:4])))
+
     res = _resultado(env)
     col = env.get("COLHEITA")
     itens = col if isinstance(col, list) else []
@@ -162,8 +230,9 @@ def main() -> int:
         med = x.get("MEDIDA") if isinstance(x.get("MEDIDA"), dict) else {}
         c = contratos.get(x["SOURCE_ID"]) or {}
         slug = (c.get("ACQUISITION") or {}).get("LINKEDIN_SLUG")
-        v, porque = julgar(env, x["SOURCE_ID"], fase_do_contrato(c), len(med.get("RAW") or []) if med else None,
-                           slug=slug, nome_da_fonte=c.get("NAME"))
+        v, porque = julgar(env, x["SOURCE_ID"], fase_do_contrato(c),
+                           len(med.get("RAW") or []) if med else None,
+                           slug=slug, nome_da_fonte=c.get("NAME"), contrato=c)
         linhas.append({"SOURCE_ID": x["SOURCE_ID"], "FASE": fase_do_contrato(c),
                        "FASE_DA_CORRIDA": x.get("FASE"), "RUN_ID": x.get("RUN_ID"),
                        "VEREDITO": v, "PORQUE": porque})
