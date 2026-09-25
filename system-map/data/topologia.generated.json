@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T07:57:29+00:00",
-  "HEAD": "1ac19a72f9005a9a276dccc22faedffee4e821c2",
-  "BRANCH": "capa-materia-v1",
+  "GENERATED_AT": "2026-09-25T08:22:17+00:00",
+  "HEAD": "ea5e8ee383cd1f55130df5d7a147215ced006ecf",
+  "BRANCH": "contratos-ajuste-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ee053389249f8005ba11a1f192c56f9005802a35f7a969b68adb87322763eb2b",
-  "FICHEIROS_NA_IMPRESSAO": 3053,
+  "SOURCE_TREE_FINGERPRINT": "cca84ff5e50d325df6a493b554cfd017bbe4e47028a9515f26d8396d3be5330b",
+  "FICHEIROS_NA_IMPRESSAO": 3061,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3464,7 +3464,7 @@
    {
     "PATH": "regras/motor_de_rota_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "97ebb914f12e71dd778ec954292206feb0ef18e0",
+    "VERSAO": "981747710b9ae3e85d3ab91a238e0cd661c63c71",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3525,9 +3525,16 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/capa_materia/confirmar_istat.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "123f5adac2cfc98b6919d0340420e4090a41e61a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/capa_materia/medir_d40.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "ffb90bd3626f6a111ff92835261f24d269eeb44a",
+    "VERSAO": "324572eae485770f16d2dd540ef2436ca8b5e213",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3542,6 +3549,13 @@
     "PATH": "scripts/capa_materia/medir_filtro_lista.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "f44c0301a53b470cecac4f9db51a229a2e502a25",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/capa_materia/mutar_contratos.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "089e24fefee5b01ede2d59c8328bdb1f62498bc4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3905,14 +3919,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ee053389249f8005ba11a1f192c56f9005802a35f7a969b68adb87322763eb2b",
+    "VERSAO": "cca84ff5e50d325df6a493b554cfd017bbe4e47028a9515f26d8396d3be5330b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ee053389249f8005ba11a1f192c56f9005802a35f7a969b68adb87322763eb2b",
+    "VERSAO": "cca84ff5e50d325df6a493b554cfd017bbe4e47028a9515f26d8396d3be5330b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5807,8 +5821,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 824,
-  "INPUTS_DIGEST": "3f77eebd41dcca8180eedd455b541ee9c45806f0494a501479498a6e965ac06b",
+  "INPUTS_COUNT": 826,
+  "INPUTS_DIGEST": "988e390baf32a7cf7c5f183591b97c06cbd914b6b59148a33aa255f859862ac0",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5834,15 +5848,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 506,
+  "DOCUMENTOS_LIDOS": 508,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "479395e622c47934e9e5d7dd6ad8c09c8eeeff5f08fad2b74b7d203dad774e0b",
-  "SEMANTIC_HASH": "9efcc96047838250322ea753230aa89281257a8e2211322669cca7dba74a847f"
+  "MEASUREMENT_HASH": "0a908c140c8f51bc656d377c0d3cfb96d1c5af892f1b4b791a2e451647d5dc85",
+  "SEMANTIC_HASH": "b24a5156df8907d143196f2086e2efbf7d579c9e0fb1060ba4951168ba3094b0"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -9227,6 +9241,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CAPA-MATERIA",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/confirmar_istat.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -11380,6 +11402,140 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-COORTE-BIG-COLLECTION",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-COORTE-BIG-COLLECTION",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/big_collection/coorte_unica.py",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-COORTE-BIG-COLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-COORTE-MICRO-FUNIL",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-COORTE-MICRO-FUNIL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/coorte_micro/funil.py",
+      "LINHA": 70,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-IT-CONTRATOS",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/italy_contracts.mjs",
+      "LINHA": 579,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
+      "LINHA": 54,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
+      "LINHA": 117,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-TESTES",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_integracao_04a_curator.py",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_micro_rede_real.py",
+      "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_retirada_por_decisao.py",
+      "LINHA": 92,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -23605,7 +23761,7 @@
      },
      {
       "FICHEIRO": "regras/motor_de_rota_test.mjs",
-      "LINHA": 232,
+      "LINHA": 233,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
@@ -24059,7 +24215,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
-      "LINHA": 10,
+      "LINHA": 13,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
@@ -24067,7 +24223,7 @@
      },
      {
       "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
-      "LINHA": 11,
+      "LINHA": 14,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
@@ -24321,7 +24477,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
-      "LINHA": 10,
+      "LINHA": 13,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -24329,7 +24485,7 @@
      },
      {
       "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
-      "LINHA": 11,
+      "LINHA": 14,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -24358,6 +24514,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
       "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_contratos.py",
+      "LINHA": 39,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
      },
      {
       "FICHEIRO": "scripts/capa_materia/mutar_d40.py",
@@ -24801,7 +24965,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
-      "LINHA": 12,
+      "LINHA": 15,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
@@ -24835,6 +24999,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-CONTRATOS",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/motor_de_rota_test.mjs",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-CONTRATOS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -24935,7 +25121,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
-      "LINHA": 12,
+      "LINHA": 15,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -24966,6 +25152,28 @@
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
       "LINHA": 57,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-IT-CONTRATOS",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/motor_de_rota_test.mjs",
+      "LINHA": 22,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -27788,72 +27996,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-COORTE-BIG-COLLECTION",
-    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
-    "TO": "C-COORTE-BIG-COLLECTION",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "RULE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/big_collection/coorte_unica.py",
-      "LINHA": 37,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-COORTE-BIG-COLLECTION",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-COORTE-MICRO-FUNIL",
-    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
-    "TO": "C-COORTE-MICRO-FUNIL",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "RULE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "scripts/coorte_micro/funil.py",
-      "LINHA": 70,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-COORTE-MICRO-FUNIL",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-IT-CONTRATOS",
-    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
-    "TO": "C-IT-CONTRATOS",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "RULE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "regras/italy_contracts.mjs",
-      "LINHA": 579,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-IT-CONTRATOS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
     "FROM": "C-MICRO-COLETA-INSTRUMENTO",
     "TO": "C-TESTES",
@@ -27890,14 +28032,6 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
-      "FICHEIRO": "tests/test_integracao_04a_curator.py",
-      "LINHA": 34,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
       "LINHA": 19,
       "SUPPORTS": "YES",
@@ -27914,27 +28048,33 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
-      "FICHEIRO": "tests/test_micro_rede_real.py",
-      "LINHA": 42,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_retirada_por_decisao.py",
-      "LINHA": 92,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
       "FICHEIRO": "tests/test_sala_idempotente_por_documento.py",
       "LINHA": 35,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--WRITES-->C-CAPA-MATERIA",
+    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+    "TO": "C-CAPA-MATERIA",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_rede_real.py",
+      "LINHA": 128,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--WRITES-->C-CAPA-MATERIA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -41986,6 +42126,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--WRITES-->C-CAPA-MATERIA",
+    "FROM": "C-TESTES",
+    "TO": "C-CAPA-MATERIA",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_micro_rede_real.py",
+      "LINHA": 43,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_retirada_por_decisao.py",
+      "LINHA": 97,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
     "FROM": "C-TESTES",
     "TO": "C-CENSO-UNIFICACAO",
@@ -42131,36 +42301,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-TESTES--WRITES-->C-MICRO-COLETA-INSTRUMENTO",
-    "FROM": "C-TESTES",
-    "TO": "C-MICRO-COLETA-INSTRUMENTO",
-    "RELATION_TYPE": "WRITES",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "tests/test_micro_rede_real.py",
-      "LINHA": 43,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-MICRO-COLETA-INSTRUMENTO",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_retirada_por_decisao.py",
-      "LINHA": 97,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -43804,12 +43944,12 @@
     ]
    }
   ],
-  "COUNT": 1226
+  "COUNT": 1231
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 185,
   "CARTOES_AUDITADOS": 185,
-  "ARESTAS_RELACIONADAS": 1226,
+  "ARESTAS_RELACIONADAS": 1231,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -44236,10 +44376,10 @@
    "CODE": 219,
    "CONTROL": 72,
    "DATA": 30,
-   "PROOF": 386,
+   "PROOF": 387,
    "READ": 288,
-   "RULE": 219,
-   "WRITE": 12
+   "RULE": 222,
+   "WRITE": 13
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -45126,20 +45266,28 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "PERGUNTA-BOT-LUCIANO-HORIZONTE-DE-REVISITA.md",
     "RELATORIO-ALVOS-NOVOS.md",
     "RELATORIO-CAPA-MATERIA.md",
+    "RELATORIO-CONTRATOS-AJUSTE.md",
+    "scripts/capa_materia/CONFIRMACAO-ISTAT-V1.json",
     "scripts/capa_materia/INDICES-D40-V1.json",
+    "scripts/capa_materia/MEDICAO-CONTRATOS-AJUSTE-27-09-V1.json",
+    "scripts/capa_materia/MEDICAO-CONTRATOS-AJUSTE-HOJE-V1.json",
     "scripts/capa_materia/MEDICAO-D40-V1.json",
     "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
     "scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json",
+    "scripts/capa_materia/MUTACAO-CONTRATOS-AJUSTE-V1.json",
     "scripts/capa_materia/MUTACAO-D40-V1.json",
     "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
     "scripts/capa_materia/MUTACAO-FILTRO-LISTA-V1.json",
     "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
     "scripts/capa_materia/buscar_indices_d40.py",
+    "scripts/capa_materia/confirmar_istat.py",
     "scripts/capa_materia/medir_d40.mjs",
     "scripts/capa_materia/medir_filtro_institucional.py",
     "scripts/capa_materia/medir_filtro_lista.mjs",
+    "scripts/capa_materia/mutar_contratos.py",
     "scripts/capa_materia/mutar_d40.py",
     "scripts/capa_materia/mutar_filtro.py",
     "scripts/capa_materia/mutar_lista.py"
@@ -45155,14 +45303,18 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 6,
-   "SAEM": 1,
+   "ENTRAM": 8,
+   "SAEM": 6,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
+    "PROOF",
     "READ",
-    "RULE"
+    "RULE",
+    "WRITE"
    ],
    "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
+    "RULE",
     "WRITE"
    ],
    "PORQUE_SOZINHO": null,
@@ -48035,7 +48187,7 @@
     "leis",
     "pathlib"
    ],
-   "ENTRAM": 10,
+   "ENTRAM": 12,
    "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -48080,7 +48232,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 4,
-   "SAEM": 12,
+   "SAEM": 14,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
@@ -48782,16 +48934,15 @@
     "urllib"
    ],
    "ENTRAM": 13,
-   "SAEM": 4,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
-    "PROOF",
     "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
-    "RULE"
+    "WRITE"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -53312,7 +53463,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 204,
+   "ENTRAM": 205,
    "SAEM": 28,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

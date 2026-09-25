@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "capa-materia-v1",
-    "HEAD": "1ac19a72f9005a9a276dccc22faedffee4e821c2",
-    "GENERATED_AT": "2026-09-25T04:51:11-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ee053389249f8005ba11a1f192c56f9005802a35f7a969b68adb87322763eb2b"
+    "BRANCH": "contratos-ajuste-v1",
+    "HEAD": "ea5e8ee383cd1f55130df5d7a147215ced006ecf",
+    "GENERATED_AT": "2026-09-25T05:13:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cca84ff5e50d325df6a493b554cfd017bbe4e47028a9515f26d8396d3be5330b"
   },
   "FILES": [
     {
@@ -282,6 +282,13 @@
       "code_dir": false
     },
     {
+      "path": "PERGUNTA-BOT-LUCIANO-HORIZONTE-DE-REVISITA.md",
+      "sha": "5a2159ef9a4b807090f756a34d95a85c18991625",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "PLANO-INSTALACAO-BC4B.md",
       "sha": "305f81c7e7481781e09829e0275431d99ec27d8c",
       "ext": ".md",
@@ -382,6 +389,13 @@
     {
       "path": "RELATORIO-CAPA-MATERIA.md",
       "sha": "9a05e662674e6fb98e8a0f2dc492bcf398a66c72",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-CONTRATOS-AJUSTE.md",
+      "sha": "504f0b3470fa5dd119a303ac248ee18c152dbcf4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15970,7 +15984,7 @@
     },
     {
       "path": "regras/italy_contracts_onboarded.json",
-      "sha": "5a4f332940d2897835452371a23f86a6fe17bb20",
+      "sha": "bf95fd48b21323707bdecf227ef2e74d1da0eef0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -16005,7 +16019,7 @@
     },
     {
       "path": "regras/motor_de_rota_test.mjs",
-      "sha": "97ebb914f12e71dd778ec954292206feb0ef18e0",
+      "sha": "981747710b9ae3e85d3ab91a238e0cd661c63c71",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -16788,8 +16802,29 @@
       "code_dir": true
     },
     {
+      "path": "scripts/capa_materia/CONFIRMACAO-ISTAT-V1.json",
+      "sha": "a3d1aeb0e106251e9ff5aa53a143c52342f07261",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/capa_materia/INDICES-D40-V1.json",
       "sha": "4645bce00b311a80fc2f92ee40b7e7c61e461366",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/MEDICAO-CONTRATOS-AJUSTE-27-09-V1.json",
+      "sha": "c968c0693385d9ac80d3d488c63513e2086ccf25",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/MEDICAO-CONTRATOS-AJUSTE-HOJE-V1.json",
+      "sha": "f04b9c0502107f0fe4e6815036e1e35cecc4b705",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -16811,6 +16846,13 @@
     {
       "path": "scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json",
       "sha": "a409af6577e2cbf599a6eea05c6b2c73610ac232",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/MUTACAO-CONTRATOS-AJUSTE-V1.json",
+      "sha": "3c986b04b6c1765e8b929f004aca0a1bcac2af14",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -16851,8 +16893,15 @@
       "code_dir": true
     },
     {
+      "path": "scripts/capa_materia/confirmar_istat.py",
+      "sha": "123f5adac2cfc98b6919d0340420e4090a41e61a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/capa_materia/medir_d40.mjs",
-      "sha": "ffb90bd3626f6a111ff92835261f24d269eeb44a",
+      "sha": "324572eae485770f16d2dd540ef2436ca8b5e213",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -16868,6 +16917,13 @@
       "path": "scripts/capa_materia/medir_filtro_lista.mjs",
       "sha": "f44c0301a53b470cecac4f9db51a229a2e502a25",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/mutar_contratos.py",
+      "sha": "089e24fefee5b01ede2d59c8328bdb1f62498bc4",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -18224,7 +18280,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "d4913d432f70d6689c43378c3cbb7f107cd97e78",
+      "sha": "dbaaac3e388e69b5fde19485aa313ca9c1470184",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -60106,8 +60162,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/motor_de_rota_test.mjs",
-        "line": 232,
+        "line": 233,
         "snippet": "new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 22,
+        "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe } from \"./incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 22,
+        "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe } from \"./incrementalidade.mjs\";"
       }
     },
     {
@@ -60518,13 +60596,35 @@
       }
     },
     {
+      "from_file": "scripts/capa_materia/confirmar_istat.py",
+      "to_file": "scripts/capa_materia/CONFIRMACAO-ISTAT-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/confirmar_istat.py",
+        "line": 40,
+        "snippet": "open(os.path.join(AQUI, \"CONFIRMACAO-ISTAT-V1.json\"), \"w\", encoding=\"utf-8\", newline=\"\\n\").write("
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/confirmar_istat.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/capa_materia/confirmar_istat.py",
+        "line": 20,
+        "snippet": "import rede  # noqa: E402"
+      }
+    },
+    {
       "from_file": "scripts/capa_materia/medir_d40.mjs",
       "to_file": "regras/incrementalidade.mjs",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "scripts/capa_materia/medir_d40.mjs",
-        "line": 12,
+        "line": 15,
         "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe } from \"../../regras/incrementalidade.mjs\";"
       }
     },
@@ -60535,7 +60635,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/capa_materia/medir_d40.mjs",
-        "line": 12,
+        "line": 15,
         "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe } from \"../../regras/incrementalidade.mjs\";"
       }
     },
@@ -60546,7 +60646,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "scripts/capa_materia/medir_d40.mjs",
-        "line": 10,
+        "line": 13,
         "snippet": "import { CONTRACTS } from \"../../regras/italy_contracts.mjs\";"
       }
     },
@@ -60557,7 +60657,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/capa_materia/medir_d40.mjs",
-        "line": 10,
+        "line": 13,
         "snippet": "import { CONTRACTS } from \"../../regras/italy_contracts.mjs\";"
       }
     },
@@ -60568,7 +60668,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "scripts/capa_materia/medir_d40.mjs",
-        "line": 11,
+        "line": 14,
         "snippet": "import { alvosDoContrato } from \"../../regras/motor_de_rota.mjs\";"
       }
     },
@@ -60579,7 +60679,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/capa_materia/medir_d40.mjs",
-        "line": 11,
+        "line": 14,
         "snippet": "import { alvosDoContrato } from \"../../regras/motor_de_rota.mjs\";"
       }
     },
@@ -60590,19 +60690,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/capa_materia/medir_d40.mjs",
-        "line": 16,
+        "line": 19,
         "snippet": "const indices = JSON.parse(readFileSync(new URL(\"INDICES-D40-V1.json\", AQUI), \"utf8\"));"
       }
     },
     {
       "from_file": "scripts/capa_materia/medir_d40.mjs",
       "to_file": "scripts/capa_materia/MEDICAO-D40-V1.json",
-      "type": "WRITES",
+      "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/capa_materia/medir_d40.mjs",
-        "line": 93,
-        "snippet": "writeFileSync(new URL(\"MEDICAO-D40-V1.json\", AQUI), JSON.stringify(out, null, 1) + \"\\n\");"
+        "line": 17,
+        "snippet": "const [PASTA, LIVRO, SAIDA = \"MEDICAO-D40-V1.json\", AGORA = null] = process.argv.slice(2);"
       }
     },
     {
@@ -60724,6 +60824,50 @@
         "file": "scripts/capa_materia/medir_filtro_lista.mjs",
         "line": 52,
         "snippet": "writeFileSync(new URL(\"MEDICAO-FILTRO-LISTA-V1.json\", AQUI), JSON.stringify(out, null, 1) + \"\\n\");"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/mutar_contratos.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/mutar_contratos.py",
+        "line": 31,
+        "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/mutar_contratos.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/mutar_contratos.py",
+        "line": 38,
+        "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/mutar_contratos.py",
+      "to_file": "regras/motor_de_rota_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/mutar_contratos.py",
+        "line": 39,
+        "snippet": "p = subprocess.run([\"node\", \"regras/motor_de_rota_test.mjs\"], cwd=R, capture_output=True, text=True,"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/mutar_contratos.py",
+      "to_file": "scripts/capa_materia/MUTACAO-CONTRATOS-AJUSTE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/mutar_contratos.py",
+        "line": 48,
+        "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-CONTRATOS-AJUSTE-V1.json\"), \"w\","
       }
     },
     {
@@ -84242,10 +84386,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2905,
-    "files_readable": 1317,
-    "files_code_dir": 1200,
-    "file_edges": 5755,
+    "files_tracked": 2913,
+    "files_readable": 1319,
+    "files_code_dir": 1206,
+    "file_edges": 5763,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },
