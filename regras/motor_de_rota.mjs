@@ -260,6 +260,20 @@ function combinar(template, vars) {
 const ATIVOS_ESTATICOS = /\.(css|js|png|jpe?g|gif|svg|ico|woff2?|xml|rss)(\?|#|$)/i;
 const PAGINACAO = /\/page\/\d+\/?(\?|#|$)|[?&](page|pagina|pag|p)=\d+/i;
 const FEED = /\/(feed|rss|atom)\/?(\?|#|$)/i;
+// CAPA-MATERIA (25/09/2026): a PAGINA INSTITUCIONAL nao e documento, esteja onde estiver
+// no caminho. Os LINK_PATTERN do molde recusam «contatti», «chi-siamo»... so no PRIMEIRO
+// troco (`cia.it/contatti/`); `cia.it/news/settore-comunicazione-contatti/` passava, era o
+// 1.o link do indice, e com MAX_TARGETS = 1 foi o unico alvo da IT-T7-135 na 1.a onda (BC5):
+// capa no lugar de materia. Medido no livro de coletas da producao: dos 169 enderecos ja
+// coletados, esta regra recusa 2 — os dois essa mesma pagina de contatos (IT-T7-121, 135) —
+// e nenhuma materia. So o ULTIMO troco, e so quando ACABA na palavra: um artigo
+// «nuovi-contatti-con-la-cina» continua a passar.
+const PAGINA_INSTITUCIONAL = /(?:^|-)(contatti|contatto|contacts|chi-siamo|dove-siamo|privacy|privacy-policy|cookie|cookie-policy|note-legali|lavora-con-noi|accessibilita|mappa-del-sito|newsletter|login|area-riservata|faq)$/i;
+function eInstitucional(u) {
+  let ultimo = "";
+  try { ultimo = new URL(u).pathname.split("/").filter(Boolean).pop() || ""; } catch { return false; }
+  return PAGINA_INSTITUCIONAL.test(ultimo);
+}
 
 export function ligacoesDoIndice(html, aq) {
   const padrao = new RegExp(aq.LINK_PATTERN, "i");
@@ -277,6 +291,7 @@ export function ligacoesDoIndice(html, aq) {
     if (aq.SAME_HOST !== false && new URL(u).hostname.replace(/^www\./, "") !== host) continue;
     if (ATIVOS_ESTATICOS.test(u) || PAGINACAO.test(u) || FEED.test(u)) continue;
     if (u.replace(/\/+$/, "") === entradaNorm) continue;
+    if (eInstitucional(u)) continue;
     if (!padrao.test(u)) continue;
     fora.push(u);
   }
@@ -297,7 +312,47 @@ export function nomeDoAlvo(url, outputType) {
 }
 
 
-export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {} } = {}) {
+// ── D40 (bot Luciano, 25/09): O 1.º ALVO AINDA NÃO COLETADO, ATÉ 3 POR FONTE ──
+// Medido na 1.a onda (BC5): 12 de 18 fontes voltaram VAZIAS. O contrato pedia 1 alvo
+// (MAX_TARGETS = 1), o corte era feito AQUI, antes de se saber se esse alvo era novo, e
+// o coletor so depois via que ja o conhecia (SKIP_KNOWN). A fonte tinha materia nova no
+// indice — o 2.o, o 3.o link — e a corrida nao lhe chegava.
+//
+//     CORTAR ANTES DE PERGUNTAR «JA TENHO?» E ESCOLHER O QUE JA SE TEM.
+//
+// Com `classificar(url)` (o coletor passa-a, lendo o livro de observacoes da producao):
+//   * «CONHECIDO» (o livro diz SKIP_KNOWN) sai ANTES do corte — zero pedidos por ele;
+//   * «NOVO» (nunca guardado com documento) vem primeiro, pela ORDEM DO INDICE;
+//   * «REVISITA» (a lei do conteudo MUTABLE manda revisitar) vem depois, tambem por ordem;
+//   * corta em ALVOS_POR_FONTE_D40 = 3, seja qual for o MAX_TARGETS do contrato;
+//   * sem nada novo nem revisita, volta VAZIO — com a conta dos conhecidos saltados, nao
+//     um zero calado.
+// O teto por DOMINIO (D38, 5 pedidos por corrida contando robots e indice) NAO vive aqui:
+// quem corta e o transporte (`umaIda()` em coleta/italy_pilot_collect.mjs, ONDA2-G3). Esta
+// escolha so planeia: robots (1) + indice (1) + 3 materias = 5.
+export const ALVOS_POR_FONTE_D40 = 3;
+
+export function escolherAlvosD40(urls, classificar, nomeDe) {
+  const novos = [], revisitas = [];
+  let conhecidos = 0;
+  for (const url of urls) {
+    const classe = classificar(url);
+    if (classe === "CONHECIDO") conhecidos++;
+    else if (classe === "REVISITA") revisitas.push(url);
+    else novos.push(url);
+  }
+  const alvos = [...novos, ...revisitas].slice(0, ALVOS_POR_FONTE_D40)
+    .map((url) => ({ url, nome: nomeDe(url) }));
+  // a conta vai no proprio resultado (o coletor pode dize-la no resumo); um array continua
+  // a ser o que todos os chamadores ja recebiam
+  Object.defineProperty(alvos, "D40", { value: {
+    NO_INDICE: urls.length, CONHECIDOS_SALTADOS: conhecidos, NOVOS: novos.length,
+    REVISITAS: revisitas.length, ESCOLHIDOS: alvos.length,
+    VAZIO_HONESTO: alvos.length === 0 } });
+  return alvos;
+}
+
+export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {}, classificar = null } = {}) {
   const aq = contrato && contrato.ACQUISITION;
   conferirAquisicao(sourceId, aq);
 
@@ -352,6 +407,9 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
       if (urls.length === 0) {
         return { erro: "EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN" };
       }
+      if (typeof classificar === "function") {
+        return escolherAlvosD40(urls, classificar, (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE));
+      }
       return urls.slice(0, limite).map((url) => ({ url, nome: nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE) }));
     }
     const re = new RegExp(aq.LINK_PATTERN, "gi");
@@ -363,6 +421,9 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
     }
     const base = aq.BASE_URL || aq.INDEX_URL;
     const urls = [...new Set(achados.map((h) => new URL(h, base).href))];
+    if (typeof classificar === "function") {
+      return escolherAlvosD40(urls, classificar, (url) => url.split("/").pop());
+    }
     return urls.slice(0, Number.isFinite(limite) ? limite : urls.length)
                .map((url) => ({ url, nome: url.split("/").pop() }));
   }

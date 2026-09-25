@@ -585,7 +585,7 @@ export function estadoDeCadencia(c, ultimaObs, mudou) {
 
 // ---------- alvos por fonte ----------
 // Cada alvo: { url, nome, documentIdDe(buf) -> {DOCUMENT_ID, SOURCE_DATE, FACT_TIME} }
-async function alvosDe(sourceId) {
+async function alvosDe(sourceId, classificar = null) {
   const c = CONTRACTS[sourceId];
   // ── O CONTRATO MANDA PRIMEIRO, E O SWITCH FICA PARA TRÁS ─────────────────
   // ⚠️ MEDIDO: este `switch` tinha SETE fontes escritas à mão, e uma fonte
@@ -605,7 +605,7 @@ async function alvosDe(sourceId) {
   // O dia em que o último `case` tiver `ACQUISITION`, o `switch` inteiro sai
   // — e sai por ficar vazio, não por alguém o apagar com pressa.
   if (c && c.ACQUISITION) {
-    return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS });
+    return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS, classificar });
   }
   switch (sourceId) {
     case "IT-T3-005":
@@ -885,7 +885,23 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     // `decidirSobreIndice()` esta aqui para que a lei seja lida no codigo e
     // nao so no comentario — ela nao tem excepcao, e por isso nao tem `if`.
     decidirSobreIndice();
-    const alvos = await alvosDe(sourceId);
+    // ── D40 · A ESCOLHA PERGUNTA «JA TENHO?» ANTES DE CORTAR ─────────────────
+    // A mesma decisao que a DEFESA 1 toma la em baixo, perguntada ANTES de o motor
+    // cortar a lista: o que o livro manda saltar nao ocupa lugar de alvo. Ver
+    // `escolherAlvosD40` em regras/motor_de_rota.mjs.
+    const classificar = (url) => {
+      const d = decidirSobreDetalhe(url, { memoria, sourceId, contrato: c, agora: agora() });
+      return d.DECISAO === "SKIP_KNOWN" ? "CONHECIDO" : d.DECISAO === "REVALIDATE" ? "REVISITA" : "NOVO";
+    };
+    const alvos = await alvosDe(sourceId, classificar);
+    if (alvos && alvos.D40) {
+      cont.SKIPPED_KNOWN += alvos.D40.CONHECIDOS_SALTADOS;
+      if (alvos.D40.VAZIO_HONESTO) {
+        detalhes.push({ RUN_ID, SOURCE_ID: sourceId, DOCUMENT_ID: null, DECISAO: "SEM_ALVOS_NOVOS",
+          PORQUE: `o indice anuncia ${alvos.D40.NO_INDICE} enderecos e o livro ja conhece todos (D40)`,
+          LIVRO: "NAO_ESCRITO — nada foi pedido", COLLECTION_RUN_STARTED_AT: STARTED_AT });
+      }
+    }
     // ── O INDICE QUE A CORTESIA NAO DEIXOU PEDIR ─────────────────────────────
     // Robots que proibe (ou que nao se deixou ler), teto esgotado: a porta NAO
     // foi batida, por isso nao ha falha da fonte para escrever. A fonte fica
