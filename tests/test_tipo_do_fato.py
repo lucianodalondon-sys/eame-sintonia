@@ -20,7 +20,7 @@ PRAGA = ("Nelle trappole a feromoni sono state registrate catture di mosca dell'
 
 
 def tipo(t):
-    return TF.tipo_do_fato(t)["fact_kind"]
+    return TF.tipo_do_fato(t)["agro_fact_kind"]
 
 
 class OCorpo(unittest.TestCase):
@@ -31,7 +31,7 @@ class OCorpo(unittest.TestCase):
     def test_linha_em_maiusculas_e_menu(self):
         grito = "EVENTI FIERE CONVEGNI WORKSHOP DEL DIPARTIMENTO DI AGRARIA E DELLE COLTURE ARBOREE\n"
         r = TF.tipo_do_fato(grito + PREZZI)
-        self.assertEqual(r["fact_kind"], TF.MERCADO)
+        self.assertEqual(r["agro_fact_kind"], TF.MERCADO)
         self.assertIsNone(r["EVIDENCIA"]["EVENTO_NA_ABERTURA"])
 
     def test_sem_corpo_e_nao_sei(self):
@@ -89,15 +89,15 @@ class OsTipos(unittest.TestCase):
              "La giornata si e conclusa con una festa nel quartiere e tanta musica per tutti i partecipanti.\n")
         r = TF.tipo_do_fato(t)
         self.assertEqual(len(r["EVIDENCIA"]["CONCEITOS"].get(TF.MERCADO, [])), 1)
-        self.assertEqual(r["fact_kind"], TF.NAO_SEI)
+        self.assertEqual(r["agro_fact_kind"], TF.NAO_SEI)
 
     def test_empate_e_nao_sei(self):
         t = ("Il prezzo delle olive cala mentre le catture nelle trappole della costa aumentano ovunque in zona.\n"
              "Le quotazioni restano basse in molti oliveti della costa secondo i tecnici delle associazioni locali.\n")
         r = TF.tipo_do_fato(t)
         self.assertEqual(len(r["EVIDENCIA"]["CONCEITOS"][TF.FITO]), len(r["EVIDENCIA"]["CONCEITOS"][TF.MERCADO]))
-        self.assertEqual(r["fact_kind"], TF.NAO_SEI)
-        self.assertIn("empate", r["fact_kind_basis"])
+        self.assertEqual(r["agro_fact_kind"], TF.NAO_SEI)
+        self.assertIn("empate", r["agro_fact_kind_basis"])
 
 
 class NegocioENaoFacto(unittest.TestCase):
@@ -130,8 +130,72 @@ class NegocioENaoFacto(unittest.TestCase):
     def test_nunca_descarta(self):
         for t in (PRAGA, PREZZI, "", "x", self.NEG):
             r = TF.tipo_do_fato(t)
-            self.assertIn(r["fact_kind"], TF.TIPOS)
-            self.assertTrue(r["fact_kind_basis"])
+            self.assertIn(r["agro_fact_kind"], TF.TIPOS)
+            self.assertTrue(r["agro_fact_kind_basis"])
+
+
+class DecisoesD71aD73(unittest.TestCase):
+    """Adenda 1 do protocolo: agro_fact_kind, MARKETING_CONCORRENCIA, MERCADO_VAREJO, INSTITUCIONAL/NAO_FATO."""
+    MK = ("La nostra azienda presenta la nuova linea di biostimolanti per la viticoltura e per le colture orticole.\n"
+          "Il brand amplia la gamma con novita pensate per gli agricoltori che cercano soluzioni per il vigneto.\n")
+
+    def test_nome_do_campo_e_agro_fact_kind(self):
+        r = TF.tipo_do_fato(PRAGA)
+        self.assertIn("agro_fact_kind", r)
+        self.assertNotIn("fact_kind", r)
+        self.assertIn("agro_fact_kind", TF.fato_com_tipo(PRAGA))
+
+    def test_d72_empresa_a_promover_o_seu_e_marketing(self):
+        self.assertEqual(tipo(self.MK), TF.MARKETING)
+
+    def test_d72_so_do_agro(self):
+        t = self.MK.replace("per la viticoltura e per le colture orticole", "per la casa e per l'ufficio moderno") \
+                   .replace("gli agricoltori che cercano soluzioni per il vigneto", "le famiglie che cercano soluzioni per il salotto")
+        self.assertNotEqual(tipo(t), TF.MARKETING)
+
+    def test_d71_a_tecnica_vence_a_voz_da_empresa(self):
+        # empate de proposito: 3 conceitos tecnicos contra 3 de promocao; sem a D71 seria NAO_SEI
+        t = ("I nostri acari predatori rafforzano la difesa integrata contro il ragnetto rosso nelle serre di pomodoro.\n"
+             "La gamma di insetti utili comprende novita per il monitoraggio con trappole cromotropiche in coltura protetta.\n")
+        r = TF.tipo_do_fato(t)
+        self.assertEqual(len(r["EVIDENCIA"]["CONCEITOS"][TF.MARKETING]), len(r["EVIDENCIA"]["CONCEITOS"][TF.FITO]))
+        self.assertEqual(r["agro_fact_kind"], TF.FITO)
+
+    def test_a_feira_em_si_e_evento(self):
+        t = ("Presentata la nuova edizione della fiera della frutticoltura in programma a Rimini dal 20 al 22 aprile.\n"
+             "La nostra manifestazione offre novita per la filiera ortofrutticola e una gamma di convegni tecnici.\n")
+        self.assertEqual(tipo(t), TF.EVENTO)
+
+    def test_empresa_na_feira_e_marketing(self):
+        t = ("L'azienda sementiera sara presente alla fiera Fruit Attraction, in programma a Madrid dal 6 all'8 ottobre.\n"
+             "Presentera le nuove varieta di pomodoro e la sua gamma per la filiera orticola, con tante novita.\n")
+        self.assertEqual(tipo(t), TF.MARKETING)
+
+    def test_d73_varejo_com_prova_no_lead(self):
+        t = ("Nei punti vendita della grande distribuzione il prezzo delle pere e salito a 2,80 euro/kg in settimana.\n"
+             + PREZZI)
+        self.assertEqual(tipo(t), TF.VAREJO)
+
+    def test_d73_varejo_fora_do_lead_nao_conta(self):
+        longo = ("Le quotazioni dell'uva da tavola restano sotto i livelli della scorsa campagna in tutte le piazze "
+                 "del nord, con il prezzo medio della varieta bianca intorno a 3 euro/kg e la rossa poco sopra, "
+                 "mentre la domanda resta debole e le rilevazioni di settimana confermano un quadro di prezzi bassi "
+                 "per quasi tutte le tipologie e per quasi tutti gli operatori del mercato all'ingrosso nazionale, "
+                 "secondo i dati raccolti dagli osservatori regionali.\n")
+        t = longo + "Altre notizie: le insegne della grande distribuzione e i nuovi scaffali dei punti vendita.\n"
+        self.assertGreater(len(longo), TF.LEAD_CARACTERES)
+        self.assertEqual(tipo(t), TF.MERCADO)
+
+    def test_d73_abertura_de_loja_e_institucional(self):
+        t = ("La catena inaugura due nuovi punti vendita con una superficie di vendita di 900 metri quadrati.\n"
+             "Le nuove aperture portano la rete a oltre 580 negozi, con vendita di prodotti freschi e consumo locale.\n")
+        self.assertEqual(tipo(t), TF.INSTITUCIONAL)
+
+    def test_mundo_agro_sem_facto_e_institucional(self):
+        t = ("Il Consiglio dell'Ordine dei dottori agronomi cura la rappresentanza della professione nel paese.\n"
+             "L'ordine rappresenta i professionisti dell'agricoltura presso le istituzioni nazionali e regionali.\n"
+             "Le elezioni dei consigli territoriali si svolgono ogni quattro anni secondo il regolamento vigente.\n")
+        self.assertEqual(tipo(t), TF.INSTITUCIONAL)
 
 
 class LigacaoAoLugarEAoTempo(unittest.TestCase):
@@ -141,7 +205,7 @@ class LigacaoAoLugarEAoTempo(unittest.TestCase):
         base = TF.FT.campos_do_fato(t)
         self.assertEqual(base["fact_location_kind"], "CAMPO")          # a LUGAR-FATO, sozinha, poe o campo
         r = TF.fato_com_tipo(t)
-        self.assertEqual(r["fact_kind"], TF.EVENTO)
+        self.assertEqual(r["agro_fact_kind"], TF.EVENTO)
         self.assertEqual(r["fact_location_kind"], "EVENTO")
         self.assertIn("Bologna", r["fact_location"])
         self.assertNotIn("Grosseto", r["fact_location"])
@@ -153,7 +217,7 @@ class LigacaoAoLugarEAoTempo(unittest.TestCase):
         base = TF.FT.campos_do_fato(t)
         self.assertEqual(base["fact_location_kind"], "EVENTO")         # sozinha, a LUGAR-FATO daria Bologna (EVENTO)
         r = TF.fato_com_tipo(t)
-        self.assertEqual(r["fact_kind"], TF.FITO)
+        self.assertEqual(r["agro_fact_kind"], TF.FITO)
         self.assertEqual(r["fact_location"], "NAO SEI")
         self.assertNotEqual(r["fact_time_kind"], "EVENTO")
         self.assertIn("Bologna (EVENTO)", r["fact_location_basis"])

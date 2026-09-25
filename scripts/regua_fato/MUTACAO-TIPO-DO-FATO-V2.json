@@ -1,0 +1,205 @@
+{
+ "DATASET": "MUTACAO-TIPO-DO-FATO-V2",
+ "ALVO": "leis/tipo_do_fato.py",
+ "ALVO_SHA256": "23258a915d790471916e9369feadbb59b81aff000f879a996e38694408115078",
+ "MUTANTES": [
+  {
+   "MUTANTE": "M1_MENU_CONTA",
+   "REGRA": "regra 1: reprova se a pagina inteira (menu/rodape) for lida como corpo",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.082s | FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M2_MAIUSCULAS_CONTAM",
+   "REGRA": "regra 1: reprova se a linha de menu em MAIUSCULAS contar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.099s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M3_SEM_PALAVRA_INTEIRA",
+   "REGRA": "regra 2: reprova se «gelateria» contar como «gelata»",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.070s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M4_CONCEITO_CONTA_VARIAS_VEZES",
+   "REGRA": "regra 2: reprova se o mesmo conceito repetido somar sinais",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.115s | FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M5_UM_CONCEITO_CHEGA",
+   "REGRA": "regra 2: reprova se um so conceito bastar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.094s | FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M6_RACCOLTA_NUA",
+   "REGRA": "reprova se «raccolta dei dati» contar como colheita",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.092s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M7_RESA_NUA",
+   "REGRA": "reprova se «resa possibile» contar como rendimento",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.118s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M8_EVENTO_SEM_AGRO",
+   "REGRA": "regra 3: reprova se evento fora do agro virar evento tecnico",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.096s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M9_AVISO_ACADEMICO_E_EVENTO",
+   "REGRA": "regra 3: reprova se aviso de exame virar evento tecnico",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.099s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M10_NEGOCIO_SEM_AGRO",
+   "REGRA": "regra 4: reprova se empresa fora do agro virar negocio agro",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.118s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M11_NEGOCIO_COM_POUCO",
+   "REGRA": "regra 4: reprova se duas palavras de negocio chegarem",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.096s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M12_EMPATE_DECIDE",
+   "REGRA": "regra 5: reprova se o empate escolher um tipo",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.080s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M13_TITULO_E_NAO_FACTO",
+   "REGRA": "regra 8: reprova se um titulo solto virar «nao e facto»",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.105s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M14_SEM_CORPO_E_NAO_FACTO",
+   "REGRA": "regra 1: reprova se texto sem corpo virar «nao e facto» em vez de NAO_SEI",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.105s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M15_CAMPO_ACEITA_LUGAR_DE_EVENTO",
+   "REGRA": "D62: reprova se o lugar de evento virar lugar de praga",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.095s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M16_EVENTO_FICA_COM_O_LUGAR_DO_CAMPO",
+   "REGRA": "D62: reprova se o evento tecnico ficar com o lugar da praga",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.089s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M17_BASE_SEM_PORQUE",
+   "REGRA": "reprova se a troca de lugar nao ficar explicada na base",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.081s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M18_D72_MARKETING_SEM_AGRO",
+   "REGRA": "D72: reprova se empresa fora do agro virar MARKETING_CONCORRENCIA",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.081s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M19_D71_EMPRESA_VENCE_A_TECNICA",
+   "REGRA": "D71: reprova se a voz da empresa vencer o assunto tecnico",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.089s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M20_FEIRA_EM_SI_VIRA_MARKETING",
+   "REGRA": "D72: reprova se a feira em si (sem empresa no lead) virar MARKETING",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.083s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M21_VAREJO_NO_CORPO_INTEIRO",
+   "REGRA": "D73: reprova se a prova de varejo contar fora do lead",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.086s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M22_LOJA_NAO_E_INSTITUCIONAL",
+   "REGRA": "D73: reprova se a abertura de loja nao for INSTITUCIONAL",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.095s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M23_AGRO_SEM_FACTO_VIRA_NAO_FATO",
+   "REGRA": "ponto 5: reprova se o mundo agro sem facto virar NAO_FATO",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.082s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M24_VAREJO_SEM_PROVA",
+   "REGRA": "D73: reprova se todo o mercado virar VAREJO",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 32 tests in 0.108s | FAILED (failures=3)",
+   "RESULTADO": "MORTO"
+  }
+ ],
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "SAIDA": "Ran 32 tests in 0.098s | OK"
+ },
+ "MORTOS": 24,
+ "TOTAL": 24
+}

@@ -28,28 +28,28 @@ def main():
     for l in linhas:
         base = TF.FT.campos_do_fato(l["texto"])
         r = TF.fato_com_tipo(l["texto"])
-        tipos[r["fact_kind"]] += 1
+        tipos[r["agro_fact_kind"]] += 1
         m = {}
         for k in ("fact_location", "fact_time"):
             if (base[k], base[k + "_kind"]) != (r[k], r[k + "_kind"]):
                 mudou[k] += 1
                 m[k] = {"ANTES": "%s (%s)" % (base[k], base[k + "_kind"]), "DEPOIS": "%s (%s)" % (r[k], r[k + "_kind"])}
         detalhe.append({"item_id": l["item_id"], "source_id": l["source_id"], "universo": l["universo"],
-                        "fact_kind": r["fact_kind"], "fact_kind_basis": r["fact_kind_basis"][:200],
+                        "agro_fact_kind": r["agro_fact_kind"], "agro_fact_kind_basis": r["agro_fact_kind_basis"][:200],
                         "fact_location": r["fact_location"], "fact_location_kind": r["fact_location_kind"],
                         "fact_time": r["fact_time"], "fact_time_kind": r["fact_time_kind"],
                         "MUDOU_PELA_LIGACAO": m or None})
-    out = {"DATASET": "MEDIDA-TIPO-DO-FATO-SALA-78-V1", "SALA_COPIA": str(f),
+    out = {"DATASET": "MEDIDA-TIPO-DO-FATO-SALA-78-V2", "SALA_COPIA": str(f),
            "SALA_COPIA_SHA256": hashlib.sha256(f.read_bytes()).hexdigest(), "LINHAS": len(linhas),
-           "POR_FACT_KIND": dict(tipos.most_common()), "SAEM_DE_NAO_SEI": len(linhas) - tipos[TF.NAO_SEI],
+           "POR_AGRO_FACT_KIND": dict(tipos.most_common()), "SAEM_DE_NAO_SEI": len(linhas) - tipos[TF.NAO_SEI],
            "LUGAR_E_TEMPO_MUDADOS_PELA_LIGACAO": dict(mudou), "DESCARTADOS": 0, "ITENS": detalhe}
-    (AQUI / "MEDIDA-TIPO-DO-FATO-SALA-78-V1.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n",
+    (AQUI / "MEDIDA-TIPO-DO-FATO-SALA-78-V2.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n",
                                                              encoding="utf-8")
-    print(json.dumps({k: out[k] for k in ("LINHAS", "POR_FACT_KIND", "SAEM_DE_NAO_SEI",
+    print(json.dumps({k: out[k] for k in ("LINHAS", "POR_AGRO_FACT_KIND", "SAEM_DE_NAO_SEI",
                                           "LUGAR_E_TEMPO_MUDADOS_PELA_LIGACAO")}, ensure_ascii=False, indent=1))
     for d in detalhe:
         if d["MUDOU_PELA_LIGACAO"]:
-            print(d["source_id"], d["fact_kind"], json.dumps(d["MUDOU_PELA_LIGACAO"], ensure_ascii=False))
+            print(d["source_id"], d["agro_fact_kind"], json.dumps(d["MUDOU_PELA_LIGACAO"], ensure_ascii=False))
 
 
 if __name__ == "__main__":

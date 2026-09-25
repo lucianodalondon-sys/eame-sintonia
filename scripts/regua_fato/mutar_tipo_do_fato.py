@@ -5,7 +5,7 @@ Cada mutante estraga UMA regra numa COPIA (pasta temporaria; a arvore nao e toca
 tests/test_tipo_do_fato.py contra ela. So conta como MORTO se um teste FALHOU por assercao; erro de
 execucao nao prova nada.
 
-    py scripts/regua_fato/mutar_tipo_do_fato.py      -> escreve MUTACAO-TIPO-DO-FATO-V1.json ao lado
+    py scripts/regua_fato/mutar_tipo_do_fato.py      -> escreve MUTACAO-TIPO-DO-FATO-V2.json ao lado
 """
 import hashlib
 import json
@@ -47,17 +47,35 @@ MUTANTES = [
        "if len(agro) < AGRO_PARA_NEGOCIO:")]),
     ("M12_EMPATE_DECIDE", "regra 5: reprova se o empate escolher um tipo",
      [("fortes[0][0] > fortes[1][0]", "fortes[0][0] >= fortes[1][0]")]),
-    ("M13_TITULO_E_NAO_FACTO", "regra 6: reprova se um titulo solto virar «nao e facto»",
-     [(' and ev["LINHAS_DE_CORPO"] >= LINHAS_PARA_NAO_FATO:', ":")]),
+    ("M13_TITULO_E_NAO_FACTO", "regra 8: reprova se um titulo solto virar «nao e facto»",
+     [(' and ev["LINHAS_DE_CORPO"] >= LINHAS_PARA_SEM_FACTO:', ":")]),
     ("M14_SEM_CORPO_E_NAO_FACTO", "regra 1: reprova se texto sem corpo virar «nao e facto» em vez de NAO_SEI",
-     [('        return {"fact_kind": NAO_SEI, "fact_kind_basis": "NAO_SEI · o texto não tem corpo',
-       '        return {"fact_kind": NAO_FATO, "fact_kind_basis": "NAO_SEI · o texto não tem corpo')]),
+     [('        return _saida(NAO_SEI, "NAO_SEI · o texto não tem corpo',
+       '        return _saida(NAO_FATO, "NAO_SEI · o texto não tem corpo')]),
     ("M15_CAMPO_ACEITA_LUGAR_DE_EVENTO", "D62: reprova se o lugar de evento virar lugar de praga",
      [("        aceita = (FT.CAMPO,)", "        aceita = (FT.CAMPO, FT.EVENTO)")]),
     ("M16_EVENTO_FICA_COM_O_LUGAR_DO_CAMPO", "D62: reprova se o evento tecnico ficar com o lugar da praga",
      [("        aceita = (FT.EVENTO,)", "        return r")]),
     ("M17_BASE_SEM_PORQUE", "reprova se a troca de lugar nao ficar explicada na base",
      [('"%s · o facto é %s: o lugar %s não é lugar deste facto"', '"%s%s%s"')]),
+    # ── adenda 1 (D71-D73) ──
+    ("M18_D72_MARKETING_SEM_AGRO", "D72: reprova se empresa fora do agro virar MARKETING_CONCORRENCIA",
+     [("    if not agro:\n        conceitos[MARKETING] = []", "    if False:\n        conceitos[MARKETING] = []")]),
+    ("M19_D71_EMPRESA_VENCE_A_TECNICA", "D71: reprova se a voz da empresa vencer o assunto tecnico",
+     [("    if tecnico >= MINIMO_DE_CONCEITOS and tecnico >= len(conceitos[MARKETING]):",
+       "    if False:")]),
+    ("M20_FEIRA_EM_SI_VIRA_MARKETING", "D72: reprova se a feira em si (sem empresa no lead) virar MARKETING",
+     [("        if empresa and len(conceitos[MARKETING]) >= MINIMO_DE_CONCEITOS:",
+       "        if len(conceitos[MARKETING]) >= MINIMO_DE_CONCEITOS:")]),
+    ("M21_VAREJO_NO_CORPO_INTEIRO", "D73: reprova se a prova de varejo contar fora do lead",
+     [("    lead = abertura[:LEAD_CARACTERES]", "    lead = c")]),
+    ("M22_LOJA_NAO_E_INSTITUCIONAL", "D73: reprova se a abertura de loja nao for INSTITUCIONAL",
+     [("    if len(loja) >= MINIMO_DE_CONCEITOS and not preco_no_lead:", "    if False:")]),
+    ("M23_AGRO_SEM_FACTO_VIRA_NAO_FATO", "ponto 5: reprova se o mundo agro sem facto virar NAO_FATO",
+     [("        if len(agro) >= AGRO_PARA_INSTITUCIONAL:\n            return _saida(INSTITUCIONAL,",
+       "        if len(agro) >= AGRO_PARA_INSTITUCIONAL:\n            return _saida(NAO_FATO,")]),
+    ("M24_VAREJO_SEM_PROVA", "D73: reprova se todo o mercado virar VAREJO",
+     [("        if k == MERCADO and varejo:", "        if k == MERCADO:")]),
 ]
 
 
@@ -70,7 +88,7 @@ def correr(pasta):
 
 def main():
     orig = (RAIZ / ALVO).read_text(encoding="utf-8")
-    res = {"DATASET": "MUTACAO-TIPO-DO-FATO-V1", "ALVO": ALVO,
+    res = {"DATASET": "MUTACAO-TIPO-DO-FATO-V2", "ALVO": ALVO,
            "ALVO_SHA256": hashlib.sha256(orig.encode("utf-8")).hexdigest(), "MUTANTES": []}
     with tempfile.TemporaryDirectory(prefix="mut-tipo-") as tmp:
         tmp = Path(tmp)
@@ -99,7 +117,7 @@ def main():
         (tmp / ALVO).write_text(orig, encoding="utf-8")
     res["MORTOS"] = sum(m["RESULTADO"] == "MORTO" for m in res["MUTANTES"])
     res["TOTAL"] = len(res["MUTANTES"])
-    out = Path(__file__).with_name("MUTACAO-TIPO-DO-FATO-V1.json")
+    out = Path(__file__).with_name("MUTACAO-TIPO-DO-FATO-V2.json")
     out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     print("mortos %d de %d -> %s" % (res["MORTOS"], res["TOTAL"], out.name))
     sys.exit(0 if res["MORTOS"] == res["TOTAL"] else 1)
