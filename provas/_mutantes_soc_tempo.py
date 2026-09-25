@@ -20,6 +20,8 @@ MUTANTES = [
      "    if 'SOURCE_LOCATION' not in fora and fonte:\n"),
     ("a regiao de cobertura vira morada", "leis/lugar_da_organizacao.py",
      'RE_PAIS = re.compile(r"^COUNTRY:\\s*(.+)$")', 'RE_PAIS = re.compile(r"^REGION:\\s*(.+)$")'),
+    ("conta de plataforma herda a sede do vizinho (DA-16)", "leis/lugar_da_organizacao.py",
+     "    if e_plataforma(h):\n", "    if False:\n"),
     ("minuto vira segundo", "coleta/adaptador_linkedin.py",
      "        return 'MINUTE'\n", "        return 'SECOND'\n"),
     ("a base nao atravessa a porta", "coleta/ingresso.py",
