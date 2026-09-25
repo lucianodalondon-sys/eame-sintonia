@@ -762,6 +762,20 @@
       "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
       "data/derivados/O-CENSO-DO-ACERVO.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+      "data/derivados/QUATRO-CHAVES-V1/PONTO-1.md",
+      "data/derivados/QUATRO-CHAVES-V1/REJULGAMENTO-T1-T2.json",
+      "data/derivados/QUATRO-CHAVES-V1/derivados-T1-T2.lista",
+      "data/derivados/QUATRO-CHAVES-V1/funil-22-leitura.txt",
+      "data/derivados/QUATRO-CHAVES-V1/funil-resto-leitura.txt",
+      "data/derivados/QUATRO-CHAVES-V1/mutacao-RESULTADO.txt",
+      "data/derivados/QUATRO-CHAVES-V1/mutacao.py.txt",
+      "data/derivados/QUATRO-CHAVES-V1/porta-nos-gabaritos-RESULTADO.txt",
+      "data/derivados/QUATRO-CHAVES-V1/rejulgar-RESULTADO.txt",
+      "data/derivados/QUATRO-CHAVES-V1/rejulgar.py.txt",
+      "data/derivados/QUATRO-CHAVES-V1/testes-ANTES.txt",
+      "data/derivados/QUATRO-CHAVES-V1/testes-DEPOIS.txt",
+      "data/derivados/QUATRO-CHAVES-V1/vizinhos-ANTES.txt",
+      "data/derivados/QUATRO-CHAVES-V1/vizinhos-DEPOIS.txt",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
@@ -1421,6 +1435,7 @@
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
       "docs/operacao/FONTE-ATRAVESSA-FORWARD-V1.md",
+      "docs/operacao/FUNIL-RESTO.md",
       "docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md",
       "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
       "docs/operacao/IDEIAS-E-PENDENCIAS.md",
@@ -1447,6 +1462,7 @@
       "docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
+      "docs/operacao/QUATRO-CHAVES-V1.md",
       "docs/operacao/READY-LINEAGE-BEFORE-SCALE-V1.md",
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
@@ -2917,6 +2933,7 @@
       "tests/test_psql_argv.py",
       "tests/test_qualidade_t3.py",
       "tests/test_quarentena_naosei.py",
+      "tests/test_quatro_chaves.py",
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
       "tests/test_raw_observation_id_volta.py",
@@ -3481,10 +3498,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "juncao",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
-    "GENERATED_AT": "2026-09-25T02:36:19-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b"
+    "BRANCH": "quatro-chaves-v1-mapa-cloud",
+    "HEAD": "dd5fe9d6887259de07162468e2567fbdcfc45461",
+    "GENERATED_AT": "2026-09-25T06:55:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fa69c1b2f3972533bd02fa1d9145fa0dfa58bcc6d3a603cf29e63c1ce1e14721"
   },
   "FAMILIES": [
     {
@@ -62673,6 +62690,7 @@
         "tests/test_psql_argv.py",
         "tests/test_qualidade_t3.py",
         "tests/test_quarentena_naosei.py",
+        "tests/test_quatro_chaves.py",
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
         "tests/test_raw_observation_id_volta.py",
@@ -62719,7 +62737,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 232,
+      "file_count": 233,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -65484,7 +65502,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch juncao"
+        "branch quatro-chaves-v1-mapa-cloud"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -68446,7 +68464,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1816,
+          "line": 1886,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -68763,7 +68781,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 40 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 41 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -132218,7 +132236,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1600,
+  "UNCLAIMED_FILES_COUNT": 1616,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -132481,8 +132499,8 @@
     "edges_proven": 1222,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2888,
-    "files_covered": 1288,
+    "files_tracked": 2905,
+    "files_covered": 1289,
     "files_code_unclaimed": 0,
     "roles_proven": 166,
     "roles_declared_only": 8,
