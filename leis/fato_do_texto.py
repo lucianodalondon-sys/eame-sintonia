@@ -14,6 +14,10 @@ Funcao PURA (sem rede, sem banco, sem ficheiros): recebe o texto de UM documento
     fact_time_kind           CAMPO | EVENTO | NAO SEI
     fact_time_precision      o vocabulario `lugar_do_fato.RESOLUCAO_TEMPORAL` (NOT_KNOWN quando NAO SEI),
                              com «+CALCULADA» quando a data veio da conta a partir da publicacao
+    fact_time_calculo        RELATIVA_A_PUBLICACAO quando a data foi CALCULADA; NAO_SE_APLICA nos outros casos
+    fact_time_evidencia      quando CALCULADA: a expressao, o trecho e a conta; NAO_SE_APLICA nos outros casos
+                             (DA-7: com a data calculada, fact_time_basis e SO a palavra —
+                             PUBLISHED_AT_COM_PROVA se a conta deu o dia da publicacao, RELATIVA_A_PUBLICACAO se nao)
     EVIDENCIA                tudo estruturado: todos os lugares de todos os tipos, os tempos,
                              as EXPRESSOES RELATIVAS encontradas e a publicacao, SEPARADA
 
@@ -58,6 +62,8 @@ NAO_SEI = "NAO SEI"
 SEP = " ; "
 CAMPO, EVENTO, MERCADO = "CAMPO", "EVENTO", "MERCADO"
 RELATIVA = "RELATIVA_A_PUBLICACAO"
+PUBLICADO_COM_PROVA = "PUBLISHED_AT_COM_PROVA"   # a palavra exata que `leis/artefato.py::conferir` le (DA-7)
+NAO_SE_APLICA = "NAO_SE_APLICA"
 # o mesmo tipo, dito no vocabulario da lei (`lugar_do_fato.PAPEIS_NO_CONTEUDO`)
 PAPEL_NA_LEI = {CAMPO: "FACT", EVENTO: "EVENT", MERCADO: "AREA_COMERCIAL"}
 ORDEM_DOS_TIPOS = (CAMPO, EVENTO, MERCADO)
@@ -462,13 +468,20 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
         tempo = {"VALOR": e["VALOR"], "KIND": EVENTO, "ORIGEM": "ESCRITO_NO_TEXTO", "RESOLUCAO": e["RESOLUCAO"],
                  "ANCORA": e["ANCORA"], "TRECHO": e["TRECHO"]}
     tempo = tempo or _rel_de(EVENTO)
+    # DA-7: quando a data e CALCULADA, fact_time_basis leva SO a palavra que a lei le
+    # (`leis/artefato.py::conferir`, linha 352) e o como/porque vai para dois campos proprios.
+    fact_time_calculo = fact_time_evidencia = NAO_SE_APLICA
     if tempo:
         fact_time, fact_time_kind = tempo["VALOR"], tempo["KIND"]
         fact_time_precision = tempo["RESOLUCAO"] + ("+CALCULADA" if tempo.get("CALCULADA") else "")
         if tempo.get("CALCULADA"):
-            fact_time_basis = ("%s · %s · %s · «%s» contado a partir da publicação provada %s (%s) · «%s»"
-                               % (RELATIVA, tempo["KIND"], fact_time_precision, tempo["EXPRESSAO"], pub.isoformat(),
-                                  _trecho(publication_time_basis, 60), tempo["TRECHO"]))
+            # A conta deu o PROPRIO dia da publicacao («oggi, lunedì»): a lei so aceita FACT_TIME ==
+            # PUBLISHED_AT com a base exata PUBLISHED_AT_COM_PROVA. Outro dia/intervalo: RELATIVA_A_PUBLICACAO.
+            fact_time_basis = PUBLICADO_COM_PROVA if fact_time == pub.isoformat() else RELATIVA
+            fact_time_calculo = RELATIVA
+            fact_time_evidencia = ("%s · %s · «%s» contado a partir da publicação provada %s (%s) · «%s»"
+                                   % (tempo["KIND"], fact_time_precision, tempo["EXPRESSAO"], pub.isoformat(),
+                                      _trecho(publication_time_basis, 60), tempo["TRECHO"]))[:800]
         else:
             fact_time_basis = "%s · %s · %s%s · «%s»" % (tempo["KIND"], tempo["ORIGEM"], tempo["RESOLUCAO"],
                                                          " · âncora «%s»" % tempo["ANCORA"] if tempo.get("ANCORA") else "",
@@ -488,12 +501,14 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
             why += "; expressões relativas guardadas como evidência, sem conta: %s" % ", ".join(
                 "«%s» (%s)" % (x["EXPRESSAO"], x.get("PORQUE") or "sem medida") for x in relativas[:6])
         fact_time_basis = "NAO SEI · " + why
-    fact_time_basis += " · a data de publicação sozinha nunca preenche este campo"
+    if fact_time_calculo == NAO_SE_APLICA:
+        fact_time_basis += " · a data de publicação sozinha nunca preenche este campo"
 
     return {"fact_location": fact_location, "fact_location_basis": fact_location_basis[:1000],
             "fact_location_kind": kind_l or NAO_SEI, "fact_location_precision": fact_location_precision,
             "fact_time": fact_time, "fact_time_basis": fact_time_basis[:800],
             "fact_time_kind": fact_time_kind, "fact_time_precision": fact_time_precision,
+            "fact_time_calculo": fact_time_calculo, "fact_time_evidencia": fact_time_evidencia,
             "EVIDENCIA": {"LUGARES": lugares, "TEMPO": tempo, "TEMPOS_DE_EVENTO": eventos,
                           "EXPRESSOES_RELATIVAS": relativas,
                           "PUBLICACAO_PROVADA": pub.isoformat() if pub else None,
