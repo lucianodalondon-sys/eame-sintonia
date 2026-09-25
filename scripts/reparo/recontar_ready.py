@@ -71,7 +71,18 @@ def conferir(juntado: dict, revisao: dict) -> dict:
             "VEREDITO": "PASS" if not suspeitas_ready and not fora else "FAIL"}
 
 
+RETIRADO = ("RETIRADO (D41.3, 25/09): copia do robo comeca com REDE FECHADA e so corre com a fila FILTRADA ao "
+            "que a missao pede e o teto D38 (5 pedidos por dominio por corrida). Este script corria bancas com a "
+            "fila inteira da producao — nao cumpre. A recontagem da R1 fez-se no vivo, so por leitura "
+            "(scripts/reparo/observar_vivo.py). Nao se corre.")
+
+
 def main(argv=None) -> int:
+    print(RETIRADO)
+    return 2
+
+
+def _main_antigo(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--foto", required=True)
     ap.add_argument("--sha", required=True)
