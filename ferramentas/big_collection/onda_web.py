@@ -161,10 +161,46 @@ def repartir(linhas: list[dict], teto: int = TETO) -> list[dict]:
     return linhas
 
 
-def so_plano(caminho: str, saida: Path | None, historico: list[str] | None = None) -> dict:
+def escolher(fontes: list[tuple], so: list[str] | None) -> list[tuple]:
+    """--fontes/--lote: SO estas fontes, e so de DENTRO da coorte congelada (MICRO; D47: 'correr como fixado').
+
+    A lista filtra, nao acrescenta: uma fonte pedida que nao esta na coorte recusa a onda inteira ANTES
+    da rede. Tudo o resto fica igual — livro do teto por onda, ordem justa no dominio, disjuntores."""
+    if so is None:
+        return fontes
+    if not so:
+        raise SystemExit("--fontes/--lote vazio: nenhuma fonte escolhida")
+    na_coorte = {s for s, _ in fontes}
+    fora = [s for s in so if s not in na_coorte]
+    if fora:
+        raise SystemExit("FONTE_FORA_DA_COORTE: %s — o MICRO so corre fontes da coorte congelada" % ",".join(fora))
+    pedidas = set(so)
+    return [(s, u) for s, u in fontes if s in pedidas]
+
+
+def fontes_do_argumento(arg: dict) -> list[str] | None:
+    """`--fontes=A,B` ou `--lote=<LOTE-MICRO.json>` (LOTE[] ou ESCOLHA[] .SOURCE_ID). Os dois juntos: recusa."""
+    if "fontes" in arg and "lote" in arg:
+        raise SystemExit("--fontes e --lote juntos: escolhe um")
+    if "fontes" in arg:
+        so = [x.strip() for x in arg["fontes"].split(",") if x.strip()]
+    elif "lote" in arg:
+        doc = json.loads(Path(arg["lote"]).read_text(encoding="utf-8"))
+        chave = "LOTE" if "LOTE" in doc else "ESCOLHA"         # V2 traz LOTE[]; o LOTE-MICRO-V3 traz ESCOLHA[]
+        if chave not in doc:
+            raise SystemExit("--lote sem LOTE[] nem ESCOLHA[]: %s" % arg["lote"])
+        so = [x["SOURCE_ID"] for x in doc[chave]]
+    else:
+        return None
+    if not so:                                                # lista vazia NAO pode virar «a coorte toda»
+        raise SystemExit("--fontes/--lote vazio: nenhuma fonte escolhida")
+    return so
+
+
+def so_plano(caminho: str, saida: Path | None, historico: list[str] | None = None, so: list[str] | None = None) -> dict:
     oficial = coorte_oficial(caminho, exigir_congelada=False, sha_declarado=None)
     c = oficial["COORTE"]
-    fontes = [(x["SOURCE_ID"], x.get("INDEX_URL") or "") for x in c["COORTE"]]
+    fontes = escolher([(x["SOURCE_ID"], x.get("INDEX_URL") or "") for x in c["COORTE"]], so)
     hosts = sorted({urlparse(u).hostname or "" for _, u in fontes if u})
     dom = dominios(hosts)
     ultima = ultima_vez_atendida(historicos(historico))
@@ -190,6 +226,7 @@ def so_plano(caminho: str, saida: Path | None, historico: list[str] | None = Non
     out = {"DATASET": "ONDA-WEB-SO-PLANO", "GERADO_EM": datetime.now().astimezone().isoformat(timespec="seconds"),
            "ARVORE": oficial["HEAD"], "COORTE_FICHEIRO": caminho, "COORTE_SHA256_DO_COMMIT": oficial["SHA256_DO_COMMIT"],
            "COORTE_ESTADO": c.get("ESTADO"), "PODE_CORRER": c.get("ESTADO") == "CONGELADA",
+           "SO_AS_FONTES": so,
            "TETO_POR_DOMINIO_NA_ONDA": TETO, "FONTES": len(linhas),
            "CORREM": sum(1 for l in linhas if l["PORQUE"] != "TETO_DOMINIO"),
            "SALTAM_POR_TETO_DOMINIO": [l["SOURCE_ID"] for l in linhas if l["PORQUE"] == "TETO_DOMINIO"],
@@ -223,7 +260,7 @@ def disjuntor_de_dominio(livro_agora: dict) -> str | None:
 
 
 # ── correr (a unica parte com rede; exige coorte CONGELADA e o sha256 declarado) ──
-def correr(caminho: str, sha: str, saida: Path, historico: list[str] | None = None) -> int:
+def correr(caminho: str, sha: str, saida: Path, historico: list[str] | None = None, so: list[str] | None = None) -> int:
     sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
     import micro_coleta as M                                  # noqa: E402
     import ensaio_offline as E                                # noqa: E402
@@ -235,12 +272,13 @@ def correr(caminho: str, sha: str, saida: Path, historico: list[str] | None = No
     saida.mkdir(parents=True, exist_ok=True)
     livro = saida / "TETO-ONDA.json"
     os.environ["SINTONIA_TETO_ONDA"] = str(livro)             # herdado por orquestrador -> executor -> node
-    fontes = [(x["SOURCE_ID"], x.get("INDEX_URL") or "") for x in oficial["COORTE"]["COORTE"]]
+    fontes = escolher([(x["SOURCE_ID"], x.get("INDEX_URL") or "") for x in oficial["COORTE"]["COORTE"]], so)
     dom = dominios(sorted({urlparse(u).hostname or "" for _, u in fontes if u}))
     fontes = ordenar_por_dominio(fontes, {s: dom.get(urlparse(u).hostname or "", "") for s, u in fontes},
                                  ultima_vez_atendida(historicos(historico)))
     foto = lambda: {k: v["LINHAS"] for k, v in E.fotografia().items()}      # noqa: E731
     estado = {"INICIO": agora(), "COORTE_SHA256": oficial["SHA256_DO_COMMIT"], "ARVORE": oficial["HEAD"],
+              "SO_AS_FONTES": so,
               "LIVRO_DA_ONDA": str(livro), "SALA_INICIO": foto(), "FONTES": [], "PAROU": None}
     grava = lambda: (saida / "ONDA-WEB-ESTADO.json").write_text(                # noqa: E731
         json.dumps(estado, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
@@ -322,8 +360,9 @@ def main(argv=None) -> int:
     saida = Path(arg["saida"]) if arg.get("saida") else None
     # --historico=a.json,b.json: os ONDA-WEB-ESTADO.json das ondas anteriores (a 1.a onda entra sempre)
     historico = [x for x in arg.get("historico", "").split(",") if x]
+    so = fontes_do_argumento(arg)
     if "--so-plano" in argv:
-        out = so_plano(caminho, saida, historico)
+        out = so_plano(caminho, saida, historico, so)
         print(json.dumps({k: v for k, v in out.items() if k != "LINHAS"}, ensure_ascii=False, indent=1))
         return 0
     if "--correr" in argv:
@@ -332,7 +371,7 @@ def main(argv=None) -> int:
         if (saida / "TETO-ONDA.json").exists() and "--retomar" not in argv:
             raise SystemExit("LIVRO_DA_ONDA_JA_EXISTE: %s — uma onda nova tem pasta nova; para retomar a MESMA onda, --retomar"
                              % (saida / "TETO-ONDA.json"))
-        return correr(caminho, arg["sha256"], saida, historico)
+        return correr(caminho, arg["sha256"], saida, historico, so)
     print(__doc__)
     return 2
 
