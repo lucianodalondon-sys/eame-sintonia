@@ -117,6 +117,15 @@ class S1OPortaoContaCadaPedido(_Base):
         self.assertEqual(self.srv.pedidos, ["/robots.txt"])
         self.assertEqual(http.pedidos_por_host()[0], {"127.0.0.1": 1})
 
+    def test_https_tambem_conta_no_abridor_instalado(self):
+        # O YouTube e o LinkedIn sao https. Sem rede: so os pre-processadores do abridor
+        # que `urlopen` usa, na ordem em que ele os chamaria.
+        import urllib.request
+        req = urllib.request.Request("https://www.youtube.com/@canal")
+        for p in urllib.request._opener.process_request.get("https", []):
+            req = getattr(p, "https_request")(req)
+        self.assertEqual(http.pedidos_por_host()[0], {"youtube.com": 1})
+
     def test_www_junta_ao_site_e_de_fora_soma(self):
         http.contar_pedido("WWW.YouTube.com")
         http.contar_de_fora({"www.youtube.com": 2, "rr1---sn-a.googlevideo.com": 3}, quem="yt-dlp")
@@ -153,6 +162,43 @@ class S2OTrafegoDoYtDlpLeSePorHost(unittest.TestCase):
 
     def test_saida_sem_pedidos_e_zero(self):
         self.assertEqual(ytv.trafego_do_yt_dlp("ERROR: nada\n"), {})
+
+
+class S2bOAdaptadorPassaOYtDlpAConta(unittest.TestCase):
+    """`adaptador_youtube.youtube_audio_publico` entrega os pedidos do yt-dlp ao portao."""
+
+    def setUp(self):
+        http.zerar_contagem()
+
+    def _audio(self, trafego, resposta):
+        def falso(vid):
+            ytv.ULTIMO_TRAFEGO = trafego
+            return resposta
+        return mock.patch.object(ytv, "_audio", falso)
+
+    def _correr(self):
+        import adaptador_youtube as ay
+        try:
+            ay.youtube_audio_publico(run_id=RUN, country_scope="IT", video_id="abcdefghijk")
+        except Exception:                                          # noqa: BLE001
+            pass                                                   # a falha e o caso medido
+
+    def test_falha_do_yt_dlp_conta_os_pedidos_que_fez(self):
+        with self._audio({"www.youtube.com": 2, "rr1---sn-a.googlevideo.com": 1},
+                         (None, "YT_DLP_NAO_ENTREGOU: 403")):
+            self._correr()
+        self.assertEqual(http.pedidos_por_host(),
+                         ({"youtube.com": 2, "rr1---sn-a.googlevideo.com": 1}, []))
+
+    def test_sem_leitura_do_trafego_fica_declarado(self):
+        with self._audio(None, (None, "YT_DLP_ESTOUROU_O_TEMPO")):
+            self._correr()
+        self.assertEqual(http.pedidos_por_host(), ({}, ["yt-dlp"]))
+
+    def test_cache_nao_e_pedido(self):
+        with self._audio({"www.youtube.com": 9}, (None, "CACHE")):
+            self._correr()
+        self.assertEqual(http.pedidos_por_host(), ({}, []))
 
 
 def _pasta_do_yt_dlp():
