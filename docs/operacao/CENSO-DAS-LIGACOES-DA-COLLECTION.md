@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1
-BRANCH           integra-onda2-v1
-GERADO_EM        2026-09-25T06:49:47-03:00
+HEAD_DA_MEDICAO  75947e77a8cc70b086514d4c7bfe666910199d8c
+BRANCH           receita-t8-v1
+GERADO_EM        2026-09-25T07:23:16-03:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

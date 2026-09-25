@@ -768,6 +768,20 @@
       "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
       "data/derivados/O-CENSO-DO-ACERVO.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+      "data/derivados/RECEITA-T8-V1/animal-22-leitura.txt",
+      "data/derivados/RECEITA-T8-V1/livros-vivos-copiados.sha256",
+      "data/derivados/RECEITA-T8-V1/mutacao-RESULTADO.txt",
+      "data/derivados/RECEITA-T8-V1/mutacao.py.txt",
+      "data/derivados/RECEITA-T8-V1/plano-ANTES-DEPOIS.txt",
+      "data/derivados/RECEITA-T8-V1/plano-ANTES.err",
+      "data/derivados/RECEITA-T8-V1/plano-ANTES.json",
+      "data/derivados/RECEITA-T8-V1/plano-DEPOIS.err",
+      "data/derivados/RECEITA-T8-V1/plano-DEPOIS.json",
+      "data/derivados/RECEITA-T8-V1/testes-ANTES.txt",
+      "data/derivados/RECEITA-T8-V1/testes-DEPOIS.txt",
+      "data/derivados/RECEITA-T8-V1/vizinhos-ANTES.txt",
+      "data/derivados/RECEITA-T8-V1/vizinhos-DEPOIS.txt",
+      "data/derivados/RECEITA-T8-V1/vizinhos-lista.txt",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
@@ -1454,6 +1468,7 @@
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
       "docs/operacao/READY-LINEAGE-BEFORE-SCALE-V1.md",
+      "docs/operacao/RECEITA-T8-V1.md",
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
@@ -3008,6 +3023,7 @@
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
       "tests/test_raw_observation_id_volta.py",
+      "tests/test_receita_web_t8_t9_t12.py",
       "tests/test_receitas_proposta.py",
       "tests/test_red_team_estrada.py",
       "tests/test_reel_transcricao.py",
@@ -3570,10 +3586,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-onda2-v1",
-    "HEAD": "3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1",
-    "GENERATED_AT": "2026-09-25T06:49:47-03:00",
-    "SOURCE_TREE_FINGERPRINT": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a"
+    "BRANCH": "receita-t8-v1",
+    "HEAD": "75947e77a8cc70b086514d4c7bfe666910199d8c",
+    "GENERATED_AT": "2026-09-25T07:23:16-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9a1717ccc54ef4f5dee55d2f787458222c45cc8784a456aad7c4c7c35a224c87"
   },
   "FAMILIES": [
     {
@@ -57577,17 +57593,18 @@
         "valida": false,
         "e_workflow": false,
         "executa": false,
-        "executores_que_chama": 12
+        "executores_que_chama": 13
       },
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
           "CONTRATOS_OBRIGATORIOS",
-          "EXECUTORES"
+          "EXECUTORES",
+          "_SITES_POR_FONTE_NOMEADA"
         ],
-        "palavras": 257,
+        "palavras": 275,
         "por_lingua": {},
-        "sem_marca_de_lingua": 257,
+        "sem_marca_de_lingua": 275,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -63373,6 +63390,7 @@
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
         "tests/test_raw_observation_id_volta.py",
+        "tests/test_receita_web_t8_t9_t12.py",
         "tests/test_receitas_proposta.py",
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao.py",
@@ -63417,7 +63435,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 236,
+      "file_count": 237,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63625,7 +63643,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 55,
+        "ITALIA": 56,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -63725,13 +63743,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1298,
+        "palavras": 1328,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1286,
+        "sem_marca_de_lingua": 1316,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -66192,7 +66210,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch integra-onda2-v1"
+        "branch receita-t8-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -85498,7 +85516,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 633,
+          "line": 683,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -98610,7 +98628,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -98789,9 +98807,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_retorno_da_coleta.py",
-          "line": 27,
-          "snippet": "base = dict(RUN_ID=\"XX-T2-2026-09-11-000001\", EXECUTOR_ID=\"coleta/italy_executor.py\",",
+          "file": "tests/test_receita_web_t8_t9_t12.py",
+          "line": 32,
+          "snippet": "WEB = \"coleta/italy_executor.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -103296,7 +103314,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 635,
+          "line": 685,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -109080,7 +109098,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -109195,6 +109213,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_receita_web_t8_t9_t12.py",
+          "line": 30,
+          "snippet": "from pedido import Pedido  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_reel_transcricao.py",
           "line": 464,
           "snippet": "from pedido import Pedido",
@@ -109246,22 +109280,6 @@
           "file": "tests/test_universo_explicito.py",
           "line": 46,
           "snippet": "from pedido import Pedido, PedidoInvalido                      # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
-            "FROM": "C-PEDIDO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_universo_vem_do_pedido.py",
-          "line": 40,
-          "snippet": "from pedido import Pedido                   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -112376,7 +112394,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 631,
+          "line": 681,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -112392,7 +112410,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 637,
+          "line": 687,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -117252,7 +117270,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -117338,6 +117356,22 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 468,
           "snippet": "from receitas import EXECUTORES",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
+            "FROM": "C-RECEITAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_receita_web_t8_t9_t12.py",
+          "line": 29,
+          "snippet": "import receitas as R  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
             "FROM": "C-RECEITAS",
@@ -122360,12 +122394,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_linkedin_op_01_operacional.py",
           "line": 392,
           "snippet": "for ficheiro in ('coleta/scrap_colheita.py', 'pedido/receitas.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_receita_web_t8_t9_t12.py",
+          "line": 33,
+          "snippet": "SOCIAL = \"coleta/scrap_colheita.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
             "FROM": "C-SCRAP-COLHEITA",
@@ -134640,7 +134690,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1649,
+  "UNCLAIMED_FILES_COUNT": 1664,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -134905,8 +134955,8 @@
     "edges_proven": 1256,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2977,
-    "files_covered": 1328,
+    "files_tracked": 2993,
+    "files_covered": 1329,
     "files_code_unclaimed": 0,
     "roles_proven": 170,
     "roles_declared_only": 8,

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T09:52:58+00:00",
-  "HEAD": "3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1",
-  "BRANCH": "integra-onda2-v1",
+  "GENERATED_AT": "2026-09-25T13:38:16+00:00",
+  "HEAD": "75947e77a8cc70b086514d4c7bfe666910199d8c",
+  "BRANCH": "receita-t8-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
-  "FICHEIROS_NA_IMPRESSAO": 3125,
+  "SOURCE_TREE_FINGERPRINT": "9a1717ccc54ef4f5dee55d2f787458222c45cc8784a456aad7c4c7c35a224c87",
+  "FICHEIROS_NA_IMPRESSAO": 3141,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2239,7 +2239,7 @@
    {
     "PATH": "pedido/receitas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6f00da380cd2404530213d4764ecc3fb4b8d30e8",
+    "VERSAO": "3890ad38007f030e75ad4b23ccc5e2bd019d983c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3975,14 +3975,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
+    "VERSAO": "9a1717ccc54ef4f5dee55d2f787458222c45cc8784a456aad7c4c7c35a224c87",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
+    "VERSAO": "9a1717ccc54ef4f5dee55d2f787458222c45cc8784a456aad7c4c7c35a224c87",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5604,6 +5604,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_receita_web_t8_t9_t12.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "79112fbfc7d6d5d82ba611c5d2925f85c776b836",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_receitas_proposta.py",
     "PAPEL": "FONTE",
     "VERSAO": "f974baf1ab59a2870a487477e2b72477d730c406",
@@ -5905,8 +5912,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 838,
-  "INPUTS_DIGEST": "0812580283fdf39d93f17c99d17f419169a1cce26959bbc48316c44d42f3d4ff",
+  "INPUTS_COUNT": 839,
+  "INPUTS_DIGEST": "4ec9fd8981324d6ed9fdf719735aad24fa8c3081791c91d63630fc865c935483",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5932,15 +5939,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 516,
+  "DOCUMENTOS_LIDOS": 517,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "2d5da9b06556f7a507cc073b629c6b19e3776e795b4f84b0d859f0ea90432296",
-  "SEMANTIC_HASH": "ef603ed9c526fd71e31c45c833db0e36612674976bbda79706f193c52002f2f6"
+  "MEASUREMENT_HASH": "2ccd530748edf9f24de81394af914662c61473f75411df902d8aa5d8dee6c684",
+  "SEMANTIC_HASH": "f1f1af2a3ff8bb0cb4dec67442acd87c91b28f365056605b30cd1d871bfb4235"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -17040,7 +17047,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 633,
+      "LINHA": 683,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -24648,8 +24655,8 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
-      "FICHEIRO": "tests/test_retorno_da_coleta.py",
-      "LINHA": 27,
+      "FICHEIRO": "tests/test_receita_web_t8_t9_t12.py",
+      "LINHA": 32,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
@@ -27421,7 +27428,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 635,
+      "LINHA": 685,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -30709,6 +30716,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_receita_web_t8_t9_t12.py",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_reel_transcricao.py",
       "LINHA": 464,
       "SUPPORTS": "YES",
@@ -30735,14 +30750,6 @@
      {
       "FICHEIRO": "tests/test_universo_explicito.py",
       "LINHA": 46,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_universo_vem_do_pedido.py",
-      "LINHA": 40,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -32356,7 +32363,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 631,
+      "LINHA": 681,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -32364,7 +32371,7 @@
      },
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 637,
+      "LINHA": 687,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -34945,6 +34952,14 @@
      {
       "FICHEIRO": "tests/test_raw_observation_id_volta.py",
       "LINHA": 468,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_receita_web_t8_t9_t12.py",
+      "LINHA": 29,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
@@ -37930,6 +37945,14 @@
      {
       "FICHEIRO": "tests/test_linkedin_op_01_operacional.py",
       "LINHA": 392,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_receita_web_t8_t9_t12.py",
+      "LINHA": 33,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
@@ -48831,6 +48854,7 @@
     "tests/test_o_pedido_nao_mente.py",
     "tests/test_observabilidade_estrada.py",
     "tests/test_raw_observation_id_volta.py",
+    "tests/test_receita_web_t8_t9_t12.py",
     "tests/test_retorno_da_coleta.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -53194,6 +53218,7 @@
     "tests/test_as_duas_portas_do_scrap.py",
     "tests/test_audio_youtube_wiring.py",
     "tests/test_linkedin_op_01_operacional.py",
+    "tests/test_receita_web_t8_t9_t12.py",
     "tests/test_scrap_flow01_caminho_canonico.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -54191,6 +54216,7 @@
     "tests/test_radar_futuro.py",
     "tests/test_rastro_pg.py",
     "tests/test_raw_observation_id_volta.py",
+    "tests/test_receita_web_t8_t9_t12.py",
     "tests/test_receitas_proposta.py",
     "tests/test_red_team_estrada.py",
     "tests/test_reel_transcricao.py",
