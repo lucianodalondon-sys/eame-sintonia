@@ -39,9 +39,26 @@ class OsTresCamposSeparados(unittest.TestCase):
 
     def test_o_bruto_e_o_envelope_levam_os_campos(self):
         fonte = inspect.getsource(LI._adquirir_um)
-        self.assertIn("**politica_do_objeto(nome_decisao)", fonte, "o bruto (RAW) tem de levar os campos")
-        self.assertIn("envelope.update(politica_do_objeto(nome_decisao))", fonte,
+        self.assertIn("**politica_do_objeto(nome_decisao, decisao_robots)", fonte, "o bruto (RAW) tem de levar os campos")
+        self.assertIn("envelope.update(politica_do_objeto(nome_decisao, decisao_robots))", fonte,
                       "o envelope (a observacao) tem de levar os campos")
+
+
+class APessoaD41(unittest.TestCase):
+    """D41: a rota de PESSOAS fica ligada, com os mesmos tres campos, e o robots dela e coberto pela D41."""
+
+    def test_a_pessoa_leva_os_tres_campos_e_a_D41(self):
+        d = LI.DECISAO_DA_PESSOA
+        p = LI.politica_do_objeto(d["DECISAO"], d["DECISAO_DO_ROBOTS"])
+        self.assertEqual((p["OWNER_AUTHORIZED"], p["PLATFORM_POLICY_STATUS"], p["ROBOTS_STATUS"]),
+                         ("SIM", "DISALLOWED", "DISALLOW_ALL"))
+        self.assertEqual((p["DECISAO_DO_DONO"], p["DECISAO_DO_ROBOTS"]), ("D24", "D41"))
+
+    def test_a_organizacao_continua_D37(self):
+        self.assertEqual(LI.politica_do_objeto("D23")["DECISAO_DO_ROBOTS"], "D37")
+
+    def test_o_adquirir_le_a_decisao_do_robots_da_porta(self):
+        self.assertIn("dec.get('DECISAO_DO_ROBOTS', DECISAO_DO_ROBOTS)", inspect.getsource(LI._adquirir_um))
 
 
 if __name__ == "__main__":

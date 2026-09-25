@@ -937,8 +937,11 @@ ROBOTS_MEDIDA_REF = 'leis/social_matriz.py (cabecalho: robots.txt de cada plataf
 DECISAO_DO_ROBOTS = 'D37'
 
 
-def politica_do_objeto(nome_decisao):
-    """Os campos de politica que CADA objeto leva, separados (D37)."""
+def politica_do_objeto(nome_decisao, decisao_robots=DECISAO_DO_ROBOTS):
+    """Os campos de politica que CADA objeto leva, separados (D37).
+
+    `decisao_robots` diz QUEM cobriu o robots proibido: D37 para o video de
+    ORGANIZACAO, D41 para o video de PESSOA (a D24 assume o risco; D41, 25/09)."""
     return {
         'OWNER_AUTHORIZED': 'SIM',
         'PLATFORM_POLICY_STATUS': 'DISALLOWED',
@@ -947,7 +950,7 @@ def politica_do_objeto(nome_decisao):
         'ROBOTS_MEDIDO_EM': ROBOTS_MEDIDO_EM,
         'ROBOTS_MEDIDA_REF': ROBOTS_MEDIDA_REF,
         'DECISAO_DO_DONO': nome_decisao,
-        'DECISAO_DO_ROBOTS': DECISAO_DO_ROBOTS,
+        'DECISAO_DO_ROBOTS': decisao_robots,
     }
 
 # ── D24 · OS MESMOS TRES PAPEIS, PARA A PESSOA ──────────────────────────
@@ -977,6 +980,9 @@ DECISAO_DA_PESSOA = {
     'ROTA_LEGENDA': ROTA_LEGENDA_PESSOA,
     'LIMITE': LIMITE_DA_PESSOA,
     'EXECUTOR': 'adaptador_linkedin.video_de_post_publico',
+    # D41 (25/09): a rota de PESSOAS fica LIGADA, com os mesmos tres campos;
+    # quem cobre o robots proibido desta porta e a D41, nao a D37.
+    'DECISAO_DO_ROBOTS': 'D41',
 }
 
 #: As portas que NAO se abrem, com o nome de cada uma. A lista e a mesma que o
@@ -1626,6 +1632,7 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
     rota_legenda = dec.get('ROTA_LEGENDA', ROTA_LEGENDA_NATIVA)
     executor = dec.get('EXECUTOR', 'adaptador_linkedin.video_da_pagina_publica')
     limite = dec.get('LIMITE')
+    decisao_robots = dec.get('DECISAO_DO_ROBOTS', DECISAO_DO_ROBOTS)
     ident = cartao.get('ACTIVITY_ID')
     url_do_post = _url_do_post(cartao)
     raw = {
@@ -1643,7 +1650,7 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
                                     '<video> — nunca inferida do texto'),
         'POSTER_URL': cartao.get('POSTER_URL'),
         'ASPECT_RATIO': cartao.get('ASPECT_RATIO'),
-        **politica_do_objeto(nome_decisao),
+        **politica_do_objeto(nome_decisao, decisao_robots),
         'DECISAO_DO_DONO_REF': ref_decisao,
         'EGRESS_MEASURED': egresso,
         'URL_EXPIRY_OBSERVED': None,
@@ -1817,7 +1824,7 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
         raw=raw)
     envelope['ACQUISITION_TIER'] = FREE
     envelope['FIELD_ORIGIN_TIER'] = FREE
-    envelope.update(politica_do_objeto(nome_decisao))
+    envelope.update(politica_do_objeto(nome_decisao, decisao_robots))
     if limite:
         envelope['LIMITE'] = limite
     envelope['RAW_SHA256'] = ref['SHA256']

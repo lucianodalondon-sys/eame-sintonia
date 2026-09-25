@@ -12,9 +12,14 @@ MUTANTES = [
     ("sem ROBOTS_STATUS", "        'ROBOTS_STATUS': ROBOTS_STATUS,\n", ""),
     ("ROBOTS igual a politica", "ROBOTS_STATUS = 'DISALLOW_ALL'", "ROBOTS_STATUS = 'DISALLOWED'"),
     ("sem endereco do robots", "ROBOTS_URL = 'https://www.linkedin.com/robots.txt'", "ROBOTS_URL = ''"),
-    ("envelope sem os campos", "    envelope.update(politica_do_objeto(nome_decisao))\n",
+    ("envelope sem os campos", "    envelope.update(politica_do_objeto(nome_decisao, decisao_robots))\n",
      "    envelope['OWNER_AUTHORIZED'] = 'SIM'\n"),
-    ("bruto sem os campos", "        **politica_do_objeto(nome_decisao),\n", "        'OWNER_AUTHORIZED': 'SIM',\n"),
+    ("bruto sem os campos", "        **politica_do_objeto(nome_decisao, decisao_robots),\n",
+     "        'OWNER_AUTHORIZED': 'SIM',\n"),
+    # D41: a pessoa leva os mesmos campos, com a decisao dela
+    ("pessoa carimbada D37", "    'DECISAO_DO_ROBOTS': 'D41',\n", "    'DECISAO_DO_ROBOTS': 'D37',\n"),
+    ("pessoa perde a decisao da porta", "    decisao_robots = dec.get('DECISAO_DO_ROBOTS', DECISAO_DO_ROBOTS)\n",
+     "    decisao_robots = DECISAO_DO_ROBOTS\n"),
     ("data da medicao inventada", "ROBOTS_MEDIDO_EM = '2026-09-08'", "ROBOTS_MEDIDO_EM = '2026-09-24'"),
 ]
 
