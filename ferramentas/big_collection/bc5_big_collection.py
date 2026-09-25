@@ -24,6 +24,14 @@ sys.path.insert(0, "scripts/micro_coleta")
 import micro_coleta as M      # noqa: E402
 import ensaio_offline as E    # noqa: E402
 
+# ⚠️ ESTE E O REGISTO DA 1.a ONDA (BC5, 24/09), NAO O DISPARADOR DAS SEGUINTES (ONDA2-G3, 25/09).
+# Ele lia a coorte de C:\bc (fora do Git, sem impressao digital) e contava o teto por corrida,
+# e com isso o cia.it levou 16 pedidos numa onda (D38). A 2.a onda em diante corre por
+# `ferramentas/big_collection/onda_web.py`: coorte oficial conferida e teto por dominio na onda.
+if __name__ == "__main__" and os.environ.get("SINTONIA_BC5_REPLAY") != "1":
+    raise SystemExit("BC5 e o registo da 1.a onda. A onda seguinte corre por "
+                     "ferramentas/big_collection/onda_web.py (D38 + coorte oficial). "
+                     "Replay deliberado da BC5: SINTONIA_BC5_REPLAY=1.")
 SAIDA = Path(r"C:\bc5\big")
 SAIDA.mkdir(parents=True, exist_ok=True)
 COORTE = [x["SOURCE_ID"] for x in json.load(open(r"C:\bc\COORTE-BIG-COLLECTION.json", encoding="utf-8"))["COORTE"]]
