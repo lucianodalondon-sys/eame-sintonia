@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5e646dedcc2fe1493c15a06d5d5b66e539a5fb7f
+HEAD_DA_MEDICAO  d089be57769151a5b3b3b292c4c002f1c1c4ebe4
 BRANCH           trava-medidores-v1
-GERADO_EM        2026-09-25T01:54:26-03:00
+GERADO_EM        2026-09-25T03:08:34-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

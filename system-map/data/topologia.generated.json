@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T05:39:04+00:00",
-  "HEAD": "5e646dedcc2fe1493c15a06d5d5b66e539a5fb7f",
+  "GENERATED_AT": "2026-09-25T07:35:36+00:00",
+  "HEAD": "d089be57769151a5b3b3b292c4c002f1c1c4ebe4",
   "BRANCH": "trava-medidores-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "e44f26ecb20f26014b9e98203cd9b11d30d2c3c807fbe2ce013540433500f490",
-  "FICHEIROS_NA_IMPRESSAO": 2975,
+  "SOURCE_TREE_FINGERPRINT": "054a83a00d90695f4bbb509765c50201ce7ceb156e2eccd2385df55393a3b3be",
+  "FICHEIROS_NA_IMPRESSAO": 2978,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3723,14 +3723,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e44f26ecb20f26014b9e98203cd9b11d30d2c3c807fbe2ce013540433500f490",
+    "VERSAO": "054a83a00d90695f4bbb509765c50201ce7ceb156e2eccd2385df55393a3b3be",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e44f26ecb20f26014b9e98203cd9b11d30d2c3c807fbe2ce013540433500f490",
+    "VERSAO": "054a83a00d90695f4bbb509765c50201ce7ceb156e2eccd2385df55393a3b3be",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3758,7 +3758,7 @@
    {
     "PATH": "system-map/scripts/censo_das_estradas_it.py",
     "PAPEL": "FONTE",
-    "VERSAO": "90d0d14d45c94f07b630464531013e3fe71e5d5e",
+    "VERSAO": "41a0003b39c15224a37c09e1b273db080aec1a7d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5158,7 +5158,7 @@
    {
     "PATH": "tests/test_os_medidores_da_trava_veem.py",
     "PAPEL": "FONTE",
-    "VERSAO": "dd9298a06d4d9a20b49d6fe0dfdfe5622de3ac79",
+    "VERSAO": "ad3342a7c405d108136def54540f1885734e49ee",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5619,7 +5619,7 @@
    }
   ],
   "INPUTS_COUNT": 797,
-  "INPUTS_DIGEST": "1324504f8965ac6bb085ac3206b3dc708cf43c70a6369852e8c26aa0654381f7",
+  "INPUTS_DIGEST": "202ce2fb5e824c8ccd4799bb57c8fe1638a927a4e347d6d42aca608aa4769537",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5652,8 +5652,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "847ebb5c91d3957bd4ccac386712b6ab0839c4678e5b8413b17e4034cf18485c",
-  "SEMANTIC_HASH": "58dbad606592ec7c720ad6120ceb0551c693c609d316c1ed65075e5b638406b7"
+  "MEASUREMENT_HASH": "6e340eb0b7c8b2ff260f14b01196f536dca5aa0a7e99cde64e035e888944c160",
+  "SEMANTIC_HASH": "e15801e3ca87555a057dedb04d4c439c2ab3af4d39f370d9b73af4e958f317cd"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -24016,7 +24016,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 927,
+      "LINHA": 931,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-ESTRADAS-IT",
@@ -37488,7 +37488,7 @@
      },
      {
       "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
-      "LINHA": 1123,
+      "LINHA": 1174,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -43287,7 +43287,6 @@
    "C-SUPERFICIE-SCRAP-V1"
   ],
   "NINGUEM_CORRE": [
-   "C-BIG-COLLECTION-CONDUTOR-BC5",
    "C-CENSO-DERIVACOES",
    "C-CENSO-SEMANTICO-IT",
    "C-CORRIDA-CANONICA",
@@ -44200,7 +44199,9 @@
     "ferramentas/big_collection/bc5_big_collection.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
-   "SO_MEDEM_ESTE": [],
+   "SO_MEDEM_ESTE": [
+    "system-map/scripts/censo_das_estradas_it.py"
+   ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,

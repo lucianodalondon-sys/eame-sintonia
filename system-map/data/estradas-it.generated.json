@@ -4315,9 +4315,12 @@
   "PORQUE_RC1": "RAW (guarda/preservar_coleta.py) e DERIVED (executor_texto_de_pdf/html) reais sao os do modelo da RC-1; o FETCH real (coleta/italy_executor.py -> coleta/italy_pilot_collect.mjs) NAO e o FETCH do modelo (coleta/texto_fonte.py). Divergencia do modelo, declarada; e o nome OFFICIAL_HTTP_DOCUMENT nao foi verificado fonte a fonte.",
   "PROVAS_ACEITES": [
    "curadoria/LIFECYCLE-LEDGER-V1.json · REASON «corrida real com sucesso na Big Collection (N observacoes)», N > 0",
-   "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
-   "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json"
+   "ferramentas/big_collection/*.json — registos de corrida do disparador (STATUS SUCCESS, RAW>=1, DERIVED>=1, C4 sem proveniencia partida) e linhas novas na Sala da micro; lidos pelo FORMATO, nao pelo nome"
   ],
+  "PROVAS_DA_PASTA_OFICIAL": {
+   "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json": 2,
+   "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json": 4
+  },
   "PROVAS_RECUSADAS": "o ledger em Git e o canario do modelo: falam de SOURCE_ID do catalogo antigo, e o mesmo codigo pode nomear outra fonte noutro livro",
   "POR_FONTE": [
    {
@@ -4716,7 +4719,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "ROUTE_CLASS_ID": "RC-1",
     "RESOLUCAO": "CLASSE_PROVADA",
-    "PROVA": "BC5-BIG-COLLECTION-1A-ONDA · IT-T10-2026-09-24-120449-0196c6a5c9db1619 (RAW 3, DERIVED 3)",
+    "PROVA": "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json · IT-T10-2026-09-24-101059-1ed4c40cefbca49b (linha nova na Sala real)",
     "RAZAO_DO_BLOQUEIO": null,
     "PORQUE": "resultado real + contrato HTML_LINK_DISCOVERY"
    },
@@ -8786,7 +8789,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "ROUTE_CLASS_ID": "RC-1",
     "RESOLUCAO": "CLASSE_PROVADA",
-    "PROVA": "BC4D-MICRO-FINAL-RESULTADO · IT-T5-2026-09-24-101155-4d2beff71b9a7014 (linha na Sala real, C4 PASS)",
+    "PROVA": "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json · IT-T5-2026-09-24-101155-4d2beff71b9a7014 (linha nova na Sala real)",
     "RAZAO_DO_BLOQUEIO": null,
     "PORQUE": "resultado real + contrato HTML_LINK_DISCOVERY"
    },
@@ -9436,7 +9439,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "ROUTE_CLASS_ID": "RC-1",
     "RESOLUCAO": "CLASSE_PROVADA",
-    "PROVA": "BC5-BIG-COLLECTION-1A-ONDA · IT-T7-2026-09-24-120737-b9d168ef521cb4d9 (RAW 1, DERIVED 1)",
+    "PROVA": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json · IT-T7-2026-09-24-120737-b9d168ef521cb4d9 (RAW 1, DERIVED 1)",
     "RAZAO_DO_BLOQUEIO": null,
     "PORQUE": "resultado real + contrato HTML_LINK_DISCOVERY"
    },
@@ -9646,7 +9649,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "ROUTE_CLASS_ID": "RC-1",
     "RESOLUCAO": "CLASSE_PROVADA",
-    "PROVA": "BC5-BIG-COLLECTION-1A-ONDA · IT-T7-2026-09-24-120820-4682d316adbce27d (RAW 3, DERIVED 3)",
+    "PROVA": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json · IT-T7-2026-09-24-120820-4682d316adbce27d (RAW 3, DERIVED 3)",
     "RAZAO_DO_BLOQUEIO": null,
     "PORQUE": "resultado real + contrato HTML_LINK_DISCOVERY"
    },
@@ -10396,7 +10399,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "ROUTE_CLASS_ID": "RC-1",
     "RESOLUCAO": "CLASSE_PROVADA",
-    "PROVA": "BC5-BIG-COLLECTION-1A-ONDA · IT-T7-2026-09-24-120938-51efde19469b3350 (RAW 1, DERIVED 1)",
+    "PROVA": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json · IT-T7-2026-09-24-120938-51efde19469b3350 (RAW 1, DERIVED 1)",
     "RAZAO_DO_BLOQUEIO": null,
     "PORQUE": "resultado real + contrato HTML_LINK_DISCOVERY"
    },
@@ -10576,7 +10579,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "ROUTE_CLASS_ID": "RC-1",
     "RESOLUCAO": "CLASSE_PROVADA",
-    "PROVA": "BC5-BIG-COLLECTION-1A-ONDA · IT-T7-2026-09-24-121113-bcac8be0b7e36d61 (RAW 1, DERIVED 1)",
+    "PROVA": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json · IT-T7-2026-09-24-121113-bcac8be0b7e36d61 (RAW 1, DERIVED 1)",
     "RAZAO_DO_BLOQUEIO": null,
     "PORQUE": "resultado real + contrato HTML_LINK_DISCOVERY"
    },

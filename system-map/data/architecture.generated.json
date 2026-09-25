@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "trava-medidores-v1",
-    "HEAD": "5e646dedcc2fe1493c15a06d5d5b66e539a5fb7f",
-    "GENERATED_AT": "2026-09-25T01:54:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e44f26ecb20f26014b9e98203cd9b11d30d2c3c807fbe2ce013540433500f490"
+    "HEAD": "d089be57769151a5b3b3b292c4c002f1c1c4ebe4",
+    "GENERATED_AT": "2026-09-25T03:08:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "054a83a00d90695f4bbb509765c50201ce7ceb156e2eccd2385df55393a3b3be"
   },
   "FILES": [
     {
@@ -5084,6 +5084,13 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/A-COM-E-SEM-A-1A-ONDA.txt",
+      "sha": "f49e36930713cacb5b31ed3c7118ce7d5545e1ec",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/MAPA-SOURCE-RC-716.tsv",
       "sha": "6ba9a6a81b0a7587950fb56d99aa39b10e6abe67",
       "ext": ".tsv",
@@ -5092,14 +5099,14 @@
     },
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/mutacao-RESULTADO.txt",
-      "sha": "7001d482dd32974420604fb33b7fb57b847104f0",
+      "sha": "3aeb410b3e39971417cd9bccc04eae5aab142988",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/mutacao.py.txt",
-      "sha": "5f2c5018f0efa555d3e7351d1b4f16b4518801de",
+      "sha": "21769bcc7747a0d47e00ba98f355c753305acbc4",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -5147,6 +5154,20 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-PROVA-DA-ONDA-ANTES.txt",
+      "sha": "6da888efacc12f9c6d0cdfc51f2e794e4ee30f2e",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-PROVA-DA-ONDA-DEPOIS.txt",
+      "sha": "4619ff43a5a1f1ed7d5e12500b2eecc79923d8b9",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-cadeia-ANTES.txt",
       "sha": "85cdb14ef2f06bc0ab0f7ff503b4429d73ffec21",
       "ext": ".txt",
@@ -5169,7 +5190,7 @@
     },
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-D33.txt",
-      "sha": "3370dde53da077e80bef77ebb3cb43ad941940f0",
+      "sha": "489cc719d7cc41dd5ae9b8cd6cf6b017142c07cf",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -10041,7 +10062,7 @@
     },
     {
       "path": "docs/operacao/TRAVA-MEDIDORES-V1-D33-CRITERIO-A.md",
-      "sha": "a5709114dc62a4a9d6d851844eee7a89647d2985",
+      "sha": "54114d3ed8c86a907729deaabc3b52d9a8a94ab6",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17762,7 +17783,7 @@
     },
     {
       "path": "system-map/scripts/CADEIA-DO-MAPA.json",
-      "sha": "314eff74f81e2cd18d832e2d84d46ef4d6e3cf54",
+      "sha": "d703d8ee961dd0a198443a15a13e1bfe26efc981",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17811,7 +17832,7 @@
     },
     {
       "path": "system-map/scripts/censo_das_estradas_it.py",
-      "sha": "90d0d14d45c94f07b630464531013e3fe71e5d5e",
+      "sha": "41a0003b39c15224a37c09e1b273db080aec1a7d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19330,7 +19351,7 @@
     },
     {
       "path": "tests/test_os_medidores_da_trava_veem.py",
-      "sha": "dd9298a06d4d9a20b49d6fe0dfdfe5622de3ac79",
+      "sha": "ad3342a7c405d108136def54540f1885734e49ee",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -61425,28 +61446,6 @@
     },
     {
       "from_file": "system-map/scripts/censo_das_estradas_it.py",
-      "to_file": "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 915,
-        "snippet": "os.path.join(RAIZ, 'ferramentas', 'big_collection', 'BC4D-MICRO-FINAL-RESULTADO.json'),"
-      }
-    },
-    {
-      "from_file": "system-map/scripts/censo_das_estradas_it.py",
-      "to_file": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 914,
-        "snippet": "os.path.join(RAIZ, 'ferramentas', 'big_collection', 'BC5-BIG-COLLECTION-1A-ONDA.json'),"
-      }
-    },
-    {
-      "from_file": "system-map/scripts/censo_das_estradas_it.py",
       "to_file": "leis/fundacao_da_coleta.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -61485,7 +61484,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 1123,
+        "line": 1174,
         "snippet": "'MATRIZ': 'leis/social_matriz.py',"
       }
     },
@@ -61518,7 +61517,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 927,
+        "line": 931,
         "snippet": "CONTRATOS_MJS = os.path.join(RAIZ, 'regras', 'italy_contracts.mjs')"
       }
     },
@@ -77078,6 +77077,17 @@
     },
     {
       "from_file": "tests/test_os_medidores_da_trava_veem.py",
+      "to_file": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_medidores_da_trava_veem.py",
+        "line": 247,
+        "snippet": "os.path.join(PASTA_OFICIAL, \"BC5-BIG-COLLECTION-1A-ONDA.json\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_os_medidores_da_trava_veem.py",
       "to_file": "regras/italy_contracts_onboarded.json",
       "type": "READS",
       "payload": "artefacto",
@@ -82187,7 +82197,7 @@
     "system-map/scripts/censo_das_estradas_it.py": [
       {
         "pasta": "system-map",
-        "line": 1221,
+        "line": 1272,
         "constante": "SAIDA"
       }
     ],
@@ -82263,10 +82273,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2827,
+    "files_tracked": 2830,
     "files_readable": 1283,
     "files_code_dir": 1122,
-    "file_edges": 5626,
+    "file_edges": 5625,
     "escritas_em_pasta": 84,
     "declared_missing_here": 0
   },

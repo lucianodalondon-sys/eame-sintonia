@@ -751,6 +751,7 @@
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
       "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+      "data/derivados/TRAVA-MEDIDORES-V1/A-COM-E-SEM-A-1A-ONDA.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/MAPA-SOURCE-RC-716.tsv",
       "data/derivados/TRAVA-MEDIDORES-V1/mutacao-RESULTADO.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/mutacao.py.txt",
@@ -760,6 +761,8 @@
       "data/derivados/TRAVA-MEDIDORES-V1/testes-D33-ANTES.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-D33-DEPOIS.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-DEPOIS.txt",
+      "data/derivados/TRAVA-MEDIDORES-V1/testes-PROVA-DA-ONDA-ANTES.txt",
+      "data/derivados/TRAVA-MEDIDORES-V1/testes-PROVA-DA-ONDA-DEPOIS.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-cadeia-ANTES.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-cadeia-DEPOIS.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-ANTES.txt",
@@ -3421,9 +3424,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "trava-medidores-v1",
-    "HEAD": "5e646dedcc2fe1493c15a06d5d5b66e539a5fb7f",
-    "GENERATED_AT": "2026-09-25T01:54:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e44f26ecb20f26014b9e98203cd9b11d30d2c3c807fbe2ce013540433500f490"
+    "HEAD": "d089be57769151a5b3b3b292c4c002f1c1c4ebe4",
+    "GENERATED_AT": "2026-09-25T03:08:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "054a83a00d90695f4bbb509765c50201ce7ceb156e2eccd2385df55393a3b3be"
   },
   "FAMILIES": [
     {
@@ -36302,12 +36305,11 @@
         "papel": "NAO SEI",
         "listas": [
           "ESTADOS",
-          "ETAPAS",
-          "PROVAS_DE_RESULTADO"
+          "ETAPAS"
         ],
-        "palavras": 23,
+        "palavras": 17,
         "por_lingua": {},
-        "sem_marca_de_lingua": 23,
+        "sem_marca_de_lingua": 17,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -36317,7 +36319,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 1221,
+            "line": 1272,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -36343,8 +36345,6 @@
         "data/collection-ledger/italy/observations.ndjson",
         "data/samples/IT-PROBE/probe-fase-c.json",
         "docs/decisoes/DIARIO-DE-DECISOES.md",
-        "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json",
-        "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "leis/fundacao_da_coleta.py",
         "leis/social_matriz.py",
         "orquestrador/orquestrador.py",
@@ -55132,6 +55132,7 @@
         "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
         "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
         "ferramentas/apify_pool.py",
+        "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "ferramentas/cutover/medir_cutover.py",
         "ferramentas/cutover/passos_do_cutover.py",
         "ferramentas/fala_local.py",
@@ -88998,7 +88999,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 927,
+          "line": 931,
           "snippet": "CONTRATOS_MJS = os.path.join(RAIZ, 'regras', 'italy_contracts.mjs')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-ESTRADAS-IT",
@@ -112167,7 +112168,7 @@
         },
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 1123,
+          "line": 1174,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -123519,7 +123520,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1595,
+  "UNCLAIMED_FILES_COUNT": 1598,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123781,7 +123782,7 @@
     "edges_proven": 1211,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2827,
+    "files_tracked": 2830,
     "files_covered": 1232,
     "files_code_unclaimed": 0,
     "roles_proven": 163,
