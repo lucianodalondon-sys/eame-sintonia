@@ -77,3 +77,20 @@ fileira avícola: produção, não saúde animal; fica aqui escrita para quem de
 - Biotecnologie Verona: 74 pessoas, 1 LinkedIn → **CAND-0915 Claudio Zaccone** (AGRI-06/B chimica agraria, ciência do solo; sinal D29 AGROMETEO: «stress idrico delle colture» na ficha). 2 ResearchGate FICA_FORA.
 - Total P5: **9 candidatas (CAND-0907..0915)**, fila 906 → 915, 0 linhas antigas alteradas; 1027 páginas com sha256 em `EVIDENCIA-P5.json`, as 9 páginas-prova no ramo.
 **FALTA AO RETOMAR (24/09 18:2x):** cadeia do mapa sob LOCK-PESADO (REGERAR → commit → VALIDAR, esperado PASS; peça já declara as 9 provas), memória e entrega final. Rede: nada por fazer.
+
+## P5b · ENTREGA FINAL (25/09 ~02:05)
+
+```
+ESTADO                 = ENTREGUE
+FILA                   = origin/fila-unica-v1 junta (1172) -> 1173
+CANDIDATAS_P5          = 9 · 8 ja na FILA-UNICA (CAND-1148..1155, re-registadas por ela) + CAND-1173 Claudio Zaccone (nova, pela porta)
+CORRESPONDENCIA        = CAND-0907..0914 -> CAND-1148..1155 (tabela da FILA-UNICA) · CAND-0915 -> CAND-1173
+LINHAS_ANTIGAS_MUDADAS = 0
+DEDUPE                 = por URL e slug contra producao, FILA-UNICA, P1/P1d, P2, P4/P4b, YT3 — 0 colisoes
+PAGINAS_LIDAS          = 1027 (sha256 em EVIDENCIA-P5.json; 9 paginas-prova no ramo)
+EGRESSO                = todos os pedidos com portao PASS IT; o portao antigo (so ipinfo, 429) trocado pelo de consenso
+REGRA_5_VISITAS        = NAO cumprida nas voltas de 23-24/09 (a regra chegou depois): unipa 185, univr 77, CNR 60-180 pedidos por site, com pausa 2 s e robots. Antes de nova volta: teto por site na ferramenta
+TESTES                 = test_pessoas_docentes + test_fila_italia_decisoes (guarda D24) 48/48
+MAPA                   = SYSTEM_MAP_CHECK=PASS sob LOCK-PESADO (02b26fa5); carimbos do VALIDAR guardados (stash p5b-validar-carimbos-0925-0205, diff sha256 7bfba57f...)
+KNOW_HOW               = §223
+```
