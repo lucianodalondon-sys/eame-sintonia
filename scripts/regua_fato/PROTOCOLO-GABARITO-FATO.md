@@ -78,3 +78,46 @@ Regras de decisão, na ordem:
 - **Mutação:** desligar cada peça (o corpo, cada conceito, a exigência agro do evento, o NAO_SEI no empate,
   a regra de lugar por tipo) tem de reprovar um teste por asserção.
 - **0 mudanças nos universos:** o classificador não toca em `admissao/admissao.py`. Prova-se com o diff.
+
+## ADENDA 1 · 25/09 · decisões D71–D73 (dono real + bot Luciano), escrita ANTES de reetiquetar
+
+Fonte: `auditoria-madrugada/DECISOES-DONO-2026-09-23.md` (D71, D72, D73 e a reconciliação do coordenador).
+
+1. **Nome do campo:** `agro_fact_kind`, não `fact_kind` (D73).
+2. **D71 · empresa a explicar TÉCNICA** (Koppert e os ácaros): o tipo é o do assunto técnico
+   (`CAMPO_FITOSSANITARIO`, ou o tipo técnico certo). A empresa fica anotada como quem publicou.
+3. **D72 · tipo novo `MARKETING_CONCORRENCIA`.** Entra aqui:
+   - uma empresa (ou consórcio de marca) a promover os **próprios** produtos;
+   - qualquer pessoa (agrónomo, pesquisador, influencer) a falar **bem** de um produto;
+   - a presença de uma empresa num evento para mostrar produtos;
+   - toda a comunicação da concorrência.
+   Anotam-se `EMPRESA`, `PRODUTO` e `QUEM_FALOU` (`NAO SEI` quando o texto não diz). **Não é NAO_FATO.**
+   - A feira em si (Macfrut, Interpoma) continua `EVENTO_TECNICO`. A empresa a mostrar-se na feira é MARKETING.
+   - ⚠️ **Leitura minha**, a confirmar: «concorrência» lida como **qualquer empresa do agro** (sementes,
+     biocontrolo, vinho, fruta), não só a proteção de culturas, porque a D72 diz «empresa X/Y».
+4. **D73 · `MERCADO_VAREJO`:** varejo alimentar **só com facto de produto agrícola** (preço, oferta,
+   procura, disponibilidade, origem, promoção concreta). O preço do grossista, da commodity ou da
+   exportação fica em `MERCADO_PRECO`.
+   - A prova de que é varejo tem de estar no **corpo** (loja, insígnia, e-commerce, prateleira,
+     «online» no título), não no menu do site.
+   - **Abertura ou operação de loja = `INSTITUCIONAL`.**
+5. **NAO_FATO só para o que não é agro nem comunicação de concorrente.** Por isso o antigo
+   `INSTITUCIONAL_NAO_FATO` divide-se em dois:
+   - `INSTITUCIONAL`: conteúdo **do mundo agro** sem facto (página de ordem profissional, aviso de curso
+     agrário, menu de agência agrícola, abertura de loja);
+   - `NAO_FATO`: tudo o que não é agro. Decide-se pelo **conteúdo**, não pelo site.
+   - ⚠️ Leitura minha dos pontos (4)+(5).
+6. `NEGOCIO_AGRO` fica para empresa ou setor **sem** promoção de produto próprio (aquisição, investimento,
+   apoio, política agrícola).
+
+Taxonomia v2 (12 valores): `CAMPO_FITOSSANITARIO` · `CAMPO_CLIMA` · `CAMPO_PRODUCAO_COLHEITA` ·
+`MERCADO_PRECO` · `MERCADO_VAREJO` · `EVENTO_TECNICO` · `REGULATORIO_MOLECULA` · `NEGOCIO_AGRO` ·
+`MARKETING_CONCORRENCIA` · `INSTITUCIONAL` · `NAO_FATO` · `NAO_SEI`.
+
+**Ordem:**
+1. reetiquetar o gabarito **e** a cega com a v2, só pelos textos e sem correr o classificador; commit;
+2. mudar o classificador **só** olhando para o gabarito; congelar; commit;
+3. medir a cega sem mudar nada.
+
+⚠️ **A cega já não é cega.** Li os 49 textos e vi os 5 erros da v1 neles. A medida nova na cega é
+**otimista** e diz-se assim. Uma prova limpa pede textos novos.
