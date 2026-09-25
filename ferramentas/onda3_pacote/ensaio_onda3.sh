@@ -1,0 +1,115 @@
+#!/bin/bash
+# ENSAIO INTEGRADO (PACOTE-ONDA3) numa copia fiel do vivo, REDE FECHADA (D41.3). O robo NAO corre.
+# uso: bash ensaio_onda3.sh <commit do pacote> <pasta de saida, forma C:/...>
+# A copia e uma worktree destacada no HEAD do VIVO + os 14 livros sujos do vivo; o pacote entra
+# por `git merge --no-ff`, como na instalacao. Nenhuma escrita no vivo (so leitura dos livros).
+set -u
+PACOTE=$1; OUT=$2
+REPO=C:/Users/London1/orca/workspaces/eame-sintonia/reparo-fontes-v1
+VIVO=C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1
+C=C:/ens-o3
+export HTTPS_PROXY=http://127.0.0.1:9 HTTP_PROXY=http://127.0.0.1:9 https_proxy=http://127.0.0.1:9 http_proxy=http://127.0.0.1:9 ALL_PROXY=http://127.0.0.1:9 NO_PROXY= PYTHONUTF8=1
+LIVROS="candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCLE-EVIDENCE-V1.json curadoria/LIFECYCLE-LEDGER-V1.json curadoria/LIFECYCLE-QUEUE-V1.json curadoria/READY-BATCHES-V1.json curadoria/SOURCE-ID-ALLOCATION-V1.json curadoria/italy_contracts_curator.json data/collection-ledger/italy/observations.ndjson data/collection-ledger/italy/runs.ndjson data/samples/LIVRO-DE-DECISOES.json data/samples/RUN-MANIFEST.json"
+G="git -c user.name=ensaio -c user.email=ensaio@local -C $C"
+rm -rf "$OUT"; mkdir -p "$OUT"
+git -C $REPO worktree remove --force $C 2>/dev/null; rm -rf $C
+HEAD_VIVO=$(git -C $VIVO rev-parse HEAD)
+git -C $REPO worktree add -q --detach $C $HEAD_VIVO || exit 1
+echo "COPIA: worktree destacada no HEAD do vivo $(git -C $VIVO rev-parse --short HEAD) ($(git -C $VIVO branch --show-current)); pacote $PACOTE" | tee $OUT/0-copia.txt
+git -C $VIVO status --short | grep -v '^??' > $OUT/0-vivo-status.txt
+echo "FOTO $(date -u '+%F %TZ') dos livros do vivo" > $OUT/0-FOTO-DOS-LIVROS.txt
+for f in $LIVROS; do cp $VIVO/$f $C/$f; echo "$(sha256sum $VIVO/$f | cut -c1-64) $f" >> $OUT/0-FOTO-DOS-LIVROS.txt; done
+cd $C
+py -c "import urllib.request;urllib.request.urlopen('https://www.cia.it',timeout=5)" >/dev/null 2>&1 && { echo "REDE ABERTA - PARAR"; exit 2; } || echo "rede fechada: confirmada (www.cia.it recusado)" | tee -a $OUT/0-copia.txt
+
+# ── A: ANTES (vivo de hoje) ─────────────────────────────────────────────────
+py -B curadoria/collection_gate.py --json 2>/dev/null | py -c "import json,sys;d=json.load(sys.stdin);print('PAINEL ANTES',json.dumps(d['PAINEL']))" | tee $OUT/A-antes.txt
+py -B curadoria/onboardar_rotas_provadas.py 2>/dev/null | tail -1 | sed 's/^/onboarding ANTES: /' | tee -a $OUT/A-antes.txt
+py -B scripts/micro_coleta/micro_coleta.py plano > $OUT/A-PLANO-ANTES.json 2>$OUT/A-PLANO-ANTES.err
+py -c "import json;p=json.load(open(r'$OUT/A-PLANO-ANTES.json',encoding='utf-8'));print('plano ANTES: PRONTAS',p['PRONTAS'],'BLOQUEADAS',p['BLOQUEADAS'])" | tee -a $OUT/A-antes.txt
+
+# ── 1: merge do pacote, livros iguais ───────────────────────────────────────
+T0=$(sha256sum regras/italy_contracts_onboarded.json | cut -c1-8)
+( for f in $LIVROS; do sha256sum $f; done ) > $OUT/1-livros-antes.sha
+$G merge --no-ff -q $PACOTE -m "ENSAIO: merge do pacote" > $OUT/1-merge.txt 2>&1; echo "merge rc=$? conflitos=$($G diff --name-only --diff-filter=U | wc -l)" | tee -a $OUT/1-merge.txt
+( for f in $LIVROS; do sha256sum $f; done ) > $OUT/1-livros-depois.sha
+diff -q $OUT/1-livros-antes.sha $OUT/1-livros-depois.sha >/dev/null && echo "14 livros IGUAIS depois do merge" | tee -a $OUT/1-merge.txt || echo "LIVROS MUDARAM - PARAR" | tee -a $OUT/1-merge.txt
+echo "tabela do coletor: vivo $T0 -> depois do merge $(sha256sum regras/italy_contracts_onboarded.json | cut -c1-8)" | tee -a $OUT/1-merge.txt
+
+# ── 2: D49 + D51 (duplicadas) ───────────────────────────────────────────────
+C0=$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-8)
+py -B curadoria/retirar_duplicadas_d49.py 2>/dev/null | tee $OUT/2-duplicadas-mostrar.txt
+py -B curadoria/retirar_duplicadas_d49.py --aplicar 2>/dev/null | tail -1 | tee -a $OUT/2-duplicadas-mostrar.txt
+py -B curadoria/retirar_duplicadas_d49.py 2>/dev/null | sed 's/^/2.a passagem: /' | tee -a $OUT/2-duplicadas-mostrar.txt
+echo "livro de contratos $C0 -> $(sha256sum curadoria/italy_contracts_curator.json | cut -c1-8)" | tee -a $OUT/2-duplicadas-mostrar.txt
+
+# ── 3: provas de rota (0 pedidos: PONTE 06:38Z + C44 09:46Z + HR6 10:42Z) e onboarding ─────
+py -B - <<'EOF' | tee $OUT/3-onboarding.txt
+import json, sys
+sys.path[:0] = ["medidas", "."]
+import canario_rotas_elegiveis as C
+v = json.load(open("curadoria/ROTAS-ELEGIVEIS-V1.json", encoding="utf-8"))
+for p in ("ferramentas/ponte_onboard/ENSAIO-2-rotas-provadas-3rondas.json",
+          "ferramentas/contrato44/ROTAS-PROVADAS-C44.json",
+          "ferramentas/hr6/ROTAS-PROVADAS-HR6.json"):
+    e = json.load(open(p, encoding="utf-8"))
+    v["LINHAS"] = C.juntar(v.get("LINHAS", []), e["LINHAS"])
+    print("juntada %s (%d linhas)" % (p, len(e["LINHAS"])))
+json.dump(v, open("curadoria/ROTAS-ELEGIVEIS-V1.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+print("prova de rotas: 0 pedidos de rede")
+EOF
+py -B curadoria/onboardar_rotas_provadas.py 2>/dev/null > $OUT/3-onboarding-mostrar.txt
+tail -1 $OUT/3-onboarding-mostrar.txt | sed 's/^/onboarding COM as provas: /' | tee -a $OUT/3-onboarding.txt
+py -B curadoria/onboardar_rotas_provadas.py --aplicar 2>/dev/null | grep -E "ENTRA=|escritas" | tee -a $OUT/3-onboarding.txt
+
+# ── 4: o que o robo vai medir (sem rede: so a lista) ────────────────────────
+py -B - <<'EOF' | tee $OUT/4-robo-vai-medir.txt
+import sys
+from datetime import datetime, timezone
+sys.path.insert(0, "curadoria")
+import gatilho_discovery as GD
+c = GD.candidatas_a_reparar(datetime.now(timezone.utc))
+r15 = [x["SOURCE_ID"] for x in c if x["MOTIVO"].startswith("revisao nova")]
+print("REVISAO-15: re-medir UMA vez (VALIDATE_ROUTE):", len(r15), r15)
+print("outras tarefas do gatilho nesta volta:", len(c) - len(r15))
+EOF
+py -B ferramentas/hr6/remedir_hr6.py --fontes=IT-T7-174 --aplicar 2>/dev/null | grep -E "APLICADO|MOSTRAR" | tee -a $OUT/4-robo-vai-medir.txt
+
+# ── 5: DEPOIS (sem rede) ────────────────────────────────────────────────────
+py -B curadoria/collection_gate.py --json 2>/dev/null | py -c "import json,sys;d=json.load(sys.stdin);print('PAINEL DEPOIS',json.dumps(d['PAINEL']))" | tee $OUT/5-depois.txt
+py -B scripts/micro_coleta/micro_coleta.py plano > $OUT/5-PLANO-DEPOIS.json 2>$OUT/5-PLANO-DEPOIS.err
+py -c "import json;p=json.load(open(r'$OUT/5-PLANO-DEPOIS.json',encoding='utf-8'));print('plano DEPOIS: PRONTAS',p['PRONTAS'],'BLOQUEADAS',p['BLOQUEADAS'])" | tee -a $OUT/5-depois.txt
+
+# ── 6: coorte da 3.a onda PROVISORIA (ficheiro proprio; commit SO na copia) + so-plano + prova-teto ──
+py -B ferramentas/big_collection/coorte_unica.py --plano="$OUT/5-PLANO-DEPOIS.json" --saida=ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json 2>/dev/null | tee $OUT/6-coorte.txt
+$G add ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json && $G commit -q -m "ENSAIO so na copia: coorte da 3.a onda PROVISORIA"
+cp ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json $OUT/6-COORTE-ONDA3-PROVISORIA.json
+py -B ferramentas/big_collection/onda_web.py --so-plano --coorte=ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --saida="$OUT/onda3" > $OUT/6-ONDA3-SO-PLANO.json 2>$OUT/6-ONDA3-SO-PLANO.err
+py -B provas/prova_teto_dominio.py --plano "$OUT/6-ONDA3-SO-PLANO.json" --coorte ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --json "$OUT/6-PROVA-TETO-ONDA3.json" 2>&1 | head -8 | tee $OUT/6-prova-teto.txt
+
+# ── 7: testes da juncao (sem rede) ──────────────────────────────────────────
+py -B -m unittest curadoria.test_retirar_duplicadas_d49 curadoria.test_canario_detalhe curadoria.test_reparar_contrato curadoria.test_revisao_ready curadoria.test_um_so_canario_promove curadoria.test_ready_split 2>&1 | tail -3 | tee $OUT/7-testes.txt
+echo "hr6/test_remedir_hr6: $(cd ferramentas/hr6 && py -B -m unittest test_remedir_hr6 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
+' ' ')" | tee -a $OUT/7-testes.txt
+for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_provadas.py tests/test_prova_teto_dominio.py; do echo "$t: $(py -B $t 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
+' ' ')"; done | tee -a $OUT/7-testes.txt
+echo "motor_de_rota_test.mjs: $(node regras/motor_de_rota_test.mjs 2>&1 | grep -E 'PASSOU' | tail -1)" | tee -a $OUT/7-testes.txt
+echo "teto_dominio_local.mjs: $(node provas/teto_dominio_local.mjs 2>&1 | tail -1)" | tee -a $OUT/7-testes.txt
+
+# ── 8: DESFAZER provado ─────────────────────────────────────────────────────
+git status --short > $OUT/8-antes-de-desfazer-status.txt
+# como no vivo: os 2 ficheiros que o pacote muda voltam ao commit, o codigo volta por reset --keep,
+# e os livros escritos (contratos pela D49/D51; livro e fila pela HR-6) voltam da foto
+$G checkout HEAD -- regras/italy_contracts_onboarded.json curadoria/ROTAS-ELEGIVEIS-V1.json
+$G reset -q --keep $HEAD_VIVO; echo "reset --keep rc=$?" | tee $OUT/8-desfazer-reset.txt
+for f in $LIVROS; do cp $VIVO/$f $C/$f; done
+( for f in $LIVROS; do sha256sum $f; done ) > $OUT/8-livros-desfeito.sha
+diff -q $OUT/1-livros-antes.sha $OUT/8-livros-desfeito.sha >/dev/null && echo "DESFAZER: 14 livros = foto do vivo" | tee $OUT/8-desfazer.txt || echo "DESFAZER: livros DIFERENTES" | tee $OUT/8-desfazer.txt
+# o codigo compara-se SEM os 14 livros (esses estao sujos no proprio vivo, por desenho)
+DIF=$($G diff --name-only $HEAD_VIVO | grep -v -x -F -f <(echo "$LIVROS" | tr ' ' '
+') | wc -l)
+echo "tabela $(sha256sum regras/italy_contracts_onboarded.json | cut -c1-8) (vivo $T0) · ficheiros de codigo diferentes do vivo: $DIF · HEAD = vivo: $([ "$($G rev-parse HEAD)" = "$HEAD_VIVO" ] && echo SIM || echo NAO)" | tee -a $OUT/8-desfazer.txt
+py -B scripts/micro_coleta/micro_coleta.py plano 2>/dev/null | py -c "import json,sys;p=json.load(sys.stdin);print('plano depois de desfazer: PRONTAS',p['PRONTAS'])" | tee -a $OUT/8-desfazer.txt
+cd /c
+git -C $REPO worktree remove --force $C
+echo "copia removida"
