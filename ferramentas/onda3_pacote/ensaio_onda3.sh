@@ -53,6 +53,19 @@ py -B curadoria/retirar_duplicadas_d49.py --aplicar 2>/dev/null | tail -1 | tee 
 py -B curadoria/retirar_duplicadas_d49.py 2>/dev/null | sed 's/^/2.a passagem: /' | tee -a $OUT/2-duplicadas-mostrar.txt
 echo "livro de contratos $C0 -> $(sha256sum curadoria/italy_contracts_curator.json | cut -c1-8)" | tee -a $OUT/2-duplicadas-mostrar.txt
 
+# ── 2b: D52 (62 ordens institucionais, RETIRADA_POR_DECISAO) — depois da D49/D51 ──
+C1=$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)
+py -B curadoria/retirar_por_decisao.py --decisao D52 2>/dev/null | head -3 | sed 's/^/D52 mostrar: /' | tee $OUT/2b-d52.txt
+py -B curadoria/retirar_por_decisao.py --decisao D52 --escrever 2>/dev/null | grep -E "APLICA|escrito" | head -2 | sed 's/^/D52 escrever: /' | tee -a $OUT/2b-d52.txt
+py -B curadoria/retirar_por_decisao.py --decisao D52 2>/dev/null | head -1 | sed 's/^/D52 2.a passagem: /' | tee -a $OUT/2b-d52.txt
+C2=$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)
+py -B - <<'EOF' | tee -a $OUT/2b-d52.txt
+import json
+d52 = {x.get("SOURCE_ID") for x in json.load(open("curadoria/DECISAO-D52-RETIRAR-V1.json", encoding="utf-8")).get("FONTES", [])}
+dup = {"IT-T2-056", "IT-T2-106", "IT-T7-100", "IT-T7-170", "IT-T8-068"}
+print("D52 x D49/D51 em comum:", sorted(d52 & dup) or "nenhuma", "| Palermo IT-T7-226 na D52:", "IT-T7-226" in d52)
+EOF
+
 # ── 3: provas de rota (0 pedidos: PONTE 06:38Z + C44 09:46Z + HR6 10:42Z) e onboarding ─────
 py -B - <<'EOF' | tee $OUT/3-onboarding.txt
 import json, sys
@@ -85,6 +98,8 @@ print("REVISAO-15: re-medir UMA vez (VALIDATE_ROUTE):", len(r15), r15)
 print("outras tarefas do gatilho nesta volta:", len(c) - len(r15))
 EOF
 py -B ferramentas/hr6/remedir_hr6.py --fontes=IT-T7-174 --aplicar 2>/dev/null | grep -E "APLICADO|MOSTRAR" | tee -a $OUT/4-robo-vai-medir.txt
+echo "== reparar de novo (so MOSTRAR; so depois da receitas-182-v1 instalada):" | tee -a $OUT/4-robo-vai-medir.txt
+py -B ferramentas/onda3_pacote/reparar_de_novo.py --fontes=IT-T3-062,IT-T5-164,IT-T8-067,IT-T8-069,IT-T7-226 2>/dev/null | tee -a $OUT/4-robo-vai-medir.txt
 
 # ── 5: DEPOIS (sem rede) ────────────────────────────────────────────────────
 py -B curadoria/collection_gate.py --json 2>/dev/null | py -c "import json,sys;d=json.load(sys.stdin);print('PAINEL DEPOIS',json.dumps(d['PAINEL']))" | tee $OUT/5-depois.txt
@@ -99,7 +114,8 @@ py -B ferramentas/big_collection/onda_web.py --so-plano --coorte=ferramentas/big
 py -B provas/prova_teto_dominio.py --plano "$OUT/6-ONDA3-SO-PLANO.json" --coorte ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --json "$OUT/6-PROVA-TETO-ONDA3.json" 2>&1 | head -8 | tee $OUT/6-prova-teto.txt
 
 # ── 7: testes da juncao (sem rede) ──────────────────────────────────────────
-py -B -m unittest curadoria.test_retirar_duplicadas_d49 curadoria.test_canario_detalhe curadoria.test_reparar_contrato curadoria.test_revisao_ready curadoria.test_um_so_canario_promove curadoria.test_ready_split 2>&1 | tail -3 | tee $OUT/7-testes.txt
+py -B -m unittest curadoria.test_retirar_por_decisao curadoria.test_gatilho_discovery curadoria.test_gatilho_ocioso curadoria.test_retirar_duplicadas_d49 curadoria.test_canario_detalhe curadoria.test_reparar_contrato curadoria.test_revisao_ready curadoria.test_um_so_canario_promove curadoria.test_ready_split 2>&1 | tail -3 | tee $OUT/7-testes.txt
+echo "onda3_pacote/test_reparar_de_novo: $(cd ferramentas/onda3_pacote && py -B -m unittest test_reparar_de_novo 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '\n' ' ')" | tee -a $OUT/7-testes.txt
 echo "hr6/test_remedir_hr6: $(cd ferramentas/hr6 && py -B -m unittest test_remedir_hr6 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
 ' ' ')" | tee -a $OUT/7-testes.txt
 for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_provadas.py tests/test_prova_teto_dominio.py; do echo "$t: $(py -B $t 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
@@ -109,6 +125,9 @@ echo "teto_dominio_local.mjs: $(node provas/teto_dominio_local.mjs 2>&1 | tail -
 
 # ── 8: DESFAZER provado ─────────────────────────────────────────────────────
 git status --short > $OUT/8-antes-de-desfazer-status.txt
+# D52 --reverter devolve o livro de contratos aos mesmos bytes de antes da D52
+py -B curadoria/retirar_por_decisao.py --decisao D52 --reverter --escrever 2>/dev/null | head -1 | sed 's/^/D52 reverter: /' | tee $OUT/8-d52-reverter.txt
+[ "$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)" = "$C1" ] && echo "D52 reverter: livro de contratos = antes da D52 (byte a byte)" | tee -a $OUT/8-d52-reverter.txt || echo "D52 reverter: DIFERENTE" | tee -a $OUT/8-d52-reverter.txt
 # como no vivo: o codigo volta por reset --keep (o pacote nao toca livros, por isso nada recusa),
 # e os livros escritos (contratos pela D49/D51; tabela e prova pelo onboarding; livro e fila pela HR-6) voltam da foto
 $G reset -q --keep $HEAD_VIVO; echo "reset --keep rc=$?" | tee $OUT/8-desfazer-reset.txt
