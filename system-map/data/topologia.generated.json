@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T09:45:31+00:00",
-  "HEAD": "e2f47ed3d9a78b912ec7cf34b74e105c4143bf7a",
+  "GENERATED_AT": "2026-09-25T09:52:58+00:00",
+  "HEAD": "3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1",
   "BRANCH": "integra-onda2-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc",
+  "SOURCE_TREE_FINGERPRINT": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
   "FICHEIROS_NA_IMPRESSAO": 3125,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -3975,14 +3975,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc",
+    "VERSAO": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc",
+    "VERSAO": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5906,7 +5906,7 @@
    }
   ],
   "INPUTS_COUNT": 838,
-  "INPUTS_DIGEST": "052e0a0f1b5f40e1e05c561d74b8ca7338d0621972fe55177aeef5f7b3fb1a98",
+  "INPUTS_DIGEST": "0812580283fdf39d93f17c99d17f419169a1cce26959bbc48316c44d42f3d4ff",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5939,8 +5939,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "d13ac86d4e37af3dc5b21b1ea8b594fa542614dbf1f64190bda0992d16c8b58c",
-  "SEMANTIC_HASH": "a75e3bf81e0b632a8b6c5ecb99fcebd977c8c4650a9cb4b59fd20efeea011567"
+  "MEASUREMENT_HASH": "2d5da9b06556f7a507cc073b629c6b19e3776e795b4f84b0d859f0ea90432296",
+  "SEMANTIC_HASH": "ef603ed9c526fd71e31c45c833db0e36612674976bbda79706f193c52002f2f6"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5998,6 +5998,7 @@
    "C-IDENTIDADE",
    "C-IMPORTAR",
    "C-INGRESSO",
+   "C-INTEGRA-ONDA2",
    "C-IT-CATALOGO",
    "C-IT-COLETA",
    "C-IT-CONTRATOS",
@@ -6051,7 +6052,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 99
+  "COUNT": 100
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6235,6 +6236,7 @@
    "C-INT-CONSUMO-ADAMA",
    "C-INT-CONVERGENCIA",
    "C-INT-ESPINHA",
+   "C-INTEGRA-ONDA2",
    "C-IT-CATALOGO",
    "C-IT-COLETA",
    "C-IT-CONTAS",
@@ -6347,16 +6349,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 188
+  "COUNT": 189
  },
  "ARITMETICA": {
-  "COLLECTION": 99,
+  "COLLECTION": 100,
   "BOUNDARY": 89,
-  "SOMA": 188,
-  "EXPANDED": 188,
+  "SOMA": 189,
+  "EXPANDED": 189,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 188,
+  "RESUMO_CARTOES_NO_UNIVERSO": 189,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -11503,9 +11505,9 @@
     ]
    },
    {
-    "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--WRITES-->C-PROVA-TETO-DOMINIO",
+    "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--WRITES-->C-INTEGRA-ONDA2",
     "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
-    "TO": "C-PROVA-TETO-DOMINIO",
+    "TO": "C-INTEGRA-ONDA2",
     "RELATION_TYPE": "WRITES",
     "CATEGORIA": "WRITE",
     "PROVEN_PLANE": "CODE",
@@ -11519,7 +11521,7 @@
       "LINHA": 252,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--WRITES-->C-PROVA-TETO-DOMINIO",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--WRITES-->C-INTEGRA-ONDA2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -11564,6 +11566,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-INTEGRA-ONDA2",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-INTEGRA-ONDA2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 61,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-INTEGRA-ONDA2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/prova_teto_micro.py",
+      "LINHA": 38,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-INTEGRA-ONDA2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -11632,22 +11664,6 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 61,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-TETO-DOMINIO",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/prova_teto_micro.py",
-      "LINHA": 38,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-TETO-DOMINIO",
-      "ASSERTION_PLANE": "CODE"
-     },
      {
       "FICHEIRO": "provas/prova_teto_dominio.py",
       "LINHA": 167,
@@ -23286,6 +23302,244 @@
     ]
    },
    {
+    "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/canario_rotas_elegiveis.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/gabarito_t2_t12_ida3.py",
+      "LINHA": 52,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/montar_proposta_catalogo.py",
+      "LINHA": 222,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/relevancia_antes_da_coleta.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-DESBLOQUEIO-PACOTE",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-DESBLOQUEIO-PACOTE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "LINHA": 236,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
+      "LINHA": 148,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-TESTES",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_canario_rotas_contrato_certo.py",
+      "LINHA": 54,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
+      "LINHA": 189,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_onboardar_rotas_provadas.py",
+      "LINHA": 198,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-COORTE-BIG-COLLECTION",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-COORTE-BIG-COLLECTION",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 40,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-COORTE-BIG-COLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-IT-CONTRATOS",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 61,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-ONDA-WEB",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-ONDA-WEB",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 43,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-PROVA-TETO-DOMINIO",
+    "FROM": "C-INTEGRA-ONDA2",
+    "TO": "C-PROVA-TETO-DOMINIO",
+    "RELATION_TYPE": "RUNS",
+    "CATEGORIA": "CONTROL",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 55,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-PROVA-TETO-DOMINIO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-COLETA",
     "FROM": "C-IT-CATALOGO",
     "TO": "C-IT-COLETA",
@@ -24874,6 +25128,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-INTEGRA-ONDA2",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-INTEGRA-ONDA2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 61,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-INTEGRA-ONDA2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/prova_teto_micro.py",
+      "LINHA": 39,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-INTEGRA-ONDA2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-CATALOGO",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-IT-CATALOGO",
@@ -25103,22 +25387,6 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 61,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/prova_teto_micro.py",
-      "LINHA": 39,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
-      "ASSERTION_PLANE": "CODE"
-     },
      {
       "FICHEIRO": "provas/prova_teto_dominio.py",
       "LINHA": 168,
@@ -26063,6 +26331,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-INTEGRA-ONDA2",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-INTEGRA-ONDA2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 14,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-INTEGRA-ONDA2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 14,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-INTEGRA-ONDA2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-PRESERVAR--READS-->C-IT-COLETA",
     "FROM": "C-IT-PRESERVAR",
     "TO": "C-IT-COLETA",
@@ -26534,36 +26832,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-SALA-ITALIANA",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-TETO-DOMINIO",
-    "FROM": "C-IT-PRESERVAR",
-    "TO": "C-PROVA-TETO-DOMINIO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 14,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-TETO-DOMINIO",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 14,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-TETO-DOMINIO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -31957,6 +32225,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROCEDENCIA--READS-->C-INTEGRA-ONDA2",
+    "FROM": "C-PROCEDENCIA",
+    "TO": "C-INTEGRA-ONDA2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "LINHA": 14,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-INTEGRA-ONDA2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROCEDENCIA--READS-->C-MAPA-SCAN",
     "FROM": "C-PROCEDENCIA",
     "TO": "C-MAPA-SCAN",
@@ -32048,28 +32338,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-PORTA-CLI-LIGA-O-BANCO",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-TETO-DOMINIO",
-    "FROM": "C-PROCEDENCIA",
-    "TO": "C-PROVA-TETO-DOMINIO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "RULE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 14,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-TETO-DOMINIO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -33919,6 +34187,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-INTEGRA-ONDA2",
+    "FROM": "C-PROVA-TETO-DOMINIO",
+    "TO": "C-INTEGRA-ONDA2",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/integra_onda2/prova_teto_micro.py",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-INTEGRA-ONDA2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-TESTES",
     "FROM": "C-PROVA-TETO-DOMINIO",
     "TO": "C-TESTES",
@@ -33936,222 +34226,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
-    "FROM": "C-PROVA-TETO-DOMINIO",
-    "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "medidas/canario_rotas_elegiveis.py",
-      "LINHA": 48,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "medidas/gabarito_t2_t12_ida3.py",
-      "LINHA": 52,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "medidas/montar_proposta_catalogo.py",
-      "LINHA": 222,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "medidas/relevancia_antes_da_coleta.py",
-      "LINHA": 48,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-DESBLOQUEIO-PACOTE",
-    "FROM": "C-PROVA-TETO-DOMINIO",
-    "TO": "C-DESBLOQUEIO-PACOTE",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 236,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-DESBLOQUEIO-PACOTE",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-MICRO-COLETA-INSTRUMENTO",
-    "FROM": "C-PROVA-TETO-DOMINIO",
-    "TO": "C-MICRO-COLETA-INSTRUMENTO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 148,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-MICRO-COLETA-INSTRUMENTO",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
-    "FROM": "C-PROVA-TETO-DOMINIO",
-    "TO": "C-TESTES",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "tests/test_canario_rotas_contrato_certo.py",
-      "LINHA": 54,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 189,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_onboardar_rotas_provadas.py",
-      "LINHA": 198,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-COORTE-BIG-COLLECTION",
-    "FROM": "C-PROVA-TETO-DOMINIO",
-    "TO": "C-COORTE-BIG-COLLECTION",
-    "RELATION_TYPE": "RUNS",
-    "CATEGORIA": "CONTROL",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 40,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-COORTE-BIG-COLLECTION",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-IT-CONTRATOS",
-    "FROM": "C-PROVA-TETO-DOMINIO",
-    "TO": "C-IT-CONTRATOS",
-    "RELATION_TYPE": "RUNS",
-    "CATEGORIA": "CONTROL",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 61,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-IT-CONTRATOS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
-    "FROM": "C-PROVA-TETO-DOMINIO",
-    "TO": "C-MICRO-COLETA-INSTRUMENTO",
-    "RELATION_TYPE": "RUNS",
-    "CATEGORIA": "CONTROL",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 37,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-ONDA-WEB",
-    "FROM": "C-PROVA-TETO-DOMINIO",
-    "TO": "C-ONDA-WEB",
-    "RELATION_TYPE": "RUNS",
-    "CATEGORIA": "CONTROL",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-      "LINHA": 43,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-ONDA-WEB",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -42896,6 +42970,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--WRITES-->C-INTEGRA-ONDA2",
+    "FROM": "C-TESTES",
+    "TO": "C-INTEGRA-ONDA2",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
+      "LINHA": 39,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-INTEGRA-ONDA2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
     "FROM": "C-TESTES",
     "TO": "C-IT-PRESERVAR",
@@ -42987,28 +43083,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PROVA-FRONTEIRA",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-TESTES--WRITES-->C-PROVA-TETO-DOMINIO",
-    "FROM": "C-TESTES",
-    "TO": "C-PROVA-TETO-DOMINIO",
-    "RELATION_TYPE": "WRITES",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 39,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PROVA-TETO-DOMINIO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -44586,12 +44660,12 @@
     ]
    }
   ],
-  "COUNT": 1251
+  "COUNT": 1255
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 188,
-  "CARTOES_AUDITADOS": 188,
-  "ARESTAS_RELACIONADAS": 1251,
+  "CARTOES_NO_UNIVERSO": 189,
+  "CARTOES_AUDITADOS": 189,
+  "ARESTAS_RELACIONADAS": 1255,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -44763,6 +44837,7 @@
    "C-INT-CONSUMO-ADAMA",
    "C-INT-CONVERGENCIA",
    "C-INT-ESPINHA",
+   "C-INTEGRA-ONDA2",
    "C-IT-CATALOGO",
    "C-IT-CONTAS",
    "C-IT-INCREMENTALIDADE",
@@ -44857,6 +44932,7 @@
    "C-DUAS-PORTAS-MEDIDORES",
    "C-ESPECIE-DO-TEXTO",
    "C-INT-CONSUMO-ADAMA",
+   "C-INTEGRA-ONDA2",
    "C-IT-CONTAS",
    "C-IT-TEXTO-PESQUISAVEL",
    "C-PROVA-AUDIO-ONLY",
@@ -45018,12 +45094,12 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 219,
-   "CONTROL": 76,
+   "CODE": 220,
+   "CONTROL": 77,
    "DATA": 30,
    "PROOF": 390,
    "READ": 296,
-   "RULE": 226,
+   "RULE": 228,
    "WRITE": 14
   },
   "GAPS_NOMEADOS": [
@@ -45954,7 +46030,7 @@
     "urllib"
    ],
    "ENTRAM": 8,
-   "SAEM": 7,
+   "SAEM": 8,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -48618,6 +48694,43 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-INTEGRA-ONDA2",
+   "NOME": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/integra_onda2/final/ensaio_integra.sh",
+    "ferramentas/integra_onda2/prova_teto_micro.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [],
+   "ENTRAM": 7,
+   "SAEM": 9,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "PROOF",
+    "READ",
+    "RULE",
+    "WRITE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "CONTROL",
+    "PROOF",
+    "READ"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-IT-CATALOGO",
    "NOME": "O levantamento das fontes italianas",
    "FAMILIA": "F-COLETA",
@@ -48842,7 +48955,7 @@
     "pathlib"
    ],
    "ENTRAM": 13,
-   "SAEM": 22,
+   "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -52059,8 +52172,6 @@
    "KIND": "proof",
    "STATUS": "PENDING",
    "FICHEIROS": [
-    "ferramentas/integra_onda2/final/ensaio_integra.sh",
-    "ferramentas/integra_onda2/prova_teto_micro.py",
     "provas/prova_teto_dominio.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -52075,18 +52186,15 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 6,
-   "SAEM": 9,
+   "ENTRAM": 3,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
-    "PROOF",
-    "READ",
-    "RULE",
-    "WRITE"
+    "CONTROL",
+    "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
-    "CONTROL",
-    "PROOF",
-    "READ"
+    "CODE",
+    "PROOF"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],

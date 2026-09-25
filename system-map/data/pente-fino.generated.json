@@ -2,11 +2,11 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T09:44:58+00:00",
-    "HEAD": "e2f47ed3d9a78b912ec7cf34b74e105c4143bf7a",
+    "GENERATED_AT": "2026-09-25T09:52:33+00:00",
+    "HEAD": "3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc",
+    "SOURCE_TREE_FINGERPRINT": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
     "FICHEIROS_NA_IMPRESSAO": 3125,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc",
+        "VERSAO": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "4a2fed6e5ea3bed8396d7d867d632e076a5c6a7c8f61de7b0e73263c138e25be",
+    "INPUTS_DIGEST": "0a48ca6e8d86bfa5da48f4c58d9983ba346a3e101483993d4c628cec53ddca8d",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -465,6 +465,18 @@
       "respostas": 3,
       "ficheiros": 0,
       "estado": "green"
+    },
+    {
+      "id": "C-INTEGRA-ONDA2",
+      "nome": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 2,
+      "estado": "yellow"
     },
     {
       "id": "V-LINKEDIN",
@@ -900,9 +912,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 63,
+    "pecas_da_coleta": 64,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 26,
+    "respondem_a_tres": 27,
     "respondem_a_duas": 8,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

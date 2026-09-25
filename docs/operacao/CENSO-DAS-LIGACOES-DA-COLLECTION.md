@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e2f47ed3d9a78b912ec7cf34b74e105c4143bf7a
+HEAD_DA_MEDICAO  3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1
 BRANCH           integra-onda2-v1
-GERADO_EM        2026-09-25T06:39:40-03:00
-CARDS            98
+GERADO_EM        2026-09-25T06:49:47-03:00
+CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -818,7 +818,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-PROVA-TETO-DOMINIO |
+| **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2 |
 | **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:40 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
@@ -834,6 +834,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 5 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+
+### `C-INTEGRA-ONDA2` · INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/integra_onda2/final/ensaio_integra.sh`, `ferramentas/integra_onda2/prova_teto_micro.py` |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | medidas/canario_rotas_elegiveis.py:48; scripts/desbloqueio/aplicar_desbloqueio.py:236; scripts/micro_coleta/micro_coleta.py:148 |
+| **porquê** | estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json`, `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json` |
+| **arestas no mapa** | entram 7 · saem 9 |
+| **arestas provadas** | entram 7 · saem 9 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 5 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 16 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-LEITORES` · Abrir PDF, ODS e HTML
 
@@ -893,7 +918,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-PROVA-TETO-DOMINIO |
+| **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2 |
 | **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:43 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
@@ -1274,7 +1299,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **status operacional** | yellow — existe teste que exercita isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | coleta/italy_executor.py:87; ferramentas/big_collection/bc5_big_collection.py:39; ferramentas/big_collection/onda_web.py:46 |
-| **porquê** | estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **porquê** | estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-INTEGRA-ONDA2 · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `superficie/rede.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
@@ -1421,7 +1446,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | | |
 |---|---|
 | **peça real** | `medidas/canario_rotas_elegiveis.py`, `medidas/gabarito_t2_t12.py`, `medidas/gabarito_t2_t12_ida3.py`, `medidas/montar_proposta_catalogo.py`, `medidas/prova_b2_ponte_em_copia.py` _(e mais 2)_ |
-| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
@@ -1429,7 +1454,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO · C-PONTE-ONBOARD · C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/CATALOGO-PROVA-V1.json`, `curadoria/GABARITO-T2-T12-V1.json`, `curadoria/GABARITO-T2-T12-V2.json` |
-| **o que sai · dado** | C-PROVA-TETO-DOMINIO |
+| **o que sai · dado** | C-INTEGRA-ONDA2 |
 | **o que sai · ficheiros** | `curadoria/CATALOGO-PROVA-V1.json`, `curadoria/GABARITO-T2-T12-V2.json`, `curadoria/GABARITO-T2-T12-V3.json` |
 | **arestas no mapa** | entram 9 · saem 8 |
 | **arestas provadas** | entram 9 · saem 8 |
@@ -1450,19 +1475,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe teste que exercita isto.  Mas ha 25 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | ferramentas/big_collection/coorte_unica.py:42; ferramentas/integra_onda2/final/ensaio_integra.sh:61; regras/italy_contracts.mjs:579 |
-| **porquê** | estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | ferramentas/big_collection/coorte_unica.py:42; ferramentas/integra_onda2/final/ensaio_integra.sh:61; provas/prova_teto_dominio.py:167 |
+| **porquê** | estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-INTEGRA-ONDA2 · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json`, `regras/incrementalidade.mjs` |
 | **o que sai · dado** | C-IT-CONTRATOS |
 | **o que sai · ficheiros** | `regras/italy_contracts_onboarded.json` |
-| **arestas no mapa** | entram 8 · saem 7 |
-| **arestas provadas** | entram 7 · saem 7 |
+| **arestas no mapa** | entram 8 · saem 8 |
+| **arestas provadas** | entram 7 · saem 8 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 14 · NÃO SEI 1 |
+| **prova das ligações** | CODE 15 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1774,7 +1799,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-PROVA-TETO-DOMINIO |
+| **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2 |
 | **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:37 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
@@ -2232,20 +2257,20 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-CAPA-MATERIA, C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE.  Mas 4 ficheiro(s) mudaram depois de a de |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-PROVA-TETO-DOMINIO |
+| **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2 |
 | **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:61 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 13 · saem 22 |
-| **arestas provadas** | entram 12 · saem 17 |
+| **arestas no mapa** | entram 13 · saem 23 |
+| **arestas provadas** | entram 12 · saem 18 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 29 · NÃO SEI 6 |
+| **prova das ligações** | CODE 30 · NÃO SEI 6 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2507,10 +2532,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 40
-UNKNOWN            29
+UNKNOWN            30
 SYSTEM_GAP         11
 TERMINAL           10
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              98
+TOTAL              99
 ```

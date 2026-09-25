@@ -3571,9 +3571,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "integra-onda2-v1",
-    "HEAD": "e2f47ed3d9a78b912ec7cf34b74e105c4143bf7a",
-    "GENERATED_AT": "2026-09-25T06:39:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc"
+    "HEAD": "3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1",
+    "GENERATED_AT": "2026-09-25T06:49:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a"
   },
   "FAMILIES": [
     {
@@ -3601,7 +3601,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 98
+      "count": 99
     },
     {
       "id": "F-ESPERA",
@@ -3796,7 +3796,7 @@
       "y": 190,
       "w": 820,
       "h": 9056,
-      "count": 10
+      "count": 11
     },
     {
       "id": "Z-ACOES",
@@ -38712,17 +38712,17 @@
         "C-ASK-SINTONIA",
         "C-CENSO-UNIFICACAO",
         "C-DETECTOR-CAPA-GABARITO",
+        "C-INTEGRA-ONDA2",
         "C-IT-CONTRATOS",
         "C-ORQUESTRADOR",
-        "C-PROVA-TETO-DOMINIO",
         "C-TESTES"
       ],
       "outbound": [
         "C-CENSO-UNIFICACAO",
         "C-DESBLOQUEIO-PACOTE",
+        "C-INTEGRA-ONDA2",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PONTE-ONBOARD",
-        "C-PROVA-TETO-DOMINIO",
         "C-REGUA-T2-JANELA",
         "C-TESTES"
       ],
@@ -38787,16 +38787,16 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "MEASURES",
-      "rule_role_evidence": "escreve curadoria/CATALOGO-PROVA-V1.json, e quem le nao esta na esteira: C-DESBLOQUEIO-PACOTE, C-MICRO-COLETA-INSTRUMENTO, C-PROVA-TETO-DOMINIO",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "rule_role": "STAMPS",
+      "rule_role_evidence": "escreve curadoria/CATALOGO-PROVA-V1.json, e C-INTEGRA-ONDA2 — peca da esteira — le isso",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_RULE": "M3_REGUA_QUE_CARIMBA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/CATALOGO-PROVA-V1.json, e quem le nao esta na esteira: C-DESBLOQUEIO-PACOTE, C-MICRO-COLETA-INSTRUMENTO, C-PROVA-TETO-DOMINIO",
+      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/CATALOGO-PROVA-V1.json, e C-INTEGRA-ONDA2 — peca da esteira — le isso",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -38914,6 +38914,7 @@
       "outbound": [
         "C-COORTE-BIG-COLLECTION",
         "C-COORTE-MICRO-FUNIL",
+        "C-INTEGRA-ONDA2",
         "C-IT-CONTRATOS",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PROVA-TETO-DOMINIO",
@@ -39026,10 +39027,10 @@
         "PROVA": [
           "ferramentas/big_collection/coorte_unica.py:42",
           "ferramentas/integra_onda2/final/ensaio_integra.sh:61",
-          "regras/italy_contracts.mjs:579",
-          "scripts/coorte_micro/funil.py:70"
+          "provas/prova_teto_dominio.py:167",
+          "regras/italy_contracts.mjs:579"
         ],
-        "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-INTEGRA-ONDA2 · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 12140,
       "y": 360
@@ -42056,8 +42057,8 @@
         "C-CAPA-MATERIA",
         "C-CENSO-UNIFICACAO",
         "C-DETECTOR-CAPA-GABARITO",
-        "C-IT-CONTRATOS",
-        "C-PROVA-TETO-DOMINIO"
+        "C-INTEGRA-ONDA2",
+        "C-IT-CONTRATOS"
       ],
       "outbound": [],
       "paises": {},
@@ -42104,7 +42105,7 @@
       "ATIVACAO": {
         "CLASSE": "PECA_INTERNA",
         "QUEM": [
-          "C-PROVA-TETO-DOMINIO"
+          "C-INTEGRA-ONDA2"
         ],
         "PLANO": "CODE",
         "PROVA": [
@@ -43112,7 +43113,7 @@
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-COORTE-MICRO-FUNIL",
         "C-DETECTOR-CAPA-GABARITO",
-        "C-PROVA-TETO-DOMINIO",
+        "C-INTEGRA-ONDA2",
         "C-RECEITAS-PROPOSTA"
       ],
       "outbound": [
@@ -47335,6 +47336,136 @@
       "y": 1326
     },
     {
+      "id": "C-INTEGRA-ONDA2",
+      "name": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "ensaio_integra.sh: o ensaio integrado numa copia fiel do vivo com a rede FECHADA (clone local + livros do vivo; onboarding com a prova de rotas ja feita, plano do runbook, coorte congelada so na copia, onda_web --so-plano, plano do MICRO, prova do teto sobre os dois planos, desfazer). prova_teto_micro.py: plano do MICRO so com as fontes de um lote e a prova independente do teto (C-PROVA-TETO-DOMINIO) no pior caso de 5 pedidos por fonte PRONTA. Sem rede.",
+      "why_here": "INTEGRA-ONDA2 (25/09/2026): juntar CONTRATOS-12 (com ONDA2-G3), CONTRATOS-AJUSTE (com CAPA-MATERIA), PONTE-ONBOARD e a PROVA-TETO antes do MICRO, e ensaiar tudo junto sem rede (D41.3). Ensaio final: 17 entram, coorte 28 (D45), onda2 22/80, max 5.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/integra_onda2/final/ensaio_integra.sh",
+        "ferramentas/integra_onda2/prova_teto_micro.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [
+        "curadoria/ROTAS-ELEGIVEIS-V1.json"
+      ],
+      "inbound": [
+        "C-CANARIO-ROTAS-ELEGIVEIS",
+        "C-CAPA-MATERIA",
+        "C-IT-CONTRATOS",
+        "C-IT-PRESERVAR",
+        "C-PROCEDENCIA",
+        "C-PROVA-TETO-DOMINIO",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-CANARIO-ROTAS-ELEGIVEIS",
+        "C-COORTE-BIG-COLLECTION",
+        "C-DESBLOQUEIO-PACOTE",
+        "C-IT-CONTRATOS",
+        "C-MICRO-COLETA-INSTRUMENTO",
+        "C-ONDA-WEB",
+        "C-PROVA-TETO-DOMINIO",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 5
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [
+        "curadoria/ROTAS-ELEGIVEIS-V1.json"
+      ],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M4_MANDA_OUTRA_CORRER",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "corre ferramentas/big_collection/coorte_unica.py por subprocesso: quem manda outra peca executar nao esta so a olhar",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": [
+        {
+          "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+          "written_by": [
+            "C-CANARIO-ROTAS-ELEGIVEIS",
+            "C-INTEGRA-ONDA2",
+            "C-TESTES"
+          ],
+          "owner_elected": "C-INTEGRA-ONDA2"
+        }
+      ],
+      "consumes": [
+        "curadoria/ROTAS-ELEGIVEIS-V1.json",
+        "data/collection-ledger/italy/observations.ndjson",
+        "data/collection-ledger/italy/runs.ndjson",
+        "data/samples/LIVRO-DE-DECISOES.json",
+        "data/samples/RUN-MANIFEST.json",
+        "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+        "ferramentas/ponte_onboard/ENSAIO-2-rotas-provadas-3rondas.json",
+        "regras/italy_contracts.mjs",
+        "regras/italy_contracts_onboarded.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "medidas/canario_rotas_elegiveis.py:48",
+          "scripts/desbloqueio/aplicar_desbloqueio.py:236",
+          "scripts/micro_coleta/micro_coleta.py:148",
+          "tests/test_canario_rotas_contrato_certo.py:54"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 6000,
+      "y": 1004
+    },
+    {
       "id": "C-IT-CATALOGO",
       "name": "O levantamento das fontes italianas",
       "territory": "Z-CANDIDATAS",
@@ -47719,19 +47850,20 @@
       "produces": [],
       "inbound": [
         "C-CAPA-MATERIA",
+        "C-INTEGRA-ONDA2",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
         "C-IT-INCREMENTALIDADE",
         "C-IT-PRESERVAR",
-        "C-LEITORES",
-        "C-PROVA-TETO-DOMINIO"
+        "C-LEITORES"
       ],
       "outbound": [
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CAPA-MATERIA",
         "C-COORTE-BIG-COLLECTION",
         "C-CORRIDA-CANONICA",
+        "C-INTEGRA-ONDA2",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
@@ -47816,7 +47948,7 @@
       "ATIVACAO": {
         "CLASSE": "PECA_INTERNA",
         "QUEM": [
-          "C-PROVA-TETO-DOMINIO"
+          "C-INTEGRA-ONDA2"
         ],
         "PLANO": "CODE",
         "PROVA": [
@@ -48171,6 +48303,7 @@
         "C-CENSO-IDENTIDADE-IT",
         "C-CORRIDA-CANONICA",
         "C-ESTRADAS-IT",
+        "C-INTEGRA-ONDA2",
         "C-IT-COLETA",
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
@@ -48185,7 +48318,6 @@
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
         "C-PROVA-ROTAS-REAIS",
         "C-PROVA-SALA-ITALIANA",
-        "C-PROVA-TETO-DOMINIO",
         "C-RECOLLECTION-CENSO",
         "C-RELATORIO-FLUXO",
         "C-TESTES"
@@ -48237,7 +48369,7 @@
           "ferramentas/big_collection/onda_web.py:46",
           "ferramentas/integra_onda2/final/ensaio_integra.sh:14"
         ],
-        "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-INTEGRA-ONDA2 · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 8655,
       "y": 1326
@@ -48930,7 +49062,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1004
     },
     {
@@ -50147,12 +50279,12 @@
         "C-CAPA-MATERIA",
         "C-CENSO-UNIFICACAO",
         "C-DESBLOQUEIO-PACOTE",
+        "C-INTEGRA-ONDA2",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
         "C-LASTMILE-MEDIDORES",
         "C-ORQUESTRADOR",
         "C-PEDIDO",
-        "C-PROVA-TETO-DOMINIO",
         "C-RECEITAS"
       ],
       "outbound": [
@@ -50240,7 +50372,7 @@
       "ATIVACAO": {
         "CLASSE": "PECA_INTERNA",
         "QUEM": [
-          "C-PROVA-TETO-DOMINIO"
+          "C-INTEGRA-ONDA2"
         ],
         "PLANO": "CODE",
         "PROVA": [
@@ -50439,8 +50571,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
-      "y": 1004
+      "x": 6000,
+      "y": 1326
     },
     {
       "id": "C-ONDA-WEB",
@@ -50470,9 +50602,9 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-INTEGRA-ONDA2",
         "C-IT-COLETA",
-        "C-IT-PRESERVAR",
-        "C-PROVA-TETO-DOMINIO"
+        "C-IT-PRESERVAR"
       ],
       "outbound": [
         "C-PROVA-CORTESIA"
@@ -50520,7 +50652,7 @@
       "ATIVACAO": {
         "CLASSE": "PECA_INTERNA",
         "QUEM": [
-          "C-PROVA-TETO-DOMINIO"
+          "C-INTEGRA-ONDA2"
         ],
         "PLANO": "CODE",
         "PROVA": [
@@ -50528,7 +50660,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -51593,8 +51725,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
-      "y": 1326
+      "x": 6000,
+      "y": 1648
     },
     {
       "id": "C-PORTA-FONTE",
@@ -52289,6 +52421,7 @@
         "C-EXECUTOR-TEXTO-HTML",
         "C-EXECUTOR-TRANSCRICAO-MIDIA",
         "C-INGRESSO",
+        "C-INTEGRA-ONDA2",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
         "C-ORQUESTRADOR",
@@ -52300,7 +52433,6 @@
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
         "C-PROVA-ROTAS-REAIS",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
-        "C-PROVA-TETO-DOMINIO",
         "C-RECEITAS",
         "C-REGRA-COLETA",
         "C-SCRAP-COLHEITA",
@@ -52359,7 +52491,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "STAMPS",
-      "rule_role_evidence": "escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-RECEITAS — peca da esteira — le isso",
+      "rule_role_evidence": "escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-INTEGRA-ONDA2 — peca da esteira — le isso",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M3_REGUA_QUE_CARIMBA",
@@ -52367,7 +52499,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-RECEITAS — peca da esteira — le isso",
+      "ROLE_EVIDENCE": "rule_role medido: escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-INTEGRA-ONDA2 — peca da esteira — le isso",
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -56636,7 +56768,7 @@
       "name": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Le o livro de corridas do coletor (CORTESIA.PEDIDOS_POR_HOST, escrito pelo transporte), junta os hosts por dominio registavel com uma regra propria (sem Public Suffix List; sufixo em falta junta mais, nunca menos) e soma a ONDA inteira: 0=PASS, 1=FAIL (dominio acima de 5), 2=NAO_SEI (corrida da onda sem linha no livro — nunca conta zero). Modo --plano: confere o que um plano de onda PREVE (onda_web --so-plano), reagrupando pelo dominio desta prova e conferindo o dominio de cada fonte pelo INDEX_URL dos contratos (json + mjs lidos como texto). prova_teto_micro.py aplica-a ao plano do MICRO no pior caso (5 pedidos por fonte PRONTA). ensaio_integra.sh e o ensaio integrado da INTEGRA-ONDA2 numa copia do vivo com a rede FECHADA.",
+      "what": "Le o livro de corridas do coletor (CORTESIA.PEDIDOS_POR_HOST, escrito pelo transporte), junta os hosts por dominio registavel com uma regra propria (sem Public Suffix List; sufixo em falta junta mais, nunca menos) e soma a ONDA inteira: 0=PASS, 1=FAIL (dominio acima de 5), 2=NAO_SEI (corrida da onda sem linha no livro — nunca conta zero). Modo --plano: confere o que um plano de onda PREVE (onda_web --so-plano), reagrupando pelo dominio desta prova e conferindo o dominio de cada fonte pelo INDEX_URL dos contratos (json + mjs lidos como texto).",
       "why_here": "PROVA-TETO (25/09/2026): na 1.a onda cia.it levou 16 pedidos (5 fontes, teto por corrida). A ONDA2-G3 mudou o disjuntor para contar por dominio na onda (D38); esta prova mede o mesmo por outro caminho, para ser usada depois do MICRO e da 2.a onda. 1.a onda: FAIL cia.it=16; plano integrado da 2.a onda: PASS (80 previstos, maximo 5).",
       "departments": [
         "ENGENHARIA"
@@ -56652,89 +56784,51 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
-        "ferramentas/integra_onda2/final/ensaio_integra.sh",
-        "ferramentas/integra_onda2/prova_teto_micro.py",
         "provas/prova_teto_dominio.py"
       ],
-      "file_count": 3,
+      "file_count": 1,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [
-        "curadoria/ROTAS-ELEGIVEIS-V1.json"
-      ],
+      "produces": [],
       "inbound": [
-        "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CAPA-MATERIA",
-        "C-IT-CONTRATOS",
-        "C-IT-PRESERVAR",
-        "C-PROCEDENCIA",
-        "C-TESTES"
+        "C-INTEGRA-ONDA2",
+        "C-IT-CONTRATOS"
       ],
       "outbound": [
-        "C-CANARIO-ROTAS-ELEGIVEIS",
-        "C-COORTE-BIG-COLLECTION",
-        "C-DESBLOQUEIO-PACOTE",
-        "C-IT-CONTRATOS",
-        "C-MICRO-COLETA-INSTRUMENTO",
-        "C-ONDA-WEB",
+        "C-INTEGRA-ONDA2",
         "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 7
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "PROOF",
-      "ROLE_RULE": "M4_MANDA_OUTRA_CORRER",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE": "UNKNOWN",
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
-        "MEASURED": "OPERATIONAL_STEP",
-        "MEASURED_WHY": "corre ferramentas/big_collection/coorte_unica.py por subprocesso: quem manda outra peca executar nao esta so a olhar",
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (corre ferramentas/big_collection/coorte_unica.py por subprocesso: quem manda outra peca executar nao esta so a olhar) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 2 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": [
-        {
-          "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
-          "written_by": [
-            "C-CANARIO-ROTAS-ELEGIVEIS",
-            "C-PROVA-TETO-DOMINIO",
-            "C-TESTES"
-          ],
-          "owner_elected": "C-PROVA-TETO-DOMINIO"
-        }
-      ],
+      "OWNER_CONFLICT": null,
       "consumes": [
-        "curadoria/ROTAS-ELEGIVEIS-V1.json",
-        "data/collection-ledger/italy/observations.ndjson",
-        "data/collection-ledger/italy/runs.ndjson",
-        "data/samples/LIVRO-DE-DECISOES.json",
-        "data/samples/RUN-MANIFEST.json",
-        "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
-        "ferramentas/ponte_onboard/ENSAIO-2-rotas-provadas-3rondas.json",
         "regras/italy_contracts.mjs",
         "regras/italy_contracts_onboarded.json"
       ],
@@ -56747,16 +56841,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [
-          "medidas/canario_rotas_elegiveis.py:48",
-          "scripts/desbloqueio/aplicar_desbloqueio.py:236",
-          "scripts/micro_coleta/micro_coleta.py:148",
-          "tests/test_canario_rotas_contrato_certo.py:54"
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-INTEGRA-ONDA2"
         ],
-        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PLANO": "CODE",
+        "PROVA": [
+          "ferramentas/integra_onda2/final/ensaio_integra.sh:55"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
       "x": 22095,
       "y": 7766
@@ -57983,7 +58076,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -63424,6 +63517,7 @@
         "C-INT-ESPINHA",
         "C-INT-MODELO",
         "C-INT-MODELO-OBJETOS",
+        "C-INTEGRA-ONDA2",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTRATOS",
@@ -63513,6 +63607,7 @@
         "C-CICATRIZES-BR",
         "C-DETECTOR-CAPA-GABARITO",
         "C-ESTRADAS-IT",
+        "C-INTEGRA-ONDA2",
         "C-IT-PRESERVAR",
         "C-MAPA-GERADOR",
         "C-PACOTE-CAMADAS",
@@ -63521,7 +63616,6 @@
         "C-PROVA-ADAMA-REFERENCE",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
-        "C-PROVA-TETO-DOMINIO",
         "C-REGRESSAO-NAVEGADOR",
         "C-SCRAP-GUARDA",
         "C-SCRAP-ROTA",
@@ -64320,8 +64414,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
-      "y": 1648
+      "x": 6000,
+      "y": 1970
     },
     {
       "id": "C-V2-LEGADO",
@@ -75699,6 +75793,41 @@
     },
     {
       "from": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "to": "C-INTEGRA-ONDA2",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O canario das rotas das fontes aprovadas escreve em INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/canario_rotas_elegiveis.py",
+          "line": 252,
+          "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--WRITES-->C-INTEGRA-ONDA2",
+            "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CANARIO-ROTAS-ELEGIVEIS",
       "to": "C-MICRO-COLETA-INSTRUMENTO",
       "type": "READS",
       "payload": "artefacto",
@@ -75760,41 +75889,6 @@
         }
       ],
       "categoria": "RULE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CANARIO-ROTAS-ELEGIVEIS",
-      "to": "C-PROVA-TETO-DOMINIO",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O canario das rotas das fontes aprovadas escreve em A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "medidas/canario_rotas_elegiveis.py",
-          "line": 252,
-          "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--WRITES-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
-            "TO": "C-PROVA-TETO-DOMINIO",
-            "RELATION_TYPE": "WRITES",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "WRITE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -76027,6 +76121,57 @@
     },
     {
       "from": "C-CAPA-MATERIA",
+      "to": "C-INTEGRA-ONDA2",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 61,
+          "snippet": "ind = T.indices_dos_contratos(open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\").read(), open(\"regras/italy_contracts.mjs\", encoding=\"utf-8\").read(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-INTEGRA-ONDA2",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/integra_onda2/prova_teto_micro.py",
+          "line": 38,
+          "snippet": "with open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\") as f1, \\",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-INTEGRA-ONDA2",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CAPA-MATERIA",
       "to": "C-IT-CONTRATOS",
       "type": "READS",
       "payload": "artefacto",
@@ -76186,40 +76331,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 3 linhas de codigo.",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 61,
-          "snippet": "ind = T.indices_dos_contratos(open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\").read(), open(\"regras/italy_contracts.mjs\", encoding=\"utf-8\").read(",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-CAPA-MATERIA",
-            "TO": "C-PROVA-TETO-DOMINIO",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "ferramentas/integra_onda2/prova_teto_micro.py",
-          "line": 38,
-          "snippet": "with open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\") as f1, \\",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-CAPA-MATERIA",
-            "TO": "C-PROVA-TETO-DOMINIO",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
         {
           "file": "provas/prova_teto_dominio.py",
           "line": 167,
@@ -96427,6 +96540,401 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO alimenta O canario das rotas das fontes aprovadas. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/canario_rotas_elegiveis.py",
+          "line": 48,
+          "snippet": "SAIDA = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/gabarito_t2_t12_ida3.py",
+          "line": 52,
+          "snippet": "PROVAS = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/montar_proposta_catalogo.py",
+          "line": 222,
+          "snippet": "for l in _json(CUR / \"ROTAS-ELEGIVEIS-V1.json\")[\"LINHAS\"]:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/relevancia_antes_da_coleta.py",
+          "line": 48,
+          "snippet": "PROVAS = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-COORTE-BIG-COLLECTION",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO manda rodar A coorte unica da Big Collection (D25). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 40,
+          "snippet": "py -B ferramentas/big_collection/coorte_unica.py --plano=\"$(echo $OUT | sed 's#^/c/#C:/#')/2-PLANO-RUNBOOK.json\" --congelar --instalacao=ENSAIO-$RAMO-$(git rev-",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-COORTE-BIG-COLLECTION",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-COORTE-BIG-COLLECTION",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-DESBLOQUEIO-PACOTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO alimenta Pacote de desbloqueio da coorte — aplica-se uma vez no cutover. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+          "line": 236,
+          "snippet": "m3 = json.loads(_da_arvore_ou_da_m3(\"curadoria/ROTAS-ELEGIVEIS-V1.json\")[0])",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-DESBLOQUEIO-PACOTE",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-DESBLOQUEIO-PACOTE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-IT-CONTRATOS",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO manda rodar O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 61,
+          "snippet": "ind = T.indices_dos_contratos(open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\").read(), open(\"regras/italy_contracts.mjs\", encoding=\"utf-8\").read(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-IT-CONTRATOS",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-MICRO-COLETA-INSTRUMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO alimenta Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/micro_coleta/micro_coleta.py",
+          "line": 148,
+          "snippet": "\"DADOS\": \"curadoria/ROTAS-ELEGIVEIS-V1.json\"},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-MICRO-COLETA-INSTRUMENTO",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-MICRO-COLETA-INSTRUMENTO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-MICRO-COLETA-INSTRUMENTO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO manda rodar Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 37,
+          "snippet": "py -B scripts/micro_coleta/micro_coleta.py plano > $OUT/2-PLANO-RUNBOOK.json 2>/dev/null",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-MICRO-COLETA-INSTRUMENTO",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-ONDA-WEB",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO manda rodar Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 43,
+          "snippet": "py -B ferramentas/big_collection/onda_web.py --so-plano --saida=\"$(echo $OUT | sed 's#^/c/#C:/#')/onda2\" > $OUT/4-ONDA2-SO-PLANO.json 2>/dev/null",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-ONDA-WEB",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-PROVA-TETO-DOMINIO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO manda rodar A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 55,
+          "snippet": "py -B provas/prova_teto_dominio.py --plano \"$(echo $OUT | sed 's#^/c/#C:/#')/4-ONDA2-SO-PLANO.json\" --coorte ferramentas/big_collection/COORTE-BIG-COLLECTION-V1",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-PROVA-TETO-DOMINIO",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-PROVA-TETO-DOMINIO",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INTEGRA-ONDA2",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_canario_rotas_contrato_certo.py",
+          "line": 54,
+          "snippet": "mock.patch.object(CR, \"SAIDA\", raiz / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-TESTES",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_micro_coleta_instrumento.py",
+          "line": 189,
+          "snippet": "\"curadoria/ROTAS-ELEGIVEIS-V1.json\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-TESTES",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_onboardar_rotas_provadas.py",
+          "line": 198,
+          "snippet": "self.prova = Path(self.d.name, \"ROTAS-ELEGIVEIS-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INTEGRA-ONDA2--READS-->C-TESTES",
+            "FROM": "C-INTEGRA-ONDA2",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-IT-CATALOGO",
       "to": "C-DECISAO-DA-FILA",
       "type": "READS",
@@ -98781,6 +99289,57 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-INTEGRA-ONDA2",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 61,
+          "snippet": "ind = T.indices_dos_contratos(open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\").read(), open(\"regras/italy_contracts.mjs\", encoding=\"utf-8\").read(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-INTEGRA-ONDA2",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/integra_onda2/prova_teto_micro.py",
+          "line": 39,
+          "snippet": "open(\"regras/italy_contracts.mjs\", encoding=\"utf-8\") as f2:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-INTEGRA-ONDA2",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-IT-CATALOGO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -99306,40 +99865,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 3 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 61,
-          "snippet": "ind = T.indices_dos_contratos(open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\").read(), open(\"regras/italy_contracts.mjs\", encoding=\"utf-8\").read(",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-IT-CONTRATOS",
-            "TO": "C-PROVA-TETO-DOMINIO",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "ferramentas/integra_onda2/prova_teto_micro.py",
-          "line": 39,
-          "snippet": "open(\"regras/italy_contracts.mjs\", encoding=\"utf-8\") as f2:",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-IT-CONTRATOS",
-            "TO": "C-PROVA-TETO-DOMINIO",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
         {
           "file": "provas/prova_teto_dominio.py",
           "line": 168,
@@ -100959,6 +101486,57 @@
     },
     {
       "from": "C-IT-PRESERVAR",
+      "to": "C-INTEGRA-ONDA2",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 14,
+          "snippet": "LIVROS=\"candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCL",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-INTEGRA-ONDA2",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 14,
+          "snippet": "LIVROS=\"candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCL",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-INTEGRA-ONDA2",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
       "to": "C-IT-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -101766,57 +102344,6 @@
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-SALA-ITALIANA",
             "FROM": "C-IT-PRESERVAR",
             "TO": "C-PROVA-SALA-ITALIANA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-IT-PRESERVAR",
-      "to": "C-PROVA-TETO-DOMINIO",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 14,
-          "snippet": "LIVROS=\"candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCL",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-IT-PRESERVAR",
-            "TO": "C-PROVA-TETO-DOMINIO",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 14,
-          "snippet": "LIVROS=\"candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCL",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-IT-PRESERVAR",
-            "TO": "C-PROVA-TETO-DOMINIO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -111387,6 +111914,41 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-INTEGRA-ONDA2",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 14,
+          "snippet": "LIVROS=\"candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCL",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROCEDENCIA--READS-->C-INTEGRA-ONDA2",
+            "FROM": "C-PROCEDENCIA",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-MAPA-SCAN",
       "type": "READS",
       "payload": "artefacto",
@@ -111790,41 +112352,6 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "RULE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROCEDENCIA",
-      "to": "C-PROVA-TETO-DOMINIO",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 14,
-          "snippet": "LIVROS=\"candidatas/FONTES-CANDIDATAS.json curadoria/BRIDGE-LEDGER-V1.json curadoria/DISCOVERY-SIGNAL-V1.json curadoria/DISCOVERY-VISITED.json curadoria/LIFECYCL",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-PROCEDENCIA",
-            "TO": "C-PROVA-TETO-DOMINIO",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -115406,290 +115933,32 @@
     },
     {
       "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-CANARIO-ROTAS-ELEGIVEIS",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
+      "to": "C-INTEGRA-ONDA2",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira alimenta O canario das rotas das fontes aprovadas. Provado por 4 linhas de codigo.",
+      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira tem o seu codigo importado por INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "medidas/canario_rotas_elegiveis.py",
-          "line": 48,
-          "snippet": "SAIDA = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\"",
+          "file": "ferramentas/integra_onda2/prova_teto_micro.py",
+          "line": 31,
+          "snippet": "import prova_teto_dominio as T",
           "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+            "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-INTEGRA-ONDA2",
             "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
-            "RELATION_TYPE": "READS",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
           "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "medidas/gabarito_t2_t12_ida3.py",
-          "line": 52,
-          "snippet": "PROVAS = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "medidas/montar_proposta_catalogo.py",
-          "line": 222,
-          "snippet": "for l in _json(CUR / \"ROTAS-ELEGIVEIS-V1.json\")[\"LINHAS\"]:",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "medidas/relevancia_antes_da_coleta.py",
-          "line": 48,
-          "snippet": "PROVAS = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
-      "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-COORTE-BIG-COLLECTION",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira manda rodar A coorte unica da Big Collection (D25). Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 40,
-          "snippet": "py -B ferramentas/big_collection/coorte_unica.py --plano=\"$(echo $OUT | sed 's#^/c/#C:/#')/2-PLANO-RUNBOOK.json\" --congelar --instalacao=ENSAIO-$RAMO-$(git rev-",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-COORTE-BIG-COLLECTION",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-COORTE-BIG-COLLECTION",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-DESBLOQUEIO-PACOTE",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira alimenta Pacote de desbloqueio da coorte — aplica-se uma vez no cutover. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-          "line": 236,
-          "snippet": "m3 = json.loads(_da_arvore_ou_da_m3(\"curadoria/ROTAS-ELEGIVEIS-V1.json\")[0])",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-DESBLOQUEIO-PACOTE",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-DESBLOQUEIO-PACOTE",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-IT-CONTRATOS",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira manda rodar O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 61,
-          "snippet": "ind = T.indices_dos_contratos(open(\"regras/italy_contracts_onboarded.json\", encoding=\"utf-8\").read(), open(\"regras/italy_contracts.mjs\", encoding=\"utf-8\").read(",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-IT-CONTRATOS",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-IT-CONTRATOS",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-MICRO-COLETA-INSTRUMENTO",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira alimenta Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/micro_coleta/micro_coleta.py",
-          "line": 148,
-          "snippet": "\"DADOS\": \"curadoria/ROTAS-ELEGIVEIS-V1.json\"},",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-MICRO-COLETA-INSTRUMENTO",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-MICRO-COLETA-INSTRUMENTO",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-MICRO-COLETA-INSTRUMENTO",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira manda rodar Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 37,
-          "snippet": "py -B scripts/micro_coleta/micro_coleta.py plano > $OUT/2-PLANO-RUNBOOK.json 2>/dev/null",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-MICRO-COLETA-INSTRUMENTO",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-ONDA-WEB",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira manda rodar Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
-          "line": 43,
-          "snippet": "py -B ferramentas/big_collection/onda_web.py --so-plano --saida=\"$(echo $OUT | sed 's#^/c/#C:/#')/onda2\" > $OUT/4-ONDA2-SO-PLANO.json 2>/dev/null",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--RUNS-->C-ONDA-WEB",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-ONDA-WEB",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -115720,73 +115989,6 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "PROOF",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-TESTES",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira alimenta Suite de testes. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_canario_rotas_contrato_certo.py",
-          "line": 54,
-          "snippet": "mock.patch.object(CR, \"SAIDA\", raiz / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\"),",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 189,
-          "snippet": "\"curadoria/ROTAS-ELEGIVEIS-V1.json\"):",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_onboardar_rotas_provadas.py",
-          "line": 198,
-          "snippet": "self.prova = Path(self.d.name, \"ROTAS-ELEGIVEIS-V1.json\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -130786,6 +130988,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-INTEGRA-ONDA2",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_micro_coleta_instrumento.py",
+          "line": 39,
+          "snippet": "\"curadoria/ROTAS-ELEGIVEIS-V1.json\": json.dumps({\"LINHAS\": [",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-INTEGRA-ONDA2",
+            "FROM": "C-TESTES",
+            "TO": "C-INTEGRA-ONDA2",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-IT-PRESERVAR",
       "type": "WRITES",
       "payload": "artefacto",
@@ -131114,41 +131351,6 @@
             "EDGE_ID": "C-TESTES--WRITES-->C-PROVA-FRONTEIRA",
             "FROM": "C-TESTES",
             "TO": "C-PROVA-FRONTEIRA",
-            "RELATION_TYPE": "WRITES",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "PROOF",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-PROVA-TETO-DOMINIO",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes escreve em A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 39,
-          "snippet": "\"curadoria/ROTAS-ELEGIVEIS-V1.json\": json.dumps({\"LINHAS\": [",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-TESTES--WRITES-->C-PROVA-TETO-DOMINIO",
-            "FROM": "C-TESTES",
-            "TO": "C-PROVA-TETO-DOMINIO",
             "RELATION_TYPE": "WRITES",
             "PLANE": "CODE"
           },
@@ -134494,10 +134696,10 @@
       "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
       "written_by": [
         "C-CANARIO-ROTAS-ELEGIVEIS",
-        "C-PROVA-TETO-DOMINIO",
+        "C-INTEGRA-ONDA2",
         "C-TESTES"
       ],
-      "owner_elected": "C-PROVA-TETO-DOMINIO"
+      "owner_elected": "C-INTEGRA-ONDA2"
     },
     {
       "file": "curadoria/italy_contracts_curator.json",
@@ -134678,7 +134880,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 223,
+      "PECAS_EM_DESACORDO": 224,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -134690,23 +134892,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 248
+      "TOTAL_DE_PECAS": 249
     }
   ],
   "COUNTS": {
-    "components": 248,
+    "components": 249,
     "components_proven": 31,
-    "components_pending": 209,
+    "components_pending": 210,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1317,
-    "edges_proven": 1252,
+    "edges": 1321,
+    "edges_proven": 1256,
     "edges_unknown": 65,
     "business_edges": 4,
     "files_tracked": 2977,
     "files_covered": 1328,
     "files_code_unclaimed": 0,
-    "roles_proven": 169,
+    "roles_proven": 170,
     "roles_declared_only": 8,
     "roles_unknown": 71,
     "roles_conflict": 38,
