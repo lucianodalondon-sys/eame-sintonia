@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  d10d93b187fa173695b7939f6de085b02e2c6e7d
+HEAD_DA_MEDICAO  756e3e0e2f4dfcf73f78adfeb537df3bce581491
 BRANCH           boletins-data-local-v1
-GERADO_EM        2026-09-25T12:58:39-03:00
+GERADO_EM        2026-09-25T13:29:02-03:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1475,7 +1475,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe teste que exercita isto.  Mas ha 25 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | ferramentas/big_collection/coorte_unica.py:42; ferramentas/integra_onda2/final/ensaio_integra.sh:61; provas/boletins_data_local/canario_d61.py:314 |
+| **prova de quem ativa** | ferramentas/big_collection/coorte_unica.py:42; ferramentas/integra_onda2/final/ensaio_integra.sh:61; provas/boletins_data_local/canario_d61.py:317 |
 | **porquê** | estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-INTEGRA-ONDA2 · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json`, `regras/incrementalidade.mjs` |

@@ -2259,6 +2259,7 @@
       "provas/benchmark_tematico.py",
       "provas/bluesky_trial_ao_vivo.py",
       "provas/boletins_data_local/CONTRATOS-PROPOSTOS-D61.json",
+      "provas/boletins_data_local/FILA-DE-REPARO-D61.json",
       "provas/boletins_data_local/RELATORIO-BOLETINS-DATA-LOCAL.md",
       "provas/boletins_data_local/boletim_pdf_local.mjs",
       "provas/boletins_data_local/canario_d61.py",
@@ -3688,9 +3689,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "boletins-data-local-v1",
-    "HEAD": "d10d93b187fa173695b7939f6de085b02e2c6e7d",
-    "GENERATED_AT": "2026-09-25T12:58:39-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4f98ad3ddd1df67b9345be751616b52e481a34e19aa910563e4a678703cd57a9"
+    "HEAD": "756e3e0e2f4dfcf73f78adfeb537df3bce581491",
+    "GENERATED_AT": "2026-09-25T13:29:02-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8a5fe3efed7073876f2cbc4fc8dc98d655c255a1b036aea0225c69c6ba836ccd"
   },
   "FAMILIES": [
     {
@@ -5193,8 +5194,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 662",
-        "desses, mostrados aqui: 40 (ficam de fora 622)"
+        "enderecos que o codigo realmente chama: 664",
+        "desses, mostrados aqui: 40 (ficam de fora 624)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -39148,7 +39149,7 @@
         "PROVA": [
           "ferramentas/big_collection/coorte_unica.py:42",
           "ferramentas/integra_onda2/final/ensaio_integra.sh:61",
-          "provas/boletins_data_local/canario_d61.py:314",
+          "provas/boletins_data_local/canario_d61.py:317",
           "provas/janela_formas/canario_receita_pdf.py:46"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-INTEGRA-ONDA2 · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -53255,6 +53256,7 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/boletins_data_local/CONTRATOS-PROPOSTOS-D61.json",
+        "provas/boletins_data_local/FILA-DE-REPARO-D61.json",
         "provas/boletins_data_local/RELATORIO-BOLETINS-DATA-LOCAL.md",
         "provas/boletins_data_local/boletim_pdf_local.mjs",
         "provas/boletins_data_local/canario_d61.py",
@@ -53294,7 +53296,7 @@
         "provas/boletins_data_local/rede/bytes/e24f4f937574b5a709cc.bin",
         "provas/boletins_data_local/rede/bytes/e3b0c44298fc1c149afb.bin"
       ],
-      "file_count": 39,
+      "file_count": 40,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -53318,9 +53320,9 @@
           "MUTANTES",
           "RECEITAS"
         ],
-        "palavras": 233,
+        "palavras": 239,
         "por_lingua": {},
-        "sem_marca_de_lingua": 233,
+        "sem_marca_de_lingua": 239,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -77074,7 +77076,7 @@
       "evidence": [
         {
           "file": "provas/boletins_data_local/canario_d61.py",
-          "line": 314,
+          "line": 317,
           "snippet": "TABELA = {c[\"SOURCE_ID\"]: c for c in json.loads((RAIZ / \"regras/italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
@@ -99006,7 +99008,7 @@
       "evidence": [
         {
           "file": "provas/boletins_data_local/boletim_pdf_local.mjs",
-          "line": 56,
+          "line": 58,
           "snippet": "const M = await import(\"../../coleta/italy_pilot_collect.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
@@ -100924,7 +100926,7 @@
       "evidence": [
         {
           "file": "provas/boletins_data_local/boletim_pdf_local.mjs",
-          "line": 57,
+          "line": 59,
           "snippet": "const { CONTRACTS } = await import(\"../../regras/italy_contracts.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
@@ -103329,7 +103331,7 @@
       "evidence": [
         {
           "file": "provas/boletins_data_local/boletim_pdf_local.mjs",
-          "line": 91,
+          "line": 95,
           "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
@@ -136473,8 +136475,8 @@
     "edges_proven": 1277,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3094,
-    "files_covered": 1433,
+    "files_tracked": 3095,
+    "files_covered": 1434,
     "files_code_unclaimed": 0,
     "roles_proven": 170,
     "roles_declared_only": 10,
