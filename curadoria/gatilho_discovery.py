@@ -298,6 +298,7 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
                          tarefas: list | None = None) -> list[dict]:
     """[{SOURCE_ID, TASK_TYPE, MOTIVO}] por ordem. Nao escreve nada."""
     import lifecycle as LC         # noqa: E402
+    import retirar_por_decisao as RPD   # noqa: E402  (D52: a marca de catalogo)
     estados = estados if estados is not None else LC.snapshot()
     if contratos is None:
         contratos = ({c["SOURCE_ID"]: c for c in
@@ -334,6 +335,11 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
         if not sid.startswith("IT-") or sid in abertas:
             continue
         c = contratos.get(sid)
+        # D52: uma fonte RETIRADA_POR_DECISAO (a marca de catalogo da D9) nao volta a ser
+        # trabalho do reparo nem da validacao; volta pelo circuito do Curator se a decisao
+        # for revertida (`retirar_por_decisao.py --reverter`).
+        if RPD.retirada(c):
+            continue
         if e == LC.CONTRACTED_CANARY_FAILED:
             if _html(c) and not _ja_reparada(sid):
                 out.append({"SOURCE_ID": sid, "TASK_TYPE": F.REPAIR_CONTRACT, "ORDEM": 1,
