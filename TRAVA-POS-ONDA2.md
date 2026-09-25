@@ -124,3 +124,83 @@ qualquer corrida nova continua invisível para a trava.
 - a cadeia do mapa não foi corrida neste ramo (M não re-medido);
 - não li o texto de nenhum item da Sala;
 - não corri os medidores de donos e do congelamento de novo (o código do ramo não mudou).
+
+---
+
+# PARA A REUNIÃO (segunda-feira)
+
+**A trava continua fechada** (D57). A Intelligence ainda não pode ler a Sala. Esta página diz, com números, o que
+falta para abrir.
+
+## A trava em uma frase
+
+Antes de a Intelligence começar a trabalhar, a **fundação da coleta** tem de estar provada em 14 pontos. Hoje:
+**4 cumpridos, 8 não cumpridos, 2 sem ninguém a medir.** Para abrir, os 14 têm de estar cumpridos.
+
+## Os 14 pontos
+
+| | ponto | hoje | em uma frase |
+|---|---|---|---|
+| A | cada fonte italiana tem caminho provado (ou bloqueio escrito) | **não** | das 716 fontes, 98 têm caminho provado, 29 estão bloqueadas com motivo e **589 ainda são «não sei»** |
+| B | nenhuma fonte depende de programa improvisado | **sem medidor** | ninguém mede isto ainda |
+| C | os ficheiros brutos (RAW) têm um só dono | **não** | 4 programas escrevem o bruto; devia ser 1 |
+| D | cada corrida tem um contrato | **cumprido** | há um único dono do registo da corrida |
+| E | o ponto de retoma (checkpoint) tem um só dono | **não** | 2 programas escrevem; devia ser 1 |
+| F | o texto extraído tem um só dono | **cumprido** | um único programa grava o texto extraído |
+| G | os dados organizados têm dono por tipo | **não** | ainda não existe a etapa que guarda o dado organizado (só documentos inteiros) |
+| H | a escolha do caminho não está espalhada | **não** | 6 sítios decidem a rota e 13 orquestram; devia ser 1 |
+| I | serviço pago (Apify) não é o caminho por omissão | **cumprido** | o caminho normal é gratuito; o pago só entra como reserva |
+| J | o Git não guarda estado do dia a dia | **não** | os livros da coleta vivem no Git — e cresceram hoje (ver abaixo) |
+| K | uma falha ou nova tentativa não vira «sucesso» falso | **sem medidor** | o material para medir existe; o medidor não |
+| L | «não sei» continua «não sei» | **cumprido** | nos 78 itens da Sala, onde não há prova está escrito «não sei» — nada foi inventado |
+| M | o mapa do sistema mostra tudo | **não** | 202 de 241 peças ainda sem descrição conferida |
+| N | a parte de inteligência continua congelada | **não** | 21 ficheiros mudaram desde a fotografia de 08/09; 5 deles são avanço proibido e têm de ser desfeitos ou julgados |
+
+## O que mudou com as corridas de hoje
+
+- **A Sala cresceu de 69 para 78 notícias** (9 novas: 6 de estatística/academia, 2 de mercado, 1 de meteorologia agrícola).
+- **Pela 1.ª vez entrou uma notícia de meteorologia agrícola (T2)** na Sala: a régua dessa família já funciona.
+- **Nenhum dos 14 pontos mudou.** Por três razões:
+  1. o registo das corridas ficou numa pasta **fora do Git**, e o medidor só lê o Git;
+  2. mesmo que entrasse, o registo **não tem duas colunas** que o medidor exige (bruto e texto extraído por fonte);
+  3. os outros pontos medem **código e donos**, e as corridas não mudam código.
+- **Se as corridas contassem**, o ponto A passaria de **98 para 103** fontes com caminho provado. Ainda **não**
+  chegaria para cumprir A (faltariam 584).
+- **O ponto J piorou por baixo:** os livros da coleta no computador do robô cresceram de 521 para 590 linhas (e de
+  59 para 112) e estão por guardar no Git. Se forem guardados, o Git leva mais estado do dia a dia.
+
+## As 4 chaves nas 9 notícias novas
+
+As 4 chaves que a Intelligence vai precisar para uma «janela» de decisão:
+
+| chave | notícias com valor | porquê |
+|---|---|---|
+| cultura | **0 de 9** | a Sala não tem onde guardar cultura |
+| região onde o facto aconteceu | **0 de 9** | o campo existe, mas ninguém o preenche — fica «não sei» |
+| fase da planta | **0 de 9** | a Sala não tem onde guardar a fase |
+| janela (datas) | **0 de 9** | o campo mais próximo (data do facto) está «não sei» |
+
+Na Sala inteira: **0 de 78** nas quatro. Isto é um **buraco da coleta**, não da Intelligence: a coleta ainda não
+extrai estas quatro coisas das notícias.
+
+## O caminho mínimo para abrir (os 9 passos da D33)
+
+| | passo | quem faz | o que prova que está feito | onde estamos |
+|---|---|---|---|---|
+| 1 | instalar os medidores consertados | coordenador (instalação) | os medidores correm na produção e dão os mesmos números | **por fazer** |
+| 2 | o ponto A medir as 716 fontes | já feito no ramo dos medidores | vem com o passo 1 | **pronto, por instalar** |
+| 3 | cada fonte com caminho provado ou bloqueio escrito | bancadas de fontes + robô | «não sei» = 0 no ponto A | 98 de 716 (103 se o registo de hoje contar) |
+| 3a | fazer as corridas contarem | quem mantém o condutor da onda **ou** o medidor (uma das duas) + coordenador (pôr o registo no Git) | o registo da onda no sítio oficial, com as duas colunas; o ponto A sobe sozinho | **por fazer — é o mais barato e destrava a medição de todas as corridas seguintes** |
+| 4 | um só dono para o bruto, o checkpoint e a rota | bancada de engenharia (a Bíblia já escolheu os donos) | o medidor de donos diz «um dono» em C, E e H | **por fazer** |
+| 5 | construir medidores para B e K | bancada dos medidores | B e K deixam de ser «sem medidor» | **por fazer** |
+| 6 | guardar dado organizado, tirar o estado do Git, completar o mapa | engenharia + dono do mapa | G, J e M cumpridos | **por fazer** (J está a piorar) |
+| 7 | resolver os 21 ficheiros do congelamento | dono (decide) + bancada (desfaz os 5 proibidos) | o vigia do congelamento diz «respeitado» | **julgados, por resolver** (5 proibidos, 3 à espera do dono, 1 por julgar) |
+| 8 | medir os 14 pontos de novo, juntos | bancada dos medidores | esta medição, repetida, com 14 cumpridos | **feito hoje: 4 de 14** |
+| 9 | abrir a trava | só o dono, com tudo provado | `COLLECTION_FOUNDATION_CLOSED` passa a SIM | **não** |
+
+**Ressalvas honestas:**
+- os pontos C, E, H, M e N foram lidos do que os medidores publicaram no ramo deles, **não corridos de novo hoje**:
+  o código não mudou, por isso devem dar o mesmo — mas isso é dedução, não medida;
+- «103» é uma **simulação** fora do repositório, feita com o mesmo medidor; só vira número oficial depois do passo 3a;
+- as contas desta página são da produção e dos livros no Git em 25/09; o robô continua a trabalhar e os números do
+  computador dele mudam.
