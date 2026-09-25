@@ -94,3 +94,38 @@ basta o passo 3 com o bot parado: ao religar, o próprio supervisor onboarda. Co
 - O plano mediu-se com os livros do vivo `7cdb7ea4` de 09:4xZ; o bot pode mudar estados até à instalação — repetir o passo 4 (mostrar) antes de aplicar.
 - As 3 com robots ilegível podem entrar noutra hora com a mesma prova (`canario_rotas_elegiveis.py --fontes=IT-T5-101,IT-T7-053,IT-T7-058 --juntar`), rede pelo portão.
 - As 4 de capa pedem reparo do contrato (não é prova de rota); as 4 duplicadas pedem decisão de identidade.
+
+## 6 · v2 (ramo `contrato-44-v2`, 25/09): as 4 capas, as 3 com robots ilegível, as duplicadas
+
+Cópia `C:/c44b` (ramo + os 14 livros do vivo `7cdb7ea4`; provas da PONTE e da C44 juntadas; rede
+fechada por omissão). Rede só nas rondas abaixo, portão por consenso = PASS IT antes de cada uma, 1 fonte
+por domínio por ronda, robots pela casa. **Nada entra a mais: continuam 33.**
+
+**Capas (4) → 0 entram** (`CAPAS-4-PROVAS.json`, `REPARO-3-RONDA-B.json`)
+
+| fonte | o que se fez | resultado |
+|---|---|---|
+| IT-T7-115 (cia.it Agenda) | prova de rota com o coletor de hoje (já tem o filtro de páginas institucionais da CAPA-MATERIA) | ROUTE_PROVEN — **mas o onboarding recusa: DUPLICADA de IT-T7-112** (mesmo site, mesmo padrão genérico) → vai para a pergunta das duplicadas |
+| IT-T7-120 (INAC-CIA) | reparo pela R1 (`reparar_contrato.inferir`: família `/news/notizie/<slug>`, 1.º item matéria com 4236 caracteres) aplicado na cópia pela porta da R1, e prova de rota | CAPABILITY_BLOCK: o coletor abre «sei-un-pensionato» (página de serviço) — o padrão novo também a apanha. **O reparo não resolve**; contrato reposto. SUSPEITA |
+| IT-T12-104 (geoportale Lombardia) | reparo propõe o MESMO contrato que já tem | o coletor abre «valore-agricolo-dei-suoli-2023», notícia curta que o juiz chama capa (erro conhecido do juiz; não se afrouxa). **NÃO SEI** |
+| IT-T3-045 (AMAP Marche) | reparo | RECUSA: só há famílias de menu (amministrazione trasparente) — FAMILIA_E_MENU. **SUSPEITA** |
+
+⚠️ O `reparar_contrato.aplicar` desta linha ainda não tem o parâmetro `decisao` (vem com a D44, ainda fora
+de `integra-onda2-v1`); por isso o ensaio usou a porta como está (DECISAO = R1). Não se gravou nada.
+
+**Robots ilegível (3) → continuam fora, e NÃO são casos da D39** (`ROBOTS-3-RONDA-A.json`, 25/09 ~10:2xZ)
+
+| fonte | leitor da casa | leitura crua | classificação |
+|---|---|---|---|
+| IT-T5-101 cnr.it | inacessível | TLS recusado: `DH_KEY_TOO_SMALL` (o servidor usa uma chave Diffie-Hellman fraca demais para o nosso cliente) | falha de ligação — NÃO SEI |
+| IT-T7-053 veneto.coldiretti.it | inacessível | ligação cortada pelo servidor (WinError 10054) | falha de ligação — NÃO SEI |
+| IT-T7-058 unaprol.it | inacessível | ligação cortada pelo servidor (WinError 10054) | falha de ligação — NÃO SEI |
+
+A D39 fala de HTML no robots (`ROBOTS_INVALID_CONTENT`) e de 403 (`ROBOTS_ACCESS_DENIED`); aqui não houve
+resposta nenhuma. Ficam fora como NÃO SEI, sem estado inventado. O cnr.it só abriria afrouxando a
+segurança TLS do cliente — decisão do dono, não se contorna. (Memória da casa: a Coldiretti já recusava a saída Proton.)
+
+**Duplicadas (5) → pergunta ao bot Luciano** (`PERGUNTA-DUPLICADAS-BOT-LUCIANO.md`): IT-T2-056 e IT-T2-106
+(seletores de língua da arpae) vs IT-T2-051; IT-T7-100 vs IT-T7-043 (a prova abriu o mesmo documento);
+IT-T8-068 (revista inteira) vs IT-T8-021 (secção); IT-T7-115 vs IT-T7-112 (mesmo padrão genérico da cia.it).
+Nada fundido.
