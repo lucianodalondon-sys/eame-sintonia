@@ -124,18 +124,78 @@ def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
     """Os enderecos que o canario ve numa pagina de entrada. UM so dono: o
     reparo de contratos (reparar_contrato.py) infere o padrao sobre ESTE
     conjunto, para propor exactamente o que o canario vai casar depois."""
-    html = b.decode("utf-8", "replace")
-    base = re.match(r"^(https?://[^/]+)", index_url).group(1)
+    # ⚠️ IA-CUR (24/09): a ligacao RELATIVA sem barra («news_open.php?EW_ID=15142») era
+    # descartada, e o `&amp;` do HTML ficava literal. Medido na Assomao: a listagem tem 44
+    # noticias e o canario via 0 — e a R1 dizia SEM_FAMILIA_DE_ITENS pela mesma razao (le por
+    # este leitor). Resolve-se contra o endereco da pagina, como um navegador faz.
+    # `mailto:`, `javascript:`, `tel:` e afins continuam fora.
+    import html as _html
+    from urllib.parse import urljoin
+    texto = b.decode("utf-8", "replace")
     hrefs = set()
-    for h in re.findall(r'href=["\']([^"\']+)["\']', html):
-        if h.startswith("//"):
-            h = "https:" + h
-        elif h.startswith("/"):
-            h = base + h
-        elif not h.startswith("http"):
+    for h in re.findall(r'href=["\']([^"\']+)["\']', texto):
+        h = _html.unescape(h).strip()
+        if re.match(r"^[a-z][a-z0-9+.-]*:", h, re.I) and not h.lower().startswith(("http:", "https:")):
             continue
-        hrefs.add(h.split("#")[0])
+        # ⚠️ Medido no livro inteiro (24/09): uma ligacao malformada («http://[x»)
+        # faz o urljoin rebentar com ValueError — e o canario inteiro da fonte caia
+        # em excecao. O leitor antigo nunca rebentava; esta ligacao salta-se.
+        try:
+            h = urljoin(index_url, h)
+        except ValueError:
+            continue
+        if h.startswith(("http://", "https://")):
+            hrefs.add(h.split("#")[0])
     return hrefs
+
+
+PDF_GATE_VERSAO = "PDF_TEXT_LAYER/v1"
+PDF_MINIMO_DE_TEXTO = 800        # a mesma exigencia de corpo do HTML (BODY_UTIL: >= 800 caracteres)
+
+
+def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes) -> dict:
+    """D32 (4): o item de um contrato OUTPUT_TYPE=PDF, julgado pela ESTEIRA DE PDF que ja existe.
+
+    O texto sai pelo mesmo executor da Collection (`coleta/executor_texto_de_pdf.extrair`,
+    pdftotext) — nenhum segundo extractor. Tres saidas, como la:
+      TEXT_LAYER_PRESENT com >= PDF_MINIMO_DE_TEXTO caracteres -> PASS (a regua decide READY);
+      TEXT_LAYER_ABSENT (e imagem, NEEDS_OCR) ou pouco texto  -> SOURCE_FAILURE, com o porque;
+      EXTRACTION_ERROR (a ferramenta falhou/nao existe)      -> UNKNOWN: problema nosso, nao da fonte.
+    """
+    import hashlib
+    import importlib.util
+    import tempfile
+    base_r = {"HTTP": st2, "ALVO": alvo, "ALVOS_DESCOBERTOS": len(alvos),
+              "DETAIL_ENUMERATED": len(alvos), "DETAIL_GATE": PDF_GATE_VERSAO, "BYTES": len(b2)}
+    if b2.lstrip()[:5] != b"%PDF-":
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="o contrato diz PDF e os bytes nao sao PDF — BYTE_VALIDATION_FAILED")
+    spec = importlib.util.spec_from_file_location(
+        "executor_texto_de_pdf", RAIZ / "coleta" / "executor_texto_de_pdf.py")
+    ex = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ex)
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "item.pdf"
+        p.write_bytes(b2)
+        texto, estado, erro, med = ex.extrair(p)
+    chars = int((med or {}).get("NON_WHITESPACE_CHARACTERS") or 0)
+    item = {"URL": alvo, "HTTP": st2, "BYTES": len(b2), "DOC_KIND": "PDF", "TEXT_LAYER": estado,
+            "TEXT_CHARACTERS": chars,
+            "TEXT_SHA256": hashlib.sha256(texto.encode("utf-8")).hexdigest() if texto else None}
+    base_r["ITEM_ABERTO"] = item
+    if estado == ex.art.EXTRACTION_ERROR:
+        return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
+                    PORQUE="a extracao do PDF falhou (problema nosso, nao da fonte): %s" % (erro or "?")[:120])
+    if estado != ex.art.TEXT_LAYER_PRESENT:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="o PDF abriu e nao tem camada de texto (e imagem) — NEEDS_OCR")
+    if chars < PDF_MINIMO_DE_TEXTO:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="o PDF tem so %d caracteres de texto (< %d) — sem BODY util"
+                           % (chars, PDF_MINIMO_DE_TEXTO))
+    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True,
+                DOCUMENT_ID=c["IDENTITY"]["DOCUMENT_ID"].replace(
+                    "{doc.1}", re.sub(r"^https?://[^/]+/?", "", alvo).rstrip("/")))
 
 
 def canario_html(c: dict) -> dict:
@@ -164,6 +224,9 @@ def canario_html(c: dict) -> dict:
                 "PORQUE": "documento inacessivel: %s" % (err2 or st2), "ALVO": alvo}
     # ⚠️ UM BOM UTF-8 A FRENTE DO «<» NAO E «NAO E HTML». Medido no provador de
     # listagens (CAND-0060): b'\xef\xbb\xbf<!DOC' reprovava como bytes errados.
+    # D32 (4): contrato que declara PDF e julgado pela esteira de PDF, nao pelo retrato de HTML.
+    if c.get("OUTPUT_TYPE") == "PDF":
+        return _canario_pdf(c, alvo, alvos, st2, b2)
     if not b2.lstrip().removeprefix(b"\xef\xbb\xbf")[:1] == b"<":
         return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st2,
                 "PORQUE": "bytes nao sao HTML — BYTE_VALIDATION_FAILED", "ALVO": alvo}

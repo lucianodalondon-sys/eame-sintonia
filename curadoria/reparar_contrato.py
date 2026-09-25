@@ -528,6 +528,12 @@ class ReparoInvalido(Exception):
     pass
 
 
+# D42 (1): a receita pode ligar a ROTA PDF que ja existe — com o tipo de saida EXPLICITO na
+# proposta. O tipo nunca se adivinha pelo padrao; so HTML e PDF; e um padrao PDF tem de apontar
+# para .pdf. O tipo anterior fica na proveniencia (ROUTE_PROVENANCE e REPARO_DE_CONTRATO).
+TIPOS_DE_SAIDA_DA_RECEITA = frozenset({"HTML", "PDF"})
+
+
 def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dict:
     """O contrato depois do reparo. Puro: nao escreve em disco. Rebenta se a
     proposta nao for PADRAO_NOVO, se o validador da casa reprovar, ou se algum
@@ -539,6 +545,13 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
     quando = quando or agora()
     antes = copy.deepcopy(contrato)
     novo = copy.deepcopy(contrato)
+    tipo = proposta.get("OUTPUT_TYPE")
+    if tipo is not None:
+        if tipo not in TIPOS_DE_SAIDA_DA_RECEITA:
+            raise ReparoInvalido("OUTPUT_TYPE da receita fora de %s: %r" % (sorted(TIPOS_DE_SAIDA_DA_RECEITA), tipo))
+        if tipo == "PDF" and not re.search(r"\\\.pdf", proposta.get("LINK_PATTERN") or "", re.I):
+            raise ReparoInvalido("receita PDF com LINK_PATTERN que nao aponta para .pdf")
+        novo["OUTPUT_TYPE"] = tipo
     aq = dict(novo.get("ACQUISITION") or {}, STRATEGY="HTML_LINK_DISCOVERY",
               INDEX_URL=proposta["INDEX_URL"], LINK_PATTERN=proposta["LINK_PATTERN"])
     aq.setdefault("MATCH", "URL")
@@ -551,6 +564,7 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
         "DECISAO": "R1", "MISSAO": MISSAO, "METODO": METODO, "APLICADO_EM": quando,
         "COMO": proposta.get("COMO"),
         "ACQUISITION_ANTERIOR": proposta.get("ACQUISITION_ANTERIOR") or antes.get("ACQUISITION"),
+        **({"OUTPUT_TYPE": tipo, "OUTPUT_TYPE_ANTERIOR": antes.get("OUTPUT_TYPE")} if tipo is not None else {}),
         "PROVA": {"ENTRADA": proposta.get("ENTRADA"), "ENTRADA_RETRATO": proposta.get("ENTRADA_RETRATO"),
                   "SECCAO_TENTADA": proposta.get("SECCAO_TENTADA"),
                   "ALVOS_NA_LISTAGEM": proposta.get("ALVOS_NA_LISTAGEM"),
@@ -563,12 +577,13 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
     novo["ROUTE_PROVENANCE"] = {
         "MISSAO": MISSAO, "FERRAMENTA": "curadoria/reparar_contrato.py", "INTEGRADO_EM": quando,
         "PROVADO_EM": quando, "LISTAGEM": proposta["INDEX_URL"],
+        **({"OUTPUT_TYPE": tipo, "OUTPUT_TYPE_ANTERIOR": antes.get("OUTPUT_TYPE")} if tipo is not None else {}),
         **({"ANTERIOR": contrato["ROUTE_PROVENANCE"]} if contrato.get("ROUTE_PROVENANCE") else {}),
     }
     novo.pop("SOURCE_CONTRACT_HASH", None)
     novo["SOURCE_CONTRACT_HASH"] = EC.hash_do_contrato(novo)
     mexidos = {k for k in set(antes) | set(novo) if antes.get(k) != novo.get(k)}
-    fora = mexidos - CAMPOS_QUE_O_REPARO_MUDA
+    fora = mexidos - CAMPOS_QUE_O_REPARO_MUDA - ({"OUTPUT_TYPE"} if tipo is not None else set())
     if fora:
         raise ReparoInvalido("o reparo mexeu em campos que nao sao dele: %s" % sorted(fora))
     if antes.get("SOURCE_ID") != novo.get("SOURCE_ID"):

@@ -130,10 +130,15 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
               and _sem_barra(url_item) != _sem_barra(_homepage(url_item)))
     passos["ITEM_ABERTO"] = bool(aberto)
 
-    passos["BODY_UTIL"] = (dados.get("DETAIL_GATE_PASSED") is True
-                           and item.get("HTML_KIND") == "CONTENT"
-                           and item.get("CAPA_OU_MATERIA") == MATERIA
-                           and (item.get("PARAGRAPH_CHARACTERS") or 0) >= 800)
+    # D32 (4): um item PDF prova corpo pela camada de texto (a esteira de PDF da Collection),
+    # com a mesma exigencia de 800 caracteres; imagem sem texto (NEEDS_OCR) nao conta.
+    corpo_html = (item.get("HTML_KIND") == "CONTENT"
+                  and item.get("CAPA_OU_MATERIA") == MATERIA
+                  and (item.get("PARAGRAPH_CHARACTERS") or 0) >= 800)
+    corpo_pdf = (item.get("DOC_KIND") == "PDF"
+                 and item.get("TEXT_LAYER") == "TEXT_LAYER_PRESENT"
+                 and (item.get("TEXT_CHARACTERS") or 0) >= 800)
+    passos["BODY_UTIL"] = dados.get("DETAIL_GATE_PASSED") is True and (corpo_html or corpo_pdf)
 
     quando = ((contrato or {}).get("ROUTE_PROVENANCE") or {}).get("INTEGRADO_EM")
     if not quando:
