@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  c2cd8b85164a0b14fc28390f6c2f42f71f2759d9
-BRANCH           pacote-tempo-lugar-v1
-GERADO_EM        2026-09-25T16:40:20-03:00
+HEAD_DA_MEDICAO  e5cd691f79ee5f099de0b12fb7b8d6bb12552670
+BRANCH           podcast-estudo-v1
+GERADO_EM        2026-09-25T16:43:27-03:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
