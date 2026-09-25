@@ -30,6 +30,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -96,6 +97,53 @@ def historico_por_fonte() -> dict:
     return {f["SOURCE_ID"]: sum((f.get("PEDIDOS_POR_SITE") or {}).values()) for f in d.get("FONTES", [])}
 
 
+# ── A ORDEM DENTRO DE UM DOMINIO: QUEM FOI ATENDIDO HA MAIS TEMPO VAI PRIMEIRO ──
+# CONTRATOS-12 (25/09): com o teto por dominio na onda (D38), das 5 fontes do cia.it so
+# ~1,5 recebem pedidos por onda — e a ordem da coorte decidia quais, SEMPRE as mesmas.
+# A regra: dentro de cada dominio, primeiro quem NUNCA foi atendido, depois quem foi
+# atendido ha mais tempo; no empate, o SOURCE_ID. As fontes so trocam de lugar ENTRE SI
+# (ocupam as mesmas posicoes da coorte): outros dominios nao se mexem. Deterministica
+# (mesma coorte + mesmo historico = mesma ordem) e roda sozinha de onda para onda.
+# «Atendida» = a corrida da fonte fez >= 1 pedido (robots, indice ou materia).
+RE_RUN_QUANDO = re.compile(r"-(\d{4}-\d{2}-\d{2})-(\d{2})(\d{2})(\d{2})-")
+
+
+def quando_do_run(run_id: str | None) -> str | None:
+    m = RE_RUN_QUANDO.search(run_id or "")
+    return "%sT%s:%s:%s" % m.groups() if m else None
+
+
+def ultima_vez_atendida(estados: list[dict]) -> dict:
+    """SOURCE_ID -> instante (do RUN_ID) da ultima corrida em que a fonte fez >= 1 pedido."""
+    out = {}
+    for e in estados:
+        for f in e.get("FONTES", []):
+            ped = sum((f.get("PEDIDOS_POR_DOMINIO") or f.get("PEDIDOS_POR_SITE") or {}).values())
+            q = quando_do_run(f.get("RUN_ID"))
+            if f.get("CORREU") and ped > 0 and q and q > out.get(f["SOURCE_ID"], ""):
+                out[f["SOURCE_ID"]] = q
+    return out
+
+
+def ordenar_por_dominio(fontes: list[tuple], dominio_de: dict, ultima: dict) -> list[tuple]:
+    """fontes = [(SOURCE_ID, INDEX_URL)]; dominio_de = {SOURCE_ID: dominio}. Pura."""
+    grupos = {}
+    for i, (s, _) in enumerate(fontes):
+        grupos.setdefault(dominio_de.get(s, s), []).append(i)
+    out = list(fontes)
+    for idx in grupos.values():
+        membros = sorted((fontes[i] for i in idx), key=lambda f: (ultima.get(f[0]) or "", f[0]))
+        for i, f in zip(idx, membros):
+            out[i] = f
+    return out
+
+
+def historicos(extra: list[str] | None = None) -> list[dict]:
+    """A 1.a onda (commitada) + os estados das ondas seguintes que quem conduz nomear."""
+    fic = [HISTORICO_1A_ONDA] + [Path(x) for x in (extra or [])]
+    return [json.loads(f.read_text(encoding="utf-8")) for f in fic if f.exists()]
+
+
 def repartir(linhas: list[dict], teto: int = TETO) -> list[dict]:
     """Reparte o teto por dominio pela ordem da coorte. Puro: sem rede, sem ficheiros."""
     gasto = {}
@@ -113,12 +161,14 @@ def repartir(linhas: list[dict], teto: int = TETO) -> list[dict]:
     return linhas
 
 
-def so_plano(caminho: str, saida: Path | None) -> dict:
+def so_plano(caminho: str, saida: Path | None, historico: list[str] | None = None) -> dict:
     oficial = coorte_oficial(caminho, exigir_congelada=False, sha_declarado=None)
     c = oficial["COORTE"]
     fontes = [(x["SOURCE_ID"], x.get("INDEX_URL") or "") for x in c["COORTE"]]
     hosts = sorted({urlparse(u).hostname or "" for _, u in fontes if u})
     dom = dominios(hosts)
+    ultima = ultima_vez_atendida(historicos(historico))
+    fontes = ordenar_por_dominio(fontes, {s: dom.get(urlparse(u).hostname or "", "") for s, u in fontes}, ultima)
     hist = historico_por_fonte()
     sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
     import micro_coleta as M                                  # noqa: E402 — o plano do runbook (sem rede)
@@ -130,6 +180,7 @@ def so_plano(caminho: str, saida: Path | None) -> dict:
         linhas.append({"SOURCE_ID": s, "INDEX_URL": u, "HOST": h, "DOMINIO": dom.get(h, h),
                        "PLANO_AGORA": estado.get(s, {}).get("ESTADO", "NAO_MEDIDA"),
                        "FALTA": estado.get(s, {}).get("FALTA"),
+                       "ULTIMA_VEZ_ATENDIDA": ultima.get(s, "NUNCA"),
                        "PEDIDOS_PREVISTOS": hist.get(s, TETO),
                        "PREVISAO_VEM_DE": "1.a onda (BC5)" if s in hist else "sem historico: o teto inteiro"})
     repartir(linhas)
@@ -172,7 +223,7 @@ def disjuntor_de_dominio(livro_agora: dict) -> str | None:
 
 
 # ── correr (a unica parte com rede; exige coorte CONGELADA e o sha256 declarado) ──
-def correr(caminho: str, sha: str, saida: Path) -> int:
+def correr(caminho: str, sha: str, saida: Path, historico: list[str] | None = None) -> int:
     sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
     import micro_coleta as M                                  # noqa: E402
     import ensaio_offline as E                                # noqa: E402
@@ -186,6 +237,8 @@ def correr(caminho: str, sha: str, saida: Path) -> int:
     os.environ["SINTONIA_TETO_ONDA"] = str(livro)             # herdado por orquestrador -> executor -> node
     fontes = [(x["SOURCE_ID"], x.get("INDEX_URL") or "") for x in oficial["COORTE"]["COORTE"]]
     dom = dominios(sorted({urlparse(u).hostname or "" for _, u in fontes if u}))
+    fontes = ordenar_por_dominio(fontes, {s: dom.get(urlparse(u).hostname or "", "") for s, u in fontes},
+                                 ultima_vez_atendida(historicos(historico)))
     foto = lambda: {k: v["LINHAS"] for k, v in E.fotografia().items()}      # noqa: E731
     estado = {"INICIO": agora(), "COORTE_SHA256": oficial["SHA256_DO_COMMIT"], "ARVORE": oficial["HEAD"],
               "LIVRO_DA_ONDA": str(livro), "SALA_INICIO": foto(), "FONTES": [], "PAROU": None}
@@ -267,8 +320,10 @@ def main(argv=None) -> int:
     arg = dict(a[2:].split("=", 1) for a in argv if a.startswith("--") and "=" in a)
     caminho = arg.get("coorte", COORTE_OFICIAL)
     saida = Path(arg["saida"]) if arg.get("saida") else None
+    # --historico=a.json,b.json: os ONDA-WEB-ESTADO.json das ondas anteriores (a 1.a onda entra sempre)
+    historico = [x for x in arg.get("historico", "").split(",") if x]
     if "--so-plano" in argv:
-        out = so_plano(caminho, saida)
+        out = so_plano(caminho, saida, historico)
         print(json.dumps({k: v for k, v in out.items() if k != "LINHAS"}, ensure_ascii=False, indent=1))
         return 0
     if "--correr" in argv:
@@ -277,7 +332,7 @@ def main(argv=None) -> int:
         if (saida / "TETO-ONDA.json").exists() and "--retomar" not in argv:
             raise SystemExit("LIVRO_DA_ONDA_JA_EXISTE: %s — uma onda nova tem pasta nova; para retomar a MESMA onda, --retomar"
                              % (saida / "TETO-ONDA.json"))
-        return correr(caminho, arg["sha256"], saida)
+        return correr(caminho, arg["sha256"], saida, historico)
     print(__doc__)
     return 2
 

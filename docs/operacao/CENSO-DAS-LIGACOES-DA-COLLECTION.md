@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  560d40180d0d8c40f29106c49c00df488d59c9ae
-BRANCH           onda2-g3-v1
-GERADO_EM        2026-09-25T04:21:04-03:00
+HEAD_DA_MEDICAO  ac4d953369fbd41d71c5b6c7881f84c71108a642
+BRANCH           contratos-12-v1
+GERADO_EM        2026-09-25T04:49:42-03:00
 CARDS            96
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1248,7 +1248,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe teste que exercita isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/italy_executor.py:87; ferramentas/big_collection/bc5_big_collection.py:39; ferramentas/big_collection/onda_web.py:45 |
+| **prova de quem ativa** | coleta/italy_executor.py:87; ferramentas/big_collection/bc5_big_collection.py:39; ferramentas/big_collection/onda_web.py:46 |
 | **porquê** | estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS · C-LASTMILE-MEDIDORES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `superficie/rede.py` |
