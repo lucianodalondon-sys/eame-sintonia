@@ -877,7 +877,20 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   // decisao sobre o segundo, e duas corridas iguais dariam contas diferentes.
   const memoria = memoriaDosDetalhes(anterior);
 
+  // ⚠️ UMA CORRIDA QUE REBENTA A MEIO TAMBEM ESCREVE A SUA LINHA (FECHAR-ONDA2,
+  // 25/09/2026). Na 2.a onda web, IT-T2-050 rebentou em `guardarRaw` (mkdir ENOENT:
+  // o DOCUMENT_ID pelo endereco levava `?`, que o Windows recusa em nome de pasta)
+  // DEPOIS de 3 pedidos a arpacampania.it. A linha do `runs.ndjson` so se escrevia no
+  // fim; a excepcao saltou-a, e a prova independente do teto ficou cega a esses 3.
+  //
+  //     PEDIDO FEITO E PEDIDO CONTADO, MESMO QUANDO A CORRIDA MORRE.
+  //
+  // O laco fica sem re-indentar de proposito (diff minimo); a excepcao sobe na mesma
+  // DEPOIS da linha escrita — o codigo de saida continua a dizer que falhou.
+  let ABORTADA = null, fonteEmCurso = null;
+  try {
   for (const sourceId of FONTES) {
+    fonteEmCurso = sourceId;
     cont.SOURCES_ATTEMPTED++;
     const c = CONTRACTS[sourceId];
     // O indice revisita-se SEMPRE, e e ele que anuncia o que ha de novo.
@@ -1274,6 +1287,10 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     }
     cont[saudeFonte]++;
   }
+  } catch (e) {
+    ABORTADA = e;
+    cont.FAILED++;
+  }
 
   const FINISHED_AT = agora();
   // INDEX_REQUESTS por subtraccao, que e a unica conta exacta: tudo o que foi
@@ -1289,6 +1306,8 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     EGRESS_IP: egress?.ip ?? (forcarBuf ? "NAO_SE_APLICA" : "NAO SEI"),
     COLLECTOR_VERSION, SOURCE_CONTRACT_VERSION: "italy-contracts-v1", GIT_HEAD,
     nota, contadores: cont,
+    // Presente SO quando a corrida rebentou: a linha existe, mas nao e de sucesso.
+    ...(ABORTADA ? { ABORTED: { SOURCE_ID: fonteEmCurso, ERRO: String(ABORTADA?.message ?? ABORTADA).slice(0, 500) } } : {}),
     // O que a cortesia fez nesta corrida, auditavel: a configuracao em vigor, o
     // estado do robots de cada origem, os pedidos HTTP REAIS por host (robots,
     // indice, materias, saltos e retentativas) e cada recusa com o porque.
@@ -1306,6 +1325,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   };
   mkdirSync(LEDGER_DIR, { recursive: true });
   appendFileSync(`${LEDGER_DIR}/runs.ndjson`, JSON.stringify(resumo) + "\n");
+  if (ABORTADA) throw ABORTADA;
   return { resumo, detalhes };
 }
 
