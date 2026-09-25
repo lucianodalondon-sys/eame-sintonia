@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T05:38:06+00:00",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
+    "GENERATED_AT": "2026-09-25T08:51:04+00:00",
+    "HEAD": "d0abfe90652cd036c3c8a98308f69589c0ce2447",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
-    "FICHEIROS_NA_IMPRESSAO": 3036,
+    "SOURCE_TREE_FINGERPRINT": "d5fb0fdf004e2a3b88683c766519daf95be18149be015a9899765ad7fdd61720",
+    "FICHEIROS_NA_IMPRESSAO": 3053,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38031,6 +38031,51 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 177
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 827
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 22
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 54
+        },
+        {
+          "file": "provas/janela_formas/buscar_paginas_boletim.py",
+          "line": 31
+        },
+        {
+          "file": "provas/medir_validadores_coorte.py",
+          "line": 41
+        },
+        {
+          "file": "scripts/receitas/provar_indices.py",
+          "line": 24
+        },
+        {
+          "file": "scripts/regua_t1/recolher_cega_positivos.py",
+          "line": 53
+        },
+        {
+          "file": "scripts/regua_t2/recolher_boletins.py",
+          "line": 50
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 58
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -38072,47 +38117,6 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.arpae.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 177
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 827
-        },
-        {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 22
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 54
-        },
-        {
-          "file": "provas/medir_validadores_coorte.py",
-          "line": 41
-        },
-        {
-          "file": "scripts/receitas/provar_indices.py",
-          "line": 24
-        },
-        {
-          "file": "scripts/regua_t1/recolher_cega_positivos.py",
-          "line": 53
-        },
-        {
-          "file": "scripts/regua_t2/recolher_boletins.py",
-          "line": 50
-        },
-        {
-          "file": "tests/test_ld2_aditamento.py",
-          "line": 58
         }
       ]
     },
@@ -38253,6 +38257,31 @@
         {
           "file": "tests/test_onboardar_rotas_provadas.py",
           "line": 28
+        }
+      ]
+    },
+    {
+      "endpoint": "https://%s/robots.txt",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 859
+        },
+        {
+          "file": "curadoria/gate_de_rota.py",
+          "line": 80
+        },
+        {
+          "file": "curadoria/medir_fila_do_bot.py",
+          "line": 82
+        },
+        {
+          "file": "medidas/micro_colheita.py",
+          "line": 137
+        },
+        {
+          "file": "provas/janela_formas/buscar_paginas_boletim.py",
+          "line": 62
         }
       ]
     },
@@ -38420,7 +38449,7 @@
         },
         {
           "file": "curadoria/validar_contratos.py",
-          "line": 178
+          "line": 208
         }
       ]
     },
@@ -38505,27 +38534,6 @@
         {
           "file": "curadoria/test_pais_das_candidatas.py",
           "line": 22
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/robots.txt",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 859
-        },
-        {
-          "file": "curadoria/gate_de_rota.py",
-          "line": 80
-        },
-        {
-          "file": "curadoria/medir_fila_do_bot.py",
-          "line": 82
-        },
-        {
-          "file": "medidas/micro_colheita.py",
-          "line": 137
         }
       ]
     },
@@ -38869,9 +38877,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 620,
+  "ENDPOINTS_FOUND": 632,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 580,
+  "ENDPOINTS_TRUNCATED": 592,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -38889,9 +38897,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 620,
+    "endpoints": 632,
     "endpoints_published": 40,
-    "endpoints_truncated": 580,
+    "endpoints_truncated": 592,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,
