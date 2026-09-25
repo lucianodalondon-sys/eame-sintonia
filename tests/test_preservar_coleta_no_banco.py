@@ -692,9 +692,12 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
         #
         # O numero continua colado ao que existe HOJE. O quinto nome volta a
         # reprovar aqui, que e o ponto.
-        self.assertLessEqual(len(self.pg.BANCOS_PERMITIDOS), 4)
+        # MUDA DE FORMA DECLARADA (SALA-AGUENTA, 2026-09-25): 4 -> 5 porque `sala`
+        # entrou, o banco proprio da prova 2b5 (a sala sobrevive ao processo), que
+        # tambem assere CONTAGENS EXATAS. O sexto nome volta a reprovar aqui.
+        self.assertLessEqual(len(self.pg.BANCOS_PERMITIDOS), 5)
         self.assertIn("descartavel", self.pg.BANCOS_PERMITIDOS)
-        for proibido in ("producao", "prod", "postgres", "eame-sintonia"):
+        for proibido in ("producao", "prod", "postgres", "eame-sintonia", "sala_italia"):
             self.assertNotIn(proibido, self.pg.BANCOS_PERMITIDOS)
         # A trava decompõe a URL, e desde 2026-09-17 mora no dono canónico
         # (`guarda/banco_descartavel.py`), de onde a prova a importa.

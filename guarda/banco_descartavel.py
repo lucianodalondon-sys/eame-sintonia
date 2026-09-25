@@ -61,7 +61,14 @@ HOSTS_LOCAIS = ("localhost", "127.0.0.1", "::1", "[::1]")
 #: é esse o ponto: a lista é curta para que crescer doa.
 #:   `social` entrou em 2026-09-08 (contrato de persistência social);
 #:   `objeto` entrou em 2026-09-10 (migration 025, cópia ≠ observação).
-BANCOS_PERMITIDOS = ("descartavel", "derivado", "social", "objeto")
+#:   `sala` entrou em 2026-09-25 (SALA-AGUENTA): o passo 2b5 do
+#:   `banco-descartavel.yml` cria o banco PROPRIO `sala` desde 2026-09-14 para a
+#:   prova `a_sala_sobrevive_ao_processo.py`, e a lista de 2026-09-17 (497093a7)
+#:   nao o trouxe — a prova recusava-se a correr (SystemExit 2) e o job ficou
+#:   vermelho sem medir a Sala. Mesmo padrao de `derivado`/`social`/`objeto`:
+#:   um nome por prova que assere contagens exactas. `sala_italia` (a Sala
+#:   OPERACIONAL) continua FORA — o nome compara-se inteiro, nunca por pedaco.
+BANCOS_PERMITIDOS = ("descartavel", "derivado", "social", "objeto", "sala")
 
 #: Parâmetros de query que mudam PARA ONDE a libpq liga. `host` e `hostaddr`
 #: só passam se repetirem um local; `service` e `dbname` nunca passam.

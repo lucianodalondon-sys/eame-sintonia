@@ -131,9 +131,14 @@ class APortaOperacional(unittest.TestCase):
 class AsDuasListasNaoSeMisturam(unittest.TestCase):
 
     def test_allowlist_descartavel_intacta(self):
-        """DISPOSABLE_GUARD_UNCHANGED_SEMANTICALLY."""
+        """DISPOSABLE_GUARD_UNCHANGED_SEMANTICALLY.
+
+        MUDA DE FORMA DECLARADA (SALA-AGUENTA, 2026-09-25): + `sala`, o banco
+        proprio do passo 2b5 do banco-descartavel.yml, que a lista de 17/09
+        esqueceu. A semantica nao muda: nome inteiro, host local, lista de
+        PERMISSAO; `sala_italia` (operacional) continua fora (teste abaixo)."""
         self.assertEqual(DESC.BANCOS_PERMITIDOS,
-                         ("descartavel", "derivado", "social", "objeto"))
+                         ("descartavel", "derivado", "social", "objeto", "sala"))
 
     def test_sala_italia_nao_entrou_na_lista_descartavel(self):
         self.assertNotIn("sala_italia", DESC.BANCOS_PERMITIDOS)

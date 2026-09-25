@@ -83,8 +83,11 @@ class ATravaDoDescartavelEUmaEViveNoRuntime(unittest.TestCase):
                 bd.exigir_descartavel(url)
 
     def test_3_a_lista_de_bancos_continua_curta_e_sem_producao(self):
-        self.assertLessEqual(len(bd.BANCOS_PERMITIDOS), 4)
-        for proibido in ("producao", "prod", "postgres", "eame-sintonia"):
+        # MUDA DE FORMA DECLARADA (SALA-AGUENTA, 2026-09-25): 4 -> 5 porque `sala`
+        # entrou — e o banco PROPRIO do passo 2b5 do banco-descartavel.yml desde
+        # 14/09, e a lista de 17/09 esqueceu-o. O sexto nome volta a reprovar aqui.
+        self.assertLessEqual(len(bd.BANCOS_PERMITIDOS), 5)
+        for proibido in ("producao", "prod", "postgres", "eame-sintonia", "sala_italia"):
             self.assertNotIn(proibido, bd.BANCOS_PERMITIDOS)
 
     def test_4_o_motivo_e_a_morada_nunca_repetem_a_senha(self):
