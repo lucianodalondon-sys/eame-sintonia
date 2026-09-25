@@ -238,8 +238,11 @@ T("M2 · alvosDe consulta ACQUISITION antes do switch", () => {
 });
 
 T("M2b · identidade consulta IDENTITY antes do switch", () => {
+  // BOLETINS-V2: a janela mede-se sem o fim de linha. Numa copia Windows (core.autocrlf) cada linha
+  // leva mais um CR, e a mesma funcao passava a «deixar de vir primeiro» so por isso (medido: 1394 com
+  // CRLF contra 1370 com LF). A regra guardada e a ORDEM, nao o fim de linha.
   const src = readFileSync(
-    new URL("../coleta/italy_pilot_collect.mjs", import.meta.url), "utf8");
+    new URL("../coleta/italy_pilot_collect.mjs", import.meta.url), "utf8").replace(/\r\n/g, "\n");
   const ini = src.indexOf("function identidade(sourceId");
   const corpo = src.slice(ini, ini + 1400);
   assert.ok(corpo.includes("identidadeDoContrato"),
