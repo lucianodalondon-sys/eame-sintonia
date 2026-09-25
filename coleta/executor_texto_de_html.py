@@ -67,8 +67,11 @@ CORRER
 """
 from __future__ import annotations
 
+import datetime
+import html
 import json
 import os
+import re
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -241,6 +244,202 @@ def extrair(dados: bytes, media_type: str = "text/html") -> tuple:
     if sem_brancos == 0:
         return texto, SEM_TEXTO_NO_DOCUMENTO, "", medidas
     return texto, art.TEXT_LAYER_PRESENT, "", medidas
+
+
+# ── PUBLICATION_TIME — QUANDO A FONTE PUBLICOU, E SÓ ISSO (D61) ─────────────
+#
+#     PUBLICATION_TIME != FACT_TIME != OBSERVATION_TIME != COLLECTION_TIME
+#
+# Medido na Sala real a 25/09: 78 itens, `published_at = NAO SEI` em 78/78. A
+# página trazia a data e ninguém a lia: o coletor não a procura, o adaptador
+# italiano (`italy_executor.traduzir`) leva quatro campos e nenhum é este, e
+# `raw_asset` não tem coluna para ela.
+#
+# ⚠️ PORQUE O DONO É ESTE EXECUTOR, E NÃO O COLETOR. Três razões, medidas:
+#   1. É aqui que estão os bytes que FICARAM guardados — os mesmos de onde sai
+#      o texto que a Sala recebe. Ler a data no coletor obrigaria a fazê-la
+#      atravessar `raw_asset`, que não a tem (quatro donos a alargar).
+#   2. O retrato do detector já faz este trajecto, provado:
+#      derivado → estruturação → porta. A data vai pelo mesmo trilho.
+#   3. Um HTML já guardado ganha a data num reprocessamento, sem ir à rede.
+#
+# A ORDEM é a da D61, e cada nível só fala se tiver UMA resposta:
+#     1  JSON-LD `datePublished`
+#     2  <meta property|name="article:published_time">
+#     3  <time datetime="...">
+#     4  a data do item no ÍNDICE, quando quem chama a entregar
+#
+# ⚠️ UM NÍVEL COM DUAS RESPOSTAS DIFERENTES NÃO RESPONDE. Medido nos HTML reais
+# de IT-T7-021: os `<time datetime>` da página são da barra lateral «últimos
+# posts» — cinco datas, nenhuma do artigo. Ficar com a primeira seria dar ao
+# artigo a data de outro. O nível cala-se, diz porquê, e passa ao seguinte.
+#
+# ⚠️ E NADA DAQUI VIRA FACT_TIME. Uma notícia publicada a 11/07 pode relatar
+# uma geada de 02/07. Este valor vai para `published_at`, e só para lá.
+BASE_JSON_LD = "JSON-LD datePublished"
+BASE_META = "meta article:published_time"
+BASE_TIME = "<time datetime>"
+BASE_INDICE = "INDICE"
+ORDEM_DA_PUBLICACAO = (BASE_JSON_LD, BASE_META, BASE_TIME, BASE_INDICE)
+
+_RE_LD = re.compile(
+    r"<script[^>]*type\s*=\s*[\"']application/ld\+json[\"'][^>]*>(.*?)</script>",
+    re.I | re.S)
+_RE_META = re.compile(r"<meta\b[^>]*>", re.I)
+_RE_TIME = re.compile(r"<time\b[^>]*>", re.I)
+_RE_ATTR = re.compile(r"([a-zA-Z_:.-]+)\s*=\s*(\"[^\"]*\"|'[^']*'|[^\s>]+)")
+_RE_ISO = re.compile(
+    r"^(\d{4})-(\d{2})-(\d{2})"
+    r"(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?\s*(Z|[+-]\d{2}:?\d{2})?)?$")
+
+
+def _atributos(tag: str) -> dict:
+    fora = {}
+    for nome, v in _RE_ATTR.findall(tag):
+        fora[nome.lower()] = html.unescape(v.strip("\"'"))
+    return fora
+
+
+def normalizar_instante(valor) -> tuple:
+    """Uma data escrita pela fonte, em ISO 8601. → `(iso, precisao)` ou `(None, porque)`.
+
+    Três respostas, e nenhuma inventa o que a fonte não disse:
+
+        com hora E fuso   → `2026-08-11T12:30:19+00:00`   precisão INSTANTE
+        só o dia          → `2026-08-11`                  precisão DIA
+        hora SEM fuso     → `2026-08-11`                  precisão DIA
+                            (a hora sem fuso não é um instante; fica o dia
+                            que a fonte escreveu, e não se inventa o `Z`)
+
+    Qualquer outra coisa — «14 luglio 2026», vazio, lixo — é `None`: ler
+    datas em prosa é outra régua, com outra prova.
+    """
+    s = str(valor or "").strip()
+    m = _RE_ISO.match(s)
+    if not m:
+        return None, "nao e ISO 8601: %r" % s[:40]
+    a, me, d, h, mi, se, fuso = m.groups()
+    try:
+        datetime.date(int(a), int(me), int(d))
+    except ValueError:
+        return None, "data impossivel: %r" % s[:40]
+    dia = "%s-%s-%s" % (a, me, d)
+    if h is None or fuso is None:
+        return dia, "DIA"
+    if fuso == "Z":
+        fuso = "+00:00"
+    elif ":" not in fuso:
+        fuso = fuso[:3] + ":" + fuso[3:]
+    if int(h) > 23 or int(mi) > 59 or int(se or 0) > 59:
+        return None, "hora impossivel: %r" % s[:40]
+    return "%sT%s:%s:%s%s" % (dia, h, mi, se or "00", fuso), "INSTANTE"
+
+
+def _datas_do_json_ld(texto: str) -> list:
+    achados = []
+
+    def _andar(no):
+        if isinstance(no, dict):
+            for k, v in no.items():
+                if k == "datePublished" and isinstance(v, str):
+                    achados.append(v)
+                else:
+                    _andar(v)
+        elif isinstance(no, list):
+            for x in no:
+                _andar(x)
+
+    for bloco in _RE_LD.findall(texto):
+        try:
+            _andar(json.loads(bloco.strip()))
+        except (ValueError, RecursionError):
+            continue            # um bloco partido não apaga os outros
+    return achados
+
+
+def _datas_do_meta(texto: str) -> list:
+    fora = []
+    for tag in _RE_META.findall(texto):
+        a = _atributos(tag)
+        chave = (a.get("property") or a.get("name") or "").strip().lower()
+        if chave == "article:published_time" and a.get("content"):
+            fora.append(a["content"])
+    return fora
+
+
+def _datas_do_time(texto: str) -> list:
+    return [a["datetime"] for a in map(_atributos, _RE_TIME.findall(texto))
+            if a.get("datetime")]
+
+
+def tempo_de_publicacao(dados, data_no_indice=None) -> dict:
+    """PUBLICATION_TIME de uma página HTML, com a BASE. Nunca inventa.
+
+    Devolve sempre `{"VALOR", "BASE", "PRECISAO", "ORIGINAL", "PORQUE"}`.
+    Sem resposta: `VALOR = BASE = NAO SEI`, e `PORQUE` diz o que cada nível viu
+    — um `NAO SEI` com razão é uma medição; sem razão é desleixo.
+
+    `data_no_indice` é a data que o ÍNDICE mostrava ao lado do link, quando o
+    coletor a tiver. Hoje nenhum produtor a entrega (ver `GAPS` no relatório):
+    o parâmetro existe para o quarto nível ter sítio, e não para ser adivinhado.
+    """
+    if isinstance(dados, bytes):
+        texto = dados.decode("utf-8", errors="replace")
+    else:
+        texto = str(dados or "")
+    niveis = (
+        (BASE_JSON_LD, _datas_do_json_ld(texto)),
+        (BASE_META, _datas_do_meta(texto)),
+        (BASE_TIME, _datas_do_time(texto)),
+        (BASE_INDICE, [data_no_indice] if data_no_indice else []),
+    )
+    viu = []
+    for base, brutas in niveis:
+        if not brutas:
+            viu.append("%s: ausente" % base)
+            continue
+        # A chave de comparação é o INSTANTE, e não a letra: `12:30+00:00` e
+        # `14:30+02:00` são a mesma publicação escrita em dois fusos.
+        boas = {}
+        for b in brutas:
+            iso, prec = normalizar_instante(b)
+            if iso:
+                chave = (datetime.datetime.fromisoformat(iso)
+                         .astimezone(datetime.timezone.utc).isoformat()
+                         if prec == "INSTANTE" else iso)
+                boas.setdefault(chave, (iso, prec, b))
+        if not boas:
+            viu.append("%s: %d valor(es), nenhum ISO 8601" % (base, len(brutas)))
+            continue
+        if len(boas) > 1:
+            viu.append("%s: AMBIGUO, %d datas diferentes (%s)"
+                       % (base, len(boas), ", ".join(sorted(boas)[:4])))
+            continue
+        (iso, prec, original), = boas.values()
+        return {"VALOR": iso, "BASE": base, "PRECISAO": prec,
+                "ORIGINAL": original,
+                "PORQUE": "; ".join(viu + ["%s: %s" % (base, original)])}
+    return {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI, "PRECISAO": art.NAO_SEI,
+            "ORIGINAL": art.NAO_SEI,
+            "PORQUE": "NAO SEI — " + "; ".join(viu)}
+
+
+def publicacao_para_o_contrato(r: dict) -> dict:
+    """O recibo de `tempo_de_publicacao`, nos nomes do contrato comum.
+
+    → `{"PUBLISHED_AT": iso, "PUBLISHED_AT_BASIS": base}` quando há valor;
+      `{"PUBLISHED_AT_BASIS": "NAO SEI — <porquê>"}` quando não há.
+
+    ⚠️ SÓ ATRAVESSAM AFIRMAÇÕES (a regra de `ingresso.NAO_E_AFIRMACAO`): um
+    `PUBLISHED_AT = "NAO SEI"` escrito no item seria lido como valor. O porquê
+    do `NAO SEI` viaja na BASE, como `FACT_TIME_BASIS` já faz.
+
+    ⚠️ E NÃO HÁ `FACT_TIME` AQUI, NEM HAVERÁ. Quando a fonte publicou não é
+    quando o facto aconteceu; esta saída não tem chave para o segundo.
+    """
+    if r.get("VALOR") in (art.NAO_SEI, "", None):
+        return {"PUBLISHED_AT_BASIS": r.get("PORQUE") or art.NAO_SEI}
+    return {"PUBLISHED_AT": r["VALOR"], "PUBLISHED_AT_BASIS": r["BASE"]}
 
 
 def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,

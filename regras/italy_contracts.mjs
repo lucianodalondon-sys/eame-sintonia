@@ -634,7 +634,12 @@ export function contratoGenerico(linha) {
     ],
     FAIL_CLOSED_RULE: `sem endereco descoberto ou com bytes que nao sao ${tipo}, e FAILED — nunca se regista a pagina de entrada como documento`,
     FALLBACK: "nenhum",
-    SOURCE_LOCATION_RULE: "NAO SEI",
+    // D61: a LINHA pode declarar onde esta quem publica (a sede da
+    // instituicao, com a mesma forma dos 13 contratos a mao — «Napoli (sede)»).
+    // Quem nao declara continua NAO SEI. Nunca vem do REGION do Atlas: esse e
+    // a regiao de que a fonte FALA, medido (IT-T7-017, sede em Reggio Emilia,
+    // Atlas diz LAZIO) — seria lugar do fato a entrar pela porta da fonte.
+    SOURCE_LOCATION_RULE: linha.SOURCE_LOCATION_RULE || "NAO SEI",
     FACT_LOCATION_RULE: "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
     EVIDENCE_CLASS: "NAO SEI",
     AUTOMATION_FEASIBILITY: "MEDIUM — rota generica; identidade semantica por medir",
