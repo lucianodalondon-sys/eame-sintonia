@@ -143,6 +143,15 @@ class PeloScrap(unittest.TestCase):
             I.pelo_scrap(["IT-T5-006"], declarado=DECLARADO, remedir_fn=lambda x: self.fail("nao"))
         self.assertEqual(self.antes, (self.cur.read_bytes(), self.tab.read_bytes()))
 
+    def test_canal_valido_mas_que_nao_e_READY_LEGACY_nao_se_toca(self):
+        # o bloco 4 autorizava-o (canal, tabela e Scrap batem); o plano e que diz que nao e
+        # uma das antigas — p.ex. um canal ja ELIGIBLE, que o remedir tiraria do portao
+        so_017 = {"IMPORTA": [], "FICA": [], "PELO_SCRAP": [{"SOURCE_ID": "IT-T10-017"}]}
+        with mock.patch.object(I, "planear", return_value=so_017), self.assertRaises(I.ImportacaoInvalida) as e:
+            I.pelo_scrap(["IT-T10-018"], declarado=DECLARADO, remedir_fn=lambda x: self.fail("nao"))
+        self.assertIn("fora do plano", str(e.exception))
+        self.assertEqual(self.antes, (self.cur.read_bytes(), self.tab.read_bytes()))
+
     def test_o_remedir_por_omissao_e_o_de_ready_split(self):
         with mock.patch.object(RS, "remedir", return_value=[{"FEITO": True}]) as rm:
             I.pelo_scrap(["IT-T10-017"], declarado=DECLARADO)
