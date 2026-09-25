@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/publication-time-source-location-ux4cuc",
-    "HEAD": "791f10a765be7732c9f7f8138a7641119e465ae5",
-    "GENERATED_AT": "2026-09-25T14:07:44+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5fcf2c0a26ff5b6a6f9bff0e83dde62cc075775937319c185023c1777e486532"
+    "HEAD": "8f91441cbaf1c749970633bc682e6daf67804f71",
+    "GENERATED_AT": "2026-09-25T14:13:07+00:00",
+    "SOURCE_TREE_FINGERPRINT": "439fc981bf46d17618bf196591a5335eb26b21cc2d08dc0cffae562370ad541f"
   },
   "FILES": [
     {
@@ -304,7 +304,7 @@
     },
     {
       "path": "PLANO-INSTALACAO-TEMPO-PUBLICACAO.md",
-      "sha": "230e7e02ae44ddac706b9343d12cb61008da251c",
+      "sha": "bf612d79bcbd5522384521429ac2e9f636ea0585",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1858,7 +1858,7 @@
     },
     {
       "path": "coleta/executor_texto_de_html.py",
-      "sha": "07cc345bed651347ac0cc9ba8833b18a112a1b84",
+      "sha": "54fb51281d69178a5b900babb074057053f390a7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20744,7 +20744,7 @@
     },
     {
       "path": "tests/test_tempo_e_lugar_da_publicacao.py",
-      "sha": "bbd919a8ed48c679e668725e2c147f51e4435b49",
+      "sha": "aa90d2e829374f981e53e9833cc12d813b57f92e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23605,7 +23605,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 594,
+        "line": 727,
         "snippet": "f = os.path.join(RAIZ, \"curadoria\", \"retrato_html.py\")"
       }
     },
@@ -23616,7 +23616,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 471,
+        "line": 604,
         "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
       }
     },
@@ -83814,6 +83814,17 @@
     },
     {
       "from_file": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+        "line": 345,
+        "snippet": "\"v1_2e488a8232ba/monitoraggio.html\")"
+      }
+    },
+    {
+      "from_file": "tests/test_tempo_e_lugar_da_publicacao.py",
       "to_file": "data/collection-store/italy/IT-T7-021/IT-T7-021_URL_news_imprese_sversamento-nel-naviglio-grande-riprende-la-navigazione/v1_d44208dc767f/sversamento-nel-naviglio-grande-riprende-la-navigazione.html",
       "type": "READS",
       "payload": "artefacto",
@@ -85408,7 +85419,7 @@
     "files_tracked": 2980,
     "files_readable": 1334,
     "files_code_dir": 1270,
-    "file_edges": 5813,
+    "file_edges": 5814,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },
