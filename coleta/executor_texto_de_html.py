@@ -313,6 +313,11 @@ def normalizar_instante(valor) -> tuple:
 
     Qualquer outra coisa — «14 luglio 2026», vazio, lixo — é `None`: ler
     datas em prosa é outra régua, com outra prova.
+
+    ⚠️ D62: DATA RELATIVA NÃO VIRA DATA. «ieri», «la settimana scorsa», «2
+    giorni fa» não se convertem aqui nem em lado nenhum desta régua — o dono
+    não autorizou. Esta régua só lê METADADO da página, nunca o texto; a
+    expressão relativa, quando for guardada como evidência, é de outra peça.
     """
     s = str(valor or "").strip()
     m = _RE_ISO.match(s)
@@ -437,9 +442,14 @@ def publicacao_para_o_contrato(r: dict) -> dict:
     ⚠️ E NÃO HÁ `FACT_TIME` AQUI, NEM HAVERÁ. Quando a fonte publicou não é
     quando o facto aconteceu; esta saída não tem chave para o segundo.
     """
+    # D62: a PRECISÃO viaja sempre. A Intelligence tem de saber o grau de
+    # cada item (INSTANTE · DIA · NAO SEI) — e nenhum grau reprova o item:
+    # faltar a data não descarta nada, só diz que a precisão é menor.
     if r.get("VALOR") in (art.NAO_SEI, "", None):
-        return {"PUBLISHED_AT_BASIS": r.get("PORQUE") or art.NAO_SEI}
-    return {"PUBLISHED_AT": r["VALOR"], "PUBLISHED_AT_BASIS": r["BASE"]}
+        return {"PUBLISHED_AT_BASIS": r.get("PORQUE") or art.NAO_SEI,
+                "PUBLISHED_AT_PRECISION": art.NAO_SEI}
+    return {"PUBLISHED_AT": r["VALOR"], "PUBLISHED_AT_BASIS": r["BASE"],
+            "PUBLISHED_AT_PRECISION": r.get("PRECISAO") or art.NAO_SEI}
 
 
 def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,

@@ -195,8 +195,10 @@ class PublicacaoNaoViraFacto(unittest.TestCase):
 
     def test_so_atravessa_afirmacao_e_o_porque_vai_na_base(self):
         com = ex.publicacao_para_o_contrato(ex.tempo_de_publicacao(_real(REAL_META)))
+        # ajuste DECLARADO (D62): a precisao passou a viajar com o valor
         self.assertEqual({"PUBLISHED_AT": "2026-07-11T04:00:00+00:00",
-                          "PUBLISHED_AT_BASIS": ex.BASE_META}, com)
+                          "PUBLISHED_AT_BASIS": ex.BASE_META,
+                          "PUBLISHED_AT_PRECISION": "INSTANTE"}, com)
         sem = ex.publicacao_para_o_contrato(
             ex.tempo_de_publicacao(_real(REAL_SO_BARRA_LATERAL)))
         self.assertNotIn("PUBLISHED_AT", sem)
@@ -231,8 +233,10 @@ class OLugarDaFontePeloContrato(unittest.TestCase):
         r = cdf.lugar_da_fonte("IT-T3-002")
         self.assertEqual(("Napoli", cdf.BASE_CONTRATO), (r["VALOR"], r["BASE"]))
         self.assertEqual("Napoli (sede da Regiao) — fixo", r["ORIGINAL"])
+        # ajuste DECLARADO (D62): a precisao passou a viajar com o valor
         self.assertEqual({"SOURCE_LOCATION": "Napoli",
-                          "SOURCE_LOCATION_BASIS": cdf.BASE_CONTRATO},
+                          "SOURCE_LOCATION_BASIS": cdf.BASE_CONTRATO,
+                          "SOURCE_LOCATION_PRECISION": "PROVINCE"},
                          cdf.lugar_para_o_contrato(r))
 
     def test_contrato_que_nao_declara_e_NAO_SEI_com_o_porque_certo(self):
@@ -294,6 +298,44 @@ class OLugarDaFontePeloContrato(unittest.TestCase):
         self.assertEqual("Bari (sede)", com)
         # declarar a sede NAO mexe na regra do lugar do facto
         self.assertTrue(facto.startswith("UNKNOWN"))
+
+
+class D62PrecisaoSemReprovar(unittest.TestCase):
+    """D62: nada e obrigatorio; a precisao de cada item e dita; data relativa
+    nao vira data."""
+
+    def test_toda_saida_diz_a_precisao_e_nenhuma_levanta(self):
+        casos = {REAL_JSON_LD: "INSTANTE", REAL_SO_BARRA_LATERAL: NAO_SEI}
+        for caminho, prec in casos.items():
+            sai = ex.publicacao_para_o_contrato(ex.tempo_de_publicacao(_real(caminho)))
+            self.assertEqual(prec, sai["PUBLISHED_AT_PRECISION"])
+        dia = ex.publicacao_para_o_contrato(
+            ex.tempo_de_publicacao(_pagina(), data_no_indice="2026-09-20"))
+        self.assertEqual("DIA", dia["PUBLISHED_AT_PRECISION"])
+        # sem nada: continua a devolver um recibo, nunca uma excecao
+        vazio = ex.publicacao_para_o_contrato(ex.tempo_de_publicacao(b""))
+        self.assertEqual(NAO_SEI, vazio["PUBLISHED_AT_PRECISION"])
+        lugar = cdf.lugar_para_o_contrato(cdf.lugar_da_fonte("IT-T10-018"))
+        self.assertEqual(NAO_SEI, lugar["SOURCE_LOCATION_PRECISION"])
+
+    def test_data_relativa_nao_vira_data(self):
+        for rel in ("ieri", "oggi", "la settimana scorsa", "2 giorni fa",
+                    "yesterday", "ontem"):
+            self.assertIsNone(ex.normalizar_instante(rel)[0], rel)
+            p = _pagina('<meta property="article:published_time" content="%s">' % rel
+                        + _ld({"datePublished": rel}),
+                        '<time datetime="%s">%s</time>' % (rel, rel))
+            r = ex.tempo_de_publicacao(p, data_no_indice=rel)
+            self.assertEqual(NAO_SEI, r["VALOR"], rel)
+            self.assertFalse(CHAVES_DO_FACTO & set(r))
+
+    def test_data_relativa_no_TEXTO_nao_e_lida(self):
+        """A regua le metadado, nunca o corpo: «ieri» no texto nao muda nada."""
+        p = _pagina('<meta property="article:published_time" content="2026-09-20T09:00:00Z">',
+                    "<p>Ieri, 19 settembre 2026, la grandine ha colpito i vigneti.</p>")
+        r = ex.tempo_de_publicacao(p)
+        self.assertEqual(("2026-09-20T09:00:00+00:00", ex.BASE_META),
+                         (r["VALOR"], r["BASE"]))
 
 
 if __name__ == "__main__":

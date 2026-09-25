@@ -262,9 +262,12 @@ def lugar_para_o_contrato(r: dict) -> dict:
       valor; `{"SOURCE_LOCATION_BASIS": "NAO SEI — <porquê>"}` quando não há.
     Sem `FACT_LOCATION`: onde está quem publica não diz onde o facto foi.
     """
+    # D62: a precisão viaja (cidade · provincia · NAO SEI); nenhuma reprova.
     if r.get("VALOR") in (NAO_SEI, "", None):
-        return {"SOURCE_LOCATION_BASIS": r.get("PORQUE") or NAO_SEI}
-    return {"SOURCE_LOCATION": r["VALOR"], "SOURCE_LOCATION_BASIS": r["BASE"]}
+        return {"SOURCE_LOCATION_BASIS": r.get("PORQUE") or NAO_SEI,
+                "SOURCE_LOCATION_PRECISION": NAO_SEI}
+    return {"SOURCE_LOCATION": r["VALOR"], "SOURCE_LOCATION_BASIS": r["BASE"],
+            "SOURCE_LOCATION_PRECISION": r.get("PRECISAO") or NAO_SEI}
 
 
 def regra_do_lugar_do_fato(source_id: str) -> str:
