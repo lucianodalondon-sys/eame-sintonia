@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "fila-unica-v1",
-    "HEAD": "27c16d498721338b1588d48e3b490685b3cf4b2e",
-    "GENERATED_AT": "2026-09-25T02:01:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9de86866bd602c304fbed08b0e4a76477d9b4aa72ad1973efb8b9672d5df5dc0"
+    "HEAD": "cc93a8943609063ca5115d759bf6b71d083fd8e2",
+    "GENERATED_AT": "2026-09-25T05:32:09-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a5b114e88c9e35bc0a8b9c213922d37dd039b74fb1992eafc49e610ec232da56"
   },
   "FILES": [
     {
@@ -2158,6 +2158,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/ACOMPANHAR-FILA-V1.jsonl",
+      "sha": "495212da6e77319a59810504b33d0e0e15984801",
+      "ext": ".jsonl",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/ACOMPANHAR-FILA-V1.md",
+      "sha": "3f49a0f074cd3db8b8342e51cb874801c5b4fd24",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/ATLAS-WRITE-V1.json",
       "sha": "8bea861630bb5becc8efdac927b226811a64388c",
       "ext": ".json",
@@ -2715,6 +2729,13 @@
       "sha": "d69eb8a2bc294d6dff53aa84dd1de120f8310f18",
       "ext": ".json",
       "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/acompanhar_fila.py",
+      "sha": "0dbb5342e317726a1367b58590b58f861ca53424",
+      "ext": ".py",
+      "readable": true,
       "code_dir": false
     },
     {
@@ -24951,6 +24972,105 @@
         "file": "controle/red_team_do_controle.py",
         "line": 253,
         "snippet": "and x[\"TO_PATH\"] == \"superficie/ask_sintonia.py\")"
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 44,
+        "snippet": "porta = {c[\"CANDIDATA_ID\"]: c for c in _ler(\"candidatas/FONTES-CANDIDATAS.json\")[\"CANDIDATAS\"]}"
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "curadoria/ACOMPANHAR-FILA-V1.jsonl",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 24,
+        "snippet": "JSONL = RAIZ / \"curadoria\" / \"ACOMPANHAR-FILA-V1.jsonl\""
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "curadoria/ACOMPANHAR-FILA-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 25,
+        "snippet": "MD = RAIZ / \"curadoria\" / \"ACOMPANHAR-FILA-V1.md\""
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "curadoria/ACOMPANHAR-FILA-V1.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 106,
+        "snippet": "MD.write_text(\"# ACOMPANHAR-FILA-V1 — as 267 da fila unica no trabalho do robo (so leitura do vivo)\\n\","
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "curadoria/BRIDGE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 47,
+        "snippet": "ponte = _ler(\"curadoria/BRIDGE-LEDGER-V1.json\")[\"PROCESSADAS\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "curadoria/FILA-UNICA-CORRESPONDENCIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 23,
+        "snippet": "CORR = RAIZ / \"curadoria\" / \"FILA-UNICA-CORRESPONDENCIA-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 49,
+        "snippet": "livro = _ler(\"curadoria/LIFECYCLE-LEDGER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 48,
+        "snippet": "tarefas = _ler(\"curadoria/LIFECYCLE-QUEUE-V1.json\")[\"TAREFAS\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/acompanhar_fila.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/acompanhar_fila.py",
+        "line": 52,
+        "snippet": "aloc = _ler(\"curadoria/SOURCE-ID-ALLOCATION-V1.json\")"
       }
     },
     {
@@ -83255,10 +83375,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2864,
-    "files_readable": 1302,
+    "files_tracked": 2867,
+    "files_readable": 1303,
     "files_code_dir": 1162,
-    "file_edges": 5692,
+    "file_edges": 5701,
     "escritas_em_pasta": 85,
     "declared_missing_here": 0
   },
