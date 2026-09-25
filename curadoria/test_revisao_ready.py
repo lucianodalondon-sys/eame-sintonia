@@ -148,5 +148,54 @@ class NoWorker(_Pasta):
         self.assertEqual(LC.READY_FOR_COLLECTION, LC.estado_de("IT-T1-010"))
 
 
+class Revisao15(_Pasta):
+    """REVISAO-15: classes novas e o re-medir UMA vez depois de uma leitura nova."""
+
+    def setUp(self):
+        super().setUp()
+        import gatilho_discovery as GD
+        self.GD = GD
+        self._c = GD.CONTRATOS
+        GD.CONTRATOS = Path(self.tmp.name) / "contratos.json"
+        GD.CONTRATOS.write_text(json.dumps({"FONTES": [_contrato("IT-T3-030")]}), encoding="utf-8")
+
+    def tearDown(self):
+        self.GD.CONTRATOS = self._c
+        super().tearDown()
+
+    def test_alvo_errado_e_nao_sei_retem_com_motivo(self):
+        for classe in ("ALVO_ERRADO", "NAO_SEI"):
+            self._revisao(_entrada("IT-T1-001", classe, "besouro japones"))
+            d = REV.decisao("IT-T1-001", _contrato("IT-T1-001"))
+            self.assertEqual(("RETER", "CONTRACTED_CANARY_FAILED"), (d["ACAO"], d["ESTADO"]), classe)
+            self.assertIn("REVISAO_R1: %s: besouro japones" % classe, d["RAZAO"])
+
+    def _cands(self, tarefas):
+        from datetime import datetime, timezone
+        agora = datetime(2026, 9, 26, 12, 0, tzinfo=timezone.utc)
+        return [(c["SOURCE_ID"], c["TASK_TYPE"]) for c in self.GD.candidatas_a_reparar(
+            agora, estados={"IT-T3-030": LC.CONTRACTED_CANARY_FAILED}, tarefas=tarefas)]
+
+    def _ja_reparada(self, canario_em):
+        return [{"SOURCE_ID": "IT-T3-030", "TASK_TYPE": F.REPAIR_CONTRACT, "TASK_ID": "T1", "STATUS": F.DONE,
+                 "UPDATED_AT": "2026-09-25T06:00:00+00:00"},
+                {"SOURCE_ID": "IT-T3-030", "TASK_TYPE": F.CANARY, "TASK_ID": "T2", "STATUS": F.DONE,
+                 "UPDATED_AT": canario_em}]
+
+    def test_leitura_nova_re_mede_uma_vez(self):
+        self._revisao(dict(_entrada("IT-T3-030", "LIMPA"), REVISTO_EM="2026-09-25T12:00:00+00:00"))
+        self.assertEqual([("IT-T3-030", F.VALIDATE_ROUTE)], self._cands(self._ja_reparada("2026-09-25T07:00:00+00:00")))
+        # depois de re-medida (canario mais novo que a leitura), nao volta
+        self.assertEqual([], self._cands(self._ja_reparada("2026-09-25T13:00:00+00:00")))
+
+    def test_leitura_sem_data_nao_re_mede(self):
+        self._revisao(_entrada("IT-T3-030", "LIMPA"))
+        self.assertEqual([], self._cands(self._ja_reparada("2026-09-25T07:00:00+00:00")))
+
+    def test_suspeita_nova_tambem_re_mede_para_escrever_o_motivo(self):
+        self._revisao(dict(_entrada("IT-T3-030", "ALVO_ERRADO"), REVISTO_EM="2026-09-25T12:00:00+00:00"))
+        self.assertEqual([("IT-T3-030", F.VALIDATE_ROUTE)], self._cands(self._ja_reparada("2026-09-25T07:00:00+00:00")))
+
+
 if __name__ == "__main__":
     unittest.main()

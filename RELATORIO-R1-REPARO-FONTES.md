@@ -256,3 +256,47 @@ Juntei `55b50a63` (= `origin/regua-t2-v1` @ `84c235da` + testes EGR) em `reparo-
 **READY esperadas: 25** (143 → 168). ⚠️ Não re-contei com rede sobre `55b50a63`: a VPN caiu para o Brasil (portão por consenso BR, BR, US = BLOCKED, medido 4× entre 22:00 e 22:10Z). O número da §11 vale para esta instalação porque as duas entradas são as mesmas: o código do robô é idêntico (`git diff e7cba2d6 3de79d75 -- curadoria candidatas superficie` = 0 linhas — a régua T2 não toca nesses directórios) e os 14 livros do vivo são iguais byte a byte aos da medição das 20:28Z. O que pode mudar é só o que os sites respondem hoje.
 
 **Instalar:** `PARAR.flag` → `git merge --no-ff origin/reparo-fontes-v2` no ramo do bot → conferir livros → portão por consenso = PASS IT → relançar. **Desfazer:** `PARAR.flag` → `git reset --keep 55b50a63` → relançar.
+
+## 14 · REVISAO-15 — as 15 em «revisão pendente» depois da instalação (25/09, ramo `reparo-fontes-v3`)
+
+Ramo novo a partir da produção (`origin/servico-20260923-0923` @ `7cdb7ea4`). As 15 são fontes que a R1 reparou no vivo e a régua aprovou, mas ninguém tinha lido (quase todas das janelas D29: fitossanitário e agrometeo). Li cada uma pelo endereço do item e pelo retrato guardados no vivo; para 5 em que o endereço não chegava, 1 pedido por domínio (5 pedidos, portão por consenso = PASS IT, robots da casa; páginas com sha256 em `scripts/reparo/R1-REVISAO-15.json`).
+
+**3 LIMPAS · 11 SUSPEITAS · 1 NÃO SEI**
+
+| fonte | veredito | motivo |
+|---|---|---|
+| IT-T2-157 | LIMPA | notícia do Serviço Agrometeo Regional das Marcas (AMAP), datada 18/03/2026 — o tema da fonte |
+| IT-T7-171 | LIMPA | notícia do Collegio dei Periti Agrari (CREA: IA com imagens RGB para o NDVI), datada 12/02/2026 |
+| IT-T8-064 | LIMPA | artigo da revista Italus Hortus (SOI) sobre biossegurança da videira, 2024 |
+| IT-T2-135 | ALVO_ERRADO | arquivo de boletins agrometeo da ARPA Lombardia, mas o padrão reparado aponta para «temi-ambientali/rifiuti» (gestão de resíduos) |
+| IT-T3-030 | ALVO_ERRADO | fonte de boletins de defesa da flavescência dourada; o padrão aponta para o guia do besouro japonês (scarabeo-giapponese) |
+| IT-T3-041 | ALVO_ERRADO | Serviço Fitossanitário do Lazio; o padrão aponta para «qualità produzioni» (produtos certificados), não para avisos fitossanitários |
+| IT-T5-189 | ALVO_ERRADO | Dip. Scienze Agrarie de Palermo, mas o item é a 110.ª Targa Florio (corrida de automóveis) na «terza missione» da universidade |
+| IT-T8-058 | ALVO_ERRADO | fonte Agrisole, mas o padrão pega todo o Sole 24 Ore (/art/); o item é a Acea no Peru (águas residuais), não agro |
+| IT-T8-060 | LISTA_COMO_ITEM | o item é o arquivo de notícias do ano 2019 (notizie?y=2019), uma listagem, não uma notícia |
+| IT-T7-168 | NAO_SEI | entrada «aiia_news», mas o padrão pega páginas de congressos (item: congresso AIIA 2022); não sei se é o fluxo que se quer desta fonte |
+| IT-T2-159 | SERVICO_OU_INSTITUCIONAL | «Le attività» do SIARL: página fixa a descrever o serviço, não boletim nem notícia |
+| IT-T3-047 | SERVICO_OU_INSTITUCIONAL | página fixa de serviço do fitossanitário do Piemonte (registo de atividades de produção/comércio de vegetais), não aviso |
+| IT-T3-049 | SERVICO_OU_INSTITUCIONAL | o item é «Accessibilità e uso del sito» da Região Toscana, não o fitossanitário |
+| IT-T3-052 | SERVICO_OU_INSTITUCIONAL | página fixa do fitossanitário do Veneto («attività vivaistica»), não aviso nem boletim |
+| IT-T7-219 | SERVICO_OU_INSTITUCIONAL | página de procedimento («come richiedere l'accreditamento di un evento formativo»), não notícia |
+
+**Mecanismo (o mesmo da R1, sem promover à mão):**
+- as 15 entram em `curadoria/REVISAO-READY-V1.json`, com `REVISTO_EM`;
+- classes novas na trava: `ALVO_ERRADO` (o padrão aponta para outro tema ou secção) e `NAO_SEI` — as duas retêm com o motivo no livro;
+- ⚠️ buraco achado: estas fontes já tinham sido reparadas e estavam paradas; nada as voltava a medir. O gatilho passa a re-medir **uma vez** (VALIDATE_ROUTE) a fonte cuja leitura (`REVISTO_EM`) é mais nova que o último canário. A LIMPA sai READY pela régua; a SUSPEITA fica com `REVISAO_R1: <classe>: <motivo>` no livro.
+
+**Ensaio em cópia fiel do vivo `7cdb7ea4`** (rede fechada; `C:/ens-r15`, apagada):
+
+```
+1. merge --no-ff f5281334              rc=0  conflitos=0   (so 5 ficheiros: revisao, gatilho, trava, teste, prova)
+2. livros sujos (14)                   IGUAIS byte a byte
+3. testes: 140, 1 FAIL = test_nivel_da_fila.test_5 (pre-existente); livros IGUAIS
+4. decisao com os contratos do vivo:   as 15 voltam a ser medidas (15 VALIDATE_ROUTE, 0 outras)
+                                       3 promovem se o canario passar (IT-T2-157, IT-T7-171, IT-T8-064)
+                                       12 retidas: 5 ALVO_ERRADO, 5 servico, 1 lista, 1 NAO_SEI
+5. DESFAZER git reset --keep 7cdb7ea4  rc=0  0 codigo diferente  livros IGUAIS
+```
+
+**Quantas ficam prontas:** +3 (183 → 186), se o canário de hoje ainda passar nas 3 — é rede, e o site pode ter mudado. Testes: 105 dos ficheiros afectados + 5 novos; mutação 5/5.
+
