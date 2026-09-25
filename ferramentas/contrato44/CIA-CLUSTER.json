@@ -1,0 +1,303 @@
+{
+ "DATASET": "CIA-CLUSTER",
+ "NOTA": "as fontes cia.it no livro do Curator (copia do vivo 7cdb7ea4); 5 no coletor, todas com o molde generico",
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T7-047",
+   "NOME": "CIA — Confederazione Italiana Agricoltori",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://www.cia.it/",
+   "PADRAO_GENERICO": false,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/multimedia/video/\\d+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-112",
+   "NOME": "AGIA - Giovani",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "NO_COLETOR": true,
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/agia/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-113",
+   "NOME": "AIDALDO - Invalidi e Datori lavoro domestico",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/aidaldo-invalidi-e-datori-lavoro-domestico/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-114",
+   "NOME": "ANP - Pensionati italiani",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/anp/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-115",
+   "NOME": "Agenda",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://www.cia.it/agenda-archivio/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-118",
+   "NOME": "Donne in Campo",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "NO_COLETOR": true,
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/donne-in-campo/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-119",
+   "NOME": "Emilia Romagna",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-121",
+   "NOME": "News",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "NO_COLETOR": true,
+   "INDEX_URL": "https://www.cia.it/news/news/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-122",
+   "NOME": "News",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://cia.it/news/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-123",
+   "NOME": "News dal territorio",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "NO_COLETOR": true,
+   "INDEX_URL": "https://www.cia.it/news/dal-territorio/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-124",
+   "NOME": "Prenota appuntamento",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://prenotaservizi.cia.it/prenotazione/regione",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?prenotaservizi\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-126",
+   "NOME": "Sardegna",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://www.cia.it/dove-siamo/sedi/22461/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-128",
+   "NOME": "Videogallery",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://www.cia.it/multimedia/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-130",
+   "NOME": "biocontrollo.cia.it",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-135",
+   "NOME": "cia.it",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "NO_COLETOR": true,
+   "INDEX_URL": "https://cia.it/agrichef-1/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-143",
+   "NOME": "AL CITTADINO",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/al-cittadino/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-144",
+   "NOME": "ALL'IMPRESA",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/allimpresa/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-145",
+   "NOME": "ANP – Associazione Nazionale Pensionati",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/anp-associazione-nazionale-pensionati/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-146",
+   "NOME": "AREA  RISERVATA",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/accedi/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-147",
+   "NOME": "Accedi",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/login-2/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-148",
+   "NOME": "Associazione Donne in Campo",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/associazione-donne-in-campo/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-149",
+   "NOME": "Associazioni Giovani Imprenditori Agricoli",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/associazioni-giovani-imprenditori-agricoli/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-151",
+   "NOME": "Chi siamo",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/cia-emiliaromagna/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-152",
+   "NOME": "Dove siamo",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/dove-siamo-sede-emilia-romagna/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-153",
+   "NOME": "ESPERIENZE",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/esperienze/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-154",
+   "NOME": "EVENTI",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/eventi/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-155",
+   "NOME": "Emilia Centro",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://emiliaromagna.cia.it/emilia-centro/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-156",
+   "NOME": "IL PROGETTO",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/il-progetto/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-157",
+   "NOME": "NEWS",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/news/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-158",
+   "NOME": "RISORSE UTILI",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/risorse_utili/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-159",
+   "NOME": "Trasparenza",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://www.emiliaromagna.cia.it/trasparenza/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?emiliaromagna\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-161",
+   "NOME": "biocontrollo.cia.it",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/tossicita-delle-sostanze-attive-nei-confronti-delle-api/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-162",
+   "NOME": "biocontrollo.cia.it",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "NO_COLETOR": false,
+   "INDEX_URL": "https://biocontrollo.cia.it/esperienze2/come-agiscono-i-nematodi-entomopatogeni/",
+   "PADRAO_GENERICO": true,
+   "LINK_PATTERN": "^https?://(www\\.)?biocontrollo\\.cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
+  }
+ ]
+}

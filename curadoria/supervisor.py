@@ -609,19 +609,23 @@ def uma_volta_sup(
 # ---------------------------------------------------------------------------
 
 def supervisionar(pausa_worker: float = 1.0,
-                  poll: float = SUPERVISOR_POLL_S) -> int:
+                  poll: float = SUPERVISOR_POLL_S, revalidar_legacy: bool = False) -> int:
     lock_fd = _adquirir_lock()
     if lock_fd is None:
         print("SUPERVISOR ja em execucao (lock valido). A sair.")
         return 1
 
     try:
-        return _loop(pausa_worker, poll)
+        return _loop(pausa_worker, poll, revalidar_legacy=revalidar_legacy)
     finally:
         _libertar_lock(lock_fd)
 
 
-def _loop(pausa_worker: float, poll: float) -> int:
+def _loop(pausa_worker: float, poll: float, revalidar_legacy: bool = False) -> int:
+    # ⚠️ PASSOS QUE ESCREVEM NO LIVRO OU VAO A REDE SO O SERVICO OS LIGA (`main()`).
+    # Medido a 25/09 08:01Z (PROVA-ROTA-CICLO): um gancho ligado por omissao fez os
+    # testes que correm este `_loop` lancar canarios reais. O re-check das READY_LEGACY
+    # escreve no livro e na fila: por omissao, quem chama `_loop` nao o corre.
     estado = _ler_estado()
     estado.setdefault("SUPERVISOR_STATE", "STARTING")
     estado.setdefault("RESTARTS_TOTAL", 0)
@@ -652,6 +656,19 @@ def _loop(pausa_worker: float, poll: float) -> int:
             _anotar({"EVENTO": "REALIMENTACAO", **m})
 
     import onboardar_rotas_provadas as ONB  # noqa: E402
+
+    def _hook_revalidar_legacy():
+        # LEGACY-99 C: as READY_LEGACY voltam a ser medidas pela regua de hoje, um
+        # lote pequeno por dia (gatilho_discovery.revalidar_legacy_se_devido). Um erro
+        # fica no diario e NAO derruba o supervisor.
+        try:
+            r = GD.revalidar_legacy_se_devido(estado)
+        except Exception as e:  # noqa: BLE001
+            _anotar({"EVENTO": "REVALIDAR_LEGACY_ERRO", "ERRO": repr(e)[:300]})
+            return
+        if r.get("ACCAO") != "NADA":
+            _anotar({"EVENTO": "REVALIDAR_LEGACY", **r})
+            _gravar_estado(estado)
 
     def _hook_onboarding():
         try:
@@ -685,6 +702,8 @@ def _loop(pausa_worker: float, poll: float) -> int:
             # entra na tabela do coletor por aqui, e so por aqui (o dono e
             # `onboardar_rotas_provadas`; o porque do supervisor esta la).
             # Um erro deste passo fica no diario e NAO derruba o supervisor.
+            if revalidar_legacy:
+                _hook_revalidar_legacy()
             _hook_onboarding()
 
             print("SUPERVISOR: %s (restarts=%d)" % (
@@ -856,6 +875,8 @@ def main() -> int:
         description="Supervisor do Source Curator — relanca o worker quando morre.")
     ap.add_argument("--pausa", type=float, default=1.0)
     ap.add_argument("--poll",  type=float, default=SUPERVISOR_POLL_S)
+    ap.add_argument("--sem-revalidar-legacy", action="store_true",
+                    help="Nao re-medir READY_LEGACY no ciclo (LEGACY-99 C)")
     ap.add_argument("--estado", action="store_true",
                     help="Mostrar estado actual e sair")
     a = ap.parse_args()
@@ -866,7 +887,7 @@ def main() -> int:
 
     print("SUPERVISOR DO SOURCE CURATOR — PID=%d  arrancou=%s"
           % (os.getpid(), _agora()), flush=True)
-    return supervisionar(a.pausa, a.poll)
+    return supervisionar(a.pausa, a.poll, revalidar_legacy=not a.sem_revalidar_legacy)
 
 
 if __name__ == "__main__":
