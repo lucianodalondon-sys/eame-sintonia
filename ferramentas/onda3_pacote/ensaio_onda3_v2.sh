@@ -62,6 +62,10 @@ py -B curadoria/retirar_por_decisao.py --decisao D52 2>/dev/null | head -3 | sed
 py -B curadoria/retirar_por_decisao.py --decisao D52 --escrever 2>/dev/null | grep -E "APLICA|escrito" | head -2 | sed 's/^/D52 escrever: /' | tee -a $OUT/2b-d52.txt
 py -B curadoria/retirar_por_decisao.py --decisao D52 2>/dev/null | head -1 | sed 's/^/D52 2.a passagem: /' | tee -a $OUT/2b-d52.txt
 C2=$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)
+py -B curadoria/retirar_por_decisao.py --decisao D52 --reverter --escrever 2>/dev/null | head -1 | sed 's/^/D52 reverter: /' | tee $OUT/2b-d52-reverter.txt
+[ "$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)" = "$C1" ] && echo "D52 reverter: livro de contratos = antes da D52 (byte a byte)" | tee -a $OUT/2b-d52-reverter.txt || echo "D52 reverter: DIFERENTE" | tee -a $OUT/2b-d52-reverter.txt
+py -B curadoria/retirar_por_decisao.py --decisao D52 --escrever 2>/dev/null >/dev/null
+[ "$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)" = "$C2" ] && echo "D52 re-aplicada: igual a 1.a aplicacao (byte a byte)" | tee -a $OUT/2b-d52-reverter.txt || echo "D52 re-aplicada: DIFERENTE" | tee -a $OUT/2b-d52-reverter.txt
 py -B - <<'EOF' | tee -a $OUT/2b-d52.txt
 import json
 d52 = {x.get("SOURCE_ID") for x in json.load(open("curadoria/DECISAO-D52-RETIRAR-V1.json", encoding="utf-8")).get("FONTES", [])}
@@ -102,28 +106,6 @@ print("outras tarefas do gatilho nesta volta:", len(c) - len(r15))
 EOF
 py -B ferramentas/hr6/remedir_hr6.py --fontes=IT-T7-174 --aplicar 2>/dev/null | grep -E "APLICADO|MOSTRAR" | tee -a $OUT/4-robo-vai-medir.txt
 
-# ── 5: DEPOIS (sem rede) ────────────────────────────────────────────────────
-py -B curadoria/collection_gate.py --json 2>/dev/null | py -c "import json,sys;d=json.load(sys.stdin);print('PAINEL DEPOIS',json.dumps(d['PAINEL']))" | tee $OUT/5-depois.txt
-py -B scripts/micro_coleta/micro_coleta.py plano > $OUT/5-PLANO-DEPOIS.json 2>$OUT/5-PLANO-DEPOIS.err
-py -c "import json;p=json.load(open(r'$OUT/5-PLANO-DEPOIS.json',encoding='utf-8'));print('plano DEPOIS: PRONTAS',p['PRONTAS'],'BLOQUEADAS',p['BLOQUEADAS'])" | tee -a $OUT/5-depois.txt
-
-# ── 6: coorte da 3.a onda PROVISORIA (ficheiro proprio; commit SO na copia) + so-plano + prova-teto ──
-py -B ferramentas/big_collection/coorte_unica.py --plano="$OUT/5-PLANO-DEPOIS.json" --saida=ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json 2>/dev/null | tee $OUT/6-coorte.txt
-$G add ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json && $G commit -q -m "ENSAIO so na copia: coorte da 3.a onda PROVISORIA"
-cp ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json $OUT/6-COORTE-ONDA3-PROVISORIA.json
-py -B ferramentas/big_collection/onda_web.py --so-plano --coorte=ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --saida="$OUT/onda3" > $OUT/6-ONDA3-SO-PLANO.json 2>$OUT/6-ONDA3-SO-PLANO.err
-py -B provas/prova_teto_dominio.py --plano "$OUT/6-ONDA3-SO-PLANO.json" --coorte ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --json "$OUT/6-PROVA-TETO-ONDA3.json" 2>&1 | head -8 | tee $OUT/6-prova-teto.txt
-
-# ── 7: testes da juncao (sem rede) ──────────────────────────────────────────
-py -B -m unittest curadoria.test_retirar_por_decisao curadoria.test_gatilho_discovery curadoria.test_gatilho_ocioso curadoria.test_retirar_duplicadas_d49 curadoria.test_canario_detalhe curadoria.test_reparar_contrato curadoria.test_revisao_ready curadoria.test_um_so_canario_promove curadoria.test_ready_split 2>&1 | tail -3 | tee $OUT/7-testes.txt
-echo "hr6/test_remedir_hr6: $(cd ferramentas/hr6 && py -B -m unittest test_remedir_hr6 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
-' ' ')" | tee -a $OUT/7-testes.txt
-for t in tests/test_onda3_b_inerte.py tests/test_importar_do_coletor.py tests/test_legacy_recheck.py tests/test_legacy_colchetes.py tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_provadas.py tests/test_prova_teto_dominio.py; do echo "$t: $(py -B $t 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
-' ' ')"; done | tee -a $OUT/7-testes.txt
-echo "motor_de_rota_test.mjs: $(node regras/motor_de_rota_test.mjs 2>&1 | grep -E 'PASSOU' | tail -1)" | tee -a $OUT/7-testes.txt
-echo "teto_dominio_local.mjs: $(node provas/teto_dominio_local.mjs 2>&1 | tail -1)" | tee -a $OUT/7-testes.txt
-
-
 # ── V2: bloco A da LEGACY-99 (codigo ja no pacote), so as 21 paginas web, pelos lotes do plano ──
 py -B - <<'EOF' | tee $OUT/V2-A-b-inerte-antes.txt
 import json
@@ -163,6 +145,28 @@ with mock.patch.object(W.GATE, "robots_de", return_value=(object(), "lido")), \
 print("(2) paginas web do bloco A que validam pela producao (INDEX_URL, robots simulado):", ok, "de", len(ids), outros)
 EOF
 
+# ── 5: DEPOIS (sem rede) ────────────────────────────────────────────────────
+py -B curadoria/collection_gate.py --json 2>/dev/null | py -c "import json,sys;d=json.load(sys.stdin);print('PAINEL DEPOIS',json.dumps(d['PAINEL']))" | tee $OUT/5-depois.txt
+py -B scripts/micro_coleta/micro_coleta.py plano > $OUT/5-PLANO-DEPOIS.json 2>$OUT/5-PLANO-DEPOIS.err
+py -c "import json;p=json.load(open(r'$OUT/5-PLANO-DEPOIS.json',encoding='utf-8'));print('plano DEPOIS: PRONTAS',p['PRONTAS'],'BLOQUEADAS',p['BLOQUEADAS'])" | tee -a $OUT/5-depois.txt
+
+# ── 6: coorte da 3.a onda PROVISORIA (ficheiro proprio; commit SO na copia) + so-plano + prova-teto ──
+py -B ferramentas/big_collection/coorte_unica.py --plano="$OUT/5-PLANO-DEPOIS.json" --saida=ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json 2>/dev/null | tee $OUT/6-coorte.txt
+$G add ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json && $G commit -q -m "ENSAIO so na copia: coorte da 3.a onda PROVISORIA"
+cp ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json $OUT/6-COORTE-ONDA3-PROVISORIA.json
+py -B ferramentas/big_collection/onda_web.py --so-plano --coorte=ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --saida="$OUT/onda3" > $OUT/6-ONDA3-SO-PLANO.json 2>$OUT/6-ONDA3-SO-PLANO.err
+py -B provas/prova_teto_dominio.py --plano "$OUT/6-ONDA3-SO-PLANO.json" --coorte ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --json "$OUT/6-PROVA-TETO-ONDA3.json" 2>&1 | head -8 | tee $OUT/6-prova-teto.txt
+
+# ── 7: testes da juncao (sem rede) ──────────────────────────────────────────
+py -B -m unittest curadoria.test_retirar_por_decisao curadoria.test_gatilho_discovery curadoria.test_gatilho_ocioso curadoria.test_retirar_duplicadas_d49 curadoria.test_canario_detalhe curadoria.test_reparar_contrato curadoria.test_revisao_ready curadoria.test_um_so_canario_promove curadoria.test_ready_split 2>&1 | tail -3 | tee $OUT/7-testes.txt
+echo "hr6/test_remedir_hr6: $(cd ferramentas/hr6 && py -B -m unittest test_remedir_hr6 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
+' ' ')" | tee -a $OUT/7-testes.txt
+for t in tests/test_onda3_b_inerte.py tests/test_importar_do_coletor.py tests/test_legacy_recheck.py tests/test_legacy_colchetes.py tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_provadas.py tests/test_prova_teto_dominio.py; do echo "$t: $(py -B $t 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
+' ' ')"; done | tee -a $OUT/7-testes.txt
+echo "motor_de_rota_test.mjs: $(node regras/motor_de_rota_test.mjs 2>&1 | grep -E 'PASSOU' | tail -1)" | tee -a $OUT/7-testes.txt
+echo "teto_dominio_local.mjs: $(node provas/teto_dominio_local.mjs 2>&1 | tail -1)" | tee -a $OUT/7-testes.txt
+
+
 # ── BC: a tabela pedida (uniao por SOURCE_ID) ──
 py -B - "$OUT" <<'EOF' | tee $OUT/BC-TABELA.txt
 import json, sys, collections
@@ -201,8 +205,6 @@ EOF
 # ── 8: DESFAZER provado ─────────────────────────────────────────────────────
 git status --short > $OUT/8-antes-de-desfazer-status.txt
 # D52 --reverter devolve o livro de contratos aos mesmos bytes de antes da D52
-py -B curadoria/retirar_por_decisao.py --decisao D52 --reverter --escrever 2>/dev/null | head -1 | sed 's/^/D52 reverter: /' | tee $OUT/8-d52-reverter.txt
-[ "$(sha256sum curadoria/italy_contracts_curator.json | cut -c1-64)" = "$C1" ] && echo "D52 reverter: livro de contratos = antes da D52 (byte a byte)" | tee -a $OUT/8-d52-reverter.txt || echo "D52 reverter: DIFERENTE" | tee -a $OUT/8-d52-reverter.txt
 # como no vivo: o codigo volta por reset --keep (o pacote nao toca livros, por isso nada recusa),
 # e os livros escritos (contratos pela D49/D51; tabela e prova pelo onboarding; livro e fila pela HR-6) voltam da foto
 $G reset -q --keep $HEAD_VIVO; echo "reset --keep rc=$?" | tee $OUT/8-desfazer-reset.txt
