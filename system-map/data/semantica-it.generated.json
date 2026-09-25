@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "27c16d498721338b1588d48e3b490685b3cf4b2e"
+    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91"
   },
   "VOCABULARIOS": [
     {
@@ -1248,16 +1248,16 @@
       "OWNER": "admissao",
       "ROLE": "ADMISSAO",
       "O_QUE_E": "as palavras que decidem se o item pertence ao universo pedido",
-      "TOTAL_TERMS": 121,
+      "TOTAL_TERMS": 128,
       "POR_ESCOPO": {
-        "UNKNOWN": 61,
-        "IT_ONLY": 32,
+        "UNKNOWN": 63,
+        "IT_ONLY": 37,
         "PT_ONLY": 20,
         "SHARED_MULTILINGUAL": 6,
         "INTERNATIONAL": 2
       },
-      "CLASSIFIED": 60,
-      "UNKNOWN": 61,
+      "CLASSIFIED": 65,
+      "UNKNOWN": 63,
       "FECHA": true,
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
@@ -1329,6 +1329,7 @@
         "scripts/diagnostico_sala/onde_casou.py",
         "scripts/micro_coleta/ensaio_offline.py",
         "scripts/micro_coleta/micro_coleta.py",
+        "scripts/regua_t1/selecionar_cega.py",
         "scripts/regua_t2/medir_regua_t2.py",
         "scripts/regua_t2/medir_via_agrometeo.py",
         "scripts/regua_t2/mutar_regua_t2.py",
@@ -1375,6 +1376,7 @@
         "tests/test_quarentena_naosei.py",
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao_trava.py",
+        "tests/test_regua_t1.py",
         "tests/test_regua_t2.py",
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_sala_duravel.py",
@@ -1798,6 +1800,34 @@
           "escopo": "UNKNOWN"
         },
         {
+          "termo": "fenologia|fenologica|fenologico|fenologiche|fenologici|bbch|estadio fenologico",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "fioritura|allegagione|invaiatura|germogliamento|ingrossamento|inolizione|floracao|florescimento",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "difesa integrata|lotta integrata|producao integrada|manejo integrado",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "soglia di intervento|soglia di trattamento|nivel de controle|nivel de dano",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "infestazione|infestazioni|infestacao|catture|capturas",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "trattamento fitosanitario|trattamenti fitosanitari|trattamento insetticida|trattamenti insetticidi|intervento fitosanitario|interventi fitosanitari|tratamento fitossanitario|tratamentos fitossanitarios",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "inizio della raccolta|avvio della raccolta|raccolta iniziata|epoca di raccolta|tempi di raccolta|in corso di raccolta|la raccolta 2026|prime vendemmie|vendemmia in corso|semina|semine|trebbiatura|inicio da colheita|semeadura",
+          "escopo": "IT_ONLY"
+        },
+        {
           "termo": "pioggia|piogge|precipitazione|precipitazioni|chuva|chuvas|precipitacao|precipitacoes",
           "escopo": "UNKNOWN"
         },
@@ -1874,9 +1904,9 @@
   ],
   "COUNTS": {
     "vocabularios": 10,
-    "termos_ao_todo": 363,
+    "termos_ao_todo": 370,
     "por_papel": {
-      "ADMISSAO": 121,
+      "ADMISSAO": 128,
       "BUSCA": 68,
       "CLASSIFICACAO": 139,
       "EXTRACAO": 35
