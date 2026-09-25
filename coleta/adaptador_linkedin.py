@@ -937,6 +937,27 @@ ROBOTS_MEDIDA_REF = 'leis/social_matriz.py (cabecalho: robots.txt de cada plataf
 DECISAO_DO_ROBOTS = 'D37'
 
 
+RE_DATA_SO_DIA = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+RE_DATA_COM_SEGUNDO = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?$')
+RE_DATA_COM_MINUTO = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?:Z|[+-]\d{2}:?\d{2})?$')
+
+
+def precisao_da_publicacao(valor):
+    """A precisao do que a plataforma DECLAROU, pela forma do valor (D63: precisao por item).
+
+    Mesma regua do YouTube (`ferramentas/youtube_transcrever.declarado_em`): SECOND quando a
+    data traz segundos, MINUTE quando traz so hora e minuto, DAY quando so traz o dia, NAO DECLARADA quando nao ha data. Nao arredonda:
+    um dia nao vira meio-dia, e uma hora nao se inventa."""
+    v = str(valor or '').strip()
+    if RE_DATA_COM_SEGUNDO.match(v):
+        return 'SECOND'
+    if RE_DATA_COM_MINUTO.match(v):
+        return 'MINUTE'
+    if RE_DATA_SO_DIA.match(v):
+        return 'DAY'
+    return 'NAO DECLARADA'
+
+
 def politica_do_objeto(nome_decisao, decisao_robots=DECISAO_DO_ROBOTS):
     """Os campos de politica que CADA objeto leva, separados (D37).
 
@@ -1824,6 +1845,15 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
         raw=raw)
     envelope['ACQUISITION_TIER'] = FREE
     envelope['FIELD_ORIGIN_TIER'] = FREE
+    # ── A DATA DE PUBLICACAO, COM A BASE E A PRECISAO (D61/D63) ────────────
+    # A data ja viajava (published_at, medido na Sala de 24/09); a BASE ficava so
+    # no bruto e a PRECISAO nao existia. Sem as duas, quem conta «ieri» a partir
+    # da publicacao (leis/fato_do_texto.py) nao sabe se a data esta provada.
+    # Sem data declarada, sem base: NAO se escreve base para um vazio.
+    if prosa.get('PUBLISHED_AT'):
+        envelope['PUBLISHED_AT_SOURCE'] = ('PLATAFORMA — LinkedIn, pagina publica do post, '
+                                           '%s' % prosa.get('PUBLISHED_AT_SOURCE'))
+    envelope['PUBLISHED_AT_PRECISION'] = precisao_da_publicacao(prosa.get('PUBLISHED_AT'))
     envelope.update(politica_do_objeto(nome_decisao, decisao_robots))
     if limite:
         envelope['LIMITE'] = limite

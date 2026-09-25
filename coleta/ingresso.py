@@ -332,6 +332,14 @@ PARA_A_PORTA = {
     "FACT_TIME_BASIS": "fact_time_basis",
     "FACT_LOCATION_BASIS": "fact_location_basis",
     "SOURCE_DECLARED_EVIDENCE_CLASS": "source_declared_evidence_class",
+    # ── D61/D63 (SOC-TEMPO): a base e a precisao da PUBLICACAO e do LUGAR DA FONTE ──
+    # Sem elas, `leis/fato_do_texto.py` nao distingue uma publicacao provada de uma
+    # data qualquer, e «ieri» nao se pode contar. Atravessam para quem julga; a Sala
+    # ainda nao tem colunas para elas (ver o plano SOC-TEMPO: um dono so para a migracao).
+    "PUBLISHED_AT_BASIS": "published_at_basis",
+    "PUBLISHED_AT_PRECISION": "published_at_precision",
+    "SOURCE_LOCATION_BASIS": "source_location_basis",
+    "SOURCE_LOCATION_PRECISION": "source_location_precision",
 }
 
 

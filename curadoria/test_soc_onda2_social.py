@@ -119,6 +119,27 @@ class OLinkedinDeOrganizacao(_LaneSocial):
         self.assertEqual(self._alloc(), [])
 
 
+class OContratoGuardaOLugarDeQuemPublica(_LaneSocial):
+    """D61 (SOC-TEMPO): o contrato social leva o SOURCE_LOCATION tirado do site oficial."""
+
+    def _contrato(self, onde_viu):
+        self._cand("CAND-L090", "LINKEDIN", "Consorzio Tutela Vini — Linkedin ufficiale",
+                   "https://www.linkedin.com/company/consorzio-vini", onde_viu=onde_viu)
+        W.correr(max_tarefas=1, pausa=0, verboso=False)                 # BUILD_CONTRACT
+        sid = self._alloc()[0]["SOURCE_ID"]
+        return {x["SOURCE_ID"]: x for x in json.loads(W.CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}[sid]
+
+    def test_site_com_sede_no_cadastro_da_a_provincia(self):
+        c = self._contrato("declarado no site oficial do dono: https://www.arpae.it/")
+        self.assertEqual((c["SOURCE_LOCATION"], c["SOURCE_LOCATION_PRECISION"]), ("Bologna", "PROVINCE"))
+        self.assertEqual(VC.validar([c])[1], [])
+
+    def test_site_sem_prova_fica_NAO_SEI_com_o_porque(self):
+        c = self._contrato(SITE)
+        self.assertEqual(c["SOURCE_LOCATION"], "NAO SEI")
+        self.assertTrue(c["SOURCE_LOCATION_BASIS"].startswith("NAO SEI:"))
+
+
 class OYoutubePedeALigacaoOficial(_LaneSocial):
     def test_canal_com_nome_bom_sem_site_nao_ganha_numero(self):
         r = self._cand("CAND-Y101", "YOUTUBE", "Consorzio Tutela Vini — Youtube ufficiale",

@@ -303,6 +303,18 @@ def etapa_build_contract(source_id: str, contrato: dict | None) -> tuple[str, di
 
     # O carimbo de procedencia faz parte do contrato, nao do script que o
     # escreveu: sem ele o proprio validador da casa recusa a linha.
+    # ── D61 (SOC-TEMPO): O LUGAR DE QUEM PUBLICA, NO CONTRATO DA CONTA SOCIAL ──
+    # A conta so tem numero porque o site oficial da organizacao aponta para ela;
+    # e esse site que diz onde esta quem publica (`leis/lugar_da_organizacao.py`:
+    # sede no cadastro-mestre, senao pais da ficha do site no Atlas, senao NAO SEI
+    # com o porque). O contrato e o dono; o Scrap le-o daqui.
+    if n.get("FAMILY") in ("LINKEDIN", "YOUTUBE"):
+        if str(RAIZ / "leis") not in sys.path:
+            sys.path.append(str(RAIZ / "leis"))
+        import lugar_da_organizacao as LO
+        ficha = _ficha_candidata(n.get("CANDIDATE_ID") or "") or {}
+        site, _como = RSY.ligacao_oficial(ficha)
+        novo.update(LO.lugar_da_organizacao(site))
     novo["SOURCE_CONTRACT_VERSION"] = EC.VERSAO
     novo["SOURCE_CONTRACT_HASH"] = EC.hash_do_contrato(novo)
     novo["ONBOARDED_BY"] = ("SOURCE-CURATOR-WORKER · contrato escrito pelo "
