@@ -64,6 +64,24 @@ se aparecer tarefa com rede. **Para a instalação:** a semeadura no vivo põe a
 e ele trata-as pela ordem de prioridade dele; os números podem sair diferentes se o bot qualificar outras
 candidatas antes — o passo 6 (conferir os números) existe por isso.
 
+### Bateria antes/depois sobre a produção 7b769819 (livros originais, sem rede), 25/09 ~04:15
+```
+producao pura (C:/ens-base)            276 testes · 27 falhas
+producao + social-onda2-v1 (ens-base2) 367 testes · 27 falhas — as MESMAS; 0 novas, 0 sumidas
+as 27 de base                          26 em tests.test_fila_italia_decisoes (25 candidatas CAND-1174..1198 sem nota
+                                       + o guarda D24) = FILA-UNICA · 1 em test_reconciliar_livros.test_zy_censo
+                                       (1047 != 1065, igual com e sem o meu codigo)
+DESFAZER no re-ensaio                  so os 14 livros sujos; sha256 14/14 iguais
+```
+⚠️ **O que o re-ensaio apanhou, e já está consertado (commit cb183ea9):** com as 9 promovidas no livro, os testes do
+portão que leem o livro real reprovavam 22 vezes. Eles exigiam que toda elegível fosse `DETAIL/v1` com INDEX_URL e os
+quatro passos. A reconciliação da ponte e o red team do ciclo de vida chamavam READY_LEGACY à promoção social.
+Agora: o painel do portão conta `READY_SOCIAL_TOTAL` à parte; `reconciliar_livros` e `red_team_lifecycle` aceitam
+`REGUAS_QUE_ADMITEM`; os testes do portão leem a prova social (veredito READY da régua, fase do contrato).
+**Isto falharia na produção logo depois do passo 7 (régua), e não na instalação.**
+A lista congelada da Grande Coleta (`ferramentas/big_collection/coorte_unica.py`) é só para a web: parte do plano do
+coletor web. A onda social tem a sua própria lista (`plano_onda_social.py`) e não passa por ali.
+
 ## WRITESET
 
 | peça | na INSTALAÇÃO escreve | em FUNCIONAMENTO passa a escrever | livros do vivo tocados na instalação |
