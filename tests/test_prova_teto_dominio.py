@@ -96,5 +96,49 @@ class ODominio(unittest.TestCase):
             self.assertEqual(T.dominio_registavel(h), esperado, h)
 
 
+class OPlano(unittest.TestCase):
+    """O modo --plano confere o que um plano PREVE, antes da rede."""
+
+    def test_plano_dentro_do_teto_passa(self):
+        r = T.verificar_plano({"PEDIDOS_POR_DOMINIO": {"cia.it": 5, "myfruit.it": 5}})
+        self.assertEqual(r["ESTADO"], "PASS")
+
+    def test_plano_com_seis_reprova(self):
+        r = T.verificar_plano({"PEDIDOS_POR_DOMINIO": {"cia.it": 6}})
+        self.assertEqual(r["ESTADO"], "FAIL")
+
+    def test_o_plano_e_reagrupado_pelo_dominio_desta_prova(self):
+        r = T.verificar_plano({"PEDIDOS_POR_DOMINIO": {"www.cia.it": 3, "toscana.cia.it": 3}})
+        self.assertEqual(r["DOMINIOS_ACIMA_DO_TETO"], {"cia.it": 6})
+
+    def test_fonte_cujo_dominio_o_plano_nao_tem_reprova(self):
+        ind = {"IT-T7-112": "https://www.cia.it/", "IT-T9-001": "https://www.outro.it/"}
+        r = T.verificar_plano({"PEDIDOS_POR_DOMINIO": {"cia.it": 3}}, ["IT-T7-112", "IT-T9-001"], ind)
+        self.assertEqual(r["ESTADO"], "FAIL")
+        self.assertEqual(r["FONTES_CUJO_DOMINIO_NAO_ESTA_NO_PLANO"], ["IT-T9-001"])
+
+    def test_fonte_que_salta_por_teto_nao_precisa_de_estar_no_plano(self):
+        ind = {"IT-T7-112": "https://www.cia.it/", "IT-T9-001": "https://www.outro.it/"}
+        r = T.verificar_plano({"PEDIDOS_POR_DOMINIO": {"cia.it": 3}, "SALTAM_POR_TETO_DOMINIO": ["IT-T9-001"]},
+                              ["IT-T7-112", "IT-T9-001"], ind)
+        self.assertEqual(r["ESTADO"], "PASS")
+
+    def test_fonte_sem_indice_e_nao_sei(self):
+        r = T.verificar_plano({"PEDIDOS_POR_DOMINIO": {"cia.it": 3}}, ["IT-T7-112"], {})
+        self.assertEqual(r["ESTADO"], "NAO_SEI")
+
+    def test_plano_vazio_e_nao_sei(self):
+        self.assertEqual(T.verificar_plano({})["ESTADO"], "NAO_SEI")
+
+    def test_indices_lidos_dos_dois_donos(self):
+        js = json.dumps({"FONTES": [{"SOURCE_ID": "IT-T2-032", "ACQUISITION": {"INDEX_URL": "https://www.arpal.liguria.it/"}}]})
+        mjs = ('  "IT-T10-018": {\n'
+               '    NAME: "x",\n'
+               '    INDEX_URL: "https://www.myfruit.it/news",\n'
+               '  },\n')
+        ind = T.indices_dos_contratos(js, mjs)
+        self.assertEqual(ind, {"IT-T2-032": "https://www.arpal.liguria.it/", "IT-T10-018": "https://www.myfruit.it/news"})
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=1)
