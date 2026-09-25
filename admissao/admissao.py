@@ -1486,6 +1486,48 @@ def _lingua_do_item(item: dict) -> str:
                               ("texto", "title", "nome", "topics", "crops", "resumo")))
 
 
+# ── O REROUTE DA D2, PARA TODAS AS FONTES (D56, bot Luciano, 25/09) ──────────
+# A lei do dono (D2): «duas perguntas, nunca uma» —
+#     UNIVERSE_MATCH      serve a gaveta declarada da fonte?
+#     SINTONIA_RELEVANT   serve ao Sintonia, em qualquer gaveta?
+#     UNIVERSE_MATCH = NO · SINTONIA_RELEVANT = YES · ACTION = REROUTE
+# ⚠️ MEDIDO (AJUSTES-MICRO, 25/09): `_do_universo` devolvia NAO «de outro
+# universo» e ACABAVA — nenhum codigo perguntava ao outro universo. Nos 16
+# documentos do MICRO-V3, 4 dos 8 NAO davam SIM noutra gaveta (a Plantgest,
+# fonte T10, publica tecnica: 3/3 SIM em T5, a da geada SIM em T1).
+#
+#     NAO SERVIR A ESTA GAVETA != NAO SERVIR AO SINTONIA.
+#
+# O que isto faz, e so isto:
+#   · quando a gaveta da FONTE diz NAO ou NAO_SE_APLICA, faz a MESMA pergunta
+#     do tema («pertence ao universo») as OUTRAS gavetas com regua;
+#   · os portoes do estagio (legivel, origem, identidade...) ja passaram — nao
+#     dependem do universo — e por isso nao se repetem;
+#   · NENHUMA regua muda e o veredito da gaveta da fonte NAO muda: o REROUTE
+#     fica na evidencia, com ORIGEM, e cada DESTINO com SIM, PONTUACAO (os
+#     sinais que a regua contou) e MOTIVO (as palavras da propria regua);
+#   · um item com SIM em varias gavetas e UM item (o mesmo `item`), ligado a
+#     todas — a Sala ainda NAO sabe guardar isso sem duplicar o texto
+#     (ver RELATORIO-REROUTE.md, a proposta de migracao 033); ate la, o
+#     REROUTE fica escrito no livro e nada novo pousa.
+def reencaminhar(item: dict, origem: str) -> dict:
+    destinos = []
+    for u in sorted(PERGUNTAS_DO_UNIVERSO):
+        if u == origem:
+            continue
+        r, motivo, ev = _do_universo(item, u, PERGUNTAS_DO_UNIVERSO[u])
+        if r == SIM:
+            pont = ev.get("sinais")
+            if not isinstance(pont, int):
+                pont = len(ev.get("palavras") or []) or 1
+            destinos.append({"UNIVERSO": u, "PONTUACAO": pont, "MOTIVO": motivo})
+    destinos.sort(key=lambda d: (-d["PONTUACAO"], d["UNIVERSO"]))
+    return {"LEI": "D2 (dono) · D56 (bot Luciano, 25/09)", "ORIGEM": origem, "UNIVERSE_MATCH": "NO",
+            "SINTONIA_RELEVANT": "YES" if destinos else "NAO_SEI",
+            "ACTION": "REROUTE" if destinos else "NENHUMA",
+            "DESTINOS": destinos}
+
+
 def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
     """A porta. Uma decisao por par (item, universo) — nunca uma por item.
 
@@ -1533,6 +1575,8 @@ def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
             "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao "
             "documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o "
             "fato for extraido.")
+    if r in (NAO, NAO_SE_APLICA):
+        ev["REROUTE"] = reencaminhar(item, universo)
     return Decisao(item=nome_do_item,
                    universo=universo, resultado=r, regra="pertence ao universo",
                    motivo=motivo, evidencia=ev, corrida=corrida)
