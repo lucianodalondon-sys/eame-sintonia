@@ -129,3 +129,39 @@ Nada mudou no código de produção desde `c40394e8`: o aperto foi medido e não
    `VERSAO_DA_REGRA = "9"`. Os 2 falsos SIM conhecidos entram (a publicação sobre inovação e a
    página-menu do Serviço Fitossanitário da Campania).
 5. Voltar atrás = reverter o merge.
+
+---
+
+## T1C (25/09, D35) — produção juntada, prova cega de POSITIVOS, aperto que não perde certos
+
+1. **Produção juntada**: `origin/servico-20260923-0923 @ 5ba9647e` (R1) entrou no ramo (merge
+   `970ca6a3`); só os gerados do mapa tinham conflito — regerados pela cadeia. Testes T1 + T2 + EGR +
+   `curadoria/test_revisao_ready` OK (o único erro nos tocados é o pré-existente
+   `test_correr_julga_a_unidade_da_fronteira`; os 2 do PyYAML são da máquina).
+2. **Prova cega de POSITIVOS pela rede** (`recolher_cega_positivos.py`, regra commitada antes;
+   portão de consenso PASS IT antes de cada site; **25 pedidos, no máximo 5 por site**, robots lido):
+   19 boletins NOVOS (edições/zonas que não estavam no acervo) de Campania SFR ×4, ARIF ×4, APOL ×4,
+   ARPAV ×4, ARPAE ×3. **Rotulados ANTES de correr a régua**: 16 YES, 3 NO (ARPAE: só tempo).
+   Régua T1: **16/16 SIM, 0 falsos SIM** (os 3 da ARPAE: NAO). ⚠️ Edições novas das MESMAS séries
+   do gabarito (mesmos moldes).
+3. **Aperto sem perder certos**: «o momento tem de estar no corpo» — abaixo de **2 ocorrências de
+   momento por 10 mil caracteres** fica NAO_SEI (`MOMENTO_SO_DE_PASSAGEM`). Tira a publicação de
+   172 mil caracteres (0,1/10k); o boletim certo menos denso tem 3,8/10k. Resultado:
+   **51 certos continuam, falsos SIM 2 → 1**; no acervo só 3 mudam (a publicação e 2 capturas de
+   um artigo sobre a pera Conference, já rotuladas NAO_SEI); **0/9.163** nos outros universos;
+   prova cega continua 16/16. Mutação **9/9**. ⚠️ Limiar escolhido dentro da amostra.
+   **Não deu** para a página-menu do Serviço Fitossanitário da Campania: o detector de capa diz
+   MATERIA (47 links, 2.111 caracteres de parágrafo) e a régua só vê o texto (densidade 8,8/10k,
+   igual a um boletim). Tirá-la pediria dar à régua a contagem de links do retrato HTML — outra
+   mudança, não feita. **Fica 1 falso SIM conhecido.**
+
+## PLANO DE INSTALAÇÃO (atualizado — substitui os anteriores)
+
+- **SHA**: o último commit deste ramo (dito na entrega).
+- **Writeset** (fora os gerados): `admissao/admissao.py` (T1: cultura + 2 momentos + densidade;
+  `VERSAO_DA_REGRA = "9"`) · `tests/test_regua_t1.py` · `tests/test_a_regra_de_t2.py` ·
+  `tests/test_estagio_atravessa_a_fronteira.py` · `scripts/regua_t1/**` · `scripts/regua_t2/MEDICAO-REGUA-T2-V2/V3.json` ·
+  este relatório · `system-map/data/architecture.declared.json`.
+- Passos: juntar na produção (conflito só nos gerados → cadeia); testes T1+T2+EGR+revisao_ready;
+  `metricas_canonicas.py --sync` com PyYAML emprestado. Efeito: T1 **54 SIM / 836 NAO_SEI / 419 NAO**
+  nos 1.309; 0 mudanças nos outros universos. Voltar atrás = reverter o merge.
