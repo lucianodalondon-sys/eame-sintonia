@@ -110,13 +110,95 @@ def verificar(run_ids, corridas, teto=TETO_D38):
             "PEDIDOS_NA_ONDA": sum(e["PEDIDOS"] for e in por_dom.values())}
 
 
+def indices_dos_contratos(texto_json_onboarded, texto_mjs):
+    """SOURCE_ID -> INDEX_URL, lidos como TEXTO dos dois donos dos contratos do coletor (sem correr codigo)."""
+    out = {}
+    try:
+        for f in json.loads(texto_json_onboarded).get("FONTES", []):
+            u = (f.get("ACQUISITION") or {}).get("INDEX_URL")
+            if f.get("SOURCE_ID") and u:
+                out[f["SOURCE_ID"]] = u
+    except ValueError:
+        pass
+    for m in re.finditer(r'"?(IT-T\d+-\d{3})"?\s*:\s*\{(.{0,4000}?)INDEX_URL\s*:\s*"([^"]+)"', texto_mjs or "", re.S):
+        if "IT-T" not in m.group(2):          # o INDEX_URL pertence a ESTE bloco, nao ao seguinte
+            out.setdefault(m.group(1), m.group(3))
+    return out
+
+
+def verificar_plano(plano, coorte_ids=None, indices=None, teto=TETO_D38):
+    """Um PLANO (ex.: onda_web --so-plano) ainda nao tem corridas: confere-se o que ele PREVE.
+    1. reagrupa PEDIDOS_POR_DOMINIO pelo dominio desta prova e reprova acima do teto;
+    2. se houver coorte e indices: o dominio de cada fonte, calculado AQUI a partir do INDEX_URL do contrato,
+       tem de ser uma chave do plano (senao o plano agrupou-a noutro sitio) — fonte sem indice = NAO_SEI."""
+    por_dom = {}
+    for d, n in (plano.get("PEDIDOS_POR_DOMINIO") or {}).items():
+        k = dominio_registavel(d)
+        por_dom[k] = por_dom.get(k, 0) + int(n)
+    acima = {d: n for d, n in por_dom.items() if n > teto}
+    sem_indice, fora_do_plano, dominios = [], [], {}
+    for s in coorte_ids or []:
+        u = (indices or {}).get(s)
+        if not u:
+            sem_indice.append(s)
+            continue
+        d = dominio_registavel(u)
+        dominios[s] = d
+        if d not in por_dom and s not in (plano.get("SALTAM_POR_TETO_DOMINIO") or []):
+            fora_do_plano.append(s)
+    if not plano.get("PEDIDOS_POR_DOMINIO") or sem_indice:
+        estado = "NAO_SEI"
+    elif acima or fora_do_plano:
+        estado = "FAIL"
+    else:
+        estado = "PASS"
+    return {"ESTADO": estado, "TETO_POR_DOMINIO_POR_ONDA": teto, "PEDIDOS_PREVISTOS_POR_DOMINIO": por_dom,
+            "DOMINIOS_ACIMA_DO_TETO": acima, "FONTES_SEM_INDICE_NO_CONTRATO": sem_indice,
+            "FONTES_CUJO_DOMINIO_NAO_ESTA_NO_PLANO": fora_do_plano, "DOMINIO_POR_FONTE": dominios,
+            "PEDIDOS_PREVISTOS": sum(por_dom.values())}
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Verificacao independente do teto D38 (pedidos por dominio por onda).")
-    ap.add_argument("--livro", required=True, help="runs.ndjson (livro de corridas do coletor)")
-    ap.add_argument("--onda", required=True, help="ficheiro que lista os RUN_ID da onda (qualquer texto/JSON)")
+    ap.add_argument("--livro", help="runs.ndjson (livro de corridas do coletor)")
+    ap.add_argument("--onda", help="ficheiro que lista os RUN_ID da onda (qualquer texto/JSON)")
+    ap.add_argument("--plano", help="PLANO da onda (onda_web --so-plano): confere o que ele PREVE, antes da rede")
+    ap.add_argument("--coorte", help="coorte (COORTE-BIG-COLLECTION-V1.json) para conferir o dominio fonte a fonte")
+    ap.add_argument("--contratos-json", default="regras/italy_contracts_onboarded.json")
+    ap.add_argument("--contratos-mjs", default="regras/italy_contracts.mjs")
     ap.add_argument("--teto", type=int, default=TETO_D38)
     ap.add_argument("--json", help="onde gravar o resultado")
     a = ap.parse_args(argv)
+    if a.plano:
+        with open(a.plano, encoding="utf-8") as f:
+            plano = json.load(f)
+        ids, indices = None, None
+        if a.coorte:
+            with open(a.coorte, encoding="utf-8") as f:
+                c = json.load(f)
+            ids = [x if isinstance(x, str) else x.get("SOURCE_ID") for x in c.get("COORTE", [])]
+            def _ler(p):
+                try:
+                    with open(p, encoding="utf-8") as f:
+                        return f.read()
+                except OSError:
+                    return ""
+            indices = indices_dos_contratos(_ler(a.contratos_json), _ler(a.contratos_mjs))
+        r = verificar_plano(plano, ids, indices, a.teto)
+        if a.json:
+            with open(a.json, "w", encoding="utf-8") as f:
+                json.dump(r, f, ensure_ascii=False, indent=1)
+        print("PROVA_TETO_DOMINIO_PLANO=%s · previstos=%d · teto=%d por dominio por onda"
+              % (r["ESTADO"], r["PEDIDOS_PREVISTOS"], r["TETO_POR_DOMINIO_POR_ONDA"]))
+        for d, n in r["DOMINIOS_ACIMA_DO_TETO"].items():
+            print("  ACIMA DO TETO  %-32s %3d" % (d, n))
+        for s in r["FONTES_CUJO_DOMINIO_NAO_ESTA_NO_PLANO"]:
+            print("  FORA DO PLANO  %s (%s)" % (s, r["DOMINIO_POR_FONTE"].get(s)))
+        for s in r["FONTES_SEM_INDICE_NO_CONTRATO"]:
+            print("  NAO_SEI        %s (sem INDEX_URL nos contratos do coletor)" % s)
+        return {"PASS": 0, "FAIL": 1}.get(r["ESTADO"], 2)
+    if not (a.livro and a.onda):
+        ap.error("sem --plano, --livro e --onda sao obrigatorios")
     with open(a.onda, encoding="utf-8") as f:
         ids = run_ids_da_onda(f.read())
     with open(a.livro, encoding="utf-8") as f:
