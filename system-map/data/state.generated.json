@@ -3610,9 +3610,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "janelas-68-v2",
-    "HEAD": "febd2ca0635274e5d4749ad747c435ec1b83200b",
-    "GENERATED_AT": "2026-09-25T09:20:48-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1c78d668bcfeaf9a8b835307edfc727ac18c67594185a825ebc0879d0c97baa1"
+    "HEAD": "e5076493a81624875bd1584492077f2b1a0f6669",
+    "GENERATED_AT": "2026-09-25T10:34:49-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c1f48d2ceecfe34110fcd976525544440d500d853e3a0f06f10ed45d01831e1d"
   },
   "FAMILIES": [
     {
@@ -3640,7 +3640,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 99
+      "count": 100
     },
     {
       "id": "F-ESPERA",
@@ -3898,7 +3898,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 28
+      "count": 29
     },
     {
       "id": "Z-ADMISSAO",
@@ -37518,6 +37518,7 @@
         "C-DETECTOR-CAPA-GABARITO",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
+        "C-JANELAS-68-V2",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
         "C-PROVA-CANARIO-D23-LINKEDIN",
@@ -40501,6 +40502,7 @@
         "C-COORTE-BIG-COLLECTION",
         "C-COORTE-MICRO-FUNIL",
         "C-DETECTOR-CAPA-GABARITO",
+        "C-JANELAS-68-V2",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
         "C-PONTE-ONBOARD",
@@ -40655,12 +40657,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "curadoria/janelas68v2_remedir.py:56",
           "ferramentas/big_collection/coorte_unica.py:42",
           "ferramentas/ponte_onboard/mutacao.py:19",
-          "medidas/canario_rotas_elegiveis.py:190",
-          "medidas/medir_k1.py:42"
+          "medidas/canario_rotas_elegiveis.py:190"
         ],
-        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-JANELAS-68-V2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 6000,
       "y": 682
@@ -43302,6 +43304,7 @@
         "C-COORTE-BIG-COLLECTION",
         "C-COORTE-MICRO-FUNIL",
         "C-DESBLOQUEIO-PACOTE",
+        "C-JANELAS-68-V2",
         "C-RECEITAS-182",
         "C-RECEITAS-PROPOSTA",
         "C-REPARO-MEDICAO",
@@ -43428,10 +43431,10 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "curadoria/janelas68v2_remedir.py:59",
           "curadoria/test_supervisor.py:59",
           "ferramentas/big_collection/coorte_unica.py:41",
-          "medidas/prova_b2_ponte_em_copia.py:34",
-          "scripts/coorte_micro/funil.py:63"
+          "medidas/prova_b2_ponte_em_copia.py:34"
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CENSO-UNIFICACAO · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -48461,6 +48464,149 @@
       "y": 1326
     },
     {
+      "id": "C-JANELAS-68-V2",
+      "name": "JANELAS-68-v2 — trava da data no reparo, entrada de janela sem gemeas, ARSAC",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Trava no reparo R1 (curadoria/reparar_contrato.py::data_de_publicacao): o item aprovado tem de mostrar a sua data de PUBLICACAO; sem ela RECUSA ITEM_SEM_DATA_DE_PUBLICACAO. Re-medido sem rede nos mesmos bytes: 13 -> 6 (6 paginas fixas e 1 post sem data). entrada_janela.py troca so a INDEX_URL com prova da P1g e recusa gemeas (ensaio: 0 trocas). ARSAC mudou para arsac.calabria.it: forma por edicao, fica para a JANELA-FORMAS.",
+      "why_here": "O reparo geral aprovava paginas fixas como noticia (6 de 9 nas fontes de janela). Pedido do dono, 25/09.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "curadoria/entrada_janela.py",
+        "curadoria/janelas68v2_remedir.py",
+        "curadoria/test_entrada_janela.py",
+        "curadoria/test_reparo_data_publicacao.py",
+        "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+        "provas/janelas68v2/ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json",
+        "provas/janelas68v2/ENTRADA-DE-JANELA-ENSAIO-V1.json",
+        "provas/janelas68v2/MUTACAO-TRAVA-V1.json",
+        "provas/janelas68v2/RELATORIO-JANELAS-68-V2.md",
+        "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+        "provas/janelas68v2/TESTES-BASE-41d8751e.json",
+        "provas/janelas68v2/TESTES-RAMO.json",
+        "provas/janelas68v2/arsac_sonda.py",
+        "provas/janelas68v2/correr_testes.py",
+        "tests/fixtures/janelas68_itens/.gitattributes",
+        "tests/fixtures/janelas68_itens/IT-T2-135.html",
+        "tests/fixtures/janelas68_itens/IT-T2-157.html",
+        "tests/fixtures/janelas68_itens/IT-T2-159.html",
+        "tests/fixtures/janelas68_itens/IT-T3-041.html",
+        "tests/fixtures/janelas68_itens/IT-T3-047.html",
+        "tests/fixtures/janelas68_itens/IT-T3-049.html",
+        "tests/fixtures/janelas68_itens/IT-T3-052.html",
+        "tests/fixtures/janelas68_itens/IT-T3-060.html",
+        "tests/fixtures/janelas68_itens/IT-T3-062.html",
+        "tests/fixtures/janelas68_itens/IT-T8-069.html",
+        "tests/fixtures/janelas68_itens/IT-T9-024.html",
+        "tests/fixtures/janelas68_itens/MANIFESTO.json"
+      ],
+      "file_count": 27,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ASK-SINTONIA",
+        "C-CENSO-UNIFICACAO",
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-RECEITAS-182"
+      ],
+      "outbound": [],
+      "paises": {
+        "ITALIA": 11
+      },
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ESPERADO",
+          "EX"
+        ],
+        "palavras": 15,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 15,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "NAO SEI",
+      "rule_role_evidence": "escreve provas/janelas68v2/ARSAC-PROPOSTA-V1.json e este mapa nao viu ninguem ler",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "curadoria/entrada_janela.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/italy_contracts_curator.json",
+        "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+        "provas/janelas68v2/ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json",
+        "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+        "scripts/receitas_182/CAPTURA-ENTRADAS-V1.json",
+        "scripts/receitas_182/MEDICAO-COM-REDE-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 12140,
+      "y": 1648
+    },
+    {
       "id": "C-LASTMILE",
       "name": "Ultima milha da entrega",
       "territory": "Z-PACOTE",
@@ -48789,8 +48935,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
-      "y": 1648
+      "x": 11310,
+      "y": 1970
     },
     {
       "id": "C-LEITOR-DA-CADEIA",
@@ -50290,7 +50436,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1970
     },
     {
@@ -50378,7 +50524,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 1970
     },
     {
@@ -51112,8 +51258,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 12140,
-      "y": 1970
+      "x": 11310,
+      "y": 2292
     },
     {
       "id": "C-PALAVRAS",
@@ -57286,7 +57432,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2292
     },
     {
@@ -57637,7 +57783,7 @@
       ],
       "file_count": 12,
       "status": "PENDING",
-      "status_reason": "existe teste que exercita isto.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/reparar_contrato.py"
@@ -57649,7 +57795,9 @@
         "C-RECEITAS-PROPOSTA",
         "C-TESTES"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-JANELAS-68-V2"
+      ],
       "paises": {},
       "paises_dado": {
         "ITALIA": 3
@@ -57714,16 +57862,16 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve curadoria/reparar_contrato.py e este mapa nao viu ninguem ler",
-      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve curadoria/reparar_contrato.py, e quem le nao esta na esteira: C-JANELAS-68-V2",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "OPERATIONAL_STEP",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "scripts/receitas_182/capturar_entradas.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/reparar_contrato.py, e quem le nao esta na esteira: C-JANELAS-68-V2",
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -57750,10 +57898,13 @@
         "CLASSE": "NAO_SEI",
         "QUEM": [],
         "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "PROVA": [
+          "curadoria/entrada_janela.py:103",
+          "curadoria/janelas68v2_remedir.py:63"
+        ],
+        "PORQUE": "estas pecas importam-na — C-JANELAS-68-V2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2292
     },
     {
@@ -57890,8 +58041,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE · C-RECEITAS-182 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
-      "y": 2292
+      "x": 11310,
+      "y": 2614
     },
     {
       "id": "C-RECOLLECTION-CENSO",
@@ -57992,7 +58143,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -58428,7 +58579,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2614
     },
     {
@@ -58673,8 +58824,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
-      "y": 2614
+      "x": 11310,
+      "y": 2936
     },
     {
       "id": "C-REGUA-T2-JANELA",
@@ -58866,7 +59017,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2936
     },
     {
@@ -58952,7 +59103,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2936
     },
     {
@@ -59275,8 +59426,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
-      "y": 2936
+      "x": 11310,
+      "y": 3258
     },
     {
       "id": "C-REVISAO-DA-EVIDENCIA",
@@ -59850,7 +60001,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 3258
     },
     {
@@ -72168,6 +72319,41 @@
     },
     {
       "from": "C-ASK-SINTONIA",
+      "to": "C-JANELAS-68-V2",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia tem o seu codigo importado por JANELAS-68-v2 — trava da data no reparo, entrada de janela sem gemeas, ARSAC. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/janelas68v2/arsac_sonda.py",
+          "line": 28,
+          "snippet": "import rede                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-JANELAS-68-V2",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-JANELAS-68-V2",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
       "to": "C-MICRO-COLETA-INSTRUMENTO",
       "type": "READS",
       "payload": "artefacto",
@@ -77801,6 +77987,57 @@
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
             "FROM": "C-CENSO-UNIFICACAO",
             "TO": "C-DETECTOR-CAPA-GABARITO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-JANELAS-68-V2",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta JANELAS-68-v2 — trava da data no reparo, entrada de janela sem gemeas, ARSAC. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/janelas68v2_remedir.py",
+          "line": 56,
+          "snippet": "livro = json.loads((VIVO / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-JANELAS-68-V2",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-JANELAS-68-V2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/janelas68v2/arsac_sonda.py",
+          "line": 108,
+          "snippet": "json.loads((VIVO / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-JANELAS-68-V2",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-JANELAS-68-V2",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -87123,6 +87360,41 @@
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
             "TO": "C-DESBLOQUEIO-PACOTE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-JANELAS-68-V2",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta JANELAS-68-v2 — trava da data no reparo, entrada de janela sem gemeas, ARSAC. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/janelas68v2_remedir.py",
+          "line": 59,
+          "snippet": "for t in json.loads((VIVO / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-JANELAS-68-V2",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-JANELAS-68-V2",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -117626,6 +117898,140 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-RECEITAS-182",
+      "to": "C-JANELAS-68-V2",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Receitas das 183 que chumbaram no canario (FILA-UNICA) — forma, conserto do reparo e medida tem o seu codigo importado por JANELAS-68-v2 — trava da data no reparo, entrada de janela sem gemeas, ARSAC. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/entrada_janela.py",
+          "line": 103,
+          "snippet": "import reparar_contrato as RC                          # noqa: E402 — a porta do reparo",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+            "FROM": "C-RECEITAS-182",
+            "TO": "C-JANELAS-68-V2",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/janelas68v2_remedir.py",
+          "line": 30,
+          "snippet": "import reparar_contrato as RC    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+            "FROM": "C-RECEITAS-182",
+            "TO": "C-JANELAS-68-V2",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/test_entrada_janela.py",
+          "line": 11,
+          "snippet": "import reparar_contrato as RC      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+            "FROM": "C-RECEITAS-182",
+            "TO": "C-JANELAS-68-V2",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/test_reparo_data_publicacao.py",
+          "line": 18,
+          "snippet": "import reparar_contrato as RC                     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+            "FROM": "C-RECEITAS-182",
+            "TO": "C-JANELAS-68-V2",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-RECEITAS-182",
+      "to": "C-JANELAS-68-V2",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Receitas das 183 que chumbaram no canario (FILA-UNICA) — forma, conserto do reparo e medida alimenta JANELAS-68-v2 — trava da data no reparo, entrada de janela sem gemeas, ARSAC. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/janelas68v2_remedir.py",
+          "line": 63,
+          "snippet": "cap = json.loads((R182 / \"CAPTURA-ENTRADAS-V1.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS-182--READS-->C-JANELAS-68-V2",
+            "FROM": "C-RECEITAS-182",
+            "TO": "C-JANELAS-68-V2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/janelas68v2_remedir.py",
+          "line": 64,
+          "snippet": "m182 = json.loads((R182 / \"MEDICAO-COM-REDE-V1.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS-182--READS-->C-JANELAS-68-V2",
+            "FROM": "C-RECEITAS-182",
+            "TO": "C-JANELAS-68-V2",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-RECEITAS-PROPOSTA",
       "to": "C-COORTE-MICRO-FUNIL",
       "type": "READS",
@@ -134892,22 +135298,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/janelas68v2/arsac_sonda.py",
-    "provas/janelas68v2/correr_testes.py",
-    "tests/fixtures/janelas68_itens/IT-T2-135.html",
-    "tests/fixtures/janelas68_itens/IT-T2-157.html",
-    "tests/fixtures/janelas68_itens/IT-T2-159.html",
-    "tests/fixtures/janelas68_itens/IT-T3-041.html",
-    "tests/fixtures/janelas68_itens/IT-T3-047.html",
-    "tests/fixtures/janelas68_itens/IT-T3-049.html",
-    "tests/fixtures/janelas68_itens/IT-T3-052.html",
-    "tests/fixtures/janelas68_itens/IT-T3-060.html",
-    "tests/fixtures/janelas68_itens/IT-T3-062.html",
-    "tests/fixtures/janelas68_itens/IT-T8-069.html",
-    "tests/fixtures/janelas68_itens/IT-T9-024.html"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1675,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1648,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -135147,7 +135539,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 224,
+      "PECAS_EM_DESACORDO": 225,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -135159,23 +135551,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 249
+      "TOTAL_DE_PECAS": 250
     }
   ],
   "COUNTS": {
-    "components": 249,
+    "components": 250,
     "components_proven": 31,
-    "components_pending": 210,
+    "components_pending": 211,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1322,
-    "edges_proven": 1257,
+    "edges": 1327,
+    "edges_proven": 1262,
     "edges_unknown": 65,
     "business_edges": 4,
     "files_tracked": 3016,
-    "files_covered": 1341,
-    "files_code_unclaimed": 13,
-    "roles_proven": 170,
+    "files_covered": 1368,
+    "files_code_unclaimed": 0,
+    "roles_proven": 171,
     "roles_declared_only": 8,
     "roles_unknown": 71,
     "roles_conflict": 38,

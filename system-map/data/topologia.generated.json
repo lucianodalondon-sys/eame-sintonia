@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T13:31:59+00:00",
-  "HEAD": "febd2ca0635274e5d4749ad747c435ec1b83200b",
+  "GENERATED_AT": "2026-09-25T13:44:06+00:00",
+  "HEAD": "e5076493a81624875bd1584492077f2b1a0f6669",
   "BRANCH": "janelas-68-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "1c78d668bcfeaf9a8b835307edfc727ac18c67594185a825ebc0879d0c97baa1",
+  "SOURCE_TREE_FINGERPRINT": "c1f48d2ceecfe34110fcd976525544440d500d853e3a0f06f10ed45d01831e1d",
   "FICHEIROS_NA_IMPRESSAO": 3164,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -690,9 +690,37 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "curadoria/entrada_janela.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0979842312cf0872ed622b45b414c80c2084b8b3",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "curadoria/janelas68v2_remedir.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "b1da05ea5481f4909bc04f8907d5ca57a2f8af25",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "curadoria/sha_do_contrato.py",
     "PAPEL": "FONTE",
     "VERSAO": "2a0255ad2c00fd50d34a619fa44b271d7fe6b1b0",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "curadoria/test_entrada_janela.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "6d0ac6d2db769bc128bb8c1f223b7e267223131b",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "curadoria/test_reparo_data_publicacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a29a571674812ced6a8156c92c5eb22afe12dc23",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2839,6 +2867,20 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/janelas68v2/arsac_sonda.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "be847137d8567fd7cb734478e9e57fd700025ff1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janelas68v2/correr_testes.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d71aeeaa394d033306b22f9cd41afd683b7538e1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/linkedin_local_first.py",
     "PAPEL": "FONTE",
     "VERSAO": "624030924042efc41a4dc2f3326c8105cb8623c6",
@@ -4017,14 +4059,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "1c78d668bcfeaf9a8b835307edfc727ac18c67594185a825ebc0879d0c97baa1",
+    "VERSAO": "c1f48d2ceecfe34110fcd976525544440d500d853e3a0f06f10ed45d01831e1d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "1c78d668bcfeaf9a8b835307edfc727ac18c67594185a825ebc0879d0c97baa1",
+    "VERSAO": "c1f48d2ceecfe34110fcd976525544440d500d853e3a0f06f10ed45d01831e1d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5947,8 +5989,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 844,
-  "INPUTS_DIGEST": "3ce5b766821fc6b9a29683f4ce4d658ba4ff54886694f75257cf7c096f05bd8d",
+  "INPUTS_COUNT": 850,
+  "INPUTS_DIGEST": "5893fcb87a1d53fb6c0f9a603c9dd02e5bbf5f8bf3497596e2946cb1e84dbb69",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5981,8 +6023,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "da2d7134eabeeba26d04ab1785570a6ea7d03183d2b062c06a8d5ca11dfd7a23",
-  "SEMANTIC_HASH": "512acf8da149e0f7ad47ac04855e7782403ead585b4c495eb0ba2fbe5d3cc330"
+  "MEASUREMENT_HASH": "4259bb7bc39f7fbd814ae8cb89a56ef58041ae27dded58beeb4fc23350140ebd",
+  "SEMANTIC_HASH": "3510de46fe06d8b6a82533ff7ba505739ad85da7851810d65903b720a0694c8e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6049,6 +6091,7 @@
    "C-IT-PRESERVAR",
    "C-IT-TEXTO-DERIVADO",
    "C-IT-TEXTO-PESQUISAVEL",
+   "C-JANELAS-68-V2",
    "C-LASTMILE-MEDIDORES",
    "C-LEITORES",
    "C-MICRO-COLETA-INSTRUMENTO",
@@ -6094,7 +6137,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 100
+  "COUNT": 101
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6288,6 +6331,7 @@
    "C-IT-PRESERVAR",
    "C-IT-TEXTO-DERIVADO",
    "C-IT-TEXTO-PESQUISAVEL",
+   "C-JANELAS-68-V2",
    "C-LASTMILE",
    "C-LASTMILE-MEDIDORES",
    "C-LEITORES",
@@ -6391,16 +6435,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 189
+  "COUNT": 190
  },
  "ARITMETICA": {
-  "COLLECTION": 100,
+  "COLLECTION": 101,
   "BOUNDARY": 89,
-  "SOMA": 189,
-  "EXPANDED": 189,
+  "SOMA": 190,
+  "EXPANDED": 190,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 189,
+  "RESUMO_CARTOES_NO_UNIVERSO": 190,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -9382,6 +9426,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-JANELAS-68-V2",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-JANELAS-68-V2",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/janelas68v2/arsac_sonda.py",
+      "LINHA": 28,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-JANELAS-68-V2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -12474,6 +12540,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-JANELAS-68-V2",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-JANELAS-68-V2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/janelas68v2_remedir.py",
+      "LINHA": 56,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-JANELAS-68-V2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/janelas68v2/arsac_sonda.py",
+      "LINHA": 108,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-JANELAS-68-V2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -17932,6 +18028,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-JANELAS-68-V2",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-JANELAS-68-V2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/janelas68v2_remedir.py",
+      "LINHA": 59,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-JANELAS-68-V2",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -35127,6 +35245,82 @@
     ]
    },
    {
+    "EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+    "FROM": "C-RECEITAS-182",
+    "TO": "C-JANELAS-68-V2",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/entrada_janela.py",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "curadoria/janelas68v2_remedir.py",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "curadoria/test_entrada_janela.py",
+      "LINHA": 11,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "curadoria/test_reparo_data_publicacao.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-182--IMPORTS-->C-JANELAS-68-V2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-RECEITAS-182--READS-->C-JANELAS-68-V2",
+    "FROM": "C-RECEITAS-182",
+    "TO": "C-JANELAS-68-V2",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/janelas68v2_remedir.py",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-182--READS-->C-JANELAS-68-V2",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "curadoria/janelas68v2_remedir.py",
+      "LINHA": 64,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-182--READS-->C-JANELAS-68-V2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-COORTE-MICRO-FUNIL",
     "FROM": "C-RECEITAS-PROPOSTA",
     "TO": "C-COORTE-MICRO-FUNIL",
@@ -44780,12 +44974,12 @@
     ]
    }
   ],
-  "COUNT": 1256
+  "COUNT": 1261
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 189,
-  "CARTOES_AUDITADOS": 189,
-  "ARESTAS_RELACIONADAS": 1256,
+  "CARTOES_NO_UNIVERSO": 190,
+  "CARTOES_AUDITADOS": 190,
+  "ARESTAS_RELACIONADAS": 1261,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -45211,12 +45405,12 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 220,
+   "CODE": 221,
    "CONTROL": 76,
    "DATA": 30,
    "PROOF": 391,
-   "READ": 297,
-   "RULE": 228,
+   "READ": 298,
+   "RULE": 231,
    "WRITE": 14
   },
   "GAPS_NOMEADOS": [
@@ -45684,7 +45878,7 @@
     "concurrent"
    ],
    "ENTRAM": 2,
-   "SAEM": 24,
+   "SAEM": 25,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -46574,7 +46768,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 9,
-   "SAEM": 10,
+   "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -47613,7 +47807,7 @@
     "urllib"
    ],
    "ENTRAM": 11,
-   "SAEM": 11,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -49289,6 +49483,81 @@
    "CATEGORIAS_QUE_SAEM": [
     "DATA"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-JANELAS-68-V2",
+   "NOME": "JANELAS-68-v2 — trava da data no reparo, entrada de janela sem gemeas, ARSAC",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "curadoria/entrada_janela.py",
+    "curadoria/janelas68v2_remedir.py",
+    "curadoria/test_entrada_janela.py",
+    "curadoria/test_reparo_data_publicacao.py",
+    "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+    "provas/janelas68v2/ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json",
+    "provas/janelas68v2/ENTRADA-DE-JANELA-ENSAIO-V1.json",
+    "provas/janelas68v2/MUTACAO-TRAVA-V1.json",
+    "provas/janelas68v2/RELATORIO-JANELAS-68-V2.md",
+    "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+    "provas/janelas68v2/TESTES-BASE-41d8751e.json",
+    "provas/janelas68v2/TESTES-RAMO.json",
+    "provas/janelas68v2/arsac_sonda.py",
+    "provas/janelas68v2/correr_testes.py",
+    "tests/fixtures/janelas68_itens/.gitattributes",
+    "tests/fixtures/janelas68_itens/IT-T2-135.html",
+    "tests/fixtures/janelas68_itens/IT-T2-157.html",
+    "tests/fixtures/janelas68_itens/IT-T2-159.html",
+    "tests/fixtures/janelas68_itens/IT-T3-041.html",
+    "tests/fixtures/janelas68_itens/IT-T3-047.html",
+    "tests/fixtures/janelas68_itens/IT-T3-049.html",
+    "tests/fixtures/janelas68_itens/IT-T3-052.html",
+    "tests/fixtures/janelas68_itens/IT-T3-060.html",
+    "tests/fixtures/janelas68_itens/IT-T3-062.html",
+    "tests/fixtures/janelas68_itens/IT-T8-069.html",
+    "tests/fixtures/janelas68_itens/IT-T9-024.html",
+    "tests/fixtures/janelas68_itens/MANIFESTO.json"
+   ],
+   "CHAMADORES_DE_RUNTIME": [
+    "motor/pacote_convergencia.py"
+   ],
+   "SO_MEDEM_ESTE": [
+    "provas/janelas68v2/arsac_sonda.py",
+    "provas/o_corte_de_cr1.py",
+    "system-map/scripts/generate_system_map.py",
+    "system-map/scripts/impressao_da_arvore.py",
+    "tests/test_c10_8b_r_raw_entre_jobs.py",
+    "tests/test_ensaio_offline_micro.py",
+    "tests/test_ld2_aditamento.py",
+    "tests/test_retorno_da_coleta.py",
+    "tests/test_v1a_v1_ligada.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": true,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "datetime",
+    "pathlib",
+    "test_reparar_contrato",
+    "urllib"
+   ],
+   "ENTRAM": 5,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
@@ -52568,14 +52837,16 @@
     "urllib"
    ],
    "ENTRAM": 5,
-   "SAEM": 0,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
     "READ",
     "RULE"
    ],
-   "CATEGORIAS_QUE_SAEM": [],
+   "CATEGORIAS_QUE_SAEM": [
+    "RULE"
+   ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
