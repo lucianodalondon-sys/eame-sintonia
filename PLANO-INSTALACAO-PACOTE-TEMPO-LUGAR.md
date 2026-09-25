@@ -20,7 +20,7 @@ FALHA ALTO (não perde dado, mas pára a corrida). Por isso nunca nessa ordem.
 | 1 mapa-ramo | `nuvem-mapa-ramo-v1` @ `59e8f0e4` | o nome do ramo sai do mapa (já no vivo) |
 | 2 FECHAR-ONDA2-B | `fechar-onda2-b` @ `35e73ff9` | RETORNO.json não diz SUCCESS na falha; pasta sem `?` e sem colisão |
 | 3 TEMPO-E-LUGAR + MIGRACAO-SALA | `tempo-lugar-v1` = `migracao-sala-v1` @ `b1ddd23d` | encanamento do tempo/lugar até à Sala; **033 única**; `reprocessar_tempo_lugar.py`; DA-9 |
-| 4 LUGAR-FATO | `lugar-fato-v1` @ `4d4ca5fc` | extrator `fact_location`/`fact_time` do texto (D62/D63/D64/D69/D70) — único dono do FACT_TIME do texto (DA-6) |
+| 4 LUGAR-FATO | `lugar-fato-v1` @ `5cad75a6` | extrator `fact_location`/`fact_time` do texto (D62/D63/D64/D69/D70) — único dono do FACT_TIME do texto (DA-6) |
 | 5 tempo-publicação | `nuvem-tempo-publicacao-v1` @ `007cccf5` | `PUBLICATION_TIME` (ordem fixa DA-9: contrato 1.º, página 2.º) e `SOURCE_LOCATION` pelo contrato |
 | social-tempo | `social-tempo-v1` @ `ee4eab92` | data e local de LinkedIn/YouTube com base |
 
@@ -33,7 +33,7 @@ FALHA ALTO (não perde dado, mas pára a corrida). Por isso nunca nessa ordem.
   página=boletim). À espera de uma lista única combinada pelos donos.
 - A 033 da retenção YouTube passa a **034** (não está neste pacote).
 
-## Ensaio integrado (medido 25/09, 15:43–16:03, sob LOCK-PESADO)
+## Ensaio integrado (medido 25/09 sob LOCK-PESADO; versão final 16:19–16:39, pacote `6ddcdd6d`)
 
 Provas com texto da Sala ficam FORA do Git: `C:/Users/London1/auditoria-madrugada/pacote-tempo-lugar/`
 (sha256 em `SHA256SUMS.txt` dessa pasta; os principais abaixo).
@@ -46,16 +46,16 @@ dump só-leitura `sala-real-copia.dump` sha256 `179b7633…d0b20`, árvore do pa
 | cadeia `migrations` | 31 × `HASH=MATCH`, `MIGRATION_033=PASS` |
 | reprocesso 1 → 2 | 2.ª passagem `INSERIDAS: 0` (idempotente) |
 | linhas originais da Sala | **iguais** (a correção vai só para `sala_de_espera_revisao`) |
-| **saem de NÃO SEI (78 linhas)** | **publicação 36 · local da fonte 5 · data do fato 18 (1 calculada) · local do fato 12** |
+| **saem de NÃO SEI (78 linhas)** | **publicação 36 · local da fonte 5 · data do fato 18 (2 calculadas) · local do fato 13** |
 | linhas com revisão | 78 |
 | DESFAZER | esquema igual ao da cópia, byte a byte; 033 volta a subir (PASS) |
 
-`ensaio-033-pacote.json` sha256 `30c5e81b82151428b96237a446d54c1d9bf33cb810408292bdf8d8d938ff14d1`
+`ensaio-033-pacote.json` sha256 `43cd5e9a6c04a01b2fcb61a25fa35016543c5a35ac804b12cb82bcc172c7e1ba` (1.ª versão, antes do conserto da LUGAR-FATO 5cad75a6: `ensaio-033-pacote-v1.json` `30c5e81b…`, 36/5/18/12)
 
 **B · teste da 033 em Postgres descartável:** `tests.test_migracao_033_sala` 15/15.
 
 **C · replay das 78 pela estrada inteira** (livro → executor → entrada → derivação → estruturação →
-porta → Sala descartável), produção `b607c9af` × pacote `46d95dac`:
+porta → Sala descartável), produção `b607c9af` × pacote `6ddcdd6d`:
 
 | campo | produção | pacote |
 |---|---:|---:|
@@ -63,7 +63,7 @@ porta → Sala descartável), produção `b607c9af` × pacote `46d95dac`:
 | publicação | 0 | 35 |
 | local da fonte | 0 | 4 |
 | data do fato | 0 | 18 |
-| local do fato | 0 | 12 |
+| local do fato | 0 | 13 |
 | sem READY (descartados) | 0 | **0** |
 | linhas na Sala descartável | 48 | 48 |
 
@@ -86,12 +86,14 @@ A 1.ª medida (pacote `f95df7e8`, antes da MIGRACAO-SALA) deu 3/4/18/12 — igua
 | 12 | IT-T3-008 | certo — «scorso anno» só comparação, sem conta |
 | 14, 15 | IT-T5-009 / IT-T5-011 | certo — nada na página, NÃO SEI |
 
-Resumo: 0 valores inventados; 1 incoerência (#1) e 1 duvidoso (#7) para a LUGAR-FATO; 3 locais que
+**Re-leitura depois do conserto da LUGAR-FATO (`5cad75a6`, feito a partir desta amostra):** #1 data do fato 2026-09-07/2026-09-13 (RELATIVA_A_PUBLICACAO: «settimana scorsa» contada da edição de qua 16/09) — CERTO; #7 «luglio» (conselho) → NÃO SEI — CERTO; #6 local Firenze (mercado, «punti vendita») — CERTO; #8/#9 local Teramo (seminário) — CERTO; #4/#10 «Italy» → NÃO SEI (sem acontecimento ligado) — mais prudente; #2 «Ferrara ; Italia» → «Ferrara» (o país não dizia mais nada). Fora da amostra só 1 mudança (idx69, o mesmo corte do país). A incoerência e a dúvida da 1.ª leitura estão resolvidas.
+
+Resumo da 1.ª leitura: 0 valores inventados; 1 incoerência (#1) e 1 duvidoso (#7) para a LUGAR-FATO; 3 locais que
 ficaram por apanhar (conservador). Duplicados (#3/#5, #4/#10, #8/#9, #11/#13) são o mesmo documento
 em corridas diferentes: saem iguais.
 
 **E · testes (rede fechada) na árvore do pacote:** linhagem_do_ready 13/13, artefato_tempo_do_fato 14/14,
-corrida_abortada 1/1, fato_do_texto 38/38, tempo_e_lugar_atravessa 43/43, tempo_e_lugar_da_publicacao 42/42,
+corrida_abortada 1/1, fato_do_texto 44/44, tempo_e_lugar_atravessa 43/43, tempo_e_lugar_da_publicacao 42/42,
 red_team_estrada 18/18, retorno_nao_diz_success_na_falha 7/7, nome_da_pasta_windows 1/1,
 soc2_curator_youtube 29/29, migracao_033_sala 15/15.
 Herdados da produção (iguais em `b607c9af`): `test_estagio_atravessa_a_fronteira` 1 ERROR
@@ -150,5 +152,5 @@ em log, relatório ou commit).
 - Primeiro a Sala ganha **gavetas novas** (só acrescenta), depois entra o código, depois arruma-se o
   que já foi colhido — sem apagar nada: cada correção fica escrita num caderno à parte.
 - Numa cópia da Sala: das 78 notícias, 36 passam a ter data de publicação, 5 o lugar de quem publica,
-  18 a data do fato e 12 o lugar do fato. Nenhuma foi deitada fora por falta de dado.
-- Li 15 à mão: nada inventado; 1 incoerência e 1 dúvida para a LUGAR-FATO.
+  18 a data do fato e 13 o lugar do fato. Nenhuma foi deitada fora por falta de dado.
+- Li 15 à mão: nada inventado. A LUGAR-FATO corrigiu a incoerência e a dúvida que achei; reli e estão certas.
