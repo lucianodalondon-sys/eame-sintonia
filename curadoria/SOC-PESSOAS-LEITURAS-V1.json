@@ -84,6 +84,40 @@
    "REGUA_VERSAO": "9",
    "JANELA_D29_PELA_REGUA": "NAO_SEI",
    "CANDIDATA_FILA_UNICA": "CAND-1150"
+  },
+  {
+   "PESSOA": "Claudio Zaccone (P5b, UniVR Biotecnologie)",
+   "CANDIDATA": "CAND-1173",
+   "CANDIDATA_FILA_UNICA": "CAND-1173",
+   "POST_URL": "https://www.linkedin.com/posts/claudio-zaccone-univr_soil-soc-climatechange-activity-7105231106265759745-2m87",
+   "DATA": "2023-09-06",
+   "TECNICO_AGRO": "SIM",
+   "JANELA_D29": "NAO_SEI",
+   "REGUA_T1": "NAO_SEI",
+   "REGUA_T2": "NAO",
+   "JANELA_D29_PELA_REGUA": "NAO_SEI",
+   "FONTE_DO_TEXTO": "FALLBACK_JSONLD_DO_AUTOR",
+   "PORQUE": "ciencia do solo (carbono organico, beterraba sacarina / digestato em prados de montanha, feno); sem fase nem momento de tratamento",
+   "TRECHO": "How climate change ☀🌡 will influence soil organic matter pools in agricultural soils from Northern Italy and corresponding sugar beet production 🌱🌱?\nFatma ABDELKEFI, PhD student, Beatrice Giannetta, f",
+   "TEXTO_SHA256": "1a80237217a55b2c71fc4ac2110d7c1a4373330084372b515cf89e2e663f2a51",
+   "LIDO_EM": "2026-09-25"
+  },
+  {
+   "PESSOA": "Claudio Zaccone (P5b, UniVR Biotecnologie)",
+   "CANDIDATA": "CAND-1173",
+   "CANDIDATA_FILA_UNICA": "CAND-1173",
+   "POST_URL": "https://www.linkedin.com/posts/claudio-zaccone-univr_digestate-grasslands-climatechange-activity-7446155103541284864-F3Ip",
+   "DATA": "2026-04-04",
+   "TECNICO_AGRO": "SIM",
+   "JANELA_D29": "NAO",
+   "REGUA_T1": "NAO",
+   "REGUA_T2": "NAO",
+   "JANELA_D29_PELA_REGUA": "NAO",
+   "FONTE_DO_TEXTO": "SO_JSONLD_DO_AUTOR (sem executor, para caber em 5 visitas)",
+   "PORQUE": "ciencia do solo (carbono organico, beterraba sacarina / digestato em prados de montanha, feno); sem fase nem momento de tratamento",
+   "TRECHO": "📢 A new PhD project on digestate application in mountain meadows ⛰️ just started… During the next 3 years, Daniela Bona will investigate the influence of liquid digestate application on SOM dynamics, ",
+   "TEXTO_SHA256": "9ba453a15f31284e163179077541baf43eb430a106acd202af639de44638ce83",
+   "LIDO_EM": "2026-09-25"
   }
  ],
  "REGUA": "admissao._do_universo T1/T2 da regua-t1-janela-v1 @ ba246704 (VERSAO_DA_REGRA 9), aplicada offline em 25/09; controle positivo (texto do teste da regua) = T1 SIM",
@@ -128,9 +162,9 @@
    "NOME": "Claudio Zaccone",
    "TIPO": "LINKEDIN",
    "URL": "https://www.linkedin.com/in/claudio-zaccone-univr",
-   "ESTADO": "NAO_SEI",
-   "PORQUE": "nova da P5b (25/09 01:44); enderecos de publicacao ainda nao procurados",
-   "PROXIMO": "ESPERA VPN (procurar enderecos) + ESPERA DECISAO"
+   "ESTADO": "NAO (janela) · SIM (tecnico agro)",
+   "PORQUE": "LIDO 25/09: 2 publicacoes de ciencia do solo; regua T1/T2 0 SIM",
+   "PROXIMO": "nada para a D29; candidato a fonte de CIENCIA/solo (o Curator decide)"
   },
   {
    "CANDIDATA_FILA_UNICA": "CAND-1149",
@@ -381,5 +415,17 @@
   "MUTACAO": "7/7 mortos (_mut_soc_pessoas.py; M3 morto por ERROR, nao por FAIL)",
   "ESTADO": "ESPERA VPN (portao de consenso BLOCKED BR em 25/09 01:40); e ESPERA DECISAO para achar enderecos de publicacao"
  },
- "NUMERACAO": "numeros da FILA-UNICA (origin/fila-unica-v1 @ c78da580; P4 = CAND-1156..1172, P5b = CAND-1148..1155) + CAND-1173 (P5b @ 754b4f8a). Os CAND-1130..1146 da pessoas-agro-v4 ficam SUPERADOS pela fila unica."
+ "NUMERACAO": "numeros da FILA-UNICA (origin/fila-unica-v1 @ c78da580; P4 = CAND-1156..1172, P5b = CAND-1148..1155) + CAND-1173 (P5b @ 754b4f8a). Os CAND-1130..1146 da pessoas-agro-v4 ficam SUPERADOS pela fila unica.",
+ "EXECUTOR_MEDIDO": {
+  "PUBLICACOES_TENTADAS_PELO_EXECUTOR": 6,
+  "COM_TEXTO_PELO_EXECUTOR": 0,
+  "COM_TEXTO_PELO_JSONLD_DO_AUTOR": 6,
+  "SO_JSONLD_SEM_EXECUTOR": 1,
+  "NOTA": "24/09: 5 posts (Senes 4, Sparvoli 1); 25/09: Zaccone 1 pelo executor + 1 so JSON-LD (limite 5 visitas/site)",
+  "VISITAS_LINKEDIN_25_09": 4,
+  "PORTAO_25_09": [
+   "PASS",
+   "PASS"
+  ]
+ }
 }

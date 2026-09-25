@@ -107,3 +107,23 @@ Lista completa em `curadoria/SOC-PESSOAS-LEITURAS-V1.json` → `LISTA_DAS_PESSOA
 | as 21 pessoas LinkedIn sem endereço de publicação | **ESPERA DECISÃO**: a casa não tem porta de descoberta de publicações de pessoa (D24 §5.3) |
 | Instagram de Fernanda Giorda | **ESPERA DECISÃO** (`janela` ROUTE_NOT_ALLOWED) |
 | `git push` desta branch | **ESPERA VPN** (commit só local até o portão dar PASS IT) |
+
+---
+
+## Rede de volta · 25/09 ~01:50 (portão de consenso PASS IT antes e depois; 4 visitas ao LinkedIn, limite 5/site)
+
+**Claudio Zaccone** (UniVR Biotecnologie, CAND-1173 na fila única; nova da P5b): 4 endereços de publicação
+achados por busca, 2 lidos (o limite de 5 visitas/site deixou ler 2):
+
+| publicação | técnico agro | T1 | T2 | janela D29 |
+|---|---|---|---|---|
+| 2023-09 carbono orgânico do solo × clima × beterraba (Belfiore, Verona) | SIM | NAO_SEI | NAO | NÃO_SEI |
+| 2026-04 digestato em prados de montanha (com Fondazione Mach), feno | SIM | NAO | NAO | NÃO |
+
+**Executor medido:** o leitor do Scrap (`video_de_post_publico`) devolveu texto em **0 de 6** publicações
+(5 de 24/09 + 1 de hoje); o texto veio sempre do JSON-LD do autor. Uma 7.ª publicação foi lida só pelo
+JSON-LD, sem o executor, para caber nas 5 visitas.
+
+**Totais atualizados:** 25 pessoas · 7 publicações lidas (3 pessoas) · técnico agro SIM = 1 pessoa (Zaccone) ·
+**janela D29 SIM = 0** · merecem virar fonte pela D29: **nenhuma**. Zaccone é fonte possível de CIÊNCIA do
+solo (não de janela) — o Curator decide.
