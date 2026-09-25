@@ -4952,6 +4952,33 @@
     "scripts/reparo/juntar_bancas.py",
     "scripts/reparo/revisar_ready.py"
    ]
+  },
+  {
+   "id": "C-SEDE-FONTES",
+   "name": "Sede das fontes (SOURCE_LOCATION) — prova guardada e proposta de regra do contrato",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Para as 60 fontes da coorte da 3.a onda: a sede provavel de cada instituicao tirada de moradas nas paginas JA guardadas (armazem e indices D40), sem rede: 14 pela propria pagina, 9 pelo mesmo site, 37 NAO SEI. A proposta de SOURCE_LOCATION_RULE por fonte, conferida com o mesmo leitor do contrato (contratos_de_fonte + gazetteer). Nada escrito nos contratos.",
+   "why_here": "A MICRO-VERIFICACAO mediu que nenhuma fonte da coorte declara a sede: source_location sai NAO SEI em todos. O REGION do Atlas nao e sede (D61).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "ferramentas/sede_fontes/COORTE-60.json",
+    "ferramentas/sede_fontes/NOMES-60.json",
+    "ferramentas/sede_fontes/PROPOSTA-SOURCE-LOCATION-RULE-V1.json",
+    "ferramentas/sede_fontes/RELATORIO-SEDE-FONTES.md",
+    "ferramentas/sede_fontes/SEDE-DAS-FONTES-V1.json",
+    "ferramentas/sede_fontes/SHA256SUMS.txt",
+    "ferramentas/sede_fontes/medir_sede.py",
+    "ferramentas/sede_fontes/propor_regra.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
