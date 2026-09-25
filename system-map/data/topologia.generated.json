@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T07:10:31+00:00",
-  "HEAD": "7f146cbcca9130623351b03fdc3e95940bec2b31",
+  "GENERATED_AT": "2026-09-25T07:40:05+00:00",
+  "HEAD": "7c925f308214683fae9bca57943860ff22a6d31c",
   "BRANCH": "capa-materia-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "eae5327ebbabad97556847d6c7469af72f427b5923f2783debfb3d27d61f1557",
-  "FICHEIROS_NA_IMPRESSAO": 3042,
+  "SOURCE_TREE_FINGERPRINT": "83f10e5dc93862ad5f370cc070c51702f3ac3ed370b597ff81301812df4e62f0",
+  "FICHEIROS_NA_IMPRESSAO": 3049,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -482,7 +482,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "bfc3bb50cc6fd57cea53b2c977d3ab8009d27a59",
+    "VERSAO": "50292d00e836d9bc12a0737ce530d38f14d5b7e5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3457,14 +3457,14 @@
    {
     "PATH": "regras/motor_de_rota.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "0875881886b35008e57fba291d50ac1128d999c1",
+    "VERSAO": "0237273f3bb63ad21af3c2efecf6270083734ccc",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "regras/motor_de_rota_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "c51b03b66e0f55fc3e36450a45ffb7e648824786",
+    "VERSAO": "0fe5e9a129fedc2a0f466126176032080a87b38b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3518,9 +3518,30 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/capa_materia/buscar_indices_d40.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "6daf49091283632f6cd6a9f43efc09438af65281",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/capa_materia/medir_d40.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "ffb90bd3626f6a111ff92835261f24d269eeb44a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/capa_materia/medir_filtro_institucional.py",
     "PAPEL": "FONTE",
     "VERSAO": "bf125f024e2c6c777b9a9749e55974b91b241d5d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/capa_materia/mutar_d40.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ae3899ed1a99074573f9d87bb27b9276206948b8",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3870,14 +3891,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "eae5327ebbabad97556847d6c7469af72f427b5923f2783debfb3d27d61f1557",
+    "VERSAO": "83f10e5dc93862ad5f370cc070c51702f3ac3ed370b597ff81301812df4e62f0",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "eae5327ebbabad97556847d6c7469af72f427b5923f2783debfb3d27d61f1557",
+    "VERSAO": "83f10e5dc93862ad5f370cc070c51702f3ac3ed370b597ff81301812df4e62f0",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5772,8 +5793,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 819,
-  "INPUTS_DIGEST": "8d7161d4c2f4c44c67d75b64b7ae4528b9c4f4ce6c1b655897ac736287156b77",
+  "INPUTS_COUNT": 822,
+  "INPUTS_DIGEST": "cfa5c710b6a5e95c8d860df420f2431df142f33cc93c30b044099ec09b94e463",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5799,15 +5820,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 505,
+  "DOCUMENTOS_LIDOS": 506,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "7a374a6f6b1f45830a742cc45104ba31b1f47c567077bdd508fd1a67b35dfb5c",
-  "SEMANTIC_HASH": "d3a6e52c9fbf32e5a09ad02effe6435e73de5b422b18e9898923f72188d18d00"
+  "MEASUREMENT_HASH": "091c5a04f0a30eeb5e98ec4a98d944408d2188b0dd086deabb59a5fc5fa99da5",
+  "SEMANTIC_HASH": "1fe08bfd9d51ff8e60e19d3fd3a3dbeb16a1afac33201c5b56e78a82b8059867"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -9174,6 +9195,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CAPA-MATERIA",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-CAPA-MATERIA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/capa_materia/buscar_indices_d40.py",
+      "LINHA": 28,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
     "FROM": "C-ASK-SINTONIA",
     "TO": "C-PROVA-CANARIO-D24-PESSOA",
@@ -11339,6 +11382,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_d40.py",
+      "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--WRITES-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "scripts/capa_materia/mutar_filtro.py",
       "LINHA": 29,
@@ -23973,6 +24024,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-CAPA-MATERIA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
+      "LINHA": 10,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
+      "LINHA": 11,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-CATALOGO",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-IT-CATALOGO",
@@ -24201,8 +24282,40 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
+      "LINHA": 10,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
+      "LINHA": 11,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
       "FICHEIRO": "scripts/capa_materia/medir_filtro_institucional.py",
       "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_d40.py",
+      "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_d40.py",
+      "LINHA": 43,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
@@ -24605,6 +24718,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-CAPA-MATERIA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
+      "LINHA": 12,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
     "FROM": "C-IT-INCREMENTALIDADE",
     "TO": "C-IT-COLETA",
@@ -24705,6 +24840,28 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-RECOLLECTION-CENSO",
       "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-CAPA-MATERIA",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-CAPA-MATERIA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
+      "LINHA": 12,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
      }
     ]
    },
@@ -43561,12 +43718,12 @@
     ]
    }
   ],
-  "COUNT": 1222
+  "COUNT": 1226
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 185,
   "CARTOES_AUDITADOS": 185,
-  "ARESTAS_RELACIONADAS": 1222,
+  "ARESTAS_RELACIONADAS": 1226,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43990,12 +44147,12 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 218,
+   "CODE": 219,
    "CONTROL": 72,
    "DATA": 30,
    "PROOF": 386,
    "READ": 288,
-   "RULE": 216,
+   "RULE": 219,
    "WRITE": 12
   },
   "GAPS_NOMEADOS": [
@@ -44462,7 +44619,7 @@
     "concurrent"
    ],
    "ENTRAM": 2,
-   "SAEM": 22,
+   "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -44883,11 +45040,18 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "RELATORIO-ALVOS-NOVOS.md",
     "RELATORIO-CAPA-MATERIA.md",
+    "scripts/capa_materia/INDICES-D40-V1.json",
+    "scripts/capa_materia/MEDICAO-D40-V1.json",
     "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+    "scripts/capa_materia/MUTACAO-D40-V1.json",
     "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
     "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
+    "scripts/capa_materia/buscar_indices_d40.py",
+    "scripts/capa_materia/medir_d40.mjs",
     "scripts/capa_materia/medir_filtro_institucional.py",
+    "scripts/capa_materia/mutar_d40.py",
     "scripts/capa_materia/mutar_filtro.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -44898,11 +45062,13 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [
-    "pathlib"
+    "pathlib",
+    "urllib"
    ],
-   "ENTRAM": 2,
+   "ENTRAM": 6,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
     "READ",
     "RULE"
    ],
@@ -47780,7 +47946,7 @@
     "pathlib"
    ],
    "ENTRAM": 10,
-   "SAEM": 20,
+   "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -47824,7 +47990,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 4,
-   "SAEM": 10,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
