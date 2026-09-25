@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  7c925f308214683fae9bca57943860ff22a6d31c
+HEAD_DA_MEDICAO  1ac19a72f9005a9a276dccc22faedffee4e821c2
 BRANCH           capa-materia-v1
-GERADO_EM        2026-09-25T04:35:17-03:00
+GERADO_EM        2026-09-25T04:51:11-03:00
 CARDS            96
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1395,7 +1395,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `RELATORIO-ALVOS-NOVOS.md`, `RELATORIO-CAPA-MATERIA.md`, `scripts/capa_materia/INDICES-D40-V1.json`, `scripts/capa_materia/MEDICAO-D40-V1.json`, `scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json` _(e mais 8)_ |
+| **peça real** | `RELATORIO-ALVOS-NOVOS.md`, `RELATORIO-CAPA-MATERIA.md`, `scripts/capa_materia/INDICES-D40-V1.json`, `scripts/capa_materia/MEDICAO-D40-V1.json`, `scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json` _(e mais 12)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |

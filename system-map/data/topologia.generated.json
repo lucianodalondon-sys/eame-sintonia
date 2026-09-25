@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T07:40:05+00:00",
-  "HEAD": "7c925f308214683fae9bca57943860ff22a6d31c",
+  "GENERATED_AT": "2026-09-25T07:57:29+00:00",
+  "HEAD": "1ac19a72f9005a9a276dccc22faedffee4e821c2",
   "BRANCH": "capa-materia-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "83f10e5dc93862ad5f370cc070c51702f3ac3ed370b597ff81301812df4e62f0",
-  "FICHEIROS_NA_IMPRESSAO": 3049,
+  "SOURCE_TREE_FINGERPRINT": "ee053389249f8005ba11a1f192c56f9005802a35f7a969b68adb87322763eb2b",
+  "FICHEIROS_NA_IMPRESSAO": 3053,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -482,7 +482,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "50292d00e836d9bc12a0737ce530d38f14d5b7e5",
+    "VERSAO": "3809fda92a1e49482818f2f1097acf032da5ac71",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3457,14 +3457,14 @@
    {
     "PATH": "regras/motor_de_rota.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "0237273f3bb63ad21af3c2efecf6270083734ccc",
+    "VERSAO": "d151ea28516248476a5c18ff2dfeb8e0da478c30",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "regras/motor_de_rota_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "0fe5e9a129fedc2a0f466126176032080a87b38b",
+    "VERSAO": "97ebb914f12e71dd778ec954292206feb0ef18e0",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3539,6 +3539,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/capa_materia/medir_filtro_lista.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "f44c0301a53b470cecac4f9db51a229a2e502a25",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/capa_materia/mutar_d40.py",
     "PAPEL": "FONTE",
     "VERSAO": "ae3899ed1a99074573f9d87bb27b9276206948b8",
@@ -3549,6 +3556,13 @@
     "PATH": "scripts/capa_materia/mutar_filtro.py",
     "PAPEL": "FONTE",
     "VERSAO": "387ba95616110524116e39b8f43e1475bf324d89",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/capa_materia/mutar_lista.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4c1577c8f04cb3210261fa3d1b29e5dadb7541ad",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3891,14 +3905,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "83f10e5dc93862ad5f370cc070c51702f3ac3ed370b597ff81301812df4e62f0",
+    "VERSAO": "ee053389249f8005ba11a1f192c56f9005802a35f7a969b68adb87322763eb2b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "83f10e5dc93862ad5f370cc070c51702f3ac3ed370b597ff81301812df4e62f0",
+    "VERSAO": "ee053389249f8005ba11a1f192c56f9005802a35f7a969b68adb87322763eb2b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5793,8 +5807,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 822,
-  "INPUTS_DIGEST": "cfa5c710b6a5e95c8d860df420f2431df142f33cc93c30b044099ec09b94e463",
+  "INPUTS_COUNT": 824,
+  "INPUTS_DIGEST": "3f77eebd41dcca8180eedd455b541ee9c45806f0494a501479498a6e965ac06b",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5827,8 +5841,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "091c5a04f0a30eeb5e98ec4a98d944408d2188b0dd086deabb59a5fc5fa99da5",
-  "SEMANTIC_HASH": "1fe08bfd9d51ff8e60e19d3fd3a3dbeb16a1afac33201c5b56e78a82b8059867"
+  "MEASUREMENT_HASH": "479395e622c47934e9e5d7dd6ad8c09c8eeeff5f08fad2b74b7d203dad774e0b",
+  "SEMANTIC_HASH": "9efcc96047838250322ea753230aa89281257a8e2211322669cca7dba74a847f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -11393,6 +11407,14 @@
      {
       "FICHEIRO": "scripts/capa_materia/mutar_filtro.py",
       "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--WRITES-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_lista.py",
+      "LINHA": 34,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--WRITES-->C-IT-CONTRATOS",
@@ -24050,6 +24072,22 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_filtro_lista.mjs",
+      "LINHA": 11,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_filtro_lista.mjs",
+      "LINHA": 12,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -24306,6 +24344,22 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "scripts/capa_materia/medir_filtro_lista.mjs",
+      "LINHA": 11,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_filtro_lista.mjs",
+      "LINHA": 12,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
       "FICHEIRO": "scripts/capa_materia/mutar_d40.py",
       "LINHA": 35,
       "SUPPORTS": "YES",
@@ -24332,6 +24386,22 @@
      {
       "FICHEIRO": "scripts/capa_materia/mutar_filtro.py",
       "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_lista.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_lista.py",
+      "LINHA": 35,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
@@ -24736,6 +24806,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_filtro_lista.mjs",
+      "LINHA": 13,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -24858,6 +24936,14 @@
      {
       "FICHEIRO": "scripts/capa_materia/medir_d40.mjs",
       "LINHA": 12,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_filtro_lista.mjs",
+      "LINHA": 13,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -45045,14 +45131,18 @@
     "scripts/capa_materia/INDICES-D40-V1.json",
     "scripts/capa_materia/MEDICAO-D40-V1.json",
     "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+    "scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json",
     "scripts/capa_materia/MUTACAO-D40-V1.json",
     "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+    "scripts/capa_materia/MUTACAO-FILTRO-LISTA-V1.json",
     "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
     "scripts/capa_materia/buscar_indices_d40.py",
     "scripts/capa_materia/medir_d40.mjs",
     "scripts/capa_materia/medir_filtro_institucional.py",
+    "scripts/capa_materia/medir_filtro_lista.mjs",
     "scripts/capa_materia/mutar_d40.py",
-    "scripts/capa_materia/mutar_filtro.py"
+    "scripts/capa_materia/mutar_filtro.py",
+    "scripts/capa_materia/mutar_lista.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],

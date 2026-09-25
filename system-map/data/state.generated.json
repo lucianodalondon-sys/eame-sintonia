@@ -2465,14 +2465,18 @@
       "scripts/capa_materia/INDICES-D40-V1.json",
       "scripts/capa_materia/MEDICAO-D40-V1.json",
       "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+      "scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json",
       "scripts/capa_materia/MUTACAO-D40-V1.json",
       "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+      "scripts/capa_materia/MUTACAO-FILTRO-LISTA-V1.json",
       "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
       "scripts/capa_materia/buscar_indices_d40.py",
       "scripts/capa_materia/medir_d40.mjs",
       "scripts/capa_materia/medir_filtro_institucional.py",
+      "scripts/capa_materia/medir_filtro_lista.mjs",
       "scripts/capa_materia/mutar_d40.py",
       "scripts/capa_materia/mutar_filtro.py",
+      "scripts/capa_materia/mutar_lista.py",
       "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
       "scripts/coorte_micro/ROTULOS-PAGINAS-COORTE-G0.json",
       "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
@@ -3495,9 +3499,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "capa-materia-v1",
-    "HEAD": "7c925f308214683fae9bca57943860ff22a6d31c",
-    "GENERATED_AT": "2026-09-25T04:35:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "83f10e5dc93862ad5f370cc070c51702f3ac3ed370b597ff81301812df4e62f0"
+    "HEAD": "1ac19a72f9005a9a276dccc22faedffee4e821c2",
+    "GENERATED_AT": "2026-09-25T04:51:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ee053389249f8005ba11a1f192c56f9005802a35f7a969b68adb87322763eb2b"
   },
   "FAMILIES": [
     {
@@ -38785,7 +38789,7 @@
       "name": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO",
       "territory": "Z-MEDIDAS",
       "kind": "engine",
-      "what": "Diagnostico offline dos 6 NAO/NAO_SEI da 1.a onda (BC5) sobre os RAW guardados: IT-T7-135/121 escolhiam a pagina de contatos da cia.it (o LINK_PATTERN do molde so recusava 'contatti' no 1.o troco); conserto em regras/motor_de_rota.mjs (pagina institucional no ULTIMO troco nao e alvo). Mede no livro de coletas da producao (169 enderecos, 2 recusados, 0 materias) e rejulga a 1.a onda com T1+T2 (0 mudancas). D40 (ALVOS-NOVOS): a escolha passa a ser o 1.o alvo ainda NAO coletado, ate 3 por fonte (escolherAlvosD40 em regras/motor_de_rota.mjs; o coletor da-lhe o livro); medido com 14 indices (1 pedido por dominio): 30 documentos novos por corrida contra 4 do jeito antigo com o mesmo teto D38.",
+      "what": "Diagnostico offline dos 6 NAO/NAO_SEI da 1.a onda (BC5) sobre os RAW guardados: IT-T7-135/121 escolhiam a pagina de contatos da cia.it (o LINK_PATTERN do molde so recusava 'contatti' no 1.o troco); conserto em regras/motor_de_rota.mjs (pagina institucional no ULTIMO troco nao e alvo). Mede no livro de coletas da producao (169 enderecos, 2 recusados, 0 materias) e rejulga a 1.a onda com T1+T2 (0 mudancas). D40 (ALVOS-NOVOS): a escolha passa a ser o 1.o alvo ainda NAO coletado, ate 3 por fonte (escolherAlvosD40 em regras/motor_de_rota.mjs; o coletor da-lhe o livro); medido com 14 indices (1 pedido por dominio): 30 documentos novos por corrida contra 4 do jeito antigo com o mesmo teto D38. ALVOS-NOVOS-2: pagina de LISTA (ano sozinho, lista+ano, paginacao, tag/categoria/arquivo) nao e alvo — 0/169 do livro, 11/225 dos indices (todos ciatoscana); 30 -> 27.",
       "why_here": "Rendimento do MICRO/2.a onda (D35 > 16,7%). O falso CAPA da IT-T7-042 e do detector (noticia curta) e nao foi mexido: nao renderia SIM.",
       "departments": [
         "ENGENHARIA",
@@ -38806,16 +38810,20 @@
         "scripts/capa_materia/INDICES-D40-V1.json",
         "scripts/capa_materia/MEDICAO-D40-V1.json",
         "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+        "scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json",
         "scripts/capa_materia/MUTACAO-D40-V1.json",
         "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+        "scripts/capa_materia/MUTACAO-FILTRO-LISTA-V1.json",
         "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
         "scripts/capa_materia/buscar_indices_d40.py",
         "scripts/capa_materia/medir_d40.mjs",
         "scripts/capa_materia/medir_filtro_institucional.py",
+        "scripts/capa_materia/medir_filtro_lista.mjs",
         "scripts/capa_materia/mutar_d40.py",
-        "scripts/capa_materia/mutar_filtro.py"
+        "scripts/capa_materia/mutar_filtro.py",
+        "scripts/capa_materia/mutar_lista.py"
       ],
-      "file_count": 13,
+      "file_count": 17,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -38831,7 +38839,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 2
+        "ITALIA": 4
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -38841,9 +38849,9 @@
         "listas": [
           "M"
         ],
-        "palavras": 23,
+        "palavras": 35,
         "por_lingua": {},
-        "sem_marca_de_lingua": 23,
+        "sem_marca_de_lingua": 35,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -38868,6 +38876,12 @@
         {
           "onde": "GIT",
           "file": "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -38896,7 +38910,8 @@
         "regras/motor_de_rota_test.mjs",
         "scripts/capa_materia/INDICES-D40-V1.json",
         "scripts/capa_materia/MUTACAO-D40-V1.json",
-        "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json"
+        "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+        "scripts/capa_materia/MUTACAO-FILTRO-LISTA-V1.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -75449,7 +75464,7 @@
       "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO escreve em O contrato de cada fonte italiana. Provado por 2 linhas de codigo.",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO escreve em O contrato de cada fonte italiana. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/capa_materia/mutar_d40.py",
@@ -75470,6 +75485,22 @@
         {
           "file": "scripts/capa_materia/mutar_filtro.py",
           "line": 29,
+          "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--WRITES-->C-IT-CONTRATOS",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/mutar_lista.py",
+          "line": 34,
           "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CAPA-MATERIA--WRITES-->C-IT-CONTRATOS",
@@ -97445,7 +97476,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 2 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/capa_materia/medir_d40.mjs",
@@ -97478,6 +97509,38 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 11,
+          "snippet": "import { CONTRACTS } from \"../../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CAPA-MATERIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 12,
+          "snippet": "import { alvosDoContrato, ePaginaDeLista } from \"../../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CAPA-MATERIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "RULE",
@@ -97496,7 +97559,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 7 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/capa_materia/medir_d40.mjs",
@@ -97531,6 +97594,26 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 11,
+          "snippet": "import { CONTRACTS } from \"../../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 12,
+          "snippet": "import { alvosDoContrato, ePaginaDeLista } from \"../../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
@@ -97585,6 +97668,38 @@
         {
           "file": "scripts/capa_materia/mutar_filtro.py",
           "line": 30,
+          "snippet": "p = subprocess.run([\"node\", \"regras/motor_de_rota_test.mjs\"], cwd=R, capture_output=True, text=True,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CAPA-MATERIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/mutar_lista.py",
+          "line": 27,
+          "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CAPA-MATERIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/mutar_lista.py",
+          "line": 35,
           "snippet": "p = subprocess.run([\"node\", \"regras/motor_de_rota_test.mjs\"], cwd=R, capture_output=True, text=True,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
@@ -98537,11 +98652,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A regra de revisita — decidir antes de gastar a rede tem o seu codigo importado por Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 1 linha de codigo.",
+      "reason": "A regra de revisita — decidir antes de gastar a rede tem o seu codigo importado por Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/capa_materia/medir_d40.mjs",
           "line": 12,
+          "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe } from \"../../regras/incrementalidade.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-CAPA-MATERIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 13,
           "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe } from \"../../regras/incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
@@ -98572,11 +98703,21 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "UNKNOWN",
-      "reason": "A regra de revisita — decidir antes de gastar a rede alimenta Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 1 linha de codigo.",
+      "reason": "A regra de revisita — decidir antes de gastar a rede alimenta Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/capa_materia/medir_d40.mjs",
           "line": 12,
+          "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe } from \"../../regras/incrementalidade.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 13,
           "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe } from \"../../regras/incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -132990,8 +133131,8 @@
     "edges_proven": 1228,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2901,
-    "files_covered": 1301,
+    "files_tracked": 2905,
+    "files_covered": 1305,
     "files_code_unclaimed": 0,
     "roles_proven": 167,
     "roles_declared_only": 8,
