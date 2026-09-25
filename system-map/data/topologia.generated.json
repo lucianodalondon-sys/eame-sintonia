@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T21:46:21+00:00",
-  "HEAD": "af4b0ff765bca180644928ccdf2862616be9fdcf",
-  "BRANCH": "fila-unica-v1",
+  "GENERATED_AT": "2026-09-25T05:03:45+00:00",
+  "HEAD": "754b4f8a0c8dd5ff0385ea17088accd0a24b1cc5",
+  "BRANCH": "pessoas-docentes-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "c6046499dd522e6b5540cc7552e83e6dc652e26775fe5bbb8bb03d518c49eaed",
-  "FICHEIROS_NA_IMPRESSAO": 2994,
+  "SOURCE_TREE_FINGERPRINT": "3c7887156243fdecf1064302317491fea559cab9de31ce6fc8669a2f066ff9e8",
+  "FICHEIROS_NA_IMPRESSAO": 3010,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3637,6 +3637,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/pessoas_docentes/pessoas_docentes.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "19195e3c2d9ccc8dd2f6a32235463d4a47dd8039",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/receitas/censo_e_proposta.py",
     "PAPEL": "FONTE",
     "VERSAO": "3a61bce0177fcdd7672781c2b152a3e34f5e7a35",
@@ -3786,14 +3793,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c6046499dd522e6b5540cc7552e83e6dc652e26775fe5bbb8bb03d518c49eaed",
+    "VERSAO": "3c7887156243fdecf1064302317491fea559cab9de31ce6fc8669a2f066ff9e8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c6046499dd522e6b5540cc7552e83e6dc652e26775fe5bbb8bb03d518c49eaed",
+    "VERSAO": "3c7887156243fdecf1064302317491fea559cab9de31ce6fc8669a2f066ff9e8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5233,6 +5240,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_pessoas_docentes.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7ed54fa8e055d00800853d8041d5b0b7317f4aa4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_pipeline.py",
     "PAPEL": "FONTE",
     "VERSAO": "69c58f5e55c697745f14af6392d165a68e50119a",
@@ -5681,8 +5695,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 806,
-  "INPUTS_DIGEST": "73ddba8b94b1cbcf75f85c7101dcd56d36e086050e4dfd77b1337fec16047284",
+  "INPUTS_COUNT": 808,
+  "INPUTS_DIGEST": "85830eab9e923cec301eefe923d8230935a19e4d2a295da30ef99a43a31f7ca5",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5708,15 +5722,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 501,
+  "DOCUMENTOS_LIDOS": 502,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "9542ffd306d54dc1dc521224cab38a040bdd910c62babc32352dd11a0967b716",
-  "SEMANTIC_HASH": "9ca6e21d85f0a3b97b67a20becf29dab0ae7163c7373aedfe334cce7277215ff"
+  "MEASUREMENT_HASH": "bb6115c69855e761c33712a46d8fe3cdc8310cd794b176bb058227d8732f5ee7",
+  "SEMANTIC_HASH": "899cefda1b7a252bc502dc7fc1e6ae9cf266ed29e1869fc47ee84655a1da7fbc"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5792,6 +5806,7 @@
    "C-PALAVRAS",
    "C-PEDIDO",
    "C-PERSISTENCIA-DA-PORTA-CLI",
+   "C-PESSOAS-DOCENTES",
    "C-PORTA-FONTE",
    "C-PROCEDENCIA",
    "C-RASTRO",
@@ -5822,7 +5837,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 94
+  "COUNT": 95
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6031,6 +6046,7 @@
    "C-PALAVRAS",
    "C-PEDIDO",
    "C-PERSISTENCIA-DA-PORTA-CLI",
+   "C-PESSOAS-DOCENTES",
    "C-PORTA-FONTE",
    "C-PORTAL-MODELO",
    "C-PROCEDENCIA",
@@ -6111,16 +6127,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 182
+  "COUNT": 183
  },
  "ARITMETICA": {
-  "COLLECTION": 94,
+  "COLLECTION": 95,
   "BOUNDARY": 88,
-  "SOMA": 182,
-  "EXPANDED": 182,
+  "SOMA": 183,
+  "EXPANDED": 183,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 182,
+  "RESUMO_CARTOES_NO_UNIVERSO": 183,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -9028,6 +9044,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-PESSOAS-DOCENTES",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-PESSOAS-DOCENTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/pessoas_docentes/pessoas_docentes.py",
+      "LINHA": 53,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-PESSOAS-DOCENTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -29547,6 +29585,44 @@
     ]
    },
    {
+    "EDGE_ID": "C-PESSOAS-DOCENTES--READS-->C-TESTES",
+    "FROM": "C-PESSOAS-DOCENTES",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_pessoas_docentes.py",
+      "LINHA": 64,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PESSOAS-DOCENTES--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pessoas_docentes.py",
+      "LINHA": 71,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PESSOAS-DOCENTES--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pessoas_docentes.py",
+      "LINHA": 76,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PESSOAS-DOCENTES--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-POLITICA-COLETA--IMPORTS-->C-TESTES",
     "FROM": "C-POLITICA-COLETA",
     "TO": "C-TESTES",
@@ -29697,6 +29773,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-PESSOAS-DOCENTES",
+    "FROM": "C-PORTA-FONTE",
+    "TO": "C-PESSOAS-DOCENTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/pessoas_docentes/pessoas_docentes.py",
+      "LINHA": 51,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-PESSOAS-DOCENTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PORTA-FONTE--READS-->C-CENSO-UNIFICACAO",
     "FROM": "C-PORTA-FONTE",
     "TO": "C-CENSO-UNIFICACAO",
@@ -29765,6 +29863,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PORTA-FONTE--READS-->C-PESSOAS-DOCENTES",
+    "FROM": "C-PORTA-FONTE",
+    "TO": "C-PESSOAS-DOCENTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/pessoas_docentes/pessoas_docentes.py",
+      "LINHA": 97,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-PESSOAS-DOCENTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
     "FROM": "C-PORTA-FONTE",
     "TO": "C-TESTES",
@@ -29787,6 +29907,14 @@
      {
       "FICHEIRO": "tests/test_medir_cutover.py",
       "LINHA": 75,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pessoas_docentes.py",
+      "LINHA": 78,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
@@ -43150,12 +43278,12 @@
     ]
    }
   ],
-  "COUNT": 1211
+  "COUNT": 1215
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 182,
-  "CARTOES_AUDITADOS": 182,
-  "ARESTAS_RELACIONADAS": 1211,
+  "CARTOES_NO_UNIVERSO": 183,
+  "CARTOES_AUDITADOS": 183,
+  "ARESTAS_RELACIONADAS": 1215,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43340,6 +43468,7 @@
    "C-MAPA-SCAN",
    "C-MICRO-COLETA-INSTRUMENTO",
    "C-MICRO-COLHEITA",
+   "C-PESSOAS-DOCENTES",
    "C-PORTA-FONTE",
    "C-PROVA-ADAMA-REFERENCE",
    "C-PROVA-AGRO-FRONTEIRA",
@@ -43499,6 +43628,9 @@
    "C-LUGAR-DO-FATO": [
     "science"
    ],
+   "C-PESSOAS-DOCENTES": [
+    "collection-strategy"
+   ],
    "C-POLITICA-COLETA": [
     "collection-strategy",
     "opportunity",
@@ -43571,11 +43703,11 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 217,
+   "CODE": 219,
    "CONTROL": 72,
    "DATA": 30,
-   "PROOF": 385,
-   "READ": 284,
+   "PROOF": 386,
+   "READ": 285,
    "RULE": 213,
    "WRITE": 10
   },
@@ -44043,7 +44175,7 @@
     "concurrent"
    ],
    "ENTRAM": 2,
-   "SAEM": 21,
+   "SAEM": 22,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -48498,6 +48630,59 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PESSOAS-DOCENTES",
+   "NOME": "Pessoas pelo site oficial (P5, D24) — pagina de cada docente/investigador",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "scripts/pessoas_docentes/DECISOES-P5-V1.json",
+    "scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json",
+    "scripts/pessoas_docentes/EVIDENCIA-P5.json",
+    "scripts/pessoas_docentes/SEMENTES-P5.json",
+    "scripts/pessoas_docentes/evidencia/15dbef1200315d9b.html",
+    "scripts/pessoas_docentes/evidencia/1ebebd297aa7f386.html",
+    "scripts/pessoas_docentes/evidencia/26e4304ee741b3d5.html",
+    "scripts/pessoas_docentes/evidencia/323260c2e072f991.html",
+    "scripts/pessoas_docentes/evidencia/3de55b628c804355.html",
+    "scripts/pessoas_docentes/evidencia/5617991eb7f2b155.html",
+    "scripts/pessoas_docentes/evidencia/80c2d53b5e7bc36e.html",
+    "scripts/pessoas_docentes/evidencia/9d4d555a83d48135.html",
+    "scripts/pessoas_docentes/evidencia/fc32fc2c7cda2f1f.html",
+    "scripts/pessoas_docentes/pessoas_docentes.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_pessoas_docentes.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "datetime",
+    "pathlib"
+   ],
+   "ENTRAM": 3,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "collection-strategy"
+   ],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PORTA-FONTE",
    "NOME": "A porta de entrada de fonte nova",
    "FAMILIA": "F-COLETA",
@@ -48523,6 +48708,7 @@
     "system-map/scripts/scan_sources.py",
     "tests/test_fila_italia_decisoes.py",
     "tests/test_medir_cutover.py",
+    "tests/test_pessoas_docentes.py",
     "tests/test_porta_de_candidatas.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -48540,7 +48726,7 @@
     "pathlib"
    ],
    "ENTRAM": 1,
-   "SAEM": 5,
+   "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -52306,6 +52492,7 @@
     "tests/test_operacao.py",
     "tests/test_pacote_de_revisao_t3.py",
     "tests/test_persistencia_operacional.py",
+    "tests/test_pessoas_docentes.py",
     "tests/test_pipeline.py",
     "tests/test_politica_da_coleta.py",
     "tests/test_politica_nao_sei.py",
@@ -52495,7 +52682,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 203,
+   "ENTRAM": 204,
    "SAEM": 28,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T21:43:15+00:00",
-    "HEAD": "af4b0ff765bca180644928ccdf2862616be9fdcf",
+    "GENERATED_AT": "2026-09-25T05:01:13+00:00",
+    "HEAD": "754b4f8a0c8dd5ff0385ea17088accd0a24b1cc5",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c6046499dd522e6b5540cc7552e83e6dc652e26775fe5bbb8bb03d518c49eaed",
-    "FICHEIROS_NA_IMPRESSAO": 2994,
+    "SOURCE_TREE_FINGERPRINT": "3c7887156243fdecf1064302317491fea559cab9de31ce6fc8669a2f066ff9e8",
+    "FICHEIROS_NA_IMPRESSAO": 3010,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "candidatas/FONTES-CANDIDATAS.json",
         "PAPEL": "FONTE",
-        "VERSAO": "cc06c2fe21ae11919a74af5e788bb09c2e822d7e",
+        "VERSAO": "eede77891826cb15862b5cbcd68c6ceba4901a72",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "a_fila() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "00c70bbcdf34221a5fd90147bbe6d01853735abce971c30ddf6899ddde239162",
+    "INPUTS_DIGEST": "23e92c803bf2e9deb572d62339db221c58746c9edafb9144cfa88ac7682a192c",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -10556,7 +10556,7 @@
         "degrau": 1,
         "nome": "CANDIDATA",
         "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-        "quantas": 266,
+        "quantas": 267,
         "onde": "candidatas/FONTES-CANDIDATAS.json",
         "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
       },
@@ -10591,7 +10591,7 @@
       "FACEBOOK": 20,
       "IMPRENSA": 25,
       "INSTAGRAM": 26,
-      "LINKEDIN": 67,
+      "LINKEDIN": 68,
       "ORGANIZACAO": 503,
       "YOUTUBE": 82
     },
@@ -21552,6 +21552,22 @@
           "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
           "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694"
         }
+      },
+      {
+        "CANDIDATA_ID": "CAND-1173",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Claudio Zaccone — Universita di Verona — Biotecnologie (viticoltura)",
+        "URL": "https://www.linkedin.com/in/claudio-zaccone-univr",
+        "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): posts/videos tecnicos sobre solo e stress hidrico das culturas",
+        "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+        "ONDE_VIU": "https://www.dbt.univr.it/?ent=persona&id=54972",
+        "QUANDO": "2026-09-25",
+        "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://www.dbt.univr.it/?ent=persona&id=54972 (sha256 5617991eb7f2b155, lida 2026-09-24; titulo «Claudio Zaccone») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial www.dbt.univr.it) · PESSOA: Claudio Zaccone · CASA: Universita di Verona — Biotecnologie (viticoltura) (AGRARIA) · NOME NO ENDERECO: 2 pedaco(s) · D29 JANELAS: AGROMETEO · a pagina oficial da pessoa (dbt.univr.it ?ent=persona&id=54972) liga a este perfil; tema solo no foco (D26); sinal D29 AGROMETEO na pagina (noticia 'stress idrico delle colture')",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0115",
@@ -36168,6 +36184,10 @@
           "line": 290
         },
         {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 42
+        },
+        {
           "file": "tests/test_reel_transcricao.py",
           "line": 116
         },
@@ -36231,6 +36251,10 @@
         {
           "file": "tests/test_linkedin_op_01_operacional.py",
           "line": 42
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 36
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
@@ -36313,6 +36337,10 @@
         {
           "file": "provas/_flow01_janela_falsa.py",
           "line": 21
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 41
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
@@ -36461,6 +36489,81 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/%s",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 374
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 680
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 265
+        },
+        {
+          "file": "provas/canario_reels_instagram.py",
+          "line": 110
+        },
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 136
+        }
+      ]
+    },
+    {
+      "endpoint": "https://%s/robots.txt",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 859
+        },
+        {
+          "file": "curadoria/gate_de_rota.py",
+          "line": 80
+        },
+        {
+          "file": "curadoria/medir_fila_do_bot.py",
+          "line": 82
+        },
+        {
+          "file": "medidas/micro_colheita.py",
+          "line": 137
+        },
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 198
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/in",
+      "usado_por": [
+        {
+          "file": "leis/social_matriz.py",
+          "line": 907
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 58
+        },
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 133
+        },
+        {
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 119
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 35
+        }
+      ]
+    },
+    {
       "endpoint": "https://bsky.app/profile",
       "usado_por": [
         {
@@ -36587,27 +36690,6 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/%s",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 374
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 680
-        },
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 265
-        },
-        {
-          "file": "provas/canario_reels_instagram.py",
-          "line": 110
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.youtube.com/feeds",
       "usado_por": [
         {
@@ -36709,27 +36791,6 @@
         {
           "file": "curadoria/test_pais_das_candidatas.py",
           "line": 22
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/robots.txt",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 859
-        },
-        {
-          "file": "curadoria/gate_de_rota.py",
-          "line": 80
-        },
-        {
-          "file": "curadoria/medir_fila_do_bot.py",
-          "line": 82
-        },
-        {
-          "file": "medidas/micro_colheita.py",
-          "line": 137
         }
       ]
     },
@@ -37018,23 +37079,6 @@
       ]
     },
     {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "leis/social_matriz.py",
-          "line": 907
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 58
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 119
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.youtube.com/watch?v=%s",
       "usado_por": [
         {
@@ -37052,26 +37096,26 @@
       ]
     },
     {
-      "endpoint": "https://exemplo.tld/x')",
+      "endpoint": "https://it.linkedin.com/in",
       "usado_por": [
         {
-          "file": "provas/orcamento_de_rede.py",
-          "line": 287
+          "file": "provas/linkedin_local_first.py",
+          "line": 267
         },
         {
-          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
-          "line": 96
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 380
         },
         {
-          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
-          "line": 207
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 33
         }
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 617,
+  "ENDPOINTS_FOUND": 623,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 577,
+  "ENDPOINTS_TRUNCATED": 583,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -37089,10 +37133,10 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 617,
+    "endpoints": 623,
     "endpoints_published": 40,
-    "endpoints_truncated": 577,
-    "candidates": 1172,
+    "endpoints_truncated": 583,
+    "candidates": 1173,
     "coletores": 54,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,

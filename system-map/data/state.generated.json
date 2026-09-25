@@ -62,6 +62,7 @@
       "RELATORIO-MICRO-PREP-B.md",
       "RELATORIO-MICRO-PREP.md",
       "RELATORIO-MULTILINGUE.md",
+      "RELATORIO-P5-PESSOAS-DOCENTES.md",
       "RELATORIO-PARIDADE.md",
       "RELATORIO-PONTE-CURADOR.md",
       "RELATORIO-PROPOSTA-CATALOGO.md",
@@ -2487,6 +2488,20 @@
       "scripts/micro_coleta/micro_coleta.py",
       "scripts/micro_coleta/micro_rede_real.py",
       "scripts/micro_coleta/provar_backup_da_sala.py",
+      "scripts/pessoas_docentes/DECISOES-P5-V1.json",
+      "scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json",
+      "scripts/pessoas_docentes/EVIDENCIA-P5.json",
+      "scripts/pessoas_docentes/SEMENTES-P5.json",
+      "scripts/pessoas_docentes/evidencia/15dbef1200315d9b.html",
+      "scripts/pessoas_docentes/evidencia/1ebebd297aa7f386.html",
+      "scripts/pessoas_docentes/evidencia/26e4304ee741b3d5.html",
+      "scripts/pessoas_docentes/evidencia/323260c2e072f991.html",
+      "scripts/pessoas_docentes/evidencia/3de55b628c804355.html",
+      "scripts/pessoas_docentes/evidencia/5617991eb7f2b155.html",
+      "scripts/pessoas_docentes/evidencia/80c2d53b5e7bc36e.html",
+      "scripts/pessoas_docentes/evidencia/9d4d555a83d48135.html",
+      "scripts/pessoas_docentes/evidencia/fc32fc2c7cda2f1f.html",
+      "scripts/pessoas_docentes/pessoas_docentes.py",
       "scripts/receitas/ROTULOS-LD2.json",
       "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
       "scripts/receitas/censo_e_proposta.py",
@@ -2856,6 +2871,7 @@
       "tests/test_operacao.py",
       "tests/test_pacote_de_revisao_t3.py",
       "tests/test_persistencia_operacional.py",
+      "tests/test_pessoas_docentes.py",
       "tests/test_pipeline.py",
       "tests/test_politica_da_coleta.py",
       "tests/test_politica_nao_sei.py",
@@ -3439,10 +3455,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "fila-unica-v1",
-    "HEAD": "af4b0ff765bca180644928ccdf2862616be9fdcf",
-    "GENERATED_AT": "2026-09-24T18:21:44-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c6046499dd522e6b5540cc7552e83e6dc652e26775fe5bbb8bb03d518c49eaed"
+    "BRANCH": "pessoas-docentes-v1",
+    "HEAD": "754b4f8a0c8dd5ff0385ea17088accd0a24b1cc5",
+    "GENERATED_AT": "2026-09-25T01:44:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3c7887156243fdecf1064302317491fea559cab9de31ce6fc8669a2f066ff9e8"
   },
   "FAMILIES": [
     {
@@ -3470,7 +3486,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 93
+      "count": 94
     },
     {
       "id": "F-ESPERA",
@@ -3728,7 +3744,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 24
+      "count": 25
     },
     {
       "id": "Z-ADMISSAO",
@@ -4942,8 +4958,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 617",
-        "desses, mostrados aqui: 40 (ficam de fora 577)"
+        "enderecos que o codigo realmente chama: 623",
+        "desses, mostrados aqui: 40 (ficam de fora 583)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -12461,7 +12477,7 @@
             "degrau": 1,
             "nome": "CANDIDATA",
             "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-            "quantas": 266,
+            "quantas": 267,
             "onde": "candidatas/FONTES-CANDIDATAS.json",
             "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
           },
@@ -12496,7 +12512,7 @@
           "FACEBOOK": 20,
           "IMPRENSA": 25,
           "INSTAGRAM": 26,
-          "LINKEDIN": 67,
+          "LINKEDIN": 68,
           "ORGANIZACAO": 503,
           "YOUTUBE": 82
         },
@@ -23457,6 +23473,22 @@
               "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
               "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694"
             }
+          },
+          {
+            "CANDIDATA_ID": "CAND-1173",
+            "TIPO": "LINKEDIN",
+            "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+            "PAIS": "IT",
+            "NOME": "Claudio Zaccone — Universita di Verona — Biotecnologie (viticoltura)",
+            "URL": "https://www.linkedin.com/in/claudio-zaccone-univr",
+            "PARA_QUE_SERVE": "perfil publico de investigador agronomico italiano (D24): posts/videos tecnicos sobre solo e stress hidrico das culturas",
+            "QUEM_VIU": "scripts/pessoas_docentes/pessoas_docentes.py (P5)",
+            "ONDE_VIU": "https://www.dbt.univr.it/?ent=persona&id=54972",
+            "QUANDO": "2026-09-25",
+            "NOTA": "P5 D24 · IDENTIDADE: a pagina oficial da pessoa https://www.dbt.univr.it/?ent=persona&id=54972 (sha256 5617991eb7f2b155, lida 2026-09-24; titulo «Claudio Zaccone») liga a este perfil LINKEDIN — descoberta-indireta:site-da-organizacao · TERRITORIO: IT (dominio oficial www.dbt.univr.it) · PESSOA: Claudio Zaccone · CASA: Universita di Verona — Biotecnologie (viticoltura) (AGRARIA) · NOME NO ENDERECO: 2 pedaco(s) · D29 JANELAS: AGROMETEO · a pagina oficial da pessoa (dbt.univr.it ?ent=persona&id=54972) liga a este perfil; tema solo no foco (D26); sinal D29 AGROMETEO na pagina (noticia 'stress idrico delle colture')",
+            "ESTADO": "CANDIDATA",
+            "SOURCE_ID": null,
+            "MOTIVO_DA_RECUSA": null
           },
           {
             "CANDIDATA_ID": "CAND-0115",
@@ -35555,6 +35587,7 @@
         "C-IT-PRESERVAR",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
+        "C-PESSOAS-DOCENTES",
         "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-CANARIO-D24-REEL-PESSOA",
@@ -49213,6 +49246,129 @@
       "y": 682
     },
     {
+      "id": "C-PESSOAS-DOCENTES",
+      "name": "Pessoas pelo site oficial (P5, D24) — pagina de cada docente/investigador",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Percorre departamentos de Agraria e institutos agrarios do CNR: casa -> listagem de pessoal -> pagina de cada pessoa -> ligacoes a LinkedIn (/in/), Instagram, YouTube e ResearchGate. Robots, pausa de 2 s e portao de egresso IT antes, a cada 20 pedidos e depois. O rodape da casa (o que ja estava na casa/listagem ou se repete em >=3 pessoas) nunca conta como pessoa. Regista pela porta canonica (candidatas/fonte_nova.py) so o que DECISOES-P5-V1.json diz ENTRA, com a pagina oficial da pessoa (sha256) na NOTA.",
+      "why_here": "A YT3 provou que a pagina de uma ORGANIZACAO liga ao canal da organizacao; a prova de que um perfil e de uma PESSOA e a pagina da propria pessoa no site oficial. Rota unica permitida pela matriz para achar contas: descoberta-indireta:site-da-organizacao. Veterinaria fora (D26); CREA e Bologna ficam com a P4.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "collection-strategy"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/pessoas_docentes/DECISOES-P5-V1.json",
+        "scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json",
+        "scripts/pessoas_docentes/EVIDENCIA-P5.json",
+        "scripts/pessoas_docentes/SEMENTES-P5.json",
+        "scripts/pessoas_docentes/evidencia/15dbef1200315d9b.html",
+        "scripts/pessoas_docentes/evidencia/1ebebd297aa7f386.html",
+        "scripts/pessoas_docentes/evidencia/26e4304ee741b3d5.html",
+        "scripts/pessoas_docentes/evidencia/323260c2e072f991.html",
+        "scripts/pessoas_docentes/evidencia/3de55b628c804355.html",
+        "scripts/pessoas_docentes/evidencia/5617991eb7f2b155.html",
+        "scripts/pessoas_docentes/evidencia/80c2d53b5e7bc36e.html",
+        "scripts/pessoas_docentes/evidencia/9d4d555a83d48135.html",
+        "scripts/pessoas_docentes/evidencia/fc32fc2c7cda2f1f.html",
+        "scripts/pessoas_docentes/pessoas_docentes.py"
+      ],
+      "file_count": 14,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ASK-SINTONIA",
+        "C-PORTA-FONTE"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "BRANCHES_IRMAS",
+          "D29_TEMAS",
+          "IG_NAO",
+          "WORKTREES_IRMAS"
+        ],
+        "palavras": 24,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 24,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json, e quem le nao esta na esteira: C-TESTES",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: escreve scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json, e quem le nao esta na esteira: C-TESTES",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "candidatas/FONTES-CANDIDATAS.json",
+        "scripts/pessoas_docentes/DECISOES-P5-V1.json",
+        "scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json",
+        "scripts/pessoas_docentes/SEMENTES-P5.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_pessoas_docentes.py:64"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 12140,
+      "y": 1970
+    },
+    {
       "id": "C-POLITICA-COLETA",
       "name": "A politica da coleta — o que colher, quando, e se ja temos",
       "territory": "Z-REGUAS",
@@ -49351,6 +49507,7 @@
         "C-CENSO-UNIFICACAO",
         "C-DECISAO-DA-FILA",
         "C-MAPA-SCAN",
+        "C-PESSOAS-DOCENTES",
         "C-TESTES"
       ],
       "paises": {},
@@ -49415,9 +49572,9 @@
           "candidatas/decidir_fila_italia.py:100",
           "curadoria/test_discovery.py:59",
           "curadoria/test_discovery.py:50",
-          "system-map/scripts/scan_sources.py:480"
+          "scripts/pessoas_docentes/pessoas_docentes.py:97"
         ],
-        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA · C-PESSOAS-DOCENTES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 3180,
       "y": 1004
@@ -54804,8 +54961,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 12140,
-      "y": 1970
+      "x": 11310,
+      "y": 2292
     },
     {
       "id": "C-READY",
@@ -55251,7 +55408,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2292
     },
     {
@@ -55353,7 +55510,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2292
     },
     {
@@ -55789,8 +55946,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
-      "y": 2292
+      "x": 11310,
+      "y": 2614
     },
     {
       "id": "C-REGRESSAO-NAVEGADOR",
@@ -56060,7 +56217,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -56146,7 +56303,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2614
     },
     {
@@ -56963,8 +57120,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
-      "y": 2614
+      "x": 11310,
+      "y": 2936
     },
     {
       "id": "C-SCRAP-COLHEITA",
@@ -60566,6 +60723,7 @@
         "tests/test_operacao.py",
         "tests/test_pacote_de_revisao_t3.py",
         "tests/test_persistencia_operacional.py",
+        "tests/test_pessoas_docentes.py",
         "tests/test_pipeline.py",
         "tests/test_politica_da_coleta.py",
         "tests/test_politica_nao_sei.py",
@@ -60631,7 +60789,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 231,
+      "file_count": 232,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -60751,6 +60909,7 @@
         "C-PALAVRAS",
         "C-PEDIDO",
         "C-PERSISTENCIA-DA-PORTA-CLI",
+        "C-PESSOAS-DOCENTES",
         "C-POLITICA-COLETA",
         "C-PORTA-FONTE",
         "C-PORTAL-MODELO",
@@ -61413,6 +61572,9 @@
         "scripts/micro_coleta/micro_coleta.py",
         "scripts/micro_coleta/micro_rede_real.py",
         "scripts/micro_coleta/provar_backup_da_sala.py",
+        "scripts/pessoas_docentes/DECISOES-P5-V1.json",
+        "scripts/pessoas_docentes/DESCOBERTA-PESSOAS-DOCENTES-V1.json",
+        "scripts/pessoas_docentes/SEMENTES-P5.json",
         "scripts/receitas/censo_e_proposta.py",
         "scripts/receitas/propor_receitas_v3.py",
         "scripts/regua_t2/GABARITO-T2-V2.json",
@@ -63392,7 +63554,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch fila-unica-v1"
+        "branch pessoas-docentes-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -69218,6 +69380,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-PESSOAS-DOCENTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia tem o seu codigo importado por Pessoas pelo site oficial (P5, D24) — pagina de cada docente/investigador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 53,
+          "snippet": "import rede                      # noqa: E402 — portao_de_egresso",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-PESSOAS-DOCENTES",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PESSOAS-DOCENTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -104857,6 +105054,73 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-PESSOAS-DOCENTES",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Pessoas pelo site oficial (P5, D24) — pagina de cada docente/investigador alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 64,
+          "snippet": "s = _j(\"SEMENTES-P5.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESSOAS-DOCENTES--READS-->C-TESTES",
+            "FROM": "C-PESSOAS-DOCENTES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 71,
+          "snippet": "@unittest.skipUnless(os.path.exists(os.path.join(AQUI, \"DECISOES-P5-V1.json\")), \"decisoes ainda por escrever\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESSOAS-DOCENTES--READS-->C-TESTES",
+            "FROM": "C-PESSOAS-DOCENTES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 76,
+          "snippet": "cls.desc = _j(\"DESCOBERTA-PESSOAS-DOCENTES-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESSOAS-DOCENTES--READS-->C-TESTES",
+            "FROM": "C-PESSOAS-DOCENTES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-POLITICA-COLETA",
       "to": "C-INT-ARBITRAGEM",
       "type": "READS",
@@ -105231,13 +105495,83 @@
     },
     {
       "from": "C-PORTA-FONTE",
+      "to": "C-PESSOAS-DOCENTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova tem o seu codigo importado por Pessoas pelo site oficial (P5, D24) — pagina de cada docente/investigador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 51,
+          "snippet": "import fonte_nova as FN          # noqa: E402 — a porta canonica",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-PESSOAS-DOCENTES",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-PESSOAS-DOCENTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-PESSOAS-DOCENTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta Pessoas pelo site oficial (P5, D24) — pagina de cada docente/investigador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/pessoas_docentes/pessoas_docentes.py",
+          "line": 97,
+          "snippet": "f = wt / \"candidatas\" / \"FONTES-CANDIDATAS.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-PESSOAS-DOCENTES",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-PESSOAS-DOCENTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTE",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_fila_italia_decisoes.py",
@@ -105259,6 +105593,22 @@
           "file": "tests/test_medir_cutover.py",
           "line": 75,
           "snippet": "cand = raiz / \"candidatas\" / \"FONTES-CANDIDATAS.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pessoas_docentes.py",
+          "line": 78,
+          "snippet": "with open(os.path.join(RAIZ, \"candidatas\", \"FONTES-CANDIDATAS.json\"), encoding=\"utf-8\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
             "FROM": "C-PORTA-FONTE",
@@ -129734,7 +130084,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1585,
+  "UNCLAIMED_FILES_COUNT": 1586,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -129971,7 +130321,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 217,
+      "PECAS_EM_DESACORDO": 218,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -129983,23 +130333,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 242
+      "TOTAL_DE_PECAS": 243
     }
   ],
   "COUNTS": {
-    "components": 242,
+    "components": 243,
     "components_proven": 31,
-    "components_pending": 203,
+    "components_pending": 204,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1277,
-    "edges_proven": 1214,
+    "edges": 1281,
+    "edges_proven": 1218,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2846,
-    "files_covered": 1261,
+    "files_tracked": 2862,
+    "files_covered": 1276,
     "files_code_unclaimed": 0,
-    "roles_proven": 164,
+    "roles_proven": 165,
     "roles_declared_only": 8,
     "roles_unknown": 70,
     "roles_conflict": 37,
