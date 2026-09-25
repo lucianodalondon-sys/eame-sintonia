@@ -1,0 +1,117 @@
+{
+ "DATASET": "LER-14-DECISAO-DA-TRAVA-V1",
+ "CONTRATOS": "livro vivo do curador (so leitura)",
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T3-041",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "ALVO_ERRADO",
+    "RAZAO": "REVISAO_R1: ALVO_ERRADO: Serviço Fitossanitário do Lazio; o padrão aponta para «qualità produzioni» (produtos certificados), não para avisos fitossanitários"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-047",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+    "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página fixa de serviço do fitossanitário do Piemonte (registo de atividades de produção/comércio de vegetais), não aviso"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-049",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+    "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: o item é «Accessibilità e uso del sito» da Região Toscana, não o fitossanitário"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-052",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+    "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página fixa do fitossanitário do Veneto («attività vivaistica»), não aviso nem boletim"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-168",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "NAO_SEI",
+    "RAZAO": "REVISAO_R1: NAO_SEI: entrada «aiia_news», mas o padrão pega páginas de congressos (item: congresso AIIA 2022); não sei se é o fluxo que se quer desta fonte"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-171",
+   "DECISAO_DA_TRAVA": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-060",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "LISTA_COMO_ITEM",
+    "RAZAO": "REVISAO_R1: LISTA_COMO_ITEM: o item é o arquivo de notícias do ano 2019 (notizie?y=2019), uma listagem, não uma notícia"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T8-064",
+   "DECISAO_DA_TRAVA": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-189",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "ALVO_ERRADO",
+    "RAZAO": "REVISAO_R1: ALVO_ERRADO: Dip. Scienze Agrarie de Palermo, mas o item é a 110.ª Targa Florio (corrida de automóveis) na «terza missione» da universidade"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-219",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+    "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página de procedimento («come richiedere l'accreditamento di un evento formativo»), não notícia"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-135",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "ALVO_ERRADO",
+    "RAZAO": "REVISAO_R1: ALVO_ERRADO: arquivo de boletins agrometeo da ARPA Lombardia, mas o padrão reparado aponta para «temi-ambientali/rifiuti» (gestão de resíduos)"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-030",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "ALVO_ERRADO",
+    "RAZAO": "REVISAO_R1: ALVO_ERRADO: fonte de boletins de defesa da flavescência dourada; o padrão aponta para o guia do besouro japonês (scarabeo-giapponese)"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-157",
+   "DECISAO_DA_TRAVA": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-159",
+   "DECISAO_DA_TRAVA": {
+    "ACAO": "RETER",
+    "ESTADO": "CONTRACTED_CANARY_FAILED",
+    "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+    "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: «Le attività» do SIARL: página fixa a descrever o serviço, não boletim nem notícia"
+   }
+  }
+ ]
+}
