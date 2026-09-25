@@ -2655,6 +2655,16 @@
       "scripts/regua_t2/rotulos/rotulos-janela.tsv",
       "scripts/regua_t2/rotulos/rotulos-recolha.tsv",
       "scripts/regua_t2/rotulos/rotulos.tsv",
+      "scripts/regua_t4t5t9/A-ROTULAR-ADENDA1.json",
+      "scripts/regua_t4t5t9/A-ROTULAR.json",
+      "scripts/regua_t4t5t9/CONTAGEM-GABARITO.json",
+      "scripts/regua_t4t5t9/MEDICAO-REGUAS-T4T5T9-V1.json",
+      "scripts/regua_t4t5t9/PROTOCOLO-GABARITO-T4-T5-T9.md",
+      "scripts/regua_t4t5t9/RELATORIO-REGUAS-T4-T5-T9.md",
+      "scripts/regua_t4t5t9/amostrar.py",
+      "scripts/regua_t4t5t9/amostrar_adenda1.py",
+      "scripts/regua_t4t5t9/medir.py",
+      "scripts/regua_t4t5t9/rotulos/rotulos-gabarito.json",
       "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json",
       "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA.json",
       "scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json",
@@ -3590,10 +3600,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "reroute-d2-v1",
-    "HEAD": "a25ac14122279c2a44506f5f56ae88ab308d31bb",
-    "GENERATED_AT": "2026-09-25T09:31:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "690d638d615fd97d56a121e7b4a772294772932bef05ed1c97f02688f00125e1"
+    "BRANCH": "reguas-t4t5t9-v1",
+    "HEAD": "81177c5811b994483459591f0890ec96816e12e8",
+    "GENERATED_AT": "2026-09-25T11:07:35-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7cb04466f742d4ccb4417af9f171f380489386c171189b6d356882d0a5eab37e"
   },
   "FAMILIES": [
     {
@@ -3621,7 +3631,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 101
+      "count": 102
     },
     {
       "id": "F-ESPERA",
@@ -3879,7 +3889,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 27
+      "count": 28
     },
     {
       "id": "Z-ADMISSAO",
@@ -4605,6 +4615,7 @@
         "C-RECALL-PORTA-IT",
         "C-REGUA-T1-JANELA",
         "C-REGUA-T2-JANELA",
+        "C-REGUA-T4T5T9",
         "C-RELEVANCIA-DA-FONTE",
         "C-ROTA-M2",
         "C-TESTES"
@@ -44753,6 +44764,7 @@
       "outbound": [
         "C-DETECTOR-CAPA-GABARITO",
         "C-PROVA-ROTA-DO-HTML",
+        "C-REGUA-T4T5T9",
         "C-TESTES"
       ],
       "paises": {},
@@ -44809,7 +44821,7 @@
           "provas/a_rota_do_html_nao_vai_a_rede.py:47",
           "provas/red_team_duas_portas.py:44"
         ],
-        "PORQUE": "estas pecas importam-na — C-DETECTOR-CAPA-GABARITO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-DETECTOR-CAPA-GABARITO · C-REGUA-T4T5T9 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 8365,
       "y": 1004
@@ -44867,6 +44879,7 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-ROTAS-REAIS",
+        "C-REGUA-T4T5T9",
         "C-TESTES"
       ],
       "paises": {},
@@ -44952,7 +44965,7 @@
           "medidas/corrida_instrumentada.py:122",
           "medidas/corrida_instrumentada.py:157"
         ],
-        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-ORQUESTRADOR · C-REGUA-T4T5T9 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 7535,
       "y": 1326
@@ -58735,6 +58748,7 @@
         "C-ADMISSAO",
         "C-PROVA-COLETA",
         "C-REGUA-T1-JANELA",
+        "C-REGUA-T4T5T9",
         "C-REROUTE-D2",
         "C-TESTES"
       ],
@@ -58834,7 +58848,6 @@
         "scripts/regua_t2/medir_regua_t2.py",
         "scripts/regua_t2/medir_t2c.py",
         "scripts/regua_t2/medir_via_agrometeo.py",
-        "scripts/regua_t2/rotulos/A-ROTULAR.json",
         "scripts/regua_t2/rotulos/rotulos-janela.tsv",
         "scripts/regua_t2/rotulos/rotulos-recolha.tsv",
         "scripts/regua_t2/rotulos/rotulos.tsv",
@@ -58855,12 +58868,128 @@
         "PROVA": [
           "ferramentas/reroute/medir_reroute.py:30",
           "scripts/regua_t1/medir_aperto_site.py:20",
+          "scripts/regua_t4t5t9/medir.py:78",
           "tests/test_a_regra_de_t2.py:128"
         ],
-        "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA · C-REROUTE-D2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA · C-REGUA-T4T5T9 · C-REROUTE-D2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 12555,
       "y": 2614
+    },
+    {
+      "id": "C-REGUA-T4T5T9",
+      "name": "Reguas T4/T5/T9 da Admissao — gabarito (NAO PRONTO) e medicao do REROUTE por destinos",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Gabarito T4/T5/T9 lido a mao pelo protocolo (167 textos do acervo + brutos T4/T5/T9 do armazem, copiados; semente 45945; 71 separados para a prova cega e selados). T4 0 YES, T5 6, T9 10: NAO PRONTO nos tres (regra: >=20 YES e >=20 NO), nenhuma regua nova escrita. medir.py mede a regua antiga no gabarito (precisao T4 0 %, T5 10 %, T9 4,5 %) e o REROUTE com cada conjunto de destinos contra SINTONIA_RELEVANT.",
+      "why_here": "A REROUTE-D2 mediu 8 % de precisao, quase toda de T4/T5/T9. O acervo quase nao tem conteudo desses universos (agencias de ambiente e clima); precisa de coleta dirigida, com rede. Medido DENTRO da amostra; textos fora do Git (%USERPROFILE%/sintonia-gabarito/REGUA-T4T5T9-V1).",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/regua_t4t5t9/A-ROTULAR-ADENDA1.json",
+        "scripts/regua_t4t5t9/A-ROTULAR.json",
+        "scripts/regua_t4t5t9/CONTAGEM-GABARITO.json",
+        "scripts/regua_t4t5t9/MEDICAO-REGUAS-T4T5T9-V1.json",
+        "scripts/regua_t4t5t9/PROTOCOLO-GABARITO-T4-T5-T9.md",
+        "scripts/regua_t4t5t9/RELATORIO-REGUAS-T4-T5-T9.md",
+        "scripts/regua_t4t5t9/amostrar.py",
+        "scripts/regua_t4t5t9/amostrar_adenda1.py",
+        "scripts/regua_t4t5t9/medir.py",
+        "scripts/regua_t4t5t9/rotulos/rotulos-gabarito.json"
+      ],
+      "file_count": 10,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-EXECUTOR-TEXTO-HTML",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-REGUA-T2-JANELA",
+        "C-REROUTE-D2"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "scripts/regua_t4t5t9/A-ROTULAR-ADENDA1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/regua_t4t5t9/A-ROTULAR.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/regua_t4t5t9/MEDICAO-REGUAS-T4T5T9-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "NAO SEI",
+      "rule_role_evidence": "escreve scripts/regua_t4t5t9/A-ROTULAR-ADENDA1.json e este mapa nao viu ninguem ler",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "ferramentas/reroute/MEDICAO-REROUTE-V1.json",
+        "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+        "scripts/regua_t4t5t9/A-ROTULAR.json",
+        "scripts/regua_t4t5t9/PROTOCOLO-GABARITO-T4-T5-T9.md",
+        "scripts/regua_t4t5t9/rotulos/rotulos-gabarito.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 11725,
+      "y": 2936
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -58945,7 +59074,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2936
     },
     {
@@ -59268,7 +59397,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 2936
     },
     {
@@ -59303,7 +59432,9 @@
       "inbound": [
         "C-REGUA-T2-JANELA"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-REGUA-T4T5T9"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -59327,14 +59458,14 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "escreve ferramentas/reroute/MEDICAO-REROUTE-V1.json, e C-REGUA-T4T5T9 le isso: entrega trabalho a peca seguinte",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -59356,8 +59487,10 @@
         "CLASSE": "NAO_SEI",
         "QUEM": [],
         "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "PROVA": [
+          "scripts/regua_t4t5t9/medir.py:50"
+        ],
+        "PORQUE": "estas pecas importam-na — C-REGUA-T4T5T9 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 6830,
       "y": 1326
@@ -59934,8 +60067,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12555,
-      "y": 2936
+      "x": 11725,
+      "y": 3258
     },
     {
       "id": "C-SCRAP-COLHEITA",
@@ -66389,7 +66522,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch reroute-d2-v1"
+        "branch reguas-t4t5t9-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -69618,6 +69751,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-REGUA-T4T5T9",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por Reguas T4/T5/T9 da Admissao — gabarito (NAO PRONTO) e medicao do REROUTE por destinos. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t4t5t9/medir.py",
+          "line": 23,
+          "snippet": "import admissao as A  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T4T5T9",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-REGUA-T4T5T9",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -91096,6 +91264,41 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-HTML",
+      "to": "C-REGUA-T4T5T9",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de HTML tem o seu codigo importado por Reguas T4/T5/T9 da Admissao — gabarito (NAO PRONTO) e medicao do REROUTE por destinos. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+          "line": 22,
+          "snippet": "import executor_texto_de_html as EH  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-REGUA-T4T5T9",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-REGUA-T4T5T9",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-HTML",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -91930,6 +92133,41 @@
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-PROVA-ROTAS-REAIS",
             "FROM": "C-EXECUTOR-TEXTO-PDF",
             "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-REGUA-T4T5T9",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Reguas T4/T5/T9 da Admissao — gabarito (NAO PRONTO) e medicao do REROUTE por destinos. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+          "line": 23,
+          "snippet": "import executor_texto_de_pdf as EP   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-REGUA-T4T5T9",
+            "FROM": "C-EXECUTOR-TEXTO-PDF",
+            "TO": "C-REGUA-T4T5T9",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -118400,6 +118638,41 @@
     },
     {
       "from": "C-REGUA-T2-JANELA",
+      "to": "C-REGUA-T4T5T9",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao alimenta Reguas T4/T5/T9 da Admissao — gabarito (NAO PRONTO) e medicao do REROUTE por destinos. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t4t5t9/medir.py",
+          "line": 78,
+          "snippet": "\"scripts/regua_t2/MEDICAO-REGUA-T2-V3.json\"}}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REGUA-T4T5T9",
+            "FROM": "C-REGUA-T2-JANELA",
+            "TO": "C-REGUA-T4T5T9",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REGUA-T2-JANELA",
       "to": "C-REROUTE-D2",
       "type": "READS",
       "payload": "artefacto",
@@ -119261,6 +119534,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REROUTE-D2",
+      "to": "C-REGUA-T4T5T9",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "REROUTE da D2 na Admissao — medicao no acervo e ataque (D56) alimenta Reguas T4/T5/T9 da Admissao — gabarito (NAO PRONTO) e medicao do REROUTE por destinos. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_t4t5t9/medir.py",
+          "line": 50,
+          "snippet": "med = json.loads((RAIZ / \"ferramentas\" / \"reroute\" / \"MEDICAO-REROUTE-V1.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REROUTE-D2--READS-->C-REGUA-T4T5T9",
+            "FROM": "C-REROUTE-D2",
+            "TO": "C-REGUA-T4T5T9",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -135163,7 +135471,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 226,
+      "PECAS_EM_DESACORDO": 227,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -135175,23 +135483,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 251
+      "TOTAL_DE_PECAS": 252
     }
   ],
   "COUNTS": {
-    "components": 251,
+    "components": 252,
     "components_proven": 31,
-    "components_pending": 211,
+    "components_pending": 212,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1323,
-    "edges_proven": 1258,
+    "edges": 1328,
+    "edges_proven": 1263,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2997,
-    "files_covered": 1336,
+    "files_tracked": 3007,
+    "files_covered": 1346,
     "files_code_unclaimed": 0,
-    "roles_proven": 171,
+    "roles_proven": 172,
     "roles_declared_only": 8,
     "roles_unknown": 72,
     "roles_conflict": 38,

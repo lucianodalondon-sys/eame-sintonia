@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "reroute-d2-v1",
-    "HEAD": "a25ac14122279c2a44506f5f56ae88ab308d31bb",
-    "GENERATED_AT": "2026-09-25T09:31:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "690d638d615fd97d56a121e7b4a772294772932bef05ed1c97f02688f00125e1"
+    "BRANCH": "reguas-t4t5t9-v1",
+    "HEAD": "81177c5811b994483459591f0890ec96816e12e8",
+    "GENERATED_AT": "2026-09-25T11:07:35-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7cb04466f742d4ccb4417af9f171f380489386c171189b6d356882d0a5eab37e"
   },
   "FILES": [
     {
@@ -18139,6 +18139,76 @@
       "code_dir": true
     },
     {
+      "path": "scripts/regua_t4t5t9/A-ROTULAR-ADENDA1.json",
+      "sha": "7d47b1c042c77d33c257fccca728e6598d2a8dda",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/A-ROTULAR.json",
+      "sha": "1a1e2dfa3f101166106080738e0db86b0d80a3fd",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/CONTAGEM-GABARITO.json",
+      "sha": "bf3d1561e19835198e3092429d5337eea60620ca",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/MEDICAO-REGUAS-T4T5T9-V1.json",
+      "sha": "f78e4f2337d17c1f80c5b7fb36a6b539c562fff7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/PROTOCOLO-GABARITO-T4-T5-T9.md",
+      "sha": "7f5a6ea3d85e0330de5beef6734b7301c5ac90b6",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/RELATORIO-REGUAS-T4-T5-T9.md",
+      "sha": "034a5d696ba4a98d7990c110b2ecc8aa98049109",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/amostrar.py",
+      "sha": "b23aa398c3195bb9bc44f3a0b9486bd0d13d0f37",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+      "sha": "d32b2a3e9abeaeb499b24e53d29552e2a1921b25",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/medir.py",
+      "sha": "8fa039e70cdab4ffff0e8d648b375f9e61520f2e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t4t5t9/rotulos/rotulos-gabarito.json",
+      "sha": "0f8da581fc275d9f7b4a080da97153810cfb0311",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json",
       "sha": "74ac29c2dceae8b3f3daf00cb4c1f5809ebcbff6",
       "ext": ".json",
@@ -18805,7 +18875,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c29f9e617a9f5b32a0e1f4fedf088bb1ea3ff28e",
+      "sha": "b696a9d009ce67555f3eb1740f5c0081de5fcaf1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -63473,17 +63543,6 @@
     },
     {
       "from_file": "scripts/regua_t2/montar_gabarito_t2.py",
-      "to_file": "scripts/regua_t2/rotulos/A-ROTULAR.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t2/montar_gabarito_t2.py",
-        "line": 56,
-        "snippet": "ordem = json.load(open(d / \"A-ROTULAR.json\", encoding=\"utf-8\"))"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t2/montar_gabarito_t2.py",
       "to_file": "scripts/regua_t2/rotulos/rotulos-janela.tsv",
       "type": "READS",
       "payload": "artefacto",
@@ -63700,6 +63759,127 @@
         "file": "scripts/regua_t2/recolher_boletins.py",
         "line": 34,
         "snippet": "_sp = importlib.util.spec_from_file_location(\"rede\", RAIZ / \"superficie\" / \"rede.py\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/amostrar.py",
+      "to_file": "scripts/regua_t4t5t9/A-ROTULAR.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/amostrar.py",
+        "line": 79,
+        "snippet": "(AQUI / \"A-ROTULAR.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/amostrar.py",
+      "to_file": "scripts/regua_t4t5t9/PROTOCOLO-GABARITO-T4-T5-T9.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/amostrar.py",
+        "line": 76,
+        "snippet": "out = {\"DATASET\": \"A-ROTULAR-T4T5T9-V1\", \"PROTOCOLO\": \"scripts/regua_t4t5t9/PROTOCOLO-GABARITO-T4-T5-T9.md\","
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+      "to_file": "coleta/executor_texto_de_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+        "line": 22,
+        "snippet": "import executor_texto_de_html as EH  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+        "line": 23,
+        "snippet": "import executor_texto_de_pdf as EP   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+      "to_file": "scripts/regua_t4t5t9/A-ROTULAR-ADENDA1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+        "line": 83,
+        "snippet": "(AQUI / \"A-ROTULAR-ADENDA1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+      "to_file": "scripts/regua_t4t5t9/A-ROTULAR.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/amostrar_adenda1.py",
+        "line": 50,
+        "snippet": "ja = {x[\"SHA256_NORMALIZADO\"] for x in json.loads((AQUI / \"A-ROTULAR.json\").read_text(encoding=\"utf-8\"))[\"ITENS\"]}"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/medir.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/medir.py",
+        "line": 23,
+        "snippet": "import admissao as A  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/medir.py",
+      "to_file": "ferramentas/reroute/MEDICAO-REROUTE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/medir.py",
+        "line": 50,
+        "snippet": "med = json.loads((RAIZ / \"ferramentas\" / \"reroute\" / \"MEDICAO-REROUTE-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/medir.py",
+      "to_file": "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/medir.py",
+        "line": 78,
+        "snippet": "\"scripts/regua_t2/MEDICAO-REGUA-T2-V3.json\"}}"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/medir.py",
+      "to_file": "scripts/regua_t4t5t9/MEDICAO-REGUAS-T4T5T9-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/medir.py",
+        "line": 79,
+        "snippet": "(AQUI / \"MEDICAO-REGUAS-T4T5T9-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "scripts/regua_t4t5t9/medir.py",
+      "to_file": "scripts/regua_t4t5t9/rotulos/rotulos-gabarito.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t4t5t9/medir.py",
+        "line": 36,
+        "snippet": "rot = json.loads((AQUI / \"rotulos\" / \"rotulos-gabarito.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -85579,10 +85759,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2997,
-    "files_readable": 1339,
-    "files_code_dir": 1287,
-    "file_edges": 5818,
+    "files_tracked": 3007,
+    "files_readable": 1342,
+    "files_code_dir": 1297,
+    "file_edges": 5828,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },
