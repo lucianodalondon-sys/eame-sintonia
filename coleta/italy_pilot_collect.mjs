@@ -28,7 +28,7 @@
 
 import { execFileSync, execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, appendFileSync, rmSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, appendFileSync, rmSync, rmdirSync, renameSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { pathToFileURL, fileURLToPath } from "node:url";
 // ⚠️ `./italy_contracts.mjs` NAO EXISTE AQUI desde a mudanca para gavetas: os
@@ -249,11 +249,12 @@ function cortesiaDoAmbiente() {
            MAX_SALTOS: CORTESIA_PADRAO.MAX_SALTOS };
 }
 // Estado de UMA corrida. `executarRodada()` recomeca-o, como faz a `REDE.total`.
-const CORTESIA = { cfg: CORTESIA_PADRAO, robots: new Map(), porHost: new Map(), ultimo: new Map(),
-                   pedidos: { ROBOTS: 0, FONTE: 0 }, recusas: [] };
+const CORTESIA = { cfg: CORTESIA_PADRAO, robots: new Map(), porHost: new Map(), porDominio: new Map(),
+                   ultimo: new Map(), pedidos: { ROBOTS: 0, FONTE: 0 }, recusas: [] };
 function reiniciarCortesia() {
   CORTESIA.cfg = cortesiaDoAmbiente();
-  CORTESIA.robots = new Map(); CORTESIA.porHost = new Map(); CORTESIA.ultimo = new Map();
+  CORTESIA.robots = new Map(); CORTESIA.porHost = new Map(); CORTESIA.porDominio = new Map();
+  CORTESIA.ultimo = new Map();
   CORTESIA.pedidos = { ROBOTS: 0, FONTE: 0 }; CORTESIA.recusas = [];
 }
 const dormir = ms => new Promise(r => setTimeout(r, ms));
@@ -335,6 +336,81 @@ export function robotsPermite(grupos, caminho) {
 // (2 + 4) — a D7 diz «ate 5 pedidos por SITE». Teto e pausa contam-se pela chave
 // do site; o robots continua por ORIGEM, que e o que a norma manda.
 export const siteDe = host => String(host).toLowerCase().replace(/^www\./, "");
+
+// ── O TETO E DO DOMINIO REGISTAVEL, E VALE PARA A ONDA INTEIRA (D38) ──────
+// ⚠️ MEDIDO NO ONDA2-PLANO (25/09): cia.it tem 5 fontes na coorte e levou 16
+// pedidos na 1.a onda — cada fonte e um processo, e o contador acima recomeca
+// a cada processo. A D38 (bot Luciano, 25/09 03:25) le a regra do dono assim:
+//
+//     «5 PEDIDOS POR SITE» E POR DOMINIO REGISTAVEL, POR CORRIDA DA ONDA:
+//     cia.it = www.cia.it = sub.cia.it, no maximo 5 no total, repartidos
+//     entre as fontes. Separar fontes em corridas diferentes CONTORNA a
+//     protecao, e nao se faz.
+//
+// Por isso o teto conta-se por `dominioRegistavel()` e, quando quem conduz a
+// onda nomeia um livro em SINTONIA_TETO_ONDA, conta-se NESSE livro, que todos
+// os processos da onda leem e somam. Sem livro, vale o de sempre: uma corrida,
+// um processo — mas ja pelo dominio, nunca pelo host.
+//
+// O dominio registavel sem a Public Suffix List (nao ha nenhuma nesta casa, e
+// nenhuma se vai buscar a rede): as duas ultimas etiquetas, salvo quando elas
+// sao um sufixo publico de dois niveis DECLARADO abaixo. Um sufixo que a lista
+// nao conhece junta MAIS do que devia (por exemplo, `x.provincia.it` conta com
+// `provincia.it`): fica mais apertado, nunca mais largo. Um teto que erra para
+// o lado de pedir menos nao contorna ninguem.
+export const SUFIXOS_DE_DOIS_NIVEIS = Object.freeze(new Set([
+  // Italia: o Estado e as regioes (nomes e siglas da Public Suffix List)
+  "gov.it", "edu.it",
+  "abruzzo.it", "abr.it", "basilicata.it", "bas.it", "calabria.it", "cal.it", "campania.it", "cam.it",
+  "emilia-romagna.it", "emiliaromagna.it", "emr.it", "friuli-venezia-giulia.it", "friuli-vgiulia.it",
+  "friulivenezia-giulia.it", "friulivgiulia.it", "fvg.it", "lazio.it", "laz.it", "liguria.it", "lig.it",
+  "lombardia.it", "lom.it", "marche.it", "mar.it", "molise.it", "mol.it", "piemonte.it", "pmn.it",
+  "puglia.it", "pug.it", "sardegna.it", "sar.it", "sicilia.it", "sic.it", "toscana.it", "tos.it",
+  "trentino.it", "trentino-alto-adige.it", "trentinoaltoadige.it", "taa.it", "umbria.it", "umb.it",
+  "valledaosta.it", "valle-daosta.it", "vda.it", "vao.it", "veneto.it", "ven.it",
+  // os de sempre fora de Italia
+  "co.uk", "org.uk", "ac.uk", "gov.uk", "com.br", "org.br", "gov.br", "com.au", "org.au",
+  "co.jp", "com.es", "com.pt", "co.nz", "com.ar", "com.mx"]));
+export function dominioRegistavel(host) {
+  const h = siteDe(host).replace(/\.$/, "");
+  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(h) || h.includes(":")) return h;       // IP: e o proprio
+  const p = h.split(".").filter(Boolean);
+  if (p.length <= 2) return p.join(".");
+  const dois = p.slice(-2).join(".");
+  return SUFIXOS_DE_DOIS_NIVEIS.has(dois) ? p.slice(-3).join(".") : dois;
+}
+// O livro da onda: { PEDIDOS_POR_DOMINIO: { "cia.it": 3, ... } }. Escreve-se sob
+// um trinco (um directorio, que o sistema cria ou recusa de uma vez) e por
+// renomeacao, para dois processos nunca somarem sobre a mesma leitura.
+const livroDaOnda = () => process.env.SINTONIA_TETO_ONDA || null;
+export function lerLivroDaOnda(f = livroDaOnda()) {
+  if (!f) return {};
+  try { return JSON.parse(readFileSync(f, "utf8")).PEDIDOS_POR_DOMINIO || {}; }
+  catch (e) {
+    if (e.code === "ENOENT") return {};
+    // Livro ilegivel NAO e livro vazio: vazio deixava a onda recomecar do zero.
+    throw new Error(`TETO_ONDA_ILEGIVEL: ${f}: ${e.message}`);
+  }
+}
+const esperarMs = ms => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+function gastarNaOnda(dominio, f = livroDaOnda()) {
+  if (!f) return;
+  const trinco = `${f}.trinco`;
+  for (let i = 0; ; i++) {
+    try { mkdirSync(trinco); break; }
+    catch (e) {
+      if (e.code !== "EEXIST" || i >= 400) throw new Error(`TETO_ONDA_TRINCO: ${trinco} (${e.code})`);
+      esperarMs(25);
+    }
+  }
+  try {
+    const p = lerLivroDaOnda(f);
+    p[dominio] = (p[dominio] || 0) + 1;
+    writeFileSync(`${f}.tmp`, JSON.stringify({ PEDIDOS_POR_DOMINIO: p }, null, 1));
+    renameSync(`${f}.tmp`, f);
+  } finally { rmdirSync(trinco); }
+}
+export const motivoDoTeto = () => (livroDaOnda() ? "TETO_DOMINIO" : "TETO_POR_HOST");
 async function umaIda(url, host, tipo, crawlDelay) {
   const minimo = Math.max(CORTESIA.cfg.PAUSA_S, crawlDelay || 0) * 1000;
   host = siteDe(host);
@@ -344,6 +420,9 @@ async function umaIda(url, host, tipo, crawlDelay) {
     if (falta > 0) await dormir(falta);
   }
   CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
+  const dominio = dominioRegistavel(host);
+  CORTESIA.porDominio.set(dominio, (CORTESIA.porDominio.get(dominio) || 0) + 1);
+  gastarNaOnda(dominio);                 // o pedido que sai gasta o lugar, responda ou nao
   CORTESIA.pedidos[tipo]++;
   try {
     // ⚠️ `%{content_type}` ENTRA PORQUE O TRANSPORTE JA O SABIA E NINGUEM O ESCREVIA.
@@ -389,7 +468,13 @@ async function umaIda(url, host, tipo, crawlDelay) {
     CORTESIA.ultimo.set(host, Date.now());
   }
 }
-const tetoAtingido = host => (CORTESIA.porHost.get(siteDe(host)) || 0) >= CORTESIA.cfg.TETO_POR_HOST;
+// O teto pergunta pelo DOMINIO REGISTAVEL: o desta corrida e, havendo livro da
+// onda, o da onda inteira (que ja inclui o desta corrida). Vale o maior.
+const tetoAtingido = host => {
+  const d = dominioRegistavel(host);
+  const gasto = Math.max(CORTESIA.porDominio.get(d) || 0, lerLivroDaOnda()[d] || 0);
+  return gasto >= CORTESIA.cfg.TETO_POR_HOST;
+};
 
 async function robotsDaOrigem(origem) {
   let alvo = `${origem}/robots.txt`;
@@ -397,7 +482,7 @@ async function robotsDaOrigem(origem) {
     const host = new URL(alvo).hostname;
     let r = null;
     for (let i = 1; i <= 2 && !r; i++) {
-      if (tetoAtingido(host)) return { recusado: "TETO_POR_HOST", porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado antes de ler o robots.txt` };
+      if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado antes de ler o robots.txt` };
       try { r = await umaIda(alvo, host, "ROBOTS", 0); }
       catch (e) {
         const cod = e.code ?? 0;
@@ -429,7 +514,7 @@ async function licenca(url) {
   let u;
   try { u = new URL(url); } catch { return { recusado: "URL_INVALIDA", porque: `endereco invalido: ${url}` }; }
   const host = u.hostname;
-  if (tetoAtingido(host)) return { recusado: "TETO_POR_HOST", porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} nesta corrida` };
+  if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos ao dominio ${dominioRegistavel(host)} ${livroDaOnda() ? "nesta onda" : "nesta corrida"}` };
   let rb = CORTESIA.robots.get(u.origin);
   if (!rb) {
     rb = await robotsDaOrigem(u.origin);
@@ -446,7 +531,7 @@ async function licenca(url) {
   if (rb.estado === "ILEGIVEL") return { recusado: "ROBOTS_ILEGIVEL", porque: rb.porque };
   if (rb.estado === "LIDO" && !robotsPermite(rb.grupos, u.pathname + u.search))
     return { recusado: "ROBOTS_PROIBE", porque: `o robots.txt de ${u.origin} proibe ${u.pathname}${u.search}` };
-  if (tetoAtingido(host)) return { recusado: "TETO_POR_HOST", porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado pelo robots.txt` };
+  if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado pelo robots.txt` };
   return { host, crawlDelay: rb.crawlDelay ?? null };
 }
 
@@ -465,7 +550,7 @@ async function baixar(url, tentativas = 2) {
     let r = null;
     for (let i = 1; i <= tentativas && !r; i++) {
       if (i > 1 && tetoAtingido(lic.host))
-        return { erro: `CORTESIA TETO_POR_HOST: retentativa recusada, teto de ${CORTESIA.cfg.TETO_POR_HOST} esgotado`, status: 0, tentativas: i - 1, recusado: "TETO_POR_HOST", foiARede, retry_permitido: false };
+        return { erro: `CORTESIA ${motivoDoTeto()}: retentativa recusada, teto de ${CORTESIA.cfg.TETO_POR_HOST} esgotado`, status: 0, tentativas: i - 1, recusado: motivoDoTeto(), foiARede, retry_permitido: false };
       try {
         r = await umaIda(atual, lic.host, "FONTE", lic.crawlDelay);
         r.tentativas = i;
@@ -501,7 +586,7 @@ export function estadoDeCadencia(c, ultimaObs, mudou) {
 
 // ---------- alvos por fonte ----------
 // Cada alvo: { url, nome, documentIdDe(buf) -> {DOCUMENT_ID, SOURCE_DATE, FACT_TIME} }
-async function alvosDe(sourceId) {
+async function alvosDe(sourceId, classificar = null) {
   const c = CONTRACTS[sourceId];
   // ── O CONTRATO MANDA PRIMEIRO, E O SWITCH FICA PARA TRÁS ─────────────────
   // ⚠️ MEDIDO: este `switch` tinha SETE fontes escritas à mão, e uma fonte
@@ -521,7 +606,7 @@ async function alvosDe(sourceId) {
   // O dia em que o último `case` tiver `ACQUISITION`, o `switch` inteiro sai
   // — e sai por ficar vazio, não por alguém o apagar com pressa.
   if (c && c.ACQUISITION) {
-    return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS });
+    return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS, classificar });
   }
   switch (sourceId) {
     case "IT-T3-005":
@@ -803,7 +888,20 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   // decisao sobre o segundo, e duas corridas iguais dariam contas diferentes.
   const memoria = memoriaDosDetalhes(anterior);
 
+  // ⚠️ UMA CORRIDA QUE REBENTA A MEIO TAMBEM ESCREVE A SUA LINHA (FECHAR-ONDA2,
+  // 25/09/2026). Na 2.a onda web, IT-T2-050 rebentou em `guardarRaw` (mkdir ENOENT:
+  // o DOCUMENT_ID pelo endereco levava `?`, que o Windows recusa em nome de pasta)
+  // DEPOIS de 3 pedidos a arpacampania.it. A linha do `runs.ndjson` so se escrevia no
+  // fim; a excepcao saltou-a, e a prova independente do teto ficou cega a esses 3.
+  //
+  //     PEDIDO FEITO E PEDIDO CONTADO, MESMO QUANDO A CORRIDA MORRE.
+  //
+  // O laco fica sem re-indentar de proposito (diff minimo); a excepcao sobe na mesma
+  // DEPOIS da linha escrita — o codigo de saida continua a dizer que falhou.
+  let ABORTADA = null, fonteEmCurso = null;
+  try {
   for (const sourceId of FONTES) {
+    fonteEmCurso = sourceId;
     cont.SOURCES_ATTEMPTED++;
     const c = CONTRACTS[sourceId];
     // O indice revisita-se SEMPRE, e e ele que anuncia o que ha de novo.
@@ -811,7 +909,23 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     // `decidirSobreIndice()` esta aqui para que a lei seja lida no codigo e
     // nao so no comentario — ela nao tem excepcao, e por isso nao tem `if`.
     decidirSobreIndice();
-    const alvos = await alvosDe(sourceId);
+    // ── D40 · A ESCOLHA PERGUNTA «JA TENHO?» ANTES DE CORTAR ─────────────────
+    // A mesma decisao que a DEFESA 1 toma la em baixo, perguntada ANTES de o motor
+    // cortar a lista: o que o livro manda saltar nao ocupa lugar de alvo. Ver
+    // `escolherAlvosD40` em regras/motor_de_rota.mjs.
+    const classificar = (url) => {
+      const d = decidirSobreDetalhe(url, { memoria, sourceId, contrato: c, agora: agora() });
+      return d.DECISAO === "SKIP_KNOWN" ? "CONHECIDO" : d.DECISAO === "REVALIDATE" ? "REVISITA" : "NOVO";
+    };
+    const alvos = await alvosDe(sourceId, classificar);
+    if (alvos && alvos.D40) {
+      cont.SKIPPED_KNOWN += alvos.D40.CONHECIDOS_SALTADOS;
+      if (alvos.D40.VAZIO_HONESTO) {
+        detalhes.push({ RUN_ID, SOURCE_ID: sourceId, DOCUMENT_ID: null, DECISAO: "SEM_ALVOS_NOVOS",
+          PORQUE: `o indice anuncia ${alvos.D40.NO_INDICE} enderecos: ${alvos.D40.LISTAS_RECUSADAS} sao paginas de lista e o livro ja conhece os outros ${alvos.D40.CONHECIDOS_SALTADOS} (D40)`,
+          LIVRO: "NAO_ESCRITO — nada foi pedido", COLLECTION_RUN_STARTED_AT: STARTED_AT });
+      }
+    }
     // ── O INDICE QUE A CORTESIA NAO DEIXOU PEDIR ─────────────────────────────
     // Robots que proibe (ou que nao se deixou ler), teto esgotado: a porta NAO
     // foi batida, por isso nao ha falha da fonte para escrever. A fonte fica
@@ -1196,6 +1310,10 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     }
     cont[saudeFonte]++;
   }
+  } catch (e) {
+    ABORTADA = e;
+    cont.FAILED++;
+  }
 
   const FINISHED_AT = agora();
   // INDEX_REQUESTS por subtraccao, que e a unica conta exacta: tudo o que foi
@@ -1211,6 +1329,8 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     EGRESS_IP: egress?.ip ?? (forcarBuf ? "NAO_SE_APLICA" : "NAO SEI"),
     COLLECTOR_VERSION, SOURCE_CONTRACT_VERSION: "italy-contracts-v1", GIT_HEAD,
     nota, contadores: cont,
+    // Presente SO quando a corrida rebentou: a linha existe, mas nao e de sucesso.
+    ...(ABORTADA ? { ABORTED: { SOURCE_ID: fonteEmCurso, ERRO: String(ABORTADA?.message ?? ABORTADA).slice(0, 500) } } : {}),
     // O que a cortesia fez nesta corrida, auditavel: a configuracao em vigor, o
     // estado do robots de cada origem, os pedidos HTTP REAIS por host (robots,
     // indice, materias, saltos e retentativas) e cada recusa com o porque.
@@ -1220,10 +1340,15 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       ROBOTS: Object.fromEntries([...CORTESIA.robots].map(([o, r]) => [o, { ESTADO: r.estado, CRAWL_DELAY: r.crawlDelay ?? null, PORQUE: r.porque }])),
       // Chave = o SITE (host sem `www.`), a mesma do teto e da pausa.
       PEDIDOS_POR_HOST: Object.fromEntries(CORTESIA.porHost),
+      // D38: o teto conta-se por dominio registavel; com livro da onda, pela onda inteira.
+      TETO_CONTA_POR: livroDaOnda() ? "DOMINIO_REGISTAVEL_NA_ONDA" : "DOMINIO_REGISTAVEL_NA_CORRIDA",
+      PEDIDOS_POR_DOMINIO: Object.fromEntries(CORTESIA.porDominio),
+      LIVRO_DA_ONDA: livroDaOnda() ? { FICHEIRO: livroDaOnda(), DEPOIS: lerLivroDaOnda() } : null,
       RECUSAS: CORTESIA.recusas }
   };
   mkdirSync(LEDGER_DIR, { recursive: true });
   appendFileSync(`${LEDGER_DIR}/runs.ndjson`, JSON.stringify(resumo) + "\n");
+  if (ABORTADA) throw ABORTADA;
   return { resumo, detalhes };
 }
 

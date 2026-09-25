@@ -1,0 +1,80 @@
+{
+ "DATASET": "WRITESET-PONTE-ONBOARD",
+ "BASE": "7cdb7ea4",
+ "RAMO": "ponte-onboard-v1",
+ "INSTALA_COMO": "git merge --ff-only origin/ponte-onboard-v1 (base = vivo 7cdb7ea4)",
+ "LIVROS_TOCADOS": "nenhum na instalacao; depois, em operacao, o supervisor so escreve regras/italy_contracts_onboarded.json (append atomico)",
+ "CODIGO_E_PROVAS": [
+  {
+   "FICHEIRO": "curadoria/onboardar_rotas_provadas.py",
+   "SHA256_NO_GIT": "d601a6e78cbc36e6020709d49adbebb4b138d682d80e07661bebf1317d9ca42b"
+  },
+  {
+   "FICHEIRO": "curadoria/sha_do_contrato.py",
+   "SHA256_NO_GIT": "20eac775bf504074f78cd2c751dbbd9402d42deea3addb4772367194264d8038"
+  },
+  {
+   "FICHEIRO": "curadoria/supervisor.py",
+   "SHA256_NO_GIT": "47c186cf51ae2b1652352b2b51fb40bc6acfb51a768772921df982530a3fb715"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/ENSAIO-1-antes-ENTRA0.txt",
+   "SHA256_NO_GIT": "bde663b7740b601eb7d8fee474bc07389d6ffe7205bdfb3c5c046c127219fa95"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/ENSAIO-2-rotas-provadas-3rondas.json",
+   "SHA256_NO_GIT": "0dcb224375d66a39858e61e84e573f684db847c02a74f406c2e939897c321af3"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/ENSAIO-3-gancho-do-supervisor.json",
+   "SHA256_NO_GIT": "c7d07cc0cebf00c0fd0b6678f5fe03e8d734ec891eaa5a6550b7c7f103ef96f9"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/ENSAIO-4-depois-FICA11.txt",
+   "SHA256_NO_GIT": "1fe6d837f9de4be9a86308eaee5c07aa270aa559e7f237751a5a7a533e7f71bf"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/ENSAIO-5-sha256-antes-depois-desfazer.txt",
+   "SHA256_NO_GIT": "be0c2f2f82dba06fc3f8c009dfc573773d19556d8719fb1f111f8c1e4e08d8a9"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/MUTACAO.json",
+   "SHA256_NO_GIT": "13cbd0b85a87c35448aeceb3561eb6ff2bfd352a7c8e7101576b49d54c095ddc"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/PLANO-BOLETINS-READY-LEGACY.md",
+   "SHA256_NO_GIT": "346dacb8489e20bf02fb399b86283fa05439cff6a3ab170e25fd28d24238c7dd"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/PLANO-INSTALACAO-PONTE-ONBOARD.md",
+   "SHA256_NO_GIT": "3f42bcac758d9a087045364c46ba5f0f1cbce11cef7624ef58595fe4d2301b35"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/RELATORIO-PONTE-ONBOARD.md",
+   "SHA256_NO_GIT": "6261e164c7376f739a259557b4a2624e40f3c62543d390c5831b946a5486c5df"
+  },
+  {
+   "FICHEIRO": "ferramentas/ponte_onboard/mutacao.py",
+   "SHA256_NO_GIT": "8d56cc2511c804312b65de5ebc79fcad5b631217c58def823fcd92023ac89d7f"
+  },
+  {
+   "FICHEIRO": "medidas/canario_rotas_elegiveis.py",
+   "SHA256_NO_GIT": "7129827855756095efe92714ce6b87ffc82436f9515cc632921e4fa72a4d4959"
+  },
+  {
+   "FICHEIRO": "tests/fixtures/ponte_onboard_17_contratos.json",
+   "SHA256_NO_GIT": "5d4e9417772cbcd2dc7f6170d7f582230bafd6784d7ce26ba03d33a8dc2df972"
+  },
+  {
+   "FICHEIRO": "tests/test_canario_rotas_contrato_certo.py",
+   "SHA256_NO_GIT": "aae61338070b2913184a062bc6e0679673e538e25b957611ddd9564fa4f76d5c"
+  },
+  {
+   "FICHEIRO": "tests/test_onboardar_rotas_provadas.py",
+   "SHA256_NO_GIT": "4b2f5bc8d6d8c436cb886f4c828ca4b7c55e624adc190153cdca0fc8f00b2ef4"
+  }
+ ],
+ "MAPA": [
+  "system-map/data/architecture.declared.json"
+ ]
+}

@@ -8,7 +8,7 @@ O portao (`curadoria/collection_gate.py`) diz QUEM pode ser colhido. O coletor
 (`coleta/italy_recurrent_collect.mjs`) so colhe quem tem contrato em
 `regras/italy_contracts.mjs`. As aprovadas sem contrato ficam em
 `ELIGIBLE_WITHOUT_CONTRACT`. Este instrumento pega na rota que o Curator
-DECLAROU para cada uma (`curadoria/italy_contracts_curator.json`, no ramo que
+DECLAROU para cada uma (`curadoria/italy_contracts_curator.json` EM DISCO por omissao, ou no ref de Git
 se lhe indicar) e prova-a contra a rede, SEM inventar nenhuma:
 
     1. robots.txt pelo leitor unico da casa (gate_de_rota) — proibido nao se bate
@@ -43,6 +43,7 @@ sys.path.insert(0, str(RAIZ / "curadoria"))
 import canario as CAN            # noqa: E402
 import gate_de_rota as GATE      # noqa: E402
 import retrato_html as RH        # noqa: E402
+import sha_do_contrato as SHA    # noqa: E402
 
 SAIDA = RAIZ / "curadoria" / "ROTAS-ELEGIVEIS-V1.json"
 PAUSA_S = 1.0
@@ -173,10 +174,47 @@ def provar(sid: str, contrato: dict) -> dict:
     return lin
 
 
+# ── O CONTRATO QUE SE PROVA E O DO LIVRO VIVO, EM DISCO ─────────────────────
+# ⚠️ MEDIDO (MICRO-PRONTO, 25/09/2026): isto lia `git show HEAD:...` sempre. O bot
+# escreve no DISCO e nao commita — no vivo HEAD tinha 574 fontes e o disco 762, e
+# 14 das 17 fontes a onboardar tinham no HEAD outra aquisicao (ou nenhuma). A
+# prova dizia ROUTE_PROVEN sobre um contrato que nao era o que ia para o coletor.
+#
+#     O CONTRATO PROVADO TEM DE SER O CONTRATO QUE O ROBO VAI USAR.
+#
+# Por omissao le-se o ficheiro em disco (o mesmo que `onboardar_rotas_provadas`
+# le). Um ref de Git so se usa quando pedido por extenso (`ID@<ref>`), e a linha
+# diz de onde veio. Em qualquer caso a prova leva a impressao digital do que
+# provou (`sha_do_contrato`): quem onboarda compara-a com o contrato de agora.
+DISCO = "DISCO"
+CONTRATOS_EM_DISCO = RAIZ / "curadoria" / "italy_contracts_curator.json"
+
+
 def _contratos_de(ref: str) -> dict:
-    r = subprocess.run(["git", "show", "%s:curadoria/italy_contracts_curator.json" % ref],
-                       capture_output=True, cwd=RAIZ)
-    return {c["SOURCE_ID"]: c for c in json.loads(r.stdout)["FONTES"]}
+    if ref == DISCO:
+        d = json.loads(CONTRATOS_EM_DISCO.read_text(encoding="utf-8"))
+    else:
+        r = subprocess.run(["git", "show", "%s:curadoria/italy_contracts_curator.json" % ref],
+                           capture_output=True, cwd=RAIZ)
+        if r.returncode:
+            raise RuntimeError("git show %s falhou: %s" % (ref, r.stderr[-200:]))
+        d = json.loads(r.stdout)
+    return {c["SOURCE_ID"]: c for c in d["FONTES"]}
+
+
+def _de_onde(ref: str) -> str:
+    return ("disco:curadoria/italy_contracts_curator.json" if ref == DISCO
+            else "%s:curadoria/italy_contracts_curator.json" % ref)
+
+
+def juntar(antigas: list[dict], novas: list[dict]) -> list[dict]:
+    """Uma linha por fonte: a prova nova substitui a antiga da MESMA fonte, e as
+    outras ficam. `--escrever` sozinho reescrevia o ficheiro — correr em rondas
+    (uma fonte por dominio por ronda, D38) apagava a ronda anterior."""
+    por = {l["SOURCE_ID"]: l for l in antigas}
+    for l in novas:
+        por[l["SOURCE_ID"]] = l
+    return list(por.values())
 
 
 def main(argv=None) -> int:
@@ -188,16 +226,18 @@ def main(argv=None) -> int:
     livros, linhas = {}, []
     for p in pedidos:
         sid, _, ref = p.partition("@")
-        ref = ref or "HEAD"
+        ref = ref or DISCO
         if ref not in livros:
             livros[ref] = _contratos_de(ref)
         c = livros[ref].get(sid)
         if not c:
             linhas.append({"SOURCE_ID": sid, "VEREDITO": "UNKNOWN",
-                           "CAUSA": "sem contrato do Curator em %s" % ref})
+                           "CAUSA": "sem contrato do Curator em %s" % _de_onde(ref)})
             continue
         l = provar(sid, c)
-        l["CONTRATO_LIDO_DE"] = "%s:curadoria/italy_contracts_curator.json" % ref
+        l["CONTRATO_LIDO_DE"] = _de_onde(ref)
+        l["CONTRATO_SHA256"] = SHA.do_contrato(c)
+        l["PROVADO_EM"] = datetime.now(timezone.utc).isoformat()
         linhas.append(l)
         print("%-11s %-17s %s" % (sid, l["VEREDITO"], l["CAUSA"][:110]), flush=True)
         time.sleep(PAUSA_S)
@@ -206,7 +246,9 @@ def main(argv=None) -> int:
          "INSTRUMENTO": "medidas/canario_rotas_elegiveis.py",
          "LEI": "rota sem canario real nao e rota; 403 e robots sao resposta, nao se contornam",
          "LINHAS": linhas}
-    if "--escrever" in argv:
+    if "--juntar" in argv and SAIDA.exists():
+        d["LINHAS"] = juntar(json.loads(SAIDA.read_text(encoding="utf-8")).get("LINHAS", []), linhas)
+    if "--escrever" in argv or "--juntar" in argv:
         SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     return 0
 

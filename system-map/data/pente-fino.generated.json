@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T13:16:07+00:00",
-    "HEAD": "a943f2bb7d42e74a0b55154cb3dc7642725b16ec",
+    "GENERATED_AT": "2026-09-25T10:49:32+00:00",
+    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "6acbd45cf06f23ccb89fec4fad69beedf437035f2e6ee648afb20965248ec507",
-    "FICHEIROS_NA_IMPRESSAO": 3107,
+    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "FICHEIROS_NA_IMPRESSAO": 3126,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "6acbd45cf06f23ccb89fec4fad69beedf437035f2e6ee648afb20965248ec507",
+        "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "c3d6b5219d58a69d1f2d2e9c0bebca52102eec90308bcd891250983d5185f9fe",
+    "INPUTS_DIGEST": "0f279728048dc55ab544278ca849cce6de9e1e00ba165f697ac7097f0c00dadb",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -188,6 +188,18 @@
       "alguem_corre": false,
       "respostas": 2,
       "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-PONTE-ONBOARD",
+      "nome": "A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 2,
       "estado": "yellow"
     },
     {
@@ -395,6 +407,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-ONDA-WEB",
+      "nome": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
       "id": "C-EXECUTOR-TEXTO-HTML",
       "nome": "Executor · texto a partir de HTML",
       "zona": "· os executores",
@@ -443,6 +467,18 @@
       "estado": "green"
     },
     {
+      "id": "C-INTEGRA-ONDA2",
+      "nome": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
       "id": "V-LINKEDIN",
       "nome": "LINKEDIN",
       "zona": "· IT · SCRAP — os canais",
@@ -475,7 +511,7 @@
       "porque_existe": true,
       "alguem_corre": false,
       "respostas": 3,
-      "ficheiros": 10,
+      "ficheiros": 9,
       "estado": "yellow"
     },
     {
@@ -876,10 +912,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 61,
+    "pecas_da_coleta": 64,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 25,
-    "respondem_a_duas": 7,
+    "respondem_a_tres": 27,
+    "respondem_a_duas": 8,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

@@ -1,0 +1,44 @@
+{
+ "DATASET": "MUTACAO-CONTRATOS-AJUSTE-V1",
+ "COPIA": "C:/capa-base",
+ "MUTANTES": {
+  "istat_padrao_antigo": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  ISTAT - o contrato aponta as materias e nao as paginas de seccao"
+   ]
+  },
+  "istat_aceita_comunicati_e_analisi": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  ISTAT - o contrato aponta as materias e nao as paginas de seccao"
+   ]
+  },
+  "istat_perde_notizia": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  ISTAT - o contrato aponta as materias e nao as paginas de seccao"
+   ]
+  },
+  "balsamico_sem_prazo": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  PRAZO - IT-T7-042 revisita so depois de 3 dias, como IT-T7-017 e IT-T10-022"
+   ]
+  },
+  "balsamico_prazo_28_dias": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  PRAZO - IT-T7-042 revisita so depois de 3 dias, como IT-T7-017 e IT-T10-022"
+   ]
+  },
+  "balsamico_deixa_de_mudar": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  PRAZO - IT-T7-042 revisita so depois de 3 dias, como IT-T7-017 e IT-T10-022"
+   ]
+  }
+ },
+ "MORTOS": 6,
+ "TOTAL": 6
+}

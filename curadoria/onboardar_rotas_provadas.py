@@ -17,13 +17,20 @@ TRES coisas sao verdade ao mesmo tempo, no instante da corrida:
     1. o portao (`collection_gate.avaliar`) diz ELIGIBLE, no livro desta arvore
     2. a fonte nao tem contrato no coletor (o dono e `italy_contracts.mjs`)
     3. o canario real (`medidas/canario_rotas_elegiveis.py`) deu ROUTE_PROVEN
-       com a MESMA aquisicao que vai ser escrita, e nenhuma outra fonte provou
-       a rota pelo mesmo documento (duas fichas, uma fonte: nao se contrata a
-       segunda — e decisao de identidade, nao de rota)
+       sobre o MESMO contrato que vai ser escrito — a impressao digital
+       (`sha_do_contrato`) da prova e igual a do contrato de agora — ha no
+       maximo PROVA_MAX_IDADE, e nenhuma outra fonte provou a rota pelo mesmo
+       documento (duas fichas, uma fonte: nao se contrata a segunda — e
+       decisao de identidade, nao de rota)
 
 A aquisicao escrita e a do Curator, byte a byte. Nada se inventa aqui.
 
     POR OMISSAO SO MOSTRA. `--aplicar` escreve a tabela.
+
+QUEM O CHAMA (PONTE-ONBOARD, 25/09/2026): o supervisor do bot, a cada volta,
+por `onboardar_se_mudou()` (ver `curadoria/supervisor.py`, `_loop`). Medido no
+MICRO-PRONTO: este ficheiro nao era chamado por servico nenhum, e em 24 h
+entraram 0 fontes na tabela com 27 ELIGIBLE a espera.
 
 O que NAO faz: nao promove, nao mexe no livro, na fila, no portao nem na
 rede, e nao declara RECOLLECTION (quem nao mediu nao declara).
@@ -34,15 +41,21 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from datetime import datetime, timedelta, timezone
 from urllib.parse import urlparse
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 import collection_gate as G      # noqa: E402
+import sha_do_contrato as SHA    # noqa: E402
 
 TABELA = RAIZ / "regras" / "italy_contracts_onboarded.json"
 CANARIO = RAIZ / "curadoria" / "ROTAS-ELEGIVEIS-V1.json"
 CURATOR = RAIZ / "curadoria" / "italy_contracts_curator.json"
+
+# Uma prova de rota vale 7 dias — a mesma regra da coorte da Big Collection
+# (G3: «canario com prova <= 7 dias»). Mais velha, a fonte fica; nao se adivinha.
+PROVA_MAX_IDADE = timedelta(days=7)
 
 
 def ids_com_contrato_no_coletor() -> set[str]:
@@ -64,8 +77,18 @@ def _site(url) -> str:
     return h[4:] if h.startswith("www.") else h
 
 
+def _quando(texto) -> datetime | None:
+    try:
+        t = datetime.fromisoformat(str(texto).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+    return t if t.tzinfo else t.replace(tzinfo=timezone.utc)
+
+
 def planear(*, ctx: dict | None = None, canario: dict | None = None,
-            curator: dict | None = None, com_contrato: set[str] | None = None) -> dict:
+            curator: dict | None = None, com_contrato: set[str] | None = None,
+            agora: datetime | None = None) -> dict:
+    agora = agora or datetime.now(timezone.utc)
     ctx = ctx if ctx is not None else G._contexto()
     canario = canario if canario is not None else _json(CANARIO)
     curator = curator if curator is not None else {
@@ -96,9 +119,17 @@ def planear(*, ctx: dict | None = None, canario: dict | None = None,
         elif not p or p.get("VEREDITO") != "ROUTE_PROVEN":
             porque = "canario nao provou a rota: %s — %s" % (
                 (p or {}).get("VEREDITO", "SEM_CANARIO"), (p or {}).get("CAUSA", ""))
-        elif (p.get("INDEX_URL"), p.get("LINK_PATTERN")) != (
-                c["ACQUISITION"].get("INDEX_URL"), c["ACQUISITION"].get("LINK_PATTERN")):
-            porque = "o canario provou OUTRA aquisicao que nao a do contrato actual"
+        elif not p.get("CONTRATO_SHA256"):
+            porque = ("a prova nao diz que contrato provou (sem CONTRATO_SHA256): e de antes "
+                      "do PONTE-ONBOARD — refazer o canario")
+        elif p["CONTRATO_SHA256"] != SHA.do_contrato(c):
+            porque = ("o canario provou OUTRA aquisicao que nao a do contrato actual "
+                      "(sha provado %s != actual %s)" % (p["CONTRATO_SHA256"][:12],
+                                                        SHA.do_contrato(c)[:12]))
+        elif (_quando(p.get("PROVADO_EM") or canario.get("GERADO_EM")) is None
+              or agora - _quando(p.get("PROVADO_EM") or canario.get("GERADO_EM")) > PROVA_MAX_IDADE):
+            porque = ("prova de rota VELHA ou sem data (%s): vale %d dias — refazer o canario"
+                      % (p.get("PROVADO_EM") or canario.get("GERADO_EM"), PROVA_MAX_IDADE.days))
         elif dono_do_doc.get(p["CANARIO"]["URL"]) != sid:
             porque = ("DUPLICADA: a rota chega ao mesmo documento que %s — duas fichas, "
                       "uma fonte; decisao de identidade, nao de rota"
@@ -112,7 +143,7 @@ def planear(*, ctx: dict | None = None, canario: dict | None = None,
         if porque:
             fica.append({"SOURCE_ID": sid, "PORQUE": porque})
             continue
-        entra.append(linha_da_tabela(c, p, canario.get("GERADO_EM", "NAO SEI")))
+        entra.append(linha_da_tabela(c, p, p.get("PROVADO_EM") or canario.get("GERADO_EM", "NAO SEI")))
     return {"ENTRA": entra, "FICA": fica}
 
 
@@ -131,6 +162,7 @@ def linha_da_tabela(c: dict, p: dict, quando: str) -> dict:
             "DOCUMENTO_ASSINATURA": "HTML", "DOCUMENTO_BYTES": k["BYTES"],
             "ALVOS_DESCOBERTOS": p.get("LINKS_DE_DETALHE"),
             "HTML_KIND": k["HTML_KIND"], "PARAGRAPH_CHARACTERS": k["PARAGRAPH_CHARACTERS"],
+            "CONTRATO_SHA256": p.get("CONTRATO_SHA256"), "PROVADO_EM": p.get("PROVADO_EM"),
         },
         "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota %s) — curadoria/onboardar_rotas_provadas.py"
                         % quando[:10],
@@ -141,9 +173,47 @@ def aplicar(entra: list[dict]) -> int:
     t = _json(TABELA)
     ja = {f["SOURCE_ID"] for f in t["FONTES"]}
     novas = [l for l in entra if l["SOURCE_ID"] not in ja]
+    if not novas:
+        return 0
     t["FONTES"].extend(novas)
-    TABELA.write_text(json.dumps(t, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    # escrita atomica: o coletor pode estar a ler a tabela nesse instante
+    tmp = TABELA.with_name(TABELA.name + ".tmp")
+    tmp.write_text(json.dumps(t, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    tmp.replace(TABELA)
     return len(novas)
+
+
+# ── O GANCHO DO SUPERVISOR ───────────────────────────────────────────────────
+# Porque o supervisor e nao a ponte nem o alimentador:
+#   * a tabela que o coletor le vive na lane do BOT (a Big Collection corre com
+#     cwd = arvore do bot: ferramentas/big_collection/bc5_big_collection.py);
+#   * a ponte (ponte_automatica.py) por desenho so LE a lane do bot;
+#   * o alimentador (gatilho_discovery.talvez_alimentar) sai logo com QUEUE_OK
+#     quando a fila tem trabalho — no vivo tinha 3457 tarefas: nunca correria.
+# Sem rede: so le a prova que o canario deixou. Barato, mas nao a cada volta:
+# corre quando a prova muda de bytes, ou de ONBOARD_INTERVALO em ONBOARD_INTERVALO
+# (o portao muda sem a prova mudar: uma fonte provada pode ficar ELIGIBLE depois).
+ONBOARD_INTERVALO = timedelta(minutes=10)
+
+
+def onboardar_se_mudou(estado: dict, *, agora: datetime | None = None,
+                       planear_fn=None, aplicar_fn=None) -> dict:
+    """Uma volta do onboarding. Devolve o que fez (para o diario do supervisor);
+    guarda em `estado` a impressao da prova e a hora, para nao repetir sem motivo."""
+    import hashlib
+    agora = agora or datetime.now(timezone.utc)
+    sha = hashlib.sha256(CANARIO.read_bytes()).hexdigest() if CANARIO.exists() else None
+    ultima = _quando(estado.get("ONBOARD_ULTIMA_EM"))
+    if sha == estado.get("ONBOARD_PROVA_SHA") and ultima and agora - ultima < ONBOARD_INTERVALO:
+        return {"ACCAO": "NADA_MUDOU"}
+    estado["ONBOARD_PROVA_SHA"], estado["ONBOARD_ULTIMA_EM"] = sha, agora.isoformat()
+    if sha is None:
+        return {"ACCAO": "SEM_PROVA", "PORQUE": "%s nao existe" % CANARIO.name}
+    plano = (planear_fn or planear)(agora=agora)
+    escritas = (aplicar_fn or aplicar)(plano["ENTRA"]) if plano["ENTRA"] else 0
+    return {"ACCAO": "ONBOARDOU" if escritas else "NINGUEM_ENTROU",
+            "ESCRITAS": escritas, "ENTRA": [l["SOURCE_ID"] for l in plano["ENTRA"]],
+            "FICA": len(plano["FICA"]), "PROVA_SHA": sha}
 
 
 def main(argv=None) -> int:

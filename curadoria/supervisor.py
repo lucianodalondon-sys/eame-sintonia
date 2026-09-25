@@ -651,6 +651,18 @@ def _loop(pausa_worker: float, poll: float) -> int:
         if m.get("ACCOES"):
             _anotar({"EVENTO": "REALIMENTACAO", **m})
 
+    import onboardar_rotas_provadas as ONB  # noqa: E402
+
+    def _hook_onboarding():
+        try:
+            r = ONB.onboardar_se_mudou(estado)
+        except Exception as e:  # noqa: BLE001 — o supervisor nao morre por isto
+            _anotar({"EVENTO": "ONBOARDING_ERRO", "ERRO": repr(e)[:300]})
+            return
+        if r.get("ACCAO") != "NADA_MUDOU":
+            _anotar({"EVENTO": "ONBOARDING", **r})
+            _gravar_estado(estado)
+
     try:
         while True:
             accao, estado, proc = uma_volta_sup(estado, proc, pausa_worker,
@@ -668,6 +680,12 @@ def _loop(pausa_worker: float, poll: float) -> int:
 
             if accao == "BLOQUEADO":
                 return 2
+
+            # PONTE-ONBOARD (25/09/2026): a fonte ELIGIBLE com rota provada
+            # entra na tabela do coletor por aqui, e so por aqui (o dono e
+            # `onboardar_rotas_provadas`; o porque do supervisor esta la).
+            # Um erro deste passo fica no diario e NAO derruba o supervisor.
+            _hook_onboarding()
 
             print("SUPERVISOR: %s (restarts=%d)" % (
                 accao, estado.get("RESTARTS_TOTAL", 0)), flush=True)

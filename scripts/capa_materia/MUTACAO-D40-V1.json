@@ -1,0 +1,82 @@
+{
+ "DATASET": "MUTACAO-D40-V1",
+ "COPIA": "C:/capa-base",
+ "MUTANTES": {
+  "corta_antes_de_perguntar_ao_livro": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - o conhecido sai ANTES do corte: com 1 e 2 no livro, os alvos sao 3, 4, 5",
+    "FAIL  D40 - ordem estavel: a ordem do indice, duas corridas iguais",
+    "FAIL  D40 - o NOVO passa a frente da REVISITA, e a revisita so entra se sobrar lugar",
+    "FAIL  D40 - tudo conhecido: volta VAZIO, com a conta, e sem inventar alvo",
+    "FAIL  D40 - vale tambem para o padrao lido dentro do HTML (MATCH HTML)"
+   ]
+  },
+  "conhecido_continua_na_lista": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - o conhecido sai ANTES do corte: com 1 e 2 no livro, os alvos sao 3, 4, 5",
+    "FAIL  D40 - ordem estavel: a ordem do indice, duas corridas iguais",
+    "FAIL  D40 - o NOVO passa a frente da REVISITA, e a revisita so entra se sobrar lugar",
+    "FAIL  D40 - tudo conhecido: volta VAZIO, com a conta, e sem inventar alvo",
+    "FAIL  D40 - vale tambem para o padrao lido dentro do HTML (MATCH HTML)"
+   ]
+  },
+  "teto_4": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - o conhecido sai ANTES do corte: com 1 e 2 no livro, os alvos sao 3, 4, 5",
+    "FAIL  D40 - no maximo 3, mesmo com o contrato a pedir 1 ou 30",
+    "FAIL  D40 - ordem estavel: a ordem do indice, duas corridas iguais",
+    "FAIL  D40 - vale tambem para o padrao lido dentro do HTML (MATCH HTML)"
+   ]
+  },
+  "teto_1": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - o conhecido sai ANTES do corte: com 1 e 2 no livro, os alvos sao 3, 4, 5",
+    "FAIL  D40 - no maximo 3, mesmo com o contrato a pedir 1 ou 30",
+    "FAIL  D40 - ordem estavel: a ordem do indice, duas corridas iguais",
+    "FAIL  D40 - o NOVO passa a frente da REVISITA, e a revisita so entra se sobrar lugar",
+    "FAIL  D40 - vale tambem para o padrao lido dentro do HTML (MATCH HTML)"
+   ]
+  },
+  "ordem_do_indice_invertida": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - o conhecido sai ANTES do corte: com 1 e 2 no livro, os alvos sao 3, 4, 5",
+    "FAIL  D40 - ordem estavel: a ordem do indice, duas corridas iguais",
+    "FAIL  D40 - vale tambem para o padrao lido dentro do HTML (MATCH HTML)"
+   ]
+  },
+  "revisita_antes_do_novo": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - o NOVO passa a frente da REVISITA, e a revisita so entra se sobrar lugar"
+   ]
+  },
+  "inventa_alvo_quando_vazio": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - tudo conhecido: volta VAZIO, com a conta, e sem inventar alvo"
+   ]
+  },
+  "match_url_ignora_o_livro": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - o conhecido sai ANTES do corte: com 1 e 2 no livro, os alvos sao 3, 4, 5",
+    "FAIL  D40 - ordem estavel: a ordem do indice, duas corridas iguais",
+    "FAIL  D40 - o NOVO passa a frente da REVISITA, e a revisita so entra se sobrar lugar",
+    "FAIL  D40 - tudo conhecido: volta VAZIO, com a conta, e sem inventar alvo"
+   ]
+  },
+  "match_html_ignora_o_livro": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - vale tambem para o padrao lido dentro do HTML (MATCH HTML)"
+   ]
+  }
+ },
+ "MORTOS": 9,
+ "TOTAL": 9
+}

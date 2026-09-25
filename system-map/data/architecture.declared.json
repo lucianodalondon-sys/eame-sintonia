@@ -814,6 +814,50 @@
    ]
   },
   {
+   "id": "C-CAPA-MATERIA",
+   "name": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Diagnostico offline dos 6 NAO/NAO_SEI da 1.a onda (BC5) sobre os RAW guardados: IT-T7-135/121 escolhiam a pagina de contatos da cia.it (o LINK_PATTERN do molde so recusava 'contatti' no 1.o troco); conserto em regras/motor_de_rota.mjs (pagina institucional no ULTIMO troco nao e alvo). Mede no livro de coletas da producao (169 enderecos, 2 recusados, 0 materias) e rejulga a 1.a onda com T1+T2 (0 mudancas). D40 (ALVOS-NOVOS): a escolha passa a ser o 1.o alvo ainda NAO coletado, ate 3 por fonte (escolherAlvosD40 em regras/motor_de_rota.mjs; o coletor da-lhe o livro); medido com 14 indices (1 pedido por dominio): 30 documentos novos por corrida contra 4 do jeito antigo com o mesmo teto D38. ALVOS-NOVOS-2: pagina de LISTA (ano sozinho, lista+ano, paginacao, tag/categoria/arquivo) nao e alvo — 0/169 do livro, 11/225 dos indices (todos ciatoscana); 30 -> 27. CONTRATOS-AJUSTE: IT-T5-090 aponta /comunicato-stampa/ e /notizia/ (0 seccoes; 1 pedido confirmou MATERIA_PROVAVEL); IT-T7-042 recebe o prazo de 3 dias da T1; o corte por idade (28 dias) ficou como pergunta ao bot Luciano.",
+   "why_here": "Rendimento do MICRO/2.a onda (D35 > 16,7%). O falso CAPA da IT-T7-042 e do detector (noticia curta) e nao foi mexido: nao renderia SIM.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/capa_materia/medir_filtro_institucional.py",
+    "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+    "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
+    "RELATORIO-CAPA-MATERIA.md",
+    "scripts/capa_materia/mutar_filtro.py",
+    "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+    "scripts/capa_materia/mutar_d40.py",
+    "scripts/capa_materia/MUTACAO-D40-V1.json",
+    "scripts/capa_materia/buscar_indices_d40.py",
+    "scripts/capa_materia/INDICES-D40-V1.json",
+    "scripts/capa_materia/medir_d40.mjs",
+    "scripts/capa_materia/MEDICAO-D40-V1.json",
+    "RELATORIO-ALVOS-NOVOS.md",
+    "scripts/capa_materia/medir_filtro_lista.mjs",
+    "scripts/capa_materia/MEDICAO-FILTRO-LISTA-V1.json",
+    "scripts/capa_materia/mutar_lista.py",
+    "scripts/capa_materia/MUTACAO-FILTRO-LISTA-V1.json",
+    "scripts/capa_materia/confirmar_istat.py",
+    "scripts/capa_materia/CONFIRMACAO-ISTAT-V1.json",
+    "scripts/capa_materia/MEDICAO-CONTRATOS-AJUSTE-HOJE-V1.json",
+    "scripts/capa_materia/MEDICAO-CONTRATOS-AJUSTE-27-09-V1.json",
+    "scripts/capa_materia/mutar_contratos.py",
+    "scripts/capa_materia/MUTACAO-CONTRATOS-AJUSTE-V1.json",
+    "RELATORIO-CONTRATOS-AJUSTE.md",
+    "PERGUNTA-BOT-LUCIANO-HORIZONTE-DE-REVISITA.md"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",
@@ -3162,12 +3206,31 @@
    ]
   },
   {
+   "id": "C-PONTE-ONBOARD",
+   "name": "A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "sha256 canonico de SOURCE_ID + OUTPUT_TYPE + ACQUISITION — exactamente o que onboardar_rotas_provadas escreve na tabela do coletor. O canario de rotas grava-o na prova (CONTRATO_SHA256, PROVADO_EM); o onboarding so escreve a linha se a impressao provada for igual a do contrato de agora e a prova tiver <= 7 dias. O supervisor chama o onboarding a cada volta (onboardar_se_mudou: so quando a prova muda ou de 10 em 10 min). mutacao.py desliga cada guarda e exige que um teste caia.",
+   "why_here": "PONTE-ONBOARD (25/09/2026): o canario lia o contrato do Git HEAD e o bot escreve no disco sem commitar (HEAD 574 fontes, disco 762); 14 das 17 fontes a onboardar tinham no HEAD outro contrato. E ninguem chamava o onboarding: 0 fontes entraram no coletor com 28 ELIGIBLE a espera. Ensaio em copia do vivo: 0 -> 17.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "curadoria/sha_do_contrato.py",
+    "ferramentas/ponte_onboard/mutacao.py"
+   ]
+  },
+  {
    "id": "C-CANARIO-ROTAS-ELEGIVEIS",
    "name": "O canario das rotas das fontes aprovadas",
    "territory": "Z-MEDIDAS",
    "kind": "engine",
    "icon": "◎",
-   "what": "Para cada fonte que o portao aprova e o coletor nao conhece, prova contra a rede a rota que o Curator DECLAROU: robots pelo leitor da casa (gate_de_rota), INDEX_URL, links de detalhe pelo MESMO motor do coletor (ligacoesDoIndice de regras/motor_de_rota.mjs) e ate 2 alvos retratados pelo gate CAPA != MATERIA. Max 4 pedidos por fonte. Escreve curadoria/ROTAS-ELEGIVEIS-V1.json e mais nada; quem transforma a prova em linha do coletor e curadoria/onboardar_rotas_provadas.py.",
+   "what": "Para cada fonte que o portao aprova e o coletor nao conhece, prova contra a rede a rota que o Curator DECLAROU — o contrato EM DISCO por omissao (o que o robo vai usar), e grava a impressao dele (CONTRATO_SHA256) e a hora (PROVADO_EM): robots pelo leitor da casa (gate_de_rota), INDEX_URL, links de detalhe pelo MESMO motor do coletor (ligacoesDoIndice de regras/motor_de_rota.mjs) e ate 2 alvos retratados pelo gate CAPA != MATERIA. Max 4 pedidos por fonte. --juntar une rondas. Escreve curadoria/ROTAS-ELEGIVEIS-V1.json e mais nada; quem transforma a prova em linha do coletor e curadoria/onboardar_rotas_provadas.py.",
    "why_here": "ROTA SEM CANARIO NAO E ROTA. Medido em 2026-09-22: 8 elegiveis no livro do lote-76 tinham rota declarada pelo Curator e nenhuma linha na tabela do coletor, porque a tabela onboarded foi escrita uma vez (04A). O canario provou 6, achou uma duplicada (duas fichas, o mesmo documento) e uma fonte que mudou de dominio desde a prova de ontem.",
    "departments": [
     "ENGENHARIA"
@@ -4721,7 +4784,32 @@
    "files": [
     "provas/cortesia_http_local.mjs",
     "provas/cortesia_red_team.mjs",
-    "provas/CORTESIA-RED-TEAM-V1.json"
+    "provas/CORTESIA-RED-TEAM-V1.json",
+    "provas/teto_dominio_local.mjs",
+    "provas/teto_dominio_mutacao.py",
+    "provas/TETO-DOMINIO-MUTACAO.json",
+    "provas/onda_web_mutacao.py",
+    "provas/ONDA-WEB-MUTACAO.json"
+   ]
+  },
+  {
+   "id": "C-PROVA-TETO-DOMINIO",
+   "name": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Le o livro de corridas do coletor (CORTESIA.PEDIDOS_POR_HOST, escrito pelo transporte), junta os hosts por dominio registavel com uma regra propria (sem Public Suffix List; sufixo em falta junta mais, nunca menos) e soma a ONDA inteira: 0=PASS, 1=FAIL (dominio acima de 5), 2=NAO_SEI (corrida da onda sem linha no livro — nunca conta zero). Modo --plano: confere o que um plano de onda PREVE (onda_web --so-plano), reagrupando pelo dominio desta prova e conferindo o dominio de cada fonte pelo INDEX_URL dos contratos (json + mjs lidos como texto). A corrida que rebenta a meio (FECHAR-ONDA2) tambem escreve a sua linha com os PEDIDOS_POR_HOST: `corrida_abortada_local.mjs` prova-o contra um servidor local, e mostra a prova a fechar com a linha e a dar NAO_SEI sem ela.",
+   "why_here": "PROVA-TETO (25/09/2026): na 1.a onda cia.it levou 16 pedidos (5 fontes, teto por corrida). A ONDA2-G3 mudou o disjuntor para contar por dominio na onda (D38); esta prova mede o mesmo por outro caminho, para ser usada depois do MICRO e da 2.a onda. 1.a onda: FAIL cia.it=16; plano integrado da 2.a onda: PASS (80 previstos, maximo 5).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/prova_teto_dominio.py",
+    "provas/corrida_abortada_local.mjs"
    ]
   },
   {
@@ -4871,6 +4959,43 @@
    ],
    "files": [
     "ferramentas/big_collection/bc5_big_collection.py"
+   ]
+  },
+  {
+   "id": "C-ONDA-WEB",
+   "name": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos.",
+   "why_here": "ONDA2-PLANO mediu cia.it com 16 pedidos numa onda (5 fontes, teto por corrida) e o disparador da BC5 a ler a coorte de C:\bc fora do Git. D38: 5 por dominio na onda inteira.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/big_collection/onda_web.py"
+   ]
+  },
+  {
+   "id": "C-INTEGRA-ONDA2",
+   "name": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "ensaio_integra.sh: o ensaio integrado numa copia fiel do vivo com a rede FECHADA (clone local + livros do vivo; onboarding com a prova de rotas ja feita, plano do runbook, coorte congelada so na copia, onda_web --so-plano, plano do MICRO, prova do teto sobre os dois planos, desfazer). prova_teto_micro.py: plano do MICRO so com as fontes de um lote e a prova independente do teto (C-PROVA-TETO-DOMINIO) no pior caso de 5 pedidos por fonte PRONTA. Sem rede.",
+   "why_here": "INTEGRA-ONDA2 (25/09/2026): juntar CONTRATOS-12 (com ONDA2-G3), CONTRATOS-AJUSTE (com CAPA-MATERIA), PONTE-ONBOARD e a PROVA-TETO antes do MICRO, e ensaiar tudo junto sem rede (D41.3). Ensaio final: 17 entram, coorte 28 (D45), onda2 22/80, max 5.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/integra_onda2/prova_teto_micro.py",
+    "ferramentas/integra_onda2/final/ensaio_integra.sh"
    ]
   },
   {
