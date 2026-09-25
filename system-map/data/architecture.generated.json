@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "pacote-tempo-lugar-v1",
-    "HEAD": "be2538f48aeec8961f52fdaa1b454ef68a2aa3ea",
-    "GENERATED_AT": "2026-09-25T16:05:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "5016a7563cc4b3dd5c8112c3b4f2ccc177844c1be113cb9991c00f009be8fba6"
+    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
+    "GENERATED_AT": "2026-09-25T16:40:20-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681"
   },
   "FILES": [
     {
@@ -332,7 +332,7 @@
     },
     {
       "path": "PLANO-INSTALACAO-PACOTE-TEMPO-LUGAR.md",
-      "sha": "333442d33db3aba27b1e3ea9aea22180dd3354bf",
+      "sha": "47b7637ec550df33043dffd7eddab066ab83ebf4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -577,7 +577,7 @@
     },
     {
       "path": "RELATORIO-LUGAR-FATO.md",
-      "sha": "1ae497ecba4c92305a94c094929713bf5ee38f7c",
+      "sha": "6591f240a2412f0dbbb932c4abb703a14f1c7de4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -14416,7 +14416,7 @@
     },
     {
       "path": "leis/fato_do_texto.py",
-      "sha": "a7bba74597e8b98b73895c54c017f0a3e34258aa",
+      "sha": "5a529fd533af884abff64a35e957a117fcc331e1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18259,21 +18259,21 @@
     },
     {
       "path": "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
-      "sha": "16b1e580a6f507dd5304364ecc00be673800750a",
+      "sha": "dc43b79e799635a0a825ad85a8fe605fc4bb11d5",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
-      "sha": "c7d259e8f760845b00ad394f5cd5a510ccb2bf30",
+      "sha": "f0af9859a23b8c1046da706235c74ad90c70180e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
-      "sha": "fcf9311b24db26c04cef864a1d8dd6e9bce02f24",
+      "sha": "bf5dc75bd98f96328c00251deb194cdc554eef02",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -18294,7 +18294,7 @@
     },
     {
       "path": "scripts/lugar_fato/mutar_fato_do_texto.py",
-      "sha": "3ec33a074db0df51a999f6f058b5e908bd5ee278",
+      "sha": "87ff9adba815da92945ce62d2b819715824b2c63",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20779,7 +20779,7 @@
     },
     {
       "path": "tests/test_fato_do_texto.py",
-      "sha": "78b9d022b369c990c5e62ef01e9c0404660509ad",
+      "sha": "bed8eef4d030354fb076e12723a02754bc97b62c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -65279,7 +65279,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
-        "line": 146,
+        "line": 165,
         "snippet": "out = Path(__file__).with_name(\"MUTACAO-FATO-DO-TEXTO-V1.json\")"
       }
     },
@@ -65290,7 +65290,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
-        "line": 147,
+        "line": 166,
         "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
       }
     },
