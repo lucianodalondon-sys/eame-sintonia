@@ -1,0 +1,847 @@
+{
+ "DATASET": "JANELAS-68-CRUZAMENTO-V1",
+ "RAMOS": {
+  "origin/janela-formas-v1": "d0093df0",
+  "t2-boletins-v1": "19dfbdf6",
+  "origin/receitas-182-v1": "41d8751e"
+ },
+ "N": 68,
+ "RESOLVIDAS_POR_RAMO": {
+  "janela-formas-v1": 2,
+  "receitas-182-v1": 2
+ },
+ "SEM_RAMO": 64,
+ "TOCADAS_POR_ALGUM_RAMO": 17,
+ "CONCORDANCIA_DE_FORMA": {
+  "PAGINA_BOLETIM | MENU_INSTITUCIONAL": 6,
+  "MENU | MENU_INSTITUCIONAL": 6,
+  "REPARADO_A_REVER | PASSOU_A_REGUA_ESPERA_LEITURA": 6,
+  "JS_API | JS_OU_VAZIA": 5,
+  "PAGINA_BOLETIM | PAGINA_BOLETIM": 5,
+  "PAGINA_BOLETIM | LISTA_MOLDE_NAO_ACHOU": 5,
+  "MENU | LISTA_CERTA_JUIZ_DIZ_CAPA": 5,
+  "MENU | LISTA_MOLDE_NAO_ACHOU": 4,
+  "NAO_SEI | MENU_INSTITUCIONAL": 4,
+  "PDF | PAGINA_BOLETIM": 3,
+  "PDF | MENU_INSTITUCIONAL": 3,
+  "MENU | PAGINA_BOLETIM": 3,
+  "LISTA_NOTICIA | PAGINA_BOLETIM": 2,
+  "MENU | LISTA_MOLDE_ESCOLHEU_MENU": 2,
+  "PDF | LISTA_DE_ANEXOS_PDF": 2,
+  "PDF | PASSOU_A_REGUA_ESPERA_LEITURA": 2,
+  "MENU | ITEM_CURTO_OU_NAO_ABRIU": 1,
+  "PDF | JS_OU_VAZIA": 1,
+  "LISTA_NOTICIA | ITEM_CURTO_OU_NAO_ABRIU": 1,
+  "PAGINA_BOLETIM | PAGINA_UNICA": 1,
+  "MENU | JS_OU_VAZIA": 1
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T2-137",
+   "NOME": "ARPAE Emilia-Romagna — SIMC",
+   "URL": "https://simc.arpae.it/",
+   "MINHA_FORMA": "JS_API",
+   "FORMA_R182": "JS_OU_VAZIA",
+   "REGRA_R182": "entrada com 1690 bytes e 9 ligacoes: a pagina desenha-se no navegador",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-140",
+   "NOME": "ARPAS Sardegna — Bollettino decadale di siccita",
+   "URL": "http://www.sar.sardegna.it/servizi/agro/monit_siccita.asp",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (monit_siccita)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-141",
+   "NOME": "ARPAS Sardegna — Bollettino fenologico",
+   "URL": "http://www.sar.sardegna.it/servizi/agro/bollfenologico.asp",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollfenolog)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-142",
+   "NOME": "ARPAS Sardegna — Meteo",
+   "URL": "https://www.sar.sardegna.it/",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "pagina sem familia de itens e sem cara de lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-144",
+   "NOME": "ARPAV Veneto",
+   "URL": "https://www.arpa.veneto.it/",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so familias de menu numa pagina que nao e lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-148",
+   "NOME": "ARSAC Calabria — Bollettino agrometeorologico e fitosanitario (agrumi, olivo, vite)",
+   "URL": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/",
+   "MINHA_FORMA": "LISTA_NOTICIA",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "PAGINA_E_BOLETIM",
+     "RESULTADO": "NAO_E_ESTA_FORMA",
+     "PORQUE": "LISTA_PARADA: lista de boletins «valido fino al 29 novembre 2022» — o site parou em 2022"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-149",
+   "NOME": "ARSARP Molise — Agrometeorologia",
+   "URL": "https://www.arsarp.it/category/agrometeorologia-2/",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "ITEM_CURTO_OU_NAO_ABRIU",
+   "REGRA_R182": "o item tentado nao tem corpo (ou deu erro)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-150",
+   "NOME": "Agrometeo Puglia",
+   "URL": "https://www.agrometeopuglia.it/",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so familias de menu numa pagina que nao e lista",
+   "VEREDITOS": [
+    {
+     "RAMO": "t2-boletins-v1",
+     "ROTA": "JS_API",
+     "RESULTADO": "SO_ESTUDO",
+     "PORQUE": "estudo C-JS/D46: saida publica procurada, contrato so proposto"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-151",
+   "NOME": "Agrometeo Puglia — Bollettini",
+   "URL": "https://www.agrometeopuglia.it/bollettini",
+   "MINHA_FORMA": "LISTA_NOTICIA",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-025",
+   "NOME": "Campania — Bollettini fitosanitari 2026",
+   "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "RECEITA_PDF",
+     "RESULTADO": "CONTRATO_SEM_CANARIO",
+     "PORQUE": "contrato PDF escrito, sem canario"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-026",
+   "NOME": "Campania — SIMFITO, monitoraggio fitosanitario",
+   "URL": "https://simfito.regione.campania.it/",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [
+    {
+     "RAMO": "t2-boletins-v1",
+     "ROTA": "JS_API",
+     "RESULTADO": "SO_ESTUDO",
+     "PORQUE": "estudo C-JS/D46: saida publica procurada, contrato so proposto"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T12-151",
+   "NOME": "ERSA FVG — Avvisi e comunicazioni",
+   "URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/index.html",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [
+    {
+     "RAMO": "receitas-182-v1",
+     "ROTA": "REPARO_FAMILIA",
+     "RESULTADO": "FAIL",
+     "PORQUE": "RECUSA SEM_FAMILIA_DE_ITENS"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-027",
+   "NOME": "ERSA FVG — Bollettini di difesa integrata e biologica",
+   "URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (Bollettin)",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "RECEITA_PDF",
+     "RESULTADO": "PASS",
+     "PORQUE": "canario real: DETAIL 22"
+    }
+   ],
+   "RESOLVIDA_POR": [
+    "janela-formas-v1"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T3-028",
+   "NOME": "Emilia-Romagna — Bollettini territoriali di produzione integrata e biologica",
+   "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-166",
+   "NOME": "LaMMA Toscana — News",
+   "URL": "https://www.lamma.toscana.it/consorzio/news",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA_R182": "um item tentado tem 1824 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-167",
+   "NOME": "LaMMA Toscana — Pubblicazioni scientifiche",
+   "URL": "https://www.lamma.toscana.it/consorzio/pubblicazioni",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA_R182": "um item tentado tem 1666 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-152",
+   "NOME": "LaMMA — Bollettino agrometeo",
+   "URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so familias de menu numa pagina que nao e lista",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "PAGINA_E_BOLETIM",
+     "RESULTADO": "PASS",
+     "PORQUE": "PAGINA_E_BOLETIM: «Aggiornato il DD/MM/AAAA», «aggiornato una volta la settimana (giovedi)», observacoes da "
+    }
+   ],
+   "RESOLVIDA_POR": [
+    "janela-formas-v1"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-153",
+   "NOME": "Liguria — Centro di agrometeorologia (CAAR)",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so familias de menu numa pagina que nao e lista",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "PAGINA_E_BOLETIM",
+     "RESULTADO": "NAO_E_ESTA_FORMA",
+     "PORQUE": "PAGINA_DESCRITIVA: descreve os boletins do CAAR; o de viticultura remete para sia.regione.liguria.it (outro s"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-031",
+   "NOME": "Liguria — Sorveglianza del territorio e monitoraggio organismi nocivi",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/sorveglianza-del-territorio-carte-di-diffusione-e-monitoraggio-degli-organismi-nocivi.html",
+   "MINHA_FORMA": "NAO_SEI",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so ha familias de paginas fixas",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "PAGINA_E_BOLETIM",
+     "RESULTADO": "NAO_E_ESTA_FORMA",
+     "PORQUE": "PAGINA_DESCRITIVA: pagina de referencia da vigilancia fitossanitaria, sem boletim datado"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-032",
+   "NOME": "Molise — Bollettini e comunicati fitosanitari",
+   "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "pagina sem familia de itens e sem cara de lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-155",
+   "NOME": "OSMER FVG — Osservatorio meteorologico",
+   "URL": "https://www.osmer.fvg.it/",
+   "MINHA_FORMA": "JS_API",
+   "FORMA_R182": "JS_OU_VAZIA",
+   "REGRA_R182": "entrada com 315 bytes e 0 ligacoes: a pagina desenha-se no navegador",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-033",
+   "NOME": null,
+   "URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan/bacheca-dei-bollettini",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "JS_OU_VAZIA",
+   "REGRA_R182": "entrada nao-HTML com 52 bytes",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-034",
+   "NOME": "SFN — Emergenze fitosanitarie",
+   "URL": "https://www.protezionedellepiante.it/emergenze-fitosanitarie/",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so ha familias de paginas fixas",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-158",
+   "NOME": "SIARL Lazio — agrometeo",
+   "URL": "https://www.siarl-lazio.it/",
+   "MINHA_FORMA": "JS_API",
+   "FORMA_R182": "JS_OU_VAZIA",
+   "REGRA_R182": "entrada com 1146 bytes e 1 ligacoes: a pagina desenha-se no navegador",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-035",
+   "NOME": "Servizio Fitosanitario Nazionale",
+   "URL": "https://www.protezionedellepiante.it/",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so ha familias de paginas fixas",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-037",
+   "NOME": "Servizio Fitosanitario Regionale — basilicata",
+   "URL": "https://www.regione.basilicata.it/giunta/site/giunta/department.jsp?dep=100049&area=104835&level=1",
+   "MINHA_FORMA": "NAO_SEI",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so ha familias de paginas fixas",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-038",
+   "NOME": "Servizio Fitosanitario Regionale — bolzano",
+   "URL": "https://www.provincia.bz.it/agricoltura-foreste/agricoltura/default.asp",
+   "MINHA_FORMA": "JS_API",
+   "FORMA_R182": "JS_OU_VAZIA",
+   "REGRA_R182": "entrada com 2491 bytes e 0 ligacoes: a pagina desenha-se no navegador",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-157",
+   "NOME": "Servizio Fitosanitario Regionale — calabria",
+   "URL": "https://www.regione.calabria.it/website/organizzazione/dipartimento8/subsite/fitosanitario/",
+   "MINHA_FORMA": "NAO_SEI",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so ha familias de paginas fixas",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-039",
+   "NOME": "Servizio Fitosanitario Regionale — campania",
+   "URL": "http://www.agricoltura.regione.campania.it/difesa/difesa.html",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [
+    {
+     "RAMO": "receitas-182-v1",
+     "ROTA": "REPARO_FAMILIA",
+     "RESULTADO": "FAIL",
+     "PORQUE": "RECUSA SEM_FAMILIA_DE_ITENS"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-040",
+   "NOME": "Servizio Fitosanitario Regionale — friuli-venezia-giulia",
+   "URL": "https://www.ersa.fvg.it/cms/hp/",
+   "MINHA_FORMA": "LISTA_NOTICIA",
+   "FORMA_R182": "ITEM_CURTO_OU_NAO_ABRIU",
+   "REGRA_R182": "o item tentado nao tem corpo (ou deu erro)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-041",
+   "NOME": "Servizio Fitosanitario Regionale — lazio",
+   "URL": "https://www.regione.lazio.it/cittadini/agricoltura/servizio-fitosanitario-regionale",
+   "MINHA_FORMA": "REPARADO_A_REVER",
+   "FORMA_R182": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA_R182": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-042",
+   "NOME": "Servizio Fitosanitario Regionale — liguria",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+   "MINHA_FORMA": "NAO_SEI",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so ha familias de paginas fixas",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-043",
+   "NOME": "Servizio Fitosanitario Regionale — marche",
+   "URL": "https://www.amap.marche.it/servizi/fitosanitario",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA_R182": "um item tentado tem 2087 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-044",
+   "NOME": "Servizio Fitosanitario Regionale — marche — Eventi",
+   "URL": "https://www.amap.marche.it/progetti-europei/eventi",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA_R182": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-046",
+   "NOME": "Servizio Fitosanitario Regionale — molise",
+   "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/4130",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "pagina sem familia de itens e sem cara de lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-047",
+   "NOME": "Servizio Fitosanitario Regionale — piemonte",
+   "URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+   "MINHA_FORMA": "REPARADO_A_REVER",
+   "FORMA_R182": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA_R182": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-048",
+   "NOME": "Servizio Fitosanitario Regionale — sardegna",
+   "URL": "http://www.sardegnaagricoltura.it/index.html",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "pagina sem familia de itens e sem cara de lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-158",
+   "NOME": "Servizio Fitosanitario Regionale — sicilia",
+   "URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/servizi/servizio-fitosanitario-regionale",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA_R182": "um item tentado tem 966 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-049",
+   "NOME": "Servizio Fitosanitario Regionale — toscana",
+   "URL": "https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale",
+   "MINHA_FORMA": "REPARADO_A_REVER",
+   "FORMA_R182": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA_R182": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-050",
+   "NOME": null,
+   "URL": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "PAGINA_UNICA",
+   "REGRA_R182": "a entrada e ela propria um texto (2071 em paragrafos): nao lista nada",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-051",
+   "NOME": "Servizio Fitosanitario Regionale — valle-daosta",
+   "URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/default_i.asp",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [
+    {
+     "RAMO": "receitas-182-v1",
+     "ROTA": "REPARO_FAMILIA",
+     "RESULTADO": "FAIL",
+     "PORQUE": "RECUSA SEM_FAMILIA_DE_ITENS"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-052",
+   "NOME": "Servizio Fitosanitario Regionale — veneto",
+   "URL": "https://www.regione.veneto.it/web/fitosanitario",
+   "MINHA_FORMA": "REPARADO_A_REVER",
+   "FORMA_R182": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA_R182": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-159",
+   "NOME": "Sicilia — Difesa fitosanitaria",
+   "URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/difesa-fitosanitaria",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so familias de menu numa pagina que nao e lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-054",
+   "NOME": null,
+   "URL": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale/in-evidenza/-/asset_publisher/PONvICXXT7f8/content/bollettini-fitosanitari-2026",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-055",
+   "NOME": "Valle d'Aosta — Avvisi fitosanitari per frutticoltori",
+   "URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "LISTA_DE_ANEXOS_PDF",
+   "REGRA_R182": "o item/entrada e anexo (allegato/pdf/bacheca)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-056",
+   "NOME": "Valle d'Aosta — Avvisi fitosanitari per viticoltori",
+   "URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/viticoltura_i.asp",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "LISTA_DE_ANEXOS_PDF",
+   "REGRA_R182": "o item/entrada e anexo (allegato/pdf/bacheca)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-058",
+   "NOME": "Veneto — Bollettini fitosanitari 2026",
+   "URL": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-059",
+   "NOME": "Veneto — Difesa delle colture (bollettini e materiali tecnici)",
+   "URL": "https://www.regione.veneto.it/web/fitosanitario/difesa-colture",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "pagina sem familia de itens e sem cara de lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-060",
+   "NOME": "ASNACODI — Associazione Nazionale Consorzi di Difesa",
+   "URL": "https://www.asnacodi.it/",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-061",
+   "NOME": "ASNACODI — Associazione Nazionale Consorzi di Difesa — Eventi",
+   "URL": "https://www.asnacodi.it/eventi/",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-062",
+   "NOME": "ASNACODI — Associazione Nazionale Consorzi di Difesa — News",
+   "URL": "https://www.asnacodi.it/news/",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [
+    {
+     "RAMO": "receitas-182-v1",
+     "ROTA": "REPARO_FAMILIA",
+     "RESULTADO": "PASS",
+     "PORQUE": "PADRAO_NOVO FAMILIA_POR_ESQUELETO: 12 itens na listagem, o 1.o (o do canario) e materia com "
+    }
+   ],
+   "RESOLVIDA_POR": [
+    "receitas-182-v1"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T3-063",
+   "NOME": "CODIPRA Trento — Consorzio Difesa Produttori Agricoli",
+   "URL": "https://www.codipra.it/",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "pagina sem familia de itens e sem cara de lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T9-024",
+   "NOME": "Horta — servizi di supporto alle decisioni (vite.net)",
+   "URL": "https://www.horta-srl.it/",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-069",
+   "NOME": "Horta — servizi di supporto alle decisioni (vite.net) — News ed eventi",
+   "URL": "https://www.horta-srl.it/news/",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA_R182": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "VEREDITOS": [
+    {
+     "RAMO": "receitas-182-v1",
+     "ROTA": "REPARO_FAMILIA",
+     "RESULTADO": "PASS",
+     "PORQUE": "PADRAO_NOVO FAMILIA_POR_ESQUELETO: 10 itens na listagem, o 1.o (o do canario) e materia com "
+    }
+   ],
+   "RESOLVIDA_POR": [
+    "receitas-182-v1"
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-132",
+   "NOME": "ALSIA Basilicata — agrometeo e assistenza tecnica",
+   "URL": "https://www.alsia.it/",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "JS_OU_VAZIA",
+   "REGRA_R182": "entrada com 293 bytes e 0 ligacoes: a pagina desenha-se no navegador",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-133",
+   "NOME": "AMAP Marche — Agrometeorologia",
+   "URL": "https://www.amap.marche.it/servizi/agrometeorologia",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA_R182": "um item tentado tem 1789 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-134",
+   "NOME": "AMAP Marche — Pubblicazioni di agrometeorologia",
+   "URL": "https://www.amap.marche.it/pubblicazioni/agrometeorologia",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA_R182": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "VEREDITOS": [
+    {
+     "RAMO": "receitas-182-v1",
+     "ROTA": "REPARO_FAMILIA",
+     "RESULTADO": "FAIL",
+     "PORQUE": "RECUSA ITEM_NAO_E_MATERIA"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-135",
+   "NOME": "ARPA Lombardia — Archivio bollettini agrometeo",
+   "URL": "https://www.arpalombardia.it/archivio-bollettini-agrometeo/",
+   "MINHA_FORMA": "REPARADO_A_REVER",
+   "FORMA_R182": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA_R182": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-136",
+   "NOME": "ARPA Lombardia — Bollettino agrometeo",
+   "URL": "https://www.arpalombardia.it/temi-ambientali/meteo-e-clima/bollettini-meteorologici/agrometeo/",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "PAGINA_E_BOLETIM",
+     "RESULTADO": "NAO_E_ESTA_FORMA",
+     "PORQUE": "BOLETIM_FORA_DO_TEXTO: nenhuma data nem corpo de boletim no texto do HTML (so menu): o boletim e imagem/PDF/JS"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-138",
+   "NOME": "ARPAE — Mappe agrometeo settimanali",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/mappe-settimanali",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (mappe-settimanali)",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "PAGINA_E_BOLETIM",
+     "RESULTADO": "NAO_E_ESTA_FORMA",
+     "PORQUE": "IMAGENS: mapas semanais em imagem; 2 092 caracteres de texto, quase so menu"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-139",
+   "NOME": "ARPAE — Previsioni agrometeo",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/previsioni-meteo/previsioni-agrometeo",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (previsioni-agrometeo)",
+   "VEREDITOS": [
+    {
+     "RAMO": "janela-formas-v1",
+     "ROTA": "PAGINA_E_BOLETIM",
+     "RESULTADO": "NAO_E_ESTA_FORMA",
+     "PORQUE": "IMAGENS: «Pubblicato il 4/8/2020»; 1 357 caracteres, o resto e imagem"
+    }
+   ],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-147",
+   "NOME": "ARPAV — Agrometeo",
+   "URL": "https://www.arpa.veneto.it/temi-ambientali/agrometeo",
+   "MINHA_FORMA": "MENU",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so familias de menu numa pagina que nao e lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-029",
+   "NOME": "FEM — Emergenze fitosanitarie",
+   "URL": "https://fitoemergenze.fmach.it/",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "MENU_INSTITUCIONAL",
+   "REGRA_R182": "so familias de menu numa pagina que nao e lista",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-030",
+   "NOME": "FEM — Flavescenza dorata, bollettini di difesa",
+   "URL": "https://fitoemergenze.fmach.it/flavescenza-dorata/bollettini-di-difesa",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA_R182": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-154",
+   "NOME": "Meteo Provincia di Bolzano",
+   "URL": "https://meteo.provincia.bz.it/",
+   "MINHA_FORMA": "JS_API",
+   "FORMA_R182": "JS_OU_VAZIA",
+   "REGRA_R182": "entrada com 2466 bytes e 0 ligacoes: a pagina desenha-se no navegador",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-157",
+   "NOME": "Regione Marche — Notiziari meteo e agrometeo",
+   "URL": "https://meteo.regione.marche.it/Notiziari",
+   "MINHA_FORMA": "PDF",
+   "FORMA_R182": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA_R182": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-159",
+   "NOME": "SIARL — Agrometeorologia Lazio (ARSIAL)",
+   "URL": "https://siarl.arsial.it/",
+   "MINHA_FORMA": "REPARADO_A_REVER",
+   "FORMA_R182": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA_R182": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-057",
+   "NOME": "Veneto — Bollettini fitosanitari (lista permanente)",
+   "URL": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "MINHA_FORMA": "PAGINA_BOLETIM",
+   "FORMA_R182": "PAGINA_BOLETIM",
+   "REGRA_R182": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "VEREDITOS": [],
+   "RESOLVIDA_POR": null
+  }
+ ]
+}
