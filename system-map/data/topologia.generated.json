@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-24T20:57:48+00:00",
-  "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
+  "GENERATED_AT": "2026-09-25T04:45:47+00:00",
+  "HEAD": "6576204c0b3182b7b255bcd306b9f4172c05eff8",
   "BRANCH": "social-onda2-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e",
-  "FICHEIROS_NA_IMPRESSAO": 2991,
+  "SOURCE_TREE_FINGERPRINT": "c825303732840c9ecbfc243cd21cd338938ed929792bc64d55e1ec391667c775",
+  "FICHEIROS_NA_IMPRESSAO": 2994,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1651,7 +1651,7 @@
    {
     "PATH": "leis/fonte_do_atlas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "172477bd6633e10f13b241fd40869cb48b57a157",
+    "VERSAO": "cd61e0635dd06ffb90cbfb4fe1b3c5685dfe4ce4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3744,14 +3744,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e",
+    "VERSAO": "c825303732840c9ecbfc243cd21cd338938ed929792bc64d55e1ec391667c775",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e",
+    "VERSAO": "c825303732840c9ecbfc243cd21cd338938ed929792bc64d55e1ec391667c775",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4799,6 +4799,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_fonte_do_atlas_alocacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "59e9bd34105acb8126e21bbaaba99cd65c1a7a11",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_fontes_explicitas_no_coletor.py",
     "PAPEL": "FONTE",
     "VERSAO": "b369f0c2e3a284ca391566ce38a38f001ab9a383",
@@ -5632,8 +5639,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 799,
-  "INPUTS_DIGEST": "80be23ce9d7786736af19daab932310138a611a3649a56f880f7ebd28e0803ea",
+  "INPUTS_COUNT": 800,
+  "INPUTS_DIGEST": "886304bfa79ec3c4d162e63efc8bd4d62d63f1d2d267659aef2da2272d6faa0d",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5666,8 +5673,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "79084140110a0f87a3a5907caccad5455a6e3a3e7c14699c93fd9a14c3ee81b5",
-  "SEMANTIC_HASH": "4ea518936106a272a8b9fead9808480e55e71ed344b5acb8ac370e9c13e37181"
+  "MEASUREMENT_HASH": "61393ec6c1612c94af351e9ec04f0b53bad7025836caafcdc7e27cee3475a928",
+  "SEMANTIC_HASH": "a0dddddc2dab11fe8632a4020b72d78929f7738ca589dc16c0928a81377cf534"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -19984,6 +19991,14 @@
      {
       "FICHEIRO": "tests/test_fila_italia_decisoes.py",
       "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-FONTE-DO-ATLAS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_fonte_do_atlas_alocacao.py",
+      "LINHA": 13,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-FONTE-DO-ATLAS--IMPORTS-->C-TESTES",
@@ -40669,6 +40684,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-FONTE-DO-ATLAS",
+    "FROM": "C-TESTES",
+    "TO": "C-FONTE-DO-ATLAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "leis/fonte_do_atlas.py",
+      "LINHA": 141,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-FONTE-DO-ATLAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-MAPA-GERADOR",
     "FROM": "C-TESTES",
     "TO": "C-MAPA-GERADOR",
@@ -42849,12 +42886,12 @@
     ]
    }
   ],
-  "COUNT": 1200
+  "COUNT": 1201
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 181,
   "CARTOES_AUDITADOS": 181,
-  "ARESTAS_RELACIONADAS": 1200,
+  "ARESTAS_RELACIONADAS": 1201,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43268,7 +43305,7 @@
    "CODE": 215,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 386,
+   "PROOF": 387,
    "READ": 272,
    "RULE": 215,
    "WRITE": 9
@@ -46251,9 +46288,10 @@
    "LE_DE": [
     "__future__"
    ],
-   "ENTRAM": 2,
+   "ENTRAM": 3,
    "SAEM": 4,
    "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF",
     "READ"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -51866,6 +51904,7 @@
     "tests/test_fechar_ground_truth_t3.py",
     "tests/test_fila_italia_decisoes.py",
     "tests/test_fonte_atravessa.py",
+    "tests/test_fonte_do_atlas_alocacao.py",
     "tests/test_fontes_explicitas_no_coletor.py",
     "tests/test_forward_instrumentado.py",
     "tests/test_fronteira_mede_a_sala_canonica.py",
@@ -52111,7 +52150,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 201,
-   "SAEM": 28,
+   "SAEM": 29,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

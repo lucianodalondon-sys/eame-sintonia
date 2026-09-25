@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
-    "GENERATED_AT": "2026-09-24T17:45:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e"
+    "HEAD": "6576204c0b3182b7b255bcd306b9f4172c05eff8",
+    "GENERATED_AT": "2026-09-24T18:18:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c825303732840c9ecbfc243cd21cd338938ed929792bc64d55e1ec391667c775"
   },
   "FILES": [
     {
@@ -2424,6 +2424,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/LI-ONDA-MERGE-TREE-V1.txt",
+      "sha": "383fba941f0d2a8d8363817a7142ef9fd72a51ad",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/LIFECYCLE-AUTONOMY-V1.json",
       "sha": "ee2823a7aa840c6a0a5342a6b5d88600a609f628",
       "ext": ".json",
@@ -3230,7 +3237,7 @@
     },
     {
       "path": "curadoria/regua_social.py",
-      "sha": "8ce90575ccf937b783cef2bb35a9dcc9828fa0b2",
+      "sha": "49f52ca5c79234b8d1dd9e730e63b664e1fd7f54",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3266,6 +3273,13 @@
     {
       "path": "curadoria/semear_lifecycle.py",
       "sha": "642095693aafe3c15ec6bc2fa06d4ba81933626b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/semear_qualify_social.py",
+      "sha": "c9e4a81d06f7d63c1b2d253591a735a4b6b6bbc5",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -13583,7 +13597,7 @@
     },
     {
       "path": "leis/fonte_do_atlas.py",
-      "sha": "172477bd6633e10f13b241fd40869cb48b57a157",
+      "sha": "cd61e0635dd06ffb90cbfb4fe1b3c5685dfe4ce4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19065,6 +19079,13 @@
     {
       "path": "tests/test_fonte_atravessa.py",
       "sha": "12c8ca7387efa32b4cbdf3b58b60181b950744a4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fonte_do_atlas_alocacao.py",
+      "sha": "59e9bd34105acb8126e21bbaaba99cd65c1a7a11",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28168,7 +28189,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 155,
+        "line": 157,
         "snippet": "(RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
       }
     },
@@ -28179,7 +28200,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 173,
+        "line": 180,
         "snippet": "import lifecycle as LC"
       }
     },
@@ -28190,7 +28211,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 174,
+        "line": 181,
         "snippet": "import worker as W"
       }
     },
@@ -28423,6 +28444,50 @@
         "file": "curadoria/semear_lifecycle.py",
         "line": 26,
         "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/semear_qualify_social.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/semear_qualify_social.py",
+        "line": 32,
+        "snippet": "import fonte_nova as FN"
+      }
+    },
+    {
+      "from_file": "curadoria/semear_qualify_social.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/semear_qualify_social.py",
+        "line": 65,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/semear_qualify_social.py",
+      "to_file": "curadoria/rota_do_scrap_social.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/semear_qualify_social.py",
+        "line": 33,
+        "snippet": "import rota_do_scrap_social as RSS"
+      }
+    },
+    {
+      "from_file": "curadoria/semear_qualify_social.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/semear_qualify_social.py",
+        "line": 34,
+        "snippet": "import rota_do_scrap_youtube as RSY"
       }
     },
     {
@@ -40050,6 +40115,17 @@
         "file": "leis/fonte_do_atlas.py",
         "line": 75,
         "snippet": "MASTER_IT = os.path.join(\"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "leis/fonte_do_atlas.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/fonte_do_atlas.py",
+        "line": 141,
+        "snippet": "ALOCACAO = os.path.join(\"curadoria\", \"SOURCE-ID-ALLOCATION-V1.json\")"
       }
     },
     {
@@ -74043,6 +74119,17 @@
       }
     },
     {
+      "from_file": "tests/test_fonte_do_atlas_alocacao.py",
+      "to_file": "leis/fonte_do_atlas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fonte_do_atlas_alocacao.py",
+        "line": 13,
+        "snippet": "import fonte_do_atlas as fa  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_fontes_explicitas_no_coletor.py",
       "to_file": "coleta/italy_pilot_collect.mjs",
       "type": "READS",
@@ -83230,10 +83317,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2843,
-    "files_readable": 1301,
-    "files_code_dir": 1123,
-    "file_edges": 5705,
+    "files_tracked": 2846,
+    "files_readable": 1303,
+    "files_code_dir": 1124,
+    "file_edges": 5711,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

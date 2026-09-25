@@ -369,6 +369,7 @@
       "curadoria/GATILHO-OCIOSO-ENSAIO-V1.json",
       "curadoria/HANDOFF-INTEGRACAO-04.md",
       "curadoria/K1-MEDICAO-V1.json",
+      "curadoria/LI-ONDA-MERGE-TREE-V1.txt",
       "curadoria/LIFECYCLE-AUTONOMY-V1.json",
       "curadoria/LIFECYCLE-EVIDENCE-V1.json",
       "curadoria/LIFECYCLE-LEDGER-V1.json",
@@ -490,6 +491,7 @@
       "curadoria/rota_do_scrap_social.py",
       "curadoria/rota_do_scrap_youtube.py",
       "curadoria/semear_lifecycle.py",
+      "curadoria/semear_qualify_social.py",
       "curadoria/social_onda2_ensaio.py",
       "curadoria/social_onda2_medir.py",
       "curadoria/status_live.py",
@@ -2798,6 +2800,7 @@
       "tests/test_fechar_ground_truth_t3.py",
       "tests/test_fila_italia_decisoes.py",
       "tests/test_fonte_atravessa.py",
+      "tests/test_fonte_do_atlas_alocacao.py",
       "tests/test_fontes_explicitas_no_coletor.py",
       "tests/test_forward_instrumentado.py",
       "tests/test_fronteira_mede_a_sala_canonica.py",
@@ -3437,9 +3440,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "60dc40879db924378532698a8a918d27e6f829af",
-    "GENERATED_AT": "2026-09-24T17:45:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "56fa801eb3a2d40a455587cbf1169ca3f4621509373e072cfd3049b105efc63e"
+    "HEAD": "6576204c0b3182b7b255bcd306b9f4172c05eff8",
+    "GENERATED_AT": "2026-09-24T18:18:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c825303732840c9ecbfc243cd21cd338938ed929792bc64d55e1ec391667c775"
   },
   "FAMILIES": [
     {
@@ -36987,7 +36990,8 @@
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
-        "C-IT-CATALOGO"
+        "C-IT-CATALOGO",
+        "C-TESTES"
       ],
       "outbound": [
         "C-DECISAO-DA-FILA",
@@ -37021,6 +37025,7 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "candidatas/ITALY-SOURCE-MASTER-V1.json",
+        "curadoria/SOURCE-ID-ALLOCATION-V1.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
       ],
       "consumes_plane": "CODE",
@@ -54349,6 +54354,7 @@
         "tests/test_fechar_ground_truth_t3.py",
         "tests/test_fila_italia_decisoes.py",
         "tests/test_fonte_atravessa.py",
+        "tests/test_fonte_do_atlas_alocacao.py",
         "tests/test_fontes_explicitas_no_coletor.py",
         "tests/test_forward_instrumentado.py",
         "tests/test_fronteira_mede_a_sala_canonica.py",
@@ -54469,7 +54475,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 230,
+      "file_count": 231,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -54652,6 +54658,7 @@
         "C-CICATRIZES-BR",
         "C-DETECTOR-CAPA-GABARITO",
         "C-ESTRADAS-IT",
+        "C-FONTE-DO-ATLAS",
         "C-IT-PRESERVAR",
         "C-MAPA-GERADOR",
         "C-MICRO-COLETA-INSTRUMENTO",
@@ -82299,12 +82306,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O atlas conhece esta fonte? tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O atlas conhece esta fonte? tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_fila_italia_decisoes.py",
           "line": 34,
           "snippet": "import fonte_do_atlas as ATLAS           # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTE-DO-ATLAS--IMPORTS-->C-TESTES",
+            "FROM": "C-FONTE-DO-ATLAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fonte_do_atlas_alocacao.py",
+          "line": 13,
+          "snippet": "import fonte_do_atlas as fa  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTE-DO-ATLAS--IMPORTS-->C-TESTES",
             "FROM": "C-FONTE-DO-ATLAS",
@@ -119454,6 +119477,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-FONTE-DO-ATLAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta O atlas conhece esta fonte?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/fonte_do_atlas.py",
+          "line": 141,
+          "snippet": "ALOCACAO = os.path.join(\"curadoria\", \"SOURCE-ID-ALLOCATION-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-FONTE-DO-ATLAS",
+            "FROM": "C-TESTES",
+            "TO": "C-FONTE-DO-ATLAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-IT-PRESERVAR",
       "type": "WRITES",
       "payload": "artefacto",
@@ -123150,7 +123208,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1611,
+  "UNCLAIMED_FILES_COUNT": 1613,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123408,12 +123466,12 @@
     "components_pending": 202,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1266,
-    "edges_proven": 1202,
+    "edges": 1267,
+    "edges_proven": 1203,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2843,
-    "files_covered": 1232,
+    "files_tracked": 2846,
+    "files_covered": 1233,
     "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,
