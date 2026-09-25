@@ -1,0 +1,59 @@
+{
+ "DATASET": "PROVA-ROTA-CICLO-MUTACAO",
+ "MORTOS": 13,
+ "TOTAL": 13,
+ "MUTANTES": [
+  {
+   "MUTANTE": "P1 a rodada sai mesmo sem portao PASS",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P2 dominio repetido entra na mesma rodada",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P3 nao-elegiveis entram (le o curador inteiro)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P4 prova recente de OUTRO contrato conta como recente",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P5 prova velha conta como recente",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P6 sem intervalo entre rodadas",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P7 rodada em curso nao impede outra",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P8 sem teto de fontes por rodada",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P9 o portao aceita qualquer veredito",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P10 o loop vai a rede por omissao",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P11 o servico nao liga a prova de rota",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P12 o gancho da prova nao e chamado",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P13 rodada presa nunca e terminada",
+   "RESULTADO": "MORTO"
+  }
+ ]
+}

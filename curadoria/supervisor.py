@@ -609,19 +609,24 @@ def uma_volta_sup(
 # ---------------------------------------------------------------------------
 
 def supervisionar(pausa_worker: float = 1.0,
-                  poll: float = SUPERVISOR_POLL_S) -> int:
+                  poll: float = SUPERVISOR_POLL_S, prova_de_rota: bool = False) -> int:
     lock_fd = _adquirir_lock()
     if lock_fd is None:
         print("SUPERVISOR ja em execucao (lock valido). A sair.")
         return 1
 
     try:
-        return _loop(pausa_worker, poll)
+        return _loop(pausa_worker, poll, prova_de_rota=prova_de_rota)
     finally:
         _libertar_lock(lock_fd)
 
 
-def _loop(pausa_worker: float, poll: float) -> int:
+def _loop(pausa_worker: float, poll: float, prova_de_rota: bool = False) -> int:
+    # ⚠️ A PROVA DE ROTA VAI A REDE, E SO O SERVICO A LIGA (`main()`).
+    # Medido no PROVA-ROTA-CICLO (25/09/2026, 08:01Z): com o gancho sempre ligado,
+    # os testes que correm este `_loop` lancaram SEIS canarios reais em paralelo
+    # contra as mesmas fontes (arpae.it primeiro em todos) — o teto D38 partido
+    # por um teste. Por omissao, quem chama `_loop` nao vai a rede.
     estado = _ler_estado()
     estado.setdefault("SUPERVISOR_STATE", "STARTING")
     estado.setdefault("RESTARTS_TOTAL", 0)
@@ -652,6 +657,20 @@ def _loop(pausa_worker: float, poll: float) -> int:
             _anotar({"EVENTO": "REALIMENTACAO", **m})
 
     import onboardar_rotas_provadas as ONB  # noqa: E402
+    import prova_rota_ciclo as PRC          # noqa: E402
+
+    def _hook_prova_rota():
+        # PROVA-ROTA-CICLO: a prova de rota das ELIGIBLE sem prova recente, uma
+        # rodada de cada vez, num processo proprio (o supervisor nao espera pela
+        # rede). Sem portao de egresso PASS a rodada nao sai, e fica anotado.
+        try:
+            r = PRC.provar_se_devido(estado)
+        except Exception as e:  # noqa: BLE001 — o supervisor nao morre por isto
+            _anotar({"EVENTO": "PROVA_ROTA_ERRO", "ERRO": repr(e)[:300]})
+            return
+        if r.get("ACCAO") not in ("NADA", "RONDA_EM_CURSO"):
+            _anotar({"EVENTO": "PROVA_ROTA", **r})
+            _gravar_estado(estado)
 
     def _hook_onboarding():
         try:
@@ -685,6 +704,8 @@ def _loop(pausa_worker: float, poll: float) -> int:
             # entra na tabela do coletor por aqui, e so por aqui (o dono e
             # `onboardar_rotas_provadas`; o porque do supervisor esta la).
             # Um erro deste passo fica no diario e NAO derruba o supervisor.
+            if prova_de_rota:
+                _hook_prova_rota()
             _hook_onboarding()
 
             print("SUPERVISOR: %s (restarts=%d)" % (
@@ -858,6 +879,8 @@ def main() -> int:
     ap.add_argument("--poll",  type=float, default=SUPERVISOR_POLL_S)
     ap.add_argument("--estado", action="store_true",
                     help="Mostrar estado actual e sair")
+    ap.add_argument("--sem-prova-de-rota", action="store_true",
+                    help="Nao correr o canario de rotas no ciclo (sem rede propria do supervisor)")
     a = ap.parse_args()
 
     if a.estado:
@@ -866,7 +889,7 @@ def main() -> int:
 
     print("SUPERVISOR DO SOURCE CURATOR — PID=%d  arrancou=%s"
           % (os.getpid(), _agora()), flush=True)
-    return supervisionar(a.pausa, a.poll)
+    return supervisionar(a.pausa, a.poll, prova_de_rota=not a.sem_prova_de_rota)
 
 
 if __name__ == "__main__":
