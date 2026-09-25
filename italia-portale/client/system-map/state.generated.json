@@ -30,6 +30,7 @@
       "PLANO-INSTALACAO-BC4B.md",
       "PLANO-INSTALACAO-LI-ONDA.md",
       "PLANO-INSTALACAO-M5G.md",
+      "PLANO-INSTALACAO-YT-ONDA.md",
       "PLANO-UNIFICACAO.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
@@ -449,6 +450,7 @@
       "curadoria/ensaiar_gatilho_ocioso.py",
       "curadoria/ensaiar_qualify_youtube.py",
       "curadoria/ensaiar_worker_pendurado.py",
+      "curadoria/ensaio_so_linkedin.py",
       "curadoria/escrever_contratos.py",
       "curadoria/escrever_no_atlas.py",
       "curadoria/fila.py",
@@ -465,6 +467,11 @@
       "curadoria/li-onda/PLANO-ONDA-LINKEDIN-SO-PLANO.json",
       "curadoria/li-onda/REGUA-NA-COPIA-DA-PRODUCAO.json",
       "curadoria/li-onda/TESTES.txt",
+      "curadoria/li-onda/producao-7b769819/FOTO-LIVROS-VIVO.sha",
+      "curadoria/li-onda/producao-7b769819/MERGE-TREE.txt",
+      "curadoria/li-onda/producao-7b769819/NUMEROS-LINKEDIN.json",
+      "curadoria/li-onda/producao-7b769819/PLANO-SO-PLANO.json",
+      "curadoria/li-onda/producao-7b769819/REGUA.json",
       "curadoria/lifecycle.py",
       "curadoria/linhagem_das_candidatas.py",
       "curadoria/linkedin_pelo_site.py",
@@ -552,7 +559,10 @@
       "curadoria/test_zz_guarda_isolamento.py",
       "curadoria/validar_contratos.py",
       "curadoria/veredito_ready.py",
-      "curadoria/worker.py"
+      "curadoria/worker.py",
+      "curadoria/yt-onda/MERGE-TREE-YT-SOBRE-SOCIAL.txt",
+      "curadoria/yt-onda/NUMEROS-YOUTUBE-NA-COPIA-7b769819.json",
+      "curadoria/yt-onda/TESTES-JUNCAO.txt"
     ],
     "data": [
       "data/collection-ledger/italy/logs/runs.log",
@@ -2179,6 +2189,7 @@
       "provas/_flow01_janela_falsa.py",
       "provas/_mutantes_c13_d23.py",
       "provas/_mutantes_d24.py",
+      "provas/_mutantes_d37.py",
       "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
       "provas/a_collection_preserva_o_fato.py",
@@ -2797,6 +2808,7 @@
       "tests/test_cortesia_no_transporte.py",
       "tests/test_d1_detector_d14.py",
       "tests/test_d24_video_de_pessoa.py",
+      "tests/test_d37_campos_de_politica.py",
       "tests/test_ensaio_offline_micro.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
@@ -3449,9 +3461,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "ee5b0ab150340390debca9033c9280b354e4462a",
-    "GENERATED_AT": "2026-09-25T02:01:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a078aa4f65c4d130da4611347ae57b5aa0af629ec8e5acfa1e1b30fbdc2c74fa"
+    "HEAD": "521603683f23009e56d6e129aa88b436b761bf07",
+    "GENERATED_AT": "2026-09-25T03:27:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "231cc964353d42281ae5d338987d27004f44ff19b89e715405c07b34e2b3a7f4"
   },
   "FAMILIES": [
     {
@@ -4948,8 +4960,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 629",
-        "desses, mostrados aqui: 40 (ficam de fora 589)"
+        "enderecos que o codigo realmente chama: 631",
+        "desses, mostrados aqui: 40 (ficam de fora 591)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -54351,6 +54363,7 @@
         "tests/test_cortesia_no_transporte.py",
         "tests/test_d1_detector_d14.py",
         "tests/test_d24_video_de_pessoa.py",
+        "tests/test_d37_campos_de_politica.py",
         "tests/test_ensaio_offline_micro.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
@@ -54484,7 +54497,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 231,
+      "file_count": 232,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -112972,7 +112985,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -113026,6 +113039,22 @@
           "file": "tests/test_c10_6e_runtime_pago.py",
           "line": 125,
           "snippet": "publicas = [n.name for n in ast.walk(ast.parse(_fonte('leis/social_matriz.py')))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_d37_campos_de_politica.py",
+          "line": 36,
+          "snippet": "texto = open(os.path.join(RAIZ, \"leis\", \"social_matriz.py\"), encoding=\"utf-8\").read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
             "FROM": "C-SCRAP-LEIS",
@@ -114927,7 +114956,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 154 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 155 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -123216,8 +123245,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1622,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/_mutantes_d37.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1633,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123479,9 +123510,9 @@
     "edges_proven": 1203,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2855,
-    "files_covered": 1233,
-    "files_code_unclaimed": 0,
+    "files_tracked": 2867,
+    "files_covered": 1234,
+    "files_code_unclaimed": 1,
     "roles_proven": 163,
     "roles_declared_only": 8,
     "roles_unknown": 70,
