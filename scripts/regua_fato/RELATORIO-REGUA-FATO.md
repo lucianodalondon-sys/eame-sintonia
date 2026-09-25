@@ -135,3 +135,81 @@ de 4 em cada 10 vezes que diz um tipo.
   O sha256 de cada um está em `A-ROTULAR-FATO.json` (`SHA256_NORMALIZADO`).
 - Cópia da Sala: `C:/Users/London1/lugar-fato/sala-78.json`, `8924d03d848554c4c8df60aea2c24cbe688c63d84a002ba7447879f923a11ce6`.
 - Classificador congelado: `leis/tipo_do_fato.py` @ `2c00a0bb`.
+
+---
+
+# v2 · decisões D71–D73 aplicadas (25/09, tarde)
+
+**Veredito: continua `NAO PRONTO`. Na prova cega o acerto NÃO subiu: desceu de 58 % para 46 %.**
+
+Ordem cumprida:
+1. adenda 1 ao protocolo (`2a35147f`);
+2. reetiquetagem do gabarito e da cega **antes** de mexer no classificador (`7fe88bf6`, `reetiquetar_v2.py`);
+3. classificador v2 ajustado **só** no gabarito e congelado (`3297a5d9`);
+4. medida da cega sem mudar nada.
+
+## O que mudou
+- **Nome do campo:** `agro_fact_kind` e `agro_fact_kind_basis` (D73). `fato_com_tipo` devolve os mesmos nomes.
+- **D71:** empresa a explicar técnica = o tipo técnico. Koppert e os ácaros passaram a
+  `CAMPO_FITOSSANITARIO`, com `PUBLICADOR: Koppert` no rótulo. No classificador: quando o assunto técnico
+  tem tantos conceitos ou mais do que a voz da empresa, vence o técnico.
+- **D72:** tipo novo **`MARKETING_CONCORRENCIA`**.
+  - Rótulos: 9 no gabarito e 3 na cega, com `EMPRESA` / `PRODUTO` / `QUEM_FALOU` (`NAO SEI` quando o texto não diz).
+  - No classificador: voz de empresa do agro («il nostro», «presenterà», «nuova linea», «gamma», «brand»…).
+  - Numa feira, só é MARKETING se a empresa estiver no **lead**. A feira em si continua `EVENTO_TECNICO`.
+  - ⚠️ O classificador **não** extrai empresa, produto nem quem falou. Isso está só nos rótulos.
+- **D73:**
+  - `MERCADO_VAREJO` pede a prova de varejo no **lead** (os primeiros 400 caracteres do corpo). Na página
+    inteira, «insegne», «scaffale» e «e-commerce» vêm das listas de outras notícias.
+  - Abertura ou ampliação de loja no lead, sem preço no lead, dá `INSTITUCIONAL`.
+- **Ponto 5:** `INSTITUCIONAL` (mundo agro sem facto) separado de `NAO_FATO` (não é agro).
+- **Mudaram 59 dos 114 rótulos do gabarito e 31 dos 49 da cega.** Quase todos são a divisão entre
+  institucional e não-facto. Cada mudança tem `MUDOU_POR`, e o rótulo antigo ficou em `FACT_KIND_V1`.
+
+## Números (`MEDICAO-FATO-*-V2.json`)
+
+| | v1 | **v2** |
+|---|---|---|
+| Gabarito, certos quando diz um tipo | 27/37 = 73 % | **30/39 = 77 %** |
+| Prova cega, certos quando diz um tipo | 7/12 = 58 % | **6/13 = 46 %** |
+
+Na cega, por tipo (quantos o classificador disse · quantos certos):
+- MERCADO_PRECO: 4 ditos, 2 certos
+- MERCADO_VAREJO: 1 · 1
+- FITO: 1 · 1
+- NAO_FATO: 2 · 2
+- **EVENTO: 3 · 0**
+- NEGOCIO: 1 · 0
+- INSTITUCIONAL: 1 · 0
+- **MARKETING: 0 ditos, com 3 no ouro**
+
+## Porque desceu (os 7 erros da cega)
+1. **3 são o «evento» de sempre**: «edizione» (telejornal Edagricole, reportagem de preços) e «eventi»
+   (Georgofili). **Sabia deste defeito desde a v1 e não o corrigi de propósito**: corrigi-lo seria ajustar a
+   régua à prova cega. É o custo honesto de uma âncora escolhida a olhar para o gabarito.
+2. O plano de um departamento de Biotecnologia foi lido como NEGOCIO («acquisizione», «fusioni»,
+   «finanziamenti» de gestão universitária).
+3. O MARKETING não acendeu nenhuma vez na cega. O curso de Chianti Classico dos consórcios saiu INSTITUCIONAL.
+4. Varejo da Alemanha sem palavra de varejo no lead saiu MERCADO_PRECO. Uma escola agrária saiu MERCADO_PRECO.
+
+⚠️ **A cega está gasta duas vezes.** Li os 49 textos na v1 e vi os erros. A medida v2 é tudo menos
+otimista, mas já não é uma prova limpa. **A próxima medida precisa de textos novos.**
+
+## Testes, mutação, Sala
+- `tests/test_tipo_do_fato.py`: **32 verdes** (10 novos, para D71–D73). A LUGAR-FATO continua com 23 verdes.
+- `mutar_tipo_do_fato.py`: **24/24 mortos** (7 novos, M18–M24).
+  - O M19 (a D71 desligada) sobreviveu na primeira versão: o teste tinha mais conceitos técnicos do que
+    de promoção, e a regra nunca era posta à prova.
+  - Refiz o teste com um empate de 3 contra 3.
+- **78 da Sala** (`MEDIDA-TIPO-DO-FATO-SALA-78-V2.json`):
+  - 52 de 78 saem de NAO_SEI;
+  - MARKETING 1, VAREJO 2, INSTITUCIONAL 6, NAO_FATO 11;
+  - a ligação ao lugar mudou 1 (o mesmo IT-T5-010);
+  - **0 descartados**.
+
+## O que falta para chegar a 90 %
+- **Os mesmos textos que faltavam:** clima, colheita, regulatório, e agora **comunicação de empresas**.
+  O MARKETING tem só 9 exemplos no gabarito e 3 na cega.
+- **Uma prova cega nova**, com textos que ninguém leu.
+- A lista de empresas do setor (para anotar `EMPRESA` no classificador) é uma decisão à parte, e não a
+  inventei aqui.
