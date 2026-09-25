@@ -498,9 +498,17 @@ class OTetoDeItensDesce(unittest.TestCase):
 
         reg.registar('INSTAGRAM', 'instagram.profile.discovery',
                      adaptador='adaptador_instagram', rota=espia)
+        # Desde a PROVA-TETO-SOCIAL o `main` escreve a linha da corrida no livro
+        # de corridas: aqui vai para o banco temporario, nunca para o livro real.
+        ops_antes = os.environ.get('ITALY_OPS_ROOT')
+        os.environ['ITALY_OPS_ROOT'] = BANCO
         try:
             sc.main(list(args))
         finally:
+            if ops_antes is None:
+                os.environ.pop('ITALY_OPS_ROOT', None)
+            else:
+                os.environ['ITALY_OPS_ROOT'] = ops_antes
             reg.registar('INSTAGRAM', 'instagram.profile.discovery',
                          adaptador='adaptador_instagram', rota=orig)
             rota_ig['PLATFORM_POLICY_STATUS'] = politica_real
