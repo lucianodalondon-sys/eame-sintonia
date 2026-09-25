@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/robots-rfc9309-integration-9am18y",
-    "HEAD": "290e734973905d15878fc0ea60a8d797d9a7eddc",
-    "GENERATED_AT": "2026-09-25T07:37:41-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cd5e2bb0d4e5df88180259d6d4076a213857ab270d4c6416ebb9a226cb1ac751"
+    "HEAD": "bbba4ffc2e810dbf7dbdaf0d79ec3c4064a9948a",
+    "GENERATED_AT": "2026-09-25T10:49:10+00:00",
+    "SOURCE_TREE_FINGERPRINT": "cc845bfc2fbac4a6774da46267427eceaa2a8709ef9d9f5974b0621df925a564"
   },
   "FILES": [
     {
@@ -16123,6 +16123,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/robots_rfc/PLANO-DE-INSTALACAO-INTEGRADO.md",
+      "sha": "3f91d31488bfb89a821692ec66a163982481b1bd",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/robots_rfc/RELATORIO-ROBOTS-RFC.md",
       "sha": "f7d0bab5008f1c82dec26e55c3bdaea78b4fc02f",
       "ext": ".md",
@@ -16180,7 +16187,14 @@
     },
     {
       "path": "provas/robots_rfc/mutantes_d39.py",
-      "sha": "a76d74fb37c4e9ee9a3b04ff50a22e5badffdd1b",
+      "sha": "826d5cc7039aa72f7d43445b16483a2920c5a209",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/mutantes_integrado.py",
+      "sha": "4bfe00efd094f759bf0154bce77203eaa9035805",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18770,7 +18784,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "64617d75216c6d5130837e24492a6a45a96136a8",
+      "sha": "bb6a69e331c92aecc3f4f218161e72a3965f5391",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20688,7 +20702,7 @@
     },
     {
       "path": "tests/test_robots_rfc9309.py",
-      "sha": "2224337cff77e35426be043d05676d67830a1ca6",
+      "sha": "7907df92d7ec8fce471ca4a5a60d00a58e0c97e2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -59984,6 +59998,39 @@
       }
     },
     {
+      "from_file": "provas/robots_rfc/mutantes_integrado.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/mutantes_integrado.py",
+        "line": 13,
+        "snippet": "(\"S3 descobrir.py le Disallow por conta propria\", \"curadoria/descobrir.py\","
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/mutantes_integrado.py",
+      "to_file": "curadoria/gate_de_rota.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/mutantes_integrado.py",
+        "line": 16,
+        "snippet": "(\"S4 gate_de_rota decide sozinho (ignora o dono: tudo permitido)\", \"curadoria/gate_de_rota.py\","
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/mutantes_integrado.py",
+      "to_file": "curadoria/worker.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/mutantes_integrado.py",
+        "line": 20,
+        "snippet": "(\"H1 sha256 so dos 120 primeiros\", \"curadoria/worker.py\","
+      }
+    },
+    {
       "from_file": "provas/robots_rfc/reler_com_d39.py",
       "to_file": "coleta/robots_rfc9309.py",
       "type": "IMPORTS",
@@ -82562,7 +82609,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_robots_rfc9309.py",
-        "line": 313,
+        "line": 336,
         "snippet": "\"e52\", RAIZ / \"provas\" / \"robots_rfc\" / \"enfileirar_as_52.py\")"
       }
     },
@@ -85743,10 +85790,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2989,
-    "files_readable": 1339,
-    "files_code_dir": 1280,
-    "file_edges": 5838,
+    "files_tracked": 2991,
+    "files_readable": 1340,
+    "files_code_dir": 1282,
+    "file_edges": 5841,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

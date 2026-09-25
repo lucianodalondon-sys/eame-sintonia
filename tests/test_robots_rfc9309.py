@@ -304,6 +304,29 @@ class ORoboRegistaARecusaComNome(unittest.TestCase):
                 LC.LIVRO, F.FILA, W.EVIDENCIA, W.PULSO = antes
 
 
+class AGuardaDoRobotsInteiro(unittest.TestCase):
+    """D34: a prova guarda a impressao digital do robots INTEIRO (sha256 + tamanho), nao so os 120
+    primeiros caracteres — medido: 228 de 391 robots lidos ficavam sem a regra que decidia."""
+
+    def test_sha256_e_do_ficheiro_inteiro_e_a_regra_vem_de_depois_dos_120(self):
+        import hashlib   # noqa: PLC0415
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+        import worker as W   # noqa: PLC0415
+        texto = "User-agent: *\n" + "".join("Disallow: /arquivo-%03d/\n" % i for i in range(12)) \
+                + "Disallow: /news/\n"
+        self.assertGreater(texto.index("/news/"), 120)
+        rp = RR.de_resposta(200, texto.encode("utf-8"))
+        contrato = {"SOURCE_ID": "IT-X-902", "ACQUISITION": {"STRATEGY": "HTML_LINK_DISCOVERY",
+                                                              "INDEX_URL": "https://longo.example/news/"}}
+        with mock.patch.object(W.GATE, "robots_de", return_value=(rp, rp.texto)):
+            r, d = W.etapa_validate_route("IT-X-902", contrato)
+        self.assertEqual("BLOCK", r)
+        self.assertEqual(hashlib.sha256(texto.encode("utf-8")).hexdigest(), d["ROBOTS_SHA256"])
+        self.assertEqual(len(texto), d["ROBOTS_CARACTERES"])
+        self.assertEqual("Disallow: /news/", d["REGRA"])
+        self.assertNotIn("/news/", d["ROBOTS"], "o recorte de 120 nao contem a regra — por isso o sha")
+
+
 class OScriptDeEnfileirarAs52(unittest.TestCase):
     """D39 (3): so mostra por omissao; READY primeiro; recusa um leitor que nao seja o D39."""
 

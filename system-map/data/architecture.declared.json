@@ -4839,7 +4839,7 @@
     "audit",
     "diagnostic"
    ],
-   "what": "Mede, fonte a fonte, a leitura ANTIGA (urllib.robotparser, reproduzida de proposito) contra a NOVA (coleta/robots_rfc9309.py). Offline sobre os robots que o robo guardou (cortados aos 120 caracteres: 228 sem a regra que decidia) e com rede: 300 sites, 1 pedido cada, portao de consenso IT; 703 fontes: abrem 2 (403), fecham 50 (37 HTML no lugar do robots, 13 por regra real com curinga), 9 delas READY que o coletor ja recusava. D39: relida pelo leitor D39 (ROBOTS_INVALID_CONTENT / ROBOTS_ACCESS_DENIED): abrem 0, fecham 50, 2 mudam so de nome; enfileirar_as_52.py poe as 52 na fila pela porta canonica depois de instalar (so mostra sem --aplicar); mutantes_d39.py: 10/10.",
+   "what": "Mede, fonte a fonte, a leitura ANTIGA (urllib.robotparser, reproduzida de proposito) contra a NOVA (coleta/robots_rfc9309.py). Offline sobre os robots que o robo guardou (cortados aos 120 caracteres: 228 sem a regra que decidia) e com rede: 300 sites, 1 pedido cada, portao de consenso IT; 703 fontes: abrem 2 (403), fecham 50 (37 HTML no lugar do robots, 13 por regra real com curinga), 9 delas READY que o coletor ja recusava. D39: relida pelo leitor D39 (ROBOTS_INVALID_CONTENT / ROBOTS_ACCESS_DENIED): abrem 0, fecham 50, 2 mudam so de nome; enfileirar_as_52.py poe as 52 na fila pela porta canonica depois de instalar (so mostra sem --aplicar); mutantes_d39.py: 10/10; mutantes_integrado.py (integracao sobre 290e7349): 2.o leitor plantado e guarda sha256 do robots inteiro estragada, 8/8.",
    "why_here": "A D34 pediu a medicao antes de instalar: quantas mudam, em que sentido, com o caminho e a regra que decidiu. Uma proibicao real tem de continuar bloqueada (53 continuam).",
    "departments": [
     "ENGENHARIA"
@@ -4853,7 +4853,8 @@
     "provas/robots_rfc/enfileirar_as_52.py",
     "provas/robots_rfc/mutantes_d39.py",
     "provas/robots_rfc/reler_com_d39.py",
-    "provas/robots_rfc/ROBOTS-COM-REDE-D39.json"
+    "provas/robots_rfc/ROBOTS-COM-REDE-D39.json",
+    "provas/robots_rfc/mutantes_integrado.py"
    ]
   },
   {

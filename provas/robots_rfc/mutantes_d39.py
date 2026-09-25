@@ -32,6 +32,15 @@ ATAQUES = [
      '  if (rb.estado === "ROBOTS_ACCESS_DENIED" || rb.estado === "ROBOTS_INVALID_CONTENT")\n    return { recusado: rb.estado, porque: rb.porque };\n',
      '', NODE),
 ]
+# O criterio Node era «nao aparece FALHAS=0». Na producao 290e7349 a C5 (teto D38) ja falha SEM
+# mutacao, e esse criterio matava qualquer mutante Node de graca. Morto = aparece uma FALHA NOVA,
+# comparada PELO NOME com a corrida sem mutacao (integracao ROBOTS-INTEGRADO).
+import re
+def falhas_node():
+    r = subprocess.run(NODE, env=ENV, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=900)
+    return set(re.findall(r"^\s*FALHA (.*)$", r.stdout + r.stderr, re.M))
+FALHAS_SEM_MUTACAO = falhas_node()
+print("NODE sem mutacao: %d falhas %s" % (len(FALHAS_SEM_MUTACAO), sorted(FALHAS_SEM_MUTACAO)), flush=True)
 mortos = 0
 for nome, f, de, para, cmd in ATAQUES:
     p = Path(f); orig = p.read_bytes(); h = hashlib.sha256(orig).hexdigest()
@@ -41,9 +50,11 @@ for nome, f, de, para, cmd in ATAQUES:
     assert t.count(de) == 1, (nome, "linha alvo nao encontrada 1x")
     p.write_bytes(t.replace(de, para).encode("utf-8"))
     try:
-        r = subprocess.run(cmd, env=ENV, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=900)
-        saida = r.stdout + r.stderr
-        morto = r.returncode != 0 or "FALHAS=0" not in saida and cmd is NODE
+        if cmd is NODE:
+            morto = bool(falhas_node() - FALHAS_SEM_MUTACAO)
+        else:
+            r = subprocess.run(cmd, env=ENV, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=900)
+            morto = r.returncode != 0
     finally:
         p.write_bytes(orig)
         assert hashlib.sha256(p.read_bytes()).hexdigest() == h, "restauro falhou: " + f

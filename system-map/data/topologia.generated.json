@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T10:48:25+00:00",
-  "HEAD": "290e734973905d15878fc0ea60a8d797d9a7eddc",
+  "GENERATED_AT": "2026-09-25T11:05:45+00:00",
+  "HEAD": "bbba4ffc2e810dbf7dbdaf0d79ec3c4064a9948a",
   "BRANCH": "claude/robots-rfc9309-integration-9am18y",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "cd5e2bb0d4e5df88180259d6d4076a213857ab270d4c6416ebb9a226cb1ac751",
-  "FICHEIROS_NA_IMPRESSAO": 3137,
+  "SOURCE_TREE_FINGERPRINT": "cc845bfc2fbac4a6774da46267427eceaa2a8709ef9d9f5974b0621df925a564",
+  "FICHEIROS_NA_IMPRESSAO": 3139,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3352,7 +3352,14 @@
    {
     "PATH": "provas/robots_rfc/mutantes_d39.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a76d74fb37c4e9ee9a3b04ff50a22e5badffdd1b",
+    "VERSAO": "826d5cc7039aa72f7d43445b16483a2920c5a209",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/robots_rfc/mutantes_integrado.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4bfe00efd094f759bf0154bce77203eaa9035805",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -4017,14 +4024,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cd5e2bb0d4e5df88180259d6d4076a213857ab270d4c6416ebb9a226cb1ac751",
+    "VERSAO": "cc845bfc2fbac4a6774da46267427eceaa2a8709ef9d9f5974b0621df925a564",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cd5e2bb0d4e5df88180259d6d4076a213857ab270d4c6416ebb9a226cb1ac751",
+    "VERSAO": "cc845bfc2fbac4a6774da46267427eceaa2a8709ef9d9f5974b0621df925a564",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5718,7 +5725,7 @@
    {
     "PATH": "tests/test_robots_rfc9309.py",
     "PAPEL": "FONTE",
-    "VERSAO": "2224337cff77e35426be043d05676d67830a1ca6",
+    "VERSAO": "7907df92d7ec8fce471ca4a5a60d00a58e0c97e2",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5954,8 +5961,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 845,
-  "INPUTS_DIGEST": "904f64fcd8a2daf893b6b303c0a120e88da23ce73b730337acfe236dd08e6bb9",
+  "INPUTS_COUNT": 846,
+  "INPUTS_DIGEST": "da29610d384d093883a9879ce70d29c0abdb8033cbcab07a582a2266326a8d1f",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5981,15 +5988,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 517,
+  "DOCUMENTOS_LIDOS": 518,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "38a975edcf43ce5b7584fd08d3e40347ef9670af7a2a4aec9c968c9b132fd882",
-  "SEMANTIC_HASH": "c302d541800dba5788f7a8bc538feba4e63e22f14cad74cb049c76c34326f8f5"
+  "MEASUREMENT_HASH": "c0a383381a8c98ce718071eefcb334885b1715ab476b1b5507af8c6e55b5a550",
+  "SEMANTIC_HASH": "8945fa5e76c84925cc2cbfa584887049cf592f70ec27e3cd9bd464e442f0c16e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -34133,7 +34140,7 @@
      },
      {
       "FICHEIRO": "tests/test_robots_rfc9309.py",
-      "LINHA": 313,
+      "LINHA": 336,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-ROBOTS-RFC--READS-->C-TESTES",
@@ -45282,6 +45289,7 @@
    "C-PROVA-CORTESIA",
    "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-ITALIANA",
+   "C-PROVA-ROBOTS-RFC",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-TETO-DOMINIO",
    "C-RECALL-PORTA-IT",
@@ -51499,6 +51507,7 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "ferramentas/integra_onda2/PLANO-INSTALACAO-INTEGRA-ONDA2.md",
+    "provas/robots_rfc/PLANO-DE-INSTALACAO-INTEGRADO.md",
     "provas/robots_rfc/RELATORIO-ROBOTS-RFC.md"
    ],
    "E_ENTRYPOINT": false,
@@ -52237,6 +52246,7 @@
     "provas/robots_rfc/medir_robots_com_rede.py",
     "provas/robots_rfc/medir_robots_livro.py",
     "provas/robots_rfc/mutantes_d39.py",
+    "provas/robots_rfc/mutantes_integrado.py",
     "provas/robots_rfc/reler_com_d39.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -52247,7 +52257,9 @@
     "tests/test_c10_5_collection_flow.py",
     "tests/test_robots_rfc9309.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "provas/robots_rfc/PLANO-DE-INSTALACAO-INTEGRADO.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
