@@ -100,12 +100,14 @@ class Plano(unittest.TestCase):
         p = self.planear([], [HTML], {"IT-T5-006": "READY_LEGACY"})
         self.assertEqual([("IT-T5-006", "SEM_CONTRATO_NO_CURATOR")], [(x["SOURCE_ID"], x["CASO"]) for x in p["IMPORTA"]])
 
-    def test_youtube_fica_com_o_nome_da_rota_do_scrap(self):
+    def test_youtube_nunca_se_importa_da_tabela(self):
         for contratos in ([YT_CURADOR], []):
             with self.subTest(no_curador=bool(contratos)):
                 p = self.planear(contratos, [YT_LINHA], {"IT-T10-017": "READY_LEGACY"})
                 self.assertEqual([], p["IMPORTA"])
-                self.assertTrue(p["FICA"][0]["PORQUE"].startswith("ROTA_DO_SCRAP"))
+                ditos = p["FICA"] + p["PELO_SCRAP"]
+                self.assertEqual(1, len(ditos))
+                self.assertTrue(ditos[0]["PORQUE"].startswith("ROTA_DO_SCRAP"))
 
     def test_so_case_e_pdf_ficam_com_o_nome(self):
         p = self.planear([], [PDF], {"IT-T2-001": "READY_LEGACY", "IT-T4-009": "READY_LEGACY"})
