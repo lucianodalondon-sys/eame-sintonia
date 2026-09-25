@@ -101,8 +101,6 @@ print("REVISAO-15: re-medir UMA vez (VALIDATE_ROUTE):", len(r15), r15)
 print("outras tarefas do gatilho nesta volta:", len(c) - len(r15))
 EOF
 py -B ferramentas/hr6/remedir_hr6.py --fontes=IT-T7-174 --aplicar 2>/dev/null | grep -E "APLICADO|MOSTRAR" | tee -a $OUT/4-robo-vai-medir.txt
-echo "== reparar de novo (so MOSTRAR; so depois da receitas-182-v1 instalada):" | tee -a $OUT/4-robo-vai-medir.txt
-py -B ferramentas/onda3_pacote/reparar_de_novo.py --fontes=IT-T3-062,IT-T5-164,IT-T8-067,IT-T8-069,IT-T7-226 2>/dev/null | tee -a $OUT/4-robo-vai-medir.txt
 
 # ── 5: DEPOIS (sem rede) ────────────────────────────────────────────────────
 py -B curadoria/collection_gate.py --json 2>/dev/null | py -c "import json,sys;d=json.load(sys.stdin);print('PAINEL DEPOIS',json.dumps(d['PAINEL']))" | tee $OUT/5-depois.txt
@@ -118,7 +116,6 @@ py -B provas/prova_teto_dominio.py --plano "$OUT/6-ONDA3-SO-PLANO.json" --coorte
 
 # ── 7: testes da juncao (sem rede) ──────────────────────────────────────────
 py -B -m unittest curadoria.test_retirar_por_decisao curadoria.test_gatilho_discovery curadoria.test_gatilho_ocioso curadoria.test_retirar_duplicadas_d49 curadoria.test_canario_detalhe curadoria.test_reparar_contrato curadoria.test_revisao_ready curadoria.test_um_so_canario_promove curadoria.test_ready_split 2>&1 | tail -3 | tee $OUT/7-testes.txt
-echo "onda3_pacote/test_reparar_de_novo: $(cd ferramentas/onda3_pacote && py -B -m unittest test_reparar_de_novo 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '\n' ' ')" | tee -a $OUT/7-testes.txt
 echo "hr6/test_remedir_hr6: $(cd ferramentas/hr6 && py -B -m unittest test_remedir_hr6 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '
 ' ' ')" | tee -a $OUT/7-testes.txt
 for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_provadas.py tests/test_prova_teto_dominio.py; do echo "$t: $(py -B $t 2>&1 | grep -E '^Ran|^OK|FAILED' | tr '

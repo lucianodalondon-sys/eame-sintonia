@@ -13,8 +13,9 @@ resolvido por ordem do coordenador e guardado por um teste novo (§8). Numa cóp
 passa de **210 para 226 fontes (entram 16)**, as prontas para colher passam de **29 para 41**, a coorte
 PROVISÓRIA da 3.ª onda tem **40** fontes, **30 correm**, **120 pedidos, no máximo 5 por domínio**, prova do
 teto **PASS**. O pacote **não muda nenhum livro no Git**. O desfazer volta tudo ao vivo, provado.
-Falta: **RECEITA-T8** (bancada a trabalhar). O reparo de 5 fontes fica como passo para DEPOIS da
-**receitas-182-v1**, que não está na produção nem neste pacote (passo 13).
+Falta: **RECEITA-T8** (bancada a trabalhar). **Fora deste pacote, por ordem do coordenador:** a
+receitas-182-v1 e o reenfileirar dos reparos dela (a JANELAS-68 mediu que o reparo geral aprova páginas
+fixas como notícia, 6 casos; entra só depois de uma trava de notícia datada, na janelas-68-v2).
 
 > ⚠️ **Correção (25/09 ~11:10Z):** a 1.ª versão deste relatório dizia «entram 33» e «as 17 da PONTE não estão
 > no coletor da produção». **Estava errado.** O ensaio copiava uma lista FIXA de 14 livros e leu a tabela do
@@ -55,11 +56,10 @@ entra por `git merge --no-ff`, como na instalação. Rede fechada, conferida (ww
 | portão: READY / elegíveis | 183 / 73 | 182 / **69** (−4 da D49; −1 READY = a T7-174 à espera do canário do robô) |
 | plano da coleta: prontas | **29** | **41** (+12, perdidas 0) |
 | o que o robô vai medir | — | REVISAO-15: **15** VALIDATE_ROUTE; HR-6: IT-T7-174 |
-| reparar de novo (só mostrar) | — | as 5 (IT-T3-062, IT-T5-164, IT-T8-067, IT-T8-069, IT-T7-226) estão CONTRACTED_CANARY_FAILED → REPARAR |
 | coorte 3.ª onda (PROVISÓRIA) | 2.ª onda congelada: 28 | **40** (ISTAT fora, D45) |
 | `onda_web --so-plano` | — | **30 de 40 correm** · 120 pedidos · máximo 5 por domínio · PODE_CORRER=false (PROVISÓRIA) |
 | prova-teto sobre o plano | — | **PASS** · 120 previstos · 0 domínios acima de 5 |
-| testes | — | 118 (9 ficheiros do Curator, com a D52 e os gatilhos) + 3 (reparar de novo) + 4 (hr6) + 17 + 10 + 1 + 6 + 29 + 19 (tests/) + motor 62/62 + teto local 7/7 — **todos OK** |
+| testes | — | 118 (9 ficheiros do Curator, com a D52 e os gatilhos) + 4 (hr6) + 17 + 10 + 1 + 6 + 29 + 19 (tests/) + motor 62/62 + teto local 7/7 — **todos OK** |
 | desfazer | — | D52 `--reverter` = livro de contratos byte a byte · `reset --keep` rc=0 · 0 ficheiros de código diferentes · HEAD = vivo · 16 livros = foto · prontas 29 |
 
 **Saltam por teto nesta onda (10):** IT-T2-146, IT-T5-080, IT-T5-111, IT-T5-113, IT-T5-167, IT-T5-186,
@@ -203,17 +203,6 @@ py -B provas/prova_teto_dominio.py --plano $(cygpath -w $CORTE)/ONDA3-SO-PLANO.j
 ```
 Congelar (para correr) só por decisão, depois da 2.ª onda e com a RECEITA-T8 dentro: o mesmo
 comando com `--congelar --instalacao=<commit> --demotion=<ref>`, como o passo 11 da INTEGRA.
-
-**13 · SÓ DEPOIS de instalada a receitas-182-v1 (41d8751e; não está na produção nem neste pacote): reparar de novo**
-O robô não volta sozinho a uma fonte com o reparo DONE (correção da ORDENS/RECEITAS-182). Pela fila, a porta
-do gatilho, com o robô parado:
-```bash
-py -B ferramentas/onda3_pacote/reparar_de_novo.py --fontes=IT-T3-062,IT-T5-164,IT-T8-067,IT-T8-069,IT-T7-226            # 5 × REPARAR (ensaio)
-py -B ferramentas/onda3_pacote/reparar_de_novo.py --fontes=IT-T3-062,IT-T5-164,IT-T8-067,IT-T8-069,IT-T7-226 --aplicar  # 5 tarefas REPAIR_CONTRACT
-```
-(asnacodi, IRET, Società Entomologica, Horta + Palermo.) A ferramenta recusa fonte READY e fonte retirada por
-decisão. Ao religar, o robô repara → valida a rota → canário → régua. Desfazer antes de o robô correr:
-repor `curadoria/LIFECYCLE-QUEUE-V1.json` do backup.
 
 ### DESFAZER (provado na cópia: 0 ficheiros de código diferentes, livros = foto, prontas 29)
 ```bash
