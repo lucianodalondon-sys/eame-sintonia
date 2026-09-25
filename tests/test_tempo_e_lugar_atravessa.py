@@ -271,16 +271,27 @@ class ChegaAoReady(unittest.TestCase):
         self.assertIn("DATE_EXACT", item["fact_time_basis"])
         self.assertEqual(item["published_at"], "2026-09-16")
 
-    def test_D63_oggi_e_o_dia_da_publicacao_e_diz_que_foi_contado(self):
+    def test_D64_oggi_sozinho_nao_conta_mas_fica_como_evidencia(self):
+        # «oggi» sem marca de dia e «hoje em dia» tantas vezes quanto «neste
+        # dia» — medido nas 78: «ex UCEA, oggi C.R.E.A.» (LUGAR-FATO D64).
         item = self._relativa("oggi")
+        self.assertNotIn("fact_time", item)
+        self.assertIn("oggi", item["fact_time_basis"])
+
+    def test_D63_oggi_com_marca_de_dia_conta_a_partir_da_publicacao(self):
+        item = self._relativa("oggi 16 settembre")
         self.assertEqual(item["fact_time"], "2026-09-16")
         self.assertIn("RELATIVA_A_PUBLICACAO", item["fact_time_basis"])
 
     def test_D63_a_semana_passada_e_um_intervalo_e_nao_um_dia(self):
         item = self._relativa("la settimana scorsa")
-        self.assertEqual(item["fact_time"], "2026-W37")      # 7..13 de setembro
+        self.assertEqual(item["fact_time"], "2026-09-07/2026-09-13")   # inicio-fim (D63)
         self.assertIn("WEEK", item["fact_time_basis"])
         self.assertNotRegex(item["fact_time"], r"^\d{4}-\d{2}-\d{2}$")
+
+    def test_D63_a_scorsa_settimana_tambem(self):
+        item = self._relativa("la scorsa settimana")
+        self.assertEqual(item["fact_time"], "2026-09-07/2026-09-13")
 
     def test_D63_sem_publicacao_provada_a_relativa_fica_NAO_SEI(self):
         sem_pub = {k: v for k, v in self.recado.items() if not k.startswith("PUBLISHED_AT")}
