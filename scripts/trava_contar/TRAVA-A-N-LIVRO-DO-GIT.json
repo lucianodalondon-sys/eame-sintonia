@@ -1,0 +1,155 @@
+{
+ "DATASET": "TRAVA-A-N-V1",
+ "COLLECTION_FOUNDATION_CLOSED": false,
+ "CRITERIOS": {
+  "A": {
+   "ESTADO": "NAO",
+   "PROVA": "98 provadas · 29 bloqueadas · 589 NAO SEI de 716",
+   "CAMPO": "censo_das_estradas_it.criterio_a_no_curador (livro de corridas: esta arvore (Git))"
+  },
+  "B": {
+   "ESTADO": "SEM_MEDIDOR",
+   "PROVA": "nenhum ficheiro gerado mede writers improvisados",
+   "CAMPO": "-"
+  },
+  "C": {
+   "ESTADO": "NAO",
+   "PROVA": "RAW_ASSET = DONO_DUPLICADO (4 escrevem)",
+   "CAMPO": "donos.DETALHE"
+  },
+  "D": {
+   "ESTADO": "SIM",
+   "PROVA": "RUN_MANIFEST = UM_DONO (1 escrevem)",
+   "CAMPO": "donos.DETALHE"
+  },
+  "E": {
+   "ESTADO": "NAO",
+   "PROVA": "CHECKPOINT = DONO_DUPLICADO (2 escrevem)",
+   "CAMPO": "donos.DETALHE"
+  },
+  "F": {
+   "ESTADO": "SIM",
+   "PROVA": "DERIVED_ARTIFACT = UM_DONO (1 escrevem)",
+   "CAMPO": "donos.DETALHE"
+  },
+  "G": {
+   "ESTADO": "NAO",
+   "PROVA": "etapa STRUCTURED em UNKNOWN em ['RC-3', 'RC-4', 'RC-10', 'RC-11', 'RC-12']",
+   "CAMPO": "estradas-it.ROUTE_CLASSES[].STEPS.STRUCTURED"
+  },
+  "H": {
+   "ESTADO": "NAO",
+   "PROVA": "ROUTE_MODEL DONO_DUPLICADO (6) · ORQUESTRADOR DONO_DUPLICADO (15)",
+   "CAMPO": "donos.DETALHE"
+  },
+  "I": {
+   "ESTADO": "SIM",
+   "PROVA": "APIFY DEFAULT=0 FALLBACK=5",
+   "CAMPO": "estradas-it.APIFY"
+  },
+  "J": {
+   "ESTADO": "NAO",
+   "PROVA": "580 linhas de ndjson operacional no Git [('data/collection-ledger/italy/observations.ndjson', 521), ('data/collection-ledger/italy/runs.ndjson', 59)]",
+   "CAMPO": "estradas-it.GIT_COMO_BANCO_OPERACIONAL"
+  },
+  "K": {
+   "ESTADO": "SEM_MEDIDOR",
+   "PROVA": "nenhum dono mede retry",
+   "CAMPO": "-"
+  },
+  "L": {
+   "ESTADO": "SIM",
+   "PROVA": "REQUIRED_TOTAL=UNKNOWN mantido; o criterio A publica 589 NAO SEI em vez de palpite",
+   "CAMPO": "estradas-it.ROUTE_CLASSES_REQUIRED_TOTAL + CRITERIO_A_NO_CURADOR"
+  },
+  "M": {
+   "ESTADO": "NAO",
+   "PROVA": "210 de 249 componentes pendentes",
+   "CAMPO": "state.generated.COUNTS (ultimo gerado nesta arvore; a cadeia do mapa nao foi corrida)"
+  },
+  "N": {
+   "ESTADO": "NAO",
+   "PROVA": "mudaram 16 · sumiram 0 · novos 5",
+   "CAMPO": "congelamento.CONTRA_A_FOTOGRAFIA"
+  }
+ },
+ "TOTAIS": {
+  "SIM": 4,
+  "NAO": 8,
+  "SEM_MEDIDOR": 2
+ },
+ "QUAIS": {
+  "SIM": [
+   "D",
+   "F",
+   "I",
+   "L"
+  ],
+  "NAO": [
+   "A",
+   "C",
+   "E",
+   "G",
+   "H",
+   "J",
+   "M",
+   "N"
+  ],
+  "SEM_MEDIDOR": [
+   "B",
+   "K"
+  ]
+ },
+ "CONDICOES": [
+  {
+   "N": 1,
+   "CONDICAO": "os 14 criterios A..N cumpridos",
+   "ESTADO": "NAO",
+   "PROVA": "4 de 14"
+  },
+  {
+   "N": 2,
+   "CONDICAO": "nenhuma classe NECESSARIA em UNKNOWN",
+   "ESTADO": "NAO",
+   "PROVA": "o conjunto das necessarias e UNKNOWN; 5 classes nem observadas: ['RC-3', 'RC-4', 'RC-10', 'RC-11', 'RC-12']"
+  },
+  {
+   "N": 3,
+   "CONDICAO": "nenhuma classe NECESSARIA em OPEN",
+   "ESTADO": "NAO",
+   "PROVA": "8 classes abertas (ARCHITECTURE_CLOSED=false, nem bloqueadas nem divida): ['RC-1', 'RC-2', 'RC-3', 'RC-4', 'RC-5', 'RC-10', 'RC-11', 'RC-12']"
+  },
+  {
+   "N": 4,
+   "CONDICAO": "nenhuma NECESSARIA em BLOCKED sem decisao escrita",
+   "ESTADO": "SIM",
+   "PROVA": "BLOCKED ['RC-6', 'RC-7', 'RC-8'], cada uma com motivo escrito; M1_BLOCKED_SEM_DECISAO_ESCRITA=[] — mas o conjunto das necessarias e desconhecido"
+  },
+  {
+   "N": 5,
+   "CONDICAO": "ROUTE_CLASSES_TOTAIS_NECESSARIAS deixou de ser NAO SEI",
+   "ESTADO": "NAO",
+   "PROVA": "REQUIRED_TOTAL=UNKNOWN"
+  }
+ ],
+ "CONDICOES_CUMPRIDAS": 1,
+ "CRITERIO_A_CONFERENCIA": {
+  "PASTA": "ferramentas/big_collection/ondas/",
+  "RESUMOS": [
+   "MICRO-V3-20260925-0803-RESUMO.json",
+   "ONDA2-WEB-20260925-0812-RESUMO.json"
+  ],
+  "LIVRO_DE_CORRIDAS": "esta arvore (Git)",
+  "LIVRO_SHA256": {
+   "runs.ndjson": "37bd0c10169f0e8c898cf4733b66b392cf892ef904aa1e9f051a51eddcea3f30",
+   "observations.ndjson": "8f11a5ee4521563078461121cdb40a32ff02b4a318cebfbc634bd616e2f37c00"
+  },
+  "LINHAS_POR_MOTIVO": {
+   "NAO_CORREU": 7,
+   "RUN_ID_AUSENTE_NO_LIVRO": 19,
+   "SEM_DOCUMENTO_NOVO": 7,
+   "STATUS_NAO_E_SUCCESS": 1
+  },
+  "FONTES_PROVADAS": 0
+ }
+}

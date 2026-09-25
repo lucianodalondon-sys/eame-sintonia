@@ -1,0 +1,80 @@
+{
+ "DATASET": "MUTACAO-TRAVA-CONTAR-V1",
+ "COPIA": "C:/capa-base",
+ "MUTANTES": {
+  "aceita_run_id_que_o_livro_nao_tem": {
+   "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_resumo_forjado_run_id_que_o_livro_nao_tem (tests.test_trava_contar.TestConferencia.test_resumo_forjado_run_id_que_o_livro_nao_tem)",
+    "FAIL: test_so_a_linha_conferida_prova (tests.test_trava_contar.TestDePontaAPonta.test_so_a_linha_conferida_prova)"
+   ]
+  },
+  "nao_compara_raw_com_o_livro": {
+   "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_raw_que_nao_bate_com_o_livro (tests.test_trava_contar.TestConferencia.test_raw_que_nao_bate_com_o_livro)"
+   ]
+  },
+  "aceita_raw_zero": {
+   "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_raw_zero_nao_conta (tests.test_trava_contar.TestConferencia.test_raw_zero_nao_conta)"
+   ]
+  },
+  "aceita_unknown": {
+   "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_unknown_nao_conta (tests.test_trava_contar.TestConferencia.test_unknown_nao_conta)"
+   ]
+  },
+  "nao_confere_a_fonte": {
+   "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_fonte_que_o_livro_nao_observou (tests.test_trava_contar.TestConferencia.test_fonte_que_o_livro_nao_observou)"
+   ]
+  },
+  "ignora_failed_do_livro": {
+   "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_o_livro_diz_failed (tests.test_trava_contar.TestConferencia.test_o_livro_diz_failed)"
+   ]
+  },
+  "ignora_proveniencia": {
+   "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_proveniencia_partida_ou_desconhecida (tests.test_trava_contar.TestConferencia.test_proveniencia_partida_ou_desconhecida)"
+   ]
+  },
+  "resumo_conta_pela_pasta_de_cima": {
+   "FICHEIRO": "system-map/scripts/censo_das_estradas_it.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_um_resumo_na_pasta_de_cima_nao_conta_sem_conferencia (tests.test_trava_contar.TestDePontaAPonta.test_um_resumo_na_pasta_de_cima_nao_conta_sem_conferencia)"
+   ]
+  },
+  "resumo_aceita_relatorio_de_outra_corrida": {
+   "FICHEIRO": "ferramentas/big_collection/resumo_da_onda.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_relatorio_de_outra_corrida_e_recusado_e_fica_unknown (tests.test_trava_contar.TestResumoNaoInventa.test_relatorio_de_outra_corrida_e_recusado_e_fica_unknown)"
+   ]
+  },
+  "resumo_inventa_zero_no_lugar_de_unknown": {
+   "FICHEIRO": "ferramentas/big_collection/resumo_da_onda.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_relatorio_de_outra_corrida_e_recusado_e_fica_unknown (tests.test_trava_contar.TestResumoNaoInventa.test_relatorio_de_outra_corrida_e_recusado_e_fica_unknown)",
+    "FAIL: test_sem_relatorio_e_sem_numero_no_estado_fica_unknown (tests.test_trava_contar.TestResumoNaoInventa.test_sem_relatorio_e_sem_numero_no_estado_fica_unknown)"
+   ]
+  }
+ },
+ "MORTOS": 10,
+ "TOTAL": 10
+}
