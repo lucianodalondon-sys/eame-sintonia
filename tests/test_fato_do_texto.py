@@ -143,7 +143,7 @@ class TestRelativasD63(unittest.TestCase):
     def test_cada_expressao_e_a_conta(self):
         casos = {
             "ieri": ("2026-09-22", "DATE_EXACT+CALCULADA"),
-            "oggi": ("2026-09-23", "DATE_EXACT+CALCULADA"),
+            "oggi, mercoledì,": ("2026-09-23", "DATE_EXACT+CALCULADA"),
             "stamattina": ("2026-09-23", "DATE_EXACT+CALCULADA"),
             "l'altro ieri": ("2026-09-21", "DATE_EXACT+CALCULADA"),
             "la settimana scorsa": ("2026-09-14/2026-09-20", "WEEK+CALCULADA"),
@@ -158,7 +158,7 @@ class TestRelativasD63(unittest.TestCase):
             r = self._r(expr)
             self.assertEqual((valor, prec), (r["fact_time"], r["fact_time_precision"]), expr)
             self.assertTrue(r["fact_time_basis"].startswith("RELATIVA_A_PUBLICACAO"), expr)
-            self.assertIn("«%s»" % expr, r["fact_time_basis"], "a expressao original fica como evidencia")
+            self.assertIn("«%s»" % expr.split(",")[0], r["fact_time_basis"], "a expressao original fica como evidencia")
             self.assertIn("2026-09-23", r["fact_time_basis"])
             self.assertEqual("2026-09-23", r["EVIDENCIA"]["PUBLICACAO_PROVADA"])
 
@@ -185,9 +185,82 @@ class TestRelativasD63(unittest.TestCase):
         self.assertEqual(("2026-09-24", "EVENTO", "DATE_EXACT+CALCULADA"),
                          (r["fact_time"], r["fact_time_kind"], r["fact_time_precision"]))
 
+    def test_duas_contas_diferentes_e_nao_sei(self):
+        r = FT.campos_do_fato("I sintomi sono stati osservati ieri nei vigneti; altri sintomi rilevati la settimana scorsa "
+                              "nei frutteti della provincia.\n", *PUB)
+        self.assertEqual(FT.NAO_SEI, r["fact_time"])
+        self.assertIn("AMBIGUO", r["fact_time_basis"])
+
+    def test_termo_de_comparacao_nao_e_tempo_do_facto(self):
+        # medido nas 78 (IT-T3-008)
+        for t in ("Si registrano infezioni di peronospora in minor misura rispetto allo stesso periodo dello scorso anno nei vigneti.\n",
+                  "Le catture rilevate nei frutteti sono in aumento rispetto alla settimana scorsa in tutta la provincia.\n"):
+            r = FT.campos_do_fato(t, *PUB)
+            self.assertEqual(FT.NAO_SEI, r["fact_time"], t)
+            self.assertIn("comparação", r["fact_time_basis"], t)
+
     def test_a_conta_nao_depende_do_dia_de_hoje(self):
         r = self._r("ieri", ("2020-02-29", "meta"))
         self.assertEqual("2020-02-28", r["fact_time"])
+
+
+class TestOggiD64(unittest.TestCase):
+    """D64: «oggi» so conta quando o texto deixa claro que e o proprio dia."""
+
+    FRASE = "I tecnici hanno osservato %s sintomi di peronospora nei vigneti della provincia di Verona.\n"
+
+    def test_oggi_que_e_o_dia(self):
+        for expr in ("oggi, lunedì,", "oggi 23 settembre", "oggi alle 10", "oggi pomeriggio", "nella giornata di oggi"):
+            r = FT.campos_do_fato(self.FRASE % expr, *PUB)
+            self.assertEqual("2026-09-23", r["fact_time"], expr)
+            self.assertEqual("DATE_EXACT+CALCULADA", r["fact_time_precision"], expr)
+        r = FT.campos_do_fato("Oggi è stato osservato un forte attacco di peronospora nei vigneti della zona collinare.\n", *PUB)
+        self.assertEqual("2026-09-23", r["fact_time"])
+
+    def test_oggi_que_e_hoje_em_dia(self):
+        for t in ("Oggi i consumatori chiedono più frutta biologica e i produttori osservano la domanda crescente.\n",
+                  "Ad oggi sono stati rilevati pochi casi di flavescenza dorata nei vigneti della provincia.\n",
+                  "Fino ad oggi il monitoraggio non ha rilevato superamenti della soglia nei frutteti della zona.\n",
+                  "Al giorno d'oggi il monitoraggio delle colture si fa con trappole e sensori nei campi del nord.\n",
+                  "I sintomi osservati oggi nei vigneti confermano la pressione della peronospora in tutta la zona.\n"):
+            r = FT.campos_do_fato(t, *PUB)
+            self.assertEqual(FT.NAO_SEI, r["fact_time"], (t, r["fact_time_basis"]))
+            self.assertIn("D64", r["fact_time_basis"], t)
+
+    def test_oggi_sem_publicacao_e_nao_sei(self):
+        r = FT.campos_do_fato(self.FRASE % "oggi, lunedì,")
+        self.assertEqual(FT.NAO_SEI, r["fact_time"])
+
+
+class TestCoordenacao2509(unittest.TestCase):
+    """(a) onde se planta/colhe e CAMPO mesmo em noticia de mercado; (b) data institucional nao e facto."""
+
+    def test_lugar_de_producao_numa_noticia_de_mercado_e_campo(self):
+        r = FT.campos_do_fato("Più shelf-life per allargare i confini del mercato In Sardegna si producono tante fragole, "
+                              "ma le distanze impediscono una politica di export.\n")
+        self.assertEqual(("Sardegna", "CAMPO"), (r["fact_location"], r["fact_location_kind"]))
+        self.assertIn("PRODUCAO", r["fact_location_basis"])
+        self.assertEqual("OTHER", r["EVIDENCIA"]["LUGARES"][0]["TIPO_DE_EVIDENCIA"], "producao nao e foco de praga")
+
+    def test_producao_longe_do_lugar_nao_o_faz_campo(self):
+        r = FT.campos_do_fato("La Toscana ha presentato ieri il suo nuovo piano regionale per la formazione dei giovani "
+                              "tecnici agrari e, in un altro capitolo del documento, si producono stime generali.\n")
+        self.assertEqual(FT.NAO_SEI, r["fact_location"], r["fact_location_basis"])
+
+    def test_o_mercado_perto_continua_mercado(self):
+        r = FT.campos_do_fato("Al mercato ortofrutticolo di Milano i prezzi dei piccoli frutti sono aumentati in questa fase.\n")
+        self.assertEqual(("Milano", "MERCADO"), (r["fact_location"], r["fact_location_kind"]))
+
+    def test_exame_adiado_nao_e_tempo_do_facto(self):
+        r = FT.campos_do_fato("L'esame del modulo di arboricoltura già previsto per il 21 settembre è spostato a mercoledì 30.\n")
+        self.assertEqual(FT.NAO_SEI, r["fact_time"], r["fact_time_basis"])
+        self.assertIn("INSTITUCIONAL_NAO_FATO", r["fact_time_basis"])
+
+    def test_ancora_dentro_de_outra_palavra_nao_amarra(self):
+        # «coltura» dentro de «agricoltura» nao liga a data a um acontecimento
+        r = FT.campos_do_fato("La Regione ha destinato nel 2022 molti fondi al settore della agricoltura e della pesca.\n")
+        self.assertEqual(FT.NAO_SEI, r["fact_time"], r["fact_time_basis"])
+        self.assertIn("ANCORA_DENTRO_DE_OUTRA_PALAVRA", r["fact_time_basis"])
 
 
 if __name__ == "__main__":

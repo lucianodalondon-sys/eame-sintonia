@@ -29,6 +29,12 @@ for x in d:
     c["tempo_%s" % r["fact_time_kind"]] += 1
     c["com_expressao_relativa"] += bool(r["EVIDENCIA"]["EXPRESSOES_RELATIVAS"])
     c["com_expressao_relativa_presa_a_um_facto"] += any(e["KIND"] for e in r["EVIDENCIA"]["EXPRESSOES_RELATIVAS"])
+    # SIMULACAO, so para medir o efeito da D63/D64: a mesma linha com uma publicacao «provada» inventada.
+    # Nunca e gravada como valor; so a contagem sai.
+    s = FT.campos_do_fato(x["texto"], "2026-09-24", "SIMULADO so para medir")
+    c["SIMULADO_tempo_relativa_contada_se_a_publicacao_fosse_provada"] += s["fact_time_basis"].startswith(FT.RELATIVA)
+    c["SIMULADO_oggi_recusado_por_D64"] += any(e["EXPRESSAO"].lower() == "oggi" and "D64" in (e.get("PORQUE") or "")
+                                              for e in s["EVIDENCIA"]["EXPRESSOES_RELATIVAS"])
     c["lugar_leitor_sozinho"] += bool(ok)
     c["tempo_leitor_sozinho"] += t["FACT_TIME"] != "NOT_KNOWN"
     c["sem_corpo"] += r["EVIDENCIA"]["LINHAS_DE_CORPO"] == 0

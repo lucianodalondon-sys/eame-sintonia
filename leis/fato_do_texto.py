@@ -107,6 +107,7 @@ def publicacao_provada(publication_time, publication_time_basis) -> date | None:
 
 
 # ── 3 · o tempo relativo: vale com a conta feita a partir da publicacao provada (D63) ──
+_MES = "|".join(FL.MESES)
 _DIA = r"(?:luned[iì]|marted[iì]|mercoled[iì]|gioved[iì]|venerd[iì]|sabato|domenica)"
 # (expressao, regra) — a regra diz a conta.
 RELATIVOS = (
@@ -156,6 +157,79 @@ def conta_relativa(expr: str, pub: date):
     return None
 
 
+# ── D64 · «oggi» so e o dia quando o texto o diz ────────────────────────────
+# «oggi, lunedì», «oggi è stato», «oggi alle 10», «oggi 25 settembre», «oggi pomeriggio»,
+# «nella giornata di oggi» = o proprio dia. «oggi i consumatori», «ad oggi», «al giorno d'oggi»,
+# «fino ad oggi» = «hoje em dia» / «ate agora» = NAO SEI. Sem marca nenhuma, tambem NAO SEI.
+_OGGI_DIA_DEPOIS = re.compile(
+    r"^\s*,?\s*(?:%s\b|\d{1,2}\s+(?:%s)\b|alle\b|(?:è|e['’]|sono)\s+stat[oaie]\b|pomeriggio\b|mattina\b|sera\b|"
+    r"in\s+mattinata\b|in\s+serata\b)" % (_DIA, _MES), re.I)
+_OGGI_DIA_ANTES = re.compile(r"(?:giornata\s+di|proprio)\s*$", re.I)
+_OGGI_HOJE_EM_DIA_ANTES = re.compile(r"(?:(?<![0-9a-zà-ÿ])ad?|fino\s+ad?|al\s+giorno\s+d['’]|(?<![0-9a-zà-ÿ])d['’])\s*$", re.I)
+
+
+def _oggi_vale(expr: str, antes: str, depois: str) -> tuple[bool, str | None]:
+    if expr.lower() != "oggi":
+        return True, None
+    if _OGGI_HOJE_EM_DIA_ANTES.search(antes):
+        return False, "«%s%s» quer dizer até agora / hoje em dia, não um dia (D64)" % (antes.split()[-1] + " " if antes.split() else "", expr)
+    if _OGGI_DIA_DEPOIS.search(depois) or _OGGI_DIA_ANTES.search(antes):
+        return True, None
+    return False, "«oggi» sem marca de que é o próprio dia — pode ser «hoje em dia» (D64)"
+
+
+# ── a relativa que e o TERMO DE COMPARACAO nao data o facto ──────────────────
+# Medido nas 78 (IT-T3-008): «in minor misura rispetto allo stesso periodo dello scorso anno» — o ano
+# passado e a regua, o facto e deste ano. O mesmo para «rispetto alla settimana scorsa».
+_RE_COMPARACAO = re.compile(r"(?:rispetto|confront\w*|paragon\w*|stesso\s+periodo|analogo\s+periodo|in\s+linea\s+con)"
+                            r"[^.;!?]*$", re.I)
+
+
+# ── as ancoras do leitor, mas com PALAVRA INTEIRA a esquerda ────────────────
+# `fato_local.tempo_do_fato` procura as suas ancoras sem fronteira: «coltura» casa dentro de
+# «arboricoltura» e «agricoltura». Medido nas 78: «esame del modulo di arboricoltura … previsto per il 21
+# settembre» e «Laurea … nel 2022» (agricoltura) sairam como tempo de CAMPO. A ancora so conta quando
+# COMECA uma palavra (a direita fica aberta: sao raizes — «contaminaz», «superament»).
+_RE_ANCORAS_DE_CAMPO = re.compile(r"(?<![0-9a-z])(?:%s)" % "|".join(FL.ANCORAS_DE_TEMPO_DO_FATO))
+
+
+def _presa_ao_campo(frase: str) -> bool:
+    return _RE_ANCORAS_DE_CAMPO.search(FL._baixo(frase)) is not None
+
+
+# ── a frase institucional: data de exame, aula, curso, inscricao nao e facto do agro ──
+# (coordenacao, 25/09: «exame de faculdade adiado nao e facto do ecossistema agro» -> INSTITUCIONAL_NAO_FATO,
+# o mesmo nome do tipo da REGUA-FATO, `leis/tipo_do_fato.py`)
+_RE_INSTITUCIONAL = re.compile(
+    r"(?<![0-9a-zà-ÿ])(?:esam[ei]|appell[oi]|lezion[ei]|laure[ae]|corsi?\s+di\s+(?:laurea|studi[oa]?)|iscrizion[ei]|"
+    r"immatricolazion[ei]|bando|concors[oi]|tesi|tirocini[oa]?|graduatori[ae]|cfu|didattic[ao]|dottorat[oi]|"
+    r"sessione\s+di\s+laurea|colloqui[oa]?)(?![0-9a-zà-ÿ])", re.I)
+
+
+def _tempo_de_campo(t: str, pub: date | None, tapados: list) -> dict:
+    """Pergunta ao leitor; se a data que ele escolhe vem de uma frase institucional ou de uma ancora que
+    so existia DENTRO de outra palavra, tapa-a nessa frase e pergunta de novo."""
+    for _ in range(12):
+        r = FL.tempo_do_fato(t, pub.isoformat() if pub else None)
+        v, ev = r.get("FACT_TIME"), r.get("FACT_TIME_EVIDENCE") or ""
+        if v in (None, "NOT_KNOWN"):
+            return r
+        motivo = ("INSTITUCIONAL_NAO_FATO" if _RE_INSTITUCIONAL.search(ev)
+                  else None if _presa_ao_campo(ev) else "ANCORA_DENTRO_DE_OUTRA_PALAVRA")
+        if not motivo:
+            return r
+        tapados.append("%s «%s»" % (motivo, v))
+        i = t.find(ev[:60])
+        if i < 0:
+            break
+        fim = i + len(_frase_em(t, i))
+        seg = re.sub(re.escape(v), lambda m: " " * len(m.group(0)), t[i:fim], flags=re.I)
+        if seg == t[i:fim]:
+            break
+        t = t[:i] + seg + t[fim:]
+    return {"FACT_TIME": "NOT_KNOWN"}
+
+
 # a precisao do leitor, dita no vocabulario da lei (`lugar_do_fato.RESOLUCAO_TEMPORAL`)
 RESOLUCAO = {"DAY": "DATE_EXACT", "WEEK": "WEEK", "MONTH": "MONTH", "SEASON": "SEASON", "YEAR": "APPROXIMATE"}
 
@@ -165,7 +239,6 @@ RESOLUCAO = {"DAY": "DATE_EXACT", "WEEK": "WEEK", "MONTH": "MONTH", "SEASON": "S
 #   · SERIE DE ANOS    «le settimane 35-39 del 2024, 2025 e 2026» -> nao e o ano do facto
 #   · CARIMBO DE LISTA «1 Settembre 2026 Risultati ...» no inicio da linha -> data do item da lista
 #   · FIM DE PRAZO     «fino a novembre», «entro il 30 settembre» -> limite, nao a data do facto
-_MES = "|".join(FL.MESES)
 NAO_E_TEMPO_DO_FACTO = (
     ("SERIE_DE_ANOS", re.compile(r"\b(?:19|20)\d{2}(?:\s*(?:,|\be\b|\bed\b)\s*(?:19|20)\d{2})+\b", re.I)),
     ("CARIMBO_DE_LISTA", re.compile(r"^\s*\d{1,2}\s+(?:%s)\s+\d{4}\b" % _MES, re.I | re.M)),
@@ -194,7 +267,8 @@ def _tapar(t: str) -> tuple[str, list, list]:
     orig = t
 
     def _rel(m):
-        relativas.append({"EXPRESSAO": m.group(0), "TRECHO": _trecho(_frase_em(orig, m.start()))})
+        relativas.append({"EXPRESSAO": m.group(0), "TRECHO": _trecho(_frase_em(orig, m.start())),
+                          "_ANTES": orig[max(0, m.start() - 50):m.start()], "_DEPOIS": orig[m.end():m.end() + 40]})
         return " " * len(m.group(0))
     t = _RE_RELATIVOS.sub(_rel, t)
     return t, tapados, relativas
@@ -205,7 +279,7 @@ def _tapar(t: str) -> tuple[str, list, list]:
 # Italia para repuxar). Estao listadas no relatorio como proposta para o leitor.
 ANCORAS_DE_EVENTO = (
     r"fier[ae]", r"salone", r"convegn[oi]", r"congress[oi]", r"workshop", r"seminari[oa]?", r"webinar",
-    r"giornat[ae]\s+(?:tecnic[ah]e?|in\s+campo|dimostrativ[ae]|di\s+studio|di\s+campo|aperte?)",
+    r"giornat[ae]\s+(?:tecnic[ah]e?|in\s+campo|dimostrativ[ae]|di\s+studio|di\s+campo|aperte?|internazional[ei]|nazional[ei]|mondial[ei])",
     r"dimostrazion[ei]\s+in\s+campo", r"open\s+day", r"field\s+day", r"rassegna", r"expo",
     # «eventi estremi / meteorologici / atmosferici» e tempo que muda o campo (CAMPO), nao evento tecnico
     r"event[oi](?!\s+(?:estrem|meteo|atmosferic|climatic|calamitos|alluvional|avvers))", r"incontr[oi]\s+tecnic[oi]", r"forum", r"manifestazion[ei]",
@@ -218,6 +292,23 @@ _RE_EVENTO = re.compile(r"(?<![0-9a-zà-ÿ])(?:%s)(?![0-9a-zà-ÿ])" % "|".join(
 RECUSA_QUE_PODE_SER_EVENTO = ("local de evento", "afiliação institucional",
                               "topônimo sem relação semântica com o acontecimento")
 RECUSA_QUE_E_MERCADO = ("área econômica",)
+_RE_MERCADO = re.compile(r"(?<![0-9a-zà-ÿ])mercat[oi](?![0-9a-zà-ÿ])", re.I)
+
+# ── 4b · o lugar onde se PLANTA / COLHE e CAMPO, mesmo numa noticia de mercado (coordenacao, 25/09) ──
+# Medido nas 78: «Più shelf-life per allargare i confini del mercato In Sardegna si producono tante
+# fragole» saia MERCADO; a Sardenha e onde se produz. O lugar sai CAMPO com ESPECIE=PRODUCAO (o do
+# leitor italiano e ESPECIE=OCORRENCIA): produzir ali nao e praga ali — a base e a EVIDENCIA dizem qual.
+ANCORAS_DE_PRODUCAO = (
+    # So verbos e palavras de PLANTAR / COLHER. Medido nas 78 e retirado por apanhar outra coisa:
+    #   «produzione» (scientifica, industriale, «Istituto di Produzioni Vegetali»), «raccolta» (de textos),
+    #   «colture» («la protezione delle colture»), «campi», «produttori di Firenze» (onde a entidade esta).
+    r"si\s+produc\w*", r"(?:viene|vengono|è|sono)\s+prodott[oaie]", r"coltivat[oaie]", r"coltivazion[ei]",
+    r"si\s+coltiv\w*", r"raccolto", r"vendemmi[ae]", r"piantat[oaie]", r"ettari", r"frutteti", r"vigneti",
+    r"oliveti", r"agrumeti",
+)
+DISTANCIA_MAXIMA_DA_PRODUCAO = 60      # letras entre a palavra de producao e o lugar
+_RE_PRODUCAO = re.compile(r"(?<![0-9a-zà-ÿ])(?:%s)(?![0-9a-zà-ÿ])" % "|".join(ANCORAS_DE_PRODUCAO), re.I)
+RECUSA_QUE_PODE_SER_PRODUCAO = ("área econômica", "topônimo sem relação semântica com o acontecimento")
 
 # data explicita de evento: «12 e 13 novembre 2026», «dal 6 all'8 ottobre 2026», «16-24 maggio 2026», «8 ottobre»
 _RE_DATA_EVENTO = re.compile(
@@ -243,11 +334,21 @@ def _tempos_de_evento(t: str, pub: date | None) -> list:
 
 
 # ── 5 · os campos ───────────────────────────────────────────────────────────
-def _escrito_como_nome(lugar: str, frase: str) -> bool:
-    """O lugar aparece na frase com MAIUSCULA inicial. O leitor compara em minusculas, e «fermo»
-    (parado) casava com a provincia de Fermo — medido nas 78 (IT-T10-018: «il mercato … resta
-    sostanzialmente fermo»). So se aplica aos lugares que ESTE ficheiro promove (EVENTO/MERCADO)."""
-    return re.search(r"(?<![0-9A-Za-zÀ-ÿ])%s(?![0-9A-Za-zÀ-ÿ])" % re.escape(lugar), str(frase or "")) is not None
+def _posicao_do_nome(lugar: str, frase: str):
+    """Onde o lugar aparece na frase ESCRITO COM MAIUSCULA inicial; None se so aparece em minusculas.
+    O leitor compara em minusculas, e «fermo» (parado) casava com a provincia de Fermo — medido nas 78
+    (IT-T10-018: «il mercato … resta sostanzialmente fermo»). So se aplica aos lugares que ESTE
+    ficheiro promove (EVENTO/MERCADO/CAMPO de producao)."""
+    m = re.search(r"(?<![0-9A-Za-zÀ-ÿ])%s(?![0-9A-Za-zÀ-ÿ])" % re.escape(lugar), str(frase or ""))
+    return m.start() if m else None
+
+
+def _distancia(m, pos: int, n: int) -> int:
+    if m.end() <= pos:
+        return pos - m.end()
+    if m.start() >= pos + n:
+        return m.start() - (pos + n)
+    return 0
 
 
 def _lugares(c: str) -> tuple[list, list]:
@@ -257,25 +358,32 @@ def _lugares(c: str) -> tuple[list, list]:
         vistos.add((CAMPO, a["FACT_LOCATION"]))
         lugares.append({"LUGAR": a["FACT_LOCATION"], "PRECISAO": a["FACT_LOCATION_PRECISION"], "KIND": CAMPO,
                         "PAPEL_NA_LEI": PAPEL_NA_LEI[CAMPO], "ORIGEM": "CITADO", "ANCORA": a["FACT_LOCATION_ANCHOR"],
-                        "TIPO_DE_EVIDENCIA": a["TYPE_OF_EVIDENCE"], "TRECHO": _trecho(a["FACT_LOCATION_EVIDENCE"])})
+                        "ESPECIE": "OCORRENCIA", "TIPO_DE_EVIDENCIA": a["TYPE_OF_EVIDENCE"], "TRECHO": _trecho(a["FACT_LOCATION_EVIDENCE"])})
     sobra = []
     for r in recusadas:
-        kind, ancora = None, None
-        if r["STATE"] != FL.TERRITORIAL_LIST:
-            ev = _RE_EVENTO.search(r["EVIDENCE"])
-            if ev and r["WHY"] in RECUSA_QUE_PODE_SER_EVENTO:
-                kind, ancora = EVENTO, ev.group(0)
-            elif r["WHY"] in RECUSA_QUE_E_MERCADO:
-                kind, ancora = MERCADO, "mercato"
-        if kind and not _escrito_como_nome(r["PLACE"], r["EVIDENCE"]):
-            kind = None
+        kind, ancora, especie = None, None, None
+        pos = _posicao_do_nome(r["PLACE"], r["EVIDENCE"])
+        if r["STATE"] != FL.TERRITORIAL_LIST and pos is not None:
+            # a ancora MAIS PERTO do lugar decide, antes ou depois dele («del mercato In Sardegna si producono»)
+            cands = []
+            if r["WHY"] in RECUSA_QUE_PODE_SER_EVENTO:
+                cands += [(m, EVENTO, None) for m in _RE_EVENTO.finditer(r["EVIDENCE"])]
+            if r["WHY"] in RECUSA_QUE_PODE_SER_PRODUCAO:
+                cands += [(m, CAMPO, "PRODUCAO") for m in _RE_PRODUCAO.finditer(r["EVIDENCE"])
+                          if _distancia(m, pos, len(r["PLACE"])) <= DISTANCIA_MAXIMA_DA_PRODUCAO]
+            if r["WHY"] in RECUSA_QUE_E_MERCADO:
+                cands += [(m, MERCADO, None) for m in _RE_MERCADO.finditer(r["EVIDENCE"])]
+            if cands:
+                m, kind, especie = min(cands, key=lambda c: _distancia(c[0], pos, len(r["PLACE"])))
+                ancora = m.group(0)
         if not kind or (kind, r["PLACE"]) in vistos or (CAMPO, r["PLACE"]) in vistos:
             sobra.append(r)
             continue
         vistos.add((kind, r["PLACE"]))
-        # TIPO_DE_EVIDENCIA fica OTHER: um evento ou um mercado nunca e foco/observacao/amostra.
+        # TIPO_DE_EVIDENCIA fica OTHER: evento, mercado e lugar de producao nunca sao foco/observacao/amostra.
         lugares.append({"LUGAR": r["PLACE"], "PRECISAO": r["PRECISION"], "KIND": kind,
                         "PAPEL_NA_LEI": PAPEL_NA_LEI[kind], "ORIGEM": "CITADO", "ANCORA": ancora,
+                        "ESPECIE": especie or kind,
                         "TIPO_DE_EVIDENCIA": FL.OTHER_EVIDENCE, "TRECHO": _trecho(r["EVIDENCE"])})
     return lugares, sobra
 
@@ -295,8 +403,8 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
         esc = [l for l in lugares if l["KIND"] == kind_l]
         fact_location = SEP.join(l["LUGAR"] for l in esc)
         fact_location_precision = next((p for p in _PRECISAO_ORDEM if any(l["PRECISAO"] == p for l in esc)), esc[0]["PRECISAO"])
-        fact_location_basis = SEP.join("%s · CITADO · %s · âncora «%s» · %s · «%s»"
-                                       % (kind_l, l["PRECISAO"], l["ANCORA"], l["TIPO_DE_EVIDENCIA"], l["TRECHO"]) for l in esc)
+        fact_location_basis = SEP.join("%s · %s · CITADO · %s · âncora «%s» · %s · «%s»"
+                                       % (kind_l, l["ESPECIE"], l["PRECISAO"], l["ANCORA"], l["TIPO_DE_EVIDENCIA"], l["TRECHO"]) for l in esc)
         outros = [l for l in lugares if l["KIND"] != kind_l]
         if outros:
             fact_location_basis += " · também citados, de outro tipo: " + ", ".join("%s (%s)" % (l["LUGAR"], l["KIND"]) for l in outros)
@@ -310,16 +418,36 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
     # ── tempo · pela ordem: data explicita de CAMPO > relativa de CAMPO > data de EVENTO > relativa de EVENTO
     t, tapados, relativas = _tapar(c)
     for x in relativas:                    # a que tipo de facto a expressao esta presa, pela frase dela
-        low = FL._baixo(x["TRECHO"])
-        x["KIND"] = (CAMPO if any(re.search(a, low) for a in FL.ANCORAS_DE_TEMPO_DO_FATO)
-                     else EVENTO if _RE_EVENTO.search(x["TRECHO"]) else None)
-        cr = conta_relativa(x["EXPRESSAO"], pub) if (pub and x["KIND"]) else None
+        antes, depois = x.pop("_ANTES"), x.pop("_DEPOIS")
+        if _RE_INSTITUCIONAL.search(x["TRECHO"]):
+            x["KIND"], x["PORQUE"] = None, "frase institucional (exame, aula, curso…): não é facto do agro"
+        else:
+            x["KIND"] = CAMPO if _presa_ao_campo(x["TRECHO"]) else EVENTO if _RE_EVENTO.search(x["TRECHO"]) else None
+            x["PORQUE"] = None if x["KIND"] else "a frase não fala de um acontecimento nem de um evento técnico"
+        vale, porque = _oggi_vale(x["EXPRESSAO"], antes, depois)
+        if vale and _RE_COMPARACAO.search(antes):
+            vale, porque = False, "termo de comparação («%s»), não o tempo do facto" % _trecho(antes, 50)
+        if not vale:
+            x["PORQUE"] = porque
+        cr = conta_relativa(x["EXPRESSAO"], pub) if (pub and x["KIND"] and vale) else None
         x["CONTA"] = {"VALOR": cr[0], "RESOLUCAO": cr[1]} if cr else None
-    r = FL.tempo_do_fato(t, pub.isoformat() if pub else None)
-    eventos = _tempos_de_evento(t, pub)
+    r = _tempo_de_campo(t, pub, tapados)
+    eventos = []
+    for e in _tempos_de_evento(t, pub):
+        if _RE_INSTITUCIONAL.search(e["TRECHO"]):
+            tapados.append("INSTITUCIONAL_NAO_FATO «%s»" % e["VALOR"])
+        else:
+            eventos.append(e)
+
+    ambiguas = {}
 
     def _rel_de(kind):
-        x = next((x for x in relativas if x["KIND"] == kind and x["CONTA"]), None)
+        xs = [x for x in relativas if x["KIND"] == kind and x["CONTA"]]
+        if len({x["CONTA"]["VALOR"] for x in xs}) > 1:
+            # duas contas diferentes presas ao mesmo tipo de facto: nao se sabe qual e a do facto
+            ambiguas[kind] = ", ".join("«%s» → %s" % (x["EXPRESSAO"], x["CONTA"]["VALOR"]) for x in xs[:4])
+            return None
+        x = xs[0] if xs else None
         return x and {"VALOR": x["CONTA"]["VALOR"], "KIND": kind, "ORIGEM": RELATIVA,
                       "RESOLUCAO": x["CONTA"]["RESOLUCAO"], "CALCULADA": True, "EXPRESSAO": x["EXPRESSAO"],
                       "TRECHO": x["TRECHO"]}
@@ -351,10 +479,14 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
         why = "nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico"
         if tapados:
             why += "; descartadas (não são tempo do facto): %s" % ", ".join(tapados)
-        if relativas:
-            why += ("; expressões relativas guardadas como evidência, sem conta (%s): %s"
-                    % ("publicação não provada" if not pub else "sem medida ou sem acontecimento na frase",
-                       ", ".join("«%s»" % x["EXPRESSAO"] for x in relativas[:6])))
+        for k, v in ambiguas.items():
+            why += "; AMBIGUO (%s): contas diferentes no mesmo texto, não se sabe qual é a do facto: %s" % (k, v)
+        if relativas and not pub:
+            why += ("; expressões relativas guardadas como evidência, sem conta (publicação não provada): %s"
+                    % ", ".join("«%s»" % x["EXPRESSAO"] for x in relativas[:6]))
+        elif relativas and not ambiguas:
+            why += "; expressões relativas guardadas como evidência, sem conta: %s" % ", ".join(
+                "«%s» (%s)" % (x["EXPRESSAO"], x.get("PORQUE") or "sem medida") for x in relativas[:6])
         fact_time_basis = "NAO SEI · " + why
     fact_time_basis += " · a data de publicação sozinha nunca preenche este campo"
 
