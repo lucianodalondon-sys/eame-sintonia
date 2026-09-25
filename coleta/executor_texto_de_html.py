@@ -457,11 +457,12 @@ def publicacao_para_o_contrato(r: dict) -> dict:
 # O dono (25/09, D63): «Ontem ou semana passada pode ser considerada data do
 # fato sim, desde que o sistema pegue a data da publicação e faça a conta.»
 #
-#     FACT_TIME = PUBLICATION_TIME + a expressão, e SÓ com a publicação PROVADA.
+#     CONTA = PUBLICATION_TIME + a expressão, e SÓ com a publicação PROVADA.
 #
-# Isto NÃO copia a publicação para o facto — faz uma CONTA, e declara-a:
-# `FACT_TIME_BASIS = RELATIVA_A_PUBLICACAO`, com a expressão original como
-# evidência e a precisão a dizer `CALCULADA`. A publicação continua à parte.
+# ⚠️ DA-6: ESTE RAMO NÃO ESCREVE FACT_TIME. O facto a partir do texto tem um
+# dono só (o extrator local `lugar-fato-v1`). Aqui a conta sai como EVIDÊNCIA
+# (`RELATIVE_TIME_*`, base `RELATIVA_A_PUBLICACAO` + a expressão original),
+# para esse dono decidir. A publicação continua à parte.
 #
 # PRECISÃO HONESTA: «ieri» é um dia; «la settimana scorsa» é a semana anterior
 # INTEIRA (segunda a domingo, em intervalo ISO 8601 `início/fim`) — nunca um
@@ -574,8 +575,11 @@ def publicacao_do_item(item: dict) -> dict:
     return {"VALOR": v, "BASE": b}
 
 
-def tempo_do_fato_relativo(texto, publicacao: dict) -> dict:
-    """FACT_TIME contado a partir da PUBLICATION_TIME provada (D63).
+def conta_relativa_a_publicacao(texto, publicacao: dict) -> dict:
+    """A expressão relativa do texto, contada a partir da PUBLICATION_TIME provada.
+
+    D63/D64 dizem COMO contar; a DA-6 diz que o facto é de outro dono. Isto
+    devolve a conta como EVIDÊNCIA (ver `evidencia_relativa`), nunca FACT_TIME.
 
     → `{"VALOR", "BASE", "PRECISAO", "EXPRESSAO", "INICIO", "FIM", "PORQUE"}`.
     `VALOR` é um dia ISO (`2026-09-19`) ou um intervalo ISO (`início/fim`).
@@ -620,19 +624,26 @@ def tempo_do_fato_relativo(texto, publicacao: dict) -> dict:
                          publicacao["BASE"])}
 
 
-def facto_relativo_para_o_contrato(r: dict) -> dict:
-    """O recibo de `tempo_do_fato_relativo`, nos nomes do contrato comum.
+def evidencia_relativa(r: dict) -> dict:
+    """A conta de `conta_relativa_a_publicacao` como EVIDÊNCIA — nunca como facto.
 
-    `FACT_TIME_BASIS` leva a BASE **e** a expressão original como evidência.
-    Sem conta: só o porquê na BASE — `NAO SEI` nunca atravessa como valor, e
-    nada aqui reprova o item (D62).
+    ⚠️ DA-6 (coordenador, 25/09): FACT_TIME / FACT_LOCATION a partir do texto
+    têm UM dono só — o extrator local `lugar-fato-v1`. Este ramo é dono SÓ de
+    PUBLICATION_TIME (+ base, precisão) e SOURCE_LOCATION (+ base). Por isso
+    esta saída NÃO tem chave `FACT_*`: leva a expressão encontrada e a conta
+    feita a partir da publicação, com nomes de evidência, para o dono do
+    facto decidir. Escrever `fact_time` aqui seria um segundo dono.
+
+    → `{"RELATIVE_TIME_EXPRESSION", "RELATIVE_TIME_COMPUTED",
+        "RELATIVE_TIME_PRECISION", "RELATIVE_TIME_BASIS"}`; sem conta, só a BASE
+      com o porquê.
     """
     if r.get("VALOR") in (art.NAO_SEI, "", None):
-        return {"FACT_TIME_BASIS": r.get("PORQUE") or art.NAO_SEI,
-                "FACT_TIME_PRECISION": art.NAO_SEI}
-    return {"FACT_TIME": r["VALOR"],
-            "FACT_TIME_BASIS": "%s «%s»" % (r["BASE"], r["EXPRESSAO"]),
-            "FACT_TIME_PRECISION": r["PRECISAO"]}
+        return {"RELATIVE_TIME_BASIS": r.get("PORQUE") or art.NAO_SEI}
+    return {"RELATIVE_TIME_EXPRESSION": r["EXPRESSAO"],
+            "RELATIVE_TIME_COMPUTED": r["VALOR"],
+            "RELATIVE_TIME_PRECISION": r["PRECISAO"],
+            "RELATIVE_TIME_BASIS": "%s «%s»" % (r["BASE"], r["EXPRESSAO"])}
 
 
 def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,

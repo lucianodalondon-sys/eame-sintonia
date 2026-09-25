@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -348,11 +349,12 @@ PUB = {"VALOR": "2026-09-20T09:00:00+02:00", "BASE": ex.BASE_META}
 
 
 class D63ContaAPartirDaPublicacao(unittest.TestCase):
-    """D63: «ieri» / «la settimana scorsa» valem como FACT_TIME, CONTADOS a
-    partir da PUBLICATION_TIME provada, com a expressao como evidencia."""
+    """D63/D64: «ieri» / «la settimana scorsa» CONTADOS a partir da
+    PUBLICATION_TIME provada. DA-6: sai como EVIDENCIA, nunca como FACT_TIME
+    (o facto e do extrator local lugar-fato-v1)."""
 
     def _r(self, texto, pub=PUB):
-        return ex.tempo_do_fato_relativo(texto, pub)
+        return ex.conta_relativa_a_publicacao(texto, pub)
 
     def test_ieri_e_um_dia_exacto(self):
         r = self._r("Ieri la grandine ha colpito i vigneti.")
@@ -392,9 +394,9 @@ class D63ContaAPartirDaPublicacao(unittest.TestCase):
         self.assertIn("scorsa settimana", texto)
         pub = ex.tempo_de_publicacao(b)
         self.assertEqual(NAO_SEI, pub["VALOR"])
-        self.assertEqual(NAO_SEI, ex.tempo_do_fato_relativo(texto, pub)["VALOR"])
+        self.assertEqual(NAO_SEI, ex.conta_relativa_a_publicacao(texto, pub)["VALOR"])
         # com uma publicacao provada (aqui dada), a mesma frase conta-se
-        r = ex.tempo_do_fato_relativo(texto, PUB)
+        r = ex.conta_relativa_a_publicacao(texto, PUB)
         self.assertEqual("2026-09-07/2026-09-13", r["VALOR"])
 
     def test_duas_contas_diferentes_nao_respondem(self):
@@ -416,27 +418,53 @@ class D63ContaAPartirDaPublicacao(unittest.TestCase):
         self.assertNotEqual(PUB["VALOR"][:10], r["VALOR"])
         self.assertFalse({"PUBLISHED_AT", "published_at"} & set(r))
 
-    def test_para_o_contrato_leva_a_expressao_como_evidencia(self):
-        c = ex.facto_relativo_para_o_contrato(self._r("la settimana scorsa"))
-        self.assertEqual({"FACT_TIME": "2026-09-07/2026-09-13",
-                          "FACT_TIME_BASIS": "RELATIVA_A_PUBLICACAO «la settimana scorsa»",
-                          "FACT_TIME_PRECISION": "CALCULADA:SEMANA"}, c)
-        sem = ex.facto_relativo_para_o_contrato(self._r("nulla"))
-        self.assertNotIn("FACT_TIME", sem)
-        self.assertTrue(sem["FACT_TIME_BASIS"].startswith("NAO SEI — "))
-        self.assertEqual(NAO_SEI, sem["FACT_TIME_PRECISION"])
+    def test_a_conta_sai_como_evidencia_e_nunca_como_fact_time(self):
+        # ajuste DECLARADO (DA-6): FACT_TIME a partir do texto e do extrator
+        # local lugar-fato-v1; este ramo so entrega a conta como EVIDENCIA.
+        c = ex.evidencia_relativa(self._r("la settimana scorsa"))
+        self.assertEqual({"RELATIVE_TIME_EXPRESSION": "la settimana scorsa",
+                          "RELATIVE_TIME_COMPUTED": "2026-09-07/2026-09-13",
+                          "RELATIVE_TIME_PRECISION": "CALCULADA:SEMANA",
+                          "RELATIVE_TIME_BASIS": "RELATIVA_A_PUBLICACAO «la settimana scorsa»"},
+                         c)
+        sem = ex.evidencia_relativa(self._r("nulla"))
+        self.assertEqual(["RELATIVE_TIME_BASIS"], list(sem))
+        self.assertTrue(sem["RELATIVE_TIME_BASIS"].startswith("NAO SEI — "))
 
-    def test_a_lei_do_artefato_aceita_a_conta_e_recusa_a_copia(self):
+    def test_DA6_nenhuma_saida_deste_ramo_escreve_facto(self):
+        """DA-6: dono SO de PUBLICATION_TIME e SOURCE_LOCATION. Nenhuma funcao
+        publica do modulo devolve chave FACT_*, e o codigo nao escreve uma."""
+        saidas = []
+        for t in ("ieri", "la settimana scorsa", "oggi, lunedì", "nulla"):
+            for pub in (PUB, PUB_SEGUNDA, {}):
+                r = ex.conta_relativa_a_publicacao(t, pub)
+                saidas += [r, ex.evidencia_relativa(r)]
+        for b in (_real(REAL_JSON_LD), _real(REAL_SO_BARRA_LATERAL), _pagina()):
+            r = ex.tempo_de_publicacao(b)
+            saidas += [r, ex.publicacao_para_o_contrato(r)]
+        for sid in ("IT-T3-002", "IT-T10-018"):
+            r = cdf.lugar_da_fonte(sid)
+            saidas += [r, cdf.lugar_para_o_contrato(r)]
+        for s in saidas:
+            chaves = {k.upper() for k in s}
+            self.assertFalse({k for k in chaves if k.startswith("FACT_")}, s)
+        for f in ("coleta/executor_texto_de_html.py", "regras/contratos_de_fonte.py"):
+            with open(os.path.join(RAIZ, f), encoding="utf-8") as fh:
+                codigo = fh.read()
+            # a chave de facto INTEIRA entre aspas (`"FACT_LOCATION_RULE"` e
+            # leitura da regra do contrato, nao escrita de facto)
+            self.assertEqual([], re.findall(
+                r"[\"'](?:FACT_TIME|FACT_LOCATION|fact_time|fact_location)"
+                r"(?:_BASIS|_PRECISION|_basis|_precision)?[\"']", codigo), f)
+        self.assertFalse(hasattr(ex, "facto_relativo_para_o_contrato"))
+
+    def test_a_lei_do_artefato_nao_ve_facto_nenhum_deste_ramo(self):
         pub = ex.publicacao_para_o_contrato(ex.tempo_de_publicacao(_real(REAL_META)))
-        conta = ex.facto_relativo_para_o_contrato(
-            ex.tempo_do_fato_relativo("ieri", ex.tempo_de_publicacao(_real(REAL_META))))
         a = art.Artefato(ARTIFACT_ID="x", ARTIFACT_TYPE=art.RAW,
                          STORAGE_LOCATION="x.html", SHA256="0" * 64,
-                         PUBLISHED_AT=pub["PUBLISHED_AT"], FACT_TIME=conta["FACT_TIME"],
-                         NOTES={"FACT_TIME_BASIS": conta["FACT_TIME_BASIS"]})
-        self.assertEqual("2026-07-10", a.FACT_TIME)
+                         PUBLISHED_AT=pub["PUBLISHED_AT"])
+        self.assertEqual(NAO_SEI, a.FACT_TIME)
         self.assertEqual([], art.conferir(a))
-
 
 #: segunda-feira 21/09/2026, meta provada
 PUB_SEGUNDA = {"VALOR": "2026-09-21T09:00:00+02:00", "BASE": ex.BASE_META}
@@ -447,14 +475,14 @@ class D64OggiEAInterfaceDoItem(unittest.TestCase):
     NAO SEI. E o leitor do facto lê a publicação da interface do ITEM."""
 
     def _v(self, texto, pub=PUB_SEGUNDA):
-        return ex.tempo_do_fato_relativo(texto, pub)["VALOR"]
+        return ex.conta_relativa_a_publicacao(texto, pub)["VALOR"]
 
     def test_oggi_o_proprio_dia_conta(self):
         for t in ("Oggi, lunedì, la grandine ha colpito", "oggi lunedi 21 settembre",
                   "Oggi è stata una giornata di forte pioggia",
                   "oggi è stato firmato l'accordo"):
             self.assertEqual("2026-09-21", self._v(t), t)
-        r = ex.tempo_do_fato_relativo("oggi, lunedì", PUB_SEGUNDA)
+        r = ex.conta_relativa_a_publicacao("oggi, lunedì", PUB_SEGUNDA)
         self.assertEqual("CALCULADA:DIA", r["PRECISAO"])
 
     def test_oggi_hoje_em_dia_e_NAO_SEI(self):
@@ -470,7 +498,7 @@ class D64OggiEAInterfaceDoItem(unittest.TestCase):
                 "publication_time_basis": ex.BASE_META}
         pub = ex.publicacao_do_item(item)
         self.assertEqual(PUB_SEGUNDA, pub)
-        self.assertEqual("2026-09-20", ex.tempo_do_fato_relativo("ieri", pub)["VALOR"])
+        self.assertEqual("2026-09-20", ex.conta_relativa_a_publicacao("ieri", pub)["VALOR"])
         # a saida do extrator, posta no item, tambem se le
         sai = ex.publicacao_para_o_contrato(ex.tempo_de_publicacao(_real(REAL_META)))
         self.assertEqual("2026-07-11T04:00:00+00:00",
@@ -487,7 +515,7 @@ class D64OggiEAInterfaceDoItem(unittest.TestCase):
         for item in casos:
             pub = ex.publicacao_do_item(item)
             self.assertEqual(NAO_SEI, pub["VALOR"], item)
-            self.assertEqual(NAO_SEI, ex.tempo_do_fato_relativo("ieri", pub)["VALOR"])
+            self.assertEqual(NAO_SEI, ex.conta_relativa_a_publicacao("ieri", pub)["VALOR"])
 
 
 if __name__ == "__main__":
