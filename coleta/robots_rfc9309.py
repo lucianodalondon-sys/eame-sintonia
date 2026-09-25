@@ -26,12 +26,18 @@ A LEITURA (RFC 9309 §2.2):
     `$` (fim). Vence a regra de caminho MAIS LONGO; no empate vence `Allow`.
     `Disallow:` vazio nao proibe nada. `/robots.txt` e sempre permitido.
 
-A RESPOSTA DO SERVIDOR (RFC 9309 §2.3.1):
+A RESPOSTA DO SERVIDOR (RFC 9309 §2.3.1, com duas escolhas da casa — D39):
   · 2xx com texto             -> LIDO
-  · 4xx (404, 410, 401, 403…) -> AUSENTE: «indisponivel», pode aceder a tudo (§2.3.1.3)
+  · 401 / 403                 -> ROBOTS_ACCESS_DENIED: RECUSA por prudencia. ⚠️ MAIS
+                                 CONSERVADOR QUE A RFC, e declarado: a norma (§2.3.1.3) diria
+                                 «indisponivel, pode»; a casa le um 401/403 ao proprio robots
+                                 como «nao nos querem aqui» (muitas vezes um muro anti-robo).
+  · outros 4xx (404, 410…)    -> AUSENTE: «indisponivel», pode aceder a tudo (§2.3.1.3)
   · 5xx ou rede em baixo      -> INACESSIVEL: proibido tudo (§2.3.1.4) — NAO SEI, recusa
-  · 2xx com HTML no lugar     -> ILEGIVEL: proibido tudo — nao afirmamos permissao que
-                                 nao lemos (regra da casa, mantida pela D34)
+  · 2xx com HTML no lugar     -> ROBOTS_INVALID_CONTENT: RECUSA — nao afirmamos permissao
+                                 que nao lemos. ⚠️ Tambem mais conservador que a RFC (que leria
+                                 o HTML como robots sem regras, logo «pode»).
+  Nenhuma destas recusas e um Disallow: a regra que decide diz o NOME do estado.
 
 O GEMEO. `coleta/italy_pilot_collect.mjs` (lerRobots/grupoQueVale/robotsPermite)
 le igual; `tests/test_robots_rfc9309.py` compara os dois caso a caso.
@@ -43,7 +49,11 @@ from dataclasses import dataclass, field
 from urllib.parse import urlsplit
 
 LIDO, AUSENTE, INACESSIVEL, ILEGIVEL = "LIDO", "AUSENTE", "INACESSIVEL", "ILEGIVEL"
-VERSAO = "ROBOTS/RFC9309-v1"
+# D39 (25/09): duas RECUSAS com nome proprio — nenhuma delas e um Disallow lido.
+INVALID_CONTENT = "ROBOTS_INVALID_CONTENT"   # veio HTML (ou outra coisa) no lugar do robots.txt
+ACCESS_DENIED = "ROBOTS_ACCESS_DENIED"       # 401/403 ao pedido do robots.txt
+RECUSAS = frozenset({INACESSIVEL, ILEGIVEL, INVALID_CONTENT, ACCESS_DENIED})
+VERSAO = "ROBOTS/RFC9309-v2 (D39)"
 
 # decodeURI do JavaScript nao desfaz estes (o gemeo Node usa decodeURI)
 _RESERVADOS = set(";/?:@&=+$,#")
@@ -150,6 +160,12 @@ class Robots:
         if self.estado == ILEGIVEL:
             return Decisao(False, "robots ilegivel (%s) — nao afirmamos permissao que nao lemos" % self.porque,
                            self.estado)
+        if self.estado == INVALID_CONTENT:
+            return Decisao(False, "%s (%s) — recusa, nao e Disallow (D39)" % (INVALID_CONTENT, self.porque),
+                           self.estado)
+        if self.estado == ACCESS_DENIED:
+            return Decisao(False, "%s (%s) — recusa por prudencia, mais conservador que a RFC; nao e "
+                                  "Disallow (D39)" % (ACCESS_DENIED, self.porque), self.estado)
         p = urlsplit(url)
         caminho = (p.path or "/") + ("?" + p.query if p.query else "")
         if caminho == "/robots.txt":
@@ -181,6 +197,8 @@ def de_resposta(status: int | None, corpo: bytes | str | None = b"", *, erro: st
     """Classifica UMA resposta ao pedido de /robots.txt (a busca e de quem chama)."""
     if status is None:
         return Robots(INACESSIVEL, porque="rede: %s" % (erro or "sem resposta"))
+    if status in (401, 403):
+        return Robots(ACCESS_DENIED, porque="HTTP %d" % status)
     if 400 <= status < 500:
         return Robots(AUSENTE, porque="HTTP %d" % status)
     if status >= 500 or status < 200 or status >= 300:
@@ -188,5 +206,5 @@ def de_resposta(status: int | None, corpo: bytes | str | None = b"", *, erro: st
     txt = corpo.decode("utf-8", "replace") if isinstance(corpo, bytes) else (corpo or "")
     cabeca = txt.lstrip()[:9].lower()
     if cabeca.startswith("<!doctype") or cabeca.startswith("<html"):
-        return Robots(ILEGIVEL, porque="HTML no lugar do robots.txt")
+        return Robots(INVALID_CONTENT, porque="HTML no lugar do robots.txt")
     return Robots(LIDO, txt, porque="HTTP %d" % status)

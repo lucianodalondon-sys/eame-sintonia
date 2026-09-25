@@ -17,10 +17,10 @@
 //   C4  pausa configurada (2 s) e Crawl-delay 3 -> >= 2 s; e o Crawl-delay manda quando e maior
 //   C5  teto por omissao (5, D7)                -> 6 materias anunciadas, 5 pedidos no servidor
 //   C6  teto configurado (3)                    -> 3 pedidos
-//   C7  robots ilegivel (HTML, 500)             -> so o robots e pedido
+//   C7  robots HTML (ROBOTS_INVALID_CONTENT, D39) e 500 (ilegivel) -> so o robots e pedido
 //   C8  robots indisponivel (ligacao cortada)   -> so o robots; e NAO fica em cache
 //   C9  robots 404                              -> sem ficheiro = sem proibicao
-//   C9b robots 403 (D34, RFC 9309)              -> qualquer 4xx = indisponivel = sem proibicao
+//   C9b robots 403 (D39)                        -> ROBOTS_ACCESS_DENIED: recusa por prudencia, nao Disallow
 //   C10 redireccionamento                       -> o salto pede licenca: destino proibido nunca e pedido
 //   C11 o leitor do robots (sem rede)           -> mais longo vence, Allow no empate, `$`, grupo proprio
 //   C12 configuracao invalida                   -> falha alto
@@ -240,7 +240,9 @@ try {
     const c7 = await rodada(`C7${modo}`); anota(`C7${modo}`, c7);
     t(`C7 ${modo}: so o robots e pedido — nao se afirma permissao que nao se leu`, () => {
       assert.deepEqual(c7.caminhos, ["/robots.txt"]);
-      assert.equal(c7.c.COURTESY_REFUSALS.ROBOTS_ILEGIVEL, 1);
+      // D39: HTML no lugar do robots tem nome proprio; o 500 continua ilegivel (RFC §2.3.1.4)
+      assert.equal(c7.c.COURTESY_REFUSALS[modo === "html" ? "ROBOTS_INVALID_CONTENT" : "ROBOTS_ILEGIVEL"], 1);
+      assert.equal(c7.c.COURTESY_REFUSALS.ROBOTS_PROIBE, undefined, "uma recusa D39 nao e um Disallow");
       assert.equal(c7.c.UNKNOWN, 1); assert.equal(c7.novasNoLivro.length, 0);
     });
   }
@@ -266,13 +268,16 @@ try {
     assert.equal(c9.resumo.CORTESIA.ROBOTS[BASE].ESTADO, "AUSENTE");
   });
 
-  console.log("\n══ C9b · robots 403 = indisponivel = sem proibicao (RFC 9309, D34) ══");
+  console.log("\n══ C9b · robots 403 = ROBOTS_ACCESS_DENIED = recusa por prudencia (D39) ══");
   ROBOTS = { modo: "403" };
   INDICE = ["dieci-b"];
   const c9b = await rodada("C9b"); anota("C9b", c9b);
-  t("C9b: robots 403 deixa passar (RFC 9309 §2.3.1.3: qualquer 4xx = indisponivel)", () => {
-    assert.deepEqual(c9b.caminhos, ["/robots.txt", "/news/", "/news/dieci-b/"]);
-    assert.equal(c9b.resumo.CORTESIA.ROBOTS[BASE].ESTADO, "AUSENTE");
+  t("C9b: robots 403 recusa por prudencia (D39, mais conservador que a RFC) — so o robots e pedido", () => {
+    assert.deepEqual(c9b.caminhos, ["/robots.txt"]);
+    assert.equal(c9b.resumo.CORTESIA.ROBOTS[BASE].ESTADO, "ROBOTS_ACCESS_DENIED");
+    assert.equal(c9b.c.COURTESY_REFUSALS.ROBOTS_ACCESS_DENIED, 1);
+    assert.equal(c9b.c.COURTESY_REFUSALS.ROBOTS_PROIBE, undefined, "uma recusa D39 nao e um Disallow");
+    assert.equal(c9b.novasNoLivro.length, 0);
   });
 
   console.log("\n══ C10 · o redireccionamento pede licenca outra vez ═════════════");

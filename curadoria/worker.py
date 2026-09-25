@@ -167,6 +167,10 @@ def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
     # (RFC 9309 §2.3.1.4) e NAO SEI como a rede em baixo, e antes caia em BLOCK.
     if rp.estado == GATE.RR.INACESSIVEL:
         return "RETRY", dict(prova, PORQUE="robots nao pode ser lido (%s) — UNKNOWN, nao proibicao" % rp.porque)
+    # D39: duas recusas com NOME PROPRIO, que nao sao um Disallow lido. A classe diz qual; o
+    # livro de estados (vocabulario fechado) continua a dizer rota bloqueada, com o nome ao lado.
+    if rp.estado in (GATE.RR.INVALID_CONTENT, GATE.RR.ACCESS_DENIED):
+        return "BLOCK", dict(prova, CLASSE=rp.estado, PORQUE=dec.regra)
     if rp.estado == GATE.RR.ILEGIVEL:
         return "BLOCK", dict(prova, CLASSE="ROBOTS",
                              PORQUE=("NAO SEI — o robots.txt veio ilegivel (%s): recusa, como no coletor; "
@@ -727,11 +731,16 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
         classe = detalhe.get("CLASSE", "UNKNOWN")
         F.bloquear(tid, detalhe.get("PORQUE", classe)[:160])
         novo = {"ROBOTS": LC.CONTRACT_READY_ROUTE_BLOCKED,
+                # D39: recusas de robots com nome proprio — rota bloqueada, NAO Disallow
+                "ROBOTS_INVALID_CONTENT": LC.CONTRACT_READY_ROUTE_BLOCKED,
+                "ROBOTS_ACCESS_DENIED": LC.CONTRACT_READY_ROUTE_BLOCKED,
                 "AUTH": LC.AUTH_BLOCK,
                 "POLICY": LC.POLICY_BLOCK,
                 "SEMANTIC": LC.SEMANTIC_REVIEW}.get(classe, LC.CAPABILITY_BLOCK)
         if LC.estado_de(sid) != novo:
-            LC.registar(sid, novo, detalhe.get("PORQUE", "")[:200], evidence_ref=ref)
+            LC.registar(sid, novo, detalhe.get("PORQUE", "")[:200], evidence_ref=ref,
+                        extra=({"ROBOTS_ESTADO": detalhe["ROBOTS_ESTADO"]}
+                               if detalhe.get("ROBOTS_ESTADO") else None))
 
     else:  # FAIL
         F.concluir(tid, "canario reprovou")

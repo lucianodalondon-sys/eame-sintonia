@@ -19,6 +19,7 @@ import subprocess
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "coleta"))
@@ -111,12 +112,23 @@ class OsCasosDaNorma(unittest.TestCase):
 class OsEstadosDaResposta(unittest.TestCase):
     """RFC 9309 §2.3.1: 4xx = sem robots (pode); 5xx/rede = tudo proibido; HTML = ilegivel."""
 
-    def test_4xx_e_ausencia(self):
-        for st in (400, 401, 403, 404, 410, 429 - 1):
+    def test_4xx_que_nao_e_401_403_e_ausencia(self):
+        for st in (400, 404, 410, 418, 429):
             with self.subTest(st=st):
                 rp = RR.de_resposta(st)
                 self.assertEqual(RR.AUSENTE, rp.estado)
                 self.assertTrue(rp.can_fetch(UA, "https://ex.it/qualquer"))
+
+    def test_401_403_e_ACCESS_DENIED_recusa_por_prudencia_nao_disallow(self):
+        """D39: mais conservador que a RFC (que diria «pode»), e declarado."""
+        for st in (401, 403):
+            with self.subTest(st=st):
+                rp = RR.de_resposta(st)
+                self.assertEqual("ROBOTS_ACCESS_DENIED", rp.estado)
+                d = rp.decidir(UA, "https://ex.it/qualquer")
+                self.assertFalse(d.permite)
+                self.assertTrue(d.regra.startswith("ROBOTS_ACCESS_DENIED"))
+                self.assertNotIn("Disallow:", d.regra)
 
     def test_5xx_e_rede_sao_nao_sei_e_recusa(self):
         for st in (500, 502, 503):
@@ -126,12 +138,20 @@ class OsEstadosDaResposta(unittest.TestCase):
         self.assertEqual(RR.INACESSIVEL, rp.estado)
         self.assertFalse(rp.can_fetch(UA, "https://ex.it/"))
 
-    def test_html_no_lugar_do_robots_e_ilegivel_e_recusa(self):
+    def test_html_no_lugar_do_robots_e_INVALID_CONTENT_recusa_nao_disallow(self):
         for corpo in (b"<!DOCTYPE html><html>...", b"  <html><body>login</body></html>"):
             with self.subTest(corpo=corpo[:12]):
                 rp = RR.de_resposta(200, corpo)
-                self.assertEqual(RR.ILEGIVEL, rp.estado)
-                self.assertFalse(rp.can_fetch(UA, "https://ex.it/"))
+                self.assertEqual("ROBOTS_INVALID_CONTENT", rp.estado)
+                d = rp.decidir(UA, "https://ex.it/")
+                self.assertFalse(d.permite)
+                self.assertTrue(d.regra.startswith("ROBOTS_INVALID_CONTENT"))
+                self.assertNotIn("Disallow:", d.regra)
+
+    def test_as_recusas_d39_sao_recusas_e_nenhuma_e_lido(self):
+        self.assertTrue({RR.INVALID_CONTENT, RR.ACCESS_DENIED, RR.INACESSIVEL, RR.ILEGIVEL} <= RR.RECUSAS)
+        self.assertNotIn(RR.LIDO, RR.RECUSAS)
+        self.assertNotIn(RR.AUSENTE, RR.RECUSAS)
 
     def test_proibicao_real_continua_bloqueada(self):
         rp = RR.de_resposta(200, "User-agent: *\nDisallow: /")
@@ -214,6 +234,126 @@ class NenhumSegundoLeitor(unittest.TestCase):
             self.assertFalse(H.permitido(base + "/wps/portal/x")[0])
         finally:
             H._ROBOTS.pop(base, None)
+
+
+    def test_o_transporte_recusa_pelo_nome_e_a_excecao_do_dono_nao_alcanca(self):
+        import scrap_http as H   # noqa: PLC0415
+        base = "https://negado.example"
+        for rp in (RR.de_resposta(403), RR.de_resposta(200, b"<!doctype html><html></html>")):
+            with self.subTest(estado=rp.estado):
+                H._ROBOTS[base] = (rp, rp.estado)
+                try:
+                    with mock.patch.object(H, "autorizacao_actual",
+                                           side_effect=AssertionError("a excecao do dono nao atravessa D39")):
+                        ok, motivo = H.permitido(base + "/x")
+                    self.assertFalse(ok)
+                    self.assertTrue(motivo.startswith(rp.estado))
+                finally:
+                    H._ROBOTS.pop(base, None)
+
+
+class ORoboRegistaARecusaComNome(unittest.TestCase):
+    """D39: no robo, a recusa e BLOCK com CLASSE = nome do estado; o livro (vocabulario fechado)
+    diz rota bloqueada e guarda ROBOTS_ESTADO ao lado; o PORQUE nunca diz Disallow."""
+
+    def _contrato(self):
+        return {"SOURCE_ID": "IT-X-901", "ACQUISITION": {"STRATEGY": "HTML_LINK_DISCOVERY",
+                                                          "INDEX_URL": "https://negado.example/news/"}}
+
+    def test_etapa_devolve_block_com_o_nome(self):
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+        import worker as W   # noqa: PLC0415
+        for rp, nome in ((RR.de_resposta(403), "ROBOTS_ACCESS_DENIED"),
+                         (RR.de_resposta(200, b"<!DOCTYPE html>"), "ROBOTS_INVALID_CONTENT")):
+            with self.subTest(nome=nome), mock.patch.object(W.GATE, "robots_de", return_value=(rp, rp.porque)):
+                r, d = W.etapa_validate_route("IT-X-901", self._contrato())
+                self.assertEqual("BLOCK", r)
+                self.assertEqual(nome, d["CLASSE"])
+                self.assertEqual(nome, d["ROBOTS_ESTADO"])
+                self.assertNotIn("Disallow:", d["PORQUE"]); self.assertTrue(d["PORQUE"].startswith(nome))
+
+    def test_404_continua_a_passar(self):
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+        import worker as W   # noqa: PLC0415
+        rp = RR.de_resposta(404)
+        with mock.patch.object(W.GATE, "robots_de", return_value=(rp, rp.porque)):
+            r, _ = W.etapa_validate_route("IT-X-901", self._contrato())
+        self.assertEqual("OK", r)
+
+    def test_o_livro_diz_rota_bloqueada_com_o_nome_ao_lado(self):
+        import tempfile   # noqa: PLC0415
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+        import fila as F        # noqa: PLC0415
+        import lifecycle as LC  # noqa: PLC0415
+        import worker as W      # noqa: PLC0415
+        with tempfile.TemporaryDirectory() as tmp:
+            d = Path(tmp)
+            antes = (LC.LIVRO, F.FILA, W.EVIDENCIA, W.PULSO)
+            LC.LIVRO, F.FILA, W.EVIDENCIA, W.PULSO = (d / "L.json", d / "Q.json", d / "E.json", d / "P.json")
+            try:
+                LC.registar("IT-X-901", LC.CANARY_PENDING, "prova")
+                F.enfileirar("IT-X-901", F.VALIDATE_ROUTE, priority=55)
+                rp = RR.de_resposta(403)
+                with mock.patch.object(W.GATE, "robots_de", return_value=(rp, rp.porque)):
+                    W.executar_uma(F.proxima(), {"IT-X-901": self._contrato()})
+                ult = LC.historia("IT-X-901")[-1]
+                self.assertEqual(LC.CONTRACT_READY_ROUTE_BLOCKED, ult["NEW_STATE"])
+                self.assertEqual("ROBOTS_ACCESS_DENIED", ult["ROBOTS_ESTADO"])
+                self.assertNotIn("Disallow:", ult["REASON"]); self.assertTrue(ult["REASON"].startswith("ROBOTS_ACCESS_DENIED"))
+            finally:
+                LC.LIVRO, F.FILA, W.EVIDENCIA, W.PULSO = antes
+
+
+class OScriptDeEnfileirarAs52(unittest.TestCase):
+    """D39 (3): so mostra por omissao; READY primeiro; recusa um leitor que nao seja o D39."""
+
+    def _modulo(self, d):
+        import importlib.util   # noqa: PLC0415
+        spec = importlib.util.spec_from_file_location(
+            "e52", RAIZ / "provas" / "robots_rfc" / "enfileirar_as_52.py")
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        m.MEDICAO = d / "M.json"
+        m.MEDICAO.write_text(json.dumps({"MUDAM": [
+            {"SOURCE_ID": s, "ANTIGO": True, "NOVO_D39": False, "REGRA_D39": "Disallow: /*?"}
+            for s in ("IT-X-001", "IT-X-002", "IT-X-003")]}), encoding="utf-8")
+        m.CONTRATOS = d / "C.json"
+        m.CONTRATOS.write_text(json.dumps({"FONTES": [{"SOURCE_ID": "IT-X-001"}, {"SOURCE_ID": "IT-X-002"}]}),
+                               encoding="utf-8")
+        return m
+
+    def test_so_mostra_ready_primeiro_e_sem_contrato_fica_fora(self):
+        import tempfile   # noqa: PLC0415
+        with tempfile.TemporaryDirectory() as tmp:
+            d = Path(tmp)
+            m = self._modulo(d)
+            antes = (m.LC.LIVRO, m.F.FILA)
+            m.LC.LIVRO, m.F.FILA = d / "L.json", d / "Q.json"
+            try:
+                m.LC.registar("IT-X-002", m.LC.CANARY_PENDING, "prova")
+                m.LC.registar("IT-X-002", m.LC.READY_FOR_COLLECTION, "prova", evidence_ref="EV")
+                m.LC.registar("IT-X-001", m.LC.CANARY_PENDING, "prova")
+                _, entra, fora = m.plano()
+                self.assertEqual(["IT-X-002", "IT-X-001"], [e["SOURCE_ID"] for e in entra])
+                self.assertEqual(85, entra[0]["PRIORIDADE"])
+                self.assertEqual(["IT-X-003"], [s for s, _ in fora])
+                with mock.patch.object(sys, "argv", ["x"]):
+                    m.main()
+                self.assertFalse((d / "Q.json").exists(), "sem --aplicar nao se escreve na fila")
+                with mock.patch.object(sys, "argv", ["x", "--aplicar"]):
+                    m.main()
+                tarefas = json.loads((d / "Q.json").read_text(encoding="utf-8"))["TAREFAS"]
+                self.assertEqual({("IT-X-001", "VALIDATE_ROUTE"), ("IT-X-002", "VALIDATE_ROUTE")},
+                                 {(x["SOURCE_ID"], x["TASK_TYPE"]) for x in tarefas})
+            finally:
+                m.LC.LIVRO, m.F.FILA = antes
+
+    def test_recusa_leitor_que_nao_e_o_d39(self):
+        import tempfile   # noqa: PLC0415
+        with tempfile.TemporaryDirectory() as tmp:
+            m = self._modulo(Path(tmp))
+            with mock.patch.object(m.RR, "VERSAO", "ROBOTS/RFC9309-v1"), self.assertRaises(SystemExit):
+                m.plano()
 
 
 if __name__ == "__main__":

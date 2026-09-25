@@ -196,10 +196,12 @@ const REDE = { total: 0 };
 // As tres guardas, cada uma com a regra que ja existia na casa:
 //   ROBOTS  lido por origem, uma vez por corrida, com os estados de
 //           `coleta/scrap_http.py::_carregar_robots`:
-//             qualquer 4xx       -> AUSENTE      permitido (RFC 9309 §2.3.1.3; D34 — antes so 404/410)
+//             401 / 403          -> ROBOTS_ACCESS_DENIED   NAO permitido (D39: mais conservador que a RFC)
+//             outros 4xx         -> AUSENTE      permitido (RFC 9309 §2.3.1.3)
 //             200 com regras     -> LIDO         vale o que ele diz (regra mais especifica vence)
-//             200 com HTML, ou   -> ILEGIVEL     NAO permitido — «nao afirmamos
-//             5xx / outro HTTP                    permissao que nao lemos» (5xx: §2.3.1.4)
+//             200 com HTML       -> ROBOTS_INVALID_CONTENT NAO permitido (D39) — nao e Disallow
+//             5xx / outro HTTP   -> ILEGIVEL     NAO permitido — «nao afirmamos
+//                                                 permissao que nao lemos» (5xx: §2.3.1.4)
 //             sem resposta       -> INDISPONIVEL o pedido NAO sai, e NAO e uma
 //                                                 recusa do host; nao fica em
 //                                                 cache (um soluco de rede nao
@@ -412,13 +414,15 @@ async function robotsDaOrigem(origem) {
     // `origemLida` diz a quem o ficheiro pertence; `licenca()` guarda-o para as duas.
     const fimEm = new URL(alvo);
     const origemLida = fimEm.pathname === "/robots.txt" ? fimEm.origin : null;
-    // D34 (RFC 9309 §2.3.1.3): QUALQUER 4xx no robots e «indisponivel» — pode aceder. Antes so
-    // 404/410; 401/403 caiam em ILEGIVEL. O leitor unico Python (coleta/robots_rfc9309.py) le igual.
+    // D39 (25/09): 401/403 ao robots = ROBOTS_ACCESS_DENIED, RECUSA por prudencia — mais
+    // conservador que a RFC 9309 (§2.3.1.3 diria «pode»), e declarado. Nao e um Disallow.
+    // Os outros 4xx (404, 410…) = «indisponivel», pode. O leitor unico Python le igual.
+    if (r.status === 401 || r.status === 403) return { estado: "ROBOTS_ACCESS_DENIED", origemLida, porque: `HTTP ${r.status} no robots.txt — recusa por prudencia (D39), nao e Disallow` };
     if (r.status >= 400 && r.status < 500) return { estado: "AUSENTE", origemLida, porque: `HTTP ${r.status} — robots indisponivel (RFC 9309 §2.3.1.3)` };
     if (r.status !== 200) return { estado: "ILEGIVEL", origemLida, porque: `HTTP ${r.status} no robots.txt — nao afirmamos permissao que nao lemos` };
     const corpo = r.buf.toString("utf8").trimStart().toLowerCase();
     if (corpo.startsWith("<!doctype") || corpo.startsWith("<html"))
-      return { estado: "ILEGIVEL", origemLida, porque: "o robots.txt veio em HTML — nao afirmamos permissao que nao lemos" };
+      return { estado: "ROBOTS_INVALID_CONTENT", origemLida, porque: "o robots.txt veio em HTML — recusa (D39), nao e Disallow" };
     const grupos = lerRobots(r.buf.toString("utf8"));
     return { estado: "LIDO", origemLida, grupos, crawlDelay: grupoQueVale(grupos)?.crawlDelay ?? null, porque: "robots.txt lido" };
   }
@@ -445,6 +449,9 @@ async function licenca(url) {
   }
   if (rb.estado === "INDISPONIVEL") return { recusado: "ROBOTS_INDISPONIVEL", porque: rb.porque };
   if (rb.estado === "ILEGIVEL") return { recusado: "ROBOTS_ILEGIVEL", porque: rb.porque };
+  // D39: as duas recusas com nome proprio chegam ao resumo com esse nome (nao como ROBOTS_PROIBE)
+  if (rb.estado === "ROBOTS_ACCESS_DENIED" || rb.estado === "ROBOTS_INVALID_CONTENT")
+    return { recusado: rb.estado, porque: rb.porque };
   if (rb.estado === "LIDO" && !robotsPermite(rb.grupos, u.pathname + u.search))
     return { recusado: "ROBOTS_PROIBE", porque: `o robots.txt de ${u.origin} proibe ${u.pathname}${u.search}` };
   if (tetoAtingido(host)) return { recusado: "TETO_POR_HOST", porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado pelo robots.txt` };
@@ -780,7 +787,8 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     // numa materia anterior DESTA fonte (ver o laco). Nao sao observacoes.
     DETAIL_DEFERRED_AFTER_TIMEOUT: 0,
     // A CORTESIA (A5): pedidos que o transporte NAO deixou sair, por motivo
-    // (ROBOTS_PROIBE · ROBOTS_ILEGIVEL · ROBOTS_INDISPONIVEL · TETO_POR_HOST).
+    // (ROBOTS_PROIBE · ROBOTS_ILEGIVEL · ROBOTS_INVALID_CONTENT · ROBOTS_ACCESS_DENIED ·
+    //  ROBOTS_INDISPONIVEL · TETO_POR_HOST).
     // Nao sao observacoes e nao mexem na saude da fonte. As idas ao robots.txt
     // contam-se a parte: nao sao indice nem materia.
     DETAIL_DEFERRED_BY_COURTESY: 0, DISCOVERY_NOT_REQUESTED_BY_COURTESY: 0,

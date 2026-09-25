@@ -121,6 +121,10 @@ def permitido(url):
             'resposta. Isto não é uma recusa do host.' % base)
     if estado == 'ILEGIVEL':
         return False, 'robots.txt ilegível deste host — não afirmamos permissão que não lemos'
+    if estado in (RR.INVALID_CONTENT, RR.ACCESS_DENIED):
+        # D39: recusas com nome proprio, NAO um Disallow medido — por isso a excecao do dono
+        # (abaixo, que so atravessa uma politica LIDA) nao as alcanca, como o ILEGIVEL.
+        return False, rp.decidir(AGENTE, url).regra
     ok = rp.can_fetch(AGENTE, url)
     if not ok:
         # ── A EXCECAO DO DONO, E ELA SO VALE COM A POLITICA MEDIDA ────────
@@ -141,10 +145,10 @@ def permitido(url):
 def _carregar_robots(base):
     """Busca o robots.txt; QUEM O LE e o dono unico, `robots_rfc9309` (D34).
 
-    Estados deste portao (o vocabulario dele, mantido): LIDO, AUSENTE (4xx: a RFC 9309
-    §2.3.1.3 diz «pode aceder» — antes, 401/403 caiam em ILEGIVEL), INDISPONIVEL (o transporte
-    caiu: nao e recusa do host, levanta PortaoIndisponivel), ILEGIVEL (HTML no lugar do robots,
-    ou 5xx — §2.3.1.4: tudo proibido)."""
+    Estados deste portao: LIDO, AUSENTE (404/410 e outros 4xx: RFC 9309 §2.3.1.3, pode),
+    ROBOTS_ACCESS_DENIED (401/403: recusa por prudencia, D39), ROBOTS_INVALID_CONTENT (HTML no
+    lugar do robots: recusa, D39), INDISPONIVEL (o transporte caiu: nao e recusa do host, levanta
+    PortaoIndisponivel), ILEGIVEL (5xx — §2.3.1.4: tudo proibido — ou excecao ao ler)."""
     try:
         req = urllib.request.Request(base + '/robots.txt', headers={'User-Agent': AGENTE})
         # O pedido diz o que e. Um `UNCLASSIFIED` no rasto seria o portao a nao
