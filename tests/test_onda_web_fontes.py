@@ -53,6 +53,13 @@ class AEscolha(unittest.TestCase):
             self.assertEqual(O.fontes_do_argumento({"lote": str(lote)}), ["IT-B1", "IT-C1"])
             self.assertEqual(O.fontes_do_argumento({"fontes": "IT-B1, IT-C1"}), ["IT-B1", "IT-C1"])
             self.assertIsNone(O.fontes_do_argumento({}))
+            v3 = d / "LOTE-MICRO-V3.json"                     # a forma do LOTE-MICRO-V3: ESCOLHA[], sem LOTE[]
+            v3.write_text(json.dumps({"ESCOLHA": [{"SOURCE_ID": "IT-C1"}], "FORA": [{"SOURCE_ID": "IT-A1"}]}), encoding="utf-8")
+            self.assertEqual(O.fontes_do_argumento({"lote": str(v3)}), ["IT-C1"])
+            nada = d / "NADA.json"
+            nada.write_text(json.dumps({"FORA": [{"SOURCE_ID": "IT-A1"}]}), encoding="utf-8")
+            with self.assertRaises(SystemExit):
+                O.fontes_do_argumento({"lote": str(nada)})
             with self.assertRaises(SystemExit):
                 O.fontes_do_argumento({"fontes": "IT-B1", "lote": str(lote)})
         finally:

@@ -179,13 +179,17 @@ def escolher(fontes: list[tuple], so: list[str] | None) -> list[tuple]:
 
 
 def fontes_do_argumento(arg: dict) -> list[str] | None:
-    """`--fontes=A,B` ou `--lote=<LOTE-MICRO.json>` (LOTE[].SOURCE_ID). Os dois juntos: recusa."""
+    """`--fontes=A,B` ou `--lote=<LOTE-MICRO.json>` (LOTE[] ou ESCOLHA[] .SOURCE_ID). Os dois juntos: recusa."""
     if "fontes" in arg and "lote" in arg:
         raise SystemExit("--fontes e --lote juntos: escolhe um")
     if "fontes" in arg:
         so = [x.strip() for x in arg["fontes"].split(",") if x.strip()]
     elif "lote" in arg:
-        so = [x["SOURCE_ID"] for x in json.loads(Path(arg["lote"]).read_text(encoding="utf-8"))["LOTE"]]
+        doc = json.loads(Path(arg["lote"]).read_text(encoding="utf-8"))
+        chave = "LOTE" if "LOTE" in doc else "ESCOLHA"         # V2 traz LOTE[]; o LOTE-MICRO-V3 traz ESCOLHA[]
+        if chave not in doc:
+            raise SystemExit("--lote sem LOTE[] nem ESCOLHA[]: %s" % arg["lote"])
+        so = [x["SOURCE_ID"] for x in doc[chave]]
     else:
         return None
     if not so:                                                # lista vazia NAO pode virar «a coorte toda»
