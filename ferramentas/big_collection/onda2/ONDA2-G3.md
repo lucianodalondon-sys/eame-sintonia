@@ -40,6 +40,32 @@ Não há uma segunda cópia da regra: o disparador pergunta ao transporte qual �
   (`provas/TETO-DOMINIO-MUTACAO.json`). ⚠️ O M1 morre porque a prova rebenta (o livro nunca é
   criado), e não por uma verificação; fica declarado.
 
+### Interface do contador (D40: para a bancada CAPA-MATERIA/ALVOS-NOVOS, `capa-materia-v1`)
+
+**Um ponto só.** O contador vive em `umaIda()` (`coleta/italy_pilot_collect.mjs`), que é a única saída
+para uma fonte. **Todo pedido HTTP conta**, venha de onde vier: `robots.txt`, **índice**, matérias,
+saltos de redireccionamento e retentativas. O corte é absoluto: `tetoAtingido()` é perguntado em
+`licenca()` / `robotsDaOrigem()` / retentativa, **antes** de cada ida.
+
+O que a escolha de alvos («1.º alvo não coletado + até 3 novos por fonte») **pode** usar, só leitura:
+
+| Export | Para quê |
+|---|---|
+| `dominioRegistavel(host)` | a chave do teto (`cia.it` = `www.cia.it` = `sub.cia.it`) |
+| `lerLivroDaOnda()` | `{dominio: pedidos já gastos na onda}` (vazio sem onda; ilegível rebenta) |
+| `motivoDoTeto()` | `"TETO_DOMINIO"` com onda, `"TETO_POR_HOST"` sem onda |
+| `CORTESIA_PADRAO.TETO_POR_HOST` / `SINTONIA_TETO_POR_HOST` | o teto (5) |
+
+O que ela **NÃO** deve fazer:
+- **não somar** nem escrever no livro. Só `umaIda()` gasta (`gastarNaOnda` não é exportado de propósito);
+- **não ter** outro contador nem outro teto. Pode *planear* com `5 − gasto` (por exemplo, não
+  escolher 3 matérias quando só sobram 2 pedidos depois do índice), mas quem corta é o transporte;
+- **não contar à parte o pedido do índice.** Ele já está no mesmo contador. Numa fonte nova, o
+  orçamento típico é `robots (1) + índice (1) + até 3 matérias = 5`.
+
+Um alvo que o teto corta volta como `DEFERRED_BY_COURTESY` com `MOTIVO=TETO_DOMINIO`. Não vai ao
+livro de observações e fica desconhecido para a onda seguinte (ADIADO ≠ NUNCA).
+
 ## 2. Congelar (G3) e o disparador
 
 - **`--congelar`** trazido de `origin/coorte-unica-v1` (`2d605ef6`) por cherry-pick, **sem conflito**.
