@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T10:49:56+00:00",
-  "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-  "BRANCH": "micro-v3-fontes-v1",
+  "GENERATED_AT": "2026-09-25T11:39:31+00:00",
+  "HEAD": "ea96ad80a9fb4e13f088af2b50ce2f2519c39f17",
+  "BRANCH": "ajustes-micro-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
-  "FICHEIROS_NA_IMPRESSAO": 3126,
+  "SOURCE_TREE_FINGERPRINT": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449",
+  "FICHEIROS_NA_IMPRESSAO": 3136,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -690,6 +690,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "curadoria/entrada_final.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "3b95ef45f9eaea8d8e478722c3ce8e9293433f96",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "curadoria/sha_do_contrato.py",
     "PAPEL": "FONTE",
     "VERSAO": "2a0255ad2c00fd50d34a619fa44b271d7fe6b1b0",
@@ -847,6 +854,13 @@
     "PATH": "ferramentas/reel_transcricao.py",
     "PAPEL": "FONTE",
     "VERSAO": "80f7de73ecce7e34ef8bc113435fea30ca629634",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/rendimento/medir_saltos.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "f1ccfa3870bf094f63a502ab811bb0fc7f969a04",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3975,14 +3989,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4967,6 +4981,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_entrada_final.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "92fb361eeffcac431c41180bd2c90643621a37a5",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_espinha_da_intelligence.py",
     "PAPEL": "FONTE",
     "VERSAO": "af89d9f8eb9f2cce5a91b829c1259ddc0ad4f5b0",
@@ -5912,8 +5933,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 839,
-  "INPUTS_DIGEST": "40f2cdee567d0cc3a674061fb05d119fb7941b4b7a835e90f978b7bdb253c472",
+  "INPUTS_COUNT": 842,
+  "INPUTS_DIGEST": "8bce1049d8ab26742b944aadcacd8aa1b6351265ff47499f1cba0049639d9854",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5939,15 +5960,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 516,
+  "DOCUMENTOS_LIDOS": 517,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6afcd06017beba34794580a9520664b50831363dd44d157aeaf592ce022d6f56",
-  "SEMANTIC_HASH": "c5b340994ded1e1e82e5decffe174c1ef24ef66eed16fb03a0587b23343c9748"
+  "MEASUREMENT_HASH": "3161b07d5ddd444885bc6fb36b2eee3bdb1dbff709a021879ea310242baf71e9",
+  "SEMANTIC_HASH": "405db8e101ba0ee31526509ad3b7c8fb6df59b91f79d3dc8c4339b022fe471b7"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5962,6 +5983,7 @@
    "C-ADAMA-IT",
    "C-ADAMA-REFERENCE",
    "C-ADMISSAO",
+   "C-AJUSTES-MICRO",
    "C-APIFY-POOL",
    "C-ARMAZEM-IT-SEM-LIVRO",
    "C-AS-FONTES",
@@ -6059,7 +6081,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 100
+  "COUNT": 101
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6170,6 +6192,7 @@
    "C-ADAMA-IT",
    "C-ADAMA-REFERENCE",
    "C-ADMISSAO",
+   "C-AJUSTES-MICRO",
    "C-APIFY-POOL",
    "C-APRENDER-COM-A-FONTE",
    "C-ARMAZEM-IT-SEM-LIVRO",
@@ -6356,16 +6379,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 189
+  "COUNT": 190
  },
  "ARITMETICA": {
-  "COLLECTION": 100,
+  "COLLECTION": 101,
   "BOUNDARY": 89,
-  "SOMA": 189,
-  "EXPANDED": 189,
+  "SOMA": 190,
+  "EXPANDED": 190,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 189,
+  "RESUMO_CARTOES_NO_UNIVERSO": 190,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -44670,8 +44693,8 @@
   "COUNT": 1255
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 189,
-  "CARTOES_AUDITADOS": 189,
+  "CARTOES_NO_UNIVERSO": 190,
+  "CARTOES_AUDITADOS": 190,
   "ARESTAS_RELACIONADAS": 1255,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
@@ -44805,6 +44828,7 @@
   ],
   "SEM_CHAMADOR_DE_RUNTIME": [
    "C-ADAMA-ES",
+   "C-AJUSTES-MICRO",
    "C-APRENDER-COM-A-FONTE",
    "C-AUDIT-GERAL",
    "C-BIG-COLLECTION-CONDUTOR-BC5",
@@ -44900,6 +44924,7 @@
    "C-SUPERFICIE-SCRAP-V1"
   ],
   "SO_CLI_DOCUMENTADO": [
+   "C-AJUSTES-MICRO",
    "C-AUDIT-GERAL",
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-CORPUS-IT",
@@ -44952,6 +44977,7 @@
    "C-REPARO-MEDICAO"
   ],
   "SEM_LIGACAO": {
+   "C-AJUSTES-MICRO": "UNKNOWN",
    "C-ARMAZEM-IT-SEM-LIVRO": "ARMAZEM",
    "C-DERIVED-ARTIFACT": "ARMAZEM"
   },
@@ -45099,7 +45125,9 @@
     "official"
    ]
   },
-  "SEM_LIGACAO_INEXPLICADOS": [],
+  "SEM_LIGACAO_INEXPLICADOS": [
+   "C-AJUSTES-MICRO"
+  ],
   "CATEGORIAS_DAS_ARESTAS": {
    "CODE": 220,
    "CONTROL": 77,
@@ -45359,6 +45387,39 @@
     "READ"
    ],
    "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-AJUSTES-MICRO",
+   "NOME": "Saltos que gastam o teto e a entrada no endereco final (AJUSTES-MICRO)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "UNKNOWN",
+   "FICHEIROS": [
+    "curadoria/entrada_final.py",
+    "ferramentas/rendimento/medir_saltos.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "ferramentas/rendimento/ajustes/RELATORIO-AJUSTES-MICRO.md"
+   ],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "pathlib",
+    "urllib"
+   ],
+   "ENTRAM": 0,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": "UNKNOWN",
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
@@ -54107,6 +54168,7 @@
     "tests/test_d24_video_de_pessoa.py",
     "tests/test_egresso_consenso.py",
     "tests/test_ensaio_offline_micro.py",
+    "tests/test_entrada_final.py",
     "tests/test_espinha_da_intelligence.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
     "tests/test_estradas_it.py",

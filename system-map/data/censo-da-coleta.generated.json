@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T10:47:40+00:00",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
+    "GENERATED_AT": "2026-09-25T11:37:11+00:00",
+    "HEAD": "ea96ad80a9fb4e13f088af2b50ce2f2519c39f17",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
-    "FICHEIROS_NA_IMPRESSAO": 3126,
+    "SOURCE_TREE_FINGERPRINT": "ac4f18eafc3895f8af2954e4c23d020686466f4d597445357ec01ed9e3caf449",
+    "FICHEIROS_NA_IMPRESSAO": 3136,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -718,6 +718,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/rendimento/medir_saltos.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f1ccfa3870bf094f63a502ab811bb0fc7f969a04",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/unificacao/aplicar_d13_capacidade.py",
         "PAPEL": "FONTE",
         "VERSAO": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
@@ -1145,8 +1152,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 162,
-    "INPUTS_DIGEST": "a8b99227a7322ef7846b6f68c52885ba38c478fbb55abe90dd42b0c7c8164aab",
+    "INPUTS_COUNT": 163,
+    "INPUTS_DIGEST": "08ffc8cee1f3fc4513c1f1a80ee96f1e754ae08dd94c53acf98be9ca16a68060",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2026,6 +2033,22 @@
         "ferramentas/instagram_transcrever.py"
       ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/rendimento/medir_saltos.py",
+      "gaveta": "ferramentas",
+      "linhas": 94,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
     },
     {
       "ficheiro": "ferramentas/unificacao/aplicar_d13_capacidade.py",
@@ -4489,12 +4512,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 162,
-    "pontos_de_entrada": 118,
+    "ficheiros_de_codigo": 163,
+    "pontos_de_entrada": 119,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 65,
+    "sem_chamador_e_fora_do_ci": 66,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 91,
+    "escrevem_ficheiro": 92,
     "deitam_fora_alguma_coisa": 46,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -4540,6 +4563,7 @@
       "ferramentas/pdf_peek.mjs",
       "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/reel_transcricao.py",
+      "ferramentas/rendimento/medir_saltos.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo_lanes.py",
@@ -4672,6 +4696,7 @@
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/ponte_onboard/mutacao.py",
+      "ferramentas/rendimento/medir_saltos.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo_lanes.py",
