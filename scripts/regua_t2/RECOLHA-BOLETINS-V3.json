@@ -1,0 +1,288 @@
+{
+ "DATASET": "RECOLHA-BOLETINS-V3",
+ "PROTOCOLO": "PROTOCOLO-GABARITO-T2.md#adenda-2 (3.a ida)",
+ "BYTES_EM": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha",
+ "SITES": [
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE · bollettino agrometeo",
+   "ROTA": "ROUTE_TEMPLATE do contrato",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   },
+   "PEDIDOS": 3
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · notiziario agrometeorologico e fitosanitario",
+   "ROTA": "ROUTE_TEMPLATE do contrato",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   },
+   "PEDIDOS": 4
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini per provincia",
+   "ROTA": "ROUTE_TEMPLATE do contrato",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   },
+   "PEDIDOS": 6
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV · Agrometeo Informa por zona",
+   "ROTA": "ROUTE_TEMPLATE do contrato",
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   },
+   "PEDIDOS": 5
+  }
+ ],
+ "ITENS": [
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE · bollettino agrometeo",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/36_boll_agro_20260907.pdf",
+   "HTTP": 200,
+   "BYTES": 1069384,
+   "SHA256": "f7ba51acf751e3a6f31c82f1c7c07b5f076867b752d320c97458cd1c85649830",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\f7ba51acf751e3a6.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "7f5856128d014f9a64937b49dffd087939a74a47c841e9465c39b37154a78eac",
+   "NON_WHITESPACE_CHARACTERS": 3288,
+   "OBTIDO_EM": "2026-09-24T18:59:19.843043+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERVICO": "ARPAE · bollettino agrometeo",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/38_boll_agro_20260921.pdf",
+   "HTTP": 200,
+   "BYTES": 950270,
+   "SHA256": "e0a8f255b3091dc32eedbf8684e5c25dff41bea9cc54bc8509a25d1af19b1daa",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\e0a8f255b3091dc3.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "ece748ebe0e8678a014c9a14852a8b22895e789bec9c436cb9ecefde2fb92f50",
+   "NON_WHITESPACE_CHARACTERS": 2596,
+   "OBTIDO_EM": "2026-09-24T18:59:24.364862+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · notiziario agrometeorologico e fitosanitario",
+   "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N37_09-09-2026.pdf",
+   "HTTP": 200,
+   "BYTES": 2711642,
+   "SHA256": "a8d9c53af8f73027498ca6fbb6b1ccbd6986b1a2fec6f4335d14616d6e39138e",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\a8d9c53af8f73027.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "85eea8b603406452f01d766d8a5ce020ac2b2e347aa81ea21e1ba9a166d84e56",
+   "NON_WHITESPACE_CHARACTERS": 52284,
+   "OBTIDO_EM": "2026-09-24T18:59:31.042829+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · notiziario agrometeorologico e fitosanitario",
+   "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+   "HTTP": 200,
+   "BYTES": 2724725,
+   "SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\85cb86ebd6582997.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "a018e7f0dfdd93115dd676fc4daca45c3ddcbeceff1aebc60ad5f2e7d2c9f85c",
+   "NON_WHITESPACE_CHARACTERS": 52130,
+   "OBTIDO_EM": "2026-09-24T18:59:36.183123+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERVICO": "Puglia · notiziario agrometeorologico e fitosanitario",
+   "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N39_23-09-2026.pdf",
+   "HTTP": 200,
+   "BYTES": 2797736,
+   "SHA256": "5ff18e49b9eb531f7b7a16cc7d4db85ed96e7a8d12f253e40f38524fe9b4cae3",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\5ff18e49b9eb531f.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "98769f390b34e392dc53b57a127c1973a258b3c1fd24303933d926cafef917c3",
+   "NON_WHITESPACE_CHARACTERS": 48400,
+   "OBTIDO_EM": "2026-09-24T18:59:41.604213+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini per provincia",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-16-09.pdf",
+   "HTTP": 200,
+   "BYTES": 654819,
+   "SHA256": "d8f03bd8b44e0198ee8f69c85a7f1131a38ce87bd8a7e3e2cf4a256634314db5",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\d8f03bd8b44e0198.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "6282c018d9d91acb09f3e05ee39589ffc6d6bfde73850ae0be2028fb9dafcd53",
+   "NON_WHITESPACE_CHARACTERS": 23035,
+   "OBTIDO_EM": "2026-09-24T18:59:47.615935+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini per provincia",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/AV-16-09.pdf",
+   "HTTP": 200,
+   "BYTES": 373248,
+   "SHA256": "a432db619935f0c3d794a55c480e59c268f8569c1f914d81fc7580ba94fa20cf",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\a432db619935f0c3.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "8d4ff96a1387f2ee67c3fbde41c73c0eb2022d2831527f6d9c680e025a4831c8",
+   "NON_WHITESPACE_CHARACTERS": 32377,
+   "OBTIDO_EM": "2026-09-24T18:59:52.326114+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini per provincia",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/CE-23-09.pdf",
+   "HTTP": 200,
+   "BYTES": 728951,
+   "SHA256": "613121e7f38aef27c1cd89944098967f94f03a3551845f13a0b37faa6baf7976",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\613121e7f38aef27.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "9f62cce86dc3911c49743f8ca8de89514f3663c3145c686b45980c404eee0860",
+   "NON_WHITESPACE_CHARACTERS": 27197,
+   "OBTIDO_EM": "2026-09-24T18:59:57.386044+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini per provincia",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/BN-23-09.pdf",
+   "HTTP": 200,
+   "BYTES": 325856,
+   "SHA256": "06615ddb7d49ac8fd001f758a2e1c85f365af41c5055792239c0899af76ad2d7",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\06615ddb7d49ac8f.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "fce0cc8c80d93e7953bc8f1753d716d72a603d1e4f2effaaaf9bc7668881c0ff",
+   "NON_WHITESPACE_CHARACTERS": 19491,
+   "OBTIDO_EM": "2026-09-24T19:00:01.697592+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERVICO": "Campania · SFR bollettini per provincia",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-23-09.pdf",
+   "HTTP": 200,
+   "BYTES": 814132,
+   "SHA256": "324f55deeda0f31ab50f061b1e432bd408975638bb11f64912f28e36f7a5fd96",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\324f55deeda0f31a.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "eb87d60ab10c7c5a5613360cefd36e44d4591ed66a755d555ed50a7223c98511",
+   "NON_WHITESPACE_CHARACTERS": 22103,
+   "OBTIDO_EM": "2026-09-24T19:00:06.552050+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV · Agrometeo Informa por zona",
+   "URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_05.pdf",
+   "HTTP": 200,
+   "BYTES": 461731,
+   "SHA256": "b227dcbd18513e314fa5d9a064f20bae1b25f979caa6b7f5fcf96deff8306f5d",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\b227dcbd18513e31.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "b6e1dc18c529b59c1dd139b6e29044fa2b2db3df3c4da159f53459be98990849",
+   "NON_WHITESPACE_CHARACTERS": 4169,
+   "OBTIDO_EM": "2026-09-24T19:00:12.121958+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV · Agrometeo Informa por zona",
+   "URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_12.pdf",
+   "HTTP": 200,
+   "BYTES": 456375,
+   "SHA256": "ba35171e561c6330886281c044df7afd78ce4fd6397156d18f1a306c90fc508d",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\ba35171e561c6330.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "579c6fa68d0bd898c70fe2fca23898ab55b3120f003f1be9b0be9165de6922b2",
+   "NON_WHITESPACE_CHARACTERS": 4103,
+   "OBTIDO_EM": "2026-09-24T19:00:16.707077+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV · Agrometeo Informa por zona",
+   "URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_20.pdf",
+   "HTTP": 200,
+   "BYTES": 233874,
+   "SHA256": "e6245e7adc790c4e7f665e3e9f1100c4d86109db61d6f7d4e8d2b8d22100e395",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\e6245e7adc790c4e.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "1d05f3f5a45b97764806cb2fe5064a9e923cf8bdb3821798792a08c247570e1b",
+   "NON_WHITESPACE_CHARACTERS": 1711,
+   "OBTIDO_EM": "2026-09-24T19:00:21.862326+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERVICO": "ARPAV · Agrometeo Informa por zona",
+   "URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_28.pdf",
+   "HTTP": 200,
+   "BYTES": 250172,
+   "SHA256": "a2571dbb5d1ef371c75ad1acba8246b4c1935277622f9bd354684d370eca8dc5",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T2-V1\\recolha\\a2571dbb5d1ef371.pdf",
+   "EXTRACAO": "PDF:TEXT_LAYER_PRESENT",
+   "TEXTO_SHA256": "7fcdf3e3a884992ed21ba4095be47722e6f063c38258b786e62bd36bfa71e137",
+   "NON_WHITESPACE_CHARACTERS": 4152,
+   "OBTIDO_EM": "2026-09-24T19:00:26.019169+00:00"
+  }
+ ],
+ "CONTAGEM": {
+  "ITENS": 14,
+  "TEXTOS_DISTINTOS": 14,
+  "PEDIDOS": 18
+ }
+}

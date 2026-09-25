@@ -35,6 +35,7 @@ import { execFile, execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import { openSync, closeSync, unlinkSync, existsSync, writeFileSync, readFileSync, mkdirSync, appendFileSync } from "node:fs";
 import { PROFILES, PERFIL_PADRAO } from "../candidatas/italy_profiles.mjs";
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
@@ -71,10 +72,19 @@ function soltarLock() { try { unlinkSync(LOCK); } catch { } }
 async function checarEgress() {
   const simulado = arg("--simulate-vpn");
   if (simulado) return { EGRESS_COUNTRY: simulado, EGRESS_IP: "0.0.0.0", EGRESS_CITY: "simulado", EGRESS_ASN: null, CHECKED_AT: agora(), SIMULADO: true };
+  // EGR (24/09): o pais pelo DONO — superficie/rede.py, consenso de 3 verificadores com
+  // cache de 3 min — e nunca por um servico direto (o ipinfo.io em 429 parou tudo das
+  // 13:05 as 15:05). O dono nao devolve IP, cidade nem operadora: ficam null.
+  // `--portao-de-egresso` sai 1 quando BLOQUEIA, e isso nao e erro de leitura: le-se o JSON.
+  const PY = process.env.SINTONIA_PY || (process.platform === "win32" ? "py" : "python3");
+  let stdout = "";
+  try { ({ stdout } = await run(PY, [join(RAIZ, "superficie", "rede.py"), "--portao-de-egresso", "IT"], { encoding: "utf8", timeout: 90000 })); }
+  catch (e) { stdout = e.stdout || ""; if (!stdout) return { EGRESS_COUNTRY: null, erro: String(e.message).slice(0, 120), CHECKED_AT: agora() }; }
   try {
-    const { stdout } = await run("curl", ["-sS", "--max-time", "20", "https://ipinfo.io/json"], { encoding: "utf8" });
-    const j = JSON.parse(stdout);
-    return { EGRESS_IP: j.ip, EGRESS_COUNTRY: j.country, EGRESS_CITY: j.city, EGRESS_ASN: j.org ?? null, CHECKED_AT: agora() };
+    const j = JSON.parse(stdout.slice(stdout.indexOf("{")));
+    const pais = j.EGRESS_GATE === "PASS" ? "IT" : (j.EGRESS_COUNTRY_CODE && j.EGRESS_COUNTRY_CODE !== "UNKNOWN" ? j.EGRESS_COUNTRY_CODE : null);
+    return { EGRESS_IP: null, EGRESS_COUNTRY: pais, EGRESS_CITY: null, EGRESS_ASN: null, EGRESS_VOTOS: j.VOTOS ?? null,
+             EGRESS_DISCORDANCIA: j.DISCORDANCIA ?? null, CHECKED_AT: agora() };
   } catch (e) { return { EGRESS_COUNTRY: null, erro: String(e.message).slice(0, 120), CHECKED_AT: agora() }; }
 }
 
@@ -122,6 +132,7 @@ async function main() {
     const eg = await checarEgress();
     resumo.EGRESS_COUNTRY = eg.EGRESS_COUNTRY; resumo.EGRESS_IP = eg.EGRESS_IP;
     resumo.EGRESS_CITY = eg.EGRESS_CITY; resumo.EGRESS_ASN = eg.EGRESS_ASN; resumo.EGRESS_CHECKED_AT = eg.CHECKED_AT;
+    resumo.EGRESS_VOTOS = eg.EGRESS_VOTOS ?? null; resumo.EGRESS_DISCORDANCIA = eg.EGRESS_DISCORDANCIA ?? null;
     if (eg.EGRESS_COUNTRY !== "IT") {
       resumo.RUN_STATE = "FAILED_PRECONDITION";
       resumo.reason = "VPN_NOT_ITALY";

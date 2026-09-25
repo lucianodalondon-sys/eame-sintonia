@@ -52,12 +52,16 @@ MAX_MATERIAS = 2
 
 
 def egresso() -> str:
-    try:
-        with urllib.request.urlopen("https://ipinfo.io/json", timeout=15) as r:
-            d = json.loads(r.read())
-        return "%s %s %s" % (d.get("ip"), d.get("city"), d.get("country"))
-    except Exception as e:                                      # noqa: BLE001
-        return "NAO SEI (%s)" % type(e).__name__
+    """EGR (24/09): o pais pelo DONO — superficie/rede.py, consenso de 3 verificadores
+    com cache de 3 min. Nenhum consumidor pergunta a um servico diretamente (o
+    ipinfo.io em 429 parou tudo das 13:05 as 15:05). O IP nao sai do dono."""
+    import importlib.util as _u, os as _os
+    _s = _u.spec_from_file_location("rede_egresso", _os.path.join(str(RAIZ), "superficie", "rede.py"))
+    _r = _u.module_from_spec(_s)
+    _s.loader.exec_module(_r)
+    e = _r.egresso()
+    pais = e["EGRESS_COUNTRY_CODE"] if e["EGRESS_COUNTRY_CODE"] != "UNKNOWN" else None
+    return "%s (consenso: %s)" % (pais or "NAO SEI", ", ".join("%s=%s" % (v["VERIFICADOR"], v["PAIS"]) for v in e["VOTOS"]))
 
 
 def julgar(sid: str, universo: str, url: str, corpo: bytes, n: int) -> dict:

@@ -124,26 +124,51 @@ class AMedicaoContinuaANegar(unittest.TestCase):
                          "iguais. Uma medicao instavel nao mede.")
 
 
-class APortaNaoGanhouRegraDeT2(unittest.TestCase):
-    """A decisao desta missao, escrita onde nao se perde."""
+_spec_p = importlib.util.spec_from_file_location(
+    "portao_t2", os.path.join(RAIZ, "scripts", "regua_t2", "portao_t2.py"))
+portao_t2 = importlib.util.module_from_spec(_spec_p)
+_spec_p.loader.exec_module(portao_t2)
 
-    def test_t2_continua_sem_regra_escrita(self):
-        self.assertNotIn(
-            "T2", adm.PERGUNTAS_DO_UNIVERSO,
-            "alguem escreveu T2 em PERGUNTAS_DO_UNIVERSO. A medicao de "
-            "`provas/a_regra_de_t2.py` diz que qualquer lista possivel separa "
-            "por dia da semana e nome de departamento, e acerta 0/10 num "
-            "publicador que nao viu. Se ha material novo que muda isso, "
-            "refaca a medicao primeiro.")
 
-    def test_a_porta_responde_a_verdade_sobre_t2(self):
-        """NAO_SE_APLICA nao e uma falha: e a porta a dizer que nao ha regra."""
+class ARegraDeT2SegueQuemAMediu(unittest.TestCase):
+    """⚠️ ESTA CLASSE CHAMAVA-SE `APortaNaoGanhouRegraDeT2`, E A MUDANCA TEM DONO.
+
+    A medicao desta prova (clima vs praga, 46 documentos) disse NAO, e disse
+    bem: treinada num publicador, a lista acertava 0/10 no que nao viu. Em
+    24/09 o dono mudou a PERGUNTA (D29): T2 passa a admitir o que sustenta
+    JANELAS DE CULTURA — e os boletins fitossanitarios regionais, que esta prova
+    tinha de manter FORA de T2, sao agora exactamente o que tem de ENTRAR.
+
+    A regua D29 foi medida no seu proprio gabarito (T2-V2, 45 YES / 225 NO,
+    releu os 46 daqui) com os vizinhos a 0. O NAO desta prova continua de pe
+    para a pergunta antiga; nao responde a nova.
+
+        A REGRA SEGUE QUEM A MEDIU — E A PERGUNTA SEGUE O DONO.
+    """
+
+    def test_t2_so_tem_regra_se_a_medicao_d29_abrir_o_portao(self):
+        m = portao_t2.medicao_d29()
+        if "T2" in adm.PERGUNTAS_DO_UNIVERSO:
+            self.assertTrue(
+                portao_t2.aberto(m),
+                "T2 tem regra escrita e a medicao D29 "
+                "(`scripts/regua_t2/MEDICAO-REGUA-T2-V2.json`) nao a sustenta: "
+                "gabarito < 20/20, sha a nao bater, vizinhos mudados ou "
+                "precisao/recall < 0.8. Refaca a medicao primeiro.")
+
+    def test_tempo_sem_cultura_nao_entra_nem_e_rejeitado(self):
+        """«pioggia e temperatura» sozinhos: tempo sem ligacao agricola escrita."""
         d = adm.decidir({"id": "x", "texto": "pioggia e temperatura",
                          "source_id": "IT-T2-002", "url": "https://e.it/a",
                          "artifact_type": "RAW",
                          "captured_at": "2026-09-03T00:00:00Z"}, "T2")
-        self.assertEqual(d.resultado, adm.NAO_SE_APLICA)
-        self.assertIn("nao ha regra escrita", d.motivo)
+        self.assertEqual(d.resultado, adm.NAO_SEI)
+        self.assertIn("SEM_LIGACAO_AGRICOLA", d.motivo)
+
+    def test_esta_prova_mede_pelo_mecanismo_antigo(self):
+        """A prova antiga nao pode passar a medir com a regua D29 sem ninguem ver."""
+        import inspect
+        self.assertIn('"T2_CANDIDATA_V0"', inspect.getsource(prova._decide))
 
     def test_os_universos_que_ja_tinham_regra_nao_foram_tocados(self):
         # ⚠️ ESTA LISTA MUDOU, E A MUDANCA NAO E UM RELAXAMENTO.
@@ -166,8 +191,10 @@ class APortaNaoGanhouRegraDeT2(unittest.TestCase):
         #
         # O que esta guarda protege continua inteiro, e e so isto: `T2` NAO
         # ganhou regra. Essa asserção esta acima e nao mudou.
+        # ⚠️ (T2-REGUA, 24/09) E `T2` ENTROU — com a medicao D29 ao lado e a
+        # guarda `ARegraDeT2SegueQuemAMediu` acima. Os outros seis nao mudaram.
         self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO),
-                         ["T10", "T3", "T4", "T5", "T7", "T9"])
+                         ["T10", "T2", "T3", "T4", "T5", "T7", "T9"])
         # ⚠️ AS CONTAGENS MUDARAM, E A MENSAGEM ANTIGA JA NAO SE APLICA.
         # Ela dizia «a missao so autorizava mexer em T2» — e isso era verdade
         # da missao que escreveu esta guarda. A missao
@@ -217,7 +244,7 @@ class APortaNaoGanhouRegraDeT2(unittest.TestCase):
         #     UM TERMO QUE SO ACERTA DENTRO DE OUTRAS PALAVRAS
         #     NAO ESTAVA A MEDIR NADA. SO NAO SE VIA.
         for u, n in (("T3", 30), ("T4", 11), ("T5", 22), ("T7", 11),
-                     ("T9", 12), ("T10", 17)):
+                     ("T9", 12), ("T10", 17), ("T2", 18)):
             with self.subTest(universo=u):
                 self.assertEqual(
                     len(adm.PERGUNTAS_DO_UNIVERSO[u]), n,

@@ -67,7 +67,14 @@ class ARegraNaoSeMudaParaOExamePassar(unittest.TestCase):
         if v is None:
             self.skipTest("`provas/a_regra_de_t2.py` ainda nao correu")
         tem_regra = "T2" in adm.PERGUNTAS_DO_UNIVERSO
-        portao_aberto = v.get("T2_RULE_IMPLEMENTED") == "YES"
+        # (T2-REGUA, 24/09) o portao tem agora dois donos possiveis: a medicao
+        # antiga (clima vs praga) ou a D29 (janelas de cultura), que mudou a
+        # pergunta. As condicoes da D29 vivem num sitio so.
+        sp = importlib.util.spec_from_file_location(
+            "portao_t2", os.path.join(RAIZ, "scripts", "regua_t2", "portao_t2.py"))
+        P = importlib.util.module_from_spec(sp)
+        sp.loader.exec_module(P)
+        portao_aberto = (v.get("T2_RULE_IMPLEMENTED") == "YES" or P.aberto(P.medicao_d29()))
         if tem_regra and not portao_aberto:
             self.fail(
                 "T2 ganhou regra com o portao FECHADO em %s. A medicao diz "

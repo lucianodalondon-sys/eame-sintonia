@@ -49,6 +49,23 @@ def _fila():
     return json.loads(FILA.read_text(encoding="utf-8"))
 
 
+#: D24 (24/09): a prova oficial de identidade de um perfil de pessoa, como a porta a
+#: escreve na NOTA (P4b: «PROVA_IDENTIDADE=<url>»; P5b: «IDENTIDADE: a pagina oficial
+#: da pessoa <url>»). Sem uma destas, um perfil social continua POLICY_BLOCK.
+_PROVA_D24 = re.compile(r"(PROVA_IDENTIDADE=|IDENTIDADE: a pagina oficial da pessoa )https?://\S+")
+
+
+def _tem_prova_d24(c):
+    return bool(_PROVA_D24.search(c.get("NOTA") or ""))
+
+
+def _violacoes_d24(d, sociais):
+    """IDs que quebram a regra D24: social sem prova fora do POLICY_BLOCK, ou POLICY_BLOCK nao social."""
+    return [c["CANDIDATA_ID"] for c in d["CANDIDATAS"]
+            if (c["TIPO"] in sociais and not _tem_prova_d24(c) and c["ESTADO"] != "POLICY_BLOCK")
+            or (c["ESTADO"] == "POLICY_BLOCK" and c["TIPO"] not in sociais)]
+
+
 #: D13 (23/09, DECISOES-DONO-2026-09-23 linha 116, bot Luciano por delegacao do
 #: dono): «a nota "o que falta" NAO e lei». Estas provas medem a DECISAO da fila
 #: de 14/09 — a qualificacao de 14/09, decidida por decidir_fila_italia.py e
@@ -157,16 +174,40 @@ class TestOsTermosProibemEProvamSe(unittest.TestCase):
 
     SOCIAIS = ("LINKEDIN", "INSTAGRAM")
 
-    def test_todas_as_sociais_proibidas_estao_em_policy_block(self):
+    # ⚠️ ATUALIZADO PELA D24 (dono real, 24/09 ~12:55, por escrito): perfis de PESSOAS
+    # do agro sao autorizados. Um perfil LinkedIn/Instagram de pessoa COM prova oficial
+    # de identidade (D21/D24: pagina ou CV oficial que liga a pessoa ao perfil, escrita
+    # na NOTA pela porta) pode ser candidata normal. SEM essa prova continua
+    # POLICY_BLOCK, como antes da D24 — e este guarda morre se um escapar.
+    def test_todas_as_sociais_sem_prova_d24_estao_em_policy_block(self):
         d = _fila()
         self.assertIn("POLICY_BLOCK", d["ESTADOS"])
         sociais = [c for c in d["CANDIDATAS"] if c["TIPO"] in self.SOCIAIS]
-        self.assertGreater(len(sociais), 0, "nao ha sociais: esta prova passaria por vazio")
-        for c in sociais:
+        sem_prova = [c for c in sociais if not _tem_prova_d24(c)]
+        self.assertGreater(len(sem_prova), 0, "nao ha sociais sem prova: esta prova passaria por vazio")
+        for c in sem_prova:
             with self.subTest(candidata=c["CANDIDATA_ID"]):
                 self.assertEqual(c["ESTADO"], "POLICY_BLOCK")
                 self.assertFalse(c.get("MOTIVO_DA_RECUSA"))
                 self.assertIsNone(c.get("SOURCE_ID"))
+        self.assertEqual(_violacoes_d24(d, self.SOCIAIS), [])
+
+    def test_o_guarda_morre_se_um_perfil_sem_prova_escapa(self):
+        import copy
+        d = copy.deepcopy(_fila())
+        alvo = next(c for c in d["CANDIDATAS"]
+                    if c["TIPO"] in self.SOCIAIS and not _tem_prova_d24(c) and c["ESTADO"] == "POLICY_BLOCK")
+        alvo["ESTADO"] = "CANDIDATA"
+        self.assertEqual(_violacoes_d24(d, self.SOCIAIS), [alvo["CANDIDATA_ID"]])
+
+    def test_o_guarda_morre_se_a_prova_d24_desaparece(self):
+        import copy
+        d = copy.deepcopy(_fila())
+        abertos = [c for c in d["CANDIDATAS"]
+                   if c["TIPO"] in self.SOCIAIS and c["ESTADO"] != "POLICY_BLOCK"]
+        self.assertGreater(len(abertos), 0, "nao ha perfis D24 abertos: esta prova passaria por vazio")
+        abertos[0]["NOTA"] = "sem prova"
+        self.assertEqual(_violacoes_d24(d, self.SOCIAIS), [abertos[0]["CANDIDATA_ID"]])
 
     def test_a_prova_e_o_trecho_dos_termos_e_nunca_o_429(self):
         import hashlib
@@ -184,10 +225,14 @@ class TestOsTermosProibemEProvamSe(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(pagina.read_bytes()).hexdigest(), ev["SHA256"])
 
     def test_a_proxima_expansao_people_social_e_contada(self):
+        # D24: a conta ja nao e «POLICY_BLOCK == todas as sociais». E: todo POLICY_BLOCK
+        # e social, e toda social sem prova D24 e POLICY_BLOCK (_violacoes_d24 vazio).
         d = _fila()
         n = sum(1 for c in d["CANDIDATAS"] if c["ESTADO"] == "POLICY_BLOCK")
-        self.assertEqual(n, sum(1 for c in d["CANDIDATAS"] if c["TIPO"] in self.SOCIAIS))
-        print("PROXIMA_EXPANSAO_PEOPLE_SOCIAL = %d" % n)
+        abertos = sum(1 for c in d["CANDIDATAS"] if c["TIPO"] in self.SOCIAIS and c["ESTADO"] != "POLICY_BLOCK")
+        self.assertEqual(_violacoes_d24(d, self.SOCIAIS), [])
+        self.assertEqual(n + abertos, sum(1 for c in d["CANDIDATAS"] if c["TIPO"] in self.SOCIAIS))
+        print("PROXIMA_EXPANSAO_PEOPLE_SOCIAL = %d · PERFIS_D24_COM_PROVA_ABERTOS = %d" % (n, abertos))
 
 
 class TestNaoSeRecusaOQueNinguemLeu(unittest.TestCase):
