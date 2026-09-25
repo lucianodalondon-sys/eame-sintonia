@@ -1,7 +1,8 @@
 # PACOTE-ONDA3 — as peças da 3.ª onda juntas, o ensaio integrado e o plano de instalação — 25/09/2026
 
 Ramo `onda3-pacote-v1`, a partir da produção `servico-20260923-0923 @ 290e7349`, depois alinhado com a
-produção nova **`df0865e6`** (MICRO-V3: `onda_web --fontes/--lote`).
+produção nova **`df0865e6`** (MICRO-V3: `onda_web --fontes/--lote`) e depois **`88ee046f`** (FECHAR-ONDA2:
+a corrida que rebenta a meio também escreve a sua linha em runs.ndjson).
 **NÃO instalado. NÃO disparado.** Ensaio com rede FECHADA; **0 pedidos de rede** nesta missão.
 
 ## Em palavras simples
@@ -32,6 +33,7 @@ fixas como notícia, 6 casos; entra só depois de uma trava de notícia datada, 
 | 4 | hr6-v1 | e5825dc0 | nenhum |
 | + | D51.1 (commit próprio `1f086968`) | — | — |
 | + | produção nova df0865e6 (MICRO-V3) | — | nenhum |
+| + | produção nova 88ee046f (FECHAR-ONDA2) | — | nenhum (teste da corrida abortada 1/1 + 7/7) |
 | 5 | ordens-63-v2 (D52) | 9260aa2e | **1 conflito de código** em `curadoria/gatilho_discovery.py` — resolvido por ordem (§8) |
 | ⏳ | receita-t8-v1 (D48) | 75947e77 | à espera do PRONTO da bancada |
 
@@ -41,7 +43,7 @@ As 4 da D49 ficam iguais; entra `IT-T7-170 → fica IT-T7-174`, `DECISAO = D51`,
 
 ## 2 · O ensaio integrado (`ensaio/`, script `ensaio_onda3.sh`)
 
-Cópia = worktree destacada no **HEAD do vivo (df0865e6)** + os **16 ficheiros sujos do vivo, lidos na hora**
+Cópia = worktree destacada no **HEAD do vivo (88ee046f)** + os **16 ficheiros sujos do vivo, lidos na hora**
 (foto tirada com a 2.ª onda a correr no vivo — só leitura; o desfazer repõe desta foto, não do vivo; sha256 em `ensaio/0-FOTO-DOS-LIVROS.txt`); o pacote
 entra por `git merge --no-ff`, como na instalação. Rede fechada, conferida (www.cia.it recusado). O robô não correu.
 
@@ -101,7 +103,10 @@ mudaram esta tabela no Git) e **leituras do HEAD em vez do disco** (o meu erro).
 
 A mesma pergunta vale para `curadoria/ROTAS-ELEGIVEIS-V1.json` (também escrita no vivo pela junção de provas).
 
-## 5 · Plano de instalação (executa: o coordenador; um escritor no vivo; DEPOIS do MICRO-V3 real acabar)
+## 5 · Plano de instalação (executa: o coordenador; um escritor no vivo)
+
+> ⛔ **D61 (dono real): a 3.ª onda está EM ESPERA** até ao conserto de data e local das notícias
+> (bancada TEMPO-E-LUGAR). **Nenhum passo abaixo corre sem ordem expressa do coordenador.**
 
 Comandos em Git Bash. Definir primeiro:
 ```bash
@@ -117,7 +122,7 @@ sair (≤ 60 s), fechar o observador; confirmar 0 processos `supervisor|worker|p
 
 **2 · Backup com sha256**
 ```bash
-git -C $VIVO rev-parse --short HEAD          # TEM de dar df0865e6 — senão PARAR (refazer o ensaio)
+git -C $VIVO rev-parse --short HEAD          # TEM de dar 88ee046f — senão PARAR (juntar a produção nova e refazer o ensaio)
 echo $LIVROS | wc -w                         # 16 (se aparecer código sujo: PARAR)
 git -C $VIVO fetch origin onda3-pacote-v1
 git -C $VIVO diff --name-only HEAD $PACOTE -- $LIVROS | wc -l   # TEM de dar 0: o pacote não toca livros
@@ -126,7 +131,7 @@ for f in $LIVROS; do mkdir -p $CORTE/$(dirname $f); cp $VIVO/$f $CORTE/$f; done
 git -C $VIVO rev-parse HEAD > $CORTE/HEAD-ANTES.txt
 ```
 
-**3 · Merge** — `git -C $VIVO merge --ff-only $PACOTE` (df0865e6 é antepassado: avanço direto).
+**3 · Merge** — `git -C $VIVO merge --ff-only $PACOTE` (88ee046f é antepassado: avanço direto).
 Nenhum dos 16 livros muda (o git não recusa: não os toca).
 
 **4 · Livros iguais** — `( cd $VIVO && sha256sum $LIVROS ) | diff - $CORTE/SHA256-ANTES.txt && echo LIVROS IGUAIS`
@@ -212,7 +217,7 @@ for f in $LIVROS; do cp $CORTE/$f $VIVO/$f; done
 ( cd $VIVO && sha256sum $LIVROS ) | diff - $CORTE/SHA256-ANTES.txt && echo "IGUAL AO ANTES"
 rm $VIVO/curadoria/PARAR.flag
 # se o passo 10 JÁ fez push: NÃO forçar o push; a origem fica à frente do vivo e o coordenador decide
-# (revert na origem, ou apontar o ramo de produção de volta a df0865e6 com ordem explícita)
+# (revert na origem, ou apontar o ramo de produção de volta a 88ee046f com ordem explícita)
 ```
 ⚠️ Repor os livros só se o robô esteve parado desde o passo 1. Se já correu (passo 11), NÃO repor os livros
 (perdia-se trabalho dele): repor só a tabela do coletor e a prova de rotas e, para a D49/D51, tirar a marca
