@@ -87,5 +87,39 @@ class OReroute(unittest.TestCase):
         self.assertEqual(a, sorted(a, key=lambda d: (-d["PONTUACAO"], d["UNIVERSO"])))
 
 
+class D66SoAnotar(unittest.TestCase):
+    """D66 (dono, 25/09): o REROUTE so anota; nada entra na Sala; quando ligar, so T1 e T2."""
+
+    def test_7_configuracao_explicita(self):
+        self.assertIs(A.REROUTE_ENTRA_NA_SALA, False)
+        self.assertEqual(A.REROUTE_GAVETAS_PERMITIDAS, frozenset({"T1", "T2"}))
+
+    def test_8_anota_os_destinos_mas_nenhum_vai_para_a_sala(self):
+        rr = A.reencaminhar(_item(MERCADO), "T5")
+        self.assertIn("T10", [d["UNIVERSO"] for d in rr["DESTINOS"]])   # a anotacao continua inteira
+        self.assertIs(rr["ENTRA_NA_SALA"], False)
+        self.assertEqual(rr["GAVETAS_PERMITIDAS"], ["T1", "T2"])
+        self.assertEqual(rr["DESTINOS_PARA_A_SALA"], [])
+        self.assertEqual(A.destinos_para_a_sala(rr), [])
+
+    def test_9_um_nao_reencaminhado_nao_atravessa_a_porta_da_sala(self):
+        d = A.decidir(_item_completo(MERCADO), "T5")
+        self.assertEqual(d.regra, "pertence ao universo", d)
+        self.assertIn(d.resultado, (A.NAO, A.NAO_SE_APLICA))
+        self.assertTrue(d.evidencia["REROUTE"]["DESTINOS"])               # havia destino…
+        with self.assertRaises(ValueError):                                # …e mesmo assim nao entra
+            A.pronto_para_inteligencia(_item_completo(MERCADO), d)
+
+    def test_10_quando_ligar_so_entram_t1_e_t2(self):
+        rr = {"DESTINOS": [{"UNIVERSO": u, "PONTUACAO": 3, "MOTIVO": "-"} for u in ("T10", "T2", "T5", "T9", "T1", "T4")]}
+        antes = A.REROUTE_ENTRA_NA_SALA
+        try:
+            A.REROUTE_ENTRA_NA_SALA = True
+            self.assertEqual(A.destinos_para_a_sala(rr), ["T2", "T1"])
+        finally:
+            A.REROUTE_ENTRA_NA_SALA = antes
+        self.assertEqual(A.destinos_para_a_sala(rr), [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

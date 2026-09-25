@@ -1510,6 +1510,27 @@ def _lingua_do_item(item: dict) -> str:
 #     todas — a Sala ainda NAO sabe guardar isso sem duplicar o texto
 #     (ver RELATORIO-REROUTE.md, a proposta de migracao 033); ate la, o
 #     REROUTE fica escrito no livro e nada novo pousa.
+#
+# ── D66 (DONO REAL, 25/09): SO ANOTAR ────────────────────────────────────────
+# Medido na REGUAS-T4-T5-T9: as reguas T4/T5/T9 acertam 0 % / 10 % / 4,5 % no
+# gabarito, e o REROUTE com elas acerta 8 em 102 contra os rotulos humanos.
+# Por isso, e ate T4/T5/T9 serem refeitas com exemplos reais:
+#   · o REROUTE SO ANOTA (continua a perguntar a todas as gavetas, para medir);
+#   · NADA entra na Sala por REROUTE: REROUTE_ENTRA_NA_SALA = False;
+#   · quando se ligar, SO as gavetas com regua MEDIDA em gabarito podem receber:
+#     hoje T1 e T2 (D29). Juntar uma gaveta aqui exige a medida dela.
+# O unico caminho do REROUTE para a Sala e `destinos_para_a_sala()`.
+REROUTE_ENTRA_NA_SALA = False
+REROUTE_GAVETAS_PERMITIDAS = frozenset({"T1", "T2"})
+
+
+def destinos_para_a_sala(reroute: dict) -> list:
+    """As gavetas onde um item reencaminhado PODE entrar. Com o pouso desligado (D66) e sempre []."""
+    if not REROUTE_ENTRA_NA_SALA or not reroute:
+        return []
+    return [d["UNIVERSO"] for d in reroute.get("DESTINOS", []) if d["UNIVERSO"] in REROUTE_GAVETAS_PERMITIDAS]
+
+
 def reencaminhar(item: dict, origem: str) -> dict:
     destinos = []
     for u in sorted(PERGUNTAS_DO_UNIVERSO):
@@ -1522,10 +1543,14 @@ def reencaminhar(item: dict, origem: str) -> dict:
                 pont = len(ev.get("palavras") or []) or 1
             destinos.append({"UNIVERSO": u, "PONTUACAO": pont, "MOTIVO": motivo})
     destinos.sort(key=lambda d: (-d["PONTUACAO"], d["UNIVERSO"]))
-    return {"LEI": "D2 (dono) · D56 (bot Luciano, 25/09)", "ORIGEM": origem, "UNIVERSE_MATCH": "NO",
-            "SINTONIA_RELEVANT": "YES" if destinos else "NAO_SEI",
-            "ACTION": "REROUTE" if destinos else "NENHUMA",
-            "DESTINOS": destinos}
+    rr = {"LEI": "D2 (dono) · D56 (bot Luciano, 25/09) · D66 (dono, 25/09: so anotar)", "ORIGEM": origem,
+          "UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "YES" if destinos else "NAO_SEI",
+          "ACTION": "REROUTE" if destinos else "NENHUMA",
+          "DESTINOS": destinos,
+          "GAVETAS_PERMITIDAS": sorted(REROUTE_GAVETAS_PERMITIDAS),
+          "ENTRA_NA_SALA": REROUTE_ENTRA_NA_SALA}
+    rr["DESTINOS_PARA_A_SALA"] = destinos_para_a_sala(rr)
+    return rr
 
 
 def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
