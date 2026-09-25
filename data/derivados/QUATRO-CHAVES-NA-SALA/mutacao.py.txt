@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+"""MUTACAO — QUATRO-CHAVES-NA-SALA (D58). Guardado como .py.txt: e registo da prova, nao codigo do sistema.
+
+Cada mutante planta UM defeito numa COPIA da arvore (git archive HEAD) e corre
+    python3 -m unittest tests.test_quatro_chaves tests.test_quatro_chaves_na_sala
+contra um Postgres DESCARTAVEL (o do proprio teste). Morto = os testes ficaram vermelhos.
+Antes dos mutantes corre o CONTROLO (sem defeito), que tem de dar verde.
+
+    uso: python3 mutacao.py.txt <raiz-do-repo> [saida.txt]
+    CORRER_COMO=postgres  -> corre os testes com `runuser -u postgres` (initdb recusa root)
+"""
+import os, shutil, subprocess, sys, tempfile
+
+RAIZ = os.path.abspath(sys.argv[1])
+SAIDA = sys.argv[2] if len(sys.argv) > 2 else None
+COMO = os.environ.get("CORRER_COMO")
+
+ADM = "admissao/admissao.py"
+SALA = "admissao/sala_de_espera.py"
+MIG = "supabase/migrations/033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql"  # a 033 UNICA (producao)
+
+MUTANTES = [
+    ("M1 regiao do fato herda a regiao da fonte", ADM,
+     'regiao = _valor(item.get("fact_location"))',
+     'regiao = _valor(item.get("fact_location") or item.get("source_location"))'),
+    ("M2 o default da 033 inventa cultura para os antigos", MIG,
+     '''default '{"CULTURA": {"BASE": "NAO SEI", "VALOR": "NAO SEI",''',
+     '''default '{"CULTURA": {"BASE": "NAO SEI", "VALOR": "vite",'''),
+    ("M5 ler() ignora a coluna", SALA,
+     '"JANELA_DECLARADA": json.loads(c[22]),',
+     '"JANELA_DECLARADA": __import__("admissao").JANELA_NAO_MEDIDA,'),
+    ("M6 pousar() nao escreve o que recebeu", SALA,
+     'janela_sql = _lit(json.dumps(u["JANELA_DECLARADA"],',
+     'janela_sql = _lit(json.dumps(__import__("admissao").JANELA_NAO_MEDIDA,'),
+    ("M7 a trava de forma deixa passar tudo", MIG,
+     "        json_typeof(janela_declarada) = 'object'",
+     "        true or json_typeof(janela_declarada) = 'object'"),
+    ("M8 idempotencia por documento cai (mesmo item 2x = 2 registos)", SALA,
+     "                          and s.run_id <> e.run_id);",
+     "                          and false);"),
+    ("M9 ausencia vira vazio (cultura [])", ADM,
+     '"CULTURA": {"VALOR": culturas or AUSENCIA,',
+     '"CULTURA": {"VALOR": culturas,'),
+    ("M10 ausencia vira o resultado da porta (NAO_SEI)", ADM,
+     '        return AUSENCIA if v is None or str(v).strip() in ("", AUSENCIA, NAO_SEI) else v',
+     '        return NAO_SEI if v is None or str(v).strip() in ("", AUSENCIA, NAO_SEI) else v'),
+    ("M12 os tempos viajam duas vezes", ADM,
+     '    r["ORIGEM"] = j["ORIGEM"]\n',
+     '    r["ORIGEM"] = j["ORIGEM"]\n    r["TEMPOS"] = j["TEMPOS"]\n'),
+    ("M13 o READY deixa de levar as chaves", ADM,
+     '"JANELA_DECLARADA": janela_para_o_ready(item, decisao),', ''),
+    ("M14 D62: a precisao conta NAO SEI como valor", ADM,
+     'sum(1 for c in QUATRO_CHAVES if r[c]["VALOR"] != AUSENCIA)',
+     'sum(1 for c in QUATRO_CHAVES if r[c]["VALOR"] is not None)'),
+    ("M16 D62: a expressao relativa deita-se fora", ADM,
+     '"EXPRESSOES": achadas or AUSENCIA,', '"EXPRESSOES": AUSENCIA,'),
+    ("M17 DA-6: a porta volta a copiar a publicacao para FACT_TIME", ADM,
+     '        "FACT_TIME": item.get("fact_time") or AUSENCIA,',
+     '        "FACT_TIME": item.get("fact_time") or item.get("published_at") or AUSENCIA,'),
+    ("M18 DA-6: a porta volta a por uma data no FACT_TIME a partir do texto", ADM,
+     '        "FACT_TIME": item.get("fact_time") or AUSENCIA,',
+     '        "FACT_TIME": item.get("fact_time") or ("2026-05-12" if "ieri" in _dobrar(item.get("texto") or "") else AUSENCIA),'),
+]
+
+
+def correr(arvore):
+    cmd = [sys.executable, "-m", "unittest", "tests.test_quatro_chaves", "tests.test_quatro_chaves_na_sala"]
+    if COMO:
+        cmd = ["runuser", "-u", COMO, "--", "env", "PYTHONDONTWRITEBYTECODE=1", "HOME=/tmp"] + cmd
+    r = subprocess.run(cmd, cwd=arvore, capture_output=True, text=True, timeout=900)
+    ult = [l for l in r.stderr.splitlines() if l.strip()][-1:] or ["?"]
+    corridos = [l for l in r.stderr.splitlines() if l.startswith("Ran ")]
+    return r.returncode, "%s · %s" % (corridos[-1] if corridos else "?", ult[0])
+
+
+def copia(base):
+    d = tempfile.mkdtemp(prefix="qc-mut-")
+    shutil.rmtree(d); shutil.copytree(base, d)
+    os.chmod(d, 0o777)
+    for r, ds, fs in os.walk(d):
+        for x in ds + fs:
+            os.chmod(os.path.join(r, x), 0o777)
+    return d
+
+
+def main():
+    base = tempfile.mkdtemp(prefix="qc-base-")
+    subprocess.run("git -C '%s' archive HEAD | tar -x -C '%s'" % (RAIZ, base), shell=True, check=True)
+    linhas = []
+    d = copia(base)
+    rc, res = correr(d); shutil.rmtree(d, ignore_errors=True)
+    linhas.append("CONTROLO (sem defeito): rc=%d  %s  -> %s" % (rc, res, "VERDE" if rc == 0 else "VERMELHO (!!)"))
+    mortos = 0
+    for nome, f, antes, depois in MUTANTES:
+        d = copia(base)
+        p = os.path.join(d, f)
+        s = open(p, encoding="utf-8").read()
+        n = s.count(antes)
+        if n != 1:
+            linhas.append("%s: NAO APLICADO (trecho encontrado %d vezes)" % (nome, n)); continue
+        open(p, "w", encoding="utf-8").write(s.replace(antes, depois))
+        rc, res = correr(d); shutil.rmtree(d, ignore_errors=True)
+        morto = rc != 0
+        mortos += morto
+        linhas.append("%s: %s  (rc=%d; %s)" % (nome, "MORTO" if morto else "SOBREVIVEU", rc, res))
+    linhas.append("MORTOS %d / %d" % (mortos, len(MUTANTES)))
+    shutil.rmtree(base, ignore_errors=True)
+    txt = "\n".join(linhas) + "\n"
+    print(txt)
+    if SAIDA:
+        open(SAIDA, "w", encoding="utf-8").write(txt)
+
+
+main()

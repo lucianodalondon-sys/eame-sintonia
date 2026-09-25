@@ -137,6 +137,10 @@ CAMPOS_READY = (
     "PUBLISHED_AT_BASIS", "SOURCE_LOCATION_BASIS", "COMPLETUDE_TEMPO_LUGAR",
     "TEMPO_LUGAR_EVIDENCIA",
     "SOURCE_DECLARED_EVIDENCE_CLASS", "FATO",
+    # D58 (QUATRO-CHAVES-NA-SALA): cultura, regiao do fato, fase, janela, cada
+    # uma com a proveniencia. Coluna `janela_declarada` (033 unica); o que pousou
+    # antes le-se `NAO SEI` nas quatro (`admissao.JANELA_NAO_MEDIDA`).
+    "JANELA_DECLARADA",
     "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR",
 )
 
@@ -623,7 +627,7 @@ class _Postgres(object):
             "fact_location_basis, published_at, observed_at, "
             "source_declared_evidence_class, fato, "
             "published_at_basis, source_location_basis, completude_tempo_lugar, "
-            "tempo_lugar_evidencia "
+            "tempo_lugar_evidencia, janela_declarada "
             "from public.sala_de_espera where run_id = %s order by ordem"
             % _lit(run_id))
         if not linhas:
@@ -660,6 +664,9 @@ class _Postgres(object):
                 "TEMPO_LUGAR_EVIDENCIA": json.loads(c[21]),
                 "SOURCE_DECLARED_EVIDENCE_CLASS": c[16],
                 "FATO": json.loads(c[17]),
+                # a JANELA volta por `json.loads`, como o FATO; o que pousou
+                # antes da 033 traz o default — as quatro em `NAO SEI`.
+                "JANELA_DECLARADA": json.loads(c[22]),
                 "ESTAGIO": c[11],
                 "CAPTURED_AT": c[9],
                 "CORRIDA": run_id,
@@ -701,6 +708,9 @@ class _Postgres(object):
                                              ensure_ascii=False, sort_keys=True))
             evidencia_sql = _lit(json.dumps(u["TEMPO_LUGAR_EVIDENCIA"],
                                             ensure_ascii=False, sort_keys=True))
+            # a JANELA viaja como o FATO: JSON, chaves ordenadas, sem ramo.
+            janela_sql = _lit(json.dumps(u["JANELA_DECLARADA"],
+                                         ensure_ascii=False, sort_keys=True))
             colunas = [_lit(run_id), str(i), _lit(u["ITEM_ID"]), obs_sql,
                        _lit(u["UNIVERSO"]), _lit(u["TEXTO"]),
                        _lit(u["SOURCE_ID"]), _lit(u["SOURCE_LOCATION"]),
@@ -713,7 +723,7 @@ class _Postgres(object):
                        _lit(u["SOURCE_DECLARED_EVIDENCE_CLASS"]), fato_sql,
                        _lit(u["PUBLISHED_AT_BASIS"]),
                        _lit(u["SOURCE_LOCATION_BASIS"]), completude_sql,
-                       evidencia_sql]
+                       evidencia_sql, janela_sql]
             valores.append("(" + ", ".join(colunas) + ")")
         # ⚠️ A INTERPOLAÇÃO AQUI É `str.format`, E NÃO `%`. O corpo plpgsql usa
         # `%` como marcador do `raise exception`, e um `%` do Python em cima
@@ -757,7 +767,7 @@ begin
        estagio, fact_time_basis, fact_location_basis, published_at,
        observed_at, source_declared_evidence_class, fato,
        published_at_basis, source_location_basis, completude_tempo_lugar,
-       tempo_lugar_evidencia)
+       tempo_lugar_evidencia, janela_declarada)
     values {valores};
     select count(*) into total from _entrada;
     insert into public.sala_de_espera
@@ -767,14 +777,14 @@ begin
        estagio, fact_time_basis, fact_location_basis, published_at,
        observed_at, source_declared_evidence_class, fato,
        published_at_basis, source_location_basis, completude_tempo_lugar,
-       tempo_lugar_evidencia)
+       tempo_lugar_evidencia, janela_declarada)
     select run_id, ordem, item_id, raw_observation_id, universo, texto,
            source_id, source_location, fact_location, fact_time, captured_at,
            admitido_por, corrida_sha256,
            estagio, fact_time_basis, fact_location_basis, published_at,
            observed_at, source_declared_evidence_class, fato,
            published_at_basis, source_location_basis, completude_tempo_lugar,
-           tempo_lugar_evidencia
+           tempo_lugar_evidencia, janela_declarada
       from _entrada e
      where not exists (select 1 from public.sala_de_espera s
                         where s.item_id = e.item_id and s.universo = e.universo
