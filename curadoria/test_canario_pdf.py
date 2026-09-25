@@ -42,7 +42,11 @@ def pdf_com_texto(frase: str, linhas: int) -> bytes:
 def contrato(output_type="PDF"):
     return {"SOURCE_ID": "IT-T3-014", "OUTPUT_TYPE": output_type,
             "ACQUISITION": {"STRATEGY": "HTML_LINK_DISCOVERY", "INDEX_URL": INDEX, "LINK_PATTERN": PADRAO},
-            "IDENTITY": {"DOCUMENT_ID": "IT-T3-014:{doc.1}"}}
+            # D47: o canario PDF pergunta a identidade ao motor do coletor, que exige STRATEGY. O bloco
+            # abaixo e o que as 574 de 574 fontes do livro do Curator declaram (medido 25/09).
+            "IDENTITY": {"STRATEGY": "CONTENT_CAPTURE",
+                         "CAPTURES": {"doc": {"FROM": "URL", "PATTERN": "^https?://[^/]+/?(.*?)/?$"}},
+                         "DOCUMENT_ID": "IT-T3-014:{doc.1}", "FACT_TIME": "UNKNOWN"}}
 
 
 PAGINA = ('<a href="/wp-content/uploads/2026/05/dtu-a.pdf">a</a>'

@@ -120,10 +120,15 @@ def _regua_manda(source_id) -> bool:
     return RS.regua_manda(source_id)
 
 
-def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
+def hrefs_da_entrada(b: bytes, index_url: str, strip_suffix: str | None = None) -> set[str]:
     """Os enderecos que o canario ve numa pagina de entrada. UM so dono: o
     reparo de contratos (reparar_contrato.py) infere o padrao sobre ESTE
-    conjunto, para propor exactamente o que o canario vai casar depois."""
+    conjunto, para propor exactamente o que o canario vai casar depois.
+
+    D47 (T2-BOLETINS): `strip_suffix` e o `ACQUISITION.STRIP_SUFFIX` do contrato, o MESMO corte que
+    o coletor ja faz (`regras/motor_de_rota.mjs` · ligacoesDoIndice). Medido na ARPAE: as 60
+    ligacoes dos boletins agrometeo acabam em `.pdf/view` (a pagina do Plone); sem o `/view` e o
+    PDF. Sem este corte o canario abria a pagina e o coletor o PDF — dois alvos diferentes."""
     # ⚠️ IA-CUR (24/09): a ligacao RELATIVA sem barra («news_open.php?EW_ID=15142») era
     # descartada, e o `&amp;` do HTML ficava literal. Medido na Assomao: a listagem tem 44
     # noticias e o canario via 0 — e a R1 dizia SEM_FAMILIA_DE_ITENS pela mesma razao (le por
@@ -145,7 +150,10 @@ def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
         except ValueError:
             continue
         if h.startswith(("http://", "https://")):
-            hrefs.add(h.split("#")[0])
+            h = h.split("#")[0]
+            if strip_suffix and h.endswith(strip_suffix):
+                h = h[:-len(strip_suffix)]
+            hrefs.add(h)
     return hrefs
 
 
@@ -193,9 +201,20 @@ def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes) -> dict:
         return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
                     PORQUE="o PDF tem so %d caracteres de texto (< %d) — sem BODY util"
                            % (chars, PDF_MINIMO_DE_TEXTO))
-    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True,
-                DOCUMENT_ID=c["IDENTITY"]["DOCUMENT_ID"].replace(
-                    "{doc.1}", re.sub(r"^https?://[^/]+/?", "", alvo).rstrip("/")))
+    # D47 (T2-BOLETINS): a identidade (e os tempos que ela declara) vem do MOTOR DO COLETOR, como na
+    # «pagina e o boletim» — um motor so. Antes: um `replace("{doc.1}", caminho)` a mao, que so sabia
+    # o molde por endereco e ignorava SOURCE_DATE_ISO/FACT_TIME de um contrato com capturas.
+    ident = identidade_pelo_motor(c, alvo, b2)
+    if ident.get("ERRO"):
+        return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
+                    PORQUE="o motor do coletor nao deu identidade: %s" % str(ident["ERRO"])[:160])
+    if not ident.get("DOCUMENT_ID"):
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="IDENTITY_FAILED: as capturas do contrato nao casam com o alvo")
+    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=ident["DOCUMENT_ID"],
+                TEMPOS={"PUBLICATION_TIME": ident.get("SOURCE_DATE_ISO") or ident.get("SOURCE_DATE") or "UNKNOWN",
+                        "FACT_TIME": ident.get("FACT_TIME") or "UNKNOWN",
+                        "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros dois)"})
 
 
 FORMA_PAGINA_E_BOLETIM = "PAGINA_E_BOLETIM"
@@ -265,7 +284,7 @@ def canario_html(c: dict) -> dict:
     if st != 200 or not b:
         return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err or "HTTP %s" % st,
                 "HTTP": st}
-    hrefs = hrefs_da_entrada(b, aq["INDEX_URL"])
+    hrefs = hrefs_da_entrada(b, aq["INDEX_URL"], aq.get("STRIP_SUFFIX"))
     rx = re.compile(aq["LINK_PATTERN"])
     alvos = [h for h in sorted(hrefs) if rx.match(h)]
     if not alvos:
