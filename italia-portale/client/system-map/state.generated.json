@@ -67,6 +67,7 @@
       "RELATORIO-PROPOSTA-CATALOGO.md",
       "RELATORIO-PROVAS-P1.md",
       "RELATORIO-Q1-QUARENTENA.md",
+      "RELATORIO-R1-REPARO-FONTES.md",
       "RELATORIO-RECEITAS-FONTES.md",
       "RELATORIO-RECOLLECTION-R1.md",
       "RELATORIO-RECOLLECTION-R2.md",
@@ -74,7 +75,6 @@
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
       "RELATORIO-SOC1-SOCIAL.md",
-      "RELATORIO-T1-JANELA.md",
       "RELATORIO-T2-REGUA.md",
       "RELATORIO-TTL-MUTABLE-T1.md",
       "RELATORIO-UNIFICACAO.md",
@@ -396,6 +396,7 @@
       "curadoria/RELATORIO-MISSAO-03.md",
       "curadoria/RELATORIO-SERVICE-V1.md",
       "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+      "curadoria/REVISAO-READY-V1.json",
       "curadoria/ROTAS-ELEGIVEIS-V1-ADENDA-SECCOES.json",
       "curadoria/ROTAS-ELEGIVEIS-V1.json",
       "curadoria/SAMPLE-MANIFEST-V1.json",
@@ -464,7 +465,9 @@
       "curadoria/red_team_ponte_curador.py",
       "curadoria/red_team_service.py",
       "curadoria/red_team_telemetria.py",
+      "curadoria/reparar_contrato.py",
       "curadoria/retrato_html.py",
+      "curadoria/revisao_ready.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
       "curadoria/supervisor.py",
@@ -498,7 +501,9 @@
       "curadoria/test_ponte_promocao.py",
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
+      "curadoria/test_reparar_contrato.py",
       "curadoria/test_retrato_html.py",
+      "curadoria/test_revisao_ready.py",
       "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
       "curadoria/test_telemetria.py",
@@ -2490,24 +2495,6 @@
       "scripts/receitas/propor_receitas_v3.py",
       "scripts/receitas/propor_receitas_v4.py",
       "scripts/receitas/provar_indices.py",
-      "scripts/regua_t1/GABARITO-T1-V1.json",
-      "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
-      "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
-      "scripts/regua_t1/MUTACAO-REGUA-T1-V1.json",
-      "scripts/regua_t1/PROTOCOLO-GABARITO-T1.md",
-      "scripts/regua_t1/PROVA-CEGA-T1-V1.json",
-      "scripts/regua_t1/SELECAO-CEGA-T1-V1.json",
-      "scripts/regua_t1/SELECAO-T1-V1.json",
-      "scripts/regua_t1/medir_aperto_site.py",
-      "scripts/regua_t1/medir_regua_t1.py",
-      "scripts/regua_t1/montar_gabarito_t1.py",
-      "scripts/regua_t1/mutar_regua_t1.py",
-      "scripts/regua_t1/rotulos/rotulos-1.tsv",
-      "scripts/regua_t1/rotulos/rotulos-2.tsv",
-      "scripts/regua_t1/rotulos/rotulos-3.tsv",
-      "scripts/regua_t1/rotulos/rotulos-cega.tsv",
-      "scripts/regua_t1/selecionar_cega.py",
-      "scripts/regua_t1/selecionar_t1.py",
       "scripts/regua_t2/GABARITO-T2-V1.json",
       "scripts/regua_t2/GABARITO-T2-V2.json",
       "scripts/regua_t2/GABARITO-T2-V3.json",
@@ -2537,7 +2524,17 @@
       "scripts/regua_t2/rotulos/A-ROTULAR.json",
       "scripts/regua_t2/rotulos/rotulos-janela.tsv",
       "scripts/regua_t2/rotulos/rotulos-recolha.tsv",
-      "scripts/regua_t2/rotulos/rotulos.tsv"
+      "scripts/regua_t2/rotulos/rotulos.tsv",
+      "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json",
+      "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA.json",
+      "scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json",
+      "scripts/reparo/R1-REENSAIO-ANTES-DEPOIS-fca4f2b6.json",
+      "scripts/reparo/R1-REVISAO-READY.json",
+      "scripts/reparo/R1-SUITE-POR-NOME.json",
+      "scripts/reparo/R1-WRITESET.json",
+      "scripts/reparo/juntar_bancas.py",
+      "scripts/reparo/medir_em_copia.py",
+      "scripts/reparo/revisar_ready.py"
     ],
     "security": [
       "security/ACCOES-DE-ADMINISTRADOR.md",
@@ -2897,7 +2894,6 @@
       "tests/test_red_team_estrada.py",
       "tests/test_reel_transcricao.py",
       "tests/test_reel_transcricao_trava.py",
-      "tests/test_regua_t1.py",
       "tests/test_regua_t2.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_relevance_priority_sobrecarga.py",
@@ -3454,10 +3450,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "regua-t1-janela-v1",
-    "HEAD": "a6ead79483b3ac0385e303ac870430b459cc870d",
-    "GENERATED_AT": "2026-09-24T18:06:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3527ae7081338b8144cf2af53f4ec3be97f8b4c8870ec19aa9e089fd5eb1292d"
+    "BRANCH": "reparo-fontes-v2",
+    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
+    "GENERATED_AT": "2026-09-24T19:11:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1"
   },
   "FAMILIES": [
     {
@@ -4427,7 +4423,6 @@
       "inbound": [
         "C-DONO-DA-ESCRITA",
         "C-IT-TEXTO-DERIVADO",
-        "C-REGUA-T1-JANELA",
         "C-REGUA-T2-JANELA",
         "C-ROTA-M2",
         "C-SCRAP-SOCIAL",
@@ -4466,7 +4461,6 @@
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-READY",
         "C-RECALL-PORTA-IT",
-        "C-REGUA-T1-JANELA",
         "C-REGUA-T2-JANELA",
         "C-RELEVANCIA-DA-FONTE",
         "C-ROTA-M2",
@@ -4487,12 +4481,12 @@
           "PERGUNTAS_DO_UNIVERSO",
           "PERGUNTAS_EN"
         ],
-        "palavras": 343,
+        "palavras": 342,
         "por_lingua": {
           "IT": 31,
           "PT": 19
         },
-        "sem_marca_de_lingua": 293,
+        "sem_marca_de_lingua": 292,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -4959,8 +4953,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 617",
-        "desses, mostrados aqui: 40 (ficam de fora 577)"
+        "enderecos que o codigo realmente chama: 620",
+        "desses, mostrados aqui: 40 (ficam de fora 580)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -32418,6 +32412,7 @@
         "C-DETECTOR-CAPA-GABARITO",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
+        "C-REPARO-MEDICAO",
         "C-TESTES"
       ],
       "paises": {},
@@ -35214,6 +35209,7 @@
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
         "C-RECEITAS-PROPOSTA",
+        "C-REPARO-MEDICAO",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -49952,164 +49948,6 @@
       "y": 8410
     },
     {
-      "id": "C-REGUA-T1-JANELA",
-      "name": "Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao",
-      "territory": "Z-MEDIDAS",
-      "kind": "engine",
-      "what": "Gabarito T1-V1 lido a mao (181 textos do acervo por regra fixa: boletins T2, textos com colheita/sementeira, controlo ao acaso; 55 YES / 80 NO / 46 NAO_SEI) e medicao da regua T1 de admissao/admissao.py: SIM pede cultura nomeada E dois momentos (fase, estadio, colheita/sementeira em frase, defesa, limiar, capturas, tratamento); T1 transversal e palavra inteira. Vizinhos 0/9163; mutacao 8/8. Testes: tests/test_regua_t1.py (peca C-TESTES).",
-      "why_here": "D29: a CAP-WIN precisa de cultura e fase; T1 nao tinha regua (tudo NAO_SE_APLICA). Cobre so calendario/desenvolvimento do Atlas, nao area/producao/preco. Noticias de colheita ficam NAO_SEI (um so momento). Medido DENTRO da amostra.",
-      "departments": [
-        "ENGENHARIA",
-        "INTELIGENCIA"
-      ],
-      "legacy": false,
-      "ui_status": "yellow",
-      "icon": "◎",
-      "views": [
-        "audit",
-        "diagnostic"
-      ],
-      "lane": "official",
-      "family": "F-COLETA",
-      "files": [
-        "RELATORIO-T1-JANELA.md",
-        "scripts/regua_t1/GABARITO-T1-V1.json",
-        "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
-        "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
-        "scripts/regua_t1/MUTACAO-REGUA-T1-V1.json",
-        "scripts/regua_t1/PROTOCOLO-GABARITO-T1.md",
-        "scripts/regua_t1/PROVA-CEGA-T1-V1.json",
-        "scripts/regua_t1/SELECAO-CEGA-T1-V1.json",
-        "scripts/regua_t1/SELECAO-T1-V1.json",
-        "scripts/regua_t1/medir_aperto_site.py",
-        "scripts/regua_t1/medir_regua_t1.py",
-        "scripts/regua_t1/montar_gabarito_t1.py",
-        "scripts/regua_t1/mutar_regua_t1.py",
-        "scripts/regua_t1/rotulos/rotulos-1.tsv",
-        "scripts/regua_t1/rotulos/rotulos-2.tsv",
-        "scripts/regua_t1/rotulos/rotulos-3.tsv",
-        "scripts/regua_t1/rotulos/rotulos-cega.tsv",
-        "scripts/regua_t1/selecionar_cega.py",
-        "scripts/regua_t1/selecionar_t1.py"
-      ],
-      "file_count": 19,
-      "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
-      "produces": [],
-      "inbound": [
-        "C-ADMISSAO",
-        "C-REGUA-T2-JANELA"
-      ],
-      "outbound": [
-        "C-ADMISSAO",
-        "C-TESTES"
-      ],
-      "paises": {},
-      "paises_dado": {},
-      "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "M",
-          "PASTAS"
-        ],
-        "palavras": 41,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 41,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
-      "nivel": "INTERNO",
-      "escreve_na_pasta": [
-        {
-          "pasta": "admissao",
-          "prova": {
-            "file": "scripts/regua_t1/mutar_regua_t1.py",
-            "line": 47,
-            "snippet": "escreve em F"
-          }
-        }
-      ],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "admissao/admissao.py",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "scripts/regua_t1/GABARITO-T1-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "MEASURES",
-      "rule_role_evidence": "escreve admissao/admissao.py, e quem le nao esta na esteira: C-CENSO-DERIVACOES, C-CENSO-SEMANTICO-IT, C-DETECTOR-CAPA-GABARITO",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
-      "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
-      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
-      "ROLE_CONFLICT": null,
-      "ROLE": "MEASUREMENT_INSTRUMENT",
-      "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve admissao/admissao.py, e quem le nao esta na esteira: C-CENSO-DERIVACOES, C-CENSO-SEMANTICO-IT, C-DETECTOR-CAPA-GABARITO",
-      "OWNER": "ENGENHARIA · INTELIGENCIA",
-      "OWNER_PLANE": "DECLARED",
-      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": null,
-      "consumes": [
-        "admissao/admissao.py",
-        "scripts/regua_t1/GABARITO-T1-V1.json",
-        "scripts/regua_t1/MUTACAO-REGUA-T1-V1.json",
-        "scripts/regua_t1/PROTOCOLO-GABARITO-T1.md",
-        "scripts/regua_t1/SELECAO-T1-V1.json",
-        "scripts/regua_t2/GABARITO-T2-V3.json",
-        "scripts/regua_t2/medir_regua_t2.py",
-        "scripts/regua_t2/medir_via_agrometeo.py"
-      ],
-      "consumes_plane": "CODE",
-      "DECLARED": "YES",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "OBSERVED_EVIDENCE": [],
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
-      "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-TESTES"
-        ],
-        "PLANO": "CODE",
-        "PROVA": [
-          "tests/test_regua_t1.py:125"
-        ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
-      },
-      "x": 11310,
-      "y": 2614
-    },
-    {
       "id": "C-REGUA-T2-JANELA",
       "name": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao",
       "territory": "Z-MEDIDAS",
@@ -50176,7 +50014,6 @@
       "outbound": [
         "C-ADMISSAO",
         "C-PROVA-COLETA",
-        "C-REGUA-T1-JANELA",
         "C-TESTES"
       ],
       "paises": {},
@@ -50290,16 +50127,17 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
         "PROVA": [
-          "scripts/regua_t1/medir_aperto_site.py:20",
           "tests/test_a_regra_de_t2.py:128"
         ],
-        "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 11310,
       "y": 2614
     },
     {
@@ -50385,7 +50223,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -50629,6 +50467,87 @@
       },
       "x": 19730,
       "y": 1970
+    },
+    {
+      "id": "C-REPARO-MEDICAO",
+      "name": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n). juntar_bancas.py junta as fatias num ANTES/DEPOIS por fonte e por causa (reparo, re-canario, qualify). revisar_ready.py re-corre o reparo so para as READY novas numa banca, reabre o item do canario e marca sinais de suspeita (caminho de servico, sem data) para revisao humana.",
+      "why_here": "O reparo de contratos (curadoria/reparar_contrato.py, etapa REPAIR_CONTRACT do worker) muda contratos e o livro de estado; medir o efeito no livro vivo seria escrever no vivo. A banca e descartavel e fica fora do Git.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "collection-strategy"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/reparo/juntar_bancas.py",
+        "scripts/reparo/medir_em_copia.py",
+        "scripts/reparo/revisar_ready.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CENSO-UNIFICACAO",
+        "C-DETECTOR-CAPA-GABARITO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/LIFECYCLE-QUEUE-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 12140,
+      "y": 2614
     },
     {
       "id": "C-REVISAO-DA-EVIDENCIA",
@@ -54834,7 +54753,6 @@
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao.py",
         "tests/test_reel_transcricao_trava.py",
-        "tests/test_regua_t1.py",
         "tests/test_regua_t2.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_relevance_priority_sobrecarga.py",
@@ -54873,7 +54791,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 232,
+      "file_count": 231,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -55018,7 +54936,6 @@
         "C-RECEITAS-PROPOSTA",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
-        "C-REGUA-T1-JANELA",
         "C-REGUA-T2-JANELA",
         "C-RELEVANCIA",
         "C-RELEVANCIA-DA-FONTE",
@@ -55659,8 +55576,6 @@
         "scripts/micro_coleta/provar_backup_da_sala.py",
         "scripts/receitas/censo_e_proposta.py",
         "scripts/receitas/propor_receitas_v3.py",
-        "scripts/regua_t1/GABARITO-T1-V1.json",
-        "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
         "scripts/regua_t2/GABARITO-T2-V2.json",
         "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
         "scripts/regua_t2/MEDICAO-T2C-V1.json",
@@ -57638,7 +57553,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch regua-t1-janela-v1"
+        "branch reparo-fontes-v2"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -60600,7 +60515,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1793,
+          "line": 1721,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -60644,76 +60559,6 @@
         }
       ],
       "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-ADMISSAO",
-      "to": "C-REGUA-T1-JANELA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/regua_t1/selecionar_cega.py",
-          "line": 28,
-          "snippet": "import admissao as A  # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-REGUA-T1-JANELA",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-REGUA-T1-JANELA",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-ADMISSAO",
-      "to": "C-REGUA-T1-JANELA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/regua_t1/mutar_regua_t1.py",
-          "line": 31,
-          "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--READS-->C-REGUA-T1-JANELA",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-REGUA-T1-JANELA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -60917,7 +60762,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 40 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 39 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -68663,6 +68508,41 @@
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-MICRO-COLHEITA",
             "FROM": "C-CENSO-UNIFICACAO",
             "TO": "C-MICRO-COLHEITA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-REPARO-MEDICAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/reparo/juntar_bancas.py",
+          "line": 71,
+          "snippet": "fila = json.loads((Path(b) / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-REPARO-MEDICAO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -77931,6 +77811,41 @@
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
             "TO": "C-RECEITAS-PROPOSTA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-REPARO-MEDICAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/reparo/juntar_bancas.py",
+          "line": 60,
+          "snippet": "t0 = _livro(foto / \"LIFECYCLE-LEDGER-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-REPARO-MEDICAO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -89111,7 +89026,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 357,
+          "line": 356,
           "snippet": "import italy_executor as adapter",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
@@ -99132,7 +99047,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 359,
+          "line": 358,
           "snippet": "from pedido import de_uma_frase",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -107743,92 +107658,6 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
-      "from": "C-REGUA-T1-JANELA",
-      "to": "C-ADMISSAO",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao escreve em A porta de admissao. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/regua_t1/mutar_regua_t1.py",
-          "line": 40,
-          "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-REGUA-T1-JANELA--WRITES-->C-ADMISSAO",
-            "FROM": "C-REGUA-T1-JANELA",
-            "TO": "C-ADMISSAO",
-            "RELATION_TYPE": "WRITES",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "WRITE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-REGUA-T1-JANELA",
-      "to": "C-TESTES",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao alimenta Suite de testes. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_regua_t1.py",
-          "line": 125,
-          "snippet": "self.g = json.load(open(os.path.join(AQUI, \"GABARITO-T1-V1.json\"), encoding=\"utf-8\"))",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-REGUA-T1-JANELA--READS-->C-TESTES",
-            "FROM": "C-REGUA-T1-JANELA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_regua_t1.py",
-          "line": 126,
-          "snippet": "self.m = json.load(open(os.path.join(AQUI, \"MEDICAO-REGUA-T1-V1.json\"), encoding=\"utf-8\"))",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-REGUA-T1-JANELA--READS-->C-TESTES",
-            "FROM": "C-REGUA-T1-JANELA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "PROOF",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
       "from": "C-REGUA-T2-JANELA",
       "to": "C-ADMISSAO",
       "type": "WRITES",
@@ -107907,105 +107736,6 @@
         }
       ],
       "categoria": "PROOF",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-REGUA-T2-JANELA",
-      "to": "C-REGUA-T1-JANELA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Regua T2 da Admissao (D29 janelas de cultura) — gabarito, medicao e mutacao alimenta Regua T1 da Admissao (janelas de cultura, D29) — gabarito, medicao e mutacao. Provado por 5 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/regua_t1/medir_aperto_site.py",
-          "line": 20,
-          "snippet": "sp = u.spec_from_file_location(\"mr\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_regua_t2.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REGUA-T1-JANELA",
-            "FROM": "C-REGUA-T2-JANELA",
-            "TO": "C-REGUA-T1-JANELA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "scripts/regua_t1/medir_aperto_site.py",
-          "line": 23,
-          "snippet": "sp = u.spec_from_file_location(\"mva\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_via_agrometeo.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REGUA-T1-JANELA",
-            "FROM": "C-REGUA-T2-JANELA",
-            "TO": "C-REGUA-T1-JANELA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "scripts/regua_t1/medir_regua_t1.py",
-          "line": 22,
-          "snippet": "sp = u.spec_from_file_location(\"mr\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_regua_t2.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REGUA-T1-JANELA",
-            "FROM": "C-REGUA-T2-JANELA",
-            "TO": "C-REGUA-T1-JANELA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "scripts/regua_t1/medir_regua_t1.py",
-          "line": 25,
-          "snippet": "sp = u.spec_from_file_location(\"mva\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_via_agrometeo.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REGUA-T1-JANELA",
-            "FROM": "C-REGUA-T2-JANELA",
-            "TO": "C-REGUA-T1-JANELA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "scripts/regua_t1/selecionar_t1.py",
-          "line": 36,
-          "snippet": "g3 = json.load(open(RAIZ / \"scripts\" / \"regua_t2\" / \"GABARITO-T2-V3.json\", encoding=\"utf-8\"))",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-REGUA-T2-JANELA--READS-->C-REGUA-T1-JANELA",
-            "FROM": "C-REGUA-T2-JANELA",
-            "TO": "C-REGUA-T1-JANELA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "RULE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -124468,13 +124198,12 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1579,
+  "UNCLAIMED_FILES_COUNT": 1592,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
       "file": "admissao/admissao.py",
       "written_by": [
-        "C-REGUA-T1-JANELA",
         "C-REGUA-T2-JANELA",
         "C-TESTES"
       ],
@@ -124735,12 +124464,12 @@
     "components_pending": 204,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1285,
-    "edges_proven": 1222,
+    "edges": 1282,
+    "edges_proven": 1219,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2861,
-    "files_covered": 1282,
+    "files_tracked": 2857,
+    "files_covered": 1265,
     "files_code_unclaimed": 0,
     "roles_proven": 165,
     "roles_declared_only": 8,

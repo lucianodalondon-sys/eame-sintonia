@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "regua-t1-janela-v1",
-    "HEAD": "a6ead79483b3ac0385e303ac870430b459cc870d",
-    "GENERATED_AT": "2026-09-24T18:06:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3527ae7081338b8144cf2af53f4ec3be97f8b4c8870ec19aa9e089fd5eb1292d"
+    "BRANCH": "reparo-fontes-v2",
+    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
+    "GENERATED_AT": "2026-09-24T19:11:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1"
   },
   "FILES": [
     {
@@ -562,6 +562,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-R1-REPARO-FONTES.md",
+      "sha": "6d555df11973762ddd4f3e95b061971eeef9da9d",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-RECEITAS-FONTES.md",
       "sha": "e552104418c1d2c2cc033fbe56f7d12ec7b74fcc",
       "ext": ".md",
@@ -611,13 +618,6 @@
       "code_dir": false
     },
     {
-      "path": "RELATORIO-T1-JANELA.md",
-      "sha": "7df930571ea5c354fa1e60d48ccfee2bd5fd3ba1",
-      "ext": ".md",
-      "readable": false,
-      "code_dir": false
-    },
-    {
       "path": "RELATORIO-T2-REGUA.md",
       "sha": "a444d8938e305651ab85779306bc91cbc4b532e2",
       "ext": ".md",
@@ -661,7 +661,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "c96443671223201114084373e3936f25df9ac79b",
+      "sha": "c17d6ad898e924883af3a2e0ff2605311429ea19",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -675,7 +675,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "baefae2ef8aa3731561190b590d4f0c6212c2bc1",
+      "sha": "7eca95c614a8c9d7d92cc1951f631af63479dfec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2613,6 +2613,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/REVISAO-READY-V1.json",
+      "sha": "fe8524484381a48979f4be51dc747a230489da16",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/ROTAS-ELEGIVEIS-V1-ADENDA-SECCOES.json",
       "sha": "34db7ef5411778149770f20c1a229d52aee4c16c",
       "ext": ".json",
@@ -2733,7 +2740,7 @@
     },
     {
       "path": "curadoria/canario.py",
-      "sha": "a597d5928e573a6188bfb8deea46585351e34bc7",
+      "sha": "4226df24d7a528072698f436787c6cb73957175b",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2866,7 +2873,7 @@
     },
     {
       "path": "curadoria/fila.py",
-      "sha": "23bed6e927650d9ed0b090b5ae89c7046f9d8b2d",
+      "sha": "1edc5977a8b6ba0bccb69c6d7e22184cedfdcde7",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2880,7 +2887,7 @@
     },
     {
       "path": "curadoria/gatilho_discovery.py",
-      "sha": "a8dea718f32512f4a00a32a3e03e878cd0ed027a",
+      "sha": "b1bc20cc12fdbb37c68cd71eca23d7a6ae2844a7",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3076,7 +3083,7 @@
     },
     {
       "path": "curadoria/red_team_service.py",
-      "sha": "98ff4e73b32397f18250a881ccd867ee7cf34e3e",
+      "sha": "36e6623c018cd7afa8f1fc5d2f5a412ede31a719",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3089,8 +3096,22 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/reparar_contrato.py",
+      "sha": "19a7e231ed78b982157559e2e28ac0fd9a546b0f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/retrato_html.py",
       "sha": "1da101e7054bbcda46b903addc37eb4864706a7c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/revisao_ready.py",
+      "sha": "9543b8428ccb2d636bcde9dd98e4ec5ff5e69782",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3125,7 +3146,7 @@
     },
     {
       "path": "curadoria/test_abastecimento.py",
-      "sha": "9790fb7e877e51d5b0add112675b069a8273582a",
+      "sha": "c7c679ec59be5076df5cfc84d440b5df1c3aefcb",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3216,7 +3237,7 @@
     },
     {
       "path": "curadoria/test_gatilho_discovery.py",
-      "sha": "94f0e8b86f3d51d73e35ccf9cef0739ae213aea5",
+      "sha": "e05e292c61ad764eef7e1881444f2f046dad964d",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3230,7 +3251,7 @@
     },
     {
       "path": "curadoria/test_impasse_b4.py",
-      "sha": "310d1e055ed5a9559ab693c488780d7321d03acf",
+      "sha": "b5b4b7274b5f5fd961572f4e456e77a813cd4489",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3327,8 +3348,22 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_reparar_contrato.py",
+      "sha": "815898e2ee237175c4f6b2a7fec708b31ef3784c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_retrato_html.py",
       "sha": "7b9c2fe0e5af1f41a06799b78fd7738dbd7b8226",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_revisao_ready.py",
+      "sha": "b33bf04f1b7a6c4b3d2f97768e9fdec5e638575a",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3412,7 +3447,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "d00a040fe236dc11e5568246a165db3192f2163a",
+      "sha": "17c45e73f2b0d6f7126a330b6d3cc6cf18ac8312",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -16984,132 +17019,6 @@
       "code_dir": true
     },
     {
-      "path": "scripts/regua_t1/GABARITO-T1-V1.json",
-      "sha": "9edea48e8eb5325ba631512873d71e8184bfce85",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
-      "sha": "60948c27885f96a9616e37fd24b6c6a799fac96b",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
-      "sha": "91baa598a3373b51772689019bbefbce5a9bb521",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/MUTACAO-REGUA-T1-V1.json",
-      "sha": "27981b6094e681aa4a673abc485cf36b93d6b714",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/PROTOCOLO-GABARITO-T1.md",
-      "sha": "03f5534f00d2893e1b643f8d44605827f9495c53",
-      "ext": ".md",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/PROVA-CEGA-T1-V1.json",
-      "sha": "fda963940b6960e122728a9fd957f4c7ae86d084",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/SELECAO-CEGA-T1-V1.json",
-      "sha": "f4519bbeaf5216b805ace5417e2b2cebe2c0cd07",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/SELECAO-T1-V1.json",
-      "sha": "6acefa8911e63d1824f43cb10ad0dfe52dcdb0c9",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/medir_aperto_site.py",
-      "sha": "a003c1206b45af668a35daf9df06c30c45f7e6e9",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/medir_regua_t1.py",
-      "sha": "804e6c02e88d10c3457d6ef2557f47a08565d8d9",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/montar_gabarito_t1.py",
-      "sha": "1782104ad2771ef717ce38f8c717ee0735c4b07c",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/mutar_regua_t1.py",
-      "sha": "e6f318893aa9c730cf168f31b89d797ec90b5bdd",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/rotulos/rotulos-1.tsv",
-      "sha": "c5713594022f680960dc469302c4df8d65d5c0d4",
-      "ext": ".tsv",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/rotulos/rotulos-2.tsv",
-      "sha": "0e787483bcb63b035b1fce7b8a5cc9e2bb939daf",
-      "ext": ".tsv",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/rotulos/rotulos-3.tsv",
-      "sha": "196249f90ee66b7724108ec17e1709e6afb218b2",
-      "ext": ".tsv",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/rotulos/rotulos-cega.tsv",
-      "sha": "56cd032058f9961cca079ce25c351b9d154907d1",
-      "ext": ".tsv",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/selecionar_cega.py",
-      "sha": "0813235227431c9002cc557efd5cd489f584599c",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "scripts/regua_t1/selecionar_t1.py",
-      "sha": "98df6ec6df9c24953454f623010d25e0770d1c42",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "scripts/regua_t2/GABARITO-T2-V1.json",
       "sha": "ca4cafa48bd424017059e332c23de92eac374434",
       "ext": ".json",
@@ -17139,14 +17048,14 @@
     },
     {
       "path": "scripts/regua_t2/MEDICAO-REGUA-T2-V2.json",
-      "sha": "f24e46b0dd57f3e90a7fa6d9e66fd93a65f26468",
+      "sha": "a250cb76431e8924649c93a14416430a9f2c5085",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "scripts/regua_t2/MEDICAO-REGUA-T2-V3.json",
-      "sha": "440fb553a39cb55958aa9d9d1a4b98181fbde9ee",
+      "sha": "10879084d598131b630c85a6fc09265e9a9c7256",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17317,6 +17226,76 @@
       "sha": "ff0f16c7f6fc8c1593517ae1c8884c38464d39f0",
       "ext": ".tsv",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json",
+      "sha": "74ac29c2dceae8b3f3daf00cb4c1f5809ebcbff6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA.json",
+      "sha": "d0b009f5e9f16b1f91d49f615d3552d2fa0afe99",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json",
+      "sha": "aba5e64cc4c150f85b0f1169066d8bc366bf1f0b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/R1-REENSAIO-ANTES-DEPOIS-fca4f2b6.json",
+      "sha": "893aa5e820dd3fc2a67833cd63d06eef03dfad1a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/R1-REVISAO-READY.json",
+      "sha": "bf8b837c6b39139bc9ea361c4725c2876f34bbfd",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/R1-SUITE-POR-NOME.json",
+      "sha": "896881b23e65d84aabc780a24eaee16559ebcdfc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/R1-WRITESET.json",
+      "sha": "67c9287fecee7f39680f17f4f3c44561547fba76",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/juntar_bancas.py",
+      "sha": "14a496fb6accddfd9080f26d88300fa4a7c2c7d5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/medir_em_copia.py",
+      "sha": "7fda06472018d6a48975eac526f969ad56053cbf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/revisar_ready.py",
+      "sha": "a0fcc9700dfabd87882769e17122dc92cbc1577c",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -17916,7 +17895,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8ce71eec796e7de03eec4de8f8eb5ec15d917100",
+      "sha": "b8898ab9953f64cc96909bc8910187c5d456373a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -18518,7 +18497,7 @@
     },
     {
       "path": "tests/test_a_regra_de_t2.py",
-      "sha": "bd6ee00c673c462db3ee2b3d42ba2679ff08c1e6",
+      "sha": "eb9dcc354a560717727bfcfa0912691f2423a53e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19120,7 +19099,7 @@
     },
     {
       "path": "tests/test_estagio_atravessa_a_fronteira.py",
-      "sha": "e67140087280f1da3ddd401cbb88b73fa8d67f6a",
+      "sha": "c6903f33a127f0432e35492512c9bf31ca34b567",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19758,13 +19737,6 @@
     {
       "path": "tests/test_reel_transcricao_trava.py",
       "sha": "3cbb0e6f958047e03a2df3b6d3e6e35068ef8097",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "tests/test_regua_t1.py",
-      "sha": "98f1804f784713d783d411b36deb8e63936cb645",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21485,7 +21457,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 1458,
+        "line": 1386,
         "snippet": "_sp = _iu.spec_from_file_location(\"admissao_idioma\", Path(__file__).resolve().parent / \"idioma.py\")"
       }
     },
@@ -21496,7 +21468,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 500,
+        "line": 496,
         "snippet": "f = RAIZ / \"curadoria\" / \"politica_nao_sei.py\""
       }
     },
@@ -25247,7 +25219,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/canario.py",
-        "line": 207,
+        "line": 215,
         "snippet": "d = json.loads((RAIZ / \"curadoria\" / \"italy_contracts_curator.json\")"
       }
     },
@@ -26133,6 +26105,28 @@
     },
     {
       "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 370,
+        "snippet": "import fonte_nova as FN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/atribuir_source_id.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 367,
+        "snippet": "import atribuir_source_id as ASI   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
       "to_file": "curadoria/collection_gate.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -26140,6 +26134,17 @@
         "file": "curadoria/gatilho_discovery.py",
         "line": 200,
         "snippet": "import collection_gate as CG   # noqa: E402  (lido so aqui: o gatilho corre sem ele)"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 368,
+        "snippet": "import decisao_semantica as DS     # noqa: E402"
       }
     },
     {
@@ -26162,6 +26167,17 @@
         "file": "curadoria/gatilho_discovery.py",
         "line": 56,
         "snippet": "import fila as F                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 293,
+        "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
     {
@@ -27980,6 +27996,94 @@
       }
     },
     {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 80,
+        "snippet": "import canario as CAN            # noqa: E402  (buscar + hrefs_da_entrada: o leitor do canario)"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/escrever_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 535,
+        "snippet": "import escrever_contratos as EC      # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/gate_de_rota.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 81,
+        "snippet": "import gate_de_rota as GATE      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/provar_listagem.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 82,
+        "snippet": "import provar_listagem as PL     # noqa: E402  (listagem -> itens: o metodo da CANDIDATE-FEEDER-V1)"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/retrato_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 83,
+        "snippet": "import retrato_html as RH        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "curadoria/validar_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 536,
+        "snippet": "import validar_contratos as VC       # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "scripts/receitas/censo_e_proposta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 86,
+        "snippet": "\"censo_e_proposta\", RAIZ / \"scripts\" / \"receitas\" / \"censo_e_proposta.py\")"
+      }
+    },
+    {
+      "from_file": "curadoria/revisao_ready.py",
+      "to_file": "curadoria/REVISAO-READY-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/revisao_ready.py",
+        "line": 44,
+        "snippet": "ARQUIVO = RAIZ / \"curadoria\" / \"REVISAO-READY-V1.json\""
+      }
+    },
+    {
       "from_file": "curadoria/semear_lifecycle.py",
       "to_file": "curadoria/READY-FOR-COLLECTION-V1.json",
       "type": "READS",
@@ -28241,6 +28345,17 @@
         "file": "curadoria/test_abastecimento.py",
         "line": 25,
         "snippet": "import gatilho_discovery as GD   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_abastecimento.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_abastecimento.py",
+        "line": 26,
+        "snippet": "import lifecycle as LC            # noqa: E402"
       }
     },
     {
@@ -28855,7 +28970,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_gatilho_discovery.py",
-        "line": 114,
+        "line": 128,
         "snippet": "import descobrir as D"
       }
     },
@@ -28879,6 +28994,17 @@
         "file": "curadoria/test_gatilho_discovery.py",
         "line": 20,
         "snippet": "import gatilho_discovery as GD"
+      }
+    },
+    {
+      "from_file": "curadoria/test_gatilho_discovery.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_gatilho_discovery.py",
+        "line": 21,
+        "snippet": "import lifecycle as LC"
       }
     },
     {
@@ -29795,6 +29921,94 @@
       }
     },
     {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 485,
+        "snippet": "import fonte_nova as FN"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 483,
+        "snippet": "import decisao_semantica as DS"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 17,
+        "snippet": "import fila as F                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 18,
+        "snippet": "import gatilho_discovery as GD    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 19,
+        "snippet": "import lifecycle as LC            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/provar_listagem.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 162,
+        "snippet": "import provar_listagem as PL"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 20,
+        "snippet": "import reparar_contrato as RC     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 21,
+        "snippet": "import worker as W                # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_retrato_html.py",
       "to_file": "curadoria/retrato_html.py",
       "type": "IMPORTS",
@@ -29803,6 +30017,61 @@
         "file": "curadoria/test_retrato_html.py",
         "line": 19,
         "snippet": "import retrato_html as RH  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_revisao_ready.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_revisao_ready.py",
+        "line": 13,
+        "snippet": "import fila as F                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_revisao_ready.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_revisao_ready.py",
+        "line": 14,
+        "snippet": "import lifecycle as LC           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_revisao_ready.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_revisao_ready.py",
+        "line": 15,
+        "snippet": "import ready_split as RS         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_revisao_ready.py",
+      "to_file": "curadoria/revisao_ready.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_revisao_ready.py",
+        "line": 16,
+        "snippet": "import revisao_ready as REV      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_revisao_ready.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_revisao_ready.py",
+        "line": 17,
+        "snippet": "import worker as W               # noqa: E402"
       }
     },
     {
@@ -30483,7 +30752,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 65,
+        "line": 66,
         "snippet": "EVIDENCIA = RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\""
       }
     },
@@ -30494,7 +30763,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 106,
+        "line": 110,
         "snippet": "EVIDENCIA.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -30505,7 +30774,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 225,
+        "line": 229,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -30516,7 +30785,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 66,
+        "line": 67,
         "snippet": "ALLOCATION = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
       }
     },
@@ -30560,7 +30829,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 199,
+        "line": 203,
         "snippet": "import escrever_contratos as EC"
       }
     },
@@ -30593,7 +30862,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 64,
+        "line": 65,
         "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -30604,7 +30873,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 261,
+        "line": 265,
         "snippet": "CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -30632,12 +30901,34 @@
     },
     {
       "from_file": "curadoria/worker.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/worker.py",
+        "line": 494,
+        "snippet": "import reparar_contrato as RC"
+      }
+    },
+    {
+      "from_file": "curadoria/worker.py",
+      "to_file": "curadoria/revisao_ready.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/worker.py",
+        "line": 62,
+        "snippet": "import revisao_ready as REV        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/worker.py",
       "to_file": "curadoria/validar_contratos.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 200,
+        "line": 204,
         "snippet": "import validar_contratos as VC"
       }
     },
@@ -60793,215 +61084,6 @@
       }
     },
     {
-      "from_file": "scripts/regua_t1/medir_aperto_site.py",
-      "to_file": "scripts/regua_t1/GABARITO-T1-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/medir_aperto_site.py",
-        "line": 42,
-        "snippet": "g = json.load(open(AQUI / \"GABARITO-T1-V1.json\", encoding=\"utf-8\"))[\"ITENS\"]"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/medir_aperto_site.py",
-      "to_file": "scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/medir_aperto_site.py",
-        "line": 74,
-        "snippet": "(AQUI / \"MEDICAO-APERTO-SITE-T1-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10),"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/medir_aperto_site.py",
-      "to_file": "scripts/regua_t2/medir_regua_t2.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/medir_aperto_site.py",
-        "line": 20,
-        "snippet": "sp = u.spec_from_file_location(\"mr\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_regua_t2.py\")"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/medir_aperto_site.py",
-      "to_file": "scripts/regua_t2/medir_via_agrometeo.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/medir_aperto_site.py",
-        "line": 23,
-        "snippet": "sp = u.spec_from_file_location(\"mva\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_via_agrometeo.py\")"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/medir_regua_t1.py",
-      "to_file": "scripts/regua_t1/GABARITO-T1-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/medir_regua_t1.py",
-        "line": 34,
-        "snippet": "g = json.load(open(AQUI / \"GABARITO-T1-V1.json\", encoding=\"utf-8\"))"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/medir_regua_t1.py",
-      "to_file": "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/medir_regua_t1.py",
-        "line": 85,
-        "snippet": "(AQUI / \"MEDICAO-REGUA-T1-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10),"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/medir_regua_t1.py",
-      "to_file": "scripts/regua_t2/medir_regua_t2.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/medir_regua_t1.py",
-        "line": 22,
-        "snippet": "sp = u.spec_from_file_location(\"mr\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_regua_t2.py\")"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/medir_regua_t1.py",
-      "to_file": "scripts/regua_t2/medir_via_agrometeo.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/medir_regua_t1.py",
-        "line": 25,
-        "snippet": "sp = u.spec_from_file_location(\"mva\", RAIZ / \"scripts\" / \"regua_t2\" / \"medir_via_agrometeo.py\")"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/montar_gabarito_t1.py",
-      "to_file": "scripts/regua_t1/GABARITO-T1-V1.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/montar_gabarito_t1.py",
-        "line": 35,
-        "snippet": "(AQUI / \"GABARITO-T1-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + chr(10),"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/montar_gabarito_t1.py",
-      "to_file": "scripts/regua_t1/PROTOCOLO-GABARITO-T1.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/montar_gabarito_t1.py",
-        "line": 30,
-        "snippet": "out = {\"DATASET\": \"GABARITO-T1-V1\", \"PROTOCOLO\": \"scripts/regua_t1/PROTOCOLO-GABARITO-T1.md\","
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/montar_gabarito_t1.py",
-      "to_file": "scripts/regua_t1/SELECAO-T1-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/montar_gabarito_t1.py",
-        "line": 17,
-        "snippet": "sel = {i[\"ID\"]: i for i in json.load(open(AQUI / \"SELECAO-T1-V1.json\", encoding=\"utf-8\"))[\"ITENS\"]}"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/mutar_regua_t1.py",
-      "to_file": "admissao/admissao.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/mutar_regua_t1.py",
-        "line": 31,
-        "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/mutar_regua_t1.py",
-      "to_file": "admissao/admissao.py",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/mutar_regua_t1.py",
-        "line": 40,
-        "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/mutar_regua_t1.py",
-      "to_file": "scripts/regua_t1/MUTACAO-REGUA-T1-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/mutar_regua_t1.py",
-        "line": 50,
-        "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-REGUA-T1-V1.json\"), \"w\","
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/selecionar_cega.py",
-      "to_file": "admissao/admissao.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "scripts/regua_t1/selecionar_cega.py",
-        "line": 28,
-        "snippet": "import admissao as A  # noqa: E402"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/selecionar_cega.py",
-      "to_file": "scripts/regua_t1/SELECAO-CEGA-T1-V1.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/selecionar_cega.py",
-        "line": 54,
-        "snippet": "(AQUI / \"SELECAO-CEGA-T1-V1.json\").write_text(json.dumps("
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/selecionar_cega.py",
-      "to_file": "scripts/regua_t1/SELECAO-T1-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/selecionar_cega.py",
-        "line": 36,
-        "snippet": "usados = {i[\"ID\"] for i in json.load(open(AQUI / \"SELECAO-T1-V1.json\", encoding=\"utf-8\"))[\"ITENS\"]}"
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/selecionar_t1.py",
-      "to_file": "scripts/regua_t1/SELECAO-T1-V1.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/selecionar_t1.py",
-        "line": 55,
-        "snippet": "(Path(__file__).parent / \"SELECAO-T1-V1.json\").write_text(json.dumps("
-      }
-    },
-    {
-      "from_file": "scripts/regua_t1/selecionar_t1.py",
-      "to_file": "scripts/regua_t2/GABARITO-T2-V3.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "scripts/regua_t1/selecionar_t1.py",
-        "line": 36,
-        "snippet": "g3 = json.load(open(RAIZ / \"scripts\" / \"regua_t2\" / \"GABARITO-T2-V3.json\", encoding=\"utf-8\"))"
-      }
-    },
-    {
       "from_file": "scripts/regua_t2/inventariar_t2.py",
       "to_file": "curadoria/CATALOGO-PROVA-V1.json",
       "type": "READS",
@@ -61439,6 +61521,28 @@
         "file": "scripts/regua_t2/recolher_boletins.py",
         "line": 34,
         "snippet": "_sp = importlib.util.spec_from_file_location(\"rede\", RAIZ / \"superficie\" / \"rede.py\")"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/juntar_bancas.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/juntar_bancas.py",
+        "line": 60,
+        "snippet": "t0 = _livro(foto / \"LIFECYCLE-LEDGER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/juntar_bancas.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/juntar_bancas.py",
+        "line": 71,
+        "snippet": "fila = json.loads((Path(b) / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -73361,7 +73465,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estagio_atravessa_a_fronteira.py",
-        "line": 357,
+        "line": 356,
         "snippet": "import italy_executor as adapter"
       }
     },
@@ -73416,7 +73520,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estagio_atravessa_a_fronteira.py",
-        "line": 359,
+        "line": 358,
         "snippet": "from pedido import de_uma_frase"
       }
     },
@@ -79658,50 +79762,6 @@
       }
     },
     {
-      "from_file": "tests/test_regua_t1.py",
-      "to_file": "_gavetas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "tests/test_regua_t1.py",
-        "line": 21,
-        "snippet": "import _gavetas  # noqa: E402,F401"
-      }
-    },
-    {
-      "from_file": "tests/test_regua_t1.py",
-      "to_file": "admissao/admissao.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "tests/test_regua_t1.py",
-        "line": 22,
-        "snippet": "import admissao as adm  # noqa: E402"
-      }
-    },
-    {
-      "from_file": "tests/test_regua_t1.py",
-      "to_file": "scripts/regua_t1/GABARITO-T1-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_regua_t1.py",
-        "line": 125,
-        "snippet": "self.g = json.load(open(os.path.join(AQUI, \"GABARITO-T1-V1.json\"), encoding=\"utf-8\"))"
-      }
-    },
-    {
-      "from_file": "tests/test_regua_t1.py",
-      "to_file": "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_regua_t1.py",
-        "line": 126,
-        "snippet": "self.m = json.load(open(os.path.join(AQUI, \"MEDICAO-REGUA-T1-V1.json\"), encoding=\"utf-8\"))"
-      }
-    },
-    {
       "from_file": "tests/test_regua_t2.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -83054,13 +83114,6 @@
         "constante": "F"
       }
     ],
-    "scripts/regua_t1/mutar_regua_t1.py": [
-      {
-        "pasta": "admissao",
-        "line": 47,
-        "constante": "F"
-      }
-    ],
     "scripts/regua_t2/mutar_regua_t2.py": [
       {
         "pasta": "admissao",
@@ -83175,11 +83228,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2861,
+    "files_tracked": 2857,
     "files_readable": 1299,
-    "files_code_dir": 1171,
-    "file_edges": 5686,
-    "escritas_em_pasta": 86,
+    "files_code_dir": 1162,
+    "file_edges": 5694,
+    "escritas_em_pasta": 85,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

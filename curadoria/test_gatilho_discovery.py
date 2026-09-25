@@ -18,6 +18,18 @@ sys.path.insert(0, str(RAIZ / "curadoria"))
 
 import fila as F
 import gatilho_discovery as GD
+import lifecycle as LC
+
+
+def _sem_reparo(tmp: Path) -> tuple:
+    """R1: o gatilho agora le o livro e os contratos (reparo antes de discovery).
+    Estes testes falam de fila e acervo; o livro e os contratos ficam vazios,
+    numa pasta descartavel — senao o livro REAL da arvore decidia por eles."""
+    antes = (LC.LIVRO, GD.CONTRATOS)
+    LC.LIVRO = tmp / "livro.json"
+    GD.CONTRATOS = tmp / "contratos.json"
+    GD.CONTRATOS.write_text(json.dumps({"FONTES": []}), encoding="utf-8")
+    return antes
 
 
 class TestGatilho(unittest.TestCase):
@@ -26,12 +38,14 @@ class TestGatilho(unittest.TestCase):
         self._orig = {"F.FILA": F.FILA, "GD.CANDIDATAS": GD.CANDIDATAS}
         F.FILA = self.tmp / "fila.json"
         GD.CANDIDATAS = self.tmp / "cand.json"
+        self._r1 = _sem_reparo(self.tmp)
         self.feeder_calls = 0
         self.disc_calls = 0
 
     def tearDown(self):
         F.FILA = self._orig["F.FILA"]
         GD.CANDIDATAS = self._orig["GD.CANDIDATAS"]
+        LC.LIVRO, GD.CONTRATOS = self._r1
 
     def _fila(self, n_pending):
         tarefas = [{"TASK_ID": "T%05d" % i, "SOURCE_ID": "CAND-%04d" % i,
@@ -121,6 +135,7 @@ class TestLigacaoRealDoDiscovery(unittest.TestCase):
         F.FILA.write_text(json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}),
                           encoding="utf-8")
         GD.CANDIDATAS.write_text(json.dumps({"CANDIDATAS": []}), encoding="utf-8")
+        self._r1 = _sem_reparo(self.tmp)
 
         # A assinatura VERDADEIRA, capturada antes de substituir a funcao.
         self.sig = inspect.signature(D.crawl_sementes)
@@ -140,6 +155,7 @@ class TestLigacaoRealDoDiscovery(unittest.TestCase):
     def tearDown(self):
         F.FILA = self._orig["F.FILA"]
         GD.CANDIDATAS = self._orig["GD.CANDIDATAS"]
+        LC.LIVRO, GD.CONTRATOS = self._r1
         self.D.crawl_sementes = self._orig["crawl"]
 
     def test_discovery_real_casa_com_a_assinatura_de_crawl_sementes(self):
