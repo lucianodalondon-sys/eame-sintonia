@@ -40,6 +40,7 @@
       "RELATORIO-BRIDGE-FEEDER.md",
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
+      "RELATORIO-CAPA-MATERIA.md",
       "RELATORIO-COORTE-MICRO.md",
       "RELATORIO-CUTOVER-ENSAIO.md",
       "RELATORIO-CUTOVER.md",
@@ -2460,6 +2461,11 @@
     ],
     "scripts": [
       "scripts/.gitkeep",
+      "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+      "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+      "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
+      "scripts/capa_materia/medir_filtro_institucional.py",
+      "scripts/capa_materia/mutar_filtro.py",
       "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
       "scripts/coorte_micro/ROTULOS-PAGINAS-COORTE-G0.json",
       "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
@@ -3481,10 +3487,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "juncao",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
-    "GENERATED_AT": "2026-09-25T02:36:19-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b"
+    "BRANCH": "capa-materia-v1",
+    "HEAD": "7f146cbcca9130623351b03fdc3e95940bec2b31",
+    "GENERATED_AT": "2026-09-25T02:59:15-03:00",
+    "SOURCE_TREE_FINGERPRINT": "eae5327ebbabad97556847d6c7469af72f427b5923f2783debfb3d27d61f1557"
   },
   "FAMILIES": [
     {
@@ -3512,7 +3518,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 95
+      "count": 96
     },
     {
       "id": "F-ESPERA",
@@ -3770,7 +3776,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 26
+      "count": 27
     },
     {
       "id": "Z-ADMISSAO",
@@ -38767,6 +38773,120 @@
       "y": 360
     },
     {
+      "id": "C-CAPA-MATERIA",
+      "name": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Diagnostico offline dos 6 NAO/NAO_SEI da 1.a onda (BC5) sobre os RAW guardados: IT-T7-135/121 escolhiam a pagina de contatos da cia.it (o LINK_PATTERN do molde so recusava 'contatti' no 1.o troco); conserto em regras/motor_de_rota.mjs (pagina institucional no ULTIMO troco nao e alvo). Mede no livro de coletas da producao (169 enderecos, 2 recusados, 0 materias) e rejulga a 1.a onda com T1+T2 (0 mudancas).",
+      "why_here": "Rendimento do MICRO/2.a onda (D35 > 16,7%). O falso CAPA da IT-T7-042 e do detector (noticia curta) e nao foi mexido: nao renderia SIM.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "RELATORIO-CAPA-MATERIA.md",
+        "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+        "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+        "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
+        "scripts/capa_materia/medir_filtro_institucional.py",
+        "scripts/capa_materia/mutar_filtro.py"
+      ],
+      "file_count": 6,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-CONTRATOS",
+        "C-IT-PRESERVAR"
+      ],
+      "outbound": [
+        "C-IT-CONTRATOS"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "M"
+        ],
+        "palavras": 6,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 6,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "regras/motor_de_rota.mjs",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "STAMPS",
+      "rule_role_evidence": "escreve regras/motor_de_rota.mjs, e C-IT-COLETA — peca da esteira — le isso",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_CARIMBA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: escreve regras/motor_de_rota.mjs, e C-IT-COLETA — peca da esteira — le isso",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/collection-ledger/italy/observations.ndjson",
+        "regras/motor_de_rota.mjs",
+        "regras/motor_de_rota_test.mjs",
+        "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 12140,
+      "y": 360
+    },
+    {
       "id": "C-CENSO-ARMAZEM-IT",
       "name": "Censo do armazém italiano",
       "territory": "Z-PROVA",
@@ -39746,8 +39866,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
-      "y": 360
+      "x": 11310,
+      "y": 682
     },
     {
       "id": "C-CENSO-IDENTIDADE-IT",
@@ -39943,7 +40063,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 682
     },
     {
@@ -40871,7 +40991,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGRA-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 682
     },
     {
@@ -41554,8 +41674,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 12140,
-      "y": 682
+      "x": 11310,
+      "y": 1004
     },
     {
       "id": "C-CONTRATO-DE-RETORNO",
@@ -41959,7 +42079,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1004
     },
     {
@@ -42245,7 +42365,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 1004
     },
     {
@@ -42920,8 +43040,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
-      "y": 1004
+      "x": 11310,
+      "y": 1326
     },
     {
       "id": "C-DETECTOR-CAPA-GABARITO",
@@ -43118,7 +43238,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CENSO-UNIFICACAO · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1326
     },
     {
@@ -43305,7 +43425,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 1326
     },
     {
@@ -43854,8 +43974,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
-      "y": 1326
+      "x": 11310,
+      "y": 1648
     },
     {
       "id": "C-ESPECIE-DO-TEXTO",
@@ -45110,7 +45230,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1648
     },
     {
@@ -47442,6 +47562,7 @@
       ],
       "produces": [],
       "inbound": [
+        "C-CAPA-MATERIA",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
@@ -47451,6 +47572,7 @@
       ],
       "outbound": [
         "C-CANARIO-ROTAS-ELEGIVEIS",
+        "C-CAPA-MATERIA",
         "C-COORTE-BIG-COLLECTION",
         "C-CORRIDA-CANONICA",
         "C-IT-CATALOGO",
@@ -47542,7 +47664,7 @@
           "coleta/scrap_colheita.py:512",
           "ferramentas/big_collection/coorte_unica.py:46"
         ],
-        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-CORRIDA-CANONICA · C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CAPA-MATERIA · C-COORTE-BIG-COLLECTION · C-CORRIDA-CANONICA · C-IT-CATALOGO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 10605,
       "y": 360
@@ -47885,6 +48007,7 @@
       ],
       "outbound": [
         "C-BIG-COLLECTION-CONDUTOR-BC5",
+        "C-CAPA-MATERIA",
         "C-CENSO-IDENTIDADE-IT",
         "C-CORRIDA-CANONICA",
         "C-ESTRADAS-IT",
@@ -47952,7 +48075,7 @@
           "medidas/coorte_da_micro_collection.py:66",
           "medidas/corrida_canonica.py:85"
         ],
-        "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS · C-LASTMILE-MEDIDORES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 8655,
       "y": 1326
@@ -48462,7 +48585,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 1648
     },
     {
@@ -49978,8 +50101,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
-      "y": 1648
+      "x": 11310,
+      "y": 1970
     },
     {
       "id": "C-MICRO-COLHEITA",
@@ -50066,7 +50189,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1970
     },
     {
@@ -50711,7 +50834,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 1970
     },
     {
@@ -56643,8 +56766,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 12140,
-      "y": 1970
+      "x": 11310,
+      "y": 2292
     },
     {
       "id": "C-READY",
@@ -57090,7 +57213,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2292
     },
     {
@@ -57192,7 +57315,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2292
     },
     {
@@ -57628,8 +57751,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
-      "y": 2292
+      "x": 11310,
+      "y": 2614
     },
     {
       "id": "C-REGRESSAO-NAVEGADOR",
@@ -57873,7 +57996,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -58066,7 +58189,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2614
     },
     {
@@ -58152,8 +58275,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
-      "y": 2614
+      "x": 11310,
+      "y": 2936
     },
     {
       "id": "C-RELEVANCIA",
@@ -58475,7 +58598,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 2936
     },
     {
@@ -59050,7 +59173,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2936
     },
     {
@@ -65484,7 +65607,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch juncao"
+        "branch capa-materia-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -75245,6 +75368,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CAPA-MATERIA",
+      "to": "C-IT-CONTRATOS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO escreve em O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/capa_materia/mutar_filtro.py",
+          "line": 29,
+          "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--WRITES-->C-IT-CONTRATOS",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -97199,6 +97357,73 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-CAPA-MATERIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/capa_materia/medir_filtro_institucional.py",
+          "line": 21,
+          "snippet": "src = (RAIZ / \"regras\" / \"motor_de_rota.mjs\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CAPA-MATERIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/mutar_filtro.py",
+          "line": 22,
+          "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CAPA-MATERIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/capa_materia/mutar_filtro.py",
+          "line": 30,
+          "snippet": "p = subprocess.run([\"node\", \"regras/motor_de_rota_test.mjs\"], cwd=R, capture_output=True, text=True,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CAPA-MATERIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-COORTE-BIG-COLLECTION",
       "type": "READS",
       "payload": "artefacto",
@@ -99083,6 +99308,41 @@
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-BIG-COLLECTION-CONDUTOR-BC5",
             "FROM": "C-IT-PRESERVAR",
             "TO": "C-BIG-COLLECTION-CONDUTOR-BC5",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-CAPA-MATERIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/capa_materia/medir_filtro_institucional.py",
+          "line": 25,
+          "snippet": "for linha in open(LIVRO, encoding=\"utf-8\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-CAPA-MATERIA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-CAPA-MATERIA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -132456,7 +132716,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 219,
+      "PECAS_EM_DESACORDO": 220,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -132468,23 +132728,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 244
+      "TOTAL_DE_PECAS": 245
     }
   ],
   "COUNTS": {
-    "components": 244,
+    "components": 245,
     "components_proven": 31,
-    "components_pending": 205,
+    "components_pending": 206,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1285,
-    "edges_proven": 1222,
+    "edges": 1288,
+    "edges_proven": 1225,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2888,
-    "files_covered": 1288,
+    "files_tracked": 2894,
+    "files_covered": 1294,
     "files_code_unclaimed": 0,
-    "roles_proven": 166,
+    "roles_proven": 167,
     "roles_declared_only": 8,
     "roles_unknown": 70,
     "roles_conflict": 37,

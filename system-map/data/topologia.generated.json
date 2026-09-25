@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T05:40:33+00:00",
-  "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
-  "BRANCH": "juncao",
+  "GENERATED_AT": "2026-09-25T07:10:31+00:00",
+  "HEAD": "7f146cbcca9130623351b03fdc3e95940bec2b31",
+  "BRANCH": "capa-materia-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
-  "FICHEIROS_NA_IMPRESSAO": 3036,
+  "SOURCE_TREE_FINGERPRINT": "eae5327ebbabad97556847d6c7469af72f427b5923f2783debfb3d27d61f1557",
+  "FICHEIROS_NA_IMPRESSAO": 3042,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3457,14 +3457,14 @@
    {
     "PATH": "regras/motor_de_rota.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "ac0087ef99084c227e27a1b51dfec0166cce1a6c",
+    "VERSAO": "0875881886b35008e57fba291d50ac1128d999c1",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "regras/motor_de_rota_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "ee354201e3aa6a10717da705a1907e33d88f9cf2",
+    "VERSAO": "c51b03b66e0f55fc3e36450a45ffb7e648824786",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3514,6 +3514,20 @@
     "PATH": "regras/sensor_medir.py",
     "PAPEL": "FONTE",
     "VERSAO": "66e673f32b1481489fe2614bb02b0a36f9b3ece5",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/capa_materia/medir_filtro_institucional.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "bf125f024e2c6c777b9a9749e55974b91b241d5d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/capa_materia/mutar_filtro.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "387ba95616110524116e39b8f43e1475bf324d89",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3856,14 +3870,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
+    "VERSAO": "eae5327ebbabad97556847d6c7469af72f427b5923f2783debfb3d27d61f1557",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
+    "VERSAO": "eae5327ebbabad97556847d6c7469af72f427b5923f2783debfb3d27d61f1557",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5758,8 +5772,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 817,
-  "INPUTS_DIGEST": "a454e43e79f3f7d9a70c6f6527f5db077e22ddc6a4c6a66159c2f9dafab0a36b",
+  "INPUTS_COUNT": 819,
+  "INPUTS_DIGEST": "8d7161d4c2f4c44c67d75b64b7ae4528b9c4f4ce6c1b655897ac736287156b77",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5785,15 +5799,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 504,
+  "DOCUMENTOS_LIDOS": 505,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0f6e4aaea3d47ee45d92f2c17c7eb663b694cf34c1d42537493954243f6f546e",
-  "SEMANTIC_HASH": "b6c16718fc491f8d0c4a8d5b144a5f95c91f344d38fd4d445d65119454c95c2e"
+  "MEASUREMENT_HASH": "7a374a6f6b1f45830a742cc45104ba31b1f47c567077bdd508fd1a67b35dfb5c",
+  "SEMANTIC_HASH": "d3a6e52c9fbf32e5a09ad02effe6435e73de5b422b18e9898923f72188d18d00"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5815,6 +5829,7 @@
    "C-BIBLIA",
    "C-BIG-COLLECTION-CONDUTOR-BC5",
    "C-CANARIO-ROTAS-ELEGIVEIS",
+   "C-CAPA-MATERIA",
    "C-CENSO-EXECUTORES",
    "C-CENSO-OBSERVABILIDADE",
    "C-CENSO-UNIFICACAO",
@@ -5901,7 +5916,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 96
+  "COUNT": 97
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6023,6 +6038,7 @@
    "C-BIG-COLLECTION-CONDUTOR-BC5",
    "C-CADEIA-V21",
    "C-CANARIO-ROTAS-ELEGIVEIS",
+   "C-CAPA-MATERIA",
    "C-CENSO-ARMAZEM-IT",
    "C-CENSO-CARDS-SENSORES",
    "C-CENSO-CORPUS-IT",
@@ -6192,16 +6208,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 184
+  "COUNT": 185
  },
  "ARITMETICA": {
-  "COLLECTION": 96,
+  "COLLECTION": 97,
   "BOUNDARY": 88,
-  "SOMA": 184,
-  "EXPANDED": 184,
+  "SOMA": 185,
+  "EXPANDED": 185,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 184,
+  "RESUMO_CARTOES_NO_UNIVERSO": 185,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -11307,6 +11323,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CAPA-MATERIA--WRITES-->C-IT-CONTRATOS",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_filtro.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--WRITES-->C-IT-CONTRATOS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -24151,6 +24189,44 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-CAPA-MATERIA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_filtro_institucional.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_filtro.py",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/capa_materia/mutar_filtro.py",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-COORTE-BIG-COLLECTION",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-COORTE-BIG-COLLECTION",
@@ -25157,6 +25233,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-BIG-COLLECTION-CONDUTOR-BC5",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-CAPA-MATERIA",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-CAPA-MATERIA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/capa_materia/medir_filtro_institucional.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-CAPA-MATERIA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -43463,12 +43561,12 @@
     ]
    }
   ],
-  "COUNT": 1219
+  "COUNT": 1222
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 184,
-  "CARTOES_AUDITADOS": 184,
-  "ARESTAS_RELACIONADAS": 1219,
+  "CARTOES_NO_UNIVERSO": 185,
+  "CARTOES_AUDITADOS": 185,
+  "ARESTAS_RELACIONADAS": 1222,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43605,6 +43703,7 @@
    "C-AUDIT-GERAL",
    "C-BIG-COLLECTION-CONDUTOR-BC5",
    "C-CANARIO-ROTAS-ELEGIVEIS",
+   "C-CAPA-MATERIA",
    "C-CENSO-ARMAZEM-IT",
    "C-CENSO-CARDS-SENSORES",
    "C-CENSO-CORPUS-IT",
@@ -43719,6 +43818,7 @@
   ],
   "NINGUEM_CORRE": [
    "C-BIG-COLLECTION-CONDUTOR-BC5",
+   "C-CAPA-MATERIA",
    "C-CENSO-DERIVACOES",
    "C-CENSO-SEMANTICO-IT",
    "C-CORRIDA-CANONICA",
@@ -43748,6 +43848,9 @@
    ],
    "C-ASK-SINTONIA": [
     "meeting"
+   ],
+   "C-CAPA-MATERIA": [
+    "diagnostic"
    ],
    "C-CENSO-DOS-BURACOS": [
     "infra"
@@ -43891,9 +43994,9 @@
    "CONTROL": 72,
    "DATA": 30,
    "PROOF": 386,
-   "READ": 287,
-   "RULE": 215,
-   "WRITE": 11
+   "READ": 288,
+   "RULE": 216,
+   "WRITE": 12
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -44770,6 +44873,46 @@
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-CAPA-MATERIA",
+   "NOME": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "RELATORIO-CAPA-MATERIA.md",
+    "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+    "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+    "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
+    "scripts/capa_materia/medir_filtro_institucional.py",
+    "scripts/capa_materia/mutar_filtro.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "pathlib"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "WRITE"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "diagnostic"
+   ],
    "GAP": null
   },
   {
@@ -47623,6 +47766,7 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
+    "RELATORIO-CAPA-MATERIA.md",
     "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md"
    ],
    "E_ENTRYPOINT": false,
@@ -47635,8 +47779,8 @@
     "leis",
     "pathlib"
    ],
-   "ENTRAM": 9,
-   "SAEM": 19,
+   "ENTRAM": 10,
+   "SAEM": 20,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -47804,7 +47948,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 2,
-   "SAEM": 20,
+   "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ"

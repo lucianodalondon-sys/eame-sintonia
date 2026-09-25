@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "juncao",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
-    "GENERATED_AT": "2026-09-25T02:36:19-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b"
+    "BRANCH": "capa-materia-v1",
+    "HEAD": "7f146cbcca9130623351b03fdc3e95940bec2b31",
+    "GENERATED_AT": "2026-09-25T02:59:15-03:00",
+    "SOURCE_TREE_FINGERPRINT": "eae5327ebbabad97556847d6c7469af72f427b5923f2783debfb3d27d61f1557"
   },
   "FILES": [
     {
@@ -368,6 +368,13 @@
     {
       "path": "RELATORIO-CANONICAL-MICRO.md",
       "sha": "08b72dcc39327225e9b55311890ae792c185a96e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-CAPA-MATERIA.md",
+      "sha": "9a05e662674e6fb98e8a0f2dc492bcf398a66c72",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15984,14 +15991,14 @@
     },
     {
       "path": "regras/motor_de_rota.mjs",
-      "sha": "ac0087ef99084c227e27a1b51dfec0166cce1a6c",
+      "sha": "0875881886b35008e57fba291d50ac1128d999c1",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "regras/motor_de_rota_test.mjs",
-      "sha": "ee354201e3aa6a10717da705a1907e33d88f9cf2",
+      "sha": "c51b03b66e0f55fc3e36450a45ffb7e648824786",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -16771,6 +16778,41 @@
       "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
       "ext": "",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+      "sha": "144392db4c3c973d0bc8eef84d48b1fcfb85049f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+      "sha": "1e5c245200dfd9f3b9f66276316273da16992282",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
+      "sha": "41609b780fe1d60e49503cca651416055a1486a2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/medir_filtro_institucional.py",
+      "sha": "bf125f024e2c6c777b9a9749e55974b91b241d5d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/capa_materia/mutar_filtro.py",
+      "sha": "387ba95616110524116e39b8f43e1475bf324d89",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -18105,7 +18147,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c857091cb6fa4de1b85d3eae85bebe84065bbfd9",
+      "sha": "b4d5e93e97389b973fe1e49c5850fd8a79d907d7",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -60366,6 +60408,83 @@
       }
     },
     {
+      "from_file": "scripts/capa_materia/medir_filtro_institucional.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/medir_filtro_institucional.py",
+        "line": 25,
+        "snippet": "for linha in open(LIVRO, encoding=\"utf-8\"):"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/medir_filtro_institucional.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/medir_filtro_institucional.py",
+        "line": 21,
+        "snippet": "src = (RAIZ / \"regras\" / \"motor_de_rota.mjs\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/medir_filtro_institucional.py",
+      "to_file": "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/medir_filtro_institucional.py",
+        "line": 40,
+        "snippet": "(Path(__file__).parent / \"MEDICAO-FILTRO-INSTITUCIONAL-V1.json\").write_text("
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/mutar_filtro.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/mutar_filtro.py",
+        "line": 22,
+        "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/mutar_filtro.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/mutar_filtro.py",
+        "line": 29,
+        "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/mutar_filtro.py",
+      "to_file": "regras/motor_de_rota_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/mutar_filtro.py",
+        "line": 30,
+        "snippet": "p = subprocess.run([\"node\", \"regras/motor_de_rota_test.mjs\"], cwd=R, capture_output=True, text=True,"
+      }
+    },
+    {
+      "from_file": "scripts/capa_materia/mutar_filtro.py",
+      "to_file": "scripts/capa_materia/MUTACAO-FILTRO-INSTITUCIONAL-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/capa_materia/mutar_filtro.py",
+        "line": 39,
+        "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-FILTRO-INSTITUCIONAL-V1.json\"), \"w\","
+      }
+    },
+    {
       "from_file": "scripts/coorte_micro/funil.py",
       "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
       "type": "READS",
@@ -83749,10 +83868,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2888,
-    "files_readable": 1310,
-    "files_code_dir": 1185,
-    "file_edges": 5721,
+    "files_tracked": 2894,
+    "files_readable": 1312,
+    "files_code_dir": 1190,
+    "file_edges": 5728,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },
