@@ -4118,8 +4118,9 @@
    "SOURCE_ID": "IT-T7-042",
    "RECOLLECTION": {
     "DETAIL_CONTENT": "MUTABLE",
-    "TTL_SECONDS": null,
-    "PORQUE": "RECOLLECTION-V1 2026-09-22: 7 documentos com datas proprias; 3 editados mais de 24h depois de publicados, maior atraso 27,1 dias (publicado 2026-07-29, modificado 2026-08-25)."
+    "TTL_SECONDS": 259200,
+    "PORQUE": "RECOLLECTION-V1 2026-09-22: 7 documentos com datas proprias; 3 editados mais de 24h depois de publicados, maior atraso 27,1 dias (publicado 2026-07-29, modificado 2026-08-25).",
+    "TTL_PORQUE": "CONTRATOS-AJUSTE 2026-09-25: o mesmo prazo de 3 dias que a T1 deu a IT-T7-017 e IT-T10-022 (esta ficou sem prazo so por estar fora da coorte). Simulado pela T1 para ESTA fonte (provas/TTL-MUTABLE-SIMULACAO-T1.json): corrida diaria 9,49 -> 3,13 revisitas por corrida, 3 edicoes depois da 1.a captura, 0 perdidas, atraso maximo 2,33 dias."
    },
    "OWNER": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
    "NAME": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
@@ -9259,8 +9260,10 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.istat.it/it/",
-    "LINK_PATTERN": "^https?://(www\\.)?istat\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "LINK_PATTERN": "^https?://(www\\.)?istat\\.it/(?:comunicato-stampa|notizia)/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 1,
+    "LINK_PATTERN_PORQUE": "CONTRATOS-AJUSTE 2026-09-25: o padrao generico do molde aceitava paginas de seccao do site (ricercatori/promozione-della-ricerca, pubblicazioni/rivista-di-statistica-ufficiale) e o D40 escolhia-as; no indice de 25/09 as materias vivem so em /comunicato-stampa/ e /notizia/ (20 ligacoes: 12 comunicato-stampa + 8 notizia; o padrao antigo dava 42, com as seccoes). Padrao anterior guardado em LINK_PATTERN_ANTERIOR.",
+    "LINK_PATTERN_ANTERIOR": "^https?://(www\\.)?istat\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
    },
    "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
    "SONDAGEM": {
