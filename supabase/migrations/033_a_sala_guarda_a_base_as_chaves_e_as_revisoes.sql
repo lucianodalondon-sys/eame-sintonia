@@ -7,7 +7,8 @@
 -- bancadas, que tinham todas o número 033, juntas aqui:
 --
 --   A · TEMPO-E-LUGAR   published_at_basis · source_location_basis ·
---                       completude_tempo_lugar           (TEMPO-E-LUGAR.md §7 B)
+--                       completude_tempo_lugar · tempo_lugar_evidencia
+--                       (TEMPO-E-LUGAR.md §7 B; DA-7 da LUGAR-FATO)
 --   B · QUATRO-CHAVES   janela_declarada + a trava da forma, TAL E QUAL da
 --                       referência provada da nuvem (nuvem-quatro-chaves-sala-v1,
 --                       docs/operacao/QUATRO-CHAVES-DESENHO-DAS-COLUNAS.md)
@@ -108,6 +109,16 @@ alter table public.sala_de_espera
   add column if not exists completude_tempo_lugar json not null
   default '{"DATA_DO_FATO": "NAO SEI", "LOCAL_DA_FONTE": "NAO SEI", "LOCAL_DO_FATO": "NAO SEI", "ORIGEM": "pousado antes da migration 033: a completude nao foi medida", "PROVADAS": "NAO SEI", "PUBLICACAO": "NAO SEI"}'::json;
 
+-- DA-7 (LUGAR-FATO): o que o leitor do texto MEDIU e nao cabe no valor nem na
+-- base — a especie (CAMPO/EVENTO/MERCADO), a precisao, se a data do facto foi
+-- CALCULADA a partir da publicacao (D63) e a expressao com a conta. UMA coluna
+-- JSON, e nao seis de texto, pela razao da `janela_declarada`: cada leitura e
+-- um registo, e seis colunas soltas deitavam fora de onde veio cada uma.
+-- Default = `admissao.TEMPO_LUGAR_EVIDENCIA_NAO_MEDIDA`, byte a byte.
+alter table public.sala_de_espera
+  add column if not exists tempo_lugar_evidencia json not null
+  default '{"FACT_LOCATION_KIND": "NAO SEI", "FACT_LOCATION_PRECISION": "NAO SEI", "FACT_LOCATION_VEIO_DE": "NAO SEI", "FACT_TIME_CALCULO": "NAO SEI", "FACT_TIME_EVIDENCIA": "NAO SEI", "FACT_TIME_KIND": "NAO SEI", "FACT_TIME_PRECISION": "NAO SEI", "FACT_TIME_VEIO_DE": "NAO SEI", "LEITOR": "NAO SEI", "ORIGEM": "pousado antes da migration 033: a evidencia do tempo e do lugar nao foi medida"}'::json;
+
 comment on column public.sala_de_espera.published_at_basis is
   'Como se sabe o PUBLISHED_AT (JSON-LD, meta tag, edicao impressa...), ou porque '
   'NAO se sabe. PUBLISHED_AT != FACT_TIME.';
@@ -117,6 +128,9 @@ comment on column public.sala_de_espera.source_location_basis is
 comment on column public.sala_de_espera.completude_tempo_lugar is
   'D62: PROVADA / CALCULADA / NAO SEI para publicacao, lugar da fonte, data e lugar '
   'do facto. Nao barra nada. Dono: admissao.completude_tempo_lugar().';
+comment on column public.sala_de_espera.tempo_lugar_evidencia is
+  'DA-7: especie, precisao, CALCULO e evidencia da leitura do tempo e do lugar do '
+  'facto (leis/fato_do_texto.py). A base continua na coluna _basis.';
 
 -- ── B · as quatro chaves (referência provada da nuvem, tal e qual) ──────
 alter table public.sala_de_espera
@@ -195,7 +209,8 @@ create table if not exists public.sala_de_espera_revisao (
   -- fonte, a identidade e a fila NÃO: são o que pousou, e a assinatura é deles.
   constraint revisao_so_de_campo_revisivel check (campo in (
     'published_at', 'source_location', 'fact_time', 'fact_location',
-    'observed_at', 'completude_tempo_lugar', 'janela_declarada')),
+    'observed_at', 'completude_tempo_lugar', 'janela_declarada',
+    'tempo_lugar_evidencia')),
   -- Ausência escreve-se «NAO SEI», nunca vazio.
   constraint revisao_valor_e_base_nao_vazios check (
     length(btrim(valor)) > 0 and length(btrim(base)) > 0),
@@ -246,6 +261,7 @@ select s.run_id, s.ordem, s.item_id, s.raw_observation_id, s.universo, s.texto,
        coalesce(oa.valor, s.observed_at)                  as observed_at,
        coalesce(co.valor::json, s.completude_tempo_lugar) as completude_tempo_lugar,
        coalesce(jd.valor::json, s.janela_declarada)       as janela_declarada,
+       coalesce(te.valor::json, s.tempo_lugar_evidencia)  as tempo_lugar_evidencia,
        s.captured_at, s.admitido_por, s.corrida_sha256, s.estagio,
        s.source_declared_evidence_class, s.fato,
        s.estado_da_fila, s.pousado_em, s.consumido_em, s.consumido_por,
@@ -279,7 +295,11 @@ select s.run_id, s.ordem, s.item_id, s.raw_observation_id, s.universo, s.texto,
   left join lateral (select valor, base from public.sala_de_espera_revisao r
                       where r.run_id = s.run_id and r.ordem = s.ordem
                         and r.campo = 'janela_declarada'
-                      order by r.revisao desc limit 1) jd on true;
+                      order by r.revisao desc limit 1) jd on true
+  left join lateral (select valor, base from public.sala_de_espera_revisao r
+                      where r.run_id = s.run_id and r.ordem = s.ordem
+                        and r.campo = 'tempo_lugar_evidencia'
+                      order by r.revisao desc limit 1) te on true;
 
 comment on view public.sala_de_espera_atual is
   'O que a Intelligence le: cada campo revisivel = a ultima revisao, senao o valor '

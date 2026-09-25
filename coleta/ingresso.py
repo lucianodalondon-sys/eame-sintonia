@@ -339,6 +339,8 @@ PARA_A_PORTA = {
     "SOURCE_DECLARED_EVIDENCE_CLASS": "source_declared_evidence_class",
     "PUBLISHED_AT_BASIS": "published_at_basis",
     "SOURCE_LOCATION_BASIS": "source_location_basis",
+    # DA-7: a evidencia da leitura do tempo e do lugar (033).
+    "TEMPO_LUGAR_EVIDENCIA": "tempo_lugar_evidencia",
 }
 
 # ── TEMPO E LUGAR: O QUE A OBSERVACAO SABE, E TEM DE CHEGAR A PORTA ─────────

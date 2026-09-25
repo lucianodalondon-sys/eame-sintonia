@@ -1755,7 +1755,7 @@ JA_TEM_CAMPO_PROPRIO_NO_READY = (
     "source_location", "fact_location", "fact_time",
     "fact_time_basis", "fact_location_basis",
     "published_at", "observed_at", "captured_at",
-    "published_at_basis", "source_location_basis",
+    "published_at_basis", "source_location_basis", "tempo_lugar_evidencia",
     "source_declared_evidence_class",
     "raw_asset_id",
     # `data` NAO entra no envelope: e o campo generico que a `_tem_quando`
@@ -1837,6 +1837,16 @@ COMPLETUDE_NAO_MEDIDA = {
     "PUBLICACAO": AUSENCIA, "LOCAL_DA_FONTE": AUSENCIA,
     "DATA_DO_FATO": AUSENCIA, "LOCAL_DO_FATO": AUSENCIA, "PROVADAS": AUSENCIA,
     "ORIGEM": "pousado antes da migration 033: a completude nao foi medida"}
+# O default de `tempo_lugar_evidencia` (033), byte a byte, pela mesma razao.
+TEMPO_LUGAR_EVIDENCIA_NAO_MEDIDA = {
+    "FACT_LOCATION_KIND": AUSENCIA, "FACT_LOCATION_PRECISION": AUSENCIA,
+    "FACT_LOCATION_VEIO_DE": AUSENCIA, "FACT_TIME_CALCULO": AUSENCIA,
+    "FACT_TIME_EVIDENCIA": AUSENCIA, "FACT_TIME_KIND": AUSENCIA,
+    "FACT_TIME_PRECISION": AUSENCIA, "FACT_TIME_VEIO_DE": AUSENCIA,
+    "LEITOR": AUSENCIA,
+    "ORIGEM": "pousado antes da migration 033: a evidencia do tempo e do lugar nao foi medida"}
+#: As palavras de uma data do facto CALCULADA a partir da publicacao (D63/DA-7).
+BASES_CALCULADAS = ("RELATIVA_A_PUBLICACAO", "PUBLISHED_AT_COM_PROVA")
 QUATRO_DO_TEMPO_E_LUGAR = (("PUBLICACAO", "PUBLISHED_AT", None),
                            ("LOCAL_DA_FONTE", "SOURCE_LOCATION", None),
                            ("DATA_DO_FATO", "FACT_TIME", "FACT_TIME_BASIS"),
@@ -1854,7 +1864,10 @@ def completude_tempo_lugar(ready: dict) -> dict:
         v = ready.get(campo)
         if v in (None, "", AUSENCIA, AUSENCIA_NAO_SE_APLICA, "NÃO SEI", "NAO_SEI"):
             fora[nome] = AUSENCIA
-        elif base and "RELATIVA_A_PUBLICACAO" in str(ready.get(base) or ""):
+        elif base == "FACT_TIME_BASIS" and (
+                str(ready.get(base) or "").startswith(BASES_CALCULADAS)
+                or (ready.get("TEMPO_LUGAR_EVIDENCIA") or {}).get(
+                    "FACT_TIME_CALCULO") == "RELATIVA_A_PUBLICACAO"):
             fora[nome] = COMPLETUDE_CALCULADA
         else:
             fora[nome] = COMPLETUDE_PROVADA
@@ -1976,6 +1989,10 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
         "PUBLISHED_AT_BASIS": _ou_nao_sei("published_at_basis"),
         "SOURCE_LOCATION_BASIS": _ou_nao_sei("source_location_basis"),
         "COMPLETUDE_TEMPO_LUGAR": None,
+        # DA-7: o que o leitor do texto mediu (especie, precisao, CALCULADA,
+        # a expressao com a conta). Sem leitura: o default «nao medido».
+        "TEMPO_LUGAR_EVIDENCIA": item.get("tempo_lugar_evidencia")
+                                 or dict(TEMPO_LUGAR_EVIDENCIA_NAO_MEDIDA),
         # ── A ESPECIE PROBATORIA, DECLARADA PELA FONTE ──────────────────────
         # ⚠️ O NOME E LONGO DE PROPOSITO, E NAO SE ENCURTA.
         # Os 13 contratos de fonte italianos declaram `EVIDENCE_CLASS` ANTES de

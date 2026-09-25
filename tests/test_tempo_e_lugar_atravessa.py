@@ -266,9 +266,13 @@ class ChegaAoReady(unittest.TestCase):
     def test_D63_ieri_e_o_dia_exacto_antes_da_publicacao(self):
         item = self._relativa("ieri")
         self.assertEqual(item["fact_time"], "2026-09-15")
-        self.assertIn("RELATIVA_A_PUBLICACAO", item["fact_time_basis"])
-        self.assertIn("ieri", item["fact_time_basis"])
-        self.assertIn("DATE_EXACT", item["fact_time_basis"])
+        # DA-7: a base e SO a palavra que a lei le — tal e qual, sem prefixo
+        self.assertEqual(item["fact_time_basis"], "RELATIVA_A_PUBLICACAO")
+        ev = item["tempo_lugar_evidencia"]
+        self.assertIn("ieri", ev["FACT_TIME_EVIDENCIA"])
+        self.assertTrue(ev["FACT_TIME_PRECISION"].startswith("DATE_EXACT"))
+        self.assertEqual(ev["FACT_TIME_CALCULO"], "RELATIVA_A_PUBLICACAO")
+        self.assertEqual(ev["FACT_TIME_VEIO_DE"], "TEXTO")
         self.assertEqual(item["published_at"], "2026-09-16")
 
     def test_D64_oggi_sozinho_nao_conta_mas_fica_como_evidencia(self):
@@ -281,12 +285,15 @@ class ChegaAoReady(unittest.TestCase):
     def test_D63_oggi_com_marca_de_dia_conta_a_partir_da_publicacao(self):
         item = self._relativa("oggi 16 settembre")
         self.assertEqual(item["fact_time"], "2026-09-16")
-        self.assertIn("RELATIVA_A_PUBLICACAO", item["fact_time_basis"])
+        # o proprio dia da publicacao: a palavra que `artefato.conferir` aceita
+        self.assertEqual(item["fact_time_basis"], "PUBLISHED_AT_COM_PROVA")
+        self.assertEqual(item["tempo_lugar_evidencia"]["FACT_TIME_CALCULO"],
+                         "RELATIVA_A_PUBLICACAO")
 
     def test_D63_a_semana_passada_e_um_intervalo_e_nao_um_dia(self):
         item = self._relativa("la settimana scorsa")
         self.assertEqual(item["fact_time"], "2026-09-07/2026-09-13")   # inicio-fim (D63)
-        self.assertIn("WEEK", item["fact_time_basis"])
+        self.assertIn("WEEK", item["tempo_lugar_evidencia"]["FACT_TIME_PRECISION"])
         self.assertNotRegex(item["fact_time"], r"^\d{4}-\d{2}-\d{2}$")
 
     def test_D63_a_scorsa_settimana_tambem(self):

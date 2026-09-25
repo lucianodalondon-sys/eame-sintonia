@@ -73,9 +73,13 @@ CASOS = [
      '    return NAO_SEI, ("o item nao diz quando o fato aconteceu nem quando foi "',
      "M12 · a falta de data volta a barrar o item (D62)"),
     ("admissao/admissao.py",
-     '        elif base and "RELATIVA_A_PUBLICACAO" in str(ready.get(base) or ""):',
-     '        elif False:',
+     '        elif base == "FACT_TIME_BASIS" and (',
+     '        elif False and (',
      "M13 · a completude esconde que a data foi calculada (D63)"),
+    ("orquestrador/orquestrador.py",
+     '            fora[valor], fora[base] = v, b',
+     '            fora[valor], fora[base] = v, "TEXTO: %s" % b',
+     "M14 · a base da data calculada ganha prefixo e deixa de ser a palavra da lei (DA-7)"),
 ]
 
 

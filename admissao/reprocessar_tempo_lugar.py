@@ -114,6 +114,10 @@ def revisoes_de(ready):
                  "VALOR": json.dumps(ready["COMPLETUDE_TEMPO_LUGAR"],
                                      ensure_ascii=False, sort_keys=True),
                  "BASE": "admissao.completude_tempo_lugar sobre os valores revistos"})
+    fora.append({"CAMPO": "tempo_lugar_evidencia",
+                 "VALOR": json.dumps(ready["TEMPO_LUGAR_EVIDENCIA"],
+                                     ensure_ascii=False, sort_keys=True),
+                 "BASE": "leis/fato_do_texto.campos_do_fato (DA-7)"})
     return fora
 
 

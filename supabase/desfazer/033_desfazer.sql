@@ -24,6 +24,7 @@ drop table if exists public.sala_de_espera_gaveta;
 alter table public.sala_de_espera drop constraint if exists janela_declara_as_quatro_chaves;
 alter table public.sala_de_espera drop column if exists janela_declarada;
 alter table public.sala_de_espera drop column if exists completude_tempo_lugar;
+alter table public.sala_de_espera drop column if exists tempo_lugar_evidencia;
 alter table public.sala_de_espera drop column if exists source_location_basis;
 alter table public.sala_de_espera drop column if exists published_at_basis;
 

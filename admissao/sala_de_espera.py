@@ -135,6 +135,7 @@ CAMPOS_READY = (
     # 033 (TEMPO-E-LUGAR, D61/D62): a base dos outros dois valores, e o grau
     # de precisao do item. Sem elas, o VALOR chegava e a BASE parava na porta.
     "PUBLISHED_AT_BASIS", "SOURCE_LOCATION_BASIS", "COMPLETUDE_TEMPO_LUGAR",
+    "TEMPO_LUGAR_EVIDENCIA",
     "SOURCE_DECLARED_EVIDENCE_CLASS", "FATO",
     "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR",
 )
@@ -159,6 +160,7 @@ CAMPOS_REVISIVEIS = {
     "observed_at": None,
     "completude_tempo_lugar": None,
     "janela_declarada": None,
+    "tempo_lugar_evidencia": None,
 }
 #: A base de um campo que nao tem coluna de base: a original nao foi dita.
 AUSENCIA_REVISAO = "NAO SEI"
@@ -620,7 +622,8 @@ class _Postgres(object):
             "captured_at, admitido_por, estagio, fact_time_basis, "
             "fact_location_basis, published_at, observed_at, "
             "source_declared_evidence_class, fato, "
-            "published_at_basis, source_location_basis, completude_tempo_lugar "
+            "published_at_basis, source_location_basis, completude_tempo_lugar, "
+            "tempo_lugar_evidencia "
             "from public.sala_de_espera where run_id = %s order by ordem"
             % _lit(run_id))
         if not linhas:
@@ -654,6 +657,7 @@ class _Postgres(object):
                 "PUBLISHED_AT_BASIS": c[18],
                 "SOURCE_LOCATION_BASIS": c[19],
                 "COMPLETUDE_TEMPO_LUGAR": json.loads(c[20]),
+                "TEMPO_LUGAR_EVIDENCIA": json.loads(c[21]),
                 "SOURCE_DECLARED_EVIDENCE_CLASS": c[16],
                 "FATO": json.loads(c[17]),
                 "ESTAGIO": c[11],
@@ -695,6 +699,8 @@ class _Postgres(object):
             # 033: a completude vai como JSON pela mesma razao do fato.
             completude_sql = _lit(json.dumps(u["COMPLETUDE_TEMPO_LUGAR"],
                                              ensure_ascii=False, sort_keys=True))
+            evidencia_sql = _lit(json.dumps(u["TEMPO_LUGAR_EVIDENCIA"],
+                                            ensure_ascii=False, sort_keys=True))
             colunas = [_lit(run_id), str(i), _lit(u["ITEM_ID"]), obs_sql,
                        _lit(u["UNIVERSO"]), _lit(u["TEXTO"]),
                        _lit(u["SOURCE_ID"]), _lit(u["SOURCE_LOCATION"]),
@@ -706,7 +712,8 @@ class _Postgres(object):
                        _lit(u["OBSERVED_AT"]),
                        _lit(u["SOURCE_DECLARED_EVIDENCE_CLASS"]), fato_sql,
                        _lit(u["PUBLISHED_AT_BASIS"]),
-                       _lit(u["SOURCE_LOCATION_BASIS"]), completude_sql]
+                       _lit(u["SOURCE_LOCATION_BASIS"]), completude_sql,
+                       evidencia_sql]
             valores.append("(" + ", ".join(colunas) + ")")
         # ⚠️ A INTERPOLAÇÃO AQUI É `str.format`, E NÃO `%`. O corpo plpgsql usa
         # `%` como marcador do `raise exception`, e um `%` do Python em cima
@@ -749,7 +756,8 @@ begin
        admitido_por, corrida_sha256,
        estagio, fact_time_basis, fact_location_basis, published_at,
        observed_at, source_declared_evidence_class, fato,
-       published_at_basis, source_location_basis, completude_tempo_lugar)
+       published_at_basis, source_location_basis, completude_tempo_lugar,
+       tempo_lugar_evidencia)
     values {valores};
     select count(*) into total from _entrada;
     insert into public.sala_de_espera
@@ -758,13 +766,15 @@ begin
        admitido_por, corrida_sha256,
        estagio, fact_time_basis, fact_location_basis, published_at,
        observed_at, source_declared_evidence_class, fato,
-       published_at_basis, source_location_basis, completude_tempo_lugar)
+       published_at_basis, source_location_basis, completude_tempo_lugar,
+       tempo_lugar_evidencia)
     select run_id, ordem, item_id, raw_observation_id, universo, texto,
            source_id, source_location, fact_location, fact_time, captured_at,
            admitido_por, corrida_sha256,
            estagio, fact_time_basis, fact_location_basis, published_at,
            observed_at, source_declared_evidence_class, fato,
-           published_at_basis, source_location_basis, completude_tempo_lugar
+           published_at_basis, source_location_basis, completude_tempo_lugar,
+           tempo_lugar_evidencia
       from _entrada e
      where not exists (select 1 from public.sala_de_espera s
                         where s.item_id = e.item_id and s.universo = e.universo
@@ -897,7 +907,7 @@ select resultado from _recibo;
             "source_id, source_location, source_location_basis, fact_location, "
             "fact_location_basis, fact_time, fact_time_basis, published_at, "
             "published_at_basis, observed_at, completude_tempo_lugar, "
-            "janela_declarada, captured_at, estagio, revisoes "
+            "janela_declarada, tempo_lugar_evidencia, captured_at, estagio, revisoes "
             "from public.sala_de_espera_atual where run_id = %s order by ordem"
             % _lit(run_id))
         if not linhas:
@@ -907,7 +917,7 @@ select resultado from _recibo;
                  "FACT_LOCATION", "FACT_LOCATION_BASIS", "FACT_TIME",
                  "FACT_TIME_BASIS", "PUBLISHED_AT", "PUBLISHED_AT_BASIS",
                  "OBSERVED_AT", "COMPLETUDE_TEMPO_LUGAR", "JANELA_DECLARADA",
-                 "CAPTURED_AT", "ESTAGIO", "REVISOES")
+                 "TEMPO_LUGAR_EVIDENCIA", "CAPTURED_AT", "ESTAGIO", "REVISOES")
         itens = []
         for l in linhas:
             u = dict(zip(nomes, l.split(self.SEP)))
@@ -916,6 +926,7 @@ select resultado from _recibo;
                                        else int(u["RAW_OBSERVATION_ID"]))
             u["COMPLETUDE_TEMPO_LUGAR"] = json.loads(u["COMPLETUDE_TEMPO_LUGAR"])
             u["JANELA_DECLARADA"] = json.loads(u["JANELA_DECLARADA"])
+            u["TEMPO_LUGAR_EVIDENCIA"] = json.loads(u["TEMPO_LUGAR_EVIDENCIA"])
             itens.append(u)
         return {"RUN_ID": run_id, "ITENS": itens}
 
