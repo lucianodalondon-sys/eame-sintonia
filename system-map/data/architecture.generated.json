@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "janelas-68-v1",
+    "HEAD": "95fc1ee4c6bb05b08dedf95732353b4f44e76af7",
+    "GENERATED_AT": "2026-09-25T08:40:21-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cc43f4e9168b194f49c1e4a20595c46d5c517b4864b3eb626893e3ccad9bc591"
   },
   "FILES": [
     {
@@ -2445,6 +2445,41 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/JANELAS-68-CRUZAMENTO-V1.json",
+      "sha": "32fb490b19353158a7ddc1be885f71619fbae30a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/JANELAS-68-FORMAS-V1.json",
+      "sha": "114f91e2ad221153ab68eb5f185d481f650fa44a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/JANELAS-68-MEDICAO-V1.json",
+      "sha": "5708b3dde5d06cc8b1c6db40115a3cd34c042e42",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/JANELAS-68-RELATORIO-V1.json",
+      "sha": "65e611a2a37f942a722e45093ec7fb7b7d3e96e0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/JANELAS-68-RELATORIO-V1.md",
+      "sha": "56fcfc4228a31db1df9605a783f81738314f409d",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/K1-MEDICAO-V1.json",
       "sha": "d2c49a73b481aab20c23bbcf07960cd351f42075",
       "ext": ".json",
@@ -2960,6 +2995,34 @@
       "sha": "0103db1f4cd3cad0a5cc6c7f5f3d23af1fc16026",
       "ext": ".json",
       "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/janelas68_classificar.py",
+      "sha": "4fc00a98f47ba231055fd66322603bc32660d691",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/janelas68_cruzar.py",
+      "sha": "94ab19137bf1dd99eaba395c1d348623c284591e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/janelas68_fecho.py",
+      "sha": "e3ac64df2586afa64a9463e08346a978314fbaf1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/janelas68_medir.py",
+      "sha": "c1af964c7e76ab148fc2a8fb13461484f856c95d",
+      "ext": ".py",
+      "readable": true,
       "code_dir": false
     },
     {
@@ -27212,6 +27275,270 @@
         "file": "curadoria/interface_collection.py",
         "line": 52,
         "snippet": "import lifecycle as LC        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_classificar.py",
+      "to_file": "curadoria/FILA-UNICA-CORRESPONDENCIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_classificar.py",
+        "line": 81,
+        "snippet": "corr = _j(RAIZ.parent / \"fila-unica-v1\" / \"curadoria\" / \"FILA-UNICA-CORRESPONDENCIA-V1.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_classificar.py",
+      "to_file": "curadoria/JANELAS-68-FORMAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_classificar.py",
+        "line": 22,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"JANELAS-68-FORMAS-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_classificar.py",
+      "to_file": "curadoria/JANELAS-68-FORMAS-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_classificar.py",
+        "line": 115,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_classificar.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_classificar.py",
+        "line": 91,
+        "snippet": "for p in _j(VIVO / \"LIFECYCLE-EVIDENCE-V1.json\")[\"PROVAS\"]:"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_classificar.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_classificar.py",
+        "line": 87,
+        "snippet": "for t in _j(VIVO / \"LIFECYCLE-LEDGER-V1.json\")[\"TRANSICOES\"]:"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_classificar.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_classificar.py",
+        "line": 84,
+        "snippet": "aloc = {x[\"CANDIDATE_ID\"]: x[\"SOURCE_ID\"] for x in _j(VIVO / \"SOURCE-ID-ALLOCATION-V1.json\")[\"NOVAS\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_classificar.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_classificar.py",
+        "line": 89,
+        "snippet": "contratos = {c[\"SOURCE_ID\"]: c for c in _j(VIVO / \"italy_contracts_curator.json\")[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_cruzar.py",
+      "to_file": "curadoria/JANELAS-68-CRUZAMENTO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_cruzar.py",
+        "line": 21,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"JANELAS-68-CRUZAMENTO-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_cruzar.py",
+      "to_file": "curadoria/JANELAS-68-CRUZAMENTO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_cruzar.py",
+        "line": 82,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_cruzar.py",
+      "to_file": "curadoria/JANELAS-68-FORMAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_cruzar.py",
+        "line": 20,
+        "snippet": "FORMAS = RAIZ / \"curadoria\" / \"JANELAS-68-FORMAS-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_fecho.py",
+      "to_file": "curadoria/JANELAS-68-CRUZAMENTO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_fecho.py",
+        "line": 49,
+        "snippet": "cruz = {l[\"SOURCE_ID\"]: l for l in json.loads((C / \"JANELAS-68-CRUZAMENTO-V1.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_fecho.py",
+      "to_file": "curadoria/JANELAS-68-FORMAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_fecho.py",
+        "line": 48,
+        "snippet": "formas = {l[\"SOURCE_ID\"]: l for l in json.loads((C / \"JANELAS-68-FORMAS-V1.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_fecho.py",
+      "to_file": "curadoria/JANELAS-68-MEDICAO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_fecho.py",
+        "line": 50,
+        "snippet": "med_doc = json.loads((C / \"JANELAS-68-MEDICAO-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_fecho.py",
+      "to_file": "curadoria/JANELAS-68-RELATORIO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_fecho.py",
+        "line": 16,
+        "snippet": "SAIDA = C / \"JANELAS-68-RELATORIO-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_fecho.py",
+      "to_file": "curadoria/JANELAS-68-RELATORIO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_fecho.py",
+        "line": 92,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "curadoria/JANELAS-68-CRUZAMENTO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 33,
+        "snippet": "CRUZ = RAIZ / \"curadoria\" / \"JANELAS-68-CRUZAMENTO-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "curadoria/JANELAS-68-MEDICAO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 34,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"JANELAS-68-MEDICAO-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "curadoria/JANELAS-68-MEDICAO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 159,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 60,
+        "snippet": "for t in json.loads((VIVO / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]:"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 27,
+        "snippet": "import canario as CAN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "curadoria/gate_de_rota.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 28,
+        "snippet": "import gate_de_rota as GATE      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 57,
+        "snippet": "livro = json.loads((VIVO / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 29,
+        "snippet": "import reparar_contrato as RC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68_medir.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/janelas68_medir.py",
+        "line": 30,
+        "snippet": "import rede                      # noqa: E402"
       }
     },
     {
@@ -85358,10 +85685,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2978,
-    "files_readable": 1333,
+    "files_tracked": 2987,
+    "files_readable": 1337,
     "files_code_dir": 1269,
-    "file_edges": 5810,
+    "file_edges": 5834,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

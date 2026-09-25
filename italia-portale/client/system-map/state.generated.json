@@ -372,6 +372,11 @@
       "curadoria/GABARITO-T2-T12-V3.json",
       "curadoria/GATILHO-OCIOSO-ENSAIO-V1.json",
       "curadoria/HANDOFF-INTEGRACAO-04.md",
+      "curadoria/JANELAS-68-CRUZAMENTO-V1.json",
+      "curadoria/JANELAS-68-FORMAS-V1.json",
+      "curadoria/JANELAS-68-MEDICAO-V1.json",
+      "curadoria/JANELAS-68-RELATORIO-V1.json",
+      "curadoria/JANELAS-68-RELATORIO-V1.md",
       "curadoria/K1-MEDICAO-V1.json",
       "curadoria/LIFECYCLE-AUTONOMY-V1.json",
       "curadoria/LIFECYCLE-EVIDENCE-V1.json",
@@ -446,6 +451,10 @@
       "curadoria/integrar_gate_de_detalhe.py",
       "curadoria/interface_collection.py",
       "curadoria/italy_contracts_curator.json",
+      "curadoria/janelas68_classificar.py",
+      "curadoria/janelas68_cruzar.py",
+      "curadoria/janelas68_fecho.py",
+      "curadoria/janelas68_medir.py",
       "curadoria/juntar_filas.py",
       "curadoria/lifecycle.py",
       "curadoria/linhagem_das_candidatas.py",
@@ -3571,10 +3580,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "janelas-68-v1",
+    "HEAD": "95fc1ee4c6bb05b08dedf95732353b4f44e76af7",
+    "GENERATED_AT": "2026-09-25T08:40:21-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cc43f4e9168b194f49c1e4a20595c46d5c517b4864b3eb626893e3ccad9bc591"
   },
   "FAMILIES": [
     {
@@ -66196,7 +66205,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch micro-v3-fontes-v1"
+        "branch janelas-68-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -134644,7 +134653,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1649,
+  "UNCLAIMED_FILES_COUNT": 1658,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -134909,7 +134918,7 @@
     "edges_proven": 1256,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2978,
+    "files_tracked": 2987,
     "files_covered": 1329,
     "files_code_unclaimed": 0,
     "roles_proven": 170,
