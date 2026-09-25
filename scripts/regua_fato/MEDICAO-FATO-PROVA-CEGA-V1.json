@@ -1,0 +1,424 @@
+{
+ "DATASET": "MEDICAO-FATO-PROVA-CEGA-V1",
+ "MEDIDO_DENTRO_DA_AMOSTRA": false,
+ "ITENS": 49,
+ "COBERTURA": {
+  "SAEM_DE_NAO_SEI": 12,
+  "DE": 49
+ },
+ "PRECISAO_GLOBAL_QUANDO_DIZ": {
+  "CERTOS": 7,
+  "DITOS": 12,
+  "PRECISAO": 0.583
+ },
+ "POR_TIPO": {
+  "CAMPO_FITOSSANITARIO": {
+   "OURO": 2,
+   "DITOS": 1,
+   "CERTOS": 1,
+   "PRECISAO": 1.0,
+   "RECALL": 0.5,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "CAMPO_CLIMA": {
+   "OURO": 0,
+   "DITOS": 0,
+   "CERTOS": 0,
+   "PRECISAO": null,
+   "RECALL": null,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "CAMPO_PRODUCAO_COLHEITA": {
+   "OURO": 0,
+   "DITOS": 0,
+   "CERTOS": 0,
+   "PRECISAO": null,
+   "RECALL": null,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "MERCADO_PRECO": {
+   "OURO": 6,
+   "DITOS": 5,
+   "CERTOS": 4,
+   "PRECISAO": 0.8,
+   "RECALL": 0.667,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "EVENTO_TECNICO": {
+   "OURO": 3,
+   "DITOS": 3,
+   "CERTOS": 0,
+   "PRECISAO": 0.0,
+   "RECALL": 0.0,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "REGULATORIO_MOLECULA": {
+   "OURO": 0,
+   "DITOS": 0,
+   "CERTOS": 0,
+   "PRECISAO": null,
+   "RECALL": null,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "NEGOCIO_AGRO": {
+   "OURO": 1,
+   "DITOS": 1,
+   "CERTOS": 0,
+   "PRECISAO": 0.0,
+   "RECALL": 0.0,
+   "ESTADO": "NAO MEDIDO (<10 exemplos)"
+  },
+  "INSTITUCIONAL_NAO_FATO": {
+   "OURO": 25,
+   "DITOS": 2,
+   "CERTOS": 2,
+   "PRECISAO": 1.0,
+   "RECALL": 0.08,
+   "ESTADO": "PRONTO"
+  }
+ },
+ "MATRIZ_ROTULO_CLASSIFICADOR": {
+  "CAMPO_FITOSSANITARIO->CAMPO_FITOSSANITARIO": 1,
+  "CAMPO_FITOSSANITARIO->NAO_SEI": 1,
+  "EVENTO_TECNICO->NAO_SEI": 3,
+  "INSTITUCIONAL_NAO_FATO->EVENTO_TECNICO": 1,
+  "INSTITUCIONAL_NAO_FATO->INSTITUCIONAL_NAO_FATO": 2,
+  "INSTITUCIONAL_NAO_FATO->MERCADO_PRECO": 1,
+  "INSTITUCIONAL_NAO_FATO->NAO_SEI": 20,
+  "INSTITUCIONAL_NAO_FATO->NEGOCIO_AGRO": 1,
+  "MERCADO_PRECO->EVENTO_TECNICO": 1,
+  "MERCADO_PRECO->MERCADO_PRECO": 4,
+  "MERCADO_PRECO->NAO_SEI": 1,
+  "NAO_SEI->EVENTO_TECNICO": 1,
+  "NAO_SEI->NAO_SEI": 11,
+  "NEGOCIO_AGRO->NAO_SEI": 1
+ },
+ "ERROS": [
+  {
+   "ID": "ba639f08d6deaaf5",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NEGOCIO_AGRO",
+   "BASE": "NEGOCIO_AGRO · 9 conceitos: «aziende», «società», «acquisizione», «fusioni», «brand», «marchi»"
+  },
+  {
+   "ID": "036cde2c023bfe05",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «edizione» · ligação agro «agricoli» · «\"Non si può comprare più niente\" sbottano i consumatori. \"Provate voi a produrre lavorando di notte perché sotto le serre si superano anche i 50 gradi \" ribatto»"
+  },
+  {
+   "ID": "7a7e50c7cce00eea",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «eventi» · ligação agro «agricoli» · «L'Accademia dei Georgofili: un punto di riferimento storico e scientifico per lo studio e la valorizzazione dell’agricoltura, dell’ambiente e del territorio. Sc»"
+  },
+  {
+   "ID": "fbff276d46ab534c",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 3 conceitos: «consumo», «vendita», «rilevazione» · segundo: CAMPO_PRODUCAO_COLHEITA (2)"
+  },
+  {
+   "ID": "456db59485ab2e98",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «Edizione» · ligação agro «agricoltura» · «Edagricole News | Il TG dell'agricoltura - Edizione 16 - luglio 2026 - YouTube»"
+  }
+ ],
+ "LINHAS": [
+  {
+   "ID": "49d810984f550905",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 5 conceitos: «prezzi», «euro/kg», «vendita», «rilevazione», «in calo»"
+  },
+  {
+   "ID": "ba639f08d6deaaf5",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NEGOCIO_AGRO",
+   "BASE": "NEGOCIO_AGRO · 9 conceitos: «aziende», «società», «acquisizione», «fusioni», «brand», «marchi»"
+  },
+  {
+   "ID": "1fa876ab66a2e059",
+   "ROTULO": "CAMPO_FITOSSANITARIO",
+   "CLASSIFICADOR": "CAMPO_FITOSSANITARIO",
+   "BASE": "CAMPO_FITOSSANITARIO · 16 conceitos: «Mosca delle olive», «Bactrocera», «PERONOSPORA», «OIDIO», «cimice», «AFIDI» · segundo: CAMPO_PRODUCAO_COLHEITA (5)"
+  },
+  {
+   "ID": "ea84e7414d2e1bef",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 7 conceitos: «prezzo», «esportazioni», «Export», «consumi», «in calo», «rialzo» · segundo: CAMPO_PRODUCAO_COLHEITA (3)"
+  },
+  {
+   "ID": "bda4e6ea49db15b1",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 7 conceitos: «prezzi», «quotazioni», «listino», «mercato ortofrutticolo», «consumo», «vendita» · segundo: CAMPO_CLIMA (2)"
+  },
+  {
+   "ID": "dc2c59e8f2e26d1e",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: CAMPO_PRODUCAO_COLHEITA (1)"
+  },
+  {
+   "ID": "64e55e42c7745492",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: MERCADO_PRECO (1)"
+  },
+  {
+   "ID": "196839dbdf25c01a",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "e711018936b334ab",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: CAMPO_PRODUCAO_COLHEITA (1)"
+  },
+  {
+   "ID": "7bc42bc7452a73c4",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "2d7d4d39ff5a9596",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 5 conceitos: «prezzi», «Export», «importazioni», «consumi», «disponibilità di prodotto»"
+  },
+  {
+   "ID": "b5d0129a2c71c124",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "eca8ad431f745e14",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "036cde2c023bfe05",
+   "ROTULO": "MERCADO_PRECO",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «edizione» · ligação agro «agricoli» · «\"Non si può comprare più niente\" sbottano i consumatori. \"Provate voi a produrre lavorando di notte perché sotto le serre si superano anche i 50 gradi \" ribatto»"
+  },
+  {
+   "ID": "7a7e50c7cce00eea",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «eventi» · ligação agro «agricoli» · «L'Accademia dei Georgofili: un punto di riferimento storico e scientifico per lo studio e la valorizzazione dell’agricoltura, dell’ambiente e del territorio. Sc»"
+  },
+  {
+   "ID": "c9c96814715f7a17",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "6480d6dd222cd961",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: CAMPO_FITOSSANITARIO (1)"
+  },
+  {
+   "ID": "7878d0fe9316b9d3",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "fbff276d46ab534c",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "MERCADO_PRECO",
+   "BASE": "MERCADO_PRECO · 3 conceitos: «consumo», «vendita», «rilevazione» · segundo: CAMPO_PRODUCAO_COLHEITA (2)"
+  },
+  {
+   "ID": "430f635c73073e15",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "b1e816822cf2aeca",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "fa13b59c108dceae",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "04b1d0c3ed1d81a9",
+   "ROTULO": "NEGOCIO_AGRO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "05d1fc9fb8f579fc",
+   "ROTULO": "CAMPO_FITOSSANITARIO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "9eebb1589dc22e07",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "4e3d205d78db2629",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "456db59485ab2e98",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "EVENTO_TECNICO",
+   "BASE": "EVENTO_TECNICO · evento na abertura «Edizione» · ligação agro «agricoltura» · «Edagricole News | Il TG dell'agricoltura - Edizione 16 - luglio 2026 - YouTube»"
+  },
+  {
+   "ID": "af6ed27c2bc4577d",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "e91e04d928fb7a14",
+   "ROTULO": "EVENTO_TECNICO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "8e81e821eac0ebbf",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "817efdd26aef2069",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: CAMPO_CLIMA (1)"
+  },
+  {
+   "ID": "e8acb2545ed350de",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "154227038f3cc0cd",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "69b1845f2361ae9b",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: CAMPO_CLIMA (1)"
+  },
+  {
+   "ID": "e40beec16af78039",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "bdeaf7f5e28923e2",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "bd0561e941dcaac9",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "b35e7a87858deed5",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: MERCADO_PRECO (1)"
+  },
+  {
+   "ID": "9911fdf80214462d",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "0b93e296e2447c9f",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "3b32d2fd30e24ead",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "eccf48f29b1c863c",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "e581115a4308d1a9",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "126e2025f8a37ee1",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · sinal fraco: só palavra agro"
+  },
+  {
+   "ID": "e7f3f62b4194f7eb",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "dfec4971a3ac5f33",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 17 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  },
+  {
+   "ID": "08e195f8a5596478",
+   "ROTULO": "NAO_SEI",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "3e6d48cf8a7be6bd",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "NAO_SEI",
+   "BASE": "NAO_SEI · o texto não tem corpo (só menu, título curto ou rodapé)"
+  },
+  {
+   "ID": "ada00defd8da30ef",
+   "ROTULO": "INSTITUCIONAL_NAO_FATO",
+   "CLASSIFICADOR": "INSTITUCIONAL_NAO_FATO",
+   "BASE": "INSTITUCIONAL_NAO_FATO · corpo com 4 linhas, nenhum conceito de facto e nenhuma palavra agro"
+  }
+ ]
+}

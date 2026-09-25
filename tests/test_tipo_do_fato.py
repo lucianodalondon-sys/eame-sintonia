@@ -84,6 +84,13 @@ class OsTipos(unittest.TestCase):
              "Per informazioni rivolgersi alla segreteria didattica del dipartimento di agraria in orario di ufficio.\n")
         self.assertNotEqual(tipo(t), TF.EVENTO)
 
+    def test_um_conceito_so_e_sinal_fraco(self):
+        t = ("Oggi il prezzo di apertura del nuovo negozio del centro e stato annunciato ai clienti presenti.\n"
+             "La giornata si e conclusa con una festa nel quartiere e tanta musica per tutti i partecipanti.\n")
+        r = TF.tipo_do_fato(t)
+        self.assertEqual(len(r["EVIDENCIA"]["CONCEITOS"].get(TF.MERCADO, [])), 1)
+        self.assertEqual(r["fact_kind"], TF.NAO_SEI)
+
     def test_empate_e_nao_sei(self):
         t = ("Il prezzo delle olive cala mentre le catture nelle trappole della costa aumentano ovunque in zona.\n"
              "Le quotazioni restano basse in molti oliveti della costa secondo i tecnici delle associazioni locali.\n")

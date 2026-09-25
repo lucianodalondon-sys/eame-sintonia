@@ -1,0 +1,149 @@
+{
+ "DATASET": "MUTACAO-TIPO-DO-FATO-V1",
+ "ALVO": "leis/tipo_do_fato.py",
+ "ALVO_SHA256": "bda5e0f0be13c009280076390dd29ebe7ef5e89d54b1f877742d25c4a670a08d",
+ "MUTANTES": [
+  {
+   "MUTANTE": "M1_MENU_CONTA",
+   "REGRA": "regra 1: reprova se a pagina inteira (menu/rodape) for lida como corpo",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.062s | FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M2_MAIUSCULAS_CONTAM",
+   "REGRA": "regra 1: reprova se a linha de menu em MAIUSCULAS contar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.071s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M3_SEM_PALAVRA_INTEIRA",
+   "REGRA": "regra 2: reprova se «gelateria» contar como «gelata»",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.053s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M4_CONCEITO_CONTA_VARIAS_VEZES",
+   "REGRA": "regra 2: reprova se o mesmo conceito repetido somar sinais",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.068s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M5_UM_CONCEITO_CHEGA",
+   "REGRA": "regra 2: reprova se um so conceito bastar",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.113s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M6_RACCOLTA_NUA",
+   "REGRA": "reprova se «raccolta dei dati» contar como colheita",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.094s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M7_RESA_NUA",
+   "REGRA": "reprova se «resa possibile» contar como rendimento",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.074s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M8_EVENTO_SEM_AGRO",
+   "REGRA": "regra 3: reprova se evento fora do agro virar evento tecnico",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.073s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M9_AVISO_ACADEMICO_E_EVENTO",
+   "REGRA": "regra 3: reprova se aviso de exame virar evento tecnico",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.088s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M10_NEGOCIO_SEM_AGRO",
+   "REGRA": "regra 4: reprova se empresa fora do agro virar negocio agro",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.073s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M11_NEGOCIO_COM_POUCO",
+   "REGRA": "regra 4: reprova se duas palavras de negocio chegarem",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.068s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M12_EMPATE_DECIDE",
+   "REGRA": "regra 5: reprova se o empate escolher um tipo",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.069s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M13_TITULO_E_NAO_FACTO",
+   "REGRA": "regra 6: reprova se um titulo solto virar «nao e facto»",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.058s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M14_SEM_CORPO_E_NAO_FACTO",
+   "REGRA": "regra 1: reprova se texto sem corpo virar «nao e facto» em vez de NAO_SEI",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.070s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M15_CAMPO_ACEITA_LUGAR_DE_EVENTO",
+   "REGRA": "D62: reprova se o lugar de evento virar lugar de praga",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.070s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M16_EVENTO_FICA_COM_O_LUGAR_DO_CAMPO",
+   "REGRA": "D62: reprova se o evento tecnico ficar com o lugar da praga",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.074s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M17_BASE_SEM_PORQUE",
+   "REGRA": "reprova se a troca de lugar nao ficar explicada na base",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 22 tests in 0.068s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  }
+ ],
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "SAIDA": "Ran 22 tests in 0.070s | OK"
+ },
+ "MORTOS": 17,
+ "TOTAL": 17
+}
