@@ -19,6 +19,7 @@ import {
   conferirIdentidade, ESTRATEGIAS_DE_IDENTIDADE, FONTES_DE_TEXTO,
 } from "./motor_de_rota.mjs";
 import { CONTRACTS } from "./italy_contracts.mjs";
+import { memoriaDosDetalhes, decidirSobreDetalhe } from "./incrementalidade.mjs";
 
 let ok = 0, mau = 0;
 const T = (nome, fn) => {
@@ -449,6 +450,45 @@ await TA("D40 - a lista sai antes do livro e do corte; so listas = vazio honesto
   assert.equal(so.length, 0);
   assert.equal(so.D40.VAZIO_HONESTO, true);
   assert.equal(so.D40.LISTAS_RECUSADAS, 1);
+});
+
+// ── CONTRATOS-AJUSTE (25/09) ─────────────────────────────────────────────────
+// Ligacoes reais do indice da istat.it de 25/09 (INDICES-D40-V1.json).
+const ISTAT_SECCAO = [
+  "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/",
+  "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/promozione-della-ricerca/",
+  "https://www.istat.it/comunicati-e-analisi/pubblicazioni/rivista-di-statistica-ufficiale/",
+  "https://www.istat.it/comunicati-e-analisi/statistiche-sperimentali/sperimentazioni-su-big-data/",
+  "https://www.istat.it/documenti/sistema-informativo-6/",
+];
+const ISTAT_MATERIA = [
+  "https://www.istat.it/comunicato-stampa/linnovazione-nelle-imprese-anni-2022-2024/",
+  "https://www.istat.it/comunicato-stampa/prezzi-al-consumo-agosto-2026/",
+  "https://www.istat.it/notizia/matrice-di-pendolarismo-per-studio/",
+];
+
+await TA("ISTAT - o contrato aponta as materias e nao as paginas de seccao", async () => {
+  const c = CONTRACTS["IT-T5-090"];
+  const html = [...ISTAT_SECCAO, ...ISTAT_MATERIA].map((u) => `<a href="${u}">x</a>`).join("");
+  const alvos = await alvosDoContrato("IT-T5-090", { ...c, ACQUISITION: { ...c.ACQUISITION, MAX_TARGETS: 99 } },
+    { buscar: indiceFalso(html) });
+  assert.deepEqual(alvos.map((a) => a.url), ISTAT_MATERIA);
+  assert.doesNotThrow(() => conferirAquisicao("IT-T5-090", c.ACQUISITION));
+});
+
+T("PRAZO - IT-T7-042 revisita so depois de 3 dias, como IT-T7-017 e IT-T10-022", () => {
+  const url = "https://www.consorziobalsamico.it/news-blog/aceto-balsamico-di-modena-igp-dal-piatto-al-bicchiere/";
+  const memoria = memoriaDosDetalhes([{ SOURCE_ID: "IT-T7-042", SOURCE_URL: url,
+    OBSERVATION_RESULT: "NEW_DOCUMENT", CAPTURED_AT: "2026-09-24T12:08:32.159Z" }]);
+  const d = (agora) => decidirSobreDetalhe(url, { memoria, sourceId: "IT-T7-042", contrato: CONTRACTS["IT-T7-042"], agora });
+  assert.equal(CONTRACTS["IT-T7-042"].RECOLLECTION.TTL_SECONDS, CONTRACTS["IT-T7-017"].RECOLLECTION.TTL_SECONDS);
+  assert.equal(d("2026-09-25T12:00:00Z").DECISAO, "SKIP_KNOWN", "1 dia depois: ja se tem");
+  assert.equal(d("2026-09-27T12:00:00Z").DECISAO, "SKIP_KNOWN", "2,99 dias depois: ainda dentro do prazo");
+  const vencido = d("2026-09-28T12:00:00Z");
+  assert.equal(vencido.DECISAO, "REVALIDATE", "4 dias depois: volta — a edicao nao se perde");
+  assert.equal(vencido.RAZAO, "TTL_EXPIRED");
+  // a lei de preservacao nao mudou: continua MUTABLE, e o historico nao e apagado por ninguem aqui
+  assert.equal(CONTRACTS["IT-T7-042"].RECOLLECTION.DETAIL_CONTENT, "MUTABLE");
 });
 
 await TA("D40 - sem `classificar` (canarios, provas) o motor corta como antes: MAX_TARGETS", async () => {

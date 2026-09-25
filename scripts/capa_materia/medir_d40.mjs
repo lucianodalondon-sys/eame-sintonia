@@ -1,7 +1,10 @@
 // ALVOS-NOVOS · medicao offline: quantos alvos NOVOS cada indice anuncia hoje, contra o livro da
 // producao, e quantos documentos novos uma corrida teria com D40 + teto D38 por dominio.
 //
-//     node scripts/capa_materia/medir_d40.mjs <pasta-dos-indices> <observations.ndjson da producao>
+//     node scripts/capa_materia/medir_d40.mjs <pasta-dos-indices> <observations.ndjson da producao> [saida.json] [agora ISO]
+//
+// `saida` (omissao MEDICAO-D40-V1.json) e `agora` (omissao: o relogio) servem para medir outra
+// vez sem apagar a medicao anterior, e para ver o dia em que um prazo (TTL) vence.
 //
 // Zero rede: `buscar` devolve o indice guardado por buscar_indices_d40.py. O resto e o codigo que
 // o coletor corre (alvosDoContrato + memoriaDosDetalhes + decidirSobreDetalhe), nao uma copia dele.
@@ -11,12 +14,12 @@ import { CONTRACTS } from "../../regras/italy_contracts.mjs";
 import { alvosDoContrato } from "../../regras/motor_de_rota.mjs";
 import { memoriaDosDetalhes, decidirSobreDetalhe } from "../../regras/incrementalidade.mjs";
 
-const [PASTA, LIVRO] = process.argv.slice(2);
+const [PASTA, LIVRO, SAIDA = "MEDICAO-D40-V1.json", AGORA = null] = process.argv.slice(2);
 const AQUI = new URL(".", import.meta.url);
 const indices = JSON.parse(readFileSync(new URL("INDICES-D40-V1.json", AQUI), "utf8"));
 const bruto = readFileSync(LIVRO);
 const memoria = memoriaDosDetalhes(bruto.toString("utf8").split("\n").filter((l) => l.trim()).map((l) => JSON.parse(l)));
-const agora = new Date().toISOString();
+const agora = AGORA || new Date().toISOString();
 
 // D38 como a ONDA2-G3 o define: 5 pedidos por dominio registavel por corrida, robots incluido.
 const TETO_POR_DOMINIO = 5;
@@ -73,7 +76,7 @@ for (const f of indices.FONTES) {
 }
 const soma = (k) => fontes.reduce((s, x) => s + (typeof x[k] === "number" ? x[k] : 0), 0);
 const out = {
-  DATASET: "MEDICAO-D40-V1", MEDIDO_EM: agora,
+  DATASET: SAIDA.replace(/\.json$/, ""), MEDIDO_EM: agora, AGORA_SIMULADO: Boolean(AGORA),
   LIVRO: { CAMINHO: LIVRO, SHA256: createHash("sha256").update(bruto).digest("hex"), ENDERECOS_CONHECIDOS: memoria.size },
   INDICES: "INDICES-D40-V1.json (sha256 de cada indice la dentro; os ficheiros ficam fora do Git)",
   TETO_POR_DOMINIO, FONTES: fontes,
@@ -90,7 +93,7 @@ const out = {
     NAO_SEI: fontes.filter((x) => x.DOCUMENTOS_NOVOS_NA_CORRIDA === "NAO_SEI").map((x) => x.SOURCE_ID),
   },
 };
-writeFileSync(new URL("MEDICAO-D40-V1.json", AQUI), JSON.stringify(out, null, 1) + "\n");
+writeFileSync(new URL(SAIDA, AQUI), JSON.stringify(out, null, 1) + "\n");
 for (const x of fontes) console.log(x.SOURCE_ID.padEnd(11), x.DOMINIO.padEnd(28), String(x.MEDIDO).padEnd(10),
   "indice", x.NO_INDICE ?? "-", "conhecidos", x.CONHECIDOS_SALTADOS ?? "-", "novos", x.NOVOS ?? "-",
   "revisitas", x.REVISITAS ?? "-", "| corrida:", x.DOCUMENTOS_NOVOS_NA_CORRIDA, "| sem D40:", x.SEM_D40_NOVOS ?? "-", x.D38 ? "| " + x.D38 : "");
