@@ -755,6 +755,8 @@
       "data/derivados/TRAVA-MEDIDORES-V1/mutacao-RESULTADO.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/mutacao.py.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-ANTES.txt",
+      "data/derivados/TRAVA-MEDIDORES-V1/testes-CONTRATOS-A-MAO-ANTES.txt",
+      "data/derivados/TRAVA-MEDIDORES-V1/testes-CONTRATOS-A-MAO-DEPOIS.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-D33-ANTES.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-D33-DEPOIS.txt",
       "data/derivados/TRAVA-MEDIDORES-V1/testes-DEPOIS.txt",
@@ -3419,9 +3421,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "trava-medidores-v1",
-    "HEAD": "c888f68338fba86b8e4ec7f2a2d91b419bc4d034",
-    "GENERATED_AT": "2026-09-24T18:07:30-03:00",
-    "SOURCE_TREE_FINGERPRINT": "df9c7be78893e23a12cecc20fea36c812ae0492e4910b1b10f7736226bacf038"
+    "HEAD": "5e646dedcc2fe1493c15a06d5d5b66e539a5fb7f",
+    "GENERATED_AT": "2026-09-25T01:54:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e44f26ecb20f26014b9e98203cd9b11d30d2c3c807fbe2ce013540433500f490"
   },
   "FAMILIES": [
     {
@@ -36278,6 +36280,7 @@
       "inbound": [
         "C-DETECTOR-CAPA-GABARITO",
         "C-IT-CATALOGO",
+        "C-IT-CONTRATOS",
         "C-IT-PRESERVAR",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-ORQUESTRADOR",
@@ -36292,7 +36295,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 3
+        "ITALIA": 4
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -36314,7 +36317,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 1179,
+            "line": 1221,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -36345,6 +36348,7 @@
         "leis/fundacao_da_coleta.py",
         "leis/social_matriz.py",
         "orquestrador/orquestrador.py",
+        "regras/italy_contracts.mjs",
         "regras/italy_contracts_onboarded.json",
         "system-map/data/estradas-it.model.json"
       ],
@@ -39657,6 +39661,7 @@
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-COORTE-BIG-COLLECTION",
         "C-CORRIDA-CANONICA",
+        "C-ESTRADAS-IT",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
@@ -88983,6 +88988,41 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta O censo das classes de estrada da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 927,
+          "snippet": "CONTRATOS_MJS = os.path.join(RAIZ, 'regras', 'italy_contracts.mjs')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-ESTRADAS-IT",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-ESTRADAS-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-IT-CATALOGO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -112127,7 +112167,7 @@
         },
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 1081,
+          "line": 1123,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -123479,7 +123519,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1593,
+  "UNCLAIMED_FILES_COUNT": 1595,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123737,11 +123777,11 @@
     "components_pending": 202,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1273,
-    "edges_proven": 1210,
+    "edges": 1274,
+    "edges_proven": 1211,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2825,
+    "files_tracked": 2827,
     "files_covered": 1232,
     "files_code_unclaimed": 0,
     "roles_proven": 163,

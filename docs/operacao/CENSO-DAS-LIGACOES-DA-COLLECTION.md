@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  c888f68338fba86b8e4ec7f2a2d91b419bc4d034
+HEAD_DA_MEDICAO  5e646dedcc2fe1493c15a06d5d5b66e539a5fb7f
 BRANCH           trava-medidores-v1
-GERADO_EM        2026-09-24T18:07:30-03:00
+GERADO_EM        2026-09-25T01:54:26-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -2089,13 +2089,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 9 · saem 19 |
-| **arestas provadas** | entram 9 · saem 14 |
+| **arestas no mapa** | entram 9 · saem 20 |
+| **arestas provadas** | entram 9 · saem 15 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 23 · NÃO SEI 5 |
+| **prova das ligações** | CODE 24 · NÃO SEI 5 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 

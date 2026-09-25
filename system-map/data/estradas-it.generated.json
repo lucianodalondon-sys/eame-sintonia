@@ -4298,17 +4298,17 @@
   "TOTAL": 716,
   "POR_RESOLUCAO": {
    "BLOQUEADA_COM_RAZAO": 29,
-   "CLASSE_PROVADA": 90,
-   "NAO_SEI": 597
+   "CLASSE_PROVADA": 98,
+   "NAO_SEI": 589
   },
   "POR_CLASSE": {
-   "NAO_SEI": 626,
-   "RC-1": 90
+   "NAO_SEI": 618,
+   "RC-1": 97,
+   "RC-10": 1
   },
   "NAO_SEI_POR_MOTIVO": {
-   "resultado real, mas o contrato": 8,
-   "sem contrato no livro do coletor": 488,
-   "so contrato/canario": 101
+   "sem contrato no livro do coletor": 483,
+   "so contrato/canario": 106
   },
   "CRITERIO_A": "NAO",
   "CRITERIO_A_PERGUNTA": "toda fonte IT tem route class conhecida ou BLOCKED explicito",
@@ -4338,7 +4338,7 @@
     "RESOLUCAO": "NAO_SEI",
     "PROVA": null,
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "sem contrato no livro do coletor"
+    "PORQUE": "so contrato/canario (None): o caminho existe, o resultado real nao esta provado"
    },
    {
     "SOURCE_ID": "IT-T1-002",
@@ -6514,31 +6514,31 @@
     "SOURCE_ID": "IT-T2-001",
     "ESTADO_NO_CURADOR": "READY_FOR_COLLECTION",
     "STRATEGY": null,
-    "ROUTE_CLASS_ID": "NAO_SEI",
-    "RESOLUCAO": "NAO_SEI",
-    "PROVA": null,
+    "ROUTE_CLASS_ID": "RC-1",
+    "RESOLUCAO": "CLASSE_PROVADA",
+    "PROVA": "curadoria/LIFECYCLE-LEDGER-V1.json · BCR-2026-09-20:IT-T2-2026-09-20-190938-7bdaa6931f24d3e1",
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "resultado real, mas o contrato (nenhum no livro do coletor) nao diz que executor correu"
+    "PORQUE": "resultado real + contrato feito a mao, PDF por HTTP"
    },
    {
     "SOURCE_ID": "IT-T2-002",
     "ESTADO_NO_CURADOR": "READY_FOR_COLLECTION",
     "STRATEGY": null,
-    "ROUTE_CLASS_ID": "NAO_SEI",
-    "RESOLUCAO": "NAO_SEI",
-    "PROVA": null,
+    "ROUTE_CLASS_ID": "RC-1",
+    "RESOLUCAO": "CLASSE_PROVADA",
+    "PROVA": "curadoria/LIFECYCLE-LEDGER-V1.json · BCR-2026-09-20:IT-T2-2026-09-20-190951-7f6c58f2c4154617",
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "resultado real, mas o contrato (nenhum no livro do coletor) nao diz que executor correu"
+    "PORQUE": "resultado real + contrato feito a mao, PDF por HTTP"
    },
    {
     "SOURCE_ID": "IT-T2-004",
     "ESTADO_NO_CURADOR": "READY_FOR_COLLECTION",
     "STRATEGY": null,
-    "ROUTE_CLASS_ID": "NAO_SEI",
-    "RESOLUCAO": "NAO_SEI",
-    "PROVA": null,
+    "ROUTE_CLASS_ID": "RC-1",
+    "RESOLUCAO": "CLASSE_PROVADA",
+    "PROVA": "curadoria/LIFECYCLE-LEDGER-V1.json · BCR-2026-09-20:IT-T2-2026-09-20-191023-ae818916b58ae92b",
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "resultado real, mas o contrato (nenhum no livro do coletor) nao diz que executor correu"
+    "PORQUE": "resultado real + contrato feito a mao, HTML por HTTP"
    },
    {
     "SOURCE_ID": "IT-T2-006",
@@ -7764,11 +7764,11 @@
     "SOURCE_ID": "IT-T3-002",
     "ESTADO_NO_CURADOR": "READY_FOR_COLLECTION",
     "STRATEGY": null,
-    "ROUTE_CLASS_ID": "NAO_SEI",
-    "RESOLUCAO": "NAO_SEI",
-    "PROVA": null,
+    "ROUTE_CLASS_ID": "RC-1",
+    "RESOLUCAO": "CLASSE_PROVADA",
+    "PROVA": "curadoria/LIFECYCLE-LEDGER-V1.json · BCR-2026-09-20:IT-T3-2026-09-20-191037-b5e82a9d73b2782e",
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "resultado real, mas o contrato (nenhum no livro do coletor) nao diz que executor correu"
+    "PORQUE": "resultado real + contrato feito a mao, PDF por HTTP"
    },
    {
     "SOURCE_ID": "IT-T3-005",
@@ -7778,37 +7778,37 @@
     "RESOLUCAO": "NAO_SEI",
     "PROVA": null,
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "sem contrato no livro do coletor"
+    "PORQUE": "so contrato/canario (None): o caminho existe, o resultado real nao esta provado"
    },
    {
     "SOURCE_ID": "IT-T3-008",
     "ESTADO_NO_CURADOR": "READY_FOR_COLLECTION",
     "STRATEGY": null,
-    "ROUTE_CLASS_ID": "NAO_SEI",
-    "RESOLUCAO": "NAO_SEI",
-    "PROVA": null,
+    "ROUTE_CLASS_ID": "RC-1",
+    "RESOLUCAO": "CLASSE_PROVADA",
+    "PROVA": "curadoria/LIFECYCLE-LEDGER-V1.json · BCR-2026-09-20:IT-T3-2026-09-20-191052-d2ef01b581d7d551",
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "resultado real, mas o contrato (nenhum no livro do coletor) nao diz que executor correu"
+    "PORQUE": "resultado real + contrato feito a mao, PDF por HTTP"
    },
    {
     "SOURCE_ID": "IT-T3-010",
     "ESTADO_NO_CURADOR": "READY_FOR_COLLECTION",
     "STRATEGY": null,
-    "ROUTE_CLASS_ID": "NAO_SEI",
-    "RESOLUCAO": "NAO_SEI",
-    "PROVA": null,
+    "ROUTE_CLASS_ID": "RC-1",
+    "RESOLUCAO": "CLASSE_PROVADA",
+    "PROVA": "curadoria/LIFECYCLE-LEDGER-V1.json · BCR-2026-09-20:IT-T3-2026-09-20-191125-b882ffecc1f95bbb",
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "resultado real, mas o contrato (nenhum no livro do coletor) nao diz que executor correu"
+    "PORQUE": "resultado real + contrato feito a mao, PDF por HTTP"
    },
    {
     "SOURCE_ID": "IT-T3-011",
     "ESTADO_NO_CURADOR": "READY_FOR_COLLECTION",
-    "STRATEGY": null,
-    "ROUTE_CLASS_ID": "NAO_SEI",
-    "RESOLUCAO": "NAO_SEI",
-    "PROVA": null,
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "ROUTE_CLASS_ID": "RC-1",
+    "RESOLUCAO": "CLASSE_PROVADA",
+    "PROVA": "curadoria/LIFECYCLE-LEDGER-V1.json · BCR-2026-09-20:IT-T3-2026-09-20-191144-2773077f13fae128",
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "resultado real, mas o contrato (nenhum no livro do coletor) nao diz que executor correu"
+    "PORQUE": "resultado real + contrato HTML_LINK_DISCOVERY"
    },
    {
     "SOURCE_ID": "IT-T3-013",
@@ -7934,11 +7934,11 @@
     "SOURCE_ID": "IT-T4-001",
     "ESTADO_NO_CURADOR": "READY_FOR_COLLECTION",
     "STRATEGY": null,
-    "ROUTE_CLASS_ID": "NAO_SEI",
-    "RESOLUCAO": "NAO_SEI",
-    "PROVA": null,
+    "ROUTE_CLASS_ID": "RC-10",
+    "RESOLUCAO": "CLASSE_PROVADA",
+    "PROVA": "curadoria/LIFECYCLE-LEDGER-V1.json · BCR-2026-09-20:IT-T4-2026-09-20-191216-de6067c40f5d4097",
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "resultado real, mas o contrato (nenhum no livro do coletor) nao diz que executor correu"
+    "PORQUE": "resultado real + contrato CSV por HTTP"
    },
    {
     "SOURCE_ID": "IT-T5-002",
@@ -9348,7 +9348,7 @@
     "RESOLUCAO": "NAO_SEI",
     "PROVA": null,
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "sem contrato no livro do coletor"
+    "PORQUE": "so contrato/canario (None): o caminho existe, o resultado real nao esta provado"
    },
    {
     "SOURCE_ID": "IT-T7-013",
@@ -10858,7 +10858,7 @@
     "RESOLUCAO": "NAO_SEI",
     "PROVA": null,
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "sem contrato no livro do coletor"
+    "PORQUE": "so contrato/canario (None): o caminho existe, o resultado real nao esta provado"
    },
    {
     "SOURCE_ID": "IT-T8-004",
@@ -11338,7 +11338,7 @@
     "RESOLUCAO": "NAO_SEI",
     "PROVA": null,
     "RAZAO_DO_BLOQUEIO": null,
-    "PORQUE": "sem contrato no livro do coletor"
+    "PORQUE": "so contrato/canario (None): o caminho existe, o resultado real nao esta provado"
    },
    {
     "SOURCE_ID": "IT-T9-009",

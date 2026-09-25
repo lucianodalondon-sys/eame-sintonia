@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "trava-medidores-v1",
-    "HEAD": "c888f68338fba86b8e4ec7f2a2d91b419bc4d034",
-    "GENERATED_AT": "2026-09-24T18:07:30-03:00",
-    "SOURCE_TREE_FINGERPRINT": "df9c7be78893e23a12cecc20fea36c812ae0492e4910b1b10f7736226bacf038"
+    "HEAD": "5e646dedcc2fe1493c15a06d5d5b66e539a5fb7f",
+    "GENERATED_AT": "2026-09-25T01:54:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e44f26ecb20f26014b9e98203cd9b11d30d2c3c807fbe2ce013540433500f490"
   },
   "FILES": [
     {
@@ -5085,21 +5085,21 @@
     },
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/MAPA-SOURCE-RC-716.tsv",
-      "sha": "98497bd35a98a772afb5e7f1c5a75c31a3b9783c",
+      "sha": "6ba9a6a81b0a7587950fb56d99aa39b10e6abe67",
       "ext": ".tsv",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/mutacao-RESULTADO.txt",
-      "sha": "f41c079dde461e79d7216e7a2446d698884b100d",
+      "sha": "7001d482dd32974420604fb33b7fb57b847104f0",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/mutacao.py.txt",
-      "sha": "f970e7ad571bbec6beed2be23f60df565180eded",
+      "sha": "5f2c5018f0efa555d3e7351d1b4f16b4518801de",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -5107,6 +5107,20 @@
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-ANTES.txt",
       "sha": "250ee68b8083351b78fccdc43c6d03e826dadc46",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-CONTRATOS-A-MAO-ANTES.txt",
+      "sha": "7bb84b9fd02b2c024e3a9c1d81e0d6be70f7107c",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-CONTRATOS-A-MAO-DEPOIS.txt",
+      "sha": "5fedac05069bb9dbd899a9676dbdae6ee0b8117f",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -5155,7 +5169,7 @@
     },
     {
       "path": "data/derivados/TRAVA-MEDIDORES-V1/testes-vizinhos-D33.txt",
-      "sha": "34712f899b6973be18c7f6ac63bed7e6b23bcd58",
+      "sha": "3370dde53da077e80bef77ebb3cb43ad941940f0",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -10027,7 +10041,7 @@
     },
     {
       "path": "docs/operacao/TRAVA-MEDIDORES-V1-D33-CRITERIO-A.md",
-      "sha": "a38b8c762174849c0d562a90358096d026d16091",
+      "sha": "a5709114dc62a4a9d6d851844eee7a89647d2985",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17748,7 +17762,7 @@
     },
     {
       "path": "system-map/scripts/CADEIA-DO-MAPA.json",
-      "sha": "815d749cad6a83b2a066b646ef4d1739901adfb9",
+      "sha": "314eff74f81e2cd18d832e2d84d46ef4d6e3cf54",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17797,7 +17811,7 @@
     },
     {
       "path": "system-map/scripts/censo_das_estradas_it.py",
-      "sha": "dcb7632ccde34d25ac5cd0a56dc0eced3907e95e",
+      "sha": "90d0d14d45c94f07b630464531013e3fe71e5d5e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19316,7 +19330,7 @@
     },
     {
       "path": "tests/test_os_medidores_da_trava_veem.py",
-      "sha": "be6c7221014ac2f662a3a062dc6fb3bab3f15993",
+      "sha": "dd9298a06d4d9a20b49d6fe0dfdfe5622de3ac79",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -61471,7 +61485,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 1081,
+        "line": 1123,
         "snippet": "'MATRIZ': 'leis/social_matriz.py',"
       }
     },
@@ -61495,6 +61509,17 @@
         "file": "system-map/scripts/censo_das_estradas_it.py",
         "line": 709,
         "snippet": "import receitas                                    # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 927,
+        "snippet": "CONTRATOS_MJS = os.path.join(RAIZ, 'regras', 'italy_contracts.mjs')"
       }
     },
     {
@@ -82162,7 +82187,7 @@
     "system-map/scripts/censo_das_estradas_it.py": [
       {
         "pasta": "system-map",
-        "line": 1179,
+        "line": 1221,
         "constante": "SAIDA"
       }
     ],
@@ -82238,10 +82263,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2825,
+    "files_tracked": 2827,
     "files_readable": 1283,
     "files_code_dir": 1122,
-    "file_edges": 5625,
+    "file_edges": 5626,
     "escritas_em_pasta": 84,
     "declared_missing_here": 0
   },
