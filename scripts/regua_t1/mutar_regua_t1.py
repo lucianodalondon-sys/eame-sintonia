@@ -15,10 +15,10 @@ import sys
 R = sys.argv[1]
 F = os.path.join(R, "admissao", "admissao.py")
 M = [
-    ("um_so_momento", "        if tem_cultura and len(achadas) >= SINAIS_MINIMOS:\n",
-     "        if tem_cultura and len(achadas) >= 1:\n"),
-    ("cultura_dispensada", "        if tem_cultura and len(achadas) >= SINAIS_MINIMOS:\n",
-     "        if len(achadas) >= SINAIS_MINIMOS:\n"),
+    ("um_so_momento", "        if tem_cultura and len(achadas) >= SINAIS_MINIMOS and not _momento_de_passagem(",
+     "        if tem_cultura and len(achadas) >= 1 and not _momento_de_passagem("),
+    ("cultura_dispensada", "        if tem_cultura and len(achadas) >= SINAIS_MINIMOS and not _momento_de_passagem(",
+     "        if len(achadas) >= SINAIS_MINIMOS and not _momento_de_passagem("),
     ("metade_vira_nao", "            return NAO_SEI, (\n                f\"{falta}: «{universo}» (D29) pede uma cultura",
      "            return NAO, (\n                f\"{falta}: «{universo}» (D29) pede uma cultura"),
     ("t1_nao_transversal", 'TRANSVERSAIS = frozenset({"T2", "T1"})', 'TRANSVERSAIS = frozenset({"T2"})'),
