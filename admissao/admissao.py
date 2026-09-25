@@ -1755,6 +1755,7 @@ JA_TEM_CAMPO_PROPRIO_NO_READY = (
     "source_location", "fact_location", "fact_time",
     "fact_time_basis", "fact_location_basis",
     "published_at", "observed_at", "captured_at",
+    "published_at_basis", "source_location_basis",
     "source_declared_evidence_class",
     "raw_asset_id",
     # `data` NAO entra no envelope: e o campo generico que a `_tem_quando`
@@ -1829,6 +1830,13 @@ def envelope_do_fato(item: dict, est: str):
 # resposta esta PROVADA, se foi CALCULADA (data relativa contada a partir da
 # publicacao provada — D63) ou se e NAO SEI.
 COMPLETUDE_PROVADA, COMPLETUDE_CALCULADA = "PROVADA", "CALCULADA"
+# O default da coluna `completude_tempo_lugar` (migration 033), BYTE A BYTE
+# `json.dumps(COMPLETUDE_NAO_MEDIDA, sort_keys=True, ensure_ascii=False)`:
+# uma linha pousada antes da 033 diz «nao medido», e nao «nada provado».
+COMPLETUDE_NAO_MEDIDA = {
+    "PUBLICACAO": AUSENCIA, "LOCAL_DA_FONTE": AUSENCIA,
+    "DATA_DO_FATO": AUSENCIA, "LOCAL_DO_FATO": AUSENCIA, "PROVADAS": AUSENCIA,
+    "ORIGEM": "pousado antes da migration 033: a completude nao foi medida"}
 QUATRO_DO_TEMPO_E_LUGAR = (("PUBLICACAO", "PUBLISHED_AT", None),
                            ("LOCAL_DA_FONTE", "SOURCE_LOCATION", None),
                            ("DATA_DO_FATO", "FACT_TIME", "FACT_TIME_BASIS"),
@@ -1851,7 +1859,11 @@ def completude_tempo_lugar(ready: dict) -> dict:
         else:
             fora[nome] = COMPLETUDE_PROVADA
     fora["PROVADAS"] = sum(1 for n, _, _ in QUATRO_DO_TEMPO_E_LUGAR if fora[n] != AUSENCIA)
-    return fora
+    # ⚠️ CHAVES ORDENADAS, pela razao do `envelope_do_fato`: a Sala guarda isto
+    # como JSON com `sort_keys`, e `impressao_da_corrida` assina o corpo pela
+    # ordem das chaves. Medido (test_migracao_033_sala, teste 3): com a ordem
+    # de montagem, reler e repousar a MESMA corrida dava RUN_ID_CONFLICT.
+    return {k: fora[k] for k in sorted(fora)}
 
 
 def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
@@ -1918,7 +1930,7 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
         v = item.get(chave)
         return AUSENCIA if v is None or str(v).strip() == "" else v
 
-    return {
+    ready = {
         "ESTADO": "PRONTO_PARA_INTELIGENCIA",
         "ITEM_ID": decisao.item,
         "RAW_OBSERVATION_ID": AUSENCIA if observacao is None else observacao,
@@ -1957,6 +1969,13 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
         # mesma resposta — e nao sao (COL-LAW-031).
         "PUBLISHED_AT": _ou_nao_sei("published_at"),
         "OBSERVED_AT": _ou_nao_sei("observed_at"),
+        # ── 033 · A BASE DOS OUTROS DOIS VALORES, E O GRAU DE PRECISAO ──────
+        # TEMPO-E-LUGAR (D61): o VALOR de `published_at` e de `source_location`
+        # chegava e a BASE parava aqui. D62: a completude diz, das quatro, quais
+        # estao provadas — calculada no fim, sobre este mesmo dicionario.
+        "PUBLISHED_AT_BASIS": _ou_nao_sei("published_at_basis"),
+        "SOURCE_LOCATION_BASIS": _ou_nao_sei("source_location_basis"),
+        "COMPLETUDE_TEMPO_LUGAR": None,
         # ── A ESPECIE PROBATORIA, DECLARADA PELA FONTE ──────────────────────
         # ⚠️ O NOME E LONGO DE PROPOSITO, E NAO SE ENCURTA.
         # Os 13 contratos de fonte italianos declaram `EVIDENCE_CLASS` ANTES de
@@ -1982,6 +2001,10 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
         "CORRIDA": decisao.corrida,
         "ADMITIDO_POR": f"{decisao.regra} v{decisao.versao}",
     }
+    # ⚠️ A CHAVE JA ESTA NO SITIO CERTO: `impressao_da_corrida` assina o corpo
+    # pela ORDEM das chaves, e a ordem e a de `sala_de_espera.CAMPOS_READY`.
+    ready["COMPLETUDE_TEMPO_LUGAR"] = completude_tempo_lugar(ready)
+    return ready
 
 
 if __name__ == "__main__":
