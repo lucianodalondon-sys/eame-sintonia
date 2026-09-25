@@ -16,8 +16,8 @@ Funcao PURA (sem rede, sem banco, sem ficheiros): recebe o texto de UM documento
                              com «+CALCULADA» quando a data veio da conta a partir da publicacao
     fact_time_calculo        RELATIVA_A_PUBLICACAO quando a data foi CALCULADA; NAO_SE_APLICA nos outros casos
     fact_time_evidencia      quando CALCULADA: a expressao, o trecho e a conta; NAO_SE_APLICA nos outros casos
-                             (DA-7: com a data calculada, fact_time_basis e SO a palavra —
-                             PUBLISHED_AT_COM_PROVA se a conta deu o dia da publicacao, RELATIVA_A_PUBLICACAO se nao)
+                             (D69: com a data calculada, fact_time_basis e SO «RELATIVA_A_PUBLICACAO», e o valor
+                             e sempre um intervalo ISO — um dia calculado e «AAAA-MM-DD/AAAA-MM-DD»)
     EVIDENCIA                tudo estruturado: todos os lugares de todos os tipos, os tempos,
                              as EXPRESSOES RELATIVAS encontradas e a publicacao, SEPARADA
 
@@ -62,7 +62,6 @@ NAO_SEI = "NAO SEI"
 SEP = " ; "
 CAMPO, EVENTO, MERCADO = "CAMPO", "EVENTO", "MERCADO"
 RELATIVA = "RELATIVA_A_PUBLICACAO"
-PUBLICADO_COM_PROVA = "PUBLISHED_AT_COM_PROVA"   # a palavra exata que `leis/artefato.py::conferir` le (DA-7)
 NAO_SE_APLICA = "NAO_SE_APLICA"
 # o mesmo tipo, dito no vocabulario da lei (`lugar_do_fato.PAPEIS_NO_CONTEUDO`)
 PAPEL_NA_LEI = {CAMPO: "FACT", EVENTO: "EVENT", MERCADO: "AREA_COMERCIAL"}
@@ -142,12 +141,21 @@ def _regra(expr: str):
     return ("SEM_MEDIDA", None)
 
 
+def _um_dia(d: date) -> str:
+    """D69: o dia CALCULADO escreve-se como o intervalo desse dia, «2026-09-21/2026-09-21» — o padrao
+    que o projeto ja usa (`leis/calendario_handoff.py`: DATE_EXACT «EXIBIR_COMO intervalo de datas»; a
+    tabela do calendario guarda data_inicio/data_fim; as semanas e meses daqui ja sao «inicio/fim»).
+    «oggi» e o DIA do facto, nao a copia do instante de publicacao: por isso nunca se escreve igual a
+    PUBLISHED_AT, e a lei `leis/artefato.py::conferir` fica como esta."""
+    return "%s/%s" % (d.isoformat(), d.isoformat())
+
+
 def conta_relativa(expr: str, pub: date):
     """(valor, resolucao) a partir da publicacao provada; None se a expressao nao tem medida.
     Intervalo em ISO 8601 «inicio/fim». Nunca inventa um dia dentro de um intervalo."""
     tipo, n = _regra(expr)
     if tipo == "DIA":
-        return (pub + timedelta(days=n)).isoformat(), "DATE_EXACT"
+        return _um_dia(pub + timedelta(days=n)), "DATE_EXACT"
     if tipo == "SEMANA":
         seg = pub - timedelta(days=pub.weekday()) + timedelta(weeks=n)
         return "%s/%s" % (seg.isoformat(), (seg + timedelta(days=6)).isoformat()), "WEEK"
@@ -159,7 +167,7 @@ def conta_relativa(expr: str, pub: date):
     if tipo == "DIA_DA_SEMANA":
         alvo = next(i for i, d in enumerate(_DIAS_RAIZ) if d in expr.lower())
         atras = (pub.weekday() - alvo) % 7 or 7          # «lunedì scorso» dito numa segunda = a segunda anterior
-        return (pub - timedelta(days=atras)).isoformat(), "DATE_EXACT"
+        return _um_dia(pub - timedelta(days=atras)), "DATE_EXACT"
     return None
 
 
@@ -468,16 +476,15 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
         tempo = {"VALOR": e["VALOR"], "KIND": EVENTO, "ORIGEM": "ESCRITO_NO_TEXTO", "RESOLUCAO": e["RESOLUCAO"],
                  "ANCORA": e["ANCORA"], "TRECHO": e["TRECHO"]}
     tempo = tempo or _rel_de(EVENTO)
-    # DA-7: quando a data e CALCULADA, fact_time_basis leva SO a palavra que a lei le
-    # (`leis/artefato.py::conferir`, linha 352) e o como/porque vai para dois campos proprios.
+    # D69 (corrige a DA-7): quando a data e CALCULADA, fact_time_basis = RELATIVA_A_PUBLICACAO, SEMPRE —
+    # tambem para «oggi» marcado. PUBLISHED_AT_COM_PROVA afirmaria «o mesmo instante», o que nao foi provado.
+    # O como/porque (expressao, conta, trecho) vai para fact_time_calculo / fact_time_evidencia.
     fact_time_calculo = fact_time_evidencia = NAO_SE_APLICA
     if tempo:
         fact_time, fact_time_kind = tempo["VALOR"], tempo["KIND"]
         fact_time_precision = tempo["RESOLUCAO"] + ("+CALCULADA" if tempo.get("CALCULADA") else "")
         if tempo.get("CALCULADA"):
-            # A conta deu o PROPRIO dia da publicacao («oggi, lunedì»): a lei so aceita FACT_TIME ==
-            # PUBLISHED_AT com a base exata PUBLISHED_AT_COM_PROVA. Outro dia/intervalo: RELATIVA_A_PUBLICACAO.
-            fact_time_basis = PUBLICADO_COM_PROVA if fact_time == pub.isoformat() else RELATIVA
+            fact_time_basis = RELATIVA
             fact_time_calculo = RELATIVA
             fact_time_evidencia = ("%s · %s · «%s» contado a partir da publicação provada %s (%s) · «%s»"
                                    % (tempo["KIND"], fact_time_precision, tempo["EXPRESSAO"], pub.isoformat(),
