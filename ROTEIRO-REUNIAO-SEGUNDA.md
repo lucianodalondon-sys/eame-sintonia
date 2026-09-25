@@ -48,12 +48,14 @@ não tem tela; vou mostrar os números diretamente no banco.»*
 | corrida (25/09) | fontes | resultado | entraram na Sala | Sala |
 |---|---:|---|---:|---|
 | MICRO-V3, 08:03–08:08 | 6 | 6/6 correram · **2 SIM** / 8 NÃO / 6 NÃO SEI (16 documentos) = 33,3 % → passou o portão (> 16,7 %) | 2 (myfruit) | 69 → 71 |
-| 2.ª onda web, 08:12–08:25 | 28 | 20 correram · 7 adiadas pelo teto de 5 pedidos por site · 1 falhou · **7 SIM** / 13 NÃO / 13 NÃO SEI | 7: institutos de pesquisa — **ENEA 3, CREA 2, CNR 1**, e **ARPA Marche 1** | 71 → 78 |
+| 2.ª onda web, 08:12–08:25 | 28 | 20 correram · 7 não correram (teto de 5 pedidos por site) · 1 falhou · **7 SIM** / 13 NÃO / 13 NÃO SEI | 7: institutos de pesquisa — **ENEA 3, CREA 2, CNR-IBBA 1**, e **ARPA Marche 1** | 71 → 78 |
+| MICRO de verificação, 18:43–18:50 | 5 | 5/5 correram · os 2 itens novos já chegam com data de publicação, a prova e a precisão (INSTANTE); o do CNR-IBBA traz o lugar do fato (Piemonte) | 2 | 78 → 80 |
 
 - DO HANDOFF (linhas 325, 328). A 2.ª onda foi **aprovada pelo dono (D60)**, com 1 NÃO SEI definitivo:
   a fonte IT-T2-050 falhou sem deixar linha no livro.
-- ⚠️ A `TRAVA-POS-ONDA2.md` conta a mesma onda como **19 correram / 8 adiadas**. NÃO SEI qual está certa.
-- Frase: *«Hoje a máquina foi a 34 fontes e pôs 9 documentos novos na sala de espera. A maior parte veio
+- **20 correram é o número certo** (MEDIDO em `ondas/ONDA2-WEB-20260925-0812/ONDA-WEB-ESTADO.json`: 20 SUCCESS · 1 FAILED · 7 sem STATUS = não correram). A `TRAVA-POS-ONDA2.md` (19 / 8) está errada.
+- Os 7 SIM por fonte (MEDIDO): IT-T5-185 = ENEA 3 · IT-T5-167 = CREA 2 · IT-T5-160 = CNR-IBBA 1 · IT-T2-034 = ARPA Marche 1 (domínio do arquivo guardado na Sala).
+- Frase: *«Hoje a máquina foi a 34 fontes nas duas corridas da manhã e pôs 9 documentos novos na sala de espera; à tarde, a verificação pôs mais 2. A maior parte veio
   de institutos de pesquisa.»*
 
 ### Min 5–7 · Data e lugar, instalados hoje (DE HOJE) — **mostrar ao vivo (§2)**
@@ -61,19 +63,19 @@ não tem tela; vou mostrar os números diretamente no banco.»*
 - Às 17:10 instalado o PACOTE-TEMPO-LUGAR (`e5cd691f`, D74). A migração 033 pôs na Sala um
   **caderno de revisões que só acrescenta**: o original fica intacto; cada correção é uma linha nova;
   o banco **recusa** apagar ou alterar uma revisão.
-- Hoje, nos **78** itens da Sala (MEDIDO por SELECT):
+- Hoje, nos **80** itens da Sala (MEDIDO por SELECT, depois da MICRO de verificação):
 
 | pergunta | itens com resposta | ainda «NÃO SEI» |
 |---|---:|---:|
-| quando foi publicado | **36 / 78** | 42 |
-| onde fica a fonte | **5 / 78** | 73 |
-| quando foi o fato | **18 / 78** | 60 |
-| onde foi o fato | **13 / 78** | 65 |
+| quando foi publicado | **38 / 80** | 42 |
+| onde fica a fonte | **5 / 80** | 75 |
+| quando foi o fato | **18 / 80** | 62 |
+| onde foi o fato | **14 / 80** | 66 |
 
-- Revisões no caderno: **478** (MEDIDO: 85 local do fato · 85 completude · 85 evidência ·
+- Revisões no caderno às ~18h, antes da MICRO de verificação: **478** (MEDIDO: 85 local do fato · 85 completude · 85 evidência ·
   80 data do fato · 78 local da fonte · 65 publicação). ⚠️ O coordenador passou **468**; o HANDOFF dá
   455 (1.ª passada) **+23** (2.ª rodada) = **478**, que é o que o banco devolve.
-- Frase: *«De manhã eram zero em 78. Agora sabemos a data de publicação de 36 e o lugar do fato de 13.
+- Frase: *«De manhã eram zero em 78. Agora, em 80, sabemos a data de publicação de 38 e o lugar do fato de 14.
   Onde não há prova continua escrito "não sei" — nada é inventado.»*
 
 ### Min 7–9 · A trava da Intelligence e o que falta (DE HOJE)
@@ -101,10 +103,10 @@ não tem tela; vou mostrar os números diretamente no banco.»*
 - Frase: *«A inteligência está desligada de propósito. Só liga com os 14 pontos cumpridos.»*
 
 ### Min 9–10 · Próxima coleta e fecho
-- Caminho (DO HANDOFF, linha 390, números **aproximados**): MICRO de verificação (sem ondas) →
+- Caminho (DO HANDOFF, linha 390, números **aproximados**): MICRO de verificação (**feita**, 18:43–18:50, 5/5) →
   instalar a 3.ª onda ajustada → congelar a lista (**~60 fontes**) → 3.ª onda (**~36 correm**,
   ~150 pedidos, no máximo 5 por site) → onda social à parte.
-- Fecho: *«Hoje a Sala foi de 69 para 78 e ganhou data e lugar. A seguir: mais fontes, e depois fechar
+- Fecho: *«Hoje a Sala foi de 69 para 80 e ganhou data e lugar. A seguir: mais fontes, e depois fechar
   a trava. Só então o portal passa a mostrar o que é de hoje.»*
 
 ---
@@ -133,7 +135,7 @@ select count(*) as itens,
   count(*) filter (where revisoes > 0)                 as com_revisao
 from sala_de_espera_atual;
 ```
-Resultado em 25/09, depois das 17:10: `78 | 36 | 5 | 18 | 13 | 78`
+Resultado em 25/09, depois das 17:10: `78 | 36 | 5 | 18 | 13 | 78`. Depois da MICRO de verificação (18:50): `80 | 38 | 5 | 18 | 14` (MEDIDO).
 
 **Consulta 2 — o caderno de revisões (só acrescenta)**
 ```sql
@@ -155,8 +157,19 @@ Mostra 13 linhas. Exemplo real: IT-T10-018 · 2026-09-23 · Firenze · a frase *
 Frutti a Firenze che, oggi 23 settembre 2026, …»*.
 
 ⚠️ **O que a consulta 3 também mostra, e é preciso dizer antes que perguntem:**
-- **IT-T5-015** e **IT-T5-030** aparecem **duas vezes cada**, com o mesmo texto: o mesmo documento
-  entrou duas vezes na Sala. É defeito, não enfeite. NÃO SEI a causa; não investiguei.
+- **IT-T5-015** e **IT-T5-030** aparecem **duas vezes cada**, com o mesmo texto. MEDIDO: a Sala tem
+  **80 linhas e só 65 textos diferentes** — 15 linhas a mais, todas de 18–20/09, **nenhuma das corridas
+  de 25/09**. Três tipos:
+  - **6 pares — mesmo documento, mesmo bruto (sha igual), mesmo `item_id`**: IT-T3-002, IT-T5-015,
+    IT-T5-024, IT-T5-028, IT-T5-033, IT-T9-011. Pousaram **antes** da regra «um documento = uma linha»
+    (commit `f2d5217b`, 23/09), que hoje os barraria (`admissao/sala_de_espera.py:780`).
+  - **4 pares — mesmo endereço e mesmo texto, mas o bruto mudou uns bytes (sha diferente) e ganhou
+    outro `item_id`**: IT-T5-025, IT-T5-027, IT-T5-030, IT-T7-013. **A regra de hoje não os barra**:
+    ela compara o `item_id`, que é o número do derivado, e não o documento.
+  - **1 página com 6 linhas**: `georgofili.it/elenco-atti-georgofili` está registada como **3 fontes**
+    (IT-T5-034/035/036), 2 corridas cada. É uma página de lista, não uma matéria.
+  - Frase: *«Há 15 linhas repetidas, de antes de 23/09. Ficam lá, porque a Sala não apaga; a regra nova
+    impede parte delas, e a outra parte ainda está por consertar.»*
 - **IT-T5-090** traz congressos de **2013 e 2023**: página de arquivo, não notícia de agora.
 - **IT-T5-030** é um seminário de cibersegurança em Teramo: tem data e lugar certos, mas **não é agro**.
 - Frase: *«O sistema agora diz de onde tirou cada data e cada lugar. Por isso também vemos o que ainda
@@ -185,8 +198,7 @@ Frutti a Firenze che, oggi 23 settembre 2026, …»*.
 
 | # | o quê | por quê |
 |---|---|---|
-| 1 | consulta 1 | a MICRO de verificação pode ter posto mais itens na Sala (o robô está ligado) |
-| 2 | 2.ª onda: 20 ou 19 correram | o HANDOFF e a TRAVA não batem |
-| 3 | 468 ou 478 revisões | o banco devolveu 478 às ~18h de 25/09 |
-| 4 | site público ainda é `27b9e674` | se alguém publicar a linha nova, a página `/casa` volta a ficar pública |
-| 5 | pontos da trava depois da 033 | a contagem 4/8/2 é de antes da data/local |
+| 1 | consulta 1 | eram 80 às 18:50; o robô está ligado |
+| 2 | total de revisões depois da MICRO de verificação | era 478 antes dela; não re-medi |
+| 3 | site público ainda é `27b9e674` | se alguém publicar a linha nova, a página `/casa` volta a ficar pública |
+| 4 | pontos da trava depois da 033 | a contagem 4/8/2 é de antes da data/local |
