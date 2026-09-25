@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "pacote-tempo-lugar-v1",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
-    "GENERATED_AT": "2026-09-25T16:40:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681"
+    "BRANCH": "claude/quatro-chaves-sala-9h1hk1",
+    "HEAD": "f960096fd0d3835050fa2da69ddc959863d02ea6",
+    "GENERATED_AT": "2026-09-25T21:52:22+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8c3728f79ce2c84423c6572496d3eff0bd746a4333a4b0f122efb893f87bb8eb"
   },
   "FILES": [
     {
@@ -199,7 +199,7 @@
     },
     {
       "path": "BIBLIA-CANONICA-DA-COLETA.md",
-      "sha": "070ebcc6445bde85992570e6498744cc1bc025c4",
+      "sha": "f72baf4e591abde25fa0e7534d28ecff4c28d778",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -808,7 +808,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "c119691dbd9e07aaead5c7545c04ac40f8bb4994",
+      "sha": "3554b54f8d39e2a03c637cf17712889b56ba4e68",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -829,7 +829,7 @@
     },
     {
       "path": "admissao/sala_de_espera.py",
-      "sha": "40cd7f7ee0b0d3c60024af6a078e9ba3fdc43c58",
+      "sha": "f18ee6c14be50861716cbb4fbe84006ebd380d6e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5759,6 +5759,13 @@
       "path": "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "sha": "0a3de40749adb52995ca8bce32e0ae92acdcb030",
       "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/QUATRO-CHAVES-NA-SALA/mutacao.py.txt",
+      "sha": "f28e5ae1bf2798beaa025b83253074b74dd5907f",
+      "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
@@ -20030,7 +20037,7 @@
     },
     {
       "path": "tests/test_a_linhagem_do_ready.py",
-      "sha": "58dede0b688493f016f216b5034c7fc35bac7e4c",
+      "sha": "b5f09166d3c83ae4967252f5b66970f3e4a4007f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21368,6 +21375,20 @@
     {
       "path": "tests/test_quarentena_naosei.py",
       "sha": "4ecf94f0b03dfe4509505317ecc77cc26564e41a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_quatro_chaves.py",
+      "sha": "1854023280bc8a268e0aa324e44e8020bc48cecd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_quatro_chaves_na_sala.py",
+      "sha": "a40b5078a93c5646ba3898eae3a9a9ed20c4b661",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23226,7 +23247,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 1491,
+        "line": 1503,
         "snippet": "_sp = _iu.spec_from_file_location(\"admissao_idioma\", Path(__file__).resolve().parent / \"idioma.py\")"
       }
     },
@@ -70262,7 +70283,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_linhagem_do_ready.py",
-        "line": 95,
+        "line": 99,
         "snippet": "\"admissao.py\")))"
       }
     },
@@ -70273,7 +70294,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_linhagem_do_ready.py",
-        "line": 172,
+        "line": 176,
         "snippet": "fonte = _fonte(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))"
       }
     },
@@ -84589,6 +84610,105 @@
       }
     },
     {
+      "from_file": "tests/test_quatro_chaves.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_quatro_chaves.py",
+        "line": 34,
+        "snippet": "import admissao as A  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_quatro_chaves_na_sala.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_quatro_chaves_na_sala.py",
+        "line": 52,
+        "snippet": "import _gavetas                          # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_quatro_chaves_na_sala.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_quatro_chaves_na_sala.py",
+        "line": 53,
+        "snippet": "import admissao as A                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_quatro_chaves_na_sala.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_quatro_chaves_na_sala.py",
+        "line": 262,
+        "snippet": "fonte = (RAIZ / \"admissao\" / \"admissao.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_quatro_chaves_na_sala.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_quatro_chaves_na_sala.py",
+        "line": 54,
+        "snippet": "import sala_de_espera as espera          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_quatro_chaves_na_sala.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_quatro_chaves_na_sala.py",
+        "line": 275,
+        "snippet": "for rel in (\"admissao/admissao.py\", \"admissao/sala_de_espera.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_quatro_chaves_na_sala.py",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_quatro_chaves_na_sala.py",
+        "line": 127,
+        "snippet": "r = subprocess.run([shutil.which(\"bash\") or \"bash\", \"motor/cadeia_canonica.sh\","
+      }
+    },
+    {
+      "from_file": "tests/test_quatro_chaves_na_sala.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_quatro_chaves_na_sala.py",
+        "line": 57,
+        "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_quatro_chaves_na_sala.py",
+      "to_file": "supabase/migrations/033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_quatro_chaves_na_sala.py",
+        "line": 63,
+        "snippet": "MIGRATION = RAIZ / \"supabase\" / \"migrations\" / \"033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql\""
+      }
+    },
+    {
       "from_file": "tests/test_radar_futuro.py",
       "to_file": "data/samples/DESIGN-DATA-CONTRACT-V1.json",
       "type": "READS",
@@ -89004,10 +89124,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3105,
-    "files_readable": 1390,
-    "files_code_dir": 1316,
-    "file_edges": 6060,
+    "files_tracked": 3108,
+    "files_readable": 1392,
+    "files_code_dir": 1318,
+    "file_edges": 6069,
     "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },

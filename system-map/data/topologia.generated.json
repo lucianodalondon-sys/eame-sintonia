@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T19:43:24+00:00",
-  "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
-  "BRANCH": "pacote-tempo-lugar-v1",
+  "GENERATED_AT": "2026-09-25T21:54:12+00:00",
+  "HEAD": "f960096fd0d3835050fa2da69ddc959863d02ea6",
+  "BRANCH": "claude/quatro-chaves-sala-9h1hk1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
-  "FICHEIROS_NA_IMPRESSAO": 3253,
+  "SOURCE_TREE_FINGERPRINT": "8c3728f79ce2c84423c6572496d3eff0bd746a4333a4b0f122efb893f87bb8eb",
+  "FICHEIROS_NA_IMPRESSAO": 3256,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -174,7 +174,7 @@
    {
     "PATH": "admissao/admissao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "c119691dbd9e07aaead5c7545c04ac40f8bb4994",
+    "VERSAO": "3554b54f8d39e2a03c637cf17712889b56ba4e68",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -195,7 +195,7 @@
    {
     "PATH": "admissao/sala_de_espera.py",
     "PAPEL": "FONTE",
-    "VERSAO": "40cd7f7ee0b0d3c60024af6a078e9ba3fdc43c58",
+    "VERSAO": "f18ee6c14be50861716cbb4fbe84006ebd380d6e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4129,14 +4129,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
+    "VERSAO": "8c3728f79ce2c84423c6572496d3eff0bd746a4333a4b0f122efb893f87bb8eb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
+    "VERSAO": "8c3728f79ce2c84423c6572496d3eff0bd746a4333a4b0f122efb893f87bb8eb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4479,7 +4479,7 @@
    {
     "PATH": "tests/test_a_linhagem_do_ready.py",
     "PAPEL": "FONTE",
-    "VERSAO": "58dede0b688493f016f216b5034c7fc35bac7e4c",
+    "VERSAO": "b5f09166d3c83ae4967252f5b66970f3e4a4007f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5821,6 +5821,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_quatro_chaves.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "1854023280bc8a268e0aa324e44e8020bc48cecd",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_quatro_chaves_na_sala.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a40b5078a93c5646ba3898eae3a9a9ed20c4b661",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_radar_futuro.py",
     "PAPEL": "FONTE",
     "VERSAO": "f844094a28cf69ca1b986b666d4ebd3a88ad0e9d",
@@ -6185,8 +6199,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 878,
-  "INPUTS_DIGEST": "c46928a236c21de4a12cb317972033dd6a157a31bd44ad345bb8e2fe964c9c48",
+  "INPUTS_COUNT": 880,
+  "INPUTS_DIGEST": "7d284a886aafbe93ca0e197999ffc6c6343627c88823ed7ee3d4ff8b9e0e8700",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6219,8 +6233,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "efcaf4ac0fba815b598b328bef74ace62f9d632c221ee4ef30623dadfe7fbb3f",
-  "SEMANTIC_HASH": "abf5ef61a771dbca21ae10e19501a10ccbf28a130e6816cfc5b1c1bf55e06b86"
+  "MEASUREMENT_HASH": "bcd3a894392f0d0011c7e5f9ae58c6806558668ab32d04d1485c1be0fa091fdf",
+  "SEMANTIC_HASH": "470c49cd5d5e3cd793fe6374b366b73d12d37afde4cbf472746cde5897650c56"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -8198,7 +8212,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "admissao/admissao.py",
-      "LINHA": 1886,
+      "LINHA": 2065,
       "SUPPORTS": "NO",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -8584,7 +8598,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_linhagem_do_ready.py",
-      "LINHA": 95,
+      "LINHA": 99,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
@@ -8617,6 +8631,14 @@
      {
       "FICHEIRO": "tests/test_politica_nao_sei.py",
       "LINHA": 52,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_quatro_chaves_na_sala.py",
+      "LINHA": 262,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
@@ -11413,6 +11435,14 @@
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
       "LINHA": 149,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CADEIA-V21--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_quatro_chaves_na_sala.py",
+      "LINHA": 127,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CADEIA-V21--READS-->C-TESTES",
@@ -23054,7 +23084,7 @@
      },
      {
       "FICHEIRO": "tests/test_a_linhagem_do_ready.py",
-      "LINHA": 172,
+      "LINHA": 176,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -32342,6 +32372,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_quatro_chaves_na_sala.py",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_sala_idempotente_por_documento.py",
       "LINHA": 35,
       "SUPPORTS": "YES",
@@ -41004,6 +41042,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_quatro_chaves_na_sala.py",
+      "LINHA": 54,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_sala_duravel.py",
       "LINHA": 31,
       "SUPPORTS": "YES",
@@ -41204,6 +41250,14 @@
      {
       "FICHEIRO": "tests/test_psql_argv.py",
       "LINHA": 249,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_quatro_chaves_na_sala.py",
+      "LINHA": 275,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
@@ -49384,6 +49438,8 @@
     "tests/test_medir_admission_t3_atual.py",
     "tests/test_observabilidade_estrada.py",
     "tests/test_politica_nao_sei.py",
+    "tests/test_quatro_chaves.py",
+    "tests/test_quatro_chaves_na_sala.py",
     "tests/test_reel_transcricao_trava.py",
     "tests/test_relevance_priority_sobrecarga.py"
    ],
@@ -49969,7 +50025,8 @@
     "tests/test_migracao_033_sala.py",
     "tests/test_migrations.py",
     "tests/test_porta_de_producao.py",
-    "tests/test_prioridade_comercial.py"
+    "tests/test_prioridade_comercial.py",
+    "tests/test_quatro_chaves_na_sala.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "HANDOFF-BUILD-DA-REUNIAO.md",
@@ -53826,6 +53883,7 @@
     "tests/test_micro_coleta_instrumento.py",
     "tests/test_micro_rede_real.py",
     "tests/test_migracao_033_sala.py",
+    "tests/test_quatro_chaves_na_sala.py",
     "tests/test_sala_idempotente_por_documento.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -57293,6 +57351,7 @@
     "tests/test_o_mapa_da_intelligence_nao_mente.py",
     "tests/test_preflight_de_egresso.py",
     "tests/test_psql_argv.py",
+    "tests/test_quatro_chaves_na_sala.py",
     "tests/test_sala_duravel.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -58101,6 +58160,7 @@
     "tests/test_o_raw_fala.py",
     "tests/test_porta_de_producao.py",
     "tests/test_preservar_coleta.py",
+    "tests/test_quatro_chaves_na_sala.py",
     "tests/test_sala_duravel.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -58425,6 +58485,8 @@
     "tests/test_psql_argv.py",
     "tests/test_qualidade_t3.py",
     "tests/test_quarentena_naosei.py",
+    "tests/test_quatro_chaves.py",
+    "tests/test_quatro_chaves_na_sala.py",
     "tests/test_radar_futuro.py",
     "tests/test_rastro_pg.py",
     "tests/test_raw_observation_id_volta.py",
