@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "juncao",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
-    "GENERATED_AT": "2026-09-25T02:36:19-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b"
+    "BRANCH": "prova-teto-v1",
+    "HEAD": "1eeb0b6137e45705d2c35650378934d7dad523e8",
+    "GENERATED_AT": "2026-09-25T06:55:35-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8cf9ee151a89a58a080e30ff4d963f4e418b8fefbf5c693ae0a54d6312d15aec"
   },
   "FILES": [
     {
@@ -543,6 +543,13 @@
     {
       "path": "RELATORIO-PROPOSTA-CATALOGO.md",
       "sha": "481c0c04d9e8eefb8c2fa36d365f7591830e2814",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-PROVA-TETO-DOMINIO.md",
+      "sha": "bb03399eae674587aee11fe504ce402fbebd5c3f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10754,6 +10761,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/big_collection/BC5-1A-ONDA-LIVRO-DE-CORRIDAS.ndjson",
+      "sha": "6f310cfee82db274faeaf93c96d328531c8da6ba",
+      "ext": ".ndjson",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
       "sha": "5de283160b227138bc2512a923fc49f1135a3cc4",
       "ext": ".json",
@@ -15542,6 +15556,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/prova_teto_dominio.py",
+      "sha": "086955e53ce19524fd07733fc0eaf2c2a34aa3dd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/qualidade_t3.py",
       "sha": "9c9993cdb346f32f9ab61cc47a51a4872564d82a",
       "ext": ".py",
@@ -18105,7 +18126,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c857091cb6fa4de1b85d3eae85bebe84065bbfd9",
+      "sha": "8fa3354ea6ba4a40160303be967da9e3f0db8613",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19870,6 +19891,13 @@
     {
       "path": "tests/test_proposta_catalogo.py",
       "sha": "12af949919c6a13e1eb8860330520d0d05b1e8bb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_prova_teto_dominio.py",
+      "sha": "4e623f4d9cfd03cdcae8566ccbef9bf3d1998108",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -57594,6 +57622,28 @@
       }
     },
     {
+      "from_file": "provas/prova_teto_dominio.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/prova_teto_dominio.py",
+        "line": 168,
+        "snippet": "ap.add_argument(\"--contratos-mjs\", default=\"regras/italy_contracts.mjs\")"
+      }
+    },
+    {
+      "from_file": "provas/prova_teto_dominio.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/prova_teto_dominio.py",
+        "line": 167,
+        "snippet": "ap.add_argument(\"--contratos-json\", default=\"regras/italy_contracts_onboarded.json\")"
+      }
+    },
+    {
       "from_file": "provas/qualidade_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -79484,6 +79534,39 @@
       }
     },
     {
+      "from_file": "tests/test_prova_teto_dominio.py",
+      "to_file": "ferramentas/big_collection/BC5-1A-ONDA-LIVRO-DE-CORRIDAS.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_prova_teto_dominio.py",
+        "line": 32,
+        "snippet": "with open(LIVRO_1A, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_prova_teto_dominio.py",
+      "to_file": "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_prova_teto_dominio.py",
+        "line": 30,
+        "snippet": "with open(ONDA_1A, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_prova_teto_dominio.py",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_prova_teto_dominio.py",
+        "line": 11,
+        "snippet": "import prova_teto_dominio as T  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_proveniencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -83749,10 +83832,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2888,
-    "files_readable": 1310,
-    "files_code_dir": 1185,
-    "file_edges": 5721,
+    "files_tracked": 2892,
+    "files_readable": 1312,
+    "files_code_dir": 1188,
+    "file_edges": 5726,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

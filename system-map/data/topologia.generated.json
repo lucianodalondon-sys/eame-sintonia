@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T05:40:33+00:00",
-  "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
-  "BRANCH": "juncao",
+  "GENERATED_AT": "2026-09-25T10:05:09+00:00",
+  "HEAD": "1eeb0b6137e45705d2c35650378934d7dad523e8",
+  "BRANCH": "prova-teto-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
-  "FICHEIROS_NA_IMPRESSAO": 3036,
+  "SOURCE_TREE_FINGERPRINT": "8cf9ee151a89a58a080e30ff4d963f4e418b8fefbf5c693ae0a54d6312d15aec",
+  "FICHEIROS_NA_IMPRESSAO": 3040,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3154,6 +3154,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/prova_teto_dominio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "086955e53ce19524fd07733fc0eaf2c2a34aa3dd",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/qualidade_t3.py",
     "PAPEL": "FONTE",
     "VERSAO": "9c9993cdb346f32f9ab61cc47a51a4872564d82a",
@@ -3856,14 +3863,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
+    "VERSAO": "8cf9ee151a89a58a080e30ff4d963f4e418b8fefbf5c693ae0a54d6312d15aec",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
+    "VERSAO": "8cf9ee151a89a58a080e30ff4d963f4e418b8fefbf5c693ae0a54d6312d15aec",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5415,6 +5422,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_prova_teto_dominio.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4e623f4d9cfd03cdcae8566ccbef9bf3d1998108",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_proveniencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "8fbd8182bac2783d806b77607fcfa5eaf58bc51e",
@@ -5758,8 +5772,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 817,
-  "INPUTS_DIGEST": "a454e43e79f3f7d9a70c6f6527f5db077e22ddc6a4c6a66159c2f9dafab0a36b",
+  "INPUTS_COUNT": 819,
+  "INPUTS_DIGEST": "d37e84236fc3855d940a1d4425dd27f94342a81cefe2020a33f9439154333246",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5785,15 +5799,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 504,
+  "DOCUMENTOS_LIDOS": 505,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0f6e4aaea3d47ee45d92f2c17c7eb663b694cf34c1d42537493954243f6f546e",
-  "SEMANTIC_HASH": "b6c16718fc491f8d0c4a8d5b144a5f95c91f344d38fd4d445d65119454c95c2e"
+  "MEASUREMENT_HASH": "9ffc2e9af321a386463620def38b56802144d8b70205232a20224bf1c911a829",
+  "SEMANTIC_HASH": "c25cb6587cc5ff5742332b35cff613404f41e33d8fc777b648efe5fb15cfb70c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5985,6 +5999,7 @@
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+   "C-PROVA-TETO-DOMINIO",
    "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
    "C-RECALL-PORTA-IT",
@@ -6000,7 +6015,7 @@
    "C-TESTES",
    "C-V21-INGEST"
   ],
-  "COUNT": 88
+  "COUNT": 89
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -6148,6 +6163,7 @@
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+   "C-PROVA-TETO-DOMINIO",
    "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
    "C-RASTRO",
@@ -6192,16 +6208,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 184
+  "COUNT": 185
  },
  "ARITMETICA": {
   "COLLECTION": 96,
-  "BOUNDARY": 88,
-  "SOMA": 184,
-  "EXPANDED": 184,
+  "BOUNDARY": 89,
+  "SOMA": 185,
+  "EXPANDED": 185,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 184,
+  "RESUMO_CARTOES_NO_UNIVERSO": 185,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -24429,6 +24445,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-PROVA-TETO-DOMINIO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/prova_teto_dominio.py",
+      "LINHA": 168,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-RECOLLECTION-CENSO",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-RECOLLECTION-CENSO",
@@ -27508,6 +27546,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-TETO-DOMINIO",
+    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+    "TO": "C-PROVA-TETO-DOMINIO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/prova_teto_dominio.py",
+      "LINHA": 167,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-TETO-DOMINIO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -33051,6 +33111,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-SCRAP-CHEGA-AO-ACERVO--READS-->C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-TESTES",
+    "FROM": "C-PROVA-TETO-DOMINIO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_prova_teto_dominio.py",
+      "LINHA": 11,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -43463,12 +43545,12 @@
     ]
    }
   ],
-  "COUNT": 1219
+  "COUNT": 1222
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 184,
-  "CARTOES_AUDITADOS": 184,
-  "ARESTAS_RELACIONADAS": 1219,
+  "CARTOES_NO_UNIVERSO": 185,
+  "CARTOES_AUDITADOS": 185,
+  "ARESTAS_RELACIONADAS": 1222,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43676,6 +43758,7 @@
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
+   "C-PROVA-TETO-DOMINIO",
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
    "C-RECALL-PORTA-IT",
    "C-RECEITAS-PROPOSTA",
@@ -43712,6 +43795,7 @@
    "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-SALA-ITALIANA",
+   "C-PROVA-TETO-DOMINIO",
    "C-RECALL-PORTA-IT",
    "C-RECONCILIAR-BYTES-BC4",
    "C-SAUDE-FONTE",
@@ -43833,6 +43917,9 @@
    "C-PROVA-RECOLLECTION": [
     "infra"
    ],
+   "C-PROVA-TETO-DOMINIO": [
+    "diagnostic"
+   ],
    "C-PROVENIENCIA": [
     "science"
    ],
@@ -43890,9 +43977,9 @@
    "CODE": 218,
    "CONTROL": 72,
    "DATA": 30,
-   "PROOF": 386,
+   "PROOF": 387,
    "READ": 287,
-   "RULE": 215,
+   "RULE": 217,
    "WRITE": 11
   },
   "GAPS_NOMEADOS": [
@@ -47607,6 +47694,7 @@
     "provas/cortesia_http_local.mjs",
     "provas/italy_pilot_negativos.mjs",
     "provas/paridade_duas_rodadas.mjs",
+    "provas/prova_teto_dominio.py",
     "provas/recollection_http_local.mjs",
     "provas/recollection_indice_local.mjs",
     "provas/recollection_timeout_local.mjs",
@@ -47636,7 +47724,7 @@
     "pathlib"
    ],
    "ENTRAM": 9,
-   "SAEM": 19,
+   "SAEM": 20,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -47781,6 +47869,7 @@
     "provas/o_raw_local_nao_e_duravel.py",
     "provas/paridade_duas_rodadas.mjs",
     "provas/primeira_coleta_controlada_italia.py",
+    "provas/prova_teto_dominio.py",
     "provas/recollection_http_local.mjs",
     "provas/recollection_indice_local.mjs",
     "provas/recollection_timeout_local.mjs",
@@ -48382,7 +48471,7 @@
     "urllib"
    ],
    "ENTRAM": 13,
-   "SAEM": 4,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -50758,6 +50847,42 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PROVA-TETO-DOMINIO",
+   "NOME": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/prova_teto_dominio.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_prova_teto_dominio.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [
+    "RELATORIO-PROVA-TETO-DOMINIO.md"
+   ],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [],
+   "ENTRAM": 2,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "diagnostic"
+   ],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
    "NOME": "As travas do acervo, e o que a repeticao do SCRAP revela",
    "FAMILIA": "F-GOVERNANCA",
@@ -52738,6 +52863,7 @@
     "tests/test_prioridade_comercial.py",
     "tests/test_prontidao_social_v1.py",
     "tests/test_proposta_catalogo.py",
+    "tests/test_prova_teto_dominio.py",
     "tests/test_proveniencia.py",
     "tests/test_psql_argv.py",
     "tests/test_qualidade_t3.py",
@@ -52912,7 +53038,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 204,
+   "ENTRAM": 205,
    "SAEM": 28,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
