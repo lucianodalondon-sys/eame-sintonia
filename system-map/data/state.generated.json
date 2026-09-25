@@ -2612,9 +2612,13 @@
       "scripts/receitas/provar_indices.py",
       "scripts/regua_fato/A-ROTULAR-FATO.json",
       "scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json",
+      "scripts/regua_fato/MEDICAO-FATO-GABARITO-V2.json",
       "scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json",
+      "scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V2.json",
       "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json",
+      "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V2.json",
       "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json",
+      "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V2.json",
       "scripts/regua_fato/PROPOSTA-TAXONOMIA-FACT-KIND.md",
       "scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md",
       "scripts/regua_fato/RELATORIO-REGUA-FATO.md",
@@ -2622,6 +2626,7 @@
       "scripts/regua_fato/medir_fato.py",
       "scripts/regua_fato/medir_sala_78.py",
       "scripts/regua_fato/mutar_tipo_do_fato.py",
+      "scripts/regua_fato/reetiquetar_v2.py",
       "scripts/regua_fato/rotulos/CORRECOES-GABARITO.json",
       "scripts/regua_fato/rotulos/rotulos-cega.json",
       "scripts/regua_fato/rotulos/rotulos-gabarito.json",
@@ -3625,9 +3630,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-fato-v1",
-    "HEAD": "520e3d3de3a5d33754001c71a52104e1a455cd18",
-    "GENERATED_AT": "2026-09-25T11:48:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "47bedc1a550375978918182ed666b59386b1c483d4326026fc5e5f64c466e35a"
+    "HEAD": "19b72fb0770849bae8c22e2134790bce2a2a12ef",
+    "GENERATED_AT": "2026-09-25T14:40:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "5d80ad2c24d6b5dc0f008044e0e6fc4d0f71f8f3f8ae563c2c2c2521ca04c9b1"
   },
   "FAMILIES": [
     {
@@ -49255,6 +49260,7 @@
           "ANCORAS_POSITIVAS",
           "CONCEITOS",
           "ESCADA_ADMINISTRATIVA",
+          "LOJA",
           "MESES",
           "MUTANTES",
           "ORIGENS_DO_LUGAR",
@@ -49265,13 +49271,15 @@
           "RESOLUCAO",
           "RESOLUCAO_TEMPORAL",
           "TIPOS_DE_EVIDENCIA",
-          "_DIAS_RAIZ"
+          "VAREJO_PROVAS",
+          "_DIAS_RAIZ",
+          "_RE_PRECO"
         ],
-        "palavras": 472,
+        "palavras": 503,
         "por_lingua": {
           "IT": 1
         },
-        "sem_marca_de_lingua": 471,
+        "sem_marca_de_lingua": 502,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -58572,7 +58580,7 @@
       "name": "Tipo do facto (FACT_KIND, D62) — gabarito, classificador, prova cega e mutacao",
       "territory": "Z-MEDIDAS",
       "kind": "engine",
-      "what": "Taxonomia D62 proposta (8 tipos + NAO_SEI, 2 exemplos reais cada), gabarito de 114 textos (44 da Sala + 70 do acervo) e prova cega de 49 separada antes de ler; classificador leis/tipo_do_fato.py (peca C-LUGAR-COLETA) congelado antes da cega: 73 % no gabarito, 58 % na cega — NAO PRONTO. fato_com_tipo liga ao LUGAR-FATO: lugar de EVENTO/MERCADO nunca preenche facto CAMPO_*. Mutacao 17/17. Testes: tests/test_tipo_do_fato.py.",
+      "what": "Taxonomia D62 proposta (8 tipos + NAO_SEI, 2 exemplos reais cada), gabarito de 114 textos (44 da Sala + 70 do acervo) e prova cega de 49 separada antes de ler; classificador leis/tipo_do_fato.py (peca C-LUGAR-COLETA) congelado antes da cega: v1 73 % gabarito / 58 % cega; v2 (D71-D73: agro_fact_kind, MARKETING_CONCORRENCIA, MERCADO_VAREJO, INSTITUCIONAL/NAO_FATO) 77 % / 46 % — NAO PRONTO. fato_com_tipo liga ao LUGAR-FATO: lugar de EVENTO/MERCADO nunca preenche facto CAMPO_*. Mutacao 24/24. Testes: tests/test_tipo_do_fato.py.",
       "why_here": "D61/D62: a Intelligence precisa de saber que tipo de facto e cada item para usar data e lugar. So uma etiqueta: nao descarta, nao muda veredito; NAO_SEI e valido. Medido DENTRO da amostra e na cega; rotulos por Claude (VALIDADO_POR_HUMANO=NAO); textos fora do Git (%USERPROFILE%/sintonia-gabarito/REGUA-FATO-V1).",
       "departments": [
         "ENGENHARIA",
@@ -58590,9 +58598,13 @@
       "files": [
         "scripts/regua_fato/A-ROTULAR-FATO.json",
         "scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json",
+        "scripts/regua_fato/MEDICAO-FATO-GABARITO-V2.json",
         "scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json",
+        "scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V2.json",
         "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json",
+        "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V2.json",
         "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json",
+        "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V2.json",
         "scripts/regua_fato/PROPOSTA-TAXONOMIA-FACT-KIND.md",
         "scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md",
         "scripts/regua_fato/RELATORIO-REGUA-FATO.md",
@@ -58600,11 +58612,12 @@
         "scripts/regua_fato/medir_fato.py",
         "scripts/regua_fato/medir_sala_78.py",
         "scripts/regua_fato/mutar_tipo_do_fato.py",
+        "scripts/regua_fato/reetiquetar_v2.py",
         "scripts/regua_fato/rotulos/CORRECOES-GABARITO.json",
         "scripts/regua_fato/rotulos/rotulos-cega.json",
         "scripts/regua_fato/rotulos/rotulos-gabarito.json"
       ],
-      "file_count": 15,
+      "file_count": 20,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
@@ -58621,11 +58634,15 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "MUTANTES"
+          "INSTITUCIONAL",
+          "MUTANTES",
+          "TROCAS"
         ],
-        "palavras": 36,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 36,
+        "palavras": 202,
+        "por_lingua": {
+          "PT": 12
+        },
+        "sem_marca_de_lingua": 190,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -58643,13 +58660,13 @@
         },
         {
           "onde": "GIT",
-          "file": "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json",
+          "file": "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V2.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
         {
           "onde": "GIT",
-          "file": "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json",
+          "file": "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V2.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -58671,7 +58688,7 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "leis/tipo_do_fato.py",
-        "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json",
+        "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V2.json",
         "scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md",
         "scripts/regua_fato/rotulos/rotulos-cega.json"
       ],
@@ -135795,8 +135812,8 @@
     "edges_proven": 1265,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3031,
-    "files_covered": 1370,
+    "files_tracked": 3036,
+    "files_covered": 1375,
     "files_code_unclaimed": 0,
     "roles_proven": 171,
     "roles_declared_only": 8,

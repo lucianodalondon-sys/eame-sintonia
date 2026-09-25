@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  520e3d3de3a5d33754001c71a52104e1a455cd18
+HEAD_DA_MEDICAO  19b72fb0770849bae8c22e2134790bce2a2a12ef
 BRANCH           regua-fato-v1
-GERADO_EM        2026-09-25T11:48:37-03:00
+GERADO_EM        2026-09-25T14:40:27-03:00
 CARDS            103
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -2020,7 +2020,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/regua_fato/A-ROTULAR-FATO.json`, `scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json`, `scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json`, `scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json`, `scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json` _(e mais 10)_ |
+| **peça real** | `scripts/regua_fato/A-ROTULAR-FATO.json`, `scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json`, `scripts/regua_fato/MEDICAO-FATO-GABARITO-V2.json`, `scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json`, `scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V2.json` _(e mais 15)_ |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
@@ -2028,7 +2028,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `leis/tipo_do_fato.py`, `scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json`, `scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md` |
+| **o que entra · ficheiros** | `leis/tipo_do_fato.py`, `scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V2.json`, `scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 2 · saem 0 |

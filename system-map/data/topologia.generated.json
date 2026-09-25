@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T16:47:21+00:00",
-  "HEAD": "520e3d3de3a5d33754001c71a52104e1a455cd18",
+  "GENERATED_AT": "2026-09-25T18:16:46+00:00",
+  "HEAD": "19b72fb0770849bae8c22e2134790bce2a2a12ef",
   "BRANCH": "regua-fato-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "47bedc1a550375978918182ed666b59386b1c483d4326026fc5e5f64c466e35a",
-  "FICHEIROS_NA_IMPRESSAO": 3179,
+  "SOURCE_TREE_FINGERPRINT": "5d80ad2c24d6b5dc0f008044e0e6fc4d0f71f8f3f8ae563c2c2c2521ca04c9b1",
+  "FICHEIROS_NA_IMPRESSAO": 3184,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1763,7 +1763,7 @@
    {
     "PATH": "leis/tipo_do_fato.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6a890758d1aae85c391865b650d8aa10b7a537f4",
+    "VERSAO": "961899244dda23af905c5608deb9465af4ee4136",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3856,21 +3856,28 @@
    {
     "PATH": "scripts/regua_fato/medir_fato.py",
     "PAPEL": "FONTE",
-    "VERSAO": "740ac09230d0e158cece8c9ae10541969965ec8b",
+    "VERSAO": "e51a938170d3f2a6fe3d39e25e9bcfaea3fa6a7a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "scripts/regua_fato/medir_sala_78.py",
     "PAPEL": "FONTE",
-    "VERSAO": "8a49488303ac11d1dc1bc37c855abd24af189ed4",
+    "VERSAO": "0c531c2e24dcc92234e0a85fa7807f6af55f9ae5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "scripts/regua_fato/mutar_tipo_do_fato.py",
     "PAPEL": "FONTE",
-    "VERSAO": "9dc7c7b635af01bd83fc90737d918dc04ed40751",
+    "VERSAO": "b712e8db963701d82912cde642bce7c41754a339",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/regua_fato/reetiquetar_v2.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2deb335f1e326a142805085436085b286d33c670",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4080,14 +4087,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "47bedc1a550375978918182ed666b59386b1c483d4326026fc5e5f64c466e35a",
+    "VERSAO": "5d80ad2c24d6b5dc0f008044e0e6fc4d0f71f8f3f8ae563c2c2c2521ca04c9b1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "47bedc1a550375978918182ed666b59386b1c483d4326026fc5e5f64c466e35a",
+    "VERSAO": "5d80ad2c24d6b5dc0f008044e0e6fc4d0f71f8f3f8ae563c2c2c2521ca04c9b1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5942,7 +5949,7 @@
    {
     "PATH": "tests/test_tipo_do_fato.py",
     "PAPEL": "FONTE",
-    "VERSAO": "93f1db4e9eaf9e83080a39ea8d77939ca067ed44",
+    "VERSAO": "5253592d2a83d7baa6cc6e52e2063a7d266331b4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6045,8 +6052,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 858,
-  "INPUTS_DIGEST": "306544cdc05995a8958e9795ba3d2bb00bf2d0b10ff94177c4e054056b07c6ce",
+  "INPUTS_COUNT": 859,
+  "INPUTS_DIGEST": "d29bce7b28051831233ff091aef8890459b603475fa3541f3a02d46c1ede83ff",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6079,8 +6086,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "34d18d700108dbfae7893057456797e6f63f23b3adb22c5a91e561ab883a9efc",
-  "SEMANTIC_HASH": "c53c6ac2e27f188d4d98eff3d7033d02ba3ebcd93e69a3b188c11052e5a87919"
+  "MEASUREMENT_HASH": "c380a3642eb97f86149ee83d437d50e98c5e7b477a92a1c246abebb14749aa48",
+  "SEMANTIC_HASH": "6cee17f714eef10229c25bba8c1dc639b8b5d87de9f3747b44a7b977c3f14515"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -53111,9 +53118,13 @@
    "FICHEIROS": [
     "scripts/regua_fato/A-ROTULAR-FATO.json",
     "scripts/regua_fato/MEDICAO-FATO-GABARITO-V1.json",
+    "scripts/regua_fato/MEDICAO-FATO-GABARITO-V2.json",
     "scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V1.json",
+    "scripts/regua_fato/MEDICAO-FATO-PROVA-CEGA-V2.json",
     "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V1.json",
+    "scripts/regua_fato/MEDIDA-TIPO-DO-FATO-SALA-78-V2.json",
     "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V1.json",
+    "scripts/regua_fato/MUTACAO-TIPO-DO-FATO-V2.json",
     "scripts/regua_fato/PROPOSTA-TAXONOMIA-FACT-KIND.md",
     "scripts/regua_fato/PROTOCOLO-GABARITO-FATO.md",
     "scripts/regua_fato/RELATORIO-REGUA-FATO.md",
@@ -53121,6 +53132,7 @@
     "scripts/regua_fato/medir_fato.py",
     "scripts/regua_fato/medir_sala_78.py",
     "scripts/regua_fato/mutar_tipo_do_fato.py",
+    "scripts/regua_fato/reetiquetar_v2.py",
     "scripts/regua_fato/rotulos/CORRECOES-GABARITO.json",
     "scripts/regua_fato/rotulos/rotulos-cega.json",
     "scripts/regua_fato/rotulos/rotulos-gabarito.json"
