@@ -30,7 +30,7 @@ MUTANTES = [
     ("R7_O_REROUTE_MUDA_O_VEREDITO", "        ev[\"REROUTE\"] = reencaminhar(item, universo)",
      "        ev[\"REROUTE\"] = reencaminhar(item, universo)\n        r = SIM if ev[\"REROUTE\"][\"DESTINOS\"] else r"),
     # D66 (dono, 25/09): so anotar; quando ligar, so T1/T2
-    ("R8_D66_POUSO_LIGADO", "REROUTE_ENTRA_NA_SALA = False", "REROUTE_ENTRA_NA_SALA = True"),
+    ("R8_D66_POUSO_LIGADO", "REROUTE_ENTRA_NA_SALA = False\nREROUTE_GAVETAS", "REROUTE_ENTRA_NA_SALA = True\nREROUTE_GAVETAS"),
     ("R9_D66_T5_PERMITIDA", 'REROUTE_GAVETAS_PERMITIDAS = frozenset({"T1", "T2"})',
      'REROUTE_GAVETAS_PERMITIDAS = frozenset({"T1", "T2", "T5"})'),
     ("R10_D66_SEM_FILTRO_DE_GAVETA", ' if d["UNIVERSO"] in REROUTE_GAVETAS_PERMITIDAS]', "]"),
