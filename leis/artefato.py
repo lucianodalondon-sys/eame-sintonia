@@ -335,6 +335,119 @@ def derivado_de(pai: Artefato, caminho_abs: str, raiz: str, *,
 # Escrever a lei no comentário não impede ninguém de a quebrar. Estas funções
 # existem para a lei ter dentes: se alguém copiar um tempo para o outro, isto
 # reclama antes de o valor entrar em qualquer ficheiro.
+# ── D70 · O TEMPO DO FATO COMPARA-SE PELO SIGNIFICADO, NÃO PELAS LETRAS ──────
+# Até 25/09/2026 a regra 1 comparava texto: «2026-09-21» contra «2026-09-21» reprovava, mas o mesmo dia
+# escrito «2026-09-21/2026-09-21», ou o mesmo instante noutro fuso, passava. A D69 chegou a escrever o
+# dia calculado como intervalo — e a D70 (bot Luciano) chamou-lhe o que era: contorno da lei. Agora a
+# regra lê o SIGNIFICADO: um dia, um intervalo de dias, ou um instante.
+#
+#     MESMO SIGNIFICADO, ESCRITO DE OUTRA MANEIRA, É A MESMA DATA.
+#
+# E a data CALCULADA a partir da publicação («ieri», «oggi, lunedì», D63/D64) deixa de ser uma exceção
+# de confiança: fica de pé só se a conta se REFIZER aqui, com a mesma função do extrator
+# (`leis/fato_do_texto.py::verificar_relativa` — o dono único da conta, DA-6).
+RELATIVA_A_PUBLICACAO = "RELATIVA_A_PUBLICACAO"
+# o que uma data relativa tem de trazer em NOTES para a conta se refazer
+NOTAS_DA_RELATIVA = ("PUBLISHED_AT_BASIS", "FACT_TIME_EXPRESSAO", "FACT_TIME_EVIDENCIA",
+                     "FACT_TIME_CALCULO", "FACT_TIME_PRECISION")
+_DIA = r"(\d{4}-\d{2}-\d{2})"
+
+
+def _sentido(v):
+    """("DIAS", inicio, fim) · ("INSTANTE", datetime, dia escrito) · None se não é data ISO."""
+    import re
+    from datetime import date
+    t = str(v or "").strip()
+    m = re.fullmatch(_DIA + r"(?:/" + _DIA + r")?", t)
+    if m:
+        try:
+            a = date.fromisoformat(m.group(1))
+            return ("DIAS", a, date.fromisoformat(m.group(2)) if m.group(2) else a)
+        except ValueError:
+            return None
+    m = re.fullmatch(_DIA + r"[T ](\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?)(Z|[+-]\d{2}:?\d{2})?", t)
+    if m:
+        try:
+            dt = datetime.fromisoformat("%sT%s%s" % (m.group(1), m.group(2),
+                                                     "+00:00" if m.group(3) == "Z" else (m.group(3) or "")))
+            return ("INSTANTE", dt, date.fromisoformat(m.group(1)))
+        except ValueError:
+            return None
+    return None
+
+
+def _mesmo_instante(x, y) -> bool:
+    a, b = _sentido(x), _sentido(y)
+    if not a or not b or a[0] != "INSTANTE" or b[0] != "INSTANTE":
+        return False
+    if (a[1].tzinfo is None) != (b[1].tzinfo is None):
+        return a[1].replace(tzinfo=None) == b[1].replace(tzinfo=None)
+    return a[1] == b[1]
+
+
+def _dia_unico(s):
+    """O dia de uma data que é UM dia só (um dia, um intervalo de um dia, ou o dia de um instante)."""
+    if not s:
+        return None
+    if s[0] == "INSTANTE":
+        return s[2]
+    return s[1] if s[1] == s[2] else None
+
+
+def _mesma_data(fato, publicacao) -> bool:
+    """O FACT_TIME diz a mesma data que a PUBLISHED_AT? Pelo significado; texto que não é data ISO
+    compara-se como texto, como antes."""
+    f, p = _sentido(fato), _sentido(publicacao)
+    if f is None or p is None:
+        return str(fato) == str(publicacao)
+    if f[0] == "INSTANTE" and p[0] == "INSTANTE":
+        return _mesmo_instante(fato, publicacao)
+    if f[0] == "INSTANTE":
+        return False            # um instante do facto é mais fino que o dia da publicação: não é cópia
+    if f[0] == "DIAS" and p[0] == "DIAS" and f[1:] == p[1:]:
+        return True
+    return f[1] == f[2] and f[1] == _dia_unico(p)
+
+
+def _conferir_relativa(a: "Artefato", base: str) -> list[str]:
+    q = []
+    n = a.NOTES
+    if base != RELATIVA_A_PUBLICACAO:
+        q.append("FACT_TIME_BASIS relativa com texto a mais (%r): a base e so a palavra "
+                 "RELATIVA_A_PUBLICACAO; a expressao e o trecho vao em NOTES proprias" % base[:60])
+    falta = [k for k in NOTAS_DA_RELATIVA if str(n.get(k, "") or "").strip() in ("", NAO_SEI, NAO_SE_APLICA)]
+    if falta:
+        q.append("data relativa sem %s: sem isso a conta nao se refaz" % ", ".join(falta))
+    base_pub = str(n.get("PUBLISHED_AT_BASIS", "") or "").strip()
+    if base_pub.upper().startswith(("NAO SEI", "NÃO SEI", "UNKNOWN")):
+        q.append("PUBLISHED_AT nao provada (%r): sem publicacao provada nao ha de onde contar (D63)" % base_pub[:60])
+    if "CONFLIT" in base_pub.upper():
+        q.append("PUBLISHED_AT em conflito (DA-9): conflito nao e publicacao provada")
+    dia_pub = _dia_unico(_sentido(a.PUBLISHED_AT))
+    if dia_pub is None:
+        q.append("PUBLISHED_AT nao e um dia ISO (%r): nao ha de onde contar" % str(a.PUBLISHED_AT)[:40])
+    if str(n.get("FACT_TIME_CALCULO", "")) not in ("", RELATIVA_A_PUBLICACAO) and "FACT_TIME_CALCULO" not in falta:
+        q.append("FACT_TIME_CALCULO=%r: a conta declarada nao e RELATIVA_A_PUBLICACAO" % n.get("FACT_TIME_CALCULO"))
+    prec = str(n.get("FACT_TIME_PRECISION", "") or "")
+    if prec and not prec.endswith("+CALCULADA"):
+        q.append("FACT_TIME_PRECISION=%r nao diz CALCULADA" % prec)
+    if q:
+        return q
+    try:
+        from leis.fato_do_texto import verificar_relativa
+    except ImportError:                                   # quem importa `artefato` sem o pacote `leis`
+        from fato_do_texto import verificar_relativa
+    conta, porque = verificar_relativa(n["FACT_TIME_EXPRESSAO"], n["FACT_TIME_EVIDENCIA"], dia_pub)
+    if conta is None:
+        return ["a expressao nao se conta: %s" % (porque or "sem publicacao")]
+    if conta[0] != a.FACT_TIME:
+        q.append("a conta refeita da %s, e o FACT_TIME diz %s: calculo errado ou adulterado"
+                 % (conta[0], a.FACT_TIME))
+    if prec != conta[1] + "+CALCULADA":
+        q.append("a conta refeita tem precisao %s+CALCULADA, e a nota diz %s" % (conta[1], prec))
+    return q
+
+
 def conferir(a: Artefato) -> list[str]:
     """Devolve a lista de leis quebradas. Vazia quer dizer que está de pé."""
     quebras = []
@@ -343,13 +456,17 @@ def conferir(a: Artefato) -> list[str]:
     if a.FACT_TIME not in (NAO_SEI, NAO_SE_APLICA, ""):
         for nome, v in (("DERIVED_AT", a.DERIVED_AT),
                         ("COLLECTED_AT", a.COLLECTED_AT)):
-            if v not in (NAO_SEI, NAO_SE_APLICA, "") and a.FACT_TIME == v:
+            if v not in (NAO_SEI, NAO_SE_APLICA, "") and (a.FACT_TIME == v or _mesmo_instante(a.FACT_TIME, v)):
                 quebras.append(
                     f"FACT_TIME == {nome}: a hora em que a maquina trabalhou "
                     f"nao e a hora em que o fato aconteceu")
-        if (a.PUBLISHED_AT not in (NAO_SEI, NAO_SE_APLICA, "")
-                and a.FACT_TIME == a.PUBLISHED_AT
-                and a.NOTES.get("FACT_TIME_BASIS") != "PUBLISHED_AT_COM_PROVA"):
+        base_do_tempo = str(a.NOTES.get("FACT_TIME_BASIS", "") or "")
+        if base_do_tempo.startswith(RELATIVA_A_PUBLICACAO):
+            # D70: a data contada a partir da publicacao so fica de pe se a conta se refizer aqui.
+            quebras += _conferir_relativa(a, base_do_tempo)
+        elif (a.PUBLISHED_AT not in (NAO_SEI, NAO_SE_APLICA, "")
+                and _mesma_data(a.FACT_TIME, a.PUBLISHED_AT)
+                and base_do_tempo != "PUBLISHED_AT_COM_PROVA"):
             quebras.append(
                 "FACT_TIME == PUBLISHED_AT sem prova: publicar e contar, e "
                 "contar nao e acontecer. Se for mesmo o mesmo instante, tem de "
