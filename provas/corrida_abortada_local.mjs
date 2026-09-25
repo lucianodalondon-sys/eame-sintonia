@@ -11,8 +11,8 @@
 //
 //   B1  rebentar a meio (pasta da fonte ocupada por um FICHEIRO; vale em qualquer SO)
 //       -> a corrida rejeita; a linha existe, com ABORTED e PEDIDOS_POR_HOST = o que o servidor viu
-//   B2  o caso real: `?redirect=%2F` no endereco (so no Windows, onde o mkdir o recusa)
-//       -> ENOENT; linha escrita; a pasta da fonte fica vazia, como no vivo
+//   B2  o caso real: `?redirect=%2F` no endereco (so no Windows, onde o mkdir o recusava)
+//       -> desde FECHAR-ONDA2-B ja nao rebenta: a pasta codifica o `?`, o DOCUMENT_ID nao muda
 //   B3  a PROVA-TETO fecha com a linha (PASS) e continua NAO_SEI sem ela
 //   B4  corrida que acaba bem nao leva ABORTED
 import { createServer } from "node:http";
@@ -122,11 +122,22 @@ try {
   if (process.platform === "win32") {
     const b2 = await corrida("materia-due?redirect=%2F");
     console.log(`  erro: ${b2.erro && b2.erro.code} · servidor ${JSON.stringify(b2.noServidor)} · linhas ${b2.linha.length}`);
-    t("B2: ENOENT como no vivo; linha escrita com os pedidos do servidor; pasta da fonte vazia", () => {
-      assert.equal(b2.erro?.code, "ENOENT", String(b2.erro));
+    // FECHAR-ONDA2-B (D60 c): o nome FISICO da pasta codifica o `?` (coleta/nome_da_pasta.mjs).
+    // Antes, isto dava ENOENT como no vivo; agora a corrida acaba bem e a identidade nao muda.
+    t("B2: o `?` ja nao rebenta; linha sem ABORTED, com os pedidos do servidor", () => {
+      assert.equal(b2.erro, null, String(b2.erro));
       assert.equal(b2.linha.length, 1);
+      assert.ok(!("ABORTED" in b2.linha[0]), JSON.stringify(b2.linha[0].ABORTED));
       assert.deepEqual(b2.linha[0].CORTESIA.PEDIDOS_POR_HOST, b2.noServidor);
-      assert.equal(readdirSync(STORE_DA_FONTE).length, 0);
+    });
+    t("B2b: DOCUMENT_ID inteiro com `?redirect=%2F` no livro; os bytes estao na pasta codificada", () => {
+      const OBS = join(RAIZ, "data", "collection-ledger", "italy", "observations.ndjson");
+      const obs = readFileSync(OBS, "utf8").trim().split("\n").map(l => JSON.parse(l))
+        .filter(o => o.RUN_ID === b2.runId && /materia-due/.test(String(o.DOCUMENT_ID)));
+      assert.equal(obs.length, 1, `observacoes: ${obs.length}`);
+      assert.ok(String(obs[0].DOCUMENT_ID).endsWith("materia-due?redirect=%2F"), obs[0].DOCUMENT_ID);
+      assert.ok(obs[0].RAW_PATH && existsSync(obs[0].RAW_PATH), String(obs[0].RAW_PATH));
+      assert.match(obs[0].RAW_PATH, /%3Fredirect=%252F~[0-9a-f]{12}\//);
     });
   } else {
     console.log("  (salta: fora do Windows o `?` e nome de pasta valido)");

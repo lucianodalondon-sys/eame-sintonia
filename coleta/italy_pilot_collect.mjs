@@ -56,6 +56,7 @@ import { alvosDoContrato, identidadeDoContrato } from "../regras/motor_de_rota.m
 // nao havia ligacao nenhuma. LAB PASS NAO PROVA OPS PASS.
 import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from "../regras/incrementalidade.mjs";
 import { compararConteudo } from "../regras/normalizacao_de_conteudo.mjs";
+import { pastaDoDocumento } from "./nome_da_pasta.mjs";
 
 // ── O REGISTRY DE ADAPTERS ─────────────────────────────────────────────────
 // Vazio, e isso e uma medicao e nao um esquecimento: das sete fontes com
@@ -152,7 +153,10 @@ function gravar(obs) { appendFileSync(ledgerPath(), JSON.stringify(obs) + "\n");
 
 // ---------- RAW imutavel ----------
 function guardarRaw(sourceId, documentId, versionId, nome, buf) {
-  const dir = `${STORE}/${sourceId}/${documentId.replace(/[:\/\\]/g, "_")}/${versionId}`;
+  // O DOCUMENT_ID fica inteiro no livro; so o nome FISICO da pasta se codifica
+  // quando traz `* ? " < > |` ou passa de 255 bytes (FECHAR-ONDA2-B, D60 c).
+  // Na 2.a onda a IT-T2-050 rebentou aqui: `?redirect=%2F` -> mkdir ENOENT.
+  const dir = `${pastaDoDocumento(`${STORE}/${sourceId}`, documentId)}/${versionId}`;
   if (existsSync(`${dir}/${nome}`)) return { dir, criado: false };
   mkdirSync(dir, { recursive: true });
   writeFileSync(`${dir}/${nome}`, buf);
