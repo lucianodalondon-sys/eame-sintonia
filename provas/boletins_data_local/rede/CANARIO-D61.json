@@ -1,0 +1,1718 @@
+{
+ "FASE": "BOLETINS D61/D62 fase 3 — contratos pela porta + canario",
+ "REDE_AUTORIZADA_POR": "DA-2 D61/D62 D69 COORDENACAO 25/09",
+ "EM": "2026-09-25T15:38:07.957190+00:00",
+ "FONTES": {
+  "IT-T2-148": {
+   "CONTRATO_BASE_HASH": "c4a9f38f3a9ecfbc",
+   "PORTA": "ACEITOU",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T2-148",
+    "OWNER": "ARSAC Calabria",
+    "NAME": "ARSAC Calabria — Bollettino agrometeorologico e fitosanitario (agrumi, olivo, vite)",
+    "TERRITORY": "T2",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "HTML",
+    "CANONICAL_ENTRY_URL": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/",
+    "ACQUISITION": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://arsac.calabria.it/category/ultime-notizie/",
+     "LINK_PATTERN": "^https?://arsac\\.calabria\\.it/bollettino-agrometeorologico-e-fitosanitario-[a-z0-9-]*valido-fino-[a-z0-9-]*-20\\d{2}/?$",
+     "MAX_TARGETS": 1
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "CAPTURES": {
+      "doc": {
+       "FROM": "URL",
+       "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+      },
+      "pa": {
+       "FROM": "PAGE_TEXT",
+       "PATTERN": "Settimana\\s+\\d+\\s*\\((\\d{1,2})/(\\d{1,2})/(\\d{4})\\s*[–-]\\s*(\\d{1,2})/(\\d{1,2})/(\\d{4})\\)",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x"
+       ]
+      },
+      "pb": {
+       "FROM": "PAGE_TEXT",
+       "PATTERN": "Settimana\\s+\\d+\\s+dal\\s+(?:dal\\s+)?(\\d{1,2})/(\\d{1,2})\\s+al\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x",
+        "x",
+        "x"
+       ]
+      },
+      "loc": {
+       "FROM": "PAGE_TEXT",
+       "PATTERN": "mandato della Regione (\\w+)[^\\n]{0,300}?tutto il territorio regionale suddiviso in (\\d+) aree",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x"
+       ]
+      }
+     },
+     "DOCUMENT_ID": "IT-T2-148:URL:{doc.1}",
+     "BULLETIN_PERIOD": [
+      "{pa.3}-{pa.2:MES2}-{pa.1:DIA2}/{pa.6}-{pa.5:MES2}-{pa.4:DIA2}",
+      "{pb.5}-{pb.2:MES2}-{pb.1:DIA2}/{pb.5}-{pb.4:MES2}-{pb.3:DIA2}"
+     ],
+     "BULLETIN_PERIOD_BASIS": "VALIDADE_DECLARADA_NA_PAGINA_DA_EDICAO · «Pubblicato il bollettino Settimana NN (…)»",
+     "FACT_TIME_BASIS": "NAO_LIGADO · a pagina da a validade do boletim, sem a ligar ao facto (D69)",
+     "PUBLISHED_AT_BASIS": "NAO_DECLARADA_NA_PAGINA · a pagina da edicao so diz «Ultima modifica» (a ultima alteracao, nao a emissao) e «valido fino al …» (o fim da validade)",
+     "FACT_LOCATION": "{loc.1} — tutto il territorio regionale ({loc.2} aree climaticamente omogenee)",
+     "FACT_LOCATION_BASIS": "AREA_DECLARADA_NA_PAGINA_DA_EDICAO · «riguardanti tutto il territorio regionale suddiviso in N aree»"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+    "REPARO_DE_CONTRATO": {
+     "DECISAO": "R1",
+     "MISSAO": "REPARO-FONTES-V1",
+     "METODO": "REPARO-DE-CONTRATO/v1",
+     "APLICADO_EM": "2026-09-25T15:38:07.993842+00:00",
+     "COMO": "D61/D62 boletins (bancada, agente)",
+     "ACQUISITION_ANTERIOR": {
+      "STRATEGY": "HTML_LINK_DISCOVERY",
+      "MATCH": "URL",
+      "INDEX_URL": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/",
+      "LINK_PATTERN": "^https?://(www\\.)?arsacweb\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+      "MAX_TARGETS": 1
+     },
+     "OUTPUT_TYPE": "HTML",
+     "OUTPUT_TYPE_ANTERIOR": "HTML",
+     "IDENTITY_ANTERIOR": {
+      "STRATEGY": "CONTENT_CAPTURE",
+      "CAPTURES": {
+       "doc": {
+        "FROM": "URL",
+        "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+       }
+      },
+      "DOCUMENT_ID": "IT-T2-148:URL:{doc.1}",
+      "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+     },
+     "PROVA": {
+      "ENTRADA": null,
+      "ENTRADA_RETRATO": null,
+      "SECCAO_TENTADA": null,
+      "ALVOS_NA_LISTAGEM": null,
+      "ITEM_LIDO": null,
+      "PAGINAS_LIDAS": null
+     },
+     "PRECISA_DE_REMEDIR": true,
+     "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "REPARO-FONTES-V1",
+     "FERRAMENTA": "curadoria/reparar_contrato.py",
+     "INTEGRADO_EM": "2026-09-25T15:38:07.993842+00:00",
+     "PROVADO_EM": "2026-09-25T15:38:07.993842+00:00",
+     "LISTAGEM": "https://arsac.calabria.it/category/ultime-notizie/",
+     "OUTPUT_TYPE": "HTML",
+     "OUTPUT_TYPE_ANTERIOR": "HTML"
+    },
+    "SOURCE_CONTRACT_HASH": "2c1721994d22a211"
+   },
+   "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 5,
+    "ALVO": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-22-settembre-2026/",
+    "DOCUMENT_ID": "IT-T2-148:URL:bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-22-settembre-2026",
+    "TEMPOS": {
+     "PUBLISHED_AT": "NAO SEI",
+     "PUBLISHED_AT_BASIS": "NAO SEI · NAO_DECLARADA_NA_PAGINA · a pagina da edicao so diz «Ultima modifica» (a ultima alteracao, nao a emissao) e «valido fino al …» (o fim da validade)",
+     "FACT_TIME": "NAO SEI",
+     "FACT_TIME_BASIS": "NAO SEI · NAO_LIGADO · a pagina da a validade do boletim, sem a ligar ao facto (D69) · o período do boletim (2026-09-15/2026-09-22) fica em BULLETIN_PERIOD como evidência: o texto não o liga ao facto (D69)",
+     "FACT_LOCATION": "Calabria — tutto il territorio regionale (8 aree climaticamente omogenee)",
+     "FACT_LOCATION_BASIS": "AREA_DECLARADA_NA_PAGINA_DA_EDICAO · «riguardanti tutto il territorio regionale suddiviso in N aree» · «mandato della Regione Calabria, elabora in via sperimentale il Bollettino agrometeorologico e di difesa fitosanitaria contenente informazioni sulla situazione meteorologica e fenologica di vite, olivo»",
+     "BULLETIN_PERIOD": "2026-09-15/2026-09-22",
+     "BULLETIN_PERIOD_BASIS": "VALIDADE_DECLARADA_NA_PAGINA_DA_EDICAO · «Pubblicato il bollettino Settimana NN (…)» · «Settimana 38 (15/09/2026 – 22/09/2026)» · forma 1 de 2",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-22-settembre-2026/",
+    "HTTP": 200,
+    "BYTES": 181699,
+    "HTML_KIND": "MIXED",
+    "CAPA_OU_MATERIA": "NAO_SEI",
+    "LINKS": 61,
+    "NON_WHITESPACE_CHARACTERS": 14815,
+    "PARAGRAPH_CHARACTERS": 1040,
+    "TEXT_SHA256": "1a7eed14c2bd5f50cccf39f07fdbd995637c54b23e4ca3c0da790cffb1ce67b4"
+   },
+   "REGUA": {
+    "REGUA": "LEGACY",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": false,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL"
+   },
+   "OUTROS_DOCUMENTOS_GUARDADOS": [
+    {
+     "URL": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-29-settembre-2026/",
+     "DOCUMENT_ID": "IT-T2-148:URL:bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-29-settembre-2026",
+     "TEMPOS": {
+      "PUBLISHED_AT": "NAO SEI",
+      "PUBLISHED_AT_BASIS": "NAO SEI · NAO_DECLARADA_NA_PAGINA · a pagina da edicao so diz «Ultima modifica» (a ultima alteracao, nao a emissao) e «valido fino al …» (o fim da validade)",
+      "FACT_TIME": "NAO SEI",
+      "FACT_TIME_BASIS": "NAO SEI · NAO_LIGADO · a pagina da a validade do boletim, sem a ligar ao facto (D69) · o período do boletim (2026-09-22/2026-09-29) fica em BULLETIN_PERIOD como evidência: o texto não o liga ao facto (D69)",
+      "FACT_LOCATION": "Calabria — tutto il territorio regionale (8 aree climaticamente omogenee)",
+      "FACT_LOCATION_BASIS": "AREA_DECLARADA_NA_PAGINA_DA_EDICAO · «riguardanti tutto il territorio regionale suddiviso in N aree» · «mandato della Regione Calabria, elabora in via sperimentale il Bollettino agrometeorologico e di difesa fitosanitaria contenente informazioni sulla situazione meteorologica e fenologica di vite, olivo»",
+      "BULLETIN_PERIOD": "2026-09-22/2026-09-29",
+      "BULLETIN_PERIOD_BASIS": "VALIDADE_DECLARADA_NA_PAGINA_DA_EDICAO · «Pubblicato il bollettino Settimana NN (…)» · «Settimana 39 (22/09/2026 – 29/09/2026)» · forma 1 de 2",
+      "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+     }
+    }
+   ]
+  },
+  "IT-T3-032": {
+   "CONTRATO_BASE_HASH": "e77434dd817322c7",
+   "PORTA": "ACEITOU",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T3-032",
+    "OWNER": "Molise",
+    "NAME": "Molise — Bollettini e comunicati fitosanitari",
+    "TERRITORY": "T3",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "PDF",
+    "CANONICAL_ENTRY_URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+    "ACQUISITION": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+     "LINK_PATTERN": "^https?://www\\.regione\\.molise\\.it/flex/cm/pages/ServeAttachment\\.php/L/IT/D/[^/]+/P/BLOB%3AID%3D18077/E/pdf\\?mode=download$",
+     "MAX_TARGETS": 1
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "CAPTURES": {
+      "doc": {
+       "FROM": "URL",
+       "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+      },
+      "vig": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "Bollettino\\s+di\\s+Vigilanza\\s+Num\\.\\s*\\d+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      },
+      "val": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "Inizio\\s+validit[àa]\\s+ore\\s+[\\d:.]+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})[\\s\\S]{0,300}?Fine\\s+validit[àa]\\s+ore\\s+[\\d:.]+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      },
+      "prev": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "Previsione\\s+meteorologica\\s+per\\s+oggi\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})[\\s\\S]{0,1500}?Previsione\\s+meteorologica\\s+per\\s+domani\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      }
+     },
+     "DOCUMENT_ID": "IT-T3-032:URL:{doc.1}",
+     "PUBLISHED_AT": "{vig.3}-{vig.2:MES2}-{vig.1:DIA2}",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» (so os de vigilanza; o «Comunicato fitosanitario N» medido nao traz data de emissao — a data esta so no titulo da lista)",
+     "FACT_TIME": "{prev.3}-{prev.2:MES2}-{prev.1:DIA2}/{prev.6}-{prev.5:MES2}-{prev.4:DIA2}",
+     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Previsione meteorologica per oggi DD/MM/AAAA … per domani DD/MM/AAAA» (o tempo previsto para esses dias; o comunicato fitossanitario nao o traz)",
+     "BULLETIN_PERIOD": "{val.3}-{val.2:MES2}-{val.1:DIA2}/{val.6}-{val.5:MES2}-{val.4:DIA2}",
+     "BULLETIN_PERIOD_BASIS": "VALIDADE_DECLARADA_NO_BOLETIM_DE_VIGILANZA · «Inizio validità … del DD/MM/AAAA … Fine validità … del DD/MM/AAAA»",
+     "FACT_LOCATION_BASIS": "NAO_DECLARADA · o cabecalho e o do publicador (Regione Molise) — SOURCE_LOCATION nao e FACT_LOCATION"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+    "REPARO_DE_CONTRATO": {
+     "DECISAO": "R1",
+     "MISSAO": "REPARO-FONTES-V1",
+     "METODO": "REPARO-DE-CONTRATO/v1",
+     "APLICADO_EM": "2026-09-25T15:38:09.020664+00:00",
+     "COMO": "D61/D62 boletins (bancada, agente)",
+     "ACQUISITION_ANTERIOR": {
+      "STRATEGY": "HTML_LINK_DISCOVERY",
+      "MATCH": "URL",
+      "INDEX_URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+      "LINK_PATTERN": "^https?://(www\\.)?regione\\.molise\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+      "MAX_TARGETS": 1
+     },
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML",
+     "PDF_SEM_EXTENSAO": "o anexo e servido por ServeAttachment.php …/E/pdf?mode=download (sem «.pdf»); medido: %PDF- nos bytes",
+     "IDENTITY_ANTERIOR": {
+      "STRATEGY": "CONTENT_CAPTURE",
+      "CAPTURES": {
+       "doc": {
+        "FROM": "URL",
+        "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+       }
+      },
+      "DOCUMENT_ID": "IT-T3-032:URL:{doc.1}",
+      "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+     },
+     "PROVA": {
+      "ENTRADA": null,
+      "ENTRADA_RETRATO": null,
+      "SECCAO_TENTADA": null,
+      "ALVOS_NA_LISTAGEM": null,
+      "ITEM_LIDO": null,
+      "PAGINAS_LIDAS": null
+     },
+     "PRECISA_DE_REMEDIR": true,
+     "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "REPARO-FONTES-V1",
+     "FERRAMENTA": "curadoria/reparar_contrato.py",
+     "INTEGRADO_EM": "2026-09-25T15:38:09.020664+00:00",
+     "PROVADO_EM": "2026-09-25T15:38:09.020664+00:00",
+     "LISTAGEM": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML"
+    },
+    "SOURCE_CONTRACT_HASH": "7c21cb40bc780a07"
+   },
+   "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 13,
+    "ALVO": "https://www.regione.molise.it/flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F1%252Fa%252FD.b63db74a4052c1514f91/P/BLOB%3AID%3D18077/E/pdf?mode=download",
+    "DOCUMENT_ID": "IT-T3-032:URL:flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F1%252Fa%252FD.b63db74a4052c1514f91/P/BLOB%3AID%3D18077/E/pdf?mode=download",
+    "TEMPOS": {
+     "PUBLISHED_AT": "2026-06-10",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» (so os de vigilanza; o «Comunicato fitosanitario N» medido nao traz data de emissao — a data esta so no titulo da lista) · «Bollettino di Vigilanza Num. 163 del 10/06/2026»",
+     "FACT_TIME": "2026-06-10/2026-06-11",
+     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Previsione meteorologica per oggi DD/MM/AAAA … per domani DD/MM/AAAA» (o tempo previsto para esses dias; o comunicato fitossanitario nao o traz) · «Previsione meteorologica per oggi 10/06/2026 fino alle ore 23:59 L.T Stato del Cielo: Prevalenza di cielo sereno Temperature: stazionarie Venti: deboli o moderati meridionali Mare: calmo o poco mosso »",
+     "FACT_LOCATION": "NAO SEI",
+     "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o cabecalho e o do publicador (Regione Molise) — SOURCE_LOCATION nao e FACT_LOCATION",
+     "BULLETIN_PERIOD": "2026-06-10/2026-06-11",
+     "BULLETIN_PERIOD_BASIS": "VALIDADE_DECLARADA_NO_BOLETIM_DE_VIGILANZA · «Inizio validità … del DD/MM/AAAA … Fine validità … del DD/MM/AAAA» · «Inizio validità ore 14:00 del 10/06/2026 Protocollo Partenza N. 76265/2026 del 10-06-2026 Mario Spidalieri Fine validità ore 23:59 del 11/06/2026»",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "PDF_TEXT_LAYER/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "https://www.regione.molise.it/flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F1%252Fa%252FD.b63db74a4052c1514f91/P/BLOB%3AID%3D18077/E/pdf?mode=download",
+    "HTTP": 200,
+    "BYTES": 339021,
+    "DOC_KIND": "PDF",
+    "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+    "TEXT_CHARACTERS": 8291,
+    "TEXT_SHA256": "64c99ecc9046430b707a8cbd75b24e5e8e321d7d343ad821ac5d120f905dc9de"
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   },
+   "OUTROS_DOCUMENTOS_GUARDADOS": [
+    {
+     "URL": "https://www.regione.molise.it/flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F2%252F3%252FD.2160966648a1a772a1c6/P/BLOB%3AID%3D18077/E/pdf?mode=download",
+     "DOCUMENT_ID": "IT-T3-032:URL:flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F2%252F3%252FD.2160966648a1a772a1c6/P/BLOB%3AID%3D18077/E/pdf?mode=download",
+     "TEMPOS": {
+      "PUBLISHED_AT": "NAO SEI",
+      "PUBLISHED_AT_BASIS": "NAO SEI · EMISSAO_DECLARADA_NO_PDF · «Bollettino di Vigilanza Num. N del DD/MM/AAAA» (so os de vigilanza; o «Comunicato fitosanitario N» medido nao traz data de emissao — a data esta so no titulo da lista) · não está neste documento (captura vig sem resultado) — o documento não cai (D62)",
+      "FACT_TIME": "NAO SEI",
+      "FACT_TIME_BASIS": "NAO SEI · PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Previsione meteorologica per oggi DD/MM/AAAA … per domani DD/MM/AAAA» (o tempo previsto para esses dias; o comunicato fitossanitario nao o traz) · não está neste documento (captura prev sem resultado) — o documento não cai (D62)",
+      "FACT_LOCATION": "NAO SEI",
+      "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o cabecalho e o do publicador (Regione Molise) — SOURCE_LOCATION nao e FACT_LOCATION",
+      "BULLETIN_PERIOD": "NAO SEI",
+      "BULLETIN_PERIOD_BASIS": "NAO SEI · VALIDADE_DECLARADA_NO_BOLETIM_DE_VIGILANZA · «Inizio validità … del DD/MM/AAAA … Fine validità … del DD/MM/AAAA» · não está neste documento (captura val sem resultado) — o documento não cai (D62)",
+      "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+     }
+    }
+   ]
+  },
+  "IT-T3-055": {
+   "CONTRATO_BASE_HASH": "297be0ae1a51f4f7",
+   "PORTA": "ACEITOU",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T3-055",
+    "OWNER": "Valle d'Aosta",
+    "NAME": "Valle d'Aosta — Avvisi fitosanitari per frutticoltori",
+    "TERRITORY": "T3",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "PDF",
+    "CANONICAL_ENTRY_URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+    "ACQUISITION": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+     "LINK_PATTERN": "^https?://www\\.regione\\.vda\\.it/allegato\\.aspx\\?pk=\\d+$",
+     "MAX_TARGETS": 1
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "CAPTURES": {
+      "doc": {
+       "FROM": "URL",
+       "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+      },
+      "em": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "Avviso\\s+fitosanitario\\s+del\\s+(\\d{1,2})\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      }
+     },
+     "DOCUMENT_ID": "IT-T3-055:URL:{doc.1}",
+     "PUBLISHED_AT": "{em.3}-{em.2:MES_IT}-{em.1:DIA2}",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_AVISO · «Avviso fitosanitario del <data>»",
+     "FACT_TIME_BASIS": "NAO_DECLARADO · o aviso nao declara periodo",
+     "FACT_LOCATION_BASIS": "NAO_DECLARADA · o aviso nao declara uma area propria; as zonas citadas no texto (ex.: «fino a Saint Pierre») sao do leitor do texto (LUGAR-FATO), nao da rota"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+    "REPARO_DE_CONTRATO": {
+     "DECISAO": "R1",
+     "MISSAO": "REPARO-FONTES-V1",
+     "METODO": "REPARO-DE-CONTRATO/v1",
+     "APLICADO_EM": "2026-09-25T15:38:10.423416+00:00",
+     "COMO": "D61/D62 boletins (bancada, agente)",
+     "ACQUISITION_ANTERIOR": {
+      "STRATEGY": "HTML_LINK_DISCOVERY",
+      "MATCH": "URL",
+      "INDEX_URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+      "LINK_PATTERN": "^https?://(www\\.)?regione\\.vda\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+      "MAX_TARGETS": 1
+     },
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML",
+     "PDF_SEM_EXTENSAO": "o aviso e servido por allegato.aspx?pk=N (sem «.pdf»); medido: %PDF- nos bytes",
+     "IDENTITY_ANTERIOR": {
+      "STRATEGY": "CONTENT_CAPTURE",
+      "CAPTURES": {
+       "doc": {
+        "FROM": "URL",
+        "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+       }
+      },
+      "DOCUMENT_ID": "IT-T3-055:URL:{doc.1}",
+      "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+     },
+     "PROVA": {
+      "ENTRADA": null,
+      "ENTRADA_RETRATO": null,
+      "SECCAO_TENTADA": null,
+      "ALVOS_NA_LISTAGEM": null,
+      "ITEM_LIDO": null,
+      "PAGINAS_LIDAS": null
+     },
+     "PRECISA_DE_REMEDIR": true,
+     "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "REPARO-FONTES-V1",
+     "FERRAMENTA": "curadoria/reparar_contrato.py",
+     "INTEGRADO_EM": "2026-09-25T15:38:10.423416+00:00",
+     "PROVADO_EM": "2026-09-25T15:38:10.423416+00:00",
+     "LISTAGEM": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML"
+    },
+    "SOURCE_CONTRACT_HASH": "2245be70aa3842e0"
+   },
+   "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 20,
+    "ALVO": "https://www.regione.vda.it/allegato.aspx?pk=124385",
+    "DOCUMENT_ID": "IT-T3-055:URL:allegato.aspx?pk=124385",
+    "TEMPOS": {
+     "PUBLISHED_AT": "2026-02-27",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_AVISO · «Avviso fitosanitario del <data>» · «Avviso fitosanitario del 27 febbraio 2026»",
+     "FACT_TIME": "NAO SEI",
+     "FACT_TIME_BASIS": "NAO SEI · NAO_DECLARADO · o aviso nao declara periodo",
+     "FACT_LOCATION": "NAO SEI",
+     "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o aviso nao declara uma area propria; as zonas citadas no texto (ex.: «fino a Saint Pierre») sao do leitor do texto (LUGAR-FATO), nao da rota",
+     "BULLETIN_PERIOD": "NAO SEI",
+     "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato não declara onde o boletim diz o BULLETIN_PERIOD",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "PDF_TEXT_LAYER/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "https://www.regione.vda.it/allegato.aspx?pk=124385",
+    "HTTP": 200,
+    "BYTES": 115650,
+    "DOC_KIND": "PDF",
+    "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+    "TEXT_CHARACTERS": 3413,
+    "TEXT_SHA256": "32b877f2c5221bad06b3dcc32462507913504ab1a4e908f4840fc3ff11dfe83d"
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   },
+   "OUTROS_DOCUMENTOS_GUARDADOS": [
+    {
+     "URL": "https://www.regione.vda.it/allegato.aspx?pk=130369",
+     "DOCUMENT_ID": "IT-T3-055:URL:allegato.aspx?pk=130369",
+     "TEMPOS": {
+      "PUBLISHED_AT": "2026-09-15",
+      "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_AVISO · «Avviso fitosanitario del <data>» · «Avviso fitosanitario del 15 settembre 2026»",
+      "FACT_TIME": "NAO SEI",
+      "FACT_TIME_BASIS": "NAO SEI · NAO_DECLARADO · o aviso nao declara periodo",
+      "FACT_LOCATION": "NAO SEI",
+      "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o aviso nao declara uma area propria; as zonas citadas no texto (ex.: «fino a Saint Pierre») sao do leitor do texto (LUGAR-FATO), nao da rota",
+      "BULLETIN_PERIOD": "NAO SEI",
+      "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato não declara onde o boletim diz o BULLETIN_PERIOD",
+      "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+     }
+    }
+   ]
+  },
+  "IT-T3-053": {
+   "CONTRATO_BASE_HASH": "54b765fe71dfb4da",
+   "PORTA": "ACEITOU",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T3-053",
+    "OWNER": "Umbria",
+    "NAME": "Umbria — Bollettini fitosanitari (lista permanente)",
+    "TERRITORY": "T3",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "PDF",
+    "CANONICAL_ENTRY_URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+    "ACQUISITION": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+     "LINK_PATTERN": "^https?://(www\\.)?regione\\.umbria\\.it/documents/18/\\d+/bollettino\\+[^/]+/[0-9a-f-]{36}\\?version=[\\d.]+$",
+     "MAX_TARGETS": 1
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "CAPTURES": {
+      "doc": {
+       "FROM": "URL",
+       "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+      },
+      "cab": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "N\\.\\s*\\d+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{2,4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ]
+      },
+      "nome": {
+       "FROM": "URL",
+       "PATTERN": "\\+del\\+{1,2}(\\d{1,2})_(\\d{1,2})_(\\d{2,4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ]
+      },
+      "area": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "valido per le province di ([A-Z][a-z]+(?: e [A-Z][a-z]+)*)",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x"
+       ]
+      }
+     },
+     "DOCUMENT_ID": "IT-T3-053:URL:{doc.1}",
+     "PUBLISHED_AT": [
+      "{cab.3:ANO4}-{cab.2:MES2}-{cab.1:DIA2}",
+      "{nome.3:ANO4}-{nome.2:MES2}-{nome.1:DIA2}"
+     ],
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «N.NN del DD/MM/AAAA» (forma 1) ou nome do ficheiro «del DD_MM_AA» (forma 2)",
+     "FACT_TIME_BASIS": "NAO_DECLARADO · o boletim nao declara o periodo (o grafico diz «del periodo» sem datas)",
+     "FACT_LOCATION": "{area.1}",
+     "FACT_LOCATION_BASIS": "AREA_DECLARADA_NO_BOLETIM · «valido per le province di …»"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+    "REPARO_DE_CONTRATO": {
+     "DECISAO": "R1",
+     "MISSAO": "REPARO-FONTES-V1",
+     "METODO": "REPARO-DE-CONTRATO/v1",
+     "APLICADO_EM": "2026-09-25T15:38:11.552412+00:00",
+     "COMO": "D61/D62 boletins (bancada, agente)",
+     "ACQUISITION_ANTERIOR": {
+      "STRATEGY": "HTML_LINK_DISCOVERY",
+      "MATCH": "URL",
+      "INDEX_URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+      "LINK_PATTERN": "^https?://(www\\.)?regione\\.umbria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+      "MAX_TARGETS": 1
+     },
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML",
+     "PDF_SEM_EXTENSAO": "Liferay …/bollettino+<cultura>+n.N+del+<data>[.pdf]/<uuid>?version= — 27 de 52 sem «.pdf»; medido: %PDF- nos bytes",
+     "IDENTITY_ANTERIOR": {
+      "STRATEGY": "CONTENT_CAPTURE",
+      "CAPTURES": {
+       "doc": {
+        "FROM": "URL",
+        "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+       }
+      },
+      "DOCUMENT_ID": "IT-T3-053:URL:{doc.1}",
+      "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+     },
+     "PROVA": {
+      "ENTRADA": null,
+      "ENTRADA_RETRATO": null,
+      "SECCAO_TENTADA": null,
+      "ALVOS_NA_LISTAGEM": null,
+      "ITEM_LIDO": null,
+      "PAGINAS_LIDAS": null
+     },
+     "PRECISA_DE_REMEDIR": true,
+     "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "REPARO-FONTES-V1",
+     "FERRAMENTA": "curadoria/reparar_contrato.py",
+     "INTEGRADO_EM": "2026-09-25T15:38:11.552412+00:00",
+     "PROVADO_EM": "2026-09-25T15:38:11.552412+00:00",
+     "LISTAGEM": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML"
+    },
+    "SOURCE_CONTRACT_HASH": "23476e896953b83c"
+   },
+   "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 52,
+    "ALVO": "https://www.regione.umbria.it/documents/18/0/bollettino+NOCCIOLO+n.10+del+17_07_2026/d07bdc4c-1fef-4eb5-832f-fdbafec578a1?version=1.0",
+    "DOCUMENT_ID": "IT-T3-053:URL:documents/18/0/bollettino+NOCCIOLO+n.10+del+17_07_2026/d07bdc4c-1fef-4eb5-832f-fdbafec578a1?version=1.0",
+    "TEMPOS": {
+     "PUBLISHED_AT": "2026-07-17",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «N.NN del DD/MM/AAAA» (forma 1) ou nome do ficheiro «del DD_MM_AA» (forma 2) · «N.10 del 17/07/2026» · forma 1 de 2",
+     "FACT_TIME": "NAO SEI",
+     "FACT_TIME_BASIS": "NAO SEI · NAO_DECLARADO · o boletim nao declara o periodo (o grafico diz «del periodo» sem datas)",
+     "FACT_LOCATION": "Perugia e Terni",
+     "FACT_LOCATION_BASIS": "AREA_DECLARADA_NO_BOLETIM · «valido per le province di …» · «valido per le province di Perugia e Terni»",
+     "BULLETIN_PERIOD": "NAO SEI",
+     "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato não declara onde o boletim diz o BULLETIN_PERIOD",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "PDF_TEXT_LAYER/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "https://www.regione.umbria.it/documents/18/0/bollettino+NOCCIOLO+n.10+del+17_07_2026/d07bdc4c-1fef-4eb5-832f-fdbafec578a1?version=1.0",
+    "HTTP": 200,
+    "BYTES": 1442142,
+    "DOC_KIND": "PDF",
+    "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+    "TEXT_CHARACTERS": 9219,
+    "TEXT_SHA256": "ae3322a410d9fc6f9189e70a7cbe65fc4692b2c0e8395256ad35d522859adb96"
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   },
+   "OUTROS_DOCUMENTOS_GUARDADOS": []
+  },
+  "IT-T2-051": {
+   "CONTRATO_BASE_HASH": "e3eccc21823e1dd2",
+   "PORTA": "ACEITOU",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T2-051",
+    "OWNER": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+    "NAME": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+    "TERRITORY": "T2",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "PDF",
+    "CANONICAL_ENTRY_URL": "https://www.arpae.it/it",
+    "ACQUISITION": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+     "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/\\d{2}_boll_agro_\\d{8}(-\\d+)?\\.pdf$",
+     "MAX_TARGETS": 1,
+     "STRIP_SUFFIX": "/view"
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "CAPTURES": {
+      "b": {
+       "FROM": "URL",
+       "PATTERN": "/(\\d{2})_boll_agro_(\\d{4})(\\d{2})(\\d{2})(?:-\\d+)?\\.pdf$"
+      },
+      "em": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "n\\.\\s*\\d+/\\d{4}\\s+del\\s+(\\d{1,2})\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      },
+      "per": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "(\\d{1,2})\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+(\\d{4})\\s*-\\s*(\\d{1,2})\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+(\\d{4})\\s*\\n\\s*Diario\\s+meteorologico",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      },
+      "cob": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "(\\d{1,2})\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+(\\d{4})\\s*-\\s*(\\d{1,2})\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      },
+      "nome": {
+       "FROM": "URL",
+       "PATTERN": "_boll_agro_(\\d{4})(\\d{2})(\\d{2})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ]
+      }
+     },
+     "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:{b.2}-{b.1}",
+     "SOURCE_DATE_ISO": "{b.2}-{b.3}-{b.4}",
+     "FACT_TIME": "{per.3}-{per.2:MES_IT}-{per.1:DIA2}/{per.6}-{per.5:MES_IT}-{per.4:DIA2}",
+     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana)",
+     "BULLETIN_PERIOD": "{cob.3}-{cob.2:MES_IT}-{cob.1:DIA2}/{cob.6}-{cob.5:MES_IT}-{cob.4:DIA2}",
+     "BULLETIN_PERIOD_BASIS": "PERIODO_DECLARADO_NO_BOLETIM · 2.a linha «<data> - <data>» do PDF",
+     "PUBLISHED_AT": [
+      "{em.3}-{em.2:MES_IT}-{em.1:DIA2}",
+      "{nome.1}-{nome.2}-{nome.3}"
+     ],
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «n. NN/AAAA del <data>» (forma 1) ou o nome AAAAMMDD (forma 2)",
+     "FACT_LOCATION_BASIS": "NAO_DECLARADA · o boletim cobre a regiao mas nao a declara no cabecalho (lugares no corpo: leitor LUGAR-FATO)"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+    "IMPORTADO_DE": {
+     "LIVRO": "C",
+     "BRANCH": "source-curator-service-v1",
+     "COMMIT": "d23a44cc",
+     "MISSAO": "MATERIA-PRIMA-V1"
+    },
+    "REPARO_DE_CONTRATO": {
+     "DECISAO": "R1",
+     "MISSAO": "REPARO-FONTES-V1",
+     "METODO": "REPARO-DE-CONTRATO/v1",
+     "APLICADO_EM": "2026-09-25T15:38:13.504210+00:00",
+     "COMO": "D61/D62 boletins (bancada, agente)",
+     "ACQUISITION_ANTERIOR": {
+      "STRATEGY": "HTML_LINK_DISCOVERY",
+      "MATCH": "URL",
+      "INDEX_URL": "https://www.arpae.it/it",
+      "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+      "MAX_TARGETS": 1
+     },
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML",
+     "STRIP_SUFFIX": "/view",
+     "IDENTITY_ANTERIOR": {
+      "STRATEGY": "CONTENT_CAPTURE",
+      "CAPTURES": {
+       "doc": {
+        "FROM": "URL",
+        "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+       }
+      },
+      "DOCUMENT_ID": "IT-T2-051:URL:{doc.1}",
+      "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+     },
+     "PROVA": {
+      "ENTRADA": null,
+      "ENTRADA_RETRATO": null,
+      "SECCAO_TENTADA": null,
+      "ALVOS_NA_LISTAGEM": null,
+      "ITEM_LIDO": null,
+      "PAGINAS_LIDAS": null
+     },
+     "PRECISA_DE_REMEDIR": true,
+     "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "REPARO-FONTES-V1",
+     "FERRAMENTA": "curadoria/reparar_contrato.py",
+     "INTEGRADO_EM": "2026-09-25T15:38:13.504210+00:00",
+     "PROVADO_EM": "2026-09-25T15:38:13.504210+00:00",
+     "LISTAGEM": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML"
+    },
+    "SOURCE_CONTRACT_HASH": "e1e94c719b8f7fb3"
+   },
+   "IDENTIDADE_DOCUMENT_ID_PRESERVADA": false,
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 30,
+    "ALVO": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/09_boll_agro_20260302.pdf",
+    "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:2026-09",
+    "TEMPOS": {
+     "PUBLISHED_AT": "2026-03-02",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «n. NN/AAAA del <data>» (forma 1) ou o nome AAAAMMDD (forma 2) · «n. 09/2026 del 2 marzo 2026» · forma 1 de 2",
+     "FACT_TIME": "2026-02-23/2026-03-01",
+     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana) · «23 febbraio 2026 - 1 marzo 2026 Diario meteorologico»",
+     "FACT_LOCATION": "NAO SEI",
+     "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o boletim cobre a regiao mas nao a declara no cabecalho (lugares no corpo: leitor LUGAR-FATO)",
+     "BULLETIN_PERIOD": "2026-02-23/2026-03-01",
+     "BULLETIN_PERIOD_BASIS": "PERIODO_DECLARADO_NO_BOLETIM · 2.a linha «<data> - <data>» do PDF · «23 febbraio 2026 - 1 marzo 2026»",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "PDF_TEXT_LAYER/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/09_boll_agro_20260302.pdf",
+    "HTTP": 200,
+    "BYTES": 1069706,
+    "DOC_KIND": "PDF",
+    "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+    "TEXT_CHARACTERS": 2679,
+    "TEXT_SHA256": "485d327e758f8818ca66e1f4190ef892d2ae39b0d0b48c59740de9f8a3236764"
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   },
+   "OUTROS_DOCUMENTOS_GUARDADOS": [
+    {
+     "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/38_boll_agro_20260921.pdf",
+     "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:2026-38",
+     "TEMPOS": {
+      "PUBLISHED_AT": "2026-09-21",
+      "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «n. NN/AAAA del <data>» (forma 1) ou o nome AAAAMMDD (forma 2) · «n. 38/2026 del 21 settembre 2026» · forma 1 de 2",
+      "FACT_TIME": "2026-09-14/2026-09-20",
+      "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «<data> - <data>» encabeca o «Diario meteorologico» (o relato do tempo observado nessa semana) · «14 settembre 2026 - 20 settembre 2026 Diario meteorologico»",
+      "FACT_LOCATION": "NAO SEI",
+      "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o boletim cobre a regiao mas nao a declara no cabecalho (lugares no corpo: leitor LUGAR-FATO)",
+      "BULLETIN_PERIOD": "2026-09-14/2026-09-20",
+      "BULLETIN_PERIOD_BASIS": "PERIODO_DECLARADO_NO_BOLETIM · 2.a linha «<data> - <data>» do PDF · «14 settembre 2026 - 20 settembre 2026»",
+      "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+     }
+    }
+   ]
+  },
+  "IT-T3-014": {
+   "CONTRATO_BASE_HASH": "8af0a7d8aa5b4ec3",
+   "PORTA": "ACEITOU",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T3-014",
+    "OWNER": "Servizio Fitosanitario Nazionale",
+    "NAME": "Servizio Fitosanitario Nazionale — Protezione delle Piante",
+    "TERRITORY": "T3",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "PDF",
+    "CANONICAL_ENTRY_URL": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
+    "ACQUISITION": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
+     "LINK_PATTERN": "^https?://(www\\.)?protezionedellepiante\\.it/wp-content/uploads/\\d{4}/\\d{2}/dtu-[^/?#]+\\.pdf(\\?|#|$)",
+     "MAX_TARGETS": 1
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "CAPTURES": {
+      "doc": {
+       "FROM": "URL",
+       "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+      },
+      "firma": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "MASAF\\s+(\\d{1,2})\\.(\\d{1,2})\\.(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ]
+      }
+     },
+     "DOCUMENT_ID": "IT-T3-014:URL:{doc.1}",
+     "PUBLISHED_AT": "{firma.3}-{firma.2:MES2}-{firma.1:DIA2}",
+     "PUBLISHED_AT_BASIS": "DATA_DA_ASSINATURA_DIGITAL · «MASAF DD.MM.AAAA» do documento tecnico oficial (a adocao; o DTU e uma norma, nao um boletim semanal)",
+     "FACT_TIME_BASIS": "NAO_DECLARADO · o documento tecnico nao declara periodo de observacao ou de validade",
+     "FACT_LOCATION_BASIS": "NAO_DECLARADA · documento do Servizio fitosanitario nazionale, sem area propria (o publicador nao e o lugar)"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "REPARO_DE_CONTRATO": {
+     "DECISAO": "R1",
+     "MISSAO": "REPARO-FONTES-V1",
+     "METODO": "REPARO-DE-CONTRATO/v1",
+     "APLICADO_EM": "2026-09-25T15:38:14.862384+00:00",
+     "COMO": "D61/D62 boletins (bancada, agente)",
+     "ACQUISITION_ANTERIOR": {
+      "STRATEGY": "HTML_LINK_DISCOVERY",
+      "MATCH": "URL",
+      "INDEX_URL": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
+      "LINK_PATTERN": "^https?://(www\\.)?protezionedellepiante\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+      "MAX_TARGETS": 1
+     },
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML",
+     "IDENTITY_ANTERIOR": {
+      "STRATEGY": "CONTENT_CAPTURE",
+      "CAPTURES": {
+       "doc": {
+        "FROM": "URL",
+        "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+       }
+      },
+      "DOCUMENT_ID": "IT-T3-014:URL:{doc.1}",
+      "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+     },
+     "PROVA": {
+      "ENTRADA": null,
+      "ENTRADA_RETRATO": null,
+      "SECCAO_TENTADA": null,
+      "ALVOS_NA_LISTAGEM": null,
+      "ITEM_LIDO": null,
+      "PAGINAS_LIDAS": null
+     },
+     "PRECISA_DE_REMEDIR": true,
+     "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "REPARO-FONTES-V1",
+     "FERRAMENTA": "curadoria/reparar_contrato.py",
+     "INTEGRADO_EM": "2026-09-25T15:38:14.862384+00:00",
+     "PROVADO_EM": "2026-09-25T15:38:14.862384+00:00",
+     "LISTAGEM": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML"
+    },
+    "SOURCE_CONTRACT_HASH": "e2d2f5bee6d895a9"
+   },
+   "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 10,
+    "ALVO": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+    "DOCUMENT_ID": "IT-T3-014:URL:wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+    "TEMPOS": {
+     "PUBLISHED_AT": "2026-05-14",
+     "PUBLISHED_AT_BASIS": "DATA_DA_ASSINATURA_DIGITAL · «MASAF DD.MM.AAAA» do documento tecnico oficial (a adocao; o DTU e uma norma, nao um boletim semanal) · «MASAF 14.05.2026»",
+     "FACT_TIME": "NAO SEI",
+     "FACT_TIME_BASIS": "NAO SEI · NAO_DECLARADO · o documento tecnico nao declara periodo de observacao ou de validade",
+     "FACT_LOCATION": "NAO SEI",
+     "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · documento do Servizio fitosanitario nazionale, sem area propria (o publicador nao e o lugar)",
+     "BULLETIN_PERIOD": "NAO SEI",
+     "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato não declara onde o boletim diz o BULLETIN_PERIOD",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "PDF_TEXT_LAYER/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+    "HTTP": 200,
+    "BYTES": 410589,
+    "DOC_KIND": "PDF",
+    "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+    "TEXT_CHARACTERS": 10305,
+    "TEXT_SHA256": "3c14365050310883889304c10a49b1740ccaed791abc4b607d39b9962aca97c2"
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   },
+   "OUTROS_DOCUMENTOS_GUARDADOS": []
+  },
+  "IT-T3-027": {
+   "CONTRATO_BASE_HASH": "ba7caefa922a967a",
+   "PORTA": "ACEITOU",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T3-027",
+    "OWNER": "ERSA FVG",
+    "NAME": "ERSA FVG — Bollettini di difesa integrata e biologica",
+    "TERRITORY": "T3",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "PDF",
+    "CANONICAL_ENTRY_URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+    "ACQUISITION": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+     "LINK_PATTERN": "^https?://(www\\.)?ersa\\.fvg\\.it/cms/aziende/bollettini-(integrata|biologica)/.+\\.pdf$",
+     "MAX_TARGETS": 1
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "CAPTURES": {
+      "doc": {
+       "FROM": "URL",
+       "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+      },
+      "em": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "BOLLETTINO\\s+[A-Z ]+?\\s+N\\.\\s*\\d+[_/]\\d+\\s+(\\d{1,2})\\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\\s+(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      }
+     },
+     "DOCUMENT_ID": "IT-T3-027:URL:{doc.1}",
+     "PUBLISHED_AT": "{em.3}-{em.2:MES_IT}-{em.1:DIA2}",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «BOLLETTINO … N. NN_AA / <data>»",
+     "FACT_TIME_BASIS": "NAO_DECLARADO · o boletim descreve a quinzena em texto corrido, sem periodo declarado",
+     "FACT_LOCATION_BASIS": "NAO_DECLARADA · o boletim fala do «territorio»/«regione» sem a nomear no cabecalho"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+    "REPARO_DE_CONTRATO": {
+     "DECISAO": "R1",
+     "MISSAO": "REPARO-FONTES-V1",
+     "METODO": "REPARO-DE-CONTRATO/v1",
+     "APLICADO_EM": "2026-09-25T15:38:15.688747+00:00",
+     "COMO": "D61/D62 boletins (bancada, agente)",
+     "ACQUISITION_ANTERIOR": {
+      "STRATEGY": "HTML_LINK_DISCOVERY",
+      "MATCH": "URL",
+      "INDEX_URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+      "LINK_PATTERN": "^https?://(www\\.)?ersa\\.fvg\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+      "MAX_TARGETS": 1
+     },
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML",
+     "IDENTITY_ANTERIOR": {
+      "STRATEGY": "CONTENT_CAPTURE",
+      "CAPTURES": {
+       "doc": {
+        "FROM": "URL",
+        "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+       }
+      },
+      "DOCUMENT_ID": "IT-T3-027:URL:{doc.1}",
+      "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+     },
+     "PROVA": {
+      "ENTRADA": null,
+      "ENTRADA_RETRATO": null,
+      "SECCAO_TENTADA": null,
+      "ALVOS_NA_LISTAGEM": null,
+      "ITEM_LIDO": null,
+      "PAGINAS_LIDAS": null
+     },
+     "PRECISA_DE_REMEDIR": true,
+     "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "REPARO-FONTES-V1",
+     "FERRAMENTA": "curadoria/reparar_contrato.py",
+     "INTEGRADO_EM": "2026-09-25T15:38:15.688747+00:00",
+     "PROVADO_EM": "2026-09-25T15:38:15.688747+00:00",
+     "LISTAGEM": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML"
+    },
+    "SOURCE_CONTRACT_HASH": "6140a75bb4c26f91"
+   },
+   "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 22,
+    "ALVO": "http://www.ersa.fvg.it/cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
+    "DOCUMENT_ID": "IT-T3-027:URL:cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
+    "TEMPOS": {
+     "PUBLISHED_AT": "2025-10-07",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · cabecalho «BOLLETTINO … N. NN_AA / <data>» · «BOLLETTINO SEMINATIVI BIOLOGICI N. 15_25 7 OTTOBRE 2025»",
+     "FACT_TIME": "NAO SEI",
+     "FACT_TIME_BASIS": "NAO SEI · NAO_DECLARADO · o boletim descreve a quinzena em texto corrido, sem periodo declarado",
+     "FACT_LOCATION": "NAO SEI",
+     "FACT_LOCATION_BASIS": "NAO SEI · NAO_DECLARADA · o boletim fala do «territorio»/«regione» sem a nomear no cabecalho",
+     "BULLETIN_PERIOD": "NAO SEI",
+     "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato não declara onde o boletim diz o BULLETIN_PERIOD",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "PDF_TEXT_LAYER/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "http://www.ersa.fvg.it/cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
+    "HTTP": 200,
+    "BYTES": 3416593,
+    "DOC_KIND": "PDF",
+    "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+    "TEXT_CHARACTERS": 8064,
+    "TEXT_SHA256": "a328d2a41b05822b0c62194e368c6b8957153cc85d766827837ec7fe2854a4ca"
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   },
+   "OUTROS_DOCUMENTOS_GUARDADOS": []
+  },
+  "IT-T3-025": {
+   "CONTRATO_BASE_HASH": "5e92769db8431c8f",
+   "PORTA": "ACEITOU",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T3-025",
+    "OWNER": "Campania",
+    "NAME": "Campania — Bollettini fitosanitari 2026",
+    "TERRITORY": "T3",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "PDF",
+    "CANONICAL_ENTRY_URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+    "ACQUISITION": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/NA_2026.html",
+     "LINK_PATTERN": "^https?://(www\\.)?agricoltura\\.regione\\.campania\\.it/difesa/bollettini/bollettini_2026/pdf/NA-\\d{2}-\\d{2}\\.pdf$",
+     "MAX_TARGETS": 1
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "CAPTURES": {
+      "doc": {
+       "FROM": "URL",
+       "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+      },
+      "em": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "Bollettino\\s+N[°º.]?\\s*\\d+\\s+del\\s+(\\d{1,2})/(\\d{1,2})/(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x"
+       ],
+       "FLAGS": "i"
+      },
+      "area": {
+       "FROM": "PDF_TEXT",
+       "PATTERN": "BOLLETTINO FITOSANITARIO DELLA PROVINCIA DI ([A-Z]+)",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x"
+       ]
+      }
+     },
+     "DOCUMENT_ID": "IT-T3-025:URL:{doc.1}",
+     "PUBLISHED_AT": "{em.3}-{em.2:MES2}-{em.1:DIA2}",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · «Bollettino N° N del DD/MM/AAAA»",
+     "FACT_TIME_BASIS": "NAO_DECLARADO · o boletim nao declara periodo de validade ou de observacao",
+     "FACT_LOCATION": "provincia di {area.1}",
+     "FACT_LOCATION_BASIS": "AREA_DECLARADA_NO_BOLETIM · «BOLLETTINO FITOSANITARIO DELLA PROVINCIA DI …»"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+    "REPARO_DE_CONTRATO": {
+     "DECISAO": "R1",
+     "MISSAO": "REPARO-FONTES-V1",
+     "METODO": "REPARO-DE-CONTRATO/v1",
+     "APLICADO_EM": "2026-09-25T15:38:16.639641+00:00",
+     "COMO": "D61/D62 boletins (bancada, agente)",
+     "ACQUISITION_ANTERIOR": {
+      "STRATEGY": "HTML_LINK_DISCOVERY",
+      "MATCH": "URL",
+      "INDEX_URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+      "LINK_PATTERN": "^https?://(www\\.)?agricoltura\\.regione\\.campania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+      "MAX_TARGETS": 1
+     },
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML",
+     "IDENTITY_ANTERIOR": {
+      "STRATEGY": "CONTENT_CAPTURE",
+      "CAPTURES": {
+       "doc": {
+        "FROM": "URL",
+        "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+       }
+      },
+      "DOCUMENT_ID": "IT-T3-025:URL:{doc.1}",
+      "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+     },
+     "PROVA": {
+      "ENTRADA": null,
+      "ENTRADA_RETRATO": null,
+      "SECCAO_TENTADA": null,
+      "ALVOS_NA_LISTAGEM": null,
+      "ITEM_LIDO": null,
+      "PAGINAS_LIDAS": null
+     },
+     "PRECISA_DE_REMEDIR": true,
+     "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "REPARO-FONTES-V1",
+     "FERRAMENTA": "curadoria/reparar_contrato.py",
+     "INTEGRADO_EM": "2026-09-25T15:38:16.639641+00:00",
+     "PROVADO_EM": "2026-09-25T15:38:16.639641+00:00",
+     "LISTAGEM": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/NA_2026.html",
+     "OUTPUT_TYPE": "PDF",
+     "OUTPUT_TYPE_ANTERIOR": "HTML"
+    },
+    "SOURCE_CONTRACT_HASH": "4355e6922be48d47"
+   },
+   "IDENTIDADE_DOCUMENT_ID_PRESERVADA": true,
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DETAIL_ENUMERATED": 27,
+    "ALVO": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
+    "DOCUMENT_ID": "IT-T3-025:URL:difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
+    "TEMPOS": {
+     "PUBLISHED_AT": "2026-04-01",
+     "PUBLISHED_AT_BASIS": "EMISSAO_DECLARADA_NO_BOLETIM · «Bollettino N° N del DD/MM/AAAA» · «Bollettino N° 3 del 01/04/2026»",
+     "FACT_TIME": "NAO SEI",
+     "FACT_TIME_BASIS": "NAO SEI · NAO_DECLARADO · o boletim nao declara periodo de validade ou de observacao",
+     "FACT_LOCATION": "provincia di NAPOLI",
+     "FACT_LOCATION_BASIS": "AREA_DECLARADA_NO_BOLETIM · «BOLLETTINO FITOSANITARIO DELLA PROVINCIA DI …» · «BOLLETTINO FITOSANITARIO DELLA PROVINCIA DI NAPOLI»",
+     "BULLETIN_PERIOD": "NAO SEI",
+     "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato não declara onde o boletim diz o BULLETIN_PERIOD",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "PDF_TEXT_LAYER/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
+    "HTTP": 200,
+    "BYTES": 686877,
+    "DOC_KIND": "PDF",
+    "TEXT_LAYER": "TEXT_LAYER_PRESENT",
+    "TEXT_CHARACTERS": 14365,
+    "TEXT_SHA256": "de3b7a8d52c3e9336bc9b464a15f01fd28b9f707389bf82e416ca334080f3d8e"
+   },
+   "REGUA": {
+    "REGUA": "DETAIL/v1",
+    "PASSOS": {
+     "INDEX_URL": true,
+     "DETAIL_LINKS": true,
+     "ITEM_ABERTO": true,
+     "BODY_UTIL": true,
+     "CONTRATO_ATUAL": true
+    },
+    "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"
+   },
+   "OUTROS_DOCUMENTOS_GUARDADOS": []
+  },
+  "IT-T2-152": {
+   "PORTA": "SEM PORTA (a porta nao muda FORMA/ACQUISITION STATIC) — contrato montado como na JANELA-FORMAS B",
+   "VALIDADOR": "OK",
+   "CONTRATO_PROPOSTO": {
+    "SOURCE_ID": "IT-T2-152",
+    "OWNER": "LaMMA",
+    "NAME": "LaMMA — Bollettino agrometeo",
+    "TERRITORY": "T2",
+    "BATCH_ID": "LOTE-HTML-ARTIGO",
+    "OUTPUT_TYPE": "HTML",
+    "CANONICAL_ENTRY_URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+    "ACQUISITION": {
+     "STRATEGY": "STATIC_ENDPOINT",
+     "URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+     "NAME": "agrometeo-firenze.html"
+    },
+    "ROUTE_TYPE": "DISCOVERED_ROUTE",
+    "ACCESS_INSTRUMENT": "HTTP",
+    "AUTH_REQUIRED": false,
+    "BROWSER_REQUIRED": false,
+    "JS_REQUIRED": false,
+    "IDENTITY": {
+     "STRATEGY": "CONTENT_CAPTURE",
+     "DOCUMENT_ID": "IT-T2-152:BOLETIM:FIRENZE:{aggiornato.3}-{aggiornato.2}-{aggiornato.1}",
+     "SOURCE_DATE": "{aggiornato.1}/{aggiornato.2}/{aggiornato.3}",
+     "SOURCE_DATE_ISO": "{aggiornato.3}-{aggiornato.2}-{aggiornato.1}",
+     "CONTENT_SCOPE": {
+      "START": "Aggiornato il",
+      "END": "Condividi"
+     },
+     "CAPTURES": {
+      "aggiornato": {
+       "FROM": "PAGE_TEXT",
+       "PATTERN": "Aggiornato il\\s+(\\d{2})/(\\d{2})/(\\d{4})",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+       ]
+      },
+      "sem": {
+       "FROM": "PAGE_TEXT",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x"
+       ],
+       "PATTERN": "Osservazioni della settimana da (\\d{2})/(\\d{2})/(\\d{4}) a (\\d{2})/(\\d{2})/(\\d{4})"
+      },
+      "prov": {
+       "FROM": "PAGE_TEXT",
+       "PATTERN": "Bollettino agrometeorologico per la provincia di ([A-Z][a-z]+)",
+       "REQUIRED": false,
+       "DEFAULTS": [
+        "x"
+       ]
+      }
+     },
+     "PUBLISHED_AT": "{aggiornato.3}-{aggiornato.2}-{aggiornato.1}",
+     "PUBLISHED_AT_BASIS": "EDICAO_DECLARADA_NA_PAGINA · «Aggiornato il DD/MM/AAAA» (a pagina e atualizada uma vez por semana, a quinta)",
+     "FACT_TIME": "{sem.3}-{sem.2}-{sem.1}/{sem.6}-{sem.5}-{sem.4}",
+     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Osservazioni della settimana da DD/MM/AAAA a DD/MM/AAAA»",
+     "FACT_LOCATION": "provincia di {prov.1}",
+     "FACT_LOCATION_BASIS": "AREA_DECLARADA_NA_PAGINA · «Bollettino agrometeorologico per la provincia di …»"
+    },
+    "IDENTITY_KEYS": [
+     "url_path"
+    ],
+    "IDENTITY_KIND": "URL_PATH",
+    "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    "EXPECTED_FAILURES": [
+     "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+     "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+     "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+    ],
+    "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+    "FALLBACK": "nenhum",
+    "NEGATIVE_CONTROL": {
+     "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+     "esperado": "EMPTY_LIST -> FAILED"
+    },
+    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+    "SOURCE_CONTRACT_HASH": "17f3e4dd73f1003f",
+    "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+    "FORMA": "PAGINA_E_BOLETIM",
+    "RECOLLECTION": {
+     "DETAIL_CONTENT": "MUTABLE",
+     "TTL_SECONDS": 86400
+    },
+    "ROUTE_PROVENANCE": {
+     "MISSAO": "D61/D62 (sobre a JANELA-FORMAS B)",
+     "INTEGRADO_EM": "2026-09-25T15:38:17.789940+00:00",
+     "ANTERIOR": null
+    }
+   },
+   "CANARIO": {
+    "PASS": true,
+    "CLASSE": "OK",
+    "PORQUE": null,
+    "DOCUMENT_ID": "IT-T2-152:BOLETIM:FIRENZE:2026-09-24",
+    "TEMPOS": {
+     "PUBLISHED_AT": "2026-09-24",
+     "PUBLISHED_AT_BASIS": "EDICAO_DECLARADA_NA_PAGINA · «Aggiornato il DD/MM/AAAA» (a pagina e atualizada uma vez por semana, a quinta) · «Aggiornato il 24/09/2026»",
+     "FACT_TIME": "2026-09-17/2026-09-23",
+     "FACT_TIME_BASIS": "PERIODO_LIGADO_AO_FATO_NO_TEXTO · «Osservazioni della settimana da DD/MM/AAAA a DD/MM/AAAA» · «Osservazioni della settimana da 17/09/2026 a 23/09/2026»",
+     "FACT_LOCATION": "provincia di Firenze",
+     "FACT_LOCATION_BASIS": "AREA_DECLARADA_NA_PAGINA · «Bollettino agrometeorologico per la provincia di …» · «Bollettino agrometeorologico per la provincia di Firenze»",
+     "BULLETIN_PERIOD": "NAO SEI",
+     "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato não declara onde o boletim diz o BULLETIN_PERIOD",
+     "COLLECTION_TIME": "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    },
+    "DETAIL_GATE": "PAGINA_BOLETIM/v1"
+   },
+   "ITEM_ABERTO": {
+    "URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+    "HTTP": 200,
+    "BYTES": 217690,
+    "FORMA": "PAGINA_E_BOLETIM",
+    "DOCUMENT_ID": "IT-T2-152:BOLETIM:FIRENZE:2026-09-24",
+    "CONTENT_SHA256": "6a8776cf57eaea9ed75c110c112aa24726bc93727a887d614e9c6b066d3a1b15",
+    "SOURCE_DATE": "24/09/2026",
+    "SOURCE_DATE_ISO": "2026-09-24",
+    "FACT_TIME": "2026-09-17/2026-09-23",
+    "BOLETIM_CARACTERES": 3848,
+    "DATA_COMPROVADA": true
+   },
+   "REGUA": {
+    "REGUA": "PAGINA_BOLETIM/v1",
+    "PASSOS": {
+     "URL_FIXA": true,
+     "RECOLHA_MUTAVEL": true,
+     "IDENTIDADE": true,
+     "CORPO_DO_BOLETIM": true,
+     "CONTRATO_ATUAL": true
+    },
+    "INFO": {
+     "DATA_COMPROVADA": true,
+     "SOURCE_DATE_ISO": "2026-09-24"
+    },
+    "PORQUE": "a pagina e o boletim: identidade pelo motor, corpo recortado, recolha mutavel"
+   }
+  }
+ },
+ "VEIO_DE": [
+  {
+   "URL": "https://arsac.calabria.it/category/ultime-notizie/",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\4afeb9c6409dad60f773.bin"
+  },
+  {
+   "URL": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-22-settembre-2026/",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:/cur/d61/bytes/00bde0ea5f95dab44d55.bin"
+  },
+  {
+   "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\13315c046029dd01f1a5.bin"
+  },
+  {
+   "URL": "https://www.regione.molise.it/flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F1%252Fa%252FD.b63db74a4052c1514f91/P/BLOB%3AID%3D18077/E/pdf?mode=download",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\3c36e406b003495e9492.bin"
+  },
+  {
+   "URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\cbf535dbbaa52eb235ee.bin"
+  },
+  {
+   "URL": "https://www.regione.vda.it/allegato.aspx?pk=124385",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\d01b503f72516bc1b275.bin"
+  },
+  {
+   "URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\umbria\\bytes\\7f843b165d68a2a3e000.bin"
+  },
+  {
+   "URL": "https://www.regione.umbria.it/documents/18/0/bollettino+NOCCIOLO+n.10+del+17_07_2026/d07bdc4c-1fef-4eb5-832f-fdbafec578a1?version=1.0",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\umbria\\bytes\\288c0b0734e13ed052e5.bin"
+  },
+  {
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\t2b\\bytes\\ae6395590f25cd3397f8.bin"
+  },
+  {
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/09_boll_agro_20260302.pdf",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\t2b\\bytes\\3d669b144010fd837fce.bin"
+  },
+  {
+   "URL": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\5208aa2fbc6a4139afa6.bin"
+  },
+  {
+   "URL": "https://www.protezionedellepiante.it/wp-content/uploads/2026/05/dtu-86_finale_post_cfn_signed.pdf",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\d390d8733b9e6be5e486.bin"
+  },
+  {
+   "URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\658215d7ce7052e2b099.bin"
+  },
+  {
+   "URL": "http://www.ersa.fvg.it/cms/aziende/bollettini-biologica/Colture-erbacee/B-SEM_15-07-10-2025.pdf",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\61ab19c36b22cda3f040.bin"
+  },
+  {
+   "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/NA_2026.html",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\e24f4f937574b5a709cc.bin"
+  },
+  {
+   "URL": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-01-04.pdf",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:\\cur\\d61\\bytes\\4246e8c63bfccedbb349.bin"
+  },
+  {
+   "URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+   "DE": "GUARDADO HOJE",
+   "EM": "C:/cur/jf/b/IT-T2-152.bin"
+  }
+ ],
+ "PEDIDOS_A_REDE": [],
+ "PEDIDOS_POR_DOMINIO": {
+  "calabria.it": 5,
+  "molise.it": 5,
+  "vda.it": 5,
+  "veneto.it": 3,
+  "arsacweb.it": 3,
+  "arsacagrometeo.it": 2,
+  "protezionedellepiante.it": 3,
+  "fvg.it": 3,
+  "campania.it": 3
+ }
+}
