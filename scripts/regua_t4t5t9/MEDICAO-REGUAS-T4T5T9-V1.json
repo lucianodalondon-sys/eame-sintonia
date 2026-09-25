@@ -1,0 +1,166 @@
+{
+ "DATASET": "MEDICAO-REGUAS-T4T5T9-V1",
+ "MEDIDO_DENTRO_DA_AMOSTRA": true,
+ "A_REGUA_ANTIGA_NO_GABARITO": {
+  "ROTULOS": 167,
+  "POR_UNIVERSO": {
+   "T4": {
+    "TP": 0,
+    "FP": 20,
+    "FN": 0,
+    "PRECISAO": 0.0,
+    "RECALL": null,
+    "MATRIZ": {
+     "NAO_SEI->NAO_SEI": 1,
+     "NAO_SEI->SIM": 2,
+     "NO->NAO": 42,
+     "NO->NAO_SEI": 102,
+     "NO->SIM": 20
+    }
+   },
+   "T5": {
+    "TP": 5,
+    "FP": 45,
+    "FN": 1,
+    "PRECISAO": 0.1,
+    "RECALL": 0.833,
+    "MATRIZ": {
+     "NAO_SEI->NAO": 2,
+     "NAO_SEI->NAO_SEI": 18,
+     "NAO_SEI->SIM": 6,
+     "NO->NAO": 8,
+     "NO->NAO_SEI": 82,
+     "NO->SIM": 45,
+     "YES->NAO_SEI": 1,
+     "YES->SIM": 5
+    }
+   },
+   "T9": {
+    "TP": 1,
+    "FP": 21,
+    "FN": 9,
+    "PRECISAO": 0.045,
+    "RECALL": 0.1,
+    "MATRIZ": {
+     "NAO_SEI->NAO": 2,
+     "NAO_SEI->NAO_SEI": 3,
+     "NO->NAO": 38,
+     "NO->NAO_SEI": 93,
+     "NO->SIM": 21,
+     "YES->NAO": 1,
+     "YES->NAO_SEI": 8,
+     "YES->SIM": 1
+    }
+   }
+  }
+ },
+ "B_REROUTE_POR_DESTINOS": {
+  "TODOS (hoje)": {
+   "TP": 8,
+   "FP": 94,
+   "FN": 5,
+   "PRECISAO": 0.078,
+   "RECALL": 0.615,
+   "DESTINOS": [
+    "T1",
+    "T10",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T7",
+    "T9"
+   ],
+   "ACESOS_NAO_SEI": 4,
+   "ACESOS_TOTAL_NO_CORPUS": 124
+  },
+  "SEM T4/T5/T9": {
+   "TP": 0,
+   "FP": 4,
+   "FN": 13,
+   "PRECISAO": 0.0,
+   "RECALL": 0.0,
+   "DESTINOS": [
+    "T1",
+    "T10",
+    "T2",
+    "T3",
+    "T7"
+   ],
+   "ACESOS_NAO_SEI": 1,
+   "ACESOS_TOTAL_NO_CORPUS": 14
+  },
+  "SEM T4": {
+   "TP": 7,
+   "FP": 90,
+   "FN": 6,
+   "PRECISAO": 0.072,
+   "RECALL": 0.538,
+   "DESTINOS": [
+    "T1",
+    "T10",
+    "T2",
+    "T3",
+    "T5",
+    "T7",
+    "T9"
+   ],
+   "ACESOS_NAO_SEI": 4,
+   "ACESOS_TOTAL_NO_CORPUS": 119
+  },
+  "SEM T5": {
+   "TP": 5,
+   "FP": 39,
+   "FN": 8,
+   "PRECISAO": 0.114,
+   "RECALL": 0.385,
+   "DESTINOS": [
+    "T1",
+    "T10",
+    "T2",
+    "T3",
+    "T4",
+    "T7",
+    "T9"
+   ],
+   "ACESOS_NAO_SEI": 2,
+   "ACESOS_TOTAL_NO_CORPUS": 58
+  },
+  "SEM T9": {
+   "TP": 5,
+   "FP": 93,
+   "FN": 8,
+   "PRECISAO": 0.051,
+   "RECALL": 0.385,
+   "DESTINOS": [
+    "T1",
+    "T10",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T7"
+   ],
+   "ACESOS_NAO_SEI": 4,
+   "ACESOS_TOTAL_NO_CORPUS": 118
+  },
+  "SO T1/T2 (reguas medidas)": {
+   "TP": 0,
+   "FP": 0,
+   "FN": 13,
+   "PRECISAO": null,
+   "RECALL": 0.0,
+   "DESTINOS": [
+    "T1",
+    "T2"
+   ],
+   "ACESOS_NAO_SEI": 1,
+   "ACESOS_TOTAL_NO_CORPUS": 5
+  }
+ },
+ "ALVO": {
+  "T1": 0.981,
+  "T2": 0.953,
+  "FONTE": "scripts/regua_t1/MEDICAO-REGUA-T1-V1.json, scripts/regua_t2/MEDICAO-REGUA-T2-V3.json"
+ }
+}

@@ -813,6 +813,35 @@
    ]
   },
   {
+   "id": "C-REGUA-T4T5T9",
+   "name": "Reguas T4/T5/T9 da Admissao — gabarito (NAO PRONTO) e medicao do REROUTE por destinos",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Gabarito T4/T5/T9 lido a mao pelo protocolo (167 textos do acervo + brutos T4/T5/T9 do armazem, copiados; semente 45945; 71 separados para a prova cega e selados). T4 0 YES, T5 6, T9 10: NAO PRONTO nos tres (regra: >=20 YES e >=20 NO), nenhuma regua nova escrita. medir.py mede a regua antiga no gabarito (precisao T4 0 %, T5 10 %, T9 4,5 %) e o REROUTE com cada conjunto de destinos contra SINTONIA_RELEVANT.",
+   "why_here": "A REROUTE-D2 mediu 8 % de precisao, quase toda de T4/T5/T9. O acervo quase nao tem conteudo desses universos (agencias de ambiente e clima); precisa de coleta dirigida, com rede. Medido DENTRO da amostra; textos fora do Git (%USERPROFILE%/sintonia-gabarito/REGUA-T4T5T9-V1).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/regua_t4t5t9/PROTOCOLO-GABARITO-T4-T5-T9.md",
+    "scripts/regua_t4t5t9/amostrar.py",
+    "scripts/regua_t4t5t9/A-ROTULAR.json",
+    "scripts/regua_t4t5t9/amostrar_adenda1.py",
+    "scripts/regua_t4t5t9/A-ROTULAR-ADENDA1.json",
+    "scripts/regua_t4t5t9/rotulos/rotulos-gabarito.json",
+    "scripts/regua_t4t5t9/CONTAGEM-GABARITO.json",
+    "scripts/regua_t4t5t9/medir.py",
+    "scripts/regua_t4t5t9/MEDICAO-REGUAS-T4T5T9-V1.json",
+    "scripts/regua_t4t5t9/RELATORIO-REGUAS-T4-T5-T9.md"
+   ]
+  },
+  {
    "id": "C-CAPA-MATERIA",
    "name": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO",
    "territory": "Z-MEDIDAS",
