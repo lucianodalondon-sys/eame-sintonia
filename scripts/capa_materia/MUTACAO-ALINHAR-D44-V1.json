@@ -1,0 +1,40 @@
+{
+ "DATASET": "MUTACAO-ALINHAR-D44-V1",
+ "COPIA": "C:/capa-base",
+ "MUTANTES": {
+  "alinha_qualquer_fonte": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_a_istat_passa_a_ter_o_padrao_do_coletor (test_alinhar_com_o_coletor.TestAlinhar.test_a_istat_passa_a_ter_o_padrao_do_coletor)",
+    "FAIL: test_fonte_divergente_fora_da_decisao_fica_como_esta (test_alinhar_com_o_coletor.TestAlinhar.test_fonte_divergente_fora_da_decisao_fica_como_esta)",
+    "FAIL: test_segunda_corrida_nao_muda_nada (test_alinhar_com_o_coletor.TestAlinhar.test_segunda_corrida_nao_muda_nada)"
+   ]
+  },
+  "sem_ja_alinhada": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_segunda_corrida_nao_muda_nada (test_alinhar_com_o_coletor.TestAlinhar.test_segunda_corrida_nao_muda_nada)"
+   ]
+  },
+  "invariante_cego": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_invariante_apanha_fonte_mudada_sem_autorizacao (test_alinhar_com_o_coletor.TestAlinhar.test_invariante_apanha_fonte_mudada_sem_autorizacao)"
+   ]
+  },
+  "escreve_sem_ordem": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_sem_escrever_o_ficheiro_nao_muda (test_alinhar_com_o_coletor.TestAlinhar.test_sem_escrever_o_ficheiro_nao_muda)"
+   ]
+  },
+  "decisao_errada_no_livro": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_a_istat_passa_a_ter_o_padrao_do_coletor (test_alinhar_com_o_coletor.TestAlinhar.test_a_istat_passa_a_ter_o_padrao_do_coletor)"
+   ]
+  }
+ },
+ "MORTOS": 5,
+ "TOTAL": 5
+}
