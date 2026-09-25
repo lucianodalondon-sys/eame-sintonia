@@ -93,5 +93,53 @@ class UmSoCanarioPromove(unittest.TestCase):
                                          contratos=contratos), RS.REGUA_CURRENT)
 
 
+class OWorkerPromovePelaListaUnica(unittest.TestCase):
+    """BOLETINS-V2: o worker pergunta a LISTA UNICA (RS.REGUAS_QUE_ADMITEM). Uma «pagina = boletim» com a
+    prova completa da sua regua (PAGINA_BOLETIM/v1) e promovida; a mesma forma sem o recorte do boletim
+    fica PASS_PARCIAL. Antes da lista unica, o worker so via DETAIL/v1 e a pagina nunca era READY."""
+
+    def setUp(self):
+        from test_pagina_boletim import contrato_boletim
+        self.tmp = tempfile.TemporaryDirectory()
+        d = Path(self.tmp.name)
+        self._antes = (LC.LIVRO, F.FILA, W.EVIDENCIA, W.CONTRATOS)
+        LC.LIVRO = d / "LEDGER.json"
+        F.FILA = d / "QUEUE.json"
+        W.EVIDENCIA = d / "EVIDENCE.json"
+        self.addCleanup(setattr, W, "PULSO", W.PULSO)
+        W.PULSO = d / "WORKER-HEARTBEAT.json"
+        W.CONTRATOS = d / "contracts.json"
+        boa, curta = contrato_boletim(), contrato_boletim()
+        boa["SOURCE_ID"], curta["SOURCE_ID"] = "IT-T2-901", "IT-T2-902"
+        boa["IDENTITY"]["DOCUMENT_ID"] = boa["IDENTITY"]["DOCUMENT_ID"].replace("IT-T2-900", "IT-T2-901")
+        curta["IDENTITY"]["DOCUMENT_ID"] = curta["IDENTITY"]["DOCUMENT_ID"].replace("IT-T2-900", "IT-T2-902")
+        W.CONTRATOS.write_text(json.dumps({"FONTES": [boa, curta]}), encoding="utf-8")
+        for sid in ("IT-T2-901", "IT-T2-902"):
+            LC.registar(sid, LC.CANARY_PENDING, "prova")
+            F.enfileirar(sid, F.CANARY, priority=60)
+
+        def etapa_boletim(sid, contrato):
+            item = {"URL": contrato["ACQUISITION"]["URL"], "HTTP": 200, "FORMA": "PAGINA_E_BOLETIM",
+                    "DOCUMENT_ID": sid + ":BOLETIM:2026-09-24", "CONTENT_SHA256": "a" * 64,
+                    "SOURCE_DATE_ISO": "2026-09-24", "DATA_COMPROVADA": True,
+                    "BOLETIM_CARACTERES": 3848 if sid == "IT-T2-901" else 40}
+            return "OK", {"PASS": True, "DETAIL_GATE_PASSED": True, "DETAIL_GATE": RS.REGUA_PAGINA_BOLETIM,
+                          "ITEM_ABERTO": item}
+        self._etapas = mock.patch.dict(W.ETAPAS, {F.CANARY: etapa_boletim})
+        self._etapas.start()
+
+    def tearDown(self):
+        self._etapas.stop()
+        LC.LIVRO, F.FILA, W.EVIDENCIA, W.CONTRATOS = self._antes
+        self.tmp.cleanup()
+
+    def test_pagina_boletim_completa_e_promovida_a_curta_nao(self):
+        feitos = {r["SOURCE_ID"]: r for r in W.correr(pausa=0, verboso=False)}
+        self.assertEqual(LC.estado_de("IT-T2-901"), LC.READY_FOR_COLLECTION, feitos.get("IT-T2-901"))
+        self.assertEqual(feitos["IT-T2-901"]["RESULTADO"], "OK")
+        self.assertEqual(LC.estado_de("IT-T2-902"), LC.CONTRACTED_CANARY_FAILED)
+        self.assertEqual(feitos["IT-T2-902"]["RESULTADO"], "PASS_PARCIAL")
+
+
 if __name__ == "__main__":
     unittest.main()
