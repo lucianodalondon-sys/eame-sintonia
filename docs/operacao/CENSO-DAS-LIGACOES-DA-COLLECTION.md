@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  f960096fd0d3835050fa2da69ddc959863d02ea6
+HEAD_DA_MEDICAO  7a91cfdaa1a2fc88a338f531cedc587e89ae553e
 BRANCH           claude/quatro-chaves-sala-9h1hk1
-GERADO_EM        2026-09-25T21:52:22+00:00
+GERADO_EM        2026-09-25T22:04:47+00:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
