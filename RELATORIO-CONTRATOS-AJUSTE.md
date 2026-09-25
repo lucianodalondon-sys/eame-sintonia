@@ -21,7 +21,7 @@ Medido no índice guardado de 25/09 (sha256 em `INDICES-D40-V1.json`), sem rede:
 | | antes | agora |
 |---|---|---|
 | ligações aceites | 42 | 20 (12 `comunicato-stampa` + 8 `notizia`) |
-| páginas de secção entre elas | 11 (`attivita-e-servizi…`, `comunicati-e-analisi/…`, `documenti/…`, `newsletter/…`) | 0 |
+| páginas de secção entre elas | 12 (`attivita-e-servizi…`, `comunicati-e-analisi/…`, `documenti/…`, `newsletter/…`) | 0 |
 | alvos D40 | `promozione-della-ricerca`, `rivista-di-statistica-ufficiale`, `istat-working-papers` | `linnovazione-nelle-imprese-anni-2022-2024`, `la-ricerca-e-sviluppo-in-italia-anni-2024-2026`, `conti-economici-nazionali-anni-2010-2025` |
 
 Ficam de fora também `evento/`, `news-dati-alla-mano/` e `newsletter/`: a missão pediu
@@ -94,7 +94,7 @@ Número que pesa: aplicado a todas, um corte em 28 dias perderia **6 de 19** edi
 
 O contrato do curador (`curadoria/italy_contracts_curator.json`) continua com o padrão antigo da
 istat. O curador **não reescreve** linhas que já têm contrato no coletor
-(`curadoria/onboardar_rotas_provadas.py:88-90`), por isso o ajuste não se perde. O curador também
+(`curadoria/onboardar_rotas_provadas.py:89-90`), por isso o ajuste não se perde. O curador também
 não o vê. Alinhar os dois é da bancada dos contratos.
 
 ## 6 · Writeset
