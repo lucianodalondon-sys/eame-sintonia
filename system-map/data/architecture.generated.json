@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-onda2-v1",
-    "HEAD": "8ef481070698f61500f935f5c1f8a04ec13da68e",
-    "GENERATED_AT": "2026-09-25T06:34:54-03:00",
-    "SOURCE_TREE_FINGERPRINT": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc"
+    "BRANCH": "janelas-68-v2",
+    "HEAD": "febd2ca0635274e5d4749ad747c435ec1b83200b",
+    "GENERATED_AT": "2026-09-25T09:20:48-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1c78d668bcfeaf9a8b835307edfc727ac18c67594185a825ebc0879d0c97baa1"
   },
   "FILES": [
     {
@@ -599,6 +599,13 @@
     {
       "path": "RELATORIO-R1-REPARO-FONTES.md",
       "sha": "6d555df11973762ddd4f3e95b061971eeef9da9d",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-RECEITAS-182.md",
+      "sha": "74d4cb68a2fc4f167a8a054b4a6ecd3855898658",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2907,6 +2914,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/entrada_janela.py",
+      "sha": "0979842312cf0872ed622b45b414c80c2084b8b3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/escrever_contratos.py",
       "sha": "76717a801ffd47c570f9a003be29a6d53ee8fc87",
       "ext": ".py",
@@ -2960,6 +2974,13 @@
       "sha": "0103db1f4cd3cad0a5cc6c7f5f3d23af1fc16026",
       "ext": ".json",
       "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/janelas68v2_remedir.py",
+      "sha": "b1da05ea5481f4909bc04f8907d5ca57a2f8af25",
+      "ext": ".py",
+      "readable": true,
       "code_dir": false
     },
     {
@@ -3188,7 +3209,7 @@
     },
     {
       "path": "curadoria/reparar_contrato.py",
-      "sha": "19a7e231ed78b982157559e2e28ac0fd9a546b0f",
+      "sha": "bb31b76d6e0812df23225d065f8ccaca9f22d0e5",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3327,6 +3348,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_entrada_janela.py",
+      "sha": "6d0ac6d2db769bc128bb8c1f223b7e267223131b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_fila_windows.py",
       "sha": "fb86f5e0947d2d46608560ef3e3d7df4cc2119fc",
       "ext": ".py",
@@ -3447,7 +3475,21 @@
     },
     {
       "path": "curadoria/test_reparar_contrato.py",
-      "sha": "815898e2ee237175c4f6b2a7fec708b31ef3784c",
+      "sha": "fb828757d5ab4b3056b0da515980f649a5572a0a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_reparo_data_publicacao.py",
+      "sha": "a29a571674812ced6a8156c92c5eb22afe12dc23",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_reparo_titulos_longos.py",
+      "sha": "fa33840927b5680963e7f7dc650bf80b28c5b881",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -15591,6 +15633,76 @@
       "code_dir": true
     },
     {
+      "path": "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+      "sha": "2a255f38eebb208e292b198460d4041955c53a86",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json",
+      "sha": "bf8a0c98452191bef74fd44c8c849d8fe905279c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/ENTRADA-DE-JANELA-ENSAIO-V1.json",
+      "sha": "8f79558eb8eab4b3f2d9c307571a7c0fd56fdae8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/MUTACAO-TRAVA-V1.json",
+      "sha": "15ae66f7e53a0b93b45fbc4b21134db0513fc86a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/RELATORIO-JANELAS-68-V2.md",
+      "sha": "69ddd3c90a3114c254e1f33bee844e19c8141047",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+      "sha": "43be5f6cfa3d46459521c080b9030a3af4ce711e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/TESTES-BASE-41d8751e.json",
+      "sha": "5a827cfd243eadf42e391a82c5db03041b33600a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/TESTES-RAMO.json",
+      "sha": "58a9e49461099fe2eda6b4e088caee4e423d864f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/arsac_sonda.py",
+      "sha": "be847137d8567fd7cb734478e9e57fd700025ff1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janelas68v2/correr_testes.py",
+      "sha": "d71aeeaa394d033306b22f9cd41afd683b7538e1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/linkedin_local_first.py",
       "sha": "624030924042efc41a4dc2f3326c8105cb8623c6",
       "ext": ".py",
@@ -17663,6 +17775,76 @@
       "code_dir": true
     },
     {
+      "path": "scripts/receitas_182/CAPTURA-ENTRADAS-V1.json",
+      "sha": "faafe4882808df2a34e9743e0d371b3e490527ca",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/CLASSIFICACAO-182-V1.json",
+      "sha": "af6150e750b2b4755b3c8fa2ae0738750b995bea",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/EXTRACAO-182-V1.json",
+      "sha": "30ac3b080d16530e9d205abbbc0ccf6246e0a558",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/MEDICAO-COM-REDE-V1.json",
+      "sha": "cb4c47ae97c43cfe687afa67a6a2f71fee635af5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/MUTACAO-TITULOS-LONGOS-V1.json",
+      "sha": "2a8b7adf6afb93a958d7c8042452d42cff3d966c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/capturar_entradas.py",
+      "sha": "45f63dbe6365d34835496ca8906db4ff9cc0b9d8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/classificar_182.py",
+      "sha": "bb432d010e8e9d458cb8c3d22eb3d66fe96412f9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/extrair_182.py",
+      "sha": "30f95cfc7ffae877253300b8d0037fb598fab317",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/medir_com_rede.py",
+      "sha": "e67d7319a98bc31daa9c177530349897ab99f891",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/receitas_182/mutar_titulos_longos.py",
+      "sha": "a56aae3ff23a8415cd8c9cd75805347df45dc1db",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/regua_t1/GABARITO-T1-V1.json",
       "sha": "9edea48e8eb5325ba631512873d71e8184bfce85",
       "ext": ".json",
@@ -18693,7 +18875,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "15b0c7eb8c4b47c67350cf92ca1e8e4eff30a3cd",
+      "sha": "092e3c2301ec9aba8971d596e58fb1a40780dc11",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19184,6 +19366,97 @@
     {
       "path": "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "sha": "c979c2ae47b027c1095585a28c09d49e07e3670f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/.gitattributes",
+      "sha": "823e65ba03e89c41e01c43f396af19845cf83f59",
+      "ext": "",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T2-135.html",
+      "sha": "c9e8c24152ee929d7bcbe654509384afb9fae8dc",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T2-157.html",
+      "sha": "3de58df927e92093d303245ecb17fa2166cd27d7",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T2-159.html",
+      "sha": "515bbb7188879abd752525627fb18a3a0e176dfd",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T3-041.html",
+      "sha": "160ff9800b8877a6640f6c92e538cfe5784a2519",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T3-047.html",
+      "sha": "b2692206c269223b3a7d2d8e42b3c0fe4d28d17b",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T3-049.html",
+      "sha": "3acf93eaa61e37888d79d82829d0c9b37a1467cc",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T3-052.html",
+      "sha": "62fd0c84587e3c1c4ef5e102b3ccd1bf25ca8ab9",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T3-060.html",
+      "sha": "a14918dc9807926bb0fd2172331082de399b5fca",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T3-062.html",
+      "sha": "0e013d03aee26fc72d608b9ba8dfed750f1b8adf",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T8-069.html",
+      "sha": "cec223ab7120114e39b28945b731ff74676f2a66",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/IT-T9-024.html",
+      "sha": "cec223ab7120114e39b28945b731ff74676f2a66",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/janelas68_itens/MANIFESTO.json",
+      "sha": "7528b4e943ab1b4671deecf203a04c76c9b2d5af",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26735,6 +27008,17 @@
       }
     },
     {
+      "from_file": "curadoria/entrada_janela.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/entrada_janela.py",
+        "line": 103,
+        "snippet": "import reparar_contrato as RC                          # noqa: E402 — a porta do reparo"
+      }
+    },
+    {
       "from_file": "curadoria/escrever_contratos.py",
       "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
       "type": "READS",
@@ -27205,6 +27489,105 @@
         "file": "curadoria/interface_collection.py",
         "line": 52,
         "snippet": "import lifecycle as LC        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 59,
+        "snippet": "for t in json.loads((VIVO / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]:"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 28,
+        "snippet": "import canario as CAN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "curadoria/gate_de_rota.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 29,
+        "snippet": "import gate_de_rota as GATE      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 56,
+        "snippet": "livro = json.loads((VIVO / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 30,
+        "snippet": "import reparar_contrato as RC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 33,
+        "snippet": "SAIDA = RAIZ / \"provas\" / \"janelas68v2\" / \"REMEDICAO-COM-TRAVA-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 131,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "scripts/receitas_182/CAPTURA-ENTRADAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 63,
+        "snippet": "cap = json.loads((R182 / \"CAPTURA-ENTRADAS-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "curadoria/janelas68v2_remedir.py",
+      "to_file": "scripts/receitas_182/MEDICAO-COM-REDE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/janelas68v2_remedir.py",
+        "line": 64,
+        "snippet": "m182 = json.loads((R182 / \"MEDICAO-COM-REDE-V1.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -28996,7 +29379,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 80,
+        "line": 83,
         "snippet": "import canario as CAN            # noqa: E402  (buscar + hrefs_da_entrada: o leitor do canario)"
       }
     },
@@ -29007,7 +29390,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 535,
+        "line": 650,
         "snippet": "import escrever_contratos as EC      # noqa: PLC0415"
       }
     },
@@ -29018,7 +29401,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 81,
+        "line": 84,
         "snippet": "import gate_de_rota as GATE      # noqa: E402"
       }
     },
@@ -29029,7 +29412,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 82,
+        "line": 85,
         "snippet": "import provar_listagem as PL     # noqa: E402  (listagem -> itens: o metodo da CANDIDATE-FEEDER-V1)"
       }
     },
@@ -29040,7 +29423,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 83,
+        "line": 86,
         "snippet": "import retrato_html as RH        # noqa: E402"
       }
     },
@@ -29051,7 +29434,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 536,
+        "line": 651,
         "snippet": "import validar_contratos as VC       # noqa: PLC0415"
       }
     },
@@ -29062,7 +29445,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 86,
+        "line": 89,
         "snippet": "\"censo_e_proposta\", RAIZ / \"scripts\" / \"receitas\" / \"censo_e_proposta.py\")"
       }
     },
@@ -29944,6 +30327,39 @@
         "file": "curadoria/test_emparelhar_ataques.py",
         "line": 141,
         "snippet": "import supervisor as SUP"
+      }
+    },
+    {
+      "from_file": "curadoria/test_entrada_janela.py",
+      "to_file": "curadoria/entrada_janela.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_entrada_janela.py",
+        "line": 10,
+        "snippet": "import entrada_janela as EJ        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_entrada_janela.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_entrada_janela.py",
+        "line": 11,
+        "snippet": "import reparar_contrato as RC      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_entrada_janela.py",
+      "to_file": "curadoria/test_reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_entrada_janela.py",
+        "line": 12,
+        "snippet": "from test_reparar_contrato import _contrato   # noqa: E402"
       }
     },
     {
@@ -30932,7 +31348,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reparar_contrato.py",
-        "line": 485,
+        "line": 488,
         "snippet": "import fonte_nova as FN"
       }
     },
@@ -30943,7 +31359,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reparar_contrato.py",
-        "line": 483,
+        "line": 486,
         "snippet": "import decisao_semantica as DS"
       }
     },
@@ -30987,7 +31403,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reparar_contrato.py",
-        "line": 162,
+        "line": 165,
         "snippet": "import provar_listagem as PL"
       }
     },
@@ -31011,6 +31427,39 @@
         "file": "curadoria/test_reparar_contrato.py",
         "line": 21,
         "snippet": "import worker as W                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparo_data_publicacao.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparo_data_publicacao.py",
+        "line": 18,
+        "snippet": "import reparar_contrato as RC                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparo_data_publicacao.py",
+      "to_file": "curadoria/test_reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparo_data_publicacao.py",
+        "line": 19,
+        "snippet": "from test_reparar_contrato import (B, CORPO, NOTICIAS, Site, _contrato, _html,   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparo_titulos_longos.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparo_titulos_longos.py",
+        "line": 14,
+        "snippet": "import reparar_contrato as R   # noqa: E402"
       }
     },
     {
@@ -54323,6 +54772,61 @@
       }
     },
     {
+      "from_file": "provas/janelas68v2/arsac_sonda.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janelas68v2/arsac_sonda.py",
+        "line": 108,
+        "snippet": "json.loads((VIVO / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "provas/janelas68v2/arsac_sonda.py",
+      "to_file": "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janelas68v2/arsac_sonda.py",
+        "line": 36,
+        "snippet": "SAIDA = Path(__file__).resolve().parent / \"ARSAC-PROPOSTA-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/janelas68v2/arsac_sonda.py",
+      "to_file": "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janelas68v2/arsac_sonda.py",
+        "line": 129,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/janelas68v2/arsac_sonda.py",
+      "to_file": "provas/janelas68v2/ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janelas68v2/arsac_sonda.py",
+        "line": 53,
+        "snippet": "anterior = Path(__file__).resolve().parent / \"ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json\""
+      }
+    },
+    {
+      "from_file": "provas/janelas68v2/arsac_sonda.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/janelas68v2/arsac_sonda.py",
+        "line": 28,
+        "snippet": "import rede                      # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/linkedin_local_first.py",
       "to_file": "coleta/adaptador_linkedin.py",
       "type": "IMPORTS",
@@ -62790,6 +63294,204 @@
         "file": "scripts/receitas/propor_receitas_v4.py",
         "line": 28,
         "snippet": "import propor_receitas_v3 as V3  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/capturar_entradas.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/capturar_entradas.py",
+        "line": 46,
+        "snippet": "json.loads((VIVO / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/capturar_entradas.py",
+      "to_file": "scripts/receitas_182/CAPTURA-ENTRADAS-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/capturar_entradas.py",
+        "line": 85,
+        "snippet": "(AQUI / \"CAPTURA-ENTRADAS-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/capturar_entradas.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/receitas_182/capturar_entradas.py",
+        "line": 25,
+        "snippet": "import rede                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/classificar_182.py",
+      "to_file": "scripts/receitas_182/CLASSIFICACAO-182-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/classificar_182.py",
+        "line": 92,
+        "snippet": "(AQUI / \"CLASSIFICACAO-182-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/classificar_182.py",
+      "to_file": "scripts/receitas_182/EXTRACAO-182-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/classificar_182.py",
+        "line": 80,
+        "snippet": "d = json.loads((AQUI / \"EXTRACAO-182-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/extrair_182.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/extrair_182.py",
+        "line": 31,
+        "snippet": "evid, h_evid = ler(\"curadoria/LIFECYCLE-EVIDENCE-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/extrair_182.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/extrair_182.py",
+        "line": 30,
+        "snippet": "livro, h_livro = ler(\"curadoria/LIFECYCLE-LEDGER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/extrair_182.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/extrair_182.py",
+        "line": 29,
+        "snippet": "aloc, h_aloc = ler(\"curadoria/SOURCE-ID-ALLOCATION-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/extrair_182.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/extrair_182.py",
+        "line": 32,
+        "snippet": "contr, h_contr = ler(\"curadoria/italy_contracts_curator.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/extrair_182.py",
+      "to_file": "scripts/receitas_182/EXTRACAO-182-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/extrair_182.py",
+        "line": 57,
+        "snippet": "(AQUI / \"EXTRACAO-182-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/medir_com_rede.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/medir_com_rede.py",
+        "line": 51,
+        "snippet": "ledger = json.loads((VIVO / \"curadoria\" / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/medir_com_rede.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/medir_com_rede.py",
+        "line": 50,
+        "snippet": "livro = json.loads((VIVO / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/medir_com_rede.py",
+      "to_file": "scripts/receitas_182/CAPTURA-ENTRADAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/medir_com_rede.py",
+        "line": 49,
+        "snippet": "cap = json.loads((AQUI / \"CAPTURA-ENTRADAS-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/medir_com_rede.py",
+      "to_file": "scripts/receitas_182/MEDICAO-COM-REDE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/medir_com_rede.py",
+        "line": 122,
+        "snippet": "(AQUI / \"MEDICAO-COM-REDE-V1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/medir_com_rede.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/receitas_182/medir_com_rede.py",
+        "line": 66,
+        "snippet": "import rede   # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/mutar_titulos_longos.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/mutar_titulos_longos.py",
+        "line": 22,
+        "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/mutar_titulos_longos.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/mutar_titulos_longos.py",
+        "line": 29,
+        "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))"
+      }
+    },
+    {
+      "from_file": "scripts/receitas_182/mutar_titulos_longos.py",
+      "to_file": "scripts/receitas_182/MUTACAO-TITULOS-LONGOS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/receitas_182/mutar_titulos_longos.py",
+        "line": 40,
+        "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-TITULOS-LONGOS-V1.json\"), \"w\","
       }
     },
     {
@@ -85230,6 +85932,13 @@
         "constante": "F"
       }
     ],
+    "scripts/receitas_182/mutar_titulos_longos.py": [
+      {
+        "pasta": "curadoria",
+        "line": 37,
+        "constante": "F"
+      }
+    ],
     "scripts/regua_t1/mutar_regua_t1.py": [
       {
         "pasta": "admissao",
@@ -85351,11 +86060,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2977,
-    "files_readable": 1332,
-    "files_code_dir": 1268,
-    "file_edges": 5810,
-    "escritas_em_pasta": 86,
+    "files_tracked": 3016,
+    "files_readable": 1355,
+    "files_code_dir": 1301,
+    "file_edges": 5849,
+    "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
