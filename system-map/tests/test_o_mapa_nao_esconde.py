@@ -210,8 +210,14 @@ class E_OAtlasNaoPerdeIdentidade(unittest.TestCase):
         """
         atlas = (RAIZ / "docs" / "fontes" /
                  "ATLAS-DE-FONTES-EAME.md").read_text(encoding="utf-8")
-        faixas = re.findall(r"(EU|FR|ES|IT)-T(\d{1,2})-(\d{3})\.\.(\d{3})",
-                            atlas)
+        # So as faixas que uma FICHA declara (`SOURCE_ID: ...`). O regex varria
+        # a prosa inteira, e 008ac754 escreveu no atlas «`ES-T8-001..003`, que
+        # o derivado classifica como `CITADAS_SEM_FICHA`» — uma faixa CITADA
+        # sem ficha, que por decisao escrita nao e identidade do mapa. O
+        # scanner so expande `SOURCE_ID:` (scan_sources.py, RE_FAIXA).
+        faixas = re.findall(
+            r"^SOURCE_ID:[ \t]+(EU|FR|ES|IT)-T(\d{1,2})-(\d{3})\.\.(\d{3})[ \t]*$",
+            atlas, re.M)
         if not faixas:
             self.skipTest("este atlas nao declara nenhuma faixa")
         ids = {f["source_id"] for f in FONTES["SOURCES"]}
