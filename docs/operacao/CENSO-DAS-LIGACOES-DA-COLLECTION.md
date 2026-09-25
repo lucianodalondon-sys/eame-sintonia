@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  4cde334910ace1ad915e58a264d29a3dc8f9e8ee
+HEAD_DA_MEDICAO  10ff355690f3b6cb7b14c01f3ab9eff36fbe64ec
 BRANCH           micro-verif-v1
-GERADO_EM        2026-09-25T18:09:22-03:00
+GERADO_EM        2026-09-25T18:27:47-03:00
 CARDS            100
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -884,6 +884,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
+
+### `C-MICRO-VERIF` · Micro-verificacao D74 — escolha por regra, previsao e SELECTs so-leitura
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/micro_verif/DATA-NA-PAGINA-COORTE-V1.json`, `ferramentas/micro_verif/MEDICAO-D40-MICRO-VERIF.json`, `ferramentas/micro_verif/MICRO-VERIFICACAO-SELECTS.sql`, `ferramentas/micro_verif/MICRO-VERIFICACAO.json`, `ferramentas/micro_verif/MICRO-VERIFICACAO.md` _(e mais 5)_ |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA · INTELIGENCIA |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json`, `ferramentas/micro_verif/DATA-NA-PAGINA-COORTE-V1.json`, `ferramentas/micro_verif/MEDICAO-D40-MICRO-VERIF.json` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 5 · saem 0 |
+| **arestas provadas** | entram 5 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 5 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
 ### `C-NAVEGADOR` · O navegador — a rota gratis
 
@@ -1840,31 +1865,6 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
-
-### `C-MICRO-VERIF` · Micro-verificacao D74 — escolha por regra, previsao e SELECTs so-leitura
-
-| | |
-|---|---|
-| **peça real** | `ferramentas/micro_verif/DATA-NA-PAGINA-COORTE-V1.json`, `ferramentas/micro_verif/MEDICAO-D40-MICRO-VERIF.json`, `ferramentas/micro_verif/MICRO-VERIFICACAO-SELECTS.sql`, `ferramentas/micro_verif/MICRO-VERIFICACAO.json`, `ferramentas/micro_verif/MICRO-VERIFICACAO.md` _(e mais 5)_ |
-| **papel** | UNKNOWN · medido no plano UNKNOWN |
-| **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
-| **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | — NÃO SEI |
-| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
-| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json`, `ferramentas/micro_verif/DATA-NA-PAGINA-COORTE-V1.json`, `ferramentas/micro_verif/MEDICAO-D40-MICRO-VERIF.json` |
-| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 5 · saem 0 |
-| **arestas provadas** | entram 5 · saem 0 |
-| **OBSERVADAS** | 0 |
-| **control plane** | entram 0 · saem 0 |
-| **data plane** | entram 0 · saem 0 |
-| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 5 |
-| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
-| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
 ### `C-PADRAO-COLETA` · O padrao do departamento de coleta
 

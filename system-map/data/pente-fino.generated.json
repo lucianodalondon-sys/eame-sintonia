@@ -2,11 +2,11 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T21:20:15+00:00",
-    "HEAD": "4cde334910ace1ad915e58a264d29a3dc8f9e8ee",
+    "GENERATED_AT": "2026-09-25T22:30:12+00:00",
+    "HEAD": "10ff355690f3b6cb7b14c01f3ab9eff36fbe64ec",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "39504769c109fee29d7670a8b3bf31e88531d7414008102850c26a8ec15f8d5c",
+    "SOURCE_TREE_FINGERPRINT": "085449ce4cab2e617b5614bedbb7122316ad15aaa3fa468cc1ad99f6469610c6",
     "FICHEIROS_NA_IMPRESSAO": 3263,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
@@ -146,13 +146,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "39504769c109fee29d7670a8b3bf31e88531d7414008102850c26a8ec15f8d5c",
+        "VERSAO": "085449ce4cab2e617b5614bedbb7122316ad15aaa3fa468cc1ad99f6469610c6",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 20,
-    "INPUTS_DIGEST": "335f610096e4715baeed5ff9f3937061c247d85512f47fe8e38e4ef1a3fa5aca",
+    "INPUTS_DIGEST": "f19a9d4617fbea17ee57f59f18fcf957d2ea74052bba0385fdc74b6d3b2344a1",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -527,6 +527,18 @@
       "respostas": 3,
       "ficheiros": 9,
       "estado": "green"
+    },
+    {
+      "id": "C-MICRO-VERIF",
+      "nome": "Micro-verificacao D74 — escolha por regra, previsao e SELECTs so-leitura",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 3,
+      "ficheiros": 10,
+      "estado": "yellow"
     },
     {
       "id": "C-IT-CONTRATOS",
@@ -926,9 +938,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 64,
+    "pecas_da_coleta": 65,
     "respondem_as_quatro": 25,
-    "respondem_a_tres": 28,
+    "respondem_a_tres": 29,
     "respondem_a_duas": 8,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

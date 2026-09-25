@@ -3709,9 +3709,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "micro-verif-v1",
-    "HEAD": "4cde334910ace1ad915e58a264d29a3dc8f9e8ee",
-    "GENERATED_AT": "2026-09-25T18:09:22-03:00",
-    "SOURCE_TREE_FINGERPRINT": "39504769c109fee29d7670a8b3bf31e88531d7414008102850c26a8ec15f8d5c"
+    "HEAD": "10ff355690f3b6cb7b14c01f3ab9eff36fbe64ec",
+    "GENERATED_AT": "2026-09-25T18:27:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "085449ce4cab2e617b5614bedbb7122316ad15aaa3fa468cc1ad99f6469610c6"
   },
   "FAMILIES": [
     {
@@ -3934,7 +3934,7 @@
       "y": 190,
       "w": 820,
       "h": 9056,
-      "count": 11
+      "count": 12
     },
     {
       "id": "Z-ACOES",
@@ -3997,7 +3997,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 28
+      "count": 27
     },
     {
       "id": "Z-ADMISSAO",
@@ -50855,7 +50855,7 @@
     {
       "id": "C-MICRO-VERIF",
       "name": "Micro-verificacao D74 — escolha por regra, previsao e SELECTs so-leitura",
-      "territory": "Z-MEDIDAS",
+      "territory": "Z-FERRAMENTAS",
       "kind": "engine",
       "what": "Plano de UMA micro (nao onda) para provar que a coleta real com o codigo instalado e5cd691f faz chegar a Sala itens novos com publicacao/lugar/data e bases: regra de escolha escrita antes (5 fontes, 5 dominios, 16 pedidos), alvos novos D40 medidos nos indices guardados, data-na-pagina medida no armazem, previsao com os leitores instalados, comando exato e SELECTs read-only (Q0-Q5) conferidos num Postgres descartavel com as 33 migracoes.",
       "why_here": "D74: a proxima acao operacional e so uma micro de verificacao. Nada correu na rede. Achado: nenhuma das 28 fontes da coorte declara SOURCE_LOCATION no contrato, por isso o lugar da fonte sai NAO SEI em todos.",
@@ -50867,8 +50867,10 @@
       "ui_status": "yellow",
       "icon": "◎",
       "views": [
+        "acervo",
         "audit",
-        "diagnostic"
+        "diagnostic",
+        "infra"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -50904,6 +50906,8 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
@@ -50929,8 +50933,6 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve ferramentas/micro_verif/MICRO-VERIFICACAO.json e este mapa nao viu ninguem ler",
       "ROLE_MEASURED": "UNKNOWN",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "SEM_REGRA",
@@ -50966,8 +50968,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
-      "y": 1970
+      "x": 6000,
+      "y": 1326
     },
     {
       "id": "C-NAVEGADOR",
@@ -51070,7 +51072,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -51169,8 +51171,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
-      "y": 1326
+      "x": 6000,
+      "y": 1648
     },
     {
       "id": "C-ORQUESTRADOR",
@@ -51715,8 +51717,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11310,
-      "y": 2292
+      "x": 12140,
+      "y": 1970
     },
     {
       "id": "C-PALAVRAS",
@@ -52245,7 +52247,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -57916,7 +57918,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 11725,
+      "x": 11310,
       "y": 2292
     },
     {
@@ -58364,7 +58366,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
+      "x": 11725,
       "y": 2292
     },
     {
@@ -58466,8 +58468,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
-      "y": 2614
+      "x": 12140,
+      "y": 2292
     },
     {
       "id": "C-RECONCILIACAO-UNIVERSO",
@@ -58657,8 +58659,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
-      "y": 1648
+      "x": 6000,
+      "y": 1970
     },
     {
       "id": "C-RECORRENCIA",
@@ -58905,7 +58907,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 11310,
       "y": 2614
     },
     {
@@ -59151,7 +59153,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
+      "x": 11725,
       "y": 2614
     },
     {
@@ -59345,8 +59347,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11310,
-      "y": 2936
+      "x": 12140,
+      "y": 2614
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -59432,7 +59434,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 11310,
       "y": 2936
     },
     {
@@ -59756,7 +59758,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
+      "x": 11725,
       "y": 2936
     },
     {
@@ -60355,8 +60357,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
-      "y": 3258
+      "x": 12140,
+      "y": 2936
     },
     {
       "id": "C-SCRAP-COLHEITA",
@@ -65115,7 +65117,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1970
     },
     {
