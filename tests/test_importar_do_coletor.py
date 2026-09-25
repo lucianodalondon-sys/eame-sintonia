@@ -202,6 +202,7 @@ class CanalYouTube(unittest.TestCase):
         self.assertEqual(YT_CURADOR["ACQUISITION"]["FEED_URL"], CAN.url_da_rota(YT_CURADOR["ACQUISITION"]))
         self.assertEqual(HTML["ACQUISITION"]["INDEX_URL"], CAN.url_da_rota(HTML["ACQUISITION"]))
 
+    @unittest.skip("DA-15/D67 (onda3-pacote-v2): o B fica INERTE - a producao manda na rota YouTube (Scrap/SOC2) e no molde novo; o contrario e provado em tests/test_onda3_b_inerte.py")
     def test_o_validate_route_pergunta_ao_robots_pelo_canal_e_nao_pelo_feed(self):
         perguntas = []
         with mock.patch.object(W.GATE, "robots_de", return_value=(object(), "lido")), \
@@ -218,6 +219,7 @@ class CanalYouTube(unittest.TestCase):
         self.assertEqual("OK", r)
         cc.assert_called_once()
 
+    @unittest.skip("DA-15/D67 (onda3-pacote-v2): o B fica INERTE - a producao manda na rota YouTube (Scrap/SOC2) e no molde novo; o contrario e provado em tests/test_onda3_b_inerte.py")
     def test_o_molde_novo_nasce_na_rota_do_canal_igual_ao_coletor(self):
         c = EC.contrato_youtube({"SOURCE_ID": "IT-T10-017", "NOME": "Canale", "TERRITORY": "T10",
                                  "URL": "https://www.youtube.com/@x"}, {}, CID)
