@@ -172,7 +172,13 @@ export function conferirIdentidade(sourceId, spec) {
 // destes campos têm de ser opcionais (REQUIRED=false): uma data em falta nunca é IDENTITY_FAILED.
 // Os nomes são os da fronteira da Collection (`coleta/ingresso.py`): PUBLISHED_AT, FACT_TIME,
 // FACT_LOCATION e as _BASIS.
-export const CAMPOS_TEMPO_E_LUGAR = Object.freeze(["PUBLISHED_AT", "FACT_TIME", "FACT_LOCATION"]);
+// D69 (correção da DA-2): o PERÍODO do boletim (validade, cobertura) só é FACT_TIME quando o TEXTO o liga
+// ao facto («Osservazioni della settimana da … a …», «Previsione … per oggi … per domani …»). Senão vai
+// para BULLETIN_PERIOD — guardado como EVIDÊNCIA — e o FACT_TIME fica NAO SEI. Uma data de calendário
+// nunca vira janela agronómica: este motor não tem campo de janela, e não o ganha aqui.
+// Na fronteira da Collection a data de publicação chama-se PUBLISHED_AT (= a PUBLICATION_TIME da D69).
+export const CAMPOS_TEMPO_E_LUGAR = Object.freeze(["PUBLISHED_AT", "FACT_TIME", "FACT_LOCATION", "BULLETIN_PERIOD"]);
+export const FACT_TIME_LIGADO = "PERIODO_LIGADO_AO_FATO_NO_TEXTO";
 export const NAO_SEI = "NAO SEI";
 // Os filtros de um molde: vocabulário FECHADO, cada um uma conversão escrita — nada de expressão livre.
 const MESES_IT = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
@@ -193,6 +199,11 @@ function conferirTempoELugar(sourceId, spec, caps) {
     }
     if (base != null && !ehTexto(base)) throw new ContratoInvalido(`${sourceId}: ${campo}_BASIS vazia`);
     if (campo === "FACT_TIME" && base == null) continue;      // o FACT_TIME antigo segue a regra antiga
+    // D69: um molde de FACT_TIME num boletim só entra com a base a dizer que o texto liga o período ao facto
+    if (campo === "FACT_TIME" && spec.FACT_TIME != null && !String(base).startsWith(FACT_TIME_LIGADO)) {
+      throw new ContratoInvalido(`${sourceId}: FACT_TIME num boletim exige FACT_TIME_BASIS «${FACT_TIME_LIGADO} · …» — `
+        + "a validade/cobertura sem ligação ao facto no texto vai para BULLETIN_PERIOD (D69)");
+    }
     const moldes = spec[campo] == null ? [] : Array.isArray(spec[campo]) ? spec[campo] : [spec[campo]];
     if (Array.isArray(spec[campo]) && (!moldes.length || !moldes.every(ehTexto))) {
       throw new ContratoInvalido(`${sourceId}: ${campo} em lista tem de ter moldes de texto não vazios`);
@@ -251,7 +262,8 @@ function umMolde(campo, molde, baseDeclarada, grupos, ausentes) {
   const trecho = [...new Set(usadas.map((m) => grupos[m[1]]?.[0]).filter(Boolean))].join(" … ").replace(/\s+/g, " ").slice(0, 200);
   if (!invalido && campo !== "FACT_LOCATION") {
     const partes = valor.split("/");
-    if (!(partes.length <= (campo === "FACT_TIME" ? 2 : 1) && partes.every(eData))) invalido = `«${valor}» não é data de calendário`;
+    const intervalo = campo === "FACT_TIME" || campo === "BULLETIN_PERIOD";
+    if (!(partes.length <= (intervalo ? 2 : 1) && partes.every(eData))) invalido = `«${valor}» não é data de calendário`;
     else if (partes.length === 2 && partes[0] > partes[1]) invalido = `«${valor}» começa depois de acabar`;
   }
   if (!invalido && !valor) invalido = "o valor lido está vazio";
@@ -710,6 +722,11 @@ export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} }
       const [v, b] = campoDoBoletim(campo, spec, grupos, ausentes);
       saida[campo] = v;
       saida[`${campo}_BASIS`] = b;
+    }
+    // D69: sem facto ligado, o período do boletim fica como evidência — e o FACT_TIME diz onde está
+    if (saida.FACT_TIME === NAO_SEI && saida.BULLETIN_PERIOD !== NAO_SEI) {
+      saida.FACT_TIME_BASIS += ` · o período do boletim (${saida.BULLETIN_PERIOD}) fica em BULLETIN_PERIOD como evidência: `
+        + "o texto não o liga ao facto (D69)";
     }
   }
   return saida;

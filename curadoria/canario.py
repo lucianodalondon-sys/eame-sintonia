@@ -223,13 +223,15 @@ BOLETIM_MINIMO = 300     # caracteres sem espaco no recorte do boletim (um bolet
 # D61/D62: os seis campos de data e lugar que o motor devolve quando o contrato declara BASES — os
 # nomes da fronteira (coleta/ingresso.py). A data de COLETA vai a parte e nunca preenche nenhum.
 CAMPOS_DATA_E_LUGAR = ("PUBLISHED_AT", "PUBLISHED_AT_BASIS", "FACT_TIME", "FACT_TIME_BASIS",
-                       "FACT_LOCATION", "FACT_LOCATION_BASIS")
+                       "FACT_LOCATION", "FACT_LOCATION_BASIS",
+                       "BULLETIN_PERIOD", "BULLETIN_PERIOD_BASIS")   # D69: o periodo do boletim, como evidencia
 
 
 def declara_data_e_lugar(c: dict) -> bool:
     """O contrato entra no modo D61/D62 (declara pelo menos uma BASE de data/lugar)?"""
     ident = c.get("IDENTITY") or {}
-    return any(ident.get(k) is not None for k in ("PUBLISHED_AT_BASIS", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS"))
+    return any(ident.get(k) is not None for k in ("PUBLISHED_AT_BASIS", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS",
+                                                  "BULLETIN_PERIOD_BASIS"))
 
 
 def tempos_do_motor(ident: dict) -> dict:
@@ -245,7 +247,9 @@ def tempos_do_motor(ident: dict) -> dict:
              "FACT_TIME": ident.get("FACT_TIME") or "NAO SEI",
              "FACT_TIME_BASIS": "NAO SEI · o contrato nao declara FACT_TIME_BASIS",
              "FACT_LOCATION": "NAO SEI",
-             "FACT_LOCATION_BASIS": "NAO SEI · o contrato nao declara a area do boletim"}
+             "FACT_LOCATION_BASIS": "NAO SEI · o contrato nao declara a area do boletim",
+             "BULLETIN_PERIOD": "NAO SEI",
+             "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato nao declara o periodo do boletim"}
     t["COLLECTION_TIME"] = "CAPTURED_AT do coletor (nunca no lugar dos outros)"
     return t
 

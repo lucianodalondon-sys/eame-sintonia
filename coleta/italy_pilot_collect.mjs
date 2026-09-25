@@ -1263,6 +1263,8 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
           PUBLISHED_AT: ident.PUBLISHED_AT, PUBLISHED_AT_BASIS: ident.PUBLISHED_AT_BASIS,
           FACT_TIME_BASIS: ident.FACT_TIME_BASIS,
           FACT_LOCATION: ident.FACT_LOCATION, FACT_LOCATION_BASIS: ident.FACT_LOCATION_BASIS,
+          // D69: a validade/cobertura do boletim, como EVIDENCIA (nao e FACT_TIME sem ligacao no texto)
+          BULLETIN_PERIOD: ident.BULLETIN_PERIOD, BULLETIN_PERIOD_BASIS: ident.BULLETIN_PERIOD_BASIS,
         } : {}),
         // D42 (2): a impressao do conteudo recortado (so com CONTENT_SCOPE) — a chave de dedupe
         ...(ident.CONTENT_SHA256 ? { CONTENT_SHA256: ident.CONTENT_SHA256 } : {}),
