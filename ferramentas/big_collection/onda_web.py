@@ -316,6 +316,9 @@ def correr(caminho: str, sha: str, saida: Path, historico: list[str] | None = No
                  "PEDIDOS_POR_SITE": cort.get("PEDIDOS_POR_HOST"), "PEDIDOS_POR_DOMINIO": cort.get("PEDIDOS_POR_DOMINIO"),
                  "LIVRO_DA_ONDA": livro_agora, "SALA_ANTES": antes, "SALA_DEPOIS": depois,
                  "C4": C.get("C4_PROVENIENCIA_COMPLETA") or {},
+                 # D59: o que o criterio A da trava exige por fonte, como o disparador da 1.a onda gravava
+                 "RAW": ((r.get("RELATORIO") or {}).get("CONTAGENS") or {}).get("RAW_CREATED"),
+                 "DERIVED": (C.get("C4_PROVENIENCIA_COMPLETA") or {}).get("COM_DERIVADO"),
                  "CRITERIOS": {k: (v.get("ESTADO") or ("PASS" if v.get("PASSA") else "FAIL")) for k, v in C.items()}}
         estado["FONTES"].append(linha)
         grava()
@@ -343,6 +346,7 @@ def correr(caminho: str, sha: str, saida: Path, historico: list[str] | None = No
         if parar:
             estado["PAROU"] = {"FONTE": s, "PORQUE": parar, "HORA": agora()}
             grava()
+            resumir(saida)
             with open(AVISO, "a", encoding="utf-8") as f:
                 f.write("\nONDA-WEB -> COORDENADOR (%s): DISJUNTOR na fonte %d (%s): %s. PARADO.\n" % (agora(), i, s, parar))
             print("PAROU", parar, flush=True)
@@ -350,7 +354,20 @@ def correr(caminho: str, sha: str, saida: Path, historico: list[str] | None = No
     estado["FIM"] = agora()
     estado["SALA_FIM"] = foto()
     grava()
+    resumir(saida)
     return 0
+
+
+def resumir(saida: Path) -> None:
+    """D59: o resumo auditavel da onda em `ferramentas/big_collection/ondas/` (entra no Git; o estado
+    completo nao). Falhar a escrever o resumo NAO desfaz a onda: diz-se, e o resumo refaz-se depois
+    com `py ferramentas/big_collection/resumo_da_onda.py <pasta>`."""
+    sys.path.insert(0, str(RAIZ / "ferramentas" / "big_collection"))
+    try:
+        import resumo_da_onda as RD                           # noqa: E402
+        print("RESUMO", RD.escrever(saida), flush=True)
+    except Exception as e:                                    # noqa: BLE001
+        print("RESUMO_NAO_ESCRITO %s: %s" % (type(e).__name__, e), flush=True)
 
 
 def main(argv=None) -> int:

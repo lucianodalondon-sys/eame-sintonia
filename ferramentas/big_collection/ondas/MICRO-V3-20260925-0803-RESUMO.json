@@ -1,0 +1,207 @@
+{
+ "DATASET": "RESUMO-DA-ONDA-V1",
+ "ONDA": "MICRO-V3-20260925-0803",
+ "LEI": "D59: resumo auditavel ligado por RUN_ID; o estado completo fica fora do Git; UNKNOWN nao conta",
+ "INICIO": "08:03:49",
+ "FIM": "08:08:19",
+ "PAROU": null,
+ "ARVORE": "df0865e6",
+ "COORTE_SHA256": "06f87b97761d73281bc341d87d7a644ec0c5014a291265db2b8372732bf4977f",
+ "ESTADO_SHA256": "3731e3af3e1576487e21c8bc4c0bc5c8a02f9dc8a1e50117a8fb82f3324dee07",
+ "PORTA": "scripts/micro_coleta/micro_coleta.py:correr",
+ "EXECUTOR": "coleta/italy_executor.py",
+ "RUN_IDS": [
+  "IT-T10-2026-09-25-110358-6d8d3deb6ac97931",
+  "IT-T10-2026-09-25-110434-3c98f810f9d11c06",
+  "IT-T2-2026-09-25-110513-7fcf6ada7af63553",
+  "IT-T2-2026-09-25-110557-0393010c0eef7dfc",
+  "IT-T7-2026-09-25-110708-194db82902c13728",
+  "IT-T7-2026-09-25-110756-9516e86a731dd184"
+ ],
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "RUN_ID": "IT-T10-2026-09-25-110358-6d8d3deb6ac97931",
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RELATORIO_SHA256": "efae0018de888b76342d75e91d8a06946a7372b8da87e7cdaae8d5a235c5a653",
+   "RAW": 3,
+   "DERIVED": 3,
+   "DE_ONDE": "RELATORIO-PASSAGEM da corrida",
+   "PROVENIENCIA": {
+    "OBSERVACOES": 3,
+    "COM_STORAGE": 3,
+    "COM_DERIVADO": 3,
+    "COM_DECISAO": 3,
+    "SALA_LINHAS": 2,
+    "SALA_COM_CADEIA_INTEIRA": 2
+   },
+   "VEREDICTOS_DA_ADMISSION": {
+    "SIM": 2,
+    "NAO_SEI": 1
+   },
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "DOMINIO": "myfruit.it",
+   "PEDIDOS_POR_DOMINIO": {
+    "myfruit.it": 5
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "RUN_ID": "IT-T10-2026-09-25-110434-3c98f810f9d11c06",
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RELATORIO_SHA256": "29c4a8d3e7320fdbdac916d893b572aa2970608df19fd3e7ba833f5ca4d3dea2",
+   "RAW": 3,
+   "DERIVED": 3,
+   "DE_ONDE": "RELATORIO-PASSAGEM da corrida",
+   "PROVENIENCIA": {
+    "OBSERVACOES": 3,
+    "COM_STORAGE": 3,
+    "COM_DERIVADO": 3,
+    "COM_DECISAO": 3,
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0
+   },
+   "VEREDICTOS_DA_ADMISSION": {
+    "NAO_SEI": 1,
+    "NAO": 2
+   },
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "DOMINIO": "imagelinenetwork.com",
+   "PEDIDOS_POR_DOMINIO": {
+    "imagelinenetwork.com": 5
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "RUN_ID": "IT-T2-2026-09-25-110513-7fcf6ada7af63553",
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RELATORIO_SHA256": "f10ae38fdbd489fdab79a1b62093a111dc26abbc628cdf67fde6899252907e3e",
+   "RAW": 3,
+   "DERIVED": 3,
+   "DE_ONDE": "RELATORIO-PASSAGEM da corrida",
+   "PROVENIENCIA": {
+    "OBSERVACOES": 3,
+    "COM_STORAGE": 3,
+    "COM_DERIVADO": 3,
+    "COM_DECISAO": 3,
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0
+   },
+   "VEREDICTOS_DA_ADMISSION": {
+    "NAO": 3
+   },
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "DOMINIO": "arpa.marche.it",
+   "PEDIDOS_POR_DOMINIO": {
+    "arpa.marche.it": 5
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "RUN_ID": "IT-T2-2026-09-25-110557-0393010c0eef7dfc",
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RELATORIO_SHA256": "cc2a85e0a9db8c97642aa4ad8f3dd7b17d53ba8228abacf024ce64921477efcf",
+   "RAW": 3,
+   "DERIVED": 3,
+   "DE_ONDE": "RELATORIO-PASSAGEM da corrida",
+   "PROVENIENCIA": {
+    "OBSERVACOES": 3,
+    "COM_STORAGE": 3,
+    "COM_DERIVADO": 3,
+    "COM_DECISAO": 3,
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0
+   },
+   "VEREDICTOS_DA_ADMISSION": {
+    "NAO": 1,
+    "NAO_SEI": 2
+   },
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "DOMINIO": "arpae.it",
+   "PEDIDOS_POR_DOMINIO": {
+    "arpae.it": 5
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "RUN_ID": "IT-T7-2026-09-25-110708-194db82902c13728",
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RELATORIO_SHA256": "5e228b2a25bbc6725bb06254d8557c00b3c007de10fbfbdedba388a665a68186",
+   "RAW": 3,
+   "DERIVED": 3,
+   "DE_ONDE": "RELATORIO-PASSAGEM da corrida",
+   "PROVENIENCIA": {
+    "OBSERVACOES": 3,
+    "COM_STORAGE": 3,
+    "COM_DERIVADO": 3,
+    "COM_DECISAO": 3,
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0
+   },
+   "VEREDICTOS_DA_ADMISSION": {
+    "NAO": 2,
+    "NAO_SEI": 1
+   },
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "DOMINIO": "riuniteciv.com",
+   "PEDIDOS_POR_DOMINIO": {
+    "riuniteciv.com": 5
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "RUN_ID": "IT-T7-2026-09-25-110756-9516e86a731dd184",
+   "CORREU": true,
+   "STATUS": "SUCCESS",
+   "RELATORIO_SHA256": "1630610e091f3789115c0a7b99f471ab4a8a71e829660ab51949122b15637dd3",
+   "RAW": 1,
+   "DERIVED": 1,
+   "DE_ONDE": "RELATORIO-PASSAGEM da corrida",
+   "PROVENIENCIA": {
+    "OBSERVACOES": 1,
+    "COM_STORAGE": 1,
+    "COM_DERIVADO": 1,
+    "COM_DECISAO": 1,
+    "SALA_LINHAS": 0,
+    "SALA_COM_CADEIA_INTEIRA": 0
+   },
+   "VEREDICTOS_DA_ADMISSION": {
+    "NAO_SEI": 1
+   },
+   "GATE": "ELIGIBLE",
+   "EGRESSO": [
+    "IT",
+    "IT"
+   ],
+   "DOMINIO": "etvilloresi.it",
+   "PEDIDOS_POR_DOMINIO": {
+    "etvilloresi.it": 5
+   }
+  }
+ ]
+}

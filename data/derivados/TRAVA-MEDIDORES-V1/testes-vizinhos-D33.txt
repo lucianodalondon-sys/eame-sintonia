@@ -1,0 +1,94 @@
+Could not find platform independent libraries <prefix>
+..............FF...................
+======================================================================
+FAIL: test_nao_apareceu_inteligencia_nova (tests.test_trava_da_inteligencia.AInteligenciaCongeladaNaoAvancou.test_nao_apareceu_inteligencia_nova)
+A outra maneira de violar a trava: não mexer em nada do que existe, e
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_trava_da_inteligencia.py", line 175, in test_nao_apareceu_inteligencia_nova
+    self.assertEqual(
+AssertionError: Lists differ: ['docs/intelligence/INTELLIGENCE-OBJECT-MO[209 chars]son'] != []
+
+First list contains 5 additional elements.
+First extra element 0:
+'docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json'
+
++ []
+- ['docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json',
+-  'italia-portale/audit/superficie-visivel.mjs',
+-  'italia-portale/client/italy-label-intelligence.js',
+-  'research/intelligence/DATA-DEMAND-MATRIX-ITALY.json',
+-  'system-map/data/architecture.declared.json'] : INTELIGENCIA NOVA antes de COLLECTION_FOUNDATION_CLOSED:
+  docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json
+  italia-portale/audit/superficie-visivel.mjs
+  italia-portale/client/italy-label-intelligence.js
+  research/intelligence/DATA-DEMAND-MATRIX-ITALY.json
+  system-map/data/architecture.declared.json
+
+======================================================================
+FAIL: test_nenhum_artefato_congelado_mudou (tests.test_trava_da_inteligencia.AInteligenciaCongeladaNaoAvancou.test_nenhum_artefato_congelado_mudou)
+⚠️ ESTE É O TESTE. Um ficheiro congelado que muda de sha avançou.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\trava-medidores-v1\tests\test_trava_da_inteligencia.py", line 157, in test_nenhum_artefato_congelado_mudou
+    self.assertEqual(
+AssertionError: Lists differ: ['coleta/instagram_coleta.py\n    congelad[1612 chars]2d1'] != []
+
+First list contains 16 additional elements.
+First extra element 0:
+'coleta/instagram_coleta.py\n    congelado=4672abd66ebf1dea\n    agora     =95009e6f87f65fb5'
+
+Diff is 1904 characters long. Set self.maxDiff to None to see it. : INTELIGENCIA CONGELADA AVANCOU antes de a coleta fechar:
+  coleta/instagram_coleta.py
+    congelado=4672abd66ebf1dea
+    agora     =95009e6f87f65fb5
+  italia-portale/audit/casa-gate.mjs
+    congelado=797b103e345fbac5
+    agora     =2eb7f7e8cc33b4c0
+  italia-portale/audit/casco/release-gate.mjs
+    congelado=e6064fd03edf4977
+    agora     =7e70ed9d863949e0
+  italia-portale/audit/checks.mjs
+    congelado=8a5ecfff95657e79
+    agora     =c736176966148a52
+  italia-portale/audit/meeting-gate.mjs
+    congelado=0beb6400416059fe
+    agora     =7fe4182575aaf4e7
+  italia-portale/client/adama-relevance.js
+    congelado=bb1c6670f652d907
+    agora     =3b23dc65215fcbcb
+  italia-portale/client/italy-app-model.js
+    congelado=ea1a40c8750dfded
+    agora     =ae5acf02e553bad9
+  italia-portale/client/italy-casa.js
+    congelado=3c87fcb0198f69e9
+    agora     =d956b89db8f9428b
+  italia-portale/client/italy-handoff-v21.js
+    congelado=ffec00438b3dd309
+    agora     =661036ec91bdbedf
+  italia-portale/client/italy-i18n.js
+    congelado=efb575bf66109f9e
+    agora     =f107ec78f9ac730c
+  italia-portale/client/meeting-intelligence-snapshot.js
+    congelado=14cb8a517260b1b6
+    agora     =327d5a698dc9e6e5
+  italia-portale/client/meeting-surface.js
+    congelado=ef67af20e21f4a2b
+    agora     =7b94b9d379050090
+  regras/italy_contracts.mjs
+    congelado=ae6fc38c114ed3b9
+    agora     =bac158ed9da4b457
+  regras/sensor_coleta.py
+    congelado=6267585dda56bda9
+    agora     =dfca41b3924ab8c4
+  regras/sensor_medir.py
+    congelado=78a08f1ac8d8d832
+    agora     =66e673f32b148148
+  superficie/it_casa_dados.py
+    congelado=ea4ef19118f35b42
+    agora     =50ff87ff872ae2d1
+
+----------------------------------------------------------------------
+Ran 35 tests in 47.419s
+
+FAILED (failures=2)
