@@ -1,0 +1,181 @@
+{
+ "DATASET": "CANARIO-COLETOR-HR6-TODAS",
+ "NOTA": "as 3 medidas pelo canario do coletor em 25/09; so a IT-T7-174 vai para o vivo",
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "OWNER": "UNICT Di3A",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.di3a.unict.it/it/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "MAX_TARGETS": 4,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.di3a.unict.it/it/notizie",
+    "HTML_KIND": "MIXED",
+    "LINKS": 68,
+    "NON_WHITESPACE_CHARACTERS": 3894,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 5,
+   "AMOSTRA_LINKS": [
+    "https://www.di3a.unict.it/it/notizie/colloquio-di-ammissione-al-corso-di-laurea-magistrale-lm-69-scienze-e-tecnologie-agrarie",
+    "https://www.di3a.unict.it/it/notizie/avvisi-lezioni",
+    "https://www.di3a.unict.it/it/notizie/kit-di-sopravvivenza-la-sessione-di-esami-strumenti-psicologici-contro-lansia",
+    "https://www.di3a.unict.it/it/notizie/welcome-day-1",
+    "https://www.di3a.unict.it/it/notizie/avvisi-esami-e-prove-itinere"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.di3a.unict.it/it/notizie/colloquio-di-ammissione-al-corso-di-laurea-magistrale-lm-69-scienze-e-tecnologie-agrarie",
+     "HTTP": 200,
+     "BYTES": 39135,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 56,
+     "NON_WHITESPACE_CHARACTERS": 3333,
+     "PARAGRAPH_CHARACTERS": 504,
+     "TEXT_SHA256": "88da70f3656bd5a9dd8fdae4138c63a4f095588720754b9c0df32bb0914200fb",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    },
+    {
+     "URL": "https://www.di3a.unict.it/it/notizie/avvisi-lezioni",
+     "HTTP": 200,
+     "BYTES": 39256,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 56,
+     "NON_WHITESPACE_CHARACTERS": 4049,
+     "PARAGRAPH_CHARACTERS": 1214,
+     "TEXT_SHA256": "6e1a0d32637fcc77534a4ded3960d71d8d2e44efd7888116785e516a0f30ea5e",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://www.di3a.unict.it/it/notizie/colloquio-di-ammissione-al-corso-di-laurea-magistrale-lm-69-scienze-e-tecnologie-agrarie: alvo sem corpo util: HTML_KIND=MIXED; https://www.di3a.unict.it/it/notizie/avvisi-lezioni: alvo sem corpo util: HTML_KIND=MIXED",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "9966293153c9183f530ee7202b95a11c8b9b40b08d08abe0d0b12b44e47fdfdc",
+   "PROVADO_EM": "2026-09-25T10:34:55.394964+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-174",
+   "OWNER": "CONAF",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.conaf.it/newsinhome/conaf-news/",
+   "LINK_PATTERN": "^https?://(www\\.)?conaf\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.conaf.it/newsinhome/conaf-news/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 134,
+    "NON_WHITESPACE_CHARACTERS": 3942,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 29,
+   "AMOSTRA_LINKS": [
+    "https://www.conaf.it/news/decreto-pa-periti-catastrofali/",
+    "https://www.conaf.it/news/incendio-valutazione-effetti/",
+    "https://www.conaf.it/news/conaf-crea-accordo/",
+    "https://www.conaf.it/news/senato-approva-riforma-professioni/",
+    "https://www.conaf.it/news/report-2025-icqrf/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.conaf.it/news/decreto-pa-periti-catastrofali/",
+     "HTTP": 200,
+     "BYTES": 79695,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 93,
+     "NON_WHITESPACE_CHARACTERS": 2895,
+     "PARAGRAPH_CHARACTERS": 1236,
+     "TEXT_SHA256": "a624b8e15c71417030b7c646883534c79b116f4516d7fe83d0aad794f95f0918",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.conaf.it/news/decreto-pa-periti-catastrofali/",
+    "HTTP": 200,
+    "BYTES": 79695,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 93,
+    "NON_WHITESPACE_CHARACTERS": 2895,
+    "PARAGRAPH_CHARACTERS": 1236,
+    "TEXT_SHA256": "a624b8e15c71417030b7c646883534c79b116f4516d7fe83d0aad794f95f0918",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 29 links pelo motor -> https://www.conaf.it/news/decreto-pa-periti-catastrofali/ com 1236 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "f8113538c314c14a0d0bc82ee72c98a30d84ac5a7dc913b214f2dac1b280a2f9",
+   "PROVADO_EM": "2026-09-25T10:42:25.323751+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T7-170",
+   "OWNER": "CONAF",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.conaf.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?conaf\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.conaf.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 126,
+    "NON_WHITESPACE_CHARACTERS": 6169,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 3,
+   "AMOSTRA_LINKS": [
+    "https://www.conaf.it/news/decreto-pa-periti-catastrofali/",
+    "https://www.conaf.it/news/incendio-valutazione-effetti/",
+    "https://www.conaf.it/news/conaf-crea-accordo/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.conaf.it/news/decreto-pa-periti-catastrofali/",
+     "HTTP": 200,
+     "BYTES": 79695,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 93,
+     "NON_WHITESPACE_CHARACTERS": 2895,
+     "PARAGRAPH_CHARACTERS": 1236,
+     "TEXT_SHA256": "a624b8e15c71417030b7c646883534c79b116f4516d7fe83d0aad794f95f0918",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.conaf.it/news/decreto-pa-periti-catastrofali/",
+    "HTTP": 200,
+    "BYTES": 79695,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 93,
+    "NON_WHITESPACE_CHARACTERS": 2895,
+    "PARAGRAPH_CHARACTERS": 1236,
+    "TEXT_SHA256": "a624b8e15c71417030b7c646883534c79b116f4516d7fe83d0aad794f95f0918",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 3 links pelo motor -> https://www.conaf.it/news/decreto-pa-periti-catastrofali/ com 1236 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "b49b79eff6912c641e39b43b07ec18ad7c94489e7fb36003c70d2852fe73fbf7",
+   "PROVADO_EM": "2026-09-25T10:42:42.293157+00:00"
+  }
+ ]
+}

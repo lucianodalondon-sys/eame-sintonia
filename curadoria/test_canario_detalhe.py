@@ -172,5 +172,55 @@ class OWorkerSoPromoveComOGate(unittest.TestCase):
         self.assertEqual(linha["EVIDENCE_REF"], ev["EVIDENCE_REF"])
 
 
+class EscolherAlvo(unittest.TestCase):
+    """HR-6: o canario abre o primeiro item SEM cara de seccao; se todos tem, o 1.o."""
+
+    def test_salta_o_endereco_com_cara_de_seccao(self):
+        alvos = ["https://ex.it/news/assemblea-agronomi-udine/",
+                 "https://ex.it/news/bando-psr-2026-misura-4/"]
+        self.assertEqual(alvos[1], CAN.escolher_alvo(alvos, INDEX))
+
+    def test_todos_com_cara_de_seccao_fica_o_primeiro(self):
+        alvos = ["https://ex.it/categorie/blog/curiosita-dalla-natura/",
+                 "https://ex.it/categorie/blog/ricette/"]
+        self.assertEqual(alvos[0], CAN.escolher_alvo(alvos, INDEX))
+
+    def test_nunca_escolhe_a_propria_entrada(self):
+        entrada = "https://ex.it/news/ultime-notizie-dal-consiglio/"
+        alvos = [entrada, "https://ex.it/news/zz-bando-psr-2026/"]
+        self.assertEqual(alvos[1], CAN.escolher_alvo(alvos, entrada))
+
+    def test_o_canario_abre_o_item_fundo_e_o_gate_continua_a_julgar(self):
+        indice = ("<html><body><ul><li><a href='/news/assemblea-agronomi-udine/'>a</a></li>"
+                  "<li><a href='/news/nuovo-bando-psr-per-giovani-agricoltori/'>b</a></li>"
+                  "</ul></body></html>")
+        vistos = []
+        def _buscar(u):
+            vistos.append(u)
+            return 200, (indice if u == INDEX else artigo_sintetico()).encode("utf-8"), ""
+        with mock.patch.object(CAN, "buscar", _buscar),                 mock.patch.object(CAN, "_regua_manda", lambda s: True):
+            r = CAN.canario_html(CONTRATO)
+        self.assertTrue(r["PASS"], r.get("PORQUE"))
+        self.assertEqual("https://ex.it/news/nuovo-bando-psr-per-giovani-agricoltori/",
+                         r["ITEM_ABERTO"]["URL"])
+        self.assertEqual([INDEX, r["ITEM_ABERTO"]["URL"]], vistos)
+
+    def test_item_fundo_que_falha_volta_ao_primeiro_nunca_pior_do_que_hoje(self):
+        indice = ("<html><body><ul><li><a href='/news/assemblea-agronomi-udine/'>a</a></li>"
+                  "<li><a href='/news/bollettino-nocciolo-n-10-2026/'>b</a></li>"
+                  "</ul></body></html>")
+        def _buscar(u):
+            if u == INDEX:
+                return 200, indice.encode("utf-8"), ""
+            if "bollettino" in u:
+                return 200, b"%PDF-1.7 ...", ""
+            return 200, artigo_sintetico().encode("utf-8"), ""
+        with mock.patch.object(CAN, "buscar", _buscar),                 mock.patch.object(CAN, "_regua_manda", lambda s: True):
+            r = CAN.canario_html(CONTRATO)
+        self.assertTrue(r["PASS"], r.get("PORQUE"))
+        self.assertEqual("https://ex.it/news/assemblea-agronomi-udine/", r["ITEM_ABERTO"]["URL"])
+        self.assertIn("BYTE_VALIDATION_FAILED", r["ALVO_FUNDO_TENTADO"]["PORQUE"])
+
+
 if __name__ == "__main__":
     unittest.main()
