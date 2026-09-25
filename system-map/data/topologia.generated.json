@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T10:49:56+00:00",
-  "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-  "BRANCH": "micro-v3-fontes-v1",
+  "GENERATED_AT": "2026-09-25T16:10:11+00:00",
+  "HEAD": "d10d93b187fa173695b7939f6de085b02e2c6e7d",
+  "BRANCH": "boletins-data-local-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
-  "FICHEIROS_NA_IMPRESSAO": 3126,
+  "SOURCE_TREE_FINGERPRINT": "4f98ad3ddd1df67b9345be751616b52e481a34e19aa910563e4a678703cd57a9",
+  "FICHEIROS_NA_IMPRESSAO": 3242,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -482,7 +482,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "8b800f0bd7a2433b309171e7263bfea66e8f7a19",
+    "VERSAO": "b48b30fa22d7ab0c8a9f267699efcebe12abea6d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -531,7 +531,7 @@
    {
     "PATH": "coleta/retrato_html.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "625d31bcfb022bed595f9826fa404c6510a8f78d",
+    "VERSAO": "5d636a1c7287b646e2c2298072c2da6c5b05ec74",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -651,6 +651,13 @@
     "PATH": "coleta/speaker_universo.py",
     "PAPEL": "FONTE",
     "VERSAO": "a8b3143a3825c3716071a1c52a7d69984e0f97b8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "coleta/texto_de_pdf.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "21b43f23f47d316bdd9db8839c92abc108beac32",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1973,7 +1980,7 @@
    {
     "PATH": "medidas/red_team_canonico.py",
     "PAPEL": "FONTE",
-    "VERSAO": "000a0c582358a7b2f8ee510e5943ec58001d70e1",
+    "VERSAO": "5bf4f362b53bc5512e81094db4d44f6c80e47d3b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2615,6 +2622,62 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/boletins_data_local/boletim_pdf_local.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "aedc2428b000c8f2a20b321779623403b239a2e9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/boletins_data_local/canario_d61.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "deef499fd7c70b8261ddd1f912dd90ab6227c006",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/boletins_data_local/fase1_listas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ffb41de7a1f4343bb5a41daa57080d6d48cc48c4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/boletins_data_local/fase1b_arsacweb.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "559dda49698264fbf6ebe84f5b629cb1dbb0de5d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ef5a7464dc596cefbce4dccfee9288908a882809",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/boletins_data_local/fase1d_rotas_a.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5dd6e1214da13f47a33013f509412489798a4d9e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/boletins_data_local/fase2_um_item.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5273490a271164264da35bcd48790760e788834c",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/boletins_data_local/mutacao_d61.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0c35138421a48e46ea9848c2e17175cf5c9a01a2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/canario_d23_linkedin_video.py",
     "PAPEL": "FONTE",
     "VERSAO": "c23de2ae3ddb35486221677e7837916234b6839e",
@@ -2681,6 +2744,13 @@
     "PATH": "provas/consumo_da_referencia_adama.py",
     "PAPEL": "FONTE",
     "VERSAO": "0d39c94c2f110c77b38ad4d66ba065cdd43615fb",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/corrida_abortada_local.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "88cc9e936e469171c34e612c28304f2dd75b4155",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -2828,6 +2898,69 @@
     "PATH": "provas/italy_pilot_negativos.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "7b0dbb0fda8aaec1e722317a340875e6a3e00f3f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/buscar_paginas_boletim.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "02e4107ea0da877bc40764103734ec30d83b26e1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/canario_receita_pdf.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "06f2468185e271de7d9ddabbe565ebe80ea5063d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/cjs/confirmar_js.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "939167f4922c1ebaf416a71eb310c546bec87773",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/cjs/d46/custom.js",
+    "PAPEL": "FONTE",
+    "VERSAO": "b9ec337113a55d819f4fd42798dd0cdf4cc3480e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/cjs/d46/extend_home.js",
+    "PAPEL": "FONTE",
+    "VERSAO": "7dd9b367cd202b9f18845863a18c7ddd5240509e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/cjs/provas_d46.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "828244ccf3c2b8ac1d033b691407b88b7bf57601",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/cjs/provas_d46_js.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "b59417718b2f9b6584d2b14bdd05a339b2911b3d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/julgar_paginas_boletim.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c6408fc37d687a0489f61efe1c73ef4dc7cf87e6",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/janela_formas/pagina_boletim_local.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "c8bf85f4283cee321fde692c3d98db2d3725dc68",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3364,6 +3497,41 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/t2_boletins/canario_arpae.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "f8186a5f98e24bf7d6ea9b7ae5e21d1677f08dd4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/t2_boletins/fase1_onde_esta.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "e93b2846a25e679f79a030d232192840ce53fba9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/t2_boletins/fase1b_arpav.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "829526df47cae0390d2a062dadd2648efc83d595",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/t2_boletins/mutacao_strip_suffix.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2332d50ba0cc430bb3dffd798c2a5b7617713a55",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/t2_boletins/umbria_pdf.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5f019598326f870556853538254fa37d0ce1b141",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/testa_coleta_canonica.py",
     "PAPEL": "FONTE",
     "VERSAO": "3c07f20a1ad23ad777ed67b4863637359e5c220b",
@@ -3434,6 +3602,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "regras/boletim_data_local_test.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "80e713ac670615a0d8bc8f645f5085e064c700a4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "regras/comunicacao_identidade.py",
     "PAPEL": "FONTE",
     "VERSAO": "94c42ae11e5f4d2880ddbb71b2f36fc1d12a9160",
@@ -3458,6 +3633,13 @@
     "PATH": "regras/contratos_de_fonte.py",
     "PAPEL": "FONTE",
     "VERSAO": "0e9a3c404a67da2b070484ae1278973b7fa29147",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "regras/identidade_do_motor_cli.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "3a14b6d30e4b150767afdb1f3aa33d2925f58169",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3513,14 +3695,14 @@
    {
     "PATH": "regras/motor_de_rota.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "d151ea28516248476a5c18ff2dfeb8e0da478c30",
+    "VERSAO": "6cf765e483119c9530cbd680606e71314b707799",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "regras/motor_de_rota_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "981747710b9ae3e85d3ab91a238e0cd661c63c71",
+    "VERSAO": "7e6cf3406166bda55d92ee1126564e506465c432",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3975,14 +4157,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "4f98ad3ddd1df67b9345be751616b52e481a34e19aa910563e4a678703cd57a9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "4f98ad3ddd1df67b9345be751616b52e481a34e19aa910563e4a678703cd57a9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4932,6 +5114,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_corrida_abortada.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9eb41fe337ac0cf8d53bfcf8f9d81d710bbcf924",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_cortesia_no_transporte.py",
     "PAPEL": "FONTE",
     "VERSAO": "d21d07d0869e9a40b06f000084e7959487e1bc1e",
@@ -5436,6 +5625,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_pagina_boletim_local.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "51bc5751bba291bfa5aae608919ce2f878be686c",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_persistencia_operacional.py",
     "PAPEL": "FONTE",
     "VERSAO": "efb867ef0fd6a34a81a474e65448bc44f43fe7e4",
@@ -5912,8 +6108,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 839,
-  "INPUTS_DIGEST": "40f2cdee567d0cc3a674061fb05d119fb7941b4b7a835e90f978b7bdb253c472",
+  "INPUTS_COUNT": 867,
+  "INPUTS_DIGEST": "42329e0740b233a0038996eeb5ed4eebfc1891c38d74df9a5711b08234aacd62",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5939,15 +6135,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 516,
+  "DOCUMENTOS_LIDOS": 522,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6afcd06017beba34794580a9520664b50831363dd44d157aeaf592ce022d6f56",
-  "SEMANTIC_HASH": "c5b340994ded1e1e82e5decffe174c1ef24ef66eed16fb03a0587b23343c9748"
+  "MEASUREMENT_HASH": "49b54ccf7f763e8ad45a4c0ad521c8a00067283ace8d98651472ecbcec77e1bf",
+  "SEMANTIC_HASH": "896eee7b8fa59cfbe91b20db1cc774d3ce64964dde456042f9b840dd68867a87"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6114,6 +6310,7 @@
    "C-PROVA-AUDIO-ONLY",
    "C-PROVA-AUTORIDADE-FONTE",
    "C-PROVA-BIBLIA",
+   "C-PROVA-BOLETINS-DATA-LOCAL",
    "C-PROVA-CANARIO-D23-LINKEDIN",
    "C-PROVA-CANARIO-D24-PESSOA",
    "C-PROVA-CANARIO-D24-REEL-PESSOA",
@@ -6128,6 +6325,7 @@
    "C-PROVA-FORWARD-CONTA",
    "C-PROVA-FRONTEIRA",
    "C-PROVA-GATE-1D",
+   "C-PROVA-JANELA-FORMAS",
    "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
    "C-PROVA-LINHAGEM-READY-SOCIAL",
    "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -6143,6 +6341,7 @@
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+   "C-PROVA-T2-BOLETINS",
    "C-PROVA-TETO-DOMINIO",
    "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -6159,7 +6358,7 @@
    "C-TESTES",
    "C-V21-INGEST"
   ],
-  "COUNT": 89
+  "COUNT": 92
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -6282,6 +6481,7 @@
    "C-PROVA-AUDIO-ONLY",
    "C-PROVA-AUTORIDADE-FONTE",
    "C-PROVA-BIBLIA",
+   "C-PROVA-BOLETINS-DATA-LOCAL",
    "C-PROVA-CANARIO-D23-LINKEDIN",
    "C-PROVA-CANARIO-D24-PESSOA",
    "C-PROVA-CANARIO-D24-REEL-PESSOA",
@@ -6296,6 +6496,7 @@
    "C-PROVA-FORWARD-CONTA",
    "C-PROVA-FRONTEIRA",
    "C-PROVA-GATE-1D",
+   "C-PROVA-JANELA-FORMAS",
    "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
    "C-PROVA-LINHAGEM-READY-SOCIAL",
    "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -6311,6 +6512,7 @@
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+   "C-PROVA-T2-BOLETINS",
    "C-PROVA-TETO-DOMINIO",
    "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -6356,16 +6558,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 189
+  "COUNT": 192
  },
  "ARITMETICA": {
   "COLLECTION": 100,
-  "BOUNDARY": 89,
-  "SOMA": 189,
-  "EXPANDED": 189,
+  "BOUNDARY": 92,
+  "SOMA": 192,
+  "EXPANDED": 192,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 189,
+  "RESUMO_CARTOES_NO_UNIVERSO": 192,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -7635,6 +7837,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-T2-BOLETINS",
+    "FROM": "C-ADMISSAO",
+    "TO": "C-PROVA-T2-BOLETINS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/t2_boletins/canario_arpae.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-T2-BOLETINS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -9595,7 +9819,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
-      "LINHA": 846,
+      "LINHA": 851,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-COLETA",
@@ -9777,6 +10001,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-JANELA-FORMAS",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-PROVA-JANELA-FORMAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/janela_formas/buscar_paginas_boletim.py",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-JANELA-FORMAS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/janela_formas/canario_receita_pdf.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-JANELA-FORMAS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -11660,6 +11914,50 @@
     ]
    },
    {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/boletins_data_local/canario_d61.py",
+      "LINHA": 314,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-JANELA-FORMAS",
+    "FROM": "C-CAPA-MATERIA",
+    "TO": "C-PROVA-JANELA-FORMAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/janela_formas/canario_receita_pdf.py",
+      "LINHA": 46,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-JANELA-FORMAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-TETO-DOMINIO",
     "FROM": "C-CAPA-MATERIA",
     "TO": "C-PROVA-TETO-DOMINIO",
@@ -12489,6 +12787,58 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PONTE-ONBOARD",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-JANELA-FORMAS",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-PROVA-JANELA-FORMAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/janela_formas/canario_receita_pdf.py",
+      "LINHA": 45,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-JANELA-FORMAS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/janela_formas/julgar_paginas_boletim.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-JANELA-FORMAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-T2-BOLETINS",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-PROVA-T2-BOLETINS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/t2_boletins/canario_arpae.py",
+      "LINHA": 119,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-T2-BOLETINS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -19976,6 +20326,50 @@
     ]
    },
    {
+    "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-COLETA",
+    "FROM": "C-EXECUTOR-TEXTO-HTML",
+    "TO": "C-IT-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+      "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-CONTRATOS",
+    "FROM": "C-EXECUTOR-TEXTO-HTML",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/identidade_do_motor_cli.mjs",
+      "LINHA": 13,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-PROVA-ROTA-DO-HTML",
     "FROM": "C-EXECUTOR-TEXTO-HTML",
     "TO": "C-PROVA-ROTA-DO-HTML",
@@ -20038,6 +20432,50 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-DETECTOR-CAPA-GABARITO",
       "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-IT-COLETA",
+    "FROM": "C-EXECUTOR-TEXTO-HTML",
+    "TO": "C-IT-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+      "LINHA": 42,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-IT-CONTRATOS",
+    "FROM": "C-EXECUTOR-TEXTO-HTML",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/identidade_do_motor_cli.mjs",
+      "LINHA": 13,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
      }
     ]
    },
@@ -20635,6 +21073,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-PROVA-ROTA-M2-ATRAVESSA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-PROVA-T2-BOLETINS",
+    "FROM": "C-EXECUTOR-TEXTO-PDF",
+    "TO": "C-PROVA-T2-BOLETINS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/t2_boletins/canario_arpae.py",
+      "LINHA": 43,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-PROVA-T2-BOLETINS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -23989,6 +24449,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "regras/identidade_do_motor_cli.mjs",
+      "LINHA": 14,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "regras/italy_pilot_guards.mjs",
       "LINHA": 5,
       "SUPPORTS": "YES",
@@ -24191,6 +24659,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "regras/identidade_do_motor_cli.mjs",
+      "LINHA": 14,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
       "FICHEIRO": "regras/italy_pilot_guards.mjs",
       "LINHA": 5,
       "SUPPORTS": "AMBIGUOUS",
@@ -24286,6 +24762,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/boletins_data_local/boletim_pdf_local.mjs",
+      "LINHA": 56,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/boletins_data_local/mutacao_d61.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -24405,6 +24911,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-JANELA-FORMAS",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-PROVA-JANELA-FORMAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/janela_formas/pagina_boletim_local.mjs",
+      "LINHA": 46,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-JANELA-FORMAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-O-PEDIDO-ATRAVESSA",
     "FROM": "C-IT-COLETA",
     "TO": "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -24506,6 +25034,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-TETO-DOMINIO",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-PROVA-TETO-DOMINIO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/corrida_abortada_local.mjs",
+      "LINHA": 54,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-TETO-DOMINIO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -25299,6 +25849,44 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/boletins_data_local/boletim_pdf_local.mjs",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/boletins_data_local/mutacao_d61.py",
+      "LINHA": 15,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/boletins_data_local/mutacao_d61.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-PROVA-CORTESIA",
@@ -25324,6 +25912,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-JANELA-FORMAS",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-PROVA-JANELA-FORMAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/janela_formas/pagina_boletim_local.mjs",
+      "LINHA": 47,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-JANELA-FORMAS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -25383,6 +25993,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-T2-BOLETINS",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-PROVA-T2-BOLETINS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/t2_boletins/mutacao_strip_suffix.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-T2-BOLETINS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-PROVA-TETO-DOMINIO",
@@ -25394,6 +26026,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/corrida_abortada_local.mjs",
+      "LINHA": 55,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "provas/prova_teto_dominio.py",
       "LINHA": 168,
@@ -25548,7 +26188,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
-      "LINHA": 57,
+      "LINHA": 59,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
@@ -25704,7 +26344,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
-      "LINHA": 57,
+      "LINHA": 59,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -25914,7 +26554,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
-      "LINHA": 58,
+      "LINHA": 60,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
@@ -26018,7 +26658,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
-      "LINHA": 58,
+      "LINHA": 60,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -26616,6 +27256,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/boletins_data_local/boletim_pdf_local.mjs",
+      "LINHA": 91,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
     "FROM": "C-IT-PRESERVAR",
     "TO": "C-PROVA-COLETA",
@@ -26703,6 +27365,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-JANELA-FORMAS",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-PROVA-JANELA-FORMAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/janela_formas/pagina_boletim_local.mjs",
+      "LINHA": 71,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-JANELA-FORMAS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -26839,6 +27523,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-SALA-ITALIANA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-TETO-DOMINIO",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-PROVA-TETO-DOMINIO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/corrida_abortada_local.mjs",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-TETO-DOMINIO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -29261,6 +29967,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-T2-BOLETINS",
+    "FROM": "C-ORQUESTRADOR",
+    "TO": "C-PROVA-T2-BOLETINS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/t2_boletins/canario_arpae.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-T2-BOLETINS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -33588,6 +34316,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROVA-JANELA-FORMAS--READS-->C-TESTES",
+    "FROM": "C-PROVA-JANELA-FORMAS",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_pagina_boletim_local.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-JANELA-FORMAS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO--READS-->C-TESTES",
     "FROM": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
     "TO": "C-TESTES",
@@ -34233,6 +34983,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
+    "FROM": "C-PROVA-TETO-DOMINIO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_corrida_abortada.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -44667,12 +45439,12 @@
     ]
    }
   ],
-  "COUNT": 1255
+  "COUNT": 1278
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 189,
-  "CARTOES_AUDITADOS": 189,
-  "ARESTAS_RELACIONADAS": 1255,
+  "CARTOES_NO_UNIVERSO": 192,
+  "CARTOES_AUDITADOS": 192,
+  "ARESTAS_RELACIONADAS": 1278,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -44866,6 +45638,7 @@
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-ASR-LOCAL",
    "C-PROVA-AUDIO-ONLY",
+   "C-PROVA-BOLETINS-DATA-LOCAL",
    "C-PROVA-CANARIO-D23-LINKEDIN",
    "C-PROVA-CANARIO-D24-PESSOA",
    "C-PROVA-CANARIO-D24-REEL-PESSOA",
@@ -44874,6 +45647,7 @@
    "C-PROVA-CORTESIA",
    "C-PROVA-CUTOVER",
    "C-PROVA-GATE-1D",
+   "C-PROVA-JANELA-FORMAS",
    "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
    "C-PROVA-O-PEDIDO-ATRAVESSA",
    "C-PROVA-O-RAW-FALA",
@@ -44884,6 +45658,7 @@
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
+   "C-PROVA-T2-BOLETINS",
    "C-PROVA-TETO-DOMINIO",
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
    "C-RECALL-PORTA-IT",
@@ -45047,6 +45822,9 @@
    "C-PROVA-RECOLLECTION": [
     "infra"
    ],
+   "C-PROVA-T2-BOLETINS": [
+    "diagnostic"
+   ],
    "C-PROVENIENCIA": [
     "science"
    ],
@@ -45101,12 +45879,12 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 220,
+   "CODE": 224,
    "CONTROL": 77,
    "DATA": 30,
-   "PROOF": 390,
-   "READ": 296,
-   "RULE": 228,
+   "PROOF": 392,
+   "READ": 308,
+   "RULE": 233,
    "WRITE": 14
   },
   "GAPS_NOMEADOS": [
@@ -45344,7 +46122,7 @@
     "preservar_coleta"
    ],
    "ENTRAM": 8,
-   "SAEM": 45,
+   "SAEM": 46,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -45543,15 +46321,30 @@
     "provas/a_porta_le_italiano.py",
     "provas/a_rota_do_html_nao_vai_a_rede.py",
     "provas/a_rota_gratuita_ainda_e_gratuita.py",
+    "provas/boletins_data_local/canario_d61.py",
+    "provas/boletins_data_local/fase1_listas.py",
+    "provas/boletins_data_local/fase1b_arsacweb.py",
+    "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+    "provas/boletins_data_local/fase1d_rotas_a.py",
+    "provas/boletins_data_local/fase2_um_item.py",
     "provas/canario_d23_linkedin_video.py",
     "provas/canario_d24_video_de_pessoa.py",
     "provas/canario_d24_video_youtube_de_pessoa.py",
     "provas/canario_reels_instagram.py",
+    "provas/janela_formas/buscar_paginas_boletim.py",
+    "provas/janela_formas/canario_receita_pdf.py",
+    "provas/janela_formas/cjs/confirmar_js.py",
+    "provas/janela_formas/cjs/provas_d46.py",
+    "provas/janela_formas/cjs/provas_d46_js.py",
     "provas/medir_validadores_coorte.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
     "provas/orcamento_de_rede.py",
     "provas/red_team_duas_portas.py",
+    "provas/t2_boletins/canario_arpae.py",
+    "provas/t2_boletins/fase1_onde_esta.py",
+    "provas/t2_boletins/fase1b_arpav.py",
+    "provas/t2_boletins/umbria_pdf.py",
     "system-map/scripts/scan_repo.py",
     "system-map/tests/test_system_map.py",
     "tests/test_coleta_externa.py",
@@ -45574,7 +46367,7 @@
     "concurrent"
    ],
    "ENTRAM": 2,
-   "SAEM": 23,
+   "SAEM": 24,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -46037,7 +46830,7 @@
     "urllib"
    ],
    "ENTRAM": 8,
-   "SAEM": 8,
+   "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -46464,7 +47257,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 9,
-   "SAEM": 9,
+   "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -48028,7 +48821,7 @@
     "guarda"
    ],
    "ENTRAM": 4,
-   "SAEM": 6,
+   "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "RULE"
@@ -48061,6 +48854,7 @@
     "provas/nada_some_em_silencio.py",
     "provas/o_executor_conta_se.py",
     "provas/o_forward_conta_se.py",
+    "provas/t2_boletins/canario_arpae.py",
     "provas/testa_golden_path_pdf.py",
     "system-map/scripts/censo_das_derivacoes.py",
     "system-map/scripts/censo_dos_executores.py",
@@ -48085,7 +48879,7 @@
     "pathlib"
    ],
    "ENTRAM": 4,
-   "SAEM": 20,
+   "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "DATA",
@@ -48805,7 +49599,8 @@
     "coleta/italy_find_docs.mjs",
     "coleta/italy_pilot_collect.mjs",
     "coleta/italy_probe.mjs",
-    "coleta/italy_recurrent_collect.mjs"
+    "coleta/italy_recurrent_collect.mjs",
+    "coleta/texto_de_pdf.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [
     ".github/workflows/sintonia-scrap.yml"
@@ -48814,9 +49609,13 @@
     "provas/a_fonte_t4_italiana_atravessa.py",
     "provas/a_linhagem_do_ready.py",
     "provas/a_unidade_pousa_na_espera.py",
+    "provas/boletins_data_local/boletim_pdf_local.mjs",
+    "provas/boletins_data_local/mutacao_d61.py",
+    "provas/corrida_abortada_local.mjs",
     "provas/cortesia_http_local.mjs",
     "provas/cortesia_red_team.mjs",
     "provas/italy_pilot_negativos.mjs",
+    "provas/janela_formas/pagina_boletim_local.mjs",
     "provas/o_cutover_nao_vaza.py",
     "provas/o_pedido_atravessa.py",
     "provas/o_raw_fala.py",
@@ -48854,8 +49653,8 @@
     "__future__",
     "coleta"
    ],
-   "ENTRAM": 12,
-   "SAEM": 22,
+   "ENTRAM": 14,
+   "SAEM": 25,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -48913,7 +49712,9 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+    "regras/boletim_data_local_test.mjs",
     "regras/contratos_de_fonte.py",
+    "regras/identidade_do_motor_cli.mjs",
     "regras/italy_contract_test.mjs",
     "regras/italy_contracts.mjs",
     "regras/italy_pilot_guards.mjs",
@@ -48926,13 +49727,18 @@
    "SO_MEDEM_ESTE": [
     "provas/a_autoridade_da_fonte.py",
     "provas/a_collection_preserva_o_fato.py",
+    "provas/boletins_data_local/boletim_pdf_local.mjs",
+    "provas/boletins_data_local/mutacao_d61.py",
+    "provas/corrida_abortada_local.mjs",
     "provas/cortesia_http_local.mjs",
     "provas/italy_pilot_negativos.mjs",
+    "provas/janela_formas/pagina_boletim_local.mjs",
     "provas/paridade_duas_rodadas.mjs",
     "provas/prova_teto_dominio.py",
     "provas/recollection_http_local.mjs",
     "provas/recollection_indice_local.mjs",
     "provas/recollection_timeout_local.mjs",
+    "provas/t2_boletins/mutacao_strip_suffix.py",
     "provas/teto_dominio_local.mjs",
     "provas/ttl_mutable_local.mjs",
     "system-map/scripts/scan_repo.py",
@@ -48961,8 +49767,8 @@
     "leis",
     "pathlib"
    ],
-   "ENTRAM": 13,
-   "SAEM": 23,
+   "ENTRAM": 15,
+   "SAEM": 26,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -48993,6 +49799,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/janela_formas/pagina_boletim_local.mjs",
     "provas/paridade_duas_rodadas.mjs",
     "provas/paridade_red_team.mjs",
     "provas/recollection_red_team.mjs",
@@ -49099,8 +49906,11 @@
     "provas/a_collection_preserva_o_fato.py",
     "provas/a_porta_cli_liga_o_banco.py",
     "provas/a_porta_le_italiano.py",
+    "provas/boletins_data_local/boletim_pdf_local.mjs",
+    "provas/corrida_abortada_local.mjs",
     "provas/cortesia_http_local.mjs",
     "provas/italy_pilot_negativos.mjs",
+    "provas/janela_formas/pagina_boletim_local.mjs",
     "provas/medir_source_id_wiring_gap.py",
     "provas/o_censo_da_sala_de_espera.py",
     "provas/o_censo_do_acervo.py",
@@ -49132,7 +49942,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 2,
-   "SAEM": 23,
+   "SAEM": 26,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ"
@@ -49924,7 +50734,7 @@
     "receitas"
    ],
    "ENTRAM": 16,
-   "SAEM": 34,
+   "SAEM": 35,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -50674,6 +51484,87 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PROVA-BOLETINS-DATA-LOCAL",
+   "NOME": "Data e lugar em todas as rotas de boletim (D61/D62/D69)",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/boletins_data_local/CONTRATOS-PROPOSTOS-D61.json",
+    "provas/boletins_data_local/RELATORIO-BOLETINS-DATA-LOCAL.md",
+    "provas/boletins_data_local/boletim_pdf_local.mjs",
+    "provas/boletins_data_local/canario_d61.py",
+    "provas/boletins_data_local/fase1_listas.py",
+    "provas/boletins_data_local/fase1b_arsacweb.py",
+    "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+    "provas/boletins_data_local/fase1d_rotas_a.py",
+    "provas/boletins_data_local/fase2_um_item.py",
+    "provas/boletins_data_local/mutacao_d61.py",
+    "provas/boletins_data_local/rede/CANARIO-D61.json",
+    "provas/boletins_data_local/rede/FASE1-ARSACAGROMETEO.json",
+    "provas/boletins_data_local/rede/FASE1-ARSACWEB.json",
+    "provas/boletins_data_local/rede/FASE1-ROTAS-A.json",
+    "provas/boletins_data_local/rede/FASE1.json",
+    "provas/boletins_data_local/rede/FASE2-ITENS.json",
+    "provas/boletins_data_local/rede/PDFS-FORA-DO-GIT.txt",
+    "provas/boletins_data_local/rede/PEDIDOS-AVULSOS.json",
+    "provas/boletins_data_local/rede/PEDIDOS-POR-DOMINIO.json",
+    "provas/boletins_data_local/rede/REDE-CANARIO-D61.json",
+    "provas/boletins_data_local/rede/bytes/00bde0ea5f95dab44d55.bin",
+    "provas/boletins_data_local/rede/bytes/13315c046029dd01f1a5.bin",
+    "provas/boletins_data_local/rede/bytes/213a616d2218a42d3d8e.bin",
+    "provas/boletins_data_local/rede/bytes/245ebc27e96dab4ded3c.bin",
+    "provas/boletins_data_local/rede/bytes/2f7dda7d9f69ea537551.bin",
+    "provas/boletins_data_local/rede/bytes/4afeb9c6409dad60f773.bin",
+    "provas/boletins_data_local/rede/bytes/4b30d1f4cc26ba7aff4f.bin",
+    "provas/boletins_data_local/rede/bytes/5208aa2fbc6a4139afa6.bin",
+    "provas/boletins_data_local/rede/bytes/658215d7ce7052e2b099.bin",
+    "provas/boletins_data_local/rede/bytes/66b5fa2c818907668094.bin",
+    "provas/boletins_data_local/rede/bytes/735fcc4eb2c76f0b716b.bin",
+    "provas/boletins_data_local/rede/bytes/7c49c05e35b66edc6f81.bin",
+    "provas/boletins_data_local/rede/bytes/88d8e2e9c257da518e73.bin",
+    "provas/boletins_data_local/rede/bytes/b49df329a56bca203cea.bin",
+    "provas/boletins_data_local/rede/bytes/cbf535dbbaa52eb235ee.bin",
+    "provas/boletins_data_local/rede/bytes/cde34ae71325970b29ea.bin",
+    "provas/boletins_data_local/rede/bytes/e11e4ffcc71a5520d25d.bin",
+    "provas/boletins_data_local/rede/bytes/e24f4f937574b5a709cc.bin",
+    "provas/boletins_data_local/rede/bytes/e3b0c44298fc1c149afb.bin"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/boletins_data_local/canario_d61.py",
+    "provas/boletins_data_local/fase1_listas.py",
+    "provas/boletins_data_local/fase1b_arsacweb.py",
+    "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+    "provas/boletins_data_local/fase1d_rotas_a.py",
+    "provas/boletins_data_local/fase2_um_item.py",
+    "provas/boletins_data_local/mutacao_d61.py",
+    "provas/t2_boletins/canario_arpae.py",
+    "provas/t2_boletins/fase1_onde_esta.py",
+    "provas/t2_boletins/fase1b_arpav.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "datetime",
+    "pathlib"
+   ],
+   "ENTRAM": 4,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PROVA-CANARIO-D23-LINKEDIN",
    "NOME": "O canário do vídeo de organização no LinkedIn (D23) — e os dois bisturis da cadeia",
    "FAMILIA": "F-GOVERNANCA",
@@ -51133,6 +52024,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/corrida_abortada_local.mjs",
     "provas/cortesia_red_team.mjs",
     "provas/onda_web_mutacao.py",
     "provas/teto_dominio_local.mjs",
@@ -51446,6 +52338,75 @@
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-PROVA-JANELA-FORMAS",
+   "NOME": "As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/janela_formas/CANARIO-PAGINA-BOLETIM.json",
+    "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa1.json",
+    "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa2.json",
+    "provas/janela_formas/CONTRATOS-RECEITA-PDF.json",
+    "provas/janela_formas/ESTUDO-JAVASCRIPT.md",
+    "provas/janela_formas/PAGINAS-BOLETIM-FASE1-INDICE.json",
+    "provas/janela_formas/RELATORIO-JANELA-FORMAS.md",
+    "provas/janela_formas/buscar_paginas_boletim.py",
+    "provas/janela_formas/canario_receita_pdf.py",
+    "provas/janela_formas/cjs/INDICE.json",
+    "provas/janela_formas/cjs/RELATORIO-C-JS.md",
+    "provas/janela_formas/cjs/RELATORIO-D46.md",
+    "provas/janela_formas/cjs/bytes/4f6b71dffef27eb25411.bin",
+    "provas/janela_formas/cjs/bytes/888e05885c499f9116c8.bin",
+    "provas/janela_formas/cjs/bytes/bac2a9116137905a30a1.bin",
+    "provas/janela_formas/cjs/confirmar_js.py",
+    "provas/janela_formas/cjs/d46/RESULTADO-D46.json",
+    "provas/janela_formas/cjs/d46/custom.js",
+    "provas/janela_formas/cjs/d46/er-bologna-e-ferrara.json",
+    "provas/janela_formas/cjs/d46/er-forli-cesena-ravenna-rimini.json",
+    "provas/janela_formas/cjs/d46/er-modena-reggio-emilia.json",
+    "provas/janela_formas/cjs/d46/er-parma-piacenza.json",
+    "provas/janela_formas/cjs/d46/extend_home.js",
+    "provas/janela_formas/cjs/d46/pagina-bollettini.html",
+    "provas/janela_formas/cjs/d46/robots-www.agrometeopuglia.it.txt",
+    "provas/janela_formas/cjs/provas_d46.py",
+    "provas/janela_formas/cjs/provas_d46_js.py",
+    "provas/janela_formas/julgar_paginas_boletim.py",
+    "provas/janela_formas/pagina_boletim_local.mjs"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/janela_formas/buscar_paginas_boletim.py",
+    "provas/janela_formas/cjs/confirmar_js.py",
+    "provas/janela_formas/cjs/provas_d46.py",
+    "provas/janela_formas/cjs/provas_d46_js.py",
+    "provas/janela_formas/julgar_paginas_boletim.py",
+    "tests/test_pagina_boletim_local.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "datetime",
+    "pathlib"
+   ],
+   "ENTRAM": 6,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
+   ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
@@ -52172,6 +53133,81 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PROVA-T2-BOLETINS",
+   "NOME": "Onde esta o boletim agrometeo das agencias T2 (D47) e a Umbria na rota PDF (D51.3)",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T2-051.json",
+    "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T3-053.json",
+    "provas/t2_boletins/RELATORIO-T2-BOLETINS.md",
+    "provas/t2_boletins/canario_arpae.py",
+    "provas/t2_boletins/fase1_onde_esta.py",
+    "provas/t2_boletins/fase1b_arpav.py",
+    "provas/t2_boletins/mutacao_strip_suffix.py",
+    "provas/t2_boletins/rede/CANARIO-ARPAE.json",
+    "provas/t2_boletins/rede/FASE1.json",
+    "provas/t2_boletins/rede/FASE1B-ARPAV-HTML.json",
+    "provas/t2_boletins/rede/FASE1B-ARPAV.json",
+    "provas/t2_boletins/rede/PEDIDOS-POR-DOMINIO.json",
+    "provas/t2_boletins/rede/bytes/2260bddee8d809ec8d06.bin",
+    "provas/t2_boletins/rede/bytes/470206c0738773226242.bin",
+    "provas/t2_boletins/rede/bytes/920e5d6fd9929b8eaa21.bin",
+    "provas/t2_boletins/rede/bytes/a4bfbf4123a628fd6a8d.bin",
+    "provas/t2_boletins/rede/bytes/ae6395590f25cd3397f8.bin",
+    "provas/t2_boletins/rede/bytes/b5393e45b6059df348ca.bin",
+    "provas/t2_boletins/rede/bytes/c5bd2e8768b26760b9fc.bin",
+    "provas/t2_boletins/rede/bytes/cad52f939f9d1565d75b.bin",
+    "provas/t2_boletins/rede/bytes/dcb74726fa17e1b4fa8a.bin",
+    "provas/t2_boletins/rede/bytes/e3b0c44298fc1c149afb.bin",
+    "provas/t2_boletins/rede/bytes/f1a6b5e3f6e69a71c535.bin",
+    "provas/t2_boletins/rede/bytes/f6204bf5732bf9bb10d5.bin",
+    "provas/t2_boletins/umbria/PEDIDOS-UMBRIA.json",
+    "provas/t2_boletins/umbria/UMBRIA-CANARIO.json",
+    "provas/t2_boletins/umbria/UMBRIA-LISTA.json",
+    "provas/t2_boletins/umbria/bytes/7f843b165d68a2a3e000.bin",
+    "provas/t2_boletins/umbria/bytes/c946b2f00952c710cd2d.bin",
+    "provas/t2_boletins/umbria_pdf.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/boletins_data_local/canario_d61.py",
+    "provas/boletins_data_local/fase1_listas.py",
+    "provas/boletins_data_local/fase1b_arsacweb.py",
+    "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+    "provas/boletins_data_local/fase1d_rotas_a.py",
+    "provas/boletins_data_local/fase2_um_item.py",
+    "provas/t2_boletins/canario_arpae.py",
+    "provas/t2_boletins/fase1_onde_esta.py",
+    "provas/t2_boletins/fase1b_arpav.py",
+    "provas/t2_boletins/umbria_pdf.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "datetime",
+    "pathlib"
+   ],
+   "ENTRAM": 5,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "diagnostic"
+   ],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PROVA-TETO-DOMINIO",
    "NOME": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira",
    "FAMILIA": "F-GOVERNANCA",
@@ -52179,10 +53215,13 @@
    "KIND": "proof",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "provas/corrida_abortada_local.mjs",
     "provas/prova_teto_dominio.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/corrida_abortada_local.mjs",
+    "tests/test_corrida_abortada.py",
     "tests/test_prova_teto_dominio.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -52193,10 +53232,11 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 3,
-   "SAEM": 2,
+   "ENTRAM": 5,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
+    "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
@@ -54102,6 +55142,7 @@
     "tests/test_comunicacao.py",
     "tests/test_comunicacao_universo_falha_fechado.py",
     "tests/test_consumo_da_referencia_adama.py",
+    "tests/test_corrida_abortada.py",
     "tests/test_cortesia_no_transporte.py",
     "tests/test_d1_detector_d14.py",
     "tests/test_d24_video_de_pessoa.py",
@@ -54174,6 +55215,7 @@
     "tests/test_onda_web_fontes.py",
     "tests/test_operacao.py",
     "tests/test_pacote_de_revisao_t3.py",
+    "tests/test_pagina_boletim_local.py",
     "tests/test_persistencia_operacional.py",
     "tests/test_pipeline.py",
     "tests/test_politica_da_coleta.py",
@@ -54368,7 +55410,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 207,
+   "ENTRAM": 209,
    "SAEM": 29,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

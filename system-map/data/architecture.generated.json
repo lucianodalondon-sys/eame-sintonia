@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "boletins-data-local-v1",
+    "HEAD": "d10d93b187fa173695b7939f6de085b02e2c6e7d",
+    "GENERATED_AT": "2026-09-25T12:58:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4f98ad3ddd1df67b9345be751616b52e481a34e19aa910563e4a678703cd57a9"
   },
   "FILES": [
     {
@@ -1942,7 +1942,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "8b800f0bd7a2433b309171e7263bfea66e8f7a19",
+      "sha": "b48b30fa22d7ab0c8a9f267699efcebe12abea6d",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -1991,7 +1991,7 @@
     },
     {
       "path": "coleta/retrato_html.mjs",
-      "sha": "625d31bcfb022bed595f9826fa404c6510a8f78d",
+      "sha": "5d636a1c7287b646e2c2298072c2da6c5b05ec74",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -2112,6 +2112,13 @@
       "path": "coleta/speaker_universo.py",
       "sha": "a8b3143a3825c3716071a1c52a7d69984e0f97b8",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/texto_de_pdf.mjs",
+      "sha": "21b43f23f47d316bdd9db8839c92abc108beac32",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -2789,7 +2796,7 @@
     },
     {
       "path": "curadoria/canario.py",
-      "sha": "4226df24d7a528072698f436787c6cb73957175b",
+      "sha": "1c77a7ec3051c21e4aee5f4425112c0b162c38da",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2824,7 +2831,7 @@
     },
     {
       "path": "curadoria/collection_gate.py",
-      "sha": "844953f6b659ff7d9713fc15edcd3c95a49a37fe",
+      "sha": "f52d1c0add0384a3c07e52b2157d6f6c33224fd2",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3139,7 +3146,7 @@
     },
     {
       "path": "curadoria/ready_split.py",
-      "sha": "6080ab52626c84d7327caada466da125e5167ef5",
+      "sha": "5f146184ede8a3289729bbb72a661e6e8f687482",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3153,21 +3160,21 @@
     },
     {
       "path": "curadoria/reconciliar_livros.py",
-      "sha": "aac9a3a89be7c34c8a2b8493b05ca346370687e2",
+      "sha": "317d46cb472eb181d3f0fceece2433c71628bc92",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "curadoria/red_team_lifecycle.py",
-      "sha": "0078ce8c27def397b5944be6ac2af9a9059d03d5",
+      "sha": "cfb17786bfda83e8e1d4071955f62e01822d5c79",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "curadoria/red_team_ponte_curador.py",
-      "sha": "707567fcf19629add2adbb766834397fa7c0326b",
+      "sha": "4fb9f406e0857d12680348ba20bdf9e51da101b4",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3188,7 +3195,7 @@
     },
     {
       "path": "curadoria/reparar_contrato.py",
-      "sha": "19a7e231ed78b982157559e2e28ac0fd9a546b0f",
+      "sha": "f6b1ef7c13fe19cebc62c75c73a42a78f19aea07",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3250,8 +3257,29 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_boletim_data_local.py",
+      "sha": "7a4e833b61bdf959e236bdf5a4a0a8caa9ba6e39",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_canario_detalhe.py",
       "sha": "c433d37bf185c5d6b3f3dbbc7db3e19d365daeb4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_canario_hrefs.py",
+      "sha": "1ce3d90e673eb207408e55d98d23e530d36f386f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_canario_pdf.py",
+      "sha": "a673c5f1f8cdcfb83061eb08dfe7f6bdda21e169",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3383,6 +3411,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_pagina_boletim.py",
+      "sha": "b516e820efc0957b2ee87c0121b5791098126101",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_painel_discovery.py",
       "sha": "4e6dd3187ded86ac41dac60a0b88adcf8737361b",
       "ext": ".py",
@@ -3439,6 +3474,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_receita_identidade.py",
+      "sha": "bd44fb315a30d08360f8966007f47f55f4a0b139",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_receita_pdf.py",
+      "sha": "4b44b39fb3b2d66498f60e9ccc3b750ad048d22a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_reconciliar_livros.py",
       "sha": "314b9e647d91558d315339c19dcee216938c79fa",
       "ext": ".py",
@@ -3469,6 +3518,13 @@
     {
       "path": "curadoria/test_status_liveness.py",
       "sha": "220a27958c02cd6465d7afa219ac2a18ce232ab1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_strip_suffix.py",
+      "sha": "e398d0e5d42d564a6840b57876de13b912e04f09",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3531,7 +3587,7 @@
     },
     {
       "path": "curadoria/validar_contratos.py",
-      "sha": "00e7c0eaff3434f8dec2806ea78c3cc950119e1a",
+      "sha": "8c45d4e2eb9cb7f998a536f002f24bb06cad5a2f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3545,7 +3601,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "17c45e73f2b0d6f7126a330b6d3cc6cf18ac8312",
+      "sha": "5ef6f071d91b65c0ee43810d2ce57ef56c0a8b87",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -14395,7 +14451,7 @@
     },
     {
       "path": "medidas/red_team_canonico.py",
-      "sha": "000a0c582358a7b2f8ee510e5943ec58001d70e1",
+      "sha": "5bf4f362b53bc5512e81094db4d44f6c80e47d3b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15360,6 +15416,286 @@
       "code_dir": true
     },
     {
+      "path": "provas/boletins_data_local/CONTRATOS-PROPOSTOS-D61.json",
+      "sha": "0f4d6fac534e89719671499103489741782c21d7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/RELATORIO-BOLETINS-DATA-LOCAL.md",
+      "sha": "d6bb68d5331ec55e866cdbcfc3317ea5b94213a8",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/boletim_pdf_local.mjs",
+      "sha": "aedc2428b000c8f2a20b321779623403b239a2e9",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/canario_d61.py",
+      "sha": "deef499fd7c70b8261ddd1f912dd90ab6227c006",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/fase1_listas.py",
+      "sha": "ffb41de7a1f4343bb5a41daa57080d6d48cc48c4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/fase1b_arsacweb.py",
+      "sha": "559dda49698264fbf6ebe84f5b629cb1dbb0de5d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+      "sha": "ef5a7464dc596cefbce4dccfee9288908a882809",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/fase1d_rotas_a.py",
+      "sha": "5dd6e1214da13f47a33013f509412489798a4d9e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/fase2_um_item.py",
+      "sha": "5273490a271164264da35bcd48790760e788834c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/mutacao_d61.py",
+      "sha": "0c35138421a48e46ea9848c2e17175cf5c9a01a2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/.gitattributes",
+      "sha": "fa1385d99a319b43c06f5309d1aae9fdd3adea46",
+      "ext": "",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/CANARIO-D61.json",
+      "sha": "905706a20bed2e037ed522ccaaa54dff0523aa4d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/FASE1-ARSACAGROMETEO.json",
+      "sha": "c29bfb99aac92630df101dcce3ed1f84e0a0a858",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/FASE1-ARSACWEB.json",
+      "sha": "2ff482dead051c4a8eb85bac2ef9e16ee58e0c7e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/FASE1-ROTAS-A.json",
+      "sha": "d174dcb12a84edc62b7c0a062929295e45687460",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/FASE1.json",
+      "sha": "2205e09920f9f8cd6555e5f8735a4849fd0b743d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/FASE2-ITENS.json",
+      "sha": "b1d6adcd837c0f3f5849b30d9476eb95d1b11550",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/PDFS-FORA-DO-GIT.txt",
+      "sha": "cab2e489bc4330555ef50139c34bf6438812767f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/PEDIDOS-AVULSOS.json",
+      "sha": "bec878f9e219a97e640eb1b37d66aa08cb88fff4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/PEDIDOS-POR-DOMINIO.json",
+      "sha": "5b446313bd42e8f9a4a876c821e3088f64feb8cf",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/REDE-CANARIO-D61.json",
+      "sha": "02bd44cb0feda993fa81b885bf4a199f93f9c49f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/00bde0ea5f95dab44d55.bin",
+      "sha": "5378b486fc940233a5b6d9cde0d81c545a8fbc0b",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/13315c046029dd01f1a5.bin",
+      "sha": "4b531f63280a2dff64c06ac436ca9bea993eed10",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/213a616d2218a42d3d8e.bin",
+      "sha": "1754cb2746a01f31c86b384b7ff80f7b3d9191d3",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/245ebc27e96dab4ded3c.bin",
+      "sha": "0a8be075e0e2598a20d9c8b9e83166eb1efa5ecb",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/2f7dda7d9f69ea537551.bin",
+      "sha": "d01de3e52be5ce34e0c9893722703d99654b4448",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/4afeb9c6409dad60f773.bin",
+      "sha": "a63e0afef3d1f9dcad612ed95e331e1a357dffbd",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/4b30d1f4cc26ba7aff4f.bin",
+      "sha": "297e0709279e3186f924dad927ea30072416e058",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/5208aa2fbc6a4139afa6.bin",
+      "sha": "bd70fa5e699c0af113e62a845cbd3e66b249229b",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/658215d7ce7052e2b099.bin",
+      "sha": "f7795a01ebd76da73ae4a0e7e1c9944d79d8bf94",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/66b5fa2c818907668094.bin",
+      "sha": "893f6904a0d338cfc89b91ce045c464a222b3809",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/735fcc4eb2c76f0b716b.bin",
+      "sha": "6f62f4e44ea6e75933f6af1483f6a61b8ba97513",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/7c49c05e35b66edc6f81.bin",
+      "sha": "0598004a54983c3919fde2816c5dd9fd305b56b0",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/88d8e2e9c257da518e73.bin",
+      "sha": "d5ed796a7c899d4342908498947ae338c443f15c",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/b49df329a56bca203cea.bin",
+      "sha": "43db7d30f7fbaf99eaf5a676156eff3dc9a6c5f3",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/cbf535dbbaa52eb235ee.bin",
+      "sha": "67682b3b6dfa3e58bad69144657835dbe6c62927",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/cde34ae71325970b29ea.bin",
+      "sha": "0db9ec7639f7a1406d7815d0b4ed2429e34268bc",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/e11e4ffcc71a5520d25d.bin",
+      "sha": "30b099029acc1c2ad85c3388f071aedeffa94284",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/e24f4f937574b5a709cc.bin",
+      "sha": "696da1dd9f1a7b60bb5a374348bb2d871ffdfcda",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/boletins_data_local/rede/bytes/e3b0c44298fc1c149afb.bin",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/canario_d23_linkedin_video.py",
       "sha": "c23de2ae3ddb35486221677e7837916234b6839e",
       "ext": ".py",
@@ -15426,6 +15762,13 @@
       "path": "provas/consumo_da_referencia_adama.py",
       "sha": "0d39c94c2f110c77b38ad4d66ba065cdd43615fb",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/corrida_abortada_local.mjs",
+      "sha": "88cc9e936e469171c34e612c28304f2dd75b4155",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -15586,6 +15929,223 @@
     {
       "path": "provas/italy_pilot_negativos.mjs",
       "sha": "7b0dbb0fda8aaec1e722317a340875e6a3e00f3f",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/CANARIO-PAGINA-BOLETIM.json",
+      "sha": "0ecbd179169cd834dfdc1b5553187b1b20751409",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa1.json",
+      "sha": "406e4ceb9f9ffd5f2c0a78be02c4f288bea1bb97",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa2.json",
+      "sha": "342ad7a11c1daedaf8d2e3eea77dd92b977a5eef",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/CONTRATOS-RECEITA-PDF.json",
+      "sha": "d70960d652a57da61cb25d5ad4e71f563e2f3d9c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/ESTUDO-JAVASCRIPT.md",
+      "sha": "11fbc08b3da75061ee9edc887e40b55dff1ef048",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/PAGINAS-BOLETIM-FASE1-INDICE.json",
+      "sha": "2cd7df2f53a37e81df5f6acb2b8b250b28160c54",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/RELATORIO-JANELA-FORMAS.md",
+      "sha": "b526944ce1a65a706c20b3d8ff1588f0cc80018e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/buscar_paginas_boletim.py",
+      "sha": "02e4107ea0da877bc40764103734ec30d83b26e1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/canario_receita_pdf.py",
+      "sha": "06f2468185e271de7d9ddabbe565ebe80ea5063d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/INDICE.json",
+      "sha": "6d37f7fcb3d2da6fd376a6cff38c59edb5a5261b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/RELATORIO-C-JS.md",
+      "sha": "9172a316e8ec9c204c1cba62572a6d59424dcb54",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/RELATORIO-D46.md",
+      "sha": "b04f2bbc822328c14849bc21ca7c0e5c5efd6d2c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/bytes/.gitattributes",
+      "sha": "6ce35c1cf93abae8025f7d0be073ae78e4b6d3f6",
+      "ext": "",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/bytes/4f6b71dffef27eb25411.bin",
+      "sha": "afb435f7686c66fd32697bf258ea4197ab325c70",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/bytes/888e05885c499f9116c8.bin",
+      "sha": "1d14203ea05f5c31e1f1c1822206af8c41116c4a",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/bytes/bac2a9116137905a30a1.bin",
+      "sha": "246a800a4954a553f1005d441b54d1b3c545cbfa",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/confirmar_js.py",
+      "sha": "939167f4922c1ebaf416a71eb310c546bec87773",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/.gitattributes",
+      "sha": "d31ac153c61b91f4699b1f7668b2f83553bcc66f",
+      "ext": "",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/RESULTADO-D46.json",
+      "sha": "9bee6d4a19fe1b482151440226ee0382b36d088d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/custom.js",
+      "sha": "b9ec337113a55d819f4fd42798dd0cdf4cc3480e",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/er-bologna-e-ferrara.json",
+      "sha": "40a7fcebd7a22917dad0f05bac2607f4a4815cbf",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/er-forli-cesena-ravenna-rimini.json",
+      "sha": "3ca0b0f45c3fba3696f42d6bc0cc5868133691de",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/er-modena-reggio-emilia.json",
+      "sha": "cc698462390529f9b96ee054b12357d05021f12d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/er-parma-piacenza.json",
+      "sha": "c6a28b7d17cfc02c6a3142b5420869612f7dde24",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/extend_home.js",
+      "sha": "7dd9b367cd202b9f18845863a18c7ddd5240509e",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/pagina-bollettini.html",
+      "sha": "563777b6420566b2f286e958af21fb38b5d816fd",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/d46/robots-www.agrometeopuglia.it.txt",
+      "sha": "54da16277ade77495e7b227288c62f7d8abfe9a1",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/provas_d46.py",
+      "sha": "828244ccf3c2b8ac1d033b691407b88b7bf57601",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/cjs/provas_d46_js.py",
+      "sha": "b59417718b2f9b6584d2b14bdd05a339b2911b3d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/julgar_paginas_boletim.py",
+      "sha": "c6408fc37d687a0489f61efe1c73ef4dc7cf87e6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/janela_formas/pagina_boletim_local.mjs",
+      "sha": "c8bf85f4283cee321fde692c3d98db2d3725dc68",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -16158,6 +16718,230 @@
       "code_dir": true
     },
     {
+      "path": "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T2-051.json",
+      "sha": "72083dbf2667a9cee42280f00ca95aed3e3a8a56",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/CONTRATO-PROPOSTO-IT-T3-053.json",
+      "sha": "05338d640e4277c107cdbf478bdec8403f3cb286",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/RELATORIO-T2-BOLETINS.md",
+      "sha": "04dd0e3427a48950a131fb2c80113febef7d63d7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/canario_arpae.py",
+      "sha": "f8186a5f98e24bf7d6ea9b7ae5e21d1677f08dd4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/fase1_onde_esta.py",
+      "sha": "e93b2846a25e679f79a030d232192840ce53fba9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/fase1b_arpav.py",
+      "sha": "829526df47cae0390d2a062dadd2648efc83d595",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/mutacao_strip_suffix.py",
+      "sha": "2332d50ba0cc430bb3dffd798c2a5b7617713a55",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/CANARIO-ARPAE.json",
+      "sha": "81da21999ac2f71caf2c55d598532ba08b61331d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/FASE1.json",
+      "sha": "a2a46bbdbe261cd3b1961548821ad592bf032f17",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/FASE1B-ARPAV-HTML.json",
+      "sha": "de2f4066d37e5ac17c0d797194d9e8940b80f37b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/FASE1B-ARPAV.json",
+      "sha": "eaf1b1ab0d1d8402f64b87c56a0e0360bc60a2b2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/PEDIDOS-POR-DOMINIO.json",
+      "sha": "2754da9a43745d8896f68f8d7da1b47ad15f5b9c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/.gitattributes",
+      "sha": "fe0a6a40fafd676841116d8d5b3ca5a4396128ec",
+      "ext": "",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/2260bddee8d809ec8d06.bin",
+      "sha": "993b306d1070b03dc42f8a60cd15900e9a985c22",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/470206c0738773226242.bin",
+      "sha": "c9ca2030c5401d55e0318bc9ae572ae515694508",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/920e5d6fd9929b8eaa21.bin",
+      "sha": "9d74e88a6faa41e863a4d5d99b02ce6b5d0a2515",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/a4bfbf4123a628fd6a8d.bin",
+      "sha": "b3952a0a4c8e76c7774366748668e721975caf71",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/ae6395590f25cd3397f8.bin",
+      "sha": "6247fafaf3be7eb4c8c1c4d03afa53a7582a1934",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/b5393e45b6059df348ca.bin",
+      "sha": "c2e28987c61f9f94f9c5b00c22ca2c118fd81c11",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/c5bd2e8768b26760b9fc.bin",
+      "sha": "2b80609dcc45864cd6a381137c76382b953be5e8",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/cad52f939f9d1565d75b.bin",
+      "sha": "54fb98911d2a28b77289b8507f830f39edf4344a",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/dcb74726fa17e1b4fa8a.bin",
+      "sha": "d3c6e44454d29f29e3badc62f3dc6fd7101824d9",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/e3b0c44298fc1c149afb.bin",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/f1a6b5e3f6e69a71c535.bin",
+      "sha": "0a56bd6d356cd22d4fe243ac98348e35f7236336",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/rede/bytes/f6204bf5732bf9bb10d5.bin",
+      "sha": "d43dc2c8ed84e95d83d30464bed65593f451991f",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/umbria/.gitattributes",
+      "sha": "fa1385d99a319b43c06f5309d1aae9fdd3adea46",
+      "ext": "",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/umbria/PEDIDOS-UMBRIA.json",
+      "sha": "fe3d614ded0865e3dd5e5e9ae8863008ef204782",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/umbria/UMBRIA-CANARIO.json",
+      "sha": "078aa63979af77e18a59e95eb7226e199bed669a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/umbria/UMBRIA-LISTA.json",
+      "sha": "fb64a3ea84e7f250b49cfa86ee4a1131d7ed3dd1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/umbria/bytes/7f843b165d68a2a3e000.bin",
+      "sha": "8160daf1de3d0922f57665f9ca7e2065e356fe07",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/umbria/bytes/c946b2f00952c710cd2d.bin",
+      "sha": "c66179aac337754fea9357ae55b1394f08b90381",
+      "ext": ".bin",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t2_boletins/umbria_pdf.py",
+      "sha": "5f019598326f870556853538254fa37d0ce1b141",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/testa_coleta_canonica.py",
       "sha": "3c07f20a1ad23ad777ed67b4863637359e5c220b",
       "ext": ".py",
@@ -16340,6 +17124,13 @@
       "code_dir": false
     },
     {
+      "path": "regras/boletim_data_local_test.mjs",
+      "sha": "80e713ac670615a0d8bc8f645f5085e064c700a4",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "regras/comunicacao_identidade.py",
       "sha": "94c42ae11e5f4d2880ddbb71b2f36fc1d12a9160",
       "ext": ".py",
@@ -16364,6 +17155,13 @@
       "path": "regras/contratos_de_fonte.py",
       "sha": "0e9a3c404a67da2b070484ae1278973b7fa29147",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/identidade_do_motor_cli.mjs",
+      "sha": "3a14b6d30e4b150767afdb1f3aa33d2925f58169",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -16425,14 +17223,14 @@
     },
     {
       "path": "regras/motor_de_rota.mjs",
-      "sha": "d151ea28516248476a5c18ff2dfeb8e0da478c30",
+      "sha": "6cf765e483119c9530cbd680606e71314b707799",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "regras/motor_de_rota_test.mjs",
-      "sha": "981747710b9ae3e85d3ab91a238e0cd661c63c71",
+      "sha": "7e6cf3406166bda55d92ee1126564e506465c432",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -18693,7 +19491,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6fbeb3259f859c03654c8d25eff0043e170be317",
+      "sha": "49ba74fd13a1b3f6948447191829f04a94cb4171",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19868,6 +20666,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_corrida_abortada.py",
+      "sha": "9eb41fe337ac0cf8d53bfcf8f9d81d710bbcf924",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_cortesia_no_transporte.py",
       "sha": "d21d07d0869e9a40b06f000084e7959487e1bc1e",
       "ext": ".py",
@@ -20367,6 +21172,13 @@
     {
       "path": "tests/test_pacote_de_revisao_t3.py",
       "sha": "5b45ce4c0360f8fe5fbf3c0e40a3a165fc081b19",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_pagina_boletim_local.py",
+      "sha": "51bc5751bba291bfa5aae608919ce2f878be686c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24180,12 +24992,56 @@
     },
     {
       "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "coleta/retrato_html.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 42,
+        "snippet": "import { textoVisivel } from \"./retrato_html.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "coleta/retrato_html.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 42,
+        "snippet": "import { textoVisivel } from \"./retrato_html.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "coleta/texto_de_pdf.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 43,
+        "snippet": "import { textoDePdf } from \"./texto_de_pdf.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "coleta/texto_de_pdf.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 43,
+        "snippet": "import { textoDePdf } from \"./texto_de_pdf.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
       "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 612,
+        "line": 614,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -24196,7 +25052,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 57,
+        "line": 59,
         "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";"
       }
     },
@@ -24207,7 +25063,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 57,
+        "line": 59,
         "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";"
       }
     },
@@ -24262,7 +25118,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 58,
+        "line": 60,
         "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";"
       }
     },
@@ -24273,7 +25129,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 58,
+        "line": 60,
         "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";"
       }
     },
@@ -24284,7 +25140,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 846,
+        "line": 851,
         "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;"
       }
     },
@@ -26039,6 +26895,17 @@
     },
     {
       "from_file": "curadoria/canario.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/canario.py",
+        "line": 182,
+        "snippet": "\"executor_texto_de_pdf\", RAIZ / \"coleta\" / \"executor_texto_de_pdf.py\")"
+      }
+    },
+    {
+      "from_file": "curadoria/canario.py",
       "to_file": "curadoria/capturador.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -26055,7 +26922,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/canario.py",
-        "line": 215,
+        "line": 402,
         "snippet": "d = json.loads((RAIZ / \"curadoria\" / \"italy_contracts_curator.json\")"
       }
     },
@@ -26079,6 +26946,17 @@
         "file": "curadoria/canario.py",
         "line": 46,
         "snippet": "import retrato_html as RH  # noqa: E402  (o gate CAPA != MATERIA, mesmos limiares do coletor)"
+      }
+    },
+    {
+      "from_file": "curadoria/canario.py",
+      "to_file": "regras/identidade_do_motor_cli.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/canario.py",
+        "line": 266,
+        "snippet": "r = subprocess.run([\"node\", str(RAIZ / \"regras\" / \"identidade_do_motor_cli.mjs\")],"
       }
     },
     {
@@ -26253,7 +27131,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/collection_gate.py",
-        "line": 259,
+        "line": 258,
         "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\","
       }
     },
@@ -28519,7 +29397,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/ready_split.py",
-        "line": 311,
+        "line": 365,
         "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -29014,7 +29892,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 535,
+        "line": 562,
         "snippet": "import escrever_contratos as EC      # noqa: PLC0415"
       }
     },
@@ -29058,8 +29936,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reparar_contrato.py",
-        "line": 536,
+        "line": 563,
         "snippet": "import validar_contratos as VC       # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/reparar_contrato.py",
+      "to_file": "regras/identidade_do_motor_cli.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/reparar_contrato.py",
+        "line": 547,
+        "snippet": "r = subprocess.run([\"node\", str(RAIZ / \"regras\" / \"identidade_do_motor_cli.mjs\")],"
       }
     },
     {
@@ -29371,6 +30260,50 @@
       }
     },
     {
+      "from_file": "curadoria/test_boletim_data_local.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_boletim_data_local.py",
+        "line": 20,
+        "snippet": "import canario as CAN               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_boletim_data_local.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_boletim_data_local.py",
+        "line": 21,
+        "snippet": "import reparar_contrato as RC       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_boletim_data_local.py",
+      "to_file": "curadoria/test_reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_boletim_data_local.py",
+        "line": 23,
+        "snippet": "from test_reparar_contrato import _contrato  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_boletim_data_local.py",
+      "to_file": "curadoria/validar_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_boletim_data_local.py",
+        "line": 22,
+        "snippet": "import validar_contratos as VC      # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_canario_detalhe.py",
       "to_file": "curadoria/canario.py",
       "type": "IMPORTS",
@@ -29434,6 +30367,39 @@
         "file": "curadoria/test_canario_detalhe.py",
         "line": 29,
         "snippet": "import worker as W               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_canario_hrefs.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_hrefs.py",
+        "line": 12,
+        "snippet": "import canario as C   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_canario_pdf.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_pdf.py",
+        "line": 13,
+        "snippet": "import canario as C       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_canario_pdf.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_pdf.py",
+        "line": 14,
+        "snippet": "import ready_split as RS  # noqa: E402"
       }
     },
     {
@@ -30317,6 +31283,72 @@
       }
     },
     {
+      "from_file": "curadoria/test_pagina_boletim.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pagina_boletim.py",
+        "line": 18,
+        "snippet": "import canario as CAN              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_pagina_boletim.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pagina_boletim.py",
+        "line": 19,
+        "snippet": "import collection_gate as CG       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_pagina_boletim.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pagina_boletim.py",
+        "line": 20,
+        "snippet": "import ready_split as RS           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_pagina_boletim.py",
+      "to_file": "curadoria/test_reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pagina_boletim.py",
+        "line": 23,
+        "snippet": "from test_reparar_contrato import _contrato   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_pagina_boletim.py",
+      "to_file": "curadoria/validar_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pagina_boletim.py",
+        "line": 21,
+        "snippet": "import validar_contratos as VC     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_pagina_boletim.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pagina_boletim.py",
+        "line": 22,
+        "snippet": "import worker as W                 # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_painel_discovery.py",
       "to_file": "curadoria/fila.py",
       "type": "IMPORTS",
@@ -30845,6 +31877,105 @@
       }
     },
     {
+      "from_file": "curadoria/test_receita_identidade.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_identidade.py",
+        "line": 19,
+        "snippet": "import canario as CAN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_receita_identidade.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_identidade.py",
+        "line": 20,
+        "snippet": "import reparar_contrato as RC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_receita_identidade.py",
+      "to_file": "curadoria/test_canario_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_identidade.py",
+        "line": 94,
+        "snippet": "from test_canario_pdf import pdf_com_texto"
+      }
+    },
+    {
+      "from_file": "curadoria/test_receita_identidade.py",
+      "to_file": "curadoria/test_reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_identidade.py",
+        "line": 21,
+        "snippet": "from test_reparar_contrato import _contrato  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_receita_pdf.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_pdf.py",
+        "line": 19,
+        "snippet": "import canario as CAN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_receita_pdf.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_pdf.py",
+        "line": 20,
+        "snippet": "import ready_split as RS         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_receita_pdf.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_pdf.py",
+        "line": 21,
+        "snippet": "import reparar_contrato as RC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_receita_pdf.py",
+      "to_file": "curadoria/test_canario_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_pdf.py",
+        "line": 22,
+        "snippet": "from test_canario_pdf import pdf_com_texto   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_receita_pdf.py",
+      "to_file": "curadoria/test_reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_receita_pdf.py",
+        "line": 23,
+        "snippet": "from test_reparar_contrato import _contrato  # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_reconciliar_livros.py",
       "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
       "type": "READS",
@@ -31106,6 +32237,50 @@
         "file": "curadoria/test_status_liveness.py",
         "line": 23,
         "snippet": "import supervisor as S"
+      }
+    },
+    {
+      "from_file": "curadoria/test_strip_suffix.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_strip_suffix.py",
+        "line": 20,
+        "snippet": "import canario as CAN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_strip_suffix.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_strip_suffix.py",
+        "line": 21,
+        "snippet": "import reparar_contrato as RC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_strip_suffix.py",
+      "to_file": "curadoria/test_reparar_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_strip_suffix.py",
+        "line": 22,
+        "snippet": "from test_reparar_contrato import _contrato  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_strip_suffix.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_strip_suffix.py",
+        "line": 100,
+        "snippet": "js = (\"import {ligacoesDoIndice} from './regras/motor_de_rota.mjs';\""
       }
     },
     {
@@ -31665,7 +32840,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/validar_contratos.py",
-        "line": 158,
+        "line": 190,
         "snippet": "(RAIZ / \"curadoria\" / \"CONTRACT-VALIDATION-V1.json\").write_text("
       }
     },
@@ -31786,7 +32961,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 229,
+        "line": 234,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -31841,7 +33016,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 203,
+        "line": 208,
         "snippet": "import escrever_contratos as EC"
       }
     },
@@ -31885,7 +33060,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 265,
+        "line": 270,
         "snippet": "CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -31918,7 +33093,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 494,
+        "line": 499,
         "snippet": "import reparar_contrato as RC"
       }
     },
@@ -31940,7 +33115,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 204,
+        "line": 209,
         "snippet": "import validar_contratos as VC"
       }
     },
@@ -52427,6 +53602,237 @@
       }
     },
     {
+      "from_file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+        "line": 56,
+        "snippet": "const M = await import(\"../../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+        "line": 91,
+        "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+        "line": 57,
+        "snippet": "const { CONTRACTS } = await import(\"../../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/canario_d61.py",
+      "to_file": "provas/boletins_data_local/rede/CANARIO-D61.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/canario_d61.py",
+        "line": 403,
+        "snippet": "(OUT / \"CANARIO-D61.json\").write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/canario_d61.py",
+      "to_file": "provas/boletins_data_local/rede/FASE1-ROTAS-A.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/canario_d61.py",
+        "line": 232,
+        "snippet": "for f in (\"FASE1.json\", \"FASE2-ITENS.json\", \"FASE1-ROTAS-A.json\"):"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/canario_d61.py",
+      "to_file": "provas/boletins_data_local/rede/FASE2-ITENS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/canario_d61.py",
+        "line": 232,
+        "snippet": "for f in (\"FASE1.json\", \"FASE2-ITENS.json\", \"FASE1-ROTAS-A.json\"):"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/canario_d61.py",
+      "to_file": "provas/boletins_data_local/rede/PEDIDOS-AVULSOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/canario_d61.py",
+        "line": 258,
+        "snippet": "for f in (\"PEDIDOS-AVULSOS.json\",):"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/canario_d61.py",
+      "to_file": "provas/boletins_data_local/rede/REDE-CANARIO-D61.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/canario_d61.py",
+        "line": 253,
+        "snippet": "REDE_ANTES = OUT / \"REDE-CANARIO-D61.json\""
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/canario_d61.py",
+      "to_file": "provas/boletins_data_local/rede/REDE-CANARIO-D61.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/canario_d61.py",
+        "line": 401,
+        "snippet": "REDE_ANTES.write_text(json.dumps(_antes + REDE, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/canario_d61.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/canario_d61.py",
+        "line": 314,
+        "snippet": "TABELA = {c[\"SOURCE_ID\"]: c for c in json.loads((RAIZ / \"regras/italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/fase1b_arsacweb.py",
+      "to_file": "provas/boletins_data_local/rede/FASE1-ARSACWEB.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/fase1b_arsacweb.py",
+        "line": 86,
+        "snippet": "(OUT / \"FASE1-ARSACWEB.json\").write_text(json.dumps({\"FASE\": \"BOLETINS D61/D62 fase 1\", \"REDE_AUTORIZADA_POR\": a.rede_autorizada,"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+      "to_file": "provas/boletins_data_local/rede/FASE1-ARSACAGROMETEO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+        "line": 86,
+        "snippet": "(OUT / \"FASE1-ARSACAGROMETEO.json\").write_text(json.dumps({\"FASE\": \"BOLETINS D61/D62 fase 1\", \"REDE_AUTORIZADA_POR\": a.rede_autorizada,"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/fase1d_rotas_a.py",
+      "to_file": "provas/boletins_data_local/rede/FASE1-ROTAS-A.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/fase1d_rotas_a.py",
+        "line": 88,
+        "snippet": "(OUT / \"FASE1-ROTAS-A.json\").write_text(json.dumps({\"FASE\": \"BOLETINS D61/D62 fase 1\", \"REDE_AUTORIZADA_POR\": a.rede_autorizada,"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/fase2_um_item.py",
+      "to_file": "provas/boletins_data_local/rede/FASE2-ITENS.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/fase2_um_item.py",
+        "line": 85,
+        "snippet": "(OUT / \"FASE2-ITENS.json\").write_text(json.dumps({\"FASE\": \"BOLETINS D61/D62 fase 2\", \"REDE_AUTORIZADA_POR\": a.rede_autorizada,"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/mutacao_d61.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/mutacao_d61.py",
+        "line": 18,
+        "snippet": "M, C, P, V, K = \"regras/motor_de_rota.mjs\", \"curadoria/canario.py\", \"curadoria/reparar_contrato.py\", \"curadoria/validar_contratos.py\", \"coleta/italy_pilot_colle"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/mutacao_d61.py",
+      "to_file": "curadoria/canario.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/mutacao_d61.py",
+        "line": 18,
+        "snippet": "M, C, P, V, K = \"regras/motor_de_rota.mjs\", \"curadoria/canario.py\", \"curadoria/reparar_contrato.py\", \"curadoria/validar_contratos.py\", \"coleta/italy_pilot_colle"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/mutacao_d61.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/mutacao_d61.py",
+        "line": 18,
+        "snippet": "M, C, P, V, K = \"regras/motor_de_rota.mjs\", \"curadoria/canario.py\", \"curadoria/reparar_contrato.py\", \"curadoria/validar_contratos.py\", \"coleta/italy_pilot_colle"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/mutacao_d61.py",
+      "to_file": "curadoria/validar_contratos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/mutacao_d61.py",
+        "line": 18,
+        "snippet": "M, C, P, V, K = \"regras/motor_de_rota.mjs\", \"curadoria/canario.py\", \"curadoria/reparar_contrato.py\", \"curadoria/validar_contratos.py\", \"coleta/italy_pilot_colle"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/mutacao_d61.py",
+      "to_file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/mutacao_d61.py",
+        "line": 17,
+        "snippet": "COLETOR = [\"node\", \"provas/boletins_data_local/boletim_pdf_local.mjs\"]"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/mutacao_d61.py",
+      "to_file": "regras/boletim_data_local_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/mutacao_d61.py",
+        "line": 15,
+        "snippet": "MOTOR = [\"node\", \"regras/boletim_data_local_test.mjs\"]"
+      }
+    },
+    {
+      "from_file": "provas/boletins_data_local/mutacao_d61.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/boletins_data_local/mutacao_d61.py",
+        "line": 18,
+        "snippet": "M, C, P, V, K = \"regras/motor_de_rota.mjs\", \"curadoria/canario.py\", \"curadoria/reparar_contrato.py\", \"curadoria/validar_contratos.py\", \"coleta/italy_pilot_colle"
+      }
+    },
+    {
       "from_file": "provas/canario_d23_linkedin_video.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -53428,6 +54834,50 @@
       }
     },
     {
+      "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 54,
+        "snippet": "const M = await import(\"../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 63,
+        "snippet": "const LEDGER = join(RAIZ, \"data\", \"collection-ledger\", \"italy\", \"runs.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 96,
+        "snippet": "try { execFileSync(PY, [\"provas/prova_teto_dominio.py\", \"--livro\", livro, \"--onda\", onda], { encoding: \"utf8\", stdio: \"pipe\" }); return 0; }"
+      }
+    },
+    {
+      "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 55,
+        "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
       "from_file": "provas/cortesia_http_local.mjs",
       "to_file": "coleta/italy_pilot_collect.mjs",
       "type": "READS",
@@ -54327,6 +55777,160 @@
         "file": "provas/italy_pilot_negativos.mjs",
         "line": 8,
         "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/buscar_paginas_boletim.py",
+      "to_file": "provas/janela_formas/cjs/INDICE.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/buscar_paginas_boletim.py",
+        "line": 79,
+        "snippet": "open(pasta / \"INDICE.json\", \"w\", encoding=\"utf-8\"), ensure_ascii=False, indent=1)"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/buscar_paginas_boletim.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/buscar_paginas_boletim.py",
+        "line": 37,
+        "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\"], capture_output=True, text=True)"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/canario_receita_pdf.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/canario_receita_pdf.py",
+        "line": 45,
+        "snippet": "contratos = {c[\"SOURCE_ID\"]: c for c in json.loads((RAIZ / \"curadoria/italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/canario_receita_pdf.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/canario_receita_pdf.py",
+        "line": 46,
+        "snippet": "tabela = {c[\"SOURCE_ID\"]: c for c in json.loads((RAIZ / \"regras/italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/canario_receita_pdf.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/canario_receita_pdf.py",
+        "line": 48,
+        "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\"],"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/cjs/provas_d46.py",
+      "to_file": "provas/janela_formas/cjs/d46/RESULTADO-D46.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/cjs/provas_d46.py",
+        "line": 156,
+        "snippet": "json.dump(RES, open(PASTA / \"RESULTADO-D46.json\", \"w\", encoding=\"utf-8\"), ensure_ascii=False, indent=1)"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/cjs/provas_d46.py",
+      "to_file": "provas/janela_formas/cjs/d46/pagina-bollettini.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/cjs/provas_d46.py",
+        "line": 87,
+        "snippet": "st, b = pedir(\"https://www.agrometeopuglia.it/bollettini\", op, \"pagina-bollettini.html\")"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/cjs/provas_d46_js.py",
+      "to_file": "provas/janela_formas/cjs/d46/custom.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/cjs/provas_d46_js.py",
+        "line": 10,
+        "snippet": "for nome in (\"custom.js\", \"extend_home.js\"):"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/cjs/provas_d46_js.py",
+      "to_file": "provas/janela_formas/cjs/d46/extend_home.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/cjs/provas_d46_js.py",
+        "line": 10,
+        "snippet": "for nome in (\"custom.js\", \"extend_home.js\"):"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/julgar_paginas_boletim.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/julgar_paginas_boletim.py",
+        "line": 23,
+        "snippet": "contratos = {c[\"SOURCE_ID\"]: c for c in json.loads((RAIZ / \"curadoria/italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/julgar_paginas_boletim.py",
+      "to_file": "provas/janela_formas/cjs/INDICE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/julgar_paginas_boletim.py",
+        "line": 20,
+        "snippet": "indice = {p[\"CASO\"]: p for p in json.loads((FASE1 / \"INDICE.json\").read_text(encoding=\"utf-8\"))[\"PAGINAS\"]}"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/pagina_boletim_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/pagina_boletim_local.mjs",
+        "line": 46,
+        "snippet": "const M = await import(\"../../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/pagina_boletim_local.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/pagina_boletim_local.mjs",
+        "line": 71,
+        "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/janela_formas/pagina_boletim_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/janela_formas/pagina_boletim_local.mjs",
+        "line": 47,
+        "snippet": "const { CONTRACTS } = await import(\"../../regras/italy_contracts.mjs\");"
       }
     },
     {
@@ -60094,6 +61698,160 @@
       }
     },
     {
+      "from_file": "provas/t2_boletins/canario_arpae.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/t2_boletins/canario_arpae.py",
+        "line": 32,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/canario_arpae.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/t2_boletins/canario_arpae.py",
+        "line": 33,
+        "snippet": "import admissao as adm            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/canario_arpae.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/canario_arpae.py",
+        "line": 43,
+        "snippet": "_x = importlib.util.spec_from_file_location(\"executor_texto_de_pdf\", RAIZ / \"coleta\" / \"executor_texto_de_pdf.py\")"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/canario_arpae.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/canario_arpae.py",
+        "line": 119,
+        "snippet": "base = [c for c in json.loads((RAIZ / \"curadoria/italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/canario_arpae.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/t2_boletins/canario_arpae.py",
+        "line": 36,
+        "snippet": "import orquestrador as ORQ        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/canario_arpae.py",
+      "to_file": "provas/t2_boletins/rede/CANARIO-ARPAE.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/canario_arpae.py",
+        "line": 171,
+        "snippet": "(PASTA / \"CANARIO-ARPAE.json\").write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/mutacao_strip_suffix.py",
+      "to_file": "curadoria/canario.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/mutacao_strip_suffix.py",
+        "line": 8,
+        "snippet": "(\"canario: nao corta\", \"curadoria/canario.py\","
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/mutacao_strip_suffix.py",
+      "to_file": "curadoria/reparar_contrato.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/mutacao_strip_suffix.py",
+        "line": 12,
+        "snippet": "(\"porta: nao grava o corte\", \"curadoria/reparar_contrato.py\", '        aq[\"STRIP_SUFFIX\"] = corte', \"        pass\"),"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/mutacao_strip_suffix.py",
+      "to_file": "regras/identidade_do_motor_cli.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/mutacao_strip_suffix.py",
+        "line": 21,
+        "snippet": "(\"cli: SO_CONFERIR aceita tudo\", \"regras/identidade_do_motor_cli.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/umbria_pdf.py",
+      "to_file": "provas/t2_boletins/umbria/PEDIDOS-UMBRIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/umbria_pdf.py",
+        "line": 50,
+        "snippet": "CONTA = OUT / \"PEDIDOS-UMBRIA.json\""
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/umbria_pdf.py",
+      "to_file": "provas/t2_boletins/umbria/PEDIDOS-UMBRIA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/umbria_pdf.py",
+        "line": 63,
+        "snippet": "CONTA.write_text(json.dumps(DOM, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/umbria_pdf.py",
+      "to_file": "provas/t2_boletins/umbria/UMBRIA-CANARIO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/umbria_pdf.py",
+        "line": 124,
+        "snippet": "(OUT / \"UMBRIA-CANARIO.json\").write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/umbria_pdf.py",
+      "to_file": "provas/t2_boletins/umbria/UMBRIA-LISTA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/umbria_pdf.py",
+        "line": 95,
+        "snippet": "lista = json.loads((OUT / \"UMBRIA-LISTA.json\").read_text(encoding=\"utf-8\"))[\"LISTA\"]"
+      }
+    },
+    {
+      "from_file": "provas/t2_boletins/umbria_pdf.py",
+      "to_file": "provas/t2_boletins/umbria/UMBRIA-LISTA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/t2_boletins/umbria_pdf.py",
+        "line": 89,
+        "snippet": "(OUT / \"UMBRIA-LISTA.json\").write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "provas/testa_coleta_canonica.py",
       "to_file": "AGENTS.md",
       "type": "READS",
@@ -60633,6 +62391,28 @@
       }
     },
     {
+      "from_file": "regras/boletim_data_local_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/boletim_data_local_test.mjs",
+        "line": 12,
+        "snippet": "import { identidadeDoContrato, conferirIdentidade, ContratoInvalido, NAO_SEI } from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/boletim_data_local_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/boletim_data_local_test.mjs",
+        "line": 12,
+        "snippet": "import { identidadeDoContrato, conferirIdentidade, ContratoInvalido, NAO_SEI } from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
       "from_file": "regras/comunicacao_identidade.py",
       "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
       "type": "READS",
@@ -60707,6 +62487,72 @@
         "file": "regras/contratos_de_fonte.py",
         "line": 58,
         "snippet": "CONTRATOS_MJS = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")"
+      }
+    },
+    {
+      "from_file": "regras/identidade_do_motor_cli.mjs",
+      "to_file": "coleta/retrato_html.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/identidade_do_motor_cli.mjs",
+        "line": 13,
+        "snippet": "import { textoVisivel } from \"../coleta/retrato_html.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/identidade_do_motor_cli.mjs",
+      "to_file": "coleta/retrato_html.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/identidade_do_motor_cli.mjs",
+        "line": 13,
+        "snippet": "import { textoVisivel } from \"../coleta/retrato_html.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/identidade_do_motor_cli.mjs",
+      "to_file": "coleta/texto_de_pdf.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/identidade_do_motor_cli.mjs",
+        "line": 14,
+        "snippet": "import { textoDePdf } from \"../coleta/texto_de_pdf.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/identidade_do_motor_cli.mjs",
+      "to_file": "coleta/texto_de_pdf.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/identidade_do_motor_cli.mjs",
+        "line": 14,
+        "snippet": "import { textoDePdf } from \"../coleta/texto_de_pdf.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/identidade_do_motor_cli.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/identidade_do_motor_cli.mjs",
+        "line": 12,
+        "snippet": "import { identidadeDoContrato, conferirIdentidade, recortar, ContratoInvalido } from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/identidade_do_motor_cli.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/identidade_do_motor_cli.mjs",
+        "line": 12,
+        "snippet": "import { identidadeDoContrato, conferirIdentidade, recortar, ContratoInvalido } from \"./motor_de_rota.mjs\";"
       }
     },
     {
@@ -75219,6 +77065,17 @@
       }
     },
     {
+      "from_file": "tests/test_corrida_abortada.py",
+      "to_file": "provas/corrida_abortada_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_corrida_abortada.py",
+        "line": 21,
+        "snippet": "r = subprocess.run([\"node\", \"provas/corrida_abortada_local.mjs\"], cwd=RAIZ, env=env,"
+      }
+    },
+    {
       "from_file": "tests/test_cortesia_no_transporte.py",
       "to_file": "provas/cortesia_http_local.mjs",
       "type": "READS",
@@ -80056,6 +81913,17 @@
         "file": "tests/test_pacote_de_revisao_t3.py",
         "line": 29,
         "snippet": "\"pacote_t3\", os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_pagina_boletim_local.py",
+      "to_file": "provas/janela_formas/pagina_boletim_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pagina_boletim_local.py",
+        "line": 23,
+        "snippet": "r = subprocess.run([\"node\", \"provas/janela_formas/pagina_boletim_local.mjs\"], cwd=RAIZ, env=env,"
       }
     },
     {
@@ -85134,6 +87002,13 @@
         "constante": "destino"
       }
     ],
+    "provas/janela_formas/cjs/provas_d46.py": [
+      {
+        "pasta": "provas/janela_formas/cjs/d46",
+        "line": 156,
+        "constante": "PASTA"
+      }
+    ],
     "provas/mutacao_do_gate.py": [
       {
         "pasta": "provas",
@@ -85358,11 +87233,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2978,
-    "files_readable": 1333,
-    "files_code_dir": 1269,
-    "file_edges": 5810,
-    "escritas_em_pasta": 86,
+    "files_tracked": 3094,
+    "files_readable": 1369,
+    "files_code_dir": 1378,
+    "file_edges": 5906,
+    "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

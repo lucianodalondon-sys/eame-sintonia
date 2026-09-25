@@ -70,6 +70,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 |---|---|
 | estado | PENDING — o sistema importa esta lei em runtime para decidir: C-CAPA-MATERIA, C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
+| onde vive | `regras/boletim_data_local_test.mjs` |
 | onde vive | `regras/contratos_de_fonte.py` |
 | onde vive | `regras/identidade_do_motor_cli.mjs` |
 | onde vive | `regras/italy_contract_test.mjs` |

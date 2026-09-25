@@ -379,7 +379,8 @@
     "coleta/italy_find_docs.mjs",
     "coleta/italy_pilot_collect.mjs",
     "coleta/italy_probe.mjs",
-    "coleta/italy_recurrent_collect.mjs"
+    "coleta/italy_recurrent_collect.mjs",
+    "coleta/texto_de_pdf.mjs"
    ]
   },
   {
@@ -481,7 +482,8 @@
     "regras/italy_source_health.mjs",
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs",
-    "regras/identidade_do_motor_cli.mjs"
+    "regras/identidade_do_motor_cli.mjs",
+    "regras/boletim_data_local_test.mjs"
    ]
   },
   {
@@ -4905,6 +4907,63 @@
     "provas/t2_boletins/umbria/bytes/7f843b165d68a2a3e000.bin",
     "provas/t2_boletins/umbria/bytes/c946b2f00952c710cd2d.bin",
     "provas/t2_boletins/umbria_pdf.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-BOLETINS-DATA-LOCAL",
+   "name": "Data e lugar em todas as rotas de boletim (D61/D62/D69)",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Canarios reais autorizados (portao de consenso, robots RFC 9309 + D39 lido na hora, D38, D41.3) das 9 rotas de boletim (ARSAC, Molise, Valle d'Aosta, Umbria, ARPAE, SFN, ERSA, Campania, LaMMA; Veneto fora pelo robots) com a data de emissao (PUBLISHED_AT), o periodo do facto so quando o texto o liga ao facto (FACT_TIME, D69), o periodo do boletim como evidencia (BULLETIN_PERIOD) e a area declarada (FACT_LOCATION), cada um com a BASE; NAO SEI com o porque, nenhum documento descartado (D62). Prova local do coletor de verdade (4/4) e mutacao 13/13.",
+   "why_here": "D61: um facto sem data e local nao e relevante; o dono pediu data e local antes das proximas coletas. A rota de um boletim conhece a forma dele — esta peca guarda a prova de cada rota e dos contratos propostos.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/boletins_data_local/CONTRATOS-PROPOSTOS-D61.json",
+    "provas/boletins_data_local/RELATORIO-BOLETINS-DATA-LOCAL.md",
+    "provas/boletins_data_local/boletim_pdf_local.mjs",
+    "provas/boletins_data_local/canario_d61.py",
+    "provas/boletins_data_local/fase1_listas.py",
+    "provas/boletins_data_local/fase1b_arsacweb.py",
+    "provas/boletins_data_local/fase1c_arsacagrometeo.py",
+    "provas/boletins_data_local/fase1d_rotas_a.py",
+    "provas/boletins_data_local/fase2_um_item.py",
+    "provas/boletins_data_local/mutacao_d61.py",
+    "provas/boletins_data_local/rede/CANARIO-D61.json",
+    "provas/boletins_data_local/rede/FASE1-ARSACAGROMETEO.json",
+    "provas/boletins_data_local/rede/FASE1-ARSACWEB.json",
+    "provas/boletins_data_local/rede/FASE1-ROTAS-A.json",
+    "provas/boletins_data_local/rede/FASE1.json",
+    "provas/boletins_data_local/rede/FASE2-ITENS.json",
+    "provas/boletins_data_local/rede/PDFS-FORA-DO-GIT.txt",
+    "provas/boletins_data_local/rede/PEDIDOS-AVULSOS.json",
+    "provas/boletins_data_local/rede/PEDIDOS-POR-DOMINIO.json",
+    "provas/boletins_data_local/rede/REDE-CANARIO-D61.json",
+    "provas/boletins_data_local/rede/bytes/00bde0ea5f95dab44d55.bin",
+    "provas/boletins_data_local/rede/bytes/13315c046029dd01f1a5.bin",
+    "provas/boletins_data_local/rede/bytes/213a616d2218a42d3d8e.bin",
+    "provas/boletins_data_local/rede/bytes/245ebc27e96dab4ded3c.bin",
+    "provas/boletins_data_local/rede/bytes/2f7dda7d9f69ea537551.bin",
+    "provas/boletins_data_local/rede/bytes/4afeb9c6409dad60f773.bin",
+    "provas/boletins_data_local/rede/bytes/4b30d1f4cc26ba7aff4f.bin",
+    "provas/boletins_data_local/rede/bytes/5208aa2fbc6a4139afa6.bin",
+    "provas/boletins_data_local/rede/bytes/658215d7ce7052e2b099.bin",
+    "provas/boletins_data_local/rede/bytes/66b5fa2c818907668094.bin",
+    "provas/boletins_data_local/rede/bytes/735fcc4eb2c76f0b716b.bin",
+    "provas/boletins_data_local/rede/bytes/7c49c05e35b66edc6f81.bin",
+    "provas/boletins_data_local/rede/bytes/88d8e2e9c257da518e73.bin",
+    "provas/boletins_data_local/rede/bytes/b49df329a56bca203cea.bin",
+    "provas/boletins_data_local/rede/bytes/cbf535dbbaa52eb235ee.bin",
+    "provas/boletins_data_local/rede/bytes/cde34ae71325970b29ea.bin",
+    "provas/boletins_data_local/rede/bytes/e11e4ffcc71a5520d25d.bin",
+    "provas/boletins_data_local/rede/bytes/e24f4f937574b5a709cc.bin",
+    "provas/boletins_data_local/rede/bytes/e3b0c44298fc1c149afb.bin"
    ]
   },
   {
