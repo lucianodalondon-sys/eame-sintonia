@@ -1,0 +1,355 @@
+{
+ "DATASET": "RECOLHA-CEGA-POSITIVOS-V1",
+ "REGRA": "ver docstring (commitada antes da corrida)",
+ "BYTES_EM": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos",
+ "SITES": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERIE": "Campania · SFR por provincia (edicoes 16/09 e 23/09 que faltam)",
+   "PEDIDOS": 5,
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERIE": "Puglia · notiziario ARIF (edicoes de agosto: N32 e N33 nao estao; N31, N34)",
+   "PEDIDOS": 5,
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERIE": "Puglia · APOL mosca da oliveira (n. 5 a 8; o acervo tem 9, 10, 11)",
+   "PEDIDOS": 5,
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERIE": "ARPAV · Agrometeo Informa (zonas 02, 03, 04, 06 que nao estao)",
+   "PEDIDOS": 5,
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERIE": "ARPAE · boletim agrometeorologico (N30 a N33 que nao estao)",
+   "PEDIDOS": 5,
+   "EGRESSO": {
+    "GATE": "PASS",
+    "VOTOS": [
+     [
+      "ipwho.is",
+      "IT"
+     ],
+     [
+      "ip-api.com",
+      "IT"
+     ],
+     [
+      "ifconfig.co",
+      "US"
+     ]
+    ]
+   },
+   "RECUSAS": [
+    "HTTP 404 HTTP 404 https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/32_boll_agro_20260810.pdf"
+   ]
+  }
+ ],
+ "ITENS": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERIE": "Campania · SFR por provincia (edicoes 16/09 e 23/09 que faltam)",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/AV-23-09.pdf",
+   "BYTES": 375762,
+   "SHA256": "545f67ae8a469c5698c3e31bf1c351178d785da87219c141c5ae5ab5afb82e0a",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\545f67ae8a469c56.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\545f67ae8a469c56.txt",
+   "TEXTO_SHA256": "501603a4226da0dd01fae1e8a5d960e4ecb35c9742100f4a766daf0d54b0853f",
+   "NON_WHITESPACE_CHARACTERS": 33664,
+   "OBTIDO_EM": "2026-09-25T04:56:16.781220+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERIE": "Campania · SFR por provincia (edicoes 16/09 e 23/09 que faltam)",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/NA-23-09.pdf",
+   "BYTES": 659166,
+   "SHA256": "5a0594d2d6d17ef11ab56c1ef431b783aa472c2b5f14979c154ed2f0583d01fa",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\5a0594d2d6d17ef1.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\5a0594d2d6d17ef1.txt",
+   "TEXTO_SHA256": "0003b6b3ef514436cf8fdd14edf842d2a1930ec6e26c94b4f87f603297e7f36a",
+   "NON_WHITESPACE_CHARACTERS": 23659,
+   "OBTIDO_EM": "2026-09-25T04:56:21.656616+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERIE": "Campania · SFR por provincia (edicoes 16/09 e 23/09 que faltam)",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/CE-16-09.pdf",
+   "BYTES": 745270,
+   "SHA256": "a6e0b5b42deca4e99dc029b7c8dd7849d8a9ee1bf1c239650f1bd6a256636637",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\a6e0b5b42deca4e9.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\a6e0b5b42deca4e9.txt",
+   "TEXTO_SHA256": "1f37e9fa5842a984cd569aa23fbe3f484d876075808c973b7bf96b023657e71a",
+   "NON_WHITESPACE_CHARACTERS": 27301,
+   "OBTIDO_EM": "2026-09-25T04:56:26.845766+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "SERIE": "Campania · SFR por provincia (edicoes 16/09 e 23/09 que faltam)",
+   "URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/BN-16-09.pdf",
+   "BYTES": 323995,
+   "SHA256": "cf43673f56968408b2b29bbb57620c7df44407930eb96567813d75ce3b6c142e",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\cf43673f56968408.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\cf43673f56968408.txt",
+   "TEXTO_SHA256": "c8ef349e49a7d53d95feefc0a85e0f48bfdb9a9ba9fe450733c1b4b08be96d54",
+   "NON_WHITESPACE_CHARACTERS": 19284,
+   "OBTIDO_EM": "2026-09-25T04:56:31.915316+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERIE": "Puglia · notiziario ARIF (edicoes de agosto: N32 e N33 nao estao; N31, N34)",
+   "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N31_29-07-2026.pdf",
+   "BYTES": 2031268,
+   "SHA256": "934afbd7082f4bfa2b2c660b756369cf8c2f3377506a99cdc6de53e1e6efb56c",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\934afbd7082f4bfa.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\934afbd7082f4bfa.txt",
+   "TEXTO_SHA256": "77c33284db100cbf49d0360a339e1bf55f8fcde6e7a90e9c9f29af9cb63aabd4",
+   "NON_WHITESPACE_CHARACTERS": 52895,
+   "OBTIDO_EM": "2026-09-25T04:56:40.429481+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERIE": "Puglia · notiziario ARIF (edicoes de agosto: N32 e N33 nao estao; N31, N34)",
+   "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N32_05-08-2026.pdf",
+   "BYTES": 2737276,
+   "SHA256": "f5f271714e0e1b7315bf605487ac7f7270edceb25388891d32798c89f6a490de",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\f5f271714e0e1b73.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\f5f271714e0e1b73.txt",
+   "TEXTO_SHA256": "ba15108e62c0202b05a73a78ba701b1b2911570692308a458b3445efbe521810",
+   "NON_WHITESPACE_CHARACTERS": 58668,
+   "OBTIDO_EM": "2026-09-25T04:56:45.928398+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERIE": "Puglia · notiziario ARIF (edicoes de agosto: N32 e N33 nao estao; N31, N34)",
+   "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N33_12-08-2026.pdf",
+   "BYTES": 2719149,
+   "SHA256": "724db76951a1cbe959869953aae065700edeef35d3738157c7378f3c921f6f47",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\724db76951a1cbe9.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\724db76951a1cbe9.txt",
+   "TEXTO_SHA256": "e20d61292e9e055129774c2b999843126bd2de7a5c279bd8e9edf96516cb8dd8",
+   "NON_WHITESPACE_CHARACTERS": 60326,
+   "OBTIDO_EM": "2026-09-25T04:56:51.292574+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "SERIE": "Puglia · notiziario ARIF (edicoes de agosto: N32 e N33 nao estao; N31, N34)",
+   "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N34_19-08-2026.pdf",
+   "BYTES": 2698852,
+   "SHA256": "6e182bc8cead6b87dffe072a382a82b0e0b0da2aaa798b300e18c03a578a0a8f",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\6e182bc8cead6b87.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\6e182bc8cead6b87.txt",
+   "TEXTO_SHA256": "05d1fc9fb8f579fc74e12d5c7903b6801bf46bfae2628bfea3ee54d02c3d6564",
+   "NON_WHITESPACE_CHARACTERS": 59617,
+   "OBTIDO_EM": "2026-09-25T04:56:56.708497+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERIE": "Puglia · APOL mosca da oliveira (n. 5 a 8; o acervo tem 9, 10, 11)",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_8_del_31_08_2026.pdf",
+   "BYTES": 1633428,
+   "SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\3e941738599367d7.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\3e941738599367d7.txt",
+   "TEXTO_SHA256": "b4a74e8868a9eb4ff52cc25e072f78b41c55e1ace32cf16e2636769c61527dba",
+   "NON_WHITESPACE_CHARACTERS": 21600,
+   "OBTIDO_EM": "2026-09-25T04:57:04.528553+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERIE": "Puglia · APOL mosca da oliveira (n. 5 a 8; o acervo tem 9, 10, 11)",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_7_del_24_08_2026.pdf",
+   "BYTES": 1630774,
+   "SHA256": "0a2a579421eca31dd9272b40d9ac14b5e7aa0ea2d5d6e07d3666c73988809f2b",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\0a2a579421eca31d.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\0a2a579421eca31d.txt",
+   "TEXTO_SHA256": "b9c3d574a3f58e5f7ca18aadf25e91c2ac1a15d56ddb167d7b2c3c584c66e7d7",
+   "NON_WHITESPACE_CHARACTERS": 22257,
+   "OBTIDO_EM": "2026-09-25T04:57:09.108372+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERIE": "Puglia · APOL mosca da oliveira (n. 5 a 8; o acervo tem 9, 10, 11)",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_6_del_17_08_2026.pdf",
+   "BYTES": 1636307,
+   "SHA256": "bb2f755cb186f5a447f7b92a3a65ceef6149a0535d3c55d5f2477d6d5801b36b",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\bb2f755cb186f5a4.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\bb2f755cb186f5a4.txt",
+   "TEXTO_SHA256": "d3cfea156670b54cce2422d9748d7841bb3f88fda65dca6edb2e7ccb816e0169",
+   "NON_WHITESPACE_CHARACTERS": 22103,
+   "OBTIDO_EM": "2026-09-25T04:57:13.654974+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "SERIE": "Puglia · APOL mosca da oliveira (n. 5 a 8; o acervo tem 9, 10, 11)",
+   "URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_5_del_10_08_2026.pdf",
+   "BYTES": 1630846,
+   "SHA256": "cb5b1de900b71eaa66eddb890c1dcd7455a57fdfa8a67f16db6587da787df2af",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\cb5b1de900b71eaa.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\cb5b1de900b71eaa.txt",
+   "TEXTO_SHA256": "31e50159291aecbf4fd8c32a2a723198601cf9bc926ad84e31304b03501836b7",
+   "NON_WHITESPACE_CHARACTERS": 22130,
+   "OBTIDO_EM": "2026-09-25T04:57:18.257574+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERIE": "ARPAV · Agrometeo Informa (zonas 02, 03, 04, 06 que nao estao)",
+   "URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_02.pdf",
+   "BYTES": 465921,
+   "SHA256": "c28898d201447f4f6dbb7b90292b748760587aea2b9c2c850861e63f70a3b621",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\c28898d201447f4f.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\c28898d201447f4f.txt",
+   "TEXTO_SHA256": "d0fad597c63cc4386330a2550eb11d2fbba0857109e1020b0793032134959057",
+   "NON_WHITESPACE_CHARACTERS": 4135,
+   "OBTIDO_EM": "2026-09-25T04:57:26.308450+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERIE": "ARPAV · Agrometeo Informa (zonas 02, 03, 04, 06 que nao estao)",
+   "URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_03.pdf",
+   "BYTES": 467255,
+   "SHA256": "cb01903a9e0afca4dcb557e6ec735c17df63b6e325cc5e2cc9abf3b625f010d4",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\cb01903a9e0afca4.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\cb01903a9e0afca4.txt",
+   "TEXTO_SHA256": "7e4917cf9bfb07c361948798d546ae5bdf7db02863b669441c3a3e44f9a2b7cb",
+   "NON_WHITESPACE_CHARACTERS": 4212,
+   "OBTIDO_EM": "2026-09-25T04:57:30.628006+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERIE": "ARPAV · Agrometeo Informa (zonas 02, 03, 04, 06 que nao estao)",
+   "URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_04.pdf",
+   "BYTES": 469268,
+   "SHA256": "5b5b8b45f592fba1d3c588f902d8aa1665691a314c727f1dac703bc0f66cbe88",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\5b5b8b45f592fba1.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\5b5b8b45f592fba1.txt",
+   "TEXTO_SHA256": "d02f75bcf502eb36271f6f683650076195dd0fcf34ba43d0037a14a1d7aadbd9",
+   "NON_WHITESPACE_CHARACTERS": 4153,
+   "OBTIDO_EM": "2026-09-25T04:57:34.942484+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "SERIE": "ARPAV · Agrometeo Informa (zonas 02, 03, 04, 06 que nao estao)",
+   "URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_06.pdf",
+   "BYTES": 468662,
+   "SHA256": "959e3a920e01c5ca3fcf98ec868778faed0eea7ed856c6c3f069678a68a8caa4",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\959e3a920e01c5ca.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\959e3a920e01c5ca.txt",
+   "TEXTO_SHA256": "4eeca709c1fea6591aa397c683e411e66684ada045fa02a08c0cd3d2d79ec86a",
+   "NON_WHITESPACE_CHARACTERS": 4152,
+   "OBTIDO_EM": "2026-09-25T04:57:39.322124+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERIE": "ARPAE · boletim agrometeorologico (N30 a N33 que nao estao)",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/33_boll_agro_20260817.pdf",
+   "BYTES": 1213817,
+   "SHA256": "dfa07c9861f5c80bddcc55cff3bfdd5a3931ca287d19659057a1dd0659ca4e1c",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\dfa07c9861f5c80b.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\dfa07c9861f5c80b.txt",
+   "TEXTO_SHA256": "b2997df3659934233a161231159f717be7e405d20213f6a8b537bd0e7b731808",
+   "NON_WHITESPACE_CHARACTERS": 2508,
+   "OBTIDO_EM": "2026-09-25T04:57:46.925916+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERIE": "ARPAE · boletim agrometeorologico (N30 a N33 que nao estao)",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/31_boll_agro_20260803.pdf",
+   "BYTES": 1644721,
+   "SHA256": "25dfc070538c838a7520540e011e58f6281394ae46add4522aa354d086d9a348",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\25dfc070538c838a.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\25dfc070538c838a.txt",
+   "TEXTO_SHA256": "6cb03ddf99a7b9461198e6dd44fbe433bd208cdcdecda50c824f8cab03119580",
+   "NON_WHITESPACE_CHARACTERS": 2731,
+   "OBTIDO_EM": "2026-09-25T04:57:54.774026+00:00"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "SERIE": "ARPAE · boletim agrometeorologico (N30 a N33 que nao estao)",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/30_boll_agro_20260727.pdf",
+   "BYTES": 1582688,
+   "SHA256": "27d178c1e6b7886d64d2ce4bc6bbbe3c7aa0d948107686bf82cd5f7789bc0fcf",
+   "FICHEIRO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\27d178c1e6b7886d.pdf",
+   "TEXTO_FORA_DO_GIT": "C:\\Users\\London1\\sintonia-gabarito\\REGUA-T1-V1\\cega-positivos\\27d178c1e6b7886d.txt",
+   "TEXTO_SHA256": "8d085bd491281c5e25ed6f78e35872a2b2b42ccd8f2231e2c664b2537ea8f595",
+   "NON_WHITESPACE_CHARACTERS": 2736,
+   "OBTIDO_EM": "2026-09-25T04:57:59.513609+00:00"
+  }
+ ],
+ "CONTAGEM": {
+  "ITENS": 19,
+  "PEDIDOS": 25,
+  "MAX_PEDIDOS_POR_SITE": 5
+ }
+}
