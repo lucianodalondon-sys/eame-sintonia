@@ -6,14 +6,15 @@ produção nova **`df0865e6`** (MICRO-V3: `onda_web --fontes/--lote`).
 
 ## Em palavras simples
 
-Juntei, **sem nenhum conflito**, quatro peças: a CONTRATO-44 (provas de rota + entrada no coletor), a v3
-dela (as duplicadas D49), a REVISAO-15 e a HR-6, e apliquei a D51.1 (a CONAF página inicial sai como
-duplicada da CONAF comunicados). Numa cópia fiel do vivo **com os 16 livros do disco**: a tabela do coletor
+Juntei cinco peças: a CONTRATO-44 (provas de rota + entrada no coletor), a v3 dela (as duplicadas D49),
+a REVISAO-15, a HR-6 e a ORDENS-63 v2 (D52: 62 ordens de agrónomos saem por decisão), e apliquei a D51.1 (a
+CONAF página inicial sai como duplicada da CONAF comunicados). Só a ORDENS deu conflito de código, num ponto,
+resolvido por ordem do coordenador e guardado por um teste novo (§8). Numa cópia fiel do vivo **com os 16 livros do disco**: a tabela do coletor
 passa de **210 para 226 fontes (entram 16)**, as prontas para colher passam de **29 para 41**, a coorte
 PROVISÓRIA da 3.ª onda tem **40** fontes, **30 correm**, **120 pedidos, no máximo 5 por domínio**, prova do
 teto **PASS**. O pacote **não muda nenhum livro no Git**. O desfazer volta tudo ao vivo, provado.
-Falta: **ordens-63-v2** (conflito de CÓDIGO com a REVISAO-15 — parei, §8), **RECEITA-T8** (bancada a
-trabalhar) e o **mapa** (à espera da LOCK-PESADO).
+Falta: **RECEITA-T8** (bancada a trabalhar). O reparo de 5 fontes fica como passo para DEPOIS da
+**receitas-182-v1**, que não está na produção nem neste pacote (passo 13).
 
 > ⚠️ **Correção (25/09 ~11:10Z):** a 1.ª versão deste relatório dizia «entram 33» e «as 17 da PONTE não estão
 > no coletor da produção». **Estava errado.** O ensaio copiava uma lista FIXA de 14 livros e leu a tabela do
@@ -30,7 +31,7 @@ trabalhar) e o **mapa** (à espera da LOCK-PESADO).
 | 4 | hr6-v1 | e5825dc0 | nenhum |
 | + | D51.1 (commit próprio `1f086968`) | — | — |
 | + | produção nova df0865e6 (MICRO-V3) | — | nenhum |
-| ✋ | ordens-63-v2 (D52) | 9260aa2e | **CONFLITO DE CÓDIGO** em `curadoria/gatilho_discovery.py` — parei (§8) |
+| 5 | ordens-63-v2 (D52) | 9260aa2e | **1 conflito de código** em `curadoria/gatilho_discovery.py` — resolvido por ordem (§8) |
 | ⏳ | receita-t8-v1 (D48) | 75947e77 | à espera do PRONTO da bancada |
 
 **D51.1:** `curadoria/retirar_duplicadas_d49.py` passa a guardar, por linha, a decisão e o ficheiro da prova.
@@ -40,7 +41,7 @@ As 4 da D49 ficam iguais; entra `IT-T7-170 → fica IT-T7-174`, `DECISAO = D51`,
 ## 2 · O ensaio integrado (`ensaio/`, script `ensaio_onda3.sh`)
 
 Cópia = worktree destacada no **HEAD do vivo (df0865e6)** + os **16 ficheiros sujos do vivo, lidos na hora**
-(foto 11:08:55Z, a meio do MICRO-V3 real — só leitura; sha256 em `ensaio/0-FOTO-DOS-LIVROS.txt`); o pacote
+(foto tirada com a 2.ª onda a correr no vivo — só leitura; o desfazer repõe desta foto, não do vivo; sha256 em `ensaio/0-FOTO-DOS-LIVROS.txt`); o pacote
 entra por `git merge --no-ff`, como na instalação. Rede fechada, conferida (www.cia.it recusado). O robô não correu.
 
 | passo | antes (vivo de hoje) | depois |
@@ -48,16 +49,18 @@ entra por `git merge --no-ff`, como na instalação. Rede fechada, conferida (ww
 | livros que o pacote muda no Git | — | **0** (dos 16) |
 | merge | — | rc=0, 0 conflitos, **16 livros iguais** |
 | duplicadas D49 + D51 | — | **5 APLICA** (IT-T2-056, IT-T2-106, IT-T7-100, IT-T7-170, IT-T8-068), nenhuma na tabela do coletor; 2.ª passagem 5 JA_APLICADA |
+| D52 (depois da D49/D51) | — | **APLICA 62**; 2.ª passagem 62 JA_APLICADA; 0 em comum com a D49/D51; Palermo IT-T7-226 fica ativa |
 | provas de rota (0 pedidos) | — | PONTE (59 linhas) + C44 (19) + HR6 (1) |
 | tabela do coletor (disco) | **210** fontes · ENTRA=0 FICA=27 | **226** · **ENTRA=16** (as da C44) · FICA=7 |
 | portão: READY / elegíveis | 183 / 73 | 182 / **69** (−4 da D49; −1 READY = a T7-174 à espera do canário do robô) |
 | plano da coleta: prontas | **29** | **41** (+12, perdidas 0) |
 | o que o robô vai medir | — | REVISAO-15: **15** VALIDATE_ROUTE; HR-6: IT-T7-174 |
+| reparar de novo (só mostrar) | — | as 5 (IT-T3-062, IT-T5-164, IT-T8-067, IT-T8-069, IT-T7-226) estão CONTRACTED_CANARY_FAILED → REPARAR |
 | coorte 3.ª onda (PROVISÓRIA) | 2.ª onda congelada: 28 | **40** (ISTAT fora, D45) |
 | `onda_web --so-plano` | — | **30 de 40 correm** · 120 pedidos · máximo 5 por domínio · PODE_CORRER=false (PROVISÓRIA) |
 | prova-teto sobre o plano | — | **PASS** · 120 previstos · 0 domínios acima de 5 |
-| testes | — | 89 (6 ficheiros do Curator) + 4 (hr6) + 17 + 10 + 1 + 6 + 29 + 19 (tests/) + motor 62/62 + teto local 7/7 — **todos OK** |
-| desfazer | — | `reset --keep` rc=0 · 0 ficheiros de código diferentes · HEAD = vivo · 16 livros = foto · prontas 29 |
+| testes | — | 118 (9 ficheiros do Curator, com a D52 e os gatilhos) + 3 (reparar de novo) + 4 (hr6) + 17 + 10 + 1 + 6 + 29 + 19 (tests/) + motor 62/62 + teto local 7/7 — **todos OK** |
+| desfazer | — | D52 `--reverter` = livro de contratos byte a byte · `reset --keep` rc=0 · 0 ficheiros de código diferentes · HEAD = vivo · 16 livros = foto · prontas 29 |
 
 **Saltam por teto nesta onda (10):** IT-T2-146, IT-T5-080, IT-T5-111, IT-T5-113, IT-T5-167, IT-T5-186,
 IT-T5-187, IT-T7-121, IT-T7-123, IT-T7-135; parcial IT-T7-118 (cia.it).
@@ -140,12 +143,18 @@ node regras/motor_de_rota_test.mjs ; node provas/teto_dominio_local.mjs         
 
 **6 · Mapa** — com a LOCK-PESADO: `py system-map/scripts/correr_a_cadeia.py VALIDAR` → `SYSTEM_MAP_CHECK=PASS`.
 
-**7 · Duplicadas D49 + D51**
+**7 · Duplicadas D49 + D51, depois a D52 (robô parado; as duas escrevem o livro de contratos)**
 ```bash
 py -B curadoria/retirar_duplicadas_d49.py            # esperado 5 × APLICA
 py -B curadoria/retirar_duplicadas_d49.py --aplicar  # «livro de contratos escrito»
 py -B curadoria/retirar_duplicadas_d49.py            # esperado 5 × JA_APLICADA
+sha256sum curadoria/italy_contracts_curator.json > $CORTE/CONTRATOS-ANTES-D52.txt
+py -B curadoria/retirar_por_decisao.py --decisao D52             # esperado {'APLICA': 62}
+py -B curadoria/retirar_por_decisao.py --decisao D52 --escrever  # «escrito: …italy_contracts_curator.json»
+py -B curadoria/retirar_por_decisao.py --decisao D52             # esperado {'JA_APLICADA': 62}
 ```
+Desfazer só da D52: `py -B curadoria/retirar_por_decisao.py --decisao D52 --reverter --escrever` → conferir
+com `$CORTE/CONTRATOS-ANTES-D52.txt` (no ensaio: igual byte a byte).
 
 **8 · HR-6: pôr a IT-T7-174 a re-medir**
 ```bash
@@ -192,8 +201,19 @@ py -B ferramentas/big_collection/onda_web.py --so-plano --coorte=ferramentas/big
 py -B provas/prova_teto_dominio.py --plano $(cygpath -w $CORTE)/ONDA3-SO-PLANO.json --coorte ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json
 #   ensaio: CORREM 30 de 40 · 120 pedidos · máximo 5 por domínio · PROVA_TETO_DOMINIO_PLANO=PASS
 ```
-Congelar (para correr) só por decisão, depois da 2.ª onda e com a RECEITA-T8 e a ORDENS dentro: o mesmo
+Congelar (para correr) só por decisão, depois da 2.ª onda e com a RECEITA-T8 dentro: o mesmo
 comando com `--congelar --instalacao=<commit> --demotion=<ref>`, como o passo 11 da INTEGRA.
+
+**13 · SÓ DEPOIS de instalada a receitas-182-v1 (41d8751e; não está na produção nem neste pacote): reparar de novo**
+O robô não volta sozinho a uma fonte com o reparo DONE (correção da ORDENS/RECEITAS-182). Pela fila, a porta
+do gatilho, com o robô parado:
+```bash
+py -B ferramentas/onda3_pacote/reparar_de_novo.py --fontes=IT-T3-062,IT-T5-164,IT-T8-067,IT-T8-069,IT-T7-226            # 5 × REPARAR (ensaio)
+py -B ferramentas/onda3_pacote/reparar_de_novo.py --fontes=IT-T3-062,IT-T5-164,IT-T8-067,IT-T8-069,IT-T7-226 --aplicar  # 5 tarefas REPAIR_CONTRACT
+```
+(asnacodi, IRET, Società Entomologica, Horta + Palermo.) A ferramenta recusa fonte READY e fonte retirada por
+decisão. Ao religar, o robô repara → valida a rota → canário → régua. Desfazer antes de o robô correr:
+repor `curadoria/LIFECYCLE-QUEUE-V1.json` do backup.
 
 ### DESFAZER (provado na cópia: 0 ficheiros de código diferentes, livros = foto, prontas 29)
 ```bash
@@ -211,19 +231,16 @@ rm $VIVO/curadoria/PARAR.flag
 
 ## 6 · O que falta para «PRONTO»
 
-1. **Mapa do sistema:** a LOCK-PRIORIDADE saiu; a LOCK-PESADO estava com a CONTRATOS-12 (08:07). Regero
-   pela cadeia assim que ela ficar livre (≥ 5 GB).
-2. **ordens-63-v2 (D52):** conflito de CÓDIGO — §8.
-3. **RECEITA-T8 (D48):** o ramo existe (75947e77), mas a bancada ainda diz TRABALHANDO; entra quando disser PRONTO.
+1. **RECEITA-T8 (D48):** o ramo existe (75947e77), mas a bancada ainda diz TRABALHANDO; entra quando disser
+   PRONTO, e o ensaio repete-se com o mesmo script.
 
-## 8 · ordens-63-v2: conflito de código (parei, como manda a missão)
+## 8 · ordens-63-v2: o conflito de código e como foi resolvido
 
 `git merge --no-ff origin/ordens-63-v2` → **CONFLICT em `curadoria/gatilho_discovery.py`**, função
 `candidatas_a_reparar`, no mesmo ponto: a REVISAO-15 acrescentou «fonte CONTRACTED_CANARY_FAILED com leitura
 nova → re-medir uma vez»; a D52 acrescentou «fonte RETIRADA_POR_DECISAO → saltar» antes do mesmo `if`.
-Junção desfeita (`git merge --abort`); o ramo ficou sem nada da D52.
-
-Resolução que proponho (não aplicada — é decisão do coordenador): **as duas, com a D52 primeiro**:
+1.ª tentativa: parei e desfiz (`git merge --abort`), como manda a missão. Depois veio a ordem explícita do
+coordenador («junta o ordens-63-v2») e resolvi assim — **as duas, com a D52 primeiro**:
 ```python
         c = contratos.get(sid)
         if RPD.retirada(c):          # D52: retirada por decisão não volta a ser trabalho
@@ -232,5 +249,6 @@ Resolução que proponho (não aplicada — é decisão do coordenador): **as du
             ...
         elif e == LC.CONTRACTED_CANARY_FAILED:
 ```
-Assim uma fonte retirada nunca é re-medida, nem pela REVISAO-15. Com a ordem de avançar: resolvo assim, corro
-os testes do gatilho, da revisão e da D52, e repito o ensaio.
+Assim uma fonte retirada nunca é re-medida, nem pela REVISAO-15. Teste novo do encontro das duas
+(`test_revisao_ready.test_retirada_por_decisao_nao_re_mede_nem_com_leitura_nova`); o mutante sem a trava
+D52 fica vermelho. Gatilho + revisão + D52 + D49: 57 testes OK.
