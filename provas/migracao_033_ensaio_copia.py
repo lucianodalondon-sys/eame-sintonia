@@ -14,7 +14,8 @@ formato de `backup_sala.cmd`) e, num Postgres DESCARTÁVEL novo:
     7  DESFAZER                                 o esquema volta a ser o da cópia, byte a byte
     8  cadeia outra vez                         033 = PASS de novo
 
-    py provas/migracao_033_ensaio_copia.py --dump <sala.dump> --livros "<glob;glob>" --saida <out.json>
+    py provas/migracao_033_ensaio_copia.py --dump <sala.dump> --livros "<glob;glob>"
+        --raizes "<armazem;...>" --saida <out.json>
 
 É o roteiro de MIGRACAO-SALA.md, passo a passo, contra uma cópia.
 """
@@ -52,6 +53,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dump", required=True)
     ap.add_argument("--livros", required=True)
+    ap.add_argument("--raizes", default="")
     ap.add_argument("--saida", required=True)
     a = ap.parse_args()
     fora = {"DUMP": a.dump,
@@ -98,7 +100,8 @@ def main():
     def reprocessar(nome):
         saida = pasta / ("reprocesso-%s.json" % nome)
         r = subprocess.run([sys.executable, "-B", "admissao/reprocessar_tempo_lugar.py",
-                            "--livros", a.livros, "--aplicar", "--saida", str(saida)],
+                            "--livros", a.livros, "--raizes", a.raizes,
+                            "--aplicar", "--saida", str(saida)],
                            cwd=str(RAIZ), env=env, capture_output=True, text=True,
                            encoding="utf-8", errors="replace")
         if r.returncode:
