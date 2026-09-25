@@ -528,10 +528,16 @@ class ReparoInvalido(Exception):
     pass
 
 
-def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dict:
+def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None, decisao: str = "R1",
+            missao: str = MISSAO, metodo: str = METODO,
+            ferramenta: str = "curadoria/reparar_contrato.py") -> dict:
     """O contrato depois do reparo. Puro: nao escreve em disco. Rebenta se a
     proposta nao for PADRAO_NOVO, se o validador da casa reprovar, ou se algum
-    campo alem de CAMPOS_QUE_O_REPARO_MUDA mudar."""
+    campo alem de CAMPOS_QUE_O_REPARO_MUDA mudar.
+
+    `decisao`/`missao`/`metodo`/`ferramenta` so dizem QUEM mandou mudar (omissao: o R1).
+    A porta e a mesma para todos — os mesmos campos, o mesmo validador, a mesma trava:
+    D44 (alinhar_com_o_coletor.py) passa por aqui em vez de escrever outra porta."""
     import escrever_contratos as EC      # noqa: PLC0415
     import validar_contratos as VC       # noqa: PLC0415
     if proposta.get("DESFECHO") != "PADRAO_NOVO":
@@ -548,7 +554,7 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
     if contrato.get("REPARO_DE_CONTRATO"):
         anteriores.append({k: v for k, v in contrato["REPARO_DE_CONTRATO"].items() if k != "HISTORICO"})
     novo["REPARO_DE_CONTRATO"] = {
-        "DECISAO": "R1", "MISSAO": MISSAO, "METODO": METODO, "APLICADO_EM": quando,
+        "DECISAO": decisao, "MISSAO": missao, "METODO": metodo, "APLICADO_EM": quando,
         "COMO": proposta.get("COMO"),
         "ACQUISITION_ANTERIOR": proposta.get("ACQUISITION_ANTERIOR") or antes.get("ACQUISITION"),
         "PROVA": {"ENTRADA": proposta.get("ENTRADA"), "ENTRADA_RETRATO": proposta.get("ENTRADA_RETRATO"),
@@ -561,7 +567,7 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
         **({"HISTORICO": anteriores} if anteriores else {}),
     }
     novo["ROUTE_PROVENANCE"] = {
-        "MISSAO": MISSAO, "FERRAMENTA": "curadoria/reparar_contrato.py", "INTEGRADO_EM": quando,
+        "MISSAO": missao, "FERRAMENTA": ferramenta, "INTEGRADO_EM": quando,
         "PROVADO_EM": quando, "LISTAGEM": proposta["INDEX_URL"],
         **({"ANTERIOR": contrato["ROUTE_PROVENANCE"]} if contrato.get("ROUTE_PROVENANCE") else {}),
     }
