@@ -104,6 +104,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **Censo das lanes antes de unificar** — Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel; e as do ensaio do cutover (X1): medidores que mandam PARAR antes do passo seguinte, a fotografia dos livros extra e os passos 5b/5c/7b que o SWITCH_PLAN nao tinha.
 - **Condutor da Big Collection (1.a onda, BC5)** — Corre a coorte congelada UMA fonte de cada vez pela porta canonica (micro_coleta.correr), fotografa a Sala antes/depois de cada fonte e aplica os disjuntores do BIG-COLLECTION-RUNBOOK §6 (egresso fora de IT, Sala a descer, >30 min, 3 FAILED seguidas, C6, proveniencia partida, pedidos acima do teto). Nao decide elegibilidade nem admissao: pergunta aos donos.
 - **Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)** — Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos.
+- **Lote da micro-coleta por regra fixa (LOTE-MICRO-V3, D45)** — Aplica a REGRA-LOTE-MICRO-V3.md (commitada antes de abrir os insumos) a coorte congelada do ensaio integrado, a medicao D40 e a 1.a onda, todos conferidos por sha256: myfruit obrigatoria, 2 agencias T2, 1 T1 se houver, resto pelo criterio C, no maximo 1 fonte por dominio registavel (D38). Escreve a previsao de documentos e SIM por fonte e o criterio D35 (SIM / fontes que correram). Sem rede.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
 - **Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)** — Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.
 
@@ -151,4 +152,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 9 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 10 ferramentas e 2 peças de fonte declaradas no mapa.

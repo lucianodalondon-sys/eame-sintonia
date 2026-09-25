@@ -1572,6 +1572,8 @@
       "ferramentas/big_collection/bc5_big_collection.py",
       "ferramentas/big_collection/contratos12/CONTRATOS-12.md",
       "ferramentas/big_collection/contratos12/COORTE-29-CONGELADA-SO-NA-COPIA.json",
+      "ferramentas/big_collection/contratos12/COORTE-29-LISTA.json",
+      "ferramentas/big_collection/contratos12/COORTE-29-LISTA.md",
       "ferramentas/big_collection/contratos12/DOZE-WEB-SEM-CONTRATO.json",
       "ferramentas/big_collection/contratos12/FOTO-DOS-LIVROS-0436.txt",
       "ferramentas/big_collection/contratos12/ONBOARD-PONTE-NA-COPIA-SO-MOSTRAR.txt",
@@ -1603,6 +1605,11 @@
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/reel_transcricao.py",
+      "ferramentas/rendimento/LOTE-MICRO-V3-NOTA-D47.md",
+      "ferramentas/rendimento/LOTE-MICRO-V3.json",
+      "ferramentas/rendimento/REGRA-LOTE-MICRO-V3.md",
+      "ferramentas/rendimento/comparar_lote_micro.py",
+      "ferramentas/rendimento/lote_micro_v3.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo-2026-09-22.json",
@@ -2840,6 +2847,7 @@
       "tests/test_col_e7_contrato_do_texto.py",
       "tests/test_coleta_externa.py",
       "tests/test_coleta_resiliente.py",
+      "tests/test_comparar_lote_micro.py",
       "tests/test_competitor_layer.py",
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
@@ -3503,9 +3511,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "contratos-12-v1",
-    "HEAD": "ac4d953369fbd41d71c5b6c7881f84c71108a642",
-    "GENERATED_AT": "2026-09-25T04:49:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e25478eff460b1f8c0dd52f7dcf9a5941a31dad0d65de590c1d0a51fb268bf90"
+    "HEAD": "a964092edeb6429dc06fb4ac33e9eea47d105e61",
+    "GENERATED_AT": "2026-09-25T06:19:48-03:00",
+    "SOURCE_TREE_FINGERPRINT": "61cda2a798eabc57320432d08e383d09951b63ac181e466d3810923002c151d4"
   },
   "FAMILIES": [
     {
@@ -3533,7 +3541,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 96
+      "count": 97
     },
     {
       "id": "F-ESPERA",
@@ -3728,7 +3736,7 @@
       "y": 190,
       "w": 820,
       "h": 9056,
-      "count": 9
+      "count": 10
     },
     {
       "id": "Z-ACOES",
@@ -48672,6 +48680,91 @@
       "y": 1004
     },
     {
+      "id": "C-LOTE-MICRO",
+      "name": "Lote da micro-coleta por regra fixa (LOTE-MICRO-V3, D45)",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "Aplica a REGRA-LOTE-MICRO-V3.md (commitada antes de abrir os insumos) a coorte congelada do ensaio integrado, a medicao D40 e a 1.a onda, todos conferidos por sha256: myfruit obrigatoria, 2 agencias T2, 1 T1 se houver, resto pelo criterio C, no maximo 1 fonte por dominio registavel (D38). Escreve a previsao de documentos e SIM por fonte e o criterio D35 (SIM / fontes que correram). Sem rede.",
+      "why_here": "D45: o lote da micro que decide a 2.a onda tem de ser escolhido por uma regra escrita antes de ver resultados, para o >16,7% nao ser escolhido a dedo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/rendimento/LOTE-MICRO-V3.json",
+        "ferramentas/rendimento/comparar_lote_micro.py",
+        "ferramentas/rendimento/lote_micro_v3.py"
+      ],
+      "file_count": 3,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "AGENCIA_T2"
+        ],
+        "palavras": 6,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 6,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6415,
+      "y": 1004
+    },
+    {
       "id": "C-LUGAR-COLETA",
       "name": "O lugar do fato — a lei escrita, e ainda nao aplicada",
       "territory": "Z-REGUAS",
@@ -50192,8 +50285,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
-      "y": 1004
+      "x": 6000,
+      "y": 1326
     },
     {
       "id": "C-ONDA-WEB",
@@ -50280,7 +50373,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -57512,8 +57605,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
-      "y": 1326
+      "x": 6000,
+      "y": 1648
     },
     {
       "id": "C-RECORRENCIA",
@@ -62707,6 +62800,7 @@
         "tests/test_col_e7_contrato_do_texto.py",
         "tests/test_coleta_externa.py",
         "tests/test_coleta_resiliente.py",
+        "tests/test_comparar_lote_micro.py",
         "tests/test_competitor_layer.py",
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
@@ -62851,7 +62945,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 234,
+      "file_count": 235,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63121,6 +63215,7 @@
           "INSTALADORES",
           "ITEM",
           "LINHA_BOA",
+          "LOTE",
           "MINIMOS",
           "ONDE",
           "OUTRAS_GAVETAS",
@@ -63155,13 +63250,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1298,
+        "palavras": 1307,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1286,
+        "sem_marca_de_lingua": 1295,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -63841,7 +63936,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -132522,7 +132617,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1613,
+  "UNCLAIMED_FILES_COUNT": 1617,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -132760,7 +132855,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 220,
+      "PECAS_EM_DESACORDO": 221,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -132772,25 +132867,25 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 245
+      "TOTAL_DE_PECAS": 246
     }
   ],
   "COUNTS": {
-    "components": 245,
+    "components": 246,
     "components_proven": 31,
     "components_pending": 206,
     "components_broken": 0,
-    "components_unknown": 8,
+    "components_unknown": 9,
     "edges": 1288,
     "edges_proven": 1225,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2909,
-    "files_covered": 1296,
+    "files_tracked": 2917,
+    "files_covered": 1300,
     "files_code_unclaimed": 0,
     "roles_proven": 167,
     "roles_declared_only": 8,
-    "roles_unknown": 70,
+    "roles_unknown": 71,
     "roles_conflict": 37,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,

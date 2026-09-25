@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T08:14:15+00:00",
-    "HEAD": "ac4d953369fbd41d71c5b6c7881f84c71108a642",
+    "GENERATED_AT": "2026-09-25T11:09:29+00:00",
+    "HEAD": "a964092edeb6429dc06fb4ac33e9eea47d105e61",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "e25478eff460b1f8c0dd52f7dcf9a5941a31dad0d65de590c1d0a51fb268bf90",
-    "FICHEIROS_NA_IMPRESSAO": 3057,
+    "SOURCE_TREE_FINGERPRINT": "61cda2a798eabc57320432d08e383d09951b63ac181e466d3810923002c151d4",
+    "FICHEIROS_NA_IMPRESSAO": 3065,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -697,6 +697,20 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/rendimento/comparar_lote_micro.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "fbc50b35455d9981ceba465252c16a1ba5b0d483",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/rendimento/lote_micro_v3.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "2b29947956ba28798e749d5e02f9f7954a25874a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/unificacao/aplicar_d13_capacidade.py",
         "PAPEL": "FONTE",
         "VERSAO": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
@@ -1124,8 +1138,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 159,
-    "INPUTS_DIGEST": "bd0e3010236b53b9156b5d627f05a6a0d29a6ccb0bb7b283e348af27577dfda8",
+    "INPUTS_COUNT": 161,
+    "INPUTS_DIGEST": "073325f864c002d1c9c3444071dbdb0a7336bc0323bbb1f7be79b4e42c9172b9",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1626,7 +1640,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
-        "ferramentas/big_collection/bc5_big_collection.py"
+        "ferramentas/big_collection/bc5_big_collection.py",
+        "ferramentas/rendimento/lote_micro_v3.py"
       ],
       "no_ci": false
     },
@@ -1952,6 +1967,38 @@
         "ferramentas/instagram_transcrever.py"
       ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/rendimento/comparar_lote_micro.py",
+      "gaveta": "ferramentas",
+      "linhas": 95,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/rendimento/lote_micro_v3.py",
+      "gaveta": "ferramentas",
+      "linhas": 131,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
     },
     {
       "ficheiro": "ferramentas/unificacao/aplicar_d13_capacidade.py",
@@ -4413,12 +4460,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 159,
-    "pontos_de_entrada": 115,
+    "ficheiros_de_codigo": 161,
+    "pontos_de_entrada": 117,
     "executores_que_saem_para_fora": 22,
-    "sem_chamador_e_fora_do_ci": 63,
+    "sem_chamador_e_fora_do_ci": 65,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 88,
+    "escrevem_ficheiro": 90,
     "deitam_fora_alguma_coisa": 46,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -4461,6 +4508,8 @@
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/reel_transcricao.py",
+      "ferramentas/rendimento/comparar_lote_micro.py",
+      "ferramentas/rendimento/lote_micro_v3.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo_lanes.py",
@@ -4590,6 +4639,8 @@
       "ferramentas/html_text.mjs",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/rendimento/comparar_lote_micro.py",
+      "ferramentas/rendimento/lote_micro_v3.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo_lanes.py",

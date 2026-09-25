@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T08:16:16+00:00",
-    "HEAD": "ac4d953369fbd41d71c5b6c7881f84c71108a642",
+    "GENERATED_AT": "2026-09-25T11:11:32+00:00",
+    "HEAD": "a964092edeb6429dc06fb4ac33e9eea47d105e61",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "e25478eff460b1f8c0dd52f7dcf9a5941a31dad0d65de590c1d0a51fb268bf90",
-    "FICHEIROS_NA_IMPRESSAO": 3057,
+    "SOURCE_TREE_FINGERPRINT": "61cda2a798eabc57320432d08e383d09951b63ac181e466d3810923002c151d4",
+    "FICHEIROS_NA_IMPRESSAO": 3065,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "e25478eff460b1f8c0dd52f7dcf9a5941a31dad0d65de590c1d0a51fb268bf90",
+        "VERSAO": "61cda2a798eabc57320432d08e383d09951b63ac181e466d3810923002c151d4",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "303373149e5f1bae8a9c8bff3be509bdd502ab22b674ad3d6a6b75a22f3f8531",
+    "INPUTS_DIGEST": "7e89746d9c0595b963c397b46529117f27e26e9f3a96ba5e784033830b728317",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -165,6 +165,18 @@
       "respostas": 1,
       "ficheiros": 0,
       "estado": "yellow"
+    },
+    {
+      "id": "C-LOTE-MICRO",
+      "nome": "Lote da micro-coleta por regra fixa (LOTE-MICRO-V3, D45)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": false,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 1,
+      "ficheiros": 3,
+      "estado": "gray"
     },
     {
       "id": "C-IT-TEXTO-PESQUISAVEL",
@@ -888,11 +900,11 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 62,
+    "pecas_da_coleta": 63,
     "respondem_as_quatro": 26,
     "respondem_a_tres": 26,
     "respondem_a_duas": 7,
-    "respondem_a_uma": 3,
+    "respondem_a_uma": 4,
     "nao_respondem_a_nenhuma": 0
   }
 }

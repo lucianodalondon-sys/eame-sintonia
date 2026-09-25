@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ac4d953369fbd41d71c5b6c7881f84c71108a642
+HEAD_DA_MEDICAO  a964092edeb6429dc06fb4ac33e9eea47d105e61
 BRANCH           contratos-12-v1
-GERADO_EM        2026-09-25T04:49:42-03:00
-CARDS            96
+GERADO_EM        2026-09-25T06:19:48-03:00
+CARDS            97
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -859,6 +859,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
+
+### `C-LOTE-MICRO` · Lote da micro-coleta por regra fixa (LOTE-MICRO-V3, D45)
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/rendimento/LOTE-MICRO-V3.json`, `ferramentas/rendimento/comparar_lote_micro.py`, `ferramentas/rendimento/lote_micro_v3.py` |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA |
+| **status operacional** | gray — ⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 0 |
+| **arestas provadas** | entram 0 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** |  |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
 
 ### `C-NAVEGADOR` · O navegador — a rota gratis
 
@@ -2462,5 +2487,6 @@ SYSTEM_GAP         12
 TERMINAL           9
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              96
+ORPHAN             1
+TOTAL              97
 ```
