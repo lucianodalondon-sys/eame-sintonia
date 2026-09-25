@@ -1570,6 +1570,14 @@
       "ferramentas/big_collection/BC5-SUITE-dfec8873.json",
       "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
       "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/contratos12/CONTRATOS-12.md",
+      "ferramentas/big_collection/contratos12/COORTE-29-CONGELADA-SO-NA-COPIA.json",
+      "ferramentas/big_collection/contratos12/DOZE-WEB-SEM-CONTRATO.json",
+      "ferramentas/big_collection/contratos12/FOTO-DOS-LIVROS-0436.txt",
+      "ferramentas/big_collection/contratos12/ONBOARD-PONTE-NA-COPIA-SO-MOSTRAR.txt",
+      "ferramentas/big_collection/contratos12/ONDA-WEB-SO-PLANO-COM-AS-11.json",
+      "ferramentas/big_collection/contratos12/PLANO-COM-AS-11.json",
+      "ferramentas/big_collection/contratos12/TABELA-DO-COLETOR-NA-COPIA.sha256",
       "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/big_collection/onda2/ENSAIO-G3-COORTE-CONGELADA-NA-COPIA.json",
       "ferramentas/big_collection/onda2/ENSAIO-G3-FOTO-DOS-LIVROS.txt",
@@ -3494,10 +3502,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "onda2-g3-v1",
-    "HEAD": "560d40180d0d8c40f29106c49c00df488d59c9ae",
-    "GENERATED_AT": "2026-09-25T04:21:04-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f6b606bd04b103c3bf58f4baef6eefd50c9a1cf13fa0e4cecbcb2c4bbe0bb213"
+    "BRANCH": "contratos-12-v1",
+    "HEAD": "ac4d953369fbd41d71c5b6c7881f84c71108a642",
+    "GENERATED_AT": "2026-09-25T04:49:42-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e25478eff460b1f8c0dd52f7dcf9a5941a31dad0d65de590c1d0a51fb268bf90"
   },
   "FAMILIES": [
     {
@@ -47964,7 +47972,7 @@
         "PROVA": [
           "coleta/italy_executor.py:87",
           "ferramentas/big_collection/bc5_big_collection.py:39",
-          "ferramentas/big_collection/onda_web.py:45",
+          "ferramentas/big_collection/onda_web.py:46",
           "medidas/coorte_da_micro_collection.py:66"
         ],
         "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS · C-LASTMILE-MEDIDORES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -53679,9 +53687,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 35,
+        "palavras": 44,
         "por_lingua": {},
-        "sem_marca_de_lingua": 35,
+        "sem_marca_de_lingua": 44,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -63080,6 +63088,7 @@
           "CAPA",
           "CASOS",
           "CATALOGO",
+          "CIA",
           "COMPLETA",
           "CONTAGEM_DIVERGE_JA_CONHECIDA",
           "CONTRATO",
@@ -63146,13 +63155,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1293,
+        "palavras": 1298,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1281,
+        "sem_marca_de_lingua": 1286,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -65610,7 +65619,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch onda2-g3-v1"
+        "branch contratos-12-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -96378,7 +96387,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_web.py",
-          "line": 60,
+          "line": 61,
           "snippet": "\"const m = await import('./coleta/italy_pilot_collect.mjs');\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
@@ -99780,7 +99789,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_web.py",
-          "line": 45,
+          "line": 46,
           "snippet": "LEDGER = RAIZ / \"data/collection-ledger/italy/runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ONDA-WEB",
@@ -132513,7 +132522,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1605,
+  "UNCLAIMED_FILES_COUNT": 1613,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -132776,7 +132785,7 @@
     "edges_proven": 1225,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2901,
+    "files_tracked": 2909,
     "files_covered": 1296,
     "files_code_unclaimed": 0,
     "roles_proven": 167,
