@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lugar-fato-v1",
-    "HEAD": "19a5d87adeaf999a66db37579a64ad128fabc1c0",
-    "GENERATED_AT": "2026-09-25T12:06:52-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fd88b5cc387d26414ecea93d0b9ad08074f711afc29882540f2fa7a08fb458c7"
+    "HEAD": "22469514aab75e6a86f014d0f7f7044c9511774c",
+    "GENERATED_AT": "2026-09-25T12:43:55-03:00",
+    "SOURCE_TREE_FINGERPRINT": "846f028c004e572c672235da9dab9a512d32a0b940b01715b0b05f141341f6bc"
   },
   "FILES": [
     {
@@ -521,7 +521,7 @@
     },
     {
       "path": "RELATORIO-LUGAR-FATO.md",
-      "sha": "bdb48dd0f4b86e8396cabb31203e36218d5ba9b1",
+      "sha": "b53e62cf0164b5d15cda8a92cff46a298ab20340",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -13849,7 +13849,7 @@
     },
     {
       "path": "leis/fato_do_texto.py",
-      "sha": "72185ffda30e7ea059dcfc687e9b793a8c0afaa6",
+      "sha": "ca4ebe9521d6dc537794bf5c4be770fe4ec93108",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17573,7 +17573,7 @@
     },
     {
       "path": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
-      "sha": "c441a0fcb5299b6dfc86cceb071b6cd0b45e5bb0",
+      "sha": "7c2dc58bc9e86f40119f494dc98dbe952abf5753",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17587,7 +17587,7 @@
     },
     {
       "path": "scripts/lugar_fato/mutar_fato_do_texto.py",
-      "sha": "e0904223c84f826fdc4cf991db096cf3453ff582",
+      "sha": "93ab2ad642726e793263df32cb623c5748fa403a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20002,7 +20002,7 @@
     },
     {
       "path": "tests/test_fato_do_texto.py",
-      "sha": "aa1b289887bb694c1fa136949c32b79161df1319",
+      "sha": "9bca5a9804bac6a8cc1784ffaf242406952098d3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -40767,7 +40767,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/fato_do_texto.py",
-        "line": 55,
+        "line": 59,
         "snippet": "import fato_local as FL          # noqa: E402  (o leitor italiano: nao se reescreve aqui)"
       }
     },
@@ -62382,7 +62382,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
-        "line": 135,
+        "line": 142,
         "snippet": "out = Path(__file__).with_name(\"MUTACAO-FATO-DO-TEXTO-V1.json\")"
       }
     },
@@ -62393,7 +62393,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
-        "line": 136,
+        "line": 143,
         "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
       }
     },
