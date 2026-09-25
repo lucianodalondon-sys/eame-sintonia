@@ -411,7 +411,49 @@ def largar(itens: list, raiz: str = RAIZ) -> str:
     return COLHEITA.replace("\\", "/")
 
 
-def declarar(itens: list, run_id: str, raiz: str = RAIZ) -> str:
+def erros_do_coletor(coletor: dict = None) -> list:
+    """O que a ida a fonte deixou escrito sobre si propria, como ERROS.
+
+    ⚠️ DEFEITO MEDIDO NA 2.a ONDA (2026-09-25, IT-T2-050). O coletor rebentou
+    (`mkdir ENOENT`, um `?` no nome da pasta), saiu com codigo 1 — e o
+    RETORNO.json desta corrida dizia `ESTADO = SUCCESS`, `ERROS = []`. O
+    `declarar()` nunca soube do coletor: escrevia SUCCESS sempre.
+
+        ZERO LEGITIMO NAO E FALHA. E UMA FALHA NAO E ZERO LEGITIMO.
+
+    `None` quer dizer «ninguem correu o coletor nesta chamada» (a traducao
+    offline, `colher()` sozinho) — e ai nao ha nada a declarar. Um dicionario
+    com `CODIGO != 0` e uma falha, e tem de aparecer no envelope.
+    """
+    if not coletor or coletor.get("CODIGO", 0) == 0:
+        return []
+    bloqueio = coletor.get("BLOQUEADA_PELO_CURATOR")
+    if bloqueio:
+        return [{"ONDE": "PORTAO_DE_ADMISSAO", "CODIGO": coletor.get("CODIGO"),
+                 "MOTIVO": "BLOQUEADA_PELO_CURATOR",
+                 "ERRO": "%s: %s" % (bloqueio.get("MOTIVO", rdc.NAO_SEI),
+                                     bloqueio.get("PORQUE", rdc.NAO_SEI))}]
+    return [{"ONDE": "COLETOR", "CODIGO": coletor.get("CODIGO"),
+             "MOTIVO": "COLETOR_FALHOU",
+             "ERRO": str(coletor.get("ERRO") or "").strip()
+                     or "o coletor saiu com codigo %s e nao escreveu porque"
+                        % coletor.get("CODIGO")}]
+
+
+def estado_da_corrida(unidades: list, erros: list) -> str:
+    """SUCCESS so sem erros; com erros, PARTIAL se algo chegou, FAILED se nada.
+
+    E a regra de `leis/retorno_da_coleta.py::conferir` dita pelo lado de quem
+    escreve: `SUCCESS com erros escritos: use PARTIAL`, e FAILED sem erro e
+    um rotulo.
+    """
+    if not erros:
+        return rdc.SUCCESS
+    return rdc.PARTIAL if unidades else rdc.FAILED
+
+
+def declarar(itens: list, run_id: str, raiz: str = RAIZ,
+             erros: list = None) -> str:
     """O ENVELOPE — a corrida diz o que produziu, em vez de deixar adivinhar.
 
         DECLARADO, NAO ADIVINHADO.  (COL-LAW-505)
@@ -449,16 +491,19 @@ def declarar(itens: list, run_id: str, raiz: str = RAIZ) -> str:
             "PAYLOAD": {"ONDE": onde,
                         "ESTADO": rdc.estado_do_payload(onde, raiz)},
         })
+    erros = list(erros or [])
     envelope = {
         "RUN_ID": run_id,
         "EXECUTOR_ID": EXECUTOR_ID,
         "EXECUTOR_VERSION": EXECUTOR_VERSION,
         # ZERO OBSERVACOES NAO E FALHA. Uma corrida que foi a fonte e nao
         # encontrou nada correu bem — `EMPTY_SUCCESS != ERROR`.
-        "ESTADO": rdc.SUCCESS,
+        # ⚠️ MAS UM COLETOR QUE REBENTOU NAO «ENCONTROU NADA». O estado vem
+        # dos erros declarados, e nao de uma constante (FECHAR-ONDA2-B).
+        "ESTADO": estado_da_corrida(unidades, erros),
         "COLHEITA": unidades,
         "SUPORTE": [],
-        "ERROS": [],
+        "ERROS": erros,
     }
     # ⚠️ O ENDERECO E DA CORRIDA — ver `leis/retorno_da_coleta.py`.
     # Este adapter tinha a MESMA colisao que o regulatorio: um caminho fixo
@@ -473,7 +518,8 @@ def declarar(itens: list, run_id: str, raiz: str = RAIZ) -> str:
     return onde
 
 
-def colher(run_id: str, ops_root: str = None, raiz: str = RAIZ) -> dict:
+def colher(run_id: str, ops_root: str = None, raiz: str = RAIZ,
+           coletor: dict = None) -> dict:
     """Traducoes 2, 3 e 4 — sem correr o coletor.
 
     Esta funcao esta separada de `main` porque as duas metades respondem a
@@ -483,7 +529,7 @@ def colher(run_id: str, ops_root: str = None, raiz: str = RAIZ) -> dict:
     brutas = observacoes_da_corrida(run_id, ops_root or OPS_ROOT)
     itens = [traduzir(o) for o in brutas]
     onde = largar(itens, raiz)
-    envelope = declarar(itens, run_id, raiz)
+    envelope = declarar(itens, run_id, raiz, erros_do_coletor(coletor))
     return {
         "RUN_ID": run_id,
         "OBSERVACOES_DESTA_CORRIDA": len(itens),
@@ -581,7 +627,9 @@ def main() -> int:
     fonte = next((a for a in args if not a.startswith("--")), "")
 
     r = correr_coletor(run_id, fonte)
-    c = colher(run_id)
+    # O RESULTADO DO COLETOR ENTRA NO ENVELOPE. Antes, `colher(run_id)` nao o
+    # recebia, e o RETORNO.json dizia SUCCESS com o coletor a falhar.
+    c = colher(run_id, coletor=r)
     c["COLETOR"] = r
     print(json.dumps(c, ensure_ascii=False, indent=1))
     # O coletor ter falhado NAO apaga o que ele conseguiu deixar no livro: a

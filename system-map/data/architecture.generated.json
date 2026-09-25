@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "servico-20260923-0923",
-    "HEAD": "ef177a04054597d97b659e712d066bbbcf2cf4da",
-    "GENERATED_AT": "2026-09-25T12:11:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b51afd83ef8764f085b9dd73ca7fa12737ad7afd68c13ed503ad088b7552fcf6"
+    "BRANCH": "fechar-onda2-b",
+    "HEAD": "7e09e255b0b950b4559f7d902362d214f62ec086",
+    "GENERATED_AT": "2026-09-25T12:32:18-03:00",
+    "SOURCE_TREE_FINGERPRINT": "259c8f3718e1192c4475ef6a5f886a779538f78dd76b38248ce038cd88421649"
   },
   "FILES": [
     {
@@ -1928,7 +1928,7 @@
     },
     {
       "path": "coleta/italy_executor.py",
-      "sha": "dcd676553b59d71269877067a8245b05e697d9a6",
+      "sha": "72e711132395d7c290fe28340623a208a108f94c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1942,7 +1942,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "930d03caa49a226b6ffb5fd7ef53a571214d553e",
+      "sha": "7326a4443c8e1e07ba72cf294a2fa98f6adb8788",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -1965,6 +1965,13 @@
       "path": "coleta/mapa_regfi.py",
       "sha": "700246eeb5f5705e8a7456893fa22bac1416d2c5",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/nome_da_pasta.mjs",
+      "sha": "18b087587a6518f2f486013627d4f1efb600dfd2",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -15431,7 +15438,7 @@
     },
     {
       "path": "provas/corrida_abortada_local.mjs",
-      "sha": "88cc9e936e469171c34e612c28304f2dd75b4155",
+      "sha": "899c33677ce99be0291bb5e8484339bcb38527bd",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -15692,6 +15699,20 @@
       "path": "provas/nenhuma_compra_sem_autorizacao.py",
       "sha": "e7bb9134a4b84b2c4cd54bc1cd68442088fc2300",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/nome_da_pasta_contratos_em_risco.json",
+      "sha": "9d66151367a1c70f6f43cf33572368a5f07d1c87",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/nome_da_pasta_windows.mjs",
+      "sha": "9f8fb0e17698713744638775686b56865ffbbd77",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -18700,7 +18721,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "d5ad98acbadab56f80d667148eacc52ad880c378",
+      "sha": "7336fed5c6d7a1beaae4d2baad2cfb780471ecbf",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20274,6 +20295,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_nome_da_pasta_windows.py",
+      "sha": "ae3650493c1df7cd38172a86ee77e64118f464a2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_o10r_a_verdade_dos_nomes.py",
       "sha": "4c5b2937b4de2b38e529ab632dd056ea5d922e1b",
       "ext": ".py",
@@ -20633,6 +20661,13 @@
     {
       "path": "tests/test_retorno_da_coleta.py",
       "sha": "507a94ffa7b2f68f6fb3946e64b19d8c08246c77",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_retorno_nao_diz_success_na_falha.py",
+      "sha": "bccacede681788833502b52ad752cbbeea3b391f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24184,7 +24219,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 416,
+        "line": 462,
         "snippet": "r = subprocess.run([sys.executable, os.path.join(\"curadoria\", \"collection_gate.py\"),"
       }
     },
@@ -24212,12 +24247,34 @@
     },
     {
       "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "coleta/nome_da_pasta.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 59,
+        "snippet": "import { pastaDoDocumento } from \"./nome_da_pasta.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "coleta/nome_da_pasta.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 59,
+        "snippet": "import { pastaDoDocumento } from \"./nome_da_pasta.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
       "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 612,
+        "line": 616,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -24316,7 +24373,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 846,
+        "line": 850,
         "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;"
       }
     },
@@ -53472,6 +53529,17 @@
     },
     {
       "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 134,
+        "snippet": "const OBS = join(RAIZ, \"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/corrida_abortada_local.mjs",
       "to_file": "data/collection-ledger/italy/runs.ndjson",
       "type": "READS",
       "payload": "artefacto",
@@ -55360,6 +55428,83 @@
         "file": "provas/nenhuma_compra_sem_autorizacao.py",
         "line": 111,
         "snippet": "import relevancia_da_fonte as rel"
+      }
+    },
+    {
+      "from_file": "provas/nome_da_pasta_windows.mjs",
+      "to_file": "coleta/nome_da_pasta.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/nome_da_pasta_windows.mjs",
+        "line": 26,
+        "snippet": "PROIBIDOS, LIMITE_DO_NOME, LIMITE_DO_NOME_NOVO } from \"../coleta/nome_da_pasta.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/nome_da_pasta_windows.mjs",
+      "to_file": "coleta/nome_da_pasta.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/nome_da_pasta_windows.mjs",
+        "line": 26,
+        "snippet": "PROIBIDOS, LIMITE_DO_NOME, LIMITE_DO_NOME_NOVO } from \"../coleta/nome_da_pasta.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/nome_da_pasta_windows.mjs",
+      "to_file": "provas/nome_da_pasta_contratos_em_risco.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/nome_da_pasta_windows.mjs",
+        "line": 29,
+        "snippet": "const DADOS = JSON.parse(readFileSync(join(RAIZ, \"provas\", \"nome_da_pasta_contratos_em_risco.json\"), \"utf8\"));"
+      }
+    },
+    {
+      "from_file": "provas/nome_da_pasta_windows.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/nome_da_pasta_windows.mjs",
+        "line": 23,
+        "snippet": "import { contratoGenerico } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/nome_da_pasta_windows.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/nome_da_pasta_windows.mjs",
+        "line": 23,
+        "snippet": "import { contratoGenerico } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/nome_da_pasta_windows.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/nome_da_pasta_windows.mjs",
+        "line": 24,
+        "snippet": "import { identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/nome_da_pasta_windows.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/nome_da_pasta_windows.mjs",
+        "line": 24,
+        "snippet": "import { identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";"
       }
     },
     {
@@ -78848,6 +78993,17 @@
       }
     },
     {
+      "from_file": "tests/test_nome_da_pasta_windows.py",
+      "to_file": "provas/nome_da_pasta_windows.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_nome_da_pasta_windows.py",
+        "line": 19,
+        "snippet": "r = subprocess.run([\"node\", \"provas/nome_da_pasta_windows.mjs\"], cwd=RAIZ, env=env,"
+      }
+    },
+    {
       "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
       "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
       "type": "READS",
@@ -82324,6 +82480,17 @@
       }
     },
     {
+      "from_file": "tests/test_retorno_nao_diz_success_na_falha.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retorno_nao_diz_success_na_falha.py",
+        "line": 28,
+        "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_route_membership.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -85500,10 +85667,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2981,
-    "files_readable": 1336,
-    "files_code_dir": 1272,
-    "file_edges": 5821,
+    "files_tracked": 2986,
+    "files_readable": 1340,
+    "files_code_dir": 1277,
+    "file_edges": 5833,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

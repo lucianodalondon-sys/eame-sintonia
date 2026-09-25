@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ef177a04054597d97b659e712d066bbbcf2cf4da
-BRANCH           servico-20260923-0923
-GERADO_EM        2026-09-25T12:11:56-03:00
+HEAD_DA_MEDICAO  7e09e255b0b950b4559f7d902362d214f62ec086
+BRANCH           fechar-onda2-b
+GERADO_EM        2026-09-25T12:32:18-03:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -352,7 +352,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/italy_executor.py`, `coleta/italy_find_docs.mjs`, `coleta/italy_pilot_collect.mjs`, `coleta/italy_probe.mjs`, `coleta/italy_recurrent_collect.mjs` |
+| **peça real** | `coleta/italy_executor.py`, `coleta/italy_find_docs.mjs`, `coleta/italy_pilot_collect.mjs`, `coleta/italy_probe.mjs`, `coleta/italy_recurrent_collect.mjs` _(e mais 1)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
