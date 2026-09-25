@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lugar-fato-v1",
-    "HEAD": "22469514aab75e6a86f014d0f7f7044c9511774c",
-    "GENERATED_AT": "2026-09-25T12:43:55-03:00",
-    "SOURCE_TREE_FINGERPRINT": "846f028c004e572c672235da9dab9a512d32a0b940b01715b0b05f141341f6bc"
+    "HEAD": "f106d43ac84c6df33898932bdf480b4f3b4ac007",
+    "GENERATED_AT": "2026-09-25T13:28:29-03:00",
+    "SOURCE_TREE_FINGERPRINT": "eabd2e9b318971f59c6423b593f42c0e44afe13c6d1b25524f3dbcc23d2a0f3a"
   },
   "FILES": [
     {
@@ -521,7 +521,7 @@
     },
     {
       "path": "RELATORIO-LUGAR-FATO.md",
-      "sha": "b53e62cf0164b5d15cda8a92cff46a298ab20340",
+      "sha": "1ae497ecba4c92305a94c094929713bf5ee38f7c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -13793,7 +13793,7 @@
     },
     {
       "path": "leis/artefato.py",
-      "sha": "a7b9ceb0afa499c1925208f7e14957980173046b",
+      "sha": "4e669335392fc1a84d7b9b65d5ec8c49962e9253",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13849,7 +13849,7 @@
     },
     {
       "path": "leis/fato_do_texto.py",
-      "sha": "ca4ebe9521d6dc537794bf5c4be770fe4ec93108",
+      "sha": "a7bba74597e8b98b73895c54c017f0a3e34258aa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17565,17 +17565,52 @@
       "code_dir": true
     },
     {
+      "path": "scripts/lugar_fato/BATERIA-D70-ANTES.json",
+      "sha": "9af9d196236ae954f74876e24a50c3b13aa03ec8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
+      "sha": "2e7d697b0a53884b702bdbc8d83937dc2f001cec",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
+      "sha": "7cb168cf77184347b37bffc61b299886ae864664",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
-      "sha": "782edb72646c31d55c74897e265476552c55cba7",
+      "sha": "16b1e580a6f507dd5304364ecc00be673800750a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
-      "sha": "7c2dc58bc9e86f40119f494dc98dbe952abf5753",
+      "sha": "c7d259e8f760845b00ad394f5cd5a510ccb2bf30",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
+      "sha": "fcf9311b24db26c04cef864a1d8dd6e9bce02f24",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/bateria_por_nome.py",
+      "sha": "2363ceb41d64e3dd8f49230935e84035f3a3aded",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -17587,7 +17622,14 @@
     },
     {
       "path": "scripts/lugar_fato/mutar_fato_do_texto.py",
-      "sha": "93ab2ad642726e793263df32cb623c5748fa403a",
+      "sha": "3ec33a074db0df51a999f6f058b5e908bd5ee278",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+      "sha": "c4effba97a3ba1b0cba6666186161e8f58de889d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18735,7 +18777,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "a1f6d357338dc3a1253c6d7c03156f0f08300c9f",
+      "sha": "caf3f85cd2712d56a7b0cd2f60922bb50de6d499",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19455,6 +19497,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_artefato_tempo_do_fato.py",
+      "sha": "bdc1d8d7be18ff1e829c8c7d3d9aa6888fcb5dcf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_as_duas_portas_do_scrap.py",
       "sha": "68e9300ccee69438dfa9533c727872b1aeef393d",
       "ext": ".py",
@@ -20002,7 +20051,7 @@
     },
     {
       "path": "tests/test_fato_do_texto.py",
-      "sha": "9bca5a9804bac6a8cc1784ffaf242406952098d3",
+      "sha": "78b9d022b369c990c5e62ef01e9c0404660509ad",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -40442,6 +40491,17 @@
       }
     },
     {
+      "from_file": "leis/artefato.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/artefato.py",
+        "line": 437,
+        "snippet": "from leis.fato_do_texto import verificar_relativa"
+      }
+    },
+    {
       "from_file": "leis/auditoria_regua_comercial.py",
       "to_file": "build/ITALY-REALITY-HANDOFF-V2/CURRENT-FIELD-SIGNALS.json",
       "type": "READS",
@@ -40767,7 +40827,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/fato_do_texto.py",
-        "line": 59,
+        "line": 61,
         "snippet": "import fato_local as FL          # noqa: E402  (o leitor italiano: nao se reescreve aqui)"
       }
     },
@@ -62343,6 +62403,17 @@
       }
     },
     {
+      "from_file": "scripts/lugar_fato/bateria_por_nome.py",
+      "to_file": "provas/testa_golden_path_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/bateria_por_nome.py",
+        "line": 27,
+        "snippet": "PROVAS = (\"provas/testa_golden_path_pdf.py\",)"
+      }
+    },
+    {
       "from_file": "scripts/lugar_fato/medir_78.py",
       "to_file": "leis/fato_do_texto.py",
       "type": "IMPORTS",
@@ -62382,7 +62453,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
-        "line": 142,
+        "line": 146,
         "snippet": "out = Path(__file__).with_name(\"MUTACAO-FATO-DO-TEXTO-V1.json\")"
       }
     },
@@ -62393,7 +62464,40 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/lugar_fato/mutar_fato_do_texto.py",
-        "line": 143,
+        "line": 147,
+        "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+      "to_file": "leis/artefato.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+        "line": 18,
+        "snippet": "ALVO = \"leis/artefato.py\""
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+      "to_file": "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+        "line": 88,
+        "snippet": "out = Path(__file__).with_name(\"MUTACAO-LEI-DO-TEMPO-D70.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+      "to_file": "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+        "line": 89,
         "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
       }
     },
@@ -68852,6 +68956,17 @@
         "file": "tests/test_armazem_operacional_protegido.py",
         "line": 29,
         "snippet": "from orquestrador import persistencia  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_artefato_tempo_do_fato.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_artefato_tempo_do_fato.py",
+        "line": 20,
+        "snippet": "import fato_do_texto as FT          # noqa: E402"
       }
     },
     {
@@ -85484,10 +85599,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2985,
-    "files_readable": 1337,
-    "files_code_dir": 1275,
-    "file_edges": 5817,
+    "files_tracked": 2992,
+    "files_readable": 1340,
+    "files_code_dir": 1282,
+    "file_edges": 5823,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

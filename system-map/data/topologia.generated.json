@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T15:57:22+00:00",
-  "HEAD": "22469514aab75e6a86f014d0f7f7044c9511774c",
+  "GENERATED_AT": "2026-09-25T16:32:58+00:00",
+  "HEAD": "f106d43ac84c6df33898932bdf480b4f3b4ac007",
   "BRANCH": "lugar-fato-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "846f028c004e572c672235da9dab9a512d32a0b940b01715b0b05f141341f6bc",
-  "FICHEIROS_NA_IMPRESSAO": 3133,
+  "SOURCE_TREE_FINGERPRINT": "eabd2e9b318971f59c6423b593f42c0e44afe13c6d1b25524f3dbcc23d2a0f3a",
+  "FICHEIROS_NA_IMPRESSAO": 3140,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1602,7 +1602,7 @@
    {
     "PATH": "leis/artefato.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a7b9ceb0afa499c1925208f7e14957980173046b",
+    "VERSAO": "4e669335392fc1a84d7b9b65d5ec8c49962e9253",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1658,7 +1658,7 @@
    {
     "PATH": "leis/fato_do_texto.py",
     "PAPEL": "FONTE",
-    "VERSAO": "ca4ebe9521d6dc537794bf5c4be770fe4ec93108",
+    "VERSAO": "a7bba74597e8b98b73895c54c017f0a3e34258aa",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3728,6 +3728,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/lugar_fato/bateria_por_nome.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2363ceb41d64e3dd8f49230935e84035f3a3aded",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/lugar_fato/medir_78.py",
     "PAPEL": "FONTE",
     "VERSAO": "fcd53cf49e4bb367cb4957089059dad59f11e4dc",
@@ -3737,7 +3744,14 @@
    {
     "PATH": "scripts/lugar_fato/mutar_fato_do_texto.py",
     "PAPEL": "FONTE",
-    "VERSAO": "93ab2ad642726e793263df32cb623c5748fa403a",
+    "VERSAO": "3ec33a074db0df51a999f6f058b5e908bd5ee278",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c4effba97a3ba1b0cba6666186161e8f58de889d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3996,14 +4010,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "846f028c004e572c672235da9dab9a512d32a0b940b01715b0b05f141341f6bc",
+    "VERSAO": "eabd2e9b318971f59c6423b593f42c0e44afe13c6d1b25524f3dbcc23d2a0f3a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "846f028c004e572c672235da9dab9a512d32a0b940b01715b0b05f141341f6bc",
+    "VERSAO": "eabd2e9b318971f59c6423b593f42c0e44afe13c6d1b25524f3dbcc23d2a0f3a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4494,6 +4508,13 @@
     "PATH": "tests/test_armazem_operacional_protegido.py",
     "PAPEL": "FONTE",
     "VERSAO": "fe0dea12ad1bc2640c0c687d36d0667ed5b44aa6",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_artefato_tempo_do_fato.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "bdc1d8d7be18ff1e829c8c7d3d9aa6888fcb5dcf",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5046,7 +5067,7 @@
    {
     "PATH": "tests/test_fato_do_texto.py",
     "PAPEL": "FONTE",
-    "VERSAO": "9bca5a9804bac6a8cc1784ffaf242406952098d3",
+    "VERSAO": "78b9d022b369c990c5e62ef01e9c0404660509ad",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5940,8 +5961,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 843,
-  "INPUTS_DIGEST": "6db7db8258333fd8cac3f6560937cff7132714a2d143b48a9bd23c6c6f6bacf6",
+  "INPUTS_COUNT": 846,
+  "INPUTS_DIGEST": "c7f4c52b56f4661ab76539bd875f1ee3ca6906ff38bbbc37b2bf85cf42cc2e8d",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5974,8 +5995,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "59b935d00a9bde58d3cb4d94b66782342a5c3af838833c16bd1ee2ba35cdb77f",
-  "SEMANTIC_HASH": "8ed3c900c89aa37abcb4f492d0d6e26ae3a2d4a39b7d22169eddee43f44399ed"
+  "MEASUREMENT_HASH": "a8d3ae2cab073c17e183a83296d8b746d6f89c37169f04f2319a5f17527e5134",
+  "SEMANTIC_HASH": "8fb2fc22a2365ed3443e01796eb739d0262c00ae334c62107a869370d152a219"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15867,6 +15888,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-LUGAR-COLETA",
+    "FROM": "C-CONTRATO-ARTEFATO",
+    "TO": "C-LUGAR-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-LUGAR-COLETA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -27413,6 +27456,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-CONTRATO-ARTEFATO",
+    "FROM": "C-LUGAR-COLETA",
+    "TO": "C-CONTRATO-ARTEFATO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "leis/artefato.py",
+      "LINHA": 437,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-CONTRATO-ARTEFATO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
     "FROM": "C-LUGAR-COLETA",
     "TO": "C-TESTES",
@@ -27424,6 +27489,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_artefato_tempo_do_fato.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_fato_do_texto.py",
       "LINHA": 14,
@@ -32847,6 +32920,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-COLETA--READS-->C-CENSO-OBSERVABILIDADE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PROVA-COLETA--READS-->C-LUGAR-COLETA",
+    "FROM": "C-PROVA-COLETA",
+    "TO": "C-LUGAR-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/lugar_fato/bateria_por_nome.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-COLETA--READS-->C-LUGAR-COLETA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -44703,12 +44798,12 @@
     ]
    }
   ],
-  "COUNT": 1255
+  "COUNT": 1258
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 189,
   "CARTOES_AUDITADOS": 189,
-  "ARESTAS_RELACIONADAS": 1255,
+  "ARESTAS_RELACIONADAS": 1258,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -44798,6 +44893,7 @@
    "C-INGRESSO",
    "C-INT-ACHADO",
    "C-IT-CONTRATOS",
+   "C-LUGAR-COLETA",
    "C-MAPA-TESTES",
    "C-MEDICAO",
    "C-NAVEGADOR",
@@ -44890,7 +44986,6 @@
    "C-LASTMILE",
    "C-LASTMILE-MEDIDORES",
    "C-LEITORES",
-   "C-LUGAR-COLETA",
    "C-MAPA-GERADOR",
    "C-MAPA-SCAN",
    "C-MICRO-COLETA-INSTRUMENTO",
@@ -45005,10 +45100,6 @@
    "C-CENSO-EXECUTORES": [
     "coverage"
    ],
-   "C-CONTRATO-ARTEFATO": [
-    "opportunity",
-    "science"
-   ],
    "C-CONTRATO-DE-RETORNO": [
     "opportunity",
     "science"
@@ -45057,10 +45148,6 @@
    ],
    "C-IT-INCREMENTALIDADE": [
     "performance"
-   ],
-   "C-LUGAR-COLETA": [
-    "opportunity",
-    "science"
    ],
    "C-LUGAR-DO-FATO": [
     "science"
@@ -45140,9 +45227,9 @@
    "CODE": 220,
    "CONTROL": 77,
    "DATA": 30,
-   "PROOF": 390,
+   "PROOF": 391,
    "READ": 296,
-   "RULE": 228,
+   "RULE": 230,
    "WRITE": 14
   },
   "GAPS_NOMEADOS": [
@@ -46970,6 +47057,7 @@
     "provas/medir_source_id_wiring_gap.py",
     "system-map/scripts/censo_das_derivacoes.py",
     "tests/test_a_rota_do_html.py",
+    "tests/test_artefato_tempo_do_fato.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
     "tests/test_lingua_da_porta.py",
     "tests/test_m2_rota_forward.py"
@@ -46982,20 +47070,21 @@
    "LE_DE": [
     "__future__",
     "dataclasses",
-    "datetime"
+    "datetime",
+    "fato_do_texto",
+    "leis"
    ],
-   "ENTRAM": 0,
-   "SAEM": 16,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "ENTRAM": 1,
+   "SAEM": 17,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
     "RULE"
    ],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "opportunity",
-    "science"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -49413,10 +49502,16 @@
     "leis/fato_do_texto.py",
     "leis/fato_local.py",
     "leis/lugar_do_fato.py",
+    "scripts/lugar_fato/BATERIA-D70-ANTES.json",
+    "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
+    "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
     "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
     "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+    "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
+    "scripts/lugar_fato/bateria_por_nome.py",
     "scripts/lugar_fato/medir_78.py",
-    "scripts/lugar_fato/mutar_fato_do_texto.py"
+    "scripts/lugar_fato/mutar_fato_do_texto.py",
+    "scripts/lugar_fato/mutar_lei_do_tempo.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -49428,26 +49523,26 @@
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
-   "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "ALCANCADO_POR_CORRIDA": true,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
     "datetime",
     "pathlib"
    ],
-   "ENTRAM": 0,
-   "SAEM": 3,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "ENTRAM": 2,
+   "SAEM": 4,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF",
+    "RULE"
+   ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
     "RULE"
    ],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "opportunity",
-    "science"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -51150,7 +51245,7 @@
     "urllib"
    ],
    "ENTRAM": 77,
-   "SAEM": 21,
+   "SAEM": 22,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -54084,6 +54179,7 @@
     "tests/test_arestas.py",
     "tests/test_armazem_italiano.py",
     "tests/test_armazem_operacional_protegido.py",
+    "tests/test_artefato_tempo_do_fato.py",
     "tests/test_as_duas_portas_do_scrap.py",
     "tests/test_atomicidade_da_intelligence.py",
     "tests/test_audio_youtube_wiring.py",

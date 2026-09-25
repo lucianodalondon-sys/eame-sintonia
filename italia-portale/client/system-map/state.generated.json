@@ -2573,10 +2573,16 @@
       "scripts/egresso/CANARIO-EGRESSO-CONSENSO-V1.json",
       "scripts/egresso/MUTACAO-EGRESSO-CONSENSO-V1.json",
       "scripts/egresso/mutar_egresso.py",
+      "scripts/lugar_fato/BATERIA-D70-ANTES.json",
+      "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
+      "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
       "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
       "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+      "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
+      "scripts/lugar_fato/bateria_por_nome.py",
       "scripts/lugar_fato/medir_78.py",
       "scripts/lugar_fato/mutar_fato_do_texto.py",
+      "scripts/lugar_fato/mutar_lei_do_tempo.py",
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
       "scripts/micro_coleta/GABARITO-MICRO-V1.json",
       "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
@@ -2853,6 +2859,7 @@
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
       "tests/test_armazem_operacional_protegido.py",
+      "tests/test_artefato_tempo_do_fato.py",
       "tests/test_as_duas_portas_do_scrap.py",
       "tests/test_atomicidade_da_intelligence.py",
       "tests/test_audio_youtube_wiring.py",
@@ -3579,9 +3586,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lugar-fato-v1",
-    "HEAD": "22469514aab75e6a86f014d0f7f7044c9511774c",
-    "GENERATED_AT": "2026-09-25T12:43:55-03:00",
-    "SOURCE_TREE_FINGERPRINT": "846f028c004e572c672235da9dab9a512d32a0b940b01715b0b05f141341f6bc"
+    "HEAD": "f106d43ac84c6df33898932bdf480b4f3b4ac007",
+    "GENERATED_AT": "2026-09-25T13:28:29-03:00",
+    "SOURCE_TREE_FINGERPRINT": "eabd2e9b318971f59c6423b593f42c0e44afe13c6d1b25524f3dbcc23d2a0f3a"
   },
   "FAMILIES": [
     {
@@ -41674,7 +41681,9 @@
         "leis/artefato.py"
       ],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-LUGAR-COLETA"
+      ],
       "outbound": [
         "C-CENSO-DERIVACOES",
         "C-DERIVACAO-FORWARD",
@@ -41683,6 +41692,7 @@
         "C-EXECUTOR-TEXTO-PDF",
         "C-EXECUTOR-TRANSCRICAO-MIDIA",
         "C-INGRESSO",
+        "C-LUGAR-COLETA",
         "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
@@ -41695,6 +41705,17 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "NOTAS_DA_RELATIVA"
+        ],
+        "palavras": 5,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 5,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -49099,21 +49120,31 @@
         "leis/fato_do_texto.py",
         "leis/fato_local.py",
         "leis/lugar_do_fato.py",
+        "scripts/lugar_fato/BATERIA-D70-ANTES.json",
+        "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
+        "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
         "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+        "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
+        "scripts/lugar_fato/bateria_por_nome.py",
         "scripts/lugar_fato/medir_78.py",
-        "scripts/lugar_fato/mutar_fato_do_texto.py"
+        "scripts/lugar_fato/mutar_fato_do_texto.py",
+        "scripts/lugar_fato/mutar_lei_do_tempo.py"
       ],
-      "file_count": 8,
+      "file_count": 14,
       "status": "PENDING",
-      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CONTRATO-ARTEFATO.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "leis/fato_local.py",
         "leis/lugar_do_fato.py"
       ],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-CONTRATO-ARTEFATO",
+        "C-PROVA-COLETA"
+      ],
       "outbound": [
+        "C-CONTRATO-ARTEFATO",
         "C-RECEITAS",
         "C-TESTES"
       ],
@@ -49130,6 +49161,7 @@
           "ANCORAS_POSITIVAS",
           "ESCADA_ADMINISTRATIVA",
           "MESES",
+          "MODULOS",
           "MUTANTES",
           "ORIGENS_DO_LUGAR",
           "PAPEIS_NO_CONTEUDO",
@@ -49141,11 +49173,11 @@
           "TIPOS_DE_EVIDENCIA",
           "_DIAS_RAIZ"
         ],
-        "palavras": 363,
+        "palavras": 407,
         "por_lingua": {
           "IT": 1
         },
-        "sem_marca_de_lingua": 362,
+        "sem_marca_de_lingua": 406,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -49158,6 +49190,12 @@
         {
           "onde": "GIT",
           "file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -49178,8 +49216,11 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "leis/artefato.py",
         "leis/fato_do_texto.py",
-        "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json"
+        "provas/testa_golden_path_pdf.py",
+        "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+        "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -49194,11 +49235,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "leis/artefato.py:437",
           "pedido/receitas.py:635",
-          "tests/test_c7_lugar_do_fato.py:225",
-          "tests/test_fato_do_texto.py:14"
+          "tests/test_artefato_tempo_do_fato.py:20",
+          "tests/test_c7_lugar_do_fato.py:225"
         ],
-        "PORQUE": "estas pecas importam-na — C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CONTRATO-ARTEFATO · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 20145,
       "y": 1326
@@ -53757,6 +53799,7 @@
         "C-CADEIA-V21",
         "C-CENSO-EXECUTORES",
         "C-CENSO-OBSERVABILIDADE",
+        "C-LUGAR-COLETA",
         "C-MAPA-TESTES",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
@@ -63246,6 +63289,7 @@
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
         "tests/test_armazem_operacional_protegido.py",
+        "tests/test_artefato_tempo_do_fato.py",
         "tests/test_as_duas_portas_do_scrap.py",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_audio_youtube_wiring.py",
@@ -63453,7 +63497,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 238,
+      "file_count": 239,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -83228,6 +83272,41 @@
             "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
             "FROM": "C-CONTRATO-ARTEFATO",
             "TO": "C-INGRESSO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-LUGAR-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato alimenta O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/lugar_fato/mutar_lei_do_tempo.py",
+          "line": 18,
+          "snippet": "ALVO = \"leis/artefato.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-LUGAR-COLETA",
+            "FROM": "C-CONTRATO-ARTEFATO",
+            "TO": "C-LUGAR-COLETA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -103324,6 +103403,41 @@
     },
     {
       "from": "C-LUGAR-COLETA",
+      "to": "C-CONTRATO-ARTEFATO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por O contrato comum de artefato. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/artefato.py",
+          "line": 437,
+          "snippet": "from leis.fato_do_texto import verificar_relativa",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-CONTRATO-ARTEFATO",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-CONTRATO-ARTEFATO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LUGAR-COLETA",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -103365,8 +103479,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_artefato_tempo_do_fato.py",
+          "line": 20,
+          "snippet": "import fato_do_texto as FT          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_fato_do_texto.py",
           "line": 14,
@@ -113437,6 +113567,41 @@
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-CENSO-OBSERVABILIDADE",
             "FROM": "C-PROVA-COLETA",
             "TO": "C-CENSO-OBSERVABILIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-COLETA",
+      "to": "C-LUGAR-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/lugar_fato/bateria_por_nome.py",
+          "line": 27,
+          "snippet": "PROVAS = (\"provas/testa_golden_path_pdf.py\",)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--READS-->C-LUGAR-COLETA",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-LUGAR-COLETA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -134955,12 +135120,12 @@
     "components_pending": 210,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1321,
-    "edges_proven": 1256,
+    "edges": 1324,
+    "edges_proven": 1259,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2985,
-    "files_covered": 1336,
+    "files_tracked": 2992,
+    "files_covered": 1343,
     "files_code_unclaimed": 0,
     "roles_proven": 169,
     "roles_declared_only": 8,
