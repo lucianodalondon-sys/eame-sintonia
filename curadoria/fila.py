@@ -48,9 +48,14 @@ CANARY = "CANARY"
 CHARACTERIZE = "CHARACTERIZE"
 REPAIR = "REPAIR"
 REVALIDATE = "REVALIDATE"
+# REPARO-FONTES-V1 (R1): o canario falhou porque o CONTRATO esta errado (o molde
+# nao casa nada na entrada, ou o item e capa). REPAIR re-canaria uma DEGRADED
+# com o contrato que tem; REPAIR_CONTRACT le a entrada e escreve um contrato
+# novo (curadoria/reparar_contrato.py). Sao trabalhos diferentes: um nome cada.
+REPAIR_CONTRACT = "REPAIR_CONTRACT"
 
 TASK_TYPES = frozenset({DISCOVER, QUALIFY, BUILD_CONTRACT, VALIDATE_ROUTE,
-                        CANARY, CHARACTERIZE, REPAIR, REVALIDATE})
+                        CANARY, CHARACTERIZE, REPAIR, REVALIDATE, REPAIR_CONTRACT})
 
 PENDING = "PENDING"
 IN_PROGRESS = "IN_PROGRESS"

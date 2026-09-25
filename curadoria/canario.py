@@ -120,15 +120,12 @@ def _regua_manda(source_id) -> bool:
     return RS.regua_manda(source_id)
 
 
-def canario_html(c: dict) -> dict:
-    """Abre a entrada, aplica o LINK_PATTERN e prova que sai um ITEM (nao o indice)."""
-    aq = c["ACQUISITION"]
-    st, b, err = buscar(aq["INDEX_URL"])
-    if st != 200 or not b:
-        return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err or "HTTP %s" % st,
-                "HTTP": st}
+def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
+    """Os enderecos que o canario ve numa pagina de entrada. UM so dono: o
+    reparo de contratos (reparar_contrato.py) infere o padrao sobre ESTE
+    conjunto, para propor exactamente o que o canario vai casar depois."""
     html = b.decode("utf-8", "replace")
-    base = re.match(r"^(https?://[^/]+)", aq["INDEX_URL"]).group(1)
+    base = re.match(r"^(https?://[^/]+)", index_url).group(1)
     hrefs = set()
     for h in re.findall(r'href=["\']([^"\']+)["\']', html):
         if h.startswith("//"):
@@ -138,6 +135,17 @@ def canario_html(c: dict) -> dict:
         elif not h.startswith("http"):
             continue
         hrefs.add(h.split("#")[0])
+    return hrefs
+
+
+def canario_html(c: dict) -> dict:
+    """Abre a entrada, aplica o LINK_PATTERN e prova que sai um ITEM (nao o indice)."""
+    aq = c["ACQUISITION"]
+    st, b, err = buscar(aq["INDEX_URL"])
+    if st != 200 or not b:
+        return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err or "HTTP %s" % st,
+                "HTTP": st}
+    hrefs = hrefs_da_entrada(b, aq["INDEX_URL"])
     rx = re.compile(aq["LINK_PATTERN"])
     alvos = [h for h in sorted(hrefs) if rx.match(h)]
     if not alvos:
