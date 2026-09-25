@@ -196,6 +196,13 @@ class Revisao15(_Pasta):
         self._revisao(dict(_entrada("IT-T3-030", "ALVO_ERRADO"), REVISTO_EM="2026-09-25T12:00:00+00:00"))
         self.assertEqual([("IT-T3-030", F.VALIDATE_ROUTE)], self._cands(self._ja_reparada("2026-09-25T07:00:00+00:00")))
 
+    def test_retirada_por_decisao_nao_re_mede_nem_com_leitura_nova(self):
+        # PACOTE-ONDA3: a D52 (retirada) vem ANTES da REVISAO-15 no gatilho
+        self._revisao(dict(_entrada("IT-T3-030", "LIMPA"), REVISTO_EM="2026-09-25T12:00:00+00:00"))
+        self.GD.CONTRATOS.write_text(json.dumps({"FONTES": [dict(
+            _contrato("IT-T3-030"), ESTADO_CATALOGO="RETIRADA_POR_DECISAO")]}), encoding="utf-8")
+        self.assertEqual([], self._cands(self._ja_reparada("2026-09-25T07:00:00+00:00")))
+
 
 if __name__ == "__main__":
     unittest.main()
