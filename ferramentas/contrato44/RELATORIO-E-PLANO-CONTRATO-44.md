@@ -129,3 +129,35 @@ segurança TLS do cliente — decisão do dono, não se contorna. (Memória da c
 (seletores de língua da arpae) vs IT-T2-051; IT-T7-100 vs IT-T7-043 (a prova abriu o mesmo documento);
 IT-T8-068 (revista inteira) vs IT-T8-021 (secção); IT-T7-115 vs IT-T7-112 (mesmo padrão genérico da cia.it).
 Nada fundido.
+
+## 7 · v3 (ramo `contrato-44-v3`, 25/09): D49, os padrões da CIA, o cnr.it
+
+**(1) D49 aplicada pelo caminho canónico** — `curadoria/retirar_duplicadas_d49.py` (só mostra por omissão; `--aplicar` escreve só o livro de contratos) e 7 testes.
+A porta é a marca de catálogo que o portão e o coletor já recusam (`ESTADO_CATALOGO = RETIRADA_POR_DECISAO` + `CATALOGO_D9`), com `DECISAO = D49`,
+`MOTIVO = DUPLICADA_POR_SOBREPOSICAO_DE_ROTA`, `FICA = <ficha canónica>`, reversível; sem apagar e sem fundir históricos. O livro de estados não tem estado
+«DUPLICADA» (vocabulário fechado) e não se inventa: a fonte fica READY e o portão recusa-a por decisão. O texto do portão diz «(D9: D49 · …)» — «D9» é o nome do mecanismo.
+
+Na cópia do vivo (rede fechada): APLICA 4 (IT-T2-056 e IT-T2-106 → fica IT-T2-051; IT-T7-100 → IT-T7-043; IT-T8-068 → IT-T8-021); o portão recusa as 4 com o motivo;
+as que ficam continuam ELIGIBLE; elegíveis 73 → 69; onboarding continua ENTRA=33 (FICA 11 → 7); 2.ª passagem = 4 JA_APLICADA; livro de estados igual (`b53743af`).
+
+**(2) CIA — não se resolve fonte a fonte** (`CIA-CLUSTER.json`, `CIA-RONDA-1.json`, `CIA-RONDA-2.json`; 2 rondas, portão PASS IT, 1 fonte por domínio)
+
+- ⚠️ Nomes: no livro, **IT-T7-115 = «Agenda»** e **IT-T7-112 = «AGIA - Giovani»** (a missão tinha-os trocados).
+- O reparo da IT-T7-112 recusa: as notícias da AGIA estão na família geral de notícias da CIA (`/news/notizie/<slug>`) — «DUPLICADA de IT-T7-115».
+  O da IT-T7-115 recusa: os itens dela (`/eventi/<slug>`) são «DUPLICADA de IT-T7-112». Circular: **cada uma é apanhada pelo padrão genérico da outra**.
+- A causa: o cia.it tem **33 fontes** no livro do Curator e **5 já no coletor** (IT-T7-112 AGIA, IT-T7-118 Donne in Campo, IT-T7-121 News,
+  IT-T7-123 News dal territorio, IT-T7-135 agrichef) — **todas com o MESMO molde genérico**, que apanha qualquer página de www.cia.it.
+  Hoje essas 5 já podem colher os mesmos documentos entre si. Dar um padrão próprio só à IT-T7-115 (`/eventi/`) não chega: as 5 continuam a apanhá-lo.
+- **Proposta (decisão do dono, não feita):** reparar o grupo cia.it inteiro de uma vez — um padrão próprio por fonte do coletor (News, dal territorio,
+  Donne in Campo, AGIA, agrichef) e `/eventi/` para a Agenda — ou reconhecer que AGIA/Donne in Campo/Agenda são vistas do mesmo fluxo de notícias da CIA e ficar só com as fontes de fluxo próprio.
+- **IT-T7-120 (INAC-CIA):** fica SUSPEITA. A família de notícias do site inclui «sei-un-pensionato» (guia de serviço) e o coletor abre-a primeiro; nenhuma regra da casa
+  (páginas institucionais: contatti, chi-siamo, privacy…) a apanha. ⚠️ Erro meu nesta ronda: tentei uma listagem `/news/notizie/` que adivinhei — deu 404; não se adivinham endereços.
+
+**(3) cnr.it — NÃO SEI, segurança intacta.** Diagnóstico (1 ligação, `openssl s_client`, portão PASS IT): TLS 1.2; o servidor escolhe troca de chaves **DHE com um grupo Diffie-Hellman
+abaixo do mínimo** que o OpenSSL 3 aceita por omissão (`tls_process_ske_dhe: dh key too small`; nível de segurança 2 exige ≥ 2048 bits). O certificado é válido (GEANT/HARICA).
+O que o servidor exige: aceitar DH fraco (ou ele passar a oferecer ECDHE/DH ≥ 2048). Não se afrouxa.
+
+**Estado desta linha:** nada entra a mais no coletor (continuam 33); o portão perde 4 elegíveis por decisão (D49). NÃO instalado.
+Instalação da D49 no vivo (depois da INTEGRA e da CONTRATO-44 v1): `PARAR.flag` → cópia de `curadoria/italy_contracts_curator.json` →
+`git merge --no-ff origin/contrato-44-v3` → `py -B curadoria/retirar_duplicadas_d49.py` (conferir 4 APLICA) → `--aplicar` → relançar.
+Desfazer: repor a cópia do livro de contratos (a marca é o único campo mudado) ou `git reset --keep <antes>` para o código.
