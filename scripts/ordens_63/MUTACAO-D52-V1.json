@@ -1,0 +1,58 @@
+{
+ "DATASET": "MUTACAO-D52-V1",
+ "COPIA": "C:/capa-base",
+ "MUTANTES": {
+  "gatilho_sem_trava": {
+   "FICHEIRO": "gatilho_discovery.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_o_gatilho_deixa_de_as_tentar (test_retirar_por_decisao.TestD52.test_o_gatilho_deixa_de_as_tentar)"
+   ]
+  },
+  "alimentar_revalida_retiradas": {
+   "FICHEIRO": "alimentar_fila.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_alimentar_a_mao_tambem_as_salta_e_nao_lhes_escreve_contrato_novo (test_retirar_por_decisao.TestD52.test_alimentar_a_mao_tambem_as_salta_e_nao_lhes_escreve_contrato_novo)"
+   ]
+  },
+  "alimentar_repara_retiradas": {
+   "FICHEIRO": "alimentar_fila.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_alimentar_a_mao_tambem_as_salta_e_nao_lhes_escreve_contrato_novo (test_retirar_por_decisao.TestD52.test_alimentar_a_mao_tambem_as_salta_e_nao_lhes_escreve_contrato_novo)"
+   ]
+  },
+  "pisa_outra_marca": {
+   "FICHEIRO": "retirar_por_decisao.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_outra_marca_nao_e_pisada_nem_revertida (test_retirar_por_decisao.TestD52.test_outra_marca_nao_e_pisada_nem_revertida)"
+   ]
+  },
+  "reverte_marca_alheia": {
+   "FICHEIRO": "retirar_por_decisao.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "ERROR: test_outra_marca_nao_e_pisada_nem_revertida (test_retirar_por_decisao.TestD52.test_outra_marca_nao_e_pisada_nem_revertida)"
+   ]
+  },
+  "invariante_cego": {
+   "FICHEIRO": "retirar_por_decisao.py",
+   "RESULTADO": "SOBREVIVEU",
+   "QUEDAS": []
+  },
+  "marca_com_outro_nome": {
+   "FICHEIRO": "retirar_por_decisao.py",
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL: test_alimentar_a_mao_tambem_as_salta_e_nao_lhes_escreve_contrato_novo (test_retirar_por_decisao.TestD52.test_alimentar_a_mao_tambem_as_salta_e_nao_lhes_escreve_contrato_novo)",
+    "FAIL: test_o_gatilho_deixa_de_as_tentar (test_retirar_por_decisao.TestD52.test_o_gatilho_deixa_de_as_tentar)",
+    "FAIL: test_segunda_corrida_nao_muda_nada (test_retirar_por_decisao.TestD52.test_segunda_corrida_nao_muda_nada)",
+    "FAIL: test_so_as_62_mudam_e_so_na_marca (test_retirar_por_decisao.TestD52.test_so_as_62_mudam_e_so_na_marca)"
+   ]
+  }
+ },
+ "MORTOS": 6,
+ "TOTAL": 7
+}

@@ -101,6 +101,15 @@ class TestD52(unittest.TestCase):
         with self.assertRaises(R.InvarianteQuebrado):
             R.invariantes(antes, depois, set())
 
+    def test_invariante_apanha_marca_numa_fonte_fora_da_decisao(self):
+        # so a marca muda — e numa fonte que a decisao nao autoriza (uma do conaf.it que fica)
+        antes = _livro()
+        depois = copy.deepcopy(antes)
+        i = [c["SOURCE_ID"] for c in depois["FONTES"]].index(OUTRAS_CONAF[0])
+        depois["FONTES"][i]["ESTADO_CATALOGO"] = R.RETIRADA
+        with self.assertRaises(R.InvarianteQuebrado):
+            R.invariantes(antes, depois, set(AS_62))
+
     def test_o_gatilho_deixa_de_as_tentar(self):
         velho = (AGORA - timedelta(days=3)).isoformat()
         estados = {s: "CONTRACTED_CANARY_FAILED" for s in AS_62 + OUTRAS_CONAF + FORA}
