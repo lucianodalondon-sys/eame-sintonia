@@ -48,6 +48,9 @@ O QUE O REPARO RECUSA (e escreve porque) — nunca «resolve» a martelo:
                          com o mesmo esqueleto.
   ITEM_NAO_E_MATERIA     havia familia, mas o item que o canario abriria nao
                          tem corpo de materia.
+  ITEM_SEM_DATA_DE_PUBLICACAO  o item tem corpo de materia mas nenhuma data de
+                         PUBLICACAO no proprio item (JANELAS-68: paginas fixas
+                         aprovadas como noticia) — `data_de_publicacao`.
   FAMILIA_ESTATICA       ha familias, mas nenhuma tem cara de fluxo de
                          publicacoes (paginas fixas: servicos, uffici, tributi).
   DUPLICADA              o padrao achado ja e de outra fonte (READY ou
@@ -133,6 +136,76 @@ def entrada_institucional(url: str) -> str | None:
     u = urlparse(url)
     m = _INSTITUCIONAL.search((u.path or "/") + ("?" + u.query if u.query else ""))
     return m.group(0) if m else None
+
+
+# TRAVA JANELAS-68 (25/09): o item aprovado tem de ser NOTICIA DATADA — data de PUBLICACAO comprovada no
+# proprio item. Medido nas 182: o reparo + canario aprovavam paginas fixas com corpo longo (acessibilidade,
+# residuos, viveiros, produzioni certificate, AVIV, «Le attivita») — 6 de 9. Uma data de ATUALIZACAO, um
+# <time> solto, a data de hoje (a nossa visita) ou uma data futura nao provam publicacao.
+_MESES_IT = {m: i for i, m in enumerate(("gennaio febbraio marzo aprile maggio giugno luglio agosto "
+                                         "settembre ottobre novembre dicembre").split(), 1)}
+_DATA_ISO = re.compile(r"(20\d{2}|19\d{2})-(\d{2})-(\d{2})")
+_DATA_DMY = re.compile(r"(?<!\d)(\d{1,2})[/.-](\d{1,2})[/.-](20\d{2})(?!\d)")
+_DATA_EXT = re.compile(r"(?<!\d)(\d{1,2})\s+(%s)\s+(20\d{2})" % "|".join(_MESES_IT), re.I)
+_META_PUB = re.compile(
+    r"<meta[^>]+(?:property|name|itemprop)=[\"'](?:article:published_time|og:published_time|datePublished|"
+    r"date|dc\.date|dc\.date\.issued|DC\.date\.issued|pubdate|publish-date|publishdate)[\"'][^>]*>", re.I)
+_LD_PUB = re.compile(r"[\"']datePublished[\"']\s*:\s*[\"']([^\"']+)[\"']", re.I)
+_ITEMPROP_PUB = re.compile(r"itemprop=[\"']datePublished[\"'][^>]*?(?:content|datetime)=[\"']([^\"']+)[\"']", re.I)
+_ROTULO_PUB = re.compile(r"pubblicat[oa](?:\s+(?:il|in\s+data|in))?\s*:?\s*", re.I)
+_ROTULO_ATUAL = re.compile(r"aggiorna|modific|revision|ultima\s+versione", re.I)
+_TITULO = re.compile(r"</h[12]\s*>", re.I)
+
+
+def _data_de(txt: str):
+    for rx, ordem in ((_DATA_ISO, "ymd"), (_DATA_DMY, "dmy"), (_DATA_EXT, "dMy")):
+        m = rx.search(txt or "")
+        if not m:
+            continue
+        try:
+            if ordem == "ymd":
+                return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3))).date()
+            if ordem == "dmy":
+                return datetime(int(m.group(3)), int(m.group(2)), int(m.group(1))).date()
+            return datetime(int(m.group(3)), _MESES_IT[m.group(2).lower()], int(m.group(1))).date()
+        except (ValueError, KeyError):
+            return None
+    return None
+
+
+def data_de_publicacao(html: bytes | str, hoje=None) -> tuple[str, str] | None:
+    """(data ISO, como foi provada) ou None. So sinais de PUBLICACAO no proprio item, pela ordem:
+    meta de publicacao · datePublished (JSON-LD / itemprop) · «pubblicato il <data>» · data logo abaixo do titulo."""
+    s = html.decode("utf-8", "replace") if isinstance(html, bytes) else (html or "")
+    hoje = hoje or datetime.now(timezone.utc).date()
+
+    def valida(d):
+        return d is not None and d.year >= 2000 and d < hoje
+
+    for m in _META_PUB.finditer(s):
+        c = re.search(r"content=[\"']([^\"']+)[\"']", m.group(0), re.I)
+        d = _data_de(c.group(1)) if c else None
+        if valida(d):
+            return d.isoformat(), "META_DE_PUBLICACAO"
+    for rx, como in ((_LD_PUB, "DATEPUBLISHED"), (_ITEMPROP_PUB, "ITEMPROP_DATEPUBLISHED")):
+        for m in rx.finditer(s):
+            d = _data_de(m.group(1))
+            if valida(d):
+                return d.isoformat(), como
+    texto = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", s)))
+    for m in _ROTULO_PUB.finditer(texto):
+        d = _data_de(texto[m.end():m.end() + 40])
+        if valida(d):
+            return d.isoformat(), "ROTULO_PUBBLICATO"
+    for i, t in enumerate(_TITULO.finditer(s)):
+        if i >= 5:        # o titulo da noticia vem nos primeiros cabecalhos; o 1.o e muitas vezes o do site
+            break
+        depois = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", s[t.end():t.end() + 300])).strip()
+        cabeca = depois[:60]
+        d = _data_de(cabeca)
+        if valida(d) and not _ROTULO_ATUAL.search(cabeca):
+            return d.isoformat(), "DATA_SOB_O_TITULO"
+    return None
 
 
 def _e_materia(ret: dict) -> bool:
@@ -477,6 +550,13 @@ def inferir(contrato: dict, *, outros: dict | None = None, buscar=None, robots_d
                                  % (ret["HTML_KIND"], ret["CAPA_OU_MATERIA"],
                                     ret["PARAGRAPH_CHARACTERS"], CORPO_MINIMO)))
             continue
+        pub = data_de_publicacao(b3)
+        if not pub:
+            tentados.append(dict(cand, ALVO=alvo, ITEM=item,
+                                 VEREDITO="SEM_DATA_DE_PUBLICACAO: corpo de materia mas nenhuma data de "
+                                          "publicacao no item (pagina fixa?)"))
+            continue
+        item["DATA_DE_PUBLICACAO"], item["DATA_PROVADA_POR"] = pub
         tentados.append(dict(cand, ALVO=alvo, ITEM=item, VEREDITO="MATERIA"))
         return fim({"DESFECHO": "PADRAO_NOVO", "INDEX_URL": listagem,
                     "LINK_PATTERN": cand["PADRAO"], "COMO": cand["COMO"],
@@ -486,8 +566,10 @@ def inferir(contrato: dict, *, outros: dict | None = None, buscar=None, robots_d
                                % (cand["COMO"].split(" ")[0], len(alvos),
                                   ret["PARAGRAPH_CHARACTERS"]))})
     so_dup = all(t["VEREDITO"].startswith("DUPLICADA") for t in tentados)
+    sem_data = any(t["VEREDITO"].startswith("SEM_DATA_DE_PUBLICACAO") for t in tentados)
     return fim({"DESFECHO": "RECUSA",
-                "MOTIVO": "DUPLICADA" if so_dup else "ITEM_NAO_E_MATERIA",
+                "MOTIVO": "DUPLICADA" if so_dup else ("ITEM_SEM_DATA_DE_PUBLICACAO" if sem_data
+                                                      else "ITEM_NAO_E_MATERIA"),
                 "TENTADOS": tentados,
                 "PORQUE": ("; ".join("%s -> %s" % (t["ALVO"][:70], t["VEREDITO"][:60])
                                      for t in tentados))[:300]})

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <!-- Metadati -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Notizia | Agrometeo</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+
+    <!-- CSS - Bootstrap Italia -->
+    <link rel="stylesheet" href="/lib/bootstrap-italia/bootstrap-italia.min.css" />
+
+    <!-- CSS - Fontawesome -->
+    <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css" />
+
+    <!-- CSS - Splide Carousel -->
+    <link rel="stylesheet" href="/lib/splide/splide.min.css" />
+
+    <!-- CSS - personalizzato -->
+    <link rel="stylesheet" href="/css/site.css?v=ddOQVpsEq8cQOOKiOKd61dDldvPlil6FYXr3430A2dY" />
+    <link rel="stylesheet" href="/css/area-pubblica.css?v=2&amp;v=lEQuOGWOXXlMPfwjMDwqlIR1wj0fyeFKxemrCn56YLU" />
+    <link rel="stylesheet" href="/css/responsive-table.css?v=lfNBT6juAKkw5IkeqpZVAFkdsmyUFjQFHj3HPm5oy8U" />
+    <link rel="stylesheet" href="/css/loading.css?v=PGngvKDISeWqohtm6EvhxYwMR8VEp-074VGFqyx8N9o" />
+
+    <!-- JS - Matomo -->
+    
+      <script src="/js/matomo.js"></script>
+    
+
+    <!-- JS - jQuery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+
+    <!-- JS - jQuery UI -->
+    <script src="/lib/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- JS - Bootstrap Italia -->
+    <script src="/lib/bootstrap-italia/bootstrap-italia.bundle.min.js"></script>
+
+    <!-- JS - Bootstrap Italia Fonts -->
+    <script>
+        // Load Fonts
+        window.__PUBLIC_PATH__ = '/lib/bootstrap-italia/fonts'
+        bootstrap.loadFonts('~/lib/bootstrap-italia/fonts');
+    </script>
+    
+    <!-- JS - Custom libraries -->
+    <script src="/js/utility.js"></script>
+    <script src="/js/custom-pdf.js"></script>
+    <script src="/js/datetime.js"></script>
+
+    
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="it-header-wrapper" data-bs-target="#header-nav-wrapper">
+    <!-- Header Top -->
+    <div class="it-header-slim-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="it-header-slim-wrapper-content">
+
+                    <!-- Logo Regione Marche -->
+                    <a class="d-lg-block navbar-brand"
+                        target="_blank"
+                        href="https://www.regione.marche.it"
+                        aria-label="Vai al portale La tua Regione - link esterno - apertura nuova scheda"
+                        title="Vai al portale La tua Regione">
+                        <img src="/img/logo-regione-marche-w.png" height="32" alt="Regione Marche Logo" />
+                    </a>
+
+                    <div class="it-header-slim-right-zone" role="navigation">
+                        
+                        <!-- Selezione lingua -->
+                        <div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden">
+            Selezione lingua: lingua selezionata
+        </span>
+        <span>ITA</span> <i class="fa-solid fa-chevron-down"></i>
+    </a>
+    <div class="dropdown-menu">
+        <div class="row">
+            <div class="col-12">
+                <div class="link-list-wrapper">
+                    <ul class="link-list">
+                        <li>
+                            <a class="dropdown-item list-item" href="#">
+                                <span>
+                                    ITA
+                                    <span class="visually-hidden">
+                                        selezionata
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item list-item" href="#">
+                                <span>ENG</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                        <!-- Area riservata -->
+                        
+    <a class="btn btn-primary btn-icon btn-full" data-element="personal-area-login" href="/Account/Login">
+        Accedi all'area riservata
+    </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="it-nav-wrapper">
+
+        <!-- Header Middle -->
+        <div class="it-header-center-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="it-header-center-content-wrapper">
+                    <div class="it-brand-wrapper">
+
+                        <!-- Logo AMAP -->
+                        <a class="navbar-brand" href="/">
+  <div class="it-brand-text align-items-center">
+    <img src="/img/logo-amap-ufficiale-w.svg" alt="AMAP - Marche Agricoltura Pesca" class="mb-2" height="50" />
+    <h1 class="amap-titolo">Servizio Agrometeo Regionale</h1>
+  </div>
+</a>
+
+                        
+                    </div>
+                    <div class="it-right-zone">
+                        <!-- Social -->
+                        <div class="it-socials d-none d-lg-flex">
+    <div class="px-3" style="font-size: 1.5em;">
+        <a
+            class="text-white text-decoration-none"
+            href="https://www.facebook.com/agrometeoamapmarche"
+            target="_blank">
+            <i class="fa-brands fa-facebook pe-2"></i>
+            Facebook
+        </a>
+    </div>
+    <div class="px-3" style="font-size: 1.5em;">
+        <a 
+            class="text-white text-decoration-none"
+            href="http://assam-Agrometeo.invionews.net/user/login?SESS0f1f9dac76fc40dcee7fdc730b1e05fc=6k763nprme24hrbji9vb3th7ck"
+            target="_blank"
+            data-element="newsletter">
+            <i class="fa-solid fa-envelope-open-text pe-2"></i>
+            Newsletter
+        </a>
+    </div>
+</div>
+
+                        <!-- Cerca -->
+                        <!-- <partial name="~/Areas/Pubblica/Views/Shared/Layout/_Cerca.cshtml" /> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Navbar -->
+        <div class="it-header-navbar-wrapper">
+    <nav class="navbar navbar-expand-lg has-megamenu bg-dark"
+        aria-label="Navigazione principale">
+
+        <!-- Open burger -->
+        <button
+            class="custom-navbar-toggler btn btn-outline-primary px-3 py-2"
+            type="button"
+            aria-controls="nav4"
+            aria-expanded="false"
+            aria-label="Mostra/Nascondi la navigazione"
+            data-bs-target="#nav4"
+            data-bs-toggle="navbarcollapsible"
+            >
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="navbar-collapsable" id="nav4" style="display: none">
+            
+            <!-- Close burger -->
+            <div class="overlay" style="display: none"></div>
+
+            <div class="close-div">
+                <button class="btn close-menu text-white" type="button">
+                <span class="visually-hidden">Nascondi la navigazione</span>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Menu -->
+            <div class="menu-wrapper">
+                <!-- Nav principale -->
+                
+<ul id="menu-main-menu"
+    class="navbar-nav"
+    data-element="main-navigation">
+
+    <!-- Previsioni -->
+    <li class="nav-item dropdown">
+        <a class='nav-link dropdown-toggle'
+            href="#"
+            role="button" 
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            id="previsioniDropdown">
+            Previsioni&nbsp;
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+        <div
+            class="dropdown-menu"
+            role="region"
+            aria-labelledby="previsioniDropdown">
+            <div class="link-list-wrapper">
+                <ul class="link-list">
+                    <li>
+                        <a class="dropdown-item list-item" data-element="index" href="/Previsioni">
+                            <i class="fa-solid fa-cloud-sun"></i>
+                            <span>Situazione ed evoluzione</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="giornaliere" href="/Previsioni/Giornaliere">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>Previsioni giornaliere</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="vento" href="/Previsioni/Vento">
+                            <i class="fa-solid fa-wind"></i>
+                            <span>Vento e mare</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="archivio" href="/Previsioni/Archivio">
+                            <i class="fa-solid fa-box-archive"></i>
+                            <span>Archivio previsioni</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <!-- Notiziari -->
+    <li class="nav-item dropdown">
+        <a class='nav-link'
+            href="#"
+            role="button" 
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            id="notiziariDropdown">
+            Notiziari e bollettini&nbsp;
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+        <div class="dropdown-menu" role="region" aria-labelledby="notiziariDropdown">
+            <div class="link-list-wrapper">
+                <ul class="link-list">
+                    <li>
+                        <a class="dropdown-item list-item" data-element="notiziario" href="/Notiziari/Agrometeo">
+                            <i class="fa-solid fa-newspaper"></i>
+                            <span>Notiziario Agrometeo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="nitrati" href="/Nitrati">
+                            <i class="fa-solid fa-flask"></i>
+                            <span>Bollettino nitrati</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="irrigazione" href="/Irrigazione">
+                            <i class="fa-solid fa-shower"></i>
+                            <span>Bollettino irrigazione</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <!-- News -->
+    <li class="nav-item">
+        <a class='nav-link active' data-element="news" href="/News">
+            News
+        </a>
+    </li>
+
+    <!-- Monitoraggi -->
+    <li class="nav-item dropdown">
+        <a class='nav-link'
+            href="#"
+            role="button" 
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            id="monitoraggiDropdown">
+            Monitoraggi&nbsp;
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+        <div class="dropdown-menu" role="region" aria-labelledby="monitoraggiDropdown">
+            <div class="link-list-wrapper">
+                <ul class="link-list">
+                    <li>
+                        <a class="dropdown-item list-item" data-element="meteorologia" href="/Monitoraggi/Meteorologia">
+                            <i class="fa-solid fa-cloud-showers-water"></i>
+                            <span>Stazioni meteorologiche</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="fitopatologia" href="/Fitopatologia">
+                            <i class="fa-solid fa-bug"></i>
+                            <span>Fitopatologia</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="fenologia" href="/Fenologia">
+                            <i class="fa-solid fa-seedling"></i>
+                            <span>Fenologia</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="olivo" href="/Olivi">
+                            <i class="fa-brands fa-pagelines"></i>
+                            <span>Maturazione olivo</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <!-- Dati -->
+    <li class="nav-item dropdown">
+        <a class='nav-link'
+            href="#"
+            role="button" 
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            id="monitoraggiDropdown">
+            Dati e App&nbsp;
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+        <div class="dropdown-menu" role="region" aria-labelledby="datiDropodown">
+            <div class="link-list-wrapper">
+                <ul class="link-list">
+                    <li>
+                        <a class="dropdown-item list-item" data-element="dati-clima" href="/Dati/Clima">
+                            <i class="fa-solid fa-cloud-sun"></i>
+                            <span>Clima regionale</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="dati-idrici" href="/Dati/RisorseIdriche">
+                            <i class="fa-solid fa-droplet"></i>
+                            <span>Risorse idriche</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="dati-cartetematiche" href="/Carte">
+                            <i class="fa-solid fa-map-location"></i>
+                            <span>Carte tematiche</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" href="/PI">
+                            <i class="fa-solid fa-seedling"></i>
+                            <span>Produzione integrata</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" href="/PB">
+                            <i class="fa-solid fa-leaf"></i>
+                            <span>Produzione biologica</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="dati-opendata" href="/OpenData">
+                            <i class="fa-solid fa-code"></i>
+                            <span>Open Data</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="dati-richiesta-gratuiti" href="/Dati/dati-gratuiti">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <span>Dati gratuiti</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="dati-richiesta-pagamento" href="/Dati/dati-pagamento">
+                            <i class="fa-solid fa-euro-sign"></i>
+                            <span>Dati a pagamento</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+</ul>
+
+
+
+                <!-- Nav secondario -->
+                
+<ul id="menu-secondary"
+    class="navbar-nav navbar-secondary">
+
+    <!-- Amministrazione -->
+    <li class="nav-item dropdown">
+        <a class='nav-link'
+            href="#"
+            role="button" 
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            id="amministrazioneDropdown">
+            Amministrazione&nbsp;
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+        <div class="dropdown-menu" role="region" aria-labelledby="amministrazioneDropdown">
+            <div class="link-list-wrapper">
+                <ul class="link-list">
+                    <li>
+                        <a class="dropdown-item list-item" data-element="organization" href="/Home/Organigramma">
+                            <i class="fa-solid fa-sitemap"></i>
+                            <span>Organigramma</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="organization" href="/Home/Contatti">
+                            <i class="fa-regular fa-address-book"></i>
+                            <span>Contatti</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="dovesiamo" href="/Home/DoveSiamo">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Dove siamo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item list-item" data-element="privacy" href="/Home/Privacy">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Privacy Policy</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <!-- Social -->
+    <li class="nav-item am-nav-hidden">
+        <a
+            class="nav-link"
+            href="https://www.facebook.com/meteomarcheassam"
+            target="_blank">
+            <i class="fa-brands fa-facebook pe-2"></i>
+            Facebook
+        </a>
+    </li>
+
+    <!-- Newsletter -->
+    <li class="nav-item am-nav-hidden">
+        <a 
+            class="nav-link"
+            href="http://assam-Agrometeo.invionews.net/user/login?SESS0f1f9dac76fc40dcee7fdc730b1e05fc=6k763nprme24hrbji9vb3th7ck"
+            target="_blank"
+            data-element="newsletter">
+            <i class="fa-solid fa-envelope-open-text pe-2"></i>
+            Newsletter
+        </a>
+    </li>
+    
+</ul>
+
+            </div>
+        </div>
+
+    </nav>
+</div>
+
+    </div>
+
+</header>
+
+    <!-- Content -->
+    <main b-st5xeqzo5d role="main">
+        
+
+<section id="news" class="neutral-1-bg-a2">
+
+    <div class="container py-4">
+
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb-container" aria-label="Percorso di navigazione">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href='/'>Inizio</a>
+                    <span class="separator">/</span>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href='/News'>News</a>
+                    <span class="separator">/</span>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Notizia
+                </li>
+            </ol>
+        </nav>
+
+        <div class="card">
+            <div class="card-body">
+
+                    <!-- Titolo -->
+                    <h2 class="mb-4">
+                        <i class="fa-solid fa-rss"></i>
+                        Compila il questionario conoscitivo: la tua opinione conta
+                    </h2>
+                    <!-- Giorno -->
+                    <div class="text-secondary mb-3">
+                        18/03/2026
+                    </div>
+                    <!-- Tags -->
+                    <div class="mb-3">
+                        
+        <span class="badge rounded-pill bg-secondary">questionari e sondaggi</span>
+
+                    </div>
+                    <!-- Immagine di copertina -->
+                        <img
+                            class="notizia-cover"
+                            src="/assets/notizie/questionario di grandimento-2025-09-17-11-04-05.jpg"
+                            alt="questionario di grandimento" />
+                    <!-- Corpo -->
+                    <div class="notizia-corpo">
+
+                        <!-- Contenuto -->
+                        <p>Nell’ambito delle attività di miglioramento continuo del Servizio Agrometeo Regionale AMAP – Agenzia per l’Innovazione nel Settore Agroalimentare e della Pesca “Marche Agricoltura Pesca”, ti invitiamo a partecipare a un breve questionario conoscitivo.</p><p>Il questionario è anonimo finalizzato a raccogliere indicazioni utili per avvicinare maggiormente i risultati delle nostre attività alle esigenze degli utenti, non prevede la raccolta di dati anagrafici né attività di profilazione, nel pieno rispetto della normativa vigente in materia di privacy.</p><p>Le risposte fornite saranno analizzate dallo staff AMAP esclusivamente a fini statistici e di miglioramento del servizio.</p><p><br></p><p>Per partecipare al questionario, puoi cliccare sul seguente link:</p><p><br></p><p><strong><a href="https://forms.office.com/e/TPZPzcmDMV" rel="noopener noreferrer" target="_blank">https://forms.office.com/e/TPZPzcmDMV</a></strong></p><p><br></p><p>O inquadrare il qr-code:</p><p><br></p><p><img src="data:image/png;base64,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"></p><p><br></p>
+                    </div>
+            </div>
+        </div>
+
+    </div> <!-- .container -->
+</section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="it-footer" id="footer">
+    <div class="it-footer-main">
+
+        <!-- Footer Brands -->
+        <div class="container">
+    <div class="footer-items-wrapper logo-wrapper row text-center">
+
+        <!-- Logo AMAP
+        <div class="col-md-4">
+            <div class="it-brand-wrapper">
+                <img src="~/img/logo-amap-ufficiale-w.svg" 
+                    alt="AMAP - Marche Agricoltura Pesca"
+                    class="float-start"
+                    height="64" />
+            </div>
+        </div> -->
+
+        <!-- Logo Tempo Agricoltura -->
+        <!-- <div class="col-md-3 py-5">
+            <div>
+                <img
+                    src="~/img/logo-tempo-agricoltura-w.svg"
+                    style="width: 100%; max-width: 240px;"
+                    alt="Logo Tempo Agricoltura">
+            </div>
+        </div> -->
+
+        <!-- Logo PSR -->
+        <!-- <div class="col-md-3 py-5">
+            <div>
+                <img
+                    src="~/img/logo-psr-w.svg"
+                    style="width: 100%; max-width: 240px;"
+                    alt="Logo PSR">
+            </div>
+        </div> -->
+
+        <!-- Logo UE -->
+        <div class="col-6 col-md-3 py-5">
+            <div>
+                <img src="/img/logo-ue-cofinanziato.svg" class="w-100" alt="Logo Cofinanziato dall'Unione europea">
+            </div>
+        </div>
+
+        <!-- Logo Repubblica Italiana -->
+        <div class="col-6 col-md-3 py-4 text-center">
+            <img src="/img/logo-repubblica-italiana-w.svg" style="width: 40%; max-width: 200px;" alt="Logo Repubblica Italiana">
+        </div>
+
+        <!-- Logo Regione Marche -->
+        <div class="col-6 col-md-3 py-5 text-left">
+            <img class="logo-regione-marche" src="/img/logo-regione-marche-w.png" style="width: 70%; max-width: 200px;" alt="Logo Regione Marche">
+        </div>
+
+        <!-- Logo Sviluppo Rurale Marche -->
+        <div class="col-6 col-md-3 text-end">
+            <img src="/img/logo-sviluppo-rurale-w.svg" style="width: 100%; max-width: 220px;" alt="Logo Sviluppo Rurale Marche">
+        </div>
+
+    </div>
+</div>
+
+        <!-- Footer Links -->
+        <div class="container">
+    <div class="row">
+
+        <!-- Link Amministrazione -->
+        <div class="col-6 col-lg-2 col-md-6 footer-items-wrapper">
+            <h4 class="footer-heading-title">
+                Amministrazione
+            </h4>
+            <div class="menu-amministrazione-container">
+                <ul id="menu-amministrazione" class="footer-list">
+                    <li>
+                        <a class="text-white" href="/Home/Organigramma">
+                            Organigramma
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="/Home/Contatti">
+                            Contatti
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="/Home/DoveSiamo">
+                            Dove siamo
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="/Home/Privacy">
+                            Privacy Policy
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Link Servizi -->
+        <div class="col-6 col-lg-2 col-md-6 footer-items-wrapper">
+            <h4 class="footer-heading-title">
+                Servizi
+            </h4>
+            <div class="menu-servizi-container">
+                <ul id="menu-servizi" class="footer-list">
+                    <li>
+                        <a class="text-white" href="/Dati/MeteoGiornalieri">
+                            Dati meteo giornalieri
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="/Previsioni">
+                            Previsioni meteo
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="/Notiziari">
+                            Notiziario agrometeo
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="/Carte">
+                            Carte tematiche
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="/Monitoraggi">
+                            Monitoraggi
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="/PI">
+                            Produzione Integrata
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Link Accessibilità -->
+        <div class="col-lg-3 col-md-6 footer-items-wrapper mb-3">
+            <h4 class="footer-heading-title">
+                Accessibilità
+            </h4>
+            <div class="menu-accessibilita-container">
+                <ul id="menu-accessibilita" class="footer-list">
+                    <li>
+                        <a class="text-white" href="https://amap.marche.it/agenzia/accessibilita" target="_blank">
+                            Accessibilità (sito istituzionale)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="https://form.agid.gov.it/view/5aa8db10-93b3-11f0-9a75-bfdd4091e2ce" target="_blank">
+                            Dichiarazione di accessibilità
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="https://amap.marche.it/agenzia/accessibilita/segnalazioni-accessibilita" target="_blank">
+                            Segnalazioni accessibilità
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Link Contatti -->
+        <div class="col-lg-5 col-md-12 footer-items-wrapper mb-3">
+            <h3 class="footer-heading-title">
+                Contatti
+            </h3>
+            <div class="footer-info">
+
+                <!-- AMAP CED -->
+                <div>
+                    <p class="m-0">
+                        <strong>AMAP - CED SERVIZIO AGROMETEO REGIONALE</strong>
+                    </p>
+                    <p class="m-0">
+                        <address>Via Cavour, 29 - 62010 Treia (MC)</address>
+                    </p>
+                    <p class="m-0">
+                        <strong>Tel:</strong>
+                        <a class="text-white" href="tel:+390733216464">(+39) 0733 216464</a>
+                    </p>
+                    <p class="m-0">
+                        <strong>Email:</strong>
+                        <a class="text-white" href="mailto:agrometeo@regione.marche.it">
+                            agrometeo@regione.marche.it
+                        </a>
+                    </p>
+                </div>
+
+                <!-- AMAP Settore Agroalimentare -->
+                <div>
+                    <p class="m-0">
+                        <strong>
+                            AMAP - Agenzia per l'Innovazione nel Settore Agroalimentare
+                            e della Pesca "Marche Agricoltura Pesca"
+                        </strong>
+                    </p>
+                    <p class="m-0">
+                        <address>Via T. A. Edison, 2 - 60027 Osimo (AN)</address>
+                    </p>
+                    <p class="m-0">
+                        <strong>Tel:</strong>
+                        <a class="text-white" href="tel:+390718081">(+39) 071 8081</a>
+                    </p>
+                    <p class="m-0">
+                        <strong>P.IVA:</strong>
+                        01491360424
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</footer>
+
+
+    <!-- Loading -->
+    <div id="loading-overlay">
+    Caricamento...
+</div>
+
+
+    <!-- JS - Splide Carousel -->
+    <script src="/lib/splide/splide.min.js"></script>
+
+    <!-- JS - Custom -->
+    <script src="/js/sidebar.js?v=0aFagu23xLOSA1AROIn1l8v0Wn7IaD0T72u79tOd9Vs"></script>
+    <script src="/js/loading.js?v=1d7vIJhTF6p_QIMz0tmd9_UN6sz3YrJRYCM1ME4onAI"></script>
+
+    <!-- JS - Page Scripts -->
+    
+</body>
+
+</html>

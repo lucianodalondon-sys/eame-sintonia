@@ -23,7 +23,10 @@ import worker as W                # noqa: E402
 AGORA = datetime(2026, 9, 30, 12, 0, tzinfo=timezone.utc)
 MOLDE = ("^https?://(www\\.)?exemplo\\.it/(?:[^?#]*/)?(?:news|notizie)[^?#]*/"
          "(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$")
-CORPO = "<p>" + ("parola " * 200) + "</p>"          # 1200 caracteres em paragrafo
+# JANELAS-68 (25/09): o reparo so aceita item com data de PUBLICACAO comprovada; o item de teste
+# traz a meta de publicacao que uma noticia real traz (test_reparo_data_publicacao cobre o caso sem data).
+CORPO = ('<meta property="article:published_time" content="2026-09-01T10:00:00+02:00">'
+         "<p>" + ("parola " * 200) + "</p>")          # 1200 caracteres em paragrafo
 
 
 def _html(links, corpo=""):

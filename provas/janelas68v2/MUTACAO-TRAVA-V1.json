@@ -1,0 +1,13 @@
+{
+ "DATASET": "JANELAS-68-V2-MUTACAO-TRAVA",
+ "EM": "2026-09-25",
+ "COMO": "mutacao no proprio curadoria/reparar_contrato.py, com copia e sha256 conferido na restauracao (RESTAURADO True); corre curadoria/test_reparo_data_publicacao.py sem rede (proxy 127.0.0.1:9)",
+ "MUTANTES": {
+  "M1_trava_desligada": "MORTO: item sem data passa a ter data falsa -> falsos reais aprovados (IT-T3-041...) e o caso sintetico sem data aprovado",
+  "M2_hoje_e_futuro_aceites": "MORTO: data do dia da visita (2026-09-25) e futura (2026-10-02) passam a provar",
+  "M3_atualizacao_aceite": "MORTO: 'Ultimo aggiornamento 12/03/2026' sob o titulo passa a contar como publicacao",
+  "M4_motivo_generico": "MORTO: a recusa perde o motivo ITEM_SEM_DATA_DE_PUBLICACAO",
+  "M5_so_primeiro_titulo": "MORTO: a Regione Marche (IT-T2-157, data sob o 2.o cabecalho) deixa de passar"
+ },
+ "ACHADO_PELO_TESTE": "a regra 'aggiornat' nao apanhava 'aggiornamento'; corrigida para 'aggiorna' antes do commit"
+}
