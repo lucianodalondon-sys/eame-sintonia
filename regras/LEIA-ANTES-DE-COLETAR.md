@@ -153,4 +153,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 9 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 10 ferramentas e 2 peças de fonte declaradas no mapa.

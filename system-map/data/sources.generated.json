@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T09:37:11+00:00",
-    "HEAD": "8ef481070698f61500f935f5c1f8a04ec13da68e",
+    "GENERATED_AT": "2026-09-25T11:55:18+00:00",
+    "HEAD": "c3558117b73582a4940482cdc0e8c45d3c202fdd",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc",
-    "FICHEIROS_NA_IMPRESSAO": 3125,
+    "SOURCE_TREE_FINGERPRINT": "9ec00f45a14666b06b80aa33d8fd0b66bcbae533fe354b68f83b13bd7336352a",
+    "FICHEIROS_NA_IMPRESSAO": 3177,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38031,6 +38031,51 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 177
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 827
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 22
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 54
+        },
+        {
+          "file": "provas/janela_formas/buscar_paginas_boletim.py",
+          "line": 31
+        },
+        {
+          "file": "provas/medir_validadores_coorte.py",
+          "line": 41
+        },
+        {
+          "file": "scripts/receitas/provar_indices.py",
+          "line": 24
+        },
+        {
+          "file": "scripts/regua_t1/recolher_cega_positivos.py",
+          "line": 53
+        },
+        {
+          "file": "scripts/regua_t2/recolher_boletins.py",
+          "line": 50
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 58
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -38072,47 +38117,6 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.arpae.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 177
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 827
-        },
-        {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 22
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 54
-        },
-        {
-          "file": "provas/medir_validadores_coorte.py",
-          "line": 41
-        },
-        {
-          "file": "scripts/receitas/provar_indices.py",
-          "line": 24
-        },
-        {
-          "file": "scripts/regua_t1/recolher_cega_positivos.py",
-          "line": 53
-        },
-        {
-          "file": "scripts/regua_t2/recolher_boletins.py",
-          "line": 50
-        },
-        {
-          "file": "tests/test_ld2_aditamento.py",
-          "line": 58
         }
       ]
     },
@@ -38253,6 +38257,81 @@
         {
           "file": "tests/test_onboardar_rotas_provadas.py",
           "line": 32
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/channel",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 450
+        },
+        {
+          "file": "curadoria/canario.py",
+          "line": 61
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 806
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 183
+        },
+        {
+          "file": "tests/test_rota_video.py",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/feeds",
+      "usado_por": [
+        {
+          "file": "curadoria/canario.py",
+          "line": 58
+        },
+        {
+          "file": "curadoria/capturador.py",
+          "line": 585
+        },
+        {
+          "file": "curadoria/validar_contratos.py",
+          "line": 220
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 40
+        },
+        {
+          "file": "tests/test_legacy_recheck.py",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "endpoint": "https://%s/robots.txt",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 859
+        },
+        {
+          "file": "curadoria/gate_de_rota.py",
+          "line": 80
+        },
+        {
+          "file": "curadoria/medir_fila_do_bot.py",
+          "line": 82
+        },
+        {
+          "file": "medidas/micro_colheita.py",
+          "line": 137
+        },
+        {
+          "file": "provas/janela_formas/buscar_paginas_boletim.py",
+          "line": 62
         }
       ]
     },
@@ -38404,23 +38483,23 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/feeds",
+      "endpoint": "https://www.youtube.com/watch?v=%s",
       "usado_por": [
         {
           "file": "curadoria/canario.py",
-          "line": 56
+          "line": 168
         },
         {
-          "file": "curadoria/capturador.py",
-          "line": 585
+          "file": "provas/a_legenda_e_o_audio_do_youtube.py",
+          "line": 91
         },
         {
-          "file": "curadoria/escrever_contratos.py",
-          "line": 121
+          "file": "tests/test_as_duas_portas_do_scrap.py",
+          "line": 409
         },
         {
-          "file": "curadoria/validar_contratos.py",
-          "line": 178
+          "file": "tests/test_cadeia_do_audio_offline.py",
+          "line": 148
         }
       ]
     },
@@ -38488,6 +38567,27 @@
       ]
     },
     {
+      "endpoint": "https://www.cnr.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 444
+        },
+        {
+          "file": "curadoria/test_abastecimento.py",
+          "line": 208
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 954
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 26
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.cia.it/",
       "usado_por": [
         {
@@ -38526,27 +38626,6 @@
         {
           "file": "curadoria/test_pais_das_candidatas.py",
           "line": 22
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/robots.txt",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 859
-        },
-        {
-          "file": "curadoria/gate_de_rota.py",
-          "line": 80
-        },
-        {
-          "file": "curadoria/medir_fila_do_bot.py",
-          "line": 82
-        },
-        {
-          "file": "medidas/micro_colheita.py",
-          "line": 137
         }
       ]
     },
@@ -38771,23 +38850,6 @@
       ]
     },
     {
-      "endpoint": "https://www.cnr.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 444
-        },
-        {
-          "file": "curadoria/test_abastecimento.py",
-          "line": 208
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 954
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.nomisma.it/",
       "usado_por": [
         {
@@ -38837,45 +38899,11 @@
           "line": 44
         }
       ]
-    },
-    {
-      "endpoint": "https://www.hracglobal.com/tools",
-      "usado_por": [
-        {
-          "file": "fontes/adama_it_intelligence.py",
-          "line": 46
-        },
-        {
-          "file": "fontes/adama_it_moa.py",
-          "line": 20
-        },
-        {
-          "file": "motor/v21_ingest_c.py",
-          "line": 172
-        }
-      ]
-    },
-    {
-      "endpoint": "https://irac-online.org/mode-of-action",
-      "usado_por": [
-        {
-          "file": "fontes/adama_it_intelligence.py",
-          "line": 47
-        },
-        {
-          "file": "fontes/adama_it_moa.py",
-          "line": 21
-        },
-        {
-          "file": "motor/v21_ingest_c.py",
-          "line": 173
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 624,
+  "ENDPOINTS_FOUND": 643,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 584,
+  "ENDPOINTS_TRUNCATED": 603,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -38893,9 +38921,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 624,
+    "endpoints": 643,
     "endpoints_published": 40,
-    "endpoints_truncated": 584,
+    "endpoints_truncated": 603,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,

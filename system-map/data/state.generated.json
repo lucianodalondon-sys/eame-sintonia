@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 24150,
-    "h": 9546
+    "h": 9868
   },
   "INVENTORY": {
     ".claude": [
@@ -443,6 +443,7 @@
       "curadoria/fila.py",
       "curadoria/gate_de_rota.py",
       "curadoria/gatilho_discovery.py",
+      "curadoria/importar_do_coletor.py",
       "curadoria/integrar_gate_de_detalhe.py",
       "curadoria/interface_collection.py",
       "curadoria/italy_contracts_curator.json",
@@ -488,6 +489,8 @@
       "curadoria/telemetria_do_curador.py",
       "curadoria/test_abastecimento.py",
       "curadoria/test_canario_detalhe.py",
+      "curadoria/test_canario_hrefs.py",
+      "curadoria/test_canario_pdf.py",
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
       "curadoria/test_cartao_de_fonte.py",
@@ -506,6 +509,7 @@
       "curadoria/test_lifecycle.py",
       "curadoria/test_livros_reais_intactos.py",
       "curadoria/test_nivel_da_fila.py",
+      "curadoria/test_pagina_boletim.py",
       "curadoria/test_painel_discovery.py",
       "curadoria/test_painel_pergunta_ao_so.py",
       "curadoria/test_pais_das_candidatas.py",
@@ -514,6 +518,7 @@
       "curadoria/test_ponte_candidatas.py",
       "curadoria/test_ponte_promocao.py",
       "curadoria/test_ready_split.py",
+      "curadoria/test_receita_pdf.py",
       "curadoria/test_reconciliar_livros.py",
       "curadoria/test_reparar_contrato.py",
       "curadoria/test_retrato_html.py",
@@ -1631,6 +1636,36 @@
       "ferramentas/integra_onda2/prova_teto_micro.py",
       "ferramentas/italy-forward-only-live.cmd",
       "ferramentas/italy_extract_fields.mjs",
+      "ferramentas/legacy99/0-as-99.json",
+      "ferramentas/legacy99/0-copia-livros.sha256",
+      "ferramentas/legacy99/1-SEM-CONTRATO-NO-CURADOR-32-rede-fechada.json",
+      "ferramentas/legacy99/2-HTML-26-revalidar.json",
+      "ferramentas/legacy99/3-YOUTUBE-amostra-2.json",
+      "ferramentas/legacy99/4-HTML-20-reparo-R1.json",
+      "ferramentas/legacy99/5-HTML-4-continuacao.json",
+      "ferramentas/legacy99/6-onboarding-dryrun-depois.txt",
+      "ferramentas/legacy99/RELATORIO-LEGACY-99.md",
+      "ferramentas/legacy99/revalidar_em_rondas.py",
+      "ferramentas/legacy99v2/ENSAIO-0-copia-livros.sha256",
+      "ferramentas/legacy99v2/ENSAIO-0-plano-importar-IMPORTA62-FICA11.txt",
+      "ferramentas/legacy99v2/ENSAIO-1a-HTML21-SEM-IDENTITY-o-defeito.json",
+      "ferramentas/legacy99v2/ENSAIO-2-HTML21-importadas-11-elegiveis.json",
+      "ferramentas/legacy99v2/ENSAIO-3-YOUTUBE-1-canal-real.json",
+      "ferramentas/legacy99v2/INCIDENTE-mutante-C6-escreveu-livros-da-arvore.diff",
+      "ferramentas/legacy99v2/MUTACAO-AB.json",
+      "ferramentas/legacy99v2/MUTACAO-CD.json",
+      "ferramentas/legacy99v2/RELATORIO-LEGACY-99-V2.md",
+      "ferramentas/legacy99v2/mutacao.py",
+      "ferramentas/legacy99v2/mutacao_ab.py",
+      "ferramentas/legacy99v3/ENSAIO-VIDEO-41-com-o-guardado.json",
+      "ferramentas/legacy99v3/ENSAIO-VIDEO-canal-real-IT-T10-017.json",
+      "ferramentas/legacy99v3/ENSAIO-VIDEO-canal-real-IT-T5-037.json",
+      "ferramentas/legacy99v3/ENSAIO-copia-livros.sha256",
+      "ferramentas/legacy99v3/LOTES-DE-INSTALACAO.json",
+      "ferramentas/legacy99v3/MUTACAO-VIDEO.json",
+      "ferramentas/legacy99v3/RELATORIO-LEGACY-99-V3.md",
+      "ferramentas/legacy99v3/mutacao_video.py",
+      "ferramentas/legacy99v3/video_com_o_guardado.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
@@ -2283,6 +2318,17 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/janela_formas/CANARIO-PAGINA-BOLETIM.json",
+      "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa1.json",
+      "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa2.json",
+      "provas/janela_formas/CONTRATOS-RECEITA-PDF.json",
+      "provas/janela_formas/ESTUDO-JAVASCRIPT.md",
+      "provas/janela_formas/PAGINAS-BOLETIM-FASE1-INDICE.json",
+      "provas/janela_formas/RELATORIO-JANELA-FORMAS.md",
+      "provas/janela_formas/buscar_paginas_boletim.py",
+      "provas/janela_formas/canario_receita_pdf.py",
+      "provas/janela_formas/julgar_paginas_boletim.py",
+      "provas/janela_formas/pagina_boletim_local.mjs",
       "provas/linkedin_local_first.py",
       "provas/medir_admission_t3_atual.py",
       "provas/medir_source_id_wiring_gap.py",
@@ -2398,6 +2444,7 @@
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
       "regras/contratos_de_fonte.py",
+      "regras/identidade_do_motor_cli.mjs",
       "regras/incrementalidade.mjs",
       "regras/incrementalidade_test.mjs",
       "regras/italy_contract_test.mjs",
@@ -2941,12 +2988,15 @@
       "tests/test_hero_cases_v1.py",
       "tests/test_identidade_do_artefato.py",
       "tests/test_implementacoes_candidatas.py",
+      "tests/test_importar_do_coletor.py",
       "tests/test_integracao_04a_curator.py",
       "tests/test_integracao_biblia.py",
       "tests/test_integracao_e7_contrato_na_linha_funcional.py",
       "tests/test_italia_na_porta_canonica.py",
       "tests/test_k1_receitas.py",
       "tests/test_ld2_aditamento.py",
+      "tests/test_legacy_colchetes.py",
+      "tests/test_legacy_recheck.py",
       "tests/test_legado_fora_do_fluxo.py",
       "tests/test_leitores_depois_da_fase_10.py",
       "tests/test_lingua_da_porta.py",
@@ -2983,6 +3033,7 @@
       "tests/test_onda_web.py",
       "tests/test_operacao.py",
       "tests/test_pacote_de_revisao_t3.py",
+      "tests/test_pagina_boletim_local.py",
       "tests/test_persistencia_operacional.py",
       "tests/test_pipeline.py",
       "tests/test_politica_da_coleta.py",
@@ -3018,6 +3069,7 @@
       "tests/test_relevance_priority_sobrecarga.py",
       "tests/test_retirada_por_decisao.py",
       "tests/test_retorno_da_coleta.py",
+      "tests/test_rota_video.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
       "tests/test_sala_duravel.py",
@@ -3057,8 +3109,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 922 ficheiros (91%) · ESPANHA 76 ficheiros (8%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 922 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 924 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 924 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -3570,10 +3622,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-onda2-v1",
-    "HEAD": "8ef481070698f61500f935f5c1f8a04ec13da68e",
-    "GENERATED_AT": "2026-09-25T06:34:54-03:00",
-    "SOURCE_TREE_FINGERPRINT": "145b59b9d5c3871eb470b92d228d04271fcda1465ade4cdbff5b2d0c7c00defc"
+    "BRANCH": "legacy-99-v3",
+    "HEAD": "c3558117b73582a4940482cdc0e8c45d3c202fdd",
+    "GENERATED_AT": "2026-09-25T08:32:49-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9ec00f45a14666b06b80aa33d8fd0b66bcbae533fe354b68f83b13bd7336352a"
   },
   "FAMILIES": [
     {
@@ -3583,7 +3635,7 @@
       "x": 260,
       "y": 60,
       "w": 22925,
-      "h": 9226,
+      "h": 9548,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -3610,7 +3662,7 @@
       "x": 13450,
       "y": 60,
       "w": 485,
-      "h": 9226,
+      "h": 9548,
       "zones": [
         "Z-ESPERA"
       ],
@@ -3623,7 +3675,7 @@
       "x": 14155,
       "y": 60,
       "w": 9735,
-      "h": 9226,
+      "h": 9548,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE",
@@ -3639,12 +3691,12 @@
       "x": 19630,
       "y": 60,
       "w": 2850,
-      "h": 9226,
+      "h": 9548,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 102
+      "count": 103
     },
     {
       "id": "F-ENTREGA",
@@ -3653,7 +3705,7 @@
       "x": 15980,
       "y": 60,
       "w": 3430,
-      "h": 9226,
+      "h": 9548,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -3675,7 +3727,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 1
     },
     {
@@ -3689,7 +3741,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 1
     },
     {
@@ -3704,7 +3756,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 2
     },
     {
@@ -3719,7 +3771,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 2
     },
     {
@@ -3734,7 +3786,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 3
     },
     {
@@ -3749,7 +3801,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 2
     },
     {
@@ -3764,7 +3816,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 3
     },
     {
@@ -3779,7 +3831,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 5
     },
     {
@@ -3795,7 +3847,7 @@
       "x": 5940,
       "y": 190,
       "w": 820,
-      "h": 9056,
+      "h": 9378,
       "count": 10
     },
     {
@@ -3811,7 +3863,7 @@
       "x": 7060,
       "y": 190,
       "w": 1235,
-      "h": 9056,
+      "h": 9378,
       "count": 18
     },
     {
@@ -3827,7 +3879,7 @@
       "x": 8595,
       "y": 190,
       "w": 1235,
-      "h": 9056,
+      "h": 9378,
       "count": 14
     },
     {
@@ -3843,7 +3895,7 @@
       "x": 10130,
       "y": 190,
       "w": 820,
-      "h": 9056,
+      "h": 9378,
       "count": 7
     },
     {
@@ -3858,7 +3910,7 @@
       "x": 11250,
       "y": 190,
       "w": 1235,
-      "h": 9056,
+      "h": 9378,
       "count": 27
     },
     {
@@ -3873,7 +3925,7 @@
       "x": 12785,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 2
     },
     {
@@ -3888,7 +3940,7 @@
       "x": 13490,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 1
     },
     {
@@ -3904,7 +3956,7 @@
       "x": 14195,
       "y": 190,
       "w": 820,
-      "h": 9056,
+      "h": 9378,
       "count": 12
     },
     {
@@ -3920,7 +3972,7 @@
       "x": 15315,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 4
     },
     {
@@ -3936,7 +3988,7 @@
       "x": 16020,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 3
     },
     {
@@ -3952,7 +4004,7 @@
       "x": 16725,
       "y": 190,
       "w": 820,
-      "h": 9056,
+      "h": 9378,
       "count": 7
     },
     {
@@ -3968,7 +4020,7 @@
       "x": 17845,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 5
     },
     {
@@ -3983,7 +4035,7 @@
       "x": 18550,
       "y": 190,
       "w": 820,
-      "h": 9056,
+      "h": 9378,
       "count": 12
     },
     {
@@ -3999,7 +4051,7 @@
       "x": 19670,
       "y": 190,
       "w": 1235,
-      "h": 9056,
+      "h": 9378,
       "count": 18
     },
     {
@@ -4015,8 +4067,8 @@
       "x": 21205,
       "y": 190,
       "w": 1235,
-      "h": 9056,
-      "count": 84
+      "h": 9378,
+      "count": 85
     },
     {
       "id": "Z-REFERENCIA",
@@ -4031,7 +4083,7 @@
       "x": 22740,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 1
     },
     {
@@ -4046,7 +4098,7 @@
       "x": 23445,
       "y": 190,
       "w": 405,
-      "h": 9056,
+      "h": 9378,
       "count": 4
     }
   ],
@@ -5075,8 +5127,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 624",
-        "desses, mostrados aqui: 40 (ficam de fora 584)"
+        "enderecos que o codigo realmente chama: 643",
+        "desses, mostrados aqui: 40 (ficam de fora 603)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -37487,6 +37539,7 @@
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
         "C-PROVA-CANARIO-REEL",
         "C-PROVA-COLETA",
+        "C-PROVA-JANELA-FORMAS",
         "C-PROVA-PARIDADE",
         "C-PROVA-ROTAS-REAIS",
         "C-REGUA-T1-JANELA",
@@ -38916,6 +38969,7 @@
         "C-COORTE-MICRO-FUNIL",
         "C-IT-CONTRATOS",
         "C-MICRO-COLETA-INSTRUMENTO",
+        "C-PROVA-JANELA-FORMAS",
         "C-PROVA-TETO-DOMINIO",
         "C-TESTES"
       ],
@@ -39026,8 +39080,8 @@
         "PROVA": [
           "ferramentas/big_collection/coorte_unica.py:42",
           "ferramentas/integra_onda2/final/ensaio_integra.sh:61",
-          "regras/italy_contracts.mjs:579",
-          "scripts/coorte_micro/funil.py:70"
+          "provas/janela_formas/canario_receita_pdf.py:46",
+          "regras/italy_contracts.mjs:579"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -40464,6 +40518,7 @@
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
         "C-PONTE-ONBOARD",
+        "C-PROVA-JANELA-FORMAS",
         "C-REPARO-MEDICAO",
         "C-TESTES"
       ],
@@ -44657,11 +44712,15 @@
       ],
       "outbound": [
         "C-DETECTOR-CAPA-GABARITO",
+        "C-IT-COLETA",
+        "C-IT-CONTRATOS",
         "C-PROVA-ROTA-DO-HTML",
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
@@ -44709,12 +44768,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "coleta/italy_pilot_collect.mjs:42",
           "medidas/medir_v1a.py:45",
           "medidas/mutacao_v1a.py:19",
-          "provas/a_rota_do_html_nao_vai_a_rede.py:47",
-          "provas/red_team_duas_portas.py:44"
+          "provas/a_rota_do_html_nao_vai_a_rede.py:47"
         ],
-        "PORQUE": "estas pecas importam-na — C-DETECTOR-CAPA-GABARITO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-DETECTOR-CAPA-GABARITO · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 7950,
       "y": 1004
@@ -47490,6 +47549,7 @@
       "inbound": [
         "C-ASK-SINTONIA",
         "C-CONTRATO-DE-RETORNO",
+        "C-EXECUTOR-TEXTO-HTML",
         "C-IT-CATALOGO",
         "C-IT-CONTRATOS",
         "C-IT-INCREMENTALIDADE",
@@ -47507,6 +47567,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-CORTESIA",
         "C-PROVA-CUTOVER",
+        "C-PROVA-JANELA-FORMAS",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-PARIDADE",
@@ -47537,7 +47598,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 12 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 13 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "INTELIGENCIA · TECNICO_CIENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -47546,6 +47607,7 @@
         "candidatas/ITALY-SOURCE-MASTER-V1.json",
         "candidatas/italy_profiles.mjs",
         "coleta/italy_pilot_collect.mjs",
+        "coleta/retrato_html.mjs",
         "curadoria/collection_gate.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
@@ -47699,6 +47761,7 @@
       "files": [
         "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
         "regras/contratos_de_fonte.py",
+        "regras/identidade_do_motor_cli.mjs",
         "regras/italy_contract_test.mjs",
         "regras/italy_contracts.mjs",
         "regras/italy_pilot_guards.mjs",
@@ -47707,7 +47770,7 @@
         "regras/motor_de_rota.mjs",
         "regras/motor_de_rota_test.mjs"
       ],
-      "file_count": 9,
+      "file_count": 10,
       "status": "PENDING",
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-CAPA-MATERIA, C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -47719,6 +47782,7 @@
       "produces": [],
       "inbound": [
         "C-CAPA-MATERIA",
+        "C-EXECUTOR-TEXTO-HTML",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
@@ -47738,6 +47802,7 @@
         "C-IT-INCREMENTALIDADE",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-CORTESIA",
+        "C-PROVA-JANELA-FORMAS",
         "C-PROVA-PARIDADE",
         "C-PROVA-TETO-DOMINIO",
         "C-RECOLLECTION-CENSO",
@@ -47789,6 +47854,7 @@
         "candidatas/italy_profiles.mjs",
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_recurrent_collect.mjs",
+        "coleta/retrato_html.mjs",
         "curadoria/collection_gate.py",
         "data/collection-ledger/italy/runs.ndjson",
         "data/samples/IT-PROBE/probe-fase-c.json",
@@ -47917,7 +47983,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/italy_pilot_collect.mjs:57",
+          "coleta/italy_pilot_collect.mjs:58",
           "medidas/incrementalidade_prova.mjs:22",
           "medidas/recollection_relatorio.mjs:17",
           "provas/paridade_red_team.mjs:33"
@@ -48016,7 +48082,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/italy_pilot_collect.mjs:58",
+          "coleta/italy_pilot_collect.mjs:59",
           "medidas/paridade_replay.mjs:24",
           "medidas/recollection_censo.mjs:31",
           "provas/paridade_red_team.mjs:32"
@@ -48181,6 +48247,7 @@
         "C-PADRAO-COLETA",
         "C-PROVA-COLETA",
         "C-PROVA-CORTESIA",
+        "C-PROVA-JANELA-FORMAS",
         "C-PROVA-PARIDADE",
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
         "C-PROVA-ROTAS-REAIS",
@@ -54862,6 +54929,126 @@
       "y": 6156
     },
     {
+      "id": "C-PROVA-JANELA-FORMAS",
+      "name": "As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Canarios reais autorizados (portao de consenso, D38, D41.3) e provas locais: a receita liga a rota PDF existente (SFN, ERSA, Campania passam DETAIL/v1); a pagina e o boletim provada no coletor de verdade contra servidor local (B1..B6: identidade pela data comprovada, dedupe pelo conteudo recortado, UNKNOWN sem data) e no LaMMA real (PAGINA_BOLETIM/v1, bytes diferentes -> mesma edicao); estudo das rotas publicas JSON para as fontes JS.",
+      "why_here": "O canario de 30 janelas (bancada continua) mostrou que as janelas nao publicam como lista -> noticia. A D42 abriu duas formas e um estudo; esta peca guarda a prova de cada uma.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "diagnostic",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/janela_formas/CANARIO-PAGINA-BOLETIM.json",
+        "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa1.json",
+        "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa2.json",
+        "provas/janela_formas/CONTRATOS-RECEITA-PDF.json",
+        "provas/janela_formas/ESTUDO-JAVASCRIPT.md",
+        "provas/janela_formas/PAGINAS-BOLETIM-FASE1-INDICE.json",
+        "provas/janela_formas/RELATORIO-JANELA-FORMAS.md",
+        "provas/janela_formas/buscar_paginas_boletim.py",
+        "provas/janela_formas/canario_receita_pdf.py",
+        "provas/janela_formas/julgar_paginas_boletim.py",
+        "provas/janela_formas/pagina_boletim_local.mjs"
+      ],
+      "file_count": 11,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ASK-SINTONIA",
+        "C-CAPA-MATERIA",
+        "C-CENSO-UNIFICACAO",
+        "C-IT-COLETA",
+        "C-IT-CONTRATOS",
+        "C-IT-PRESERVAR"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 5
+      },
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CASOS",
+          "FORMAS",
+          "PAGINAS"
+        ],
+        "palavras": 34,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 34,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "provas/janela_formas/buscar_paginas_boletim.py abre ligacao de rede: vai buscar dado fora da arvore",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (provas/janela_formas/buscar_paginas_boletim.py abre ligacao de rede: vai buscar dado fora da arvore) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "coleta/italy_pilot_collect.mjs",
+        "curadoria/italy_contracts_curator.json",
+        "data/collection-ledger/italy/observations.ndjson",
+        "regras/italy_contracts.mjs",
+        "regras/italy_contracts_onboarded.json",
+        "superficie/rede.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_pagina_boletim_local.py:23"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 21680,
+      "y": 6156
+    },
+    {
       "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
       "name": "A prova da linhagem do reaproveitamento",
       "territory": "Z-PROVA",
@@ -54948,7 +55135,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 6156
     },
     {
@@ -55060,8 +55247,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
-      "y": 6156
+      "x": 21265,
+      "y": 6478
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -55197,7 +55384,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6478
     },
     {
@@ -55310,7 +55497,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 6478
     },
     {
@@ -55397,8 +55584,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
-      "y": 6478
+      "x": 21265,
+      "y": 6800
     },
     {
       "id": "C-PROVA-PARIDADE",
@@ -55547,7 +55734,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6800
     },
     {
@@ -55658,7 +55845,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 6800
     },
     {
@@ -55757,8 +55944,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
-      "y": 6800
+      "x": 21265,
+      "y": 7122
     },
     {
       "id": "C-PROVA-RECOLLECTION",
@@ -55853,7 +56040,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7122
     },
     {
@@ -55941,7 +56128,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 7122
     },
     {
@@ -56062,8 +56249,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
-      "y": 7122
+      "x": 21265,
+      "y": 7444
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -56164,7 +56351,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7444
     },
     {
@@ -56308,7 +56495,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 7444
     },
     {
@@ -56405,8 +56592,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
-      "y": 7444
+      "x": 21265,
+      "y": 7766
     },
     {
       "id": "C-PROVA-SALA-ITALIANA",
@@ -56517,7 +56704,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7766
     },
     {
@@ -56628,7 +56815,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 7766
     },
     {
@@ -56758,8 +56945,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22095,
-      "y": 7766
+      "x": 21265,
+      "y": 8088
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -56846,7 +57033,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8088
     },
     {
@@ -56930,7 +57117,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8088
     },
     {
@@ -57026,8 +57213,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
-      "y": 8088
+      "x": 21265,
+      "y": 8410
     },
     {
       "id": "C-PROVENIENCIA",
@@ -57407,7 +57594,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8410
     },
     {
@@ -57909,7 +58096,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8410
     },
     {
@@ -58082,8 +58269,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
-      "y": 8410
+      "x": 21265,
+      "y": 8732
     },
     {
       "id": "C-REGRA-COLETA",
@@ -58307,7 +58494,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8732
     },
     {
@@ -59166,7 +59353,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8732
     },
     {
@@ -60499,8 +60686,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22095,
-      "y": 8732
+      "x": 21265,
+      "y": 9054
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -60972,7 +61159,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 9054
     },
     {
@@ -61245,7 +61432,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 9054
     },
     {
@@ -63213,12 +63400,15 @@
         "tests/test_hero_cases_v1.py",
         "tests/test_identidade_do_artefato.py",
         "tests/test_implementacoes_candidatas.py",
+        "tests/test_importar_do_coletor.py",
         "tests/test_integracao_04a_curator.py",
         "tests/test_integracao_biblia.py",
         "tests/test_integracao_e7_contrato_na_linha_funcional.py",
         "tests/test_italia_na_porta_canonica.py",
         "tests/test_k1_receitas.py",
         "tests/test_ld2_aditamento.py",
+        "tests/test_legacy_colchetes.py",
+        "tests/test_legacy_recheck.py",
         "tests/test_legado_fora_do_fluxo.py",
         "tests/test_leitores_depois_da_fase_10.py",
         "tests/test_lingua_da_porta.py",
@@ -63255,6 +63445,7 @@
         "tests/test_onda_web.py",
         "tests/test_operacao.py",
         "tests/test_pacote_de_revisao_t3.py",
+        "tests/test_pagina_boletim_local.py",
         "tests/test_persistencia_operacional.py",
         "tests/test_pipeline.py",
         "tests/test_politica_da_coleta.py",
@@ -63290,6 +63481,7 @@
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_retirada_por_decisao.py",
         "tests/test_retorno_da_coleta.py",
+        "tests/test_rota_video.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
         "tests/test_sala_duravel.py",
@@ -63324,7 +63516,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 236,
+      "file_count": 241,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63457,6 +63649,7 @@
         "C-PROVA-CORTESIA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-JANELA-FORMAS",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -63561,6 +63754,7 @@
           "CANARIO_INSTAGRAM",
           "CANONICAS",
           "CANONICA_DE_PE",
+          "CAN_CONTRATO",
           "CAPA",
           "CASOS",
           "CATALOGO",
@@ -63592,6 +63786,7 @@
           "FORWARD",
           "GAVETAS_DE_RUNTIME",
           "HISTORICOS",
+          "HTML",
           "IDENT",
           "IMPLEMENTACOES",
           "INSTALADORES",
@@ -63604,6 +63799,7 @@
           "PASTAS_DA_COLLECTION",
           "PASTAS_DE_RUNTIME",
           "PASTAS_PY",
+          "PDF",
           "PEDIDOS",
           "PERMITIDOS",
           "POSITIVOS",
@@ -63629,15 +63825,17 @@
           "VERBOS_DE_CALCULO",
           "VOCABULARIO_DA_COLLECTION",
           "WAV",
+          "YT_CURADOR",
+          "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1298,
+        "palavras": 1402,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1286,
+        "sem_marca_de_lingua": 1390,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -64050,6 +64248,7 @@
         "provas/gpu_asr_smoke.py",
         "provas/hardware_local.py",
         "provas/implementacoes_candidatas.py",
+        "provas/janela_formas/pagina_boletim_local.mjs",
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
         "provas/modelo_de_objetos_da_intelligence.py",
@@ -64202,8 +64401,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
-      "y": 9054
+      "x": 21265,
+      "y": 9376
     },
     {
       "id": "C-TRANSCRICAO",
@@ -66098,7 +66297,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch integra-onda2-v1"
+        "branch legacy-99-v3"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -71892,7 +72091,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 846,
+          "line": 857,
           "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-COLETA",
@@ -72341,6 +72540,57 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-PROVA-JANELA-FORMAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/janela_formas/buscar_paginas_boletim.py",
+          "line": 37,
+          "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\"], capture_output=True, text=True)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-JANELA-FORMAS",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-JANELA-FORMAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/janela_formas/canario_receita_pdf.py",
+          "line": 48,
+          "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-JANELA-FORMAS",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-JANELA-FORMAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -76180,6 +76430,41 @@
     },
     {
       "from": "C-CAPA-MATERIA",
+      "to": "C-PROVA-JANELA-FORMAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/janela_formas/canario_receita_pdf.py",
+          "line": 46,
+          "snippet": "tabela = {c[\"SOURCE_ID\"]: c for c in json.loads((RAIZ / \"regras/italy_contracts_onboarded.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-JANELA-FORMAS",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-PROVA-JANELA-FORMAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CAPA-MATERIA",
       "to": "C-PROVA-TETO-DOMINIO",
       "type": "READS",
       "payload": "artefacto",
@@ -77655,6 +77940,57 @@
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PONTE-ONBOARD",
             "FROM": "C-CENSO-UNIFICACAO",
             "TO": "C-PONTE-ONBOARD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-PROVA-JANELA-FORMAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/janela_formas/canario_receita_pdf.py",
+          "line": 45,
+          "snippet": "contratos = {c[\"SOURCE_ID\"]: c for c in json.loads((RAIZ / \"curadoria/italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-JANELA-FORMAS",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PROVA-JANELA-FORMAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/janela_formas/julgar_paginas_boletim.py",
+          "line": 23,
+          "snippet": "contratos = {c[\"SOURCE_ID\"]: c for c in json.loads((RAIZ / \"curadoria/italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-JANELA-FORMAS",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PROVA-JANELA-FORMAS",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -90681,6 +91017,134 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-HTML",
+      "to": "C-IT-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de HTML tem o seu codigo importado por Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 42,
+          "snippet": "import { textoVisivel } from \"./retrato_html.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-COLETA",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-HTML",
+      "to": "C-IT-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "Executor · texto a partir de HTML alimenta Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 42,
+          "snippet": "import { textoVisivel } from \"./retrato_html.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-HTML",
+      "to": "C-IT-CONTRATOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de HTML tem o seu codigo importado por O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/identidade_do_motor_cli.mjs",
+          "line": 12,
+          "snippet": "import { textoVisivel } from \"../coleta/retrato_html.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-CONTRATOS",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-HTML",
+      "to": "C-IT-CONTRATOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "Executor · texto a partir de HTML alimenta O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/identidade_do_motor_cli.mjs",
+          "line": 12,
+          "snippet": "import { textoVisivel } from \"../coleta/retrato_html.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-HTML",
       "to": "C-PROVA-ROTA-DO-HTML",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -97656,6 +98120,41 @@
     },
     {
       "from": "C-IT-COLETA",
+      "to": "C-PROVA-JANELA-FORMAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/janela_formas/pagina_boletim_local.mjs",
+          "line": 46,
+          "snippet": "const M = await import(\"../../coleta/italy_pilot_collect.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-JANELA-FORMAS",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-JANELA-FORMAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-COLETA",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "READS",
       "payload": "artefacto",
@@ -99201,6 +99700,41 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-PROVA-JANELA-FORMAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/janela_formas/pagina_boletim_local.mjs",
+          "line": 47,
+          "snippet": "const { CONTRACTS } = await import(\"../../regras/italy_contracts.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-JANELA-FORMAS",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-JANELA-FORMAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-PROVA-PARIDADE",
       "type": "READS",
       "payload": "artefacto",
@@ -99768,7 +100302,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 57,
+          "line": 58,
           "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
@@ -99803,7 +100337,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 57,
+          "line": 58,
           "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -100290,7 +100824,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 58,
+          "line": 59,
           "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
@@ -100325,7 +100859,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 58,
+          "line": 59,
           "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -101530,6 +102064,41 @@
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
             "FROM": "C-IT-PRESERVAR",
             "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-PROVA-JANELA-FORMAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/janela_formas/pagina_boletim_local.mjs",
+          "line": 71,
+          "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-JANELA-FORMAS",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-JANELA-FORMAS",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -114293,6 +114862,41 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-FRONTEIRA--READS-->C-TESTES",
             "FROM": "C-PROVA-FRONTEIRA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-JANELA-FORMAS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_pagina_boletim_local.py",
+          "line": 23,
+          "snippet": "r = subprocess.run([\"node\", \"provas/janela_formas/pagina_boletim_local.mjs\"], cwd=RAIZ, env=env,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-JANELA-FORMAS--READS-->C-TESTES",
+            "FROM": "C-PROVA-JANELA-FORMAS",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -134437,8 +135041,14 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1649,
+  "UNCLAIMED_CODE_FILES": [
+    "ferramentas/legacy99/revalidar_em_rondas.py",
+    "ferramentas/legacy99v2/mutacao.py",
+    "ferramentas/legacy99v2/mutacao_ab.py",
+    "ferramentas/legacy99v3/mutacao_video.py",
+    "ferramentas/legacy99v3/video_com_o_guardado.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1684,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -134678,7 +135288,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 223,
+      "PECAS_EM_DESACORDO": 224,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -134690,26 +135300,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 248
+      "TOTAL_DE_PECAS": 249
     }
   ],
   "COUNTS": {
-    "components": 248,
+    "components": 249,
     "components_proven": 31,
-    "components_pending": 209,
+    "components_pending": 210,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1317,
-    "edges_proven": 1252,
-    "edges_unknown": 65,
+    "edges": 1328,
+    "edges_proven": 1261,
+    "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 2977,
-    "files_covered": 1328,
-    "files_code_unclaimed": 0,
+    "files_tracked": 3029,
+    "files_covered": 1345,
+    "files_code_unclaimed": 5,
     "roles_proven": 169,
     "roles_declared_only": 8,
-    "roles_unknown": 71,
-    "roles_conflict": 38,
+    "roles_unknown": 72,
+    "roles_conflict": 39,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,
