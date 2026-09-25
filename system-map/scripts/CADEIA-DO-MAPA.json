@@ -1136,6 +1136,14 @@
       "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito."
     },
     {
+      "STEP_ID": "RAMO_NAO_ENTRA_NO_MAPA",
+      "EXECUTABLE": "system-map/tests/test_ramo_nao_entra_no_mapa.py",
+      "PAPEL": "PROVA",
+      "O_QUE_PROVA": "o mesmo commit passa P1 com tres nomes de branch e em HEAD destacado (D50), e uma fonte mexida sem regerar continua a reprovar",
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito. Corre a cadeia num clone descartavel."
+    },
+    {
       "STEP_ID": "RECONCILIACAO",
       "EXECUTABLE": "system-map/tests/test_reconciliacao_do_universo.py",
       "PAPEL": "PROVA",

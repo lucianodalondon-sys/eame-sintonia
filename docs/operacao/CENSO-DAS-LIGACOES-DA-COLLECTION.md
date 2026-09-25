@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  290e734973905d15878fc0ea60a8d797d9a7eddc
+HEAD_DA_MEDICAO  1112724258cd53f9633ea0d3a44d46a80bf763a3
 BRANCH           claude/fix-system-map-branch-drift-gfg0hz
-GERADO_EM        2026-09-25T07:37:41-03:00
+GERADO_EM        2026-09-25T11:07:14+00:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
