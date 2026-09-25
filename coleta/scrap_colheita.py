@@ -880,6 +880,61 @@ def escrever(envelope, raiz=RAIZ):
     return caminho
 
 
+# ── A LINHA DA CORRIDA NO LIVRO DE CORRIDAS (PROVA-TETO-SOCIAL) ─────────────
+# ⚠️ A PROVA-TETO (`provas/prova_teto_dominio.py`) NAO VIA AS CORRIDAS DO SCRAP.
+# Ela le uma linha por corrida em `data/collection-ledger/italy/runs.ndjson`, com
+# `CORTESIA.PEDIDOS_POR_HOST` — o transporte web escreve-a, tambem quando rebenta a
+# meio (FECHAR-ONDA2, `ABORTED`); o Scrap nao escrevia nada, e uma onda social
+# passava sem que ninguem pudesse provar o teto depois.
+#
+#     PEDIDO FEITO E PEDIDO CONTADO, MESMO QUANDO A CORRIDA MORRE.
+#
+# Quem conta e o portao (`scrap_http`), no sitio onde o pedido sai. Esta funcao so
+# escreve. Uma fase cujos pedidos nao passam todos pelo portao (Instagram: janela,
+# navegador, Reels) NAO leva `PEDIDOS_POR_HOST`: leva `PEDIDOS_NAO_CONTADOS`, e a
+# prova diz NAO_SEI — contar so metade e dar zero ao resto.
+FASES_CONTADAS = frozenset(f for f, v in FASES.items() if v[0] in ('LINKEDIN', 'YOUTUBE'))
+LIVRO_DE_CORRIDAS = os.path.join('data', 'collection-ledger', 'italy', 'runs.ndjson')
+
+
+def _agora():
+    import datetime                                              # noqa: PLC0415
+    return datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+
+def linha_da_corrida(*, run_id, fase, fonte, inicio, abortada=None):
+    """A linha desta corrida, com o que o portao contou ate agora."""
+    import scrap_http as http                                    # noqa: PLC0415
+    por_host, de_fora = http.pedidos_por_host()
+    linha = {'RUN_ID': run_id, 'EXECUTOR_ID': EXECUTOR_ID, 'FASE': fase,
+             'SOURCE_ID': fonte or rc.NAO_SEI, 'STARTED_AT': inicio,
+             'FINISHED_AT': _agora()}
+    nao_contados = list(de_fora)
+    if fase not in FASES_CONTADAS:
+        nao_contados.append('fase %s: os pedidos nao passam todos pelo portao' % fase)
+    if nao_contados:
+        linha['CORTESIA'] = {'PEDIDOS_NAO_CONTADOS': nao_contados,
+                             'PEDIDOS_CONTADOS_PELO_PORTAO': por_host}
+    else:
+        linha['CORTESIA'] = {'PEDIDOS_POR_HOST': por_host,
+                             'CONTADO_POR': 'scrap_http._ContaCadaPedido + yt-dlp --print-traffic'}
+    if abortada is not None:
+        # Presente SO quando a corrida rebentou: a linha existe, mas nao e de sucesso.
+        linha['ABORTED'] = {'SOURCE_ID': fonte or rc.NAO_SEI,
+                            'ERRO': ('%s: %s' % (type(abortada).__name__, abortada))[:500]}
+    return linha
+
+
+def escrever_linha(linha, raiz=None):
+    """Acrescenta a linha ao livro de corridas (o mesmo do coletor web)."""
+    raiz = raiz or os.environ.get('ITALY_OPS_ROOT') or RAIZ
+    p = os.path.join(raiz, LIVRO_DE_CORRIDAS)
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, 'a', encoding='utf-8') as f:
+        f.write(json.dumps(linha, ensure_ascii=False) + '\n')
+    return p
+
+
 def main(argv=None):
     args = list(argv if argv is not None else sys.argv[1:])
     run_id = fonte = None
@@ -936,8 +991,21 @@ def main(argv=None):
         return 2
 
     # Os nomes publicos viram os nomes que a rota recebe, pela tabela da fase.
-    envelope = colher(fase, run_id=run_id, fonte=fonte,
-                      **{aceites[k]: v for k, v in nomeados.items()})
+    # A contagem comeca do zero AQUI: e o que esta corrida pediu, e so isso.
+    import scrap_http as http                                    # noqa: PLC0415
+    http.zerar_contagem()
+    inicio = _agora()
+    try:
+        envelope = colher(fase, run_id=run_id, fonte=fonte,
+                          **{aceites[k]: v for k, v in nomeados.items()})
+    except BaseException as e:
+        # A excepcao sobe na mesma DEPOIS da linha escrita: o codigo de saida
+        # continua a dizer que falhou.
+        escrever_linha(linha_da_corrida(run_id=run_id, fase=fase, fonte=fonte,
+                                        inicio=inicio, abortada=e))
+        raise
+    escrever_linha(linha_da_corrida(run_id=run_id, fase=fase, fonte=fonte,
+                                    inicio=inicio))
     caminho = escrever(envelope)
     mal = rc.conferir(envelope, RAIZ)
 
