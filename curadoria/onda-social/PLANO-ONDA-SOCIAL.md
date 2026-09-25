@@ -73,3 +73,38 @@ clone limpo → `git checkout -B nuvem-social-integrado-v1` → os 3 SHAs dentro
 bateria antes/depois pelo nome (a mesma de `curadoria/social-final/`) → `test_d37_campos_de_politica` +
 `provas/_mutantes_d37.py` (8/8) → `test_d36_envelope_equivalente` + `provas/_mutantes_d36_equivalencia.py` (9/9) →
 cadeia do mapa VALIDAR.
+
+## 6 · D61 — a DATA e o LOCAL dos vídeos chegam ao item da Sala? (medido, 25/09)
+Lido nos envelopes reais de 24/09 e **nas Salas descartáveis desses canários** (religadas sem rede, só leitura, e desligadas):
+
+| campo na Sala | LinkedIn (2 itens na Sala) | YouTube áudio, código da produção (4 itens na Sala) |
+|---|---|---|
+| `published_at` (quando o vídeo foi publicado) | **CHEGA** (2026-09-19T09:38:04Z · 2026-09-10T14:10:28Z) | **NAO SEI** |
+| `source_location` (onde está a organização) | **NAO SEI** | **NAO SEI** |
+| canal / conta | pelo `source_id` (o número É a página); o CREATOR_URL fica no bruto | pelo `source_id` (o número É o canal); o CHANNEL_ID só com o bloco A do yt-metadados |
+| quando colhemos | `observed_at` preenchido, `captured_at` NAO SEI | `captured_at` preenchido, `observed_at` NAO SEI |
+
+**Onde se perde (ficheiro:linha):**
+1. **Data do vídeo no YouTube** — `coleta/adaptador_youtube.py:635` (`youtube_audio_publico`, produção df0865e6) não
+   emite `PUBLISHED_AT`. **Consertado no yt-metadados-v1** (`8c4dfc1e`, `coleta/adaptador_youtube.py:771`, `timestamp`/
+   `upload_date` do yt-dlp). Daí em diante o caminho existe: `coleta/scrap_colheita.py:421` (sobe para o topo) →
+   `coleta/ingresso.py:318` (`published_at`) → `admissao/admissao.py:1917` → coluna `published_at`.
+   **Provado pelo código, NÃO medido numa Sala** (a prova do engenheiro teve SALA 0). Medir no 1.º lote YouTube.
+2. **Local da organização, nas duas plataformas** — o coletor escreve «não sei»:
+   `coleta/adaptador_linkedin.py:1786` (produção; `:1818` no social-onda2-v1) → `source_location=None`;
+   e o `coleta/adaptador_youtube.py` do yt-metadados não tem o campo.
+   **E não há quem o complete:** `coleta/scrap_colheita.py:512-514` lê do contrato só o DOCUMENT_ID
+   (`cf.document_id_declarado`). `regras/contratos_de_fonte.py:183` (`lugar_declarado_pela_fonte`, que confere o lugar
+   contra o gazetteer) existe, mas nenhum passo da coleta a chama (só um print e uma prova). Mesmo chamada, lê
+   `regras/italy_contracts.mjs`, onde os contratos sociais do Curator **não estão** — o mesmo buraco do DOCUMENT_ID_RULE.
+   **Conserto proposto (dono: engenheiro do Scrap + CUR-PRONTA):** (a) a unidade do Scrap pede ao contrato também
+   `SOURCE_LOCATION` (a função existe, falta a chamada); (b) o contrato social declara `SOURCE_LOCATION_RULE`, e a
+   ponte livro do Curator → tabela do coletor leva-o. **Não se preenche no coletor a partir do país do egresso nem
+   do `COUNTRY_SCOPE`:** isso seria o lugar do nosso pedido, não o da organização (VPN_LOCATION != SOURCE_LOCATION).
+3. **Duas colunas para «quando colhemos»** — `coleta/scrap_colheita.py:422` traduz `COLLECTED_AT` → `OBSERVED_AT`, e
+   `coleta/ingresso.py` traduz `COLLECTED_AT` → `captured_at`. O LinkedIn cai numa, o áudio do YouTube na outra.
+   Não se perde o valor; perde-se a comparação entre plataformas. Dono: o dono da fronteira (ingresso).
+
+**Portanto: com a junção social + yt-metadados, a DATA de publicação chega nas duas plataformas (LinkedIn medido;
+YouTube pelo código). O LOCAL da organização NÃO chega em nenhuma.** A onda social fica em espera (D61) até este
+§6.2 estar consertado e medido numa Sala descartável.
