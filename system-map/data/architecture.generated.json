@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "claude/publication-time-source-location-ux4cuc",
+    "HEAD": "3cbbb084d7d6d9f5a41825d2b48bcca97c5ab9df",
+    "GENERATED_AT": "2026-09-25T12:44:51+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2df58a0329cdbe4024781c8caee9f932b83f68312bb6e551af00d0461db0bf14"
   },
   "FILES": [
     {
@@ -1851,7 +1851,7 @@
     },
     {
       "path": "coleta/executor_texto_de_html.py",
-      "sha": "e3890cf94e05c267db3ce84a2f2e7ef8d225ed49",
+      "sha": "79705667d6b2b74488ad9dd6fa2c1cfecb5f4907",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16362,7 +16362,7 @@
     },
     {
       "path": "regras/contratos_de_fonte.py",
-      "sha": "0e9a3c404a67da2b070484ae1278973b7fa29147",
+      "sha": "556e38c38fc1b9ce0e8a12720bba768ac734ffb2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16390,7 +16390,7 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+      "sha": "c95cc44b89274b1e9f0c8ea612980cb0b50abd95",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -20736,6 +20736,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "sha": "e0fb97f2eefca2d7d016e4024ab604204a7c74b4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_teto_dominio.py",
       "sha": "2c060eaa9ec9a18fc2d5574c4afacd2bd620979d",
       "ext": ".py",
@@ -23569,7 +23576,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 77,
+        "line": 80,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -23580,7 +23587,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 81,
+        "line": 84,
         "snippet": "from coleta.texto_fonte import limpar  # noqa: E402 — O DONO ÚNICO DA EXTRAÇÃO"
       }
     },
@@ -23591,7 +23598,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 385,
+        "line": 584,
         "snippet": "f = os.path.join(RAIZ, \"curadoria\", \"retrato_html.py\")"
       }
     },
@@ -23602,7 +23609,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 262,
+        "line": 461,
         "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
       }
     },
@@ -23613,7 +23620,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 78,
+        "line": 81,
         "snippet": "import artefato as art  # noqa: E402"
       }
     },
@@ -23624,7 +23631,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 79,
+        "line": 82,
         "snippet": "import proveniencia as pv  # noqa: E402"
       }
     },
@@ -83788,6 +83795,39 @@
       }
     },
     {
+      "from_file": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+        "line": 30,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "to_file": "data/collection-store/italy/IT-T7-021/IT-T7-021_URL_news_imprese_sversamento-nel-naviglio-grande-riprende-la-navigazione/v1_d44208dc767f/sversamento-nel-naviglio-grande-riprende-la-navigazione.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+        "line": 47,
+        "snippet": "\"sversamento-nel-naviglio-grande-riprende-la-navigazione.html\")"
+      }
+    },
+    {
+      "from_file": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+        "line": 287,
+        "snippet": "os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")).as_uri()))"
+      }
+    },
+    {
       "from_file": "tests/test_teto_dominio.py",
       "to_file": "provas/teto_dominio_local.mjs",
       "type": "READS",
@@ -85358,10 +85398,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2978,
-    "files_readable": 1333,
-    "files_code_dir": 1269,
-    "file_edges": 5810,
+    "files_tracked": 2979,
+    "files_readable": 1334,
+    "files_code_dir": 1270,
+    "file_edges": 5813,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

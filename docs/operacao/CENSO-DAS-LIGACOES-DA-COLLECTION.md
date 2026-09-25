@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  27c8deff4cf60eaaefa78950904459922ee45b2b
-BRANCH           micro-v3-fontes-v1
-GERADO_EM        2026-09-25T07:46:45-03:00
+HEAD_DA_MEDICAO  3cbbb084d7d6d9f5a41825d2b48bcca97c5ab9df
+BRANCH           claude/publication-time-source-location-ux4cuc
+GERADO_EM        2026-09-25T12:44:51+00:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1198,7 +1198,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/executor_texto_de_html.py:262; coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:303 |
+| **prova de quem ativa** | coleta/executor_texto_de_html.py:461; coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:303 |
 | **porquê** | estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-HTML · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -2358,7 +2358,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-HTML.  Mas 1 ficheiro(s) mudaram depois d |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/adaptador_linkedin.py:117; coleta/coletor.py:76; coleta/executor_texto_de_html.py:79 |
+| **prova de quem ativa** | coleta/adaptador_linkedin.py:117; coleta/coletor.py:76; coleta/executor_texto_de_html.py:82 |
 | **porquê** | estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-DATA-CLOCK · C-ESTRADA-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/POLITICA-RAW-ROTA-PAGA.json`, `data/samples/RUN-MANIFEST.json` |

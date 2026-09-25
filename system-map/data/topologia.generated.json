@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T10:49:56+00:00",
-  "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-  "BRANCH": "micro-v3-fontes-v1",
+  "GENERATED_AT": "2026-09-25T12:46:39+00:00",
+  "HEAD": "3cbbb084d7d6d9f5a41825d2b48bcca97c5ab9df",
+  "BRANCH": "claude/publication-time-source-location-ux4cuc",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
-  "FICHEIROS_NA_IMPRESSAO": 3126,
+  "SOURCE_TREE_FINGERPRINT": "2df58a0329cdbe4024781c8caee9f932b83f68312bb6e551af00d0461db0bf14",
+  "FICHEIROS_NA_IMPRESSAO": 3127,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -391,7 +391,7 @@
    {
     "PATH": "coleta/executor_texto_de_html.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e3890cf94e05c267db3ce84a2f2e7ef8d225ed49",
+    "VERSAO": "79705667d6b2b74488ad9dd6fa2c1cfecb5f4907",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3457,7 +3457,7 @@
    {
     "PATH": "regras/contratos_de_fonte.py",
     "PAPEL": "FONTE",
-    "VERSAO": "0e9a3c404a67da2b070484ae1278973b7fa29147",
+    "VERSAO": "556e38c38fc1b9ce0e8a12720bba768ac734ffb2",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3485,7 +3485,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+    "VERSAO": "c95cc44b89274b1e9f0c8ea612980cb0b50abd95",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3975,14 +3975,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "2df58a0329cdbe4024781c8caee9f932b83f68312bb6e551af00d0461db0bf14",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "2df58a0329cdbe4024781c8caee9f932b83f68312bb6e551af00d0461db0bf14",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5800,6 +5800,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_tempo_e_lugar_da_publicacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "e0fb97f2eefca2d7d016e4024ab604204a7c74b4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_teto_dominio.py",
     "PAPEL": "FONTE",
     "VERSAO": "2c060eaa9ec9a18fc2d5574c4afacd2bd620979d",
@@ -5912,8 +5919,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 839,
-  "INPUTS_DIGEST": "40f2cdee567d0cc3a674061fb05d119fb7941b4b7a835e90f978b7bdb253c472",
+  "INPUTS_COUNT": 840,
+  "INPUTS_DIGEST": "fe0efbedd3a2e87a1073bd9000670afa724d6c389a3120b4fb0f9d63ac3fc1fd",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5946,8 +5953,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6afcd06017beba34794580a9520664b50831363dd44d157aeaf592ce022d6f56",
-  "SEMANTIC_HASH": "c5b340994ded1e1e82e5decffe174c1ef24ef66eed16fb03a0587b23343c9748"
+  "MEASUREMENT_HASH": "28e7ff5b733258308703105ebbdce2c7fd2101c78f9ed5da0c298445ba3241c9",
+  "SEMANTIC_HASH": "e79a14f081cbcc1aadea33a94a6f3223119189038e983ebc2f460ee49419179f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15507,7 +15514,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/executor_texto_de_html.py",
-      "LINHA": 78,
+      "LINHA": 81,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -19275,7 +19282,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/executor_texto_de_html.py",
-      "LINHA": 262,
+      "LINHA": 461,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -20961,7 +20968,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/executor_texto_de_html.py",
-      "LINHA": 81,
+      "LINHA": 84,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-FONTES-EU--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -25497,6 +25504,14 @@
      {
       "FICHEIRO": "tests/test_source_owner_identity.py",
       "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "LINHA": 287,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
@@ -31767,7 +31782,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/executor_texto_de_html.py",
-      "LINHA": 79,
+      "LINHA": 82,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -46936,7 +46951,8 @@
     "tests/test_a_rota_do_html.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
     "tests/test_lingua_da_porta.py",
-    "tests/test_m2_rota_forward.py"
+    "tests/test_m2_rota_forward.py",
+    "tests/test_tempo_e_lugar_da_publicacao.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -48015,6 +48031,7 @@
    "SO_MEDEM_ESTE": [
     "provas/red_team_duas_portas.py",
     "tests/test_c4g_a_especie_do_video.py",
+    "tests/test_tempo_e_lugar_da_publicacao.py",
     "tests/test_v1a_v1_ligada.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -48943,7 +48960,8 @@
     "tests/test_ponte_audio_publico.py",
     "tests/test_retirada_por_decisao.py",
     "tests/test_source_id.py",
-    "tests/test_source_owner_identity.py"
+    "tests/test_source_owner_identity.py",
+    "tests/test_tempo_e_lugar_da_publicacao.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
@@ -54226,6 +54244,7 @@
     "tests/test_source_id_wiring_gap.py",
     "tests/test_source_owner_identity.py",
     "tests/test_telemetria.py",
+    "tests/test_tempo_e_lugar_da_publicacao.py",
     "tests/test_teto_dominio.py",
     "tests/test_thread_parcial.py",
     "tests/test_trava_da_inteligencia.py",

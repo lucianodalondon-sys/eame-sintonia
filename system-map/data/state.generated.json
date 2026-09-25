@@ -3036,6 +3036,7 @@
       "tests/test_source_id_wiring_gap.py",
       "tests/test_source_owner_identity.py",
       "tests/test_telemetria.py",
+      "tests/test_tempo_e_lugar_da_publicacao.py",
       "tests/test_teto_dominio.py",
       "tests/test_thread_parcial.py",
       "tests/test_trava_da_inteligencia.py",
@@ -3571,10 +3572,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "claude/publication-time-source-location-ux4cuc",
+    "HEAD": "3cbbb084d7d6d9f5a41825d2b48bcca97c5ab9df",
+    "GENERATED_AT": "2026-09-25T12:44:51+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2df58a0329cdbe4024781c8caee9f932b83f68312bb6e551af00d0461db0bf14"
   },
   "FAMILIES": [
     {
@@ -43821,7 +43822,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/executor_texto_de_html.py:262",
+          "coleta/executor_texto_de_html.py:461",
           "coleta/executor_texto_de_pdf.py:299",
           "coleta/executor_transcricao_midia.py:303",
           "guarda/memoria_descartavel.py:43"
@@ -52524,7 +52525,7 @@
         "PROVA": [
           "coleta/adaptador_linkedin.py:117",
           "coleta/coletor.py:76",
-          "coleta/executor_texto_de_html.py:79",
+          "coleta/executor_texto_de_html.py:82",
           "coleta/executor_transcricao_midia.py:72"
         ],
         "PORQUE": "estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-DATA-CLOCK · C-ESTRADA-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -63402,6 +63403,7 @@
         "tests/test_source_id_wiring_gap.py",
         "tests/test_source_owner_identity.py",
         "tests/test_telemetria.py",
+        "tests/test_tempo_e_lugar_da_publicacao.py",
         "tests/test_teto_dominio.py",
         "tests/test_thread_parcial.py",
         "tests/test_trava_da_inteligencia.py",
@@ -63419,7 +63421,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 237,
+      "file_count": 238,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63627,7 +63629,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 55,
+        "ITALIA": 57,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -63660,6 +63662,7 @@
           "CAPA",
           "CASOS",
           "CATALOGO",
+          "CHAVES_DO_FACTO",
           "CIA",
           "COMPLETA",
           "CONTAGEM_DIVERGE_JA_CONHECIDA",
@@ -63729,13 +63732,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1318,
+        "palavras": 1324,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1306,
+        "sem_marca_de_lingua": 1312,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -63916,6 +63919,7 @@
         "curadoria/retrato_html.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
+        "data/collection-store/italy/IT-T7-021/IT-T7-021_URL_news_imprese_sversamento-nel-naviglio-grande-riprende-la-navigazione/v1_d44208dc767f/sversamento-nel-naviglio-grande-riprende-la-navigazione.html",
         "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
         "data/derivados/A-REGRA-DE-T2.json",
         "data/derivados/BASELINE-ADMISSION-T3-V1.json",
@@ -66196,7 +66200,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch micro-v3-fontes-v1"
+        "branch claude/publication-time-source-location-ux4cuc"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -83048,7 +83052,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 78,
+          "line": 81,
           "snippet": "import artefato as art  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -89406,7 +89410,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 262,
+          "line": 461,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -92404,7 +92408,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 81,
+          "line": 84,
           "snippet": "from coleta.texto_fonte import limpar  # noqa: E402 — O DONO ÚNICO DA EXTRAÇÃO",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -100090,7 +100094,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -100176,6 +100180,22 @@
           "file": "tests/test_source_owner_identity.py",
           "line": 36,
           "snippet": "CONTRATOS = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_tempo_e_lugar_da_publicacao.py",
+          "line": 287,
+          "snippet": "os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")).as_uri()))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
             "FROM": "C-IT-CONTRATOS",
@@ -111823,7 +111843,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 79,
+          "line": 82,
           "snippet": "import proveniencia as pv  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -134909,8 +134929,8 @@
     "edges_proven": 1256,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 2978,
-    "files_covered": 1329,
+    "files_tracked": 2979,
+    "files_covered": 1330,
     "files_code_unclaimed": 0,
     "roles_proven": 170,
     "roles_declared_only": 8,
