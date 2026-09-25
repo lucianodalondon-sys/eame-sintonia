@@ -9262,7 +9262,7 @@
     "INDEX_URL": "https://www.istat.it/it/",
     "LINK_PATTERN": "^https?://(www\\.)?istat\\.it/(?:comunicato-stampa|notizia)/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
     "MAX_TARGETS": 1,
-    "LINK_PATTERN_PORQUE": "CONTRATOS-AJUSTE 2026-09-25: o padrao generico do molde aceitava paginas de seccao do site (ricercatori/promozione-della-ricerca, pubblicazioni/rivista-di-statistica-ufficiale) e o D40 escolhia-as; no indice de 25/09 as materias vivem so em /comunicato-stampa/ e /notizia/ (17 de 42 ligacoes). Padrao anterior guardado em LINK_PATTERN_ANTERIOR.",
+    "LINK_PATTERN_PORQUE": "CONTRATOS-AJUSTE 2026-09-25: o padrao generico do molde aceitava paginas de seccao do site (ricercatori/promozione-della-ricerca, pubblicazioni/rivista-di-statistica-ufficiale) e o D40 escolhia-as; no indice de 25/09 as materias vivem so em /comunicato-stampa/ e /notizia/ (20 ligacoes: 12 comunicato-stampa + 8 notizia; o padrao antigo dava 42, com as seccoes). Padrao anterior guardado em LINK_PATTERN_ANTERIOR.",
     "LINK_PATTERN_ANTERIOR": "^https?://(www\\.)?istat\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$"
    },
    "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
