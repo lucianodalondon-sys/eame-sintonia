@@ -67,8 +67,11 @@ CORRER
 """
 from __future__ import annotations
 
+import datetime
+import html
 import json
 import os
+import re
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -241,6 +244,406 @@ def extrair(dados: bytes, media_type: str = "text/html") -> tuple:
     if sem_brancos == 0:
         return texto, SEM_TEXTO_NO_DOCUMENTO, "", medidas
     return texto, art.TEXT_LAYER_PRESENT, "", medidas
+
+
+# ── PUBLICATION_TIME — QUANDO A FONTE PUBLICOU, E SÓ ISSO (D61) ─────────────
+#
+#     PUBLICATION_TIME != FACT_TIME != OBSERVATION_TIME != COLLECTION_TIME
+#
+# Medido na Sala real a 25/09: 78 itens, `published_at = NAO SEI` em 78/78. A
+# página trazia a data e ninguém a lia: o coletor não a procura, o adaptador
+# italiano (`italy_executor.traduzir`) leva quatro campos e nenhum é este, e
+# `raw_asset` não tem coluna para ela.
+#
+# ⚠️ PORQUE O DONO É ESTE EXECUTOR, E NÃO O COLETOR. Três razões, medidas:
+#   1. É aqui que estão os bytes que FICARAM guardados — os mesmos de onde sai
+#      o texto que a Sala recebe. Ler a data no coletor obrigaria a fazê-la
+#      atravessar `raw_asset`, que não a tem (quatro donos a alargar).
+#   2. O retrato do detector já faz este trajecto, provado:
+#      derivado → estruturação → porta. A data vai pelo mesmo trilho.
+#   3. Um HTML já guardado ganha a data num reprocessamento, sem ir à rede.
+#
+# A ORDEM é a da D61, e cada nível só fala se tiver UMA resposta:
+#     1  JSON-LD `datePublished`
+#     2  <meta property|name="article:published_time">
+#     3  <time datetime="...">
+#     4  a data do item no ÍNDICE, quando quem chama a entregar
+#
+# ⚠️ UM NÍVEL COM DUAS RESPOSTAS DIFERENTES NÃO RESPONDE. Medido nos HTML reais
+# de IT-T7-021: os `<time datetime>` da página são da barra lateral «últimos
+# posts» — cinco datas, nenhuma do artigo. Ficar com a primeira seria dar ao
+# artigo a data de outro. O nível cala-se, diz porquê, e passa ao seguinte.
+#
+# ⚠️ E NADA DAQUI VIRA FACT_TIME. Uma notícia publicada a 11/07 pode relatar
+# uma geada de 02/07. Este valor vai para `published_at`, e só para lá.
+BASE_JSON_LD = "JSON-LD datePublished"
+BASE_META = "meta article:published_time"
+BASE_TIME = "<time datetime>"
+BASE_INDICE = "INDICE"
+ORDEM_DA_PUBLICACAO = (BASE_JSON_LD, BASE_META, BASE_TIME, BASE_INDICE)
+
+_RE_LD = re.compile(
+    r"<script[^>]*type\s*=\s*[\"']application/ld\+json[\"'][^>]*>(.*?)</script>",
+    re.I | re.S)
+_RE_META = re.compile(r"<meta\b[^>]*>", re.I)
+_RE_TIME = re.compile(r"<time\b[^>]*>", re.I)
+_RE_ATTR = re.compile(r"([a-zA-Z_:.-]+)\s*=\s*(\"[^\"]*\"|'[^']*'|[^\s>]+)")
+_RE_ISO = re.compile(
+    r"^(\d{4})-(\d{2})-(\d{2})"
+    r"(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?\s*(Z|[+-]\d{2}:?\d{2})?)?$")
+
+
+def _atributos(tag: str) -> dict:
+    fora = {}
+    for nome, v in _RE_ATTR.findall(tag):
+        fora[nome.lower()] = html.unescape(v.strip("\"'"))
+    return fora
+
+
+def normalizar_instante(valor) -> tuple:
+    """Uma data escrita pela fonte, em ISO 8601. → `(iso, precisao)` ou `(None, porque)`.
+
+    Três respostas, e nenhuma inventa o que a fonte não disse:
+
+        com hora E fuso   → `2026-08-11T12:30:19+00:00`   precisão INSTANTE
+        só o dia          → `2026-08-11`                  precisão DIA
+        hora SEM fuso     → `2026-08-11`                  precisão DIA
+                            (a hora sem fuso não é um instante; fica o dia
+                            que a fonte escreveu, e não se inventa o `Z`)
+
+    Qualquer outra coisa — «14 luglio 2026», vazio, lixo — é `None`: ler
+    datas em prosa é outra régua, com outra prova.
+
+    ⚠️ D62: DATA RELATIVA NÃO VIRA DATA. «ieri», «la settimana scorsa», «2
+    giorni fa» não se convertem aqui nem em lado nenhum desta régua — o dono
+    não autorizou. Esta régua só lê METADADO da página, nunca o texto; a
+    expressão relativa, quando for guardada como evidência, é de outra peça.
+    """
+    s = str(valor or "").strip()
+    m = _RE_ISO.match(s)
+    if not m:
+        return None, "nao e ISO 8601: %r" % s[:40]
+    a, me, d, h, mi, se, fuso = m.groups()
+    try:
+        datetime.date(int(a), int(me), int(d))
+    except ValueError:
+        return None, "data impossivel: %r" % s[:40]
+    dia = "%s-%s-%s" % (a, me, d)
+    if h is None or fuso is None:
+        return dia, "DIA"
+    if fuso == "Z":
+        fuso = "+00:00"
+    elif ":" not in fuso:
+        fuso = fuso[:3] + ":" + fuso[3:]
+    if int(h) > 23 or int(mi) > 59 or int(se or 0) > 59:
+        return None, "hora impossivel: %r" % s[:40]
+    return "%sT%s:%s:%s%s" % (dia, h, mi, se or "00", fuso), "INSTANTE"
+
+
+def _datas_do_json_ld(texto: str) -> list:
+    achados = []
+
+    def _andar(no):
+        if isinstance(no, dict):
+            for k, v in no.items():
+                if k == "datePublished" and isinstance(v, str):
+                    achados.append(v)
+                else:
+                    _andar(v)
+        elif isinstance(no, list):
+            for x in no:
+                _andar(x)
+
+    for bloco in _RE_LD.findall(texto):
+        try:
+            _andar(json.loads(bloco.strip()))
+        except (ValueError, RecursionError):
+            continue            # um bloco partido não apaga os outros
+    return achados
+
+
+def _datas_do_meta(texto: str) -> list:
+    fora = []
+    for tag in _RE_META.findall(texto):
+        a = _atributos(tag)
+        chave = (a.get("property") or a.get("name") or "").strip().lower()
+        if chave == "article:published_time" and a.get("content"):
+            fora.append(a["content"])
+    return fora
+
+
+def _datas_do_time(texto: str) -> list:
+    return [a["datetime"] for a in map(_atributos, _RE_TIME.findall(texto))
+            if a.get("datetime")]
+
+
+def tempo_de_publicacao(dados, data_no_indice=None) -> dict:
+    """PUBLICATION_TIME de uma página HTML, com a BASE. Nunca inventa.
+
+    Devolve sempre `{"VALOR", "BASE", "PRECISAO", "ORIGINAL", "PORQUE"}`.
+    Sem resposta: `VALOR = BASE = NAO SEI`, e `PORQUE` diz o que cada nível viu
+    — um `NAO SEI` com razão é uma medição; sem razão é desleixo.
+
+    `data_no_indice` é a data que o ÍNDICE mostrava ao lado do link, quando o
+    coletor a tiver. Hoje nenhum produtor a entrega (ver `GAPS` no relatório):
+    o parâmetro existe para o quarto nível ter sítio, e não para ser adivinhado.
+    """
+    if isinstance(dados, bytes):
+        texto = dados.decode("utf-8", errors="replace")
+    else:
+        texto = str(dados or "")
+    niveis = (
+        (BASE_JSON_LD, _datas_do_json_ld(texto)),
+        (BASE_META, _datas_do_meta(texto)),
+        (BASE_TIME, _datas_do_time(texto)),
+        (BASE_INDICE, [data_no_indice] if data_no_indice else []),
+    )
+    viu = []
+    for base, brutas in niveis:
+        if not brutas:
+            viu.append("%s: ausente" % base)
+            continue
+        # A chave de comparação é o INSTANTE, e não a letra: `12:30+00:00` e
+        # `14:30+02:00` são a mesma publicação escrita em dois fusos.
+        boas = {}
+        for b in brutas:
+            iso, prec = normalizar_instante(b)
+            if iso:
+                chave = (datetime.datetime.fromisoformat(iso)
+                         .astimezone(datetime.timezone.utc).isoformat()
+                         if prec == "INSTANTE" else iso)
+                boas.setdefault(chave, (iso, prec, b))
+        if not boas:
+            viu.append("%s: %d valor(es), nenhum ISO 8601" % (base, len(brutas)))
+            continue
+        if len(boas) > 1:
+            viu.append("%s: AMBIGUO, %d datas diferentes (%s)"
+                       % (base, len(boas), ", ".join(sorted(boas)[:4])))
+            continue
+        (iso, prec, original), = boas.values()
+        return {"VALOR": iso, "BASE": base, "PRECISAO": prec,
+                "ORIGINAL": original,
+                "PORQUE": "; ".join(viu + ["%s: %s" % (base, original)])}
+    return {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI, "PRECISAO": art.NAO_SEI,
+            "ORIGINAL": art.NAO_SEI,
+            "PORQUE": "NAO SEI — " + "; ".join(viu)}
+
+
+def publicacao_para_o_contrato(r: dict) -> dict:
+    """O recibo de `tempo_de_publicacao`, nos nomes do contrato comum.
+
+    → `{"PUBLISHED_AT": iso, "PUBLISHED_AT_BASIS": base}` quando há valor;
+      `{"PUBLISHED_AT_BASIS": "NAO SEI — <porquê>"}` quando não há.
+
+    ⚠️ SÓ ATRAVESSAM AFIRMAÇÕES (a regra de `ingresso.NAO_E_AFIRMACAO`): um
+    `PUBLISHED_AT = "NAO SEI"` escrito no item seria lido como valor. O porquê
+    do `NAO SEI` viaja na BASE, como `FACT_TIME_BASIS` já faz.
+
+    ⚠️ E NÃO HÁ `FACT_TIME` AQUI, NEM HAVERÁ. Quando a fonte publicou não é
+    quando o facto aconteceu; esta saída não tem chave para o segundo.
+    """
+    # D62: a PRECISÃO viaja sempre. A Intelligence tem de saber o grau de
+    # cada item (INSTANTE · DIA · NAO SEI) — e nenhum grau reprova o item:
+    # faltar a data não descarta nada, só diz que a precisão é menor.
+    if r.get("VALOR") in (art.NAO_SEI, "", None):
+        return {"PUBLISHED_AT_BASIS": r.get("PORQUE") or art.NAO_SEI,
+                "PUBLISHED_AT_PRECISION": art.NAO_SEI}
+    return {"PUBLISHED_AT": r["VALOR"], "PUBLISHED_AT_BASIS": r["BASE"],
+            "PUBLISHED_AT_PRECISION": r.get("PRECISAO") or art.NAO_SEI}
+
+
+# ── D63 · A DATA RELATIVA DO TEXTO, CONTADA A PARTIR DA PUBLICAÇÃO ─────────
+#
+# O dono (25/09, D63): «Ontem ou semana passada pode ser considerada data do
+# fato sim, desde que o sistema pegue a data da publicação e faça a conta.»
+#
+#     CONTA = PUBLICATION_TIME + a expressão, e SÓ com a publicação PROVADA.
+#
+# ⚠️ DA-6: ESTE RAMO NÃO ESCREVE FACT_TIME. O facto a partir do texto tem um
+# dono só (o extrator local `lugar-fato-v1`). Aqui a conta sai como EVIDÊNCIA
+# (`RELATIVE_TIME_*`, base `RELATIVA_A_PUBLICACAO` + a expressão original),
+# para esse dono decidir. A publicação continua à parte.
+#
+# PRECISÃO HONESTA: «ieri» é um dia; «la settimana scorsa» é a semana anterior
+# INTEIRA (segunda a domingo, em intervalo ISO 8601 `início/fim`) — nunca um
+# dia inventado dentro dela.
+#
+# ⚠️ E UM TEXTO COM DUAS CONTAS DIFERENTES NÃO RESPONDE («ieri» e «la settimana
+# scorsa» no mesmo artigo): não se sabe qual é a do facto. NAO SEI, com porquê.
+#
+# ⚠️ «l'anno scorso» FICA DE FORA: «rispetto all'anno scorso» é comparação de
+# safra e raramente data o facto. NAO SEI até haver caso medido.
+# «oggi» entra só nos moldes da D64 (ver `_RELATIVAS`); hoje-em-dia não conta.
+BASE_RELATIVA = "RELATIVA_A_PUBLICACAO"
+
+_NUM = {"un": 1, "uno": 1, "una": 1, "due": 2, "tre": 3, "quattro": 4,
+        "cinque": 5, "sei": 6, "sette": 7, "otto": 8, "nove": 9, "dieci": 10}
+_N = r"(\d{1,2}|un|uno|una|due|tre|quattro|cinque|sei|sette|otto|nove|dieci)"
+_APOS = r"[’'`]\s?"
+
+_DIAS_IT = ("lunedi", "martedi", "mercoledi", "giovedi", "venerdi", "sabato",
+            "domenica")
+_DIA_DA_SEMANA = r"lunedì|lunedi|martedì|martedi|mercoledì|mercoledi|giovedì|giovedi|venerdì|venerdi|sabato|domenica"
+
+
+def _oggi_com_dia(m, dia):
+    """«oggi, lunedì» conta 0 dias — só se o dia nomeado FOR o da publicação.
+
+    Se o texto diz «oggi, lunedì» e a página foi publicada numa quarta, as
+    duas afirmações contradizem-se: não se escolhe, não se conta.
+    """
+    nome = m.group(1).lower().replace("ì", "i")
+    return 0 if _DIAS_IT.index(nome) == dia.weekday() else None
+
+
+#: (padrão, espécie, como contar). A ORDEM importa: «l'altro ieri» antes de
+#: «ieri», para o segundo não roubar metade do primeiro.
+_RELATIVAS = (
+    (r"\b(?:l" + _APOS + r"altro\s?ieri|altroieri|ieri\s+l" + _APOS + r"altro)\b",
+     "DIA", lambda m, d: 2),
+    (r"\b(?:ieri|ontem|yesterday)\b", "DIA", lambda m, d: 1),
+    # D64: «oggi» SÓ quando o texto diz que é o próprio dia — «oggi, lunedì»
+    # (e o dia da semana tem de bater com a publicação) ou «oggi è stato/a».
+    # «ad oggi», «al giorno d'oggi», «oggi i consumatori» = hoje-em-dia, e
+    # não casam com nenhum destes dois moldes.
+    (r"\boggi,?\s+(" + _DIA_DA_SEMANA + r")\b", "DIA", _oggi_com_dia),
+    (r"\boggi\s+(?:è|e'|é)\s+stat[oaie]\b", "DIA", lambda m, d: 0),
+    (r"\b" + _N + r"\s+giorni\s+fa\b", "DIA", lambda m, d: _NUM.get(m.group(1).lower()) or int(m.group(1))),
+    (r"\b(?:la\s+)?(?:settimana\s+scorsa|scorsa\s+settimana)\b|\b(?:semana\s+passada|last\s+week)\b",
+     "SEMANA", lambda m, d: 1),
+    (r"\b" + _N + r"\s+settimane\s+fa\b", "SEMANA",
+     lambda m, d: _NUM.get(m.group(1).lower()) or int(m.group(1))),
+    (r"\b(?:il\s+|lo\s+)?(?:mese\s+scorso|scorso\s+mese)\b|\b(?:m[eê]s\s+passado|last\s+month)\b",
+     "MES", lambda m, d: 1),
+)
+
+
+def _dia_da_publicacao(pub: dict):
+    """O DIA em que a fonte publicou, no fuso que ela escreveu. `None` sem prova."""
+    if not pub or pub.get("VALOR") in (art.NAO_SEI, "", None) \
+            or pub.get("BASE") in (art.NAO_SEI, "", None):
+        return None
+    try:
+        return datetime.date.fromisoformat(str(pub["VALOR"])[:10])
+    except ValueError:
+        return None
+
+
+def _conta(dia, especie, n):
+    if especie == "DIA":
+        d = dia - datetime.timedelta(days=n)
+        return d.isoformat(), d, d
+    if especie == "SEMANA":
+        seg = dia - datetime.timedelta(days=dia.weekday() + 7 * n)
+        dom = seg + datetime.timedelta(days=6)
+        return "%s/%s" % (seg.isoformat(), dom.isoformat()), seg, dom
+    a, m = dia.year, dia.month - n                     # MES
+    while m < 1:
+        a, m = a - 1, m + 12
+    ini = datetime.date(a, m, 1)
+    fim = (datetime.date(a + (m == 12), m % 12 + 1, 1)
+           - datetime.timedelta(days=1))
+    return "%s/%s" % (ini.isoformat(), fim.isoformat()), ini, fim
+
+
+#: Os nomes com que um ITEM pode trazer a publicação e a base dela (D64): a
+#: língua da porta, a do contrato comum e o nome que o leitor do facto usa.
+NOMES_DA_PUBLICACAO = (("publication_time", "publication_time_basis"),
+                       ("published_at", "published_at_basis"),
+                       ("PUBLICATION_TIME", "PUBLICATION_TIME_BASIS"),
+                       ("PUBLISHED_AT", "PUBLISHED_AT_BASIS"))
+
+
+def publicacao_do_item(item: dict) -> dict:
+    """`{VALOR, BASE}` da publicação, lida da interface do ITEM (D64).
+
+    O leitor do facto recebe um item, não o recibo do extrator. Valor SEM base
+    não é publicação provada — e sem prova não há conta (D63). Dois nomes com
+    valores diferentes no mesmo item: não se escolhe, NAO SEI.
+    """
+    achados = set()
+    for nv, nb in NOMES_DA_PUBLICACAO:
+        v, b = (item or {}).get(nv), (item or {}).get(nb)
+        if v in (None, "", art.NAO_SEI) or b in (None, "", art.NAO_SEI):
+            continue
+        if str(b).startswith(art.NAO_SEI):
+            continue
+        achados.add((str(v), str(b)))
+    if len(achados) != 1:
+        return {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI}
+    (v, b), = achados
+    return {"VALOR": v, "BASE": b}
+
+
+def conta_relativa_a_publicacao(texto, publicacao: dict) -> dict:
+    """A expressão relativa do texto, contada a partir da PUBLICATION_TIME provada.
+
+    D63/D64 dizem COMO contar; a DA-6 diz que o facto é de outro dono. Isto
+    devolve a conta como EVIDÊNCIA (ver `evidencia_relativa`), nunca FACT_TIME.
+
+    → `{"VALOR", "BASE", "PRECISAO", "EXPRESSAO", "INICIO", "FIM", "PORQUE"}`.
+    `VALOR` é um dia ISO (`2026-09-19`) ou um intervalo ISO (`início/fim`).
+    `PRECISAO` é `CALCULADA:DIA` · `CALCULADA:SEMANA` · `CALCULADA:MES`.
+    Sem publicação provada, sem expressão, ou com contas que se contradizem:
+    tudo `NAO SEI`, e `PORQUE` diz qual das três.
+    """
+    nada = {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI, "PRECISAO": art.NAO_SEI,
+            "EXPRESSAO": art.NAO_SEI, "INICIO": art.NAO_SEI, "FIM": art.NAO_SEI}
+    dia = _dia_da_publicacao(publicacao)
+    if dia is None:
+        return dict(nada, PORQUE="NAO SEI — sem PUBLICATION_TIME provada nao ha "
+                                 "de onde contar (D63)")
+    t = str(texto or "")
+    tomado = [False] * len(t)
+    contas = {}
+    for padrao, especie, quanto in _RELATIVAS:
+        for m in re.finditer(padrao, t, re.I):
+            if any(tomado[m.start():m.end()]):
+                continue
+            for i in range(m.start(), m.end()):
+                tomado[i] = True
+            n = quanto(m, dia)
+            if n is None:
+                continue
+            valor, ini, fim = _conta(dia, especie, n)
+            contas.setdefault(valor, (especie, m.group(0), ini, fim))
+    if not contas:
+        return dict(nada, PORQUE="NAO SEI — o texto nao traz expressao relativa "
+                                 "reconhecida")
+    if len(contas) > 1:
+        return dict(nada, PORQUE="NAO SEI — AMBIGUO: %d contas diferentes no texto "
+                                 "(%s); nao se sabe qual e a do facto"
+                    % (len(contas), "; ".join("«%s» -> %s" % (e[1], v)
+                                             for v, e in sorted(contas.items()))))
+    (valor, (especie, expr, ini, fim)), = contas.items()
+    return {"VALOR": valor, "BASE": BASE_RELATIVA,
+            "PRECISAO": "CALCULADA:%s" % especie, "EXPRESSAO": expr,
+            "INICIO": ini.isoformat(), "FIM": fim.isoformat(),
+            "PORQUE": "%s: «%s» contado a partir da publicacao %s (%s)"
+                      % (BASE_RELATIVA, expr, publicacao["VALOR"],
+                         publicacao["BASE"])}
+
+
+def evidencia_relativa(r: dict) -> dict:
+    """A conta de `conta_relativa_a_publicacao` como EVIDÊNCIA — nunca como facto.
+
+    ⚠️ DA-6 (coordenador, 25/09): FACT_TIME / FACT_LOCATION a partir do texto
+    têm UM dono só — o extrator local `lugar-fato-v1`. Este ramo é dono SÓ de
+    PUBLICATION_TIME (+ base, precisão) e SOURCE_LOCATION (+ base). Por isso
+    esta saída NÃO tem chave `FACT_*`: leva a expressão encontrada e a conta
+    feita a partir da publicação, com nomes de evidência, para o dono do
+    facto decidir. Escrever `fact_time` aqui seria um segundo dono.
+
+    → `{"RELATIVE_TIME_EXPRESSION", "RELATIVE_TIME_COMPUTED",
+        "RELATIVE_TIME_PRECISION", "RELATIVE_TIME_BASIS"}`; sem conta, só a BASE
+      com o porquê.
+    """
+    if r.get("VALOR") in (art.NAO_SEI, "", None):
+        return {"RELATIVE_TIME_BASIS": r.get("PORQUE") or art.NAO_SEI}
+    return {"RELATIVE_TIME_EXPRESSION": r["EXPRESSAO"],
+            "RELATIVE_TIME_COMPUTED": r["VALOR"],
+            "RELATIVE_TIME_PRECISION": r["PRECISAO"],
+            "RELATIVE_TIME_BASIS": "%s «%s»" % (r["BASE"], r["EXPRESSAO"])}
 
 
 def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,

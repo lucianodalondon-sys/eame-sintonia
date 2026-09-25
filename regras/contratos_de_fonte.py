@@ -247,6 +247,60 @@ def data_do_documento_e_publicacao(source_id: str) -> dict:
             "ESPECIE": especie}
 
 
+#: A BASE que viaja com o `SOURCE_LOCATION` (D61). Uma palavra, para a Sala a
+#: poder contar; a frase inteira continua em `PORQUE`.
+BASE_CONTRATO = "CONTRATO"
+
+
+def lugar_da_fonte(source_id: str) -> dict:
+    """SOURCE_LOCATION de uma fonte, pelo CONTRATO. → `{VALOR, BASE, PRECISAO, ORIGINAL, PORQUE}`.
+
+    A mesma forma de `executor_texto_de_html.tempo_de_publicacao`, para que o
+    encanamento leve os dois da mesma maneira.
+
+    ⚠️ SÓ O CONTRATO. NUNCA O `REGION` DO ATLAS, e não é gosto — é medição
+    (D61, 25/09): o `REGION` do Atlas é a região observada NA AMOSTRA, isto é,
+    de que a fonte FALA. `IT-T7-017` (Cantina Riunite, sede em Reggio Emilia)
+    está lá como `LAZIO`. Usá-lo aqui era pôr lugar do facto no sítio do lugar
+    da fonte — a mesma troca que a lei proíbe, ao contrário.
+
+        SOURCE_LOCATION != FACT_LOCATION. E ISTO NUNCA DEVOLVE O SEGUNDO.
+    """
+    r = lugar_declarado_pela_fonte(source_id)
+    # Uma regra que É uma confissão não é «um lugar fora do gazetteer»: é o
+    # contrato a dizer que não sabe. Os dois `NAO SEI` têm porquês diferentes.
+    if str(r.get("REGRA_ORIGINAL") or "").strip().upper() in _SENTINELAS:
+        return {"VALOR": NAO_SEI, "BASE": NAO_SEI, "PRECISAO": NAO_SEI,
+                "ORIGINAL": NAO_SEI,
+                "PORQUE": "NAO SEI — o contrato de fonte «%s» nao declara onde "
+                          "esta quem publica (SOURCE_LOCATION_RULE = NAO SEI)"
+                          % source_id}
+    if r["VALOR"] in (NAO_SEI, "", None):
+        return {"VALOR": NAO_SEI, "BASE": NAO_SEI, "PRECISAO": NAO_SEI,
+                "ORIGINAL": r.get("REGRA_ORIGINAL") or NAO_SEI,
+                "PORQUE": "NAO SEI — " + r["BASE"]}
+    return {"VALOR": r["VALOR"], "BASE": BASE_CONTRATO,
+            "PRECISAO": r["PRECISAO"], "ORIGINAL": r["REGRA_ORIGINAL"],
+            "PORQUE": "%s: SOURCE_LOCATION_RULE «%s» em %s, conferido contra o "
+                      "gazetteer de leis/fato_local.py"
+                      % (BASE_CONTRATO, r["REGRA_ORIGINAL"], r["AUTORIDADE"])}
+
+
+def lugar_para_o_contrato(r: dict) -> dict:
+    """O recibo de `lugar_da_fonte`, nos nomes do contrato comum.
+
+    → `{"SOURCE_LOCATION": v, "SOURCE_LOCATION_BASIS": "CONTRATO"}` quando há
+      valor; `{"SOURCE_LOCATION_BASIS": "NAO SEI — <porquê>"}` quando não há.
+    Sem `FACT_LOCATION`: onde está quem publica não diz onde o facto foi.
+    """
+    # D62: a precisão viaja (cidade · provincia · NAO SEI); nenhuma reprova.
+    if r.get("VALOR") in (NAO_SEI, "", None):
+        return {"SOURCE_LOCATION_BASIS": r.get("PORQUE") or NAO_SEI,
+                "SOURCE_LOCATION_PRECISION": NAO_SEI}
+    return {"SOURCE_LOCATION": r["VALOR"], "SOURCE_LOCATION_BASIS": r["BASE"],
+            "SOURCE_LOCATION_PRECISION": r.get("PRECISAO") or NAO_SEI}
+
+
 def regra_do_lugar_do_fato(source_id: str) -> str:
     """O `FACT_LOCATION_RULE`, tal e qual. NÃO é um valor — é onde procurar.
 
