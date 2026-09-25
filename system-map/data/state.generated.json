@@ -501,6 +501,7 @@
       "curadoria/test_ponte_promocao.py",
       "curadoria/test_ready_split.py",
       "curadoria/test_reconciliar_livros.py",
+      "curadoria/test_recontagem_r1.py",
       "curadoria/test_reparar_contrato.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_revisao_ready.py",
@@ -2528,12 +2529,15 @@
       "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json",
       "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA.json",
       "scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json",
+      "scripts/reparo/R1-RECONTAGEM-NO-VIVO.json",
       "scripts/reparo/R1-REENSAIO-ANTES-DEPOIS-fca4f2b6.json",
       "scripts/reparo/R1-REVISAO-READY.json",
       "scripts/reparo/R1-SUITE-POR-NOME.json",
       "scripts/reparo/R1-WRITESET.json",
       "scripts/reparo/juntar_bancas.py",
       "scripts/reparo/medir_em_copia.py",
+      "scripts/reparo/observar_vivo.py",
+      "scripts/reparo/recontar_ready.py",
       "scripts/reparo/revisar_ready.py"
     ],
     "security": [
@@ -3451,9 +3455,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "reparo-fontes-v2",
-    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
-    "GENERATED_AT": "2026-09-24T19:11:05-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1"
+    "HEAD": "0dbbfcf12d8ecc22398cff468fab8c1bcd7770bd",
+    "GENERATED_AT": "2026-09-25T04:57:08-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8ffddac41d8afb33cf39a83310fddfe8c7317ef2e399ef8a3160e2f9e732719c"
   },
   "FAMILIES": [
     {
@@ -29618,6 +29622,7 @@
         "C-PROVA-PARIDADE",
         "C-PROVA-ROTAS-REAIS",
         "C-REGUA-T2-JANELA",
+        "C-REPARO-MEDICAO",
         "C-TESTES"
       ],
       "paises": {},
@@ -43427,6 +43432,7 @@
         "C-CENSO-UNIFICACAO",
         "C-DECISAO-DA-FILA",
         "C-MAPA-SCAN",
+        "C-REPARO-MEDICAO",
         "C-TESTES"
       ],
       "paises": {},
@@ -43491,9 +43497,9 @@
           "candidatas/decidir_fila_italia.py:100",
           "curadoria/test_discovery.py:59",
           "curadoria/test_discovery.py:50",
-          "system-map/scripts/scan_sources.py:480"
+          "scripts/reparo/recontar_ready.py:57"
         ],
-        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA · C-REPARO-MEDICAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 3180,
       "y": 1004
@@ -50473,7 +50479,7 @@
       "name": "Medicao do reparo de fontes numa copia do livro vivo (R1)",
       "territory": "Z-MEDIDAS",
       "kind": "engine",
-      "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n). juntar_bancas.py junta as fatias num ANTES/DEPOIS por fonte e por causa (reparo, re-canario, qualify). revisar_ready.py re-corre o reparo so para as READY novas numa banca, reabre o item do canario e marca sinais de suspeita (caminho de servico, sem data) para revisao humana.",
+      "what": "Corre o ciclo do bot (gatilho.reparar_encalhadas -> worker.correr) numa BANCA: arvore inteira com os livros do bot vivo copiados por cima. Mede READY antes/depois por estado, sem discovery nem ponte. Recusa correr se a banca apontar para o bot vivo. Bancas paralelas por fatia de anfitriao (--particao k/n). juntar_bancas.py junta as fatias num ANTES/DEPOIS por fonte e por causa (reparo, re-canario, qualify). revisar_ready.py re-corre o reparo so para as READY novas numa banca, reabre o item do canario e marca sinais de suspeita (caminho de servico, sem data) para revisao humana. recontar_ready.py re-conta as READY em bancas so com o portao de egresso = PASS IT (senao ESPERA VPN, zero pedidos) e confere com a revisao; observar_vivo.py le os livros do bot (so leitura, zero rede) para provar ao vivo READY a subir e REPAIR_CONTRACT na fila.",
       "why_here": "O reparo de contratos (curadoria/reparar_contrato.py, etapa REPAIR_CONTRACT do worker) muda contratos e o livro de estado; medir o efeito no livro vivo seria escrever no vivo. A banca e descartavel e fica fora do Git.",
       "departments": [
         "ENGENHARIA",
@@ -50491,16 +50497,20 @@
       "files": [
         "scripts/reparo/juntar_bancas.py",
         "scripts/reparo/medir_em_copia.py",
+        "scripts/reparo/observar_vivo.py",
+        "scripts/reparo/recontar_ready.py",
         "scripts/reparo/revisar_ready.py"
       ],
-      "file_count": 3,
+      "file_count": 5,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-ASK-SINTONIA",
         "C-CENSO-UNIFICACAO",
-        "C-DETECTOR-CAPA-GABARITO"
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-PORTA-FONTE"
       ],
       "outbound": [],
       "paises": {},
@@ -50528,8 +50538,12 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "candidatas/FONTES-CANDIDATAS.json",
         "curadoria/LIFECYCLE-LEDGER-V1.json",
-        "curadoria/LIFECYCLE-QUEUE-V1.json"
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/REVISAO-READY-V1.json",
+        "scripts/reparo/juntar_bancas.py",
+        "scripts/reparo/medir_em_copia.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -63805,6 +63819,41 @@
     },
     {
       "from": "C-ASK-SINTONIA",
+      "to": "C-REPARO-MEDICAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia tem o seu codigo importado por Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/reparo/recontar_ready.py",
+          "line": 44,
+          "snippet": "import rede  # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-REPARO-MEDICAO",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-REPARO-MEDICAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -68533,12 +68582,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/reparo/juntar_bancas.py",
           "line": 71,
           "snippet": "fila = json.loads((Path(b) / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-REPARO-MEDICAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/reparo/observar_vivo.py",
+          "line": 29,
+          "snippet": "fila = _json(vivo / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\")[\"TAREFAS\"]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
             "FROM": "C-CENSO-UNIFICACAO",
@@ -77836,12 +77901,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "scripts/reparo/juntar_bancas.py",
           "line": 60,
           "snippet": "t0 = _livro(foto / \"LIFECYCLE-LEDGER-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-REPARO-MEDICAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/reparo/observar_vivo.py",
+          "line": 28,
+          "snippet": "livro = _json(vivo / \"curadoria\" / \"LIFECYCLE-LEDGER-V1.json\")[\"TRANSICOES\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-REPARO-MEDICAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/reparo/recontar_ready.py",
+          "line": 93,
+          "snippet": "if not (foto / \"LIFECYCLE-LEDGER-V1.json\").exists():",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-REPARO-MEDICAO",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
@@ -99660,6 +99757,41 @@
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-MAPA-SCAN",
             "FROM": "C-PORTA-FONTE",
             "TO": "C-MAPA-SCAN",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-REPARO-MEDICAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/reparo/recontar_ready.py",
+          "line": 57,
+          "snippet": "destino = banca / (\"candidatas\" if p.name == \"FONTES-CANDIDATAS.json\" else \"curadoria\") / p.name",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-REPARO-MEDICAO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -124198,7 +124330,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1592,
+  "UNCLAIMED_FILES_COUNT": 1594,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -124464,12 +124596,12 @@
     "components_pending": 204,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1282,
-    "edges_proven": 1219,
+    "edges": 1284,
+    "edges_proven": 1221,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2857,
-    "files_covered": 1265,
+    "files_tracked": 2861,
+    "files_covered": 1267,
     "files_code_unclaimed": 0,
     "roles_proven": 165,
     "roles_declared_only": 8,

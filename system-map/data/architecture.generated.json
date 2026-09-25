@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "reparo-fontes-v2",
-    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
-    "GENERATED_AT": "2026-09-24T19:11:05-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1"
+    "HEAD": "0dbbfcf12d8ecc22398cff468fab8c1bcd7770bd",
+    "GENERATED_AT": "2026-09-25T04:57:08-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8ffddac41d8afb33cf39a83310fddfe8c7317ef2e399ef8a3160e2f9e732719c"
   },
   "FILES": [
     {
@@ -563,7 +563,7 @@
     },
     {
       "path": "RELATORIO-R1-REPARO-FONTES.md",
-      "sha": "6d555df11973762ddd4f3e95b061971eeef9da9d",
+      "sha": "867000f846487e29dee52ebe38c03b41996b10da",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3343,6 +3343,13 @@
     {
       "path": "curadoria/test_reconciliar_livros.py",
       "sha": "314b9e647d91558d315339c19dcee216938c79fa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_recontagem_r1.py",
+      "sha": "0d9270777143bcb8f8d780ac5c0694e6ff0f78fb",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -17250,6 +17257,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/reparo/R1-RECONTAGEM-NO-VIVO.json",
+      "sha": "51075760817ea67e5124828ace7f4c2baa974a48",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/reparo/R1-REENSAIO-ANTES-DEPOIS-fca4f2b6.json",
       "sha": "893aa5e820dd3fc2a67833cd63d06eef03dfad1a",
       "ext": ".json",
@@ -17287,6 +17301,20 @@
     {
       "path": "scripts/reparo/medir_em_copia.py",
       "sha": "7fda06472018d6a48975eac526f969ad56053cbf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/observar_vivo.py",
+      "sha": "a682ac52b4af7d1a66054e23313f40ee3baf5bcb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/recontar_ready.py",
+      "sha": "1513b2eae6538ba2c02afa1a1701c0584473159d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17895,7 +17923,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b8898ab9953f64cc96909bc8910187c5d456373a",
+      "sha": "e25d4bc5eae06a5668b95d381d566d44aa260c46",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -29918,6 +29946,61 @@
         "file": "curadoria/test_reconciliar_livros.py",
         "line": 320,
         "snippet": "linha(so_b, None, LC.CANARY_PENDING, T1, \"regras/italy_contracts.mjs\"),"
+      }
+    },
+    {
+      "from_file": "curadoria/test_recontagem_r1.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_recontagem_r1.py",
+        "line": 61,
+        "snippet": "(Path(d) / \"LIFECYCLE-LEDGER-V1.json\").write_text(\"{}\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/test_recontagem_r1.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_recontagem_r1.py",
+        "line": 89,
+        "snippet": "(cur / \"LIFECYCLE-QUEUE-V1.json\").write_text(json.dumps({\"TAREFAS\": ["
+      }
+    },
+    {
+      "from_file": "curadoria/test_recontagem_r1.py",
+      "to_file": "curadoria/REVISAO-READY-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_recontagem_r1.py",
+        "line": 53,
+        "snippet": "r = json.loads((RAIZ / \"curadoria\" / \"REVISAO-READY-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "curadoria/test_recontagem_r1.py",
+      "to_file": "curadoria/REVISAO-READY-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_recontagem_r1.py",
+        "line": 92,
+        "snippet": "(cur / \"REVISAO-READY-V1.json\").write_text(json.dumps(REV), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/test_recontagem_r1.py",
+      "to_file": "scripts/reparo/R1-INSTALACAO-ENSAIO-5c4daf5a.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_recontagem_r1.py",
+        "line": 52,
+        "snippet": "j = json.loads((RAIZ / \"scripts\" / \"reparo\" / \"R1-INSTALACAO-ENSAIO-5c4daf5a.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -61546,6 +61629,105 @@
       }
     },
     {
+      "from_file": "scripts/reparo/observar_vivo.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/observar_vivo.py",
+        "line": 28,
+        "snippet": "livro = _json(vivo / \"curadoria\" / \"LIFECYCLE-LEDGER-V1.json\")[\"TRANSICOES\"]"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/observar_vivo.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/observar_vivo.py",
+        "line": 29,
+        "snippet": "fila = _json(vivo / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\")[\"TAREFAS\"]"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/observar_vivo.py",
+      "to_file": "curadoria/REVISAO-READY-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/observar_vivo.py",
+        "line": 30,
+        "snippet": "rev_p = vivo / \"curadoria\" / \"REVISAO-READY-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/reparo/recontar_ready.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/recontar_ready.py",
+        "line": 57,
+        "snippet": "destino = banca / (\"candidatas\" if p.name == \"FONTES-CANDIDATAS.json\" else \"curadoria\") / p.name"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/recontar_ready.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/recontar_ready.py",
+        "line": 93,
+        "snippet": "if not (foto / \"LIFECYCLE-LEDGER-V1.json\").exists():"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/recontar_ready.py",
+      "to_file": "curadoria/REVISAO-READY-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/recontar_ready.py",
+        "line": 119,
+        "snippet": "revisao = json.loads((RAIZ / \"curadoria\" / \"REVISAO-READY-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/recontar_ready.py",
+      "to_file": "scripts/reparo/juntar_bancas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/recontar_ready.py",
+        "line": 116,
+        "snippet": "subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"reparo\" / \"juntar_bancas.py\"), \"--foto\", str(foto),"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/recontar_ready.py",
+      "to_file": "scripts/reparo/medir_em_copia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/reparo/recontar_ready.py",
+        "line": 107,
+        "snippet": "procs = [subprocess.Popen([sys.executable, \"-u\", \"scripts/reparo/medir_em_copia.py\", \"--banca\", str(b),"
+      }
+    },
+    {
+      "from_file": "scripts/reparo/recontar_ready.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/reparo/recontar_ready.py",
+        "line": 44,
+        "snippet": "import rede  # noqa: PLC0415"
+      }
+    },
+    {
       "from_file": "security/censo_do_cliente.py",
       "to_file": "security/cliente-classificacao.json",
       "type": "READS",
@@ -83228,10 +83410,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2857,
-    "files_readable": 1299,
-    "files_code_dir": 1162,
-    "file_edges": 5694,
+    "files_tracked": 2861,
+    "files_readable": 1302,
+    "files_code_dir": 1165,
+    "file_edges": 5708,
     "escritas_em_pasta": 85,
     "declared_missing_here": 0
   },
