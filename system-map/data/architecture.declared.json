@@ -4720,7 +4720,12 @@
    "files": [
     "provas/cortesia_http_local.mjs",
     "provas/cortesia_red_team.mjs",
-    "provas/CORTESIA-RED-TEAM-V1.json"
+    "provas/CORTESIA-RED-TEAM-V1.json",
+    "provas/teto_dominio_local.mjs",
+    "provas/teto_dominio_mutacao.py",
+    "provas/TETO-DOMINIO-MUTACAO.json",
+    "provas/onda_web_mutacao.py",
+    "provas/ONDA-WEB-MUTACAO.json"
    ]
   },
   {
@@ -4775,6 +4780,24 @@
    ],
    "files": [
     "ferramentas/big_collection/bc5_big_collection.py"
+   ]
+  },
+  {
+   "id": "C-ONDA-WEB",
+   "name": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos.",
+   "why_here": "ONDA2-PLANO mediu cia.it com 16 pedidos numa onda (5 fontes, teto por corrida) e o disparador da BC5 a ler a coorte de C:\bc fora do Git. D38: 5 por dominio na onda inteira.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/big_collection/onda_web.py"
    ]
   },
   {

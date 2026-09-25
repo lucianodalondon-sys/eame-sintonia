@@ -17,6 +17,11 @@ Uma PRONTA so entra na coorte se, alem do plano, as tres provas da G3 baterem:
   CANARIO_7D           a prova da promocao existe nas provas e tem <= 7 dias
                        (REVALIDAR_ELEGIVEIS_DIAS); sem prova nao ha canario
 Se uma PRONTA falhar alguma, sai com o nome da prova que falhou — nao se cala.
+
+PROVISORIA POR OMISSAO (bot Luciano, 23/09 19:20): a coorte FINAL so se congela DEPOIS da
+instalacao (runbook passo I) e da demotion (B5). Sem `--congelar` o ficheiro sai
+ESTADO=PROVISORIA. `--congelar` exige `--instalacao=<commit>` e `--demotion=<referencia B5>`
+declarados, e grava-os. Nunca e a contagem de READY do livro (143 READY != coorte).
 """
 from __future__ import annotations
 
@@ -99,12 +104,21 @@ def construir(plano: dict, agora: datetime) -> dict:
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     arg = dict(a[2:].split("=", 1) for a in argv if a.startswith("--") and "=" in a)
+    congelar = "--congelar" in argv
+    if congelar and not (arg.get("instalacao") and arg.get("demotion")):
+        raise SystemExit("--congelar exige --instalacao=<commit> e --demotion=<ref B5>: "
+                         "a coorte final so se congela depois dos dois")
     plano = json.loads(Path(arg["plano"]).read_text(encoding="utf-8"))
     agora = datetime.now(timezone.utc)
     r = construir(plano, agora)
     head = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=RAIZ, capture_output=True,
                           text=True).stdout.strip()
     out = {"DATASET": "COORTE-BIG-COLLECTION-V1", "DECISAO": "D25 (dono real, 23/09 ~15:20)",
+           "ESTADO": "CONGELADA" if congelar else "PROVISORIA",
+           "CONGELAMENTO": ({"INSTALACAO": arg["instalacao"], "DEMOTION_B5": arg["demotion"],
+                             "EM": agora.isoformat(timespec="seconds")} if congelar else
+                            "so depois da instalacao (passo I) e da demotion (B5) — bot Luciano, 23/09 19:20"),
+           "NAO_E": "a contagem de READY do livro (READY_TOTAL do painel); a coorte e so a lista COORTE",
            "MEDIDO_EM": agora.isoformat(timespec="seconds"), "ARVORE": head,
            "PLANO": {"GERADO_EM": plano.get("GERADO_EM"), "PAINEL_DO_GATE": plano.get("PAINEL_DO_GATE"),
                      "PRONTAS": plano.get("PRONTAS"), "BLOQUEADAS": plano.get("BLOQUEADAS")},

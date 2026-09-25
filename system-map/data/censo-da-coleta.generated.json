@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T05:38:15+00:00",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
+    "GENERATED_AT": "2026-09-25T07:25:36+00:00",
+    "HEAD": "560d40180d0d8c40f29106c49c00df488d59c9ae",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
-    "FICHEIROS_NA_IMPRESSAO": 3036,
+    "SOURCE_TREE_FINGERPRINT": "f6b606bd04b103c3bf58f4baef6eefd50c9a1cf13fa0e4cecbcb2c4bbe0bb213",
+    "FICHEIROS_NA_IMPRESSAO": 3049,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -349,7 +349,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "bfc3bb50cc6fd57cea53b2c977d3ab8009d27a59",
+        "VERSAO": "45b35a7dfa5c298dd6d6d07ae81d87b5c23090f2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -566,14 +566,21 @@
       {
         "PATH": "ferramentas/big_collection/bc5_big_collection.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e83cf8195c8fd32a1f06c549250b4d327bf019ed",
+        "VERSAO": "f1ddd4081eb60610c34305a8e513a9df65b4fcbb",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "ferramentas/big_collection/coorte_unica.py",
         "PAPEL": "FONTE",
-        "VERSAO": "d4daac87cfc163568a49e2f9e212b3c9d0cd74f9",
+        "VERSAO": "ae6e99ada092ba8943b4419679295af05f0a78b5",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/onda_web.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "3998d1c24f3d07c33ce7a49d43f66b509f66dc56",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1117,8 +1124,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 158,
-    "INPUTS_DIGEST": "539e5f93f6f8cf9741b251747591d9f3617a2d6761d9b8b117d106f19342d749",
+    "INPUTS_COUNT": 159,
+    "INPUTS_DIGEST": "1a698ce89d7c5e6541b98b895243f257b0705839c603672ac7e3f58cba5989eb",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1576,7 +1583,7 @@
     {
       "ficheiro": "ferramentas/big_collection/bc5_big_collection.py",
       "gaveta": "ferramentas",
-      "linhas": 139,
+      "linhas": 147,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1592,7 +1599,7 @@
     {
       "ficheiro": "ferramentas/big_collection/coorte_unica.py",
       "gaveta": "ferramentas",
-      "linhas": 123,
+      "linhas": 137,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1603,6 +1610,24 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/onda_web.py",
+      "gaveta": "ferramentas",
+      "linhas": 287,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/big_collection/bc5_big_collection.py"
+      ],
       "no_ci": false
     },
     {
@@ -2884,7 +2909,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 1260,
+      "linhas": 1349,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2900,6 +2925,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/retrato_html.mjs",
+        "ferramentas/big_collection/onda_web.py",
         "pedido/receitas.py",
         "regras/incrementalidade.mjs",
         "regras/italy_pilot_guards.mjs",
@@ -4387,12 +4413,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 158,
-    "pontos_de_entrada": 114,
+    "ficheiros_de_codigo": 159,
+    "pontos_de_entrada": 115,
     "executores_que_saem_para_fora": 22,
     "sem_chamador_e_fora_do_ci": 63,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 87,
+    "escrevem_ficheiro": 88,
     "deitam_fora_alguma_coisa": 46,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -4419,6 +4445,7 @@
       "ferramentas/apify_pool.py",
       "ferramentas/big_collection/bc5_big_collection.py",
       "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",

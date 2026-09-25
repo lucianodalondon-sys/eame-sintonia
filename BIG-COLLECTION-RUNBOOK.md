@@ -109,6 +109,19 @@ Medido às 21:00Z: **COORTE_BIG_COLLECTION = 18**, 0 duplicadas
 instalar `origin/unificacao-v1`, pelo `PLANO-INSTALACAO-M5G.md` (ensaiado, com WRITESET).
 🛑 abortar se `COORTE_BIG_COLLECTION = 0` ou se alguma PRONTA sair em `FORA` com `PROVAS`.
 
+**Provisória até ao cutover (bot Luciano, 23/09 19:20).** As 18 de hoje são a lista
+PROVISÓRIA (`ESTADO: PROVISORIA`). A coorte FINAL só se congela **depois** da instalação (passo
+I) e da demotion (B5), com os livros já instalados:
+
+```
+py scripts/micro_coleta/micro_coleta.py plano > C:\bc\plano.json
+py ferramentas/big_collection/coorte_unica.py --plano=C:\bc\plano.json --congelar ^
+   --instalacao=<commit instalado na CASA> --demotion=<referencia da B5> --saida=C:\bc\COORTE-BIG-COLLECTION.json
+```
+
+Sem os dois o `--congelar` recusa. **Nunca** usar a contagem de READY do livro (143) como coorte:
+a coorte é só a lista `COORTE` do ficheiro.
+
 Medido na BC2 (23/09 ~15:30), depois do onboardar: portão **37** → **19 PRONTAS**
 (IT-T10-018, -021, -022, IT-T2-034, IT-T2-051, IT-T5-090, IT-T7-017, -021, -033, -042,
 -043, -100, -112, -117, -118, -121, -123, -135, -141), **18 bloqueadas** com motivo. (BC1,
