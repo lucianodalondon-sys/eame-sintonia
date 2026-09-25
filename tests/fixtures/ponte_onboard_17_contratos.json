@@ -1,0 +1,282 @@
+{
+ "O_QUE_E": "os 17 contratos que o MICRO-PRONTO ia onboardar, como estavam a 25/09/2026 no vivo: HEAD do Git (574 fontes) e disco (762). So SOURCE_ID/OUTPUT_TYPE/ACQUISITION.",
+ "HEAD": {
+  "IT-T12-024": {
+   "SOURCE_ID": "IT-T12-024",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/web/agricoltura\\-e\\-foreste/dettaglio\\-news/?\\?articleId=\\d+$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T12-117": {
+   "SOURCE_ID": "IT-T12-117",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://energia.calabriaimpresa.eu/",
+    "LINK_PATTERN": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T12-129": {
+   "SOURCE_ID": "IT-T12-129",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.sicilia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T12-130": {
+   "SOURCE_ID": "IT-T12-130",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T12-131": {
+   "SOURCE_ID": "IT-T12-131",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.terraevita.it/l-esperto-risponde/pac-e-psr/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T2-032": {
+   "SOURCE_ID": "IT-T2-032",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpal.liguria.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpal\\.liguria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T2-037": {
+   "SOURCE_ID": "IT-T2-037",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpat.toscana.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T2-050": {
+   "SOURCE_ID": "IT-T2-050",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpacampania.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?redirect=[^&]+$",
+    "MAX_TARGETS": 1
+   }
+  }
+ },
+ "DISCO": {
+  "IT-T12-024": {
+   "SOURCE_ID": "IT-T12-024",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/web/agricoltura\\-e\\-foreste/dettaglio\\-news/?\\?articleId=\\d+$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T12-117": {
+   "SOURCE_ID": "IT-T12-117",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://energia.calabriaimpresa.eu/",
+    "LINK_PATTERN": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T12-129": {
+   "SOURCE_ID": "IT-T12-129",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.sicilia\\.it/la\\-regione\\-informa/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T12-130": {
+   "SOURCE_ID": "IT-T12-130",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/pac\\-psr\\-csr/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T12-131": {
+   "SOURCE_ID": "IT-T12-131",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/l-esperto-risponde/pac-e-psr/",
+    "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/esperto\\-risponde/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T2-032": {
+   "SOURCE_ID": "IT-T2-032",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpal.liguria.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpal\\.liguria\\.it/home\\-page/notizie\\-tematiche/item/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T2-037": {
+   "SOURCE_ID": "IT-T2-037",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpat.toscana.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/pubblicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T2-050": {
+   "SOURCE_ID": "IT-T2-050",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpacampania.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?redirect=[^&]+$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T2-145": {
+   "SOURCE_ID": "IT-T2-145",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.veneto.it/arpav/comunicati-stampa",
+    "LINK_PATTERN": "^https?://(www\\.)?arpa\\.veneto\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T2-146": {
+   "SOURCE_ID": "IT-T2-146",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.veneto.it/arpav/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?arpa\\.veneto\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T5-160": {
+   "SOURCE_ID": "IT-T5-160",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ibba.cnr.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?ibba\\.cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T5-167": {
+   "SOURCE_ID": "IT-T5-167",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.crea.gov.it/web/agricoltura-e-ambiente",
+    "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T5-185": {
+   "SOURCE_ID": "IT-T5-185",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://sostenibilita.enea.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?sostenibilita\\.enea\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T5-186": {
+   "SOURCE_ID": "IT-T5-186",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://sostenibilita.enea.it/eventi",
+    "LINK_PATTERN": "^https?://(www\\.)?sostenibilita\\.enea\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T5-187": {
+   "SOURCE_ID": "IT-T5-187",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://sostenibilita.enea.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?sostenibilita\\.enea\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T7-172": {
+   "SOURCE_ID": "IT-T7-172",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.georgofili.info/",
+    "LINK_PATTERN": "^https?://(www\\.)?georgofili\\.info/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  },
+  "IT-T8-062": {
+   "SOURCE_ID": "IT-T8-062",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "http://agrariaweb.uniss.it/it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?agrariaweb\\.uniss\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   }
+  }
+ }
+}
