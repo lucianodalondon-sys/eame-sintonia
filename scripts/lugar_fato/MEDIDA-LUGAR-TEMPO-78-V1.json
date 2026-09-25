@@ -1,0 +1,1976 @@
+{
+ "DATASET": "MEDIDA-LUGAR-TEMPO-78-V2",
+ "REGRAS": "D61 + D62 (EVENTO/MERCADO como tipo) + D63 (relativa com a conta)",
+ "N": 78,
+ "CONTAGENS": {
+  "com_expressao_relativa": 18,
+  "com_expressao_relativa_presa_a_um_facto": 6,
+  "lugar_CAMPO": 1,
+  "lugar_EVENTO": 7,
+  "lugar_MERCADO": 4,
+  "lugar_NAO SEI": 66,
+  "lugar_extrator": 12,
+  "lugar_leitor_sozinho": 1,
+  "sem_corpo": 2,
+  "tempo_CAMPO": 13,
+  "tempo_EVENTO": 7,
+  "tempo_NAO SEI": 58,
+  "tempo_extrator": 20,
+  "tempo_leitor_sozinho": 18
+ },
+ "PUBLICATION_TIME_NA_SALA": "sem base provada em todas as linhas: nenhuma relativa pode ser contada (D63 -> NAO SEI)",
+ "ITENS": [
+  {
+   "item_id": "derived:1",
+   "source_id": "IT-T3-010",
+   "universo": "T3",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Brindisi, Lecce, Puglia)",
+   "fact_time": "luglio",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "MONTH",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · MONTH · «- eseguire la \"diagnosi precoce\" in luglio e agosto per verificare la presenza di nuove infezioni non ancora evidenti» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "questa settimana",
+     null
+    ],
+    [
+     "questa settimana",
+     null
+    ],
+    [
+     "questa settimana",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "luglio"
+   },
+   "LINHAS_DE_CORPO": 67
+  },
+  {
+   "item_id": "derived:6",
+   "source_id": "IT-T3-002",
+   "universo": "T3",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Campania, Salerno)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 80
+  },
+  {
+   "item_id": "derived:7",
+   "source_id": "IT-T3-008",
+   "universo": "T3",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Bari, Brindisi, Foggia, Italia, Lecce, Lombardia, Piemonte, Puglia)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «scorso anno», «oggi», «oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "scorso anno",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "oggi"
+   },
+   "LINHAS_DE_CORPO": 115
+  },
+  {
+   "item_id": "derived:6",
+   "source_id": "IT-T3-002",
+   "universo": "T3",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Campania, Salerno)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 80
+  },
+  {
+   "item_id": "derived:11",
+   "source_id": "IT-T3-008",
+   "universo": "T3",
+   "fact_location": "Puglia",
+   "fact_location_kind": "CAMPO",
+   "fact_location_precision": "REGION",
+   "fact_location_basis": "CAMPO · CITADO · REGION · âncora «registrato» · OFFICIAL_OCCURRENCE · «Importante è sottolineare lo scarto climatico registrato nella settimana scorsa: + 6°C le massime e in generale dai + 2 ai + 3°C su gran parte della Puglia, ﬁno a + 4°C sull’area adriatica tra il nord»",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «oggi», «La settimana scorsa», «settimana scorsa», «scorso anno», «oggi», «oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "oggi",
+     null
+    ],
+    [
+     "La settimana scorsa",
+     null
+    ],
+    [
+     "settimana scorsa",
+     null
+    ],
+    [
+     "scorso anno",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [
+     "Puglia"
+    ],
+    "TEMPO": "oggi"
+   },
+   "LINHAS_DE_CORPO": 112
+  },
+  {
+   "item_id": "derived:20",
+   "source_id": "IT-T5-009",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Lombardia)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): FIM_DE_PRAZO «entro maggio» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 142
+  },
+  {
+   "item_id": "derived:21",
+   "source_id": "IT-T5-010",
+   "universo": "T5",
+   "fact_location": "Veneto ; Ferrara ; Italia ; Roma",
+   "fact_location_kind": "EVENTO",
+   "fact_location_precision": "PROVINCE",
+   "fact_location_basis": "EVENTO · CITADO · REGION · âncora «convegno» · OTHER · «Vorrei sottolineare il convegno sulla frutticoltura di pianura organizzato il 28/5/2010, nell’ambito delle Giornate della Frutticoltura, dalla Fondazione che ha accolto a proprie spese circa 300 stude» ; EVENTO · CITADO · PROVINCE · âncora «congressi» · OTHER · «Non a caso nel tempo sono stati organizzati a Ferrara congressi, convegni e varie",
+   "fact_time": "campagna 2010",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "SEASON",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · SEASON · «Nella campagna 2010, sono stati raccolti presso lo Stabilimento di Pomposa, diversi campioni di bucce e semi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "l’anno scorso",
+     "CAMPO"
+    ],
+    [
+     "Oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "ieri",
+     null
+    ],
+    [
+     "recentemente",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ],
+    [
+     "recentemente",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "recentemente",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ],
+    [
+     "lo scorso anno",
+     null
+    ],
+    [
+     "Oggi",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "domani",
+     null
+    ],
+    [
+     "recentemente",
+     null
+    ],
+    [
+     "l’anno scorso",
+     null
+    ],
+    [
+     "l’anno scorso",
+     "CAMPO"
+    ],
+    [
+     "l’anno scorso",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "Oggi",
+     null
+    ],
+    [
+     "Oggi",
+     null
+    ],
+    [
+     "scorso anno",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "Oggi",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "stamattina",
+     null
+    ],
+    [
+     "di recente",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "ieri",
+     null
+    ],
+    [
+     "Oggi",
+     null
+    ],
+    [
+     "Oggi",
+     null
+    ],
+    [
+     "domani",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "domani",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ],
+    [
+     "oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "campagna 2010"
+   },
+   "LINHAS_DE_CORPO": 334
+  },
+  {
+   "item_id": "derived:22",
+   "source_id": "IT-T5-011",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 31
+  },
+  {
+   "item_id": "derived:23",
+   "source_id": "IT-T5-012",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Pisa)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 3
+  },
+  {
+   "item_id": "derived:24",
+   "source_id": "IT-T5-014",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italia)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): FIM_DE_PRAZO «entro il 15 Febbraio 2024», FIM_DE_PRAZO «entro il 15 Febbraio 2024»; expressões relativas guardadas como evidência, sem conta (publicação não provada): «recentemente» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "recentemente",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 78
+  },
+  {
+   "item_id": "derived:25",
+   "source_id": "IT-T5-016",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:26",
+   "source_id": "IT-T5-018",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Bologna, Firenze, Messina, Roma)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 6
+  },
+  {
+   "item_id": "derived:27",
+   "source_id": "IT-T5-019",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Padova)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 55
+  },
+  {
+   "item_id": "derived:28",
+   "source_id": "IT-T5-020",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 27
+  },
+  {
+   "item_id": "derived:29",
+   "source_id": "IT-T5-022",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Genova)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 39
+  },
+  {
+   "item_id": "derived:30",
+   "source_id": "IT-T5-026",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Agrigento, Caltanissetta, Fermo, Lodi, Palermo, Trapani)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 72
+  },
+  {
+   "item_id": "derived:31",
+   "source_id": "IT-T5-029",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Bari, Bologna, Catania, Ferrara, Italia, Milano, Napoli, Pavia)",
+   "fact_time": "2022",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · APPROXIMATE · «In questo contesto si segnala che l’Università di Verona ha dato l’avvio, nel 2022, alla Laurea Professionalizzante in Innovazione e sostenibilità nella produzione industriale di alimenti (ISPIA), in » · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "Recentemente",
+     null
+    ],
+    [
+     "recentemente",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "2022"
+   },
+   "LINHAS_DE_CORPO": 304
+  },
+  {
+   "item_id": "derived:56",
+   "source_id": "IT-T5-015",
+   "universo": "T5",
+   "fact_location": "Napoli",
+   "fact_location_kind": "EVENTO",
+   "fact_location_precision": "PROVINCE",
+   "fact_location_basis": "EVENTO · CITADO · PROVINCE · âncora «Workshop» · OTHER · «Siamo lieti di annunciare che il 6° Maria Ciaramella Memorial Workshop si terrà il 12 e 13 novembre 2026 presso la Sala Seminari dell’Area 1 della Città della Ricerca del CNR di Napoli»",
+   "fact_time": "12-13 novembre 2026",
+   "fact_time_kind": "EVENTO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · APPROXIMATE · âncora «Workshop» · «Siamo lieti di annunciare che il 6° Maria Ciaramella Memorial Workshop si terrà il 12 e 13 novembre 2026 presso la Sala Seminari dell’Area 1 della Città della Ricerca del CNR di Napoli» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 23
+  },
+  {
+   "item_id": "derived:57",
+   "source_id": "IT-T5-024",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 17
+  },
+  {
+   "item_id": "derived:58",
+   "source_id": "IT-T5-025",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Campania, Liguria, Pisa)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 18
+  },
+  {
+   "item_id": "derived:59",
+   "source_id": "IT-T5-027",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 1
+  },
+  {
+   "item_id": "derived:60",
+   "source_id": "IT-T5-028",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 10
+  },
+  {
+   "item_id": "derived:61",
+   "source_id": "IT-T5-030",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Teramo)",
+   "fact_time": "8 ottobre 2026",
+   "fact_time_kind": "EVENTO",
+   "fact_time_precision": "DATE_EXACT",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · DATE_EXACT · âncora «seminario» · «Giovedì 8 ottobre 2026 la Scuola di Legalità e Giustizia dell'Università di Teramo ospita Ivano Gabrielli, Direttore Servizio Polizia Postale e per la Sicurezza Cibernetica, Responsabile CNAIPIC - Cen» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 11
+  },
+  {
+   "item_id": "derived:62",
+   "source_id": "IT-T5-033",
+   "universo": "T5",
+   "fact_location": "Italy",
+   "fact_location_kind": "EVENTO",
+   "fact_location_precision": "COUNTRY",
+   "fact_location_basis": "EVENTO · CITADO · COUNTRY · âncora «evento» · OTHER · «L'evento metterà al centro due temi strategici per il contrasto allo spreco alimentare:\"Food Coalition for Food Loss and Waste: From Evidence to Action\", dedicato al passaggio dalle evidenze scientifi»",
+   "fact_time": "29 settembre 2026",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "DATE_EXACT",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · DATE_EXACT · «In occasione della VII Giornata Internazionale di Sensibilizzazione sulle Perdite e sugli Sprechi Alimentari, il 29 settembre 2026 la Sala Igea dell'Istituto dell'Enciclopedia Italiana Treccani ospite» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "29 settembre 2026"
+   },
+   "LINHAS_DE_CORPO": 8
+  },
+  {
+   "item_id": "derived:63",
+   "source_id": "IT-T5-034",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:64",
+   "source_id": "IT-T5-036",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:65",
+   "source_id": "IT-T7-013",
+   "universo": "T7",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Roma)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 25
+  },
+  {
+   "item_id": "derived:66",
+   "source_id": "IT-T9-011",
+   "universo": "T9",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italia)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «Oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "Oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 27
+  },
+  {
+   "item_id": "derived:87",
+   "source_id": "IT-T5-035",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:56",
+   "source_id": "IT-T5-015",
+   "universo": "T5",
+   "fact_location": "Napoli",
+   "fact_location_kind": "EVENTO",
+   "fact_location_precision": "PROVINCE",
+   "fact_location_basis": "EVENTO · CITADO · PROVINCE · âncora «Workshop» · OTHER · «Siamo lieti di annunciare che il 6° Maria Ciaramella Memorial Workshop si terrà il 12 e 13 novembre 2026 presso la Sala Seminari dell’Area 1 della Città della Ricerca del CNR di Napoli»",
+   "fact_time": "12-13 novembre 2026",
+   "fact_time_kind": "EVENTO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · APPROXIMATE · âncora «Workshop» · «Siamo lieti di annunciare che il 6° Maria Ciaramella Memorial Workshop si terrà il 12 e 13 novembre 2026 presso la Sala Seminari dell’Area 1 della Città della Ricerca del CNR di Napoli» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 23
+  },
+  {
+   "item_id": "derived:126",
+   "source_id": "IT-T5-017",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Firenze)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 143
+  },
+  {
+   "item_id": "derived:57",
+   "source_id": "IT-T5-024",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 17
+  },
+  {
+   "item_id": "derived:128",
+   "source_id": "IT-T5-025",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Campania, Liguria, Pisa)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 18
+  },
+  {
+   "item_id": "derived:129",
+   "source_id": "IT-T5-027",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 1
+  },
+  {
+   "item_id": "derived:60",
+   "source_id": "IT-T5-028",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 10
+  },
+  {
+   "item_id": "derived:130",
+   "source_id": "IT-T5-030",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Teramo)",
+   "fact_time": "8 ottobre 2026",
+   "fact_time_kind": "EVENTO",
+   "fact_time_precision": "DATE_EXACT",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · DATE_EXACT · âncora «seminario» · «Giovedì 8 ottobre 2026 la Scuola di Legalità e Giustizia dell'Università di Teramo ospita Ivano Gabrielli, Direttore Servizio Polizia Postale e per la Sicurezza Cibernetica, Responsabile CNAIPIC - Cen» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 11
+  },
+  {
+   "item_id": "derived:62",
+   "source_id": "IT-T5-033",
+   "universo": "T5",
+   "fact_location": "Italy",
+   "fact_location_kind": "EVENTO",
+   "fact_location_precision": "COUNTRY",
+   "fact_location_basis": "EVENTO · CITADO · COUNTRY · âncora «evento» · OTHER · «L'evento metterà al centro due temi strategici per il contrasto allo spreco alimentare:\"Food Coalition for Food Loss and Waste: From Evidence to Action\", dedicato al passaggio dalle evidenze scientifi»",
+   "fact_time": "29 settembre 2026",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "DATE_EXACT",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · DATE_EXACT · «In occasione della VII Giornata Internazionale di Sensibilizzazione sulle Perdite e sugli Sprechi Alimentari, il 29 settembre 2026 la Sala Igea dell'Istituto dell'Enciclopedia Italiana Treccani ospite» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "29 settembre 2026"
+   },
+   "LINHAS_DE_CORPO": 8
+  },
+  {
+   "item_id": "derived:131",
+   "source_id": "IT-T5-034",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:132",
+   "source_id": "IT-T5-035",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:133",
+   "source_id": "IT-T5-036",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:134",
+   "source_id": "IT-T7-013",
+   "universo": "T7",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Roma)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 25
+  },
+  {
+   "item_id": "derived:66",
+   "source_id": "IT-T9-011",
+   "universo": "T9",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italia)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «Oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "Oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 27
+  },
+  {
+   "item_id": "derived:142",
+   "source_id": "IT-T5-039",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): CARIMBO_DE_LISTA «23 marzo 2026» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 13
+  },
+  {
+   "item_id": "derived:143",
+   "source_id": "IT-T5-049",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "21 settembre",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "DATE_EXACT",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · DATE_EXACT · «Si avvisano gli studenti interessati che l’esame del modulo di arboricoltura del corso integrato di ortofloroarboricoltura (L25) già previsto per il 21 settembre è spostato a mercoledì 23 settembre al» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "21 settembre"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:147",
+   "source_id": "IT-T7-033",
+   "universo": "T7",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «Oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "Oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 5
+  },
+  {
+   "item_id": "derived:149",
+   "source_id": "IT-T7-041",
+   "universo": "T7",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Ravenna)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 17
+  },
+  {
+   "item_id": "derived:762",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italy)",
+   "fact_time": "raccolta 2026",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "SEASON",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · SEASON · «La raccolta 2026 negli Stati Uniti è appena iniziata e, le previsioni Usda sono di una produzione a 2,4 milioni di tonnellate, in calo del 27% rispetto al raccolto record del 2025 e al livello più bas» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "raccolta 2026"
+   },
+   "LINHAS_DE_CORPO": 10
+  },
+  {
+   "item_id": "derived:764",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italy)",
+   "fact_time": "stagione 2026",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "SEASON",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · SEASON · «Il quadro che emerge è quello di una stagione 2026 caratterizzata , nella maggior parte dei casi, da valori inferiori rispetto agli anni precedenti, soprattutto per le varietà con semi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "stagione 2026"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:766",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:767",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 6
+  },
+  {
+   "item_id": "derived:768",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): SERIE_DE_ANOS «2026, 2025 e 2024» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:769",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Fermo, Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:772",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Bologna, Emilia-Romagna, Italia, Italy, Veneto)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 5
+  },
+  {
+   "item_id": "derived:794",
+   "source_id": "IT-T5-049",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:795",
+   "source_id": "IT-T5-049",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 5
+  },
+  {
+   "item_id": "derived:796",
+   "source_id": "IT-T5-049",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 8
+  },
+  {
+   "item_id": "derived:834",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "Sicilia ; Verona",
+   "fact_location_kind": "MERCADO",
+   "fact_location_precision": "PROVINCE",
+   "fact_location_basis": "MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «Secondo Toni Margiotta, rappresentante dei grossisti del mercato, la causa non è il caro energia, come spesso si pensa, ma la drastica riduzione della produzione dovuta alle ondate di calore che hanno» ; MERCADO · CITADO · PROVINCE · âncora «mercato» · OTHER · «Uve: la senza semi sopra i 2 euro, con i semi poco sopra l'euro Al mercato ortofru",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 5
+  },
+  {
+   "item_id": "derived:835",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "Piemonte ; Lombardia",
+   "fact_location_kind": "MERCADO",
+   "fact_location_precision": "REGION",
+   "fact_location_basis": "MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «iN’S Mercato, due nuove aperture in Piemonte e Lombardia» ; MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «iN’S Mercato, due nuove aperture in Piemonte e Lombardia»",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:836",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Fermo, Italy)",
+   "fact_time": "2025",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · APPROXIMATE · «Il valore resta sotto i circa 2,80 euro/kg del 2025 e sui livelli minimi della serie osservata» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "2024"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:839",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italy)",
+   "fact_time": "2025",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · APPROXIMATE · «Nel 2025 il gruppo dei retailer tedeschi ha raggiunto l'obiettivo condiviso di acquistare almeno il 50% dei propri volumi di banane come Living Wage Bananas, attraverso la raccolta e la verifica dei d» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "2025"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:841",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Italia, Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «oggi», «Oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "oggi",
+     null
+    ],
+    [
+     "Oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 5
+  },
+  {
+   "item_id": "derived:909",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "Sardegna",
+   "fact_location_kind": "MERCADO",
+   "fact_location_precision": "REGION",
+   "fact_location_basis": "MERCADO · CITADO · REGION · âncora «mercato» · OTHER · «Più shelf-life per allargare i confini del mercato In Sardegna si producono tante fragole, ma le distanze impediscono una politica di export»",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «Oggi», «oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "Oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 9
+  },
+  {
+   "item_id": "derived:910",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Firenze, Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 9
+  },
+  {
+   "item_id": "derived:911",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Firenze, Italy)",
+   "fact_time": "23 settembre 2026",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "DATE_EXACT",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · DATE_EXACT · «Questa l'estrema sintesi dell'Osservatorio Piccoli Frutti a Firenze che, 23 settembre 2026, ha visitato 14 punti vendita di 14 insegne appartenenti a 9 gruppi della grande distribuzione» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "oggi",
+     "CAMPO"
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "23 settembre 2026"
+   },
+   "LINHAS_DE_CORPO": 9
+  },
+  {
+   "item_id": "derived:915",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Bergamo, Firenze, Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): FIM_DE_PRAZO «fino al 7 ottobre»; expressões relativas guardadas como evidência, sem conta (publicação não provada): «oggi», «oggi» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:918",
+   "source_id": "IT-T5-090",
+   "universo": "T5",
+   "fact_location": "Roma ; Milano ; Brescia ; Padova ; Napoli",
+   "fact_location_kind": "EVENTO",
+   "fact_location_precision": "PROVINCE",
+   "fact_location_basis": "EVENTO · CITADO · PROVINCE · âncora «Convegno» · OTHER · «Convegno Giornate di Studio Sulla Popolazione – Popdays 2023 – Roma, 1-4 febbraio 2023 – Università Roma Tre – Call for paper entro il 30 settembre 2022» ; EVENTO · CITADO · PROVINCE · âncora «Congressi» · OTHER · «Conferenza su “La trasformazione digitale nella scuola, negli ITS, nell’università e nella formazione professionale” – Milano, ",
+   "fact_time": "1-4 febbraio 2023",
+   "fact_time_kind": "EVENTO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · APPROXIMATE · âncora «Convegno» · «Convegno Giornate di Studio Sulla Popolazione – Popdays 2023 – Roma, 1-4 febbraio 2023 – Università Roma Tre – Call for paper» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 59
+  },
+  {
+   "item_id": "derived:919",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Firenze, Italia, Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): FIM_DE_PRAZO «fino a novembre» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "novembre"
+   },
+   "LINHAS_DE_CORPO": 9
+  },
+  {
+   "item_id": "derived:920",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Bologna, Emilia-Romagna, Firenze, Italy, Lombardia, Piemonte)",
+   "fact_time": "2025",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · APPROXIMATE · «L’impegno della Regione per l’agroalimentare Nel 2025 la Regione ha destinato circa 86,7 milioni di euro ad agricoltura, caccia e pesca» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "oggi",
+     null
+    ],
+    [
+     "oggi",
+     "CAMPO"
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "oggi"
+   },
+   "LINHAS_DE_CORPO": 7
+  },
+  {
+   "item_id": "derived:921",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Firenze, Italia, Italy)",
+   "fact_time": "6-8 ottobre 2026",
+   "fact_time_kind": "EVENTO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · APPROXIMATE · âncora «in programma» · «Clause, azienda globale specializzata nelle sementi orticole e parte del Gruppo Limagrain, sarà presente a Fruit Attraction, in programma a Madrid dal 6 all’8 ottobre 2026» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 9
+  },
+  {
+   "item_id": "derived:928",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "Rimini ; Piemonte ; Italia",
+   "fact_location_kind": "EVENTO",
+   "fact_location_precision": "PROVINCE",
+   "fact_location_basis": "EVENTO · CITADO · PROVINCE · âncora «Salone» · OTHER · «E' quanto emerso oggi durante la presentazione della 44esima edizione del Salone, in programma a Rimini dal 20 al 22 aprile 2027» ; EVENTO · CITADO · REGION · âncora «Fiera» · OTHER · «L'anteprima, l'ampliamento, il kiwi, il Piemonte, il Cile e gli stone fruit I dettagli operativi della 44esima edizione sono stati illustrati da Luigi Bianchi,",
+   "fact_time": "20-22 aprile 2027",
+   "fact_time_kind": "EVENTO",
+   "fact_time_precision": "APPROXIMATE",
+   "fact_time_basis": "EVENTO · ESCRITO_NO_TEXTO · APPROXIMATE · âncora «Salone» · «E' quanto emerso durante la presentazione della 44esima edizione del Salone, in programma a Rimini dal 20 al 22 aprile 2027» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "oggi",
+     "EVENTO"
+    ],
+    [
+     "oggi",
+     null
+    ],
+    [
+     "domani",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 8
+  },
+  {
+   "item_id": "derived:929",
+   "source_id": "IT-T10-018",
+   "universo": "T10",
+   "fact_location": "Milano",
+   "fact_location_kind": "MERCADO",
+   "fact_location_precision": "PROVINCE",
+   "fact_location_basis": "MERCADO · CITADO · PROVINCE · âncora «mercato» · OTHER · «Ma quest’anno, avverte Umberto Maffioletti della ditta Arrigoni Chiara , storico operatore del mercato ortofrutticolo di Milano e profondo conoscitore del settore dei piccoli frutti, l’autunno‑inverno»",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): FIM_DE_PRAZO «fino a novembre» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 8
+  },
+  {
+   "item_id": "derived:952",
+   "source_id": "IT-T2-034",
+   "universo": "T2",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Marche)",
+   "fact_time": "maggio",
+   "fact_time_kind": "CAMPO",
+   "fact_time_precision": "MONTH",
+   "fact_time_basis": "CAMPO · AMARRADO_AO_ACONTECIMENTO · MONTH · «Il picco pollinico osservato a maggio potrebbe pertanto essere interpretato come il risultato dell'interazione tra fattori fenologici e variabili climatiche: da un lato, l’anomalia termica ha influenz» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "maggio"
+   },
+   "LINHAS_DE_CORPO": 14
+  },
+  {
+   "item_id": "derived:962",
+   "source_id": "IT-T5-160",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Chieti, Lodi, Lombardia, Messina, Milano, Pescara, Pisa, Roma)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; expressões relativas guardadas como evidência, sem conta (publicação não provada): «recentemente» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [
+    [
+     "recentemente",
+     null
+    ]
+   ],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 74
+  },
+  {
+   "item_id": "derived:963",
+   "source_id": "IT-T5-167",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto · o texto não tem corpo (só menu/rodapé)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 0
+  },
+  {
+   "item_id": "derived:964",
+   "source_id": "IT-T5-167",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto · o texto não tem corpo (só menu/rodapé)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "09 settembre 2026"
+   },
+   "LINHAS_DE_CORPO": 0
+  },
+  {
+   "item_id": "derived:966",
+   "source_id": "IT-T5-185",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): CARIMBO_DE_LISTA «1 Settembre 2026» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "1 settembre 2026"
+   },
+   "LINHAS_DE_CORPO": 15
+  },
+  {
+   "item_id": "derived:967",
+   "source_id": "IT-T5-185",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Emilia-Romagna, Italy)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): CARIMBO_DE_LISTA «27 Agosto 2026» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 18
+  },
+  {
+   "item_id": "derived:968",
+   "source_id": "IT-T5-185",
+   "universo": "T5",
+   "fact_location": "NAO SEI",
+   "fact_location_kind": "NAO SEI",
+   "fact_location_precision": "NAO SEI",
+   "fact_location_basis": "NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto (só mencionados: Bologna, Roma, Viterbo)",
+   "fact_time": "NAO SEI",
+   "fact_time_kind": "NAO SEI",
+   "fact_time_precision": "NOT_KNOWN",
+   "fact_time_basis": "NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico; descartadas (não são tempo do facto): CARIMBO_DE_LISTA «14 Settembre 2026» · a data de publicação sozinha nunca preenche este campo",
+   "OUTROS_LUGARES": [],
+   "EXPRESSOES_RELATIVAS": [],
+   "LEITOR_SOZINHO": {
+    "LUGARES": [],
+    "TEMPO": "NOT_KNOWN"
+   },
+   "LINHAS_DE_CORPO": 18
+  }
+ ]
+}
