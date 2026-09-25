@@ -100,6 +100,12 @@ def contrato_importado(linha: dict, atual: dict | None, promocao: dict | None, q
         if k in linha:
             novo[k] = copy.deepcopy(linha[k])
     novo["ACQUISITION"] = copy.deepcopy(aq)
+    # D53: o canal YouTube entra na forma VIDEO, com saida VIDEO explicita. O coletor
+    # transporta a pagina (OUTPUT_TYPE HTML na tabela); o Curator declara o que prova.
+    # A diferenca fica escrita na proveniencia, e a guarda de impressao compara a rota.
+    video = aq.get("STRATEGY") == "CUSTOM_ADAPTER" and aq.get("ADAPTER_ID") == YOUTUBE_CANAL
+    if video:
+        novo["FORMA"], novo["OUTPUT_TYPE"] = "VIDEO", "VIDEO"
     # a identidade: a da linha, senao a que o Curator ja tinha (YouTube: por video), senao
     # a que o coletor gera. Sem nenhuma, o canario nao da nome ao documento: nao se importa.
     ident = linha.get("IDENTITY") or (atual or {}).get("IDENTITY") or identidade
@@ -115,6 +121,7 @@ def contrato_importado(linha: dict, atual: dict | None, promocao: dict | None, q
         "SHA256_DA_LINHA": SHA.do_contrato(linha),
         "POR": MISSAO,
         "ACQUISITION_ANTERIOR_NO_CURATOR": anterior,
+        "OUTPUT_TYPE_NO_COLETOR": linha.get("OUTPUT_TYPE"),
         "NOTA": ("contrato de HOJE, igual ao que o coletor executa; nao promove: a fonte vai "
                  "ao canario com as reguas atuais (ready_split.remedir)"),
     }
@@ -129,7 +136,8 @@ def contrato_importado(linha: dict, atual: dict | None, promocao: dict | None, q
     # a marca de contrato novo que o gatilho ja sabe ler (gatilho_discovery.candidatas_a_revalidar)
     novo["CONTRATO_UNICO"] = {"APLICADO_EM": quando, "ORIGEM": "tabela do coletor",
                               "SHA256": SHA.do_contrato(novo)}
-    if SHA.do_contrato(novo) != SHA.do_contrato(linha):
+    comparavel = dict(novo, OUTPUT_TYPE=linha.get("OUTPUT_TYPE")) if video else novo
+    if SHA.do_contrato(comparavel) != SHA.do_contrato(linha):
         raise ImportacaoInvalida("%s: o contrato importado nao e o da linha" % linha.get("SOURCE_ID"))
     return novo
 

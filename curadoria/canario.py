@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import html as _html
 import re
 import ssl
 import sys
@@ -158,6 +159,62 @@ def canario_youtube_canal(c: dict) -> dict:
     return {"PASS": True, "CLASSE": "OK", "HTTP": st, "ROTA": "CANAL_PUBLICO",
             "DOCUMENT_ID": modelo.replace("{video.videoId}", vids[0].decode()),
             "ITENS_NO_CANAL": len(vids), "DETAIL_ENUMERATED": len(vids)}
+
+
+FORMA_VIDEO = "VIDEO"
+
+
+def url_do_video(video_id: str) -> str:
+    return "https://www.youtube.com/watch?v=%s" % video_id
+
+
+def _meta(b: bytes, *padroes: bytes) -> str | None:
+    for p in padroes:
+        m = re.search(p, b)
+        if m:
+            return _html.unescape(m.group(1).decode("utf-8", "replace")).strip()
+    return None
+
+
+def retrato_do_video(b: bytes) -> dict:
+    """As quatro coisas que a D53 pede, lidas da pagina publica do video. Sem rede."""
+    return {
+        "TITULO": _meta(b, rb'<meta name="title" content="([^"]*)"', rb'<meta property="og:title" content="([^"]*)"'),
+        "PUBLICATION_TIME": _meta(b, rb'<meta itemprop="datePublished" content="([^"]*)"',
+                                  rb'"publishDate":"([^"]+)"', rb'"uploadDate":"([^"]+)"'),
+        "CANAL": _meta(b, rb'<meta itemprop="channelId" content="([^"]*)"',
+                       rb'"videoDetails":\{[^{}]*?"channelId":"(UC[\w-]{22})"',
+                       rb'"externalChannelId":"(UC[\w-]{22})"'),
+    }
+
+
+def canario_video(c: dict) -> dict:
+    """D53: a rota VIDEO. Dois pedidos a mesma plataforma (a aba /videos do canal e a pagina
+    de UM video) — com o robots do VALIDATE_ROUTE sao 3 por fonte, dentro da D38 (YouTube =
+    uma plataforma, 5 por corrida: um canal por corrida). A transcricao NAO se vai buscar."""
+    aq = c["ACQUISITION"]
+    cid = aq.get("CHANNEL_ID") or ""
+    st, b, err = buscar(url_do_canal(cid))
+    if st != 200 or not b:
+        return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err or "HTTP %s" % st, "HTTP": st}
+    if cid.encode() not in b:
+        return {"PASS": False, "CLASSE": "ROUTE_FAILURE", "HTTP": st, "PORQUE": "a pagina nao e do canal %s" % cid}
+    vids = list(dict.fromkeys(re.findall(rb'"videoId":"([A-Za-z0-9_-]{11})"', b)))
+    if not vids:
+        return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st,
+                "PORQUE": "canal sem videos na aba /videos — EMPTY_LIST"}
+    vid = vids[0].decode()
+    st2, b2, err2 = buscar(url_do_video(vid))
+    item = {"URL": url_do_video(vid), "HTTP": st2, "FORMA": FORMA_VIDEO,
+            "COLLECTION_TIME": datetime.now(timezone.utc).isoformat(), "FACT_TIME": "UNKNOWN"}
+    if st2 != 200 or not b2:
+        return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err2 or "HTTP %s no video" % st2, "HTTP": st2,
+                "DETAIL_ENUMERATED": len(vids), "ITEM_ABERTO": item}
+    item.update(retrato_do_video(b2))
+    modelo = ((c.get("IDENTITY") or {}).get("DOCUMENT_ID") or "%s:YT:{video.videoId}" % c.get("SOURCE_ID", "?"))
+    return {"PASS": True, "CLASSE": "OK", "HTTP": st2, "ROTA": "VIDEO",
+            "DOCUMENT_ID": modelo.replace("{video.videoId}", vid),
+            "DETAIL_ENUMERATED": len(vids), "ITEM_ABERTO": item}
 
 
 def _regua_manda(source_id) -> bool:

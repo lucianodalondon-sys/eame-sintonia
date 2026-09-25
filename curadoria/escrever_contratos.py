@@ -110,7 +110,8 @@ def contrato_youtube(n: dict, f: dict, native: str) -> dict:
         # `feeds/videos.xml` esta em Disallow no robots do YouTube: um contrato novo
         # nascido com ele parava no VALIDATE_ROUTE, como as 41 READY_LEGACY.
         "BATCH_ID": "LOTE-YOUTUBE-CANAL",
-        "OUTPUT_TYPE": "HTML",
+        "OUTPUT_TYPE": "VIDEO",          # D53: rota VIDEO explicita
+        "FORMA": "VIDEO",
         "CANONICAL_ENTRY_URL": n["URL"],
         "SOURCE_NATIVE_ID": native or "NAO SEI",
         "SOURCE_NATIVE_ID_KIND": "YOUTUBE_CHANNEL_ID",

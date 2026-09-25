@@ -33,7 +33,7 @@ TABELA = RAIZ / "curadoria" / "italy_contracts_curator.json"
 # o motor de rota so conhece estas; inventar uma terceira seria criar um
 # segundo motor, e um segundo motor diverge
 STRATEGIES = {"HTML_LINK_DISCOVERY", "STATIC_ENDPOINT", "YOUTUBE_CHANNEL_FEED"}
-OUTPUTS = {"HTML", "PDF", "VIDEO_METADATA"}
+OUTPUTS = {"HTML", "PDF", "VIDEO_METADATA", "VIDEO"}   # VIDEO: D53 (rota VIDEO explicita)
 ROTAS = {"DISCOVERED_ROUTE", "STATIC_ROUTE", "APPLICATION_ROUTE"}
 
 OBRIGATORIOS = ("SOURCE_ID", "OWNER", "TERRITORY", "BATCH_ID", "OUTPUT_TYPE",
@@ -121,7 +121,7 @@ def output_resolved(c: dict) -> tuple[bool, str]:
     return True, "falhas declaradas e fecham"
 
 
-FORMAS = frozenset({"PAGINA_E_BOLETIM"})
+FORMAS = frozenset({"PAGINA_E_BOLETIM", "VIDEO"})
 
 
 def form_resolved(c: dict) -> tuple[bool, str]:
@@ -137,6 +137,18 @@ def form_resolved(c: dict) -> tuple[bool, str]:
         return False, "FORMA fora do vocabulario %s: %r" % (sorted(FORMAS), forma)
     aq = c.get("ACQUISITION") or {}
     idt = c.get("IDENTITY") or {}
+    if forma == "VIDEO":
+        # D53: a rota VIDEO, no desenho da D42 — o canal publico que o coletor ja usa, saida
+        # VIDEO explicita, e a identidade e o VIDEO (nunca a pagina do canal)
+        if aq.get("STRATEGY") != "CUSTOM_ADAPTER" or aq.get("ADAPTER_ID") != "CANAL_PUBLICO_YOUTUBE_V1":
+            return False, "VIDEO exige CUSTOM_ADAPTER CANAL_PUBLICO_YOUTUBE_V1 (a rota do canal)"
+        if not re.match(r"^UC[\w-]{22}$", str(aq.get("CHANNEL_ID") or "")):
+            return False, "VIDEO exige CHANNEL_ID do YouTube (UC + 22)"
+        if c.get("OUTPUT_TYPE") != "VIDEO":
+            return False, "VIDEO exige OUTPUT_TYPE VIDEO (explicito)"
+        if "{video.videoId}" not in str(idt.get("DOCUMENT_ID")):
+            return False, "VIDEO exige DOCUMENT_ID pelo video ({video.videoId})"
+        return True, "rota VIDEO: canal publico, saida VIDEO, identidade pelo video"
     if aq.get("STRATEGY") != "STATIC_ENDPOINT" or not aq.get("URL"):
         return False, "PAGINA_E_BOLETIM exige STATIC_ENDPOINT com URL"
     if c.get("OUTPUT_TYPE") != "HTML":

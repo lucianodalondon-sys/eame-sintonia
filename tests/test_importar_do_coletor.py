@@ -71,10 +71,10 @@ class ContratoImportado(unittest.TestCase):
         self.assertIn("APLICADO_EM", c["CONTRATO_UNICO"])
 
     def test_se_sobrar_algo_do_contrato_antigo_na_impressao_recusa(self):
-        # linha sem OUTPUT_TYPE: o VIDEO_METADATA do curador ficava — outro contrato
-        linha = {k: v for k, v in YT_LINHA.items() if k != "OUTPUT_TYPE"}
+        # linha HTML sem OUTPUT_TYPE: o PDF que o curador tinha ficava — outro contrato
+        linha = {k: v for k, v in HTML.items() if k != "OUTPUT_TYPE"}
         with self.assertRaises(I.ImportacaoInvalida):
-            I.contrato_importado(linha, YT_CURADOR, PROMO, "t")
+            I.contrato_importado(linha, dict(HTML, OUTPUT_TYPE="PDF"), PROMO, "t", identidade=IDENT)
 
     def test_pdf_nao_se_importa(self):
         with self.assertRaises(I.ImportacaoInvalida):
@@ -86,7 +86,11 @@ class ContratoImportado(unittest.TestCase):
         self.assertNotIn("FEED_URL", c["ACQUISITION"])
         self.assertEqual("SOURCE_ID != CHANNEL_ID", c["LEI_DA_IDENTIDADE"])
         self.assertEqual(YT_CURADOR["ACQUISITION"], c["PROVENIENCIA_DO_CONTRATO"]["ACQUISITION_ANTERIOR_NO_CURATOR"])
-        self.assertEqual(SHA.do_contrato(YT_LINHA), SHA.do_contrato(c))
+        # D53: o Curator declara a forma VIDEO; a rota e a do coletor, byte a byte
+        self.assertEqual(("VIDEO", "VIDEO"), (c["FORMA"], c["OUTPUT_TYPE"]))
+        self.assertEqual("HTML", c["PROVENIENCIA_DO_CONTRATO"]["OUTPUT_TYPE_NO_COLETOR"])
+        self.assertEqual(YT_LINHA["ACQUISITION"], c["ACQUISITION"])
+        self.assertEqual(SHA.do_contrato(YT_LINHA), SHA.do_contrato(dict(c, OUTPUT_TYPE="HTML")))
 
 
 class Plano(unittest.TestCase):
@@ -222,7 +226,8 @@ class CanalYouTube(unittest.TestCase):
         c = EC.contrato_youtube({"SOURCE_ID": "IT-T10-017", "NOME": "Canale", "TERRITORY": "T10",
                                  "URL": "https://www.youtube.com/@x"}, {}, CID)
         self.assertEqual(YT_LINHA["ACQUISITION"], c["ACQUISITION"])
-        self.assertEqual(SHA.do_contrato(YT_LINHA), SHA.do_contrato(c))
+        self.assertEqual(("VIDEO", "VIDEO"), (c["FORMA"], c["OUTPUT_TYPE"]))
+        self.assertEqual(SHA.do_contrato(YT_LINHA), SHA.do_contrato(dict(c, OUTPUT_TYPE="HTML")))
         self.assertNotIn("feeds/videos.xml", json.dumps(c))
 
 

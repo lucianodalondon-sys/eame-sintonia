@@ -53,7 +53,13 @@ REGUA_LEGACY = "LEGACY"
 # impressao do conteudo recortado). Uma fonte dessa forma nunca passa a DETAIL/v1 (nao tem itens),
 # e uma de lista nunca passa a PAGINA_BOLETIM/v1: a forma e explicita no contrato.
 REGUA_PAGINA_BOLETIM = "PAGINA_BOLETIM/v1"
-REGUAS_CORRENTES = frozenset({REGUA_CURRENT, REGUA_PAGINA_BOLETIM})
+# D53: a regua irma para a forma VIDEO (FORMA = VIDEO), no desenho da D42. Um video nao
+# e uma noticia HTML: nao tem corpo de 800 caracteres em paragrafos, e a regua DETAIL/v1
+# reprova-o sempre (medido: IT-T10-017, «falta ITEM_ABERTO,BODY_UTIL»). A prova minima e
+# a D53: a pagina publica do video, o titulo, a data de publicacao e o canal. A transcricao
+# so conta quando o Scrap a trouxer — nunca se inventa, nunca e exigida.
+REGUA_VIDEO = "VIDEO/v1"
+REGUAS_CORRENTES = frozenset({REGUA_CURRENT, REGUA_PAGINA_BOLETIM, REGUA_VIDEO})
 BOLETIM_MINIMO = 300
 OUTRO_LIVRO = "f98f234c"   # a arvore final de aquisicao-detalhe-v1
 
@@ -121,6 +127,8 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
         return {"REGUA": "NAO SEI", "PASSOS": passos, "PORQUE": "nunca promovida"}
     if (contrato or {}).get("FORMA") == "PAGINA_E_BOLETIM":
         return _passos_pagina_boletim(promocao, evidencia, contrato)
+    if (contrato or {}).get("FORMA") == "VIDEO":
+        return _passos_video(promocao, evidencia, contrato)
     dados = (evidencia or {}).get("DADOS") or {}
     acq = ((contrato or {}).get("ACQUISITION") or {})
     index = acq.get("INDEX_URL") or (contrato or {}).get("CANONICAL_ENTRY_URL") or ""
@@ -204,6 +212,39 @@ def _passos_pagina_boletim(promocao: dict, evidencia: dict | None, contrato: dic
                 "PORQUE": "a pagina e o boletim: identidade pelo motor, corpo recortado, recolha mutavel"}
     return {"REGUA": REGUA_LEGACY, "PASSOS": passos, "INFO": info,
             "PORQUE": "PASS_PARCIAL (pagina = boletim): falta %s" % ",".join(k for k, v in passos.items() if not v)}
+
+
+_WATCH = re.compile(r"^https://www\.youtube\.com/watch\?v=[A-Za-z0-9_-]{11}$")
+_DATA = re.compile(r"^\d{4}-\d{2}-\d{2}")
+
+
+def _passos_video(promocao: dict, evidencia: dict | None, contrato: dict | None) -> dict:
+    """VIDEO/v1 — as QUATRO provas da D53 NA EVIDENCIA do canario da forma, mais o contrato
+    (saida VIDEO explicita e atual). Falta qualquer uma = reprova. Os tres tempos ficam
+    SEPARADOS: PUBLICATION_TIME (o que a pagina diz), FACT_TIME (UNKNOWN: a data do video
+    nao e a data do facto) e COLLECTION_TIME (quando o canario o viu)."""
+    dados = (evidencia or {}).get("DADOS") or {}
+    item = dados.get("ITEM_ABERTO") or {}
+    c = contrato or {}
+    canal = (c.get("ACQUISITION") or {}).get("CHANNEL_ID")
+    passos = {
+        "PAGINA_DO_VIDEO": (item.get("FORMA") == "VIDEO" and item.get("HTTP") == 200
+                            and bool(_WATCH.match(str(item.get("URL") or "")))),
+        "TITULO": len(str(item.get("TITULO") or "").strip()) >= 3,
+        "DATA_DE_PUBLICACAO": bool(_DATA.match(str(item.get("PUBLICATION_TIME") or ""))),
+        "CANAL": bool(canal) and item.get("CANAL") == canal,
+        "SAIDA_VIDEO": c.get("OUTPUT_TYPE") == "VIDEO",
+        "CONTRATO_ATUAL": _contrato_atual(promocao, c),
+    }
+    info = {"PUBLICATION_TIME": item.get("PUBLICATION_TIME") or "UNKNOWN",
+            "FACT_TIME": "UNKNOWN",
+            "COLLECTION_TIME": item.get("COLLECTION_TIME") or promocao.get("OBSERVED_AT"),
+            "TRANSCRICAO": item.get("TRANSCRICAO") or "NAO_TRAZIDA (so quando o Scrap a trouxer)"}
+    if all(passos.values()):
+        return {"REGUA": REGUA_VIDEO, "PASSOS": passos, "INFO": info,
+                "PORQUE": "video: pagina publica, titulo, data de publicacao e canal provados"}
+    return {"REGUA": REGUA_LEGACY, "PASSOS": passos, "INFO": info,
+            "PORQUE": "PASS_PARCIAL (video): falta %s" % ",".join(k for k, v in passos.items() if not v)}
 
 
 def e_corrente(regua: str | None) -> bool:
