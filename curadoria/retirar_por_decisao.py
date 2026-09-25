@@ -133,7 +133,11 @@ def main(argv=None) -> int:
     ap.add_argument("--escrever", action="store_true")
     a = ap.parse_args(argv)
     dec = ler_decisao(a.decisao)
-    texto = Path(a.livro).read_text(encoding="utf-8")
+    bruto = Path(a.livro).read_bytes()
+    # o livro vivo e gravado pelo worker com `write_text` no Windows (CRLF, sem quebra final): a porta
+    # devolve-o no MESMO estilo — reverter tem de dar os mesmos bytes, nao so o mesmo conteudo
+    quebra = "\r\n" if b"\r\n" in bruto else "\n"
+    texto = bruto.decode("utf-8").replace("\r\n", "\n")
     fim = "\n" if texto.endswith("\n") else ""
     livro = json.loads(texto)
     try:
@@ -147,7 +151,7 @@ def main(argv=None) -> int:
         if x["ACAO"] == "SALTA":
             print(json.dumps(x, ensure_ascii=False))
     if a.escrever and any(x["ACAO"] in ("APLICA", "REVERTE") for x in acoes):
-        with open(a.livro, "w", encoding="utf-8", newline="\n") as f:
+        with open(a.livro, "w", encoding="utf-8", newline=quebra) as f:
             f.write(json.dumps(depois, ensure_ascii=False, indent=1) + fim)
         print("escrito:", a.livro)
     return 0

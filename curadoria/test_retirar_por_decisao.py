@@ -82,6 +82,20 @@ class TestD52(unittest.TestCase):
         self.assertEqual(json.dumps(antes, ensure_ascii=False, indent=1), json.dumps(de_volta, ensure_ascii=False, indent=1))
         self.assertEqual(62, sum(1 for x in acoes if x["ACAO"] == "REVERTE"))
 
+    def test_pela_linha_de_comando_reverter_da_os_mesmos_bytes_mesmo_em_crlf(self):
+        # o livro vivo e gravado pelo worker com write_text no Windows: CRLF e sem quebra final
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / "livro.json"
+            original = json.dumps(_livro(), ensure_ascii=False, indent=1).replace("\n", "\r\n").encode("utf-8")
+            p.write_bytes(original)
+            self.assertEqual(0, R.main(["--decisao", "D52", "--livro", str(p)]))
+            self.assertEqual(original, p.read_bytes(), "sem --escrever nao se escreve")
+            self.assertEqual(0, R.main(["--decisao", "D52", "--livro", str(p), "--escrever"]))
+            self.assertNotEqual(original, p.read_bytes())
+            self.assertIn(b"\r\n", p.read_bytes())
+            self.assertEqual(0, R.main(["--decisao", "D52", "--livro", str(p), "--reverter", "--escrever"]))
+            self.assertEqual(original, p.read_bytes())
+
     def test_outra_marca_nao_e_pisada_nem_revertida(self):
         antes = _livro()
         antes["FONTES"][0]["ESTADO_CATALOGO"] = R.RETIRADA
