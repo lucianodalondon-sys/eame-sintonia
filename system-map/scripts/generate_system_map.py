@@ -222,6 +222,13 @@ FAMILIA_DA_ZONA = {"Z-PROVA": "F-GOVERNANCA", "Z-REGUAS": "F-GOVERNANCA",
                    "Z-GUARDA": "F-COLETA",
                    "Z-EXECUCAO": "F-COLETA", "Z-ACOES": "F-COLETA"}
 
+# O facto do cartao «Linha que consome» NAO carrega o nome da branch: aponta
+# para onde ele vive. O nome muda com o checkout; este texto nao. A tela
+# (`system-map/app/map.js`) procura ESTE texto exacto e desenha no lugar dele
+# `branch <PROVENANCE.BRANCH>` — o teste `test_ramo_nao_entra_no_mapa.py`
+# reprova se as duas pontas deixarem de dizer a mesma coisa.
+FACTO_DO_RAMO = "branch · ver PROVENANCE.BRANCH"
+
 
 def linhagem() -> list:
     """As pecas da zona LINHAGENS E DONOS.
@@ -262,11 +269,6 @@ def linhagem() -> list:
                       "legacy": False, "changed_since_declared": [],
                       "inbound": [], "outbound": []})
 
-    def git_(*a):
-        return subprocess.run(["git", "-C", str(RAIZ), *a], capture_output=True,
-                              text=True, encoding="utf-8", errors="replace").stdout.strip()
-
-    ramo, head = git_("rev-parse", "--abbrev-ref", "HEAD"), git_("rev-parse", "HEAD")
     no("lineage_consumer", "Linha que consome (esta arvore)", "branch consumidora", "B",
        VERDE,
        "E a branch onde este mapa foi medido. Ela consome inteligencia; nao e dona do gerador.",
@@ -286,12 +288,24 @@ def linhagem() -> list:
        #     UM PORTAO ANTI-DRIFT QUE NENHUM COMMIT PODE SATISFAZER
        #     NAO MEDE DRIFT: MEDE O RELOGIO.
        #
-       # A BRANCH fica, porque e o facto arquitetural — quem consome. O commit
-       # e proveniencia, e continua inteiro em PROVENANCE.HEAD, que e onde o
-       # validador ja sabe nao olhar.
-       [f"branch {ramo}"],
+       # ⚠️ E A BRANCH SAIU DAQUI PELA MESMA RAZAO (D50 · missao MAPA-RAMO).
+       # O comentario acima dizia «a BRANCH fica, porque e o facto
+       # arquitetural». Medido, era o mesmo vazamento do HEAD: o nome da
+       # branch mudava com o CHECKOUT, nao com a arquitetura — `integra-onda2-v1`
+       # no commitado, `HEAD` num checkout destacado, `servico-...` no vivo. O
+       # MESMO COMMIT passava numa branch e reprovava noutra (P1_SEM_DRIFT).
+       #
+       #     UM PORTAO QUE MUDA DE VEREDITO COM O NOME DO CHECKOUT
+       #     NAO MEDE A ARVORE: MEDE QUEM A ABRIU.
+       #
+       # O nome continua medido e continua a tela: vive em PROVENANCE.BRANCH
+       # (e o validador ja sabe nao olhar la), e o cartao aponta para ele com
+       # um facto CONSTANTE. A tela troca o ponteiro pelo valor ao desenhar.
+       [FACTO_DO_RAMO],
        "Medido pelo proprio git desta arvore no momento em que o mapa foi gerado.",
-       "o git prova a branch; o commit exacto vive em PROVENANCE.HEAD.",
+       "o git prova a branch; o nome dela vive em PROVENANCE.BRANCH e o commit "
+       "exacto em PROVENANCE.HEAD — os dois mudam com o checkout, nao com a "
+       "arquitetura.",
        proof="git-measurement")
 
     if not contrato.exists():

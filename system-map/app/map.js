@@ -149,6 +149,13 @@ const VISOES = [
 ];
 
 let S, nodes = [], edges = [], nodeById = {}, MUNDO = { w: 1, h: 1 };
+/* O nome da branch NAO vive nos factos do mapa: muda com o checkout, e o
+   validador reprovava o mesmo commit numa branch e nao noutra (D50). O gerador
+   escreve este ponteiro constante (FACTO_DO_RAMO em generate_system_map.py) e a
+   tela poe no lugar dele o valor medido, que vive em PROVENANCE.BRANCH. */
+const FACTO_DO_RAMO = 'branch · ver PROVENANCE.BRANCH';
+const facto = f => (f === FACTO_DO_RAMO && S && S.PROVENANCE && S.PROVENANCE.BRANCH)
+  ? `branch ${S.PROVENANCE.BRANCH}` : f;
 let scale = .145, tx = 8, ty = 18, drag = false, lx = 0, ly = 0;
 let currentView = 'all', pathSet = null, hoverId = null;
 /* As partes ligam-se em conjunto, nao uma de cada vez. Ver COLETA e A ESPERA
@@ -235,7 +242,7 @@ function render() {
            Ele continua a vista — escondido seria pior — mas atras do que a
            pessoa esta mesmo a perguntar. -->
       <div class="nodeFiles" title="${esc((n.files || []).join(' · '))}">${
-        esc((n.files.length ? n.files : n.facts || [])
+        esc((n.files.length ? n.files : (n.facts || []).map(facto))
         .slice(0, 2).join(' · ') || 'sem ficheiro')}</div>
     </div>`).join('');
 
@@ -799,7 +806,7 @@ function openDetail(id) {
         quem esta peça alimenta (${sai.length})</h4>${lig(sai, 'out')}</div>
 
       ${n.facts?.length ? `<div class="sec"><h4>Medido</h4>${
-        n.facts.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
+        n.facts.map(f => `<div class="file">${esc(facto(f))}</div>`).join('')}</div>` : ''}
 
       ${n.produces?.length ? `<div class="sec">
         <h4>O que esta peça produz (${n.produces.length})</h4>

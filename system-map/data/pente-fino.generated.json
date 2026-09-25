@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T09:52:33+00:00",
-    "HEAD": "3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1",
+    "GENERATED_AT": "2026-09-25T11:06:17+00:00",
+    "HEAD": "290e734973905d15878fc0ea60a8d797d9a7eddc",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
-    "FICHEIROS_NA_IMPRESSAO": 3125,
+    "SOURCE_TREE_FINGERPRINT": "400eda0c03d652d222a84a65eb4f3b30b04fb32af95a5146b459909a455c4c8c",
+    "FICHEIROS_NA_IMPRESSAO": 3126,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -125,20 +125,20 @@
       {
         "PATH": ".github/workflows/system-map.yml",
         "PAPEL": "FONTE",
-        "VERSAO": "f5f756a18b5403848f6dc1d75aa728b193c647a3",
+        "VERSAO": "fc1e13d30bc1ebe53595e257e67ac630b4c57634",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a",
+        "VERSAO": "400eda0c03d652d222a84a65eb4f3b30b04fb32af95a5146b459909a455c4c8c",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "0a48ca6e8d86bfa5da48f4c58d9983ba346a3e101483993d4c628cec53ddca8d",
+    "INPUTS_DIGEST": "14e30e74868c4a2542c2f81e9e5bb987d8b7dae9ba36e377d21cfbd6d3c0b788",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -407,6 +407,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-EU-REGULATORIO-COLETA",
+      "nome": "Colher o ato regulatório da UE",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
       "id": "C-ONDA-WEB",
       "nome": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)",
       "zona": "· as ferramentas da execucao",
@@ -518,10 +530,10 @@
       "id": "C-DONO-DO-DOCUMENTO",
       "nome": "O dono canônico do documento estruturado (OBSERVED)",
       "zona": "A SALA DE ESPERA",
-      "de_onde_vem": false,
+      "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
-      "alguem_corre": true,
+      "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 1,
       "estado": "yellow"
@@ -731,18 +743,6 @@
       "estado": "green"
     },
     {
-      "id": "C-EU-REGULATORIO-COLETA",
-      "nome": "Colher o ato regulatório da UE",
-      "zona": "· os executores",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 1,
-      "estado": "yellow"
-    },
-    {
       "id": "C-COLETA-PUBLICA",
       "nome": "Colher o que o concorrente publica",
       "zona": "· os executores",
@@ -913,8 +913,8 @@
   ],
   "RESUMO": {
     "pecas_da_coleta": 64,
-    "respondem_as_quatro": 26,
-    "respondem_a_tres": 27,
+    "respondem_as_quatro": 25,
+    "respondem_a_tres": 28,
     "respondem_a_duas": 8,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
