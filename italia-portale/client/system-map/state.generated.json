@@ -298,6 +298,7 @@
       "coleta/preservar_pdf.py",
       "coleta/regulatorio_importar.py",
       "coleta/retrato_html.mjs",
+      "coleta/robots_rfc9309.py",
       "coleta/ropf_pre_requisito.py",
       "coleta/rota_forward_documento.py",
       "coleta/rotulos_baixar.py",
@@ -2289,6 +2290,11 @@
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
+      "provas/robots_rfc/ROBOTS-BAIXADOS.sha256",
+      "provas/robots_rfc/ROBOTS-COM-REDE.json",
+      "provas/robots_rfc/ROBOTS-LIVRO-INTEIRO.json",
+      "provas/robots_rfc/medir_robots_com_rede.py",
+      "provas/robots_rfc/medir_robots_livro.py",
       "provas/run_duravel_no_postgres.py",
       "provas/runtime_comum_no_postgres.py",
       "provas/runtime_pago_no_postgres.py",
@@ -2899,6 +2905,7 @@
       "tests/test_relevance_priority_sobrecarga.py",
       "tests/test_retirada_por_decisao.py",
       "tests/test_retorno_da_coleta.py",
+      "tests/test_robots_rfc9309.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
       "tests/test_sala_duravel.py",
@@ -2975,16 +2982,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "20 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-EVIDENCE-V1.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py … e mais 12",
+      "titulo": "18 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py · status_live.py · supervisor.py … e mais 10",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "curadoria/CATALOGO-PROVA-V1.json",
         "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/GABARITO-T2-T12-V3.json",
-        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
-        "curadoria/LIFECYCLE-LEDGER-V1.json",
-        "curadoria/LIFECYCLE-QUEUE-V1.json"
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/RED-TEAM-TELEMETRIA-V1.json",
+        "curadoria/red_team_telemetria.py"
       ]
     },
     {
@@ -3450,10 +3457,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "reparo-fontes-v2",
-    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
-    "GENERATED_AT": "2026-09-24T19:11:05-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1"
+    "BRANCH": "robots-rfc9309-v1",
+    "HEAD": "732be16dae42a7fa8da6c0a15a088379a5dfd60c",
+    "GENERATED_AT": "2026-09-25T02:04:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ef2cb7d320ed895d8afe623cda7b9b59143f7096129a265eae7be38817f6f107"
   },
   "FAMILIES": [
     {
@@ -3481,7 +3488,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 94
+      "count": 95
     },
     {
       "id": "F-ESPERA",
@@ -3524,7 +3531,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 101
+      "count": 102
     },
     {
       "id": "F-ENTREGA",
@@ -3692,7 +3699,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 18
+      "count": 19
     },
     {
       "id": "Z-GUARDA",
@@ -3896,7 +3903,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 83
+      "count": 84
     },
     {
       "id": "Z-REFERENCIA",
@@ -4953,8 +4960,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 620",
-        "desses, mostrados aqui: 40 (ficam de fora 580)"
+        "enderecos que o codigo realmente chama: 625",
+        "desses, mostrados aqui: 40 (ficam de fora 585)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -35208,6 +35215,7 @@
         "C-DESBLOQUEIO-PACOTE",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
+        "C-PROVA-ROBOTS-RFC",
         "C-RECEITAS-PROPOSTA",
         "C-REPARO-MEDICAO",
         "C-SCRAP-SOCIAL",
@@ -35219,12 +35227,11 @@
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
         "handoff/paused-v2/MANIFESTO.json"
       ],
-      "parado_na_coleta": [
-        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
-        "curadoria/LIFECYCLE-LEDGER-V1.json"
-      ],
+      "parado_na_coleta": [],
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
@@ -47210,7 +47217,8 @@
         "C-IT-CONTRATOS",
         "C-IT-INCREMENTALIDADE",
         "C-IT-NORMALIZACAO",
-        "C-IT-PRESERVAR"
+        "C-IT-PRESERVAR",
+        "C-ROBOTS-RFC9309"
       ],
       "outbound": [
         "C-CENSO-UNIFICACAO",
@@ -47711,6 +47719,106 @@
       "y": 7122
     },
     {
+      "id": "C-PROVA-ROBOTS-RFC",
+      "name": "A leitura RFC 9309 medida no livro inteiro (D34) — offline e com rede",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Mede, fonte a fonte, a leitura ANTIGA (urllib.robotparser, reproduzida de proposito) contra a NOVA (coleta/robots_rfc9309.py). Offline sobre os robots que o robo guardou (cortados aos 120 caracteres: 228 sem a regra que decidia) e com rede: 300 sites, 1 pedido cada, portao de consenso IT; 703 fontes: abrem 2 (403), fecham 50 (37 HTML no lugar do robots, 13 por regra real com curinga), 9 delas READY que o coletor ja recusava.",
+      "why_here": "A D34 pediu a medicao antes de instalar: quantas mudam, em que sentido, com o caminho e a regra que decidiu. Uma proibicao real tem de continuar bloqueada (53 continuam).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "diagnostic",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/robots_rfc/ROBOTS-BAIXADOS.sha256",
+        "provas/robots_rfc/ROBOTS-COM-REDE.json",
+        "provas/robots_rfc/ROBOTS-LIVRO-INTEIRO.json",
+        "provas/robots_rfc/medir_robots_com_rede.py",
+        "provas/robots_rfc/medir_robots_livro.py"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-ROBOTS-RFC9309"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/robots_rfc/ROBOTS-COM-REDE.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "provas/robots_rfc/medir_robots_com_rede.py abre ligacao de rede: vai buscar dado fora da arvore",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (provas/robots_rfc/medir_robots_com_rede.py abre ligacao de rede: vai buscar dado fora da arvore) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+        "curadoria/LIFECYCLE-LEDGER-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_c10_5_collection_flow.py:361"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 22095,
+      "y": 7122
+    },
+    {
       "id": "C-PROVA-ROTA-DO-HTML",
       "name": "As provas da rota do HTML",
       "territory": "Z-PROVA",
@@ -47828,8 +47936,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
-      "y": 7122
+      "x": 21265,
+      "y": 7444
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -47930,7 +48038,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7444
     },
     {
@@ -48074,7 +48182,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 7444
     },
     {
@@ -48171,8 +48279,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
-      "y": 7444
+      "x": 21265,
+      "y": 7766
     },
     {
       "id": "C-PROVA-SALA-ITALIANA",
@@ -48283,7 +48391,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7766
     },
     {
@@ -48394,7 +48502,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 7766
     },
     {
@@ -48482,8 +48590,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
-      "y": 7766
+      "x": 21265,
+      "y": 8088
     },
     {
       "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -48566,7 +48674,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8088
     },
     {
@@ -48662,7 +48770,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8088
     },
     {
@@ -49043,8 +49151,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
-      "y": 8088
+      "x": 21265,
+      "y": 8410
     },
     {
       "id": "C-RECEITAS",
@@ -49546,7 +49654,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8410
     },
     {
@@ -49719,7 +49827,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8410
     },
     {
@@ -49944,8 +50052,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22095,
-      "y": 8410
+      "x": 21265,
+      "y": 8732
     },
     {
       "id": "C-REGUA-T2-JANELA",
@@ -50636,8 +50744,90 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8732
+    },
+    {
+      "id": "C-ROBOTS-RFC9309",
+      "name": "O leitor unico de robots.txt da casa — RFC 9309 (D34)",
+      "territory": "Z-ACOES",
+      "kind": "library",
+      "what": "Le e decide robots.txt pela RFC 9309 para TODA a casa: grupo do nosso token (senao *), regra mais especifica vence, empate -> Allow, curingas * e $, %-escape; 4xx = sem robots (pode), 5xx/rede = NAO SEI (recusa), HTML no lugar = ilegivel (recusa). curadoria/gate_de_rota.py, curadoria/descobrir.py e coleta/scrap_http.py so buscam o ficheiro e perguntam aqui; o gemeo Node (coleta/italy_pilot_collect.mjs) le igual, com paridade testada.",
+      "why_here": "D34 (24/09): a casa tinha tres leitores Python com urllib.robotparser (primeira regra que casa, sem curingas) e o coletor lia pela norma: o Curator dizia pode onde o coletor dizia nao. Medido com rede (300 sites): 9 fontes READY tinham rotas que o coletor recusa (ARPAE Disallow: /*?, e HTML no lugar do robots); o SFR Lombardia estava fechado por um defeito de leitura.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "acervo",
+        "audit",
+        "diagnostic",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/robots_rfc9309.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-PROVA-PARIDADE",
+        "C-PROVA-ROBOTS-RFC",
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "coleta/robots_rfc9309.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/scrap_http.py:53",
+          "provas/medir_validadores_coorte.py:25",
+          "provas/robots_rfc/medir_robots_com_rede.py:27",
+          "tests/test_robots_rfc9309.py:25"
+        ],
+        "PORQUE": "estas pecas importam-na — C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 7950,
+      "y": 1648
     },
     {
       "id": "C-ROTA-M2",
@@ -50755,8 +50945,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7950,
-      "y": 1648
+      "x": 7120,
+      "y": 1970
     },
     {
       "id": "C-ROTULOS",
@@ -50930,7 +51120,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7120,
+      "x": 7535,
       "y": 1970
     },
     {
@@ -51231,7 +51421,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7535,
+      "x": 7950,
       "y": 1970
     },
     {
@@ -51699,6 +51889,7 @@
         "C-DETECTOR-CAPA-GABARITO",
         "C-MAPA-TESTES",
         "C-PROCEDENCIA",
+        "C-ROBOTS-RFC9309",
         "C-ROTA-M2",
         "C-SCRAP-EVIDENCIA",
         "C-SCRAP-GUARDA",
@@ -51846,8 +52037,8 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7950,
-      "y": 1970
+      "x": 7120,
+      "y": 2292
     },
     {
       "id": "C-SECURITY-CHECK",
@@ -51971,7 +52162,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8732
     },
     {
@@ -52444,8 +52635,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
-      "y": 8732
+      "x": 21265,
+      "y": 9054
     },
     {
       "id": "C-SUPABASE",
@@ -52717,7 +52908,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 9054
     },
     {
@@ -54758,6 +54949,7 @@
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_retirada_por_decisao.py",
         "tests/test_retorno_da_coleta.py",
+        "tests/test_robots_rfc9309.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
         "tests/test_sala_duravel.py",
@@ -54791,7 +54983,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 231,
+      "file_count": 232,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -54929,6 +55121,7 @@
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-PARIDADE",
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+        "C-PROVA-ROBOTS-RFC",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-RASTRO",
@@ -54939,6 +55132,7 @@
         "C-REGUA-T2-JANELA",
         "C-RELEVANCIA",
         "C-RELEVANCIA-DA-FONTE",
+        "C-ROBOTS-RFC9309",
         "C-ROTA-M2",
         "C-ROTULOS",
         "C-SALA-DE-ESPERA",
@@ -54994,7 +55188,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 53,
+        "ITALIA": 54,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -55093,13 +55287,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1293,
+        "palavras": 1335,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1281,
+        "sem_marca_de_lingua": 1323,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -55236,6 +55430,7 @@
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_recurrent_collect.mjs",
         "coleta/retrato_html.mjs",
+        "coleta/robots_rfc9309.py",
         "coleta/rota_forward_documento.py",
         "coleta/scrap_capacidades.py",
         "coleta/scrap_colheita.py",
@@ -55534,6 +55729,8 @@
         "provas/qualidade_t3.py",
         "provas/recollection_http_local.mjs",
         "provas/red_team_adama_referencia.py",
+        "provas/robots_rfc/medir_robots_com_rede.py",
+        "provas/robots_rfc/medir_robots_livro.py",
         "provas/superficie_do_scrap_v1.py",
         "provas/ui_revisao_t3_ptbr.py",
         "referencia/adama/AUTHORIZED-USES.json",
@@ -55657,7 +55854,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 9054
     },
     {
@@ -57553,7 +57750,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch reparo-fontes-v2"
+        "branch robots-rfc9309-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -63226,7 +63423,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 761,
+          "line": 763,
           "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-COLETA",
@@ -63694,7 +63891,7 @@
       "evidence": [
         {
           "file": "provas/medir_validadores_coorte.py",
-          "line": 54,
+          "line": 55,
           "snippet": "_s = _u.spec_from_file_location(\"rede_egresso\", _os.path.join(str(RAIZ), \"superficie\", \"rede.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-PARIDADE",
@@ -77763,6 +77960,57 @@
     },
     {
       "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-PROVA-ROBOTS-RFC",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta A leitura RFC 9309 medida no livro inteiro (D34) — offline e com rede. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/robots_rfc/medir_robots_livro.py",
+          "line": 57,
+          "snippet": "provas = json.loads((COPIAS / \"LIFECYCLE-EVIDENCE-V1.json\").read_text(encoding=\"utf-8\"))[\"PROVAS\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-ROBOTS-RFC",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-ROBOTS-RFC",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/robots_rfc/medir_robots_livro.py",
+          "line": 58,
+          "snippet": "livro = json.loads((COPIAS / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-ROBOTS-RFC",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-ROBOTS-RFC",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
       "to": "C-RECEITAS-PROPOSTA",
       "type": "READS",
       "payload": "artefacto",
@@ -88567,7 +88815,7 @@
       "evidence": [
         {
           "file": "provas/cortesia_http_local.mjs",
-          "line": 82,
+          "line": 84,
           "snippet": "const M = await import(\"../coleta/italy_pilot_collect.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
@@ -89089,7 +89337,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -89877,7 +90125,7 @@
       "evidence": [
         {
           "file": "provas/cortesia_http_local.mjs",
-          "line": 83,
+          "line": 85,
           "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
@@ -91934,7 +92182,7 @@
       "evidence": [
         {
           "file": "provas/cortesia_http_local.mjs",
-          "line": 94,
+          "line": 96,
           "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
@@ -105404,6 +105652,57 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-PROVA-ROBOTS-RFC",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A leitura RFC 9309 medida no livro inteiro (D34) — offline e com rede alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c10_5_collection_flow.py",
+          "line": 361,
+          "snippet": "MEDEM_O_ANTIGO = {'provas/robots_rfc/medir_robots_livro.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-ROBOTS-RFC--READS-->C-TESTES",
+            "FROM": "C-PROVA-ROBOTS-RFC",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c10_5_collection_flow.py",
+          "line": 362,
+          "snippet": "'provas/robots_rfc/medir_robots_com_rede.py'}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-ROBOTS-RFC--READS-->C-TESTES",
+            "FROM": "C-PROVA-ROBOTS-RFC",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-PROVA-ROTA-M2-ATRAVESSA",
       "to": "C-CENSO-EXECUTORES",
       "type": "READS",
@@ -108580,6 +108879,197 @@
             "EDGE_ID": "C-REVISAO-DA-EVIDENCIA--READS-->C-MAPA-TESTES",
             "FROM": "C-REVISAO-DA-EVIDENCIA",
             "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROBOTS-RFC9309",
+      "to": "C-PROVA-PARIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O leitor unico de robots.txt da casa — RFC 9309 (D34) tem o seu codigo importado por As provas da paridade de incrementalidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_validadores_coorte.py",
+          "line": 25,
+          "snippet": "import robots_rfc9309 as RR  # noqa: E402  (o leitor unico de robots.txt, D34)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROBOTS-RFC9309--IMPORTS-->C-PROVA-PARIDADE",
+            "FROM": "C-ROBOTS-RFC9309",
+            "TO": "C-PROVA-PARIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROBOTS-RFC9309",
+      "to": "C-PROVA-ROBOTS-RFC",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O leitor unico de robots.txt da casa — RFC 9309 (D34) tem o seu codigo importado por A leitura RFC 9309 medida no livro inteiro (D34) — offline e com rede. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/robots_rfc/medir_robots_com_rede.py",
+          "line": 27,
+          "snippet": "import robots_rfc9309 as RR   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROBOTS-RFC9309--IMPORTS-->C-PROVA-ROBOTS-RFC",
+            "FROM": "C-ROBOTS-RFC9309",
+            "TO": "C-PROVA-ROBOTS-RFC",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/robots_rfc/medir_robots_livro.py",
+          "line": 29,
+          "snippet": "import robots_rfc9309 as RR   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROBOTS-RFC9309--IMPORTS-->C-PROVA-ROBOTS-RFC",
+            "FROM": "C-ROBOTS-RFC9309",
+            "TO": "C-PROVA-ROBOTS-RFC",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROBOTS-RFC9309",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O leitor unico de robots.txt da casa — RFC 9309 (D34) tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/scrap_http.py",
+          "line": 53,
+          "snippet": "import robots_rfc9309 as RR   # noqa: E402 — o leitor unico de robots.txt (D34)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROBOTS-RFC9309--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-ROBOTS-RFC9309",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROBOTS-RFC9309",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O leitor unico de robots.txt da casa — RFC 9309 (D34) tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_robots_rfc9309.py",
+          "line": 25,
+          "snippet": "import robots_rfc9309 as RR   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROBOTS-RFC9309--IMPORTS-->C-TESTES",
+            "FROM": "C-ROBOTS-RFC9309",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROBOTS-RFC9309",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O leitor unico de robots.txt da casa — RFC 9309 (D34) alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_robots_rfc9309.py",
+          "line": 165,
+          "snippet": "DONO = \"coleta/robots_rfc9309.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROBOTS-RFC9309--READS-->C-TESTES",
+            "FROM": "C-ROBOTS-RFC9309",
+            "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -115987,7 +116477,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 154 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 155 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -116198,7 +116688,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 69 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 70 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -124443,7 +124933,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 218,
+      "PECAS_EM_DESACORDO": 220,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -124455,26 +124945,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 243
+      "TOTAL_DE_PECAS": 245
     }
   ],
   "COUNTS": {
-    "components": 243,
+    "components": 245,
     "components_proven": 31,
-    "components_pending": 204,
+    "components_pending": 206,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1282,
-    "edges_proven": 1219,
+    "edges": 1289,
+    "edges_proven": 1226,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2857,
-    "files_covered": 1265,
+    "files_tracked": 2864,
+    "files_covered": 1272,
     "files_code_unclaimed": 0,
-    "roles_proven": 165,
+    "roles_proven": 166,
     "roles_declared_only": 8,
-    "roles_unknown": 70,
-    "roles_conflict": 37,
+    "roles_unknown": 71,
+    "roles_conflict": 38,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,

@@ -4682,6 +4682,48 @@
    ]
   },
   {
+   "id": "C-ROBOTS-RFC9309",
+   "name": "O leitor unico de robots.txt da casa — RFC 9309 (D34)",
+   "territory": "Z-ACOES",
+   "kind": "library",
+   "icon": "⚖",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Le e decide robots.txt pela RFC 9309 para TODA a casa: grupo do nosso token (senao *), regra mais especifica vence, empate -> Allow, curingas * e $, %-escape; 4xx = sem robots (pode), 5xx/rede = NAO SEI (recusa), HTML no lugar = ilegivel (recusa). curadoria/gate_de_rota.py, curadoria/descobrir.py e coleta/scrap_http.py so buscam o ficheiro e perguntam aqui; o gemeo Node (coleta/italy_pilot_collect.mjs) le igual, com paridade testada.",
+   "why_here": "D34 (24/09): a casa tinha tres leitores Python com urllib.robotparser (primeira regra que casa, sem curingas) e o coletor lia pela norma: o Curator dizia pode onde o coletor dizia nao. Medido com rede (300 sites): 9 fontes READY tinham rotas que o coletor recusa (ARPAE Disallow: /*?, e HTML no lugar do robots); o SFR Lombardia estava fechado por um defeito de leitura.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/robots_rfc9309.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-ROBOTS-RFC",
+   "name": "A leitura RFC 9309 medida no livro inteiro (D34) — offline e com rede",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Mede, fonte a fonte, a leitura ANTIGA (urllib.robotparser, reproduzida de proposito) contra a NOVA (coleta/robots_rfc9309.py). Offline sobre os robots que o robo guardou (cortados aos 120 caracteres: 228 sem a regra que decidia) e com rede: 300 sites, 1 pedido cada, portao de consenso IT; 703 fontes: abrem 2 (403), fecham 50 (37 HTML no lugar do robots, 13 por regra real com curinga), 9 delas READY que o coletor ja recusava.",
+   "why_here": "A D34 pediu a medicao antes de instalar: quantas mudam, em que sentido, com o caminho e a regra que decidiu. Uma proibicao real tem de continuar bloqueada (53 continuam).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/robots_rfc/medir_robots_livro.py",
+    "provas/robots_rfc/medir_robots_com_rede.py",
+    "provas/robots_rfc/ROBOTS-LIVRO-INTEIRO.json",
+    "provas/robots_rfc/ROBOTS-COM-REDE.json",
+    "provas/robots_rfc/ROBOTS-BAIXADOS.sha256"
+   ]
+  },
+  {
    "id": "C-COORTE-BIG-COLLECTION",
    "name": "A coorte unica da Big Collection (D25)",
    "territory": "Z-FERRAMENTAS",

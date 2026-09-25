@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-24T22:14:03+00:00",
-    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
+    "GENERATED_AT": "2026-09-25T06:00:53+00:00",
+    "HEAD": "732be16dae42a7fa8da6c0a15a088379a5dfd60c",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1",
-    "FICHEIROS_NA_IMPRESSAO": 3005,
+    "SOURCE_TREE_FINGERPRINT": "ef2cb7d320ed895d8afe623cda7b9b59143f7096129a265eae7be38817f6f107",
+    "FICHEIROS_NA_IMPRESSAO": 3013,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1",
+        "VERSAO": "ef2cb7d320ed895d8afe623cda7b9b59143f7096129a265eae7be38817f6f107",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "c1272988936b19d47fdcae9cf3c51332ab1e947353a364aa5804726c68720584",
+    "INPUTS_DIGEST": "a9d81cd72b164683c4b5141c159dcbfa2b6c72efd79245c2b47a33d980fe8d10",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -237,6 +237,18 @@
       "respostas": 2,
       "ficheiros": 0,
       "estado": "gray"
+    },
+    {
+      "id": "C-ROBOTS-RFC9309",
+      "nome": "O leitor unico de robots.txt da casa — RFC 9309 (D34)",
+      "zona": "· os executores",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 1,
+      "estado": "yellow"
     },
     {
       "id": "V-HTTP",
@@ -876,10 +888,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 61,
+    "pecas_da_coleta": 62,
     "respondem_as_quatro": 26,
     "respondem_a_tres": 25,
-    "respondem_a_duas": 7,
+    "respondem_a_duas": 8,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

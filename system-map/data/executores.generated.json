@@ -1,14 +1,14 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
+  "HEAD": "732be16dae42a7fa8da6c0a15a088379a5dfd60c",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 81,
+ "TOTAL_FICHEIROS": 82,
  "TOTAL_CAMINHOS_RELEVANTES": 68,
  "POR_ESTADO": {
-  "NOT_APPLICABLE": 13,
+  "NOT_APPLICABLE": 14,
   "NOT_INSTRUMENTED": 63,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
@@ -206,7 +206,7 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 81,
+  "TOTAL_FILES_SCANNED": 82,
   "TOTAL_RELEVANT_PATHS": 68,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
@@ -1116,6 +1116,30 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "coleta/robots_rfc9309.py",
+   "GAVETA": "coleta",
+   "LINHAS": 193,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
    "EXECUTOR_ID": "coleta/ropf_pre_requisito.py",
    "GAVETA": "coleta",
    "LINHAS": 122,
@@ -1326,7 +1350,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_http.py",
    "GAVETA": "coleta",
-   "LINHAS": 730,
+   "LINHAS": 733,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
