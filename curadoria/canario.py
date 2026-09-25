@@ -138,6 +138,29 @@ def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
     return hrefs
 
 
+def escolher_alvo(alvos: list[str], index_url: str = "") -> str:
+    """O item que o canario TENTA primeiro. Se ele nao passar, o canario abre `alvos[0]`,
+    como sempre abriu — e esse que o reparo (reparar_contrato) le, e que o canario
+    continua a alcancar.
+
+    ⚠️ MEDIDO (HR-6, 25/09/2026): o canario abria sempre `alvos[0]`, o primeiro por
+    ordem alfabetica. Em 6 fontes esse primeiro tinha cara de SECCAO pela regra do
+    portao (`collection_gate.revisao_humana_do_url`) e a fonte ficava READY mas fora
+    da colheita (HUMAN_REVIEW_REQUIRED) — e re-medir abria o mesmo endereco, sempre.
+    A CONAF tem 29 itens na entrada; o 1.o era «assemblea-agronomi-udine».
+
+    Por isso: o primeiro, na mesma ordem, cujo endereco NAO tem cara de seccao. Se
+    todos tem, o primeiro — e o portao continua a pedir olho humano. Isto so escolhe
+    QUAL item se abre; quem julga se e materia continua a ser o gate de detalhe.
+    """
+    import collection_gate as G  # noqa: PLC0415  (import tardio: le o livro)
+    entrada = (index_url or "").rstrip("/")
+    for a in alvos:
+        if a.rstrip("/") != entrada and not G.revisao_humana_do_url(a):
+            return a
+    return alvos[0]
+
+
 def canario_html(c: dict) -> dict:
     """Abre a entrada, aplica o LINK_PATTERN e prova que sai um ITEM (nao o indice)."""
     aq = c["ACQUISITION"]
@@ -154,10 +177,25 @@ def canario_html(c: dict) -> dict:
                            "— EMPTY_LIST, como o contrato preve" % len(hrefs)),
                 "HREFS": len(hrefs)}
     # ⚠️ O ALVO NAO PODE SER A PROPRIA ENTRADA.
-    alvo = alvos[0]
-    if alvo.rstrip("/") == aq["INDEX_URL"].rstrip("/"):
+    if alvos[0].rstrip("/") == aq["INDEX_URL"].rstrip("/"):
         return {"PASS": False, "CLASSE": "ROUTE_FAILURE", "HTTP": st,
                 "PORQUE": "o padrao devolveu a propria pagina de entrada"}
+    # HR-6: tenta o item mais fundo; se ele nao passar, abre o primeiro, como
+    # antes. NUNCA PIOR DO QUE HOJE: medido na copia, o item fundo da ARPAS e da
+    # Umbria era PDF e o de Padova navegacao — sem a volta, 3 READY cairiam.
+    primeiro = alvos[0]
+    alvo = escolher_alvo(alvos, aq["INDEX_URL"])
+    r = _abrir_item(c, alvo, alvos)
+    if alvo != primeiro and not r.get("PASS"):
+        tentado = {k: r.get(k) for k in ("ALVO", "CLASSE", "PORQUE", "ITEM_ABERTO")
+                   if r.get(k) is not None}
+        r = _abrir_item(c, primeiro, alvos)
+        r["ALVO_FUNDO_TENTADO"] = tentado
+    return r
+
+
+def _abrir_item(c: dict, alvo: str, alvos: list[str]) -> dict:
+    """Abre UM item e julga-o. Sem fallback aqui: quem escolhe e canario_html."""
     st2, b2, err2 = buscar(alvo)
     if st2 != 200 or not b2:
         return {"PASS": False, "CLASSE": "UNKNOWN", "HTTP": st2,
