@@ -888,6 +888,52 @@
    ]
   },
   {
+   "id": "C-JANELAS-68-V2",
+   "name": "JANELAS-68-v2 — trava da data no reparo, entrada de janela sem gemeas, ARSAC",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Trava no reparo R1 (curadoria/reparar_contrato.py::data_de_publicacao): o item aprovado tem de mostrar a sua data de PUBLICACAO; sem ela RECUSA ITEM_SEM_DATA_DE_PUBLICACAO. Re-medido sem rede nos mesmos bytes: 13 -> 6 (6 paginas fixas e 1 post sem data). entrada_janela.py troca so a INDEX_URL com prova da P1g e recusa gemeas (ensaio: 0 trocas). ARSAC mudou para arsac.calabria.it: forma por edicao, fica para a JANELA-FORMAS.",
+   "why_here": "O reparo geral aprovava paginas fixas como noticia (6 de 9 nas fontes de janela). Pedido do dono, 25/09.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "curadoria/entrada_janela.py",
+    "curadoria/janelas68v2_remedir.py",
+    "curadoria/test_entrada_janela.py",
+    "curadoria/test_reparo_data_publicacao.py",
+    "provas/janelas68v2/ARSAC-PROPOSTA-V1.json",
+    "provas/janelas68v2/ARSAC-SONDA-RODADA1-ENTRADA-ERRADA.json",
+    "provas/janelas68v2/ENTRADA-DE-JANELA-ENSAIO-V1.json",
+    "provas/janelas68v2/MUTACAO-TRAVA-V1.json",
+    "provas/janelas68v2/RELATORIO-JANELAS-68-V2.md",
+    "provas/janelas68v2/REMEDICAO-COM-TRAVA-V1.json",
+    "provas/janelas68v2/TESTES-BASE-41d8751e.json",
+    "provas/janelas68v2/TESTES-RAMO.json",
+    "provas/janelas68v2/arsac_sonda.py",
+    "provas/janelas68v2/correr_testes.py",
+    "tests/fixtures/janelas68_itens/.gitattributes",
+    "tests/fixtures/janelas68_itens/IT-T2-135.html",
+    "tests/fixtures/janelas68_itens/IT-T2-157.html",
+    "tests/fixtures/janelas68_itens/IT-T2-159.html",
+    "tests/fixtures/janelas68_itens/IT-T3-041.html",
+    "tests/fixtures/janelas68_itens/IT-T3-047.html",
+    "tests/fixtures/janelas68_itens/IT-T3-049.html",
+    "tests/fixtures/janelas68_itens/IT-T3-052.html",
+    "tests/fixtures/janelas68_itens/IT-T3-060.html",
+    "tests/fixtures/janelas68_itens/IT-T3-062.html",
+    "tests/fixtures/janelas68_itens/IT-T8-069.html",
+    "tests/fixtures/janelas68_itens/IT-T9-024.html",
+    "tests/fixtures/janelas68_itens/MANIFESTO.json"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",
