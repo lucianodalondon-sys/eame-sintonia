@@ -458,6 +458,7 @@ const ISTAT_SECCAO = [
   "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/",
   "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/promozione-della-ricerca/",
   "https://www.istat.it/comunicati-e-analisi/pubblicazioni/rivista-di-statistica-ufficiale/",
+  "https://www.istat.it/comunicati-e-analisi/audizioni-e-contributi-al-parlamento/",
   "https://www.istat.it/comunicati-e-analisi/statistiche-sperimentali/sperimentazioni-su-big-data/",
   "https://www.istat.it/documenti/sistema-informativo-6/",
 ];
