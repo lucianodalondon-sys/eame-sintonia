@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T05:38:15+00:00",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
+    "GENERATED_AT": "2026-09-25T07:50:55+00:00",
+    "HEAD": "7b15edd784e119adb24e044b1dbc38b7ea74db6a",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
-    "FICHEIROS_NA_IMPRESSAO": 3036,
+    "SOURCE_TREE_FINGERPRINT": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
+    "FICHEIROS_NA_IMPRESSAO": 3050,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -683,6 +683,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/ponte_onboard/mutacao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "85cc102b6289dd89c4bf146f96f8a23ef3d6a549",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/reel_transcricao.py",
         "PAPEL": "FONTE",
         "VERSAO": "80f7de73ecce7e34ef8bc113435fea30ca629634",
@@ -1117,8 +1124,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 158,
-    "INPUTS_DIGEST": "539e5f93f6f8cf9741b251747591d9f3617a2d6761d9b8b117d106f19342d749",
+    "INPUTS_COUNT": 159,
+    "INPUTS_DIGEST": "84d0d97d1b5c60cf33b38dfd47cc0641ea39d3cf0800a10b7e51539e4d8074f7",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1897,6 +1904,22 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/ponte_onboard/mutacao.py",
+      "gaveta": "ferramentas",
+      "linhas": 85,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
       "chamado_por": [],
       "no_ci": false
     },
@@ -4387,12 +4410,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 158,
-    "pontos_de_entrada": 114,
+    "ficheiros_de_codigo": 159,
+    "pontos_de_entrada": 115,
     "executores_que_saem_para_fora": 22,
-    "sem_chamador_e_fora_do_ci": 63,
+    "sem_chamador_e_fora_do_ci": 64,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 87,
+    "escrevem_ficheiro": 88,
     "deitam_fora_alguma_coisa": 46,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -4433,6 +4456,7 @@
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/reel_transcricao.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
@@ -4563,6 +4587,7 @@
       "ferramentas/html_text.mjs",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo_lanes.py",

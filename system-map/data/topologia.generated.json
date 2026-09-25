@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T05:40:33+00:00",
-  "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
-  "BRANCH": "juncao",
+  "GENERATED_AT": "2026-09-25T07:53:26+00:00",
+  "HEAD": "7b15edd784e119adb24e044b1dbc38b7ea74db6a",
+  "BRANCH": "ponte-onboard-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
-  "FICHEIROS_NA_IMPRESSAO": 3036,
+  "SOURCE_TREE_FINGERPRINT": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
+  "FICHEIROS_NA_IMPRESSAO": 3050,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -690,6 +690,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "curadoria/sha_do_contrato.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2a0255ad2c00fd50d34a619fa44b271d7fe6b1b0",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "ferramentas/apify_pool.py",
     "PAPEL": "FONTE",
     "VERSAO": "ae8f12d5ac931b41d0d205e0d12c6b6b00831025",
@@ -812,6 +819,13 @@
     "PATH": "ferramentas/pdf_peek.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "8bf939a51b4307b39bf0af5296b0a51e339e9164",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/ponte_onboard/mutacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "85cc102b6289dd89c4bf146f96f8a23ef3d6a549",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1728,7 +1742,7 @@
    {
     "PATH": "medidas/canario_rotas_elegiveis.py",
     "PAPEL": "FONTE",
-    "VERSAO": "91c17b88836144dbc729c2d3a54764f1b54cedc7",
+    "VERSAO": "5cf1040d6ce3bc91ad716537c86e9706092b4e10",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3856,14 +3870,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
+    "VERSAO": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b",
+    "VERSAO": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4701,6 +4715,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_canario_rotas_contrato_certo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0e62b40a54fb730f596c85fda9c7a932e85055d2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_candidatos_tematicos.py",
     "PAPEL": "FONTE",
     "VERSAO": "f466486500727d1f9edbed62b9fc7299acc22ddc",
@@ -5277,7 +5298,7 @@
    {
     "PATH": "tests/test_onboardar_rotas_provadas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "1085ef0a8a52c6cfacbeccdc8a0969c5aed49ca1",
+    "VERSAO": "4392424deeea69cc42ddfc6e0baf6b91e5483f59",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5758,8 +5779,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 817,
-  "INPUTS_DIGEST": "a454e43e79f3f7d9a70c6f6527f5db077e22ddc6a4c6a66159c2f9dafab0a36b",
+  "INPUTS_COUNT": 820,
+  "INPUTS_DIGEST": "984d503ff2c391315905229250602e42b6f3fb0b0b6800bda48cfdb045562fef",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5785,15 +5806,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 504,
+  "DOCUMENTOS_LIDOS": 507,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0f6e4aaea3d47ee45d92f2c17c7eb663b694cf34c1d42537493954243f6f546e",
-  "SEMANTIC_HASH": "b6c16718fc491f8d0c4a8d5b144a5f95c91f344d38fd4d445d65119454c95c2e"
+  "MEASUREMENT_HASH": "18a3812212d3a7891dcd712b4f56a77bd075d302b6204b9036a0a2c738416170",
+  "SEMANTIC_HASH": "12e456f623f5f655853e55ae2a481c0832fa494223f11aadfdf2ea5868f600c4"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5869,6 +5890,7 @@
    "C-PALAVRAS",
    "C-PEDIDO",
    "C-PERSISTENCIA-DA-PORTA-CLI",
+   "C-PONTE-ONBOARD",
    "C-PORTA-FONTE",
    "C-PROCEDENCIA",
    "C-RASTRO",
@@ -5901,7 +5923,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 96
+  "COUNT": 97
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6110,6 +6132,7 @@
    "C-PALAVRAS",
    "C-PEDIDO",
    "C-PERSISTENCIA-DA-PORTA-CLI",
+   "C-PONTE-ONBOARD",
    "C-PORTA-FONTE",
    "C-PORTAL-MODELO",
    "C-PROCEDENCIA",
@@ -6192,16 +6215,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 184
+  "COUNT": 185
  },
  "ARITMETICA": {
-  "COLLECTION": 96,
+  "COLLECTION": 97,
   "BOUNDARY": 88,
-  "SOMA": 184,
-  "EXPANDED": 184,
+  "SOMA": 185,
+  "EXPANDED": 185,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 184,
+  "RESUMO_CARTOES_NO_UNIVERSO": 185,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -11144,6 +11167,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_canario_rotas_contrato_certo.py",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_gabarito_t2_t12.py",
       "LINHA": 9,
       "SUPPORTS": "YES",
@@ -11244,6 +11275,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-PONTE-ONBOARD",
+    "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+    "TO": "C-PONTE-ONBOARD",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/ponte_onboard/mutacao.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-PONTE-ONBOARD",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-REGUA-T2-JANELA",
     "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
     "TO": "C-REGUA-T2-JANELA",
@@ -11278,6 +11331,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_canario_rotas_contrato_certo.py",
+      "LINHA": 54,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
       "LINHA": 188,
       "SUPPORTS": "YES",
@@ -11288,6 +11349,14 @@
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
       "LINHA": 189,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_onboardar_rotas_provadas.py",
+      "LINHA": 198,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -11874,6 +11943,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "medidas/canario_rotas_elegiveis.py",
+      "LINHA": 190,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "medidas/prova_b2_ponte_em_copia.py",
       "LINHA": 35,
       "SUPPORTS": "YES",
@@ -12018,6 +12095,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PONTE-ONBOARD",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-PONTE-ONBOARD",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/ponte_onboard/mutacao.py",
+      "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PONTE-ONBOARD",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
     "FROM": "C-CENSO-UNIFICACAO",
     "TO": "C-REPARO-MEDICAO",
@@ -12051,6 +12150,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_canario_rotas_contrato_certo.py",
+      "LINHA": 45,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_integracao_04a_curator.py",
       "LINHA": 37,
@@ -24142,7 +24249,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "medidas/canario_rotas_elegiveis.py",
-      "LINHA": 68,
+      "LINHA": 69,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -41657,6 +41764,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_canario_rotas_contrato_certo.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_k1_receitas.py",
       "LINHA": 75,
       "SUPPORTS": "YES",
@@ -43463,12 +43578,12 @@
     ]
    }
   ],
-  "COUNT": 1219
+  "COUNT": 1221
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 184,
-  "CARTOES_AUDITADOS": 184,
-  "ARESTAS_RELACIONADAS": 1219,
+  "CARTOES_NO_UNIVERSO": 185,
+  "CARTOES_AUDITADOS": 185,
+  "ARESTAS_RELACIONADAS": 1221,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -43653,6 +43768,7 @@
    "C-MAPA-SCAN",
    "C-MICRO-COLETA-INSTRUMENTO",
    "C-MICRO-COLHEITA",
+   "C-PONTE-ONBOARD",
    "C-PORTA-FONTE",
    "C-PROVA-ADAMA-REFERENCE",
    "C-PROVA-AGRO-FRONTEIRA",
@@ -43692,6 +43808,7 @@
   ],
   "SO_CLI_DOCUMENTADO": [
    "C-AUDIT-GERAL",
+   "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-CORPUS-IT",
    "C-CENSO-UNIFICACAO",
    "C-CICATRIZES-BR",
@@ -43728,6 +43845,7 @@
    "C-INT-CONSUMO-ADAMA",
    "C-IT-CONTAS",
    "C-IT-TEXTO-PESQUISAVEL",
+   "C-PONTE-ONBOARD",
    "C-PROVA-AUDIO-ONLY",
    "C-PROVA-CANARIO-D23-LINKEDIN",
    "C-PROVA-CANARIO-D24-PESSOA",
@@ -43891,8 +44009,8 @@
    "CONTROL": 72,
    "DATA": 30,
    "PROOF": 386,
-   "READ": 287,
-   "RULE": 215,
+   "READ": 288,
+   "RULE": 216,
    "WRITE": 11
   },
   "GAPS_NOMEADOS": [
@@ -44743,7 +44861,9 @@
    "SO_MEDEM_ESTE": [
     "tests/test_v1a_v1_ligada.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "ferramentas/ponte_onboard/PLANO-INSTALACAO-PONTE-ONBOARD.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
@@ -44757,7 +44877,7 @@
     "urllib"
    ],
    "ENTRAM": 8,
-   "SAEM": 6,
+   "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -45182,7 +45302,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 9,
-   "SAEM": 8,
+   "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -48809,6 +48929,39 @@
     "CODE",
     "PROOF"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-PONTE-ONBOARD",
+   "NOME": "A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "curadoria/sha_do_contrato.py",
+    "ferramentas/ponte_onboard/mutacao.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "pathlib"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
@@ -52636,6 +52789,7 @@
     "tests/test_c8_convergencia.py",
     "tests/test_cadeia_do_audio_offline.py",
     "tests/test_calendario_temporal.py",
+    "tests/test_canario_rotas_contrato_certo.py",
     "tests/test_candidatos_tematicos.py",
     "tests/test_canonico.py",
     "tests/test_censo_cards_sensores.py",
