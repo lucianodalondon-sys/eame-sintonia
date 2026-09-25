@@ -112,3 +112,52 @@ system-map (declarado + gerados)
 
 O `LIVROS_SHA256` da `COORTE-BIG-COLLECTION-V1.json` registava a tabela antiga; é registo de quando a
 coorte foi medida, e nenhum código o confere.
+
+---
+
+# D44 · o contrato do CURADOR da istat segue o do coletor
+
+D44 (bot Luciano): corte de 28 dias **recusado**; prazo de 3 dias da balsamico **aprovado**.
+
+**Dono da escrita:** `curadoria/reparar_contrato.py::aplicar` — a porta que muda SÓ a
+aquisição, guarda a anterior e a prova, marca PRECISA_DE_REMEDIR, recalcula o
+SOURCE_CONTRACT_HASH, passa `validar_contratos.validar` e rebenta se tocar noutro campo.
+Mudança mínima nela: aceita `decisao/missao/metodo/ferramenta` (omissão = o R1 de sempre;
+`test_reparar_contrato` passa igual).
+
+**Quem escolhe:** `curadoria/alinhar_com_o_coletor.py --decisao D44 [--escrever]`. O curador
+segue o coletor (o próprio livro do curador diz «o dono do contrato continua a ser
+regras/italy_contracts.mjs»), só para as fontes da decisão (`DECISOES["D44"] = {IT-T5-090}`).
+Invariantes: mesmas fontes pela mesma ordem, nenhuma outra muda nem um byte, cabeçalho igual.
+Idempotente: a 2.ª corrida diz JA_ALINHADA.
+
+Resultado em `curadoria/italy_contracts_curator.json`: só a linha da IT-T5-090 mudou
+(LINK_PATTERN novo, REPARO_DE_CONTRATO com DECISAO D44 e a aquisição anterior, ROUTE_PROVENANCE,
+hash 40a39cc3… → 1a70e0ce…). **Divergências curador×coletor nas 87 fontes que estão nos dois
+livros: 0** (antes: 1, a istat).
+
+Porque não pela porta D10 (`scripts/desbloqueio/aplicar_desbloqueio.contrato_unico`): é um pacote
+de aplicação única do cutover, fechado às 7 fontes da D10.
+
+⚠️ PRECISA_DE_REMEDIR fica `true`, como o reparo marca sempre. Medido: nenhum código lê esta marca
+hoje (só quem a escreve) — não tira a istat da fila. A prova da rota nova é a confirmação de 1 pedido
+(MATERIA_PROVAVEL), **não** um canário com a régua dos quatro passos.
+
+Testes: `curadoria/test_alinhar_com_o_coletor.py` 7/7; com `test_reparar_contrato` e
+`test_contrato_unico`: 66/66. Mutação na cópia `C:/capa-base @ a62f607c`: **5/5 mortos**
+(`scripts/capa_materia/MUTACAO-ALINHAR-D44-V1.json`).
+
+# APOIO AO MICRO · comparar o que veio com a previsão (só leitura)
+
+`scripts/capa_materia/comparar_micro_com_previsao.py --estado <BIG-COLLECTION-ESTADO.json> --saida <pasta>`
+(ou `--runs RUN1,RUN2,...`). Lê o livro de observações e o livro de decisões da árvore do bot e,
+se houver banco, liga cada documento ao veredicto pela `micro_coleta.sql` (SELECT, banco em
+read-only). Escreve só em `--saida`: `COMPARACAO-MICRO-COM-PREVISAO-V1.json` e
+`DOCUMENTOS-DO-MICRO.tsv` (uma linha por documento: fonte, NOVO/VERSAO_NOVA, veredicto, na Sala?,
+era alvo previsto?, endereço, regra, motivo). Previsão por omissão: `MEDICAO-CONTRATOS-AJUSTE-HOJE-V1.json` (27).
+
+Ensaio sobre a 1.ª onda (`ENSAIO-COMPARAR-1A-ONDA-V1.json`, banco lido): 6 documentos novos em 4 fontes;
+**3 SIM (todos IT-T10-018), 3 NAO, 3 NAO_SEI** — a mesma conta da BC5 e da CAPA-MATERIA. A coluna
+"previsto" nesse ensaio é a de hoje, não a de 24/09: serve só para provar a leitura.
+Testes: `scripts/capa_materia/test_comparar_micro_com_previsao.py` 6/6 (sem banco = NAO SEI por documento, não inventa;
+endereço com 2 registos no banco não se liga à sorte; corridas de fora não contam; só escreve na saída).
