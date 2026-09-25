@@ -30,6 +30,7 @@
       "PLANO-INSTALACAO-BC4B.md",
       "PLANO-INSTALACAO-LI-ONDA.md",
       "PLANO-INSTALACAO-M5G.md",
+      "PLANO-INSTALACAO-SOCIAL-FINAL.md",
       "PLANO-INSTALACAO-YT-ONDA.md",
       "PLANO-UNIFICACAO.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
@@ -511,6 +512,16 @@
       "curadoria/rota_do_scrap_youtube.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/semear_qualify_social.py",
+      "curadoria/social-final/BATERIA-ANTES-DEPOIS.txt",
+      "curadoria/social-final/FALHAS-COM-SOCIAL-E-YT.txt",
+      "curadoria/social-final/FALHAS-PRODUCAO-PURA.txt",
+      "curadoria/social-final/FOTO-LIVROS-VIVO.sha",
+      "curadoria/social-final/MERGE-TREE-HEADorigin_yt_metadados_v1_.txt",
+      "curadoria/social-final/MERGE-TREE-origin_servico_20260923_0923HEAD_.txt",
+      "curadoria/social-final/MERGE-TREE-origin_servico_20260923_0923origin_yt_metadados_v1_.txt",
+      "curadoria/social-final/NUMEROS-LINKEDIN.json",
+      "curadoria/social-final/NUMEROS-YOUTUBE.json",
+      "curadoria/social-final/PLANO-SO-PLANO.json",
       "curadoria/social_onda2_ensaio.py",
       "curadoria/social_onda2_medir.py",
       "curadoria/status_live.py",
@@ -3464,9 +3475,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "a689f51698f9e1d7de25a70e294df78c34095e4a",
-    "GENERATED_AT": "2026-09-25T04:18:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4844bbe628d49d55f24c425710fe16864d12fc763e7e28c0e7ac13784db60503"
+    "HEAD": "e347f186f660139e9cb3a84b3b0199b418f1729a",
+    "GENERATED_AT": "2026-09-25T06:09:50-03:00",
+    "SOURCE_TREE_FINGERPRINT": "79a52cdc4b17eab9593a470fad42da9918985c00547167fd5626d247b01c6b79"
   },
   "FAMILIES": [
     {
@@ -51459,11 +51470,11 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 363,
+        "palavras": 365,
         "por_lingua": {
           "PT": 2
         },
-        "sem_marca_de_lingua": 361,
+        "sem_marca_de_lingua": 363,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -52366,9 +52377,9 @@
           "MUTANTES",
           "TIPO_DA_CLASSE"
         ],
-        "palavras": 49,
+        "palavras": 54,
         "por_lingua": {},
-        "sem_marca_de_lingua": 49,
+        "sem_marca_de_lingua": 54,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -52378,7 +52389,7 @@
           "pasta": "coleta",
           "prova": {
             "file": "provas/_mutantes_d37.py",
-            "line": 36,
+            "line": 41,
             "snippet": "escreve em ALVO"
           }
         }
@@ -52403,12 +52414,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "OPERATIONAL_STEP",
-        "MEASURED_WHY": "escreve na pasta coleta (provas/_mutantes_d37.py:36): produz dado",
+        "MEASURED_WHY": "escreve na pasta coleta (provas/_mutantes_d37.py:41): produz dado",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve na pasta coleta (provas/_mutantes_d37.py:36): produz dado) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve na pasta coleta (provas/_mutantes_d37.py:41): produz dado) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -114951,7 +114962,7 @@
       "evidence": [
         {
           "file": "provas/_mutantes_d37.py",
-          "line": 23,
+          "line": 28,
           "snippet": "original = open(ALVO, encoding=\"utf-8\").read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -118401,7 +118412,7 @@
       "evidence": [
         {
           "file": "provas/_mutantes_d37.py",
-          "line": 28,
+          "line": 33,
           "snippet": "open(ALVO, \"w\", encoding=\"utf-8\", newline=\"\").write(original.replace(de, para))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPERFICIE-SCRAP-V1--WRITES-->C-SCRAP-SOCIAL",
@@ -123323,7 +123334,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1635,
+  "UNCLAIMED_FILES_COUNT": 1646,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123585,7 +123596,7 @@
     "edges_proven": 1204,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2870,
+    "files_tracked": 2881,
     "files_covered": 1235,
     "files_code_unclaimed": 0,
     "roles_proven": 163,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a689f51698f9e1d7de25a70e294df78c34095e4a
+HEAD_DA_MEDICAO  e347f186f660139e9cb3a84b3b0199b418f1729a
 BRANCH           social-onda2-v1
-GERADO_EM        2026-09-25T04:18:43-03:00
+GERADO_EM        2026-09-25T06:09:50-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

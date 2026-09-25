@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T07:22:00+00:00",
-  "HEAD": "a689f51698f9e1d7de25a70e294df78c34095e4a",
+  "GENERATED_AT": "2026-09-25T09:12:58+00:00",
+  "HEAD": "e347f186f660139e9cb3a84b3b0199b418f1729a",
   "BRANCH": "social-onda2-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "4844bbe628d49d55f24c425710fe16864d12fc763e7e28c0e7ac13784db60503",
-  "FICHEIROS_NA_IMPRESSAO": 3018,
+  "SOURCE_TREE_FINGERPRINT": "79a52cdc4b17eab9593a470fad42da9918985c00547167fd5626d247b01c6b79",
+  "FICHEIROS_NA_IMPRESSAO": 3029,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -286,7 +286,7 @@
    {
     "PATH": "coleta/adaptador_linkedin.py",
     "PAPEL": "FONTE",
-    "VERSAO": "1e9ea7b76ad076545648228ef9a14ccd787238fe",
+    "VERSAO": "6eac57146d6deffba35a9b438d76cc5642aae53e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2309,7 +2309,7 @@
    {
     "PATH": "provas/_mutantes_d37.py",
     "PAPEL": "FONTE",
-    "VERSAO": "fe8deb55d4445b4530853cf2e21ed9e258e94214",
+    "VERSAO": "e7f38712ad761593e6e91874751d3b8913e8e145",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3751,14 +3751,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4844bbe628d49d55f24c425710fe16864d12fc763e7e28c0e7ac13784db60503",
+    "VERSAO": "79a52cdc4b17eab9593a470fad42da9918985c00547167fd5626d247b01c6b79",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4844bbe628d49d55f24c425710fe16864d12fc763e7e28c0e7ac13784db60503",
+    "VERSAO": "79a52cdc4b17eab9593a470fad42da9918985c00547167fd5626d247b01c6b79",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4724,7 +4724,7 @@
    {
     "PATH": "tests/test_d37_campos_de_politica.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6f5fc9fa384799416b8c862ba75575a5666ad441",
+    "VERSAO": "fc41d736734f7542f4f84a883f07c830c62a3c9a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5654,7 +5654,7 @@
    }
   ],
   "INPUTS_COUNT": 802,
-  "INPUTS_DIGEST": "f0a179ff65c9c06483be6d940c2e36506b03630a437c5d9b9412b627d0f4dc1a",
+  "INPUTS_DIGEST": "bbb290e95d7a80ef41bfaeef27d0729e79771ba4a653721f17f79f91d30318b2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5680,15 +5680,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 503,
+  "DOCUMENTOS_LIDOS": 504,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3086ee58fee88f97d490682b1e76c3825ea1fc88177ae50ba8bf66c99290814a",
-  "SEMANTIC_HASH": "9416a3f764dedfaac30496fd6f70f22f35529de19ff6d3d1196574c6bd036f9a"
+  "MEASUREMENT_HASH": "c08bec008bcd365f9cda265dc83e37eabc45e54c7ffeb08d7abeb7db9403afa3",
+  "SEMANTIC_HASH": "ba2cc3896335ebbe76223b83774ee957d4d6649ba2f6d6ed3acc688db7147e30"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -38549,7 +38549,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/_mutantes_d37.py",
-      "LINHA": 23,
+      "LINHA": 28,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-SUPERFICIE-SCRAP-V1",
@@ -40439,7 +40439,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/_mutantes_d37.py",
-      "LINHA": 28,
+      "LINHA": 33,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SUPERFICIE-SCRAP-V1--WRITES-->C-SCRAP-SOCIAL",
