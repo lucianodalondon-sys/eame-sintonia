@@ -467,6 +467,9 @@
       "curadoria/li-onda/PLANO-ONDA-LINKEDIN-SO-PLANO.json",
       "curadoria/li-onda/REGUA-NA-COPIA-DA-PRODUCAO.json",
       "curadoria/li-onda/TESTES.txt",
+      "curadoria/li-onda/producao-7b769819/BATERIA-ANTES-DEPOIS.txt",
+      "curadoria/li-onda/producao-7b769819/FALHAS-COM-SOCIAL.txt",
+      "curadoria/li-onda/producao-7b769819/FALHAS-PRODUCAO-PURA.txt",
       "curadoria/li-onda/producao-7b769819/FOTO-LIVROS-VIVO.sha",
       "curadoria/li-onda/producao-7b769819/MERGE-TREE.txt",
       "curadoria/li-onda/producao-7b769819/NUMEROS-LINKEDIN.json",
@@ -3461,9 +3464,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "social-onda2-v1",
-    "HEAD": "521603683f23009e56d6e129aa88b436b761bf07",
-    "GENERATED_AT": "2026-09-25T03:27:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "231cc964353d42281ae5d338987d27004f44ff19b89e715405c07b34e2b3a7f4"
+    "HEAD": "a689f51698f9e1d7de25a70e294df78c34095e4a",
+    "GENERATED_AT": "2026-09-25T04:18:43-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4844bbe628d49d55f24c425710fe16864d12fc763e7e28c0e7ac13784db60503"
   },
   "FAMILIES": [
     {
@@ -51399,6 +51402,7 @@
         "C-SCRAP-ROTA",
         "C-SENSOR-COLETA",
         "C-SINTONIA-SCRAP",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TRANSCRICAO",
         "V-HTTP",
         "V-YOUTUBE"
@@ -52316,15 +52320,16 @@
       "family": "F-GOVERNANCA",
       "files": [
         "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
+        "provas/_mutantes_d37.py",
         "provas/canario_social_onda2.py",
         "provas/entradas_do_scrap_v1.py",
         "provas/prontidao_social_v1.py",
         "provas/roteamento_youtube_proposta.py",
         "provas/superficie_do_scrap_v1.py"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -52345,6 +52350,7 @@
       ],
       "outbound": [
         "C-PROVA-COLETA",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -52357,38 +52363,58 @@
         "listas": [
           "APELIDO",
           "CREDENCIAL_DA_ROTA",
+          "MUTANTES",
           "TIPO_DA_CLASSE"
         ],
-        "palavras": 37,
+        "palavras": 49,
         "por_lingua": {},
-        "sem_marca_de_lingua": 37,
+        "sem_marca_de_lingua": 49,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "escreve_na_pasta": [
+        {
+          "pasta": "coleta",
+          "prova": {
+            "file": "provas/_mutantes_d37.py",
+            "line": 36,
+            "snippet": "escreve em ALVO"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "PROOF",
-      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_RULE": "M6_ESCREVE_NUMA_PASTA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE": "UNKNOWN",
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
-        "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 9 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "escreve na pasta coleta (provas/_mutantes_d37.py:36): produz dado",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 9 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve na pasta coleta (provas/_mutantes_d37.py:36): produz dado) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "coleta/adaptador_linkedin.py",
         "coleta/scrap_colheita.py",
         "coleta/social_scrap.py",
         "curadoria/italy_contracts_curator.json",
@@ -114921,8 +114947,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/_mutantes_d37.py",
+          "line": 23,
+          "snippet": "original = open(ALVO, encoding=\"utf-8\").read()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-SUPERFICIE-SCRAP-V1",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/entradas_do_scrap_v1.py",
           "line": 295,
@@ -118335,6 +118377,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SUPERFICIE-SCRAP-V1",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» escreve em SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_d37.py",
+          "line": 28,
+          "snippet": "open(ALVO, \"w\", encoding=\"utf-8\", newline=\"\").write(original.replace(de, para))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SUPERFICIE-SCRAP-V1--WRITES-->C-SCRAP-SOCIAL",
+            "FROM": "C-SUPERFICIE-SCRAP-V1",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -123245,10 +123322,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/_mutantes_d37.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1633,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1635,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -123506,13 +123581,13 @@
     "components_pending": 202,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1267,
-    "edges_proven": 1203,
+    "edges": 1268,
+    "edges_proven": 1204,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2867,
-    "files_covered": 1234,
-    "files_code_unclaimed": 1,
+    "files_tracked": 2870,
+    "files_covered": 1235,
+    "files_code_unclaimed": 0,
     "roles_proven": 163,
     "roles_declared_only": 8,
     "roles_unknown": 70,

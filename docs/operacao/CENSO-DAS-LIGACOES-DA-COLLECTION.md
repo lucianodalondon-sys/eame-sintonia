@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  521603683f23009e56d6e129aa88b436b761bf07
+HEAD_DA_MEDICAO  a689f51698f9e1d7de25a70e294df78c34095e4a
 BRANCH           social-onda2-v1
-GERADO_EM        2026-09-25T03:27:34-03:00
+GERADO_EM        2026-09-25T04:18:43-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -463,13 +463,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/instagram_janela.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 25 · saem 25 |
-| **arestas provadas** | entram 22 · saem 25 |
+| **arestas no mapa** | entram 26 · saem 25 |
+| **arestas provadas** | entram 23 · saem 25 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 44 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 45 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
