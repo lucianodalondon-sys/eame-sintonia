@@ -3574,9 +3574,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/publication-time-source-location-ux4cuc",
-    "HEAD": "7700f21ec1c9e7c3e7596c854a390fa98ad8baed",
-    "GENERATED_AT": "2026-09-25T12:48:03+00:00",
-    "SOURCE_TREE_FINGERPRINT": "7ae99b82a10a2944afb5a27f186a5442961085ccfddc10468d34cd00224eabe7"
+    "HEAD": "791f10a765be7732c9f7f8138a7641119e465ae5",
+    "GENERATED_AT": "2026-09-25T14:07:44+00:00",
+    "SOURCE_TREE_FINGERPRINT": "5fcf2c0a26ff5b6a6f9bff0e83dde62cc075775937319c185023c1777e486532"
   },
   "FAMILIES": [
     {
@@ -43823,7 +43823,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/executor_texto_de_html.py:461",
+          "coleta/executor_texto_de_html.py:471",
           "coleta/executor_texto_de_pdf.py:299",
           "coleta/executor_transcricao_midia.py:303",
           "guarda/memoria_descartavel.py:43"
@@ -89411,7 +89411,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 461,
+          "line": 471,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -100195,7 +100195,7 @@
         },
         {
           "file": "tests/test_tempo_e_lugar_da_publicacao.py",
-          "line": 287,
+          "line": 291,
           "snippet": "os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")).as_uri()))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",

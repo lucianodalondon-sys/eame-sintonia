@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  7700f21ec1c9e7c3e7596c854a390fa98ad8baed
+HEAD_DA_MEDICAO  791f10a765be7732c9f7f8138a7641119e465ae5
 BRANCH           claude/publication-time-source-location-ux4cuc
-GERADO_EM        2026-09-25T12:48:03+00:00
+GERADO_EM        2026-09-25T14:07:44+00:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1198,7 +1198,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/executor_texto_de_html.py:461; coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:303 |
+| **prova de quem ativa** | coleta/executor_texto_de_html.py:471; coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:303 |
 | **porquê** | estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-HTML · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
