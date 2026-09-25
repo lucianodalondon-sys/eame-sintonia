@@ -1,0 +1,1486 @@
+{
+ "DATASET": "CLASSIFICACAO-182-V1",
+ "ORIGEM": "EXTRACAO-182-V1.json (vivo 7cdb7ea4)",
+ "TOTAL": 183,
+ "POR_FORMA": {
+  "SITE_DE_ORDEM_PROFISSIONAL": 63,
+  "MENU_INSTITUCIONAL": 25,
+  "PASSOU_A_REGUA_ESPERA_LEITURA": 14,
+  "PAGINA_BOLETIM": 13,
+  "LISTA_MOLDE_NAO_ACHOU": 13,
+  "PAGINA_UNICA": 13,
+  "LISTA_CERTA_JUIZ_DIZ_CAPA": 9,
+  "LISTA_MOLDE_ESCOLHEU_MENU": 9,
+  "JS_OU_VAZIA": 8,
+  "ITEM_CURTO_OU_NAO_ABRIU": 5,
+  "NAO_HTML_A_CONFIRMAR": 5,
+  "DUPLICADA_DE_OUTRA_FONTE": 4,
+  "LISTA_DE_ANEXOS_PDF": 2
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T2-137",
+   "FORMA": "JS_OU_VAZIA",
+   "REGRA": "entrada com 1690 bytes e 9 ligacoes: a pagina desenha-se no navegador",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://simc.arpae.it/",
+   "HOST": "simc.arpae.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-140",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (monit_siccita)",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://www.sar.sardegna.it/servizi/agro/monit_siccita.asp",
+   "HOST": "www.sar.sardegna.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-141",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollfenolog)",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://www.sar.sardegna.it/servizi/agro/bollfenologico.asp",
+   "HOST": "www.sar.sardegna.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-142",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "pagina sem familia de itens e sem cara de lista",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.sar.sardegna.it/",
+   "HOST": "www.sar.sardegna.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-144",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.arpa.veneto.it/",
+   "HOST": "www.arpa.veneto.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-148",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite/",
+   "HOST": "www.arsacweb.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-149",
+   "FORMA": "ITEM_CURTO_OU_NAO_ABRIU",
+   "REGRA": "o item tentado nao tem corpo (ou deu erro)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.arsarp.it/category/agrometeorologia-2/",
+   "HOST": "www.arsarp.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-150",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.agrometeopuglia.it/",
+   "HOST": "www.agrometeopuglia.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-151",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.agrometeopuglia.it/bollettini",
+   "HOST": "www.agrometeopuglia.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-025",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://www.agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026.html",
+   "HOST": "www.agricoltura.regione.campania.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-026",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://simfito.regione.campania.it/",
+   "HOST": "simfito.regione.campania.it"
+  },
+  {
+   "SOURCE_ID": "IT-T12-151",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Avvisi-Comunicazioni/index.html",
+   "HOST": "www.ersa.fvg.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-027",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (Bollettin)",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+   "HOST": "www.ersa.fvg.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-028",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini",
+   "HOST": "agricoltura.regione.emilia-romagna.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-166",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 1824 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.lamma.toscana.it/consorzio/news",
+   "HOST": "www.lamma.toscana.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-167",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 1666 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.lamma.toscana.it/consorzio/pubblicazioni",
+   "HOST": "www.lamma.toscana.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-152",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.lamma.toscana.it/agrometeo/firenze",
+   "HOST": "www.lamma.toscana.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-153",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/agrometeo-caar.html",
+   "HOST": "www.agriligurianet.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-031",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so ha familias de paginas fixas",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/sorveglianza-del-territorio-carte-di-diffusione-e-monitoraggio-degli-organismi-nocivi.html",
+   "HOST": "www.agriligurianet.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-032",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "pagina sem familia de itens e sem cara de lista",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+   "HOST": "www.regione.molise.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-155",
+   "FORMA": "JS_OU_VAZIA",
+   "REGRA": "entrada com 315 bytes e 0 ligacoes: a pagina desenha-se no navegador",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.osmer.fvg.it/",
+   "HOST": "www.osmer.fvg.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-033",
+   "FORMA": "JS_OU_VAZIA",
+   "REGRA": "entrada nao-HTML com 52 bytes",
+   "MOTIVO_DO_ROBO": "ENTRADA_NAO_E_HTML",
+   "ENTRADA": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan/bacheca-dei-bollettini",
+   "HOST": "www.regione.piemonte.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-034",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so ha familias de paginas fixas",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://www.protezionedellepiante.it/emergenze-fitosanitarie/",
+   "HOST": "www.protezionedellepiante.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-158",
+   "FORMA": "JS_OU_VAZIA",
+   "REGRA": "entrada com 1146 bytes e 1 ligacoes: a pagina desenha-se no navegador",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.siarl-lazio.it/",
+   "HOST": "www.siarl-lazio.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-035",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so ha familias de paginas fixas",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://www.protezionedellepiante.it/",
+   "HOST": "www.protezionedellepiante.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-037",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so ha familias de paginas fixas",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://www.regione.basilicata.it/giunta/site/giunta/department.jsp?dep=100049&area=104835&level=1",
+   "HOST": "www.regione.basilicata.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-038",
+   "FORMA": "JS_OU_VAZIA",
+   "REGRA": "entrada com 2491 bytes e 0 ligacoes: a pagina desenha-se no navegador",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.provincia.bz.it/agricoltura-foreste/agricoltura/default.asp",
+   "HOST": "www.provincia.bz.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-157",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so ha familias de paginas fixas",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://www.regione.calabria.it/website/organizzazione/dipartimento8/subsite/fitosanitario/",
+   "HOST": "www.regione.calabria.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-039",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://www.agricoltura.regione.campania.it/difesa/difesa.html",
+   "HOST": "www.agricoltura.regione.campania.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-040",
+   "FORMA": "ITEM_CURTO_OU_NAO_ABRIU",
+   "REGRA": "o item tentado nao tem corpo (ou deu erro)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.ersa.fvg.it/cms/hp/",
+   "HOST": "www.ersa.fvg.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-041",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.regione.lazio.it/cittadini/agricoltura/servizio-fitosanitario-regionale",
+   "HOST": "www.regione.lazio.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-042",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so ha familias de paginas fixas",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+   "HOST": "www.agriligurianet.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-043",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 2087 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.amap.marche.it/servizi/fitosanitario",
+   "HOST": "www.amap.marche.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-044",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.amap.marche.it/progetti-europei/eventi",
+   "HOST": "www.amap.marche.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-046",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "pagina sem familia de itens e sem cara de lista",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/4130",
+   "HOST": "www.regione.molise.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-047",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+   "HOST": "www.regione.piemonte.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-048",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "pagina sem familia de itens e sem cara de lista",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://www.sardegnaagricoltura.it/index.html",
+   "HOST": "www.sardegnaagricoltura.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-158",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 966 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/servizi/servizio-fitosanitario-regionale",
+   "HOST": "www.regione.sicilia.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-049",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale",
+   "HOST": "www.regione.toscana.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-050",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (2071 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+   "HOST": "www.regione.umbria.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-051",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/default_i.asp",
+   "HOST": "www.regione.vda.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-052",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.regione.veneto.it/web/fitosanitario",
+   "HOST": "www.regione.veneto.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-159",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/difesa-fitosanitaria",
+   "HOST": "www.regione.sicilia.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-054",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale/in-evidenza/-/asset_publisher/PONvICXXT7f8/content/bollettini-fitosanitari-2026",
+   "HOST": "www.regione.umbria.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-055",
+   "FORMA": "LISTA_DE_ANEXOS_PDF",
+   "REGRA": "o item/entrada e anexo (allegato/pdf/bacheca)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+   "HOST": "www.regione.vda.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-056",
+   "FORMA": "LISTA_DE_ANEXOS_PDF",
+   "REGRA": "o item/entrada e anexo (allegato/pdf/bacheca)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/viticoltura_i.asp",
+   "HOST": "www.regione.vda.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-058",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026",
+   "HOST": "www.regione.veneto.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-059",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "pagina sem familia de itens e sem cara de lista",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.regione.veneto.it/web/fitosanitario/difesa-colture",
+   "HOST": "www.regione.veneto.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-168",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.aiia.it/aiia_news/",
+   "HOST": "www.aiia.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-169",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.aissa.it/",
+   "HOST": "www.aissa.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-059",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "pagina sem familia de itens e sem cara de lista",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.agrochimica.it/",
+   "HOST": "www.agrochimica.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-161",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 1668 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.ibbr.cnr.it/",
+   "HOST": "www.ibbr.cnr.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-162",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 1595 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.ibe.cnr.it/",
+   "HOST": "www.ibe.cnr.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-163",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so ha familias de paginas fixas",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://www.iret.cnr.it/",
+   "HOST": "www.iret.cnr.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-164",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.iret.cnr.it/news/",
+   "HOST": "www.iret.cnr.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-165",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.isafom.cnr.it/",
+   "HOST": "www.isafom.cnr.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-166",
+   "FORMA": "ITEM_CURTO_OU_NAO_ABRIU",
+   "REGRA": "o item tentado nao tem corpo (ou deu erro)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.ispa.cnr.it/",
+   "HOST": "www.ispa.cnr.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-168",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (5880 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/web/alimenti-e-nutrizione",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-169",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (4327 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/web/foreste-e-legno",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-170",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (5036 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/web/genomica-e-bioinformatica",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-171",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (3704 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/web/ingegneria-e-trasformazioni-agroalimentari",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-172",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (5948 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-173",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (7005 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/web/politiche-e-bioeconomia",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-174",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (5696 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/web/zootecnia-e-acquacoltura",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-175",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/comunicati-stampa",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-176",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/eventi-crea",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-177",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/notizie",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-178",
+   "FORMA": "DUPLICADA_DE_OUTRA_FONTE",
+   "REGRA": "o item achado ja e de outra fonte",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/open-access",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-179",
+   "FORMA": "DUPLICADA_DE_OUTRA_FONTE",
+   "REGRA": "o item achado ja e de outra fonte",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/riviste-del-crea",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-180",
+   "FORMA": "DUPLICADA_DE_OUTRA_FONTE",
+   "REGRA": "o item achado ja e de outra fonte",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.crea.gov.it/schede-tecniche",
+   "HOST": "www.crea.gov.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-171",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.peritiagrari.it/",
+   "HOST": "www.peritiagrari.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-181",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.unitus.it/dipartimenti/dibaf/",
+   "HOST": "www.unitus.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-060",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://distal.unibo.it/it/notizie",
+   "HOST": "distal.unibo.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-061",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://dsa3.unipg.it/home/news",
+   "HOST": "dsa3.unipg.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-182",
+   "FORMA": "ITEM_CURTO_OU_NAO_ABRIU",
+   "REGRA": "o item tentado nao tem corpo (ou deu erro)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.unite.it/UniTE/Dipartimenti_HP/Bioscienze_e_tecnologie_agro-alimentari_e_ambientali",
+   "HOST": "www.unite.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-183",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.unitus.it/it/dipartimento/dafne/",
+   "HOST": "www.unitus.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-184",
+   "FORMA": "ITEM_CURTO_OU_NAO_ABRIU",
+   "REGRA": "o item tentado nao tem corpo (ou deu erro)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.agr.unipi.it/",
+   "HOST": "www.agr.unipi.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-063",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 1392 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.fmach.it/Comunicazione/Notizie",
+   "HOST": "www.fmach.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-188",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 1392 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.fmach.it/",
+   "HOST": "www.fmach.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-064",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.soihs.it/italushortus/default.aspx",
+   "HOST": "www.soihs.it"
+  },
+  {
+   "SOURCE_ID": "IT-T5-189",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.unipa.it/terzamissione/eventi/",
+   "HOST": "www.unipa.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-065",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.sidea.org/wp2/news/",
+   "HOST": "www.sidea.org"
+  },
+  {
+   "SOURCE_ID": "IT-T8-066",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.soihs.it/pubblicazioni/newsletter_01.aspx",
+   "HOST": "www.soihs.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-067",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.societaentomologicaitaliana.it/category/news/",
+   "HOST": "www.societaentomologicaitaliana.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-060",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.asnacodi.it/",
+   "HOST": "www.asnacodi.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-061",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.asnacodi.it/eventi/",
+   "HOST": "www.asnacodi.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-062",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.asnacodi.it/news/",
+   "HOST": "www.asnacodi.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-063",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "pagina sem familia de itens e sem cara de lista",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.codipra.it/",
+   "HOST": "www.codipra.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-173",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.conaf.it/uffici/centro-studi/",
+   "HOST": "www.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-175",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.conaf.it/newsinhome/rivista/",
+   "HOST": "www.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-176",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so ha familias de paginas fixas",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://www.agrotecnici.it/",
+   "HOST": "www.agrotecnici.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-177",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (federazioneabruzzo.conaf.it): paginas fixas e avisos curtos — motivo SEM_FAMILIA_DE_ITENS",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://federazioneabruzzo.conaf.it/",
+   "HOST": "federazioneabruzzo.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-178",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (federazioneemiliaromagna.conaf.it): paginas fixas e avisos curtos — motivo SEM_FAMILIA_DE_ITENS",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://federazioneemiliaromagna.conaf.it/",
+   "HOST": "federazioneemiliaromagna.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-179",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (federazionelombardia.conaf.it): paginas fixas e avisos curtos — motivo SEM_FAMILIA_DE_ITENS",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://federazionelombardia.conaf.it/",
+   "HOST": "federazionelombardia.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-180",
+   "FORMA": "NAO_HTML_A_CONFIRMAR",
+   "REGRA": "entrada com 28026 bytes que o reparo diz nao comecar por '<' — PROVAVEL: BOM + quebra de linha antes do HTML (nao se ve sem os bytes)",
+   "MOTIVO_DO_ROBO": "ENTRADA_NAO_E_HTML",
+   "ENTRADA": "https://fodafpiemonte-valledaosta.conaf.it/",
+   "HOST": "fodafpiemonte-valledaosta.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-181",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (federazionesicilia.conaf.it): paginas fixas e avisos curtos — motivo SEM_FAMILIA_DE_ITENS",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://federazionesicilia.conaf.it/",
+   "HOST": "federazionesicilia.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-182",
+   "FORMA": "NAO_HTML_A_CONFIRMAR",
+   "REGRA": "entrada com 31569 bytes que o reparo diz nao comecar por '<' — PROVAVEL: BOM + quebra de linha antes do HTML (nao se ve sem os bytes)",
+   "MOTIVO_DO_ROBO": "ENTRADA_NAO_E_HTML",
+   "ENTRADA": "http://fodaftoscana.conaf.it/",
+   "HOST": "fodaftoscana.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-183",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (federazioneveneto.conaf.it): paginas fixas e avisos curtos — motivo SEM_FAMILIA_DE_ITENS",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://federazioneveneto.conaf.it/",
+   "HOST": "federazioneveneto.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-184",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineagrigento.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordineagrigento.conaf.it/",
+   "HOST": "ordineagrigento.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-185",
+   "FORMA": "NAO_HTML_A_CONFIRMAR",
+   "REGRA": "entrada com 23795 bytes que o reparo diz nao comecar por '<' — PROVAVEL: BOM + quebra de linha antes do HTML (nao se ve sem os bytes)",
+   "MOTIVO_DO_ROBO": "ENTRADA_NAO_E_HTML",
+   "ENTRADA": "http://ordinealessandria.conaf.it/",
+   "HOST": "ordinealessandria.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-186",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineaosta.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineaosta.conaf.it/",
+   "HOST": "ordineaosta.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-187",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineaquila.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineaquila.conaf.it/",
+   "HOST": "ordineaquila.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-188",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinearezzo.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordinearezzo.conaf.it/",
+   "HOST": "ordinearezzo.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-189",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineasti.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineasti.conaf.it/",
+   "HOST": "ordineasti.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-190",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineavellino.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "http://ordineavellino.conaf.it/",
+   "HOST": "ordineavellino.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-191",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinebelluno.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinebelluno.conaf.it/",
+   "HOST": "ordinebelluno.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-192",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinebergamo.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinebergamo.conaf.it/",
+   "HOST": "ordinebergamo.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-193",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinebologna.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinebologna.conaf.it/",
+   "HOST": "ordinebologna.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-194",
+   "FORMA": "NAO_HTML_A_CONFIRMAR",
+   "REGRA": "entrada com 24057 bytes que o reparo diz nao comecar por '<' — PROVAVEL: BOM + quebra de linha antes do HTML (nao se ve sem os bytes)",
+   "MOTIVO_DO_ROBO": "ENTRADA_NAO_E_HTML",
+   "ENTRADA": "http://ordinebrindisi.conaf.it/",
+   "HOST": "ordinebrindisi.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-195",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinecagliari.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinecagliari.conaf.it/",
+   "HOST": "ordinecagliari.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-196",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinecampobasso-is.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinecampobasso-is.conaf.it/",
+   "HOST": "ordinecampobasso-is.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-197",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinecaserta.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinecaserta.conaf.it/",
+   "HOST": "ordinecaserta.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-198",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinecatania.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinecatania.conaf.it/",
+   "HOST": "ordinecatania.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-199",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinechieti.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinechieti.conaf.it/",
+   "HOST": "ordinechieti.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-200",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinecomoleccosondrio.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordinecomoleccosondrio.conaf.it/",
+   "HOST": "ordinecomoleccosondrio.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-201",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinecosenza.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordinecosenza.conaf.it/",
+   "HOST": "ordinecosenza.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-202",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinecremona.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordinecremona.conaf.it/",
+   "HOST": "ordinecremona.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-203",
+   "FORMA": "NAO_HTML_A_CONFIRMAR",
+   "REGRA": "entrada com 21037 bytes que o reparo diz nao comecar por '<' — PROVAVEL: BOM + quebra de linha antes do HTML (nao se ve sem os bytes)",
+   "MOTIVO_DO_ROBO": "ENTRADA_NAO_E_HTML",
+   "ENTRADA": "http://ordinecrotone.conaf.it/",
+   "HOST": "ordinecrotone.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-204",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinecuneo.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinecuneo.conaf.it/",
+   "HOST": "ordinecuneo.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-205",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (882 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.agronomiforestali-rer.it/ordine-di-ferrara",
+   "HOST": "www.agronomiforestali-rer.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-206",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (882 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.agronomiforestali-rer.it/ordine-di-forli-cesena-rimini",
+   "HOST": "www.agronomiforestali-rer.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-207",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (882 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.agronomiforestali-rer.it/ordine-di-modena",
+   "HOST": "www.agronomiforestali-rer.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-208",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (882 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.agronomiforestali-rer.it/ordine-di-parma",
+   "HOST": "www.agronomiforestali-rer.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-209",
+   "FORMA": "PAGINA_UNICA",
+   "REGRA": "a entrada e ela propria um texto (882 em paragrafos): nao lista nada",
+   "MOTIVO_DO_ROBO": "ENTRADA_E_MATERIA",
+   "ENTRADA": "https://www.agronomiforestali-rer.it/ordine-di-piacenza",
+   "HOST": "www.agronomiforestali-rer.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-210",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (www.agronomienna.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "http://www.agronomienna.it/",
+   "HOST": "www.agronomienna.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-211",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinefirenze.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinefirenze.conaf.it/",
+   "HOST": "ordinefirenze.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-212",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinefriulivg.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinefriulivg.conaf.it/",
+   "HOST": "ordinefriulivg.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-213",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinefrosinone.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinefrosinone.conaf.it/",
+   "HOST": "ordinefrosinone.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-214",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinegrosseto.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "http://ordinegrosseto.conaf.it/",
+   "HOST": "ordinegrosseto.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-215",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinelatina.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinelatina.conaf.it/",
+   "HOST": "ordinelatina.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-216",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineliguria.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineliguria.conaf.it/",
+   "HOST": "ordineliguria.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-217",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinelivorno.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordinelivorno.conaf.it/",
+   "HOST": "ordinelivorno.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-218",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinemantova.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordinemantova.conaf.it/",
+   "HOST": "ordinemantova.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-219",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "http://ordinemarche.conaf.it/",
+   "HOST": "ordinemarche.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-220",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinematera.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinematera.conaf.it/",
+   "HOST": "ordinematera.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-221",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (www.agronomimessina.it): paginas fixas e avisos curtos — motivo SEM_FAMILIA_DE_ITENS",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.agronomimessina.it/",
+   "HOST": "www.agronomimessina.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-222",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinemilano.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinemilano.conaf.it/",
+   "HOST": "ordinemilano.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-223",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinenapoli.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinenapoli.conaf.it/",
+   "HOST": "ordinenapoli.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-224",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinenuoro.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinenuoro.conaf.it/",
+   "HOST": "ordinenuoro.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-225",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineoristano.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineoristano.conaf.it/",
+   "HOST": "ordineoristano.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-226",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (agronomiforestalipalermo.it): paginas fixas e avisos curtos — motivo SEM_FAMILIA_DE_ITENS",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://agronomiforestalipalermo.it/",
+   "HOST": "agronomiforestalipalermo.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-227",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinepescara.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinepescara.conaf.it/",
+   "HOST": "ordinepescara.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-228",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinepisa-lu-ms.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinepisa-lu-ms.conaf.it/",
+   "HOST": "ordinepisa-lu-ms.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-229",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinepistoia.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinepistoia.conaf.it/",
+   "HOST": "ordinepistoia.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-230",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinepotenza.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinepotenza.conaf.it/",
+   "HOST": "ordinepotenza.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-231",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineprato.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineprato.conaf.it/",
+   "HOST": "ordineprato.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-232",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (www.agronomiragusa.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "http://www.agronomiragusa.it/",
+   "HOST": "www.agronomiragusa.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-233",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineravenna.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineravenna.conaf.it/",
+   "HOST": "ordineravenna.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-234",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinereggiocalabria.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinereggiocalabria.conaf.it/",
+   "HOST": "ordinereggiocalabria.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-235",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinereggioemilia.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinereggioemilia.conaf.it/",
+   "HOST": "ordinereggioemilia.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-236",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinerovigo.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinerovigo.conaf.it/",
+   "HOST": "ordinerovigo.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-237",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinesalerno.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinesalerno.conaf.it/",
+   "HOST": "ordinesalerno.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-238",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinesassari.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinesassari.conaf.it/",
+   "HOST": "ordinesassari.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-239",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinesiena.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinesiena.conaf.it/",
+   "HOST": "ordinesiena.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-240",
+   "FORMA": "JS_OU_VAZIA",
+   "REGRA": "entrada com 1017 bytes e 1 ligacoes: a pagina desenha-se no navegador",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "http://www.agronomiforestalisiracusa.it/",
+   "HOST": "www.agronomiforestalisiracusa.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-241",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinetaranto.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinetaranto.conaf.it/",
+   "HOST": "ordinetaranto.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-242",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineteramo.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineteramo.conaf.it/",
+   "HOST": "ordineteramo.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-243",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinetorino.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordinetorino.conaf.it/",
+   "HOST": "ordinetorino.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-244",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinetrapani.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinetrapani.conaf.it/",
+   "HOST": "ordinetrapani.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-245",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinetrento.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinetrento.conaf.it/",
+   "HOST": "ordinetrento.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-246",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinetreviso.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinetreviso.conaf.it/",
+   "HOST": "ordinetreviso.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-247",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinevarese.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinevarese.conaf.it/",
+   "HOST": "ordinevarese.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-248",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinevercellibiella.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinevercellibiella.conaf.it/",
+   "HOST": "ordinevercellibiella.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-249",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineverona.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordineverona.conaf.it/",
+   "HOST": "ordineverona.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-250",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordinevicenza.conaf.it): paginas fixas e avisos curtos — motivo FAMILIA_ESTATICA",
+   "MOTIVO_DO_ROBO": "FAMILIA_ESTATICA",
+   "ENTRADA": "https://ordinevicenza.conaf.it/",
+   "HOST": "ordinevicenza.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T7-251",
+   "FORMA": "SITE_DE_ORDEM_PROFISSIONAL",
+   "REGRA": "ordem/federacao de agronomos (ordineviterbo.conaf.it): paginas fixas e avisos curtos — motivo ITEM_NAO_E_MATERIA",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://ordineviterbo.conaf.it/",
+   "HOST": "ordineviterbo.conaf.it"
+  },
+  {
+   "SOURCE_ID": "IT-T9-024",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada (ou a seccao) e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.horta-srl.it/",
+   "HOST": "www.horta-srl.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-069",
+   "FORMA": "LISTA_MOLDE_NAO_ACHOU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo nao achou 2+ itens com o mesmo esqueleto",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.horta-srl.it/news/",
+   "HOST": "www.horta-srl.it"
+  },
+  {
+   "SOURCE_ID": "IT-T8-070",
+   "FORMA": "DUPLICADA_DE_OUTRA_FONTE",
+   "REGRA": "o item achado ja e de outra fonte",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.peritiagrari.it/area-comunicazione/notizie-dai-territoriali.html",
+   "HOST": "www.peritiagrari.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-132",
+   "FORMA": "JS_OU_VAZIA",
+   "REGRA": "entrada com 293 bytes e 0 ligacoes: a pagina desenha-se no navegador",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.alsia.it/",
+   "HOST": "www.alsia.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-133",
+   "FORMA": "LISTA_CERTA_JUIZ_DIZ_CAPA",
+   "REGRA": "um item tentado tem 1789 letras em paragrafos e o juiz disse capa/nao sei (menu grande) — regua, nao molde",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.amap.marche.it/servizi/agrometeorologia",
+   "HOST": "www.amap.marche.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-134",
+   "FORMA": "LISTA_MOLDE_ESCOLHEU_MENU",
+   "REGRA": "a entrada e lista de publicacoes e o reparo gastou tentativas no menu do site",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.amap.marche.it/pubblicazioni/agrometeorologia",
+   "HOST": "www.amap.marche.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-135",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://www.arpalombardia.it/archivio-bollettini-agrometeo/",
+   "HOST": "www.arpalombardia.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-136",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/meteo-e-clima/bollettini-meteorologici/agrometeo/",
+   "HOST": "www.arpalombardia.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-138",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (mappe-settimanali)",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/mappe-settimanali",
+   "HOST": "www.arpae.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-139",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (previsioni-agrometeo)",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/previsioni-meteo/previsioni-agrometeo",
+   "HOST": "www.arpae.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-147",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://www.arpa.veneto.it/temi-ambientali/agrometeo",
+   "HOST": "www.arpa.veneto.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-029",
+   "FORMA": "MENU_INSTITUCIONAL",
+   "REGRA": "so familias de menu numa pagina que nao e lista",
+   "MOTIVO_DO_ROBO": "ITEM_NAO_E_MATERIA",
+   "ENTRADA": "https://fitoemergenze.fmach.it/",
+   "HOST": "fitoemergenze.fmach.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-030",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://fitoemergenze.fmach.it/flavescenza-dorata/bollettini-di-difesa",
+   "HOST": "fitoemergenze.fmach.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-154",
+   "FORMA": "JS_OU_VAZIA",
+   "REGRA": "entrada com 2466 bytes e 0 ligacoes: a pagina desenha-se no navegador",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://meteo.provincia.bz.it/",
+   "HOST": "meteo.provincia.bz.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-157",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://meteo.regione.marche.it/News",
+   "HOST": "meteo.regione.marche.it"
+  },
+  {
+   "SOURCE_ID": "IT-T2-159",
+   "FORMA": "PASSOU_A_REGUA_ESPERA_LEITURA",
+   "REGRA": "motivo REVISAO_PENDENTE: o reparo passou a regua; falta uma pessoa ler o item",
+   "MOTIVO_DO_ROBO": "REVISAO_PENDENTE",
+   "ENTRADA": "https://siarl.arsial.it/",
+   "HOST": "siarl.arsial.it"
+  },
+  {
+   "SOURCE_ID": "IT-T3-057",
+   "FORMA": "PAGINA_BOLETIM",
+   "REGRA": "a entrada e a pagina de um boletim/mapa (bollettin)",
+   "MOTIVO_DO_ROBO": "SEM_FAMILIA_DE_ITENS",
+   "ENTRADA": "https://www.regione.veneto.it/web/fitosanitario/bollettini-fitosanitari",
+   "HOST": "www.regione.veneto.it"
+  }
+ ]
+}

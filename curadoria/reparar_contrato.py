@@ -172,7 +172,11 @@ def familias(hrefs: set[str], listagem: str) -> list[dict]:
         membros = [h for h in uteis if rx.match(h)]
         if len(membros) < 2:                                  # MINIMO_DE_LIGACOES
             return
-        if RC.e_generico(padrao, listagem, mesmos, []) is not None:
+        recusa = RC.e_generico(padrao, listagem, mesmos, [])
+        if recusa is not None:
+            estrito = _so_titulos_longos(padrao) if recusa.startswith(RECUSAS_POR_NAVEGACAO) else None
+            if estrito:
+                _junta(estrito, como + " · " + COMO_TITULOS_LONGOS)
             return
         if rx.match(listagem.rstrip("/")) or rx.match(listagem):
             return                                            # a porta do validador
@@ -201,6 +205,35 @@ def familias(hrefs: set[str], listagem: str) -> list[dict]:
 
     out.sort(key=lambda x: (-x["MEMBROS"], x["COMO"], x["PADRAO"]))
     return out
+
+
+# ── RECEITAS-182: A FAMILIA QUE A GUARDA RECUSA POR CASAR NAVEGACAO ───────────
+# Medido (25/09, 4 sites WordPress da fila: asnacodi, iret.cnr, societaentomologicaitaliana,
+# horta-srl): as noticias vivem na RAIZ do site (`/<titulo-da-noticia>/`), ao lado de paginas
+# fixas (`/cookie-policy-ue/`, `/tesi-di-laurea/`). O esqueleto junta-as todas; a guarda da
+# 6-PREP-d ve que o padrao casa navegacao (`/chi-siamo` sintetico, ou um link de navegacao da
+# propria pagina) e recusa a familia INTEIRA — a fonte saia SEM_FAMILIA_DE_ITENS com a lista a
+# vista.
+#
+# A guarda nao muda. Tenta-se UMA versao mais estrita do mesmo padrao, e ela passa pela MESMA
+# guarda (e pelo resto de `_junta`): o ultimo pedaco tem de ser um TITULO LONGO (>=
+# FLUXO_PALAVRAS palavras — a medida de «titulos longos» do fluxo) sem vocabulario de pagina
+# institucional. Se ainda casar navegacao, a guarda recusa outra vez, e fica recusada. Os
+# outros motivos da guarda (casar o INDEX_URL, uma capa conhecida, > 80 % dos links, nao
+# compilar) nao se contornam.
+COMO_TITULOS_LONGOS = "TITULOS_LONGOS_SEM_NAVEGACAO (receitas-182)"
+RECUSAS_POR_NAVEGACAO = ("casa navegacao sintetica", "casa um link de navegacao")
+_NAO_E_TITULO = (r"(?![^/]*(?:privacy|cookie|contatt|contact|trasparen|policy|statuto|regolamento|"
+                 r"chi-siamo|lavora-con-noi|note-legali|accessibilit|whistleblow))")
+
+
+def _so_titulos_longos(padrao: str) -> str | None:
+    """O mesmo padrao, com o ultimo pedaco obrigado a ser titulo longo — ou None."""
+    fim = RC._SLUG + "/?$"
+    if not padrao.endswith(fim) or _NAO_E_TITULO in padrao:
+        return None
+    return (padrao[:-len(fim)] + _NAO_E_TITULO
+            + r"[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+){%d,}/?$" % (FLUXO_PALAVRAS - 1))
 
 
 # ── FLUXO DE PUBLICACOES, NAO PAGINAS FIXAS ─────────────────────────────────
