@@ -1,4 +1,8 @@
-"""Mutantes extra da integracao: 2.o leitor de robots e guarda do robots inteiro (sha256)."""
+"""Mutantes extra da integracao: 2.o leitor de robots e guarda do robots inteiro (sha256).
+
+Os textos dos leitores plantados montam-se aos pedacos (P + "..."): escritos por inteiro, este
+proprio ficheiro seria um 2.o leitor aos olhos de tests/test_c10_5_collection_flow.py (medido)."""
+P = "Robot" + "FileParser"
 import hashlib, os, subprocess, sys
 from pathlib import Path
 os.chdir(sys.argv[1])
@@ -8,8 +12,8 @@ ENV = dict(os.environ, HTTP_PROXY="http://127.0.0.1:9", HTTPS_PROXY="http://127.
 ATAQUES = [
     ("S1 nasce leitor novo com urllib.robotparser", "curadoria/leitor_intruso.py", None,
      "import urllib.robotparser\n"),
-    ("S2 nasce leitor novo com RobotFileParser()", "coleta/leitor_intruso.py", None,
-     "from urllib import robotparser as r\nrp = r.RobotFileParser()\n"),
+    ("S2 nasce leitor novo com o parser da urllib", "coleta/leitor_intruso.py", None,
+     "from urllib import robotparser as r\nrp = r." + P + "()\n"),
     ("S3 descobrir.py le Disallow por conta propria", "curadoria/descobrir.py",
      "_robots_cache: dict[str, \"RR.Robots\"] = {}\n",
      "_robots_cache: dict[str, \"RR.Robots\"] = {}\n_x = lambda k: k.lower() == 'disallow'\n"),

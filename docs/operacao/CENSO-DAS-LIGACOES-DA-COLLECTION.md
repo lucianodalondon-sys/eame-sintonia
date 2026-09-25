@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  bbba4ffc2e810dbf7dbdaf0d79ec3c4064a9948a
+HEAD_DA_MEDICAO  805e68e70dbc8e9a96d5a04dfcb05d78d15e1417
 BRANCH           claude/robots-rfc9309-integration-9am18y
-GERADO_EM        2026-09-25T10:49:10+00:00
+GERADO_EM        2026-09-25T11:06:27+00:00
 CARDS            100
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
