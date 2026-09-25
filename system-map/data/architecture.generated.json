@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "valida-fechar-onda2",
+    "HEAD": "88ee046f6dc5d43e2475a5c5e1c4a3ca9402ab2f",
+    "GENERATED_AT": "2026-09-25T09:03:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7fa078e0ba56273b5c11a50f228707e48c2b71fddde386a456698b44930177d0"
   },
   "FILES": [
     {
@@ -1942,7 +1942,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "8b800f0bd7a2433b309171e7263bfea66e8f7a19",
+      "sha": "930d03caa49a226b6ffb5fd7ef53a571214d553e",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -15430,6 +15430,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/corrida_abortada_local.mjs",
+      "sha": "88cc9e936e469171c34e612c28304f2dd75b4155",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/corrigir_custo.py",
       "sha": "b68fed443f41d88e003d2ba4d853a9a5927c0ae9",
       "ext": ".py",
@@ -18693,7 +18700,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6fbeb3259f859c03654c8d25eff0043e170be317",
+      "sha": "d5ad98acbadab56f80d667148eacc52ad880c378",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19863,6 +19870,13 @@
     {
       "path": "tests/test_consumo_da_referencia_adama.py",
       "sha": "e8d877f24ebef6b58de0e83b1ebf9f19fd1824a4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_corrida_abortada.py",
+      "sha": "9eb41fe337ac0cf8d53bfcf8f9d81d710bbcf924",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -53428,6 +53442,50 @@
       }
     },
     {
+      "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 54,
+        "snippet": "const M = await import(\"../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 63,
+        "snippet": "const LEDGER = join(RAIZ, \"data\", \"collection-ledger\", \"italy\", \"runs.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 96,
+        "snippet": "try { execFileSync(PY, [\"provas/prova_teto_dominio.py\", \"--livro\", livro, \"--onda\", onda], { encoding: \"utf8\", stdio: \"pipe\" }); return 0; }"
+      }
+    },
+    {
+      "from_file": "provas/corrida_abortada_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corrida_abortada_local.mjs",
+        "line": 55,
+        "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
       "from_file": "provas/cortesia_http_local.mjs",
       "to_file": "coleta/italy_pilot_collect.mjs",
       "type": "READS",
@@ -75219,6 +75277,17 @@
       }
     },
     {
+      "from_file": "tests/test_corrida_abortada.py",
+      "to_file": "provas/corrida_abortada_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_corrida_abortada.py",
+        "line": 21,
+        "snippet": "r = subprocess.run([\"node\", \"provas/corrida_abortada_local.mjs\"], cwd=RAIZ, env=env,"
+      }
+    },
+    {
       "from_file": "tests/test_cortesia_no_transporte.py",
       "to_file": "provas/cortesia_http_local.mjs",
       "type": "READS",
@@ -85358,10 +85427,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2978,
-    "files_readable": 1333,
-    "files_code_dir": 1269,
-    "file_edges": 5810,
+    "files_tracked": 2980,
+    "files_readable": 1335,
+    "files_code_dir": 1271,
+    "file_edges": 5815,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },
