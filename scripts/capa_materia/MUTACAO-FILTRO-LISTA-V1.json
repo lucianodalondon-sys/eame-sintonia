@@ -1,0 +1,51 @@
+{
+ "DATASET": "MUTACAO-FILTRO-LISTA-V1",
+ "COPIA": "C:/capa-base",
+ "MUTANTES": {
+  "filtro_desligado": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - a lista sai antes do livro e do corte; so listas = vazio honesto"
+   ]
+  },
+  "qualquer_fim_em_ano": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  LISTA - materia com ano no fim NAO e lista (o risco medido: 0 dos 169 do livro)",
+    "FAIL  D40 - a lista sai antes do livro e do corte; so listas = vazio honesto"
+   ]
+  },
+  "ano_sozinho_nao_recusa": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  LISTA - so lista e recusada: ano sozinho, lista+ano, paginacao, categoria, etiqueta, arquivo"
+   ]
+  },
+  "paginacao_desligada": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  LISTA - so lista e recusada: ano sozinho, lista+ano, paginacao, categoria, etiqueta, arquivo"
+   ]
+  },
+  "etiqueta_desligada": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  LISTA - so lista e recusada: ano sozinho, lista+ano, paginacao, categoria, etiqueta, arquivo"
+   ]
+  },
+  "arquivo_desligado": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  LISTA - so lista e recusada: ano sozinho, lista+ano, paginacao, categoria, etiqueta, arquivo"
+   ]
+  },
+  "lista_perguntada_ao_livro_antes": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  D40 - a lista sai antes do livro e do corte; so listas = vazio honesto"
+   ]
+  }
+ },
+ "MORTOS": 7,
+ "TOTAL": 7
+}

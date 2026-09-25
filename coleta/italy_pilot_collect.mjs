@@ -898,7 +898,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       cont.SKIPPED_KNOWN += alvos.D40.CONHECIDOS_SALTADOS;
       if (alvos.D40.VAZIO_HONESTO) {
         detalhes.push({ RUN_ID, SOURCE_ID: sourceId, DOCUMENT_ID: null, DECISAO: "SEM_ALVOS_NOVOS",
-          PORQUE: `o indice anuncia ${alvos.D40.NO_INDICE} enderecos e o livro ja conhece todos (D40)`,
+          PORQUE: `o indice anuncia ${alvos.D40.NO_INDICE} enderecos: ${alvos.D40.LISTAS_RECUSADAS} sao paginas de lista e o livro ja conhece os outros ${alvos.D40.CONHECIDOS_SALTADOS} (D40)`,
           LIVRO: "NAO_ESCRITO — nada foi pedido", COLLECTION_RUN_STARTED_AT: STARTED_AT });
       }
     }

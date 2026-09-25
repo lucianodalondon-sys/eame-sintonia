@@ -15,7 +15,7 @@ import { strict as assert } from "node:assert";
 import { readFileSync } from "node:fs";
 import {
   alvosDoContrato, identidadeDoContrato, conferirAquisicao,
-  ContratoInvalido, ESTRATEGIAS, PROVIDERS, ligacoesDoIndice, nomeDoAlvo, ALVOS_POR_FONTE_D40,
+  ContratoInvalido, ESTRATEGIAS, PROVIDERS, ligacoesDoIndice, nomeDoAlvo, ALVOS_POR_FONTE_D40, ePaginaDeLista,
   conferirIdentidade, ESTRATEGIAS_DE_IDENTIDADE, FONTES_DE_TEXTO,
 } from "./motor_de_rota.mjs";
 import { CONTRACTS } from "./italy_contracts.mjs";
@@ -414,6 +414,41 @@ await TA("D40 - vale tambem para o padrao lido dentro do HTML (MATCH HTML)", asy
     classificar: (u) => (u.endsWith("/a.pdf") ? "CONHECIDO" : "NOVO") });
   assert.deepEqual(alvos.map((x) => x.nome), ["b.pdf", "c.pdf", "d.pdf"]);
   assert.equal(alvos.D40.CONHECIDOS_SALTADOS, 1);
+});
+
+T("LISTA - so lista e recusada: ano sozinho, lista+ano, paginacao, categoria, etiqueta, arquivo", () => {
+  for (const u of [
+    "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2026/",
+    "https://x.it/news/notizie-2025/", "https://x.it/news/2026/", "https://x.it/news/page/3/",
+    "https://x.it/tag/vino/", "https://x.it/categoria/ortofrutta/", "https://x.it/news/archivio/",
+  ]) assert.equal(ePaginaDeLista(u), true, u);
+});
+
+T("LISTA - materia com ano no fim NAO e lista (o risco medido: 0 dos 169 do livro)", () => {
+  for (const u of [
+    "https://www.istat.it/comunicato-stampa/prezzi-al-consumo-agosto-2026/",
+    "https://www.istat.it/comunicato-stampa/linnovazione-nelle-imprese-anni-2022-2024/",
+    "https://x.it/news/vinitaly-2026/",
+    "https://plantgest.imagelinenetwork.com/it/news/2026/09/15/pesco-cosa-cambia-tra-varieta-e-nuovi-astoni/89677",
+    "https://www.myfruit.it/news/macfrut-neri-siamo-in-simbiosi-con-gli-espositori",
+  ]) assert.equal(ePaginaDeLista(u), false, u);
+});
+
+await TA("D40 - a lista sai antes do livro e do corte; so listas = vazio honesto", async () => {
+  const perguntados = [];
+  const IDX = `<html>` + ["comunicati-stampa-2026", "comunicati-stampa-2025", "raccolta-uva-in-toscana-2026", "comunicati-stampa-2024"]
+    .map((s) => `<a href="https://www.exemplo.it/news/${s}/">x</a>`).join("") + `</html>`;
+  const aq = { ...AQ_D40, LINK_PATTERN: "^https?://(www\\.)?exemplo\\.it/news/.+$" };
+  const alvos = await alvosDoContrato("X", { ACQUISITION: aq }, { buscar: indiceFalso(IDX),
+    classificar: (u) => { perguntados.push(u); return "NOVO"; } });
+  assert.deepEqual(alvos.map((a) => a.url), ["https://www.exemplo.it/news/raccolta-uva-in-toscana-2026/"]);
+  assert.equal(alvos.D40.LISTAS_RECUSADAS, 3);
+  assert.deepEqual(perguntados, ["https://www.exemplo.it/news/raccolta-uva-in-toscana-2026/"], "lista nem chega ao livro");
+  const so = await alvosDoContrato("X", { ACQUISITION: aq }, {
+    buscar: indiceFalso(`<a href="https://www.exemplo.it/news/comunicati-stampa-2026/">x</a>`), classificar: () => "NOVO" });
+  assert.equal(so.length, 0);
+  assert.equal(so.D40.VAZIO_HONESTO, true);
+  assert.equal(so.D40.LISTAS_RECUSADAS, 1);
 });
 
 await TA("D40 - sem `classificar` (canarios, provas) o motor corta como antes: MAX_TARGETS", async () => {

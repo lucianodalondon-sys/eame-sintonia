@@ -332,10 +332,35 @@ export function nomeDoAlvo(url, outputType) {
 // escolha so planeia: robots (1) + indice (1) + 3 materias = 5.
 export const ALVOS_POR_FONTE_D40 = 3;
 
+// ── PAGINA DE LISTA NAO E ALVO (coordenador, ALVOS-NOVOS-2, 25/09) ───────────
+// Medido com D40: a ciatoscana escolheria `comunicati-stampa-2026/2025/2024` — tres
+// paginas que LISTAM comunicados, nenhuma e um comunicado. E o defeito capa-no-lugar-
+// de-materia, noutro molde. Recusa-se pelo ULTIMO pedaco do endereco, e so quando ele
+// e SO lista: um ano sozinho (`/2026/`), palavras de lista + ano (`comunicati-stampa-
+// 2026`, `notizie-2025`), paginacao (`/page/3/`), ou categoria/etiqueta/arquivo.
+//
+//     «TERMINA EM ANO» NAO BASTA: `prezzi-al-consumo-agosto-2026` E UMA MATERIA.
+//
+// Por isso o ano so recusa quando TUDO o que vem antes dele sao palavras de lista.
+const PALAVRA_DE_LISTA = "(?:comunicati|comunicato|stampa|notizie|news|archivio|archive|articoli|eventi|rassegna|press|releases?|blog|pubblicazioni|bollettini|anno|tutte|le)";
+const LISTA_COM_ANO = new RegExp(`^(?:${PALAVRA_DE_LISTA}-)*(?:19|20)\\d{2}$`, "i");
+const SO_LISTA = /^(?:category|categoria|categorie|tag|tags|archivio|archive|archivi|page|pagina|author|autore)$/i;
+const DENTRO_DE_LISTA = /^(?:category|categoria|categorie|tag|tags|author|autore)$/i;
+export function ePaginaDeLista(u) {
+  let pedacos;
+  try { pedacos = new URL(u).pathname.split("/").filter(Boolean).map((p) => decodeURIComponent(p)); } catch { return false; }
+  const ultimo = pedacos.at(-1) || "", antes = pedacos.at(-2) || "";
+  if (/^(?:page|pagina|pag)$/i.test(antes) && /^\d+$/.test(ultimo)) return true;
+  if (DENTRO_DE_LISTA.test(antes)) return true;
+  return SO_LISTA.test(ultimo) || LISTA_COM_ANO.test(ultimo);
+}
+
 export function escolherAlvosD40(urls, classificar, nomeDe) {
   const novos = [], revisitas = [];
-  let conhecidos = 0;
+  let conhecidos = 0, listas = 0;
   for (const url of urls) {
+    // antes do livro: uma lista nao e alvo, seja nova ou conhecida
+    if (ePaginaDeLista(url)) { listas++; continue; }
     const classe = classificar(url);
     if (classe === "CONHECIDO") conhecidos++;
     else if (classe === "REVISITA") revisitas.push(url);
@@ -346,7 +371,7 @@ export function escolherAlvosD40(urls, classificar, nomeDe) {
   // a conta vai no proprio resultado (o coletor pode dize-la no resumo); um array continua
   // a ser o que todos os chamadores ja recebiam
   Object.defineProperty(alvos, "D40", { value: {
-    NO_INDICE: urls.length, CONHECIDOS_SALTADOS: conhecidos, NOVOS: novos.length,
+    NO_INDICE: urls.length, LISTAS_RECUSADAS: listas, CONHECIDOS_SALTADOS: conhecidos, NOVOS: novos.length,
     REVISITAS: revisitas.length, ESCOLHIDOS: alvos.length,
     VAZIO_HONESTO: alvos.length === 0 } });
   return alvos;
