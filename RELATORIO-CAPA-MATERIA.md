@@ -35,7 +35,7 @@ Na 1.ª onda, 6 respostas foram NÃO ou NÃO SEI. Olhei uma a uma, nos bytes gua
 | Endereços já coletados pela produção (livro de coletas) | 169 |
 | Quantos a regra nova teria recusado | **2** — a mesma página de contatos da cia.it (IT-T7-121 e IT-T7-135); **0 matérias** (`MEDICAO-FILTRO-INSTITUCIONAL-V1.json`) |
 | Testes do motor (`regras/motor_de_rota_test.mjs`) | 50/50 (3 novos: contatos saem e o 1.º alvo passa a ser o artigo; «contatti» no meio do título continua a passar; privacy/chi-siamo/newsletter/faq saem) |
-| Mutação | tirar o filtro → 2 testes caem; a palavra valer em qualquer sítio → 1 teste cai |
+| Mutação numa cópia (`MUTACAO-FILTRO-INSTITUCIONAL-V1.json`) | **3/3 mortos**: filtro desligado, palavra em qualquer sítio, só o 1.º troço |
 | Outros testes | `incrementalidade_test` 31/31, `recollection_test` 31/31, `paridade_test` 32/32; `italy_contract_test` 348/77 — **as mesmas 77 falhas na produção sem a mudança** (lista comparada, igual) |
 | Rejulgar a 1.ª onda com T1+T2 | 0 mudanças (`REJULGAR-1A-ONDA-V1.json`) |
 

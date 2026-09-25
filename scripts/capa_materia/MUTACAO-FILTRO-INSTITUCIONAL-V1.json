@@ -1,0 +1,28 @@
+{
+ "DATASET": "MUTACAO-FILTRO-INSTITUCIONAL-V1",
+ "COPIA": "C:/capa-base",
+ "MUTANTES": {
+  "filtro_desligado": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  CAPA-MATERIA - a pagina de contatos debaixo de /news/ nao e alvo; o 1.o alvo passa a ser o artigo",
+    "FAIL  CAPA-MATERIA - privacy, chi-siamo, newsletter e faq no ultimo troco ficam fora"
+   ]
+  },
+  "palavra_em_qualquer_sitio": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  CAPA-MATERIA - a palavra institucional so conta no FIM do ultimo troco"
+   ]
+  },
+  "so_o_primeiro_troco": {
+   "RESULTADO": "MORTO",
+   "QUEDAS": [
+    "FAIL  CAPA-MATERIA - a pagina de contatos debaixo de /news/ nao e alvo; o 1.o alvo passa a ser o artigo",
+    "FAIL  CAPA-MATERIA - privacy, chi-siamo, newsletter e faq no ultimo troco ficam fora"
+   ]
+  }
+ },
+ "MORTOS": 3,
+ "TOTAL": 3
+}
