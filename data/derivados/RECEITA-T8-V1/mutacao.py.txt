@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+# RECEITA-T8-V1 · mutacao do registo D48. Registo do ensaio (.txt), nao codigo do sistema.
+#   HTTP(S)_PROXY=http://127.0.0.1:9 PYTHONDONTWRITEBYTECODE=1 PYTHONUTF8=1 py data/derivados/RECEITA-T8-V1/mutacao.py.txt
+import hashlib
+import os
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__)))))
+F = "pedido/receitas.py"
+T = "tests.test_receita_web_t8_t9_t12"
+
+MUTANTES = [
+    ("M1 o de sites entra a FRENTE do social",
+     '    EXECUTORES[_u] = list(EXECUTORES.get(_u, [])) + [_SITES_POR_FONTE_NOMEADA]',
+     '    EXECUTORES[_u] = [_SITES_POR_FONTE_NOMEADA] + list(EXECUTORES.get(_u, []))'),
+    ("M2 sem serve_fases (serve todas as fases)",
+     '    "serve_fases": [""],\n',
+     ''),
+    ("M3 fonte inventada por omissao",
+     '    "argumentos_de_filtros": ["fonte"],\n    # ⚠️ SO SERVE',
+     '    "argumentos_de_filtros": ["fonte"],\n    "filtros_por_omissao": {"fonte": "IT-T8-021"},\n    # ⚠️ SO SERVE'),
+    ("M4 so T8 ganha a receita",
+     'for _u in ("T8", "T9", "T12"):',
+     'for _u in ("T8",):'),
+    ("M5 T10 tambem apanha a entrada nova",
+     'for _u in ("T8", "T9", "T12"):',
+     'for _u in ("T8", "T9", "T12", "T10"):'),
+    ("M6 o de sites nao corre o italy_executor",
+     '    "roda": ["coleta/italy_executor.py"],\n    "recebe_run_id": True,\n    "larga_em": ["data/colheita/italia/"],\n    "argumentos_de_filtros": ["fonte"],\n    # ⚠️ SO SERVE',
+     '    "roda": ["coleta/outro.py"],\n    "recebe_run_id": True,\n    "larga_em": ["data/colheita/italia/"],\n    "argumentos_de_filtros": ["fonte"],\n    # ⚠️ SO SERVE'),
+]
+
+
+def sha(p):
+    with open(p, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+mortos = 0
+caminho = os.path.join(RAIZ, F)
+for nome, de, para in MUTANTES:
+    with open(caminho, "rb") as f:
+        original = f.read()
+    antes = sha(caminho)
+    texto = original.decode("utf-8").replace("\r\n", "\n")
+    assert texto.count(de) == 1, "%s: o alvo da troca nao e unico (%d)" % (nome, texto.count(de))
+    try:
+        with open(caminho, "wb") as f:
+            f.write(texto.replace(de, para).encode("utf-8"))
+        r = subprocess.run([sys.executable, "-m", "unittest", T], cwd=RAIZ, capture_output=True,
+                           text=True, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1"))
+        morto = r.returncode != 0
+    finally:
+        with open(caminho, "wb") as f:
+            f.write(original)
+    reposto = sha(caminho) == antes
+    mortos += morto
+    print("%-44s %s · reposto=%s" % (nome, "MORTO (o teste apanhou)" if morto
+                                     else "SOBREVIVEU  <-- o teste nao morde",
+                                     "SIM" if reposto else "NAO <-- GRAVE"))
+    if not reposto:
+        sys.exit(2)
+print("MUTANTES %d · MORTOS %d" % (len(MUTANTES), mortos))
+sys.exit(0 if mortos == len(MUTANTES) else 1)
