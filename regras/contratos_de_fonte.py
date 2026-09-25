@@ -61,7 +61,8 @@ CONTRATOS_MJS = os.path.join(RAIZ, "regras", "italy_contracts.mjs")
 #: que acrescentar um campo seja uma decisão e não um acidente.
 CAMPOS_DECLARADOS = ("SOURCE_LOCATION_RULE", "FACT_LOCATION_RULE",
                      "EVIDENCE_CLASS", "DOCUMENT_ID_RULE",
-                     "DOCUMENT_DATE_FIELD", "OWNER", "TERRITORY")
+                     "DOCUMENT_DATE_FIELD", "DOCUMENT_DATE_KIND",
+                     "OWNER", "TERRITORY")
 
 
 class ContratosIlegiveis(Exception):
@@ -214,6 +215,36 @@ def lugar_declarado_pela_fonte(source_id: str) -> dict:
         "ESPECIE": "SOURCE_LOCATION",
         "AUTORIDADE": "regras/italy_contracts.mjs",
     }
+
+
+# ── QUE ESPÉCIE DE TEMPO É A DATA DO DOCUMENTO ─────────────────────────────
+# ⚠️ TEMPO-E-LUGAR (25/09). O coletor escreve `SOURCE_DATE_ISO` — «a data que o
+# documento imprime» — e a mesma palavra quer dizer coisas diferentes por fonte,
+# medido nos parsers de `coleta/italy_pilot_collect.mjs`:
+#
+#     IT-T3-002   a data da EDIÇÃO, no nome do ficheiro
+#     IT-T3-008   a data da EDIÇÃO («n. 36 del 02 settembre 2026»)
+#     IT-T3-010   o início do período de VALIDADE («14/09 - 20/09»)
+#     ARPAV       a data de GERAÇÃO do PDF (/CreationDate)
+#
+# Tratar as quatro como `PUBLISHED_AT` seria pôr validade e geração no campo da
+# publicação. Quem sabe a espécie é o contrato, e ele declara-a em
+# `DOCUMENT_DATE_KIND`. Só `EDICAO` é publicação. Nenhuma é FACT_TIME.
+#
+#     DATA DO DOCUMENTO != PUBLICAÇÃO != FACT_TIME. A ESPÉCIE DECIDE.
+ESPECIE_QUE_E_PUBLICACAO = "EDICAO"
+
+
+def data_do_documento_e_publicacao(source_id: str) -> dict:
+    """`{"E_PUBLICACAO": bool, "ESPECIE": <texto do contrato ou NAO SEI>}`.
+
+    Sem `DOCUMENT_DATE_KIND` declarado a resposta é `False` com `NAO SEI` — a
+    ausência de declaração não autoriza ninguém a chamar publicação à data.
+    """
+    especie = (declarados().get(source_id) or {}).get("DOCUMENT_DATE_KIND") or NAO_SEI
+    primeira = re.split(r"\s", especie.strip(), maxsplit=1)[0].upper()
+    return {"E_PUBLICACAO": primeira == ESPECIE_QUE_E_PUBLICACAO,
+            "ESPECIE": especie}
 
 
 def regra_do_lugar_do_fato(source_id: str) -> str:

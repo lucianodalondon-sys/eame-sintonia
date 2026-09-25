@@ -64,6 +64,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -160,6 +161,96 @@ def _tempo_do_fato(v) -> str:
     return s
 
 
+def _afirma(v) -> bool:
+    return v not in ing.NAO_E_AFIRMACAO and str(v).strip() != ""
+
+
+def tempo_e_lugar(obs: dict) -> dict:
+    """O que a observacao PROVA sobre tempo e lugar, cada valor com a BASE.
+
+    ⚠️ TEMPO-E-LUGAR (25/09): as 78 da Sala real chegaram com os cinco campos
+    em `NAO SEI` e o livro sabia parte deles — a data da edicao dos boletins
+    (`SOURCE_DATE_ISO`), a sede declarada no contrato, e o PORQUE de cada
+    `UNKNOWN` do tempo do facto. Nada disto atravessava.
+
+        FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT
+        SOURCE_LOCATION != FACT_LOCATION
+
+    Regras (nenhuma infere):
+      · PUBLISHED_AT — o que o coletor declarar COM base (`PUBLISHED_AT` +
+        `PUBLISHED_AT_BASIS`, o extractor da pagina); senao `SOURCE_DATE_ISO`,
+        SO se o contrato declarar que a data do documento e a da EDICAO.
+        Validade e geracao NAO sao publicacao.
+      · FACT_TIME — so o que o coletor declarar como valor; a confissao
+        («UNKNOWN — ...») vira `FACT_TIME_BASIS`. NUNCA a data de publicacao.
+      · SOURCE_LOCATION — o contrato (`lugar_declarado_pela_fonte`, conferido
+        no gazetteer). NUNCA o `REGION` do Atlas, que e o que a AMOSTRA viu.
+      · FACT_LOCATION — so o que o coletor declarar COM base. NUNCA a sede.
+      · OBSERVED_AT — so o que o coletor declarar.
+    """
+    import contratos_de_fonte as cf                         # noqa: PLC0415
+    sid = obs.get("SOURCE_ID") or ""
+    fora = {}
+
+    # PUBLICACAO
+    pub, base = obs.get("PUBLISHED_AT"), obs.get("PUBLISHED_AT_BASIS")
+    if _afirma(pub) and _afirma(base):
+        fora["PUBLISHED_AT"], fora["PUBLISHED_AT_BASIS"] = pub, base
+    elif _afirma(obs.get("SOURCE_DATE_ISO")):
+        especie = cf.data_do_documento_e_publicacao(sid)
+        if especie["E_PUBLICACAO"]:
+            fora["PUBLISHED_AT"] = obs["SOURCE_DATE_ISO"]
+            fora["PUBLISHED_AT_BASIS"] = (
+                "SOURCE_DATE_ISO do livro do coletor (impresso: «%s»); o "
+                "contrato de %s declara DOCUMENT_DATE_KIND «%s»"
+                % (obs.get("SOURCE_DATE") or obs["SOURCE_DATE_ISO"], sid,
+                   especie["ESPECIE"]))
+        elif especie["ESPECIE"] == cf.NAO_SEI:
+            fora["PUBLISHED_AT_BASIS"] = (
+                "a data do documento (%s) existe e NAO se sabe se e de "
+                "publicacao: o contrato de %s nao declara DOCUMENT_DATE_KIND"
+                % (obs["SOURCE_DATE_ISO"], sid))
+        else:
+            fora["PUBLISHED_AT_BASIS"] = (
+                "a data do documento (%s) NAO e de publicacao: o contrato de %s "
+                "declara DOCUMENT_DATE_KIND «%s»"
+                % (obs["SOURCE_DATE_ISO"], sid, especie["ESPECIE"]))
+
+    # TEMPO DO FACTO
+    declarado = str(obs.get("FACT_TIME") or "").strip()
+    valor = _tempo_do_fato(declarado)
+    # «por linha — cada celula tem a sua data» e «por ponto — ...» sao
+    # INSTRUCOES do coletor, nao instantes: prosa num campo de tempo parece
+    # medida. So um valor que comeca por um ano e um tempo.
+    if valor and not re.match(r"^\d{4}", valor):
+        valor = ""
+    if valor and _afirma(obs.get("FACT_TIME_BASIS")):
+        fora["FACT_TIME"] = valor
+        fora["FACT_TIME_BASIS"] = obs["FACT_TIME_BASIS"]
+    elif valor:
+        fora["FACT_TIME"] = valor
+        fora["FACT_TIME_BASIS"] = "declarado pelo coletor no livro (FACT_TIME)"
+    elif declarado:
+        fora["FACT_TIME_BASIS"] = "o coletor declarou: «%s»" % declarado
+
+    # LUGAR DA FONTE
+    if sid:
+        lugar = cf.lugar_declarado_pela_fonte(sid)
+        if _afirma(lugar.get("VALOR")):
+            fora["SOURCE_LOCATION"] = lugar["VALOR"]
+            fora["SOURCE_LOCATION_BASIS"] = "%s: «%s»" % (
+                lugar["BASE"], lugar.get("REGRA_ORIGINAL"))
+
+    # LUGAR DO FACTO
+    lf, lf_base = obs.get("FACT_LOCATION"), obs.get("FACT_LOCATION_BASIS")
+    if _afirma(lf) and _afirma(lf_base):
+        fora["FACT_LOCATION"], fora["FACT_LOCATION_BASIS"] = lf, lf_base
+
+    if _afirma(obs.get("OBSERVED_AT")):
+        fora["OBSERVED_AT"] = obs["OBSERVED_AT"]
+    return fora
+
+
 def traduzir(obs: dict) -> dict:
     """Uma observacao do livro, na lingua da porta. Traducao 4 (e so ela)."""
     # A OBSERVACAO VAI INTEIRA, e nao mutilada: a porta so LE os treze campos
@@ -179,6 +270,12 @@ def traduzir(obs: dict) -> dict:
             fora[para] = v
         else:
             fora.pop(para, None)
+    # ── TEMPO E LUGAR, CADA UM COM A SUA BASE (TEMPO-E-LUGAR, 25/09) ───────
+    # Os campos que a observacao nao prova saem daqui AUSENTES — a porta
+    # escreve `NAO SEI`. O que se prova sai com a BASE ao lado.
+    for campo in ing.TEMPO_E_LUGAR:
+        fora.pop(campo, None)
+    fora.update(tempo_e_lugar(obs))
     # O EXECUTOR PODE DIZER QUEM E: isto nao e um campo da observacao, e quem o
     # declara e quem corre. `DO_COLETOR` transporta-o de proposito.
     fora["EXECUTOR_ID"] = EXECUTOR_ID

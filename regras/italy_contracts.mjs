@@ -51,6 +51,9 @@ export const CONTRACTS = {
     IDENTITY_KEYS: ["provincia", "data_do_boletim"],
     DOCUMENT_ID_RULE: "CAMPANIA:{PROV}:{DD-MM-ANO}",
     DOCUMENT_DATE_FIELD: "a data esta no NOME do arquivo (DD-MM); o ano vem do caminho",
+    // TEMPO-E-LUGAR: que ESPECIE de tempo e a data do documento. So EDICAO vira
+    // PUBLISHED_AT; nenhuma delas vira FACT_TIME (COL-LAW-031).
+    DOCUMENT_DATE_KIND: "EDICAO — uma data = uma edicao do boletim",
     VERSION_FIELD: "nao ha versao explicita; uma data = uma edicao",
     EXPECTED_CONTENT_MARKERS: ["Monitoraggio", "Chimico", "Soglia"],
     EXPECTED_STRUCTURE: "blocos por avversita com Agronomico / Chimico / Soglia e substancia ativa nomeada",
@@ -85,6 +88,7 @@ export const CONTRACTS = {
     IDENTITY_KEYS: ["ano", "numero_da_edicao", "comprensorio"],
     DOCUMENT_ID_RULE: "APOL:{ANO}:N{NUMERO}:{COMPRENSORIO}",
     DOCUMENT_DATE_FIELD: "VALID_FROM e VALID_TO impressos no cabecalho: 'MOSCA DELLE OLIVE dd/mm/aaaa - dd/mm/aaaa'",
+    DOCUMENT_DATE_KIND: "VALIDADE — o periodo impresso e de validade do boletim, nao a data em que foi publicado",
     VERSION_FIELD: "numero da edicao (n. 1..N por temporada)",
     EXPECTED_CONTENT_MARKERS: ["MOSCA DELLE OLIVE", "COMPRENSORIO"],
     EXPECTED_STRUCTURE: "cabecalho com periodo · comprensorio + lista de comuni · fase fenologica · capturas · % de infestacao · rotulo de tendencia · previsao diaria de 7 dias · texto tecnico com soglia",
@@ -121,6 +125,7 @@ export const CONTRACTS = {
     IDENTITY_KEYS: ["ano", "numero_do_notiziario"],
     DOCUMENT_ID_RULE: "ARIF:SETTIMANALE:{ANO}:N{NUMERO}",
     DOCUMENT_DATE_FIELD: "no nome do arquivo E no cabecalho de cada pagina: 'n. 36 del 02 settembre 2026'",
+    DOCUMENT_DATE_KIND: "EDICAO — 'n. NN del DD mese AAAA' e a data da edicao do notiziario",
     VERSION_FIELD: "numero sequencial + 'Anno XL' (ano da serie)",
     EXPECTED_CONTENT_MARKERS: ["Notiziario Agrometeorologico & Fitosanitario Regionale", "Situazione Fitosanitaria", "Programma di Difesa"],
     EXPECTED_STRUCTURE: "por cultura: Situazione Fenologica / Situazione Fitosanitaria / Programma di Difesa. 32 blocos de Situazione Fitosanitaria na edicao n.36.",

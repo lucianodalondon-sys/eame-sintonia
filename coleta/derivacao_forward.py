@@ -408,6 +408,9 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
                            "SOURCE_ID": u.get("SOURCE_ID"),
                            # V1A: o endereco da observacao-pai, transportado.
                            "SOURCE_URL": u.get("SOURCE_URL"),
+                           # TEMPO-E-LUGAR: o recado da observacao-pai, tal e
+                           # qual. Este runner nao o le, nao o mede, nao o muda.
+                           "TEMPO_E_LUGAR": dict(u.get("TEMPO_E_LUGAR") or {}),
                            "ESTADO": r.get("ESTADO"), "PORTA": porta,
                            "PORQUE": r.get("PORQUE"),
                            "LINHA": linha or None,

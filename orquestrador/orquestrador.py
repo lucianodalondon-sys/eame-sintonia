@@ -507,6 +507,8 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
                            # V1A: o endereco da pagina, para a porta perguntar
                            # se ela e o INDEX_URL do contrato (V1).
                            "SOURCE_URL": r.get("SOURCE_URL"),
+                           # TEMPO-E-LUGAR: o recado da observacao, com bases.
+                           "TEMPO_E_LUGAR": dict(r.get("TEMPO_E_LUGAR") or {}),
                            "TEXTO": corpo})
         else:
             recusados.append({"DERIVED_ARTIFACT_ID": linha.get("id"),
@@ -575,6 +577,20 @@ def item_documental_para_a_porta(estruturado, *, source_id):
              pv.CAMPO_DAS_UNIDADES: [unidade]}
     if estruturado.get("CAPTURED_AT") not in (None, "", "NAO SEI", "NAO_SE_APLICA"):
         bruto["COLLECTED_AT"] = estruturado["CAPTURED_AT"]
+    # ── E O TEMPO E O LUGAR, QUE ATE AQUI MORRIAM ─────────────────────────
+    # ⚠️ TEMPO-E-LUGAR (25/09): este `bruto` so levava fonte, especie, pai,
+    # unidades e colheita — e a Sala real recebeu 78 de 78 com FACT_TIME,
+    # PUBLISHED_AT, SOURCE_LOCATION e FACT_LOCATION em `NAO SEI`, com o livro a
+    # saber parte deles. Viajam no nome do contrato comum; `ing.para_a_porta`
+    # e o unico tradutor. So a lista declarada entra, e so afirmacoes.
+    #
+    #     O TEXTO E O SITIO ONDE OS EXTRACTORES DO FACTO SE LIGAM
+    #     (bancada LUGAR-FATO): eles LEEM `estruturado["TEXTO"]` e
+    #     acrescentam aqui FACT_TIME/FACT_LOCATION COM a base — nunca a
+    #     data de publicacao nem o lugar da fonte.
+    tl = estruturado.get("TEMPO_E_LUGAR") or {}
+    bruto.update({k: tl[k] for k in ing.TEMPO_E_LUGAR
+                  if tl.get(k) not in ing.NAO_E_AFIRMACAO})
     item = ing.para_a_porta(bruto)
     item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
                  "raw_asset_id": estruturado.get("RAW_ASSET_ID")})
