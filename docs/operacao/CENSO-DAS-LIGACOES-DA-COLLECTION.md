@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  065f7ceb194dced8f7a69f4a6d17adcadb813605
+HEAD_DA_MEDICAO  6ee17ff1482d5c88556c2e32cb0cb029f714c04b
 BRANCH           preflight-onda3-v1
-GERADO_EM        2026-09-25T18:51:48-03:00
+GERADO_EM        2026-09-25T19:24:18-03:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
