@@ -22,6 +22,12 @@ A RÉGUA (uma fonte, uma corrida da fase do SEU contrato, com o SEU SOURCE_ID):
 
     UMA FONTE SOCIAL SÓ É PRONTA QUANDO A PORTA QUE A VAI COLHER A COLHEU.
 
+D53 · A ROTA VIDEO (canal YouTube): além disso, CADA item prova as quatro coisas do
+vídeo — a página pública do vídeo (o endereço nomeia o NATIVE_ID), o título, a data
+de publicação e o canal do CONTRATO. Falta uma, FALHA com o nome dela. A transcrição
+não é exigida nem inventada: só conta se o Scrap a trouxe. Esta régua é o único
+juiz da rota YouTube do Curator — o Curator não vai ao YouTube (SEPARAR-A-B, 25/09).
+
 ⚠️ O envelope de uma corrida cuja fonte o Atlas não conhece traz COLHEITA 0 com a
 razão escrita — isso é FALHA do registo, não ZERO da plataforma, e a régua separa.
 ⚠️ `--aplicar` recusa a árvore do bot vivo e a ponte viva.
@@ -155,6 +161,47 @@ def provas_da_equivalencia(env: dict, fase: str, contrato: dict | None) -> list[
     return falta
 
 
+# --- D53 · A ROTA VIDEO: AS QUATRO PROVAS DO VIDEO, NO ITEM QUE O SCRAP TROUXE -------
+# O dono da rota YouTube e o Scrap (fase `canal-youtube`, `rota_do_scrap_youtube`); o
+# Curator nao busca paginas do YouTube, le o recibo. A prova minima da D53 le-se nos
+# campos que os adaptadores do Scrap ja escrevem — com os nomes de cada um deles:
+#   · `youtube_oficial.uploads_recentes`  URL, TITLE, SOURCE_ACCOUNT, RAW.CHANNEL_ID
+#   · `adaptador_youtube` (audio publico) SOURCE_URL, RAW.TITLE, CHANNEL_ID
+FASES_VIDEO = frozenset({"canal-youtube"})
+PROVAS_DO_VIDEO = ("PAGINA_DO_VIDEO", "TITULO", "DATA_DE_PUBLICACAO", "CANAL")
+RE_ID_DO_VIDEO = re.compile(r"^[A-Za-z0-9_-]{11}$")
+# A API devolve estes titulos no lugar de um video que ja nao e publico.
+TITULOS_SEM_VIDEO = frozenset({"private video", "deleted video"})
+AUSENTE = ("", "NAO SEI", "UNKNOWN")
+
+
+def _pagina_do_video(ob: dict) -> str:
+    return str(ob.get("URL") or ob.get("SOURCE_URL") or (ob.get("PARENT") or {}).get("SOURCE_URL") or "")
+
+
+def _nomeia_o_video(url: str, vid: str) -> bool:
+    return bool(re.match(r"^https://(www\.|m\.)?youtube\.com/(watch\?v=%s(&|$)|shorts/%s([/?]|$))|"
+                         r"^https://youtu\.be/%s([/?]|$)" % ((re.escape(vid),) * 3), url))
+
+
+def provas_do_video(ob: dict, canal_do_contrato: str | None) -> list[str]:
+    """As provas da D53 que FALTAM neste item. Lista vazia = o video esta provado."""
+    raw = ob.get("RAW") or {}
+    falta = []
+    vid = str(ob.get("NATIVE_ID") or "")
+    if not RE_ID_DO_VIDEO.match(vid) or not _nomeia_o_video(_pagina_do_video(ob), vid):
+        falta.append("PAGINA_DO_VIDEO")
+    titulo = str(ob.get("TITLE") or raw.get("TITLE") or "").strip()
+    if titulo in AUSENTE or titulo.lower() in TITULOS_SEM_VIDEO:
+        falta.append("TITULO")
+    if str(ob.get("PUBLISHED_AT") or "") in AUSENTE:
+        falta.append("DATA_DE_PUBLICACAO")
+    canal = ob.get("CHANNEL_ID") or raw.get("CHANNEL_ID") or ob.get("SOURCE_ACCOUNT")
+    if not canal_do_contrato or canal != canal_do_contrato:
+        falta.append("CANAL")
+    return falta
+
+
 def julgar(env: dict, sid: str, fase: str, raw_no_banco: int | None,
            slug: str | None = None, nome_da_fonte: str | None = None,
            contrato: dict | None = None) -> tuple[str, str]:
@@ -190,6 +237,13 @@ def julgar(env: dict, sid: str, fase: str, raw_no_banco: int | None,
             return FALHA, "item %d sem %s" % (i, ", ".join(falta))
         if ob.get("OWNER_AUTHORIZED") != "SIM":
             return FALHA, "item %d sem autorizacao do dono escrita" % i
+    if fase in FASES_VIDEO:
+        canal = ((contrato or {}).get("ACQUISITION") or {}).get("CHANNEL_ID")
+        for i, it in enumerate(itens):
+            falta = provas_do_video(it.get("OBSERVACAO") or {}, canal)
+            if falta:
+                return FALHA, "D53: o item %d nao prova %s (video %r)" % (
+                    i, ", ".join(falta), (it.get("OBSERVACAO") or {}).get("NATIVE_ID"))
     proprios, diverge = conferir_autor(itens, slug, nome_da_fonte)
     if not proprios:
         return FALHA, ("%d itens e NENHUM publicado pela propria pagina (%s): republicacoes de "
@@ -198,9 +252,11 @@ def julgar(env: dict, sid: str, fase: str, raw_no_banco: int | None,
         return FALHA, "IDENTIDADE A CONFERIR POR HUMANO: " + diverge
     if not raw_no_banco:
         return FALHA, "%d itens vistos e 0 linhas RAW no banco da corrida: visto nao e guardado" % len(itens)
+    video = ("; D53: cada video com pagina, titulo, data e canal (transcricao nao exigida)"
+             if fase in FASES_VIDEO else "")
     return READY, ("canario do Scrap (%s): %d itens (%d da propria pagina) com identidade da "
-                   "plataforma e data, autorizacao do dono e politica escritas; %d linhas RAW no banco"
-                   % (fase, len(itens), len(proprios), raw_no_banco))
+                   "plataforma e data, autorizacao do dono e politica escritas; %d linhas RAW no banco%s"
+                   % (fase, len(itens), len(proprios), raw_no_banco, video))
 
 
 def fase_do_contrato(c: dict) -> str | None:
