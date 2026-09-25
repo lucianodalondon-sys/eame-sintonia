@@ -4801,15 +4801,13 @@
     "audit",
     "diagnostic"
    ],
-   "what": "Le o livro de corridas do coletor (CORTESIA.PEDIDOS_POR_HOST, escrito pelo transporte), junta os hosts por dominio registavel com uma regra propria (sem Public Suffix List; sufixo em falta junta mais, nunca menos) e soma a ONDA inteira: 0=PASS, 1=FAIL (dominio acima de 5), 2=NAO_SEI (corrida da onda sem linha no livro — nunca conta zero). Modo --plano: confere o que um plano de onda PREVE (onda_web --so-plano), reagrupando pelo dominio desta prova e conferindo o dominio de cada fonte pelo INDEX_URL dos contratos (json + mjs lidos como texto). prova_teto_micro.py aplica-a ao plano do MICRO no pior caso (5 pedidos por fonte PRONTA). ensaio_integra.sh e o ensaio integrado da INTEGRA-ONDA2 numa copia do vivo com a rede FECHADA.",
+   "what": "Le o livro de corridas do coletor (CORTESIA.PEDIDOS_POR_HOST, escrito pelo transporte), junta os hosts por dominio registavel com uma regra propria (sem Public Suffix List; sufixo em falta junta mais, nunca menos) e soma a ONDA inteira: 0=PASS, 1=FAIL (dominio acima de 5), 2=NAO_SEI (corrida da onda sem linha no livro — nunca conta zero). Modo --plano: confere o que um plano de onda PREVE (onda_web --so-plano), reagrupando pelo dominio desta prova e conferindo o dominio de cada fonte pelo INDEX_URL dos contratos (json + mjs lidos como texto).",
    "why_here": "PROVA-TETO (25/09/2026): na 1.a onda cia.it levou 16 pedidos (5 fontes, teto por corrida). A ONDA2-G3 mudou o disjuntor para contar por dominio na onda (D38); esta prova mede o mesmo por outro caminho, para ser usada depois do MICRO e da 2.a onda. 1.a onda: FAIL cia.it=16; plano integrado da 2.a onda: PASS (80 previstos, maximo 5).",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
-    "provas/prova_teto_dominio.py",
-    "ferramentas/integra_onda2/prova_teto_micro.py",
-    "ferramentas/integra_onda2/final/ensaio_integra.sh"
+    "provas/prova_teto_dominio.py"
    ]
   },
   {
@@ -4882,6 +4880,25 @@
    ],
    "files": [
     "ferramentas/big_collection/onda_web.py"
+   ]
+  },
+  {
+   "id": "C-INTEGRA-ONDA2",
+   "name": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "ensaio_integra.sh: o ensaio integrado numa copia fiel do vivo com a rede FECHADA (clone local + livros do vivo; onboarding com a prova de rotas ja feita, plano do runbook, coorte congelada so na copia, onda_web --so-plano, plano do MICRO, prova do teto sobre os dois planos, desfazer). prova_teto_micro.py: plano do MICRO so com as fontes de um lote e a prova independente do teto (C-PROVA-TETO-DOMINIO) no pior caso de 5 pedidos por fonte PRONTA. Sem rede.",
+   "why_here": "INTEGRA-ONDA2 (25/09/2026): juntar CONTRATOS-12 (com ONDA2-G3), CONTRATOS-AJUSTE (com CAPA-MATERIA), PONTE-ONBOARD e a PROVA-TETO antes do MICRO, e ensaiar tudo junto sem rede (D41.3). Ensaio final: 17 entram, coorte 28 (D45), onda2 22/80, max 5.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/integra_onda2/prova_teto_micro.py",
+    "ferramentas/integra_onda2/final/ensaio_integra.sh"
    ]
   },
   {
