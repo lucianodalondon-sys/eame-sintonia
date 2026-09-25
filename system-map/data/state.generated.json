@@ -1712,8 +1712,6 @@
       "ferramentas/onda3_pacote/ensaio/SHA256SUMS.txt",
       "ferramentas/onda3_pacote/ensaio/onda3/ONDA-WEB-SO-PLANO.json",
       "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "ferramentas/onda3_pacote/reparar_de_novo.py",
-      "ferramentas/onda3_pacote/test_reparar_de_novo.py",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/ponte_onboard/ENSAIO-1-antes-ENTRA0.txt",
       "ferramentas/ponte_onboard/ENSAIO-2-rotas-provadas-3rondas.json",
@@ -3661,9 +3659,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "onda3-pacote-v1",
-    "HEAD": "ea539001820ab6821a37f5157af475bc5924e2c8",
-    "GENERATED_AT": "2026-09-25T08:30:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c33359c689ba8a71f0b0b1074cce433394617f57c4769f2b9aec0e750fbe6c74"
+    "HEAD": "780b6220c4b0cde8baca49a9c9c7db5d4a58be4c",
+    "GENERATED_AT": "2026-09-25T08:58:54-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3b4bb52dc79cb0ec1ae6a804d6c22aa859f416c0a019b748fac9cf7d5f582ac1"
   },
   "FAMILIES": [
     {
@@ -42206,7 +42204,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "ferramentas/integra_onda2/final/ensaio_integra.sh:40",
-          "ferramentas/onda3_pacote/ensaio_onda3.sh:113"
+          "ferramentas/onda3_pacote/ensaio_onda3.sh:111"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -48158,7 +48156,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "ferramentas/integra_onda2/final/ensaio_integra.sh:61",
-          "ferramentas/onda3_pacote/ensaio_onda3.sh:126"
+          "ferramentas/onda3_pacote/ensaio_onda3.sh:123"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -50884,7 +50882,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "ferramentas/integra_onda2/final/ensaio_integra.sh:43",
-          "ferramentas/onda3_pacote/ensaio_onda3.sh:116"
+          "ferramentas/onda3_pacote/ensaio_onda3.sh:114"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -51460,10 +51458,10 @@
     },
     {
       "id": "C-PACOTE-ONDA3",
-      "name": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila",
+      "name": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "ensaio_onda3.sh: ensaio integrado numa worktree destacada no HEAD do vivo + os ficheiros sujos do vivo lidos na hora (para se o pacote tocar um livro no Git); D49/D51, D52, provas de rota ja feitas, onboarding, o que o robo vai medir, plano, coorte PROVISORIA da 3.a onda, onda_web --so-plano, prova do teto, desfazer a partir da foto. reparar_de_novo.py: REPAIR_CONTRACT pela fila para fontes com o reparo DONE (so depois da receitas-182-v1), recusa READY e retiradas. Sem rede.",
+      "what": "ensaio_onda3.sh: ensaio integrado numa worktree destacada no HEAD do vivo + os ficheiros sujos do vivo lidos na hora (para se o pacote tocar um livro no Git); D49/D51, D52, provas de rota ja feitas, onboarding, o que o robo vai medir, plano, coorte PROVISORIA da 3.a onda, onda_web --so-plano, prova do teto, desfazer a partir da foto. Sem rede.",
       "why_here": "PACOTE-ONDA3 (25/09/2026): contrato-44 v1/v3, REVISAO-15, HR-6 (+D51), ordens-63-v2 (D52) juntas; 210->226 no coletor, prontas 29->41, coorte 40, 30 correm / 120 pedidos / max 5.",
       "departments": [
         "ENGENHARIA"
@@ -51478,13 +51476,11 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "ferramentas/onda3_pacote/ensaio_onda3.sh",
-        "ferramentas/onda3_pacote/reparar_de_novo.py",
-        "ferramentas/onda3_pacote/test_reparar_de_novo.py"
+        "ferramentas/onda3_pacote/ensaio_onda3.sh"
       ],
-      "file_count": 3,
+      "file_count": 1,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -51512,18 +51508,6 @@
       "parado_na_coleta": [],
       "momento": "NAO SEI",
       "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "CONTRATOS",
-          "ESTADOS"
-        ],
-        "palavras": 20,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 20,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [
@@ -54697,7 +54681,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "ferramentas/onda3_pacote/ensaio_onda3.sh:127"
+          "ferramentas/onda3_pacote/ensaio_onda3.sh:124"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -57335,7 +57319,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "ferramentas/integra_onda2/final/ensaio_integra.sh:55",
-          "ferramentas/onda3_pacote/ensaio_onda3.sh:117"
+          "ferramentas/onda3_pacote/ensaio_onda3.sh:115"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -64786,8 +64770,8 @@
           ".github/workflows/comunicacao-publica.yml:105",
           ".github/workflows/system-map.yml:565",
           ".github/workflows/system-map.yml:566",
-          "ferramentas/onda3_pacote/ensaio_onda3.sh:124",
-          "ferramentas/onda3_pacote/ensaio_onda3.sh:124"
+          "ferramentas/onda3_pacote/ensaio_onda3.sh:121",
+          "ferramentas/onda3_pacote/ensaio_onda3.sh:121"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -76861,7 +76845,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila. Provado por 1 linha de codigo.",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta PACOTE-ONDA3 — o ensaio integrado da 3.a onda. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
@@ -97593,7 +97577,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO alimenta PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila. Provado por 1 linha de codigo.",
+      "reason": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO alimenta PACOTE-ONDA3 — o ensaio integrado da 3.a onda. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
@@ -106893,7 +106877,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Sites das ordens de agronomos (63) — ha forma util para a coleta? alimenta PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila. Provado por 1 linha de codigo.",
+      "reason": "Sites das ordens de agronomos (63) — ha forma util para a coleta? alimenta PACOTE-ONDA3 — o ensaio integrado da 3.a onda. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
@@ -109048,11 +109032,11 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila manda rodar A coorte unica da Big Collection (D25). Provado por 1 linha de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda manda rodar A coorte unica da Big Collection (D25). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 113,
+          "line": 111,
           "snippet": "py -B ferramentas/big_collection/coorte_unica.py --plano=\"$OUT/5-PLANO-DEPOIS.json\" --saida=ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json 2>/dev/null ",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-COORTE-BIG-COLLECTION",
@@ -109083,7 +109067,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila manda rodar HR-6 — re-medir pelo caminho canonico as READY que o portao manda a olho humano. Provado por 1 linha de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda manda rodar HR-6 — re-medir pelo caminho canonico as READY que o portao manda a olho humano. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
@@ -109118,7 +109102,7 @@
       "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila escreve em INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 1 linha de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda escreve em INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
@@ -109153,11 +109137,11 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila manda rodar O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda manda rodar O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 126,
+          "line": 123,
           "snippet": "echo \"motor_de_rota_test.mjs: $(node regras/motor_de_rota_test.mjs 2>&1 | grep -E 'PASSOU' | tail -1)\" | tee -a $OUT/7-testes.txt",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-IT-CONTRATOS",
@@ -109188,7 +109172,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila manda rodar Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda manda rodar Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
@@ -109223,11 +109207,11 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila manda rodar Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda manda rodar Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 116,
+          "line": 114,
           "snippet": "py -B ferramentas/big_collection/onda_web.py --so-plano --coorte=ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --saida=\"$OUT/onda3\" > $OUT/6-ONDA3-SO-",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-ONDA-WEB",
@@ -109258,11 +109242,11 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila manda rodar A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 1 linha de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda manda rodar A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 127,
+          "line": 124,
           "snippet": "echo \"teto_dominio_local.mjs: $(node provas/teto_dominio_local.mjs 2>&1 | tail -1)\" | tee -a $OUT/7-testes.txt",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-PROVA-CORTESIA",
@@ -109293,11 +109277,11 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila manda rodar A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda manda rodar A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 117,
+          "line": 115,
           "snippet": "py -B provas/prova_teto_dominio.py --plano \"$OUT/6-ONDA3-SO-PLANO.json\" --coorte ferramentas/big_collection/COORTE-ONDA3-PROVISORIA.json --json \"$OUT/6-PROVA-TE",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-PROVA-TETO-DOMINIO",
@@ -109328,11 +109312,11 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila manda rodar Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda manda rodar Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 124,
+          "line": 121,
           "snippet": "for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_p",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -109348,7 +109332,7 @@
         },
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 124,
+          "line": 121,
           "snippet": "for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_p",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -109364,7 +109348,7 @@
         },
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 124,
+          "line": 121,
           "snippet": "for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_p",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -109380,7 +109364,7 @@
         },
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 124,
+          "line": 121,
           "snippet": "for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_p",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -109396,7 +109380,7 @@
         },
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 124,
+          "line": 121,
           "snippet": "for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_p",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -109412,7 +109396,7 @@
         },
         {
           "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-          "line": 124,
+          "line": 121,
           "snippet": "for t in tests/test_onda_web.py tests/test_onda_web_fontes.py tests/test_teto_dominio.py tests/test_canario_rotas_contrato_certo.py tests/test_onboardar_rotas_p",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -136124,8 +136108,8 @@
     "edges_proven": 1273,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3067,
-    "files_covered": 1353,
+    "files_tracked": 3065,
+    "files_covered": 1351,
     "files_code_unclaimed": 0,
     "roles_proven": 173,
     "roles_declared_only": 8,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ea539001820ab6821a37f5157af475bc5924e2c8
+HEAD_DA_MEDICAO  780b6220c4b0cde8baca49a9c9c7db5d4a58be4c
 BRANCH           onda3-pacote-v1
-GERADO_EM        2026-09-25T08:30:49-03:00
+GERADO_EM        2026-09-25T08:58:54-03:00
 CARDS            102
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -819,7 +819,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2, C-PACOTE-ONDA3 |
-| **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:40; ferramentas/onda3_pacote/ensaio_onda3.sh:113 _(plano CODE)_ |
+| **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:40; ferramentas/onda3_pacote/ensaio_onda3.sh:111 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `curadoria/italy_contracts_curator.json` |
@@ -944,7 +944,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2, C-PACOTE-ONDA3 |
-| **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:43; ferramentas/onda3_pacote/ensaio_onda3.sh:116 _(plano CODE)_ |
+| **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:43; ferramentas/onda3_pacote/ensaio_onda3.sh:114 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `coleta/italy_pilot_collect.mjs`, `data/collection-ledger/italy/runs.ndjson`, `ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json` |
@@ -960,14 +960,14 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
-### `C-PACOTE-ONDA3` · PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila
+### `C-PACOTE-ONDA3` · PACOTE-ONDA3 — o ensaio integrado da 3.a onda
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/onda3_pacote/ensaio_onda3.sh`, `ferramentas/onda3_pacote/reparar_de_novo.py`, `ferramentas/onda3_pacote/test_reparar_de_novo.py` |
+| **peça real** | `ferramentas/onda3_pacote/ensaio_onda3.sh` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
@@ -2333,7 +2333,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-CAPA-MATERIA, C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE.  Mas 4 ficheiro(s) mudaram depois de a de |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2, C-PACOTE-ONDA3 |
-| **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:61; ferramentas/onda3_pacote/ensaio_onda3.sh:126 _(plano CODE)_ |
+| **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:61; ferramentas/onda3_pacote/ensaio_onda3.sh:123 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |

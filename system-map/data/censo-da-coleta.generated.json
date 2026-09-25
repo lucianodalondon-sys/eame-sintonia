@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T11:31:31+00:00",
-    "HEAD": "ea539001820ab6821a37f5157af475bc5924e2c8",
+    "GENERATED_AT": "2026-09-25T12:59:23+00:00",
+    "HEAD": "780b6220c4b0cde8baca49a9c9c7db5d4a58be4c",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c33359c689ba8a71f0b0b1074cce433394617f57c4769f2b9aec0e750fbe6c74",
-    "FICHEIROS_NA_IMPRESSAO": 3215,
+    "SOURCE_TREE_FINGERPRINT": "3b4bb52dc79cb0ec1ae6a804d6c22aa859f416c0a019b748fac9cf7d5f582ac1",
+    "FICHEIROS_NA_IMPRESSAO": 3213,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -748,21 +748,7 @@
       {
         "PATH": "ferramentas/onda3_pacote/ensaio_onda3.sh",
         "PAPEL": "FONTE",
-        "VERSAO": "31bb733a31580a31d79ee9511c9d0ebc1e02a5be",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
-        "PATH": "ferramentas/onda3_pacote/reparar_de_novo.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "787d6326ac8d853d5f0be5a654e7e4f3ce3cffd4",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
-        "PATH": "ferramentas/onda3_pacote/test_reparar_de_novo.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "76f562885eea92e534459c84eb5932f6dbe52cdb",
+        "VERSAO": "ce0dac7d2e6ea4e28242843845d82623b5a20d57",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1215,8 +1201,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 172,
-    "INPUTS_DIGEST": "03774a137541ff24062407d6afdbd041d1762bb51e05f48c566b732a6b68eeed",
+    "INPUTS_COUNT": 170,
+    "INPUTS_DIGEST": "0f28c89b213cc8d117fcad75199b07d94b0f39cdb06b434fba15d13cc9b223bd",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2155,7 +2141,7 @@
     {
       "ficheiro": "ferramentas/onda3_pacote/ensaio_onda3.sh",
       "gaveta": "ferramentas",
-      "linhas": 148,
+      "linhas": 145,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -2167,41 +2153,6 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "ferramentas/onda3_pacote/reparar_de_novo.py",
-      "gaveta": "ferramentas",
-      "linhas": 91,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [
-        "ferramentas/onda3_pacote/ensaio_onda3.sh",
-        "ferramentas/onda3_pacote/test_reparar_de_novo.py"
-      ],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "ferramentas/onda3_pacote/test_reparar_de_novo.py",
-      "gaveta": "ferramentas",
-      "linhas": 48,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
       "chamado_por": [],
       "no_ci": false
     },
@@ -4731,10 +4682,10 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 172,
-    "pontos_de_entrada": 125,
+    "ficheiros_de_codigo": 170,
+    "pontos_de_entrada": 123,
     "executores_que_saem_para_fora": 24,
-    "sem_chamador_e_fora_do_ci": 72,
+    "sem_chamador_e_fora_do_ci": 71,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 94,
     "deitam_fora_alguma_coisa": 46,
@@ -4784,8 +4735,6 @@
       "ferramentas/integra_onda2/prova_teto_micro.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
-      "ferramentas/onda3_pacote/reparar_de_novo.py",
-      "ferramentas/onda3_pacote/test_reparar_de_novo.py",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/reel_transcricao.py",
@@ -4927,7 +4876,6 @@
       "ferramentas/integra_onda2/prova_teto_micro.py",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "ferramentas/onda3_pacote/test_reparar_de_novo.py",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",

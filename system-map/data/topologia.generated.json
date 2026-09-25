@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T11:33:45+00:00",
-  "HEAD": "ea539001820ab6821a37f5157af475bc5924e2c8",
+  "GENERATED_AT": "2026-09-25T13:01:47+00:00",
+  "HEAD": "780b6220c4b0cde8baca49a9c9c7db5d4a58be4c",
   "BRANCH": "onda3-pacote-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "c33359c689ba8a71f0b0b1074cce433394617f57c4769f2b9aec0e750fbe6c74",
-  "FICHEIROS_NA_IMPRESSAO": 3215,
+  "SOURCE_TREE_FINGERPRINT": "3b4bb52dc79cb0ec1ae6a804d6c22aa859f416c0a019b748fac9cf7d5f582ac1",
+  "FICHEIROS_NA_IMPRESSAO": 3213,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -875,20 +875,6 @@
     "PATH": "ferramentas/ods_peek.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "c9ae639b7bb399e36adc8dbf7a599ee56bf5b833",
-    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-    "LIDO_POR": "escreve_le() · open"
-   },
-   {
-    "PATH": "ferramentas/onda3_pacote/reparar_de_novo.py",
-    "PAPEL": "FONTE",
-    "VERSAO": "787d6326ac8d853d5f0be5a654e7e4f3ce3cffd4",
-    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-    "LIDO_POR": "escreve_le() · open"
-   },
-   {
-    "PATH": "ferramentas/onda3_pacote/test_reparar_de_novo.py",
-    "PAPEL": "FONTE",
-    "VERSAO": "76f562885eea92e534459c84eb5932f6dbe52cdb",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4066,14 +4052,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c33359c689ba8a71f0b0b1074cce433394617f57c4769f2b9aec0e750fbe6c74",
+    "VERSAO": "3b4bb52dc79cb0ec1ae6a804d6c22aa859f416c0a019b748fac9cf7d5f582ac1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c33359c689ba8a71f0b0b1074cce433394617f57c4769f2b9aec0e750fbe6c74",
+    "VERSAO": "3b4bb52dc79cb0ec1ae6a804d6c22aa859f416c0a019b748fac9cf7d5f582ac1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6003,8 +5989,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 852,
-  "INPUTS_DIGEST": "92617bf882bf702f6b98d792dfa35cc14517d6a44cacb4feded243bcac2dcaf2",
+  "INPUTS_COUNT": 850,
+  "INPUTS_DIGEST": "8f2279ddf422f4ddf3cd25f97e61412231574e959c08da3fea5448974323da43",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6037,8 +6023,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "2446999077bcd6ee011b82c24bb0b186e396c10eb20ed21aec563ea9435d5e59",
-  "SEMANTIC_HASH": "b73ea52c07d28d299e52118c1174671185c1269f4272058436f42f6acf616860"
+  "MEASUREMENT_HASH": "a13b79d7b7716c4808e77c788cf2714655a61952ff4e08faaf0230d84f7300ed",
+  "SEMANTIC_HASH": "0d61127bdea85ab574bc23d9ade4cf254425ff2b81596fb1771a6e68688756b9"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -30472,7 +30458,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 113,
+      "LINHA": 111,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-COORTE-BIG-COLLECTION",
@@ -30516,7 +30502,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 126,
+      "LINHA": 123,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-IT-CONTRATOS",
@@ -30560,7 +30546,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 116,
+      "LINHA": 114,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-ONDA-WEB",
@@ -30582,7 +30568,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 127,
+      "LINHA": 124,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-PROVA-CORTESIA",
@@ -30604,7 +30590,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 117,
+      "LINHA": 115,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-PROVA-TETO-DOMINIO",
@@ -30626,7 +30612,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 124,
+      "LINHA": 121,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -30634,7 +30620,7 @@
      },
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 124,
+      "LINHA": 121,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -30642,7 +30628,7 @@
      },
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 124,
+      "LINHA": 121,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -30650,7 +30636,7 @@
      },
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 124,
+      "LINHA": 121,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -30658,7 +30644,7 @@
      },
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 124,
+      "LINHA": 121,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -30666,7 +30652,7 @@
      },
      {
       "FICHEIRO": "ferramentas/onda3_pacote/ensaio_onda3.sh",
-      "LINHA": 124,
+      "LINHA": 121,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
@@ -50641,15 +50627,13 @@
   },
   {
    "CARD_ID": "C-PACOTE-ONDA3",
-   "NOME": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda e o reparo de novo pela fila",
+   "NOME": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda",
    "FAMILIA": "F-COLETA",
    "TERRITORIO": "Z-FERRAMENTAS",
    "KIND": "library",
    "STATUS": "PENDING",
    "FICHEIROS": [
-    "ferramentas/onda3_pacote/ensaio_onda3.sh",
-    "ferramentas/onda3_pacote/reparar_de_novo.py",
-    "ferramentas/onda3_pacote/test_reparar_de_novo.py"
+    "ferramentas/onda3_pacote/ensaio_onda3.sh"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
@@ -50658,11 +50642,7 @@
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
-   "LE_DE": [
-    "__future__",
-    "pathlib",
-    "unittest"
-   ],
+   "LE_DE": [],
    "ENTRAM": 3,
    "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
