@@ -247,7 +247,11 @@ class AValidacaoLeOScrapDeHoje(unittest.TestCase):
     def test_o_scrap_declara_a_rota_hoje(self):
         # medido: a fase canal-youtube pede youtube.channel.discovery pela API
         self.assertEqual(DECLARADO["DECISAO"], "ALLOWED")
-        self.assertEqual(DECLARADO["CLASSE"], "OFFICIAL_API_FREE")
+        # YT-METADADOS (bloco B, 25/09): a fase canal-youtube passou a listar pela
+        # PAGINA PUBLICA do canal, sem chave (robots conferido). As duas classes sao
+        # rotas permitidas pela matriz; o que este teste guarda e que a rota esta
+        # ALLOWED e e uma destas duas — nunca o feed, que continua proibido.
+        self.assertIn(DECLARADO["CLASSE"], ("OFFICIAL_API_FREE", "PUBLIC_NATIVE"))
 
 
 class OBlocoQuatroDoG1(unittest.TestCase):
