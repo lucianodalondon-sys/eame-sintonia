@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1
-BRANCH           integra-onda2-v1
-GERADO_EM        2026-09-25T06:49:47-03:00
-CARDS            99
+HEAD_DA_MEDICAO  290e734973905d15878fc0ea60a8d797d9a7eddc
+BRANCH           claude/robots-rfc9309-integration-9am18y
+GERADO_EM        2026-09-25T07:37:41-03:00
+CARDS            100
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -363,15 +363,40 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 12 · saem 22 |
-| **arestas provadas** | entram 9 · saem 21 |
+| **arestas no mapa** | entram 12 · saem 23 |
+| **arestas provadas** | entram 9 · saem 22 |
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 29 · NÃO SEI 4 · OBSERVED 1 |
+| **prova das ligações** | CODE 30 · NÃO SEI 4 · OBSERVED 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
+
+### `C-ROBOTS-RFC9309` · O leitor unico de robots.txt da casa — RFC 9309 (D34)
+
+| | |
+|---|---|
+| **peça real** | `coleta/robots_rfc9309.py` |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | coleta/scrap_http.py:53; provas/medir_validadores_coorte.py:25; provas/robots_rfc/enfileirar_as_52.py:28 |
+| **porquê** | estas pecas importam-na — C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 6 |
+| **arestas provadas** | entram 0 · saem 6 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 6 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-ROTA-M2` · A rota forward do documento (M2)
 
@@ -463,13 +488,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/instagram_janela.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 24 · saem 25 |
-| **arestas provadas** | entram 21 · saem 25 |
+| **arestas no mapa** | entram 25 · saem 26 |
+| **arestas provadas** | entram 22 · saem 26 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 43 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 45 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -800,13 +825,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `curadoria/BRIDGE-LEDGER-V1.json`, `curadoria/DISCOVERY-VISITED.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `curadoria/RED-TEAM-TELEMETRIA-V1.json`, `curadoria/italy_contracts_curator.json` |
-| **arestas no mapa** | entram 9 · saem 9 |
-| **arestas provadas** | entram 9 · saem 9 |
+| **arestas no mapa** | entram 9 · saem 10 |
+| **arestas provadas** | entram 9 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 |
+| **prova das ligações** | CODE 19 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1681,13 +1706,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/retrato_html.mjs` |
 | **o que sai · dado** | C-CENSO-UNIFICACAO |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json` |
-| **arestas no mapa** | entram 11 · saem 10 |
-| **arestas provadas** | entram 11 · saem 10 |
+| **arestas no mapa** | entram 11 · saem 11 |
+| **arestas provadas** | entram 11 · saem 11 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 21 |
+| **prova das ligações** | CODE 22 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2532,10 +2557,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 40
-UNKNOWN            30
+UNKNOWN            31
 SYSTEM_GAP         11
 TERMINAL           10
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              99
+TOTAL              100
 ```

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-onda2-v1",
-    "HEAD": "3a17d10a55943be3ddb9c282b8f7a413fd7b3dc1",
-    "GENERATED_AT": "2026-09-25T06:49:47-03:00",
-    "SOURCE_TREE_FINGERPRINT": "36a077a45e46d6a485c3d42546bd47f2ef37407057e983d7c55c8568da18574a"
+    "BRANCH": "claude/robots-rfc9309-integration-9am18y",
+    "HEAD": "290e734973905d15878fc0ea60a8d797d9a7eddc",
+    "GENERATED_AT": "2026-09-25T07:37:41-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cd5e2bb0d4e5df88180259d6d4076a213857ab270d4c6416ebb9a226cb1ac751"
   },
   "FILES": [
     {
@@ -1942,7 +1942,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "8b800f0bd7a2433b309171e7263bfea66e8f7a19",
+      "sha": "e92a7b3f5c81f1554e58186c45bbd73207582e31",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -1993,6 +1993,13 @@
       "path": "coleta/retrato_html.mjs",
       "sha": "625d31bcfb022bed595f9826fa404c6510a8f78d",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/robots_rfc9309.py",
+      "sha": "b87936a92f05787d62393985b21f6bb15fcb66ca",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -2054,7 +2061,7 @@
     },
     {
       "path": "coleta/scrap_http.py",
-      "sha": "8135ba85982820ad6bbe16ff1e1ece89287db037",
+      "sha": "af317ca58b9a366f91a2b9b3e3ef573e414a173c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2866,7 +2873,7 @@
     },
     {
       "path": "curadoria/descobrir.py",
-      "sha": "21db3e8085626a787524e55bfbb2ab34b1162b2a",
+      "sha": "2ef8bfd4f54040477bc6b02372a1d33edc1af143",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2929,7 +2936,7 @@
     },
     {
       "path": "curadoria/gate_de_rota.py",
-      "sha": "8507cee22865935edbad267ef686ea2e7360211d",
+      "sha": "b8bbf258efc1aaa366f141bc783ff0a1c26d9a53",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3545,7 +3552,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "17c45e73f2b0d6f7126a330b6d3cc6cf18ac8312",
+      "sha": "0540721f0a27ec37fd516e2f4c887b03134a89b4",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -10825,7 +10832,7 @@
     },
     {
       "path": "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
-      "sha": "9a08bad9613f43a6919c2df29fcfdeda764848ae",
+      "sha": "3f6e651e6d3f738d27f5050bb1887fd5e3846aab",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -15438,7 +15445,7 @@
     },
     {
       "path": "provas/cortesia_http_local.mjs",
-      "sha": "1d9d167f0eacdb18488e4572100d5c9e70b30ff2",
+      "sha": "4d0745044f6523d4fc923deabad48bd4025051d8",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -15613,7 +15620,7 @@
     },
     {
       "path": "provas/medir_validadores_coorte.py",
-      "sha": "5a65a7a4c8fcff58098adee5ff7be754b0e663a7",
+      "sha": "a544306e29859fb3c28d87f65e87814a7f4a977c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16111,6 +16118,76 @@
     {
       "path": "provas/rls_censo_portao.py",
       "sha": "4c3c9b2eddb5730884b9ce16748fb255e14884f0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/RELATORIO-ROBOTS-RFC.md",
+      "sha": "f7d0bab5008f1c82dec26e55c3bdaea78b4fc02f",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/ROBOTS-BAIXADOS.sha256",
+      "sha": "073559b530c2dc319f843db4404c497c366e43f4",
+      "ext": ".sha256",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/ROBOTS-COM-REDE-D39.json",
+      "sha": "1cabc411003dc4b5c6b4e6bda8c4b2f0ed941fe5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/ROBOTS-COM-REDE.json",
+      "sha": "c6977650e5d7a48f18dc939d28991eba67329172",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/ROBOTS-LIVRO-INTEIRO.json",
+      "sha": "1c34010a46fa0c5d567bfa85e47fca32ccc6de06",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/enfileirar_as_52.py",
+      "sha": "f99f235aa82109da9b98fd14fe96c73caf22ec0b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/medir_robots_com_rede.py",
+      "sha": "210beaa39c0bbebdad14270854f3eb8c8e3bdccb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/medir_robots_livro.py",
+      "sha": "30111ec5043e7ba1b054ba227a0564d6cc763b88",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/mutantes_d39.py",
+      "sha": "a76d74fb37c4e9ee9a3b04ff50a22e5badffdd1b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/robots_rfc/reler_com_d39.py",
+      "sha": "08ab6c283f279f5a316a809d01148154dcfc55f2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18693,7 +18770,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6fbeb3259f859c03654c8d25eff0043e170be317",
+      "sha": "64617d75216c6d5130837e24492a6a45a96136a8",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19519,7 +19596,7 @@
     },
     {
       "path": "tests/test_c10_5_collection_flow.py",
-      "sha": "175feae40a78b07e9626cddb7de246f0da350233",
+      "sha": "6443d43c4784b38dc261d3955cc518c25c680889",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20072,7 +20149,7 @@
     },
     {
       "path": "tests/test_integracao_04a_curator.py",
-      "sha": "002383d33da930b7ea6a9c5ca325ed79f3fa0b05",
+      "sha": "dc4fcadd24d0b420def9b444f3c27467174ac970",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20605,6 +20682,13 @@
     {
       "path": "tests/test_retorno_da_coleta.py",
       "sha": "507a94ffa7b2f68f6fb3946e64b19d8c08246c77",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_robots_rfc9309.py",
+      "sha": "2224337cff77e35426be043d05676d67830a1ca6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24178,7 +24262,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 612,
+        "line": 621,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -24277,7 +24361,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 846,
+        "line": 855,
         "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;"
       }
     },
@@ -24961,6 +25045,17 @@
         "file": "coleta/scrap_executor.py",
         "line": 64,
         "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_http.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_http.py",
+        "line": 53,
+        "snippet": "import robots_rfc9309 as RR   # noqa: E402 — o leitor unico de robots.txt (D34)"
       }
     },
     {
@@ -26477,7 +26572,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 1376,
+        "line": 1375,
         "snippet": "caminho = caminho or (RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\")"
       }
     },
@@ -26488,8 +26583,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 100,
+        "line": 101,
         "snippet": "from fonte_nova import normalizar, registar, carregar, recusar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 99,
+        "snippet": "import robots_rfc9309 as RR  # noqa: E402  (o leitor unico de robots.txt, D34)"
       }
     },
     {
@@ -26499,7 +26605,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 122,
+        "line": 123,
         "snippet": "CRAWL_PROOF_JSON = RAIZ / \"curadoria\" / \"CRAWL-PROOF-V1.json\""
       }
     },
@@ -26510,7 +26616,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 121,
+        "line": 122,
         "snippet": "PROOF_JSON       = RAIZ / \"curadoria\" / \"DISCOVERY-PROOF-V1.json\""
       }
     },
@@ -26521,7 +26627,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 120,
+        "line": 121,
         "snippet": "VISITADOS_JSON   = RAIZ / \"curadoria\" / \"DISCOVERY-VISITED.json\""
       }
     },
@@ -26532,7 +26638,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 769,
+        "line": 770,
         "snippet": "(RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -26543,7 +26649,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 1443,
+        "line": 1442,
         "snippet": "import decisao_semantica as DS"
       }
     },
@@ -26879,12 +26985,23 @@
     },
     {
       "from_file": "curadoria/gate_de_rota.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gate_de_rota.py",
+        "line": 58,
+        "snippet": "import robots_rfc9309 as RR  # noqa: E402  (o leitor unico de robots.txt, D34)"
+      }
+    },
+    {
+      "from_file": "curadoria/gate_de_rota.py",
       "to_file": "curadoria/READY-FOR-COLLECTION-V1.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/gate_de_rota.py",
-        "line": 118,
+        "line": 122,
         "snippet": "ready = json.loads((RAIZ / \"curadoria\" / \"READY-FOR-COLLECTION-V1.json\")"
       }
     },
@@ -26895,7 +27012,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/gate_de_rota.py",
-        "line": 202,
+        "line": 208,
         "snippet": "(RAIZ / \"curadoria\" / \"READY-FOR-COLLECTION-V1.json\").write_text("
       }
     },
@@ -26906,7 +27023,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gate_de_rota.py",
-        "line": 57,
+        "line": 56,
         "snippet": "import capturador as CAP  # noqa: E402"
       }
     },
@@ -26917,7 +27034,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/gate_de_rota.py",
-        "line": 120,
+        "line": 124,
         "snippet": "contr = json.loads((RAIZ / \"curadoria\" / \"italy_contracts_curator.json\")"
       }
     },
@@ -31757,7 +31874,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 66,
+        "line": 67,
         "snippet": "EVIDENCIA = RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\""
       }
     },
@@ -31768,7 +31885,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 110,
+        "line": 111,
         "snippet": "EVIDENCIA.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -31779,7 +31896,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 229,
+        "line": 247,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -31790,7 +31907,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 67,
+        "line": 68,
         "snippet": "ALLOCATION = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
       }
     },
@@ -31834,7 +31951,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 203,
+        "line": 221,
         "snippet": "import escrever_contratos as EC"
       }
     },
@@ -31867,7 +31984,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 65,
+        "line": 66,
         "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -31878,7 +31995,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 265,
+        "line": 283,
         "snippet": "CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -31911,7 +32028,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 494,
+        "line": 512,
         "snippet": "import reparar_contrato as RC"
       }
     },
@@ -31933,7 +32050,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 204,
+        "line": 222,
         "snippet": "import validar_contratos as VC"
       }
     },
@@ -53427,7 +53544,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/cortesia_http_local.mjs",
-        "line": 82,
+        "line": 84,
         "snippet": "const M = await import(\"../coleta/italy_pilot_collect.mjs\");"
       }
     },
@@ -53438,7 +53555,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/cortesia_http_local.mjs",
-        "line": 94,
+        "line": 96,
         "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
       }
     },
@@ -53449,7 +53566,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/cortesia_http_local.mjs",
-        "line": 83,
+        "line": 85,
         "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
       }
     },
@@ -54643,12 +54760,23 @@
     },
     {
       "from_file": "provas/medir_validadores_coorte.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/medir_validadores_coorte.py",
+        "line": 25,
+        "snippet": "import robots_rfc9309 as RR  # noqa: E402  (o leitor unico de robots.txt, D34)"
+      }
+    },
+    {
+      "from_file": "provas/medir_validadores_coorte.py",
       "to_file": "provas/VALIDADORES-COORTE-R2.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_validadores_coorte.py",
-        "line": 31,
+        "line": 32,
         "snippet": "SAIDA = Path(__file__).with_name(\"VALIDADORES-COORTE-R2.json\")"
       }
     },
@@ -54659,7 +54787,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_validadores_coorte.py",
-        "line": 152,
+        "line": 149,
         "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -54670,7 +54798,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_validadores_coorte.py",
-        "line": 54,
+        "line": 55,
         "snippet": "_s = _u.spec_from_file_location(\"rede_egresso\", _os.path.join(str(RAIZ), \"superficie\", \"rede.py\"))"
       }
     },
@@ -59710,6 +59838,182 @@
         "file": "provas/reel_fala_qualidade.py",
         "line": 174,
         "snippet": "with open(CORPUS, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/enfileirar_as_52.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/robots_rfc/enfileirar_as_52.py",
+        "line": 28,
+        "snippet": "import robots_rfc9309 as RR   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/enfileirar_as_52.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/enfileirar_as_52.py",
+        "line": 31,
+        "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/enfileirar_as_52.py",
+      "to_file": "provas/robots_rfc/ROBOTS-COM-REDE-D39.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/enfileirar_as_52.py",
+        "line": 30,
+        "snippet": "MEDICAO = Path(__file__).with_name(\"ROBOTS-COM-REDE-D39.json\")"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/medir_robots_com_rede.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/robots_rfc/medir_robots_com_rede.py",
+        "line": 27,
+        "snippet": "import robots_rfc9309 as RR   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/medir_robots_com_rede.py",
+      "to_file": "provas/robots_rfc/ROBOTS-COM-REDE.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/medir_robots_com_rede.py",
+        "line": 122,
+        "snippet": "(SAIDA / \"ROBOTS-COM-REDE.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/medir_robots_livro.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/robots_rfc/medir_robots_livro.py",
+        "line": 29,
+        "snippet": "import robots_rfc9309 as RR   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/medir_robots_livro.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/medir_robots_livro.py",
+        "line": 57,
+        "snippet": "provas = json.loads((COPIAS / \"LIFECYCLE-EVIDENCE-V1.json\").read_text(encoding=\"utf-8\"))[\"PROVAS\"]"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/medir_robots_livro.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/medir_robots_livro.py",
+        "line": 58,
+        "snippet": "livro = json.loads((COPIAS / \"LIFECYCLE-LEDGER-V1.json\").read_text(encoding=\"utf-8\"))[\"TRANSICOES\"]"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/mutantes_d39.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/mutantes_d39.py",
+        "line": 26,
+        "snippet": "(\"N1 coletor: 403 volta a AUSENTE\", \"coleta/italy_pilot_collect.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/mutantes_d39.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/mutantes_d39.py",
+        "line": 11,
+        "snippet": "(\"P1 401/403 volta a AUSENTE\", \"coleta/robots_rfc9309.py\","
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/mutantes_d39.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/mutantes_d39.py",
+        "line": 24,
+        "snippet": "(\"P7 transporte deixa a excecao do dono atravessar\", \"coleta/scrap_http.py\","
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/mutantes_d39.py",
+      "to_file": "curadoria/worker.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/mutantes_d39.py",
+        "line": 17,
+        "snippet": "(\"P4 robo classifica como ROBOTS (Disallow)\", \"curadoria/worker.py\","
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/mutantes_d39.py",
+      "to_file": "provas/cortesia_http_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/mutantes_d39.py",
+        "line": 9,
+        "snippet": "NODE = [\"node\", \"provas/cortesia_http_local.mjs\"]"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/reler_com_d39.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/robots_rfc/reler_com_d39.py",
+        "line": 14,
+        "snippet": "import robots_rfc9309 as RR   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/reler_com_d39.py",
+      "to_file": "provas/robots_rfc/ROBOTS-COM-REDE-D39.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/reler_com_d39.py",
+        "line": 42,
+        "snippet": "(AQUI / \"ROBOTS-COM-REDE-D39.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/robots_rfc/reler_com_d39.py",
+      "to_file": "provas/robots_rfc/ROBOTS-COM-REDE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/robots_rfc/reler_com_d39.py",
+        "line": 19,
+        "snippet": "d = json.loads((AQUI / \"ROBOTS-COM-REDE.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -70136,8 +70440,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_5_collection_flow.py",
-        "line": 355,
-        "snippet": "self.assertEqual(leitores, ['coleta/scrap_http.py'],"
+        "line": 366,
+        "snippet": "io.open(os.path.join(RAIZ, 'coleta', 'scrap_http.py'), encoding='utf-8').read())"
       }
     },
     {
@@ -70171,6 +70475,28 @@
         "file": "tests/test_c10_5_collection_flow.py",
         "line": 50,
         "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "provas/robots_rfc/medir_robots_com_rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 362,
+        "snippet": "'provas/robots_rfc/medir_robots_com_rede.py'}"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "provas/robots_rfc/medir_robots_livro.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 361,
+        "snippet": "MEDEM_O_ANTIGO = {'provas/robots_rfc/medir_robots_livro.py',"
       }
     },
     {
@@ -76670,7 +76996,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 396,
+        "line": 399,
         "snippet": "\"REAL-EXAMPLE-MANIFEST-V1.json\", \"CANARY-LOTE-HTML-ARTIGO.json\","
       }
     },
@@ -76681,7 +77007,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 397,
+        "line": 400,
         "snippet": "\"CANARY-LOTE-YOUTUBE-FEED.json\", \"SOURCE-ID-ALLOCATION-V1.json\","
       }
     },
@@ -76703,7 +77029,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 398,
+        "line": 401,
         "snippet": "\"HANDOFF-INTEGRACAO-04.md\"):"
       }
     },
@@ -76736,7 +77062,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 397,
+        "line": 400,
         "snippet": "\"CANARY-LOTE-YOUTUBE-FEED.json\", \"SOURCE-ID-ALLOCATION-V1.json\","
       }
     },
@@ -76747,30 +77073,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 375,
+        "line": 378,
         "snippet": "for essencial in (\"collection_gate.py\", \"ready_split.py\", \"ponte_candidatas.py\"):"
-      }
-    },
-    {
-      "from_file": "tests/test_integracao_04a_curator.py",
-      "to_file": "curadoria/descobrir.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_integracao_04a_curator.py",
-        "line": 366,
-        "snippet": "LEITORES_HERDADOS_EM_CURADORIA = (\"curadoria/descobrir.py\", \"curadoria/gate_de_rota.py\")"
-      }
-    },
-    {
-      "from_file": "tests/test_integracao_04a_curator.py",
-      "to_file": "curadoria/gate_de_rota.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_integracao_04a_curator.py",
-        "line": 366,
-        "snippet": "LEITORES_HERDADOS_EM_CURADORIA = (\"curadoria/descobrir.py\", \"curadoria/gate_de_rota.py\")"
       }
     },
     {
@@ -76791,7 +77095,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 375,
+        "line": 378,
         "snippet": "for essencial in (\"collection_gate.py\", \"ready_split.py\", \"ponte_candidatas.py\"):"
       }
     },
@@ -76802,7 +77106,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 375,
+        "line": 378,
         "snippet": "for essencial in (\"collection_gate.py\", \"ready_split.py\", \"ponte_candidatas.py\"):"
       }
     },
@@ -82175,6 +82479,94 @@
       }
     },
     {
+      "from_file": "tests/test_robots_rfc9309.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_robots_rfc9309.py",
+        "line": 168,
+        "snippet": "mod = (RAIZ / \"coleta\" / \"italy_pilot_collect.mjs\").as_uri()"
+      }
+    },
+    {
+      "from_file": "tests/test_robots_rfc9309.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_robots_rfc9309.py",
+        "line": 26,
+        "snippet": "import robots_rfc9309 as RR   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_robots_rfc9309.py",
+      "to_file": "coleta/robots_rfc9309.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_robots_rfc9309.py",
+        "line": 185,
+        "snippet": "DONO = \"coleta/robots_rfc9309.py\""
+      }
+    },
+    {
+      "from_file": "tests/test_robots_rfc9309.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_robots_rfc9309.py",
+        "line": 229,
+        "snippet": "import scrap_http as H   # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_robots_rfc9309.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_robots_rfc9309.py",
+        "line": 205,
+        "snippet": "for rel in (\"curadoria/gate_de_rota.py\", \"curadoria/descobrir.py\", \"coleta/scrap_http.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_robots_rfc9309.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_robots_rfc9309.py",
+        "line": 205,
+        "snippet": "for rel in (\"curadoria/gate_de_rota.py\", \"curadoria/descobrir.py\", \"coleta/scrap_http.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_robots_rfc9309.py",
+      "to_file": "curadoria/gate_de_rota.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_robots_rfc9309.py",
+        "line": 205,
+        "snippet": "for rel in (\"curadoria/gate_de_rota.py\", \"curadoria/descobrir.py\", \"coleta/scrap_http.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_robots_rfc9309.py",
+      "to_file": "provas/robots_rfc/enfileirar_as_52.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_robots_rfc9309.py",
+        "line": 313,
+        "snippet": "\"e52\", RAIZ / \"provas\" / \"robots_rfc\" / \"enfileirar_as_52.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_route_membership.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -85351,10 +85743,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2977,
-    "files_readable": 1332,
-    "files_code_dir": 1268,
-    "file_edges": 5810,
+    "files_tracked": 2989,
+    "files_readable": 1339,
+    "files_code_dir": 1280,
+    "file_edges": 5838,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

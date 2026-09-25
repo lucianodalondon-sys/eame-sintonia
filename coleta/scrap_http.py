@@ -46,7 +46,11 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-import urllib.robotparser
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import robots_rfc9309 as RR   # noqa: E402 — o leitor unico de robots.txt (D34)
 
 # O agente se identifica. Nao ha ganho em mentir e ha perda: um host que quer
 # nos barrar tem direito de nos reconhecer, e um host que nos permite precisa
@@ -117,6 +121,10 @@ def permitido(url):
             'resposta. Isto não é uma recusa do host.' % base)
     if estado == 'ILEGIVEL':
         return False, 'robots.txt ilegível deste host — não afirmamos permissão que não lemos'
+    if estado in (RR.INVALID_CONTENT, RR.ACCESS_DENIED):
+        # D39: recusas com nome proprio, NAO um Disallow medido — por isso a excecao do dono
+        # (abaixo, que so atravessa uma politica LIDA) nao as alcanca, como o ILEGIVEL.
+        return False, rp.decidir(AGENTE, url).regra
     ok = rp.can_fetch(AGENTE, url)
     if not ok:
         # ── A EXCECAO DO DONO, E ELA SO VALE COM A POLITICA MEDIDA ────────
@@ -135,32 +143,31 @@ def permitido(url):
 
 
 def _carregar_robots(base):
-    rp = urllib.robotparser.RobotFileParser()
+    """Busca o robots.txt; QUEM O LE e o dono unico, `robots_rfc9309` (D34).
+
+    Estados deste portao: LIDO, AUSENTE (404/410 e outros 4xx: RFC 9309 §2.3.1.3, pode),
+    ROBOTS_ACCESS_DENIED (401/403: recusa por prudencia, D39), ROBOTS_INVALID_CONTENT (HTML no
+    lugar do robots: recusa, D39), INDISPONIVEL (o transporte caiu: nao e recusa do host, levanta
+    PortaoIndisponivel), ILEGIVEL (5xx — §2.3.1.4: tudo proibido — ou excecao ao ler)."""
     try:
         req = urllib.request.Request(base + '/robots.txt', headers={'User-Agent': AGENTE})
         # O pedido diz o que e. Um `UNCLASSIFIED` no rasto seria o portao a nao
         # se reconhecer a si proprio.
         req.tipo_de_pedido = PEDIDO_ROBOTS
         with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
-            corpo = f.read().decode('utf-8', 'replace')
+            rp = RR.de_resposta(f.status, f.read())
     except urllib.error.HTTPError as e:
-        # O host RESPONDEU. 404/410 é «não publico regra»; o resto é uma
-        # resposta que não sabemos ler. Nos dois casos houve conversa.
-        if e.code in (404, 410):
-            return rp, 'AUSENTE'
-        return rp, 'ILEGIVEL'
+        # O host RESPONDEU: a norma diz o que cada codigo quer dizer.
+        rp = RR.de_resposta(e.code)
     except (urllib.error.URLError, TimeoutError, ConnectionError, OSError):
         # O host NÃO respondeu. Não há robots para julgar, e não há recusa
         # nenhuma para registar.
-        return rp, 'INDISPONIVEL'
+        return RR.de_resposta(None, erro='transporte'), 'INDISPONIVEL'
     except Exception:
+        return RR.Robots(RR.ILEGIVEL, porque='excecao ao ler'), 'ILEGIVEL'
+    if rp.estado in (RR.INACESSIVEL, RR.ILEGIVEL):
         return rp, 'ILEGIVEL'
-    # Um host que devolve HTML no lugar do robots não está publicando regra:
-    # está nos mandando para uma página. Isso não é "pode".
-    if corpo.lstrip()[:9].lower().startswith('<!doctype') or corpo.lstrip()[:5].lower() == '<html':
-        return rp, 'ILEGIVEL'
-    rp.parse(corpo.splitlines())
-    return rp, 'LIDO'
+    return rp, rp.estado
 
 
 # ── O PORTAO TAMBEM VALE PARA O SALTO ─────────────────────────────────────────

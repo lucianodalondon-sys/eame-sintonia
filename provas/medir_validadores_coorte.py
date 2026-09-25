@@ -21,7 +21,8 @@ servidor emite validador nesta pagina», e mais nada.
 import json
 import subprocess
 import sys
-import urllib.robotparser
+sys.path.append(str(__import__("pathlib").Path(__file__).resolve().parents[1] / "coleta"))
+import robots_rfc9309 as RR  # noqa: E402  (o leitor unico de robots.txt, D34)
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -62,7 +63,7 @@ def egresso():
 def robots_permite(url):
     """Le o robots.txt com o MESMO User-Agent do coletor, pelo curl.
 
-    ⚠️ A PRIMEIRA VERSAO USAVA `RobotFileParser.read()`, que bate a porta como
+    ⚠️ A PRIMEIRA VERSAO USAVA o `.read()` do leitor do urllib, que bate a porta como
     «Python-urllib». O servidor da Agrofarma recusa esse cliente, e o leitor
     le a recusa como «Disallow: /» — deu IT-T7-043 como barrada, quando o host
     nem publica robots.txt (404, que pela norma e «tudo permitido»). Um
@@ -76,17 +77,13 @@ def robots_permite(url):
     if r.returncode != 0 or k < 0:
         return None, f"robots ilegivel (curl rc={r.returncode})"
     status, corpo = int(s[k + 6:] or 0), s[:k]
-    if status in (401, 403):
-        return False, f"robots HTTP {status} — tratado como barrado"
-    if 400 <= status < 500:
-        return True, f"robots HTTP {status} — o host nao publica robots.txt (tudo permitido)"
-    if status != 200:
-        return None, f"robots HTTP {status} — UNKNOWN, tratado como barrado por prudencia"
-    if corpo.lstrip().lower().startswith(("<!doctype", "<html")):
-        return None, "robots devolve HTML com 200 — ilegivel, tratado como barrado por prudencia"
-    rp = urllib.robotparser.RobotFileParser()
-    rp.parse(corpo.splitlines())
-    return rp.can_fetch("*", url), "lido"
+    # D34: quem le e o dono unico (RFC 9309): 4xx = sem robots (inclui 401/403), 5xx = NAO SEI,
+    # HTML no lugar = ilegivel; a regra mais especifica decide, com o UA do coletor.
+    rp = RR.de_resposta(status, corpo)
+    if rp.estado in (RR.INACESSIVEL, RR.ILEGIVEL):
+        return None, f"robots {rp.porque} — UNKNOWN, tratado como barrado por prudencia"
+    d = rp.decidir(UA, url)
+    return d.permite, ("lido — " + d.regra) if rp.estado == RR.LIDO else d.regra
 
 
 def head(url):
