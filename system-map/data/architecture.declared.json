@@ -813,6 +813,29 @@
    ]
   },
   {
+   "id": "C-CAPA-MATERIA",
+   "name": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Diagnostico offline dos 6 NAO/NAO_SEI da 1.a onda (BC5) sobre os RAW guardados: IT-T7-135/121 escolhiam a pagina de contatos da cia.it (o LINK_PATTERN do molde so recusava 'contatti' no 1.o troco); conserto em regras/motor_de_rota.mjs (pagina institucional no ULTIMO troco nao e alvo). Mede no livro de coletas da producao (169 enderecos, 2 recusados, 0 materias) e rejulga a 1.a onda com T1+T2 (0 mudancas).",
+   "why_here": "Rendimento do MICRO/2.a onda (D35 > 16,7%). O falso CAPA da IT-T7-042 e do detector (noticia curta) e nao foi mexido: nao renderia SIM.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/capa_materia/medir_filtro_institucional.py",
+    "scripts/capa_materia/MEDICAO-FILTRO-INSTITUCIONAL-V1.json",
+    "scripts/capa_materia/REJULGAR-1A-ONDA-V1.json",
+    "RELATORIO-CAPA-MATERIA.md"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",

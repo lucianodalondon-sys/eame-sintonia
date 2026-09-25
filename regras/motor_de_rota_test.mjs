@@ -321,6 +321,42 @@ T("URL - a propria pagina de entrada nunca entra como documento seu", () => {
   assert.deepEqual(u, ["https://www.exemplo.it/news/um-artigo-verdadeiro/"]);
 });
 
+// ── CAPA-MATERIA (25/09): a pagina institucional nao e alvo, esteja onde estiver ──
+// O indice REAL da IT-T7-135 (cia.it) anunciava primeiro a pagina de contatos debaixo
+// de /news/, e com MAX_TARGETS = 1 ela foi o unico alvo da 1.a onda (capa != materia).
+const AQ_CIA = { STRATEGY: "HTML_LINK_DISCOVERY", MATCH: "URL", MAX_TARGETS: 1,
+  INDEX_URL: "https://cia.it/agrichef-1/",
+  LINK_PATTERN: "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|contatti|chi-siamo)(?:/|$))(?:[^?#]*/)?(?:news|notizie)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$" };
+const INDICE_CIA = `<html>
+  <a href="https://cia.it/news/settore-comunicazione-contatti/">Contatti</a>
+  <a href="https://cia.it/news/notizie/agrichef-festival-la-campania-porta-alla-finale/">artigo</a>
+  <a href="https://cia.it/news/notizie/nuovi-contatti-con-la-cina-per-l-export/">artigo com contatti no meio</a>
+</html>`;
+
+await TA("CAPA-MATERIA - a pagina de contatos debaixo de /news/ nao e alvo; o 1.o alvo passa a ser o artigo", async () => {
+  const u = ligacoesDoIndice(INDICE_CIA, AQ_CIA);
+  assert.ok(!u.some((x) => x.endsWith("settore-comunicazione-contatti/")), `a pagina de contatos entrou: ${u}`);
+  assert.equal(u[0], "https://cia.it/news/notizie/agrichef-festival-la-campania-porta-alla-finale/");
+  const alvos = await alvosDoContrato("IT-T7-135", { ACQUISITION: AQ_CIA, OUTPUT_TYPE: "HTML" },
+    { buscar: async () => ({ status: 200, buf: Buffer.from(INDICE_CIA) }) });
+  assert.equal(alvos.length, 1);
+  assert.equal(alvos[0].url, u[0], "com MAX_TARGETS = 1 o unico alvo tem de ser o artigo");
+});
+
+T("CAPA-MATERIA - a palavra institucional so conta no FIM do ultimo troco", () => {
+  const u = ligacoesDoIndice(INDICE_CIA, AQ_CIA);
+  assert.ok(u.includes("https://cia.it/news/notizie/nuovi-contatti-con-la-cina-per-l-export/"),
+    "um artigo com «contatti» no meio do titulo foi recusado");
+});
+
+T("CAPA-MATERIA - privacy, chi-siamo, newsletter e faq no ultimo troco ficam fora", () => {
+  const html = ["privacy-policy", "chi-siamo", "iscriviti-alla-newsletter", "faq", "lavora-con-noi"]
+    .map((s) => `<a href="https://cia.it/news/pagina/${s}/">x</a>`).join("") +
+    `<a href="https://cia.it/news/notizie/un-vero-articolo-di-campo/">y</a>`;
+  const aq = { ...AQ_CIA, LINK_PATTERN: "^https?://(www\\.)?cia\\.it/news/.+$" };
+  assert.deepEqual(ligacoesDoIndice(html, aq), ["https://cia.it/news/notizie/un-vero-articolo-di-campo/"]);
+});
+
 T("URL - categoria, paginacao, activo estatico, feed e outro host ficam fora", () => {
   const u = ligacoesDoIndice(INDICE_REAL, AQ_URL).join(" ");
   for (const fora of ["category", "/page/", ".css", "/feed", "outro-sitio"]) {

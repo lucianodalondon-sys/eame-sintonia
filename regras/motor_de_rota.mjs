@@ -260,6 +260,20 @@ function combinar(template, vars) {
 const ATIVOS_ESTATICOS = /\.(css|js|png|jpe?g|gif|svg|ico|woff2?|xml|rss)(\?|#|$)/i;
 const PAGINACAO = /\/page\/\d+\/?(\?|#|$)|[?&](page|pagina|pag|p)=\d+/i;
 const FEED = /\/(feed|rss|atom)\/?(\?|#|$)/i;
+// CAPA-MATERIA (25/09/2026): a PAGINA INSTITUCIONAL nao e documento, esteja onde estiver
+// no caminho. Os LINK_PATTERN do molde recusam «contatti», «chi-siamo»... so no PRIMEIRO
+// troco (`cia.it/contatti/`); `cia.it/news/settore-comunicazione-contatti/` passava, era o
+// 1.o link do indice, e com MAX_TARGETS = 1 foi o unico alvo da IT-T7-135 na 1.a onda (BC5):
+// capa no lugar de materia. Medido no livro de coletas da producao: dos 169 enderecos ja
+// coletados, esta regra recusa 2 — os dois essa mesma pagina de contatos (IT-T7-121, 135) —
+// e nenhuma materia. So o ULTIMO troco, e so quando ACABA na palavra: um artigo
+// «nuovi-contatti-con-la-cina» continua a passar.
+const PAGINA_INSTITUCIONAL = /(?:^|-)(contatti|contatto|contacts|chi-siamo|dove-siamo|privacy|privacy-policy|cookie|cookie-policy|note-legali|lavora-con-noi|accessibilita|mappa-del-sito|newsletter|login|area-riservata|faq)$/i;
+function eInstitucional(u) {
+  let ultimo = "";
+  try { ultimo = new URL(u).pathname.split("/").filter(Boolean).pop() || ""; } catch { return false; }
+  return PAGINA_INSTITUCIONAL.test(ultimo);
+}
 
 export function ligacoesDoIndice(html, aq) {
   const padrao = new RegExp(aq.LINK_PATTERN, "i");
@@ -277,6 +291,7 @@ export function ligacoesDoIndice(html, aq) {
     if (aq.SAME_HOST !== false && new URL(u).hostname.replace(/^www\./, "") !== host) continue;
     if (ATIVOS_ESTATICOS.test(u) || PAGINACAO.test(u) || FEED.test(u)) continue;
     if (u.replace(/\/+$/, "") === entradaNorm) continue;
+    if (eInstitucional(u)) continue;
     if (!padrao.test(u)) continue;
     fora.push(u);
   }
