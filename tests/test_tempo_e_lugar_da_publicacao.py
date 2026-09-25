@@ -438,5 +438,57 @@ class D63ContaAPartirDaPublicacao(unittest.TestCase):
         self.assertEqual([], art.conferir(a))
 
 
+#: segunda-feira 21/09/2026, meta provada
+PUB_SEGUNDA = {"VALOR": "2026-09-21T09:00:00+02:00", "BASE": ex.BASE_META}
+
+
+class D64OggiEAInterfaceDoItem(unittest.TestCase):
+    """D64: «oggi» só quando o texto diz que é o próprio dia; hoje-em-dia =
+    NAO SEI. E o leitor do facto lê a publicação da interface do ITEM."""
+
+    def _v(self, texto, pub=PUB_SEGUNDA):
+        return ex.tempo_do_fato_relativo(texto, pub)["VALOR"]
+
+    def test_oggi_o_proprio_dia_conta(self):
+        for t in ("Oggi, lunedì, la grandine ha colpito", "oggi lunedi 21 settembre",
+                  "Oggi è stata una giornata di forte pioggia",
+                  "oggi è stato firmato l'accordo"):
+            self.assertEqual("2026-09-21", self._v(t), t)
+        r = ex.tempo_do_fato_relativo("oggi, lunedì", PUB_SEGUNDA)
+        self.assertEqual("CALCULADA:DIA", r["PRECISAO"])
+
+    def test_oggi_hoje_em_dia_e_NAO_SEI(self):
+        for t in ("ad oggi il raccolto", "al giorno d'oggi", "al giorno d’oggi",
+                  "oggi i consumatori chiedono", "fino ad oggi", "oggi"):
+            self.assertEqual(NAO_SEI, self._v(t), t)
+
+    def test_oggi_com_dia_da_semana_que_nao_bate_nao_conta(self):
+        self.assertEqual(NAO_SEI, self._v("oggi, martedì, la grandine"))
+
+    def test_o_leitor_le_publication_time_e_basis_do_item(self):
+        item = {"publication_time": "2026-09-21T09:00:00+02:00",
+                "publication_time_basis": ex.BASE_META}
+        pub = ex.publicacao_do_item(item)
+        self.assertEqual(PUB_SEGUNDA, pub)
+        self.assertEqual("2026-09-20", ex.tempo_do_fato_relativo("ieri", pub)["VALOR"])
+        # a saida do extrator, posta no item, tambem se le
+        sai = ex.publicacao_para_o_contrato(ex.tempo_de_publicacao(_real(REAL_META)))
+        self.assertEqual("2026-07-11T04:00:00+00:00",
+                         ex.publicacao_do_item(sai)["VALOR"])
+
+    def test_item_sem_base_ou_contraditorio_nao_tem_publicacao(self):
+        casos = (
+            {"publication_time": "2026-09-21"},                       # sem base
+            {"published_at": "2026-09-21", "published_at_basis": "NAO SEI — nada"},
+            {"publication_time": "2026-09-21", "publication_time_basis": "x",
+             "published_at": "2026-09-01", "published_at_basis": "y"},  # contradiz
+            {}, None,
+        )
+        for item in casos:
+            pub = ex.publicacao_do_item(item)
+            self.assertEqual(NAO_SEI, pub["VALOR"], item)
+            self.assertEqual(NAO_SEI, ex.tempo_do_fato_relativo("ieri", pub)["VALOR"])
+
+
 if __name__ == "__main__":
     unittest.main()

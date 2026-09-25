@@ -470,9 +470,9 @@ def publicacao_para_o_contrato(r: dict) -> dict:
 # ⚠️ E UM TEXTO COM DUAS CONTAS DIFERENTES NÃO RESPONDE («ieri» e «la settimana
 # scorsa» no mesmo artigo): não se sabe qual é a do facto. NAO SEI, com porquê.
 #
-# ⚠️ FICAM DE FORA, e o porquê é de agro: «oggi» e «l'anno scorso». «Ad oggi»
-# é «até agora», e «rispetto all'anno scorso» é comparação de safra — nos dois
-# a expressão raramente data o facto. Ficam NAO SEI até haver caso medido.
+# ⚠️ «l'anno scorso» FICA DE FORA: «rispetto all'anno scorso» é comparação de
+# safra e raramente data o facto. NAO SEI até haver caso medido.
+# «oggi» entra só nos moldes da D64 (ver `_RELATIVAS`); hoje-em-dia não conta.
 BASE_RELATIVA = "RELATIVA_A_PUBLICACAO"
 
 _NUM = {"un": 1, "uno": 1, "una": 1, "due": 2, "tre": 3, "quattro": 4,
@@ -480,19 +480,40 @@ _NUM = {"un": 1, "uno": 1, "una": 1, "due": 2, "tre": 3, "quattro": 4,
 _N = r"(\d{1,2}|un|uno|una|due|tre|quattro|cinque|sei|sette|otto|nove|dieci)"
 _APOS = r"[’'`]\s?"
 
+_DIAS_IT = ("lunedi", "martedi", "mercoledi", "giovedi", "venerdi", "sabato",
+            "domenica")
+_DIA_DA_SEMANA = r"lunedì|lunedi|martedì|martedi|mercoledì|mercoledi|giovedì|giovedi|venerdì|venerdi|sabato|domenica"
+
+
+def _oggi_com_dia(m, dia):
+    """«oggi, lunedì» conta 0 dias — só se o dia nomeado FOR o da publicação.
+
+    Se o texto diz «oggi, lunedì» e a página foi publicada numa quarta, as
+    duas afirmações contradizem-se: não se escolhe, não se conta.
+    """
+    nome = m.group(1).lower().replace("ì", "i")
+    return 0 if _DIAS_IT.index(nome) == dia.weekday() else None
+
+
 #: (padrão, espécie, como contar). A ORDEM importa: «l'altro ieri» antes de
 #: «ieri», para o segundo não roubar metade do primeiro.
 _RELATIVAS = (
     (r"\b(?:l" + _APOS + r"altro\s?ieri|altroieri|ieri\s+l" + _APOS + r"altro)\b",
-     "DIA", lambda m: 2),
-    (r"\b(?:ieri|ontem|yesterday)\b", "DIA", lambda m: 1),
-    (r"\b" + _N + r"\s+giorni\s+fa\b", "DIA", lambda m: _NUM.get(m.group(1).lower()) or int(m.group(1))),
+     "DIA", lambda m, d: 2),
+    (r"\b(?:ieri|ontem|yesterday)\b", "DIA", lambda m, d: 1),
+    # D64: «oggi» SÓ quando o texto diz que é o próprio dia — «oggi, lunedì»
+    # (e o dia da semana tem de bater com a publicação) ou «oggi è stato/a».
+    # «ad oggi», «al giorno d'oggi», «oggi i consumatori» = hoje-em-dia, e
+    # não casam com nenhum destes dois moldes.
+    (r"\boggi,?\s+(" + _DIA_DA_SEMANA + r")\b", "DIA", _oggi_com_dia),
+    (r"\boggi\s+(?:è|e'|é)\s+stat[oaie]\b", "DIA", lambda m, d: 0),
+    (r"\b" + _N + r"\s+giorni\s+fa\b", "DIA", lambda m, d: _NUM.get(m.group(1).lower()) or int(m.group(1))),
     (r"\b(?:la\s+)?(?:settimana\s+scorsa|scorsa\s+settimana)\b|\b(?:semana\s+passada|last\s+week)\b",
-     "SEMANA", lambda m: 1),
+     "SEMANA", lambda m, d: 1),
     (r"\b" + _N + r"\s+settimane\s+fa\b", "SEMANA",
-     lambda m: _NUM.get(m.group(1).lower()) or int(m.group(1))),
+     lambda m, d: _NUM.get(m.group(1).lower()) or int(m.group(1))),
     (r"\b(?:il\s+|lo\s+)?(?:mese\s+scorso|scorso\s+mese)\b|\b(?:m[eê]s\s+passado|last\s+month)\b",
-     "MES", lambda m: 1),
+     "MES", lambda m, d: 1),
 )
 
 
@@ -524,6 +545,35 @@ def _conta(dia, especie, n):
     return "%s/%s" % (ini.isoformat(), fim.isoformat()), ini, fim
 
 
+#: Os nomes com que um ITEM pode trazer a publicação e a base dela (D64): a
+#: língua da porta, a do contrato comum e o nome que o leitor do facto usa.
+NOMES_DA_PUBLICACAO = (("publication_time", "publication_time_basis"),
+                       ("published_at", "published_at_basis"),
+                       ("PUBLICATION_TIME", "PUBLICATION_TIME_BASIS"),
+                       ("PUBLISHED_AT", "PUBLISHED_AT_BASIS"))
+
+
+def publicacao_do_item(item: dict) -> dict:
+    """`{VALOR, BASE}` da publicação, lida da interface do ITEM (D64).
+
+    O leitor do facto recebe um item, não o recibo do extrator. Valor SEM base
+    não é publicação provada — e sem prova não há conta (D63). Dois nomes com
+    valores diferentes no mesmo item: não se escolhe, NAO SEI.
+    """
+    achados = set()
+    for nv, nb in NOMES_DA_PUBLICACAO:
+        v, b = (item or {}).get(nv), (item or {}).get(nb)
+        if v in (None, "", art.NAO_SEI) or b in (None, "", art.NAO_SEI):
+            continue
+        if str(b).startswith(art.NAO_SEI):
+            continue
+        achados.add((str(v), str(b)))
+    if len(achados) != 1:
+        return {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI}
+    (v, b), = achados
+    return {"VALOR": v, "BASE": b}
+
+
 def tempo_do_fato_relativo(texto, publicacao: dict) -> dict:
     """FACT_TIME contado a partir da PUBLICATION_TIME provada (D63).
 
@@ -548,8 +598,8 @@ def tempo_do_fato_relativo(texto, publicacao: dict) -> dict:
                 continue
             for i in range(m.start(), m.end()):
                 tomado[i] = True
-            n = quanto(m)
-            if not n:
+            n = quanto(m, dia)
+            if n is None:
                 continue
             valor, ini, fim = _conta(dia, especie, n)
             contas.setdefault(valor, (especie, m.group(0), ini, fim))
