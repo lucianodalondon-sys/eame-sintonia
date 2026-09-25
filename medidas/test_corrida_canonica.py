@@ -121,6 +121,18 @@ class ASSENHASDeCadaPerguntaNaoSeMisturam(unittest.TestCase):
         self._painel = CC.CG.painel
         self.addCleanup(setattr, CC.CG, "painel", self._painel)
         CC.CG.painel = lambda **kw: {"FALSO": True}
+        # A 4.a pergunta — a admissao que o EXECUTOR faz ao Curator
+        # (`italy_executor.admissao_do_curator`, por subprocess ao portao REAL)
+        # — nao e o sujeito desta classe, e sem isto o teste lia o LIVRO VIVO:
+        # a IT-T7-042 estava READY quando ele foi escrito (03cdd993) e foi
+        # despromovida na reconciliacao do cutover (345f0e46, RECONCILIACAO-V1).
+        # O portao do executor continua provado pelo seu proprio caminho
+        # (`BLOQUEADA_PELO_CURATOR`); aqui responde-se-lhe que sim, como as
+        # outras tres perguntas ja sao respondidas pela bancada.
+        self._adm = CC.EX.admissao_do_curator
+        self.addCleanup(setattr, CC.EX, "admissao_do_curator", self._adm)
+        CC.EX.admissao_do_curator = lambda fonte, raiz=None: {
+            "ADMITIDA": True, "MOTIVO": "BANCADA"}
 
     def _monta(self, elegiveis, contratos, robots):
         CC.CG.elegiveis = lambda **kw: list(elegiveis)

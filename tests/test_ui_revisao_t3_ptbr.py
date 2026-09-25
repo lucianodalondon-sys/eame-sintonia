@@ -299,8 +299,15 @@ class NadaFoiRotuladoNemAlterado(unittest.TestCase):
         # `tests/test_a_regra_de_t2.py` e em `tests/test_a_regra_de_t10.py`.
         #
         # O que esta guarda protege continua inteiro: `T2` NAO ganhou regra.
+        # ⚠️ (T2-REGUA e T1-JANELA, 24/09 — D29) E `T2` E `T1` ENTRARAM, cada
+        # um com a sua medicao: T2 em 1fc1e794, T1 em 1b059679 (gabarito T1-V1,
+        # 0 vizinhos mudados em 9.163). A frase «`T2` NAO ganhou regra» acima
+        # deixou de ser verdade; o que a guarda continua a proteger e que
+        # NENHUM universo entra sem medicao ao lado e nenhum que tinha regra a
+        # perdeu. Mesmo ajuste que o dono fez no irmao em 5bca8493
+        # (`tests/test_a_regra_de_t2.py`).
         self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO),
-                         ["T10", "T3", "T4", "T5", "T7", "T9"])
+                         ["T1", "T10", "T2", "T3", "T4", "T5", "T7", "T9"])
 
 
 if __name__ == "__main__":

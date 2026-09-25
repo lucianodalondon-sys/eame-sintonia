@@ -42,7 +42,10 @@ RAIZ = Path(__file__).resolve().parents[2]
 COORTE_OFICIAL = "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json"
 HISTORICO_1A_ONDA = RAIZ / "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json"
 TETO = 5                                   # D7/D38; o transporte le SINTONIA_TETO_POR_HOST, com o mesmo padrao
-AVISO = Path(r"C:\Users\London1\auditoria-madrugada\bc4-aviso-vivo.txt")
+# O aviso vivo mora na conta de quem corre, e nao numa conta Windows escrita
+# no codigo: a guarda de credenciais (guarda/social_guarda.py · «caminho
+# pessoal Windows») acusava esta linha. Mesmo conserto de a6f1ffcc.
+AVISO = Path(os.path.expanduser("~")) / "auditoria-madrugada" / "bc4-aviso-vivo.txt"
 LEDGER = RAIZ / "data/collection-ledger/italy/runs.ndjson"
 
 

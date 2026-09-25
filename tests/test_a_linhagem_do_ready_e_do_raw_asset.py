@@ -113,6 +113,7 @@ class UmRawAssetUmReady(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        cls.livro_antes = len(_livro())
         cls.resumo = prova.correr()
         cls.ready = cls.resumo["READY"]
         cls.recibos = cls.resumo["RECIBOS"]
@@ -176,7 +177,13 @@ class UmRawAssetUmReady(unittest.TestCase):
 
     def test_a_contagem_de_observacoes_no_livro_nao_muda(self):
         """A prova só lê. O livro tem as observações todas, antes e depois."""
-        self.assertEqual(175, len(_livro()))
+        # ERA `175` fixo: o livro vivo cresceu por colheitas DECIDIDAS
+        # (d915f85a primeira Big Collection, 03cdd993 colheita canonica,
+        # 0ccefb62 FASE 4 — 76 observacoes novas). O que a lei pede é que a
+        # PROVA não mexa no livro: mede-se antes e depois, e a prova tem de
+        # ter lido o livro inteiro.
+        self.assertEqual(self.livro_antes, len(_livro()))
+        self.assertEqual(self.livro_antes, self.resumo["OBSERVACOES_NO_LIVRO"])
         self.assertEqual(
             "YES — nada foi colhido, nenhuma observacao nova foi criada",
             self.resumo["SO_LEITURA"])

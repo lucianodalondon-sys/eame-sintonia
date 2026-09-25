@@ -433,10 +433,19 @@ class CheckpointSoOndeHaUnidadeRetomavel(unittest.TestCase):
 class APoliticaContinuaDona(unittest.TestCase):
 
     def test_8_a_rota_da_janela_e_a_que_a_matriz_nomeia(self):
-        d = mz.decisao('INSTAGRAM', 'INCREMENTAL')
-        self.assertEqual(d['DECISAO'], mz.PERMITIDA_SIM)
-        self.assertEqual(d['ROTA'], 'instagram_janela.py:grade')
-        self.assertEqual(d['CLASSE'], 'PUBLIC_BROWSER')
+        # ERA: `decisao(...)['DECISAO'] == PERMITIDA_SIM`. A decisao do dono
+        # C14-C (7b8d96cc, §157 «AUTORIZAR NAO E MEDIR. E SEM MEDIR, NAO SAI»)
+        # fechou a descoberta do Instagram: OWNER_AUTHORIZED=SIM mas
+        # PLATFORM_POLICY_STATUS=NOT_MEASURED. A rota continua a ser a que a
+        # matriz nomeia — e a decisao passa a ser a recusa que a C14-C escreveu
+        # (a mesma que tests/test_c14c_permissao_instagram.py afirma).
+        rota = mz.MATRIZ['INSTAGRAM']['INCREMENTAL'][0]
+        self.assertEqual(rota['ROTA'], 'instagram_janela.py:grade')
+        self.assertEqual(rota['CLASSE'], 'PUBLIC_BROWSER')
+        self.assertEqual(rota['OWNER_AUTHORIZED'], 'SIM')
+        self.assertEqual(rota['PLATFORM_POLICY_STATUS'], 'NOT_MEASURED')
+        self.assertEqual(mz.decisao('INSTAGRAM', 'INCREMENTAL')['DECISAO'],
+                         mz.NAO_PERMITIDA)
         r = reg.adaptador_de('INSTAGRAM', 'instagram.profile.discovery')
         self.assertIsNotNone(r['ROTA'],
                              'a capacidade que a matriz nomeia voltou a ficar sem rota')

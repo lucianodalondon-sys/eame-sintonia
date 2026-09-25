@@ -51,12 +51,16 @@ class Bancada(unittest.TestCase):
         # mordia, porque a sala aceitava qualquer dicionario.
         #
         #     UMA FIXTURE DESACTUALIZADA E UM CONTRATO A MENOS.
-        return dict({"ESTADO": "PRONTO_PARA_INTELIGENCIA", "ITEM_ID": "i-1",
-                     "RAW_OBSERVATION_ID": "NAO SEI",
-                     "UNIVERSO": "T3", "TEXTO": "t", "SOURCE_ID": "IT-T3-002",
-                     "SOURCE_LOCATION": "NAO SEI", "FACT_LOCATION": "NAO SEI",
-                     "FACT_TIME": "NAO SEI", "CAPTURED_AT": "NAO SEI",
-                     "CORRIDA": "R1", "ADMITIDO_POR": "regra v1"}, **extra)
+        #
+        # ⚠️ E ACONTECEU OUTRA VEZ: a COL-LAW-043 passou de 12 para 19 campos
+        # em 317a384d (C-COL-PRESERVE-FACTS-V1), que actualizou
+        # `OContratoNaoMudou` e deixou esta fixture com 12 — a sala recusa-a,
+        # com razao. A fixture deixa de copiar o contrato a mao: pede-o ao
+        # construtor unico, como `tests/test_sala_duravel.py` ja faz.
+        item = {"id": "i-1", "texto": "Ensaio de campo publicado com DOI",
+                "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
+        d = admissao.decidir(item, "T5", corrida="R1")
+        return dict(admissao.pronto_para_inteligencia(item, d), **extra)
 
 
 class UMDonoEUmaMorada(unittest.TestCase):

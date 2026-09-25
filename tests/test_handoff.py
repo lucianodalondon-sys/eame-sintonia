@@ -166,7 +166,11 @@ class TestBrutoPagoSobrevive(unittest.TestCase):
     def test_todo_bruto_do_manifesto_existe(self):
         import proveniencia as pv
         for rid, r in pv.carregar().items():
-            if r['RAW_EVIDENCE_STATE'] != 'PRESERVED':
+            # `.get`: as corridas antigas (XX-T*-2026-09-07, DERIV-PDF-20260908*)
+            # nao tem o campo, e a historia NAO e revalidada — e divida medida
+            # (a908a40b, regras/proveniencia.py). O que esta prova guarda nao
+            # muda: uma corrida PRESERVED tem o bruto no disco.
+            if r.get('RAW_EVIDENCE_STATE') != 'PRESERVED':
                 continue
             caminhos = r['RAW_EVIDENCE_PATH']
             for c in (caminhos if isinstance(caminhos, list) else [caminhos]):

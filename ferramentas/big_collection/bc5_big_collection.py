@@ -35,7 +35,10 @@ if __name__ == "__main__" and os.environ.get("SINTONIA_BC5_REPLAY") != "1":
 SAIDA = Path(r"C:\bc5\big")
 SAIDA.mkdir(parents=True, exist_ok=True)
 COORTE = [x["SOURCE_ID"] for x in json.load(open(r"C:\bc\COORTE-BIG-COLLECTION.json", encoding="utf-8"))["COORTE"]]
-AVISO = Path(r"C:\Users\London1\auditoria-madrugada\bc4-aviso-vivo.txt")
+# O aviso vivo mora na conta de quem corre, e nao numa conta Windows escrita
+# no codigo: a guarda de credenciais (guarda/social_guarda.py · «caminho
+# pessoal Windows») acusava esta linha. Mesmo conserto de a6f1ffcc.
+AVISO = Path(os.path.expanduser("~")) / "auditoria-madrugada" / "bc4-aviso-vivo.txt"
 LEDGER = Path("data/collection-ledger/italy/runs.ndjson")
 
 

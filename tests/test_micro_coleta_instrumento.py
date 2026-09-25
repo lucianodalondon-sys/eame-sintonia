@@ -170,7 +170,14 @@ class TestPlano(unittest.TestCase):
     def test_fica_fora_da_3b_nao_barra_a_fonte(self):
         """D2 + D8 do dono: relevancia decide-se por item na Admission (REROUTE), nao por fonte.
         IT-T10-022 (Zootecnica) e a 3b diz FICA_FORA: continua PRONTA, e a 3b fica ao lado."""
-        p = MC.plano(ids=["IT-T10-022"], ler=ler_fixture(entra=()))
+        # ERA `ids=["IT-T10-022"]` escrito a mao. A coorte deste ficheiro vem do
+        # PORTAO VIVO (A2, `IDS` acima), e a IT-T10-022 saiu dela na
+        # reconciliacao do cutover (345f0e46: READY -> CANARY_PENDING). A
+        # pergunta fica a mesma: uma fonte PRONTA da coorte de hoje, com a 3b a
+        # dizer FICA_FORA (`entra=()`), continua PRONTA.
+        pronta = next(x["SOURCE_ID"] for x in MC.plano(ler=ler_fixture())["LINHAS"]
+                      if x["ESTADO"] == "PRONTA")
+        p = MC.plano(ids=[pronta], ler=ler_fixture(entra=()))
         self.assertEqual(p["LINHAS"][0]["ESTADO"], "PRONTA", p["LINHAS"][0]["FALTA"])
         self.assertEqual(p["LINHAS"][0]["RELEVANCIA_3b"], "FICA_FORA")
 
@@ -200,7 +207,9 @@ class TestFiltroAusenteFalhaAlto(unittest.TestCase):
 
     def test_relatorio_e_dados_da_3b_desencontrados_rebentam(self):
         with self.assertRaises(MC.FiltroAusente):
-            MC.plano(ler=ler_fixture(sem_decisao=("IT-T7-043",)))
+            # ERA `("IT-T7-043",)`, que saiu da coorte viva (345f0e46): uma
+            # fonte fora da coorte nao desencontra nada. Usa-se uma de dentro.
+            MC.plano(ler=ler_fixture(sem_decisao=(IDS[0],)))
 
     def test_forma_inesperada_rebenta(self):
         def ler(ref, c):

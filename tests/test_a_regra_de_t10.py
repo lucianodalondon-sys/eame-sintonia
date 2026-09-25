@@ -148,12 +148,15 @@ class OMaterialInvalidoNaoEntra(unittest.TestCase):
         self.assertIn("UNIVERSO_NAO_DECLARADO", str(d.motivo))
 
     def test_universo_sem_regua_continua_a_dizer_que_nao_tem_regua(self):
-        """T1 nao tem regua, e a porta continua a NAO inventar uma.
+        """T11 nao tem regua, e a porta continua a NAO inventar uma.
 
         Escrever T10 nao pode ter ensinado esta porta a responder por
         universos que ninguem escreveu.
         """
-        d = adm.decidir(documento(MERCADO_CLARO), "T1", corrida="T-T10")
+        # ERA `T1`; T1 ganhou regua (T1-JANELA, D29 — 1b059679). Mesmo ajuste
+        # que o dono fez no teste irmao da fronteira (5bca8493): `T11`
+        # continua sem regua, e a pergunta do teste fica a mesma.
+        d = adm.decidir(documento(MERCADO_CLARO), "T11", corrida="T-T10")
         self.assertEqual(d.resultado, "NAO_SE_APLICA")
         self.assertIn("nao ha regra escrita", str(d.motivo))
 

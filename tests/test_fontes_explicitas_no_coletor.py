@@ -122,8 +122,15 @@ class SemNomeNaoHaColheita(unittest.TestCase):
         corredor = io.open(os.path.join(RAIZ, "coleta",
                                         "italy_recurrent_collect.mjs"),
                            encoding="utf-8").read()
-        self.assertIn("apenas: PROFILE.SOURCES", corredor,
-                      "o corredor deixou de passar a lista explicita do perfil")
+        # ERA `apenas: PROFILE.SOURCES`. O cutover FASE 5 (8c5e5b53, «a lista
+        # fixa saiu — a populacao passa a vir do portao») trocou a lista do
+        # perfil pela populacao EXPLICITA que o portao admitiu, menos as sem
+        # contrato (`aColher`). A lei deste teste fica a mesma: o corredor
+        # NOMEIA o que manda colher e nunca cai para uma lista por omissao.
+        self.assertIn("apenas: aColher", corredor,
+                      "o corredor deixou de passar a populacao explicita do portao")
+        self.assertNotIn("apenas: PROFILE.SOURCES", corredor,
+                         "a lista fixa do perfil voltou (8c5e5b53 tirou-a)")
 
     def test_8_nao_ha_mais_queda_para_PILOT_SOURCES_no_runtime(self):
         """Mede o CÓDIGO, não os comentários — o comentário que explica o

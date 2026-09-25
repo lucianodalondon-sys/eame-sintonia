@@ -59,6 +59,14 @@ ANTES_DO_B2 = {
     "SOURCE_DATE_ISO", "SOURCE_ID", "SOURCE_URL", "parse",
 }
 
+# Os campos que entraram DEPOIS do B2, cada um com o commit que o pos. Esta
+# lista e o "o teste diz quando" de cima: cada entrada precisa de uma decisao.
+DEPOIS_DO_B2 = {
+    # 3f18a01c (IT-T4-001, defeito 3): o coletor deitava fora o content_type
+    # que o transporte ja trazia; a observacao passou a guarda-lo.
+    "CONTENT_TYPE",
+}
+
 
 class CasoB2(CasoB1):
     """A mesma bancada do B1, mais um coletor que pode receber bytes sem data."""
@@ -214,8 +222,8 @@ class OB2ACRESCENTOUEnaoMEXEU(CasoB2):
     def test_13_a_observacao_ganhou_exactamente_um_campo(self):
         self.coletar("B2-PROVA-0013")
         agora = set(self.livro()[0])
-        self.assertEqual(agora - ANTES_DO_B2, {ALVO})
-        self.assertEqual(ANTES_DO_B2 - agora, set())
+        self.assertEqual(agora - ANTES_DO_B2 - DEPOIS_DO_B2, {ALVO})
+        self.assertEqual((ANTES_DO_B2 | DEPOIS_DO_B2) - agora, set())
 
     def test_14_os_campos_do_RAW_continuam_a_dizer_o_mesmo(self):
         self.coletar("B2-PROVA-0014")

@@ -387,6 +387,10 @@ class ACorridaInteiraProvadaACorrer(unittest.TestCase):
             f.write(json.dumps({
                 "RUN_ID": self.run_id, "SOURCE_ID": "IT-T2-002",
                 "DOCUMENT_ID": "ARPAV_CORRIDA", "RAW_PATH": self.pay,
+                # COL-LAW-034 (317a384d): sem URL de origem a identidade do item
+                # e fabricada e a pergunta `identidade` responde NAO_SEI — que
+                # nao e o assunto deste teste (o TEMPO do fato e).
+                "SOURCE_URL": "https://www.arpa.veneto.it/corrida-v2",
                 "CAPTURED_AT": "2026-09-11T00:00:00Z",
                 "texto": "Bollettino agrometeorologico con dati di campo."}) + "\n")
         adapter.colher(self.run_id, ops_root=self.ops)
@@ -404,7 +408,14 @@ class ACorridaInteiraProvadaACorrer(unittest.TestCase):
         # Isto corria sem dizer de quem era a colheita, e acertava porque o
         # envelope vivia num caminho fixo — «o ultimo que estava la». Era o
         # defeito `G-ENV-01` a ser usado como funcionalidade.
-        recibo = self.orq.correr(self.frase("colete clima e tempo"),
+        # O universo vem do PEDIDO, e so dele (836a9c89, §156): a frase sozinha
+        # nao o declara e a corrida levanta `UniversoNaoDeclarado`. Declara-se
+        # `T11`, que continua sem regua — o mesmo universo que o dono pos no
+        # teste irmao desta bancada (5bca8493), e a pergunta fica a mesma.
+        pedido = self.frase("colete clima e tempo")
+        pedido = dataclasses.replace(
+            pedido, filtros=dict(pedido.filtros or {}, universo="T11"))
+        recibo = self.orq.correr(pedido,
                                  so_a_porta=True,
                                  colheita_da_corrida=self.run_id)
         self.assertEqual(recibo["INGRESSO"]["PRESERVADOS"], 1, recibo["INGRESSO"])

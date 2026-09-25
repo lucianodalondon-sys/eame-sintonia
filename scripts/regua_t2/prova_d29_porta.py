@@ -19,7 +19,12 @@ WT = "C:/regua-t2-base"
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ESTADO = os.path.join(AQUI, "banco.json")
 RES = os.path.join(AQUI, "resultados.json")
-PG = r"C:\Users\London1\orca\pgtmp\pgsql\bin"
+# O dono da bancada portatil e `SINTONIA_PG_PORTATIL` (o mesmo que o workflow
+# le no 5a-IT); a omissao e a mesma de provas/a_porta_cli_liga_o_banco.py,
+# escrita de forma portatil (a6f1ffcc). Identidade de maquina nao e configuracao.
+CASA = os.path.expanduser("~")
+PG = os.environ.get("SINTONIA_PG_PORTATIL") or os.path.join(
+    CASA, "orca", "pgtmp", "pgsql", "bin")
 APELIDO = {"T2": "clima", "T5": "ciencia", "T7": "cooperativas", "T10": "mercado", "T12": "politica"}
 sys.path.insert(0, os.path.join(WT, "provas"))
 os.chdir(WT)
@@ -64,9 +69,10 @@ def ambiente(url):
     e = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8",
              BANCO_DESCARTAVEL_URL=url, SINTONIA_PSQL_EXE=os.path.join(PG, "psql.exe"),
              SINTONIA_SALA_BACKEND="POSTGRES", SINTONIA_SALA_DSN=url,
-             SINTONIA_LIBS=r"C:\Users\London1\AppData\Local\Programs\Python\Python312\Lib\site-packages",
+             SINTONIA_LIBS=os.path.join(CASA, "AppData", "Local", "Programs", "Python",
+                                        "Python312", "Lib", "site-packages"),
              SINTONIA_ASR_DEVICE="AUTO",
-             PYTHONPATH=os.pathsep.join([os.path.join(WT, ".sintonia-libs"), r"C:\Users\London1\soc5-libs"]))
+             PYTHONPATH=os.pathsep.join([os.path.join(WT, ".sintonia-libs"), os.path.join(CASA, "soc5-libs")]))
     e.pop("SINTONIA_COLLECTION_DSN", None)
     e["PATH"] = PG + os.pathsep + e.get("PATH", "")
     return e

@@ -26,7 +26,9 @@ sys.path.insert(0, os.path.join(RAIZ, 'provas'))
 sys.path.insert(0, os.path.join(RAIZ, 'curadoria'))
 import prontidao_social_v1 as ps   # noqa: E402
 
-ISCA = 'AIzaSyISCA-SOC1-nunca-deve-aparecer-0000000'
+# A isca e montada em tempo de execucao (como tests/test_youtube_oficial.py):
+# escrita inteira, a guarda da arvore versionada acusa-a como chave Google.
+ISCA = 'AIza' + 'SyISCA-SOC1-nunca-deve-aparecer-0000000'
 
 _MEDIDA = {}
 
