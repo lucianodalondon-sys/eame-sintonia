@@ -67,7 +67,25 @@ def o_canario_prova(aq: dict) -> bool:
             and bool(aq.get("CHANNEL_ID")))
 
 
-def contrato_importado(linha: dict, atual: dict | None, promocao: dict | None, quando: str) -> dict:
+def identidades_do_coletor(ids: list[str]) -> dict:
+    """A IDENTITY que o coletor gera ao expandir a linha (`regras/italy_contracts.mjs`,
+    `contratoGenerico`): o dono do contrato, lido por Node, nunca reescrito aqui.
+
+    ⚠️ MEDIDO no ensaio da LEGACY-99 v2 (25/09): a linha da tabela nao traz IDENTITY; o
+    coletor gera-a. Importada so a linha, 14 das 21 HTML rebentaram no canario do
+    Curator com «KeyError: 'IDENTITY'»."""
+    import subprocess
+    r = subprocess.run(["node", "-e", 'import("./regras/italy_contracts.mjs").then(m=>{const o={};'
+                        'for(const s of JSON.parse(process.argv[1])){const c=m.CONTRACTS[s];'
+                        'if(c&&c.IDENTITY)o[s]=c.IDENTITY}console.log(JSON.stringify(o))})', json.dumps(ids)],
+                       cwd=RAIZ, capture_output=True, text=True, timeout=120)
+    if r.returncode:
+        raise ImportacaoInvalida("o dono dos contratos do coletor nao carregou: " + r.stderr[-200:])
+    return json.loads(r.stdout)
+
+
+def contrato_importado(linha: dict, atual: dict | None, promocao: dict | None, quando: str,
+                       identidade: dict | None = None) -> dict:
     """O contrato do Curator depois da importacao. Puro: nao escreve.
 
     `linha` e a linha da tabela do coletor; `atual` o contrato do Curator se existir
@@ -82,6 +100,13 @@ def contrato_importado(linha: dict, atual: dict | None, promocao: dict | None, q
         if k in linha:
             novo[k] = copy.deepcopy(linha[k])
     novo["ACQUISITION"] = copy.deepcopy(aq)
+    # a identidade: a da linha, senao a que o Curator ja tinha (YouTube: por video), senao
+    # a que o coletor gera. Sem nenhuma, o canario nao da nome ao documento: nao se importa.
+    ident = linha.get("IDENTITY") or (atual or {}).get("IDENTITY") or identidade
+    if not ident or not ident.get("DOCUMENT_ID"):
+        raise ImportacaoInvalida("%s: sem IDENTITY (nem na linha, nem no Curator, nem gerada pelo coletor)"
+                                 % linha.get("SOURCE_ID"))
+    novo["IDENTITY"] = copy.deepcopy(ident)
     anterior = (atual or {}).get("ACQUISITION")
     novo["PROVENIENCIA_DO_CONTRATO"] = {
         "ORIGEM": "IMPORTADO_DO_COLETOR",
@@ -147,7 +172,7 @@ def _estados(ctx: dict) -> dict:
     return est
 
 
-def aplicar(ids: list[str], *, quando: str | None = None, remedir_fn=None) -> dict:
+def aplicar(ids: list[str], *, quando: str | None = None, remedir_fn=None, identidades_fn=None) -> dict:
     """Escreve os contratos importados (escrita atomica) e manda as fontes ao canario."""
     quando = quando or _agora()
     plano = planear()
@@ -157,10 +182,13 @@ def aplicar(ids: list[str], *, quando: str | None = None, remedir_fn=None) -> di
         raise ImportacaoInvalida("fora do plano (nao sao READY_LEGACY importaveis): %s" % ", ".join(fora))
     tabela = {l["SOURCE_ID"]: l for l in json.loads(TABELA.read_text(encoding="utf-8"))["FONTES"]}
     d = json.loads(CURATOR.read_text(encoding="utf-8"))
+    tem = {c["SOURCE_ID"] for c in d["FONTES"] if c.get("IDENTITY")}
+    faltam = [s for s in ids if not tabela[s].get("IDENTITY") and s not in tem]
+    geradas = (identidades_fn or identidades_do_coletor)(faltam) if faltam else {}
     idx = {c["SOURCE_ID"]: i for i, c in enumerate(d["FONTES"])}
     for s in ids:
         atual = d["FONTES"][idx[s]] if s in idx else None
-        novo = contrato_importado(tabela[s], atual, por[s]["PROMOCAO"], quando)
+        novo = contrato_importado(tabela[s], atual, por[s]["PROMOCAO"], quando, identidade=geradas.get(s))
         if s in idx:
             d["FONTES"][idx[s]] = novo
         else:

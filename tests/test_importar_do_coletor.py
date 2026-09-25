@@ -40,16 +40,27 @@ YT_CURADOR = {"SOURCE_ID": "IT-T10-017", "BATCH_ID": "LOTE-YOUTUBE-FEED", "OUTPU
                               "FEED_URL": "https://www.youtube.com/feeds/videos.xml?channel_id=" + CID,
                               "MAX_TARGETS": 15}}
 PROMO = {"OBSERVED_AT": "2026-09-10T00:00:00+00:00", "EVIDENCE_REF": "EV-1"}
+IDENT = {"STRATEGY": "CONTENT_CAPTURE", "DOCUMENT_ID": "IT-T5-006:URL:{doc.1}"}
 
 
 class ContratoImportado(unittest.TestCase):
+    def test_sem_identidade_nao_se_importa(self):
+        # o defeito que o ensaio apanhou: a linha nao traz IDENTITY e o canario precisa dela
+        with self.assertRaises(I.ImportacaoInvalida):
+            I.contrato_importado(HTML, None, PROMO, "t")
+
+    def test_a_identidade_gerada_pelo_coletor_entra_e_a_do_curador_fica(self):
+        self.assertEqual(IDENT, I.contrato_importado(HTML, None, PROMO, "t", identidade=IDENT)["IDENTITY"])
+        yt = I.contrato_importado(YT_LINHA, YT_CURADOR, PROMO, "t", identidade=IDENT)
+        self.assertEqual(YT_CURADOR["IDENTITY"], yt["IDENTITY"])
+
     def test_a_aquisicao_e_a_da_linha_byte_a_byte(self):
-        c = I.contrato_importado(HTML, None, PROMO, "2026-09-25T00:00:00+00:00")
+        c = I.contrato_importado(HTML, None, PROMO, "2026-09-25T00:00:00+00:00", identidade=IDENT)
         self.assertEqual(HTML["ACQUISITION"], c["ACQUISITION"])
         self.assertEqual(SHA.do_contrato(HTML), SHA.do_contrato(c))
 
     def test_proveniencia_separada_da_aquisicao_historica(self):
-        c = I.contrato_importado(HTML, None, PROMO, "2026-09-25T00:00:00+00:00")
+        c = I.contrato_importado(HTML, None, PROMO, "2026-09-25T00:00:00+00:00", identidade=IDENT)
         p, h = c["PROVENIENCIA_DO_CONTRATO"], c["AQUISICAO_HISTORICA"]
         self.assertEqual("IMPORTADO_DO_COLETOR", p["ORIGEM"])
         self.assertEqual(SHA.do_contrato(HTML), p["SHA256_DA_LINHA"])
@@ -67,7 +78,7 @@ class ContratoImportado(unittest.TestCase):
 
     def test_pdf_nao_se_importa(self):
         with self.assertRaises(I.ImportacaoInvalida):
-            I.contrato_importado(PDF, None, PROMO, "t")
+            I.contrato_importado(PDF, None, PROMO, "t", identidade=IDENT)
 
     def test_youtube_troca_a_rota_e_guarda_o_resto_e_a_anterior(self):
         c = I.contrato_importado(YT_LINHA, YT_CURADOR, PROMO, "t")
@@ -135,11 +146,13 @@ class Aplicar(unittest.TestCase):
         import lifecycle as LC
         with mock.patch.object(LC, "registar", side_effect=AssertionError("importar nao mexe no livro")):
             r = I.aplicar(["IT-T5-006", "IT-T10-017"], quando="t",
-                          remedir_fn=lambda ids: (chamadas.append(list(ids)), [{"FEITO": True} for _ in ids])[1])
+                          remedir_fn=lambda ids: (chamadas.append(list(ids)), [{"FEITO": True} for _ in ids])[1],
+                          identidades_fn=lambda ids: (self.assertEqual(["IT-T5-006"], ids), {"IT-T5-006": IDENT})[1])
         self.assertEqual([["IT-T5-006", "IT-T10-017"]], chamadas)
         self.assertEqual(2, r["REMEDIDAS"])
         fontes = {c["SOURCE_ID"]: c for c in json.loads(self.cur.read_text(encoding="utf-8"))["FONTES"]}
         self.assertEqual(HTML["ACQUISITION"], fontes["IT-T5-006"]["ACQUISITION"])
+        self.assertEqual(IDENT, fontes["IT-T5-006"]["IDENTITY"])
         self.assertEqual("CUSTOM_ADAPTER", fontes["IT-T10-017"]["ACQUISITION"]["STRATEGY"])
         self.assertEqual(2, len(fontes))
         self.assertFalse(Path(self.d.name, "cur.json.tmp").exists())
@@ -152,7 +165,7 @@ class Aplicar(unittest.TestCase):
 
     def test_o_remedir_por_omissao_e_o_de_ready_split(self):
         with mock.patch.object(RS, "remedir", return_value=[{"FEITO": True}]) as rm:
-            I.aplicar(["IT-T5-006"], quando="t")
+            I.aplicar(["IT-T5-006"], quando="t", identidades_fn=lambda ids: {"IT-T5-006": IDENT})
         self.assertIn("importar nunca promove", rm.call_args.kwargs["motivo"])
 
 

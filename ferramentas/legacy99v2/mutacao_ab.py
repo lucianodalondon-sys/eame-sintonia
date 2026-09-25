@@ -38,6 +38,8 @@ MUTANTES = [
     ("A9 SO_CASE deixa de ser dito", IMP,
      "            fica.append({\"SOURCE_ID\": sid, \"PORQUE\": \"SO_CASE: o coletor tem esta fonte so como `case` — \"",
      "            continue; fica.append({\"SOURCE_ID\": sid, \"PORQUE\": \"SO_CASE: o coletor tem esta fonte so como `case` — \""),
+    ("A10 importa sem identidade (o defeito do ensaio)", IMP,
+     "    if not ident or not ident.get(\"DOCUMENT_ID\"):", "    if False:"),
     ("B1 a rota do contrato ignora o canal", CAN,
      "    if aq.get(\"STRATEGY\") == \"CUSTOM_ADAPTER\" and aq.get(\"ADAPTER_ID\") == YOUTUBE_CANAL:", "    if False:"),
     ("B2 nao confere que a pagina e do canal", CAN,
