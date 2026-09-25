@@ -125,3 +125,37 @@ Fora do Git (2 PDFs, ~2 MB):
 |---|---|
 | `C:/cur/t2b/bytes/3d669b144010fd837fce.bin` (09_boll_agro_20260302.pdf) | `3d669b144010fd837fce8025c497fa7630819b53d3985e73d2506f1e8d5e6c78` |
 | `C:/cur/t2b/bytes/e0a8f255b3091dc32eed.bin` (38_boll_agro_20260921.pdf) | `e0a8f255b3091dc32eedbf8684e5c25dff41bea9cc54bc8509a25d1af19b1daa` |
+
+## 5 · D51.3 — IT-T3-053 (Umbria, janela D29) na rota PDF da D42
+
+Como SFN/ERSA/Campania na JANELA-FORMAS A: pela porta (`reparar_contrato.aplicar`, `OUTPUT_TYPE=PDF`
+explícito), numa cópia, com o contrato do **livro vivo do Curator** (só leitura, `source-curator-service-v1`
+290e7349) como base. Script: `umbria_pdf.py`. Portão PASS IT; robots lido na hora (RFC 9309 + D39: LIDO,
+`Disallow:` vazio); **4 pedidos** a umbria.it (robots ×2, lista, 1 PDF).
+
+- **Porque:** o READY de 25/09 abriu `…/agricoltura/servizio-fitosanitario-regionale` — a página do serviço,
+  não um boletim.
+- **A lista** (`/agricoltura/bollettini-fitosanitari`, 131 ligações) tem os boletins por cultura em Liferay:
+  `/documents/18/<pasta>/bollettino+<cultura>+n.<N>+del+<data>[.pdf]/<uuid>?version=1.0` — vite 21, olivo 13,
+  nocciolo 12, cereali 6 = **52**; o mais recente é olivo n.º 13 de 25/09.
+- **Padrão:** `^https?://(www\.)?regione\.umbria\.it/documents/18/\d+/bollettino\+[^/]+?(\.pdf)?/[0-9a-f-]{36}\?version=[\d.]+$`
+  - ⚠️ o `.pdf` é **opcional**: exigido, o padrão casava **25 de 52 e nenhum depois de 10/07** (os recentes
+    vêm sem extensão). A porta pede que uma receita PDF mencione `.pdf` — o grupo opcional cumpre isso
+    **só na letra**; a garantia real é a dos bytes (`%PDF-`), conferida pelo canário e pelo coletor.
+    Decisão do dono se aceita.
+  - fora do padrão, e bem: 12 arquivos `.zip/.7z` de anos anteriores.
+- **Canário: PASS** — abriu justamente um sem `.pdf` no endereço (`bollettino+NOCCIOLO+n.10+del+17_07_2026`):
+  PDF de 1 442 142 bytes, camada de texto com 9 219 caracteres. **Régua DETAIL/v1.**
+- **Origem e identidade preservadas** (conferido no script: `IDENTITY` igual à base; `SOURCE_ID`, `OWNER`,
+  `NAME`, `TERRITORY`, `ONBOARDED_BY`, `CANONICAL_ENTRY_URL` iguais). O contrato anterior (`54b765fe71dfb4da`)
+  fica em `REPARO_DE_CONTRATO.ACQUISITION_ANTERIOR`; o novo é `afc1e5955d315e04`
+  (`CONTRATO-PROPOSTO-IT-T3-053.json`).
+- ⚠️ **O que a identidade preservada traz consigo:** o DOCUMENT_ID por endereço inclui `?version=1.0`. Um
+  boletim re-publicado (o NOCCIOLO n.º 7 já está em `version=1.2`) nasce com **outro** DOCUMENT_ID —
+  documento a mais, não versão. E os tempos ficam `UNKNOWN`, embora o nome diga «n.10 del 17_07_2026».
+  Com a IDENTITY explícita desta missão (§2) dava para ter `IT-T3-053:BOLETIM:<cultura>:<ano>-<n.º>` e a
+  publicação pelo nome — **não fiz, porque a ordem foi preservar a identidade**. Decisão do dono.
+
+Provas: `umbria/` (lista, canário, robots, contagem). O PDF fica fora do Git:
+`C:/cur/umbria/bytes/288c0b0734e13ed052e5.bin` · sha256
+`288c0b0734e13ed052e596889c4a9c9263a7d5f69c6b5c6e423786fbb2c2c93d`.
