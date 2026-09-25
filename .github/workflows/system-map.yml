@@ -280,6 +280,14 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_impressao_da_arvore.py
 
+      # O MESMO COMMIT passava numa branch e reprovava noutra: o nome da branch
+      # vazava para os factos do mapa, onde o P1 compara (D50). Esta prova
+      # valida um commit com três nomes e em HEAD destacado — e prova que uma
+      # fonte mexida sem regerar continua a reprovar.
+      - name: 4l2 · o nome da branch não decide o P1
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_ramo_nao_entra_no_mapa.py
+
       # OS NÚMEROS DO MAPA TÊM DE SE ENCONTRAR, E NÃO SÓ DE ESTAR CERTOS.
       # Três contagens chamavam-se «os cartões da coleta» e contavam populações
       # diferentes — 65 pela FAMÍLIA, 48 pelo TERRITÓRIO, 111 pela família mais
