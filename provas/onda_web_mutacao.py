@@ -29,6 +29,11 @@ MUTANTES = [
     ("W7_FONTE_DE_DOMINIO_ESGOTADO_CORRE", '    return "TETO_DOMINIO" if ler_livro(livro).get(dominio, 0) >= TETO else None',
      "    return None"),
     ("W8_DISJUNTOR_DE_DOMINIO_DESLIGADO", "    acima = {d: v for d, v in livro_agora.items() if v > TETO}", "    acima = {}"),
+    # CONTRATOS-12: a ordem dentro do dominio (rotacao por quem foi atendido ha mais tempo)
+    ("W9_SEM_ROTACAO", "        for i, f in zip(idx, membros):", "        for i, f in zip(idx, [fontes[j] for j in idx]):"),
+    ("W10_NUNCA_ATENDIDA_VAI_PARA_O_FIM", '(ultima.get(f[0]) or "", f[0])', '(ultima.get(f[0]) or "9999", f[0])'),
+    ("W11_CORRIDA_SEM_PEDIDO_CONTA_COMO_ATENDIDA", 'if f.get("CORREU") and ped > 0 and q and', 'if f.get("CORREU") and q and'),
+    ("W12_FICA_A_VEZ_MAIS_ANTIGA", 'and q > out.get(f["SOURCE_ID"], ""):', 'and q < out.get(f["SOURCE_ID"], "~"):'),
 ]
 
 

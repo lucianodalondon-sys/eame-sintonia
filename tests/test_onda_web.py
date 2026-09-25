@@ -125,6 +125,72 @@ class AsDecisoesDoTetoNaOnda(unittest.TestCase):
             O.antes_da_fonte(self.livro, "cia.it")
 
 
+CIA = ["IT-T7-112", "IT-T7-118", "IT-T7-121", "IT-T7-123", "IT-T7-135"]
+
+
+def _coorte():
+    """A ordem da 1.a onda: myfruit, depois as 5 do cia.it, depois istat."""
+    return [("IT-T10-018", "u")] + [(s, "u") for s in CIA] + [("IT-T5-090", "u")]
+
+
+def _dom():
+    d = {s: "cia.it" for s in CIA}
+    d.update({"IT-T10-018": "myfruit.it", "IT-T5-090": "istat.it"})
+    return d
+
+
+def _onda(servidas, quando):
+    """Um ONDA-WEB-ESTADO minimo: as fontes servidas fizeram 1 pedido; RUN_ID com o instante."""
+    return {"FONTES": [{"SOURCE_ID": s, "CORREU": True, "PEDIDOS_POR_DOMINIO": {"x": 1},
+                        "RUN_ID": "IT-T7-%s-000000000000" % quando} for s in servidas]}
+
+
+class AOrdemDentroDoDominio(unittest.TestCase):
+
+    def test_13_quem_foi_atendido_ha_mais_tempo_vai_primeiro(self):
+        h = [_onda(["IT-T7-112"], "2026-09-24-120000"), _onda(["IT-T7-118"], "2026-09-24-130000"),
+             _onda(["IT-T7-121", "IT-T7-123", "IT-T7-135"], "2026-09-25-080000")]
+        o = O.ordenar_por_dominio(_coorte(), _dom(), O.ultima_vez_atendida(h))
+        self.assertEqual([s for s, _ in o if s in CIA], ["IT-T7-112", "IT-T7-118", "IT-T7-121", "IT-T7-123", "IT-T7-135"])
+        h.append(_onda(["IT-T7-112"], "2026-09-26-080000"))            # o 112 foi atendido agora: vai para o fim
+        o = O.ordenar_por_dominio(_coorte(), _dom(), O.ultima_vez_atendida(h))
+        self.assertEqual([s for s, _ in o if s in CIA][0], "IT-T7-118")
+        self.assertEqual([s for s, _ in o if s in CIA][-1], "IT-T7-112")
+
+    def test_14_nunca_atendida_vai_antes_de_todas_e_o_empate_e_pelo_SOURCE_ID(self):
+        h = [_onda(["IT-T7-112", "IT-T7-118"], "2026-09-24-120000")]
+        o = [s for s, _ in O.ordenar_por_dominio(_coorte(), _dom(), O.ultima_vez_atendida(h)) if s in CIA]
+        self.assertEqual(o, ["IT-T7-121", "IT-T7-123", "IT-T7-135", "IT-T7-112", "IT-T7-118"])
+
+    def test_15_outros_dominios_nao_mudam_de_lugar_e_a_ordem_e_deterministica(self):
+        h = [_onda(["IT-T7-112"], "2026-09-24-120000")]
+        a = O.ordenar_por_dominio(_coorte(), _dom(), O.ultima_vez_atendida(h))
+        b = O.ordenar_por_dominio(list(reversed(_coorte()))[::-1], _dom(), O.ultima_vez_atendida(h))
+        self.assertEqual(a, b)
+        self.assertEqual(a[0][0], "IT-T10-018")
+        self.assertEqual(a[-1][0], "IT-T5-090")
+
+    def test_16_em_tres_ondas_as_cinco_do_cia_it_sao_atendidas(self):
+        """Com o teto de 5 e ~3 pedidos por fonte, cabem 1 inteira + 1 parcial por onda.
+        A rotacao tem de chegar as 5 em 3 ondas; sem ela, 3 das 5 nunca seriam atendidas."""
+        h, atendidas = [], set()
+        for n, quando in enumerate(["2026-09-26-080000", "2026-09-27-080000", "2026-09-28-080000"]):
+            ordem = O.ordenar_por_dominio(_coorte(), _dom(), O.ultima_vez_atendida(h))
+            l = O.repartir([{"SOURCE_ID": s, "DOMINIO": _dom()[s], "PEDIDOS_PREVISTOS": 3} for s, _ in ordem])
+            servidas = [x["SOURCE_ID"] for x in l if x["PEDIDOS_NA_ONDA"] > 0 and x["SOURCE_ID"] in CIA]
+            self.assertEqual(len(servidas), 2, servidas)
+            atendidas |= set(servidas)
+            h.append(_onda(servidas, quando))
+        self.assertEqual(atendidas, set(CIA))
+
+    def test_17_o_instante_vem_do_RUN_ID_e_so_conta_quem_fez_pedido(self):
+        self.assertEqual(O.quando_do_run("IT-T7-2026-09-24-120737-b9d168ef521cb4d9"), "2026-09-24T12:07:37")
+        e = {"FONTES": [{"SOURCE_ID": "A", "CORREU": True, "PEDIDOS_POR_SITE": {"x": 0},
+                         "RUN_ID": "IT-T7-2026-09-24-120737-ab"},
+                        {"SOURCE_ID": "B", "CORREU": False, "PORQUE_NAO_CORREU": "TETO_DOMINIO"}]}
+        self.assertEqual(O.ultima_vez_atendida([e]), {})
+
+
 class OCorrerRecusa(unittest.TestCase):
 
     def test_8_correr_sem_sha_ou_sem_saida_recusa(self):
