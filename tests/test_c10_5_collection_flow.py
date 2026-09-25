@@ -356,6 +356,11 @@ class OPortaoDeTransporteTemUmDonoSo(unittest.TestCase):
         # continua dono do TRANSPORTE e pergunta-lhe. `RobotFileParser` nao sobra em lado
         # nenhum; a lei inteira (incluindo o 2.o leitor sem urllib) vive em
         # tests/test_robots_rfc9309.py::NenhumSegundoLeitor.
+        # As duas medicoes da D34 reproduzem a leitura ANTIGA de proposito, para a comparar com a
+        # nova; nomeadas uma a uma — um terceiro ficheiro reprova.
+        MEDEM_O_ANTIGO = {'provas/robots_rfc/medir_robots_livro.py',
+                          'provas/robots_rfc/medir_robots_com_rede.py'}
+        leitores = [x for x in leitores if x not in MEDEM_O_ANTIGO]
         self.assertEqual(leitores, [], 'voltou um leitor de robots.txt com urllib.robotparser')
         self.assertIn('import robots_rfc9309 as RR',
                       io.open(os.path.join(RAIZ, 'coleta', 'scrap_http.py'), encoding='utf-8').read())
