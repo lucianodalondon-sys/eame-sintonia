@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "juncao",
-    "HEAD": "74a6fdc812c6cd0833832c17539996248495de91",
-    "GENERATED_AT": "2026-09-25T02:36:19-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6a253c1863f0cb0773b7ce2677baae5d4b14f49ac5d81a455068ce7567e30d8b"
+    "BRANCH": "ponte-d24-v1",
+    "HEAD": "f10efbab9dff7d933ec5f022e19d082354d80d3f",
+    "GENERATED_AT": "2026-09-25T03:22:16-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c61cca8206f1941178a0fc42068cd97bf1522f213d542464f869f0fbe7478322"
   },
   "FILES": [
     {
@@ -3013,7 +3013,7 @@
     },
     {
       "path": "curadoria/ponte_candidatas.py",
-      "sha": "e54cf4fe65eae8938d17b0d07b9133419f003cd7",
+      "sha": "b66a2dd1fada75d317032d20897232610c8c7d4c",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3098,6 +3098,41 @@
     {
       "path": "curadoria/provas-fila-unica/p1_run2.py",
       "sha": "148271389f50eaa2dae3219bcc1bde2b5eaf80f6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-ponte-d24/MANIFESTO.json",
+      "sha": "a757200a902138ecd55aa4dfb21d45ac8274a6ab",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-ponte-d24/mutacao_ponte_d24.txt",
+      "sha": "a8be67578d65d77baca70590b580fc7f405d95b4",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-ponte-d24/p1_run2.py",
+      "sha": "148271389f50eaa2dae3219bcc1bde2b5eaf80f6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-ponte-d24/pd24_ensaio.log",
+      "sha": "ceec4a701cce6e164816672ab5079831ec8b7596",
+      "ext": ".log",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+      "sha": "a96aa6dca10db513aadc5044f415ecbdce2e7c00",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3377,7 +3412,7 @@
     },
     {
       "path": "curadoria/test_ponte_candidatas.py",
-      "sha": "f018f82bbaebf8a9295411caea38d29c09fdcd1f",
+      "sha": "7e3ce51c47eb3805ab6f3925fa299c053a502e2d",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -27130,7 +27165,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/ponte_candidatas.py",
-        "line": 49,
+        "line": 50,
         "snippet": "import fonte_nova as FN   # noqa: E402"
       }
     },
@@ -27141,7 +27176,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/ponte_candidatas.py",
-        "line": 53,
+        "line": 54,
         "snippet": "LEDGER = RAIZ / \"curadoria\" / \"BRIDGE-LEDGER-V1.json\""
       }
     },
@@ -27152,7 +27187,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/ponte_candidatas.py",
-        "line": 52,
+        "line": 53,
         "snippet": "CARACT = RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\""
       }
     },
@@ -27163,7 +27198,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/ponte_candidatas.py",
-        "line": 47,
+        "line": 48,
         "snippet": "import fila as F          # noqa: E402"
       }
     },
@@ -27174,7 +27209,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/ponte_candidatas.py",
-        "line": 48,
+        "line": 49,
         "snippet": "import lifecycle as LC    # noqa: E402"
       }
     },
@@ -27858,6 +27893,171 @@
         "file": "curadoria/provas-fila-unica/p1_run2.py",
         "line": 5,
         "snippet": "\"tests/test_fila_italia_decisoes.py\",\"tests/test_medir_cutover.py\",\"tests/test_portao.py\",\"tests/test_porta_de_candidatas.py\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "curadoria/test_discovery.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 3,
+        "snippet": "files = [\"curadoria/test_discovery.py\",\"curadoria/test_livros_reais_intactos.py\",\"curadoria/test_ponte_cadeia.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "curadoria/test_livros_reais_intactos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 3,
+        "snippet": "files = [\"curadoria/test_discovery.py\",\"curadoria/test_livros_reais_intactos.py\",\"curadoria/test_ponte_cadeia.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "curadoria/test_ponte_cadeia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 3,
+        "snippet": "files = [\"curadoria/test_discovery.py\",\"curadoria/test_livros_reais_intactos.py\",\"curadoria/test_ponte_cadeia.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "curadoria/test_ponte_candidatas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 4,
+        "snippet": "\"curadoria/test_ponte_candidatas.py\",\"curadoria/test_reconciliar_livros.py\",\"curadoria/test_zz_guarda_isolamento.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "curadoria/test_reconciliar_livros.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 4,
+        "snippet": "\"curadoria/test_ponte_candidatas.py\",\"curadoria/test_reconciliar_livros.py\",\"curadoria/test_zz_guarda_isolamento.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "curadoria/test_zz_guarda_isolamento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 4,
+        "snippet": "\"curadoria/test_ponte_candidatas.py\",\"curadoria/test_reconciliar_livros.py\",\"curadoria/test_zz_guarda_isolamento.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "tests/test_fila_italia_decisoes.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 5,
+        "snippet": "\"tests/test_fila_italia_decisoes.py\",\"tests/test_medir_cutover.py\",\"tests/test_portao.py\",\"tests/test_porta_de_candidatas.py\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "tests/test_medir_cutover.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 5,
+        "snippet": "\"tests/test_fila_italia_decisoes.py\",\"tests/test_medir_cutover.py\",\"tests/test_portao.py\",\"tests/test_porta_de_candidatas.py\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "tests/test_porta_de_candidatas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 5,
+        "snippet": "\"tests/test_fila_italia_decisoes.py\",\"tests/test_medir_cutover.py\",\"tests/test_portao.py\",\"tests/test_porta_de_candidatas.py\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/p1_run2.py",
+      "to_file": "tests/test_portao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/p1_run2.py",
+        "line": 5,
+        "snippet": "\"tests/test_fila_italia_decisoes.py\",\"tests/test_medir_cutover.py\",\"tests/test_portao.py\",\"tests/test_porta_de_candidatas.py\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+        "line": 9,
+        "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+      "to_file": "curadoria/BRIDGE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+        "line": 10,
+        "snippet": "TOCADOS_PELA_PONTE = {FILA, \"curadoria/BRIDGE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-LEDGER-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+        "line": 10,
+        "snippet": "TOCADOS_PELA_PONTE = {FILA, \"curadoria/BRIDGE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-LEDGER-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+        "line": 11,
+        "snippet": "\"curadoria/LIFECYCLE-QUEUE-V1.json\"}"
+      }
+    },
+    {
+      "from_file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+      "to_file": "curadoria/ponte_candidatas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provas-ponte-d24/pd24_ensaio.py",
+        "line": 63,
+        "snippet": "r = subprocess.run([\"py\", \"curadoria/ponte_candidatas.py\"], cwd=str(E), capture_output=True, text=True, env=env, encoding=\"utf-8\")"
       }
     },
     {
@@ -83749,10 +83949,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2888,
-    "files_readable": 1310,
+    "files_tracked": 2893,
+    "files_readable": 1312,
     "files_code_dir": 1185,
-    "file_edges": 5721,
+    "file_edges": 5736,
     "escritas_em_pasta": 86,
     "declared_missing_here": 0
   },

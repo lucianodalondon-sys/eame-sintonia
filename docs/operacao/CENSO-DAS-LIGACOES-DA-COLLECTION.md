@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  74a6fdc812c6cd0833832c17539996248495de91
-BRANCH           juncao
-GERADO_EM        2026-09-25T02:36:19-03:00
+HEAD_DA_MEDICAO  f10efbab9dff7d933ec5f022e19d082354d80d3f
+BRANCH           ponte-d24-v1
+GERADO_EM        2026-09-25T03:22:16-03:00
 CARDS            95
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
