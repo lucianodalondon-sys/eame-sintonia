@@ -480,7 +480,8 @@
     "regras/italy_scheduling_guards.mjs",
     "regras/italy_source_health.mjs",
     "regras/motor_de_rota.mjs",
-    "regras/motor_de_rota_test.mjs"
+    "regras/motor_de_rota_test.mjs",
+    "regras/identidade_do_motor_cli.mjs"
    ]
   },
   {
@@ -4721,6 +4722,35 @@
     "provas/cortesia_http_local.mjs",
     "provas/cortesia_red_team.mjs",
     "provas/CORTESIA-RED-TEAM-V1.json"
+   ]
+  },
+  {
+   "id": "C-PROVA-JANELA-FORMAS",
+   "name": "As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Canarios reais autorizados (portao de consenso, D38, D41.3) e provas locais: a receita liga a rota PDF existente (SFN, ERSA, Campania passam DETAIL/v1); a pagina e o boletim provada no coletor de verdade contra servidor local (B1..B6: identidade pela data comprovada, dedupe pelo conteudo recortado, UNKNOWN sem data) e no LaMMA real (PAGINA_BOLETIM/v1, bytes diferentes -> mesma edicao); estudo das rotas publicas JSON para as fontes JS.",
+   "why_here": "O canario de 30 janelas (bancada continua) mostrou que as janelas nao publicam como lista -> noticia. A D42 abriu duas formas e um estudo; esta peca guarda a prova de cada uma.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/janela_formas/canario_receita_pdf.py",
+    "provas/janela_formas/pagina_boletim_local.mjs",
+    "provas/janela_formas/buscar_paginas_boletim.py",
+    "provas/janela_formas/julgar_paginas_boletim.py",
+    "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa1.json",
+    "provas/janela_formas/CANARIO-RECEITA-PDF-tentativa2.json",
+    "provas/janela_formas/CONTRATOS-RECEITA-PDF.json",
+    "provas/janela_formas/CANARIO-PAGINA-BOLETIM.json",
+    "provas/janela_formas/PAGINAS-BOLETIM-FASE1-INDICE.json",
+    "provas/janela_formas/ESTUDO-JAVASCRIPT.md",
+    "provas/janela_formas/RELATORIO-JANELA-FORMAS.md"
    ]
   },
   {
