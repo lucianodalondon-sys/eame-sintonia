@@ -252,7 +252,7 @@ class GanchoDoSupervisor(unittest.TestCase):
         import supervisor as S
         eventos = []
         voltas = [("WORKER_OK", {}, None), ("WORKER_OK", {}, None), KeyboardInterrupt()]
-        with mock.patch.object(S, "uma_volta_sup", side_effect=voltas),              mock.patch.object(S.time, "sleep"),              mock.patch.object(S, "_anotar", side_effect=eventos.append),              mock.patch.object(S, "_ler_estado", return_value={}),              mock.patch.object(S, "_gravar_estado"),              mock.patch.object(S.F, "recuperar_orfas", return_value=[]),              mock.patch.object(O, "onboardar_se_mudou", side_effect=onboard):
+        with mock.patch.object(S, "uma_volta_sup", side_effect=voltas),              mock.patch.object(S.time, "sleep"),              mock.patch.object(S, "_anotar", side_effect=eventos.append),              mock.patch.object(S, "_ler_estado", return_value={}),              mock.patch.object(S, "_gravar_estado"),              mock.patch.object(S.F, "recuperar_orfas", return_value=[]),              mock.patch.object(O, "onboardar_se_mudou", side_effect=onboard),              mock.patch("ready_split.remedir", side_effect=AssertionError("LIVRO REAL NUM TESTE")),              mock.patch("gatilho_discovery.revalidar_legacy_se_devido", side_effect=AssertionError("LIVRO REAL NUM TESTE")):
             with self.assertRaises(KeyboardInterrupt):
                 S._loop(1.0, 0)
         return eventos
