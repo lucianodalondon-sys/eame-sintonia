@@ -4,17 +4,20 @@ Missão: `auditoria-madrugada/missao-li-onda.txt`. Ramo `social-onda2-v1`. **Nad
 Produção medida em 25/09 ~02:00: bot `servico-20260923-0923` @ **5ba9647e** (R1 instalada), com 14 livros em uso;
 ponte `cutover-20260923-0923` @ **84c235da**, com 3 livros em uso.
 
-## ⚠️ Duas decisões antes de instalar (não são técnicas)
+## Decisões tomadas — D37 (bot Luciano, 25/09)
+1. **Robots do LinkedIn:** a D23 cobre o robots.txt **só** para vídeo público de ORGANIZAÇÃO no LinkedIn.
+   Cada objeto leva campos SEPARADOS. Feito em `coleta/adaptador_linkedin.politica_do_objeto`, usada no bruto e no envelope:
+   `OWNER_AUTHORIZED=SIM` · `PLATFORM_POLICY_STATUS=DISALLOWED` · `ROBOTS_STATUS=DISALLOW_ALL` · `ROBOTS_URL=https://www.linkedin.com/robots.txt`
+   · `ROBOTS_MEDIDO_EM=2026-09-08` (a medição do cabeçalho de `leis/social_matriz.py`) · `DECISAO_DO_ROBOTS=D37`.
+   Medido antes: o objeto do canário de 24/09 tinha os dois primeiros e NÃO tinha `ROBOTS_*`.
+   Teste `tests/test_d37_campos_de_politica.py` (4) e mutação `provas/_mutantes_d37.py` **6/6 mortos**.
+   ⚠️ Para o coordenador: a rota de VÍDEO DE PESSOA no LinkedIn (D24) também bate num robots proibido. Pela D37/D34
+   ela deixa de estar coberta, mas o código dela continua ligado (`video_de_post_publico`). Não mexi — é decisão.
+   Os objetos do canário de 24/09 foram julgados antes da D37 e não têm `ROBOTS_*`. Os da onda já os levam.
+2. **População 344 → 857 aprovada.** `fonte_do_atlas` só RECONHECE o SOURCE_ID do registo canónico de alocação.
+   Não promove, não cria READY: quem promove continua a ser a régua social com o canário.
 
-1. **Robots do LinkedIn × regra «robots respeitado».** O `robots.txt` do LinkedIn proíbe coleta automática
-   (medido; `PLATFORM_POLICY_STATUS = DISALLOWED`, escrito em cada item). A D23 do dono autorizou por escrito o vídeo
-   de página de ORGANIZAÇÃO, «risco assumido pelo dono». A regra de rede desta noite diz «robots respeitado».
-   As duas não cabem juntas: **a onda LinkedIn só corre se o coordenador confirmar que a D23 vale sobre a regra desta noite.**
-   Sem essa confirmação: instalar o código pode seguir; correr a onda não. → **ESPERA DECISÃO**
-2. **População de SOURCE_ID 344 → 857** (`leis/fonte_do_atlas.py`, 3.º emissor = `SOURCE-ID-ALLOCATION-V1.json`).
-   Sem isto, o Scrap recusa ancorar qualquer número que o Curator cunhou (medido 3/3: COLHEITA 0). A alternativa é
-   escrever uma ficha no Atlas para cada número novo (`curadoria/atlas_social.py`) — o que suja um documento rastreado
-   no vivo a cada fonte. Proponho o 3.º emissor; a decisão é do coordenador.
+**Ordem (D35.4):** a LI-ONDA instala-se DEPOIS da 2.ª onda web.
 
 ## O que vai para a produção
 `social-onda2-v1` (sobre `cffaad2d`, que já está na produção): SOC2 (a mesma `cac84a45` da CUR-PRONTA), SOC4 1–2
@@ -48,7 +51,7 @@ limite desta noite (≤ 5 visitas por site).
 
 | peça | na INSTALAÇÃO escreve | em FUNCIONAMENTO passa a escrever | livros do vivo tocados na instalação |
 |---|---|---|---|
-| bot | código de `curadoria/`, `leis/fonte_do_atlas.py`, `pedido/receitas.py`, `coleta/italy_pilot_collect.mjs`, `regras/italy_contracts.mjs`, `scripts/desbloqueio/`, `provas/`, testes, docs, workflows, mapa (73 ficheiros na junção) | **nada novo por si.** Depois da SEMEADURA (passo 5), o worker escreve os livros de sempre: `SOURCE-ID-ALLOCATION` (+37), `italy_contracts_curator.json` (+37 contratos `SCRAP_FASE`), `LIFECYCLE-LEDGER/-QUEUE/-EVIDENCE` | 0 de 14 |
+| bot | código de `curadoria/`, `leis/fonte_do_atlas.py`, `pedido/receitas.py`, `coleta/italy_pilot_collect.mjs`, `coleta/adaptador_linkedin.py` (D37: campos de robots em cada objeto), `regras/italy_contracts.mjs`, `scripts/desbloqueio/`, `provas/`, testes, docs, workflows, mapa (73 ficheiros na junção) | **nada novo por si.** Depois da SEMEADURA (passo 5), o worker escreve os livros de sempre: `SOURCE-ID-ALLOCATION` (+37), `italy_contracts_curator.json` (+37 contratos `SCRAP_FASE`), `LIFECYCLE-LEDGER/-QUEUE/-EVIDENCE` | 0 de 14 |
 | ponte | a mesma junção sobre 84c235da | nada novo (lê o portão com `SOCIAL/v1`) | 0 de 3 |
 | semear (passo 5) | `LIFECYCLE-QUEUE-V1.json` (+40 QUALIFY), **só com o bot parado** | — | 1 (a fila), por um escritor |
 | régua (passo 7) | `LIFECYCLE-LEDGER/-EVIDENCE` (+9 READY, +5 FALHA), **só com o bot parado** | — | 2, por um escritor |
@@ -68,7 +71,7 @@ QUALIFY → BUILD_CONTRACT → VALIDATE_ROUTE sem rede. Esperado: 37 CANARY_PEND
 Se algum diferir, as provas de 24/09 não servem para esse número: canário novo só para ele (≤ 5 por noite).
 **7 · Régua (bot parado):** `py curadoria/regua_social.py --corridas <resultados do canario> --envelopes <envelopes> --aplicar --vivo`
 → 9 READY. Relançar. Portão: 38 → 47.
-**8 · Onda (só com a decisão 1 tomada):** `py curadoria/plano_onda_social.py` (só plano) e depois a mesma lista pelo orquestrador,
+**8 · Onda (D37 tomada; só DEPOIS da 2.ª onda web, D35.4):** `py curadoria/plano_onda_social.py` (só plano) e depois a mesma lista pelo orquestrador,
 com o Pedido montado em processo, **em 2 lotes (5 + 4), ≥ 1 h entre lotes** (≤ 5 visitas por site por noite).
 
 ### ↩️ DESFAZER

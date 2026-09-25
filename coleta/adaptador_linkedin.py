@@ -923,6 +923,33 @@ AUTORIZACAO_ESCRITA = ('%s · %s · OWNER_AUTHORIZED=SIM · '
                        'PLATFORM_POLICY_STATUS=DISALLOWED'
                        % (DECISAO_DO_DONO, DECISAO_DO_DONO_REF))
 
+# ── D37 · TRES CAMPOS SEPARADOS, E NENHUM RESUME OS OUTROS ─────────────────
+# O dono autorizou (OWNER_AUTHORIZED); os termos da plataforma proibem
+# (PLATFORM_POLICY_STATUS); e o robots.txt proibe tudo (ROBOTS_STATUS) — com o
+# endereco e a data em que isso foi MEDIDO (cabecalho de `leis/social_matriz.py`).
+# Tres factos diferentes, tres campos: juntar dois num so esconderia qual deles
+# mudou no dia em que um mudar. A D37 limita a excecao ao video publico de
+# ORGANIZACAO; qualquer outra rota com robots proibido continua bloqueada (D34).
+ROBOTS_URL = 'https://www.linkedin.com/robots.txt'
+ROBOTS_STATUS = 'DISALLOW_ALL'
+ROBOTS_MEDIDO_EM = '2026-09-08'
+ROBOTS_MEDIDA_REF = 'leis/social_matriz.py (cabecalho: robots.txt de cada plataforma, medido desta maquina)'
+DECISAO_DO_ROBOTS = 'D37'
+
+
+def politica_do_objeto(nome_decisao):
+    """Os campos de politica que CADA objeto leva, separados (D37)."""
+    return {
+        'OWNER_AUTHORIZED': 'SIM',
+        'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+        'ROBOTS_STATUS': ROBOTS_STATUS,
+        'ROBOTS_URL': ROBOTS_URL,
+        'ROBOTS_MEDIDO_EM': ROBOTS_MEDIDO_EM,
+        'ROBOTS_MEDIDA_REF': ROBOTS_MEDIDA_REF,
+        'DECISAO_DO_DONO': nome_decisao,
+        'DECISAO_DO_ROBOTS': DECISAO_DO_ROBOTS,
+    }
+
 # ── D24 · OS MESMOS TRES PAPEIS, PARA A PESSOA ──────────────────────────
 # ⚠️ PORQUE HA TRES NOMES NOVOS E NAO SE REUSA OS DE CIMA. Uma rota e o que a
 # casa DECLAROU na matriz, e o nome dela viaja em cada objeto. Se a aquisicao
@@ -1616,9 +1643,7 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
                                     '<video> — nunca inferida do texto'),
         'POSTER_URL': cartao.get('POSTER_URL'),
         'ASPECT_RATIO': cartao.get('ASPECT_RATIO'),
-        'OWNER_AUTHORIZED': 'SIM',
-        'PLATFORM_POLICY_STATUS': 'DISALLOWED',
-        'DECISAO_DO_DONO': nome_decisao,
+        **politica_do_objeto(nome_decisao),
         'DECISAO_DO_DONO_REF': ref_decisao,
         'EGRESS_MEASURED': egresso,
         'URL_EXPIRY_OBSERVED': None,
@@ -1792,9 +1817,7 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
         raw=raw)
     envelope['ACQUISITION_TIER'] = FREE
     envelope['FIELD_ORIGIN_TIER'] = FREE
-    envelope['OWNER_AUTHORIZED'] = 'SIM'
-    envelope['PLATFORM_POLICY_STATUS'] = 'DISALLOWED'
-    envelope['DECISAO_DO_DONO'] = nome_decisao
+    envelope.update(politica_do_objeto(nome_decisao))
     if limite:
         envelope['LIMITE'] = limite
     envelope['RAW_SHA256'] = ref['SHA256']
