@@ -1995,8 +1995,13 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
         "COMPLETUDE_TEMPO_LUGAR": None,
         # DA-7: o que o leitor do texto mediu (especie, precisao, CALCULADA,
         # a expressao com a conta). Sem leitura: o default «nao medido».
-        "TEMPO_LUGAR_EVIDENCIA": item.get("tempo_lugar_evidencia")
-                                 or dict(TEMPO_LUGAR_EVIDENCIA_NAO_MEDIDA),
+        # ⚠️ CHAVES ORDENADAS, SEMPRE — tambem no default. A Sala guarda o JSON
+        # com `sort_keys` e a impressao da corrida assina pela ordem: medido no
+        # test_migracao_033_sala (teste 3), o default pela ordem de montagem
+        # fazia um retry honesto virar RUN_ID_CONFLICT.
+        "TEMPO_LUGAR_EVIDENCIA": {k: v for k, v in sorted(
+            (item.get("tempo_lugar_evidencia")
+             or TEMPO_LUGAR_EVIDENCIA_NAO_MEDIDA).items())},
         # ── A ESPECIE PROBATORIA, DECLARADA PELA FONTE ──────────────────────
         # ⚠️ O NOME E LONGO DE PROPOSITO, E NAO SE ENCURTA.
         # Os 13 contratos de fonte italianos declaram `EVIDENCE_CLASS` ANTES de

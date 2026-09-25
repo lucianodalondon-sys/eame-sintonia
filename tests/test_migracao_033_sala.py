@@ -67,6 +67,12 @@ class ADefaultDaCompletude(unittest.TestCase):
     def test_o_ready_tem_os_campos_da_sala_pela_mesma_ordem(self):
         self.assertEqual(list(_ready(1)), list(espera.CAMPOS_READY))
 
+    def test_os_json_do_ready_saem_com_as_chaves_ordenadas(self):
+        """A Sala guarda-os com sort_keys; fora de ordem, um retry vira conflito."""
+        r = _ready(1)
+        for campo in ("COMPLETUDE_TEMPO_LUGAR", "TEMPO_LUGAR_EVIDENCIA"):
+            self.assertEqual(list(r[campo]), sorted(r[campo]), campo)
+
     def test_a_migration_so_acrescenta(self):
         sql = open(MIG, encoding="utf-8").read().lower()
         codigo = "\n".join(l for l in sql.splitlines() if not l.strip().startswith("--"))
