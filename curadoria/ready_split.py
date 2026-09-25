@@ -164,7 +164,9 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
     corpo_pdf = (item.get("DOC_KIND") == "PDF"
                  and item.get("TEXT_LAYER") == "TEXT_LAYER_PRESENT"
                  and (item.get("TEXT_CHARACTERS") or 0) >= 800)
-    passos["BODY_UTIL"] = dados.get("DETAIL_GATE_PASSED") is True and (corpo_html or corpo_pdf)
+    # (a forma com parenteses e a ancora dos red teams RT-A12/RT-A17 — nao a achatar numa linha so)
+    passos["BODY_UTIL"] = (dados.get("DETAIL_GATE_PASSED") is True
+                           and (corpo_html or corpo_pdf))
 
     quando = ((contrato or {}).get("ROUTE_PROVENANCE") or {}).get("INTEGRADO_EM")
     if not quando:
