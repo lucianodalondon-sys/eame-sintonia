@@ -92,9 +92,24 @@ def livros_por_sha(padroes):
     return fora
 
 
-def ready_de(linha, obs):
+def bytes_guardados(linha, raizes):
+    """Os bytes do bruto no armazem, SO com o sha256 certo (DA-9: o leitor da pagina)."""
+    if not linha.get("STORAGE_PATH") or "html" not in (linha.get("MEDIA_TYPE") or ""):
+        return None
+    for raiz in raizes:
+        for cand in glob.glob(os.path.join(raiz, linha["STORAGE_PATH"])):
+            try:
+                dados = open(cand, "rb").read()
+            except OSError:
+                continue
+            if hashlib.sha256(dados).hexdigest() == linha["SHA256"]:
+                return dados
+    return None
+
+
+def ready_de(linha, obs, dados=None):
     """O READY que a estrada de hoje daria a esta linha — sem rede e sem banco."""
-    tl = ex.tempo_e_lugar(obs) if obs else {}
+    tl = ex.tempo_e_lugar(obs or {"SOURCE_ID": linha["SOURCE_ID"]}, dados)
     item_id = str(linha["ITEM_ID"])
     est = {"SOURCE_ID": linha["SOURCE_ID"], "TEXTO": linha["TEXTO"],
            "DERIVED_ARTIFACT_ID": item_id.split(":", 1)[-1],
@@ -125,6 +140,9 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--livros", required=True,
                     help="globs dos livros do coletor (observations.ndjson), separados por ;")
+    ap.add_argument("--raizes", default="",
+                    help="onde estao os bytes guardados (armazem), separados por ;"
+                         " — para o leitor da pagina (DA-9); sem isto, so o contrato")
     ap.add_argument("--aplicar", action="store_true")
     ap.add_argument("--saida")
     a = ap.parse_args(argv)
@@ -132,14 +150,18 @@ def main(argv=None):
     versao = versao_do_codigo()
     livros = livros_por_sha([x for x in a.livros.split(";") if x])
     linhas = espera.linhas_para_revisao()
-    conta = {"LINHAS": len(linhas), "SEM_LIVRO": 0, "INSERIDAS": 0, "JA_ERAM_ASSIM": 0}
+    raizes = [x for x in a.raizes.split(";") if x]
+    conta = {"LINHAS": len(linhas), "SEM_LIVRO": 0, "COM_PAGINA": 0,
+             "INSERIDAS": 0, "JA_ERAM_ASSIM": 0}
     por_campo = {c: 0 for c, _, _ in REVISTOS}
     itens = []
     for linha in linhas:
         obs = livros.get(linha["SHA256"])
         if obs is None:
             conta["SEM_LIVRO"] += 1
-        ready = ready_de(linha, obs)
+        dados = bytes_guardados(linha, raizes) if raizes else None
+        conta["COM_PAGINA"] += dados is not None
+        ready = ready_de(linha, obs, dados)
         revs = revisoes_de(ready)
         for r in revs:
             if r["CAMPO"] in por_campo and r["VALOR"] != adm.AUSENCIA:

@@ -165,7 +165,86 @@ def _afirma(v) -> bool:
     return v not in ing.NAO_E_AFIRMACAO and str(v).strip() != ""
 
 
-def tempo_e_lugar(obs: dict) -> dict:
+#: DA-9: duas datas de publicacao que distam mais do que isto discordam.
+DIAS_DE_DISCORDANCIA = 1
+
+
+def _dia(valor):
+    import datetime                                       # noqa: PLC0415
+    try:
+        return datetime.date.fromisoformat(str(valor)[:10])
+    except ValueError:
+        return None
+
+
+def publicacao_escolhida(contrato: dict, pagina: dict) -> dict:
+    """DA-9 (coordenacao, 25/09): PUBLICATION_TIME tem DUAS fontes, e o
+    encanamento escolhe UMA por ORDEM FIXA — nunca pela que «parece melhor»:
+
+        1.o  a data que o CONTRATO declara como publicacao (livro do coletor)
+        2.o  o leitor da PAGINA (nuvem tempo-publicacao: JSON-LD > meta > <time>)
+
+    A que nao ganha fica como EVIDENCIA, com a base dela. Se as duas distam
+    mais de `DIAS_DE_DISCORDANCIA`, ficam as duas e o item e marcado
+    `PUBLISHED_AT_CONFLITO` com precisao `CONFLITO` — sem adivinhar qual esta
+    certa. Uma publicacao em conflito NAO ancora data relativa (D63).
+
+    `contrato` e `pagina` sao `{PUBLISHED_AT, PUBLISHED_AT_BASIS,
+    PUBLISHED_AT_PRECISION}` (so afirmacoes) ou `{}`.
+    """
+    candidatos = [c for c in (contrato, pagina) if _afirma(c.get("PUBLISHED_AT"))]
+    if not candidatos:
+        # a ausencia diz porque — o porque do contrato primeiro, depois o da pagina
+        porques = [c.get("PUBLISHED_AT_BASIS") for c in (contrato, pagina)
+                   if _afirma(c.get("PUBLISHED_AT_BASIS"))]
+        return ({"PUBLISHED_AT_BASIS": " · ".join(porques),
+                 "PUBLISHED_AT_PRECISION": ing.NAO_SEI_ID} if porques else {})
+    escolhida, outra = candidatos[0], (candidatos[1] if len(candidatos) > 1 else None)
+    fora = {"PUBLISHED_AT": escolhida["PUBLISHED_AT"],
+            "PUBLISHED_AT_BASIS": escolhida["PUBLISHED_AT_BASIS"],
+            "PUBLISHED_AT_PRECISION": escolhida.get("PUBLISHED_AT_PRECISION")
+                                      or ing.NAO_SEI_ID}
+    if outra is not None:
+        fora["PUBLISHED_AT_OUTRA"] = outra["PUBLISHED_AT"]
+        fora["PUBLISHED_AT_OUTRA_BASIS"] = outra["PUBLISHED_AT_BASIS"]
+        a, b = _dia(escolhida["PUBLISHED_AT"]), _dia(outra["PUBLISHED_AT"])
+        if a is None or b is None or abs((a - b).days) > DIAS_DE_DISCORDANCIA:
+            fora["PUBLISHED_AT_CONFLITO"] = (
+                "SIM — %s (%s) contra %s (%s); ficou a 1.a pela ordem fixa DA-9, "
+                "sem adivinhar qual esta certa"
+                % (escolhida["PUBLISHED_AT"], escolhida["PUBLISHED_AT_BASIS"],
+                   outra["PUBLISHED_AT"], outra["PUBLISHED_AT_BASIS"]))
+            fora["PUBLISHED_AT_PRECISION"] = "CONFLITO"
+    return fora
+
+
+def bytes_da_pagina(obs: dict, raiz: str = None):
+    """Os bytes HTML da observacao, SO se o sha256 bater com o do livro.
+
+    Sem bytes, sem sha, ou sha diferente: `None` — e a pagina nao e lida. Ler
+    um ficheiro que nao e o que o livro guardou seria medir outra coisa.
+    """
+    import hashlib                                        # noqa: PLC0415
+    caminho = obs.get("RAW_PATH") or ""
+    sha = str(obs.get("RAW_SHA256") or "").strip()
+    if not caminho or not sha or not caminho.lower().endswith((".html", ".htm")):
+        return None
+    if not os.path.isabs(caminho):
+        caminho = os.path.join(raiz or OPS_ROOT, caminho)
+    try:
+        dados = open(caminho, "rb").read()
+    except OSError:
+        return None
+    return dados if hashlib.sha256(dados).hexdigest() == sha else None
+
+
+def publicacao_da_pagina(dados) -> dict:
+    """O leitor de pagina da nuvem tempo-publicacao, nos nomes do contrato."""
+    import executor_texto_de_html as H                    # noqa: PLC0415
+    return H.publicacao_para_o_contrato(H.tempo_de_publicacao(dados))
+
+
+def tempo_e_lugar(obs: dict, dados_da_pagina=None) -> dict:
     """O que a observacao PROVA sobre tempo e lugar, cada valor com a BASE.
 
     ⚠️ TEMPO-E-LUGAR (25/09): as 78 da Sala real chegaram com os cinco campos
@@ -192,29 +271,35 @@ def tempo_e_lugar(obs: dict) -> dict:
     sid = obs.get("SOURCE_ID") or ""
     fora = {}
 
-    # PUBLICACAO
+    # PUBLICACAO — as duas fontes, e a escolha pela ordem fixa (DA-9)
+    contrato = {}
     pub, base = obs.get("PUBLISHED_AT"), obs.get("PUBLISHED_AT_BASIS")
     if _afirma(pub) and _afirma(base):
-        fora["PUBLISHED_AT"], fora["PUBLISHED_AT_BASIS"] = pub, base
+        contrato = {"PUBLISHED_AT": pub, "PUBLISHED_AT_BASIS": base,
+                    "PUBLISHED_AT_PRECISION": obs.get("PUBLISHED_AT_PRECISION")
+                                              or ing.NAO_SEI_ID}
     elif _afirma(obs.get("SOURCE_DATE_ISO")):
         especie = cf.data_do_documento_e_publicacao(sid)
         if especie["E_PUBLICACAO"]:
-            fora["PUBLISHED_AT"] = obs["SOURCE_DATE_ISO"]
-            fora["PUBLISHED_AT_BASIS"] = (
+            contrato["PUBLISHED_AT"] = obs["SOURCE_DATE_ISO"]
+            contrato["PUBLISHED_AT_PRECISION"] = "DIA"
+            contrato["PUBLISHED_AT_BASIS"] = (
                 "SOURCE_DATE_ISO do livro do coletor (impresso: «%s»); o "
                 "contrato de %s declara DOCUMENT_DATE_KIND «%s»"
                 % (obs.get("SOURCE_DATE") or obs["SOURCE_DATE_ISO"], sid,
                    especie["ESPECIE"]))
         elif especie["ESPECIE"] == cf.NAO_SEI:
-            fora["PUBLISHED_AT_BASIS"] = (
+            contrato["PUBLISHED_AT_BASIS"] = (
                 "a data do documento (%s) existe e NAO se sabe se e de "
                 "publicacao: o contrato de %s nao declara DOCUMENT_DATE_KIND"
                 % (obs["SOURCE_DATE_ISO"], sid))
         else:
-            fora["PUBLISHED_AT_BASIS"] = (
+            contrato["PUBLISHED_AT_BASIS"] = (
                 "a data do documento (%s) NAO e de publicacao: o contrato de %s "
                 "declara DOCUMENT_DATE_KIND «%s»"
                 % (obs["SOURCE_DATE_ISO"], sid, especie["ESPECIE"]))
+    pagina = publicacao_da_pagina(dados_da_pagina) if dados_da_pagina else {}
+    fora.update(publicacao_escolhida(contrato, pagina))
 
     # TEMPO DO FACTO
     declarado = str(obs.get("FACT_TIME") or "").strip()
@@ -233,13 +318,10 @@ def tempo_e_lugar(obs: dict) -> dict:
     elif declarado:
         fora["FACT_TIME_BASIS"] = "o coletor declarou: «%s»" % declarado
 
-    # LUGAR DA FONTE
+    # LUGAR DA FONTE — pelo dono da nuvem tempo-publicacao (so o CONTRATO;
+    # nunca o REGION do Atlas), com a precisao (D62)
     if sid:
-        lugar = cf.lugar_declarado_pela_fonte(sid)
-        if _afirma(lugar.get("VALOR")):
-            fora["SOURCE_LOCATION"] = lugar["VALOR"]
-            fora["SOURCE_LOCATION_BASIS"] = "%s: «%s»" % (
-                lugar["BASE"], lugar.get("REGRA_ORIGINAL"))
+        fora.update(cf.lugar_para_o_contrato(cf.lugar_da_fonte(sid)))
 
     # LUGAR DO FACTO
     lf, lf_base = obs.get("FACT_LOCATION"), obs.get("FACT_LOCATION_BASIS")
@@ -275,7 +357,7 @@ def traduzir(obs: dict) -> dict:
     # escreve `NAO SEI`. O que se prova sai com a BASE ao lado.
     for campo in ing.TEMPO_E_LUGAR:
         fora.pop(campo, None)
-    fora.update(tempo_e_lugar(obs))
+    fora.update(tempo_e_lugar(obs, bytes_da_pagina(obs)))
     # O EXECUTOR PODE DIZER QUEM E: isto nao e um campo da observacao, e quem o
     # declara e quem corre. `DO_COLETOR` transporta-o de proposito.
     fora["EXECUTOR_ID"] = EXECUTOR_ID

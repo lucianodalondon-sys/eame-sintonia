@@ -117,7 +117,7 @@ alter table public.sala_de_espera
 -- Default = `admissao.TEMPO_LUGAR_EVIDENCIA_NAO_MEDIDA`, byte a byte.
 alter table public.sala_de_espera
   add column if not exists tempo_lugar_evidencia json not null
-  default '{"FACT_LOCATION_KIND": "NAO SEI", "FACT_LOCATION_PRECISION": "NAO SEI", "FACT_LOCATION_VEIO_DE": "NAO SEI", "FACT_TIME_CALCULO": "NAO SEI", "FACT_TIME_EVIDENCIA": "NAO SEI", "FACT_TIME_KIND": "NAO SEI", "FACT_TIME_PRECISION": "NAO SEI", "FACT_TIME_VEIO_DE": "NAO SEI", "LEITOR": "NAO SEI", "ORIGEM": "pousado antes da migration 033: a evidencia do tempo e do lugar nao foi medida"}'::json;
+  default '{"FACT_LOCATION_KIND": "NAO SEI", "FACT_LOCATION_PRECISION": "NAO SEI", "FACT_LOCATION_VEIO_DE": "NAO SEI", "FACT_TIME_CALCULO": "NAO SEI", "FACT_TIME_EVIDENCIA": "NAO SEI", "FACT_TIME_KIND": "NAO SEI", "FACT_TIME_PRECISION": "NAO SEI", "FACT_TIME_VEIO_DE": "NAO SEI", "LEITOR": "NAO SEI", "ORIGEM": "pousado antes da migration 033: a evidencia do tempo e do lugar nao foi medida", "PUBLISHED_AT_CONFLITO": "NAO SEI", "PUBLISHED_AT_OUTRA": "NAO SEI", "PUBLISHED_AT_OUTRA_BASIS": "NAO SEI", "PUBLISHED_AT_PRECISION": "NAO SEI", "SOURCE_LOCATION_PRECISION": "NAO SEI"}'::json;
 
 comment on column public.sala_de_espera.published_at_basis is
   'Como se sabe o PUBLISHED_AT (JSON-LD, meta tag, edicao impressa...), ou porque '

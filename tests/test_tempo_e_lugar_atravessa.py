@@ -356,5 +356,73 @@ class ChegaAoReady(unittest.TestCase):
             self.assertEqual(r[campo], NS, campo)
 
 
+def _pagina(data):
+    return ('<html><head><script type="application/ld+json">{"@type": "NewsArticle", '
+            '"datePublished": "%s"}</script></head><body><p>x</p></body></html>' % data).encode()
+
+
+class DA9DuasFontesDaPublicacao(unittest.TestCase):
+    """DA-9: 1.o o CONTRATO, 2.o a PAGINA; a outra fica como evidencia; conflito marca-se."""
+
+    def setUp(self):
+        _com_contratos(self)
+
+    def test_so_o_contrato(self):
+        t = ex.tempo_e_lugar(T3_002)
+        self.assertEqual((t["PUBLISHED_AT"], t["PUBLISHED_AT_PRECISION"]), ("2026-09-16", "DIA"))
+        self.assertNotIn("PUBLISHED_AT_OUTRA", t)
+
+    def test_so_a_pagina(self):
+        t = ex.tempo_e_lugar(HTML, _pagina("2026-09-20T08:00:00+02:00"))
+        self.assertEqual(t["PUBLISHED_AT"], "2026-09-20T08:00:00+02:00")
+        self.assertIn("JSON-LD", t["PUBLISHED_AT_BASIS"])
+        self.assertEqual(t["PUBLISHED_AT_PRECISION"], "INSTANTE")
+
+    def test_as_duas_de_acordo_fica_o_contrato_e_a_pagina_e_evidencia(self):
+        t = ex.tempo_e_lugar(T3_002, _pagina("2026-09-16T10:00:00+02:00"))
+        self.assertEqual(t["PUBLISHED_AT"], "2026-09-16")
+        self.assertEqual(t["PUBLISHED_AT_OUTRA"], "2026-09-16T10:00:00+02:00")
+        self.assertIn("JSON-LD", t["PUBLISHED_AT_OUTRA_BASIS"])
+        self.assertNotIn("PUBLISHED_AT_CONFLITO", t)
+
+    def test_as_duas_em_desacordo_ficam_as_duas_e_marca_conflito(self):
+        t = ex.tempo_e_lugar(T3_002, _pagina("2026-09-20T10:00:00+02:00"))
+        self.assertEqual(t["PUBLISHED_AT"], "2026-09-16")            # a ordem fixa
+        self.assertEqual(t["PUBLISHED_AT_OUTRA"], "2026-09-20T10:00:00+02:00")
+        self.assertTrue(t["PUBLISHED_AT_CONFLITO"].startswith("SIM"))
+        self.assertEqual(t["PUBLISHED_AT_PRECISION"], "CONFLITO")
+
+    def test_conflito_nao_ancora_a_data_relativa(self):
+        recado = ex.tempo_e_lugar(T3_002, _pagina("2026-09-20T10:00:00+02:00"))
+        est = _estruturado(recado)
+        est["TEXTO"] = ("Aggiornamento fitosanitario settimanale per le colture orticole. "
+                        "Peronospora constatata ieri a Grosseto su pomodoro in pieno campo "
+                        "dai tecnici regionali durante il sopralluogo.")
+        item = ORQ.item_documental_para_a_porta(est, source_id="IT-T3-002")
+        self.assertNotIn("fact_time", item)
+        ev = item["tempo_lugar_evidencia"]
+        self.assertTrue(ev["PUBLISHED_AT_CONFLITO"].startswith("SIM"))
+        self.assertEqual(ev["PUBLISHED_AT_PRECISION"], "CONFLITO")
+        self.assertEqual(item["published_at"], "2026-09-16")
+
+    def test_a_precisao_e_a_outra_fonte_chegam_a_evidencia_e_nao_a_porta(self):
+        recado = ex.tempo_e_lugar(T3_002, _pagina("2026-09-16T10:00:00+02:00"))
+        item = ORQ.item_documental_para_a_porta(_estruturado(recado), source_id="IT-T3-002")
+        ev = item["tempo_lugar_evidencia"]
+        self.assertEqual(ev["PUBLISHED_AT_OUTRA"], "2026-09-16T10:00:00+02:00")
+        self.assertEqual(ev["SOURCE_LOCATION_PRECISION"], recado["SOURCE_LOCATION_PRECISION"])
+        for k in ("PUBLISHED_AT_OUTRA", "published_at_outra", "PUBLISHED_AT_PRECISION"):
+            self.assertNotIn(k, item)
+
+    def test_bytes_com_sha_errado_nao_se_leem(self):
+        with tempfile.NamedTemporaryFile(suffix=".html", delete=False) as fh:
+            fh.write(_pagina("2026-09-20"))
+        self.addCleanup(os.unlink, fh.name)
+        self.assertIsNone(ex.bytes_da_pagina({"RAW_PATH": fh.name, "RAW_SHA256": "0" * 64}))
+        import hashlib
+        sha = hashlib.sha256(open(fh.name, "rb").read()).hexdigest()
+        self.assertIsNotNone(ex.bytes_da_pagina({"RAW_PATH": fh.name, "RAW_SHA256": sha}))
+
+
 if __name__ == "__main__":
     unittest.main()

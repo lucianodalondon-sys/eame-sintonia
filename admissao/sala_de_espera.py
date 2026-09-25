@@ -933,11 +933,13 @@ select resultado from _recibo;
     def linhas_para_revisao(self):
         """Todas as linhas, pela vista, com o sha256 do bruto (para o livro)."""
         nomes = ("RUN_ID", "ORDEM", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO",
-                 "SOURCE_ID", "CAPTURED_AT", "SHA256", "TEXTO")
+                 "SOURCE_ID", "CAPTURED_AT", "SHA256", "STORAGE_PATH",
+                 "MEDIA_TYPE", "TEXTO")
         fora = []
         for l in self._consultar(
                 "select a.run_id, a.ordem, a.item_id, a.raw_observation_id, "
                 "a.universo, a.source_id, a.captured_at, coalesce(r.sha256, ''), "
+                "coalesce(r.storage_path, ''), coalesce(r.media_type, ''), "
                 "a.texto from public.sala_de_espera_atual a "
                 "left join public.raw_asset r on r.id = a.raw_observation_id "
                 "order by a.pousado_em, a.run_id, a.ordem"):
