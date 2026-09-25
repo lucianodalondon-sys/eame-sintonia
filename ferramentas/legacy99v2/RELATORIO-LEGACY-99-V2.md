@@ -43,9 +43,9 @@ Rede fechada por omissão (D41.3). A rede só se abriu para os canários autoriz
 
 ## Provas
 
-- **Testes novos: 45**, todos sem rede e sem livros reais:
+- **Testes novos: 37**, todos sem rede e sem livros reais:
   - `test_legacy_colchetes` (2);
-  - `test_legacy_recheck` (16, com o dos colchetes e o supervisor);
+  - `test_legacy_recheck` (12, incluindo o supervisor);
   - `test_importar_do_coletor` (23);
   - mais os ajustes em `test_onboardar_rotas_provadas`.
 - **Mutação: C+D 11/11, A+B 15/15**. Nas corridas finais, 0 mutantes escreveram num livro (`MUTACAO-CD.json`, `MUTACAO-AB.json`).
