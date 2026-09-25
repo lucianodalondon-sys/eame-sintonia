@@ -75,6 +75,23 @@ medir a precisão.
 - A régua nova **só olha para o GABARITO** (os 70 %). A prova cega só se abre no fim.
 - **Cada texto é rotulado nas três perguntas** (T4, T5, T9), sem olhar a régua (nem a antiga nem a nova).
 
+## ADENDA 1 · 25/09 · escrita DEPOIS dos 86 rótulos e ANTES de ler os textos novos
+
+**O que os 86 rótulos mediram:** T4 **0 YES**, T5 **4 YES**, T9 **1 YES**. Os três ficam `NAO PRONTO`.
+A causa está no acervo: ~ 1.177 textos quase todos de agências de ambiente e clima, institucionais, e
+títulos do YouTube. Só 3 textos em todo o acervo citam uma empresa do setor.
+
+**Estrato novo, FONTE-DECLARADA:** os brutos do armazém da Sala das fontes declaradas T4, T5 e T9
+(`armazem/XX/it-t4-*`, `it-t5-*`, `it-t9-*`, respetivamente 1, 46 e 8 documentos).
+- São **copiados** (nada se lê no vivo) e o texto é extraído com os extratores da casa
+  (`coleta/executor_texto_de_html.extrair`, `executor_texto_de_pdf.extrair`).
+- Entram **todos**. Sorteio da prova cega pela mesma semente (45945), com 30 %.
+- Os JSON e CSV entram como texto cru, com a sua forma dita.
+- Rotulam-se nas três perguntas, como os outros.
+
+Se, com este estrato, um universo continuar abaixo de 20 YES no gabarito, fica `NAO PRONTO` de vez
+com estes números. O resto do acervo **não tem** esse conteúdo, e a rede está fechada.
+
 ## Regras
 
 1. Rotulador: Claude (Opus 5.5). O trecho que decidiu fica citado. `VALIDADO_POR_HUMANO = NAO`.
