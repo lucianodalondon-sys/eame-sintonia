@@ -157,9 +157,12 @@ class TestRelativasD63(unittest.TestCase):
         for expr, (valor, prec) in casos.items():
             r = self._r(expr)
             self.assertEqual((valor, prec), (r["fact_time"], r["fact_time_precision"]), expr)
-            self.assertTrue(r["fact_time_basis"].startswith("RELATIVA_A_PUBLICACAO"), expr)
-            self.assertIn("«%s»" % expr.split(",")[0], r["fact_time_basis"], "a expressao original fica como evidencia")
-            self.assertIn("2026-09-23", r["fact_time_basis"])
+            # DA-7: a base e SO a palavra; a conta e o trecho vao para fact_time_calculo / fact_time_evidencia
+            esperada = "PUBLISHED_AT_COM_PROVA" if valor == "2026-09-23" else "RELATIVA_A_PUBLICACAO"
+            self.assertEqual(esperada, r["fact_time_basis"], expr)
+            self.assertEqual("RELATIVA_A_PUBLICACAO", r["fact_time_calculo"], expr)
+            self.assertIn("«%s»" % expr.split(",")[0], r["fact_time_evidencia"], "a expressao original fica como evidencia")
+            self.assertIn("2026-09-23", r["fact_time_evidencia"])
             self.assertEqual("2026-09-23", r["EVIDENCIA"]["PUBLICACAO_PROVADA"])
 
     def test_intervalo_nunca_vira_um_dia(self):
@@ -202,6 +205,45 @@ class TestRelativasD63(unittest.TestCase):
     def test_a_conta_nao_depende_do_dia_de_hoje(self):
         r = self._r("ieri", ("2020-02-29", "meta"))
         self.assertEqual("2020-02-28", r["fact_time"])
+
+
+class TestLeiDoArtefatoDA7(unittest.TestCase):
+    """DA-7: a data calculada tem de passar em `leis.artefato.conferir` sem mexer na lei."""
+
+    @staticmethod
+    def _conferir(r, published_at):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from leis import artefato as A
+        a = A.Artefato(ARTIFACT_ID="t", ARTIFACT_TYPE="DERIVED", STORAGE_LOCATION="t", SHA256="0" * 64,
+                       FACT_TIME=r["fact_time"], PUBLISHED_AT=published_at,
+                       NOTES={"FACT_TIME_BASIS": r["fact_time_basis"]})
+        return A.conferir(a)
+
+    def test_oggi_marcado_com_publicacao_so_dia_passa_na_lei(self):
+        r = FT.campos_do_fato("I tecnici hanno osservato oggi, lunedì, sintomi di peronospora nei vigneti di Verona.\n",
+                              "2026-09-21", "meta article:published_time")
+        self.assertEqual("2026-09-21", r["fact_time"])
+        self.assertEqual("PUBLISHED_AT_COM_PROVA", r["fact_time_basis"])
+        self.assertIn("oggi", r["fact_time_evidencia"])
+        self.assertEqual([], self._conferir(r, "2026-09-21"))
+
+    def test_sem_a_marca_a_lei_reprova(self):
+        # o mesmo resultado, mas com a base antiga: a lei tem de reprovar (prova de que o teste morde)
+        r = FT.campos_do_fato("I tecnici hanno osservato oggi, lunedì, sintomi di peronospora nei vigneti di Verona.\n",
+                              "2026-09-21", "meta article:published_time")
+        r = dict(r, fact_time_basis="RELATIVA_A_PUBLICACAO")
+        self.assertTrue(self._conferir(r, "2026-09-21"))
+
+    def test_conta_diferente_da_publicacao_diz_relativa(self):
+        r = FT.campos_do_fato("I tecnici hanno osservato ieri sintomi di peronospora nei vigneti della provincia di Verona.\n",
+                              "2026-09-21", "meta article:published_time")
+        self.assertEqual(("2026-09-20", "RELATIVA_A_PUBLICACAO"), (r["fact_time"], r["fact_time_basis"]))
+        self.assertEqual([], self._conferir(r, "2026-09-21"))
+
+    def test_data_nao_calculada_nao_ganha_campos_de_calculo(self):
+        r = FT.campos_do_fato("Il monitoraggio ha rilevato le prime catture il 12 settembre nei vigneti della zona collinare.\n")
+        self.assertEqual(("NAO_SE_APLICA", "NAO_SE_APLICA"), (r["fact_time_calculo"], r["fact_time_evidencia"]))
+        self.assertNotIn("PUBLISHED_AT_COM_PROVA", r["fact_time_basis"])
 
 
 class TestOggiD64(unittest.TestCase):
