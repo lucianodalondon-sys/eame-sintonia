@@ -1,0 +1,53 @@
+{
+ "DATASET": "LEGACY-99-REVALIDAR-EM-COPIA",
+ "MEDIDO_EM": "2026-09-25T11:29:22+00:00",
+ "COPIA": "C:\\rend\\copia-v3",
+ "REDE": "ABERTA",
+ "MODO": "REVALIDAR",
+ "REMEDIR": [
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "FEITO": false,
+   "PORQUE": "nao esta READY: CANARY_PENDING"
+  }
+ ],
+ "RONDAS": [
+  {
+   "RONDA": 1,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T10-017"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "youtube.com": 3
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T10-017",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T10-017",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "OK"
+    }
+   ]
+  }
+ ],
+ "RECUSADOS_PELO_TRANSPORTE": {},
+ "RESUMO": {
+  "READY_CURRENT_E_ELEGIVEL": 1
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "READY_CURRENT_E_ELEGIVEL",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "REGUA": "VIDEO/v1",
+   "MOTIVO_DO_PORTAO": "ELIGIBLE",
+   "ULTIMA_RAZAO": "canario resolveu e trouxe um item com identidade"
+  }
+ ]
+}
