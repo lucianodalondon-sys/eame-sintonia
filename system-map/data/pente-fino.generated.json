@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T07:53:03+00:00",
-    "HEAD": "7b15edd784e119adb24e044b1dbc38b7ea74db6a",
+    "GENERATED_AT": "2026-09-25T09:19:24+00:00",
+    "HEAD": "f65d07b052841a5c7310d928cebe469dcad63e7a",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
-    "FICHEIROS_NA_IMPRESSAO": 3050,
+    "SOURCE_TREE_FINGERPRINT": "a186d425048325c1de215e738b2cb7bc1810fcf3281730690ef28dc837ed6be3",
+    "FICHEIROS_NA_IMPRESSAO": 3058,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
+        "VERSAO": "a186d425048325c1de215e738b2cb7bc1810fcf3281730690ef28dc837ed6be3",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "8e62fb6fe3b15bf391a248dd47d58cd32cb32b14f4b649da0a284e17690484db",
+    "INPUTS_DIGEST": "bfc52c456beefb220ad7eac16bc980c5a6a0e00e9a9a6acc72b054c45d1e7e21",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -188,18 +188,6 @@
       "alguem_corre": false,
       "respostas": 2,
       "ficheiros": 1,
-      "estado": "yellow"
-    },
-    {
-      "id": "C-PONTE-ONBOARD",
-      "nome": "A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)",
-      "zona": "· as ferramentas da execucao",
-      "de_onde_vem": true,
-      "para_onde_vai": false,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 2,
       "estado": "yellow"
     },
     {
@@ -284,6 +272,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 5,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-PONTE-ONBOARD",
+      "nome": "A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 4,
       "estado": "yellow"
     },
     {
@@ -890,8 +890,8 @@
   "RESUMO": {
     "pecas_da_coleta": 62,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 25,
-    "respondem_a_duas": 8,
+    "respondem_a_tres": 26,
+    "respondem_a_duas": 7,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

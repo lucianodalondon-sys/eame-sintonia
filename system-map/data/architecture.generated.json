@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "ponte-onboard-v1",
-    "HEAD": "7b15edd784e119adb24e044b1dbc38b7ea74db6a",
-    "GENERATED_AT": "2026-09-25T04:44:48-03:00",
-    "SOURCE_TREE_FINGERPRINT": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e"
+    "BRANCH": "prova-rota-ciclo-v1",
+    "HEAD": "f65d07b052841a5c7310d928cebe469dcad63e7a",
+    "GENERATED_AT": "2026-09-25T05:08:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a186d425048325c1de215e738b2cb7bc1810fcf3281730690ef28dc837ed6be3"
   },
   "FILES": [
     {
@@ -3019,6 +3019,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/prova_rota_ciclo.py",
+      "sha": "e2759e31fb5ecb92e7508a3de3455b5b146a1f15",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/provar_abastecimento.py",
       "sha": "f0847f3a49daad6697afa66e4839d290efb2be43",
       "ext": ".py",
@@ -3195,7 +3202,7 @@
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "436726afc0e20b4d31d3e8742aa6c7e62da75d44",
+      "sha": "4b2b843e3e6e3d2634c9b33201dfff88698ecb37",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -10999,6 +11006,48 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/prova_rota_ciclo/INCIDENTE-20260925T0801Z-canarios-dos-testes.log",
+      "sha": "2cc5ad4cd81a2ed13cbaa154d18beda9eb57a872",
+      "ext": ".log",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/prova_rota_ciclo/MUTACAO.json",
+      "sha": "430d2793f871e7d08733c252992e64b0217efdd8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/prova_rota_ciclo/PLANO-INSTALACAO-PROVA-ROTA-CICLO.md",
+      "sha": "c18307ce539db18c45bafca1a80b256fc250f17e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/prova_rota_ciclo/RELATORIO-PROVA-ROTA-CICLO.md",
+      "sha": "da7f0b97250e9a9b468a073720dc33429afc3b5b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/prova_rota_ciclo/WRITESET-PROVA-ROTA-CICLO.json",
+      "sha": "29bf73b32b47741fa72f4380fda4d0d01312a836",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/prova_rota_ciclo/mutacao.py",
+      "sha": "08c7fcc039ad43ac123a8d375d93a535460f96a1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/reel_transcricao.py",
       "sha": "80f7de73ecce7e34ef8bc113435fea30ca629634",
       "ext": ".py",
@@ -18189,7 +18238,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "210ba9c2183cc089ab322810146c6d0595defe20",
+      "sha": "25d09f7d561e6d0dac3dac4d5bcaddcc173c2bf6",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19834,7 +19883,7 @@
     },
     {
       "path": "tests/test_onboardar_rotas_provadas.py",
-      "sha": "4392424deeea69cc42ddfc6e0baf6b91e5483f59",
+      "sha": "ff4e9384535cf1058dc5e457ebcde8ec1e4bff41",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19968,6 +20017,13 @@
     {
       "path": "tests/test_proposta_catalogo.py",
       "sha": "12af949919c6a13e1eb8860330520d0d05b1e8bb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_prova_rota_ciclo.py",
+      "sha": "5205e9f599a2b2e8a5cd5b287e551532922b24d3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27277,6 +27333,61 @@
       }
     },
     {
+      "from_file": "curadoria/prova_rota_ciclo.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/prova_rota_ciclo.py",
+        "line": 43,
+        "snippet": "import collection_gate as G              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/prova_rota_ciclo.py",
+      "to_file": "curadoria/onboardar_rotas_provadas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/prova_rota_ciclo.py",
+        "line": 44,
+        "snippet": "import onboardar_rotas_provadas as ONB   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/prova_rota_ciclo.py",
+      "to_file": "curadoria/sha_do_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/prova_rota_ciclo.py",
+        "line": 45,
+        "snippet": "import sha_do_contrato as SHA            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/prova_rota_ciclo.py",
+      "to_file": "medidas/canario_rotas_elegiveis.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/prova_rota_ciclo.py",
+        "line": 47,
+        "snippet": "CANARIO_PY = RAIZ / \"medidas\" / \"canario_rotas_elegiveis.py\""
+      }
+    },
+    {
+      "from_file": "curadoria/prova_rota_ciclo.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/prova_rota_ciclo.py",
+        "line": 48,
+        "snippet": "REDE_PY = RAIZ / \"superficie\" / \"rede.py\""
+      }
+    },
+    {
       "from_file": "curadoria/provar_abastecimento.py",
       "to_file": "candidatas/FONTES-CANDIDATAS.json",
       "type": "READS",
@@ -28713,7 +28824,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 647,
+        "line": 652,
         "snippet": "import gatilho_discovery as GD  # noqa: E402"
       }
     },
@@ -28724,8 +28835,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 654,
+        "line": 659,
         "snippet": "import onboardar_rotas_provadas as ONB  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/supervisor.py",
+      "to_file": "curadoria/prova_rota_ciclo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/supervisor.py",
+        "line": 660,
+        "snippet": "import prova_rota_ciclo as PRC          # noqa: E402"
       }
     },
     {
@@ -32884,6 +33006,28 @@
         "file": "ferramentas/ponte_onboard/mutacao.py",
         "line": 18,
         "snippet": "CAN, ONB, SUP, SHA = (\"medidas/canario_rotas_elegiveis.py\", \"curadoria/onboardar_rotas_provadas.py\","
+      }
+    },
+    {
+      "from_file": "ferramentas/prova_rota_ciclo/mutacao.py",
+      "to_file": "curadoria/prova_rota_ciclo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/prova_rota_ciclo/mutacao.py",
+        "line": 18,
+        "snippet": "PRC, SUP = \"curadoria/prova_rota_ciclo.py\", \"curadoria/supervisor.py\""
+      }
+    },
+    {
+      "from_file": "ferramentas/prova_rota_ciclo/mutacao.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/prova_rota_ciclo/mutacao.py",
+        "line": 18,
+        "snippet": "PRC, SUP = \"curadoria/prova_rota_ciclo.py\", \"curadoria/supervisor.py\""
       }
     },
     {
@@ -79725,6 +79869,28 @@
       }
     },
     {
+      "from_file": "tests/test_prova_rota_ciclo.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_prova_rota_ciclo.py",
+        "line": 50,
+        "snippet": "mjs = RAIZ / \"coleta\" / \"italy_pilot_collect.mjs\""
+      }
+    },
+    {
+      "from_file": "tests/test_prova_rota_ciclo.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_prova_rota_ciclo.py",
+        "line": 235,
+        "snippet": "for argv, esperado in (([\"supervisor.py\"], True), ([\"supervisor.py\", \"--sem-prova-de-rota\"], False)):"
+      }
+    },
+    {
       "from_file": "tests/test_proveniencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -83442,6 +83608,13 @@
         "constante": "SAIDA"
       }
     ],
+    "curadoria/prova_rota_ciclo.py": [
+      {
+        "pasta": "curadoria",
+        "line": 149,
+        "constante": "DIARIO_DA_RONDA"
+      }
+    ],
     "fontes/adama_it_gaps.py": [
       {
         "pasta": "research/adama-italy-product-intelligence-deep",
@@ -83990,11 +84163,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2902,
-    "files_readable": 1313,
-    "files_code_dir": 1198,
-    "file_edges": 5734,
-    "escritas_em_pasta": 86,
+    "files_tracked": 2910,
+    "files_readable": 1316,
+    "files_code_dir": 1205,
+    "file_edges": 5744,
+    "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

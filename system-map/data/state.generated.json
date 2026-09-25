@@ -454,6 +454,7 @@
       "curadoria/politica_nao_sei.py",
       "curadoria/ponte_automatica.py",
       "curadoria/ponte_candidatas.py",
+      "curadoria/prova_rota_ciclo.py",
       "curadoria/provar_abastecimento.py",
       "curadoria/provar_autonomia.py",
       "curadoria/provar_ciclo_fonte.py",
@@ -1600,6 +1601,12 @@
       "ferramentas/ponte_onboard/RELATORIO-PONTE-ONBOARD.md",
       "ferramentas/ponte_onboard/WRITESET-PONTE-ONBOARD.json",
       "ferramentas/ponte_onboard/mutacao.py",
+      "ferramentas/prova_rota_ciclo/INCIDENTE-20260925T0801Z-canarios-dos-testes.log",
+      "ferramentas/prova_rota_ciclo/MUTACAO.json",
+      "ferramentas/prova_rota_ciclo/PLANO-INSTALACAO-PROVA-ROTA-CICLO.md",
+      "ferramentas/prova_rota_ciclo/RELATORIO-PROVA-ROTA-CICLO.md",
+      "ferramentas/prova_rota_ciclo/WRITESET-PROVA-ROTA-CICLO.json",
+      "ferramentas/prova_rota_ciclo/mutacao.py",
       "ferramentas/reel_transcricao.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
@@ -2927,6 +2934,7 @@
       "tests/test_prioridade_comercial.py",
       "tests/test_prontidao_social_v1.py",
       "tests/test_proposta_catalogo.py",
+      "tests/test_prova_rota_ciclo.py",
       "tests/test_proveniencia.py",
       "tests/test_psql_argv.py",
       "tests/test_qualidade_t3.py",
@@ -3020,8 +3028,8 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "20 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-EVIDENCE-V1.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py … e mais 12",
+      "titulo": "19 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-EVIDENCE-V1.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py … e mais 11",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "curadoria/CATALOGO-PROVA-V1.json",
@@ -3495,10 +3503,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "ponte-onboard-v1",
-    "HEAD": "7b15edd784e119adb24e044b1dbc38b7ea74db6a",
-    "GENERATED_AT": "2026-09-25T04:44:48-03:00",
-    "SOURCE_TREE_FINGERPRINT": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e"
+    "BRANCH": "prova-rota-ciclo-v1",
+    "HEAD": "f65d07b052841a5c7310d928cebe469dcad63e7a",
+    "GENERATED_AT": "2026-09-25T05:08:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a186d425048325c1de215e738b2cb7bc1810fcf3281730690ef28dc837ed6be3"
   },
   "FAMILIES": [
     {
@@ -5000,8 +5008,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 621",
-        "desses, mostrados aqui: 40 (ficam de fora 581)"
+        "enderecos que o codigo realmente chama: 624",
+        "desses, mostrados aqui: 40 (ficam de fora 584)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -37405,6 +37413,7 @@
         "C-IT-PRESERVAR",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-CAMADAS",
+        "C-PONTE-ONBOARD",
         "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-CANARIO-D24-REEL-PESSOA",
@@ -38771,7 +38780,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "ferramentas/ponte_onboard/mutacao.py:18",
+          "curadoria/prova_rota_ciclo.py:47",
           "ferramentas/unificacao/provar_em_copia.py:119",
           "scripts/desbloqueio/aplicar_desbloqueio.py:186",
           "scripts/micro_coleta/micro_coleta.py:148"
@@ -40199,6 +40208,7 @@
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CONTRATO-TELEMETRIA",
         "C-DETECTOR-CAPA-GABARITO",
+        "C-PONTE-ONBOARD",
         "C-PORTA-FONTE",
         "C-PROVA-PARIDADE",
         "C-TESTES"
@@ -40220,14 +40230,14 @@
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [
-        "curadoria/italy_contracts_curator.json"
+        "curadoria/italy_contracts_curator.json",
+        "curadoria/supervisor.py"
       ],
       "parado_na_coleta": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/red_team_telemetria.py",
         "curadoria/status_live.py",
-        "curadoria/supervisor.py",
         "curadoria/test_discovery.py",
         "curadoria/test_painel_pergunta_ao_so.py",
         "curadoria/test_supervisor.py"
@@ -51166,7 +51176,7 @@
       "name": "A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "sha256 canonico de SOURCE_ID + OUTPUT_TYPE + ACQUISITION — exactamente o que onboardar_rotas_provadas escreve na tabela do coletor. O canario de rotas grava-o na prova (CONTRATO_SHA256, PROVADO_EM); o onboarding so escreve a linha se a impressao provada for igual a do contrato de agora e a prova tiver <= 7 dias. O supervisor chama o onboarding a cada volta (onboardar_se_mudou: so quando a prova muda ou de 10 em 10 min). mutacao.py desliga cada guarda e exige que um teste caia.",
+      "what": "sha256 canonico de SOURCE_ID + OUTPUT_TYPE + ACQUISITION — exactamente o que onboardar_rotas_provadas escreve na tabela do coletor. O canario de rotas grava-o na prova (CONTRATO_SHA256, PROVADO_EM); o onboarding so escreve a linha se a impressao provada for igual a do contrato de agora e a prova tiver <= 7 dias. O supervisor chama o onboarding a cada volta (onboardar_se_mudou: so quando a prova muda ou de 10 em 10 min). PROVA-ROTA-CICLO: o supervisor (so quando arrancado como servico, main) corre tambem o canario de rotas das ELIGIBLE sem prova recente do contrato de agora — 1 fonte por dominio registavel, <=8 por rodada, portao de consenso IT antes de cada rodada, processo proprio, 30 min entre rodadas (prova_rota_ciclo.provar_se_devido). mutacao.py desliga cada guarda e exige que um teste caia.",
       "why_here": "PONTE-ONBOARD (25/09/2026): o canario lia o contrato do Git HEAD e o bot escreve no disco sem commitar (HEAD 574 fontes, disco 762); 14 das 17 fontes a onboardar tinham no HEAD outro contrato. E ninguem chamava o onboarding: 0 fontes entraram no coletor com 28 ELIGIBLE a espera. Ensaio em copia do vivo: 0 -> 17.",
       "departments": [
         "ENGENHARIA"
@@ -51181,19 +51191,24 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "curadoria/prova_rota_ciclo.py",
         "curadoria/sha_do_contrato.py",
-        "ferramentas/ponte_onboard/mutacao.py"
+        "ferramentas/ponte_onboard/mutacao.py",
+        "ferramentas/prova_rota_ciclo/mutacao.py"
       ],
-      "file_count": 2,
+      "file_count": 4,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-ASK-SINTONIA",
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CENSO-UNIFICACAO"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-CENSO-UNIFICACAO"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -51204,36 +51219,48 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "MUTANTES"
+          "MUTANTES",
+          "SUFIXOS_DE_DOIS_NIVEIS"
         ],
-        "palavras": 16,
+        "palavras": 106,
         "por_lingua": {},
-        "sem_marca_de_lingua": 16,
+        "sem_marca_de_lingua": 106,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "curadoria",
+          "prova": {
+            "file": "curadoria/prova_rota_ciclo.py",
+            "line": 149,
+            "snippet": "escreve em DIARIO_DA_RONDA"
+          }
+        }
+      ],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 4 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "curadoria/prova_rota_ciclo.py abre ligacao de rede: vai buscar dado fora da arvore",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
         "curadoria/onboardar_rotas_provadas.py",
+        "curadoria/prova_rota_ciclo.py",
         "curadoria/sha_do_contrato.py",
         "curadoria/supervisor.py",
-        "medidas/canario_rotas_elegiveis.py"
+        "medidas/canario_rotas_elegiveis.py",
+        "superficie/rede.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -51247,8 +51274,10 @@
         "CLASSE": "NAO_SEI",
         "QUEM": [],
         "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "PROVA": [
+          "curadoria/supervisor.py:660"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 6000,
       "y": 1326
@@ -62778,6 +62807,7 @@
         "tests/test_prioridade_comercial.py",
         "tests/test_prontidao_social_v1.py",
         "tests/test_proposta_catalogo.py",
+        "tests/test_prova_rota_ciclo.py",
         "tests/test_proveniencia.py",
         "tests/test_psql_argv.py",
         "tests/test_qualidade_t3.py",
@@ -62828,7 +62858,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 233,
+      "file_count": 234,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63032,7 +63062,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 55,
+        "ITALIA": 56,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -63316,6 +63346,7 @@
         "curadoria/ponte_candidatas.py",
         "curadoria/ready_split.py",
         "curadoria/retrato_html.py",
+        "curadoria/supervisor.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
         "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
@@ -65594,7 +65625,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch ponte-onboard-v1"
+        "branch prova-rota-ciclo-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -71499,6 +71530,41 @@
     },
     {
       "from": "C-ASK-SINTONIA",
+      "to": "C-PONTE-ONBOARD",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/prova_rota_ciclo.py",
+          "line": 48,
+          "snippet": "REDE_PY = RAIZ / \"superficie\" / \"rede.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PONTE-ONBOARD",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PONTE-ONBOARD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
       "to": "C-PROVA-CANARIO-D23-LINKEDIN",
       "type": "READS",
       "payload": "artefacto",
@@ -75217,8 +75283,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O canario das rotas das fontes aprovadas alimenta A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD). Provado por 1 linha de codigo.",
+      "reason": "O canario das rotas das fontes aprovadas alimenta A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD). Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "curadoria/prova_rota_ciclo.py",
+          "line": 47,
+          "snippet": "CANARIO_PY = RAIZ / \"medidas\" / \"canario_rotas_elegiveis.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-PONTE-ONBOARD",
+            "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "TO": "C-PONTE-ONBOARD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "ferramentas/ponte_onboard/mutacao.py",
           "line": 18,
@@ -76778,12 +76860,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD). Provado por 1 linha de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/ponte_onboard/mutacao.py",
           "line": 19,
           "snippet": "\"curadoria/supervisor.py\", \"curadoria/sha_do_contrato.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PONTE-ONBOARD",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PONTE-ONBOARD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/prova_rota_ciclo/mutacao.py",
+          "line": 18,
+          "snippet": "PRC, SUP = \"curadoria/prova_rota_ciclo.py\", \"curadoria/supervisor.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PONTE-ONBOARD",
             "FROM": "C-CENSO-UNIFICACAO",
@@ -76848,7 +76946,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canario_rotas_contrato_certo.py",
@@ -76918,6 +77016,22 @@
           "file": "tests/test_medir_cutover.py",
           "line": 46,
           "snippet": "f = corte / \"italy_contracts_curator.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_prova_rota_ciclo.py",
+          "line": 235,
+          "snippet": "for argv, esperado in (([\"supervisor.py\"], True), ([\"supervisor.py\", \"--sem-prova-de-rota\"], False)):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
             "FROM": "C-CENSO-UNIFICACAO",
@@ -97168,7 +97282,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -97331,9 +97445,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_raw_observation_id_volta.py",
-          "line": 150,
-          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\",",
+          "file": "tests/test_prova_rota_ciclo.py",
+          "line": 50,
+          "snippet": "mjs = RAIZ / \"coleta\" / \"italy_pilot_collect.mjs\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -97347,9 +97461,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_retorno_da_coleta.py",
-          "line": 27,
-          "snippet": "base = dict(RUN_ID=\"XX-T2-2026-09-11-000001\", EXECUTOR_ID=\"coleta/italy_executor.py\",",
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 150,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -107529,6 +107643,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PONTE-ONBOARD",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD) tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/supervisor.py",
+          "line": 660,
+          "snippet": "import prova_rota_ciclo as PRC          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PONTE-ONBOARD--IMPORTS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-PONTE-ONBOARD",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -132494,7 +132643,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1611,
+  "UNCLAIMED_FILES_COUNT": 1616,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -132753,12 +132902,12 @@
     "components_pending": 206,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1287,
-    "edges_proven": 1224,
+    "edges": 1289,
+    "edges_proven": 1226,
     "edges_unknown": 63,
     "business_edges": 4,
-    "files_tracked": 2902,
-    "files_covered": 1291,
+    "files_tracked": 2910,
+    "files_covered": 1294,
     "files_code_unclaimed": 0,
     "roles_proven": 167,
     "roles_declared_only": 8,

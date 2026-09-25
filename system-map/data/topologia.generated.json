@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T07:53:26+00:00",
-  "HEAD": "7b15edd784e119adb24e044b1dbc38b7ea74db6a",
-  "BRANCH": "ponte-onboard-v1",
+  "GENERATED_AT": "2026-09-25T09:19:50+00:00",
+  "HEAD": "f65d07b052841a5c7310d928cebe469dcad63e7a",
+  "BRANCH": "prova-rota-ciclo-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
-  "FICHEIROS_NA_IMPRESSAO": 3050,
+  "SOURCE_TREE_FINGERPRINT": "a186d425048325c1de215e738b2cb7bc1810fcf3281730690ef28dc837ed6be3",
+  "FICHEIROS_NA_IMPRESSAO": 3058,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -690,6 +690,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "curadoria/prova_rota_ciclo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "e2759e31fb5ecb92e7508a3de3455b5b146a1f15",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "curadoria/sha_do_contrato.py",
     "PAPEL": "FONTE",
     "VERSAO": "2a0255ad2c00fd50d34a619fa44b271d7fe6b1b0",
@@ -826,6 +833,13 @@
     "PATH": "ferramentas/ponte_onboard/mutacao.py",
     "PAPEL": "FONTE",
     "VERSAO": "85cc102b6289dd89c4bf146f96f8a23ef3d6a549",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/prova_rota_ciclo/mutacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "08c7fcc039ad43ac123a8d375d93a535460f96a1",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3870,14 +3884,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
+    "VERSAO": "a186d425048325c1de215e738b2cb7bc1810fcf3281730690ef28dc837ed6be3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "5862e7dcd42f294e77ba87d830fd14108cfdf2d9d293e8b54ce1318fa8e3fb9e",
+    "VERSAO": "a186d425048325c1de215e738b2cb7bc1810fcf3281730690ef28dc837ed6be3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5298,7 +5312,7 @@
    {
     "PATH": "tests/test_onboardar_rotas_provadas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "4392424deeea69cc42ddfc6e0baf6b91e5483f59",
+    "VERSAO": "ff4e9384535cf1058dc5e457ebcde8ec1e4bff41",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5432,6 +5446,13 @@
     "PATH": "tests/test_proposta_catalogo.py",
     "PAPEL": "FONTE",
     "VERSAO": "12af949919c6a13e1eb8860330520d0d05b1e8bb",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_prova_rota_ciclo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5205e9f599a2b2e8a5cd5b287e551532922b24d3",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5779,8 +5800,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 820,
-  "INPUTS_DIGEST": "984d503ff2c391315905229250602e42b6f3fb0b0b6800bda48cfdb045562fef",
+  "INPUTS_COUNT": 823,
+  "INPUTS_DIGEST": "071664acdac53fda984e2e028c5fa96ef8e466ca9fc37d59035b17292279c8a4",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5806,15 +5827,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 507,
+  "DOCUMENTOS_LIDOS": 509,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "18a3812212d3a7891dcd712b4f56a77bd075d302b6204b9036a0a2c738416170",
-  "SEMANTIC_HASH": "12e456f623f5f655853e55ae2a481c0832fa494223f11aadfdf2ea5868f600c4"
+  "MEASUREMENT_HASH": "4e1ed99baac7e9dd3294139c0396ac04ac25ff964b884e180286de6a1ad04a9b",
+  "SEMANTIC_HASH": "77d5e4f32489fe2bb8ae507d9b8a8d740c79138b242c19401785f0173705d12c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -9515,6 +9536,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PONTE-ONBOARD",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-PONTE-ONBOARD",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/prova_rota_ciclo.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-PONTE-ONBOARD",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-CANARIO-D23-LINKEDIN",
     "FROM": "C-ASK-SINTONIA",
     "TO": "C-PROVA-CANARIO-D23-LINKEDIN",
@@ -11287,6 +11330,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "curadoria/prova_rota_ciclo.py",
+      "LINHA": 47,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-PONTE-ONBOARD",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "ferramentas/ponte_onboard/mutacao.py",
       "LINHA": 18,
       "SUPPORTS": "YES",
@@ -12113,6 +12164,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PONTE-ONBOARD",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/prova_rota_ciclo/mutacao.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PONTE-ONBOARD",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -12185,6 +12244,14 @@
      {
       "FICHEIRO": "tests/test_medir_cutover.py",
       "LINHA": 46,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_prova_rota_ciclo.py",
+      "LINHA": 235,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
@@ -23994,16 +24061,16 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
-      "FICHEIRO": "tests/test_raw_observation_id_volta.py",
-      "LINHA": 150,
+      "FICHEIRO": "tests/test_prova_rota_ciclo.py",
+      "LINHA": 50,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      },
      {
-      "FICHEIRO": "tests/test_retorno_da_coleta.py",
-      "LINHA": 27,
+      "FICHEIRO": "tests/test_raw_observation_id_volta.py",
+      "LINHA": 150,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
@@ -29930,6 +29997,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POLITICA-COLETA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PONTE-ONBOARD--IMPORTS-->C-CENSO-UNIFICACAO",
+    "FROM": "C-PONTE-ONBOARD",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/supervisor.py",
+      "LINHA": 660,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PONTE-ONBOARD--IMPORTS-->C-CENSO-UNIFICACAO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -43578,12 +43667,12 @@
     ]
    }
   ],
-  "COUNT": 1221
+  "COUNT": 1223
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 185,
   "CARTOES_AUDITADOS": 185,
-  "ARESTAS_RELACIONADAS": 1221,
+  "ARESTAS_RELACIONADAS": 1223,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -44005,11 +44094,11 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 218,
+   "CODE": 219,
    "CONTROL": 72,
    "DATA": 30,
    "PROOF": 386,
-   "READ": 288,
+   "READ": 289,
    "RULE": 216,
    "WRITE": 11
   },
@@ -44477,7 +44566,7 @@
     "concurrent"
    ],
    "ENTRAM": 2,
-   "SAEM": 22,
+   "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -45301,7 +45390,7 @@
     "telemetria",
     "telemetria_do_curador"
    ],
-   "ENTRAM": 9,
+   "ENTRAM": 10,
    "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -47635,6 +47724,7 @@
     "tests/test_italia_na_porta_canonica.py",
     "tests/test_o_pedido_nao_mente.py",
     "tests/test_observabilidade_estrada.py",
+    "tests/test_prova_rota_ciclo.py",
     "tests/test_raw_observation_id_volta.py",
     "tests/test_retorno_da_coleta.py"
    ],
@@ -48941,8 +49031,10 @@
    "KIND": "library",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "curadoria/prova_rota_ciclo.py",
     "curadoria/sha_do_contrato.py",
-    "ferramentas/ponte_onboard/mutacao.py"
+    "ferramentas/ponte_onboard/mutacao.py",
+    "ferramentas/prova_rota_ciclo/mutacao.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
@@ -48953,15 +49045,19 @@
    "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
-    "pathlib"
+    "datetime",
+    "pathlib",
+    "urllib"
    ],
-   "ENTRAM": 2,
-   "SAEM": 0,
+   "ENTRAM": 3,
+   "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ",
     "RULE"
    ],
-   "CATEGORIAS_QUE_SAEM": [],
+   "CATEGORIAS_QUE_SAEM": [
+    "CODE"
+   ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
@@ -52892,6 +52988,7 @@
     "tests/test_prioridade_comercial.py",
     "tests/test_prontidao_social_v1.py",
     "tests/test_proposta_catalogo.py",
+    "tests/test_prova_rota_ciclo.py",
     "tests/test_proveniencia.py",
     "tests/test_psql_argv.py",
     "tests/test_qualidade_t3.py",
