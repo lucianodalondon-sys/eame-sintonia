@@ -71,7 +71,41 @@ Só código (não há migração nem livro): robô parado; guardar `git status`/
 
 ## Ensaio
 
-(preenchido quando `i2_ensaio.sh` acabar)
+Medido 25/09 sob LOCK-PESADO (19:36–19:58), rede fechada. Provas com texto da Sala FORA do Git em
+`C:/Users/London1/auditoria-madrugada/instalacao-2/` (sha256 em `SHA256SUMS.txt` dessa pasta).
+
+**A · cópia fiel da Sala de HOJE** — `pg_dump` SÓ LEITURA (`default_transaction_read_only=on`) da Sala real
+depois da instalação do PACOTE e da MICRO de verificação: `sala-real-hoje.dump` sha256 `831640363cdd507ece32186b3aae89fc8836fb9bbcd58267e5411cffa8f96237`,
+**81 linhas** (as 78 + 3 que a MICRO pousou), 033 já aplicada, 478 revisões. Restaurada num Postgres
+DESCARTÁVEL, árvore da instalação-2 (`provas/migracao_033_ensaio_copia.py`):
+
+| passo | resultado |
+|---|---|
+| cadeia `migrations` | 001…033 já no livro-razão (`HASH=MATCH`), nenhuma migração nova |
+| contagem ANTES do reprocessamento | publicação 39 · local da fonte 5 · data do fato 18 (2 calculadas) · local do fato 14 |
+| reprocessamento 1 → 2 | 1.ª: 6 revisões novas (as 3 linhas da MICRO); 2.ª: **0** |
+| contagem DEPOIS | **igual** à de antes: 39 · 5 · 18 · 14 — a instalação-2 não muda nenhum valor de tempo/lugar |
+
+⚠️ A ferramenta diz `LINHAS_ORIGINAIS_IGUAIS: false` e `ESQUEMA_IGUAL_AO_DA_COPIA: false` nesta cópia. Não é mudança:
+compara «antes» com a linha INTEIRA e «depois» com uma lista fixa de 24 colunas (iguais só numa Sala SEM a 033),
+e o desfazer, numa cópia que já tinha a 033, tira-a. **Prova direta** (`i2_linhas_iguais.py`, fora do Git, sha256
+`c74feb48dcc0a98c2488d86087bdce99d2d65f3dd1faee054f1503808d91637d`): a tabela `sala_de_espera` INTEIRA (todas as colunas) antes e depois do reprocessamento =
+`81 79ee14da6748da0723c6b76bb767acb1` nos dois → **TABELA_INTEIRA_IGUAL = true**; as 6 revisões entram só em
+`sala_de_espera_revisao` (478 → 484).
+
+**B · replay das 78 pela estrada inteira**, instalado `e5cd691f` × instalação-2:
+
+| campo | instalado | instalação-2 |
+|---|---:|---:|
+| reproduzidos | 77 | 77 |
+| publicação | 35 | 35 |
+| local da fonte | 4 | 4 |
+| data do fato | 18 | 18 |
+| local do fato | 13 | 13 |
+| sem READY (descartados) | 0 | 0 |
+| linhas na Sala descartável | 48 | 48 |
+
+Igual campo a campo: as três peças não mexem no tempo/lugar nem no que a Sala admite.
 
 ## EM PALAVRAS SIMPLES
 
