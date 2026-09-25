@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
+  "HEAD": "9d233d664e60747ed0cf2047bab42ef44bca367e",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -14,8 +14,8 @@
   "INSTRUMENTED": 2
  },
  "PROXIMO_MAIS_BARATO": [
-  "coleta/italy_executor.py",
   "guarda/preservar_derivado.py",
+  "coleta/italy_executor.py",
   "orquestrador/persistencia.py",
   "guarda/preservar_coleta.py",
   "coleta/adaptador_linkedin.py"
@@ -607,7 +607,7 @@
   {
    "EXECUTOR_ID": "coleta/derivacao_forward.py",
    "GAVETA": "coleta",
-   "LINHAS": 613,
+   "LINHAS": 616,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -865,7 +865,7 @@
   {
    "EXECUTOR_ID": "coleta/ingresso.py",
    "GAVETA": "coleta",
-   "LINHAS": 1402,
+   "LINHAS": 1477,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -995,7 +995,7 @@
   {
    "EXECUTOR_ID": "coleta/italy_executor.py",
    "GAVETA": "coleta",
-   "LINHAS": 498,
+   "LINHAS": 595,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -2227,7 +2227,7 @@
   {
    "EXECUTOR_ID": "orquestrador/orquestrador.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 1197,
+   "LINHAS": 1248,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
