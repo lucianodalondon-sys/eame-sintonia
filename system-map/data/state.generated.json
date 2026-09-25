@@ -3591,9 +3591,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "reroute-d2-v1",
-    "HEAD": "5253506b95cb8959815e47b9266f1bd7701717b5",
-    "GENERATED_AT": "2026-09-25T09:22:00-03:00",
-    "SOURCE_TREE_FINGERPRINT": "02a4566e328155224e92a3dd10359de9329b7ff2fa2f92be10f10743390cea88"
+    "HEAD": "a25ac14122279c2a44506f5f56ae88ab308d31bb",
+    "GENERATED_AT": "2026-09-25T09:31:42-03:00",
+    "SOURCE_TREE_FINGERPRINT": "690d638d615fd97d56a121e7b4a772294772932bef05ed1c97f02688f00125e1"
   },
   "FAMILIES": [
     {
@@ -4588,6 +4588,7 @@
         "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-CANARIO-REEL",
         "C-PROVA-COLETA",
+        "C-PROVA-CORTESIA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -4605,7 +4606,6 @@
         "C-REGUA-T1-JANELA",
         "C-REGUA-T2-JANELA",
         "C-RELEVANCIA-DA-FONTE",
-        "C-REROUTE-D2",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -54227,15 +54227,17 @@
         "provas/cortesia_http_local.mjs",
         "provas/cortesia_red_team.mjs",
         "provas/onda_web_mutacao.py",
+        "provas/reroute_mutacao.py",
         "provas/teto_dominio_local.mjs",
         "provas/teto_dominio_mutacao.py"
       ],
-      "file_count": 8,
+      "file_count": 9,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-ADMISSAO",
         "C-IT-COLETA",
         "C-IT-CONTRATOS",
         "C-IT-PRESERVAR",
@@ -54254,9 +54256,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 44,
+        "palavras": 57,
         "por_lingua": {},
-        "sem_marca_de_lingua": 44,
+        "sem_marca_de_lingua": 57,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -54273,17 +54275,18 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 7 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 6 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 7 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "admissao/admissao.py",
         "coleta/italy_pilot_collect.mjs",
         "data/collection-ledger/italy/observations.ndjson",
         "ferramentas/big_collection/onda_web.py",
@@ -58615,16 +58618,16 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "STAMPS",
-      "rule_role_evidence": "escreve admissao/admissao.py, e C-REROUTE-D2 — peca da esteira — le isso",
-      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve admissao/admissao.py, e quem le nao esta na esteira: C-CENSO-DERIVACOES, C-CENSO-SEMANTICO-IT, C-DETECTOR-CAPA-GABARITO",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_CARIMBA",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "OPERATIONAL_STEP",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve admissao/admissao.py, e C-REROUTE-D2 — peca da esteira — le isso",
+      "ROLE_EVIDENCE": "rule_role medido: escreve admissao/admissao.py, e quem le nao esta na esteira: C-CENSO-DERIVACOES, C-CENSO-SEMANTICO-IT, C-DETECTOR-CAPA-GABARITO",
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -58799,16 +58802,16 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "STAMPS",
-      "rule_role_evidence": "escreve admissao/admissao.py, e C-REROUTE-D2 — peca da esteira — le isso",
-      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve admissao/admissao.py, e quem le nao esta na esteira: C-CENSO-DERIVACOES, C-CENSO-SEMANTICO-IT, C-DETECTOR-CAPA-GABARITO",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_CARIMBA",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "OPERATIONAL_STEP",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve admissao/admissao.py, e C-REROUTE-D2 — peca da esteira — le isso",
+      "ROLE_EVIDENCE": "rule_role medido: escreve admissao/admissao.py, e quem le nao esta na esteira: C-CENSO-DERIVACOES, C-CENSO-SEMANTICO-IT, C-DETECTOR-CAPA-GABARITO",
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -59288,18 +59291,16 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "ferramentas/reroute/medir_reroute.py",
-        "provas/reroute_mutacao.py"
+        "ferramentas/reroute/medir_reroute.py"
       ],
-      "file_count": 2,
+      "file_count": 1,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "ferramentas/reroute/MEDICAO-REROUTE-V1.json"
       ],
       "inbound": [
-        "C-ADMISSAO",
         "C-REGUA-T2-JANELA"
       ],
       "outbound": [],
@@ -59312,17 +59313,6 @@
       ],
       "momento": "NAO SEI",
       "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "MUTANTES"
-        ],
-        "palavras": 13,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 13,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [
@@ -59350,7 +59340,6 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
-        "admissao/admissao.py",
         "ferramentas/reroute/MEDICAO-REROUTE-V1.json",
         "scripts/regua_t2/medir_regua_t2.py",
         "scripts/regua_t2/medir_via_agrometeo.py"
@@ -68795,6 +68784,41 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-PROVA-CORTESIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/reroute_mutacao.py",
+          "line": 20,
+          "snippet": "ALVO = \"admissao/admissao.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-PROVA-FRONTEIRA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -69629,41 +69653,6 @@
         }
       ],
       "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-ADMISSAO",
-      "to": "C-REROUTE-D2",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A porta de admissao alimenta REROUTE da D2 na Admissao — medicao no acervo e ataque (D56). Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/reroute_mutacao.py",
-          "line": 20,
-          "snippet": "ALVO = \"admissao/admissao.py\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--READS-->C-REROUTE-D2",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-REROUTE-D2",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",

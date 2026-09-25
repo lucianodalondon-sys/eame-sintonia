@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5253506b95cb8959815e47b9266f1bd7701717b5
+HEAD_DA_MEDICAO  a25ac14122279c2a44506f5f56ae88ab308d31bb
 BRANCH           reroute-d2-v1
-GERADO_EM        2026-09-25T09:22:00-03:00
+GERADO_EM        2026-09-25T09:31:42-03:00
 CARDS            101
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1014,24 +1014,24 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/reroute/medir_reroute.py`, `provas/reroute_mutacao.py` |
+| **peça real** | `ferramentas/reroute/medir_reroute.py` |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `admissao/admissao.py`, `ferramentas/reroute/MEDICAO-REROUTE-V1.json`, `scripts/regua_t2/medir_regua_t2.py` |
+| **o que entra · ficheiros** | `ferramentas/reroute/MEDICAO-REROUTE-V1.json`, `scripts/regua_t2/medir_regua_t2.py`, `scripts/regua_t2/medir_via_agrometeo.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `ferramentas/reroute/MEDICAO-REROUTE-V1.json` |
-| **arestas no mapa** | entram 2 · saem 0 |
-| **arestas provadas** | entram 2 · saem 0 |
+| **arestas no mapa** | entram 1 · saem 0 |
+| **arestas provadas** | entram 1 · saem 0 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 2 |
+| **prova das ligações** | CODE 1 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
@@ -2021,7 +2021,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | | |
 |---|---|
 | **peça real** | `RELATORIO-T1-JANELA.md`, `scripts/regua_t1/GABARITO-T1-V1.json`, `scripts/regua_t1/MEDICAO-APERTO-SITE-T1-V1.json`, `scripts/regua_t1/MEDICAO-REGUA-T1-V1.json`, `scripts/regua_t1/MUTACAO-REGUA-T1-V1.json` _(e mais 18)_ |
-| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
@@ -2046,7 +2046,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | | |
 |---|---|
 | **peça real** | `scripts/regua_t2/GABARITO-T2-V1.json`, `scripts/regua_t2/GABARITO-T2-V2.json`, `scripts/regua_t2/GABARITO-T2-V3.json`, `scripts/regua_t2/MEDICAO-REGUA-T2-V1.json`, `scripts/regua_t2/MEDICAO-REGUA-T2-V2.json` _(e mais 25)_ |
-| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
