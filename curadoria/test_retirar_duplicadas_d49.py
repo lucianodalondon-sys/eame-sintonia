@@ -43,7 +43,7 @@ class D49(unittest.TestCase):
         d1, _ = D.planear(_livro(), quando="t")
         d2, acoes = D.planear(d1, quando="outro")
         self.assertEqual(d1, d2)
-        self.assertEqual({"JA_APLICADA"}, {a["ACAO"] for a in acoes})
+        self.assertEqual({"JA_APLICADA"}, {a["ACAO"] for a in acoes if a["DECISAO"] == "D49"})
 
     def test_sem_a_ficha_que_fica_nao_retira(self):
         livro = _livro()
@@ -71,6 +71,23 @@ class D49(unittest.TestCase):
         c = {x["SOURCE_ID"]: x for x in depois["FONTES"]}["IT-T7-100"]
         self.assertEqual(G.RETIRADA_POR_DECISAO, c["ESTADO_CATALOGO"])
         self.assertIn("D49 · DUPLICADA_POR_SOBREPOSICAO_DE_ROTA: fica IT-T7-043", c["CATALOGO_D9"]["PORQUE"])
+
+
+class D51(unittest.TestCase):
+    def test_conaf_home_sai_como_duplicada_da_conaf_comunicati_com_a_decisao_d51(self):
+        depois, acoes = D.planear(_livro(_c("IT-T7-170"), _c("IT-T7-174")), quando="2026-09-25T12:00:00+00:00")
+        por = {c["SOURCE_ID"]: c for c in depois["FONTES"]}
+        d = por["IT-T7-170"]["CATALOGO_D9"]
+        self.assertEqual(("D51", D.MOTIVO, "IT-T7-174", True), (d["DECISAO"], d["MOTIVO"], d["FICA"], d["REVERSIVEL"]))
+        self.assertTrue(d["PORQUE"].startswith("D51 · "))
+        self.assertNotIn("ESTADO_CATALOGO", por["IT-T7-174"])
+        self.assertIn("retirada do universo por decisao", G.avaliar(
+            "IT-T7-170", livro={"TRANSICOES": []}, evidencias={}, contratos=por)["PORQUE"])
+
+    def test_d51_segunda_passagem_e_ja_aplicada(self):
+        depois, _ = D.planear(_livro(_c("IT-T7-170"), _c("IT-T7-174")))
+        _, acoes = D.planear(depois)
+        self.assertEqual("JA_APLICADA", {a["SOURCE_ID"]: a for a in acoes}["IT-T7-170"]["ACAO"])
 
 
 if __name__ == "__main__":

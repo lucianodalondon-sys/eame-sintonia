@@ -10,6 +10,10 @@ e IT-T7-112 (temporario). SAEM como DUPLICADA, motivo DUPLICADA_POR_SOBREPOSICAO
 sem apagar nada e sem fundir historicos: IT-T2-056, IT-T2-106, IT-T7-100, IT-T8-068.
 (IT-T7-115 NAO e duplicada: CONFLITO_DE_ROTA/CONTRATO_GENERICO — fica fora ate ao reparo.)
 
+Decisao D51.1 (bot Luciano, 25/09, sobre a HR-6): IT-T7-170 (CONAF, pagina inicial) sai
+como DUPLICADA da IT-T7-174 (CONAF, comunicados): o canario do coletor abriu a MESMA
+noticia nas duas. Mesma porta, mesma marca; a linha diz D51.
+
 A PORTA: a mesma da D9 (`scripts/desbloqueio/aplicar_desbloqueio.py`, bloco 2) — o
 contrato do Curator ganha `ESTADO_CATALOGO = RETIRADA_POR_DECISAO` e `CATALOGO_D9`
 com a decisao, o motivo e quem fica. O portao (`collection_gate.avaliar`) e o coletor
@@ -37,12 +41,15 @@ TABELA = RAIZ / "regras" / "italy_contracts_onboarded.json"
 
 RETIRADA = "RETIRADA_POR_DECISAO"
 MOTIVO = "DUPLICADA_POR_SOBREPOSICAO_DE_ROTA"
-# fonte que sai -> (fonte que fica, prova escrita da CONTRATO-44 v2)
+PROVA_D49 = "ferramentas/contrato44/PERGUNTA-DUPLICADAS-BOT-LUCIANO.md"
+PROVA_D51 = "ferramentas/hr6/RELATORIO-E-PLANO-HR6.md"
+# fonte que sai -> (fonte que fica, porque, decisao, ficheiro da prova)
 D49 = {
-    "IT-T2-056": ("IT-T2-051", "seletor de lingua da arpae: mesmo site e mesmo padrao que IT-T2-051"),
-    "IT-T2-106": ("IT-T2-051", "seletor de lingua da arpae: a prova de rota abriu o MESMO documento que IT-T2-056"),
-    "IT-T7-100": ("IT-T7-043", "a prova de rota abriu o MESMO documento que IT-T7-043"),
-    "IT-T8-068": ("IT-T8-021", "revista inteira com o padrao generico: sobrepoe IT-T8-021 e as seccoes da Terra e Vita"),
+    "IT-T2-056": ("IT-T2-051", "seletor de lingua da arpae: mesmo site e mesmo padrao que IT-T2-051", "D49", PROVA_D49),
+    "IT-T2-106": ("IT-T2-051", "seletor de lingua da arpae: a prova de rota abriu o MESMO documento que IT-T2-056", "D49", PROVA_D49),
+    "IT-T7-100": ("IT-T7-043", "a prova de rota abriu o MESMO documento que IT-T7-043", "D49", PROVA_D49),
+    "IT-T8-068": ("IT-T8-021", "revista inteira com o padrao generico: sobrepoe IT-T8-021 e as seccoes da Terra e Vita", "D49", PROVA_D49),
+    "IT-T7-170": ("IT-T7-174", "CONAF pagina inicial: o canario do coletor abriu a MESMA noticia que IT-T7-174 (3 noticias contra 29)", "D51", PROVA_D51),
 }
 CAMPOS = ("ESTADO_CATALOGO", "CATALOGO_D9")
 
@@ -57,8 +64,8 @@ def planear(livro: dict, *, quando: str | None = None) -> tuple[dict, list[dict]
     por = {c["SOURCE_ID"]: c for c in livro["FONTES"]}
     novo = copy.deepcopy(por)
     acoes = []
-    for sid, (fica, prova) in sorted(D49.items()):
-        a = {"SOURCE_ID": sid, "DECISAO": "D49", "FICA": fica}
+    for sid, (fica, prova, decisao, ficheiro) in sorted(D49.items()):
+        a = {"SOURCE_ID": sid, "DECISAO": decisao, "FICA": fica}
         c = novo.get(sid)
         if not c:
             acoes.append(dict(a, ACAO="SALTA", PORQUE="a fonte nao esta no livro"))
@@ -67,7 +74,7 @@ def planear(livro: dict, *, quando: str | None = None) -> tuple[dict, list[dict]
         if not f or f.get("ESTADO_CATALOGO") == RETIRADA:
             acoes.append(dict(a, ACAO="SALTA", PORQUE="a ficha que fica (%s) nao esta no livro ou esta retirada" % fica))
             continue
-        if c.get("ESTADO_CATALOGO") == RETIRADA and (c.get("CATALOGO_D9") or {}).get("DECISAO") == "D49":
+        if c.get("ESTADO_CATALOGO") == RETIRADA and (c.get("CATALOGO_D9") or {}).get("DECISAO") == decisao:
             acoes.append(dict(a, ACAO="JA_APLICADA"))
             continue
         if c.get("ESTADO_CATALOGO") == RETIRADA:
@@ -75,9 +82,9 @@ def planear(livro: dict, *, quando: str | None = None) -> tuple[dict, list[dict]
                               % (c.get("CATALOGO_D9") or {}).get("DECISAO")))
             continue
         c["ESTADO_CATALOGO"] = RETIRADA
-        c["CATALOGO_D9"] = {"DECISAO": "D49", "ACCAO": "RETIRAR_DUPLICADA", "MOTIVO": MOTIVO, "FICA": fica,
-                            "PORQUE": "D49 · %s: fica %s (%s)" % (MOTIVO, fica, prova),
-                            "PROVA": "ferramentas/contrato44/PERGUNTA-DUPLICADAS-BOT-LUCIANO.md",
+        c["CATALOGO_D9"] = {"DECISAO": decisao, "ACCAO": "RETIRAR_DUPLICADA", "MOTIVO": MOTIVO, "FICA": fica,
+                            "PORQUE": "%s · %s: fica %s (%s)" % (decisao, MOTIVO, fica, prova),
+                            "PROVA": ficheiro,
                             "APLICADO_EM": quando, "REVERSIVEL": True,
                             "NOTA": "sem apagar nada e sem fundir historicos; tirar a marca devolve a fonte ao Curator"}
         acoes.append(dict(a, ACAO="APLICA"))
