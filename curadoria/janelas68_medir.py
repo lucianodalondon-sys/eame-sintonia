@@ -60,9 +60,12 @@ def main():
     for t in json.loads((VIVO / "LIFECYCLE-LEDGER-V1.json").read_text(encoding="utf-8"))["TRANSICOES"]:
         estado[t["SOURCE_ID"]] = t["NEW_STATE"]
     # 1 por dominio registavel, entre as que nenhum ramo tocou
-    escolhidas, fora, vistos = [], [], set()
+    escolhidas, fora, vistos, sem_contrato = [], [], set(), []
     for l in cruz:
         if l["VEREDITOS"]:
+            continue
+        if l["SOURCE_ID"] not in contratos:
+            sem_contrato.append(l["SOURCE_ID"])
             continue
         c = contratos[l["SOURCE_ID"]]
         entrada = (c.get("ACQUISITION") or {}).get("INDEX_URL") or c.get("CANONICAL_ENTRY_URL")
@@ -145,10 +148,11 @@ def main():
         time.sleep(PAUSA)
     vigias.append(vigia())
     out = {"DATASET": "JANELAS-68-MEDICAO-V1", "EM": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-           "CODIGO": "receitas-182-v1 @ " + (CODIGO / ".git").read_text(encoding="utf-8").strip()[:80],
+           "CODIGO": "receitas-182-v1 @ " + __import__("subprocess").run(["git", "rev-parse", "--short", "HEAD"], cwd=str(CODIGO), capture_output=True, text=True).stdout.strip(),
            "VIGIAS": vigias, "PEDIDOS_POR_DOMINIO": pedidos, "PEDIDOS_TOTAL": sum(pedidos.values()),
            "MAX_POR_DOMINIO": max(pedidos.values()) if pedidos else 0,
            "MEDIDAS": len(linhas), "NAO_MEDIDAS_OUTRA_DO_MESMO_DOMINIO": [s for s, _, _ in fora],
+           "SEM_CONTRATO_NO_LIVRO_VIVO": sem_contrato,
            "PADRAO_NOVO": sum(1 for x in linhas if x.get("DESFECHO") == "PADRAO_NOVO"),
            "CANARIO_PASS": sum(1 for x in linhas if (x.get("CANARIO") or {}).get("PASS")),
            "BYTES_FORA_DO_GIT": {"PASTA": str(BYTES), "FICHEIROS": bytes_}, "FONTES": linhas}
