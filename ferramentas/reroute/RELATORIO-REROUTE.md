@@ -20,6 +20,29 @@ Ramo `reroute-d2-v1`, a partir da produção `df0865e6`, com `ajustes-micro-v1` 
   - Uma capa (NÃO na pergunta «matéria») **não** é reencaminhada: não é pergunta de tema.
 - **Nenhuma régua mudou.** Nenhum caminho novo pousa na Sala (ver 2).
 
+## 1b. D66 (dono real, 25/09): o REROUTE SÓ ANOTA
+
+A régua de T4/T5/T9 foi medida na REGUAS-T4-T5-T9 (`reguas-t4t5t9-v1`): acerta 0 %, 10 % e 4,5 % no
+gabarito. Até essas três serem refeitas com exemplos reais, o REROUTE fica assim:
+
+- **`admissao/admissao.py` · `REROUTE_ENTRA_NA_SALA = False`:** nada entra na Sala por REROUTE.
+  - A anotação continua inteira: todas as gavetas são perguntadas, para se poder medir.
+  - `DESTINOS` fica no livro como antes.
+- **`REROUTE_GAVETAS_PERMITIDAS = frozenset({"T1", "T2"})`:** as únicas gavetas que poderão receber
+  quando o pouso ligar, porque têm régua medida em gabarito (D29). Acrescentar uma gaveta exige a medida dela.
+- **`destinos_para_a_sala(reroute)`:** é o único caminho do REROUTE para a Sala. Com o pouso desligado
+  devolve sempre `[]`.
+  - Cada REROUTE no livro leva `GAVETAS_PERMITIDAS`, `ENTRA_NA_SALA` e `DESTINOS_PARA_A_SALA`.
+- **O veredito da gaveta da fonte não muda.**
+  - Um NÃO reencaminhado continua NÃO.
+  - `pronto_para_inteligencia` recusa-o (`ValueError`), e o teste 9 prova-o com um item que tinha destinos.
+- **Testes:** `tests/test_reroute_d2.py` dá **10/0** (4 novos: configuração, anotação sem pouso, porta
+  da Sala recusa, e só T1/T2 quando ligar).
+- **Mutação:** `provas/reroute_mutacao.py` dá **10/10 mortos**. Os 3 novos são R8 pouso ligado, R9 T5
+  permitida e R10 sem filtro de gaveta.
+- **Os outros testes continuam verdes:** `test_admissao_multilingue`, `test_italia_na_porta_canonica`,
+  `test_regua_t1`, `test_regua_t2` e `test_entrada_final`.
+
 ## 2. A Sala — PARADO: precisa de migração (decisão à parte)
 
 **Hoje não há como ligar UM item a várias gavetas sem duplicar:**
