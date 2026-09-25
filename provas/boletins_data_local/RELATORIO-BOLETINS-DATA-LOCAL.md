@@ -83,8 +83,10 @@ Umbria, a ARPAE e o LaMMA usaram os bytes lidos hoje (D47/D51.3/D42) — 0 pedid
 2. **ARPAE — juízo meu, para confirmar:** aceitei como «ligado ao facto» o período que **encabeça** o «Diario
    meteorologico» (o relato do tempo observado nessa semana). Se a D69 exigir a frase explícita, fica em
    BULLETIN_PERIOD e o FACT_TIME passa a NAO SEI (é mudar a base e a captura, sem código).
-3. **Molise:** o «Comunicato fitosanitario N» não traz data de emissão no PDF — a data está só no **texto do link** da
-   lista, que o motor não lê. Um leitor do texto do link seria um passo a mais (não feito).
+3. **Molise:** o «Comunicato fitosanitario N» não traz data de emissão no PDF. ⚠️ **Correção (DA-13):** escrevi antes
+   que a data dele estava no texto do link — **está errado**: o link diz só «Comunicato fitosanitario n°6/2026»
+   (número, não data); só os links dos «Bollettino vigilanza del DD-MM-AAAA» têm data. O leitor do texto do link foi
+   feito (DA-13, adenda abaixo) e o comunicado continua NAO SEI.
 4. **Umbria:** o ficheiro do NOCCIOLO n.10 diz «N.10» na 1.ª página e «N.11 del 17/07/2026» nas seguintes — o boletim
    contradiz-se; a rota fica com o cabeçalho da 1.ª página. A identidade por endereço continua a incluir `?version=`.
 5. **SFN (DTU):** é uma norma técnica, não um boletim; a «emissão» é a data da assinatura digital (MASAF).
