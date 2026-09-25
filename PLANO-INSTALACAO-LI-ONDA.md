@@ -47,6 +47,23 @@ DESFAZER (codigo fora)                     so os 14 livros ficam sujos; sha256 1
 O canário de 24/09 serve à produção porque os números saíram iguais. Voltar a bater em 37 páginas violaria o
 limite desta noite (≤ 5 visitas por site).
 
+### Re-ensaio sobre a produção 7b769819 (FILA-ÚNICA), 25/09 ~03:00 — `C:/ens-li2`
+```
+JUNCAO bot (7b769819 + social-onda2-v1)   conflitos de CODIGO = 0 · livros tocados 0 de 14
+candidatas LinkedIn                        44 -> 68 (FILA-UNICA); com identidade provada: 40 (as 24 novas nao tem site oficial a apontar)
+worker FILTRADO so LinkedIn, proxy fechado QUALIFY 37 OK + 3 BLOCK · BUILD_CONTRACT 37 · VALIDATE_ROUTE 37 · so tarefas sem rede
+numeros                                    37 IGUAIS aos de 24/09
+regua                                      9 READY · 23 ZERO · 5 FALHA
+PORTAO                                     elegiveis 46 -> 55 (+9)
+```
+⚠️ **INCIDENTE (25/09 02:38–02:48, meu):** a primeira tentativa deste re-ensaio correu `worker.correr()` sem filtro.
+A fila viva tinha ~200 tarefas de outras frentes, e a cópia fez 81 VALIDATE_ROUTE + 83 CANARY em 52 sites reais
+(alguns com mais de 5 visitas). Parado por TaskStop + Stop-Process. Nada escrito na produção. Os livros da cópia
+foram repostos da foto e o ensaio refeito com `curadoria/ensaio_so_linkedin.py`, que filtra a fila e rebenta
+se aparecer tarefa com rede. **Para a instalação:** a semeadura no vivo põe as 40 na MESMA fila que o bot já tem,
+e ele trata-as pela ordem de prioridade dele; os números podem sair diferentes se o bot qualificar outras
+candidatas antes — o passo 6 (conferir os números) existe por isso.
+
 ## WRITESET
 
 | peça | na INSTALAÇÃO escreve | em FUNCIONAMENTO passa a escrever | livros do vivo tocados na instalação |

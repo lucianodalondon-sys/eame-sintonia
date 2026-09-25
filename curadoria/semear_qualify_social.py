@@ -1,4 +1,4 @@
-"""LI-ONDA · semear QUALIFY para as candidatas LinkedIn com identidade provada.
+"""LI-ONDA · semear QUALIFY para as candidatas LinkedIn (ou YouTube, `--tipo YOUTUBE`) com identidade provada.
 
     py curadoria/semear_qualify_social.py                     # só mostra quantas e quais
     py curadoria/semear_qualify_social.py --aplicar --copia   # numa cópia
@@ -28,17 +28,27 @@ VIVOS = ("source-curator-service-v1", "ponte-viva")
 PARAR = RAIZ / "curadoria" / "PARAR.flag"
 
 
-def elegiveis() -> list[dict]:
-    import fonte_nova as FN
+def identidade(c: dict) -> str | None:
+    """O id da plataforma que o QUALIFY vai usar — o mesmo teste, sem fabricar."""
     import rota_do_scrap_social as RSS
+    import rota_do_scrap_youtube as RSY
+    url = c.get("URL", "")
+    if c.get("TIPO") == "LINKEDIN":
+        return RSS.slug_linkedin(url)[0]
+    if c.get("TIPO") == "YOUTUBE":
+        return RSY.channel_id_da_url(url) or RSY.canal_resolvido(c["CANDIDATA_ID"], url)
+    return None
+
+
+def elegiveis(tipo: str = "LINKEDIN") -> list[dict]:
+    import fonte_nova as FN
     import rota_do_scrap_youtube as RSY
     out = []
     for c in FN.carregar()["CANDIDATAS"]:
-        if c.get("TIPO") != "LINKEDIN" or c.get("SOURCE_ID"):
+        if c.get("TIPO") != tipo or c.get("SOURCE_ID"):
             continue
-        slug, _ = RSS.slug_linkedin(c.get("URL", ""))
         pagina, _ = RSY.ligacao_oficial(c)
-        if slug and pagina:
+        if identidade(c) and pagina:
             out.append(c)
     return out
 
@@ -48,9 +58,10 @@ def main() -> int:
     ap.add_argument("--aplicar", action="store_true")
     ap.add_argument("--copia", action="store_true")
     ap.add_argument("--vivo", action="store_true")
+    ap.add_argument("--tipo", choices=("LINKEDIN", "YOUTUBE"), default="LINKEDIN")
     a = ap.parse_args()
-    lista = elegiveis()
-    print("candidatas LinkedIn com identidade provada e sem SOURCE_ID: %d" % len(lista))
+    lista = elegiveis(a.tipo)
+    print("candidatas %s com identidade provada e sem SOURCE_ID: %d" % (a.tipo, len(lista)))
     if not a.aplicar:
         for c in lista:
             print("  %s  %s" % (c["CANDIDATA_ID"], c.get("URL")))
@@ -66,7 +77,9 @@ def main() -> int:
     antes = {t["TASK_ID"] for t in F._ler()["TAREFAS"]}
     for c in lista:
         F.enfileirar(c["CANDIDATA_ID"], F.QUALIFY, priority=30,
-                     motivo="LI-ONDA: LinkedIn de organizacao com identidade provada (D23)")
+                     motivo=("LI-ONDA: LinkedIn de organizacao com identidade provada (D23)"
+                             if a.tipo == "LINKEDIN" else
+                             "YT-ONDA: canal YouTube com identidade provada (D17.4/D21/D36)"))
     novas = [t for t in F._ler()["TAREFAS"] if t["TASK_ID"] not in antes]
     print("tarefas QUALIFY novas: %d (as outras ja estavam abertas)" % len(novas))
     return 0
