@@ -193,8 +193,10 @@ class ARegraDeT2SegueQuemAMediu(unittest.TestCase):
         # ganhou regra. Essa asserção esta acima e nao mudou.
         # ⚠️ (T2-REGUA, 24/09) E `T2` ENTROU — com a medicao D29 ao lado e a
         # guarda `ARegraDeT2SegueQuemAMediu` acima. Os outros seis nao mudaram.
+        # ⚠️ (T1-JANELA, 24/09) E `T1` ENTROU — medida em scripts/regua_t1/ (gabarito
+        # T1-V1, 0 vizinhos mudados em 9.163). Os outros continuam iguais.
         self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO),
-                         ["T10", "T2", "T3", "T4", "T5", "T7", "T9"])
+                         ["T1", "T10", "T2", "T3", "T4", "T5", "T7", "T9"])
         # ⚠️ AS CONTAGENS MUDARAM, E A MENSAGEM ANTIGA JA NAO SE APLICA.
         # Ela dizia «a missao so autorizava mexer em T2» — e isso era verdade
         # da missao que escreveu esta guarda. A missao
@@ -244,7 +246,7 @@ class ARegraDeT2SegueQuemAMediu(unittest.TestCase):
         #     UM TERMO QUE SO ACERTA DENTRO DE OUTRAS PALAVRAS
         #     NAO ESTAVA A MEDIR NADA. SO NAO SE VIA.
         for u, n in (("T3", 30), ("T4", 11), ("T5", 22), ("T7", 11),
-                     ("T9", 12), ("T10", 17), ("T2", 18)):
+                     ("T9", 12), ("T10", 17), ("T2", 18), ("T1", 7)):
             with self.subTest(universo=u):
                 self.assertEqual(
                     len(adm.PERGUNTAS_DO_UNIVERSO[u]), n,
