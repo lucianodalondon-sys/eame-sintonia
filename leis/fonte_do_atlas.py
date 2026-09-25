@@ -131,12 +131,33 @@ def _do_master(raiz=None) -> set:
         return set(re.findall(_ID, f.read()))
 
 
+#: O TERCEIRO EMISSOR (SOC-ONDA2, 24/09/2026). O QUALIFY do Source Curator cunha
+#: SOURCE_ID novos no seu registo de alocação, com o bot a correr. Medido no canário
+#: social: 3/3 corridas do Scrap com COLHEITA 0 — «o atlas NUNCA o emitiu» — para
+#: fontes que o Curator numerou, contratou e validou. A ficha no Atlas vem DEPOIS,
+#: com o exemplo real que o canário traz; exigi-la ANTES do canário fechava o ciclo
+#: ao contrário. É a mesma lei de cima: a pergunta é à população em uso, e o registo
+#: de alocação é um dos emissores dela.
+ALOCACAO = os.path.join("curadoria", "SOURCE-ID-ALLOCATION-V1.json")
+
+
+def _da_alocacao(raiz=None) -> set:
+    caminho = os.path.join(raiz or RAIZ, ALOCACAO)
+    if not os.path.isfile(caminho):
+        return set()
+    import json
+    with open(caminho, encoding="utf-8", errors="replace") as f:
+        d = json.load(f)
+    return {n["SOURCE_ID"] for n in d.get("NOVAS") or []
+            if FORMA.match(str(n.get("SOURCE_ID") or ""))}
+
+
 def populacao(raiz=None, recarregar: bool = False) -> set:
     """Todo `SOURCE_ID` alguma vez emitido e ainda visível nesta árvore."""
     global _cache
     if _cache is not None and not recarregar and raiz is None:
         return _cache
-    fora = _do_atlas(_texto(raiz)) | _do_master(raiz)
+    fora = _do_atlas(_texto(raiz)) | _do_master(raiz) | _da_alocacao(raiz)
     if raiz is None:
         _cache = fora
     return fora

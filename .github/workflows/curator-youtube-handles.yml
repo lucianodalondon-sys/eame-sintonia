@@ -1,0 +1,87 @@
+# ═══════════════════════════════════════════════════════════════════════
+# SOC4 · OS @HANDLE DO YOUTUBE GANHAM channel_id — ONDE A CHAVE VIVE
+# ═══════════════════════════════════════════════════════════════════════
+#
+# O QUE FAZ
+# ---------
+# Corre `curadoria/resolver_handles_youtube.py --resolver`: para cada candidata
+# YouTube cujo endereço não traz o channel_id (`@handle`, `/user/`, nome nu),
+# pede ao SCRAP a capacidade `youtube.channel.resolve` (API oficial,
+# `channels.list forHandle/forUsername`, 1 unidade cada — ~31 unidades das
+# 10.000 do dia, US$ 0). Playlist e `/c/` NÃO vão à API (não são canal / não
+# têm rota oficial). Guarda SÓ identidade (handle → channel_id, corrida, hora)
+# em `curadoria/RESOLUCAO-HANDLES-YOUTUBE-V1.json` e faz commit dele na MESMA
+# branch — é o único ficheiro que este workflow escreve.
+#
+# A CHAVE
+# -------
+# `YOUTUBE_DATA_API_KEY` entra por `secrets`, só no passo 2, e nunca é impressa:
+# o script pergunta ao `scrap_executor.CHECK` se ela está no ambiente e não a lê
+# para texto. Sem ela, o passo 2 sai com `CREDENTIAL_MISSING` (exit 3) e nada
+# é gravado.
+#
+# COMO SE DISPARA
+# ---------------
+#   · `workflow_dispatch` (precisa de `gh auth login` ou da interface web), ou
+#   · um PUSH que mude `curadoria/PEDIDO-RESOLVER-HANDLES.json` numa das branches
+#     abaixo — é assim que se dispara desta máquina, onde o `gh` não tem sessão.
+#
+# O que NÃO faz: não colhe vídeo, não toca a Sala, não escreve no livro do
+# Curator (quem lê o registo é o QUALIFY, na volta seguinte do serviço).
+# ═══════════════════════════════════════════════════════════════════════
+name: curator-youtube-handles
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [youtube-pronto-v1, unificacao-v1]
+    paths: ['curadoria/PEDIDO-RESOLVER-HANDLES.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: curator-youtube-handles-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  resolver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 0 · nenhum segredo entrou no repositório
+        run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py
+
+      - name: 1 · o plano (sem rede)
+        run: PYTHONUTF8=1 python3 curadoria/resolver_handles_youtube.py
+
+      - name: 2 · resolver pela API oficial (a chave só existe neste passo)
+        env:
+          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+          YT_TETO_SEARCH_CALLS: '0'
+          YT_TETO_GENERAL_UNITS: '60'
+          PYTHONUTF8: '1'
+        run: python3 curadoria/resolver_handles_youtube.py --resolver --run-id=${{ github.run_id }}
+
+      - name: 3 · guardar o registo na branch
+        run: |
+          git config user.name  "sintonia-curator-bot"
+          git config user.email "curator-bot@users.noreply.github.com"
+          git add curadoria/RESOLUCAO-HANDLES-YOUTUBE-V1.json
+          if git diff --cached --quiet; then
+            echo "REGISTO_INALTERADO"
+          else
+            git commit -m "curator: resolucao dos @handle YouTube (run ${{ github.run_id }}, API oficial, so identidade)"
+            git push origin HEAD:${{ github.ref_name }}
+          fi

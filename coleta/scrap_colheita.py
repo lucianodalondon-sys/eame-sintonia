@@ -420,6 +420,15 @@ DO_SCRAP_PARA_A_PORTA = {
     'LANGUAGE': 'ITEM_LANGUAGE',
     'PUBLISHED_AT': 'PUBLISHED_AT',
     'COLLECTED_AT': 'OBSERVED_AT',
+    # ── D61/D63: A DATA DE PUBLICACAO VIAJA COM A BASE E A PRECISAO ────────────
+    # `PUBLISHED_AT` ja atravessava; a base (como a plataforma o declarou) e a
+    # precisao (SECOND/MINUTE/DAY) ficavam no bruto. Quem conta «ieri» a partir da
+    # publicacao so o pode fazer com a publicacao PROVADA — data E base.
+    'PUBLISHED_AT_SOURCE': 'PUBLISHED_AT_BASIS',
+    'PUBLISHED_AT_PRECISION': 'PUBLISHED_AT_PRECISION',
+    # O lugar de QUEM PUBLICA, com a base e a precisao (SOURCE_LOCATION != FACT_LOCATION).
+    'SOURCE_LOCATION_BASIS': 'SOURCE_LOCATION_BASIS',
+    'SOURCE_LOCATION_PRECISION': 'SOURCE_LOCATION_PRECISION',
 }
 
 DESCONHECIDO = 'UNKNOWN'
@@ -524,6 +533,25 @@ def unidade(objeto, *, run_id, fonte):
         v = _limpo(objeto.get(de))
         if v is not None:
             fora[para] = v
+    # Uma base sem o valor que ela prova nao e prova de nada: sem data, sem base;
+    # sem lugar, sem base do lugar. A precisao fica (ela diz «nao declarada»).
+    if 'PUBLISHED_AT' not in fora:
+        fora.pop('PUBLISHED_AT_BASIS', None)
+    # ── D61: o lugar de QUEM PUBLICA, quando a observacao nao o traz ─────────
+    # O dono e o CONTRATO da fonte (como no DOCUMENT_ID acima); aqui so se le.
+    # Nunca o COUNTRY_SCOPE nem o egresso: esses dizem onde NOS estavamos.
+    if 'SOURCE_LOCATION' not in fora and fonte:
+        try:
+            import lugar_da_organizacao as lo                         # noqa: PLC0415
+            do_contrato = lo.do_contrato(fonte, RAIZ)
+        except Exception:                                            # noqa: BLE001
+            do_contrato = None
+        if do_contrato:
+            for k, v in do_contrato.items():
+                if _limpo(v) is not None:
+                    fora[k] = v
+    if 'SOURCE_LOCATION' not in fora:
+        fora.pop('SOURCE_LOCATION_BASIS', None)
     # O corpo da observação viaja inteiro: a porta assina o que recebeu, e
     # normalizar aqui faria a impressão digital ser de outra coisa.
     #

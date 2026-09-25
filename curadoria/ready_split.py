@@ -48,6 +48,12 @@ SAIDA = RAIZ / "curadoria" / "READY-SPLIT-V1.json"
 
 REGUA_CURRENT = "DETAIL/v1"
 REGUA_LEGACY = "LEGACY"
+# SOC-ONDA2 (24/09): a rota do Scrap (`SCRAP_FASE`) nao tem INDEX_URL nem pagina de
+# detalhe — os quatro passos sao de HTML. O canario dela e uma corrida do
+# orquestrador, julgada por `curadoria/regua_social.py`; a promocao so vale por esta
+# regua se a evidencia for esse veredito, da fase do contrato. Nunca por omissao.
+REGUA_SOCIAL = "SOCIAL/v1"
+REGUAS_QUE_ADMITEM = frozenset({REGUA_CURRENT, REGUA_SOCIAL})
 OUTRO_LIVRO = "f98f234c"   # a arvore final de aquisicao-detalhe-v1
 
 
@@ -114,6 +120,14 @@ def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
         return {"REGUA": "NAO SEI", "PASSOS": passos, "PORQUE": "nunca promovida"}
     dados = (evidencia or {}).get("DADOS") or {}
     acq = ((contrato or {}).get("ACQUISITION") or {})
+    if acq.get("STRATEGY") == "SCRAP_FASE":
+        if dados.get("VEREDITO") == "READY" and dados.get("FASE") == acq.get("FASE"):
+            return {"REGUA": REGUA_SOCIAL, "PASSOS": {"CANARIO_DO_SCRAP": True},
+                    "PORQUE": "canario do Scrap julgado pela regua social: %s"
+                              % (dados.get("PORQUE") or "")[:120]}
+        return {"REGUA": REGUA_LEGACY, "PASSOS": {"CANARIO_DO_SCRAP": False},
+                "PORQUE": "rota do Scrap sem veredito READY da regua social para a fase %s"
+                          % acq.get("FASE")}
     index = acq.get("INDEX_URL") or (contrato or {}).get("CANONICAL_ENTRY_URL") or ""
     passos["INDEX_URL"] = bool(index)
 
@@ -236,7 +250,7 @@ def separar(*, outro_livro: str | None = OUTRO_LIVRO,
                  "EVIDENCE_REF": p.get("EVIDENCE_REF") if p else None,
                  "CONTRATO_ALTERADO_DEPOIS_DO_READY": alt,
                  "SOURCE_CONTRACT_HASH": (contratos.get(sid) or {}).get("SOURCE_CONTRACT_HASH")}
-        (current if r == REGUA_CURRENT else legacy).append(linha)
+        (current if r in REGUAS_QUE_ADMITEM else legacy).append(linha)
         if alt:
             alterados.append(sid)
 

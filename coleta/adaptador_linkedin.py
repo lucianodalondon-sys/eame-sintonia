@@ -923,6 +923,57 @@ AUTORIZACAO_ESCRITA = ('%s · %s · OWNER_AUTHORIZED=SIM · '
                        'PLATFORM_POLICY_STATUS=DISALLOWED'
                        % (DECISAO_DO_DONO, DECISAO_DO_DONO_REF))
 
+# ── D37 · TRES CAMPOS SEPARADOS, E NENHUM RESUME OS OUTROS ─────────────────
+# O dono autorizou (OWNER_AUTHORIZED); os termos da plataforma proibem
+# (PLATFORM_POLICY_STATUS); e o robots.txt proibe tudo (ROBOTS_STATUS) — com o
+# endereco e a data em que isso foi MEDIDO (cabecalho de `leis/social_matriz.py`).
+# Tres factos diferentes, tres campos: juntar dois num so esconderia qual deles
+# mudou no dia em que um mudar. A D37 limita a excecao ao video publico de
+# ORGANIZACAO; qualquer outra rota com robots proibido continua bloqueada (D34).
+ROBOTS_URL = 'https://www.linkedin.com/robots.txt'
+ROBOTS_STATUS = 'DISALLOW_ALL'
+ROBOTS_MEDIDO_EM = '2026-09-08'
+ROBOTS_MEDIDA_REF = 'leis/social_matriz.py (cabecalho: robots.txt de cada plataforma, medido desta maquina)'
+DECISAO_DO_ROBOTS = 'D37'
+
+
+RE_DATA_SO_DIA = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+RE_DATA_COM_SEGUNDO = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?$')
+RE_DATA_COM_MINUTO = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?:Z|[+-]\d{2}:?\d{2})?$')
+
+
+def precisao_da_publicacao(valor):
+    """A precisao do que a plataforma DECLAROU, pela forma do valor (D63: precisao por item).
+
+    Mesma regua do YouTube (`ferramentas/youtube_transcrever.declarado_em`): SECOND quando a
+    data traz segundos, MINUTE quando traz so hora e minuto, DAY quando so traz o dia, NAO DECLARADA quando nao ha data. Nao arredonda:
+    um dia nao vira meio-dia, e uma hora nao se inventa."""
+    v = str(valor or '').strip()
+    if RE_DATA_COM_SEGUNDO.match(v):
+        return 'SECOND'
+    if RE_DATA_COM_MINUTO.match(v):
+        return 'MINUTE'
+    if RE_DATA_SO_DIA.match(v):
+        return 'DAY'
+    return 'NAO DECLARADA'
+
+
+def politica_do_objeto(nome_decisao, decisao_robots=DECISAO_DO_ROBOTS):
+    """Os campos de politica que CADA objeto leva, separados (D37).
+
+    `decisao_robots` diz QUEM cobriu o robots proibido: D37 para o video de
+    ORGANIZACAO, D41 para o video de PESSOA (a D24 assume o risco; D41, 25/09)."""
+    return {
+        'OWNER_AUTHORIZED': 'SIM',
+        'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+        'ROBOTS_STATUS': ROBOTS_STATUS,
+        'ROBOTS_URL': ROBOTS_URL,
+        'ROBOTS_MEDIDO_EM': ROBOTS_MEDIDO_EM,
+        'ROBOTS_MEDIDA_REF': ROBOTS_MEDIDA_REF,
+        'DECISAO_DO_DONO': nome_decisao,
+        'DECISAO_DO_ROBOTS': decisao_robots,
+    }
+
 # ── D24 · OS MESMOS TRES PAPEIS, PARA A PESSOA ──────────────────────────
 # ⚠️ PORQUE HA TRES NOMES NOVOS E NAO SE REUSA OS DE CIMA. Uma rota e o que a
 # casa DECLAROU na matriz, e o nome dela viaja em cada objeto. Se a aquisicao
@@ -950,6 +1001,9 @@ DECISAO_DA_PESSOA = {
     'ROTA_LEGENDA': ROTA_LEGENDA_PESSOA,
     'LIMITE': LIMITE_DA_PESSOA,
     'EXECUTOR': 'adaptador_linkedin.video_de_post_publico',
+    # D41 (25/09): a rota de PESSOAS fica LIGADA, com os mesmos tres campos;
+    # quem cobre o robots proibido desta porta e a D41, nao a D37.
+    'DECISAO_DO_ROBOTS': 'D41',
 }
 
 #: As portas que NAO se abrem, com o nome de cada uma. A lista e a mesma que o
@@ -1599,6 +1653,7 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
     rota_legenda = dec.get('ROTA_LEGENDA', ROTA_LEGENDA_NATIVA)
     executor = dec.get('EXECUTOR', 'adaptador_linkedin.video_da_pagina_publica')
     limite = dec.get('LIMITE')
+    decisao_robots = dec.get('DECISAO_DO_ROBOTS', DECISAO_DO_ROBOTS)
     ident = cartao.get('ACTIVITY_ID')
     url_do_post = _url_do_post(cartao)
     raw = {
@@ -1616,9 +1671,7 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
                                     '<video> — nunca inferida do texto'),
         'POSTER_URL': cartao.get('POSTER_URL'),
         'ASPECT_RATIO': cartao.get('ASPECT_RATIO'),
-        'OWNER_AUTHORIZED': 'SIM',
-        'PLATFORM_POLICY_STATUS': 'DISALLOWED',
-        'DECISAO_DO_DONO': nome_decisao,
+        **politica_do_objeto(nome_decisao, decisao_robots),
         'DECISAO_DO_DONO_REF': ref_decisao,
         'EGRESS_MEASURED': egresso,
         'URL_EXPIRY_OBSERVED': None,
@@ -1792,9 +1845,16 @@ def _adquirir_um(cartao, *, run_id, country_scope, transporte, egresso, pedidos,
         raw=raw)
     envelope['ACQUISITION_TIER'] = FREE
     envelope['FIELD_ORIGIN_TIER'] = FREE
-    envelope['OWNER_AUTHORIZED'] = 'SIM'
-    envelope['PLATFORM_POLICY_STATUS'] = 'DISALLOWED'
-    envelope['DECISAO_DO_DONO'] = nome_decisao
+    # ── A DATA DE PUBLICACAO, COM A BASE E A PRECISAO (D61/D63) ────────────
+    # A data ja viajava (published_at, medido na Sala de 24/09); a BASE ficava so
+    # no bruto e a PRECISAO nao existia. Sem as duas, quem conta «ieri» a partir
+    # da publicacao (leis/fato_do_texto.py) nao sabe se a data esta provada.
+    # Sem data declarada, sem base: NAO se escreve base para um vazio.
+    if prosa.get('PUBLISHED_AT'):
+        envelope['PUBLISHED_AT_SOURCE'] = ('PLATAFORMA — LinkedIn, pagina publica do post, '
+                                           '%s' % prosa.get('PUBLISHED_AT_SOURCE'))
+    envelope['PUBLISHED_AT_PRECISION'] = precisao_da_publicacao(prosa.get('PUBLISHED_AT'))
+    envelope.update(politica_do_objeto(nome_decisao, decisao_robots))
     if limite:
         envelope['LIMITE'] = limite
     envelope['RAW_SHA256'] = ref['SHA256']

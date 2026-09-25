@@ -688,6 +688,37 @@ def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=Non
     dur = fl.duracao(caminho)
     _v, _a, _p = fl.fluxos(caminho)
 
+    # ── O QUE A PLATAFORMA DECLARA DO VIDEO ────────────────────────────────
+    # ⚠️ ISTO FALTAVA, E A SOC-ONDA2 MEDIU-O EM 11 CANAIS: 11/11 trouxeram som e
+    # transcricao, e ZERO chegaram a READY — porque o item entrava sem data de
+    # publicacao, sem dizer de que canal veio e sem o carimbo do dono.
+    #
+    #     O SOM PROVA QUE ALGUEM DISSE AQUILO. NAO PROVA QUANDO, NEM ONDE.
+    #
+    # Os tres tempos ficam SEPARADOS e nenhum se deduz do outro:
+    #
+    #     FACT_TIME      quando o FACTO aconteceu       -> NAO SEI, e fica escrito
+    #     PUBLISHED_AT   o que a PLATAFORMA declara     -> medido, com precisao
+    #     COLLECTED_AT   o relogio DESTA casa, na hora  -> medido
+    #
+    #     PUBLICACAO NAO VIRA FACT_TIME.
+    #
+    # Sem metadados, o objeto sai com `NAO SEI` E COM O MOTIVO — nunca com uma
+    # data aproximada, que entraria no acervo com cara de facto.
+    md, porque_md = ytv.metadados(vid)
+    publicado_em, precisao = ytv.declarado_em(md)
+    agora = env.agora()
+
+    # ── O CARIMBO VEM DA MATRIZ, QUE E A DONA DA POLITICA ──────────────────
+    # Escrever `SIM` aqui dentro seria uma segunda lei, escrita por quem so
+    # executa. Quem decide se ha autorizacao do dono e a matriz; esta funcao
+    # copia a decisao para o objeto que viaja — e copia tambem a plataforma.
+    import social_matriz as mz                                       # noqa: PLC0415
+    try:
+        decisao = mz.decisao(PLATAFORMA, 'FETCH_AUDIO_BYTES')
+    except Exception as e:                                           # noqa: BLE001
+        decisao = {'PORQUE': 'DECISAO_ILEGIVEL: %s' % str(e)[:120]}
+
     return [{
         'OBJECT_KIND': 'PUBLIC_AUDIO',
         # O VIDEO_ID e identidade NATIVA da publicacao, preservada como veio.
@@ -731,7 +762,42 @@ def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=Non
         'STREAMS': {'AUDIO': audio_streams, 'VIDEO': video_streams},
         'LIMITE': LIMITE_AUDIO_PUBLICO,
         'COUNTRY_SCOPE': country_scope,
-        'CAPTURED_AT': env.agora(),
+        'CAPTURED_AT': agora,
+        # ── A IDENTIDADE NATIVA DA PUBLICACAO ──────────────────────────────
+        # `VIDEO_ID` ja viajava; `NATIVE_ID` e o nome que a PORTA usa para a
+        # mesma coisa, e sem ele o item chegava a Sala sem identidade.
+        'NATIVE_ID': vid,
+        # ── OS TRES TEMPOS, SEPARADOS, NENHUM DEDUZIDO DO OUTRO ────────────
+        'PUBLISHED_AT': publicado_em,
+        'PUBLISHED_AT_PRECISION': precisao,
+        'PUBLISHED_AT_SOURCE': ('PLATAFORMA — yt-dlp `timestamp`/`upload_date`, '
+                                'sem chave e sem conta'),
+        'PUBLISHED_AT_COMO_OBTIDO': porque_md,
+        'COLLECTED_AT': agora,
+        'FACT_TIME': 'NAO SEI',
+        'FACT_TIME_PORQUE': ('a publicacao nao e o facto: o video fala de um dia '
+                             'que nao tem de ser o da publicacao'),
+        # ── DE QUE CANAL VEIO (a fonte de onde a publicacao saiu) ──────────
+        'CHANNEL_ID': md.get('channel_id'),
+        'CHANNEL_URL': md.get('channel_url') or md.get('uploader_url'),
+        'CHANNEL_NAME': md.get('channel') or md.get('uploader'),
+        'CHANNEL_ID_ESTADO': 'DECLARADO_PELA_PLATAFORMA' if md.get('channel_id')
+                             else 'NAO SEI',
+        # ── O CARIMBO DO DONO, COPIADO DA MATRIZ ───────────────────────────
+        # DUAS FRASES, SEMPRE LADO A LADO: quem autorizou, e quem proibe.
+        'OWNER_AUTHORIZED': decisao.get('OWNER_AUTHORIZED'),
+        'PLATFORM_POLICY_STATUS': decisao.get('PLATFORM_POLICY_STATUS'),
+        'AUTORIZACAO_DE': 'leis/social_matriz.py',
+        # ── O QUE A REGUA LE PARA CONFERIR O AUTOR ────────────────────────
+        # `curadoria/regua_social.py::autor()` le `OBSERVACAO.RAW.CREATOR_*`.
+        # Sem isto, o item de um canal do YouTube chegava sem autor — e uma
+        # republicacao de outra organizacao passaria por publicacao da fonte.
+        'RAW': {'CREATOR_NAME': md.get('channel') or md.get('uploader'),
+                'CREATOR_URL': md.get('channel_url') or md.get('uploader_url'),
+                'CHANNEL_ID': md.get('channel_id'),
+                'NATIVE_ID': vid,
+                'TITLE': md.get('title'),
+                'PUBLISHED_AT': publicado_em},
         # A LINHAGEM ATE AO VIDEO PAI. O som e DERIVADO do video: guardar o pai
         # e o que permite a quem ler daqui a um ano saber de que video estes
         # bytes sao o som.
@@ -740,6 +806,119 @@ def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=Non
         'NOT_A_TRANSCRIPT': ('estes sao BYTES DE SOM. Texto reconhecido e outra '
                              'capacidade, com outro dono.'),
     }]
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A LISTA DE VIDEOS DE UM CANAL SEM CHAVE — a pagina publica, e so ela
+# ══════════════════════════════════════════════════════════════════════════
+ROTA_CANAL_PUBLICO = 'youtube:pagina-publica-do-canal'
+LIMITE_CANAL_PUBLICO = 'PUBLIC_CHANNEL_LISTING_ONLY'
+#: A pagina publica do canal. `/channel/<id>/videos` NAO esta em `Disallow` —
+#: medido em 2026-09-24 no `robots.txt` vivo; e o feed `/feeds/videos.xml` ESTA,
+#: e por isso NAO se usa (a matriz ja o declara `ROUTE_NOT_ALLOWED`).
+PAGINA_DO_CANAL = 'https://www.youtube.com/channel/%s/videos'
+
+
+def youtube_canal_publico(*, run_id, country_scope, canal_id=None, canal_url=None,
+                          limit=25, medida=None, **_):
+    """A LISTA de videos de um canal, SEM CHAVE DE API e sem conta.
+
+    POR QUE ESTA ROTA EXISTE
+    ------------------------
+    A SOC-ONDA2 mediu 11 canais novos: a receita deles usa o coletor de CANAIS
+    (Data API), que so corre onde esta a chave — e a chave so existe no GitHub.
+    Localmente o orquestrador responde `CREDENTIAL_MISSING` e o canal nunca vira
+    READY. Esta rota tira essa dependencia do caminho.
+
+    QUEM LE A PAGINA E O DONO, E NAO ESTA FUNCAO
+    --------------------------------------------
+    A leitura e o parsing da pagina publica sao de `coleta/youtube_janela.py`
+    (as duas portas: `urllib` primeiro, navegador quando ela nao serve). Aqui
+    so se compoe e se veste o resultado na lingua da porta.
+
+        UM LEITOR SO PARA A MESMA PERGUNTA. Um segundo `re` da grade do YouTube
+        daria dois resultados para a mesma duvida — e o dia em que o formato
+        mudar, um deles fica para tras em silencio.
+
+    O QUE ESTA ROTA **NAO** FAZ
+    ---------------------------
+    Nao usa chave, conta, cookie de sessao, navegador logado nem rota paga; nao
+    toca o feed `/feeds/videos.xml` (proibido no `robots.txt`, medido) e nao
+    contorna bloqueio nenhum. Sem a pagina, a resposta e uma lista VAZIA com o
+    motivo escrito — nunca uma lista inventada.
+    """
+    import youtube_janela as jan    # noqa: PLC0415 — o dono da janela publica
+
+    alvo = canal_url or (PAGINA_DO_CANAL % canal_id if canal_id else '')
+    if not alvo:
+        raise ValueError('canal ausente: sem `canal_id` nem `canal_url` nao ha alvo')
+    if '/feeds/videos.xml' in alvo:
+        # FRONTEIRA, e ela nao se negocia: o feed esta em `Disallow`.
+        raise ValueError('o feed do canal esta proibido no robots.txt (medido)')
+
+    html, porta, motivo = jan._abrir(alvo)
+    if not html:
+        return []
+    videos, porque = jan._videos_do_html(html)
+    if not videos:
+        return []
+
+    import social_matriz as mz                                       # noqa: PLC0415
+    try:
+        decisao = mz.decisao(PLATAFORMA, 'INCREMENTAL')
+    except Exception as e:                                           # noqa: BLE001
+        decisao = {'PORQUE': 'DECISAO_ILEGIVEL: %s' % str(e)[:120]}
+    agora = env.agora()
+
+    objetos = []
+    for v in videos[:int(limit or 25)]:
+        vid = v.get('VIDEO_ID') or v.get('VIDEOID') or v.get('videoId')
+        if not vid:
+            continue
+        objetos.append({
+            'OBJECT_KIND': 'PUBLIC_CHANNEL_LISTING',
+            'NATIVE_ID': vid,
+            'SOURCE_URL': 'https://www.youtube.com/watch?v=' + vid,
+            'CANAL_URL': alvo,
+            'CHANNEL_ID': canal_id or '',
+            'TITLE': v.get('TITLE') or v.get('title') or '',
+            'RUN_ID': run_id,
+            'ROUTE': ROTA_CANAL_PUBLICO,
+            'EXECUTOR': 'adaptador_youtube.youtube_canal_publico',
+            'PORTA_USADA': porta,
+            'LIMITE': LIMITE_CANAL_PUBLICO,
+            'COUNTRY_SCOPE': country_scope,
+            'COLLECTED_AT': agora,
+            'OWNER_AUTHORIZED': decisao.get('OWNER_AUTHORIZED'),
+            'PLATFORM_POLICY_STATUS': decisao.get('PLATFORM_POLICY_STATUS'),
+            'AUTORIZACAO_DE': 'leis/social_matriz.py',
+            # ⚠️ A LISTA NAO TRAZ DATA. Medido: em `--flat-playlist` o yt-dlp
+            # devolve `upload_date = None`; e a pagina do canal nao declara a
+            # data de cada video na grade. Quem a tem e o METADADO do video,
+            # que e outra chamada — e por isso a data NAO se inventa aqui.
+            'PUBLISHED_AT': 'NAO SEI',
+            'PUBLISHED_AT_PORQUE': ('a grade do canal nao declara a data de cada '
+                                    'video; ela vem do metadado do video'),
+            'FACT_TIME': 'NAO SEI',
+            'NAO_E_UMA_OBSERVACAO_DO_VIDEO': (
+                'uma LISTA de videos nao e uma observacao deles: o item do video '
+                'nasce na fase que o adquire'),
+        })
+    if medida is not None:
+        medida['ROUTE'] = ROTA_CANAL_PUBLICO
+        medida['PORTA_USADA'] = porta
+        medida['VIDEOS_NA_PAGINA'] = len(videos)
+    return objetos
+
+
+def pronto_para_canal_publico(**_):
+    """A rota publica nao tem credencial nenhuma para estar pronta.
+
+    A pergunta que ela responde e outra: o ambiente tem como falar com a pagina
+    publica? Sem rede, a fase falha ao abrir — e falha com o motivo, nao com um
+    silencio.
+    """
+    return (True, '')
 
 
 # ══════════════════════════════════════════════════════════════════════════

@@ -47,6 +47,7 @@ negociação, e mora FORA do repositório, junto do `faster-whisper`.
 NUNCA instalar sem `--target`: no Windows o `pip` cria `Scripts/`, que é a MESMA
 pasta que `scripts/` — a memória desta casa registra o acidente.
 """
+import io
 import json
 import os
 import subprocess
@@ -150,7 +151,21 @@ def fase_alvos():
 
 
 def _audio(video_id):
-    """→ (caminho_wav, motivo). O `yt-dlp` negocia a faixa; o `ffmpeg` corta o resto."""
+    """→ (caminho_wav, motivo). O `yt-dlp` negocia a faixa; o `ffmpeg` corta o resto.
+
+    ⚠️ `--write-info-json` ENTROU EM 2026-09-24, E NAO E DECORACAO.
+
+    Os METADADOS publicos do video (data de publicacao, canal, id do canal) sao
+    devolvidos pelo MESMO `yt-dlp` que ja corre aqui — sem chave, sem conta e sem
+    uma segunda ida a rede. Eles ficam ao lado do `.wav`, em `<id>.info.json`, e
+    quem os le e `metadados()`, neste ficheiro.
+
+        UMA CORRIDA, DOIS PRODUTOS: O SOM E O QUE A PLATAFORMA DECLARA DELE.
+
+    A SOC-ONDA2 mediu o preco de nao os guardar: 11/11 videos com audio e
+    transcricao, e ZERO a chegar a READY — porque o item entrava sem
+    `PUBLISHED_AT`, sem canal e sem o carimbo do dono.
+    """
     os.makedirs(MEDIA, exist_ok=True)
     wav = os.path.join(MEDIA, video_id + '.wav')
     if os.path.exists(wav) and os.path.getsize(wav) > 1000:
@@ -161,6 +176,7 @@ def _audio(video_id):
             [sys.executable, '-m', 'yt_dlp', '-q', '--no-warnings',
              '-f', 'bestaudio/best', '-x', '--audio-format', 'wav',
              '--postprocessor-args', '-ac 1 -ar 16000',
+             '--write-info-json',
              '-o', os.path.join(MEDIA, '%(id)s.%(ext)s'), url],
             capture_output=True, text=True, timeout=600)
     except subprocess.TimeoutExpired:
@@ -169,6 +185,79 @@ def _audio(video_id):
         return wav, 'BAIXADO'
     erro = (r.stderr or r.stdout or '').strip().splitlines()
     return None, ('YT_DLP_NAO_ENTREGOU: %s' % (erro[-1][:150] if erro else 'sem mensagem'))
+
+
+#: O que a plataforma DECLARA, e nada mais. A lista e fechada de proposito: um
+#: dicionario inteiro do yt-dlp dentro do objeto poria no acervo campos que
+#: ninguem leu, e o acervo guarda o que se pode citar.
+CAMPOS_PUBLICOS = ('id', 'title', 'upload_date', 'release_date', 'timestamp',
+                   'uploader', 'uploader_id', 'uploader_url',
+                   'channel', 'channel_id', 'channel_url',
+                   'duration', 'view_count', 'availability', 'live_status',
+                   'webpage_url', 'channel_follower_count')
+
+
+def metadados(video_id):
+    """→ (dict, motivo). O QUE A PLATAFORMA DECLARA do video, sem chave nenhuma.
+
+    Ordem: o `.info.json` que a aquisicao deixou ao lado do som; e, se ele nao
+    existir (som veio da cache), UMA chamada so de metadados — `--skip-download`,
+    que nao baixa bytes de midia.
+
+        METADADO DECLARADO != METADADO INFERIDO. A data que sai daqui e a que a
+        plataforma serve; nao se corrige, nao se completa e nao se deduz.
+
+    Sem rede que responda, ou sem `yt-dlp`, a resposta honesta e `{}` com o
+    motivo escrito — nunca um dicionario inventado.
+    """
+    os.makedirs(MEDIA, exist_ok=True)
+    cache = os.path.join(MEDIA, video_id + '.info.json')
+    if os.path.exists(cache) and os.path.getsize(cache) > 2:
+        try:
+            with io.open(cache, encoding='utf-8') as f:
+                return {k: v for k, v in json.load(f).items() if k in CAMPOS_PUBLICOS}, 'CACHE'
+        except (OSError, ValueError):
+            pass
+    url = 'https://www.youtube.com/watch?v=' + video_id
+    try:
+        r = subprocess.run(
+            [sys.executable, '-m', 'yt_dlp', '-q', '--no-warnings',
+             '--skip-download', '--dump-json', url],
+            capture_output=True, text=True, timeout=300)
+    except subprocess.TimeoutExpired:
+        return {}, 'YT_DLP_ESTOUROU_O_TEMPO'
+    if r.returncode != 0 or not (r.stdout or '').strip():
+        erro = (r.stderr or r.stdout or '').strip().splitlines()
+        return {}, ('YT_DLP_NAO_ENTREGOU: %s' % (erro[-1][:150] if erro else 'sem mensagem'))
+    try:
+        bruto = json.loads(r.stdout.splitlines()[0])
+    except ValueError as e:
+        return {}, 'YT_DLP_DEVOLVEU_JSON_ILEGIVEL: %s' % str(e)[:120]
+    limpo = {k: bruto.get(k) for k in CAMPOS_PUBLICOS}
+    try:
+        with io.open(cache, 'w', encoding='utf-8') as f:
+            json.dump(limpo, f, ensure_ascii=False)
+    except OSError:
+        pass
+    return limpo, 'DECLARADO'
+
+
+def declarado_em(md):
+    """→ (ISO-8601 em UTC, precisao) a partir do que a plataforma declara.
+
+    `timestamp` da o segundo; `upload_date` da so o DIA. Quando so ha o dia, a
+    precisao vai escrita ao lado — uma data a meio-dia inventada pareceria
+    exata, e a casa nao arredonda para cima uma certeza que nao tem.
+    """
+    import datetime
+    ts = md.get('timestamp')
+    if isinstance(ts, (int, float)) and ts > 0:
+        return (datetime.datetime.fromtimestamp(ts, datetime.timezone.utc)
+                .strftime('%Y-%m-%dT%H:%M:%SZ'), 'SECOND')
+    d = str(md.get('upload_date') or '')
+    if len(d) == 8 and d.isdigit():
+        return ('%s-%s-%sT00:00:00Z' % (d[:4], d[4:6], d[6:8]), 'DAY')
+    return ('NAO SEI', 'NAO DECLARADA')
 
 
 def fase_rodar(modelo=None, teto=None):

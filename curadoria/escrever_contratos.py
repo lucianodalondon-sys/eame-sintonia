@@ -153,6 +153,92 @@ def contrato_youtube(n: dict, f: dict, native: str) -> dict:
     }
 
 
+def contrato_youtube_scrap(n: dict, native: str, declarado: dict | None = None) -> dict:
+    """SOC2 · o molde do canal YouTube que NOMEIA A ROTA DO SCRAP.
+
+    O `contrato_youtube` acima copia o IT-T8-001 e aponta para o FEED — que esta
+    em `Disallow` e que a matriz do Scrap marca ROUTE_NOT_ALLOWED. Este molde e o
+    mesmo contrato com a aquisicao trocada: quem colhe e a fase `canal-youtube`
+    do Scrap (API oficial, D17.4), e o bloco e escrito por
+    `rota_do_scrap_youtube.acquisition`, que LE o que o Scrap declara hoje.
+
+        O CURATOR NOMEIA A ROTA; O SCRAP CORRE-A.
+    """
+    import rota_do_scrap_youtube as RSY
+    c = contrato_youtube(n, {}, native)
+    c["BATCH_ID"] = "LOTE-YOUTUBE-SCRAP"
+    c["ACQUISITION"] = RSY.acquisition(native, declarado)
+    c["ACCESS_INSTRUMENT"] = "SCRAP"
+    c["IDENTITY"] = {
+        "STRATEGY": "CONTENT_CAPTURE",
+        "CAPTURES": {"video": {"FROM": "SCRAP_ENVELOPE", "FIELD": "VIDEO_ID"}},
+        "DOCUMENT_ID": "%s:YT:{video.videoId}" % n["SOURCE_ID"],
+        "FACT_TIME": "UNKNOWN — PUBLISHED_AT e PUBLICATION_TIME, nao FACT_TIME",
+    }
+    c["DOCUMENT_DATE_FIELD"] = "PUBLISHED_AT (envelope do Scrap)"
+    c["EXPECTED_FAILURES"] = [
+        "video sem VIDEO_ID = FAILED por falta de identidade",
+        "canal sem nenhum video na lista = EMPTY_LIST -> FAILED",
+        "canal privado/removido = FAILED, nao DEGRADED",
+        "chave da API ausente = CREDENTIAL_MISSING no CHECK do Scrap: nao corre, nao e FAILED da fonte",
+    ]
+    c["FAIL_CLOSED_RULE"] = ("item sem VIDEO_ID ou sem PUBLISHED_AT nao tem identidade — "
+                             "FAILED. Nunca registar a lista do canal como documento.")
+    c["FALLBACK"] = ("nenhum. Sem feed, sem pagina do canal, sem yt-dlp de listagem: "
+                     "se o Scrap nao declarar a rota, o contrato reprova na validacao.")
+    c["NEGATIVE_CONTROL"] = {"descricao": "canal sem videos publicos",
+                             "esperado": "EMPTY_LIST -> FAILED"}
+    return c
+
+
+def contrato_linkedin_scrap(n: dict, slug: str, declarado: dict | None = None) -> dict:
+    """SOC-ONDA2 · o molde da pagina LinkedIn de ORGANIZACAO que NOMEIA A ROTA DO SCRAP.
+
+    O mesmo desenho do `contrato_youtube_scrap`: a aquisicao e a fase
+    `video-linkedin` do Scrap (D23), escrita por
+    `rota_do_scrap_social.acquisition_linkedin`, que LE o que o Scrap declara hoje.
+    O item e o POST com video da pagina; a identidade dele e o ACTIVITY_ID que a
+    propria plataforma publica.
+
+        SOURCE_ID != SLUG. O slug diz QUAL pagina; o SOURCE_ID e do projeto.
+    """
+    import rota_do_scrap_social as RSS
+    c = contrato_youtube(n, {}, None)
+    c["BATCH_ID"] = "LOTE-LINKEDIN-SCRAP"
+    c["CANONICAL_ENTRY_URL"] = RSS.pagina_linkedin(slug)
+    c["SOURCE_NATIVE_ID"] = slug
+    c["SOURCE_NATIVE_ID_KIND"] = RSS.LI_KIND
+    c["LEI_DA_IDENTIDADE"] = (
+        "SOURCE_ID != SLUG. %s e a identidade do projeto; %s e a da plataforma. "
+        "O contrato liga as duas AQUI. Derivar SOURCE_ID do slug e proibido."
+        % (n["SOURCE_ID"], slug))
+    c["ACQUISITION"] = RSS.acquisition_linkedin(slug, declarado)
+    c["CAPABILITIES_REUTILIZADAS"] = [RSS.LI_CAPACIDADE]
+    c["ACCESS_INSTRUMENT"] = "SCRAP"
+    c["SESSION_FORBIDDEN"] = ("so o que a pagina publica serve sem autenticacao: sem login, "
+                              "sem conta, sem cookie; login wall/CAPTCHA = parar (D23).")
+    c["IDENTITY"] = {
+        "STRATEGY": "CONTENT_CAPTURE",
+        "CAPTURES": {"post": {"FROM": "SCRAP_ENVELOPE", "FIELD": "ACTIVITY_ID"}},
+        "DOCUMENT_ID": "%s:LI:{post.activity_id}" % n["SOURCE_ID"],
+        "FACT_TIME": "UNKNOWN — PUBLISHED_AT e PUBLICATION_TIME, nao FACT_TIME",
+    }
+    c["IDENTITY_KEYS"] = ["activity_id", "published_at"]
+    c["DOCUMENT_DATE_FIELD"] = "PUBLISHED_AT (JSON-LD declarado pela plataforma)"
+    c["EXPECTED_FAILURES"] = [
+        "post sem ACTIVITY_ID = FAILED por falta de identidade",
+        "pagina sem nenhum post com video = ZERO_RESULTS (zero legitimo, nao falha da rota)",
+        "login wall / CAPTCHA = BLOCKED: nao se contorna (D23)",
+        "pagina de pessoa ou /showcase/ = recusa estatica do adaptador, antes da rede",
+    ]
+    c["FAIL_CLOSED_RULE"] = ("post sem ACTIVITY_ID ou sem PUBLISHED_AT nao tem identidade — "
+                             "FAILED. Nunca registar a pagina da organizacao como documento.")
+    c["FALLBACK"] = "nenhum. Sem Apify, sem conta, sem API paga (D17.1, D17.3)."
+    c["NEGATIVE_CONTROL"] = {"descricao": "pagina de organizacao sem videos publicos",
+                             "esperado": "ZERO_RESULTS -> nao promove"}
+    return c
+
+
 def contrato_html(n: dict, f: dict) -> dict:
     """Replica do molde contratoGenerico(): STRATEGY/MATCH/INDEX_URL/LINK_PATTERN."""
     return {

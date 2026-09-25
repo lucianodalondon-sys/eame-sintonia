@@ -289,6 +289,8 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
         # A4/A5: a micro-coleta com rede real (VPN IT) sobre uma Sala DESCARTAVEL,
         # corrida a mao. Desde a A5 cita o coletor na docstring (o transporte e dele).
         "scripts/micro_coleta/micro_rede_real.py": ("MANUAL_TOOL", False),
+        # SOC2: importa `alvosDe` para provar a guarda COLETADO_POR; nao colhe.
+        "curadoria/test_soc2_curator_youtube.py": ("TEST_ONLY", False),
         # V1A: o retrato de um HTML (mede bytes: HTML_KIND, TEXT_SHA256). E uma
         # biblioteca que o coletor usa; so CITA o coletor num comentario. Nao
         # arranca coleta nenhuma.
@@ -512,7 +514,7 @@ class OLivroRealPassaPelaMesmaRegra(unittest.TestCase):
                 continue
             with self.subTest(sid=l["SOURCE_ID"]):
                 self.assertEqual(LC.READY_FOR_COLLECTION, l["STATE"])
-                self.assertEqual(RS.REGUA_CURRENT, l["READY_RULE"])
+                self.assertIn(l["READY_RULE"], RS.REGUAS_QUE_ADMITEM)
                 self.assertIsNone(l["HUMAN_REVIEW_REQUIRED"])
 
     def test_toda_READY_CURRENT_com_revisao_humana_fica_de_fora(self):
@@ -533,15 +535,15 @@ class OLivroRealPassaPelaMesmaRegra(unittest.TestCase):
 
     def test_nenhuma_READY_LEGACY_do_livro_real_entra(self):
         vazou = [l["SOURCE_ID"] for l in self.inv
-                 if l["READY_RULE"] != RS.REGUA_CURRENT and l["COLLECTION_ELIGIBLE"]]
+                 if l["READY_RULE"] not in RS.REGUAS_QUE_ADMITEM and l["COLLECTION_ELIGIBLE"]]
         self.assertEqual([], vazou)
 
     def test_os_contadores_fecham_entre_si(self):
         p = self.painel
         self.assertEqual(p["READY_TOTAL"],
-                         p["READY_CURRENT_TOTAL"] + p["READY_LEGACY_TOTAL"],
+                         p["READY_CURRENT_TOTAL"] + p["READY_LEGACY_TOTAL"] + p["READY_SOCIAL_TOTAL"],
                          "ha READY que nao e LEGACY nem CURRENT e ninguem o disse")
-        self.assertLessEqual(p["COLLECTION_ELIGIBLE"], p["READY_CURRENT_TOTAL"])
+        self.assertLessEqual(p["COLLECTION_ELIGIBLE"], p["READY_CURRENT_TOTAL"] + p["READY_SOCIAL_TOTAL"])
         self.assertGreater(p["READY_TOTAL"], p["COLLECTION_ELIGIBLE"],
                            "o livro real tem READY a mais para isto ser possivel; "
                            "se passou, o portao deixou de filtrar")
@@ -554,10 +556,18 @@ class OLivroRealPassaPelaMesmaRegra(unittest.TestCase):
         for r in entregues:
             with self.subTest(sid=r["SOURCE_ID"]):
                 self.assertTrue(r["COLLECTION_ELIGIBLE"])
-                self.assertEqual(RS.REGUA_CURRENT, r["READY_RULE"])
+                self.assertIn(r["READY_RULE"], RS.REGUAS_QUE_ADMITEM)
                 self.assertIsNone(r["HUMAN_REVIEW_REQUIRED"])
                 self.assertNotEqual("NAO SEI", r["CONTRACT_VERSION"])
                 self.assertNotEqual("NAO SEI", r["EVIDENCE_REF"])
+                if r["READY_RULE"] == RS.REGUA_SOCIAL:
+                    # SOC-ONDA2: a rota social prova-se pelo veredito da regua social,
+                    # da fase do CONTRATO, na evidencia da promocao — nao por INDEX_URL.
+                    aq = (contratos.get(r["SOURCE_ID"]) or {}).get("ACQUISITION", {})
+                    dados = (self.ctx["evidencias"].get(r["EVIDENCE_REF"]) or {}).get("DADOS") or {}
+                    self.assertEqual("SCRAP_FASE", aq.get("STRATEGY"))
+                    self.assertEqual(("READY", aq.get("FASE")), (dados.get("VEREDITO"), dados.get("FASE")))
+                    continue
                 # ⚠️ MEDIDO E DECLARADO, NAO CORRIGIDO AQUI: `ROUTE_VERSION`
                 # sai «NAO SEI» para TODAS as fontes deste livro. A chave que
                 # a interface le e `ACQUISITION.ROUTE_TYPE`, e os contratos
