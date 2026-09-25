@@ -227,7 +227,8 @@ class ChegaAoReady(unittest.TestCase):
     def test_ready_nao_converte_sede_em_lugar_do_facto(self):
         self.assertEqual(self.ready["FACT_LOCATION"], NS)
         self.assertNotEqual(self.ready["FACT_LOCATION"], self.ready["SOURCE_LOCATION"])
-        self.assertEqual(self.ready["FACT_LOCATION_BASIS"], NS)
+        # sem lugar provado, a base diz o porque — e e o texto que o diz
+        self.assertIn("TEXTO:", self.ready["FACT_LOCATION_BASIS"])
 
     def test_captura_continua_a_ser_captura(self):
         self.assertEqual(self.ready["CAPTURED_AT"], "2026-09-18T17:19:15.737Z")
@@ -239,6 +240,27 @@ class ChegaAoReady(unittest.TestCase):
             source_id="IT-T3-002")
         self.assertNotIn("FACT_TIME_PALPITE", item)
         self.assertNotIn("published_at", item)
+
+    def test_o_texto_prova_o_lugar_do_facto_com_o_trecho(self):
+        est = _estruturado(self.recado)
+        est["TEXTO"] = ("Aggiornamento fitosanitario settimanale per le colture orticole. "
+                        "Peronospora constatata a Grosseto su pomodoro in pieno campo nella "
+                        "settimana appena trascorsa dai tecnici regionali.")
+        item = ORQ.item_documental_para_a_porta(est, source_id="IT-T3-002")
+        self.assertEqual(item["source_location"], "Napoli")
+        self.assertIn("Grosseto", item.get("fact_location", ""))
+        self.assertIn("Grosseto", item["fact_location_basis"])
+        self.assertNotIn("Napoli", item["fact_location"])
+
+    def test_o_que_o_coletor_provou_vence_o_texto(self):
+        recado = dict(self.recado, FACT_TIME="2026-09-10", FACT_TIME_BASIS="declarado no livro")
+        est = _estruturado(recado)
+        est["TEXTO"] = ("Aggiornamento fitosanitario settimanale per le colture orticole. "
+                        "Sintomi di peronospora osservati il 3 settembre in provincia di Grosseto "
+                        "su pomodoro in pieno campo, con danni ancora limitati.")
+        item = ORQ.item_documental_para_a_porta(est, source_id="IT-T3-002")
+        self.assertEqual(item["fact_time"], "2026-09-10")
+        self.assertEqual(item["fact_time_basis"], "declarado no livro")
 
     def test_sem_recado_tudo_continua_nao_sei(self):
         item = ORQ.item_documental_para_a_porta(_estruturado({}), source_id="IT-T3-002")

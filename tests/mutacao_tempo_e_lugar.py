@@ -56,6 +56,14 @@ CASOS = [
      '    if valor and not re.match(r"^\\d{4}", valor):',
      '    if False:',
      "M8 · prosa do coletor volta a ser um instante"),
+    ("orquestrador/orquestrador.py",
+     '    bruto.update(_fato_do_texto(estruturado.get("TEXTO") or "", bruto))',
+     '    pass',
+     "M9 · o extractor do texto (LUGAR-FATO) desligado"),
+    ("orquestrador/orquestrador.py",
+     '                               r["fact_location"], r["fact_location_basis"])):',
+     '                               bruto.get("SOURCE_LOCATION") or r["fact_location"], r["fact_location_basis"])):',
+     "M10 · a sede empurrada para o lugar do facto na ligacao do extractor"),
 ]
 
 

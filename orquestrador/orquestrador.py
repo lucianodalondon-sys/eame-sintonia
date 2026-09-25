@@ -519,6 +519,36 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
             "DONO": "guarda/preservar_documento.py"}
 
 
+def _fato_do_texto(texto, bruto):
+    """FACT_TIME / FACT_LOCATION lidos do TEXTO, com a base — so o que falta.
+
+    O extractor e da bancada LUGAR-FATO (`leis/fato_do_texto.py`), e ele NAO
+    recebe o lugar da fonte: nao ha caminho para a sede virar lugar do facto. A
+    publicacao entra so para ancorar «oggi/ieri», e so com a base dela.
+
+    ⚠️ O QUE O COLETOR DECLAROU COM BASE VENCE. O texto so preenche o campo que
+    o livro nao provou. Quando nenhum dos dois sabe, os DOIS porques ficam — o
+    do coletor (sobre o documento) e o do texto (sobre o que se leu).
+    """
+    import fato_do_texto as FT                               # noqa: PLC0415
+    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"),
+                          bruto.get("PUBLISHED_AT_BASIS"))
+    fora = {}
+    for valor, base, v, b in (("FACT_TIME", "FACT_TIME_BASIS",
+                               r["fact_time"], r["fact_time_basis"]),
+                              ("FACT_LOCATION", "FACT_LOCATION_BASIS",
+                               r["fact_location"], r["fact_location_basis"])):
+        if bruto.get(valor) not in ing.NAO_E_AFIRMACAO:
+            continue
+        if v not in ing.NAO_E_AFIRMACAO:
+            fora[valor], fora[base] = v, "TEXTO: %s" % b
+        elif bruto.get(base):
+            fora[base] = "%s · TEXTO: %s" % (bruto[base], b)
+        else:
+            fora[base] = "TEXTO: %s" % b
+    return fora
+
+
 def item_documental_para_a_porta(estruturado, *, source_id):
     """A unidade STRUCTURED na lingua que a porta le.
 
@@ -591,6 +621,7 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     tl = estruturado.get("TEMPO_E_LUGAR") or {}
     bruto.update({k: tl[k] for k in ing.TEMPO_E_LUGAR
                   if tl.get(k) not in ing.NAO_E_AFIRMACAO})
+    bruto.update(_fato_do_texto(estruturado.get("TEXTO") or "", bruto))
     item = ing.para_a_porta(bruto)
     item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
                  "raw_asset_id": estruturado.get("RAW_ASSET_ID")})
