@@ -1,0 +1,1131 @@
+{
+ "DATASET": "ROTAS-ELEGIVEIS-V1",
+ "GERADO_EM": "2026-09-25T06:11:51.504437+00:00",
+ "INSTRUMENTO": "medidas/canario_rotas_elegiveis.py",
+ "LEI": "rota sem canario real nao e rota; 403 e robots sao resposta, nao se contornam",
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T12-024",
+   "OWNER": "Regione Veneto",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/web/agricoltura\\-e\\-foreste/dettaglio\\-news/?\\?articleId=\\d+$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 98,
+    "NON_WHITESPACE_CHARACTERS": 4502,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 6,
+   "AMOSTRA_LINKS": [
+    "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14418016",
+    "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14412314",
+    "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14407793",
+    "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14398414",
+    "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14367947"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14418016",
+     "HTTP": 200,
+     "BYTES": 55847,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 76,
+     "NON_WHITESPACE_CHARACTERS": 1695,
+     "PARAGRAPH_CHARACTERS": 486,
+     "TEXT_SHA256": "89e4bbb203e40cf89e7aea01ec8e1269ab4820814ab6944b0bf427c006129499",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (76 ligacoes para 1695 caracteres, 486 em paragrafos)"
+    },
+    {
+     "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14412314",
+     "HTTP": 200,
+     "BYTES": 55236,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 75,
+     "NON_WHITESPACE_CHARACTERS": 2053,
+     "PARAGRAPH_CHARACTERS": 869,
+     "TEXT_SHA256": "5db1abb23bf94a04b624c255a55cac8e8e9e32534a43ef4a4402fc528c7530a0",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14412314",
+    "HTTP": 200,
+    "BYTES": 55236,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 75,
+    "NON_WHITESPACE_CHARACTERS": 2053,
+    "PARAGRAPH_CHARACTERS": 869,
+    "TEXT_SHA256": "5db1abb23bf94a04b624c255a55cac8e8e9e32534a43ef4a4402fc528c7530a0",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 6 links pelo motor -> https://www.regione.veneto.it/web/agricoltura-e-foreste/dettaglio-news?articleId=14412314 com 869 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-104",
+   "OWNER": "geoportale.regione.lombardia.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.geoportale.regione.lombardia.it/news",
+   "LINK_PATTERN": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/news/\\-/asset_publisher/80SRILUddraK/content/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=\\d+&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=[^&]+$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.geoportale.regione.lombardia.it/news",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 54,
+    "NON_WHITESPACE_CHARACTERS": 3911,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 3,
+   "AMOSTRA_LINKS": [
+    "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore-agricolo-dei-suoli-2023?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3709160&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3709160",
+    "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/nuovo-sfondo-mondiale-nel-viewer?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707656&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707656",
+    "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore-agricolo-dei-suoli-2023?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3709160&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3709160",
+     "HTTP": 200,
+     "BYTES": 67527,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 28,
+     "NON_WHITESPACE_CHARACTERS": 784,
+     "PARAGRAPH_CHARACTERS": 121,
+     "TEXT_SHA256": "3a8a89485e948242d1ed372fb701c0d1b1bee8a06301d3786fba64937fddeb86",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (28 ligacoes para 784 caracteres, 121 em paragrafos)"
+    },
+    {
+     "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/nuovo-sfondo-mondiale-nel-viewer?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707656&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707656",
+     "HTTP": 200,
+     "BYTES": 68315,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 27,
+     "NON_WHITESPACE_CHARACTERS": 1014,
+     "PARAGRAPH_CHARACTERS": 343,
+     "TEXT_SHA256": "d897a58884d3a54b9fd925e531c132da3cf662f9dfba43e1f7dc6b3f67a24164",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (27 ligacoes para 1014 caracteres, 343 em paragrafos)"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore-agricolo-dei-suoli-2023?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3709160&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3709160: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (28 ligacoes para 784 caracteres, 121 em paragrafos); https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/nuovo-sfondo-mondiale-nel-viewer?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707656&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707656: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (27 ligacoes para 1014 caracteres, 343 em paragrafos)",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-117",
+   "OWNER": "Calabria Energia - Il Portale Energia della Regione Calabria",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://energia.calabriaimpresa.eu/",
+   "LINK_PATTERN": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://energia.calabriaimpresa.eu/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 43,
+    "NON_WHITESPACE_CHARACTERS": 3990,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 2,
+   "AMOSTRA_LINKS": [
+    "https://energia.calabriaimpresa.eu/2024/04/22/comunita-energetiche-al-via-le-domande-di-contributo-dall8-aprile-2024/",
+    "https://energia.calabriaimpresa.eu/2024/03/07/contributi-per-la-creazione-delle-cer-nei-comuni-con-meno-di-5-000-abitanti/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://energia.calabriaimpresa.eu/2024/04/22/comunita-energetiche-al-via-le-domande-di-contributo-dall8-aprile-2024/",
+     "HTTP": 200,
+     "BYTES": 77321,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 35,
+     "NON_WHITESPACE_CHARACTERS": 2014,
+     "PARAGRAPH_CHARACTERS": 1439,
+     "TEXT_SHA256": "1308835155cbdfe154a2ec93aa24d87f1e9a4dd15d913fe0b39e1d81f4aef357",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://energia.calabriaimpresa.eu/2024/04/22/comunita-energetiche-al-via-le-domande-di-contributo-dall8-aprile-2024/",
+    "HTTP": 200,
+    "BYTES": 77321,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 35,
+    "NON_WHITESPACE_CHARACTERS": 2014,
+    "PARAGRAPH_CHARACTERS": 1439,
+    "TEXT_SHA256": "1308835155cbdfe154a2ec93aa24d87f1e9a4dd15d913fe0b39e1d81f4aef357",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 2 links pelo motor -> https://energia.calabriaimpresa.eu/2024/04/22/comunita-energetiche-al-via-le-domande-di-contributo-dall8-aprile-2024/ com 1439 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-129",
+   "OWNER": "Regione Siciliana Assessorato Regionale dell'Agricoltura dello Sviluppo Rurale",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.sicilia\\.it/la\\-regione\\-informa/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 86,
+    "NON_WHITESPACE_CHARACTERS": 3135,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 3,
+   "AMOSTRA_LINKS": [
+    "https://www.regione.sicilia.it/la-regione-informa/nuova-disciplina-riconoscimento-patrocini-contributi-manifestazioni-programmi-promozione-prodotti-agricoli-agroalimentari",
+    "https://www.regione.sicilia.it/la-regione-informa/pratiche-agroecologiche-legge-regionale-n-21-29-luglio-2021",
+    "https://www.regione.sicilia.it/la-regione-informa/stabiliti-modalita-criteri-nomina-nuove-commissioni-d-esame-l-abilitazione-all-esercizio-venatorio"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.regione.sicilia.it/la-regione-informa/nuova-disciplina-riconoscimento-patrocini-contributi-manifestazioni-programmi-promozione-prodotti-agricoli-agroalimentari",
+     "HTTP": 200,
+     "BYTES": 238090,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 71,
+     "NON_WHITESPACE_CHARACTERS": 3357,
+     "PARAGRAPH_CHARACTERS": 1577,
+     "TEXT_SHA256": "4fedb0548c8db7863b75fc87ca900cdca186b9e83df4d6919a87c3d37bff50f7",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.regione.sicilia.it/la-regione-informa/nuova-disciplina-riconoscimento-patrocini-contributi-manifestazioni-programmi-promozione-prodotti-agricoli-agroalimentari",
+    "HTTP": 200,
+    "BYTES": 238090,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 71,
+    "NON_WHITESPACE_CHARACTERS": 3357,
+    "PARAGRAPH_CHARACTERS": 1577,
+    "TEXT_SHA256": "4fedb0548c8db7863b75fc87ca900cdca186b9e83df4d6919a87c3d37bff50f7",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 3 links pelo motor -> https://www.regione.sicilia.it/la-regione-informa/nuova-disciplina-riconoscimento-patrocini-contributi-manifestazioni-programmi-promozione-prodotti-agricoli-agroalimentari com 1577 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-130",
+   "OWNER": "Finanziamenti agricoli",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/pac\\-psr\\-csr/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://terraevita.edagricole.it/pac-psr-csr/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 227,
+    "NON_WHITESPACE_CHARACTERS": 7624,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 9,
+   "AMOSTRA_LINKS": [
+    "https://terraevita.edagricole.it/pac-psr-csr/pac-2028-addio-ai-due-pilastri-arriva-il-fondo-unico/",
+    "https://terraevita.edagricole.it/pac-psr-csr/zootecnia-alla-prova-del-cambiamento/",
+    "https://terraevita.edagricole.it/pac-psr-csr/corsa-agli-anticipi-subito-in-arrivo-la-pac-2026/",
+    "https://terraevita.edagricole.it/pac-psr-csr/la-pac-che-verra-i-pagamenti-diretti-2028-34/",
+    "https://terraevita.edagricole.it/pac-psr-csr/la-risposta-delleuropa-allemergenza-fertilizzanti/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://terraevita.edagricole.it/pac-psr-csr/pac-2028-addio-ai-due-pilastri-arriva-il-fondo-unico/",
+     "HTTP": 200,
+     "BYTES": 289779,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 256,
+     "NON_WHITESPACE_CHARACTERS": 14075,
+     "PARAGRAPH_CHARACTERS": 9823,
+     "TEXT_SHA256": "bd6045b6a7c201d274d93412a4c0af16ee1997809d0817f86068f3f5aa19d274",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://terraevita.edagricole.it/pac-psr-csr/pac-2028-addio-ai-due-pilastri-arriva-il-fondo-unico/",
+    "HTTP": 200,
+    "BYTES": 289779,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 256,
+    "NON_WHITESPACE_CHARACTERS": 14075,
+    "PARAGRAPH_CHARACTERS": 9823,
+    "TEXT_SHA256": "bd6045b6a7c201d274d93412a4c0af16ee1997809d0817f86068f3f5aa19d274",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 9 links pelo motor -> https://terraevita.edagricole.it/pac-psr-csr/pac-2028-addio-ai-due-pilastri-arriva-il-fondo-unico/ com 9823 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-032",
+   "OWNER": "ARPA Liguria",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpal.liguria.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpal\\.liguria\\.it/home\\-page/notizie\\-tematiche/item/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpal.liguria.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 85,
+    "NON_WHITESPACE_CHARACTERS": 2180,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 5,
+   "AMOSTRA_LINKS": [
+    "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/concentrazioni-settimanali-per-pollini-e-spore-e-previsioni-6.html",
+    "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/acustica-ambientale-il-29-ottobre-nuovo-corso-di-aggiornamento-arpal.html",
+    "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/qualita-dellaria-e-cooperazione-europea-arpal-protagonista-a-genova.html",
+    "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/concentrazioni-settimanali-per-pollini-e-spore-e-previsioni-5.html",
+    "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/per-la-sharper-night-2026-torna-lappuntamento-con-il-porte-aperte-al-centro-meteo.html"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/concentrazioni-settimanali-per-pollini-e-spore-e-previsioni-6.html",
+     "HTTP": 200,
+     "BYTES": 36024,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 48,
+     "NON_WHITESPACE_CHARACTERS": 1483,
+     "PARAGRAPH_CHARACTERS": 911,
+     "TEXT_SHA256": "41dcaf5a4b24c40b18ab6da2936bcf111eeaa5dc81289c49caa9c95e4b56b1a1",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/concentrazioni-settimanali-per-pollini-e-spore-e-previsioni-6.html",
+    "HTTP": 200,
+    "BYTES": 36024,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 48,
+    "NON_WHITESPACE_CHARACTERS": 1483,
+    "PARAGRAPH_CHARACTERS": 911,
+    "TEXT_SHA256": "41dcaf5a4b24c40b18ab6da2936bcf111eeaa5dc81289c49caa9c95e4b56b1a1",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 5 links pelo motor -> https://www.arpal.liguria.it/home-page/notizie-tematiche/item/concentrazioni-settimanali-per-pollini-e-spore-e-previsioni-6.html com 911 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-037",
+   "OWNER": "ARPAT Toscana",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpat.toscana.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/pubblicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpat.toscana.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 158,
+    "NON_WHITESPACE_CHARACTERS": 5312,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://www.arpat.toscana.it/pubblicazione/monitoraggio-corpi-idrici-sotterranei-risultati-2022-2024/",
+    "https://www.arpat.toscana.it/pubblicazione/monitoraggio-ambientale-dei-corpi-idrici-superficiali-fiumi-laghi-acque-di-transizione-anno-2025/",
+    "https://www.arpat.toscana.it/pubblicazione/centrali-geotermiche-della-toscana-anno-2025/",
+    "https://www.arpat.toscana.it/pubblicazione/qualita-delle-acque-superficiali-sotterranee-e-sorgenti-area-geotermica-del-monte-amiata-anno-2025/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpat.toscana.it/pubblicazione/monitoraggio-corpi-idrici-sotterranei-risultati-2022-2024/",
+     "HTTP": 200,
+     "BYTES": 255337,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 149,
+     "NON_WHITESPACE_CHARACTERS": 6338,
+     "PARAGRAPH_CHARACTERS": 1934,
+     "TEXT_SHA256": "42d9787e8081c7e6553c0bd0eb7752ff05474ac41b5243677083a435c411c684",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    },
+    {
+     "URL": "https://www.arpat.toscana.it/pubblicazione/monitoraggio-ambientale-dei-corpi-idrici-superficiali-fiumi-laghi-acque-di-transizione-anno-2025/",
+     "HTTP": 200,
+     "BYTES": 256250,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 149,
+     "NON_WHITESPACE_CHARACTERS": 7178,
+     "PARAGRAPH_CHARACTERS": 2639,
+     "TEXT_SHA256": "3c11965851b4955215e5eac4a6ddf992afbcf4419c78e1e7a24e5f02e6c2aafc",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpat.toscana.it/pubblicazione/monitoraggio-ambientale-dei-corpi-idrici-superficiali-fiumi-laghi-acque-di-transizione-anno-2025/",
+    "HTTP": 200,
+    "BYTES": 256250,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 149,
+    "NON_WHITESPACE_CHARACTERS": 7178,
+    "PARAGRAPH_CHARACTERS": 2639,
+    "TEXT_SHA256": "3c11965851b4955215e5eac4a6ddf992afbcf4419c78e1e7a24e5f02e6c2aafc",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://www.arpat.toscana.it/pubblicazione/monitoraggio-ambientale-dei-corpi-idrici-superficiali-fiumi-laghi-acque-di-transizione-anno-2025/ com 2639 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-050",
+   "OWNER": "ArpaC",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpacampania.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?redirect=[^&]+$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpacampania.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 88,
+    "NON_WHITESPACE_CHARACTERS": 3482,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://www.arpacampania.it/-/arpa-campania-partecipa-alla-notte-europea-delle-ricercatrici-e-dei-ricercatori-2026?redirect=%2F",
+    "https://www.arpacampania.it/-/nuovo-incendio-21-settembre-a-taverna-del-re-risultati-del-monitoraggio-diossine?redirect=%2F",
+    "https://www.arpacampania.it/-/incendio-via-nuova-delle-brecce-del-21-settembre-livelli-di-diossine-inferiori-a-valore-di-riferimento?redirect=%2F",
+    "https://www.arpacampania.it/-/asi-caivano-esiti-campionamenti-di-aria-non-rilevano-presenza-significativa-di-inquinanti?redirect=%2F"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpacampania.it/-/arpa-campania-partecipa-alla-notte-europea-delle-ricercatrici-e-dei-ricercatori-2026?redirect=%2F",
+     "HTTP": 200,
+     "BYTES": 113246,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 66,
+     "NON_WHITESPACE_CHARACTERS": 3286,
+     "PARAGRAPH_CHARACTERS": 1943,
+     "TEXT_SHA256": "830cd355b4210b7840a66a6cf2e2eb7ce966b3505f56a44f32e6c8534bc275a8",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpacampania.it/-/arpa-campania-partecipa-alla-notte-europea-delle-ricercatrici-e-dei-ricercatori-2026?redirect=%2F",
+    "HTTP": 200,
+    "BYTES": 113246,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 66,
+    "NON_WHITESPACE_CHARACTERS": 3286,
+    "PARAGRAPH_CHARACTERS": 1943,
+    "TEXT_SHA256": "830cd355b4210b7840a66a6cf2e2eb7ce966b3505f56a44f32e6c8534bc275a8",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://www.arpacampania.it/-/arpa-campania-partecipa-alla-notte-europea-delle-ricercatrici-e-dei-ricercatori-2026?redirect=%2F com 1943 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T3-045",
+   "OWNER": "Servizio Fitosanitario Regionale",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.amap.marche.it/progetti-europei/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?amap\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.amap.marche.it/progetti-europei/notizie",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 350,
+    "NON_WHITESPACE_CHARACTERS": 12470,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 11,
+   "AMOSTRA_LINKS": [
+    "https://www.amap.marche.it/progetti/progetti-misura-16-1-psr-marche",
+    "https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi",
+    "https://www.amap.marche.it/progetti-europei/notizie/amap-a-larissa-per-il-quinto-meeting-del-progetto-joinable",
+    "https://www.amap.marche.it/progetti-europei/notizie/amap-e-arpam-rafforzano-la-sinergia-istituzionale-per-il-progetto-europeo-ainature",
+    "https://www.amap.marche.it/progetti-europei/notizie/dai-rifiuti-marini-a-nuove-risorse-prosegue-a-porto-san-giorgio-il-progetto-europeo-joinable"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.amap.marche.it/progetti/progetti-misura-16-1-psr-marche",
+     "HTTP": 200,
+     "BYTES": 174670,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 344,
+     "NON_WHITESPACE_CHARACTERS": 12128,
+     "PARAGRAPH_CHARACTERS": 2548,
+     "TEXT_SHA256": "fe02d7f40169fef8affdb172871b72ea13a2031325804bc3581f5cfbdc13bdc9",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (344 ligacoes para 12128 caracteres, 2548 em paragrafos)"
+    },
+    {
+     "URL": "https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 160956,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 318,
+     "NON_WHITESPACE_CHARACTERS": 8979,
+     "PARAGRAPH_CHARACTERS": 319,
+     "TEXT_SHA256": "2e6a63f23994f58d663d6228cc4daed7acaa076259479c0cb2632c77acc011ca",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (318 ligacoes para 8979 caracteres, 319 em paragrafos)"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://www.amap.marche.it/progetti/progetti-misura-16-1-psr-marche: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (344 ligacoes para 12128 caracteres, 2548 em paragrafos); https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (318 ligacoes para 8979 caracteres, 319 em paragrafos)",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T5-160",
+   "OWNER": "CNR IBBA",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.ibba.cnr.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?ibba\\.cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.ibba.cnr.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 50,
+    "NON_WHITESPACE_CHARACTERS": 5541,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://ibba.cnr.it/ricerca/biocel-biologia-cellulare-e-strutturale/",
+    "https://ibba.cnr.it/ricerca/qualy-alimenti-e-salute/",
+    "https://ibba.cnr.it/ricerca/ecobios-biologia-organismo-ambiente-ed-ecosistemi/",
+    "https://ibba.cnr.it/ricerca/biogen-genomica-e-agrobiodiversita/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://ibba.cnr.it/ricerca/biocel-biologia-cellulare-e-strutturale/",
+     "HTTP": 200,
+     "BYTES": 95924,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 99,
+     "NON_WHITESPACE_CHARACTERS": 23658,
+     "PARAGRAPH_CHARACTERS": 14305,
+     "TEXT_SHA256": "34377b6aebaae0a8e5bcd46b6565147d4c1487c96a8523dc47e7e0048572f960",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://ibba.cnr.it/ricerca/biocel-biologia-cellulare-e-strutturale/",
+    "HTTP": 200,
+    "BYTES": 95924,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 99,
+    "NON_WHITESPACE_CHARACTERS": 23658,
+    "PARAGRAPH_CHARACTERS": 14305,
+    "TEXT_SHA256": "34377b6aebaae0a8e5bcd46b6565147d4c1487c96a8523dc47e7e0048572f960",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://ibba.cnr.it/ricerca/biocel-biologia-cellulare-e-strutturale/ com 14305 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T5-167",
+   "OWNER": "CREA",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.crea.gov.it/web/agricoltura-e-ambiente",
+   "LINK_PATTERN": "^https?://(www\\.)?crea\\.gov\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.crea.gov.it/web/agricoltura-e-ambiente",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 126,
+    "NON_WHITESPACE_CHARACTERS": 6883,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://www.crea.gov.it/web/agricoltura-e-ambiente/collabora-con-noi",
+    "https://www.crea.gov.it/web/agricoltura-e-ambiente/infrastrutture-di-ricerca",
+    "https://www.crea.gov.it/web/agricoltura-e-ambiente/-/corso-di-analisi-sensoriale-del-miele-ii-livello-1",
+    "https://www.crea.gov.it/web/agricoltura-e-ambiente/-/dylan-warren-raffa"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.crea.gov.it/web/agricoltura-e-ambiente/collabora-con-noi",
+     "HTTP": 200,
+     "BYTES": 80460,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 103,
+     "NON_WHITESPACE_CHARACTERS": 2722,
+     "PARAGRAPH_CHARACTERS": 717,
+     "TEXT_SHA256": "e8a3232d39e100f2d12504a40eb1274498a8aa35fae93cb4dc8ea9a14a0db5bb",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (103 ligacoes para 2722 caracteres, 717 em paragrafos)"
+    },
+    {
+     "URL": "https://www.crea.gov.it/web/agricoltura-e-ambiente/infrastrutture-di-ricerca",
+     "HTTP": 200,
+     "BYTES": 82026,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 106,
+     "NON_WHITESPACE_CHARACTERS": 3712,
+     "PARAGRAPH_CHARACTERS": 1349,
+     "TEXT_SHA256": "ea351df47f0314bb53acdc07caddd4a14f76dc9011c9db5a394ee2a88bacd408",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.crea.gov.it/web/agricoltura-e-ambiente/infrastrutture-di-ricerca",
+    "HTTP": 200,
+    "BYTES": 82026,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 106,
+    "NON_WHITESPACE_CHARACTERS": 3712,
+    "PARAGRAPH_CHARACTERS": 1349,
+    "TEXT_SHA256": "ea351df47f0314bb53acdc07caddd4a14f76dc9011c9db5a394ee2a88bacd408",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://www.crea.gov.it/web/agricoltura-e-ambiente/infrastrutture-di-ricerca com 1349 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T5-185",
+   "OWNER": "ENEA",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://sostenibilita.enea.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?sostenibilita\\.enea\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://sostenibilita.enea.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 131,
+    "NON_WHITESPACE_CHARACTERS": 12508,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 25,
+   "AMOSTRA_LINKS": [
+    "https://sostenibilita.enea.it/news/edizione-2026-premio-innovatori-responsabili",
+    "https://sostenibilita.enea.it/news/progetto-net-notte-ricercatrici-e-ricercatori-2026",
+    "https://sostenibilita.enea.it/news/radiazioni-solari-ultraviolette-aumentano-tutta-europa-uno-studio-con-dati-enea-lampedusa",
+    "https://sostenibilita.enea.it/eventi/dipartimento-bex-2026-agrospazio-e-materiali-avanzati-spazio-e-terra",
+    "https://sostenibilita.enea.it/eventi/enea-innova-expo-ricerca-e-innovazione-centro-due-giorni-lecce"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://sostenibilita.enea.it/news/edizione-2026-premio-innovatori-responsabili",
+     "HTTP": 200,
+     "BYTES": 52224,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 86,
+     "NON_WHITESPACE_CHARACTERS": 4165,
+     "PARAGRAPH_CHARACTERS": 2244,
+     "TEXT_SHA256": "d238fa4a4f1f8c2b5b9cf99d7456dd6bb1ff3858db9d46f68228aad11f45a45d",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://sostenibilita.enea.it/news/edizione-2026-premio-innovatori-responsabili",
+    "HTTP": 200,
+    "BYTES": 52224,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 86,
+    "NON_WHITESPACE_CHARACTERS": 4165,
+    "PARAGRAPH_CHARACTERS": 2244,
+    "TEXT_SHA256": "d238fa4a4f1f8c2b5b9cf99d7456dd6bb1ff3858db9d46f68228aad11f45a45d",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 25 links pelo motor -> https://sostenibilita.enea.it/news/edizione-2026-premio-innovatori-responsabili com 2244 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-172",
+   "OWNER": "Georgofili Info",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.georgofili.info/",
+   "LINK_PATTERN": "^https?://(www\\.)?georgofili\\.info/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "\r\n<!doctype html>\r\n<html lang=\"it\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n    <title>Home Page | Georgofili</title>\r\n    <meta name=\"description\" conten",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.georgofili.info/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 77,
+    "NON_WHITESPACE_CHARACTERS": 4070,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 3,
+   "AMOSTRA_LINKS": [
+    "https://www.georgofili.info/contenuti/notiziario-accademia/1305",
+    "https://www.georgofili.info/contenuti/evento-home/31042",
+    "https://www.georgofili.info/contenuti/evento-home/31049"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.georgofili.info/contenuti/notiziario-accademia/1305",
+     "HTTP": 200,
+     "BYTES": 56061,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 77,
+     "NON_WHITESPACE_CHARACTERS": 4070,
+     "PARAGRAPH_CHARACTERS": 939,
+     "TEXT_SHA256": "417a14b41f1a11a6d53fcdd36ffe248516fa74136872a608052d90aac2c9363d",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    },
+    {
+     "URL": "https://www.georgofili.info/contenuti/evento-home/31042",
+     "HTTP": 200,
+     "BYTES": 85248,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 69,
+     "NON_WHITESPACE_CHARACTERS": 10236,
+     "PARAGRAPH_CHARACTERS": 7800,
+     "TEXT_SHA256": "a64a85067e940c56e392e8ded883d74c64c3d800df2aed87b42fc32b7965ee46",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.georgofili.info/contenuti/evento-home/31042",
+    "HTTP": 200,
+    "BYTES": 85248,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 69,
+    "NON_WHITESPACE_CHARACTERS": 10236,
+    "PARAGRAPH_CHARACTERS": 7800,
+    "TEXT_SHA256": "a64a85067e940c56e392e8ded883d74c64c3d800df2aed87b42fc32b7965ee46",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 3 links pelo motor -> https://www.georgofili.info/contenuti/evento-home/31042 com 7800 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T8-062",
+   "OWNER": "Dip. Agraria, Univ. Sassari",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "http://agrariaweb.uniss.it/it/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?agrariaweb\\.uniss\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "http://agrariaweb.uniss.it/it/notizie",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 76,
+    "NON_WHITESPACE_CHARACTERS": 2671,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 12,
+   "AMOSTRA_LINKS": [
+    "http://agrariaweb.uniss.it/it/notizie/west-nile-e-zanzare-sardegna-il-ruolo-della-ricerca-del-dipartimento-di-agraria-la-salute",
+    "http://agrariaweb.uniss.it/it/notizie/premio-un-dottore-di-ricerca-del-dipartimento-di-agraria-allagroinnovation-award-2026",
+    "http://agrariaweb.uniss.it/it/notizie/80deg-anniversario-del-dipartimento-di-agraria-uniss",
+    "http://agrariaweb.uniss.it/it/notizie/il-festival-internazionale-del-riso-la-ricerca-delluniversita-di-sassari-al-centro-del",
+    "http://agrariaweb.uniss.it/it/notizie/formazione-sul-campo-sulla-risorsa-tartufo-sardegna"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "http://agrariaweb.uniss.it/it/notizie/west-nile-e-zanzare-sardegna-il-ruolo-della-ricerca-del-dipartimento-di-agraria-la-salute",
+     "HTTP": 200,
+     "BYTES": 52035,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 64,
+     "NON_WHITESPACE_CHARACTERS": 2719,
+     "PARAGRAPH_CHARACTERS": 1363,
+     "TEXT_SHA256": "6d190a8414379cd62bd14e7b6b06b8c86c7f540291f6212d627a23406b130d51",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "http://agrariaweb.uniss.it/it/notizie/west-nile-e-zanzare-sardegna-il-ruolo-della-ricerca-del-dipartimento-di-agraria-la-salute",
+    "HTTP": 200,
+    "BYTES": 52035,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 64,
+    "NON_WHITESPACE_CHARACTERS": 2719,
+    "PARAGRAPH_CHARACTERS": 1363,
+    "TEXT_SHA256": "6d190a8414379cd62bd14e7b6b06b8c86c7f540291f6212d627a23406b130d51",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 12 links pelo motor -> http://agrariaweb.uniss.it/it/notizie/west-nile-e-zanzare-sardegna-il-ruolo-della-ricerca-del-dipartimento-di-agraria-la-salute com 1363 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-145",
+   "OWNER": "ARPAV Veneto",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpa.veneto.it/arpav/comunicati-stampa",
+   "LINK_PATTERN": "^https?://(www\\.)?arpa\\.veneto\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpa.veneto.it/arpav/comunicati-stampa",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 108,
+    "NON_WHITESPACE_CHARACTERS": 2921,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 13,
+   "AMOSTRA_LINKS": [
+    "https://www.arpa.veneto.it/arpav/comunicati-stampa/archivio-comunicati/comunicati-2026/qualita-dellaria-a-cittadella-pd-i-risultati",
+    "https://www.arpa.veneto.it/arpav/comunicati-stampa/archivio-comunicati/comunicati-2026/moria-di-pesci-nel-polesine-lintervento-di-arpav",
+    "https://www.arpa.veneto.it/arpav/comunicati-stampa/archivio-comunicati/comunicati-2026/campagna-aria-2025-26-a-cappella-maggiore-tv-poche-criticita",
+    "https://www.arpa.veneto.it/arpav/comunicati-stampa/archivio-comunicati/comunicati-2026/incendio-a-taglio-di-po-aggiornamento-1",
+    "https://www.arpa.veneto.it/arpav/comunicati-stampa/archivio-comunicati/comunicati-2026/incendio-a-taglio-di-po-aggiornamento"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpa.veneto.it/arpav/comunicati-stampa/archivio-comunicati/comunicati-2026/qualita-dellaria-a-cittadella-pd-i-risultati",
+     "HTTP": 200,
+     "BYTES": 245468,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 102,
+     "NON_WHITESPACE_CHARACTERS": 2810,
+     "PARAGRAPH_CHARACTERS": 1099,
+     "TEXT_SHA256": "b215c936038a2311e0552c4d08e733ba1e26e17bb74f12f94abf19f155ae299e",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpa.veneto.it/arpav/comunicati-stampa/archivio-comunicati/comunicati-2026/qualita-dellaria-a-cittadella-pd-i-risultati",
+    "HTTP": 200,
+    "BYTES": 245468,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 102,
+    "NON_WHITESPACE_CHARACTERS": 2810,
+    "PARAGRAPH_CHARACTERS": 1099,
+    "TEXT_SHA256": "b215c936038a2311e0552c4d08e733ba1e26e17bb74f12f94abf19f155ae299e",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 13 links pelo motor -> https://www.arpa.veneto.it/arpav/comunicati-stampa/archivio-comunicati/comunicati-2026/qualita-dellaria-a-cittadella-pd-i-risultati com 1099 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-131",
+   "OWNER": "L'esperto Pac risponde",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://terraevita.edagricole.it/l-esperto-risponde/pac-e-psr/",
+   "LINK_PATTERN": "^https?://(www\\.)?terraevita\\.edagricole\\.it/esperto\\-risponde/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://terraevita.edagricole.it/l-esperto-risponde/pac-e-psr/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 204,
+    "NON_WHITESPACE_CHARACTERS": 9201,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 10,
+   "AMOSTRA_LINKS": [
+    "https://terraevita.edagricole.it/esperto-risponde/recupero-del-premio-eco-4-le-regole-da-seguire/",
+    "https://terraevita.edagricole.it/esperto-risponde/vigneto-ed-ecoschema-2-gli-impegni-da-rispettare/",
+    "https://terraevita.edagricole.it/esperto-risponde/giovani-in-agricoltura-le-agevolazioni-disponibili/",
+    "https://terraevita.edagricole.it/esperto-risponde/avvicendamento-non-rispettato-quali-sono-le-sanzioni/",
+    "https://terraevita.edagricole.it/esperto-risponde/quando-occorre-riseminare-un-terreno-coltivato-a-mellifere/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://terraevita.edagricole.it/esperto-risponde/recupero-del-premio-eco-4-le-regole-da-seguire/",
+     "HTTP": 200,
+     "BYTES": 244439,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 204,
+     "NON_WHITESPACE_CHARACTERS": 6968,
+     "PARAGRAPH_CHARACTERS": 3139,
+     "TEXT_SHA256": "5087c7673573851df9e5f18f8b3e893143a62fefc6f9879abd4a862b5abdfc9a",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://terraevita.edagricole.it/esperto-risponde/recupero-del-premio-eco-4-le-regole-da-seguire/",
+    "HTTP": 200,
+    "BYTES": 244439,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 204,
+    "NON_WHITESPACE_CHARACTERS": 6968,
+    "PARAGRAPH_CHARACTERS": 3139,
+    "TEXT_SHA256": "5087c7673573851df9e5f18f8b3e893143a62fefc6f9879abd4a862b5abdfc9a",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 10 links pelo motor -> https://terraevita.edagricole.it/esperto-risponde/recupero-del-premio-eco-4-le-regole-da-seguire/ com 3139 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T5-186",
+   "OWNER": "ENEA",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://sostenibilita.enea.it/eventi",
+   "LINK_PATTERN": "^https?://(www\\.)?sostenibilita\\.enea\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://sostenibilita.enea.it/eventi",
+    "HTML_KIND": "MIXED",
+    "LINKS": 102,
+    "NON_WHITESPACE_CHARACTERS": 10765,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 20,
+   "AMOSTRA_LINKS": [
+    "https://sostenibilita.enea.it/eventi/meeting-internazionali-0",
+    "https://sostenibilita.enea.it/eventi/dipartimento-bex-2026-agrospazio-e-materiali-avanzati-spazio-e-terra",
+    "https://sostenibilita.enea.it/eventi/enea-innova-expo-ricerca-e-innovazione-centro-due-giorni-lecce",
+    "https://sostenibilita.enea.it/eventi/enea-festival-dellacqua-2026",
+    "https://sostenibilita.enea.it/eventi/enea-workshop-daphne-2026-modelli-atmosferici-e-ambientali"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://sostenibilita.enea.it/eventi/meeting-internazionali-0",
+     "HTTP": 200,
+     "BYTES": 58836,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 91,
+     "NON_WHITESPACE_CHARACTERS": 6009,
+     "PARAGRAPH_CHARACTERS": 3130,
+     "TEXT_SHA256": "f42549487db58c76cf16cfbd5282a72b4f8687790dce4ba0b53f0adcc359373a",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://sostenibilita.enea.it/eventi/meeting-internazionali-0",
+    "HTTP": 200,
+    "BYTES": 58836,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 91,
+    "NON_WHITESPACE_CHARACTERS": 6009,
+    "PARAGRAPH_CHARACTERS": 3130,
+    "TEXT_SHA256": "f42549487db58c76cf16cfbd5282a72b4f8687790dce4ba0b53f0adcc359373a",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 20 links pelo motor -> https://sostenibilita.enea.it/eventi/meeting-internazionali-0 com 3130 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-146",
+   "OWNER": "ARPAV Veneto",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpa.veneto.it/arpav/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?arpa\\.veneto\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpa.veneto.it/arpav/notizie",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 107,
+    "NON_WHITESPACE_CHARACTERS": 2651,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 14,
+   "AMOSTRA_LINKS": [
+    "https://www.arpa.veneto.it/notizie/in-primo-piano/acquisti-verdi-e-sostenibilita-appuntamento-con-il-x-forum-veneto",
+    "https://www.arpa.veneto.it/notizie/in-primo-piano/dai-dati-satellitari-al-dna-ambientale-cosi-dimark-protegge-i-laghi-alpini",
+    "https://www.arpa.veneto.it/notizie/in-primo-piano/pollini-giornate-di-studio-a-pesaro",
+    "https://www.arpa.veneto.it/notizie/in-primo-piano/operativi-i-nuovi-radar-arpav",
+    "https://www.arpa.veneto.it/notizie/in-primo-piano/delegazione-polacca-in-visita-di-studio-confronto-sulla-qualita-dellaria"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpa.veneto.it/notizie/in-primo-piano/acquisti-verdi-e-sostenibilita-appuntamento-con-il-x-forum-veneto",
+     "HTTP": 200,
+     "BYTES": 238212,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 96,
+     "NON_WHITESPACE_CHARACTERS": 2573,
+     "PARAGRAPH_CHARACTERS": 951,
+     "TEXT_SHA256": "10edda2d841fccfeda123464fdb4bee59dc931b08e436242a8ea236ec6a0fae7",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpa.veneto.it/notizie/in-primo-piano/acquisti-verdi-e-sostenibilita-appuntamento-con-il-x-forum-veneto",
+    "HTTP": 200,
+    "BYTES": 238212,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 96,
+    "NON_WHITESPACE_CHARACTERS": 2573,
+    "PARAGRAPH_CHARACTERS": 951,
+    "TEXT_SHA256": "10edda2d841fccfeda123464fdb4bee59dc931b08e436242a8ea236ec6a0fae7",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 14 links pelo motor -> https://www.arpa.veneto.it/notizie/in-primo-piano/acquisti-verdi-e-sostenibilita-appuntamento-con-il-x-forum-veneto com 951 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T5-187",
+   "OWNER": "ENEA",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://sostenibilita.enea.it/news",
+   "LINK_PATTERN": "^https?://(www\\.)?sostenibilita\\.enea\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://sostenibilita.enea.it/news",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 148,
+    "NON_WHITESPACE_CHARACTERS": 14193,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 40,
+   "AMOSTRA_LINKS": [
+    "https://sostenibilita.enea.it/news/americas-cup-online-previsioni-correnti-marine-golfo-napoli",
+    "https://sostenibilita.enea.it/news/laboratorio-biotec-red-nanoinnovation-2026",
+    "https://sostenibilita.enea.it/news/biomedicina-spaziale-enea-presenta-iaea-ricerche-effetti-radiazioni-cosmiche-cervello",
+    "https://sostenibilita.enea.it/news/enea-d4pack-transnational-open-innovation-innovazione-e-sostenibilita-packaging-alimentare",
+    "https://sostenibilita.enea.it/news/laccordo-mase-dg-va-ii-enea-sspt-aree-industriali-remtech-expo-2026"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://sostenibilita.enea.it/news/americas-cup-online-previsioni-correnti-marine-golfo-napoli",
+     "HTTP": 200,
+     "BYTES": 49658,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 83,
+     "NON_WHITESPACE_CHARACTERS": 3242,
+     "PARAGRAPH_CHARACTERS": 1501,
+     "TEXT_SHA256": "5c22917f8c37371fe45362b37cbec612bb4de5ec5aa2b8d5c42ead80af109d9f",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://sostenibilita.enea.it/news/americas-cup-online-previsioni-correnti-marine-golfo-napoli",
+    "HTTP": 200,
+    "BYTES": 49658,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 83,
+    "NON_WHITESPACE_CHARACTERS": 3242,
+    "PARAGRAPH_CHARACTERS": 1501,
+    "TEXT_SHA256": "5c22917f8c37371fe45362b37cbec612bb4de5ec5aa2b8d5c42ead80af109d9f",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 40 links pelo motor -> https://sostenibilita.enea.it/news/americas-cup-online-previsioni-correnti-marine-golfo-napoli com 1501 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  }
+ ],
+ "NOTA": "3 rondas (1 fonte por dominio por ronda), juntadas; copia do vivo 25/09"
+}

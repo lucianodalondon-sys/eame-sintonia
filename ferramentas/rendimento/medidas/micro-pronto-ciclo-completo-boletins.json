@@ -1,0 +1,174 @@
+{
+ "DATASET": "MICRO-PRONTO-CICLO-COMPLETO-NA-COPIA",
+ "O_QUE": "remedir -> VALIDATE_ROUTE (BLOCK sem contrato) -> gatilho REPAIR_CONTRACT -> FAIL SEM_IDENTIDADE (worker.py:494-498)",
+ "ULTIMAS_TRANSICOES": {
+  "IT-T3-002": [
+   {
+    "SOURCE_ID": "IT-T3-002",
+    "PREVIOUS_STATE": null,
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+    "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+    "OBSERVED_AT": "2026-09-21T15:20:23.710494+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T3-002",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:00.847133+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T3-002",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "READY_FOR_COLLECTION",
+    "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+    "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-191037-b5e82a9d73b2782e",
+    "OBSERVED_AT": "2026-09-21T15:20:23.739006+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T3-002",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:00.864007+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T3-002",
+    "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "MICRO-PRONTO 25/09: revalidar READY_LEGACY pelas regras atuais (decisao do coordenador; so na copia)",
+    "EVIDENCE_REF": "CONTRATO:ROUTE_PROVENANCE",
+    "OBSERVED_AT": "2026-09-25T05:57:34.118522+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   },
+   {
+    "SOURCE_ID": "IT-T3-002",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+    "REASON": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+    "EVIDENCE_REF": "EV-IT-T3-002-REPAIR_CONTRACT-4078",
+    "OBSERVED_AT": "2026-09-25T05:58:04.692399+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   }
+  ],
+  "IT-T3-010": [
+   {
+    "SOURCE_ID": "IT-T3-010",
+    "PREVIOUS_STATE": null,
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+    "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+    "OBSERVED_AT": "2026-09-21T15:20:23.863733+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T3-010",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:00.880998+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T3-010",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "READY_FOR_COLLECTION",
+    "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+    "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-191125-b882ffecc1f95bbb",
+    "OBSERVED_AT": "2026-09-21T15:20:23.894787+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T3-010",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:00.895521+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T3-010",
+    "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "MICRO-PRONTO 25/09: revalidar READY_LEGACY pelas regras atuais (decisao do coordenador; so na copia)",
+    "EVIDENCE_REF": "CONTRATO:ROUTE_PROVENANCE",
+    "OBSERVED_AT": "2026-09-25T05:57:34.374324+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   },
+   {
+    "SOURCE_ID": "IT-T3-010",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+    "REASON": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+    "EVIDENCE_REF": "EV-IT-T3-010-REPAIR_CONTRACT-4079",
+    "OBSERVED_AT": "2026-09-25T05:58:06.191307+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   }
+  ],
+  "IT-T2-002": [
+   {
+    "SOURCE_ID": "IT-T2-002",
+    "PREVIOUS_STATE": null,
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+    "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+    "OBSERVED_AT": "2026-09-21T15:20:21.704354+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T2-002",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:01.098826+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T2-002",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "READY_FOR_COLLECTION",
+    "REASON": "corrida real com sucesso na Big Collection (4 observacoes, 4 HEALTHY)",
+    "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-190951-7f6c58f2c4154617",
+    "OBSERVED_AT": "2026-09-21T15:20:21.735364+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T2-002",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:01.160921+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T2-002",
+    "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "MICRO-PRONTO 25/09: revalidar READY_LEGACY pelas regras atuais (decisao do coordenador; so na copia)",
+    "EVIDENCE_REF": "CONTRATO:ROUTE_PROVENANCE",
+    "OBSERVED_AT": "2026-09-25T05:57:34.693032+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   },
+   {
+    "SOURCE_ID": "IT-T2-002",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+    "REASON": "REPARO_RECUSADO: SEM_IDENTIDADE — sem contrato e sem alocacao HTML com endereco para partir",
+    "EVIDENCE_REF": "EV-IT-T2-002-REPAIR_CONTRACT-4077",
+    "OBSERVED_AT": "2026-09-25T05:58:03.283946+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   }
+  ]
+ }
+}

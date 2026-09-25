@@ -1,0 +1,249 @@
+{
+ "DATASET": "MICRO-PRONTO-REVALIDAR-EM-COPIA-V1",
+ "MEDIDO_EM": "2026-09-25T05:57:38+00:00",
+ "COPIA": "C:\\rend\\copia-micro",
+ "CAMINHO_CANONICO": "curadoria/ready_split.py:291 remedir -> VALIDATE_ROUTE -> CANARY -> promocao pela regua de hoje (worker.py)",
+ "REMEDIR": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "FEITO": true,
+   "TASK_ID": "T03553"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "FEITO": true,
+   "TASK_ID": "T03554"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "FEITO": true,
+   "TASK_ID": "T03555"
+  }
+ ],
+ "ANTES": {
+  "IT-T3-002": {
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": {
+    "STATE": "READY_FOR_COLLECTION",
+    "READY_RULE": "LEGACY",
+    "COLLECTION_ELIGIBLE": false,
+    "MOTIVO": "READY_LEGACY",
+    "PORQUE": "promovida pela regua antiga (LEGACY); a regua de hoje e DETAIL/v1 — item aberto, retratado e com corpo util"
+   }
+  },
+  "IT-T3-010": {
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": {
+    "STATE": "READY_FOR_COLLECTION",
+    "READY_RULE": "LEGACY",
+    "COLLECTION_ELIGIBLE": false,
+    "MOTIVO": "READY_LEGACY",
+    "PORQUE": "promovida pela regua antiga (LEGACY); a regua de hoje e DETAIL/v1 — item aberto, retratado e com corpo util"
+   }
+  },
+  "IT-T2-002": {
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": {
+    "STATE": "READY_FOR_COLLECTION",
+    "READY_RULE": "LEGACY",
+    "COLLECTION_ELIGIBLE": false,
+    "MOTIVO": "READY_LEGACY",
+    "PORQUE": "promovida pela regua antiga (LEGACY); a regua de hoje e DETAIL/v1 — item aberto, retratado e com corpo util"
+   }
+  }
+ },
+ "DEPOIS": {
+  "IT-T3-002": {
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": {
+    "STATE": "CANARY_PENDING",
+    "READY_RULE": "LEGACY",
+    "COLLECTION_ELIGIBLE": false,
+    "MOTIVO": "ESTADO_NAO_READY",
+    "PORQUE": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION"
+   }
+  },
+  "IT-T3-010": {
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": {
+    "STATE": "CANARY_PENDING",
+    "READY_RULE": "LEGACY",
+    "COLLECTION_ELIGIBLE": false,
+    "MOTIVO": "ESTADO_NAO_READY",
+    "PORQUE": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION"
+   }
+  },
+  "IT-T2-002": {
+   "ESTADO": "CANARY_PENDING",
+   "PORTAO": {
+    "STATE": "CANARY_PENDING",
+    "READY_RULE": "LEGACY",
+    "COLLECTION_ELIGIBLE": false,
+    "MOTIVO": "ESTADO_NAO_READY",
+    "PORQUE": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION"
+   }
+  }
+ },
+ "PASSOS_DO_WORKER": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "BLOCK"
+  }
+ ],
+ "ULTIMAS_LINHAS_DO_LIVRO": {
+  "IT-T3-002": [
+   {
+    "SOURCE_ID": "IT-T3-002",
+    "PREVIOUS_STATE": null,
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+    "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+    "OBSERVED_AT": "2026-09-21T15:20:23.710494+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T3-002",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:00.847133+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T3-002",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "READY_FOR_COLLECTION",
+    "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+    "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-191037-b5e82a9d73b2782e",
+    "OBSERVED_AT": "2026-09-21T15:20:23.739006+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T3-002",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:00.864007+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T3-002",
+    "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "MICRO-PRONTO 25/09: revalidar READY_LEGACY pelas regras atuais (decisao do coordenador; so na copia)",
+    "EVIDENCE_REF": "CONTRATO:ROUTE_PROVENANCE",
+    "OBSERVED_AT": "2026-09-25T05:57:34.118522+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   }
+  ],
+  "IT-T3-010": [
+   {
+    "SOURCE_ID": "IT-T3-010",
+    "PREVIOUS_STATE": null,
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+    "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+    "OBSERVED_AT": "2026-09-21T15:20:23.863733+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T3-010",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:00.880998+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T3-010",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "READY_FOR_COLLECTION",
+    "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+    "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-191125-b882ffecc1f95bbb",
+    "OBSERVED_AT": "2026-09-21T15:20:23.894787+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T3-010",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:00.895521+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T3-010",
+    "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "MICRO-PRONTO 25/09: revalidar READY_LEGACY pelas regras atuais (decisao do coordenador; so na copia)",
+    "EVIDENCE_REF": "CONTRATO:ROUTE_PROVENANCE",
+    "OBSERVED_AT": "2026-09-25T05:57:34.374324+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   }
+  ],
+  "IT-T2-002": [
+   {
+    "SOURCE_ID": "IT-T2-002",
+    "PREVIOUS_STATE": null,
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+    "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+    "OBSERVED_AT": "2026-09-21T15:20:21.704354+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T2-002",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:01.098826+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T2-002",
+    "PREVIOUS_STATE": "CANARY_PENDING",
+    "NEW_STATE": "READY_FOR_COLLECTION",
+    "REASON": "corrida real com sucesso na Big Collection (4 observacoes, 4 HEALTHY)",
+    "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-190951-7f6c58f2c4154617",
+    "OBSERVED_AT": "2026-09-21T15:20:21.735364+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1",
+    "IMPORTADO_DE": {
+     "LIVRO": "B",
+     "COMMIT": "f98f234c",
+     "CHAVE_ORIGINAL": "IT-T2-002",
+     "OBSERVED_AT_ORIGINAL": "2026-09-20T23:11:01.160921+00:00",
+     "MISSAO": "RECONCILIACAO-V1"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T2-002",
+    "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+    "NEW_STATE": "CANARY_PENDING",
+    "REASON": "MICRO-PRONTO 25/09: revalidar READY_LEGACY pelas regras atuais (decisao do coordenador; so na copia)",
+    "EVIDENCE_REF": "CONTRATO:ROUTE_PROVENANCE",
+    "OBSERVED_AT": "2026-09-25T05:57:34.693032+00:00",
+    "OWNER": "SOURCE_CURATOR",
+    "VERSION": "SOURCE_LIFECYCLE/v1"
+   }
+  ]
+ },
+ "PROVAS": {
+  "IT-T3-002": [],
+  "IT-T3-010": [],
+  "IT-T2-002": []
+ }
+}
