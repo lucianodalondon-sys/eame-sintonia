@@ -992,6 +992,8 @@ def provas_do_registo(caminho):
         return prova
     if not isinstance(d, dict):
         return prova
+    if d.get('DATASET') == DATASET_DO_RESUMO:
+        return prova        # D59: o resumo so conta CONFERIDO (provas_dos_resumos), nunca por aqui
     for x in d.get('FONTES') or []:
         if not _linha_de_corrida(x):
             continue
@@ -1010,6 +1012,114 @@ def provas_do_registo(caminho):
     return prova
 
 
+# ── D59 · O RESUMO AUDITAVEL DA ONDA, CONFERIDO POR RUN_ID (TRAVA-CONTAR, 25/09/2026) ──
+# O condutor da onda (`ferramentas/big_collection/onda_web.py` -> `resumo_da_onda.py`) escreve em
+# `ferramentas/big_collection/ondas/<ONDA>-RESUMO.json` o resumo de cada corrida: RUN_ID, SOURCE_ID,
+# STATUS, RAW, DERIVED, proveniencia. O estado completo fica fora do Git. O resumo NAO se acredita
+# sozinho: cada linha e conferida, por RUN_ID, contra o livro de corridas do COLETOR
+# (`runs.ndjson`: RAW_OBJECTS_CREATED e FAILED dessa corrida) e contra o livro de observacoes
+# (`observations.ndjson`: a corrida observou mesmo ESTA fonte). RESUMO SEM CONFERENCIA NAO CONTA.
+#
+# ⚠️ Isto NAO e aceitar «o ledger em Git» como prova (continua recusado): o livro so CONFERE um resumo
+# pelo RUN_ID — que e unico por corrida — e nao traz SOURCE_ID do catalogo antigo para dentro.
+#
+# O livro lido e o operacional se ITALY_OPS_ROOT estiver dito (o mesmo que `micro_coleta` usa), e o
+# desta arvore se nao. Qual foi, e o sha256 dos dois ficheiros, sai publicado: sem o livro certo o
+# resumo recusa-se inteiro com RUN_ID_AUSENTE_NO_LIVRO, que e o que deve acontecer.
+DATASET_DO_RESUMO = 'RESUMO-DA-ONDA-V1'
+PASTA_DOS_RESUMOS = os.path.join(PASTA_DAS_PROVAS, 'ondas')
+
+
+def livro_de_corridas_dir():
+    return os.path.join(os.environ.get('ITALY_OPS_ROOT') or RAIZ, 'data', 'collection-ledger', 'italy')
+
+
+def ler_livro_de_corridas(pasta):
+    """(RUN_ID -> contadores da ultima linha, RUN_ID -> fontes observadas, sha256 por ficheiro)."""
+    import hashlib
+    corridas, fontes, shas = {}, {}, {}
+    for nome in ('runs.ndjson', 'observations.ndjson'):
+        p = os.path.join(pasta, nome)
+        if not os.path.exists(p):
+            shas[nome] = None
+            continue
+        with open(p, 'rb') as f:
+            b = f.read()
+        shas[nome] = hashlib.sha256(b).hexdigest()
+        for l in b.decode('utf-8', 'replace').splitlines():
+            try:
+                x = json.loads(l)
+            except ValueError:
+                continue
+            if not isinstance(x, dict) or not x.get('RUN_ID'):
+                continue
+            if nome == 'runs.ndjson':
+                corridas[x['RUN_ID']] = x.get('contadores') or {}
+            elif x.get('SOURCE_ID'):
+                fontes.setdefault(x['RUN_ID'], set()).add(x['SOURCE_ID'])
+    return corridas, fontes, shas
+
+
+def conferir_linha(x, corridas, fontes):
+    """(conta, motivo) de UMA linha de resumo. Todas as perguntas, pela ordem; a primeira que falha diz o motivo."""
+    if not isinstance(x, dict) or not x.get('RUN_ID'):
+        return False, 'NAO_CORREU'
+    if x.get('STATUS') != 'SUCCESS':
+        return False, 'STATUS_NAO_E_SUCCESS'
+    raw, der = x.get('RAW'), x.get('DERIVED')
+    if not (isinstance(raw, int) and isinstance(der, int)) or isinstance(raw, bool) or isinstance(der, bool):
+        return False, 'RAW_OU_DERIVED_UNKNOWN'
+    if raw < 1 or der < 1:
+        return False, 'SEM_DOCUMENTO_NOVO'
+    p = x.get('PROVENIENCIA')
+    if not isinstance(p, dict) or not isinstance(p.get('SALA_LINHAS'), int) \
+            or p.get('SALA_LINHAS') != p.get('SALA_COM_CADEIA_INTEIRA'):
+        return False, 'PROVENIENCIA_PARTIDA_OU_UNKNOWN'
+    c = corridas.get(x['RUN_ID'])
+    if c is None:
+        return False, 'RUN_ID_AUSENTE_NO_LIVRO'
+    if c.get('FAILED'):
+        return False, 'O_LIVRO_DIZ_FAILED'
+    if c.get('RAW_OBJECTS_CREATED') != raw:
+        return False, 'RAW_NAO_BATE_COM_O_LIVRO'
+    if x.get('SOURCE_ID') not in fontes.get(x['RUN_ID'], set()):
+        return False, 'FONTE_NAO_BATE_COM_O_LIVRO'
+    return True, 'CONFERIDA'
+
+
+def provas_dos_resumos(pasta=None, livro=None):
+    """(SOURCE_ID -> referencia, relatorio da conferencia). So contam as linhas CONFERIDAS."""
+    pasta = pasta or PASTA_DOS_RESUMOS
+    livro = livro or livro_de_corridas_dir()
+    corridas, fontes, shas = ler_livro_de_corridas(livro)
+    prova, motivos, resumos = {}, collections.Counter(), []
+    if os.path.isdir(pasta):
+        for nome in sorted(os.listdir(pasta)):
+            if not nome.endswith('-RESUMO.json'):
+                continue
+            try:
+                with open(os.path.join(pasta, nome), encoding='utf-8') as f:
+                    d = json.load(f)
+            except (OSError, ValueError):
+                motivos['RESUMO_ILEGIVEL'] += 1
+                continue
+            if not isinstance(d, dict) or d.get('DATASET') != DATASET_DO_RESUMO:
+                motivos['NAO_E_RESUMO'] += 1
+                continue
+            resumos.append(nome)
+            for x in d.get('FONTES') or []:
+                ok, motivo = conferir_linha(x, corridas, fontes)
+                motivos[motivo] += 1
+                if ok:
+                    prova.setdefault(x['SOURCE_ID'], 'ferramentas/big_collection/ondas/%s · %s (RAW %d, DERIVED %d; '
+                                     'conferido por RUN_ID no livro de corridas)' % (nome, x['RUN_ID'], x['RAW'], x['DERIVED']))
+    rel = {'PASTA': 'ferramentas/big_collection/ondas/', 'RESUMOS': resumos,
+           'LIVRO_DE_CORRIDAS': 'ITALY_OPS_ROOT' if os.environ.get('ITALY_OPS_ROOT') else 'esta arvore (Git)',
+           'LIVRO_SHA256': shas, 'LINHAS_POR_MOTIVO': dict(sorted(motivos.items())),
+           'FONTES_PROVADAS': len(prova)}
+    return prova, rel
+
+
 def _provas_de_resultado(transicoes):
     """SOURCE_ID -> referência da corrida real que gravou RAW e DERIVED."""
     prova = {}
@@ -1019,6 +1129,8 @@ def _provas_de_resultado(transicoes):
             prova.setdefault(t.get('SOURCE_ID'), 'curadoria/LIFECYCLE-LEDGER-V1.json · '
                              + str(t.get('EVIDENCE_REF')))
     for sid, ref in provas_da_pasta(PASTA_DAS_PROVAS).items():
+        prova.setdefault(sid, ref)
+    for sid, ref in provas_dos_resumos()[0].items():
         prova.setdefault(sid, ref)
     return prova
 
@@ -1109,7 +1221,10 @@ def criterio_a_no_curador():
             'ferramentas/big_collection/*.json — registos de corrida do disparador '
             '(STATUS SUCCESS, RAW>=1, DERIVED>=1, C4 sem proveniencia partida) e '
             'linhas novas na Sala da micro; lidos pelo FORMATO, nao pelo nome',
+            'ferramentas/big_collection/ondas/*-RESUMO.json — resumo auditavel da onda (D59), '
+            'cada linha CONFERIDA por RUN_ID no livro de corridas do coletor; sem conferencia nao conta',
         ],
+        'CONFERENCIA_DOS_RESUMOS': provas_dos_resumos()[1],
         'PROVAS_DA_PASTA_OFICIAL': dict(sorted(collections.Counter(
             ref.split(' · ')[0] for ref in provas_da_pasta(PASTA_DAS_PROVAS).values()).items())),
         'PROVAS_RECUSADAS': (

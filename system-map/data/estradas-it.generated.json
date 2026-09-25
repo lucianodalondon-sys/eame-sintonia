@@ -4315,8 +4315,28 @@
   "PORQUE_RC1": "RAW (guarda/preservar_coleta.py) e DERIVED (executor_texto_de_pdf/html) reais sao os do modelo da RC-1; o FETCH real (coleta/italy_executor.py -> coleta/italy_pilot_collect.mjs) NAO e o FETCH do modelo (coleta/texto_fonte.py). Divergencia do modelo, declarada; e o nome OFFICIAL_HTTP_DOCUMENT nao foi verificado fonte a fonte.",
   "PROVAS_ACEITES": [
    "curadoria/LIFECYCLE-LEDGER-V1.json · REASON «corrida real com sucesso na Big Collection (N observacoes)», N > 0",
-   "ferramentas/big_collection/*.json — registos de corrida do disparador (STATUS SUCCESS, RAW>=1, DERIVED>=1, C4 sem proveniencia partida) e linhas novas na Sala da micro; lidos pelo FORMATO, nao pelo nome"
+   "ferramentas/big_collection/*.json — registos de corrida do disparador (STATUS SUCCESS, RAW>=1, DERIVED>=1, C4 sem proveniencia partida) e linhas novas na Sala da micro; lidos pelo FORMATO, nao pelo nome",
+   "ferramentas/big_collection/ondas/*-RESUMO.json — resumo auditavel da onda (D59), cada linha CONFERIDA por RUN_ID no livro de corridas do coletor; sem conferencia nao conta"
   ],
+  "CONFERENCIA_DOS_RESUMOS": {
+   "PASTA": "ferramentas/big_collection/ondas/",
+   "RESUMOS": [
+    "MICRO-V3-20260925-0803-RESUMO.json",
+    "ONDA2-WEB-20260925-0812-RESUMO.json"
+   ],
+   "LIVRO_DE_CORRIDAS": "esta arvore (Git)",
+   "LIVRO_SHA256": {
+    "runs.ndjson": "37bd0c10169f0e8c898cf4733b66b392cf892ef904aa1e9f051a51eddcea3f30",
+    "observations.ndjson": "8f11a5ee4521563078461121cdb40a32ff02b4a318cebfbc634bd616e2f37c00"
+   },
+   "LINHAS_POR_MOTIVO": {
+    "NAO_CORREU": 7,
+    "RUN_ID_AUSENTE_NO_LIVRO": 19,
+    "SEM_DOCUMENTO_NOVO": 7,
+    "STATUS_NAO_E_SUCCESS": 1
+   },
+   "FONTES_PROVADAS": 0
+  },
   "PROVAS_DA_PASTA_OFICIAL": {
    "ferramentas/big_collection/BC4D-MICRO-FINAL-RESULTADO.json": 2,
    "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json": 4
