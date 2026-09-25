@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b944ebe34a72446c504402ab338eb8d9f1760983
+HEAD_DA_MEDICAO  14b79cf8f4f212362f301de8d4f9719d7c56975f
 BRANCH           social-tempo-v1
-GERADO_EM        2026-09-25T11:37:27-03:00
+GERADO_EM        2026-09-25T11:43:03-03:00
 CARDS            92
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
