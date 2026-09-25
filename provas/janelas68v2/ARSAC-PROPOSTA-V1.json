@@ -1,0 +1,105 @@
+{
+ "DATASET": "ARSAC-PROPOSTA-V1",
+ "SOURCE_ID": "IT-T2-148",
+ "EM": "2026-09-25T12:15:09Z",
+ "ROBOTS": {
+  "HTTP": 200,
+  "TEXTO": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: https://arsac.calabria.it/wp-sitemap.xml\n"
+ },
+ "EDICOES_NA_CASA": [
+  "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-22-settembre-2026/",
+  "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-29-settembre-2026/",
+  "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-a-giorno-8-settembre-2026/"
+ ],
+ "CATEGORIAS_NA_CASA": [
+  "https://arsac.calabria.it/category/arssa-gestione-a-stralcio/",
+  "https://arsac.calabria.it/category/bandi-e-avvisi-di-gara-arssa/",
+  "https://arsac.calabria.it/category/decreti-arssa/",
+  "https://arsac.calabria.it/category/verbali-commissione-stime-immobili/"
+ ],
+ "ENTRADA_ESCOLHIDA": "https://arsac.calabria.it/",
+ "REPARO": {
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "ITEM_NAO_E_MATERIA",
+  "PORQUE": "https://arsac.calabria.it/al-via-il-concorso-salumi-di-calabria-2026-a -> MIXED/NAO_SEI, 4775 em paragrafos (< 800 ou nao e materia)",
+  "INDEX_URL": null,
+  "LINK_PATTERN": null,
+  "COMO": null,
+  "ITEM_LIDO": null
+ },
+ "VIGIAS": [
+  {
+   "EGRESS_GATE": "PASS",
+   "VOTOS": [
+    "IT",
+    "IT",
+    "US"
+   ]
+  },
+  {
+   "EGRESS_GATE": "PASS",
+   "VOTOS": [
+    "IT",
+    "IT",
+    "US"
+   ]
+  }
+ ],
+ "PEDIDOS": [
+  "https://arsac.calabria.it/robots.txt",
+  "https://arsac.calabria.it/",
+  "https://arsac.calabria.it/category/bandi-e-avvisi-di-gara-arssa/",
+  "https://arsac.calabria.it/avviso-correzione-errore-bando-asta-pubblica-vendita-beni-immobili/",
+  "https://arsac.calabria.it/al-via-il-concorso-salumi-di-calabria-2026-aperte-le-iscrizioni/"
+ ],
+ "N_PEDIDOS": 5,
+ "BYTES_FORA_DO_GIT": {
+  "PASTA": "C:\\Users\\London1\\j68v2-arsac-bytes",
+  "FICHEIROS": [
+   {
+    "URL": "https://arsac.calabria.it/robots.txt",
+    "HTTP": 200,
+    "FICHEIRO": "982dd7d7dea2a514.html",
+    "SHA256": "66b5fa2c818907668094dd493b897b069f210c7ff13197b7bebece42b4483a4c",
+    "BYTES": 118
+   },
+   {
+    "URL": "https://arsac.calabria.it/",
+    "HTTP": 200,
+    "FICHEIRO": "c9c17af73c22d4d0.html",
+    "SHA256": "4def33d710118f400cfe8357feb79a4e09c8786d30083b94d858f68be35d9671",
+    "BYTES": 270833
+   },
+   {
+    "URL": "https://arsac.calabria.it/category/bandi-e-avvisi-di-gara-arssa/",
+    "HTTP": 200,
+    "FICHEIRO": "8fcbc0e8ec7dcac7.html",
+    "SHA256": "46f6ecbbdd76e05a625427c528e51c3ae250471155a5dd5cba848c936529684c",
+    "BYTES": 211103
+   },
+   {
+    "URL": "https://arsac.calabria.it/avviso-correzione-errore-bando-asta-pubblica-vendita-beni-immobili/",
+    "HTTP": 200,
+    "FICHEIRO": "8573d20c26f6f302.html",
+    "SHA256": "ed35e6aad49014f57cfb856e03d356fa8f8a83be513aeb60b16d046168e27110",
+    "BYTES": 177495
+   },
+   {
+    "URL": "https://arsac.calabria.it/al-via-il-concorso-salumi-di-calabria-2026-aperte-le-iscrizioni/",
+    "HTTP": 200,
+    "FICHEIRO": "35885d88704e9cfc.html",
+    "SHA256": "94888a82b40cb9a13f2443cdbcfea750a4c2ae8d9f9c9471e0a1e6804fdcfb8b",
+    "BYTES": 191557
+   }
+  ]
+ },
+ "CONCLUSAO": {
+  "SITE_NOVO_PROVADO": "arsac.calabria.it e a mesma agencia: titulo '– ARSAC', a edicao de 4/08 aponta para os boletins antigos em arsacweb.it; a casa lista edicoes semanais ate 'valido fino a giorno 29 settembre 2026'",
+  "ENTRADA_CERTA": "https://arsac.calabria.it/ (a propria casa lista 3 edicoes: 8, 22 e 29/09/2026); nenhuma categoria de boletim na casa",
+  "PORQUE_NAO_SE_APLICA": "o reparo da casa escolheu a familia de noticias (concurso salumi: MIXED/NAO_SEI) e o teto de 5 pedidos acabou; a edicao guardada pela JANELA-FORMAS (IT-T1-006.bin, sha256 3c18e0bd...) mede MIXED/NAO_SEI 1033 caracteres, sem data de publicacao e sem PDF: o boletim esta escrito na pagina de cada edicao -> forma LISTA_POR_EDICAO (JANELA-FORMAS), nao o reparo HTML",
+  "APLICADO": false,
+  "LIVRO_TOCADO": false,
+  "ERRO_DA_RODADA_1": "a sonda escolheu /category/bandi-e-avvisi-di-gara-arssa/ porque 'avvis' casava; sao concursos. Corrigido na rodada 2 (so conta palavra de boletim). Os 2 pedidos gastos ali contam no teto.",
+  "PROXIMO": "JANELA-FORMAS: contrato por edicao (casa -> edicao 'bollettino-agrometeorologico-e-fitosanitario-...', identidade = fonte + edicao + 'valido fino al <data>') para IT-T2-148"
+ }
+}
