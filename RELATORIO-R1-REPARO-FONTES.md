@@ -256,3 +256,22 @@ Juntei `55b50a63` (= `origin/regua-t2-v1` @ `84c235da` + testes EGR) em `reparo-
 **READY esperadas: 25** (143 → 168). ⚠️ Não re-contei com rede sobre `55b50a63`: a VPN caiu para o Brasil (portão por consenso BR, BR, US = BLOCKED, medido 4× entre 22:00 e 22:10Z). O número da §11 vale para esta instalação porque as duas entradas são as mesmas: o código do robô é idêntico (`git diff e7cba2d6 3de79d75 -- curadoria candidatas superficie` = 0 linhas — a régua T2 não toca nesses directórios) e os 14 livros do vivo são iguais byte a byte aos da medição das 20:28Z. O que pode mudar é só o que os sites respondem hoje.
 
 **Instalar:** `PARAR.flag` → `git merge --no-ff origin/reparo-fontes-v2` no ramo do bot → conferir livros → portão por consenso = PASS IT → relançar. **Desfazer:** `PARAR.flag` → `git reset --keep 55b50a63` → relançar.
+
+## 13 · Recontagem no VIVO depois da instalação (25/09, `5ba9647e`, só leitura)
+
+A R1 foi instalada pelo coordenador às 01:50 (-03) (`5ba9647e` = merge de `69d38985`); o robô religou às 01:45 com o portão por consenso = PASS IT. Contei só lendo os livros do bot (`scripts/reparo/observar_vivo.py`; resumo em `scripts/reparo/R1-RECONTAGEM-NO-VIVO.json`), até a fila ficar vazia.
+
+```
+READY no vivo                      143 -> 183  (+40)
+das 25 revistas (21 + 4 parciais)  25 READY · 0 em falta
+suspeitas que sairam READY         0
+retidas pela revisao               21 (16 servico/institucional, 2 texto nao e materia, 1 lista -> CANARY_FAILED; 2 tema -> SEMANTIC_REVIEW)
+nota ACESSO_PARCIAL no livro       4
+READY novas FORA da revisao        15 — fontes novas pela QUALIFY normal (contrato do molde), nenhuma reparada pela R1
+REVISAO_PENDENTE (reparada, ninguem leu)  15
+```
+
+- As 15 fora da revisão (IT-T2-143, IT-T2-145, IT-T2-146, IT-T3-045, IT-T3-053, IT-T5-160, IT-T5-167, IT-T5-185, IT-T5-186, IT-T5-187, IT-T7-170, IT-T7-172, IT-T7-174, IT-T8-062, IT-T8-068) chegaram por 192 QUALIFY que a ponte meteu na fila durante a corrida (candidatas das janelas D29); o molde bastou e a régua promoveu — a trava da revisão não se aplica a contratos que a R1 não reescreveu, de propósito.
+- As 15 em REVISAO_PENDENTE precisam de leitura (humana ou IA-CUR): IT-T2-135 (ARPA Lombardia — Archivio bollettini agr), IT-T2-157 (Regione Marche — Notiziari meteo e agrom), IT-T2-159 (SIARL — Agrometeorologia Lazio (ARSIAL)), IT-T3-030 (FEM — Flavescenza dorata, bollettini di ), IT-T3-041 (Servizio Fitosanitario Regionale — lazio), IT-T3-047 (Servizio Fitosanitario Regionale — piemo), IT-T3-049 (Servizio Fitosanitario Regionale — tosca), IT-T3-052 (Servizio Fitosanitario Regionale — venet), IT-T5-189 (SAF — Dip. Scienze Agrarie Univ. Palermo), IT-T7-168 (AIIA — Associazione Italiana di Ingegner), IT-T7-171 (Collegio Nazionale dei Periti Agrari e d), IT-T7-219 (Dottori Agronomi e Forestali — ordine ma), IT-T8-058 (Agrisole — Il Sole 24 Ore), IT-T8-060 (DISTAL — Scienze e Tecnologie Agro-Alime), IT-T8-064 (Italus Hortus — rivista SOI). Várias mostram porque a trava existe — p.ex. IT-T2-135 (boletins agrometeo da ARPA Lombardia) com um padrão que aponta para «rifiuti»; IT-T3-030 (flavescenza) aponta para «scarabeo giapponese»; IT-T3-041 (fitossanitário do Lazio) aponta para «qualità produzioni».
+- Os consertos pararam ~1 h a meio porque a fila tinha as 192 QUALIFY (o gatilho só repara com a fila baixa) e voltaram sozinhos.
+- `recontar_ready.py` foi retirado pela D41.3 (corria bancas com a fila inteira); a recontagem fez-se aqui, no vivo, sem escrever.

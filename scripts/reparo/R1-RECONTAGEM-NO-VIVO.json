@@ -1,0 +1,453 @@
+{
+ "DATASET": "R1-RECONTAGEM-NO-VIVO",
+ "VIVO": "source-curator-service-v1 @ 5ba9647e (R1 instalada 01:50 -03)",
+ "MEDIDO_EM": "2026-09-25T07:56:45.440205+00:00",
+ "DESDE": "2026-09-25T04:40Z (robo religado 01:45 -03)",
+ "COMO": "so leitura dos livros do bot (scripts/reparo/observar_vivo.py e este resumo); zero escrita no vivo",
+ "READY_ANTES": 143,
+ "READY_DEPOIS": 183,
+ "READY_NOVAS": 40,
+ "DAS_25_REVISTAS_READY": [
+  "IT-T12-024",
+  "IT-T12-104",
+  "IT-T12-117",
+  "IT-T12-129",
+  "IT-T12-130",
+  "IT-T12-131",
+  "IT-T2-032",
+  "IT-T2-037",
+  "IT-T2-050",
+  "IT-T3-023",
+  "IT-T5-056",
+  "IT-T5-080",
+  "IT-T5-111",
+  "IT-T5-113",
+  "IT-T7-019",
+  "IT-T7-048",
+  "IT-T7-049",
+  "IT-T7-103",
+  "IT-T7-125",
+  "IT-T7-139",
+  "IT-T7-163",
+  "IT-T8-022",
+  "IT-T8-024",
+  "IT-T8-041",
+  "IT-T8-042"
+ ],
+ "DAS_25_REVISTAS_NAO_READY": [],
+ "SUSPEITAS_QUE_SAIRAM_READY": [],
+ "RETIDAS_PELA_REVISAO": {
+  "SERVICO_OU_INSTITUCIONAL -> CONTRACTED_CANARY_FAILED": 16,
+  "TEMA_A_CONFIRMAR -> SEMANTIC_REVIEW": 2,
+  "TEXTO_NAO_E_MATERIA -> CONTRACTED_CANARY_FAILED": 2,
+  "LISTA_COMO_ITEM -> CONTRACTED_CANARY_FAILED": 1
+ },
+ "READY_NOVAS_FORA_DA_REVISAO": [
+  {
+   "SOURCE_ID": "IT-T2-143",
+   "NOME": "ARPAS Sardegna — Riepilogo mensile agrometeorologico",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T2-145",
+   "NOME": "ARPAV Veneto — Comunicati Stampa",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T2-146",
+   "NOME": "ARPAV Veneto — Notizie",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T3-045",
+   "NOME": "Servizio Fitosanitario Regionale — marche — Notizie",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T3-053",
+   "NOME": "Umbria — Bollettini fitosanitari (lista permanente)",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T5-160",
+   "NOME": "CNR IBBA — Istituto di Biologia e Biotecnologia Agraria",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T5-167",
+   "NOME": "CREA — Centro Agricoltura e Ambiente",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T5-185",
+   "NOME": "ENEA — Dipartimento Sostenibilita (SSPT)",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T5-186",
+   "NOME": "ENEA — Dipartimento Sostenibilita (SSPT) — Eventi",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T5-187",
+   "NOME": "ENEA — Dipartimento Sostenibilita (SSPT) — News",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T7-170",
+   "NOME": "CONAF — Consiglio Nazionale Dottori Agronomi e Forestali",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T7-172",
+   "NOME": "Georgofili Info — newsletter accademica agri",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T7-174",
+   "NOME": "CONAF — Comunicati stampa",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T8-062",
+   "NOME": "Dip. Agraria, Univ. Sassari — Tutte le notizie",
+   "REPARADA_PELA_R1": false
+  },
+  {
+   "SOURCE_ID": "IT-T8-068",
+   "NOME": "Terra e Vita — Agri media Edagricole",
+   "REPARADA_PELA_R1": false
+  }
+ ],
+ "REVISAO_PENDENTE": [
+  {
+   "SOURCE_ID": "IT-T2-135",
+   "NOME": "ARPA Lombardia — Archivio bollettini agrometeo",
+   "INDEX_URL": "https://www.arpalombardia.it/archivio-bollettini-agrometeo/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpalombardia\\.it/temi\\-ambientali/rifiuti/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T2-157",
+   "NOME": "Regione Marche — Notiziari meteo e agrometeo",
+   "INDEX_URL": "https://meteo.regione.marche.it/News",
+   "LINK_PATTERN": "^https?://(www\\.)?meteo\\.regione\\.marche\\.it/News/Notizia/\\d+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T2-159",
+   "NOME": "SIARL — Agrometeorologia Lazio (ARSIAL)",
+   "INDEX_URL": "https://siarl.arsial.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?siarl\\.arsial\\.it//?\\?p=\\d+$"
+  },
+  {
+   "SOURCE_ID": "IT-T3-030",
+   "NOME": "FEM — Flavescenza dorata, bollettini di difesa",
+   "INDEX_URL": "https://fitoemergenze.fmach.it/flavescenza-dorata/bollettini-di-difesa",
+   "LINK_PATTERN": "^https?://(www\\.)?fitoemergenze\\.fmach\\.it/scarabeo\\-giapponese/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T3-041",
+   "NOME": "Servizio Fitosanitario Regionale — lazio",
+   "INDEX_URL": "https://www.regione.lazio.it/cittadini/agricoltura/servizio-fitosanitario-regionale",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.lazio\\.it/cittadini/agricoltura/qualita\\-produzioni/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T3-047",
+   "NOME": "Servizio Fitosanitario Regionale — piemonte",
+   "INDEX_URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/web/temi/agricoltura/servizi\\-fitosanitari\\-pan/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T3-049",
+   "NOME": "Servizio Fitosanitario Regionale — toscana",
+   "INDEX_URL": "https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.toscana\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T3-052",
+   "NOME": "Servizio Fitosanitario Regionale — veneto",
+   "INDEX_URL": "https://www.regione.veneto.it/web/fitosanitario",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/web/fitosanitario/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T5-189",
+   "NOME": "SAF — Dip. Scienze Agrarie Univ. Palermo",
+   "INDEX_URL": "https://www.unipa.it/terzamissione/eventi/",
+   "LINK_PATTERN": "^https?://(www\\.)?unipa\\.it/terzamissione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-168",
+   "NOME": "AIIA — Associazione Italiana di Ingegneria Agraria",
+   "INDEX_URL": "https://www.aiia.it/aiia_news/",
+   "LINK_PATTERN": "^https?://(www\\.)?aiia\\.it/aiia_convegni_details/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-171",
+   "NOME": "Collegio Nazionale dei Periti Agrari e dei Periti Agrari Laureati",
+   "INDEX_URL": "https://www.peritiagrari.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?peritiagrari\\.it/area\\-comunicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.html/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T7-219",
+   "NOME": "Dottori Agronomi e Forestali — ordine marche (delle-marche)",
+   "INDEX_URL": "http://ordinemarche.conaf.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?ordinemarche\\.conaf\\.it/formazione\\-continua/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T8-058",
+   "NOME": "Agrisole — Il Sole 24 Ore",
+   "INDEX_URL": "https://www.ilsole24ore.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?ilsole24ore\\.com/art/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$"
+  },
+  {
+   "SOURCE_ID": "IT-T8-060",
+   "NOME": "DISTAL — Scienze e Tecnologie Agro-Alimentari, Univ. Bologna — Notizie",
+   "INDEX_URL": "https://distal.unibo.it/it/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?distal\\.unibo\\.it/it/notizie/?\\?y=\\d+$"
+  },
+  {
+   "SOURCE_ID": "IT-T8-064",
+   "NOME": "Italus Hortus — rivista SOI",
+   "INDEX_URL": "https://www.soihs.it/italushortus/default.aspx",
+   "LINK_PATTERN": "^https?://(www\\.)?soihs\\.it/IH2/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+\\.aspx/?$"
+  }
+ ],
+ "MOTIVOS_NO_LIVRO_DESDE": {
+  "REVISAO_R1": 21,
+  "REPARO_RECUSADO": 628,
+  "TEMA_A_CONFIRMAR": 2,
+  "ACESSO_PARCIAL": 4,
+  "REVISAO_PENDENTE": 15
+ },
+ "REVISTAS": {
+  "IT-T12-023": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página inicial de um projeto (Contratto di Fiume), fixa — não é notícia"
+  },
+  "IT-T12-024": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T12-042": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página de serviço: Área Pessoal de Tributos da Região"
+  },
+  "IT-T12-043": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página de serviço: prazos do imposto automóvel (fora do agro)"
+  },
+  "IT-T12-044": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página fixa de projeto PNRR («1000 Esperti»), sem fluxo de notícias"
+  },
+  "IT-T12-073": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página de projeto das Olimpíadas 2026 (comboios) — fora do agro"
+  },
+  "IT-T12-075": {
+   "CLASSE": "TEMA_A_CONFIRMAR",
+   "ESTADO_FINAL": "SEMANTIC_REVIEW",
+   "RAZAO": "TEMA_A_CONFIRMAR (D2: gaveta certa + relevancia): notícia, mas de educação (tema a confirmar pelo dono)"
+  },
+  "IT-T12-081": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página fixa institucional (Accordo per lo Sviluppo e la Coesione)"
+  },
+  "IT-T12-102": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: repartição: página do Gabinete da Região"
+  },
+  "IT-T12-104": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T12-117": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T12-129": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T12-130": {
+   "CLASSE": "ACESSO_PARCIAL",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1) · ACESSO_PARCIAL: artigo para assinantes: só o início é público"
+  },
+  "IT-T12-131": {
+   "CLASSE": "ACESSO_PARCIAL",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1) · ACESSO_PARCIAL: artigo para assinantes: só o início é público"
+  },
+  "IT-T12-134": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página educativa fixa para alunos («Conosci la frutta»)"
+  },
+  "IT-T2-032": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T2-033": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página temática fixa (campos eletromagnéticos), não notícia"
+  },
+  "IT-T2-037": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T2-050": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T2-063": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página fixa institucional (acreditação dos laboratórios)"
+  },
+  "IT-T2-070": {
+   "CLASSE": "TEXTO_NAO_E_MATERIA",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: TEXTO_NAO_E_MATERIA: o texto lido é o do leitor Issuu («Transform any piece of content…»), não a publicação"
+  },
+  "IT-T3-023": {
+   "CLASSE": "ACESSO_PARCIAL",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1) · ACESSO_PARCIAL: artigo para assinantes: só o início é público"
+  },
+  "IT-T5-041": {
+   "CLASSE": "TEXTO_NAO_E_MATERIA",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: TEXTO_NAO_E_MATERIA: crpv.it reencaminha para a Ri.Nova; o texto lido é a apresentação institucional (o contrato mudou desde a leitura: reler)"
+  },
+  "IT-T5-056": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T5-080": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T5-104": {
+   "CLASSE": "TEMA_A_CONFIRMAR",
+   "ESTADO_FINAL": "SEMANTIC_REVIEW",
+   "RAZAO": "TEMA_A_CONFIRMAR (D2: gaveta certa + relevancia): notícia universitária de algoritmos (tema a confirmar pelo dono)"
+  },
+  "IT-T5-111": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T5-113": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T7-019": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T7-031": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://feder.bio/progetti/accademia-bio/ -> FAMILIA_E_MENU: 8 dos 8 enderecos da familia repetem-se dent; https://feder.bio/bio-letture/manuali-e-guide/ -> NAVIG"
+  },
+  "IT-T7-041": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página fixa de atividade do consórcio (difesa idraulica)"
+  },
+  "IT-T7-048": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T7-049": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T7-103": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T7-105": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página de serviço: lista fixa de feiras"
+  },
+  "IT-T7-125": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T7-139": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T7-150": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: ficha de curso de formação (catálogo), não notícia"
+  },
+  "IT-T7-163": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T8-010": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: página de serviço: descrição da newsletter UIVLex"
+  },
+  "IT-T8-022": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T8-024": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T8-041": {
+   "CLASSE": "LIMPA",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1)"
+  },
+  "IT-T8-042": {
+   "CLASSE": "ACESSO_PARCIAL",
+   "ESTADO_FINAL": "READY_FOR_COLLECTION",
+   "RAZAO": "canario resolveu, abriu um item real e passou o gate de detalhe (CAPA_NAO_E_MATERIA/v1) · ACESSO_PARCIAL: artigo para assinantes: só o início é público"
+  },
+  "IT-T9-015": {
+   "CLASSE": "SERVICO_OU_INSTITUCIONAL",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REPARO_RECUSADO: FAMILIA_ESTATICA — so ha familias de paginas fixas (https://www.conserveitalia.it/it/il-gruppo/certificazioni-e-attestazio...): nenhuma tem cara de fluxo de publicacoes"
+  },
+  "IT-T9-019": {
+   "CLASSE": "LISTA_COMO_ITEM",
+   "ESTADO_FINAL": "CONTRACTED_CANARY_FAILED",
+   "RAZAO": "REVISAO_R1: LISTA_COMO_ITEM: o item é a própria listagem «Articoli e pubblicazioni», não uma matéria (o contrato mudou desde a leitura: reler)"
+  }
+ }
+}
