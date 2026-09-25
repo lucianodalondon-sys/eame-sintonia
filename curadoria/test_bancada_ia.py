@@ -151,12 +151,27 @@ class AVoltaPeloRobo(_Pasta):
 
     def setUp(self):
         super().setUp()
+        # a base (_Pasta) ja desvia livro, fila e provas; repetido aqui a vista da guarda de isolamento
+        F.FILA = Path(self.tmp.name) / "QUEUE.json"
         self._p = BIA.PROPOSTAS
         BIA.PROPOSTAS = Path(self.tmp.name) / "PROPOSTAS.json"
 
     def tearDown(self):
         BIA.PROPOSTAS = self._p
         super().tearDown()
+
+    def test_a_fila_e_escrita_ao_lado_do_livro_nunca_na_arvore_real(self):
+        """Medido 25/09: a volta do ciclo, dentro de um teste, escrevia a fila em curadoria/."""
+        real = BIA.FILA_IA
+        existia = real.exists()
+        antes = real.read_bytes() if existia else None
+        LC.LIVRO = Path(self.tmp.name) / "LEDGER.json"
+        LC.registar("CAND-9001", LC.SEMANTIC_REVIEW, "prova")
+        BIA.construir_do_disco(escrever=True)
+        self.assertTrue((Path(self.tmp.name) / real.name).exists())
+        self.assertEqual(existia, real.exists())
+        if existia:
+            self.assertEqual(antes, real.read_bytes())
 
     def test_o_reparo_usa_a_proposta_e_nao_adivinha(self):
         c = _contrato()

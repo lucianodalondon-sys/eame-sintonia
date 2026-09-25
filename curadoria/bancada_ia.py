@@ -259,11 +259,16 @@ def construir_do_disco(escrever: bool = True) -> dict:
                  _json(RAIZ / "curadoria" / "italy_contracts_curator.json", "FONTES")}
     provas_em = {p["EVIDENCE_REF"]: p.get("OBSERVED_AT")
                  for p in _json(RAIZ / "curadoria" / "LIFECYCLE-EVIDENCE-V1.json", "PROVAS")}
+    # a janela (D29) tambem se declara na linha da tabela do coletor, nao so no contrato do robo
+    tabela = {c["SOURCE_ID"]: c for c in _json(RAIZ / "regras" / "italy_contracts_onboarded.json", "FONTES")}
     f = construir(transicoes=LC._ler_bruto()["TRANSICOES"], decisoes=DS._ler(),
-                  propostas=_json(PROPOSTAS, "PROPOSTAS"), contratos=contratos, janela=JC.e_janela,
-                  provas_em=provas_em)
+                  propostas=_json(PROPOSTAS, "PROPOSTAS"), contratos=contratos,
+                  janela=lambda sid, c: JC.e_janela(sid, c, tabela.get(sid)), provas_em=provas_em)
     if escrever:
-        FILA_IA.write_text(json.dumps(f, ensure_ascii=False, indent=1), encoding="utf-8")
+        # ao lado do LIVRO de estados: na producao e curadoria/ (= FILA_IA); num teste que desvia o
+        # livro para uma pasta descartavel, a fila vai com ele — nunca escreve na arvore real.
+        destino = FILA_IA if LC.LIVRO.parent == FILA_IA.parent else LC.LIVRO.parent / FILA_IA.name
+        destino.write_text(json.dumps(f, ensure_ascii=False, indent=1), encoding="utf-8")
     return f
 
 

@@ -91,6 +91,15 @@ def uma_volta(pausa: float) -> dict:
          "READY_TOTAL": s["READY_TOTAL"],
          "QUEUE_ELIGIBLE_NOW": s["QUEUE_ELIGIBLE_NOW"],
          "QUEUE_WAITING_RETRY": s["QUEUE_WAITING_RETRY"]}
+    # D32 (7) · FILA-PRECISA-DE-IA CONTINUA: o robo refaz a fila a cada volta (escritor unico: o
+    # robo; derivada, sem rede). Uma falha aqui NAO mata a volta — fica escrita no diario.
+    try:
+        import bancada_ia as BIA   # noqa: PLC0415
+        fia = BIA.construir_do_disco(escrever=True)
+        v["FILA_IA"] = {"TOTAL": fia["TOTAL"], "POR_PERGUNTA": fia["POR_PERGUNTA"],
+                        "JANELA_D29": sum(1 for c in fia["CASOS"] if c["JANELA_D29"])}
+    except Exception as e:  # noqa: BLE001
+        v["FILA_IA"] = {"ERRO": "%s: %s" % (type(e).__name__, str(e)[:120])}
     _anotar(v)
     return v
 

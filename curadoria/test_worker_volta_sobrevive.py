@@ -220,6 +220,18 @@ class AVoltaSobrevive(unittest.TestCase):
                 W.correr(pausa=0, verboso=False)
             self.assertEqual(len(self.chamadas), antes, "um BLOCK voltou a ser tentado")
 
+    # 5 -----------------------------------------------------------------------
+    def test_5_a_volta_refaz_a_fila_precisa_de_ia_ao_lado_do_livro(self):
+        """D32 (7) continua: cada volta refaz a FILA-PRECISA-DE-IA (escritor: o robo) e diz quanto
+        tem; escreve-a ao lado do livro de estados, nunca na arvore real durante um teste."""
+        import bancada_ia as BIA   # noqa: PLC0415
+        LC.registar("CAND-7001", LC.SEMANTIC_REVIEW, "territorio indeterminado pelo nome")
+        v = CC.uma_volta(pausa=0)
+        self.assertIn("TOTAL", v["FILA_IA"], v["FILA_IA"])
+        self.assertGreaterEqual(v["FILA_IA"]["TOTAL"], 1)
+        self.assertTrue((LC.LIVRO.parent / BIA.FILA_IA.name).exists())
+        self.assertEqual("FILA_IA" in linhas_de(CC.DIARIO)[-1], True)
+
 
 def linhas_de(p: Path) -> list[dict]:
     return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
