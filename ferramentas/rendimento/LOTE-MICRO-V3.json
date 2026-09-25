@@ -1,0 +1,143 @@
+{
+ "DATASET": "LOTE-MICRO-V3",
+ "DECISAO": "D45 (bot Luciano, 25/09)",
+ "REGRA": "ferramentas/rendimento/REGRA-LOTE-MICRO-V3.md (commit ae7fac6e, 05:40:32, ANTES de abrir os insumos)",
+ "INSUMOS_SHA256": {
+  "coorte": "c168e19236136761369998d4c63272ea5eab8fa4b0d580c67c83a03225d7f4bb",
+  "d40": "15ba6bc332d65833ee8217a0484eca06f61437c17cc10008df5c1cf70e215d0c",
+  "bc5": "972d6be105193e33b0d4cb7278cdd1ecd5bfe41a9d8d9d5d7f1753d9fdef5211"
+ },
+ "REDE": "fechada — nenhum pedido",
+ "CRITERIO_D35": {
+  "NUMERADOR": "documentos com SIM na Admissao (linhas novas da sala_de_espera)",
+  "DENOMINADOR": "fontes que CORRERAM (1.a onda: 3 SIM / 18 fontes = 16,7%)",
+  "PASSA_SE": "SIM/fontes_que_correram > 16,7% E >= 2 SIM (bot Luciano, 6 fontes)",
+  "NAO_RODOU": "fica NAO_RODOU com o motivo; nao e 0 SIM; sai do denominador"
+ },
+ "ESCOLHA": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "UNIVERSO": "T10",
+   "HOST": "www.myfruit.it",
+   "DOMINIO": "myfruit.it",
+   "ALVOS_NOVOS_D40": 3,
+   "D40_MEDIDO": "OK",
+   "BC5_SIM": 3,
+   "BC5_JULGADOS": 3,
+   "BC5_CORREU": true,
+   "PASSO": "1 OBRIGATORIA (myfruit)",
+   "PREVISAO_DOCUMENTOS_NOVOS": 3,
+   "PREVISAO_SIM": 3.0,
+   "PREVISAO_SIM_COMO": "docs novos x (SIM/julgados na BC5 = 3/3)",
+   "SE_NAO_RODAR": "NAO_RODOU (com o motivo) — nao conta como 0 SIM e sai do denominador"
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "UNIVERSO": "T2",
+   "HOST": "www.arpa.marche.it",
+   "DOMINIO": "arpa.marche.it",
+   "ALVOS_NOVOS_D40": 3,
+   "D40_MEDIDO": "OK",
+   "BC5_SIM": 0,
+   "BC5_JULGADOS": 0,
+   "BC5_CORREU": true,
+   "PASSO": "2 AGENCIA T2",
+   "PREVISAO_DOCUMENTOS_NOVOS": 3,
+   "PREVISAO_SIM": "NAO_SEI",
+   "PREVISAO_SIM_COMO": "correu na BC5 mas 0 documentos julgados",
+   "SE_NAO_RODAR": "NAO_RODOU (com o motivo) — nao conta como 0 SIM e sai do denominador"
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "UNIVERSO": "T2",
+   "HOST": "www.arpae.it",
+   "DOMINIO": "arpae.it",
+   "ALVOS_NOVOS_D40": 3,
+   "D40_MEDIDO": "OK",
+   "BC5_SIM": 0,
+   "BC5_JULGADOS": 0,
+   "BC5_CORREU": true,
+   "PASSO": "2 AGENCIA T2",
+   "PREVISAO_DOCUMENTOS_NOVOS": 3,
+   "PREVISAO_SIM": "NAO_SEI",
+   "PREVISAO_SIM_COMO": "correu na BC5 mas 0 documentos julgados",
+   "SE_NAO_RODAR": "NAO_RODOU (com o motivo) — nao conta como 0 SIM e sai do denominador"
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "UNIVERSO": "T10",
+   "HOST": "plantgest.imagelinenetwork.com",
+   "DOMINIO": "imagelinenetwork.com",
+   "ALVOS_NOVOS_D40": 3,
+   "D40_MEDIDO": "OK",
+   "BC5_SIM": 0,
+   "BC5_JULGADOS": 0,
+   "BC5_CORREU": true,
+   "PASSO": "4 CRITERIO C",
+   "PREVISAO_DOCUMENTOS_NOVOS": 3,
+   "PREVISAO_SIM": "NAO_SEI",
+   "PREVISAO_SIM_COMO": "correu na BC5 mas 0 documentos julgados",
+   "SE_NAO_RODAR": "NAO_RODOU (com o motivo) — nao conta como 0 SIM e sai do denominador"
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "UNIVERSO": "T7",
+   "HOST": "www.riuniteciv.com",
+   "DOMINIO": "riuniteciv.com",
+   "ALVOS_NOVOS_D40": 3,
+   "D40_MEDIDO": "OK",
+   "BC5_SIM": 0,
+   "BC5_JULGADOS": 0,
+   "BC5_CORREU": true,
+   "PASSO": "4 CRITERIO C",
+   "PREVISAO_DOCUMENTOS_NOVOS": 3,
+   "PREVISAO_SIM": "NAO_SEI",
+   "PREVISAO_SIM_COMO": "correu na BC5 mas 0 documentos julgados",
+   "SE_NAO_RODAR": "NAO_RODOU (com o motivo) — nao conta como 0 SIM e sai do denominador"
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "UNIVERSO": "T7",
+   "HOST": "www.etvilloresi.it",
+   "DOMINIO": "etvilloresi.it",
+   "ALVOS_NOVOS_D40": 3,
+   "D40_MEDIDO": "OK",
+   "BC5_SIM": 0,
+   "BC5_JULGADOS": 1,
+   "BC5_CORREU": true,
+   "PASSO": "4 CRITERIO C",
+   "PREVISAO_DOCUMENTOS_NOVOS": 3,
+   "PREVISAO_SIM": 0.0,
+   "PREVISAO_SIM_COMO": "docs novos x (SIM/julgados na BC5 = 0/1)",
+   "SE_NAO_RODAR": "NAO_RODOU (com o motivo) — nao conta como 0 SIM e sai do denominador"
+  }
+ ],
+ "FORA": [
+  {
+   "SOURCE_ID": "IT-T5-090",
+   "PORQUE": "ISTAT fora por decisao da missao (D45)"
+  }
+ ],
+ "NOTAS_DA_REGRA": [
+  "SEM_ELEGIVEL_T1: a coorte nao tem fonte com UNIVERSO=T1; a vaga passa ao passo 4"
+ ],
+ "PREVISAO_TOTAL": {
+  "DOCUMENTOS_NOVOS": 18,
+  "SIM_SO_DAS_FONTES_COM_HISTORICO": 3.0,
+  "FONTES_COM_SIM_NAO_SEI": [
+   "IT-T2-034",
+   "IT-T2-051",
+   "IT-T10-021",
+   "IT-T7-017"
+  ]
+ },
+ "UNIVERSO_DA_REGRA": 28,
+ "ACHADOS_AO_APLICAR_A_REGRA": [
+  "A regra aplicou-se como esta, sem ser reescrita depois de ver os insumos.",
+  "Passo 2: as 2 agencias T2 escolhidas (IT-T2-034 ARPA Marche, IT-T2-051 ARPAE) sao as unicas T2 com D40 medido (3 alvos cada); as ARPA da Liguria, Toscana, Campania e Veneto nao tem medicao D40 e contam 0 pela regra. Os contratos das duas escolhidas apontam para as NOTICIAS GERAIS da agencia; o gabarito T2-T12 V3 (lido a mao) julgou 3 itens da ARPA Marche como evento/institucional/balnear — NAO janela (contratos-12-v1: COORTE-29-LISTA.md). A regua T2 julga-as; esperar SIM de clima, nao de janela de cultura.",
+  "Passo 3: SEM_ELEGIVEL_T1 — nenhuma fonte da coorte tem UNIVERSO=T1.",
+  "Passo 4: IT-T10-021, IT-T7-017 e IT-T7-021 (3 alvos D40 cada; empate desfeito por SIM da BC5 = 0 e depois pelo SOURCE_ID).",
+  "A previsao de >= 2 SIM assenta quase so na myfruit (3 previstos, 3/3 na BC5). Das outras 5, 4 sao NAO_SEI (correram na BC5 com 0 documentos julgados) e a Villoresi preve 0 (0/1). Se a myfruit trouxer menos de 2 SIM, o lote so passa com SIM das NAO_SEI.",
+  "Nenhuma das 6 partilha dominio registavel: o teto D38 nao corta dentro do lote."
+ ]
+}
