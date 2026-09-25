@@ -3574,9 +3574,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/publication-time-source-location-ux4cuc",
-    "HEAD": "8f91441cbaf1c749970633bc682e6daf67804f71",
-    "GENERATED_AT": "2026-09-25T14:13:07+00:00",
-    "SOURCE_TREE_FINGERPRINT": "439fc981bf46d17618bf196591a5335eb26b21cc2d08dc0cffae562370ad541f"
+    "HEAD": "885fdd40891ba44dda94aedbe4434e5062ca7c89",
+    "GENERATED_AT": "2026-09-25T14:52:19+00:00",
+    "SOURCE_TREE_FINGERPRINT": "935534a0feabae9b0735fb2a77c0969044a0dc292c3d80e8f6d3d08e4299e5fc"
   },
   "FAMILIES": [
     {
@@ -43823,7 +43823,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/executor_texto_de_html.py:604",
+          "coleta/executor_texto_de_html.py:654",
           "coleta/executor_texto_de_pdf.py:299",
           "coleta/executor_transcricao_midia.py:303",
           "guarda/memoria_descartavel.py:43"
@@ -44673,12 +44673,14 @@
         "papel": "NAO SEI",
         "listas": [
           "CAPACIDADE",
+          "NOMES_DA_PUBLICACAO",
+          "_DIAS_IT",
           "_NUM",
           "_RELATIVAS"
         ],
-        "palavras": 39,
+        "palavras": 59,
         "por_lingua": {},
-        "sem_marca_de_lingua": 39,
+        "sem_marca_de_lingua": 59,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -89414,7 +89416,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 604,
+          "line": 654,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
