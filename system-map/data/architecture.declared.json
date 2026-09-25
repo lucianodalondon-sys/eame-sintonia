@@ -368,7 +368,7 @@
    "views": [
     "acervo"
    ],
-   "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte.",
+   "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou).",
    "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
    "departments": [
     "INTELIGENCIA",
@@ -379,7 +379,8 @@
     "coleta/italy_find_docs.mjs",
     "coleta/italy_pilot_collect.mjs",
     "coleta/italy_probe.mjs",
-    "coleta/italy_recurrent_collect.mjs"
+    "coleta/italy_recurrent_collect.mjs",
+    "coleta/nome_da_pasta.mjs"
    ]
   },
   {
@@ -552,7 +553,7 @@
    "views": [
     "audit"
    ],
-   "what": "Conta o que foi medido e tenta quebrar o que foi guardado, com casos negativos de proposito.",
+   "what": "Conta o que foi medido e tenta quebrar o que foi guardado, com casos negativos de proposito. `nome_da_pasta_windows.mjs` (FECHAR-ONDA2-B) prova, sem rede e com mkdir real, que os 42 contratos em risco do robo vivo (37 com `?` no LINK_PATTERN) dao nomes de pasta validos, sem colisao, sem mudar o DOCUMENT_ID, e que as pastas ja guardadas mantem o nome.",
    "why_here": "Numero digitado a mao mente: o placar errou duas vezes e a contagem de organizacoes tres. A contabilidade passou a ser CALCULADA, nunca digitada. E `ACCESS_CLASSIFICATION` nao e `ANALYTIC_VERDICT` — estado de porta nao e veredito sobre a fonte.",
    "departments": [
     "ENGENHARIA"
@@ -561,7 +562,9 @@
     "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
     "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
     "provas/italy_accounting.mjs",
-    "provas/italy_pilot_negativos.mjs"
+    "provas/italy_pilot_negativos.mjs",
+    "provas/nome_da_pasta_windows.mjs",
+    "provas/nome_da_pasta_contratos_em_risco.json"
    ]
   },
   {
