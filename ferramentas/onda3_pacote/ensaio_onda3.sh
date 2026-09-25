@@ -27,7 +27,10 @@ echo "FOTO $(date -u '+%F %TZ') dos $(echo $LIVROS | wc -w) livros (ficheiros su
 # o pacote NAO pode mudar nenhum livro no Git (senao o merge recusa ou pisa o livro vivo)
 TOCA=$(git -C $REPO diff --name-only $(git -C $VIVO rev-parse HEAD) $PACOTE -- $LIVROS | wc -l)
 echo "livros que o pacote muda no Git: $TOCA" | tee $OUT/0-pacote-toca-livros.txt; [ "$TOCA" = 0 ] || { echo "PACOTE TOCA LIVROS - PARAR"; exit 3; }
-for f in $LIVROS; do cp $VIVO/$f $C/$f; echo "$(sha256sum $VIVO/$f | cut -c1-64) $f" >> $OUT/0-FOTO-DOS-LIVROS.txt; done
+# a FOTO fica guardada fora da copia: o desfazer repoe DESTA foto, como o plano repoe do $CORTE
+# (o vivo continua a escrever — a 2.a onda corria durante o ensaio de 25/09 — e reler o vivo nao prova nada)
+FOTO=C:/ens-o3-foto; rm -rf $FOTO
+for f in $LIVROS; do mkdir -p $FOTO/$(dirname $f); cp $VIVO/$f $FOTO/$f; cp $FOTO/$f $C/$f; echo "$(sha256sum $FOTO/$f | cut -c1-64) $f" >> $OUT/0-FOTO-DOS-LIVROS.txt; done
 cd $C
 py -c "import urllib.request;urllib.request.urlopen('https://www.cia.it',timeout=5)" >/dev/null 2>&1 && { echo "REDE ABERTA - PARAR"; exit 2; } || echo "rede fechada: confirmada (www.cia.it recusado)" | tee -a $OUT/0-copia.txt
 
@@ -131,7 +134,7 @@ py -B curadoria/retirar_por_decisao.py --decisao D52 --reverter --escrever 2>/de
 # como no vivo: o codigo volta por reset --keep (o pacote nao toca livros, por isso nada recusa),
 # e os livros escritos (contratos pela D49/D51; tabela e prova pelo onboarding; livro e fila pela HR-6) voltam da foto
 $G reset -q --keep $HEAD_VIVO; echo "reset --keep rc=$?" | tee $OUT/8-desfazer-reset.txt
-for f in $LIVROS; do cp $VIVO/$f $C/$f; done
+for f in $LIVROS; do cp $FOTO/$f $C/$f; done
 ( for f in $LIVROS; do sha256sum $f; done ) > $OUT/8-livros-desfeito.sha
 diff -q $OUT/1-livros-antes.sha $OUT/8-livros-desfeito.sha >/dev/null && echo "DESFAZER: livros = foto do vivo" | tee $OUT/8-desfazer.txt || echo "DESFAZER: livros DIFERENTES" | tee $OUT/8-desfazer.txt
 # o codigo compara-se SEM os 14 livros (esses estao sujos no proprio vivo, por desenho)
@@ -140,5 +143,5 @@ DIF=$($G diff --name-only $HEAD_VIVO | grep -v -x -F -f <(echo "$LIVROS" | tr ' 
 echo "tabela $(sha256sum regras/italy_contracts_onboarded.json | cut -c1-8) (vivo $T0) · ficheiros de codigo diferentes do vivo: $DIF · HEAD = vivo: $([ "$($G rev-parse HEAD)" = "$HEAD_VIVO" ] && echo SIM || echo NAO)" | tee -a $OUT/8-desfazer.txt
 py -B scripts/micro_coleta/micro_coleta.py plano 2>/dev/null | py -c "import json,sys;p=json.load(sys.stdin);print('plano depois de desfazer: PRONTAS',p['PRONTAS'])" | tee -a $OUT/8-desfazer.txt
 cd /c
-git -C $REPO worktree remove --force $C
+git -C $REPO worktree remove --force $C; rm -rf $FOTO
 echo "copia removida"
