@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T10:49:56+00:00",
-  "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-  "BRANCH": "micro-v3-fontes-v1",
+  "GENERATED_AT": "2026-09-25T13:22:38+00:00",
+  "HEAD": "cf372dcb8c72e3d6b0b80f72529f4f73c275bd98",
+  "BRANCH": "lugar-fato-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
-  "FICHEIROS_NA_IMPRESSAO": 3126,
+  "SOURCE_TREE_FINGERPRINT": "072f569354c256486421c96e4e09a21d6202eb0e1501adaa4f2bc903da0f72ce",
+  "FICHEIROS_NA_IMPRESSAO": 3133,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1652,6 +1652,13 @@
     "PATH": "leis/falhas.py",
     "PAPEL": "FONTE",
     "VERSAO": "6f4a400d659a1f22b5662b0a4196a7c450e9df00",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "leis/fato_do_texto.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "18a1546527bf34dd3e8c4ade76b7f28175f95c79",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3721,6 +3728,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/lugar_fato/medir_78.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "09c6275d23982c1315caa604ba46f09d18876a75",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/lugar_fato/mutar_fato_do_texto.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "dff90a9d099fdf9a1a9a7fa5c1c6f3e7cd9794be",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/micro_coleta/ensaio_offline.py",
     "PAPEL": "FONTE",
     "VERSAO": "6eaa340dc8c882f289f8e8b2441e96901fec56d0",
@@ -3975,14 +3996,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "072f569354c256486421c96e4e09a21d6202eb0e1501adaa4f2bc903da0f72ce",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "072f569354c256486421c96e4e09a21d6202eb0e1501adaa4f2bc903da0f72ce",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5023,6 +5044,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_fato_do_texto.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d78967908ec80af762ad3779fb3dc4256b875500",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_fechar_ground_truth_t3.py",
     "PAPEL": "FONTE",
     "VERSAO": "b23dd7f9a37f6137ed7b48958ab76731a63b4e8d",
@@ -5912,8 +5940,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 839,
-  "INPUTS_DIGEST": "40f2cdee567d0cc3a674061fb05d119fb7941b4b7a835e90f978b7bdb253c472",
+  "INPUTS_COUNT": 843,
+  "INPUTS_DIGEST": "adf63b8dc6915c800ba505de186cd2843f925d46348031ae870c3e05758d29ee",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5939,15 +5967,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 516,
+  "DOCUMENTOS_LIDOS": 517,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6afcd06017beba34794580a9520664b50831363dd44d157aeaf592ce022d6f56",
-  "SEMANTIC_HASH": "c5b340994ded1e1e82e5decffe174c1ef24ef66eed16fb03a0587b23343c9748"
+  "MEASUREMENT_HASH": "59b935d00a9bde58d3cb4d94b66782342a5c3af838833c16bd1ee2ba35cdb77f",
+  "SEMANTIC_HASH": "fe85deb4151b39664cb2b8d615aaa45f8480027ee3617feb8ea7d939e3149e5c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -27396,6 +27424,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_fato_do_texto.py",
+      "LINHA": 14,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_lugar_do_fato.py",
       "LINHA": 22,
@@ -49373,14 +49409,21 @@
    "KIND": "contract",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "RELATORIO-LUGAR-FATO.md",
+    "leis/fato_do_texto.py",
     "leis/fato_local.py",
-    "leis/lugar_do_fato.py"
+    "leis/lugar_do_fato.py",
+    "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+    "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
+    "scripts/lugar_fato/medir_78.py",
+    "scripts/lugar_fato/mutar_fato_do_texto.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/a_collection_preserva_o_fato.py",
     "system-map/scripts/generate_system_map.py",
     "tests/test_c7_lugar_do_fato.py",
+    "tests/test_fato_do_texto.py",
     "tests/test_lugar_do_fato.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -49388,7 +49431,11 @@
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
-   "LE_DE": [],
+   "LE_DE": [
+    "__future__",
+    "datetime",
+    "pathlib"
+   ],
    "ENTRAM": 0,
    "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [],
@@ -54115,6 +54162,7 @@
     "tests/test_execucao_standalone.py",
     "tests/test_falhas.py",
     "tests/test_fase_italiana_no_workflow.py",
+    "tests/test_fato_do_texto.py",
     "tests/test_fechar_ground_truth_t3.py",
     "tests/test_fila_italia_decisoes.py",
     "tests/test_fonte_atravessa.py",
