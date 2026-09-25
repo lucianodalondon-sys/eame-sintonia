@@ -181,12 +181,12 @@ certa mas de um evento fora do agro; **2 de 18 erradas** (eram 4 de 20).
 
 ## 5. Testes e mutação
 
-- `tests/test_fato_do_texto.py` — **38 testes, verdes**; e `tests/test_artefato_tempo_do_fato.py` — **14 da lei** (D70) (`py -m unittest tests.test_fato_do_texto`).
+- `tests/test_fato_do_texto.py` — **44 testes, verdes**; e `tests/test_artefato_tempo_do_fato.py` — **14 da lei** (D70) (`py -m unittest tests.test_fato_do_texto`).
   Novos nesta volta: D64 (5 formas de «oggi» que são o dia, 5 que não são, «oggi» sem publicação),
   (a) produção numa notícia de mercado é CAMPO/OTHER, mercado perto continua MERCADO, produção longe
   (>60 letras) não conta, (b) exame adiado = INSTITUCIONAL_NAO_FATO, «agricoltura» não amarra data,
   termo de comparação, duas contas = AMBIGUO.
-- `scripts/lugar_fato/mutar_fato_do_texto.py` → `MUTACAO-FATO-DO-TEXTO-V1.json`: **36 mutantes, 36 mortos**; e a lei: **11 de 11** (secção 6b).
+- `scripts/lugar_fato/mutar_fato_do_texto.py` → `MUTACAO-FATO-DO-TEXTO-V1.json`: **45 mutantes, 45 mortos**; e a lei: **11 de 11** (secção 6b).
   Só conta como morto se **um teste falhou** (asserção); erro de execução não conta.
   M1 source_location copiado · M2 publicação vira fact_time · M3 menu conta · M4 rodapé conta ·
   M5 relativa sem base da publicação · **M5b a conta usa a data de coleta (hoje) em vez da publicação** ·
@@ -284,6 +284,52 @@ para a lei — que comparava **letras** — deixar passar. A D70 (bot Luciano) c
 **A medida nas 78 não mudou nos totais** (lugar 12, data 18, relativas contadas 0). Três expressões
 relativas mudaram de tipo na EVIDENCIA, porque o tipo passou a ler-se na **frase inteira**, e não nas
 primeiras 200 letras.
+
+## 6c. Os casos do ensaio do PACOTE-TEMPO-LUGAR (25/09, depois da 033 na Sala real)
+
+| caso | porquê | conserto |
+|---|---|---|
+| **(1) lugar sim, data não, na mesma frase** — IT-T3-008 «lo scarto climatico **registrato** nella settimana scorsa … su gran parte della Puglia» | o leitor tem duas listas: «registrato» está na lista do **lugar** (`ANCORAS_POSITIVAS`) e não na do **tempo** (`ANCORAS_DE_TEMPO_DO_FATO`) | a relativa fica presa ao facto com palavra de **qualquer** das duas listas, menos «bollettino» («il prossimo bollettino … la prossima settimana» não é facto). Com a publicação provada, dá `2026-09-07/2026-09-13` (semana, CALCULADA) |
+| **(2) «luglio» num conselho** — IT-T3-010 «- eseguire la "diagnosi precoce" in luglio e agosto» | recomendação para o futuro, não facto acontecido; e a mesma frase **repetia-se partida por uma quebra de linha** («precoce" in luglio…»), já sem o «eseguire» | frase de conselho (si consiglia, si raccomanda, occorre, bisogna, «- eseguire / effettuare / trattare…» no começo…) → `RECOMENDACAO_NAO_FATO`; o pedaço de um conselho continua conselho. O mês vai para `EVIDENCIA.JANELA_RECOMENDADA` (**sem chave nova** no retorno). Vale também para as relativas («si consiglia di intervenire la prossima settimana») |
+| **(3) lugares perdidos** — IT-T5-030 «Università di Teramo» (×2), IT-T10-018 «Firenze» | Teramo: o leitor guarda só as primeiras **300 letras** da frase, e a palavra «seminario» vinha depois. Firenze: «14 **punti vendita**» não era palavra de mercado | lê-se a **frase inteira**; «punti vendita / grande distribuzione / supermercato» a até 60 letras do lugar → MERCADO («prezzo» ficou de fora: os títulos da barra lateral repetem-se em dezenas de páginas) |
+
+**Sem aumentar erros — e o que apareceu no caminho.** Ler a frase inteira trouxe dois erros novos, que
+tirei antes de entregar:
+- «dall'**America Latina**» virava a província de Latina;
+- «con focus sull'**Italia**» virava lugar de evento.
+
+Nas 78, **todos** os lugares do tamanho de um país que este ficheiro promovia estavam errados (4 de 4).
+Numa fonte italiana, «Italia» como lugar de evento, mercado ou produção não diz nada. Por isso já não se
+promove país (os do leitor italiano ficam como estão), e «America Latina» não é Latina.
+
+**A medida, antes → depois, linha a linha (todas as que mudaram):**
+
+| notícia | antes | depois | leitura |
+|---|---|---|---|
+| IT-T3-010 | tempo «luglio» | NAO SEI (+ janela recomendada) | erro tirado |
+| IT-T5-033 (×2) | lugar «Italy» | NAO SEI | 2 erros tirados |
+| IT-T5-010 | Ferrara ; Italia | Ferrara | meio certo → certo |
+| IT-T10-018 (Macfrut) | Rimini ; Piemonte ; Italia | Rimini ; Piemonte | continua meio certo |
+| IT-T5-030 (×2) | NAO SEI | Teramo (EVENTO) | acerto novo (o evento é fora do agro: é a REGUA-FATO quem o etiqueta) |
+| IT-T10-018 (piccoli frutti) | NAO SEI | Firenze (MERCADO) | acerto novo |
+| IT-T3-008 (só com publicação provada) | NAO SEI | 2026-09-07/2026-09-13 | acerto novo (na Sala a base da publicação ainda não chega: simulado) |
+
+**Totais nas 78:**
+- **lugar 13 de 78**: 11 certos, 2 meio certos, **0 errados** (antes 12: 7 · 3 · 2);
+- **data 17 de 78**: 13 certas, 3 de evento fora do agro, **1 errada** — «2025», ano de comparação de preço
+  (antes 18, com 2 erradas);
+- com publicação provada (simulada), **1** relativa contada (antes 0).
+
+A classificação é minha, pelos trechos; pode ter erro de um ou dois.
+
+**Provas:**
+- testes do extrator **44** (+6);
+- mutação do extrator **45 de 45** (M33–M41: relativa só com âncora de tempo · «bollettino» prende a relativa
+  · conselho é facto · pedaço de conselho é facto · conselho relativo conta · frase cortada a 300 · loja não é
+  mercado · país promovido · America Latina é Latina);
+- lei **11 de 11**.
+- Errei uma vez: o primeiro M39 «sobreviveu» com erros de execução — o mutante estava mal escrito, não o
+  teste. Refeito, morre por asserção.
 
 ## 7. Coordenação com as outras bancadas
 

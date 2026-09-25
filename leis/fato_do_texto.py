@@ -246,6 +246,30 @@ def _presa_ao_campo(frase: str) -> bool:
     return _RE_ANCORAS_DE_CAMPO.search(FL._baixo(frase)) is not None
 
 
+# O leitor tem DUAS listas de palavras de acontecimento: uma para o tempo (ANCORAS_DE_TEMPO_DO_FATO) e outra
+# para o lugar (ANCORAS_POSITIVAS). Medido no ensaio do PACOTE (IT-T3-008): «lo scarto climatico registrato
+# nella settimana scorsa … su gran parte della Puglia» dava o LUGAR (âncora «registrato») e deixava a DATA
+# em NAO SEI, na mesma frase — «registrato» so esta na lista do lugar. Uma relativa fica presa ao facto se a
+# frase tiver palavra de QUALQUER das duas listas. «bollettino» fica de fora: «il prossimo bollettino … la
+# prossima settimana» fala do boletim, nao de um acontecimento.
+_ANCORAS_DE_LUGAR_PARA_O_TEMPO = tuple(a for a in FL.ANCORAS_POSITIVAS if "bollettino" not in a[0])
+
+
+def _relativa_presa_ao_campo(frase: str) -> bool:
+    return _presa_ao_campo(frase) or bool(FL._ancoras(frase, _ANCORAS_DE_LUGAR_PARA_O_TEMPO))
+
+
+# ── o CONSELHO nao e facto acontecido ─────────────────────────────────────────
+# Medido nas 78 (IT-T3-010): «- eseguire la "diagnosi precoce" in luglio e agosto per verificare…» saia
+# fact_time = luglio. E uma recomendacao para o futuro: NAO SEI, e o mes fica em EVIDENCIA.JANELA_RECOMENDADA.
+_RE_RECOMENDACAO = re.compile(
+    r"(?<![0-9a-zà-ÿ])(?:si\s+consiglia|si\s+raccomanda|si\s+suggerisce|si\s+invita(?:no)?|si\s+ricorda\s+di|"
+    r"(?:è|e['’])\s+(?:consigliabile|opportuno|necessario|bene)|occorre|bisogna|consigliat[oaie]|raccomandat[oaie]|"
+    r"da\s+(?:eseguire|effettuare|fare)|si\s+dovr[àa])(?![0-9a-zà-ÿ])"
+    r"|^\s*[-•*–]?\s*(?:eseguire|effettuare|fare|intervenire|trattare|monitorare|controllare|verificare|applicare|"
+    r"installare|posizionare|distribuire|irrigare|potare|programmare|prevedere)(?![0-9a-zà-ÿ])", re.I)
+
+
 # ── a frase institucional: data de exame, aula, curso, inscricao nao e facto do agro ──
 # (coordenacao, 25/09: «exame de faculdade adiado nao e facto do ecossistema agro» -> INSTITUCIONAL_NAO_FATO,
 # o mesmo nome do tipo da REGUA-FATO, `leis/tipo_do_fato.py`)
@@ -255,19 +279,29 @@ _RE_INSTITUCIONAL = re.compile(
     r"sessione\s+di\s+laurea|colloqui[oa]?)(?![0-9a-zà-ÿ])", re.I)
 
 
-def _tempo_de_campo(t: str, pub: date | None, tapados: list) -> dict:
-    """Pergunta ao leitor; se a data que ele escolhe vem de uma frase institucional ou de uma ancora que
-    so existia DENTRO de outra palavra, tapa-a nessa frase e pergunta de novo."""
-    for _ in range(12):
+def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | None = None) -> dict:
+    """Pergunta ao leitor; se a data que ele escolhe vem de uma frase institucional, de um CONSELHO, ou de
+    uma ancora que so existia DENTRO de outra palavra, tapa-a nessa frase e pergunta de novo."""
+    conselhos = []            # medido (IT-T3-010): a mesma frase de conselho repete-se partida por uma quebra
+    for _ in range(12):       # de linha («precoce" in luglio…») — o pedaco de um conselho continua conselho
         r = FL.tempo_do_fato(t, pub.isoformat() if pub else None)
         v, ev = r.get("FACT_TIME"), r.get("FACT_TIME_EVIDENCE") or ""
         if v in (None, "NOT_KNOWN"):
             return r
+        pedaco = _trecho(ev, 400).lower()
+        e_conselho = bool(_RE_RECOMENDACAO.search(ev)) or (len(pedaco) >= 30 and any(pedaco in c for c in conselhos))
+        if e_conselho:
+            conselhos.append(pedaco)
         motivo = ("INSTITUCIONAL_NAO_FATO" if _RE_INSTITUCIONAL.search(ev)
+                  else "RECOMENDACAO_NAO_FATO" if e_conselho
                   else None if _presa_ao_campo(ev) else "ANCORA_DENTRO_DE_OUTRA_PALAVRA")
         if not motivo:
             return r
-        tapados.append("%s «%s»" % (motivo, v))
+        if motivo == "RECOMENDACAO_NAO_FATO" and janelas is not None and not any(
+                j["VALOR"] == v and _trecho(ev, 400).lower() in j["TRECHO"].lower() for j in janelas):
+            janelas.append({"VALOR": v, "TRECHO": _trecho(ev, 400)})
+        if "%s «%s»" % (motivo, v) not in tapados:
+            tapados.append("%s «%s»" % (motivo, v))
         i = t.find(ev[:60])
         if i < 0:
             break
@@ -342,6 +376,11 @@ _RE_EVENTO = re.compile(r"(?<![0-9a-zà-ÿ])(?:%s)(?![0-9a-zà-ÿ])" % "|".join(
 RECUSA_QUE_PODE_SER_EVENTO = ("local de evento", "afiliação institucional",
                               "topônimo sem relação semântica com o acontecimento")
 RECUSA_QUE_E_MERCADO = ("área econômica",)
+# lojas: o preco medido em «14 punti vendita» a Firenze e MERCADO (ensaio do PACOTE, IT-T10-018). So perto
+# do lugar (a mesma distancia da producao) e so palavras de loja — «prezzo» ficou de fora: os titulos da
+# barra lateral («a Firenze prezzo mirtilli») repetem-se em dezenas de paginas.
+_RE_LOJA = re.compile(r"(?<![0-9a-zà-ÿ])(?:punt[oi]\s+(?:di\s+)?vendita|grande\s+distribuzione|"
+                      r"supermercat[oi]|ipermercat[oi])(?![0-9a-zà-ÿ])", re.I)
 _RE_MERCADO = re.compile(r"(?<![0-9a-zà-ÿ])mercat[oi](?![0-9a-zà-ÿ])", re.I)
 
 # ── 4b · o lugar onde se PLANTA / COLHE e CAMPO, mesmo numa noticia de mercado (coordenacao, 25/09) ──
@@ -412,7 +451,17 @@ def _lugares(c: str) -> tuple[list, list]:
     sobra = []
     for r in recusadas:
         kind, ancora, especie = None, None, None
+        # o leitor guarda so as primeiras 300 letras da frase: a palavra de evento pode vir depois (IT-T5-030,
+        # «… dell'Università di Teramo ospita … seminario»). Le-se a frase INTEIRA do corpo.
+        i = c.find(r["EVIDENCE"][:80])
+        frase = _frase_em(c, i) if i >= 0 else r["EVIDENCE"]
+        r = dict(r, EVIDENCE=frase)
         pos = _posicao_do_nome(r["PLACE"], r["EVIDENCE"])
+        # Nas 78, TODO o lugar do tamanho de um pais promovido aqui estava errado (4 de 4: «focus sull'Italia»,
+        # «Made in Italy», o menu de paises): numa fonte italiana, «Italia» como lugar de evento/mercado/
+        # producao nao diz nada. E um nome maior que contem uma provincia nao e a provincia.
+        if r["PRECISION"] == "COUNTRY" or (pos is not None and _NOME_MAIOR.search(r["EVIDENCE"][max(0, pos - 12):pos + len(r["PLACE"]) + 12])):
+            pos = None
         if r["STATE"] != FL.TERRITORIAL_LIST and pos is not None:
             # a ancora MAIS PERTO do lugar decide, antes ou depois dele («del mercato In Sardegna si producono»)
             cands = []
@@ -423,6 +472,9 @@ def _lugares(c: str) -> tuple[list, list]:
                           if _distancia(m, pos, len(r["PLACE"])) <= DISTANCIA_MAXIMA_DA_PRODUCAO]
             if r["WHY"] in RECUSA_QUE_E_MERCADO:
                 cands += [(m, MERCADO, None) for m in _RE_MERCADO.finditer(r["EVIDENCE"])]
+            if r["WHY"] in RECUSA_QUE_PODE_SER_PRODUCAO:
+                cands += [(m, MERCADO, None) for m in _RE_LOJA.finditer(r["EVIDENCE"])
+                          if _distancia(m, pos, len(r["PLACE"])) <= DISTANCIA_MAXIMA_DA_PRODUCAO]
             if cands:
                 m, kind, especie = min(cands, key=lambda c: _distancia(c[0], pos, len(r["PLACE"])))
                 ancora = m.group(0)
@@ -439,6 +491,8 @@ def _lugares(c: str) -> tuple[list, list]:
 
 
 _PRECISAO_ORDEM = ("MUNICIPALITY", "PROVINCE", "REGION", "COUNTRY")
+# nomes maiores que contem um topónimo do gazetteer e nao sao ele (medido: «dall'America Latina» -> Latina)
+_NOME_MAIOR = re.compile(r"America\s+Latina|Latinoamerica", re.I)
 
 
 def campos_do_fato(texto: str, publication_time: str | None = None,
@@ -471,15 +525,18 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
         frase = x.pop("_FRASE")
         if _RE_INSTITUCIONAL.search(frase):
             x["KIND"], x["PORQUE"] = None, "frase institucional (exame, aula, curso…): não é facto do agro"
+        elif _RE_RECOMENDACAO.search(frase):
+            x["KIND"], x["PORQUE"] = None, "conselho / recomendação: não é facto acontecido"
         else:
-            x["KIND"] = CAMPO if _presa_ao_campo(frase) else EVENTO if _RE_EVENTO.search(frase) else None
+            x["KIND"] = CAMPO if _relativa_presa_ao_campo(frase) else EVENTO if _RE_EVENTO.search(frase) else None
             x["PORQUE"] = None if x["KIND"] else "a frase não fala de um acontecimento nem de um evento técnico"
         cr, porque = verificar_relativa(x["EXPRESSAO"], x["TRECHO"], pub)
         if porque:
             x["PORQUE"] = porque
         cr = cr if x["KIND"] else None
         x["CONTA"] = {"VALOR": cr[0], "RESOLUCAO": cr[1]} if cr else None
-    r = _tempo_de_campo(t, pub, tapados)
+    janelas = []
+    r = _tempo_de_campo(t, pub, tapados, janelas)
     eventos = []
     for e in _tempos_de_evento(t, pub):
         if _RE_INSTITUCIONAL.search(e["TRECHO"]):
@@ -551,6 +608,7 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
             "fact_time_calculo": fact_time_calculo, "fact_time_expressao": fact_time_expressao,
             "fact_time_evidencia": fact_time_evidencia,
             "EVIDENCIA": {"LUGARES": lugares, "TEMPO": tempo, "TEMPOS_DE_EVENTO": eventos,
+                          "JANELA_RECOMENDADA": janelas,
                           "EXPRESSOES_RELATIVAS": relativas,
                           "PUBLICACAO_PROVADA": pub.isoformat() if pub else None,
                           "LINHAS_DE_CORPO": len(c.splitlines()) if c else 0}}
