@@ -20,6 +20,7 @@
 //   C7  robots ilegivel (HTML, 500)             -> so o robots e pedido
 //   C8  robots indisponivel (ligacao cortada)   -> so o robots; e NAO fica em cache
 //   C9  robots 404                              -> sem ficheiro = sem proibicao
+//   C9b robots 403 (D34, RFC 9309)              -> qualquer 4xx = indisponivel = sem proibicao
 //   C10 redireccionamento                       -> o salto pede licenca: destino proibido nunca e pedido
 //   C11 o leitor do robots (sem rede)           -> mais longo vence, Allow no empate, `$`, grupo proprio
 //   C12 configuracao invalida                   -> falha alto
@@ -54,6 +55,7 @@ const servidor = createServer((req, res) => {
   if (p === "/robots.txt") {
     if (ROBOTS.modo === "cortar") { req.socket.destroy(); return; }
     if (ROBOTS.modo === "404") { res.writeHead(404); res.end("non trovato"); return; }
+    if (ROBOTS.modo === "403") { res.writeHead(403); res.end("vietato"); return; }
     if (ROBOTS.modo === "500") { res.writeHead(500); res.end("errore"); return; }
     if (ROBOTS.modo === "html") { res.setHeader("Content-Type", "text/html"); res.end("<!DOCTYPE html><html><body>Benvenuti</body></html>"); return; }
     res.setHeader("Content-Type", "text/plain"); res.end(ROBOTS.texto); return;
@@ -262,6 +264,15 @@ try {
   t("C9: robots 404 deixa passar (indice e materia pedidos)", () => {
     assert.deepEqual(c9.caminhos, ["/robots.txt", "/news/", "/news/dieci-a/"]);
     assert.equal(c9.resumo.CORTESIA.ROBOTS[BASE].ESTADO, "AUSENTE");
+  });
+
+  console.log("\n══ C9b · robots 403 = indisponivel = sem proibicao (RFC 9309, D34) ══");
+  ROBOTS = { modo: "403" };
+  INDICE = ["dieci-b"];
+  const c9b = await rodada("C9b"); anota("C9b", c9b);
+  t("C9b: robots 403 deixa passar (RFC 9309 §2.3.1.3: qualquer 4xx = indisponivel)", () => {
+    assert.deepEqual(c9b.caminhos, ["/robots.txt", "/news/", "/news/dieci-b/"]);
+    assert.equal(c9b.resumo.CORTESIA.ROBOTS[BASE].ESTADO, "AUSENTE");
   });
 
   console.log("\n══ C10 · o redireccionamento pede licenca outra vez ═════════════");

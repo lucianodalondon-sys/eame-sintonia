@@ -196,10 +196,10 @@ const REDE = { total: 0 };
 // As tres guardas, cada uma com a regra que ja existia na casa:
 //   ROBOTS  lido por origem, uma vez por corrida, com os estados de
 //           `coleta/scrap_http.py::_carregar_robots`:
-//             404/410            -> AUSENTE      permitido (sem ficheiro = sem proibicao)
-//             200 com regras     -> LIDO         vale o que ele diz
+//             qualquer 4xx       -> AUSENTE      permitido (RFC 9309 §2.3.1.3; D34 — antes so 404/410)
+//             200 com regras     -> LIDO         vale o que ele diz (regra mais especifica vence)
 //             200 com HTML, ou   -> ILEGIVEL     NAO permitido — «nao afirmamos
-//             qualquer outro HTTP                 permissao que nao lemos»
+//             5xx / outro HTTP                    permissao que nao lemos» (5xx: §2.3.1.4)
 //             sem resposta       -> INDISPONIVEL o pedido NAO sai, e NAO e uma
 //                                                 recusa do host; nao fica em
 //                                                 cache (um soluco de rede nao
@@ -412,7 +412,9 @@ async function robotsDaOrigem(origem) {
     // `origemLida` diz a quem o ficheiro pertence; `licenca()` guarda-o para as duas.
     const fimEm = new URL(alvo);
     const origemLida = fimEm.pathname === "/robots.txt" ? fimEm.origin : null;
-    if (r.status === 404 || r.status === 410) return { estado: "AUSENTE", origemLida, porque: `HTTP ${r.status} — o host nao publica robots.txt` };
+    // D34 (RFC 9309 §2.3.1.3): QUALQUER 4xx no robots e «indisponivel» — pode aceder. Antes so
+    // 404/410; 401/403 caiam em ILEGIVEL. O leitor unico Python (coleta/robots_rfc9309.py) le igual.
+    if (r.status >= 400 && r.status < 500) return { estado: "AUSENTE", origemLida, porque: `HTTP ${r.status} — robots indisponivel (RFC 9309 §2.3.1.3)` };
     if (r.status !== 200) return { estado: "ILEGIVEL", origemLida, porque: `HTTP ${r.status} no robots.txt — nao afirmamos permissao que nao lemos` };
     const corpo = r.buf.toString("utf8").trimStart().toLowerCase();
     if (corpo.startsWith("<!doctype") || corpo.startsWith("<html"))

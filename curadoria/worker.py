@@ -61,6 +61,7 @@ import lifecycle as LC             # noqa: E402
 import ready_split as RS           # noqa: E402
 
 CONTRATO = "SOURCE_CURATOR_WORKER/v1"
+RR_VERSAO = GATE.RR.VERSAO     # D34: o leitor unico de robots.txt (RFC 9309)
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
 EVIDENCIA = RAIZ / "curadoria" / "LIFECYCLE-EVIDENCE-V1.json"
 ALLOCATION = RAIZ / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json"
@@ -135,8 +136,16 @@ def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
     except Exception as e:
         return "RETRY", {"PORQUE": "robots.txt ilegivel: %s" % type(e).__name__}
 
-    if GATE.permitido(url, rp):
-        return "OK", {"ROTA": url, "ROBOTS": origem[:120], "PERMITIDO": True}
+    # D34: o leitor unico (RFC 9309) diz a regra que decidiu; o robots INTEIRO fica pela impressao
+    # digital — medido: guardar so os primeiros 120 caracteres deixou 228 de 391 robots lidos sem
+    # a regra que decidia (provas/robots_rfc/ROBOTS-LIVRO-INTEIRO.json).
+    import hashlib
+    dec = GATE.decisao(url, rp)
+    prova = {"ROTA": url, "ROBOTS": origem[:120], "ROBOTS_ESTADO": rp.estado, "REGRA": dec.regra,
+             "ROBOTS_SHA256": hashlib.sha256((rp.texto or "").encode("utf-8")).hexdigest(),
+             "ROBOTS_CARACTERES": len(rp.texto or ""), "LEITOR": RR_VERSAO}
+    if dec.permite:
+        return "OK", dict(prova, PERMITIDO=True)
 
     # ⚠️ NAO SEI != PROIBIDO — e aqui as duas coisas chegam pela MESMA porta.
     # `robots_de` devolve Disallow-total em dois casos muito diferentes: o host
@@ -150,11 +159,16 @@ def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
     #
     # Logo: rede em baixo -> RETRY (volta depois, por conta propria).
     #       Disallow lido de verdade -> BLOCK (para, e chama o dono da politica).
-    if "inacessivel" in origem:
-        return "RETRY", {"ROTA": url, "ROBOTS": origem[:120],
-                         "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"}
-    return "BLOCK", {"CLASSE": "ROBOTS", "ROTA": url, "ROBOTS": origem[:120],
-                     "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"}
+    # D34: pelo ESTADO do leitor unico, nao por uma palavra no texto — um 5xx no robots
+    # (RFC 9309 §2.3.1.4) e NAO SEI como a rede em baixo, e antes caia em BLOCK.
+    if rp.estado == GATE.RR.INACESSIVEL:
+        return "RETRY", dict(prova, PORQUE="robots nao pode ser lido (%s) — UNKNOWN, nao proibicao" % rp.porque)
+    if rp.estado == GATE.RR.ILEGIVEL:
+        return "BLOCK", dict(prova, CLASSE="ROBOTS",
+                             PORQUE=("NAO SEI — o robots.txt veio ilegivel (%s): recusa, como no coletor; "
+                                     "nao e um Disallow lido" % rp.porque))
+    return "BLOCK", dict(prova, CLASSE="ROBOTS",
+                         PORQUE="o endereco do contrato casa com o robots vivo: %s" % dec.regra)
 
 
 def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
