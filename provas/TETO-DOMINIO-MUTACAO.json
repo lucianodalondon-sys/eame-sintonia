@@ -1,0 +1,82 @@
+{
+ "REF": "6497bedd",
+ "MUTANTES": [
+  {
+   "MUTANTE": "M1_NAO_GASTA_NO_LIVRO",
+   "MORTO": true,
+   "CODIGO": 1,
+   "PASSOU_FALHAS": null,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M2_TETO_IGNORA_O_LIVRO",
+   "MORTO": true,
+   "CODIGO": 1,
+   "PASSOU_FALHAS": [
+    4,
+    3
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M3_DOMINIO_E_O_HOST",
+   "MORTO": true,
+   "CODIGO": 1,
+   "PASSOU_FALHAS": [
+    2,
+    5
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M4_MOTIVO_SEMPRE_TETO_POR_HOST",
+   "MORTO": true,
+   "CODIGO": 1,
+   "PASSOU_FALHAS": [
+    6,
+    1
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M5_LIVRO_ILEGIVEL_VIRA_VAZIO",
+   "MORTO": true,
+   "CODIGO": 1,
+   "PASSOU_FALHAS": [
+    6,
+    1
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M6_GOV_IT_NAO_E_SUFIXO",
+   "MORTO": true,
+   "CODIGO": 1,
+   "PASSOU_FALHAS": [
+    6,
+    1
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M7_TETO_MAIOR_EM_VEZ_DE_MAIOR_OU_IGUAL",
+   "MORTO": true,
+   "CODIGO": 1,
+   "PASSOU_FALHAS": [
+    4,
+    3
+   ],
+   "CAUDA": null
+  }
+ ],
+ "SEM_MUTANTE": {
+  "CODIGO": 0,
+  "PASSOU_FALHAS": [
+   7,
+   0
+  ]
+ },
+ "MORTOS": 7,
+ "TOTAL": 7,
+ "NOTA": "M1 morre por a prova rebentar (o livro da onda nunca e criado e D2 le-o), nao por uma verificacao — conta como morto porque a prova deixa de passar, e fica declarado."
+}
