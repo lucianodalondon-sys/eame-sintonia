@@ -3161,12 +3161,31 @@
    ]
   },
   {
+   "id": "C-PONTE-ONBOARD",
+   "name": "A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "sha256 canonico de SOURCE_ID + OUTPUT_TYPE + ACQUISITION — exactamente o que onboardar_rotas_provadas escreve na tabela do coletor. O canario de rotas grava-o na prova (CONTRATO_SHA256, PROVADO_EM); o onboarding so escreve a linha se a impressao provada for igual a do contrato de agora e a prova tiver <= 7 dias. O supervisor chama o onboarding a cada volta (onboardar_se_mudou: so quando a prova muda ou de 10 em 10 min). mutacao.py desliga cada guarda e exige que um teste caia.",
+   "why_here": "PONTE-ONBOARD (25/09/2026): o canario lia o contrato do Git HEAD e o bot escreve no disco sem commitar (HEAD 574 fontes, disco 762); 14 das 17 fontes a onboardar tinham no HEAD outro contrato. E ninguem chamava o onboarding: 0 fontes entraram no coletor com 28 ELIGIBLE a espera. Ensaio em copia do vivo: 0 -> 17.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "curadoria/sha_do_contrato.py",
+    "ferramentas/ponte_onboard/mutacao.py"
+   ]
+  },
+  {
    "id": "C-CANARIO-ROTAS-ELEGIVEIS",
    "name": "O canario das rotas das fontes aprovadas",
    "territory": "Z-MEDIDAS",
    "kind": "engine",
    "icon": "◎",
-   "what": "Para cada fonte que o portao aprova e o coletor nao conhece, prova contra a rede a rota que o Curator DECLAROU: robots pelo leitor da casa (gate_de_rota), INDEX_URL, links de detalhe pelo MESMO motor do coletor (ligacoesDoIndice de regras/motor_de_rota.mjs) e ate 2 alvos retratados pelo gate CAPA != MATERIA. Max 4 pedidos por fonte. Escreve curadoria/ROTAS-ELEGIVEIS-V1.json e mais nada; quem transforma a prova em linha do coletor e curadoria/onboardar_rotas_provadas.py.",
+   "what": "Para cada fonte que o portao aprova e o coletor nao conhece, prova contra a rede a rota que o Curator DECLAROU — o contrato EM DISCO por omissao (o que o robo vai usar), e grava a impressao dele (CONTRATO_SHA256) e a hora (PROVADO_EM): robots pelo leitor da casa (gate_de_rota), INDEX_URL, links de detalhe pelo MESMO motor do coletor (ligacoesDoIndice de regras/motor_de_rota.mjs) e ate 2 alvos retratados pelo gate CAPA != MATERIA. Max 4 pedidos por fonte. --juntar une rondas. Escreve curadoria/ROTAS-ELEGIVEIS-V1.json e mais nada; quem transforma a prova em linha do coletor e curadoria/onboardar_rotas_provadas.py.",
    "why_here": "ROTA SEM CANARIO NAO E ROTA. Medido em 2026-09-22: 8 elegiveis no livro do lote-76 tinham rota declarada pelo Curator e nenhuma linha na tabela do coletor, porque a tabela onboarded foi escrita uma vez (04A). O canario provou 6, achou uma duplicada (duas fichas, o mesmo documento) e uma fonte que mudou de dominio desde a prova de ontem.",
    "departments": [
     "ENGENHARIA"
