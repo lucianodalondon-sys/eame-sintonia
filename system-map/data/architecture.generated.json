@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "pacote-tempo-lugar-v1",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
-    "GENERATED_AT": "2026-09-25T16:40:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681"
+    "BRANCH": "micro-verif-v1",
+    "HEAD": "4cde334910ace1ad915e58a264d29a3dc8f9e8ee",
+    "GENERATED_AT": "2026-09-25T18:09:22-03:00",
+    "SOURCE_TREE_FINGERPRINT": "39504769c109fee29d7670a8b3bf31e88531d7414008102850c26a8ec15f8d5c"
   },
   "FILES": [
     {
@@ -11790,6 +11790,76 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/micro_verif/DATA-NA-PAGINA-COORTE-V1.json",
+      "sha": "1f3e3340241013f43314169e0d1cda4a091fd4d1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/MEDICAO-D40-MICRO-VERIF.json",
+      "sha": "f4afa710b0c8c88410acb01271da18161dc592d1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/MICRO-VERIFICACAO-SELECTS.sql",
+      "sha": "112f79e36dc641c7afbed01aee43da63bc4235f9",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/MICRO-VERIFICACAO.json",
+      "sha": "204119a8710b6b65240ab02935ceef1e9aa84e10",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/MICRO-VERIFICACAO.md",
+      "sha": "4c3c865046883a21b12aaa54bfec78cde9a6c484",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/ONDA-WEB-SO-PLANO.json",
+      "sha": "1ac304aa6358db1f1adca5e2200af72cf1bd54f7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/PREVISAO-COM-O-INSTALADO-V1.json",
+      "sha": "719ce01174e42b9bd8952f33908a8abadec312ff",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "sha": "cb30312bb00bb7b5c008f3b88f3cf7c8bf1e0d40",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/medir_data_na_pagina.py",
+      "sha": "fb04ae22398373647713a60e4d32031a7fd3fb60",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_verif/prever_com_o_instalado.py",
+      "sha": "f07d0140f6421ae79ac1c10a8840bec2abffe401",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/navegador.py",
       "sha": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
       "ext": ".py",
@@ -19463,7 +19533,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ae92cb01c557a4ddd426f45c74d951f01632ed47",
+      "sha": "bfe5648cb22f4c4edbfb70d9c7cd6784a38273d4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -35507,6 +35577,17 @@
       }
     },
     {
+      "from_file": "ferramentas/big_collection/onda_web.py",
+      "to_file": "ferramentas/micro_verif/ONDA-WEB-SO-PLANO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_web.py",
+        "line": 240,
+        "snippet": "(saida / \"ONDA-WEB-SO-PLANO.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -35922,6 +36003,127 @@
         "file": "ferramentas/italy_extract_fields.mjs",
         "line": 79,
         "snippet": "const ods = execFileSync(\"node\", [\"ferramentas/ods_peek.mjs\", `${D}/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods`, \"100000\"], { encoding: \"utf8\", ma"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "to_file": "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+        "line": 63,
+        "snippet": "\"COORTE\": {\"FICHEIRO\": \"ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json\", \"ESTADO\": \"CONGELADA\","
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "to_file": "ferramentas/micro_verif/DATA-NA-PAGINA-COORTE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+        "line": 24,
+        "snippet": "data = {f[\"SOURCE_ID\"]: f for f in json.loads((AQUI / \"DATA-NA-PAGINA-COORTE-V1.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "to_file": "ferramentas/micro_verif/MEDICAO-D40-MICRO-VERIF.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+        "line": 23,
+        "snippet": "d40 = {f[\"SOURCE_ID\"]: f for f in json.loads((AQUI / \"MEDICAO-D40-MICRO-VERIF.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "to_file": "ferramentas/micro_verif/MICRO-VERIFICACAO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+        "line": 73,
+        "snippet": "and p.name not in (\"MICRO-VERIFICACAO.json\",)},"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "to_file": "ferramentas/micro_verif/MICRO-VERIFICACAO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+        "line": 75,
+        "snippet": "(AQUI / \"MICRO-VERIFICACAO.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "to_file": "ferramentas/micro_verif/ONDA-WEB-SO-PLANO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+        "line": 26,
+        "snippet": "plano = json.loads((AQUI / \"ONDA-WEB-SO-PLANO.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "to_file": "ferramentas/micro_verif/PREVISAO-COM-O-INSTALADO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+        "line": 25,
+        "snippet": "prev = {f[\"SOURCE_ID\"]: f for f in json.loads((AQUI / \"PREVISAO-COM-O-INSTALADO-V1.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/prever_com_o_instalado.py",
+      "to_file": "coleta/executor_texto_de_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/micro_verif/prever_com_o_instalado.py",
+        "line": 23,
+        "snippet": "import executor_texto_de_html as H  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/prever_com_o_instalado.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/micro_verif/prever_com_o_instalado.py",
+        "line": 25,
+        "snippet": "import italy_executor as IE  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/prever_com_o_instalado.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/micro_verif/prever_com_o_instalado.py",
+        "line": 24,
+        "snippet": "import fato_do_texto as FT  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_verif/prever_com_o_instalado.py",
+      "to_file": "regras/contratos_de_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/micro_verif/prever_com_o_instalado.py",
+        "line": 22,
+        "snippet": "import contratos_de_fonte as CF  # noqa: E402"
       }
     },
     {
@@ -89004,10 +89206,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3105,
-    "files_readable": 1390,
-    "files_code_dir": 1316,
-    "file_edges": 6060,
+    "files_tracked": 3115,
+    "files_readable": 1393,
+    "files_code_dir": 1326,
+    "file_edges": 6072,
     "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },

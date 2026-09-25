@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T19:41:16+00:00",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
+    "GENERATED_AT": "2026-09-25T21:13:58+00:00",
+    "HEAD": "4cde334910ace1ad915e58a264d29a3dc8f9e8ee",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
-    "FICHEIROS_NA_IMPRESSAO": 3253,
+    "SOURCE_TREE_FINGERPRINT": "39504769c109fee29d7670a8b3bf31e88531d7414008102850c26a8ec15f8d5c",
+    "FICHEIROS_NA_IMPRESSAO": 3263,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -697,6 +697,27 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "cb30312bb00bb7b5c008f3b88f3cf7c8bf1e0d40",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/micro_verif/medir_data_na_pagina.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "fb04ae22398373647713a60e4d32031a7fd3fb60",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/micro_verif/prever_com_o_instalado.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f07d0140f6421ae79ac1c10a8840bec2abffe401",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/navegador.py",
         "PAPEL": "FONTE",
         "VERSAO": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
@@ -1159,8 +1180,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 164,
-    "INPUTS_DIGEST": "707d2e63e838a02368cf9de1af17ef1955042b1e7c76e48f1f4f22b9373d6814",
+    "INPUTS_COUNT": 167,
+    "INPUTS_DIGEST": "5af567cb27f4aaad629813e5eb02f6b34339b17eedc7be2f80e58ceb14e9b491",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1664,7 +1685,8 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "ferramentas/big_collection/bc5_big_collection.py",
-        "ferramentas/integra_onda2/final/ensaio_integra.sh"
+        "ferramentas/integra_onda2/final/ensaio_integra.sh",
+        "ferramentas/micro_verif/gerar_micro_verificacao.py"
       ],
       "no_ci": false
     },
@@ -1938,6 +1960,54 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "gaveta": "ferramentas",
+      "linhas": 81,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/micro_verif/medir_data_na_pagina.py",
+      "gaveta": "ferramentas",
+      "linhas": 60,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/micro_verif/prever_com_o_instalado.py",
+      "gaveta": "ferramentas",
+      "linhas": 76,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
       "chamado_por": [],
       "no_ci": false
     },
@@ -2724,7 +2794,8 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/italy_executor.py",
-        "coleta/retrato_html.mjs"
+        "coleta/retrato_html.mjs",
+        "ferramentas/micro_verif/prever_com_o_instalado.py"
       ],
       "no_ci": false
     },
@@ -2978,6 +3049,7 @@
         "admissao/reprocessar_tempo_lugar.py",
         "coleta/italy_pilot_collect.mjs",
         "coleta/scrap_colheita.py",
+        "ferramentas/micro_verif/prever_com_o_instalado.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -3793,7 +3865,8 @@
       "chamado_por": [
         "admissao/reprocessar_tempo_lugar.py",
         "coleta/italy_executor.py",
-        "coleta/scrap_colheita.py"
+        "coleta/scrap_colheita.py",
+        "ferramentas/micro_verif/prever_com_o_instalado.py"
       ],
       "no_ci": false
     },
@@ -4549,12 +4622,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 164,
-    "pontos_de_entrada": 119,
+    "ficheiros_de_codigo": 167,
+    "pontos_de_entrada": 122,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 67,
+    "sem_chamador_e_fora_do_ci": 70,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 92,
+    "escrevem_ficheiro": 95,
     "deitam_fora_alguma_coisa": 47,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -4595,6 +4668,9 @@
       "ferramentas/instagram_transcrever.py",
       "ferramentas/integra_onda2/final/ensaio_integra.sh",
       "ferramentas/integra_onda2/prova_teto_micro.py",
+      "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "ferramentas/micro_verif/medir_data_na_pagina.py",
+      "ferramentas/micro_verif/prever_com_o_instalado.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
@@ -4731,6 +4807,9 @@
       "ferramentas/integra_onda2/final/ensaio_integra.sh",
       "ferramentas/integra_onda2/prova_teto_micro.py",
       "ferramentas/italy_extract_fields.mjs",
+      "ferramentas/micro_verif/gerar_micro_verificacao.py",
+      "ferramentas/micro_verif/medir_data_na_pagina.py",
+      "ferramentas/micro_verif/prever_com_o_instalado.py",
       "ferramentas/pdf_peek.mjs",
       "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
