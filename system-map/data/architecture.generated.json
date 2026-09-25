@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-v3-fontes-v1",
-    "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-    "GENERATED_AT": "2026-09-25T07:46:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293"
+    "BRANCH": "c9-idioma-v1",
+    "HEAD": "485e1f7ba7736553837cead4c6b87d71c73d1a3c",
+    "GENERATED_AT": "2026-09-25T08:22:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "852599e3cbf852f0c639a4467abe5d44224f60c84d27fd823fec55c7984c86e2"
   },
   "FILES": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "path": ".gitattributes",
-      "sha": "92daa5e9b2abee0cc15d7e121eb678b457c3f405",
+      "sha": "6bdcabdb75697575f7c5876eb9c0e6db1ed677af",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -368,6 +368,13 @@
     {
       "path": "RELATORIO-BRIDGE-FEEDER.md",
       "sha": "12a6e18dfd5ddf05377ecdb5609187b09b40e8c0",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-C9-IDIOMA.md",
+      "sha": "61521363d8209581c5bfac90c58fe4b237e31ba0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17579,6 +17586,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/micro_coleta/MUTACAO-C9-IDIOMA-V1.json",
+      "sha": "c5dfe96d3ce96a94c9af32ebf590e3fb1d695076",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/micro_coleta/ensaio_offline.py",
       "sha": "6eaa340dc8c882f289f8e8b2441e96901fec56d0",
       "ext": ".py",
@@ -17594,7 +17608,7 @@
     },
     {
       "path": "scripts/micro_coleta/micro_coleta.py",
-      "sha": "93afb517527955bf735e37e0d4d5c4f1aa6274b5",
+      "sha": "4ddf2fb05a9e450e835ea7100dba2d7d8598d43c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17602,6 +17616,13 @@
     {
       "path": "scripts/micro_coleta/micro_rede_real.py",
       "sha": "f3090a38e382a5d79d4239448723029c749b5d36",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/micro_coleta/mutar_c9.py",
+      "sha": "2fa3147c1bab4d0c5c981adb3a783219c7bafd49",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18693,7 +18714,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6fbeb3259f859c03654c8d25eff0043e170be317",
+      "sha": "ad820a2cc0913e8827cb231805677c6d3422ea5f",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19108,6 +19129,20 @@
       "path": "tests/.gitkeep",
       "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
       "ext": "",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
+      "sha": "961876203d2637f2e65d2a72d55b2e45adb3e802",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+      "sha": "be3b0a5aa69c750f2d742fb6cccb1eef889cc970",
+      "ext": ".txt",
       "readable": false,
       "code_dir": true
     },
@@ -19737,6 +19772,13 @@
     {
       "path": "tests/test_c8_convergencia.py",
       "sha": "e6b5dfe709e82e0e1ccffdba53e679d94f98f5db",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c9_idioma.py",
+      "sha": "12dceba8fac78bd2626512858bd08e0149c642bd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -62443,7 +62485,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 509,
+        "line": 526,
         "snippet": "p = (pasta or ledger_do_coletor()) / \"runs.ndjson\""
       }
     },
@@ -62643,6 +62685,39 @@
         "file": "scripts/micro_coleta/micro_rede_real.py",
         "line": 80,
         "snippet": "r = subprocess.run([sys.executable, \"superficie/rede.py\", \"--portao-de-egresso\", \"IT\"],"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/mutar_c9.py",
+      "to_file": "scripts/micro_coleta/MUTACAO-C9-IDIOMA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/mutar_c9.py",
+        "line": 37,
+        "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-C9-IDIOMA-V1.json\"), \"w\","
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/mutar_c9.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/mutar_c9.py",
+        "line": 22,
+        "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/mutar_c9.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/mutar_c9.py",
+        "line": 27,
+        "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))"
       }
     },
     {
@@ -73709,6 +73784,39 @@
         "file": "tests/test_c8_convergencia.py",
         "line": 59,
         "snippet": "arv = ast.parse(_fonte('regras/sensor_medir.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c9_idioma.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c9_idioma.py",
+        "line": 19,
+        "snippet": "_spec = importlib.util.spec_from_file_location(\"micro_coleta_c9\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_c9_idioma.py",
+      "to_file": "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c9_idioma.py",
+        "line": 25,
+        "snippet": "RAW_1436 = DADOS / \"raw-1436-arpae-mare-balneabile.txt\""
+      }
+    },
+    {
+      "from_file": "tests/test_c9_idioma.py",
+      "to_file": "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c9_idioma.py",
+        "line": 26,
+        "snippet": "RAW_1437 = DADOS / \"raw-1437-arpae-portale-prelievi.txt\""
       }
     },
     {
@@ -85237,6 +85345,13 @@
         "constante": "F"
       }
     ],
+    "scripts/micro_coleta/mutar_c9.py": [
+      {
+        "pasta": "scripts/micro_coleta",
+        "line": 34,
+        "constante": "F"
+      }
+    ],
     "scripts/regua_t1/mutar_regua_t1.py": [
       {
         "pasta": "admissao",
@@ -85358,11 +85473,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2978,
-    "files_readable": 1333,
-    "files_code_dir": 1269,
-    "file_edges": 5810,
-    "escritas_em_pasta": 86,
+    "files_tracked": 2984,
+    "files_readable": 1335,
+    "files_code_dir": 1274,
+    "file_edges": 5816,
+    "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

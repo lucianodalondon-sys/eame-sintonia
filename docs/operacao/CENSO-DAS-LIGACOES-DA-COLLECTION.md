@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  27c8deff4cf60eaaefa78950904459922ee45b2b
-BRANCH           micro-v3-fontes-v1
-GERADO_EM        2026-09-25T07:46:45-03:00
+HEAD_DA_MEDICAO  485e1f7ba7736553837cead4c6b87d71c73d1a3c
+BRANCH           c9-idioma-v1
+GERADO_EM        2026-09-25T08:22:06-03:00
 CARDS            99
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1795,10 +1795,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/micro_coleta/COORTE-PROPOSTA.json`, `scripts/micro_coleta/GABARITO-MICRO-V1.json`, `scripts/micro_coleta/MICRO-CAMINHO-A1.md`, `scripts/micro_coleta/MICRO-RUNBOOK.md`, `scripts/micro_coleta/ensaio_offline.py` _(e mais 4)_ |
+| **peça real** | `RELATORIO-C9-IDIOMA.md`, `scripts/micro_coleta/COORTE-PROPOSTA.json`, `scripts/micro_coleta/GABARITO-MICRO-V1.json`, `scripts/micro_coleta/MICRO-CAMINHO-A1.md`, `scripts/micro_coleta/MICRO-RUNBOOK.md` _(e mais 10)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2 |
 | **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:37 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |

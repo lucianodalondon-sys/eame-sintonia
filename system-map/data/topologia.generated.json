@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T10:49:56+00:00",
-  "HEAD": "27c8deff4cf60eaaefa78950904459922ee45b2b",
-  "BRANCH": "micro-v3-fontes-v1",
+  "GENERATED_AT": "2026-09-25T11:45:07+00:00",
+  "HEAD": "485e1f7ba7736553837cead4c6b87d71c73d1a3c",
+  "BRANCH": "c9-idioma-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
-  "FICHEIROS_NA_IMPRESSAO": 3126,
+  "SOURCE_TREE_FINGERPRINT": "852599e3cbf852f0c639a4467abe5d44224f60c84d27fd823fec55c7984c86e2",
+  "FICHEIROS_NA_IMPRESSAO": 3132,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3737,7 +3737,7 @@
    {
     "PATH": "scripts/micro_coleta/micro_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "93afb517527955bf735e37e0d4d5c4f1aa6274b5",
+    "VERSAO": "4ddf2fb05a9e450e835ea7100dba2d7d8598d43c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3745,6 +3745,13 @@
     "PATH": "scripts/micro_coleta/micro_rede_real.py",
     "PAPEL": "FONTE",
     "VERSAO": "f3090a38e382a5d79d4239448723029c749b5d36",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/micro_coleta/mutar_c9.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2fa3147c1bab4d0c5c981adb3a783219c7bafd49",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3975,14 +3982,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "852599e3cbf852f0c639a4467abe5d44224f60c84d27fd823fec55c7984c86e2",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "edfca4a58b3876b9cf1fdcfe381d506f3ebb85e8d838216b8a6c345d4523d293",
+    "VERSAO": "852599e3cbf852f0c639a4467abe5d44224f60c84d27fd823fec55c7984c86e2",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4802,6 +4809,13 @@
     "PATH": "tests/test_c8_convergencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "e6b5dfe709e82e0e1ccffdba53e679d94f98f5db",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_c9_idioma.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "12dceba8fac78bd2626512858bd08e0149c642bd",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5912,8 +5926,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 839,
-  "INPUTS_DIGEST": "40f2cdee567d0cc3a674061fb05d119fb7941b4b7a835e90f978b7bdb253c472",
+  "INPUTS_COUNT": 841,
+  "INPUTS_DIGEST": "6e631171a8d754db6b1aaf32708c0a25048db3b8c8d6380962818c5d0ae5a524",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5939,15 +5953,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 516,
+  "DOCUMENTOS_LIDOS": 517,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6afcd06017beba34794580a9520664b50831363dd44d157aeaf592ce022d6f56",
-  "SEMANTIC_HASH": "c5b340994ded1e1e82e5decffe174c1ef24ef66eed16fb03a0587b23343c9748"
+  "MEASUREMENT_HASH": "1b088f842129b17dc5c45581fae74cbc126588b5fc790513c3d36c53b3ac76b2",
+  "SEMANTIC_HASH": "4c1ec9b19b95d0784178fd4a7fba4689218a580336294eee420791d1034776eb"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -26539,7 +26553,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 509,
+      "LINHA": 526,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -49668,19 +49682,26 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "RELATORIO-C9-IDIOMA.md",
     "scripts/micro_coleta/COORTE-PROPOSTA.json",
     "scripts/micro_coleta/GABARITO-MICRO-V1.json",
     "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
     "scripts/micro_coleta/MICRO-RUNBOOK.md",
+    "scripts/micro_coleta/MUTACAO-C9-IDIOMA-V1.json",
     "scripts/micro_coleta/ensaio_offline.py",
     "scripts/micro_coleta/medir_detector_de_capa.py",
     "scripts/micro_coleta/micro_coleta.py",
     "scripts/micro_coleta/micro_rede_real.py",
-    "scripts/micro_coleta/provar_backup_da_sala.py"
+    "scripts/micro_coleta/mutar_c9.py",
+    "scripts/micro_coleta/provar_backup_da_sala.py",
+    "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
+    "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+    "tests/test_c9_idioma.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "tests/test_bc4_armazem_e_pais.py",
+    "tests/test_c9_idioma.py",
     "tests/test_ensaio_offline_micro.py",
     "tests/test_micro_coleta_instrumento.py",
     "tests/test_micro_rede_real.py",
@@ -49688,6 +49709,7 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIG-COLLECTION-RUNBOOK.md",
+    "RELATORIO-C9-IDIOMA.md",
     "RELATORIO-MICRO-PREP-B.md",
     "RELATORIO-MICRO-PREP.md",
     "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
@@ -49707,6 +49729,7 @@
     "pedido",
     "raw_asset",
     "sala_de_espera",
+    "unittest",
     "urllib"
    ],
    "ENTRAM": 15,
