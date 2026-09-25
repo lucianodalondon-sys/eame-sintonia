@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-24T20:10:00+00:00",
-    "HEAD": "61335f880808dcd0d792d8e9fee8bf4335daa13b",
+    "GENERATED_AT": "2026-09-24T22:15:07+00:00",
+    "HEAD": "7029875fe83d0156d58a4d0cc2fc3bf1acd86a8b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "ac39ac5f8830b64e3cbf294a781bc9fcd43cb11f80227224a08b9dc52b551365",
-    "FICHEIROS_NA_IMPRESSAO": 2989,
+    "SOURCE_TREE_FINGERPRINT": "3c8c0315ef92d5f168e9a97f622b39e1ff5a30383fc9a7411607e055fcc813d1",
+    "FICHEIROS_NA_IMPRESSAO": 3005,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -30819,6 +30819,27 @@
       ]
     },
     {
+      "endpoint": "https://www.exemplo.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 462
+        },
+        {
+          "file": "curadoria/test_reparar_contrato.py",
+          "line": 42
+        },
+        {
+          "file": "curadoria/test_revisao_ready.py",
+          "line": 19
+        },
+        {
+          "file": "tests/test_fila_italia_decisoes.py",
+          "line": 196
+        }
+      ]
+    },
+    {
       "endpoint": "https://youtu.be/X'",
       "usado_por": [
         {
@@ -30967,7 +30988,7 @@
         },
         {
           "file": "curadoria/test_abastecimento.py",
-          "line": 202
+          "line": 208
         },
         {
           "file": "curadoria/test_discovery.py",
@@ -30984,7 +31005,7 @@
         },
         {
           "file": "curadoria/test_abastecimento.py",
-          "line": 191
+          "line": 197
         },
         {
           "file": "medidas/gabarito_t2_t12.py",
@@ -31093,28 +31114,11 @@
           "line": 148
         }
       ]
-    },
-    {
-      "endpoint": "https://exemplo.tld/x')",
-      "usado_por": [
-        {
-          "file": "provas/orcamento_de_rede.py",
-          "line": 287
-        },
-        {
-          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
-          "line": 96
-        },
-        {
-          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
-          "line": 207
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 617,
+  "ENDPOINTS_FOUND": 620,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 577,
+  "ENDPOINTS_TRUNCATED": 580,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -31132,9 +31136,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 617,
+    "endpoints": 620,
     "endpoints_published": 40,
-    "endpoints_truncated": 577,
+    "endpoints_truncated": 580,
     "candidates": 906,
     "coletores": 54,
     "coletores_com_data": 20,
