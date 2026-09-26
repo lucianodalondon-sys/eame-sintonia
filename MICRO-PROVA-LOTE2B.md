@@ -122,6 +122,33 @@ domínios em 24 h, 38 na rodada 1). ⚠️ **CODIPRA:** `codipra.it` já é **IT
 Comando: o mesmo do §4 com `--lote=curadoria/MICRO-PROVA-LOTE3.json` e `S=…/lote3-$(date +%H%M)`
 (≤ 5 pedidos por domínio, ≤ 50 pedidos).
 
+## 7 · Resultado do LOTE 2B (coordenador 11:05, 82 pedidos, portão PASS antes e depois) — passo 8 e 9B
+
+`PROVA_COMPLETA` 5/20; **decididas 3** (T3, PAIS=IT, `DECIDIDAS-LOTE2B.json` sha256 `11b778b5…`, ao lado das provas):
+**CODIPACAL** (Calábria: notícias datadas — capannine INFRAGRI 27/08/2026, sol no bergamotto 06/08/2026; as provas são
+arquivos MENSAIS com excerto datado) · **CO.DI.MA Mantova-Cremona** («Bollettino mais 2026», 18/06/2026; Agricat
+29/06/2026) · **HAKO Condifesa Alto Adige** (datas de vindima 2026 por zona/variedade/altitude, 31/08/2026).
+**Não decididas das completas:** Condifesa Modena (a «institucional» era um **PDF** — 2.º defeito do leitor, agora
+consertado: PDF não é página, nem institucional nem conteúdo) e Condifesa Emilia (os conteúdos são repositórios de
+tarifas/condições de seguro, não publicações). **CODIPRA** `codipratn.it` = o mesmo site de `codipra.it` (serve
+tudo de lá) = **IT-T3-063**: duplicada. As outras 15 incompletas, uma linha cada, estão em `NAO_DECIDIDA_PORQUE`.
+
+**Ensaio do passo 9B** (cópia fiel do vivo `69b0e23f` + 18 livros sujos, 18/18 sha256; rede fechada; 0 pedidos):
+3 registadas pela porta (CAND-1205/1206/1207) → canal aceita as 3 → 3 QUALIFY novas → **IT-T3-066 / 067 / 068**
+→ BUILD_CONTRACT 3/3 OK → CANARY_PENDING. Os números reais dependem do vivo no momento.
+
+**Comando (robô PARADO — CUTOVER-RUNBOOK passo 1):**
+```bash
+V=C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1 ; M=C:/g/mprova
+D=C:/Users/London1/sintonia-sala-italia/micro-prova/lote2b-1105
+git -C $M fetch origin micro-prova-lote2b-v1 && git -C $M checkout --detach FETCH_HEAD   # o SHA do relatório
+cd $M && py curadoria/micro_prova_passo9.py --vivo=$V --decididas=$D/DECIDIDAS-LOTE2B.json \
+   --quem-viu=MICRO-PROVA-LOTE2B --onde-viu="lista Asnacodi (P1g 24/09) + provas em lote2b-1105"
+#   esperar: REGISTADAS 3 (L2B-02/07/14), ENTRAM 3, QUALIFY 3 NOVA; recibo em $D/RECIBO-PASSO9.json; código 0
+py $V/superficie/rede.py --portao-de-egresso IT          # PASS, senão não religar
+rm $V/curadoria/PARAR.flag                               # e o supervisor como hoje (passo 8 do runbook)
+```
+
 ## EM PALAVRAS SIMPLES
 
 - **O conserto:** o programa que junta provas aceitava qualquer página cujo endereço tivesse um ano — até o ícone do
