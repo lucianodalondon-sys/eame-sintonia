@@ -105,11 +105,12 @@ class OResto(unittest.TestCase):
                 self.assertEqual(agora[len(ids):], ["italia-recorrente"], u)
             else:
                 self.assertEqual(agora, ids, u)
-        self.assertEqual([e.get("id") for e in R.EXECUTORES["T12"]], ["italia-recorrente"])
-        self.assertEqual(set(R.EXECUTORES), set(self.ANTES) | {"T12"})
+        for u in ("T12", "T1", "T11"):
+            self.assertEqual([e.get("id") for e in R.EXECUTORES[u]], ["italia-recorrente"], u)
+        self.assertEqual(set(R.EXECUTORES), set(self.ANTES) | {"T12", "T1", "T11"})
 
     def test_t8_t9_t12_tem_o_executor_de_sites_uma_vez(self):
-        for u in ("T8", "T9", "T12"):
+        for u in ("T1", "T8", "T9", "T11", "T12"):
             web = [e for e in R.EXECUTORES[u] if WEB in (e.get("roda") or [])]
             self.assertEqual(len(web), 1, u)
 
@@ -118,7 +119,7 @@ class OResto(unittest.TestCase):
             self.assertTrue(any(SOCIAL in (e.get("roda") or []) for e in R.EXECUTORES[u]), u)
 
     def test_sem_fonte_inventada(self):
-        for u in ("T8", "T9", "T12"):
+        for u in ("T1", "T8", "T9", "T11", "T12"):
             web = next(e for e in R.EXECUTORES[u] if WEB in (e.get("roda") or []))
             self.assertNotIn("filtros_por_omissao", web, u)
             self.assertEqual(web.get("argumentos_de_filtros"), ["fonte"], u)
@@ -126,8 +127,20 @@ class OResto(unittest.TestCase):
     def test_o_micro_ve_a_receita(self):
         sys.path.insert(0, os.path.join(RAIZ, "scripts", "micro_coleta"))
         import micro_coleta as M  # noqa: PLC0415
-        for u in ("T8", "T9", "T12"):
+        for u in ("T1", "T8", "T9", "T11", "T12"):
             self.assertIsNotNone(M.receita_web(u), u)
+
+
+class T1eT11(unittest.TestCase):
+    """ACERVO-PARA-SALA-2 (26/09): cultura e evento ganham o coletor que JA as colheu.
+
+    Antes, `resolver()` devolvia plano sem executor («NAO SEI COMO») e 50 corridas
+    T1/T11 guardadas no livro do coletor nunca chegavam a porta."""
+
+    def test_pedido_com_fonte_resolve_para_os_sites(self):
+        for u, fonte in (("T1", "IT-T1-021"), ("T11", "IT-T11-001")):
+            p = R.resolver(_pedido(u, fonte=fonte, universo=u, pais="IT"))
+            self.assertEqual(_primeiro(p), WEB, u)
 
 
 if __name__ == "__main__":

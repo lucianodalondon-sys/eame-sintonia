@@ -670,7 +670,13 @@ _SITES_POR_FONTE_NOMEADA = {
     "custo": "gratuito",
     "registado_por": "D48 (bot Luciano, delegacao do dono, 25/09/2026)",
 }
-for _u in ("T8", "T9", "T12"):
+# ── T1 (cultura) e T11 (evento) ENTRAM NA MESMA LINHA (ACERVO-PARA-SALA-2, 26/09/2026) ──
+# Medido no ensaio do acervo: 50 corridas T1/T11 JA colhidas por este mesmo coletor
+# (`IT-T1-*`, `IT-T11-*` no livro do coletor) nao chegavam a porta porque o plano
+# dizia «NAO SEI COMO» — nenhum executor declarava o universo. O executor e o que
+# as colheu; o gesto e o de D48: nada novo, so o registo. Cada fonte continua a
+# passar pelo portao do Curator, e sem `--filtro fonte=` o coletor recusa alto.
+for _u in ("T1", "T8", "T9", "T11", "T12"):
     EXECUTORES[_u] = list(EXECUTORES.get(_u, [])) + [_SITES_POR_FONTE_NOMEADA]
 del _u
 
