@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  65f1179c984dcaf8ea1a0e73781a3dac1692a177
-BRANCH           rodada1-comando-v1
-GERADO_EM        2026-09-26T17:04:27-03:00
+HEAD_DA_MEDICAO  3073fdcbf57576877063cf704a727db37baf9978
+BRANCH           nuvem-rotulos-t4-v1
+GERADO_EM        2026-09-26T17:38:13-03:00
 CARDS            105
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -402,10 +402,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/cruzar_regua_rotulo.py`, `coleta/mapa_regfi.py`, `coleta/pdf_text.py`, `coleta/preservar_pdf.py`, `coleta/ropf_pre_requisito.py` _(e mais 2)_ |
+| **peça real** | `coleta/cruzar_regua_rotulo.py`, `coleta/mapa_regfi.py`, `coleta/pdf_text.py`, `coleta/preservar_pdf.py`, `coleta/ropf_pre_requisito.py` _(e mais 3)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
-| **status operacional** | green — outra peca do sistema importa isto para funcionar. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
 | **prova de quem ativa** | pedido/receitas.py:157; orquestrador/orquestrador.py:1025 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -413,13 +413,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json` |
 | **o que sai · dado** | C-SUPABASE |
 | **o que sai · ficheiros** | `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json`, `data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json` |
-| **arestas no mapa** | entram 5 · saem 11 |
-| **arestas provadas** | entram 4 · saem 11 |
+| **arestas no mapa** | entram 6 · saem 13 |
+| **arestas provadas** | entram 5 · saem 13 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 15 · NÃO SEI 1 |
+| **prova das ligações** | CODE 18 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T20:07:14+00:00",
-  "HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
-  "BRANCH": "rodada1-comando-v1",
+  "GENERATED_AT": "2026-09-26T22:47:52+00:00",
+  "HEAD": "3073fdcbf57576877063cf704a727db37baf9978",
+  "BRANCH": "nuvem-rotulos-t4-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374",
-  "FICHEIROS_NA_IMPRESSAO": 3780,
+  "SOURCE_TREE_FINGERPRINT": "fa77e94789e125001e923139aa7bf4f51c84e7dedc57ff92d12cfc10574ea21e",
+  "FICHEIROS_NA_IMPRESSAO": 3789,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -574,6 +574,13 @@
     "PATH": "coleta/rota_forward_documento.py",
     "PAPEL": "FONTE",
     "VERSAO": "3e0f74bdf64ab1397e215011cbf83787c6541090",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "coleta/rotulo_t4_it.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "1d3c217910f65fedaae3f50356e1c4af4c759559",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2769,6 +2776,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/amostra_doses_rotulo_t4.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "502353c714cb9d704b359ff020de7ecde9fe624e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/amostragem_neutra_t3.py",
     "PAPEL": "FONTE",
     "VERSAO": "b083b5ff41fa87e1474fea58acd969baf3c5013b",
@@ -3241,6 +3255,13 @@
     "PATH": "provas/medir_admission_t3_atual.py",
     "PAPEL": "FONTE",
     "VERSAO": "0ea6ece3117343bb7b38f8f3f56253729e016ba8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/medir_rotulo_t4_nos_163.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "82efeca43f335f6c3efc6064d26b38ac5814e606",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -4577,14 +4598,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374",
+    "VERSAO": "fa77e94789e125001e923139aa7bf4f51c84e7dedc57ff92d12cfc10574ea21e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374",
+    "VERSAO": "fa77e94789e125001e923139aa7bf4f51c84e7dedc57ff92d12cfc10574ea21e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4900,6 +4921,13 @@
     "PATH": "tests/mutacao_migracao_033.py",
     "PAPEL": "FONTE",
     "VERSAO": "7f06340d0845b691aa1976f3450fbe74ebb01d3a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/mutacao_rotulo_t4.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d19b43be29334b2a65eee772432073db078038f0",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6500,6 +6528,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_rotulo_t4_it.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c765953bbafc17a49157556c87c6b7b60b41f24f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_route_membership.py",
     "PAPEL": "FONTE",
     "VERSAO": "9a911b48c08323080c6ac5f47213fb96bd6440fd",
@@ -6787,8 +6822,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 964,
-  "INPUTS_DIGEST": "45fbd8e5c5e2cd33cf8ad21fe58cd69402f3a77ecf63be7ec23bf3693e0f8ec2",
+  "INPUTS_COUNT": 969,
+  "INPUTS_DIGEST": "5810c8e026bc15fe65f42232a79a2b17c2cbff61d5bbb02357c0586418fa67fc",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6814,15 +6849,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 575,
+  "DOCUMENTOS_LIDOS": 577,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e206f62414644ae3ed50edc2aa149e45fb6357bc3ef429af6ef43d551e05b253",
-  "SEMANTIC_HASH": "0475855a2420d8d41d615a1a3bef7a3d2f6479dd025cdfcb95e30b973bc5252c"
+  "MEASUREMENT_HASH": "67474046d523d1d4920e2b3f650d7b69d15871e96e444b373937dff75b974e2e",
+  "SEMANTIC_HASH": "aaeae14b3806dfa7d9a18034fa428b320320c65e7b7bca45495ba65af3972120"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7023,6 +7058,7 @@
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-ROTA-M2-ATRAVESSA",
    "C-PROVA-ROTAS-REAIS",
+   "C-PROVA-ROTULOS-T4",
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -7043,7 +7079,7 @@
    "C-TESTES",
    "C-V21-INGEST"
   ],
-  "COUNT": 92
+  "COUNT": 93
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -7200,6 +7236,7 @@
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-ROTA-M2-ATRAVESSA",
    "C-PROVA-ROTAS-REAIS",
+   "C-PROVA-ROTULOS-T4",
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -7249,16 +7286,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 198
+  "COUNT": 199
  },
  "ARITMETICA": {
   "COLLECTION": 106,
-  "BOUNDARY": 92,
-  "SOMA": 198,
-  "EXPANDED": 198,
+  "BOUNDARY": 93,
+  "SOMA": 199,
+  "EXPANDED": 199,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 198,
+  "RESUMO_CARTOES_NO_UNIVERSO": 199,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -43295,6 +43332,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-ROTULOS--IMPORTS-->C-PROVA-ROTULOS-T4",
+    "FROM": "C-ROTULOS",
+    "TO": "C-PROVA-ROTULOS-T4",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/amostra_doses_rotulo_t4.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--IMPORTS-->C-PROVA-ROTULOS-T4",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/medir_rotulo_t4_nos_163.py",
+      "LINHA": 28,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--IMPORTS-->C-PROVA-ROTULOS-T4",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ROTULOS--IMPORTS-->C-RECORRENCIA",
     "FROM": "C-ROTULOS",
     "TO": "C-RECORRENCIA",
@@ -43331,6 +43398,14 @@
      {
       "FICHEIRO": "tests/test_operacao.py",
       "LINHA": 26,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_rotulo_t4_it.py",
+      "LINHA": 27,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ROTULOS--IMPORTS-->C-TESTES",
@@ -43465,6 +43540,44 @@
     ]
    },
    {
+    "EDGE_ID": "C-ROTULOS--READS-->C-PROVA-ROTULOS-T4",
+    "FROM": "C-ROTULOS",
+    "TO": "C-PROVA-ROTULOS-T4",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/amostra_doses_rotulo_t4.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-PROVA-ROTULOS-T4",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/medir_rotulo_t4_nos_163.py",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-PROVA-ROTULOS-T4",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/medir_rotulo_t4_nos_163.py",
+      "LINHA": 92,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-PROVA-ROTULOS-T4",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ROTULOS--READS-->C-RECEITAS",
     "FROM": "C-ROTULOS",
     "TO": "C-RECEITAS",
@@ -43507,8 +43620,24 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/mutacao_rotulo_t4.py",
+      "LINHA": 106,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_retorno_da_coleta.py",
       "LINHA": 59,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_rotulo_t4_it.py",
+      "LINHA": 159,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-TESTES",
@@ -50392,6 +50521,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--WRITES-->C-ROTULOS",
+    "FROM": "C-TESTES",
+    "TO": "C-ROTULOS",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/mutacao_rotulo_t4.py",
+      "LINHA": 121,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-ROTULOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--WRITES-->C-SALA-DE-ESPERA",
     "FROM": "C-TESTES",
     "TO": "C-SALA-DE-ESPERA",
@@ -52052,12 +52203,12 @@
     ]
    }
   ],
-  "COUNT": 1461
+  "COUNT": 1464
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 198,
-  "CARTOES_AUDITADOS": 198,
-  "ARESTAS_RELACIONADAS": 1461,
+  "CARTOES_NO_UNIVERSO": 199,
+  "CARTOES_AUDITADOS": 199,
+  "ARESTAS_RELACIONADAS": 1464,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -52275,6 +52426,7 @@
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-RECOLLECTION",
    "C-PROVA-ROTA-DO-HTML",
+   "C-PROVA-ROTULOS-T4",
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-T2-BOLETINS",
@@ -52345,6 +52497,7 @@
    "C-PROVA-CANARIO-D24-PESSOA",
    "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
    "C-PROVA-GATE-1D",
+   "C-PROVA-ROTULOS-T4",
    "C-RECOLLECTION-CENSO",
    "C-RELATORIO-FLUXO",
    "C-REPARO-MEDICAO"
@@ -52432,6 +52585,9 @@
    "C-PROVA-RECOLLECTION": [
     "infra"
    ],
+   "C-PROVA-ROTULOS-T4": [
+    "audit"
+   ],
    "C-PROVA-T2-BOLETINS": [
     "diagnostic"
    ],
@@ -52485,11 +52641,11 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 238,
+   "CODE": 239,
    "CONTROL": 86,
    "DATA": 30,
-   "PROOF": 511,
-   "READ": 332,
+   "PROOF": 512,
+   "READ": 333,
    "RULE": 247,
    "WRITE": 17
   },
@@ -60065,6 +60221,42 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PROVA-ROTULOS-T4",
+   "NOME": "A prova do rotulo T4 — os 163 rotulos reais, medidos",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/amostra_doses_rotulo_t4.py",
+    "provas/medir_rotulo_t4_nos_163.py",
+    "provas/rotulo-t4/AMOSTRA-DOSES-S20260926.txt",
+    "provas/rotulo-t4/MEDIDA-163.json"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "collections"
+   ],
+   "ENTRAM": 2,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "audit"
+   ],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "NOME": "A medição de que a Sala de Espera não tem morada",
    "FAMILIA": "F-GOVERNANCA",
@@ -61148,21 +61340,25 @@
    "FAMILIA": "F-COLETA",
    "TERRITORIO": "Z-ACOES",
    "KIND": "engine",
-   "STATUS": "PROVEN",
+   "STATUS": "PENDING",
    "FICHEIROS": [
     "coleta/cruzar_regua_rotulo.py",
     "coleta/mapa_regfi.py",
     "coleta/pdf_text.py",
     "coleta/preservar_pdf.py",
     "coleta/ropf_pre_requisito.py",
+    "coleta/rotulo_t4_it.py",
     "coleta/rotulos_baixar.py",
     "coleta/rotulos_ler.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/a_corrida_existe_em_cada_rota.py",
+    "provas/medir_rotulo_t4_nos_163.py",
     "provas/os_portoes_da_collection.py",
-    "system-map/scripts/censo_das_derivacoes.py"
+    "system-map/scripts/censo_das_derivacoes.py",
+    "tests/mutacao_rotulo_t4.py",
+    "tests/test_rotulo_t4_it.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -61175,8 +61371,8 @@
    "LE_DE": [
     "collections"
    ],
-   "ENTRAM": 5,
-   "SAEM": 11,
+   "ENTRAM": 6,
+   "SAEM": 13,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "DATA",
@@ -62193,6 +62389,7 @@
     "tests/mutacao_conserto_regua.py",
     "tests/mutacao_do_scrap_portas.py",
     "tests/mutacao_migracao_033.py",
+    "tests/mutacao_rotulo_t4.py",
     "tests/mutacao_tempo_e_lugar.py",
     "tests/test_a_collection_preserva_o_fato.py",
     "tests/test_a_demanda_de_dados_da_italia.py",
@@ -62421,6 +62618,7 @@
     "tests/test_rodadas.py",
     "tests/test_rota_video_d53.py",
     "tests/test_roteamento_youtube_proposta.py",
+    "tests/test_rotulo_t4_it.py",
     "tests/test_route_membership.py",
     "tests/test_runtime_so_deixa_passar_colheita.py",
     "tests/test_sala_duravel.py",
@@ -62495,6 +62693,7 @@
     "system-map/scripts/scan_repo.py",
     "system-map/tests/test_o_mapa_nao_esconde.py",
     "system-map/tests/test_verdade_das_ligacoes.py",
+    "tests/mutacao_rotulo_t4.py",
     "tests/test_a_prova_e2e_segue_a_producao.py",
     "tests/test_amostragem_neutra_t3.py",
     "tests/test_atomicidade_da_intelligence.py",
@@ -62555,6 +62754,7 @@
    "LE_DE": [
     "Ukraine",
     "__future__",
+    "_todos_os_valores",
     "adama_relevance",
     "admissao",
     "ajudante",
@@ -62603,7 +62803,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 213,
-   "SAEM": 34,
+   "SAEM": 35,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

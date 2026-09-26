@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "rodada1-comando-v1",
-    "HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
-    "GENERATED_AT": "2026-09-26T17:04:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374"
+    "BRANCH": "nuvem-rotulos-t4-v1",
+    "HEAD": "3073fdcbf57576877063cf704a727db37baf9978",
+    "GENERATED_AT": "2026-09-26T17:38:13-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fa77e94789e125001e923139aa7bf4f51c84e7dedc57ff92d12cfc10574ea21e"
   },
   "FILES": [
     {
@@ -802,6 +802,13 @@
     {
       "path": "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
       "sha": "cdd3124e346f7168145a0f71a951c1262124a93c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-ROTULOS-T4.md",
+      "sha": "c337816e03a1e7aa626b7464e9a5c9eba5df10dc",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2230,6 +2237,13 @@
     {
       "path": "coleta/rota_forward_documento.py",
       "sha": "3e0f74bdf64ab1397e215011cbf83787c6541090",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/rotulo_t4_it.py",
+      "sha": "1d3c217910f65fedaae3f50356e1c4af4c759559",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10887,6 +10901,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/CONTRATO-FONTE-IT-T4-ROTULO.md",
+      "sha": "53b025b122f3c6b40040511c58d691e8c10a079c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "sha": "1aa96613c29fefeba47732f5f501b10ad679eaf8",
       "ext": ".md",
@@ -18195,6 +18216,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/amostra_doses_rotulo_t4.py",
+      "sha": "502353c714cb9d704b359ff020de7ecde9fe624e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/amostragem_neutra_t3.py",
       "sha": "b083b5ff41fa87e1474fea58acd969baf3c5013b",
       "ext": ".py",
@@ -19203,6 +19231,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/medir_rotulo_t4_nos_163.py",
+      "sha": "82efeca43f335f6c3efc6064d26b38ac5814e606",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/medir_source_id_wiring_gap.py",
       "sha": "3de53563d19d96db77ef99af6a3ef8d0b9ac94db",
       "ext": ".py",
@@ -19753,6 +19788,20 @@
       "sha": "bedf612bdadac5178d8585a647bf97f17beafd31",
       "ext": ".py",
       "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/rotulo-t4/AMOSTRA-DOSES-S20260926.txt",
+      "sha": "6525746dec913fa41928ba1e7fff02166b43a3a7",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/rotulo-t4/MEDIDA-163.json",
+      "sha": "b0743994c8cd21ef887f5d31a44ab456a0da9b64",
+      "ext": ".json",
+      "readable": false,
       "code_dir": true
     },
     {
@@ -22914,7 +22963,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f4158be27380913fe1a498c0025424639ffb5c52",
+      "sha": "1652a2a48ec3e3c04ba322bbd4f4daabfb3786b4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -23538,6 +23587,13 @@
     {
       "path": "tests/mutacao_migracao_033.py",
       "sha": "7f06340d0845b691aa1976f3450fbe74ebb01d3a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/mutacao_rotulo_t4.py",
+      "sha": "d19b43be29334b2a65eee772432073db078038f0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25134,6 +25190,13 @@
     {
       "path": "tests/test_roteamento_youtube_proposta.py",
       "sha": "865e4a785d622d8579ed036f6d23bd10fe554b2e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_rotulo_t4_it.py",
+      "sha": "c765953bbafc17a49157556c87c6b7b60b41f24f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29458,6 +29521,28 @@
         "file": "coleta/rota_forward_documento.py",
         "line": 75,
         "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/rotulo_t4_it.py",
+      "to_file": "coleta/rotulos_ler.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rotulo_t4_it.py",
+        "line": 67,
+        "snippet": "import rotulos_ler as RL  # noqa: E402 — cultura, alvo e desenho da tabela: um dono só"
+      }
+    },
+    {
+      "from_file": "coleta/rotulo_t4_it.py",
+      "to_file": "data/samples/EU-T4-001/sparql-active-substance-2026.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/rotulo_t4_it.py",
+        "line": 73,
+        "snippet": "'sparql-active-substance-2026.json')"
       }
     },
     {
@@ -60668,6 +60753,28 @@
       }
     },
     {
+      "from_file": "provas/amostra_doses_rotulo_t4.py",
+      "to_file": "coleta/rotulo_t4_it.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/amostra_doses_rotulo_t4.py",
+        "line": 25,
+        "snippet": "import rotulo_t4_it as R  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/amostra_doses_rotulo_t4.py",
+      "to_file": "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/amostra_doses_rotulo_t4.py",
+        "line": 36,
+        "snippet": "with open(MANIFESTO, encoding='utf-8') as f:"
+      }
+    },
+    {
       "from_file": "provas/amostragem_neutra_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -64218,6 +64325,39 @@
         "file": "provas/medir_admission_t3_atual.py",
         "line": 74,
         "snippet": "(\"orquestrador/orquestrador.py\", \"adm.decidir(x, universo, corrida=run_id)\","
+      }
+    },
+    {
+      "from_file": "provas/medir_rotulo_t4_nos_163.py",
+      "to_file": "coleta/rotulo_t4_it.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/medir_rotulo_t4_nos_163.py",
+        "line": 28,
+        "snippet": "import rotulo_t4_it as R  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/medir_rotulo_t4_nos_163.py",
+      "to_file": "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_rotulo_t4_nos_163.py",
+        "line": 34,
+        "snippet": "with open(MANIFESTO, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "provas/medir_rotulo_t4_nos_163.py",
+      "to_file": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_rotulo_t4_nos_163.py",
+        "line": 92,
+        "snippet": "with open(PARES, encoding='utf-8') as f:"
       }
     },
     {
@@ -77704,6 +77844,28 @@
         "file": "tests/mutacao_migracao_033.py",
         "line": 38,
         "snippet": "(\"supabase/desfazer/033_desfazer.sql\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_rotulo_t4.py",
+      "to_file": "coleta/rotulo_t4_it.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_rotulo_t4.py",
+        "line": 106,
+        "snippet": "with open(ALVO, 'rb') as f:"
+      }
+    },
+    {
+      "from_file": "tests/mutacao_rotulo_t4.py",
+      "to_file": "coleta/rotulo_t4_it.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_rotulo_t4.py",
+        "line": 121,
+        "snippet": "with open(ALVO, 'wb') as f:"
       }
     },
     {
@@ -93800,6 +93962,39 @@
       }
     },
     {
+      "from_file": "tests/test_rotulo_t4_it.py",
+      "to_file": "coleta/rotulo_t4_it.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rotulo_t4_it.py",
+        "line": 27,
+        "snippet": "import rotulo_t4_it as R  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_rotulo_t4_it.py",
+      "to_file": "data/samples/IT-DOSE-ROTULO/IT-DOSES-2026-09-06.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_rotulo_t4_it.py",
+        "line": 211,
+        "snippet": "with open(DOSES, encoding='utf-8') as fh:"
+      }
+    },
+    {
+      "from_file": "tests/test_rotulo_t4_it.py",
+      "to_file": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_rotulo_t4_it.py",
+        "line": 159,
+        "snippet": "with open(PARES, encoding='utf-8') as fh:"
+      }
+    },
+    {
       "from_file": "tests/test_route_membership.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -97282,6 +97477,13 @@
         "constante": "SAIDA"
       }
     ],
+    "tests/mutacao_rotulo_t4.py": [
+      {
+        "pasta": "coleta",
+        "line": 128,
+        "constante": "ALVO"
+      }
+    ],
     "tests/test_egresso_consenso.py": [
       {
         "pasta": "coleta",
@@ -97305,11 +97507,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3632,
-    "files_readable": 1519,
-    "files_code_dir": 1755,
-    "file_edges": 6478,
-    "escritas_em_pasta": 89,
+    "files_tracked": 3641,
+    "files_readable": 1524,
+    "files_code_dir": 1762,
+    "file_edges": 6490,
+    "escritas_em_pasta": 90,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 24565,
-    "h": 9868
+    "h": 10190
   },
   "INVENTORY": {
     ".claude": [
@@ -100,6 +100,7 @@
       "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
       "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
+      "RELATORIO-ROTULOS-T4.md",
       "RELATORIO-SOC-ONDA2.md",
       "RELATORIO-SOC-TEMPO.md",
       "RELATORIO-SOC1-SOCIAL.md",
@@ -338,6 +339,7 @@
       "coleta/retrato_html.mjs",
       "coleta/ropf_pre_requisito.py",
       "coleta/rota_forward_documento.py",
+      "coleta/rotulo_t4_it.py",
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
       "coleta/scrap_capacidades.py",
@@ -1582,6 +1584,7 @@
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATO-DE-RETORNO-DO-EXECUTOR-V1.md",
       "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+      "docs/operacao/CONTRATO-FONTE-IT-T4-ROTULO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/DONO-DO-SYSTEM-MAP-IT.md",
       "docs/operacao/ENCANAMENTO-DA-COLETA.md",
@@ -2655,6 +2658,7 @@
       "provas/a_taxonomia_tem_um_dono.py",
       "provas/a_unidade_pousa_na_espera.py",
       "provas/alcance_da_pergunta_tematica.py",
+      "provas/amostra_doses_rotulo_t4.py",
       "provas/amostragem_neutra_t3.py",
       "provas/arbitragem_da_intelligence.py",
       "provas/as_corridas_nao_se_cruzam.py",
@@ -2799,6 +2803,7 @@
       "provas/janela_formas/pagina_boletim_local.mjs",
       "provas/linkedin_local_first.py",
       "provas/medir_admission_t3_atual.py",
+      "provas/medir_rotulo_t4_nos_163.py",
       "provas/medir_source_id_wiring_gap.py",
       "provas/medir_validadores_coorte.py",
       "provas/migracao_033_ensaio_copia.py",
@@ -2878,6 +2883,8 @@
       "provas/rls_censo_portao.py",
       "provas/rodadas_mutacao.py",
       "provas/roteamento_youtube_proposta.py",
+      "provas/rotulo-t4/AMOSTRA-DOSES-S20260926.txt",
+      "provas/rotulo-t4/MEDIDA-163.json",
       "provas/run_duravel_no_postgres.py",
       "provas/runtime_comum_no_postgres.py",
       "provas/runtime_pago_no_postgres.py",
@@ -3437,6 +3444,7 @@
       "tests/mutacao_conserto_regua.py",
       "tests/mutacao_do_scrap_portas.py",
       "tests/mutacao_migracao_033.py",
+      "tests/mutacao_rotulo_t4.py",
       "tests/mutacao_tempo_e_lugar.py",
       "tests/test_a_collection_preserva_o_fato.py",
       "tests/test_a_demanda_de_dados_da_italia.py",
@@ -3665,6 +3673,7 @@
       "tests/test_rodadas.py",
       "tests/test_rota_video_d53.py",
       "tests/test_roteamento_youtube_proposta.py",
+      "tests/test_rotulo_t4_it.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
       "tests/test_sala_duravel.py",
@@ -3712,8 +3721,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 933 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 933 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 934 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 934 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -3764,8 +3773,8 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "19 coletores gravam registo sem data nem lugar.",
-      "texto": "18 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
+      "titulo": "20 coletores gravam registo sem data nem lugar.",
+      "texto": "18 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulo_t4_it.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/adaptador_linkedin.py",
@@ -4225,10 +4234,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "rodada1-comando-v1",
-    "HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
-    "GENERATED_AT": "2026-09-26T17:04:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374"
+    "BRANCH": "nuvem-rotulos-t4-v1",
+    "HEAD": "3073fdcbf57576877063cf704a727db37baf9978",
+    "GENERATED_AT": "2026-09-26T17:38:13-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fa77e94789e125001e923139aa7bf4f51c84e7dedc57ff92d12cfc10574ea21e"
   },
   "FAMILIES": [
     {
@@ -4238,7 +4247,7 @@
       "x": 260,
       "y": 60,
       "w": 23340,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -4265,7 +4274,7 @@
       "x": 13865,
       "y": 60,
       "w": 485,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-ESPERA"
       ],
@@ -4278,7 +4287,7 @@
       "x": 14570,
       "y": 60,
       "w": 9735,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE",
@@ -4294,12 +4303,12 @@
       "x": 20045,
       "y": 60,
       "w": 2850,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 105
+      "count": 106
     },
     {
       "id": "F-ENTREGA",
@@ -4308,7 +4317,7 @@
       "x": 16395,
       "y": 60,
       "w": 3430,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -4330,7 +4339,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 1
     },
     {
@@ -4344,7 +4353,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 1
     },
     {
@@ -4359,7 +4368,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 2
     },
     {
@@ -4374,7 +4383,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 2
     },
     {
@@ -4389,7 +4398,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 3
     },
     {
@@ -4404,7 +4413,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 2
     },
     {
@@ -4419,7 +4428,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 3
     },
     {
@@ -4434,7 +4443,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 5
     },
     {
@@ -4450,7 +4459,7 @@
       "x": 5940,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 16
     },
     {
@@ -4466,7 +4475,7 @@
       "x": 7475,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 18
     },
     {
@@ -4482,7 +4491,7 @@
       "x": 9010,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 14
     },
     {
@@ -4498,7 +4507,7 @@
       "x": 10545,
       "y": 190,
       "w": 820,
-      "h": 9378,
+      "h": 9700,
       "count": 7
     },
     {
@@ -4513,7 +4522,7 @@
       "x": 11665,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 28
     },
     {
@@ -4528,7 +4537,7 @@
       "x": 13200,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 2
     },
     {
@@ -4543,7 +4552,7 @@
       "x": 13905,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 1
     },
     {
@@ -4559,7 +4568,7 @@
       "x": 14610,
       "y": 190,
       "w": 820,
-      "h": 9378,
+      "h": 9700,
       "count": 12
     },
     {
@@ -4575,7 +4584,7 @@
       "x": 15730,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 4
     },
     {
@@ -4591,7 +4600,7 @@
       "x": 16435,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 3
     },
     {
@@ -4607,7 +4616,7 @@
       "x": 17140,
       "y": 190,
       "w": 820,
-      "h": 9378,
+      "h": 9700,
       "count": 7
     },
     {
@@ -4623,7 +4632,7 @@
       "x": 18260,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 5
     },
     {
@@ -4638,7 +4647,7 @@
       "x": 18965,
       "y": 190,
       "w": 820,
-      "h": 9378,
+      "h": 9700,
       "count": 12
     },
     {
@@ -4654,7 +4663,7 @@
       "x": 20085,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 18
     },
     {
@@ -4670,8 +4679,8 @@
       "x": 21620,
       "y": 190,
       "w": 1235,
-      "h": 9378,
-      "count": 87
+      "h": 9700,
+      "count": 88
     },
     {
       "id": "Z-REFERENCIA",
@@ -4686,7 +4695,7 @@
       "x": 23155,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 1
     },
     {
@@ -4701,7 +4710,7 @@
       "x": 23860,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 4
     }
   ],
@@ -12934,6 +12943,15 @@
         {
           "ficheiro": "coleta/ropf_pre_requisito.py",
           "como_se_chama": "coleta/ropf_pre_requisito.py",
+          "carimba_data": [],
+          "carimba_lugar": [],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/rotulo_t4_it.py",
+          "como_se_chama": "coleta/rotulo_t4_it.py ROTULO.pdf",
           "carimba_data": [],
           "carimba_lugar": [],
           "separa_fonte_do_fato": false,
@@ -58665,6 +58683,90 @@
       "y": 7766
     },
     {
+      "id": "C-PROVA-ROTULOS-T4",
+      "name": "A prova do rotulo T4 — os 163 rotulos reais, medidos",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Corre o parser canonico do rotulo italiano nos 163 PDFs da ADAMA (cada um conferido pelo sha256 do manifesto) e conta cada degrau: abre, e deste registo, tem linha de uso, tem dose. Sorteia doses para leitura humana com semente fixa. Aponta os pares ja publicados que so existem porque o bloco de prosa invadia a cultura seguinte.",
+      "why_here": "Os PDFs nao estao no Git; sem esta medida o parser so teria sido provado em frases soltas e em rotulos sinteticos. Foi ela que mostrou que o texto com colunas punha o alvo na cultura errada, que o volume de agua passava por dose, e que 156 de 556 pares publicados de bloco sem titulo eram falsos.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊟",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/amostra_doses_rotulo_t4.py",
+        "provas/medir_rotulo_t4_nos_163.py",
+        "provas/rotulo-t4/AMOSTRA-DOSES-S20260926.txt",
+        "provas/rotulo-t4/MEDIDA-163.json"
+      ],
+      "file_count": 4,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ROTULOS"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 3
+      },
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 2 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "REGULATORIO_PORTFOLIO",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/raw/IT-ROTULOS/_MANIFESTO.json",
+        "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 22095,
+      "y": 7766
+    },
+    {
       "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
       "name": "A medição de que a Sala de Espera não tem morada",
       "territory": "Z-PROVA",
@@ -58759,7 +58861,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 7766
     },
     {
@@ -58872,8 +58974,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
-      "y": 7766
+      "x": 21680,
+      "y": 8088
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -58983,7 +59085,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8088
     },
     {
@@ -59141,7 +59243,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8088
     },
     {
@@ -59263,8 +59365,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 8088
+      "x": 21680,
+      "y": 8410
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -59351,7 +59453,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8410
     },
     {
@@ -59435,7 +59537,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8410
     },
     {
@@ -59532,8 +59634,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
-      "y": 8410
+      "x": 21680,
+      "y": 8732
     },
     {
       "id": "C-PROVENIENCIA",
@@ -59915,7 +60017,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8732
     },
     {
@@ -60418,7 +60520,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8732
     },
     {
@@ -60593,8 +60695,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
-      "y": 8732
+      "x": 21680,
+      "y": 9054
     },
     {
       "id": "C-REGRA-COLETA",
@@ -60819,7 +60921,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 9054
     },
     {
@@ -61682,7 +61784,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 9054
     },
     {
@@ -61817,7 +61919,7 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -61831,12 +61933,13 @@
         "coleta/pdf_text.py",
         "coleta/preservar_pdf.py",
         "coleta/ropf_pre_requisito.py",
+        "coleta/rotulo_t4_it.py",
         "coleta/rotulos_baixar.py",
         "coleta/rotulos_ler.py"
       ],
-      "file_count": 7,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "file_count": 8,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/raw/IT-ROTULOS/_MANIFESTO.json",
@@ -61849,6 +61952,7 @@
         "C-ORQUESTRADOR",
         "C-RELEVANCIA",
         "C-SUPABASE",
+        "C-TESTES",
         "V-HTTP"
       ],
       "outbound": [
@@ -61858,6 +61962,7 @@
         "C-INT-CONVERGENCIA",
         "C-PALAVRAS",
         "C-PROVA-ROTAS-REAIS",
+        "C-PROVA-ROTULOS-T4",
         "C-RECEITAS",
         "C-RECORRENCIA",
         "C-SUPABASE",
@@ -61866,7 +61971,8 @@
       "paises": {},
       "paises_dado": {
         "ITALIA": 10,
-        "ESPANHA": 3
+        "ESPANHA": 3,
+        "EUROPA": 1
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [
@@ -61881,17 +61987,19 @@
         "papel": "NAO SEI",
         "listas": [
           "ALVOS_CANON",
+          "CSV_REGISTO",
           "CULTURAS_ROTULO",
           "DANINHAS_CANON",
           "EQ_ALVO",
+          "MESES",
           "NOMES_COMPOSTOS",
           "PRODUTOS"
         ],
-        "palavras": 349,
+        "palavras": 366,
         "por_lingua": {
           "IT": 10
         },
-        "sem_marca_de_lingua": 339,
+        "sem_marca_de_lingua": 356,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -61952,6 +62060,7 @@
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json",
         "data/raw/IT-ROTULOS/_MANIFESTO.json",
         "data/samples/ES-ADAMA-PORTFOLIO-ROPF.json",
+        "data/samples/EU-T4-001/sparql-active-substance-2026.json",
         "data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json",
         "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json",
         "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
@@ -63061,8 +63170,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22510,
-      "y": 9054
+      "x": 21680,
+      "y": 9376
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -63536,7 +63645,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 9376
     },
     {
@@ -63863,7 +63972,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 9376
     },
     {
@@ -65716,6 +65825,7 @@
         "tests/mutacao_conserto_regua.py",
         "tests/mutacao_do_scrap_portas.py",
         "tests/mutacao_migracao_033.py",
+        "tests/mutacao_rotulo_t4.py",
         "tests/mutacao_tempo_e_lugar.py",
         "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_demanda_de_dados_da_italia.py",
@@ -65944,6 +66054,7 @@
         "tests/test_rodadas.py",
         "tests/test_rota_video_d53.py",
         "tests/test_roteamento_youtube_proposta.py",
+        "tests/test_rotulo_t4_it.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
         "tests/test_sala_duravel.py",
@@ -65986,7 +66097,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 275,
+      "file_count": 277,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -66196,6 +66307,7 @@
         "C-PROVA-FRONTEIRA",
         "C-PROVA-ROTAS-REAIS",
         "C-REGRESSAO-NAVEGADOR",
+        "C-ROTULOS",
         "C-SALA-DE-ESPERA",
         "C-SCRAP-GUARDA",
         "C-SCRAP-ROTA",
@@ -66205,7 +66317,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 62,
+        "ITALIA": 64,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -66246,6 +66358,7 @@
           "CONTRATO",
           "COORTE",
           "CORRIDA",
+          "CSV",
           "DECISOES_ANTIGAS",
           "DECISOES_NASCIDAS_DEPOIS",
           "DECLARADO",
@@ -66282,6 +66395,7 @@
           "JSONS",
           "LINHA_BOA",
           "MINIMOS",
+          "MUTANTES",
           "ONDE",
           "OUTRAS_GAVETAS",
           "PAGINAS",
@@ -66325,13 +66439,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1702,
+        "palavras": 1749,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1690,
+        "sem_marca_de_lingua": 1737,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -66342,9 +66456,9 @@
         {
           "pasta": "coleta",
           "prova": {
-            "file": "tests/test_egresso_consenso.py",
-            "line": 239,
-            "snippet": "escreve em falso"
+            "file": "tests/mutacao_rotulo_t4.py",
+            "line": 128,
+            "snippet": "escreve em ALVO"
           }
         },
         {
@@ -66470,6 +66584,7 @@
         "coleta/italy_recurrent_collect.mjs",
         "coleta/retrato_html.mjs",
         "coleta/rota_forward_documento.py",
+        "coleta/rotulo_t4_it.py",
         "coleta/scrap_capacidades.py",
         "coleta/scrap_colheita.py",
         "coleta/scrap_executor.py",
@@ -66568,7 +66683,9 @@
         "data/samples/INVENTARIO-SCRATCHPAD-HANDOFF.json",
         "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
         "data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json",
+        "data/samples/IT-DOSE-ROTULO/IT-DOSES-2026-09-06.json",
         "data/samples/IT-PROBE/probe-fase-c.json",
+        "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
         "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json",
         "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf.headers.txt",
         "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv.headers.txt",
@@ -66919,8 +67036,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 9376
+      "x": 21680,
+      "y": 9698
     },
     {
       "id": "C-TRANSCRICAO",
@@ -132843,6 +132960,124 @@
     },
     {
       "from": "C-ROTULOS",
+      "to": "C-PROVA-ROTULOS-T4",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais tem o seu codigo importado por A prova do rotulo T4 — os 163 rotulos reais, medidos. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/amostra_doses_rotulo_t4.py",
+          "line": 25,
+          "snippet": "import rotulo_t4_it as R  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--IMPORTS-->C-PROVA-ROTULOS-T4",
+            "FROM": "C-ROTULOS",
+            "TO": "C-PROVA-ROTULOS-T4",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/medir_rotulo_t4_nos_163.py",
+          "line": 28,
+          "snippet": "import rotulo_t4_it as R  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--IMPORTS-->C-PROVA-ROTULOS-T4",
+            "FROM": "C-ROTULOS",
+            "TO": "C-PROVA-ROTULOS-T4",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROTULOS",
+      "to": "C-PROVA-ROTULOS-T4",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais alimenta A prova do rotulo T4 — os 163 rotulos reais, medidos. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/amostra_doses_rotulo_t4.py",
+          "line": 36,
+          "snippet": "with open(MANIFESTO, encoding='utf-8') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--READS-->C-PROVA-ROTULOS-T4",
+            "FROM": "C-ROTULOS",
+            "TO": "C-PROVA-ROTULOS-T4",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/medir_rotulo_t4_nos_163.py",
+          "line": 34,
+          "snippet": "with open(MANIFESTO, encoding='utf-8') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--READS-->C-PROVA-ROTULOS-T4",
+            "FROM": "C-ROTULOS",
+            "TO": "C-PROVA-ROTULOS-T4",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/medir_rotulo_t4_nos_163.py",
+          "line": 92,
+          "snippet": "with open(PARES, encoding='utf-8') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--READS-->C-PROVA-ROTULOS-T4",
+            "FROM": "C-ROTULOS",
+            "TO": "C-PROVA-ROTULOS-T4",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROTULOS",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -132970,12 +133205,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Baixar e ler os rotulos oficiais tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Baixar e ler os rotulos oficiais tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_operacao.py",
           "line": 26,
           "snippet": "from mapa_regfi import explain_divergence, selling_off          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--IMPORTS-->C-TESTES",
+            "FROM": "C-ROTULOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_rotulo_t4_it.py",
+          "line": 27,
+          "snippet": "import rotulo_t4_it as R  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTULOS--IMPORTS-->C-TESTES",
             "FROM": "C-ROTULOS",
@@ -133005,12 +133256,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Baixar e ler os rotulos oficiais alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Baixar e ler os rotulos oficiais alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/mutacao_rotulo_t4.py",
+          "line": 106,
+          "snippet": "with open(ALVO, 'rb') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--READS-->C-TESTES",
+            "FROM": "C-ROTULOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_retorno_da_coleta.py",
           "line": 59,
           "snippet": "\"ONDE\": \"data/raw/IT-ROTULOS/_MANIFESTO.json\"}])",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--READS-->C-TESTES",
+            "FROM": "C-ROTULOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_rotulo_t4_it.py",
+          "line": 159,
+          "snippet": "with open(PARES, encoding='utf-8') as fh:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTULOS--READS-->C-TESTES",
             "FROM": "C-ROTULOS",
@@ -145026,6 +145309,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-ROTULOS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/mutacao_rotulo_t4.py",
+          "line": 121,
+          "snippet": "with open(ALVO, 'wb') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-ROTULOS",
+            "FROM": "C-TESTES",
+            "TO": "C-ROTULOS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-SALA-DE-ESPERA",
       "type": "WRITES",
       "payload": "artefacto",
@@ -148401,7 +148719,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2034,
+  "UNCLAIMED_FILES_COUNT": 2036,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -148643,7 +148961,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 232,
+      "PECAS_EM_DESACORDO": 234,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -148655,26 +148973,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 258
+      "TOTAL_DE_PECAS": 259
     }
   ],
   "COUNTS": {
-    "components": 258,
-    "components_proven": 32,
-    "components_pending": 218,
+    "components": 259,
+    "components_proven": 31,
+    "components_pending": 220,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1528,
-    "edges_proven": 1461,
+    "edges": 1531,
+    "edges_proven": 1464,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3632,
-    "files_covered": 1598,
+    "files_tracked": 3641,
+    "files_covered": 1605,
     "files_code_unclaimed": 0,
     "roles_proven": 178,
     "roles_declared_only": 9,
-    "roles_unknown": 71,
-    "roles_conflict": 40,
+    "roles_unknown": 72,
+    "roles_conflict": 41,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,

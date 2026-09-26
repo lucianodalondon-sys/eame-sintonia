@@ -1,15 +1,15 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
+  "HEAD": "3073fdcbf57576877063cf704a727db37baf9978",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 81,
- "TOTAL_CAMINHOS_RELEVANTES": 68,
+ "TOTAL_FICHEIROS": 82,
+ "TOTAL_CAMINHOS_RELEVANTES": 69,
  "POR_ESTADO": {
   "NOT_APPLICABLE": 13,
-  "NOT_INSTRUMENTED": 63,
+  "NOT_INSTRUMENTED": 64,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
  },
@@ -23,72 +23,72 @@
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   }
  },
@@ -206,8 +206,8 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 81,
-  "TOTAL_RELEVANT_PATHS": 68,
+  "TOTAL_FILES_SCANNED": 82,
+  "TOTAL_RELEVANT_PATHS": 69,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
   "TOTAL_ORCHESTRATORS": 6,
@@ -215,7 +215,7 @@
   "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 4,
   "TOTAL_TELEMETRY_EMITTERS": 4,
-  "TOTAL_UNKNOWN": 38,
+  "TOTAL_UNKNOWN": 39,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
  "PORQUE_ESSE": "corre sem rede, sem API paga e sem producao, e ja fala a lingua das falhas — instrumenta-lo custa o writer, e nao um ambiente.",
@@ -1170,6 +1170,30 @@
    "FAULT_PATH_PROVED": true,
    "PROVA": "tests/test_m2_rota_forward.py",
    "STATE": "INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/rotulo_t4_it.py",
+   "GAVETA": "coleta",
+   "LINHAS": 704,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
   },
   {
    "EXECUTOR_ID": "coleta/rotulos_baixar.py",
