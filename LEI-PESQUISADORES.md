@@ -16,7 +16,7 @@ Fontes lidas: D85 em `auditoria-madrugada/DECISOES-DONO-2026-09-23.md` · `ALINH
 
 | onde | o quê | IDs |
 |---|---|---|
-| **Bíblia da Coleta V1.4 → V1.5** | PARTE XXI «O que o campo diz, e quem o diz» — 3 leis | `COL-LAW-701` · `702` · `703` |
+| **Bíblia da Coleta V1.4 → V1.5** | PARTE XXI «O que o campo diz, e quem o diz» — 4 leis (a 704 veio da D88, acréscimo das 19:25) | `COL-LAW-701` · `702` · `703` · `704` |
 | **Bíblia da Intelligence V0.3 → V0.4** | secção 38 «O sinal fitossanitário, o modelo e quem sabe» — 6 leis; uma linha nova em `CAP-FUT` e em `CAP-SCI` | `INT-LAW-310..315` |
 | **Know-how** | §222 depois da §221; linha nova no topo («Última atualização material») | §222 |
 | registos da lei | matriz de conformidade (3 linhas, placar V1.5, G-43..45), `docs/biblia/leis.json` regerado, diário de decisões, cartão da Bíblia da Intelligence no registo (V0.4), teste de integração da Bíblia (bloco 7xx) | — |
@@ -43,7 +43,17 @@ AMBIGUO; homónimos nunca se fundem. Canais públicos entram pelas candidatas co
 ligam-se à pessoa **por prova**. Limites D16–D24 inteiros (sem login/cookie/conta/CAPTCHA/rota paga; LinkedIn só
 POST público; minimização; apagar a pedido; 5 pedidos/domínio/rodada). `IT = ABSENT`.
 
-**Números novos:** 701..703, porque a faixa 6xx já foi usada por um ramo lateral (Card Contract, 601..617).
+**`COL-LAW-704` · O que é público pode ser alcançado por outra rota técnica; o que é pago não (D88, acréscimo 19:25).**
+**Permitido** para material público: passar anti-robô (Cloudflare/Turnstile), navegador real com JavaScript, navegador
+furtivo, outro agente, outra rota. **Nunca**: conta paga, paywall, assinatura, material não público. **Só com o dono**:
+login com conta (mesmo gratuita), cookie de sessão, CAPTCHA por serviço pago, proxy pago. **Continua**: uso interno,
+dado pessoal, teto por domínio (a D88 escreve ≤ 5 em 24 h), VPN IT provada, **a rota usada escrita no RAW**, nada pago
+sem aprovação, `PLATFORM_POLICY_STATUS` medido ao lado de `OWNER_AUTHORIZED`. A lei tem a tabela «antes → agora»:
+D16 (contorno de login/robots), D23/D24 (login wall/CAPTCHA/bloqueio) e a própria `COL-LAW-703`, cuja lista «NÃO DEVE»
+foi alinhada. `robots.txt`: a D88 não fala dele — **não foi tocado**. `IT = PARTIAL` (teto, egresso e proveniência
+existem; a permissão não está ligada na matriz do Scrap — G-46).
+
+**Números novos:** 701..704, porque a faixa 6xx já foi usada por um ramo lateral (Card Contract, 601..617).
 Medido em **559 pontas de ramo**: 0 usam `COL-LAW-7xx` ou `INT-LAW-31x`.
 
 ## 3. Bíblia da Intelligence — o diff conceitual
@@ -89,10 +99,10 @@ existiam — `COL-LAW-207`, `011`, `208`, `INT-LAW-020`, `151`, `290` (objeto `S
 A B11 (lista de núcleos italianos) ficou **no know-how**, não na lei: é registo operacional, e muda.
 
 ## 5. Provas
-- `py provas/valida_biblia.py`: **11/11 PASS** — 108 leis · IMPLEMENTED 37 · PARTIAL 48 · **ABSENT 21** ·
+- `py provas/valida_biblia.py`: **11/11 PASS** — 109 leis · IMPLEMENTED 37 · **PARTIAL 49** · **ABSENT 21** ·
   NOT_APPLICABLE 2; `leis.json` regerado pelo `--build`.
 - `tests/test_biblia.py` + `tests/test_integracao_biblia.py`: **87 passam** (o teste de integração passou a contar o
-  bloco 7xx com 3 leis e a nomear 701..703 entre as que nunca podem desaparecer).
+  bloco 7xx com 4 leis e a nomear 701..704 entre as que nunca podem desaparecer).
 - Portão de contradição da Intelligence (`controle/portao_do_controle.contradicoes_da_lei`): **[]** — um só veredito
   CORRENTE, e o fecho continua a nomear a secção 32.
 - Testes da Intelligence, **cada versão numa cópia própria**, base `278cd489` × ramo, um ficheiro de cada vez (a

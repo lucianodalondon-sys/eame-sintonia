@@ -22,7 +22,7 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
 | **V1.4** | 2026-09-11 | **o retorno do executor entra na lei**: `COL-LAW-505` responde a pergunta que `COL-LAW-013` fez e nunca respondeu — «`OUTPUT` = onde larguei, e **em que forma**». Medido antes de escrita: `FALSE_HARVEST_TOTAL = 253` sobre os cinco executores canónicos | **105** (+1) |
-| **V1.5** | 2026-09-26 | **o campo e quem o diz** (D85 do dono + ALINHAMENTO COLLECTION → INTELLIGENCE): a série de monitorização que a fonte declara chega como veio, nunca resumida (`COL-LAW-701`); o claim pode levar a espécie que a fonte lhe deu — observação, previsão, modelo, recomendação, cenário, hipótese, `UNKNOWN` por omissão (`COL-LAW-702`, estende a 202); e a pessoa-fonte prova-se pela lista-mestra oficial + instituição + setor, e segue-se pela porta canónica, sem login (`COL-LAW-703`). Medido antes de escrita nos PDFs T3 do acervo (Salerno 4 → 40 capturas de *Ceratitis capitata*) e na lista MUR (278 docentes) | **108** (+3) |
+| **V1.5** | 2026-09-26 | **o campo e quem o diz** (D85 do dono + ALINHAMENTO COLLECTION → INTELLIGENCE): a série de monitorização que a fonte declara chega como veio, nunca resumida (`COL-LAW-701`); o claim pode levar a espécie que a fonte lhe deu — observação, previsão, modelo, recomendação, cenário, hipótese, `UNKNOWN` por omissão (`COL-LAW-702`, estende a 202); e a pessoa-fonte prova-se pela lista-mestra oficial + instituição + setor, e segue-se pela porta canónica (`COL-LAW-703`); e, pela D88 do mesmo dia, o material **público** pode ser alcançado por outra rota técnica (anti-robô, navegador real ou furtivo), e o **pago** nunca (`COL-LAW-704`). Medido antes de escrita nos PDFs T3 do acervo (Salerno 4 → 40 capturas de *Ceratitis capitata*) e na lista MUR (278 docentes) | **109** (+4) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
@@ -3082,9 +3082,10 @@ explícito. **Sem taxonomia paralela.**
 Um canal liga-se à pessoa **por prova** — o canal aponta para a página institucional da
 pessoa, ou a página institucional aponta para o canal — e **nunca** por semelhança de nome.
 
-**NÃO DEVE** (D16–D24, e continuam a valer inteiros):
+**NÃO DEVE** (D16–D24, com a emenda da D88 — `COL-LAW-704`):
 
-- login, cookie, conta, CAPTCHA ou rota paga;
+- login, cookie de sessão, conta, CAPTCHA por serviço pago, proxy pago ou rota paga, sem ordem
+  do dono (passar proteção anti-robô de material **público** é permitido, `COL-LAW-704`);
 - abrir o **perfil** de uma pessoa no LinkedIn (é muro de login) — só o endereço de um **POST
   público**;
 - guardar contactos, seguidores, mensagens, comentários de terceiros, ou qualquer dado pessoal
@@ -3138,6 +3139,80 @@ lugar do facto.
 seguimento de canais vive numa missão própria (`seguir-pesquisadores-v1`), fora do vivo.
 
 **ORIGEM.** `ARCHITECTURAL_DECISION` (D85) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-704 · O QUE É PÚBLICO PODE SER ALCANÇADO POR OUTRA ROTA TÉCNICA; O QUE É PAGO NÃO
+
+> **D88 do dono** (26/09 ~19:20): «nós não temos problema em burlar qualquer coisa de acesso
+> desde que o sistema capte o que precisa, nossos materiais são pra uso interno, inteligência
+> interna, qualquer pessoa poderia ir lá e ver o material, não é material pra burlar conta
+> paga». Substitui a proibição de «contorno de acesso» que vivia nas decisões D16–D24 (e na
+> `COL-LAW-703` da mesma emenda), para material **público**.
+
+**REGRA — PERMITIDO**, para material **público** (o que qualquer pessoa vê num navegador, sem
+pagar e sem conta):
+
+```
+passar proteção anti-robô (Cloudflare / Turnstile e semelhantes)
+navegador real com JavaScript · navegador «furtivo» / impressão digital de navegador
+trocar agente ou identidade técnica · repetir por outra rota técnica
+```
+
+**NÃO DEVE** — e isto a D88 não mudou, disse-o por escrito:
+
+- burlar **conta paga, paywall ou assinatura**;
+- alcançar material que **não é público**.
+
+**CONTINUA A VALER, INTEIRO** (a D88 não tocou; muda só com ordem nova do dono):
+
+- **uso interno**: o material serve a inteligência interna, não se republica;
+- **minimização de dado pessoal** (`COL-LAW-703`; comentários de pessoas físicas continuam no
+  portão de dado pessoal);
+- **o teto por domínio e o respiro** — a D88 escreve «≤ 5 por domínio em 24 h». Protegem a
+  nossa saída pela VPN de ser bloqueada, e a fonte (`COL-LAW-026`);
+- **VPN italiana provada** antes da rede;
+- **proveniência da rota**: o RAW **DEVE** registar **qual rota técnica** o trouxe — navegador
+  real, furtivo, outro agente, outra rota. Uma captura por rota contornada **NÃO DEVE** parecer
+  uma captura direta (`COL-LAW-033`, `COL-LAW-205`: a rota é do endpoint, e troca-se; a fonte fica);
+- **nenhuma rota que custe dinheiro** sem aprovação (`COL-LAW-019`: a rota paga é escalada, e
+  explica-se);
+- o eixo `PLATFORM_POLICY_STATUS` continua **medido e escrito** ao lado de `OWNER_AUTHORIZED`:
+  autorização do dono não apaga o que os termos da plataforma dizem.
+
+**PRECISA DO DONO** (até lá, **não se faz** — `NAO SEI` não é «sim»):
+
+```
+LOGIN com conta própria, mesmo gratuita · COOKIE DE SESSÃO
+CAPTCHA resolvido por SERVIÇO PAGO
+PROXY residencial PAGO
+```
+
+**O QUE MUDA, E O QUE NÃO.**
+
+| antes (lei ou decisão) | agora (D88) |
+|---|---|
+| D16: não autoriza «contorno de login/robots» | anti-robô de material público **permitido**; **login** continua a precisar do dono |
+| D23 · D24: «NÃO contornar login wall / CAPTCHA / bloqueio» | **bloqueio anti-robô** e desafio que um navegador real passa sozinho: **permitidos**; **login wall** (precisa de conta) e **CAPTCHA pago**: continuam a precisar do dono |
+| `COL-LAW-703` (V1.5, mesma emenda): «NÃO DEVE login, cookie, conta, CAPTCHA ou rota paga» | redação alinhada: login, cookie de sessão, conta, CAPTCHA por serviço pago, proxy pago e rota paga — só com ordem do dono |
+| D17.3 · D24: nenhuma conta **pessoal** | **igual** |
+| perfil de pessoa no LinkedIn = muro de login | **igual**: é login, não anti-robô |
+| `robots.txt` | a D88 **não fala** dele: a regra de robots em vigor **não foi tocada** por esta lei |
+
+**POR QUÊ.** A pergunta do dono é o que o sistema precisa de ver, e o critério é **público ≠
+pago**: o que qualquer pessoa vê no navegador pode ser alcançado por outra rota técnica; o que
+exige pagar ou ter conta, não. O que se conserva é o que protege a casa — a saída pela VPN, a
+prova de onde veio cada byte, e o dado pessoal.
+
+**LIGA-SE A** `COL-LAW-019` (rota paga) · `COL-LAW-020` (rota bem-sucedida tem memória) ·
+`COL-LAW-026` (proteção da fonte) · `COL-LAW-033` (procedência) · `COL-LAW-205` (endpoint
+substituível) · `COL-LAW-703` (pessoa-fonte e dado pessoal).
+
+**NÃO IMPLEMENTADO NESTA MISSÃO.** O teto por domínio, o portão de egresso e a proveniência
+existem no código; a **permissão** nova não está ligada — a matriz do Scrap ainda recusa pelas
+regras antigas, e mudá-la é do engenheiro do Scrap.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` (D88) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
 

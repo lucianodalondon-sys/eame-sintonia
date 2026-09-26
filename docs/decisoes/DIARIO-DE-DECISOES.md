@@ -1501,6 +1501,25 @@ estudo» (já é `INT-LAW-102`). A conta inteira, lei a lei, está em
 captura. Entrou como parágrafo da `COL-LAW-703`, não como lei: `COL-LAW-207`, `011`, `208` e `INT-LAW-020`,
 `151`, `290` já o diziam.
 
+**D88 (acréscimo do mesmo dia) — `COL-LAW-704` (nova).**
+
+```
+LAW_ID    COL-LAW-704 (nova)
+BEFORE    D16 não autorizava «contorno de login/robots»; D23/D24: «NÃO contornar login wall /
+          CAPTCHA / bloqueio»; COL-LAW-703 (V1.5): «NÃO DEVE login, cookie, conta, CAPTCHA
+          ou rota paga». A Bíblia não tinha lei própria de acesso.
+AFTER     material PÚBLICO pode ser alcançado por outra rota técnica (anti-robô, navegador
+          real/furtivo, outro agente); conta paga/paywall/não-público: nunca; login com conta,
+          CAPTCHA pago e proxy pago: só com o dono. Continuam: uso interno, dado pessoal,
+          teto por domínio, VPN IT, proveniência da rota, sem gasto sem aprovação.
+WHY       D88 do dono (26/09 ~19:20).
+EVIDENCE  a decisão escrita; nenhuma medida nova — é permissão, não observação.
+IMPACT    nenhum runtime mudou; a matriz do Scrap ainda recusa pelas regras antigas (G-46).
+VERSION   V1.5 (a mesma emenda do dia)
+```
+
+robots.txt: a D88 não fala dele, e a lei não o tocou.
+
 **Porque 701 e não 601.** A numeração 6xx já foi usada por um ramo lateral (Card
 Contract, COL-LAW-601..617) que nunca chegou à linha. Reusar os números faria duas
 leis diferentes com o mesmo ID no dia em que alguém juntasse os ramos. Medido em
