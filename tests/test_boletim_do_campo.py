@@ -125,6 +125,13 @@ class OAnoDeComparacao(unittest.TestCase):
         t = "La campagna 2026 registra prezzi in calo del 12% rispetto al 2025 per le mele della Val di Non."
         self.assertEqual("campagna 2026", FT.campos_do_fato(t)["fact_time"])
 
+    def test_a_campanha_de_comparacao_que_vem_primeiro_nao_vence(self):
+        # sem a guarda sairia «campagna 2025»; «quest'anno» nao diz o ano: NAO SEI e a resposta certa
+        t = "Rispetto alla campagna 2025, la raccolta di quest'anno e stata colpita dalla grandine nei frutteti."
+        r = FT.campos_do_fato(t)
+        self.assertEqual(FT.NAO_SEI, r["fact_time"])
+        self.assertIn("COMPARACAO_NAO_E_FATO", r["fact_time_basis"])
+
 
 class APortaLevaAsChavesDoBoletim(unittest.TestCase):
 
@@ -142,6 +149,7 @@ class APortaLevaAsChavesDoBoletim(unittest.TestCase):
         self.assertEqual(["ingrossamento frutto", "ripresa vegetativa"], j["FASE"]["VALOR"])
         self.assertEqual(["mosca della frutta"], [p for p in j["PROBLEMA"]["VALOR"] if p.startswith("mosca")])
         self.assertIn("cimice asiatica", j["PROBLEMA"]["AUSENTES"])
+        self.assertNotIn("cimice asiatica", j["PROBLEMA"]["VALOR"])     # ausente nunca e valor
         pares = {s["CULTURA"]: [p["NOME"] for p in s["PROBLEMAS"]] for s in j["PROBLEMA"]["SECOES"]}
         self.assertIn("mosca della frutta", pares["agrumi"])
 
