@@ -1,0 +1,28 @@
+import json, re, collections
+D = r'C:/Users/London1/acervo-para-sala-2/'
+e = json.load(open(D + 'ensaio-3.json', encoding='utf-8'))
+dec = json.load(open(D + 'DECISOES-DO-ENSAIO-3.json', encoding='utf-8'))
+xx_para_orig = {}
+for p in e['PASSAGENS']:
+    s = ' '.join(p['SAIDA_FIM'])
+    m = re.search(r'pela corrida \W(XX-[^\s\u00bb]+)', s)
+    if m:
+        xx_para_orig[m.group(1)] = p
+novas = {n['ITEM_ID'] for n in e['NOVAS']}
+runs = collections.OrderedDict()
+for d in dec:
+    if d['resultado'] == 'SIM' and d['item'] in novas:
+        p = xx_para_orig.get(d['corrida'])
+        if p:
+            runs.setdefault(p['RUN_ID'], {"RUN_ID": p['RUN_ID'], "FONTE": p['FONTE'], "UNIVERSO": p['UNIVERSO'], "ITENS": []})
+            if d['item'] not in runs[p['RUN_ID']]['ITENS']:
+                runs[p['RUN_ID']]['ITENS'].append(d['item'])
+        else:
+            print('sem corrida de origem:', d['item'], d['corrida'])
+achados = {i for r in runs.values() for i in r['ITENS']}
+print('corridas', len(runs), 'itens cobertos', len(achados), 'de', len(novas), 'faltam', sorted(novas - achados))
+for r in runs.values():
+    print(r)
+json.dump({"ORIGEM": "ensaio-3 (ACERVO-PARA-SALA-2) sobre 69b0e23f + este ramo",
+           "CORRIDAS": list(runs.values())}, open(D + 'LOTE-12-ITENS.json', 'w', encoding='utf-8'),
+          ensure_ascii=False, indent=1)

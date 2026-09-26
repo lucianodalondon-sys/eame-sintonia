@@ -1,0 +1,29 @@
+import json, subprocess, collections, os
+os.chdir(r'C:/aps-base')
+velho = json.loads(subprocess.run(['git', 'show', 'HEAD:data/samples/LIVRO-DE-DECISOES.json'], capture_output=True).stdout)
+novo = json.load(open('data/samples/LIVRO-DE-DECISOES.json', encoding='utf-8'))
+dec = novo['DECISOES'][len(velho['DECISOES']):]
+M = json.load(open(r'C:/Users/London1/acervo-para-sala/motivos.json', encoding='utf-8'))
+grupo = {}
+for x in M['ITENS']:
+    g = 'YOUTUBE' if 'YOUTUBE' in x.get('MARCAS', []) else x['MOTIVO'].split(':')[0]
+    grupo[x['SHA256']] = g
+ultima = {}
+for d in dec:
+    pai = (((d.get('evidencia') or {}).get('portoes') or {}).get('linhagem') or {}).get('pai') or ''
+    ultima[(pai, d['universo'])] = d
+c = collections.Counter(); mot = collections.Counter(); yt_pais = set()
+for (pai, uni), d in ultima.items():
+    g = next((v for k, v in grupo.items() if pai and k.startswith(pai)), 'JA_NA_SALA_OU_FORA_DO_ALVO')
+    c[(g, d['resultado'])] += 1
+    if g == 'YOUTUBE':
+        yt_pais.add(pai)
+        mot['%s %s: %s' % (uni, d['resultado'], (d.get('motivo') or '')[:90])] += 1
+print('decisoes novas', len(dec), '| pares (conteudo, universo)', len(ultima))
+for k, v in sorted(c.items()):
+    print(v, k)
+yt_total = sum(1 for g in grupo.values() if g == 'YOUTUBE')
+print('conteudos YouTube julgados', len(yt_pais), 'de', yt_total)
+for k, v in mot.most_common(15):
+    print(v, k)
+json.dump(dec, open(r'C:/Users/London1/acervo-para-sala-2/DECISOES-DO-ENSAIO-3.json', 'w', encoding='utf-8'), ensure_ascii=False)

@@ -26,6 +26,9 @@ def main():
     ap = argparse.ArgumentParser()
     for x in ("--ensaio", "--d84", "--dados", "--raizes", "--saida"):
         ap.add_argument(x, required=True)
+    # as linhas novas do ensaio tem raw_observation_id do banco DESCARTAVEL (fora do raw.json): o pai vem
+    # entao da decisao da porta (`evidencia.portoes.linhagem.pai`, os primeiros 60 caracteres do sha256)
+    ap.add_argument("--decisoes", default="")
     a = ap.parse_args()
     os.environ["HTTP_PROXY"] = os.environ["HTTPS_PROXY"] = "http://127.0.0.1:9"
     sys.path[:0] = [os.path.join(a.d84, "admissao"), a.d84]
@@ -35,11 +38,24 @@ def main():
     import reprocessar_tempo_lugar as RP  # noqa: PLC0415
 
     e = json.load(open(a.ensaio, encoding="utf-8"))
-    raws = {str(r["id"]): r for r in json.load(open(os.path.join(a.dados, "raw.json"), encoding="utf-8"))}
+    lista = json.load(open(os.path.join(a.dados, "raw.json"), encoding="utf-8"))
+    raws = {str(r["id"]): r for r in lista}
+    pai_do_item = {}
+    for d in (json.load(open(a.decisoes, encoding="utf-8")) if a.decisoes else []):
+        pai = (((d.get("evidencia") or {}).get("portoes") or {}).get("linhagem") or {}).get("pai")
+        if pai and d.get("resultado") == "SIM":
+            pai_do_item[d["item"]] = pai
+
+    def raw_de(n):
+        r = raws.get(str(n.get("RAW_OBSERVATION_ID")))
+        if r:
+            return r
+        pai = pai_do_item.get(n["ITEM_ID"])
+        achados = [x for x in lista if pai and x["sha256"].strip().startswith(pai)] if pai else []
+        return achados[0] if achados else None
     raizes = [x for x in a.raizes.split(";") if x]
 
-    def dados_de(raw_id):
-        r = raws.get(str(raw_id))
+    def dados_de(r):
         if not r:
             return None
         for R in raizes:
@@ -54,8 +70,8 @@ def main():
     linhas = []
     for n in e.get("NOVAS", []):
         sid, uni = n["SOURCE_ID"], n["UNIVERSO"]
-        dados = dados_de(n.get("RAW_OBSERVATION_ID"))
-        r = raws.get(str(n.get("RAW_OBSERVATION_ID"))) or {}
+        r = raw_de(n) or {}
+        dados = dados_de(r) if r else None
         # o texto chega da copia da Sala com TAB/LF/CR trocados por espaco (ver o ensaio)
         est = {"SOURCE_ID": sid, "TEXTO": n.get("TEXTO") or "",
                "DERIVED_ARTIFACT_ID": str(n["ITEM_ID"]).split(":", 1)[-1],

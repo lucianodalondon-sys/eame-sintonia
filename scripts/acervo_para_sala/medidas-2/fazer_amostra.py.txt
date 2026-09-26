@@ -1,0 +1,20 @@
+import json, os, hashlib
+O = os.path.join(os.path.expanduser("~"), "sintonia-sala-italia", "armazem", "XX", "it-t7-015",
+                 "OBSERVATION", "cf60e168c2643cd7-u4178bccb10c88b8f-f-Up25Lyn9I")
+b = open(O, 'rb').read()
+assert hashlib.sha256(b).hexdigest().startswith('cf60e168')
+t = b.decode('utf-8')
+i = t.find('"videoDetails":')
+det, fim = json.JSONDecoder().raw_decode(t, i + len('"videoDetails":'))
+bruto = t[i:fim]
+tit = t[t.find('<title>'):t.find('</title>') + 8]
+amostra = ('<!-- EXCERTO REAL: armazem XX/it-t7-015/OBSERVATION/cf60e168c2643cd7-...-f-Up25Lyn9I '
+           '(sha256 cf60e168c2643cd75ae6e17eaf2e001b6f37450ea4f6cb16d7412de4169f64c4): o <title> e o '
+           'objecto "videoDetails" copiados byte a byte; o resto da pagina foi retirado. -->\n'
+           '<html><head>%s</head><body><p>Informazioni Stampa Copyright</p>'
+           '<script nonce="x">var ytInitialPlayerResponse = {"responseContext":{},%s};</script></body></html>\n'
+           % (tit, bruto))
+d = r'C:/capa-v1/tests/dados/descricao-yt'
+os.makedirs(d, exist_ok=True)
+open(d + '/it-t7-015-raw201-videodetails.html', 'w', encoding='utf-8', newline='\n').write(amostra)
+print(len(amostra), repr(det.get('shortDescription', '')[:120]), len(det.get('shortDescription', '')))

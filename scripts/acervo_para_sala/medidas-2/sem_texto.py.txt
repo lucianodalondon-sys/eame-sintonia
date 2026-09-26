@@ -1,0 +1,37 @@
+import json, os, hashlib, collections, sys
+sys.path[:0] = [r'C:/capa-v1', r'C:/capa-v1/coleta', r'C:/capa-v1/leis']
+os.chdir(r'C:/capa-v1')
+import _gavetas  # noqa
+from coleta import executor_texto_de_html as H
+M = json.load(open(r'C:/Users/London1/acervo-para-sala/motivos.json', encoding='utf-8'))
+itens = M['ITENS'] if isinstance(M, dict) and 'ITENS' in M else M
+raws = json.load(open(r'C:/Users/London1/acervo-para-sala/raw.json', encoding='utf-8'))
+raizes = open(r'C:/Users/London1/reproc-acervo/raizes.txt').read().strip().split(';')
+cam = collections.defaultdict(list); rp = {}
+for r in raws:
+    cam[r['sha256'].strip()].append(r['storage_path']); rp[r['sha256'].strip()] = r
+
+
+def achar(s):
+    for c in cam[s]:
+        for R in raizes:
+            p = os.path.join(R, c)
+            if os.path.isfile(p):
+                b = open(p, 'rb').read()
+                if hashlib.sha256(b).hexdigest() == s:
+                    return b
+
+
+alvo = [x for x in itens if x['MOTIVO'].startswith('SEM_TEXTO') and 'YOUTUBE' not in x.get('MARCAS', [])]
+print(len(alvo), collections.Counter(x['MOTIVO'] for x in alvo))
+for x in alvo:
+    s = x['SHA256']; r = rp.get(s, {})
+    b = achar(s)
+    if b is None:
+        print('SEM_BYTES', x['SOURCE_ID']); continue
+    mt = r.get('media_type')
+    if 'html' in (mt or ''):
+        t, e, err, med = H.extrair(b, mt)
+    else:
+        t, e, err, med = '', '-', '', {}
+    print(x['SOURCE_ID'], x['MOTIVO'], mt, len(b), 'inicio=%r' % b[:60], '->', e, med.get('NON_WHITESPACE_CHARACTERS'), (r.get('source_url') or '')[:70])

@@ -1,0 +1,34 @@
+import json, collections, re
+e = json.load(open(r'C:/Users/London1/acervo-para-sala-2/ensaio-3.json', encoding='utf-8'))
+M = json.load(open(r'C:/Users/London1/acervo-para-sala/motivos.json', encoding='utf-8'))
+yt_src = {x['SOURCE_ID'] for x in M['ITENS'] if 'YOUTUBE' in x.get('MARCAS', [])}
+
+
+def resumo(p):
+    s = ' '.join(p['SAIDA_FIM'])
+    if 'ENVELOPE_INVALIDO' in s:
+        return 'ENVELOPE_INVALIDO'
+    if 'NAO SEI COMO' in s or 'nenhum executor' in s:
+        return 'SEM_EXECUTOR'
+    if p['EXIT']:
+        return 'REBENTOU'
+    if not p['BALCAO'] or not p['BALCAO'].get('OBS'):
+        return 'BALCAO_VAZIO'
+    m = re.search(r'colheita encontrada: (\d+)', s)
+    return 'PASSOU_A_PORTA' if m and int(m.group(1)) > 0 else 'COLHEITA_0:' + (s[-160:])
+
+
+c = collections.Counter(); cy = collections.Counter(); ex = {}
+for p in e['PASSAGENS']:
+    r = resumo(p)
+    k = r.split(':')[0]
+    c[k] += 1
+    if p['FONTE'] in yt_src:
+        cy[k] += 1
+    ex.setdefault(k, p)
+print('todas', dict(c))
+print('das fontes com video', dict(cy))
+for k, p in ex.items():
+    if k != 'PASSOU_A_PORTA':
+        print('==', k, p['RUN_ID'], p['FONTE'], p['BALCAO'])
+        print('\n'.join(p['SAIDA_FIM'][-5:]))
