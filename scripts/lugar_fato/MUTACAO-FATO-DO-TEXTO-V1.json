@@ -1,14 +1,14 @@
 {
  "DATASET": "MUTACAO-FATO-DO-TEXTO-V1",
  "ALVO": "leis/fato_do_texto.py",
- "ALVO_SHA256": "c63e65afec4665354000dbc9e48820085266984b681d2e183a149e4cdd415d09",
+ "ALVO_SHA256": "0672b53a98632f69ecd7fedb0206a0838a01b757574724e3c6c0f0d0305187b8",
  "MUTANTES": [
   {
    "MUTANTE": "M1_SOURCE_LOCATION_COPIADO",
    "REGRA": "reprova se o lugar da fonte puder virar lugar do facto",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.263s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.204s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -16,7 +16,7 @@
    "REGRA": "reprova se a data de publicacao preencher o fact_time",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.186s | FAILED (failures=8)",
+   "SAIDA": "Ran 44 tests in 0.218s | FAILED (failures=8)",
    "RESULTADO": "MORTO"
   },
   {
@@ -24,7 +24,7 @@
    "REGRA": "reprova se a pagina inteira (menu/rodape) for lida como corpo",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.284s | FAILED (failures=3)",
+   "SAIDA": "Ran 44 tests in 0.246s | FAILED (failures=3)",
    "RESULTADO": "MORTO"
   },
   {
@@ -32,7 +32,7 @@
    "REGRA": "reprova se a linha de rodape/institucional entrar no corpo",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.241s | FAILED (failures=2)",
+   "SAIDA": "Ran 44 tests in 0.232s | FAILED (failures=2)",
    "RESULTADO": "MORTO"
   },
   {
@@ -40,7 +40,7 @@
    "REGRA": "reprova se 'ieri/la settimana scorsa' valer sem publicacao provada",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.234s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.195s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -48,7 +48,7 @@
    "REGRA": "D63: reprova se a conta usar a data de coleta (agora) em vez da publicacao",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.151s | FAILED (failures=11)",
+   "SAIDA": "Ran 44 tests in 0.131s | FAILED (failures=11)",
    "RESULTADO": "MORTO"
   },
   {
@@ -56,7 +56,7 @@
    "REGRA": "D63: reprova se a funcao aceitar a data de coleta como ancora de reserva",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.277s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.262s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -64,7 +64,7 @@
    "REGRA": "reprova se publicacao com base NAO SEI ancorar relativas",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.244s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.208s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -72,7 +72,7 @@
    "REGRA": "reprova se a serie de anos virar ano do facto",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.224s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.238s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -80,7 +80,7 @@
    "REGRA": "reprova se a data no inicio da linha de lista virar tempo do facto",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.178s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.234s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -88,7 +88,7 @@
    "REGRA": "reprova se 'fino a novembre' virar tempo do facto",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.266s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.218s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -96,7 +96,7 @@
    "REGRA": "reprova se varios lugares forem reduzidos a um por adivinhacao",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.277s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.261s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -104,7 +104,7 @@
    "REGRA": "reprova se a base do lugar perder o trecho",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.259s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.255s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -112,7 +112,7 @@
    "REGRA": "D62: reprova se o lugar de evento virar lugar de campo (doenca/praga)",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.277s | FAILED (failures=3)",
+   "SAIDA": "Ran 44 tests in 0.197s | FAILED (failures=3)",
    "RESULTADO": "MORTO"
   },
   {
@@ -120,7 +120,7 @@
    "REGRA": "D62: reprova se o lugar de mercado virar lugar de campo",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.274s | FAILED (failures=2)",
+   "SAIDA": "Ran 44 tests in 0.241s | FAILED (failures=2)",
    "RESULTADO": "MORTO"
   },
   {
@@ -128,7 +128,7 @@
    "REGRA": "D62: reprova se o lugar de evento passar a frente do de campo",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.234s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.212s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -136,7 +136,7 @@
    "REGRA": "D63: reprova se 'la settimana scorsa' virar um dia inventado",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.241s | FAILED (failures=3)",
+   "SAIDA": "Ran 44 tests in 0.225s | FAILED (failures=3)",
    "RESULTADO": "MORTO"
   },
   {
@@ -144,7 +144,7 @@
    "REGRA": "D63: reprova se 'nei giorni scorsi' virar uma data",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.214s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.185s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -152,7 +152,7 @@
    "REGRA": "reprova se «fermo» (parado) voltar a ser a provincia de Fermo",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.234s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.175s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -160,7 +160,7 @@
    "REGRA": "reprova se «eventi estremi» (tempo no campo) virar evento tecnico",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.248s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.177s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -168,7 +168,7 @@
    "REGRA": "D64: reprova se «oggi» sem marca de dia virar a data",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.278s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.196s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -176,7 +176,7 @@
    "REGRA": "D64: reprova se «ad oggi / fino ad oggi / al giorno d'oggi» virar a data",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.230s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.228s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -184,7 +184,7 @@
    "REGRA": "D64: reprova se «oggi, lunedì» / «oggi alle» deixar de contar",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.252s | FAILED (failures=3)",
+   "SAIDA": "Ran 44 tests in 0.174s | FAILED (failures=3)",
    "RESULTADO": "MORTO"
   },
   {
@@ -192,7 +192,7 @@
    "REGRA": "(a): reprova se o lugar onde se produz voltar a sair MERCADO",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.251s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.214s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -200,7 +200,7 @@
    "REGRA": "(a): reprova se o lugar de producao ganhar evidencia de foco/observacao",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.242s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.205s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -208,7 +208,7 @@
    "REGRA": "(b): reprova se a data de exame/curso voltar a ser tempo do facto",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.232s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.263s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -216,7 +216,7 @@
    "REGRA": "reprova se «coltura» dentro de «agricoltura» voltar a amarrar a data",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.182s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.277s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -224,7 +224,7 @@
    "REGRA": "reprova se duas contas diferentes no mesmo texto derem uma data escolhida",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.226s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.258s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -232,7 +232,7 @@
    "REGRA": "reprova se «rispetto allo stesso periodo dello scorso anno» virar o tempo do facto",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.266s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.183s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -240,7 +240,7 @@
    "REGRA": "(a): reprova se a palavra de producao longe do lugar o fizer CAMPO",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.298s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.187s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -248,7 +248,7 @@
    "REGRA": "D70: reprova se o dia calculado voltar a escrever-se como intervalo desse dia so para fugir a comparacao da lei (contorno)",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.195s | FAILED (failures=7)",
+   "SAIDA": "Ran 44 tests in 0.144s | FAILED (failures=7)",
    "RESULTADO": "MORTO"
   },
   {
@@ -256,7 +256,7 @@
    "REGRA": "D69: reprova se a data calculada disser PUBLISHED_AT_COM_PROVA («o mesmo instante», nao provado)",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.209s | FAILED (failures=5)",
+   "SAIDA": "Ran 44 tests in 0.172s | FAILED (failures=5)",
    "RESULTADO": "MORTO"
   },
   {
@@ -264,7 +264,7 @@
    "REGRA": "D70: reprova se o trecho da conta se perder (a lei nao a refaz)",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.259s | FAILED (failures=4)",
+   "SAIDA": "Ran 44 tests in 0.192s | FAILED (failures=4)",
    "RESULTADO": "MORTO"
   },
   {
@@ -272,7 +272,7 @@
    "REGRA": "D70: reprova se a expressao original se perder (a lei nao a refaz)",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.234s | FAILED (failures=4)",
+   "SAIDA": "Ran 44 tests in 0.212s | FAILED (failures=4)",
    "RESULTADO": "MORTO"
   },
   {
@@ -280,7 +280,7 @@
    "REGRA": "D70: reprova se o trecho guardado puder cortar a expressao (frase longa)",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.219s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.200s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -288,7 +288,7 @@
    "REGRA": "ensaio: reprova se «registrato la settimana scorsa» voltar a dar lugar sem data",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.233s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.200s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -296,7 +296,7 @@
    "REGRA": "ensaio: reprova se «il prossimo bollettino … la prossima settimana» virar data",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.233s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.206s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -304,7 +304,7 @@
    "REGRA": "ensaio: reprova se «eseguire … in luglio» voltar a ser tempo do facto",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.194s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.190s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -312,7 +312,7 @@
    "REGRA": "ensaio: reprova se o pedaco repetido de um conselho voltar a ser facto",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.261s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.219s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -320,7 +320,7 @@
    "REGRA": "ensaio: reprova se «si consiglia … la prossima settimana» virar data",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.219s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.273s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -328,7 +328,7 @@
    "REGRA": "ensaio: reprova se a palavra de evento depois das 300 letras voltar a perder-se",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.175s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.302s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -336,7 +336,7 @@
    "REGRA": "ensaio: reprova se «14 punti vendita» a Firenze deixar de ser MERCADO",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.160s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.250s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -344,7 +344,7 @@
    "REGRA": "ensaio: reprova se «focus sull'Italia» voltar a ser lugar de evento",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.187s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.281s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -352,7 +352,7 @@
    "REGRA": "ensaio: reprova se «dall'America Latina» voltar a ser a provincia de Latina",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.233s | FAILED (failures=1)",
+   "SAIDA": "Ran 44 tests in 0.247s | FAILED (failures=1)",
    "RESULTADO": "MORTO"
   },
   {
@@ -360,13 +360,13 @@
    "REGRA": "D63: reprova se a precisao nao disser que a data foi calculada",
    "COMPILA": true,
    "RC": 1,
-   "SAIDA": "Ran 44 tests in 0.151s | FAILED (failures=6)",
+   "SAIDA": "Ran 44 tests in 0.231s | FAILED (failures=6)",
    "RESULTADO": "MORTO"
   }
  ],
  "SEM_MUTANTE": {
   "RC": 0,
-  "SAIDA": "Ran 44 tests in 0.280s | OK"
+  "SAIDA": "Ran 44 tests in 0.211s | OK"
  },
  "MORTOS": 45,
  "TOTAL": 45
