@@ -82,10 +82,41 @@ RODAPE = re.compile(
     re.I)
 
 
+# EXTRATOR-LUGAR-V2 (26/09) · O TITULO CURTO ENTRA, COM A MESMA REGRA. Medido pela RENDIMENTO-POR-FONTE: num
+# video o texto guardado e SO o titulo (60-100 letras), e `corpo()` deitava-o fora por ter < 8 palavras
+# («Potatura dell'olivo: a Macerata la 9a selezione studenti», IT-T12-008). O titulo e a 1.a linha do texto
+# extraido (o <title> da pagina). O ULTIMO pedaco depois de « - », « — », « – » ou « | » e o NOME DO SITE
+# (quem publica) e sai SEMPRE: a sede de quem publica nunca e lugar do facto. Fica se sobrarem >= 3 palavras e
+# nao for rodape. Nao ha regra nova de lugar: o titulo passa pela mesma ancora de acontecimento.
+PALAVRAS_MINIMAS_DO_TITULO = 3
+_RE_SEPARADOR_DO_SITE = re.compile(r"\s+[-—–|]\s+(?!.*\s[-—–|]\s)")
+
+
+def titulo(texto: str) -> str:
+    """A 1.a linha do texto sem o nome do site; '' se nao servir."""
+    linhas = [l.strip() for l in str(texto or "").splitlines() if l.strip()]
+    if not linhas:
+        return ""
+    t = linhas[0]
+    m = _RE_SEPARADOR_DO_SITE.search(t)
+    if m:
+        t = t[:m.start()].strip()
+    if len(re.findall(r"[A-Za-zÀ-ÿ']+", t)) < PALAVRAS_MINIMAS_DO_TITULO or RODAPE.search(t):
+        return ""
+    return t
+
+
 def corpo(texto: str) -> str:
-    """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora."""
+    """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora.
+    O titulo curto (1.a linha, sem o nome do site) entra a frente, como frase propria."""
     fica = []
+    t = titulo(texto)
+    if t:
+        fica.append(t)
+    primeira = next((l.strip() for l in str(texto or "").splitlines() if l.strip()), None)
     for linha in str(texto or "").splitlines():
+        if t and linha.strip() == primeira:
+            continue           # a 1.a linha ja entrou, SEM o nome do site (nunca a sede de quem publica)
         l = linha.strip()
         if len(re.findall(r"[A-Za-zÀ-ÿ']+", l)) < PALAVRAS_MINIMAS:
             continue
