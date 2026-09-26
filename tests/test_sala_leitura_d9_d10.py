@@ -38,6 +38,9 @@ _spec = importlib.util.spec_from_file_location(
 E = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(E)
 
+#: a recusa do banco vem na lingua do servidor (medido: o Postgres desta maquina fala portugues)
+RECUSA_DE_LEITURA = r"read-only|leitura-apenas|sola lettura|solo lectura"
+
 TEM_PG = (E.PG_BIN / ("initdb.exe" if os.name == "nt" else "initdb")).exists() and shutil.which("bash")
 
 
@@ -95,11 +98,27 @@ class D9SemBanco(unittest.TestCase):
     def test_modo_leitura_sem_confirmacao_do_banco_levanta(self):
         """Se o banco não disser `on` na mesma transação, a leitura NÃO devolve nada."""
         pg = espera._Postgres("postgresql://x/y", so_leitura=True)
-        falso = subprocess.CompletedProcess([], 0, stdout="off" + pg.SEP_LINHA + "1\n", stderr="")
+        falso = subprocess.CompletedProcess([], 0, stdout="off\n1\n", stderr="")
         with mock.patch.object(espera._Postgres, "_psql_exe", staticmethod(lambda: "psql")), \
                 mock.patch.object(espera.subprocess, "run", return_value=falso):
             with self.assertRaises(espera.SalaIndisponivel):
                 pg._consultar("select 1")
+
+    def test_a_prova_on_vem_numa_linha_propria_e_os_dados_depois(self):
+        """Forma REAL do psql (medida em Postgres, 26/09): `on`, mudanca de linha, e os registos."""
+        pg = espera._Postgres("postgresql://x/y", so_leitura=True)
+        real = subprocess.CompletedProcess([], 0, stdout="on\na" + pg.SEP_LINHA + "b\n", stderr="")
+        sem_linhas = subprocess.CompletedProcess([], 0, stdout="on\n", stderr="")
+        colado = subprocess.CompletedProcess([], 0, stdout="on" + pg.SEP_LINHA + "a\n", stderr="")
+        with mock.patch.object(espera._Postgres, "_psql_exe", staticmethod(lambda: "psql")):
+            with mock.patch.object(espera.subprocess, "run", return_value=real):
+                self.assertEqual(pg._consultar("select 1"), ["a", "b"])
+            with mock.patch.object(espera.subprocess, "run", return_value=sem_linhas):
+                self.assertEqual(pg._consultar("select 1"), [])
+            # a prova tem de ser a linha INTEIRA: `on` colado a dados nao e prova
+            with mock.patch.object(espera.subprocess, "run", return_value=colado):
+                with self.assertRaises(espera.SalaIndisponivel):
+                    pg._consultar("select 1")
 
     def test_modo_leitura_embrulha_a_pergunta_em_begin_read_only(self):
         pg = espera._Postgres("postgresql://x/y", so_leitura=True)
@@ -107,7 +126,7 @@ class D9SemBanco(unittest.TestCase):
 
         def correr(argv, input=None, **kw):
             visto["sql"] = input
-            return subprocess.CompletedProcess(argv, 0, stdout="on" + pg.SEP_LINHA + "1\n", stderr="")
+            return subprocess.CompletedProcess(argv, 0, stdout="on\n1\n", stderr="")
         with mock.patch.object(espera._Postgres, "_psql_exe", staticmethod(lambda: "psql")), \
                 mock.patch.object(espera.subprocess, "run", side_effect=correr):
             self.assertEqual(pg._consultar("select 1"), ["1"])
@@ -186,7 +205,7 @@ class NoBancoDescartavel(unittest.TestCase):
         with _Ambiente(PGOPTIONS="-c default_transaction_read_only=on"):
             with self.assertRaises(espera.SalaIndisponivel) as ctx:
                 espera.pousar("L2", [_ready(3, "L2")])
-        self.assertIn("read-only", str(ctx.exception).lower())
+        self.assertRegex(str(ctx.exception).lower(), RECUSA_DE_LEITURA)
         self.assertEqual(self.linhas(), antes)
 
     def test_N2_modo_leitura_recusa_pousar(self):
@@ -194,7 +213,7 @@ class NoBancoDescartavel(unittest.TestCase):
         with _Ambiente(**{espera.VAR_SO_LEITURA: "1"}):
             with self.assertRaises(espera.SalaIndisponivel) as ctx:
                 espera.pousar("L3", [_ready(4, "L3")])
-        self.assertIn("read-only", str(ctx.exception).lower())
+        self.assertRegex(str(ctx.exception).lower(), RECUSA_DE_LEITURA)
         self.assertEqual(self.linhas(), antes)
 
     def test_N3_modo_leitura_recusa_rever(self):

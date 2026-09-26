@@ -661,14 +661,18 @@ class _Postgres(object):
         bruto = r.stdout
         if bruto.endswith("\n"):
             bruto = bruto[:-1]
-        linhas = [l for l in bruto.split(self.SEP_LINHA) if l.strip()]
         if self.so_leitura:
-            if not linhas or linhas[0] != "on":
+            # O `show` e OUTRO resultado: o psql separa-o da pergunta por uma
+            # mudanca de linha, e nao pelo separador de registo (medido em
+            # Postgres real, 26/09: vinha "on" + "\n" + a 1.a linha num registo
+            # so, e a leitura em modo leitura NUNCA devolvia dados). A prova e a
+            # PRIMEIRA linha, e tem de ser exactamente `on`.
+            prova, _, bruto = bruto.partition("\n")
+            if prova.strip("\r") != "on":
                 raise SalaIndisponivel(
                     "modo leitura pedido e o banco nao confirmou "
-                    "transaction_read_only = on (veio %r)" % (linhas[:1],))
-            linhas = linhas[1:]
-        return linhas
+                    "transaction_read_only = on (veio %r)" % (prova[:40],))
+        return [l for l in bruto.split(self.SEP_LINHA) if l.strip()]
 
     def _executar(self, script):
         """Escreve. UMA TRANSAÇÃO, ou nada.
