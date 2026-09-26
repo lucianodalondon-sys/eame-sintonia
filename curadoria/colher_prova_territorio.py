@@ -83,6 +83,19 @@ def _texto_visivel(html: str) -> str:
     return re.sub(r"\s+", " ", _h.unescape(s)).strip()
 
 
+def _e_pagina_html(b: bytes) -> bool:
+    """Texto HTML, nao ficheiro: sem NUL, nao comeca por %PDF, poucos caracteres ilegiveis e com marcacao."""
+    if not b or b"\x00" in b[:2048] or b.lstrip()[:5] == b"%PDF-":
+        return False
+    s = b.decode("utf-8", "replace")
+    return s.count("�") <= len(s) // 20 and bool(re.search(r"(?i)<(html|body|p|div)\b", s))
+
+
+def _letras_de_pagina(b: bytes) -> int:
+    """Letras visiveis de uma PAGINA; um PDF ou binario tem 0 (o LOTE 2B contou 288 265 «letras» de um PDF)."""
+    return len(_texto_visivel(b.decode("utf-8", "replace"))) if _e_pagina_html(b) else 0
+
+
 def _datas(*textos) -> list:
     out = []
     for t in textos:
@@ -102,7 +115,7 @@ def juizo_de_conteudo(b: bytes, url: str, hoje: str | None = None) -> dict:
     nos metadados, num <time>, no endereco, no titulo ou no inicio do texto. A data de HOJE nao conta: e o aviso do
     dia no topo do site (LaMMA: «Codice Allerta meteo Sabato 26 Settembre 2026» em todas as paginas)."""
     hoje = hoje or datetime.now(timezone.utc).date().isoformat()
-    if not b or b"\x00" in b[:2048]:          # ico/png/jpeg/pdf trazem todos NUL no cabecalho
+    if not b or b"\x00" in b[:2048] or b.lstrip()[:5] == b"%PDF-":   # ico/png/jpeg trazem NUL; o PDF pode nao trazer
         return {"SERVE": False, "LETRAS": 0, "DATA_PUBLICADA": None, "PORQUE": "nao e texto (bytes de ficheiro binario)"}
     s = b.decode("utf-8", "replace")
     if s.count("�") > len(s) // 20 or not re.search(r"(?i)<(html|body|p|div)\b", s):
@@ -220,7 +233,10 @@ def colher(ficha: dict, buscar, portao, pasta: Path, dormir=time.sleep, pausa: f
         out["PORQUE_PAROU"] = "entrada nao abriu: %s" % (err or st)
         return out
     links = [u for u in _links(entrada, url) if rp.can_fetch("*", u)]
-    inst = next((u for u in links if _INSTITUCIONAL.search(urlparse(u).path)), None)
+    # LOTE 2B: «presentazion» casava num PDF (PRESENTAZIONE-DATI-2025.pdf) e o STATUTO em PDF — a institucional
+    # tem de ser uma PAGINA que se le; ficheiros nao.
+    inst = next((u for u in links if _INSTITUCIONAL.search(urlparse(u).path)
+                 and not _ESTATICO.search(u) and not _NAO_CONTEUDO.search(u)), None)
     if inst:
         st2, b2, err2 = pedir(inst)                           # a pagina que diz quem a organizacao E
         if st2 == 200 and b2:
@@ -239,7 +255,7 @@ def colher(ficha: dict, buscar, portao, pasta: Path, dormir=time.sleep, pausa: f
             shas_vistas.add(hashlib.sha256(b3).hexdigest())
     n_cont = sum(1 for x in out["PROVAS"] if x["PAPEL"] == "CONTEUDO")
     inst_prova = next((x for x in out["PROVAS"] if x["PAPEL"] == "INSTITUCIONAL"), None)
-    letras_inst = len(_texto_visivel(Path(inst_prova["BYTES_EM"]).read_bytes().decode("utf-8", "replace"))) if inst_prova else 0
+    letras_inst = _letras_de_pagina(Path(inst_prova["BYTES_EM"]).read_bytes()) if inst_prova else 0
     if inst_prova:
         inst_prova["LETRAS"] = letras_inst
     inst_ok = bool(inst_prova) and letras_inst >= LETRAS_INSTITUCIONAL

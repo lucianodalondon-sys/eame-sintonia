@@ -154,6 +154,19 @@ class ConteudoPublicado(Colher):
                "<footer>" + "Via Brecce Bianche 10 Ancona " * 40 + "</footer></html>").encode()
         self.assertFalse(C.juizo_de_conteudo(pag, B + "/n/2026/x", HOJE)["SERVE"])
 
+    def test_pdf_nao_e_institucional_nem_conteudo(self):
+        pdf = b"%PDF-1.7\n%\xe2\xe3\xcf\xd3\n1 0 obj << /Type /Catalog >> endobj " + b"Statuto del consorzio " * 200
+        self.assertFalse(C.juizo_de_conteudo(pdf, B + "/2026/05/dati.pdf", HOJE)["SERVE"])
+        self.assertEqual(0, C._letras_de_pagina(pdf))
+        casa = ('<html><a href="/wp-content/uploads/2026/05/PRESENTAZIONE-DATI-2025.pdf">p</a>'
+                '<a href="/chi-siamo">c</a><a href="/notizie/2026/seminario-sulla-difesa-della-vite">n1</a>'
+                '<a href="/notizie/2026/bando-borse-di-studio-agronomia">n2</a></html>').encode()
+        r = self.colher(PAG, casa)
+        self.assertTrue(r["PROVAS"][0]["URL"].endswith("/chi-siamo"), r["PROVAS"][0]["URL"])
+        pag = dict(PAG)
+        pag[B + "/chi-siamo"] = (200, pdf, "")
+        self.assertIn("institucional quase vazia (0 letras", self.colher(pag)["PORQUE_PAROU"])
+
     def test_institucional_vazia_nao_completa(self):
         pag = dict(PAG)
         pag[B + "/chi-siamo"] = (200, b"<html><title>Organizzazione</title><p>Organizzazione</p></html>", "")
