@@ -45,6 +45,10 @@ class Linhas(unittest.TestCase):
         tipos = {t for x in self.l for t in x["TIPOS"]}
         self.assertTrue({"CONTAGEM", "VOO", "PERCENTAGEM", "LIMIAR", "TABELA"} <= tipos, tipos)
 
+    def test_percentagem_sem_contexto_de_infestacao_nao_conta(self):
+        ls = L.linhas_com_sinal("IVA agevolata al 10% sul prezzo del prodotto\nTasso di cambio 3,5% annuo\n")
+        self.assertFalse([x for x in ls if "PERCENTAGEM" in x["TIPOS"]])
+
     def test_morada_nao_e_sinal(self):
         self.assertFalse([x for x in self.l if "Sabbatini" in x["LINHA"]])
         self.assertFalse([x for x in self.l if "senza numeri" in x["LINHA"]])
