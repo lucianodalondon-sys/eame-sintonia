@@ -237,9 +237,12 @@ class ConvergenciaSoComIndependencia(unittest.TestCase):
 
 # ══════════════════════════════════════════════════════════════════════════════
 def item(ref, url, sha, sid, fato=None):
-    """Item SINTETICO no formato do READY, a passar em G0."""
+    """Item SINTETICO no formato do READY, a passar em G0/v2 (INT-CONSERTOS-EXP,
+    vivo 278cd489): data com ANO, com BASE e nao posterior a captura."""
     return {"MARCA": S, "ITEM_ID": url, "RAW_OBSERVATION_ID": ref, "SOURCE_ID": sid,
             "FACT_TIME": "2026-09-20", "TEXTO_SHA256": sha,
+            "FACT_TIME_BASIS": "SINTETICO · ESCRITO_NO_TEXTO · DATE_EXACT",
+            "CAPTURED_AT": "2026-09-25T10:00:00Z",
             "FATO": fato if fato is not None else "NAO_SE_APLICA"}
 
 

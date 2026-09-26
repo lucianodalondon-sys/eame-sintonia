@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.join(RAIZ, "motor"))
 sys.path.insert(0, os.path.join(RAIZ, "tests"))
 from test_completude_oportunidade import _prepara_ingest, ING  # noqa: E402
 
-BASE = "69b0e23f"
+BASE = "278cd489"
 
 
 def carregar(nome, fonte):
