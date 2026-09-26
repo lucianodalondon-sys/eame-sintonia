@@ -1278,6 +1278,13 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
           // D69: a validade/cobertura do boletim, como EVIDENCIA (nao e FACT_TIME sem ligacao no texto)
           BULLETIN_PERIOD: ident.BULLETIN_PERIOD, BULLETIN_PERIOD_BASIS: ident.BULLETIN_PERIOD_BASIS,
         } : {}),
+        // SCRAP-EVOLUCAO-V1 (FEED_DISCOVERY): a data que o FEED da fonte declara para este item, nivel
+        // indice — SO quando o contrato nao declara a publicacao por outra via (a do boletim vence), e
+        // SO a data de publicacao: nunca FACT_TIME. Item do feed sem data = NAO SEI com o porque.
+        ...(!ident.PUBLISHED_AT_BASIS && alvo.publicadoNoIndice ? {
+          PUBLISHED_AT: alvo.publicadoNoIndice.VALOR ?? "NAO SEI",
+          PUBLISHED_AT_BASIS: alvo.publicadoNoIndice.BASE,
+        } : {}),
         // D42 (2): a impressao do conteudo recortado (so com CONTENT_SCOPE) — a chave de dedupe
         ...(ident.CONTENT_SHA256 ? { CONTENT_SHA256: ident.CONTENT_SHA256 } : {}),
         CAPTURED_AT, COLLECTION_RUN_STARTED_AT: STARTED_AT,
