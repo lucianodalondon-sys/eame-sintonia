@@ -30,7 +30,7 @@ a taxa deve ser maior; não medi).
 | 10 | mesmo site, classes MISTAS (Laore, LaMMA, FEM, Agriligurianet ×2, MASAF ×2, DISTAL, Periti Agrari comunicati) | 9 | decisão semântica (a classe não se herda) | dono/Opus | sim | até 9 (~2) |
 | 11 | canal YouTube (exige channel_id e molde de vídeo) | 22 | capacidade da rota do Scrap (YT-METADADOS) + D21 para herdar a classe do site | Scrap engineer | sim | até 22 (~4) |
 | 12 | capacidade nova (IT-T7-164: ramo de índice «SIM») | 1 | Scrap engineer | outro dono | sim | 1 |
-| 13 | robots do site PROÍBE o endereço (Regione Abruzzo ×10, politicheagricole, macfrut, noccioliapiemonteigp, lombardianotizie tv, pianetapsr) | 15 | **nenhuma pela D39** — só achar outra entrada que o robots permita | curadoria | sim | ~0 (cada uma, se houver entrada) |
+| 13 | robots do site PROÍBE o endereço (Regione Abruzzo ×10, politicheagricole, macfrut, nocciolapiemonteigp.it, lombardianotizie tv, pianetapsr) | 15 | **nenhuma pela D39** — só achar outra entrada que o robots permita | curadoria | sim | ~0 (cada uma, se houver entrada) |
 | — | **limpeza** (não ganha fonte, tira ruído da fila): **82 propor recusa** (34 «não é fonte» e 15 «fora do agro» e 14 «semente errada» da revisão semântica anterior; 19 por regra explícita: acessibilidade/privacy/avisos ×6, WhatsApp/Spotify ×6, Parlamento/Senado/Camera/Governo ×4, turismo ×3) · **23 duplicadas** (20 «página de outra fonte», 3 «possível mesma fonte»: EIMA ×2 e a página de agricultura do ISTAT) · **8 duplicadas da organização** (a casa de um site que já é fonte) | 113 | confirmar a lista e recusar pela porta (`fonte_nova.recusar`) — 1 decisão, uma vez | **dono** | não | 0 |
 
 Soma: 1+7+1+7+8+3+2+11+80+9+22+1+15+113 = **280**.
