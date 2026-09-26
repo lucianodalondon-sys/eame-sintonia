@@ -32,7 +32,7 @@ numero» → observação; «si prevede», «favoriranno», «possono favorire»
 | IT-T2-002 ARPAV (Veneto) | **0** | — | 1 só número com texto (N° 54); o N° 56 corta a secção |
 | **Total** | **69** | **66 com número** (52 + 11 + 3) | |
 
-⚠️ Todas as séries têm **2 pontos** (as duas datas que o acervo guardou). É o começo de uma série, não uma série longa.
+⚠️ Todas as séries têm **2 pontos** (as duas datas que o acervo guardou). É o começo de uma série, não uma série longa. E há **buracos**: Salerno N° 26, ARIF N37 e ARPAV N° 55 saíram e **não estão no acervo** (a numeração mostra-o) — entre os 2 pontos de Salerno há uma semana que não vimos.
 
 ## 2 · As séries, fonte a fonte (valores tal como vieram)
 
@@ -224,11 +224,11 @@ Blocos com rótulos do próprio boletim: «Situazione Fenologica» (fase) · «S
 
 | Fonte (cadastrada) | Estado no robô (vivo `dc0de726`) | Publica contagens? | O quê, em que forma | Frequência (medida) |
 |---|---|---|---|---|
-| **IT-T3-002** Campania — Bollettini fitosanitari regionali (Salerno) | READY_FOR_COLLECTION | **SIM** | «n. N catture di <organismo>» **por azienda/località**, em PDF | ~14 dias (N° 25 · 02/09 → N° 27 · 16/09) |
+| **IT-T3-002** Campania — Bollettini fitosanitari regionali (Salerno) | READY_FOR_COLLECTION | **SIM** | «n. N catture di <organismo>» **por azienda/località**, em PDF | **semanal pela numeração** (N° 25 · 02/09 → N° 27 · 16/09: o **N° 26 não está no acervo**) |
 | **IT-T3-005** Terre dell'Etruria | SEMANTIC_REVIEW (sem ficha no Atlas; contrato no `.mjs`) | **SIM (% infestação)** | % de infestação ativa + estado **por ponto** (HTML); **capturas de adultos só para registados** | amostras a cada ~7 dias por ponto |
 | **IT-T3-010** APOL Lecce — monitoraggio olivicolo | READY_FOR_COLLECTION | **PROVÁVEL, não provado** | números por comprensorio (PDF), mas **o que cada coluna mede = NAO SEI** (cabeçalho em imagem) | semanal (n.9 · 07/09 → n.10 · 14/09) |
-| IT-T3-008 ARIF Puglia | READY_FOR_COLLECTION | **NÃO (números)** — **SIM (observação escrita)** | «Catture di anarsia/tignoletta/Tuta… nelle trappole a feromoni», «Aumento del numero di punture…» + limiares | 14 dias (N36 · 02/09 → N38 · 16/09) |
-| IT-T2-002 ARPAV Agrometeo Informa | READY_FOR_COLLECTION | **NÃO** | texto regional (mosca: «pressione stabile»; cimici presentes; danos de margaronia) | semanal (N° 54 → N° 56) |
+| IT-T3-008 ARIF Puglia | READY_FOR_COLLECTION | **NÃO (números)** — **SIM (observação escrita)** | «Catture di anarsia/tignoletta/Tuta… nelle trappole a feromoni», «Aumento del numero di punture…» + limiares | **semanal pela numeração** (N36 · 02/09 → N38 · 16/09: o **N37 não está no acervo**) |
+| IT-T2-002 ARPAV Agrometeo Informa | READY_FOR_COLLECTION | **NÃO** | texto regional (mosca: «pressione stabile»; cimici presentes; danos de margaronia) | semanal pela numeração (N° 54 → N° 56: o **N° 55 não está no acervo**) |
 | IT-T3-027 ERSA FVG | CONTRACTED_CANARY_FAILED | **NAO SEI** | PDF «Monitoraggio Halyomorpha halys 18-agosto-2026» + boletins por cultura — **não estão no acervo** | — (comando pronto: `LOTE-PDF-SERIES`, ronda 1) |
 | IT-T3-053 Umbria — Bollettini fitosanitari | READY_FOR_COLLECTION | **NAO SEI** | boletins semanais olivo/vite/nocciolo 2026 em PDF — **não estão no acervo** | semanal pelos nomes (comando pronto: 12 rondas) |
 
