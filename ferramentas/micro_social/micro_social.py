@@ -213,6 +213,47 @@ def lote_1_instalado(raiz: Path = RAIZ) -> list[str]:
     return falta
 
 
+# ── A PREVISAO, ANTES DA RODADA ─────────────────────────────────────────────
+# A prova-teto corre DEPOIS da rodada: se a rodada passar de 5, o 6.o pedido ja saiu.
+# Por isso, antes de cada rodada: o que a noite JA gastou (medido pela prova) + o que a
+# rodada vai gastar (previsto) <= 5 por dominio. Previsao lida no codigo, por item (cada
+# item e um processo novo; `scrap_http._ROBOTS` vive so no processo, logo o robots.txt de
+# cada host e relido por item):
+#   video-linkedin (teto 1): linkedin.com = robots + pagina = 2
+#                            licdn.com    = robots + MP4 + legenda = 3 (a legenda pode faltar)
+#   audio-youtube:           youtube.com (+ googlevideo.com, D41) = NAO SEI — o yt-dlp nunca
+#                            foi medido; so a PRIMEIRA rodada de YouTube da noite pode correr,
+#                            e a medida dela passa a ser o numero conhecido.
+PREVISAO_POR_ITEM = {"video-linkedin": {"linkedin.com": 2, "licdn.com": 3},
+                     "audio-youtube": {"youtube.com": None}}
+TETO_D38 = 5
+
+
+def previsao_cabe(itens: list[dict], ja_gasto: dict, teto: int = TETO_D38) -> list[str]:
+    """O que passaria do teto se a rodada corresse. Lista vazia = cabe."""
+    soma, desconhecido = dict(ja_gasto), set()
+    for it in itens:
+        for dom, n in PREVISAO_POR_ITEM.get(it.get("FASE"), {}).items():
+            if n is None:
+                desconhecido.add(dom)
+            else:
+                soma[dom] = soma.get(dom, 0) + n
+    mal = ["%s: %d previstos na noite (teto %d)" % (d, n, teto) for d, n in sorted(soma.items()) if n > teto]
+    for dom in sorted(desconhecido):
+        if ja_gasto.get(dom, 0) > 0:
+            mal.append("%s: a noite ja gastou %d e a rodada e NAO SEI — so a primeira rodada de %s "
+                       "pode correr sem previsao" % (dom, ja_gasto[dom], dom))
+    return mal
+
+
+def gasto_da_noite(pasta: Path) -> dict:
+    p = Path(pasta) / "PROVA-TETO-DA-NOITE.json"
+    if not p.exists():
+        return {}
+    r = ler_json(p)
+    return {d: e.get("PEDIDOS", 0) for d, e in (r.get("PEDIDOS_POR_DOMINIO") or {}).items()}
+
+
 def yt_dlp_abre() -> tuple[bool, str]:
     """O audio corre `sys.executable -m yt_dlp` (ferramentas/youtube_transcrever.py::_audio).
 
@@ -272,6 +313,9 @@ def rodada(lote: dict, n: int, estado_p: Path, *, autorizado=False, gate=gate_ca
     rodadas = [r for r in lote.get("RODADAS", []) if r.get("N") == n]
     if not rodadas:
         return {"CORREU": False, "PORQUE": "rodada %s nao esta no lote" % n}
+    acima = previsao_cabe(rodadas[0].get("ITENS", []), gasto_da_noite(pasta))
+    if acima:
+        return {"CORREU": False, "PORQUE": "PREVISAO_ACIMA_DO_TETO", "FALTA": acima}
     if any(it.get("FASE") == "audio-youtube" for it in rodadas[0].get("ITENS", [])):
         ok_yt, porque_yt = yt_dlp()
         if not ok_yt:

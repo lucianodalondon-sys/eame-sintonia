@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Mutacao do condutor da MICRO SOCIAL: 20 mutantes, cada um confirmado por git diff; corre
+"""Mutacao do condutor da MICRO SOCIAL: 24 mutantes, cada um confirmado por git diff; corre
 tests/test_micro_social.py e repoe o ficheiro.  py ferramentas/micro_social/_mutantes_micro_social.py"""
 import io,subprocess,sys,os
 F="ferramentas/micro_social/micro_social.py"
@@ -24,6 +24,10 @@ M=[
  ("M17 lote1: D41 nao exigida","    if not _tem(\"provas/prova_teto_dominio.py\", '\"googlevideo.com\": \"youtube.com\"'):\n","    if False:\n"),
  ("M18 sem RUN_ID nao para","    if corridas_falhadas:\n","    if False:\n"),
  ("M19 yt-dlp nao conferido","        if not ok_yt:\n","        if False:\n"),
+ ("M21 previsao ignorada","    if acima:\n        return {\"CORREU\": False, \"PORQUE\": \"PREVISAO_ACIMA_DO_TETO\"","    if False:\n        return {\"CORREU\": False, \"PORQUE\": \"PREVISAO_ACIMA_DO_TETO\""),
+ ("M22 NAO SEI do youtube ignorado","        if ja_gasto.get(dom, 0) > 0:\n","        if False:\n"),
+ ("M23 gasto da noite esquecido","    acima = previsao_cabe(rodadas[0].get(\"ITENS\", []), gasto_da_noite(pasta))\n","    acima = previsao_cabe(rodadas[0].get(\"ITENS\", []), {})\n"),
+ ("M24 robots do licdn esquecido","PREVISAO_POR_ITEM = {\"video-linkedin\": {\"linkedin.com\": 2, \"licdn.com\": 3},","PREVISAO_POR_ITEM = {\"video-linkedin\": {\"linkedin.com\": 2, \"licdn.com\": 2},"),
  ("M20 yt-dlp conferido sempre","    if any(it.get(\"FASE\") == \"audio-youtube\" for it in rodadas[0].get(\"ITENS\", [])):\n","    if True:\n"),
 ]
 orig=io.open(F,encoding="utf-8",newline="").read()

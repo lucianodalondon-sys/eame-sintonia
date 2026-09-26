@@ -81,6 +81,23 @@ class ARodadaRecusaAntesDaRede(_Base):
         r = self.correr(n=1, yt_dlp=lambda: (False, "nao devia ser chamado"))
         self.assertTrue(r["CORREU"])
 
+    def test_duas_contas_linkedin_na_mesma_rodada_passam_do_teto(self):
+        lote = {"RODADAS": [{"N": 1, "ITENS": [LI, dict(LI, SOURCE_ID="IT-T5-160")]}]}
+        r = MS.rodada(lote, 1, self.estado, autorizado=True, gate=ELEGIVEL, parado=lambda: (True, ""),
+                      egresso=PASS, sala=lambda: [], lancar=self.lancar, instalado=lambda: [],
+                      yt_dlp=lambda: (True, ""), teto=lambda i, p: {"ESTADO": "PASS"})
+        self.assertNaoLancou(r, "licdn.com: 6 previstos")
+
+    def test_a_segunda_conta_noutra_rodada_conta_o_que_a_noite_gastou(self):
+        with open(os.path.join(self.tmp, "PROVA-TETO-DA-NOITE.json"), "w", encoding="utf-8") as f:
+            json.dump({"PEDIDOS_POR_DOMINIO": {"licdn.com": {"PEDIDOS": 3}, "linkedin.com": {"PEDIDOS": 2}}}, f)
+        self.assertNaoLancou(self.correr(n=1), "licdn.com: 6 previstos")
+
+    def test_segunda_rodada_de_youtube_sem_previsao_nao_corre(self):
+        with open(os.path.join(self.tmp, "PROVA-TETO-DA-NOITE.json"), "w", encoding="utf-8") as f:
+            json.dump({"PEDIDOS_POR_DOMINIO": {"youtube.com": {"PEDIDOS": 4}}}, f)
+        self.assertNaoLancou(self.correr(n=2), "NAO SEI")
+
     def test_rodada_fora_do_lote(self):
         self.assertNaoLancou(self.correr(n=9), "nao esta no lote")
 
