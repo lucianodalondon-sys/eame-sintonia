@@ -18,7 +18,7 @@ casos sintéticos marcados. SHA final: ver o fim deste ficheiro e o `git log` do
    IT-T10-002), Assosementi (título real, IT-T1-013), ISMEA (citação literal em `data/samples/IT-V2`),
    Cantine Riunite (IT-T7-017, texto em `data/samples/RUN-MANIFEST.json`). Sintéticos marcados: forma de
    myfruit, listino de Borsa Merci, quintal, dettaglio, conflito de estágio, publicação, projeção.
-3. **`provas/_mutantes_preco_de_mercado.py`** (novo) — 20 mutantes numa cópia em `%TEMP%` (nunca na
+3. **`scripts/polso_mercato/mutar_preco_de_mercado.py`** (novo) — 20 mutantes numa cópia em `%TEMP%` (nunca na
    worktree), com `PYTHONDONTWRITEBYTECODE` e conferência de sha256. Resultado em
    `scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json`.
 4. **`scripts/polso_mercato/bateria_por_nome.py`** (novo) — bateria por nome antes/depois (forma da D70),

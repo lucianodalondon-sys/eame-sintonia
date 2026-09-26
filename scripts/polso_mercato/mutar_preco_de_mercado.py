@@ -4,7 +4,7 @@
 em %TEMP% (nunca na worktree: um red team que restaura com git checkout apaga o que nao foi salvo), com
 PYTHONDONTWRITEBYTECODE (mutante do mesmo tamanho engana o .pyc), e so conta se o sha256 do ficheiro mudou.
 
-    py provas/_mutantes_preco_de_mercado.py [saida.json]
+    py scripts/polso_mercato/mutar_preco_de_mercado.py [saida.json]
 
 MORTO = tests.test_preco_de_mercado reprovou com o defeito plantado. SOBREVIVEU = os testes nao o viram."""
 import hashlib
@@ -16,7 +16,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-RAIZ = Path(__file__).resolve().parents[1]
+RAIZ = Path(__file__).resolve().parents[2]
 ALVO = "leis/preco_de_mercado.py"
 COPIAR = ("leis/preco_de_mercado.py", "leis/regua_italia.py", "tests/test_preco_de_mercado.py",
           "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622", "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46647",
