@@ -124,6 +124,18 @@ FERRAMENTAS = {
     "radarfuturo": {"NOME_IT": "Radar Futuro", "CAPACIDADE": None, "CHAVES": None},
 }
 
+#: Vistas que o casco abre e que NAO sao ferramentas de Intelligence: sao de
+#: OPERACAO, so de leitura (lote 2 da INTEGRA-NOITE, vivo 278cd489). `sala` tem
+#: contrato PROPRIO de entrada experimental (italia-portale/audit/casco/
+#: INTELLIGENCE-EXPERIMENTAL-CONTRATO.json, por item da Sala e com EMENDA
+#: EXP-D78) — duas portas para a mesma fronteira, e a escolha e do dono. Esta
+#: ponte nao escreve no formato dela: nao tem a EMENDA nem a chave
+#: <run_id>#<ordem>, e preenche-las seria fabricar.
+VISTAS_QUE_NAO_SAO_FERRAMENTA = {
+    "sala": "vista de operacao da Sala, com contrato proprio CASCO_ENTRADA_INTELLIGENCE_EXPERIMENTAL/1",
+    "painel": "painel de operacao so de leitura (D78)",
+}
+
 
 class LeiViolada(Exception):
     """A ponte recusou-se, e diz porque."""
