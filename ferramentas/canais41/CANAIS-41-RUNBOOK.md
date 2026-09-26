@@ -60,6 +60,15 @@ a rota `youtube:pagina-publica-do-canal`, mas quem corre a fase usa a API
   que o workflow de hoje aceita).
 - **Nunca** na mesma janela da micro social (D35.4): primeiro a micro social inteira,
   depois estas rodadas.
+- **+9 canais que já são fonte** (aviso FREIO-SOCIAL, 26/09 ~04:15): IT-T5-042, 043, 044,
+  045, 047, 048, 050 (pesquisa) e IT-T7-016, IT-T7-018 estavam presos em `RETRY_AFTER` na
+  rota do feed e não entram no plano da v5 (que só olha READY_LEGACY). O ramo
+  `canais-pesquisa-v1` (494b7b36, por cima da v5, ff) põe-nos pelo **mesmo** bloco 4; com
+  ele instalado, `py curadoria/importar_do_coletor.py` mostra `PELO_SCRAP=50`. Estão em
+  `RODADAS-41.tsv` nas **rodadas 22–26**, à parte: se esse ramo não for instalado, as
+  rodadas 1–21 dos 41 não mudam. São T5 e T7: precisam do P2 como os outros 35. Não
+  foram ensaiados a seco por esta bancada (o ensaio deles é o do FREIO-SOCIAL: 9/9
+  `SCRAP_FASE`, 9/9 `CANARY_PENDING`, 0 rede).
 
 ## 4 · Os comandos, rodada a rodada
 
