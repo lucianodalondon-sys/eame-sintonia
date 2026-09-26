@@ -102,8 +102,10 @@ class OsHtmlReaisDasFontesItalianas(unittest.TestCase):
 class AOrdemEANormalizacao(unittest.TestCase):
 
     def test_a_ordem_e_json_ld_meta_time_indice(self):
+        # LEITOR-DATA-YOUTUBE (26/09): o itemprop datePublished entra DEPOIS do <time>,
+        # so onde a D61 se calava (tests/test_leitor_data_youtube.py prova que nada muda)
         self.assertEqual((ex.BASE_JSON_LD, ex.BASE_META, ex.BASE_TIME,
-                          ex.BASE_INDICE), ex.ORDEM_DA_PUBLICACAO)
+                          ex.BASE_ITEMPROP, ex.BASE_INDICE), ex.ORDEM_DA_PUBLICACAO)
         tudo = _pagina(
             _ld({"@type": "NewsArticle", "datePublished": "2026-01-01T10:00:00Z"})
             + '<meta property="article:published_time" content="2026-02-02T10:00:00Z">',
