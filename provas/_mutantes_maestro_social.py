@@ -7,7 +7,8 @@ import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TESTES = ["tests.test_maestro_social", "tests.test_baixador_social", "tests.test_video_na_sala"]
+TESTES = ["tests.test_maestro_social", "tests.test_baixador_social", "tests.test_video_na_sala",
+          "tests.test_prova_de_post_de_pessoa"]
 M = "ferramentas/maestro_social/maestro_social.py"
 Y = "ferramentas/youtube_transcrever.py"
 MUTANTES = [
@@ -33,6 +34,12 @@ MUTANTES = [
      "    if r.returncode == 0 and 'MAESTRO_PASSOU_O_FILTRO' not in (r.stdout or ''):\n", "    if False:\n"),
     ("UNKNOWN entra na Sala", "admissao/video_na_sala.py",
      "    if not RE_IDENTIDADE.match(vid):\n        return None\n", "    if not vid:\n        return None\n"),
+    ("D80: a busca publica prova", "leis/prova_de_post_de_pessoa.py",
+     '    if origem == "BUSCA_PUBLICA":
+', '    if False:
+'),
+    ("D80: um pedaco do nome basta", "leis/prova_de_post_de_pessoa.py",
+     "    return len(pedacos) >= 2 and all(", "    return len(pedacos) >= 1 and all("),
 ]
 
 
