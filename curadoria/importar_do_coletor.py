@@ -9,9 +9,10 @@ MEDIDO (LEGACY-99, 25/09/2026, copia fiel do vivo 7cdb7ea4):
     caminho canonico parava em VALIDATE_ROUTE «sem contrato» (worker.py) e o reparo
     em SEM_IDENTIDADE — nunca voltavam;
   * 41 YouTube tinham no Curator a rota `feeds/videos.xml` (robots do YouTube a
-    proibe), enquanto o coletor ja usa a pagina publica do canal
-    (CUSTOM_ADAPTER CANAL_PUBLICO_YOUTUBE_V1) — o Curator provava um contrato que
-    ninguem executa.
+    proibe). ⚠️ ESTAS NAO SE IMPORTAM DAQUI: a linha do coletor aponta-as para
+    `CANAL_PUBLICO_YOUTUBE_V1`, um adapter JS que nao existe nesta arvore, e a rota
+    YouTube tem UM dono — a fase `canal-youtube` do Scrap (SOC2, D17.4), nomeada por
+    `rota_do_scrap_youtube.py` e julgada por `regua_social.py`.
 
 O QUE FAZ: para uma READY_LEGACY cuja linha DECLARATIVA existe na tabela do coletor
 (`regras/italy_contracts_onboarded.json`), escreve no Curator a aquisicao dessa linha,
@@ -27,10 +28,10 @@ escrita, nao autorizo»):
 
 Fica de fora, dito com o nome:
   SO_CASE              a fonte so existe como `case` no coletor (nao ha linha a importar)
-  CANARIO_NAO_PROVA    a estrategia da linha nao e HTML_LINK_DISCOVERY nem o canal
-                       YouTube (ex.: STATIC_ENDPOINT PDF): o canario do Curator nao a
-                       prova e a regua dos 4 passos so aceita HTML — importar so a
-                       faria falhar
+  CANARIO_NAO_PROVA    a estrategia da linha nao e HTML_LINK_DISCOVERY (ex.:
+                       STATIC_ENDPOINT PDF): o canario do Curator nao a prova e a
+                       regua dos 4 passos so aceita HTML — importar so a faria falhar
+  ROTA_DO_SCRAP        canal YouTube: a rota e do Scrap, nao da tabela do coletor
 
 Uso: py curadoria/importar_do_coletor.py                 (so mostra)
      py curadoria/importar_do_coletor.py --aplicar --ids=IT-..,IT-..
@@ -49,8 +50,8 @@ import sha_do_contrato as SHA   # noqa: E402
 
 TABELA = RAIZ / "regras" / "italy_contracts_onboarded.json"
 CURATOR = RAIZ / "curadoria" / "italy_contracts_curator.json"
-YOUTUBE_CANAL = "CANAL_PUBLICO_YOUTUBE_V1"
-MISSAO = "LEGACY-99 v2 (A/B), 25/09/2026"
+MISSAO = "LEGACY-99 v4 (A), 25/09/2026"
+YOUTUBE = ("YOUTUBE_CHANNEL_FEED", "SCRAP_FASE")
 
 
 class ImportacaoInvalida(ValueError):
@@ -62,9 +63,17 @@ def _agora() -> str:
 
 
 def o_canario_prova(aq: dict) -> bool:
-    return (aq.get("STRATEGY") == "HTML_LINK_DISCOVERY" and bool(aq.get("INDEX_URL"))) or \
-           (aq.get("STRATEGY") == "CUSTOM_ADAPTER" and aq.get("ADAPTER_ID") == YOUTUBE_CANAL
-            and bool(aq.get("CHANNEL_ID")))
+    """So HTML. O canal YouTube nao e provado pelo canario do Curator: e uma colheita
+    do Scrap (worker.etapa_canary devolve BLOCK DO_SCRAP)."""
+    return aq.get("STRATEGY") == "HTML_LINK_DISCOVERY" and bool(aq.get("INDEX_URL"))
+
+
+def e_youtube(atual: dict | None, linha: dict | None) -> bool:
+    """O canal YouTube, pelo contrato do Curator OU pela linha do coletor."""
+    aq = (atual or {}).get("ACQUISITION") or {}
+    la = (linha or {}).get("ACQUISITION") or {}
+    return (aq.get("STRATEGY") in YOUTUBE or aq.get("PLATFORM") == "YOUTUBE"
+            or "youtube" in json.dumps(la).lower())
 
 
 def identidades_do_coletor(ids: list[str]) -> dict:
@@ -88,9 +97,12 @@ def contrato_importado(linha: dict, atual: dict | None, promocao: dict | None, q
                        identidade: dict | None = None) -> dict:
     """O contrato do Curator depois da importacao. Puro: nao escreve.
 
-    `linha` e a linha da tabela do coletor; `atual` o contrato do Curator se existir
-    (YouTube: mantem-se tudo o que nao e rota); `promocao` a ultima promocao do livro."""
+    `linha` e a linha da tabela do coletor; `atual` o contrato do Curator se existir;
+    `promocao` a ultima promocao do livro."""
     aq = linha.get("ACQUISITION") or {}
+    if e_youtube(atual, linha):
+        raise ImportacaoInvalida("%s: canal YouTube — a rota e do Scrap (rota_do_scrap_youtube), "
+                                 "nao se importa da tabela do coletor" % linha.get("SOURCE_ID"))
     if not o_canario_prova(aq):
         raise ImportacaoInvalida("%s: estrategia %s — o canario do Curator nao a prova"
                                  % (linha.get("SOURCE_ID"), aq.get("STRATEGY")))
@@ -100,8 +112,8 @@ def contrato_importado(linha: dict, atual: dict | None, promocao: dict | None, q
         if k in linha:
             novo[k] = copy.deepcopy(linha[k])
     novo["ACQUISITION"] = copy.deepcopy(aq)
-    # a identidade: a da linha, senao a que o Curator ja tinha (YouTube: por video), senao
-    # a que o coletor gera. Sem nenhuma, o canario nao da nome ao documento: nao se importa.
+    # a identidade: a da linha, senao a que o Curator ja tinha, senao a que o coletor
+    # gera. Sem nenhuma, o canario nao da nome ao documento: nao se importa.
     ident = linha.get("IDENTITY") or (atual or {}).get("IDENTITY") or identidade
     if not ident or not ident.get("DOCUMENT_ID"):
         raise ImportacaoInvalida("%s: sem IDENTITY (nem na linha, nem no Curator, nem gerada pelo coletor)"
@@ -146,11 +158,14 @@ def planear(*, ctx: dict | None = None, tabela: dict | None = None) -> dict:
         if CG.avaliar(sid, **ctx).get("MOTIVO") != CG.READY_LEGACY:
             continue
         atual = ctx["contratos"].get(sid)
-        aq_atual = (atual or {}).get("ACQUISITION") or {}
-        precisa = (not atual) or aq_atual.get("STRATEGY") == "YOUTUBE_CHANNEL_FEED"
-        if not precisa:
-            continue
         linha = tabela.get(sid)
+        if e_youtube(atual, linha):
+            fica.append({"SOURCE_ID": sid, "PORQUE": "ROTA_DO_SCRAP: canal YouTube — a rota tem dono "
+                         "proprio (rota_do_scrap_youtube, fase canal-youtube); nao se importa a linha "
+                         "do coletor"})
+            continue
+        if atual:
+            continue
         if not linha:
             fica.append({"SOURCE_ID": sid, "PORQUE": "SO_CASE: o coletor tem esta fonte so como `case` — "
                                                     "nao ha linha declarativa a importar"})
@@ -160,7 +175,7 @@ def planear(*, ctx: dict | None = None, tabela: dict | None = None) -> dict:
                          "regua dos 4 passos sabem prova-la" % ((linha.get("ACQUISITION") or {}).get("STRATEGY"),
                                                                 linha.get("OUTPUT_TYPE"))})
             continue
-        importa.append({"SOURCE_ID": sid, "CASO": "YOUTUBE_FEED_PARA_CANAL" if atual else "SEM_CONTRATO_NO_CURATOR",
+        importa.append({"SOURCE_ID": sid, "CASO": "SEM_CONTRATO_NO_CURATOR",
                         "PROMOCAO": RS.ultima_promocao(sid, ctx["livro"])})
     return {"IMPORTA": importa, "FICA": fica}
 
