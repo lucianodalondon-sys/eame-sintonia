@@ -1,0 +1,85 @@
+# -*- coding: utf-8 -*-
+# RELATORES-DOS-EVENTOS · pessoas com NOME + CARGO colados, nos textos 2025-2026 do acervo. SO LEITURA, sem rede.
+#   PYTHONUTF8=1 py data/derivados/VOZES-AGRONOMOS/relatores.py.txt
+# Porque: os «programas» quase nao existem no acervo (8 documentos, nenhum de evento agronomico — PROGRAMAS.json); as
+# vozes aparecem nas NOTICIAS que relatam o evento («l'intervento di X a Macfrut», «ha spiegato Y, tecnico di Z»).
+# Regra: um NOME (2-3 palavras com maiuscula) a <= 60 letras de uma palavra de CARGO, no mesmo documento que um ano
+# 2025/2026; a INSTITUICAO e o que vem colado ao cargo («del/della/di <Instituicao>»). A leitura humana confirma.
+import collections
+import importlib.machinery
+import json
+import os
+import re
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+LS = importlib.machinery.SourceFileLoader("ler_sala", os.path.join(AQUI, "ler_sala.py.txt")).load_module()
+ARMAZEM = os.path.expanduser("~/sintonia-sala-italia/armazem")
+T = json.load(open(os.path.join(AQUI, "TITULOS.json"), encoding="utf-8"))
+
+NOME = r"(?:Dott\.?(?:ssa)?\s+(?:Agr\.?\s+)?|Prof\.?(?:ssa)?\s+|Dr\.?\s+)?([A-ZÀ-Ý][a-zà-ÿ'’]{2,}(?:\s+(?:de|di|del|della|da|dal|De|Di|Del|Della|Da|Dal))?\s+[A-ZÀ-Ý][a-zà-ÿ'’]{2,})"
+CARGO = (r"agronom[oa]|tecnic[oa](?:\s+di\s+campo)?|ricercat(?:ore|rice)|docente|professor(?:e|essa)|responsabile|"
+         r"direttor(?:e|a)|dirigente|entomolog[oa]|fitopatolog[oa]|patolog[oa] vegetale|consulente|referente|"
+         r"coordinator(?:e|a)|funzionari[oa]|esperto|esperta|enolog[oa]|agrometeorolog[oa]")
+PADROES = [re.compile(NOME + r"\s*[,(–-]\s*(?:il\s+|la\s+|lo\s+)?(" + CARGO + r")\b([^.;\n)]{0,80})"),
+           re.compile(r"\b(" + CARGO + r")\s+(?:di|del|della|dell'|presso)?\s*[^,.;\n]{0,60}?,?\s+" + NOME)]
+NAO_PESSOA = re.compile(r"^(Regione|Consorzio|Provincia|Comune|Servizio|Ministero|Universit|Istituto|Direzione|Sezione|"
+                        r"Cooperativa|Associazione|Centro|Fondazione|Camera|Agenzia|Ufficio|Dipartimento|Presidente|"
+                        r"Direttore|Responsabile|Tecnico|Leggi|Home|Area|Settore|Gruppo|Societ|Giornat|Anno|Nuov|Italia)")
+ANO = re.compile(r"\b(2025|2026)\b")
+TEMA = re.compile(r"\b(vite|vigneto|olivo|oliveto|melo|mela|mele|pero|pesco|drupacee|albicocc\w*|ciliegi\w*|actinidia|kiwi|"
+                  r"frumento|grano|mais|riso|pomodoro|patat\w*|orticol\w*|agrumi|nocciol\w*|fragol\w*|cimice|flavescenza|"
+                  r"peronospora|oidio|botrite|tignoletta|mosca|xylella|elaterid\w*|afid\w*|fitofarmac\w*|biocontroll\w*|"
+                  r"irrigazion\w*|gelat\w*|antibrina|siccit\w*|biostimolant\w*|nutrizion\w*)\b", re.I)
+
+
+def documentos():
+    vistos = set()
+    for l in LS.consultar("select a.source_id, coalesce(r.source_url,''), coalesce(r.sha256,''), to_json(a.texto)::text "
+                          "from public.sala_de_espera_atual a left join public.raw_asset r on r.id = a.raw_observation_id"):
+        sid, url, sha, t = l.split(LS.SEP)
+        if sha.strip() not in vistos:
+            vistos.add(sha.strip())
+            yield "SALA", sid, url, json.loads(t), sha.strip()
+    for l in LS.consultar("select r.source_id, r.source_url, r.sha256, d.storage_path from public.raw_asset r "
+                          "join public.derived_artifact d on d.parent_sha256 = r.sha256 "
+                          "and d.kind in ('TEXT_EXTRACTION','TRANSCRIPTION')"):
+        sid, url, sha, sp = l.split(LS.SEP)
+        p = os.path.join(ARMAZEM, sp)
+        if sha.strip() in vistos or not os.path.exists(p):
+            continue
+        vistos.add(sha.strip())
+        yield "ACERVO", sid, url, open(p, encoding="utf-8", errors="replace").read(), sha.strip()
+
+
+pessoas = collections.defaultdict(lambda: {"CARGOS": collections.Counter(), "DOCS": []})
+for origem, sid, url, t, sha in documentos():
+    if not ANO.search(t) or "youtube.com" in url:
+        continue
+    corpo = re.sub(r"[ \t]+", " ", t)
+    for i, r in enumerate(PADROES):
+        for m in r.finditer(corpo):
+            g = m.groups()
+            nome, cargo, resto = (g[0], g[1], g[2]) if i == 0 else (g[1], g[0], "")
+            nome = nome.strip()
+            if NAO_PESSOA.match(nome) or len(nome.split()) < 2:
+                continue
+            trecho = corpo[max(0, m.start() - 160): m.end() + 160].replace("\n", " ")
+            p = pessoas[nome]
+            p["CARGOS"][(cargo + " " + resto).strip()[:90]] += 1
+            if all(d["SHA256"] != sha[:16] for d in p["DOCS"]):
+                p["DOCS"].append({"ORIGEM": origem, "SOURCE_ID": sid, "URL": url, "SHA256": sha[:16], "TRECHO": trecho[:420],
+                                  "ANOS": sorted(set(ANO.findall(t))), "TEMAS": sorted({x.lower() for x in TEMA.findall(trecho)})})
+# ligar aos videos guardados: o apelido no titulo de algum video
+videos = [(sid, v["TITULO"], v["URL"]) for sid, f in T.items() for v in f["TITULOS"]]
+fora = []
+for nome, p in pessoas.items():
+    apelido = nome.split()[-1].lower()
+    vids = [{"SOURCE_ID": s, "TITULO": t, "URL": u} for s, t, u in videos if re.search(r"(?<![a-zà-ÿ])%s(?![a-zà-ÿ])" % re.escape(apelido), t.lower())]
+    fora.append({"NOME": nome, "CARGOS": dict(p["CARGOS"].most_common(4)), "DOCS": p["DOCS"][:4], "N_DOCS": len(p["DOCS"]),
+                 "TEMAS": sorted({x for d in p["DOCS"] for x in d["TEMAS"]}), "VIDEOS_GUARDADOS": vids[:4]})
+fora.sort(key=lambda x: (-len(x["VIDEOS_GUARDADOS"]), -len(x["TEMAS"]), -x["N_DOCS"], x["NOME"]))
+json.dump(fora, open(os.path.join(AQUI, "RELATORES-CANDIDATOS.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+print(len(fora), "pessoas com cargo colado em textos 2025-2026;", sum(1 for x in fora if x["VIDEOS_GUARDADOS"]), "com video guardado")
+for x in fora[:70]:
+    print("%-26s | %-48s | docs=%d | %s | video=%s" % (x["NOME"][:26], list(x["CARGOS"])[0][:48], x["N_DOCS"],
+                                                     ",".join(x["TEMAS"][:4]), (x["VIDEOS_GUARDADOS"][0]["TITULO"][:40] if x["VIDEOS_GUARDADOS"] else "-")))

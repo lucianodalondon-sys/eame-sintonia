@@ -1,0 +1,76 @@
+# -*- coding: utf-8 -*-
+# RELATORES-DOS-EVENTOS · procura, SO no acervo, PROGRAMAS de eventos 2025-2026 com relatores. SO LEITURA, sem rede.
+#   PYTHONUTF8=1 py data/derivados/VOZES-AGRONOMOS/programas.py.txt
+# Le: os textos da Sala (vista, so leitura) e os textos derivados do armazem (TEXT_EXTRACTION/TRANSCRIPTION) de TODOS
+# os brutos. Marca como PROGRAMA um documento com marcas de programa (relatori, interventi, programma, modera, saluti,
+# ore 9.30...) E pelo menos 2 nomes com titulo (Prof., Dott., Dr., Ing., Agr.) ou nome + instituicao. A leitura humana
+# decide depois. Escreve PROGRAMAS.json (trechos curtos, nunca o texto inteiro).
+import collections
+import importlib.machinery
+import json
+import os
+import re
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+LS = importlib.machinery.SourceFileLoader("ler_sala", os.path.join(AQUI, "ler_sala.py.txt")).load_module()
+ARMAZEM = os.path.expanduser("~/sintonia-sala-italia/armazem")
+
+MARCAS = re.compile(r"\b(relator[ie]|intervent[io]|interverranno|programma|modera(?:tore|trice|no)?|saluti|introduce|"
+                    r"tavola rotonda|keynote|speaker|conclusioni|coffee break|ore\s+\d{1,2}[.:]\d{2}|\d{1,2}[.:]\d{2}\s*[-–]\s*\d{1,2}[.:]\d{2})\b", re.I)
+NOME = r"[A-ZÀ-Ý][a-zà-ÿ'’]+(?:\s+(?:de|di|del|della|da|dal|van|von|dalla|De|Di|Del|Della|Da|Dal)?\s*[A-ZÀ-Ý][a-zà-ÿ'’]+){1,2}"
+COM_TITULO = re.compile(r"\b(?:Prof\.?(?:ssa)?|Dott\.?(?:ssa)?|Dr\.?|Ing\.?|Agr\.?|Avv\.?|On\.?)\s+(%s)" % NOME)
+COM_INSTITUICAO = re.compile(r"(%s)\s*[\(,–-]\s*((?:Universit[aà]|CREA|CNR|ENEA|CRPV|Ri\.?Nova|Condifesa|Consorzio|Servizio "
+                             r"[Ff]itosanitario|Regione|ARPA\w*|AMAP|ASSAM|Fondazione|Istituto|Dipartimento|DiSAA|DAFNAE|"
+                             r"Georgofili|CONAF|Ordine|Coldiretti|Confagricoltura|CIA|Syngenta|Bayer|BASF|Corteva|UPL|ADAMA|"
+                             r"Koppert|Biogard|Isagro|Sipcam|Gowan|FMC|Certis|Apofruit|Orogel|Conserve Italia|Terremerse)[^\n,;)]{0,60})" % NOME)
+ANO = re.compile(r"\b(2025|2026)\b")
+TEMA = re.compile(r"\b(vite|vigneto|olivo|oliveto|melo|mele|pero|pesco|drupacee|albicocc\w*|ciliegi\w*|actinidia|kiwi|frumento|"
+                  r"grano|mais|riso|pomodoro|patat\w*|orticol\w*|agrumi|nocciol\w*|fragol\w*|cimice|flavescenza|peronospora|"
+                  r"oidio|botrite|tignoletta|mosca|xylella|elaterid\w*|afid\w*|nematod\w*|fitofarmac\w*|difesa|biocontroll\w*|"
+                  r"irrigazion\w*|gelat\w*|siccit\w*|fertilizz\w*|biostimolant\w*)\b", re.I)
+
+
+def documentos():
+    """(origem, source_id, url, texto) de cada documento com texto, uma vez por sha256 do bruto."""
+    vistos = set()
+    for l in LS.consultar("select a.source_id, coalesce(r.source_url,''), coalesce(r.sha256,''), to_json(a.texto)::text "
+                          "from public.sala_de_espera_atual a left join public.raw_asset r on r.id = a.raw_observation_id"):
+        sid, url, sha, t = l.split(LS.SEP)
+        if sha.strip() in vistos:
+            continue
+        vistos.add(sha.strip())
+        yield "SALA", sid, url, json.loads(t), sha.strip()
+    for l in LS.consultar("select r.source_id, r.source_url, r.sha256, d.storage_path from public.raw_asset r "
+                          "join public.derived_artifact d on d.parent_sha256 = r.sha256 "
+                          "and d.kind in ('TEXT_EXTRACTION','TRANSCRIPTION')"):
+        sid, url, sha, sp = l.split(LS.SEP)
+        if sha.strip() in vistos:
+            continue
+        p = os.path.join(ARMAZEM, sp)
+        if not os.path.exists(p):
+            continue
+        vistos.add(sha.strip())
+        yield "ACERVO", sid, url, open(p, encoding="utf-8", errors="replace").read(), sha.strip()
+
+
+fora = []
+for origem, sid, url, t, sha in documentos():
+    marcas = MARCAS.findall(t)
+    nomes = collections.OrderedDict()
+    for m in COM_TITULO.finditer(t):
+        nomes.setdefault(m.group(1).strip(), t[max(0, m.start() - 20): m.end() + 120].replace("\n", " "))
+    for m in COM_INSTITUICAO.finditer(t):
+        nomes.setdefault(m.group(1).strip(), t[max(0, m.start() - 20): m.end() + 40].replace("\n", " "))
+    if len(marcas) < 2 or len(nomes) < 2 or not ANO.search(t):
+        continue
+    fora.append({"ORIGEM": origem, "SOURCE_ID": sid, "URL": url, "SHA256": sha[:16],
+                 "TITULO": next((x.strip() for x in t.splitlines() if x.strip()), "")[:160],
+                 "ANOS": sorted(set(ANO.findall(t))), "MARCAS": len(marcas),
+                 "NOMES": [{"NOME": n, "TRECHO": tr[:220]} for n, tr in list(nomes.items())[:25]],
+                 "TEMAS": sorted({x.lower() for x in TEMA.findall(t)})[:15]})
+fora.sort(key=lambda x: (-len(x["NOMES"]), -x["MARCAS"]))
+json.dump(fora, open(os.path.join(AQUI, "PROGRAMAS.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+print(len(fora), "documentos com cara de programa")
+for x in fora[:45]:
+    print("%-7s %-11s nomes=%2d marcas=%3d %s | %s" % (x["ORIGEM"], x["SOURCE_ID"], len(x["NOMES"]), x["MARCAS"],
+                                                    x["TITULO"][:70], ",".join(x["TEMAS"][:5])))

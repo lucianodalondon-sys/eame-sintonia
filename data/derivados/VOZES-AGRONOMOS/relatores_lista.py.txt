@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+# RELATORES-DOS-EVENTOS · a lista final, LIDA A MAO a partir de tres fontes do acervo (sem rede):
+#   D = descricao do video guardado (RELATORES-NAS-DESCRICOES.json; o texto e do dono do canal)
+#   T = texto 2025-2026 do acervo (RELATORES-CANDIDATOS.json; noticia/boletim)
+#   P = pagina colhida na ronda 1 (LEITURA-HUMANA-RONDA-1.json)
+# So entra quem e voz AGRONOMICA/TECNICA (fora: economistas da PAC, qualidade do ar, seguranca no trabalho, retalho).
+# O video ligado sai do proprio ficheiro de titulos (TITULOS.json), pelo trecho do titulo.
+#   PYTHONUTF8=1 py data/derivados/VOZES-AGRONOMOS/relatores_lista.py.txt
+import json
+import os
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+T = json.load(open(os.path.join(AQUI, "TITULOS.json"), encoding="utf-8"))
+
+
+def video(sid, trecho):
+    for v in T.get(sid, {}).get("TITULOS", []):
+        if trecho.lower() in v["TITULO"].lower():
+            return {"SOURCE_ID": sid, "TITULO": v["TITULO"], "URL": v["URL"], "SHA256_BRUTO": v["SHA256"]}
+    raise SystemExit("video nao achado: %s %s" % (sid, trecho))
+
+
+# (nome, cargo como o documento o escreve, instituicao, tema, evento/ocasiao + data, prova (D/T/P + onde), video (sid, trecho) ou None)
+LISTA = [
+    ("Paolo Sambo", "docente di Orticoltura", "Università di Padova", "pomodoro · stress da caldo · biostimolanti",
+     "L'Informatore Agrario, video 2026", "D", ("IT-T8-006", "Stress da caldo su pomodoro")),
+    ("Franco Tosini", "responsabile del Centro sperimentale Po di Tramontana", "(centro sperimentale; ente: NAO SEI na descricao)",
+     "pomodoro · stress da caldo", "L'Informatore Agrario, video 2026", "D", ("IT-T8-006", "Stress da caldo su pomodoro")),
+    ("Giuseppe Colla", "docente e responsabile scientifico", "Università della Tuscia", "pomodoro · biostimolanti · ondate di calore",
+     "L'Informatore Agrario, video 2026", "D", ("IT-T8-006", "Biostimolanti su pomodoro")),
+    ("Roberto Mariotti", "responsabile dell'azienda dimostrativa sperimentale", "(azienda dimostrativa; ente cortado na descricao)",
+     "pomodoro · biostimolanti", "L'Informatore Agrario, video 2026", "D", ("IT-T8-006", "Biostimolanti su pomodoro")),
+    ("Domenico Ronga", "(docente/ricercatore: so a instituicao na descricao)", "Università degli Studi di Salerno",
+     "pomodoro da industria · caldo · biostimolanti", "L'Informatore Agrario, video 2026", "D", ("IT-T8-006", "Pomodoro da Industria")),
+    ("Luca Fagioli", "tecnico, Area Servizi", "Consorzio Agrario di Ravenna", "cimice asiatica · difesa frutteto",
+     "Conserve Italia, video", "D", ("IT-T9-014", "cimice asiatica")),
+    ("Stefano Foschi", "tecnico frutticolo", "(«di Ri…» — Ri.Nova provavel; NAO SEI)", "pesche e percoche · miglioramento genetico (Maspes)",
+     "Conserve Italia, progetto Maspes", "D", ("IT-T9-014", "pesche e percoche")),
+    ("Mattia Onofri", "responsabile frutta", "Conserve Italia", "frutta · ricerca varietale (Maspes)",
+     "Conserve Italia, progetto Maspes", "D", ("IT-T9-014", "Maspes")),
+    ("Markus Niederegger", "direttore", "OVEG — cooperativa produttori verdure (Val Venosta)", "ortaggi di montagna",
+     "myfruit TV", "D", ("IT-T10-017", "verdure della Val Venosta")),
+    ("Hanspeter Felder", "direttore", "Cooperativa dei produttori sementi della Val Pusteria", "patata da seme",
+     "myfruit TV", "D", ("IT-T10-017", "Hanspeter Felder")),
+    ("Hannes Tauber", "responsabile marketing", "VOG — Home of apples", "mele (bio)", "myfruit, noticia 2025-2026 + video",
+     "T (myfruit.it/news/bio-lofferta-di-vog-per-la-nuova-stagione) + titulo do video", ("IT-T10-017", "Hannes Tauber")),
+    ("Gabriele Gorelli", "MW (Master of Wine) — «testo a cura di»", "Consorzio del Vino Brunello di Montalcino (evento)",
+     "vite · Sangiovese · annata agronomica 2024", "Benvenuto Brunello 2024", "D", ("IT-T7-034", "Presentazione Annata Agronomica 2024")),
+    ("Andrea Lonardi", "MW (Master of Wine) — «testo a cura di»", "Consorzio del Vino Brunello di Montalcino (evento)",
+     "vite · Sangiovese · annata agronomica 2024", "Benvenuto Brunello 2024", "D", ("IT-T7-034", "Presentazione Annata Agronomica 2024")),
+    ("Lorenzo Tosi", "relatore (cargo: NAO SEI na descricao)", "evento CREA + CONAF", "difesa delle arboree e della vite",
+     "Festival ASviS, Roma — «Sostenibilità e difesa delle colture» (16/05/2025, pela busca CONAF da ronda 1)", "D",
+     ("IT-T7-026", "Conoscere le minacce")),
+    ("Rosanna Zari", "relatrice (cargo: NAO SEI na descricao)", "evento CREA + CONAF", "droni · fitofarmaci · vite e olivo",
+     "Festival ASviS, Roma (16/05/2025)", "D", ("IT-T7-026", "impiego dei droni")),
+    ("Salvo Latino", "Presidente", "Longaevitas", "prescrizione obbligatoria di agrofarmaci e fertilizzanti",
+     "Festival ASviS, Roma (16/05/2025)", "D", ("IT-T7-026", "La prescrizione dei fitofarmaci")),
+    ("Renato Ferretti", "Vicepresidente", "CONAF", "prescrizione dei fitofarmaci · consulenza agronomica",
+     "Festival ASviS, Roma (16/05/2025)", "D", ("IT-T7-026", "Conclusioni della giornata")),
+    ("Gianluca Baruzzi", "ricercatore", "CREA-Olivicoltura, Frutticoltura e Agrumicoltura (Forlì)", "fragola · stanchezza del terreno",
+     "AgroNotizie/Plantgest, intervista 25/09/2026", "T (plantgest.imagelinenetwork.com/it/news/2026/09/25/fragola-…)", None),
+    ("Stefano Rivalta", "(autor de «Antibrina in frutticoltura», desenvolvedor do Isg Predictor — sem cargo formal)", "NAO SEI",
+     "gelate · antibrina · frutticoltura", "intervento a Macfrut 2026 (Plantgest, 17/09/2026)",
+     "T (plantgest.imagelinenetwork.com/it/news/2026/09/17/gelate-…)", None),
+    ("Michele Tenore", "Dott. Agr., Dirigente della Sezione Fitosanitaria", "ARIF Puglia",
+     "boletim agrometeorologico e fitossanitario (agrumi, olivo, mosca, elateridi)", "Notiziario settimanale N. 37-38, 2026",
+     "T (Sala, IT-T3-008)", None),
+    ("Francesco Ferraro", "Dott. Agr., Direttore Generale", "ARIF Puglia", "(assina o mesmo boletim)", "Notiziario settimanale 2026",
+     "T (Sala, IT-T3-008)", None),
+    ("Sandro Nardi", "Dott., REFERENTE", "Servizio fitosanitario AMAP Marche", "servizio fitosanitario (RUOP, passaporto piante)",
+     "pagina do servico (ultima modifica 05/06/2024)", "P (ronda 1, V26)", None),
+    ("Antonio Ferrante", "professore ordinario di Orticoltura e Floricoltura", "Scuola Superiore Sant'Anna", "serre · orticoltura (progetto InnoFlorEnerg)",
+     "noticia de projeto 2025-2026", "T (santannapisa.it/it/news/progetto-innoflorenerg)", None),
+    ("Francesco Ferrini", "professore di Arboricoltura", "Università di Firenze", "arboricoltura · calore urbano",
+     "noticia Florovivaisti Italiani 2025-2026", "T (florovivaistiitaliani.it/…/citta-bollenti-e-campagne-a-secco…)", None),
+    ("Federica Demaria", "ricercatrice", "CREA", "viticoltura · nuove tecniche genomiche · precision farming",
+     "noticia CREA 2026 (chamada de artigos)", "T (crea.gov.it/-/viticoltura-sostenibile-crea-e-burgundy-…)", None),
+]
+fora = []
+for nome, cargo, inst, tema, evento, prova, vid in LISTA:
+    fora.append({"NOME": nome, "CARGO": cargo, "INSTITUICAO": inst, "TEMA": tema, "EVENTO_OU_OCASIAO": evento,
+                 "PROVA": prova, "VIDEO_GUARDADO": video(*vid) if vid else None,
+                 "CARGO_PROVADO": ("NAO SEI (so o nome e o tema)" if ("NAO SEI" in cargo or "sem cargo" in cargo) else
+                                   "SO A INSTITUICAO" if "so a instituicao" in cargo else
+                                   "PELO DONO DO CANAL (descricao)" if prova.startswith("D") else
+                                   "PELO DOCUMENTO (noticia/boletim/pagina)")})
+json.dump({"DATASET": "RELATORES-DOS-EVENTOS", "REDE": 0, "RELATORES": fora},
+          open(os.path.join(AQUI, "RELATORES-DOS-EVENTOS.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+import collections
+print(len(fora), "relatores;", sum(1 for x in fora if x["VIDEO_GUARDADO"]), "ligados a video guardado;",
+      collections.Counter(x["CARGO_PROVADO"] for x in fora))
