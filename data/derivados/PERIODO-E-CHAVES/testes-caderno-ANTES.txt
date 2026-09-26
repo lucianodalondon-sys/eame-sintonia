@@ -1,0 +1,35 @@
+Could not find platform independent libraries <prefix>
+test_a_admissao_da_linha_nao_muda (tests.test_periodo_e_chaves.OCadernoEscreveAsChaves.test_a_admissao_da_linha_nao_muda) ... ERROR
+test_a_janela_entra_no_caderno_com_json_ordenado (tests.test_periodo_e_chaves.OCadernoEscreveAsChaves.test_a_janela_entra_no_caderno_com_json_ordenado) ... FAIL
+test_cultura_e_fase_leem_a_evidencia_de_hoje (tests.test_periodo_e_chaves.OCadernoEscreveAsChaves.test_cultura_e_fase_leem_a_evidencia_de_hoje) ... FAIL
+test_janela_e_campo_revisivel_na_033 (tests.test_periodo_e_chaves.OCadernoEscreveAsChaves.test_janela_e_campo_revisivel_na_033) ... ok
+
+======================================================================
+ERROR: test_a_admissao_da_linha_nao_muda (tests.test_periodo_e_chaves.OCadernoEscreveAsChaves.test_a_admissao_da_linha_nao_muda)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 206, in test_a_admissao_da_linha_nao_muda
+    base = [r for r in RP.revisoes_de(ready) if r["CAMPO"] == "janela_declarada"][0]["BASE"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+======================================================================
+FAIL: test_a_janela_entra_no_caderno_com_json_ordenado (tests.test_periodo_e_chaves.OCadernoEscreveAsChaves.test_a_janela_entra_no_caderno_com_json_ordenado)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 187, in test_a_janela_entra_no_caderno_com_json_ordenado
+    self.assertEqual(len(jan), 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_cultura_e_fase_leem_a_evidencia_de_hoje (tests.test_periodo_e_chaves.OCadernoEscreveAsChaves.test_cultura_e_fase_leem_a_evidencia_de_hoje)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_periodo_e_chaves.py", line 197, in test_cultura_e_fase_leem_a_evidencia_de_hoje
+    self.assertIn("vite", j["CULTURA"]["VALOR"])
+AssertionError: 'vite' not found in 'NAO SEI'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.622s
+
+FAILED (failures=2, errors=1)

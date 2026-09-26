@@ -166,5 +166,52 @@ class ACulturaForaDeT1(unittest.TestCase):
         self.assertIn("decisao.evidencia.cultura", j["CULTURA"]["VEIO_DE"])
 
 
+class OCadernoEscreveAsChaves(unittest.TestCase):
+    """As 2 mudancas na ferramenta do caderno de revisoes (`admissao/reprocessar_tempo_lugar.py`)."""
+
+    BOLETIM = ("Bollettino tecnico vite. Fase di fioritura in corso nei vigneti di collina.\n"
+               "Superata la soglia di intervento per infestazione di tignoletta: si consiglia "
+               "il trattamento fitosanitario entro la settimana.")
+
+    def _linha(self, texto, universo="T1", sid="IT-T1-900"):
+        return {"RUN_ID": "RUN-T", "ORDEM": 0, "ITEM_ID": "derived:9", "RAW_OBSERVATION_ID": 9,
+                "UNIVERSO": universo, "SOURCE_ID": sid, "CAPTURED_AT": "2026-09-20T10:00:00Z",
+                "SHA256": "c" * 64, "TEXTO": texto}
+
+    def test_a_janela_entra_no_caderno_com_json_ordenado(self):
+        import json
+        import reprocessar_tempo_lugar as RP
+        ready = RP.ready_de(self._linha(self.BOLETIM), None)
+        revs = RP.revisoes_de(ready)
+        jan = [r for r in revs if r["CAMPO"] == "janela_declarada"]
+        self.assertEqual(len(jan), 1)
+        self.assertEqual(json.loads(jan[0]["VALOR"]), ready["JANELA_DECLARADA"])
+        self.assertEqual(jan[0]["VALOR"], json.dumps(ready["JANELA_DECLARADA"], ensure_ascii=False,
+                                                     sort_keys=True))
+        # o mesmo codigo duas vezes da o mesmo texto: `rever` nao escreve de novo
+        self.assertEqual(RP.revisoes_de(RP.ready_de(self._linha(self.BOLETIM), None)), revs)
+
+    def test_cultura_e_fase_leem_a_evidencia_de_hoje(self):
+        import reprocessar_tempo_lugar as RP
+        j = RP.ready_de(self._linha(self.BOLETIM), None)["JANELA_DECLARADA"]
+        self.assertIn("vite", j["CULTURA"]["VALOR"])
+        self.assertIn("decisao.evidencia.cultura", j["CULTURA"]["VEIO_DE"])
+        self.assertNotEqual(j["FASE"]["VALOR"], NAO_SEI)
+
+    def test_a_admissao_da_linha_nao_muda(self):
+        import reprocessar_tempo_lugar as RP
+        texto = "Riunione del consiglio direttivo e approvazione del bilancio annuale dell'associazione."
+        ready = RP.ready_de(self._linha(texto), None)
+        self.assertEqual(ready["JANELA_DECLARADA"]["ORIGEM"]["RESULTADO"], A.SIM)
+        base = [r for r in RP.revisoes_de(ready) if r["CAMPO"] == "janela_declarada"][0]["BASE"]
+        self.assertIn("resultado de hoje: %s" % ready["_RESULTADO_DA_REGUA_HOJE"], base)
+        self.assertNotEqual(ready["_RESULTADO_DA_REGUA_HOJE"], A.SIM)
+        self.assertIn("a admissao da linha nao muda", base)
+
+    def test_janela_e_campo_revisivel_na_033(self):
+        import sala_de_espera as S
+        self.assertIn("janela_declarada", S.CAMPOS_REVISIVEIS)
+
+
 if __name__ == "__main__":
     unittest.main()
