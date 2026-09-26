@@ -1,7 +1,7 @@
 # INTEGRA-NOITE · LOTE 2 — um só pacote sobre o lote 1 (`69b0e23f`)
 
 Ramo `integra-noite-v2`, a partir de `origin/integra-noite-v1` @ `69b0e23f` (o lote 1, instalado no vivo às 05:25).
-**NÃO instalado.** Estado: **em curso** — 11 de 12 pacotes juntos; o `freio-social-v1` espera decisão (conflito de código).
+**NÃO instalado.** Estado: **em curso** — 11 pacotes juntos. **Decisão da coordenação 06:40:** o `freio-social-v1` fica FORA (o dono refaz o ramo sobre o lote 1; entra num LOTE 3). Fecha-se o lote 2 com os 11.
 
 ## 1 · O drift P1 ao instalar o lote 1 (pergunta da coordenação 05:55) — RESPOSTA
 
@@ -61,4 +61,4 @@ git hash-object -- <ficheiro>      # = o sha «regerado» (com o filtro do Git, 
 | 11 | int-consertos-v1 | 60faa7cb | limpa (só código; nada ativado) |
 | — | **freio-social-v1** | **d1074533** | **PARADO — conflito de CÓDIGO** em `coleta/scrap_colheita.py` (4 blocos), `ferramentas/youtube_transcrever.py` (4), `coleta/scrap_http.py` (1), `SOCIAL-QUALIFICAR.md` (1). O freio traz a SUA cópia da prova-teto (`af2bb4e4`) — a que entrou no lote 1 foi `6bd3da95` (prova-teto-social `84a997a6`) — mais o teto D38 no pedido (`4faaa035`) e o dedup pelo vídeo (`379aab98`). Decisão pedida à coordenação |
 
-Testes por nome, 16 livros, mapa e plano: a seguir à decisão sobre o freio-social.
+Testes por nome (em curso, duas pastas com o nome do vivo, mesmos dados, rede fechada), 16 livros, mapa e plano: a seguir.
