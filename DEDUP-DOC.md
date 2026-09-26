@@ -120,7 +120,7 @@ re-extração → 1 falha. **3/3 mortos.** Decisor: **11/11 OK**.
 Mutantes do pousar: M1 sem a pergunta pelo documento · M2 sem a pergunta dentro da mesma corrida · M3 sem a
 exigência `FORWARD_IDENTIFIED` · M4 sem comparar a fonte.
 
-### 4.1 · Resultados — PROVADO em Postgres descartável (26/09 10:14–10:50, sob LOCK-PESADO)
+### 4.1 · Resultados — PROVADO em Postgres descartável (26/09 10:14–10:39, sob LOCK-PESADO)
 
 | o quê | resultado |
 |---|---|
