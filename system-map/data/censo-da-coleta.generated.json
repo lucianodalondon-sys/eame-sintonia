@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-26T04:08:25+00:00",
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
+    "GENERATED_AT": "2026-09-26T08:30:42+00:00",
+    "HEAD": "bfd625cc1fda550bbbac9a73a7e84abc59c76f70",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
-    "FICHEIROS_NA_IMPRESSAO": 3493,
+    "SOURCE_TREE_FINGERPRINT": "5d957817f21b6b75273e8f98eb79fee29fe508d492cd3f4c4ec65c2339a73164",
+    "FICHEIROS_NA_IMPRESSAO": 3505,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -781,6 +781,20 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/micro_social/_mutantes_micro_social.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "89e63dbec2b242cca6bb21e59f3ad561600b3973",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/micro_social/micro_social.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e2a8c675103195f88e9d9a5f0fc0be0964be080e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/navegador.py",
         "PAPEL": "FONTE",
         "VERSAO": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
@@ -1271,8 +1285,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 180,
-    "INPUTS_DIGEST": "6990ee855a736c1340a60647d8a8454a92019eab4fc62f4fe1cc4d26de163655",
+    "INPUTS_COUNT": 182,
+    "INPUTS_DIGEST": "a2cb06afd112fe1f799ec093869a819b6ce30b5f40a4cdab53daef44193047d7",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2267,6 +2281,46 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/micro_social/_mutantes_micro_social.py",
+      "gaveta": "ferramentas",
+      "linhas": 49,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/micro_social/micro_social.py",
+      "gaveta": "ferramentas",
+      "linhas": 491,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/micro_social/_mutantes_micro_social.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/navegador.py",
       "gaveta": "ferramentas",
       "linhas": 242,
@@ -2626,7 +2680,8 @@
       "chamado_por": [
         "coleta/adaptador_youtube.py",
         "ferramentas/fala_local.py",
-        "ferramentas/instagram_transcrever.py"
+        "ferramentas/instagram_transcrever.py",
+        "ferramentas/micro_social/micro_social.py"
       ],
       "no_ci": true
     },
@@ -3688,6 +3743,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "ferramentas/micro_social/micro_social.py",
         "pedido/receitas.py",
         "regras/contratos_de_fonte.py"
       ],
@@ -3779,6 +3835,7 @@
         "coleta/scrap_executor.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
+        "ferramentas/micro_social/micro_social.py",
         "regras/sensor_coleta.py"
       ],
       "no_ci": false
@@ -4949,12 +5006,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 180,
-    "pontos_de_entrada": 129,
-    "executores_que_saem_para_fora": 28,
-    "sem_chamador_e_fora_do_ci": 80,
+    "ficheiros_de_codigo": 182,
+    "pontos_de_entrada": 130,
+    "executores_que_saem_para_fora": 29,
+    "sem_chamador_e_fora_do_ci": 81,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 100,
+    "escrevem_ficheiro": 102,
     "deitam_fora_alguma_coisa": 47,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -5003,6 +5060,7 @@
       "ferramentas/legacy99/revalidar_em_rondas.py",
       "ferramentas/legacy99v2/mutacao.py",
       "ferramentas/legacy99v2/mutacao_ab.py",
+      "ferramentas/micro_social/micro_social.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
@@ -5098,6 +5156,7 @@
       "ferramentas/contrato_ator.py",
       "ferramentas/integra_onda2/final/ensaio_integra.sh",
       "ferramentas/legacy99/revalidar_em_rondas.py",
+      "ferramentas/micro_social/micro_social.py",
       "ferramentas/onda3_pacote/ensaio_onda3.sh",
       "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
       "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
@@ -5156,6 +5215,7 @@
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/legacy99/revalidar_em_rondas.py",
       "ferramentas/legacy99v2/mutacao_ab.py",
+      "ferramentas/micro_social/_mutantes_micro_social.py",
       "ferramentas/onda3_pacote/ensaio_onda3.sh",
       "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
       "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",

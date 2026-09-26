@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "c9-sobre-ce28-v1",
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-    "GENERATED_AT": "2026-09-26T01:07:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a"
+    "BRANCH": "runbook-micro-social-v1",
+    "HEAD": "bfd625cc1fda550bbbac9a73a7e84abc59c76f70",
+    "GENERATED_AT": "2026-09-26T03:47:23-03:00",
+    "SOURCE_TREE_FINGERPRINT": "5d957817f21b6b75273e8f98eb79fee29fe508d492cd3f4c4ec65c2339a73164"
   },
   "FILES": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "path": ".gitattributes",
-      "sha": "6bdcabdb75697575f7c5876eb9c0e6db1ed677af",
+      "sha": "076fb2990b9907c5fc0ecf260c76a896b0cd15d1",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -12525,6 +12525,83 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/micro_social/RUNBOOK-MICRO-SOCIAL.md",
+      "sha": "a5f46af1722ed436b68753473c63bdec58fc668b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/_mutantes_micro_social.py",
+      "sha": "89e63dbec2b242cca6bb21e59f3ad561600b3973",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/ensaio/LOTE-DO-ENSAIO.json",
+      "sha": "8997e9192c3d7225dcc839c0adffd7126f58f9d3",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/ensaio/SHA256SUMS.txt",
+      "sha": "ebc0bc4cffd3ad3e4414652e84cfd104c8803157",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/ensaio/integra-noite/LOTE-DO-ENSAIO.json",
+      "sha": "8997e9192c3d7225dcc839c0adffd7126f58f9d3",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/ensaio/integra-noite/saida-noite.txt",
+      "sha": "2023276861ae60952d0ca033e4a59cfcc390ecb6",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/ensaio/saida-1.txt",
+      "sha": "28060fea8b07a9199048c4d86435d1c047e0919f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/ensaio/saida-2.txt",
+      "sha": "9fd4266d6aefc3735606869e3b39a51707f2f8fa",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/ensaio/saida-3.txt",
+      "sha": "a74be9809b4f6077d79b02c0aeb951bb567ab260",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/ensaio/saida-4.txt",
+      "sha": "290a1fce11e8349c2cecc3b7b093e1289a3a9d73",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/micro_social/micro_social.py",
+      "sha": "e2a8c675103195f88e9d9a5f0fc0be0964be080e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/navegador.py",
       "sha": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
       "ext": ".py",
@@ -21087,7 +21164,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "2e70e218f30997daa2ca76c530473209422b8d19",
+      "sha": "b5b07ff74697e01c25d2fdf7c7e6b01bccfd7d4f",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -22726,6 +22803,13 @@
     {
       "path": "tests/test_micro_rede_real.py",
       "sha": "7d47605fd061f0933251b51c8bf9a24e21cdd6aa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_micro_social.py",
+      "sha": "d1540e703d2c5d304fa10d68d2e6a62a60874055",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -38141,6 +38225,105 @@
         "file": "ferramentas/legacy99v2/mutacao_ab.py",
         "line": 63,
         "snippet": "\"regras/italy_contracts_onboarded.json\"]"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/_mutantes_micro_social.py",
+      "to_file": "ferramentas/micro_social/micro_social.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_social/_mutantes_micro_social.py",
+        "line": 6,
+        "snippet": "F=\"ferramentas/micro_social/micro_social.py\""
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/micro_social.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/micro_social/micro_social.py",
+        "line": 66,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/micro_social.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_social/micro_social.py",
+        "line": 243,
+        "snippet": "if not _tem(\"coleta/scrap_colheita.py\", \"def escrever_linha\"):"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/micro_social.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_social/micro_social.py",
+        "line": 241,
+        "snippet": "if not _tem(\"coleta/scrap_http.py\", \"def contar_pedido\"):"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/micro_social.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_social/micro_social.py",
+        "line": 315,
+        "snippet": "return Path(os.environ.get(\"ITALY_OPS_ROOT\") or RAIZ) / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\""
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/micro_social.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_social/micro_social.py",
+        "line": 247,
+        "snippet": "if not _tem(\"ferramentas/youtube_transcrever.py\", \"--print-traffic\"):"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/micro_social.py",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_social/micro_social.py",
+        "line": 245,
+        "snippet": "if not _tem(\"provas/prova_teto_dominio.py\", '\"googlevideo.com\": \"youtube.com\"'):"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/micro_social.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_social/micro_social.py",
+        "line": 480,
+        "snippet": "cmd = [sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\"),"
+      }
+    },
+    {
+      "from_file": "ferramentas/micro_social/micro_social.py",
+      "to_file": "superficie/rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/micro_social/micro_social.py",
+        "line": 222,
+        "snippet": "rede = _modulo(\"rede_egresso\", RAIZ / \"superficie\" / \"rede.py\")"
       }
     },
     {
@@ -85136,6 +85319,72 @@
       }
     },
     {
+      "from_file": "tests/test_micro_social.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_social.py",
+        "line": 282,
+        "snippet": "(\"coleta/scrap_colheita.py\", \"def escrever_linha\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_micro_social.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_social.py",
+        "line": 281,
+        "snippet": "for rel, txt in ((\"coleta/scrap_http.py\", \"def contar_pedido\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_micro_social.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_social.py",
+        "line": 215,
+        "snippet": "livro = os.path.join(self.tmp, \"runs.ndjson\")"
+      }
+    },
+    {
+      "from_file": "tests/test_micro_social.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_social.py",
+        "line": 216,
+        "snippet": "with open(livro, \"w\", encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_micro_social.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_social.py",
+        "line": 284,
+        "snippet": "(\"ferramentas/youtube_transcrever.py\", \"'--print-traffic',\")):"
+      }
+    },
+    {
+      "from_file": "tests/test_micro_social.py",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_social.py",
+        "line": 283,
+        "snippet": "(\"provas/prova_teto_dominio.py\", 'MESMO_ORCAMENTO = {\"googlevideo.com\": \"youtube.com\"}'),"
+      }
+    },
+    {
       "from_file": "tests/test_migracao_033_sala.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -92341,10 +92590,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3345,
-    "files_readable": 1422,
-    "files_code_dir": 1531,
-    "file_edges": 6210,
+    "files_tracked": 3357,
+    "files_readable": 1425,
+    "files_code_dir": 1543,
+    "file_edges": 6225,
     "escritas_em_pasta": 88,
     "declared_missing_here": 0
   },

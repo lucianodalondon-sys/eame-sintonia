@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  02b8abc091fad514c81e766cb2d3049b6b37a65f
-BRANCH           c9-sobre-ce28-v1
-GERADO_EM        2026-09-26T01:07:37-03:00
-CARDS            104
+HEAD_DA_MEDICAO  bfd625cc1fda550bbbac9a73a7e84abc59c76f70
+BRANCH           runbook-micro-social-v1
+GERADO_EM        2026-09-26T03:47:23-03:00
+CARDS            105
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -436,15 +436,15 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
-| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · dado** | C-MICRO-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 17 |
-| **arestas provadas** | entram 6 · saem 17 |
+| **arestas no mapa** | entram 6 · saem 18 |
+| **arestas provadas** | entram 6 · saem 18 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
-| **data plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 23 |
+| **prova das ligações** | CODE 24 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -461,15 +461,15 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | C-DERIVACAO-FORWARD, C-ORQUESTRADOR, C-TRANSCRICAO, V-HTTP, V-YOUTUBE |
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/instagram_janela.py` |
-| **o que sai · dado** | C-ADMISSAO |
+| **o que sai · dado** | C-ADMISSAO, C-MICRO-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 27 · saem 25 |
-| **arestas provadas** | entram 24 · saem 25 |
+| **arestas no mapa** | entram 27 · saem 26 |
+| **arestas provadas** | entram 24 · saem 26 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
-| **data plane** | entram 5 · saem 1 |
+| **data plane** | entram 5 · saem 2 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 46 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 47 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -960,6 +960,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
+### `C-MICRO-SOCIAL` · Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/micro_social/RUNBOOK-MICRO-SOCIAL.md`, `ferramentas/micro_social/_mutantes_micro_social.py`, `ferramentas/micro_social/ensaio/LOTE-DO-ENSAIO.json`, `ferramentas/micro_social/ensaio/SHA256SUMS.txt`, `ferramentas/micro_social/ensaio/integra-noite/LOTE-DO-ENSAIO.json` _(e mais 6)_ |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 11 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | C-ASK-SINTONIA, C-IT-PRESERVAR, C-SCRAP-COLHEITA, C-SCRAP-SOCIAL, C-TRANSCRICAO |
+| **o que entra · ficheiros** | `coleta/scrap_colheita.py`, `coleta/scrap_http.py`, `data/collection-ledger/italy/runs.ndjson` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 8 · saem 0 |
+| **arestas provadas** | entram 8 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 5 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 8 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+
 ### `C-NAVEGADOR` · O navegador — a rota gratis
 
 | | |
@@ -1098,15 +1123,15 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/REEL-TRANSCRICOES/TRANSCRICOES-REEL.json`, `ferramentas/fala_local.py` |
-| **o que sai · dado** | C-EXECUTOR-TRANSCRICAO-MIDIA, C-SCRAP-SOCIAL |
+| **o que sai · dado** | C-EXECUTOR-TRANSCRICAO-MIDIA, C-MICRO-SOCIAL, C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 4 · saem 18 |
-| **arestas provadas** | entram 4 · saem 18 |
+| **arestas no mapa** | entram 4 · saem 19 |
+| **arestas provadas** | entram 4 · saem 19 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
-| **data plane** | entram 0 · saem 2 |
+| **data plane** | entram 0 · saem 3 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 22 |
+| **prova das ligações** | CODE 23 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -1402,15 +1427,15 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **porquê** | estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-INTEGRA-ONDA2 · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `superficie/rede.py` |
-| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · dado** | C-MICRO-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 2 · saem 24 |
-| **arestas provadas** | entram 2 · saem 24 |
+| **arestas no mapa** | entram 2 · saem 25 |
+| **arestas provadas** | entram 2 · saem 25 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
-| **data plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 26 |
+| **prova das ligações** | CODE 27 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1906,13 +1931,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `RELATORIO-RELEVANCIA-ELEGIVEIS.md`, `admissao/admissao.py`, `coleta/italy_executor.py` |
 | **o que sai · dado** | C-CAPA-MATERIA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 19 · saem 3 |
-| **arestas provadas** | entram 19 · saem 3 |
+| **arestas no mapa** | entram 19 · saem 4 |
+| **arestas provadas** | entram 19 · saem 4 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 22 |
+| **prova das ligações** | CODE 23 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2658,9 +2683,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
 OK                 41
 UNKNOWN            33
+TERMINAL           12
 SYSTEM_GAP         11
-TERMINAL           11
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              104
+TOTAL              105
 ```

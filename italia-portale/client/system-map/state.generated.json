@@ -1818,6 +1818,17 @@
       "ferramentas/legacy99v2/RELATORIO-LEGACY-99-V2.md",
       "ferramentas/legacy99v2/mutacao.py",
       "ferramentas/legacy99v2/mutacao_ab.py",
+      "ferramentas/micro_social/RUNBOOK-MICRO-SOCIAL.md",
+      "ferramentas/micro_social/_mutantes_micro_social.py",
+      "ferramentas/micro_social/ensaio/LOTE-DO-ENSAIO.json",
+      "ferramentas/micro_social/ensaio/SHA256SUMS.txt",
+      "ferramentas/micro_social/ensaio/integra-noite/LOTE-DO-ENSAIO.json",
+      "ferramentas/micro_social/ensaio/integra-noite/saida-noite.txt",
+      "ferramentas/micro_social/ensaio/saida-1.txt",
+      "ferramentas/micro_social/ensaio/saida-2.txt",
+      "ferramentas/micro_social/ensaio/saida-3.txt",
+      "ferramentas/micro_social/ensaio/saida-4.txt",
+      "ferramentas/micro_social/micro_social.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/onda3_pacote/LOTES-A-HTML.json",
@@ -3321,6 +3332,7 @@
       "tests/test_metricas.py",
       "tests/test_micro_coleta_instrumento.py",
       "tests/test_micro_rede_real.py",
+      "tests/test_micro_social.py",
       "tests/test_migracao_033_sala.py",
       "tests/test_migrations.py",
       "tests/test_modelo_de_objetos_da_intelligence.py",
@@ -3938,10 +3950,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "c9-sobre-ce28-v1",
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-    "GENERATED_AT": "2026-09-26T01:07:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a"
+    "BRANCH": "runbook-micro-social-v1",
+    "HEAD": "bfd625cc1fda550bbbac9a73a7e84abc59c76f70",
+    "GENERATED_AT": "2026-09-26T03:47:23-03:00",
+    "SOURCE_TREE_FINGERPRINT": "5d957817f21b6b75273e8f98eb79fee29fe508d492cd3f4c4ec65c2339a73164"
   },
   "FAMILIES": [
     {
@@ -3969,7 +3981,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 104
+      "count": 105
     },
     {
       "id": "F-ESPERA",
@@ -4164,7 +4176,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 15
+      "count": 16
     },
     {
       "id": "Z-ACOES",
@@ -5450,8 +5462,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 670",
-        "desses, mostrados aqui: 40 (ficam de fora 630)"
+        "enderecos que o codigo realmente chama: 672",
+        "desses, mostrados aqui: 40 (ficam de fora 632)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -37863,6 +37875,7 @@
         "C-IT-PRESERVAR",
         "C-LEGACY-99",
         "C-MICRO-COLETA-INSTRUMENTO",
+        "C-MICRO-SOCIAL",
         "C-ORDENS-63",
         "C-PACOTE-CAMADAS",
         "C-PROVA-CANARIO-D23-LINKEDIN",
@@ -48968,6 +48981,7 @@
         "C-LASTMILE-MEDIDORES",
         "C-MAPA-SCAN",
         "C-MICRO-COLETA-INSTRUMENTO",
+        "C-MICRO-SOCIAL",
         "C-ONDA-WEB",
         "C-PADRAO-COLETA",
         "C-PROVA-COLETA",
@@ -50720,6 +50734,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MICRO-COLETA-INSTRUMENTO",
+        "C-MICRO-SOCIAL",
         "C-NAVEGADOR",
         "C-ORQUESTRADOR",
         "C-PACOTE-CAMADAS",
@@ -51210,6 +51225,7 @@
       ],
       "outbound": [
         "C-CAPA-MATERIA",
+        "C-MICRO-SOCIAL",
         "C-PROVA-COLETA",
         "C-TESTES"
       ],
@@ -51419,6 +51435,120 @@
       "y": 1970
     },
     {
+      "id": "C-MICRO-SOCIAL",
+      "name": "Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "Corre uma noite social por rodadas pela porta canonica (orquestrador -> scrap-colheita), com o Pedido montado em processo. Recusa antes da rede: sem autorizacao, lote 1 (PROVA-TETO-SOCIAL) por instalar, parada automatica anterior, robo a correr, Sala operacional por declarar, previsao do teto acima de 5 por dominio (gasto medido da noite + previsto), py sem yt_dlp numa rodada de YouTube, egresso != IT pelo portao de consenso. Por item pergunta ao portao de coleta no instante. Depois de cada rodada: egresso e PROVA-TETO sobre a noite inteira; != PASS escreve PARAR-MICRO-SOCIAL.flag. Le a Sala (so SELECT) com data e lugar, base e precisao, e chama o relatorio da micro web com --estado=.",
+      "why_here": "RUNBOOK-MICRO-SOCIAL (26/09): nao havia condutor de onda social (onda_web so serve a web) e o Pedido a mao nao pergunta ao portao de coleta — medido no ensaio a seco: CORRIDA SUCCESS numa fonte WEB pedida como LinkedIn. Duas contas LinkedIn na mesma noite dao licdn.com = 6 (robots relido por processo), por isso a previsao corre ANTES.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/micro_social/RUNBOOK-MICRO-SOCIAL.md",
+        "ferramentas/micro_social/_mutantes_micro_social.py",
+        "ferramentas/micro_social/ensaio/LOTE-DO-ENSAIO.json",
+        "ferramentas/micro_social/ensaio/SHA256SUMS.txt",
+        "ferramentas/micro_social/ensaio/integra-noite/LOTE-DO-ENSAIO.json",
+        "ferramentas/micro_social/ensaio/integra-noite/saida-noite.txt",
+        "ferramentas/micro_social/ensaio/saida-1.txt",
+        "ferramentas/micro_social/ensaio/saida-2.txt",
+        "ferramentas/micro_social/ensaio/saida-3.txt",
+        "ferramentas/micro_social/ensaio/saida-4.txt",
+        "ferramentas/micro_social/micro_social.py"
+      ],
+      "file_count": 11,
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 11 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ASK-SINTONIA",
+        "C-IT-PRESERVAR",
+        "C-MAPA-TESTES",
+        "C-MICRO-COLETA-INSTRUMENTO",
+        "C-PROVA-TETO-DOMINIO",
+        "C-SCRAP-COLHEITA",
+        "C-SCRAP-SOCIAL",
+        "C-TRANSCRICAO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "PREPARO",
+      "momento_texto": "depois da coleta, sobre o que voltou — antes da peneira",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_SALA",
+          "M",
+          "NOMES",
+          "PREVISAO_POR_ITEM"
+        ],
+        "palavras": 92,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 92,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "ferramentas/micro_social/micro_social.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "coleta/scrap_colheita.py",
+        "coleta/scrap_http.py",
+        "data/collection-ledger/italy/runs.ndjson",
+        "ferramentas/micro_social/micro_social.py",
+        "ferramentas/youtube_transcrever.py",
+        "provas/prova_teto_dominio.py",
+        "scripts/micro_coleta/micro_coleta.py",
+        "superficie/rede.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6000,
+      "y": 1326
+    },
+    {
       "id": "C-NAVEGADOR",
       "name": "O navegador — a rota gratis",
       "territory": "Z-FERRAMENTAS",
@@ -51519,7 +51649,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -51612,7 +51742,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1326
     },
     {
@@ -52296,8 +52426,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6830,
-      "y": 1326
+      "x": 6000,
+      "y": 1648
     },
     {
       "id": "C-PADRAO-COLETA",
@@ -52940,7 +53070,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -58069,6 +58199,7 @@
       ],
       "outbound": [
         "C-INTEGRA-ONDA2",
+        "C-MICRO-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -59359,7 +59490,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1648
     },
     {
@@ -61098,6 +61229,7 @@
       ],
       "outbound": [
         "C-MAPA-TESTES",
+        "C-MICRO-SOCIAL",
         "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-CANARIO-REEL",
@@ -61659,6 +61791,7 @@
         "C-COLETA-PUBLICA",
         "C-CORRIDA-CANONICA",
         "C-MAPA-TESTES",
+        "C-MICRO-SOCIAL",
         "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
@@ -64706,6 +64839,7 @@
         "tests/test_metricas.py",
         "tests/test_micro_coleta_instrumento.py",
         "tests/test_micro_rede_real.py",
+        "tests/test_micro_social.py",
         "tests/test_migracao_033_sala.py",
         "tests/test_migrations.py",
         "tests/test_modelo_de_objetos_da_intelligence.py",
@@ -64805,7 +64939,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 259,
+      "file_count": 260,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -65059,6 +65193,7 @@
           "COMPLETA",
           "CONTAGEM_DIVERGE_JA_CONHECIDA",
           "CONTRATO",
+          "CONTRATOS",
           "COORTE",
           "CORRIDA",
           "DECISOES_ANTIGAS",
@@ -65091,6 +65226,7 @@
           "IMPLEMENTACOES",
           "INSTALADORES",
           "ITEM",
+          "LI",
           "LINHA_BOA",
           "MINIMOS",
           "ONDE",
@@ -65129,17 +65265,18 @@
           "VERBOS_DE_CALCULO",
           "VOCABULARIO_DA_COLLECTION",
           "WAV",
+          "YT",
           "YT_CURADOR",
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1548,
+        "palavras": 1580,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1536,
+        "sem_marca_de_lingua": 1568,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -65582,6 +65719,7 @@
         "provas/paridade_da_lingua.py",
         "provas/preservar_coleta_no_postgres.py",
         "provas/primeira_rota_paga.py",
+        "provas/prova_teto_dominio.py",
         "provas/qualidade_t3.py",
         "provas/recollection_http_local.mjs",
         "provas/red_team_adama_referencia.py",
@@ -65768,6 +65906,7 @@
         "C-CENSO-DERIVACOES",
         "C-COLETA-PUBLICA",
         "C-EXECUTOR-TRANSCRICAO-MIDIA",
+        "C-MICRO-SOCIAL",
         "C-PROVA-ASR-LOCAL",
         "C-PROVA-AUDIO-ONLY",
         "C-PROVA-CANARIO-D24-REEL-PESSOA",
@@ -65841,8 +65980,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6830,
-      "y": 1648
+      "x": 6000,
+      "y": 1970
     },
     {
       "id": "C-V2-LEGADO",
@@ -73673,6 +73812,42 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-MICRO-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/micro_social/micro_social.py",
+          "line": 222,
+          "snippet": "rede = _modulo(\"rede_egresso\", RAIZ / \"superficie\" / \"rede.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-MICRO-SOCIAL",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-MICRO-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true,
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -105126,6 +105301,42 @@
     },
     {
       "from": "C-IT-PRESERVAR",
+      "to": "C-MICRO-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/micro_social/micro_social.py",
+          "line": 315,
+          "snippet": "return Path(os.environ.get(\"ITALY_OPS_ROOT\") or RAIZ) / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-SOCIAL",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-MICRO-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true,
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
       "to": "C-ONDA-WEB",
       "type": "READS",
       "payload": "artefacto",
@@ -105757,7 +105968,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
@@ -105779,6 +105990,22 @@
           "file": "tests/test_fontes_explicitas_no_coletor.py",
           "line": 80,
           "snippet": "\"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_micro_social.py",
+          "line": 215,
+          "snippet": "livro = os.path.join(self.tmp, \"runs.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
             "FROM": "C-IT-PRESERVAR",
@@ -109704,6 +109931,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-MICRO-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/micro_social/micro_social.py",
+          "line": 66,
+          "snippet": "import _gavetas  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-MICRO-SOCIAL",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-MICRO-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-NAVEGADOR",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -113472,6 +113734,41 @@
         }
       ],
       "categoria": "WRITE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MICRO-COLETA-INSTRUMENTO",
+      "to": "C-MICRO-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/micro_social/micro_social.py",
+          "line": 480,
+          "snippet": "cmd = [sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-MICRO-SOCIAL",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-MICRO-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -125033,6 +125330,41 @@
     },
     {
       "from": "C-PROVA-TETO-DOMINIO",
+      "to": "C-MICRO-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira alimenta Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/micro_social/micro_social.py",
+          "line": 245,
+          "snippet": "if not _tem(\"provas/prova_teto_dominio.py\", '\"googlevideo.com\": \"youtube.com\"'):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-MICRO-SOCIAL",
+            "FROM": "C-PROVA-TETO-DOMINIO",
+            "TO": "C-MICRO-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-TETO-DOMINIO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -125074,12 +125406,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_corrida_abortada.py",
           "line": 21,
           "snippet": "r = subprocess.run([\"node\", \"provas/corrida_abortada_local.mjs\"], cwd=RAIZ, env=env,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
+            "FROM": "C-PROVA-TETO-DOMINIO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_micro_social.py",
+          "line": 283,
+          "snippet": "(\"provas/prova_teto_dominio.py\", 'MESMO_ORCAMENTO = {\"googlevideo.com\": \"youtube.com\"}'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
             "FROM": "C-PROVA-TETO-DOMINIO",
@@ -130657,6 +131005,42 @@
     },
     {
       "from": "C-SCRAP-COLHEITA",
+      "to": "C-MICRO-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/micro_social/micro_social.py",
+          "line": 243,
+          "snippet": "if not _tem(\"coleta/scrap_colheita.py\", \"def escrever_linha\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-MICRO-SOCIAL",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-MICRO-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true,
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-COLHEITA",
       "to": "C-PROVA-CANARIO-D23-LINKEDIN",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -131588,12 +131972,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_linkedin_op_01_operacional.py",
           "line": 392,
           "snippet": "for ficheiro in ('coleta/scrap_colheita.py', 'pedido/receitas.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_micro_social.py",
+          "line": 282,
+          "snippet": "(\"coleta/scrap_colheita.py\", \"def escrever_linha\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
             "FROM": "C-SCRAP-COLHEITA",
@@ -134589,6 +134989,42 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-MICRO-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/micro_social/micro_social.py",
+          "line": 241,
+          "snippet": "if not _tem(\"coleta/scrap_http.py\", \"def contar_pedido\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-MICRO-SOCIAL",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-MICRO-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true,
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-CANARIO-D23-LINKEDIN",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -136025,7 +136461,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 69 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 70 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -140519,7 +140955,7 @@
       "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes escreve em Guardar com impressao digital. Provado por 2 linhas de codigo.",
+      "reason": "Suite de testes escreve em Guardar com impressao digital. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_ensaio_offline_micro.py",
@@ -140541,6 +140977,22 @@
           "file": "tests/test_micro_coleta_instrumento.py",
           "line": 312,
           "snippet": "(led / \"runs.ndjson\").write_text(\"\".join(json.dumps(x) + \"\\n\" for x in linhas),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
+            "FROM": "C-TESTES",
+            "TO": "C-IT-PRESERVAR",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_micro_social.py",
+          "line": 216,
+          "snippet": "with open(livro, \"w\", encoding=\"utf-8\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
             "FROM": "C-TESTES",
@@ -141172,6 +141624,42 @@
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
             "FROM": "C-TRANSCRICAO",
             "TO": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true,
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-MICRO-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura alimenta Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/micro_social/micro_social.py",
+          "line": 247,
+          "snippet": "if not _tem(\"ferramentas/youtube_transcrever.py\", \"--print-traffic\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--READS-->C-MICRO-SOCIAL",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-MICRO-SOCIAL",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -141942,7 +142430,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 38 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 39 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -144441,7 +144929,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 228,
+      "PECAS_EM_DESACORDO": 229,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -144453,23 +144941,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 254
+      "TOTAL_DE_PECAS": 255
     }
   ],
   "COUNTS": {
-    "components": 254,
+    "components": 255,
     "components_proven": 32,
-    "components_pending": 214,
+    "components_pending": 215,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1471,
-    "edges_proven": 1406,
+    "edges": 1479,
+    "edges_proven": 1414,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3345,
-    "files_covered": 1421,
+    "files_tracked": 3357,
+    "files_covered": 1433,
     "files_code_unclaimed": 0,
-    "roles_proven": 175,
+    "roles_proven": 176,
     "roles_declared_only": 8,
     "roles_unknown": 71,
     "roles_conflict": 38,
