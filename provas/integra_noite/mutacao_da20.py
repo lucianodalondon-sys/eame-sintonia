@@ -26,6 +26,10 @@ MUTANTES = [
     ("P5 o pousar nao pergunta se a 036 existe", SE,
      "        if self._consultar(\"select to_regclass('public.sala_de_espera_versao') is not null\") != [\"t\"]:\n",
      "        if False:\n", T_036),
+    # D90: o mesmo ataque, apanhado pelo livro de migracoes REAL (Postgres descartavel sem a 036) — PESADO
+    ("P6 o pousar julga que a 036 existe (banco real sem ela)", SE,
+     "        if self._consultar(\"select to_regclass('public.sala_de_espera_versao') is not null\") != [\"t\"]:\n",
+     "        if False:\n", ["tests.test_sala_por_nome.AEscritaEPeloNomeNoLivroDeMigracoesReal"]),
 ]
 
 

@@ -64,7 +64,15 @@ O que estava escrito fica em `EXPRESSAO`. Testes: `DA20_SemProvaNaoHaPeriodo` (3
 (Medido antes: o `extratores-v2-juntos` **sozinho** `2cbfb53f` já falhava — não era da junção.)
 
 **2 · `test_sala_por_nome`** — o `pousar` do dedup-doc pergunta primeiro ao banco se a 036 existe
-(`_consultar`); o teste responde «não». O que ele mede não muda. Código do dedup intacto.
+(`_consultar`). Código do dedup intacto.
+- DA-20 (16:40): o teste leve responde «não» (fica, corre em qualquer máquina).
+- **D90 (bot Luciano, 19:50): não basta responder** — `AEscritaEPeloNomeNoLivroDeMigracoesReal` herda os 2 testes
+  (`test_cada_valor_vai_para_a_sua_coluna`, `test_as_tres_listas_de_colunas_sao_a_mesma`) e corre-os num
+  **Postgres descartável montado pela cadeia canónica a partir de uma árvore com todas as migrations do ramo menos a
+  036**: a pergunta «a 036 existe?» é respondida pelo BANCO. Mais 3 testes: o `schema_migracao` real não tem a 036
+  (e tem a 033; a tabela de versões não existe) · o banco responde que não e o `pousar` não toca na tabela ·
+  **`pousar` de ponta a ponta sem nada substituído** (bruto real em `raw_asset`, READY da porta) grava 1 linha e diz
+  `036 nao aplicada`. `test_sala_por_nome` passou para a fase pesada (liga Postgres).
 
 **3 · A 036 não entra; o lote 3 funciona sem ela.** O `pousar` sem o caderno de versões pousa como antes e diz no
 relato `036 nao aplicada`. Testes: `SemA036OPousarContinuaAPousar` (2, com contraprova) em
@@ -72,9 +80,10 @@ relato `036 nao aplicada`. Testes: `SemA036OPousarContinuaAPousar` (2, com contr
 O ficheiro da 036 **fica no ramo** (é do pacote; a série é da DA-19) — por isso a instalação **não corre a cadeia de
 migrações** (plano, A).
 
-**Mutação** (`provas/integra_noite/mutacao_da20.py` → `mutacao-da20-RESULTADO.txt`): **5 mutantes, 5 mortos** —
+**Mutação** (`provas/integra_noite/mutacao_da20.py` → `mutacao-da20-RESULTADO.txt`): **6 mutantes, 6 mortos** —
 P1 a trava do período desligada · P2 «UNKNOWN» passa por prova · P3 «NAO SEI»/falta de base passa · P4 sem a 036 o
-`pousar` rebenta · P5 o `pousar` não pergunta pela 036. Ficheiros repostos (sha256). Na 1.ª volta um mutante
+`pousar` rebenta · P5 o `pousar` não pergunta pela 036 · **P6 o mesmo, apanhado pelo livro de migrações REAL** (D90,
+com Postgres, sob a LOCK-PESADO). Ficheiros repostos (sha256). Na 1.ª volta um mutante
 **sobreviveu**: a condição tinha uma 2.ª metade redundante (a falta de base já chega como «NAO SEI», que a busca
 apanha) — saiu do código (`fd40775c`), não se inventou teste para ela.
 
@@ -87,9 +96,17 @@ base `278cd489` — nenhuma remoção nem campo mudado.
 
 ## 6 · Fase pesada (LOCK-PESADO) e mapa
 
-`C:/cur/t2b/pesado_l3.sh`: `test_sala_idempotente_por_documento`, `test_sala_dedup_por_document_key`,
-`test_quatro_chaves_na_sala` em três cópias — ramo · vivo `278cd489` · ramo **sem a 036**. Resultado: (por correr).
-Mapa único: depois do rebase.
+Sob a LOCK-PESADO (20:00), 10,2 GB livres. `C:/cur/t2b/pesado_l3.sh`: `test_sala_idempotente_por_documento`,
+`test_sala_dedup_por_document_key`, `test_quatro_chaves_na_sala`, `test_sala_por_nome` em três cópias
+(`provas/integra_noite/lote3-pesado-{ramo,vivo,sem036}.txt`, sha256 `f4ecb5cd…` / `7af453cd…` / `9613bb64…`):
+
+| cópia | resultado |
+|---|---|
+| **ramo** | **60/60 OK** |
+| vivo `dc0de726` | 37 corridos; `test_sala_dedup_por_document_key` não existe lá (vem com o dedup-doc) — o resto OK |
+| **ramo SEM o ficheiro da 036** | **52/60**: falham **só** os 7 testes de versões (`test_V1`…`test_V7`, precisam da tabela da 036) e `test_o_livro_de_migracoes_real_nao_tem_a_036` (confere que ELE tirou a 036 da árvore — nesta cópia ela já não estava). Passam sem a 036: dedup A/B/C/C2/U1/U3/L/R, idempotência 5/5, quatro-chaves na Sala 22/22, escrita por nome 15/15 (incluindo o `pousar` ponta a ponta) |
+
+Mapa único: ver o commit do mapa (é o SHA do PRONTO).
 
 ## 7 · Plano único de instalação (o coordenador instala; um escritor; sem rede)
 
@@ -103,9 +120,11 @@ Mapa único: depois do rebase.
 4. `correr_a_cadeia.py VALIDAR` (o P1 acusa os livros `M`: aceitar SÓ se a lista for exatamente essa) e
    `PORTOES_POS_COMMIT` → IGUAL. Repor os gerados que o validador reescreve pelo nome.
 5. **NÃO correr `motor/cadeia_canonica.sh migrations`** — aplicaria a 034 antiga e a 036 (DA-19/DA-20 3).
-6. Provas rápidas sem rede: `py -m unittest tests.test_periodo_e_chaves tests.test_sala_por_nome
+6. Provas rápidas sem rede: `py -m unittest tests.test_periodo_e_chaves
    tests.test_quatro_chaves tests.test_freio_social tests.test_maestro_social tests.test_extrator_evento_v2
-   tests.test_extrator_lugar_v2 tests.test_a_receita_tem_versao tests.test_quem_pousa_entrega_o_armazem`.
+   tests.test_extrator_lugar_v2 tests.test_a_receita_tem_versao tests.test_quem_pousa_entrega_o_armazem
+   tests.test_sala_por_nome.AEscritaEPeloNome tests.test_sala_por_nome.SemA036OPousarContinuaAPousar` (só as
+   classes leves: o resto do `test_sala_por_nome` liga um Postgres descartável).
 7. Reiniciar o supervisor (mudam `orquestrador/orquestrador.py`, `coleta/`, `admissao/`); tirar o `PARAR.flag`.
 
 **O que muda sozinho depois de A** (nada reescreve linhas antigas da Sala):
