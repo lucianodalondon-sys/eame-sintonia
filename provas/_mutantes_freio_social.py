@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TESTES = ["tests.test_freio_social", "tests.test_teto_dominio"]
+TESTES = ["tests.test_freio_social", "tests.test_teto_dominio", "tests.test_dedup_video_social"]
 MUTANTES = [
     ("o portao do Scrap nao reserva", "coleta/scrap_http.py",
      "            teto.reservar(host, url=req.full_url, quem='scrap_http')\n",
@@ -30,6 +30,14 @@ MUTANTES = [
      "        linha['CORTESIA']['RECUSAS'] = recusadas\n", "        pass\n"),
     ("D41 esquecida na web", "coleta/italy_pilot_collect.mjs",
      "  return MESMO_ORCAMENTO[d] || d;\n", "  return d;\n"),
+    ("o URN do post vira o do video", "leis/identidade_do_video.py",
+     '        urn = str(raw.get("ASSET_URN") or ob.get("ASSET_URN") or "")\n',
+     '        urn = "urn:li:digitalmediaAsset:" + str(raw.get("ACTIVITY_ID") or "")\n'),
+    ("UNKNOWN funde", "leis/identidade_do_video.py",
+     "        if not vid:\n            continue\n", "        vid = vid or NAO_SEI\n"),
+    ("o Scrap nao carimba o video", "coleta/scrap_colheita.py",
+     "            IV.marcar(colheita, objetos, registo=os.path.join(\n",
+     "            (lambda *a, **k: None)(colheita, objetos, registo=os.path.join(\n"),
 ]
 
 
