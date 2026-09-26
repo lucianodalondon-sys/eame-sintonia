@@ -326,6 +326,17 @@ NAO_E_TEMPO_DO_FACTO = (
     ("SERIE_DE_ANOS", re.compile(r"\b(?:19|20)\d{2}(?:\s*(?:,|\be\b|\bed\b)\s*(?:19|20)\d{2})+\b", re.I)),
     ("CARIMBO_DE_LISTA", re.compile(r"^\s*\d{1,2}\s+(?:%s)\s+\d{4}\b" % _MES, re.I | re.M)),
     ("FIM_DE_PRAZO", re.compile(r"\b(?:fino\s+a(?:l(?:la)?)?|entro(?:\s+il)?)\s+(?:\d{1,2}\s+)?(?:%s)(?:\s+\d{4})?\b" % _MES, re.I)),
+    # CONSERTO-REGUA (SALA-VERIFICA, 26/09): o ANO DE COMPARACAO nao e o tempo do facto. Medido na Sala
+    # (IT-T10-018): «Il valore resta sotto i circa 2,80 euro/kg del 2025» saia fact_time = 2025 — e o ano
+    # de um PRECO de referencia. Tapa-se o ano quando vem logo depois de uma QUANTIDADE COM UNIDADE
+    # («2,80 euro/kg del 2025», «27% … del 2024») ou de uma COMPARACAO dita («rispetto al raccolto del 2025»).
+    # «Nel 2025 il gruppo … ha raggiunto l'obiettivo» NAO casa: nao ha quantidade antes do ano.
+    ("TERMO_DE_COMPARACAO", re.compile(
+        r"(?:\d+(?:[.,]\d+)?\s*(?:%|€|euro(?:/kg)?|eur|tonnellat[ea]|quintal[ie]|ettari|kg|q\.li)"
+        r"(?![0-9a-zà-ÿ])[^.;\n]{0,20}?"
+        r"|(?:rispetto|in\s+confronto|a\s+confronto|contro|sotto|sopra|oltre)\s+"
+        r"(?:a[il]?|all['’]|allo|alla|agli|con(?:\s+il)?|i|il|lo|la|gli)\b[^.;\n]{0,40}?)"
+        r"(?<![0-9a-zà-ÿ])(?:del|dell['’]|nel)\s*(?:19|20)\d{2}(?![0-9])", re.I)),
 )
 
 
@@ -405,9 +416,19 @@ _RE_DATA_EVENTO = re.compile(
     re.I)
 
 
-def _tempos_de_evento(t: str, pub: date | None) -> list:
+def _tempos_de_evento(t: str, pub: date | None, original: str | None = None) -> list:
+    """CONSERTO-REGUA (SALA-VERIFICA, 26/09): o TRECHO de uma data de evento e uma janela em volta da data,
+    tirada do texto ORIGINAL. Medido na Sala: «… in calendario dal 21 al 23 ottob» (cortado nas 200 letras,
+    IT-T9-021) e «E' quanto emerso durante …» com o «oggi» ja tapado (IT-T10-018) — nos dois, o trecho
+    guardado nao se re-encontrava no bruto. `_tapar` troca por espacos, e por isso as posicoes do texto
+    tapado e do original sao as mesmas."""
     fora = []
+    base = original if original is not None and len(original) == len(t) else t
+    cursor = 0
     for frase in FL._frases(t):
+        ini_f = t.find(frase, cursor)
+        if ini_f >= 0:
+            cursor = ini_f + len(frase)
         ev = _RE_EVENTO.search(frase)
         if not ev:
             continue
@@ -417,8 +438,10 @@ def _tempos_de_evento(t: str, pub: date | None) -> list:
                     and (not ano or int(ano) == pub.year):
                 continue                                   # e o carimbo da publicacao, nao o evento
             valor = ("%s-%s %s" % (d1, d2, mes) if d2 else "%s %s" % (d1, mes)) + (" %s" % ano if ano else "")
+            trecho = (_janela(base, ini_f + m.start(), ini_f + m.end()) if ini_f >= 0
+                      else _trecho(frase))
             fora.append({"VALOR": valor, "RESOLUCAO": "APPROXIMATE" if d2 else "DATE_EXACT",
-                         "ANCORA": ev.group(0), "TRECHO": _trecho(frase)})
+                         "ANCORA": ev.group(0), "TRECHO": trecho})
     return fora
 
 
@@ -440,14 +463,44 @@ def _distancia(m, pos: int, n: int) -> int:
     return 0
 
 
+def _janela_do_lugar(frase: str, lugar: str) -> str:
+    """CONSERTO-REGUA (SALA-VERIFICA, 26/09): o trecho de um lugar e uma JANELA EM VOLTA DELE, e nao o
+    comeco da frase. Medido na Sala (IT-T10-018): «… le ondate di calore che hanno colpito la Sicilia»
+    guardava so as primeiras 200 letras da frase, e «Sicilia» ficava FORA da prova."""
+    pos = _posicao_do_nome(lugar, frase)
+    if pos is None:
+        m = re.search(r"(?<![0-9a-zà-ÿ])%s(?![0-9a-zà-ÿ])" % re.escape(lugar.lower()), frase.lower())
+        pos = m.start() if m else None
+    if pos is None:
+        return _trecho(frase, 400)
+    return _janela(frase, pos, pos + len(lugar))
+
+
+def _frase_do_corpo(c: str, evidencia: str) -> str:
+    i = c.find(evidencia[:80])
+    return _frase_em(c, i) if i >= 0 else evidencia
+
+
+def _datas_de_evento(frase: str) -> list:
+    """As datas de evento escritas numa frase, na forma de `_tempos_de_evento` (sem o filtro da publicacao)."""
+    fora = []
+    for m in _RE_DATA_EVENTO.finditer(frase):
+        d1, d2, mes, ano = m.group(1), m.group(2), m.group(3).lower(), m.group(4)
+        fora.append(("%s-%s %s" % (d1, d2, mes) if d2 else "%s %s" % (d1, mes)) + (" %s" % ano if ano else ""))
+    return fora
+
+
 def _lugares(c: str) -> tuple[list, list]:
     aceitas, recusadas = FL.localizacoes_do_fato(c, origem="TEXTO_DO_CORPO")
     lugares, vistos = [], set()
     for a in aceitas:
         vistos.add((CAMPO, a["FACT_LOCATION"]))
+        frase = _frase_do_corpo(c, a["FACT_LOCATION_EVIDENCE"])
         lugares.append({"LUGAR": a["FACT_LOCATION"], "PRECISAO": a["FACT_LOCATION_PRECISION"], "KIND": CAMPO,
                         "PAPEL_NA_LEI": PAPEL_NA_LEI[CAMPO], "ORIGEM": "CITADO", "ANCORA": a["FACT_LOCATION_ANCHOR"],
-                        "ESPECIE": "OCORRENCIA", "TIPO_DE_EVIDENCIA": a["TYPE_OF_EVIDENCE"], "TRECHO": _trecho(a["FACT_LOCATION_EVIDENCE"])})
+                        "ESPECIE": "OCORRENCIA", "TIPO_DE_EVIDENCIA": a["TYPE_OF_EVIDENCE"],
+                        "TRECHO": _janela_do_lugar(frase, a["FACT_LOCATION"]),
+                        "_DATAS": _datas_de_evento(frase)})
     sobra = []
     for r in recusadas:
         kind, ancora, especie = None, None, None
@@ -486,7 +539,9 @@ def _lugares(c: str) -> tuple[list, list]:
         lugares.append({"LUGAR": r["PLACE"], "PRECISAO": r["PRECISION"], "KIND": kind,
                         "PAPEL_NA_LEI": PAPEL_NA_LEI[kind], "ORIGEM": "CITADO", "ANCORA": ancora,
                         "ESPECIE": especie or kind,
-                        "TIPO_DE_EVIDENCIA": FL.OTHER_EVIDENCE, "TRECHO": _trecho(r["EVIDENCE"])})
+                        "TIPO_DE_EVIDENCIA": FL.OTHER_EVIDENCE,
+                        "TRECHO": _janela_do_lugar(r["EVIDENCE"], r["PLACE"]),
+                        "_DATAS": _datas_de_evento(r["EVIDENCE"])})
     return lugares, sobra
 
 
@@ -500,25 +555,8 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
     c = corpo(texto)
     pub = publicacao_provada(publication_time, publication_time_basis)
 
-    # ── lugar
+    # ── lugar (os candidatos; a montagem vem depois do tempo — ver «lista de eventos»)
     lugares, recusadas = _lugares(c)
-    kind_l = next((k for k in ORDEM_DOS_TIPOS if any(l["KIND"] == k for l in lugares)), None)
-    if kind_l:
-        esc = [l for l in lugares if l["KIND"] == kind_l]
-        fact_location = SEP.join(l["LUGAR"] for l in esc)
-        fact_location_precision = next((p for p in _PRECISAO_ORDEM if any(l["PRECISAO"] == p for l in esc)), esc[0]["PRECISAO"])
-        fact_location_basis = SEP.join("%s · %s · CITADO · %s · âncora «%s» · %s · «%s»"
-                                       % (kind_l, l["ESPECIE"], l["PRECISAO"], l["ANCORA"], l["TIPO_DE_EVIDENCIA"], l["TRECHO"]) for l in esc)
-        outros = [l for l in lugares if l["KIND"] != kind_l]
-        if outros:
-            fact_location_basis += " · também citados, de outro tipo: " + ", ".join("%s (%s)" % (l["LUGAR"], l["KIND"]) for l in outros)
-    else:
-        mencionados = sorted({r["PLACE"] for r in recusadas})
-        fact_location = fact_location_precision = NAO_SEI
-        fact_location_basis = ("NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto"
-                               + (" (só mencionados: %s)" % ", ".join(mencionados[:8]) if mencionados else "")
-                               + ("" if c else " · o texto não tem corpo (só menu/rodapé)"))
-
     # ── tempo · pela ordem: data explicita de CAMPO > relativa de CAMPO > data de EVENTO > relativa de EVENTO
     t, tapados, relativas = _tapar(c)
     for x in relativas:                    # a que tipo de facto a expressao esta presa, pela frase dela
@@ -538,7 +576,7 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
     janelas = []
     r = _tempo_de_campo(t, pub, tapados, janelas)
     eventos = []
-    for e in _tempos_de_evento(t, pub):
+    for e in _tempos_de_evento(t, pub, c):
         if _RE_INSTITUCIONAL.search(e["TRECHO"]):
             tapados.append("INSTITUCIONAL_NAO_FATO «%s»" % e["VALOR"])
         else:
@@ -567,6 +605,61 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
         tempo = {"VALOR": e["VALOR"], "KIND": EVENTO, "ORIGEM": "ESCRITO_NO_TEXTO", "RESOLUCAO": e["RESOLUCAO"],
                  "ANCORA": e["ANCORA"], "TRECHO": e["TRECHO"]}
     tempo = tempo or _rel_de(EVENTO)
+
+    # ── CONSERTO-REGUA · uma LISTA de eventos nao junta os lugares de eventos diferentes ──────────────
+    # Medido na Sala (IT-T5-090): numa pagina com varios eventos, fact_time = «1-4 febbraio 2023» (Popdays,
+    # Roma) e fact_location = «Roma ; Milano ; Brescia ; Padova ; Napoli» — os outros quatro sao de OUTROS
+    # eventos da mesma lista. Com 2+ datas de evento diferentes na pagina, um lugar de EVENTO so vale se a
+    # sua frase tiver a data do evento escolhido; os outros ficam citados, de outro evento.
+    de_outro_evento = []
+
+    def _sem_ano(v):              # «21-23 ottobre 2026» e «21-23 ottobre» sao a mesma data de evento
+        return re.sub(r"\s+(?:19|20)\d{2}$", "", str(v or "").strip().lower())
+    def _dentro(v, escolhido):    # «22 ottobre» esta dentro de «21-23 ottobre»: e o mesmo evento
+        ma = re.match(r"(\d{1,2})(?:-(\d{1,2}))?\s+(\w+)", _sem_ano(escolhido))
+        mv = re.match(r"(\d{1,2})(?:-(\d{1,2}))?\s+(\w+)", _sem_ano(v))
+        if not (ma and mv) or ma.group(3) != mv.group(3):
+            return False
+        i, f = int(ma.group(1)), int(ma.group(2) or ma.group(1))
+        return i <= int(mv.group(1)) <= f and i <= int(mv.group(2) or mv.group(1)) <= f
+
+    escolhido = tempo["VALOR"] if tempo and tempo["KIND"] == EVENTO else None
+    outras = {_sem_ano(e["VALOR"]) for e in eventos
+              if not (escolhido and _dentro(e["VALOR"], escolhido))}
+    if escolhido and _sem_ano(escolhido) not in outras:
+        outras.add(_sem_ano(escolhido))
+    if len(outras) >= 2:
+        alvo = _sem_ano(tempo["VALOR"]) if tempo and tempo["KIND"] == EVENTO else None
+        ficam = []
+        for l in lugares:
+            if l["KIND"] == EVENTO and not (alvo and alvo in {_sem_ano(d) for d in l["_DATAS"]}):
+                de_outro_evento.append(l)
+            else:
+                ficam.append(l)
+        lugares = ficam
+    kind_l = next((k for k in ORDEM_DOS_TIPOS if any(l["KIND"] == k for l in lugares)), None)
+    if kind_l:
+        esc = [l for l in lugares if l["KIND"] == kind_l]
+        fact_location = SEP.join(l["LUGAR"] for l in esc)
+        fact_location_precision = next((p for p in _PRECISAO_ORDEM if any(l["PRECISAO"] == p for l in esc)), esc[0]["PRECISAO"])
+        fact_location_basis = SEP.join("%s · %s · CITADO · %s · âncora «%s» · %s · «%s»"
+                                       % (kind_l, l["ESPECIE"], l["PRECISAO"], l["ANCORA"], l["TIPO_DE_EVIDENCIA"], l["TRECHO"]) for l in esc)
+        outros = [l for l in lugares if l["KIND"] != kind_l]
+        if outros:
+            fact_location_basis += " · também citados, de outro tipo: " + ", ".join("%s (%s)" % (l["LUGAR"], l["KIND"]) for l in outros)
+    else:
+        mencionados = sorted({r["PLACE"] for r in recusadas})
+        fact_location = fact_location_precision = NAO_SEI
+        fact_location_basis = ("NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto"
+                               + (" (só mencionados: %s)" % ", ".join(mencionados[:8]) if mencionados else "")
+                               + ("" if c else " · o texto não tem corpo (só menu/rodapé)"))
+    if de_outro_evento:
+        fact_location_basis += (" · citados noutra frase SEM a data deste evento (a página tem várias datas "
+                                "de evento; não são o lugar deste facto): ") + \
+            ", ".join(sorted({l["LUGAR"] for l in de_outro_evento}))
+    for l in lugares + de_outro_evento:
+        l.pop("_DATAS", None)
+
     # D69 (corrige a DA-7): quando a data e CALCULADA, fact_time_basis = RELATIVA_A_PUBLICACAO, SEMPRE —
     # tambem para «oggi» marcado. PUBLISHED_AT_COM_PROVA afirmaria «o mesmo instante», o que nao foi provado.
     # O como/porque (expressao, conta, trecho) vai para fact_time_calculo / fact_time_evidencia.
@@ -601,7 +694,9 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
     if fact_time_calculo == NAO_SE_APLICA:
         fact_time_basis += " · a data de publicação sozinha nunca preenche este campo"
 
-    return {"fact_location": fact_location, "fact_location_basis": fact_location_basis[:1000],
+    # CONSERTO-REGUA: sem o corte das 1000 letras — medido (IT-T5-090) que ele deitava fora a prova do
+    # ultimo lugar. Cada trecho ja e uma janela curta (~300 letras) em volta do seu lugar.
+    return {"fact_location": fact_location, "fact_location_basis": fact_location_basis,
             "fact_location_kind": kind_l or NAO_SEI, "fact_location_precision": fact_location_precision,
             "fact_time": fact_time, "fact_time_basis": fact_time_basis[:800],
             "fact_time_kind": fact_time_kind, "fact_time_precision": fact_time_precision,
