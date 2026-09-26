@@ -86,7 +86,8 @@ def main():
     raws, ders = ler("raw.json"), ler("derivados.json")
     mot = json.load(open(a.motivos, encoding="utf-8"))
     raizes = [x for x in a.raizes.split(";") if x]
-    alvo_itens = [x for x in mot["ITENS"] if x["MOTIVO"].startswith(("NUNCA_PERGUNTADO", "ADMISSAO"))]
+    # ACERVO-PARA-SALA-2: os SEM_TEXTO tambem (as 13 paginas nunca derivadas dao texto com o extractor de hoje)
+    alvo_itens = [x for x in mot["ITENS"] if x["MOTIVO"].startswith(("NUNCA_PERGUNTADO", "ADMISSAO", "SEM_TEXTO"))]
     grupo = lambda x: ("NUNCA_PERGUNTADO:" + ("YOUTUBE" if "YOUTUBE" in x["MARCAS"] else "OUTROS")) \
         if x["MOTIVO"].startswith("NUNCA") else ":".join(x["MOTIVO"].split(":")[:2])
     grupo_do_sha = {x["SHA256"]: grupo(x) for x in alvo_itens}
@@ -267,7 +268,8 @@ def main():
 
             # ── 4 · o que entrou ──
             cols = ("item_id, source_id, universo, published_at, published_at_basis, fact_time, fact_time_basis, "
-                    "fact_location, fact_location_basis, coalesce(tempo_lugar_evidencia::text, '')")
+                    "fact_location, fact_location_basis, coalesce(tempo_lugar_evidencia::text, ''), "
+                    "raw_observation_id, replace(replace(coalesce(texto, ''), E'\t', ' '), E'\n', ' | ')")
             novas = []
             for l in psql("select %s from sala_de_espera_atual" % cols).split("\n"):
                 c = l.split("\t")
@@ -283,7 +285,8 @@ def main():
                               "FACT_LOCATION": c[7], "FACT_LOCATION_BASIS": c[8][:200],
                               "FACT_TIME_PRECISION": ev.get("FACT_TIME_PRECISION"),
                               "FACT_LOCATION_PRECISION": ev.get("FACT_LOCATION_PRECISION"),
-                              "PUBLISHED_AT_PRECISION": ev.get("PUBLISHED_AT_PRECISION")})
+                              "PUBLISHED_AT_PRECISION": ev.get("PUBLISHED_AT_PRECISION"),
+                              "RAW_OBSERVATION_ID": c[10], "TEXTO": c[11]})
             der_sha = {}
             for d in ders:
                 der_sha[d["id"]] = next((r["sha256"].strip() for r in raws if r["id"] == d["raw_asset_id"]), None)
