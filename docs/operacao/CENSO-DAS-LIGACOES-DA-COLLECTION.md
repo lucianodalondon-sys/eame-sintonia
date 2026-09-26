@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  02b8abc091fad514c81e766cb2d3049b6b37a65f
-BRANCH           c9-sobre-ce28-v1
-GERADO_EM        2026-09-26T01:07:37-03:00
+HEAD_DA_MEDICAO  902edca121cd391bf21061aa3aa0a850f2e63b4b
+BRANCH           legacy-99-v5
+GERADO_EM        2026-09-26T03:02:15-03:00
 CARDS            104
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -914,10 +914,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/legacy99/revalidar_em_rondas.py`, `ferramentas/legacy99v2/mutacao.py`, `ferramentas/legacy99v2/mutacao_ab.py` |
+| **peça real** | `ferramentas/legacy99/revalidar_em_rondas.py`, `ferramentas/legacy99v2/mutacao.py`, `ferramentas/legacy99v2/mutacao_ab.py`, `ferramentas/legacy99v4/d53_nos_recibos_reais.py`, `ferramentas/legacy99v4/ensaio_na_copia.py` _(e mais 1)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |

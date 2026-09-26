@@ -1818,6 +1818,22 @@
       "ferramentas/legacy99v2/RELATORIO-LEGACY-99-V2.md",
       "ferramentas/legacy99v2/mutacao.py",
       "ferramentas/legacy99v2/mutacao_ab.py",
+      "ferramentas/legacy99v4/D53-RECIBOS-REAIS-lista.txt",
+      "ferramentas/legacy99v4/D53-RECIBOS-REAIS.json",
+      "ferramentas/legacy99v4/ENSAIO-PLANO.txt",
+      "ferramentas/legacy99v4/ENSAIO-V4.json",
+      "ferramentas/legacy99v4/ENSAIO-V5-PLANO.txt",
+      "ferramentas/legacy99v4/ENSAIO-V5-copia-livros.sha256",
+      "ferramentas/legacy99v4/ENSAIO-V5.json",
+      "ferramentas/legacy99v4/ENSAIO-copia-livros.sha256",
+      "ferramentas/legacy99v4/MUTACAO-V4.json",
+      "ferramentas/legacy99v4/MUTACAO-V5.json",
+      "ferramentas/legacy99v4/REGRESSAO-V5.json",
+      "ferramentas/legacy99v4/REGRESSAO-VIVO-83de0ccd.json",
+      "ferramentas/legacy99v4/SEPARAR-A-B-V5.md",
+      "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+      "ferramentas/legacy99v4/ensaio_na_copia.py",
+      "ferramentas/legacy99v4/mutacao.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/onda3_pacote/LOTES-A-HTML.json",
@@ -3381,6 +3397,7 @@
       "tests/test_retirada_por_decisao.py",
       "tests/test_retorno_da_coleta.py",
       "tests/test_retorno_nao_diz_success_na_falha.py",
+      "tests/test_rota_video_d53.py",
       "tests/test_roteamento_youtube_proposta.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -3417,6 +3434,7 @@
       "tests/test_youtube_antidrift.py",
       "tests/test_youtube_checkpoint_pg.py",
       "tests/test_youtube_oficial.py",
+      "tests/test_youtube_pelo_scrap.py",
       "tests/test_youtube_piloto.py",
       "tests/test_yt_metadados_do_audio.py"
     ]
@@ -3938,10 +3956,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "c9-sobre-ce28-v1",
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-    "GENERATED_AT": "2026-09-26T01:07:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a"
+    "BRANCH": "legacy-99-v5",
+    "HEAD": "902edca121cd391bf21061aa3aa0a850f2e63b4b",
+    "GENERATED_AT": "2026-09-26T03:02:15-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7ea349cf7e1308a8b978439cde0c5ad27ba1a84500e1e1208213ba90e1f9b98f"
   },
   "FAMILIES": [
     {
@@ -5450,8 +5468,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 670",
-        "desses, mostrados aqui: 40 (ficam de fora 630)"
+        "enderecos que o codigo realmente chama: 676",
+        "desses, mostrados aqui: 40 (ficam de fora 636)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -49547,8 +49565,8 @@
       "name": "LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "revalidar_em_rondas.py: revalida READY_LEGACY numa COPIA pelo caminho canonico (ready_split.remedir -> worker), em rodadas de 1 fonte por dominio, com urlopen embrulhado (rede fechada por omissao, D41.3; teto 5 por dominio contado, D38) e o portao de consenso antes de cada rodada. video_com_o_guardado.py: as fontes YouTube pela regua VIDEO/v1 (D53) sobre as paginas /watch ja guardadas na Sala (so leitura, sha256 conferido), sem rede. mutacao*.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro. [onda3-pacote-v2: so A+C+D da v2; B inerte (DA-15/D67); sem a rota VIDEO]",
-      "why_here": "LEGACY-99 v1-v3 (25/09/2026): 99 READY_LEGACY promovidas pela regua antiga nunca voltavam (o re-check so olhava ELIGIBLE); em copia: 1/26 HTML (v1), 11/21 importadas do coletor (v2), 41 YouTube pela rota VIDEO (v3: 39 pelo guardado + 2 canais reais).",
+      "what": "revalidar_em_rondas.py: revalida READY_LEGACY numa COPIA pelo caminho canonico (ready_split.remedir -> worker), em rodadas de 1 fonte por dominio, com urlopen embrulhado (rede fechada por omissao, D41.3; teto 5 por dominio contado, D38) e o portao de consenso antes de cada rodada. video_com_o_guardado.py: as fontes YouTube pela regua VIDEO/v1 (D53) sobre as paginas /watch ja guardadas na Sala (so leitura, sha256 conferido), sem rede. mutacao*.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro. [onda3-pacote-v2: so A+C+D da v2; B inerte (DA-15/D67); sem a rota VIDEO] ensaio_na_copia.py: numa COPIA dos livros do vivo (recusa a arvore do bot), aplica o A (importar_do_coletor, HTML) e o B (pelo_scrap: o canal YouTube vai para a fase canal-youtube do Scrap pelo bloco 4 do desbloqueio) e conta os estados; nada promove. d53_nos_recibos_reais.py: passa os itens de recibos reais do Scrap ja guardados pela prova da D53 (regua_social.provas_do_video), so leitura. mutacao.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro.",
+      "why_here": "LEGACY-99 v1-v3 (25/09/2026): 99 READY_LEGACY promovidas pela regua antiga nunca voltavam (o re-check so olhava ELIGIBLE); em copia: 1/26 HTML (v1), 11/21 importadas do coletor (v2), 41 YouTube pela rota VIDEO (v3: 39 pelo guardado + 2 canais reais). LEGACY-99 v4 / SEPARAR-A-B (25/09/2026): A (HTML importado do coletor) e B (canal YouTube) em commits separados, com a rota YouTube num so dono (o Scrap nomeado por rota_do_scrap_youtube, julgado por regua_social com a D53); em copia do vivo e5cd691f: 21 HTML e 41 YouTube a CANARY_PENDING, 0 READY.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -49564,11 +49582,14 @@
       "files": [
         "ferramentas/legacy99/revalidar_em_rondas.py",
         "ferramentas/legacy99v2/mutacao.py",
-        "ferramentas/legacy99v2/mutacao_ab.py"
+        "ferramentas/legacy99v2/mutacao_ab.py",
+        "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+        "ferramentas/legacy99v4/ensaio_na_copia.py",
+        "ferramentas/legacy99v4/mutacao.py"
       ],
-      "file_count": 3,
+      "file_count": 6,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -49580,7 +49601,7 @@
       "outbound": [],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 4
+        "ITALIA": 6
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -49592,11 +49613,12 @@
         "listas": [
           "LIVROS",
           "MUTANTES",
-          "SUFIXOS"
+          "SUFIXOS",
+          "TESTES"
         ],
-        "palavras": 120,
+        "palavras": 185,
         "por_lingua": {},
-        "sem_marca_de_lingua": 120,
+        "sem_marca_de_lingua": 185,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -49626,6 +49648,7 @@
         "curadoria/gatilho_discovery.py",
         "curadoria/importar_do_coletor.py",
         "curadoria/italy_contracts_curator.json",
+        "curadoria/regua_social.py",
         "curadoria/supervisor.py",
         "curadoria/worker.py",
         "regras/italy_contracts_onboarded.json",
@@ -64766,6 +64789,7 @@
         "tests/test_retirada_por_decisao.py",
         "tests/test_retorno_da_coleta.py",
         "tests/test_retorno_nao_diz_success_na_falha.py",
+        "tests/test_rota_video_d53.py",
         "tests/test_roteamento_youtube_proposta.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -64802,10 +64826,11 @@
         "tests/test_youtube_antidrift.py",
         "tests/test_youtube_checkpoint_pg.py",
         "tests/test_youtube_oficial.py",
+        "tests/test_youtube_pelo_scrap.py",
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 259,
+      "file_count": 261,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -65050,7 +65075,6 @@
           "CANARIO_INSTAGRAM",
           "CANONICAS",
           "CANONICA_DE_PE",
-          "CAN_CONTRATO",
           "CAPA",
           "CASOS",
           "CATALOGO",
@@ -65133,13 +65157,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1548,
+        "palavras": 1573,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1536,
+        "sem_marca_de_lingua": 1561,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -65319,6 +65343,7 @@
         "curadoria/ponte_candidatas.py",
         "curadoria/ready_split.py",
         "curadoria/retrato_html.py",
+        "curadoria/worker.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
         "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
@@ -78085,7 +78110,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 2 linhas de codigo.",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/legacy99v2/mutacao.py",
@@ -78107,6 +78132,22 @@
           "file": "ferramentas/legacy99v2/mutacao_ab.py",
           "line": 63,
           "snippet": "\"regras/italy_contracts_onboarded.json\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-LEGACY-99",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 105,
+          "snippet": "\"regras/italy_contracts_onboarded.json\", \"curadoria/DESBLOQUEIO-LEDGER-V1.jsonl\"]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CAPA-MATERIA--READS-->C-LEGACY-99",
             "FROM": "C-CAPA-MATERIA",
@@ -79716,7 +79757,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 5 linhas de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/legacy99v2/mutacao.py",
@@ -79785,6 +79826,54 @@
         {
           "file": "ferramentas/legacy99v2/mutacao_ab.py",
           "line": 62,
+          "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 23,
+          "snippet": "GD, SUP, RG = \"curadoria/gatilho_discovery.py\", \"curadoria/supervisor.py\", \"curadoria/regua_social.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 103,
+          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 104,
           "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
@@ -89293,7 +89382,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 4 linhas de codigo.",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/legacy99v2/mutacao.py",
@@ -89346,6 +89435,38 @@
         {
           "file": "ferramentas/legacy99v2/mutacao_ab.py",
           "line": 62,
+          "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 103,
+          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 104,
           "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
@@ -133847,7 +133968,7 @@
         },
         {
           "file": "tests/test_d36_envelope_equivalente.py",
-          "line": 49,
+          "line": 51,
           "snippet": "\"AUTORIZACAO_DE\": \"leis/social_matriz.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -144200,7 +144321,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1924,
+  "UNCLAIMED_FILES_COUNT": 1937,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -144466,8 +144587,8 @@
     "edges_proven": 1406,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3345,
-    "files_covered": 1421,
+    "files_tracked": 3363,
+    "files_covered": 1426,
     "files_code_unclaimed": 0,
     "roles_proven": 175,
     "roles_declared_only": 8,

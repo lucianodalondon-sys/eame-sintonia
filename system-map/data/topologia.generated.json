@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T04:10:46+00:00",
-  "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-  "BRANCH": "c9-sobre-ce28-v1",
+  "GENERATED_AT": "2026-09-26T06:06:34+00:00",
+  "HEAD": "902edca121cd391bf21061aa3aa0a850f2e63b4b",
+  "BRANCH": "legacy-99-v5",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
-  "FICHEIROS_NA_IMPRESSAO": 3493,
+  "SOURCE_TREE_FINGERPRINT": "7ea349cf7e1308a8b978439cde0c5ad27ba1a84500e1e1208213ba90e1f9b98f",
+  "FICHEIROS_NA_IMPRESSAO": 3511,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -910,6 +910,27 @@
     "PATH": "ferramentas/legacy99v2/mutacao_ab.py",
     "PAPEL": "FONTE",
     "VERSAO": "ad07b0e685b4477495635379a8ef811211ee2cf8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c1bc22c48082b58b2d9262cf773cc96a84ce08da",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/legacy99v4/ensaio_na_copia.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "13167a96768f351b9132e5b4102861733bff81ca",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/legacy99v4/mutacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "f220cbf4b89a9fad22cec5437aa8b902e5fa0d4a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4234,14 +4255,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
+    "VERSAO": "7ea349cf7e1308a8b978439cde0c5ad27ba1a84500e1e1208213ba90e1f9b98f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
+    "VERSAO": "7ea349cf7e1308a8b978439cde0c5ad27ba1a84500e1e1208213ba90e1f9b98f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5256,7 +5277,7 @@
    {
     "PATH": "tests/test_d36_envelope_equivalente.py",
     "PAPEL": "FONTE",
-    "VERSAO": "9fedb2c8afc6a7be4025e698a9d69697c19afb60",
+    "VERSAO": "8e39cb56ca4cd56258f7126869a251ae24694ebd",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5466,7 +5487,7 @@
    {
     "PATH": "tests/test_importar_do_coletor.py",
     "PAPEL": "FONTE",
-    "VERSAO": "28982489b21b7bee64e22a1facb127437db01e41",
+    "VERSAO": "0c39e37d520dc77c3012533912d6271868244b1f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5774,7 +5795,7 @@
    {
     "PATH": "tests/test_onda3_b_inerte.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e03549136dbfcff5eeac3d0bb1cfba397f92d775",
+    "VERSAO": "9fe80249fb78ba34bb916f1c73a62f96a0606765",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6066,6 +6087,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_rota_video_d53.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9c3f0a10a9b2878938226c4903e8a3ed8162140b",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_roteamento_youtube_proposta.py",
     "PAPEL": "FONTE",
     "VERSAO": "865e4a785d622d8579ed036f6d23bd10fe554b2e",
@@ -6318,6 +6346,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_youtube_pelo_scrap.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "27161cf9ec9168fdbc84cc58e76978da86e62899",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_youtube_piloto.py",
     "PAPEL": "FONTE",
     "VERSAO": "9a0f0ba0de69ed390d28d20fd52ca7c107773825",
@@ -6332,8 +6367,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 899,
-  "INPUTS_DIGEST": "392b5de90bb2be7c9a28a1fb17b65a69ec97af3ad535fee4411d8d4c0963e690",
+  "INPUTS_COUNT": 904,
+  "INPUTS_DIGEST": "efafdb9920104358c5621d30d72316431603ede830ddc1611e016e11a59c1f87",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6359,15 +6394,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 546,
+  "DOCUMENTOS_LIDOS": 547,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0503341c6ba67cd7dae57d67353eaa808bc78194b8ab4ba7bee1934583cb0968",
-  "SEMANTIC_HASH": "476a02cd688d3bb1fe9035d58ee640c8544f72013e76d4d889178dd2001f95f7"
+  "MEASUREMENT_HASH": "c127b2bb6a9f0470333a51f5b4cbac13c91e0cee99eddc8c0624c7184399d375",
+  "SEMANTIC_HASH": "85eac36477f66498991f12c39870da167f6ee45512c89ac55974c5bf1b912eeb"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -12304,6 +12339,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-LEGACY-99",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
+      "LINHA": 105,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CAPA-MATERIA--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -13256,6 +13299,30 @@
      {
       "FICHEIRO": "ferramentas/legacy99v2/mutacao_ab.py",
       "LINHA": 62,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
+      "LINHA": 104,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
@@ -18856,6 +18923,22 @@
      {
       "FICHEIRO": "ferramentas/legacy99v2/mutacao_ab.py",
       "LINHA": 62,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
+      "LINHA": 104,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
@@ -44254,7 +44337,7 @@
      },
      {
       "FICHEIRO": "tests/test_d36_envelope_equivalente.py",
-      "LINHA": 49,
+      "LINHA": 51,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -54644,7 +54727,10 @@
    "FICHEIROS": [
     "ferramentas/legacy99/revalidar_em_rondas.py",
     "ferramentas/legacy99v2/mutacao.py",
-    "ferramentas/legacy99v2/mutacao_ab.py"
+    "ferramentas/legacy99v2/mutacao_ab.py",
+    "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+    "ferramentas/legacy99v4/ensaio_na_copia.py",
+    "ferramentas/legacy99v4/mutacao.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -59772,6 +59858,7 @@
     "tests/test_retirada_por_decisao.py",
     "tests/test_retorno_da_coleta.py",
     "tests/test_retorno_nao_diz_success_na_falha.py",
+    "tests/test_rota_video_d53.py",
     "tests/test_roteamento_youtube_proposta.py",
     "tests/test_route_membership.py",
     "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -59808,6 +59895,7 @@
     "tests/test_youtube_antidrift.py",
     "tests/test_youtube_checkpoint_pg.py",
     "tests/test_youtube_oficial.py",
+    "tests/test_youtube_pelo_scrap.py",
     "tests/test_youtube_piloto.py",
     "tests/test_yt_metadados_do_audio.py"
    ],
@@ -59850,7 +59938,6 @@
     "tests/test_comunicacao.py",
     "tests/test_comunicacao_universo_falha_fechado.py",
     "tests/test_forward_instrumentado.py",
-    "tests/test_importar_do_coletor.py",
     "tests/test_integracao_04a_curator.py",
     "tests/test_integracao_e7_contrato_na_linha_funcional.py",
     "tests/test_m2_aresta_observada.py",
