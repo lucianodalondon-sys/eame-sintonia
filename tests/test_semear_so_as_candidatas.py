@@ -36,14 +36,45 @@ class _Fila:
 
 
 class TestSoAsCandidatas(unittest.TestCase):
-    def correr(self, *args):
+    # INTEGRA-NOITE lote 2: HERMETICO. O script sabe que esta «no vivo» pelo PROPRIO caminho
+    # (`source-curator-service-v1` em RAIZ); corrido DENTRO da pasta viva, recusava de verdade e os testes
+    # falhavam (medido pelo coordenador ao instalar o lote 1: 3 FAIL, rc=2 RECUSADO). A pasta onde o teste
+    # corre nao pode mudar o resultado: o caminho e fixado aqui, e a trava do vivo tem testes proprios abaixo.
+    COPIA = S.Path("C:/copia-de-teste/sintonia")
+
+    def correr(self, *args, raiz=None, parar_existe=False):
         fila = _Fila()
         out = io.StringIO()
+        parar = mock.Mock()
+        parar.exists.return_value = parar_existe
+        parar.name = "PARAR.flag"
         with mock.patch.object(S, "elegiveis", lambda tipo="LINKEDIN": list(ELEG)), \
+                mock.patch.object(S, "RAIZ", raiz or self.COPIA), mock.patch.object(S, "PARAR", parar), \
                 mock.patch.dict(sys.modules, {"fila": fila}), \
                 mock.patch.object(sys, "argv", ["x", *args]), redirect_stdout(out):
             rc = S.main()
         return rc, fila.t, out.getvalue()
+
+    VIVO = S.Path("C:/Users/x/orca/workspaces/eame-sintonia/source-curator-service-v1")
+
+    def test_no_vivo_sem_vivo_e_sem_parar_recusa_e_nao_semeia(self):
+        rc, semeadas, out = self.correr("--aplicar", "--candidatas", "CAND-0118", raiz=self.VIVO)
+        self.assertEqual(rc, 2)
+        self.assertEqual(semeadas, [])
+        self.assertIn("RECUSADO", out)
+
+    def test_no_vivo_com_vivo_mas_bot_a_correr_recusa(self):
+        rc, semeadas, _ = self.correr("--aplicar", "--vivo", "--candidatas", "CAND-0118", raiz=self.VIVO)
+        self.assertEqual((rc, semeadas), (2, []))
+
+    def test_no_vivo_com_vivo_e_bot_parado_semeia_so_o_lote(self):
+        rc, semeadas, _ = self.correr("--aplicar", "--vivo", "--candidatas", "CAND-0118", raiz=self.VIVO,
+                                      parar_existe=True)
+        self.assertEqual((rc, semeadas), (0, ["CAND-0118"]))
+
+    def test_fora_do_vivo_sem_copia_recusa(self):
+        rc, semeadas, _ = self.correr("--aplicar", "--candidatas", "CAND-0118")
+        self.assertEqual((rc, semeadas), (2, []))
 
     def test_so_o_lote_entra(self):
         rc, semeadas, _ = self.correr("--aplicar", "--copia", "--candidatas", "CAND-0118,CAND-0133")
