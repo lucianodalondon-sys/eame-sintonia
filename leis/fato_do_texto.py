@@ -327,6 +327,26 @@ def _depois_da_publicacao(valor: str, pub: date | None) -> bool:
     return bool(d) and date(*d) > pub
 
 
+# ── a data do ATO nao e a data do facto (EXTRATOR-EVENTO-V2, 26/09) ────────
+# As declaracoes de calamidade (RENDIMENTO-POR-FONTE, IT-T12-024) trazem na MESMA frase a data do decreto,
+# a da Gazzetta e a do acontecimento: «Con decreto del 30 luglio 2026 … l'evento atmosferico Venti forti
+# dell'11 maggio 2026». Com o tempo na lista das ancoras, a frase fica presa ao facto e o leitor escolhia a
+# primeira data — a do decreto. Uma data logo a seguir a um ATO (decreto, delibera, determina, ordinanza,
+# Gazzetta/Bollettino ufficiale, «pubblicato/approvato/firmato il») e a data desse ato: tapa-se e pergunta-se
+# de novo.
+_RE_ATO_ANTES_DA_DATA = re.compile(
+    r"(?<![a-z0-9])(?:decret[oi]|delibera(?:zione)?|determina(?:zione)?|ordinanza|circolare|gazzetta\s+ufficiale|"
+    r"bollettino\s+ufficiale|b\.?u\.?r\.?[a-z]*|g\.?u\.?|d\.?g\.?r\.?|d\.?m\.?|legge|"
+    r"(?:pubblicat|approvat|firmat|emanat|adottat)[oaie])"
+    r"(?:\s+(?:regionale|ministeriale|dirigenziale|n\.?\s*[\w/.-]+))?\s*(?:del(?:l['’])?|in\s+data|il|n\.?\s*[\w/.-]+\s+del)?\s*$",
+    re.I)
+
+
+def _data_de_ato(ev: str, valor: str) -> bool:
+    i = FL._baixo(ev).find(FL._baixo(valor))
+    return i >= 0 and bool(_RE_ATO_ANTES_DA_DATA.search(FL._baixo(ev)[max(0, i - 60):i]))
+
+
 def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | None = None) -> dict:
     """Pergunta ao leitor; se a data que ele escolhe vem de uma frase institucional, de um CONSELHO, ou de
     uma ancora que so existia DENTRO de outra palavra, tapa-a nessa frase e pergunta de novo."""
@@ -343,6 +363,7 @@ def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | Non
         motivo = ("INSTITUCIONAL_NAO_FATO" if _RE_INSTITUCIONAL.search(ev)
                   else "RECOMENDACAO_NAO_FATO" if e_conselho
                   else "PREVISAO_NAO_E_FATO" if _RE_FUTURO.search(ev) or _depois_da_publicacao(v, pub)
+                  else "DATA_DE_ATO_NAO_E_FATO" if _data_de_ato(ev, v)
                   else None if _presa_ao_campo(ev) else "ANCORA_DENTRO_DE_OUTRA_PALAVRA")
         if not motivo:
             return r
