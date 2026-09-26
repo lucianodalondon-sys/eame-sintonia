@@ -51,7 +51,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-for _gaveta in ("provas", "leis"):
+for _gaveta in ("provas", "leis", "motor"):
     if str(RAIZ / _gaveta) not in sys.path:
         sys.path.insert(0, str(RAIZ / _gaveta))
 
@@ -64,6 +64,9 @@ from espinha_da_intelligence import (           # noqa: E402
 # Os meses italianos tem UM dono: o leitor italiano da casa. Uma segunda lista
 # aqui seria a segunda verdade que a espinha proibe.
 from fato_local import MES_NUM                  # noqa: E402
+# D12 · D16 (INDEPENDENCIA-V1): o grafo de dependencia tem UM dono, e nao e esta
+# corrida. Ela so o consulta sobre os sinais que produziu.
+import grafo_de_dependencia as GD               # noqa: E402
 
 CONTRATO = "CORRIDA_DA_INTELLIGENCE/v1"
 #: ⚠️ G0/v2 (INT-CONSERTOS-EXP, D1-D4/D6). A v1 aceitava como ancora de tempo
@@ -394,6 +397,42 @@ def requisito(item: dict, falta: list, run_id: str) -> dict:
     return req
 
 
+#: Os campos do item que o grafo precisa para saber QUE documento e QUEM fala.
+#: Viajam do item para a vista do grafo tal e qual — nada e cunhado aqui.
+CAMPOS_PARA_O_GRAFO = GD.CAMPOS_DE_DOCUMENTO + GD.CAMPOS_DE_SHA +     GD.CAMPOS_DE_ENDERECO + GD.CAMPOS_DE_ORIGINADOR
+
+
+def chave_do_fato(item: dict):
+    """A chave do FATO declarado pela Collection, para `INT-LAW-077`.
+
+    So o envelope `FATO` conta, e so o que ele declara: `subject|predicate`, ou
+    `fact_id`, ou `claim_id`. Sem isso e `NAO SEI` — e sinais sobre um fato
+    desconhecido nunca convergem entre si. Nao se le o texto, nao se infere.
+    """
+    f = item.get("FATO")
+    if not isinstance(f, dict):
+        return None
+    if not e_ignorancia(f.get("subject")) and not e_ignorancia(f.get("predicate")):
+        return f"{f['subject']}|{f['predicate']}"
+    for c in ("fact_id", "claim_id"):
+        if not e_ignorancia(f.get(c)):
+            return str(f[c])
+    return None
+
+
+def dependencia(vistas: list) -> dict:
+    """`INT-LAW-070`: o grafo vem ANTES de qualquer contagem multi-sinal.
+
+    GERAL e o grafo de todos os sinais da corrida; POR_FATO parte-o pelo fato
+    declarado. A convergencia que vale e a de POR_FATO: a GERAL mede so quantas
+    fontes a corrida leu, nao que elas concordem em alguma coisa.
+    """
+    return {"GERAL": GD.grafo(vistas),
+            "POR_FATO": GD.por_fato(vistas, lambda v: v.get("_FATO")),
+            "LEI": "INT-LAW-070..077",
+            "VERSAO": GD.VERSAO}
+
+
 def correr(pergunta: str, itens: list, request_id: str = "",
            ja_corridas: dict | None = None) -> dict:
     """Abre uma corrida, consome os itens, e devolve o LIVRO dela.
@@ -439,8 +478,10 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         "REQUIREMENTS": [],
         "ERRORS": [],
         "LINEAGE": [],
+        "DEPENDENCIA": dependencia([]),
         "COLLECTOR_CALLS": 0,
     }
+    vistas = []
     try:
         if not itens:
             livro["RESULT_STATE"] = "EMPTY_RESULT"
@@ -469,9 +510,15 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                 tempo = intervalo_do_tempo(item.get("FACT_TIME"))
                 base_lugar = item.get("FACT_LOCATION_BASIS", NAO_SEI)
                 lugar = item.get("FACT_LOCATION", NAO_SEI)
+                # ⚠️ O SIGNAL_ID tem de levar a LEITURA, e nao so o ITEM_ID: dois
+                # itens com o mesmo ITEM_ID (o mesmo documento lido duas vezes,
+                # D12) davam o MESMO SIGNAL_ID, e a lista tinha dois sinais com um
+                # nome so — a duplicata ficava invisivel em vez de marcada.
                 livro["SIGNALS"].append({
                     "SIGNAL_ID": "SG-" + hashlib.sha256(
-                        (run_id + "|" + str(ref["ITEM_ID"])).encode()).hexdigest()[:16],
+                        (run_id + "|" + str(ref["ITEM_ID"]) + "|"
+                         + str(ref["RAW_OBSERVATION_ID"]) + "|"
+                         + str(len(livro["SIGNALS"]))).encode()).hexdigest()[:16],
                     "ITEM_ID": ref["ITEM_ID"],
                     "RAW_OBSERVATION_ID": ref["RAW_OBSERVATION_ID"],
                     "SOURCE_ID": ref["SOURCE_ID"],
@@ -492,9 +539,26 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                         else "COM_BASE"),
                     "ESTADO": "SINAL",
                     "REGRA": RULESET_VERSION,
+                    "DUPLICATA_DE": None,
                 })
+                vista = {c: item[c] for c in CAMPOS_PARA_O_GRAFO if c in item}
+                vista.update({"ID": livro["SIGNALS"][-1]["SIGNAL_ID"],
+                              "ITEM_ID": ref["ITEM_ID"],
+                              "SOURCE_ID": ref["SOURCE_ID"],
+                              "_FATO": chave_do_fato(item)})
+                vistas.append(vista)
             else:
                 livro["REQUIREMENTS"].append(requisito(item, falta, run_id))
+
+        # ── D12 · D16: o grafo, e a marca da duplicata no proprio sinal ─────
+        # Os sinais NAO sao apagados: a linhagem guarda cada leitura. O que muda
+        # e que a segunda leitura do mesmo documento diz de quem e copia, e as
+        # contagens vivem em DEPENDENCIA — nunca em len(SIGNALS).
+        livro["DEPENDENCIA"] = dependencia(vistas)
+        por_id = {s["SIGNAL_ID"]: s for s in livro["SIGNALS"]}
+        for d in livro["DEPENDENCIA"]["GERAL"]["DOCUMENT_DUPLICATES"]:
+            for c in d["COLAPSADAS"]:
+                por_id[c]["DUPLICATA_DE"] = d["MANTIDA"]
 
         livro["RESULT_STATE"] = "DONE"
         livro["ANALYTIC_OUTPUT"] = INTAKE_OK if livro["SIGNALS"] else SEM_SAIDA_ANALITICA
