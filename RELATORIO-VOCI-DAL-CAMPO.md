@@ -1,6 +1,6 @@
 # VOCI-DAL-CAMPO — o extrator de voz (ferramenta n.º 3 do casco)
 
-Ramo `nuvem-voci-campo-v1`, base = produção `69b0e23f`. Sem rede externa, sem Sala, sem login, sem perfil.
+Ramo `nuvem-voci-campo-v1`, começado sobre `69b0e23f` e **rebaseado sobre o vivo `278cd489`** (lote 2, ordem da coordenação 14:00; o rebase entrou sem conflito). Testes antes/depois refeitos sobre `278cd489`. Sem rede externa, sem Sala, sem login, sem perfil.
 Dados: só fixtures do repositório (47 transcritos) e casos sintéticos marcados `SOURCE_ID = 'SINTETICO'`.
 
 ## O que fiz
@@ -81,7 +81,7 @@ dos bytes guardados (nunca com `git checkout`).
 Ficheiros: `provas/voci_dal_campo/antes.json` e `depois.json`. O script é `provas/voci_dal_campo/testes_por_nome.py`.
 Ele corre os 12 módulos vizinhos (os donos que eu importo, a transcrição e o mapa) mais o novo.
 
-| | antes (base 69b0e23f) | depois |
+| | antes (base 278cd489) | depois |
 |---|---|---|
 | testes corridos | 349 | 396 (+47 novos) |
 | falhas **novas** | — | **0** |
