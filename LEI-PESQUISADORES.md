@@ -91,7 +91,16 @@ A B11 (lista de núcleos italianos) ficou **no know-how**, não na lei: é regis
   bloco 7xx com 3 leis e a nomear 701..703 entre as que nunca podem desaparecer).
 - Portão de contradição da Intelligence (`controle/portao_do_controle.contradicoes_da_lei`): **[]** — um só veredito
   CORRENTE, e o fecho continua a nomear a secção 32.
-- TESTES_INTELLIGENCE_AQUI
+- Testes da Intelligence, **cada versão numa cópia própria**, base `278cd489` × ramo, um ficheiro de cada vez (a
+  primeira tentativa, tudo de uma vez, foi interrompida pela máquina por falta de memória):
+
+  | ficheiro | base | ramo |
+  |---|---|---|
+  | `test_biblia` · `test_integracao_biblia` | 73 · 14 passam | 73 · 14 passam |
+  | `test_os_consertos_da_intelligence` (o carimbo da versão no motor) | 32 passam | 32 passam |
+  | `test_o_mapa_da_intelligence_nao_mente` | 36 passam | 36 passam |
+  | `test_atomicidade_da_intelligence` | **104 falham** | **as mesmas 104**, pelo nome (espelho do mapa — antigas) |
+  | `test_o_controle_separa_lei_de_mencao` | 60 passam | 59 + **1 falha: `test_M5_o_ponto_fixo…`** — o carimbo do mapa ainda é o das Bíblias antigas; é exatamente o que o passo do mapa (secção 6) fecha |
 
 ## 6. O mapa
 MAPA_AQUI
