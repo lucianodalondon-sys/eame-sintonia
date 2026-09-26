@@ -149,6 +149,10 @@ def planear(*, ctx: dict | None = None, canario: dict | None = None,
 
 def linha_da_tabela(c: dict, p: dict, quando: str) -> dict:
     k = p["CANARIO"]
+    # SEDE-37-PREP: a sede vem do contrato do Curator (curadoria/sede_da_fonte.campos_para_o_contrato),
+    # SO quando la esta. Ausente = a tabela nao a declara e o coletor le «NAO SEI»; UNKNOWN nao se escreve.
+    # Nao muda o CONTRATO_SHA256 (sha_do_contrato so cobre SOURCE_ID, OUTPUT_TYPE e ACQUISITION).
+    sede = {"SOURCE_LOCATION_RULE": c["SOURCE_LOCATION_RULE"]} if c.get("SOURCE_LOCATION_RULE") else {}
     return {
         "SOURCE_ID": c["SOURCE_ID"], "OWNER": c.get("OWNER"), "NAME": c.get("NAME"),
         "TERRITORY": c.get("TERRITORY"), "BATCH_ID": c.get("BATCH_ID"),
@@ -166,6 +170,7 @@ def linha_da_tabela(c: dict, p: dict, quando: str) -> dict:
         },
         "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota %s) — curadoria/onboardar_rotas_provadas.py"
                         % quando[:10],
+        **sede,
     }
 
 
