@@ -1,0 +1,82 @@
+# -*- coding: utf-8 -*-
+# PERIODO-E-CHAVES · os casos lidos a mao, pela estrada inteira, SO LEITURA. Registo do ensaio (.txt).
+#   PYTHONUTF8=1 py data/derivados/PERIODO-E-CHAVES/casos.py.txt [--trechos]
+# Para cada caso: o texto guardado (Sala pela vista, ou o derivado no armazem), a estrada do reprocesso
+# (tempo_e_lugar -> item_documental_para_a_porta -> decidir -> janela_para_o_ready) e as chaves.
+# --trechos imprime, por caso, a frase que prova o lugar e a primeira linha (para os testes).
+import importlib.machinery
+import json
+import os
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(AQUI)))
+sys.path[:0] = [os.path.join(RAIZ, "admissao"), RAIZ]
+os.environ.setdefault("HTTP_PROXY", "http://127.0.0.1:9")
+os.environ.setdefault("HTTPS_PROXY", "http://127.0.0.1:9")
+LS = importlib.machinery.SourceFileLoader("ler_sala", os.path.join(AQUI, "ler_sala.py.txt")).load_module()
+import admissao as adm  # noqa: E402
+import reprocessar_tempo_lugar as RP  # noqa: E402
+
+ARMAZEM = os.path.expanduser("~/sintonia-sala-italia/armazem")
+LIVRO = "C:/Users/London1/auditoria-madrugada/tempo-lugar/livro-vivo-copia.ndjson"
+# (sha256 do bruto, prefixo) -> o que a leitura a mao disse
+CASOS = [
+    ("394a362f", "IT-T7-031", "regiao ERRADA: Bologna Fiere = empresa"),
+    ("19971f5d", "IT-T2-025", "regiao ERRADA: ARPA Lazio = quem publica"),
+    ("384723e6", "IT-T5-186", "regiao ERRADA: pagina com 2 eventos (conserto-regua)"),
+    ("bdcc232c", "IT-T10-018", "regiao CERTA Firenze; cultura FALTOU mirtilli"),
+    ("9e3e9d34", "IT-T10-018", "regiao CERTA Bolzano (a Fiera Bolzano); cultura FALTOU mela"),
+    ("4510c175", "IT-T10-017", "regiao CERTA Milano; cultura FALTOU fragole"),
+    ("d7284a8f", "IT-T9-017", "regiao NAO SEI; cultura FALTOU mora"),
+    ("96c5c773", "IT-T5-030", "regiao CERTA Teramo"),
+    ("9397764b", "IT-T5-015", "regiao CERTA Napoli"),
+    ("69e006d5", "IT-T5-186", "regiao CERTA Napoli"),
+]
+
+
+def texto_de(sha):
+    linhas = LS.consultar("select to_json(a.texto)::text, a.universo, a.captured_at::text, "
+                          "coalesce(a.raw_observation_id::text,''), a.item_id from public.sala_de_espera_atual a "
+                          "join public.raw_asset r on r.id = a.raw_observation_id "
+                          "where r.sha256 like '%s%%' limit 1" % sha)
+    if linhas:
+        t, uni, cap, rid, iid = linhas[0].split(LS.SEP)
+        return json.loads(t), uni, cap, int(rid) if rid else None, iid, "SALA"
+    l = LS.consultar("select d.storage_path, r.source_id, r.captured_at::text, r.id, d.id from public.raw_asset r "
+                     "join public.derived_artifact d on d.parent_sha256 = r.sha256 and d.kind = 'TEXT_EXTRACTION' "
+                     "where r.sha256 like '%s%%' order by r.id, d.id limit 1" % sha)[0]
+    sp, sid, cap, rid, did = l.split(LS.SEP)
+    import re
+    uni = re.search(r"-(T\d+)-", sid).group(1)
+    return open(os.path.join(ARMAZEM, sp), encoding="utf-8").read(), uni, cap, int(rid), "derived:" + did, "ACERVO"
+
+
+def main():
+    livros = RP.livros_por_sha([LIVRO])
+    fora = []
+    for pre, sid, leitura in CASOS:
+        texto, uni, cap, rid, iid, grupo = texto_de(pre)
+        sha = LS.consultar("select sha256 from public.raw_asset where sha256 like '%s%%' limit 1" % pre)[0].strip()
+        r = LS.consultar("select storage_path, media_type from public.raw_asset where sha256 = '%s' limit 1" % sha)[0]
+        sp, mt = r.split(LS.SEP)
+        dados = RP.bytes_guardados({"STORAGE_PATH": sp, "MEDIA_TYPE": mt, "SHA256": sha}, [ARMAZEM])
+        tl = RP.ex.tempo_e_lugar(livros.get(sha) or {"SOURCE_ID": sid}, dados)
+        est = {"SOURCE_ID": sid, "TEXTO": texto, "DERIVED_ARTIFACT_ID": iid.split(":", 1)[-1],
+               "RAW_ASSET_ID": rid, "PARENT_SHA256": sha, "CAPTURED_AT": cap, "TEMPO_E_LUGAR": tl}
+        item = RP.ORQ.item_documental_para_a_porta(est, source_id=sid)
+        d = adm.decidir(item, uni, corrida="PERIODO-E-CHAVES")
+        j = adm.janela_para_o_ready(item, d)
+        linha = {"SHA": pre, "SOURCE_ID": sid, "GRUPO": grupo, "LEITURA_A_MAO": leitura,
+                 **{c: j[c]["VALOR"] for c in adm.QUATRO_CHAVES},
+                 "FACT_TIME": item.get("fact_time"), "CULTURA_VEIO_DE": j["CULTURA"]["VEIO_DE"]}
+        if "--trechos" in sys.argv:
+            linha["TITULO"] = next((l for l in texto.splitlines() if l.strip()), "")[:200]
+            linha["BASE_DO_LUGAR"] = str(item.get("fact_location_basis"))[:400]
+        fora.append(linha)
+        print(json.dumps(linha, ensure_ascii=False))
+    return fora
+
+
+if __name__ == "__main__":
+    main()

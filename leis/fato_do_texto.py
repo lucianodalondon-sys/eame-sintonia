@@ -490,6 +490,33 @@ def _datas_de_evento(frase: str) -> list:
     return fora
 
 
+# ── 4c · o lugar que e PEDACO DE UM NOME nao e lugar do facto (PERIODO-E-CHAVES, 26/09) ──
+# Lidos a mao na QUATRO-CHAVES-MEDIR (12 regioes, 3 erradas): «oltre che Bologna Fiere, socio di
+# FederBio» (Bologna e o nome de uma EMPRESA) e «ARPA Lazio – Seminario» (Lazio e o nome do ORGAO que
+# publica). O lugar colado a um nome de orgao/empresa e o nome, nao o sitio do acontecimento — SALVO
+# se uma preposicao de lugar vem antes do nome: «a Fiera Bolzano», «presso ARPA Lazio» sao o LOCAL.
+# (O terceiro erro, a pagina com dois eventos, ja e do CONSERTO-REGUA: datas de evento diferentes.)
+_ORGAO_ANTES = re.compile(r"(?<![0-9a-zà-ÿ])(?:arpa[a-z]{0,3}|appa|agenzia\s+regionale(?:\s+[a-zà-ÿ]+){0,4})\s+$", re.I)
+_EMPRESA_DEPOIS = re.compile(r"^\s+(?:fiere|s\.?p\.?a\.?|s\.?r\.?l\.?|group|holding)(?![0-9a-zà-ÿ])", re.I)
+_PREPOSICAO_DE_LUGAR = re.compile(r"(?<![0-9a-zà-ÿ])(?:a|ad|in|presso|alla|al|nella|nel|dalla|dal)\s+$", re.I)
+
+
+def _e_pedaco_de_nome(frase: str, pos: int, lugar: str) -> str | None:
+    """O nome de orgao/empresa de que o lugar e pedaco, ou None. So le a frase."""
+    antes, depois = frase[:pos], frase[pos + len(lugar):]
+    m = _ORGAO_ANTES.search(antes)
+    if m:
+        inicio = m.start()
+    elif _EMPRESA_DEPOIS.match(depois):
+        inicio = pos
+    else:
+        return None
+    if _PREPOSICAO_DE_LUGAR.search(frase[:inicio]):
+        return None
+    fim = pos + len(lugar) + (len(_EMPRESA_DEPOIS.match(depois).group(0)) if _EMPRESA_DEPOIS.match(depois) else 0)
+    return frase[inicio:fim].strip()
+
+
 def _lugares(c: str) -> tuple[list, list]:
     aceitas, recusadas = FL.localizacoes_do_fato(c, origem="TEXTO_DO_CORPO")
     lugares, vistos = [], set()
@@ -514,6 +541,9 @@ def _lugares(c: str) -> tuple[list, list]:
         # «Made in Italy», o menu de paises): numa fonte italiana, «Italia» como lugar de evento/mercado/
         # producao nao diz nada. E um nome maior que contem uma provincia nao e a provincia.
         if r["PRECISION"] == "COUNTRY" or (pos is not None and _NOME_MAIOR.search(r["EVIDENCE"][max(0, pos - 12):pos + len(r["PLACE"]) + 12])):
+            pos = None
+        if pos is not None and _e_pedaco_de_nome(r["EVIDENCE"], pos, r["PLACE"]):
+            r = dict(r, WHY_NOME=_e_pedaco_de_nome(r["EVIDENCE"], pos, r["PLACE"]))
             pos = None
         if r["STATE"] != FL.TERRITORIAL_LIST and pos is not None:
             # a ancora MAIS PERTO do lugar decide, antes ou depois dele («del mercato In Sardegna si producono»)
