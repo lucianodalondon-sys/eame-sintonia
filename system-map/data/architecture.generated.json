@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "pacote-tempo-lugar-v1",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
-    "GENERATED_AT": "2026-09-25T16:40:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681"
+    "BRANCH": "legacy-99-v4",
+    "HEAD": "a2aa089448af1975c0f504cb1e4ea989eda7568d",
+    "GENERATED_AT": "2026-09-25T23:45:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7e420d86c91ebe48b6dd73e922f1a86c434755560ac498a9a9eebcd8d1826649"
   },
   "FILES": [
     {
@@ -3006,7 +3006,7 @@
     },
     {
       "path": "curadoria/canario.py",
-      "sha": "4226df24d7a528072698f436787c6cb73957175b",
+      "sha": "708d77e5b366e489731922c48338933061c8af02",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3167,7 +3167,14 @@
     },
     {
       "path": "curadoria/gatilho_discovery.py",
-      "sha": "b1bc20cc12fdbb37c68cd71eca23d7a6ae2844a7",
+      "sha": "14d587dbd0bc45431712178d8defd889f01065a9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/importar_do_coletor.py",
+      "sha": "024aeb51ecd1578a173358df9401be8d536ddd09",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3573,7 +3580,7 @@
     },
     {
       "path": "curadoria/regua_social.py",
-      "sha": "58c012288920a5d615e488ed5e945c40f194d8a9",
+      "sha": "7d517ca4e7eedfe0b0518b6771d7ad1e2ad7aef8",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3734,7 +3741,7 @@
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "436726afc0e20b4d31d3e8742aa6c7e62da75d44",
+      "sha": "ef9ea6cf6f8810085631c675c29b81b8a7f45b19",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -11790,6 +11797,90 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/legacy99v4/D53-RECIBOS-REAIS-lista.txt",
+      "sha": "f335e695e008a3babf065a48820e1e70a13449d2",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/D53-RECIBOS-REAIS.json",
+      "sha": "50ba91a8079039a14c0a62d8ea6bd3752f58425c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/ENSAIO-PLANO.txt",
+      "sha": "ffb87a10c83ad08d7daf3660ac6ea25fb9c2e2cd",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/ENSAIO-V4.json",
+      "sha": "ee67d4997bd99bfb414472b5bb0866785da29a73",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/ENSAIO-copia-livros.sha256",
+      "sha": "bf7a0aff8b77c980b8746a097d2bbb5189dcc050",
+      "ext": ".sha256",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/MUTACAO-V4.json",
+      "sha": "ccb5bc065e48bda6d128004347a5b89d05133b66",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/REGRESSAO-BASE-e5cd691f.json",
+      "sha": "92a160bca79d42b3dae35a19078fb77d28c1e2b3",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/REGRESSAO-HEAD-cd495768.json",
+      "sha": "22a3f43f1f749e405808be9247037deeb49c5733",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+      "sha": "c1bc22c48082b58b2d9262cf773cc96a84ce08da",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/ensaio_na_copia.py",
+      "sha": "13167a96768f351b9132e5b4102861733bff81ca",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/mutacao.py",
+      "sha": "4ac64ea00d76c6a3207b48b78136612cdac37eb8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/legacy99v4/regressao_por_modulo.txt",
+      "sha": "9562a0bc4153b16698f2afcfa7d3bbe3c01bea5f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/navegador.py",
       "sha": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
       "ext": ".py",
@@ -19463,7 +19554,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ae92cb01c557a4ddd426f45c74d951f01632ed47",
+      "sha": "b1a72c257e3cf507091a352d79cb0aa0853ff6ff",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20695,7 +20786,7 @@
     },
     {
       "path": "tests/test_d36_envelope_equivalente.py",
-      "sha": "9fedb2c8afc6a7be4025e698a9d69697c19afb60",
+      "sha": "8e39cb56ca4cd56258f7126869a251ae24694ebd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20904,6 +20995,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_importar_do_coletor.py",
+      "sha": "0c39e37d520dc77c3012533912d6271868244b1f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_integracao_04a_curator.py",
       "sha": "002383d33da930b7ea6a9c5ca325ed79f3fa0b05",
       "ext": ".py",
@@ -20941,6 +21039,20 @@
     {
       "path": "tests/test_ld2_aditamento.py",
       "sha": "a41a35eb972a7262316c195cf91f70299fba5a3f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_legacy_colchetes.py",
+      "sha": "41ea922c8cd4d4ed74c15eacafe9825e6e2bedeb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_legacy_recheck.py",
+      "sha": "4ee9579e63ae759145a54796b41e8dacae85fd3d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21185,7 +21297,7 @@
     },
     {
       "path": "tests/test_onboardar_rotas_provadas.py",
-      "sha": "4392424deeea69cc42ddfc6e0baf6b91e5483f59",
+      "sha": "2394250bb94d9ddad3c6c23c04fdf1785dc0f3ad",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21471,6 +21583,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_rota_video_d53.py",
+      "sha": "9c3f0a10a9b2878938226c4903e8a3ed8162140b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_roteamento_youtube_proposta.py",
       "sha": "865e4a785d622d8579ed036f6d23bd10fe554b2e",
       "ext": ".py",
@@ -21718,6 +21837,13 @@
     {
       "path": "tests/test_youtube_oficial.py",
       "sha": "89c3904df1c163f331c7e47d6a517ce2604bd752",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_youtube_pelo_scrap.py",
+      "sha": "27161cf9ec9168fdbc84cc58e76978da86e62899",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27252,7 +27378,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/canario.py",
-        "line": 45,
+        "line": 46,
         "snippet": "import capturador as CAP  # noqa: E402  (UA ja medido: sem `Safari/`)"
       }
     },
@@ -27263,7 +27389,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/canario.py",
-        "line": 215,
+        "line": 226,
         "snippet": "d = json.loads((RAIZ / \"curadoria\" / \"italy_contracts_curator.json\")"
       }
     },
@@ -27274,7 +27400,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/canario.py",
-        "line": 119,
+        "line": 120,
         "snippet": "import ready_split as RS  # noqa: PLC0415"
       }
     },
@@ -27285,7 +27411,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/canario.py",
-        "line": 46,
+        "line": 47,
         "snippet": "import retrato_html as RH  # noqa: E402  (o gate CAPA != MATERIA, mesmos limiares do coletor)"
       }
     },
@@ -28275,7 +28401,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 370,
+        "line": 459,
         "snippet": "import fonte_nova as FN            # noqa: E402"
       }
     },
@@ -28286,7 +28412,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 367,
+        "line": 456,
         "snippet": "import atribuir_source_id as ASI   # noqa: E402"
       }
     },
@@ -28308,7 +28434,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 368,
+        "line": 457,
         "snippet": "import decisao_semantica as DS     # noqa: E402"
       }
     },
@@ -28341,7 +28467,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/gatilho_discovery.py",
-        "line": 293,
+        "line": 382,
         "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -28376,6 +28502,83 @@
         "file": "curadoria/gatilho_discovery.py",
         "line": 201,
         "snippet": "import ready_split as RS       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/importar_do_coletor.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/importar_do_coletor.py",
+        "line": 165,
+        "snippet": "import collection_gate as CG   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/importar_do_coletor.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/importar_do_coletor.py",
+        "line": 63,
+        "snippet": "CURATOR = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/importar_do_coletor.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/importar_do_coletor.py",
+        "line": 166,
+        "snippet": "import ready_split as RS       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/importar_do_coletor.py",
+      "to_file": "curadoria/sha_do_contrato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/importar_do_coletor.py",
+        "line": 60,
+        "snippet": "import sha_do_contrato as SHA   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/importar_do_coletor.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/importar_do_coletor.py",
+        "line": 100,
+        "snippet": "r = subprocess.run([\"node\", \"-e\", 'import(\"./regras/italy_contracts.mjs\").then(m=>{const o={};'"
+      }
+    },
+    {
+      "from_file": "curadoria/importar_do_coletor.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/importar_do_coletor.py",
+        "line": 62,
+        "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/importar_do_coletor.py",
+      "to_file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/importar_do_coletor.py",
+        "line": 243,
+        "snippet": "p = RAIZ / \"scripts\" / \"desbloqueio\" / \"aplicar_desbloqueio.py\""
       }
     },
     {
@@ -30519,7 +30722,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 225,
+        "line": 281,
         "snippet": "(RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
       }
     },
@@ -30530,7 +30733,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 249,
+        "line": 305,
         "snippet": "import lifecycle as LC"
       }
     },
@@ -30541,7 +30744,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/regua_social.py",
-        "line": 250,
+        "line": 306,
         "snippet": "import worker as W"
       }
     },
@@ -31157,7 +31360,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 647,
+        "line": 651,
         "snippet": "import gatilho_discovery as GD  # noqa: E402"
       }
     },
@@ -31168,7 +31371,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 654,
+        "line": 658,
         "snippet": "import onboardar_rotas_provadas as ONB  # noqa: E402"
       }
     },
@@ -35922,6 +36125,116 @@
         "file": "ferramentas/italy_extract_fields.mjs",
         "line": 79,
         "snippet": "const ods = execFileSync(\"node\", [\"ferramentas/ods_peek.mjs\", `${D}/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods`, \"100000\"], { encoding: \"utf8\", ma"
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 103,
+        "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\","
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 102,
+        "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\","
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 102,
+        "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\","
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/canario.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 21,
+        "snippet": "CAN, IMP = \"curadoria/canario.py\", \"curadoria/importar_do_coletor.py\""
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 22,
+        "snippet": "GD, SUP, RG = \"curadoria/gatilho_discovery.py\", \"curadoria/supervisor.py\", \"curadoria/regua_social.py\""
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/importar_do_coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 21,
+        "snippet": "CAN, IMP = \"curadoria/canario.py\", \"curadoria/importar_do_coletor.py\""
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 103,
+        "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\","
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/regua_social.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 22,
+        "snippet": "GD, SUP, RG = \"curadoria/gatilho_discovery.py\", \"curadoria/supervisor.py\", \"curadoria/regua_social.py\""
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 22,
+        "snippet": "GD, SUP, RG = \"curadoria/gatilho_discovery.py\", \"curadoria/supervisor.py\", \"curadoria/regua_social.py\""
+      }
+    },
+    {
+      "from_file": "ferramentas/legacy99v4/mutacao.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/legacy99v4/mutacao.py",
+        "line": 104,
+        "snippet": "\"regras/italy_contracts_onboarded.json\", \"curadoria/DESBLOQUEIO-LEDGER-V1.jsonl\"]"
       }
     },
     {
@@ -78556,7 +78869,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_d36_envelope_equivalente.py",
-        "line": 49,
+        "line": 51,
         "snippet": "\"AUTORIZACAO_DE\": \"leis/social_matriz.py\","
       }
     },
@@ -89004,10 +89317,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3105,
-    "files_readable": 1390,
-    "files_code_dir": 1316,
-    "file_edges": 6060,
+    "files_tracked": 3123,
+    "files_readable": 1399,
+    "files_code_dir": 1333,
+    "file_edges": 6077,
     "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },

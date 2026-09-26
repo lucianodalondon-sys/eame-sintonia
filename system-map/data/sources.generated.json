@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T19:41:06+00:00",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
+    "GENERATED_AT": "2026-09-26T02:48:03+00:00",
+    "HEAD": "a2aa089448af1975c0f504cb1e4ea989eda7568d",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
-    "FICHEIROS_NA_IMPRESSAO": 3253,
+    "SOURCE_TREE_FINGERPRINT": "7e420d86c91ebe48b6dd73e922f1a86c434755560ac498a9a9eebcd8d1826649",
+    "FICHEIROS_NA_IMPRESSAO": 3271,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38054,6 +38054,51 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/channel",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 819
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 450
+        },
+        {
+          "file": "curadoria/test_d21_heranca.py",
+          "line": 43
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 59
+        },
+        {
+          "file": "curadoria/test_soc_onda2_social.py",
+          "line": 146
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 806
+        },
+        {
+          "file": "tests/test_d36_envelope_equivalente.py",
+          "line": 48
+        },
+        {
+          "file": "tests/test_rota_video_d53.py",
+          "line": 62
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 39
+        },
+        {
+          "file": "tests/test_yt_metadados_do_audio.py",
+          "line": 55
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -38140,43 +38185,6 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/channel",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_youtube.py",
-          "line": 819
-        },
-        {
-          "file": "coleta/youtube_oficial.py",
-          "line": 450
-        },
-        {
-          "file": "curadoria/test_d21_heranca.py",
-          "line": 43
-        },
-        {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 59
-        },
-        {
-          "file": "curadoria/test_soc_onda2_social.py",
-          "line": 146
-        },
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 806
-        },
-        {
-          "file": "tests/test_d36_envelope_equivalente.py",
-          "line": 46
-        },
-        {
-          "file": "tests/test_yt_metadados_do_audio.py",
-          "line": 55
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -38210,6 +38218,43 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 234
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/feeds",
+      "usado_por": [
+        {
+          "file": "curadoria/canario.py",
+          "line": 57
+        },
+        {
+          "file": "curadoria/capturador.py",
+          "line": 585
+        },
+        {
+          "file": "curadoria/escrever_contratos.py",
+          "line": 121
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 63
+        },
+        {
+          "file": "curadoria/validar_contratos.py",
+          "line": 187
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 38
+        },
+        {
+          "file": "tests/test_legacy_recheck.py",
+          "line": 35
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 43
         }
       ]
     },
@@ -38404,27 +38449,27 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/feeds",
+      "endpoint": "https://www.cnr.it/it",
       "usado_por": [
         {
-          "file": "curadoria/canario.py",
-          "line": 56
+          "file": "curadoria/descobrir.py",
+          "line": 444
         },
         {
-          "file": "curadoria/capturador.py",
-          "line": 585
+          "file": "curadoria/test_abastecimento.py",
+          "line": 208
         },
         {
-          "file": "curadoria/escrever_contratos.py",
-          "line": 121
+          "file": "curadoria/test_discovery.py",
+          "line": 954
         },
         {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 63
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 24
         },
         {
-          "file": "curadoria/validar_contratos.py",
-          "line": 187
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 55
         }
       ]
     },
@@ -38897,23 +38942,6 @@
       ]
     },
     {
-      "endpoint": "https://www.cnr.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 444
-        },
-        {
-          "file": "curadoria/test_abastecimento.py",
-          "line": 208
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 954
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.nomisma.it/",
       "usado_por": [
         {
@@ -38948,9 +38976,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 657,
+  "ENDPOINTS_FOUND": 668,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 617,
+  "ENDPOINTS_TRUNCATED": 628,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -38968,9 +38996,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 657,
+    "endpoints": 668,
     "endpoints_published": 40,
-    "endpoints_truncated": 617,
+    "endpoints_truncated": 628,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,

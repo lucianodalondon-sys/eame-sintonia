@@ -476,6 +476,7 @@
       "curadoria/fila.py",
       "curadoria/gate_de_rota.py",
       "curadoria/gatilho_discovery.py",
+      "curadoria/importar_do_coletor.py",
       "curadoria/integrar_gate_de_detalhe.py",
       "curadoria/interface_collection.py",
       "curadoria/italy_contracts_curator.json",
@@ -1713,6 +1714,18 @@
       "ferramentas/integra_onda2/prova_teto_micro.py",
       "ferramentas/italy-forward-only-live.cmd",
       "ferramentas/italy_extract_fields.mjs",
+      "ferramentas/legacy99v4/D53-RECIBOS-REAIS-lista.txt",
+      "ferramentas/legacy99v4/D53-RECIBOS-REAIS.json",
+      "ferramentas/legacy99v4/ENSAIO-PLANO.txt",
+      "ferramentas/legacy99v4/ENSAIO-V4.json",
+      "ferramentas/legacy99v4/ENSAIO-copia-livros.sha256",
+      "ferramentas/legacy99v4/MUTACAO-V4.json",
+      "ferramentas/legacy99v4/REGRESSAO-BASE-e5cd691f.json",
+      "ferramentas/legacy99v4/REGRESSAO-HEAD-cd495768.json",
+      "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+      "ferramentas/legacy99v4/ensaio_na_copia.py",
+      "ferramentas/legacy99v4/mutacao.py",
+      "ferramentas/legacy99v4/regressao_por_modulo.txt",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
@@ -3060,12 +3073,15 @@
       "tests/test_hero_cases_v1.py",
       "tests/test_identidade_do_artefato.py",
       "tests/test_implementacoes_candidatas.py",
+      "tests/test_importar_do_coletor.py",
       "tests/test_integracao_04a_curator.py",
       "tests/test_integracao_biblia.py",
       "tests/test_integracao_e7_contrato_na_linha_funcional.py",
       "tests/test_italia_na_porta_canonica.py",
       "tests/test_k1_receitas.py",
       "tests/test_ld2_aditamento.py",
+      "tests/test_legacy_colchetes.py",
+      "tests/test_legacy_recheck.py",
       "tests/test_legado_fora_do_fluxo.py",
       "tests/test_leitores_depois_da_fase_10.py",
       "tests/test_lingua_da_porta.py",
@@ -3141,6 +3157,7 @@
       "tests/test_retirada_por_decisao.py",
       "tests/test_retorno_da_coleta.py",
       "tests/test_retorno_nao_diz_success_na_falha.py",
+      "tests/test_rota_video_d53.py",
       "tests/test_roteamento_youtube_proposta.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -3177,6 +3194,7 @@
       "tests/test_youtube_antidrift.py",
       "tests/test_youtube_checkpoint_pg.py",
       "tests/test_youtube_oficial.py",
+      "tests/test_youtube_pelo_scrap.py",
       "tests/test_youtube_piloto.py",
       "tests/test_yt_metadados_do_audio.py"
     ]
@@ -3698,10 +3716,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "pacote-tempo-lugar-v1",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
-    "GENERATED_AT": "2026-09-25T16:40:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681"
+    "BRANCH": "legacy-99-v4",
+    "HEAD": "a2aa089448af1975c0f504cb1e4ea989eda7568d",
+    "GENERATED_AT": "2026-09-25T23:45:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7e420d86c91ebe48b6dd73e922f1a86c434755560ac498a9a9eebcd8d1826649"
   },
   "FAMILIES": [
     {
@@ -3729,7 +3747,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 99
+      "count": 100
     },
     {
       "id": "F-ESPERA",
@@ -3924,7 +3942,7 @@
       "y": 190,
       "w": 820,
       "h": 9056,
-      "count": 11
+      "count": 12
     },
     {
       "id": "Z-ACOES",
@@ -5210,8 +5228,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 657",
-        "desses, mostrados aqui: 40 (ficam de fora 617)"
+        "enderecos que o codigo realmente chama: 668",
+        "desses, mostrados aqui: 40 (ficam de fora 628)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -39062,6 +39080,7 @@
         "C-COORTE-MICRO-FUNIL",
         "C-INTEGRA-ONDA2",
         "C-IT-CONTRATOS",
+        "C-LEGACY-99",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PROVA-TETO-DOMINIO",
         "C-SUPERFICIE-SCRAP-V1",
@@ -39174,10 +39193,10 @@
         "PROVA": [
           "ferramentas/big_collection/coorte_unica.py:42",
           "ferramentas/integra_onda2/final/ensaio_integra.sh:61",
-          "provas/prova_teto_dominio.py:167",
-          "provas/roteamento_youtube_proposta.py:38"
+          "ferramentas/legacy99v4/mutacao.py:104",
+          "provas/prova_teto_dominio.py:167"
         ],
-        "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-INTEGRA-ONDA2 · C-IT-CONTRATOS · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-INTEGRA-ONDA2 · C-IT-CONTRATOS · C-LEGACY-99 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 12140,
       "y": 360
@@ -40611,6 +40630,7 @@
         "C-COORTE-MICRO-FUNIL",
         "C-DETECTOR-CAPA-GABARITO",
         "C-FONTE-DO-ATLAS",
+        "C-LEGACY-99",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
         "C-PONTE-ONBOARD",
@@ -40766,9 +40786,9 @@
         "PLANO": null,
         "PROVA": [
           "ferramentas/big_collection/coorte_unica.py:42",
+          "ferramentas/legacy99v4/mutacao.py:22",
           "ferramentas/ponte_onboard/mutacao.py:19",
-          "leis/lugar_da_organizacao.py:39",
-          "medidas/canario_rotas_elegiveis.py:190"
+          "leis/lugar_da_organizacao.py:39"
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-FONTE-DO-ATLAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -43435,6 +43455,7 @@
         "C-COORTE-BIG-COLLECTION",
         "C-COORTE-MICRO-FUNIL",
         "C-DESBLOQUEIO-PACOTE",
+        "C-LEGACY-99",
         "C-RECEITAS-PROPOSTA",
         "C-REPARO-MEDICAO",
         "C-TESTES"
@@ -43562,8 +43583,8 @@
         "PROVA": [
           "curadoria/test_supervisor.py:59",
           "ferramentas/big_collection/coorte_unica.py:41",
-          "medidas/prova_b2_ponte_em_copia.py:34",
-          "scripts/coorte_micro/funil.py:63"
+          "ferramentas/legacy99v4/mutacao.py:102",
+          "medidas/prova_b2_ponte_em_copia.py:34"
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CENSO-UNIFICACAO · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -49103,6 +49124,110 @@
       "y": 1648
     },
     {
+      "id": "C-LEGACY-99",
+      "name": "LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "ensaio_na_copia.py: numa COPIA dos livros do vivo (recusa a arvore do bot), aplica o A (importar_do_coletor, HTML) e o B (pelo_scrap: o canal YouTube vai para a fase canal-youtube do Scrap pelo bloco 4 do desbloqueio) e conta os estados; nada promove. d53_nos_recibos_reais.py: passa os itens de recibos reais do Scrap ja guardados pela prova da D53 (regua_social.provas_do_video), so leitura. mutacao.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro.",
+      "why_here": "LEGACY-99 v4 / SEPARAR-A-B (25/09/2026): A (HTML importado do coletor) e B (canal YouTube) em commits separados, com a rota YouTube num so dono (o Scrap nomeado por rota_do_scrap_youtube, julgado por regua_social com a D53); em copia do vivo e5cd691f: 21 HTML e 41 YouTube a CANARY_PENDING, 0 READY.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+        "ferramentas/legacy99v4/ensaio_na_copia.py",
+        "ferramentas/legacy99v4/mutacao.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CAPA-MATERIA",
+        "C-CENSO-UNIFICACAO",
+        "C-DETECTOR-CAPA-GABARITO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "LIVROS",
+          "MUTANTES",
+          "TESTES"
+        ],
+        "palavras": 64,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 64,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 10 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/canario.py",
+        "curadoria/gatilho_discovery.py",
+        "curadoria/importar_do_coletor.py",
+        "curadoria/italy_contracts_curator.json",
+        "curadoria/regua_social.py",
+        "curadoria/supervisor.py",
+        "regras/italy_contracts_onboarded.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6415,
+      "y": 1004
+    },
+    {
       "id": "C-LEITOR-DA-CADEIA",
       "name": "Leitor da cadeia do mapa",
       "territory": "Z-PROVA",
@@ -49282,8 +49407,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6415,
-      "y": 1004
+      "x": 6000,
+      "y": 1326
     },
     {
       "id": "C-LUGAR-COLETA",
@@ -50939,7 +51064,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -51028,8 +51153,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
-      "y": 1326
+      "x": 6000,
+      "y": 1648
     },
     {
       "id": "C-ORQUESTRADOR",
@@ -52104,7 +52229,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -58516,8 +58641,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
-      "y": 1648
+      "x": 6000,
+      "y": 1970
     },
     {
       "id": "C-RECORRENCIA",
@@ -63836,12 +63961,15 @@
         "tests/test_hero_cases_v1.py",
         "tests/test_identidade_do_artefato.py",
         "tests/test_implementacoes_candidatas.py",
+        "tests/test_importar_do_coletor.py",
         "tests/test_integracao_04a_curator.py",
         "tests/test_integracao_biblia.py",
         "tests/test_integracao_e7_contrato_na_linha_funcional.py",
         "tests/test_italia_na_porta_canonica.py",
         "tests/test_k1_receitas.py",
         "tests/test_ld2_aditamento.py",
+        "tests/test_legacy_colchetes.py",
+        "tests/test_legacy_recheck.py",
         "tests/test_legado_fora_do_fluxo.py",
         "tests/test_leitores_depois_da_fase_10.py",
         "tests/test_lingua_da_porta.py",
@@ -63917,6 +64045,7 @@
         "tests/test_retirada_por_decisao.py",
         "tests/test_retorno_da_coleta.py",
         "tests/test_retorno_nao_diz_success_na_falha.py",
+        "tests/test_rota_video_d53.py",
         "tests/test_roteamento_youtube_proposta.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -63953,10 +64082,11 @@
         "tests/test_youtube_antidrift.py",
         "tests/test_youtube_checkpoint_pg.py",
         "tests/test_youtube_oficial.py",
+        "tests/test_youtube_pelo_scrap.py",
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 253,
+      "file_count": 258,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -64245,6 +64375,7 @@
           "PASTAS_DA_COLLECTION",
           "PASTAS_DE_RUNTIME",
           "PASTAS_PY",
+          "PDF",
           "PEDIDOS",
           "PERMITIDOS",
           "POSITIVOS",
@@ -64274,15 +64405,17 @@
           "VERBOS_DE_CALCULO",
           "VOCABULARIO_DA_COLLECTION",
           "WAV",
+          "YT_CURADOR",
+          "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1444,
+        "palavras": 1543,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1432,
+        "sem_marca_de_lingua": 1531,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -64974,7 +65107,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1970
     },
     {
@@ -77024,6 +77157,41 @@
     },
     {
       "from": "C-CAPA-MATERIA",
+      "to": "C-LEGACY-99",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 104,
+          "snippet": "\"regras/italy_contracts_onboarded.json\", \"curadoria/DESBLOQUEIO-LEDGER-V1.jsonl\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-LEGACY-99",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CAPA-MATERIA",
       "to": "C-MICRO-COLETA-INSTRUMENTO",
       "type": "READS",
       "payload": "artefacto",
@@ -78483,6 +78651,73 @@
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-FONTE-DO-ATLAS",
             "FROM": "C-CENSO-UNIFICACAO",
             "TO": "C-FONTE-DO-ATLAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-LEGACY-99",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 22,
+          "snippet": "GD, SUP, RG = \"curadoria/gatilho_discovery.py\", \"curadoria/supervisor.py\", \"curadoria/regua_social.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 102,
+          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 103,
+          "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-LEGACY-99",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -87859,6 +88094,57 @@
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
             "TO": "C-DESBLOQUEIO-PACOTE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-LEGACY-99",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 102,
+          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 103,
+          "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-LEGACY-99",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -131308,7 +131594,7 @@
         },
         {
           "file": "tests/test_d36_envelope_equivalente.py",
-          "line": 49,
+          "line": 51,
           "snippet": "\"AUTORIZACAO_DE\": \"leis/social_matriz.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -141661,7 +141947,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1726,
+  "UNCLAIMED_FILES_COUNT": 1736,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -141901,7 +142187,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 223,
+      "PECAS_EM_DESACORDO": 224,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -141913,23 +142199,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 249
+      "TOTAL_DE_PECAS": 250
     }
   ],
   "COUNTS": {
-    "components": 249,
+    "components": 250,
     "components_proven": 32,
-    "components_pending": 209,
+    "components_pending": 210,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1447,
-    "edges_proven": 1382,
+    "edges": 1450,
+    "edges_proven": 1385,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3105,
-    "files_covered": 1379,
+    "files_tracked": 3123,
+    "files_covered": 1387,
     "files_code_unclaimed": 0,
-    "roles_proven": 170,
+    "roles_proven": 171,
     "roles_declared_only": 8,
     "roles_unknown": 71,
     "roles_conflict": 38,
