@@ -192,6 +192,27 @@ def egresso_it() -> dict:
             "PORQUE": v.get("PORQUE_BLOQUEADO") or v.get("PORQUE"), "QUANDO": agora()}
 
 
+def lote_1_instalado(raiz: Path = RAIZ) -> list[str]:
+    """A MICRO social so e provavel com a PROVA-TETO-SOCIAL instalada (lote 1 do INTEGRA-NOITE).
+
+    Sem o contador do Scrap nao ha PEDIDOS_POR_HOST (a prova diria NAO_SEI a tudo); sem a
+    D41 na prova, youtube.com e googlevideo.com contam a parte e 3 + 3 passaria como PASS.
+    Le-se o CODIGO (texto), sem importar: importar o scrap_http instala o abridor dele."""
+    falta = []
+    def _tem(rel, marca):
+        p = raiz / rel
+        return p.exists() and marca in p.read_text(encoding="utf-8", errors="replace")
+    if not _tem("coleta/scrap_http.py", "def contar_pedido"):
+        falta.append("coleta/scrap_http.py sem o contador de pedidos (PROVA-TETO-SOCIAL)")
+    if not _tem("coleta/scrap_colheita.py", "def escrever_linha"):
+        falta.append("coleta/scrap_colheita.py nao escreve a linha no livro de corridas")
+    if not _tem("provas/prova_teto_dominio.py", '"googlevideo.com": "youtube.com"'):
+        falta.append("provas/prova_teto_dominio.py sem a D41 (googlevideo.com paga em youtube.com)")
+    if not _tem("ferramentas/youtube_transcrever.py", "--print-traffic"):
+        falta.append("ferramentas/youtube_transcrever.py sem --print-traffic (yt-dlp por contar)")
+    return falta
+
+
 def precondicoes_da_sala(ambiente=None) -> list[str]:
     import micro_coleta as MC  # noqa: PLC0415
     return MC.precondicoes(ambiente)
@@ -214,12 +235,15 @@ def prova_teto(run_ids: list[str], pasta: Path, livro: Path | None = None) -> di
 # ── RODADA (a unica porta para a rede) ──────────────────────────────────────
 def rodada(lote: dict, n: int, estado_p: Path, *, autorizado=False, gate=gate_canonico,
            parado=robo_parado, egresso=egresso_it, sala=precondicoes_da_sala,
-           lancar=None, teto=prova_teto) -> dict:
+           lancar=None, teto=prova_teto, instalado=lote_1_instalado) -> dict:
     estado_p = Path(estado_p)
     pasta = estado_p.parent
     flag = pasta / FLAG_DE_PARADA
     if not autorizado:
         return {"CORREU": False, "PORQUE": "falta --autorizado-pelo-dono"}
+    falta_lote = instalado()
+    if falta_lote:
+        return {"CORREU": False, "PORQUE": "LOTE_1_NAO_INSTALADO", "FALTA": falta_lote}
     if flag.exists():
         return {"CORREU": False, "PORQUE": "PARADA AUTOMATICA anterior: %s"
                 % flag.read_text(encoding="utf-8").strip()[:300]}
