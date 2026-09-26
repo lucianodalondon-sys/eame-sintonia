@@ -185,8 +185,10 @@ class OCabecalhoComFrasesReais(unittest.TestCase):
             self.assertEqual(R.cabecalho_do_rotulo(txt)['NUMERO_REGISTO_NO_ROTULO']['VALOR'], esperado, txt)
 
     def test_numero_solto_sem_ministero_nao_e_registo(self):
-        c = R.cabecalho_do_rotulo('Decreto n. 1234 del 12.03.2012 e partita n. 5678')
-        self.assertEqual(c['NUMERO_REGISTO_NO_ROTULO']['ESTADO'], R.NAO_CONHECIDO)
+        for txt in ('Decreto n. 1234 del 12.03.2012 e partita n. 5678',
+                    'Autorizzazione n. 1234 del 12.03.2012 per uso eccezionale in deroga'):
+            c = R.cabecalho_do_rotulo(txt)
+            self.assertEqual(c['NUMERO_REGISTO_NO_ROTULO']['ESTADO'], R.NAO_CONHECIDO, txt)
 
     def test_decreto_com_mes_por_extenso(self):
         c = [c for _, c in self.pares if 'Decreto Dirigenziale del 22 luglio 2024' in c][0]
