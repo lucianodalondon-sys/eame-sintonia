@@ -39,6 +39,12 @@ Nao faz login, nao manda cookie, nao resolve CAPTCHA, nao troca de IP para
 escapar de bloqueio, nao finge ser navegador de gente. Quando a plataforma diz
 nao, a resposta e `ROUTE_NOT_ALLOWED` ou `BLOCKED` no artefato — nunca uma
 tentativa mais esperta.
+
+⚠️ 26/09 (D88 do dono): para material PUBLICO, «nao finge ser navegador» foi
+substituido pela `COL-LAW-704` da Biblia da Coleta (LEI-PESQUISADORES) — a lei
+vive la e nao se repete aqui. Este portao continua a identificar-se com o
+AGENTE; a cara de navegador, quando uma fonte a pede, e a peca
+`coleta/rota_navegador.py`, e a rota usada fica na proveniencia.
 """
 import contextlib
 import threading
@@ -448,6 +454,27 @@ urllib.request.install_opener(urllib.request.build_opener(_PortaoEmCadaSalto(),
                                                           _ContaCadaPedido()))
 
 
+# SCRAP-EVOLUCAO-V1 (26/09, peca 4 — «so onde faltar»; `curadoria/fila.py` ja cumpre Retry-After): a
+# pausa de cortesia deixa de ser sempre a mesma. Depois de um 403/429/503 ou de uma ligacao cortada
+# (WinError 10054) a espera DAQUELE dominio DOBRA; um `Retry-After` e cumprido (ate ao maximo); uma
+# resposta boa desce-a para metade, nunca abaixo de PAUSA_ENTRE_CHAMADAS. Esperar nao e tentar de novo:
+# nenhum pedido a mais sai daqui (ver `coleta/espera_por_dominio.py`).
+import importlib.util as _ilu  # noqa: E402
+import os as _os  # noqa: E402
+_esp = _ilu.spec_from_file_location("espera_por_dominio", _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "espera_por_dominio.py"))
+EPD = _ilu.module_from_spec(_esp)
+_esp.loader.exec_module(EPD)
+EsperaPorDominio = EPD.EsperaPorDominio
+
+ESPERA = EsperaPorDominio(base=PAUSA_ENTRE_CHAMADAS, dormir=lambda s: time.sleep(s))
+
+
+def _respirar(url, resposta):
+    d = ESPERA.depois(url, http=resposta.get('http'), erro=resposta.get('erro', ''),
+                      retry_after=resposta.get('retry_after'))
+    time.sleep(d['ESPERA_SEGUINTE_S'])
+
+
 def buscar(url, *, aceitar_json=True):
     """GET com o portão na frente. Nenhuma rota escapa dele.
 
@@ -467,10 +494,13 @@ def buscar(url, *, aceitar_json=True):
         'Accept': 'application/json' if aceitar_json else 'text/html',
     })
     req.tipo_de_pedido = PEDIDO_ROTA
+    resposta = {}
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
+            resposta['http'] = getattr(f, 'status', None)
             corpo = f.read().decode('utf-8', 'replace')
     except urllib.error.HTTPError as e:
+        resposta.update(http=e.code, retry_after=e.headers.get('Retry-After') if e.headers else None)
         raise RotaBloqueada('HTTP %s em %s' % (e.code, url))
     except RotaNaoPermitida:
         # ⚠️ PELA TERCEIRA VEZ NESTA CADEIA, e a ocasiao foi o portao passar a
@@ -494,9 +524,10 @@ def buscar(url, *, aceitar_json=True):
         # recusa do teto passa por cima dele, inteira.
         raise
     except Exception as e:
+        resposta['erro'] = '%s: %s' % (type(e).__name__, e)
         raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
     finally:
-        time.sleep(PAUSA_ENTRE_CHAMADAS)
+        _respirar(url, resposta)
     return corpo
 
 
@@ -528,22 +559,26 @@ def buscar_bytes(url, *, aceitar='*/*', cabecalhos=None):
     h.update(cabecalhos or {})
     req = urllib.request.Request(url, headers=h)
     req.tipo_de_pedido = PEDIDO_ROTA
+    resposta = {}
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
             corpo = f.read()
             meta = {'STATUS': getattr(f, 'status', None),
                     'CONTENT_TYPE': f.headers.get('Content-Type'),
                     'CONTENT_LENGTH': f.headers.get('Content-Length')}
+            resposta['http'] = meta['STATUS']
     except urllib.error.HTTPError as e:
+        resposta.update(http=e.code, retry_after=e.headers.get('Retry-After') if e.headers else None)
         raise RotaBloqueada('HTTP %s em %s' % (e.code, url))
     except (RotaNaoPermitida, SemOrcamentoDeRede):
         # Pela mesma razão que no `buscar`: uma recusa NOSSA não se traduz para
         # «a plataforma impediu-nos».
         raise
     except Exception as e:                                            # noqa: BLE001
+        resposta['erro'] = '%s: %s' % (type(e).__name__, e)
         raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
     finally:
-        time.sleep(PAUSA_ENTRE_CHAMADAS)
+        _respirar(url, resposta)
     meta['BYTES'] = len(corpo)
     meta['URL'] = url
     return corpo, meta

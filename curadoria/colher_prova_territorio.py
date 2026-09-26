@@ -28,11 +28,15 @@ import time
 import urllib.robotparser
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from html import unescape
+from urllib.parse import parse_qsl, quote, urlencode, urljoin, urlparse, urlsplit, urlunsplit
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 sys.path.insert(0, str(RAIZ / "superficie"))
+sys.path.insert(0, str(RAIZ / "coleta"))
+import espera_por_dominio as EPD  # noqa: E402  (castigo por dominio, peca 4)
+import rota_navegador as RN  # noqa: E402  (a rota HTTP da ficha, COL-LAW-704)
 
 CANDIDATAS = RAIZ / "candidatas" / "FONTES-CANDIDATAS.json"
 DECISOES = RAIZ / "curadoria" / "DECISOES-SEMANTICAS-V1.json"
@@ -55,12 +59,38 @@ def _mesmo_site(u: str, base: str) -> bool:
     return a == b
 
 
+# SCRAP-EVOLUCAO-V1 (26/09, peca 3 reduzida — ESTUDO-SCRAPLING-UNIAO): so as ligacoes que uma pessoa
+# clica (<a>, <area>); <link> (folhas de estilo, feeds, preconnect) e <use> (icones SVG) nao sao paginas.
+# Cada endereco sai CANONICO, sem biblioteca: esquema e host em minusculas, sem porta por omissao, sem
+# #fragmento, &amp; desfeito, parametros por ordem — «?b=2&a=1» e «?a=1&b=2» sao a mesma pagina e nao
+# gastam dois pedidos do teto. PDF passa sempre: um boletim em PDF e conteudo, nao um anexo a descartar.
+_LIGACAO = re.compile(r"""<(?:a|area)\b[^>]*?\shref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))""", re.I | re.S)
+_PORTA_POR_OMISSAO = {"http": 80, "https": 443}
+
+
+def canonico(u: str) -> str:
+    p = urlsplit(u.strip())
+    esquema, host = p.scheme.lower(), (p.hostname or "").lower().rstrip(".")
+    porta = p.port if p.port and p.port != _PORTA_POR_OMISSAO.get(esquema) else None
+    rede = host + (":%d" % porta if porta else "")
+    if p.username:
+        rede = p.username + (":" + p.password if p.password else "") + "@" + rede
+    q = urlencode(sorted(parse_qsl(p.query, keep_blank_values=True)), quote_via=quote) if p.query else ""
+    return urlunsplit((esquema, rede, p.path or "/", q, ""))
+
+
 def _links(html: bytes, base: str) -> list[str]:
     s = html.decode("utf-8", "replace")
     vistos, out = set(), []
-    for h in re.findall(r'href\s*=\s*["\']([^"\'#]+)', s, re.I):
-        u = urljoin(base, h.strip())
-        if u.startswith(("http://", "https://")) and _mesmo_site(u, base) and u not in vistos:
+    for m in _LIGACAO.finditer(s):
+        h = unescape(next(g for g in m.groups() if g is not None)).strip()
+        if not h or h.startswith("#"):
+            continue
+        u = urljoin(base, h)
+        if not u.startswith(("http://", "https://")):
+            continue
+        u = canonico(u)
+        if _mesmo_site(u, base) and u not in vistos:
             vistos.add(u)
             out.append(u)
     return out
@@ -77,21 +107,27 @@ def _parece_conteudo(u: str, base: str) -> bool:
 def colher(ficha: dict, buscar, portao, pasta: Path, dormir=time.sleep, pausa: float = 3.0) -> dict:
     """Uma candidata. `buscar(url)->(status, bytes, erro)` e `portao()->dict` injectados (testável sem rede)."""
     cid, url = ficha["CANDIDATA_ID"], ficha["URL"]
+    rota = RN.rota_da_fonte({"ACQUISITION": {"ROTA_HTTP": ficha.get("ROTA_HTTP")}})
     out = {"CANDIDATA_ID": cid, "NOME": ficha.get("NOME"), "URL": url, "TERRITORIO": A_DECIDIR,
-           "PROVAS": [], "PEDIDOS": 0, "TITULOS": []}
+           "PROVAS": [], "PEDIDOS": 0, "TITULOS": [], **RN.proveniencia(rota)}
     g = portao()
     out["EGRESS_GATE"] = g.get("EGRESS_GATE")
     if g.get("EGRESS_GATE") != "PASS":
         out["PORQUE_PAROU"] = "portao de egresso sem PASS IT — 0 pedidos"
         return out
 
+    # A pausa conta a partir da resposta (relogio parado: dorme-se a espera inteira, como antes). Depois
+    # de um 403/429/503 ou de uma ligacao cortada, a espera do dominio dobra; nenhum pedido a mais.
+    espera = EPD.EsperaPorDominio(base=pausa, maximo=max(pausa, 120.0), dormir=dormir, relogio=lambda: 0.0)
+
     def pedir(u):
         if out["PEDIDOS"] >= TETO_D38:
             return 0, b"", "teto D38"
-        if out["PEDIDOS"]:
-            dormir(pausa)
+        espera.antes(u)
         out["PEDIDOS"] += 1
-        return buscar(u)
+        r = buscar(u) if rota == RN.ROTA_DECLARADA else buscar(u, rota=rota)
+        espera.depois(u, http=r[0], erro=r[2])
+        return r
 
     p = urlparse(url)
     st, txt, err = pedir("%s://%s/robots.txt" % (p.scheme or "https", p.netloc))
@@ -116,7 +152,8 @@ def colher(ficha: dict, buscar, portao, pasta: Path, dormir=time.sleep, pausa: f
         t = _TITULO.search(b.decode("utf-8", "replace"))
         out["TITULOS"].append((t.group(1).strip()[:120] if t else ""))
         out["PROVAS"].append({"PAPEL": papel, "URL": u, "SHA256": sha, "BYTES": len(b), "HTTP": st,
-                              "LIDO_EM": _agora(), "EGRESSO": "IT", "BYTES_EM": str(dest)})
+                              "LIDO_EM": _agora(), "EGRESSO": "IT", "BYTES_EM": str(dest),
+                              "ROTA_HTTP": rota})
 
     if not rp.can_fetch("*", url):
         out["PORQUE_PAROU"] = "robots.txt proibe a entrada da ficha"
