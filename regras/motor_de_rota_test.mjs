@@ -238,8 +238,11 @@ T("M2 · alvosDe consulta ACQUISITION antes do switch", () => {
 });
 
 T("M2b · identidade consulta IDENTITY antes do switch", () => {
+  // BOLETINS-V2: a janela mede-se sem o fim de linha. Numa copia Windows (core.autocrlf) cada linha
+  // leva mais um CR, e a mesma funcao passava a «deixar de vir primeiro» so por isso (medido: 1394 com
+  // CRLF contra 1370 com LF). A regra guardada e a ORDEM, nao o fim de linha.
   const src = readFileSync(
-    new URL("../coleta/italy_pilot_collect.mjs", import.meta.url), "utf8");
+    new URL("../coleta/italy_pilot_collect.mjs", import.meta.url), "utf8").replace(/\r\n/g, "\n");
   const ini = src.indexOf("function identidade(sourceId");
   const corpo = src.slice(ini, ini + 1400);
   assert.ok(corpo.includes("identidadeDoContrato"),
@@ -733,6 +736,74 @@ T("nenhum DOCUMENT_ID dos contratos onboarded usa o SHA como identidade", () => 
     assert.ok(!/SHA|HASH|RAW_SHA/i.test(String(s.DOCUMENT_ID)),
       `${id}: o DOCUMENT_ID cita o hash — hash e BYTE_ID, nao identidade`);
   }
+});
+
+console.log("\n9 · D42 (2) · A PÁGINA É O BOLETIM");
+
+// Uma página fixa com menu, contador de visitas e o boletim no meio. O leitor PAGE_TEXT é o texto
+// visível (aqui dado à mão; no coletor é retrato_html.textoVisivel).
+const PAGINA = (menu, boletim) => `Home\nMeteo\nVisite: ${menu}\nBOLLETTINO AGROMETEOROLOGICO\n${boletim}\nFine bollettino\nContatti`;
+const BOL_24 = "Emesso il 24/09/2026 · valido dal 24/09/2026 al 30/09/2026\nOlivo: mosca in aumento.";
+const SPEC_BOL = {
+  STRATEGY: "CONTENT_CAPTURE",
+  DOCUMENT_ID: "IT-FICT-900:BOLETIM:{emissao.3}-{emissao.2}-{emissao.1}",
+  SOURCE_DATE: "{emissao.1}/{emissao.2}/{emissao.3}",
+  SOURCE_DATE_ISO: "{emissao.3}-{emissao.2}-{emissao.1}",
+  FACT_TIME: "{validade.1} a {validade.2}",
+  CONTENT_SCOPE: { START: "BOLLETTINO AGROMETEOROLOGICO", END: "Fine bollettino" },
+  CAPTURES: {
+    emissao: { FROM: "PAGE_TEXT", PATTERN: "Emesso il (\\d{2})/(\\d{2})/(\\d{4})", REQUIRED: false,
+               DEFAULTS: ["UNKNOWN", "UNKNOWN", "UNKNOWN"] },
+    validade: { FROM: "PAGE_TEXT", PATTERN: "valido dal (\\S+) al (\\S+)", REQUIRED: false, DEFAULTS: ["UNKNOWN", "UNKNOWN"] },
+  },
+};
+const idBol = (texto) => identidadeDoContrato("IT-FICT-900", { IDENTITY: SPEC_BOL },
+  { url: "https://ex.it/agrometeo", nome: "agrometeo" }, { leitores: { PAGE_TEXT: () => texto } });
+
+T("data comprovada: identidade = fonte + BOLETIM + data; publicação e facto separados", () => {
+  const r = idBol(PAGINA(134, BOL_24));
+  assert.equal(r.DOCUMENT_ID, "IT-FICT-900:BOLETIM:2026-09-24");
+  assert.equal(r.SOURCE_DATE_ISO, "2026-09-24");
+  assert.equal(r.FACT_TIME, "24/09/2026 a 30/09/2026");
+  assert.match(r.CONTENT_SHA256, /^[0-9a-f]{64}$/);
+});
+
+T("data ausente = UNKNOWN nos tempos (nunca a data de coleta); a identidade não fica com buraco", () => {
+  const r = idBol(PAGINA(134, "Olivo: mosca in aumento, senza data."));
+  assert.equal(r.DOCUMENT_ID, "IT-FICT-900:BOLETIM:UNKNOWN-UNKNOWN-UNKNOWN");
+  assert.equal(r.SOURCE_DATE, "UNKNOWN");
+  assert.equal(r.SOURCE_DATE_ISO, "UNKNOWN");
+  assert.equal(r.FACT_TIME, "UNKNOWN");
+  const hoje = new Date().toISOString().slice(0, 10);
+  assert.ok(!JSON.stringify(r).includes(hoje), "a data de hoje entrou num campo de tempo");
+});
+
+T("a impressão mira o boletim: menu/contador mudam, a impressão não; o boletim muda, ela muda", () => {
+  const a = idBol(PAGINA(134, BOL_24)), b = idBol(PAGINA(999, BOL_24));
+  const c = idBol(PAGINA(134, BOL_24.replace("in aumento", "stabile")));
+  assert.equal(a.CONTENT_SHA256, b.CONTENT_SHA256);
+  assert.notEqual(a.CONTENT_SHA256, c.CONTENT_SHA256);
+  assert.equal(a.DOCUMENT_ID, c.DOCUMENT_ID, "mesma edição, conteúdo corrigido: versão nova do MESMO documento");
+});
+
+T("sem o recorte do boletim a identidade falha fechada (não guarda lixo)", () => {
+  const r = idBol("Home\nPagina in manutenzione\nContatti");
+  assert.equal(r.DOCUMENT_ID, null);
+});
+
+T("CONTENT_SCOPE sem START é contrato inválido; a impressão nunca é fonte de captura", () => {
+  assert.throws(() => conferirIdentidade("IT-FICT-900", { ...SPEC_BOL, CONTENT_SCOPE: { END: "x" } }), ContratoInvalido);
+  assert.ok(!FONTES_DE_TEXTO.includes("CONTENT_SHA256"), "hash e BYTE_ID, nao identidade");
+  assert.ok(FONTES_DE_TEXTO.includes("PAGE_TEXT"));
+  assert.ok(!/SHA|HASH/i.test(SPEC_BOL.DOCUMENT_ID));
+});
+
+T("um contrato sem CONTENT_SCOPE não ganha impressão nem muda de comportamento", () => {
+  const spec = { STRATEGY: "CONTENT_CAPTURE", DOCUMENT_ID: "IT-FICT-901:{doc.1}",
+                 CAPTURES: { doc: { FROM: "URL", PATTERN: "/news/(.+)$" } } };
+  const r = identidadeDoContrato("IT-FICT-901", { IDENTITY: spec }, { url: "https://ex.it/news/x", nome: "x" });
+  assert.equal(r.DOCUMENT_ID, "IT-FICT-901:x");
+  assert.equal(r.CONTENT_SHA256, undefined);
 });
 
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}\n`);

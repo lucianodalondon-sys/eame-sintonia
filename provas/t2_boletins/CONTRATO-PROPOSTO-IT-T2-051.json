@@ -1,0 +1,106 @@
+{
+ "SOURCE_ID": "IT-T2-051",
+ "OWNER": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+ "NAME": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+ "TERRITORY": "T2",
+ "BATCH_ID": "LOTE-HTML-ARTIGO",
+ "OUTPUT_TYPE": "PDF",
+ "CANONICAL_ENTRY_URL": "https://www.arpae.it/it",
+ "ACQUISITION": {
+  "STRATEGY": "HTML_LINK_DISCOVERY",
+  "MATCH": "URL",
+  "INDEX_URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+  "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/\\d{2}_boll_agro_\\d{8}(-\\d+)?\\.pdf$",
+  "MAX_TARGETS": 1,
+  "STRIP_SUFFIX": "/view"
+ },
+ "ROUTE_TYPE": "DISCOVERED_ROUTE",
+ "ACCESS_INSTRUMENT": "HTTP",
+ "AUTH_REQUIRED": false,
+ "BROWSER_REQUIRED": false,
+ "JS_REQUIRED": false,
+ "IDENTITY": {
+  "STRATEGY": "CONTENT_CAPTURE",
+  "CAPTURES": {
+   "b": {
+    "FROM": "URL",
+    "PATTERN": "/(\\d{2})_boll_agro_(\\d{4})(\\d{2})(\\d{2})(?:-\\d+)?\\.pdf$"
+   }
+  },
+  "DOCUMENT_ID": "IT-T2-051:BOLETIM:AGROMETEO:{b.2}-{b.1}",
+  "SOURCE_DATE_ISO": "{b.2}-{b.3}-{b.4}",
+  "FACT_TIME": "UNKNOWN — o periodo do boletim (a semana que ele descreve e preve) esta no texto do PDF; o coletor nao injecta PDF_TEXT"
+ },
+ "IDENTITY_KEYS": [
+  "url_path"
+ ],
+ "IDENTITY_KIND": "URL_PATH",
+ "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+ "EXPECTED_FAILURES": [
+  "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+  "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+  "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+ ],
+ "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+ "FALLBACK": "nenhum",
+ "NEGATIVE_CONTROL": {
+  "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+  "esperado": "EMPTY_LIST -> FAILED"
+ },
+ "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+ "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+ "IMPORTADO_DE": {
+  "LIVRO": "C",
+  "BRANCH": "source-curator-service-v1",
+  "COMMIT": "d23a44cc",
+  "MISSAO": "MATERIA-PRIMA-V1"
+ },
+ "REPARO_DE_CONTRATO": {
+  "DECISAO": "R1",
+  "MISSAO": "REPARO-FONTES-V1",
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "APLICADO_EM": "2026-09-25T09:49:53.402469+00:00",
+  "COMO": "T2-BOLETINS D47 (bancada, agente)",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.arpae.it/it",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "OUTPUT_TYPE": "PDF",
+  "OUTPUT_TYPE_ANTERIOR": "HTML",
+  "STRIP_SUFFIX": "/view",
+  "IDENTITY_ANTERIOR": {
+   "STRATEGY": "CONTENT_CAPTURE",
+   "CAPTURES": {
+    "doc": {
+     "FROM": "URL",
+     "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+    }
+   },
+   "DOCUMENT_ID": "IT-T2-051:URL:{doc.1}",
+   "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+  },
+  "PROVA": {
+   "ENTRADA": null,
+   "ENTRADA_RETRATO": null,
+   "SECCAO_TENTADA": null,
+   "ALVOS_NA_LISTAGEM": null,
+   "ITEM_LIDO": null,
+   "PAGINAS_LIDAS": null
+  },
+  "PRECISA_DE_REMEDIR": true,
+  "NOTA": "hipotese de rota: o canario seguinte, com a regua dos quatro passos, e que decide READY; o reparo nunca promove"
+ },
+ "ROUTE_PROVENANCE": {
+  "MISSAO": "REPARO-FONTES-V1",
+  "FERRAMENTA": "curadoria/reparar_contrato.py",
+  "INTEGRADO_EM": "2026-09-25T09:49:53.402469+00:00",
+  "PROVADO_EM": "2026-09-25T09:49:53.402469+00:00",
+  "LISTAGEM": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+  "OUTPUT_TYPE": "PDF",
+  "OUTPUT_TYPE_ANTERIOR": "HTML"
+ },
+ "SOURCE_CONTRACT_HASH": "1bb4b6047b54c536"
+}

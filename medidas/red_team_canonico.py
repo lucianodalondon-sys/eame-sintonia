@@ -82,7 +82,7 @@ ATAQUES = [
         "nome": "READY_LEGACY entra na Collection",
         "lei": "READY_LEGACY != READY_CURRENT — 77 fontes promovidas pela regua antiga",
         "ficheiro": "curadoria/collection_gate.py",
-        "de": "    if regua != RS.REGUA_CURRENT:",
+        "de": "    if regua not in RS.REGUAS_QUE_ADMITEM:",
         "para": "    if False:",
         "prova": PY_UNIT("curadoria", "test_collection_gate.py"),
     },
