@@ -2032,8 +2032,9 @@ def periodo_do_fato(item: dict) -> dict:
     # (ou com uma base que diz que nao sabe — «UNKNOWN», «NAO SEI», como a Sala real escreve)
     # nao e tempo provado do facto: ausencia de prova = NAO SEI. O mesmo criterio do G0/v2
     # da Intelligence (`corrida_da_inteligencia.base_ignorante`), para os dois lados nao
-    # discordarem sobre o que e uma data provada.
-    if base == AUSENCIA or re.search(r"\b(UNKNOWN|NOT_KNOWN|NAO SEI|NAO_SEI)\b", _dobrar(base).upper()):
+    # discordarem sobre o que e uma data provada. A falta de base ja chega aqui como AUSENCIA
+    # («NAO SEI»), que a mesma busca apanha — uma condicao so (a mutacao mostrou a 2.a redundante).
+    if re.search(r"\b(UNKNOWN|NOT_KNOWN|NAO SEI|NAO_SEI)\b", _dobrar(base).upper()):
         return dict(nada, EXPRESSAO=str(bruto),
                     PORQUE="o FACT_TIME nao tem base provada: sem prova nao ha periodo (DA-20)")
     calculada = str(base).startswith(BASES_CALCULADAS)
