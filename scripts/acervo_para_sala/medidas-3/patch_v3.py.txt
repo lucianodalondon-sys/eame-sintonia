@@ -1,0 +1,89 @@
+R = r'C:/capa-v1/'
+
+
+def trocar(p, velho, novo, n=1):
+    s = open(R + p, encoding='utf-8', newline='').read()
+    nl = '\r\n' if '\r\n' in s else '\n'
+    velho, novo = velho.replace('\n', nl), novo.replace('\n', nl)
+    assert s.count(velho) == n, (p, s.count(velho), velho[:60])
+    open(R + p, 'w', encoding='utf-8', newline='').write(s.replace(velho, novo))
+
+
+# ── Python ──
+trocar('curadoria/retrato_html.py', '''def e_o_indice_do_contrato(url: str, contrato: dict | None) -> bool:''', '''# ── V3: A PAGINA DE UM VIDEO E UM VIDEO (ACERVO-PARA-SALA-3, decisao do coordenador 26/09 14:00) ──
+# Medido no acervo (ACERVO-PARA-SALA-2): as 612 paginas `youtube.com/watch?v=` guardadas foram TODAS
+# julgadas capa (NAVIGATION, ~209 caracteres, 0 em paragrafos): o conteudo de um video (titulo,
+# descricao do autor) vive num <script>, que o retrato nao le. Mas o endereco ja diz o que a pagina
+# E: `watch?v=<id>` e a pagina de UM video — nunca uma lista. Opcao B do relatorio, escolhida pelo
+# coordenador: nesse endereco, e so nele, o veredito e MATERIA_PROVAVEL.
+#
+# SO `youtube.com/watch?v=<11 caracteres>`. Canal (`/@nome`, `/channel/`, `/c/`, `/user/`), playlist
+# (`/playlist?list=`), pesquisa, `/shorts/`, `youtu.be/` e a raiz continuam com o detector.
+#
+# A regra so ALARGA o que entra PELA PORTA DA MATERIA: o texto continua a passar pela regua do
+# universo (medido: 612 -> 5 SIM; 193 ficam NAO_SE_APLICA em T8/T11/T12, que nao tem regua).
+#
+#     O PAR TEM DE MUDAR JUNTO: `coleta/retrato_html.mjs` tem a mesma expressao.
+V3_LIGADA = True
+REGRA_V3 = "V3_PAGINA_DE_UM_VIDEO"
+_PAGINA_DE_VIDEO = re.compile(
+    r"^https?://(?:www\\.|m\\.)?youtube\\.com/watch\\?(?:[^#]*&)?v=[A-Za-z0-9_-]{11}(?:[&#]|$)", re.I)
+
+
+def e_pagina_de_um_video(url: str | None) -> bool:
+    return bool(V3_LIGADA and url and _PAGINA_DE_VIDEO.match(url.strip()))
+
+
+def e_o_indice_do_contrato(url: str, contrato: dict | None) -> bool:''')
+trocar('curadoria/retrato_html.py', '''    """(regra que mudou o detector ou None, CAPA_OU_MATERIA). V1 antes de V2."""
+    k = (retrato or {}).get("CAPA_OU_MATERIA")
+    if V1_LIGADA and regua_a_mandar is True and url and e_o_indice_do_contrato(url, contrato):
+        return (REGRA_V1 if k != "CAPA_PROVAVEL" else None), "CAPA_PROVAVEL"
+    if e_lista_com_leia_mais(retrato):''', '''    """(regra que mudou o detector ou None, CAPA_OU_MATERIA). V1, depois V3, depois V2."""
+    k = (retrato or {}).get("CAPA_OU_MATERIA")
+    if V1_LIGADA and regua_a_mandar is True and url and e_o_indice_do_contrato(url, contrato):
+        return (REGRA_V1 if k != "CAPA_PROVAVEL" else None), "CAPA_PROVAVEL"
+    if retrato and e_pagina_de_um_video(url):
+        return (REGRA_V3 if k != "MATERIA_PROVAVEL" else None), "MATERIA_PROVAVEL"
+    if e_lista_com_leia_mais(retrato):''')
+
+# ── Node ──
+trocar('coleta/retrato_html.mjs', '''// [regra que mudou o detector ou null, CAPA_OU_MATERIA]. V1 antes de V2.
+export function regraEVeredito(retrato, contrato, opcoes) {
+  opcoesObrigatorias(opcoes);
+  const k = retrato ? retrato.CAPA_OU_MATERIA : undefined;
+  if (V1_LIGADA && opcoes.reguaAMandar === true && opcoes.url && eOIndiceDoContrato(opcoes.url, contrato)) {
+    return [k !== "CAPA_PROVAVEL" ? REGRA_V1 : null, "CAPA_PROVAVEL"];
+  }
+  if (eListaComLeiaMais(retrato))''', '''// ── V3: A PAGINA DE UM VIDEO E UM VIDEO (ACERVO-PARA-SALA-3, 26/09) ─────────
+// Gemeo de `curadoria/retrato_html.py` (V3): so `youtube.com/watch?v=<id>` e
+// MATERIA_PROVAVEL; canal, playlist, pesquisa, shorts e youtu.be ficam com o detector.
+export const V3_LIGADA = true;
+export const REGRA_V3 = "V3_PAGINA_DE_UM_VIDEO";
+const PAGINA_DE_VIDEO = /^https?:\\/\\/(?:www\\.|m\\.)?youtube\\.com\\/watch\\?(?:[^#]*&)?v=[A-Za-z0-9_-]{11}(?:[&#]|$)/i;
+
+export function ePaginaDeUmVideo(url) {
+  return Boolean(V3_LIGADA && url && PAGINA_DE_VIDEO.test(String(url).trim()));
+}
+
+// [regra que mudou o detector ou null, CAPA_OU_MATERIA]. V1, depois V3, depois V2.
+export function regraEVeredito(retrato, contrato, opcoes) {
+  opcoesObrigatorias(opcoes);
+  const k = retrato ? retrato.CAPA_OU_MATERIA : undefined;
+  if (V1_LIGADA && opcoes.reguaAMandar === true && opcoes.url && eOIndiceDoContrato(opcoes.url, contrato)) {
+    return [k !== "CAPA_PROVAVEL" ? REGRA_V1 : null, "CAPA_PROVAVEL"];
+  }
+  if (retrato && ePaginaDeUmVideo(opcoes.url)) {
+    return [k !== "MATERIA_PROVAVEL" ? REGRA_V3 : null, "MATERIA_PROVAVEL"];
+  }
+  if (eListaComLeiaMais(retrato))''')
+
+# ── a porta: o motivo diz a regra ──
+trocar('admissao/admissao.py', '''    if d["ACCAO"] == "ENTRA":
+        return SIM, "o detector diz materia", ev''', '''    if d["ACCAO"] == "ENTRA":
+        if ev.get("v1") and regra == rh.REGRA_V3:
+            # ACERVO-PARA-SALA-3: o endereco e `youtube.com/watch?v=` — a pagina de UM video.
+            return SIM, ("V3: a pagina e de UM video (youtube.com/watch?v=) — materia, nunca "
+                         "lista; o texto segue para a regua do universo"), ev
+        return SIM, "o detector diz materia", ev''')
+print('ok')

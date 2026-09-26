@@ -1,0 +1,25 @@
+import json, re, collections
+D = r'C:/Users/London1/acervo-para-sala-2/'
+e = json.load(open(D + 'ensaio-3.json', encoding='utf-8'))
+dec = json.load(open(D + 'DECISOES-DO-ENSAIO-3.json', encoding='utf-8'))
+M = json.load(open(r'C:/Users/London1/acervo-para-sala/motivos.json', encoding='utf-8'))
+yt = [x['SHA256'] for x in M['ITENS'] if 'YOUTUBE' in x.get('MARCAS', [])]
+xx = {}
+for p in e['PASSAGENS']:
+    m = re.search(r'pela corrida \W(XX-[^\s\u00bb]+)', ' '.join(p['SAIDA_FIM']))
+    if m:
+        xx[m.group(1)] = p
+runs = collections.OrderedDict()
+for c in json.load(open(D + 'LOTE-12-ITENS.json', encoding='utf-8'))['CORRIDAS']:
+    runs[c['RUN_ID']] = {k: c[k] for k in ('RUN_ID', 'FONTE', 'UNIVERSO')}
+n = 0
+for d in dec:
+    m = ((d.get('evidencia') or {}).get('portoes') or {}).get('materia') or {}
+    if 'youtube.com/watch' in str(m.get('url_da_pagina', '')):
+        p = xx.get(d['corrida'])
+        if p:
+            n += 1
+            runs.setdefault(p['RUN_ID'], {'RUN_ID': p['RUN_ID'], 'FONTE': p['FONTE'], 'UNIVERSO': p['UNIVERSO']})
+print('decisoes de video', n, '| corridas', len(runs), collections.Counter(r['UNIVERSO'] for r in runs.values()))
+json.dump({"DATASET": "LOTE-3-CANDIDATAS", "CORRIDAS": list(runs.values())},
+          open(D + 'LOTE-3-CANDIDATAS.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

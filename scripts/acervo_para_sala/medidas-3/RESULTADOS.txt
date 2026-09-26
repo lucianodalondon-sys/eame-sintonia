@@ -1,0 +1,33 @@
+== mutar_v3.py (11 mutantes; bateria test_v3_pagina_de_video + test_c2_juiz) ==
+M1 V3 desligada (py) -> MORTO | FAILED (failures=5)
+M2 sem guarda de retrato -> MORTO | FAILED (failures=1)
+M3 qualquer host que acabe em youtube.com -> MORTO | FAILED (failures=2)
+M4 sem ancora no fim do id -> MORTO | FAILED (failures=2)
+M5 id de 10 a 12 -> MORTO | FAILED (failures=2)
+M6 qualquer caminho (canal/playlist) -> MORTO | FAILED (failures=2)
+M7 regra mesmo se ja materia -> MORTO | FAILED (failures=1)
+M8 V3 antes da V1 -> MORTO | FAILED (failures=2)
+M9 V3 desligada (node) -> MORTO | FAILED (failures=1)
+M10 node aceita shorts -> MORTO | FAILED (failures=1)
+M11 porta sem motivo V3 -> MORTO | FAILED (failures=1)
+status depois: '?? scripts/acervo_para_sala/CULTURA-DOS-17.json\n?? scripts/acervo_para_sala/DECISOES-DO-COMANDO-3.json\n?? scripts/acervo_para_sala/ENSAIO-COMANDO-3.json\n?? scripts/acervo_para_sala/ENSAIO-COMANDO-SEM-TRAZER.json\n?? scripts/acervo_para_sala/LOTE-3-CANDIDATAS.json\n?? scripts/acervo_para_sala/medidas-3/\n'
+
+== regressao: 36 ficheiros de teste (retrato/capa/porta/texto/receitas), vivo 278cd489 x ramo ==
+reg3-aps-vivo3.txt: Ran 688 tests in 335.855s FAILED (failures=3, errors=12, skipped=38)
+reg3-capa-v1.txt: Ran 707 tests in 162.651s FAILED (failures=3, errors=12, skipped=38)
+vermelhos iguais pelo nome: True
+ERROR: test_1_nenhuma_fase_do_pedido_cai_no_ramo_de_omissao
+ERROR: test_2_o_ramo_de_omissao_continua_a_recusar
+ERROR: test_3_fase_permitida_entra_pela_porta_canonica
+ERROR: test_4_fase_recusada_pela_matriz_tem_ramo_de_recusa
+ERROR: test_5_yt_legendas_continua_recusado_e_a_matriz_concorda
+ERROR: test_6_nenhuma_recusa_repete_o_texto_datado
+ERROR: test_7_o_audio_do_youtube_tem_porta_e_nao_recusa
+ERROR: test_8_a_lista_do_workflow_e_a_do_registo
+ERROR: test_9_a_chave_nao_entra_no_audio_local
+ERROR: test_A2_redirect_do_site_para_o_linkedin
+ERROR: test_chi_siamo_continua_nao_pelo_detector
+ERROR: test_lista_enea_e_nao_pela_v2
+FAIL: test_NAO_SEI_nao_produz_ready
+FAIL: test_nenhum_leitor_de_robots_novo_em_curadoria
+FAIL: test_todo_caminho_ate_ao_coletor_esta_declarado
