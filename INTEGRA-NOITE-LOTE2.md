@@ -1,7 +1,7 @@
 # INTEGRA-NOITE · LOTE 2 — um só pacote sobre o lote 1 (`69b0e23f`)
 
 Ramo `integra-noite-v2`, a partir de `origin/integra-noite-v1` @ `69b0e23f` (o lote 1, instalado no vivo às 05:25).
-**NÃO instalado.** Estado: **PARADO à espera de decisão** (§4: 1 falha nova da soma int-consertos × quatro-chaves) — 11 pacotes juntos. **Decisão da coordenação 06:40:** o `freio-social-v1` fica FORA (o dono refaz o ramo sobre o lote 1; entra num LOTE 3). Fecha-se o lote 2 com os 11.
+**NÃO instalado.** Estado: **PRONTO** (ver o fim) — 11 pacotes juntos + o conserto da soma int-consertos × quatro-chaves (§4, APROVADO 10:35). **Decisão da coordenação 06:40:** o `freio-social-v1` fica FORA (o dono refaz o ramo sobre o lote 1; entra num LOTE 3). Fecha-se o lote 2 com os 11.
 
 ## 1 · O drift P1 ao instalar o lote 1 (pergunta da coordenação 05:55) — RESPOSTA
 
@@ -77,7 +77,7 @@ Resultado: `provas/integra_noite/lote2-{ramo,vivo}.json` (sha256 `26db411e…` /
   14) · quatro-chaves (`test_quatro_chaves` 11, `_na_sala` 22, `test_sala_por_nome` 9, `test_a_linhagem_do_ready` 13) ·
   bloqueadas (`test_url_com_acento` 4, `test_robo_diag` 3) · destravar (`test_colher_prova_territorio` 8, `test_sonda_um_pedido` 5) ·
   canais-pesquisa (`test_canais_presos_no_feed` 3) · int-consertos (`test_espinha_da_intelligence` 42).
-- ⛔ **1 falha NOVA — PARADO, decisão pedida à coordenação:**
+- ✅ **1 falha NOVA na 1.ª corrida — RESOLVIDA (coordenação 10:35: APROVADO, com condição):**
   `tests.test_os_consertos_da_intelligence.D8_UmaListaSo.test_o_itempronto_cobre_todos_os_campos_do_dono`
   → `AttributeError: 'ItemPronto' object has no attribute 'JANELA_DECLARADA'`.
   - **Cada pacote sozinho passa** (int-consertos em `60faa7cb`: 27/27 OK). A falha nasce da **soma** de dois pacotes:
@@ -85,10 +85,24 @@ Resultado: `provas/integra_noite/lote2-{ramo,vivo}.json` (sha256 `26db411e…` /
     o quatro-chaves-v2 acrescentou a essa lista o campo `JANELA_DECLARADA`; o molde `ItemPronto`
     (`provas/espinha_da_intelligence.py`) não o tem. Não houve conflito de ficheiro na junção — é um conflito de
     código entre pacotes, e o teste existe precisamente para o apanhar.
-  - **Proposta (1 linha, não aplicada):** em `ItemPronto`, um bloco «a das quatro chaves (quatro-chaves-v2)» com
+  - **Proposta (1 linha) — APLICADA em `5ae55ce3`:** em `ItemPronto`, um bloco «a das quatro chaves (quatro-chaves-v2)» com
     `JANELA_DECLARADA: Any = NAO_SEI` — o mesmo molde dos campos que chegaram com a 033 e com o PRESERVE-FACTS
     («um campo que passou a existir não é um campo que passou a estar preenchido»). Alternativa: o default ser o
     `JANELA_NAO_MEDIDA` do dono — mas isso faria a espinha copiar um valor da Collection, o que ela hoje evita.
+  - **A condição da coordenação** («1 teste que prova que a Intelligence NUNCA usa `JANELA_DECLARADA = NAO SEI` como
+    janela do facto; se usar, vermelho»): classe `D9_JanelaDeclaradaNaoEJanelaDoFacto` em
+    `tests/test_os_consertos_da_intelligence.py`, 5 testes — o `ItemPronto` nasce com `NAO SEI`; o G0 (espinha **e**
+    `motor/corrida_da_inteligencia.py`) bloqueia sem `FACT_TIME` com a janela `NAO SEI` **ou cheia**; o tempo do sinal
+    é o `FACT_TIME`; o G2 nunca cruza por uma janela `NAO SEI` (com a contraprova `PROVADO`); e, pela árvore
+    sintática, nenhum código da Intelligence lê `JANELA_DECLARADA` (só a declaração do campo).
+  - **Mutação** (`provas/integra_noite/mutacao_d9.py` → `mutacao-d9-RESULTADO.txt`): **4 mutantes, 4 mortos** —
+    M1 G0 deixa passar quando a janela é `NAO SEI` · M2 G2 aceita `NAO SEI` como janela comum · M3 o sinal leva a
+    janela `NAO SEI` como tempo · M4 a corrida grava a janela no `FACT_TIME` do sinal. Ficheiros repostos (sha256).
+  - **Bateria por nome outra vez, depois do conserto** (`provas/integra_noite/lote2-{ramo,vivo}-v2.json`, sha256
+    `fb3edf40…` / `faf83a88…` — o vivo dá o mesmo sha da 1.ª corrida): **772** no ramo (+5 do D9), **616** no vivo,
+    **0 novas**, as mesmas **92 herdadas**; `test_os_consertos_da_intelligence` 32/32.
+    ⚠️ Esta bateria (só os 62 módulos por nome, em pastas temporárias, rede fechada) correu **sem** a LOCK-PESADO:
+    a trava estava com outras equipas (REPROC-EXTRATORES 10:42, DEDUP-INSTALAR 11:36, donos vivos). O mapa só com ela.
 
 ## 5 · Casco (casco-leitura + casco-painel) — sem testes de unidade
 
@@ -112,7 +126,7 @@ Resultado: `provas/integra_noite/lote2-{ramo,vivo}.json` (sha256 `26db411e…` /
 | ficheiros do writeset soltos ou `M` na pasta viva | **0** (medido antes do reinício: vivo em `69b0e23f`, 16 `M`) |
 | migrações | **nenhuma** no writeset |
 
-## 8 · Plano único de instalação (o coordenador instala; um escritor; sem rede) — rascunho até ao PRONTO
+## 8 · Plano único de instalação (o coordenador instala; um escritor; sem rede)
 
 **A · Código (tudo de uma vez, ff-only, robô PARADO):**
 1. `curadoria/PARAR.flag`; esperar a volta acabar. Guardar `git rev-parse HEAD` (= `69b0e23f`), `git status` e
@@ -124,7 +138,7 @@ Resultado: `provas/integra_noite/lote2-{ramo,vivo}.json` (sha256 `26db411e…` /
    reescreve **pelo nome**, nunca `git checkout -- .`.
 5. Provas rápidas sem rede: `py -m unittest tests.test_semear_so_as_candidatas tests.test_quatro_chaves
    tests.test_sala_por_nome tests.test_conserto_regua tests.test_c2_juiz tests.test_canais_presos_no_feed
-   tests.test_os_consertos_da_intelligence` · `cd curadoria && py -m unittest test_url_com_acento test_robo_diag`.
+   tests.test_os_consertos_da_intelligence` (inclui o D9) · `cd curadoria && py -m unittest test_url_com_acento test_robo_diag`.
 6. **Reiniciar o supervisor** — `curadoria/canario.py` (bloqueadas: link com acento) e
    `curadoria/importar_do_coletor.py` (canais-pesquisa) mudam; o worker carrega o código novo só ao reiniciar.
 7. Tirar o `PARAR.flag`.
@@ -160,6 +174,8 @@ por esta ordem:**
 supervisor. Os passos B têm cada um o seu desfazer no documento do pacote (as revisões da Sala não se apagam: ficam
 como histórico).
 
-## 7 · Falta (depois da decisão sobre §4)
+## 7 · Mapa
 
-conserto (se aprovado) → testes do int-consertos + quatro-chaves outra vez → UM mapa (LOCK-PESADO) → plano único → PRONTO.
+UM só, pela cadeia (`REGERAR` · commit · `VALIDAR` · `PORTOES_POS_COMMIT`), sob a LOCK-PESADO — ver o commit do mapa
+(é o SHA do PRONTO). No vivo, o `P1_SEM_DRIFT` mede-se como em §1: carimbo IGUAL + a lista de diferenças = só os
+livros `M`.
