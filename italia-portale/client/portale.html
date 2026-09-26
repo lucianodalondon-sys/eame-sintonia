@@ -3578,6 +3578,10 @@
       <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ pn.L.title }}</h1><sc-if value="{{ pnHas }}" hint-placeholder-val="{{ true }}"><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">vivo {{ pn.vivo }} · {{ pn.L.sub }} · {{ pn.gerado }}</div></sc-if></div>
       <sc-if value="{{ pnMissing }}" hint-placeholder-val="{{ false }}"><div style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ pn.L.noData }}</div></sc-if>
       <sc-if value="{{ pnHas }}" hint-placeholder-val="{{ false }}">
+      <div data-painel="instalacoes" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 14px;display:flex;flex-direction:column;gap:3px">
+        <div style="font-size:12px;font-weight:700;color:#fff">Installazioni nel vivo · reflog del ramo servico-20260923-0923 · HEAD locale {{ pn.vivoLocal }} · origin {{ pn.vivo }}</div>
+        <sc-for list="{{ pn.instalacoes }}" as="i" hint-placeholder-count="8"><div style="display:grid;grid-template-columns:80px 200px 1fr;gap:10px;font-size:10.5px;color:#EDEAE9"><b style="color:{{ i.color }};font-family:monospace">{{ i.sha }}</b><span style="font-variant-numeric:tabular-nums;color:#C9C3C1">{{ i.quando }}</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ i.msg }}</span></div></sc-for>
+      </div>
       <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;color:#009845">{{ pn.L.coleta }}</div>
       <div data-painel="ondas" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:8px 14px 10px">
         <div style="font-size:12px;font-weight:700;color:#fff;padding:4px 0 8px">{{ pn.L.waves }}</div>
@@ -3625,6 +3629,36 @@
         <sc-for list="{{ pn.falta }}" as="f" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:2px;padding:4px 0;border-bottom:1px dotted rgba(151,139,135,0.25)"><div style="font-size:11.5px;color:#fff"><b style="color:{{ f.color }}">{{ f.mark }}</b> {{ f.c }}</div><div style="font-size:11px;color:{{ f.color }}">{{ f.e }}</div><div style="font-size:9.5px;color:#8F8886">{{ f.prova }}</div></div></sc-for>
         <div style="font-size:9.5px;color:#8F8886">regra: bot Luciano 25/09 23:17 (HANDOFF-VIVO 23:31) — 4.a onda so com FECHAR-ONDA3 = PASS + C9 instalado e provado + VPN/teto/backup/robo parado</div>
       </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ================= PER FONTE · SOLA LETTURA (CASCO-PAINEL-2) ================= -->
+    <sc-if value="{{ isFontes }}" hint-placeholder-val="{{ false }}">
+    <div data-view="fontes" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ fx.L.title }}</h1><sc-if value="{{ fxHas }}" hint-placeholder-val="{{ true }}"><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">vivo {{ fx.vivo }} · {{ fx.L.sub }} · {{ fx.gerado }}</div></sc-if></div>
+      <sc-if value="{{ fxMissing }}" hint-placeholder-val="{{ false }}"><div style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ fx.L.noData }}</div></sc-if>
+      <sc-if value="{{ fxHas }}" hint-placeholder-val="{{ false }}">
+      <sc-for list="{{ fx.grupos }}" as="g" hint-placeholder-count="3">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;color:#009845;padding-top:6px">{{ g.label }} · {{ g.n }} fonti · {{ g.comItens }} con elementi nella sala</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:8px">
+          <sc-for list="{{ g.cards }}" as="c" hint-placeholder-count="6">
+            <div data-fonte="1" style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:4px;font-size:10.5px;color:#EDEAE9">
+              <div style="display:flex;align-items:baseline;gap:8px"><b style="font-size:12.5px;color:#fff">{{ c.sid }}</b><span style="color:#8F8886">{{ c.univ }}</span><span style="margin-left:auto;color:{{ c.salaColor }};font-weight:700">{{ c.sala }} nella sala</span></div>
+              <sc-if value="{{ c.url }}" hint-placeholder-val="{{ true }}"><div style="color:#8F8886;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.url }}</div></sc-if>
+              <sc-if value="{{ c.temPorque }}" hint-placeholder-val="{{ false }}"><div style="color:#F5B317">fuori: {{ c.porque }}</div></sc-if>
+              <div><span style="color:#8F8886">visite:</span> {{ c.visitas }}</div>
+              <div><span style="color:#8F8886">ultima:</span> {{ c.ultima }}</div>
+              <sc-if value="{{ c.canario }}" hint-placeholder-val="{{ true }}"><div><span style="color:#8F8886">ultimo canarino:</span> {{ c.canario }} UTC</div></sc-if>
+              <div><span style="color:#8F8886">pubblicazione:</span> {{ c.pub }} · <span style="color:#8F8886">luogo della fonte:</span> {{ c.sede }}</div>
+              <div><span style="color:#8F8886">date del fatto:</span> {{ c.datas }}</div>
+              <div><span style="color:#8F8886">luoghi del fatto:</span> {{ c.lugares }}</div>
+              <div><span style="color:#8F8886">ammissione:</span> {{ c.adm }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+      <sc-for list="{{ fx.provas }}" as="p" hint-placeholder-count="4"><div style="font-size:9.5px;color:#8F8886">{{ p }}</div></sc-for>
       </sc-if>
     </div>
     </sc-if>
@@ -3820,7 +3854,7 @@ class Component extends DCLogic {
   /* UN SOLO MAPPA VISTA -> CAPACITA. Lo leggeva la barra per accendere la voce
      attiva; adesso lo legge anche l'indirizzo, per non finire con due verita su
      dove il lettore si trova. */
-  static CAPABILITY_OF = { radarfuturo: 'radarfuturo', radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', etichette: 'etichette', etichetta: 'etichette', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', sala: 'sala', painel: 'painel', search: '' };
+  static CAPABILITY_OF = { radarfuturo: 'radarfuturo', radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', etichette: 'etichette', etichetta: 'etichette', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', sala: 'sala', painel: 'painel', fontes: 'fontes', search: '' };
 
   static VIEW_FROM_HASH() {
     /* «Field Sales» NON E TRA LE VISTE RAGGIUNGIBILI.
@@ -3841,7 +3875,7 @@ class Component extends DCLogic {
        nao mais uma pagina a parte: quem recarrega em #radarfuturo tem de voltar
        aos 44, e nao ao radar. */
     const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
-      'science', 'portfolio', 'archive', 'sources', 'radarfuturo', 'etichette', 'sala', 'painel'];
+      'science', 'portfolio', 'archive', 'sources', 'radarfuturo', 'etichette', 'sala', 'painel', 'fontes'];
     try {
       const h = String((typeof window !== 'undefined' && window.location && window.location.hash) || '').replace(/^#/, '');
       return AMMESSE.includes(h) ? h : 'meeting';
@@ -5807,6 +5841,9 @@ class Component extends DCLogic {
          gerado) e cala-se se ele faltar, como as outras voces. */
       /* CASCO-PAINEL (D78) · o painel de operacao, so de leitura; sem contador (nao e uma populacao). */
       ['painel', s.lang === 'en' ? 'Operations panel · read-only' : 'Pannello operativo · sola lettura', ''],
+      /* CASCO-PAINEL-2 · uma pagina POR FONTE; o contador e o do dono do dado (o painel gerado). */
+      ['fontes', s.lang === 'en' ? 'Per source · read-only' : 'Per fonte · sola lettura',
+        (window.ITALY_PAINEL_OPERACAO && (window.ITALY_PAINEL_OPERACAO.fontes || []).length) || ''],
       ['sala', s.lang === 'en' ? 'Waiting room · read-only' : "Sala d'attesa · sola lettura",
         (window.ITALY_SALA_LEITURA && window.ITALY_SALA_LEITURA.total) || '']
     ];
@@ -5981,7 +6018,44 @@ class Component extends DCLogic {
         coorte: C.coorte, coorteProva: pv(C.coorte.prova), fora, salaDias, salaMedida: C.sala.medidaEm, salaRO: C.sala.soLeitura, salaProva: pv(C.sala.prova), cov,
         sv: C.servico, svProva: pv(C.servico.prova), intelEstado: I.estado, intelRegra: I.regra, travaMedida: I.travaMedidaEm,
         cumpridos: (I.criteriosCumpridos || []).join(' '), emFalta: (I.criteriosEmFalta || []).join(' '), travaProva: pv(I.prova),
-        emenda: I.emenda, defeitos, defeitosProva: pv(I.fonteDosDefeitos), falta };
+        emenda: I.emenda, defeitos, defeitosProva: pv(I.fonteDosDefeitos), falta,
+        /* CASCO-PAINEL-2 · a linha do tempo das instalacoes: o reflog do ramo do vivo (hora, SHA, mensagem). */
+        vivoLocal: PN.vivoLocal || 'NAO SEI',
+        instalacoes: (PN.instalacoes || []).slice(0, 14).map((i) => ({ sha: i.sha, quando: i.quando, msg: i.mensagem,
+          color: /Fast-forward|Merge made/.test(i.mensagem) ? '#7BE0A6' : /reset/.test(i.mensagem) ? '#F5B317' : '#C9C3C1' })) };
+    })();
+    /* ══ CASCO-PAINEL-2 · POR FONTE, SO DE LEITURA ═══════════════════════════════
+       Para cada fonte da coorte (64), das prontas que ficaram fora (com o porque) e das que so aparecem
+       na Sala: quando foi visitada, quantos pedidos gastou, o que deu (itens, datas, lugares) e o que a
+       Admissao decidiu. Tudo do painel gerado (window.ITALY_PAINEL_OPERACAO.fontes); sem nota. */
+    const fontesVM = (() => {
+      const en = s.lang === 'en';
+      const L = en
+        ? { title: 'Per source · read-only', sub: 'what each source gave, when it was visited, how many requests it spent, and why it did not enter', noData: 'The per-source data was not loaded. It is generated outside Git (italy-painel.local.js) and only requested with ?sala=local.',
+            COORTE: 'FROZEN COHORT', PRONTA_FORA_DA_COORTE: 'READY BUT OUTSIDE THE COHORT', SO_NA_SALA: 'ONLY IN THE WAITING ROOM (earlier runs)' }
+        : { title: 'Per fonte · sola lettura', sub: "cosa ha dato ogni fonte, quando e stata visitata, quante richieste ha speso e perche non e entrata", noData: 'I dati per fonte non sono stati caricati. Sono generati fuori da Git (italy-painel.local.js) e si chiedono solo con ?sala=local.',
+            COORTE: 'COORTE CONGELATA', PRONTA_FORA_DA_COORTE: 'PRONTE MA FUORI DALLA COORTE', SO_NA_SALA: "SOLO NELLA SALA D'ATTESA (corse precedenti)" };
+      if (!PN || !PN.fontes) return { has: false, L, grupos: [] };
+      const lst = (xs, n) => (xs && xs.length ? xs.slice(0, n).join(' · ') + (xs.length > n ? ` (+${xs.length - n})` : '') : 'NAO SEI');
+      const adm = (a) => Object.keys(a || {}).length ? Object.entries(a).map(([k, v]) => `${k} ${v}`).join(' · ') : 'nenhuma decisao no livro';
+      const card = (f) => {
+        const u = f.ultimaVisita;
+        return { sid: f.sourceId, univ: f.universo, url: f.indexUrl && f.indexUrl !== 'NAO SEI' ? f.indexUrl : '',
+          porque: f.porqueFora || '', temPorque: !!f.porqueFora,
+          visitas: f.nVisitas ? `${f.nVisitas} visite in ${f.nVisitas} ondate · corse ${f.nCorreu} · richieste ${f.pedidosTotal}` : 'mai visitata in un’ondata misurata',
+          ultima: u ? `${u.onda} · ${u.data} ${u.hora} · ${u.status}${u.porqueNaoCorreu ? ' (' + u.porqueNaoCorreu + ')' : ''} · ${u.pedidos} richieste su ${u.dominio} · nuovi documenti ${u.novosDocumentos}` : 'NAO SEI',
+          canario: f.ultimoCanario && f.ultimoCanario !== 'NAO SEI' ? String(f.ultimoCanario).slice(0, 16).replace('T', ' ') : '',
+          sala: f.salaItens, salaColor: f.salaItens ? '#7BE0A6' : '#8F8886',
+          pub: f.salaPublicacao, datas: lst(f.salaDatasDoFato, 3), lugares: lst(f.salaLugaresDoFato, 3), sede: lst(f.salaLugarDaFonte, 2), adm: adm(f.admissao) };
+      };
+      const grupos = ['COORTE', 'PRONTA_FORA_DA_COORTE', 'SO_NA_SALA'].map((g) => {
+        const fs = PN.fontes.filter((f) => f.grupo === g).sort((a, b) => (b.salaItens - a.salaItens) || a.sourceId.localeCompare(b.sourceId));
+        return { label: L[g], n: fs.length, comItens: fs.filter((f) => f.salaItens).length, cards: fs.map(card) };
+      }).filter((g) => g.n);
+      const pv = (p) => (p && p.ficheiro ? `${p.ficheiro} · sha256 ${p.sha256}… · ${String(p.modificado).slice(0, 16).replace('T', ' ')} UTC` : 'NAO SEI');
+      const pr = PN.fontesProvas || {};
+      return { has: true, L, grupos, gerado: String(PN.gerado).slice(0, 16).replace('T', ' ') + ' UTC', vivo: PN.vivo,
+        provas: [pv(pr.coorte), pv(pr.runs), pv(pr.decisoes), pv(pr.export)] };
     })();
     const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
@@ -12375,6 +12449,7 @@ class Component extends DCLogic {
       isVoices: s.view === 'voices', voices: voices || {}, hasVoices: !!voices,
       isSala: s.view === 'sala', sala: salaVM, salaHas: salaVM.has, salaMissing: !salaVM.has,
       isPainel: s.view === 'painel', pn: painelVM, pnHas: painelVM.has, pnMissing: !painelVM.has,
+      isFontes: s.view === 'fontes', fx: fontesVM, fxHas: fontesVM.has, fxMissing: !fontesVM.has,
       navIntegrations,
       navIntegrationItems,
       /* §14 · Inbound only. The control simulates RECEIPT, never a send. */

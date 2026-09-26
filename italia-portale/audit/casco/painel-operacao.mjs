@@ -135,8 +135,85 @@ const falta = [
     ok: false, prova: prova(OPT.supervisor) },
 ];
 
+// ── D · A LINHA DO TEMPO DAS INSTALACOES (CASCO-PAINEL-2) ─────────────────────
+// Do reflog do ramo do VIVO: a hora em que o vivo passou a cada SHA, e a mensagem. E o registo do proprio
+// Git da arvore do vivo — lido, nunca escrito.
+const RAMO_VIVO = 'servico-20260923-0923';
+const reflog = (() => {
+  try {
+    return execFileSync('git', ['-C', OPT.vivo, 'reflog', 'show', '--date=iso', '--format=%h%x09%gd%x09%gs', RAMO_VIVO],
+      { encoding: 'utf8' }).trim().split('\n').map((l) => {
+      const [h, gd, msg] = l.split('\t');
+      const q = (/@\{([^}]+)\}/.exec(gd) || [])[1] || NS;
+      return { sha: h, quando: q, mensagem: msg };
+    });
+  } catch { return []; }
+})();
+const vivoLocal = (() => { try { return execFileSync('git', ['-C', OPT.vivo, 'rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim(); } catch { return NS; } })();
+
+// ── E · POR FONTE (CASCO-PAINEL-2): a coorte (64) e as prontas que ficaram fora (com o porque) ─────
+// Juntado pelo RUN_ID: as linhas das ondas dizem SOURCE_ID + RUN_ID + pedidos; runs.ndjson (livro de
+// corridas do vivo) diz o que a corrida fez; a Sala diz o que entrou; o livro de decisoes diz o que a
+// Admissao decidiu. Nada e estimado: sem artefacto, o campo fica NAO SEI.
+const runs = new Map();
+const runsF = path.join(OPT.vivo, 'data', 'collection-ledger', 'italy', 'runs.ndjson');
+if (fs.existsSync(runsF)) for (const l of fs.readFileSync(runsF, 'utf8').split('\n')) { if (!l.trim()) continue; try { const r = JSON.parse(l); runs.set(r.RUN_ID, r); } catch { /* linha partida: nao conta */ } }
+const decisoesF = path.join(OPT.vivo, 'data', 'samples', 'LIVRO-DE-DECISOES.json');
+const decPorFonte = {};
+if (fs.existsSync(decisoesF)) for (const d of (ler(decisoesF).DECISOES || [])) {
+  const s = (((d.evidencia || {}).portoes || {}).origem || {}).origem;
+  if (!s) continue;
+  (decPorFonte[s] = decPorFonte[s] || {})[d.resultado] = ((decPorFonte[s] || {})[d.resultado] || 0) + 1;
+}
+const exportSala = OPT.export && fs.existsSync(OPT.export) ? ler(OPT.export) : [];
+const salaPorFonte = {};
+for (const x of exportSala) (salaPorFonte[x.source_id] = salaPorFonte[x.source_id] || []).push(x);
+const visitasPorFonte = {};
+for (const o of ondas) {
+  const d = ler(path.join(o.prova.ficheiro));
+  for (const x of d.FONTES || []) {
+    const r = runs.get(x.RUN_ID) || null;
+    (visitasPorFonte[x.SOURCE_ID] = visitasPorFonte[x.SOURCE_ID] || []).push({
+      onda: o.nome, data: o.data, hora: x.HORA || NS, correu: !!x.CORREU, status: x.STATUS || NS, porqueNaoCorreu: x.PORQUE_NAO_CORREU || null,
+      runId: x.RUN_ID || null, pedidos: soma(x.PEDIDOS_POR_DOMINIO || x.PEDIDOS_POR_SITE), dominio: x.DOMINIO || Object.keys(x.PEDIDOS_POR_SITE || {})[0] || NS,
+      novosDocumentos: r ? (r.contadores || {}).NEW_DOCUMENTS : NS, inicioCorrida: r ? r.STARTED_AT : NS });
+  }
+}
+const distintos = (xs) => [...new Set(xs.filter((v) => v && v !== 'NAO SEI'))];
+function fonte(sid, grupo, extra) {
+  const itens = salaPorFonte[sid] || [];
+  const visitas = visitasPorFonte[sid] || [];
+  const ultima = visitas[visitas.length - 1] || null;
+  const pubs = distintos(itens.map((i) => String(i.published_at || '').slice(0, 10))).sort();
+  return Object.assign({
+    sourceId: sid, grupo, visitas, nVisitas: visitas.length, nCorreu: visitas.filter((v) => v.correu).length,
+    pedidosTotal: visitas.reduce((a, v) => a + (v.pedidos || 0), 0), ultimaVisita: ultima,
+    salaItens: itens.length, salaDatasDoFato: distintos(itens.map((i) => i.fact_time)), salaLugaresDoFato: distintos(itens.map((i) => i.fact_location)),
+    salaPublicacao: pubs.length ? `${pubs[0]}${pubs.length > 1 ? ' → ' + pubs[pubs.length - 1] : ''}` : NS,
+    salaLugarDaFonte: distintos(itens.map((i) => i.source_location)),
+    admissao: decPorFonte[sid] || {},
+  }, extra);
+}
+const fontes = [
+  ...(coorte.COORTE || []).map((x) => fonte(x.SOURCE_ID, 'COORTE', { universo: x.UNIVERSO, indexUrl: x.INDEX_URL,
+    ultimoCanario: ((x.ULTIMO_CANARIO || {}).OBSERVED_AT) || NS, porqueFora: null })),
+  ...(coorte.FORA || []).map((x) => fonte(x.SOURCE_ID, 'PRONTA_FORA_DA_COORTE', { universo: x.UNIVERSO, indexUrl: x.INDEX_URL || NS,
+    ultimoCanario: NS, porqueFora: (x.FALTA || [NS]).join(' + ') })),
+];
+const naLista = new Set(fontes.map((f) => f.sourceId));
+const naSalaForaDaLista = Object.keys(salaPorFonte).filter((s) => !naLista.has(s)).sort();
+// fontes que JA deram itens a Sala mas nao estao na coorte atual nem nas prontas: mostradas a parte, para
+// que a pagina por fonte nao esconda de onde veio nenhum item da Sala
+for (const s of naSalaForaDaLista) {
+  fontes.push(fonte(s, 'SO_NA_SALA', { universo: (salaPorFonte[s][0] || {}).universo || NS, indexUrl: NS, ultimoCanario: NS,
+    porqueFora: 'nao esta na coorte congelada atual nem nas prontas que ficaram fora (deu itens em ondas/corridas anteriores)' }));
+}
+
 const pacote = {
-  gerado: new Date().toISOString(), vivo: vivoHead,
+  gerado: new Date().toISOString(), vivo: vivoHead, vivoLocal,
+  instalacoes: reflog, fontes, naSalaForaDaLista,
+  fontesProvas: { coorte: prova(coorteF), runs: fs.existsSync(runsF) ? prova(runsF) : NS, decisoes: fs.existsSync(decisoesF) ? prova(decisoesF) : NS,
+    export: OPT.export && fs.existsSync(OPT.export) ? prova(OPT.export) : NS },
   coleta: {
     ondas, teto: TETO, ultimaOnda: ultima ? ultima.nome : NS, dominiosUltima,
     coorte: { estado: coorte.ESTADO, congeladaEm: (coorte.CONGELAMENTO || {}).EM || NS, dentro: (coorte.COORTE || []).length,
@@ -159,6 +236,6 @@ const js = '/* GERADO por italia-portale/audit/casco/painel-operacao.mjs — for
   + 'window.ITALY_PAINEL_OPERACAO = ' + JSON.stringify(pacote) + ';\n';
 fs.writeFileSync(path.join(CLIENTE, 'italy-painel.local.js'), js);
 if (OPT.copia) fs.writeFileSync(OPT.copia, js);
-console.log(JSON.stringify({ vivo: vivoHead, ondas: ondas.map((o) => [o.nome, o.data, o.fontes, o.correram, o.pedidos, o.maxPorDominio, `${o.salaAntes}->${o.salaDepois}`]),
+console.log(JSON.stringify({ vivo: vivoHead, vivoLocal, instalacoes: reflog.length, fontes: fontes.length, naSalaForaDaLista, ondas: ondas.map((o) => [o.nome, o.data, o.fontes, o.correram, o.pedidos, o.maxPorDominio, `${o.salaAntes}->${o.salaDepois}`]),
   coorte: pacote.coleta.coorte.dentro + '/' + pacote.coleta.coorte.fora, defeitos: DEFEITOS.map((d) => d.defeito + ':' + d.estado),
   emenda: emenda.head, falta: falta.map((f) => f.condicao + ' => ' + f.estado) }, null, 1));
