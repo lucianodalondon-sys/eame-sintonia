@@ -1,8 +1,7 @@
-# INTEGRA-NOITE · LOTE 3 — sobre o lote 2 instalado (`278cd489`)
+# INTEGRA-NOITE · LOTE 3 — sobre o vivo `dc0de726` (lote 2 + rodada1-comando)
 
-Ramo `integra-noite-v3`, a partir do vivo `278cd489` (lote 2, instalado às 14:00). **NÃO instalado.**
-Estado: **em curso** — decisões DA-20 aplicadas e provadas; falta a fase pesada, o rebase sobre o
-`rodada1-comando-v1` (quando a coordenação avisar) e o mapa único.
+Ramo `integra-noite-v3`, nascido do vivo `278cd489` (lote 2) e junto com o vivo **`dc0de726`**
+(`rodada1-comando-v1`, instalado 17:35 — aviso da coordenação). **ff-only sobre `dc0de726`: SIM.** **NÃO instalado.**
 
 ## 1 · Os pacotes
 
@@ -18,7 +17,13 @@ Migrações: a **036** (dedup-doc) está no ramo como ficheiro, mas **NÃO entra
 MIGRACOES-EM-SERIE, DA-19) — ver §5 e o plano. A `034_o_acervo_guarda_tempo_e_lugar…` do extratores é o MESMO blob
 (`407e7c6c`) que já está no vivo desde o lote 1. A 037 do lote3-social está em `supabase/propostas/` (não é migração).
 
-## 2 · Testes por NOME contra o vivo `278cd489` (mesmos dados, rede fechada, pastas com o nome do vivo)
+## 2 · Testes por NOME contra o vivo (mesmos dados, rede fechada, pastas com o nome do vivo)
+
+**Contra o vivo `dc0de726` (final)** — `provas/integra_noite/lote3-{ramo,vivo}-v3.json` (sha256 `f058c95b…` /
+`b4ca7941…`): 85 módulos (o `test_quatro_chaves_na_sala` passou para a fase pesada); **1.198** no ramo, **1.014** no
+vivo; **0 novas**; as mesmas **98 herdadas**; `test_rodadas` 38/38 nos dois lados.
+
+Contra o vivo `278cd489` (antes do aviso das 17:35):
 
 **Depois da DA-20** — `provas/integra_noite/lote3-{ramo,vivo}-v2.json` (sha256 `f67843d9…` / `3723eb83…`):
 86 módulos; **1.211** testes no ramo, **1.027** no vivo; **0 novas**; **98 herdadas**, iguais nome a nome
@@ -73,11 +78,12 @@ P1 a trava do período desligada · P2 «UNKNOWN» passa por prova · P3 «NAO S
 **sobreviveu**: a condição tinha uma 2.ª metade redundante (a falta de base já chega como «NAO SEI», que a busca
 apanha) — saiu do código (`fd40775c`), não se inventou teste para ela.
 
-## 5 · O rodada1-comando-v1 (c9c3be6a) — antes do lote 3
+## 5 · O rodada1-comando-v1 — junto (vivo `dc0de726`)
 
-Instala-se antes (onda das 19:58). Medido sem mexer no ramo (`git merge-tree`): **junta sem conflito**, nenhum
-ficheiro em comum com o lote 3 (7 ficheiros, todos das rodadas). Traz `ferramentas/big_collection/ensaio_rodada.py`
-sem peça no mapa — declaro-o em C-ONDA-WEB (com `rodadas.py`) no rebase. O rebase faz-se quando a coordenação avisar.
+Junto por `merge` (não `rebase`: a história dos pacotes fica como está e o ramo contém o vivo → ff-only).
+Nenhum ficheiro em comum com o lote 3 (só as rodadas). Conflito **só na ficha do mapa**: os dois lados acrescentaram
+ao fim da lista de C-ONDA-WEB; aplicado o único acréscimo do rodada1-comando (`ensaio_rodada.py`), medido contra a
+base `278cd489` — nenhuma remoção nem campo mudado.
 
 ## 6 · Fase pesada (LOCK-PESADO) e mapa
 
@@ -88,10 +94,12 @@ Mapa único: depois do rebase.
 ## 7 · Plano único de instalação (o coordenador instala; um escritor; sem rede)
 
 **A · Código (tudo de uma vez, ff-only, robô PARADO):**
-1. `curadoria/PARAR.flag`; esperar a volta acabar. Guardar `git rev-parse HEAD` (= o vivo de então, com o
-   rodada1-comando), `git status` e `sha256sum` dos livros `M` (18 na instalação do lote 2).
+1. `curadoria/PARAR.flag`; esperar a volta acabar. Guardar `git rev-parse HEAD` (= `dc0de726`), `git status` e
+   `sha256sum` dos livros `M` (**17** às 17:40, só leitura; 18 na instalação do lote 2 — contar na hora).
 2. `git merge --ff-only <SHA do PRONTO>`.
-3. Os livros: `git status` e sha256 IGUAIS ao passo 1 (o writeset não toca nenhum — medido no PRONTO).
+3. Os livros: `git status` e sha256 IGUAIS ao passo 1. Medido às 17:40: o writeset (`dc0de726`..ramo) não toca
+   nenhum dos 17; nenhum ficheiro do writeset está solto ou `M` no vivo; em `data/` só entram **49 provas NOVAS**
+   (`data/derivados/EXTRATORES-V2-JUNTOS|EXTRATOR-EVENTO-V2|PERIODO-E-CHAVES`), nenhuma mudada.
 4. `correr_a_cadeia.py VALIDAR` (o P1 acusa os livros `M`: aceitar SÓ se a lista for exatamente essa) e
    `PORTOES_POS_COMMIT` → IGUAL. Repor os gerados que o validador reescreve pelo nome.
 5. **NÃO correr `motor/cadeia_canonica.sh migrations`** — aplicaria a 034 antiga e a 036 (DA-19/DA-20 3).
@@ -127,5 +135,5 @@ Mapa único: depois do rebase.
 
 **⚠️ Red team da ponte:** nunca na pasta viva.
 
-**Desfazer (código):** `PARAR.flag`; guardar `git status`/`git diff`; `git reset --keep <vivo de antes>`;
+**Desfazer (código):** `PARAR.flag`; guardar `git status`/`git diff`; `git reset --keep dc0de726`;
 reiniciar o supervisor.
