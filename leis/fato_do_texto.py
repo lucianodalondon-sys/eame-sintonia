@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """O LUGAR E O TEMPO DO FACTO, TIRADOS DO TEXTO — os quatro campos da Sala, com a prova e o TIPO.
 
-    campos_do_fato(texto, publication_time=None, publication_time_basis=None) -> dict
+    campos_do_fato(texto, publication_time=None, publication_time_basis=None, *, titulo=None, descricao=None) -> dict
 
 Funcao PURA (sem rede, sem banco, sem ficheiros): recebe o texto de UM documento e devolve
 
@@ -659,13 +659,14 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
             x["KIND"], x["PORQUE"] = None, "frase institucional (exame, aula, curso…): não é facto do agro"
         elif _RE_RECOMENDACAO.search(frase):
             x["KIND"], x["PORQUE"] = None, "conselho / recomendação: não é facto acontecido"
-        elif (_regra(x["EXPRESSAO"])[1] or 0) > 0 or _RE_FUTURO.search(frase):
-            # EXTRATOR-EVENTO-V2: «domani», «la prossima settimana», e qualquer relativa numa frase de
-            # previsao falam do que AINDA NAO aconteceu — evidencia, nunca data do facto
-            x["KIND"], x["PORQUE"] = None, "futuro / previsão: o que ainda não aconteceu não é facto ocorrido"
         else:
             x["KIND"] = CAMPO if _relativa_presa_ao_campo(frase) else EVENTO if _RE_EVENTO.search(frase) else None
             x["PORQUE"] = None if x["KIND"] else "a frase não fala de um acontecimento nem de um evento técnico"
+            if x["KIND"] == CAMPO and ((_regra(x["EXPRESSAO"])[1] or 0) > 0 or _RE_FUTURO.search(frase)):
+                # EXTRATOR-EVENTO-V2: «domani», «la prossima settimana», e qualquer relativa numa frase de
+                # previsao falam do que AINDA NAO aconteceu no campo — evidencia, nunca data do facto.
+                # O EVENTO tecnico anunciado («il convegno si terrà domani») continua EVENTO (D62).
+                x["KIND"], x["PORQUE"] = None, "futuro / previsão: o que ainda não aconteceu no campo não é facto ocorrido"
         cr, porque = verificar_relativa(x["EXPRESSAO"], x["TRECHO"], pub)
         if porque:
             x["PORQUE"] = porque
