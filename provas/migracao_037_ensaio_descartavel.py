@@ -39,8 +39,11 @@ PROG = ("import sys; sys.path[:0]=['.','orquestrador']; import _gavetas; import 
 
 
 def psql(url, sql, *, falhar=True):
-    r = subprocess.run([PSQL, "-X", "-A", "-t", "-v", "ON_ERROR_STOP=1", "-d", url, "-c", sql],
-                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    # O SQL vai pela ENTRADA em UTF-8, nunca pela linha de comando: no Windows a linha de comando
+    # chega ao psql noutra codificacao, e o `·` do comentario da 037 rebentou o 1.o ensaio (0xb7).
+    r = subprocess.run([PSQL, "-X", "-A", "-t", "-v", "ON_ERROR_STOP=1", "-d", url, "-f", "-"],
+                       input=sql, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                       env=dict(os.environ, PGCLIENTENCODING="UTF8"))
     if falhar and r.returncode:
         raise RuntimeError(r.stderr[-500:])
     return r
