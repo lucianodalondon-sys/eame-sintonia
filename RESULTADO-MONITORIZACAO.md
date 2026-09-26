@@ -48,7 +48,7 @@ uova/individui/esemplari…), PERCENTAGEM (só com contexto de infestação — 
 (≥ 2 números + local/armadilha/praga; morada/telefone/CAP nunca). Cada linha: DATA (da linha, senão do documento),
 LOCAL (texto antes do 1.º número), NUMEROS, PRAGA (da linha ou da última citada), CULTURA, NUMERO_DA_LINHA.
 Por domínio ≤ 5 pedidos **contando o robots** (4 PDFs), robots cumprido, portão por domínio, HTML no lugar do PDF → `NAO_E_PDF`.
-Testes **12/12**; mutação **9/9**. Nos PDFs reais do acervo acima: Salerno 24 CONTAGEM, APOL 82 TABELA, ARIF 16 VOO.
+Testes **11/11**; mutação **9/9**. Nos PDFs reais do acervo acima: Salerno 24 CONTAGEM, APOL 82 TABELA, ARIF 16 VOO.
 
 `curadoria/LOTE-PDF-MONITORIZACAO.json` — **9 PDFs**, endereços tirados dos links das páginas guardadas (nenhum escrito à mão):
 ERSA **cimice 18/08**, pero n.19, drupacee n.19, nocciolo n.5 · Umbria **olivo n.13 (25/09) e n.12 (18/09)**, vite n.21,
