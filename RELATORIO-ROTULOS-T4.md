@@ -52,7 +52,9 @@ antes de ler) → `provas/rotulo-t4/MEDIDA-163.json`;
 `provas/amostra_doses_rotulo_t4.py` (sorteio reprodutível) →
 `provas/rotulo-t4/AMOSTRA-DOSES-S20260926.txt`.
 
-**Mapa** — ficheiros novos declarados na peça `C-ROTULOS`
+**Mapa** — o parser entra na peça `C-ROTULOS` (Z-ACOES, gaveta `coleta/`); as provas
+numa peça nova, `C-PROVA-ROTULOS-T4` (Z-PROVA, gaveta `provas/`), porque a regra
+`P2_PASTA_BATE_COM_MAPA` não deixa uma peça reclamar ficheiros de outra gaveta
 (`system-map/data/architecture.declared.json`).
 
 ## 3. Resultado nos 163 rótulos reais
