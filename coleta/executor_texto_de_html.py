@@ -667,6 +667,28 @@ def evidencia_relativa(r: dict) -> dict:
             "RELATIVE_TIME_BASIS": "%s «%s»" % (r["BASE"], r["EXPRESSAO"])}
 
 
+def receita(dados: bytes) -> dict:
+    """Os `parameters` do derivado: o que DEFINE o artefato, nunca o que a maquina mede.
+
+    ⚠️ A DESCRICAO DO VIDEO ENTRA NA RECEITA SO QUANDO ENTROU NO TEXTO
+    (ACERVO-PARA-SALA-2, 26/09/2026). Numa pagina `watch?v=` o texto passou a levar a
+    descricao do autor (`texto_fonte.descricao_do_youtube`); a mesma receita a dar outro
+    texto seria DERIVATION_DRIFT, e com razao. Nas outras paginas nada muda: a receita e
+    a mesma de antes e o derivado antigo e reencontrado (REUSED).
+    """
+    from coleta.texto_fonte import descricao_do_youtube  # noqa: PLC0415
+    fora = {
+        "TEXT_KIND": TEXT_KIND,
+        "TEXT_RELATION": TEXT_RELATION,
+        "TEXT_BASIS": TEXT_BASIS,
+        "DERIVATION_METHOD": METODO,
+        "TEXT_OWNER": CAPACIDADE["TEXT_OWNER"],
+    }
+    if descricao_do_youtube(dados):
+        fora["VIDEO_DESCRIPTION_OWNER"] = "coleta/texto_fonte.py::descricao_do_youtube"
+    return fora
+
+
 def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,
                contexto_da_passagem=None) -> dict:
     """Um HTML, um pai canónico, um texto — pelo dono da escrita.
@@ -731,13 +753,7 @@ def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,
     # primeira linha em vez de escrever uma segunda.
     #
     #     O QUE VARIA ENTRE DUAS CORRIDAS IGUAIS NÃO É IDENTIDADE: É MEDIDA.
-    parametros = {
-        "TEXT_KIND": TEXT_KIND,
-        "TEXT_RELATION": TEXT_RELATION,
-        "TEXT_BASIS": TEXT_BASIS,
-        "DERIVATION_METHOD": METODO,
-        "TEXT_OWNER": CAPACIDADE["TEXT_OWNER"],
-    }
+    parametros = receita(dados)
 
     # ── A UNIDADE DE TEXTO, MONTADA E CONFERIDA PELO DONO ───────────────────
     # O construtor e o validador vêm de `regras/proveniencia.py`, e correm

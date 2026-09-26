@@ -138,7 +138,13 @@ def main():
                 except ValueError:
                     pass
             extra = []
+            # ⚠️ SO O LIVRO DO MESMO NOME. A v2 juntava os dois: os recibos de corrida (runs.ndjson,
+            # sem SOURCE_ID) entravam no livro de observacoes, cada corrida ganhava uma unidade sem
+            # fonte e a porta recusava o envelope inteiro — 178 corridas «ENVELOPE_INVALIDO» que
+            # eram defeito DESTE ensaio, nao do robo (medido em ACERVO-PARA-SALA-2).
             for padrao in a.livros.split(";"):
+                if os.path.basename(padrao.replace("\\", "/")) != nome:
+                    continue
                 for f in sorted(glob.glob(padrao)):
                     for l in open(f, encoding="utf-8", errors="replace"):
                         l = l.rstrip("\n")
