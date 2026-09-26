@@ -387,3 +387,24 @@ class P6_NavegadorReal(unittest.TestCase):
     def test_as_capacidades_antigas_nao_mudam_de_promessa(self):
         self.assertTrue(self.cap.promete_resultado("telegram.channel.incremental"))
         self.assertTrue(self.cap.ativa("telegram.channel.incremental"))
+
+
+class A_MedirFeedsComRede(unittest.TestCase):
+    def test_um_pedido_por_fonte_e_o_robots_tudo_pelo_portao(self):
+        sys.path.insert(0, str(RAIZ / "provas" / "scrap_evolucao"))
+        import medir_feeds_com_rede as M
+        tmp = Path(self.enterContext(tempfile.TemporaryDirectory(prefix="feeds-rede-")))
+        pedidos, egressos = [], []
+        rss = b"<rss><item><link>https://%s/n/a/</link><pubDate>Thu, 24 Sep 2026</pubDate></item></rss>"
+
+        def pedido(url):
+            pedidos.append(url)
+            return 200, rss % url.split("/")[2].encode(), "", url, None
+        r = M.main(str(tmp), None, str(tmp / "s"), egresso=lambda: egressos.append(1) or {"EGRESS_COUNTRY_CODE": "IT"},
+                   janela=lambda *a: None, robots=lambda u: (True, "ok"), pedido=pedido)
+        self.assertEqual(len(r), 14)
+        self.assertEqual(len(pedidos), 14)                       # 1 feed por fonte, nada mais
+        self.assertEqual(egressos, [1])                          # egresso provado uma vez
+        self.assertTrue(all(sum(x["PEDIDOS_POR_DOMINIO"].values()) == 2 for x in r.values()))   # robots + feed
+        self.assertTrue(all(x["COM_DATA_DE_PUBLICACAO"] == 1 and x["ITENS_DO_SITE"] == 1 for x in r.values()), r)
+        self.assertFalse(any("/comments/feed" in u for u in pedidos))
