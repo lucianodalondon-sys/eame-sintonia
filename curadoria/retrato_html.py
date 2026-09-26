@@ -54,6 +54,11 @@ _TAG = re.compile(r"<[^>]+>")
 _ENTIDADE = re.compile(r"&(#x[0-9a-f]+|#\d+|[a-z]+);", re.I)
 _ENTIDADES = {"amp": "&", "lt": "<", "gt": ">", "quot": "\"", "apos": "'", "nbsp": " "}
 _BRANCOS = re.compile(r"\s+")
+# As chamadas «leia mais» de uma LISTA: cada item de uma pagina de lista traz a sua.
+# Contadas no HTML visivel (sem script/style), como as ligacoes.
+_LEIA_MAIS = re.compile(
+    r"\b(leggi\s+tutto|leggi\s+di\s+pi[uù]|continua\s+a\s+leggere|read\s+more|scopri\s+di\s+pi[uù])\b",
+    re.I)
 
 
 def _desentidar(s: str) -> str:
@@ -103,6 +108,7 @@ def retrato_do_html(b: bytes) -> dict:
         "NON_WHITESPACE_CHARACTERS": sem_brancos,
         "PARAGRAPH_CHARACTERS": paragrafo,
         "LINKS": ligacoes,
+        "READ_MORE_LINKS": len(_LEIA_MAIS.findall(fonte)),
         "HTML_KIND": kind,
         "CAPA_OU_MATERIA": ("MATERIA_PROVAVEL" if kind == "CONTENT"
                             else "CAPA_PROVAVEL" if kind == "NAVIGATION"
@@ -133,6 +139,32 @@ V1_LIGADA = True
 REGRA_V1 = "V1_INDEX_URL_E_CAPA"
 
 
+# ── V2: A LISTA QUE PARECE MATERIA (C2-JUIZ, 2026-09-26) ─────────────────────
+# Na 3.a onda o formato deu CONTENT a `sostenibilita.enea.it/eventi/meeting-
+# internazionali-0` (IT-T5-186, raw 1520): uma LISTA de eventos, cada um com o seu
+# «Leggi tutto su …» (10 na pagina). Entrou na Sala com a data de um evento e o
+# lugar de outro. O formato mede a pagina inteira e nao ve que o texto e de VARIOS.
+#
+# A regra so APERTA: materia com >= 6 chamadas «leia mais» passa a CAPA_PROVAVEL.
+# Medido antes de escolher (GABARITO-CAPA-V1, 146 paginas; 3.a onda, 75 HTML):
+#   · no gabarito, capas que atravessam 63 -> 58; materias barradas 6 -> 7;
+#   · na 3.a onda, a noticia com mais «leia mais» tem 4 (Riunite, barra lateral);
+#     a lista ENEA tem 10. Limiar 6 = o meio; margem de UM exemplo, declarada.
+# A regra irma (data de publicacao salvaria a noticia curta com menu grande) foi
+# MEDIDA E RECUSADA: no gabarito deixava passar 11 capas para salvar 2 noticias.
+#
+#     O PAR TEM DE MUDAR JUNTO: `coleta/retrato_html.mjs` tem a mesma regra.
+V2_LIGADA = True
+REGRA_V2 = "V2_LISTA_COM_LEIA_MAIS"
+LEIA_MAIS_MINIMO = 6
+
+
+def e_lista_com_leia_mais(retrato: dict | None) -> bool:
+    r = retrato or {}
+    return (V2_LIGADA and r.get("CAPA_OU_MATERIA") == "MATERIA_PROVAVEL"
+            and (r.get("READ_MORE_LINKS") or 0) >= LEIA_MAIS_MINIMO)
+
+
 def e_o_indice_do_contrato(url: str, contrato: dict | None) -> bool:
     aq = (contrato or {}).get("ACQUISITION") or {}
     if aq.get("STRATEGY") != "HTML_LINK_DISCOVERY":
@@ -149,10 +181,18 @@ def veredito(retrato: dict | None, *, url: str | None, contrato: dict | None,
 
     `url`, `contrato` e `regua_a_mandar` sao OBRIGATORIOS por nome: um chamador
     esquecido rebenta, em vez de julgar calado sem a regra."""
+    return regra_e_veredito(retrato, url=url, contrato=contrato, regua_a_mandar=regua_a_mandar)[1]
+
+
+def regra_e_veredito(retrato: dict | None, *, url: str | None, contrato: dict | None,
+                     regua_a_mandar: bool) -> tuple:
+    """(regra que mudou o detector ou None, CAPA_OU_MATERIA). V1 antes de V2."""
     k = (retrato or {}).get("CAPA_OU_MATERIA")
     if V1_LIGADA and regua_a_mandar is True and url and e_o_indice_do_contrato(url, contrato):
-        return "CAPA_PROVAVEL"
-    return k
+        return (REGRA_V1 if k != "CAPA_PROVAVEL" else None), "CAPA_PROVAVEL"
+    if e_lista_com_leia_mais(retrato):
+        return REGRA_V2, "CAPA_PROVAVEL"
+    return None, k
 
 
 def gate_capa_nao_e_materia(contrato: dict, retrato: dict, *, url: str | None,
@@ -173,12 +213,15 @@ def gate_capa_nao_e_materia(contrato: dict, retrato: dict, *, url: str | None,
         return None
     if not retrato:
         return None
-    k = veredito(retrato, url=url, contrato=contrato, regua_a_mandar=regua_a_mandar)
+    regra, k = regra_e_veredito(retrato, url=url, contrato=contrato, regua_a_mandar=regua_a_mandar)
     if k != "CAPA_PROVAVEL":
         return None
-    if retrato.get("CAPA_OU_MATERIA") != "CAPA_PROVAVEL":
+    if regra == REGRA_V1:
         return ("CAPA_NAO_E_MATERIA (%s): a pagina e o proprio INDEX_URL do contrato, e a "
                 "fonte passa os 4 passos" % REGRA_V1)
+    if regra == REGRA_V2:
+        return ("CAPA_NAO_E_MATERIA (%s): pagina de lista, %d chamadas «leia mais»"
+                % (REGRA_V2, retrato.get("READ_MORE_LINKS") or 0))
     return ("CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece "
             "listagem/navegacao (%d ligacoes para %d caracteres, %d em paragrafos)"
             % (retrato["LINKS"], retrato["NON_WHITESPACE_CHARACTERS"],

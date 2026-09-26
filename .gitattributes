@@ -41,3 +41,7 @@ data/collection-ledger/**/*.log     merge=union
 # D15: a prova dos termos (LinkedIn/Instagram) tem de bater byte a byte com o sha256
 # registado em candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json.
 candidatas/prova-termos/** -text -diff
+
+# C2-JUIZ: os 8 casos reais da 3.a onda (7 de CAPAS-A-CONFIRMAR + a lista ENEA) sao conferidos pelo
+# SHA-256 do raw_asset da Sala; sem -text o autocrlf mudava os bytes e o teste caia.
+tests/dados/c2-juiz/** -text

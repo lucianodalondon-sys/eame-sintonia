@@ -30,6 +30,8 @@ const INVISIVEL = /<(script|style|noscript|template)\b[^>]*>[\s\S]*?<\/\1\s*>|<!
 const PARAGRAFO = /<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi;
 const LIGACAO = /<a\b[^>]*\bhref\s*=/gi;
 const TAG = /<[^>]+>/g;
+// As chamadas «leia mais» de uma LISTA (gemeo de `_LEIA_MAIS` em curadoria/retrato_html.py).
+const LEIA_MAIS = /(?<![\p{L}\p{N}_])(leggi\s+tutto|leggi\s+di\s+pi[uù]|continua\s+a\s+leggere|read\s+more|scopri\s+di\s+pi[uù])(?![\p{L}\p{N}_])/giu;
 const ENTIDADES = { amp: "&", lt: "<", gt: ">", quot: "\"", apos: "'", nbsp: " " };
 
 function desentidar(s) {
@@ -68,6 +70,7 @@ export function retratoDoHtml(buf) {
     NON_WHITESPACE_CHARACTERS: semBrancos,
     PARAGRAPH_CHARACTERS: paragrafo,
     LINKS: ligacoes,
+    READ_MORE_LINKS: (fonte.match(LEIA_MAIS) || []).length,
     HTML_KIND: kind,
     CAPA_OU_MATERIA: kind === "CONTENT" ? "MATERIA_PROVAVEL" : kind === "NAVIGATION" ? "CAPA_PROVAVEL" : "NAO_SEI",
   };
@@ -105,13 +108,32 @@ function opcoesObrigatorias(opcoes) {
   }
 }
 
-export function veredito(retrato, contrato, opcoes) {
+// ── V2: A LISTA QUE PARECE MATERIA (C2-JUIZ, 2026-09-26) ─────────────────────
+// Gemeo de `curadoria/retrato_html.py` (V2): materia com >= 6 chamadas «leia mais»
+// e CAPA_PROVAVEL. O porque e a medicao estao la; mudar um lado sem o outro e
+// criar um segundo juiz.
+export const V2_LIGADA = true;
+export const REGRA_V2 = "V2_LISTA_COM_LEIA_MAIS";
+export const LEIA_MAIS_MINIMO = 6;
+
+export function eListaComLeiaMais(retrato) {
+  const r = retrato || {};
+  return V2_LIGADA && r.CAPA_OU_MATERIA === "MATERIA_PROVAVEL" && (r.READ_MORE_LINKS || 0) >= LEIA_MAIS_MINIMO;
+}
+
+// [regra que mudou o detector ou null, CAPA_OU_MATERIA]. V1 antes de V2.
+export function regraEVeredito(retrato, contrato, opcoes) {
   opcoesObrigatorias(opcoes);
   const k = retrato ? retrato.CAPA_OU_MATERIA : undefined;
   if (V1_LIGADA && opcoes.reguaAMandar === true && opcoes.url && eOIndiceDoContrato(opcoes.url, contrato)) {
-    return "CAPA_PROVAVEL";
+    return [k !== "CAPA_PROVAVEL" ? REGRA_V1 : null, "CAPA_PROVAVEL"];
   }
-  return k;
+  if (eListaComLeiaMais(retrato)) return [REGRA_V2, "CAPA_PROVAVEL"];
+  return [null, k];
+}
+
+export function veredito(retrato, contrato, opcoes) {
+  return regraEVeredito(retrato, contrato, opcoes)[1];
 }
 
 // O GATE: um contrato que declara ITENS DE DETALHE (HTML_LINK_DISCOVERY com
@@ -124,9 +146,13 @@ export function gateCapaNaoEMateria(contrato, retrato, opcoes) {
   if (!aq || aq.STRATEGY !== "HTML_LINK_DISCOVERY") return null;
   if (String(contrato.OUTPUT_TYPE || "").toUpperCase() !== "HTML") return null;
   if (!retrato) return null;
-  if (veredito(retrato, contrato, opcoes) !== "CAPA_PROVAVEL") return null;
-  if (retrato.CAPA_OU_MATERIA !== "CAPA_PROVAVEL") {
+  const [regra, k] = regraEVeredito(retrato, contrato, opcoes);
+  if (k !== "CAPA_PROVAVEL") return null;
+  if (regra === REGRA_V1) {
     return `CAPA_NAO_E_MATERIA (${REGRA_V1}): a pagina e o proprio INDEX_URL do contrato, e a fonte passa os 4 passos`;
+  }
+  if (regra === REGRA_V2) {
+    return `CAPA_NAO_E_MATERIA (${REGRA_V2}): pagina de lista, ${retrato.READ_MORE_LINKS || 0} chamadas «leia mais»`;
   }
   return `CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao `
        + `(${retrato.LINKS} ligacoes para ${retrato.NON_WHITESPACE_CHARACTERS} caracteres, ${retrato.PARAGRAPH_CHARACTERS} em paragrafos)`;

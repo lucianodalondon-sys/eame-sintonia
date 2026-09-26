@@ -600,13 +600,13 @@ def _e_materia(item: dict) -> tuple:
     rh = _da_curadoria("retrato_html")
     # Uma so trava: `regua_a_mandar`. O contrato vai sempre (o veredito e que o ignora
     # sem a regua) — duas travas para a mesma coisa escondiam-se uma a outra no ataque.
-    k = rh.veredito(retrato, url=url, contrato=_contrato_da_fonte(fonte),
-                    regua_a_mandar=regua)
+    regra, k = rh.regra_e_veredito(retrato, url=url, contrato=_contrato_da_fonte(fonte),
+                                   regua_a_mandar=regua)
     ev["url_da_pagina"] = url
     ev["regua_a_mandar"] = regua
     julgado = retrato
     if k != retrato.get("CAPA_OU_MATERIA"):
-        ev["v1"] = {"REGRA": rh.REGRA_V1, "DETECTOR": retrato.get("CAPA_OU_MATERIA"), "VEREDITO": k}
+        ev["v1"] = {"REGRA": regra, "DETECTOR": retrato.get("CAPA_OU_MATERIA"), "VEREDITO": k}
         julgado = dict(retrato, CAPA_OU_MATERIA=k)
     pns = _politica_nao_sei()
     d = pns.decidir(julgado, pns.QUARENTENA)
@@ -618,6 +618,12 @@ def _e_materia(item: dict) -> tuple:
         # a fonte e a observacao-pai (os bytes vivem no armazem pelo raw_asset).
         ev["fonte"] = fonte
         ev["raw_asset_id"] = item.get("raw_asset_id")
+        if ev.get("v1") and regra == rh.REGRA_V2:
+            # C2-JUIZ (2026-09-26): a lista que o formato deu por materia. Barrada como a
+            # V1 (e regra provada, nao duvida do detector): fica no livro e volta no replay.
+            return NAO, ("V2: pagina de lista (%d chamadas «leia mais») que o formato deu por "
+                         "materia — e capa, nao materia; fica no livro e volta no replay"
+                         % (retrato.get("READ_MORE_LINKS") or 0)), ev
         if ev.get("v1"):
             return NAO, ("V1: a pagina e o proprio INDEX_URL do contrato, e a fonte passa os 4 "
                          "passos — e capa, nao materia; fica no livro e volta no replay"), ev
