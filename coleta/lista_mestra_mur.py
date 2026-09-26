@@ -223,6 +223,10 @@ def rodada(n, mur, rodadas, saida, pausa=T6.PAUSA):
     cruz = cruzar(mur, autores_das_obras(rodadas))
     falta = [p for p in cruz if p['ESTADO'] in ('NAO_ENCONTRADO', 'SO_NOME')
              and p['MUR_NOME'] + '|' + p['ATENEO'] not in est['ORCID_PROCURADOS']]
+    # ORDEM (medida, nao gosto): 5 dos 8 problemas do casco sao insectos, e as 12 consultas por par
+    # trouxeram mais patologia (84 ligados em AGRI-05/B) do que entomologia (45 em AGRI-05/A).
+    # Entomologia primeiro; dentro do setor, a ordem do MUR (alfabetica). Nao e ranking de pessoa.
+    falta.sort(key=lambda p: (0 if (p.get('SSD_2024') or '').endswith('/A') else 1, p['MUR_NOME']))
     reg = {'RODADA': n, 'PEDIDOS': {d: 0 for d in T6.DOMINIOS}, 'RESPOSTAS': []}
 
     def anotar(dom, nome, d, ok, porque):
