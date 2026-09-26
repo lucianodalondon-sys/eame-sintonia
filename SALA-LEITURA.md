@@ -1,6 +1,6 @@
 # SALA-LEITURA — D9 e D10
 
-Missão SALA-LEITURA-D9-D10 · 26/09/2026 · ramo `sala-leitura-v1` a partir do vivo `83de0ccd`.
+Missão SALA-LEITURA-D9-D10 · 26/09/2026 · ramo `sala-leitura-v1` a partir do vivo `83de0ccd`; **v2**: ramo `sala-leitura-v2` = vivo `69b0e23f` + merge de `origin/sala-leitura-v1` (04caa19a), sem conflito.
 **NÃO instalado.** Vivo não tocado. Sala real não tocada nesta missão. Sem rede.
 
 ## 0 · Em uma linha
@@ -113,3 +113,30 @@ um `git merge` do segundo sobre o primeiro basta.
 6. Prova na Sala real, **só leitura**: `SINTONIA_SALA_SO_LEITURA=1` e `ler_atual(<um run_id>)` → itens com
    23 campos + histórico; a contagem da Sala igual antes e depois.
 7. Religar. **Desfazer:** `git revert` do commit; nada no banco.
+
+
+## 6 · SALA-LEITURA-V2 (26/09 ~06:00) — sobre o vivo 69b0e23f
+
+- **Junção:** `git merge origin/sala-leitura-v1` sobre `69b0e23f`: **sem conflito**. O LOTE 1 não mexeu em `admissao/sala_de_espera.py` (`git diff 83de0ccd 69b0e23f -- admissao/sala_de_espera.py` vazio).
+- **Sem banco, no vivo 69b0e23f** (corrido): `D9SemBanco` + `D10SemBanco` (7) + `test_psql_argv` (6) + `test_a_sala_de_espera_nao_tem_morada` (14) = 27 testes; **2 falhas, as mesmas com o `sala_de_espera.py` de `69b0e23f`** (medido: trocando o ficheiro pelo da base, as mesmas 2) → herdadas.
+- **Mutação:** novo `provas/_mutantes_sala_leitura.py` com os mutantes S1–S4 descritos no § 3 e um S5 (leitura com `begin;` em vez de `begin read only;` → a conferência do `on` tem de o apanhar). Lê e grava em **bytes** (o fim de linha não muda).
+- ⚠️ **COM BANCO: NÃO CORRIDO.** O vigia esperou a LOCK-PESADO (ocupada por RUNBOOK-MICRO-SOCIAL e depois ACERVO-PARA-SALA) com a memória entre 4,0 e 6,3 GB, e foi **parado pelo sistema por memória baixa** antes de pegar a chave. Nada correu: N1–N3, P1–P2, D10a–d, as regressões `test_migracao_033_sala` + `test_sala_idempotente_por_documento` (antes/depois por nome) e a mutação S1–S5 continuam **PENDENTES**. Resultado **NÃO SEI** — não é PASS.
+- **Para correr** (LOCK-PESADO livre, sem LOCK-PRIORIDADE, ≥ 5 GB):
+  `py -B -m unittest -v tests.test_sala_leitura_d9_d10 tests.test_migracao_033_sala tests.test_sala_idempotente_por_documento` e `py -B provas/_mutantes_sala_leitura.py` (esperado: `MUTANTES 5/5 mortos`, sem «testes de banco saltados»).
+
+## 7 · Nota para o bot Intelligence — como chamar o modo leitura
+
+A prova `PROVA-CONJUNTA-EXP-D78/prova_conjunta_exp_d78.py` já usa a forma certa. As duas formas equivalentes:
+
+```python
+import sala_de_espera as espera
+leitor = espera._Postgres(dsn, so_leitura=True)   # explícito, só este objeto
+atual = leitor.ler_atual(run_id)                  # 23 campos do READY + ORDEM, JANELA_DECLARADA,
+                                                  # REVISOES, HISTORICO_DE_REVISOES
+```
+ou, para as funções do módulo: `SINTONIA_SALA_SO_LEITURA=1` no ambiente, e aí `espera.ler_atual(run_id)`.
+
+- Cada leitura corre em `begin read only; show transaction_read_only; …; commit;`. Se o banco não disser `on`, levanta `SalaIndisponivel` e **não devolve dados** (a tua A3).
+- Qualquer escrita por esse leitor começa por `set transaction read only`: **o banco recusa** (`read-only`), 0 linhas (a tua A2).
+- `PGOPTIONS='-c default_transaction_read_only=on'` passa agora a **chegar** ao banco (acrescentado, não substituído), mas **não basta sozinho**: um pooler pode ignorá-lo em silêncio (`provas/auditoria_live.sh:326`). Na Sala real, usar **as duas coisas**.
+- Árvore para `--arvore`: a tua exigência `db02875c` antepassado do HEAD é satisfeita por `sala-leitura-v2`; falta juntar o teu `60faa7cb`.
