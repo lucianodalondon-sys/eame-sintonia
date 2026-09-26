@@ -94,7 +94,8 @@ def _palavras(l: str) -> int:
 # sitio no fim («… - YouTube», «… — Arpae Emilia-Romagna»: e quem publica, nao onde o facto foi).
 PALAVRAS_DO_TITULO = 3
 LINHAS_DO_TITULO = 2
-_RE_SUFIXO_DO_SITIO = re.compile(r"\s+(?:[-–—|])\s+[^-–—|]{2,60}$")
+# o separador e um traço ou barra ENTRE espaços; o nome do sitio pode ter hifen («Emilia-Romagna»)
+_RE_SUFIXO_DO_SITIO = re.compile(r"\s+[-–—|]\s+(?:(?!\s[-–—|]\s).){2,60}$")
 
 
 def titulo_limpo(t: str) -> str:
@@ -108,9 +109,15 @@ def _linhas_curtas(texto: str) -> list:
             if l.strip() and not RODAPE.search(l) and _palavras(titulo_limpo(l)) >= PALAVRAS_DO_TITULO]
 
 
+TAMANHO_DO_TITULO = 200
+
+
 def corpo(texto: str) -> str:
     """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora.
-    Um texto sem NENHUMA frase longa e lido como titulo (ver acima)."""
+    Um texto sem NENHUMA frase longa, ou de UMA linha curta, e lido como titulo (ver acima)."""
+    linhas = [l.strip() for l in str(texto or "").splitlines() if l.strip()]
+    if len(linhas) == 1 and len(linhas[0]) <= TAMANHO_DO_TITULO:
+        return "\n".join(_linhas_curtas(linhas[0]))
     fica = []
     for linha in str(texto or "").splitlines():
         l = linha.strip()
@@ -686,8 +693,12 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
             if x["KIND"] == CAMPO and ((_regra(x["EXPRESSAO"])[1] or 0) > 0 or _RE_FUTURO.search(frase)):
                 # EXTRATOR-EVENTO-V2: «domani», «la prossima settimana», e qualquer relativa numa frase de
                 # previsao falam do que AINDA NAO aconteceu no campo — evidencia, nunca data do facto.
-                # O EVENTO tecnico anunciado («il convegno si terrà domani») continua EVENTO (D62).
-                x["KIND"], x["PORQUE"] = None, "futuro / previsão: o que ainda não aconteceu no campo não é facto ocorrido"
+                # O EVENTO tecnico anunciado continua EVENTO (D62), tambem quando fala de um acontecimento:
+                # «il convegno sulla grandine si terrà domani» e o convegno, nao a grandine.
+                if _RE_EVENTO.search(frase):
+                    x["KIND"] = EVENTO
+                else:
+                    x["KIND"], x["PORQUE"] = None, "futuro / previsão: o que ainda não aconteceu no campo não é facto ocorrido"
         cr, porque = verificar_relativa(x["EXPRESSAO"], x["TRECHO"], pub)
         if porque:
             x["PORQUE"] = porque
