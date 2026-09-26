@@ -5,7 +5,8 @@ PESQUISADORES T6 — consultas por CULTURA + PROBLEMA, e a unidade «trabalho de
 
     py coleta/pesquisadores_t6.py --plano                 # as consultas e os pedidos por dominio
     py coleta/pesquisadores_t6.py --ensaio [--saida=F]    # SEM REDE: le as respostas gravadas
-    py coleta/pesquisadores_t6.py --rede --rodada=1 --saida=<pasta>   # COM REDE: so quem pode
+    py coleta/pesquisadores_t6.py --rede --rodada=N --saida=<pasta>   # COM REDE: so quem pode
+    py coleta/pesquisadores_t6.py --ler --saida=<pasta>             # SEM REDE: le o que as rodadas guardaram
 
 NAO E UM COLETOR NOVO
 ---------------------
@@ -506,33 +507,113 @@ def ensaio(pasta=FIXTURES):
 
 
 # ═════════════════════════════════════════════ 6 · REDE (so quem pode a corre)
-def rodada_com_rede(n, saida):
-    """Uma rodada: <=5 pedidos ao OpenAlex (os pares da rodada n). Guarda cada resposta tal
-    como veio, com o sha256. Pare no primeiro corpo de erro (orcamento): nao vira zero."""
+def _guardar(saida, nome, d):
+    """Guarda a resposta TAL COMO VEIO (ou vazio, se nao veio nada) e devolve o sha256."""
     import hashlib
+    corpo = json.dumps(d, ensure_ascii=False) if d is not None else ''
+    with open(os.path.join(saida, nome), 'w', encoding='utf-8', newline='\n') as h:
+        h.write(corpo)
+    return hashlib.sha256(corpo.encode('utf-8')).hexdigest()
+
+
+def _estado(saida):
+    f = os.path.join(saida, 'ESTADO.json')
+    return _ler(f) if os.path.exists(f) else {'OPENALEX_PARES_FEITOS': [], 'CROSSREF_DOIS_FEITOS': [],
+                                              'ORCID_FEITOS': [], 'RODADAS': []}
+
+
+def _pedir(url, chave=None):
+    if chave:                                  # so se o dono tiver chave do OpenAlex
+        url += '&api_key=' + urllib.parse.quote(chave)
+    return CP._get(url)
+
+
+def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
+    """UMA rodada, <= TETO_POR_DOMINIO pedidos em CADA um dos 3 dominios, contados antes:
+
+        A. OpenAlex  — os proximos pares ainda sem resposta valida (12 pares = 3 rodadas)
+        B. Crossref  — os DOI ja trazidos e ainda nao conferidos, 40 por pedido
+        C. ORCID     — /works das pessoas com ORCID ainda nao lidas, por ordem ALFABETICA
+
+    Cada resposta fica guardada tal como veio, com o sha256 no RODADA-n.json. O primeiro
+    corpo de ERRO num dominio (ex.: «Insufficient budget» com HTTP 200) PARA esse dominio
+    na rodada: nao e zero, nao se insiste, e o par fica por fazer."""
     os.makedirs(saida, exist_ok=True)
-    qs = consultas()[(n - 1) * TETO_POR_DOMINIO: n * TETO_POR_DOMINIO]
-    feitos, registo = 0, []
-    for q in qs:
-        if feitos >= TETO_POR_DOMINIO:
-            break
-        d, err = CP._get(q['URL'])
-        feitos += 1
-        corpo = json.dumps(d, ensure_ascii=False) if d is not None else ''
-        nome = 'openalex-r%d-%s.json' % (n, q['PAR'].replace(' x ', '-'))
-        open(os.path.join(saida, nome), 'w', encoding='utf-8').write(corpo)
+    est = _estado(saida)
+    registo = {'RODADA': n, 'PEDIDOS': {d: 0 for d in DOMINIOS}, 'RESPOSTAS': []}
+
+    def anotar(dom, nome, d, ok, porque, extra=None):
+        registo['PEDIDOS'][dom] += 1
+        assert registo['PEDIDOS'][dom] <= TETO_POR_DOMINIO, 'teto por dominio passado'
+        nome = nome if ok else 'FALHA-r%d-%s' % (n, nome)
+        registo['RESPOSTAS'].append(dict({'DOMINIO': dom, 'FICHEIRO': nome, 'SHA256': _guardar(saida, nome, d),
+                                          'OK': ok, 'PORQUE': porque}, **(extra or {})))
+
+    # A · OpenAlex
+    for q in [q for q in consultas() if q['PAR'] not in est['OPENALEX_PARES_FEITOS']][:TETO_POR_DOMINIO]:
+        d, err = _pedir(q['URL'], chave_openalex)
         ok, porque = resposta_valida(d) if d is not None else (False, err)
-        registo.append({'PAR': q['PAR'], 'FICHEIRO': nome, 'OK': ok, 'PORQUE': porque,
-                        'SHA256': hashlib.sha256(corpo.encode('utf-8')).hexdigest(),
-                        'CONTAGEM_DECLARADA': (d or {}).get('meta', {}).get('count') if ok else None,
-                        'NA_PAGINA': len((d or {}).get('results') or []) if ok else None})
+        anotar('api.openalex.org', 'openalex-%s.json' % q['PAR'].replace(' x ', '-'), d, ok, porque,
+               {'PAR': q['PAR'], 'CONTAGEM_DECLARADA': d.get('meta', {}).get('count') if ok else None,
+                'NA_PAGINA': len(d.get('results') or []) if ok else None})
         if not ok:
-            break                                   # orcamento/erro: parar, nao insistir
-        time.sleep(PAUSA)
-    json.dump({'RODADA': n, 'PEDIDOS': {'api.openalex.org': feitos}, 'RESPOSTAS': registo},
-              open(os.path.join(saida, 'RODADA-%d.json' % n), 'w', encoding='utf-8'),
-              ensure_ascii=False, indent=1)
+            break
+        est['OPENALEX_PARES_FEITOS'].append(q['PAR'])
+        time.sleep(pausa)
+
+    unidades, _, gente = ler_pasta(saida, com_provas=False)
+
+    # B · Crossref
+    faltam = sorted(u['DOI'] for u in unidades
+                    if u['DOI'] != NAO_SEI and u['DOI'] not in est['CROSSREF_DOIS_FEITOS'])
+    for i in range(0, min(len(faltam), TETO_POR_DOMINIO * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
+        lote = faltam[i:i + DOIS_POR_PEDIDO_CROSSREF]
+        d, err = CP._get(url_crossref(lote))
+        ok = isinstance(d, dict) and isinstance((d.get('message') or {}).get('items'), list)
+        anotar('api.crossref.org', 'crossref-r%d-%d.json' % (n, i // DOIS_POR_PEDIDO_CROSSREF + 1), d, ok,
+               '' if ok else (err or 'sem message.items'), {'DOIS_PEDIDOS': len(lote)})
+        if not ok:
+            break
+        est['CROSSREF_DOIS_FEITOS'].extend(lote)
+        time.sleep(pausa)
+
+    # C · ORCID (alfabetico: nao e ranking)
+    for p in [g for g in gente if g['ORCID'] != NAO_SEI and g['ORCID'] not in est['ORCID_FEITOS']][:TETO_POR_DOMINIO]:
+        d, err = CP._get(ORCID_WORKS % p['ORCID'])
+        ok = isinstance(d, dict) and 'group' in d
+        anotar('pub.orcid.org', 'orcid-%s-works.json' % p['ORCID'], d, ok, '' if ok else (err or 'sem group'),
+               {'ORCID': p['ORCID']})
+        if not ok:
+            break
+        est['ORCID_FEITOS'].append(p['ORCID'])
+        time.sleep(pausa)
+
+    est['RODADAS'].append({'RODADA': n, 'PEDIDOS': registo['PEDIDOS']})
+    with open(os.path.join(saida, 'ESTADO.json'), 'w', encoding='utf-8', newline='\n') as h:
+        json.dump(est, h, ensure_ascii=False, indent=1)
+    with open(os.path.join(saida, 'RODADA-%d.json' % n), 'w', encoding='utf-8', newline='\n') as h:
+        json.dump(registo, h, ensure_ascii=False, indent=1)
     return registo
+
+
+def ler_pasta(saida, com_provas=True):
+    """As respostas guardadas pelas rodadas → (unidades, grupos, pessoas). Sem rede."""
+    brutos = []
+    for f in sorted(os.listdir(saida)):
+        if f.startswith('openalex-') and f.endswith('.json'):
+            d = _ler(os.path.join(saida, f))
+            if resposta_valida(d)[0]:
+                par = f[len('openalex-'):-len('.json')].replace('-', ' x ', 1)
+                brutos.extend((w, par) for w in d['results'])
+    unidades, grupos = deduplicar(brutos)
+    if com_provas:
+        orcid = {f[len('orcid-'):-len('-works.json')]: dois_do_orcid(_ler(os.path.join(saida, f)))
+                 for f in os.listdir(saida) if f.startswith('orcid-') and f.endswith('-works.json')}
+        provar_pessoas(unidades, orcid)
+        for f in sorted(os.listdir(saida)):
+            if f.startswith('crossref-') and f.endswith('.json'):
+                provar_por_crossref(unidades, _ler(os.path.join(saida, f)))
+    return unidades, grupos, pessoas(unidades)
 
 
 def main(argv):
@@ -544,16 +625,23 @@ def main(argv):
     if 'ensaio' in opt:
         r = ensaio(opt.get('fixtures', FIXTURES))
         if opt.get('saida'):
-            json.dump(r, open(opt['saida'], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+            with open(opt['saida'], 'w', encoding='utf-8', newline='\n') as h:
+                json.dump(r, h, ensure_ascii=False, indent=1)
         print(json.dumps({k: v for k, v in r.items() if k not in ('UNIDADES', 'PESSOAS')},
                          ensure_ascii=False, indent=1))
         return 0
-    if 'rede' in opt:
+    if 'rede' in opt or 'ler' in opt:
         if not opt.get('saida'):
             print('falta --saida=<pasta>')
             return 2
-        print(json.dumps(rodada_com_rede(int(opt.get('rodada', '1')), opt['saida']),
-                         ensure_ascii=False, indent=1))
+        if 'rede' in opt:
+            r = rodada_com_rede(int(opt.get('rodada', '1')), opt['saida'],
+                                chave_openalex=os.environ.get('OPENALEX_API_KEY') or None)
+            print(json.dumps(r, ensure_ascii=False, indent=1))
+        us, gs, gente = ler_pasta(opt['saida'])
+        with open(os.path.join(opt['saida'], 'UNIDADES-T6.json'), 'w', encoding='utf-8', newline='\n') as h:
+            json.dump({'UNIDADES': us, 'GRUPOS': gs, 'PESSOAS': gente}, h, ensure_ascii=False, indent=1)
+        print(json.dumps({'UNIDADES': len(us), 'GRUPOS': len(gs), 'PESSOAS_COM_AFILIACAO_IT': len(gente)}))
         return 0
     print(__doc__)
     return 2

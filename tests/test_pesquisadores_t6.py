@@ -196,6 +196,61 @@ class EnsaioOffline(SemRede):
         self.assertNotIn('https://openalex.org/A5088752812', [p['OPENALEX_ID'] for p in r['PESSOAS']])
 
 
+class RodadaComRedeFalsa(unittest.TestCase):
+    """A rodada com um transporte FALSO: conta pedidos por dominio e para no corpo de erro."""
+
+    def setUp(self):
+        import tempfile
+        self._get = T6.CP._get
+        self.dir = tempfile.mkdtemp(prefix='t6-rodada-')
+        self.pedidos = []
+        self.orcamento_acaba_em = None
+
+        def falso(url, headers=None):
+            host = urlparse(url).netloc
+            self.pedidos.append(host)
+            if host == 'api.openalex.org':
+                n = self.pedidos.count(host)
+                if self.orcamento_acaba_em and n >= self.orcamento_acaba_em:
+                    return {'error': 'Rate limit exceeded', 'message': 'Insufficient budget'}, None
+                par = parse_qs(urlparse(url).query)['filter'][0]
+                return {'meta': {'count': 1}, 'results': [obra('10.9/%d' % n, 'Downy mildew of grapevine ' + par[-20:],
+                                                              autores=[autor('A%d' % n, 'P%02d' % n, 'IT',
+                                                                             '0000-0000-0000-%04d' % n)])]}, None
+            if host == 'api.crossref.org':
+                return {'message': {'items': []}}, None
+            return {'group': []}, None
+        T6.CP._get = falso
+
+    def tearDown(self):
+        import shutil
+        T6.CP._get = self._get
+        shutil.rmtree(self.dir, ignore_errors=True)
+
+    def test_cinco_por_dominio_e_a_segunda_rodada_continua(self):
+        r1 = T6.rodada_com_rede(1, self.dir, pausa=0)
+        self.assertEqual(r1['PEDIDOS'], {'api.openalex.org': 5, 'api.crossref.org': 1, 'pub.orcid.org': 5})
+        r2 = T6.rodada_com_rede(2, self.dir, pausa=0)
+        self.assertEqual(r2['PEDIDOS']['api.openalex.org'], 5)
+        feitos = T6._ler(os.path.join(self.dir, 'ESTADO.json'))['OPENALEX_PARES_FEITOS']
+        self.assertEqual(len(feitos), 10)
+        self.assertEqual(len(set(feitos)), 10)          # nenhum par repetido entre rodadas
+        us, _, _ = T6.ler_pasta(self.dir)
+        self.assertEqual(len(us), 10)
+
+    def test_corpo_de_orcamento_para_o_dominio_e_o_par_fica_por_fazer(self):
+        self.orcamento_acaba_em = 3
+        r = T6.rodada_com_rede(1, self.dir, pausa=0)
+        self.assertEqual(r['PEDIDOS']['api.openalex.org'], 3)
+        falha = [x for x in r['RESPOSTAS'] if not x['OK']]
+        self.assertEqual(len(falha), 1)
+        self.assertTrue(falha[0]['FICHEIRO'].startswith('FALHA-r1-'))
+        self.assertIn('FALHA_ORCAMENTO', falha[0]['PORQUE'])
+        self.assertEqual(len(T6._ler(os.path.join(self.dir, 'ESTADO.json'))['OPENALEX_PARES_FEITOS']), 2)
+        us, _, _ = T6.ler_pasta(self.dir)
+        self.assertEqual(len(us), 2)                    # a falha nao entra como zero nem como trabalho
+
+
 class Qualify(unittest.TestCase):
     def test_registo_orcid_e_t6_com_ou_sem_instituicao_no_nome(self):
         u = 'https://orcid.org/0000-0003-2089-1026'
