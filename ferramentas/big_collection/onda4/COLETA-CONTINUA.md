@@ -275,6 +275,47 @@ as fontes decidiram seguir**. Nenhuma linha descobre nem decide.
 de contas. A lista é a das fontes (Atlas/SOURCE_ID + contrato). Um perfil que o Scrap encontre de passagem
 (um canal citado num post, por exemplo) vira **candidata** para o bot de fontes, e não alvo da próxima volta.
 
+## 10. D88: contornar o acesso TÉCNICO a material público passa a ser permitido
+
+D88 (dono, 19:25): «nós não temos problema em burlar qualquer coisa de acesso desde que o sistema capte o
+que precisa, nossos materiais são pra uso interno… não é material pra burlar conta paga».
+
+| | regra |
+|---|---|
+| **PERMITIDO** agora | contorno técnico de acesso a material **público**: anti-robô (tipo Cloudflare/Akamai), navegador furtivo, navegador com janela, JavaScript, outra rota técnica |
+| **PROIBIDO** (igual) | conta paga, paywall, rotas pagas (Apify pago já proibido) |
+| **CONTINUA** (igual) | teto por domínio (≤ 5 / 24 h), VPN IT, dado pessoal, **proveniência da rota usada** |
+| **PRECISA DO DONO** caso a caso | login com conta, CAPTCHA pago, proxy pago |
+
+**Como entra nas linhas (sem arquitetura paralela):**
+- Uma rota técnica nova é mais uma **rota** da linha, declarada como as do Scrap
+  (`coleta/scrap_capacidades.py`: nome, estado PROVEN/PARTIAL/BLOCKED, limite). Nunca é um coletor à parte.
+  A volta grava na linha do livro **qual rota** trouxe cada byte (a proveniência D88). Exemplo:
+  `ROTA=navegador-com-janela`.
+- Os pedidos da rota técnica **contam no mesmo livro de 24 h** (§8.2.1). Um navegador faz muitos pedidos
+  por página (scripts, imagens). **NÃO SEI** como contá-los: só o documento, ou tudo o que o navegador
+  pede ao domínio. Proposta: tudo o que vai ao domínio da fonte conta; os terceiros (CDN) têm o seu
+  próprio domínio.
+- A RAM: um navegador com janela gasta muito mais do que o curl (medido no ADAMA: foi preciso Chrome com
+  janela). Essa linha conta como pesada na §8.3.
+
+**Sites hoje recusados a avaliar com rota técnica nova (medido antes, sem rede nesta passagem):**
+
+| site | o que se mediu | rota técnica a experimentar |
+|---|---|---|
+| `www.coldiretti.it`, `puglia.`, `sicilia.`, `veneto.coldiretti.it` | 22/09: recusam a saída VPN italiana; `403` às 15:5x, `000` (nem liga) duas horas depois. **Hipótese não confirmada:** o próprio excesso de medições desse dia pode ter valido um bloqueio de IP | 1.º: esperar e medir de novo com **1 pedido** (pode ter caducado); 2.º: navegador com janela pela VPN IT |
+| `www.unaprol.it` | igual à Coldiretti (22/09) | igual |
+| ANGA | **não medido por mim** (citada pelo coordenador como recusada) | medir primeiro, com 1 pedido |
+| `www.adama.com/italia` | 30/08: curl 403, Chrome headless 403 (Akamai); **Chrome com janela: 102 KB de DOM real** | a rota já existe (a «porta ADAMA»): declará-la como rota |
+| as 25 REJECT da qualificação de 14/09 | 12× HTTP 429 (ritmo), 10× título «Facebook»/«Instagram» (página de login), 3 duplicadas | as 12 de ritmo: rota técnica + pausa; as 10 de login: **precisam do dono** (D88) |
+| perfis de PESSOA no LinkedIn (D24) | authwall HTTP 999 sem login | **precisa do dono** (é login) |
+
+⚠️ **Decisão do dono que a D88 não diz:** o `robots.txt`. Não é um bloqueio técnico: é o pedido do site
+sobre o que não visitar. Hoje o vivo respeita-o (D34/D39: 401/403 ou HTML no lugar do robots = recusa), e
+**50 fontes estão fechadas por robots**. O LinkedIn já é exceção autorizada (D23, robots DISALLOWED).
+Pergunta para o dono: a D88 abre também o robots.txt, ou só os bloqueios técnicos? Até ele responder, o
+desenho **continua a respeitar o robots.txt**.
+
 ## EM PALAVRAS SIMPLES
 
 - Hoje a coleta roda em «rodadas», e isso trava: um site com muitas fontes (edagricole) segura todas
@@ -309,3 +350,11 @@ de contas. A lista é a das fontes (Atlas/SOURCE_ID + contrato). Um perfil que o
   coleta (e o Scrap) capturam **só** o que foi aprovado → a Sala recebe → a Intelligence lê de novo.
 - Falta um pedaço para o ciclo girar sozinho: hoje a Intelligence escreve o que falta em texto. Precisa
   virar um ficheiro que o robô de fontes consiga ler.
+- **Regra nova do dono (D88):** podemos contornar bloqueios técnicos para ver material que é público
+  (como um anti-robô). Continua proibido pagar ou usar conta paga. Login, CAPTCHA pago e proxy pago
+  precisam de autorização caso a caso. Cada coleta anota qual caminho usou.
+- Os sites que hoje recusam a VPN (Coldiretti, Unaprol, ANGA) entram na lista para testar um caminho
+  novo, começando por **uma** tentativa só: pode ser que o bloqueio de 22/09 já tenha passado.
+- **Uma pergunta para o dono:** a regra nova vale também para o «robots.txt», o aviso em que o site diz
+  o que não quer que robôs visitem? Hoje 50 fontes estão fechadas por esse aviso. Até ele responder,
+  continuamos respeitando.
