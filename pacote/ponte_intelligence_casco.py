@@ -7,7 +7,7 @@
     ESTADO   IMPLEMENTED · testado com UMA corrida sintetica declarada e com a
              coorte real da Sala (que bloqueia em G0 e da zero cartoes).
 
-    python3 pacote/ponte_intelligence_casco.py <corrida.json> <saida.json|saida.js>
+    python3 pacote/ponte_intelligence_casco.py <corrida.json> <saida.json|saida.js|saida.html>
     python3 -m unittest tests.test_ponte_intelligence_casco -v
 
 A PERGUNTA QUE ESTE FICHEIRO RESPONDE, E MAIS NENHUMA
@@ -380,6 +380,82 @@ def como_js(payload: dict) -> str:
             + json.dumps(payload, ensure_ascii=False, indent=1) + ";\n")
 
 
+#: Os tokens da ADAMA vem do extrato versionado, ligados — nunca copiados. O
+#: extrato nao traz componente de faixa/aviso (esses vivem no Claude Design), e
+#: por isso a faixa abaixo e padrao novo, declarado no relatorio da missao.
+CSS_ADAMA = Path(os.path.dirname(HERE)) / "italia-portale" / "client" / "_ds" / "adama-brandwell" / "styles.css"
+
+_CSS_PAGINA = """
+body{margin:0;font-family:'BrownLL',sans-serif;color:var(--color-text-body);background:var(--color-surface-muted)}
+.faixa{position:sticky;top:0;z-index:9;background:var(--color-black);color:var(--color-white);
+ padding:12px 24px;font-weight:700;letter-spacing:.08em;text-align:center}
+main{max-width:1100px;margin:0 auto;padding:24px}
+h1,h2{color:var(--color-text-heading)} h2{border-bottom:2px solid var(--color-brand);padding-bottom:4px}
+.ferramenta{background:var(--color-surface);border:1px solid var(--color-border);margin:18px 0;padding:14px 18px}
+.estado{font-size:.85em;color:var(--color-brand-dark)}
+.cartao{border:1px solid var(--color-border-subtle);margin:10px 0;padding:10px 12px}
+.marca{display:inline-block;background:var(--color-black);color:var(--color-white);font-size:.75em;
+ font-weight:700;padding:2px 8px;letter-spacing:.06em}
+.naosei{font-weight:700;background:var(--color-earth-20);padding:0 4px}
+table{border-collapse:collapse;width:100%} td,th{border-bottom:1px solid var(--color-border-subtle);
+ text-align:left;padding:4px 6px;font-size:.9em;vertical-align:top}
+"""
+
+
+def como_html(payload: dict, css_href: str | None = None) -> str:
+    """Uma pagina LOCAL que desenha o payload — RENDER, e mais nada.
+
+    A marca aparece numa faixa fixa no topo e em cada cartao. `NAO SEI` sai em
+    destaque, nunca em branco. Todo texto e escapado: o que veio da corrida e
+    dado, nao marcacao (INT-LAW-161).
+    """
+    from html import escape as E
+    href = css_href or CSS_ADAMA.resolve().as_uri()
+
+    def val(v):
+        s = v if isinstance(v, str) else json.dumps(v, ensure_ascii=False)
+        return f'<span class="naosei">{E(s)}</span>' if s == NAO_SEI else E(s)
+
+    o = payload["ORIGEM"]
+    partes = [
+        "<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\">",
+        f"<title>{E(MARCA)} · ponte Intelligence -> casco</title>",
+        f'<link rel="stylesheet" href="{E(href)}"><style>{_CSS_PAGINA}</style></head><body>',
+        f'<div class="faixa" data-marca="1">{E(MARCA)} — anteprima locale, non per il cliente, non pubblicata</div>',
+        "<main>",
+        f"<h1>Ponte Intelligence → casco</h1><p>corrida <b>{E(str(o['INTELLIGENCE_RUN_ID']))}</b> · "
+        f"estado {val(o['RESULT_STATE'])} · schema {val(o['RUN_SCHEMA'])} · sintetica {val(o['CORRIDA_SINTETICA'])}</p>",
+        f"<p>{E(payload['LEI'])}</p>",
+    ]
+    for f, e in payload["FERRAMENTAS"].items():
+        partes.append(f'<section class="ferramenta" id="{E(f)}"><h2>{E(e["NOME_IT"])} '
+                      f'<span class="marca">{E(MARCA)}</span></h2>'
+                      f'<div class="estado">{E(f)} · {E(e["ESTADO"])} · capacidade {val(e["CAPACIDADE"])} · '
+                      f'{e["UNIVERSO"]["CARTOES"]} cartoes — {E(e["UNIVERSO"]["LEITURA"])}</div>')
+        for c in e["CARTOES"]:
+            linhas = "".join(f"<tr><th>{E(k)}</th><td>{val(v)}</td></tr>" for k, v in c["CHAVES"].items())
+            prova = "".join("<li>" + " → ".join(f"{E(k)} {val(p[k])}" for k in
+                                                 CAMPOS_DA_PROVA + ("INTELLIGENCE_RUN_ID",)) + "</li>"
+                            for p in c["PROVA"])
+            partes.append(
+                f'<div class="cartao"><span class="marca" data-marca="1">{E(c["MARCA"])}</span> '
+                f'<b>{E(str(c["SIGNAL_ID"]))}</b> · {E(c["ESTADO"])}<table>{linhas}</table>'
+                f"<p>porque {val(c['PORQUE'])} · contradiz {val(c['CONTRADIZ'])} · incerteza {val(c['INCERTEZA'])}</p>"
+                f"<p>prova:</p><ul>{prova}</ul></div>")
+        for g in e["LACUNAS"]:
+            partes.append(f"<p>lacuna: {E(json.dumps(g, ensure_ascii=False))}</p>")
+        partes.append("</section>")
+    partes.append("<h2>Recusados</h2><table><tr><th>ferramenta</th><th>sinal</th><th>motivo</th><th>detalhe</th></tr>")
+    for r in payload["RECUSADOS"]:
+        partes.append(f"<tr><td>{val(r['FERRAMENTA'])}</td><td>{val(r['SIGNAL_ID'])}</td>"
+                      f"<td>{E(r['MOTIVO'])}</td><td>{E(str(r['DETALHE']))}</td></tr>")
+    partes.append("</table><h2>Lacunas sem ferramenta</h2><ul>")
+    for g in payload["LACUNAS_SEM_FERRAMENTA"]:
+        partes.append(f"<li>{E(json.dumps(g, ensure_ascii=False))}</li>")
+    partes.append("</ul></main></body></html>\n")
+    return "".join(partes)
+
+
 def destino_permitido(destino: Path) -> bool:
     """Nada desta ponte cai dentro do portal. Escrever la seria publicar."""
     raiz = Path(os.path.dirname(HERE)).resolve()
@@ -402,8 +478,12 @@ def main(argv=None) -> int:
         print("RECUSADO: o destino fica dentro de italia-portale/ — isto e NAO_PARA_CLIENTE e nao e deploy.")
         return 3
     payload = adaptar(corrida)
-    texto = (como_js(payload) if destino.suffix == ".js"
-             else json.dumps(payload, ensure_ascii=False, indent=1) + "\n")
+    if destino.suffix == ".js":
+        texto = como_js(payload)
+    elif destino.suffix == ".html":
+        texto = como_html(payload)
+    else:
+        texto = json.dumps(payload, ensure_ascii=False, indent=1) + "\n"
     destino.write_text(texto, encoding="utf-8")
     n = sum(len(e["CARTOES"]) for e in payload["FERRAMENTAS"].values())
     print(f"{MARCA} · {n} cartoes · {len(payload['RECUSADOS'])} recusados · -> {destino}")

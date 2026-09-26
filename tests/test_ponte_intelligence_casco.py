@@ -325,5 +325,33 @@ class E_ASaida(unittest.TestCase):
             self.assertIn(P.MARCA, texto)
 
 
+class F_APaginaLocal(unittest.TestCase):
+    """A pagina local desenha a marca, a prova e o NAO SEI — e nao executa dado."""
+
+    def setUp(self):
+        c = corrida_sintetica()
+        c["ITENS_POR_FERRAMENTA"]["windows"][0]["PORQUE"] = "<script>alert(1)</script>"
+        self.pl = P.adaptar(c)
+        self.html = P.como_html(self.pl, css_href="styles.css")
+
+    def test_F1_faixa_no_topo_e_marca_em_cada_cartao(self):
+        corpo = self.html.split("<body>", 1)[1]
+        self.assertTrue(corpo.startswith(f'<div class="faixa" data-marca="1">{P.MARCA}'))
+        self.assertEqual(self.html.count('<span class="marca" data-marca="1">'),
+                         len(todos_os_cartoes(self.pl)))
+
+    def test_F2_prova_e_nao_sei_a_vista(self):
+        self.assertIn("DOCUMENT_ID SINT-DOC-3", self.html)
+        self.assertIn(f'<span class="naosei">{NAO_SEI}</span>', self.html)
+
+    def test_F3_texto_da_corrida_e_escapado(self):
+        self.assertNotIn("<script>alert(1)</script>", self.html)
+        self.assertIn("&lt;script&gt;", self.html)
+
+    def test_F4_css_e_o_extrato_adama_ligado(self):
+        self.assertTrue(P.CSS_ADAMA.exists())
+        self.assertIn(P.CSS_ADAMA.resolve().as_uri(), P.como_html(self.pl))
+
+
 if __name__ == "__main__":
     unittest.main()
