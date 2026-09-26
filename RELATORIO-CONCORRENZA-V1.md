@@ -1,6 +1,7 @@
 # RELATÓRIO — NUVEM-CONCORRENZA-V1
 
-Ramo `nuvem-concorrenza-v1`, base de produção `69b0e23f`. Sem rede externa. Nenhum livro vivo foi
+Ramo `nuvem-concorrenza-v1`. Feito sobre `69b0e23f` e **reaplicado sobre o vivo `278cd489`** (aviso da
+coordenação 14:00); testes e mutação medidos de novo sobre `278cd489`. Sem rede externa. Nenhum livro vivo foi
 alterado (`curadoria/*-V1.json`, `data/collection-ledger`, `candidatas/FONTES-CANDIDATAS.json` só foram
 **lidos**). Dados da Sala: nenhum — só o que está no repo e casos sintéticos marcados `SINTETICO`.
 
@@ -71,7 +72,7 @@ vem cortado em 700 letras (4 produtos do pacote não estão no texto que o repo 
 Módulos: `test_comunicacao`, `test_c7_lugar_do_fato`, `test_reel_transcricao`,
 `test_scrap_convergencia`, `test_hero_cases_v1` (+ novo `test_comunicacao_concorrenza`).
 
-- **Antes (base 69b0e23f):** 2 falhas —
+- **Antes (vivo 278cd489 puro, numa cópia só-leitura; o mesmo em 69b0e23f):** 2 falhas —
   `test_todo_artefato_canonico_existe_e_bate` (hero_cases) e `test_zero_colisoes_de_nome_curto`
   (scrap_convergencia, `mutacao.py` em 3 gavetas — herdada).
 - **Depois:** as **mesmas 2**, pelo nome. **0 falhas novas.** Novo módulo: **31/31 OK**.
@@ -82,32 +83,35 @@ Módulos: `test_comunicacao`, `test_c7_lugar_do_fato`, `test_reel_transcricao`,
 
 ## 3. Mutação — `provas/mutacao_concorrenza.py`
 
-**24/24 colhidos.** Um defeito de cada vez; reposição byte a byte (sem `git checkout`); `-B` e
+**24/24 colhidos** (em 69b0e23f e de novo em 278cd489). Depois do rebase o Git trouxe os
+ficheiros com fim de linha CRLF e 2 alvos de duas linhas deixaram de casar (`ALVO_NAO_UNICO (0)` —
+não plantados, não «sobreviventes»); o script passou a aceitar os dois fins de linha. Um defeito de cada vez; reposição byte a byte (sem `git checkout`); `-B` e
 `__pycache__` apagado a cada mutante. Cobre: regra do nome (caminho, fim de palavra, casa), substância
 × produto, vírgula × conjunção, empresa adivinhada pelo texto, ADAMA como concorrente, comunicado sem
 empresa, orgânico × pago, alegação virando facto, contagens somadas, «sem registo» virando «não
 registado», outro titular virando validado, data da comunicação virando data do facto, alcance virando
 lugar, acréscimo desligado, «pero» espanhol, lista de marcas divergente do pacote.
 
-## 4. System Map (pela cadeia, com LOCK-PESADO 11:45–11:58)
+## 4. System Map (pela cadeia, com LOCK-PESADO)
 
-- Declarado em `system-map/data/architecture.declared.json`: `coleta/comunicacao_concorrenza.py` na
-  peça `C-COLETA-PUBLICA`; `provas/mutacao_concorrenza.py` na peça `C-PROVA-COLETA`.
-  (1.ª tentativa pus a prova de mutação em `C-COLETA-PUBLICA` e o VALIDAR reprovou
-  `P2_PASTA_BATE_COM_MAPA` — pasta `provas/` ≠ peça em `coleta/`. Corrigido e regerado.)
-- `correr_a_cadeia.py REGERAR` → `CADEIA=OK` (20/20 passos); gerados commitados.
-- `correr_a_cadeia.py VALIDAR` → **`SYSTEM_MAP_CHECK=PASS`**.
-- `impressao_da_arvore.py --conferir-carimbo` → **`IMPRESSAO_DO_CARIMBO=IGUAL`**
-  (árvore `a020e94c…` sobre 3695 ficheiros-fonte).
-- O VALIDAR reescreveu 6 gerados só com HEAD/hora (ruído que se autorreferencia). Guardado antes
-  de descartar: `git stash` «nuvem-concorrenza-v1-ruido-do-validar-2f4339b6»
-  (`5218c0bcccf99c2651935205cdd20621fa490007`).
+- Declarado em `system-map/data/architecture.declared.json` (sobre o vivo): `coleta/comunicacao_concorrenza.py`
+  na peça `C-COLETA-PUBLICA`; `provas/mutacao_concorrenza.py` na peça `C-PROVA-COLETA`.
+  Na 1.ª passagem (sobre 69b0e23f) pus a prova de mutação em `C-COLETA-PUBLICA` e o VALIDAR reprovou
+  `P2_PASTA_BATE_COM_MAPA` (pasta `provas/` ≠ peça em `coleta/`); corrigido.
+- Sobre 69b0e23f: REGERAR `CADEIA=OK`, VALIDAR `SYSTEM_MAP_CHECK=PASS`, carimbo `IGUAL`.
+- Sobre 278cd489: os gerados antigos foram largados e a cadeia correu de novo depois deste relatório
+  (o relatório é ficheiro rastreado e move o carimbo). O resultado final — `CADEIA=OK`,
+  `SYSTEM_MAP_CHECK` e `IMPRESSAO_DO_CARIMBO` — está no commit «mapa: regerado pela cadeia» logo a
+  seguir a este e na mensagem de entrega.
+- O VALIDAR reescreve gerados só com HEAD/hora; esse ruído é guardado com `git stash` de nome antes de
+  descartar (1.º: «nuvem-concorrenza-v1-ruido-do-validar-2f4339b6» =
+  `5218c0bcccf99c2651935205cdd20621fa490007`).
 
-## 5. Commits
+## 5. Commits e cópia
 
-`e7a2d084` extrator + regra · `611dd54a` mutação · `1069a3f5` relatório · `14efda32` e `2f4339b6`
-mapa declarado · `b6629767` mapa regerado · o SHA final é o commit deste relatório (ver a
-mensagem de entrega; este ficheiro não pode conter o próprio SHA).
+Ramo reaplicado sobre `278cd489`: extrator+regra, mutação, relatório, mapa declarado, mapa regerado.
+A linha anterior (sobre 69b0e23f) ficou guardada no ramo local `concorrenza-v1-antes-do-rebase`
+(`67522953`). O SHA final vai na mensagem de entrega (este ficheiro não pode conter o próprio SHA).
 
 ## EM PALAVRAS SIMPLES
 
