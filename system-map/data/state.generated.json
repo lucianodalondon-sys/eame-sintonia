@@ -47,6 +47,7 @@
       "RELATORIO-B3-CONTRATO-UNICO.md",
       "RELATORIO-B4-BOT-PARADO.md",
       "RELATORIO-BRIDGE-FEEDER.md",
+      "RELATORIO-C9-IDIOMA.md",
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
       "RELATORIO-CAPA-MATERIA.md",
@@ -857,19 +858,6 @@
       "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
       "data/derivados/O-CENSO-DO-ACERVO.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
-      "data/derivados/QUATRO-CHAVES-NA-SALA/mutacao-RESULTADO.txt",
-      "data/derivados/QUATRO-CHAVES-NA-SALA/mutacao.py.txt",
-      "data/derivados/QUATRO-CHAVES-NA-SALA/testes-BANCO-DESCARTAVEL.txt",
-      "data/derivados/QUATRO-CHAVES-NA-SALA/testes-COMPARACAO.txt",
-      "data/derivados/QUATRO-CHAVES-V2/ENSAIO-BACKUP.json",
-      "data/derivados/QUATRO-CHAVES-V2/ensaio_backup.py.txt",
-      "data/derivados/QUATRO-CHAVES-V2/mutacao-RESULTADO.txt",
-      "data/derivados/QUATRO-CHAVES-V2/mutacao.py.txt",
-      "data/derivados/QUATRO-CHAVES-V2/testes-COM-BANCO.txt",
-      "data/derivados/QUATRO-CHAVES-V2/testes-nuvem-sem-banco.txt",
-      "data/derivados/QUATRO-CHAVES-V2/testes-por-nome-ANTES.txt",
-      "data/derivados/QUATRO-CHAVES-V2/testes-por-nome-DEPOIS.txt",
-      "data/derivados/QUATRO-CHAVES-V2/testes-sem-banco-DEPOIS.txt",
       "data/derivados/RECEITA-T8-V1/animal-22-leitura.txt",
       "data/derivados/RECEITA-T8-V1/livros-vivos-copiados.sha256",
       "data/derivados/RECEITA-T8-V1/mutacao-RESULTADO.txt",
@@ -1570,7 +1558,6 @@
       "docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
-      "docs/operacao/QUATRO-CHAVES-V2.md",
       "docs/operacao/READY-LINEAGE-BEFORE-SCALE-V1.md",
       "docs/operacao/RECEITA-T8-V1.md",
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
@@ -1713,6 +1700,28 @@
       "ferramentas/big_collection/onda2/ONDA2-G3.md",
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/c9/C9-INSTALAR-PLANO.md",
+      "ferramentas/c9/TESTES-PRODUCAO.txt",
+      "ferramentas/c9/TESTES-RAMO.txt",
+      "ferramentas/c9/c9-testes.sh",
+      "ferramentas/c9/ensaio/0-copia.txt",
+      "ferramentas/c9/ensaio/0-livros-foto.sha",
+      "ferramentas/c9/ensaio/1-merge.txt",
+      "ferramentas/c9/ensaio/2-desfazer.txt",
+      "ferramentas/c9/ensaio/SHA256SUMS.txt",
+      "ferramentas/c9/ensaio/antes.err",
+      "ferramentas/c9/ensaio/antes.json",
+      "ferramentas/c9/ensaio/antes/CAPAS-A-CONFIRMAR.tsv",
+      "ferramentas/c9/ensaio/antes/CLASSES.tsv",
+      "ferramentas/c9/ensaio/antes/RELATORIO-PASSAGEM.json",
+      "ferramentas/c9/ensaio/antes/RELATORIO-PASSAGEM.md",
+      "ferramentas/c9/ensaio/depois.err",
+      "ferramentas/c9/ensaio/depois.json",
+      "ferramentas/c9/ensaio/depois/CAPAS-A-CONFIRMAR.tsv",
+      "ferramentas/c9/ensaio/depois/CLASSES.tsv",
+      "ferramentas/c9/ensaio/depois/RELATORIO-PASSAGEM.json",
+      "ferramentas/c9/ensaio/depois/RELATORIO-PASSAGEM.md",
+      "ferramentas/c9/ensaio_c9.sh",
       "ferramentas/cdp.py",
       "ferramentas/contrato44/CAPAS-4-PROVAS.json",
       "ferramentas/contrato44/CIA-CLUSTER.json",
@@ -2896,10 +2905,12 @@
       "scripts/micro_coleta/GABARITO-MICRO-V1.json",
       "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
       "scripts/micro_coleta/MICRO-RUNBOOK.md",
+      "scripts/micro_coleta/MUTACAO-C9-IDIOMA-V1.json",
       "scripts/micro_coleta/ensaio_offline.py",
       "scripts/micro_coleta/medir_detector_de_capa.py",
       "scripts/micro_coleta/micro_coleta.py",
       "scripts/micro_coleta/micro_rede_real.py",
+      "scripts/micro_coleta/mutar_c9.py",
       "scripts/micro_coleta/provar_backup_da_sala.py",
       "scripts/ordens_63/ENSAIO-D52-V1.json",
       "scripts/ordens_63/MEDIDA-ORDENS-V1.json",
@@ -3136,6 +3147,8 @@
     ],
     "tests": [
       "tests/.gitkeep",
+      "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
+      "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
       "tests/es/test_adama_es_gate.py",
       "tests/es/test_adama_es_import_rules.py",
       "tests/fixtures/ARESTAS/README.md",
@@ -3229,6 +3242,7 @@
       "tests/test_c6_especie_do_texto.py",
       "tests/test_c7_lugar_do_fato.py",
       "tests/test_c8_convergencia.py",
+      "tests/test_c9_idioma.py",
       "tests/test_cadeia_do_audio_offline.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canario_rotas_contrato_certo.py",
@@ -3352,8 +3366,6 @@
       "tests/test_psql_argv.py",
       "tests/test_qualidade_t3.py",
       "tests/test_quarentena_naosei.py",
-      "tests/test_quatro_chaves.py",
-      "tests/test_quatro_chaves_na_sala.py",
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
       "tests/test_raw_observation_id_volta.py",
@@ -3374,7 +3386,6 @@
       "tests/test_runtime_so_deixa_passar_colheita.py",
       "tests/test_sala_duravel.py",
       "tests/test_sala_idempotente_por_documento.py",
-      "tests/test_sala_por_nome.py",
       "tests/test_scrap_convergencia.py",
       "tests/test_scrap_flow01_caminho_canonico.py",
       "tests/test_scrap_rc01_release_candidate.py",
@@ -3927,10 +3938,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "quatro-chaves-v2",
-    "HEAD": "16db9afc9754391a2d3bce39bda9a5f1ed5971c7",
-    "GENERATED_AT": "2026-09-26T00:01:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "18e20a5f4df552afd67fb9f11ddf13823596b4d6454fe0944b72965a00cec33f"
+    "BRANCH": "c9-sobre-ce28-v1",
+    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
+    "GENERATED_AT": "2026-09-26T01:07:37-03:00",
+    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a"
   },
   "FAMILIES": [
     {
@@ -3958,7 +3969,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 103
+      "count": 104
     },
     {
       "id": "F-ESPERA",
@@ -4153,7 +4164,7 @@
       "y": 190,
       "w": 1235,
       "h": 9056,
-      "count": 14
+      "count": 15
     },
     {
       "id": "Z-ACOES",
@@ -4958,9 +4969,7 @@
         "listas": [
           "ANCORAS",
           "COMPLETUDE_NAO_MEDIDA",
-          "EXPRESSOES_DE_TEMPO_RELATIVO",
           "FUNCAO",
-          "JANELA_NAO_MEDIDA",
           "JA_TEM_CAMPO_PROPRIO_NO_READY",
           "NAO_E_ITEM",
           "PERGUNTAS_DO_UNIVERSO",
@@ -4968,12 +4977,12 @@
           "QUATRO_DO_TEMPO_E_LUGAR",
           "TEMPO_LUGAR_EVIDENCIA_NAO_MEDIDA"
         ],
-        "palavras": 431,
+        "palavras": 378,
         "por_lingua": {
           "IT": 31,
           "PT": 21
         },
-        "sem_marca_de_lingua": 379,
+        "sem_marca_de_lingua": 326,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -5441,8 +5450,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 667",
-        "desses, mostrados aqui: 40 (ficam de fora 627)"
+        "enderecos que o codigo realmente chama: 670",
+        "desses, mostrados aqui: 40 (ficam de fora 630)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -38935,6 +38944,82 @@
       "y": 360
     },
     {
+      "id": "C-C9-INSTALAR",
+      "name": "C9-INSTALAR-PREP — o ensaio do C9-IDIOMA sobre o vivo (relatorio da 3.a onda, antes e depois)",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "ensaio_c9.sh: copia fiel do vivo (worktree no HEAD + os livros do disco), relatorio da micro-coleta com os RUN_IDs da 3.a onda ANTES (codigo da producao) e DEPOIS (C9, --estado=ONDA-WEB-ESTADO.json), Sala so lida (default_transaction_read_only), sem rede HTTP; merge --ff-only e desfazer por reset --keep.",
+      "why_here": "C9-INSTALAR-PREP (25/09/2026): o bot Luciano exige o C9 instalado e provado antes da 4.a onda; C1 e C3 passam de FAIL a PASS (38/38).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/c9/c9-testes.sh",
+        "ferramentas/c9/ensaio_c9.sh"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "biblioteca que ninguem importa nem carrega.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-MICRO-COLETA-INSTRUMENTO",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M4_MANDA_OUTRA_CORRER",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "corre scripts/micro_coleta/micro_coleta.py por subprocesso: quem manda outra peca executar nao esta so a olhar",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6830,
+      "y": 360
+    },
+    {
       "id": "C-CADEIA-V21",
       "name": "Cadeia canonica V2.1",
       "territory": "Z-MOTOR",
@@ -41011,8 +41096,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-FONTE-DO-ATLAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6830,
-      "y": 360
+      "x": 6000,
+      "y": 682
     },
     {
       "id": "C-CI-COLETA",
@@ -42526,7 +42611,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 682
     },
     {
@@ -46131,7 +46216,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 682
     },
     {
@@ -48017,8 +48102,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO · C-PACOTE-ONDA3 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6830,
-      "y": 682
+      "x": 6000,
+      "y": 1004
     },
     {
       "id": "C-IT-CATALOGO",
@@ -49561,7 +49646,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1004
     },
     {
@@ -49744,7 +49829,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1004
     },
     {
@@ -51083,24 +51168,30 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "RELATORIO-C9-IDIOMA.md",
         "scripts/micro_coleta/COORTE-PROPOSTA.json",
         "scripts/micro_coleta/GABARITO-MICRO-V1.json",
         "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
         "scripts/micro_coleta/MICRO-RUNBOOK.md",
+        "scripts/micro_coleta/MUTACAO-C9-IDIOMA-V1.json",
         "scripts/micro_coleta/ensaio_offline.py",
         "scripts/micro_coleta/medir_detector_de_capa.py",
         "scripts/micro_coleta/micro_coleta.py",
         "scripts/micro_coleta/micro_rede_real.py",
-        "scripts/micro_coleta/provar_backup_da_sala.py"
+        "scripts/micro_coleta/mutar_c9.py",
+        "scripts/micro_coleta/provar_backup_da_sala.py",
+        "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
+        "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt"
       ],
-      "file_count": 9,
+      "file_count": 14,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 14 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
         "C-ASK-SINTONIA",
+        "C-C9-INSTALAR",
         "C-CADEIA-V21",
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CAPA-MATERIA",
@@ -51135,18 +51226,28 @@
           "C",
           "COORTE_G1",
           "FILTROS",
+          "M",
           "TABELAS",
           "VARIAVEIS_DA_SALA",
           "_PALAVRAS"
         ],
-        "palavras": 117,
+        "palavras": 132,
         "por_lingua": {},
-        "sem_marca_de_lingua": 117,
+        "sem_marca_de_lingua": 132,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "scripts/micro_coleta",
+          "prova": {
+            "file": "scripts/micro_coleta/mutar_c9.py",
+            "line": 34,
+            "snippet": "escreve em F"
+          }
+        }
+      ],
       "destino": [
         "GIT"
       ],
@@ -51154,6 +51255,12 @@
         {
           "onde": "GIT",
           "file": "regras/italy_contracts_onboarded.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/micro_coleta/micro_coleta.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -51190,6 +51297,8 @@
         "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
         "scripts/micro_coleta/COORTE-PROPOSTA.json",
         "scripts/micro_coleta/GABARITO-MICRO-V1.json",
+        "scripts/micro_coleta/MUTACAO-C9-IDIOMA-V1.json",
+        "scripts/micro_coleta/micro_coleta.py",
         "superficie/rede.py"
       ],
       "consumes_plane": "CODE",
@@ -51203,12 +51312,14 @@
       "ATIVACAO": {
         "CLASSE": "PECA_INTERNA",
         "QUEM": [
+          "C-C9-INSTALAR",
           "C-HR6",
           "C-INTEGRA-ONDA2",
           "C-PACOTE-ONDA3"
         ],
         "PLANO": "CODE",
         "PROVA": [
+          "ferramentas/c9/ensaio_c9.sh:32",
           "ferramentas/hr6/hr6-plano.sh:10",
           "ferramentas/integra_onda2/final/ensaio_integra.sh:37",
           "ferramentas/onda3_pacote/ensaio_onda3.sh:40",
@@ -51408,8 +51519,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6830,
-      "y": 1004
+      "x": 6000,
+      "y": 1326
     },
     {
       "id": "C-ONDA-WEB",
@@ -51501,7 +51612,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -52185,7 +52296,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1326
     },
     {
@@ -52829,8 +52940,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6830,
-      "y": 1326
+      "x": 6000,
+      "y": 1648
     },
     {
       "id": "C-PORTA-FONTE",
@@ -59248,7 +59359,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -60807,15 +60918,11 @@
           "CAMPOS_READY",
           "CAMPOS_REVISIVEIS",
           "CODIGO_DA_VERSAO",
-          "COLUNAS_ESCRITAS",
-          "COLUNAS_LIDAS",
-          "COLUNA_E_CAMPO",
-          "COLUNA_E_CAMPO_JSON",
           "REVISTOS"
         ],
-        "palavras": 147,
+        "palavras": 56,
         "por_lingua": {},
-        "sem_marca_de_lingua": 147,
+        "sem_marca_de_lingua": 56,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -64520,6 +64627,7 @@
         "tests/test_c6_especie_do_texto.py",
         "tests/test_c7_lugar_do_fato.py",
         "tests/test_c8_convergencia.py",
+        "tests/test_c9_idioma.py",
         "tests/test_cadeia_do_audio_offline.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canario_rotas_contrato_certo.py",
@@ -64643,8 +64751,6 @@
         "tests/test_psql_argv.py",
         "tests/test_qualidade_t3.py",
         "tests/test_quarentena_naosei.py",
-        "tests/test_quatro_chaves.py",
-        "tests/test_quatro_chaves_na_sala.py",
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
         "tests/test_raw_observation_id_volta.py",
@@ -64665,7 +64771,6 @@
         "tests/test_runtime_so_deixa_passar_colheita.py",
         "tests/test_sala_duravel.py",
         "tests/test_sala_idempotente_por_documento.py",
-        "tests/test_sala_por_nome.py",
         "tests/test_scrap_convergencia.py",
         "tests/test_scrap_flow01_caminho_canonico.py",
         "tests/test_scrap_rc01_release_candidate.py",
@@ -64700,7 +64805,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 261,
+      "file_count": 259,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -64725,6 +64830,8 @@
         "curadoria/SOURCE-ID-ALLOCATION-V1.json",
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+        "ferramentas/c9/ensaio/antes.json",
+        "ferramentas/c9/ensaio/depois.json",
         "vercel.json"
       ],
       "inbound": [
@@ -64739,6 +64846,7 @@
         "C-AUTORIZACAO-DE-GASTO",
         "C-BANCO-NO-SECO",
         "C-BIBLIA",
+        "C-C9-INSTALAR",
         "C-CADEIA-V21",
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CAPA-MATERIA",
@@ -64939,7 +65047,6 @@
           "CAMPOS_DA_REGRA",
           "CAMPOS_DOC_DA_REGRA",
           "CAMPOS_DO_FATO",
-          "CAMPO_DA_COLUNA",
           "CANARIO_INSTAGRAM",
           "CANONICAS",
           "CANONICA_DE_PE",
@@ -64984,7 +65091,6 @@
           "IMPLEMENTACOES",
           "INSTALADORES",
           "ITEM",
-          "JSONS",
           "LINHA_BOA",
           "MINIMOS",
           "ONDE",
@@ -65006,7 +65112,6 @@
           "RECUSA",
           "ROTA_M2",
           "ROTULO_ITALIA",
-          "RUNS",
           "SEIS",
           "SEM_BYTES",
           "SEM_DSN",
@@ -65028,13 +65133,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1599,
+        "palavras": 1548,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1587,
+        "sem_marca_de_lingua": 1536,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -65373,6 +65478,8 @@
         "ferramentas/big_collection/BC5-1A-ONDA-LIVRO-DE-CORRIDAS.ndjson",
         "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+        "ferramentas/c9/ensaio/antes.json",
+        "ferramentas/c9/ensaio/depois.json",
         "ferramentas/cutover/medir_cutover.py",
         "ferramentas/cutover/passos_do_cutover.py",
         "ferramentas/fala_local.py",
@@ -65552,7 +65659,6 @@
         "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
         "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
         "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
-        "supabase/migrations/033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql",
         "supabase/tests/regressoes_calendario.sql",
         "superficie/rede.py",
         "system-map/app/map.js",
@@ -65572,6 +65678,8 @@
         "system-map/scripts/publicar_no_deploy.mjs",
         "system-map/scripts/scan_sources.py",
         "system-map/scripts/validate_system_map.py",
+        "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
+        "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
         "tests/fixtures/ARESTAS/codigo_real.py",
         "tests/fixtures/ARESTAS/owner_indireto.py",
         "tests/fixtures/ARESTAS/so_comentario.py",
@@ -65597,6 +65705,7 @@
       "ATIVACAO": {
         "CLASSE": "PECA_INTERNA",
         "QUEM": [
+          "C-C9-INSTALAR",
           "C-CI-COLETA",
           "C-CI-MAPA",
           "C-PACOTE-ONDA3"
@@ -65606,7 +65715,8 @@
           ".github/workflows/comunicacao-publica.yml:105",
           ".github/workflows/system-map.yml:573",
           ".github/workflows/system-map.yml:574",
-          "ferramentas/onda3_pacote/ensaio_onda3.sh:121",
+          "ferramentas/c9/c9-testes.sh:7",
+          "ferramentas/c9/c9-testes.sh:7",
           "ferramentas/onda3_pacote/ensaio_onda3.sh:121"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
@@ -65731,7 +65841,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1648
     },
     {
@@ -70476,7 +70586,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 2065,
+          "line": 1886,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -70863,7 +70973,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 44 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 42 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -71074,7 +71184,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -71110,7 +71220,7 @@
         },
         {
           "file": "tests/test_a_linhagem_do_ready.py",
-          "line": 99,
+          "line": 95,
           "snippet": "\"admissao.py\")))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
@@ -71176,22 +71286,6 @@
           "file": "tests/test_politica_nao_sei.py",
           "line": 52,
           "snippet": "self.assertEqual(chamadores, [\"admissao/admissao.py\"],",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_quatro_chaves_na_sala.py",
-          "line": 262,
-          "snippet": "fonte = (RAIZ / \"admissao\" / \"admissao.py\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
             "FROM": "C-ADMISSAO",
@@ -76496,6 +76590,124 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-C9-INSTALAR",
+      "to": "C-MICRO-COLETA-INSTRUMENTO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "C9-INSTALAR-PREP — o ensaio do C9-IDIOMA sobre o vivo (relatorio da 3.a onda, antes e depois) manda rodar Micro-coleta web — plano, corrida autorizada e relatorio de passagem. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/c9/ensaio_c9.sh",
+          "line": 32,
+          "snippet": "py -B scripts/micro_coleta/micro_coleta.py relatorio $IDS --saida=$OUT/antes > $OUT/antes.json 2> $OUT/antes.err",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-C9-INSTALAR--RUNS-->C-MICRO-COLETA-INSTRUMENTO",
+            "FROM": "C-C9-INSTALAR",
+            "TO": "C-MICRO-COLETA-INSTRUMENTO",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-C9-INSTALAR",
+      "to": "C-TESTES",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "C9-INSTALAR-PREP — o ensaio do C9-IDIOMA sobre o vivo (relatorio da 3.a onda, antes e depois) manda rodar Suite de testes. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/c9/c9-testes.sh",
+          "line": 7,
+          "snippet": "for t in tests/test_c9_idioma.py tests/test_micro_coleta_instrumento.py tests/test_ensaio_offline_micro.py tests/test_micro_rede_real.py; do",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-C9-INSTALAR--RUNS-->C-TESTES",
+            "FROM": "C-C9-INSTALAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/c9/c9-testes.sh",
+          "line": 7,
+          "snippet": "for t in tests/test_c9_idioma.py tests/test_micro_coleta_instrumento.py tests/test_ensaio_offline_micro.py tests/test_micro_rede_real.py; do",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-C9-INSTALAR--RUNS-->C-TESTES",
+            "FROM": "C-C9-INSTALAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/c9/c9-testes.sh",
+          "line": 7,
+          "snippet": "for t in tests/test_c9_idioma.py tests/test_micro_coleta_instrumento.py tests/test_ensaio_offline_micro.py tests/test_micro_rede_real.py; do",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-C9-INSTALAR--RUNS-->C-TESTES",
+            "FROM": "C-C9-INSTALAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/c9/c9-testes.sh",
+          "line": 7,
+          "snippet": "for t in tests/test_c9_idioma.py tests/test_micro_coleta_instrumento.py tests/test_ensaio_offline_micro.py tests/test_micro_rede_real.py; do",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-C9-INSTALAR--RUNS-->C-TESTES",
+            "FROM": "C-C9-INSTALAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-CADEIA-V21",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
@@ -76984,7 +77196,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Cadeia canonica V2.1 alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_migracao_033_sala.py",
@@ -77006,22 +77218,6 @@
           "file": "tests/test_porta_de_producao.py",
           "line": 149,
           "snippet": "if \"cadeia_canonica.sh\" in linha and linha.rstrip().endswith(\"\\\\\"):",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CADEIA-V21--READS-->C-TESTES",
-            "FROM": "C-CADEIA-V21",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_quatro_chaves_na_sala.py",
-          "line": 127,
-          "snippet": "r = subprocess.run([shutil.which(\"bash\") or \"bash\", \"motor/cadeia_canonica.sh\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CADEIA-V21--READS-->C-TESTES",
             "FROM": "C-CADEIA-V21",
@@ -97533,7 +97729,7 @@
         },
         {
           "file": "tests/test_a_linhagem_do_ready.py",
-          "line": 176,
+          "line": 172,
           "snippet": "fonte = _fonte(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -104873,7 +105069,7 @@
         },
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
-          "line": 509,
+          "line": 526,
           "snippet": "p = (pasta or ledger_do_coletor()) / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -112293,7 +112489,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 144 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 143 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -113342,12 +113538,60 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_bc4_armazem_e_pais.py",
           "line": 36,
           "snippet": "\"micro_coleta_bc4\", os.path.join(RAIZ, \"scripts\", \"micro_coleta\", \"micro_coleta.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c9_idioma.py",
+          "line": 19,
+          "snippet": "_spec = importlib.util.spec_from_file_location(\"micro_coleta_c9\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c9_idioma.py",
+          "line": 25,
+          "snippet": "RAW_1436 = DADOS / \"raw-1436-arpae-mare-balneabile.txt\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c9_idioma.py",
+          "line": 26,
+          "snippet": "RAW_1437 = DADOS / \"raw-1437-arpae-portale-prelievi.txt\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
             "FROM": "C-MICRO-COLETA-INSTRUMENTO",
@@ -113427,22 +113671,6 @@
         {
           "file": "tests/test_migracao_033_sala.py",
           "line": 32,
-          "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
-            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_quatro_chaves_na_sala.py",
-          "line": 57,
           "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
@@ -129988,7 +130216,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -130119,22 +130347,6 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_quatro_chaves_na_sala.py",
-          "line": 54,
-          "snippet": "import sala_de_espera as espera          # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
-            "FROM": "C-SALA-DE-ESPERA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
           "file": "tests/test_sala_duravel.py",
           "line": 31,
           "snippet": "import sala_de_espera as espera                            # noqa: E402",
@@ -130165,22 +130377,6 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_sala_por_nome.py",
-          "line": 22,
-          "snippet": "import sala_de_espera as S  # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
-            "FROM": "C-SALA-DE-ESPERA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -130199,7 +130395,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_migracao_033.py",
@@ -130301,22 +130497,6 @@
           "file": "tests/test_psql_argv.py",
           "line": 249,
           "snippet": "\"admissao/sala_de_espera.py\"):",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
-            "FROM": "C-SALA-DE-ESPERA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_quatro_chaves_na_sala.py",
-          "line": 275,
-          "snippet": "for rel in (\"admissao/admissao.py\", \"admissao/sala_de_espera.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
             "FROM": "C-SALA-DE-ESPERA",
@@ -138720,7 +138900,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 30 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 29 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -144020,7 +144200,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1920,
+  "UNCLAIMED_FILES_COUNT": 1924,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -144261,7 +144441,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 227,
+      "PECAS_EM_DESACORDO": 228,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -144273,23 +144453,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 253
+      "TOTAL_DE_PECAS": 254
     }
   ],
   "COUNTS": {
-    "components": 253,
+    "components": 254,
     "components_proven": 32,
-    "components_pending": 213,
+    "components_pending": 214,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1469,
-    "edges_proven": 1404,
+    "edges": 1471,
+    "edges_proven": 1406,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3334,
-    "files_covered": 1414,
+    "files_tracked": 3345,
+    "files_covered": 1421,
     "files_code_unclaimed": 0,
-    "roles_proven": 174,
+    "roles_proven": 175,
     "roles_declared_only": 8,
     "roles_unknown": 71,
     "roles_conflict": 38,

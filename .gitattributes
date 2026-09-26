@@ -41,3 +41,7 @@ data/collection-ledger/**/*.log     merge=union
 # D15: a prova dos termos (LinkedIn/Instagram) tem de bater byte a byte com o sha256
 # registado em candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json.
 candidatas/prova-termos/** -text -diff
+
+# C9-IDIOMA: as duas amostras reais do MICRO-V3 sao comparadas pelo SHA-256 do armazem; sem isto o
+# checkout com autocrlf trocava LF por CRLF e o teste do sha caia na maquina instalada.
+tests/dados/c9-idioma/** -text
