@@ -68,6 +68,10 @@ class OsAcontecimentosDoTempoEDoFogo(unittest.TestCase):
             with self.subTest(t=t[:30]):
                 self.assertEqual((esperado, "CAMPO"), tempo(t))
 
+    def test_evento_atmosferico_sozinho_e_acontecimento(self):
+        t = "L'evento atmosferico del 2 giugno 2026 ha danneggiato le coltivazioni di ortaggi della piana di Fondi."
+        self.assertEqual(("2 giugno 2026", "CAMPO"), tempo(t))
+
     def test_falsos_amigos_nao_sao_acontecimento(self):
         # «gelato» (sorvete) nao e «gelata»; «vento» sozinho nao e acontecimento
         self.assertNotEqual("CAMPO", tempo("Il gelato artigianale del 4 agosto 2026 e stato venduto in tutte le "
@@ -83,6 +87,12 @@ class OFuturoNaoEFactoOcorrido(unittest.TestCase):
              "e nelle campagne della provincia.")
         self.assertEqual(FT.NAO_SEI, tempo(t, *PUB)[0])
         self.assertIn("PREVISAO_NAO_E_FATO", FT.campos_do_fato(t, *PUB)["fact_time_basis"])
+
+    def test_alerta_sem_publicacao_tambem_nao_e_facto(self):
+        # sem publicacao provada nao ha conta de datas: e a MARCA de previsao na frase que decide
+        t = ("Allerta meteo: previste per il 28 settembre 2026 raffiche di vento e grandinate su tutta la regione "
+             "e nelle campagne della provincia.")
+        self.assertEqual(FT.NAO_SEI, tempo(t)[0])
 
     def test_data_depois_da_publicacao_provada_nao_e_facto(self):
         t = "Le raffiche di vento del 30 settembre 2026 hanno abbattuto le serre di tutta la zona agricola della provincia."
@@ -132,6 +142,10 @@ class OTituloEADescricao(unittest.TestCase):
         self.assertEqual(("12 giugno 2026", "CAMPO"),
                          tempo("Grandinata del 12 giugno 2026 sui vigneti di Franciacorta - YouTube"))
 
+    def test_titulo_em_duas_linhas_curtas_tambem_e_lido(self):
+        t = "Grandinata del 12 giugno 2026 sui vigneti\nFranciacorta, le notizie del consorzio"
+        self.assertEqual(("12 giugno 2026", "CAMPO"), tempo(t))
+
     def test_menu_continua_fora(self):
         self.assertEqual("", FT.corpo("Home\nNotizie\nContatti\nChi siamo"))
         self.assertEqual("", FT.corpo("Home\nNotizie\nPrivacy e cookie policy del sito web"))
@@ -171,6 +185,26 @@ class OTituloEADescricao(unittest.TestCase):
         det = {"videoDetails": {"title": "Grandinata", "shortDescription": "La grandinata del 12 giugno 2026."}}
         b = ("<script>var ytInitialPlayerResponse = %s;</script>" % json.dumps(det)).encode("utf-8")
         self.assertEqual("La grandinata del 12 giugno 2026.", RP.titulo_e_descricao(b)["DESCRICAO"])
+
+    def test_o_reprocesso_entrega_a_descricao_a_estrada(self):
+        import reprocessar_tempo_lugar as RP
+        from unittest import mock
+        visto = {}
+
+        class Parou(Exception):
+            pass
+
+        def espia(est, source_id):
+            visto.update(est)
+            raise Parou()
+        det = {"videoDetails": {"title": "Grandinata", "shortDescription": "La grandinata del 12 giugno 2026."}}
+        b = ("<script>var ytInitialPlayerResponse = %s;</script>" % json.dumps(det)).encode("utf-8")
+        linha = {"SOURCE_ID": "IT-T8-006", "TEXTO": "Grandinata - YouTube", "ITEM_ID": "derived:1",
+                 "RAW_OBSERVATION_ID": 1, "SHA256": "", "CAPTURED_AT": "2026-09-10T00:00:00Z"}
+        with mock.patch.object(RP.ORQ, "item_documental_para_a_porta", espia):
+            with self.assertRaises(Parou):
+                RP.ready_de(linha, None, b)
+        self.assertEqual("La grandinata del 12 giugno 2026.", visto.get("DESCRICAO"))
 
     def test_a_estrada_leva_o_titulo_e_a_descricao_ate_ao_leitor(self):
         import orquestrador as ORQ
