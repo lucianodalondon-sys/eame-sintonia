@@ -74,6 +74,10 @@ def main():
     ap.add_argument("--repetir", type=int, default=5)
     a = ap.parse_args()
     arvore = Path(a.arvore)
+    # a copia da Sala real le-se com default_transaction_read_only; o Postgres DESCARTAVEL nao pode herdar isso
+    # (o CREATE DATABASE falha) nem a senha da Sala real
+    for v in ("PGOPTIONS", "PGPASSFILE", "PGHOST", "PGPORT", "PGDATABASE", "PGUSER"):
+        os.environ.pop(v, None)
     spec = importlib.util.spec_from_file_location("ensaio_offline", arvore / "scripts" / "micro_coleta" / "ensaio_offline.py")
     E = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(E)
@@ -86,10 +90,28 @@ def main():
     grupo = lambda x: ("NUNCA_PERGUNTADO:" + ("YOUTUBE" if "YOUTUBE" in x["MARCAS"] else "OUTROS")) \
         if x["MOTIVO"].startswith("NUNCA") else ":".join(x["MOTIVO"].split(":")[:2])
     grupo_do_sha = {x["SHA256"]: grupo(x) for x in alvo_itens}
+    # as corridas a reprocessar: as do banco (raw_asset.run_id) E as do LIVRO onde a impressao digital do
+    # conteudo aparece — o mesmo conteudo foi muitas vezes colhido de novo por uma corrida mais recente, e e
+    # essa que o livro conhece (medido: 59 corridas do banco nao tem linha em livro nenhum)
+    run_por_sha = collections.defaultdict(set)
+    fonte_por_run = {}
+    for padrao in a.livros.split(";"):
+        if "observations" not in padrao:
+            continue
+        for f in sorted(glob.glob(padrao)):
+            for l in open(f, encoding="utf-8", errors="replace"):
+                try:
+                    o = json.loads(l)
+                except ValueError:
+                    continue
+                if isinstance(o, dict) and o.get("RAW_SHA256") and o.get("RUN_ID"):
+                    run_por_sha[str(o["RAW_SHA256"]).strip()].add(o["RUN_ID"])
+                    fonte_por_run.setdefault(o["RUN_ID"], o.get("SOURCE_ID"))
     corridas = collections.OrderedDict()
     for x in sorted(alvo_itens, key=lambda x: x["RUN_IDS"][0]):
-        for r in x["RUN_IDS"]:
-            corridas.setdefault(r, {"RUN_ID": r, "FONTE": x["SOURCE_ID"], "UNIVERSO": r.split("-")[1]})
+        for r in sorted(set(x["RUN_IDS"]) | run_por_sha.get(x["SHA256"], set())):
+            corridas.setdefault(r, {"RUN_ID": r, "FONTE": fonte_por_run.get(r) or x["SOURCE_ID"],
+                                    "UNIVERSO": r.split("-")[1]})
     lista = list(corridas.values())[:a.limite or None]
     runs_alvo = {c["RUN_ID"] for c in lista}
 
@@ -98,11 +120,13 @@ def main():
             "DUMP": a.dump, "DUMP_SHA256": sha(open(a.dump, "rb").read()),
             "CORRIDAS": len(lista), "ITENS_ALVO": len(alvo_itens), "PASSOS": {}}
     T = Path(tempfile.mkdtemp(prefix="aps-"))
-    ops, arm = T / "ops", T / "armazem"
+    # como no vivo: o livro e o deposito do coletor vivem DENTRO da arvore (OPS_ROOT = a arvore), e o
+    # ingresso le os bytes em <arvore>/<STORAGE_LOCATION>. So a copia local de ensaio e escrita.
+    ops, arm = arvore, T / "armazem"
     try:
         # ── 1 · o livro reunido, o deposito do coletor e o armazem, todos com sha conferido ──
         dl = ops / "data" / "collection-ledger" / "italy"
-        dl.mkdir(parents=True)
+        dl.mkdir(parents=True, exist_ok=True)
         livro_info = {}
         for nome in ("observations.ndjson", "runs.ndjson"):
             vivo = open(os.path.join(a.livro_vivo, nome), encoding="utf-8", errors="replace").read().splitlines()
@@ -222,7 +246,8 @@ def main():
                 rc = next((l[3:] for l in x.stdout.splitlines() if l.startswith("RC ")), None)
                 return {"RUN_ID": c["RUN_ID"], "FONTE": c["FONTE"], "UNIVERSO": c["UNIVERSO"], "BALCAO": bal, "RC": rc,
                         "EXIT": x.returncode, "SEG": round(time.time() - t0, 1),
-                        "ERRO": (x.stderr.strip().splitlines() or [""])[-1][:240]}
+                        "ERRO": (x.stderr.strip().splitlines() or [""])[-1][:240],
+                        "SAIDA_FIM": [l[:200] for l in x.stdout.strip().splitlines()[-12:]]}
 
             # ── 3 · cada corrida pela porta ──
             passagens = [passar(c) for c in lista]
