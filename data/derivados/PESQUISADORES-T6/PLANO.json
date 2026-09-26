@@ -1,0 +1,70 @@
+{
+ "CONSULTAS": [
+  {
+   "PAR": "vite x peronospora",
+   "BUSCA": "(grapevine OR vineyard OR \"Vitis vinifera\") AND (\"Plasmopara viticola\" OR \"downy mildew\")"
+  },
+  {
+   "PAR": "vite x oidio",
+   "BUSCA": "(grapevine OR vineyard OR \"Vitis vinifera\") AND (\"Erysiphe necator\" OR \"powdery mildew\")"
+  },
+  {
+   "PAR": "vite x botrite",
+   "BUSCA": "(grapevine OR vineyard OR \"Vitis vinifera\") AND (\"Botrytis cinerea\" OR \"bunch rot\" OR \"grey mould\")"
+  },
+  {
+   "PAR": "vite x tignoletta",
+   "BUSCA": "(grapevine OR vineyard OR \"Vitis vinifera\") AND (\"Lobesia botrana\" OR \"grapevine moth\")"
+  },
+  {
+   "PAR": "vite x scafoideo",
+   "BUSCA": "(grapevine OR vineyard OR \"Vitis vinifera\") AND (\"Scaphoideus titanus\" OR \"flavescence dorée\")"
+  },
+  {
+   "PAR": "melo x oidio",
+   "BUSCA": "(apple OR \"Malus domestica\") AND (\"Podosphaera leucotricha\" OR \"powdery mildew\")"
+  },
+  {
+   "PAR": "melo x carpocapsa",
+   "BUSCA": "(apple OR \"Malus domestica\") AND (\"Cydia pomonella\" OR \"codling moth\")"
+  },
+  {
+   "PAR": "mais x piralide",
+   "BUSCA": "(maize OR corn OR \"Zea mays\") AND (\"Ostrinia nubilalis\" OR \"corn borer\")"
+  },
+  {
+   "PAR": "mais x diabrotica",
+   "BUSCA": "(maize OR corn OR \"Zea mays\") AND (\"Diabrotica virgifera\" OR rootworm)"
+  },
+  {
+   "PAR": "pomodoro x peronospora",
+   "BUSCA": "(tomato OR \"Solanum lycopersicum\") AND (\"Phytophthora infestans\" OR \"late blight\")"
+  },
+  {
+   "PAR": "pomodoro x botrite",
+   "BUSCA": "(tomato OR \"Solanum lycopersicum\") AND (\"Botrytis cinerea\" OR \"grey mould\" OR \"gray mold\")"
+  },
+  {
+   "PAR": "pomodoro x oidio",
+   "BUSCA": "(tomato OR \"Solanum lycopersicum\") AND (\"Leveillula taurica\" OR \"Oidium neolycopersici\" OR \"powdery mildew\")"
+  }
+ ],
+ "PLANO": {
+  "PEDIDOS_POR_DOMINIO": {
+   "api.openalex.org": 12,
+   "api.crossref.org": 0,
+   "pub.orcid.org": 0
+  },
+  "TETO_POR_DOMINIO_POR_RODADA": 5,
+  "RODADAS_POR_DOMINIO": {
+   "api.openalex.org": 3,
+   "api.crossref.org": 0,
+   "pub.orcid.org": 0
+  },
+  "OBRIGATORIO": "api.openalex.org (as 12 consultas: 3 rodadas)",
+  "INCREMENTAL": [
+   "api.crossref.org",
+   "pub.orcid.org"
+  ]
+ }
+}
