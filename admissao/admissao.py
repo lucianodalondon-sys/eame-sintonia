@@ -804,6 +804,18 @@ def _casa(termo: str, texto_dobrado: str) -> bool:
     return False
 
 
+def _formas_que_casam(termo: str, texto_dobrado: str) -> list:
+    """QUAIS formas do conceito casam como palavra inteira — a mesma regra de `_casa`."""
+    import re
+    achadas = []
+    for forma in str(termo).split("|"):
+        f = _dobrar(forma)
+        if f and f not in achadas and re.search(
+                r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])", texto_dobrado):
+            achadas.append(f)
+    return achadas
+
+
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
 
@@ -1894,6 +1906,173 @@ def completude_tempo_lugar(ready: dict) -> dict:
     return {k: fora[k] for k in sorted(fora)}
 
 
+#: As quatro chaves (D29), na ordem em que `janela_declarada()` as escreve.
+QUATRO_CHAVES = ("CULTURA", "REGIAO_DO_FATO", "FASE", "JANELA")
+
+#: ⚠️ O QUE A SALA GUARDA PARA QUEM ENTROU ANTES DE AS CHAVES EXISTIREM (D58).
+#: A migration `033` escreve ESTE registo como default da coluna
+#: `sala_de_espera.janela_declarada`, byte a byte (`json.dumps(...,
+#: sort_keys=True, ensure_ascii=False)`), e ha teste que reprova se os dois
+#: divergirem. Nao e um palpite sobre o item antigo: e a verdade sobre ele —
+#: ninguem mediu as quatro chaves quando ele pousou.
+#:
+#:     UM DEFAULT QUE DECLARA AUSENCIA != UM DEFAULT QUE INVENTA VALOR.
+JANELA_NAO_MEDIDA = {
+    **{c: {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA}
+       for c in QUATRO_CHAVES},
+    # ⚠️ NAO SEI, E NAO ZERO: «0 chaves» diria que se mediu e nao havia nada.
+    "PRECISAO": {"CHAVES_COM_VALOR": AUSENCIA, "FACT_TIME": AUSENCIA,
+                 "PUBLISHED_AT": AUSENCIA},
+    # `CONTA` fica porque a coluna VIVA (033 unica, producao) nasceu com ela no
+    # default; aqui e sempre NAO SEI — contar datas e do extrator (DA-6).
+    "TEMPO_RELATIVO": {"EXPRESSOES": AUSENCIA, "VEIO_DE": AUSENCIA, "CONTA": AUSENCIA},
+    "ORIGEM": {"PORQUE": "pousado antes da migration 033: as quatro chaves "
+                         "nao foram medidas"},
+}
+
+#: D62 · DATAS RELATIVAS («ontem», «semana passada»). O dono NAO autorizou
+#: converte-las em FACT_TIME: guarda-se a EXPRESSAO como evidencia, e o
+#: FACT_TIME fica NAO SEI salvo data explicita declarada pelo coletor. Esta
+#: lista so ACHA expressoes (palavra inteira, texto dobrado); nao calcula data
+#: nenhuma, e nao decide nada na porta.
+EXPRESSOES_DE_TEMPO_RELATIVO = "|".join((
+    # it
+    "ieri", "l'altro ieri", "oggi", "stamattina", "stanotte", "domani",
+    "dopodomani", "settimana scorsa", "la scorsa settimana", "questa settimana",
+    "prossima settimana", "mese scorso", "lo scorso mese", "nei giorni scorsi",
+    "nei prossimi giorni", "prossimi giorni",
+    # pt
+    "ontem", "anteontem", "hoje", "amanha", "semana passada", "esta semana",
+    "proxima semana", "mes passado", "nos ultimos dias", "nos proximos dias",
+    # es
+    "ayer", "anteayer", "hoy", "semana pasada", "esta semana", "mes pasado",
+    "proxima semana",
+    # en
+    "yesterday", "today", "tomorrow", "last week", "this week", "next week",
+    "last month",
+))
+
+
+def janela_declarada(item: dict, decisao: Decisao) -> dict:
+    """QUATRO-CHAVES (D29): o que a porta JA SABE sobre a janela, com a lei.
+
+        CULTURA × REGIAO DO FATO × FASE × JANELA
+
+    Desde a D58 (QUATRO-CHAVES-NA-SALA) isto VIAJA: `pronto_para_inteligencia()`
+    leva-o no campo `JANELA_DECLARADA`, e a Sala guarda-o na coluna
+    `janela_declarada` (migration `033`). A lei nao mudou com a viagem:
+
+      · CULTURA e FASE vêm da evidencia da regua T1 (a porta ja as leu);
+      · REGIAO DO FATO vem de `fact_location` e NUNCA de `source_location`;
+      · a JANELA (intervalo + safra) a regua nao extrai — NAO SEI;
+      · FACT_TIME != PUBLISHED_AT != CAPTURED_AT, cada um no seu campo;
+      · ausencia = `AUSENCIA` («NAO SEI»), nunca vazio nem None.
+
+    Cada chave diz `VEIO_DE` — o campo do item ou da decisao de onde saiu — e
+    `BASE` — a regua ou a declaracao que a sustenta. Uma chave sem proveniencia
+    e indistinguivel de um palpite.
+
+    ⚠️ A AUSENCIA E `AUSENCIA` («NAO SEI», com espaco) E NAO `NAO_SEI`. Enquanto
+    isto nao saia da porta, a diferenca nao mordia; a partir do momento em que
+    entra no contrato de saida, a regra do topo deste ficheiro manda: `NAO_SEI`
+    e um RESULTADO da porta, e a Sala guardaria-o como valor medido.
+    """
+    def _valor(v):
+        return AUSENCIA if v is None or str(v).strip() in ("", AUSENCIA, NAO_SEI) else v
+
+    ev = decisao.evidencia or {}
+    da_regua = decisao.universo in CULTURA_OBRIGATORIA
+    base = "regua %s v%s (admissao._do_universo, palavra inteira no texto)" % (
+        decisao.universo, decisao.versao)
+    campos_do_texto = ("texto", "title", "nome", "topics", "crops", "resumo")
+    # ⚠️ A PORTA NAO DECIDE A JANELA (tests/test_regua_t1.py::APortaNaoDecideAJanela):
+    # a evidencia dela so traz palavras/cultura/sinais/falta, e isso NAO muda aqui.
+    # A regua viu QUE havia cultura (`cultura: True`); QUAL e relida pela MESMA regra
+    # — mesmo texto dobrado, mesma lingua, mesmo vocabulario, palavra inteira.
+    culturas, momentos = [], []
+    if da_regua and ev.get("cultura"):
+        texto = _dobrar(" ".join(str(item.get(k) or "") for k in campos_do_texto))
+        vocab = CULTURA_OBRIGATORIA_EN if _lingua_do_item(item) == "en" else CULTURA_OBRIGATORIA
+        culturas = _formas_que_casam(vocab[decisao.universo], texto)
+    if da_regua:
+        # no SIM a regua guarda ate 8 momentos (`palavras[:8]`); e o que ela sabe
+        momentos = list(ev.get("palavras") or [])
+    # ⚠️ SO `fact_location`. `source_location` e o lugar de quem PUBLICA, e um
+    # boletim da ARPAV (Veneto) pode falar de um fato em Trentino (INT-LAW-101;
+    # AGENTS.md: «fonte/location do documento nao vira local do fato»).
+    regiao = _valor(item.get("fact_location"))
+    return {
+        "CULTURA": {"VALOR": culturas or AUSENCIA,
+                    "VEIO_DE": ("item.%s relido pela regra da regua; a regua viu "
+                                "cultura (decisao.evidencia.cultura)"
+                                % "|".join(campos_do_texto)) if culturas else AUSENCIA,
+                    "BASE": base if culturas else AUSENCIA,
+                    "FORMA": "a do vocabulario da regua, sem normalizar (nao e EPPO)"},
+        "REGIAO_DO_FATO": {"VALOR": regiao,
+                           "VEIO_DE": "item.fact_location" if regiao != AUSENCIA else AUSENCIA,
+                           "BASE": _valor(item.get("fact_location_basis"))
+                           if regiao != AUSENCIA else AUSENCIA,
+                           "LEI": "nunca herdada de source_location (INT-LAW-101)"},
+        "FASE": {"VALOR": momentos or AUSENCIA,
+                 "VEIO_DE": "decisao.evidencia.palavras" if momentos else AUSENCIA,
+                 "BASE": base if momentos else AUSENCIA,
+                 "FORMA": "sinais de momento que a regua achou; nao e estadio normalizado"},
+        "JANELA": {"VALOR": AUSENCIA,
+                   "VEIO_DE": AUSENCIA,
+                   "BASE": AUSENCIA,
+                   "PORQUE": "a regua nao extrai intervalo nem safra; a janela e da CAP-WIN"},
+        "TEMPOS": {"FACT_TIME": _valor(item.get("fact_time")),
+                   "PUBLISHED_AT": _valor(item.get("published_at")),
+                   "CAPTURED_AT": _valor(item.get("captured_at"))},
+        "ORIGEM": {"REGRA": decisao.regra, "VERSAO": decisao.versao,
+                   "RESULTADO": decisao.resultado, "UNIVERSO": decisao.universo},
+    }
+
+
+def janela_para_o_ready(item: dict, decisao: Decisao) -> dict:
+    """O que de `janela_declarada()` entra no contrato READY: tudo menos `TEMPOS`,
+    mais a PRECISAO e o TEMPO RELATIVO que a D62 pede.
+
+    ⚠️ `TEMPOS` NAO VIAJA DUAS VEZES. O READY ja leva `FACT_TIME`, `PUBLISHED_AT`
+    e `CAPTURED_AT`, cada um no seu campo e com o seu dono. Uma segunda copia
+    dentro deste registo seria livre para divergir da primeira — e a jusante
+    ninguem saberia qual ler.
+
+    ⚠️ D62 · NADA E OBRIGATORIO. Falta de data ou de lugar nunca reprova nem
+    descarta o item: quanto mais dados, mais precisao. `PRECISAO` so CONTA o
+    que ha — quantas das quatro chaves tem valor, e se ha tempo do fato e/ou de
+    publicacao — para que a Intelligence (quando a trava abrir) saiba o grau de
+    cada item. Nao julga nem filtra.
+
+    ⚠️ DA-6 · FACT_TIME A PARTIR DO TEXTO TEM UM DONO: o extrator local
+    `lugar-fato-v1`. Esta porta NAO conta datas: «ieri», «settimana scorsa» ficam
+    so como EXPRESSAO (evidencia para esse dono), e `PRECISAO.FACT_TIME` so diz
+    se o item JA TRAZ `fact_time`. (A conta da D63 viveu aqui e saiu por DA-6.)
+    """
+    j = janela_declarada(item, decisao)
+    r = {k: j[k] for k in QUATRO_CHAVES}
+    tempos = j["TEMPOS"]
+    r["PRECISAO"] = {
+        "CHAVES_COM_VALOR": sum(1 for c in QUATRO_CHAVES if r[c]["VALOR"] != AUSENCIA),
+        "FACT_TIME": "DECLARADO" if tempos["FACT_TIME"] != AUSENCIA else AUSENCIA,
+        "PUBLISHED_AT": "DECLARADO" if tempos["PUBLISHED_AT"] != AUSENCIA else AUSENCIA,
+    }
+    campos = ("texto", "title", "resumo")
+    achadas = _formas_que_casam(EXPRESSOES_DE_TEMPO_RELATIVO,
+                                _dobrar(" ".join(str(item.get(k) or "") for k in campos)))
+    r["TEMPO_RELATIVO"] = {
+        "EXPRESSOES": achadas or AUSENCIA,
+        "VEIO_DE": ("item.%s (palavra inteira)" % "|".join(campos)) if achadas else AUSENCIA,
+        # DA-6: a porta nao conta; a conta (FACT_TIME_CALCULO) e do extrator
+        # lugar-fato-v1, em TEMPO_LUGAR_EVIDENCIA. Aqui fica sempre NAO SEI.
+        "CONTA": AUSENCIA,
+        "LEI": ("evidencia, nao FACT_TIME: o dono de FACT_TIME a partir do texto e "
+                "o extrator lugar-fato-v1 (DA-6)"),
+    }
+    r["ORIGEM"] = j["ORIGEM"]
+    return r
+
+
 def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
     """O contrato de saida. A inteligencia recebe ISTO, e mais nada.
 
@@ -2034,6 +2213,13 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
             "source_declared_evidence_class"),
         # ── O FATO, QUANDO O ITEM E UM FATO ─────────────────────────────────
         "FATO": envelope_do_fato(item, est),
+        # ── AS QUATRO CHAVES DA JANELA, COM A PROVENIENCIA (D58) ────────────
+        # CULTURA · REGIAO DO FATO · FASE · JANELA. A regua T1 ja lia cultura e
+        # fase, e elas morriam aqui. Cada chave diz de que campo e de que regua
+        # veio; o que ninguem mediu e `NAO SEI`. Dono: `janela_declarada()`.
+        # Casa na Sala: coluna `janela_declarada` (033 unica). NAO escreve
+        # FACT_TIME nem FACT_LOCATION: esses sao do extrator lugar-fato (DA-6).
+        "JANELA_DECLARADA": janela_para_o_ready(item, decisao),
         "CAPTURED_AT": item.get("captured_at", AUSENCIA),
         "CORRIDA": decisao.corrida,
         "ADMITIDO_POR": f"{decisao.regra} v{decisao.versao}",
