@@ -1,6 +1,6 @@
 # ACERVO-TEMPO-LUGAR · o tempo e o lugar do acervo que NÃO está na Sala
 
-Ramo `acervo-tempo-lugar-v1`, a partir do vivo `ce28040c`. **Só leitura e sem rede**:
+Ramo `acervo-tempo-lugar-v1`, a partir do vivo `ce28040c` e depois rebaseado sobre o vivo `83de0ccd` (C9). De um para o outro, os ficheiros de tempo e lugar e as migrações não mudaram. **Só leitura e sem rede**:
 - a Sala real foi lida por `SELECT` com `default_transaction_read_only=on` e copiada por `pg_dump`, também só
   leitura;
 - RAW, derivados, Sala e armazém **não foram tocados**;
@@ -193,7 +193,7 @@ e usar outra seria mentir sobre a espécie do filho.
 **O desfazer** (`supabase/desfazer/034_desfazer.sql`) repõe o vocabulário antigo e **recusa-se** se já houver algum
 derivado TEMPO_LUGAR: apagá-los seria perder evidência. Nesse caso, o caminho é o backup.
 
-**⚠️ Número.** A «lápide da retenção» (`033_a_lapide_da_retencao.sql`) está em **6 ramos** (canais-pessoas-v1,
+**⚠️ Número (anotado; a ordem é do coordenador com o dono).** A «lápide da retenção» (`033_a_lapide_da_retencao.sql`) está em **6 ramos** (canais-pessoas-v1,
 pessoas-agro-v1, reparo-fontes-v1, retencao-youtube-v1, youtube-canario-v1, youtube-pronto-v1) e **não** entrou no
 vivo. Quando entrar, precisa de outro número, e vai colidir com esta 034. **Quem decide a ordem é o coordenador.**
 
@@ -202,7 +202,24 @@ da escrita dos derivados (`guarda/preservar_derivado.py`) com a saída de `preve
 
 ### 6.1 O ensaio da 034 em Postgres descartável
 
-ENSAIO_034_AQUI
+Feito em 26/09 às 03:10, sob a LOCK-PESADO, com `provas/migracao_034_ensaio_copia.py`, sobre uma **cópia** da Sala
+real: `pg_dump -Fc` só-leitura, 2,7 MB, sha256 `edea009f…4a41`. Foi restaurada num Postgres novo que nasceu e morreu
+no ensaio. **A Sala real não foi tocada.** Resultado em `scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json`.
+
+| passo | resultado |
+|---|---|
+| 1 · restaurar a cópia | 1.562 RAW, 1.063 derivados, última migração 033 |
+| 2 · cadeia `migrations` | **034 = PASS**; as 32 anteriores `HASH=MATCH` (nenhuma reaplicada) |
+| 3 · validação | o vocabulário tem `TEMPO_LUGAR`; livro-razão `034 APLICADA f2179e12…`; **os 1.063 derivados que existiam ficaram iguais** (md5 da tabela) |
+| 4a · um derivado TEMPO_LUGAR | **entra** (filho de um RAW real; o pai é conferido pela chave estrangeira) |
+| 4b · a mesma régua, outro caminho | **recusada** por `derivacao_e_unica_por_regua` (é a régua que recusa, não o caminho) |
+| 4c · espécie inventada | **recusada** |
+| 5 · desfazer COM um TEMPO_LUGAR | **recusa-se**: «DESFAZER_034_RECUSADO: 1 derivado(s) TEMPO_LUGAR existem; desfazer apagaria evidencia» |
+| 6 · tirar o de ensaio (só na cópia) e desfazer | ok; **o esquema volta igual ao da cópia**, derivados iguais |
+| 7 · cadeia outra vez | **034 = PASS** de novo |
+
+sha256 da migração `f2179e12bfcb2a65232936d3818cb801a724e5e31d6d1c406d0250a4b075d56a`; do desfazer
+`420ea02f6bdd9498222e61572904638dc4aa6ddfe189dcbd19e565f85b47290a`.
 
 ## 7. Plano (se a 034 for aprovada)
 
