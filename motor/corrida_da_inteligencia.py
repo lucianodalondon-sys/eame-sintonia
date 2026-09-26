@@ -70,7 +70,11 @@ CONTRATO = "CORRIDA_DA_INTELLIGENCE/v1"
 #: qualquer texto que nao comecasse por «NAO SEI»: «UNKNOWN», um valor sem base,
 #: uma data sem ano e um evento ainda por acontecer viravam SINAL. Mudar o portao
 #: muda a resposta; por isso a versao sobe e entra na identidade da corrida.
-RULESET_VERSION = "G0/v2"
+#: ⚠️ G0/v3 (INT-D11-D15, 1.a rodada real EXPD78). O portao G0 NAO mudou; mudou o
+#: que sai dele: o sinal leva a ESPECIE e a PRECISAO da data (D11) e a IDADE na
+#: captura (D15), e o evento futuro deixa de ser pedido a Coleta (D14). Mudou o
+#: livro -> sobe a versao, para nenhuma corrida v2 ser REUSED como se fosse v3.
+RULESET_VERSION = "G0/v3"
 
 BIBLIA = RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"
 REGISTO_DAS_AUTORIDADES = RAIZ / "controle" / "AUTORIDADES-CANONICAS.json"
@@ -361,6 +365,33 @@ def portao_g0(item: dict) -> tuple:
     return (not falta), falta
 
 
+#: ⚠️ D14. Motivos de bloqueio que NAO sao lacuna da Coleta: nenhum material
+#: novo os resolve. Um evento futuro so deixa de o ser quando o tempo passar.
+NAO_E_LACUNA_DA_COLETA = ("FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA",)
+
+
+def _campo_ou_nao_sei(d: dict, chave: str):
+    v = d.get(chave)
+    return NAO_SEI if e_ignorancia(v) else v
+
+
+def idade_na_captura(item: dict, tempo: dict) -> dict:
+    """D15 · quantos dias entre o facto e a captura — medida, nao veredito.
+
+    `MIN` conta do FIM do intervalo (o mais recente que o facto pode ser), `MAX`
+    do INICIO. «campagna 2010» da MIN ~5700 dias; «2026-09-23» capturado a 24/09
+    da 1. Sem captura ou sem intervalo: NAO SEI, nunca zero.
+    """
+    captura = _dia_da_captura(item)
+    if captura is None or tempo.get("ESTADO") != "INTERVALO":
+        return {"MIN_DIAS": NAO_SEI, "MAX_DIAS": NAO_SEI, "CONTADA_DE": "CAPTURED_AT"}
+    ini, fim = date.fromisoformat(tempo["INICIO"]), date.fromisoformat(tempo["FIM"])
+    return {"MIN_DIAS": max(0, (captura - fim).days), "MAX_DIAS": (captura - ini).days,
+            "CONTADA_DE": "CAPTURED_AT",
+            "ATUALIDADE_PARA_AGIR": ("NAO_AVALIADA — agir exige janela compativel "
+                                     "(INT-LAW-104); a idade so a informa")}
+
+
 def requisito(item: dict, falta: list, run_id: str) -> dict:
     """O que a Intelligence PEDE quando lhe falta materia-prima.
 
@@ -437,6 +468,7 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         "ANALYTIC_OUTPUT": None,
         "SIGNALS": [],
         "REQUIREMENTS": [],
+        "FUTURE_DATED_FACTS": [],
         "ERRORS": [],
         "LINEAGE": [],
         "COLLECTOR_CALLS": 0,
@@ -469,6 +501,8 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                 tempo = intervalo_do_tempo(item.get("FACT_TIME"))
                 base_lugar = item.get("FACT_LOCATION_BASIS", NAO_SEI)
                 lugar = item.get("FACT_LOCATION", NAO_SEI)
+                evid = item.get("TEMPO_LUGAR_EVIDENCIA")
+                evid = evid if isinstance(evid, dict) else {}
                 livro["SIGNALS"].append({
                     "SIGNAL_ID": "SG-" + hashlib.sha256(
                         (run_id + "|" + str(ref["ITEM_ID"])).encode()).hexdigest()[:16],
@@ -482,6 +516,18 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                     # provado ou um palpite. Valor sem base e meia prova.
                     "FACT_TIME_BASIS": item.get("FACT_TIME_BASIS", NAO_SEI),
                     "FACT_TIME_INTERVALO": tempo,
+                    # ⚠️ D11 · A ESPECIE DA DATA, lida do CAMPO que a Collection ja
+                    # entrega (`TEMPO_LUGAR_EVIDENCIA`, migration 033) e nunca do
+                    # texto. Um congresso de 2023 (EVENTO) nao e um facto de campo
+                    # (CAMPO), e a v2 punha-os lado a lado sem os distinguir.
+                    "FACT_TIME_KIND": _campo_ou_nao_sei(evid, "FACT_TIME_KIND"),
+                    "FACT_TIME_PRECISION": _campo_ou_nao_sei(evid, "FACT_TIME_PRECISION"),
+                    "FACT_LOCATION_KIND": _campo_ou_nao_sei(evid, "FACT_LOCATION_KIND"),
+                    # ⚠️ D15 · A IDADE, contada da captura. Verdadeiro-e-antigo nao
+                    # pode parecer atual (§28 TRUE-BUT-STALE). O motor so MEDE a
+                    # idade; decidir se ela serve para agir e da janela (CAP-WIN,
+                    # INT-LAW-104), que esta corrida nao tem.
+                    "IDADE_NA_CAPTURA": idade_na_captura(item, tempo),
                     "FACT_LOCATION": lugar,
                     "FACT_LOCATION_BASIS": base_lugar,
                     # O lugar NAO e apagado nem completado: fica como veio, e diz
@@ -494,7 +540,27 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                     "REGRA": RULESET_VERSION,
                 })
             else:
-                livro["REQUIREMENTS"].append(requisito(item, falta, run_id))
+                # ⚠️ D14 · NEM TODO BLOQUEIO E UMA LACUNA DA COLETA. Um evento
+                # anunciado para depois da captura nao tem nada que se possa
+                # colher: o facto ainda nao aconteceu. A v2 transformava-o em
+                # REQUIREMENT — 10 de 13 pedidos da 1.a rodada real eram isto.
+                # Fica registado como FACTO PRESENTE SOBRE O FUTURO (CAP-FUT: a
+                # especie que NAO e sinal fraco), e so o que a Coleta pode trazer
+                # vira pedido (INT-LAW-020, §15).
+                coletavel = [m for m in falta if m not in NAO_E_LACUNA_DA_COLETA]
+                if any(m in NAO_E_LACUNA_DA_COLETA for m in falta):
+                    livro["FUTURE_DATED_FACTS"].append({
+                        "ITEM_ID": ref["ITEM_ID"], "SOURCE_ID": ref["SOURCE_ID"],
+                        "RAW_OBSERVATION_ID": ref["RAW_OBSERVATION_ID"],
+                        "CORRIDA_UPSTREAM": ref["CORRIDA_UPSTREAM"],
+                        "FACT_TIME": item.get("FACT_TIME"),
+                        "FACT_TIME_INTERVALO": intervalo_do_tempo(item.get("FACT_TIME")),
+                        "CAPTURED_AT": item.get("CAPTURED_AT", NAO_SEI),
+                        "ESPECIE": "FACTO_PRESENTE_SOBRE_O_FUTURO",
+                        "NAO_E": ["SINAL", "SINAL_FRACO", "FORECAST", "LACUNA_DA_COLETA"],
+                    })
+                if coletavel:
+                    livro["REQUIREMENTS"].append(requisito(item, coletavel, run_id))
 
         livro["RESULT_STATE"] = "DONE"
         livro["ANALYTIC_OUTPUT"] = INTAKE_OK if livro["SIGNALS"] else SEM_SAIDA_ANALITICA

@@ -146,11 +146,11 @@ class D4_EventoFuturoNaoEFacto(unittest.TestCase):
         it = item(FACT_TIME="NAO SEI", PUBLISHED_AT="2026-09-24")
         self.assertIn("FACT_TIME", CI.portao_g0(it)[1])
 
-    def test_o_evento_futuro_vira_requisito_e_nao_sinal(self):
+    def test_o_evento_futuro_nao_vira_sinal(self):
+        # (G0/v3: o destino do evento futuro e D14 — ver D14_OFuturoNaoELacuna)
         livro = CI.correr("pergunta de teste", [item(FACT_TIME="20-22 aprile 2027")])
         self.assertEqual(livro["SIGNALS"], [])
-        self.assertIn("FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA",
-                      livro["REQUIREMENTS"][0]["MISSING_FACT_OR_KEY"])
+        self.assertEqual(len(livro["FUTURE_DATED_FACTS"]), 1)
 
 
 class D6_OSinalLevaABase(unittest.TestCase):
@@ -251,3 +251,99 @@ class D8_UmaListaSo(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# D11 · D14 · D15 — achados na 1.a rodada REAL (EXPD78, IR-e73156836958445fe86a)
+# Os valores vem da copia da Sala de 26/09 (IT-T5-090, IT-T5-010, 10 eventos
+# futuros). Nenhum teste abre a Sala.
+# ════════════════════════════════════════════════════════════════════════════
+EVID_EVENTO = {"FACT_TIME_KIND": "EVENTO", "FACT_TIME_PRECISION": "APPROXIMATE",
+               "FACT_LOCATION_KIND": "EVENTO"}
+EVID_CAMPO = {"FACT_TIME_KIND": "CAMPO", "FACT_TIME_PRECISION": "WEEK+CALCULADA",
+              "FACT_LOCATION_KIND": "CAMPO"}
+
+
+class D11_OSinalDizAEspecieDaData(unittest.TestCase):
+    def sinal(self, **kw):
+        return CI.correr("pergunta de teste", [item(**kw)])["SIGNALS"][0]
+
+    def test_negativo_congresso_e_campo_nao_saem_iguais(self):
+        congresso = self.sinal(FACT_TIME="1-4 febbraio 2023", TEMPO_LUGAR_EVIDENCIA=EVID_EVENTO)
+        campo = self.sinal(FACT_TIME="2026-09-07/2026-09-13", TEMPO_LUGAR_EVIDENCIA=EVID_CAMPO)
+        self.assertEqual(congresso["FACT_TIME_KIND"], "EVENTO")
+        self.assertEqual(campo["FACT_TIME_KIND"], "CAMPO")
+        self.assertEqual(campo["FACT_TIME_PRECISION"], "WEEK+CALCULADA")
+
+    def test_negativo_especie_ausente_e_nao_sei_nunca_inventada(self):
+        s = self.sinal()                                   # sem TEMPO_LUGAR_EVIDENCIA
+        self.assertEqual(s["FACT_TIME_KIND"], CI.NAO_SEI)
+        s = self.sinal(TEMPO_LUGAR_EVIDENCIA={"FACT_TIME_KIND": "UNKNOWN"})
+        self.assertEqual(s["FACT_TIME_KIND"], CI.NAO_SEI)
+        s = self.sinal(TEMPO_LUGAR_EVIDENCIA="lixo")       # forma errada nao rebenta
+        self.assertEqual(s["FACT_LOCATION_KIND"], CI.NAO_SEI)
+
+    def test_negativo_a_especie_nao_vem_do_texto(self):
+        s = self.sinal(TEXTO="convegno congresso seminario", FACT_TIME="2026-09-23")
+        self.assertEqual(s["FACT_TIME_KIND"], CI.NAO_SEI)
+
+
+class D14_OFuturoNaoELacunaDaColeta(unittest.TestCase):
+    def test_negativo_evento_futuro_nao_vira_pedido(self):
+        livro = CI.correr("pergunta de teste", [item(FACT_TIME="20-22 aprile 2027")])
+        self.assertEqual(livro["REQUIREMENTS"], [])
+        f = livro["FUTURE_DATED_FACTS"][0]
+        self.assertEqual(f["ESPECIE"], "FACTO_PRESENTE_SOBRE_O_FUTURO")
+        self.assertIn("SINAL_FRACO", f["NAO_E"])          # §28: data futura != forecast
+        self.assertIn("LACUNA_DA_COLETA", f["NAO_E"])
+        self.assertEqual(f["RAW_OBSERVATION_ID"], 1062)   # lineage nao se perde
+
+    def test_positivo_futuro_com_outra_falta_ainda_pede_a_outra(self):
+        livro = CI.correr("pergunta de teste", [item(FACT_TIME="20-22 aprile 2027",
+                                                     RAW_OBSERVATION_ID="NAO SEI")])
+        falta = livro["REQUIREMENTS"][0]["MISSING_FACT_OR_KEY"]
+        self.assertIn("RAW_OBSERVATION_ID", falta)
+        self.assertNotIn("FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA", falta)
+        self.assertEqual(len(livro["FUTURE_DATED_FACTS"]), 1)
+
+    def test_positivo_falta_real_continua_pedido(self):
+        livro = CI.correr("pergunta de teste", [item(FACT_TIME="NAO SEI")])
+        self.assertEqual(len(livro["REQUIREMENTS"]), 1)
+        self.assertEqual(livro["FUTURE_DATED_FACTS"], [])
+
+    def test_negativo_futuro_nao_vira_sinal_nem_saida(self):
+        livro = CI.correr("pergunta de teste", [item(FACT_TIME="2027-04-20")])
+        self.assertEqual(livro["SIGNALS"], [])
+        self.assertEqual(livro["ANALYTIC_OUTPUT"], CI.SEM_SAIDA_ANALITICA)
+
+
+class D15_OSinalDizAIdade(unittest.TestCase):
+    def idade(self, **kw):
+        return CI.correr("pergunta de teste", [item(**kw)])["SIGNALS"][0]["IDADE_NA_CAPTURA"]
+
+    def test_negativo_2010_e_2026_nao_saem_iguais(self):
+        velho = self.idade(FACT_TIME="campagna 2010")
+        novo = self.idade(FACT_TIME="2026-09-23")
+        self.assertGreater(velho["MIN_DIAS"], 5000)
+        self.assertEqual(novo["MIN_DIAS"], 2)
+        self.assertEqual(novo["MAX_DIAS"], 2)
+
+    def test_o_intervalo_da_min_e_max(self):
+        i = self.idade(FACT_TIME="2025")
+        self.assertEqual(i["MIN_DIAS"], (CI.date(2026, 9, 25) - CI.date(2025, 12, 31)).days)
+        self.assertEqual(i["MAX_DIAS"], (CI.date(2026, 9, 25) - CI.date(2025, 1, 1)).days)
+
+    def test_negativo_idade_nao_e_veredito_de_acao(self):
+        i = self.idade(FACT_TIME="campagna 2010")
+        self.assertIn("NAO_AVALIADA", i["ATUALIDADE_PARA_AGIR"])
+        self.assertNotIn("ACT_NOW", json.dumps(i))
+
+    def test_negativo_sem_captura_idade_nao_sei_nunca_zero(self):
+        self.assertEqual(CI.idade_na_captura({"CAPTURED_AT": "NAO SEI"},
+                                             CI.intervalo_do_tempo("2026-09-23"))["MIN_DIAS"],
+                         CI.NAO_SEI)
+
+
+class RegraSobe(unittest.TestCase):
+    def test_a_regra_subiu_para_v3(self):
+        self.assertEqual(CI.RULESET_VERSION, "G0/v3")
