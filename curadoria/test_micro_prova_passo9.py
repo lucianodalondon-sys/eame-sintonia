@@ -80,6 +80,14 @@ class Passo9(unittest.TestCase):
         self.assertEqual("REABERTA", r["QUALIFY"][0][2])
         self.assertEqual([], r["REGISTADAS"])
 
+    def test_nao_reabre_a_tarefa_de_outra_candidata(self):
+        F.enfileirar("CAND-0002", F.QUALIFY, motivo="teste")
+        t = [x for x in F._ler()["TAREFAS"] if x["SOURCE_ID"] == "CAND-0002"][0]
+        F.bloquear(t["TASK_ID"], "territorio indeterminado pelo nome (Outra) — SOURCE_ID fica UNKNOWN")
+        self.correr([_decidida(cid="CAND-0001", url="https://www.velha.example/", nome="Condifesa Velha")])
+        outra = [x for x in F._ler()["TAREFAS"] if x["SOURCE_ID"] == "CAND-0002"][0]
+        self.assertEqual(F.BLOCKED, outra["STATUS"])
+
 
 if __name__ == "__main__":
     unittest.main()
