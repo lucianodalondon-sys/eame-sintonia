@@ -22,12 +22,14 @@ O QUE ESTE FICHEIRO **NÃO** É
     NAO importa Collection runtime.     NAO chama rede, banco nem coletor.
     NAO e o INTELLIGENCE_RUN produtivo. Esse e a missao seguinte.
 
-O `ItemPronto` daqui é uma **cópia declarada** do contrato de saída medido em
-`admissao.pronto_para_inteligencia()` (19 campos, COL-LAW-043) na linha
-funcional `43553a65`. Copiar é deliberado: importar a Collection tornaria esta
-prova dependente de um runtime que esta missão está proibida de tocar. Se o
-contrato upstream mudar, `CAMPOS_DO_READY` fica errado — e é para ficar: é a
-única forma de a divergência aparecer em vez de se esconder.
+O `ItemPronto` daqui segue o contrato de saída do dono da Sala
+(`admissao/sala_de_espera.py::CAMPOS_READY`, COL-LAW-043). ⚠️ Até
+INT-CONSERTOS-EXP isto era uma **cópia declarada** de 19 campos; o dono cresceu
+para 23 e a cópia não o soube. A lista passou a ser LIDA do dono (ver
+`campos_do_dono`), sem executar runtime da Collection. Se o
+contrato upstream mudar, `CAMPOS_DO_READY` muda com ele; se o dono deixar de
+o declarar, a espinha rebenta ao ser importada — a divergência aparece em vez
+de se esconder.
 
 ⚠️ **E JÁ FICOU ERRADO UMA VEZ — O AVISO FUNCIONOU.** A cópia nasceu com doze
 campos contra `f888776d`. Ao reconciliar com o trunk, `C-COL-PRESERVE-FACTS-V1`
@@ -46,8 +48,10 @@ AS TRÊS LEIS QUE O CÓDIGO IMPÕE, E NÃO SÓ DESCREVE
 """
 from __future__ import annotations
 
+import ast
 import json
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 CONTRATO = "ESPINHA_DA_INTELLIGENCE/v1"
@@ -69,15 +73,42 @@ class LeiViolada(Exception):
 # ═══════════════════════════════════════════════════════════════════════════
 # 0 · A FRONTEIRA — O QUE A COLLECTION ENTREGA, MEDIDO
 # ═══════════════════════════════════════════════════════════════════════════
-#: Os 19 campos de `admissao.pronto_para_inteligencia()`, na ordem em que ela
-#: os escreve. A Intelligence LÊ isto. Não escreve, não completa, não inventa.
-CAMPOS_DO_READY = (
-    "ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO", "TEXTO",
-    "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
-    "FACT_TIME_BASIS", "FACT_LOCATION_BASIS", "PUBLISHED_AT", "OBSERVED_AT",
-    "SOURCE_DECLARED_EVIDENCE_CLASS", "FATO",
-    "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR",
-)
+#: Os campos do READY, **lidos do dono da Sala** — `admissao/sala_de_espera.py`,
+#: `CAMPOS_READY` —, e nao escritos aqui. A Intelligence LÊ isto. Não escreve,
+#: não completa, não inventa.
+#:
+#: ⚠️ D8 (INT-CONSERTOS-EXP). Isto ERA uma cópia de 19 campos, com um teste que
+#: fixava o número 19. A migration 033 fez o dono crescer para 23
+#: (`PUBLISHED_AT_BASIS`, `SOURCE_LOCATION_BASIS`, `COMPLETUDE_TEMPO_LUGAR`,
+#: `TEMPO_LUGAR_EVIDENCIA`) e a cópia ficou para trás — e o teste, pregado em 19,
+#: continuou verde. Uma cópia com alarme que olha para si própria não avisa nada.
+#:
+#:     DUAS LISTAS DO MESMO CONTRATO DIVERGEM. UMA NAO.
+#:
+#: Lê-se pela ÁRVORE SINTÁTICA do ficheiro do dono, e não por `import`: esta
+#: espinha continua a NÃO executar runtime da Collection (banco, psql, telemetria)
+#: — só lê o literal que o dono escreveu. Se o literal sumir ou deixar de ser uma
+#: tupla de textos, a importação REBENTA: falhar fechado, nunca cair para uma
+#: lista de reserva.
+DONO_DOS_CAMPOS = Path(__file__).resolve().parents[1] / "admissao" / "sala_de_espera.py"
+
+
+def campos_do_dono(caminho: Path = DONO_DOS_CAMPOS,
+                   nome: str = "CAMPOS_READY") -> Tuple[str, ...]:
+    arvore = ast.parse(caminho.read_text(encoding="utf-8"))
+    for no in arvore.body:
+        if (isinstance(no, ast.Assign) and len(no.targets) == 1
+                and isinstance(no.targets[0], ast.Name) and no.targets[0].id == nome):
+            valor = ast.literal_eval(no.value)
+            if (isinstance(valor, tuple) and valor
+                    and all(isinstance(c, str) for c in valor)):
+                return valor
+            break
+    raise LeiViolada(f"o dono {caminho.name} deixou de declarar {nome} como tupla "
+                     "de campos — a espinha nao inventa uma lista de reserva")
+
+
+CAMPOS_DO_READY = campos_do_dono()
 
 #: O que a Intelligence agrícola PRECISA e que hoje **não atravessa** a
 #: fronteira. Medido em `provas/auditoria_agro_fronteira.py` (missão
@@ -163,12 +194,19 @@ class ItemPronto:
     SOURCE_DECLARED_EVIDENCE_CLASS: str = NAO_SEI   # ⚠️ ver QUASE_ESPECIE
     FATO: Any = NAO_SEI
 
+    # ── os quatro da migration 033 (TEMPO-E-LUGAR) ────────────────────────
+    # Chegaram com o dono da Sala. `NAO SEI` por omissão, pela mesma razão.
+    PUBLISHED_AT_BASIS: str = NAO_SEI
+    SOURCE_LOCATION_BASIS: str = NAO_SEI
+    COMPLETUDE_TEMPO_LUGAR: Any = NAO_SEI
+    TEMPO_LUGAR_EVIDENCIA: Any = NAO_SEI
+
     # ── fora do contrato de hoje ──────────────────────────────────────────
     especie: str = NAO_SEI          # CAMPOS_QUE_NAO_ATRAVESSAM[0]
     sujeito_declarado: str = NAO_SEI  # CAMPOS_QUE_NAO_ATRAVESSAM[1]
 
     def dentro_do_contrato_de_hoje(self) -> Dict[str, str]:
-        """Só os 19 campos. É isto que a Intelligence recebe em produção."""
+        """Só os campos do contrato. É isto que a Intelligence recebe em produção."""
         return {c: getattr(self, c) for c in CAMPOS_DO_READY}
 
 
