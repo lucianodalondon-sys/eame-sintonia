@@ -68,9 +68,8 @@ def _site(ficha: dict) -> dict:
     entrada = urlparse(url).path or "/"
     falha = FALHA.get(cid)
     if falha == "HTTP_403":                                   # portal que recusa: robots deixa, a pagina nao
-        return {"*": (403, b"<html><title>403 Forbidden</title></html>"), "/robots.txt": (200, b"User-agent: *
-Allow: /
-")}
+        return {"*": (403, b"<html><title>403 Forbidden</title></html>"),
+                "/robots.txt": (200, b"User-agent: *" + bytes([10]) + b"Allow: /" + bytes([10]))}
     if falha == "CASCA_JS":
         casca = b"<html><head><title>app</title></head><body><div id=app></div><script src=/app.js></script></body></html>"
         return {"*": (200, casca), "/robots.txt": (200, b"User-agent: *\nAllow: /\n")}
