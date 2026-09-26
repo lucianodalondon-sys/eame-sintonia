@@ -138,7 +138,11 @@ Actions. Sem ela, o vídeo tem de ser escolhido por quem corre a micro, e isso f
 
 ## MAPA
 
-Ver o fim deste ficheiro (preenchido pela cadeia do mapa).
+**MAPA = IGUAL.** Cadeia corrida com LOCK-PESADO (23:13-23:18): `REGERAR 0` → commit 8ece54e2 →
+`SYSTEM_MAP_CHECK=PASS · o mapa corresponde ao repositorio` → `IMPRESSAO_DO_CARIMBO=IGUAL` → `CADEIA=OK`.
+A 1.ª passagem reprovou só em P9 (6 ficheiros de prova sem peça: os 4 desta missão e os 2 mutantes,
+incl. o da PROVA-TETO-SOCIAL que já vinha sem peça); declarados em `C-SUPERFICIE-SCRAP-V1` (b6d8ecce).
+O que o validador escreveu na árvore foi reposto (`git checkout --` das geradas), como manda a nota.
 
 ## PROVAS FORA DO GIT
 
