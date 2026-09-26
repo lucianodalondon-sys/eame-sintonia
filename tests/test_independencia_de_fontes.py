@@ -241,6 +241,43 @@ class NaCorridaDaInteligencia(unittest.TestCase):
         self.assertEqual(livro["SIGNALS"][0]["SIGNAL_ID"], livro["SIGNALS"][1]["DUPLICATA_DE"])
         self.assertEqual(0, livro["COLLECTOR_CALLS"])
 
+    def test_d12_na_corrida_o_mesmo_ficheiro_em_dois_enderecos(self):
+        """So o SHA sabe que sao os mesmos bytes: o endereco e o SOURCE_ID
+        diferem. Nasceu do mutante M14, que sobrevivia sem este caso."""
+        livro = CI.correr(self.P, [item("O1", "https://a.it/boll.pdf", "mesmo", "IT-A"),
+                                   item("O2", "https://b.it/copia.pdf", "mesmo", "IT-B")])
+        d = livro["DEPENDENCIA"]["GERAL"]
+        self.assertEqual(1, d["EVIDENCE_BASE_COUNT"])
+        self.assertEqual(1, d["INDEPENDENT_SOURCE_COUNT"])
+        self.assertEqual(GD.NAO_CONVERGE, d["CONVERGENCE"])
+
+    def test_na_corrida_o_endereco_declarado_do_documento_conta(self):
+        """ITEM_IDs diferentes, bytes diferentes, mas o mesmo DOCUMENT_URL: e o
+        mesmo documento. Nasceu do mutante M14b."""
+        a = item("O1", "IT-ITEM-1", "v1", "IT-A")
+        b = item("O2", "IT-ITEM-2", "v2", "IT-A")
+        a["DOCUMENT_URL"] = b["DOCUMENT_URL"] = "https://a.it/boletim-36.pdf"
+        d = CI.correr(self.P, [a, b])["DEPENDENCIA"]["GERAL"]
+        self.assertEqual(1, d["EVIDENCE_BASE_COUNT"])
+
+    def test_na_corrida_a_republicacao_declarada_conta(self):
+        """Nasceu do mutante M14c."""
+        a = item("O1", "https://www.ansa.it/nota", "1", "IT-ANSA")
+        b = item("O2", "https://www.myfruit.it/copia", "2", "IT-MF")
+        b["REPUBLISHED_FROM"] = "https://www.ansa.it/nota"
+        d = CI.correr(self.P, [a, b])["DEPENDENCIA"]["GERAL"]
+        self.assertEqual(1, d["INDEPENDENT_SOURCE_COUNT"])
+
+    def test_na_corrida_a_pagina_do_anunciante_conta(self):
+        """Nasceu do mutante M14d: sem a pagina, o SOURCE_ID da plataforma fundia
+        dois anunciantes num so."""
+        ads = "https://www.facebook.com/ads/library/?id="
+        a = item("O1", ads + "1", "1", "SRC_FACEBOOK_COM")
+        b = item("O2", ads + "2", "2", "SRC_FACEBOOK_COM")
+        a["PAGE_ID"], b["PAGE_ID"] = "100452355885332", "1741459832625091"
+        d = CI.correr(self.P, [a, b])["DEPENDENCIA"]["GERAL"]
+        self.assertEqual(2, d["INDEPENDENT_SOURCE_COUNT"])
+
     def test_d16_na_corrida_a_fonte_dominante_aparece(self):
         itens = [item(e["ID"], e["URL"], e["SHA256"], e.get("SOURCE_ID", "IT-X-" + e["ID"]))
                  for e in nove_da_primeira_rodada()]

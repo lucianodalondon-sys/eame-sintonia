@@ -399,7 +399,9 @@ def requisito(item: dict, falta: list, run_id: str) -> dict:
 
 #: Os campos do item que o grafo precisa para saber QUE documento e QUEM fala.
 #: Viajam do item para a vista do grafo tal e qual — nada e cunhado aqui.
-CAMPOS_PARA_O_GRAFO = GD.CAMPOS_DE_DOCUMENTO + GD.CAMPOS_DE_SHA +     GD.CAMPOS_DE_ENDERECO + GD.CAMPOS_DE_ORIGINADOR
+CAMPOS_PARA_O_GRAFO = (GD.CAMPOS_DE_DOCUMENTO + GD.CAMPOS_DE_SHA
+                       + GD.CAMPOS_DE_ENDERECO + GD.CAMPOS_DE_ORIGINADOR
+                       + GD.CAMPOS_DE_PAGINA)
 
 
 def chave_do_fato(item: dict):
