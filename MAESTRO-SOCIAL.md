@@ -1,9 +1,10 @@
 # MAESTRO-SOCIAL — a rodada social num comando, o baixador que não desperdiça, a marca «mesmo vídeo» e a D80 (26/09)
 
-Ramo **`maestro-social-v1`** = vivo `69b0e23f` (LOTE 1) + os commits do `freio-social-v1` por cherry-pick (um
-conflito, só no `architecture.declared.json`: ficou a peça única que a INTEGRA deu à mutação da prova-teto e
-entrou a minha) + esta missão. Sem rede (servidores locais em 127.0.0.1; `HTTP(S)_PROXY=127.0.0.1:9`), vivo e Sala
-real não tocados, nada instalado, **SEM MAPA** (a INTEGRA regera; os ficheiros novos vão declarados no fim).
+Ramo **`maestro-social-v2`** = **`freio-social-v2`** (35109baa = vivo `69b0e23f` + só o freio) + os commits desta
+missão por cherry-pick, sem conflito. Instalação em fila: `freio-social-v2` → `maestro-social-v2`, **os dois ff-only**
+sobre `69b0e23f`. (O `maestro-social-v1` era o mesmo trabalho sobre os commits do freio sem a nota da v2; fica como
+história.) Sem rede (servidores locais em 127.0.0.1; `HTTP(S)_PROXY=127.0.0.1:9`), vivo e Sala real não tocados,
+nada instalado, **SEM MAPA** (a INTEGRA regera; os ficheiros novos vão declarados).
 
 ## 1 · O MAESTRO — `ferramentas/maestro_social/maestro_social.py`
 
