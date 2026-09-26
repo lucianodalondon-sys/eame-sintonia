@@ -14,7 +14,7 @@ não tocados, sem rede (servidores locais em 127.0.0.1; `HTTP(S)_PROXY=127.0.0.1
 | **canais de pesquisa presos no feed** (os 9 em RETRY_AFTER, 7 de pesquisa) | `canais-pesquisa-v1` 494b7b36 | **acrescentado por mim, fora da lista da missão**: o roteiro dos 41 já traz as rodadas 22-26 para estes 9, mas o código que os leva para a rota do Scrap (`importar_do_coletor.presos_no_feed`) não estava nem no vivo nem no roteiro — sem ele essas rodadas não têm fonte |
 | conserto | este ramo | o mutante do freio «o transcritor volta ao yt-dlp nu» procurava o comando ANTIGO do yt-dlp (o maestro passou a montá-lo por `argumentos_do_yt_dlp`): o script de mutação do freio **parava a meio desde o maestro-v2** — lá só corri a mutação do maestro. Corrigido aqui |
 
-**Impressão do pacote:** 28 commits sobre `69b0e23f`; árvore `0aa07e414fe623e7bfbf4da6c7942da2760c4237`; 46 ficheiros.
+**Impressão do pacote (código, antes deste relatório):** 28 commits sobre `69b0e23f`; árvore `0aa07e414fe623e7bfbf4da6c7942da2760c4237`; 46 ficheiros. O SHA a instalar é o da ponta do ramo.
 **ff-only sobre `69b0e23f` = SIM.** Os 46 ficheiros **não incluem nenhum** dos 18 livros que o robô do vivo está a
 escrever (medido às ~10:55). **Nenhuma migração** entra (a 037 está em `supabase/propostas/`).
 
@@ -86,7 +86,9 @@ py ferramentas/maestro_social/maestro_social.py --relatorio --estado=<pasta nova
 Uma onda = 1 vídeo YouTube (4 pedidos: 3 youtube.com + 1 googlevideo.com, um só orçamento D41) — 5 canais, 5 ondas.
 O freio trava o 6.º pedido; VPN conferida antes e depois de cada canal; prova-teto por onda; se parar, `--retomar`.
 Precondições do maestro: as variáveis da Sala (`micro_coleta.precondicoes`) e **sem** `BANCO_DESCARTAVEL_URL`.
-A transcrição corre na GPU (medido: o motor carrega). Depois: `py curadoria/regua_social.py --corridas … --aplicar
+⚠️ **`SINTONIA_ASR_DEVICE=GPU` no ambiente da corrida:** sem ela o transcritor usa o PROCESSADOR por omissão
+(`ferramentas/fala_local.py`: `DISPOSITIVO_PADRAO = SINTONIA_ASR_DEVICE or CPU`). A placa está lá (medido: 1 dispositivo
+CUDA, o motor carrega) — e a regra da casa é usar a placa. Depois: `py curadoria/regua_social.py --corridas … --aplicar
 --vivo` com o bot parado.
 
 ## EM PALAVRAS SIMPLES
@@ -98,7 +100,7 @@ A transcrição corre na GPU (medido: o motor carrega). Depois: `py curadoria/re
   testes vizinhos, só as 14 falhas velhas de sempre.
 - **Achei um erro meu:** o teste de sabotagem do freio tinha deixado de funcionar desde o maestro (procurava um texto que
   eu mesmo tinha mudado). Consertei, e agora pega os 14.
-- **Boa notícia:** a transcrição funciona nesta máquina (antes falhava), com a placa de vídeo.
+- **Boa notícia:** a transcrição funciona nesta máquina (antes falhava). Mas ela só usa a placa de vídeo se a corrida tiver `SINTONIA_ASR_DEVICE=GPU` — está no roteiro.
 - **Para a 1ª coleta de verdade** (vídeos de agrônomos e pesquisadores com transcrição): falta só **alguém escolher um
   vídeo curto (até 9 min) de cada canal** — CONAF, UNINA, CRPV, Olio Officina, CREA. O canal do CNR depende de você
   (a regra atual diz "sem CNR").
