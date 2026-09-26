@@ -39,9 +39,10 @@ T("uma estratégia fora do vocabulário é recusada", () => {
   assert.throws(() => conferirAquisicao("X", { STRATEGY: "MAGIA" }), ContratoInvalido);
 });
 
-T("o vocabulário tem exactamente as 4 estratégias derivadas dos casos medidos", () => {
+// SCRAP-EVOLUCAO-V1 (26/09): a 5.a — FEED_DISCOVERY — entrou com caso medido (14/44 fontes anunciam feed).
+T("o vocabulário tem exactamente as 5 estratégias derivadas dos casos medidos", () => {
   assert.deepEqual([...ESTRATEGIAS].sort(),
-    ["CUSTOM_ADAPTER", "HTML_LINK_DISCOVERY", "STATIC_ENDPOINT", "TEMPLATE_ENUMERATION"]);
+    ["CUSTOM_ADAPTER", "FEED_DISCOVERY", "HTML_LINK_DISCOVERY", "STATIC_ENDPOINT", "TEMPLATE_ENUMERATION"]);
 });
 
 console.log("\n2 · MUTAÇÃO M1 — campo estrutural em falta");
