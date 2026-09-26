@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T22:12:08+00:00",
-    "HEAD": "44df17f2cbcdf01f5b92e5ab5134b81f31b32543",
+    "GENERATED_AT": "2026-09-26T04:01:03+00:00",
+    "HEAD": "4e1644a039f414b362c2049de8a2dbf9270b6721",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "92780f4dfc3e15b9bdb67eaaeb68d8bd052ce6b24022100979beb7754c6ff3e0",
-    "FICHEIROS_NA_IMPRESSAO": 3465,
+    "SOURCE_TREE_FINGERPRINT": "25b8555e5af002760eff16a1ff79d41792ac392df3ee39c0566b5fc511959816",
+    "FICHEIROS_NA_IMPRESSAO": 3493,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -602,6 +602,20 @@
         "PATH": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
         "PAPEL": "FONTE",
         "VERSAO": "00f2632379959e774dd61d24d87c874ab51dfd11",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/c9/c9-testes.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "4fa8dff9becbd3df4f09a148c9feff16156e5d93",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/c9/ensaio_c9.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "97b9b17ca9a364cd9c69f0b0c3de419d86fbd1a3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1257,8 +1271,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 178,
-    "INPUTS_DIGEST": "83bcd0ee03e7924808278162f84a78cd224b2364f0c063f8f44583f35a925ef0",
+    "INPUTS_COUNT": 180,
+    "INPUTS_DIGEST": "6990ee855a736c1340a60647d8a8454a92019eab4fc62f4fe1cc4d26de163655",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1779,6 +1793,40 @@
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/c9/c9-testes.sh",
+      "gaveta": "ferramentas",
+      "linhas": 15,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/c9/ensaio_c9.sh",
+      "gaveta": "ferramentas",
+      "linhas": 45,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
       "ferramentas": [],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
@@ -4901,10 +4949,10 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 178,
+    "ficheiros_de_codigo": 180,
     "pontos_de_entrada": 129,
-    "executores_que_saem_para_fora": 27,
-    "sem_chamador_e_fora_do_ci": 78,
+    "executores_que_saem_para_fora": 28,
+    "sem_chamador_e_fora_do_ci": 80,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 100,
     "deitam_fora_alguma_coisa": 47,
@@ -5045,6 +5093,7 @@
       "guarda/sql_conferir.py"
     ],
     "executores": [
+      "ferramentas/c9/ensaio_c9.sh",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/integra_onda2/final/ensaio_integra.sh",
@@ -5089,6 +5138,8 @@
       "fontes/adama_it_qa.py",
       "ferramentas/big_collection/bc5_big_collection.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/c9/c9-testes.sh",
+      "ferramentas/c9/ensaio_c9.sh",
       "ferramentas/cutover/congelar_extras.py",
       "ferramentas/cutover/observador_ensaio.py",
       "ferramentas/cutover/passos_do_cutover.py",
