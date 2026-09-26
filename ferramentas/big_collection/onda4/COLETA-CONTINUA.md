@@ -120,6 +120,109 @@ Medido no plano instalado e na 3.ª onda (`ONDA3-WEB-20260925-1934`):
 5. **Medir antes de instalar:** a escrita atómica dos livros que o portão lê (§3); e a queda do
    rendimento com visitas diárias (§6).
 
+## 8. D86-b e D86-c: LINHAS POR CANAL, EM PARALELO, com rodízio dentro de cada linha
+
+D86-b (dono): «nosso foco não é somente sites… podemos intercalar esses sites pra dar respiro pra eles?»
+D86-c (dono): «ou podemos fazer a coleta por canal e trabalhar em paralelo? equipe do instagram, equipe do
+linkedin». O serviço da §2 passa a ser **uma linha por canal**, e cada uma é a mesma volta curta da §2 com
+`--linha=<canal>`. Dentro de cada linha, **rodízio** de domínios e contas: o mesmo site nunca em voltas
+seguidas. O comum (contador, VPN, entrega, Sala) é **um só** para todas.
+
+### 8.1 As linhas (medido nos ramos e no vivo `dc0de726`, 26/09 ~18:15)
+
+| linha | ferramenta (onde está) | fontes | limite da plataforma (medido) | pedidos/dia que aguenta | equipe dona (proposta) | para arrancar falta |
+|---|---|---|---|---|---|---|
+| **1 · Sites e boletins** (T3, T2, T7, T9, T12…) | `onda_web.py` + `rodadas.py` (**vivo**) | 64 na coorte, 38 domínios | 5/domínio/24 h (D38+D79), robots, pausa por host | ~176 (38 domínios) | COLETA-WEB | o verbo `--continuo` (§7) |
+| **2 · Preços** (T10) | `leis/preco_de_mercado.py` (ramo `nuvem-polso-mercato-v1` 940b6d35) + myfruit.it no vivo | 1 no vivo (myfruit); + BMTI, Borsa Vercelli/Novara, Sala Mortara (**fora da fila de candidatas**) | 5/domínio/24 h | ~5 por domínio novo | MERCADO | instalar o polso; as 3 bolsas entrarem como candidatas e contrato |
+| **3 · APIs científicas** (T6) | `pesquisadores_t6.py` (ramo `pesquisadores-t6-v1` 34713ccc) | 36 T6 no Atlas (0 com contrato); 12 pares cultura×praga | 5/domínio/rodada: openalex 12 pedidos = 3 rodadas; crossref 1 por 40 DOI; orcid 1 por pessoa. ⚠️ OpenAlex «Insufficient budget» com HTTP 200 (14/09): **NÃO SEI** se continua grátis | 5 por API por 24 h com a regra de hoje: 15/dia | CIENCIA | instalar; a regra de 5/24 h numa API oficial com quota própria é **decisão do dono** (a quota delas é maior) |
+| **4 · Páginas de pesquisadores** (T6) | `seguir.py` (ramo `seguir-pesquisadores-v1` d0b1d06c) | 124 pessoas ligadas a obra T6 (de 278 do MUR) | orcid.org: 4 pessoas por rodada (robots + 4 = 5); páginas da universidade até 2 por pessoa; 3 s entre pedidos | ~5 em orcid.org + 5 por universidade | CIENCIA | instalar; o robô de fontes hoje só leva até ao fim canal YouTube e página web (dito no próprio relatório) |
+| **5 · PDFs de monitorização** (T3 boletins fitossanitários) | `micro_prova_colisao.py` + `medir_contagens.py` (ramo `micro-prova-lote2b-v1` 365842a8) | 20 alvos (19 já são fontes, paradas no canário) | ≤ 5 por alvo, pausa 3 s; **fmach.it, agriligurianet.it, sardegnaagricoltura.it** já levaram pedidos hoje | ~100 (20 × 5) | COLETA-WEB (boletins) | instalar; a sonda vira contrato de monitorização das fontes que já existem |
+| **6 · YouTube** | adaptador + Scrap no vivo; **freio** (`coleta/teto_da_onda.py`) e **maestro** (`maestro_social.py`) no ramo `lote3-social-v2` 17a52ef6 | 41 canais (roteiro canais-41); 9 presos em RETRY_AFTER; 18 contas sociais CANARY_PENDING | youtube.com + googlevideo.com = **um só orçamento** (D41); listagem pela API oficial (chave **só no GitHub**); ~120 `/watch` e vem 429 (medido) | 5/24 h no domínio youtube.com: **1 vídeo por volta** | SOCIAL-VIDEO | instalar o pacote 3 (lote3-social-v2); a chave da API na máquina, ou só áudio por vídeo dado |
+| **7 · LinkedIn** (posts) | adaptador no vivo; maestro (ramo acima) | contas em CANARY_PENDING (D80) | `teto=1` por pedido (C2); até 2 contas por onda | 5/24 h em linkedin.com: ~2 contas/dia | SOCIAL-TEXTO | pacote 3 + canário social (a colheita do Scrap É o canário) |
+| **8 · Instagram** | `instagram_*.py` no vivo (rota deslogada) | NÃO SEI no vivo hoje | rota grátis deslogada (medida antes); a API de instagram devolve **0 com HTTP 200** quando bloqueia | 5/24 h em instagram.com | SOCIAL-IMAGEM | freio social (pacote 3) também nesta rota: **NÃO SEI** se o freio cobre o Instagram (o relatório fala de Scrap/YouTube/LinkedIn) |
+| **9 · Facebook** | `adaptador_facebook.py` no vivo; Biblioteca de Anúncios pela janela gráfica | NÃO SEI | a Biblioteca só abre na janela gráfica (medido antes) | NÃO SEI | SOCIAL-IMAGEM | uma rota sem janela, ou fica fora da coleta contínua |
+| **10 · Clima** (T2) | boletins ARPA na linha 1; ARPAV API REST sem chave (medido antes); `t2-boletins-v1` (**não instalado**) | as ARPA da coorte (arpae, arpat, arpal, arpa.veneto, arpa.marche, arpacampania) | 5/domínio/24 h; ARPAV 401 no caminho dos boletins (medido) | ~30 | CLIMA | instalar t2-boletins-v1; a API ARPAV como receita |
+
+**NÃO SEI dito:** quantas contas Instagram/Facebook existem e prontas no vivo; o custo de uma rota paga (Apify)
+por linha; se o OpenAlex ainda é grátis. Nada disto foi medido nesta passagem (sem rede).
+
+### 8.2 O que é COMUM a todas as linhas (um só de cada)
+
+1. **Um só contador de teto por domínio (≤ 5 / 24 h).** Já há uma língua comum: o transporte web
+   (`italy_pilot_collect.mjs`) e o freio social (`coleta/teto_da_onda.py`) falam **o mesmo livro**
+   (`{"PEDIDOS_POR_DOMINIO": …}`), com o mesmo trinco `<livro>.trinco` e o mesmo `SINTONIA_TETO_POR_HOST`.
+   Hoje o livro é **por onda**. Proposta: **um livro do dia móvel** comum a todas as linhas,
+   `<ONDAS>/CONTINUA/TETO-24H.json`. Cada pedido de qualquer linha grava `{domínio, instante}` pelo mesmo
+   trinco, e o corte é «pedidos das últimas 24 h ≥ 5 → não sai». A prova independente (`prova_teto_dominio`)
+   passa a ler o dia inteiro de **todas** as linhas. Equivalências de domínio num sítio só
+   (`MESMO_ORCAMENTO`: googlevideo.com = youtube.com, D41).
+2. **Uma só saída VPN IT.** A VPN é da máquina, não da linha. Cada linha faz o portão antes e depois da
+   sua volta. **Se uma linha vê fora de IT, o latch é GERAL** (`COLETA-CONTINUA-PARADA.flag` pára todas),
+   porque as outras estão na mesma saída.
+3. **Uma só fila de entrega e um só escritor na Sala.** Hoje cada corrida escreve na Sala pelo seu
+   orquestrador. Com várias linhas em paralelo, seriam vários escritores. Proposta mínima: as linhas
+   escrevem RAW, DERIVED e Admissão como hoje, e o **pousar na Sala** passa por **uma fila** (um ficheiro
+   por item em `<ONDAS>/CONTINUA/FILA-SALA/`), esvaziada por **um só pousador** (uma linha própria,
+   «SALA»). A Sala já é idempotente por documento. A reconciliação (§2, passo 9) passa a ler a fila e a Sala.
+   Alternativa mais curta: um trinco `SALA.trinco` à volta do passo de pousar. Resolve a concorrência mas
+   não dá uma fila legível. Recomendo a fila.
+4. **Um só latch e um só livro diário** (`CONTINUA-<data>.ndjson`, com a coluna `LINHA`).
+
+### 8.3 Quantas linhas cabem ao mesmo tempo (RAM)
+
+Medido agora (18:15): **6 GB livres de 31,9**. Processos: python 20 processos, 646 MB no total (máx. 325
+MB); node 6 processos, 1,9 GB (máx. 852 MB); postgres 206 MB. A regra da máquina é **≥ 5 GB livres** para
+trabalho pesado. **Não medi** quanto gasta uma linha de coleta. Estimativa: python da linha + orquestrador
++ node do coletor + curl, cerca de 0,3–0,5 GB por linha web; a linha de YouTube com transcrição na GPU
+gasta mais (NÃO SEI quanto de RAM).
+- **Com 6 GB livres e o piso de 5 GB: cabe 1 linha, no máximo 2 leves.** Cada linha verifica a RAM antes
+  da volta: abaixo do piso, salta a volta sem latch (§4).
+- **Primeiro passo de qualquer arranque:** medir a RAM de UMA linha a correr (o pico, com o node do
+  coletor), e só então abrir a 2.ª.
+
+### 8.4 O rodízio dentro de cada linha (D86-b)
+
+- Cada volta escolhe **domínio (ou conta) diferente da volta anterior da mesma linha**. Nunca o mesmo site
+  em voltas seguidas, mesmo com orçamento.
+- **Respiro mínimo por domínio:** 24 h entre visitas (a janela de hoje). Dentro das 24 h, os ≤ 5 pedidos
+  vão **numa só volta**, e não em cinco voltas de 1.
+- **Entre linhas:** a regra é por domínio, não por linha. Se duas linhas tocam o mesmo domínio (a ARPA na
+  linha 1 e na 10; a universidade na 3 e na 4), o livro comum de 24 h (§8.2.1) **conta as duas juntas**.
+
+### 8.5 Ordem de arranque (pelo rendimento da Intelligence, rodada 2)
+
+1. **Linha 1 (sites/boletins)**: já está no vivo; T3 é «a família mais útil» e T2 vem logo a seguir.
+2. **Linha 2 (preços)**: T10 deu 66,7 % dos sinais, mas é uma fonte só. O polso e as 3 bolsas tiram essa
+   dependência.
+3. **Linha 5 (PDFs de monitorização)**: é T3; 19 dos 20 alvos já são fontes.
+4. **Linhas 3 e 4 (pesquisadores)**: T6, com local e período do estudo (conselho 3 da Intelligence).
+5. **Linha 10 (clima)**: janelas T2 regionais (conselho 5).
+6. **Linhas 6 e 7 (YouTube, LinkedIn)**: só depois do pacote 3 instalado e do canário social. A régua
+   social hoje reprova 100 % pela API sem marca de autorização (medido 26/09).
+7. **Linhas 8 e 9 (Instagram, Facebook)**: por último, com NÃO SEI sobre a rota e o custo.
+
+Com a RAM de hoje, as linhas arrancam **uma de cada vez**, nesta ordem, cada uma só depois de a anterior
+ter um dia sem latch e a RAM dela estar medida.
+
+### 8.6 Uma volta-exemplo de 24 h (números)
+
+Com o que hoje está no vivo (linha 1) + as linhas 2, 3, 5 instaladas, **uma linha de cada vez** (RAM):
+
+| hora | linha | o que faz | pedidos |
+|---|---|---|---|
+| 00:05 | — | backup diário da Sala (`pg_dump`) | 0 |
+| 00:15–09:45 | 1 sites | 38 voltas de 15 min, 1 domínio por volta, em rodízio (T3/T2 primeiro, edagricole 1 fonte) | ~176 |
+| 06:00 | — | Intelligence diária sobre uma cópia da Sala | 0 |
+| 10:00–13:00 | 5 PDFs | 20 alvos × ≤ 5 (os já pedidos nas 24 h ficam para amanhã) | ≤ 100 |
+| 13:00–14:00 | 2 preços | myfruit (se não pedido na linha 1 nas 24 h) + as bolsas | ~5–20 |
+| 14:00–15:00 | 3 APIs científicas | openalex 5 · crossref ≤ 5 · orcid 5 | 15 |
+| resto do dia | — | voltas «nada livre» (a janela de 24 h) | 0 |
+| **total** | | | **~300–320 pedidos/dia**, nunca > 5 por domínio em 24 h |
+
+Rendimento esperado da linha 1 (§6): ~76 docs e ~14 itens na Sala por dia, **NÃO SEI se aguenta**. As
+outras linhas **não têm medida de rendimento** na Sala (nenhuma correu com rede para a Sala). O primeiro
+dia de cada linha é a medida.
+
 ## EM PALAVRAS SIMPLES
 
 - Hoje a coleta roda em «rodadas», e isso trava: um site com muitas fontes (edagricole) segura todas
@@ -133,3 +236,13 @@ Medido no plano instalado e na 3.ª onda (`ONDA3-WEB-20260925-1934`):
   sozinha** e só volta quando uma pessoa liberar.
 - Com as 64 fontes de hoje, a conta dá **até 38 visitas por dia**, ~76 páginas novas e ~14 itens para a
   Sala. Mas isso ainda precisa ser confirmado na prática: visitar todo dia pode trazer menos novidade.
+- **Por canal, em paralelo (D86-c):** cada canal vira uma «linha» com a sua equipe: sites, preços,
+  PDFs, pesquisadores, clima, YouTube, LinkedIn, Instagram, Facebook. Dentro de cada linha, os sites se
+  revezam, e nenhum é visitado duas vezes seguidas (D86-b).
+- **O que é de todas:** um só caderno que conta as visitas de todas as linhas juntas (no máximo 5 por
+  site por dia), a mesma VPN (se cair para uma, param todas), e uma só porta de entrada na Sala.
+- **Quantas ao mesmo tempo:** hoje sobram só ~6 GB de memória, e a regra pede 5 GB livres. Então é
+  **uma linha de cada vez** até medirmos quanto cada uma gasta.
+- **Ordem:** sites e boletins (já instalados) → preços → PDFs de monitoramento → pesquisadores → clima
+  → YouTube e LinkedIn (depois do pacote 3) → Instagram e Facebook (por último).
+- Só a linha de sites está instalada. As outras estão prontas em ramos, esperando instalação.
