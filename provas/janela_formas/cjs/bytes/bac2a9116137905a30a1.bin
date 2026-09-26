@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="favicon.ico" />
+    <title>MTE</title>
+
+    <!-- CSS -->
+    <!--link rel="stylesheet" type="text/css" href="lib/ext62/build/classic/theme-crisp/resources/theme-crisp-all.css"-->
+    <link rel="stylesheet" type="text/css" href="lib/ext/build/classic/theme-crisp-touch/resources/theme-crisp-touch-all.css">
+
+    <!-- FRAMEWORS -->
+    <script type="text/javascript" src="lib/ext/build/ext-all-debug.js"></script>
+    <script type="text/javascript" src="lib/ext/build/classic/theme-crisp/theme-crisp.js"></script>
+    <script type="text/javascript" src="lib/ext/build/packages/ux/classic/ux-debug.js"></script>
+
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="app/login.js"></script>
+    <script type="text/javascript" src="app/utils.js"></script>
+</head>
+<body style="/*background-image: url('resources/images/background.png');
+             background-repeat: no-repeat;
+             background-size: cover;
+             background-position: center center;
+             background-attachment: fixed;*/" >
+    <video autoplay muted loop style="position: fixed;
+                                    right: 0;
+                                    bottom: 0;
+                                    min-width: 100%; 
+                                    min-height: 100%;">
+        <source src="resources/videos/video.mp4" type="video/mp4">
+    </video>
+    <div style="position: absolute;
+                bottom: 40px;
+                right: 3%;
+                left: 3%;
+                width: 94%;
+                height: 80px;
+                background-color:#ffffff;
+                border: 5px solid #cdcdcd;
+                border-radius: 8px;
+                opacity: 0.8;
+                filter: alpha(opacity=80);">
+        <span style="position: absolute; left: 5px; top: 5px;">
+            <a href="http://ariespace.com" target='_blank'><img src="resources/logos/logo_aries.jpg" height='75px'></a>
+        </span>
+        <span style="position: absolute; right: 5px; top: 5px;">
+            <a href="http://www.simfito.org/" target="_blank"><img src="resources/logos/logo_simfito.png" height="75px"></a>
+        </span>
+    </div>
+</body>
+</html>

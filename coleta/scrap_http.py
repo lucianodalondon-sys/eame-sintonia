@@ -363,6 +363,79 @@ class _PortaoEmCadaSalto(urllib.request.HTTPRedirectHandler):
         return novo
 
 
+# ── O CONTADOR DE PEDIDOS POR HOST (PROVA-TETO-SOCIAL) ──────────────────────
+# ⚠️ A PROVA-TETO NAO VIA AS CORRIDAS DO SCRAP. Ela le, do livro de corridas
+# (`data/collection-ledger/italy/runs.ndjson`), `CORTESIA.PEDIDOS_POR_HOST` —
+# que o transporte web escreve e o Scrap nao escrevia. O `orcamento_de_rede`
+# conta o TOTAL, e so quando alguem o liga.
+#
+# Conta-se AQUI, num pre-processador do abridor instalado: o `urllib` chama-o
+# para CADA pedido que vai sair — o do robots.txt, o da rota, cada salto de
+# redireccionamento e cada retentativa. Um pedido que o teto recusa antes do
+# `urlopen` nao chega aqui, e nao conta: nao bateu a porta.
+#
+#     UM PEDIDO CONTA-SE ONDE ELE ACONTECE.
+#
+# O que sai por FORA desta porta (o `yt-dlp`, que e outro processo) entra por
+# `contar_de_fora()` com o que ele proprio mostrou, ou fica declarado em
+# `nao_contado()` — e a linha do livro deixa de ter PEDIDOS_POR_HOST, para a
+# prova dizer NAO_SEI em vez de contar zero.
+_CONTAGEM_LOCK = threading.Lock()
+_CONTAGEM = {'POR_HOST': {}, 'NAO_CONTADOS': []}
+
+
+def _site(host):
+    h = str(host or '').lower().rstrip('.')
+    return h[4:] if h.startswith('www.') else h
+
+
+def contar_pedido(host, n=1):
+    """Soma `n` pedidos a este host (sem `www.`), no contador do processo."""
+    h = _site(host) or 'NAO_SEI'
+    with _CONTAGEM_LOCK:
+        _CONTAGEM['POR_HOST'][h] = _CONTAGEM['POR_HOST'].get(h, 0) + int(n)
+
+
+def contar_de_fora(por_host, *, quem):
+    """Pedidos feitos por uma ferramenta de fora (ex.: `yt-dlp`), medidos por ela.
+
+    `por_host` None = a ferramenta correu e ninguem a conseguiu medir: isso
+    declara-se, nunca se conta como zero."""
+    if por_host is None:
+        nao_contado(quem)
+        return
+    for h, n in por_host.items():
+        contar_pedido(h, n)
+
+
+def nao_contado(quem):
+    with _CONTAGEM_LOCK:
+        if quem not in _CONTAGEM['NAO_CONTADOS']:
+            _CONTAGEM['NAO_CONTADOS'].append(quem)
+
+
+def pedidos_por_host():
+    """→ (copia de {host: pedidos}, [quem fez pedidos que ninguem contou])."""
+    with _CONTAGEM_LOCK:
+        return dict(_CONTAGEM['POR_HOST']), list(_CONTAGEM['NAO_CONTADOS'])
+
+
+def zerar_contagem():
+    with _CONTAGEM_LOCK:
+        _CONTAGEM['POR_HOST'].clear()
+        _CONTAGEM['NAO_CONTADOS'].clear()
+
+
+class _ContaCadaPedido(urllib.request.BaseHandler):
+    """Pre-processador: corre uma vez por pedido que sai, saltos incluidos."""
+
+    def http_request(self, req):
+        contar_pedido(urllib.parse.urlsplit(req.full_url).hostname)
+        return req
+
+    https_request = http_request
+
+
 # E INSTALA-SE, em vez de se abrir por fora.
 #
 # `_ABRIDOR.open(...)` funcionaria e estaria errado: o teto de rede da C10.8A-R
@@ -371,7 +444,8 @@ class _PortaoEmCadaSalto(urllib.request.HTTPRedirectHandler):
 # continua a contar, e o portao passa a ver os saltos.
 #
 #     UM CONSERTO QUE CONTORNA UM TETO NAO E UM CONSERTO.
-urllib.request.install_opener(urllib.request.build_opener(_PortaoEmCadaSalto()))
+urllib.request.install_opener(urllib.request.build_opener(_PortaoEmCadaSalto(),
+                                                          _ContaCadaPedido()))
 
 
 def buscar(url, *, aceitar_json=True):

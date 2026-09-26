@@ -159,9 +159,9 @@ def avaliar(source_id: str, *, livro: dict | None = None,
         return linha
     if regua not in RS.REGUAS_QUE_ADMITEM:
         linha["MOTIVO"] = READY_LEGACY
-        linha["PORQUE"] = ("promovida pela regua antiga (%s); a regua de hoje e "
-                           "%s — item aberto, retratado e com corpo util"
-                           % (regua, RS.REGUA_CURRENT))
+        linha["PORQUE"] = ("promovida pela regua antiga (%s); as reguas de hoje sao "
+                           "%s — item aberto, retratado e com corpo util, ou a pagina que e o boletim"
+                           % (regua, " / ".join(sorted(RS.REGUAS_QUE_ADMITEM))))
         return linha
     if revisao:
         linha["MOTIVO"] = HUMAN_REVIEW_REQUIRED
@@ -216,7 +216,7 @@ def painel(*, ctx: dict | None = None) -> dict:
     inv = inventario(ctx=ctx)
     return {
         "READY_TOTAL": len(inv),
-        "READY_CURRENT_TOTAL": sum(1 for l in inv if l["READY_RULE"] == RS.REGUA_CURRENT),
+        "READY_CURRENT_TOTAL": sum(1 for l in inv if l["READY_RULE"] in RS.REGUAS_QUE_ADMITEM),
         "READY_LEGACY_TOTAL": sum(1 for l in inv if l["READY_RULE"] == RS.REGUA_LEGACY),
         # SOC-ONDA2: a promocao social (regua_social.py) conta a parte, e nunca como CURRENT.
         "READY_SOCIAL_TOTAL": sum(1 for l in inv if l["READY_RULE"] == RS.REGUA_SOCIAL),

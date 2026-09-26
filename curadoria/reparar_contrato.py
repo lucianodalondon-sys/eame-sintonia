@@ -528,6 +528,33 @@ class ReparoInvalido(Exception):
     pass
 
 
+# D42 (1): a receita pode ligar a ROTA PDF que ja existe — com o tipo de saida EXPLICITO na
+# proposta. O tipo nunca se adivinha pelo padrao; so HTML e PDF; e um padrao PDF tem de apontar
+# para .pdf. O tipo anterior fica na proveniencia (ROUTE_PROVENANCE e REPARO_DE_CONTRATO).
+TIPOS_DE_SAIDA_DA_RECEITA = frozenset({"HTML", "PDF"})
+
+
+def _conferir_identidade_no_motor(source_id, ident) -> str | None:
+    """None se o motor do coletor aceita a IDENTITY; senao o porque. Sem node, recusa: uma
+    identidade que ninguem conferiu nao entra (falha fechada)."""
+    import json as _json
+    import shutil
+    import subprocess
+    if not isinstance(ident, dict):
+        return "IDENTITY tem de ser um objecto, nao %s" % type(ident).__name__
+    if not shutil.which("node"):
+        return "sem node nesta maquina: a identidade nao se confere"
+    r = subprocess.run(["node", str(RAIZ / "regras" / "identidade_do_motor_cli.mjs")],
+                       input=_json.dumps({"SO_CONFERIR": True, "SOURCE_ID": source_id, "IDENTITY": ident}),
+                       capture_output=True, text=True, encoding="utf-8", timeout=60)
+    linha = (r.stdout.strip().splitlines() or ["{}"])[-1]
+    try:
+        resp = _json.loads(linha)
+    except ValueError:
+        return "o motor nao respondeu JSON: %s" % (r.stderr or linha)[-200:]
+    return None if resp.get("OK") is True else str(resp.get("ERRO") or resp)[:300]
+
+
 def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dict:
     """O contrato depois do reparo. Puro: nao escreve em disco. Rebenta se a
     proposta nao for PADRAO_NOVO, se o validador da casa reprovar, ou se algum
@@ -539,8 +566,39 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
     quando = quando or agora()
     antes = copy.deepcopy(contrato)
     novo = copy.deepcopy(contrato)
+    tipo = proposta.get("OUTPUT_TYPE")
+    if tipo is not None:
+        if tipo not in TIPOS_DE_SAIDA_DA_RECEITA:
+            raise ReparoInvalido("OUTPUT_TYPE da receita fora de %s: %r" % (sorted(TIPOS_DE_SAIDA_DA_RECEITA), tipo))
+        # D61/D62: muitos PDFs publicos nao tem «.pdf» no endereco (Molise `…/E/pdf?mode=download`, Valle
+        # d'Aosta `allegato.aspx?pk=N`, Umbria/Veneto Liferay `…/<uuid>?version=`). O padrao sem `.pdf` so
+        # passa com o PORQUE escrito (`PDF_SEM_EXTENSAO`), que fica na proveniencia; a garantia real
+        # continua a dos BYTES (`%PDF-`), conferida pelo canario e pelo coletor.
+        sem_ext = proposta.get("PDF_SEM_EXTENSAO")
+        if tipo == "PDF" and not re.search(r"\\\.pdf", proposta.get("LINK_PATTERN") or "", re.I):
+            if not (isinstance(sem_ext, str) and sem_ext.strip()):
+                raise ReparoInvalido("receita PDF com LINK_PATTERN que nao aponta para .pdf "
+                                     "(sem PDF_SEM_EXTENSAO com o porque)")
+        novo["OUTPUT_TYPE"] = tipo
     aq = dict(novo.get("ACQUISITION") or {}, STRATEGY="HTML_LINK_DISCOVERY",
               INDEX_URL=proposta["INDEX_URL"], LINK_PATTERN=proposta["LINK_PATTERN"])
+    # D47 (T2-BOLETINS): o corte do fim da ligacao (`/view` do Plone classico) so entra EXPLICITO,
+    # como o OUTPUT_TYPE — nunca adivinhado. O coletor ja o aplica (motor_de_rota.mjs); o canario
+    # tambem (canario.hrefs_da_entrada). Sem ele no pedido, fica o que o contrato ja tinha.
+    corte = proposta.get("STRIP_SUFFIX")
+    if corte is not None:
+        if not isinstance(corte, str) or not corte.strip() or corte != corte.strip():
+            raise ReparoInvalido("STRIP_SUFFIX da receita tem de ser texto nao vazio e sem espacos: %r" % (corte,))
+        aq["STRIP_SUFFIX"] = corte
+    # D47 (T2-BOLETINS): a IDENTITY (e os tempos que ela declara: SOURCE_DATE_ISO = publicacao,
+    # FACT_TIME = o periodo do facto) so muda quando a receita a PEDE, explicita — e so depois de o
+    # MOTOR DO COLETOR a conferir (um motor so; o Python nao reimplementa a identidade).
+    ident = proposta.get("IDENTITY")
+    if ident is not None:
+        erro = _conferir_identidade_no_motor(novo.get("SOURCE_ID"), ident)
+        if erro:
+            raise ReparoInvalido("IDENTITY da receita reprovada pelo motor do coletor: %s" % erro)
+        novo["IDENTITY"] = copy.deepcopy(ident)
     aq.setdefault("MATCH", "URL")
     aq.setdefault("MAX_TARGETS", 1)
     novo["ACQUISITION"] = aq
@@ -551,6 +609,10 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
         "DECISAO": "R1", "MISSAO": MISSAO, "METODO": METODO, "APLICADO_EM": quando,
         "COMO": proposta.get("COMO"),
         "ACQUISITION_ANTERIOR": proposta.get("ACQUISITION_ANTERIOR") or antes.get("ACQUISITION"),
+        **({"OUTPUT_TYPE": tipo, "OUTPUT_TYPE_ANTERIOR": antes.get("OUTPUT_TYPE")} if tipo is not None else {}),
+        **({"STRIP_SUFFIX": corte} if corte is not None else {}),
+        **({"PDF_SEM_EXTENSAO": proposta["PDF_SEM_EXTENSAO"]} if proposta.get("PDF_SEM_EXTENSAO") else {}),
+        **({"IDENTITY_ANTERIOR": antes.get("IDENTITY")} if ident is not None else {}),
         "PROVA": {"ENTRADA": proposta.get("ENTRADA"), "ENTRADA_RETRATO": proposta.get("ENTRADA_RETRATO"),
                   "SECCAO_TENTADA": proposta.get("SECCAO_TENTADA"),
                   "ALVOS_NA_LISTAGEM": proposta.get("ALVOS_NA_LISTAGEM"),
@@ -563,12 +625,14 @@ def aplicar(contrato: dict, proposta: dict, *, quando: str | None = None) -> dic
     novo["ROUTE_PROVENANCE"] = {
         "MISSAO": MISSAO, "FERRAMENTA": "curadoria/reparar_contrato.py", "INTEGRADO_EM": quando,
         "PROVADO_EM": quando, "LISTAGEM": proposta["INDEX_URL"],
+        **({"OUTPUT_TYPE": tipo, "OUTPUT_TYPE_ANTERIOR": antes.get("OUTPUT_TYPE")} if tipo is not None else {}),
         **({"ANTERIOR": contrato["ROUTE_PROVENANCE"]} if contrato.get("ROUTE_PROVENANCE") else {}),
     }
     novo.pop("SOURCE_CONTRACT_HASH", None)
     novo["SOURCE_CONTRACT_HASH"] = EC.hash_do_contrato(novo)
     mexidos = {k for k in set(antes) | set(novo) if antes.get(k) != novo.get(k)}
-    fora = mexidos - CAMPOS_QUE_O_REPARO_MUDA
+    fora = (mexidos - CAMPOS_QUE_O_REPARO_MUDA - ({"OUTPUT_TYPE"} if tipo is not None else set())
+            - ({"IDENTITY"} if ident is not None else set()))
     if fora:
         raise ReparoInvalido("o reparo mexeu em campos que nao sao dele: %s" % sorted(fora))
     if antes.get("SOURCE_ID") != novo.get("SOURCE_ID"):

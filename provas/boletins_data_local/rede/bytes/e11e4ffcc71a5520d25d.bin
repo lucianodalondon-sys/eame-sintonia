@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>BOLLETTINO</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+
+<br />
+<b>Warning</b>:  Undefined array key "host" in <b>C:\xampp\htdocs\bollettini\glob_ses.php</b> on line <b>201</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "user" in <b>C:\xampp\htdocs\bollettini\glob_ses.php</b> on line <b>201</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "pasw" in <b>C:\xampp\htdocs\bollettini\glob_ses.php</b> on line <b>201</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "db" in <b>C:\xampp\htdocs\bollettini\glob_ses.php</b> on line <b>201</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught mysqli_sql_exception: Access denied for user ''@'localhost' (using password: NO) in C:\xampp\htdocs\bollettini\glob_ses.php:201
+Stack trace:
+#0 C:\xampp\htdocs\bollettini\glob_ses.php(201): mysqli-&gt;__construct(NULL, NULL, Object(SensitiveParameterValue), NULL)
+#1 C:\xampp\htdocs\bollettini\bollettino_cover.php(26): f_conn()
+#2 {main}
+  thrown in <b>C:\xampp\htdocs\bollettini\glob_ses.php</b> on line <b>201</b><br />

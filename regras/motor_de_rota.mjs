@@ -35,6 +35,8 @@
 //     3 ESTRATÉGIAS COBREM OS 7 CASOS MEDIDOS.
 //     UM QUARTO NOME SERIA ARQUITETURA PARA UM CASO QUE NÃO EXISTE.
 
+import { createHash } from "node:crypto";
+
 export const ESTRATEGIAS = Object.freeze([
   // O endereço está escrito no contrato e não muda. Dois casos medidos:
   // `IT-T3-005` e `IT-T2-004`.
@@ -78,6 +80,17 @@ export const FONTES_DE_TEXTO = Object.freeze([
   "RAW_LATIN1",   // os bytes crus lidos como latin1 (metadados de PDF, HTML antigo)
   "RAW_UTF8",     // os bytes crus lidos como utf8 (HTML moderno)
   "PDF_TEXT",     // o texto extraído do PDF (pdftotext, injectado pelo coletor)
+  // D42 (2) · «A PÁGINA É O BOLETIM»: a URL fixa não identifica a edição. A edição é o CONTEÚDO
+  // (+ a data comprovada). Os dois leitores são os do retrato (coleta/retrato_html.mjs), que o
+  // coletor injecta — o motor continua a não abrir nada.
+  "PAGE_TEXT",      // o texto visível normalizado da página (retrato_html.textoVisivel, injectado)
+  // DA-13: o texto do LINK que, no índice, apontava para este alvo («Bollettino vigilanza del 20-09-2026»).
+  // Vem no próprio alvo (alvosDoContrato), como URL e FILENAME. É o ÍNDICE a falar do documento — a base
+  // de um campo lido aqui diz INDICE, e só se usa quando o documento não diz o mesmo.
+  "LINK_TEXT",
+  // ⚠️ A impressão do conteúdo NÃO é fonte de captura: hash é BYTE_ID, não identidade (a lei de
+  // `motor_de_rota_test.mjs`). Ela sai AO LADO da identidade (CONTENT_SHA256, com CONTENT_SCOPE)
+  // e serve para DEDUPLICAR versões do mesmo documento — nunca para o nomear.
 ]);
 
 export class ContratoInvalido extends Error {}
@@ -129,14 +142,144 @@ export function conferirIdentidade(sourceId, spec) {
         throw new ContratoInvalido(`${sourceId}: CAPTURES.${nome} é opcional (REQUIRED=false) e por isso exige DEFAULTS`);
       }
     }
+    if (spec.CONTENT_SCOPE != null) {
+      const s = spec.CONTENT_SCOPE;
+      if (typeof s !== "object" || !ehTexto(s.START)) throw new ContratoInvalido(`${sourceId}: CONTENT_SCOPE precisa de START`);
+      for (const k of ["START", "END"]) {
+        if (s[k] == null) continue;
+        try { new RegExp(s[k], s.FLAGS || ""); }
+        catch (err) { throw new ContratoInvalido(`${sourceId}: CONTENT_SCOPE.${k} não compila: ${err.message}`); }
+      }
+    }
     // Todo `{nome.N}` dos moldes tem de apontar para uma captura declarada.
-    for (const campo of ["DOCUMENT_ID", "SOURCE_DATE", "SOURCE_DATE_ISO"]) {
+    for (const campo of ["DOCUMENT_ID", "SOURCE_DATE", "SOURCE_DATE_ISO", "FACT_TIME"]) {
       for (const m of String(spec[campo] || "").matchAll(/\{([A-Za-z_][A-Za-z0-9_]*)\.(\d+)\}/g)) {
         if (!caps[m[1]]) throw new ContratoInvalido(`${sourceId}: ${campo} usa {${m[1]}.${m[2]}}, e não há CAPTURES.${m[1]}`);
       }
     }
+    conferirTempoELugar(sourceId, spec, caps);
+  } else if (["PUBLISHED_AT", "FACT_LOCATION", "PUBLISHED_AT_BASIS", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS"].some((k) => spec[k] != null)) {
+    throw new ContratoInvalido(`${sourceId}: PUBLISHED_AT/FACT_LOCATION e as BASES so existem em CONTENT_CAPTURE`);
   }
   return true;
+}
+
+// ── D61/D62 · DATA E LUGAR DO BOLETIM, DECLARADOS PELA ROTA ────────────────
+// A rota de um boletim conhece a FORMA dele: o cabeçalho «n. 38/2026 del 21 settembre 2026», o período
+// «14 settembre 2026 - 20 settembre 2026», a província da lista. O contrato diz onde ler cada coisa e
+// COMO se soube (a BASE); o motor lê, valida e devolve — nunca inventa:
+//   PUBLISHED_AT   a data de EMISSÃO do boletim (AAAA-MM-DD)                            + PUBLISHED_AT_BASIS
+//   FACT_TIME      o período de validade/observação (AAAA-MM-DD/AAAA-MM-DD, ou um dia)   + FACT_TIME_BASIS
+//   FACT_LOCATION  a área que o boletim DECLARA (província/zona)                         + FACT_LOCATION_BASIS
+// D62: NENHUM destes campos é obrigatório e NENHUM derruba o documento. Uma captura que não casa, ou
+// um valor que não é data de calendário, sai «NAO SEI» com o porquê na BASE. Por isso as capturas
+// destes campos têm de ser opcionais (REQUIRED=false): uma data em falta nunca é IDENTITY_FAILED.
+// Os nomes são os da fronteira da Collection (`coleta/ingresso.py`): PUBLISHED_AT, FACT_TIME,
+// FACT_LOCATION e as _BASIS.
+// D69 (correção da DA-2): o PERÍODO do boletim (validade, cobertura) só é FACT_TIME quando o TEXTO o liga
+// ao facto («Osservazioni della settimana da … a …», «Previsione … per oggi … per domani …»). Senão vai
+// para BULLETIN_PERIOD — guardado como EVIDÊNCIA — e o FACT_TIME fica NAO SEI. Uma data de calendário
+// nunca vira janela agronómica: este motor não tem campo de janela, e não o ganha aqui.
+// Na fronteira da Collection a data de publicação chama-se PUBLISHED_AT (= a PUBLICATION_TIME da D69).
+export const CAMPOS_TEMPO_E_LUGAR = Object.freeze(["PUBLISHED_AT", "FACT_TIME", "FACT_LOCATION", "BULLETIN_PERIOD"]);
+export const FACT_TIME_LIGADO = "PERIODO_LIGADO_AO_FATO_NO_TEXTO";
+export const NAO_SEI = "NAO SEI";
+// Os filtros de um molde: vocabulário FECHADO, cada um uma conversão escrita — nada de expressão livre.
+const MESES_IT = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
+  "settembre", "ottobre", "novembre", "dicembre"];
+export const FILTROS_DE_MOLDE = Object.freeze({
+  MES_IT: (v) => { const i = MESES_IT.indexOf(String(v).toLowerCase()); return i < 0 ? null : String(i + 1).padStart(2, "0"); },
+  MES2: (v) => (/^\d{1,2}$/.test(v) ? String(v).padStart(2, "0") : null),
+  DIA2: (v) => (/^\d{1,2}$/.test(v) ? String(v).padStart(2, "0") : null),
+  ANO4: (v) => (/^\d{4}$/.test(v) ? String(v) : /^\d{2}$/.test(v) ? `20${v}` : null),
+});
+const MOLDE = /\{([A-Za-z_][A-Za-z0-9_]*)\.(\d+)(?::([A-Z0-9_]+))?\}/g;
+
+function conferirTempoELugar(sourceId, spec, caps) {
+  for (const campo of CAMPOS_TEMPO_E_LUGAR) {
+    const base = spec[`${campo}_BASIS`];
+    if (campo !== "FACT_TIME" && spec[campo] != null && !(ehTexto(base) || Array.isArray(base))) {
+      throw new ContratoInvalido(`${sourceId}: ${campo} sem ${campo}_BASIS — como se sabe faz parte do que se sabe`);
+    }
+    if (Array.isArray(base)) {
+      const n = Array.isArray(spec[campo]) ? spec[campo].length : -1;
+      if (base.length !== n || !base.every(ehTexto)) {
+        throw new ContratoInvalido(`${sourceId}: ${campo}_BASIS em lista tem de ter uma base de texto por forma (${n})`);
+      }
+    } else if (base != null && !ehTexto(base)) throw new ContratoInvalido(`${sourceId}: ${campo}_BASIS vazia`);
+    if (campo === "FACT_TIME" && base == null) continue;      // o FACT_TIME antigo segue a regra antiga
+    // D69: um molde de FACT_TIME num boletim só entra com a base a dizer que o texto liga o período ao facto
+    if (campo === "FACT_TIME" && spec.FACT_TIME != null && !(Array.isArray(base) ? base : [base]).every((b) => String(b).startsWith(FACT_TIME_LIGADO))) {
+      throw new ContratoInvalido(`${sourceId}: FACT_TIME num boletim exige FACT_TIME_BASIS «${FACT_TIME_LIGADO} · …» — `
+        + "a validade/cobertura sem ligação ao facto no texto vai para BULLETIN_PERIOD (D69)");
+    }
+    const moldes = spec[campo] == null ? [] : Array.isArray(spec[campo]) ? spec[campo] : [spec[campo]];
+    if (Array.isArray(spec[campo]) && (!moldes.length || !moldes.every(ehTexto))) {
+      throw new ContratoInvalido(`${sourceId}: ${campo} em lista tem de ter moldes de texto não vazios`);
+    }
+    for (const m of moldes.join(" ").matchAll(MOLDE)) {
+      if (!caps[m[1]]) throw new ContratoInvalido(`${sourceId}: ${campo} usa {${m[1]}.${m[2]}}, e não há CAPTURES.${m[1]}`);
+      if (m[3] && !(m[3] in FILTROS_DE_MOLDE)) {
+        throw new ContratoInvalido(`${sourceId}: ${campo} usa o filtro ${m[3]}, fora do vocabulário (${Object.keys(FILTROS_DE_MOLDE).join(", ")})`);
+      }
+      if (caps[m[1]].REQUIRED !== false) {
+        throw new ContratoInvalido(`${sourceId}: ${campo} lê CAPTURES.${m[1]}, que é obrigatória — D62: falta de data ou de lugar nunca derruba o documento (REQUIRED=false)`);
+      }
+    }
+  }
+}
+
+const eData = (iso) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return false;
+  const d = new Date(`${iso}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === iso;
+};
+
+// Um campo de tempo/lugar. O contrato pode dar UM molde ou uma LISTA deles, pela ordem de confiança
+// (ex.: o cabeçalho do PDF antes do nome do ficheiro; a forma «(22/09/2026 – 29/09/2026)» antes da forma
+// «dal 20/07 al 04/08/2026»): vale o primeiro que der um valor válido; se nenhum der, NAO SEI com o
+// porquê de cada um. Uma BASE sem molde é o contrato a dizer que o boletim NÃO traz o campo, e porquê.
+function campoDoBoletim(campo, spec, grupos, ausentes) {
+  const baseDeclarada = spec[`${campo}_BASIS`];
+  if (spec[campo] == null) {
+    return [NAO_SEI, baseDeclarada ? `NAO SEI · ${baseDeclarada}` : `NAO SEI · o contrato não declara onde o boletim diz o ${campo}`];
+  }
+  const moldes = Array.isArray(spec[campo]) ? spec[campo] : [spec[campo]];
+  // DA-13: a BASE pode ser uma lista, uma por forma (ex.: a do PDF e a do INDICE)
+  const baseDe = (k) => (Array.isArray(baseDeclarada) ? baseDeclarada[k] : baseDeclarada);
+  const porques = [];
+  for (const [k, molde] of moldes.entries()) {
+    const [v, b] = umMolde(campo, molde, baseDe(k), grupos, ausentes);
+    if (v !== NAO_SEI) return [v, moldes.length > 1 ? `${b} · forma ${k + 1} de ${moldes.length}` : b];
+    porques.push(moldes.length > 1 ? `forma ${k + 1}: ${b.replace(/^NAO SEI · /, "")}` : b.replace(/^NAO SEI · /, ""));
+  }
+  return [NAO_SEI, `NAO SEI · ${porques.join(" | ")}`];
+}
+
+function umMolde(campo, molde, baseDeclarada, grupos, ausentes) {
+  const usadas = [...String(molde).matchAll(MOLDE)];
+  const faltam = usadas.map((m) => m[1]).filter((n) => ausentes.has(n));
+  if (faltam.length) {
+    return [NAO_SEI, `NAO SEI · ${baseDeclarada} · não está neste documento (captura ${[...new Set(faltam)].join(", ")} sem resultado) — o documento não cai (D62)`];
+  }
+  let invalido = null;
+  const valor = String(molde).replace(MOLDE, (_, n, i, f) => {
+    const bruto = grupos[n]?.[Number(i)] ?? "";
+    if (!f) return bruto;
+    const v = FILTROS_DE_MOLDE[f](bruto);
+    if (v == null) invalido = `«${bruto}» não passa no filtro ${f}`;
+    return v ?? "";
+  }).replace(/\s+/g, " ").trim();
+  const trecho = [...new Set(usadas.map((m) => grupos[m[1]]?.[0]).filter(Boolean))].join(" … ").replace(/\s+/g, " ").slice(0, 200);
+  if (!invalido && campo !== "FACT_LOCATION") {
+    const partes = valor.split("/");
+    const intervalo = campo === "FACT_TIME" || campo === "BULLETIN_PERIOD";
+    if (!(partes.length <= (intervalo ? 2 : 1) && partes.every(eData))) invalido = `«${valor}» não é data de calendário`;
+    else if (partes.length === 2 && partes[0] > partes[1]) invalido = `«${valor}» começa depois de acabar`;
+  }
+  if (!invalido && !valor) invalido = "o valor lido está vazio";
+  if (invalido) return [NAO_SEI, `NAO SEI · ${baseDeclarada} · ${invalido} — nunca se inventa (D62) · «${trecho}»`];
+  return [valor, `${baseDeclarada} · «${trecho}»`];
 }
 
 // ── O QUE FAZ UM BLOCO SER EXECUTÁVEL ──────────────────────────────────────
@@ -298,6 +441,28 @@ export function ligacoesDoIndice(html, aq) {
   return fora;
 }
 
+// DA-13 · O TEXTO DE CADA LIGAÇÃO DO ÍNDICE, pelo mesmo endereço que `ligacoesDoIndice` devolve (resolvido
+// contra o índice, com o STRIP_SUFFIX). Várias ligações para o mesmo endereço juntam-se com « | ». Etiquetas
+// fora, entidades básicas desfeitas, espaços colapsados. Só lê: não escolhe alvos.
+export function textosDasLigacoes(html, aq) {
+  const entrada = aq.INDEX_URL;
+  const textos = new Map();
+  const desfaz = (t) => t.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
+    .replace(/&#0*39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/\s+/g, " ").trim();
+  for (const m of String(html).matchAll(/<a\b[^>]*?href\s*=\s*["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
+    let u;
+    try { u = new URL(m[1].trim(), entrada).href; } catch { continue; }
+    if (aq.STRIP_SUFFIX && u.endsWith(aq.STRIP_SUFFIX)) u = u.slice(0, -aq.STRIP_SUFFIX.length);
+    const t = desfaz(m[2]);
+    if (!t) continue;
+    const ja = textos.get(u);
+    if (!ja) textos.set(u, t);
+    else if (!ja.split(" | ").includes(t)) textos.set(u, `${ja} | ${t}`);
+  }
+  return textos;
+}
+
 // O nome do ficheiro guardado nasce do último troço do caminho; um artigo
 // HTML raramente traz extensão, e o armazém precisa de uma.
 export function nomeDoAlvo(url, outputType) {
@@ -432,10 +597,14 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
       if (urls.length === 0) {
         return { erro: "EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN" };
       }
+      // DA-13: cada alvo leva o texto da ligacao que o anunciava (LINK_TEXT)
+      const textos = textosDasLigacoes(texto, aq);
+      // (na MESMA lista: o D40 pendura nela as suas contas — CONHECIDOS_SALTADOS, VAZIO_HONESTO…)
+      const comTexto = (as) => { if (Array.isArray(as)) for (const a of as) a.textoDaLigacao = textos.get(a.url) ?? ""; return as; };
       if (typeof classificar === "function") {
-        return escolherAlvosD40(urls, classificar, (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE));
+        return comTexto(escolherAlvosD40(urls, classificar, (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE)));
       }
-      return urls.slice(0, limite).map((url) => ({ url, nome: nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE) }));
+      return comTexto(urls.slice(0, limite).map((url) => ({ url, nome: nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE) })));
     }
     const re = new RegExp(aq.LINK_PATTERN, "gi");
     const achados = [...texto.matchAll(re)].map((m) => (m[1] !== undefined ? m[1] : m[0]));
@@ -473,6 +642,24 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
 // gente, e NÃO é lido aqui.
 //
 //     DOCUMENT_ID_RULE_TEXT != IDENTITY_EXECUTABLE_SPEC.
+// A parte do texto entre START (inclusive) e END (exclusive), ou o texto todo sem CONTENT_SCOPE.
+// null quando o contrato declara um recorte que o texto nao tem.
+export function recortar(texto, scope) {
+  const t = String(texto || "");
+  if (!scope) return t;
+  const i = t.search(new RegExp(scope.START, scope.FLAGS || ""));
+  if (i < 0) return null;
+  const resto = t.slice(i);
+  if (!scope.END) return resto;
+  const j = resto.slice(1).search(new RegExp(scope.END, scope.FLAGS || ""));
+  return j < 0 ? resto : resto.slice(0, j + 1);
+}
+
+// A mesma normalizacao do TEXT_SHA256 do retrato (coleta/retrato_html.mjs): espacos colapsados.
+export function impressao(texto) {
+  return createHash("sha256").update(String(texto).replace(/\s+/g, " ").trim(), "utf8").digest("hex");
+}
+
 export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} } = {}) {
   const spec = contrato && contrato.IDENTITY;
   if (!spec) return null;
@@ -508,6 +695,7 @@ export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} }
   const textoDe = (de) => {
     if (de === "FILENAME") return String(alvo.nome || "");
     if (de === "URL") return String(alvo.url || "");
+    if (de === "LINK_TEXT") return String(alvo.textoDaLigacao || "");
     if (!(de in textos)) {
       const ler = leitores[de];
       if (typeof ler !== "function") {
@@ -518,6 +706,7 @@ export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} }
     return textos[de];
   };
   const grupos = {};
+  const ausentes = new Set();
   for (const [nome, c] of Object.entries(spec.CAPTURES)) {
     const m = textoDe(c.FROM).match(new RegExp(c.PATTERN, c.FLAGS || ""));
     if (m) {
@@ -526,18 +715,59 @@ export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} }
       grupos[nome] = m.map((g) => (g == null ? "" : String(g).trim()));
     } else if (c.REQUIRED === false) {
       grupos[nome] = ["", ...c.DEFAULTS.map(String)];
+      ausentes.add(nome);
     } else {
       return vazio;
     }
   }
   const põe = (molde) => String(molde).replace(/\{([A-Za-z_][A-Za-z0-9_]*)\.(\d+)\}/g,
     (_, n, i) => grupos[n]?.[Number(i)] ?? "");
-  return {
-    DOCUMENT_ID: põe(spec.DOCUMENT_ID),
-    SOURCE_DATE: spec.SOURCE_DATE ? põe(spec.SOURCE_DATE) : null,
-    SOURCE_DATE_ISO: spec.SOURCE_DATE_ISO ? põe(spec.SOURCE_DATE_ISO) : null,
-    FACT_TIME,
+  // ⚠️ D42 (2): UM TEMPO QUE A FONTE NÃO DISSE É `UNKNOWN`, INTEIRO.
+  // Os DEFAULTS de uma captura opcional servem para a IDENTIDADE não ficar com buraco
+  // (ex.: «IT-T2-152:UNKNOWN:ab12…»). Num campo de TEMPO (SOURCE_DATE, SOURCE_DATE_ISO,
+  // FACT_TIME) um valor por omissão seria uma data inventada — e a data de coleta nunca entra
+  // no lugar dela. Se o molde de tempo usa uma captura ausente, o campo inteiro é UNKNOWN.
+  const tempo = (molde) => {
+    if (!molde) return null;
+    for (const m of String(molde).matchAll(/\{([A-Za-z_][A-Za-z0-9_]*)\.\d+\}/g)) {
+      if (ausentes.has(m[1])) return "UNKNOWN";
+    }
+    return põe(molde);
   };
+  // ⚠️ A IMPRESSÃO MIRA O BOLETIM, NÃO A PÁGINA (COL-LAW-029). O texto visível inteiro leva menus,
+  // contadores e a hora da nossa visita. O contrato diz onde o boletim começa e acaba
+  // (CONTENT_SCOPE); sem o recorte, a identidade falha fechada (IDENTITY_FAILED) em vez de guardar
+  // lixo com cara de boletim. A impressão vai AO LADO da identidade, para deduplicar.
+  let CONTENT_SHA256;
+  if (spec.CONTENT_SCOPE) {
+    const parte = recortar(textoDe("PAGE_TEXT"), spec.CONTENT_SCOPE);
+    if (parte == null || !parte.trim()) return vazio;
+    CONTENT_SHA256 = impressao(parte);
+  }
+  const saida = {
+    DOCUMENT_ID: põe(spec.DOCUMENT_ID),
+    ...(CONTENT_SHA256 ? { CONTENT_SHA256 } : {}),
+    SOURCE_DATE: tempo(spec.SOURCE_DATE),
+    SOURCE_DATE_ISO: tempo(spec.SOURCE_DATE_ISO),
+    // FACT_TIME pode ser um molde com capturas (ex.: o periodo que o boletim cobre); sem
+    // capturas, e o literal do contrato ou UNKNOWN, como antes.
+    FACT_TIME: /\{[A-Za-z_][A-Za-z0-9_]*\.\d+\}/.test(FACT_TIME) ? tempo(FACT_TIME) : FACT_TIME,
+  };
+  // D61/D62: so quem declara uma BASE entra no modo «boletim com data e lugar»; os outros contratos
+  // saem exactamente como antes (sem FACT_LOCATION: SOURCE_LOCATION != FACT_LOCATION).
+  if (CAMPOS_TEMPO_E_LUGAR.some((k) => spec[`${k}_BASIS`] != null)) {
+    for (const campo of CAMPOS_TEMPO_E_LUGAR) {
+      const [v, b] = campoDoBoletim(campo, spec, grupos, ausentes);
+      saida[campo] = v;
+      saida[`${campo}_BASIS`] = b;
+    }
+    // D69: sem facto ligado, o período do boletim fica como evidência — e o FACT_TIME diz onde está
+    if (saida.FACT_TIME === NAO_SEI && saida.BULLETIN_PERIOD !== NAO_SEI) {
+      saida.FACT_TIME_BASIS += ` · o período do boletim (${saida.BULLETIN_PERIOD}) fica em BULLETIN_PERIOD como evidência: `
+        + "o texto não o liga ao facto (D69)";
+    }
+  }
+  return saida;
 }
 
 export const CONTRATO_MOTOR_VERSAO = "route-engine-v1";

@@ -1,0 +1,172 @@
+{
+ "CANARIO": "JANELA-FORMAS B — a pagina e o boletim (fase 2, sem rede)",
+ "FORMAS_LIDAS": {
+  "IT-T2-152": {
+   "FORMA": "PAGINA_E_BOLETIM",
+   "PORQUE": "«Aggiornato il DD/MM/AAAA», «aggiornato una volta la settimana (giovedi)», observacoes da semana com periodo — a pagina fixa E o boletim",
+   "BYTES_SHA256": "48a7f9895bce27e706115b5f3c36bf006312f70f2bf949c794855125fc1c1815"
+  },
+  "IT-T1-006": {
+   "FORMA": "LISTA_POR_EDICAO",
+   "PORQUE": "uma publicacao por semana («Pubblicato il bollettino Settimana 31 dal 20/07 al 04/08/2026»); o endereco e UMA edicao de agosto: falta a lista (categoria) — nao e pagina fixa",
+   "BYTES_SHA256": "3c18e0bdb2514fb3f7e463fb28f586a0fab68cde464d685d01736d8fbc6645fd"
+  },
+  "IT-T2-148": {
+   "FORMA": "LISTA_PARADA",
+   "PORQUE": "lista de boletins «valido fino al 29 novembre 2022» — o site parou em 2022",
+   "BYTES_SHA256": "aa30bb40d951ede21fd4cc870bfb3115f235920860b0957350533eb8c415a575"
+  },
+  "IT-T2-136": {
+   "FORMA": "BOLETIM_FORA_DO_TEXTO",
+   "PORQUE": "nenhuma data nem corpo de boletim no texto do HTML (so menu): o boletim e imagem/PDF/JS",
+   "BYTES_SHA256": "03e689a5d72240469f20f34678bd5bb78e424f569fe72c073c40ad3b34b40544"
+  },
+  "IT-T2-138": {
+   "FORMA": "IMAGENS",
+   "PORQUE": "mapas semanais em imagem; 2 092 caracteres de texto, quase so menu",
+   "BYTES_SHA256": "5d2598b72a1869a80c089de958aabec11f3f93aece065f35db414110ec98fb8c"
+  },
+  "IT-T2-139": {
+   "FORMA": "IMAGENS",
+   "PORQUE": "«Pubblicato il 4/8/2020»; 1 357 caracteres, o resto e imagem",
+   "BYTES_SHA256": "0dd52cb0d27b8d5895f2805f6df4ec203f85a1542df96ca4f1b85b85b1829003"
+  },
+  "IT-T2-153": {
+   "FORMA": "PAGINA_DESCRITIVA",
+   "PORQUE": "descreve os boletins do CAAR; o de viticultura remete para sia.regione.liguria.it (outro site, lista)",
+   "BYTES_SHA256": "4a36747adfc52aa26c7de3e390d485d4ae0500011f044203e8be0417c52c7033"
+  },
+  "IT-T3-031": {
+   "FORMA": "PAGINA_DESCRITIVA",
+   "PORQUE": "pagina de referencia da vigilancia fitossanitaria, sem boletim datado",
+   "BYTES_SHA256": "07ea5a772e20a39690c4b7cefbb79c155fb5f800aef9cd4edbc4fea7d93d9fe2"
+  }
+ },
+ "LAMMA": {
+  "CONTRATO": {
+   "SOURCE_ID": "IT-T2-152",
+   "OWNER": "LaMMA",
+   "NAME": "LaMMA — Bollettino agrometeo",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "CANONICAL_ENTRY_URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+   "ACQUISITION": {
+    "STRATEGY": "STATIC_ENDPOINT",
+    "URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+    "NAME": "agrometeo-firenze.html"
+   },
+   "ROUTE_TYPE": "DISCOVERED_ROUTE",
+   "ACCESS_INSTRUMENT": "HTTP",
+   "AUTH_REQUIRED": false,
+   "BROWSER_REQUIRED": false,
+   "JS_REQUIRED": false,
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "DOCUMENT_ID": "IT-T2-152:BOLETIM:FIRENZE:{aggiornato.3}-{aggiornato.2}-{aggiornato.1}",
+    "SOURCE_DATE": "{aggiornato.1}/{aggiornato.2}/{aggiornato.3}",
+    "SOURCE_DATE_ISO": "{aggiornato.3}-{aggiornato.2}-{aggiornato.1}",
+    "FACT_TIME": "{settimana.1} a {settimana.2}",
+    "CONTENT_SCOPE": {
+     "START": "Aggiornato il",
+     "END": "Condividi"
+    },
+    "CAPTURES": {
+     "aggiornato": {
+      "FROM": "PAGE_TEXT",
+      "PATTERN": "Aggiornato il\\s+(\\d{2})/(\\d{2})/(\\d{4})",
+      "REQUIRED": false,
+      "DEFAULTS": [
+       "UNKNOWN",
+       "UNKNOWN",
+       "UNKNOWN"
+      ]
+     },
+     "settimana": {
+      "FROM": "PAGE_TEXT",
+      "PATTERN": "Osservazioni della settimana da (\\d{2}/\\d{2}/\\d{4}) a (\\d{2}/\\d{2}/\\d{4})",
+      "REQUIRED": false,
+      "DEFAULTS": [
+       "UNKNOWN",
+       "UNKNOWN"
+      ]
+     }
+    }
+   },
+   "IDENTITY_KEYS": [
+    "url_path"
+   ],
+   "IDENTITY_KIND": "URL_PATH",
+   "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+   "EXPECTED_FAILURES": [
+    "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+    "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+    "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+   ],
+   "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+   "FALLBACK": "nenhum",
+   "NEGATIVE_CONTROL": {
+    "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+    "esperado": "EMPTY_LIST -> FAILED"
+   },
+   "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+   "SOURCE_CONTRACT_HASH": "17f3e4dd73f1003f",
+   "ONBOARDED_BY": "SOURCE-CURATOR-WORKER · contrato escrito pelo ciclo continuo a partir do molde da missao 04",
+   "FORMA": "PAGINA_E_BOLETIM",
+   "RECOLLECTION": {
+    "DETAIL_CONTENT": "MUTABLE",
+    "TTL_SECONDS": 86400
+   },
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "JANELA-FORMAS B (D42 2)",
+    "INTEGRADO_EM": "2026-09-25T09:00:00+00:00",
+    "ANTERIOR": null
+   }
+  },
+  "VALIDADOR": "OK",
+  "CANARIO": {
+   "PASS": true,
+   "CLASSE": "OK",
+   "PORQUE": null,
+   "ITEM_ABERTO": {
+    "URL": "https://www.lamma.toscana.it/agrometeo/firenze",
+    "HTTP": 200,
+    "BYTES": 217690,
+    "FORMA": "PAGINA_E_BOLETIM",
+    "DOCUMENT_ID": "IT-T2-152:BOLETIM:FIRENZE:2026-09-24",
+    "CONTENT_SHA256": "6a8776cf57eaea9ed75c110c112aa24726bc93727a887d614e9c6b066d3a1b15",
+    "SOURCE_DATE": "24/09/2026",
+    "SOURCE_DATE_ISO": "2026-09-24",
+    "FACT_TIME": "17/09/2026 a 23/09/2026",
+    "BOLETIM_CARACTERES": 3848,
+    "DATA_COMPROVADA": true
+   },
+   "DETAIL_GATE": "PAGINA_BOLETIM/v1"
+  },
+  "REGUA": {
+   "REGUA": "PAGINA_BOLETIM/v1",
+   "PASSOS": {
+    "URL_FIXA": true,
+    "RECOLHA_MUTAVEL": true,
+    "IDENTIDADE": true,
+    "CORPO_DO_BOLETIM": true,
+    "CONTRATO_ATUAL": true
+   },
+   "INFO": {
+    "DATA_COMPROVADA": true,
+    "SOURCE_DATE_ISO": "2026-09-24"
+   },
+   "PORQUE": "a pagina e o boletim: identidade pelo motor, corpo recortado, recolha mutavel"
+  },
+  "DEDUPE_MANHA_VS_AGORA": {
+   "BYTES_IGUAIS": false,
+   "SHA_BYTES_MANHA": "ad3a76ffa7729ab42a292831141d1fe4db43c8de0b81886a2aae0ef62ee0f8e3",
+   "SHA_BYTES_AGORA": "48a7f9895bce27e706115b5f3c36bf006312f70f2bf949c794855125fc1c1815",
+   "DOCUMENT_ID_MANHA": "IT-T2-152:BOLETIM:FIRENZE:2026-09-24",
+   "DOCUMENT_ID_AGORA": "IT-T2-152:BOLETIM:FIRENZE:2026-09-24",
+   "CONTENT_SHA256_MANHA": "6a8776cf57eaea9ed75c110c112aa24726bc93727a887d614e9c6b066d3a1b15",
+   "CONTENT_SHA256_AGORA": "6a8776cf57eaea9ed75c110c112aa24726bc93727a887d614e9c6b066d3a1b15",
+   "MESMA_EDICAO_DEDUPLICADA": true
+  }
+ }
+}
