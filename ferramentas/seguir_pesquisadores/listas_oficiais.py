@@ -29,6 +29,8 @@ AQUI = Path(__file__).resolve().parent
 sys.path.insert(0, str(AQUI))
 import seguir as S        # noqa: E402  (o transporte com teto/robots/pausa, o portao, a classificacao)
 import pessoas as PE      # noqa: E402  (a normalizacao de nomes)
+import contador as CT     # noqa: E402  (o teto por 24 h, partilhado — D90)
+from datetime import datetime  # noqa: E402
 
 # O que se sabe de cada casa, e DE ONDE se sabe (medido por quem, ou NAO SEI).
 CASAS = {
@@ -149,13 +151,13 @@ def uma_rodada(casa: str, estado: dict, alvos: list, t: "S.Transporte") -> dict:
         if url in lidos:
             continue
         lidos.add(url)
-        if t.conta[S.dominio(url)] >= S.TETO:
+        if t.conta[S.dominio(url)] >= S.TETO or (t.contador is not None and not t.contador.livres(S.dominio(url))):
             resto.append(item)
             lidos.discard(url)
             continue
         st, b = t.get(url, "%s %s" % (casa, papel))
         if b is None:
-            if t.registo and t.registo[-1].get("RESULTADO") == "TETO_DO_DOMINIO":
+            if t.registo and t.registo[-1].get("RESULTADO") in S.TETOS:
                 resto.append(item)
                 lidos.discard(url)
             else:       # robots proibe/nao se leu, ou a pagina falhou: fica escrito, nao se repete
@@ -260,7 +262,9 @@ def main(argv) -> int:
             estado = estado_inicial(casa)
             estado["FILA"] = [{"URL": u, "PAPEL": "ENTRADA"} for u in resp.get("_ENTRADAS_%s" % casa, [])] + \
                              [{"URL": u, "PAPEL": "LISTA"} for u in resp.get("_LISTAS_%s" % casa, [])]
-        t = S.Transporte(saida / ("RODADA-%s-%02d" % (casa, estado["RODADAS"] + 1)), buscar=falso, pausa=0)
+        t = S.Transporte(saida / ("RODADA-%s-%02d" % (casa, estado["RODADAS"] + 1)), buscar=falso, pausa=0,
+                         contador=(CT.Contador24h(Path(arg["contador"]), agora=(lambda: datetime.fromisoformat(arg["agora"]))
+                                                  if "agora" in arg else None) if "contador" in arg else None))
     else:
         if "--rodada" not in argv or "--autorizado" not in argv:
             print("RECUSADO: --rodada sai a rede; so com --autorizado (quem corre e o coordenador)")
@@ -270,7 +274,7 @@ def main(argv) -> int:
         if not S.portao(pasta, "ANTES"):
             print("PAROU: portao de egresso nao e IT (antes)")
             return 3
-        t = S.Transporte(pasta)
+        t = S.Transporte(pasta, contador=CT.Contador24h(Path(arg.get("contador") or CT.CONTADOR_PADRAO)))
     estado = uma_rodada(casa, estado, alvos, t)
     arq.write_text(json.dumps(estado, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     t.pasta.mkdir(parents=True, exist_ok=True)

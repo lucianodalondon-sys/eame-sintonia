@@ -40,6 +40,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
 TETO, PAUSA_S, TIMEOUT_S = 5, 3.0, 30
+TETOS = ("TETO_DO_DOMINIO", "TETO_24H")      # nao coube: fica PENDENTE (nao e falha)
 UA = "SintoniaEAME-SeguirPesquisadores/1 (+publico, sem login; D85)"
 ORCID_URLS = "https://pub.orcid.org/v3.0/%s/researcher-urls"
 PESSOAS_POR_RODADA = 4          # orcid.org: robots + 4 = 5 (o teto)
@@ -118,8 +119,9 @@ def links_da_pagina(html: str, base: str) -> list:
 class Transporte:
     """O unico sitio que sai a rede. Conta por dominio, le o robots, pausa, guarda os bytes."""
 
-    def __init__(self, pasta: Path, buscar=None, pausa=PAUSA_S):
+    def __init__(self, pasta: Path, buscar=None, pausa=PAUSA_S, contador=None):
         self.pasta, self.pausa = pasta, pausa
+        self.contador = contador        # contador.Contador24h (D90): o teto por 24 h, alem do teto da rodada
         self.conta = Counter()
         self.robots = {}
         self.registo = []
@@ -136,6 +138,11 @@ class Transporte:
         if self.conta[d] >= TETO:
             self.registo.append({"URL": url, "RESULTADO": "TETO_DO_DOMINIO", "DOMINIO": d, "PORQUE": porque})
             return None, None
+        if self.contador is not None:
+            ok, ate = self.contador.reservar(d, url)
+            if not ok:
+                self.registo.append({"URL": url, "RESULTADO": "TETO_24H", "DOMINIO": d, "ADIADO_ATE": ate, "PORQUE": porque})
+                return None, None
         self.conta[d] += 1
         if self.registo:
             time.sleep(self.pausa)
@@ -156,8 +163,16 @@ class Transporte:
     def pode(self, url) -> bool:
         p = urllib.parse.urlparse(url)
         host = "%s://%s" % (p.scheme, p.netloc)
-        if host not in self.robots:
+        guardado = self.contador.robots_de(host) if self.contador is not None and host not in self.robots else None
+        if guardado is not None:                        # lido ha menos de 24 h: nao gasta pedido
+            st, b = guardado[0], (guardado[1].encode("utf-8") if guardado[1] is not None else None)
+        elif host not in self.robots:
             st, b = self._pedir(host + "/robots.txt", "robots")
+            if b is None and self.registo and self.registo[-1]["RESULTADO"] in TETOS:
+                return False            # o robots nao coube no teto: nada se conclui sobre o host
+            if self.contador is not None and (st in (404, 410) or (st == 200 and b is not None)):
+                self.contador.guardar_robots(host, st, b.decode("utf-8", "replace") if b is not None else None)
+        if host not in self.robots:
             rp = urllib.robotparser.RobotFileParser()
             if st == 200 and b is not None:
                 rp.parse(b.decode("utf-8", "replace").splitlines())
@@ -171,7 +186,12 @@ class Transporte:
         return bool(rp and rp.can_fetch(UA, url))
 
     def get(self, url, porque):
+        n = len(self.registo)
         if not self.pode(url):
+            ult = self.registo[-1] if len(self.registo) > n else None
+            if ult and ult["RESULTADO"] in TETOS:           # e a PAGINA que fica pendente, nao o robots
+                self.registo.append(dict(ult, URL=url, PORQUE=porque))
+                return None, None
             self.registo.append({"URL": url, "RESULTADO": "ROBOTS_OU_NAO_LIDO", "PORQUE": porque})
             return None, None
         return self._pedir(url, porque)
@@ -187,8 +207,9 @@ def seguir_pessoa(p: dict, t: Transporte) -> dict:
     oid = out["ORCID"][0]
     st, b = t.get(ORCID_URLS % oid, "orcid researcher-urls de %s" % p["NOME"])
     if not b:
-        if t.registo and t.registo[-1].get("RESULTADO") == "TETO_DO_DOMINIO":
-            out["PENDENTE"] = "TETO_DO_DOMINIO"
+        if t.registo and t.registo[-1].get("RESULTADO") in ("TETO_DO_DOMINIO", "TETO_24H"):
+            out["PENDENTE"] = t.registo[-1]["RESULTADO"]
+            out["ADIADO_ATE"] = t.registo[-1].get("ADIADO_ATE")
             out["PASSOS"].append("ORCID %s: PENDENTE — o teto de %d pedidos a orcid.org nesta rodada acabou; "
                                  "fica para a proxima" % (oid, TETO))
         else:
@@ -293,6 +314,10 @@ def main(argv) -> int:
         for i, r in enumerate(rs, 1):
             print("RODADA %02d: %s" % (i, "; ".join("%s (%s)" % (p["NOME"], p.get("UNIVERSIDADE")) for p in r)))
         return 0
+    if "rodada" in arg and "--antigo-sem-d90" not in argv:
+        print("SUBSTITUIDO (D90 §3.4): 16 rodadas x 5 pedidos a orcid.org nao cabem em 24 h. "
+              "Usar orcid_lote.py (--canario, depois --dia uma vez por dia)")
+        return 2
     if "rodada" in arg:
         if "--autorizado" not in argv:
             print("RECUSADO: --rodada sai a rede; so com --autorizado (quem corre e o coordenador)")
@@ -303,7 +328,8 @@ def main(argv) -> int:
         if not portao(saida, "ANTES"):
             print("PAROU: portao de egresso nao e IT (antes)")
             return 3
-        doc = correr(rs[n - 1], saida, Transporte(saida))
+        import contador as CT
+        doc = correr(rs[n - 1], saida, Transporte(saida, contador=CT.Contador24h(CT.CONTADOR_PADRAO)))
         ok = portao(saida, "DEPOIS")
         print(json.dumps({"PEDIDOS_POR_DOMINIO": doc["PEDIDOS_POR_DOMINIO"], "TETO_RESPEITADO": doc["TETO_RESPEITADO"],
                           "PORTAO_DEPOIS_IT": ok, "CANAIS": sum(len(p["CANAIS"]) for p in doc["PESSOAS"])}, ensure_ascii=False))
