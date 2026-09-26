@@ -97,6 +97,31 @@ consórcio; robots lido e cumprido. **Nada é registado, nada vai para RAW nem p
 o passo 9B (robô parado) regista pela porta **só essas**, aplica a decisão pelo validador do canal e enfileira o
 QUALIFY de cada uma — script entregue com a decisão.
 
+## 5 · O passo 9 genérico (`curadoria/micro_prova_passo9.py`) — pronto, testado
+
+Robô PARADO (`PARAR.flag`, senão recusa). Copia o canal e a porta do vivo para ao lado das DECIDIDAS (sha256);
+para cada decisão com id provisório **passa primeiro pelo validador do canal** e só então regista pela porta do
+vivo (`fonte_nova.registar`, PAIS da prova, `ID_PROVISORIO` na NOTA); aplica pelo canal; enfileira o QUALIFY das
+novas e reabre **só** a tarefa barrada das que já estavam na porta. Os módulos da porta/fila/canal são os DO VIVO.
+Testes 5/5; mutação 3/4 (a que sobrevive é redundante: o validador também barra o «A_DECIDIR»).
+
+## 6 · LOTE 3 (`curadoria/MICRO-PROVA-LOTE3.json`) — 10, não 20: não há mais deste tipo sem número
+
+Pedido: 20 servizi fitosanitari regionais + agrometeo com cultura. **Medido nos livros** (P1g: 90 células; GAPS
+VARRIDO; DISCOVERY-VISITED/SIGNAL do vivo): dos **56** fito/agrometeo regionais da P1g, **todos os abertos já têm
+SOURCE_ID** (IT-T2-…, IT-T3-…) — estão parados no **canário** (receita de página), não no território, e a
+micro-prova não os ajuda. Os sem número estão **fechados por robots**: Lombardia SFR (proíbe), Puglia SIT e
+emergenzaxylella (302), SIAS Sicília, Beratungsring, meteo VdA, IAR, fitosanitario.venezia.it. As restantes pistas
+do tipo (46 endereços em 19 domínios) são **páginas de sites que já são fonte** (ERSA, ARPAE, arsacweb,
+regione.veneto…) — servem para **trocar a entrada** dessas fontes, não para fontes novas.
+**Então o LOTE 3 são os 10 consorzi que sobram da lista Asnacodi:** 5 sem data (Milano Lodi, Sassari, Catania,
+Novara, Oristano) e 5 com robots ilegível a 24/09 (condifesa.it, Ancona-Macerata, Cagliari, Piemonte, Veneto Est —
+re-medir: falha de ligação não é fonte morta; se continuar ilegível, 1 pedido e para). **Colisão 0** (vivo: 33
+domínios em 24 h, 38 na rodada 1). ⚠️ **CODIPRA:** `codipra.it` já é **IT-T3-063**; o `codipratn.it` do lote 2B
+(L2B-08) pode ser a mesma organização — confiro na decisão antes de dar número.
+Comando: o mesmo do §4 com `--lote=curadoria/MICRO-PROVA-LOTE3.json` e `S=…/lote3-$(date +%H%M)`
+(≤ 5 pedidos por domínio, ≤ 50 pedidos).
+
 ## EM PALAVRAS SIMPLES
 
 - **O conserto:** o programa que junta provas aceitava qualquer página cujo endereço tivesse um ano — até o ícone do
