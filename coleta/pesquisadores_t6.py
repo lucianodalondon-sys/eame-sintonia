@@ -8,6 +8,8 @@ PESQUISADORES T6 — consultas por CULTURA + PROBLEMA, e a unidade «trabalho de
     py coleta/pesquisadores_t6.py --rede --rodada=N --saida=<pasta>   # COM REDE: so quem pode
     py coleta/pesquisadores_t6.py --ler --saida=<pasta>             # SEM REDE: le o que as rodadas guardaram
     py coleta/pesquisadores_t6.py --medir|--ordenar --saida=<pasta> [--para=F]   # SEM REDE: qualidade / evidencia
+    py coleta/pesquisadores_t6.py --rede2 --rodada=N --saida=<pasta2>        # COM REDE: consulta 2, por pessoa
+    py coleta/pesquisadores_t6.py --medir2 --saida=<pasta2>                  # SEM REDE: a consulta 2 medida
 
 NAO E UM COLETOR NOVO
 ---------------------
@@ -812,6 +814,181 @@ def ler_pasta(saida, com_provas=True):
     return unidades, grupos, pessoas(unidades)
 
 
+# ═════════════════════════════════════════════ 6b · CONSULTA 2: POR PESSOA (coordenacao 12:00)
+# Os nomes do dono que deram 0 nas 12 consultas por par (ALINHAMENTO, secao 8). A consulta vai
+# pela PESSOA, nao pelo par: alarga-se sozinha a entomologia e a outras culturas. So se aceita
+# o autor do OpenAlex cujo nome bate E cuja instituicao (ultima conhecida ou afiliacao) contem
+# a instituicao esperada. Mais de um id que bate fica AMBIGUO com todos os ids (nada se funde);
+# nenhum fica NAO_ENCONTRADO — que NAO e «nao existe».
+PESSOAS_CONSULTA2 = [
+    ('Alberto Grassi', 'edmund mach'), ('Lorenzo Tonina', 'edmund mach'),
+    ('Lucia Zappalà', 'catania'), ('Antonio Biondi', 'catania'),
+    # ⚠️ o dono escreveu «Daniele». Nas 589 obras da 1.a consulta ha DOMENICO Bosco (Torino,
+    # A5014789293, 14 trabalhos vite x scafoideo). Procura-se o nome ESCRITO; nao se troca.
+    ('Daniele Bosco', 'turin|torino'),
+]
+OPENALEX_AUTORES = 'https://api.openalex.org/authors'
+CAMPOS_AUTOR = 'id,display_name,display_name_alternatives,orcid,last_known_institutions,affiliations,works_count'
+# SO PARA MEDIR o alargamento (nao entram no contrato nem nas consultas por par)
+ORGANISMOS_EXTRA = {
+    'drosophila suzukii': ('drosophila suzukii', 'spotted wing drosophila'),
+    'tuta absoluta': ('tuta absoluta', 'phthorimaea absoluta', 'tomato leafminer'),
+    'halyomorpha halys': ('halyomorpha halys', 'brown marmorated stink bug'),
+    'popillia japonica': ('popillia japonica', 'japanese beetle'),
+    'bactrocera oleae': ('bactrocera oleae', 'olive fruit fly'),
+    'ceratitis capitata': ('ceratitis capitata', 'medfly', 'mediterranean fruit fly'),
+    'planococcus ficus': ('planococcus ficus', 'vine mealybug'),
+    'philaenus spumarius': ('philaenus spumarius', 'meadow spittlebug'),
+    'xylella fastidiosa': ('xylella fastidiosa',),
+    'cacopsylla': ('cacopsylla',),
+}
+CULTURAS_EXTRA = {
+    'piccoli frutti': ('strawberry', 'strawberries', 'blueberry', 'blueberries', 'raspberry', 'small fruits', 'berries'),
+    'ciliegio': ('cherry', 'cherries', 'sweet cherry'), 'olivo': ('olive', 'olives', 'olea europaea'),
+    'agrumi': ('citrus', 'orange', 'lemon'), 'pesco': ('peach', 'peaches', 'nectarine'),
+    'actinidia': ('kiwifruit', 'actinidia'), 'nocciolo': ('hazelnut', 'hazelnuts', 'corylus'),
+    'pero': ('pear', 'pears', 'pyrus'), 'patata': ('potato', 'potatoes'),
+}
+
+
+def url_autores(nome):
+    q = urllib.parse.urlencode({'search': nome, 'filter': 'affiliations.institution.country_code:it',
+                                'per-page': 25, 'select': CAMPOS_AUTOR, 'mailto': CP.MAILTO})
+    return OPENALEX_AUTORES + '?' + q
+
+
+def url_obras_de(ids):
+    q = urllib.parse.urlencode({
+        'filter': 'author.id:%s,from_publication_date:%s' % ('|'.join(i.rsplit('/', 1)[-1] for i in ids), DESDE),
+        'per-page': POR_PAGINA, 'sort': 'publication_date:desc', 'select': CAMPOS_OPENALEX, 'mailto': CP.MAILTO})
+    return OPENALEX + '?' + q
+
+
+def resolver_pessoa(nome, inst, resposta):
+    """→ {ESTADO: RESOLVIDO|AMBIGUO|NAO_ENCONTRADO, IDS, ...}. Nome E instituicao; nunca so o nome."""
+    alvo = CP._texto(nome).split()
+    rx = re.compile(inst)
+    bons = []
+    for a in (resposta or {}).get('results') or []:
+        nomes = [a.get('display_name') or ''] + list(a.get('display_name_alternatives') or [])
+        def _casa(n):
+            p = CP._texto(n).replace('.', ' ').split()
+            if not p or p[-1:] != alvo[-1:]:
+                return False
+            # o indice escreve «L. Zappala» tanto quanto «Lucia Zappalà»: a inicial vale,
+            # porque a INSTITUICAO tem de bater na mesma
+            return p[0] == alvo[0] or (len(p[0]) == 1 and p[0] == alvo[0][:1])
+        casa_nome = any(_casa(n) for n in nomes if n)
+        insts = [(i or {}).get('display_name') or '' for i in (a.get('last_known_institutions') or [])]
+        insts += [((f or {}).get('institution') or {}).get('display_name') or '' for f in (a.get('affiliations') or [])]
+        if casa_nome and any(rx.search(CP._texto(i)) for i in insts):
+            bons.append({'OPENALEX_ID': a.get('id'), 'NOME': a.get('display_name'),
+                         'ORCID': (a.get('orcid') or '').replace('https://orcid.org/', '') or NAO_SEI,
+                         'OBRAS_NO_INDICE': a.get('works_count'), 'INSTITUICOES': sorted(set(i for i in insts if i))[:4]})
+    estado = 'RESOLVIDO' if len(bons) == 1 else ('AMBIGUO' if bons else 'NAO_ENCONTRADO')
+    return {'NOME_PEDIDO': nome, 'INSTITUICAO_ESPERADA': inst, 'ESTADO': estado,
+            'IDS': [b['OPENALEX_ID'] for b in bons], 'CANDIDATOS': bons}
+
+
+def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
+    """Rodada 1: procurar as 5 pessoas (5 pedidos ao OpenAlex). Rodada 2+: as obras das
+    resolvidas/ambiguas (<= 5 ao OpenAlex), o /works do ORCID delas (<= 5) e o Crossref dos DOI
+    (<= 5). Mesmas regras da consulta 1: guarda tal como veio, para no corpo de erro."""
+    os.makedirs(saida, exist_ok=True)
+    f_est = os.path.join(saida, 'ESTADO-CONSULTA2.json')
+    est = _ler(f_est) if os.path.exists(f_est) else {'PESSOAS': {}, 'OBRAS_FEITAS': [], 'ORCID_FEITOS': [],
+                                                     'CROSSREF_DOIS_FEITOS': [], 'RODADAS': []}
+    registo = {'RODADA': n, 'PEDIDOS': {d: 0 for d in DOMINIOS}, 'RESPOSTAS': []}
+
+    def anotar(dom, nome, d, ok, porque):
+        registo['PEDIDOS'][dom] += 1
+        assert registo['PEDIDOS'][dom] <= TETO_POR_DOMINIO, 'teto por dominio passado'
+        nome = nome if ok else 'FALHA-r%d-%s' % (n, nome)
+        registo['RESPOSTAS'].append({'DOMINIO': dom, 'FICHEIRO': nome, 'SHA256': _guardar(saida, nome, d),
+                                     'OK': ok, 'PORQUE': porque})
+
+    falta_procurar = [(p, i) for p, i in PESSOAS_CONSULTA2 if p not in est['PESSOAS']]
+    for p, i in falta_procurar[:TETO_POR_DOMINIO]:
+        d, err = _pedir(url_autores(p), chave_openalex)
+        ok, porque = resposta_valida(d) if d is not None else (False, err)
+        anotar('api.openalex.org', 'autores-%s.json' % _slug_nome(p), d, ok, porque)
+        if not ok:
+            break
+        est['PESSOAS'][p] = resolver_pessoa(p, i, d)
+        time.sleep(pausa)
+    if not falta_procurar:
+        prontas = [p for p, r in est['PESSOAS'].items() if r['IDS'] and p not in est['OBRAS_FEITAS']]
+        for p in prontas[:TETO_POR_DOMINIO]:
+            d, err = _pedir(url_obras_de(est['PESSOAS'][p]['IDS']), chave_openalex)
+            ok, porque = resposta_valida(d) if d is not None else (False, err)
+            anotar('api.openalex.org', 'openalex-PESSOA-%s.json' % _slug_nome(p), d, ok, porque)
+            if not ok:
+                break
+            est['OBRAS_FEITAS'].append(p)
+            time.sleep(pausa)
+        orcids = sorted({c['ORCID'] for r in est['PESSOAS'].values() for c in r['CANDIDATOS']
+                         if c['ORCID'] != NAO_SEI} - set(est['ORCID_FEITOS']))
+        for o in orcids[:TETO_POR_DOMINIO]:
+            d, err = CP._get(ORCID_WORKS % o)
+            ok = isinstance(d, dict) and 'group' in d
+            anotar('pub.orcid.org', 'orcid-%s-works.json' % o, d, ok, '' if ok else (err or 'sem group'))
+            if not ok:
+                break
+            est['ORCID_FEITOS'].append(o)
+            time.sleep(pausa)
+        us, _, _ = ler_pasta(saida, com_provas=False)
+        faltam = sorted(u['DOI'] for u in us if u['DOI'] != NAO_SEI and u['DOI'] not in est['CROSSREF_DOIS_FEITOS'])
+        for k in range(0, min(len(faltam), TETO_POR_DOMINIO * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
+            lote = faltam[k:k + DOIS_POR_PEDIDO_CROSSREF]
+            d, err = CP._get(url_crossref(lote))
+            ok = isinstance(d, dict) and isinstance((d.get('message') or {}).get('items'), list)
+            anotar('api.crossref.org', 'crossref-c2-r%d-%d.json' % (n, k // DOIS_POR_PEDIDO_CROSSREF + 1), d, ok,
+                   '' if ok else (err or 'sem message.items'))
+            if not ok:
+                break
+            est['CROSSREF_DOIS_FEITOS'].extend(lote)
+            time.sleep(pausa)
+    est['RODADAS'].append({'RODADA': n, 'PEDIDOS': registo['PEDIDOS']})
+    with open(f_est, 'w', encoding='utf-8', newline='\n') as h:
+        json.dump(est, h, ensure_ascii=False, indent=1)
+    with open(os.path.join(saida, 'RODADA-C2-%d.json' % n), 'w', encoding='utf-8', newline='\n') as h:
+        json.dump(registo, h, ensure_ascii=False, indent=1)
+    return registo
+
+
+def _slug_nome(nome):
+    return re.sub(r'[^a-z0-9]+', '-', CP._texto(nome)).strip('-')
+
+
+def medir_consulta2(saida):
+    """Por pessoa: estado da identidade, obras, e de que falam — os 12 pares do casco e o
+    alargamento (organismos e culturas EXTRA, so para medir). Sem rede."""
+    f_est = os.path.join(saida, 'ESTADO-CONSULTA2.json')
+    est = _ler(f_est) if os.path.exists(f_est) else {'PESSOAS': {}}
+    us, gs, _ = ler_pasta(saida)
+    out = {}
+    for p, r in est['PESSOAS'].items():
+        ids = set(r['IDS'])
+        minhas = [u for u in us if any(a['OPENALEX_ID'] in ids for a in u['AUTORES'])]
+        t = lambda u: CP._texto(u['TITULO'])  # noqa: E731  (so titulo: o resumo nao viaja na unidade)
+        org, cult = defaultdict(int), defaultdict(int)
+        for u in minhas:
+            for k, ts in ORGANISMOS_EXTRA.items():
+                if any(CP._tem(x, t(u)) for x in ts):
+                    org[k] += 1
+            for k, ts in CULTURAS_EXTRA.items():
+                if any(CP._tem(x, t(u)) for x in ts):
+                    cult[k] += 1
+        out[p] = {'ESTADO': r['ESTADO'], 'IDS': r['IDS'], 'CANDIDATOS': r['CANDIDATOS'], 'OBRAS': len(minhas),
+                  'COM_PAR_DO_CASCO_NO_TEXTO': sum(1 for u in minhas if any(
+                      c['VALOR'] == cp and pr['VALOR'] == pp for cp, pp in PARES
+                      for c in (u['CULTURA'] if u['CULTURA'] != NAO_SEI else [])
+                      for pr in (u['PROBLEMA'] if u['PROBLEMA'] != NAO_SEI else []))),
+                  'ORGANISMOS_EXTRA_NO_TITULO': dict(org), 'CULTURAS_EXTRA_NO_TITULO': dict(cult),
+                  'PROVA': sorted({a['PROVA_DA_PESSOA'] for u in minhas for a in u['AUTORES'] if a['OPENALEX_ID'] in ids})}
+    return {'PESSOAS': out, 'GRUPOS': gs}
+
+
 # ═════════════════════════════════════════════ 7 · MEDIR A QUALIDADE E ORDENAR POR EVIDENCIA
 PROVAS_FORTES_T6 = ('ORCID_AUTODECLARADO', 'ORCID_NO_DEPOSITO_AUTENTICADO', 'ORCID_NO_DEPOSITO_DO_EDITOR')
 _ORDEM_PROVA = ('ORCID_AUTODECLARADO', 'ORCID_NO_DEPOSITO_AUTENTICADO', 'ORCID_NO_DEPOSITO_DO_EDITOR',
@@ -965,6 +1142,20 @@ def main(argv):
                 json.dump(r, h, ensure_ascii=False, indent=1)
         print(json.dumps({k: v for k, v in r.items() if k not in ('UNIDADES', 'PESSOAS')},
                          ensure_ascii=False, indent=1))
+        return 0
+    if 'rede2' in opt or 'medir2' in opt:
+        if not opt.get('saida'):
+            print('falta --saida=<pasta da consulta 2>')
+            return 2
+        if 'rede2' in opt:
+            print(json.dumps(rodada_consulta2(int(opt.get('rodada', '1')), opt['saida'],
+                                              chave_openalex=os.environ.get('OPENALEX_API_KEY') or None),
+                             ensure_ascii=False, indent=1))
+        r = medir_consulta2(opt['saida'])
+        with open(os.path.join(opt['saida'], 'CONSULTA2-MEDIDA.json'), 'w', encoding='utf-8', newline='\n') as h:
+            json.dump(r, h, ensure_ascii=False, indent=1)
+        print(json.dumps({p: {k: v[k] for k in ('ESTADO', 'OBRAS', 'COM_PAR_DO_CASCO_NO_TEXTO')}
+                          for p, v in r['PESSOAS'].items()}, ensure_ascii=False, indent=1))
         return 0
     if 'medir' in opt or 'ordenar' in opt:
         if not opt.get('saida'):

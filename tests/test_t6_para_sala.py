@@ -134,5 +134,63 @@ class MedirEOrdenar(Pasta):
         self.assertNotIn('Jean', json.dumps(o))
 
 
+class Consulta2(unittest.TestCase):
+    """Por pessoa, com um transporte FALSO: nome E instituicao; ambiguo nao funde; teto 5."""
+
+    def setUp(self):
+        from urllib.parse import parse_qs, urlparse
+        self._get = T6.CP._get
+        self.dir = tempfile.mkdtemp(prefix='t6-c2-')
+        self.pedidos = []
+
+        def a(aid, nome, inst, orcid=None):
+            return {'id': 'https://openalex.org/' + aid, 'display_name': nome, 'orcid': orcid,
+                    'last_known_institutions': [{'display_name': inst}], 'affiliations': [], 'works_count': 10}
+        autores = {
+            'Alberto Grassi': [a('A1', 'Alberto Grassi', 'Fondazione Edmund Mach', 'https://orcid.org/0000-0000-0000-0001'),
+                               a('A9', 'Alberto Grassi', 'University of Pisa')],     # homonimo noutra casa
+            'Lorenzo Tonina': [a('A2', 'Lorenzo Tonina', 'Fondazione Edmund Mach')],
+            'Lucia Zappalà': [a('A3', 'Lucia Zappalà', 'University of Catania'),
+                              a('A4', 'L. Zappala', 'Università di Catania')],        # o indice partiu-a
+            'Antonio Biondi': [a('A5', 'Antonio Biondi', 'University of Bari')],      # instituicao errada
+            'Daniele Bosco': [],
+        }
+
+        def falso(url, headers=None):
+            u = urlparse(url)
+            self.pedidos.append(u.netloc)
+            if u.path.endswith('/authors'):
+                return {'meta': {}, 'results': autores[parse_qs(u.query)['search'][0]]}, None
+            if u.netloc == 'api.openalex.org':
+                ids = parse_qs(u.query)['filter'][0].split(',')[0].split(':')[1].split('|')
+                return {'meta': {}, 'results': [obra('10.7/%s' % i, 'Drosophila suzukii on sweet cherry', 'x',
+                                                     [autor(i, 'P', 'IT')]) for i in ids]}, None
+            if u.netloc == 'api.crossref.org':
+                return {'message': {'items': []}}, None
+            return {'group': []}, None
+        T6.CP._get = falso
+
+    def tearDown(self):
+        T6.CP._get = self._get
+        shutil.rmtree(self.dir, ignore_errors=True)
+
+    def test_nome_e_instituicao_ambiguo_nao_funde_e_teto(self):
+        r1 = T6.rodada_consulta2(1, self.dir, pausa=0)
+        self.assertEqual(r1['PEDIDOS']['api.openalex.org'], 5)
+        est = T6._ler(os.path.join(self.dir, 'ESTADO-CONSULTA2.json'))['PESSOAS']
+        self.assertEqual({p: (v['ESTADO'], v['IDS']) for p, v in est.items()}, {
+            'Alberto Grassi': ('RESOLVIDO', ['https://openalex.org/A1']),
+            'Lorenzo Tonina': ('RESOLVIDO', ['https://openalex.org/A2']),
+            'Lucia Zappalà': ('AMBIGUO', ['https://openalex.org/A3', 'https://openalex.org/A4']),
+            'Antonio Biondi': ('NAO_ENCONTRADO', []),
+            'Daniele Bosco': ('NAO_ENCONTRADO', [])})
+        r2 = T6.rodada_consulta2(2, self.dir, pausa=0)
+        self.assertEqual(r2['PEDIDOS'], {'api.openalex.org': 3, 'api.crossref.org': 1, 'pub.orcid.org': 1})
+        m = T6.medir_consulta2(self.dir)['PESSOAS']
+        self.assertEqual(m['Lucia Zappalà']['OBRAS'], 2)                # os dois ids, contados, nao fundidos
+        self.assertEqual(m['Alberto Grassi']['ORGANISMOS_EXTRA_NO_TITULO'], {'drosophila suzukii': 1})
+        self.assertEqual(m['Alberto Grassi']['COM_PAR_DO_CASCO_NO_TEXTO'], 0)
+
+
 if __name__ == '__main__':
     unittest.main()
