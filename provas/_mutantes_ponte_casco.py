@@ -25,7 +25,8 @@ COPIAR = ("_gavetas.py", ALVO, "motor/corrida_da_inteligencia.py",
           "provas/espinha_da_intelligence.py",
           "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
           "tests/test_ponte_intelligence_casco.py",
-          "italia-portale/client/_ds/adama-brandwell/styles.css")
+          "italia-portale/client/_ds/adama-brandwell/styles.css",
+          "italia-portale/client/portale.html")
 
 M = [
     ("M1 sinal sem prova atravessa",
@@ -44,11 +45,11 @@ M = [
      '                if s.get("ESTADO") != ESTADO_TRANSPORTAVEL:\n',
      '                if False:\n'),
     ("M6 prova fora da corrida aceite",
-     "        if e is None:\n            return \"PROVA_FORA_DA_CORRIDA\"",
-     "        if e is None:\n            continue\n            return \"PROVA_FORA_DA_CORRIDA\""),
+     "        if not todas:\n            return \"PROVA_FORA_DA_CORRIDA\"",
+     "        if not todas:\n            continue\n            return \"PROVA_FORA_DA_CORRIDA\""),
     ("M7 G0 ignorado",
-     '        if e.get("G0") != "PASSOU":\n',
-     '        if False:\n'),
+     '        if g0 == ["PASSOU"]:\n',
+     '        if True:\n'),
     ("M8 DOCUMENT_ID nao exigido",
      'CAMPOS_DA_PROVA = ("ITEM_ID", "RAW_OBSERVATION_ID", "SOURCE_ID", "DOCUMENT_ID")',
      'CAMPOS_DA_PROVA = ("ITEM_ID", "RAW_OBSERVATION_ID", "SOURCE_ID")'),
@@ -82,6 +83,18 @@ M = [
     ("M18 pagina nao escapa o texto da corrida",
      "    from html import escape as E\n",
      "    E = lambda s: s  # noqa: E731\n"),
+    ("M19 P1 de volta: linhagem um-para-um (a ultima ganha)",
+     '            out.setdefault(str(e["ITEM_ID"]), []).append(e)\n',
+     '            out[str(e["ITEM_ID"])] = [e]\n'),
+    ("M20 P4 de volta: o valor fora do contrato some",
+     "        \"FORA_DO_CONTRATO\": {k: _valor(dadas[k]) for k in sorted(dadas)\n",
+     "        \"FORA_DO_CONTRATO\": {k: NAO_SEI for k in sorted(dadas)\n"),
+    ("M21 CORRIDA_UPSTREAM da prova ignorada",
+     '        if not e_ignorancia(p.get("CORRIDA_UPSTREAM")):\n',
+     '        if False:\n'),
+    ("M22 ambiguidade resolvida a favor do PASSOU",
+     '        if "PASSOU" in g0:\n            return ("PROVA_AMBIGUA"',
+     '        if "PASSOU" in g0:\n            continue\n            return ("PROVA_AMBIGUA"'),
 ]
 
 

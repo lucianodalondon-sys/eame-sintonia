@@ -135,10 +135,11 @@ class A_CorridaSinteticaAtravessa(unittest.TestCase):
                 self.assertTrue(v == NAO_SEI or v == dado.get(k), (f, k, v))
             self.assertEqual(set(cartao["CHAVES"]), set(P.FERRAMENTAS[f]["CHAVES"]))
 
-    def test_A6_chave_fora_do_contrato_nao_desenha_mas_fica_nomeada(self):
+    def test_A6_chave_fora_do_contrato_nao_entra_nas_chaves_mas_viaja_com_valor(self):
+        """Ajuste DECLARADO: defeito P4 (bot da Intelligence, 26/09) — o valor ia-se."""
         radar = self.pl["FERRAMENTAS"]["meeting"]["CARTOES"][0]
         self.assertNotIn("SCORE_INVENTADO", radar["CHAVES"])
-        self.assertEqual(radar["CHAVES_FORA_DO_CONTRATO"], ["SCORE_INVENTADO"])
+        self.assertEqual(radar["FORA_DO_CONTRATO"], {"SCORE_INVENTADO": 99})
 
     def test_A7_lacunas_verbatim_e_no_sitio_certo(self):
         self.assertEqual(len(self.pl["FERRAMENTAS"]["voices"]["LACUNAS"]), 1)
@@ -285,7 +286,7 @@ class C_AConferenciaReprova(unittest.TestCase):
 
     def test_C5_ferramenta_a_menos_ou_cartao_sem_contrato_reprova(self):
         pl = copy.deepcopy(self.pl)
-        del pl["FERRAMENTAS"]["field"]
+        del pl["FERRAMENTAS"]["sources"]
         self.assertTrue(P.conferir_payload(pl))
         pl = copy.deepcopy(self.pl)
         pl["FERRAMENTAS"]["archive"]["CARTOES"] = [pl["FERRAMENTAS"]["windows"]["CARTOES"][0]]
@@ -351,6 +352,63 @@ class F_APaginaLocal(unittest.TestCase):
     def test_F4_css_e_o_extrato_adama_ligado(self):
         self.assertTrue(P.CSS_ADAMA.exists())
         self.assertIn(P.CSS_ADAMA.resolve().as_uri(), P.como_html(self.pl))
+
+
+class G_OCascoNoArEALinhagemReal(unittest.TestCase):
+    """O que o bot da Intelligence achou ao correr a ponte na R2 real (26/09)."""
+
+    def test_G1_as_doze_sao_as_vistas_que_o_casco_no_ar_abre(self):
+        """Ajuste DECLARADO: a v1 lia o inventario antigo (casa/field); a fonte
+        e a lista AMMESSE de VIEW_FROM_HASH() em portale.html."""
+        import re
+        html = (RAIZ / "italia-portale" / "client" / "portale.html").read_text(encoding="utf-8")
+        m = re.search(r"const AMMESSE = \[([^\]]*)\]", html)
+        self.assertIsNotNone(m)
+        ammesse = set(re.findall(r"'([a-z]+)'", m.group(1)))
+        self.assertEqual(ammesse, set(P.FERRAMENTAS))
+
+    def test_G2_etichette_leva_o_contrato_t4_e_radarfuturo_nao_tem_contrato(self):
+        c = corrida_sintetica()
+        s = {"SIGNAL_ID": "SINT-SG-L", "ESTADO": "EXPERIMENTAL_CANDIDATE",
+             "CHAVES": {"PRODUCT_ID": "SINT-PROD-1"}, "PROVA": [_prova(1)]}
+        c["ITENS_POR_FERRAMENTA"] = {"etichette": [s], "radarfuturo": [dict(s)]}
+        pl = P.adaptar(c)
+        self.assertEqual([x["SIGNAL_ID"] for x in pl["FERRAMENTAS"]["etichette"]["CARTOES"]], ["SINT-SG-L"])
+        self.assertIn(("radarfuturo", "SINT-SG-L", "FERRAMENTA_SEM_CONTRATO_D84"), motivos(pl))
+
+    def _duas_corridas_upstream(self, ordem, prova_extra=None):
+        """O mesmo ITEM_ID em duas corridas upstream: uma PASSOU, a outra nao."""
+        c = corrida_sintetica()
+        boa = dict(ITEM_ID="SINT-ITEM-5", RAW_OBSERVATION_ID="SINT-RAW-5", SOURCE_ID="SINT-SRC-5",
+                   CORRIDA_UPSTREAM="SINT-UP-A", G0="PASSOU")
+        ma = dict(boa, CORRIDA_UPSTREAM="SINT-UP-B", G0="BLOQUEADO_EM_G0")
+        c["LINEAGE"] += [boa, ma] if ordem else [ma, boa]
+        p = _prova(5)
+        p.update(prova_extra or {})
+        c["ITENS_POR_FERRAMENTA"] = {"windows": [{"SIGNAL_ID": "SINT-SG-5",
+                                                  "ESTADO": "EXPERIMENTAL_CANDIDATE",
+                                                  "CHAVES": {}, "PROVA": [p]}]}
+        return P.adaptar(c)
+
+    def test_G3_a_resposta_nao_depende_da_ordem_da_linhagem(self):
+        """Defeito P1: com o indice um-para-um o veredito trocava com a ordem."""
+        a, b = self._duas_corridas_upstream(True), self._duas_corridas_upstream(False)
+        self.assertEqual(motivos(a), motivos(b))
+        self.assertIn(("windows", "SINT-SG-5", "PROVA_AMBIGUA"), motivos(a))
+        self.assertEqual(todos_os_cartoes(a), [])
+
+    def test_G4_a_corrida_upstream_na_prova_desfaz_a_ambiguidade(self):
+        for ordem in (True, False):
+            boa = self._duas_corridas_upstream(ordem, {"CORRIDA_UPSTREAM": "SINT-UP-A"})
+            self.assertEqual([x["SIGNAL_ID"] for x in todos_os_cartoes(boa)], ["SINT-SG-5"])
+            self.assertEqual(todos_os_cartoes(boa)[0]["PROVA"][0]["CORRIDA_UPSTREAM"], "SINT-UP-A")
+            ma = self._duas_corridas_upstream(ordem, {"CORRIDA_UPSTREAM": "SINT-UP-B"})
+            self.assertIn(("windows", "SINT-SG-5", "ITEM_BLOQUEADO_EM_G0"), motivos(ma))
+
+    def test_G5_a_pagina_mostra_o_fora_do_contrato_com_valor(self):
+        html = P.como_html(P.adaptar(corrida_sintetica()), css_href="styles.css")
+        self.assertIn("fuori contratto D84", html)
+        self.assertIn("<th>SCORE_INVENTADO</th><td>99</td>", html)
 
 
 if __name__ == "__main__":

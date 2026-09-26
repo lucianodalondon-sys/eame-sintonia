@@ -4379,7 +4379,7 @@
     "INTELIGENCIA"
    ],
    "what": "Pega no livro de uma corrida da Intelligence ja fechada e devolve UM payload com as doze ferramentas do casco. So atravessa sinal EXPERIMENTAL_CANDIDATE com PROVA ate ao DOCUMENT_ID e ITEM_ID na LINEAGE da propria corrida (G0 = PASSOU); cada cartao leva a marca EXPERIMENTAL · NAO_PARA_CLIENTE, as chaves do contrato D84 da ferramenta com NAO SEI por extenso, e o porque/contradiz/incerteza. Lacunas e REQUIREMENTS passam verbatim. Recusa com motivo: sem prova, estado promovido, ferramenta sem contrato, corrida ERROR/NOT_RUN, duplicado. Nao escreve dentro de italia-portale/.",
-   "why_here": "nuvem-int-casco-ponte-v1 (2026-09-26). INT-LAW-023/280: o portal desenha, nao reconstroi Intelligence. EXPERIMENTAL_CANDIDATE nao existia no repo; o contrato de entrada e declarado no proprio ficheiro. Nao ligado a portale.html (nao e deploy). 30 testes, mutacao 18/18. Gera tambem uma PAGINA LOCAL (.html, faixa EXPERIMENTAL fixa, tokens do extrato ADAMA ligados) fora de italia-portale/.",
+   "why_here": "nuvem-int-casco-ponte-v1 (2026-09-26). INT-LAW-023/280: o portal desenha, nao reconstroi Intelligence. EXPERIMENTAL_CANDIDATE nao existia no repo; o contrato de entrada e declarado no proprio ficheiro. Nao ligado a portale.html (nao e deploy). 35 testes, mutacao 22/22. As doze ferramentas sao a lista AMMESSE de portale.html (teste G1 confere); a LINEAGE indexa-se por ITEM_ID com TODAS as entradas (P1: mesmo item em corridas upstream diferentes -> PROVA_AMBIGUA, sem depender da ordem). Gera tambem uma PAGINA LOCAL (.html, faixa EXPERIMENTAL fixa, tokens do extrato ADAMA ligados) fora de italia-portale/.",
    "files": [
     "pacote/ponte_intelligence_casco.py"
    ]
@@ -4396,8 +4396,8 @@
    "departments": [
     "ENGENHARIA"
    ],
-   "what": "Planta 18 defeitos na ponte (incluindo a pagina local: faixa removida, texto sem escapar), numa copia minima em pasta temporaria (o repo nao e tocado), e corre tests/test_ponte_intelligence_casco.py: sinal sem prova, marca removida, NAO SEI escondido, promocao, G0 ignorado, escrever no portal, entre outros. Sai 1 se algum sobreviver.",
-   "why_here": "Prova que os testes da ponte apanham o que ela jura nao fazer. 18/18 mortos a 2026-09-26.",
+   "what": "Planta 22 defeitos na ponte (incluindo a pagina local: faixa removida, texto sem escapar; e os defeitos P1/P4 achados pelo bot da Intelligence na R2 real), numa copia minima em pasta temporaria (o repo nao e tocado), e corre tests/test_ponte_intelligence_casco.py: sinal sem prova, marca removida, NAO SEI escondido, promocao, G0 ignorado, escrever no portal, entre outros. Sai 1 se algum sobreviver.",
+   "why_here": "Prova que os testes da ponte apanham o que ela jura nao fazer. 22/22 mortos a 2026-09-26.",
    "files": [
     "provas/_mutantes_ponte_casco.py"
    ]

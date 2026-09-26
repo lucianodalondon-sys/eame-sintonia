@@ -81,13 +81,17 @@ CAMPOS_DA_PROVA = ("ITEM_ID", "RAW_OBSERVATION_ID", "SOURCE_ID", "DOCUMENT_ID")
 CORRIDA_SEM_SAIDA = ("NOT_RUN", "RUNNING", "ERROR")
 CORRIDA_VAZIA = ("EMPTY_RESULT", "NO_FINDING")
 
-#: AS DOZE FERRAMENTAS DO CASCO, pelo id da vista em portale.html
-#: (PORTAL-CAPABILITY-INVENTORY.md, «NAVEGACAO MEDIDA»). As chaves sao o resumo
-#: da decisao D84 que veio no pedido da missao — D84 nao esta escrita no repo, e
-#: por isso a fonte fica dita aqui. `None` = sem contrato D84: a ponte nao
-#: inventa um, e recusa cartao para ela.
+#: AS DOZE FERRAMENTAS DO CASCO QUE ESTA NO AR — a lista `AMMESSE` de
+#: `VIEW_FROM_HASH()` em italia-portale/client/portale.html (as vistas que um
+#: endereco consegue abrir). `casa` e outra pagina; `field` nao tem rota.
+#: As chaves sao o resumo da decisao D84 que veio no pedido da missao — D84 nao
+#: esta escrita no repo, e por isso a fonte fica dita aqui. D84 fala de
+#: «Portafoglio/Label» como UM contrato; o casco tem duas vistas (portfolio e
+#: etichette), e as duas recebem esse mesmo contrato, sem chave a mais.
+#: `None` = sem contrato D84: a ponte nao inventa um, e recusa cartao para ela.
+_CHAVES_T4 = ("PRODUCT_ID", "CROP_ID", "TARGET_ID", "ACTIVE_INGREDIENT_ID",
+              "REGISTRATION_VERSION")
 FERRAMENTAS = {
-    "casa": {"NOME_IT": "Opportunità attuali", "CAPACIDADE": None, "CHAVES": None},
     "meeting": {
         "NOME_IT": "Radar delle Opportunità", "CAPACIDADE": "CAP-OPP",
         "CHAVES": ("CROP_ID", "ISSUE_ID", "REGION_ID", "TIME_WINDOW",
@@ -113,13 +117,11 @@ FERRAMENTAS = {
         "CHAVES": ("DOI", "TRIAL_ID", "RESEARCHER_ORCID", "INSTITUTION_ID",
                    "MOLECULE", "CROP_ID", "ISSUE_ID", "STUDY_LOCATION",
                    "STUDY_PERIOD")},
-    "portfolio": {
-        "NOME_IT": "Portafoglio · Label", "CAPACIDADE": "CAP-PORT · CAP-LABEL",
-        "CHAVES": ("PRODUCT_ID", "CROP_ID", "TARGET_ID", "ACTIVE_INGREDIENT_ID",
-                   "REGISTRATION_VERSION")},
+    "portfolio": {"NOME_IT": "Portafoglio", "CAPACIDADE": "CAP-PORT", "CHAVES": _CHAVES_T4},
+    "etichette": {"NOME_IT": "Etichette", "CAPACIDADE": "CAP-LABEL", "CHAVES": _CHAVES_T4},
     "archive": {"NOME_IT": "Archivio", "CAPACIDADE": None, "CHAVES": None},
-    "sources": {"NOME_IT": "Archivio fonti", "CAPACIDADE": None, "CHAVES": None},
-    "field": {"NOME_IT": "Rete Commerciale di Campo", "CAPACIDADE": None, "CHAVES": None},
+    "sources": {"NOME_IT": "Registro delle fonti", "CAPACIDADE": None, "CHAVES": None},
+    "radarfuturo": {"NOME_IT": "Radar Futuro", "CAPACIDADE": None, "CHAVES": None},
 }
 
 
@@ -139,11 +141,17 @@ def _recusa(ferramenta, sinal, motivo, detalhe=""):
 
 
 def _linhagem_da_corrida(corrida: dict) -> dict:
-    """ITEM_ID -> entrada da LINEAGE da propria corrida. Nao se completa nada."""
+    """ITEM_ID -> TODAS as entradas da LINEAGE com esse ITEM_ID. Nada se completa.
+
+    ⚠️ UMA LISTA, E NAO UMA ENTRADA. Na Sala real o mesmo ITEM_ID aparece em
+    corridas upstream diferentes (medido na R2: 22 entradas, 20 ITEM_ID). Um
+    dicionario de um-para-um guardava a ULTIMA, e o veredito dependia da ordem
+    da lista — defeito P1, achado pelo bot da Intelligence a 2026-09-26.
+    """
     out = {}
     for e in corrida.get("LINEAGE") or []:
         if isinstance(e, dict) and not e_ignorancia(e.get("ITEM_ID")):
-            out[str(e["ITEM_ID"])] = e
+            out.setdefault(str(e["ITEM_ID"]), []).append(e)
     return out
 
 
@@ -152,8 +160,11 @@ def conferir_prova(sinal: dict, linhagem: dict):
 
     UM SINAL SEM PROVA NAO ATRAVESSA. E a prova nao vale por existir: cada
     elemento tem de chegar ao DOCUMENT_ID, e o ITEM_ID tem de estar na linhagem
-    DESTA corrida, com G0 = PASSOU e o mesmo SOURCE_ID e RAW_OBSERVATION_ID.
-    Uma prova que aponta para fora da corrida e uma prova de outra coisa.
+    DESTA corrida, com G0 = PASSOU e o mesmo SOURCE_ID e RAW_OBSERVATION_ID (e a
+    mesma CORRIDA_UPSTREAM, se a prova a disser). Se sobrar mais de uma entrada
+    e elas discordarem no G0, a prova e AMBIGUA e nao passa: escolher uma seria
+    a ponte a decidir que observacao o sinal quis dizer. A resposta nao depende
+    da ordem da LINEAGE.
     """
     prova = sinal.get("PROVA")
     if not isinstance(prova, list) or not prova:
@@ -164,14 +175,28 @@ def conferir_prova(sinal: dict, linhagem: dict):
         falta = [c for c in CAMPOS_DA_PROVA if e_ignorancia(p.get(c))]
         if falta:
             return "PROVA_INCOMPLETA", "falta " + ", ".join(falta)
-        e = linhagem.get(str(p["ITEM_ID"]))
-        if e is None:
+        todas = linhagem.get(str(p["ITEM_ID"])) or []
+        if not todas:
             return "PROVA_FORA_DA_CORRIDA", f"ITEM_ID {p['ITEM_ID']} nao esta na LINEAGE da corrida"
-        if e.get("G0") != "PASSOU":
-            return "ITEM_BLOQUEADO_EM_G0", f"ITEM_ID {p['ITEM_ID']} tem G0 = {e.get('G0', NAO_SEI)}"
-        for c in ("SOURCE_ID", "RAW_OBSERVATION_ID"):
-            if str(e.get(c)) != str(p[c]):
-                return "PROVA_CONTRADIZ_A_CORRIDA", f"{c} da prova != {c} da LINEAGE"
+        if not e_ignorancia(p.get("CORRIDA_UPSTREAM")):
+            todas = [e for e in todas
+                     if str(e.get("CORRIDA_UPSTREAM")) == str(p["CORRIDA_UPSTREAM"])]
+        batem = [e for e in todas
+                 if all(str(e.get(c)) == str(p[c]) for c in ("SOURCE_ID", "RAW_OBSERVATION_ID"))]
+        if not batem:
+            # O motivo mais de base primeiro: um item que nunca passou G0 nao
+            # prova nada, bata ou nao bata o resto.
+            if todas and all(e.get("G0") != "PASSOU" for e in todas):
+                return "ITEM_BLOQUEADO_EM_G0", f"ITEM_ID {p['ITEM_ID']} nunca passou G0 nesta corrida"
+            return ("PROVA_CONTRADIZ_A_CORRIDA", "nenhuma entrada da LINEAGE tem o mesmo "
+                    "SOURCE_ID, RAW_OBSERVATION_ID (e CORRIDA_UPSTREAM, se dita)")
+        g0 = sorted({str(e.get("G0")) for e in batem})
+        if g0 == ["PASSOU"]:
+            continue
+        if "PASSOU" in g0:
+            return ("PROVA_AMBIGUA", f"ITEM_ID {p['ITEM_ID']} tem G0 {g0} em corridas upstream "
+                    "diferentes; a prova tem de dizer CORRIDA_UPSTREAM")
+        return "ITEM_BLOQUEADO_EM_G0", f"ITEM_ID {p['ITEM_ID']} tem G0 = {g0}"
     return None
 
 
@@ -188,14 +213,18 @@ def _cartao(ferramenta: str, sinal: dict, corrida: dict) -> dict:
         "ESTADO": ESTADO_TRANSPORTAVEL,
         "CHAVES": chaves,
         "CHAVES_NAO_SEI": [k for k in chaves_contrato if chaves[k] == NAO_SEI],
-        # Chave que veio e o contrato nao pede: nao se desenha, mas o NOME fica
-        # a vista — largar em silencio seria esconder o que a corrida disse.
-        "CHAVES_FORA_DO_CONTRATO": sorted(k for k in dadas if k not in chaves_contrato),
+        # Chave que veio e o contrato nao pede: NAO entra em CHAVES (FACT_LOCATION
+        # nao e REGION_ID, e converter seria fabricar identidade), mas viaja com o
+        # VALOR, a parte e rotulada — largar o valor escondia o que a corrida disse
+        # (defeito P4, achado pelo bot da Intelligence a 2026-09-26).
+        "FORA_DO_CONTRATO": {k: _valor(dadas[k]) for k in sorted(dadas)
+                             if k not in chaves_contrato},
         # INT-LAW-244 — por que apareceu, o que contradiz, o que e incerto.
         "PORQUE": _valor(sinal.get("PORQUE")),
         "CONTRADIZ": _valor(sinal.get("CONTRADIZ")),
         "INCERTEZA": _valor(sinal.get("INCERTEZA")),
         "PROVA": [dict({c: p[c] for c in CAMPOS_DA_PROVA},
+                       CORRIDA_UPSTREAM=_valor(p.get("CORRIDA_UPSTREAM")),
                        INTELLIGENCE_RUN_ID=corrida["INTELLIGENCE_RUN_ID"])
                   for p in sinal["PROVA"]],
         "CORRIDA_SINTETICA": _sintetica(corrida),
@@ -434,6 +463,11 @@ def como_html(payload: dict, css_href: str | None = None) -> str:
                       f'{e["UNIVERSO"]["CARTOES"]} cartoes — {E(e["UNIVERSO"]["LEITURA"])}</div>')
         for c in e["CARTOES"]:
             linhas = "".join(f"<tr><th>{E(k)}</th><td>{val(v)}</td></tr>" for k, v in c["CHAVES"].items())
+            fora = "".join(f"<tr><th>{E(k)}</th><td>{val(v)}</td></tr>"
+                           for k, v in c["FORA_DO_CONTRATO"].items())
+            if fora:
+                linhas += ('<tr><th colspan="2">fuori contratto D84 — non e una chiave '
+                           'della vista</th></tr>' + fora)
             prova = "".join("<li>" + " → ".join(f"{E(k)} {val(p[k])}" for k in
                                                  CAMPOS_DA_PROVA + ("INTELLIGENCE_RUN_ID",)) + "</li>"
                             for p in c["PROVA"])
