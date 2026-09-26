@@ -93,7 +93,9 @@ class OResto(unittest.TestCase):
     ANTES = {"T10": ["italia-recorrente"], "T2": ["italia-recorrente"],
              "T3": ["italia-recorrente", "eppo"],
              "T4": ["regulatorio-eu", "rotulos-oficiais", "italia-recorrente"],
-             "T5": ["italia-recorrente"], "T6": ["corpus-pesquisador"],
+             # T6-PARA-SALA (26/09): o executor de COLHEITA entrou a FRENTE, declarado;
+             # o corpus-pesquisador (CATALOGO) fica.
+             "T5": ["italia-recorrente"], "T6": ["pesquisadores-t6", "corpus-pesquisador"],
              "T7": ["italia-recorrente"], "T8": ["scrap-colheita"],
              "T9": ["comunicacao-publica", "scrap-colheita"]}
 
