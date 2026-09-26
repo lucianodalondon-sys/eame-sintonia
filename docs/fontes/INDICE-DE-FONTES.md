@@ -18,8 +18,8 @@ sabe buscar sozinha.
 | fichas completas no atlas | **297** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
-| endereços que o código realmente chama | **702** |
-| desses, publicados no mapa | **40** (truncados: 662) |
+| endereços que o código realmente chama | **670** |
+| desses, publicados no mapa | **40** (truncados: 630) |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >

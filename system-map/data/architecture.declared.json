@@ -919,7 +919,12 @@
     "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
     "scripts/micro_coleta/provar_backup_da_sala.py",
     "scripts/micro_coleta/MICRO-RUNBOOK.md",
-    "scripts/micro_coleta/micro_rede_real.py"
+    "scripts/micro_coleta/micro_rede_real.py",
+    "scripts/micro_coleta/mutar_c9.py",
+    "scripts/micro_coleta/MUTACAO-C9-IDIOMA-V1.json",
+    "RELATORIO-C9-IDIOMA.md",
+    "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
+    "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt"
    ]
   },
   {
@@ -5009,6 +5014,25 @@
     "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
     "ferramentas/onda3_pacote/v2/tl-testes.sh",
     "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
+   ]
+  },
+  {
+   "id": "C-C9-INSTALAR",
+   "name": "C9-INSTALAR-PREP — o ensaio do C9-IDIOMA sobre o vivo (relatorio da 3.a onda, antes e depois)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "ensaio_c9.sh: copia fiel do vivo (worktree no HEAD + os livros do disco), relatorio da micro-coleta com os RUN_IDs da 3.a onda ANTES (codigo da producao) e DEPOIS (C9, --estado=ONDA-WEB-ESTADO.json), Sala so lida (default_transaction_read_only), sem rede HTTP; merge --ff-only e desfazer por reset --keep.",
+   "why_here": "C9-INSTALAR-PREP (25/09/2026): o bot Luciano exige o C9 instalado e provado antes da 4.a onda; C1 e C3 passam de FAIL a PASS (38/38).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/c9/ensaio_c9.sh",
+    "ferramentas/c9/c9-testes.sh"
    ]
   },
   {
