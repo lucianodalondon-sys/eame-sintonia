@@ -42,6 +42,10 @@ data/collection-ledger/**/*.log     merge=union
 # registado em candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json.
 candidatas/prova-termos/** -text -diff
 
+# C9-IDIOMA: as duas amostras reais do MICRO-V3 sao comparadas pelo SHA-256 do armazem; sem isto o
+# checkout com autocrlf trocava LF por CRLF e o teste do sha caia na maquina instalada.
+tests/dados/c9-idioma/** -text
+
 # C2-JUIZ: os 8 casos reais da 3.a onda (7 de CAPAS-A-CONFIRMAR + a lista ENEA) sao conferidos pelo
 # SHA-256 do raw_asset da Sala; sem -text o autocrlf mudava os bytes e o teste caia.
 tests/dados/c2-juiz/** -text
