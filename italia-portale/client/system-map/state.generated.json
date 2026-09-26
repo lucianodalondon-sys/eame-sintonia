@@ -1754,6 +1754,7 @@
       "ferramentas/big_collection/contratos12/PLANO-COM-AS-11.json",
       "ferramentas/big_collection/contratos12/TABELA-DO-COLETOR-NA-COPIA.sha256",
       "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/onda2/ENSAIO-G3-COORTE-CONGELADA-NA-COPIA.json",
       "ferramentas/big_collection/onda2/ENSAIO-G3-FOTO-DOS-LIVROS.txt",
       "ferramentas/big_collection/onda2/ENSAIO-G3-ONDA-WEB-SO-PLANO.json",
@@ -1761,6 +1762,8 @@
       "ferramentas/big_collection/onda2/ONDA2-G3.md",
       "ferramentas/big_collection/onda4/C2-ONDA4.md",
       "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md",
+      "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md",
+      "ferramentas/big_collection/onda4/RODADA1-ROTEIRO.md",
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/big_collection/rodadas.py",
@@ -4222,10 +4225,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v2",
-    "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
-    "GENERATED_AT": "2026-09-26T13:36:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344"
+    "BRANCH": "rodada1-comando-v1",
+    "HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
+    "GENERATED_AT": "2026-09-26T17:04:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374"
   },
   "FAMILIES": [
     {
@@ -41205,7 +41208,6 @@
       "status_reason": "outras pecas importam ou carregam isto.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
-        "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/italy_contracts_curator.json",
         "curadoria/red_team_telemetria.py",
@@ -41219,6 +41221,7 @@
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CONTRATO-TELEMETRIA",
         "C-DETECTOR-CAPA-GABARITO",
+        "C-ONDA-WEB",
         "C-PORTA-FONTE",
         "C-PROVA-PARIDADE",
         "C-TESTES"
@@ -41233,12 +41236,12 @@
         "C-LEGACY-99",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
+        "C-ONDA-WEB",
         "C-ORDENS-63",
         "C-PACOTE-ONDA3",
         "C-PONTE-ONBOARD",
         "C-PROVA-JANELA-FORMAS",
         "C-PROVA-T2-BOLETINS",
-        "C-REPARO-MEDICAO",
         "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
@@ -41251,7 +41254,6 @@
         "curadoria/italy_contracts_curator.json"
       ],
       "parado_na_coleta": [
-        "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/red_team_telemetria.py",
         "curadoria/status_live.py",
@@ -41323,14 +41325,6 @@
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": [
-        {
-          "file": "curadoria/LIFECYCLE-QUEUE-V1.json",
-          "written_by": [
-            "C-CENSO-UNIFICACAO",
-            "C-TESTES"
-          ],
-          "owner_elected": "C-CENSO-UNIFICACAO"
-        },
         {
           "file": "curadoria/italy_contracts_curator.json",
           "written_by": [
@@ -49399,7 +49393,7 @@
           "coleta/italy_executor.py:88",
           "coleta/scrap_colheita.py:897",
           "ferramentas/big_collection/bc5_big_collection.py:39",
-          "ferramentas/big_collection/onda_web.py:46"
+          "ferramentas/big_collection/ensaio_rodada.py:277"
         ],
         "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-INTEGRA-ONDA2 · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -49951,7 +49945,8 @@
         "C-ASK-SINTONIA",
         "C-CAPA-MATERIA",
         "C-CENSO-UNIFICACAO",
-        "C-DETECTOR-CAPA-GABARITO"
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-ONDA-WEB"
       ],
       "outbound": [],
       "paises": {},
@@ -52073,26 +52068,35 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "ferramentas/big_collection/ensaio_rodada.py",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "curadoria/LIFECYCLE-QUEUE-V1.json"
+      ],
       "inbound": [
         "C-ASK-SINTONIA",
+        "C-CENSO-UNIFICACAO",
         "C-INTEGRA-ONDA2",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-ONDA3",
-        "C-PROVA-TETO-DOMINIO"
+        "C-PROVA-TETO-DOMINIO",
+        "C-TESTES"
       ],
       "outbound": [
+        "C-CENSO-UNIFICACAO",
+        "C-LEGACY-99",
+        "C-ORDENS-63",
         "C-PROVA-COLETA",
-        "C-PROVA-CORTESIA"
+        "C-PROVA-CORTESIA",
+        "C-REPARO-MEDICAO"
       ],
       "paises": {},
       "paises_dado": {
@@ -52100,14 +52104,25 @@
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
+      "parado_na_coleta": [
+        "curadoria/LIFECYCLE-QUEUE-V1.json"
+      ],
       "momento": "NAO SEI",
       "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
@@ -52119,13 +52134,25 @@
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
-      "OWNER_CONFLICT": null,
+      "OWNER_CONFLICT": [
+        {
+          "file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+          "written_by": [
+            "C-CENSO-UNIFICACAO",
+            "C-ONDA-WEB",
+            "C-TESTES"
+          ],
+          "owner_elected": "C-ONDA-WEB"
+        }
+      ],
       "consumes": [
         "coleta/italy_pilot_collect.mjs",
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
         "data/collection-ledger/italy/runs.ndjson",
         "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
         "ferramentas/big_collection/onda_web.py",
+        "ferramentas/big_collection/rodadas.py",
         "scripts/micro_coleta/micro_coleta.py",
         "superficie/rede.py"
       ],
@@ -52197,7 +52224,8 @@
       "inbound": [
         "C-ASK-SINTONIA",
         "C-CENSO-UNIFICACAO",
-        "C-DETECTOR-CAPA-GABARITO"
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-ONDA-WEB"
       ],
       "outbound": [
         "C-PACOTE-ONDA3"
@@ -55804,12 +55832,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1551,
+        "palavras": 1560,
         "por_lingua": {
           "IT": 2,
           "PT": 1
         },
-        "sem_marca_de_lingua": 1548,
+        "sem_marca_de_lingua": 1557,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -61517,8 +61545,8 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CENSO-UNIFICACAO",
-        "C-DETECTOR-CAPA-GABARITO"
+        "C-DETECTOR-CAPA-GABARITO",
+        "C-ONDA-WEB"
       ],
       "outbound": [],
       "paises": {},
@@ -66159,6 +66187,7 @@
         "C-IT-PRESERVAR",
         "C-LEITOR-DATA-YT",
         "C-MAPA-GERADOR",
+        "C-ONDA-WEB",
         "C-PACOTE-CAMADAS",
         "C-PORTA-FONTE",
         "C-PORTAL-DADOS",
@@ -66270,6 +66299,7 @@
           "QUINZE",
           "RECADO",
           "RECUSA",
+          "REND",
           "ROTA_M2",
           "ROTULO_ITALIA",
           "RUNS",
@@ -66295,13 +66325,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1681,
+        "palavras": 1702,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1669,
+        "sem_marca_de_lingua": 1690,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -74920,6 +74950,41 @@
     {
       "from": "C-ASK-SINTONIA",
       "to": "C-ONDA-WEB",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/ensaio_rodada.py",
+          "line": 96,
+          "snippet": "import rede                                               # noqa: E402 — o dono da regra",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-ONDA-WEB",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-ONDA-WEB",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -74929,7 +74994,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/rodadas.py",
-          "line": 176,
+          "line": 305,
           "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-ONDA-WEB",
@@ -81157,7 +81222,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 8 linhas de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/legacy99v2/mutacao.py",
@@ -81177,40 +81242,8 @@
         },
         {
           "file": "ferramentas/legacy99v2/mutacao.py",
-          "line": 53,
-          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
-            "FROM": "C-CENSO-UNIFICACAO",
-            "TO": "C-LEGACY-99",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "ferramentas/legacy99v2/mutacao.py",
           "line": 54,
           "snippet": "\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"curadoria/italy_contracts_curator.json\",",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
-            "FROM": "C-CENSO-UNIFICACAO",
-            "TO": "C-LEGACY-99",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "ferramentas/legacy99v2/mutacao_ab.py",
-          "line": 61,
-          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
             "FROM": "C-CENSO-UNIFICACAO",
@@ -81243,22 +81276,6 @@
           "file": "ferramentas/legacy99v4/mutacao.py",
           "line": 23,
           "snippet": "GD, SUP, RG = \"curadoria/gatilho_discovery.py\", \"curadoria/supervisor.py\", \"curadoria/regua_social.py\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
-            "FROM": "C-CENSO-UNIFICACAO",
-            "TO": "C-LEGACY-99",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "ferramentas/legacy99v4/mutacao.py",
-          "line": 103,
-          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
             "FROM": "C-CENSO-UNIFICACAO",
@@ -81368,34 +81385,85 @@
     },
     {
       "from": "C-CENSO-UNIFICACAO",
+      "to": "C-ONDA-WEB",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar escreve em Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/unificacao/ensaio_unificacao.py",
+          "line": 75,
+          "snippet": "fila.write_text(json.dumps({\"PROXIMO_ID\": 1, \"TAREFAS\": []}), encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--WRITES-->C-ONDA-WEB",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/medir_suite.py",
+          "line": 67,
+          "snippet": "fila.write_text(json.dumps({\"PROXIMO_ID\": 1, \"TAREFAS\": []}), encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--WRITES-->C-ONDA-WEB",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/provar_em_copia.py",
+          "line": 84,
+          "snippet": "(wt / \"curadoria/LIFECYCLE-QUEUE-V1.json\").write_text(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--WRITES-->C-ONDA-WEB",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
       "to": "C-ORDENS-63",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta Sites das ordens de agronomos (63) — ha forma util para a coleta?. Provado por 3 linhas de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta Sites das ordens de agronomos (63) — ha forma util para a coleta?. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "curadoria/retirar_por_decisao.py",
           "line": 40,
           "snippet": "LIVRO = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
-            "FROM": "C-CENSO-UNIFICACAO",
-            "TO": "C-ORDENS-63",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "scripts/ordens_63/ensaio_d52.py",
-          "line": 29,
-          "snippet": "for f in (\"italy_contracts_curator.json\", \"LIFECYCLE-QUEUE-V1.json\", \"LIFECYCLE-LEDGER-V1.json\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
             "FROM": "C-CENSO-UNIFICACAO",
@@ -81572,41 +81640,6 @@
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-T2-BOLETINS",
             "FROM": "C-CENSO-UNIFICACAO",
             "TO": "C-PROVA-T2-BOLETINS",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CENSO-UNIFICACAO",
-      "to": "C-REPARO-MEDICAO",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/reparo/juntar_bancas.py",
-          "line": 71,
-          "snippet": "fila = json.loads((Path(b) / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
-            "FROM": "C-CENSO-UNIFICACAO",
-            "TO": "C-REPARO-MEDICAO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -107760,8 +107793,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "ferramentas/big_collection/ensaio_rodada.py",
+          "line": 277,
+          "snippet": "ledger=D / \"ops\" / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ONDA-WEB",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "ferramentas/big_collection/onda_web.py",
           "line": 46,
@@ -107780,7 +107829,7 @@
         },
         {
           "file": "ferramentas/big_collection/rodadas.py",
-          "line": 204,
+          "line": 333,
           "snippet": "return Path(os.environ.get(\"ITALY_OPS_ROOT\") or RAIZ) / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ONDA-WEB",
@@ -116463,7 +116512,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/rodadas.py",
-          "line": 197,
+          "line": 326,
           "snippet": "return subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\"), \"relatorio\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -117131,6 +117180,239 @@
     },
     {
       "from": "C-ONDA-WEB",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Censo das lanes antes de unificar. Provado por 7 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/test_supervisor.py",
+          "line": 58,
+          "snippet": "\"F.FILA\":   RAIZ / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/cutover/medir_cutover.py",
+          "line": 118,
+          "snippet": "ta = _j(cur / \"LIFECYCLE-QUEUE-V1.json\")[\"TAREFAS\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/cutover/passos_do_cutover.py",
+          "line": 104,
+          "snippet": "tarefas = json.loads((cur / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))[\"TAREFAS\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+          "line": 26,
+          "snippet": "\"LIFECYCLE-QUEUE-V1.json\", \"italy_contracts_curator.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/ensaio_unificacao.py",
+          "line": 74,
+          "snippet": "fila = wt / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/medir_suite.py",
+          "line": 65,
+          "snippet": "fila = wt / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/unificacao/unir_livros_do_servico.py",
+          "line": 120,
+          "snippet": "escrever[\"LIFECYCLE-QUEUE-V1.json\"] = fila",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ONDA-WEB",
+      "to": "C-LEGACY-99",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao). Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/legacy99v2/mutacao.py",
+          "line": 53,
+          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v2/mutacao_ab.py",
+          "line": 61,
+          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 103,
+          "snippet": "LIVROS = [\"curadoria/LIFECYCLE-LEDGER-V1.json\", \"curadoria/LIFECYCLE-QUEUE-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-LEGACY-99",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ONDA-WEB",
+      "to": "C-ORDENS-63",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Sites das ordens de agronomos (63) — ha forma util para a coleta?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/ordens_63/ensaio_d52.py",
+          "line": 29,
+          "snippet": "for f in (\"italy_contracts_curator.json\", \"LIFECYCLE-QUEUE-V1.json\", \"LIFECYCLE-LEDGER-V1.json\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-ORDENS-63",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-ORDENS-63",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ONDA-WEB",
       "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -117182,6 +117464,41 @@
             "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-CORTESIA",
             "FROM": "C-ONDA-WEB",
             "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ONDA-WEB",
+      "to": "C-REPARO-MEDICAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Medicao do reparo de fontes numa copia do livro vivo (R1). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/reparo/juntar_bancas.py",
+          "line": 71,
+          "snippet": "fila = json.loads((Path(b) / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-REPARO-MEDICAO",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-REPARO-MEDICAO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -128336,11 +128653,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
         {
+          "file": "ferramentas/big_collection/ensaio_rodada.py",
+          "line": 222,
+          "snippet": "import prova_teto_dominio as PT                           # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-ONDA-WEB",
+            "FROM": "C-PROVA-TETO-DOMINIO",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "ferramentas/big_collection/rodadas.py",
-          "line": 48,
+          "line": 49,
           "snippet": "import prova_teto_dominio as PT                                    # noqa: E402 — um so dono da prova",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-ONDA-WEB",
@@ -143791,7 +144124,7 @@
       "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes escreve em Censo das lanes antes de unificar. Provado por 4 linhas de codigo.",
+      "reason": "Suite de testes escreve em Censo das lanes antes de unificar. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canario_rotas_contrato_certo.py",
@@ -143829,22 +144162,6 @@
           "file": "tests/test_medir_cutover.py",
           "line": 47,
           "snippet": "f.write_text('{\"FONTES\": []}', encoding=\"utf-8\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
-            "FROM": "C-TESTES",
-            "TO": "C-CENSO-UNIFICACAO",
-            "RELATION_TYPE": "WRITES",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_medir_cutover.py",
-          "line": 129,
-          "snippet": "(cur / \"LIFECYCLE-QUEUE-V1.json\").write_text(json.dumps({\"TAREFAS\": ta}), encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
             "FROM": "C-TESTES",
@@ -144311,6 +144628,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-ONDA-WEB",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_medir_cutover.py",
+          "line": 129,
+          "snippet": "(cur / \"LIFECYCLE-QUEUE-V1.json\").write_text(json.dumps({\"TAREFAS\": ta}), encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-ONDA-WEB",
+            "FROM": "C-TESTES",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -144509,7 +144861,7 @@
         },
         {
           "file": "provas/rodadas_mutacao.py",
-          "line": 54,
+          "line": 66,
           "snippet": "r = subprocess.run([sys.executable, \"tests/test_rodadas.py\"], cwd=pasta, env=env, capture_output=True,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
@@ -148049,7 +148401,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2032,
+  "UNCLAIMED_FILES_COUNT": 2034,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -148089,9 +148441,10 @@
       "file": "curadoria/LIFECYCLE-QUEUE-V1.json",
       "written_by": [
         "C-CENSO-UNIFICACAO",
+        "C-ONDA-WEB",
         "C-TESTES"
       ],
-      "owner_elected": "C-CENSO-UNIFICACAO"
+      "owner_elected": "C-ONDA-WEB"
     },
     {
       "file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
@@ -148311,12 +148664,12 @@
     "components_pending": 218,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1522,
-    "edges_proven": 1455,
+    "edges": 1528,
+    "edges_proven": 1461,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3629,
-    "files_covered": 1597,
+    "files_tracked": 3632,
+    "files_covered": 1598,
     "files_code_unclaimed": 0,
     "roles_proven": 178,
     "roles_declared_only": 9,
