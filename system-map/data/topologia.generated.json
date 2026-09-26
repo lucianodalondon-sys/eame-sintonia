@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T19:43:55+00:00",
-  "HEAD": "fb2f1585121458b5ed4b90b2a7f812b26b84dd78",
+  "GENERATED_AT": "2026-09-26T19:49:14+00:00",
+  "HEAD": "b1f6c0e4150e7c8ba07535336bf7386bf7ac9b25",
   "BRANCH": "nuvem-polso-mercato-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045",
+  "SOURCE_TREE_FINGERPRINT": "a470534588ac41b61d0091307a5cf5cf82a25a69e24ab7759df9d03d6b50f8df",
   "FICHEIROS_NA_IMPRESSAO": 3785,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2524,13 +2524,6 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
-    "PATH": "provas/_mutantes_preco_de_mercado.py",
-    "PAPEL": "FONTE",
-    "VERSAO": "8c904fc2c415bcce53ead6e04078a06fd77259c9",
-    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-    "LIDO_POR": "alcancaveis_do_runtime() · open"
-   },
-   {
     "PATH": "provas/_mutantes_prova_teto_social.py",
     "PAPEL": "FONTE",
     "VERSAO": "eb8a665dc91db4cc81574b4b82e3862f821a1ab4",
@@ -4365,6 +4358,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "fa5b018bcd345d10fe641810da46daae6dd5995d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/receitas/censo_e_proposta.py",
     "PAPEL": "FONTE",
     "VERSAO": "3a61bce0177fcdd7672781c2b152a3e34f5e7a35",
@@ -4591,14 +4591,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045",
+    "VERSAO": "a470534588ac41b61d0091307a5cf5cf82a25a69e24ab7759df9d03d6b50f8df",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045",
+    "VERSAO": "a470534588ac41b61d0091307a5cf5cf82a25a69e24ab7759df9d03d6b50f8df",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6809,7 +6809,7 @@
    }
   ],
   "INPUTS_COUNT": 967,
-  "INPUTS_DIGEST": "598f751a4c6ba58c2b007e1259cf0a6e8d163e8b3a9419a72db24a108b6507c8",
+  "INPUTS_DIGEST": "2055b286022c1db3764f34861d2addc9cca6b06e8ee674d36bed5d04f6bb903c",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6842,8 +6842,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e9207cc5fb9a82b249f37ec97c42e8c85942ac477a6dbde85bb52595c9dbd59d",
-  "SEMANTIC_HASH": "4e1ee83389c9d9c43ac21b7218f538f270f85ca88a2b4ea48ae539944ecbb408"
+  "MEASUREMENT_HASH": "af429ae47be5cfdf53b6ad85509df8b5eb4840949ae56dd009ee935838a2ec37",
+  "SEMANTIC_HASH": "743ee173efdeb602b2a847b9f20c9fa15323b966295a0c02cbb5b4f6d1c44048"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -38904,7 +38904,7 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "provas/_mutantes_preco_de_mercado.py",
+      "FICHEIRO": "scripts/polso_mercato/mutar_preco_de_mercado.py",
       "LINHA": 24,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -42528,7 +42528,7 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "provas/_mutantes_preco_de_mercado.py",
+      "FICHEIRO": "scripts/polso_mercato/mutar_preco_de_mercado.py",
       "LINHA": 21,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -49779,7 +49779,7 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "provas/_mutantes_preco_de_mercado.py",
+      "FICHEIRO": "scripts/polso_mercato/mutar_preco_de_mercado.py",
       "LINHA": 21,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -51111,7 +51111,7 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "provas/_mutantes_preco_de_mercado.py",
+      "FICHEIRO": "scripts/polso_mercato/mutar_preco_de_mercado.py",
       "LINHA": 23,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -58237,15 +58237,14 @@
    "FICHEIROS": [
     "POLSO-DI-MERCATO.md",
     "leis/preco_de_mercado.py",
-    "provas/_mutantes_preco_de_mercado.py",
     "scripts/polso_mercato/BATERIA-LEVE-ANTES.json",
     "scripts/polso_mercato/BATERIA-LEVE-DEPOIS.json",
     "scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json",
-    "scripts/polso_mercato/bateria_por_nome.py"
+    "scripts/polso_mercato/bateria_por_nome.py",
+    "scripts/polso_mercato/mutar_preco_de_mercado.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "provas/_mutantes_preco_de_mercado.py",
     "tests/test_preco_de_mercado.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -61004,7 +61003,6 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "provas/_mutantes_preco_de_mercado.py",
     "provas/arbitragem_da_intelligence.py",
     "tests/test_relevance_priority_sobrecarga.py"
    ],
@@ -62508,7 +62506,6 @@
    ],
    "SO_MEDEM_ESTE": [
     "provas/_mutantes_d36_equivalencia.py",
-    "provas/_mutantes_preco_de_mercado.py",
     "provas/_mutantes_prova_teto_social.py",
     "provas/a_fronteira_da_coleta.py",
     "provas/a_rota_m2_atravessa.py",

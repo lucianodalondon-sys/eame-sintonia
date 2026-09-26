@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "nuvem-polso-mercato-v1",
-    "HEAD": "fb2f1585121458b5ed4b90b2a7f812b26b84dd78",
-    "GENERATED_AT": "2026-09-26T14:05:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045"
+    "HEAD": "b1f6c0e4150e7c8ba07535336bf7386bf7ac9b25",
+    "GENERATED_AT": "2026-09-26T16:46:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a470534588ac41b61d0091307a5cf5cf82a25a69e24ab7759df9d03d6b50f8df"
   },
   "FILES": [
     {
@@ -444,7 +444,7 @@
     },
     {
       "path": "POLSO-DI-MERCATO.md",
-      "sha": "338167bf2f8577d6b827fa474b8b7b7951a24161",
+      "sha": "877ae454710148077c6e25def2f44836ad005ade",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17943,13 +17943,6 @@
       "code_dir": true
     },
     {
-      "path": "provas/_mutantes_preco_de_mercado.py",
-      "sha": "8c904fc2c415bcce53ead6e04078a06fd77259c9",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "provas/_mutantes_prova_teto_social.py",
       "sha": "eb8a665dc91db4cc81574b4b82e3862f821a1ab4",
       "ext": ".py",
@@ -21794,7 +21787,7 @@
     },
     {
       "path": "scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json",
-      "sha": "1fb65547fc0b270d6713f50b9ff075997eb3b9f6",
+      "sha": "4287843644604f22ec44a5fce9e811d55050db49",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -21802,6 +21795,13 @@
     {
       "path": "scripts/polso_mercato/bateria_por_nome.py",
       "sha": "7f2d0fee784c44a567cb19ad7fd5ee30edf4ca87",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+      "sha": "fa5b018bcd345d10fe641810da46daae6dd5995d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22942,7 +22942,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "1205138eebb42c9142a7c3b4f14623926c4a3905",
+      "sha": "009cbed3d59f2acfbd1b58c9950573dbf4163075",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -57645,72 +57645,6 @@
       }
     },
     {
-      "from_file": "provas/_mutantes_preco_de_mercado.py",
-      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/_mutantes_preco_de_mercado.py",
-        "line": 23,
-        "snippet": "\"data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json\", \"data/samples/IT-V2/IT-V2-CANONICO.json\","
-      }
-    },
-    {
-      "from_file": "provas/_mutantes_preco_de_mercado.py",
-      "to_file": "data/samples/IT-V2/IT-V2-CANONICO.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/_mutantes_preco_de_mercado.py",
-        "line": 23,
-        "snippet": "\"data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json\", \"data/samples/IT-V2/IT-V2-CANONICO.json\","
-      }
-    },
-    {
-      "from_file": "provas/_mutantes_preco_de_mercado.py",
-      "to_file": "data/samples/RUN-MANIFEST.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/_mutantes_preco_de_mercado.py",
-        "line": 24,
-        "snippet": "\"data/samples/RUN-MANIFEST.json\")"
-      }
-    },
-    {
-      "from_file": "provas/_mutantes_preco_de_mercado.py",
-      "to_file": "leis/preco_de_mercado.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/_mutantes_preco_de_mercado.py",
-        "line": 20,
-        "snippet": "ALVO = \"leis/preco_de_mercado.py\""
-      }
-    },
-    {
-      "from_file": "provas/_mutantes_preco_de_mercado.py",
-      "to_file": "leis/regua_italia.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/_mutantes_preco_de_mercado.py",
-        "line": 21,
-        "snippet": "COPIAR = (\"leis/preco_de_mercado.py\", \"leis/regua_italia.py\", \"tests/test_preco_de_mercado.py\","
-      }
-    },
-    {
-      "from_file": "provas/_mutantes_preco_de_mercado.py",
-      "to_file": "tests/test_preco_de_mercado.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/_mutantes_preco_de_mercado.py",
-        "line": 21,
-        "snippet": "COPIAR = (\"leis/preco_de_mercado.py\", \"leis/regua_italia.py\", \"tests/test_preco_de_mercado.py\","
-      }
-    },
-    {
       "from_file": "provas/_mutantes_prova_teto_social.py",
       "to_file": "coleta/adaptador_youtube.py",
       "type": "READS",
@@ -73350,6 +73284,72 @@
         "file": "scripts/ordens_63/mutar_d52.py",
         "line": 46,
         "snippet": "open(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO-D52-V1.json\"), \"w\","
+      }
+    },
+    {
+      "from_file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+        "line": 23,
+        "snippet": "\"data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json\", \"data/samples/IT-V2/IT-V2-CANONICO.json\","
+      }
+    },
+    {
+      "from_file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+      "to_file": "data/samples/IT-V2/IT-V2-CANONICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+        "line": 23,
+        "snippet": "\"data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json\", \"data/samples/IT-V2/IT-V2-CANONICO.json\","
+      }
+    },
+    {
+      "from_file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+        "line": 24,
+        "snippet": "\"data/samples/RUN-MANIFEST.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+      "to_file": "leis/preco_de_mercado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+        "line": 20,
+        "snippet": "ALVO = \"leis/preco_de_mercado.py\""
+      }
+    },
+    {
+      "from_file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+      "to_file": "leis/regua_italia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+        "line": 21,
+        "snippet": "COPIAR = (\"leis/preco_de_mercado.py\", \"leis/regua_italia.py\", \"tests/test_preco_de_mercado.py\","
+      }
+    },
+    {
+      "from_file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+      "to_file": "tests/test_preco_de_mercado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+        "line": 21,
+        "snippet": "COPIAR = (\"leis/preco_de_mercado.py\", \"leis/regua_italia.py\", \"tests/test_preco_de_mercado.py\","
       }
     },
     {

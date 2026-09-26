@@ -2619,7 +2619,6 @@
       "provas/_mutantes_d24.py",
       "provas/_mutantes_d36_equivalencia.py",
       "provas/_mutantes_d37.py",
-      "provas/_mutantes_preco_de_mercado.py",
       "provas/_mutantes_prova_teto_social.py",
       "provas/_mutantes_soc_tempo.py",
       "provas/_mutantes_social_bruto.py",
@@ -3179,6 +3178,7 @@
       "scripts/polso_mercato/BATERIA-LEVE-DEPOIS.json",
       "scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json",
       "scripts/polso_mercato/bateria_por_nome.py",
+      "scripts/polso_mercato/mutar_preco_de_mercado.py",
       "scripts/receitas/ROTULOS-LD2.json",
       "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
       "scripts/receitas/censo_e_proposta.py",
@@ -4231,9 +4231,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "nuvem-polso-mercato-v1",
-    "HEAD": "fb2f1585121458b5ed4b90b2a7f812b26b84dd78",
-    "GENERATED_AT": "2026-09-26T14:05:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045"
+    "HEAD": "b1f6c0e4150e7c8ba07535336bf7386bf7ac9b25",
+    "GENERATED_AT": "2026-09-26T16:46:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a470534588ac41b61d0091307a5cf5cf82a25a69e24ab7759df9d03d6b50f8df"
   },
   "FAMILIES": [
     {
@@ -54168,11 +54168,11 @@
       "files": [
         "POLSO-DI-MERCATO.md",
         "leis/preco_de_mercado.py",
-        "provas/_mutantes_preco_de_mercado.py",
         "scripts/polso_mercato/BATERIA-LEVE-ANTES.json",
         "scripts/polso_mercato/BATERIA-LEVE-DEPOIS.json",
         "scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json",
-        "scripts/polso_mercato/bateria_por_nome.py"
+        "scripts/polso_mercato/bateria_por_nome.py",
+        "scripts/polso_mercato/mutar_preco_de_mercado.py"
       ],
       "file_count": 7,
       "status": "PENDING",
@@ -67322,7 +67322,7 @@
         "PROVA": [
           "motor/v21_fechar.py:202",
           "motor/v21_vozes_reconciliar.py:53",
-          "provas/_mutantes_preco_de_mercado.py:23",
+          "scripts/polso_mercato/mutar_preco_de_mercado.py:23",
           "tests/test_preco_de_mercado.py:143"
         ],
         "PORQUE": "estas pecas importam-na — C-INT-ACHADO · C-PRECO-DE-MERCADO · C-V21-FONTES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -124527,7 +124527,7 @@
       "reason": "De onde veio — carimbado na coleta alimenta O preco observado do Polso di Mercato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "provas/_mutantes_preco_de_mercado.py",
+          "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
           "line": 24,
           "snippet": "\"data/samples/RUN-MANIFEST.json\")",
           "ASSERTION_SUPPORTED": {
@@ -131256,7 +131256,7 @@
       "reason": "Regua de relevancia ADAMA alimenta O preco observado do Polso di Mercato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "provas/_mutantes_preco_de_mercado.py",
+          "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
           "line": 21,
           "snippet": "COPIAR = (\"leis/preco_de_mercado.py\", \"leis/regua_italia.py\", \"tests/test_preco_de_mercado.py\",",
           "ASSERTION_SUPPORTED": {
@@ -144750,7 +144750,7 @@
       "reason": "Suite de testes alimenta O preco observado do Polso di Mercato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "provas/_mutantes_preco_de_mercado.py",
+          "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
           "line": 21,
           "snippet": "COPIAR = (\"leis/preco_de_mercado.py\", \"leis/regua_italia.py\", \"tests/test_preco_de_mercado.py\",",
           "ASSERTION_SUPPORTED": {
@@ -146384,7 +146384,7 @@
       "reason": "Cadeia V2 (legado) alimenta O preco observado do Polso di Mercato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "provas/_mutantes_preco_de_mercado.py",
+          "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
           "line": 23,
           "snippet": "\"data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json\", \"data/samples/IT-V2/IT-V2-CANONICO.json\",",
           "ASSERTION_SUPPORTED": {
