@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Mutacao do condutor da MICRO SOCIAL: 18 mutantes, cada um confirmado por git diff; corre
+"""Mutacao do condutor da MICRO SOCIAL: 20 mutantes, cada um confirmado por git diff; corre
 tests/test_micro_social.py e repoe o ficheiro.  py ferramentas/micro_social/_mutantes_micro_social.py"""
 import io,subprocess,sys,os
 F="ferramentas/micro_social/micro_social.py"
@@ -23,6 +23,8 @@ M=[
  ("M16 sala: run_id sem forma","        if not re.fullmatch(r\"[A-Z]{2}-T\d+-[0-9-]+-[0-9a-f]{16}\", i):\n","        if False:\n"),
  ("M17 lote1: D41 nao exigida","    if not _tem(\"provas/prova_teto_dominio.py\", '\"googlevideo.com\": \"youtube.com\"'):\n","    if False:\n"),
  ("M18 sem RUN_ID nao para","    if corridas_falhadas:\n","    if False:\n"),
+ ("M19 yt-dlp nao conferido","        if not ok_yt:\n","        if False:\n"),
+ ("M20 yt-dlp conferido sempre","    if any(it.get(\"FASE\") == \"audio-youtube\" for it in rodadas[0].get(\"ITENS\", [])):\n","    if True:\n"),
 ]
 orig=io.open(F,encoding="utf-8",newline="").read()
 env=dict(os.environ,PYTHONUTF8="1")
