@@ -103,6 +103,24 @@ EXECUTORES = {
     #
     #     UM BURACO QUE APARECE NAO E UM BURACO NOVO: E UM BURACO QUE ERA CEGO.
     "T6": [{
+        # T6-PARA-SALA (26/09) · ENTRA A FRENTE, e o `corpus-pesquisador` FICA.
+        # O orquestrador corre `plano.executores[0]`: a ordem e uma DECISAO (do
+        # dono), nao arrumacao. O antigo devolve um CATALOGO de 12 pessoas
+        # (suporte, nunca atravessa); este DECLARA COLHEITA — os trabalhos que
+        # as rodadas de `coleta/pesquisadores_t6.py --rede` ja guardaram, sem
+        # rede nenhuma nesta etapa. A fonte e a que o Atlas ja tem: EU-T5-001.
+        "id": "pesquisadores-t6",
+        "retorno": {"ENVELOPE": "data/colheita/pesquisadores-t6/RETORNO.json"},
+        "roda": ["coleta/pesquisadores_t6_executor.py"],
+        "recebe_run_id": True,
+        "filtros_nomeados": ["rodadas"],
+        "larga_em": ["data/colheita/pesquisadores-t6/"],
+        "rotas": ["OpenAlex (EU-T5-001), respostas ja guardadas pelas rodadas"],
+        "o_que_traz": "um trabalho por DOI (o registo que o OpenAlex publicou: titulo, "
+                      "resumo, autoria com afiliacao obra a obra), com os pesquisadores "
+                      "italianos e a prova de cada um dentro da unidade",
+        "custo": "gratuito",
+    }, {
         "id": "corpus-pesquisador",
         # F3 · o retorno e o CATALOGO das pessoas de quem se PODE colher
         # obra — nao as obras. Medido: 12 fichas de pessoa, zero unidades.
