@@ -353,3 +353,37 @@ class E_ScrapHttp(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# ── P6 · o navegador real: declarado, rotulado, desligado ate a emenda ──────────────────────────
+class P6_NavegadorReal(unittest.TestCase):
+    def setUp(self):
+        import scrap_capacidades as cap
+        self.cap = cap
+
+    def test_declarada_medida_mas_desligada_ate_a_emenda(self):
+        n = "web.page.browser_rendered"
+        self.assertEqual(self.cap.estado(n), self.cap.PARTIAL)
+        self.assertEqual(self.cap.onde(n), (self.cap.LOCAL, self.cap.BROWSER_REAL_REQUIRED))
+        self.assertEqual(self.cap.ESPERAM_EMENDA[n], "COL-LAW-220")
+        self.assertFalse(self.cap.ativa(n))
+        self.assertFalse(self.cap.promete_resultado(n))
+        with mock.patch.object(self.cap, "EMENDAS_EM_VIGOR", frozenset({"COL-LAW-220"})):
+            self.assertTrue(self.cap.promete_resultado(n))
+
+    def test_o_corpo_e_rotulado_e_nao_e_raw(self):
+        self.assertEqual(self.cap.rotulo_do_corpo("web.page.browser_rendered"), "BROWSER_RENDERED_EXTRACT")
+        self.assertIsNone(self.cap.rotulo_do_corpo("telegram.channel.incremental"))
+
+    def test_so_as_fontes_medidas(self):
+        self.assertTrue(self.cap.serve_a_fonte("web.page.browser_rendered", "IT-T9-008"))
+        self.assertFalse(self.cap.serve_a_fonte("web.page.browser_rendered", "IT-T7-164"))
+
+    def test_o_validador_recusa_pagina_desenhada_sem_rotulo(self):
+        with mock.patch.dict(self.cap.ROTULO_DO_CORPO, {}, clear=True):
+            with self.assertRaises(self.cap.CapacidadeInvalida):
+                self.cap.conferir()
+
+    def test_as_capacidades_antigas_nao_mudam_de_promessa(self):
+        self.assertTrue(self.cap.promete_resultado("telegram.channel.incremental"))
+        self.assertTrue(self.cap.ativa("telegram.channel.incremental"))

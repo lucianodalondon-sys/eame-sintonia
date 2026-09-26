@@ -73,6 +73,15 @@ MUTANTES = [
      'if c.get("METODO") != "GET" or c.get("HTTP") != 200:', 'if c.get("HTTP") != 200:', T_XHR, "tests"),
     ("XHR: robots nao conta", "ferramentas/captura_xhr.py",
      'out["PEDIDOS_POR_DOMINIO"][dom] = 1', 'out["PEDIDOS_POR_DOMINIO"][dom] = 0', T_XHR, "tests"),
+    ("P6: a emenda dada como em vigor", "coleta/scrap_capacidades.py",
+     "EMENDAS_EM_VIGOR = frozenset()", "EMENDAS_EM_VIGOR = frozenset({'COL-LAW-220'})", T_EVO, "tests"),
+    ("P6: promessa sem perguntar se esta ligada", "coleta/scrap_capacidades.py",
+     "    return estado(nome) not in SEM_PROMESSA and ativa(nome)\n",
+     "    return estado(nome) not in SEM_PROMESSA\n", T_EVO, "tests"),
+    ("P6: validador aceita pagina desenhada sem rotulo", "coleta/scrap_capacidades.py",
+     "and ROTULO_DO_CORPO.get(n) != BROWSER_RENDERED_EXTRACT:", "and False:", T_EVO, "tests"),
+    ("P6: qualquer fonte pode pedir", "coleta/scrap_capacidades.py",
+     "    return lista is None or source_id in lista\n", "    return True\n", T_EVO, "tests"),
 ]
 
 
