@@ -1,0 +1,26 @@
+#!/bin/bash
+# pega o LOCK-PESADO (atomico, set -C), corre o ensaio, devolve o lock
+L=C:/Users/London1/auditoria-madrugada/LOCK-PESADO.txt
+A=C:/Users/London1/auditoria-madrugada
+D=C:/Users/London1/acervo-para-sala-2
+W=C:/Users/London1/orca/workspaces/eame-sintonia
+while true; do
+  if ls $A | grep -i "^LOCK-PRIORIDADE" | grep -vq encerrada; then sleep 20; continue; fi
+  livre=$(df -BG --output=avail /c | tail -1 | tr -dc 0-9)
+  if [ "$livre" -lt 5 ]; then sleep 60; continue; fi
+  if ( set -C; echo "ACERVO-PARA-SALA-2 $(date '+%Y-%m-%d %H:%M:%S') — ensaio do reprocesso canonico numa copia da Sala (Postgres descartavel)" > $L ) 2>/dev/null; then break; fi
+  sleep 2
+done
+echo "LOCK PEGO $(date '+%H:%M:%S')"
+unset PGOPTIONS PGPASSFILE
+cd C:/capa-v1
+PYTHONUTF8=1 PYTHONIOENCODING=utf-8 py -B provas/acervo_para_sala_ensaio.py --arvore C:/aps-base \
+  --dump $D/sala-copia-2.dump --dados C:/Users/London1/acervo-para-sala \
+  --motivos C:/Users/London1/acervo-para-sala/motivos.json \
+  --raizes "$(cat C:/Users/London1/reproc-acervo/raizes.txt)" \
+  --livro-vivo $W/source-curator-service-v1/data/collection-ledger/italy \
+  --livros "$W/*/data/collection-ledger/italy/observations.ndjson;$W/*/data/collection-ledger/italy/runs.ndjson;C:/base6ea/data/collection-ledger/italy/observations.ndjson;C:/base6ea/data/collection-ledger/italy/runs.ndjson;C:/regua-t2-base/data/collection-ledger/italy/observations.ndjson;C:/regua-t2-base/data/collection-ledger/italy/runs.ndjson" \
+  --saida $D/ensaio-3.json > $D/ensaio-3.log 2>&1
+echo "ENSAIO RC=$? $(date '+%H:%M:%S')"
+rm -f $L
+echo "LOCK DEVOLVIDO"
