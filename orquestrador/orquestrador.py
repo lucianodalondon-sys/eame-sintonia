@@ -739,7 +739,7 @@ def universo_do_pedido(p) -> str:
     return _rf.universo_declarado((p.filtros or {}).get("universo"))
 
 
-def pela_porta(itens: list, universo: str, run_id: str) -> dict:
+def pela_porta(itens: list, universo: str, run_id: str, armazem=None) -> dict:
     """Leva cada item a porta de admissao e guarda TODAS as decisoes.
 
     TODAS, e nao so as que passaram: o «nao» sem testemunha e trabalho perdido
@@ -774,7 +774,11 @@ def pela_porta(itens: list, universo: str, run_id: str) -> dict:
         if d.resultado == adm.SIM:
             aceites.append(adm.pronto_para_inteligencia(x, d))
     # A ESCRITA E DO DONO DA ESPERA. Aqui so se diz o que foi admitido.
-    recibo = espera.pousar(run_id, aceites)
+    # D79 (DEDUP-PARA-INSTALAR): quem pousa entrega ao decisor de versoes o armazem
+    # (para ler o RAW anterior) e os extratores (para o re-extrair). Sem eles, «o
+    # extrator mudou» e sempre NAO SEI. Import tardio: so quem pousa o carrega.
+    from coleta.extratores_de_texto import registo as _extratores
+    recibo = espera.pousar(run_id, aceites, armazem=armazem, extratores=_extratores())
 
     conta: dict = {}
     for d in decisoes:
@@ -1200,7 +1204,7 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
         # existe e já levanta `UniversoNaoDeclarado`. Uma segunda exceção com
         # a mesma função seria uma segunda lei.
         universo = universo_do_pedido(p)
-        r = pela_porta(julgar, universo, recibo["RUN_ID"])
+        r = pela_porta(julgar, universo, recibo["RUN_ID"], armazem=armazem)
         recibo["ADMISSAO"] = r
         # ── UM FOSSIL DO SCRAP, RETIRADO — E A DIVIDA DELE, DECLARADA ───────
         # Aqui estava `pop("ENTRADOS")`. `ENTRADOS` era o segundo balde de
