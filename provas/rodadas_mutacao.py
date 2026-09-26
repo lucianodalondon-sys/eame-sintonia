@@ -34,6 +34,11 @@ MUTANTES = [
     ("M11_ACEITA_OUTRA_COORTE", ALVO, 'if plano.get("COORTE_SHA256") != sha:', "if False:"),
     ("M12_PASTA_UNICA", ALVO, 'pasta = base / ("RODADA-%02d" % n)', 'pasta = base / "RODADA-01"'),
     ("M13_RELATORIO_SEM_ESTADO", ALVO, 'relatorio(pasta / "ONDA-WEB-ESTADO.json", pasta / "relatorio")', 'relatorio(pasta, pasta / "relatorio")'),
+    ("M14_JANELA_IGNORADA", ALVO, "            if fecha:", "            if False:"),
+    ("M15_JANELA_DO_INICIO", ALVO, ' + timedelta(seconds=int(f.get("SEGUNDOS") or 0))', ""),
+    ("M16_INCOMPLETA_FECHA", ALVO, "        if adiadas:", "        if False:"),
+    ("M17_RETOMA_IGNORA_FEITAS", ALVO, 'pendentes = [f for f in r["FONTES"] if f["SOURCE_ID"] not in feitas]', 'pendentes = list(r["FONTES"])'),
+    ("M18_SEM_HORA_DO_LIVRO", ALVO, "            if int(n) > 0 and PT.dominio_registavel(d) not in visto:", "            if False:"),
 ]
 
 

@@ -22,7 +22,7 @@ import tempfile
 import threading
 import unittest
 import urllib.request
-from datetime import date, datetime
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -75,6 +75,7 @@ class OndaFalsa:
     def __init__(self, ledger, desobedece_na_rodada=None, sem_linha_na_rodada=None, codigo=0):
         self.ledger, self.desobedece, self.sem_linha, self.codigo = ledger, desobedece_na_rodada, sem_linha_na_rodada, codigo
         self.chamadas = []
+        self.quando = None                                  # instante UTC do RUN_ID (None = agora)
 
     def __call__(self, sha, fontes, pasta, historico, retomar):
         self.chamadas.append({"FONTES": list(fontes), "PASTA": str(pasta), "RETOMAR": retomar})
@@ -92,7 +93,7 @@ class OndaFalsa:
                 SEM_PROXY.open(rq, timeout=10).read()
             livro[d] = livro.get(d, 0) + cabe
             livro_f.write_text(json.dumps({"PEDIDOS_POR_DOMINIO": livro}), encoding="utf-8")
-            rid = "%s-%s-%s" % (s.rsplit("-", 1)[0], datetime.now().strftime("%Y-%m-%d-%H%M%S"), secrets.token_hex(8))
+            rid = "%s-%s-%s" % (s.rsplit("-", 1)[0], (self.quando or datetime.now(timezone.utc)).strftime("%Y-%m-%d-%H%M%S"), secrets.token_hex(8))
             if self.sem_linha != n_rodada:
                 with open(self.ledger, "a", encoding="utf-8") as f:
                     f.write(json.dumps({"RUN_ID": rid, "CORTESIA": {"PEDIDOS_POR_HOST": {host: cabe}}}) + "\n")
@@ -299,6 +300,90 @@ class OTetoDoDia(Base):
         f = [{"SOURCE_ID": "X", "DOMINIO": "x.it", "PREVISTOS": 3}]
         self.assertEqual(len(R.filtrar_pelo_dia(f, {"x.it": 5}, 8)[0]), 1)
         self.assertEqual(len(R.filtrar_pelo_dia(f, {"x.it": 6}, 8)[0]), 0)
+
+
+class AJanelaDe24h(Base):
+    """D79: 1 rodada por janela movel de 24 h por dominio, lida dos livros (hora do RUN_ID, UTC)."""
+
+    T = datetime(2026, 9, 25, 22, 58, 0, tzinfo=timezone.utc)
+
+    def _onda_antiga(self, dominios_host, segundos=40, com_estado=True):
+        p = self.tmp / "ondas" / "ONDA3-ANTIGA"
+        p.mkdir(parents=True)
+        gastos = {R.PT.dominio_registavel(h): 5 for h in dominios_host}
+        (p / "TETO-ONDA.json").write_text(json.dumps({"PEDIDOS_POR_DOMINIO": gastos}), encoding="utf-8")
+        if com_estado:
+            fontes = [{"SOURCE_ID": "IT-T9-9%02d" % i, "CORREU": True, "SEGUNDOS": segundos,
+                       "RUN_ID": "IT-T9-%s-%s" % (self.T.strftime("%Y-%m-%d-%H%M%S"), "ab" * 8),
+                       "PEDIDOS_POR_DOMINIO": {R.PT.dominio_registavel(h): 5}} for i, h in enumerate(dominios_host)]
+            (p / "ONDA-WEB-ESTADO.json").write_text(json.dumps({"FONTES": fontes}), encoding="utf-8")
+        return p
+
+    def test_dominio_visitado_ha_menos_de_24h_para_a_rodada_inteira(self):
+        self._onda_antiga(["a.test"])
+        onda = OndaFalsa(self.ledger)
+        e = self.correr(onda, rodada=1, janela_h=24, agora_utc=self.T + timedelta(hours=23))
+        self.assertEqual(e["RODADAS"]["1"]["PORQUE"], "JANELA_24H")
+        self.assertEqual(onda.chamadas, [])
+        self.assertEqual(CONTAGEM, {})
+        self.assertEqual(e["RODADAS"]["1"]["ABRE_EM"], (self.T + timedelta(hours=24, seconds=40)).isoformat())
+
+    def test_a_janela_conta_do_fim_da_corrida(self):
+        self._onda_antiga(["a.test"], segundos=40)
+        onda = OndaFalsa(self.ledger)
+        e = self.correr(onda, rodada=1, janela_h=24, agora_utc=self.T + timedelta(hours=24, seconds=30))
+        self.assertEqual(e["RODADAS"]["1"]["PORQUE"], "JANELA_24H")      # 24 h do inicio, mas nao do fim
+        e = self.correr(onda, rodada=1, janela_h=24, agora_utc=self.T + timedelta(hours=24, seconds=41))
+        self.assertEqual(e["RODADAS"]["1"]["ESTADO"], "FECHADA")
+
+    def test_sem_estado_vale_a_hora_do_livro(self):
+        p = self._onda_antiga(["a.test"], com_estado=False)
+        t = (self.T + timedelta(hours=2)).timestamp()
+        os.utime(p / "TETO-ONDA.json", (t, t))
+        e = self.correr(OndaFalsa(self.ledger), rodada=1, janela_h=24, agora_utc=self.T + timedelta(hours=25))
+        self.assertEqual(e["RODADAS"]["1"]["PORQUE"], "JANELA_24H")      # o livro e de T+2h: abre as T+26h
+
+    def test_dominio_fora_da_rodada_nao_prende(self):
+        self._onda_antiga(["outro.test"])
+        e = self.correr(OndaFalsa(self.ledger), rodada=1, janela_h=24, agora_utc=self.T + timedelta(hours=1))
+        self.assertEqual(e["RODADAS"]["1"]["ESTADO"], "FECHADA")
+
+    def test_rodadas_seguidas_do_mesmo_dominio_esperam_24h(self):
+        onda = OndaFalsa(self.ledger)
+        onda.quando = self.T
+        e = self.correr(onda, janela_h=24, agora_utc=self.T)
+        self.assertEqual(e["RODADAS"]["1"]["ESTADO"], "FECHADA")
+        self.assertEqual(e["RODADAS"]["2"]["PORQUE"], "JANELA_24H")      # a.test acabou de ser pedido
+        onda.quando = self.T + timedelta(hours=25)
+        e = self.correr(onda, janela_h=24, agora_utc=self.T + timedelta(hours=25))
+        self.assertEqual(e["RODADAS"]["2"]["ESTADO"], "FECHADA")
+        self.assertEqual(e["RODADAS"]["3"]["PORQUE"], "JANELA_24H")
+
+    def test_sem_janela_nada_muda(self):
+        self._onda_antiga(["a.test", "b.test", "c.test"])
+        e = self.correr(OndaFalsa(self.ledger), rodada=1, agora_utc=self.T)
+        self.assertEqual(e["RODADAS"]["1"]["ESTADO"], "FECHADA")
+
+    def test_run_id_e_utc(self):
+        self._onda_antiga(["a.test"], segundos=0)
+        self.assertEqual(R.ultima_visita_por_dominio(self.tmp / "ondas")["a.test"], self.T)
+
+
+class ORodadaIncompletaNaoPerdeNinguem(Base):
+    def test_adiada_pelo_teto_dia_corre_na_retoma_e_so_ela(self):
+        p = self.tmp / "ondas" / "ONDA3-DE-HOJE"
+        p.mkdir(parents=True)
+        (p / "TETO-ONDA.json").write_text(json.dumps({"PEDIDOS_POR_DOMINIO": {"a.test": 5}}), encoding="utf-8")
+        onda = OndaFalsa(self.ledger)
+        e = self.correr(onda, rodada=1, teto_dia=8)
+        self.assertEqual(e["RODADAS"]["1"]["ESTADO"], "INCOMPLETA")
+        self.assertEqual(e["RODADAS"]["1"]["FALTAM"], ["IT-T8-001"])
+        (p / "TETO-ONDA.json").unlink()                                   # «amanha»: o livro de ontem sai
+        e = self.correr(onda, rodada=1, teto_dia=8)
+        self.assertEqual(onda.chamadas[-1]["FONTES"], ["IT-T8-001"])
+        self.assertTrue(onda.chamadas[-1]["RETOMAR"])
+        self.assertEqual(e["RODADAS"]["1"]["ESTADO"], "FECHADA")
+        self.assertEqual(sorted(e["RODADAS"]["1"]["FEITAS"]), ["IT-T2-001", "IT-T2-002", "IT-T7-001", "IT-T8-001"])
 
 
 if __name__ == "__main__":
