@@ -34,6 +34,10 @@ class Confere(unittest.TestCase):
         self.assertEqual("EM_ORDEM", S.confere("n. 0 catture di Prays", corrido))
         self.assertIsNone(S.confere("n. 40 catture di Ceratitis", corrido))
 
+    def test_palavras_longe_demais_nao_conferem(self):
+        corrido = "n. 4 catture di " + "outra coluna " * 20 + "Ceratitis"
+        self.assertIsNone(S.confere("n. 4 catture di Ceratitis", corrido))
+
     def test_salerno_desconhecido_nao_inventa(self):
         r = S.salerno("N° 30 del 30/09/2026 ... n. 7 catture di Ceratitis", sha="ffffffffffff")
         self.assertEqual("NAO LIDO", r[0]["METRICA"])
