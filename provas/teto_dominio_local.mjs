@@ -29,7 +29,10 @@ const RAIZ = mkdtempSync(join(tmpdir(), "teto-dominio-"));
 process.env.ITALY_OPS_ROOT = RAIZ;
 for (const k of ["http_proxy", "https_proxy", "HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "all_proxy"])
   process.env[k] = "http://127.0.0.1:9";
-const NOMES = ["cia.test", "www.cia.test", "sub.cia.test", "outro.test"];
+// D41 (FREIO-SOCIAL): o host do stream do YouTube tambem resolve para o servidor local
+// (o curl nunca sai da maquina): e o nome REAL que importa, porque o teto le o dominio.
+const GV = "rr1---sn-x.googlevideo.com";
+const NOMES = ["cia.test", "www.cia.test", "sub.cia.test", "outro.test", GV];
 process.env.NO_PROXY = process.env.no_proxy = ["127.0.0.1", "localhost", ...NOMES].join(",");
 for (const k of ["SINTONIA_PAUSA_POR_HOST_S", "SINTONIA_TETO_POR_HOST", "SINTONIA_TETO_ONDA"]) delete process.env[k];
 process.env.SINTONIA_PAUSA_POR_HOST_S = "0";   // a pausa tem prova propria; aqui mede-se o teto
@@ -141,6 +144,31 @@ try {
   delete process.env.SINTONIA_TETO_ONDA;
   t("D6: livro ilegivel falha alto (TETO_ONDA_ILEGIVEL) em vez de recomecar do zero", () => {
     assert.ok(erro && /TETO_ONDA_ILEGIVEL/.test(String(erro.message)), String(erro && erro.message));
+  });
+
+  console.log("\n══ D8 · D41: googlevideo.com paga no orcamento do youtube.com ══");
+  const LIVRO41 = join(RAIZ, "TETO-ONDA-D41.json");
+  process.env.SINTONIA_TETO_ONDA = LIVRO41;
+  writeFileSync(LIVRO41, JSON.stringify({ PEDIDOS_POR_DOMINIO: { "youtube.com": 5 } }));
+  const gvCheio = await corrida(GV);
+  writeFileSync(LIVRO41, JSON.stringify({ PEDIDOS_POR_DOMINIO: { "youtube.com": 3 } }));
+  const gvDois = await corrida(GV);
+  const livro41 = JSON.parse(readFileSync(LIVRO41, "utf8")).PEDIDOS_POR_DOMINIO;
+  delete process.env.SINTONIA_TETO_ONDA;
+  const aGV = feitos => feitos.filter(x => x.host === GV).length;
+  t("D8a: youtube.com esgotado na onda -> o pedido ao googlevideo.com NAO sai (0 no servidor), motivo TETO_DOMINIO", () => {
+    assert.equal(aGV(gvCheio.feitos), 0, JSON.stringify(gvCheio.feitos));
+    const m = gvCheio.resumo.CORTESIA.RECUSAS.map(x => x.MOTIVO);
+    assert.ok(m.length > 0 && m.every(x => x === "TETO_DOMINIO"), JSON.stringify(m));
+  });
+  t("D8b: com 3 gastos no youtube.com, o googlevideo.com so leva 2 - e o livro soma-os em youtube.com (sem chave googlevideo.com)", () => {
+    assert.equal(aGV(gvDois.feitos), 2, JSON.stringify(gvDois.feitos));
+    assert.equal(livro41["youtube.com"], 5, JSON.stringify(livro41));
+    assert.ok(!("googlevideo.com" in livro41), JSON.stringify(livro41));
+  });
+  t("D8c: orcamentoDe junta so o que a D41 nomeou", () => {
+    assert.equal(M.orcamentoDe(GV), "youtube.com"); assert.equal(M.orcamentoDe("www.youtube.com"), "youtube.com");
+    assert.equal(M.orcamentoDe("media.licdn.com"), "licdn.com"); assert.equal(M.orcamentoDe("www.linkedin.com"), "linkedin.com");
   });
 
   console.log("\n══ D7 · o dominio registavel (sem rede) ══");

@@ -834,6 +834,14 @@ def colher(fase, *, run_id, fonte, banco=None, **extra):
              'QUANTOS': len(objetos)}]
     else:
         colheita = [unidade(o, run_id=run_id, fonte=fonte) for o in objetos]
+        # FREIO-SOCIAL (dedup): o MESMO video partilhado por duas contas. Nas fases
+        # sociais, cada unidade diz a identidade do video (ou NAO SEI, que nunca funde)
+        # e, se o video ja foi visto noutra publicacao, de quem e (`MESMO_VIDEO_QUE`).
+        # Nada se apaga: a partilha e um facto.
+        if fase in FASES_CONTADAS:
+            import identidade_do_video as IV                     # noqa: PLC0415
+            IV.marcar(colheita, objetos, registo=os.path.join(
+                os.environ.get('ITALY_OPS_ROOT') or RAIZ, IV.REGISTO))
         suporte = suporte_do_trace(trace)
         if not colheita:
             porque_zero = ('a corrida correu e não observou nada. ZERO LEGÍTIMO '
@@ -918,11 +926,42 @@ def linha_da_corrida(*, run_id, fase, fonte, inicio, abortada=None):
     else:
         linha['CORTESIA'] = {'PEDIDOS_POR_HOST': por_host,
                              'CONTADO_POR': 'scrap_http._ContaCadaPedido + yt-dlp --print-traffic'}
+    # FREIO-SOCIAL: o que o freio recusou (nao saiu) fica escrito na linha, com o porque.
+    import teto_da_onda as teto                                  # noqa: PLC0415
+    recusadas = teto.recusas()
+    if recusadas:
+        linha['CORTESIA']['RECUSAS'] = recusadas
+        linha['CORTESIA']['TETO_POR_DOMINIO'] = teto.teto()
     if abortada is not None:
         # Presente SO quando a corrida rebentou: a linha existe, mas nao e de sucesso.
         linha['ABORTED'] = {'SOURCE_ID': fonte or rc.NAO_SEI,
                             'ERRO': ('%s: %s' % (type(abortada).__name__, abortada))[:500]}
     return linha
+
+
+def _livro_da_corrida_se_faltar(fase, run_id):
+    """FREIO-SOCIAL: numa fase social SEM livro da onda, a corrida ganha um livro PROPRIO.
+
+    O freio (`teto_da_onda`) so trava com livro. A onda nomeia o dela; uma corrida social
+    pedida sozinha continua com o teto de 5 por dominio — no livro dela, que morre com ela.
+    As outras fases nao mudam. → o caminho do livro criado aqui, ou None."""
+    import re                                                    # noqa: PLC0415
+    import tempfile                                              # noqa: PLC0415
+    import teto_da_onda as teto                                  # noqa: PLC0415
+    if fase not in FASES_CONTADAS or teto.livro():
+        return None
+    d = tempfile.mkdtemp(prefix='teto-corrida-')
+    f = os.path.join(d, 'TETO-CORRIDA-%s.json' % re.sub(r'[^A-Za-z0-9_-]', '_', str(run_id)))
+    os.environ[teto.ENV_LIVRO] = f
+    return f
+
+
+def _largar_livro_proprio(f):
+    import shutil                                                # noqa: PLC0415
+    import teto_da_onda as teto                                  # noqa: PLC0415
+    if f and os.environ.get(teto.ENV_LIVRO) == f:
+        os.environ.pop(teto.ENV_LIVRO, None)
+        shutil.rmtree(os.path.dirname(f), True)
 
 
 def escrever_linha(linha, raiz=None):
@@ -993,8 +1032,11 @@ def main(argv=None):
     # Os nomes publicos viram os nomes que a rota recebe, pela tabela da fase.
     # A contagem comeca do zero AQUI: e o que esta corrida pediu, e so isso.
     import scrap_http as http                                    # noqa: PLC0415
+    import teto_da_onda as teto                                  # noqa: PLC0415
     http.zerar_contagem()
+    teto.zerar()
     inicio = _agora()
+    livro_proprio = _livro_da_corrida_se_faltar(fase, run_id)
     try:
         envelope = colher(fase, run_id=run_id, fonte=fonte,
                           **{aceites[k]: v for k, v in nomeados.items()})
@@ -1003,9 +1045,11 @@ def main(argv=None):
         # continua a dizer que falhou.
         escrever_linha(linha_da_corrida(run_id=run_id, fase=fase, fonte=fonte,
                                         inicio=inicio, abortada=e))
+        _largar_livro_proprio(livro_proprio)
         raise
     escrever_linha(linha_da_corrida(run_id=run_id, fase=fase, fonte=fonte,
                                     inicio=inicio))
+    _largar_livro_proprio(livro_proprio)
     caminho = escrever(envelope)
     mal = rc.conferir(envelope, RAIZ)
 
