@@ -148,7 +148,12 @@ AUSENCIA_NAO_SE_APLICA = art.NAO_SE_APLICA
 #     2026-09-24): cultura nomeada E dois momentos. Antes todo o par (item, T1) saia
 #     `NAO_SE_APLICA`. T1 e transversal: nenhum outro universo muda de veredito
 #     (medido em `scripts/regua_t1/`). O que a v8 deu a T1 pode ser reaberto pela versao.
-VERSAO_DA_REGRA = "9"
+# 10 · a pergunta `materia` ganha a V2 do detector (C2-JUIZ, D79, 2026-09-26), e ela
+#     APERTA: uma pagina que o formato da por materia mas traz >= 6 LIGACOES «leggi
+#     tutto / leggi di piu / continua a leggere» e lista, nao materia (`retrato_html`
+#     REGRA_V2). Nenhum universo muda de regua. O que a v9 admitiu de HTML pode ser
+#     reaberto pela versao (na 3.a onda: `derived:1022`, a lista ENEA).
+VERSAO_DA_REGRA = "10"
 
 
 @dataclass
@@ -600,13 +605,13 @@ def _e_materia(item: dict) -> tuple:
     rh = _da_curadoria("retrato_html")
     # Uma so trava: `regua_a_mandar`. O contrato vai sempre (o veredito e que o ignora
     # sem a regua) — duas travas para a mesma coisa escondiam-se uma a outra no ataque.
-    k = rh.veredito(retrato, url=url, contrato=_contrato_da_fonte(fonte),
-                    regua_a_mandar=regua)
+    regra, k = rh.regra_e_veredito(retrato, url=url, contrato=_contrato_da_fonte(fonte),
+                                   regua_a_mandar=regua)
     ev["url_da_pagina"] = url
     ev["regua_a_mandar"] = regua
     julgado = retrato
     if k != retrato.get("CAPA_OU_MATERIA"):
-        ev["v1"] = {"REGRA": rh.REGRA_V1, "DETECTOR": retrato.get("CAPA_OU_MATERIA"), "VEREDITO": k}
+        ev["v1"] = {"REGRA": regra, "DETECTOR": retrato.get("CAPA_OU_MATERIA"), "VEREDITO": k}
         julgado = dict(retrato, CAPA_OU_MATERIA=k)
     pns = _politica_nao_sei()
     d = pns.decidir(julgado, pns.QUARENTENA)
@@ -618,6 +623,12 @@ def _e_materia(item: dict) -> tuple:
         # a fonte e a observacao-pai (os bytes vivem no armazem pelo raw_asset).
         ev["fonte"] = fonte
         ev["raw_asset_id"] = item.get("raw_asset_id")
+        if ev.get("v1") and regra == rh.REGRA_V2:
+            # C2-JUIZ (2026-09-26): a lista que o formato deu por materia. Barrada como a
+            # V1 (e regra provada, nao duvida do detector): fica no livro e volta no replay.
+            return NAO, ("V2: pagina de lista (%d chamadas «leia mais») que o formato deu por "
+                         "materia — e capa, nao materia; fica no livro e volta no replay"
+                         % (retrato.get("READ_MORE_LINKS") or 0)), ev
         if ev.get("v1"):
             return NAO, ("V1: a pagina e o proprio INDEX_URL do contrato, e a fonte passa os 4 "
                          "passos — e capa, nao materia; fica no livro e volta no replay"), ev
