@@ -376,8 +376,10 @@ def apresentacoes(texto: str, fs: list | None = None) -> list:
                     continue
             ocupado.append((ini_nome, ini_nome + len(nome)))
             i, fa, fb = _frase_de(m.start(), fs)
-            # o trecho da apresentacao e a frase onde ela esta (e a seguinte, se a frase for so o nome)
-            fb2 = fs[i + 1][1] if (i is not None and i + 1 < len(fs) and fb - fa < 40) else fb
+            # o trecho da apresentacao e SO a frase onde ela esta. Medido (caso sintetico «I'm Amber Bell. I am
+            # here with Rory…, technical lead with Bayer»): emendar a frase seguinte quando a primeira era curta
+            # colava o papel de OUTRO na apresentadora e escondia o relato que vinha a seguir.
+            fb2 = fb
             # o papel le-se no que vem DEPOIS do nome, e perto: quem apresenta outro costuma apresentar varios
             # na mesma frase, e o papel do seguinte nao pode colar no anterior
             alcance = ALCANCE_AUTO if especie == AUTO else ALCANCE_TERCEIRO
@@ -637,15 +639,16 @@ def _tempo_do_segmento(doc: dict, pos: int):
     return NAO_SEI
 
 
-def _atribuir(pos: int, texto: str, autos: list):
-    """O ultimo falante que se APRESENTOU A SI PROPRIO antes de `pos`, se nada o impede."""
+def _atribuir(pos: int, texto: str, autos: list, fim: int | None = None):
+    """O ultimo falante que se APRESENTOU A SI PROPRIO antes de `pos`, se nada o impede. A troca de voz
+    conta ate ao FIM da frase citada: um «>>» a abrir (ou no meio de) a citacao tambem e outra voz."""
     antes = [a for a in autos if a['POS'] <= pos]
     if not antes:
         return None, 'NINGUEM_SE_APRESENTOU_ANTES'
     a = antes[-1]
     if pos - a['POS'] > JANELA_DE_ATRIBUICAO:
         return None, 'APRESENTACAO_LONGE_DEMAIS (%d > %d caracteres)' % (pos - a['POS'], JANELA_DE_ATRIBUICAO)
-    if '>>' in texto[a['FRASE'][1]:pos]:
+    if '>>' in texto[a['FRASE'][1]:(pos if fim is None else fim)]:
         return None, 'TROCA_DE_VOZ_MARCADA («>>») entre a apresentacao e a frase'
     return a, 'PRESUMIDA_ULTIMA_AUTO_APRESENTACAO_SEM_TROCA_MARCADA'
 
@@ -690,7 +693,7 @@ def extrair(doc: dict) -> dict:
             continue
         fim = min(b, a + MAX_CITACAO)
         especie = _especie_da_frase(n)
-        ap, porque_atr = _atribuir(a, texto, autos)
+        ap, porque_atr = _atribuir(a, texto, autos, b)
         if ap is not None:
             f = fal[_speaker_id(ap['NOME'])]
             sid, kind = f['SPEAKER_ID'], PESSOA
