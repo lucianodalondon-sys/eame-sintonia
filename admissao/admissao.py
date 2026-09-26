@@ -617,6 +617,10 @@ def _e_materia(item: dict) -> tuple:
     d = pns.decidir(julgado, pns.QUARENTENA)
     ev["politica"] = "QUARENTENA (D11)"
     if d["ACCAO"] == "ENTRA":
+        if ev.get("v1") and regra == rh.REGRA_V3:
+            # ACERVO-PARA-SALA-3: o endereco e `youtube.com/watch?v=` — a pagina de UM video.
+            return SIM, ("V3: a pagina e de UM video (youtube.com/watch?v=) — materia, nunca "
+                         "lista; o texto segue para a regua do universo"), ev
         return SIM, "o detector diz materia", ev
     if d["ACCAO"] == "REPROVA":
         # A capa barrada fica no livro com o que e preciso para voltar a porta:
