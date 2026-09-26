@@ -1,0 +1,168 @@
+{
+ "SHA256_ANTES": "645ffeda41778b8504172de5a3ff7d82f3c3bb54c114d04f870c4e4232c9af3d",
+ "LIMPO": {
+  "RC": 0,
+  "FALHAS": []
+ },
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01 data de publicacao aceite como tempo do facto",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_data_igual_a_publicacao_nao_e_tempo_do_facto"
+   ]
+  },
+  {
+   "MUTANTE": "M02 lugar da pessoa copiado para o lugar do facto",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_atribuicao_provada",
+    "test_citacao_reescrita",
+    "test_influenciador_com_papel",
+    "test_instituicao_com_speaker",
+    "test_interpretacao_sem_assinatura",
+    "test_lugar_da_pessoa_no_lugar_do_facto",
+    "test_lugar_sem_trecho",
+    "test_papel_sem_prova",
+    "test_publicacao_no_tempo_do_facto",
+    "test_publisher_como_falante",
+    "test_relato_de_2024_tem_tempo_e_nao_tem_lugar",
+    "test_sem_ressalva_de_incidencia",
+    "test_t8_sem_agricultor",
+    "test_toda_voz_cumpre_o_contrato",
+    "test_viticoltore_em_toscana_quest_anno"
+   ]
+  },
+  {
+   "MUTANTE": "M03 apresentado por outro passa a ser quem fala",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_frase_curta_de_apresentacao_nao_cola_o_papel_do_seguinte"
+   ]
+  },
+  {
+   "MUTANTE": "M04 troca de voz «>>» ignorada",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_troca_de_voz_no_inicio_da_citacao"
+   ]
+  },
+  {
+   "MUTANTE": "M05 T8 para qualquer papel",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_agronomo_com_consorzio_e_relato_em_ravenna",
+    "test_influenciador_sem_papel_profissional",
+    "test_papel_organizacao_e_tipo",
+    "test_toda_voz_cumpre_o_contrato"
+   ]
+  },
+  {
+   "MUTANTE": "M06 sinal de criador apaga o papel profissional",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_agronoma_que_tambem_pede_inscricao_continua_agronoma"
+   ]
+  },
+  {
+   "MUTANTE": "M07 citacao normalizada (deixa de ser o texto exacto)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_citacao_e_o_texto_exacto_na_posicao",
+    "test_toda_voz_cumpre_o_contrato"
+   ]
+  },
+  {
+   "MUTANTE": "M08 traducao automatica nao detectada",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_titulo_frances_legenda_inglesa_e_provavel_traducao"
+   ]
+  },
+  {
+   "MUTANTE": "M09 expressao relativa convertida pela data de publicacao",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_publicacao_nunca_vira_tempo_do_facto",
+    "test_toda_voz_cumpre_o_contrato",
+    "test_viticoltore_em_toscana_quest_anno"
+   ]
+  },
+  {
+   "MUTANTE": "M10 legenda sem pontuacao volta a ser uma frase so",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_citacao_e_pedaco_curto_marcado",
+    "test_maiuscula_aleatoria_nao_vira_lugar"
+   ]
+  },
+  {
+   "MUTANTE": "M11 maiuscula aleatoria do pedaco volta a ser lugar",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_maiuscula_aleatoria_nao_vira_lugar"
+   ]
+  },
+  {
+   "MUTANTE": "M12 canal que publica vira pessoa",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_reel_da_syngenta_e_voz_da_instituicao_com_audio_original",
+    "test_toda_voz_cumpre_o_contrato"
+   ]
+  },
+  {
+   "MUTANTE": "M13 papel declarado vira expertise no tema",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_papel_declarado_nao_prova_expertise_no_tema"
+   ]
+  },
+  {
+   "MUTANTE": "M14 validador deixa de conferir a citacao",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_citacao_reescrita"
+   ]
+  },
+  {
+   "MUTANTE": "M15 validador deixa de conferir T8",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_t8_sem_agricultor"
+   ]
+  },
+  {
+   "MUTANTE": "M16 frase curta de apresentacao volta a emendar a seguinte",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_agronoma_que_tambem_pede_inscricao_continua_agronoma",
+    "test_data_escrita_diferente_da_publicacao_e_tempo_do_facto",
+    "test_data_igual_a_publicacao_nao_e_tempo_do_facto",
+    "test_frase_curta_de_apresentacao_nao_cola_o_papel_do_seguinte",
+    "test_mesmo_nome_mesmo_speaker_id",
+    "test_sem_source_id_fica_nao_sei_e_nao_e_inventado",
+    "test_troca_de_voz_no_inicio_da_citacao"
+   ]
+  },
+  {
+   "MUTANTE": "M17 segundo vocabulario de cultura (dono duplo)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_vocabulario_de_cultura_e_problema_tem_um_dono"
+   ]
+  },
+  {
+   "MUTANTE": "M18 «Palavra, …» volta a ser apresentacao",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_palavra_de_ligacao_com_virgula_nao_vira_pessoa",
+    "test_quem_publica_nunca_e_o_falante",
+    "test_toda_voz_cumpre_o_contrato"
+   ]
+  }
+ ],
+ "SHA256_DEPOIS": "645ffeda41778b8504172de5a3ff7d82f3c3bb54c114d04f870c4e4232c9af3d",
+ "REPOSTO_IGUAL": true,
+ "PLACAR": "18/18 mortos"
+}

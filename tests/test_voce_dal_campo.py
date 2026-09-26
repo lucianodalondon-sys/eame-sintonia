@@ -118,10 +118,12 @@ class FixtureAgricultoraDeHautFrance(unittest.TestCase):
         self.assertIn('Haut-France', v['SPEAKER_PLACE'])
         self.assertEqual(v['FACT_LOCATION'], NS)          # lugar da pessoa != lugar do facto
 
-    def test_titulo_frances_legenda_inglesa_e_provavel_traducao(self):
-        self.assertEqual(self.d['QUOTE_ORIGINALITY'], vc.ORIG_TRADUCAO)
+    def test_titulo_frances_legenda_inglesa_e_suspeita_e_nao_carimbo(self):
+        # C6: quem infere pode suspeitar, nao pode carimbar. A especie e de regras/proveniencia.py.
         for v in self.r['VOZES']:
-            self.assertEqual(v['QUOTE_ORIGINALITY'], vc.ORIG_TRADUCAO)
+            self.assertEqual(v['QUOTE_TRANSLATION_SUSPECT'], vc.SUSPEITA_SIM)
+            self.assertEqual(v['TEXT_KIND'], vc.PV.NAO_SEI)
+            self.assertEqual(v['QUOTE_IS_SPEAKERS_WORDS'], 'NAO_PROVADO')
 
 
 class FixturePesquisadorDeWisconsin(unittest.TestCase):
@@ -186,7 +188,8 @@ class FixtureSemFalanteEInstituicao(unittest.TestCase):
             self.assertEqual(v['SPEAKER_KIND'], vc.INSTITUICAO)
             self.assertEqual(v['PUBLISHER_KIND'], 'EMPRESA')
             self.assertEqual(v['SPEAKER_ID'], NS)
-            self.assertEqual(v['QUOTE_ORIGINALITY'], vc.ORIG_AUDIO)
+            self.assertEqual((v['TEXT_KIND'], v['TEXT_KIND_BASIS']), (vc.PV.ASR_LOCAL, vc.PV.PRODUCED_BY_LOCAL_ASR))
+            self.assertEqual(v['QUOTE_IS_SPEAKERS_WORDS'], 'SIM')
             self.assertIsInstance(v['QUOTE_T_S'], (int, float))    # o segundo do audio, dos segmentos
 
     def test_canal_que_pede_inscricao_e_criador(self):
@@ -204,7 +207,10 @@ class FixtureLegendaSemPontuacao(unittest.TestCase):
         for v in r['VOZES']:
             self.assertEqual(v['QUOTE_BOUNDARY'], vc.PEDACO)
             self.assertLessEqual(len(v['QUOTE_ORIGINAL'].split()), vc.PALAVRAS_POR_PEDACO)
-            self.assertEqual(v['QUOTE_ORIGINALITY'], vc.ORIG_DATASET)
+            # o nosso ficheiro chama ao campo TRANSCRIPT_ORIGINAL; a rota nao declarou a lingua. Rotulo != especie.
+            self.assertTrue(v['DATASET_FIELD_LABEL'].startswith('TRANSCRIPT_ORIGINAL'))
+            self.assertEqual(v['TEXT_KIND'], vc.PV.NAO_SEI)
+            self.assertEqual(v['QUOTE_IS_SPEAKERS_WORDS'], 'NAO_PROVADO')
 
     def test_palavra_de_ligacao_com_virgula_nao_vira_pessoa(self):
         # medido na 1.a corrida: «Bueno, …», «Entonces, …», «However, …» saiam como 187 falantes falsos
@@ -343,6 +349,12 @@ class SinteticoOValidadorApanha(unittest.TestCase):
 
     def test_publisher_como_falante(self):
         self.reprova('PUBLISHER_VIROU_FALANTE', SPEAKER_NAME=self.v['PUBLISHER'])
+
+    def test_fala_da_pessoa_sem_especie(self):
+        self.reprova('FALA_DA_PESSOA_SEM_ESPECIE', QUOTE_IS_SPEAKERS_WORDS='SIM')
+
+    def test_especie_inventada(self):
+        self.reprova('ESPECIE_DO_TEXTO_FORA_DO_DONO', TEXT_KIND='PROVAVEL_TRADUCAO')
 
     def test_influenciador_com_papel(self):
         self.reprova('INFLUENCIADOR_COM_PAPEL', ROLE=vc.INFLUENCIADOR, UNIVERSO_DO_PAPEL='NAO_T8')

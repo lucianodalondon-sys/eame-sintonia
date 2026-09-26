@@ -30,8 +30,15 @@ MUTANTES = [
      "        if f['ROLES_DECLARED']:\n", "        if f['ROLES_DECLARED'] and not criador:\n"),
     ('M07 citacao normalizada (deixa de ser o texto exacto)',
      "'QUOTE_ORIGINAL': texto[a:fim],", "'QUOTE_ORIGINAL': ' '.join(texto[a:fim].split()),"),
-    ('M08 traducao automatica nao detectada',
-     "        originalidade = ORIG_TRADUCAO\n", "        originalidade = NAO_SEI\n"),
+    ('M08 suspeita de traducao nao detectada',
+     "        suspeita = SUSPEITA_SIM\n", "        suspeita = SUSPEITA_NAO\n"),
+    ('M19 rotulo do dataset carimbado como especie original',
+     "        especie, especie_base = PV.NAO_SEI, PV.NOT_DECLARED\n",
+     "        especie, especie_base = (PV.NATIVE_CAPTION_ORIGINAL, PV.DECLARED_BY_PROVIDER) if rotulo_do_dataset "
+     "else (PV.NAO_SEI, PV.NOT_DECLARED)\n"),
+    ('M20 suspeita promovida a fala da pessoa',
+     "'QUOTE_IS_SPEAKERS_WORDS': 'SIM' if PV.serve_para_original(especie) else 'NAO_PROVADO',",
+     "'QUOTE_IS_SPEAKERS_WORDS': 'SIM' if PV.serve_para_original(especie) or lt == ltit else 'NAO_PROVADO',"),
     ('M09 expressao relativa convertida pela data de publicacao',
      "        return {'FACT_TIME': NAO_SEI, 'FACT_TIME_PRECISION': 'NOT_KNOWN',\n"
      "                'FACT_TIME_BASIS': 'RELATIVA_SEM_DATA_DA_FALA",
