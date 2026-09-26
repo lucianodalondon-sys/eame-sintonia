@@ -447,6 +447,9 @@ ANCORAS_DE_TEMPO_DO_FATO = (
     r'raccolt[oa]', r'osservat[oaie]', r'rilevat[oaie]', r'constatat[oaie]',
     r'riscontrat[oaie]', r'colpit[oaie]', r'contaminaz', r'superament',
     r'infezion', r'attacch[io]', r'sintomi', r'annata', r'coltura',
+)
+
+ANCORAS_DE_ACONTECIMENTO_DO_TEMPO = (
     # EXTRATOR-EVENTO-V2 (26/09): o ACONTECIMENTO do tempo e do fogo tambem e facto do campo.
     # Medido na RENDIMENTO-POR-FONTE (30 lidos a mao): «Venti forti dell'11 maggio 2026 in provincia di
     # Verona» (IT-T12-024) e «Incendio … nella prima mattinata del 7 settembre 2026» (IT-T2-051) tinham a
@@ -458,6 +461,11 @@ ANCORAS_DE_TEMPO_DO_FATO = (
     r'mareggiat', r'maltempo', r'frane?\b', r'ondat[ae]\s+di\s+calore', r'calamit',
     r'event[oi]\s+(?:atmosferic|meteorologic|meteo\b|estrem|calamitos|alluvional|avvers)',
 )
+# Estas ancoras sao PALAVRAS DE ACONTECIMENTO, nao verbos de observacao: «gli eventi meteorologici
+# registrati» numa frase sobre uma ATUALIZACAO de dados («Il 18 settembre effettuato un nuovo intervento sui
+# dati, a seguito degli eventi meteorologici», IT-T2-051) punha a data da atualizacao como data do temporal.
+# Por isso `leis/fato_do_texto.py` so as aceita com a data PERTO delas (ver DISTANCIA_DO_ACONTECIMENTO).
+ANCORAS_DE_TEMPO_DO_FATO = ANCORAS_DE_TEMPO_DO_FATO + ANCORAS_DE_ACONTECIMENTO_DO_TEMPO
 
 
 def _e_campanha(valor):

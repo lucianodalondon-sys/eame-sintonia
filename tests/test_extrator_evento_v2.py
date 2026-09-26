@@ -72,6 +72,13 @@ class OsAcontecimentosDoTempoEDoFogo(unittest.TestCase):
         t = "L'evento atmosferico del 2 giugno 2026 ha danneggiato le coltivazioni di ortaggi della piana di Fondi."
         self.assertEqual(("2 giugno 2026", "CAMPO"), tempo(t))
 
+    def test_real_a_data_da_atualizacao_nao_e_a_do_temporal(self):
+        """IT-T2-051 (medido nos 1.252): a data esta a 60+ letras de «eventi meteorologici»."""
+        t = ("Il 18 settembre effettuato un nuovo intervento sui dati, a seguito degli eventi meteorologici "
+             "registrati nella regione.")
+        self.assertEqual(FT.NAO_SEI, tempo(t, "2026-09-20", "meta")[0])
+        self.assertIn("DATA_LONGE_DO_ACONTECIMENTO", FT.campos_do_fato(t, "2026-09-20", "meta")["fact_time_basis"])
+
     def test_falsos_amigos_nao_sao_acontecimento(self):
         # «gelato» (sorvete) nao e «gelata»; «vento» sozinho nao e acontecimento
         self.assertNotEqual("CAMPO", tempo("Il gelato artigianale del 4 agosto 2026 e stato venduto in tutte le "
@@ -92,6 +99,19 @@ class OFuturoNaoEFactoOcorrido(unittest.TestCase):
         # sem publicacao provada nao ha conta de datas: e a MARCA de previsao na frase que decide
         t = ("Allerta meteo: previste per il 28 settembre 2026 raffiche di vento e grandinate su tutta la regione "
              "e nelle campagne della provincia.")
+        self.assertEqual(FT.NAO_SEI, tempo(t)[0])
+
+    def test_real_a_marca_de_futuro_tem_de_estar_perto_da_data(self):
+        """IT-T10-018 (medido nos 1.252): a raccolta 2026 JA comecou; o raccolto 2027 e futuro."""
+        t = ("La raccolta 2026 negli Stati Uniti è appena iniziata e, le previsioni Usda sono di una produzione a "
+             "2,4 milioni di tonnellate. Dall'Argentina i problemi produttivi di quest'anno potrebbero mantenere "
+             "l'offerta ridotta fino all'arrivo del raccolto 2027.")
+        self.assertEqual(("raccolta 2026", "CAMPO"), tempo(t))
+
+    def test_real_possibilidade_nao_e_facto(self):
+        """IT-T10-021 (medido nos 1.252): «ancora possibili gelate tardive, soprattutto ad aprile»."""
+        t = ("Gemme e fiori sono in una fase delicata proprio quando sono ancora possibili gelate tardive, "
+             "soprattutto ad aprile nelle zone di pianura.")
         self.assertEqual(FT.NAO_SEI, tempo(t)[0])
 
     def test_data_depois_da_publicacao_provada_nao_e_facto(self):

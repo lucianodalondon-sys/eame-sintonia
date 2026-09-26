@@ -318,13 +318,51 @@ _RE_INSTITUCIONAL = re.compile(
 # ── o que AINDA NAO ACONTECEU nao e facto ocorrido (EXTRATOR-EVENTO-V2, 26/09) ──
 # Com o tempo e o fogo na lista das ancoras, uma frase de ALERTA passa a ter ancora e data: «Allerta meteo:
 # previste per il 28 settembre raffiche di vento». Isso e previsao, nao acontecimento. Duas guardas:
-#   1. a frase tem marca de previsao/futuro;
+#   1. ha marca de previsao/futuro/possibilidade PERTO da data (ate JANELA_ANTES letras antes, JANELA_DEPOIS depois);
 #   2. a data resolve para DEPOIS da publicacao PROVADA — o texto nao pode contar o que ainda nao aconteceu.
+# PERTO, e nao na frase inteira — medido nos 1.252 (IT-T10-018): «La raccolta 2026 … è appena iniziata e, le
+# previsioni Usda sono di una produzione…» e facto; a marca da frase inteira apagava-o e deixava passar
+# «… potrebbero mantenere l'offerta ridotta fino all'arrivo del raccolto 2027».
 _RE_FUTURO = re.compile(
     r"(?<![0-9a-zà-ÿ])(?:allert[ae]|allarm[ei]\s+meteo|previst[oaie]|prevision[ei]|si\s+prevede|sono\s+attes[ie]|"
     r"(?:è|e['’])\s+attes[oa]|attes[oaie]\s+(?:per|nel|nella|tra)|domani|dopodomani|"
-    r"nei\s+prossimi\s+giorni|nelle\s+prossime\s+(?:ore|settimane)|prossim[oaie]\s+(?:giorn|settiman|ore))(?![0-9a-zà-ÿ])",
+    r"nei\s+prossimi\s+giorni|nelle\s+prossime\s+(?:ore|settimane)|prossim[oaie]\s+(?:giorn|settiman|ore)|"
+    r"possibil[ei]|potrebber?o|potr[àa]|rischio\s+di|fino\s+all['’]arrivo)(?![0-9a-zà-ÿ])",
     re.I)
+# medido: «possibili gelate tardive, soprattutto ad aprile» (marca 41 letras ANTES) e futuro;
+# «La raccolta 2026 … è appena iniziata e, le previsioni» (marca 44 letras DEPOIS) e facto.
+JANELA_ANTES, JANELA_DEPOIS = 60, 30
+
+
+def _futuro_perto(frase: str, valor: str) -> bool:
+    b, v = FL._baixo(frase), FL._baixo(valor)
+    i = b.find(v)
+    if i < 0:
+        return bool(_RE_FUTURO.search(frase))
+    return bool(_RE_FUTURO.search(b[max(0, i - JANELA_ANTES):i + len(v) + JANELA_DEPOIS]))
+
+
+# ── a data PRESA ao acontecimento do tempo e do fogo ─────────────────────────
+# As ancoras novas (`FL.ANCORAS_DE_ACONTECIMENTO_DO_TEMPO`) sao nomes de acontecimento: a data so e dele se
+# estiver PERTO. Medido nos 1.252 (IT-T2-051): «Il 18 settembre effettuato un nuovo intervento sui dati, a
+# seguito degli eventi meteorologici registrati» — a data e da atualizacao, a 60+ letras do temporal. Com uma
+# ancora ANTIGA na frase (observado, rilevato, colpito…) vale a regra de sempre (a frase inteira).
+DISTANCIA_DO_ACONTECIMENTO = 50
+_RE_ANCORAS_ANTIGAS = re.compile(r"(?<![0-9a-z])(?:%s)" % "|".join(
+    a for a in FL.ANCORAS_DE_TEMPO_DO_FATO if a not in FL.ANCORAS_DE_ACONTECIMENTO_DO_TEMPO))
+_RE_ACONTECIMENTO_DO_TEMPO = re.compile(r"(?<![0-9a-z])(?:%s)" % "|".join(FL.ANCORAS_DE_ACONTECIMENTO_DO_TEMPO))
+
+
+def _longe_do_acontecimento(frase: str, valor: str) -> bool:
+    b, v = FL._baixo(frase), FL._baixo(valor)
+    if _RE_ANCORAS_ANTIGAS.search(b):
+        return False
+    i = b.find(v)
+    if i < 0:
+        return False
+    fim = i + len(v)
+    ms = list(_RE_ACONTECIMENTO_DO_TEMPO.finditer(b))
+    return bool(ms) and all(max(m.start() - fim, i - m.end(), 0) > DISTANCIA_DO_ACONTECIMENTO for m in ms)
 
 
 def _depois_da_publicacao(valor: str, pub: date | None) -> bool:
@@ -369,8 +407,9 @@ def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | Non
             conselhos.append(pedaco)
         motivo = ("INSTITUCIONAL_NAO_FATO" if _RE_INSTITUCIONAL.search(ev)
                   else "RECOMENDACAO_NAO_FATO" if e_conselho
-                  else "PREVISAO_NAO_E_FATO" if _RE_FUTURO.search(ev) or _depois_da_publicacao(v, pub)
+                  else "PREVISAO_NAO_E_FATO" if _futuro_perto(ev, v) or _depois_da_publicacao(v, pub)
                   else "DATA_DE_ATO_NAO_E_FATO" if _data_de_ato(ev, v)
+                  else "DATA_LONGE_DO_ACONTECIMENTO" if _longe_do_acontecimento(ev, v)
                   else None if _presa_ao_campo(ev) else "ANCORA_DENTRO_DE_OUTRA_PALAVRA")
         if not motivo:
             return r
@@ -690,7 +729,7 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
         else:
             x["KIND"] = CAMPO if _relativa_presa_ao_campo(frase) else EVENTO if _RE_EVENTO.search(frase) else None
             x["PORQUE"] = None if x["KIND"] else "a frase não fala de um acontecimento nem de um evento técnico"
-            if x["KIND"] == CAMPO and ((_regra(x["EXPRESSAO"])[1] or 0) > 0 or _RE_FUTURO.search(frase)):
+            if x["KIND"] == CAMPO and ((_regra(x["EXPRESSAO"])[1] or 0) > 0 or _futuro_perto(frase, x["EXPRESSAO"])):
                 # EXTRATOR-EVENTO-V2: «domani», «la prossima settimana», e qualquer relativa numa frase de
                 # previsao falam do que AINDA NAO aconteceu no campo — evidencia, nunca data do facto.
                 # O EVENTO tecnico anunciado continua EVENTO (D62), tambem quando fala de um acontecimento:

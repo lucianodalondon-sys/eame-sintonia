@@ -35,6 +35,13 @@ M = [
     ("M18 youtube sem descricao", "coleta/youtube_janela.py", "        fora['DESCRICAO'] = det['shortDescription'].strip()", "        pass"),
     ("M19 frase do youtube como descricao", "coleta/youtube_janela.py",
      "    if str(det.get('shortDescription') or '').strip():", "    if True:"),
+    ("M21 data longe do acontecimento aceite", FT,
+     '                  else "DATA_LONGE_DO_ACONTECIMENTO" if _longe_do_acontecimento(ev, v)\n', ""),
+    ("M22 marca de futuro na frase inteira", FT,
+     "    return bool(_RE_FUTURO.search(b[max(0, i - JANELA_ANTES):i + len(v) + JANELA_DEPOIS]))",
+     "    return bool(_RE_FUTURO.search(b))"),
+    ("M23 possibilidade nao e futuro", FT, r"    r" + '"' + r"possibil[ei]|potrebber?o|potr[àa]|rischio\s+di|fino\s+all['’]arrivo)(?![0-9a-zà-ÿ])" + '",',
+     r"    r" + '"' + r"potrebber?o|potr[àa]|rischio\s+di|fino\s+all['’]arrivo)(?![0-9a-zà-ÿ])" + '",'),
     ("M20 o carimbo da publicacao aceite", FL, "                if precisao == DAY and pub and _resolve_dia(valor, ano_pub) == pub:",
      "                if False:"),
 ]
