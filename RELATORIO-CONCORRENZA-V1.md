@@ -89,13 +89,25 @@ empresa, orgânico × pago, alegação virando facto, contagens somadas, «sem r
 registado», outro titular virando validado, data da comunicação virando data do facto, alcance virando
 lugar, acréscimo desligado, «pero» espanhol, lista de marcas divergente do pacote.
 
-## 4. System Map
+## 4. System Map (pela cadeia, com LOCK-PESADO 11:45–11:58)
 
-Ver secção 6 (preenchida depois da cadeia).
+- Declarado em `system-map/data/architecture.declared.json`: `coleta/comunicacao_concorrenza.py` na
+  peça `C-COLETA-PUBLICA`; `provas/mutacao_concorrenza.py` na peça `C-PROVA-COLETA`.
+  (1.ª tentativa pus a prova de mutação em `C-COLETA-PUBLICA` e o VALIDAR reprovou
+  `P2_PASTA_BATE_COM_MAPA` — pasta `provas/` ≠ peça em `coleta/`. Corrigido e regerado.)
+- `correr_a_cadeia.py REGERAR` → `CADEIA=OK` (20/20 passos); gerados commitados.
+- `correr_a_cadeia.py VALIDAR` → **`SYSTEM_MAP_CHECK=PASS`**.
+- `impressao_da_arvore.py --conferir-carimbo` → **`IMPRESSAO_DO_CARIMBO=IGUAL`**
+  (árvore `a020e94c…` sobre 3695 ficheiros-fonte).
+- O VALIDAR reescreveu 6 gerados só com HEAD/hora (ruído que se autorreferencia). Guardado antes
+  de descartar: `git stash` «nuvem-concorrenza-v1-ruido-do-validar-2f4339b6»
+  (`5218c0bcccf99c2651935205cdd20621fa490007`).
 
-## 5. SHA final
+## 5. Commits
 
-Ver secção 6.
+`e7a2d084` extrator + regra · `611dd54a` mutação · `1069a3f5` relatório · `14efda32` e `2f4339b6`
+mapa declarado · `b6629767` mapa regerado · o SHA final é o commit deste relatório (ver a
+mensagem de entrega; este ficheiro não pode conter o próprio SHA).
 
 ## EM PALAVRAS SIMPLES
 
