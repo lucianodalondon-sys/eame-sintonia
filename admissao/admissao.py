@@ -148,7 +148,12 @@ AUSENCIA_NAO_SE_APLICA = art.NAO_SE_APLICA
 #     2026-09-24): cultura nomeada E dois momentos. Antes todo o par (item, T1) saia
 #     `NAO_SE_APLICA`. T1 e transversal: nenhum outro universo muda de veredito
 #     (medido em `scripts/regua_t1/`). O que a v8 deu a T1 pode ser reaberto pela versao.
-VERSAO_DA_REGRA = "9"
+# 10 · a pergunta `materia` ganha a V2 do detector (C2-JUIZ, D79, 2026-09-26), e ela
+#     APERTA: uma pagina que o formato da por materia mas traz >= 6 LIGACOES «leggi
+#     tutto / leggi di piu / continua a leggere» e lista, nao materia (`retrato_html`
+#     REGRA_V2). Nenhum universo muda de regua. O que a v9 admitiu de HTML pode ser
+#     reaberto pela versao (na 3.a onda: `derived:1022`, a lista ENEA).
+VERSAO_DA_REGRA = "10"
 
 
 @dataclass

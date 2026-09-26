@@ -23,15 +23,26 @@ PY = "curadoria/retrato_html.py"
 JS = "coleta/retrato_html.mjs"
 ADM = "admissao/admissao.py"
 MUTANTES = [
-    ("M1_V2_DESLIGADA", PY, "V2_LIGADA = True", "V2_LIGADA = False"),
-    ("M2_LIMIAR_11", PY, "LEIA_MAIS_MINIMO = 6", "LEIA_MAIS_MINIMO = 11"),
-    ("M3_SEM_LEGGI_TUTTO", PY, 'r"\\b(leggi\\s+tutto|', 'r"\\b('),
-    ("M4_VEREDITO_IGNORA_V2", PY, '    if e_lista_com_leia_mais(retrato):\n        return REGRA_V2, "CAPA_PROVAVEL"\n', ""),
-    ("M5_V2_APERTA_TAMBEM_NAO_SEI", PY, 'r.get("CAPA_OU_MATERIA") == "MATERIA_PROVAVEL"\n            and ', ""),
-    ("M6_NODE_LIMIAR_11", JS, "export const LEIA_MAIS_MINIMO = 6;", "export const LEIA_MAIS_MINIMO = 11;"),
-    ("M7_NODE_FRONTEIRA_ASCII", JS, ")(?![\\p{L}\\p{N}_])/giu;", ")\\b/giu;"),
-    ("M8_NODE_VEREDITO_IGNORA_V2", JS, '  if (eListaComLeiaMais(retrato)) return [REGRA_V2, "CAPA_PROVAVEL"];\n', ""),
-    ("M9_ADMISSAO_V2_VIRA_V1", ADM, 'if ev.get("v1") and regra == rh.REGRA_V2:', "if False:"),
+    ("M01_V2_DESLIGADA", PY, "V2_LIGADA = True", "V2_LIGADA = False"),
+    ("M02_LIMIAR_11", PY, "LEIA_MAIS_MINIMO = 6", "LEIA_MAIS_MINIMO = 11"),
+    ("M03_SEM_LEGGI_TUTTO", PY, '_LEIA_MAIS = re.compile(r"(leggi\\s+tutto|', '_LEIA_MAIS = re.compile(r"('),
+    ("M04_VEREDITO_IGNORA_V2", PY, '    if e_lista_com_leia_mais(retrato):\n        return REGRA_V2, "CAPA_PROVAVEL"\n', ""),
+    ("M05_V2_APERTA_TAMBEM_NAO_SEI", PY, 'r.get("CAPA_OU_MATERIA") == "MATERIA_PROVAVEL"\n            and ', ""),
+    # D79: contar LIGACOES, nao ocorrencias
+    ("M06_PY_CONTA_A_FRASE_NO_HTML", PY, '"READ_MORE_LINKS": ligacoes_leia_mais(fonte),',
+     '"READ_MORE_LINKS": len(_LEIA_MAIS.findall(fonte)),'),
+    ("M07_PY_CONTEM_EM_VEZ_DE_COMECA", PY, "if any(_LEIA_MAIS.match(t) for t in [texto] + rotulos):",
+     "if any(_LEIA_MAIS.search(t) for t in [texto] + rotulos):"),
+    ("M08_PY_SEM_ROTULO", PY, "if any(_LEIA_MAIS.match(t) for t in [texto] + rotulos):",
+     "if any(_LEIA_MAIS.match(t) for t in [texto]):"),
+    ("M09_NODE_LIMIAR_11", JS, "export const LEIA_MAIS_MINIMO = 6;", "export const LEIA_MAIS_MINIMO = 11;"),
+    ("M10_NODE_FRONTEIRA_ASCII", JS, ")(?![\\p{L}\\p{N}_])/iu;", ")\\b/iu;"),
+    ("M11_NODE_VEREDITO_IGNORA_V2", JS, '  if (eListaComLeiaMais(retrato)) return [REGRA_V2, "CAPA_PROVAVEL"];\n', ""),
+    ("M12_NODE_CONTA_A_FRASE_NO_HTML", JS, "    READ_MORE_LINKS: ligacoesLeiaMais(fonte),",
+     "    READ_MORE_LINKS: (fonte.match(/(leggi\\s+tutto|leggi\\s+di\\s+pi[uù]|continua\\s+a\\s+leggere)/giu) || []).length,"),
+    ("M13_NODE_CONTEM_EM_VEZ_DE_COMECA", JS, "const LEIA_MAIS = /^(leggi", "const LEIA_MAIS = /(leggi"),
+    ("M14_NODE_SEM_ROTULO", JS, "if ([texto, ...rotulos].some(", "if ([texto].some("),
+    ("M15_ADMISSAO_V2_VIRA_V1", ADM, 'if ev.get("v1") and regra == rh.REGRA_V2:', "if False:"),
 ]
 
 
