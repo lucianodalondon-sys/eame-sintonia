@@ -113,6 +113,10 @@ def main():
         with open(caminho, 'rb') as f:
             original = f.read()
         texto = original.decode('utf-8')
+        # o checkout no Windows pode trazer CRLF: um alvo de duas linhas tem de
+        # casar nos dois fins de linha, senao o mutante fica por plantar
+        if '\r\n' in texto:
+            velho, novo = velho.replace('\n', '\r\n'), novo.replace('\n', '\r\n')
         n = texto.count(velho)
         if n != 1:
             print('%-48s ALVO_NAO_UNICO (%d) — mutante invalido' % (nome, n))
