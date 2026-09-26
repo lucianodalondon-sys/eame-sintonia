@@ -386,5 +386,91 @@ class ORodadaIncompletaNaoPerdeNinguem(Base):
         self.assertEqual(sorted(e["RODADAS"]["1"]["FEITAS"]), ["IT-T2-001", "IT-T2-002", "IT-T7-001", "IT-T8-001"])
 
 
+class AOrdemPeloRendimento(Base):
+    """Coordenador 26/09 11:45: T3/T10/T2 primeiro, T5 institucional por ultimo; teto e janela iguais."""
+
+    REND = {"FONTES": [{"SOURCE_ID": "IT-T10-018", "CLASSE": "A_DEU_SINAL"},
+                       {"SOURCE_ID": "IT-T5-050", "CLASSE": "D_ZERO_PARA_A_MAQUINA"},
+                       {"SOURCE_ID": "IT-T7-050", "CLASSE": "D_ZERO_PARA_A_MAQUINA"},
+                       {"SOURCE_ID": "IT-T5-186", "CLASSE": "C_DATADO_SEM_SINAL"},
+                       {"SOURCE_ID": "IT-T9-021", "CLASSE": "X_CONTESTADA"}]}
+
+    def test_classes(self):
+        pr = R.prioridade_do_rendimento(self.REND, ["IT-T10-018", "IT-T3-001", "IT-T2-009", "IT-T5-050",
+                                                    "IT-T5-186", "IT-T7-050", "IT-T9-021", "IT-T8-001"])
+        self.assertEqual({s: v["CLASSE_PRIORIDADE"] for s, v in pr.items()},
+                         {"IT-T10-018": 0, "IT-T3-001": 1, "IT-T2-009": 1, "IT-T5-050": 5, "IT-T5-186": 5,
+                          "IT-T7-050": 4, "IT-T9-021": 2, "IT-T8-001": 2})
+        self.assertTrue(pr["IT-T5-186"]["ATRASAR"] and not pr["IT-T10-018"]["ATRASAR"])
+
+    def _linhas(self, dados):
+        return [{"SOURCE_ID": s, "DOMINIO": d, "PEDIDOS_PREVISTOS": 5} for s, d in dados]
+
+    def test_t5_vai_para_as_ultimas_rodadas_e_o_resto_para_as_primeiras(self):
+        linhas = self._linhas([("IT-T5-001", "uni.it"), ("IT-T5-002", "uni.it"),
+                               ("IT-T8-001", "ed.it"), ("IT-T8-002", "ed.it"), ("IT-T8-003", "ed.it"),
+                               ("IT-T3-001", "ed.it"), ("IT-T10-001", "m.it")])
+        pr = R.prioridade_do_rendimento({"FONTES": []}, [l["SOURCE_ID"] for l in linhas])
+        rod = R.planear(linhas, {}, prioridade=pr)
+        onde = {f["SOURCE_ID"]: r["RODADA"] for r in rod for f in r["FONTES"]}
+        self.assertEqual(len(rod), 4)                               # ed.it tem 4 fontes de 5: o minimo
+        self.assertEqual(onde["IT-T3-001"], 1)                      # T3 passa a frente no seu dominio
+        self.assertEqual(onde["IT-T10-001"], 1)
+        self.assertEqual((onde["IT-T5-001"], onde["IT-T5-002"]), (3, 4))   # T5 no fim, pela ordem justa
+        self.assertNotIn("uni.it", rod[0]["PEDIDOS_PREVISTOS_POR_DOMINIO"])
+        for r in rod:
+            self.assertLessEqual(r["MAXIMO_POR_DOMINIO"], 5)
+        self.assertEqual(rod[0]["RENDIMENTO_PREVISTO"], 4.0)        # T3 (2) + T10 (2)
+
+    def test_dominio_visitado_hoje_entra_so_na_rodada_que_ja_abriu(self):
+        ini = datetime(2026, 9, 26, 22, 58, 33, tzinfo=timezone.utc)
+        linhas = self._linhas([("IT-T7-172", "georgofili.info"), ("IT-T10-001", "m.it")])
+        rod = R.planear(linhas, {}, prioridade={}, tocados={"IT-T7-172": {"georgofili.it"}},
+                        bloqueio={"georgofili.it": datetime(2026, 9, 27, 14, 22, 41, tzinfo=timezone.utc)},
+                        inicio=ini)
+        onde = {f["SOURCE_ID"]: r["RODADA"] for r in rod for f in r["FONTES"]}
+        self.assertEqual(onde, {"IT-T10-001": 1, "IT-T7-172": 2})   # abre 15 h depois do inicio da R1
+        self.assertEqual([f["DOMINIOS"] for f in rod[1]["FONTES"]], [["georgofili.info", "georgofili.it"]])
+
+    def test_sem_prioridade_o_plano_e_o_de_antes(self):
+        self.assertEqual(R.planear(LINHAS, MEDIDOS), self.rodadas)
+
+
+class AJanelaLeOsRecibosETodosOsDominios(Base):
+    T = datetime(2026, 9, 26, 14, 22, 41, tzinfo=timezone.utc)
+
+    def _recibo(self, nome="RECIBO-RONDA-1.json", pedidos=None):
+        p = self.tmp / "vozes"
+        p.mkdir(exist_ok=True)
+        (p / nome).write_text(json.dumps({"GERADO_EM": self.T.isoformat(),
+                                          "PEDIDOS_POR_DOMINIO": pedidos or {"georgofili.it": 2}}), encoding="utf-8")
+        return p
+
+    def test_recibo_de_outra_missao_conta(self):
+        p = self._recibo()
+        self.assertEqual(R.ultima_visita_por_dominio(self.tmp / "ondas", (p,))["georgofili.it"], self.T)
+
+    def test_plano_nao_e_recibo(self):
+        p = self._recibo(nome="PLANO.json")
+        self.assertEqual(R.ultima_visita_por_dominio(self.tmp / "ondas", (p,)), {})
+
+    def test_a_janela_ve_o_dominio_do_redireccionamento(self):
+        f = [{"SOURCE_ID": "IT-T7-172", "DOMINIO": "georgofili.info", "DOMINIOS": ["georgofili.info", "georgofili.it"]}]
+        fecha = R.janela_fechada(f, {"georgofili.it": self.T}, self.T + timedelta(hours=5))
+        self.assertEqual(list(fecha), ["georgofili.it"])
+
+    def test_rodada_para_pelo_recibo(self):
+        self._recibo(pedidos={"a.test": 2})
+        e = self.correr(OndaFalsa(self.ledger), rodada=1, janela_h=24, agora_utc=self.T + timedelta(hours=3),
+                        recibos=(self.tmp / "vozes",))
+        self.assertEqual(e["RODADAS"]["1"]["PORQUE"], "JANELA_24H")
+        self.assertEqual(CONTAGEM, {})
+
+    def test_dominios_tocados_le_as_ondas(self):
+        e = [{"FONTES": [{"SOURCE_ID": "IT-T7-172", "CORREU": True,
+                          "PEDIDOS_POR_DOMINIO": {"georgofili.info": 1, "www.georgofili.it": 1}}]}]
+        self.assertEqual(R.dominios_tocados(e), {"IT-T7-172": {"georgofili.info", "georgofili.it"}})
+
+
 if __name__ == "__main__":
     unittest.main()
