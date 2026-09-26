@@ -1,0 +1,81 @@
+# -*- coding: utf-8 -*-
+# VOZES-AGRONOMOS · os titulos dos videos/podcasts/webinars JA guardados, com o nome de quem fala. SO LEITURA.
+#   PYTHONUTF8=1 py data/derivados/VOZES-AGRONOMOS/titulos.py.txt
+# Le a Sala real (so leitura: raw_asset + derived_artifact) e o armazem (~/sintonia-sala-italia/armazem).
+# Para cada bruto de video (youtube/vimeo/podcast/webinar no endereco), o titulo = 1.a linha do texto derivado.
+# Marca candidatos a PESSOA no titulo por padroes declarados (abaixo). Leitura humana decide depois.
+import collections
+import importlib.machinery
+import json
+import os
+import re
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+LS = importlib.machinery.SourceFileLoader("ler_sala", os.path.join(AQUI, "ler_sala.py.txt")).load_module()
+ARMAZEM = os.path.expanduser("~/sintonia-sala-italia/armazem")
+VIVO = "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1"
+contratos = {s["SOURCE_ID"]: s for s in json.load(open(VIVO + "/curadoria/italy_contracts_curator.json", encoding="utf-8"))["FONTES"]}
+onb = {s["SOURCE_ID"]: s for s in json.load(open(VIVO + "/regras/italy_contracts_onboarded.json", encoding="utf-8"))["FONTES"]}
+
+RE_VIDEO = re.compile(r"youtube\.com|youtu\.be|vimeo|podcast|webinar|spreaker|spotify|anchor\.fm", re.I)
+# quem fala: «intervista (a|con) Nome Cognome», «Nome Cognome (Instituicao)», «Dott./Prof./Agr. Nome», «con Nome Cognome»
+NOME = r"[A-ZÀ-Ý][a-zà-ÿ'’]+(?:\s+(?:de|di|del|della|da|van|von|dal)?\s*[A-ZÀ-Ý][a-zà-ÿ'’]+){1,2}"
+PADROES = [
+    ("INTERVISTA", re.compile(r"intervist[ae]\s+(?:a|con|ad)\s+(%s)" % NOME)),
+    ("TITULO_ACADEMICO", re.compile(r"(?:Dott\.?(?:ssa)?|Prof\.?(?:ssa)?|Dr\.?|Agr\.?|Ing\.?|Agronom[oa])\s+(%s)" % NOME)),
+    ("NOME_E_INSTITUICAO", re.compile(r"(%s)\s*[\(\-–|,]\s*(?:Universit|CREA|CNR|ENEA|Fondazione|Consorzio|Condifesa|Servizio|ARPA|Istituto|Dipartimento)" % NOME)),
+    ("CON_NOME", re.compile(r"\bcon\s+(%s)\b" % NOME)),
+    ("NOME_E_NOME", re.compile(r"^(%s)\s+e\s+(%s)\s+[-–]" % (NOME, NOME))),
+    ("NOME_DOIS_PONTOS", re.compile(r"^(%s)\s*:" % NOME)),
+    ("NOME_TRACO", re.compile(r"[-–|]\s*(%s)\s*$" % NOME)),
+]
+NAO_E_PESSOA = re.compile(r"^(YouTube|Informazioni|Home|Regione|Consorzio|Provincia|Comune|Camera|Vite|Olio|Tutti|Nuova|Nuovo|"
+                          r"Emilia|Friuli|Valle|Alto|Trentino|Città|Santa|San|Monte|Terra|Food|Festa|Premio)\b")
+
+fontes = collections.defaultdict(lambda: {"VIDEOS": 0, "COM_PESSOA": 0, "TITULOS": [], "PESSOAS": collections.Counter()})
+linhas = LS.consultar(
+    "select r.source_id, r.source_url, r.sha256, coalesce((select d.storage_path from public.derived_artifact d "
+    "where d.parent_sha256 = r.sha256 and d.kind in ('TEXT_EXTRACTION','TRANSCRIPTION') order by d.id limit 1), '') "
+    "from public.raw_asset r group by r.source_id, r.source_url, r.sha256 order by 1")
+vistos = set()
+for l in linhas:
+    sid, url, sha, sp = l.split(LS.SEP)
+    sha = sha.strip()
+    if sha in vistos or not RE_VIDEO.search(url or ""):
+        continue
+    vistos.add(sha)
+    titulo = ""
+    if sp:
+        try:
+            t = open(os.path.join(ARMAZEM, sp), encoding="utf-8", errors="replace").read()
+            titulo = next((x.strip() for x in t.splitlines() if x.strip()), "")
+        except OSError:
+            titulo = ""
+    titulo = re.sub(r"\s*-\s*YouTube\s*$", "", titulo)[:220]
+    f = fontes[sid]
+    f["VIDEOS"] += 1
+    achou = []
+    for nome, r in PADROES:
+        for m in r.finditer(titulo):
+            for g in m.groups():
+                if g and not NAO_E_PESSOA.match(g):
+                    achou.append((nome, g.strip()))
+    if achou:
+        f["COM_PESSOA"] += 1
+        for _, g in achou:
+            f["PESSOAS"][g] += 1
+    f["TITULOS"].append({"TITULO": titulo, "URL": url, "SHA256": sha[:16], "PESSOA_NO_TITULO": achou})
+
+fora = {}
+for sid, f in sorted(fontes.items(), key=lambda kv: (-kv[1]["COM_PESSOA"], kv[0])):
+    k = contratos.get(sid) or onb.get(sid) or {}
+    fora[sid] = {"OWNER": k.get("OWNER"), "NAME": k.get("NAME"), "TERRITORY": k.get("TERRITORY"),
+                 "ENTRADA": k.get("CANONICAL_ENTRY_URL") or (k.get("ACQUISITION") or {}).get("INDEX_URL"),
+                 "VIDEOS": f["VIDEOS"], "COM_PESSOA": f["COM_PESSOA"], "PESSOAS": dict(f["PESSOAS"].most_common()),
+                 "TITULOS": f["TITULOS"]}
+json.dump(fora, open(os.path.join(AQUI, "TITULOS.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+print("fontes com video guardado:", len(fora), "| videos:", sum(v["VIDEOS"] for v in fora.values()),
+      "| com pessoa no titulo:", sum(v["COM_PESSOA"] for v in fora.values()))
+for sid, v in fora.items():
+    print("%-11s %-45s videos=%2d pessoa=%2d %s" % (sid, (v["OWNER"] or "")[:45], v["VIDEOS"], v["COM_PESSOA"],
+                                                   list(v["PESSOAS"])[:4]))

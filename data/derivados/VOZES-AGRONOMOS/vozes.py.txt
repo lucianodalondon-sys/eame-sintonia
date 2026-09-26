@@ -1,0 +1,101 @@
+# -*- coding: utf-8 -*-
+# VOZES-AGRONOMOS · as 30 fontes (pessoa x canal, ou serie tecnica), lidas a mao nos TITULOS ja guardados. SO LEITURA.
+#   PYTHONUTF8=1 py data/derivados/VOZES-AGRONOMOS/vozes.py.txt      (depois de titulos.py.txt)
+# A lista e LEITURA HUMANA dos titulos (TITULOS.json); o script so a junta com a prova guardada (url, sha256 do
+# bruto) e monta o plano de pedidos por dominio. Regiao = a da PESSOA/ORGANIZACAO, nunca a do facto.
+import collections
+import json
+import os
+import re
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+T = json.load(open(os.path.join(AQUI, "TITULOS.json"), encoding="utf-8"))
+
+YT = "YOUTUBE_TERCEIRO"
+# (id, SOURCE_ID do canal, pessoa, papel no titulo, cultura/problema, regiao da pessoa, trecho do titulo, dominio para provar o papel)
+LISTA = [
+    ("V01", "IT-T8-006", "Silverio Pachioli", "Agronomo Fitopatologo", "olivo · difesa", "NAO SEI", "Intervista a Silverio Pachioli", "DESCOBRIR: site da L'Informatore Agrario (dominio fora dos nossos livros)"),
+    ("V02", "IT-T8-006", "Valerio Nadal", "Condifesa (qual: NAO SEI)", "vite · difesa", "NAO SEI", "Intervista a Valerio Nadal", "DESCOBRIR: site da L'Informatore Agrario (dominio fora dos nossos livros)"),
+    ("V03", "IT-T8-006", "Giulia Zuecco", "Docente Universita di Padova", "olivo", "Veneto", "Intervista a Giulia Zuecco", "dafnae.unipd.it"),
+    ("V04", "IT-T8-006", "Silvia Toffolati", "Universita di Milano", "vite", "Lombardia", "Intervista a Silvia Toffolati", "unimi.it"),
+    ("V05", "IT-T8-006", "Riccardo Castaldi", "Terremerse (papel: NAO SEI)", "vite", "Emilia-Romagna", "Intervista a Riccardo Castaldi", "terremerse.it"),
+    ("V06", "IT-T8-006", "Enzo Gambin", "direttore Aipo (produttori olivicoli)", "olivo", "Veneto", "Intervista a Enzo Gambin", "DESCOBRIR: site da Aipo (dominio fora dos nossos livros)"),
+    ("V07", "IT-T8-006", "Gabriele Posenato", "Cadis 1898 (papel: NAO SEI)", "vite", "Veneto", "Intervista a Gabriele Posenato", "DESCOBRIR: site da L'Informatore Agrario (dominio fora dos nossos livros)"),
+    ("V08", "IT-T8-006", "Silvano Nicolato", "Cantine Vitevis (papel: NAO SEI)", "vite", "Veneto", "Intervista a Silvano Nicolato", "DESCOBRIR: site da L'Informatore Agrario (dominio fora dos nossos livros)"),
+    ("V09", "IT-T10-017", "Hannes Tauber", "VOG - Home of apples (papel: NAO SEI)", "melo", "Alto Adige", "intervista Hannes Tauber", "DESCOBRIR: site da VOG (dominio fora dos nossos livros)"),
+    ("V10", "IT-T10-017", "Filomena Vocca", "OP Solco Maggiore (papel: NAO SEI)", "ortaggi", "NAO SEI", "videointervista Filomena Vocca", "myfruit.it"),
+    ("V11", "IT-T10-017", "Hanspeter Felder", "Cooperativa produttori sementi Val Pusteria", "patata da seme", "Alto Adige", "videointervista Hanspeter Felder", "myfruit.it"),
+    ("V12", "IT-T9-016", "Matteo Gnocato", "Rete tecnica CAI", "tecnico di campo (cultura: NAO SEI)", "NAO SEI", "Matteo Gnocato | Rete tecnica CAI", "DESCOBRIR: site dos Consorzi Agrari d'Italia (dominio fora dos nossos livros)"),
+    ("V13", "IT-T9-016", "Amedeo Coppo", "Responsabile Sviluppo Grandi Colture CAI", "cereali · grandi colture", "NAO SEI", "Amedeo Coppo | Responsabile Sviluppo Grandi Colture", "DESCOBRIR: site dos Consorzi Agrari d'Italia (dominio fora dos nossos livros)"),
+    ("V14", "IT-T9-016", "Donato Cillis", "Area R&S agricoltura di precisione CAI", "agricoltura di precisione", "NAO SEI", "Donato Cillis | Area R&S", "DESCOBRIR: site dos Consorzi Agrari d'Italia (dominio fora dos nossos livros)"),
+    ("V15", "IT-T9-016", "Stefano Forbicini", "Responsabile Concimi e Sementi CAI", "concimi · sementi", "NAO SEI", "Stefano Forbicini - Responsabile Concimi", "DESCOBRIR: site dos Consorzi Agrari d'Italia (dominio fora dos nossos livros)"),
+    ("V16", "IT-T9-014", "Pietro Baroncini", "Conserve Italia (papel: NAO SEI)", "drupacee · campagna 2026", "Emilia-Romagna", "il punto di Pietro Baroncini", "conserveitalia.it"),
+    ("V17", "IT-T5-038", "Ernesto Comite", "Dipartimento di Agraria UNINA", "NAO SEI (so o nome no titulo)", "Campania", "Dipartimento di Agraria - Ernesto Comite", "agraria.unina.it"),
+    ("V18", "IT-T7-035", "Mario Enrico Pe", "(Georgofili; instituicao: NAO SEI no titulo)", "grano", "NAO SEI", "Marina Carcea e Mario Enrico P", "georgofili.it"),
+    ("V19", "IT-T7-035", "Marina Carcea", "(Georgofili; instituicao: NAO SEI no titulo)", "grano", "NAO SEI", "Marina Carcea e Mario Enrico P", "georgofili.it"),
+    ("V20", "IT-T8-004", "Bruno Basso", "AGRILAB 2026 (instituicao: NAO SEI no titulo)", "agronomia digitale (NAO SEI)", "NAO SEI", "INTERVISTA A BRUNO BASSO", "terraevita.edagricole.it"),
+    ("V21", "IT-T5-037", "Angelo Basile", "Dott., CNR-ISAFOM", "suolo · acqua", "Campania", "Dott. Angelo Basile - CNR-ISAFOM", "isafom.cnr.it"),
+    ("V22", "CAND-1199", "Simon Pierce", "Universita di Milano DISAA — PROVADO (pagina oficial, P5)", "ecologia vegetale (NAO SEI a cultura)", "Lombardia", None, "unimi.it"),
+    # series tecnicas SEM o nome no titulo: a pessoa prova-se pelo programa do evento
+    ("V23", "IT-T5-040", "NAO SEI (relatores do webinar)", "tecnici/ricercatori CRPV", "patata · elateridi; albicocco · fitosanitario; gelate", "Emilia-Romagna", "Webinar \"Patate: strategie sostenibili", "crpv.it"),
+    ("V24", "IT-T7-026", "NAO SEI (relatores)", "agronomi CONAF", "difesa delle colture · prescrizione fitofarmaci · droni", "NACIONAL", "Sostenibilit", "conaf.it"),
+    ("V25", "IT-T7-034", "NAO SEI (quem apresenta)", "Consorzio Brunello (agronomo?: NAO SEI)", "vite (Sangiovese) · annata agronomica", "Toscana", "Presentazione Annata agronomica", "consorziobrunellodimontalcino.it"),
+    ("V26", "IT-T12-008", "NAO SEI (tecnici AMAP)", "tecnici AMAP Marche", "olivo · mosca delle olive; patata", "Marche", "AMAP a convegno", "amap.marche.it"),
+    ("V27", "IT-T9-017", "NAO SEI (tecnici Koppert)", "tecnici Koppert (concorrente T9)", "agrumi · melone (afide) · pomodoro (Fusarium)", "NAO SEI", "Gestione dell'afide su melone", "koppert.it"),
+    ("V28", "IT-T9-014", "NAO SEI", "Conserve Italia / Unibo (Progetto Agrometeo)", "cimice asiatica · irrigazione frutteto", "Emilia-Romagna", "Difesa contro la cimice asiatica", "conserveitalia.it"),
+    ("V29", "IT-T12-011", "NAO SEI (relatores)", "Rete Rurale / CREA", "monitoraggio fenologico (castagno, tiglio) · SQNPI produzione integrata", "NACIONAL", "monitoraggio fenologico del castagno", "reterurale.it"),
+    ("V30", "IT-T7-023", "NAO SEI (relatores)", "ANBI (Macfrut 2025)", "DSS · stress climatici · irrigazione", "NACIONAL", "AGRONOMIA MODERNA", "anbi.it"),
+]
+# o que o coordenador fechou (10:13): nada de CNR, Coldiretti, ANGA, Unaprol nesta rede
+PROIBIDOS = ("cnr.it", "coldiretti", "anga", "unaprol")
+# D52: as ordens provinciais de agronomos foram retiradas; o canal NACIONAL CONAF (IT-T7-026) nao e uma delas
+fichas = []
+for vid, sid, pessoa, papel, cult, reg, trecho, dom in LISTA:
+    video = None
+    if sid in T and trecho:
+        for t in T[sid]["TITULOS"]:
+            if trecho.lower() in t["TITULO"].lower():
+                video = {"TITULO": t["TITULO"], "URL": t["URL"], "SHA256_BRUTO": t["SHA256"]}
+                break
+        assert video, (vid, trecho)
+    bloqueado = next((p for p in PROIBIDOS if p in dom), None)
+    fichas.append({
+        "ID": vid, "CANAL_SOURCE_ID": sid, "CANAL": (T.get(sid) or {}).get("OWNER") or "candidata (sem SOURCE_ID)",
+        "PESSOA": pessoa, "PAPEL_NO_TITULO": papel,
+        "PAPEL_PROVADO": "SIM (pagina oficial da pessoa, P5)" if "PROVADO" in papel else "NAO — so o titulo do video diz",
+        "CULTURA_PROBLEMA": cult, "REGIAO_DA_PESSOA_OU_ORGANIZACAO": reg, "VIDEO_GUARDADO": video,
+        "PLATAFORMA": YT,
+        "TRANSCRICAO": ("NAO ha rota hoje: legenda de canal de terceiro so com permissao do dono (captions.download), "
+                        "audio separado proibido (III.I.7); D53: transcricao so quando o Scrap a trouxer. "
+                        "Texto que existe: a DESCRICAO do video (API oficial, D53) e o texto que acompanha (artigo/atti)"),
+        "PROVAR_PAPEL_EM": dom, "BLOQUEIO_DA_COORDENACAO": ("sem %s (coordenacao 10:13)" % bloqueado) if bloqueado else None})
+
+# plano de pedidos: por dominio, <=5 por ronda (D38). Cada pessoa: 1 pedido a pagina institucional (prova do papel).
+# Videos: pela API oficial (googleapis.com, 1 videos.list por lote de 50 ids = descricao + data + canal), nao /watch.
+por_dom = collections.defaultdict(list)
+descobrir = collections.defaultdict(list)
+for f in fichas:
+    if f["BLOQUEIO_DA_COORDENACAO"]:
+        continue
+    if f["PROVAR_PAPEL_EM"].startswith("DESCOBRIR"):
+        descobrir[f["PROVAR_PAPEL_EM"]].append(f["ID"])     # nao se inventa endereco: descoberta primeiro
+    else:
+        por_dom[f["PROVAR_PAPEL_EM"]].append(f["ID"])
+plano = []
+for dom, ids in sorted(por_dom.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+    rondas = [ids[i:i + 5] for i in range(0, len(ids), 5)]
+    plano.append({"DOMINIO": dom, "PEDIDOS": len(ids), "RONDAS": len(rondas), "IDS_POR_RONDA": rondas})
+ids_video = [f["VIDEO_GUARDADO"]["URL"] for f in fichas if f["VIDEO_GUARDADO"]]
+plano.append({"DOMINIO": "www.googleapis.com (YouTube Data API, via Scrap/D53)", "PEDIDOS": 1, "RONDAS": 1,
+              "IDS_POR_RONDA": [["videos.list com %d ids (descricao, data, canal)" % len(ids_video)]],
+              "NOTA": "a chave so existe no segredo do GitHub (runbook CANAIS-41); 0 pedidos a youtube.com/watch"})
+fora = {"FICHAS": fichas, "PLANO_DE_PEDIDOS": plano, "DESCOBRIR_ANTES": dict(descobrir),
+        "TOTAL_PEDIDOS": sum(p["PEDIDOS"] for p in plano), "MAX_RONDAS": max(p["RONDAS"] for p in plano)}
+json.dump(fora, open(os.path.join(AQUI, "VOZES.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+print(len(fichas), "fontes;", sum(1 for f in fichas if not f["PESSOA"].startswith("NAO SEI")), "com pessoa;",
+      sum(1 for f in fichas if f["PAPEL_PROVADO"].startswith("SIM")), "papel provado;",
+      sum(1 for f in fichas if f["BLOQUEIO_DA_COORDENACAO"]), "bloqueadas")
+for p in plano:
+    print("%-52s pedidos=%d rondas=%d" % (p["DOMINIO"], p["PEDIDOS"], p["RONDAS"]))
+print("DESCOBRIR:", {k[:60]: v for k, v in descobrir.items()})
+print("TOTAL", fora["TOTAL_PEDIDOS"], "pedidos; rondas no maximo", fora["MAX_RONDAS"])
