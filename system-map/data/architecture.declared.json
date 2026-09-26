@@ -5033,6 +5033,33 @@
    ]
   },
   {
+   "id": "C-SEDE-37",
+   "name": "SEDE-37-PREP — a pagina de sede de cada fonte, a MICRO-SEDE e a porta que escreve a sede",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "achar_paginas_de_sede.py: das paginas JA guardadas (armazem, loja do vivo, indices D40, evidencia do Curator, e --micro) tira o link de contatti/dove-siamo/chi-siamo/note-legali escrito nelas e a sede lida por curadoria/sede_da_fonte (so leitura). micro_sede.py: plano sem rede e corrida (so com autorizacao e portao IT) de 1 pedido por pagina, teto 5 por dominio, robots da casa; so propoe. escrever_sede.py: a porta que escreve SOURCE_LOCATION/_BASIS/_PRECISION/_RULE no contrato do Curator e SOURCE_LOCATION_RULE na tabela do coletor, so com prova da propria pagina, nunca UNKNOWN, invariantes. mutar_sede.py: 4 mutantes.",
+   "why_here": "SEDE-37-PREP (26/09/2026): SOURCE_LOCATION em 5 de 94 itens da Sala; 28 das 65 fontes da coorte+prontas ficam com sede provada sem rede; 37 pedem MICRO-SEDE (32 pedidos, max 2 por dominio).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/sede37/achar_paginas_de_sede.py",
+    "ferramentas/sede37/micro_sede.py",
+    "ferramentas/sede37/escrever_sede.py",
+    "ferramentas/sede37/mutar_sede.py",
+    "tests/dados/sede37/arpat-1.html",
+    "tests/dados/sede37/arpat-2.html",
+    "tests/dados/sede37/myfruit-1.html",
+    "tests/dados/sede37/myfruit-2.html",
+    "tests/dados/sede37/chianti-evento.html",
+    "tests/dados/sede37/ORIGEM.json"
+   ]
+  },
+  {
    "id": "C-LEGACY-99",
    "name": "LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)",
    "territory": "Z-FERRAMENTAS",
