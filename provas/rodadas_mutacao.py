@@ -26,14 +26,10 @@ MUTANTES = [
     ("M03_SEM_EGRESSO_ANTES", ALVO, 'if not antes.get("PASSA"):', "if False:"),
     ("M04_SEM_EGRESSO_DEPOIS", ALVO, 'if not depois.get("PASSA"):', "if False:"),
     ("M05_PLANO_MAIOR_OU_IGUAL", ALVO, "if gasto + p > teto:", "if gasto + p >= teto:"),
-    ("M06_RETOMA_REPETE_FECHADAS", ALVO, 'if reg.get("ESTADO") == "FECHADA":
-            continue', 'if reg.get("ESTADO") == "FECHADA":
-            pass'),
+    ("M06_RETOMA_REPETE_FECHADAS", ALVO, 'if reg.get("ESTADO") == "FECHADA":\n            continue', 'if reg.get("ESTADO") == "FECHADA":\n            pass'),
     ("M07_RETOMA_ONDA_NOVA", ALVO, 'retomar = (pasta / "TETO-ONDA.json").exists()', "retomar = False"),
     ("M08_TETO_DIA_IGNORADO", ALVO, 'if ja.get(d, 0) + f["PREVISTOS"] > teto_dia:', "if False:"),
-    ("M09_LIVROS_DE_QUALQUER_DIA", ALVO, "if date.fromtimestamp(f.stat().st_mtime) != hoje:
-            continue
-", ""),
+    ("M09_LIVROS_DE_QUALQUER_DIA", ALVO, "if date.fromtimestamp(f.stat().st_mtime) != hoje:\n            continue\n", ""),
     ("M10_CODIGO_DA_ONDA_IGNORADO", ALVO, 'if reg["CODIGO_DA_ONDA"] != 0 or e.get("PAROU"):', 'if e.get("PAROU"):'),
     ("M11_ACEITA_OUTRA_COORTE", ALVO, 'if plano.get("COORTE_SHA256") != sha:', "if False:"),
     ("M12_PASTA_UNICA", ALVO, 'pasta = base / ("RODADA-%02d" % n)', 'pasta = base / "RODADA-01"'),
