@@ -2,7 +2,11 @@
 """POLSO-DI-MERCATO · a bateria POR NOME, antes e depois do extrator de preco (leis/preco_de_mercado.py).
 
     py scripts/polso_mercato/bateria_por_nome.py <raiz da arvore> <saida.json>
+    py scripts/polso_mercato/bateria_por_nome.py <raiz> <saida.json> --parte leve|mapa
     py scripts/polso_mercato/bateria_por_nome.py --comparar antes.json depois.json
+
+`--parte leve` corre so os modulos de tests/ (leve: roda fora da LOCK-PESADO); `--parte mapa` so os testes do
+System Map (um deles corre a cadeia num clone: pesado, so com a LOCK-PESADO). Sem --parte, os dois.
 
 Mesma forma de `scripts/lugar_fato/bateria_por_nome.py` (D70), com outra lista: os testes das leis de
 tempo/lugar do facto que o extrator de preco toca de perto (le o mesmo italiano), o do proprio extrator,
@@ -45,17 +49,17 @@ def _ler(res, brutos, rotulo, p):
         res["%s::(modulo)" % rotulo] = "SEM_TESTES_LIDOS rc=%d" % p.returncode
 
 
-def correr(raiz):
+def correr(raiz, parte=None):
     raiz = Path(raiz)
     res, brutos = {}, {}
-    for m in MODULOS:
+    for m in (MODULOS if parte in (None, "leve") else ()):
         if not (raiz / (m.replace(".", "/") + ".py")).exists():
             res["%s::(modulo)" % m] = "AUSENTE"
             continue
         p = subprocess.run([sys.executable, "-m", "unittest", "-v", m], cwd=raiz, env=ambiente(),
                            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=1800)
         _ler(res, brutos, m, p)
-    for d in DESCOBRIR:
+    for d in (DESCOBRIR if parte in (None, "mapa") else ()):
         p = subprocess.run([sys.executable, "-m", "unittest", "discover", "-v", "-s", d, "-p", "test_*.py", "-t", d],
                            cwd=raiz, env=ambiente(), capture_output=True, text=True, encoding="utf-8",
                            errors="replace", timeout=3600)
@@ -76,7 +80,8 @@ def main():
                           "VERMELHOS_DEPOIS": sorted(k for k in d if mau(d[k])),
                           "TESTES_ANTES": len(a), "TESTES_DEPOIS": len(d)}, ensure_ascii=False, indent=1))
         return
-    res, brutos = correr(sys.argv[1])
+    parte = sys.argv[sys.argv.index("--parte") + 1] if "--parte" in sys.argv else None
+    res, brutos = correr(sys.argv[1], parte)
     out = {"DATASET": "BATERIA-POLSO-MERCATO-POR-NOME-V1", "TESTES": dict(sorted(res.items())),
            "SHA256_DA_SAIDA_BRUTA": brutos}
     Path(sys.argv[2]).write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
