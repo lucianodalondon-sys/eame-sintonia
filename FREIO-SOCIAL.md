@@ -4,14 +4,17 @@ Dois ramos, sem rede (tudo contra servidores locais em 127.0.0.1; `HTTP(S)_PROXY
 nada instalado. **SEM MAPA** (o coordenador: «não esperes, a INTEGRA regera»); os ficheiros novos de código já
 estão declarados em `system-map/data/architecture.declared.json`.
 
+> **v2 (26/09 06:45, pedido da INTEGRA):** `freio-social-v1` (d1074533) nascia de `social-qualificar-v2` — as cópias
+> dos commits da PROVA-TETO-SOCIAL que ele trazia entraram em conflito com as que o LOTE 1 já pôs no vivo. O
+> **`freio-social-v2`** parte do vivo **`69b0e23f`** e leva SÓ os 6 commits do freio (por cherry-pick, sem conflito de
+> código; um só no `architecture.declared.json`, resolvido a favor da peça única da INTEGRA): a prova-teto é a do
+> vivo, o freio acrescenta-se por cima. **ff-only sobre `69b0e23f` = SIM.** O texto abaixo é o da v1; o que mudou
+> foi a base, e os testes e a mutação foram repetidos sobre ela (fim deste ficheiro).
+
 | ramo | base | o que traz |
 |---|---|---|
-| **`freio-social-v1`** | `social-qualificar-v2` (f0d97dbd = vivo `83de0ccd` + social-micro + PROVA-TETO-SOCIAL) | 1 · o freio · 3 · dedup · 4 · C2 |
+| **`freio-social-v2`** | vivo `69b0e23f` (LOTE 1) | 1 · o freio · 3 · dedup · 4 · C2 |
 | **`canais-pesquisa-v1`** (494b7b36) | `legacy-99-v5` (ed86cb97) | 2 · os 9 canais presos no feed |
-
-⚠️ **Porque o freio NÃO parte de `83de0ccd` direto:** o freio trava em cima do CONTADOR da PROVA-TETO-SOCIAL,
-que só existe em `social-qualificar-v2` (ainda não instalado). Partir de `83de0ccd` era duplicar esses 4 commits.
-Ordem de instalação: `social-qualificar-v2` → `freio-social-v1`, os dois **ff-only** sobre `83de0ccd`.
 
 ## 1 · O FREIO — o pedido que passaria do teto NÃO SAI
 
