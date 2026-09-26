@@ -4,7 +4,7 @@
 //     node italia-portale/audit/casco/sala-leitura.mjs <SALA-EXPORT-LEITURA.json> <raiz-do-armazem> [saida-copia.js]
 //
 // Le um EXPORT so-leitura da Sala (a view `sala_de_espera_atual` + `raw_asset`, feito com
-// default_transaction_read_only=on) e escreve `italia-portale/client/italy-sala-leitura.js`.
+// default_transaction_read_only=on) e escreve `italia-portale/client/italy-sala-leitura.local.js` (o carregador `italy-sala-leitura.js` so o pede com ?sala=local).
 // ⚠️ ESSE FICHEIRO TEM TEXTO DA SALA (o trecho de cada documento): esta no .gitignore e no
 // .vercelignore do cliente e NUNCA entra no Git nem num deploy. O export fica em
 // C:/Users/London1/sintonia-sala-italia/casco/.
@@ -94,6 +94,6 @@ const exportSha = crypto.createHash('sha256').update(fs.readFileSync(EXPORT)).di
 const pacote = { gerado: new Date().toISOString(), export: path.basename(EXPORT), exportSha256: exportSha, total: out.length, contagem, itens: out };
 const js = '/* GERADO por italia-portale/audit/casco/sala-leitura.mjs — TEM TEXTO DA SALA: fora do Git e do deploy. */\n'
   + 'window.ITALY_SALA_LEITURA = ' + JSON.stringify(pacote) + ';\n';
-fs.writeFileSync(path.join(CLIENTE, 'italy-sala-leitura.js'), js);
+fs.writeFileSync(path.join(CLIENTE, 'italy-sala-leitura.local.js'), js);
 if (COPIA) fs.writeFileSync(COPIA, js);
 console.log(JSON.stringify({ total: out.length, exportSha256: exportSha, contagem }, null, 1));

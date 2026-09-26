@@ -69,9 +69,9 @@
 <script src="italy-casa.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
-<!-- CASCO-LEITURA (D78): a vista so de leitura da Sala. O ficheiro e GERADO por
-     audit/casco/sala-leitura.mjs a partir de um export so-leitura da Sala, TEM TEXTO DA SALA, e por
-     isso esta no .gitignore e no .vercelignore: sem ele, a vista #sala diz que o export nao foi carregado. -->
+<!-- CASCO-LEITURA (D78): o CARREGADOR da vista so de leitura da Sala (sem dados). Os dados vivem em
+     italy-sala-leitura.local.js, GERADO por audit/casco/sala-leitura.mjs, com texto da Sala: fora do Git e do
+     deploy, e so pedidos com ?sala=local. Sem eles, a vista #sala diz que o export nao foi carregado. -->
 <script src="italy-sala-leitura.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
@@ -3575,7 +3575,7 @@
     <!-- ================= SALA · SOLA LETTURA (CASCO-LEITURA, D78) ================= -->
     <sc-if value="{{ isSala }}" hint-placeholder-val="{{ false }}">
     <div data-view="sala" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
-      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ sala.L.title }}</h1><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ sala.total }} {{ sala.L.sub }} · {{ sala.generated }}</div></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ sala.L.title }}</h1><sc-if value="{{ salaHas }}" hint-placeholder-val="{{ true }}"><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ sala.total }} {{ sala.L.sub }} · export {{ sala.generated }} UTC</div></sc-if></div>
       <sc-if value="{{ salaMissing }}" hint-placeholder-val="{{ false }}"><div style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ sala.L.noExport }}</div></sc-if>
       <sc-if value="{{ salaHas }}" hint-placeholder-val="{{ false }}">
       <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px">
@@ -5852,11 +5852,11 @@ class Component extends DCLogic {
         ? { title: 'Waiting room · read-only', ft: 'FACT TIME', pt: 'PUBLICATION TIME', sl: 'SOURCE LOCATION', fl: 'FACT LOCATION', prec: 'precision', base: 'basis',
             proof: 'Proof', url: 'seen at', raw: 'raw file', rawOk: 'raw file · sha256 checked', rawMissing: 'raw file NOT FOUND on this machine · stored sha256',
             intel: 'Intelligence', intelNo: 'NOT_EXECUTED — the Intelligence has no output yet (INT-LAW-023)', excerpt: 'document excerpt',
-            sub: 'items in the waiting room · read-only export, no score, newest first', noExport: 'The read-only export of the waiting room was not loaded (italy-sala-leitura.js is generated outside Git).' }
+            sub: 'items in the waiting room · read-only export, no score, newest first', noExport: 'The read-only export of the waiting room was not loaded. It is generated outside Git (italy-sala-leitura.local.js) and only requested with ?sala=local in the address.' }
         : { title: "Sala d'attesa · sola lettura", ft: 'DATA DEL FATTO', pt: 'DATA DI PUBBLICAZIONE', sl: 'LUOGO DELLA FONTE', fl: 'LUOGO DEL FATTO', prec: 'precisione', base: 'base',
             proof: 'Prova', url: 'visto su', raw: 'file grezzo', rawOk: 'file grezzo · sha256 verificato', rawMissing: 'file grezzo NON TROVATO su questa macchina · sha256 registrato',
             intel: 'Intelligence', intelNo: 'NON_ESEGUITA — la Intelligence non ha ancora un risultato (INT-LAW-023)', excerpt: 'estratto del documento',
-            sub: "elementi nella sala d'attesa · export in sola lettura, nessun punteggio, i piu recenti prima", noExport: "L'export in sola lettura della sala d'attesa non e stato caricato (italy-sala-leitura.js e generato fuori da Git)." };
+            sub: "elementi nella sala d'attesa · export in sola lettura, nessun punteggio, i piu recenti prima", noExport: "L'export in sola lettura della sala d'attesa non e stato caricato. E generato fuori da Git (italy-sala-leitura.local.js) e si chiede solo con ?sala=local nell'indirizzo." };
       if (!SALA) return { has: false, L, itens: [], kpis: [], total: 0 };
       const NS = 'NAO SEI';
       const cut = (x, n) => { const t = String(x || ''); return t.length > n ? t.slice(0, n - 1) + '…' : t; };

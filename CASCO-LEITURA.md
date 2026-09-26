@@ -29,7 +29,13 @@ Sem rede e sem coleta. **Nenhum RAW foi alterado.**
 
 **Ficheiros mudados no Git:**
 - `italia-portale/client/portale.html`: a vista, o menu, a rota e o `<script src="italy-sala-leitura.js">`;
-- `italia-portale/client/.gitignore` e `.vercelignore`: `italy-sala-leitura.js` nunca entra no Git nem num deploy;
+- `italia-portale/client/italy-sala-leitura.js`: **o carregador, sem dados**. Só pede os dados
+  (`italy-sala-leitura.local.js`) com `?sala=local` no endereço. Sem essa marca **nada é pedido**:
+  - o portão `link-asset` percorre todas as vistas e reprova um 404;
+  - num deploy o ficheiro não existe;
+  - por isso nenhum dos dois o pede;
+- `italia-portale/client/.gitignore` e `.vercelignore`: `italy-sala-leitura.local.js` (os dados, com texto
+  da Sala) nunca entra no Git nem num deploy;
 - `italia-portale/audit/casco/sala-leitura.mjs`: o gerador;
 - este relatório.
 
@@ -38,19 +44,23 @@ Sem rede e sem coleta. **Nenhum RAW foi alterado.**
 1. **Export da Sala** (fora do Git): `C:/Users/London1/sintonia-sala-italia/casco/SALA-EXPORT-LEITURA.json`.
    - 94 itens; sha256 `5c894ab0f62217b9970008180fd2cb58da571b0806b14514947e5dd16c8fb4ff`.
    - Consulta usada: `casco/export.sql`, sobre a vista `sala_de_espera_atual` + `raw_asset`.
-2. **Gerar os dados da vista** (escreve `italia-portale/client/italy-sala-leitura.js`, ignorado pelo Git, e
-   uma cópia em `casco/`):
+2. **Gerar os dados da vista** (escreve `italia-portale/client/italy-sala-leitura.local.js`, ignorado pelo
+   Git, e uma cópia em `casco/`):
    ```
-   node italia-portale/audit/casco/sala-leitura.mjs C:/Users/London1/sintonia-sala-italia/casco/SALA-EXPORT-LEITURA.json C:/Users/London1/sintonia-sala-italia/armazem C:/Users/London1/sintonia-sala-italia/casco/italy-sala-leitura.js
+   node italia-portale/audit/casco/sala-leitura.mjs C:/Users/London1/sintonia-sala-italia/casco/SALA-EXPORT-LEITURA.json C:/Users/London1/sintonia-sala-italia/armazem C:/Users/London1/sintonia-sala-italia/casco/italy-sala-leitura.local.js
    ```
 3. **Abrir:**
    ```
    node italia-portale/audit/serve.mjs 8899
    ```
-   e depois `http://localhost:8899/portale.html#sala`.
+   e depois **`http://localhost:8899/portale.html?sala=local#sala`**. Sem `?sala=local`, a vista diz que o
+   export não foi carregado. Isso está certo: é o que se vê num deploy.
 4. **Prova já tirada** (fora do Git, `C:/Users/London1/sintonia-sala-italia/casco/prova/`):
-   - `sala-it.png`: captura de ecrã, sha256 `e5d2c0b6…`;
-   - `sala-it-dom.html`: o HTML desenhado pelo Chrome, sha256 `115d5abc…`.
+   - com `?sala=local`: `sala-it.png` (captura de ecrã, sha256 `0a20a843…`) e `sala-it-dom.html` (o HTML
+     desenhado pelo Chrome, `2a168e74…`);
+   - sem ele: `sala-sem-export.png` (`58f1ca12…`) e `sala-sem-export-dom.html` (`5c3cbbe0…`). Mostram **0**
+     cartões e a mensagem de «export não carregado»;
+   - os dados gerados: `casco/italy-sala-leitura.local.js`, sha256 `43b283e8…`.
    - No HTML contei **94 cartões** (`data-sala-item`), **16** «file grezzo NON TROVATO», **78** «sha256
      verificato» e **94** «NON_ESEGUITA». Cada frase aparece mais 1 vez no código da própria página.
 
@@ -86,8 +96,11 @@ precisão e base, e um `NAO SEI` com o porquê. Por fim a **prova** (o endereço
 3. **Intelligence NAO_EXECUTADA em todos.** Não há saída da Intelligence, e o portal não a reconstrói
    (INT-LAW-023).
 4. **O ficheiro de dados tem texto da Sala** (o trecho). Por isso é gerado **fora do Git**
-   (`.gitignore`) e fora de qualquer deploy (`.vercelignore`). Num deploy público a vista diz «export não
-   carregado», que é o comportamento certo.
+   (`.gitignore`) e fora de qualquer deploy (`.vercelignore`), e só é pedido com `?sala=local`. Num deploy
+   público a vista diz «export não carregado», que é o comportamento certo.
+   - O portão `audit/link-asset.mjs` **não correu nesta máquina**: falta o `playwright-core` e o Chromium
+     Linux. Fica `NAO MEDIDO`.
+   - O `audit/deploy-surface.mjs` correu antes e depois do carregador: **0 problemas** das duas vezes.
 5. **Os links do bruto são `file:///`:** só abrem nesta máquina.
 6. **O cabeçalho do portal continua a dizer «AMBIENTE DIMOSTRATIVO»**, e o rodapé «Intelligence
    illustrativa». São do portal inteiro, não desta vista. Não mexi.
