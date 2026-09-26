@@ -17,10 +17,88 @@
   agrometeo (IT-T2-002), Agrometeo Puglia (IT-T3-008), ARPAE (IT-T2-001), Granaria (IT-T10-030/035). Não
   precisam de micro-prova; precisam do canário do coletor e do onboarding. **Porque não estão na coorte:
   NÃO SEI** (a coorte é do plano C2-ONDA4; pergunta para o coordenador).
-- **Lote proposto para a MICRO-PROVA: 22 candidatas, 22 domínios, 1 ronda, ≤ 4 pedidos por site (≤ 88
-  pedidos)** — `data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE1.json`, no formato do MICRO-PROVA-LOTE1.
+- **Lotes para a MICRO-PROVA (revistos pela D84, ver o ADENDO): lote 1 com 20 candidatas / 20 domínios / ≤ 80
+  pedidos; lote 2 com 30 consorzi di difesa / 30 domínios / ≤ 120 pedidos** — `data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE1.json`, no formato do MICRO-PROVA-LOTE1.
 - **Onde não há NENHUMA candidata (gap real, exige descoberta nova):** preços em 19 de 21 regiões/províncias;
-  calamidade em quase todas; Serviço Fitossanitário da **Puglia**; agrometeo da **Umbria** e da **Sicília**.
+  calamidade em quase todas; agrometeo da **Umbria** e do **Piemonte**; vídeo com pessoa + transcrição em
+  todas. (Puglia fitossanitário e Sicília agrometeo existem mas estão fechados por robots — ver o ADENDO.)
+
+## ADENDO D84 (coordenação 07:30) — a ordem de busca, e mais do MESMO tipo
+
+A D84 confirma esta missão e dá a ordem: **1)** boletins fitossanitários regionais datados (serviços
+oficiais, consórcios de defesa, cooperativas) · **2)** agrometeo e fenologia **com cultura** · **3)**
+agrónomos com vídeo/webinar **só com pessoa identificada + transcrição**. **Não:** páginas genéricas de
+universidades, anúncios de eventos, mercado sem preço. A micro-prova de hoje **aprovou** Condifesa Ravenna,
+Condifesa TVB, Liguria Bollettini e LaMMA Toscana.
+
+**O que mudou por causa da D84:**
+
+- **Lote 1 (`MICRO-PROVA-GAPS-LOTE1.json`) passa a 20 candidatas / 20 domínios / ≤ 80 pedidos**, só tipos 1 e 2
+  da D84. Saem a Granaria (preço) e o MASAF (calamidade) — não recusados, fora da ordem da D84.
+- **Lote 2 novo (`MICRO-PROVA-GAPS-LOTE2-CONSORZI.json`): os 30 consorzi di difesa** que só estão na tabela da
+  P1g (`origin/janelas-regioes-v1`, `curadoria/JANELAS-REGIOES-V1.json`, medida em 24/09 a partir de
+  `asnacodi.it/le-sedi-condifesa/`) e ainda não são candidatas no vivo. 30 domínios, 1 ronda, ≤ 4 pedidos.
+  - **Porque se re-verifica o que a P1g julgou «sem boletim datado»:** a P1g mediu a **Condifesa TVB** como
+    `PUBLICO_SEM_BOLETIM_DATADO` (login na página, última data 2026-09-01) — e a micro-prova de hoje
+    **aprovou-a**. A medida da P1g (data legível na página + 2 subpáginas) falha neste tipo de site.
+  - ⚠️ **Esperar poucos SIM:** a lista Asnacodi é de consórcios de **seguro** (granizo, adversidades); a P1g
+    viu quase todos sem aviso de defesa. A TVB prova que a P1g erra, não que os outros publicam.
+  - Ordem: data recente na página primeiro (sinal de que publicam); robots ilegível no fim, com o robots.txt
+    como 1.º pedido. **Condifesa Foggia** (Puglia, página com data 2026-09-24) vem primeiro — é a única pista
+    fitossanitária da Puglia que está aberta.
+  - Regiões **sem nenhum consórcio na lista Asnacodi**: Campania, Lazio, Liguria, Molise, Valle d'Aosta.
+
+| # | Região | Consórcio | URL | Última data na página (P1g) | Robots (P1g) |
+|---|---|---|---|---|---|
+| 1 | Puglia | Condifesa Foggia | http://www.condifesafoggia.it/ | 2026-09-24 | ROBOTS_AUSENTE |
+| 2 | Calabria | CODIPACAL — Consorzio di difesa Calabria | https://codipacal.it/ | 2026-09-18 | ROBOTS_200 |
+| 3 | Emilia-Romagna | Condifesa Modena | https://www.condifesamodena.it/ | 2026-09-17 | ROBOTS_200 |
+| 4 | Piemonte | Condifesa Vercelli Biella | https://www.condifesa-vcbi.it/ | 2026-09-16 | ROBOTS_200 |
+| 5 | Lombardia | Condifesa Brescia | https://www.condifesabrescia.it/ | 2026-08-12 | ROBOTS_AUSENTE |
+| 6 | Friuli Venezia Giulia | Condifesa FVG | https://www.condifesafvg.it/ | 2026-07-31 | ROBOTS_200 |
+| 7 | Lombardia | CODIMA Mantova | https://www.codima.info/ | 2026-06-30 | ROBOTS_200 · login |
+| 8 | Trentino-Alto Adige | CODIPRA Trento | https://www.codipratn.it/ | 2026-06-30 | ROBOTS_200 |
+| 9 | Piemonte | Condifesa Cuneo | https://www.condifesacuneo.it/ | 2026-06-30 | ROBOTS_200 · login |
+| 10 | Emilia-Romagna | Condifesa Emilia | https://condifesa-emilia.it/ | 2026-06-18 | ROBOTS_200 · login |
+| 11 | Puglia | Agridifesa del Mediterraneo | https://agridifesadelmediterraneo.eu/ | 2026-05-15 | ROBOTS_200 · login |
+| 12 | Umbria | Condifesa Umbria | https://www.condifesaumbria.it/ | 2026-05-15 | ROBOTS_200 · login |
+| 13 | Piemonte | COSMAN Piemonte | https://www.cosmanpiemonte.it/ | 2026-05-15 | ROBOTS_200 |
+| 14 | Trentino-Alto Adige | Hagelschutzkonsortium (Alto Adige) | https://www.hagelschutzkonsortium.com/ | 2026-04-24 | ROBOTS_200 |
+| 15 | Lombardia | COPROVI | https://www.coprovi.it/ | 2026-04-03 | ROBOTS_200 |
+| 16 | Veneto | CODIVE | https://www.codive.it/ | 2026-04-02 | ROBOTS_200 |
+| 17 | Lombardia | Condifesa Lombardia (federazione) | https://www.condifesalombardia.it/ | 2025-11-16 | ROBOTS_200 |
+| 18 | Abruzzo | CODIPE — Consorzio di difesa (Abruzzo) | https://www.codipe.it/ | nenhuma | ROBOTS_AUSENTE |
+| 19 | Toscana | CODIPRA Toscano | https://www.codipratoscano.it/ | nenhuma | ROBOTS_200 |
+| 20 | Basilicata | Condifesa Basilicata | https://www.condifesa-basilicata.it/ | nenhuma | ROBOTS_200 · login |
+| 21 | Lombardia | Condifesa Milano Lodi | https://www.condifesa-mi-lo.it/ | nenhuma | ROBOTS_200 |
+| 22 | Sardegna | Condifesa Sassari | http://www.condifesa.sassari.it/ | nenhuma | ROBOTS_AUSENTE |
+| 23 | Sicilia | Condifesa Catania | https://www.condifesacatania.it/ | nenhuma | ROBOTS_200 |
+| 24 | Piemonte | Condifesa Novara | https://www.condifesanovara.it/ | nenhuma | ROBOTS_200 |
+| 25 | Sardegna | Condifesa Oristano | https://www.condifesaor.it/ | nenhuma | ROBOTS_AUSENTE |
+| 26 | Emilia-Romagna | Condifesa (condifesa.it) | https://www.condifesa.it/ | nenhuma | ROBOTS_ILEGIVEL_URLError |
+| 27 | Marche | Condifesa Ancona Macerata | https://www.condifesaanmc.it/ | nenhuma | ROBOTS_ILEGIVEL_500 |
+| 28 | Sardegna | Condifesa Cagliari | https://www.condifesaca.it/home.html | nenhuma | ROBOTS_ILEGIVEL_URLError |
+| 29 | Piemonte | Condifesa Piemonte | https://www.condifesapiemonte.com/ | nenhuma | ROBOTS_ILEGIVEL_URLError |
+| 30 | Veneto | Condifesa Veneto Est | https://condifesavenetoest.it/ | nenhuma | ROBOTS_ILEGIVEL_403 |
+
+- **Cooperativas (tipo 1):** nos nossos livros há ~50 pistas «cooperativa», mas quase todas são páginas da
+  Confcooperative (genéricas — a D84 manda deixar). Cooperativas/OP reais (Terremerse CAND-0151, OP Alegra
+  CAND-0148, Caviro CAND-0139, Conserve Italia CAND-0140, UNAPROL CAND-0152): **nenhuma prova** nos nossos livros
+  de que publicam boletim técnico datado. Não entram no lote; é descoberta nova (a página de «assistenza
+  tecnica» de cada uma).
+- **Vídeo com pessoa identificada + transcrição (tipo 3): 0.** A YT3 (`canais-pessoas-v1`) achou 14 canais, **todos
+  organizações, 0 pessoas**; os 612 vídeos guardados são só o título; a única candidata pessoa com YouTube
+  (CAND-1199) não tem transcrição. Os canais institucionais candidatos (ARSAC, ASSAM, CRPV, CONAF, L'Informatore
+  Agrario…) não identificam quem fala. **Gap real.**
+
+**Correções ao que escrevi antes (a P1g já sabia):**
+
+| Escrevi | Certo |
+|---|---|
+| «Serviço Fitossanitário da Puglia: nenhuma candidata» | a P1g achou 2 (SIT Puglia e emergenzaxylella) **fechadas por robots** (302); e há a **Condifesa Foggia** no lote 2 |
+| «agrometeo da Sicília: nenhuma candidata» | o **SIAS** é conhecido e está **fechado daqui** (robots ilegível, URLError) |
+| (Piemonte agrometeo contado com 2 pistas) | as 2 eram contas sociais da ARPA Piemonte (bloqueio de política); a P1g: `SEM_FONTE_ACHADA` — **gap real, como a Umbria** |
+| «a ARSAC é a mais adiantada» | a P1g viu o último boletim da ARSAC em **2022-11-29** (arsac.calabria.it); a descoberta viu endereços com 2026 (arsacweb.it). **Não sei** qual vale — é para a micro-prova ver |
 
 ## 1. Onde procurei, e o que achei
 
@@ -70,7 +148,7 @@ MESMA fonte vista por dois caminhos — a contagem é de pistas, não de fontes 
 
 ## 2. As candidatas do lote — URL, classe, prova, o que falta
 
-Uma por região e tipo, domínios todos diferentes. A «prova que já existe» é a que está nos nossos livros
+Lote 1, revisto pela D84 (só tipos 1 e 2 da D84). Uma por região e tipo, domínios todos diferentes. A «prova que já existe» é a que está nos nossos livros
 (contrato, canário, registo da candidata, a descoberta); «o que falta provar» vem do **porquê do canário**
 no livro do ciclo de vida.
 
@@ -96,8 +174,6 @@ no livro do ciclo de vida.
 | 18 | CAND-0947 `IT-T2-151` | Puglia | 4 AGROMETEO | https://www.agrometeopuglia.it/bollettini | T2 | canário falhou | contrato do Curator IT-T2-151 (LOTE-HTML-ARTIGO); canario falhou em 2026-09-25; candidata registada por curadoria/pesquisadores.py (P1b) em 2026-09-25 | que o item aberto e um BOLETIM (cultura + zona + data); o canario abriu https://www.agrometeopuglia.it/osservazioni/mappa-dati-rilevati |
 | 19 | CAND-0943 `IT-T2-149` | Molise | 4 AGROMETEO | https://www.arsarp.it/category/agrometeorologia-2/ | T2 | canário falhou | contrato do Curator IT-T2-149 (LOTE-HTML-ARTIGO); canario falhou em 2026-09-25; candidata registada por curadoria/pesquisadores.py (P1b) em 2026-09-25 | que o item aberto e um BOLETIM (cultura + zona + data); o canario abriu https://www.arsarp.it/?p=1454 |
 | 20 | CAND-1161 `IT-T2-138` | Emilia-Romagna | 4 AGROMETEO | https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/mappe-settimanali | T2 | canário falhou | contrato do Curator IT-T2-138 (LOTE-HTML-ARTIGO); canario falhou em 2026-09-25; candidata registada por curadoria/janelas_regioes.py (P1g) em 2026-09-25 | a FAMILIA de itens: a entrada nao lista 2+ boletins com o mesmo esqueleto; provar onde a lista dos boletins esta (outra pagina, PDF, arquivo por ano) |
-| 21 | CAND-0499 `IT-T10-028` | Lombardia | 2 PRECOS | https://www.granariamilano.it/listino/listino-bioenergetico-2026-09-08/ | T10 | canário falhou | contrato do Curator IT-T10-028 (LOTE-HTML-ARTIGO); canario falhou em 2026-09-25; candidata registada por curadoria/crawl_sementes em 2026-09-22; a Granaria (Borsa Merci di Milano) ja tem 2 fontes READY (IT-T10-030 newsletters, IT-T10-035 home); o listino e outra familia | a familia do LISTINO (datado, por produto), distinta das noticias ja colhidas |
-| 22 | CAND-0911 `NAO SEI` | NACIONAL | 3 CALAMIDADE | https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/25186 | T4/T12 | sem SOURCE_ID | candidata registada por curadoria/crawl_sementes em 2026-09-23; o proprio registo e um PDF: 23/09/2026 Declaratoria del carattere di eccezionalita (MASAF ServeBLOB) | tudo: QUALIFY (territorio), contrato e canario |
 
 ⚠️ **Classe:** IT-T5-159 (Sicília) e IT-T5-157 (Calábria, fora do lote) são Serviços Fitossanitários
 regionais com contrato em **T5** (pesquisa); a provável é T3. Não se muda aqui — é decisão semântica
@@ -115,9 +191,9 @@ só falhou a ligação (HTTP_0 = falha de ligação, não fonte morta).
 
 | | |
 |---|---|
-| Candidatas | 22 — 1 FITO: 12 · 1+4 FITO+AGROMETEO: 2 · 2 PRECOS: 1 · 3 CALAMIDADE: 1 · 4 AGROMETEO: 6 |
-| Domínios | 22 distintos → **1 ronda** |
-| Pedidos | **≤ 4 por domínio** (índice, 2 boletins de datas diferentes, reserva para robots/PDF) → ≤ 88 |
+| Candidatas | 20 — 1 FITO: 12 · 1+4 FITO+AGROMETEO: 2 · 4 AGROMETEO: 6 |
+| Domínios | 20 distintos → **1 ronda** |
+| Pedidos | **≤ 4 por domínio** (índice, 2 boletins de datas diferentes, reserva para robots/PDF) → ≤ 80 |
 | O que se prova | **conteúdo e forma**, não só território: a lista datada existe? o item é um boletim com cultura, zona e data? em HTML ou PDF (D42)? |
 
 **Fora, e porquê:**
@@ -140,8 +216,8 @@ lê as 3 páginas com esta pergunta. Decisão do coordenador.
 |---|---|---|
 | **2 · listas de preço com praça e dia** | **19 de 21** regiões/províncias | só Granaria (Milano), Borsa Merci Bologna, BMTI e Terra e Vita (nacionais). Nenhum mercado ortofrutícola grossista (Verona, Fondi, Vittoria, CAAB, SogeMi…) nem listino de câmara de comércio fora de Bologna. A myfruit (a fonte que mais rende) é revista, não praça. |
 | **3 · calamidade com data, província e culturas** | todas menos o nacional | 1 declaratoria do MASAF (PDF, nacional) e 2 boletins de seca (ARPAS, ARPAE). Nenhuma lista regional de «declaratoria / delimitazione delle aree danneggiate». O IT-T12-024 (Regione Veneto, notícia de ventos fortes em Verona) mostra que o conteúdo existe dentro de notícias regionais. |
-| **1 · Serviço Fitossanitário** | **Puglia** | nenhuma candidata (só o agrometeo). |
-| **4 · agrometeo com cultura** | **Umbria, Sicilia** | nenhuma candidata (a Sicília tem o SIAS, que não aparece em nenhum livro nosso). |
+| **1 · Serviço Fitossanitário** | **Puglia** | ~~nenhuma candidata~~ — corrigido no ADENDO: SIT e emergenzaxylella fechados por robots; Condifesa Foggia no lote 2. |
+| **4 · agrometeo com cultura** | **Umbria, Piemonte** | nenhuma (P1g: SEM_FONTE_ACHADA). A Sicília tem o SIAS, conhecido na P1g e fechado por robots (corrigido no ADENDO). |
 | **1/4** | **Abruzzo** | há candidatas, mas os endereços dão 404: a fonte existe, o endereço é que é novo. |
 | **5 · vídeo com descrição/transcrição** | todas | não é falta de fonte: os 41 canais e os canais de ARPA Lombardia, ASSAM, ARSAC, Regione Piemonte existem como candidatas; o que falta é **conteúdo** (guardamos só o título). Não se escolhe rota aqui. |
 
@@ -151,5 +227,6 @@ lê as 3 páginas com esta pergunta. Decisão do coordenador.
 |---|---|
 | `data/derivados/GAPS-CANDIDATAS/varrer.py.txt` → `VARRIDO.json` | as 1.243 pistas, com tipo, região e origem |
 | `…/estado.py.txt` → `ESTADO.json` | o último estado de cada uma no robô, e se está na coorte 64 |
-| `…/lote.py.txt` → `MICRO-PROVA-GAPS-LOTE1.json` | o lote proposto |
+| `…/lote.py.txt` → `MICRO-PROVA-GAPS-LOTE1.json` | o lote 1 (revisto pela D84) |
+| `…/lote2.py.txt` → `MICRO-PROVA-GAPS-LOTE2-CONSORZI.json` | o lote 2: os 30 consorzi di difesa (lê a tabela da P1g, `.p1g.json` fora do Git: `git show origin/janelas-regioes-v1:curadoria/JANELAS-REGIOES-V1.json`) |
 | `…/ler_sala.py.txt` | leitor só-leitura da Sala (DSN nunca impresso) |

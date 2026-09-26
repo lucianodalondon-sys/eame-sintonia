@@ -38,9 +38,10 @@ LOTE = [
     ("CAND-1160", "4 AGROMETEO", "Lombardia", None), ("CAND-0935", "4 AGROMETEO", "Sardegna", None),
     ("CAND-1170", "4 AGROMETEO", "Lazio", None), ("CAND-0947", "4 AGROMETEO", "Puglia", None),
     ("CAND-0943", "4 AGROMETEO", "Molise", None), ("CAND-1161", "4 AGROMETEO", "Emilia-Romagna", None),
-    ("CAND-0499", "2 PRECOS", "Lombardia", GRANARIA),
-    ("CAND-0911", "3 CALAMIDADE", "NACIONAL", MASAF),
 ]
+# D84 (coordenacao 07:30): a ordem de busca e 1) boletins fitossanitarios 2) agrometeo/fenologia com cultura
+# 3) agronomos com video + transcricao. A Granaria (preco) e o MASAF (calamidade) saem DESTE lote — nao recusados.
+FORA_D84 = {"CAND-0499": GRANARIA, "CAND-0911": MASAF}
 
 
 def o_que_falta(motivo):
@@ -98,7 +99,7 @@ for f in fichas:
 lote = {
     "DATASET": "MICRO-PROVA-GAPS-LOTE1",
     "CANDIDATAS": [f["CANDIDATA"] for f in fichas], "GRUPOS": grupos,
-    "CRITERIO": ("so os 5 tipos que faltam (RENDIMENTO-POR-FONTE 4): fontes com cultura+zona+data no proprio formato. "
+    "CRITERIO": ("D84: 1) boletins fitossanitarios regionais datados 2) agrometeo e fenologia com cultura (RENDIMENTO-POR-FONTE 4). "
                  "Uma por regiao e tipo, %d dominios distintos = 1 ronda, <=4 pedidos por dominio. A prova pedida e de "
                  "CONTEUDO e FORMA (a lista datada existe? o item e um boletim com cultura, zona e data?), nao so de "
                  "territorio." % len(fichas)),
@@ -112,6 +113,8 @@ lote = {
                    "fitosanitario.venezia.it (ROBOTS_BLOCKED)"),
         "endereco morto": ("SFR Abruzzo e Agrometeo Abruzzo (IT-T3-036, IT-T2-156: HTTP 404, RETRY_AFTER): "
                            "precisa de endereco novo (descoberta)"),
+        "D84: fora da ordem de busca (nao recusadas)": ("CAND-0499 Granaria listino (preco) e CAND-0911 MASAF declaratoria "
+                                                      "(calamidade): voltam depois dos tipos 1 e 2 da D84"),
         "segundo do mesmo dominio": "CAND-0829 (agrometeo Campania, mesmo dominio da CAND-0948) e ASNACODI (3 entradas): lote 2",
     },
     "DOMINIOS": dominios, "FICHAS": fichas}

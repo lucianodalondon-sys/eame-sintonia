@@ -20,9 +20,7 @@
   "CAND-1170",
   "CAND-0947",
   "CAND-0943",
-  "CAND-1161",
-  "CAND-0499",
-  "CAND-0911"
+  "CAND-1161"
  ],
  "GRUPOS": {
   "1+4 FITO+AGROMETEO": [
@@ -50,20 +48,15 @@
    "CAND-0947",
    "CAND-0943",
    "CAND-1161"
-  ],
-  "2 PRECOS": [
-   "CAND-0499"
-  ],
-  "3 CALAMIDADE": [
-   "CAND-0911"
   ]
  },
- "CRITERIO": "so os 5 tipos que faltam (RENDIMENTO-POR-FONTE 4): fontes com cultura+zona+data no proprio formato. Uma por regiao e tipo, 22 dominios distintos = 1 ronda, <=4 pedidos por dominio. A prova pedida e de CONTEUDO e FORMA (a lista datada existe? o item e um boletim com cultura, zona e data?), nao so de territorio.",
+ "CRITERIO": "D84: 1) boletins fitossanitarios regionais datados 2) agrometeo e fenologia com cultura (RENDIMENTO-POR-FONTE 4). Uma por regiao e tipo, 20 dominios distintos = 1 ronda, <=4 pedidos por dominio. A prova pedida e de CONTEUDO e FORMA (a lista datada existe? o item e um boletim com cultura, zona e data?), nao so de territorio.",
  "FORA_E_PORQUE": {
   "ja no MICRO-PROVA-LOTE1": "Condifesa Ravenna CAND-1173, Condifesa Lombardia NE CAND-1069, Condifesa TVB CAND-1070, FEM bollettini CAND-1164, Liguria bollettini CAND-1167, LaMMA CAND-0953",
   "ja READY_FOR_COLLECTION (nao precisam de prova; precisam do canario do coletor + onboarding para a coorte)": "IT-T3-053 Umbria bollettini, IT-T3-045 SFR Marche, IT-T2-157 Marche agrometeo, IT-T2-143 ARPAS mensile, IT-T2-002 ARPAV agrometeo, IT-T3-008 Agrometeo Puglia, IT-T2-001 ARPAE, IT-T10-030/035 Granaria",
   "robots": "SFR Lombardia (fitosanitario.regione.lombardia.it/wps/portal: ROBOTS_BLOCKED), fitosanitario.venezia.it (ROBOTS_BLOCKED)",
   "endereco morto": "SFR Abruzzo e Agrometeo Abruzzo (IT-T3-036, IT-T2-156: HTTP 404, RETRY_AFTER): precisa de endereco novo (descoberta)",
+  "D84: fora da ordem de busca (nao recusadas)": "CAND-0499 Granaria listino (preco) e CAND-0911 MASAF declaratoria (calamidade): voltam depois dos tipos 1 e 2 da D84",
   "segundo do mesmo dominio": "CAND-0829 (agrometeo Campania, mesmo dominio da CAND-0948) e ASNACODI (3 entradas): lote 2"
  },
  "DOMINIOS": {
@@ -86,9 +79,7 @@
   "CAND-1170": "siarl.arsial.it",
   "CAND-0947": "agrometeopuglia.it",
   "CAND-0943": "arsarp.it",
-  "CAND-1161": "arpae.it",
-  "CAND-0499": "granariamilano.it",
-  "CAND-0911": "masaf.gov.it"
+  "CAND-1161": "arpae.it"
  },
  "FICHAS": [
   {
@@ -543,52 +534,6 @@
    "EVIDENCIA": "EV-IT-T2-138-REPAIR_CONTRACT-4601",
    "PROVA_JA_EXISTENTE": "contrato do Curator IT-T2-138 (LOTE-HTML-ARTIGO); canario falhou em 2026-09-25; candidata registada por curadoria/janelas_regioes.py (P1g) em 2026-09-25",
    "FALTA_PROVAR": "a FAMILIA de itens: a entrada nao lista 2+ boletins com o mesmo esqueleto; provar onde a lista dos boletins esta (outra pagina, PDF, arquivo por ano)",
-   "PEDIDOS": 4,
-   "PAPEIS": [
-    "INDICE (onde os boletins/listinos se listam)",
-    "CONTEUDO 1 (um boletim)",
-    "CONTEUDO 2 (outro boletim, outra data)",
-    "reserva (robots.txt ou o PDF do boletim)"
-   ]
-  },
-  {
-   "NOTA_DA_CLASSE": null,
-   "CANDIDATA": "CAND-0499",
-   "NOME": "Listino Bioenergetico 2026-09-08",
-   "URL": "https://www.granariamilano.it/listino/listino-bioenergetico-2026-09-08/",
-   "DOMINIO": "granariamilano.it",
-   "GRUPO": "2 PRECOS",
-   "REGIAO": "Lombardia",
-   "SOURCE_ID": "IT-T10-028",
-   "CLASSE_PROVAVEL": "T10",
-   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
-   "PORQUE_NO_ROBO": "REPARO_RECUSADO: DUPLICADA — https://www.granariamilano.it/comunicazione/cemi-2026/ -> DUPLICADA de IT-T10-026",
-   "EVIDENCIA": "EV-IT-T10-028-REPAIR_CONTRACT-3477",
-   "PROVA_JA_EXISTENTE": "contrato do Curator IT-T10-028 (LOTE-HTML-ARTIGO); canario falhou em 2026-09-25; candidata registada por curadoria/crawl_sementes em 2026-09-22; a Granaria (Borsa Merci di Milano) ja tem 2 fontes READY (IT-T10-030 newsletters, IT-T10-035 home); o listino e outra familia",
-   "FALTA_PROVAR": "a familia do LISTINO (datado, por produto), distinta das noticias ja colhidas",
-   "PEDIDOS": 4,
-   "PAPEIS": [
-    "INDICE (onde os boletins/listinos se listam)",
-    "CONTEUDO 1 (um boletim)",
-    "CONTEUDO 2 (outro boletim, outra data)",
-    "reserva (robots.txt ou o PDF do boletim)"
-   ]
-  },
-  {
-   "NOTA_DA_CLASSE": null,
-   "CANDIDATA": "CAND-0911",
-   "NOME": "23/09/2026 Declaratoria del carattere di eccezionalit� dell'evento da fenomeno distrofico e di elevate temperature verificatosi nell'estate 2024 con ripercussioni nell'anno 2025 nei Compartimenti Mari",
-   "URL": "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/25186",
-   "DOMINIO": "masaf.gov.it",
-   "GRUPO": "3 CALAMIDADE",
-   "REGIAO": "NACIONAL",
-   "SOURCE_ID": "NAO SEI",
-   "CLASSE_PROVAVEL": "T4/T12",
-   "ESTADO_NO_ROBO": "SEM_SOURCE_ID",
-   "PORQUE_NO_ROBO": "",
-   "EVIDENCIA": null,
-   "PROVA_JA_EXISTENTE": "candidata registada por curadoria/crawl_sementes em 2026-09-23; o proprio registo e um PDF: 23/09/2026 Declaratoria del carattere di eccezionalita (MASAF ServeBLOB)",
-   "FALTA_PROVAR": "tudo: QUALIFY (territorio), contrato e canario",
    "PEDIDOS": 4,
    "PAPEIS": [
     "INDICE (onde os boletins/listinos se listam)",

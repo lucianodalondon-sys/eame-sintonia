@@ -1,0 +1,70 @@
+# -*- coding: utf-8 -*-
+# GAPS-CANDIDATAS · LOTE 2 (D84): «mais do MESMO tipo» — os consorzi di difesa que so estao na tabela da P1g
+# (origin/janelas-regioes-v1 curadoria/JANELAS-REGIOES-V1.json, CELULAS COLUNA=CONSORZIO, medida 24/09 a partir
+# de asnacodi.it/le-sedi-condifesa/). SO LEITURA, sem rede.
+#   git show origin/janelas-regioes-v1:curadoria/JANELAS-REGIOES-V1.json > data/derivados/GAPS-CANDIDATAS/.p1g.json
+#   PYTHONUTF8=1 py data/derivados/GAPS-CANDIDATAS/lote2.py.txt
+# Porque re-verificar o que a P1g julgou «sem boletim datado»: a micro-prova de hoje APROVOU a Condifesa TVB, que a
+# P1g tinha medido PUBLICO_SEM_BOLETIM_DATADO — a heuristica da P1g (data legivel na pagina + 2 subpaginas) nao chega.
+import json
+import os
+from urllib.parse import urlparse
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+VIVO = "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1"
+P1G = json.load(open(os.path.join(AQUI, ".p1g.json"), encoding="utf-8"))
+dom = lambda u: urlparse(u or "").netloc.replace("www.", "").lower()
+no_vivo = {dom(c.get("URL")) for c in json.load(open(VIVO + "/candidatas/FONTES-CANDIDATAS.json", encoding="utf-8"))["CANDIDATAS"]}
+lote1 = {d for d in json.load(open(os.path.join(AQUI, "MICRO-PROVA-GAPS-LOTE1.json"), encoding="utf-8"))["DOMINIOS"].values()}
+APROVADOS_HOJE = {"condifesa.ra.it", "condifesatvb.it"}          # D84: aprovados pela micro-prova (Ravenna, TVB)
+
+def ilegivel(robots):
+    return str(robots or "").startswith("ROBOTS_ILEGIVEL")
+
+
+def falta_provar(c):
+    partes = []
+    if ilegivel(c.get("ROBOTS")):
+        partes.append("robots.txt legivel ANTES de tudo (a P1g nao o leu: %s)" % c.get("ROBOTS"))
+    partes.append("se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo")
+    if c.get("LOGIN_NA_PAGINA"):
+        partes.append("se o login esconde os boletins")
+    return "; ".join(partes)
+
+
+fichas, fora = [], {}
+for c in P1G["CELULAS"]:
+    if c["COLUNA"] != "CONSORZIO":
+        continue
+    d = dom(c["URL"])
+    if d in APROVADOS_HOJE or d in no_vivo or d in lote1:
+        fora[d] = ("aprovado na micro-prova de hoje" if d in APROVADOS_HOJE else
+                   "ja e candidata no vivo" if d in no_vivo else "ja no lote 1")
+        continue
+    robots = c.get("ROBOTS")
+    fichas.append({
+        "NOME": c["NOME"], "URL": c["URL"], "DOMINIO": d, "REGIAO": c["REGIAO"], "CLASSE_PROVAVEL": "T3",
+        "CANDIDATA": "NAO REGISTADA NO VIVO (so na tabela da P1g, cujos CAND-ids colidem com os do vivo: registar pela porta)",
+        "PROVA_JA_EXISTENTE": "P1g 24/09: HTTP %s, %s, login na pagina=%s, data mais recente legivel na pagina=%s, visto em %s" % (
+            c.get("HTTP"), robots, c.get("LOGIN_NA_PAGINA"), c.get("DATA_MAIS_RECENTE_NA_PAGINA") or "nenhuma", c.get("DISCOVERED_FROM")),
+        "FALTA_PROVAR": falta_provar(c),
+        "ULTIMA_DATA_NA_PAGINA": c.get("DATA_MAIS_RECENTE_NA_PAGINA"), "ROBOTS_P1G": robots, "PEDIDOS": 4,
+        "PAPEIS": ["robots.txt (reserva, o 1.o se ilegivel)", "INDICE de avvisi/bollettini", "CONTEUDO 1", "CONTEUDO 2"]})
+# ordem: primeiro quem tem data recente na pagina (sinal de que publica), depois sem data; os de robots ilegivel no fim
+fichas.sort(key=lambda f: (ilegivel(f["ROBOTS_P1G"]), -(int((f["ULTIMA_DATA_NA_PAGINA"] or "0000-00-00").replace("-", ""))), f["DOMINIO"]))
+assert len({f["DOMINIO"] for f in fichas}) == len(fichas)
+lote = {"DATASET": "MICRO-PROVA-GAPS-LOTE2-CONSORZI",
+        "CRITERIO": ("D84: mais do MESMO tipo que a micro-prova aprovou hoje (Condifesa Ravenna, Condifesa TVB): os consorzi "
+                     "di difesa da lista Asnacodi que ainda nao sao candidatas. %d dominios distintos = 1 ronda, <=4 pedidos. "
+                     "Ordem: data recente na pagina primeiro; robots ilegivel no fim (robots.txt e o 1.o pedido)." % len(fichas)),
+        "AVISO": ("A P1g (24/09) mediu quase todos como PUBLICO_SEM_BOLETIM_DATADO e a lista Asnacodi e de consorcios de "
+                  "SEGURO (granizo/avversita): muitos nao publicam avisos de defesa. A TVB mostra que a medida da P1g falha; "
+                  "nao mostra que os outros publicam. Esperar poucos SIM."),
+        "SEM_CONSORZIO_NA_LISTA_ASNACODI": [r for r, v in P1G["TABELA"].items() if any(str(x).startswith("SEM_FONTE_ACHADA") for x in v.get("CONSORZIO", []))],
+        "FORA_E_PORQUE": fora, "FICHAS": fichas}
+json.dump(lote, open(os.path.join(AQUI, "MICRO-PROVA-GAPS-LOTE2-CONSORZI.json"), "w", encoding="utf-8", newline="\n"),
+          ensure_ascii=False, indent=1)
+for f in fichas:
+    print("%-16s %-44s %-26s %-10s %s" % (f["REGIAO"][:16], f["NOME"][:44], f["DOMINIO"][:26], f["ULTIMA_DATA_NA_PAGINA"], f["ROBOTS_P1G"]))
+print(len(fichas), "consorzi;", len(fora), "fora:", fora)
+print("regioes sem consorzio na lista Asnacodi:", lote["SEM_CONSORZIO_NA_LISTA_ASNACODI"])
