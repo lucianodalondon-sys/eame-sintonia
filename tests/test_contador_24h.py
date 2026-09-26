@@ -134,6 +134,26 @@ class ACorridaEntreProcessos(Base):
         self.assertEqual(len(json.loads(self.livro.read_text(encoding="utf-8"))["RESERVAS"]), 5)
 
 
+class OGemeoNode(Base):
+    def _node(self, js):
+        p = subprocess.run(["node", "-e", js], cwd=RAIZ, env=dict(os.environ), capture_output=True, text=True, timeout=120)
+        return p.stdout.strip().splitlines()[-1]
+
+    def test_node_livro_ilegivel_e_unknown(self):
+        for conteudo in ("{nao e json", '{"PEDIDOS_POR_DOMINIO": {"cia.it": 5}}'):
+            self.livro.write_text(conteudo, encoding="utf-8")
+            e = self._node("import('./coleta/italy_pilot_collect.mjs').then(m=>console.log(m.reservar24h('cia.it',1,{runId:'N'}).ESTADO))")
+            self.assertEqual(e, "UNKNOWN", conteudo)
+            self.assertEqual(self.livro.read_text(encoding="utf-8"), conteudo)
+
+    def test_node_regra_igual_a_do_python(self):
+        e = self._node("import('./coleta/italy_pilot_collect.mjs').then(m=>{const o=[];for(let i=0;i<6;i++)"
+                       "o.push(m.reservar24h('www.cia.it',1,{runId:'N'+i}).ESTADO);"
+                       "o.push(m.reservar24h('r1.googlevideo.com',5,{runId:'Y'}).ESTADO,m.reservar24h('youtube.com',1,{runId:'Y2'}).ESTADO);"
+                       "console.log(o.join(','))})")
+        self.assertEqual(e, "RESERVADO,RESERVADO,RESERVADO,RESERVADO,RESERVADO,ADIADO_ATE,RESERVADO,ADIADO_ATE")
+
+
 class OTransporteContraOServidor(unittest.TestCase):
     def test_prova_adversarial_A1_a_A4(self):
         r = subprocess.run(["node", "provas/contador_24h_local.mjs"], cwd=RAIZ, capture_output=True, text=True,
