@@ -656,6 +656,11 @@ def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=Non
 
     url = 'https://www.youtube.com/watch?v=' + vid
     caminho, motivo = ytv._audio(vid)
+    # OS PEDIDOS DO `yt-dlp` ENTRAM NA CONTA DA CORRIDA, tambem quando falhou:
+    # falhar nao e nao ter batido a porta. Do cache nao saiu pedido nenhum.
+    # Sem contagem legivel, a corrida declara-o (e a prova-teto diz NAO_SEI).
+    if motivo != 'CACHE':
+        http.contar_de_fora(getattr(ytv, 'ULTIMO_TRAFEGO', None), quem='yt-dlp')
     if not caminho:
         raise _EstadoDaApi({
             'STATE': _classificar_falha(motivo),
