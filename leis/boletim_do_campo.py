@@ -89,6 +89,7 @@ MESMO_PROBLEMA = (
     (r"nematod[ie]", "nematode"), (r"batterios[ie]", "batteriosi"), (r"pidocch[io]o?", "pidocchio"),
     (r"tignol[ae]", "tignola"), (r"tignolett[ae]", "tignoletta"), (r"coccinigli[ae]", "cocciniglia"),
     (r"dorifor[ae]", "dorifora"), (r"piralid[ei]", "piralide"),
+    (r"cercospor\w*", "cercosporiosi"),       # o fungo e a doenca (IT-T3-008 escreve as duas)
     (r"mosca dell['’ ]*oliv[ao]|mosca delle olive|bactrocera oleae", "mosca dell'olivo"),
     (r"halyomorpha halys", "cimice asiatica"),
     (r"lobesia botrana|lobesia|tignoletta della vite", "tignoletta della vite"),

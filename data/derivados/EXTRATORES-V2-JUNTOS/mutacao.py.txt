@@ -86,7 +86,8 @@ M = [
     ("M45 a forma do texto perde-se", "leis/boletim_do_campo.py", '"FORMA": forma, ', '"FORMA": nome, '),
     ("M46 o titulo do video corta a data", FT, "    if m and not re.search(r\"\d\", l[m.end():]) and ", "    if m and "),
     ("M47 a porta perde a FORMA", "admissao/admissao.py", '"FORMA": p.get("FORMA", p["NOME"]), ', ""),
-    ("M48 cocciniglie (plural) nao e praga", "leis/boletim_do_campo.py", 'r"coccinigli[ae]", ', 'r"cocciniglia", '),
+    ("M48 cocciniglie (plural) nao e praga", "leis/boletim_do_campo.py", 'r"coccinigli[ae]", r"afid', 'r"cocciniglia", r"afid'),
+    ("M49 cercospora e cercosporiosi contam dois", "leis/boletim_do_campo.py", '    (r"cercospor\w*", "cercosporiosi"),', ""),
     ("M20 o carimbo da publicacao aceite", FL, "                if precisao == DAY and pub and _resolve_dia(valor, ano_pub) == pub:",
      "                if False:"),
 ]

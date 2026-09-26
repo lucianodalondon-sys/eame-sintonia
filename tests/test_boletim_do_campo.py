@@ -187,6 +187,7 @@ class OMesmoProblemaContaUmaVez(unittest.TestCase):
         self.assertEqual("cimice asiatica", BC.nome_do_problema("cimice asiatica"))   # nao vira «cimice»
         self.assertEqual("tignola", BC.nome_do_problema("tignole"))
         self.assertEqual("tignoletta della vite", BC.nome_do_problema("lobesia botrana"))
+        self.assertEqual("cercosporiosi", BC.nome_do_problema("cercospora"))   # IT-T3-008: as duas formas
 
 
 class APortaLevaAsChavesDoBoletim(unittest.TestCase):
