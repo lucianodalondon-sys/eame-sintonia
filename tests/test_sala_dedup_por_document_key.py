@@ -89,9 +89,13 @@ class ASalaNaoRepeteODocumentoPelaChave(unittest.TestCase):
         k = "null" if chave is None else "'%s'" % chave
         base = "null" if chave is None else "'SOURCE_DOCUMENT_ID'"
         return int(self.sql(
+            # preserved = false: um bruto "preservado" tem de apontar para a copia
+            # (preservado_aponta_para_a_copia, 025); aqui so a identidade importa.
             "insert into raw_asset (run_id, storage_path, media_type, bytes, sha256, captured_at, "
+            "preserved, not_preserved_reason, "
             "source_id, document_key, document_key_basis, identity_state) values "
-            "('%s', 'teste/%d', 'text/html', 1, '%s', now(), '%s', %s, %s, '%s') returning id"
+            "('%s', 'teste/%d', 'text/html', 1, '%s', now(), false, 'teste sem copia', "
+            "'%s', %s, %s, '%s') returning id"
             % (run, n, (sha * 64)[:64], source_id, k, base, estado)).splitlines()[0])
 
     def unidade(self, item_id, raw_id, source_id="IT-T5-025", universo="T5"):
@@ -152,13 +156,10 @@ class ASalaNaoRepeteODocumentoPelaChave(unittest.TestCase):
         b = espera.pousar("D11", [self.unidade("derived:502", r2, "IT-T5-040")])
         self.assertEqual(b["INSERIDAS"], 1)
 
-    def test_U2_legado_com_a_mesma_chave_nao_funde(self):
-        # LEGACY_PRE_IDEMPOTENCY pode trazer chave, mas ela não é prova.
-        r1 = self.bruto("D12", "IT-T5-041", "IT-T5-041:URL:x", estado="LEGACY_PRE_IDEMPOTENCY", sha="b")
-        r2 = self.bruto("D13", "IT-T5-041", "IT-T5-041:URL:x", estado="LEGACY_PRE_IDEMPOTENCY", sha="c")
-        espera.pousar("D12", [self.unidade("derived:601", r1, "IT-T5-041")])
-        b = espera.pousar("D13", [self.unidade("derived:602", r2, "IT-T5-041")])
-        self.assertEqual(b["INSERIDAS"], 1)
+    # LEGACY_PRE_IDEMPOTENCY nao se fabrica num teste: a 026 so o aceita com
+    # id <= corte (legado_e_anterior_ao_corte). A regra exige FORWARD_IDENTIFIED
+    # dos DOIS lados; so um legado ANTIGO com chave poderia fundir sem essa
+    # exigencia, e esse caso NAO tem teste aqui (declarado no DEDUP-DOC.md).
 
     def test_U3_sem_bruto_nao_funde(self):
         espera.pousar("D14", [self.unidade("derived:701", "NAO SEI", "IT-T5-042")])
