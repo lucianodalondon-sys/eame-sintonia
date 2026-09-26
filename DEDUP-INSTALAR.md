@@ -82,7 +82,8 @@ PGOPTIONS="-c default_transaction_read_only=on" psql -X -A -t -c "$IMP" "$DSN" |
 # 3 · ensaio na CÓPIA deste dump (tem de dar tudo verde — §5)
 py provas/migracao_036_ensaio_copia.py --dump $B/sala.dump --saida $B/ensaio.json
 
-# 4 · aplicar pela cadeia canónica (036 = PASS; TODAS as outras = SKIP — se não, PARAR)
+# 4 · aplicar pela cadeia canónica. Hoje (Sala na 033): 034 = PASS e 036 = PASS; TODAS as outras
+#     = SKIP. Se aparecer outra fora de SKIP, PARAR. (a 034 entra junto — ver §5)
 bash motor/cadeia_canonica.sh migrations "$DSN" | tee $B/up.txt
 
 # 5 · idempotente: outra vez → 036 SKIP HASH=MATCH
@@ -104,7 +105,35 @@ volta: `pg_restore` do `$B/sala.dump`. Código: `git revert` dos commits do ramo
 
 ## 5 · Ensaio completo numa cópia da Sala
 
-ENSAIO_PENDENTE
+**PROVADO** em 26/09, 11:36–11:40, sob LOCK-PESADO, com `provas/migracao_036_ensaio_copia.py` sobre um
+dump da Sala real feito só em leitura.
+
+- Dump: `pg_dump -Fc` com `default_transaction_read_only = on`; **2.686.494 bytes**, sha256
+  `a60ba900a2f435839fa8dc5e59acd05be1972d376da6d0c3a9b706c5718b6a65`. Guardado FORA do Git (tem dados
+  da Sala): `C:/Users/London1/AppData/Local/Temp/demo-seg/ensaio-036-20260926-1136/`.
+- A Sala real **não mudou durante o dump**: impressão `94 b177d0b7…` antes e depois.
+
+| passo | resultado |
+|---|---|
+| 1 · restauro da cópia | OK · **94 linhas** (`b177d0b7…`) · **478 revisões** (`12c0f42d…`) · livro-razão até **033** |
+| 2 · UP pela cadeia | **036 = PASS** · ⚠️ **034 = PASS também** (ver abaixo) · 32 SKIP HASH=MATCH |
+| 3 · validação | tabela existe · 2 gatilhos · livro `036 APLICADA 641eeef3…` · 0 versões |
+| 4 · UP outra vez | **036 = SKIP HASH=MATCH** · nenhuma outra fora de SKIP → idempotente |
+| 5 · conteúdo | **94 linhas e 478 revisões iguais byte a byte** antes/depois |
+| 6 · só acrescenta | `UPDATE`, `DELETE`, `TRUNCATE` → **RECUSADOS** (`SALA_VERSAO_SO_ACRESCENTA`) |
+| 7 · desfazer | OK · esquema **igual ao de depois do UP sem a 036** · 0/0 objetos da 036 sobram · conteúdo igual |
+| 8 · UP de novo | **036 = PASS** |
+
+⚠️ **A Sala real está na 033; o vivo `69b0e23f` já traz a `034_o_acervo_guarda_tempo_e_lugar_como_derivado`.**
+A cadeia aplica **as duas**. Por isso, no passo 7, «esquema igual ao da cópia» dá `false` (a 034 fica,
+e deve ficar) — e o ensaio compara com o esquema de depois do UP menos os objetos da 036, que dá `true`.
+**Decisão do coordenador antes do lote 3:** instalar a 034 junto (é o que a cadeia faz) ou antes, à parte.
+O desfazer da 036 não mexe na 034; desfazer a 034 é `supabase/desfazer/034_desfazer.sql` (de outra bancada,
+não ensaiado por mim).
+
+A 1.ª corrida do ensaio (mesmo dump) deu 7/8: o passo 7 comparava com o esquema da cópia, que a 034
+muda. Corrigido em `80ce1b81` + `b02a5f26` (este último conserta uma quebra de linha literal que eu
+tinha posto no primeiro).
 
 ## 6 · As 4 pastas temporárias antigas (NÃO apagadas)
 
