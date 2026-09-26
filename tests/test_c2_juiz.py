@@ -103,11 +103,26 @@ class OsOitoCasosReais(unittest.TestCase):
                          "MATERIA_PROVAVEL")
         self.assertEqual(_veredito({"CAPA_OU_MATERIA": "NAO_SEI", "READ_MORE_LINKS": 50}), "NAO_SEI")
 
-    def test_contagem_leia_mais(self):
+    def test_contagem_leia_mais_so_ligacoes(self):
+        """D79: conta-se ELEMENTOS <a> cujo texto ou rotulo COMECA pela frase."""
         c = lambda s: RH.retrato_do_html(s.encode("utf-8"))["READ_MORE_LINKS"]
-        self.assertEqual(c("<a>Leggi tutto</a><a>Scopri di più</a><a>Read  more</a>"
-                           "<a>continua a leggere</a><a>leggi di piu</a>"), 5)
-        self.assertEqual(c("<a>xleggi tutto</a><script>read more</script>"), 0)
+        self.assertEqual(c('<a href="/1">Leggi tutto</a><a href="/2">leggi  di più</a>'
+                           '<a href="/3">Continua a leggere</a><a href="/4">leggi di piu</a>'), 4)
+        self.assertEqual(c('<a href="/1">Leggi tutto<span> su ENEA a ICOE</span></a>'), 1)   # a forma ENEA
+        self.assertEqual(c('<a href="/1" aria-label="Leggi tutto: titolo"><img></a>'
+                           "<a href='/2' title='leggi di più'>›</a>"), 2)                  # so o rotulo
+        self.assertEqual(c('<a href="/1">xleggi tutto</a><a href="/2">Titolo — leggi tutto</a>'
+                           '<a href="/3">Read more</a><a href="/4">Scopri di più</a>'
+                           '<script>"<a>leggi tutto</a>"</script>'), 0)
+
+    def test_negativo_d79_frase_sem_ligacao_nao_e_lista(self):
+        """O defeito da D79: a frase repetida no TEXTO, sem nenhuma ligacao, nao faz uma lista."""
+        corpo = "<p>" + "Leggi tutto il regolamento prima di partecipare. " * 40 + "</p>"
+        r = RH.retrato_do_html(("<html><body><h1>Bando</h1>" + corpo * 2 + "</body></html>").encode("utf-8"))
+        self.assertEqual(r["LINKS"], 0)
+        self.assertEqual(r["READ_MORE_LINKS"], 0)
+        self.assertEqual(r["CAPA_OU_MATERIA"], "MATERIA_PROVAVEL")
+        self.assertEqual(_veredito(r), "MATERIA_PROVAVEL")
 
 
 class AAdmissaoBarraALista(unittest.TestCase):
@@ -151,10 +166,12 @@ class OGemeoNodeJulgaIgual(unittest.TestCase):
                   list(RH.regra_e_veredito(r, url=None, contrato=None, regua_a_mandar=False))]
             self.assertEqual(node[str(i)], py, i)
 
-    def test_contagem_leia_mais_com_acento(self):
-        """`\\b` do JavaScript nao conta «ù» como letra: o gemeo usa fronteira Unicode."""
+    def test_contagem_leia_mais_com_acento_e_negativos(self):
+        """`\\b` do JavaScript nao conta «ù» como letra: o gemeo usa fronteira Unicode.
+        E, como no Python: frase sem ligacao e «xleggi» nao contam; rotulo conta."""
         js = ("import('./coleta/retrato_html.mjs').then(m=>console.log(m.retratoDoHtml("
-              "Buffer.from('<a>Scopri di più</a><a>leggi di più</a><a>xleggi tutto</a>')).READ_MORE_LINKS))")
+              "Buffer.from('<a href=1>leggi di più</a><a href=2 title=\\'leggi tutto\\'>x</a>"
+              "<a href=3>xleggi tutto</a><a href=4>leggi dipiùx</a><p>leggi tutto leggi tutto</p>')).READ_MORE_LINKS))")
         p = subprocess.run(["node", "-e", js], cwd=RAIZ, capture_output=True, text=True,
                            encoding="utf-8", timeout=120)
         self.assertEqual(p.stdout.strip(), "2", p.stderr[-400:])

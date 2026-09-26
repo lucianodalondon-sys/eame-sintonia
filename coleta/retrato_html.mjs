@@ -30,8 +30,22 @@ const INVISIVEL = /<(script|style|noscript|template)\b[^>]*>[\s\S]*?<\/\1\s*>|<!
 const PARAGRAFO = /<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi;
 const LIGACAO = /<a\b[^>]*\bhref\s*=/gi;
 const TAG = /<[^>]+>/g;
-// As chamadas «leia mais» de uma LISTA (gemeo de `_LEIA_MAIS` em curadoria/retrato_html.py).
-const LEIA_MAIS = /(?<![\p{L}\p{N}_])(leggi\s+tutto|leggi\s+di\s+pi[uù]|continua\s+a\s+leggere|read\s+more|scopri\s+di\s+pi[uù])(?![\p{L}\p{N}_])/giu;
+// As LIGACOES «leia mais» de uma LISTA (gemeo de `ligacoes_leia_mais` em curadoria/retrato_html.py, D79):
+// elementos <a> cujo texto ou rotulo (aria-label/title) COMECA pela frase. Frase sem ligacao nao conta.
+// Fronteira Unicode: o \b do JavaScript nao conta «u» acentuado como letra.
+const A_ELEMENTO = /<a\b([^>]*)>([\s\S]*?)<\/a\s*>/gi;
+const ROTULO = /\b(?:aria-label|title)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi;
+const LEIA_MAIS = /^(leggi\s+tutto|leggi\s+di\s+pi[uù]|continua\s+a\s+leggere)(?![\p{L}\p{N}_])/iu;
+
+function ligacoesLeiaMais(fonte) {
+  let n = 0;
+  for (const [, attrs, dentro] of fonte.matchAll(A_ELEMENTO)) {
+    const texto = desentidar(dentro.replace(TAG, " ")).replace(/\s+/g, " ").trim();
+    const rotulos = [...attrs.matchAll(ROTULO)].map((m) => desentidar(m[1] ?? m[2] ?? "").trim());
+    if ([texto, ...rotulos].some((t) => LEIA_MAIS.test(t))) n++;
+  }
+  return n;
+}
 const ENTIDADES = { amp: "&", lt: "<", gt: ">", quot: "\"", apos: "'", nbsp: " " };
 
 function desentidar(s) {
@@ -70,7 +84,7 @@ export function retratoDoHtml(buf) {
     NON_WHITESPACE_CHARACTERS: semBrancos,
     PARAGRAPH_CHARACTERS: paragrafo,
     LINKS: ligacoes,
-    READ_MORE_LINKS: (fonte.match(LEIA_MAIS) || []).length,
+    READ_MORE_LINKS: ligacoesLeiaMais(fonte),
     HTML_KIND: kind,
     CAPA_OU_MATERIA: kind === "CONTENT" ? "MATERIA_PROVAVEL" : kind === "NAVIGATION" ? "CAPA_PROVAVEL" : "NAO_SEI",
   };

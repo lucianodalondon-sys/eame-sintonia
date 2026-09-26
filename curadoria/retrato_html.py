@@ -54,11 +54,24 @@ _TAG = re.compile(r"<[^>]+>")
 _ENTIDADE = re.compile(r"&(#x[0-9a-f]+|#\d+|[a-z]+);", re.I)
 _ENTIDADES = {"amp": "&", "lt": "<", "gt": ">", "quot": "\"", "apos": "'", "nbsp": " "}
 _BRANCOS = re.compile(r"\s+")
-# As chamadas «leia mais» de uma LISTA: cada item de uma pagina de lista traz a sua.
-# Contadas no HTML visivel (sem script/style), como as ligacoes.
-_LEIA_MAIS = re.compile(
-    r"\b(leggi\s+tutto|leggi\s+di\s+pi[uù]|continua\s+a\s+leggere|read\s+more|scopri\s+di\s+pi[uù])\b",
-    re.I)
+# As LIGACOES «leia mais» de uma LISTA: cada item de uma pagina de lista traz a sua.
+# D79 (bot Luciano, 26/09): conta-se ELEMENTOS <a> cujo texto — ou rotulo (aria-label/title) —
+# COMECA por «leggi tutto» / «leggi di piu» / «continua a leggere». A frase solta no texto, sem
+# ligacao, NAO conta (a V2 de b91e7661 contava ocorrencias no HTML: um HTML sem nenhuma ligacao
+# chegou a ser lista).
+_A = re.compile(r"<a\b([^>]*)>(.*?)</a\s*>", re.I | re.S)
+_ROTULO = re.compile(r"""\b(?:aria-label|title)\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.I)
+_LEIA_MAIS = re.compile(r"(leggi\s+tutto|leggi\s+di\s+pi[uù]|continua\s+a\s+leggere)(?!\w)", re.I)
+
+
+def ligacoes_leia_mais(fonte: str) -> int:
+    n = 0
+    for attrs, dentro in _A.findall(fonte):
+        texto = _BRANCOS.sub(" ", _desentidar(_TAG.sub(" ", dentro))).strip()
+        rotulos = [_desentidar(a or b).strip() for a, b in _ROTULO.findall(attrs)]
+        if any(_LEIA_MAIS.match(t) for t in [texto] + rotulos):
+            n += 1
+    return n
 
 
 def _desentidar(s: str) -> str:
@@ -108,7 +121,7 @@ def retrato_do_html(b: bytes) -> dict:
         "NON_WHITESPACE_CHARACTERS": sem_brancos,
         "PARAGRAPH_CHARACTERS": paragrafo,
         "LINKS": ligacoes,
-        "READ_MORE_LINKS": len(_LEIA_MAIS.findall(fonte)),
+        "READ_MORE_LINKS": ligacoes_leia_mais(fonte),
         "HTML_KIND": kind,
         "CAPA_OU_MATERIA": ("MATERIA_PROVAVEL" if kind == "CONTENT"
                             else "CAPA_PROVAVEL" if kind == "NAVIGATION"
@@ -145,11 +158,14 @@ REGRA_V1 = "V1_INDEX_URL_E_CAPA"
 # «Leggi tutto su …» (10 na pagina). Entrou na Sala com a data de um evento e o
 # lugar de outro. O formato mede a pagina inteira e nao ve que o texto e de VARIOS.
 #
-# A regra so APERTA: materia com >= 6 chamadas «leia mais» passa a CAPA_PROVAVEL.
-# Medido antes de escolher (GABARITO-CAPA-V1, 146 paginas; 3.a onda, 75 HTML):
-#   · no gabarito, capas que atravessam 63 -> 58; materias barradas 6 -> 7;
-#   · na 3.a onda, a noticia com mais «leia mais» tem 4 (Riunite, barra lateral);
+# A regra so APERTA: materia com >= 6 LIGACOES «leia mais» (elementos <a>, D79) passa a CAPA_PROVAVEL.
+# Medido antes de escolher (GABARITO-CAPA-V1, 146 paginas; 3.a onda, 75 HTML), JA contando
+# ligacoes <a> (D79):
+#   · no gabarito, capas que atravessam 63 -> 61; materias barradas 6 -> 6 (nenhuma a mais);
+#   · na 3.a onda, a noticia com mais ligacoes «leia mais» tem 4 (Riunite, barra lateral);
 #     a lista ENEA tem 10. Limiar 6 = o meio; margem de UM exemplo, declarada.
+#   (A 1.a versao, que contava a FRASE em qualquer sitio do HTML, dava 58/7 — e chamava lista a
+#   um HTML sem nenhuma ligacao. Recusada pela D79.)
 # A regra irma (data de publicacao salvaria a noticia curta com menu grande) foi
 # MEDIDA E RECUSADA: no gabarito deixava passar 11 capas para salvar 2 noticias.
 #
