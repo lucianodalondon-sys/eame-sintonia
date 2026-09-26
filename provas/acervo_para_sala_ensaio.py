@@ -267,9 +267,11 @@ def main():
             fora["PASSAGENS"] = passagens
 
             # ── 4 · o que entrou ──
-            cols = ("item_id, source_id, universo, published_at, published_at_basis, fact_time, fact_time_basis, "
-                    "fact_location, fact_location_basis, coalesce(tempo_lugar_evidencia::text, ''), "
-                    "raw_observation_id, replace(replace(coalesce(texto, ''), E'\t', ' '), E'\n', ' | ')")
+            # ⚠️ TODA coluna sem TAB/LF/CR: o `psql()` le em modo texto, o CR vira fim de linha e a linha
+            # partida perdia-se calada (medido no texto da Sala real, ACERVO-PARA-SALA-2)
+            cols = ", ".join("translate(coalesce(%s::text, ''), chr(9) || chr(10) || chr(13), '   ')" % c for c in (
+                "item_id", "source_id", "universo", "published_at", "published_at_basis", "fact_time", "fact_time_basis",
+                "fact_location", "fact_location_basis", "tempo_lugar_evidencia", "raw_observation_id", "texto"))
             novas = []
             for l in psql("select %s from sala_de_espera_atual" % cols).split("\n"):
                 c = l.split("\t")
