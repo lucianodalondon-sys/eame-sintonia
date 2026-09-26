@@ -69,6 +69,10 @@
 <script src="italy-casa.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
+<!-- CASCO-LEITURA (D78): o CARREGADOR da vista so de leitura da Sala (sem dados). Os dados vivem em
+     italy-sala-leitura.local.js, GERADO por audit/casco/sala-leitura.mjs, com texto da Sala: fora do Git e do
+     deploy, e so pedidos com ?sala=local. Sem eles, a vista #sala diz que o export nao foi carregado. -->
+<script src="italy-sala-leitura.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
   a { color:#009845; text-decoration:none; }
@@ -3568,6 +3572,128 @@
     </div>
     </sc-if>
 
+    <!-- ================= PANNELLO OPERATIVO · SOLA LETTURA (CASCO-PAINEL, D78) ================= -->
+    <sc-if value="{{ isPainel }}" hint-placeholder-val="{{ false }}">
+    <div data-view="painel" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ pn.L.title }}</h1><sc-if value="{{ pnHas }}" hint-placeholder-val="{{ true }}"><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">vivo {{ pn.vivo }} · {{ pn.L.sub }} · {{ pn.gerado }}</div></sc-if></div>
+      <sc-if value="{{ pnMissing }}" hint-placeholder-val="{{ false }}"><div style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ pn.L.noData }}</div></sc-if>
+      <sc-if value="{{ pnHas }}" hint-placeholder-val="{{ false }}">
+      <div data-painel="instalacoes" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 14px;display:flex;flex-direction:column;gap:3px">
+        <div style="font-size:12px;font-weight:700;color:#fff">Installazioni nel vivo · reflog del ramo servico-20260923-0923 · HEAD locale {{ pn.vivoLocal }} · origin {{ pn.vivo }}</div>
+        <sc-for list="{{ pn.instalacoes }}" as="i" hint-placeholder-count="8"><div style="display:grid;grid-template-columns:80px 200px 1fr;gap:10px;font-size:10.5px;color:#EDEAE9"><b style="color:{{ i.color }};font-family:monospace">{{ i.sha }}</b><span style="font-variant-numeric:tabular-nums;color:#C9C3C1">{{ i.quando }}</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ i.msg }}</span></div></sc-for>
+      </div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;color:#009845">{{ pn.L.coleta }}</div>
+      <div data-painel="ondas" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:8px 14px 10px">
+        <div style="font-size:12px;font-weight:700;color:#fff;padding:4px 0 8px">{{ pn.L.waves }}</div>
+        <div style="display:grid;grid-template-columns:200px 150px 70px 1fr 240px 90px;gap:10px;font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8F8886;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.08)"><span>ONDA</span><span>QUANDO</span><span>CORRERAM</span><span>ESTADO POR FONTE</span><span>PEDIDOS · DOMINIOS</span><span>SALA</span></div>
+        <sc-for list="{{ pn.ondas }}" as="o" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;border-bottom:1px dotted rgba(151,139,135,0.35);padding:6px 0"><div style="display:grid;grid-template-columns:200px 150px 70px 1fr 240px 90px;gap:10px;font-size:11px;color:#EDEAE9"><span style="font-weight:700">{{ o.nome }}</span><span style="font-variant-numeric:tabular-nums">{{ o.quando }}</span><span>{{ o.fontes }}</span><span style="color:#C9C3C1">{{ o.status }}</span><span>{{ o.pedidos }}</span><span>{{ o.sala }}</span></div><div style="font-size:9.5px;color:#8F8886">{{ o.prova }}</div></div></sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div data-painel="coorte" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 14px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;font-weight:700;color:#fff">{{ pn.L.cohort }} · {{ pn.coorte.estado }} · {{ pn.coorte.congeladaEm }}</div>
+          <div style="font-size:18px;font-weight:700;color:#fff">{{ pn.coorte.dentro }} <span style="font-size:11px;color:#8F8886">dentro · {{ pn.coorte.fora }} fora</span></div>
+          <sc-for list="{{ pn.fora }}" as="f" hint-placeholder-count="4"><div style="font-size:10.5px;color:#C9C3C1"><b style="color:#F5B317">{{ f.v }}</b> {{ f.k }}</div></sc-for>
+          <div style="font-size:9.5px;color:#8F8886">{{ pn.coorteProva }}</div>
+          <div style="font-size:12px;font-weight:700;color:#fff;padding-top:6px">{{ pn.L.service }}</div>
+          <div style="font-size:11px;color:#EDEAE9">{{ pn.sv.servico }} · worker {{ pn.sv.worker }} · fila elegivel {{ pn.sv.filaElegivel }} · batimento velho {{ pn.sv.batimentoVelho }} ({{ pn.sv.idadeBatimentoS }} s) · reinicios {{ pn.sv.reinicios }}</div>
+          <div style="font-size:9.5px;color:#8F8886">supervisor.py --estado · {{ pn.sv.medidoEm }} · {{ pn.svProva }}</div>
+        </div>
+        <div data-painel="dominios" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 14px;display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:12px;font-weight:700;color:#fff">{{ pn.L.domains }} ({{ pn.ultimaOnda }})</div><div style="font-size:9.5px;color:#8F8886">{{ pn.dominiosMostrados }} · teto por dominio na onda = 5 (D38)</div>
+          <sc-for list="{{ pn.dominios }}" as="d" hint-placeholder-count="12"><div style="display:grid;grid-template-columns:190px 1fr 70px;gap:8px;align-items:center;font-size:10.5px;color:#EDEAE9"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.nome }}</span><span style="height:7px;border-radius:4px;background:rgba(255,255,255,0.06)"><span style="display:block;height:7px;border-radius:4px;width:{{ d.w }};background:{{ d.color }}"></span></span><span>{{ d.n }} {{ d.nota }}</span></div></sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div data-painel="sala-dia" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 14px;display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:12px;font-weight:700;color:#fff">{{ pn.L.sala }}</div>
+          <sc-for list="{{ pn.salaDias }}" as="d" hint-placeholder-count="7"><div style="display:grid;grid-template-columns:90px 50px 1fr 40px;gap:8px;align-items:center;font-size:10.5px;color:#EDEAE9"><span style="font-variant-numeric:tabular-nums">{{ d.dia }}</span><span style="color:#7BE0A6">{{ d.novos }}</span><span style="height:7px;border-radius:4px;background:rgba(255,255,255,0.06)"><span style="display:block;height:7px;border-radius:4px;width:{{ d.w }};background:#009845"></span></span><b>{{ d.total }}</b></div></sc-for>
+          <div style="font-size:9.5px;color:#8F8886">Sala real · {{ pn.salaMedida }} · transaction_read_only = {{ pn.salaRO }} · {{ pn.salaProva }}</div>
+        </div>
+        <div data-painel="cobertura" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 14px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;font-weight:700;color:#fff">{{ pn.L.cov }}</div>
+          <sc-for list="{{ pn.cov }}" as="c" hint-placeholder-count="4"><div style="display:flex;align-items:baseline;gap:8px;font-size:11px;color:#EDEAE9"><b style="font-size:16px;color:#fff">{{ c.n }}</b><span style="color:#8F8886">/ {{ c.of }}</span><span>{{ c.k }}</span><span style="color:#F5B317;margin-left:auto">{{ c.ns }}</span></div></sc-for>
+        </div>
+      </div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;color:#009845;padding-top:4px">{{ pn.L.intel }}</div>
+      <div data-painel="intelligence" style="border-radius:14px;border:1px solid rgba(245,179,23,0.35);background:#1C1817;padding:10px 14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:14px;font-weight:700;color:#F5B317">{{ pn.intelEstado }} <span style="font-size:11px;color:#C9C3C1;font-weight:400">· {{ pn.intelRegra }}</span></div>
+        <div style="font-size:11px;color:#EDEAE9">criterios cumpridos: <b>{{ pn.cumpridos }}</b> · em falta: <b style="color:#F5B317">{{ pn.emFalta }}</b> · contrato da trava medido em {{ pn.travaMedida }}</div>
+        <div style="font-size:9.5px;color:#8F8886">{{ pn.travaProva }}</div>
+        <div style="font-size:11px;color:#EDEAE9">EMENDA EXP-D78: <b>{{ pn.emenda.estado }}</b> · {{ pn.emenda.ramo }} @ {{ pn.emenda.head }} · {{ pn.emenda.data }}</div>
+        <div style="font-size:12px;font-weight:700;color:#fff;padding-top:6px">{{ pn.L.defects }}</div>
+        <sc-for list="{{ pn.defeitos }}" as="d" hint-placeholder-count="10"><div style="display:grid;grid-template-columns:40px 110px 1fr 250px 250px;gap:10px;font-size:10.5px;color:#EDEAE9;padding:3px 0;border-bottom:1px dotted rgba(151,139,135,0.25)"><b>{{ d.d }}</b><span style="color:#8F8886">{{ d.lado }}</span><span>{{ d.oQue }}</span><span style="color:{{ d.color }};font-weight:700">{{ d.estado }}</span><span style="color:#8F8886">{{ d.onde }}</span></div></sc-for>
+        <div style="font-size:9.5px;color:#8F8886">lista dos defeitos: {{ pn.defeitosProva }} · estado pelo Git (commit que nomeia o defeito; no vivo = ancestral de origin/servico)</div>
+      </div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;color:#009845;padding-top:4px">{{ pn.L.missing }}</div>
+      <div data-painel="falta" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 14px;display:flex;flex-direction:column;gap:6px">
+        <sc-for list="{{ pn.falta }}" as="f" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:2px;padding:4px 0;border-bottom:1px dotted rgba(151,139,135,0.25)"><div style="font-size:11.5px;color:#fff"><b style="color:{{ f.color }}">{{ f.mark }}</b> {{ f.c }}</div><div style="font-size:11px;color:{{ f.color }}">{{ f.e }}</div><div style="font-size:9.5px;color:#8F8886">{{ f.prova }}</div></div></sc-for>
+        <div style="font-size:9.5px;color:#8F8886">regra: bot Luciano 25/09 23:17 (HANDOFF-VIVO 23:31) — 4.a onda so com FECHAR-ONDA3 = PASS + C9 instalado e provado + VPN/teto/backup/robo parado</div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ================= PER FONTE · SOLA LETTURA (CASCO-PAINEL-2) ================= -->
+    <sc-if value="{{ isFontes }}" hint-placeholder-val="{{ false }}">
+    <div data-view="fontes" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ fx.L.title }}</h1><sc-if value="{{ fxHas }}" hint-placeholder-val="{{ true }}"><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">vivo {{ fx.vivo }} · {{ fx.L.sub }} · {{ fx.gerado }}</div></sc-if></div>
+      <sc-if value="{{ fxMissing }}" hint-placeholder-val="{{ false }}"><div style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ fx.L.noData }}</div></sc-if>
+      <sc-if value="{{ fxHas }}" hint-placeholder-val="{{ false }}">
+      <sc-for list="{{ fx.grupos }}" as="g" hint-placeholder-count="3">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;color:#009845;padding-top:6px">{{ g.label }} · {{ g.n }} fonti · {{ g.comItens }} con elementi nella sala</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:8px">
+          <sc-for list="{{ g.cards }}" as="c" hint-placeholder-count="6">
+            <div data-fonte="1" style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:4px;font-size:10.5px;color:#EDEAE9">
+              <div style="display:flex;align-items:baseline;gap:8px"><b style="font-size:12.5px;color:#fff">{{ c.sid }}</b><span style="color:#8F8886">{{ c.univ }}</span><span style="margin-left:auto;color:{{ c.salaColor }};font-weight:700">{{ c.sala }} nella sala</span></div>
+              <sc-if value="{{ c.url }}" hint-placeholder-val="{{ true }}"><div style="color:#8F8886;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.url }}</div></sc-if>
+              <sc-if value="{{ c.temPorque }}" hint-placeholder-val="{{ false }}"><div style="color:#F5B317">fuori: {{ c.porque }}</div></sc-if>
+              <div><span style="color:#8F8886">visite:</span> {{ c.visitas }}</div>
+              <div><span style="color:#8F8886">ultima:</span> {{ c.ultima }}</div>
+              <sc-if value="{{ c.canario }}" hint-placeholder-val="{{ true }}"><div><span style="color:#8F8886">ultimo canarino:</span> {{ c.canario }} UTC</div></sc-if>
+              <div><span style="color:#8F8886">pubblicazione:</span> {{ c.pub }} · <span style="color:#8F8886">luogo della fonte:</span> {{ c.sede }}</div>
+              <div><span style="color:#8F8886">date del fatto:</span> {{ c.datas }}</div>
+              <div><span style="color:#8F8886">luoghi del fatto:</span> {{ c.lugares }}</div>
+              <div><span style="color:#8F8886">ammissione:</span> {{ c.adm }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+      <sc-for list="{{ fx.provas }}" as="p" hint-placeholder-count="4"><div style="font-size:9.5px;color:#8F8886">{{ p }}</div></sc-for>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ================= SALA · SOLA LETTURA (CASCO-LEITURA, D78) ================= -->
+    <sc-if value="{{ isSala }}" hint-placeholder-val="{{ false }}">
+    <div data-view="sala" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ sala.L.title }}</h1><sc-if value="{{ salaHas }}" hint-placeholder-val="{{ true }}"><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ sala.total }} {{ sala.L.sub }} · export {{ sala.generated }} UTC</div></sc-if></div>
+      <sc-if value="{{ salaMissing }}" hint-placeholder-val="{{ false }}"><div style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ sala.L.noExport }}</div></sc-if>
+      <sc-if value="{{ salaHas }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px">
+        <sc-for list="{{ sala.kpis }}" as="k" hint-placeholder-count="6"><div style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:9px 12px;display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:700;line-height:1;color:#fff">{{ k.count }}<span style="font-size:11px;color:#8F8886"> / {{ k.of }}</span></div><div style="font-size:10px;color:#C9C3C1">{{ k.label }}</div><div style="font-size:10px;color:#F5B317">{{ k.note }}</div></div></sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ sala.itens }}" as="i" hint-placeholder-count="6">
+          <div data-sala-item="1" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:center;gap:10px;font-size:10.5px;color:#8F8886"><span style="color:#B1A9A7;font-weight:600;font-variant-numeric:tabular-nums">{{ i.when }}</span><span style="color:#fff;font-weight:700">{{ i.source }}</span><span>{{ i.univ }} · {{ i.estagio }}</span></div>
+            <div style="font-size:12px;line-height:1.5;color:#EDEAE9"><span style="font-size:9.5px;letter-spacing:0.10em;color:#8F8886">{{ i.excerptLabel }} · </span>{{ i.excerpt }}</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+              <sc-for list="{{ i.fields }}" as="f" hint-placeholder-count="4"><div style="border-radius:10px;border:1px solid {{ f.border }};padding:8px 10px;display:flex;flex-direction:column;gap:3px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#8F8886">{{ f.label }}</div><div style="font-size:12.5px;font-weight:700;color:{{ f.color }};word-break:break-word">{{ f.value }}</div><div style="font-size:10px;color:#C9C3C1">{{ f.meta }}</div><div style="font-size:9.5px;line-height:1.4;color:#8F8886;word-break:break-word">{{ f.base }}</div></div></sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:10.5px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px">
+              <span style="font-weight:700;color:#8F8886;letter-spacing:0.08em">{{ sala.L.proof }}</span>
+              <sc-if value="{{ i.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ i.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;max-width:420px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ i.urlLabel }} {{ i.url }}</a></sc-if>
+              <sc-if value="{{ i.rawOk }}" hint-placeholder-val="{{ true }}"><a href="{{ i.rawHref }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none">{{ i.rawLabel }}</a></sc-if>
+              <sc-if value="{{ i.rawMissing }}" hint-placeholder-val="{{ false }}"><span style="color:#F5B317">{{ i.rawLabel }}</span></sc-if>
+              <span style="margin-left:auto;color:#F5B317"><b style="color:#8F8886">{{ sala.L.intel }}:</b> {{ i.intel }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
     <!-- ================= SOURCES ================= -->
     <sc-if value="{{ isSources }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
@@ -3728,7 +3854,7 @@ class Component extends DCLogic {
   /* UN SOLO MAPPA VISTA -> CAPACITA. Lo leggeva la barra per accendere la voce
      attiva; adesso lo legge anche l'indirizzo, per non finire con due verita su
      dove il lettore si trova. */
-  static CAPABILITY_OF = { radarfuturo: 'radarfuturo', radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', etichette: 'etichette', etichetta: 'etichette', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
+  static CAPABILITY_OF = { radarfuturo: 'radarfuturo', radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', etichette: 'etichette', etichetta: 'etichette', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', sala: 'sala', painel: 'painel', fontes: 'fontes', search: '' };
 
   static VIEW_FROM_HASH() {
     /* «Field Sales» NON E TRA LE VISTE RAGGIUNGIBILI.
@@ -3749,7 +3875,7 @@ class Component extends DCLogic {
        nao mais uma pagina a parte: quem recarrega em #radarfuturo tem de voltar
        aos 44, e nao ao radar. */
     const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
-      'science', 'portfolio', 'archive', 'sources', 'radarfuturo', 'etichette'];
+      'science', 'portfolio', 'archive', 'sources', 'radarfuturo', 'etichette', 'sala', 'painel', 'fontes'];
     try {
       const h = String((typeof window !== 'undefined' && window.location && window.location.hash) || '').replace(/^#/, '');
       return AMMESSE.includes(h) ? h : 'meeting';
@@ -5710,7 +5836,16 @@ class Component extends DCLogic {
       ['science', T.navScience, navN('scienceRecords')],
       ['portfolio', T.navPortfolio, navN('products')],
       ['archive', T.navArchive, navN('archive')],
-      ['sources', T.navSources, navN('sources')]
+      ['sources', T.navSources, navN('sources')],
+      /* CASCO-LEITURA (D78) · a Sala, so de leitura. O contador vem do proprietario do dado (o export
+         gerado) e cala-se se ele faltar, como as outras voces. */
+      /* CASCO-PAINEL (D78) · o painel de operacao, so de leitura; sem contador (nao e uma populacao). */
+      ['painel', s.lang === 'en' ? 'Operations panel · read-only' : 'Pannello operativo · sola lettura', ''],
+      /* CASCO-PAINEL-2 · uma pagina POR FONTE; o contador e o do dono do dado (o painel gerado). */
+      ['fontes', s.lang === 'en' ? 'Per source · read-only' : 'Per fonte · sola lettura',
+        (window.ITALY_PAINEL_OPERACAO && (window.ITALY_PAINEL_OPERACAO.fontes || []).length) || ''],
+      ['sala', s.lang === 'en' ? 'Waiting room · read-only' : "Sala d'attesa · sola lettura",
+        (window.ITALY_SALA_LEITURA && window.ITALY_SALA_LEITURA.total) || '']
     ];
     const navIntegrations = [['field', T.navField, allMessages.length]];
     const activeOf = Component.CAPABILITY_OF;
@@ -5798,6 +5933,130 @@ class Component extends DCLogic {
        prova niente, e un contatore scritto a mano sarebbe una seconda verita. */
     const navEvidence = (navRadarFuturo.count !== '' ? [navRadarFuturo] : [])
       .concat(navDef.filter(n => !STRUMENTI.includes(n[0])).map(navRow));
+    /* ══ CASCO-LEITURA (D78) · A SALA, SO DE LEITURA ══════════════════════════
+       O que aconteceu, quando, onde, fonte/prova e o que a Intelligence concluiu —
+       inclusive NAO SEI. Os quatro campos ficam SEPARADOS, cada um com valor, base e
+       precisao; um NAO SEI mostra o PORQUE (a base) em vez de se esconder. Nenhuma
+       pontuacao, nenhuma ordem de relevancia: a ordem e a do pouso na Sala.
+       A coluna Intelligence diz NAO_EXECUTADA: a Intelligence ainda nao tem saida, e o
+       portal nao a reconstroi (INT-LAW-023). O dado vem de window.ITALY_SALA_LEITURA,
+       gerado fora do Git; sem ele a vista diz que o export nao foi carregado. */
+    const SALA = window.ITALY_SALA_LEITURA || null;
+    const salaVM = (() => {
+      const en = s.lang === 'en';
+      const L = en
+        ? { title: 'Waiting room · read-only', ft: 'FACT TIME', pt: 'PUBLICATION TIME', sl: 'SOURCE LOCATION', fl: 'FACT LOCATION', prec: 'precision', base: 'basis',
+            proof: 'Proof', url: 'seen at', raw: 'raw file', rawOk: 'raw file · sha256 checked', rawMissing: 'raw file NOT FOUND on this machine · stored sha256', rawElsewhere: 'raw file · the waiting-room path lost it · IDENTICAL copy elsewhere (sha256 checked)',
+            intel: 'Intelligence', intelNo: 'NOT_EXECUTED — the Intelligence has no output yet (INT-LAW-023)', excerpt: 'document excerpt',
+            sub: 'items in the waiting room · read-only export, no score, newest first', noExport: 'The read-only export of the waiting room was not loaded. It is generated outside Git (italy-sala-leitura.local.js) and only requested with ?sala=local in the address.' }
+        : { title: "Sala d'attesa · sola lettura", ft: 'DATA DEL FATTO', pt: 'DATA DI PUBBLICAZIONE', sl: 'LUOGO DELLA FONTE', fl: 'LUOGO DEL FATTO', prec: 'precisione', base: 'base',
+            proof: 'Prova', url: 'visto su', raw: 'file grezzo', rawOk: 'file grezzo · sha256 verificato', rawMissing: 'file grezzo NON TROVATO su questa macchina · sha256 registrato', rawElsewhere: 'file grezzo · il percorso della sala l’ha perso · copia IDENTICA altrove (sha256 verificato)',
+            intel: 'Intelligence', intelNo: 'NON_ESEGUITA — la Intelligence non ha ancora un risultato (INT-LAW-023)', excerpt: 'estratto del documento',
+            sub: "elementi nella sala d'attesa · export in sola lettura, nessun punteggio, i piu recenti prima", noExport: "L'export in sola lettura della sala d'attesa non e stato caricato. E generato fuori da Git (italy-sala-leitura.local.js) e si chiede solo con ?sala=local nell'indirizzo." };
+      if (!SALA) return { has: false, L, itens: [], kpis: [], total: 0 };
+      const NS = 'NAO SEI';
+      const cut = (x, n) => { const t = String(x || ''); return t.length > n ? t.slice(0, n - 1) + '…' : t; };
+      const campos = [['FACT_TIME', L.ft], ['PUBLICATION_TIME', L.pt], ['SOURCE_LOCATION', L.sl], ['FACT_LOCATION', L.fl]];
+      const kpis = campos.map(([k, l]) => ({ label: l, count: SALA.contagem[k].comValor, of: SALA.total,
+        note: `${SALA.total - SALA.contagem[k].comValor} ${NS}` }));
+      kpis.push({ label: L.rawOk, count: ((SALA.contagem.RAW || {}).CONFERIDO || 0) + ((SALA.contagem.RAW || {}).CONFERIDO_NOUTRO_CAMINHO || 0), of: SALA.total, note: `${(SALA.contagem.RAW || {}).CONFERIDO_NOUTRO_CAMINHO || 0} NOUTRO_CAMINHO · ${(SALA.contagem.RAW || {}).NAO_ENCONTRADO || 0} NAO_ENCONTRADO` });
+      kpis.push({ label: L.intel, count: (SALA.contagem.INTELLIGENCE || {}).EXPERIMENTAL || 0, of: SALA.total, note: `${(SALA.contagem.INTELLIGENCE || {}).NAO_EXECUTADA} NAO_EXECUTADA` });
+      const itens = SALA.itens.map((i) => ({
+        when: String(i.pousadoEm || '').slice(0, 10), source: i.sourceId, univ: i.universo, estagio: i.estagio,
+        excerpt: i.trecho || NS, excerptLabel: L.excerpt,
+        fields: campos.map(([k, l]) => { const c = i.campos[k]; const ns = c.valor === NS; return {
+          label: l, value: c.valor, color: ns ? '#F5B317' : '#FFFFFF', border: ns ? 'rgba(245,179,23,0.35)' : 'rgba(0,152,69,0.40)',
+          meta: `${L.prec}: ${c.precisao}${c.tipo ? ' · ' + c.tipo : ''}`, base: `${L.base}: ${cut(c.base, 260)}` }; }),
+        hasUrl: !!(i.prova && i.prova.url), url: (i.prova && i.prova.url) || '', urlLabel: L.url,
+        /* CASCO-PAINEL · o original que o caminho da Sala perdeu, mas existe IDENTICO noutro caminho
+           (sha256 conferido de novo pelo gerador): link para a copia, e o aviso de que o caminho da Sala falhou. */
+        rawOk: /^CONFERIDO/.test(i.prova.raw.estado), rawMissing: !/^CONFERIDO/.test(i.prova.raw.estado), rawHref: i.prova.raw.href || '',
+        rawLabel: i.prova.raw.estado === 'CONFERIDO' ? L.rawOk
+          : i.prova.raw.estado === 'CONFERIDO_NOUTRO_CAMINHO' ? L.rawElsewhere
+          : `${L.rawMissing} ${String(i.prova.raw.sha256 || '').slice(0, 16)}…`,
+        /* A Intelligence so aparece se a saida EXPERIMENTAL passou o contrato do casco
+           (audit/casco/INTELLIGENCE-EXPERIMENTAL-CONTRATO.json); e aparece marcada, nunca como facto. */
+        intel: typeof i.intelligence === 'object' && i.intelligence
+          ? `EXPERIMENTAL · NAO PARA CLIENTE — ${i.intelligence.estado}: ${i.intelligence.conclusao} (${L.base}: ${cut(i.intelligence.base, 160)})`
+          : L.intelNo,
+      }));
+      return { has: true, L, itens, kpis, total: SALA.total, generated: String(SALA.gerado || '').slice(0, 16).replace('T', ' ') };
+    })();
+    /* ══ CASCO-PAINEL (D78) · O PAINEL DE OPERACAO, SO DE LEITURA ═══════════════
+       Coleta (ondas, coorte, pedidos por dominio e teto, Sala por dia, cobertura), Intelligence
+       (a trava, a emenda, D1-D10) e o que falta para a proxima onda. Cada numero vem de um
+       artefacto medido, com a fonte e a data ao lado; o que nao foi medido diz NAO SEI. Nenhuma
+       pontuacao. O dado vem de window.ITALY_PAINEL_OPERACAO (gerado fora do Git). */
+    const PN = window.ITALY_PAINEL_OPERACAO || null;
+    const painelVM = (() => {
+      const en = s.lang === 'en';
+      const L = en
+        ? { title: 'Operations panel · read-only', sub: 'every number comes from a measured artefact, with its source and date', noData: 'The operations panel was not loaded. It is generated outside Git (italy-painel.local.js) and only requested with ?sala=local.',
+            coleta: 'COLLECTION', waves: 'Waves done', cohort: 'Frozen cohort', domains: 'Requests per domain · last wave', sala: 'Waiting room per day', cov: 'Time/place coverage', service: 'Collector service', intel: 'INTELLIGENCE', defects: 'Defects D1–D10', missing: 'WHAT IS MISSING for the next wave' }
+        : { title: 'Pannello operativo · sola lettura', sub: 'ogni numero viene da un artefatto misurato, con fonte e data accanto', noData: 'Il pannello operativo non e stato caricato. E generato fuori da Git (italy-painel.local.js) e si chiede solo con ?sala=local.',
+            coleta: 'RACCOLTA', waves: 'Ondate eseguite', cohort: 'Coorte congelata', domains: "Richieste per dominio · ultima ondata", sala: "Sala d'attesa per giorno", cov: 'Copertura tempo/luogo', service: 'Servizio del raccoglitore', intel: 'INTELLIGENCE', defects: 'Difetti D1–D10', missing: 'COSA MANCA per la prossima ondata' };
+      if (!PN) return { has: false, L };
+      const C = PN.coleta, I = PN.intelligence;
+      const pv = (p) => (p ? `${p.ficheiro || p.git || ''}${p.sha256 ? ' · sha256 ' + p.sha256 + '…' : ''}${p.modificado ? ' · ' + String(p.modificado).slice(0, 16).replace('T', ' ') + ' UTC' : ''}` : 'NAO SEI');
+      const status = (o) => Object.entries(o || {}).map(([k, v]) => `${k} ${v}`).join(' · ');
+      const ondas = C.ondas.map((o) => ({ nome: o.nome, quando: `${o.data} ${o.inicio}–${o.fim}`, fontes: `${o.correram}/${o.fontes}`, status: status(o.porStatus),
+        pedidos: `${o.pedidos} · ${o.dominios} dom. · max ${o.maxPorDominio}${o.tetoPorDominioNaOnda ? '' : ' (teto D38 ainda nao existia)'}`,
+        sala: `${o.salaAntes} → ${o.salaDepois}`, prova: pv(o.prova) }));
+      const maxD = Math.max(1, ...C.dominiosUltima.map((d) => d.pedidos));
+      const dominios = C.dominiosUltima.slice(0, 16).map((d) => ({ nome: d.dominio, n: d.pedidos, w: Math.round(100 * d.pedidos / maxD) + '%',
+        color: d.noTeto ? '#F5B317' : '#009845', nota: d.noTeto ? `= teto ${C.teto}` : '' }));
+      const maxS = Math.max(1, ...C.sala.porDia.map((d) => d.total));
+      const salaDias = C.sala.porDia.map((d) => ({ dia: d.dia, novos: '+' + d.novos, total: d.total, w: Math.round(100 * d.total / maxS) + '%' }));
+      const cov = ['FACT_TIME', 'PUBLICATION_TIME', 'SOURCE_LOCATION', 'FACT_LOCATION'].map((k) => ({ k, n: C.sala.cobertura[k], of: C.sala.cobertura.total,
+        ns: `${C.sala.cobertura.total - C.sala.cobertura[k]} NAO SEI` }));
+      const fora = Object.entries(C.coorte.foraPorque).map(([k, v]) => ({ k, v }));
+      const defeitos = I.defeitos.map((d) => ({ d: d.defeito, lado: d.lado, oQue: d.oQue, estado: d.estado,
+        onde: d.commit ? `${d.ramo} @ ${d.commit} · ${String(d.quando || '').slice(0, 16).replace('T', ' ')}` : (d.ramo || '—'),
+        color: /NO VIVO/.test(d.estado) ? '#7BE0A6' : /CORRETO/.test(d.estado) ? '#C9C3C1' : '#F5B317' }));
+      const falta = PN.falta.map((f) => ({ c: f.condicao, e: f.estado, mark: f.ok ? '✓' : '✗', color: f.ok ? '#7BE0A6' : '#F5B317', prova: pv(f.prova) }));
+      return { has: true, L, gerado: String(PN.gerado).slice(0, 16).replace('T', ' ') + ' UTC', vivo: PN.vivo, ondas, dominios, ultimaOnda: C.ultimaOnda, dominiosMostrados: `${dominios.length} de ${C.dominiosUltima.length} dominios, os de mais pedidos primeiro`,
+        coorte: C.coorte, coorteProva: pv(C.coorte.prova), fora, salaDias, salaMedida: C.sala.medidaEm, salaRO: C.sala.soLeitura, salaProva: pv(C.sala.prova), cov,
+        sv: C.servico, svProva: pv(C.servico.prova), intelEstado: I.estado, intelRegra: I.regra, travaMedida: I.travaMedidaEm,
+        cumpridos: (I.criteriosCumpridos || []).join(' '), emFalta: (I.criteriosEmFalta || []).join(' '), travaProva: pv(I.prova),
+        emenda: I.emenda, defeitos, defeitosProva: pv(I.fonteDosDefeitos), falta,
+        /* CASCO-PAINEL-2 · a linha do tempo das instalacoes: o reflog do ramo do vivo (hora, SHA, mensagem). */
+        vivoLocal: PN.vivoLocal || 'NAO SEI',
+        instalacoes: (PN.instalacoes || []).slice(0, 14).map((i) => ({ sha: i.sha, quando: i.quando, msg: i.mensagem,
+          color: /Fast-forward|Merge made/.test(i.mensagem) ? '#7BE0A6' : /reset/.test(i.mensagem) ? '#F5B317' : '#C9C3C1' })) };
+    })();
+    /* ══ CASCO-PAINEL-2 · POR FONTE, SO DE LEITURA ═══════════════════════════════
+       Para cada fonte da coorte (64), das prontas que ficaram fora (com o porque) e das que so aparecem
+       na Sala: quando foi visitada, quantos pedidos gastou, o que deu (itens, datas, lugares) e o que a
+       Admissao decidiu. Tudo do painel gerado (window.ITALY_PAINEL_OPERACAO.fontes); sem nota. */
+    const fontesVM = (() => {
+      const en = s.lang === 'en';
+      const L = en
+        ? { title: 'Per source · read-only', sub: 'what each source gave, when it was visited, how many requests it spent, and why it did not enter', noData: 'The per-source data was not loaded. It is generated outside Git (italy-painel.local.js) and only requested with ?sala=local.',
+            COORTE: 'FROZEN COHORT', PRONTA_FORA_DA_COORTE: 'READY BUT OUTSIDE THE COHORT', SO_NA_SALA: 'ONLY IN THE WAITING ROOM (earlier runs)' }
+        : { title: 'Per fonte · sola lettura', sub: "cosa ha dato ogni fonte, quando e stata visitata, quante richieste ha speso e perche non e entrata", noData: 'I dati per fonte non sono stati caricati. Sono generati fuori da Git (italy-painel.local.js) e si chiedono solo con ?sala=local.',
+            COORTE: 'COORTE CONGELATA', PRONTA_FORA_DA_COORTE: 'PRONTE MA FUORI DALLA COORTE', SO_NA_SALA: "SOLO NELLA SALA D'ATTESA (corse precedenti)" };
+      if (!PN || !PN.fontes) return { has: false, L, grupos: [] };
+      const lst = (xs, n) => (xs && xs.length ? xs.slice(0, n).join(' · ') + (xs.length > n ? ` (+${xs.length - n})` : '') : 'NAO SEI');
+      const adm = (a) => Object.keys(a || {}).length ? Object.entries(a).map(([k, v]) => `${k} ${v}`).join(' · ') : 'nenhuma decisao no livro';
+      const card = (f) => {
+        const u = f.ultimaVisita;
+        return { sid: f.sourceId, univ: f.universo, url: f.indexUrl && f.indexUrl !== 'NAO SEI' ? f.indexUrl : '',
+          porque: f.porqueFora || '', temPorque: !!f.porqueFora,
+          visitas: f.nVisitas ? `${f.nVisitas} visite in ${f.nVisitas} ondate · corse ${f.nCorreu} · richieste ${f.pedidosTotal}` : 'mai visitata in un’ondata misurata',
+          ultima: u ? `${u.onda} · ${u.data} ${u.hora} · ${u.status}${u.porqueNaoCorreu ? ' (' + u.porqueNaoCorreu + ')' : ''} · ${u.pedidos} richieste su ${u.dominio} · nuovi documenti ${u.novosDocumentos}` : 'NAO SEI',
+          canario: f.ultimoCanario && f.ultimoCanario !== 'NAO SEI' ? String(f.ultimoCanario).slice(0, 16).replace('T', ' ') : '',
+          sala: f.salaItens, salaColor: f.salaItens ? '#7BE0A6' : '#8F8886',
+          pub: f.salaPublicacao, datas: lst(f.salaDatasDoFato, 3), lugares: lst(f.salaLugaresDoFato, 3), sede: lst(f.salaLugarDaFonte, 2), adm: adm(f.admissao) };
+      };
+      const grupos = ['COORTE', 'PRONTA_FORA_DA_COORTE', 'SO_NA_SALA'].map((g) => {
+        const fs = PN.fontes.filter((f) => f.grupo === g).sort((a, b) => (b.salaItens - a.salaItens) || a.sourceId.localeCompare(b.sourceId));
+        return { label: L[g], n: fs.length, comItens: fs.filter((f) => f.salaItens).length, cards: fs.map(card) };
+      }).filter((g) => g.n);
+      const pv = (p) => (p && p.ficheiro ? `${p.ficheiro} · sha256 ${p.sha256}… · ${String(p.modificado).slice(0, 16).replace('T', ' ')} UTC` : 'NAO SEI');
+      const pr = PN.fontesProvas || {};
+      return { has: true, L, grupos, gerado: String(PN.gerado).slice(0, 16).replace('T', ' ') + ' UTC', vivo: PN.vivo,
+        provas: [pv(pr.coorte), pv(pr.runs), pv(pr.decisoes), pv(pr.export)] };
+    })();
     const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
     /* §2 · The detail must open the SAME entity the card opened. The 29 legacy
@@ -12188,6 +12447,9 @@ class Component extends DCLogic {
       isEtichette: s.view === 'etichette', isEtichetta: s.view === 'etichetta',
       li: li || {}, hasLi: !!li,
       isVoices: s.view === 'voices', voices: voices || {}, hasVoices: !!voices,
+      isSala: s.view === 'sala', sala: salaVM, salaHas: salaVM.has, salaMissing: !salaVM.has,
+      isPainel: s.view === 'painel', pn: painelVM, pnHas: painelVM.has, pnMissing: !painelVM.has,
+      isFontes: s.view === 'fontes', fx: fontesVM, fxHas: fontesVM.has, fxMissing: !fontesVM.has,
       navIntegrations,
       navIntegrationItems,
       /* §14 · Inbound only. The control simulates RECEIPT, never a send. */
