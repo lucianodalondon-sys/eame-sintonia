@@ -4594,6 +4594,7 @@
    ],
    "files": [
     "coleta/executor_texto_de_html.py",
+    "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
     "coleta/retrato_html.mjs"
    ],
    "views": [
@@ -5030,6 +5031,28 @@
    "files": [
     "ferramentas/c9/ensaio_c9.sh",
     "ferramentas/c9/c9-testes.sh"
+   ]
+  },
+  {
+   "id": "C-LEITOR-DATA-YT",
+   "name": "LEITOR-DATA-YOUTUBE — a medicao antes/depois do PUBLISHED_AT por meta itemprop datePublished",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "prever_acervo.py (copia da previsao da ACERVO-TEMPO-LUGAR, so muda o campo CODIGO): corre o codigo de uma arvore sobre o acervo, so leitura. medir_antes_depois.sh: antes (vivo) x depois (ramo) com as mesmas entradas (sha256 conferido). comparar.py: campo a campo e item a item. ler_20.py: 20 lidos a mao contra o publishDate do player. mutar_leitor.py: 4 mutantes do leitor.",
+   "why_here": "LEITOR-DATA-YOUTUBE (26/09/2026): 603 paginas do YouTube com a data so em <meta itemprop=datePublished>; publicacao fora da Sala 241 -> 844, os outros 3 campos iguais.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/leitor_data_yt/prever_acervo.py",
+    "ferramentas/leitor_data_yt/medir_antes_depois.sh",
+    "ferramentas/leitor_data_yt/comparar.py",
+    "ferramentas/leitor_data_yt/ler_20.py",
+    "ferramentas/leitor_data_yt/mutar_leitor.py"
    ]
   },
   {
