@@ -91,6 +91,9 @@ AUTOR_DA_INTERPRETACAO = 'SINTONIA · regra lexical %s (nao e fala de ninguem)' 
 JANELA_DE_ATRIBUICAO = 6000
 # Quanto texto depois do nome se le para achar o papel e a organizacao (caracteres). Escolhido, nao medido.
 ALCANCE_AUTO, ALCANCE_TERCEIRO = 160, 80
+# Quantas frases para tras se procura o LUGAR da cena de um relato («estamos no campo de X» e depois «ha
+# septoria»). Nunca atravessa a frase de apresentacao nem uma troca de voz. Escolhido, nao medido.
+FRASES_DA_CENA = 3
 # Uma citacao e UMA frase. Cortada aqui para o card nao virar o transcrito inteiro.
 MAX_CITACAO = 400
 
@@ -132,7 +135,8 @@ def lingua(texto: str, minimo: int = 3) -> str:
 
 
 def _norm(s: str) -> str:
-    return MR._norm(s)
+    """A normalizacao do dono do vocabulario, e os espacos da legenda («we're\xa0\nstanding») num so."""
+    return re.sub(r'\s+', ' ', MR._norm(s))
 
 
 def _sha(*partes) -> str:
@@ -143,17 +147,41 @@ def _sha(*partes) -> str:
 _RE_FIM = re.compile(r'[.!?]+(?=\s|$)|\n{2,}')
 
 
+# A legenda automatica espanhola chega SEM PONTUACAO: medido, uma palestra inteira (70 mil caracteres) era UMA
+# «frase», e o leitor de lugar apanhava topónimos de qualquer ponto dela («Dios», «Bueno», nomes de gente).
+# Acima de MAX_FRASE caracteres nao ha frase: ha PEDACOS de PALAVRAS_POR_PEDACO palavras, marcados como tal.
+MAX_FRASE = 500
+PALAVRAS_POR_PEDACO = 30
+
+
 def frases(texto: str) -> list:
-    """[(ini, fim)] das frases do texto, com a posicao NO TEXTO ORIGINAL."""
-    fora, ini = [], 0
+    """[(ini, fim)] das frases do texto, com a posicao NO TEXTO ORIGINAL (pedacos, se nao ha pontuacao)."""
+    return [(a, b) for a, b, _ in frases_marcadas(texto)]
+
+
+def frases_marcadas(texto: str) -> list:
+    """[(ini, fim, FRASE | PEDACO_DE_LEGENDA_SEM_PONTUACAO)]."""
+    brutas, ini = [], 0
     for m in _RE_FIM.finditer(texto):
         fim = m.end()
         if texto[ini:fim].strip():
-            fora.append(_apara(texto, ini, fim))
+            brutas.append(_apara(texto, ini, fim))
         ini = fim
     if texto[ini:].strip():
-        fora.append(_apara(texto, ini, len(texto)))
+        brutas.append(_apara(texto, ini, len(texto)))
+    fora = []
+    for a, b in brutas:
+        if b - a <= MAX_FRASE:
+            fora.append((a, b, 'FRASE'))
+            continue
+        pal = [m.span() for m in re.finditer(r'\S+', texto[a:b])]
+        for k in range(0, len(pal), PALAVRAS_POR_PEDACO):
+            bloco = pal[k:k + PALAVRAS_POR_PEDACO]
+            fora.append((a + bloco[0][0], a + bloco[-1][1], PEDACO))
     return fora
+
+
+PEDACO = 'PEDACO_DE_LEGENDA_SEM_PONTUACAO'
 
 
 def _apara(texto, ini, fim):
@@ -204,6 +232,10 @@ TIPO_DE_ORG = (
                 r'winfield|koppert|isagro|gowan|sumitomo|nutrien|s\.?p\.?a|s\.?l\.?|s\.?r\.?l|ltd|inc|gmbh'),
     ('MEDIA', r'agriculture\.com|real ?agriculture|tv|radio|magazine|rivista|revista|news|notizie'),
 )
+
+PAISES_NAO_SAO_ORGANIZACAO = {'brazil', 'brasil', 'spain', 'espana', 'italy', 'italia', 'france', 'francia',
+                              'argentina', 'canada', 'united states', 'usa', 'portugal', 'greece', 'germany',
+                              'morocco', 'mexico', 'chile', 'australia', 'england', 'united kingdom'}
 
 # ── apresentacoes: quem se diz quem ─────────────────────────────────────────────────────
 _RUIDO = r"(?:\[[^\]]{0,20}\]\s*|>>\s*)*"
@@ -288,6 +320,8 @@ def _organizacao(trecho: str):
         return NAO_SEI, NAO_SEI
     org = m.group(1).strip(" .,'’")
     n = _norm(org)
+    if n in PAISES_NAO_SAO_ORGANIZACAO:
+        return NAO_SEI, NAO_SEI      # «from Brazil» diz de onde, nao de que casa
     for tipo, rx in TIPO_DE_ORG:
         if re.search(r'(?<![a-z])(?:%s)' % rx, n):
             return org, tipo
@@ -334,8 +368,12 @@ def apresentacoes(texto: str, fs: list | None = None) -> list:
                 continue
             # «Nome, …» so e apresentacao quando o que vem logo a seguir e uma PROFISSAO (4 palavras no maximo):
             # sem isto, «However, …», «Bueno, …» e «Entonces, …» viravam gente.
-            if rid == 'XX_NOME_VIRGULA_PAPEL' and not _papeis_em(' '.join(texto[m.end():m.end() + 60].split()[:4])):
-                continue
+            if rid == 'XX_NOME_VIRGULA_PAPEL':
+                w = texto[m.end():m.end() + 60].split()[:3]
+                if w and w[0].lower() in ('a', 'an', 'un', 'una', 'uno', 'il', 'la', 'el', 'le'):
+                    w = w[1:]
+                if not _papeis_em(' '.join(w[:2])):
+                    continue
             ocupado.append((ini_nome, ini_nome + len(nome)))
             i, fa, fb = _frase_de(m.start(), fs)
             # o trecho da apresentacao e a frase onde ela esta (e a seguinte, se a frase for so o nome)
@@ -402,7 +440,8 @@ RE_RELATO = re.compile(
     r"(?<![a-z])(?:we found|we've found|we have found|we saw|we've seen|we have seen|we're seeing|we are seeing|"
     r"we encountered|we had|we've had|we have had|we're looking at|we are looking at|we're in the field|"
     r"we're standing|we are standing|as you can see|you can see|here we have|on our farm|on my farm|in my field|"
-    r"in our field|i've seen|i have seen|i found|i saw|"
+    r"in our field|i've seen|i have seen|i found|i saw|we conducted|we carried out|we tested|we trialled|"
+    r"abbiamo condotto|abbiamo fatto una prova|hemos realizado|realizamos|hemos ensayado|"
     r"abbiamo visto|abbiamo trovato|abbiamo riscontrato|abbiamo avuto|abbiamo osservato|stiamo vedendo|vediamo|"
     r"ho visto|ho trovato|nel mio campo|nella mia azienda|in azienda|come vedete|siamo in|ci troviamo|"
     r"hemos visto|hemos encontrado|hemos tenido|estamos viendo|vemos|como veis|como podeis ver|en mi finca|"
@@ -499,12 +538,19 @@ def _mesmo_dia(valor: str, published_at: str) -> bool:
 _PAISES = {'spain': 'ES', 'espana': 'ES', 'italy': 'IT', 'italia': 'IT', 'france': 'FR', 'francia': 'FR',
            'portugal': 'PT', 'greece': 'GR', 'grecia': 'GR', 'germany': 'DE', 'alemania': 'DE',
            'united kingdom': 'GB', 'england': 'GB', 'morocco': 'MA', 'marruecos': 'MA', 'tunisia': 'TN'}
-RE_LUGAR_DO_RELATO = re.compile(r"(?<![\w])(?:in|on|at|near|of|en|cerca de|a|in|nel|nella|presso)\s+(?:the\s+|la\s+|el\s+)?"
+RE_LUGAR_DO_RELATO = re.compile(r"(?<![\w])(?:in|on|at|near|en|cerca de|nel|nella|presso)\s+(?:the\s+|la\s+|el\s+)?"
                                 r"(%s(?:\s+(?:%s\s+)?%s){0,4})" % (_CAP, _LIGA, _CAP))
-_NAO_LUGAR = {'T0', 'T1', 'T2', 'T3', 'Septoria', 'Fusarium', 'The', 'This', 'Today', 'Currently', 'So', 'I'}
+_MESES_E_DIAS = set(_MESES['en'] + _MESES['es'] + FL.MESES) | {
+    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'lunes', 'martes', 'miercoles',
+    'jueves', 'viernes', 'sabado', 'domingo', 'christmas', 'easter', 'navidad', 'pascua'}
+_NAO_LUGAR = {'T0', 'T1', 'T2', 'T3', 'Septoria', 'Fusarium', 'The', 'This', 'Today', 'Currently', 'So', 'I',
+              'Eh', 'Bueno', 'Cómo', 'Como', 'Esta', 'Este', 'Dios', 'Casos', 'Aquí', 'Buscar', 'YouTube', 'Qué',
+              'Pues', 'Entonces', 'Vale', 'Ok', 'Okay', 'Here', 'There', 'Well', 'Yes', 'Now'}
 
 
-def _lugar(frase: str, lang: str, especie: str, orgs: set) -> dict:
+def _lugar(frase: str, lang: str, especie: str, orgs: set, so_nomes_conhecidos: bool = False) -> dict:
+    """so_nomes_conhecidos: num PEDACO de legenda sem pontuacao a maiuscula e aleatoria («Viña», «Ho»), e so
+    contam os nomes de pais desta lista e o gazetteer italiano de `leis/fato_local.py`."""
     nao = {'FACT_LOCATION': NAO_SEI, 'FACT_LOCATION_PRECISION': 'NOT_KNOWN', 'FACT_LOCATION_EVIDENCE': None}
     if lang == 'it':
         aceitas, _rec = FL.localizacoes_do_fato(frase, origem='TRANSCRIPT_QUOTE')
@@ -519,9 +565,11 @@ def _lugar(frase: str, lang: str, especie: str, orgs: set) -> dict:
         return dict(nao, FACT_LOCATION_BASIS='a frase nao e relato em primeira pessoa: um lugar nomeado numa '
                                              'afirmacao geral e MENCAO, nao lugar do facto')
     lugares = []
-    for m in RE_LUGAR_DO_RELATO.finditer(frase):
+    if so_nomes_conhecidos:
+        lugares = [x['PLACE'] for x in FL.mencoes(frase)]
+    for m in ([] if so_nomes_conhecidos else RE_LUGAR_DO_RELATO.finditer(frase)):
         cand = m.group(1).strip(" .,'’")
-        if cand.split()[0] in _NAO_LUGAR or cand in _NAO_LUGAR:
+        if cand.split()[0] in _NAO_LUGAR or cand in _NAO_LUGAR or _norm(cand.split()[0]) in _MESES_E_DIAS:
             continue
         if any(cand in o or o in cand for o in orgs):
             continue
@@ -536,6 +584,8 @@ def _lugar(frase: str, lang: str, especie: str, orgs: set) -> dict:
     so_pais = all(_norm(l) in _PAISES for l in lugares)
     return {'FACT_LOCATION': ' ; '.join(lugares),
             'FACT_LOCATION_PRECISION': 'PAIS' if so_pais else 'NOT_KNOWN',
+            'FACT_LOCATION_READER': 'NOMES_CONHECIDOS (pais + gazetteer IT)' if so_nomes_conhecidos else
+                                    'MAIUSCULA_DEPOIS_DE_PREPOSICAO',
             'FACT_LOCATION_BASIS': 'ESCRITO_NA_FRASE_DO_RELATO — topónimo nao resolvido num gazetteer; a precisao '
                                    'so e dita quando e nome de pais',
             'FACT_LOCATION_EVIDENCE': frase[:MAX_CITACAO]}
@@ -600,13 +650,25 @@ def _atribuir(pos: int, texto: str, autos: list):
     return a, 'PRESUMIDA_ULTIMA_AUTO_APRESENTACAO_SEM_TROCA_MARCADA'
 
 
-_RE_NOS_INSTITUCIONAL = re.compile(r"(?<![a-z])(?:we at|noi di|nosotros en|desde|en nombre de|a nome di|on behalf of)"
-                                   r"(?![a-z])")
+def tipo_do_publisher(nome: str, texto: str) -> tuple:
+    """(tipo, porque). Organizacao pelo NOME do canal (o mesmo lexico da organizacao do falante); canal sem
+    tipo de organizacao e com sinal de criador = CRIADOR_DE_CONTEUDO; o resto NAO SEI."""
+    if nome and nome != NAO_SEI:
+        n = _norm(nome)
+        for tipo, rx in TIPO_DE_ORG:
+            if re.search(r'(?<![a-z])(?:%s)' % rx, n):
+                return tipo, 'o nome do canal diz «%s»' % nome
+    sinais = [m.group(0) for m in CRIADOR.finditer(texto)]
+    if sinais:
+        return 'CRIADOR_DE_CONTEUDO', 'o canal nao se nomeia organizacao e pede «%s»' % sinais[0]
+    return NAO_SEI, 'o nome do canal nao diz que casa e, e o texto nao pede inscricao'
 
 
 def extrair(doc: dict) -> dict:
     texto, lang = doc['TEXT'], doc['TEXT_LANGUAGE']
-    fs = frases(texto)
+    fm = frases_marcadas(texto)
+    fs = [(a, b) for a, b, _ in fm]
+    tipo_da_frase = {(a, b): t for a, b, t in fm}
     aps = apresentacoes(texto, fs)
     fal = falantes(texto, aps, doc['PUBLISHER'])
     autos = [a for a in aps if a['ESPECIE'] == AUTO]
@@ -614,9 +676,10 @@ def extrair(doc: dict) -> dict:
     orgs = {f['ORGANIZATION'] for f in fal.values() if f['ORGANIZATION'] != NAO_SEI}
     if doc['PUBLISHER'] != NAO_SEI:
         orgs.add(doc['PUBLISHER'])
-    institucional = bool(_RE_NOS_INSTITUCIONAL.search(_norm(texto)))
+    pub_tipo, pub_porque = tipo_do_publisher(doc['PUBLISHER'], texto)
+    institucional = pub_tipo not in (NAO_SEI, 'CRIADOR_DE_CONTEUDO')
     vozes, recusas = [], []
-    for (a, b) in fs:
+    for i_frase, (a, b) in enumerate(fs):
         frase = texto[a:b]
         n = _norm(frase)
         culturas, problemas = _achados(n, _PADROES_CULTURA), _achados(n, _PADROES_PROBLEMA)
@@ -635,7 +698,22 @@ def extrair(doc: dict) -> dict:
             f = None
             sid, kind = NAO_SEI, (INSTITUICAO if institucional and doc['PUBLISHER'] != NAO_SEI else NAO_SEI)
         tempo = _tempo(frase, lang, doc['PUBLISHED_AT'] if doc['PUBLISHED_AT'] != NAO_SEI else None)
-        lugar = _lugar(frase, lang, especie, orgs)
+        pedaco = tipo_da_frase[(a, b)] == PEDACO
+        lugar = _lugar(frase, lang, especie, orgs, pedaco)
+        lugar['FACT_LOCATION_EVIDENCE_POS'] = a if lugar['FACT_LOCATION'] != NAO_SEI else None
+        if lugar['FACT_LOCATION'] == NAO_SEI:
+            for j in range(i_frase - 1, max(-1, i_frase - 1 - FRASES_DA_CENA), -1):
+                ja, jb = fs[j]
+                if '>>' in texto[ja:a] or any(fa <= ja < fb for fa, fb in frases_de_apresentacao):
+                    break
+                cena = texto[ja:jb]
+                lc = _lugar(cena, lang, _especie_da_frase(_norm(cena)), orgs, tipo_da_frase[(ja, jb)] == PEDACO)
+                if lc['FACT_LOCATION'] != NAO_SEI:
+                    lc['FACT_LOCATION_BASIS'] = ('CENA_DO_RELATO: %d frase(s) antes da citacao, sem troca de voz nem '
+                                                 'apresentacao pelo meio · ' % (i_frase - j)) + lc['FACT_LOCATION_BASIS']
+                    lc['FACT_LOCATION_EVIDENCE_POS'] = ja
+                    lugar = lc
+                    break
         papel = f['ROLE'] if f else NAO_SEI
         decl = ' '.join(e['TRECHO'] for e in f['ROLE_EVIDENCE']) if f else ''
         tema = [c['TERMO_ORIGINAL'] for c in culturas + problemas]
@@ -647,11 +725,13 @@ def extrair(doc: dict) -> dict:
             # quem publica e quem fala sao dois factos
             'SOURCE_ID': doc['SOURCE_ID'], 'EXTERNAL_ID': doc['EXTERNAL_ID'], 'URL': doc['URL'],
             'PLATFORM': doc['PLATFORM'], 'PUBLISHER': doc['PUBLISHER'], 'TITLE': doc['TITLE'],
+            'PUBLISHER_KIND': pub_tipo, 'PUBLISHER_KIND_WHY': pub_porque,
             'PUBLISHED_AT': doc['PUBLISHED_AT'],
             'SPEAKER_ID': sid, 'SPEAKER_KIND': kind,
             'SPEAKER_NAME': f['SPEAKER_NAME'] if f else NAO_SEI,
             'SPEAKER_KIND_WHY': ('pessoa apresentada no transcrito' if f else
-                                 'sem pessoa apresentada; o texto fala em nome da instituicao que publica'
+                                 'sem pessoa apresentada; quem publica e uma organizacao (%s), e a voz e dela'
+                                 % pub_tipo
                                  if kind == INSTITUICAO else
                                  'ninguem se apresentou; o canal que publica NAO e o falante'),
             'ATTRIBUTION_STATE': porque_atr if f else NAO_SEI,
@@ -669,6 +749,7 @@ def extrair(doc: dict) -> dict:
             # a citacao, exacta, com a posicao
             'QUOTE_ORIGINAL': texto[a:fim], 'QUOTE_POS_START': a, 'QUOTE_POS_END': fim,
             'QUOTE_TRUNCATED': fim < b,
+            'QUOTE_BOUNDARY': tipo_da_frase[(a, b)],
             'QUOTE_T_S': _tempo_do_segmento(doc, a),
             'QUOTE_LANGUAGE': doc['TEXT_LANGUAGE'],
             'QUOTE_ORIGINALITY': doc['QUOTE_ORIGINALITY'], 'QUOTE_ORIGINALITY_WHY': doc['QUOTE_ORIGINALITY_WHY'],
@@ -739,9 +820,9 @@ def validar_voce(v: dict, doc: dict) -> list:
     if v['ATTRIBUTION_STATE'].startswith('PROVADA'):
         erros.append('ATRIBUICAO_PROVADA_SEM_DIARIZACAO')
     if v['FACT_LOCATION'] != NAO_SEI:
-        ev = v.get('FACT_LOCATION_EVIDENCE') or ''
-        if ev not in v['QUOTE_ORIGINAL'] and v['QUOTE_ORIGINAL'] not in ev:
-            erros.append('LUGAR_DO_FACTO_FORA_DA_CITACAO')
+        ev, pos = v.get('FACT_LOCATION_EVIDENCE') or '', v.get('FACT_LOCATION_EVIDENCE_POS')
+        if not ev or pos is None or texto[pos:pos + len(ev)] != ev or pos > v['QUOTE_POS_START'] or                 '>>' in texto[pos:v['QUOTE_POS_START']]:
+            erros.append('LUGAR_DO_FACTO_FORA_DA_CITACAO_OU_DA_CENA')
         if v['SPEAKER_PLACE'] != NAO_SEI and v['SPEAKER_PLACE'] in v['FACT_LOCATION'] and \
                 v['SPEAKER_PLACE'] not in v['QUOTE_ORIGINAL']:
             erros.append('LUGAR_DA_PESSOA_VIROU_LUGAR_DO_FACTO')
