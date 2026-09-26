@@ -71,9 +71,30 @@ Base = cópia limpa do vivo `278cd489` (worktree destacada em `%TEMP%`; a medida
 | parte | antes | depois | falhas novas por nome |
 |---|---|---|---|
 | leve (6 módulos: preço, fato_do_texto, lugar_do_fato, artefato_tempo_do_fato, admissao_multilingue, social_bruto) | 102 testes + 1 módulo AUSENTE, 0 vermelhos | 134 testes (102 + 32 novos), 0 vermelhos | **0** |
-| mapa (`system-map/tests`) | ver abaixo | ver abaixo | ver abaixo |
+| mapa (`system-map/tests`) | **NAO MEDIDO** | **NAO MEDIDO** | NAO SEI |
 
 Ficheiros: `scripts/polso_mercato/BATERIA-LEVE-ANTES.json`, `BATERIA-LEVE-DEPOIS.json`.
+
+⚠️ **Os testes do System Map não foram medidos por nome.** A minha chamada (`unittest discover -s
+system-map/tests -t system-map/tests`) não os carregou: 11 módulos deram erro de importação já na base
+(`unittest.loader._FailedTest`), ou seja, defeito do meu invocador e não do código. Com a LOCK-PRIORIDADE da
+ENSAIO-RODADA1 à espera (16:40), não gastei a LOCK-PESADO a consertá-lo. A prova do mapa desta entrega é a
+cadeia oficial (abaixo), não esta bateria.
+
+## System Map
+
+Pela cadeia, sobre o vivo `278cd489`, com a LOCK-PESADO (16:34):
+
+- `correr_a_cadeia.py REGERAR` → `CADEIA=OK`; gerados commitados.
+- `correr_a_cadeia.py VALIDAR` → na primeira vez **FAIL** em `P2_PASTA_BATE_COM_MAPA`: a prova de mutação
+  estava em `provas/` e a peça mora em `leis/`. Movida para `scripts/polso_mercato/mutar_preco_de_mercado.py`
+  (mesma gaveta das outras provas da peça, como `C-LUGAR-COLETA` faz com `scripts/lugar_fato/`), regerado →
+  **`SYSTEM_MAP_CHECK=PASS`**.
+- `impressao_da_arvore.py --conferir-carimbo` → **`IMPRESSAO_DO_CARIMBO=IGUAL`**.
+- O VALIDAR escreve em 6 gerados da worktree (já conhecido); a diferença foi guardada antes de descartar
+  (`%TEMP%/polso/validar*-escreveu.diff`) e não entrou no commit.
+- Este relatório foi fechado depois disso, por isso a cadeia correu **mais uma vez** no fim (o commit final
+  do mapa é o último do ramo).
 
 ## Mutação
 
