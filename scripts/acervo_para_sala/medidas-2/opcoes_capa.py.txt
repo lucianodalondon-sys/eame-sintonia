@@ -1,0 +1,65 @@
+"""Mede as 2 opcoes para os 612 videos na porta CAPA != MATERIA, SEM mudar o detector. Leve, sem banco."""
+import json, os, sys, hashlib, collections, re
+ARV = r'C:/aps-base'
+os.environ["HTTP_PROXY"] = os.environ["HTTPS_PROXY"] = "http://127.0.0.1:9"
+sys.path[:0] = [os.path.join(ARV, 'admissao'), os.path.join(ARV, 'curadoria'), ARV]
+os.chdir(ARV)
+import _gavetas  # noqa
+import admissao as adm
+import orquestrador as ORQ
+import retrato_html as RH
+from coleta import texto_fonte as tf
+M = json.load(open(r'C:/Users/London1/acervo-para-sala/motivos.json', encoding='utf-8'))
+raws = json.load(open(r'C:/Users/London1/acervo-para-sala/raw.json', encoding='utf-8'))
+raizes = open(r'C:/Users/London1/reproc-acervo/raizes.txt').read().strip().split(';')
+cam = collections.defaultdict(list); rp = {}
+for r in raws:
+    cam[r['sha256'].strip()].append(r['storage_path']); rp[r['sha256'].strip()] = r
+
+
+def achar(s):
+    for c in cam[s]:
+        for R in raizes:
+            p = os.path.join(R, c)
+            if os.path.isfile(p):
+                b = open(p, 'rb').read()
+                if hashlib.sha256(b).hexdigest() == s:
+                    return b
+
+
+def decidir(texto, sid, uni, r):
+    # sem RETRATO_DO_DETECTOR: a regua do universo, como seria DEPOIS de passar a porta da materia
+    est = {"SOURCE_ID": sid, "TEXTO": texto, "DERIVED_ARTIFACT_ID": "prev", "RAW_ASSET_ID": r.get('id'),
+           "PARENT_SHA256": r['sha256'].strip(), "CAPTURED_AT": r.get('captured_at'), "TEMPO_E_LUGAR": {}}
+    item = ORQ.item_documental_para_a_porta(est, source_id=sid)
+    return adm.decidir(item, uni, corrida="OPCOES-CAPA")
+
+
+itens = [x for x in M['ITENS'] if 'YOUTUBE' in x.get('MARCAS', []) and x['MOTIVO'].startswith('NUNCA')]
+c = collections.Counter(); sims = []
+for x in itens:
+    s = x['SHA256']; r = rp[s]; b = achar(s)
+    if b is None:
+        c['SEM_BYTES'] += 1; continue
+    ret = RH.retrato_do_html(b)
+    c['HOJE:' + ret['CAPA_OU_MATERIA']] += 1
+    d = tf.descricao_do_youtube(b)
+    dn = len(re.sub(r'\s+', '', d))
+    par = ret['PARAGRAPH_CHARACTERS'] + dn
+    tot = ret['NON_WHITESPACE_CHARACTERS'] + dn
+    kind_a = RH.kind_de(tot, par, ret['LINKS'])
+    passa_a = kind_a == 'CONTENT'
+    c['A:' + kind_a] += 1
+    uni = re.search(r'-(T\d+)-', x['SOURCE_ID']).group(1)
+    dec = decidir(tf.limpar(b, 'text/html'), x['SOURCE_ID'], uni, r)
+    c['B:' + dec.resultado] += 1
+    if passa_a:
+        c['A_E_REGUA:' + dec.resultado] += 1
+    if dec.resultado == 'SIM':
+        sims.append({"SOURCE_ID": x['SOURCE_ID'], "UNIVERSO": uni, "URL": r.get('source_url'),
+                     "DESCRICAO_CARACTERES": dn, "PASSA_EM_A": passa_a, "MOTIVO": str(dec.motivo)[:160]})
+print(len(itens), json.dumps(dict(sorted(c.items())), indent=1))
+for s in sims:
+    print(s)
+json.dump({"CONTAGEM": dict(c), "SIM": sims}, open(r'C:/Users/London1/acervo-para-sala-2/OPCOES-CAPA-VIDEO.json', 'w',
+                                                   encoding='utf-8'), ensure_ascii=False, indent=1)
