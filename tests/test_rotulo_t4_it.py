@@ -315,6 +315,22 @@ class ORotuloInteiroSintetico(unittest.TestCase):
         self.assertEqual(r['CONFERENCIA']['REGISTO']['ESTADO'], R.ENCONTRADO)
         self.assertTrue(all(l['ALVO']['ESTADO'] == R.ENCONTRADO for l in r['LINHAS_DE_USO']))
 
+    def test_bloco_de_cultura_e_encontrado_nunca_verificado(self):
+        bloco = ("SINTETICO - rotulo em blocos\n"
+                 "Registrazione Ministero della Salute n. 4701\n\n"
+                 "DOSI E MODALITA D'IMPIEGO\n"
+                 "Vite (da vino e da tavola)\n"
+                 "Contro cicaline (Empoasca vitis, Scaphoideus titanus) impiegare a 30-50 ml/hl\n"
+                 "ATTENZIONE: leggere\n")
+        r = self.ler(texto=bloco)
+        self.assertEqual(r['CONFERENCIA']['REGISTO']['ESTADO'], R.VERIFICADO)
+        ls = r['LINHAS_DE_USO']
+        self.assertEqual({l['ALVO']['VALOR']['LITERAL'] for l in ls}, {'Empoasca vitis', 'Scaphoideus titanus'})
+        for l in ls:
+            self.assertEqual(l['LIGACAO_NIVEL'], 'BLOCO_DA_CULTURA')
+            self.assertEqual(l['ALVO']['ESTADO'], R.ENCONTRADO)
+            self.assertEqual([(d['MIN'], d['MAX'], d['UNIDADE']) for d in l['DOSE']['VALOR']], [(30.0, 50.0, 'ml/hl')])
+
     def test_versao_muda_quando_o_documento_muda(self):
         a = self.ler()['DOCUMENTO']['SHA256']
         b = self.ler(texto=SINTETICO + ' ')['DOCUMENTO']['SHA256']
