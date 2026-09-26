@@ -7,7 +7,8 @@ import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TESTES = ["tests.test_freio_social", "tests.test_teto_dominio", "tests.test_dedup_video_social"]
+TESTES = ["tests.test_freio_social", "tests.test_teto_dominio", "tests.test_dedup_video_social",
+          "tests.test_plano_onda_social_c2"]
 MUTANTES = [
     ("o portao do Scrap nao reserva", "coleta/scrap_http.py",
      "            teto.reservar(host, url=req.full_url, quem='scrap_http')\n",
@@ -38,6 +39,12 @@ MUTANTES = [
     ("o Scrap nao carimba o video", "coleta/scrap_colheita.py",
      "            IV.marcar(colheita, objetos, registo=os.path.join(\n",
      "            (lambda *a, **k: None)(colheita, objetos, registo=os.path.join(\n"),
+    ("C2: a onda copia o teto do contrato", "curadoria/plano_onda_social.py",
+     '    if aq.get("FASE") == "video-linkedin" and teto_linkedin is not None:\n',
+     '    if False:\n'),
+    ("C2: a rodada diz que cabe sempre", "curadoria/plano_onda_social.py",
+     '                     "CABE_NO_TETO": all(v <= TETO_D38 for v in prev.values())})\n',
+     '                     "CABE_NO_TETO": True})\n'),
 ]
 
 
