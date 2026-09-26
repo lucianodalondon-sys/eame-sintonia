@@ -1,6 +1,6 @@
 # C9-INSTALAR-PLANO — o C9-IDIOMA sobre o vivo ce28040c — 25/09/2026
 
-Ramo **`c9-sobre-ce28-v1` @ `__SHA__` (a preencher depois do mapa; hoje `3ef8b296`, sem o mapa regerado)** = produção `ce28040c` + `origin/c9-idioma-v1` (`bcefc6d9`). **NÃO instalado.**
+Ramo **`c9-sobre-ce28-v1`** — instalar a **ponta do ramo** (o SHA de «PRONTO»; conferir com `git rev-parse origin/c9-sobre-ce28-v1`); mapa regerado em `6a3bf97c` = produção `ce28040c` + `origin/c9-idioma-v1` (`bcefc6d9`). **NÃO instalado.**
 Sem rede HTTP; Sala real **só lida** (`PGOPTIONS=-c default_transaction_read_only=on`, DSN do ficheiro, nunca impressa);
 nenhum RAW tocado; o vivo não foi tocado (só leitura dos livros para a cópia).
 
@@ -56,13 +56,17 @@ HEAD = vivo.
 
 ## 4 · Mapa
 
-**Ainda NÃO regerado neste ramo** (26/09 00:04): a LOCK-PESADO esteve 30 min com outras bancadas (FECHAR-MAPAS 23:28 → QUATRO-CHAVES 23:55). Os 15 gerados em conflito ficaram na versão da produção e a peça nova `C-C9-INSTALAR` está declarada; falta `correr_a_cadeia.py REGERAR` → `VALIDAR` (PASS) → commit. O SHA final sai daí.
+Regerado pela cadeia sob a LOCK-PESADO (prioridade do coordenador, 26/09 00:58): `correr_a_cadeia.py REGERAR`
+→ commit `6a3bf97c` → `VALIDAR` = **SYSTEM_MAP_CHECK=PASS**. **Carimbo igual:** a validação só reescreveu
+`HEAD`/`HEAD_DA_MEDICAO` e `GENERATED_AT`/`GERADO_EM` em 6 ficheiros gerados — **0 linhas de conteúdo** —; esses
+carimbos ficaram num stash com nome (`c9-carimbos-validar-0105`), não no ramo. Peça nova declarada:
+`C-C9-INSTALAR` (`ferramentas/c9/ensaio_c9.sh`, `c9-testes.sh`). Depois deste plano o mapa foi validado outra vez (PASS).
 
 ## 5 · Plano de instalação (executa: o coordenador; um escritor no vivo)
 
 ```bash
 VIVO=/c/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1
-C9=__SHA__
+C9=<SHA de PRONTO = ponta de origin/c9-sobre-ce28-v1>
 D=$(date +%Y%m%d-%H%M); CORTE=/c/cutover/c9-$D; mkdir -p $CORTE
 LIVROS=$(git -C $VIVO --no-optional-locks status --short | grep '^ M' | awk '{print $2}' | tr '\n' ' ')
 ```
