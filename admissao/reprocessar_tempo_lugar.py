@@ -52,8 +52,11 @@ MOTIVO = ("TEMPO-E-LUGAR (D61-D68): reprocessamento sem rede do tempo e do lugar
 
 #: O código que produz o resultado. A versão É o sha256 dele: outro código,
 #: outra versão; o mesmo código, a mesma versão.
+#: ⚠️ LEITOR-DATA-YOUTUBE (26/09): `coleta/executor_texto_de_html.py` e o leitor da pagina que
+#: `italy_executor.tempo_e_lugar` chama desde a DA-9 (a PUBLICACAO). Faltava aqui: um conserto
+#: nele saia com o carimbo da versao antiga.
 CODIGO_DA_VERSAO = ("admissao/reprocessar_tempo_lugar.py", "admissao/admissao.py",
-                    "coleta/italy_executor.py", "coleta/ingresso.py",
+                    "coleta/italy_executor.py", "coleta/executor_texto_de_html.py", "coleta/ingresso.py",
                     "orquestrador/orquestrador.py", "leis/fato_do_texto.py",
                     "leis/fato_local.py", "regras/contratos_de_fonte.py",
                     "regras/italy_contracts.mjs")

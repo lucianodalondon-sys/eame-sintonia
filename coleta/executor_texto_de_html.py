@@ -267,7 +267,14 @@ def extrair(dados: bytes, media_type: str = "text/html") -> tuple:
 #     1  JSON-LD `datePublished`
 #     2  <meta property|name="article:published_time">
 #     3  <time datetime="...">
+#     3b <meta itemprop="datePublished" content="...">   (microdados schema.org)
 #     4  a data do item no ÍNDICE, quando quem chama a entregar
+#
+# ⚠️ O 3b É DEPOIS DO <time> DE PROPÓSITO (LEITOR-DATA-YOUTUBE, 26/09/2026; a peça
+# era da DA-6 e o coordenador passou-a). Medido no acervo: 603 das 612 páginas de
+# vídeo do YouTube fora da Sala trazem a data só aqui — nem JSON-LD, nem
+# `article:published_time`, nem `<time>`. Posto no fim, o 3b só fala onde os níveis
+# da D61 se calavam: NENHUMA data já lida muda de valor nem de base.
 #
 # ⚠️ UM NÍVEL COM DUAS RESPOSTAS DIFERENTES NÃO RESPONDE. Medido nos HTML reais
 # de IT-T7-021: os `<time datetime>` da página são da barra lateral «últimos
@@ -279,8 +286,9 @@ def extrair(dados: bytes, media_type: str = "text/html") -> tuple:
 BASE_JSON_LD = "JSON-LD datePublished"
 BASE_META = "meta article:published_time"
 BASE_TIME = "<time datetime>"
+BASE_ITEMPROP = "meta itemprop datePublished"
 BASE_INDICE = "INDICE"
-ORDEM_DA_PUBLICACAO = (BASE_JSON_LD, BASE_META, BASE_TIME, BASE_INDICE)
+ORDEM_DA_PUBLICACAO = (BASE_JSON_LD, BASE_META, BASE_TIME, BASE_ITEMPROP, BASE_INDICE)
 
 _RE_LD = re.compile(
     r"<script[^>]*type\s*=\s*[\"']application/ld\+json[\"'][^>]*>(.*?)</script>",
@@ -402,6 +410,18 @@ def _datas_do_meta(texto: str) -> list:
     return fora
 
 
+def _datas_do_itemprop(texto: str) -> list:
+    """`<meta itemprop="datePublished" content="...">` — a forma do YouTube (e de
+    qualquer página com microdados schema.org). Só `datePublished`: o `uploadDate`
+    diz quando o ficheiro subiu, não quando foi publicado, e não é lido aqui."""
+    fora = []
+    for tag in _RE_META.findall(texto):
+        a = _atributos(tag)
+        if (a.get("itemprop") or "").strip().lower() == "datepublished" and a.get("content"):
+            fora.append(a["content"])
+    return fora
+
+
 def _datas_do_time(texto: str) -> list:
     return [a["datetime"] for a in map(_atributos, _RE_TIME.findall(texto))
             if a.get("datetime")]
@@ -426,6 +446,7 @@ def tempo_de_publicacao(dados, data_no_indice=None) -> dict:
         (BASE_JSON_LD, _datas_do_json_ld(texto)),
         (BASE_META, _datas_do_meta(texto)),
         (BASE_TIME, _datas_do_time(texto)),
+        (BASE_ITEMPROP, _datas_do_itemprop(texto)),
         (BASE_INDICE, [data_no_indice] if data_no_indice else []),
     )
     viu = []
