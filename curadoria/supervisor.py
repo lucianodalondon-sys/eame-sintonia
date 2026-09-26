@@ -471,6 +471,10 @@ def uma_volta_sup(
         return "VIVO", estado, proc
 
     # --- worker nao esta vivo ---
+    # ROBO-DIAGNOSTICO (25/09): o ficheiro dizia WORKER_ALIVE=true horas depois de o
+    # worker ter saido (so a linha de cima o escrevia). Quem le o SO nao se enganava;
+    # quem le o ficheiro sim. Aqui o worker nao esta vivo: o ficheiro diz o mesmo.
+    estado["WORKER_ALIVE"] = False
 
     # Registar morte e actualizar contador de crashes SEM progresso.
     # (ADDENDUM-01 DEFEITO 3: so conta mortes sem progresso.)
@@ -854,6 +858,16 @@ def ler_estado_servico() -> dict:
         "SERVICE_STATE_IN_FILE":     ficheiro,
         "SERVICE_STATE_MEASURED_VIA": "tasklist PID + nome de imagem python + batimento no run log",
         "HEARTBEAT_FRESH":           (not hb_stale) if hb_idade is not None else None,
+        # ROBO-DIAGNOSTICO (25/09): sem worker vivo NINGUEM bate — um batimento de
+        # uma hora e o esperado de um robo OCIOSO, nao um defeito. HEARTBEAT_STALE
+        # fica como estava (os testes e o red team leem-no); isto so diz se ele se aplica.
+        "HEARTBEAT_APLICA":          bool(worker_pid_no_so),
+        "HEARTBEAT_LEITURA":         ("worker vivo: batimento conta (STALE = pendurado)"
+                                      if worker_pid_no_so else
+                                      "sem worker vivo: batimento parado e o esperado; "
+                                      "STALE aqui NAO e defeito"),
+        "RESTARTS_TOTAL_CONTA":      ("cada arranque do worker desde o inicio do ficheiro de estado "
+                                      "(normal quando entra trabalho); crashes sao CRASHES_SEM_PROGRESSO"),
         "SUPERVISOR_BLOCKED_REASON": s.get("SUPERVISOR_BLOCKED_REASON"),
         # O FEEDER so corre quando a condicao muda; as voltas saltadas contam
         # aqui, para que o silencio no diario nao seja silencio no painel.

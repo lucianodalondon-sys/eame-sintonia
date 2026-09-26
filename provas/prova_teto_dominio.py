@@ -24,7 +24,9 @@ import re
 import sys
 
 TETO_D38 = 5
-RE_RUN_ID = re.compile(r"IT-T\d+-\d{4}-\d{2}-\d{2}-\d{6}-[0-9a-f]{16}")
+# `XX-` tambem: o orquestrador cunha `{pais}-{alvo}-...` e um pedido sem pais sai `XX`
+# (PROVA-TETO-SOCIAL). Uma corrida da onda ignorada pelo padrao seria contada como zero.
+RE_RUN_ID = re.compile(r"(?:IT|XX)-T\d+-\d{4}-\d{2}-\d{2}-\d{6}-[0-9a-f]{16}")
 
 # Sufixos públicos de DOIS níveis que esta prova conhece (escritos aqui, sem Public Suffix List:
 # nenhuma nesta casa, e nenhuma se vai buscar à rede). Um sufixo que falte junta MAIS do que devia
@@ -39,6 +41,12 @@ trentino-alto-adige.it trentinoaltoadige.it taa.it umbria.it umb.it valledaosta.
 veneto.it ven.it
 co.uk org.uk ac.uk gov.uk com.br org.br gov.br com.au org.au co.jp com.es com.pt co.nz com.ar com.mx
 """.split())
+
+
+# D41 (25/09): dominios DIFERENTES que sao o MESMO orcamento. O stream do YouTube vem de
+# `googlevideo.com`; contar a parte deixaria cada video gastar 5 + 5. Escrito aqui, a mao,
+# e so com o que a decisao nomeou: juntar de menos e o unico erro que esta prova nao pode fazer.
+MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com"}
 
 
 def host_limpo(h):
@@ -60,6 +68,12 @@ def dominio_registavel(host):
         return ".".join(partes)
     dois = ".".join(partes[-2:])
     return ".".join(partes[-3:]) if dois in SUFIXOS_DOIS_NIVEIS else dois
+
+
+def orcamento_de(host):
+    """O dominio que PAGA o pedido: o registavel, ou aquele a que a D41 o junta."""
+    d = dominio_registavel(host)
+    return MESMO_ORCAMENTO.get(d, d)
 
 
 def run_ids_da_onda(texto):
@@ -93,7 +107,7 @@ def verificar(run_ids, corridas, teto=TETO_D38):
             sem_contagem.append(rid)
             continue
         for host, n in ph.items():
-            dom = dominio_registavel(host)
+            dom = orcamento_de(host)
             e = por_dom.setdefault(dom, {"PEDIDOS": 0, "HOSTS": {}, "CORRIDAS": {}})
             e["PEDIDOS"] += int(n)
             e["HOSTS"][host] = e["HOSTS"].get(host, 0) + int(n)
@@ -133,7 +147,7 @@ def verificar_plano(plano, coorte_ids=None, indices=None, teto=TETO_D38):
        tem de ser uma chave do plano (senao o plano agrupou-a noutro sitio) — fonte sem indice = NAO_SEI."""
     por_dom = {}
     for d, n in (plano.get("PEDIDOS_POR_DOMINIO") or {}).items():
-        k = dominio_registavel(d)
+        k = orcamento_de(d)
         por_dom[k] = por_dom.get(k, 0) + int(n)
     acima = {d: n for d, n in por_dom.items() if n > teto}
     sem_indice, fora_do_plano, dominios = [], [], {}
@@ -142,7 +156,7 @@ def verificar_plano(plano, coorte_ids=None, indices=None, teto=TETO_D38):
         if not u:
             sem_indice.append(s)
             continue
-        d = dominio_registavel(u)
+        d = orcamento_de(u)
         dominios[s] = d
         if d not in por_dom and s not in (plano.get("SALTAM_POR_TETO_DOMINIO") or []):
             fora_do_plano.append(s)

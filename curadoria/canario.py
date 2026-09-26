@@ -57,8 +57,6 @@ CONTROLO = {
     "LOTE-YOUTUBE-FEED": ("https://www.youtube.com/feeds/videos.xml"
                           "?channel_id=UCUs2Mg7jvUTRt7_MSOFYM5Q"),   # IT-T8-001
     "LOTE-HTML-ARTIGO": "https://www.provincia.tn.it/",              # IT-T1-002
-    "LOTE-YOUTUBE-CANAL": ("https://www.youtube.com/channel/"
-                           "UCUs2Mg7jvUTRt7_MSOFYM5Q/videos"),         # IT-T8-001, rota do canal
 }
 
 
@@ -116,48 +114,11 @@ def canario_youtube(c: dict) -> dict:
             "PRIMEIRO_PUBLISHED": pub.group(1).decode()[:10] if pub else "NAO SEI"}
 
 
-# ── O CANAL YOUTUBE PELA ROTA QUE O COLETOR USA (LEGACY-99 B, 25/09/2026) ──────
-# ⚠️ MEDIDO: as 41 YouTube READY_LEGACY tinham no Curator a rota `feeds/videos.xml`,
-# e o robots do YouTube proibe-a — VALIDATE_ROUTE: «o endereco do contrato casa com
-# Disallow no robots vivo». O coletor ja colhe pela pagina publica do canal
-# (CUSTOM_ADAPTER `CANAL_PUBLICO_YOUTUBE_V1`, tabela onboarded). O Curator passa a
-# provar ESSA rota: a aba /videos do canal, um pedido.
-YOUTUBE_CANAL = "CANAL_PUBLICO_YOUTUBE_V1"
-
-
-def url_do_canal(channel_id: str) -> str:
-    return "https://www.youtube.com/channel/%s/videos" % channel_id
-
-
-def url_da_rota(aq: dict) -> str | None:
-    """O endereco que o portao do anfitriao (robots) tem de deixar: o dono e aqui,
-    para o VALIDATE_ROUTE e o canario lerem o MESMO."""
-    if aq.get("STRATEGY") == "CUSTOM_ADAPTER" and aq.get("ADAPTER_ID") == YOUTUBE_CANAL:
-        return url_do_canal(aq["CHANNEL_ID"]) if aq.get("CHANNEL_ID") else None
-    return aq.get("FEED_URL") or aq.get("INDEX_URL")
-
-
-def canario_youtube_canal(c: dict) -> dict:
-    """A pagina /videos do canal responde, e do canal certo, e dela sai um video com
-    identidade. Nao abre o video: a regua dos 4 passos e de HTML, e decidir se um
-    video e «materia» e pergunta da regua, nao deste canario."""
-    aq = c["ACQUISITION"]
-    cid = aq.get("CHANNEL_ID") or ""
-    st, b, err = buscar(url_do_canal(cid))
-    if st != 200 or not b:
-        return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err or "HTTP %s" % st, "HTTP": st}
-    if cid.encode() not in b:
-        return {"PASS": False, "CLASSE": "ROUTE_FAILURE", "HTTP": st,
-                "PORQUE": "a pagina nao e do canal %s" % cid}
-    vids = list(dict.fromkeys(re.findall(rb'"videoId":"([A-Za-z0-9_-]{11})"', b)))
-    if not vids:
-        return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st,
-                "PORQUE": "canal sem videos na aba /videos — EMPTY_LIST"}
-    modelo = ((c.get("IDENTITY") or {}).get("DOCUMENT_ID")
-              or "%s:YT:{video.videoId}" % c.get("SOURCE_ID", "?"))
-    return {"PASS": True, "CLASSE": "OK", "HTTP": st, "ROTA": "CANAL_PUBLICO",
-            "DOCUMENT_ID": modelo.replace("{video.videoId}", vids[0].decode()),
-            "ITENS_NO_CANAL": len(vids), "DETAIL_ENUMERATED": len(vids)}
+# ── O CANAL YOUTUBE NAO SE PROVA AQUI (SEPARAR-A-B, 26/09/2026) ──────────────
+# A LEGACY-99 v2 (B) provava o canal pela aba /videos (CANAL_PUBLICO_YOUTUBE_V1) e o
+# ONDA3-REBASE deixou-o INERTE. Saiu: a rota YouTube tem UM dono — a fase
+# `canal-youtube` do Scrap (`rota_do_scrap_youtube`), julgada pela `regua_social`
+# (SOCIAL/v1 + D53). O worker devolve BLOCK DO_SCRAP a quem pedir o canario dela.
 
 
 def _regua_manda(source_id) -> bool:
@@ -167,19 +128,34 @@ def _regua_manda(source_id) -> bool:
     return RS.regua_manda(source_id)
 
 
-def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
+def hrefs_da_entrada(b: bytes, index_url: str, strip_suffix: str | None = None) -> set[str]:
     """Os enderecos que o canario ve numa pagina de entrada. UM so dono: o
     reparo de contratos (reparar_contrato.py) infere o padrao sobre ESTE
-    conjunto, para propor exactamente o que o canario vai casar depois."""
-    html = b.decode("utf-8", "replace")
-    base = re.match(r"^(https?://[^/]+)", index_url).group(1)
+    conjunto, para propor exactamente o que o canario vai casar depois.
+
+    D47 (T2-BOLETINS): `strip_suffix` e o `ACQUISITION.STRIP_SUFFIX` do contrato, o MESMO corte que
+    o coletor ja faz (`regras/motor_de_rota.mjs` · ligacoesDoIndice). Medido na ARPAE: as 60
+    ligacoes dos boletins agrometeo acabam em `.pdf/view` (a pagina do Plone); sem o `/view` e o
+    PDF. Sem este corte o canario abria a pagina e o coletor o PDF — dois alvos diferentes."""
+    # ⚠️ IA-CUR (24/09): a ligacao RELATIVA sem barra («news_open.php?EW_ID=15142») era
+    # descartada, e o `&amp;` do HTML ficava literal. Medido na Assomao: a listagem tem 44
+    # noticias e o canario via 0 — e a R1 dizia SEM_FAMILIA_DE_ITENS pela mesma razao (le por
+    # este leitor). Resolve-se contra o endereco da pagina, como um navegador faz.
+    # `mailto:`, `javascript:`, `tel:` e afins continuam fora.
+    import html as _html
+    from urllib.parse import urljoin
+    texto = b.decode("utf-8", "replace")
     hrefs = set()
-    for h in re.findall(r'href=["\']([^"\']+)["\']', html):
-        if h.startswith("//"):
-            h = "https:" + h
-        elif h.startswith("/"):
-            h = base + h
-        elif not h.startswith("http"):
+    for h in re.findall(r'href=["\']([^"\']+)["\']', texto):
+        h = _html.unescape(h).strip()
+        if re.match(r"^[a-z][a-z0-9+.-]*:", h, re.I) and not h.lower().startswith(("http:", "https:")):
+            continue
+        # ⚠️ Medido no livro inteiro (24/09): uma ligacao malformada («http://[x»)
+        # faz o urljoin rebentar com ValueError — e o canario inteiro da fonte caia
+        # em excecao. O leitor antigo nunca rebentava; esta ligacao salta-se.
+        try:
+            h = urljoin(index_url, h)
+        except ValueError:
             continue
         # ⚠️ UM LINK MALFORMADO NA PAGINA NAO PODE DERRUBAR O REPARO (LEGACY-99, 25/09):
         # IT-T12-019 (ersaf.lombardia.it) trazia um href com «[» e o `urlparse` do
@@ -191,8 +167,194 @@ def hrefs_da_entrada(b: bytes, index_url: str) -> set[str]:
             p.hostname, p.port  # noqa: B018 — so validar: ambos levantam ValueError se malformado
         except ValueError:
             continue
-        hrefs.add(h.split("#")[0])
+        if h.startswith(("http://", "https://")):
+            h = h.split("#")[0]
+            if strip_suffix and h.endswith(strip_suffix):
+                h = h[:-len(strip_suffix)]
+            hrefs.add(h)
     return hrefs
+
+
+PDF_GATE_VERSAO = "PDF_TEXT_LAYER/v1"
+PDF_MINIMO_DE_TEXTO = 800        # a mesma exigencia de corpo do HTML (BODY_UTIL: >= 800 caracteres)
+
+
+def textos_das_ligacoes(b: bytes, index_url: str, strip_suffix: str | None = None) -> dict:
+    """DA-13: o texto de cada ligacao da entrada, pelo mesmo endereco que `hrefs_da_entrada` devolve — o
+    que o motor do coletor le como LINK_TEXT (`regras/motor_de_rota.mjs` · textosDasLigacoes). Latin-1, como
+    o motor le o indice; etiquetas fora; varias ligacoes para o mesmo endereco juntam-se com « | »."""
+    import html as _html
+    from urllib.parse import urljoin
+    texto = b.decode("latin-1")
+    textos: dict = {}
+    for h, corpo in re.findall(r'<a\b[^>]*?href\s*=\s*["\']([^"\'#]+)["\'][^>]*>([\s\S]*?)</a>', texto, re.I):
+        h = _html.unescape(h).strip()
+        try:
+            u = urljoin(index_url, h).split("#")[0]
+        except ValueError:
+            continue
+        if strip_suffix and u.endswith(strip_suffix):
+            u = u[:-len(strip_suffix)]
+        t = re.sub(r"\s+", " ", _html.unescape(re.sub(r"<[^>]+>", " ", corpo))).strip()
+        if not t:
+            continue
+        ja = textos.get(u)
+        if not ja:
+            textos[u] = t
+        elif t not in ja.split(" | "):
+            textos[u] = ja + " | " + t
+    return textos
+
+
+def _canario_pdf(c: dict, alvo: str, alvos: list, st2: int, b2: bytes, texto_da_ligacao: str = "") -> dict:
+    """D32 (4): o item de um contrato OUTPUT_TYPE=PDF, julgado pela ESTEIRA DE PDF que ja existe.
+
+    O texto sai pelo mesmo executor da Collection (`coleta/executor_texto_de_pdf.extrair`,
+    pdftotext) — nenhum segundo extractor. Tres saidas, como la:
+      TEXT_LAYER_PRESENT com >= PDF_MINIMO_DE_TEXTO caracteres -> PASS (a regua decide READY);
+      TEXT_LAYER_ABSENT (e imagem, NEEDS_OCR) ou pouco texto  -> SOURCE_FAILURE, com o porque;
+      EXTRACTION_ERROR (a ferramenta falhou/nao existe)      -> UNKNOWN: problema nosso, nao da fonte.
+    """
+    import hashlib
+    import importlib.util
+    import tempfile
+    base_r = {"HTTP": st2, "ALVO": alvo, "ALVOS_DESCOBERTOS": len(alvos),
+              "DETAIL_ENUMERATED": len(alvos), "DETAIL_GATE": PDF_GATE_VERSAO, "BYTES": len(b2)}
+    if b2.lstrip()[:5] != b"%PDF-":
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="o contrato diz PDF e os bytes nao sao PDF — BYTE_VALIDATION_FAILED")
+    spec = importlib.util.spec_from_file_location(
+        "executor_texto_de_pdf", RAIZ / "coleta" / "executor_texto_de_pdf.py")
+    ex = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ex)
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "item.pdf"
+        p.write_bytes(b2)
+        texto, estado, erro, med = ex.extrair(p)
+    chars = int((med or {}).get("NON_WHITESPACE_CHARACTERS") or 0)
+    item = {"URL": alvo, "HTTP": st2, "BYTES": len(b2), "DOC_KIND": "PDF", "TEXT_LAYER": estado,
+            "TEXT_CHARACTERS": chars,
+            "TEXT_SHA256": hashlib.sha256(texto.encode("utf-8")).hexdigest() if texto else None}
+    base_r["ITEM_ABERTO"] = item
+    if estado == ex.art.EXTRACTION_ERROR:
+        return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
+                    PORQUE="a extracao do PDF falhou (problema nosso, nao da fonte): %s" % (erro or "?")[:120])
+    if estado != ex.art.TEXT_LAYER_PRESENT:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="o PDF abriu e nao tem camada de texto (e imagem) — NEEDS_OCR")
+    if chars < PDF_MINIMO_DE_TEXTO:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="o PDF tem so %d caracteres de texto (< %d) — sem BODY util"
+                           % (chars, PDF_MINIMO_DE_TEXTO))
+    # D47 (T2-BOLETINS): a identidade (e os tempos que ela declara) vem do MOTOR DO COLETOR, como na
+    # «pagina e o boletim» — um motor so. Antes: um `replace("{doc.1}", caminho)` a mao, que so sabia
+    # o molde por endereco e ignorava SOURCE_DATE_ISO/FACT_TIME de um contrato com capturas.
+    ident = identidade_pelo_motor(c, alvo, b2, texto_da_ligacao)
+    if ident.get("ERRO"):
+        return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
+                    PORQUE="o motor do coletor nao deu identidade: %s" % str(ident["ERRO"])[:160])
+    if not ident.get("DOCUMENT_ID"):
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="IDENTITY_FAILED: as capturas do contrato nao casam com o alvo")
+    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=ident["DOCUMENT_ID"],
+                TEXTO_DA_LIGACAO=texto_da_ligacao, TEMPOS=tempos_do_motor(ident))
+
+
+FORMA_PAGINA_E_BOLETIM = "PAGINA_E_BOLETIM"
+BOLETIM_GATE_VERSAO = "PAGINA_BOLETIM/v1"
+BOLETIM_MINIMO = 300     # caracteres sem espaco no recorte do boletim (um boletim curto ainda e boletim)
+
+
+# D61/D62: os seis campos de data e lugar que o motor devolve quando o contrato declara BASES — os
+# nomes da fronteira (coleta/ingresso.py). A data de COLETA vai a parte e nunca preenche nenhum.
+CAMPOS_DATA_E_LUGAR = ("PUBLISHED_AT", "PUBLISHED_AT_BASIS", "FACT_TIME", "FACT_TIME_BASIS",
+                       "FACT_LOCATION", "FACT_LOCATION_BASIS",
+                       "BULLETIN_PERIOD", "BULLETIN_PERIOD_BASIS")   # D69: o periodo do boletim, como evidencia
+
+
+def declara_data_e_lugar(c: dict) -> bool:
+    """O contrato entra no modo D61/D62 (declara pelo menos uma BASE de data/lugar)?"""
+    ident = c.get("IDENTITY") or {}
+    return any(ident.get(k) is not None for k in ("PUBLISHED_AT_BASIS", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS",
+                                                  "BULLETIN_PERIOD_BASIS"))
+
+
+def tempos_do_motor(ident: dict) -> dict:
+    """O que o canario mostra de data e lugar: os seis campos, tal como o motor os deu (D61/D62), ou —
+    num contrato antigo sem BASE — o que ele tinha, com NAO SEI e o porque onde nao ha nada."""
+    if ident.get("PUBLISHED_AT_BASIS"):
+        t = {k: ident.get(k) for k in CAMPOS_DATA_E_LUGAR}
+    else:
+        pub = ident.get("SOURCE_DATE_ISO") or ident.get("SOURCE_DATE")
+        t = {"PUBLISHED_AT": pub if pub and pub != "UNKNOWN" else "NAO SEI",
+             "PUBLISHED_AT_BASIS": ("SOURCE_DATE_ISO do contrato (sem BASE declarada)" if pub and pub != "UNKNOWN"
+                                    else "NAO SEI · o contrato nao declara onde o boletim diz a emissao"),
+             "FACT_TIME": ident.get("FACT_TIME") or "NAO SEI",
+             "FACT_TIME_BASIS": "NAO SEI · o contrato nao declara FACT_TIME_BASIS",
+             "FACT_LOCATION": "NAO SEI",
+             "FACT_LOCATION_BASIS": "NAO SEI · o contrato nao declara a area do boletim",
+             "BULLETIN_PERIOD": "NAO SEI",
+             "BULLETIN_PERIOD_BASIS": "NAO SEI · o contrato nao declara o periodo do boletim"}
+    t["COLLECTION_TIME"] = "CAPTURED_AT do coletor (nunca no lugar dos outros)"
+    return t
+
+
+def identidade_pelo_motor(c: dict, url: str, b: bytes, texto_da_ligacao: str = "") -> dict:
+    """A identidade do documento pelo MOTOR DO COLETOR (regras/motor_de_rota.mjs) — um motor so.
+    DA-13: `texto_da_ligacao` e o texto do link do indice (LINK_TEXT), como o coletor o poe no alvo."""
+    import subprocess
+    import tempfile
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "pagina.bin"
+        p.write_bytes(b)
+        pedido = {"SOURCE_ID": c["SOURCE_ID"], "CONTRATO": c, "BYTES_EM": str(p),
+                  "ALVO": {"url": url, "nome": (c.get("ACQUISITION") or {}).get("NAME") or url.rstrip("/").split("/")[-1],
+                           "textoDaLigacao": texto_da_ligacao}}
+        r = subprocess.run(["node", str(RAIZ / "regras" / "identidade_do_motor_cli.mjs")],
+                           input=json.dumps(pedido), capture_output=True, text=True, encoding="utf-8", timeout=60)
+    linha = (r.stdout.strip().splitlines() or ["{}"])[-1]
+    try:
+        return json.loads(linha)
+    except ValueError:
+        return {"ERRO": "o motor nao respondeu JSON: %s" % (r.stderr or linha)[-200:]}
+
+
+def canario_pagina_boletim(c: dict) -> dict:
+    """D42 (2): A PAGINA E O BOLETIM. A URL fixa nao identifica a edicao: quem a identifica e a data
+    comprovada (+ a impressao do conteudo recortado, para deduplicar). O canario abre a pagina uma
+    vez e pergunta ao MOTOR do coletor: sai identidade? o recorte do boletim tem corpo?
+      PASS            identidade construida e recorte com >= BOLETIM_MINIMO caracteres
+      SOURCE_FAILURE  sem o recorte / sem corpo / nao e HTML (a fonte nao tem o boletim ali)
+      UNKNOWN         o motor nao respondeu (problema nosso)
+    A data ausente NAO reprova: fica UNKNOWN (nunca a data de coleta) e o passo DATA_COMPROVADA diz."""
+    aq = c.get("ACQUISITION") or {}
+    url = aq.get("URL")
+    st, b, err = buscar(url)
+    base_r = {"HTTP": st, "ALVO": url, "DETAIL_GATE": BOLETIM_GATE_VERSAO, "BYTES": len(b or b""),
+              "DETAIL_ENUMERATED": 1}
+    if st != 200 or not b:
+        return dict(base_r, PASS=False, CLASSE="UNKNOWN", PORQUE=err or "HTTP %s" % st)
+    if not b.lstrip().removeprefix(b"\xef\xbb\xbf")[:1] == b"<":
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="bytes nao sao HTML — BYTE_VALIDATION_FAILED")
+    ident = identidade_pelo_motor(c, url, b)
+    if ident.get("ERRO"):
+        return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
+                    PORQUE="o motor recusou: %s" % ident["ERRO"][:160])
+    item = {"URL": url, "HTTP": st, "BYTES": len(b), "FORMA": FORMA_PAGINA_E_BOLETIM,
+            "DOCUMENT_ID": ident.get("DOCUMENT_ID"), "CONTENT_SHA256": ident.get("CONTENT_SHA256"),
+            "SOURCE_DATE": ident.get("SOURCE_DATE"), "SOURCE_DATE_ISO": ident.get("SOURCE_DATE_ISO"),
+            "FACT_TIME": ident.get("FACT_TIME"), "BOLETIM_CARACTERES": ident.get("BOLETIM_CARACTERES", 0),
+            "DATA_COMPROVADA": bool(ident.get("SOURCE_DATE_ISO")) and ident.get("SOURCE_DATE_ISO") != "UNKNOWN"}
+    base_r["ITEM_ABERTO"] = item
+    if not item["DOCUMENT_ID"]:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="IDENTITY_FAILED: o recorte do boletim (CONTENT_SCOPE) nao esta na pagina")
+    if item["BOLETIM_CARACTERES"] < BOLETIM_MINIMO:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="o boletim recortado tem so %d caracteres (< %d)" % (item["BOLETIM_CARACTERES"], BOLETIM_MINIMO))
+    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=item["DOCUMENT_ID"],
+                TEMPOS=tempos_do_motor(ident))
 
 
 def escolher_alvo(alvos: list[str], index_url: str = "") -> str:
@@ -225,7 +387,7 @@ def canario_html(c: dict) -> dict:
     if st != 200 or not b:
         return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err or "HTTP %s" % st,
                 "HTTP": st}
-    hrefs = hrefs_da_entrada(b, aq["INDEX_URL"])
+    hrefs = hrefs_da_entrada(b, aq["INDEX_URL"], aq.get("STRIP_SUFFIX"))
     rx = re.compile(aq["LINK_PATTERN"])
     alvos = [h for h in sorted(hrefs) if rx.match(h)]
     if not alvos:
@@ -242,16 +404,18 @@ def canario_html(c: dict) -> dict:
     # Umbria era PDF e o de Padova navegacao — sem a volta, 3 READY cairiam.
     primeiro = alvos[0]
     alvo = escolher_alvo(alvos, aq["INDEX_URL"])
-    r = _abrir_item(c, alvo, alvos)
+    # DA-13: o texto de cada ligacao da entrada (LINK_TEXT), lido uma vez, como o coletor o poe no alvo
+    textos = textos_das_ligacoes(b, aq["INDEX_URL"], aq.get("STRIP_SUFFIX"))
+    r = _abrir_item(c, alvo, alvos, textos)
     if alvo != primeiro and not r.get("PASS"):
         tentado = {k: r.get(k) for k in ("ALVO", "CLASSE", "PORQUE", "ITEM_ABERTO")
                    if r.get(k) is not None}
-        r = _abrir_item(c, primeiro, alvos)
+        r = _abrir_item(c, primeiro, alvos, textos)
         r["ALVO_FUNDO_TENTADO"] = tentado
     return r
 
 
-def _abrir_item(c: dict, alvo: str, alvos: list[str]) -> dict:
+def _abrir_item(c: dict, alvo: str, alvos: list[str], textos: dict | None = None) -> dict:
     """Abre UM item e julga-o. Sem fallback aqui: quem escolhe e canario_html."""
     st2, b2, err2 = buscar(alvo)
     if st2 != 200 or not b2:
@@ -259,6 +423,9 @@ def _abrir_item(c: dict, alvo: str, alvos: list[str]) -> dict:
                 "PORQUE": "documento inacessivel: %s" % (err2 or st2), "ALVO": alvo}
     # ⚠️ UM BOM UTF-8 A FRENTE DO «<» NAO E «NAO E HTML». Medido no provador de
     # listagens (CAND-0060): b'\xef\xbb\xbf<!DOC' reprovava como bytes errados.
+    # D32 (4): contrato que declara PDF e julgado pela esteira de PDF, nao pelo retrato de HTML.
+    if c.get("OUTPUT_TYPE") == "PDF":
+        return _canario_pdf(c, alvo, alvos, st2, b2, (textos or {}).get(alvo, ""))
     if not b2.lstrip().removeprefix(b"\xef\xbb\xbf")[:1] == b"<":
         return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st2,
                 "PORQUE": "bytes nao sao HTML — BYTE_VALIDATION_FAILED", "ALVO": alvo}
@@ -295,6 +462,18 @@ def _abrir_item(c: dict, alvo: str, alvos: list[str]) -> dict:
     if gate:
         return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
                     PORQUE=gate)
+    # D61/D62: um boletim em HTML que declara data e lugar (ex.: ARSAC, uma pagina por edicao) pergunta
+    # ao MOTOR, como o PDF. Os contratos sem BASE ficam exactamente como antes.
+    if declara_data_e_lugar(c):
+        ident = identidade_pelo_motor(c, alvo, b2)
+        if ident.get("ERRO"):
+            return dict(base_r, PASS=False, CLASSE="UNKNOWN", DETAIL_GATE_PASSED=False,
+                        PORQUE="o motor do coletor nao deu identidade: %s" % str(ident["ERRO"])[:160])
+        if not ident.get("DOCUMENT_ID"):
+            return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                        PORQUE="IDENTITY_FAILED: as capturas do contrato nao casam com o alvo")
+        return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True, DOCUMENT_ID=ident["DOCUMENT_ID"],
+                    TEMPOS=tempos_do_motor(ident))
     return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True,
                 DOCUMENT_ID=c["IDENTITY"]["DOCUMENT_ID"].replace(
                     "{doc.1}", re.sub(r"^https?://[^/]+/?", "", alvo).rstrip("/")))
