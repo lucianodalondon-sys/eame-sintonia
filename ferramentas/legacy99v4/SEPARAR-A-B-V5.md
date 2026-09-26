@@ -1,7 +1,9 @@
-# SEPARAR-A-B v5 — o YouTube pelo Scrap e a régua VIDEO, sobre o vivo ce28040c
+# SEPARAR-A-B v5 — o YouTube pelo Scrap e a régua VIDEO, sobre o vivo 83de0ccd
 
-Ramo `legacy-99-v5`, **nascido de `ce28040c`** (o vivo). Substitui a `legacy-99-v4`
-(55221bec, nascida de e5cd691f). **Não instalado** — quem instala é o coordenador.
+Ramo `legacy-99-v5`, nascido de `ce28040c` e **junto ao vivo `83de0ccd`** (C9, 26/09
+02:08) por `merge --no-ff` (commit 94b85f9a, sem conflitos de código). Substitui a
+`legacy-99-v4` (55221bec, nascida de e5cd691f). **Não instalado** — quem instala é o
+coordenador.
 
 ## Em palavras simples
 
@@ -48,7 +50,8 @@ existe nesta árvore.
 | c428b379 | **VIDEO (D53)** na régua social |
 | e4fd2f1a · fac8daef | mutação (v4 e v5) |
 | 38c0999f · 193633b5 | ensaios (v4 sobre e5cd691f; v5 sobre ce28040c) |
-| 636f089e | mapa: declara `C-LEGACY-99` |
+| 636f089e · c063a32e | mapa: `C-LEGACY-99` (a c063a32e junta a peça que a v5 tinha declarado de novo à que o vivo já tinha) |
+| 94b85f9a | junta o vivo `83de0ccd` (C9); os ficheiros em comum eram só os do mapa |
 
 C e D **não têm commit na v5**: o vivo já os tem, iguais aos da v4.
 
@@ -56,7 +59,10 @@ C e D **não têm commit na v5**: o vivo já os tem, iguais aos da v4.
 
 - **Mutação 32/32** mortos, 0 a escrever em livros (`MUTACAO-V5.json`), com
   `tests/test_onda3_b_inerte.py` na lista.
-- **Ensaio** (`ENSAIO-V5.json`; sha256 da cópia em `ENSAIO-V5-copia-livros.sha256`;
+- **Ensaio** (sobre os livros do vivo `ce28040c`, antes da C9: medido,
+  entre `ce28040c` e `83de0ccd` o único ficheiro em `curadoria/`, `regras/`,
+  `scripts/desbloqueio/`, Scrap ou matriz social que muda é o gerado
+  `regras/LEIA-ANTES-DE-COLETAR.md`; os livros de dados mudam com o bot, fora do Git) (`ENSAIO-V5.json`; sha256 da cópia em `ENSAIO-V5-copia-livros.sha256`;
   rede fechada por proxy morto): plano `IMPORTA 0 · PELO_SCRAP 41 · FICA 11` (8 só
   `case` no coletor, 3 PDF). B: 41/41 na rota do Scrap, 0 saltos, `conferir` do Scrap OK
   41, `CANARY_PENDING` 41, régua sem canário do Scrap = `LEGACY` 41. 0 READY.
@@ -67,12 +73,12 @@ C e D **não têm commit na v5**: o vivo já os tem, iguais aos da v4.
 ## Plano de instalação (o coordenador instala; um escritor; nada de rede)
 
 **0 · Antes**
-- Confirmar que o vivo ainda é `ce28040c`. Se andou: **não** fazer ff; pedir rebase.
+- Confirmar que o vivo ainda é `83de0ccd`. Se andou: **não** fazer ff; pedir nova junção.
 - Corte com sha256: `curadoria/italy_contracts_curator.json`,
   `regras/italy_contracts_onboarded.json`, `curadoria/LIFECYCLE-*.json`,
   `curadoria/DESBLOQUEIO-LEDGER-V1.jsonl`.
 
-**1 · Código** (ff-only sobre `ce28040c` = **SIM** enquanto o vivo for `ce28040c`)
+**1 · Código** (ff-only sobre `83de0ccd` = **SIM** enquanto o vivo for `83de0ccd`)
 ```
 git fetch origin legacy-99-v5
 git merge --ff-only origin/legacy-99-v5
@@ -96,7 +102,7 @@ D38 (YouTube = 1 plataforma, 5 pedidos por corrida). Não faz parte desta instal
 
 **Desfazer**
 - Livros: repor do corte (o livro de estados é só de acrescentar: voltar por transição nova).
-- Código: `git reset --keep ce28040c` e reiniciar o supervisor.
+- Código: `git reset --keep 83de0ccd` e reiniciar o supervisor.
 
 ## A ordem com a SOCIAL-QUALIFICAR (para não pisar)
 
@@ -104,7 +110,7 @@ Medido: os **9 canais** do ensaio da SOCIAL-QUALIFICAR **não** estão entre os 
 (0 canais em comum, 0 SOURCE_ID em comum). Os ficheiros em comum são só os do mapa
 (`system-map/data/architecture.declared.json` e os gerados).
 
-1. **Código:** instalar **uma** das duas por ff-only sobre `ce28040c`; a segunda passa a
+1. **Código:** instalar **uma** das duas por ff-only sobre o vivo; a segunda passa a
    não ser ff — junta-se por cima (`merge --no-ff`), o conflito do
    `architecture.declared.json` é só "as duas acrescentaram uma peça no fim" (ficam as
    duas), e os gerados regeneram-se pela cadeia. Sugestão: **LEGACY-99 v5 primeiro** (só
