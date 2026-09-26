@@ -137,13 +137,15 @@ seguidas. O comum (contador, VPN, entrega, Sala) é **um só** para todas.
 | **3 · APIs científicas** (T6) | `pesquisadores_t6.py` (ramo `pesquisadores-t6-v1` 34713ccc) | 36 T6 no Atlas (0 com contrato); 12 pares cultura×praga | 5/domínio/rodada: openalex 12 pedidos = 3 rodadas; crossref 1 por 40 DOI; orcid 1 por pessoa. ⚠️ OpenAlex «Insufficient budget» com HTTP 200 (14/09): **NÃO SEI** se continua grátis | 5 por API por 24 h com a regra de hoje: 15/dia | CIENCIA | instalar; a regra de 5/24 h numa API oficial com quota própria é **decisão do dono** (a quota delas é maior) |
 | **4 · Páginas de pesquisadores** (T6) | `seguir.py` (ramo `seguir-pesquisadores-v1` d0b1d06c) | 124 pessoas ligadas a obra T6 (de 278 do MUR) | orcid.org: 4 pessoas por rodada (robots + 4 = 5); páginas da universidade até 2 por pessoa; 3 s entre pedidos | ~5 em orcid.org + 5 por universidade | CIENCIA | instalar; o robô de fontes hoje só leva até ao fim canal YouTube e página web (dito no próprio relatório) |
 | **5 · PDFs de monitorização** (T3 boletins fitossanitários) | `micro_prova_colisao.py` + `medir_contagens.py` (ramo `micro-prova-lote2b-v1` 365842a8) | 20 alvos (19 já são fontes, paradas no canário) | ≤ 5 por alvo, pausa 3 s; **fmach.it, agriligurianet.it, sardegnaagricoltura.it** já levaram pedidos hoje | ~100 (20 × 5) | COLETA-WEB (boletins) | instalar; a sonda vira contrato de monitorização das fontes que já existem |
-| **6 · YouTube** | adaptador + Scrap no vivo; **freio** (`coleta/teto_da_onda.py`) e **maestro** (`maestro_social.py`) no ramo `lote3-social-v2` 17a52ef6 | 41 canais (roteiro canais-41); 9 presos em RETRY_AFTER; 18 contas sociais CANARY_PENDING | youtube.com + googlevideo.com = **um só orçamento** (D41); listagem pela API oficial (chave **só no GitHub**); ~120 `/watch` e vem 429 (medido) | 5/24 h no domínio youtube.com: **1 vídeo por volta** | SOCIAL-VIDEO | instalar o pacote 3 (lote3-social-v2); a chave da API na máquina, ou só áudio por vídeo dado |
-| **7 · LinkedIn** (posts) | adaptador no vivo; maestro (ramo acima) | contas em CANARY_PENDING (D80) | `teto=1` por pedido (C2); até 2 contas por onda | 5/24 h em linkedin.com: ~2 contas/dia | SOCIAL-TEXTO | pacote 3 + canário social (a colheita do Scrap É o canário) |
-| **8 · Instagram** | `instagram_*.py` no vivo (rota deslogada) | NÃO SEI no vivo hoje | rota grátis deslogada (medida antes); a API de instagram devolve **0 com HTTP 200** quando bloqueia | 5/24 h em instagram.com | SOCIAL-IMAGEM | freio social (pacote 3) também nesta rota: **NÃO SEI** se o freio cobre o Instagram (o relatório fala de Scrap/YouTube/LinkedIn) |
+| **6 · YouTube** | Scrap no vivo (`coleta/scrap_capacidades.py`: `youtube.search`, `.comments`, `.channel.discovery`, `.public_audio` **PROVEN**); **freio** (`coleta/teto_da_onda.py`) e **maestro** no ramo `lote3-social-v2` 17a52ef6 | 41 canais (roteiro canais-41); 9 presos em RETRY_AFTER | youtube.com + googlevideo.com = **um só orçamento** (D41); áudio público sem chave medido (D24: oEmbed 200, 5,8 MB de áudio); ~120 `/watch` e vem 429 | com 5/24 h em youtube.com: ~1 vídeo por dia (ver §8.7) | SOCIAL-VIDEO | freio (pacote 3) para o Scrap contar ANTES do pedido |
+| **7 · LinkedIn** (1.ª classe, D86-d) | Scrap no vivo: `linkedin.org.posts`, `.org.video`, `.org.caption` **PROVEN** (D23, `docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md`); pessoa com prova oficial (D24) | páginas de ORGANIZAÇÃO (limite `PUBLIC_ORG_VIDEO_ONLY`) | medido em 18 páginas italianas: `GET /company/<slug>/` 200, **10–18 activity ids** por página, **9 de 18 com ≥ 1 vídeo**; MP4 em `dms.licdn.com` (outro domínio); legenda VTT quando existe (gruppocaviro: 2 vídeos + 2 legendas); perfil de PESSOA sem prova oficial = authwall HTTP 999 (D24, não se contorna); robots do LinkedIn DISALLOWED, autorizado pelo dono (D23); US$ 0, sem login | 5/24 h em linkedin.com = ~5 páginas de organização por dia; os vídeos vão para licdn.com (orçamento próprio) | SOCIAL-TEXTO | freio (pacote 3); a lista de páginas de organização como fontes |
+| **8 · Instagram** (1.ª classe, D86-d) | Scrap no vivo: `instagram.reel.capture`, `.reel.audio`, `.reel.transcribe` **PROVEN** sem login (D22; `data/samples/CANARIO-REELS-INSTAGRAM-V1.json`) | perfis públicos (canário: `bayer_italia`; `COMPETITOR-PUBLIC-COMM/CONTAS-V1`) | medido: lista por `instagram.com/<perfil>/embed/` (200, 323 KB, GraphQL com mídia), **3 de 3 reels de ponta a ponta** (RAW 3, DERIVED com texto 3), 527 s para os 3 (~3 min por reel, com ASR local), US$ 0, sem conta. **NÃO SEI** em que domínio vêm os bytes do reel (instagram.com ou CDN): decide se o 5/24 h é por perfil ou por plataforma | com 5/24 h em instagram.com: 1 lista por perfil → ~5 perfis/dia se a mídia vier de CDN; ~1 perfil/dia se vier de instagram.com | SOCIAL-IMAGEM | freio (pacote 3) também na rota do reel (hoje o freio cobre Scrap/yt-dlp; **medir** se cobre o reel) |
 | **9 · Facebook** | `adaptador_facebook.py` no vivo; Biblioteca de Anúncios pela janela gráfica | NÃO SEI | a Biblioteca só abre na janela gráfica (medido antes) | NÃO SEI | SOCIAL-IMAGEM | uma rota sem janela, ou fica fora da coleta contínua |
 | **10 · Clima** (T2) | boletins ARPA na linha 1; ARPAV API REST sem chave (medido antes); `t2-boletins-v1` (**não instalado**) | as ARPA da coorte (arpae, arpat, arpal, arpa.veneto, arpa.marche, arpacampania) | 5/domínio/24 h; ARPAV 401 no caminho dos boletins (medido) | ~30 | CLIMA | instalar t2-boletins-v1; a API ARPAV como receita |
 
-**NÃO SEI dito:** quantas contas Instagram/Facebook existem e prontas no vivo; o custo de uma rota paga (Apify)
+**NÃO SEI dito:** quantas contas Facebook existem e prontas no vivo; em que domínio o Instagram serve os bytes do reel; se o OpenAlex ainda é grátis. Só rotas **US$ 0** (as fases Apify pagas estão proibidas).
+
+> **Correção (D86-d, dono 18:20):** eu tinha posto Instagram e LinkedIn como «NÃO SEI» e por último, sem ler o que o Scrap já prova no vivo. Errado: os dois são linhas de 1.ª classe, com rendimento medido nos canários (acima). A ordem da §8.5 foi corrigida.
 por linha; se o OpenAlex ainda é grátis. Nada disto foi medido nesta passagem (sem rede).
 
 ### 8.2 O que é COMUM a todas as linhas (um só de cada)
@@ -192,17 +194,35 @@ gasta mais (NÃO SEI quanto de RAM).
 ### 8.5 Ordem de arranque (pelo rendimento da Intelligence, rodada 2)
 
 1. **Linha 1 (sites/boletins)**: já está no vivo; T3 é «a família mais útil» e T2 vem logo a seguir.
-2. **Linha 2 (preços)**: T10 deu 66,7 % dos sinais, mas é uma fonte só. O polso e as 3 bolsas tiram essa
+2. **Linhas 8 e 7 (Instagram reels, LinkedIn de organização)**: rotas US$ 0 **PROVEN** no vivo (D22, D23), com texto
+   medido (3/3 reels com transcrição; 9/18 páginas com vídeo). É T8 com nome e lugar, que é o conselho 4 da
+   Intelligence. Falta só o freio (pacote 3) para o Scrap contar ANTES do pedido no livro comum.
+3. **Linha 2 (preços)**: T10 deu 66,7 % dos sinais, mas é uma fonte só. O polso e as 3 bolsas tiram essa
    dependência.
-3. **Linha 5 (PDFs de monitorização)**: é T3; 19 dos 20 alvos já são fontes.
-4. **Linhas 3 e 4 (pesquisadores)**: T6, com local e período do estudo (conselho 3 da Intelligence).
-5. **Linha 10 (clima)**: janelas T2 regionais (conselho 5).
-6. **Linhas 6 e 7 (YouTube, LinkedIn)**: só depois do pacote 3 instalado e do canário social. A régua
-   social hoje reprova 100 % pela API sem marca de autorização (medido 26/09).
-7. **Linhas 8 e 9 (Instagram, Facebook)**: por último, com NÃO SEI sobre a rota e o custo.
+4. **Linha 5 (PDFs de monitorização)**: é T3; 19 dos 20 alvos já são fontes.
+5. **Linhas 3 e 4 (pesquisadores)**: T6, com local e período do estudo (conselho 3 da Intelligence).
+6. **Linha 10 (clima)**: janelas T2 regionais (conselho 5).
+7. **Linha 6 (YouTube)**: Scrap PROVEN no vivo; o orçamento youtube.com + googlevideo.com dá ~1 vídeo por dia.
+8. **Linha 9 (Facebook)**: por último. Não há rota US$ 0 provada sem janela gráfica.
 
 Com a RAM de hoje, as linhas arrancam **uma de cada vez**, nesta ordem, cada uma só depois de a anterior
 ter um dia sem latch e a RAM dela estar medida.
+
+### 8.7 ⚠️ Decisão do dono: o teto de 5/24 h numa PLATAFORMA
+
+A regra de hoje é **por domínio registável**. Todos os perfis do Instagram são `instagram.com`, todas as
+páginas do LinkedIn são `linkedin.com`, e todos os canais do YouTube são `youtube.com` (+ googlevideo.com,
+D41). Aplicada tal e qual, a regra dá **~5 páginas de organização por dia no LinkedIn, ~1 a 5 perfis por
+dia no Instagram e ~1 vídeo por dia no YouTube**, para a plataforma inteira. Isso choca com «as redes
+captam tudo o que precisamos» (D86-d).
+
+Opções, e a escolha é do dono:
+- **A.** manter 5 por domínio por 24 h (o mais cortês, pouco volume nas redes);
+- **B.** para as plataformas, 5 **por conta ou página** por 24 h, com um teto diário da plataforma declarado
+  (por exemplo, 50 pedidos por dia no instagram.com), contado no mesmo livro comum;
+- **C.** o limite que a própria plataforma publica, quando publica.
+
+Sem a decisão, o desenho usa **A**: é a regra que está no código e nas provas.
 
 ### 8.6 Uma volta-exemplo de 24 h (números)
 
@@ -243,6 +263,12 @@ dia de cada linha é a medida.
   site por dia), a mesma VPN (se cair para uma, param todas), e uma só porta de entrada na Sala.
 - **Quantas ao mesmo tempo:** hoje sobram só ~6 GB de memória, e a regra pede 5 GB livres. Então é
   **uma linha de cada vez** até medirmos quanto cada uma gasta.
-- **Ordem:** sites e boletins (já instalados) → preços → PDFs de monitoramento → pesquisadores → clima
-  → YouTube e LinkedIn (depois do pacote 3) → Instagram e Facebook (por último).
+- **Ordem:** sites e boletins (já instalados) → **Instagram e LinkedIn** (o Scrap já provou: 3 de 3 reels
+  com o texto falado; vídeos e legendas de páginas de empresa; tudo sem login e sem pagar) → preços → PDFs
+  → pesquisadores → clima → YouTube → Facebook.
+- **Corrigi um erro meu:** eu tinha posto Instagram e LinkedIn por último, como se não soubéssemos se
+  funcionavam. O Scrap já tinha provado os dois.
+- **Uma decisão para o dono:** a regra de «5 visitas por site por dia» vale para o instagram.com inteiro.
+  Isso dá poucas contas por dia. Dá para manter assim, ou contar 5 por conta com um limite diário da
+  plataforma.
 - Só a linha de sites está instalada. As outras estão prontas em ramos, esperando instalação.
