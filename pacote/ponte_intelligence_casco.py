@@ -1,0 +1,414 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""A PONTE INTELLIGENCE -> CASCO — transporta, e so transporta.
+
+    MISSAO   nuvem-int-casco-ponte-v1
+    ESPECIE  ADAPTADOR DE ENTREGA (Z-PACOTE). NAO E MOTOR. NAO E TELA.
+    ESTADO   IMPLEMENTED · testado com UMA corrida sintetica declarada e com a
+             coorte real da Sala (que bloqueia em G0 e da zero cartoes).
+
+    python3 pacote/ponte_intelligence_casco.py <corrida.json> <saida.json|saida.js>
+    python3 -m unittest tests.test_ponte_intelligence_casco -v
+
+A PERGUNTA QUE ESTE FICHEIRO RESPONDE, E MAIS NENHUMA
+-----------------------------------------------------
+    DADA UMA CORRIDA DA INTELLIGENCE JA FECHADA, QUE CARTAO CADA FERRAMENTA
+    DO CASCO PODE DESENHAR — E COM QUE PROVA?
+
+Pega no livro de um `INTELLIGENCE_RUN` (motor/corrida_da_inteligencia.py e o
+seu sucessor) e devolve UM payload com uma entrada para cada uma das doze
+ferramentas do portal. Cada cartao leva:
+
+    · a marca  EXPERIMENTAL · NAO_PARA_CLIENTE  — no payload, na ferramenta e
+      no cartao, as tres, e a conferencia final reprova se faltar uma;
+    · a PROVA: ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID, e o
+      ITEM_ID tem de estar na LINHAGEM da propria corrida, com G0 = PASSOU;
+    · as chaves do contrato da ferramenta (D84), com `NAO SEI` escrito por
+      extenso onde a corrida nao trouxe o valor.
+
+O QUE ELA NUNCA FAZ — INT-LAW-023 e INT-LAW-280, em codigo
+----------------------------------------------------------
+    NAO refaz crossing.                 NAO completa chave que falta.
+    NAO escolhe ferramenta para um sinal que nao a trouxe.
+    NAO promove EXPERIMENTAL_CANDIDATE a nada (so esse estado atravessa).
+    NAO cunha SIGNAL_ID, DOCUMENT_ID, SOURCE_ID nem RAW_OBSERVATION_ID.
+    NAO converte NAO SEI em zero, em vazio nem em falso.
+    NAO escreve no portal: recusa destino dentro de italia-portale/.
+
+As cinco operacoes que a Biblia deixa a ferramenta fazer (FILTER, NAVIGATE,
+COMPARE, EXPLAIN, RENDER) nao criam informacao. Esta ponte faz menos ainda:
+separa por ferramenta o que a corrida ja separou, e poe a prova ao lado.
+
+O CONTRATO DE ENTRADA E DECLARADO AQUI, E E NOVO
+------------------------------------------------
+Medido a 2026-09-26 na base 69b0e23f: a palavra EXPERIMENTAL_CANDIDATE nao
+existe no repositorio nem na historia do Git, e a corrida de hoje so produz
+`SIGNALS` com ESTADO = SINAL e sem ferramenta. Esta ponte aceita o livro de
+hoje (os sinais dele ficam em RECUSADOS com `SINAL_SEM_FERRAMENTA`, e os
+REQUIREMENTS viram lacunas visiveis) e declara o que o sucessor tem de trazer:
+
+    ITENS_POR_FERRAMENTA  { "<ferramenta>": [ sinal, ... ] }
+    sinal = { SIGNAL_ID, ESTADO = "EXPERIMENTAL_CANDIDATE",
+              CHAVES {..}, PROVA [ {ITEM_ID, RAW_OBSERVATION_ID, SOURCE_ID,
+              DOCUMENT_ID} ], PORQUE?, CONTRADIZ?, INCERTEZA? }
+    GAPS                  [ { FERRAMENTA?, ... } ]
+    SINTETICA             true | false   (ausente = NAO SEI)
+"""
+from __future__ import annotations
+
+import json
+import os
+import sys
+from pathlib import Path
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(HERE))   # a raiz
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+
+# O vocabulario vem de quem o tem. Duas definicoes de NAO SEI divergem, e no dia
+# em que divergissem a ponte deixava passar como valor o que a corrida escreveu
+# como ignorancia.
+from espinha_da_intelligence import NAO_SEI            # noqa: E402
+from corrida_da_inteligencia import e_ignorancia       # noqa: E402
+
+CONTRATO = "PONTE_INTELLIGENCE_CASCO/v1"
+MARCA = "EXPERIMENTAL · NAO_PARA_CLIENTE"
+ESTADO_TRANSPORTAVEL = "EXPERIMENTAL_CANDIDATE"
+CAMPOS_DA_PROVA = ("ITEM_ID", "RAW_OBSERVATION_ID", "SOURCE_ID", "DOCUMENT_ID")
+
+#: `INT-LAW-053` — estados da corrida que nao autorizam cartao nenhum. Cada um
+#: fica escrito na ferramenta como o que e, e nunca como «zero cartoes».
+CORRIDA_SEM_SAIDA = ("NOT_RUN", "RUNNING", "ERROR")
+CORRIDA_VAZIA = ("EMPTY_RESULT", "NO_FINDING")
+
+#: AS DOZE FERRAMENTAS DO CASCO, pelo id da vista em portale.html
+#: (PORTAL-CAPABILITY-INVENTORY.md, «NAVEGACAO MEDIDA»). As chaves sao o resumo
+#: da decisao D84 que veio no pedido da missao — D84 nao esta escrita no repo, e
+#: por isso a fonte fica dita aqui. `None` = sem contrato D84: a ponte nao
+#: inventa um, e recusa cartao para ela.
+FERRAMENTAS = {
+    "casa": {"NOME_IT": "Opportunità attuali", "CAPACIDADE": None, "CHAVES": None},
+    "meeting": {
+        "NOME_IT": "Radar delle Opportunità", "CAPACIDADE": "CAP-OPP",
+        "CHAVES": ("CROP_ID", "ISSUE_ID", "REGION_ID", "TIME_WINDOW",
+                   "ADAMA_PRODUCT_ID", "AUTHORIZATION_EVIDENCE_ID")},
+    "future": {"NOME_IT": "Archivio segnali", "CAPACIDADE": None, "CHAVES": None},
+    "windows": {
+        "NOME_IT": "Finestre Colturali", "CAPACIDADE": "CAP-WIN",
+        "CHAVES": ("CROP_ID", "REGION_ID", "ISSUE_ID", "DATE_OR_STAGE")},
+    "market": {
+        "NOME_IT": "Polso di Mercato", "CAPACIDADE": "CAP-MKT",
+        "CHAVES": ("CROP_ID", "MARKET_PLACE_ID", "PERIOD", "PRICE", "UNIT",
+                   "MARKET_STAGE")},
+    "voices": {
+        "NOME_IT": "Voci dal Campo", "CAPACIDADE": "CAP-FIELD",
+        "CHAVES": ("SPEAKER_ID", "SPEAKER_ROLE", "QUOTE_OR_TRANSCRIPT", "CROP_ID",
+                   "ISSUE_ID", "FACT_LOCATION", "FACT_TIME")},
+    "competitors": {
+        "NOME_IT": "Concorrenza", "CAPACIDADE": "CAP-COMP",
+        "CHAVES": ("COMPANY_ID", "PRODUCT_ID", "CROP_ID", "FACT_LOCATION",
+                   "FACT_TIME", "T4_REGISTRATION_EVIDENCE_ID")},
+    "science": {
+        "NOME_IT": "Intelligence Scientifica", "CAPACIDADE": "CAP-SCI",
+        "CHAVES": ("DOI", "TRIAL_ID", "RESEARCHER_ORCID", "INSTITUTION_ID",
+                   "MOLECULE", "CROP_ID", "ISSUE_ID", "STUDY_LOCATION",
+                   "STUDY_PERIOD")},
+    "portfolio": {
+        "NOME_IT": "Portafoglio · Label", "CAPACIDADE": "CAP-PORT · CAP-LABEL",
+        "CHAVES": ("PRODUCT_ID", "CROP_ID", "TARGET_ID", "ACTIVE_INGREDIENT_ID",
+                   "REGISTRATION_VERSION")},
+    "archive": {"NOME_IT": "Archivio", "CAPACIDADE": None, "CHAVES": None},
+    "sources": {"NOME_IT": "Archivio fonti", "CAPACIDADE": None, "CHAVES": None},
+    "field": {"NOME_IT": "Rete Commerciale di Campo", "CAPACIDADE": None, "CHAVES": None},
+}
+
+
+class LeiViolada(Exception):
+    """A ponte recusou-se, e diz porque."""
+
+
+def _valor(v):
+    """O valor como veio, ou `NAO SEI` por extenso. Nunca vazio, nunca zero."""
+    return NAO_SEI if e_ignorancia(v) else v
+
+
+def _recusa(ferramenta, sinal, motivo, detalhe=""):
+    sid = sinal.get("SIGNAL_ID") if isinstance(sinal, dict) else None
+    return {"FERRAMENTA": ferramenta, "SIGNAL_ID": _valor(sid),
+            "MOTIVO": motivo, "DETALHE": detalhe}
+
+
+def _linhagem_da_corrida(corrida: dict) -> dict:
+    """ITEM_ID -> entrada da LINEAGE da propria corrida. Nao se completa nada."""
+    out = {}
+    for e in corrida.get("LINEAGE") or []:
+        if isinstance(e, dict) and not e_ignorancia(e.get("ITEM_ID")):
+            out[str(e["ITEM_ID"])] = e
+    return out
+
+
+def conferir_prova(sinal: dict, linhagem: dict):
+    """`(motivo, detalhe)` se a prova nao aguenta; `None` se aguenta.
+
+    UM SINAL SEM PROVA NAO ATRAVESSA. E a prova nao vale por existir: cada
+    elemento tem de chegar ao DOCUMENT_ID, e o ITEM_ID tem de estar na linhagem
+    DESTA corrida, com G0 = PASSOU e o mesmo SOURCE_ID e RAW_OBSERVATION_ID.
+    Uma prova que aponta para fora da corrida e uma prova de outra coisa.
+    """
+    prova = sinal.get("PROVA")
+    if not isinstance(prova, list) or not prova:
+        return "SEM_PROVA", "o sinal nao traz PROVA"
+    for p in prova:
+        if not isinstance(p, dict):
+            return "PROVA_INCOMPLETA", "elemento de PROVA que nao e objeto"
+        falta = [c for c in CAMPOS_DA_PROVA if e_ignorancia(p.get(c))]
+        if falta:
+            return "PROVA_INCOMPLETA", "falta " + ", ".join(falta)
+        e = linhagem.get(str(p["ITEM_ID"]))
+        if e is None:
+            return "PROVA_FORA_DA_CORRIDA", f"ITEM_ID {p['ITEM_ID']} nao esta na LINEAGE da corrida"
+        if e.get("G0") != "PASSOU":
+            return "ITEM_BLOQUEADO_EM_G0", f"ITEM_ID {p['ITEM_ID']} tem G0 = {e.get('G0', NAO_SEI)}"
+        for c in ("SOURCE_ID", "RAW_OBSERVATION_ID"):
+            if str(e.get(c)) != str(p[c]):
+                return "PROVA_CONTRADIZ_A_CORRIDA", f"{c} da prova != {c} da LINEAGE"
+    return None
+
+
+def _cartao(ferramenta: str, sinal: dict, corrida: dict) -> dict:
+    """RENDER + EXPLAIN, e nada mais. Os valores sao os do sinal, ou NAO SEI."""
+    chaves_contrato = FERRAMENTAS[ferramenta]["CHAVES"]
+    dadas = sinal.get("CHAVES") if isinstance(sinal.get("CHAVES"), dict) else {}
+    chaves = {k: _valor(dadas.get(k)) for k in chaves_contrato}
+    return {
+        "MARCA": MARCA,
+        "NAO_PARA_CLIENTE": True,
+        "FERRAMENTA": ferramenta,
+        "SIGNAL_ID": sinal["SIGNAL_ID"],
+        "ESTADO": ESTADO_TRANSPORTAVEL,
+        "CHAVES": chaves,
+        "CHAVES_NAO_SEI": [k for k in chaves_contrato if chaves[k] == NAO_SEI],
+        # Chave que veio e o contrato nao pede: nao se desenha, mas o NOME fica
+        # a vista — largar em silencio seria esconder o que a corrida disse.
+        "CHAVES_FORA_DO_CONTRATO": sorted(k for k in dadas if k not in chaves_contrato),
+        # INT-LAW-244 — por que apareceu, o que contradiz, o que e incerto.
+        "PORQUE": _valor(sinal.get("PORQUE")),
+        "CONTRADIZ": _valor(sinal.get("CONTRADIZ")),
+        "INCERTEZA": _valor(sinal.get("INCERTEZA")),
+        "PROVA": [dict({c: p[c] for c in CAMPOS_DA_PROVA},
+                       INTELLIGENCE_RUN_ID=corrida["INTELLIGENCE_RUN_ID"])
+                  for p in sinal["PROVA"]],
+        "CORRIDA_SINTETICA": _sintetica(corrida),
+    }
+
+
+def _sintetica(corrida: dict):
+    v = corrida.get("SINTETICA")
+    return v if isinstance(v, bool) else NAO_SEI
+
+
+def _lacunas(corrida: dict) -> list:
+    """As lacunas da corrida, VERBATIM. A ponte nao cria lacuna nova."""
+    out = []
+    for g in corrida.get("GAPS") or []:
+        if isinstance(g, dict):
+            out.append(dict(g, ORIGEM="GAPS"))
+    for r in corrida.get("REQUIREMENTS") or []:
+        if isinstance(r, dict):
+            out.append(dict(r, ORIGEM="REQUIREMENTS"))
+    return out
+
+
+def adaptar(corrida: dict) -> dict:
+    """O livro de uma corrida -> o payload do casco, conferido antes de sair."""
+    if not isinstance(corrida, dict):
+        raise LeiViolada("uma corrida que nao e objeto nao se adapta")
+    run_id = corrida.get("INTELLIGENCE_RUN_ID")
+    if e_ignorancia(run_id):
+        raise LeiViolada("corrida sem INTELLIGENCE_RUN_ID: nao ha a que ligar a prova")
+    estado = corrida.get("RESULT_STATE") or NAO_SEI
+    linhagem = _linhagem_da_corrida(corrida)
+    lacunas = _lacunas(corrida)
+    recusados = []
+    por_ferramenta = corrida.get("ITENS_POR_FERRAMENTA") or {}
+    if not isinstance(por_ferramenta, dict):
+        raise LeiViolada("ITENS_POR_FERRAMENTA tem de ser um objeto por ferramenta")
+
+    # O sinal do livro de hoje nao traz ferramenta. Escolher-lha seria a ponte
+    # a completar um UNKNOWN (RT-TOOL-02) — fica a vista, e fica fora.
+    for s in corrida.get("SIGNALS") or []:
+        recusados.append(_recusa(NAO_SEI, s, "SINAL_SEM_FERRAMENTA",
+                                 "a corrida nao disse para que ferramenta; a ponte nao escolhe"))
+    for f, sinais in por_ferramenta.items():
+        if f not in FERRAMENTAS:
+            for s in (sinais if isinstance(sinais, list) else [sinais]):
+                recusados.append(_recusa(f, s, "FERRAMENTA_DESCONHECIDA"))
+
+    saida = {}
+    for f, meta in FERRAMENTAS.items():
+        sinais = por_ferramenta.get(f) or []
+        if not isinstance(sinais, list):
+            sinais = [sinais]
+        entrada = {
+            "MARCA": MARCA, "NAO_PARA_CLIENTE": True, "FERRAMENTA": f,
+            "NOME_IT": meta["NOME_IT"], "CAPACIDADE": meta["CAPACIDADE"] or NAO_SEI,
+            "CONTRATO_CHAVES": list(meta["CHAVES"]) if meta["CHAVES"] else NAO_SEI,
+            "CARTOES": [],
+            "LACUNAS": [g for g in lacunas if g.get("FERRAMENTA") == f],
+        }
+        if meta["CHAVES"] is None:
+            for s in sinais:
+                recusados.append(_recusa(f, s, "FERRAMENTA_SEM_CONTRATO_D84"))
+            entrada["ESTADO"] = "SEM_CONTRATO_D84"
+        elif estado in CORRIDA_SEM_SAIDA or estado == NAO_SEI:
+            for s in sinais:
+                recusados.append(_recusa(f, s, "CORRIDA_SEM_SAIDA_UTILIZAVEL", estado))
+            entrada["ESTADO"] = "CORRIDA_" + str(estado).replace(" ", "_")
+        else:
+            vistos = set()
+            for s in sinais:
+                if not isinstance(s, dict):
+                    recusados.append(_recusa(f, s, "ENTRADA_INVALIDA"))
+                    continue
+                if e_ignorancia(s.get("SIGNAL_ID")):
+                    recusados.append(_recusa(f, s, "SEM_SIGNAL_ID"))
+                    continue
+                if s.get("ESTADO") != ESTADO_TRANSPORTAVEL:
+                    recusados.append(_recusa(f, s, "ESTADO_NAO_TRANSPORTAVEL",
+                                             f"ESTADO = {s.get('ESTADO', NAO_SEI)}; a ponte so leva "
+                                             f"{ESTADO_TRANSPORTAVEL} e nao promove nada"))
+                    continue
+                falha = conferir_prova(s, linhagem)
+                if falha:
+                    recusados.append(_recusa(f, s, *falha))
+                    continue
+                if s["SIGNAL_ID"] in vistos:
+                    # INT-LAW-299 — um item contribui uma vez por capacidade.
+                    recusados.append(_recusa(f, s, "DUPLICADO_NA_FERRAMENTA"))
+                    continue
+                vistos.add(s["SIGNAL_ID"])
+                entrada["CARTOES"].append(_cartao(f, s, corrida))
+            if entrada["CARTOES"]:
+                entrada["ESTADO"] = "COM_CARTOES_EXPERIMENTAIS"
+            elif estado in CORRIDA_VAZIA:
+                entrada["ESTADO"] = "CORRIDA_" + estado
+            else:
+                entrada["ESTADO"] = "SEM_CARTOES_NESTA_CORRIDA"
+        # INT-LAW-112/281 — o numero e desta corrida, nao do mundo.
+        entrada["UNIVERSO"] = {
+            "INTELLIGENCE_RUN_ID": run_id, "CARTOES": len(entrada["CARTOES"]),
+            "LEITURA": "cartoes NESTA corrida; zero aqui nao prova ausencia no mundo",
+        }
+        saida[f] = entrada
+
+    payload = {
+        "SCHEMA": CONTRATO,
+        "MARCA": MARCA,
+        "NAO_PARA_CLIENTE": True,
+        "ORIGEM": {"INTELLIGENCE_RUN_ID": run_id, "RESULT_STATE": estado,
+                   "RUN_SCHEMA": corrida.get("SCHEMA", NAO_SEI),
+                   "CORRIDA_SINTETICA": _sintetica(corrida)},
+        "LEI": "o portal desenha isto; nao refaz crossing, nao completa NAO SEI, "
+               "nao promove (INT-LAW-023 · INT-LAW-280)",
+        "FERRAMENTAS": saida,
+        "LACUNAS_SEM_FERRAMENTA": [g for g in lacunas
+                                   if g.get("FERRAMENTA") not in FERRAMENTAS],
+        "RECUSADOS": recusados,
+    }
+    violacoes = conferir_payload(payload)
+    if violacoes:
+        raise LeiViolada("payload reprovado na conferencia: " + "; ".join(violacoes))
+    return payload
+
+
+def conferir_payload(payload: dict) -> list:
+    """O portao de saida. Devolve a lista de violacoes; vazia = passa.
+
+    E independente de `adaptar`: le o payload como o portal o leria. Por isso
+    serve tambem para conferir um payload que chegou por outro caminho.
+    """
+    v = []
+    if not isinstance(payload, dict):
+        return ["payload nao e objeto"]
+    if payload.get("MARCA") != MARCA or payload.get("NAO_PARA_CLIENTE") is not True:
+        v.append("payload sem a marca EXPERIMENTAL · NAO_PARA_CLIENTE")
+    ferramentas = payload.get("FERRAMENTAS")
+    if not isinstance(ferramentas, dict) or set(ferramentas) != set(FERRAMENTAS):
+        v.append("o payload nao traz as doze ferramentas")
+        return v
+    for f, e in ferramentas.items():
+        if e.get("MARCA") != MARCA or e.get("NAO_PARA_CLIENTE") is not True:
+            v.append(f"{f}: ferramenta sem a marca")
+        contrato = FERRAMENTAS[f]["CHAVES"]
+        cartoes = e.get("CARTOES") or []
+        if contrato is None and cartoes:
+            v.append(f"{f}: cartao numa ferramenta sem contrato D84")
+        for c in cartoes:
+            sid = c.get("SIGNAL_ID", "?")
+            if c.get("MARCA") != MARCA or c.get("NAO_PARA_CLIENTE") is not True:
+                v.append(f"{f}/{sid}: cartao sem a marca EXPERIMENTAL · NAO_PARA_CLIENTE")
+            if c.get("ESTADO") != ESTADO_TRANSPORTAVEL:
+                v.append(f"{f}/{sid}: estado {c.get('ESTADO')} nao e {ESTADO_TRANSPORTAVEL}")
+            prova = c.get("PROVA")
+            if not isinstance(prova, list) or not prova:
+                v.append(f"{f}/{sid}: cartao sem prova")
+            else:
+                for p in prova:
+                    falta = [k for k in CAMPOS_DA_PROVA + ("INTELLIGENCE_RUN_ID",)
+                             if e_ignorancia((p or {}).get(k))]
+                    if falta:
+                        v.append(f"{f}/{sid}: prova sem {', '.join(falta)}")
+            chaves = c.get("CHAVES")
+            if not isinstance(chaves, dict) or (contrato and set(chaves) != set(contrato)):
+                v.append(f"{f}/{sid}: chaves nao batem com o contrato D84")
+            else:
+                for k, val in chaves.items():
+                    if e_ignorancia(val) and val != NAO_SEI:
+                        v.append(f"{f}/{sid}: {k} esconde a ignorancia ({val!r} em vez de NAO SEI)")
+    return v
+
+
+def como_js(payload: dict) -> str:
+    """O mesmo payload na forma que o casco carrega (um global no window).
+
+    O nome do global diz o que ele e. NAO e ligado a portale.html aqui: ligar e
+    deploy, e deploy nao e desta missao.
+    """
+    return ("/* GERADO por pacote/ponte_intelligence_casco.py — " + MARCA + ".\n"
+            "   Nao e para cliente. Nao editar a mao. */\n"
+            "window.SINTONIA_PONTE_EXPERIMENTAL = "
+            + json.dumps(payload, ensure_ascii=False, indent=1) + ";\n")
+
+
+def destino_permitido(destino: Path) -> bool:
+    """Nada desta ponte cai dentro do portal. Escrever la seria publicar."""
+    raiz = Path(os.path.dirname(HERE)).resolve()
+    try:
+        rel = destino.resolve().relative_to(raiz)
+    except ValueError:
+        return True
+    return not (rel.parts and rel.parts[0] == "italia-portale")
+
+
+def main(argv=None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    if len(argv) != 2:
+        print(__doc__.strip().split("\n\n")[0])
+        print("\n  uso: python3 pacote/ponte_intelligence_casco.py <corrida.json> <saida.json|saida.js>")
+        return 2
+    corrida = json.loads(Path(argv[0]).read_text(encoding="utf-8"))
+    destino = Path(argv[1])
+    if not destino_permitido(destino):
+        print("RECUSADO: o destino fica dentro de italia-portale/ — isto e NAO_PARA_CLIENTE e nao e deploy.")
+        return 3
+    payload = adaptar(corrida)
+    texto = (como_js(payload) if destino.suffix == ".js"
+             else json.dumps(payload, ensure_ascii=False, indent=1) + "\n")
+    destino.write_text(texto, encoding="utf-8")
+    n = sum(len(e["CARTOES"]) for e in payload["FERRAMENTAS"].values())
+    print(f"{MARCA} · {n} cartoes · {len(payload['RECUSADOS'])} recusados · -> {destino}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
