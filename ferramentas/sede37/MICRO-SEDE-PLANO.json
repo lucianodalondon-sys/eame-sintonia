@@ -1,0 +1,425 @@
+{
+ "DATASET": "MICRO-SEDE-PLANO-V1",
+ "TETO_POR_DOMINIO_POR_CORRIDA": 5,
+ "FONTES_QUE_PRECISAM": 37,
+ "COM_PAGINA_DE_SEDE": 34,
+ "SEM_PAGINA_DE_SEDE_NAO_SEI": [
+  "IT-T2-034",
+  "IT-T7-172",
+  "IT-T8-062"
+ ],
+ "DOMINIOS": 16,
+ "PAGINAS_DISTINTAS": 16,
+ "PEDIDOS_PREVISTOS_TOTAL": 32,
+ "MAXIMO_POR_DOMINIO_POR_CORRIDA": 2,
+ "RONDAS": {
+  "1": [
+   {
+    "DOMINIO": "arpa.veneto.it",
+    "URLS": [
+     "https://www.arpa.veneto.it/note-legali"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "arpacampania.it",
+    "URLS": [
+     "https://www.arpacampania.it/contatti"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "calabriaimpresa.eu",
+    "URLS": [
+     "https://energia.calabriaimpresa.eu/note-legali/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "casalasco.com",
+    "URLS": [
+     "https://www.casalasco.com/it/contatti"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "chianticlassico.com",
+    "URLS": [
+     "https://www.chianticlassico.com/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "cia.it",
+    "URLS": [
+     "https://www.cia.it/chi-siamo/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "ciatoscana.eu",
+    "URLS": [
+     "https://www.ciatoscana.eu/home/presentazione/dove-siamo/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "cifo.it",
+    "URLS": [
+     "https://www.cifo.it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "crea.gov.it",
+    "URLS": [
+     "https://www.crea.gov.it/contatti"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "edagricole.it",
+    "URLS": [
+     "https://terraevita.edagricole.it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "enea.it",
+    "URLS": [
+     "https://sostenibilita.enea.it/contact"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "indire.it",
+    "URLS": [
+     "https://fieradidacta.indire.it/it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "istat.it",
+    "URLS": [
+     "https://www.istat.it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "koppert.it",
+    "URLS": [
+     "https://www.koppert.it/contatti"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "psrn.it",
+    "URLS": [
+     "https://www.psrn.it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "zootecnicainternational.com",
+    "URLS": [
+     "https://zootecnicainternational.com/contact/"
+    ],
+    "PEDIDOS": 2
+   }
+  ]
+ },
+ "POR_DOMINIO": {
+  "arpa.veneto.it": {
+   "FONTES": [
+    "IT-T2-145",
+    "IT-T2-146"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.arpa.veneto.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.arpa.veneto.it/note-legali": [
+     "IT-T2-145",
+     "IT-T2-146"
+    ]
+   }
+  },
+  "arpacampania.it": {
+   "FONTES": [
+    "IT-T2-050"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.arpacampania.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.arpacampania.it/contatti": [
+     "IT-T2-050"
+    ]
+   }
+  },
+  "calabriaimpresa.eu": {
+   "FONTES": [
+    "IT-T12-117"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "energia.calabriaimpresa.eu"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://energia.calabriaimpresa.eu/note-legali/": [
+     "IT-T12-117"
+    ]
+   }
+  },
+  "casalasco.com": {
+   "FONTES": [
+    "IT-T7-163"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.casalasco.com"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.casalasco.com/it/contatti": [
+     "IT-T7-163"
+    ]
+   }
+  },
+  "chianticlassico.com": {
+   "FONTES": [
+    "IT-T7-033"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.chianticlassico.com"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.chianticlassico.com/contatti/": [
+     "IT-T7-033"
+    ]
+   }
+  },
+  "cia.it": {
+   "FONTES": [
+    "IT-T7-121",
+    "IT-T7-123",
+    "IT-T7-135"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.cia.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.cia.it/chi-siamo/contatti/": [
+     "IT-T7-121",
+     "IT-T7-123",
+     "IT-T7-135"
+    ]
+   }
+  },
+  "ciatoscana.eu": {
+   "FONTES": [
+    "IT-T7-141"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.ciatoscana.eu"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.ciatoscana.eu/home/presentazione/dove-siamo/": [
+     "IT-T7-141"
+    ]
+   }
+  },
+  "cifo.it": {
+   "FONTES": [
+    "IT-T9-009"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.cifo.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.cifo.it/contatti/": [
+     "IT-T9-009"
+    ]
+   }
+  },
+  "crea.gov.it": {
+   "FONTES": [
+    "IT-T5-080",
+    "IT-T5-111",
+    "IT-T5-113"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.crea.gov.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.crea.gov.it/contatti": [
+     "IT-T5-080",
+     "IT-T5-111",
+     "IT-T5-113"
+    ]
+   }
+  },
+  "edagricole.it": {
+   "FONTES": [
+    "IT-T12-131",
+    "IT-T3-023",
+    "IT-T8-021",
+    "IT-T8-022",
+    "IT-T8-024",
+    "IT-T8-028",
+    "IT-T8-029",
+    "IT-T8-030",
+    "IT-T8-034",
+    "IT-T8-039",
+    "IT-T8-040",
+    "IT-T8-041",
+    "IT-T8-042",
+    "IT-T8-051"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "terraevita.edagricole.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://terraevita.edagricole.it/contatti/": [
+     "IT-T12-131",
+     "IT-T3-023",
+     "IT-T8-021",
+     "IT-T8-022",
+     "IT-T8-024",
+     "IT-T8-028",
+     "IT-T8-029",
+     "IT-T8-030",
+     "IT-T8-034",
+     "IT-T8-039",
+     "IT-T8-040",
+     "IT-T8-041",
+     "IT-T8-042",
+     "IT-T8-051"
+    ]
+   }
+  },
+  "enea.it": {
+   "FONTES": [
+    "IT-T5-187"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "sostenibilita.enea.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://sostenibilita.enea.it/contact": [
+     "IT-T5-187"
+    ]
+   }
+  },
+  "indire.it": {
+   "FONTES": [
+    "IT-T9-021"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "fieradidacta.indire.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://fieradidacta.indire.it/it/contatti/": [
+     "IT-T9-021"
+    ]
+   }
+  },
+  "istat.it": {
+   "FONTES": [
+    "IT-T5-090"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.istat.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.istat.it/contatti/": [
+     "IT-T5-090"
+    ]
+   }
+  },
+  "koppert.it": {
+   "FONTES": [
+    "IT-T9-011"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.koppert.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.koppert.it/contatti": [
+     "IT-T9-011"
+    ]
+   }
+  },
+  "psrn.it": {
+   "FONTES": [
+    "IT-T12-137"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.psrn.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.psrn.it/contatti/": [
+     "IT-T12-137"
+    ]
+   }
+  },
+  "zootecnicainternational.com": {
+   "FONTES": [
+    "IT-T10-022"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "zootecnicainternational.com"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://zootecnicainternational.com/contact/": [
+     "IT-T10-022"
+    ]
+   }
+  }
+ }
+}
