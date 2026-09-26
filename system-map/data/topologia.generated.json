@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T16:39:53+00:00",
-  "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
-  "BRANCH": "integra-noite-v2",
+  "GENERATED_AT": "2026-09-26T20:02:11+00:00",
+  "HEAD": "c9c3be6a4649afc7fbef9b89fc2207bbdbbc0f65",
+  "BRANCH": "rodada1-comando-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
-  "FICHEIROS_NA_IMPRESSAO": 3777,
+  "SOURCE_TREE_FINGERPRINT": "e21a3cf0aabe713f97a032d6ea6f3c12defb2dc501c260e853bdae40a6418ea8",
+  "FICHEIROS_NA_IMPRESSAO": 3780,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -783,7 +783,7 @@
    {
     "PATH": "ferramentas/big_collection/rodadas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "fde65df47acf4889d5b9974440a68b3864ec52e0",
+    "VERSAO": "d41158d85f1ca08313cce4f34df52046e5b373da",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3737,7 +3737,7 @@
    {
     "PATH": "provas/rodadas_mutacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "8a0a3a4c743526374d72dd8369be8c5300507181",
+    "VERSAO": "9aa298b85de8dbb9f8fcb54468dcbb549e8c3d03",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -4570,14 +4570,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
+    "VERSAO": "e21a3cf0aabe713f97a032d6ea6f3c12defb2dc501c260e853bdae40a6418ea8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
+    "VERSAO": "e21a3cf0aabe713f97a032d6ea6f3c12defb2dc501c260e853bdae40a6418ea8",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6474,7 +6474,7 @@
    {
     "PATH": "tests/test_rodadas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "cd1f9d6f6faa451dd04cc5bf61bf7fbabf19492a",
+    "VERSAO": "e34010460bcfe278380106e623985961a5d3f0dc",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6781,7 +6781,7 @@
    }
   ],
   "INPUTS_COUNT": 963,
-  "INPUTS_DIGEST": "65d2c557990ff4a4403b981fbdaec1019d9ac753699f00f55dc38bc630d1f6df",
+  "INPUTS_DIGEST": "9fbeaab2153d289020b9b5b06c25fc85e8045bdf8e5945d5d839e74666eb5402",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6807,15 +6807,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 573,
+  "DOCUMENTOS_LIDOS": 575,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5ed54cdf36e4d5163f75898501a1d3667f6ec65e6bc5bd44a8f8acaef63f57b3",
-  "SEMANTIC_HASH": "4e5793643715cf7249087b2dc37882a03ae301c0e94cbf41a1b5cb743f7786fe"
+  "MEASUREMENT_HASH": "39ded0fafc1bbdc367ae90c02d4e8408fb4e8b138f5014a8cb70b65c04067d82",
+  "SEMANTIC_HASH": "44d0468d491e849eec03db99ee8a9465dc5d72e00b62dde1e35201bd41e4fa57"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10705,7 +10705,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
-      "LINHA": 176,
+      "LINHA": 305,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-ONDA-WEB",
@@ -29371,7 +29371,7 @@
      },
      {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
-      "LINHA": 204,
+      "LINHA": 333,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-ONDA-WEB",
@@ -34380,7 +34380,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
-      "LINHA": 197,
+      "LINHA": 326,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -40837,7 +40837,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
-      "LINHA": 48,
+      "LINHA": 49,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-ONDA-WEB",
@@ -49684,7 +49684,7 @@
      },
      {
       "FICHEIRO": "provas/rodadas_mutacao.py",
-      "LINHA": 54,
+      "LINHA": 66,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
@@ -57335,7 +57335,8 @@
     "tests/test_rodadas.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md"
+    "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md",
+    "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,

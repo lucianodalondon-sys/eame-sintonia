@@ -1754,6 +1754,7 @@
       "ferramentas/big_collection/contratos12/PLANO-COM-AS-11.json",
       "ferramentas/big_collection/contratos12/TABELA-DO-COLETOR-NA-COPIA.sha256",
       "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/onda2/ENSAIO-G3-COORTE-CONGELADA-NA-COPIA.json",
       "ferramentas/big_collection/onda2/ENSAIO-G3-FOTO-DOS-LIVROS.txt",
       "ferramentas/big_collection/onda2/ENSAIO-G3-ONDA-WEB-SO-PLANO.json",
@@ -1761,6 +1762,8 @@
       "ferramentas/big_collection/onda2/ONDA2-G3.md",
       "ferramentas/big_collection/onda4/C2-ONDA4.md",
       "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md",
+      "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md",
+      "ferramentas/big_collection/onda4/RODADA1-ROTEIRO.md",
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/big_collection/rodadas.py",
@@ -4222,10 +4225,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v2",
-    "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
-    "GENERATED_AT": "2026-09-26T13:36:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344"
+    "BRANCH": "rodada1-comando-v1",
+    "HEAD": "c9c3be6a4649afc7fbef9b89fc2207bbdbbc0f65",
+    "GENERATED_AT": "2026-09-26T14:12:32-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e21a3cf0aabe713f97a032d6ea6f3c12defb2dc501c260e853bdae40a6418ea8"
   },
   "FAMILIES": [
     {
@@ -55804,12 +55807,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1551,
+        "palavras": 1560,
         "por_lingua": {
           "IT": 2,
           "PT": 1
         },
-        "sem_marca_de_lingua": 1548,
+        "sem_marca_de_lingua": 1557,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -66270,6 +66273,7 @@
           "QUINZE",
           "RECADO",
           "RECUSA",
+          "REND",
           "ROTA_M2",
           "ROTULO_ITALIA",
           "RUNS",
@@ -66295,13 +66299,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1681,
+        "palavras": 1702,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1669,
+        "sem_marca_de_lingua": 1690,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -74929,7 +74933,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/rodadas.py",
-          "line": 176,
+          "line": 305,
           "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-ONDA-WEB",
@@ -107780,7 +107784,7 @@
         },
         {
           "file": "ferramentas/big_collection/rodadas.py",
-          "line": 204,
+          "line": 333,
           "snippet": "return Path(os.environ.get(\"ITALY_OPS_ROOT\") or RAIZ) / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ONDA-WEB",
@@ -116463,7 +116467,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/rodadas.py",
-          "line": 197,
+          "line": 326,
           "snippet": "return subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\"), \"relatorio\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -128340,7 +128344,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/rodadas.py",
-          "line": 48,
+          "line": 49,
           "snippet": "import prova_teto_dominio as PT                                    # noqa: E402 — um so dono da prova",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-ONDA-WEB",
@@ -144509,7 +144513,7 @@
         },
         {
           "file": "provas/rodadas_mutacao.py",
-          "line": 54,
+          "line": 66,
           "snippet": "r = subprocess.run([sys.executable, \"tests/test_rodadas.py\"], cwd=pasta, env=env, capture_output=True,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
@@ -148048,8 +148052,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2032,
+  "UNCLAIMED_CODE_FILES": [
+    "ferramentas/big_collection/ensaio_rodada.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 2035,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -148315,9 +148321,9 @@
     "edges_proven": 1455,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3629,
+    "files_tracked": 3632,
     "files_covered": 1597,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 178,
     "roles_declared_only": 9,
     "roles_unknown": 71,

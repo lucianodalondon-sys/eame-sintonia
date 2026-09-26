@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v2",
-    "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
-    "GENERATED_AT": "2026-09-26T13:36:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344"
+    "BRANCH": "rodada1-comando-v1",
+    "HEAD": "c9c3be6a4649afc7fbef9b89fc2207bbdbbc0f65",
+    "GENERATED_AT": "2026-09-26T14:12:32-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e21a3cf0aabe713f97a032d6ea6f3c12defb2dc501c260e853bdae40a6418ea8"
   },
   "FILES": [
     {
@@ -12077,6 +12077,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/big_collection/ensaio_rodada.py",
+      "sha": "6e739e0a710e83dff5348d287f1128d4e6514791",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/big_collection/onda2/ENSAIO-G3-COORTE-CONGELADA-NA-COPIA.json",
       "sha": "310b0518e06adad0d307e6f40a5bc7d4032721b5",
       "ext": ".json",
@@ -12126,6 +12133,20 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md",
+      "sha": "43cfad48af06c4094dac24cc33433428cc5850db",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/big_collection/onda4/RODADA1-ROTEIRO.md",
+      "sha": "b20464279b0b417645bcfadbc1bb79dd1b6135f7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/big_collection/onda_web.py",
       "sha": "f9f580ba7a840e9755e3eed9cf0ad21d0061ca49",
       "ext": ".py",
@@ -12141,7 +12162,7 @@
     },
     {
       "path": "ferramentas/big_collection/rodadas.py",
-      "sha": "fde65df47acf4889d5b9974440a68b3864ec52e0",
+      "sha": "d41158d85f1ca08313cce4f34df52046e5b373da",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17804,7 +17825,7 @@
     },
     {
       "path": "provas/RODADAS-MUTACAO.json",
-      "sha": "8ad8c714ec47beb02d71f1832f1e670bf4736e88",
+      "sha": "981e1df0fb249505b5bcb9d80ebfdd3e9b28df8c",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19722,7 +19743,7 @@
     },
     {
       "path": "provas/rodadas_mutacao.py",
-      "sha": "8a0a3a4c743526374d72dd8369be8c5300507181",
+      "sha": "9aa298b85de8dbb9f8fcb54468dcbb549e8c3d03",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25098,7 +25119,7 @@
     },
     {
       "path": "tests/test_rodadas.py",
-      "sha": "cd1f9d6f6faa451dd04cc5bf61bf7fbabf19492a",
+      "sha": "e34010460bcfe278380106e623985961a5d3f0dc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -40264,6 +40285,83 @@
       }
     },
     {
+      "from_file": "ferramentas/big_collection/ensaio_rodada.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_rodada.py",
+        "line": 163,
+        "snippet": "fila = arvore / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\""
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_rodada.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_rodada.py",
+        "line": 168,
+        "snippet": "fila.write_text(json.dumps(q, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_rodada.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_rodada.py",
+        "line": 277,
+        "snippet": "ledger=D / \"ops\" / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\","
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_rodada.py",
+      "to_file": "ferramentas/big_collection/rodadas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_rodada.py",
+        "line": 221,
+        "snippet": "import rodadas as RD                                      # noqa: E402 — o da arvore"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_rodada.py",
+      "to_file": "ferramentas/big_collection/rodadas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_rodada.py",
+        "line": 197,
+        "snippet": "r = subprocess.run([sys.executable, \"ferramentas/big_collection/rodadas.py\", \"--so-plano\","
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_rodada.py",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_rodada.py",
+        "line": 222,
+        "snippet": "import prova_teto_dominio as PT                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_rodada.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_rodada.py",
+        "line": 96,
+        "snippet": "import rede                                               # noqa: E402 — o dono da regra"
+      }
+    },
+    {
       "from_file": "ferramentas/big_collection/onda_web.py",
       "to_file": "coleta/italy_pilot_collect.mjs",
       "type": "READS",
@@ -40336,7 +40434,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/rodadas.py",
-        "line": 204,
+        "line": 333,
         "snippet": "return Path(os.environ.get(\"ITALY_OPS_ROOT\") or RAIZ) / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\""
       }
     },
@@ -40347,7 +40445,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/rodadas.py",
-        "line": 315,
+        "line": 446,
         "snippet": "import onda_web as OW                                          # noqa: E402"
       }
     },
@@ -40358,7 +40456,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/rodadas.py",
-        "line": 51,
+        "line": 52,
         "snippet": "ONDA_WEB = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda_web.py\""
       }
     },
@@ -40369,7 +40467,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/rodadas.py",
-        "line": 48,
+        "line": 49,
         "snippet": "import prova_teto_dominio as PT                                    # noqa: E402 — um so dono da prova"
       }
     },
@@ -40380,7 +40478,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/rodadas.py",
-        "line": 197,
+        "line": 326,
         "snippet": "return subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\"), \"relatorio\","
       }
     },
@@ -40391,7 +40489,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/rodadas.py",
-        "line": 176,
+        "line": 305,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\","
       }
     },
@@ -69464,7 +69562,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/rodadas_mutacao.py",
-        "line": 94,
+        "line": 106,
         "snippet": "with open(os.path.join(RAIZ, \"provas\", \"RODADAS-MUTACAO.json\"), \"w\", encoding=\"utf-8\") as h:"
       }
     },
@@ -69475,7 +69573,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/rodadas_mutacao.py",
-        "line": 54,
+        "line": 66,
         "snippet": "r = subprocess.run([sys.executable, \"tests/test_rodadas.py\"], cwd=pasta, env=env, capture_output=True,"
       }
     },
@@ -97207,10 +97305,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3629,
-    "files_readable": 1518,
-    "files_code_dir": 1752,
-    "file_edges": 6471,
+    "files_tracked": 3632,
+    "files_readable": 1519,
+    "files_code_dir": 1755,
+    "file_edges": 6478,
     "escritas_em_pasta": 89,
     "declared_missing_here": 0
   },
