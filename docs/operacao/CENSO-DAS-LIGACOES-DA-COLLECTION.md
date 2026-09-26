@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b
-BRANCH           integra-noite-v2
-GERADO_EM        2026-09-26T13:36:17-03:00
+HEAD_DA_MEDICAO  fb2f1585121458b5ed4b90b2a7f812b26b84dd78
+BRANCH           nuvem-polso-mercato-v1
+GERADO_EM        2026-09-26T14:05:07-03:00
 CARDS            105
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -2514,13 +2514,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/POLITICA-RAW-ROTA-PAGA.json`, `data/samples/RUN-MANIFEST.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `data/samples/POLITICA-RAW-ROTA-PAGA.json`, `data/samples/RUN-MANIFEST.json` |
-| **arestas no mapa** | entram 0 · saem 29 |
-| **arestas provadas** | entram 0 · saem 29 |
+| **arestas no mapa** | entram 0 · saem 30 |
+| **arestas provadas** | entram 0 · saem 30 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 29 |
+| **prova das ligações** | CODE 30 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 

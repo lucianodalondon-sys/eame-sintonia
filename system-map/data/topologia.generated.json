@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T16:39:53+00:00",
-  "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
-  "BRANCH": "integra-noite-v2",
+  "GENERATED_AT": "2026-09-26T19:43:55+00:00",
+  "HEAD": "fb2f1585121458b5ed4b90b2a7f812b26b84dd78",
+  "BRANCH": "nuvem-polso-mercato-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
-  "FICHEIROS_NA_IMPRESSAO": 3777,
+  "SOURCE_TREE_FINGERPRINT": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045",
+  "FICHEIROS_NA_IMPRESSAO": 3785,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1873,6 +1873,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "leis/preco_de_mercado.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5865f60683a2e0c694df699ac407397aa64289a9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "leis/regua_italia.py",
     "PAPEL": "FONTE",
     "VERSAO": "6c6c579407782c92ecb3e3f6e0c6323a55ee07d9",
@@ -2513,6 +2520,13 @@
     "PATH": "provas/_mutantes_d37.py",
     "PAPEL": "FONTE",
     "VERSAO": "e7f38712ad761593e6e91874751d3b8913e8e145",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/_mutantes_preco_de_mercado.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "8c904fc2c415bcce53ead6e04078a06fd77259c9",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -4344,6 +4358,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/polso_mercato/bateria_por_nome.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7f2d0fee784c44a567cb19ad7fd5ee30edf4ca87",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/receitas/censo_e_proposta.py",
     "PAPEL": "FONTE",
     "VERSAO": "3a61bce0177fcdd7672781c2b152a3e34f5e7a35",
@@ -4570,14 +4591,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
+    "VERSAO": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
+    "VERSAO": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6262,6 +6283,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_preco_de_mercado.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "23bd47a3ba9344b7b0f20a88d3ca11b0b1788ccd",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_preflight_de_egresso.py",
     "PAPEL": "FONTE",
     "VERSAO": "b00624729e7a3baf1d636b428a78b7d38df11b16",
@@ -6780,8 +6808,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 963,
-  "INPUTS_DIGEST": "65d2c557990ff4a4403b981fbdaec1019d9ac753699f00f55dc38bc630d1f6df",
+  "INPUTS_COUNT": 967,
+  "INPUTS_DIGEST": "598f751a4c6ba58c2b007e1259cf0a6e8d163e8b3a9419a72db24a108b6507c8",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6807,15 +6835,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 573,
+  "DOCUMENTOS_LIDOS": 574,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5ed54cdf36e4d5163f75898501a1d3667f6ec65e6bc5bd44a8f8acaef63f57b3",
-  "SEMANTIC_HASH": "4e5793643715cf7249087b2dc37882a03ae301c0e94cbf41a1b5cb743f7786fe"
+  "MEASUREMENT_HASH": "e9207cc5fb9a82b249f37ec97c42e8c85942ac477a6dbde85bb52595c9dbd59d",
+  "SEMANTIC_HASH": "4e1ee83389c9d9c43ac21b7218f538f270f85ca88a2b4ea48ae539944ecbb408"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6982,6 +7010,7 @@
    "C-MEDICAO",
    "C-PACOTE-CAMADAS",
    "C-PORTAL-MODELO",
+   "C-PRECO-DE-MERCADO",
    "C-PROVA-ADAMA-REFERENCE",
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-ASR-LOCAL",
@@ -7036,7 +7065,7 @@
    "C-TESTES",
    "C-V21-INGEST"
   ],
-  "COUNT": 92
+  "COUNT": 93
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -7158,6 +7187,7 @@
    "C-PONTE-ONBOARD",
    "C-PORTA-FONTE",
    "C-PORTAL-MODELO",
+   "C-PRECO-DE-MERCADO",
    "C-PROCEDENCIA",
    "C-PROVA-ADAMA-REFERENCE",
    "C-PROVA-AGRO-FRONTEIRA",
@@ -7242,16 +7272,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 198
+  "COUNT": 199
  },
  "ARITMETICA": {
   "COLLECTION": 106,
-  "BOUNDARY": 92,
-  "SOMA": 198,
-  "EXPANDED": 198,
+  "BOUNDARY": 93,
+  "SOMA": 199,
+  "EXPANDED": 199,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 198,
+  "RESUMO_CARTOES_NO_UNIVERSO": 199,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -38178,6 +38208,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PRECO-DE-MERCADO--IMPORTS-->C-TESTES",
+    "FROM": "C-PRECO-DE-MERCADO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_preco_de_mercado.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PRECO-DE-MERCADO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-COLETA-BASE",
     "FROM": "C-PROCEDENCIA",
     "TO": "C-COLETA-BASE",
@@ -38840,6 +38892,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROCEDENCIA--READS-->C-PRECO-DE-MERCADO",
+    "FROM": "C-PROCEDENCIA",
+    "TO": "C-PRECO-DE-MERCADO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_preco_de_mercado.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-PRECO-DE-MERCADO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-PORTA-CLI-LIGA-O-BANCO",
     "FROM": "C-PROCEDENCIA",
     "TO": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -38968,6 +39042,14 @@
      {
       "FICHEIRO": "tests/test_portao.py",
       "LINHA": 251,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_preco_de_mercado.py",
+      "LINHA": 150,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-TESTES",
@@ -42234,6 +42316,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-RELEVANCIA--IMPORTS-->C-PRECO-DE-MERCADO",
+    "FROM": "C-RELEVANCIA",
+    "TO": "C-PRECO-DE-MERCADO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "leis/preco_de_mercado.py",
+      "LINHA": 56,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RELEVANCIA--IMPORTS-->C-PRECO-DE-MERCADO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-RELEVANCIA--IMPORTS-->C-SECURITY-CHECK",
     "FROM": "C-RELEVANCIA",
     "TO": "C-SECURITY-CHECK",
@@ -42270,6 +42374,14 @@
      {
       "FICHEIRO": "tests/test_adama_relevance.py",
       "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RELEVANCIA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_preco_de_mercado.py",
+      "LINHA": 258,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RELEVANCIA--IMPORTS-->C-TESTES",
@@ -42399,6 +42511,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RELEVANCIA--READS-->C-PORTAL-DADOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-RELEVANCIA--READS-->C-PRECO-DE-MERCADO",
+    "FROM": "C-RELEVANCIA",
+    "TO": "C-PRECO-DE-MERCADO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_preco_de_mercado.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RELEVANCIA--READS-->C-PRECO-DE-MERCADO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -49633,6 +49767,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-PRECO-DE-MERCADO",
+    "FROM": "C-TESTES",
+    "TO": "C-PRECO-DE-MERCADO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_preco_de_mercado.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PRECO-DE-MERCADO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-PROVA-ADAMA-REFERENCE",
     "FROM": "C-TESTES",
     "TO": "C-PROVA-ADAMA-REFERENCE",
@@ -50943,6 +51099,50 @@
     ]
    },
    {
+    "EDGE_ID": "C-V2-LEGADO--READS-->C-PRECO-DE-MERCADO",
+    "FROM": "C-V2-LEGADO",
+    "TO": "C-PRECO-DE-MERCADO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_preco_de_mercado.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V2-LEGADO--READS-->C-PRECO-DE-MERCADO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-V2-LEGADO--READS-->C-TESTES",
+    "FROM": "C-V2-LEGADO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_preco_de_mercado.py",
+      "LINHA": 143,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V2-LEGADO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-V21-COMERCIAL--IMPORTS-->C-TESTES",
     "FROM": "C-V21-COMERCIAL",
     "TO": "C-TESTES",
@@ -51857,12 +52057,12 @@
     ]
    }
   ],
-  "COUNT": 1455
+  "COUNT": 1462
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 198,
-  "CARTOES_AUDITADOS": 198,
-  "ARESTAS_RELACIONADAS": 1455,
+  "CARTOES_NO_UNIVERSO": 199,
+  "CARTOES_AUDITADOS": 199,
+  "ARESTAS_RELACIONADAS": 1462,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -52058,6 +52258,7 @@
    "C-ORDENS-63",
    "C-PACOTE-ONDA3",
    "C-PONTE-ONBOARD",
+   "C-PRECO-DE-MERCADO",
    "C-PROVA-ADAMA-REFERENCE",
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-ASR-LOCAL",
@@ -52246,9 +52447,6 @@
    "C-RASTRO": [
     "performance"
    ],
-   "C-RELEVANCIA": [
-    "science"
-   ],
    "C-REPARO-MEDICAO": [
     "collection-strategy"
    ],
@@ -52293,9 +52491,9 @@
    "CODE": 237,
    "CONTROL": 86,
    "DATA": 30,
-   "PROOF": 510,
-   "READ": 329,
-   "RULE": 247,
+   "PROOF": 513,
+   "READ": 330,
+   "RULE": 250,
    "WRITE": 16
   },
   "GAPS_NOMEADOS": [
@@ -58030,6 +58228,50 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PRECO-DE-MERCADO",
+   "NOME": "O preco observado do Polso di Mercato — a lei escrita, e ainda nao aplicada",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-REGUAS",
+   "KIND": "contract",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "POLSO-DI-MERCATO.md",
+    "leis/preco_de_mercado.py",
+    "provas/_mutantes_preco_de_mercado.py",
+    "scripts/polso_mercato/BATERIA-LEVE-ANTES.json",
+    "scripts/polso_mercato/BATERIA-LEVE-DEPOIS.json",
+    "scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json",
+    "scripts/polso_mercato/bateria_por_nome.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/_mutantes_preco_de_mercado.py",
+    "tests/test_preco_de_mercado.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "pathlib"
+   ],
+   "ENTRAM": 5,
+   "SAEM": 1,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF",
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PROCEDENCIA",
    "NOME": "De onde veio — carimbado na coleta",
    "FAMILIA": "F-COLETA",
@@ -58063,7 +58305,7 @@
     "e"
    ],
    "ENTRAM": 0,
-   "SAEM": 29,
+   "SAEM": 30,
    "CATEGORIAS_QUE_ENTRAM": [],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -60762,6 +61004,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/_mutantes_preco_de_mercado.py",
     "provas/arbitragem_da_intelligence.py",
     "tests/test_relevance_priority_sobrecarga.py"
    ],
@@ -60779,7 +61022,7 @@
     "sensor_medir"
    ],
    "ENTRAM": 1,
-   "SAEM": 10,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
@@ -60788,9 +61031,7 @@
     "RULE"
    ],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "science"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -62184,6 +62425,7 @@
     "tests/test_portao.py",
     "tests/test_portoes_da_collection.py",
     "tests/test_portoes_eame.py",
+    "tests/test_preco_de_mercado.py",
     "tests/test_preflight_de_egresso.py",
     "tests/test_preservar_coleta.py",
     "tests/test_preservar_coleta_no_banco.py",
@@ -62266,6 +62508,7 @@
    ],
    "SO_MEDEM_ESTE": [
     "provas/_mutantes_d36_equivalencia.py",
+    "provas/_mutantes_preco_de_mercado.py",
     "provas/_mutantes_prova_teto_social.py",
     "provas/a_fronteira_da_coleta.py",
     "provas/a_rota_m2_atravessa.py",
@@ -62398,8 +62641,8 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 213,
-   "SAEM": 33,
+   "ENTRAM": 215,
+   "SAEM": 34,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v2",
-    "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
-    "GENERATED_AT": "2026-09-26T13:36:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344"
+    "BRANCH": "nuvem-polso-mercato-v1",
+    "HEAD": "fb2f1585121458b5ed4b90b2a7f812b26b84dd78",
+    "GENERATED_AT": "2026-09-26T14:05:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ecfec2fc35c82fb4aa01362617049eb2d1a070b2cf89f19b23c4e17110482045"
   },
   "FILES": [
     {
@@ -438,6 +438,13 @@
     {
       "path": "PLANO-UNIFICACAO.md",
       "sha": "b8f412ca38d63274f5d8c57db00ca10cfb1698de",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "POLSO-DI-MERCATO.md",
+      "sha": "338167bf2f8577d6b827fa474b8b7b7951a24161",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -16718,6 +16725,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/preco_de_mercado.py",
+      "sha": "5865f60683a2e0c694df699ac407397aa64289a9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/regua_italia.py",
       "sha": "6c6c579407782c92ecb3e3f6e0c6323a55ee07d9",
       "ext": ".py",
@@ -17924,6 +17938,13 @@
     {
       "path": "provas/_mutantes_d37.py",
       "sha": "e7f38712ad761593e6e91874751d3b8913e8e145",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_mutantes_preco_de_mercado.py",
+      "sha": "8c904fc2c415bcce53ead6e04078a06fd77259c9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21758,6 +21779,34 @@
       "code_dir": true
     },
     {
+      "path": "scripts/polso_mercato/BATERIA-LEVE-ANTES.json",
+      "sha": "b9710e44fe9b7fdb9c051599720eb2c0e22d19a0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/polso_mercato/BATERIA-LEVE-DEPOIS.json",
+      "sha": "106a1aec93b08df7821a083f960da9b49793a57e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json",
+      "sha": "1fb65547fc0b270d6713f50b9ff075997eb3b9f6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/polso_mercato/bateria_por_nome.py",
+      "sha": "7f2d0fee784c44a567cb19ad7fd5ee30edf4ca87",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/receitas/ROTULOS-LD2.json",
       "sha": "a58a11d55cb63e8da62cbdf1b69e431f0b43c6cb",
       "ext": ".json",
@@ -22893,7 +22942,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "903c1f8578dcb19dd22ae8ab4de9878bde4e1037",
+      "sha": "1205138eebb42c9142a7c3b4f14623926c4a3905",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -24882,6 +24931,13 @@
     {
       "path": "tests/test_portoes_eame.py",
       "sha": "c23138e145a3bf309b893da5f1311b33adc89e7f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_preco_de_mercado.py",
+      "sha": "23bd47a3ba9344b7b0f20a88d3ca11b0b1788ccd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -49383,6 +49439,17 @@
       }
     },
     {
+      "from_file": "leis/preco_de_mercado.py",
+      "to_file": "leis/regua_italia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/preco_de_mercado.py",
+        "line": 56,
+        "snippet": "import regua_italia as RI    # noqa: E402  (o dono do vocabulario de culturas)"
+      }
+    },
+    {
       "from_file": "leis/regua_italia.py",
       "to_file": "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json",
       "type": "READS",
@@ -57575,6 +57642,72 @@
         "file": "provas/_mutantes_d37.py",
         "line": 33,
         "snippet": "open(ALVO, \"w\", encoding=\"utf-8\", newline=\"\").write(original.replace(de, para))"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_preco_de_mercado.py",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_preco_de_mercado.py",
+        "line": 23,
+        "snippet": "\"data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json\", \"data/samples/IT-V2/IT-V2-CANONICO.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_preco_de_mercado.py",
+      "to_file": "data/samples/IT-V2/IT-V2-CANONICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_preco_de_mercado.py",
+        "line": 23,
+        "snippet": "\"data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json\", \"data/samples/IT-V2/IT-V2-CANONICO.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_preco_de_mercado.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_preco_de_mercado.py",
+        "line": 24,
+        "snippet": "\"data/samples/RUN-MANIFEST.json\")"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_preco_de_mercado.py",
+      "to_file": "leis/preco_de_mercado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_preco_de_mercado.py",
+        "line": 20,
+        "snippet": "ALVO = \"leis/preco_de_mercado.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_preco_de_mercado.py",
+      "to_file": "leis/regua_italia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_preco_de_mercado.py",
+        "line": 21,
+        "snippet": "COPIAR = (\"leis/preco_de_mercado.py\", \"leis/regua_italia.py\", \"tests/test_preco_de_mercado.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_preco_de_mercado.py",
+      "to_file": "tests/test_preco_de_mercado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_preco_de_mercado.py",
+        "line": 21,
+        "snippet": "COPIAR = (\"leis/preco_de_mercado.py\", \"leis/regua_italia.py\", \"tests/test_preco_de_mercado.py\","
       }
     },
     {
@@ -91909,6 +92042,50 @@
       }
     },
     {
+      "from_file": "tests/test_preco_de_mercado.py",
+      "to_file": "data/samples/IT-V2/IT-V2-CANONICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preco_de_mercado.py",
+        "line": 143,
+        "snippet": "self.assertIn(lit, (AMOSTRAS / \"IT-V2\" / \"IT-V2-CANONICO.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_preco_de_mercado.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preco_de_mercado.py",
+        "line": 150,
+        "snippet": "raw = (AMOSTRAS / \"RUN-MANIFEST.json\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_preco_de_mercado.py",
+      "to_file": "leis/preco_de_mercado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preco_de_mercado.py",
+        "line": 20,
+        "snippet": "import preco_de_mercado as PM   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_preco_de_mercado.py",
+      "to_file": "leis/regua_italia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preco_de_mercado.py",
+        "line": 258,
+        "snippet": "import regua_italia as RI"
+      }
+    },
+    {
       "from_file": "tests/test_preflight_de_egresso.py",
       "to_file": ".github/workflows/sintonia-scrap.yml",
       "type": "READS",
@@ -97207,10 +97384,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3629,
-    "files_readable": 1518,
-    "files_code_dir": 1752,
-    "file_edges": 6471,
+    "files_tracked": 3637,
+    "files_readable": 1522,
+    "files_code_dir": 1759,
+    "file_edges": 6482,
     "escritas_em_pasta": 89,
     "declared_missing_here": 0
   },
