@@ -9,7 +9,7 @@ for d in vc.documentos_do_repo():
     if so and d['EXTERNAL_ID'] not in so:
         continue
     r = vc.extrair(d)
-    print('##', d['EXTERNAL_ID'], d['TEXT_LANGUAGE'], d['TITLE_LANGUAGE'], d['QUOTE_ORIGINALITY'], d['TITLE'][:50])
+    print('##', d['EXTERNAL_ID'], d['TEXT_LANGUAGE'], d['TITLE_LANGUAGE'], d['TEXT_KIND'], d['QUOTE_TRANSLATION_SUSPECT'], d['TITLE'][:50])
     for f in r['FALANTES']:
         print('   ', repr(f['SPEAKER_NAME']), f['ROLES_DECLARED'], f['ORGANIZATION'][:40], f['ORGANIZATION_KIND'],
               '|', f['SPEAKER_PLACE'][:30], '|', f['NAME_EVIDENCE'][0]['REGRA'])
