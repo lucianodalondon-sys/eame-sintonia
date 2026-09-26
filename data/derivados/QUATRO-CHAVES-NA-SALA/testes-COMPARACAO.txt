@@ -1,0 +1,36 @@
+ANTES : testes=3794 ok=3505 falhas=125 skip=164 modulos=247 modulos_rc!=0=52
+DEPOIS: testes=3822 ok=3524 falhas=126 skip=172 modulos=249 modulos_rc!=0=52
+FALHAS NOVAS (falham depois, nao falhavam antes):
+   tests.test_o_controle_separa_lei_de_mencao.M_UmArtefactoGeradoNaoCarimbaOProprioCommit.test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore antes= NAO EXISTIA
+FALHAS CURADAS:
+TESTES NOVOS: 28
+   tests.test_o_controle_separa_lei_de_mencao.M_UmArtefactoGeradoNaoCarimbaOProprioCommit.test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore FAIL
+   tests.test_quatro_chaves.AJanelaDeclaradaCumpreALei.test_as_quatro_chaves_existem ok
+   tests.test_quatro_chaves.AJanelaDeclaradaCumpreALei.test_ausencia_e_nao_sei_e_nunca_vazio ok
+   tests.test_quatro_chaves.AJanelaDeclaradaCumpreALei.test_cultura_e_fase_vem_da_regua ok
+   tests.test_quatro_chaves.AJanelaDeclaradaCumpreALei.test_outro_universo_nao_inventa_cultura ok
+   tests.test_quatro_chaves.AJanelaDeclaradaCumpreALei.test_publicacao_e_visita_nao_viram_tempo_do_fato_nem_janela ok
+   tests.test_quatro_chaves.AJanelaDeclaradaCumpreALei.test_regiao_do_fato_passa_com_a_base ok
+   tests.test_quatro_chaves.AJanelaDeclaradaCumpreALei.test_regiao_nunca_herdada_da_fonte ok
+   tests.test_quatro_chaves.APortaContinuaSemDecidirAJanela.test_a_evidencia_da_porta_nao_ganhou_campos ok
+   tests.test_quatro_chaves.APortaContinuaSemDecidirAJanela.test_o_boletim_de_exemplo_passa_em_t1 ok
+   tests.test_quatro_chaves.APortaContinuaSemDecidirAJanela.test_o_nao_sei_tambem_passa_a_cultura_adiante ok
+   tests.test_quatro_chaves_na_sala.ASalaGuardaAsQuatroChaves.test_1_a_033_subiu_pela_cadeia skipped
+   tests.test_quatro_chaves_na_sala.ASalaGuardaAsQuatroChaves.test_2_a_cadeia_outra_vez_nao_estraga skipped
+   tests.test_quatro_chaves_na_sala.ASalaGuardaAsQuatroChaves.test_3_item_com_as_quatro_chaves_grava_e_le skipped
+   tests.test_quatro_chaves_na_sala.ASalaGuardaAsQuatroChaves.test_4_item_sem_chaves_fica_nao_sei skipped
+   tests.test_quatro_chaves_na_sala.ASalaGuardaAsQuatroChaves.test_5_a_regiao_da_fonte_nao_entra_como_regiao_do_fato skipped
+   tests.test_quatro_chaves_na_sala.ASalaGuardaAsQuatroChaves.test_5b_da6_data_relativa_pousa_sem_fact_time skipped
+   tests.test_quatro_chaves_na_sala.ASalaGuardaAsQuatroChaves.test_6_o_mesmo_item_duas_vezes_e_um_registo skipped
+   tests.test_quatro_chaves_na_sala.ASalaGuardaAsQuatroChaves.test_7_a_trava_recusa_chave_em_falta_ou_vazia skipped
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_a_regiao_da_fonte_nao_vira_regiao_do_fato ok
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_cada_chave_diz_de_onde_veio ok
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_d62_a_precisao_conta_o_que_ha_e_nao_julga ok
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_d62_sem_expressao_relativa_fica_nao_sei ok
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_da6_data_relativa_fica_evidencia_e_nao_escreve_fact_time ok
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_o_default_da_033_e_o_registo_do_dono_byte_a_byte ok
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_o_ready_leva_a_janela_declarada ok
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_o_registo_nao_medido_diz_nao_sei_nas_quatro ok
+   tests.test_quatro_chaves_na_sala.OContratoLevaAsQuatroChaves.test_os_tempos_nao_viajam_duas_vezes ok
+TESTES QUE SUMIRAM: []
+MODULOS com rc diferente: {'test_quatro_chaves': (None, 0), 'test_quatro_chaves_na_sala': (None, 0)}

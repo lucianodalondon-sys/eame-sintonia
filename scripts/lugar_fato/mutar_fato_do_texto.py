@@ -77,7 +77,8 @@ MUTANTES = [
     ("M21_PRODUCAO_VIRA_MERCADO", "(a): reprova se o lugar onde se produz voltar a sair MERCADO",
      [("[(m, CAMPO, \"PRODUCAO\") for m in _RE_PRODUCAO", "[(m, MERCADO, None) for m in _RE_PRODUCAO")]),
     ("M22_PRODUCAO_VIRA_FOCO", "(a): reprova se o lugar de producao ganhar evidencia de foco/observacao",
-     [('"TIPO_DE_EVIDENCIA": FL.OTHER_EVIDENCE, "TRECHO": _trecho(r["EVIDENCE"])', '"TIPO_DE_EVIDENCIA": FL.OTHER_EVIDENCE if kind != CAMPO else "FIELD_OBSERVATION", "TRECHO": _trecho(r["EVIDENCE"])')]),
+     # CONSERTO-REGUA: a linha do TRECHO mudou (janela em volta do lugar); a ancora segue-a, o mutante e o mesmo
+     [('"TIPO_DE_EVIDENCIA": FL.OTHER_EVIDENCE,\n', '"TIPO_DE_EVIDENCIA": FL.OTHER_EVIDENCE if kind != CAMPO else "FIELD_OBSERVATION",\n')]),
     ("M23_INSTITUCIONAL_E_FACTO", "(b): reprova se a data de exame/curso voltar a ser tempo do facto",
      [('        motivo = ("INSTITUCIONAL_NAO_FATO" if _RE_INSTITUCIONAL.search(ev)\n', '        motivo = ("INSTITUCIONAL_NAO_FATO" if False\n')]),
     ("M24_ANCORA_DENTRO_DA_PALAVRA", "reprova se «coltura» dentro de «agricoltura» voltar a amarrar a data",

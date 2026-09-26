@@ -128,6 +128,56 @@ ESTADOS_DA_FILA = (A_ESPERA, RETIRADO)
 #
 #     ACRESCENTAR CAMPO A UM CONTRATO É DÍVIDA.
 #     DEIXAR MORRER O QUE A CASA JÁ MEDIU É PIOR: É DÍVIDA INVISÍVEL.
+# ── AS COLUNAS DA SALA, POR NOME (QUATRO-CHAVES-V2) ──────────────────────
+# Uma lista, uma ordem, um sitio. O `select` de `ler()` e o `insert` de
+# `pousar()` nascem daqui; nenhum codigo le ou escreve uma coluna pela posicao.
+COLUNAS_LIDAS = (
+    "ordem", "item_id", "raw_observation_id", "universo", "texto",
+    "source_id", "source_location", "fact_location", "fact_time",
+    "captured_at", "admitido_por", "estagio", "fact_time_basis",
+    "fact_location_basis", "published_at", "observed_at",
+    "source_declared_evidence_class", "fato",
+    "published_at_basis", "source_location_basis", "completude_tempo_lugar",
+    "tempo_lugar_evidencia", "janela_declarada",
+)
+# A TABELA UNICA: coluna da Sala <-> campo do contrato READY. `ler()` e
+# `pousar()` passam por ELA — um so sitio diz que `published_at_basis` e o
+# `PUBLISHED_AT_BASIS`. So COPIA: nenhum valor e calculado aqui (DA-6: quem
+# escreve FACT_TIME e o extrator do fato; a Sala so o guarda como veio).
+COLUNA_E_CAMPO = (
+    ("item_id", "ITEM_ID"), ("universo", "UNIVERSO"), ("texto", "TEXTO"),
+    ("source_id", "SOURCE_ID"), ("source_location", "SOURCE_LOCATION"),
+    ("fact_location", "FACT_LOCATION"), ("fact_time", "FACT_TIME"),
+    ("captured_at", "CAPTURED_AT"), ("admitido_por", "ADMITIDO_POR"),
+    ("estagio", "ESTAGIO"), ("fact_time_basis", "FACT_TIME_BASIS"),
+    ("fact_location_basis", "FACT_LOCATION_BASIS"),
+    ("published_at", "PUBLISHED_AT"), ("observed_at", "OBSERVED_AT"),
+    ("source_declared_evidence_class", "SOURCE_DECLARED_EVIDENCE_CLASS"),
+    ("published_at_basis", "PUBLISHED_AT_BASIS"),
+    ("source_location_basis", "SOURCE_LOCATION_BASIS"),
+)
+# as que viajam como JSON (chaves ordenadas na ida, `json.loads` na volta)
+COLUNA_E_CAMPO_JSON = (
+    ("fato", "FATO"), ("completude_tempo_lugar", "COMPLETUDE_TEMPO_LUGAR"),
+    ("tempo_lugar_evidencia", "TEMPO_LUGAR_EVIDENCIA"),
+    ("janela_declarada", "JANELA_DECLARADA"),
+)
+# o que `listar_pendentes` le: coluna da Sala -> chave devolvida
+COLUNAS_PENDENTES = (
+    ("run_id", "RUN_ID"), ("ordem", "ORDEM"), ("item_id", "ITEM_ID"),
+)
+
+COLUNAS_ESCRITAS = (
+    "run_id", "ordem", "item_id", "raw_observation_id", "universo", "texto",
+    "source_id", "source_location", "fact_location", "fact_time", "captured_at",
+    "admitido_por", "corrida_sha256",
+    "estagio", "fact_time_basis", "fact_location_basis", "published_at",
+    "observed_at", "source_declared_evidence_class", "fato",
+    "published_at_basis", "source_location_basis", "completude_tempo_lugar",
+    "tempo_lugar_evidencia", "janela_declarada",
+)
+
+
 CAMPOS_READY = (
     "ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO", "TEXTO",
     "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
@@ -137,6 +187,10 @@ CAMPOS_READY = (
     "PUBLISHED_AT_BASIS", "SOURCE_LOCATION_BASIS", "COMPLETUDE_TEMPO_LUGAR",
     "TEMPO_LUGAR_EVIDENCIA",
     "SOURCE_DECLARED_EVIDENCE_CLASS", "FATO",
+    # D58 (QUATRO-CHAVES-NA-SALA): cultura, regiao do fato, fase, janela, cada
+    # uma com a proveniencia. Coluna `janela_declarada` (033 unica); o que pousou
+    # antes le-se `NAO SEI` nas quatro (`admissao.JANELA_NAO_MEDIDA`).
+    "JANELA_DECLARADA",
     "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR",
 )
 
@@ -489,51 +543,6 @@ def _so_leitura_pedido():
     return os.environ.get(VAR_SO_LEITURA, "").strip().upper() in ("1", "SIM", "ON", "TRUE")
 
 
-# ── A PONTE ENTRE COLUNA E CONTRATO, NUM SÓ SÍTIO (D10) ─────────────────────
-# Cada campo de `CAMPOS_READY` que vem de coluna tem aqui a sua coluna. ESTADO
-# e CORRIDA não vêm de coluna: ESTADO é o do contrato, CORRIDA é o run_id.
-_COLUNA_DO_CAMPO = {
-    "ITEM_ID": "item_id", "RAW_OBSERVATION_ID": "raw_observation_id",
-    "UNIVERSO": "universo", "ESTAGIO": "estagio", "TEXTO": "texto",
-    "SOURCE_ID": "source_id", "SOURCE_LOCATION": "source_location",
-    "FACT_LOCATION": "fact_location", "FACT_TIME": "fact_time",
-    "FACT_TIME_BASIS": "fact_time_basis", "FACT_LOCATION_BASIS": "fact_location_basis",
-    "PUBLISHED_AT": "published_at", "OBSERVED_AT": "observed_at",
-    "PUBLISHED_AT_BASIS": "published_at_basis",
-    "SOURCE_LOCATION_BASIS": "source_location_basis",
-    "COMPLETUDE_TEMPO_LUGAR": "completude_tempo_lugar",
-    "TEMPO_LUGAR_EVIDENCIA": "tempo_lugar_evidencia",
-    "SOURCE_DECLARED_EVIDENCE_CLASS": "source_declared_evidence_class",
-    "FATO": "fato", "CAPTURED_AT": "captured_at", "ADMITIDO_POR": "admitido_por",
-}
-_CAMPOS_FORA_DE_COLUNA = ("ESTADO", "CORRIDA")
-_COLUNAS_DO_READY = tuple(_COLUNA_DO_CAMPO[c] for c in CAMPOS_READY
-                          if c not in _CAMPOS_FORA_DE_COLUNA)
-_CAMPOS_JSON = ("COMPLETUDE_TEMPO_LUGAR", "TEMPO_LUGAR_EVIDENCIA", "FATO")
-
-
-def _para_ready(run_id, valores):
-    """Uma linha (coluna -> texto) no READY do dono, NA ORDEM DO DONO.
-
-    `raw_observation_id` nulo é `NAO SEI`, como o contrato o escreve. O JSON
-    volta por `json.loads`, sempre (inclusive `"NAO_SE_APLICA"`).
-    """
-    u = {}
-    for campo in CAMPOS_READY:
-        if campo == "ESTADO":
-            u[campo] = PRONTO
-        elif campo == "CORRIDA":
-            u[campo] = run_id
-        else:
-            v = valores[_COLUNA_DO_CAMPO[campo]]
-            if campo == "RAW_OBSERVATION_ID":
-                v = "NAO SEI" if v == "" else int(v)
-            elif campo in _CAMPOS_JSON:
-                v = json.loads(v)
-            u[campo] = v
-    return u
-
-
 class _Postgres(object):
     """O backend canónico. Fala pelo `psql`, como o resto da casa.
 
@@ -705,20 +714,52 @@ class _Postgres(object):
 
     # ── ler ─────────────────────────────────────────────────────────────
     def ler(self, run_id):
-        """O que POUSOU, no READY do dono. D10: a ponte coluna -> campo e a mesma
-        de `ler_atual` (`_COLUNAS_DO_READY` + `_para_ready`): uma lista, nao duas."""
+        # ⚠️ POR NOME, NUNCA POR POSICAO (QUATRO-CHAVES-V2, 25/09). A leitura era
+        # `c[18]`, `c[19]`… contra um `select` escrito a parte: cada coluna nova
+        # acrescentada de cada lado (033) obrigava a renumerar, e um indice
+        # errado NAO da erro — le a coluna vizinha em silencio (AVISO da
+        # INSTALACAO-2). Agora o `select` nasce de `COLUNAS_LIDAS` e cada valor
+        # volta pelo NOME dela; se o numero de valores nao bater, rebenta.
         linhas = self._consultar(
-            "select " + ", ".join(_COLUNAS_DO_READY) + " "
+            "select " + ", ".join(COLUNAS_LIDAS) + " "
             "from public.sala_de_espera where run_id = %s order by ordem"
             % _lit(run_id))
         if not linhas:
             return None
-        # A ORDEM DOS CAMPOS E A DO DONO, e nao a do `select`. O corpo canonico
-        # assina o dicionario como ele esta: reconstrui-lo por outra ordem daria
-        # outra impressao para o mesmo conteudo.
-        itens = [_para_ready(run_id, dict(zip(_COLUNAS_DO_READY, l.split(self.SEP))))
+        itens = [self._ready_da_linha(run_id, l.split(self.SEP), COLUNAS_LIDAS)[1]
                  for l in linhas]
         return {"RUN_ID": run_id, "ITENS": itens}
+
+    def _ready_da_linha(self, run_id, partes, colunas):
+        """Uma linha da Sala -> (valores por coluna, READY do dono NA ORDEM DO DONO).
+
+        D10 (26/09): `ler` e `ler_atual` passam os DOIS por aqui, pela tabela
+        unica `COLUNA_E_CAMPO` (QUATRO-CHAVES-V2). Nenhuma segunda lista de campos.
+        """
+        if len(partes) != len(colunas):
+            raise SalaIndisponivel(
+                "a Sala devolveu %d valores para %d colunas pedidas — ler por "
+                "posicao aqui seria ler a coluna errada"
+                % (len(partes), len(colunas)))
+        c = dict(zip(colunas, partes))
+        # ⚠️ `raw_observation_id` NULO QUER DIZER `NAO SEI`, e é assim que
+        # o contrato o escreve. Devolver `None` aqui inventaria uma terceira
+        # maneira de dizer a mesma ausência.
+        obs = c["raw_observation_id"]
+        u = {"ESTADO": PRONTO, "CORRIDA": run_id,
+             "RAW_OBSERVATION_ID": "NAO SEI" if obs == "" else int(obs)}
+        for coluna, campo in COLUNA_E_CAMPO:
+            u[campo] = c[coluna]
+        # ⚠️ `fato` VOLTA POR `json.loads`, SEMPRE — inclusive quando o
+        # valor é a palavra `NAO_SE_APLICA` (foi escrita como JSON, com
+        # aspas). A JANELA idem: o que pousou antes da 033 traz o default,
+        # as quatro chaves em `NAO SEI`.
+        for coluna, campo in COLUNA_E_CAMPO_JSON:
+            u[campo] = json.loads(c[coluna])
+        # A ORDEM DOS CAMPOS É A DO DONO, e não a do `select`. O corpo canónico
+        # assina o dicionário como ele está: reconstruí-lo por outra ordem daria
+        # outra impressão para o mesmo conteúdo.
+        return c, {k: u[k] for k in CAMPOS_READY}
 
     # ── pousar ──────────────────────────────────────────────────────────
     def pousar(self, run_id, unidades):
@@ -743,26 +784,21 @@ class _Postgres(object):
             # JSON `"NAO_SE_APLICA"`. Assim a volta é `json.loads` sem ramo, e
             # a impressão da corrida é reproduzível — que é o que separa um
             # retry legítimo de um conflito.
-            fato_sql = _lit(json.dumps(u["FATO"], ensure_ascii=False,
-                                       sort_keys=True))
-            # 033: a completude vai como JSON pela mesma razao do fato.
-            completude_sql = _lit(json.dumps(u["COMPLETUDE_TEMPO_LUGAR"],
-                                             ensure_ascii=False, sort_keys=True))
-            evidencia_sql = _lit(json.dumps(u["TEMPO_LUGAR_EVIDENCIA"],
-                                            ensure_ascii=False, sort_keys=True))
-            colunas = [_lit(run_id), str(i), _lit(u["ITEM_ID"]), obs_sql,
-                       _lit(u["UNIVERSO"]), _lit(u["TEXTO"]),
-                       _lit(u["SOURCE_ID"]), _lit(u["SOURCE_LOCATION"]),
-                       _lit(u["FACT_LOCATION"]), _lit(u["FACT_TIME"]),
-                       _lit(u["CAPTURED_AT"]), _lit(u["ADMITIDO_POR"]),
-                       _lit(impressao),
-                       _lit(u["ESTAGIO"]), _lit(u["FACT_TIME_BASIS"]),
-                       _lit(u["FACT_LOCATION_BASIS"]), _lit(u["PUBLISHED_AT"]),
-                       _lit(u["OBSERVED_AT"]),
-                       _lit(u["SOURCE_DECLARED_EVIDENCE_CLASS"]), fato_sql,
-                       _lit(u["PUBLISHED_AT_BASIS"]),
-                       _lit(u["SOURCE_LOCATION_BASIS"]), completude_sql,
-                       evidencia_sql]
+            # ⚠️ POR NOME (QUATRO-CHAVES-V2): cada valor vai GRUDADO ao nome
+            # da sua coluna, pela tabela `COLUNA_E_CAMPO`; a ordem do `insert`
+            # sai de `COLUNAS_ESCRITAS`. Duas listas paralelas (nomes num
+            # sitio, valores noutro) so batiam por coincidencia de ordem.
+            por_nome = {coluna: _lit(u[campo]) for coluna, campo in COLUNA_E_CAMPO}
+            por_nome.update({coluna: _lit(json.dumps(u[campo], ensure_ascii=False,
+                                                     sort_keys=True))
+                             for coluna, campo in COLUNA_E_CAMPO_JSON})
+            por_nome.update(run_id=_lit(run_id), ordem=str(i),
+                            raw_observation_id=obs_sql,
+                            corrida_sha256=_lit(impressao))
+            if set(por_nome) != set(COLUNAS_ESCRITAS):
+                raise ValueError("colunas a gravar != COLUNAS_ESCRITAS: %s"
+                                 % sorted(set(por_nome) ^ set(COLUNAS_ESCRITAS)))
+            colunas = [por_nome[n] for n in COLUNAS_ESCRITAS]
             valores.append("(" + ", ".join(colunas) + ")")
         # ⚠️ A INTERPOLAÇÃO AQUI É `str.format`, E NÃO `%`. O corpo plpgsql usa
         # `%` como marcador do `raise exception`, e um `%` do Python em cima
@@ -800,30 +836,12 @@ begin
     from public.sala_de_espera where run_id = {run} limit 1;
   if ja is null then
     insert into _entrada
-      (run_id, ordem, item_id, raw_observation_id, universo, texto,
-       source_id, source_location, fact_location, fact_time, captured_at,
-       admitido_por, corrida_sha256,
-       estagio, fact_time_basis, fact_location_basis, published_at,
-       observed_at, source_declared_evidence_class, fato,
-       published_at_basis, source_location_basis, completude_tempo_lugar,
-       tempo_lugar_evidencia)
+      ({colunas})
     values {valores};
     select count(*) into total from _entrada;
     insert into public.sala_de_espera
-      (run_id, ordem, item_id, raw_observation_id, universo, texto,
-       source_id, source_location, fact_location, fact_time, captured_at,
-       admitido_por, corrida_sha256,
-       estagio, fact_time_basis, fact_location_basis, published_at,
-       observed_at, source_declared_evidence_class, fato,
-       published_at_basis, source_location_basis, completude_tempo_lugar,
-       tempo_lugar_evidencia)
-    select run_id, ordem, item_id, raw_observation_id, universo, texto,
-           source_id, source_location, fact_location, fact_time, captured_at,
-           admitido_por, corrida_sha256,
-           estagio, fact_time_basis, fact_location_basis, published_at,
-           observed_at, source_declared_evidence_class, fato,
-           published_at_basis, source_location_basis, completude_tempo_lugar,
-           tempo_lugar_evidencia
+      ({colunas})
+    select {colunas}
       from _entrada e
      where not exists (select 1 from public.sala_de_espera s
                         where s.item_id = e.item_id and s.universo = e.universo
@@ -845,6 +863,7 @@ end
 $sala$;
 select resultado from _recibo;
 """.format(run=_lit(run_id), valores=", ".join(valores),
+           colunas=", ".join(COLUNAS_ESCRITAS),
            sha=_lit(impressao), pousou=POUSOU, ja_estava=JA_ESTAVA,
            conflito=RUN_ID_CONFLICT)
         codigo, saida, erro = self._executar(script)
@@ -951,16 +970,15 @@ select resultado from _recibo;
         distingue um retry de um conflito. Ler aqui as revisoes faria um retry
         honesto parecer outra historia.
 
-        D10 (26/09): cada item traz o READY INTEIRO, pelo contrato do dono
-        (`CAMPOS_READY`, a mesma lista de `ler`), com os valores ja revistos —
-        e mais ORDEM, JANELA_DECLARADA, REVISOES (o numero, como antes) e
-        HISTORICO_DE_REVISOES (cada revisao, da mais antiga para a mais nova).
-        Antes faltavam ESTADO, SOURCE_DECLARED_EVIDENCE_CLASS, FATO, CORRIDA e
-        ADMITIDO_POR.
+        D10 (26/09): cada item traz o READY INTEIRO do dono (`CAMPOS_READY`,
+        pela mesma `_ready_da_linha` de `ler`), com os valores ja revistos — e
+        mais ORDEM, REVISOES (o numero, como antes) e HISTORICO_DE_REVISOES
+        (cada revisao, da mais antiga para a mais nova). Antes faltavam ESTADO,
+        SOURCE_DECLARED_EVIDENCE_CLASS, FATO, CORRIDA e ADMITIDO_POR.
         """
-        colunas = _COLUNAS_DO_READY + ("janela_declarada", "revisoes")
+        colunas = COLUNAS_LIDAS + ("revisoes",)
         linhas = self._consultar(
-            "select ordem, " + ", ".join(colunas) + " "
+            "select " + ", ".join(colunas) + " "
             "from public.sala_de_espera_atual where run_id = %s order by ordem"
             % _lit(run_id))
         if not linhas:
@@ -978,12 +996,9 @@ select resultado from _recibo;
                  "REVISTO_EM": c[7], "MOTIVO": c[8]})
         itens = []
         for l in linhas:
-            c = l.split(self.SEP)
-            ordem = int(c[0])
-            valores = dict(zip(colunas, c[1:]))
-            u = _para_ready(run_id, valores)
+            valores, u = self._ready_da_linha(run_id, l.split(self.SEP), colunas)
+            ordem = int(valores["ordem"])
             u["ORDEM"] = ordem
-            u["JANELA_DECLARADA"] = json.loads(valores["janela_declarada"])
             u["REVISOES"] = int(valores["revisoes"])
             u["HISTORICO_DE_REVISOES"] = historico.get(ordem, [])
             itens.append(u)
@@ -1010,15 +1025,22 @@ select resultado from _recibo;
 
     # ── a fila ──────────────────────────────────────────────────────────
     def listar_pendentes(self, limite=None):
-        sql = ("select run_id, ordem, item_id from public.sala_de_espera "
+        # pelo NOME, como `ler`: o select nasce da mesma tabela que a leitura usa
+        sql = ("select %s from public.sala_de_espera "
                "where estado_da_fila = %s order by pousado_em, run_id, ordem"
-               % _lit(A_ESPERA))
+               % (", ".join(c for c, _ in COLUNAS_PENDENTES), _lit(A_ESPERA)))
         if limite is not None:
             sql += " limit %d" % int(limite)
         fora = []
         for l in self._consultar(sql):
-            c = l.split(self.SEP)
-            fora.append({"RUN_ID": c[0], "ORDEM": int(c[1]), "ITEM_ID": c[2]})
+            partes = l.split(self.SEP)
+            if len(partes) != len(COLUNAS_PENDENTES):
+                raise SalaIndisponivel(
+                    "listar_pendentes: %d valores para %d colunas"
+                    % (len(partes), len(COLUNAS_PENDENTES)))
+            u = {campo: v for (_, campo), v in zip(COLUNAS_PENDENTES, partes)}
+            u["ORDEM"] = int(u["ORDEM"])
+            fora.append(u)
         return fora
 
     def retirar(self, run_id, item_id, por):

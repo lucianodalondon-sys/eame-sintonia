@@ -488,13 +488,46 @@ class FronteiraMedida(unittest.TestCase):
     bloqueio G0 caiu e a régua pode subir.
     """
 
-    def test_o_contrato_de_entrada_tem_dezanove_campos(self):
-        """Eram doze até `C-COL-PRESERVE-FACTS-V1`. Passaram a dezanove.
+    def test_o_contrato_de_entrada_e_o_do_dono_da_sala(self):
+        """⚠️ D8. Este teste chamava-se «tem dezanove campos» e fixava o 19.
 
-        O número não é decorativo: é o que faz a divergência aparecer. Quando
-        voltar a mudar, este teste falha ANTES de alguém assumir que leu tudo.
+        O dono da Sala cresceu para 23 (migration 033) e a cópia ficou em 19 —
+        e o teste continuou verde, porque comparava a cópia consigo própria.
+
+            UM ALARME QUE OLHA PARA SI PROPRIO NAO AVISA NADA.
+
+        Agora compara-se com o DONO, lido de forma independente (import real do
+        módulo do dono, e não o mesmo parser AST que a espinha usa), e com a
+        porta que constrói o READY (`admissao.pronto_para_inteligencia`).
         """
-        self.assertEqual(len(CAMPOS_DO_READY), 19)
+        sys.path.insert(0, os.path.join(RAIZ, "admissao"))
+        import sala_de_espera as DONO                          # noqa: E402
+        from admissao import decidir, pronto_para_inteligencia  # noqa: E402
+        self.assertEqual(tuple(CAMPOS_DO_READY), tuple(DONO.CAMPOS_READY))
+        item = {"id": "D8", "texto": "Ensaio de campo publicado com DOI",
+                "source_id": "IT-T5-001", "fact_time": "2026-05-02"}
+        d = decidir(item, "T5", corrida="d8")
+        self.assertEqual(sorted(CAMPOS_DO_READY),
+                         sorted(pronto_para_inteligencia(item, d)))
+        self.assertGreaterEqual(len(CAMPOS_DO_READY), 23,
+                                "a fronteira cresce; encolher em silencio e perda")
+
+    def test_D8_sem_o_dono_a_espinha_falha_fechado(self):
+        """Contraprova: um dono que deixa de declarar a lista rebenta, nao cai
+        para uma lista de reserva."""
+        import tempfile
+        from pathlib import Path
+        from espinha_da_intelligence import campos_do_dono, LeiViolada
+        with tempfile.TemporaryDirectory() as d:
+            falso = Path(d) / "sala_de_espera.py"
+            falso.write_text("CAMPOS_READY = None\n", encoding="utf-8")
+            with self.assertRaises(LeiViolada):
+                campos_do_dono(falso)
+            falso.write_text("OUTRA = ('A',)\n", encoding="utf-8")
+            with self.assertRaises(LeiViolada):
+                campos_do_dono(falso)
+            falso.write_text("CAMPOS_READY = ('X', 'Y')\n", encoding="utf-8")
+            self.assertEqual(campos_do_dono(falso), ("X", "Y"))
 
     def test_os_doze_campos_antigos_nenhum_se_perdeu(self):
         """A fronteira cresceu. Crescer não pode ser perder em silêncio."""

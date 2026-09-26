@@ -147,9 +147,18 @@ class D9SemBanco(unittest.TestCase):
 
 class D10SemBanco(unittest.TestCase):
 
-    def test_a_ponte_cobre_o_contrato_inteiro(self):
-        self.assertEqual(set(espera._COLUNA_DO_CAMPO) | set(espera._CAMPOS_FORA_DE_COLUNA),
+    def test_a_tabela_do_dono_cobre_o_contrato_inteiro(self):
+        # a ponte coluna<->campo e a do dono (QUATRO-CHAVES-V2: COLUNA_E_CAMPO[_JSON]);
+        # ESTADO, CORRIDA e RAW_OBSERVATION_ID sao montados a parte em `_ready_da_linha`
+        campos = {c for _, c in espera.COLUNA_E_CAMPO + espera.COLUNA_E_CAMPO_JSON}
+        self.assertEqual(campos | {"ESTADO", "CORRIDA", "RAW_OBSERVATION_ID"},
                          set(espera.CAMPOS_READY))
+
+    def test_nao_ha_segunda_tabela_de_campos(self):
+        # D10 «sem segunda copia de campos»: a tabela propria da v1 nao pode voltar
+        for nome in ("_COLUNA_DO_CAMPO", "_COLUNAS_DO_READY", "_para_ready"):
+            self.assertFalse(hasattr(espera, nome), nome)
+        self.assertTrue(hasattr(espera._Postgres, "_ready_da_linha"))
 
 
 # ── com banco descartável ─────────────────────────────────────────────────

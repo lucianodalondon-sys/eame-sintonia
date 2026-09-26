@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-26T07:05:49+00:00",
-    "HEAD": "4fc0f8d623ee22984e53c5caf88ae036ddf35659",
+    "GENERATED_AT": "2026-09-26T16:37:12+00:00",
+    "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f",
-    "FICHEIROS_NA_IMPRESSAO": 3688,
+    "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
+    "FICHEIROS_NA_IMPRESSAO": 3777,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "c119691dbd9e07aaead5c7545c04ac40f8bb4994",
+        "VERSAO": "8251df97d4866cc91fa36f0c24a9e379222e92f7",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -34,7 +34,7 @@
       {
         "PATH": "admissao/sala_de_espera.py",
         "PAPEL": "FONTE",
-        "VERSAO": "40cd7f7ee0b0d3c60024af6a078e9ba3fdc43c58",
+        "VERSAO": "e2a435baf2a28ceabec62ba517ae96ffd23caa91",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -265,7 +265,7 @@
       {
         "PATH": "coleta/executor_texto_de_html.py",
         "PAPEL": "FONTE",
-        "VERSAO": "5bc0e3c667500b5119145f94138d7d493ba9fc16",
+        "VERSAO": "595fd78647dc6dbb2bada2fb6d1da9e22ebb81f7",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -412,7 +412,7 @@
       {
         "PATH": "coleta/retrato_html.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "5d636a1c7287b646e2c2298072c2da6c5b05ec74",
+        "VERSAO": "59033176f66b0e3a76cfa63765233930b93f3c0e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -609,6 +609,13 @@
         "PATH": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
         "PAPEL": "FONTE",
         "VERSAO": "00f2632379959e774dd61d24d87c874ab51dfd11",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/rodadas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "fde65df47acf4889d5b9974440a68b3864ec52e0",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1348,8 +1355,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 191,
-    "INPUTS_DIGEST": "8a6eaed4a5fabd785540e34d67d2af9bf320f0c3988fefecae047cffc1d0b108",
+    "INPUTS_COUNT": 192,
+    "INPUTS_DIGEST": "022f613ff423721e7beaaca780f3aef07a561615d73665405f025b746b8d85d2",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1856,6 +1863,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "ferramentas/big_collection/bc5_big_collection.py",
+        "ferramentas/big_collection/rodadas.py",
         "ferramentas/integra_onda2/final/ensaio_integra.sh",
         "ferramentas/onda3_pacote/ensaio_onda3.sh",
         "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
@@ -1876,6 +1884,22 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/rodadas.py",
+      "gaveta": "ferramentas",
+      "linhas": 380,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
       "chamado_por": [],
       "no_ci": false
     },
@@ -3331,7 +3355,7 @@
     {
       "ficheiro": "coleta/executor_texto_de_html.py",
       "gaveta": "coleta",
-      "linhas": 853,
+      "linhas": 887,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3778,7 +3802,7 @@
     {
       "ficheiro": "coleta/retrato_html.mjs",
       "gaveta": "coleta",
-      "linhas": 146,
+      "linhas": 186,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -4815,7 +4839,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 2053,
+      "linhas": 2250,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -4879,7 +4903,7 @@
     {
       "ficheiro": "admissao/sala_de_espera.py",
       "gaveta": "admissao",
-      "linhas": 1229,
+      "linhas": 1255,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -5237,12 +5261,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 191,
-    "pontos_de_entrada": 136,
+    "ficheiros_de_codigo": 192,
+    "pontos_de_entrada": 137,
     "executores_que_saem_para_fora": 28,
-    "sem_chamador_e_fora_do_ci": 89,
+    "sem_chamador_e_fora_do_ci": 90,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 108,
+    "escrevem_ficheiro": 109,
     "deitam_fora_alguma_coisa": 47,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -5271,6 +5295,7 @@
       "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/big_collection/rodadas.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/cutover/congelar_extras.py",
@@ -5433,6 +5458,7 @@
       "fontes/adama_it_qa.py",
       "ferramentas/big_collection/bc5_big_collection.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/big_collection/rodadas.py",
       "ferramentas/c9/c9-testes.sh",
       "ferramentas/c9/ensaio_c9.sh",
       "ferramentas/cutover/congelar_extras.py",

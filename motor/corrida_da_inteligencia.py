@@ -41,16 +41,19 @@ a fronteira entre as duas frentes e o item — nunca o leitor.
 """
 from __future__ import annotations
 
+import calendar
 import hashlib
 import json
 import os
+import re
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-if str(RAIZ / "provas") not in sys.path:
-    sys.path.insert(0, str(RAIZ / "provas"))
+for _gaveta in ("provas", "leis"):
+    if str(RAIZ / _gaveta) not in sys.path:
+        sys.path.insert(0, str(RAIZ / _gaveta))
 
 # O VOCABULARIO VEM DA ESPINHA, E NAO E COPIADO. Duas listas do mesmo contrato
 # divergem, e no dia em que divergissem a corrida media uma coisa e o contrato
@@ -58,10 +61,67 @@ if str(RAIZ / "provas") not in sys.path:
 from espinha_da_intelligence import (           # noqa: E402
     CAMPOS_DO_READY, NAO_SEI, PALAVRAS_QUE_O_REQUISITO_RECUSA,
 )
+# Os meses italianos tem UM dono: o leitor italiano da casa. Uma segunda lista
+# aqui seria a segunda verdade que a espinha proibe.
+from fato_local import MES_NUM                  # noqa: E402
 
 CONTRATO = "CORRIDA_DA_INTELLIGENCE/v1"
-RULESET_VERSION = "G0/v1"
-BIBLE_VERSION = "SINTONIA-INTELLIGENCE-BIBLE V0.2 CANONICAL"
+#: ⚠️ G0/v2 (INT-CONSERTOS-EXP, D1-D4/D6). A v1 aceitava como ancora de tempo
+#: qualquer texto que nao comecasse por «NAO SEI»: «UNKNOWN», um valor sem base,
+#: uma data sem ano e um evento ainda por acontecer viravam SINAL. Mudar o portao
+#: muda a resposta; por isso a versao sobe e entra na identidade da corrida.
+RULESET_VERSION = "G0/v2"
+
+BIBLIA = RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"
+REGISTO_DAS_AUTORIDADES = RAIZ / "controle" / "AUTORIDADES-CANONICAS.json"
+CARTAO_DA_BIBLIA = "A-BIBLIA-ENG-INTELIGENCIA"
+
+
+def carimbo_da_biblia(biblia: Path = BIBLIA,
+                      registo: Path = REGISTO_DAS_AUTORIDADES) -> dict:
+    """D7 · a Biblia EFETIVA, lida do cabecalho dela e conferida no registo.
+
+    ⚠️ A V1 TINHA A VERSAO ESCRITA A MAO — «V0.2 CANONICAL» — e a lei ja era a
+    V0.3. Um carimbo digitado mente no dia em que a lei muda e ninguem edita o
+    motor (INT-LAW-052: o run preserva a configuracao EFETIVA).
+
+    Duas fontes, e as duas tem de dizer o mesmo: o cabecalho da Biblia (quem ela
+    diz que e) e o registo do Control Plane (quem a casa diz que ela e). Se
+    discordarem, ou faltar uma, o carimbo diz `NAO SEI` com o porque — nunca
+    escolhe uma das duas.
+    """
+    try:
+        bruto = biblia.read_bytes()
+    except OSError as erro:
+        return {"BIBLE_VERSION": f"{NAO_SEI} — Biblia ilegivel: {erro}",
+                "BIBLE_FILE_SHA256": NAO_SEI}
+    cabeca = bruto[:4000].decode("utf-8", "replace")
+
+    def campo(nome):
+        m = re.search(r"^%s\s*=\s*(\S+)\s*$" % nome, cabeca, re.M)
+        return m.group(1) if m else None
+
+    bid, ver, sts = campo("BIBLE_ID"), campo("VERSION"), campo("STATUS")
+    sha = hashlib.sha256(bruto).hexdigest()
+    try:
+        cartoes = json.loads(registo.read_text(encoding="utf-8"))["AUTHORITIES"]
+        cartao = next(a for a in cartoes if a.get("CARD_ID") == CARTAO_DA_BIBLIA)
+        reg_ver, reg_sts = cartao.get("VERSION"), cartao.get("LIFECYCLE")
+    except (OSError, ValueError, KeyError, StopIteration) as erro:
+        reg_ver = reg_sts = None
+        porque_reg = f"registo ilegivel ou sem {CARTAO_DA_BIBLIA}: {erro!r}"
+    else:
+        porque_reg = None
+    if not (bid and ver and sts):
+        versao = f"{NAO_SEI} — o cabecalho da Biblia nao declara BIBLE_ID/VERSION/STATUS"
+    elif porque_reg:
+        versao = f"{NAO_SEI} — {porque_reg}"
+    elif (ver, sts) != (reg_ver, reg_sts):
+        versao = (f"{NAO_SEI} — o cabecalho diz {ver} {sts}, "
+                  f"o registo diz {reg_ver} {reg_sts}")
+    else:
+        versao = f"{bid} {ver} {sts}"
+    return {"BIBLE_VERSION": versao, "BIBLE_FILE_SHA256": sha}
 
 #: `INT-LAW-053` — cinco perguntas diferentes, cinco estados. Comprimi-los perde
 #: a unica informacao que separa «nao corri» de «corri e nao achei».
@@ -107,6 +167,9 @@ def identidade_da_corrida(request_id: str, itens: list) -> str:
     corpo = json.dumps({"REQUEST_ID": request_id,
                         "RULESET": RULESET_VERSION,
                         "CODE": versao_do_codigo(),
+                        # A lei efetiva faz parte da configuracao: mudar a Biblia
+                        # e mudar a pergunta, e o reuso deixa de ser provavel.
+                        "BIBLE": carimbo_da_biblia()["BIBLE_FILE_SHA256"],
                         "INPUTS": [referencia_do_item(i) for i in itens]},
                        ensure_ascii=False, sort_keys=True)
     return "IR-" + hashlib.sha256(corpo.encode("utf-8")).hexdigest()[:20]
@@ -157,18 +220,144 @@ def e_ignorancia(valor) -> bool:
     `NAO SEI — o documento nao foi lido...` noutros. Comparar por igualdade
     exacta deixaria passar o segundo como se fosse um valor.
     """
-    return (valor is None or valor == ""
-            or (isinstance(valor, str) and valor.strip().upper().startswith(NAO_SEI)))
+    if valor is None or valor == "":
+        return True
+    if not isinstance(valor, str):
+        return False
+    s = valor.strip().upper()
+    # ⚠️ D1 · A V1 SO CONHECIA «NAO SEI». A Sala real traz a mesma ignorancia
+    # escrita pelos coletores em ingles — «UNKNOWN», «NOT_KNOWN» — e ela passava
+    # como se fosse um valor. Ignorancia nao muda de natureza ao mudar de lingua.
+    return s.startswith(PALAVRAS_DE_IGNORANCIA) or s in ("?", "-", "NONE", "NULL")
+
+
+#: As maneiras como a casa escreve «nao sei». `NAO SEI` e a da porta; as outras
+#: sao as dos coletores e do leitor italiano (`fato_local` devolve NOT_KNOWN).
+PALAVRAS_DE_IGNORANCIA = (NAO_SEI, "NAO_SEI", "UNKNOWN", "NOT_KNOWN")
+
+
+def base_ignorante(base) -> bool:
+    """D2 · a BASE de um valor diz se ele foi provado. Sem base, nao ancora.
+
+    A base e texto livre da Collection («EVENTO · ESCRITO_NO_TEXTO · DATE_EXACT ·
+    ancora ...»). Ela e ignorancia quando comeca por uma palavra de ignorancia OU
+    quando declara, em qualquer ponto, que o proprio coletor nao sabia
+    («o coletor declarou: «UNKNOWN — ...»»). INT-LAW-062: PROVED exige razao.
+    """
+    if e_ignorancia(base):
+        return True
+    return bool(re.search(r"\b(UNKNOWN|NOT_KNOWN|NAO SEI)\b", str(base).upper()))
+
+
+_ISO = re.compile(r"(?<!\d)(\d{4})-(\d{2})-(\d{2})(?!\d)")
+_ANO = re.compile(r"\b(19\d{2}|20\d{2})\b")
+_DIAS_MES_ANO = re.compile(
+    r"\b(\d{1,2})(?:\s*[-–]\s*(\d{1,2}))?\s+(%s)\s+(19\d{2}|20\d{2})\b" % "|".join(MES_NUM))
+_MES_ANO = re.compile(r"\b(%s)\s+(19\d{2}|20\d{2})\b" % "|".join(MES_NUM))
+
+
+def _dia(a, m, d):
+    try:
+        return date(int(a), int(m), int(d))
+    except ValueError:
+        return None
+
+
+def _fim_do_mes(a, m):
+    return date(a, m, calendar.monthrange(a, m)[1])
+
+
+def intervalo_do_tempo(valor) -> dict:
+    """D3 · o INTERVALO que um FACT_TIME escrito cobre — ou porque nao cobre nenhum.
+
+    So le o valor que a Collection ja entregou; nao vai ao texto, nao completa.
+    Sem ANO nao ha intervalo: «21-23 ottobre» pode ser deste ano, do passado ou
+    do proximo, e escolher um seria fabricar o tempo do facto (INT-LAW-100).
+
+        → {"ESTADO": "INTERVALO" | "SEM_ANO" | "NAO_ANALISAVEL",
+           "INICIO": "AAAA-MM-DD"|None, "FIM": ..., "PRECISAO": ...}
+    """
+    s = str(valor).strip().lower()
+    isos = [d for d in (_dia(*t) for t in _ISO.findall(s)) if d]
+    if isos:
+        return {"ESTADO": "INTERVALO", "INICIO": min(isos).isoformat(),
+                "FIM": max(isos).isoformat(),
+                "PRECISAO": "DIA" if len(set(isos)) == 1 else "INTERVALO_DE_DIAS"}
+    m = _DIAS_MES_ANO.search(s)
+    if m:
+        a, mes = int(m.group(4)), MES_NUM[m.group(3)]
+        ini = _dia(a, mes, m.group(1))
+        fim = _dia(a, mes, m.group(2) or m.group(1))
+        if ini and fim and ini <= fim:
+            return {"ESTADO": "INTERVALO", "INICIO": ini.isoformat(),
+                    "FIM": fim.isoformat(),
+                    "PRECISAO": "DIA" if ini == fim else "INTERVALO_DE_DIAS"}
+        return {"ESTADO": "NAO_ANALISAVEL", "INICIO": None, "FIM": None,
+                "PRECISAO": NAO_SEI}
+    m = _MES_ANO.search(s)
+    if m:
+        a, mes = int(m.group(2)), MES_NUM[m.group(1)]
+        return {"ESTADO": "INTERVALO", "INICIO": date(a, mes, 1).isoformat(),
+                "FIM": _fim_do_mes(a, mes).isoformat(), "PRECISAO": "MES"}
+    anos = sorted({int(x) for x in _ANO.findall(s)})
+    # «2025/26» e uma SAFRA: cobre os dois anos. So quando o segundo e o seguinte
+    # do primeiro — «2011-2025» e serie historica, e fica como os anos que diz.
+    for a, b in re.findall(r"\b(19\d{2}|20\d{2})\s*/\s*(\d{2})\b", s):
+        if (int(a) + 1) % 100 == int(b):
+            anos = sorted(set(anos) | {int(a) + 1})
+    if anos:
+        return {"ESTADO": "INTERVALO", "INICIO": date(anos[0], 1, 1).isoformat(),
+                "FIM": date(anos[-1], 12, 31).isoformat(),
+                "PRECISAO": "ANO" if len(anos) == 1 else "ANOS"}
+    tem_mes_ou_dia = any(mes in s for mes in MES_NUM) or re.search(r"\b\d{1,2}\b", s)
+    return {"ESTADO": "SEM_ANO" if tem_mes_ou_dia else "NAO_ANALISAVEL",
+            "INICIO": None, "FIM": None, "PRECISAO": NAO_SEI}
+
+
+def _dia_da_captura(item: dict):
+    """O dia em que a Collection OBSERVOU o documento (COLLECTED_TIME)."""
+    v = item.get("CAPTURED_AT")
+    if e_ignorancia(v):
+        return None
+    m = _ISO.search(str(v))
+    return _dia(*m.groups()) if m else None
 
 
 def portao_g0(item: dict) -> tuple:
-    """`(passou, o_que_falta)`. O unico portao desta V1.
+    """`(passou, o_que_falta)`. O unico portao desta corrida.
 
     Ele NAO julga o conteudo: pergunta se da para saber sobre QUEM o item fala,
     de ONDE veio e QUANDO o facto aconteceu. Sem isso nenhuma leitura analitica
     e ancoravel — e uma leitura nao ancoravel e uma invencao com fonte.
+
+    ⚠️ G0/v2. «QUANDO» deixou de ser «o campo nao diz NAO SEI». Passou a ser:
+
+        D1  o valor nao e ignorancia, em nenhuma das linguas da casa;
+        D2  a BASE do valor nao e ignorancia (valor sem razao nao e prova);
+        D3  o valor cobre um intervalo com ANO;
+        D4  o intervalo COMECA ate ao dia em que o documento foi observado.
+            Um evento anunciado para depois da captura ainda nao aconteceu:
+            data futura nao e facto (Biblia §28). Sem dia de captura, nao ha
+            como saber — e NAO SEI bloqueia, nao passa.
+
+    Cada motivo sai com nome proprio em `o_que_falta` («FACT_TIME:SEM_BASE»),
+    para o livro dizer POR QUE o tempo nao ancorou, e nao so QUE nao ancorou.
     """
     falta = [c for c in G0_EXIGE if e_ignorancia(item.get(c))]
+    if "FACT_TIME" not in falta:
+        if base_ignorante(item.get("FACT_TIME_BASIS")):
+            falta.append("FACT_TIME:SEM_BASE")
+        tempo = intervalo_do_tempo(item.get("FACT_TIME"))
+        if tempo["ESTADO"] == "SEM_ANO":
+            falta.append("FACT_TIME:SEM_ANO")
+        elif tempo["ESTADO"] != "INTERVALO":
+            falta.append("FACT_TIME:NAO_ANALISAVEL")
+        else:
+            captura = _dia_da_captura(item)
+            if captura is None:
+                falta.append("FACT_TIME:CAPTURA_DESCONHECIDA_FUTURO_NAO_EXCLUIDO")
+            elif date.fromisoformat(tempo["INICIO"]) > captura:
+                falta.append("FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA")
     return (not falta), falta
 
 
@@ -188,7 +377,8 @@ def requisito(item: dict, falta: list, run_id: str) -> dict:
         "MISSING_FACT_OR_KEY": sorted(falta),
         "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT":
             "o item existe e foi admitido, mas os campos acima chegaram como "
-            f"{NAO_SEI} ou nao chegaram de todo. Preenche-los aqui seria a "
+            f"{NAO_SEI}, sem base, sem ano, depois da captura, ou nao chegaram "
+            "de todo. Preenche-los aqui seria a "
             "Intelligence a fabricar a identidade que a Collection nao cunhou.",
         "REQUIRED_SCOPE": {"ITEM_ID": item.get("ITEM_ID", NAO_SEI),
                            "SOURCE_ID": item.get("SOURCE_ID", NAO_SEI),
@@ -227,7 +417,8 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         copia["RESULT_STATE"] = "REUSED"
         copia["REUSE_OF"] = run_id
         copia["REUSE_PROVED_BY"] = ["REQUEST_ID", "INPUT_REFERENCES",
-                                    "RULESET_VERSION", "CODE_VERSION"]
+                                    "RULESET_VERSION", "CODE_VERSION",
+                                    "BIBLE_FILE_SHA256"]
         return copia
 
     livro = {
@@ -238,7 +429,7 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         "START": _agora(),
         "END": None,
         "RULESET_VERSION": RULESET_VERSION,
-        "BIBLE_VERSION": BIBLE_VERSION,
+        **carimbo_da_biblia(),
         "CODE_VERSION": versao_do_codigo(),
         "MODEL_VERSION": "NENHUM — esta corrida nao usa modelo",
         "INPUT_REFERENCES": [referencia_do_item(i) for i in itens],
@@ -275,6 +466,9 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                 "G0_FALTA": sorted(falta),
             })
             if passou:
+                tempo = intervalo_do_tempo(item.get("FACT_TIME"))
+                base_lugar = item.get("FACT_LOCATION_BASIS", NAO_SEI)
+                lugar = item.get("FACT_LOCATION", NAO_SEI)
                 livro["SIGNALS"].append({
                     "SIGNAL_ID": "SG-" + hashlib.sha256(
                         (run_id + "|" + str(ref["ITEM_ID"])).encode()).hexdigest()[:16],
@@ -282,7 +476,20 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                     "RAW_OBSERVATION_ID": ref["RAW_OBSERVATION_ID"],
                     "SOURCE_ID": ref["SOURCE_ID"],
                     "FACT_TIME": item.get("FACT_TIME"),
-                    "FACT_LOCATION": item.get("FACT_LOCATION", NAO_SEI),
+                    # ⚠️ D6 · O SINAL LEVA A BASE, NAO SO O VALOR. A v1 copiava
+                    # FACT_TIME e FACT_LOCATION e deixava a razao na porta: quem
+                    # lesse o sinal via «Napoli» sem saber se era o lugar do facto
+                    # provado ou um palpite. Valor sem base e meia prova.
+                    "FACT_TIME_BASIS": item.get("FACT_TIME_BASIS", NAO_SEI),
+                    "FACT_TIME_INTERVALO": tempo,
+                    "FACT_LOCATION": lugar,
+                    "FACT_LOCATION_BASIS": base_lugar,
+                    # O lugar NAO e apagado nem completado: fica como veio, e diz
+                    # se ancora. SOURCE_LOCATION nunca entra aqui (INT-LAW-101).
+                    "FACT_LOCATION_ESTADO": (
+                        NAO_SEI if e_ignorancia(lugar)
+                        else "SEM_BASE_NAO_ANCORA" if base_ignorante(base_lugar)
+                        else "COM_BASE"),
                     "ESTADO": "SINAL",
                     "REGRA": RULESET_VERSION,
                 })
