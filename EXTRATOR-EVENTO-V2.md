@@ -56,7 +56,7 @@ Os ganhos de data: **32 EVENTO** (datas de convegni/webinar/feiras escritas nas 
 | 13 | IT-T2-026 «ieri» → 2023-12-01 | ⚠ não conferido: a medida guarda só a base, sem o trecho |
 | 18 | IT-T2-028 «Lanciato nel 2021, il progetto ha **raccolto** dati» | ✘ errado — âncora ANTIGA «raccolt» (dado recolhido ≠ colheita) |
 
-**Resultado: 16 certos · 2 duvidosos · 1 errado · 1 corrigido (ARIF).** Também achados na leitura dos 48 e corrigidos
+**Resultado (20): 15 certos · 2 corrigidos depois da leitura (as duas páginas do ARIF) · 2 duvidosos · 1 errado.** Também achados na leitura dos 48 e corrigidos
 antes da medida final: data da atualização de dados como data do temporal (IT-T2-051, «18 settembre … a seguito degli
 eventi meteorologici»), «possibili gelate tardive … ad aprile» (IT-T10-021), e «raccolta 2026 … è appena iniziata» que a
 guarda de futuro apagava (IT-T10-018).
