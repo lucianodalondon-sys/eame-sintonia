@@ -97,7 +97,7 @@ V=C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1
 W=C:/Users/London1/orca/workspaces/eame-sintonia
 LIV="$W/*/data/collection-ledger/italy/observations.ndjson;$W/*/data/collection-ledger/italy/runs.ndjson;C:/base6ea/data/collection-ledger/italy/observations.ndjson;C:/base6ea/data/collection-ledger/italy/runs.ndjson;C:/regua-t2-base/data/collection-ledger/italy/observations.ndjson;C:/regua-t2-base/data/collection-ledger/italy/runs.ndjson"
 RZ="$(cat C:/Users/London1/reproc-acervo/raizes.txt)"
-LISTA=scripts/acervo_para_sala/LOTE-3-CANDIDATAS.json          # sha256 3e714479… (a lista ensaiada)
+LISTA=scripts/acervo_para_sala/LOTE-3-CANDIDATAS.json          # a lista ensaiada: sha256 3e714479… com CRLF (checkout no Windows), a119a1e1… no Git (LF); mesmo JSON
 cd $V
 
 # 0  instalar o ramo (ff de dc0de726) e fazer o backup da Sala (backup_sala.cmd)
