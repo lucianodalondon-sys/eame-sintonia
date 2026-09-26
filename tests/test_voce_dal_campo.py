@@ -206,6 +206,12 @@ class FixtureLegendaSemPontuacao(unittest.TestCase):
             self.assertLessEqual(len(v['QUOTE_ORIGINAL'].split()), vc.PALAVRAS_POR_PEDACO)
             self.assertEqual(v['QUOTE_ORIGINALITY'], vc.ORIG_DATASET)
 
+    def test_palavra_de_ligacao_com_virgula_nao_vira_pessoa(self):
+        # medido na 1.a corrida: «Bueno, …», «Entonces, …», «However, …» saiam como 187 falantes falsos
+        nomes = {f['SPEAKER_NAME'] for d in docs().values() for f in vc.extrair(d)['FALANTES']}
+        for falso in ('Bueno', 'Entonces', 'Mejor', 'However', 'Therefore', 'Yeah', 'Finally'):
+            self.assertNotIn(falso, nomes)
+
     def test_maiuscula_aleatoria_nao_vira_lugar(self):
         for ext in ('nyIrd9Ihl_c', 'HdI2-O6pM0E', 'dgG6DbcRQP0', 'TQH1rUR8ZQ4'):
             d, r = vozes(ext)
