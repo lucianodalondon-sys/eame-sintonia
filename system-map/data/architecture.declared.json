@@ -5051,6 +5051,31 @@
    ]
   },
   {
+   "id": "C-LUGAR-V2",
+   "name": "EXTRATOR-LUGAR-V2 — medida antes/depois do lugar do facto e mutacao",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "prever_acervo.py/medir_antes_depois.sh/comparar.py (copias da ACERVO/LEITOR-DATA-YT): antes x depois nos 1.252, so leitura. classificar.py: GANHA/PERDE/TROCA/SO_BASE. ler_20.py: 20 mudancas lidas a mao. estimar_comuni.py: teto do que a lista ISTAT resolveria pela sigla. mutar_lugar_v2.py: 8 mutantes. Amostra COM O FORMATO do CSV do ISTAT (4 linhas, nao e a lista).",
+   "why_here": "EXTRATOR-LUGAR-V2 (26/09/2026): comune ISTAT (ficheiro declarado, ausente), in provincia di X / nel X-ese, titulo curto; a lei da ancora igual.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/lugar_v2/prever_acervo.py",
+    "ferramentas/lugar_v2/medir_antes_depois.sh",
+    "ferramentas/lugar_v2/comparar.py",
+    "ferramentas/lugar_v2/classificar.py",
+    "ferramentas/lugar_v2/ler_20.py",
+    "ferramentas/lugar_v2/estimar_comuni.py",
+    "ferramentas/lugar_v2/mutar_lugar_v2.py",
+    "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv"
+   ]
+  },
+  {
    "id": "C-LEITOR-DATA-YT",
    "name": "LEITOR-DATA-YOUTUBE — a medicao antes/depois do PUBLISHED_AT por meta itemprop datePublished",
    "territory": "Z-FERRAMENTAS",
