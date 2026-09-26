@@ -1,0 +1,39 @@
+== N0 arvore: integra-noite-v1 2a2fa154 + runbook-micro-social-v1 c15b01b2 (merge local, descartavel, sem push) ==
+== N1 lote 1 ==
+LOTE_1=OK
+== N2 portao de egresso (rede fechada) ==
+ "EGRESS_GATE": "BLOCKED",
+ "EGRESS_VERDICT": "UNKNOWN",
+rc=1
+== N3 plano com os livros do VIVO copiados ==
+ledger md5 51b511f1cc06
+   "SOURCE_ID": "IT-T7-171",
+   "ESTADO": "BLOQUEADA",
+    "o contrato de IT-T7-171 nao e a conta LinkedIn 'consorzio-tutela-grana-padano' (Collegio Nazionale dei Periti Agrari e dei Periti Agrari Laureati)"
+   "SOURCE_ID": "IT-T5-160",
+   "ESTADO": "BLOQUEADA",
+    "o contrato de IT-T5-160 nao e a conta LinkedIn 'ispra_2' (CNR IBBA — Istituto di Biologia e Biotecnologia Agraria)"
+   "SOURCE_ID": "IT-T8-006",
+   "ESTADO": "BLOQUEADA",
+    "portao de coleta: READY_LEGACY — promovida pela regua antiga (LEGACY); as reguas de hoje sao DETAIL/v1 / PAGINA_BOLETIM/v1 / SOCIAL/v1 — item aberto, retratado e com corpo util, ou a pagina que"
+ "PRONTAS": 0,
+ "DE": 3
+rc=1
+== N4 rodada sem autorizacao / autorizada (robo desta copia sem PARAR.flag) ==
+ "PORQUE": "falta --autorizado-pelo-dono"
+rc=2
+ "PORQUE": "ROBO_NAO_PARADO: curadoria/PARAR.flag nao existe: o robo nao foi mandado parar"
+rc=2
+== N5 robo dado por parado ==
+rodada 1, sem Sala: precondicoes da Sala
+rodada 1 (2 contas LinkedIn): ['licdn.com: 6 previstos na noite (teto 5)']
+rodada 2 (YouTube, py sem yt_dlp): YT_DLP_NAO_ABRE no interpretador do audio: C:\actions-runner
+rodada 1 (1 conta): EGRESSO_NAO_IT UNKNOWN
+== N6 testes do condutor nesta arvore ==
+Ran 34 tests in 0.240s
+OK
+== N7 testes do lote 1 nesta arvore ==
+Ran 22 tests in 14.856s
+OK
+== N8 yt_dlp com PYTHONPATH=<pasta so com yt_dlp> ==
+(True, '2026.08.19')

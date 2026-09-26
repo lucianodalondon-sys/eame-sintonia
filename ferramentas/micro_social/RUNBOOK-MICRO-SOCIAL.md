@@ -16,7 +16,7 @@ O condutor é `ferramentas/micro_social/micro_social.py`. Quem corre no vivo é 
 > | B3 | **nenhum canal YouTube elegível** | 50 canais: 41 `READY_LEGACY` (régua antiga) + 9 `ESTADO_NAO_READY`; `ELIGIBLE` = 0 | re-medir pela régua de hoje (`regua_social` / DETAIL) |
 > | B4 | **o `py` do vivo não abre o `yt_dlp`** | `py -m yt_dlp` → `No module named yt_dlp`; a sonda do adaptador diz «pronto» porque acha um `yt-dlp.EXE` de OUTRO projeto (hermes). Resultado medido: `AUDIO_NAO_OBTIDO` com zero pedidos | `PYTHONPATH=<pasta só com o yt_dlp>` (passo 5) |
 > | B5 | **a lista do canal pede a chave da API** | `youtube.channel.discovery` → `youtube_uploads` (Data API, `CREDENTIAL_MISSING` nesta máquina); a rota pela página pública (`youtube_canal_publico`, PROVED na matriz) existe e **não está registada** | por isso o vídeo vai escolhido à mão no lote (passo 4); ligar a rota pública = código novo |
-> | B6 | **`integra-noite-v1` ainda não existe** | ensaio feito numa cópia descartável = `83de0ccd` + `prova-teto-social-v1` + este ramo | repetir o passo E (fim) na `integra-noite-v1` |
+> | B6 | ~~`integra-noite-v1` ainda não existe~~ **FEITO** | ensaio repetido na `integra-noite-v1 @ 2a2fa154` + este ramo (secção D, N0–N8): tudo recusa limpo, 34 + 22 testes OK | — |
 >
 > **Previsão do teto (D38), lida no código:** cada item corre num processo novo, e o
 > `robots.txt` de cada host é relido por processo (`scrap_http._ROBOTS` vive só no processo).
@@ -50,7 +50,12 @@ py ferramentas/micro_social/micro_social.py relatorio --estado=<PASTA>\ESTADO.js
 8. rodada com YouTube e `py -m yt_dlp` que não abre (`YT_DLP_NAO_ABRE`)
 9. egresso ≠ IT pelo portão de consenso (`EGRESSO_NAO_IT`)
 
-Por item: o portão de coleta **no instante** (`collection_gate.avaliar`) — item não `ELIGIBLE` não corre.
+Por item, também no `plano`:
+- **o contrato da fonte tem de ser a MESMA conta** — LinkedIn: o `linkedin.com/company/<slug>` do lote
+  está no contrato (a conta inteira: `ispra` não é `ispra_2`); YouTube: o contrato é de um canal
+  (`SOURCE_NATIVE_ID_KIND = YOUTUBE_CHANNEL_ID`). Medido no ensaio na `integra-noite-v1`: sem isto,
+  `IT-T7-171` e `IT-T5-160` (fontes WEB no vivo, `ELIGIBLE` de WEB) passavam o plano como LinkedIn;
+- o portão de coleta **no instante** (`collection_gate.avaliar`) — item não `ELIGIBLE` não corre.
 Cada item vai pela porta canónica (orquestrador → `scrap-colheita`), com o Pedido montado em processo.
 
 Depois da rodada: egresso outra vez + **PROVA-TETO sobre todas as corridas da noite** (D38 é por onda).
@@ -203,10 +208,22 @@ este ramo (merge local, nunca publicado). Proxy numa porta morta (`127.0.0.1:9`)
 | E11 | `py -m yt_dlp --version` sem / com `PYTHONPATH` | `No module named yt_dlp` / `2026.08.19` |
 | E12/E13 | `lote_1_instalado()` na cópia / `googlevideo` no `83de0ccd` | OK / 0 ocorrências |
 
-Testes no ramo: 29 (+1 à espera do lote 1, que corre na cópia). Mutação do condutor: **24/24**
+Testes no ramo: 34 (1 deles à espera do lote 1, e corre na cópia). Mutação do condutor: **28/28**
 (`ferramentas/micro_social/_mutantes_micro_social.py`).
 
-**Repetir na `integra-noite-v1` quando existir:** E1, E2 com os livros do vivo, E3–E6, E10 e E11.
+### Repetido na `integra-noite-v1 @ 2a2fa154` (+ este ramo, merge local descartável)
+
+Saída inteira em `ensaio/integra-noite/saida-noite.txt` (sha256 em `SHA256SUMS.txt`).
+
+| passo | resultado |
+|---|---|
+| N1 lote 1 | `LOTE_1=OK` |
+| N2 egresso, rede fechada | `BLOCKED` / `UNKNOWN`, rc=1 |
+| N3 plano, livros do vivo (md5 `51b511f1cc06`) | 0/3: `IT-T7-171` e `IT-T5-160` «o contrato não é a conta LinkedIn» (são Periti Agrari e CNR IBBA); `IT-T8-006` `READY_LEGACY` |
+| N4 sem autorização / autorizada | rc=2 / `ROBO_NAO_PARADO` rc=2 |
+| N5 robô dado por parado | sem Sala → recusa; 2 contas LinkedIn → `licdn.com: 6 previstos (teto 5)`; YouTube → `YT_DLP_NAO_ABRE`; 1 conta → `EGRESSO_NAO_IT` — **zero pedidos** |
+| N6 / N7 testes | condutor 34/34 · lote 1 (`test_prova_teto_social`) 22/22 |
+| N8 `yt_dlp` com `PYTHONPATH` | `2026.08.19` |
 
 ---
 
@@ -218,5 +235,5 @@ Testes no ramo: 29 (+1 à espera do lote 1, que corre na cópia). Mutação do c
 3. **B3** pelo menos 1 canal YouTube `ELIGIBLE` (hoje 0 de 50): re-medir pela régua de hoje.
 4. **B4** a pasta com a cópia do `yt_dlp` para o `PYTHONPATH` do vivo (ou instalar o `yt-dlp` no `py` 3.12 com `--target`).
 5. **B5** o vídeo escolhido à mão, com a duração, no lote; ou ligar `youtube_canal_publico` como rota da lista (código novo, com teste).
-6. **B6** repetir o ensaio na `integra-noite-v1`.
+6. ~~B6~~ feito (secção D).
 7. Aceitar a previsão: **1 conta LinkedIn por noite**.
