@@ -39,6 +39,18 @@ MUTANTES = [
     ("M16_INCOMPLETA_FECHA", ALVO, "        if adiadas:", "        if False:"),
     ("M17_RETOMA_IGNORA_FEITAS", ALVO, 'pendentes = [f for f in r["FONTES"] if f["SOURCE_ID"] not in feitas]', 'pendentes = list(r["FONTES"])'),
     ("M18_SEM_HORA_DO_LIVRO", ALVO, "            if int(n) > 0 and PT.dominio_registavel(d) not in visto:", "            if False:"),
+    # ordem pelo rendimento (coordenador 26/09 11:45) e janela com recibos e todos os dominios
+    ("M19_PRIORIDADE_IGNORADA", ALVO, 'fs.sort(key=lambda f: (f["CLASSE_PRIORIDADE"], f["_ORDEM_JUSTA"]))',
+     'fs.sort(key=lambda f: f["_ORDEM_JUSTA"])'),
+    ("M20_T5_NAO_VAI_PARA_O_FIM", ALVO, 'out[s] = {"CLASSE_PRIORIDADE": k, "ATRASAR": k == 5, "PORQUE": porque}',
+     'out[s] = {"CLASSE_PRIORIDADE": k, "ATRASAR": False, "PORQUE": porque}'),
+    ("M21_BLOQUEIO_IGNORADO", ALVO, "            if abre and inicio and abre > inicio:", "            if False:"),
+    ("M22_RECIBOS_IGNORADOS", ALVO, '        for f in sorted(Path(pasta).glob("**/RECIBO*.json")):',
+     '        for f in []:'),
+    ("M23_PLANO_CONTA_COMO_RECIBO", ALVO, '        for f in sorted(Path(pasta).glob("**/RECIBO*.json")):',
+     '        for f in sorted(Path(pasta).glob("**/*.json")):'),
+    ("M24_JANELA_SO_DO_DOMINIO_DO_PLANO", ALVO, '        for d in f.get("DOMINIOS") or [f["DOMINIO"]]:',
+     '        for d in [f["DOMINIO"]]:'),
 ]
 
 
