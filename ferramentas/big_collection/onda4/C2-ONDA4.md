@@ -4,6 +4,34 @@ Missão C2-E-ONDA4-PREP (coordenador, 25/09 23:50). Ramo `c2-juiz-v1`, nascido d
 Sem rede, sem coleta, sem escrita na Sala nem no vivo, nada instalado. Sala lida com
 `default_transaction_read_only=on`. Medido em 26/09/2026, 00:00–01:30 (-03).
 
+## D79 (bot Luciano, 26/09 03:45) — o que mudou nesta passagem
+
+**B1 · a V2 contava ocorrências, não ligações.** Corrigido: conta-se **elementos `<a>`** cujo texto —
+ou rótulo (`aria-label`/`title`) — **começa** por «leggi tutto» / «leggi di più» (ou «piu») /
+«continua a leggere». A frase solta no texto, sem ligação, não conta. «read more» e «scopri di più»
+saíram (a D79 não as lista). Python e Node iguais (fronteira Unicode no Node).
+- Teste negativo pedido: uma página com a frase repetida 80 vezes em parágrafos e **zero ligações**
+  → `READ_MORE_LINKS = 0`, continua MATÉRIA. Mais: a forma ENEA («Leggi tutto<span> su …</span>»),
+  só-rótulo, «xleggi tutto», «Título — leggi tutto» (não começa), `<script>`.
+- **Remedido** com a contagem nova: gabarito 146 → capas que atravessam **63 → 61**, matérias barradas
+  **6 → 6** (a versão de ocorrências dava 58/7 e barrava uma notícia a mais). 3.ª onda: ENEA 10,
+  notícia com mais ligações «leia mais» 4. Paridade Python = Node em 221 páginas: **0 diferenças**.
+- `tests/test_c2_juiz.py` **15/15**; mutação **15/15** (6 novos mutantes da D79: conta a frase no
+  HTML, «contém» em vez de «começa», sem rótulo — cada um em Python e em Node).
+
+**B2 · versão da regra da Admissão 9 → 10.** Feito, com a entrada 10 no histórico de versões.
+- **Os 2 testes presos à v9** são `tests/test_regua_t1.py::test_a_medicao_e_da_regua_escrita` e
+  `tests/test_regua_t2.py::test_a_medicao_e_da_regua_que_esta_escrita`: comparam `VERSAO_DA_REGRA`
+  de `scripts/regua_t1/MEDICAO-REGUA-T1-V1.json` e `scripts/regua_t2/MEDICAO-REGUA-T2-V2.json` com a
+  da Admissão. Regenerados pelos próprios medidores (`medir_regua_t1.py --base=d1096331`,
+  `medir_regua_t2.py --base=84c235da`, as mesmas bases das medições anteriores), sem rede.
+- **O que mudou nas medições:** a versão (9 → 10) e o que depende do tamanho do corpus, que cresceu
+  de 1.309 para 1.442 textos desde a medição anterior (T2: NAO→NAO 469→556, NAO_SEI→NAO_SEI
+  773→813, SIM→SIM 67→73, «SIM fora do gabarito» 20→26; T1: 419→497, 833→885, 54→56, SIM→NAO_SEI
+  3→4). **Precisão e recall no gabarito: iguais. Vizinhos que mudaram de veredito: 0** nos dois.
+- `test_regua_t1` 22/22, `test_regua_t2` 26/26; `test_red_team_estrada`, `test_censo_corpus_rotulado_admission`,
+  `test_quarentena_naosei` verdes.
+
 ---
 
 ## 1. C2: defeito do JUIZ, não só do relatório
@@ -69,9 +97,7 @@ operacional. Se fosse só o relatório, a Sala estaria limpa, e não está.
 
 ### O que fica para o coordenador
 
-1. **`VERSAO_DA_REGRA` da Admissão NÃO subiu** (continua `9`). A lei do ficheiro pede que suba. Mas
-   subir reprova `test_regua_t1`/`test_regua_t2`, que prendem as medições T1/T2 à versão 9. Decisão:
-   subir e remedir, ou aceitar sem subir.
+1. ~~`VERSAO_DA_REGRA` não subiu~~ → **subiu para 10 (D79 B2)**; ver a secção D79 acima.
 2. O `derived:1022` que já está na Sala **não sai** (a Sala não apaga). O replay da porta
    (`orquestrador --so-a-porta`) julgaria o bruto de novo com a V2.
 3. **C2 = PASS** só com a leitura humana das 6 notícias (registo na quarentena humana) ou com uma
