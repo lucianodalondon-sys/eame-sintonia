@@ -25,7 +25,7 @@ PY_TESTS = ["test_importar_do_coletor", "test_legacy_colchetes", "test_legacy_re
             "test_youtube_pelo_scrap", "test_leitor_data_youtube", "test_tempo_e_lugar_da_publicacao",
             # INTEGRA-NOITE lote 2: os testes que cada pacote traz ou altera
             "test_conserto_regua", "test_c2_juiz", "test_rodadas", "test_soc_tempo_publicacao_e_lugar",
-            "test_a_linhagem_do_ready", "test_quatro_chaves", "test_quatro_chaves_na_sala", "test_sala_por_nome",
+            "test_a_linhagem_do_ready", "test_quatro_chaves", "test_sala_por_nome",
             "test_canais_presos_no_feed", "test_a_primeira_corrida_da_inteligencia", "test_espinha_da_intelligence",
             "test_os_consertos_da_intelligence",
             # INTEGRA-NOITE lote 3: os testes que cada pacote traz ou altera
@@ -34,8 +34,9 @@ PY_TESTS = ["test_importar_do_coletor", "test_legacy_colchetes", "test_legacy_re
             "test_versao_do_documento", "test_a_rota_do_html", "test_forward_instrumentado", "test_o_pedido_atravessa",
             "test_a_linhagem_do_reaproveitamento", "test_a_ponte_do_derived", "test_fonte_atravessa",
             "test_lingua_da_porta", "test_estagio_atravessa_a_fronteira",
-            # (test_sala_idempotente_por_documento e test_sala_dedup_por_document_key ligam um Postgres
-            #  descartavel: sao PESADOS, correm-se a parte sob a LOCK-PESADO)
+            # (test_sala_idempotente_por_documento, test_sala_dedup_por_document_key e — desde o lote 3 —
+            #  test_quatro_chaves_na_sala ligam um Postgres descartavel: sao PESADOS, correm-se a parte sob a
+            #  LOCK-PESADO, C:/cur/t2b/pesado_l3.sh)
             # lote3-social-v1
             "test_baixador_social", "test_canais41_ferramentas", "test_dedup_video_social", "test_freio_social",
             "test_maestro_social", "test_plano_onda_social_c2", "test_prova_de_post_de_pessoa", "test_video_na_sala",
