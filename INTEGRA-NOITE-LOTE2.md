@@ -1,0 +1,181 @@
+# INTEGRA-NOITE · LOTE 2 — um só pacote sobre o lote 1 (`69b0e23f`)
+
+Ramo `integra-noite-v2`, a partir de `origin/integra-noite-v1` @ `69b0e23f` (o lote 1, instalado no vivo às 05:25).
+**NÃO instalado.** Estado: **PRONTO** (ver o fim) — 11 pacotes juntos + o conserto da soma int-consertos × quatro-chaves (§4, APROVADO 10:35). **Decisão da coordenação 06:40:** o `freio-social-v1` fica FORA (o dono refaz o ramo sobre o lote 1; entra num LOTE 3). Fecha-se o lote 2 com os 11.
+
+## 1 · O drift P1 ao instalar o lote 1 (pergunta da coordenação 05:55) — RESPOSTA
+
+`VALIDAR` no vivo deu `P1_SEM_DRIFT FAIL` com o carimbo IGUAL (log `C:/Users/London1/AppData/Local/Temp/validar-lote1.txt`).
+**O drift vem SÓ dos livros/dados vivos, não de código.** Prova (só leitura na pasta viva, HEAD = `69b0e23f`):
+
+| `FILES[i]` (em `system-map/data/architecture.generated.json`) | ficheiro | sha «commitado» = blob no HEAD? | sha «regerado» = o ficheiro na pasta viva hoje? | é um dos 16 livros? |
+|---|---|---|---|---|
+| 235 | `candidatas/FONTES-CANDIDATAS.json` | `c15d700d` = `git rev-parse HEAD:…` **IGUAL** | `9c2dc29a` = `git hash-object …` **IGUAL** | sim (`M`) |
+| 342 | `curadoria/BRIDGE-LEDGER-V1.json` | `f54ec3e8` **IGUAL** | `f4091eaf` **IGUAL** | sim (`M`) |
+| 362 | `curadoria/DISCOVERY-SIGNAL-V1.json` | `2693ec70` **IGUAL** | `4309596e` **IGUAL** | sim (`M`) |
+| 363 | `curadoria/DISCOVERY-VISITED.json` | `4e3e353c` **IGUAL** | `f46fedc4` **IGUAL** | sim (`M`) |
+
+- `COLETAS_FEITAS` sai de `system-map/scripts/scan_sources.py` (`coletas_feitas`), que lê
+  `data/samples/RUN-MANIFEST.json` e `data/collection-ledger/italy/runs.ndjson` — **dois dos 16 livros**.
+  Medido: `RUN-MANIFEST.json` tem **49** corridas no HEAD e **146** na pasta viva (= o 49 → 146 do log);
+  `runs.ndjson` 59 → 155 linhas. As diferenças por país/custo/rendimento são as mesmas corridas.
+- Ou seja: o mapa foi commitado com os livros **como estão no Git**; o `VALIDAR` na pasta viva regera-o com os
+  livros **como o robô os deixou** (sha com o filtro de fim de linha do Git — o mesmo que o mapa usa). O código
+  não entra: os 4 ficheiros são `.json` de dados, e nenhum ficheiro de código aparece no drift.
+- **Consequência para as instalações:** no vivo, com o robô a escrever, o `P1_SEM_DRIFT` vai SEMPRE acusar estes
+  livros. Para conferir o mapa instalado sem esse ruído: `PORTOES_POS_COMMIT` (a impressão do carimbo, que deu
+  IGUAL) é a prova certa na pasta viva; o `VALIDAR` completo corre-se numa cópia limpa do commit (sem os livros
+  sujos), ou aceita-se o P1 **só** se a lista de diferenças for exactamente os ficheiros `M` do `git status`.
+
+Comandos para repetir (só leitura, na pasta viva):
+```
+git rev-parse HEAD:<ficheiro>      # = o sha «commitado»
+git hash-object -- <ficheiro>      # = o sha «regerado» (com o filtro do Git, como o mapa)
+```
+
+## 2 · O teste que falhou no vivo (`tests.test_semear_so_as_candidatas`, 3 FAIL, rc=2 RECUSADO)
+
+- **Sim, a regressão «mesmos dados» do lote 1 correu numa pasta com outro nome** (`…/Temp/jf-prod`): o script
+  `semear_qualify_social.py` só se julga «no vivo» se o caminho tiver `source-curator-service-v1`; lá não tinha,
+  e o teste passou. Na pasta viva recusou de verdade.
+- **Consertado no teste** (`965275aa`; o script não muda): o caminho (`S.RAIZ`) e o `PARAR.flag` são fixados no
+  teste, e há 4 testes novos da trava do vivo (sem `--vivo` recusa; com `--vivo` e o robô a correr recusa; com
+  `--vivo` e o robô parado semeia só o lote; fora do vivo sem `--copia` recusa). **8/8** na pasta de trabalho **e
+  numa pasta com o nome do vivo**; com a trava desligada (mutante), 2 dos testes novos morrem.
+- A regressão por nome do lote 2 corre também numa pasta chamada `source-curator-service-v1`.
+
+## 3 · Os pacotes (em curso)
+
+| # | pacote | SHA | junção |
+|---|---|---|---|
+| 1 | conserto-regua-v1 | a139caad | limpa |
+| 2 | c2-juiz-v1 | f6f3bb2f | `.gitattributes`: as duas linhas ficam (`tests/dados/leitor-data-yt/**` e `tests/dados/c2-juiz/**` `-text`) — não é código; cada uma protege os bytes de amostras |
+| 3 | rodadas-v1 | bc77648e | limpa |
+| 4 | trava-sede-v2 | 1a2e5d55 | limpa |
+| 5 | quatro-chaves-v2 | b2870420 | só gerado (1) |
+| 6 | bloqueadas-v1 | 889b2166 | só gerado (1) |
+| 7 | destravar-v1 | a935a191 | só gerado (1) |
+| 8 | casco-leitura-v1 | b83b930f | limpa |
+| 9 | casco-painel-v1 | 2744073c | limpa |
+| 10 | canais-pesquisa-v1 | 494b7b36 | limpa (independente do freio) |
+| 11 | int-consertos-v1 | 60faa7cb | limpa (só código; nada ativado) |
+| — | **freio-social-v1** | **d1074533** | **PARADO — conflito de CÓDIGO** em `coleta/scrap_colheita.py` (4 blocos), `ferramentas/youtube_transcrever.py` (4), `coleta/scrap_http.py` (1), `SOCIAL-QUALIFICAR.md` (1). O freio traz a SUA cópia da prova-teto (`af2bb4e4`) — a que entrou no lote 1 foi `6bd3da95` (prova-teto-social `84a997a6`) — mais o teto D38 no pedido (`4faaa035`) e o dedup pelo vídeo (`379aab98`). Decisão pedida à coordenação |
+
+O `freio-social-v1` (linha «—» acima) **sai do lote 2** (coordenação 06:40): vai para o LOTE 3, refeito pelo dono sobre o lote 1.
+
+## 4 · Testes por NOME contra o vivo `69b0e23f` (mesmos dados, rede fechada, pastas chamadas `source-curator-service-v1`)
+
+Corredor `provas/boletins_data_local/testes_por_nome.py`; o lado «vivo» é o ramo com os 110 ficheiros do writeset
+repostos na versão `69b0e23f`. Dados iguais nos dois lados (`data/samples`, `data/collection-ledger`, `docs/`).
+Resultado: `provas/integra_noite/lote2-{ramo,vivo}.json` (sha256 `26db411e…` / `faf83a88…`).
+
+- 55 módulos Python + 8 provas Node. **767** testes Python no ramo, **616** no vivo (os módulos novos não existem lá).
+- **Herdadas (iguais nome a nome no vivo): 92** — `italy_contract_test` 77 · `test_tempo_e_lugar_da_publicacao` 12 ·
+  `test_collection_gate` 1 · `test_scrap_rc01_release_candidate` 1 · `test_a_primeira_corrida_da_inteligencia` 1.
+- `test_semear_so_as_candidatas`: vivo 3 FAIL (a falha do lote 1) → ramo 8/8 (o conserto de §2).
+- Por pacote, todos verdes no ramo: conserto-regua 10 · c2-juiz 15 · rodadas 29 · trava-sede (`test_soc_tempo_publicacao_e_lugar`
+  14) · quatro-chaves (`test_quatro_chaves` 11, `_na_sala` 22, `test_sala_por_nome` 9, `test_a_linhagem_do_ready` 13) ·
+  bloqueadas (`test_url_com_acento` 4, `test_robo_diag` 3) · destravar (`test_colher_prova_territorio` 8, `test_sonda_um_pedido` 5) ·
+  canais-pesquisa (`test_canais_presos_no_feed` 3) · int-consertos (`test_espinha_da_intelligence` 42).
+- ✅ **1 falha NOVA na 1.ª corrida — RESOLVIDA (coordenação 10:35: APROVADO, com condição):**
+  `tests.test_os_consertos_da_intelligence.D8_UmaListaSo.test_o_itempronto_cobre_todos_os_campos_do_dono`
+  → `AttributeError: 'ItemPronto' object has no attribute 'JANELA_DECLARADA'`.
+  - **Cada pacote sozinho passa** (int-consertos em `60faa7cb`: 27/27 OK). A falha nasce da **soma** de dois pacotes:
+    o int-consertos (D8) fez a espinha ler a lista de campos do DONO (`CAMPOS_READY` em `admissao/sala_de_espera.py`);
+    o quatro-chaves-v2 acrescentou a essa lista o campo `JANELA_DECLARADA`; o molde `ItemPronto`
+    (`provas/espinha_da_intelligence.py`) não o tem. Não houve conflito de ficheiro na junção — é um conflito de
+    código entre pacotes, e o teste existe precisamente para o apanhar.
+  - **Proposta (1 linha) — APLICADA em `5ae55ce3`:** em `ItemPronto`, um bloco «a das quatro chaves (quatro-chaves-v2)» com
+    `JANELA_DECLARADA: Any = NAO_SEI` — o mesmo molde dos campos que chegaram com a 033 e com o PRESERVE-FACTS
+    («um campo que passou a existir não é um campo que passou a estar preenchido»). Alternativa: o default ser o
+    `JANELA_NAO_MEDIDA` do dono — mas isso faria a espinha copiar um valor da Collection, o que ela hoje evita.
+  - **A condição da coordenação** («1 teste que prova que a Intelligence NUNCA usa `JANELA_DECLARADA = NAO SEI` como
+    janela do facto; se usar, vermelho»): classe `D9_JanelaDeclaradaNaoEJanelaDoFacto` em
+    `tests/test_os_consertos_da_intelligence.py`, 5 testes — o `ItemPronto` nasce com `NAO SEI`; o G0 (espinha **e**
+    `motor/corrida_da_inteligencia.py`) bloqueia sem `FACT_TIME` com a janela `NAO SEI` **ou cheia**; o tempo do sinal
+    é o `FACT_TIME`; o G2 nunca cruza por uma janela `NAO SEI` (com a contraprova `PROVADO`); e, pela árvore
+    sintática, nenhum código da Intelligence lê `JANELA_DECLARADA` (só a declaração do campo).
+  - **Mutação** (`provas/integra_noite/mutacao_d9.py` → `mutacao-d9-RESULTADO.txt`): **4 mutantes, 4 mortos** —
+    M1 G0 deixa passar quando a janela é `NAO SEI` · M2 G2 aceita `NAO SEI` como janela comum · M3 o sinal leva a
+    janela `NAO SEI` como tempo · M4 a corrida grava a janela no `FACT_TIME` do sinal. Ficheiros repostos (sha256).
+  - **Bateria por nome outra vez, depois do conserto** (`provas/integra_noite/lote2-{ramo,vivo}-v2.json`, sha256
+    `fb3edf40…` / `faf83a88…` — o vivo dá o mesmo sha da 1.ª corrida): **772** no ramo (+5 do D9), **616** no vivo,
+    **0 novas**, as mesmas **92 herdadas**; `test_os_consertos_da_intelligence` 32/32.
+    ⚠️ Esta bateria (só os 62 módulos por nome, em pastas temporárias, rede fechada) correu **sem** a LOCK-PESADO:
+    a trava estava com outras equipas (REPROC-EXTRATORES 10:42, DEDUP-INSTALAR 11:36, donos vivos). O mapa só com ela.
+
+## 5 · Casco (casco-leitura + casco-painel) — sem testes de unidade
+
+- `node --check` OK em `audit/casco/sala-leitura.mjs`, `audit/casco/painel-operacao.mjs`, `client/italy-sala-leitura.js`;
+  os dois JSON do contrato da Intelligence EXPERIMENTAL leem-se.
+- Portão `link-asset` (Chromium local, rede fechada), ramo × vivo `69b0e23f`, cada um numa cópia: **6/6 PASS nos dois**
+  (0 pedidos ≥400, 0 ficheiros em falta, 0 links malformados, 0 imagens partidas, 0 erros de consola). Telas: **16 no
+  ramo, 14 no vivo** (+`#sala`, +`#painel`); 161 links externos iguais. Provas:
+  `provas/integra_noite/lote2-casco-link-asset-{ramo,vivo}.json`.
+  ⚠️ Como corri: `playwright-core` não está no repo; usei uma cópia (1.62.1) doutra pasta desta máquina e, **só nas
+  cópias temporárias** do `audit/`, apontei o `drive.mjs` para o Chromium 1243 já instalado. O repo não mudou.
+
+## 6 · Conferências (feitas)
+
+| conferência | resultado |
+|---|---|
+| ff-only sobre `69b0e23f` | **SIM** |
+| writeset | 110 ficheiros (`provas/integra_noite/writeset-lote2.txt`) |
+| 16 livros vivos no writeset | **0** |
+| `data/` no writeset | 21 — todas provas NOVAS do quatro-chaves em `data/derivados/QUATRO-CHAVES-*`; nenhum livro |
+| ficheiros do writeset soltos ou `M` na pasta viva | **0** (medido antes do reinício: vivo em `69b0e23f`, 16 `M`) |
+| migrações | **nenhuma** no writeset |
+
+## 8 · Plano único de instalação (o coordenador instala; um escritor; sem rede)
+
+**A · Código (tudo de uma vez, ff-only, robô PARADO):**
+1. `curadoria/PARAR.flag`; esperar a volta acabar. Guardar `git rev-parse HEAD` (= `69b0e23f`), `git status` e
+   `sha256sum` dos 16 livros.
+2. `git merge --ff-only <SHA do PRONTO>` na pasta viva.
+3. Os 16 livros: `git status` e sha256 IGUAIS ao passo 1 (o writeset não toca nenhum; medido em §6).
+4. `correr_a_cadeia.py VALIDAR`: o `P1_SEM_DRIFT` vai acusar os livros (§1). Aceitar SÓ se a lista de diferenças for
+   exatamente os ficheiros `M` do `git status`; `PORTOES_POS_COMMIT` → **IGUAL**. Repor os gerados que o validador
+   reescreve **pelo nome**, nunca `git checkout -- .`.
+5. Provas rápidas sem rede: `py -m unittest tests.test_semear_so_as_candidatas tests.test_quatro_chaves
+   tests.test_sala_por_nome tests.test_conserto_regua tests.test_c2_juiz tests.test_canais_presos_no_feed
+   tests.test_os_consertos_da_intelligence` (inclui o D9) · `cd curadoria && py -m unittest test_url_com_acento test_robo_diag`.
+6. **Reiniciar o supervisor** — `curadoria/canario.py` (bloqueadas: link com acento) e
+   `curadoria/importar_do_coletor.py` (canais-pesquisa) mudam; o worker carrega o código novo só ao reiniciar.
+7. Tirar o `PARAR.flag`.
+   **O que muda sozinho depois de A:** a Sala passa a ser lida e escrita **pelo nome da coluna** (quatro-chaves;
+   a próxima linha pousada leva `janela_declarada` pelo dono — a coluna já existe desde a 033, **nenhuma migração**);
+   o juiz capa/matéria V2 (c2-juiz) vale para a próxima onda e a próxima MICRO; a leitura de tempo/lugar consertada
+   (conserto-regua) vale para o que for admitido a partir daqui. Nada disto reescreve linhas antigas.
+
+**B · O que ESCREVE nos cadernos do robô ou na Sala — só com o robô PARADO, cada passo é decisão do coordenador,
+por esta ordem:**
+1. **canais-pesquisa** (os 9 canais YouTube presos em `RETRY_AFTER`): pela mesma porta do bloco 4 da v5 do lote 1
+   (`py curadoria/importar_do_coletor.py --pelo-scrap --ids=<lote>`, primeiro sem `--aplicar`); desfecho
+   `CANARY_PENDING` + `VALIDATE_ROUTE`. Grava fila/ledger/evidência. Tirar o `PARAR.flag` uma volta; voltar a parar.
+2. **destravar** (`MICRO-PROVA-LOTE1.md` §C): colher as provas pode ser com o robô ligado (não escreve livro); pôr as
+   decisões dentro — `py curadoria/colher_prova_territorio.py --aplicar=DECIDIDAS-LOTE1.json` — só com o robô
+   parado (escreve `DECISOES-SEMANTICAS-V1.json` e, pela ponte, fila/ledger/`SOURCE-ID-ALLOCATION`/contratos).
+   As T01476/T02077 (`BLOQUEADAS-DESTRAVAR.md`) ficam como estão, salvo decisão.
+3. **conserto-regua** — reprocessar a Sala com a régua consertada (`CONSERTO-REGUA.md` §Instalar:
+   `admissao/reprocessar_tempo_lugar.py` sem escrever → `--aplicar` → 2.ª vez tem de dar `INSERIDAS: 0`). **Grava na
+   Sala** (novas revisões no caderno; a Sala só acrescenta) — decisão do dono.
+4. **quatro-chaves** — reprocesso das 94 linhas pelo caderno (`QUATRO-CHAVES-MEDIR.md`, «plano de reprocesso») —
+   **grava na Sala**; decisão do dono, depois do passo 3 (as duas passam pelo mesmo caderno de revisões).
+5. **D79 (034 lápide antes da 035 TEMPO_LUGAR):** nenhuma das duas está neste lote (acervo fica fora) — nada a fazer
+   aqui; a ordem vale para quando entrarem.
+- **Não escrevem nada:** trava-sede-v2 (só código), rodadas (disparador da 4.ª onda: usa-se quando a onda for
+  decidida, com a coorte congelada — `C2-ONDA4.md` §«O que precisa estar instalado»), int-consertos («nada
+  ativado»), casco-leitura e casco-painel (os dados vivem em `*.local.js`, fora do Git e do deploy; só aparecem com
+  `?sala=local`).
+
+**⚠️ Red team da ponte:** nunca na pasta viva (escreve `IT-T99-*` no livro de contratos).
+
+**Desfazer (código):** `PARAR.flag`; guardar `git status`/`git diff`; `git reset --keep 69b0e23f`; reiniciar o
+supervisor. Os passos B têm cada um o seu desfazer no documento do pacote (as revisões da Sala não se apagam: ficam
+como histórico).
+
+## 7 · Mapa
+
+UM só, pela cadeia (`REGERAR` · commit · `VALIDAR` · `PORTOES_POS_COMMIT`), sob a LOCK-PESADO — ver o commit do mapa
+(é o SHA do PRONTO). No vivo, o `P1_SEM_DRIFT` mede-se como em §1: carimbo IGUAL + a lista de diferenças = só os
+livros `M`.

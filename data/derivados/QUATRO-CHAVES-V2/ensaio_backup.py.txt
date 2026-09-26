@@ -1,0 +1,112 @@
+# -*- coding: utf-8 -*-
+# QUATRO-CHAVES-V2 · ENSAIO num PostgreSQL DESCARTAVEL restaurado do ultimo backup da Sala.
+# Registo do ensaio (.txt), nao codigo do sistema. Pesado: so com LOCK-PESADO e >= 5 GB.
+#   PYTHONUTF8=1 py data/derivados/QUATRO-CHAVES-V2/ensaio_backup.py.txt <PGBIN> <DUMP> <PORTA>
+# Nunca a Sala real: porta 54330 recusada, host so 127.0.0.1, base so `sala_ensaio_qc2`.
+import datetime
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path[:0] = [os.path.join(RAIZ, "admissao"), RAIZ]
+PGBIN, DUMP, PORTA = sys.argv[1], sys.argv[2], int(sys.argv[3])
+assert PORTA != 54330, "porta da Sala real"
+BASE = "sala_ensaio_qc2"
+URL = "postgresql://postgres@127.0.0.1:%d/%s" % (PORTA, BASE)
+exe = lambda n: os.path.join(PGBIN, n + (".exe" if os.name == "nt" else ""))
+pasta = tempfile.mkdtemp(prefix="qc2-pg-")
+dados, log = os.path.join(pasta, "dados"), os.path.join(pasta, "pg.log")
+out = {"DUMP": DUMP, "DUMP_SHA256": hashlib.sha256(open(DUMP, "rb").read()).hexdigest(),
+       "PORTA": PORTA, "BASE": BASE, "INICIO": datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None).isoformat() + "Z"}
+env = dict(os.environ, PGPASSWORD="", PGOPTIONS="")
+
+
+def corre(*a, **kw):
+    # ⚠️ sem capture_output no pg_ctl start: o postmaster herda os pipes e pendura.
+    return subprocess.run(list(a), env=env, **kw)
+
+
+try:
+    corre(exe("initdb"), "-D", dados, "-U", "postgres", "-A", "trust", "-E", "UTF8",
+          "--no-sync", stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+    corre(exe("pg_ctl"), "-D", dados, "-l", log, "-w", "-o",
+          "-p %d -c listen_addresses=127.0.0.1" % PORTA, "start",
+          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+    corre(exe("createdb"), "-h", "127.0.0.1", "-p", str(PORTA), "-U", "postgres", BASE, check=True)
+    r = corre(exe("pg_restore"), "-h", "127.0.0.1", "-p", str(PORTA), "-U", "postgres",
+              "--no-owner", "--no-privileges", "-d", BASE, DUMP,
+              capture_output=True, text=True)
+    out["PG_RESTORE_CODIGO"] = r.returncode
+    out["PG_RESTORE_AVISOS"] = (r.stderr or "")[-600:]
+
+    import admissao as A  # noqa: E402
+    import sala_de_espera as S  # noqa: E402
+    b = S._Postgres(URL)
+    q = lambda sql: b._consultar(sql)
+    out["COLUNA_JANELA_EXISTE"] = q("select count(*) from information_schema.columns "
+                                    "where table_name='sala_de_espera' and column_name='janela_declarada'")[0] == "1"
+    total = int(q("select count(*) from public.sala_de_espera")[0])
+    runs = q("select distinct run_id from public.sala_de_espera order by 1")
+    lidos, janelas_default = 0, 0
+    for run in runs:
+        for u in b.ler(run)["ITENS"]:
+            lidos += 1
+            janelas_default += (u["JANELA_DECLARADA"] == A.JANELA_NAO_MEDIDA)
+    out["SALA_RESTAURADA"] = {"LINHAS": total, "RUN_IDS": len(runs), "LIDAS_PELO_NOME": lidos,
+                              "JANELA_IGUAL_AO_DEFAULT_DO_DONO": janelas_default}
+
+    # uma corrida nova, gravada e lida de volta pelo nome
+    run = "ENSAIO-QC2-" + datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None).strftime("%Y%m%d%H%M%S")
+    cols = [c for c in q("select column_name from information_schema.columns where "
+                         "table_schema='public' and table_name='collection_run' "
+                         "and column_name not in ('id','run_id') order by ordinal_position")]
+    b._executar("insert into public.collection_run (run_id, %s) select %s, %s from "
+                "public.collection_run limit 1;" % (", ".join(cols), S._lit(run), ", ".join(cols)))
+    item = {"texto": ("Bollettino tecnico vite. Fase di fioritura in corso nei vigneti di collina. "
+                      "Superata la soglia di intervento per infestazione di tignoletta: si consiglia "
+                      "il trattamento fitosanitario entro la settimana."),
+            "source_id": "IT-T1-900", "id": "derived:qc2-1", "artifact_type": "DERIVED",
+            "parent_sha256": "a" * 64, "captured_at": "2026-09-25T20:00:00Z",
+            "fact_location": "Valpolicella", "fact_location_basis": "declarado no boletim (ensaio)"}
+    d = A.decidir(item, "T1", corrida=run)
+    u = A.pronto_para_inteligencia(item, d)
+    estado = b.pousar(run, [u])
+    volta = b.ler(run)["ITENS"][0]
+    diferentes = sorted(k for k in S.CAMPOS_READY if volta.get(k) != u.get(k))
+    direto = q("select published_at_basis || '|' || source_location_basis || '|' || fact_location "
+               "|| '|' || (janela_declarada::jsonb #>> '{CULTURA,VALOR}') || '|' || "
+               "(janela_declarada::jsonb #>> '{REGIAO_DO_FATO,VALOR}') "
+               "from public.sala_de_espera where run_id = %s" % S._lit(run))[0]
+    out["IDA_E_VOLTA"] = {"RUN_ID": run, "DECISAO": d.resultado, "POUSAR": estado,
+                          "CAMPOS_DIFERENTES": diferentes,
+                          "LIDO_DIRETO_NA_COLUNA": direto,
+                          "JANELA_ESCRITA": u["JANELA_DECLARADA"]["CULTURA"]["VALOR"]}
+
+    # controlo negativo: a trava da forma (033) recusa uma janela sem BASE
+    run2 = run + "-NEG"
+    b._executar("insert into public.collection_run (run_id, %s) select %s, %s from "
+                "public.collection_run limit 1;" % (", ".join(cols), S._lit(run2), ", ".join(cols)))
+    u2 = dict(u, ITEM_ID="derived:qc2-neg")
+    u2["JANELA_DECLARADA"] = json.loads(json.dumps(u["JANELA_DECLARADA"]))
+    del u2["JANELA_DECLARADA"]["CULTURA"]["BASE"]
+    try:
+        b.pousar(run2, [u2])
+        out["CONTROLO_NEGATIVO"] = "PASSOU <-- MAU: a trava da forma nao mordeu"
+    except S.SalaIndisponivel as ex:
+        out["CONTROLO_NEGATIVO"] = "RECUSADO (bom): " + ("janela_declara_as_quatro_chaves" in str(ex) and
+                                                          "janela_declara_as_quatro_chaves" or str(ex)[:120])
+    out["LINHAS_DEPOIS"] = int(q("select count(*) from public.sala_de_espera")[0])
+finally:
+    corre(exe("pg_ctl"), "-D", dados, "-m", "fast", "stop",
+          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    shutil.rmtree(pasta, ignore_errors=True)
+    out["DESLIGADO_E_APAGADO"] = not os.path.exists(pasta)
+    out["FIM"] = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None).isoformat() + "Z"
+    destino = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ENSAIO-BACKUP.json")
+    json.dump(out, open(destino, "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
+    print(json.dumps(out, ensure_ascii=False, indent=1, default=str)[:3000])

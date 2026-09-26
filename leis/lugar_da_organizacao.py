@@ -49,6 +49,24 @@ def host(url: str) -> str:
     return re.sub(r"^www\.", "", h.lower())
 
 
+# ── A SEDE DE UMA CONTA DE PLATAFORMA NAO SE HERDA (DA-16, 25/09) ─────────
+# Medido no PODCAST-ESTUDO (e5cd691f): `youtube.com/channel/X` e `instagram.com/Y`
+# davam ITALY, COUNTRY — o pais de OUTRAS fontes italianas cujo canal/conta esta
+# no Atlas. O host de uma plataforma e de milhoes de contas; casar por host e
+# emprestar a morada do vizinho. Uma conta de plataforma so tem sede pelo SITE
+# OFICIAL que a aponta (e esse e o site que se passa aqui); sem ele, NAO SEI.
+PLATAFORMAS = ("youtube.com", "youtu.be", "instagram.com", "linkedin.com", "facebook.com",
+               "fb.com", "x.com", "twitter.com", "tiktok.com", "threads.net", "vimeo.com",
+               "spotify.com", "spreaker.com", "anchor.fm", "podcasts.apple.com",
+               "podcasts.google.com", "soundcloud.com", "podbean.com", "buzzsprout.com",
+               "libsyn.com", "megaphone.fm", "podtrac.com", "loquis.com")
+
+
+def e_plataforma(h: str) -> bool:
+    """O host (ja sem www.) e de uma plataforma de contas/feeds de terceiros?"""
+    return any(h == p or h.endswith("." + p) for p in PLATAFORMAS)
+
+
 def _vazio(v) -> bool:
     s = str(v or "").strip()
     return not s or s.upper().startswith("NAO SEI") or s.upper().startswith("NÃO SEI")
@@ -99,6 +117,11 @@ def lugar_da_organizacao(site_url: str | None, owners=None, atlas_texto=None) ->
                 "SOURCE_LOCATION_BASIS": "NAO SEI: sem site oficial ligado a conta, nao ha organizacao "
                                          "provada de quem tirar o lugar"}
     h = host(site_url)
+    if e_plataforma(h):
+        return {"SOURCE_LOCATION": NAO_SEI, "SOURCE_LOCATION_PRECISION": "NAO DECLARADA",
+                "SOURCE_LOCATION_BASIS": ("NAO SEI: %s e endereco de plataforma; a sede de uma conta "
+                                          "nao se herda de outras contas do mesmo host — so pelo site "
+                                          "oficial que aponta a conta" % h)}
     owners = _owners() if owners is None else owners
     donos = [o for o in owners if o.get("WEBSITE") and host(o["WEBSITE"]) == h]
     provincias = sorted({o.get("PROVINCE") for o in donos if not _vazio(o.get("PROVINCE"))})
