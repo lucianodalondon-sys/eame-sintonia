@@ -1,6 +1,6 @@
 # DEDUP-DOC — a Sala deixa de repetir o mesmo documento
 
-Missão DEDUP-DOC (coleta) · 26/09/2026 · ramo `dedup-doc-v1` a partir de `ce28040c` (o vivo).
+Missão DEDUP-DOC (coleta) · 26/09/2026 · ramo `dedup-doc-v1`, nascido de `ce28040c` e refeito (rebase) sobre `83de0ccd` (o vivo desde 02:08, C9 instalada).
 **NÃO instalado.** Vivo não tocado. Sala real só lida (`default_transaction_read_only = on`, conferido na
 saída). Sem rede e sem coleta. O bruto (RAW) não foi alterado; na Sala nada foi apagado.
 
@@ -12,7 +12,7 @@ a identidade é provada (`FORWARD_IDENTIFIED`). As 14 antigas ficam na Sala, mar
 
 ## 1 · O defeito, medido
 
-Onde a Sala decide «já está?»: `admissao/sala_de_espera.py:780` (em `ce28040c`) — compara
+Onde a Sala decide «já está?»: `admissao/sala_de_espera.py:780` (em `ce28040c`; igual em `83de0ccd`) — compara
 `(item_id, universo)`. O `item_id` é `derived:<n>`, o número do **derivado**, não do documento. Se o
 bruto muda uns bytes (sha novo), nasce derivado novo, `item_id` novo, e o mesmo documento entra outra vez.
 
@@ -133,7 +133,7 @@ exigência `FORWARD_IDENTIFIED` · M4 sem comparar a fonte.
 
 1. LOCK-PESADO + ≥ 5 GB. Robô parado (`curadoria/PARAR.flag`), supervisor e observador parados.
 2. Backup da Sala (`pg_dump`, como em D68/D74) e do código (`/c/inst/<data>-dedup-doc`).
-3. No vivo `source-curator-service-v1` (em `ce28040c`): `git merge --ff-only origin/dedup-doc-v1`.
+3. No vivo `source-curator-service-v1` (em `83de0ccd`): `git merge --ff-only origin/dedup-doc-v1`.
    Muda **um** ficheiro de código (`admissao/sala_de_espera.py`) e acrescenta 1 teste e este relatório.
    **Sem migration**: não há coluna nem tabela nova; a regra vive no `insert` do `pousar`.
 4. Correr `tests/test_sala_dedup_por_document_key.py` e `tests/test_sala_idempotente_por_documento.py`
