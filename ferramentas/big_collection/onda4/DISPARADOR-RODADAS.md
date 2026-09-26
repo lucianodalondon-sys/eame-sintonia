@@ -4,6 +4,27 @@ Missão DISPARADOR-RODADAS (coordenador, 26/09 03:33). Ramo `rodadas-v1`, nascid
 (`b91e7661`, que já está sobre o vivo `83de0ccd`). Sem rede real, sem coleta, sem Sala, nada
 instalado. **Falta só o mapa** (a INTEGRA regera).
 
+## D79 (bot Luciano, 26/09 03:45): 1 rodada por janela móvel de 24 h
+
+- **Ligada por omissão** no `--correr` (só `--sem-janela-24h` a desliga). Uma rodada só corre quando
+  **todos** os seus domínios estão há mais de 24 h sem pedido. Senão PARA com `JANELA_24H` e `ABRE_EM`,
+  sem egresso e sem onda (0 pedidos).
+- A hora de cada domínio vem **dos livros**: cada `TETO-ONDA.json` debaixo de `--livros-do-dia` (por
+  omissão, a pasta-mãe de `--base`) e o `ONDA-WEB-ESTADO.json` ao lado. Hora = instante do RUN_ID (UTC)
+  **+ a duração da corrida** (`SEGUNDOS`), para contar do fim. Sem estado, vale a hora da última
+  escrita do livro, para todos os domínios dele.
+- **Medido com os livros reais** (`--so-plano --livros-do-dia=~/sintonia-sala-italia/ondas`): a
+  rodada 1 abre em **26/09 22:58:33 UTC = 19:58:33 (-03)**, 24 h depois de a última fonte da 3.ª onda
+  ter acabado. É mais apertado do que «depois de 19:34» (o início da 3.ª onda), porque a janela é
+  por domínio e conta do fim de cada corrida. As rodadas 2+ mostram hoje uma hora mais cedo, mas
+  isso é só hoje: quando a 1 correr, voltam a fechar 24 h (partilham domínios; testado).
+
+### Defeito meu, consertado na mesma passagem
+
+Com `--teto-dia`, as fontes ADIADAS de uma rodada **perdiam-se**: a rodada fechava sem elas. Agora a
+rodada fica **INCOMPLETA** (com `FALTAM`) e a retoma corre **só** as que faltam, na mesma onda
+(`--retomar`, o mesmo livro). As `FEITAS` não se repetem.
+
 ## O que é
 
 `ferramentas/big_collection/rodadas.py`: o laço que faltava para correr uma onda que não cabe no
@@ -53,7 +74,7 @@ Só depois disto a rodada fica `FECHADA` em `<base>/RODADAS-ESTADO.json`.
 
 ## Provas (sem rede real)
 
-- `tests/test_rodadas.py`: **21/21**. Um **servidor HTTP em 127.0.0.1 conta** os pedidos por `Host`
+- `tests/test_rodadas.py`: **29/29** (21 + 7 da janela + 1 da rodada incompleta). Um **servidor HTTP em 127.0.0.1 conta** os pedidos por `Host`
   (a.test com 3 fontes de 5, b.test, c.test com duas fontes de 2). A onda falsa faz o que o
   transporte faz: lê e soma o livro da onda, não passa de 5 por domínio, escreve a linha em
   `runs.ndjson` com `CORTESIA.PEDIDOS_POR_HOST`. Cobre:
@@ -66,11 +87,12 @@ Só depois disto a rodada fica `FECHADA` em `<base>/RODADAS-ESTADO.json`.
   - retoma: não repete a fechada, retoma a parada com o mesmo livro, `--rodada=N`, rodada inexistente;
   - teto diário: desligado não muda nada; adia o domínio que já gastou hoje; soma as rodadas do
     próprio dia; livro de outro dia não conta; limiar exato.
-- **Mutação** (`provas/rodadas_mutacao.py`, cópia por `git archive`): **13/13 mortos**
+- **Mutação** (`provas/rodadas_mutacao.py`, cópia por `git archive`): **18/18 mortos**
   (`provas/RODADAS-MUTACAO.json`): sem prova-teto, NAO_SEI fecha, sem egresso antes, sem egresso
   depois, plano `>=` em vez de `>`, retoma repete fechadas, retoma abre onda nova, teto diário
   ignorado, livros de qualquer dia, código da onda ignorado, aceita outra coorte, pasta única,
-  relatório sem estado.
+  relatório sem estado; e, da D79: janela ignorada, janela contada do início, incompleta fecha,
+  retoma ignora as feitas, sem a hora do livro.
 - **`--so-plano` na cópia com os livros vivos** (`onda4-plano-copia`, proxy morto): **15 rodadas,
   64 fontes, 301 pedidos previstos**, máx. 5 por domínio em todas. É o mesmo plano do `C2-ONDA4.md`.
   Saída: `auditoria-madrugada\RODADAS\so-plano\RODADAS-SO-PLANO.json`.
@@ -102,6 +124,12 @@ Só depois disto a rodada fica `FECHADA` em `<base>/RODADAS-ESTADO.json`.
   Se recebeu, ou se ele não conseguir saber, **para tudo**. É como um fiscal que não é o mesmo que
   bateu o ponto.
 - Se parar no meio, ao correr de novo ele continua de onde parou, sem repetir o que já terminou.
+- **Regra nova do dono (D79):** o mesmo site só é visitado de novo depois de 24 horas. O comando
+  confere isso sozinho, lendo os cadernos das ondas anteriores. Pelos cadernos reais, a 1.ª rodada
+  da 4.ª onda só pode começar em **26/09 às 19:58** (hora de Brasília), 24 horas depois de a 3.ª onda
+  terminar. Se tentar antes, o comando para sem visitar nada e diz a hora em que libera.
+- Consertei um erro meu: com a trava por dia ligada, fontes que ficavam para depois se perdiam.
+  Agora ficam guardadas, e a próxima vez que o comando rodar, corre só essas.
 - Existe uma trava opcional **por dia** (por exemplo, no máximo 10 visitas por site por dia). Ela vem
   **desligada**, para não mudar nada do que funciona hoje. Ligar é decisão do dono.
 - Tudo foi testado com um servidor falso, dentro desta máquina, que conta as visitas. Nenhum site de
