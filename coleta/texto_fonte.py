@@ -17,6 +17,7 @@ contexto e esconde a frase que decide. Este arquivo devolve só o texto.
 """
 import html
 import io
+import json
 import re
 import sys
 import urllib.request
@@ -61,13 +62,46 @@ def _pdf(dados):
     return re.sub(r'\s+', ' ', txt).strip() or '[PDF sem texto extraível — pode ser imagem]'
 
 
+#: Onde a pagina de video do YouTube escreve a descricao que o autor publicou.
+DESCRICAO_DO_VIDEO = '"videoDetails":'
+
+
+def descricao_do_youtube(dados) -> str:
+    """A descricao que o AUTOR do video publicou, lida da pagina guardada. '' se nao houver.
+
+    ⚠️ ACERVO-PARA-SALA-2 (26/09/2026). Medido nas 612 paginas `watch?v=` guardadas no
+    armazem: `limpar()` devolvia so o titulo e o rodape (~250 caracteres), porque a
+    descricao vive dentro de um `<script>` (`ytInitialPlayerResponse.videoDetails`) e
+    `limpar()` apaga todos os scripts. 495 das 612 traziam descricao com 40+ caracteres.
+
+    Le-se SO o objecto `videoDetails`, com o descodificador de JSON (nada de regex a
+    adivinhar aspas), e so o campo `shortDescription`: e o texto que o autor escreveu,
+    o mesmo que a pagina mostra por baixo do video. Nao e transcricao, nao e legenda,
+    nao e comentario — e nao se diz que e.
+    """
+    t = dados.decode('utf-8', errors='replace') if isinstance(dados, bytes) else str(dados)
+    i = t.find(DESCRICAO_DO_VIDEO)
+    if i < 0:
+        return ''
+    try:
+        det, _ = json.JSONDecoder().raw_decode(t, i + len(DESCRICAO_DO_VIDEO))
+    except ValueError:
+        return ''
+    d = det.get('shortDescription') if isinstance(det, dict) else None
+    return d.strip() if isinstance(d, str) else ''
+
+
 def limpar(dados, ctype=''):
     if 'pdf' in ctype.lower() or dados[:5] == b'%PDF-':
         return _pdf(dados)
     t = dados.decode('utf-8', errors='replace')
+    # a descricao do video ANTES de os scripts sairem: e la que ela mora
+    descricao = descricao_do_youtube(t)
     t = re.sub(r'<(script|style)\b.*?</\1>', ' ', t, flags=re.S | re.I)
     t = re.sub(r'<[^>]+>', ' ', t)
     t = html.unescape(t)
+    if descricao:
+        t = t + '\n' + descricao
     t = re.sub(r'[ \t\xa0]+', ' ', t)
     t = re.sub(r'\n\s*\n+', '\n', t)
     return '\n'.join(l.strip() for l in t.split('\n') if l.strip())
