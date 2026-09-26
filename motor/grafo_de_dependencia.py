@@ -95,6 +95,13 @@ CAMPOS_DE_ENDERECO = ("DOCUMENT_URL", "URL", "SOURCE_URL")
 PLATAFORMAS = {"youtube.com", "youtu.be", "facebook.com", "instagram.com",
                "linkedin.com", "x.com", "twitter.com", "tiktok.com",
                "medium.com", "t.me", "wordpress.com", "blogspot.com"}
+#: Resolvedores: o endereco diz ONDE o documento se acha, e nao QUEM o escreveu.
+#: 86 de 88 registos cientificos do pacote V2.1 estao em doi.org, com SOURCE_ID
+#: `SRC_DOI_ORG`: tomar o dominio (ou esse SOURCE_ID) fundia a Universidade de
+#: Milao com o Instituto de Agricultura Sostenible numa «fonte» so. Aqui quem
+#: fala e a instituicao declarada no registo; sem ela, NAO SEI.
+RESOLVEDORES = {"doi.org", "handle.net", "hdl.handle.net"}
+CAMPOS_DE_INSTITUICAO = ("INSTITUTION", "INSTITUICAO")
 #: Sufixos de dois niveis em que o «dominio registavel» tem tres rotulos.
 SUFIXOS_DUPLOS = {"gov.it", "edu.it", "co.uk", "ac.uk", "gov.uk", "com.br",
                   "gov.br", "org.br", "com.au", "co.jp"}
@@ -203,6 +210,13 @@ def chaves_de_originador(ev: dict) -> tuple:
     elif pag:
         k.add("ORIG:pagina/" + pag.lower())
         base = "PAGINA"
+    end = endereco_do_documento(ev) if base is None else None
+    if end and dominio_registavel(end.partition("/")[0].split("?")[0]) in RESOLVEDORES:
+        inst = _primeiro(ev, CAMPOS_DE_INSTITUICAO)
+        if inst:
+            k.add("ORIG:instituicao/" + inst.lower())
+            return k, "INSTITUICAO"
+        return k, None                  # o resolvedor nao diz quem: NAO SEI
     if base is None:
         o = originador_por_endereco(ev)
         if o:

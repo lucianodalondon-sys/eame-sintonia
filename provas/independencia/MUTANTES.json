@@ -63,6 +63,7 @@
   "ESTADO": "MORTO",
   "TESTES_QUE_APANHARAM": [
    "test_a_biblioteca_de_anuncios_sem_pagina_nao_e_um_anunciante",
+   "test_doi_org_nao_e_quem_escreve",
    "test_dois_canais_do_youtube_sao_duas_fontes_e_watch_nao_diz_quem",
    "test_sem_originador_e_nao_sei_com_minimo_e_maximo"
   ]
@@ -109,6 +110,22 @@
   "TESTES_QUE_APANHARAM": [
    "test_anuncios_de_paginas_diferentes_sao_anunciantes_diferentes",
    "test_na_corrida_a_pagina_do_anunciante_conta"
+  ]
+ },
+ {
+  "MUTANTE": "M12b doi.org volta a ser fonte",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_doi_org_nao_e_quem_escreve"
+  ]
+ },
+ {
+  "MUTANTE": "M12c instituicao ignorada no resolvedor",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_doi_org_nao_e_quem_escreve"
   ]
  },
  {

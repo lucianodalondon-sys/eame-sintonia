@@ -168,6 +168,22 @@ class D16_MesmoOriginadorEUmaFonte(unittest.TestCase):
         self.assertNotIn("facebook.com/ads", [f["ORIGINADOR"] for f in g["SOURCE_FAMILIES"]])
         self.assertEqual(GD.NAO_SEI, g["CONVERGENCE"])
 
+    def test_doi_org_nao_e_quem_escreve(self):
+        """Forma real do pacote V2.1: 86 de 88 registos cientificos em doi.org com
+        SOURCE_ID SRC_DOI_ORG. Quem fala e a instituicao; sem ela, NAO SEI."""
+        g = GD.grafo([sin("S1", "https://doi.org/10.3390/a", SOURCE_IDS=["SRC_DOI_ORG"],
+                          INSTITUTION="University of Milan"),
+                      sin("S2", "https://doi.org/10.3390/b", SOURCE_IDS=["SRC_DOI_ORG"],
+                          INSTITUTION="University of Milan"),
+                      sin("S3", "https://doi.org/10.1094/c", SOURCE_IDS=["SRC_DOI_ORG"],
+                          INSTITUTION="Instituto de Agricultura Sostenible")])
+        self.assertEqual(2, g["INDEPENDENT_SOURCE_COUNT"])
+        self.assertNotIn("doi.org", [f["ORIGINADOR"] for f in g["SOURCE_FAMILIES"]])
+        g = GD.grafo([sin("S1", "https://doi.org/10.3390/a", SOURCE_IDS=["SRC_DOI_ORG"]),
+                      sin("S2", "https://doi.org/10.3390/b", SOURCE_IDS=["SRC_DOI_ORG"])])
+        self.assertEqual(GD.NAO_SEI, g["INDEPENDENT_SOURCE_COUNT"])
+        self.assertEqual(GD.NAO_SEI, g["CONVERGENCE"])
+
     def test_sufixo_gov_it_nao_funde_ministerios(self):
         g = GD.grafo([sin("A", "https://www.salute.gov.it/a"),
                       sin("B", "https://www.politicheagricole.gov.it/b")])
