@@ -243,6 +243,38 @@ Rendimento esperado da linha 1 (§6): ~76 docs e ~14 itens na Sala por dia, **N�
 outras linhas **não têm medida de rendimento** na Sala (nenhuma correu com rede para a Sala). O primeiro
 dia de cada linha é a medida.
 
+## 9. D87: o ciclo — Intelligence → Fontes → Scrap/Coleta → Sala → Intelligence
+
+D87 (dono, 18:25): «descobrir perfis é um trabalho das fontes com inteligência». A **descoberta** (perfis
+Instagram, páginas LinkedIn, canais YouTube, contas X, páginas de pesquisadores, sites novos) é do **bot de
+fontes**, guiada pelo retorno da Intelligence. As linhas da §8 (e o Scrap dentro delas) **só capturam o que
+as fontes decidiram seguir**. Nenhuma linha descobre nem decide.
+
+| passo | quem | lê | escreve | o que já existe (vivo `dc0de726`) |
+|---|---|---|---|---|
+| 1 · **Intelligence** diz o que rendeu e o que falta | Intelligence (diária, 06:00, §5) | cópia da Sala | o retorno por fonte (classes A/B/C/D, `R1-X-R2-E-FONTES.json`) **e** um pedido de fontes: «mais T3», «2.ª fonte T10 fora de myfruit», «T8 agrónomos com nome e lugar», «abrir T1» | o retorno por fonte existe (rodada 2); o **pedido de fontes** em ficheiro legível pelo bot **não existe**: hoje são os «conselhos» em texto da §2 do relatório |
+| 2 · **Fontes descobre e qualifica** | bot de fontes (curadoria: supervisor + ciclo contínuo) | o pedido de fontes + a fila única | candidatas (`candidatas/fonte_nova.registar`), QUALIFY, canário, contrato, READY/ELIGIBLE | a fila única, o QUALIFY, o canário (a colheita do Scrap é o canário social), o portão ELIGIBLE, as recusas D80 |
+| 3 · **Scrap / Coleta capturam** | as linhas da §8 | **só** fontes ELIGIBLE com contrato executável (o portão da coleta, `collection_gate`) e a coorte congelada | RAW, DERIVED, Admissão | o portão já barra o que o bot não aprovou; o Scrap tem as rotas PROVEN (§8.1) |
+| 4 · **Sala** recebe | o escritor único (§8.2.3) | a fila de entrega | a Sala | a Sala idempotente por documento |
+| 5 · volta ao 1 | Intelligence | a Sala nova | o próximo retorno | — |
+
+**O que falta para o ciclo fechar sozinho:**
+1. **O pedido da Intelligence em ficheiro:** `INTELLIGENCE-PEDE-FONTES-<data>.json`, com família (T\*),
+   região, cultura, tipo de canal (site, Instagram, LinkedIn, YouTube, X, pesquisador) e porquê (a classe que
+   motivou). Hoje isso está só em texto.
+2. **O bot de fontes a lê-lo** como semente da descoberta. O ponto de entrada natural é o alimentador de
+   candidatas (`CANDIDATE-FEEDER`) e a fila única. **NÃO SEI** se o alimentador aceita hoje uma semente vinda
+   da Intelligence: medir antes de desenhar a peça.
+3. **A retirada guiada:** a classe D repetida (por exemplo, 3 retornos seguidos com «zero» e amostra ≥ N)
+   vira proposta de **despromoção** para o bot de fontes. Nunca é a linha que tira a fonte: quem decide é
+   Fontes (e o dono, para a coorte).
+4. **Cadência:** Intelligence diária → bot de fontes contínuo → coorte congelada de novo **1 vez por
+   semana** (G3: a coorte é a única lista que as linhas correm) → as linhas correm a coorte.
+
+**Regra de fronteira (para não nascer arquitetura paralela):** o Scrap e as linhas **não** têm lista própria
+de contas. A lista é a das fontes (Atlas/SOURCE_ID + contrato). Um perfil que o Scrap encontre de passagem
+(um canal citado num post, por exemplo) vira **candidata** para o bot de fontes, e não alvo da próxima volta.
+
 ## EM PALAVRAS SIMPLES
 
 - Hoje a coleta roda em «rodadas», e isso trava: um site com muitas fontes (edagricole) segura todas
@@ -272,3 +304,8 @@ dia de cada linha é a medida.
   Isso dá poucas contas por dia. Dá para manter assim, ou contar 5 por conta com um limite diário da
   plataforma.
 - Só a linha de sites está instalada. As outras estão prontas em ramos, esperando instalação.
+- **Quem descobre perfis (D87):** o robô de fontes, guiado pela Intelligence. O ciclo é: a Intelligence
+  diz o que rendeu e o que falta → o robô de fontes procura e aprova perfis, canais e sites → as linhas de
+  coleta (e o Scrap) capturam **só** o que foi aprovado → a Sala recebe → a Intelligence lê de novo.
+- Falta um pedaço para o ciclo girar sozinho: hoje a Intelligence escreve o que falta em texto. Precisa
+  virar um ficheiro que o robô de fontes consiga ler.
