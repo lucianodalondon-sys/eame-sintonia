@@ -4354,6 +4354,29 @@
    ]
   },
   {
+   "id": "C-INT-GRAFO-DEPENDENCIA",
+   "name": "Grafo de dependência — quantas fontes independentes, de verdade",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "icon": "⋈",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Antes de qualquer contagem de varios sinais, separa tres camadas: SINAL (cada entrada), EVIDENCIA (o mesmo documento — mesmo SHA, DOCUMENT_ID ou endereco — conta uma vez) e FONTE (o mesmo originador — dominio, pagina da plataforma, SOURCE_ID ou republicacao declarada — conta uma vez). Devolve fontes independentes, percentual da fonte dominante e CONVERGE so com duas fontes independentes PROVADAS sobre o mesmo fato. Rotulo, registo e catalogo contam a parte, como validacao estrutural. Usado pela corrida da Intelligence e pelo motor de oportunidades V2.1.",
+   "why_here": "INDEPENDENCIA-V1, defeitos D12 (o mesmo documento lido duas vezes contava como duas evidencias) e D16 (6 de 9 sinais da 1.a rodada real vinham de myfruit.it e o motor nao sabia). INT-LAW-070..077 e INT-LAW-092. No pacote V2.1 real: 10 de 43 oportunidades tinham MULTI_SOURCE=2 sustentado por UMA fonte (7 pelo mesmo documento europeu da EUR-Lex, 3 por anuncios de uma so pagina). Nao deteta sindicacao por semelhanca de texto (INT-LAW-081).",
+   "files": [
+    "motor/grafo_de_dependencia.py",
+    "provas/independencia/testes_por_nome.py",
+    "provas/independencia/mutantes.py",
+    "provas/independencia/antes_e_depois_v21.py",
+    "tests/test_independencia_de_fontes.py"
+   ]
+  },
+  {
    "id": "C-INT-ACHADO",
    "name": "Achado — o julgamento analítico que se fecha",
    "kind": "engine",
