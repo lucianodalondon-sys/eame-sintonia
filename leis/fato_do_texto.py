@@ -387,6 +387,24 @@ _RE_ATO_ANTES_DA_DATA = re.compile(
     re.I)
 
 
+# ── o ANO DE COMPARACAO nao e a data do facto (EXTRATOR-EVENTO-V2, D84) ──────
+# Mapa do casco (POLSO DI MERCATO): «anos de comparacao foram confundidos com data do fato». «Prezzi in calo
+# rispetto al 2025», «il confronto con il 2024», «stesso periodo del 2025»: o ano e a REFERENCIA da comparacao,
+# nao quando o facto aconteceu. Uma data logo a seguir a uma marca de comparacao tapa-se e pergunta-se de novo.
+_RE_COMPARACAO_ANTES_DA_DATA = re.compile(
+    r"(?<![a-z])(?:rispetto\s+(?:a|al|allo|alla|ai|agli|all['’])?|(?:in\s+)?confronto\s+(?:con|a)\s*(?:il|lo|la|l['’])?|"
+    r"paragonat[oaie]\s+(?:a|al|con)\s*(?:il)?|stess[oa]\s+(?:periodo|mese|settimana)\s+(?:del(?:l['’])?|di)|"
+    r"contro\s+(?:il|i|l['’])|sul(?:l['’])?|vs\.?|versus|sopra\s+(?:il|al)|sotto\s+(?:il|al)|"
+    r"(?:superiore|inferiore|pari)\s+(?:a|al|allo|alla)|dalla\s+campagna|dall['’]annata)\s*(?:del\s+|dell['’]\s*)?$",
+    re.I)
+
+
+def _ano_de_comparacao(ev: str, valor: str) -> bool:
+    b, v = FL._baixo(ev), FL._baixo(valor)
+    i = b.find(v)
+    return i >= 0 and bool(_RE_COMPARACAO_ANTES_DA_DATA.search(b[max(0, i - 40):i]))
+
+
 def _data_de_ato(ev: str, valor: str) -> bool:
     i = FL._baixo(ev).find(FL._baixo(valor))
     return i >= 0 and bool(_RE_ATO_ANTES_DA_DATA.search(FL._baixo(ev)[max(0, i - 60):i]))
@@ -409,6 +427,7 @@ def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | Non
                   else "RECOMENDACAO_NAO_FATO" if e_conselho
                   else "PREVISAO_NAO_E_FATO" if _futuro_perto(ev, v) or _depois_da_publicacao(v, pub)
                   else "DATA_DE_ATO_NAO_E_FATO" if _data_de_ato(ev, v)
+                  else "COMPARACAO_NAO_E_FATO" if _ano_de_comparacao(ev, v)
                   else "DATA_LONGE_DO_ACONTECIMENTO" if _longe_do_acontecimento(ev, v)
                   else None if _presa_ao_campo(ev) else "ANCORA_DENTRO_DE_OUTRA_PALAVRA")
         if not motivo:
@@ -696,6 +715,45 @@ _PRECISAO_ORDEM = ("MUNICIPALITY", "PROVINCE", "REGION", "COUNTRY")
 _NOME_MAIOR = re.compile(r"America\s+Latina|Latinoamerica", re.I)
 
 
+# ── o PERIODO DO BOLETIM, escrito no cabecalho (EXTRATOR-EVENTO-V2, D84) ──────
+# «Settimanale N. 37 Anno XL / 09 - 15 settembre 2026» (IT-T3-008, ARIF Puglia): o boletim diz de que semana
+# fala, numa linha que e SO o periodo, no topo. A regra das 8 palavras deitava-a fora e o boletim ficava sem
+# data. Le-se so ali: nas primeiras LINHAS_DO_CABECALHO linhas, num texto que se declara boletim, e a linha
+# inteira tem de ser o periodo. «N° 27 del 16/09/2026» NAO e periodo: e a publicacao, e fica de fora.
+# Entra DEPOIS da data de campo presa a um acontecimento (mais precisa) e do «ieri» contado; um periodo que
+# comeca depois da publicacao provada e futuro.
+LINHAS_DO_CABECALHO = 12
+_RE_E_BOLETIM = re.compile(r"bollettin|settimanal|notiziari|decadal|mensile\s+n|numero\s+\d|n[°º.]\s*\d", re.I)
+_MES = "|".join(FL.MESES)
+_RE_PERIODO_DO_CABECALHO = re.compile(
+    r"^\s*(?:dal\s+)?(\d{1,2})\s*(?:[-–]|al)\s*(\d{1,2})\s+(%s)\s+(\d{4})\s*$" % _MES, re.I)
+
+
+def _periodo_do_cabecalho(texto: str, pub: date | None, tapados: list) -> dict | None:
+    linhas = [l.strip() for l in str(texto or "").splitlines() if l.strip()][:LINHAS_DO_CABECALHO]
+    if not any(_RE_E_BOLETIM.search(l) for l in linhas):
+        return None
+    for l in linhas:
+        m = _RE_PERIODO_DO_CABECALHO.match(FL._baixo(l))
+        if not m:
+            continue
+        a, b, mes, ano = int(m.group(1)), int(m.group(2)), m.group(3), int(m.group(4))
+        valor = "%02d - %02d %s %d" % (a, b, mes, ano)
+        try:
+            ini, fim = date(ano, FL.MES_NUM[mes], a), date(ano, FL.MES_NUM[mes], b)
+        except ValueError:
+            return None
+        if fim < ini:
+            return None
+        if pub and ini > pub:
+            tapados.append("PREVISAO_NAO_E_FATO «%s» (o periodo do boletim comeca depois da publicacao)" % valor)
+            return None
+        return {"VALOR": valor, "KIND": CAMPO, "ORIGEM": "CABECALHO_DO_BOLETIM",
+                "RESOLUCAO": "WEEK" if (fim - ini).days <= 6 else "APPROXIMATE",
+                "TRECHO": "%s (= %s)" % (l, valor) if FL._baixo(l).strip() != valor else l}
+    return None
+
+
 def corpo_com_titulo_e_descricao(texto: str, titulo: str | None = None, descricao: str | None = None) -> str:
     """O corpo, com o TITULO (uma frase, mesmo curta) e a DESCRICAO do video (as linhas dela que tenham
     PALAVRAS_DO_TITULO palavras; sem rodape) a frente. Nada disto e a data de publicacao: e texto do autor."""
@@ -770,6 +828,7 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
                  "RESOLUCAO": RESOLUCAO.get(r.get("FACT_TIME_PRECISION"), "APPROXIMATE"),
                  "TRECHO": _trecho(r.get("FACT_TIME_EVIDENCE"))}
     tempo = tempo or _rel_de(CAMPO)
+    tempo = tempo or _periodo_do_cabecalho(texto, pub, tapados)
     if not tempo and eventos:
         e = eventos[0]
         tempo = {"VALOR": e["VALOR"], "KIND": EVENTO, "ORIGEM": "ESCRITO_NO_TEXTO", "RESOLUCAO": e["RESOLUCAO"],

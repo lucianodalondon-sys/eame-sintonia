@@ -2055,6 +2055,36 @@ def _cultura_fora_da_regua(item: dict) -> tuple:
     return achadas, de_onde
 
 
+# ── EXTRATOR-EVENTO-V2 (D84) · os boletins T2/T3 ─────────────────────────────
+UNIVERSOS_DE_BOLETIM = ("T2", "T3")
+
+
+def _boletim_de(item: dict) -> dict:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leis"))
+    import boletim_do_campo as BC                                  # noqa: PLC0415
+    return BC.ler_boletim(item.get("texto") or "")
+
+
+def _problema_do_boletim(boletim, universo) -> dict:
+    """A praga/doenca que o boletim NAO marca como ausente — com as ausentes a parte e as secoes (cultura →
+    pragas com estado → fases), que e o par que a FINESTRE COLTURALI cruza. «Non presente» nunca e valor."""
+    if not boletim or not (boletim["PROBLEMAS"] or boletim["FASES"]):
+        return {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA}
+    ausentes = sorted({p["NOME"] for s in boletim["SECOES"] for p in s["PROBLEMAS"] if p["ESTADO"] == "AUSENTE"}
+                      - set(boletim["PROBLEMAS_NAO_AUSENTES"]))
+    return {"VALOR": boletim["PROBLEMAS_NAO_AUSENTES"] or AUSENCIA,
+            "VEIO_DE": "item.texto: as secoes do boletim (leis/boletim_do_campo.py)",
+            "BASE": "boletim %s: nome da praga/doenca na secao da cultura; ESTADO PRESENTE (presente/rilevato/"
+                    "catture/sintomi…) ou CITADA (o boletim fala dela sem dizer que a viu)" % universo,
+            "AUSENTES": ausentes,
+            "SECOES": [{"CULTURA": s["CULTURA"] or AUSENCIA,
+                        "PROBLEMAS": [{"NOME": p["NOME"], "ESTADO": p["ESTADO"], "TRECHO": p["TRECHO"][:160]}
+                                      for p in s["PROBLEMAS"]],
+                        "FASES": [f["NOME"] for f in s["FASES"]]} for s in boletim["SECOES"]],
+            "FORMA": "o nome como o boletim o escreve; nao e EPPO",
+            "LEI": boletim["LEI"]}
+
+
 def janela_declarada(item: dict, decisao: Decisao) -> dict:
     """QUATRO-CHAVES (D29): o que a porta JA SABE sobre a janela, com a lei.
 
@@ -2107,6 +2137,10 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
     fora_da_regua, de_onde = ([], [])
     if not da_regua:
         fora_da_regua, de_onde = _cultura_fora_da_regua(item)
+    # EXTRATOR-EVENTO-V2 (D84): nos BOLETINS (T3 fitossanitario, T2 agrometeo) a cultura, a praga e a fase
+    # estao no corpo, por secao de cultura — `leis/boletim_do_campo.py` le-as com o trecho. So entram onde a
+    # regua e o titulo/lugar nao disseram nada; nunca por cima deles.
+    boletim = _boletim_de(item) if decisao.universo in UNIVERSOS_DE_BOLETIM else None
     periodo = periodo_do_fato(item)
     # ⚠️ SO `fact_location`. `source_location` e o lugar de quem PUBLICA, e um
     # boletim da ARPAV (Veneto) pode falar de um fato em Trentino (INT-LAW-101;
@@ -2125,9 +2159,28 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
                                             for o in de_onde), decisao.universo),
                    "BASE": ("vocabulario da regua T1 + CULTURA_SO_DA_CHAVE (admissao.py), lido so no "
                             "titulo e na prova do lugar; leitura para a chave, nao decisao da porta")}
+    elif boletim and boletim["CULTURAS"]:
+        cultura = {"VALOR": boletim["CULTURAS"],
+                   "VEIO_DE": "item.texto: as secoes do boletim (leis/boletim_do_campo.py)",
+                   "BASE": ("boletim %s: a linha curta que NOMEIA a cultura abre a secao dela (palavra inteira); "
+                            "trechos: %s" % (decisao.universo, " ; ".join(
+                                "«%s»" % s["TRECHO_DA_CULTURA"] for s in boletim["SECOES"] if s["CULTURA"])[:600]))}
     else:
         cultura = {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA}
     cultura["FORMA"] = "a do vocabulario da regua, sem normalizar (nao e EPPO)"
+    fases_do_boletim = (boletim or {}).get("FASES") or []
+    if not momentos and fases_do_boletim:
+        fase = {"VALOR": fases_do_boletim, "VEIO_DE": "item.texto: as secoes do boletim (leis/boletim_do_campo.py)",
+                "BASE": "boletim %s: fase/estadio escrito na secao da cultura; trechos: %s" % (
+                    decisao.universo, " ; ".join("«%s»" % f["TRECHO"] for s in boletim["SECOES"]
+                                                 for f in s["FASES"])[:600]),
+                "FORMA": "a fase como o boletim a escreve; nao e BBCH normalizado"}
+    else:
+        fase = {"VALOR": momentos or AUSENCIA,
+                "VEIO_DE": "decisao.evidencia.palavras" if momentos else AUSENCIA,
+                "BASE": base if momentos else AUSENCIA,
+                "FORMA": "sinais de momento que a regua achou; nao e estadio normalizado"}
+    problema = _problema_do_boletim(boletim, decisao.universo)
     if periodo["VALOR"] != AUSENCIA:
         janela = {"VALOR": periodo["VALOR"], "VEIO_DE": periodo["VEIO_DE"], "BASE": periodo["BASE"],
                   "PRECISAO": periodo["PRECISAO"], "EXPRESSAO": periodo["EXPRESSAO"],
@@ -2143,10 +2196,8 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
                            "BASE": _valor(item.get("fact_location_basis"))
                            if regiao != AUSENCIA else AUSENCIA,
                            "LEI": "nunca herdada de source_location (INT-LAW-101)"},
-        "FASE": {"VALOR": momentos or AUSENCIA,
-                 "VEIO_DE": "decisao.evidencia.palavras" if momentos else AUSENCIA,
-                 "BASE": base if momentos else AUSENCIA,
-                 "FORMA": "sinais de momento que a regua achou; nao e estadio normalizado"},
+        "FASE": fase,
+        "PROBLEMA": problema,
         "JANELA": janela,
         "TEMPOS": {"FACT_TIME": _valor(item.get("fact_time")),
                    "PUBLISHED_AT": _valor(item.get("published_at")),
@@ -2178,6 +2229,7 @@ def janela_para_o_ready(item: dict, decisao: Decisao) -> dict:
     """
     j = janela_declarada(item, decisao)
     r = {k: j[k] for k in QUATRO_CHAVES}
+    r["PROBLEMA"] = j["PROBLEMA"]            # EXTRATOR-EVENTO-V2: a 5.a informacao, fora da contagem das 4
     tempos = j["TEMPOS"]
     r["PRECISAO"] = {
         "CHAVES_COM_VALOR": sum(1 for c in QUATRO_CHAVES if r[c]["VALOR"] != AUSENCIA),
