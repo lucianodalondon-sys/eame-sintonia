@@ -181,6 +181,30 @@ def e_lista_com_leia_mais(retrato: dict | None) -> bool:
             and (r.get("READ_MORE_LINKS") or 0) >= LEIA_MAIS_MINIMO)
 
 
+# ── V3: A PAGINA DE UM VIDEO E UM VIDEO (ACERVO-PARA-SALA-3, decisao do coordenador 26/09 14:00) ──
+# Medido no acervo (ACERVO-PARA-SALA-2): as 612 paginas `youtube.com/watch?v=` guardadas foram TODAS
+# julgadas capa (NAVIGATION, ~209 caracteres, 0 em paragrafos): o conteudo de um video (titulo,
+# descricao do autor) vive num <script>, que o retrato nao le. Mas o endereco ja diz o que a pagina
+# E: `watch?v=<id>` e a pagina de UM video — nunca uma lista. Opcao B do relatorio, escolhida pelo
+# coordenador: nesse endereco, e so nele, o veredito e MATERIA_PROVAVEL.
+#
+# SO `youtube.com/watch?v=<11 caracteres>`. Canal (`/@nome`, `/channel/`, `/c/`, `/user/`), playlist
+# (`/playlist?list=`), pesquisa, `/shorts/`, `youtu.be/` e a raiz continuam com o detector.
+#
+# A regra so ALARGA o que entra PELA PORTA DA MATERIA: o texto continua a passar pela regua do
+# universo (medido: 612 -> 5 SIM; 193 ficam NAO_SE_APLICA em T8/T11/T12, que nao tem regua).
+#
+#     O PAR TEM DE MUDAR JUNTO: `coleta/retrato_html.mjs` tem a mesma expressao.
+V3_LIGADA = True
+REGRA_V3 = "V3_PAGINA_DE_UM_VIDEO"
+_PAGINA_DE_VIDEO = re.compile(
+    r"^https?://(?:www\.|m\.)?youtube\.com/watch\?(?:[^#]*&)?v=[A-Za-z0-9_-]{11}(?:[&#]|$)", re.I)
+
+
+def e_pagina_de_um_video(url: str | None) -> bool:
+    return bool(V3_LIGADA and url and _PAGINA_DE_VIDEO.match(url.strip()))
+
+
 def e_o_indice_do_contrato(url: str, contrato: dict | None) -> bool:
     aq = (contrato or {}).get("ACQUISITION") or {}
     if aq.get("STRATEGY") != "HTML_LINK_DISCOVERY":
@@ -202,10 +226,12 @@ def veredito(retrato: dict | None, *, url: str | None, contrato: dict | None,
 
 def regra_e_veredito(retrato: dict | None, *, url: str | None, contrato: dict | None,
                      regua_a_mandar: bool) -> tuple:
-    """(regra que mudou o detector ou None, CAPA_OU_MATERIA). V1 antes de V2."""
+    """(regra que mudou o detector ou None, CAPA_OU_MATERIA). V1, depois V3, depois V2."""
     k = (retrato or {}).get("CAPA_OU_MATERIA")
     if V1_LIGADA and regua_a_mandar is True and url and e_o_indice_do_contrato(url, contrato):
         return (REGRA_V1 if k != "CAPA_PROVAVEL" else None), "CAPA_PROVAVEL"
+    if retrato and e_pagina_de_um_video(url):
+        return (REGRA_V3 if k != "MATERIA_PROVAVEL" else None), "MATERIA_PROVAVEL"
     if e_lista_com_leia_mais(retrato):
         return REGRA_V2, "CAPA_PROVAVEL"
     return None, k

@@ -147,12 +147,26 @@ export function eListaComLeiaMais(retrato) {
   return V2_LIGADA && r.CAPA_OU_MATERIA === "MATERIA_PROVAVEL" && (r.READ_MORE_LINKS || 0) >= LEIA_MAIS_MINIMO;
 }
 
-// [regra que mudou o detector ou null, CAPA_OU_MATERIA]. V1 antes de V2.
+// ── V3: A PAGINA DE UM VIDEO E UM VIDEO (ACERVO-PARA-SALA-3, 26/09) ─────────
+// Gemeo de `curadoria/retrato_html.py` (V3): so `youtube.com/watch?v=<id>` e
+// MATERIA_PROVAVEL; canal, playlist, pesquisa, shorts e youtu.be ficam com o detector.
+export const V3_LIGADA = true;
+export const REGRA_V3 = "V3_PAGINA_DE_UM_VIDEO";
+const PAGINA_DE_VIDEO = /^https?:\/\/(?:www\.|m\.)?youtube\.com\/watch\?(?:[^#]*&)?v=[A-Za-z0-9_-]{11}(?:[&#]|$)/i;
+
+export function ePaginaDeUmVideo(url) {
+  return Boolean(V3_LIGADA && url && PAGINA_DE_VIDEO.test(String(url).trim()));
+}
+
+// [regra que mudou o detector ou null, CAPA_OU_MATERIA]. V1, depois V3, depois V2.
 export function regraEVeredito(retrato, contrato, opcoes) {
   opcoesObrigatorias(opcoes);
   const k = retrato ? retrato.CAPA_OU_MATERIA : undefined;
   if (V1_LIGADA && opcoes.reguaAMandar === true && opcoes.url && eOIndiceDoContrato(opcoes.url, contrato)) {
     return [k !== "CAPA_PROVAVEL" ? REGRA_V1 : null, "CAPA_PROVAVEL"];
+  }
+  if (retrato && ePaginaDeUmVideo(opcoes.url)) {
+    return [k !== "MATERIA_PROVAVEL" ? REGRA_V3 : null, "MATERIA_PROVAVEL"];
   }
   if (eListaComLeiaMais(retrato)) return [REGRA_V2, "CAPA_PROVAVEL"];
   return [null, k];
