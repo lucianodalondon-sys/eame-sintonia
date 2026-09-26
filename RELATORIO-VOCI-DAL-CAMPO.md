@@ -134,11 +134,24 @@ nenhum ficheiro existente além de `architecture.declared.json`, que só ganhou 
 - **`medidas/voz.py`** é o contrato de campos **por vídeo** da coleta (o papel ali é do canal). Não o dupliquei: o item
   Voce é **por frase**, e o canal entra como `PUBLISHER`.
 
-## SHA
+## SHA e o mapa — ESTADO: PRONTO-SEM-MAPA
 
-O commit do conteúdo é o anterior ao do mapa. O **SHA final** é o do commit do mapa regerado pela cadeia, que vem
-logo a seguir a este relatório: um commit não pode conter o próprio SHA (AGENTS.md). O valor está no `git log` do ramo
-e na mensagem de entrega.
+⚠️ **O System Map NÃO foi regerado.** A cadeia (`correr_a_cadeia.py REGERAR`) é trabalho pesado e só corre com a
+LOCK-PESADO. Esperei **3 horas**, de 10:55 a 13:56 de 26/09, conferindo a cada 10 segundos. A LOCK nunca ficou livre:
+passou da REPROC-EXTRATORES para a ACERVO-PARA-SALA-2 e depois para a ROTULOS-T4, todas com dono vivo. Por isso,
+nem REGERAR, nem VALIDAR, nem `--conferir-carimbo` correram: o estado deles é **NÃO SEI**.
+
+O que já está feito para o mapa: as duas peças novas estão declaradas em `system-map/data/architecture.declared.json`
+(`C-VOCI-DAL-CAMPO`, `C-PROVA-VOCI-DAL-CAMPO`), e todo o conteúdo já está no índice e commitado.
+
+**Falta, com a LOCK-PESADO:**
+1. `py system-map/scripts/correr_a_cadeia.py REGERAR`;
+2. commitar os gerados;
+3. `VALIDAR` = PASS;
+4. `impressao_da_arvore.py --conferir-carimbo` = IGUAL.
+
+O SHA final é o último commit deste ramo no GitHub, o que traz este relatório. Um commit não pode conter o próprio
+SHA (AGENTS.md).
 
 ## EM PALAVRAS SIMPLES
 
