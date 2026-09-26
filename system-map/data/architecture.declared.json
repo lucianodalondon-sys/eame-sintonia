@@ -5300,12 +5300,13 @@
    "views": [
     "infra"
    ],
-   "what": "universo.py: as 41 + as 18 contas sociais do vivo (so leitura). videos_guardados.py: as paginas /watch que a Sala guardou (SO LEITURA, DSN de ficheiro nunca impresso), lidas do armazem com sha256 conferido. pontuar.py: sinais por video (cultura, problema, voz, regiao, curto, legenda, recente) com as listas de palavras a vista. sala_so_leitura.py: psql com default_transaction_read_only.",
+   "what": "universo.py: as 41 + as 18 contas sociais do vivo (so leitura). videos_guardados.py: as paginas /watch que a Sala guardou (SO LEITURA, DSN de ficheiro nunca impresso), lidas do armazem com sha256 conferido. pontuar.py: sinais por video (cultura, problema, voz, regiao, curto, legenda, recente) com as listas de palavras a vista. sala_so_leitura.py: psql com default_transaction_read_only. fala_dos_videos.py: dos videos guardados, os 50 mais promissores dos canais tecnicos e o custo de transcrever cada um (pedidos por dominio no teto D38, GPU pela medida de 14/09), em voltas do maestro.",
    "why_here": "PRIMEIRA-VOLTA-VIDEO (26/09/2026): escolher 10 canais para a 1.a coleta social real com transcricao; 612 paginas guardadas lidas, 1 canal forte (L'Informatore Agrario), plano do maestro com 10 ondas de 4 pedidos.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
+    "ferramentas/primeira_volta_video/fala_dos_videos.py",
     "ferramentas/primeira_volta_video/pontuar.py",
     "ferramentas/primeira_volta_video/sala_so_leitura.py",
     "ferramentas/primeira_volta_video/universo.py",

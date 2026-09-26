@@ -1,0 +1,23 @@
+# FALA-DOS-VIDEOS · uma volta de cada vez, pasta nova para cada; depois do lote 3 e das voltas 1 e 2.
+# Antes de cada volta: py superficie/rede.py --portao-de-egresso IT
+
+# VOLTA F01: 11 videos, 12043 s de audio, o maior 3403 s
+SINTONIA_YT_DURACAO_MAX_S=3420 SINTONIA_ASR_DEVICE=GPU py ferramentas/maestro_social/maestro_social.py --correr --autorizado-pelo-dono --canario --saida=<pasta F01> --fontes=IT-T12-008,IT-T12-011,IT-T5-040,IT-T7-023,IT-T7-026,IT-T7-035,IT-T7-036,IT-T8-004,IT-T8-006,IT-T9-014,IT-T9-017 --videos=IT-T12-008:8KG1Z8Sj7qM,IT-T12-011:xA0yJKm2FTM,IT-T5-040:cehYJWAPito,IT-T7-023:wuJlbWJ-zbc,IT-T7-026:XD_TK9Y48vw,IT-T7-035:P7gGMezF9_U,IT-T7-036:9vCy2ueqecs,IT-T8-004:luGlZT0GTqw,IT-T8-006:SR-JeepORhk,IT-T9-014:TXtdpHYMHPU,IT-T9-017:wjHQD_NnwXs
+
+# VOLTA F02: 6 videos, 7422 s de audio, o maior 5634 s
+SINTONIA_YT_DURACAO_MAX_S=5640 SINTONIA_ASR_DEVICE=GPU py ferramentas/maestro_social/maestro_social.py --correr --autorizado-pelo-dono --canario --saida=<pasta F02> --fontes=IT-T12-011,IT-T5-040,IT-T7-026,IT-T8-006,IT-T9-014,IT-T9-017 --videos=IT-T12-011:nC7_AbhgN4s,IT-T5-040:DeGjPh9_cXA,IT-T7-026:ERW_ncM4Oe4,IT-T8-006:xCTbV-g_CV8,IT-T9-014:tEq_UUJ-qZg,IT-T9-017:yGtR9ivFHNk
+
+# VOLTA F03: 6 videos, 2291 s de audio, o maior 1070 s
+SINTONIA_YT_DURACAO_MAX_S=1080 SINTONIA_ASR_DEVICE=GPU py ferramentas/maestro_social/maestro_social.py --correr --autorizado-pelo-dono --canario --saida=<pasta F03> --fontes=IT-T12-011,IT-T5-040,IT-T7-026,IT-T8-006,IT-T9-014,IT-T9-017 --videos=IT-T12-011:lSWrCZpAo90,IT-T5-040:NaJ8zZsJ9wQ,IT-T7-026:xqIMaVkBEB8,IT-T8-006:CI_cn-H4vaE,IT-T9-014:iiPHfUsexkI,IT-T9-017:qycZTOPOvv8
+
+# VOLTA F04: 4 videos, 6197 s de audio, o maior 5175 s
+SINTONIA_YT_DURACAO_MAX_S=5220 SINTONIA_ASR_DEVICE=GPU py ferramentas/maestro_social/maestro_social.py --correr --autorizado-pelo-dono --canario --saida=<pasta F04> --fontes=IT-T12-011,IT-T5-040,IT-T8-006,IT-T9-017 --videos=IT-T12-011:YE-YiGwjv3Q,IT-T5-040:gZXfY9RjG_0,IT-T8-006:P1Y3d5l0wFs,IT-T9-017:JQFgIxJ7P3Y
+
+# VOLTA F05: 2 videos, 173 s de audio, o maior 134 s
+SINTONIA_YT_DURACAO_MAX_S=540 SINTONIA_ASR_DEVICE=GPU py ferramentas/maestro_social/maestro_social.py --correr --autorizado-pelo-dono --canario --saida=<pasta F05> --fontes=IT-T5-040,IT-T9-017 --videos=IT-T5-040:sgSb4aU7OcM,IT-T9-017:B1t7QTmfq30
+
+# VOLTA F06: 2 videos, 781 s de audio, o maior 692 s
+SINTONIA_YT_DURACAO_MAX_S=720 SINTONIA_ASR_DEVICE=GPU py ferramentas/maestro_social/maestro_social.py --correr --autorizado-pelo-dono --canario --saida=<pasta F06> --fontes=IT-T5-040,IT-T9-017 --videos=IT-T5-040:kAMTmy-0B2A,IT-T9-017:BXqDG5nZVrA
+
+# VOLTA F07: 1 videos, 112 s de audio, o maior 112 s
+SINTONIA_YT_DURACAO_MAX_S=540 SINTONIA_ASR_DEVICE=GPU py ferramentas/maestro_social/maestro_social.py --correr --autorizado-pelo-dono --canario --saida=<pasta F07> --fontes=IT-T9-017 --videos=IT-T9-017:XD4TLgprNKY
