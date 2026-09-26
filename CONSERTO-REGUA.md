@@ -1,4 +1,4 @@
-# CONSERTO-REGUA · tempo e lugar · ramo `conserto-regua-v1` (a partir de `ce28040c`)
+# CONSERTO-REGUA · tempo e lugar · ramo `conserto-regua-v1` (nasceu de `ce28040c`; juntado ao vivo `83de0ccd`)
 
 Os quatro erros que a SALA-VERIFICA achou, consertados com teste e **sem piorar nenhum item**.
 Nada foi instalado. A Sala real foi só lida (`default_transaction_read_only`); nada de rede; o RAW
@@ -71,6 +71,8 @@ bruto: pode ter erro de um item.
   14 GB livres, o banco foi desligado no fim. Não se repetiu.
 
 ## 4. Plano (NÃO executado)
+
+**Base.** O ramo já contém o vivo `83de0ccd` (C9): junção `9e4ab4ad`, sem conflito — a C9 só mexeu em `scripts/micro_coleta`, `ferramentas/c9`, `tests/test_c9_idioma.py` e `regras/LEIA-ANTES-DE-COLETAR.md`. Depois da junção: 192 testes OK (os de tempo/lugar + `test_c9_idioma`) e mutação 9/9 de novo. Instala-se em avanço rápido (ff-only) sobre `83de0ccd`.
 
 **Instalar.** Juntar `conserto-regua-v1` pela via de sempre (o coordenador). Só código de leitura muda;
 **nenhuma migração**: as colunas da 033 já existem.
