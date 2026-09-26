@@ -10,6 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
+**Última atualização material:** 2026-09-26 — **§222** (LEI-PESQUISADORES, D85 do dono, `lei-pesquisadores-v1` sobre o vivo `278cd489`): o **pesquisador** passou a família de fonte de primeira linha (a Cadeia B — o porquê — e muitas vezes o sinal precoce); a lista-mestra oficial é o **MUR «Cerca Università»** (medido: 278 docentes de 07/AGRI-05 em 33 universidades), com IRIS e ORCID/OpenAlex para as obras; seguir os canais públicos pela porta canónica, sem login, com os limites D16–D24. O **sinal precoce já estava no acervo**, nos PDFs T3 (Salerno: *Ceratitis capitata* 4 → 40 capturas em 14 dias — não *Prays citri*, que ficou em 0). Lei escrita: Bíblia da Coleta **V1.5** (`COL-LAW-701` série sem resumo · `702` espécie do claim · `703` pessoa-fonte) e Bíblia da Intelligence **V0.4** (secção 38, `INT-LAW-310..315`: cadeia do sinal, MODEL_RULE, risco ≠ ocorrência, resistência, expansão, Cadeia B no CAP-SCI). Nenhuma lei existente alterada; nada implementado.
 **Última atualização material:** 2026-09-23 — **§198** (REELS-FUNCIONANDO, bloco 7, `scrap-portas-v1`): a medição também é uma peça — base de comparação sem `.git` dá verde falso (`git ls-files` responde zero); uma corrida de teste reescreveu um artefacto rastreado (`RUN-MANIFEST.json`) e isso apareceu como 23 falhas novas; a gaveta não rastreada `data/raw/REEL-MIDIA` faz a prova correr em vez de saltar (900 s vs 11 s); e depois da D22 a prova que não mede a plataforma não pode pagar pela rede — os metadados declaram-se no fixture. `NEW_FAILURES_BY_NAME = 0` medido por nome contra `6ea92f6a`. **Antes, §197:** a D22 autorizou a coleta de REELS do Instagram por URL directa, sem login, sem conta e sem rota paga; a matriz passou a `OWNER_AUTHORIZED=SIM` com `PLATFORM_POLICY_STATUS=DISALLOWED` e a rota ganhou o limite `PUBLIC_REEL_BY_URL_ONLY`; canário real 3/3 ponta a ponta, US$ 0. **Antes, §196:** as duas portas do Scrap.
 **Última atualização material:** 2026-09-23 — **§198** (LINKEDIN-VIDEOS · D24: o VÍDEO de uma PESSOA do agro passou a ser adquirido pelo Scrap com autorização ESCRITA do dono, e a medição mostrou que a porta da pessoa é DUAS — o perfil responde 999/authwall e não se contorna, e a página do POST público responde 200 e é por ali que o vídeo se lê; 1 MP4 e 1 legenda reais, US$ 0, dois egressos concordando, e o que fica declarado: a metade italiana não foi encontrada na amostra, a fase nas DUAS portas ainda não existe, e a tela de pessoas nomeadas continua do dono dela, a revisão jurídica). **Antes, §196** (SCRAP-PORTAS-V1, `origin/unificacao-v1` @ `77077dee` → branch `scrap-portas-v1` @ `f5c49473`): as DUAS PORTAS do SCRAP passaram a ter prova uma contra a outra (`tests/test_as_duas_portas_do_scrap.py`, 25 provas) e as duas passaram a consultar a MESMA lei (`leis/social_matriz.py::decisao`). Fechado o `CHECK` que não perguntava à lei (SOC1: `CAN_COLLECT_NOW` no Instagram enquanto a matriz dizia `ROUTE_NOT_ALLOWED`), a recusa datada de `yt-alvos|yt-transcrever` («a matriz nao declara capacidade de BYTES para YOUTUBE» — falso desde 2026-09-19) e as oito fases que existiam no PEDIDO sem porta operacional. O `DOCUMENT_ID` que o contrato declara passou a ser materializado pelo dono do contrato (`IT-T8-001` → `AGRONOTIZIE:YT:{VIDEO_ID}`), fail-closed em quatro casos. A cadeia do som está provada offline ponta a ponta — YouTube audio → RAW → DERIVED (texto pelo dono único do ASR) → ingresso → Admissão com a régua multilingue — em `tests/test_cadeia_do_audio_offline.py` (11 provas, `NETWORK_CALLS = 0`, `ASR_REAL = NOT_RUN`). Decisões do dono aplicadas: **D19** (Instagram `POLICY_BLOCK`; as três fases do Reel CONSTRUÍDAS e RECUSADAS pela matriz) e **D20** (metadados da Data API com prazo de 30 dias, `RENEW_OR_DELETE`). **Antes, §140**, que fecha os dois blockers deixados pelo §139: `import fcntl` no topo de `ferramentas/reel_transcricao.py` (10 módulos de tests/ não carregavam em Windows) e `tests/test_comunicacao.py` a rebentar no import porque `comunicacao_universo.montar()` devolvia um universo VAZIO sem `data/samples/COMPETITOR-CROSSWALK.json` (ficheiro que nunca esteve no Git) — e a linha de comando ESCREVIA esse vazio por cima do universo versionado. Cura A: o cadeado do lote passou a ser o mesmo da admissão (flock em POSIX, msvcrt LK_NBLCK sem teto em Windows), BLOQUEANTE e entre processos, provado com processos filhos. Cura B: sem crosswalk (ou ilegível, ou todo a zero) `CrosswalkIndisponivel`, exit 2, ZERO mutação em disco; o teste passa uma fixture sintética por `montar(caminho=...)`. Resultado medido em processos novos (py 3.12 + PyYAML por PYTHONPATH, Windows): `TestLoader.errors = []`, `TEST_COUNT_CURRENT` = `4.759` DERIVADO, `--sync` reescreveu 8 documentos, dois `--check` com `DRIFT = 0`; sem PyYAML continua NOT_MEASURABLE (falha fechada). Suíte inteira comparada pelo nome: NEW_FAILURES = 0 · NEW_ERRORS = 0 · 20 nomes saíram do vermelho. Red team 0 blockers. `MANUAL_METRIC_STAMP_BLOCKER = CLOSED` · `METRIC_STABILITY_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO` (trunk 9d6dcbbd intocado) · `BIG_COLLECTION = NÃO AUTORIZADA`. O PROMPT continua a dizer «721 testes» (decisão do dono; test_handoff segue vermelho por isso). **Antes, §139** (ver o aviso no fim desta linha). **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`. **⚠️ CORRIGIDO PELO §139 (2026-09-17, mesmo dia):** a verificação independente derrubou o `INTEGRATION_BLOCKERS_FIX = PASS` — o «drift zero» do §138 era de UM ambiente; noutro processo o dono media `4.521` e o drift eram 9 ficheiros. A causa está provada (dois módulos com `import yaml`, 45 casos − 2 fantasmas = 43) e o dono passou a falhar fechado: qualquer módulo de `tests/` que não carregue ⇒ `TEST_COUNT_CURRENT = NOT_MEASURABLE` e `--sync` recusa. Nesta máquina a suíte NUNCA carrega inteira (10 módulos por `fcntl`, 1 por amostra que nunca esteve no Git) — logo `INTEGRATION_BLOCKERS_FIX = FAIL` até um ambiente completo medir e sincronizar. **⚠️ FECHADO PELO §140 (2026-09-17, mesmo dia):** as duas curas foram feitas, a suíte carrega inteira com PyYAML e a contagem foi medida, sincronizada e conferida em processos novos.
 **§134 (2026-09-17):** o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -22488,4 +22489,101 @@ volta, 1 reparo por fonte, e não faz discovery enquanto houver reparo pendente.
   Nesta linha (sem SOC2) o worker escreve esse MESMO texto: destravar seria eco sem fim.
 
     UMA REGRA QUE REABRE O QUE O WORKER FECHA SÓ VALE COM O WORKER QUE A ESCREVEU.
+
+# §222 · O PESQUISADOR É FONTE DE PRIMEIRA LINHA, E O BOLETIM NÃO É O PRIMEIRO SINAL
+
+> LEI-PESQUISADORES-E-SINAL-PRECOCE (lei-pesquisadores-v1, 26/09/2026, a partir do vivo `278cd489`). Ordem escrita do
+> dono: **D85** (`auditoria-madrugada/DECISOES-DONO-2026-09-23.md`), com o ALINHAMENTO COLLECTION → INTELLIGENCE e a
+> matriz de lacunas medida pelo coordenador (secções A–E). Relatório: `LEI-PESQUISADORES.md`. Lei escrita:
+> Bíblia da Coleta **V1.5** (`COL-LAW-701..703`) e Bíblia da Intelligence **V0.4** (secção 38, `INT-LAW-310..315`).
+
+**O PEDIDO, NAS PALAVRAS DO DONO.** «Na Itália não tem uma coisa estilo Lattes? … precisamos também seguir esses
+pesquisadores e achar as redes sociais, por onde eles publicam no dia a dia, isso é ouro pro Sintonia.»
+
+**O QUE MUDOU NA CASA.**
+- **O pesquisador passou a família de fonte de primeira linha**, ao lado dos boletins T3. Ele é a fonte da
+  **Cadeia B** — o porquê: estudo → relação causal → modelo com limiares — e muitas vezes do **sinal precoce**,
+  antes de o boletim sair.
+- **O «Lattes italiano» existe e é o MUR «Cerca Università»** (`cercauniversita.mur.gov.it`): público, sem
+  login, exporta por setor (GSD/SSD). Serve para quem é de **universidade**. A produção vem do **IRIS** (Cineca)
+  de cada universidade; **ORCID · OpenAlex · Crossref** ligam a pessoa às obras. Fora do MUR (CNR, CREA, FEM)
+  cada instituição tem a sua lista — **ainda não medida**.
+- **Medido:** a exportação MUR do GSD **07/AGRI-05** tem **278 docentes em 33 universidades** — 129 de
+  AGRI-05/A (entomologia, ex AGR/11) e 149 de AGRI-05/B (patologia vegetal, ex AGR/12); **0 nomes repetidos
+  dentro da lista**; **7 linhas com a coluna SSD2015 desalinhada** (o setor antigo dessas 7 é NAO SEI). Nas
+  obras T6 já coletadas há **1 466 pessoas** italianas, com ORCID provado em ~30% das obras.
+
+**A REGRA (agora lei, `COL-LAW-703`).**
+- Identidade de pessoa = **lista-mestra oficial + instituição + setor**. ORCID/OpenAlex ligam obras; não
+  provam sozinhos quem é quem. Nome igual sem instituição e setor = **AMBIGUO**, e homónimos **nunca** se fundem.
+- **Seguir** = achar os canais **públicos** onde a pessoa publica no dia a dia (página pessoal ou do laboratório,
+  `researcher-urls` do ORCID, POST público de LinkedIn, X/Bluesky, YouTube do laboratório, blog, podcast,
+  newsletter, ResearchGate só se público sem login). Cada canal entra **pela porta canónica das candidatas**, com
+  os `TIPOS` que já existem e `PARA_QUE` escrito. O canal liga-se à pessoa **por prova** (um aponta para o
+  outro), nunca por parecença de nome.
+- **Os limites D16–D24 continuam inteiros:** sem login, cookie, conta, CAPTCHA ou rota paga; perfil de LinkedIn
+  é muro de login — só o endereço de um POST público; só identidade + o que a pessoa publica como profissional,
+  nunca contactos, seguidores, mensagens nem comentários de terceiros; apagar a pedido; **5 pedidos por domínio
+  por rodada**; VPN italiana.
+
+**O SINAL PRECOCE, MEDIDO HOJE NO QUE JÁ ESTAVA GUARDADO (sem rede).**
+- A primeira medida olhou o **HTML** e concluiu «sinal precoce ausente; só a Terre dell'Etruria (IT-T3-005) tem %
+  e limiar, e as contagens dela estão atrás de login». **Estava errada pela metade:** o sinal está nos **PDFs**.
+- **IT-T3-002 Salerno** — rede por azienda e località, a cada ~14 dias: agrumi em Angri, ***Ceratitis capitata***
+  «n. 4 catture» (02/09) → «n. 40 catture» (16/09); *Prays citri* 0 → 0; *Lobesia botrana* 3 → 5; *Tuta absoluta*
+  na beringela 6 → 9; e limiares escritos (afídio dos citrinos: 10% dos rebentos, 5% em clementina e tangerina).
+  ⚠️ O relatório de origem escreveu primeiro «*Prays citri* 4 → 40». **O bicho estava trocado; os números não.**
+  O pedido desta missão ainda trazia a versão errada — conferir a correção antes de repetir um número.
+- **IT-T3-010 APOL Puglia** — mosca da azeitona **por comprensorio, toda semana** («7 · 1 · 5% · STAZIONARIO ·
+  BASSO»). O cabeçalho da tabela é **imagem**: o que cada coluna mede = **NAO SEI**, e não se adivinha. O próprio
+  boletim avisa que «non c'è alcuna correlazione tra numero delle catture e reale infestazione in campo».
+- **IT-T3-008 ARIF Puglia** — observação escrita («aumento del numero di punture di ovodeposizione») e limiares
+  («4-5% di infestazione attiva»; cidia «10 catture per trappola a settimana»).
+- **ERSA FVG** (IT-T3-027) — página com 23 boletins PDF por cultura e o PDF «Monitoraggio *Halyomorpha halys*
+  18 agosto 2026»; **Umbria** (IT-T3-053) — boletins semanais em PDF (olivo n.1 … n.13 de 25/09). Conteúdo: NAO SEI
+  até se lerem os PDFs (comando pronto noutra missão, 5 pedidos por domínio por rodada).
+- **IT-T3-005 Terre dell'Etruria** — infestação ativa próxima de 5% (tradução do coordenador) com limiar e recomendação, mas as contagens por
+  ponto estão **atrás de login** → fora (D16–D24).
+
+**O QUE A LEI PASSOU A DIZER, E PORQUÊ.**
+- A série chega **como veio**, e nunca resumida (`COL-LAW-701`): «1, 4, 11, 29» não é «a subir». A tendência é da
+  Intelligence. O zero declarado é valor. A coluna sem cabeçalho legível é NAO SEI.
+- O claim pode levar a **espécie** que a fonte lhe deu — OBSERVAÇÃO · PREVISÃO · MODELO · RECOMENDAÇÃO · CENÁRIO ·
+  HIPÓTESE, `UNKNOWN` por omissão (`COL-LAW-702`, estende a 202). A espécie sai do trecho, nunca do tipo da fonte.
+- Na Intelligence: a cadeia **SINAL PRECOCE → CONFIRMAÇÃO → ALERTA → RECOMENDAÇÃO → INTERVENÇÃO** (`INT-LAW-310`); o
+  contrato mínimo de **MODEL_RULE** (`311`); **condição compatível com risco ≠ ocorrência** (`312`); **resistência**
+  só com espécie, população, local, n, molécula, método, resultado e limites (`313`); **expansão/invasora** como
+  espécie do Radar Futuro (`314`); e o **CAP-SCI recebe a Cadeia B** (`315`).
+- **Recusado por já ter dono** (e citado, não reescrito): previsão ≠ facto (`INT-LAW-131`), correlação ≠
+  causalidade (`095`), hipótese não vira facto por repetição (`035`), afiliação ≠ local do estudo (`102`),
+  identidade não se fabrica na Intelligence (`083`/`065`), tempo e lugar do facto (`COL-LAW-031/032/201`), o
+  modelo de claim (`202`), a procedência até ao valor (`203`), não fundir homónimos (`034`).
+
+**AS LACUNAS DO ALINHAMENTO, E ONDE CADA UMA FICOU.**
+
+| # | lacuna | onde ficou |
+|---|---|---|
+| B1 | cadeia temporal do sinal fitossanitário | `INT-LAW-310` |
+| B2 | monitorização quantitativa (capturas, voo, incidência, limiar) | `COL-LAW-701` |
+| B3 | não resumir na Collection | `COL-LAW-701` |
+| B4 | Cadeia B e contrato de MODEL_RULE | `INT-LAW-311`, `315` |
+| B5 | condição compatível com risco | `INT-LAW-312` |
+| B6 | expansão geográfica / invasora | `INT-LAW-314` (espécie de CAP-FUT) |
+| B7 | resistência / perda de eficácia | `INT-LAW-313` |
+| B8 | espécie do claim declarada pela fonte | `COL-LAW-702` |
+| B9 | STUDY_LOCATION / STUDY_PERIOD | `INT-LAW-315` (pedidos à Cadeia B; a lei negativa continua a `102`) |
+| B10 | fontes científicas além do artigo | `INT-LAW-315` |
+| B11 | lista de núcleos italianos (UCSC Piacenza, FEM, UniCT, UniTO, CREA, AIE) | **aqui, não na lei**: é registo operacional e muda |
+
+**ARMADILHAS.**
+- **Número de lei não se reusa.** A faixa `COL-LAW-6xx` já foi usada por um ramo lateral (Card Contract,
+  601..617) que nunca chegou à linha. As leis novas são **701..703**; medido em 559 pontas de ramo: 0 usam 7xx.
+- **Subir a versão de uma Bíblia mexe em mais do que o ficheiro.** A da Intelligence tem cartão no registo
+  (`controle/AUTORIDADES-CANONICAS.json`, `A-BIBLIA-ENG-INTELIGENCIA`): se o cabeçalho diz V0.4 e o cartão V0.3, o
+  motor carimba a corrida com NAO SEI. E o portão da lei exige **um só** veredito CORRENTE: o da V0.3 passou a
+  HISTORICO, e não se apagou.
+- **A da Coleta tem o seu verificador** (`provas/valida_biblia.py`): lei nova precisa de linha na matriz de
+  conformidade e de `leis.json` regerado (`--build`), senão reprova.
+- **Lei escrita não é pesquisador seguido.** Nenhuma das nove leis coleta nada. O seguimento dos canais é a
+  missão SEGUIR-PESQUISADORES; a leitura dos PDFs das séries é da micro-prova do lote 2b.
 
