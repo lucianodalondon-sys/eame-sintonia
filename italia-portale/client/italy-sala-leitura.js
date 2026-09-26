@@ -12,6 +12,8 @@ window.ITALY_SALA_LEITURA = window.ITALY_SALA_LEITURA || null;
   try {
     if (/[?&]sala=local(?:&|$)/.test(window.location.search)) {
       document.write('<script src="italy-sala-leitura.local.js"><\/script>');
+      // CASCO-PAINEL: o painel de operacao, gerado da mesma maneira (audit/casco/painel-operacao.mjs)
+      document.write('<script src="italy-painel.local.js"><\/script>');
     }
   } catch (e) { /* sem location: fica null */ }
 })();

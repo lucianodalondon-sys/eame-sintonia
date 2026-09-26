@@ -1,0 +1,36 @@
+{
+ "CONTRATO": "CASCO_ENTRADA_INTELLIGENCE_EXPERIMENTAL/1",
+ "O_QUE_ISTO_E": "O que o casco (portal) aceita MOSTRAR quando a Intelligence tiver saida EXPERIMENTAL, e como a mostra. O casco so mostra: nao calcula, nao completa, nao ordena por relevancia e nao reconstroi Intelligence (INT-LAW-023).",
+ "ESTADO_HOJE": "NAO HA SAIDA. A Intelligence esta BLOQUEADA pela trava (docs/operacao/TRAVA-DA-INTELIGENCIA.json, COLLECTION_FOUNDATION_CLOSED = NAO) e a EMENDA EXP-D78 espera as 2 assinaturas do dono. A coluna Intelligence da vista #sala diz NAO_EXECUTADA em todos os itens.",
+ "QUEM_ESCREVE": "o dono da Intelligence (bot Intelligence), fora do Git, nos termos da EMENDA EXP-D78 aprovada. O casco nunca escreve este ficheiro.",
+ "ONDE": "um JSON fora do Git (ex.: C:/Users/London1/sintonia-sala-italia/intelligence-experimental/SAIDA-EXPERIMENTAL.json), passado ao gerador: node italia-portale/audit/casco/sala-leitura.mjs <export> <armazem> [copia] --intel=<ficheiro>",
+ "FORMA": {
+  "CABECALHO": {
+   "CONTRATO": "igual a CASCO_ENTRADA_INTELLIGENCE_EXPERIMENTAL/1 — outro valor: RECUSADO",
+   "MARCA": "EXPERIMENTAL — obrigatorio, exatamente",
+   "PUBLICO": "NAO_PARA_CLIENTE — obrigatorio, exatamente",
+   "GERADO_EM": "instante ISO 8601 com fuso",
+   "MOTOR": "identificacao do motor e do commit que o produziu",
+   "EMENDA": "o commit/blob imutavel da EMENDA EXP-D78 aprovada que autorizou a execucao",
+   "FOTOGRAFIA_DA_SALA": "a impressao antes/depois da Sala exigida pela emenda (contagens + hash ordenado por chave)"
+  },
+  "ITENS": [
+   {
+    "ITEM": "a chave do item na Sala: <run_id>#<ordem> — tem de existir no export da Sala; senao RECUSADO",
+    "ESTADO": "um de: SEM_CONCLUSAO | CANDIDATO_EXPERIMENTAL | NAO_SEI",
+    "CONCLUSAO": "texto curto do que a Intelligence concluiu, ou NAO SEI",
+    "BASE": "o porque da conclusao, com a referencia aos campos da Sala que usou (ex.: FACT_TIME, FACT_LOCATION) — sem base: RECUSADO",
+    "USOU_PUBLICACAO_COMO_DATA_DO_FATO": "tem de ser false; true: RECUSADO (a publicacao nunca substitui a data do facto)"
+   }
+  ]
+ },
+ "REGRAS_DO_CASCO": [
+  "Cabecalho sem MARCA=EXPERIMENTAL e PUBLICO=NAO_PARA_CLIENTE: o ficheiro inteiro e RECUSADO e a coluna continua NAO_EXECUTADA.",
+  "Item cuja chave nao existe no export da Sala: RECUSADO (dito na contagem de recusados).",
+  "Cada conclusao aparece com a faixa «EXPERIMENTAL · NAO PARA CLIENTE», ao lado — nunca no lugar — dos quatro campos da Sala.",
+  "Sem pontuacao, sem ordem por relevancia, sem juntar itens: UNKNOWN nao funde nem vira facto.",
+  "Item da Sala sem entrada na saida: continua NAO_EXECUTADA (nao se adivinha).",
+  "O ficheiro gerado para o portal fica fora do Git e do deploy (italy-sala-leitura.local.js)."
+ ],
+ "EXEMPLO": "INTELLIGENCE-EXPERIMENTAL-EXEMPLO-VAZIO.json (cabecalho valido, zero itens: nada inventado)"
+}
