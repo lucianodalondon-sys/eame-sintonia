@@ -45,7 +45,10 @@ GAZ_MIN = {n.lower(): n for n in GAZ}
 #: sigla -> província do gazetteer. DECLARADA: as que a SEDE-DAS-FONTES precisou (propor_regra.py). Crescer
 #: esta tabela é decisão escrita, não conveniência.
 PROVINCIA_DA_SIGLA = {"MO": "Modena", "RE": "Reggio nell'Emilia", "RM": "Roma", "MI": "Milano", "FI": "Firenze",
-                      "BO": "Bologna", "GE": "Genova", "RA": "Ravenna"}
+                      "BO": "Bologna", "GE": "Genova", "RA": "Ravenna",
+                      # D83 (bot Luciano, 26/09): cidade fora da lista -> a PROVINCIA. Crescem so as siglas que as
+                      # fontes da Sala pediram (LUGAR-DO-PUBLICADOR): Legnaro (PD), Rivarolo del Re (CR), Portici (NA).
+                      "PD": "Padova", "CR": "Cremona", "NA": "Napoli"}
 
 RE_TAG = re.compile(r"<script\b.*?</script>|<style\b.*?</style>|<[^>]+>", re.I | re.S)
 RE_MORADA = re.compile(

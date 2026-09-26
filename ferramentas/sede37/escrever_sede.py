@@ -23,7 +23,9 @@ import json
 import sys
 
 CAMPOS = ("SOURCE_LOCATION", "SOURCE_LOCATION_BASIS", "SOURCE_LOCATION_PRECISION", "SOURCE_LOCATION_RULE")
-PENDENTES_DO_DONO = {"IT-T10-021": "duas sedes no rodape (legal Roma, operacional Faenza): qual conta e decisao do dono"}
+#: D83.1 (bot Luciano, 26/09): conta a sede LEGAL; a operacional fica registada a parte, na BASE (nao e outro campo).
+PENDENTES_DO_DONO = {}
+SEDE_OPERACIONAL = {"IT-T10-021": "sede operacional: Faenza (D83.1: conta a sede LEGAL, Roma)"}
 
 
 class InvarianteQuebrado(Exception):
@@ -37,6 +39,8 @@ def provadas(paginas: dict) -> dict:
         if s.get("SOURCE_LOCATION") not in (None, "", "NAO SEI") and s.get("SOURCE_LOCATION_RULE") \
                 and str(s.get("SOURCE_LOCATION_BASIS", "")).startswith("PAGINA_GUARDADA_DA_PROPRIA_FONTE"):
             fora[l["SOURCE_ID"]] = {k: s[k] for k in CAMPOS}
+            if l["SOURCE_ID"] in SEDE_OPERACIONAL:
+                fora[l["SOURCE_ID"]]["SOURCE_LOCATION_BASIS"] += " · " + SEDE_OPERACIONAL[l["SOURCE_ID"]]
     return fora
 
 
@@ -53,7 +57,15 @@ def planear(paginas, contratos, tabela, excluir=None):
             acoes.append(dict(a, ACAO="PENDENTE_DO_DONO", PORQUE=excluir[sid])); continue
         c = pc.get(sid)
         if c is None:
-            acoes.append(dict(a, ACAO="SALTA", PORQUE="fora do livro de contratos do Curator")); continue
+            # LUGAR-DO-PUBLICADOR: fora do Curator mas com linha na tabela do coletor (universidades da Sala) —
+            # a linha da tabela E o contrato que a Sala le; escreve-se SO a SOURCE_LOCATION_RULE dela.
+            if sid in pt and not pt[sid].get("SOURCE_LOCATION_RULE"):
+                pt[sid]["SOURCE_LOCATION_RULE"] = campos["SOURCE_LOCATION_RULE"]
+                acoes.append(dict(a, ACAO="APLICA", TABELA="SOURCE_LOCATION_RULE (so a tabela: fora do Curator)")); continue
+            if sid in pt:
+                igual = pt[sid]["SOURCE_LOCATION_RULE"] == campos["SOURCE_LOCATION_RULE"]
+                acoes.append(dict(a, ACAO="JA_APLICADA" if igual else "JA_TEM", PORQUE=pt[sid]["SOURCE_LOCATION_RULE"])); continue
+            acoes.append(dict(a, ACAO="SALTA", PORQUE="fora do livro de contratos do Curator e da tabela do coletor")); continue
         if c.get("SOURCE_LOCATION") not in (None, "", "NAO SEI"):
             igual = all(c.get(k) == campos[k] for k in CAMPOS)
             acoes.append(dict(a, ACAO="JA_APLICADA" if igual else "JA_TEM", PORQUE=c.get("SOURCE_LOCATION"))); continue

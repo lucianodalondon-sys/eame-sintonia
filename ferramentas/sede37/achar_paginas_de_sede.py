@@ -131,10 +131,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--saida", required=True)
     ap.add_argument("--micro", default="", help="relatorios MICRO-SEDE-RONDA-*.json (;): as paginas pedidas entram como origem E")
+    ap.add_argument("--alvo", default="", help="LUGAR-DO-PUBLICADOR: ficheiro com um SOURCE_ID por linha (ex.: as fontes da Sala); troca a coorte+61")
     a = ap.parse_args()
     coorte = {l["SOURCE_ID"] for l in json.load(open(COORTE, encoding="utf-8"))["COORTE"]}
     p61 = set(git_json(BC)["PRONTAS_DEPOIS"])
-    alvo = sorted(coorte | p61)
+    alvo = sorted(coorte | p61) if not a.alvo else sorted({l.split("|")[0].strip() for l in open(a.alvo, encoding="utf-8") if l.strip()})
     sede60 = {f["SOURCE_ID"]: f for f in git_json(SEDE_FONTES)["FONTES"]}
     contratos = {c["SOURCE_ID"]: c for c in json.load(open(os.path.join(VIVO, "curadoria", "italy_contracts_curator.json"),
                                                             encoding="utf-8"))["FONTES"]}
