@@ -1,6 +1,6 @@
 # RELATÓRIO — ROTULOS-T4 (ramo `nuvem-rotulos-t4-v1`)
 
-**Data:** 2026-09-26 · **Base:** produção `69b0e23f` · **Missão:** `C:/nuvem/prompts/nuvem-rotulos-t4-v1.txt`
+**Data:** 2026-09-26 · **Base:** vivo `278cd489` (começou sobre `69b0e23f`) · **Missão:** `C:/nuvem/prompts/nuvem-rotulos-t4-v1.txt`
 
 Alimenta Portafoglio e Label Intelligence (Bíblia § 34, `CAP-PORT` e `CAP-LABEL`):
 a chave produto × cultura × alvo, com dose, época, restrição e versão do documento.
@@ -102,7 +102,28 @@ antes de ler) → `provas/rotulo-t4/MEDIDA-163.json`;
 `tests/test_rotulo_t4_it.py` — 44 testes, sem rede, cada classe diz se usa dado
 REAL do repo ou SINTETICO marcado.
 
-<<TESTES>>
+**Bateria inteira, módulo a módulo, pelo nome** (`python -m unittest <módulo>` em
+`tests/`, 300 s por módulo, rede fechada, com a `LOCK-PESADO`):
+
+| | commit | módulos | testes | nomes distintos a falhar |
+|---|---|---|---|---|
+| **antes** | vivo `278cd489` (cópia temporária do commit) | 268 | 5.889 | 119 + 2 módulos que estouram os 300 s |
+| **depois** | este ramo, rebaseado sobre `278cd489` | 269 | 6.032 | 121 |
+
+- **Nova falha por nome: 0 atribuível a este ramo.** A diferença de 119 → 121 vem
+  dos 2 módulos que na base estouravam o tempo e aqui completaram:
+  - `test_atomicidade_da_intelligence` — 5 nomes (`P12…` e
+    `test_o_espelho_do_mapa_so_ganhou_as_pecas_declaradas`). **Corri esse módulo
+    sozinho na base com 1.200 s: falha nos mesmos 5.** Comparam a árvore com um
+    commit fixo antigo (`43553a65`); herdados.
+  - `test_o_controle_separa_lei_de_mencao` — 1 nome, `test_M5_o_ponto_fixo…`,
+    que confere o carimbo do mapa contra a árvore. Na base passa (60/60). Aqui
+    falhava porque o mapa ainda não tinha sido regerado; ver § 8 depois da cadeia.
+- Os 44 testes novos (`test_rotulo_t4_it`) passam.
+- A bateria reescreve `data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json` (efeito
+  colateral antigo, também na base). Reposto depois de guardar a diferença.
+- Uma primeira base contra `69b0e23f` foi descartada quando a coordenação mudou o
+  vivo para `278cd489` (14:00) e pediu o rebase.
 
 ## 6. Mutação
 
@@ -126,7 +147,10 @@ teste novo — não se enfraqueceu teste nenhum.
 
 ## 8. SHA
 
-<<SHA>>
+Base: vivo `278cd489` (rebase pedido pela coordenação às 14:00). O SHA final é o
+do commit do mapa regerado e vai na mensagem de entrega — um commit não pode
+conhecer o próprio SHA (AGENTS.md). Cadeia, validação, carimbo e o M5 re-corrido
+depois dela também vão na entrega.
 
 ---
 
