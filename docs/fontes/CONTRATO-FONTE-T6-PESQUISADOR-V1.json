@@ -1,0 +1,72 @@
+{
+ "CONTRATO": "CONTRATO-FONTE-T6-PESQUISADOR-V1",
+ "ESTADO": "PROPOSTA — nao instalado; nenhuma linha escrita nos contratos do vivo",
+ "MISSAO": "PESQUISADORES-T6 (26/09/2026), para a ferramenta Intelligence Scientifica do casco (D84)",
+ "TERRITORIO": "T6 (RESEARCHERS) — o que a rota MEDE e pessoa; OpenAlex/ORCID/Crossref sao a ROTA, nao o territorio (pedido/receitas.py)",
+
+ "A_FONTE": {
+  "O_QUE_E": "um PESQUISADOR, identificado pelo registo ORCID",
+  "ID_CANONICO": "https://orcid.org/<iD>",
+  "ALIASES": ["OpenAlex author id (A...)"],
+  "EXEMPLOS_JA_NO_ATLAS": "IT-T6-001..036 (docs/fontes/ATLAS-DE-FONTES-EAME.md), 0 com contrato",
+  "PAIS_DA_FONTE": "o da PESSOA, pela afiliacao escrita na autoria de um trabalho (OpenAlex institutions.country_code); nunca o do estudo"
+ },
+
+ "O_CAMINHO_CANONICO": [
+  {"DEGRAU": "1 · CANDIDATA", "COMO": "candidatas/fonte_nova.registar(tipo='CIENCIA', pais='IT', nome, url=https://orcid.org/<iD>, para_que, quem_viu, onde_viu, nota)",
+   "QUEM_FAZ": "coleta/pesquisadores_t6.py fichas_candidatas() prepara os argumentos; NAO grava",
+   "ESTADO_HOJE": "PRONTO NO RAMO (ensaio: 59 fichas de 78 pessoas com afiliacao IT; 19 sem ORCID ficam fora)"},
+  {"DEGRAU": "2 · QUALIFY", "COMO": "curadoria/worker.py etapa QUALIFY -> atribuir_source_id.territorio_de(NOME, URL)",
+   "ESTADO_HOJE": "FALTAVA: nenhuma regra dava T6. Um ORCID com «Università» no nome caia em T5; sem instituicao no nome, NAO SEI. CONSERTADO NO RAMO (orcid.org/<iD> -> T6, antes de «universit»), NAO INSTALADO"},
+  {"DEGRAU": "3 · BUILD_CONTRACT", "COMO": "curadoria/worker.py BUILD_CONTRACT",
+   "ESTADO_HOJE": "FALTA: o worker so tem molde HTML; o registo ORCID e a obra no OpenAlex sao APIs JSON. Sem molde API_JSON a fonte para em CAPABILITY. Decisao do dono: molde novo ou contrato escrito pela porta de reparo (reparar_contrato.aplicar), como a T1."},
+  {"DEGRAU": "4 · CANARIO -> READY -> COLETOR", "COMO": "canario + regras/italy_contracts_onboarded.json",
+   "ESTADO_HOJE": "FALTA: sem o degrau 3 nao ha canario"},
+  {"DEGRAU": "5 · ORQUESTRADOR -> ADMISSAO -> SALA", "COMO": "pedido/receitas.py receita T6",
+   "ESTADO_HOJE": "A receita T6 existe mas aponta para coleta/corpus_pesquisador.py coletar, retorno LEGADO/CATALOG (12 pessoas fechadas) — nao atravessa a Admissao. E por isso que a Sala tem 0 T6. Trocar a receita e politica de coleta: decisao do dono (cutover)."}
+ ],
+
+ "A_UNIDADE": {
+  "NOME": "TRABALHO_DE_PESQUISADOR (1 por obra; a pessoa e a fonte, o trabalho e a unidade)",
+  "CAMPOS": {
+   "DOI": "do registo da obra (OpenAlex doi); CROSSREF_CONFIRMA_DOI quando o Crossref a devolve. Sem DOI: NAO SEI",
+   "TRIAL_ID": "identificador de ensaio ESCRITO no resumo (EPPO PP1/..., GEP trial ...). Sem: NAO SEI",
+   "DATASET_ID": "o proprio DOI quando o tipo e dataset; DOI Zenodo/Dryad/figshare escrito no resumo. Sem: NAO SEI",
+   "RESEARCHER_ID/ORCID": "por autor: OPENALEX_ID + ORCID_NO_INDICE + PROVA_DA_PESSOA (escada abaixo)",
+   "INSTITUICAO": "por autor, a declarada NESTA obra (nome, pais, ROR). E do AUTOR",
+   "CULTURA": "vite/melo/mais/pomodoro so se o titulo/resumo NOMEAR (termo gravado); a consulta nao passa para a unidade",
+   "PROBLEMA": "os 8 do Radar, idem",
+   "MOLECULA": "so os 122 ativos de referencia/adama/ACTIVE-INGREDIENTS.json; outra molecula fica NAO SEI (nao 'nenhuma')",
+   "LOCAL_DO_ESTUDO_ESCRITO": "regiao italiana ou Italia NOMEADA no titulo/resumo, com o termo; nunca a afiliacao. Abaixo da regiao: NAO SEI",
+   "PERIODO_DO_ESTUDO": "anos escritos no resumo presos a in/during/over/from/between ou a seasons; decada (1990s) nao conta; publicacao nunca",
+   "PUBLICADO_EM": "a data de publicacao, SEPARADA do periodo"
+  },
+  "ESCADA_DA_PROVA_DA_PESSOA": [
+   "ORCID_AUTODECLARADO — o DOI esta no /works do proprio ORCID (a mais forte)",
+   "ORCID_NO_DEPOSITO_AUTENTICADO — Crossref: o editor depositou o ORCID e a pessoa autenticou",
+   "ORCID_NO_DEPOSITO_DO_EDITOR — Crossref: o editor depositou o ORCID",
+   "ORCID_LIDO_SEM_ESTE_DOI — o ORCID foi lido e nao declara esta obra",
+   "SO_INDICE — so o OpenAlex (que herda o ORCID do perfil e o carimba em tudo): NAO e prova"
+  ]
+ },
+
+ "LEIS": [
+  "AFILIACAO != LOCAL DO ENSAIO",
+  "PUBLICACAO != PERIODO DO ESTUDO",
+  "ORCID NO INDICE != PROVA DA PESSOA",
+  "CONSULTA != PROVA (cultura/problema so pelo texto do trabalho)",
+  "MESMA OBRA = UMA UNIDADE (mesmo DOI, ou mesmo id OpenAlex sem DOI), com todas as consultas que a trouxeram",
+  "MESMO ENSAIO: mesmo TRIAL_ID/DATASET_ID = grupo ENSAIO_PROVADO; mesmo titulo + autor em comum com DOI diferente = PROVAVEL_MESMA_OBRA, para revisao. UNKNOWN nao funde: nada e apagado",
+  "SEM RANKING: pessoas por ordem alfabetica; nenhuma nota; contagem != importancia",
+  "FALHA DE FONTE != ZERO: corpo de erro com HTTP 200 (orcamento) para o dominio e fica FALHA-..., nao vira 0 trabalhos",
+  "SOURCE A != SOURCE B: o Crossref e o ORCID provam, nao substituem o OpenAlex"
+ ],
+
+ "ROTAS_E_TETO": {
+  "TETO": "5 pedidos por dominio por rodada (D38), contados antes de pedir; pausa 3 s",
+  "api.openalex.org": "12 consultas (1 por par, 1.a pagina, 200 por pagina) = 3 rodadas; OBRIGATORIO",
+  "api.crossref.org": "1 pedido por 40 DOI (filtros doi: em OU); INCREMENTAL",
+  "pub.orcid.org": "1 pedido por pessoa (/v3.0/<iD>/works), ordem alfabetica; INCREMENTAL",
+  "CAPACIDADE_OPENALEX": "NAO SEI hoje. 14/09 (outra sessao): 17 pedidos HTTP 200 com 'Insufficient budget'. 18/09 18:25-18:27, nesta maquina: 12 respostas com trabalhos. OPENALEX_API_KEY opcional, so se o dono tiver chave."
+ }
+}
