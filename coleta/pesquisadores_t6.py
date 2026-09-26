@@ -450,6 +450,59 @@ def pessoas(unidades):
     return out
 
 
+ATLAS = os.path.join(RAIZ, 'docs', 'fontes', 'ATLAS-DE-FONTES-EAME.md')
+
+
+def orcids_do_atlas():
+    """ORCID → SOURCE_ID das fontes que o Atlas ja tem (IT-T6-001..036 hoje)."""
+    try:
+        a = open(ATLAS, encoding='utf-8').read()
+    except OSError:
+        return {}
+    out = {}
+    for sid, url in re.findall(r'SOURCE_ID:\s+(IT-T\d+-\d+)\s.*?URL:\s+(\S+)', a, re.S):
+        m = re.search(r'orcid\.org/(\d{4}-\d{4}-\d{4}-\d{3}[\dX])', url)
+        if m:
+            out[m.group(1)] = sid
+    return out
+
+
+def fichas_candidatas(gente, unidades, atlas=None):
+    """O degrau 1 do caminho canonico: cada pessoa → os argumentos de
+    `candidatas/fonte_nova.registar(...)`. NAO grava: quem regista e quem corre a porta.
+
+    So entra quem tem ORCID (o endereco canonico da fonte T6) e pelo menos um par
+    cultura+problema NOMEADO no texto de um trabalho seu. PAIS=IT e o pais da PESSOA pela
+    afiliacao escrita na autoria — nunca o do estudo — e a prova vai na NOTA."""
+    doi_titulo = {u['DOI']: u['TITULO'] for u in unidades}
+    atlas = orcids_do_atlas() if atlas is None else atlas
+    out, sem_orcid = [], 0
+    for p in gente:
+        if not p['PARES_NO_TEXTO']:
+            continue
+        if p['ORCID'] == NAO_SEI:
+            sem_orcid += 1
+            continue
+        if p['ORCID'] in atlas:
+            # ja e fonte: nao nasce outra. Fica listada para o contrato, com o numero que tem.
+            out.append({'JA_E_FONTE': atlas[p['ORCID']], 'url': 'https://orcid.org/%s' % p['ORCID'],
+                        'para_que': 'T6 pesquisador: %s' % '; '.join(p['PARES_NO_TEXTO'])})
+            continue
+        out.append({
+            'tipo': 'CIENCIA', 'pais': 'IT',
+            'nome': '%s — registo ORCID (pesquisador)' % p['NOME'],
+            'url': 'https://orcid.org/%s' % p['ORCID'],
+            'para_que': 'T6 pesquisador: %s' % '; '.join(p['PARES_NO_TEXTO']),
+            'quem_viu': 'PESQUISADORES-T6 (coleta/pesquisadores_t6.py)',
+            'onde_viu': 'OpenAlex: ' + ', '.join(p['DOIS'][:3]),
+            'nota': ('PAIS_PROVA=afiliacao italiana na autoria (%s) de %s «%s»; pais da PESSOA, '
+                     'nao do estudo. PROVA_DA_PESSOA=%s. ORCID do indice OpenAlex.'
+                     % ('; '.join(p['INSTITUICOES_ITALIANAS'][:2]), p['DOIS'][0],
+                        (doi_titulo.get(p['DOIS'][0]) or '')[:80], ','.join(p['PROVAS']))),
+        })
+    return out, sem_orcid
+
+
 # ═════════════════════════════════════════════ 5 · ENSAIO OFFLINE
 def ensaio(pasta=FIXTURES):
     """Corre a leitura inteira sobre as respostas GRAVADAS. Zero pedidos a rede."""
@@ -498,6 +551,8 @@ def ensaio(pasta=FIXTURES):
                                                      'PERIODO_DO_ESTUDO')},
         'PESSOAS_COM_AFILIACAO_IT': len(gente),
         'PESSOAS_COM_ORCID_AUTODECLARADO': sum(1 for g in gente if 'ORCID_AUTODECLARADO' in g['PROVAS']),
+        'CANDIDATAS_T6_PROPOSTAS': len(fichas_candidatas(gente, unidades)[0]),
+        'PESSOAS_COM_PAR_NO_TEXTO_SEM_ORCID': fichas_candidatas(gente, unidades)[1],
         'PLANO_SE_FOSSE_REDE': plano_de_rodadas(
             n_dois=sum(1 for u in unidades if u['DOI'] != NAO_SEI),
             n_pessoas=sum(1 for g in gente if g['ORCID'] != NAO_SEI)),
@@ -640,7 +695,8 @@ def main(argv):
             print(json.dumps(r, ensure_ascii=False, indent=1))
         us, gs, gente = ler_pasta(opt['saida'])
         with open(os.path.join(opt['saida'], 'UNIDADES-T6.json'), 'w', encoding='utf-8', newline='\n') as h:
-            json.dump({'UNIDADES': us, 'GRUPOS': gs, 'PESSOAS': gente}, h, ensure_ascii=False, indent=1)
+            json.dump({'UNIDADES': us, 'GRUPOS': gs, 'PESSOAS': gente,
+                       'CANDIDATAS_T6_PROPOSTAS': fichas_candidatas(gente, us)[0]}, h, ensure_ascii=False, indent=1)
         print(json.dumps({'UNIDADES': len(us), 'GRUPOS': len(gs), 'PESSOAS_COM_AFILIACAO_IT': len(gente)}))
         return 0
     print(__doc__)

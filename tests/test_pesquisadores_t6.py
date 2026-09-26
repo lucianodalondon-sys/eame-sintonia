@@ -251,6 +251,34 @@ class RodadaComRedeFalsa(unittest.TestCase):
         self.assertEqual(len(us), 2)                    # a falha nao entra como zero nem como trabalho
 
 
+class CaminhoCanonico(SemRede):
+    def test_a_ficha_da_candidata_passa_pelo_qualify_como_t6(self):
+        w = obra('10.1/x', 'Downy mildew of grapevine', autores=[
+            autor('A1', 'Ana Rossi', 'IT', '0000-0001-0000-0001', inst='Università di Padova'),
+            autor('A2', 'Sem Orcid', 'IT')])
+        us, _ = T6.deduplicar([(w, 'vite x peronospora')])
+        fichas, sem_orcid = T6.fichas_candidatas(T6.pessoas(us), us)
+        self.assertEqual(sem_orcid, 1)                   # sem ORCID nao ha endereco canonico
+        self.assertEqual(len(fichas), 1)
+        f = fichas[0]
+        self.assertEqual((f['tipo'], f['pais'], f['url']), ('CIENCIA', 'IT', 'https://orcid.org/0000-0001-0000-0001'))
+        self.assertIn('nao do estudo', f['nota'])
+        self.assertEqual(ASI.territorio_de({'NOME': f['nome'], 'URL': f['url']})[0], 'T6')
+
+    def test_quem_ja_e_fonte_no_atlas_nao_nasce_outra_vez(self):
+        self.assertEqual(T6.orcids_do_atlas().get('0000-0003-2089-1026'), 'IT-T6-001')
+        w = obra('10.1/x', 'Downy mildew of grapevine', autores=[autor('A1', 'Andrea Lentini', 'IT', '0000-0003-2089-1026')])
+        us, _ = T6.deduplicar([(w, 'vite x peronospora')])
+        fichas, _ = T6.fichas_candidatas(T6.pessoas(us), us)
+        self.assertEqual(fichas[0]['JA_E_FONTE'], 'IT-T6-001')
+        self.assertNotIn('tipo', fichas[0])
+
+    def test_sem_par_nomeado_no_texto_nao_ha_candidata(self):
+        w = obra('10.1/x', 'Genome of a fungus')
+        us, _ = T6.deduplicar([(w, 'vite x peronospora')])
+        self.assertEqual(T6.fichas_candidatas(T6.pessoas(us), us), ([], 0))
+
+
 class Qualify(unittest.TestCase):
     def test_registo_orcid_e_t6_com_ou_sem_instituicao_no_nome(self):
         u = 'https://orcid.org/0000-0003-2089-1026'
