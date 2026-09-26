@@ -59,6 +59,7 @@ TETO_POR_DOMINIO = 5          # D38: por dominio, por rodada
 DOIS_POR_PEDIDO_CROSSREF = 40  # filtros doi: repetidos sao OU no Crossref
 POR_PAGINA = 200
 DESDE = '2019-01-01'
+EXTRATOR_VERSAO = 't6-v2'     # v2: local provincia/zona, periodo com mais ancoras, molecula do registo IT
 PAUSA = 3.0                   # a licao de 30/08 (universo_ciencia_it.py): devagar
 
 # ── culturas do casco e problemas do Radar ─────────────────────────────────────
@@ -137,14 +138,6 @@ REGIOES_EN = {
 }
 PAIS_IT = ('italy', 'italia')   # «italian» nao: «Italian cultivar» nao e lugar
 
-# ── periodo do ESTUDO: anos escritos no resumo, presos a uma ancora de ensaio ──────
-# ⚠️ lido a mao no ensaio: «In the 1990s» (a historia da doenca) dava periodo 1990. Ano
-# seguido de «s» e decada, nao periodo do ensaio: (?![0-9s]) depois de cada ano.
-_ANCORA_PERIODO = re.compile(
-    r'(?:\b(?:in|during|over|from|between)\s+(?:the\s+)?(?:(?:growing\s+)?seasons?\s+|years?\s+)?'
-    r'((?:19|20)\d\d)(?![0-9s])(?:\s*(?:-|–|to|and)\s*((?:19|20)\d\d)(?![0-9s]))?)'
-    r'|(((?:19|20)\d\d)\s*(?:-|–)\s*((?:19|20)\d\d)\s+(?:growing\s+)?seasons?)', re.I)
-
 # ── identificadores de ensaio/dataset que o texto pode trazer ────────────────────
 _DATASET_DOI = re.compile(r'10\.(?:5281/zenodo\.\d+|5061/dryad\.[a-z0-9]+|6084/m9\.figshare\.\d+)',
                           re.I)
@@ -156,8 +149,27 @@ def _ler(f):
         return json.load(h)
 
 
+# ── periodo do ESTUDO: anos escritos no resumo, presos a uma ancora de ensaio ──────
+# v2 (T6-PARA-SALA, 26/09, pedido da coordenacao 11:08: «extrair local e periodo do resumo»)
+# ⚠️ lido a mao no ensaio: «In the 1990s» (a historia da doenca) dava periodo 1990. Ano
+# seguido de «s» e decada, nao periodo do ensaio: (?![0-9s]) depois de cada ano.
+_ANO = r'((?:19|20)\d\d)(?![0-9s])'
+_ATE = r'(?:\s*(?:-|–|—|/|to|and|until)\s*' + _ANO + r')?'
+_ANCORAS_PERIODO = [
+    # «in 2019», «during 2020–2021», «between 2018 and 2020», «from 2017 to 2019»
+    re.compile(r'\b(?:in|during|over|from|between|since)\s+(?:the\s+)?(?:(?:growing|cropping)\s+)?'
+               r'(?:seasons?\s+|years?\s+|campaigns?\s+|vintages?\s+)?' + _ANO + _ATE, re.I),
+    # «2019–2020 growing seasons», «2021 and 2022 seasons», «2020 vintage», «2019/2020 season»
+    re.compile(_ANO + _ATE + r'\s+(?:(?:growing|cropping)\s+)?(?:seasons?|campaigns?|vintages?)\b', re.I),
+    # «(2018–2020)», «(2019-2021)» — so um INTERVALO entre parenteses: «(Rossi, 2019)» e citacao
+    re.compile(r'\(\s*' + _ANO + r'\s*(?:-|–|—|/)\s*' + _ANO + r'\s*\)', re.I),
+    # «seasons 2019 and 2020», «years 2018–2020»
+    re.compile(r'\b(?:(?:growing|cropping)\s+)?(?:seasons?|years?|campaigns?|vintages?)\s+' + _ANO + _ATE, re.I),
+]
+
+
 def _moleculas():
-    """Os 122 ativos do portfolio ADAMA Italia (T4). SO estes: o resto fica NAO SEI."""
+    """Os 122 ativos do portfolio ADAMA Italia (T4). Continuam marcados como ADAMA."""
     try:
         d = _ler(ATIVOS)
     except OSError:
@@ -171,6 +183,100 @@ def _moleculas():
 
 
 MOLECULAS = _moleculas()
+
+# v2 · O LEXICO COMPLETO: todas as substancias do registo italiano de produtos
+# fitossanitarios (Ministero della Salute, PROD_FTS_6 de 07/09/2026, todas as empresas,
+# autorizados e revogados — um artigo de 2019 fala de mancozeb). Nao so os 122 ADAMA.
+REGISTO_IT = os.path.join(RAIZ, 'data', 'samples', 'IT-SOURCE-SAMPLES', 'IT-T4-001', 'PROD_FTS_6_20260907.csv')
+# Nomes do registo que num resumo cientifico NAO dizem «esta molecula foi usada»: coformulantes,
+# hormonas da propria planta, palavras genericas. Declarados aqui, um a um.
+MOLECULAS_GENERICAS = frozenset({
+    'ethylene', 'dibromide', 'grasso', 'glicerina', 'petrolio', 'paraffina', 'siliconi', 'polisilossano',
+    'kieselgur', 'lecithins', 'maltodextrin', 'idrossietilcellulosa', 'pinolene', 'brandol', 'bopardoil',
+    'pertane', 'gibberellins', 'e,e/z', 'e,z,z', 'nicotine',
+    # lidos a mao no antes/depois (26/09): gas, levedura do vinho, hormona da planta
+    'carbon dioxide', 'saccharomyces cerevisiae', 'gibberellic acid'})
+# o nome aparece, mas NAQUELE contexto nao e a molecula aplicada: SO2 do vinho, cobre medido no solo
+CONTEXTO_NEGATIVO = {
+    'sulfur': re.compile(r'sulfur\s+dioxide'), 'sulphur': re.compile(r'sulphur\s+dioxide'),
+    'copper': re.compile(r'copper\s+(?:content|concentrations?|accumulation|contamination|levels?|in\s+soils?)'),
+}
+# a mesma substancia com outro nome no texto cientifico (grafia americana, familia do cobre)
+MOLECULAS_VARIANTES = {'sulfur': 'sulphur', 'zolfo': 'sulphur', 'copper': 'copper (familia)',
+                       'rame': 'copper (familia)', 'fosetyl': 'fosetyl'}
+
+
+def _moleculas_registo():
+    import csv
+    try:
+        with open(REGISTO_IT, encoding='utf-8', newline='') as h:
+            linhas = list(csv.DictReader(h, delimiter=';'))
+    except OSError:
+        return {}
+    out = {}
+    for r in linhas:
+        for p in (r.get('sostanze_attive') or '').split('|'):
+            p = p.strip()
+            if not p or p == '-':
+                continue
+            base = re.sub(r'\s*\(.*?\)\s*', ' ', p).strip()
+            base = re.split(r'\s+(?:STRAINS?|CEPP[OI]|SOTTOSPECIE|SUBSP\.?|ISOLATE|VAR\.)\b', base)[0].strip()
+            for n in [base] + re.findall(r'\((.*?)\)', p):
+                n = n.strip().lower()
+                if len(n) >= 5 and n not in MOLECULAS_GENERICAS and not re.fullmatch(r'[\d\W]+', n):
+                    out[n] = p
+    for v, canon in MOLECULAS_VARIANTES.items():
+        out.setdefault(v, canon)
+    return out
+
+
+MOLECULAS_REGISTO = _moleculas_registo()
+
+
+def _moleculas_no_texto(texto):
+    """Cada molecula NOMEADA no texto, com o lexico que a sustentou. Um nome contido noutro
+    maior tambem achado («copper» dentro de «copper oxychloride») nao conta duas vezes."""
+    achadas = {}
+    for nome, orig in MOLECULAS_REGISTO.items():
+        if CP._tem(nome, texto):
+            achadas[nome] = {'VALOR': nome, 'NO_REGISTO_IT': orig,
+                             'ADAMA_IT': MOLECULAS.get(nome) or MOLECULAS.get(str(orig).lower()) or NAO_SEI}
+    for nome, aid in MOLECULAS.items():
+        if nome not in achadas and CP._tem(nome, texto):
+            achadas[nome] = {'VALOR': nome, 'NO_REGISTO_IT': NAO_SEI, 'ADAMA_IT': aid}
+    for n in list(achadas):
+        if any(n != m and n in m for m in achadas):
+            achadas.pop(n)
+        elif n.endswith((' sp.', ' spp.', ' sp', ' spp')):
+            achadas.pop(n)                           # genero sem especie nao identifica o produto
+        elif n in CONTEXTO_NEGATIVO:
+            total = len(re.findall(r'(?<![a-z0-9])%s(?![a-z0-9])' % re.escape(n), texto))
+            if total and total == len(CONTEXTO_NEGATIVO[n].findall(texto)):
+                achadas.pop(n)                       # todas as vezes no contexto que nao e aplicacao
+    return sorted(achadas.values(), key=lambda x: x['VALOR'])
+
+
+# ── lugar do ESTUDO: provincias (gazetteer do piloto) e zonas de Italia ─────────────
+def _provincias():
+    try:
+        sys.path.insert(0, os.path.join(RAIZ, 'leis'))
+        import fato_local as FL                      # o gazetteer italiano (outro dono): so se LE
+        return tuple(FL.PROVINCIAS)
+    except Exception:                                # noqa: BLE001
+        return ()
+
+
+# o nome ingles das que o resumo cientifico escreve em ingles
+EXONIMOS = {'Milano': ('milan',), 'Torino': ('turin',), 'Firenze': ('florence',), 'Napoli': ('naples',),
+            'Venezia': ('venice',), 'Roma': ('rome',), 'Genova': ('genoa',), 'Padova': ('padua',),
+            'Mantova': ('mantua',), 'Siracusa': ('syracuse',), 'Bolzano': ('bozen',)}
+PROVINCIAS_IT = _provincias()
+ZONAS_IT = {'Norte de Italia': ('northern italy', 'north italy', 'north-eastern italy', 'northeastern italy',
+                                'north-western italy', 'northwestern italy', 'nord italia', 'italia settentrionale'),
+            'Sul de Italia': ('southern italy', 'south italy', 'italia meridionale'),
+            'Centro de Italia': ('central italy', 'italia centrale')}
+# «University of Padova» nao e onde o ensaio foi: o nome logo depois destas palavras nao conta
+_INSTITUCIONAL = re.compile(r'(universit\w*|institut\w*|istituto|department|dipartimento|cnr|crea)\W+(of|di|degli|della|del)?\W*$', re.I)
 
 
 # ═════════════════════════════════════════════ 1 · AS CONSULTAS E O TETO
@@ -243,26 +349,57 @@ def _achados(lex, texto):
 
 
 def _local_do_estudo(texto_original):
-    """Regiao italiana ou Italia NOMEADAS no titulo/resumo, com o trecho. Nunca afiliacao."""
+    """Lugar italiano NOMEADO no titulo/resumo, com o termo. Nunca afiliacao.
+
+    v2: regiao (20, com nome ingles) + provincia (gazetteer do piloto, com exonimo ingles)
+    + zona («northern Italy»). Um nome logo depois de «University of / Istituto di» nao conta.
+    So se nada disso aparecer, «Italy» sozinho da o PAIS."""
     t = CP._texto(texto_original)
-    regs = [{'VALOR': reg, 'PRECISAO': 'REGIAO', 'TERMO': termo, 'ORIGEM': 'ESCRITO'}
-            for reg, termos in REGIOES_EN.items()
-            for termo in [next((x for x in termos if CP._tem(x, t)), None)] if termo]
-    if regs:
-        return regs
-    pais = next((x for x in PAIS_IT if CP._tem(x, t)), None)
+
+    def achar(termo):
+        rx = re.compile(r'(?<![a-z0-9])%s(?![a-z0-9])' % re.escape(CP._texto(termo).strip()).replace(r'\ ', r'\s+'))
+        for m in rx.finditer(t):
+            if not _INSTITUCIONAL.search(t[max(0, m.start() - 40):m.start()]):
+                return True
+        return False
+
+    out = []
+    for reg, termos in REGIOES_EN.items():
+        termo = next((x for x in termos if achar(x)), None)
+        if termo:
+            out.append({'VALOR': reg, 'PRECISAO': 'REGIAO', 'TERMO': termo, 'ORIGEM': 'ESCRITO'})
+    for prov in PROVINCIAS_IT:
+        termo = next((x for x in (prov,) + EXONIMOS.get(prov, ()) if achar(x)), None)
+        if termo:
+            out.append({'VALOR': prov, 'PRECISAO': 'PROVINCIA', 'TERMO': termo, 'ORIGEM': 'ESCRITO'})
+    for zona, termos in ZONAS_IT.items():
+        termo = next((x for x in termos if achar(x)), None)
+        if termo:
+            out.append({'VALOR': zona, 'PRECISAO': 'ZONA', 'TERMO': termo, 'ORIGEM': 'ESCRITO'})
+    if out:
+        return out
+    pais = next((x for x in PAIS_IT if achar(x)), None)
     if pais:
         return [{'VALOR': 'Italia', 'PRECISAO': 'PAIS', 'TERMO': pais, 'ORIGEM': 'ESCRITO'}]
     return []
 
 
-def _periodo_do_estudo(resumo):
-    """Anos do ENSAIO escritos no resumo, presos a «in/during/over/from/between» ou a
-    «seasons». A data de publicacao nunca entra aqui."""
-    out = []
-    for m in _ANCORA_PERIODO.finditer(resumo or ''):
-        a, b = (m.group(1), m.group(2)) if m.group(1) else (m.group(4), m.group(5))
-        out.append({'DE': a, 'ATE': b or a, 'TRECHO': m.group(0).strip()[:80]})
+def _periodo_do_estudo(resumo, publicado=None):
+    """Anos do ENSAIO escritos no resumo, presos a uma ancora (in/during/between, seasons,
+    vintage, intervalo entre parenteses). A data de publicacao nunca entra — e um ano DEPOIS
+    dela nao pode ser do ensaio ja publicado, por isso cai."""
+    teto = int(str(publicado)[:4]) if str(publicado or '')[:4].isdigit() else 2100
+    out, vistos = [], set()
+    for rx in _ANCORAS_PERIODO:
+        for m in rx.finditer(resumo or ''):
+            anos = [g for g in m.groups() if g]
+            a, b = anos[0], anos[-1]
+            if int(a) > int(b):
+                a, b = b, a
+            if int(b) > teto or int(a) < 1950 or (a, b) in vistos:
+                continue
+            vistos.add((a, b))
+            out.append({'DE': a, 'ATE': b, 'TRECHO': m.group(0).strip()[:80]})
     return out
 
 
@@ -298,8 +435,7 @@ def unidade(w, pares_da_consulta):
         dataset.append({'ID': m.group(0).lower(), 'COMO': 'DOI de dataset escrito no resumo'})
     trial = [{'ID': m.group(0), 'COMO': 'escrito no resumo'} for m in _TRIAL.finditer(resumo)]
 
-    moleculas = [{'VALOR': nome, 'ACTIVE_INGREDIENT_ID': aid}
-                 for nome, aid in MOLECULAS.items() if CP._tem(nome, texto)]
+    moleculas = _moleculas_no_texto(texto)
 
     return {
         'UNIDADE': 'TRABALHO_DE_PESQUISADOR',
@@ -315,9 +451,11 @@ def unidade(w, pares_da_consulta):
         'CULTURA': _achados(CULTURAS, texto) or NAO_SEI,
         'PROBLEMA': _achados(PROBLEMAS, texto) or NAO_SEI,
         'MOLECULA': moleculas or NAO_SEI,
-        'MOLECULA_LEXICO': 'so os %d ativos do portfolio ADAMA Italia (referencia/adama)' % len(MOLECULAS),
+        'MOLECULA_LEXICO': ('registo italiano PROD_FTS_6 07/09/2026: %d nomes (+ os %d ADAMA marcados)'
+                            % (len(MOLECULAS_REGISTO), len(MOLECULAS))),
+        'EXTRATOR': EXTRATOR_VERSAO,
         'LOCAL_DO_ESTUDO_ESCRITO': _local_do_estudo(titulo + ' . ' + resumo) or NAO_SEI,
-        'PERIODO_DO_ESTUDO': _periodo_do_estudo(resumo) or NAO_SEI,
+        'PERIODO_DO_ESTUDO': _periodo_do_estudo(resumo, w.get('publication_date')) or NAO_SEI,
         'CONSULTAS_QUE_O_TROUXERAM': sorted(pares_da_consulta),
         'NA_CONSULTA_E_NO_TEXTO': sorted(
             p for p in pares_da_consulta
@@ -718,10 +856,14 @@ def medir(saida):
             'PROBLEMA': conta(lambda u: tem(u, 'PROBLEMA')),
             'LOCAL_DO_ESTUDO_ESCRITO': conta(lambda u: tem(u, 'LOCAL_DO_ESTUDO_ESCRITO')),
             'LOCAL_ESCRITO_ABAIXO_DO_PAIS': conta(lambda u: tem(u, 'LOCAL_DO_ESTUDO_ESCRITO') and any(
-                l['PRECISAO'] == 'REGIAO' for l in u['LOCAL_DO_ESTUDO_ESCRITO'])),
+                l['PRECISAO'] in ('REGIAO', 'PROVINCIA') for l in u['LOCAL_DO_ESTUDO_ESCRITO'])),
             'PERIODO_DO_ESTUDO': conta(lambda u: tem(u, 'PERIODO_DO_ESTUDO')),
             'LOCAL_E_PERIODO': conta(lambda u: tem(u, 'LOCAL_DO_ESTUDO_ESCRITO') and tem(u, 'PERIODO_DO_ESTUDO')),
-            'MOLECULA_ADAMA': conta(lambda u: tem(u, 'MOLECULA')),
+            'MOLECULA': conta(lambda u: tem(u, 'MOLECULA')),
+            'MOLECULA_ADAMA': conta(lambda u: tem(u, 'MOLECULA') and any(
+                m.get('ADAMA_IT', m.get('ACTIVE_INGREDIENT_ID', NAO_SEI)) != NAO_SEI for m in u['MOLECULA'])),
+            'CULTURA_PROBLEMA_LOCAL_PERIODO': conta(lambda u: tem(u, 'CULTURA') and tem(u, 'PROBLEMA') and tem(
+                u, 'LOCAL_DO_ESTUDO_ESCRITO') and tem(u, 'PERIODO_DO_ESTUDO')),
             'TRIAL_ID': conta(lambda u: tem(u, 'TRIAL_ID')),
             'DATASET_ID': conta(lambda u: tem(u, 'DATASET_ID')),
             'SEM_RESUMO_NO_INDICE': conta(lambda u: not u.get('TEM_RESUMO_NO_INDICE')),
