@@ -92,6 +92,21 @@ def main(argv) -> int:
                                       "PORTA": recibo.get("PORTA"), "INGRESSO": recibo.get("INGRESSO"),
                                       "ERRO": recibo.get("ERRO") or recibo.get("ERRO_A_LER_A_SAIDA")}
             res["DEPOIS_%d" % n] = contar()
+            if n == 1:
+                # «COM QUE CAMPOS»: cada coluna de texto da Sala, preenchida (≠ NAO SEI) nas linhas novas
+                cols = [c[0] for c in MC.sql(
+                    "select column_name from information_schema.columns where table_schema = 'public' "
+                    "and table_name = 'sala_de_espera' and data_type in ('text', 'character varying', 'jsonb', 'json') "
+                    "order by ordinal_position")]
+                campos = {}
+                for c in cols:
+                    campos[c] = int(MC.sql(
+                        "select count(*) from public.sala_de_espera where source_id = 'EU-T5-001' "
+                        "and %s is not null and %s::text not in ('NAO SEI', '\"NAO SEI\"', '')" % (c, c))[0][0])
+                res["CAMPOS_PREENCHIDOS_NAS_LINHAS_NOVAS"] = campos
+                res["UMA_LINHA_NOVA"] = MC.sql(
+                    "select row_to_json(s)::text from public.sala_de_espera s where source_id = 'EU-T5-001' "
+                    "order by 1 limit 1")[0][0][:3000]
     finally:
         os.environ.pop("SINTONIA_SALA_DSN", None)
         base.descer()
