@@ -139,3 +139,14 @@ nomeado, cada corrida social tem o seu 5 (o livro próprio), e duas corridas da 
 - **O que ainda falta (de outros donos):** o "maestro" que conduz a rodada social inteira, ajustes no baixador de
   vídeo para não desperdiçar vagas, e uma coluna na Sala para guardar o "é o mesmo vídeo".
 - **Nada foi instalado, coletado ou mexido no vivo.**
+
+## v2 · repetido sobre o vivo 69b0e23f (26/09 ~06:55)
+
+- Ficheiros que o ramo muda em relação ao vivo: 16, todos do freio/dedup/C2 (`git diff --stat 69b0e23f`). **Não toca**
+  `SOCIAL-QUALIFICAR.md`; em `coleta/scrap_http.py` a única linha do vivo mexida é a da contagem, que passa a vir
+  DEPOIS da reserva do freio (continua a contar só o que sai).
+- Testes: 60 OK (freio 11 · dedup 8 · C2 6 · prova-teto social 22 · teto web 1 (10/10 casos locais) · bruto 8 · semear 4).
+- **Mutação `provas/_mutantes_freio_social.py`: 14/14 mortos.**
+- **Regressão** (38 suítes de Scrap/YouTube/LinkedIn/teto/onda/social): vivo 69b0e23f 844 testes · ramo 869 — **as
+  mesmas 14 falhas herdadas**, linha a linha.
+- **ff-only sobre `69b0e23f` = SIM.**
