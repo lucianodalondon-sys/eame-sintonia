@@ -23,8 +23,35 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CLIENTE = path.resolve(HERE, '..', '..', 'client');
-const [EXPORT, ARMAZEM, COPIA] = process.argv.slice(2);
-if (!EXPORT || !ARMAZEM) { console.error('uso: sala-leitura.mjs <export.json> <armazem> [copia.js]'); process.exit(2); }
+const POS = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const OPT = Object.fromEntries(process.argv.slice(2).filter((a) => a.startsWith('--') && a.includes('='))
+  .map((a) => [a.slice(2, a.indexOf('=')), a.slice(a.indexOf('=') + 1)]));
+const [EXPORT, ARMAZEM, COPIA] = POS;
+if (!EXPORT || !ARMAZEM) {
+  console.error('uso: sala-leitura.mjs <export.json> <armazem> [copia.js] [--achados=<LEITURA-SALA-PAINEL.json>] [--intel=<saida-experimental.json>]');
+  process.exit(2);
+}
+// CASCO-PAINEL · os originais que o caminho da Sala perdeu: a procura por sha256 (procurar_16.py, so leitura)
+// deu COPIAS IDENTICAS noutros caminhos. Aqui cada uma e conferida DE NOVO pelo sha256 antes de virar link.
+const ACHADOS = OPT.achados ? ((JSON.parse(fs.readFileSync(OPT.achados, 'utf8')).PROCURA || {}).ACHADOS || {}) : {};
+// CASCO-PAINEL · a saida EXPERIMENTAL da Intelligence, pelo contrato CASCO_ENTRADA_INTELLIGENCE_EXPERIMENTAL/1.
+// O casco so mostra. Cabecalho errado: tudo recusado. Item que nao existe na Sala: recusado.
+const INTEL = { aceite: false, porque: 'sem ficheiro de saida experimental', itens: new Map(), recusados: 0 };
+if (OPT.intel) {
+  const s = JSON.parse(fs.readFileSync(OPT.intel, 'utf8'));
+  const c = s.CABECALHO || {};
+  if (c.CONTRATO !== 'CASCO_ENTRADA_INTELLIGENCE_EXPERIMENTAL/1' || c.MARCA !== 'EXPERIMENTAL' || c.PUBLICO !== 'NAO_PARA_CLIENTE') {
+    INTEL.porque = 'RECUSADO: cabecalho sem CONTRATO/1, MARCA=EXPERIMENTAL e PUBLICO=NAO_PARA_CLIENTE';
+  } else {
+    INTEL.aceite = true;
+    INTEL.porque = `aceite: ${(s.ITENS || []).length} itens (${path.basename(OPT.intel)})`;
+    INTEL.cabecalho = c;
+    for (const i of s.ITENS || []) {
+      if (!i || !i.ITEM || !i.BASE || i.USOU_PUBLICACAO_COMO_DATA_DO_FATO !== false) { INTEL.recusados++; continue; }
+      INTEL.itens.set(String(i.ITEM), { estado: i.ESTADO, conclusao: i.CONCLUSAO, base: i.BASE });
+    }
+  }
+}
 
 const NS = 'NAO SEI';
 const vazio = (v) => v == null || String(v).trim() === '' || /^(NAO SEI|NÃO SEI|UNKNOWN|NOT_KNOWN)\b/i.test(String(v).trim());
@@ -61,6 +88,14 @@ for (const x of itens) {
       : { estado: 'SHA_DIFERENTE', sha256: x.raw_sha256, noDisco: sha };
   } else if (f) {
     raw = { estado: 'NAO_ENCONTRADO', sha256: x.raw_sha256 || NS, caminho: rel };
+    for (const alt of ACHADOS[x.raw_sha256] || []) {
+      if (!fs.existsSync(alt)) continue;
+      const sha = crypto.createHash('sha256').update(fs.readFileSync(alt)).digest('hex');
+      if (sha !== x.raw_sha256) continue;
+      raw = { estado: 'CONFERIDO_NOUTRO_CAMINHO', href: pathToFileURL(alt).href, sha256: sha, caminhoDaSala: rel,
+        caminhoEncontrado: alt, media: x.raw_media_type, bytes: Number(x.raw_bytes) || null };
+      break;
+    }
   }
   out.push({
     id: `${x.run_id}#${x.ordem}`, itemId: x.item_id, sourceId: x.source_id, universo: x.universo, estagio: x.estagio,
@@ -74,7 +109,9 @@ for (const x of itens) {
     },
     completude: co,
     prova: { url: vazio(x.raw_source_url) ? null : x.raw_source_url, raw },
-    intelligence: 'NAO_EXECUTADA',
+    intelligence: INTEL.itens.get(`${x.run_id}#${x.ordem}`)
+      ? Object.assign({ marca: 'EXPERIMENTAL', publico: 'NAO_PARA_CLIENTE' }, INTEL.itens.get(`${x.run_id}#${x.ordem}`))
+      : 'NAO_EXECUTADA',
   });
 }
 // ordem: a mais recente primeiro — tempo de pouso, nunca «relevancia»
@@ -89,7 +126,13 @@ for (const k of ['FACT_TIME', 'PUBLICATION_TIME', 'SOURCE_LOCATION', 'FACT_LOCAT
   };
 }
 contagem.RAW = out.reduce((a, i) => (a[i.prova.raw.estado] = (a[i.prova.raw.estado] || 0) + 1, a), {});
-contagem.INTELLIGENCE = { NAO_EXECUTADA: out.length };
+const idsDaSala = new Set(out.map((i) => i.id));
+for (const k of INTEL.itens.keys()) if (!idsDaSala.has(k)) { INTEL.itens.delete(k); INTEL.recusados++; }
+contagem.INTELLIGENCE = {
+  NAO_EXECUTADA: out.filter((i) => i.intelligence === 'NAO_EXECUTADA').length,
+  EXPERIMENTAL: out.filter((i) => i.intelligence !== 'NAO_EXECUTADA').length,
+  RECUSADOS: INTEL.recusados, SAIDA: INTEL.porque,
+};
 const exportSha = crypto.createHash('sha256').update(fs.readFileSync(EXPORT)).digest('hex');
 const pacote = { gerado: new Date().toISOString(), export: path.basename(EXPORT), exportSha256: exportSha, total: out.length, contagem, itens: out };
 const js = '/* GERADO por italia-portale/audit/casco/sala-leitura.mjs — TEM TEXTO DA SALA: fora do Git e do deploy. */\n'
