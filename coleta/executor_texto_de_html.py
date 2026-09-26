@@ -356,26 +356,56 @@ def normalizar_instante(valor) -> tuple:
     return "%sT%s:%s:%s%s" % (dia, h, mi, se or "00", fuso), "INSTANTE"
 
 
-def _datas_do_json_ld(texto: str) -> list:
-    achados = []
+# CONSERTO-REGUA (SALA-VERIFICA, 26/09): so um ARTIGO publica. Medido na Sala (IT-T7-013, CONAF): a pagina
+# institucional «Consiglio dell'Ordine» traz no JSON-LD um no `WebPage` com datePublished 2009-12-18 — a
+# data em que a PAGINA foi criada — e a Sala recebeu PUBLISHED_AT = 2009. Um `WebPage`/`WebSite` sozinho
+# nao prova quando um CONTEUDO foi publicado: a data dele fica como evidencia (`_datas_de_pagina_json_ld`)
+# e o leitor passa ao nivel seguinte (meta, <time>), e sem nada: NAO SEI com o porque.
+TIPOS_QUE_PUBLICAM = frozenset((
+    "article", "newsarticle", "blogposting", "report", "scholarlyarticle", "techarticle",
+    "analysisnewsarticle", "reportagenewsarticle", "opinionnewsarticle", "backgroundnewsarticle",
+    "reviewnewsarticle", "askpublicnewsarticle", "livebloposting", "liveblogposting", "socialmediaposting",
+    "medicalscholarlyarticle", "satiricalarticle", "advertisertcontentarticle"))
 
-    def _andar(no):
+
+def _tipos(no) -> set:
+    t = no.get("@type") if isinstance(no, dict) else None
+    t = t if isinstance(t, list) else [t]
+    return {str(x).lower() for x in t if x}
+
+
+def _datas_json_ld_por_tipo(texto: str) -> tuple:
+    """(datas de nos que PUBLICAM, datas de nos que sao so PAGINA/SITE)."""
+    publica, pagina = [], []
+
+    def _andar(no, tipos_herdados):
         if isinstance(no, dict):
+            tipos = _tipos(no) or tipos_herdados
             for k, v in no.items():
                 if k == "datePublished" and isinstance(v, str):
-                    achados.append(v)
+                    # so se afasta o no com tipo DECLARADO que nao publica (WebPage, WebSite…);
+                    # um no sem tipo continua a valer, como antes (nao ha medicao que o condene)
+                    (pagina if tipos and not (tipos & TIPOS_QUE_PUBLICAM) else publica).append(v)
                 else:
-                    _andar(v)
+                    _andar(v, tipos)
         elif isinstance(no, list):
             for x in no:
-                _andar(x)
+                _andar(x, tipos_herdados)
 
     for bloco in _RE_LD.findall(texto):
         try:
-            _andar(json.loads(bloco.strip()))
+            _andar(json.loads(bloco.strip()), set())
         except (ValueError, RecursionError):
             continue            # um bloco partido não apaga os outros
-    return achados
+    return publica, pagina
+
+
+def _datas_do_json_ld(texto: str) -> list:
+    return _datas_json_ld_por_tipo(texto)[0]
+
+
+def _datas_de_pagina_json_ld(texto: str) -> list:
+    return _datas_json_ld_por_tipo(texto)[1]
 
 
 def _datas_do_meta(texto: str) -> list:
@@ -428,9 +458,13 @@ def tempo_de_publicacao(dados, data_no_indice=None) -> dict:
         (BASE_INDICE, [data_no_indice] if data_no_indice else []),
     )
     viu = []
+    so_pagina = _datas_de_pagina_json_ld(texto)
     for base, brutas in niveis:
         if not brutas:
-            viu.append("%s: ausente" % base)
+            viu.append("%s: ausente" % base + (
+                " (só um nó WebPage/WebSite com datePublished %s — é a data da PÁGINA, "
+                "não a de um artigo publicado)" % ", ".join(sorted(set(so_pagina))[:3])
+                if base == BASE_JSON_LD and so_pagina else ""))
             continue
         # A chave de comparação é o INSTANTE, e não a letra: `12:30+00:00` e
         # `14:30+02:00` são a mesma publicação escrita em dois fusos.

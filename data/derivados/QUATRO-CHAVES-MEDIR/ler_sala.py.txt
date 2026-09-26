@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+# QUATRO-CHAVES-MEDIR · leitor SO-LEITURA da Sala real. Registo do ensaio (.txt).
+#   py data/derivados/QUATRO-CHAVES-MEDIR/ler_sala.py.txt "<sql>"   -> linhas separadas por \x1f
+# O DSN vem do ficheiro e nunca e impresso; a sessao abre com default_transaction_read_only=on
+# e o script recusa qualquer sql que nao comece por select/with.
+import os
+import subprocess
+import sys
+
+DSN = open(os.path.expanduser("~/sintonia-sala-italia/SALA_DSN.txt"), encoding="utf-8").read().strip()
+PSQL = os.path.expanduser("~/orca/pgtmp/pgsql/bin/psql.exe")
+SEP = "\x1f"
+
+
+def consultar(sql):
+    if not sql.lstrip().lower().startswith(("select", "with")):
+        raise SystemExit("so leitura: o sql tem de comecar por select/with")
+    env = dict(os.environ, PGOPTIONS="-c default_transaction_read_only=on", PGCLIENTENCODING="UTF8")
+    r = subprocess.run([PSQL, "-X", "-q", "-A", "-t", "-F", SEP, "-v", "ON_ERROR_STOP=1",
+                        "-d", DSN, "-c", sql], env=env, capture_output=True)
+    if r.returncode:
+        raise SystemExit("psql falhou: " + r.stderr.decode("utf-8", "replace").replace(DSN, "<DSN>")[:400])
+    # \r do psql no Windows (memoria psql-traz-cr) fora; linhas vazias fora
+    return [l.rstrip("\r") for l in r.stdout.decode("utf-8").split("\n") if l.rstrip("\r")]
+
+
+if __name__ == "__main__":
+    for l in consultar(sys.argv[1]):
+        print(l.replace(SEP, " | "))

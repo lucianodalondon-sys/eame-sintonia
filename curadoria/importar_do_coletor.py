@@ -195,7 +195,36 @@ def planear(*, ctx: dict | None = None, tabela: dict | None = None) -> dict:
             continue
         importa.append({"SOURCE_ID": sid, "CASO": "SEM_CONTRATO_NO_CURATOR",
                         "PROMOCAO": RS.ultima_promocao(sid, ctx["livro"])})
+    scrap.extend(presos_no_feed(ctx))
     return {"IMPORTA": importa, "PELO_SCRAP": scrap, "FICA": fica}
+
+
+#: FREIO-SOCIAL / CANAIS-PESQUISA (26/09): o estado em que os canais ficaram presos.
+ESTADOS_PRESOS_NO_FEED = frozenset({"RETRY_AFTER"})
+
+
+def presos_no_feed(ctx: dict) -> list[dict]:
+    """Canais YouTube COM contrato na rota antiga de feed que NAO sao READY — e por isso
+    nunca entravam no plano acima, que so olha as READY_LEGACY.
+
+    Medido no vivo 83de0ccd (26/09 04:06): 9 canais em RETRY_AFTER com
+    `YOUTUBE_CHANNEL_FEED` (a rota que o robots do YouTube barra), 7 deles de pesquisa
+    (IT-T5-042..050). A troca e a MESMA do bloco 4 (feed -> Scrap); so o criterio de
+    entrada muda. Ficam de fora os outros estados (rejeitados, bloqueados): esses nao
+    estao presos pela rota, estao decididos."""
+    est = _estados(ctx)
+    fora = []
+    for sid in sorted(ctx["contratos"]):
+        atual = ctx["contratos"][sid]
+        if est.get(sid) not in ESTADOS_PRESOS_NO_FEED:
+            continue
+        if ((atual.get("ACQUISITION") or {}).get("STRATEGY")) != "YOUTUBE_CHANNEL_FEED":
+            continue
+        fora.append({"SOURCE_ID": sid, "CASO": "PRESO_NO_FEED",
+                     "PORQUE": ("ROTA_DO_SCRAP: canal YouTube em %s na rota antiga de feed — "
+                                "vai pelo bloco 4 como os READY_LEGACY" % est.get(sid)),
+                     "STRATEGY_HOJE": "YOUTUBE_CHANNEL_FEED"})
+    return fora
 
 
 def _estados(ctx: dict) -> dict:
@@ -247,6 +276,25 @@ def _bloco4():
     return m
 
 
+def remedir_presos(source_ids: list[str], *, motivo: str) -> list[dict]:
+    """O `ready_split.remedir` dos PRESOS NO FEED: ele so age em READY; estes estao em
+    RETRY_AFTER, sem tarefa na fila (medido). Mesmo desfecho: CANARY_PENDING + VALIDATE_ROUTE,
+    que para em CANARY_PENDING porque a rota e do Scrap. Nada e promovido aqui."""
+    import fila as F        # noqa: E402
+    import lifecycle as LC  # noqa: E402
+    feitas = []
+    for sid in source_ids:
+        if LC.estado_de(sid) not in ESTADOS_PRESOS_NO_FEED:
+            feitas.append({"SOURCE_ID": sid, "FEITO": False,
+                           "PORQUE": "nao esta preso no feed: %s" % LC.estado_de(sid)})
+            continue
+        LC.registar(sid, LC.CANARY_PENDING, motivo, evidence_ref="CONTRATO:ROUTE_PROVENANCE")
+        t = F.enfileirar(sid, F.VALIDATE_ROUTE, priority=55,
+                         motivo="preso no feed, rota trocada para o Scrap: %s" % motivo[:80])
+        feitas.append({"SOURCE_ID": sid, "FEITO": True, "TASK_ID": t["TASK_ID"]})
+    return feitas
+
+
 def pelo_scrap(ids: list[str], *, remedir_fn=None, declarado: dict | None = None, bloco4=None) -> dict:
     """B · as fontes pedidas passam para a rota do Scrap pelo bloco 4, e vao ao remedir.
 
@@ -258,7 +306,7 @@ def pelo_scrap(ids: list[str], *, remedir_fn=None, declarado: dict | None = None
     por = {p["SOURCE_ID"] for p in plano["PELO_SCRAP"]}
     fora = [s for s in ids if s not in por]
     if fora:
-        raise ImportacaoInvalida("fora do plano (nao sao canais YouTube READY_LEGACY com contrato): %s"
+        raise ImportacaoInvalida("fora do plano (nao sao canais YouTube READY_LEGACY nem presos no feed, com contrato): %s"
                                  % ", ".join(fora))
     livro = json.loads(CURATOR.read_text(encoding="utf-8"))
     tabela = json.loads(TABELA.read_text(encoding="utf-8"))
@@ -290,9 +338,11 @@ def pelo_scrap(ids: list[str], *, remedir_fn=None, declarado: dict | None = None
                     ensure_ascii=False) + "\n")
     if remedir_fn is None:
         import ready_split as RS   # noqa: E402
-        remedir_fn = lambda x: RS.remedir(x, motivo=(  # noqa: E731
-            "canal YouTube na rota do Scrap (%s, bloco 4): o canario e uma colheita do Scrap, "
-            "julgada pela regua social — nunca READY daqui" % MISSAO_B))
+        motivo_b = ("canal YouTube na rota do Scrap (%s, bloco 4): o canario e uma colheita do Scrap, "
+                    "julgada pela regua social — nunca READY daqui" % MISSAO_B)
+        presas = {p["SOURCE_ID"] for p in plano["PELO_SCRAP"] if p.get("CASO") == "PRESO_NO_FEED"}
+        remedir_fn = lambda x: (RS.remedir([s for s in x if s not in presas], motivo=motivo_b)  # noqa: E731
+                                + remedir_presos([s for s in x if s in presas], motivo=motivo_b))
     feitas = remedir_fn(ids)
     return {"PELO_SCRAP": ids, "ACOES": [(a["LIVRO"], a["SOURCE_ID"], a["ACAO"]) for a in acoes
                                          if a["SOURCE_ID"] in pedidas],
