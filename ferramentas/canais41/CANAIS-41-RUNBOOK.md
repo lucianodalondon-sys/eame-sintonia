@@ -5,9 +5,11 @@ Ramo `canais-41-runbook-v1` (a partir de `legacy-99-v5` @ ed86cb97, que contém 
 
 ## Em palavras simples
 
-- **Hoje o teste não pode correr.** Faltam **3 consertos** antes: sem eles, os 41 canais
-  seriam **todos reprovados por um defeito nosso**, não deles. Medido a seco, com o
-  código verdadeiro do Scrap.
+- **Hoje o teste não pode correr.** Antes faltam: instalar a v5 (P0), **2 consertos**
+  (P1 as marcas nos itens, P2 o workflow aceitar todos os grupos) e **2 conferências**
+  (P3 os runners ligados, P4 em que banco o job grava). Sem o P1, os 41 canais seriam
+  **todos reprovados por um defeito nosso**, não deles — medido a seco, com o código
+  verdadeiro do Scrap.
 - **O defeito principal:** o caminho da API do YouTube traz de cada vídeo o endereço, o
   título, a data e o canal, mas **não** escreve duas marcas que a régua exige: «o dono
   autorizou» (`OWNER_AUTHORIZED`) e «o que a plataforma permite»
