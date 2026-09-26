@@ -80,13 +80,35 @@ _ENTIDADE = [
                 r"edagricole|agronotizie|corriere|sole 24|agrisole)", re.I), "T8"),
     # empresas e marcas: T9 (COMPETITORS) e o territorio de quem VENDE, mesmo
     # quando comunica ciencia ou clima
-    (re.compile(r"\b(s\.?p\.?a\.?|s\.?r\.?l\.?|group|gruppo|italia\b)", re.I), "T9"),
+    #
+    # ⚠️ A FORMA JURIDICA TEM DE ACABAR ONDE A PALAVRA ACABA. Sem o fim de
+    # palavra, «Spa» casava dentro de «SPAzioRegione» (um balcao de reservas da
+    # Regione) e a fonte foi para T9 como se fosse uma S.p.A. — IT-T9-022.
+    (re.compile(r"\b(s\.?p\.?a\.?|s\.?r\.?l\.?|group|gruppo|italia)(?![a-z0-9])", re.I), "T9"),
 ]
+
+
+def _nome_e_casa(c: dict) -> str:
+    """O NOME da fonte e a CASA (host) do endereco — nunca o caminho.
+
+    ⚠️ O CAMINHO DIZ O QUE UMA PAGINA E, NAO O QUE A FONTE E. Medido em
+    2026-09-22: a candidata CAND-0412 chamava-se «Scopri l'evento» e o endereco
+    era `fieradidacta.indire.it/it/visita-didacta-ITALIA-edizione-abruzzo/`. A
+    regra lia o endereco inteiro, achou «italia» no titulo da pagina e deu T9
+    (COMPETITORS) a uma feira escolar do INDIRE — IT-T9-021. O dominio e a
+    identidade da casa; o caminho e o assunto de um dia.
+
+        UMA PAGINA QUE DIZ «ITALIA» NAO E UMA EMPRESA ITALIANA.
+    """
+    url = str(c.get("URL", "") or "")
+    m = re.match(r"^[a-z][a-z0-9+.-]*://([^/?#]+)", url.strip(), re.I)
+    casa = m.group(1) if m else ""
+    return "%s %s" % (c.get("NOME", ""), casa)
 
 
 def territorio_de(c: dict) -> tuple[str, str]:
     """Devolve (territorio, porque). `NAO SEI` quando a evidencia nao chega."""
-    nome = "%s %s" % (c.get("NOME", ""), c.get("URL", ""))
+    nome = _nome_e_casa(c)
     for rx, t in _ENTIDADE:
         if rx.search(nome):
             return t, ("o nome da fonte diz o que ela E: «%s» -> %s"
