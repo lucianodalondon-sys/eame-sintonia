@@ -75,6 +75,11 @@ def medir_item(sid, universo, texto, raw_id, sha, captured_at, obs, dados, item_
         fora[c] = {"VALOR": k["VALOR"], "BASE": k["BASE"] if provada else AUS, "PROVADA": provada}
         if c == "JANELA":
             fora[c]["PRECISAO"] = k.get("PRECISAO", AUS)
+    # D84: a 5.a informacao (a praga/doenca dos boletins T2/T3), quando a porta ja a sabe ler (antes: nao)
+    p = j.get("PROBLEMA") or {}
+    fora["PROBLEMA"] = {"VALOR": p.get("VALOR", AUS), "PROVADA": p.get("VALOR", AUS) != AUS,
+                        "AUSENTES": p.get("AUSENTES", []), "SECOES": len(p.get("SECOES", []))}
+    fora["FACT_TIME_PRECISAO"] = str(item.get("fact_time_precision") or AUS)
     return fora
 
 

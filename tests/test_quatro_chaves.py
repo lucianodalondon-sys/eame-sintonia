@@ -75,7 +75,8 @@ class AJanelaDeclaradaCumpreALei(unittest.TestCase):
     def test_as_quatro_chaves_existem(self):
         item, d = _decidido()
         j = A.janela_declarada(item, d)
-        self.assertEqual(set(j), {"CULTURA", "REGIAO_DO_FATO", "FASE", "JANELA", "TEMPOS", "ORIGEM"})
+        # EXTRATOR-EVENTO-V2 (D84): a PRAGA/DOENCA dos boletins viaja ao lado, fora da contagem das quatro
+        self.assertEqual(set(j), {"CULTURA", "REGIAO_DO_FATO", "FASE", "JANELA", "PROBLEMA", "TEMPOS", "ORIGEM"})
 
     def test_cultura_e_fase_vem_da_regua(self):
         item, d = _decidido()
@@ -134,7 +135,11 @@ class AJanelaDeclaradaCumpreALei(unittest.TestCase):
         d = A.Decisao(item="x", universo="T2", resultado=A.SIM, regra="pertence ao universo",
                       motivo="x", evidencia={"palavras": ["pioggia", "temperatura"], "cultura": True})
         j = A.janela_declarada(item, d)
-        self.assertEqual(j["FASE"]["VALOR"], A.AUSENCIA)
+        # A regra: as palavras de CLIMA da regua T2 nao viram fase. (D84: a fase que o TEXTO do boletim escreve
+        # — «fioritura» — entra, com a base do boletim; a evidencia da regua continua de fora.)
+        fase = j["FASE"]["VALOR"]
+        self.assertFalse({"pioggia", "temperatura"} & set(fase if isinstance(fase, list) else []))
+        self.assertNotIn("decisao.evidencia", j["FASE"]["VEIO_DE"])
         # PERIODO-E-CHAVES: a cultura sai do TITULO do item, nao da evidencia da regua T2
         self.assertNotIn("decisao.evidencia", j["CULTURA"]["VEIO_DE"])
         self.assertIn("titulo", j["CULTURA"]["VEIO_DE"])

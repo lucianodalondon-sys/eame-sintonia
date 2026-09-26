@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-TESTES = ["tests.test_extrator_evento_v2", "tests.test_fato_do_texto"]
+TESTES = ["tests.test_extrator_evento_v2", "tests.test_fato_do_texto", "tests.test_boletim_do_campo"]
 FL, FT = "leis/fato_local.py", "leis/fato_do_texto.py"
 M = [
     ("M1 incendio fora das ancoras", FL, "    r'incendi', r'grandin',", "    r'grandin',"),
@@ -42,6 +42,29 @@ M = [
      "    return bool(_RE_FUTURO.search(b))"),
     ("M23 possibilidade nao e futuro", FT, r"    r" + '"' + r"possibil[ei]|potrebber?o|potr[àa]|rischio\s+di|fino\s+all['’]arrivo)(?![0-9a-zà-ÿ])" + '",',
      r"    r" + '"' + r"potrebber?o|potr[àa]|rischio\s+di|fino\s+all['’]arrivo)(?![0-9a-zà-ÿ])" + '",'),
+    # ── D84 · os boletins ──
+    ("M24 non presente vira presente", "leis/boletim_do_campo.py",
+     '            estado = ("AUSENTE" if _AUSENTE.search(depois.split(".")[0][:JANELA_DO_ESTADO])',
+     '            estado = ("AUSENTE" if False'),
+    ("M25 citada vira presente", "leis/boletim_do_campo.py",
+     '                      else "PRESENTE" if _PRESENTE.search(d) else "CITADA")', '                      else "PRESENTE")'),
+    ("M26 cabecalho longo abre secao", "leis/boletim_do_campo.py",
+     "    if not palavras or len(palavras) > PALAVRAS_DO_CABECALHO:", "    if not palavras:"),
+    ("M27 cultura repetida abre outra secao", "leis/boletim_do_campo.py",
+     "            if secoes[-1][\"CULTURA\"] == c:\n                continue", "            if False:\n                continue"),
+    ("M28 cabecalho do boletim ignorado", FT, "    tempo = tempo or _periodo_do_cabecalho(texto, pub, tapados)\n", ""),
+    ("M29 qualquer texto e boletim", FT, "    if not any(_RE_E_BOLETIM.search(l) for l in linhas):", "    if False:"),
+    ("M30 periodo futuro aceite", FT, "        if pub and ini > pub:", "        if False:"),
+    ("M31 ano de comparacao aceite", FT, '                  else "COMPARACAO_NAO_E_FATO" if _ano_de_comparacao(ev, v)\n', ""),
+    ("M32 a porta nao le boletins", "admissao/admissao.py",
+     "    boletim = _boletim_de(item) if decisao.universo in UNIVERSOS_DE_BOLETIM else None",
+     "    boletim = None"),
+    ("M33 boletim fora de T2/T3", "admissao/admissao.py", 'UNIVERSOS_DE_BOLETIM = ("T2", "T3")',
+     'UNIVERSOS_DE_BOLETIM = ("T2", "T3", "T10")'),
+    ("M34 PROBLEMA nao viaja", "admissao/admissao.py", '    r["PROBLEMA"] = j["PROBLEMA"]', '    pass'),
+    ("M35 ausente vira valor", "admissao/admissao.py",
+     '    return {"VALOR": boletim["PROBLEMAS_NAO_AUSENTES"] or AUSENCIA,',
+     '    return {"VALOR": boletim["PROBLEMAS"] or AUSENCIA,'),
     ("M20 o carimbo da publicacao aceite", FL, "                if precisao == DAY and pub and _resolve_dia(valor, ano_pub) == pub:",
      "                if False:"),
 ]
