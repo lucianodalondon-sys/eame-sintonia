@@ -1,0 +1,60 @@
+# -*- coding: utf-8 -*-
+# VOZES-LEITURA-HUMANA · o que eu li a mao nos 11 alvos da ronda 1 (bytes em sintonia-sala-italia/vozes-agronomos/<ID>/).
+# Sem rede. A regra do leitor (ler_provas.py) NAO muda: isto e relatorio. Cada veredito cita o trecho lido; cada
+# «PROXIMO_LINK» e um endereco que ESTA dentro da pagina colhida (nao inventado). Os bytes conferem-se pelo sha256 do recibo.
+#   PYTHONUTF8=1 py data/derivados/VOZES-AGRONOMOS/leitura_humana.py.txt
+import hashlib
+import json
+import os
+
+S = "C:/Users/London1/sintonia-sala-italia/vozes-agronomos"
+AQUI = os.path.dirname(os.path.abspath(__file__))
+rec = {c["ID"]: c for c in json.load(open(S + "/RECIBO-RONDA-1.json", encoding="utf-8"))["COLHIDAS"]}
+
+LEITURA = {
+    "V03": ("INUTIL_HOME", "Giulia Zuecco", "pagina inicial do DAFNAE; o nome nao aparece",
+            [], ["https://www.dafnae.unipd.it/category/ruoli/personale-docente",
+                 "https://www.dafnae.unipd.it/webinar-dafnae"],
+            "de passagem: «seminario tenuto dal Prof. José Abramo Marchese, professore ordinario di Fisiologia Vegetale presso la Federal University of Technology - Paraná (Brasile)» — papel provado, mas nao e uma das 30 e e de fora da Italia"),
+    "V04": ("BUSCA_SEM_RESULTADO", "Silvia Toffolati", "a busca do DiSAA respondeu «Nessun risultato trovato»",
+            [], [], "a busca do site nao prova ausencia (pode nao indexar pessoas); para a pessoa, a rubrica da UNIMI (a mesma que provou o Pierce)"),
+    "V05": ("INUTIL_HOME", "Riccardo Castaldi", "pagina inicial da Terremerse (servicos, «Agronomica», eventos); o nome nao aparece",
+            [], ["https://terremerse.it/chi-siamo/", "https://terremerse.it/eventi/"], None),
+    "V16": ("INUTIL_HOME", "Pietro Baroncini", "pagina inicial da Conserve Italia; o nome nao aparece; ha a seccao «Attivita agronomiche»",
+            [], ["https://www.conserveitalia.it/it/attivita-agronomiche/servizi-agronomici",
+                 "https://www.conserveitalia.it/it/attivita-agronomiche/pratiche-fitosanitarie",
+                 "https://www.conserveitalia.it/it/attivita-agronomiche/la-sperimentazione-agronomica"], None),
+    "V17": ("INUTIL_HOME", "Ernesto Comite", "pagina inicial do Dipartimento di Agraria; o nome nao aparece; ha «Docenti e Ricercatori»",
+            [], ["https://www.agraria.unina.it/il-dipartimento/persone/docenti-e-ricercatori"], None),
+    "V18": ("PAGINA_NAO_EXISTE", "Mario Enrico Pè", "HTTP 404: a busca tirada de uma pagina guardada ja nao existe nesse endereco",
+            [], [], "o site do Georgofili mudou a busca; a ronda 2 (V19, a mesma busca) vai dar 404 tambem — nao vale a pena corre-la"),
+    "V23": ("PAGINA_UTIL_OUTRA_FORMA", "NAO SEI (relatores CRPV)", "pagina inicial do CRPV (Ri.Nova): sem nomes, mas com PODCAST, EVENTI e as fontes T3 «Bollettini di produzione integrata», «Monitoraggio cimice asiatica», «Note tecniche 2026 difesa dalle gelate»",
+            [], ["https://www.crpv.it/it/eventi/", "https://www.crpv.it/it/podcast/",
+                 "https://www.rinova.eu/it/news/difesa-dalle-gelate-primaverili-2026/"],
+            "o CRPV tem PODCAST proprio (texto possivel sem YouTube) — a verificar se ha transcricao ou notas por episodio"),
+    "V24": ("PAGINA_UTIL_OUTRA_FORMA", "NAO SEI (relatores CONAF)", "a busca da CONAF trouxe a lista de noticias sobre «difesa delle colture» (16/05/2025 Festival ASviS; 11/06/2024 «Razionalizzare l'uso dei fitofarmaci», «oltre 500 presenze»); os relatores estao no artigo, nao na lista",
+            [], ["https://www.conaf.it/news/razionalizzare-luso-dei-fitofarmaci/"], None),
+    "V25": ("PAGINA_UTIL_OUTRA_FORMA", "NAO SEI (quem apresenta a annata)", "pagina inicial do Consorzio: lista de videos com «Presentation of the agronomic year 2023» (sem nome) e «Gabriele Gorelli - 2008-2018 Brunello - ten years challenge»",
+            ["Gabriele Gorelli (papel: NAO SEI — a pagina so da o nome)"],
+            ["https://www.consorziobrunellodimontalcino.it/it/eventi/archivio-eventi"], None),
+    "V26": ("PAGINA_UTIL_OUTRA_FORMA", "NAO SEI (tecnici AMAP)", "a pagina do Servizio fitosanitario da AMAP diz «REFERENTE: Dott. Sandro Nardi» (telefone e e-mail do orgao)",
+            ["Dott. Sandro Nardi — referente do Servizio fitosanitario AMAP Marche (papel PROVADO pela pagina oficial; nao e quem fala no video)"],
+            ["https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale"], None),
+    "V30": ("INUTIL_HOME", "NAO SEI (relatores ANBI)", "pagina inicial da ANBI: lista de eventos (Forum euromediterraneo dell'acqua, Remtech, Macfrut 2026) sem nomes",
+            [], ["https://www.anbi.it/p/eventi"], None),
+}
+fora = []
+for fid, (ver, quem, lido, nomes, prox, nota) in LEITURA.items():
+    c = rec[fid]
+    alvo = next((p for p in c["PROVAS"] if p["PAPEL"] == "ALVO"), None)
+    if alvo:
+        assert hashlib.sha256(open(alvo["BYTES_EM"], "rb").read()).hexdigest() == alvo["SHA256"], fid
+    fora.append({"ID": fid, "QUEM": quem, "ALVO": c["ALVO"], "HTTP": alvo["HTTP"] if alvo else c.get("PORQUE_PAROU"),
+                 "SHA256": alvo["SHA256"] if alvo else None, "VEREDITO_HUMANO": ver, "O_QUE_LI": lido,
+                 "NOMES_COM_PAPEL_NA_PAGINA": nomes, "PROXIMO_LINK_DA_PROPRIA_PAGINA": prox, "NOTA": nota,
+                 "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"})
+json.dump({"DATASET": "VOZES-LEITURA-HUMANA-RONDA-1", "REGRA_DO_LEITOR": "inalterada (ler_provas.py)", "LEITURAS": fora},
+          open(os.path.join(AQUI, "LEITURA-HUMANA-RONDA-1.json"), "w", encoding="utf-8", newline="\n"),
+          ensure_ascii=False, indent=1)
+import collections
+print(collections.Counter(x["VEREDITO_HUMANO"] for x in fora))

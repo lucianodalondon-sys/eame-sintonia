@@ -1,0 +1,177 @@
+{
+ "DATASET": "VOZES-LEITURA-HUMANA-RONDA-1",
+ "REGRA_DO_LEITOR": "inalterada (ler_provas.py)",
+ "LEITURAS": [
+  {
+   "ID": "V03",
+   "QUEM": "Giulia Zuecco",
+   "ALVO": "https://www.dafnae.unipd.it/",
+   "HTTP": 200,
+   "SHA256": "e42efd2b3ee214157e0815fd74c6c8de84842a1c77251bff41f90169d3264ff0",
+   "VEREDITO_HUMANO": "INUTIL_HOME",
+   "O_QUE_LI": "pagina inicial do DAFNAE; o nome nao aparece",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://www.dafnae.unipd.it/category/ruoli/personale-docente",
+    "https://www.dafnae.unipd.it/webinar-dafnae"
+   ],
+   "NOTA": "de passagem: «seminario tenuto dal Prof. José Abramo Marchese, professore ordinario di Fisiologia Vegetale presso la Federal University of Technology - Paraná (Brasile)» — papel provado, mas nao e uma das 30 e e de fora da Italia",
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V04",
+   "QUEM": "Silvia Toffolati",
+   "ALVO": "https://disaa.unimi.it/it/cerca-nel-sito?search_term=Silvia+Toffolati",
+   "HTTP": 200,
+   "SHA256": "296426044941daf619a6136e74bbc5398a1501b5ea58d449783cb2b65e3051ab",
+   "VEREDITO_HUMANO": "BUSCA_SEM_RESULTADO",
+   "O_QUE_LI": "a busca do DiSAA respondeu «Nessun risultato trovato»",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [],
+   "NOTA": "a busca do site nao prova ausencia (pode nao indexar pessoas); para a pessoa, a rubrica da UNIMI (a mesma que provou o Pierce)",
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V05",
+   "QUEM": "Riccardo Castaldi",
+   "ALVO": "https://www.terremerse.it/",
+   "HTTP": 200,
+   "SHA256": "3a78311e794c64c24803483d2ac0dca0f39e2683c142e89a840672950d9d3e2f",
+   "VEREDITO_HUMANO": "INUTIL_HOME",
+   "O_QUE_LI": "pagina inicial da Terremerse (servicos, «Agronomica», eventos); o nome nao aparece",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://terremerse.it/chi-siamo/",
+    "https://terremerse.it/eventi/"
+   ],
+   "NOTA": null,
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V16",
+   "QUEM": "Pietro Baroncini",
+   "ALVO": "https://www.conserveitalia.it/",
+   "HTTP": 200,
+   "SHA256": "faefaaf9cf17469d457f2951e0ffa81ab66385a2d614f33e2bc9bbcace0c6b1d",
+   "VEREDITO_HUMANO": "INUTIL_HOME",
+   "O_QUE_LI": "pagina inicial da Conserve Italia; o nome nao aparece; ha a seccao «Attivita agronomiche»",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://www.conserveitalia.it/it/attivita-agronomiche/servizi-agronomici",
+    "https://www.conserveitalia.it/it/attivita-agronomiche/pratiche-fitosanitarie",
+    "https://www.conserveitalia.it/it/attivita-agronomiche/la-sperimentazione-agronomica"
+   ],
+   "NOTA": null,
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V17",
+   "QUEM": "Ernesto Comite",
+   "ALVO": "https://www.agraria.unina.it/",
+   "HTTP": 200,
+   "SHA256": "8fd8a2ea65533fce7f2469c3abc4cf5dfd38cc92ce938516c455c188a7b0080c",
+   "VEREDITO_HUMANO": "INUTIL_HOME",
+   "O_QUE_LI": "pagina inicial do Dipartimento di Agraria; o nome nao aparece; ha «Docenti e Ricercatori»",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://www.agraria.unina.it/il-dipartimento/persone/docenti-e-ricercatori"
+   ],
+   "NOTA": null,
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V18",
+   "QUEM": "Mario Enrico Pè",
+   "ALVO": "https://georgofili.it/search.html?q=Mario+Enrico+P%C3%A8",
+   "HTTP": "alvo nao abriu: HTTP 404",
+   "SHA256": null,
+   "VEREDITO_HUMANO": "PAGINA_NAO_EXISTE",
+   "O_QUE_LI": "HTTP 404: a busca tirada de uma pagina guardada ja nao existe nesse endereco",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [],
+   "NOTA": "o site do Georgofili mudou a busca; a ronda 2 (V19, a mesma busca) vai dar 404 tambem — nao vale a pena corre-la",
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V23",
+   "QUEM": "NAO SEI (relatores CRPV)",
+   "ALVO": "https://www.crpv.it/",
+   "HTTP": 200,
+   "SHA256": "c6743c4fd3d0fbe4f19fa66a907db2e896449d82b2c93ac09fcabf56be63bc7e",
+   "VEREDITO_HUMANO": "PAGINA_UTIL_OUTRA_FORMA",
+   "O_QUE_LI": "pagina inicial do CRPV (Ri.Nova): sem nomes, mas com PODCAST, EVENTI e as fontes T3 «Bollettini di produzione integrata», «Monitoraggio cimice asiatica», «Note tecniche 2026 difesa dalle gelate»",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://www.crpv.it/it/eventi/",
+    "https://www.crpv.it/it/podcast/",
+    "https://www.rinova.eu/it/news/difesa-dalle-gelate-primaverili-2026/"
+   ],
+   "NOTA": "o CRPV tem PODCAST proprio (texto possivel sem YouTube) — a verificar se ha transcricao ou notas por episodio",
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V24",
+   "QUEM": "NAO SEI (relatores CONAF)",
+   "ALVO": "https://www.conaf.it/?s=difesa+delle+colture",
+   "HTTP": 200,
+   "SHA256": "54bc012ccd9d550a6b1937df8fdd19497f88acf494a028e4981d97c0231c7671",
+   "VEREDITO_HUMANO": "PAGINA_UTIL_OUTRA_FORMA",
+   "O_QUE_LI": "a busca da CONAF trouxe a lista de noticias sobre «difesa delle colture» (16/05/2025 Festival ASviS; 11/06/2024 «Razionalizzare l'uso dei fitofarmaci», «oltre 500 presenze»); os relatores estao no artigo, nao na lista",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://www.conaf.it/news/razionalizzare-luso-dei-fitofarmaci/"
+   ],
+   "NOTA": null,
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V25",
+   "QUEM": "NAO SEI (quem apresenta a annata)",
+   "ALVO": "https://www.consorziobrunellodimontalcino.it/",
+   "HTTP": 200,
+   "SHA256": "be8a69b7b993a9928e4ccd0dae6a9607f6ae805610dd9d8bf9b22a0863e6f0d7",
+   "VEREDITO_HUMANO": "PAGINA_UTIL_OUTRA_FORMA",
+   "O_QUE_LI": "pagina inicial do Consorzio: lista de videos com «Presentation of the agronomic year 2023» (sem nome) e «Gabriele Gorelli - 2008-2018 Brunello - ten years challenge»",
+   "NOMES_COM_PAPEL_NA_PAGINA": [
+    "Gabriele Gorelli (papel: NAO SEI — a pagina so da o nome)"
+   ],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://www.consorziobrunellodimontalcino.it/it/eventi/archivio-eventi"
+   ],
+   "NOTA": null,
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V26",
+   "QUEM": "NAO SEI (tecnici AMAP)",
+   "ALVO": "https://www.amap.marche.it/servizi/fitosanitario",
+   "HTTP": 200,
+   "SHA256": "caac4093a7180f2166acb4d498072eedf1e7b4f2ad95ebe107e7ae246a7a108f",
+   "VEREDITO_HUMANO": "PAGINA_UTIL_OUTRA_FORMA",
+   "O_QUE_LI": "a pagina do Servizio fitosanitario da AMAP diz «REFERENTE: Dott. Sandro Nardi» (telefone e e-mail do orgao)",
+   "NOMES_COM_PAPEL_NA_PAGINA": [
+    "Dott. Sandro Nardi — referente do Servizio fitosanitario AMAP Marche (papel PROVADO pela pagina oficial; nao e quem fala no video)"
+   ],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://www.amap.marche.it/agenzia/amministrazione-trasparente/personale"
+   ],
+   "NOTA": null,
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  },
+  {
+   "ID": "V30",
+   "QUEM": "NAO SEI (relatores ANBI)",
+   "ALVO": "https://www.anbi.it/",
+   "HTTP": 200,
+   "SHA256": "d9b8d970fb1580a056dea1aea61ca212b27bc7b765f1c0cde97a1a26f8758905",
+   "VEREDITO_HUMANO": "INUTIL_HOME",
+   "O_QUE_LI": "pagina inicial da ANBI: lista de eventos (Forum euromediterraneo dell'acqua, Remtech, Macfrut 2026) sem nomes",
+   "NOMES_COM_PAPEL_NA_PAGINA": [],
+   "PROXIMO_LINK_DA_PROPRIA_PAGINA": [
+    "https://www.anbi.it/p/eventi"
+   ],
+   "NOTA": null,
+   "PAPEL_DA_PESSOA_DO_VIDEO": "NAO SEI"
+  }
+ ]
+}
