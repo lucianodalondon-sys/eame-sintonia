@@ -1,0 +1,448 @@
+[
+ {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "http://www.sar.sardegna.it/pubblicazioni/riepiloghimensili/mensili.asp",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "http://www.sar.sardegna.it/pubblicazioni/riepiloghimensili/mensili.asp",
+   "LINK_PATTERN": "^https?://(www\\.)?sar\\.sardegna\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 510,
+   "PARAGRAPH_CHARACTERS": 4865,
+   "TEXT_SHA256": "23ed85b70badcc2ef187bc5e92019ac6033f8b84a6519454401e3bccb799f749"
+  },
+  "SECCAO_TENTADA": null,
+  "FAMILIAS_VISTAS": [],
+  "FAMILIAS_ESTATICAS": [],
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "SEM_FAMILIA_DE_ITENS",
+  "PORQUE": "nem a entrada lista 2+ itens com o mesmo esqueleto",
+  "PEDIDOS": 1,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "http://www.sar.sardegna.it/pubblicazioni/riepiloghimensili/mensili.asp",
+    "HTTP": 200,
+    "BYTES": 84261,
+    "DESTINO": "https://www.sar.sardegna.it/pubblicazioni/riepiloghimensili/mensili.asp"
+   }
+  ],
+  "_HR_SOBRE_O_ITEM_LIDO": "SEM_ITEM",
+  "_SOURCE_ID": "IT-T2-143",
+  "_SEGUNDOS": 4.1
+ },
+ {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+   "LINK_PATTERN": "^https?://(www\\.)?regione\\.umbria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "NAVIGATION",
+   "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+   "LINKS": 125,
+   "PARAGRAPH_CHARACTERS": 239,
+   "TEXT_SHA256": "a791839a2bb88d42ecb91a0a77085bf6b5784c300b78c687ac43d4c545f687b0"
+  },
+  "SECCAO_TENTADA": null,
+  "FAMILIAS_VISTAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?regione\\.umbria\\.it/la\\-regione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 5,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.regione.umbria.it/la-regione/atti-di-notifica",
+     "https://www.regione.umbria.it/la-regione/avviso-per-nomine-regionali",
+     "https://www.regione.umbria.it/la-regione/l-umbria-l-europa-e-le-politiche-di-coesione"
+    ],
+    "FLUXO": "vocabulario de publicacao: bollettin"
+   }
+  ],
+  "FAMILIAS_ESTATICAS": [],
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "ITEM_NAO_E_MATERIA",
+  "TENTADOS": [
+   {
+    "PADRAO": "^https?://(www\\.)?regione\\.umbria\\.it/la\\-regione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 5,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.regione.umbria.it/la-regione/atti-di-notifica",
+     "https://www.regione.umbria.it/la-regione/avviso-per-nomine-regionali",
+     "https://www.regione.umbria.it/la-regione/l-umbria-l-europa-e-le-politiche-di-coesione"
+    ],
+    "FLUXO": "vocabulario de publicacao: bollettin",
+    "ALVO": "https://www.regione.umbria.it/la-regione/atti-di-notifica",
+    "ITEM": {
+     "URL": "https://www.regione.umbria.it/la-regione/atti-di-notifica",
+     "HTTP": 200,
+     "BYTES": 80194,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 86,
+     "NON_WHITESPACE_CHARACTERS": 4217,
+     "PARAGRAPH_CHARACTERS": 0,
+     "TEXT_SHA256": "d30859c0f9d021c64c09d714ecc85393783a08d2e0afe3be7cf641ed576d3007"
+    },
+    "VEREDITO": "FAMILIA_E_MENU: 5 dos 5 enderecos da familia repetem-se dentro do item — navegacao do site, nao lista de materias"
+   }
+  ],
+  "PORQUE": "https://www.regione.umbria.it/la-regione/atti-di-notifica -> FAMILIA_E_MENU: 5 dos 5 enderecos da familia repetem-se dent",
+  "PEDIDOS": 2,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+    "HTTP": 200,
+    "BYTES": 71751
+   },
+   {
+    "URL": "https://www.regione.umbria.it/la-regione/atti-di-notifica",
+    "HTTP": 200,
+    "BYTES": 80194
+   }
+  ],
+  "_HR_SOBRE_O_ITEM_LIDO": "SEM_ITEM",
+  "_SOURCE_ID": "IT-T3-053",
+  "_SEGUNDOS": 6.9
+ },
+ {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://www.dafnae.unipd.it/",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.dafnae.unipd.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?dafnae\\.unipd\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 130,
+   "PARAGRAPH_CHARACTERS": 2040,
+   "TEXT_SHA256": "742fdc7544019e94f085f8d50e2a6fbc5c60cd73a25dac65daa3aa5de7fa2232"
+  },
+  "SECCAO_TENTADA": null,
+  "FAMILIAS_VISTAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?dafnae\\.unipd\\.it/node/\\d+/?$",
+    "MEMBROS": 5,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.dafnae.unipd.it/node/12697",
+     "https://www.dafnae.unipd.it/node/17144",
+     "https://www.dafnae.unipd.it/node/19824"
+    ],
+    "FLUXO": "numero ou ano no caminho: /node/12697"
+   }
+  ],
+  "FAMILIAS_ESTATICAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?dafnae\\.unipd\\.it/ricerca/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 4,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.dafnae.unipd.it/ricerca/assegni-di-ricerca",
+     "https://www.dafnae.unipd.it/ricerca/le-linee-strategiche-della-ricerca",
+     "https://www.dafnae.unipd.it/ricerca/progetti-internazionali"
+    ],
+    "FLUXO": null
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?dafnae\\.unipd\\.it/terza\\-missione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 4,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.dafnae.unipd.it/terza-missione/informazione-il-territorio",
+     "https://www.dafnae.unipd.it/terza-missione/progetti-di-terza-missione",
+     "https://www.dafnae.unipd.it/terza-missione/servizi-il-territorio"
+    ],
+    "FLUXO": null
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?dafnae\\.unipd\\.it/dipartimento/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 2,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.dafnae.unipd.it/dipartimento/organi-collegiali",
+     "https://www.dafnae.unipd.it/dipartimento/sedi-e-strutture"
+    ],
+    "FLUXO": null
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?dafnae\\.unipd\\.it/offerta\\-didattica/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?tipo=[^&]+$",
+    "MEMBROS": 2,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.dafnae.unipd.it/offerta-didattica/corsi-di-laurea-magistrale?tipo=LM",
+     "https://www.dafnae.unipd.it/offerta-didattica/corsi-di-laurea-triennale?tipo=L"
+    ],
+    "FLUXO": null
+   }
+  ],
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "ITEM_NAO_E_MATERIA",
+  "TENTADOS": [
+   {
+    "PADRAO": "^https?://(www\\.)?dafnae\\.unipd\\.it/node/\\d+/?$",
+    "MEMBROS": 5,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.dafnae.unipd.it/node/12697",
+     "https://www.dafnae.unipd.it/node/17144",
+     "https://www.dafnae.unipd.it/node/19824"
+    ],
+    "FLUXO": "numero ou ano no caminho: /node/12697",
+    "ALVO": "https://www.dafnae.unipd.it/node/12697",
+    "VEREDITO": "item nao abriu: HTTP 404"
+   }
+  ],
+  "PORQUE": "https://www.dafnae.unipd.it/node/12697 -> item nao abriu: HTTP 404",
+  "PEDIDOS": 2,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://www.dafnae.unipd.it/",
+    "HTTP": 200,
+    "BYTES": 63272
+   },
+   {
+    "URL": "https://www.dafnae.unipd.it/node/12697",
+    "HTTP": 404,
+    "BYTES": 0
+   }
+  ],
+  "_HR_SOBRE_O_ITEM_LIDO": "SEM_ITEM",
+  "_SOURCE_ID": "IT-T5-064",
+  "_SEGUNDOS": 9.8
+ },
+ {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://www.conaf.it/",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.conaf.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?conaf\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 126,
+   "PARAGRAPH_CHARACTERS": 3316,
+   "TEXT_SHA256": "48844957b300b376831e6d1d2eff759f6555a8bc7574d83c247fb6ec70a5c6ff"
+  },
+  "SECCAO_TENTADA": null,
+  "FAMILIAS_VISTAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?conaf\\.it/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 24,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.conaf.it/atti-ufficiali/protocolli-intesa/",
+     "https://www.conaf.it/atti-ufficiali/regolamenti-6/",
+     "https://www.conaf.it/comunicazione-0/comitato-coordinamento/"
+    ],
+    "FLUXO": "vocabulario de publicacao: stampa"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?conaf\\.it/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 8,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.conaf.it/comunicazione-0/ufficio-stampa/foto-istituzionali/",
+     "https://www.conaf.it/comunicazione-0/ufficio-stampa/manuale-utilizzo-logo-conaf/",
+     "https://www.conaf.it/consiglio-dellordine-nazionale/atti-di-elezione-del-consiglio-nazionale-2/atti-di-elezione-del-consiglio-nazionale/"
+    ],
+    "FLUXO": "vocabulario de publicacao: stampa"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?conaf\\.it/comunicazione\\-0/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 4,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.conaf.it/comunicazione-0/comitato-coordinamento/",
+     "https://www.conaf.it/comunicazione-0/piano-di-comunicazione-2022/",
+     "https://www.conaf.it/comunicazione-0/richiesta-patrocinio-conaf/"
+    ],
+    "FLUXO": "vocabulario de publicacao: stampa"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?conaf\\.it/news/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 3,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.conaf.it/news/conaf-crea-accordo/",
+     "https://www.conaf.it/news/decreto-pa-periti-catastrofali/",
+     "https://www.conaf.it/news/incendio-valutazione-effetti/"
+    ],
+    "FLUXO": "vocabulario de publicacao: news"
+   }
+  ],
+  "FAMILIAS_ESTATICAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?conaf\\.it/professione\\-2/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 5,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.conaf.it/professione-2/accesso-alla-professione-0/",
+     "https://www.conaf.it/professione-2/codice-deontologico/",
+     "https://www.conaf.it/professione-2/consiglio-di-disciplina-nazionale/"
+    ],
+    "FLUXO": null
+   }
+  ],
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "ITEM_NAO_E_MATERIA",
+  "TENTADOS": [
+   {
+    "PADRAO": "^https?://(www\\.)?conaf\\.it/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 24,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.conaf.it/atti-ufficiali/protocolli-intesa/",
+     "https://www.conaf.it/atti-ufficiali/regolamenti-6/",
+     "https://www.conaf.it/comunicazione-0/comitato-coordinamento/"
+    ],
+    "FLUXO": "vocabulario de publicacao: stampa",
+    "ALVO": "https://www.conaf.it/atti-ufficiali/protocolli-intesa/",
+    "ITEM": {
+     "URL": "https://www.conaf.it/atti-ufficiali/protocolli-intesa/",
+     "HTTP": 200,
+     "BYTES": 152621,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 140,
+     "NON_WHITESPACE_CHARACTERS": 11755,
+     "PARAGRAPH_CHARACTERS": 8786,
+     "TEXT_SHA256": "754dcb5fa2164a00889ee8c9d3a0c1007431151ba1948f4f8152eb7978ee009a"
+    },
+    "VEREDITO": "FAMILIA_E_MENU: 24 dos 24 enderecos da familia repetem-se dentro do item — navegacao do site, nao lista de materias"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?conaf\\.it/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 8,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.conaf.it/comunicazione-0/ufficio-stampa/foto-istituzionali/",
+     "https://www.conaf.it/comunicazione-0/ufficio-stampa/manuale-utilizzo-logo-conaf/",
+     "https://www.conaf.it/consiglio-dellordine-nazionale/atti-di-elezione-del-consiglio-nazionale-2/atti-di-elezione-del-consiglio-nazionale/"
+    ],
+    "FLUXO": "vocabulario de publicacao: stampa",
+    "ALVO": "https://www.conaf.it/comunicazione-0/ufficio-stampa/foto-istituzionali/",
+    "ITEM": {
+     "URL": "https://www.conaf.it/comunicazione-0/ufficio-stampa/foto-istituzionali/",
+     "HTTP": 200,
+     "BYTES": 116000,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 124,
+     "NON_WHITESPACE_CHARACTERS": 2875,
+     "PARAGRAPH_CHARACTERS": 357,
+     "TEXT_SHA256": "05d09995ecb9f152cbc4332ca5c12c96179fc9e390027131a06c655c0cdb69bf"
+    },
+    "VEREDITO": "NAVIGATION/CAPA_PROVAVEL, 357 em paragrafos (< 800 ou nao e materia)"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?conaf\\.it/comunicazione\\-0/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 4,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.conaf.it/comunicazione-0/comitato-coordinamento/",
+     "https://www.conaf.it/comunicazione-0/piano-di-comunicazione-2022/",
+     "https://www.conaf.it/comunicazione-0/richiesta-patrocinio-conaf/"
+    ],
+    "FLUXO": "vocabulario de publicacao: stampa",
+    "ALVO": "https://www.conaf.it/comunicazione-0/comitato-coordinamento/",
+    "ITEM": {
+     "URL": "https://www.conaf.it/comunicazione-0/comitato-coordinamento/",
+     "HTTP": 200,
+     "BYTES": 72974,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 98,
+     "NON_WHITESPACE_CHARACTERS": 3107,
+     "PARAGRAPH_CHARACTERS": 1363,
+     "TEXT_SHA256": "c99833c6e6c3cd5d2aa7936c7d1a7405fec4347bf3957c10193c8ba6ad3876c7"
+    },
+    "VEREDITO": "FAMILIA_E_MENU: 4 dos 4 enderecos da familia repetem-se dentro do item — navegacao do site, nao lista de materias"
+   }
+  ],
+  "PORQUE": "https://www.conaf.it/atti-ufficiali/protocolli-intesa/ -> FAMILIA_E_MENU: 24 dos 24 enderecos da familia repetem-se de; https://www.conaf.it/comunicazione-0/ufficio-stampa/foto-istituzionali -> NAVIGATION/CAPA_PROVAVEL, 357 em paragrafos (< 800 ou nao e ; https://www.conaf.it/comunicazione-0/comitat",
+  "PEDIDOS": 4,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://www.conaf.it/",
+    "HTTP": 200,
+    "BYTES": 94185
+   },
+   {
+    "URL": "https://www.conaf.it/atti-ufficiali/protocolli-intesa/",
+    "HTTP": 200,
+    "BYTES": 152621
+   },
+   {
+    "URL": "https://www.conaf.it/comunicazione-0/ufficio-stampa/foto-istituzionali/",
+    "HTTP": 200,
+    "BYTES": 116000
+   },
+   {
+    "URL": "https://www.conaf.it/comunicazione-0/comitato-coordinamento/",
+    "HTTP": 200,
+    "BYTES": 72974
+   }
+  ],
+  "_HR_SOBRE_O_ITEM_LIDO": "SEM_ITEM",
+  "_SOURCE_ID": "IT-T7-170",
+  "_SEGUNDOS": 14.3
+ },
+ {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://www.noisiamoagricoltura.com/",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.noisiamoagricoltura.com/",
+   "LINK_PATTERN": "^https?://(www\\.)?noisiamoagricoltura\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "NAVIGATION",
+   "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+   "LINKS": 77,
+   "PARAGRAPH_CHARACTERS": 696,
+   "TEXT_SHA256": "27ee24fb004c3030100a37cdd1e58359cff726fd9f889cf134d92f70adba2eb9"
+  },
+  "SECCAO_TENTADA": "https://www.noisiamoagricoltura.com/blog",
+  "FAMILIAS_VISTAS": [],
+  "FAMILIAS_ESTATICAS": [],
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "SEM_FAMILIA_DE_ITENS",
+  "PORQUE": "nem a entrada nem a seccao https://www.noisiamoagricoltura.com/blog lista 2+ itens com o mesmo esqueleto",
+  "PEDIDOS": 2,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://www.noisiamoagricoltura.com/",
+    "HTTP": 200,
+    "BYTES": 221514
+   },
+   {
+    "URL": "https://www.noisiamoagricoltura.com/blog",
+    "HTTP": 200,
+    "BYTES": 210405,
+    "DESTINO": "https://www.noisiamoagricoltura.com/blog/"
+   }
+  ],
+  "_HR_SOBRE_O_ITEM_LIDO": "SEM_ITEM",
+  "_SOURCE_ID": "IT-T8-050",
+  "_SEGUNDOS": 7.4
+ }
+]

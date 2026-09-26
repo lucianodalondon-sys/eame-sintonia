@@ -1,0 +1,53 @@
+{
+ "DATASET": "LEGACY-99-REVALIDAR-EM-COPIA",
+ "MEDIDO_EM": "2026-09-25T10:59:53+00:00",
+ "COPIA": "C:\\rend\\copia-l2b",
+ "REDE": "ABERTA",
+ "MODO": "REVALIDAR",
+ "REMEDIR": [
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "FEITO": false,
+   "PORQUE": "nao esta READY: CANARY_PENDING"
+  }
+ ],
+ "RONDAS": [
+  {
+   "RONDA": 1,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T10-017"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "youtube.com": 2
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T10-017",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T10-017",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "PASS_PARCIAL"
+    }
+   ]
+  }
+ ],
+ "RECUSADOS_PELO_TRANSPORTE": {},
+ "RESUMO": {
+  "FALHOU": 1
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "canario resolveu, mas a regua dos quatro passos nao promove: PASS_PARCIAL: falta ITEM_ABERTO,BODY_UTIL"
+  }
+ ]
+}

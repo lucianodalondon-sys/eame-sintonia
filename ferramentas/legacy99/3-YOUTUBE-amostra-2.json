@@ -1,0 +1,78 @@
+{
+ "DATASET": "LEGACY-99-REVALIDAR-EM-COPIA",
+ "MEDIDO_EM": "2026-09-25T09:59:30+00:00",
+ "COPIA": "C:\\rend\\copia-legacy",
+ "REDE": "ABERTA",
+ "REMEDIR": [
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "FEITO": true,
+   "TASK_ID": "T04547"
+  },
+  {
+   "SOURCE_ID": "IT-T10-019",
+   "FEITO": true,
+   "TASK_ID": "T04548"
+  }
+ ],
+ "RONDAS": [
+  {
+   "RONDA": 1,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T10-017"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "youtube.com": 1
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T10-017",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "BLOCK"
+    }
+   ]
+  },
+  {
+   "RONDA": 2,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T10-019"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "youtube.com": 1
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T10-019",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "BLOCK"
+    }
+   ]
+  }
+ ],
+ "RECUSADOS_PELO_TRANSPORTE": {},
+ "RESUMO": {
+  "FALHOU": 2
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACT_READY_ROUTE_BLOCKED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "o endereco do contrato casa com Disallow no robots vivo"
+  },
+  {
+   "SOURCE_ID": "IT-T10-019",
+   "ANTES": "READY_LEGACY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACT_READY_ROUTE_BLOCKED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "o endereco do contrato casa com Disallow no robots vivo"
+  }
+ ]
+}

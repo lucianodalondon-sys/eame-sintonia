@@ -211,6 +211,8 @@ def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
         elif contrato.get("FORMA") == CANARIO.FORMA_PAGINA_E_BOLETIM:
             # D42 (2): a pagina e o boletim — a forma e explicita no contrato, nunca adivinhada
             r = CANARIO.canario_pagina_boletim(contrato)
+        elif contrato.get("ACQUISITION", {}).get("ADAPTER_ID") == CANARIO.YOUTUBE_CANAL:
+            r = CANARIO.canario_youtube_canal(contrato)
         else:
             r = CANARIO.canario_html(contrato)
     except Exception as e:

@@ -37,6 +37,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from urllib.parse import urlparse
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -56,6 +57,8 @@ CONTROLO = {
     "LOTE-YOUTUBE-FEED": ("https://www.youtube.com/feeds/videos.xml"
                           "?channel_id=UCUs2Mg7jvUTRt7_MSOFYM5Q"),   # IT-T8-001
     "LOTE-HTML-ARTIGO": "https://www.provincia.tn.it/",              # IT-T1-002
+    "LOTE-YOUTUBE-CANAL": ("https://www.youtube.com/channel/"
+                           "UCUs2Mg7jvUTRt7_MSOFYM5Q/videos"),         # IT-T8-001, rota do canal
 }
 
 
@@ -113,6 +116,50 @@ def canario_youtube(c: dict) -> dict:
             "PRIMEIRO_PUBLISHED": pub.group(1).decode()[:10] if pub else "NAO SEI"}
 
 
+# ── O CANAL YOUTUBE PELA ROTA QUE O COLETOR USA (LEGACY-99 B, 25/09/2026) ──────
+# ⚠️ MEDIDO: as 41 YouTube READY_LEGACY tinham no Curator a rota `feeds/videos.xml`,
+# e o robots do YouTube proibe-a — VALIDATE_ROUTE: «o endereco do contrato casa com
+# Disallow no robots vivo». O coletor ja colhe pela pagina publica do canal
+# (CUSTOM_ADAPTER `CANAL_PUBLICO_YOUTUBE_V1`, tabela onboarded). O Curator passa a
+# provar ESSA rota: a aba /videos do canal, um pedido.
+YOUTUBE_CANAL = "CANAL_PUBLICO_YOUTUBE_V1"
+
+
+def url_do_canal(channel_id: str) -> str:
+    return "https://www.youtube.com/channel/%s/videos" % channel_id
+
+
+def url_da_rota(aq: dict) -> str | None:
+    """O endereco que o portao do anfitriao (robots) tem de deixar: o dono e aqui,
+    para o VALIDATE_ROUTE e o canario lerem o MESMO."""
+    if aq.get("STRATEGY") == "CUSTOM_ADAPTER" and aq.get("ADAPTER_ID") == YOUTUBE_CANAL:
+        return url_do_canal(aq["CHANNEL_ID"]) if aq.get("CHANNEL_ID") else None
+    return aq.get("FEED_URL") or aq.get("INDEX_URL")
+
+
+def canario_youtube_canal(c: dict) -> dict:
+    """A pagina /videos do canal responde, e do canal certo, e dela sai um video com
+    identidade. Nao abre o video: a regua dos 4 passos e de HTML, e decidir se um
+    video e «materia» e pergunta da regua, nao deste canario."""
+    aq = c["ACQUISITION"]
+    cid = aq.get("CHANNEL_ID") or ""
+    st, b, err = buscar(url_do_canal(cid))
+    if st != 200 or not b:
+        return {"PASS": False, "CLASSE": "UNKNOWN", "PORQUE": err or "HTTP %s" % st, "HTTP": st}
+    if cid.encode() not in b:
+        return {"PASS": False, "CLASSE": "ROUTE_FAILURE", "HTTP": st,
+                "PORQUE": "a pagina nao e do canal %s" % cid}
+    vids = list(dict.fromkeys(re.findall(rb'"videoId":"([A-Za-z0-9_-]{11})"', b)))
+    if not vids:
+        return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st,
+                "PORQUE": "canal sem videos na aba /videos — EMPTY_LIST"}
+    modelo = ((c.get("IDENTITY") or {}).get("DOCUMENT_ID")
+              or "%s:YT:{video.videoId}" % c.get("SOURCE_ID", "?"))
+    return {"PASS": True, "CLASSE": "OK", "HTTP": st, "ROTA": "CANAL_PUBLICO",
+            "DOCUMENT_ID": modelo.replace("{video.videoId}", vids[0].decode()),
+            "ITENS_NO_CANAL": len(vids), "DETAIL_ENUMERATED": len(vids)}
+
+
 def _regua_manda(source_id) -> bool:
     """V1A: le o dono (ready_split.regua_manda). Import tardio: ready_split le o
     livro do lifecycle, e o canario nao precisa dele para mais nada."""
@@ -147,6 +194,16 @@ def hrefs_da_entrada(b: bytes, index_url: str, strip_suffix: str | None = None) 
         # em excecao. O leitor antigo nunca rebentava; esta ligacao salta-se.
         try:
             h = urljoin(index_url, h)
+        except ValueError:
+            continue
+        # ⚠️ UM LINK MALFORMADO NA PAGINA NAO PODE DERRUBAR O REPARO (LEGACY-99, 25/09):
+        # IT-T12-019 (ersaf.lombardia.it) trazia um href com «[» e o `urlparse` do
+        # reparo rebentava com «ValueError: Invalid IPv6 URL» (reparar_contrato.familias).
+        # Este e o dono unico do conjunto: o que nao se consegue ler como endereco sai
+        # aqui, e nenhum consumidor a jusante tem de se proteger sozinho.
+        try:
+            p = urlparse(h)
+            p.hostname, p.port  # noqa: B018 — so validar: ambos levantam ValueError se malformado
         except ValueError:
             continue
         if h.startswith(("http://", "https://")):
@@ -339,6 +396,29 @@ def canario_pagina_boletim(c: dict) -> dict:
                 TEMPOS=tempos_do_motor(ident))
 
 
+def escolher_alvo(alvos: list[str], index_url: str = "") -> str:
+    """O item que o canario TENTA primeiro. Se ele nao passar, o canario abre `alvos[0]`,
+    como sempre abriu — e esse que o reparo (reparar_contrato) le, e que o canario
+    continua a alcancar.
+
+    ⚠️ MEDIDO (HR-6, 25/09/2026): o canario abria sempre `alvos[0]`, o primeiro por
+    ordem alfabetica. Em 6 fontes esse primeiro tinha cara de SECCAO pela regra do
+    portao (`collection_gate.revisao_humana_do_url`) e a fonte ficava READY mas fora
+    da colheita (HUMAN_REVIEW_REQUIRED) — e re-medir abria o mesmo endereco, sempre.
+    A CONAF tem 29 itens na entrada; o 1.o era «assemblea-agronomi-udine».
+
+    Por isso: o primeiro, na mesma ordem, cujo endereco NAO tem cara de seccao. Se
+    todos tem, o primeiro — e o portao continua a pedir olho humano. Isto so escolhe
+    QUAL item se abre; quem julga se e materia continua a ser o gate de detalhe.
+    """
+    import collection_gate as G  # noqa: PLC0415  (import tardio: le o livro)
+    entrada = (index_url or "").rstrip("/")
+    for a in alvos:
+        if a.rstrip("/") != entrada and not G.revisao_humana_do_url(a):
+            return a
+    return alvos[0]
+
+
 def canario_html(c: dict) -> dict:
     """Abre a entrada, aplica o LINK_PATTERN e prova que sai um ITEM (nao o indice)."""
     aq = c["ACQUISITION"]
@@ -355,10 +435,27 @@ def canario_html(c: dict) -> dict:
                            "— EMPTY_LIST, como o contrato preve" % len(hrefs)),
                 "HREFS": len(hrefs)}
     # ⚠️ O ALVO NAO PODE SER A PROPRIA ENTRADA.
-    alvo = alvos[0]
-    if alvo.rstrip("/") == aq["INDEX_URL"].rstrip("/"):
+    if alvos[0].rstrip("/") == aq["INDEX_URL"].rstrip("/"):
         return {"PASS": False, "CLASSE": "ROUTE_FAILURE", "HTTP": st,
                 "PORQUE": "o padrao devolveu a propria pagina de entrada"}
+    # HR-6: tenta o item mais fundo; se ele nao passar, abre o primeiro, como
+    # antes. NUNCA PIOR DO QUE HOJE: medido na copia, o item fundo da ARPAS e da
+    # Umbria era PDF e o de Padova navegacao — sem a volta, 3 READY cairiam.
+    primeiro = alvos[0]
+    alvo = escolher_alvo(alvos, aq["INDEX_URL"])
+    # DA-13: o texto de cada ligacao da entrada (LINK_TEXT), lido uma vez, como o coletor o poe no alvo
+    textos = textos_das_ligacoes(b, aq["INDEX_URL"], aq.get("STRIP_SUFFIX"))
+    r = _abrir_item(c, alvo, alvos, textos)
+    if alvo != primeiro and not r.get("PASS"):
+        tentado = {k: r.get(k) for k in ("ALVO", "CLASSE", "PORQUE", "ITEM_ABERTO")
+                   if r.get(k) is not None}
+        r = _abrir_item(c, primeiro, alvos, textos)
+        r["ALVO_FUNDO_TENTADO"] = tentado
+    return r
+
+
+def _abrir_item(c: dict, alvo: str, alvos: list[str], textos: dict | None = None) -> dict:
+    """Abre UM item e julga-o. Sem fallback aqui: quem escolhe e canario_html."""
     st2, b2, err2 = buscar(alvo)
     if st2 != 200 or not b2:
         return {"PASS": False, "CLASSE": "UNKNOWN", "HTTP": st2,
@@ -367,8 +464,7 @@ def canario_html(c: dict) -> dict:
     # listagens (CAND-0060): b'\xef\xbb\xbf<!DOC' reprovava como bytes errados.
     # D32 (4): contrato que declara PDF e julgado pela esteira de PDF, nao pelo retrato de HTML.
     if c.get("OUTPUT_TYPE") == "PDF":
-        return _canario_pdf(c, alvo, alvos, st2, b2,
-                            textos_das_ligacoes(b, aq["INDEX_URL"], aq.get("STRIP_SUFFIX")).get(alvo, ""))
+        return _canario_pdf(c, alvo, alvos, st2, b2, (textos or {}).get(alvo, ""))
     if not b2.lstrip().removeprefix(b"\xef\xbb\xbf")[:1] == b"<":
         return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st2,
                 "PORQUE": "bytes nao sao HTML — BYTE_VALIDATION_FAILED", "ALVO": alvo}
