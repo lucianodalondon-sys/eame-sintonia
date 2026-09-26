@@ -1,0 +1,33 @@
+import subprocess, os
+R = r'C:/capa-v1'
+PY, JS, AD = 'curadoria/retrato_html.py', 'coleta/retrato_html.mjs', 'admissao/admissao.py'
+MUT = [
+    ('M1 V3 desligada (py)', PY, 'V3_LIGADA = True', 'V3_LIGADA = False'),
+    ('M2 sem guarda de retrato', PY, '    if retrato and e_pagina_de_um_video(url):', '    if e_pagina_de_um_video(url):'),
+    ('M3 qualquer host que acabe em youtube.com', PY, r'^https?://(?:www\.|m\.)?youtube\.com/', r'^https?://[^/]*youtube\.com/'),
+    ('M4 sem ancora no fim do id', PY, r'{11}(?:[&#]|$)"', r'{11}"'),
+    ('M5 id de 10 a 12', PY, r'[A-Za-z0-9_-]{11}(?:[&#]|$)"', r'[A-Za-z0-9_-]{10,12}(?:[&#]|$)"'),
+    ('M6 qualquer caminho (canal/playlist)', PY, r'youtube\.com/watch\?(?:[^#]*&)?v=', r'youtube\.com/.*[?&]v=|youtube\.com/'),
+    ('M7 regra mesmo se ja materia', PY, '        return (REGRA_V3 if k != "MATERIA_PROVAVEL" else None), "MATERIA_PROVAVEL"',
+     '        return REGRA_V3, "MATERIA_PROVAVEL"'),
+    ('M8 V3 antes da V1', PY, '    if V1_LIGADA and regua_a_mandar is True and url and e_o_indice_do_contrato(url, contrato):',
+     '    if False:'),
+    ('M9 V3 desligada (node)', JS, 'export const V3_LIGADA = true;', 'export const V3_LIGADA = false;'),
+    ('M10 node aceita shorts', JS, r'youtube\.com\/watch\?(?:[^#]*&)?v=', r'youtube\.com\/(?:shorts\/|watch\?(?:[^#]*&)?v=)'),
+    ('M11 porta sem motivo V3', AD, '        if ev.get("v1") and regra == rh.REGRA_V3:', '        if False:'),
+]
+TESTES = ['tests.test_v3_pagina_de_video', 'tests.test_c2_juiz']
+env = {**os.environ, 'PYTHONUTF8': '1'}
+for nome, f, a, b in MUT:
+    p = os.path.join(R, f)
+    s = open(p, encoding='utf-8', newline='').read()
+    if s.count(a) != 1:
+        print(nome, 'ALVO NAO ACHADO', s.count(a)); continue
+    open(p, 'w', encoding='utf-8', newline='').write(s.replace(a, b))
+    try:
+        r = subprocess.run(['py', '-B', '-m', 'unittest'] + TESTES, cwd=R, capture_output=True, text=True, env=env)
+        fim = r.stderr.strip().splitlines()[-1]
+        print(nome, '->', 'MORTO' if 'failures=' in fim else 'VIVO', '|', fim)
+    finally:
+        open(p, 'w', encoding='utf-8', newline='').write(s)
+print('status depois:', repr(subprocess.run(['git', 'status', '--short'], cwd=R, capture_output=True, text=True).stdout))
