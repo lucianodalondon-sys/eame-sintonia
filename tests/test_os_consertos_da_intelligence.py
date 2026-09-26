@@ -249,5 +249,77 @@ class D8_UmaListaSo(unittest.TestCase):
         self.assertEqual(set(p.dentro_do_contrato_de_hoje()), set(ESP.CAMPOS_DO_READY))
 
 
+class D9_JanelaDeclaradaNaoEJanelaDoFacto(unittest.TestCase):
+    """INTEGRA-NOITE lote 2 (coordenação 26/09 10:35): `JANELA_DECLARADA` entra no
+    `ItemPronto` como `NAO SEI`, e a Intelligence NUNCA a usa como janela do facto.
+    A janela do facto sai só de `FACT_TIME`; um `NAO SEI` nunca vira janela."""
+
+    JANELA_CHEIA = {"JANELA": {"VALOR": "2026-09", "VEIO_DE": "FONTE", "BASE": "declarada"}}
+
+    def _espinha(self, **kw):
+        base = dict(ITEM_ID="IT-J-1", UNIVERSO="T3", SOURCE_ID="IT-T3-005", TEXTO="t",
+                    FACT_TIME="2026-05-04", FACT_LOCATION="IT-Veneto-Verona",
+                    especie="OBSERVED_FIELD_SIGNAL", sujeito_declarado="peronospora della vite")
+        base.update(kw)
+        return ESP.ItemPronto(**base)
+
+    def _corrida(self):
+        return ESP.Corrida("J", "ha pressao de peronospora em Verona em Maio?", "DOENCA")
+
+    def test_o_itempronto_nasce_com_a_janela_em_nao_sei(self):
+        self.assertEqual(ESP.ItemPronto(ITEM_ID="a", UNIVERSO="T5", TEXTO="t",
+                                        SOURCE_ID="s").JANELA_DECLARADA, ESP.NAO_SEI)
+
+    def test_g0_sem_fact_time_bloqueia_com_qualquer_janela_declarada(self):
+        for janela in (ESP.NAO_SEI, self.JANELA_CHEIA):
+            with self.subTest(janela=janela):
+                c = self._corrida()
+                self.assertIsNone(c.g0_sinal(self._espinha(FACT_TIME=ESP.NAO_SEI,
+                                                           JANELA_DECLARADA=janela)))
+                ok, falta = CI.portao_g0(item(FACT_TIME=ESP.NAO_SEI, JANELA_DECLARADA=janela))
+                self.assertFalse(ok)
+                self.assertTrue(any(f.startswith("FACT_TIME") for f in falta), falta)
+
+    def test_o_tempo_do_sinal_e_o_fact_time_nunca_a_janela(self):
+        c = self._corrida()
+        s = c.g0_sinal(self._espinha(JANELA_DECLARADA=ESP.NAO_SEI))
+        self.assertEqual(s.FACT_TIME, "2026-05-04")
+        livro = CI.correr("pergunta de teste", [item(JANELA_DECLARADA=ESP.NAO_SEI)])
+        self.assertEqual([x["FACT_TIME"] for x in livro["SIGNALS"]], ["2026-09-23"])
+
+    def test_g2_nunca_cruza_por_uma_janela_nao_sei(self):
+        import dataclasses
+        c = self._corrida()
+        s1 = c.g0_sinal(self._espinha(ITEM_ID="IT-J-1"))
+        s2 = c.g0_sinal(self._espinha(ITEM_ID="IT-J-2", SOURCE_ID="IT-T3-006"))
+        self.assertEqual(c.g2_cruzar([s1, s2], "?").ESTADO, "PROVADO")   # contraprova
+        sem_tempo = [dataclasses.replace(s, FACT_TIME=ESP.NAO_SEI) for s in (s1, s2)]
+        x = c.g2_cruzar(sem_tempo, "?")
+        self.assertEqual(x.ESTADO, "NOT_POSSIBLE")
+        self.assertNotIn(ESP.NAO_SEI, (x.JOIN_KEY or {}).values())
+
+    def test_nenhum_codigo_da_intelligence_le_a_janela_declarada(self):
+        """Pela árvore sintática: o nome só pode aparecer como o campo do `ItemPronto`."""
+        import ast
+        for caminho in (RAIZ / "provas" / "espinha_da_intelligence.py",
+                        RAIZ / "motor" / "corrida_da_inteligencia.py"):
+            usos = []
+            arvore = ast.parse(caminho.read_text(encoding="utf-8"))
+            declaracao = {id(no.target) for no in ast.walk(arvore)
+                          if isinstance(no, ast.AnnAssign)
+                          and getattr(no.target, "id", "") == "JANELA_DECLARADA"}
+            for no in ast.walk(arvore):
+                if id(no) in declaracao:
+                    continue
+                nome = (getattr(no, "attr", None) if isinstance(no, ast.Attribute)
+                        else getattr(no, "id", None) if isinstance(no, ast.Name)
+                        else no.value if isinstance(no, ast.Constant) and isinstance(no.value, str)
+                        else None)
+                if nome and "JANELA_DECLARADA" in nome:
+                    usos.append(getattr(no, "lineno", "?"))
+            with self.subTest(ficheiro=caminho.name):
+                self.assertEqual(usos, [], "a Intelligence le JANELA_DECLARADA nas linhas %s" % usos)
+
+
 if __name__ == "__main__":
     unittest.main()

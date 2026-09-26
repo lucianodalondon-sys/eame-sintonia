@@ -201,6 +201,13 @@ class ItemPronto:
     COMPLETUDE_TEMPO_LUGAR: Any = NAO_SEI
     TEMPO_LUGAR_EVIDENCIA: Any = NAO_SEI
 
+    # ── a das quatro chaves (quatro-chaves-v2) ────────────────────────────
+    # Chegou com o dono da Sala. `NAO SEI` por omissão (ausência de prova = NAO
+    # SEI, coordenação 26/09 10:35). É a janela que a FONTE declarou, não a do
+    # facto: a janela do facto sai só de `FACT_TIME` (G0 e G2). Nenhum código da
+    # Intelligence a lê — `tests.test_os_consertos_da_intelligence.D9_…` prova.
+    JANELA_DECLARADA: Any = NAO_SEI
+
     # ── fora do contrato de hoje ──────────────────────────────────────────
     especie: str = NAO_SEI          # CAMPOS_QUE_NAO_ATRAVESSAM[0]
     sujeito_declarado: str = NAO_SEI  # CAMPOS_QUE_NAO_ATRAVESSAM[1]
