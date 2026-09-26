@@ -5076,6 +5076,26 @@
     "scripts/reparo/juntar_bancas.py",
     "scripts/reparo/revisar_ready.py"
    ]
+  },
+  {
+   "id": "C-CANAIS-41",
+   "name": "CANAIS-41: o roteiro do teste dos 41 canais YouTube pelo Scrap",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "ensaio_a_seco.py: corre a fase canal-youtube do Scrap numa COPIA com chave falsa so no processo, transporte da API trocado por literais e proxy fechado, conta os pedidos por host e passa o envelope pela regua social (D53). montar_corridas.py: monta o --corridas da regua a partir de SOURCE_ID/RUN_ID, contando RAW so leitura (DSN de ficheiro, nunca impresso). para_aplicar.py: separa o que a regua pode escrever no livro (READY, FALHA da fonte) do defeito nosso (chave, teto, RAW, envelope, Atlas, marcas em falta).",
+   "why_here": "CANAIS-41-RUNBOOK (26/09/2026): o teste de qualificacao dos 41 canais antigos pela rota do Scrap; o ensaio a seco mostrou 2 pedidos/canal a googleapis.com e que os itens da API nao trazem OWNER_AUTHORIZED/PLATFORM_POLICY_STATUS (a regua reprovaria todos).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/canais41/ensaio_a_seco.py",
+    "ferramentas/canais41/montar_corridas.py",
+    "ferramentas/canais41/para_aplicar.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
