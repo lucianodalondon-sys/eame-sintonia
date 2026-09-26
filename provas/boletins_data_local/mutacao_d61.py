@@ -49,7 +49,7 @@ MUTANTES = [
      "  const baseDe = (k) => (Array.isArray(baseDeclarada) ? baseDeclarada[k] : baseDeclarada);",
      "  const baseDe = (k) => (Array.isArray(baseDeclarada) ? baseDeclarada[0] : baseDeclarada);", [MOTOR]),
     ("DA-13 canario: nao passa o link ao motor", C,
-     'textos_das_ligacoes(b, aq["INDEX_URL"], aq.get("STRIP_SUFFIX")).get(alvo, ""))', '"")', [CURADOR]),
+     '_canario_pdf(c, alvo, alvos, st2, b2, (textos or {}).get(alvo, ""))', '_canario_pdf(c, alvo, alvos, st2, b2, "")', [CURADOR]),
 ]
 FORA = {".git", "data", "italia-portale", "system-map", "build", "docs", "node_modules"}
 
