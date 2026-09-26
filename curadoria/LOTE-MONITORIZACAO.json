@@ -1,0 +1,407 @@
+{
+ "DATASET": "LOTE-MONITORIZACAO",
+ "CRITERIO": "Alinhamento do dono (secoes 2-3): o SINAL PRECOCE (catture, voli, uova/larve/adulti, % infestazione, soglia) antes do boletim. So redes PUBLICAS. Um alvo por dominio (teto 5). Fora pela 4.a onda (rodada 1): regione.veneto.it (SFR Veneto), regione.sicilia.it (Sicilia), arpae/arpa.veneto/arpal/arpat/arpa.marche/arpacampania. Fora por robots (P1g): Lombardia SFR, Puglia SIT/emergenzaxylella, SIAS, Beratungsring. Fora por login (medido hoje): series por ponto da Terre dell'Etruria.",
+ "AVISO": "Nenhum livro nosso diz ONDE esta a tabela de capturas: TABELA_EM/FORMATO/FREQUENCIA ficam NAO SEI ate a medida (curadoria/medir_contagens.py). 19 dos 20 ja sao fontes (SOURCE_ID): o achado vira ENTRADA NOVA / contrato de monitorizacao dessas fontes, nao numero novo.",
+ "ALVOS": [
+  {
+   "ID": "LM-01",
+   "SOURCE_ID": "IT-T3-027",
+   "NOME": "ERSA FVG — Bollettini di difesa integrata e biologica",
+   "URL": "http://www.ersa.fvg.it/cms/aziende/in-formazione/Bollettini/index.html",
+   "REGIAO": "Friuli Venezia Giulia",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "bollettini di difesa integrata: tabelas de catture por zona (tignoletta, carpocapsa, cimice)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_COM_BOLETIM",
+    "P1G_FORMATO": "PDF",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "ersa.fvg.it"
+  },
+  {
+   "ID": "LM-02",
+   "SOURCE_ID": "IT-T3-028",
+   "NOME": "Emilia-Romagna — Bollettini territoriali di produzione integrata e biologica",
+   "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini",
+   "REGIAO": "Emilia-Romagna",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "bollettini territoriali di produzione integrata por provincia (catture, voli)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": "2026-07-02",
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "emilia-romagna.it"
+  },
+  {
+   "ID": "LM-03",
+   "SOURCE_ID": "IT-T3-030",
+   "NOME": "FEM — Flavescenza dorata, bollettini di difesa",
+   "URL": "https://fitoemergenze.fmach.it/flavescenza-dorata/bollettini-di-difesa",
+   "REGIAO": "Trentino (FEM)",
+   "TIPO": "REDE_FEM",
+   "O_QUE_SE_PROCURA": "flavescenza dorata / scafoideo: monitoraggio e bollettini di difesa",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_COM_BOLETIM",
+    "P1G_FORMATO": null,
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "fmach.it"
+  },
+  {
+   "ID": "LM-04",
+   "SOURCE_ID": "IT-T3-031",
+   "NOME": "Liguria — Sorveglianza del territorio e monitoraggio organismi nocivi",
+   "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale/sorveglianza-del-territorio-carte-di-diffusione-e-monitoraggio-degli-organismi-nocivi.html",
+   "REGIAO": "Liguria",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "sorveglianza del territorio: carte di diffusione e monitoraggio organismi nocivi",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "agriligurianet.it"
+  },
+  {
+   "ID": "LM-05",
+   "SOURCE_ID": "IT-T3-026",
+   "NOME": "Campania — SIMFITO, monitoraggio fitosanitario",
+   "URL": "https://simfito.regione.campania.it/",
+   "REGIAO": "Campania",
+   "TIPO": "REDE_REGIONAL",
+   "O_QUE_SE_PROCURA": "SIMFITO: sistema informativo de monitoraggio fitosanitario",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.campania.it"
+  },
+  {
+   "ID": "LM-06",
+   "SOURCE_ID": "IT-T3-033",
+   "NOME": "Piemonte — Bacheca dei bollettini fitosanitari",
+   "URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan/bacheca-dei-bollettini",
+   "REGIAO": "Piemonte",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "bacheca dei bollettini fitosanitari (monitoraggi)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": null
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.piemonte.it"
+  },
+  {
+   "ID": "LM-07",
+   "SOURCE_ID": "IT-T3-041",
+   "NOME": "Servizio Fitosanitario Regionale — lazio",
+   "URL": "https://www.regione.lazio.it/cittadini/agricoltura/servizio-fitosanitario-regionale",
+   "REGIAO": "Lazio",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "servizio fitosanitario regionale (reti di monitoraggio)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": "2026-08-06",
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.lazio.it"
+  },
+  {
+   "ID": "LM-08",
+   "SOURCE_ID": "IT-T3-043",
+   "NOME": "Servizio Fitosanitario Regionale — marche",
+   "URL": "https://www.amap.marche.it/servizi/fitosanitario",
+   "REGIAO": "Marche",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "AMAP servizio fitosanitario (rete di monitoraggio tignoletta/mosca olearia)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": "2024-06-05",
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "amap.marche.it"
+  },
+  {
+   "ID": "LM-09",
+   "SOURCE_ID": "IT-T3-049",
+   "NOME": "Servizio Fitosanitario Regionale — toscana",
+   "URL": "https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale",
+   "REGIAO": "Toscana",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "servizio fitosanitario regionale (monitoraggi organismi nocivi)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": "2026-04-14",
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.toscana.it"
+  },
+  {
+   "ID": "LM-10",
+   "SOURCE_ID": "IT-T3-053",
+   "NOME": "Umbria — Bollettini fitosanitari (lista permanente)",
+   "URL": "https://www.regione.umbria.it/agricoltura/bollettini-fitosanitari",
+   "REGIAO": "Umbria",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "bollettini fitosanitari (catture/voli nos boletins)",
+   "ESTADO_NO_ROBO": "READY_FOR_COLLECTION",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_COM_BOLETIM",
+    "P1G_FORMATO": null,
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.umbria.it"
+  },
+  {
+   "ID": "LM-11",
+   "SOURCE_ID": "IT-T3-055",
+   "NOME": "Valle d'Aosta — Avvisi fitosanitari per frutticoltori",
+   "URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/avvisi/frutticoltura_i.asp",
+   "REGIAO": "Valle d'Aosta",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "avvisi fitosanitari frutticoltura (voli carpocapsa)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_COM_BOLETIM",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.vda.it"
+  },
+  {
+   "ID": "LM-12",
+   "SOURCE_ID": "IT-T3-037",
+   "NOME": "Servizio Fitosanitario Regionale — basilicata",
+   "URL": "https://www.regione.basilicata.it/giunta/site/giunta/department.jsp?dep=100049&area=104835&level=1",
+   "REGIAO": "Basilicata",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "ufficio fitosanitario (monitoraggi)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": "2026-05-12",
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.basilicata.it"
+  },
+  {
+   "ID": "LM-13",
+   "SOURCE_ID": "IT-T3-032",
+   "NOME": "Molise — Bollettini e comunicati fitosanitari",
+   "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18077",
+   "REGIAO": "Molise",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "bollettini e comunicati fitosanitari",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_COM_BOLETIM",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.molise.it"
+  },
+  {
+   "ID": "LM-14",
+   "SOURCE_ID": "IT-T3-048",
+   "NOME": "Servizio Fitosanitario Regionale — sardegna",
+   "URL": "http://www.sardegnaagricoltura.it/index.html",
+   "REGIAO": "Sardegna",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "servizio fitosanitario regionale (monitoraggi)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": null,
+    "P1G_FORMATO": null,
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "sardegnaagricoltura.it"
+  },
+  {
+   "ID": "LM-15",
+   "SOURCE_ID": "IT-T3-038",
+   "NOME": "Servizio Fitosanitario Regionale — bolzano",
+   "URL": "https://www.provincia.bz.it/agricoltura-foreste/agricoltura/default.asp",
+   "REGIAO": "Alto Adige",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "Pflanzenschutzdienst / servizio fitosanitario Bolzano (Popillia, cimice)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": null,
+    "P1G_FORMATO": null,
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "provincia.bz.it"
+  },
+  {
+   "ID": "LM-16",
+   "SOURCE_ID": "IT-T3-036",
+   "NOME": "Servizio Fitosanitario Regionale — abruzzo",
+   "URL": "https://www.regione.abruzzo.it/content/fitosanitario",
+   "REGIAO": "Abruzzo",
+   "TIPO": "SFR",
+   "O_QUE_SE_PROCURA": "servizio fitosanitario (monitoraggi)",
+   "ESTADO_NO_ROBO": "RETRY_AFTER",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": "2026-09-22",
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "regione.abruzzo.it"
+  },
+  {
+   "ID": "LM-17",
+   "SOURCE_ID": null,
+   "NOME": "ARSAC prevenzione fitosanitaria",
+   "URL": "https://arsacweb.it/prevenzione-fitosanitaria/",
+   "REGIAO": "Calabria",
+   "TIPO": "REDE_REGIONAL",
+   "O_QUE_SE_PROCURA": "ARSAC prevenzione fitosanitaria: a pagina «consigli di difesa del nocciolo — monitoraggio fitofagi» (GAPS/VARRIDO, endereco CORTADO no livro) deve estar linkada daqui",
+   "ESTADO_NO_ROBO": "sem SOURCE_ID (pagina nova de host com fontes T12)",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": null,
+    "P1G_FORMATO": null,
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": null
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "arsacweb.it"
+  },
+  {
+   "ID": "LM-18",
+   "SOURCE_ID": "IT-T2-141",
+   "NOME": "ARPAS Sardegna — Bollettino fenologico",
+   "URL": "http://www.sar.sardegna.it/servizi/agro/bollfenologico.asp",
+   "REGIAO": "Sardegna",
+   "TIPO": "AGROMETEO",
+   "O_QUE_SE_PROCURA": "ARPAS bollettino fenologico (fase por cultura)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "TABELA_HTML",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "sar.sardegna.it"
+  },
+  {
+   "ID": "LM-19",
+   "SOURCE_ID": "IT-T2-151",
+   "NOME": "Agrometeo Puglia — Bollettini",
+   "URL": "https://www.agrometeopuglia.it/bollettini",
+   "REGIAO": "Puglia",
+   "TIPO": "AGROMETEO",
+   "O_QUE_SE_PROCURA": "Agrometeo Puglia bollettini (avisos por cultura, modelos)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "agrometeopuglia.it"
+  },
+  {
+   "ID": "LM-20",
+   "SOURCE_ID": "IT-T2-159",
+   "NOME": "SIARL — Agrometeorologia Lazio (ARSIAL)",
+   "URL": "https://siarl.arsial.it/",
+   "REGIAO": "Lazio",
+   "TIPO": "AGROMETEO",
+   "O_QUE_SE_PROCURA": "SIARL/ARSIAL agrometeorologia (modelos de infecao, boletins por cultura)",
+   "ESTADO_NO_ROBO": "CONTRACTED_CANARY_FAILED",
+   "NOS_LIVROS": {
+    "P1G_ESTADO": "PUBLICO_SEM_BOLETIM_DATADO",
+    "P1G_FORMATO": "HTML",
+    "P1G_ULTIMA_DATA": null,
+    "OUTPUT_TYPE_DO_CONTRATO": "HTML"
+   },
+   "TABELA_EM": "NAO SEI — a medir (nenhum livro nosso guarda a pagina de capturas)",
+   "FORMATO": "NAO SEI",
+   "FREQUENCIA": "NAO SEI",
+   "DOMINIO": "arsial.it"
+  }
+ ]
+}

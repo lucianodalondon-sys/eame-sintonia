@@ -78,11 +78,14 @@ def main(argv=None) -> int:
     recentes = colhidos(linhas, datetime.now(timezone.utc))
     alvos = {}
     if a.get("lote"):
-        import colher_prova_territorio as CPT     # a mesma leitura do lote que a colheita usa (inclui FICHAS_NOVAS)
-        fichas = CPT.fichas_do_lote(json.loads(Path(a["lote"]).read_text(encoding="utf-8")),
-                                    json.loads(cands.read_text(encoding="utf-8"))["CANDIDATAS"])
-        for c, f in fichas.items():
-            alvos[c] = f["URL"]
+        lote = json.loads(Path(a["lote"]).read_text(encoding="utf-8"))
+        for x in lote.get("ALVOS", []):                 # LOTE-MONITORIZACAO (medir_contagens): alvos por URL
+            alvos[x["ID"]] = x["URL"]
+        if lote.get("CANDIDATAS") or lote.get("FICHAS_NOVAS"):
+            import colher_prova_territorio as CPT     # a mesma leitura do lote que a colheita usa (inclui FICHAS_NOVAS)
+            fichas = CPT.fichas_do_lote(lote, json.loads(cands.read_text(encoding="utf-8"))["CANDIDATAS"])
+            for c, f in fichas.items():
+                alvos[c] = f["URL"]
     if a.get("sonda"):
         contratos = {c["SOURCE_ID"]: c for c in json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
         sem = []
