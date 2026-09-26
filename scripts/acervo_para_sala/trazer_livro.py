@@ -12,7 +12,8 @@ O que faz, por corrida da lista:
   2  os bytes de cada `RAW_PATH` dessas linhas, achados nas raizes com o sha256 CONFERIDO contra `RAW_SHA256`;
      um ficheiro que ja existe no vivo com OUTRO conteudo PARA tudo (nao se escreve por cima)
 
-Sem `--aplicar` so conta e mostra. Com `--aplicar` exige `PARAR.flag` ausente e escreve um recibo.
+Sem `--aplicar` so conta e mostra. Com `--aplicar` exige o robo PARADO (`PARAR.flag` presente na raiz, a mesma
+regra do `reprocessar_lote.py`: o livro nao se mexe com o coletor a escrever nele) e escreve um recibo.
 
     py scripts/acervo_para_sala/trazer_livro.py --arvore <vivo> --lista LOTE-12-ITENS.json \\
         --livros "<glob;glob>" --raizes "<r;r>" [--dados <pasta com raw.json>] [--aplicar] [--recibo out.json]
@@ -102,8 +103,10 @@ def main():
     if not a.aplicar:
         print("(so contado; nada escrito — --aplicar e do coordenador)")
         return 0
-    if os.path.exists(os.path.join(arv, "PARAR.flag")):
-        print("PARADO: PARAR.flag presente")
+    if not os.path.exists(os.path.join(arv, "PARAR.flag")):
+        # ACERVO-PARA-SALA-3: a 1.a versao dizia o CONTRARIO (recusava com o robo parado). O ensaio do
+        # comando apanhou-o: o reprocessar exige PARAR.flag, e os dois passos do roteiro nunca correriam juntos.
+        print("PARADO: PARAR.flag ausente — pare o robo antes (o livro nao se mexe com o coletor vivo)")
         return 2
     for rel, origem in bytes_plano:
         destino = os.path.join(arv, rel)
