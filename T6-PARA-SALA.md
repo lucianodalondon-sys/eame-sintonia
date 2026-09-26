@@ -292,11 +292,48 @@ py coleta/pesquisadores_t6.py --rede2 --rodada=2 --saida=C:/Users/London1/sinton
 
 ### 6.2 · Ensaio numa cópia da Sala (Postgres descartável, LOCK-PESADO)
 
-**PENDENTE — preenchido abaixo quando a LOCK-PESADO libertar.**
+**NÃO MEDIDO. A LOCK-PESADO nunca ficou livre para mim.**
+- das 10:42 às 13:34 esteve com 5 missões seguidas: REPROC-EXTRATORES, DEDUP-INSTALAR, NUVEM-CONCORRENZA,
+  ACERVO-PARA-SALA-2 (11:58–13:27) e INTEGRA-NOITE-LOTE2 (13:27, mapa);
+- às 11:40 houve ainda uma trava de 0 bytes, que outra sessão tratou como órfã;
+- não forcei nenhuma trava e não corri nada pesado.
+
+**O ensaio está pronto e testado até ao ponto em que o banco entra:**
+- o programa `provas/ensaio_t6_na_copia_da_sala.py`;
+- o ambiente, uma cópia destacada deste ramo em `%TEMP%/t6-sonda` (`b8b43909`), com as 42 respostas da
+  foto final em `data/colheita/pesquisadores-t6/rodadas`.
+
+**O que ele faz:**
+- a cópia da Sala real só com leitura (o mesmo `pg_dump` do `backup_sala.cmd`), fotografada antes e depois;
+- um Postgres descartável `sala_italia` numa porta livre;
+- **duas** passagens do botão canónico com a Sala em POSTGRES: a 1.ª mede quantos entram; a 2.ª que
+  **não entram outra vez** (idempotência por documento);
+- as contas por SQL na cópia, antes e depois: Sala total, T5, T6, a fonte `EU-T5-001`, `raw_asset` e as corridas;
+- no fim desce o banco e apaga o cluster.
+
+**Para correr** (com a LOCK-PESADO na mão e ≥ 5 GB livres):
+
+```
+cd %TEMP%\t6-sonda
+py provas/ensaio_t6_na_copia_da_sala.py --saida=C:/Users/London1/sintonia-sala-italia/pesquisadores-t6/ensaio-copia-sala --universo=T5
+```
+
+**O que se espera, sem ter sido medido:**
+- **100 linhas novas na Sala na 1.ª passagem e 0 na 2.ª.** São os 100 SIM do §6.1, e a Sala real
+  não tem nenhum item da fonte `EU-T5-001`.
+- **Há três riscos que só o banco responde:**
+  - uma regra (CHECK) do esquema recusar a fonte com prefixo `EU-` na `sala_de_espera` (o coletor web só aceita `IT-`, D80);
+  - o `raw_asset` recusar o tipo `application/json`;
+  - a trava de identidade por documento tratar os 589 como novos.
 
 ## 7 · A decisão que falta ao dono (1 frase)
 
-**PENDENTE (depois do §6.2).**
+**Os trabalhos dos pesquisadores entram na Sala como T5, pela régua de ciência que já existe (100 dos
+589 hoje), ou o dono quer um universo T6 com régua própria (sem ela entram 0)? E, nos dois casos,
+autoriza pôr o executor `pesquisadores-t6` à frente na receita T6?**
+
+(A variante «o DOI conta como palavra de ciência», com 345 SIM, é uma terceira resposta possível. Mexe na
+régua, e por isso não vai como padrão.)
 
 ## Limites
 
@@ -305,4 +342,5 @@ py coleta/pesquisadores_t6.py --rede2 --rodada=2 --saida=C:/Users/London1/sinton
 3. **A instituição é a do índice e erra** (Bitron, Hospital, «Cereal Research Centre» em videira).
 4. **A lista dos 30 mede evidência nos 12 pares; não mede importância.** 861 das 1.466 pessoas só têm a prova do índice.
 5. **A Consulta 2 não foi corrida** (rede). Só está ensaiada com transporte falso.
-6. **Mapa não corrido** (PRONTO-SEM-MAPA).
+6. **O ensaio na cópia da Sala (Postgres) NÃO foi medido** — LOCK-PESADO ocupada toda a janela (§6.2).
+7. **Mapa não corrido** (PRONTO-SEM-MAPA).
