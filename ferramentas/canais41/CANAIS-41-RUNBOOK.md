@@ -1,13 +1,28 @@
 # CANAIS-41 — roteiro do teste de qualificação dos 41 canais YouTube pelo Scrap
 
-Ramo `canais-41-runbook-v1` (a partir de `legacy-99-v5` @ ed86cb97, que contém o vivo
-`83de0ccd`). **Sem rede.** Quem corre é o coordenador, **depois** da micro social.
+Ramo `canais-41-runbook-v1`, **junto ao vivo `69b0e23f`** (INTEGRA-NOITE lote 1, que já
+traz a `legacy-99-v5`): ff-only sobre `69b0e23f` = SIM. **Sem rede.** Quem corre é o
+coordenador, **depois** da micro social (D80 2c: depois do lote 2 dela, com o freio
+pré-pedido).
+
+## Estado real no vivo `69b0e23f` (lido em 26/09, só leitura)
+
+- **Os 41 já estão na rota do Scrap** (`--pelo-scrap`, 4 lotes, 0 falhas): 41/41
+  `SCRAP_FASE` · `canal-youtube`, 41/41 `CANARY_PENDING`, 82 linhas no
+  `DESBLOQUEIO-LEDGER-V1.jsonl`. O **P0 está feito**.
+- **P1 não está feito:** `coleta/youtube_oficial.py` continua sem escrever
+  `OWNER_AUTHORIZED`/`PLATFORM_POLICY_STATUS` nos itens.
+- **P2 não está feito:** `assunto_do_alvo_da_fonte` do `sintonia-scrap.yml` continua só
+  com `IT-T8-*` e `IT-T9-*`.
+- **Os 9 do FREIO-SOCIAL** continuam `YOUTUBE_CHANNEL_FEED` · `RETRY_AFTER`
+  (`canais-pesquisa-v1` não está no vivo).
 
 ## Em palavras simples
 
-- **Hoje o teste não pode correr.** Antes faltam: instalar a v5 (P0), **2 consertos**
-  (P1 as marcas nos itens, P2 o workflow aceitar todos os grupos) e **2 conferências**
-  (P3 os runners ligados, P4 em que banco o job grava). Sem o P1, os 41 canais seriam
+- **Hoje o teste não pode correr.** Os 41 já estão no caminho do Scrap, à espera do
+  teste (P0 feito no vivo). Faltam **2 consertos** (P1 as marcas nos itens, P2 o workflow
+  aceitar todos os grupos) e **2 conferências** (P3 os runners ligados, P4 em que banco o
+  job grava). Sem o P1, os 41 canais seriam
   **todos reprovados por um defeito nosso**, não deles — medido a seco, com o código
   verdadeiro do Scrap.
 - **O defeito principal:** o caminho da API do YouTube traz de cada vídeo o endereço, o
@@ -39,9 +54,9 @@ Ramo `canais-41-runbook-v1` (a partir de `legacy-99-v5` @ ed86cb97, que contém 
 
 | # | O quê | Porque bloqueia | Dono | Estado |
 |---|---|---|---|---|
-| **P0** | `legacy-99-v5` instalada e o B aplicado: `py curadoria/importar_do_coletor.py --pelo-scrap --ids=…` (bot parado) | os contratos dos 41 têm de ser `SCRAP_FASE` · `canal-youtube` | coordenador | pronto para instalar (INTEGRA-NOITE lote 1) |
-| **P1** | **As duas marcas nos itens da API.** Proposta: a matriz (`leis/social_matriz.py`) declara, para a rota oficial do YouTube, `OWNER_AUTHORIZED=SIM` (a autorização D17.4 já está escrita em `rota_do_scrap_youtube.AUTORIZACAO`) e `PLATFORM_POLICY_STATUS=ALLOWED`; o adaptador `youtube_uploads` copia-as da matriz para cada item, como `youtube_canal_publico` já faz. Alternativa: a régua social aceitar rota que a plataforma permite sem `OWNER_AUTHORIZED`. | sem elas, **100 %** dos canais com vídeos → `FALHA` «item 0 sem OWNER_AUTHORIZED, PLATFORM_POLICY_STATUS» (123/123 corridas a seco) | **dono** decide o texto; Scrap engineer escreve | **por decidir** |
-| **P2** | O workflow só aceita fontes `IT-T8-*` e `IT-T9-*` na fase `canal-youtube` (`assunto_do_alvo_da_fonte`). Acrescentar os outros grupos com a tabela que o canário SOC-ONDA2 já usou (`provas/canario_social_onda2.py::APELIDO`: T2 clima, T5 ciencia, T7 cooperativas, T10 mercado, T11 feiras, T12 politica…) + `--filtro universo=<T>`; e, **na mesma mudança**, `YT_TETO_GENERAL_UNITS: '2'` e `YT_TETO_SEARCH_CALLS: '0'` no passo 6 quando `fase == canal-youtube`. | **35 de 41** canais (T2, T5, T7, T10, T11, T12) saem com `FONTE_SEM_APELIDO`; e sem o teto a corrida não tem freio próprio | coordenador (workflow) | por fazer |
+| **P0** | `legacy-99-v5` instalada e o B aplicado: `py curadoria/importar_do_coletor.py --pelo-scrap --ids=…` (bot parado) | os contratos dos 41 têm de ser `SCRAP_FASE` · `canal-youtube` | coordenador | **FEITO** no vivo `69b0e23f` (41/41 `CANARY_PENDING`, 82 linhas no ledger) |
+| **P1** | **As duas marcas nos itens da API** (conferido: não estão no vivo `69b0e23f`). Proposta: a matriz (`leis/social_matriz.py`) declara, para a rota oficial do YouTube, `OWNER_AUTHORIZED=SIM` (a autorização D17.4 já está escrita em `rota_do_scrap_youtube.AUTORIZACAO`) e `PLATFORM_POLICY_STATUS=ALLOWED`; o adaptador `youtube_uploads` copia-as da matriz para cada item, como `youtube_canal_publico` já faz. Alternativa: a régua social aceitar rota que a plataforma permite sem `OWNER_AUTHORIZED`. | sem elas, **100 %** dos canais com vídeos → `FALHA` «item 0 sem OWNER_AUTHORIZED, PLATFORM_POLICY_STATUS» (123/123 corridas a seco) | **dono** decide o texto; Scrap engineer escreve | **por decidir** |
+| **P2** | O workflow só aceita fontes `IT-T8-*` e `IT-T9-*` na fase `canal-youtube` (`assunto_do_alvo_da_fonte`). Acrescentar os outros grupos com a tabela que o canário SOC-ONDA2 já usou (`provas/canario_social_onda2.py::APELIDO`: T2 clima, T5 ciencia, T7 cooperativas, T10 mercado, T11 feiras, T12 politica…) + `--filtro universo=<T>`; e, **na mesma mudança**, `YT_TETO_GENERAL_UNITS: '2'` e `YT_TETO_SEARCH_CALLS: '0'` no passo 6 quando `fase == canal-youtube`. | **35 de 41** canais (T2, T5, T7, T10, T11, T12) saem com `FONTE_SEM_APELIDO`; e sem o teto a corrida não tem freio próprio | coordenador (workflow) | por fazer (conferido no vivo `69b0e23f`) |
 | **P3** | Os runners do projeto nesta máquina (`SINTONIA-EAME-LOCAL` e `-2`, pastas `C:/actions-runner-eame*`) têm o último registo de diagnóstico a **11/09 e 13/09**; o único runner em execução agora é o de outro repositório. | o workflow fica em fila para sempre | coordenador (ligar o serviço) | **NÃO SEI** se estão online — sem rede não se confirma no GitHub |
 | **P4** | Saber em que banco o workflow grava o RAW: o job usa `SINTONIA_SALA_BACKEND=POSTGRES` com `SUPABASE_DB_URL` (segredo). **Não sei** se é o mesmo banco do `SALA_DSN.txt` desta máquina. | a régua exige ≥ 1 linha RAW da corrida (visto ≠ guardado); contar no banco errado dá 0 e reprova | coordenador | **NÃO SEI** |
 
@@ -58,21 +73,25 @@ a rota `youtube:pagina-publica-do-canal`, mas quem corre a fase usa a API
   como YouTube, que é a leitura mais apertada). **21 rodadas** (a última com 1 canal).
 - Lista e ordem: `ferramentas/canais41/RODADAS-41.tsv` (T8 e T9 primeiro: são os únicos
   que o workflow de hoje aceita).
-- **Nunca** na mesma janela da micro social (D35.4): primeiro a micro social inteira,
-  depois estas rodadas.
+- **Nunca** na mesma janela da micro social (D35.4; D80 2c): primeiro a micro social
+  (até ao lote 2, com o freio pré-pedido), depois estas rodadas.
 - **+9 canais que já são fonte** (aviso FREIO-SOCIAL, 26/09 ~04:15): IT-T5-042, 043, 044,
   045, 047, 048, 050 (pesquisa) e IT-T7-016, IT-T7-018 estavam presos em `RETRY_AFTER` na
   rota do feed e não entram no plano da v5 (que só olha READY_LEGACY). O ramo
   `canais-pesquisa-v1` (494b7b36, por cima da v5, ff) põe-nos pelo **mesmo** bloco 4; com
   ele instalado, `py curadoria/importar_do_coletor.py` mostra `PELO_SCRAP=50`. Estão em
   `RODADAS-41.tsv` nas **rodadas 22–26**, à parte: se esse ramo não for instalado, as
-  rodadas 1–21 dos 41 não mudam. São T5 e T7: precisam do P2 como os outros 35. Não
+  rodadas 1–21 dos 41 não mudam. No vivo `69b0e23f` os 9 continuam na rota do feed
+  (`RETRY_AFTER`): as rodadas 22–26 só depois de instalar `canais-pesquisa-v1` e correr
+  o `--pelo-scrap` deles. São T5 e T7: precisam do P2 como os outros 35. Não
   foram ensaiados a seco por esta bancada (o ensaio deles é o do FREIO-SOCIAL: 9/9
   `SCRAP_FASE`, 9/9 `CANARY_PENDING`, 0 rede).
 
 ## 4 · Os comandos, rodada a rodada
 
-Ramo instalado no vivo = `servico-20260923-0923` (conferir antes). `NN` = número da rodada.
+Ramo instalado no vivo = `servico-20260923-0923` @ `69b0e23f` (conferir antes). `NN` =
+número da rodada. O passo `--pelo-scrap` dos 41 **já foi feito** — não repetir (o bloco 4
+diria `JA_APLICADA`).
 
 ```bash
 # 0 · antes de cada rodada: VPN IT pelo portão de consenso (nunca o ipinfo direto)
