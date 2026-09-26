@@ -166,6 +166,22 @@ class OTituloEADescricao(unittest.TestCase):
         t = "Grandinata del 12 giugno 2026 sui vigneti\nFranciacorta, le notizie del consorzio"
         self.assertEqual(("12 giugno 2026", "CAMPO"), tempo(t))
 
+    def test_juntos_menu_na_1a_linha_e_titulo_curto_depois(self):
+        # a 1.a linha e «Home» (nao serve de titulo): as linhas curtas seguintes ainda sao lidas como titulo
+        self.assertEqual(("12 giugno 2026", "CAMPO"),
+                         tempo("Home\nGrandinata del 12 giugno 2026 sui vigneti"))
+
+    def test_juntos_titulo_do_video_sem_o_nome_do_site(self):
+        self.assertEqual("Grandinata sui vigneti di Franciacorta",
+                         FT.titulo_limpo("Grandinata sui vigneti di Franciacorta - YouTube"))
+        c = FT.corpo_com_titulo_e_descricao("", titulo="Grandinata sui vigneti di Franciacorta - Arpae Emilia-Romagna")
+        self.assertNotIn("Arpae", c)
+
+    def test_juntos_titulo_do_video_nao_perde_a_data_depois_do_traco(self):
+        # a mesma lei da EXTRATOR-LUGAR-V2 (IT-T12, «Evento RetePAC … - 26 Maggio 2026»)
+        self.assertEqual("Grandinata sui vigneti di Franciacorta - 12 giugno 2026",
+                         FT.titulo_limpo("Grandinata sui vigneti di Franciacorta - 12 giugno 2026"))
+
     def test_menu_continua_fora(self):
         self.assertEqual("", FT.corpo("Home\nNotizie\nContatti\nChi siamo"))
         self.assertEqual("", FT.corpo("Home\nNotizie\nPrivacy e cookie policy del sito web"))

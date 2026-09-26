@@ -60,11 +60,11 @@ PROBLEMAS = (
     r"cimice\s+asiatica", r"cimic[ei]", r"halyomorpha\s+halys", r"mosca\s+dell['’\s]*oliv[ao]", r"mosca\s+delle\s+olive",
     r"mosca\s+della\s+frutta", r"mosca\s+mediterranea", r"ceratitis\s+capitata", r"bactrocera\s+oleae",
     r"tignol[ae](?:tta)?(?:\s+(?:della\s+vite|dell['’\s]*olivo|orientale))?", r"lobesia(?:\s+botrana)?",
-    r"carpocapsa", r"cydia(?:\s+\w+)?", r"cocciniglia", r"afid[ei]", r"pidocch\w*", r"ragnetto\s+rosso",
+    r"carpocapsa", r"cydia(?:\s+\w+)?", r"coccinigli[ae]", r"afid[ei]", r"pidocch\w*", r"ragnetto\s+rosso",
     r"tripid[ei]", r"psill[ae]", r"flavescenza\s+dorata", r"mal\s+secco", r"occhio\s+di\s+pavone",
     r"lebbra", r"monilia", r"corineo", r"bolla", r"cercospor\w*", r"septoria", r"ruggin[ei]", r"fusari\w*",
     r"alternari\w*", r"batterios[ie]", r"xylella(?:\s+fastidiosa)?", r"drosophila\s+suzukii",
-    r"popillia\s+japonica", r"dorifora", r"elateridi", r"nottu[ae]", r"piralide", r"diabrotica",
+    r"popillia\s+japonica", r"dorifor[ae]", r"elateridi", r"nottu[ae]", r"piralid[ei]", r"diabrotica",
     r"escoriosi", r"black\s*rot", r"marciume\s+(?!(?:del|della|dei|delle|degli|di|da)\b)\w+", r"virosi", r"virus", r"nematod[ie]",
 )
 # Fases / estadios, como os boletins os escrevem (o vocabulario T1 da regua + os medidos nos boletins).
@@ -87,7 +87,8 @@ MESMO_PROBLEMA = (
     (r"afid[ei]", "afide"), (r"cimic[ei]", "cimice"), (r"tripid[ei]", "tripide"), (r"psill[ae]", "psilla"),
     (r"ruggin[ei]", "ruggine"), (r"peronospor[ae]", "peronospora"), (r"nottu[ae]", "nottua"),
     (r"nematod[ie]", "nematode"), (r"batterios[ie]", "batteriosi"), (r"pidocch[io]o?", "pidocchio"),
-    (r"tignol[ae]", "tignola"), (r"tignolett[ae]", "tignoletta"),
+    (r"tignol[ae]", "tignola"), (r"tignolett[ae]", "tignoletta"), (r"coccinigli[ae]", "cocciniglia"),
+    (r"dorifor[ae]", "dorifora"), (r"piralid[ei]", "piralide"),
     (r"mosca dell['’ ]*oliv[ao]|mosca delle olive|bactrocera oleae", "mosca dell'olivo"),
     (r"halyomorpha halys", "cimice asiatica"),
     (r"lobesia botrana|lobesia|tignoletta della vite", "tignoletta della vite"),

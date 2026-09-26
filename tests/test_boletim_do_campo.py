@@ -174,6 +174,13 @@ class OMesmoProblemaContaUmaVez(unittest.TestCase):
         self.assertEqual(["mosca dell'olivo"], b["PROBLEMAS"])
         self.assertEqual(["olivo"], b["CULTURAS"])              # a cultura vem do nome da praga
 
+    def test_a_linha_toda_segue_a_cultura_do_nome_tambem_sem_sinonimo(self):
+        # a cocciniglia nao tem a cultura no nome: vai para a vite porque esta na linha da tignoletta
+        b = BC.ler_boletim("OLIVO\nTignoletta della vite: presenti anche cocciniglie sui grappoli.")
+        sec = {s["CULTURA"]: [p["NOME"] for p in s["PROBLEMAS"]] for s in b["SECOES"]}
+        self.assertIn("cocciniglia", sec["vite"])
+        self.assertNotIn("cocciniglia", sec.get("olivo", []))
+
     def test_o_que_nao_esta_na_lista_fica_como_o_texto_escreve(self):
         self.assertEqual("cocciniglia", BC.nome_do_problema("cocciniglia"))
         self.assertEqual("cimice", BC.nome_do_problema("cimici"))
@@ -201,6 +208,10 @@ class APortaLevaAsChavesDoBoletim(unittest.TestCase):
         self.assertNotIn("cimice asiatica", j["PROBLEMA"]["VALOR"])     # ausente nunca e valor
         pares = {s["CULTURA"]: [p["NOME"] for p in s["PROBLEMAS"]] for s in j["PROBLEMA"]["SECOES"]}
         self.assertIn("mosca della frutta", pares["agrumi"])
+        # a porta leva tambem a FORMA como o boletim a escreve (o NOME e o da lista MESMO_PROBLEMA)
+        formas = {p["NOME"]: p.get("FORMA") for s in j["PROBLEMA"]["SECOES"] for p in s["PROBLEMAS"]}
+        self.assertEqual("mosca della frutta", formas["mosca della frutta"])
+        self.assertEqual("cimice asiatica", formas["cimice asiatica"])
 
     def test_fora_de_t2_t3_nao_le_o_boletim(self):
         j = self._janela(SALERNO, "T10")
