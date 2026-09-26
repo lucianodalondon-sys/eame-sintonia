@@ -166,14 +166,21 @@ class TestDecisaoSemProvaIgnorada(_Base):
         del d["PAIS"]
         self._bloqueou(self._correr([d]))
 
+    def _fora_de_it(self, r, pais):
+        """D80(ii): numero no prefixo da prova, NUNCA «IT-», e para em CAPABILITY."""
+        self.assertEqual(r["RESULTADO"], "BLOCK", r)
+        self.assertEqual(self._novas(), [], "nenhum numero italiano")
+        fora = json.loads(W.ALLOCATION.read_text(encoding="utf-8"))["NOVAS_FORA_DE_IT"]
+        self.assertEqual([n["SOURCE_ID"][:len(pais) + 1] for n in fora], [pais + "-"])
+        self.assertEqual(LC.estado_de(CAND), LC.CAPABILITY_BLOCK)
+        self.assertIn("PAIS=%s" % pais, r.get("PORQUE", ""))
+
     def test_fonte_europeia_nao_recebe_numero_italiano(self):
         """Territorio decidido, PAIS=EU pela prova: nada de «IT-» por omissao."""
-        r = self._correr([_decisao(PAIS="EU")])
-        self._bloqueou(r)
-        self.assertIn("PAIS=EU", r.get("PORQUE", ""))
+        self._fora_de_it(self._correr([_decisao(PAIS="EU")]), "EU")
 
     def test_fonte_internacional_nao_recebe_numero_italiano(self):
-        self._bloqueou(self._correr([_decisao(PAIS="INT")]))
+        self._fora_de_it(self._correr([_decisao(PAIS="INT")]), "INT")
 
     def test_url_de_outra_fonte(self):
         self._bloqueou(self._correr([_decisao(URL="https://outra.example/")]))
