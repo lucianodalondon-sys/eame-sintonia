@@ -65,6 +65,14 @@ M = [
     ("M35 ausente vira valor", "admissao/admissao.py",
      '    return {"VALOR": boletim["PROBLEMAS_NAO_AUSENTES"] or AUSENCIA,',
      '    return {"VALOR": boletim["PROBLEMAS"] or AUSENCIA,'),
+    ("M36 a praga nao segue a cultura do nome", "leis/boletim_do_campo.py",
+     "            if mc and _forma(mc.group(1)) != s[\"CULTURA\"]:", "            if False:"),
+    ("M37 so a praga com o nome segue (a linha nao)", "leis/boletim_do_campo.py",
+     "            mc = next((_RE_CULTURA.search(re.sub(r\"\\s+\", \" \", x.group(0))) for x in _RE_PROBLEMA.finditer(d)\n"
+     "                       if _RE_CULTURA.search(x.group(0))), None)",
+     "            mc = _RE_CULTURA.search(nome)"),
+    ("M38 non si riscontrano nao e ausente", "leis/boletim_do_campo.py",
+     r"non\s+(?:si\s+)?riscontra\w*|non\s+riscontrat\w*|", ""),
     ("M20 o carimbo da publicacao aceite", FL, "                if precisao == DAY and pub and _resolve_dia(valor, ano_pub) == pub:",
      "                if False:"),
 ]

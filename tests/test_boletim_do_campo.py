@@ -78,6 +78,18 @@ class OBoletimPorSecaoDeCultura(unittest.TestCase):
         r = BC.ler_boletim("Nei vigneti della provincia si osservano sintomi di peronospora sulle foglie basali della vite.")
         self.assertEqual([], r["CULTURAS"])
 
+    def test_real_arif_a_praga_com_a_cultura_no_nome_vai_para_essa_cultura(self):
+        """IT-T3-008 (lido a mao): sem linha curta da vite, a Lobesia ia para o olivo; e «non si riscontrano
+        catture» e AUSENTE."""
+        t = ("OLIVO\n"
+             "Mosca dell'olivo (Bactrocera oleae) : non riscontrate catture nelle trappole a feromoni.\n"
+             "Tignoletta della vite (Lobesia botrana): non si riscontrano catture, si e in attesa della quarta generazione.\n")
+        r = BC.ler_boletim(t)
+        sec = {s["CULTURA"]: [(p["NOME"], p["ESTADO"]) for p in s["PROBLEMAS"]] for s in r["SECOES"]}
+        self.assertEqual([("tignoletta della vite", "AUSENTE"), ("lobesia botrana", "AUSENTE")], sec["vite"])
+        self.assertNotIn("lobesia botrana", [n for n, _ in sec["olivo"]])
+        self.assertEqual([], r["PROBLEMAS_NAO_AUSENTES"])
+
     def test_marciume_leva_o_nome_e_nao_a_preposicao(self):
         r = BC.ler_boletim("OLIVO\nMarciume del frutto e marciume radicale presenti.")
         self.assertEqual(["marciume radicale"], [p["NOME"] for p in r["SECOES"][0]["PROBLEMAS"]])

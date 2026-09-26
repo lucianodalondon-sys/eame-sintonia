@@ -78,7 +78,7 @@ FASES = (
     r"bbch\s*\d{1,2}(?:\s*[-–]\s*\d{1,2})?",
 )
 _AUSENTE = re.compile(r"(?:non\s+presente|non\s+present[ei]|assent[ei]|nessun[ao]?\s+segnalazion[ei]|"
-                      r"non\s+rilevat[oaie]|non\s+segnalat[oaie]|nulla|nessun[ao]?\s+(?:cattur[ae]|sintom[oi]))",
+                      r"non\s+rilevat[oaie]|non\s+segnalat[oaie]|non\s+(?:si\s+)?riscontra\w*|non\s+riscontrat\w*|assenza|nulla|nessun[ao]?\s+(?:cattur[ae]|sintom[oi]))",
                       re.I)
 _PRESENTE = re.compile(r"(?:(?<!non\s)present[ei]|(?<!non\s)rilevat[oaie]|(?<!non\s)segnalat[oaie]|cattur[ae]|"
                        r"infestazion[ei]|sintomi|focola[io]|attacch[io])", re.I)
@@ -139,9 +139,24 @@ def ler_boletim(texto: str) -> dict:
                 _dobrar(x) for x in linhas[n + 1:n + 3])[:JANELA_DO_ESTADO]
             estado = ("AUSENTE" if _AUSENTE.search(depois.split(".")[0][:JANELA_DO_ESTADO])
                       else "PRESENTE" if _PRESENTE.search(d) else "CITADA")
-            if not any(p["NOME"] == nome and p["ESTADO"] == estado for p in s["PROBLEMAS"]):
-                s["PROBLEMAS"].append({"NOME": nome, "ESTADO": estado,
-                                       "TRECHO": _trecho(linha, m.start(), m.end())})
+            # A PRAGA QUE TRAZ A CULTURA NO NOME diz sozinha de quem e: «tignoletta della vite», «mosca
+            # dell'olivo». Medido no ARIF (IT-T3-008): sem linha curta da vite, a Lobesia ia para a secao do
+            # olivo, que era a ultima aberta. Vai para a secao da cultura do nome (aberta se preciso).
+            # A linha inteira segue: «Tignoletta della vite (Lobesia botrana)» — o nome cientifico entre
+            # parenteses e da mesma praga, da mesma cultura.
+            alvo = s
+            mc = next((_RE_CULTURA.search(re.sub(r"\s+", " ", x.group(0))) for x in _RE_PROBLEMA.finditer(d)
+                       if _RE_CULTURA.search(x.group(0))), None)
+            if mc and _forma(mc.group(1)) != s["CULTURA"]:
+                cult = _forma(mc.group(1))
+                alvo = next((x for x in secoes if x["CULTURA"] == cult), None)
+                if alvo is None:
+                    alvo = {"CULTURA": cult, "LINHA": n + 1, "TRECHO_DA_CULTURA": "no nome da praga: «%s»" % nome,
+                            "PROBLEMAS": [], "FASES": [], "SO_PELO_NOME_DA_PRAGA": True}
+                    secoes.insert(len(secoes) - 1, alvo)
+            if not any(p["NOME"] == nome and p["ESTADO"] == estado for p in alvo["PROBLEMAS"]):
+                alvo["PROBLEMAS"].append({"NOME": nome, "ESTADO": estado,
+                                          "TRECHO": _trecho(linha, m.start(), m.end())})
         for m in _RE_FASE.finditer(d):
             nome = re.sub(r"\s+", " ", m.group(0))
             if not any(f["NOME"] == nome for f in s["FASES"]):
