@@ -112,6 +112,54 @@ Resultado: `provas/integra_noite/lote2-{ramo,vivo}.json` (sha256 `26db411e…` /
 | ficheiros do writeset soltos ou `M` na pasta viva | **0** (medido antes do reinício: vivo em `69b0e23f`, 16 `M`) |
 | migrações | **nenhuma** no writeset |
 
+## 8 · Plano único de instalação (o coordenador instala; um escritor; sem rede) — rascunho até ao PRONTO
+
+**A · Código (tudo de uma vez, ff-only, robô PARADO):**
+1. `curadoria/PARAR.flag`; esperar a volta acabar. Guardar `git rev-parse HEAD` (= `69b0e23f`), `git status` e
+   `sha256sum` dos 16 livros.
+2. `git merge --ff-only <SHA do PRONTO>` na pasta viva.
+3. Os 16 livros: `git status` e sha256 IGUAIS ao passo 1 (o writeset não toca nenhum; medido em §6).
+4. `correr_a_cadeia.py VALIDAR`: o `P1_SEM_DRIFT` vai acusar os livros (§1). Aceitar SÓ se a lista de diferenças for
+   exatamente os ficheiros `M` do `git status`; `PORTOES_POS_COMMIT` → **IGUAL**. Repor os gerados que o validador
+   reescreve **pelo nome**, nunca `git checkout -- .`.
+5. Provas rápidas sem rede: `py -m unittest tests.test_semear_so_as_candidatas tests.test_quatro_chaves
+   tests.test_sala_por_nome tests.test_conserto_regua tests.test_c2_juiz tests.test_canais_presos_no_feed
+   tests.test_os_consertos_da_intelligence` · `cd curadoria && py -m unittest test_url_com_acento test_robo_diag`.
+6. **Reiniciar o supervisor** — `curadoria/canario.py` (bloqueadas: link com acento) e
+   `curadoria/importar_do_coletor.py` (canais-pesquisa) mudam; o worker carrega o código novo só ao reiniciar.
+7. Tirar o `PARAR.flag`.
+   **O que muda sozinho depois de A:** a Sala passa a ser lida e escrita **pelo nome da coluna** (quatro-chaves;
+   a próxima linha pousada leva `janela_declarada` pelo dono — a coluna já existe desde a 033, **nenhuma migração**);
+   o juiz capa/matéria V2 (c2-juiz) vale para a próxima onda e a próxima MICRO; a leitura de tempo/lugar consertada
+   (conserto-regua) vale para o que for admitido a partir daqui. Nada disto reescreve linhas antigas.
+
+**B · O que ESCREVE nos cadernos do robô ou na Sala — só com o robô PARADO, cada passo é decisão do coordenador,
+por esta ordem:**
+1. **canais-pesquisa** (os 9 canais YouTube presos em `RETRY_AFTER`): pela mesma porta do bloco 4 da v5 do lote 1
+   (`py curadoria/importar_do_coletor.py --pelo-scrap --ids=<lote>`, primeiro sem `--aplicar`); desfecho
+   `CANARY_PENDING` + `VALIDATE_ROUTE`. Grava fila/ledger/evidência. Tirar o `PARAR.flag` uma volta; voltar a parar.
+2. **destravar** (`MICRO-PROVA-LOTE1.md` §C): colher as provas pode ser com o robô ligado (não escreve livro); pôr as
+   decisões dentro — `py curadoria/colher_prova_territorio.py --aplicar=DECIDIDAS-LOTE1.json` — só com o robô
+   parado (escreve `DECISOES-SEMANTICAS-V1.json` e, pela ponte, fila/ledger/`SOURCE-ID-ALLOCATION`/contratos).
+   As T01476/T02077 (`BLOQUEADAS-DESTRAVAR.md`) ficam como estão, salvo decisão.
+3. **conserto-regua** — reprocessar a Sala com a régua consertada (`CONSERTO-REGUA.md` §Instalar:
+   `admissao/reprocessar_tempo_lugar.py` sem escrever → `--aplicar` → 2.ª vez tem de dar `INSERIDAS: 0`). **Grava na
+   Sala** (novas revisões no caderno; a Sala só acrescenta) — decisão do dono.
+4. **quatro-chaves** — reprocesso das 94 linhas pelo caderno (`QUATRO-CHAVES-MEDIR.md`, «plano de reprocesso») —
+   **grava na Sala**; decisão do dono, depois do passo 3 (as duas passam pelo mesmo caderno de revisões).
+5. **D79 (034 lápide antes da 035 TEMPO_LUGAR):** nenhuma das duas está neste lote (acervo fica fora) — nada a fazer
+   aqui; a ordem vale para quando entrarem.
+- **Não escrevem nada:** trava-sede-v2 (só código), rodadas (disparador da 4.ª onda: usa-se quando a onda for
+  decidida, com a coorte congelada — `C2-ONDA4.md` §«O que precisa estar instalado»), int-consertos («nada
+  ativado»), casco-leitura e casco-painel (os dados vivem em `*.local.js`, fora do Git e do deploy; só aparecem com
+  `?sala=local`).
+
+**⚠️ Red team da ponte:** nunca na pasta viva (escreve `IT-T99-*` no livro de contratos).
+
+**Desfazer (código):** `PARAR.flag`; guardar `git status`/`git diff`; `git reset --keep 69b0e23f`; reiniciar o
+supervisor. Os passos B têm cada um o seu desfazer no documento do pacote (as revisões da Sala não se apagam: ficam
+como histórico).
+
 ## 7 · Falta (depois da decisão sobre §4)
 
 conserto (se aprovado) → testes do int-consertos + quatro-chaves outra vez → UM mapa (LOCK-PESADO) → plano único → PRONTO.
