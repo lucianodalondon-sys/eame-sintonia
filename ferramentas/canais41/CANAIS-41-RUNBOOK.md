@@ -170,6 +170,50 @@ cópia temporária, desfeita no fim; livros do vivo `83de0ccd`, sha256 em
   `RESOLUCAO-WORKER-INTEGRA-NOITE-mais-v5.diff`; com ela, os 72 testes da v5 passam na
   junção. O resto dos conflitos são ficheiros gerados do mapa (refazem-se pela cadeia).
 
+## 9 · Os 22 canais candidatos da BLOQUEADAS — qualificar ANTES, separados dos 41
+
+Entrada: `auditoria-madrugada/CANAIS-YOUTUBE-22-PARA-CANAIS-41.json` (BLOQUEADAS-DESTRAVAR).
+São **candidatas** (sem SOURCE_ID), não estão nos 41. As 22 tarefas QUALIFY estão
+`BLOCKED` desde **22/09** com a frase da **regra antiga** («YouTube exige channel_id e
+molde de video»), que o `worker.py` de hoje já não usa — ficaram presas porque ninguém
+as reabriu.
+
+**Ensaio a seco** (`curadoria/ensaiar_qualify_youtube.py` **sem** `--reabrir`: corre a
+etapa QUALIFY real com fila, livro, alocação e evidência numa pasta temporária; cópia
+com os livros do vivo; rede fechada) — `QUALIFY-22-ENSAIO.txt`:
+
+| Resultado | N | Candidatas | O que fazer |
+|---|---|---|---|
+| **OK, número novo** | 7 | 0289, 0423, 0469, 0335, 0377, 0873, 0877 | reabrir → o robô dá o número (herança D21 do site), escreve o contrato da rota do Scrap e pára em `CANARY_PENDING`; depois entram nas rodadas como os 41 (**+4 rodadas**) |
+| **OK, já tem número** | 2 | 0733 → **IT-T2-026** (é uma dos 41); 0332 → o mesmo canal da 0335 | nada de novo: um canal, um SOURCE_ID |
+| **BLOCK, sem channel_id** — resolvível | 7 | `@`: 0488, 0792, 0815 · `/user/`: 0561, 0653, 0769, 0876 | o workflow `curator-youtube-handles.yml` (SOC4) pergunta à API `channels.list forHandle/forUsername` (1 unidade cada, teto 60, chave só no passo 2) e grava `curadoria/RESOLUCAO-HANDLES-YOUTUBE-V1.json`; depois reabrir outra vez |
+| **BLOCK, playlist** | 3 | 0452, 0331, 0414 | **fica NAO SEI**: uma playlist não é um canal, e o resolvedor recusa-se a adivinhar o dono (seria identidade fabricada); só uma pessoa pode dizer de que canal é |
+| **BLOCK, SEMANTIC** | 3 | 0271 (ISMEA) e 1199: sem ligação oficial canal↔site escrita na ficha · 0300: território indeterminado pelo nome | decisão humana (D21). ⚠️ A BLOQUEADAS diz que a 0300 tem D21 medido (T12), mas a ficha não o traz na forma que o QUALIFY lê — escrever a prova na ficha, não o número |
+
+⚠️ Os números novos (IT-T12-152, IT-T5-191, IT-T7-253, IT-T7-254, IT-T2-165, IT-T2-166,
+IT-T12-153) são os que a **cópia** daria: os reais saem na hora, do registo de alocação
+vivo, e podem ser outros.
+
+**Comandos** (o coordenador; serviço parado durante o `--reabrir`):
+
+```bash
+# 1 · ensaio de novo no dia (só pasta temporária) e conferir o quadro acima
+py curadoria/ensaiar_qualify_youtube.py
+# 2 · reabrir, na fila real, SÓ as QUALIFY barradas pela frase antiga
+py curadoria/ensaiar_qualify_youtube.py --reabrir
+#    (reabre TODAS as QUALIFY com essa frase; no vivo 83de0ccd são exactamente estas 22 — conferir a lista que imprime)
+# 3 · tirar o PARAR.flag; o serviço qualifica na volta seguinte
+# 4 · os 7 @/user/: disparar a resolução (API oficial, chave no segredo)
+gh workflow run curator-youtube-handles.yml --ref <ramo com o PEDIDO>   # ou push de curadoria/PEDIDO-RESOLVER-HANDLES.json
+#    o registo volta commitado nesse ramo: levá-lo ao vivo (quem instala é o coordenador)
+#    e repetir os passos 1–3
+```
+
+**Ordem:** as 22 **não** entram nas rodadas dos 41. Primeiro qualificar (sem rede nos
+passos 1–3; o passo 4 gasta ~7–11 unidades da API, não `youtube.com`), depois as que
+ganharem número e contrato entram em rodadas **próprias**, a seguir às 21 dos 41, com a
+mesma regra (2 canais por rodada, freio de 2 pedidos por corrida).
+
 ## 8 · O que isto não prova
 
 - Que a API responde assim de verdade: as respostas são literais, com a forma documentada
