@@ -7,6 +7,7 @@ PESQUISADORES T6 — consultas por CULTURA + PROBLEMA, e a unidade «trabalho de
     py coleta/pesquisadores_t6.py --ensaio [--saida=F]    # SEM REDE: le as respostas gravadas
     py coleta/pesquisadores_t6.py --rede --rodada=N --saida=<pasta>   # COM REDE: so quem pode
     py coleta/pesquisadores_t6.py --ler --saida=<pasta>             # SEM REDE: le o que as rodadas guardaram
+    py coleta/pesquisadores_t6.py --medir|--ordenar --saida=<pasta> [--para=F]   # SEM REDE: qualidade / evidencia
 
 NAO E UM COLETOR NOVO
 ---------------------
@@ -307,6 +308,7 @@ def unidade(w, pares_da_consulta):
         'TITULO': titulo,
         'TIPO': CP._tipo_material(w),
         'PUBLICADO_EM': w.get('publication_date') or NAO_SEI,
+        'TEM_RESUMO_NO_INDICE': bool(resumo),
         'TRIAL_ID': trial or NAO_SEI,
         'DATASET_ID': dataset or NAO_SEI,
         'AUTORES': autores,
@@ -671,6 +673,140 @@ def ler_pasta(saida, com_provas=True):
     return unidades, grupos, pessoas(unidades)
 
 
+# ═════════════════════════════════════════════ 7 · MEDIR A QUALIDADE E ORDENAR POR EVIDENCIA
+PROVAS_FORTES_T6 = ('ORCID_AUTODECLARADO', 'ORCID_NO_DEPOSITO_AUTENTICADO', 'ORCID_NO_DEPOSITO_DO_EDITOR')
+_ORDEM_PROVA = ('ORCID_AUTODECLARADO', 'ORCID_NO_DEPOSITO_AUTENTICADO', 'ORCID_NO_DEPOSITO_DO_EDITOR',
+                'ORCID_LIDO_SEM_ESTE_DOI', 'SO_INDICE')
+
+
+def _melhor_prova(provas):
+    return next((p for p in _ORDEM_PROVA if p in provas), 'SO_INDICE')
+
+
+def medir(saida):
+    """A qualidade REAL do que as rodadas guardaram. So conta; nao decide nada."""
+    us, gs, gente = ler_pasta(saida)
+    n = len(us)
+    tem = lambda u, c: u[c] != NAO_SEI  # noqa: E731
+    conta = lambda f: sum(1 for u in us if f(u))  # noqa: E731
+    it = lambda a: a['AFILIACAO_ITALIANA_NESTA_OBRA']  # noqa: E731
+    por_orcid = defaultdict(set)
+    for g in gente:
+        if g['ORCID'] != NAO_SEI:
+            por_orcid[g['ORCID']].add(g['OPENALEX_ID'])
+    melhor = defaultdict(int)
+    for g in gente:
+        melhor[_melhor_prova(g['PROVAS'])] += 1
+    est = _estado(saida)
+    return {
+        'PASTA': saida,
+        'RODADAS': est.get('RODADAS'),
+        'PARES_FEITOS': est.get('OPENALEX_PARES_FEITOS'),
+        'OCORRENCIAS_TRABALHO_x_CONSULTA': sum(len(u['CONSULTAS_QUE_O_TROUXERAM']) for u in us),
+        'TRABALHOS_DEPOIS_DE_DEDUP_POR_DOI': n,
+        'TRABALHOS_EM_MAIS_DE_UMA_CONSULTA': conta(lambda u: len(u['CONSULTAS_QUE_O_TROUXERAM']) > 1),
+        'GRUPOS': {e: sum(1 for g in gs if g['ESTADO'] == e) for e in ('ENSAIO_PROVADO', 'PROVAVEL_MESMA_OBRA')},
+        'CAMPOS': {
+            'DOI': conta(lambda u: tem(u, 'DOI')),
+            'DOI_CONFIRMADO_NO_CROSSREF': conta(lambda u: u.get('CROSSREF_CONFIRMA_DOI')),
+            'AUTOR_COM_INSTITUICAO_IT_NA_OBRA': conta(lambda u: any(it(a) for a in u['AUTORES'])),
+            'AUTOR_IT_COM_PESSOA_PROVADA': conta(lambda u: any(it(a) and a['PROVA_DA_PESSOA'] in PROVAS_FORTES_T6
+                                                               for a in u['AUTORES'])),
+            'PAR_DA_CONSULTA_NO_TEXTO': conta(lambda u: u['NA_CONSULTA_E_NO_TEXTO']),
+            'CULTURA': conta(lambda u: tem(u, 'CULTURA')),
+            'PROBLEMA': conta(lambda u: tem(u, 'PROBLEMA')),
+            'LOCAL_DO_ESTUDO_ESCRITO': conta(lambda u: tem(u, 'LOCAL_DO_ESTUDO_ESCRITO')),
+            'LOCAL_ESCRITO_ABAIXO_DO_PAIS': conta(lambda u: tem(u, 'LOCAL_DO_ESTUDO_ESCRITO') and any(
+                l['PRECISAO'] == 'REGIAO' for l in u['LOCAL_DO_ESTUDO_ESCRITO'])),
+            'PERIODO_DO_ESTUDO': conta(lambda u: tem(u, 'PERIODO_DO_ESTUDO')),
+            'LOCAL_E_PERIODO': conta(lambda u: tem(u, 'LOCAL_DO_ESTUDO_ESCRITO') and tem(u, 'PERIODO_DO_ESTUDO')),
+            'MOLECULA_ADAMA': conta(lambda u: tem(u, 'MOLECULA')),
+            'TRIAL_ID': conta(lambda u: tem(u, 'TRIAL_ID')),
+            'DATASET_ID': conta(lambda u: tem(u, 'DATASET_ID')),
+            'SEM_RESUMO_NO_INDICE': conta(lambda u: not u.get('TEM_RESUMO_NO_INDICE')),
+        },
+        'PESSOAS': {
+            'COM_AFILIACAO_IT_NUMA_OBRA': len(gente),
+            'COM_ORCID_NO_INDICE': sum(1 for g in gente if g['ORCID'] != NAO_SEI),
+            'MELHOR_PROVA': dict(melhor),
+            'ORCID_PARTIDO_EM_VARIOS_IDS_OPENALEX': sum(1 for v in por_orcid.values() if len(v) > 1),
+            'COM_PAR_NO_TEXTO': sum(1 for g in gente if g['PARES_NO_TEXTO']),
+        },
+    }
+
+
+def por_evidencia(saida, por_par=5, total=30, desde='2023-01-01'):
+    """Pesquisadores e grupos italianos ORDENADOS POR EVIDENCIA CONTADA num par do casco.
+
+    ⚠️ Nao e nota de importancia (contagem != importancia). E a ordem de «quem tem mais
+    trabalhos DESTE par, com afiliacao italiana escrita NA OBRA», e o criterio vai junto:
+        1. trabalhos do par (o par NOMEADO no texto) com a pessoa afiliada a Italia na obra
+        2. desses, com o local do estudo escrito em Italia
+        3. desses, publicados desde `desde`
+        4. o mais recente; e so depois o nome
+    O grupo e a instituicao italiana declarada nessas obras."""
+    us, _, _ = ler_pasta(saida)
+    pessoas = defaultdict(lambda: defaultdict(lambda: {'DOIS': set(), 'LOCAL': set(), 'RECENTES': set(),
+                                                       'ULTIMO': '', 'INST': set(), 'PROVAS': set(),
+                                                       'NOME': None, 'ORCID': None}))
+    grupos = defaultdict(lambda: defaultdict(lambda: {'DOIS': set(), 'PESSOAS': set()}))
+    for u in us:
+        loc_it = u['LOCAL_DO_ESTUDO_ESCRITO'] != NAO_SEI
+        rec = (u['PUBLICADO_EM'] or '') >= desde
+        for par in u['NA_CONSULTA_E_NO_TEXTO']:
+            for a in u['AUTORES']:
+                if not a['AFILIACAO_ITALIANA_NESTA_OBRA']:
+                    continue
+                r = pessoas[par][a['OPENALEX_ID']]
+                r['NOME'], r['ORCID'] = a['NOME'], a['ORCID_NO_INDICE']
+                r['DOIS'].add(u['DOI'])
+                r['PROVAS'].add(a['PROVA_DA_PESSOA'])
+                if loc_it:
+                    r['LOCAL'].add(u['DOI'])
+                if rec:
+                    r['RECENTES'].add(u['DOI'])
+                r['ULTIMO'] = max(r['ULTIMO'], u['PUBLICADO_EM'] or '')
+                for i in a['INSTITUICOES_NESTA_OBRA']:
+                    if i['PAIS'] == 'IT' and i['NOME']:
+                        r['INST'].add(i['NOME'])
+                        g = grupos[par][i['NOME']]
+                        g['DOIS'].add(u['DOI'])
+                        g['PESSOAS'].add(a['OPENALEX_ID'])
+
+    def chave(r):
+        return (-len(r['DOIS']), -len(r['LOCAL']), -len(r['RECENTES']),
+                ''.join(chr(0x10FFFF - ord(c)) for c in r['ULTIMO']), r['NOME'] or '')
+
+    def linha(par, oid, r):
+        return {'PAR': par, 'NOME': r['NOME'], 'OPENALEX_ID': oid, 'ORCID': r['ORCID'],
+                'PROVA': _melhor_prova(r['PROVAS']), 'INSTITUICOES_IT': sorted(r['INST'])[:3],
+                'TRABALHOS_DO_PAR': len(r['DOIS']), 'COM_LOCAL_ESCRITO': len(r['LOCAL']),
+                'DESDE_' + desde[:4]: len(r['RECENTES']), 'ULTIMO': r['ULTIMO'],
+                'DOIS': sorted(r['DOIS'])[:5]}
+
+    top_par = {par: [linha(par, oid, r) for oid, r in sorted(ps.items(), key=lambda kv: chave(kv[1]))[:por_par]]
+               for par, ps in sorted(pessoas.items())}
+    grupos_par = {par: [{'INSTITUICAO': n, 'TRABALHOS_DO_PAR': len(g['DOIS']), 'PESSOAS': len(g['PESSOAS'])}
+                        for n, g in sorted(gs.items(), key=lambda kv: (-len(kv[1]['DOIS']), -len(kv[1]['PESSOAS']), kv[0]))[:por_par]]
+                  for par, gs in sorted(grupos.items())}
+    # os 30: a MESMA pessoa conta uma vez, no par onde tem mais evidencia
+    todas = []
+    for par, ps in pessoas.items():
+        for oid, r in ps.items():
+            todas.append((chave(r), par, oid, r))
+    todas.sort(key=lambda x: x[0])
+    vistos, top = set(), []
+    for _, par, oid, r in todas:
+        if oid in vistos:
+            continue
+        vistos.add(oid)
+        top.append(linha(par, oid, r))
+        if len(top) == total:
+            break
+    return {'CRITERIO': por_evidencia.__doc__.split('\n\n')[0].strip(), 'DESDE': desde,
+            'TOP_%d' % total: top, 'POR_PAR': top_par, 'GRUPOS_POR_PAR': grupos_par}
+
+
 def main(argv):
     opt = dict(a[2:].split('=', 1) if '=' in a else (a[2:], '1') for a in argv if a.startswith('--'))
     if 'plano' in opt:
@@ -684,6 +820,16 @@ def main(argv):
                 json.dump(r, h, ensure_ascii=False, indent=1)
         print(json.dumps({k: v for k, v in r.items() if k not in ('UNIDADES', 'PESSOAS')},
                          ensure_ascii=False, indent=1))
+        return 0
+    if 'medir' in opt or 'ordenar' in opt:
+        if not opt.get('saida'):
+            print('falta --saida=<pasta das rodadas>')
+            return 2
+        r = medir(opt['saida']) if 'medir' in opt else por_evidencia(opt['saida'])
+        if opt.get('para'):
+            with open(opt['para'], 'w', encoding='utf-8', newline='\n') as h:
+                json.dump(r, h, ensure_ascii=False, indent=1)
+        print(json.dumps(r, ensure_ascii=False, indent=1)[:6000])
         return 0
     if 'rede' in opt or 'ler' in opt:
         if not opt.get('saida'):
