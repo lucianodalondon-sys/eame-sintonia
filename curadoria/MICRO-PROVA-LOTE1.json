@@ -1,0 +1,83 @@
+{
+ "DATASET": "MICRO-PROVA-LOTE1",
+ "CANDIDATAS": [
+  "CAND-1173",
+  "CAND-1069",
+  "CAND-1070",
+  "CAND-1164",
+  "CAND-1167",
+  "CAND-1049",
+  "CAND-0953",
+  "CAND-1032",
+  "CAND-1018",
+  "CAND-1019",
+  "CAND-1021",
+  "CAND-1055",
+  "CAND-1029",
+  "CAND-0026",
+  "CAND-0647",
+  "CAND-1045",
+  "CAND-1043",
+  "CAND-0018",
+  "CAND-0015",
+  "CAND-0003"
+ ],
+ "GRUPOS": {
+  "JANELAS_T3_T2 (fitossanitario/agrometeo; T3 so 7 READY, D29)": [
+   "CAND-1173",
+   "CAND-1069",
+   "CAND-1070",
+   "CAND-1164",
+   "CAND-1167",
+   "CAND-1049",
+   "CAND-0953"
+  ],
+  "PESQUISA_T5 (foco do dono)": [
+   "CAND-1032",
+   "CAND-1018",
+   "CAND-1019",
+   "CAND-1021",
+   "CAND-1055",
+   "CAND-1029",
+   "CAND-0026",
+   "CAND-0647",
+   "CAND-1045",
+   "CAND-1043"
+  ],
+  "AGENCIAS_AGRICOLAS_REGIONAIS": [
+   "CAND-0018",
+   "CAND-0015"
+  ],
+  "AGRONOMIA_BASE_DE_DADOS": [
+   "CAND-0003"
+  ]
+ },
+ "CRITERIO": "maior ganho: classes escassas na coorte (READY hoje: T3 7, T1 7, T5 19 contra T7 48) e o foco do dono (pesquisa e agronomia); 20 dominios distintos = 1 ronda, <=4-5 pedidos/dominio",
+ "FORA_E_PORQUE": {
+  "ordens de agronomos (5)": "D52: as ordens provinciais sairam por decisao do dono (retirar_por_decisao, 62)",
+  "CAND-0009 Rete Rurale": "robots Visit-time 01-03 UTC: lote proprio nessa janela",
+  "CAND-1042 Italian Journal of Food Safety": "mesmo dominio que CAND-1045 (pagepressjournals.org): lote 2"
+ },
+ "DOMINIOS": {
+  "CAND-1173": "condifesa.ra.it",
+  "CAND-1069": "condifesalombardianordest.it",
+  "CAND-1070": "condifesatvb.it",
+  "CAND-1164": "fmach.it",
+  "CAND-1167": "agriligurianet.it",
+  "CAND-1049": "sipav.org",
+  "CAND-0953": "lamma.toscana.it",
+  "CAND-1032": "agraria.unifg.it",
+  "CAND-1018": "d3a.univpm.it",
+  "CAND-1019": "dagri.unifi.it",
+  "CAND-1021": "distal.unibo.it",
+  "CAND-1055": "tesaf.unipd.it",
+  "CAND-1029": "dbt.univr.it",
+  "CAND-0026": "laimburg.it",
+  "CAND-0647": "enea.it",
+  "CAND-1045": "pagepressjournals.org",
+  "CAND-1043": "itjfs.com",
+  "CAND-0018": "venetoagricoltura.org",
+  "CAND-0015": "sardegnaagricoltura.it",
+  "CAND-0003": "fitogest.imagelinenetwork.com"
+ }
+}
