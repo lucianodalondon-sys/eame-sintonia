@@ -5014,6 +5014,24 @@
    ]
   },
   {
+   "id": "C-C9-INSTALAR",
+   "name": "C9-INSTALAR-PREP — o ensaio do C9-IDIOMA sobre o vivo (relatorio da 3.a onda, antes e depois)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "ensaio_c9.sh: copia fiel do vivo (worktree no HEAD + os livros do disco), relatorio da micro-coleta com os RUN_IDs da 3.a onda ANTES (codigo da producao) e DEPOIS (C9, --estado=ONDA-WEB-ESTADO.json), Sala so lida (default_transaction_read_only), sem rede HTTP; merge --ff-only e desfazer por reset --keep.",
+   "why_here": "C9-INSTALAR-PREP (25/09/2026): o bot Luciano exige o C9 instalado e provado antes da 4.a onda; C1 e C3 passam de FAIL a PASS (38/38).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/c9/ensaio_c9.sh"
+   ]
+  },
+  {
    "id": "C-LEGACY-99",
    "name": "LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)",
    "territory": "Z-FERRAMENTAS",
