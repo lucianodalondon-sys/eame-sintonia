@@ -5302,13 +5302,15 @@
    "views": [
     "infra"
    ],
-   "what": "pessoas.py: liga a lista-mestra MUR (nome, universidade, setor) aos autores da T6 por sobrenome + inicial + mesma universidade (ambiguo nao funde) e ordena pela obra recente com par do casco no texto. seguir.py: por pessoa, ORCID researcher-urls (so os links declarados) e a pagina declarada, com teto 5/dominio/rodada contando o robots, robots respeitado, 3 s, portao IT antes/depois, bytes fora do Git com sha256; LinkedIn perfil fora, so posts; candidatas pela porta canonica candidatas/fonte_nova.py numa fila dada.",
+   "what": "pessoas.py: liga a lista-mestra MUR (nome, universidade, setor) aos autores da T6 por sobrenome + inicial + mesma universidade (ambiguo nao funde) e ordena pela obra recente com par do casco no texto. seguir.py: por pessoa, ORCID researcher-urls (so os links declarados) e a pagina declarada, com teto 5/dominio/rodada contando o robots, robots respeitado, 3 s, portao IT antes/depois, bytes fora do Git com sha256; LinkedIn perfil fora, so posts; candidatas pela porta canonica candidatas/fonte_nova.py numa fila dada. fora_do_mur.py + listas_oficiais.py (PESQ-FORA-DO-MUR): quem da T6 e da FEM, do CREA ou do CNR pela instituicao que a OBRA declara, e as listas oficiais de pessoal de cada casa lidas por rodadas (so o perfil de quem esta no cruzamento; CNR so com liberacao).",
    "why_here": "D85 (26/09/2026, dono): pesquisadores sao fonte de 1.a linha; seguir os canais onde publicam no dia a dia.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "ferramentas/seguir_pesquisadores/pessoas.py",
+    "ferramentas/seguir_pesquisadores/fora_do_mur.py",
+    "ferramentas/seguir_pesquisadores/listas_oficiais.py",
     "ferramentas/seguir_pesquisadores/seguir.py"
    ]
   }

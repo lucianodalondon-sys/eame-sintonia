@@ -45,7 +45,8 @@ class Rodadas(unittest.TestCase):
             self.assertEqual(0, rodar(d, "FEM"))
             e = estado(d, "FEM")
             reg = json.loads(json.dumps(e))
-            self.assertEqual(["https://www.fmach.it/persone/tonina"], [x["URL"] for x in reg["FILA"]])   # ficou pelo teto
+            # Tonina (pedida pelo nome) e Anfora (obra recente do casco) passam a frente; Ioriatti fica pelo teto
+            self.assertEqual(["https://www.fmach.it/persone/ioriatti"], [x["URL"] for x in reg["FILA"]])
             feitos = {f["URL"]: f for f in e["FEITOS"]}
             self.assertEqual("ROBOTS_OU_NAO_LIDO", feitos["https://www.fmach.it/riservato/staff"]["MOTIVO"])
             self.assertNotIn("https://www.fmach.it/persone/verdi", feitos)     # nao e alvo: nao se abre
@@ -81,6 +82,21 @@ class Rodadas(unittest.TestCase):
             self.assertEqual(2, L.main(["x", "--rodada", "--autorizado", "--casa=CNR", "--alvos=%s" % ALVOS, "--saida=%s" % d]))
             self.assertEqual(2, L.main(["x", "--rodada", "--casa=FEM", "--alvos=%s" % ALVOS, "--saida=%s" % d]))
             self.assertEqual([], list(Path(d).iterdir()))
+
+    def test_cnr_institutos_dividem_o_teto_e_o_pendente_fica(self):
+        # ipsp.cnr.it e ibbr.cnr.it sao o mesmo dominio registavel: o robots do 2.o host gasta o 5.o pedido,
+        # a pagina fica PENDENTE (na fila) e nao NAO_ABERTA
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(0, rodar(d, "CNR"))
+            e = estado(d, "CNR")
+            self.assertEqual(["https://www.ibbr.cnr.it/ibbr/info/people"], [x["URL"] for x in e["FILA"]])
+            self.assertEqual(0, rodar(d, "CNR"))
+            self.assertEqual(["Anna Neri"], [p["PESSOA"] for p in estado(d, "CNR")["PERFIS"]])
+
+    def test_ligacoes_sem_mail_nem_telefone(self):
+        a = L.ancoras("<a href='mailto:a@fmach.it'>Anfora Gianfranco</a><a href='tel:1'>t</a><a href='/p'>P</a>",
+                      "https://www.fmach.it/")
+        self.assertEqual([("https://www.fmach.it/p", "P")], a)
 
     def test_candidatas_pela_porta_numa_copia(self):
         with tempfile.TemporaryDirectory() as d:

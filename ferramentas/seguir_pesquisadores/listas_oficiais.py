@@ -41,28 +41,31 @@ CASAS = {
         "UNIDADES_NO_ESCOPO": "CRI (ricerca) e CTT (trasferimento tecnologico: consulenza tecnica, entomologia, patologia)",
     },
     "CREA": {
-        "ENTRADAS": ["https://www.crea.gov.it/centri-di-ricerca"],
-        "LISTAS": ["https://www.crea.gov.it/web/difesa-e-certificazione",
-                   "https://www.crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
-                   "https://www.crea.gov.it/web/agricoltura-e-ambiente",
-                   "https://www.crea.gov.it/cerealicoltura-e-colture-industriali",
-                   "https://www.crea.gov.it/orticoltura-e-florovivaismo"],
-        "DESCOBRIR_POR": r"\b(personale|persone|staff|ricercator|chi siamo|viticoltura)\b",
+        # as paginas dos centros (a prova P4: os perfis so se ligam dali). Todos os enderecos ja estao nos nossos
+        # livros: 5 na fila de candidatas, o da viticultura no ramo pessoas-agro-v1 (P4)
+        "ENTRADAS": ["https://www.crea.gov.it/web/difesa-e-certificazione",
+                     "https://www.crea.gov.it/web/viticoltura-e-enologia",
+                     "https://www.crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
+                     "https://www.crea.gov.it/web/agricoltura-e-ambiente",
+                     "https://www.crea.gov.it/cerealicoltura-e-colture-industriali",
+                     "https://www.crea.gov.it/orticoltura-e-florovivaismo"],
+        "LISTAS": [],
+        "DESCOBRIR_POR": r"\b(personale|persone|staff|ricercator|chi siamo|organigramma)\b",
         "PERFIL": r"crea\.gov\.it/web/[^/]+/-/[a-z0-9\-]+$",
         "SABIDO": ("P4 (23/09): perfis em crea.gov.it/web/<centro>/-/<nome>, com campo LinkedIn; NAO estao no sitemap "
-                   "(27 mil noticias), so ligados das paginas dos 12 centros; 439 pedidos, 96 perfis (antes do teto). "
-                   "Os enderecos dos 5 centros vem das candidatas CAND-0258..1008; o de Viticoltura ed Enologia NAO esta "
-                   "em nenhum livro nosso — descobre-se na pagina dos centros"),
+                   "(27 mil noticias), so ligados das paginas dos 12 centros (P4 leu 96 perfis em 439 pedidos, antes do "
+                   "teto). NAO SEI em que sub-pagina do centro esta a lista: descobre-se pelo texto das ligacoes"),
         "UNIDADES_NO_ESCOPO": "DC (difesa), VE (viticoltura), OFA (olivo/frutta/agrumi), AA, CI (cereali), OF (orticoltura)",
     },
     "CNR": {
-        "ENTRADAS": [],
-        "LISTAS": ["https://www.ibbr.cnr.it/ibbr/info/people", "https://www.isafom.cnr.it/", "https://ibba.cnr.it/staff/"],
+        "ENTRADAS": ["https://www.ipsp.cnr.it/", "https://www.ibbr.cnr.it/ibbr/", "https://www.isafom.cnr.it/",
+                     "https://www.ispa.cnr.it/"],
+        "LISTAS": ["https://ibba.cnr.it/staff-ibba/"],
         "DESCOBRIR_POR": r"\b(people|persone|personale|staff)\b",
-        "PERFIL": r"(/info/people/[\w-]+$|/staff/[\w-]+/?$|cercapersone_detail|/people/[\w-]+/?$)",
-        "SABIDO": ("P5 (24/09): IBBR ~160 pessoas em /ibbr/info/people/<nome>; ISAFOM 91; IBBA 52 fichas /staff/<nome>/ com "
-                   "campo «Linkedin:» (37/53); IBE/ISPA 0 perfis sociais; IPSP (o instituto de protecao das plantas, o que "
-                   "MAIS importa) respondeu 403 e certificado recusado — sem lista lida"),
+        "PERFIL": r"(/info/people/[\w-]+$|/staff/[\w-]+/?$|/people/[\w-]+/?$|/persone/[\w-]+/?$)",
+        "SABIDO": ("P5 (24/09): IBBR ~160 pessoas em /ibbr/info/people/<nome>; ISAFOM 91; IBBA 52 fichas /staff/<nome>/ "
+                   "(lista em /staff-ibba/) com campo «Linkedin:»; IBE/ISPA 0 perfis sociais; IPSP (o instituto de "
+                   "protecao das plantas, o que MAIS importa) respondeu 403 e certificado recusado — sem lista lida"),
         "UNIDADES_NO_ESCOPO": "IPSP (protecao das plantas), IBBR, ISAFOM, ISPA, IBE, IRET, IMAMOTER",
     },
 }
@@ -130,11 +133,17 @@ def estado_inicial(casa: str) -> dict:
     return {"CASA": casa, "FILA": fila, "FEITOS": [], "PERFIS": [], "RODADAS": 0}
 
 
+def ordem(item: dict):
+    """Listas antes de perfis; entre perfis, os pedidos pelo nome e os com mais obra recente do casco primeiro."""
+    return (item["PAPEL"] == "PERFIL", [-v for v in item.get("PRIORIDADE") or [0, 0, 0]])
+
+
 def uma_rodada(casa: str, estado: dict, alvos: list, t: "S.Transporte") -> dict:
     c = CASAS[casa]
     resto, fila = [], list(estado["FILA"])      # o que se descobre na rodada entra na mesma fila (ate ao teto)
     lidos = {f["URL"] for f in estado["FEITOS"]}
     while fila:
+        fila.sort(key=ordem)                    # listas antes de perfis; perfis pela prioridade do alvo
         item = fila.pop(0)
         url, papel = item["URL"], item["PAPEL"]
         if url in lidos:
@@ -163,7 +172,9 @@ def uma_rodada(casa: str, estado: dict, alvos: list, t: "S.Transporte") -> dict:
                     a = casa_o_alvo(txt, alvos)
                     if a:
                         fila.append({"URL": href, "PAPEL": "PERFIL", "ALVO": a["NOME"], "OPENALEX_ID": a["OPENALEX_ID"],
-                                      "ORCID": a.get("ORCID") or [], "LIGADO_EM": url, "TEXTO": txt[:80]})
+                                      "ORCID": a.get("ORCID") or [], "LIGADO_EM": url, "TEXTO": txt[:80],
+                                      "PRIORIDADE": [bool(a.get("PEDIDA_PELO_NOME")), a.get("PAR_DO_CASCO_RECENTE") or 0,
+                                                     a.get("OBRAS_T6") or 0]})
         else:   # PERFIL: os links publicos da pagina oficial da pessoa
             canais, fora = [], []
             for href, txt in ancoras(html, url):
@@ -178,6 +189,7 @@ def uma_rodada(casa: str, estado: dict, alvos: list, t: "S.Transporte") -> dict:
     for x in resto:                                 # sem repetir o que ja se leu nem o que ja esta na fila
         if x["URL"] not in vistos and x["URL"] not in {y["URL"] for y in prox}:
             prox.append(x)
+    prox.sort(key=ordem)
     estado["FILA"] = prox
     estado["RODADAS"] += 1
     return estado
@@ -220,6 +232,9 @@ def main(argv) -> int:
             print("%s: %d pessoas no cruzamento (%d com obra recente do casco); listas conhecidas %d; entradas %d"
                   % (casa, len(al), sum(1 for p in al if p.get("PAR_DO_CASCO_RECENTE")), len(c["LISTAS"]), len(c["ENTRADAS"])))
             print("   sabido:", c["SABIDO"])
+            so = [p for p in al if p.get("PAR_DO_CASCO_RECENTE") or p.get("PEDIDA_PELO_NOME")]
+            print("   com --so-casco: %d perfis a abrir no maximo -> ~%d rodadas so de perfis (4 paginas por rodada)"
+                  % (len(so), -(-len(so) // 4)))
         return 0
     casa = arg["casa"]
     if casa == "CNR" and "--cnr-liberado" not in argv and "--seco" not in argv:
@@ -230,6 +245,8 @@ def main(argv) -> int:
     arq = saida / ("ESTADO-%s.json" % casa)
     estado = json.loads(arq.read_text(encoding="utf-8")) if arq.exists() else estado_inicial(casa)
     alvos = alvos_da_casa(fora, casa)
+    if "--so-casco" in argv:        # so quem tem obra RECENTE com par do casco no texto, e os pedidos pelo nome
+        alvos = [x for x in alvos if x.get("PAR_DO_CASCO_RECENTE") or x.get("PEDIDA_PELO_NOME")]
     if "--seco" in argv:
         fx = Path(arg["fixtures"])
         resp = json.loads((fx / "RESPOSTAS-LISTAS.json").read_text(encoding="utf-8"))

@@ -33,8 +33,12 @@ CASAS = [
     ("CREA", "CREA-OFA", "CERTA", r"olive, fruit and citrus|olivicoltura, frutticoltura"),
     ("CREA", "CREA-DC", "CERTA", r"plant protection and certification|difesa e certificazione"),
     ("CREA", "CREA-AA", "CERTA", r"agriculture and environment|agricoltura e ambiente"),
-    ("CREA", "CREA-FL", "PROVAVEL", r"^forestry research centre$"),
-    ("CREA", "CREA-CI (nome antigo)", "PROVAVEL", r"^cereal research centre$"),
+    # «Forestry Research Centre» NAO e CREA: em 24 das 28 obras vem ao lado do Laimburg (o nome do Laimburg,
+    # «...Centre for Agriculture and Forestry», partido pelo OpenAlex) — medido na 1.a corrida
+    ("LAIMBURG", "Laimburg (OpenAlex: Forestry Research Centre)", "PROVAVEL", r"^forestry research centre$"),
+    # «Cereal Research Centre» (IT, 155/155) cobre gente de toda a parte do CREA (Velasco e Perria sao da
+    # viticultura): a instituicao e provavel, o CENTRO nao se sabe
+    ("CREA", "CREA (centro NAO SEI: OpenAlex diz Cereal Research Centre)", "PROVAVEL", r"^cereal research centre$"),
     ("CREA", "CREA-OFA (nome antigo)", "PROVAVEL", r"istituto sperimentale per la frutticoltura"),
     ("LAIMBURG", "Laimburg", "CERTA", r"laimburg"),
 ]
