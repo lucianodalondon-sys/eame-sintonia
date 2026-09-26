@@ -890,7 +890,7 @@ def por_evidencia(saida, por_par=5, total=30, desde='2023-01-01'):
     O grupo e a instituicao italiana declarada nessas obras."""
     us, _, _ = ler_pasta(saida)
     pessoas = defaultdict(lambda: defaultdict(lambda: {'DOIS': set(), 'LOCAL': set(), 'RECENTES': set(),
-                                                       'ULTIMO': '', 'INST': set(), 'PROVAS': set(),
+                                                       'ULTIMO': '', 'INST': defaultdict(int), 'PROVAS': set(),
                                                        'NOME': None, 'ORCID': None}))
     grupos = defaultdict(lambda: defaultdict(lambda: {'DOIS': set(), 'PESSOAS': set()}))
     for u in us:
@@ -911,7 +911,7 @@ def por_evidencia(saida, por_par=5, total=30, desde='2023-01-01'):
                 r['ULTIMO'] = max(r['ULTIMO'], u['PUBLICADO_EM'] or '')
                 for i in a['INSTITUICOES_NESTA_OBRA']:
                     if i['PAIS'] == 'IT' and i['NOME']:
-                        r['INST'].add(i['NOME'])
+                        r['INST'][i['NOME']] += 1
                         g = grupos[par][i['NOME']]
                         g['DOIS'].add(u['DOI'])
                         g['PESSOAS'].add(a['OPENALEX_ID'])
@@ -922,7 +922,9 @@ def por_evidencia(saida, por_par=5, total=30, desde='2023-01-01'):
 
     def linha(par, oid, r):
         return {'PAR': par, 'NOME': r['NOME'], 'OPENALEX_ID': oid, 'ORCID': r['ORCID'],
-                'PROVA': _melhor_prova(r['PROVAS']), 'INSTITUICOES_IT': sorted(r['INST'])[:3],
+                'PROVA': _melhor_prova(r['PROVAS']),
+                # a mais frequente primeiro; e a do INDICE (OpenAlex), que erra: conferir antes de usar
+                'INSTITUICOES_IT': [n for n, _ in sorted(r['INST'].items(), key=lambda kv: (-kv[1], kv[0]))][:3],
                 'TRABALHOS_DO_PAR': len(r['DOIS']), 'COM_LOCAL_ESCRITO': len(r['LOCAL']),
                 'DESDE_' + desde[:4]: len(r['RECENTES']), 'ULTIMO': r['ULTIMO'],
                 'DOIS': sorted(r['DOIS'])[:5]}
