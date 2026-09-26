@@ -206,8 +206,6 @@ def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
     try:
         if estrategia == "YOUTUBE_CHANNEL_FEED":
             r = CANARIO.canario_youtube(contrato)
-        elif contrato.get("ACQUISITION", {}).get("ADAPTER_ID") == CANARIO.YOUTUBE_CANAL:
-            r = CANARIO.canario_youtube_canal(contrato)
         else:
             r = CANARIO.canario_html(contrato)
     except Exception as e:
