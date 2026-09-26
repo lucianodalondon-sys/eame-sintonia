@@ -138,5 +138,36 @@ class AEscritaEPeloNome(unittest.TestCase):
         self.assertIn("janela_declarada", S.COLUNAS_ESCRITAS)
 
 
+class OsPendentesSaoPeloNome(unittest.TestCase):
+    """`listar_pendentes` lia `c[0]`, `c[1]`, `c[2]` (QUATRO-CHAVES-MEDIR, 26/09)."""
+
+    def _listar(self, linha):
+        b = _pg()
+        pedido = {}
+
+        def consultar(sql):
+            pedido["sql"] = sql
+            return [b.SEP.join(linha)]
+        b._consultar = consultar
+        return b.listar_pendentes(), pedido["sql"]
+
+    def test_cada_chave_volta_da_sua_coluna(self):
+        vals = {"run_id": "RUN-P", "ordem": "7", "item_id": "derived:p-1"}
+        fora, sql = self._listar([vals[c] for c, _ in S.COLUNAS_PENDENTES])
+        self.assertEqual(fora, [{"RUN_ID": "RUN-P", "ORDEM": 7, "ITEM_ID": "derived:p-1"}])
+        self.assertIn("select " + ", ".join(c for c, _ in S.COLUNAS_PENDENTES) + " from", sql)
+
+    def test_numero_de_valores_errado_rebenta(self):
+        b = _pg()
+        b._consultar = lambda sql: [b.SEP.join(["RUN-P", "7"])]
+        with self.assertRaises(S.SalaIndisponivel):
+            b.listar_pendentes()
+
+    def test_nenhuma_leitura_posicional_em_listar_pendentes(self):
+        import inspect
+        codigo = re.sub(r"#.*", "", inspect.getsource(S._Postgres.listar_pendentes))
+        self.assertIsNone(re.search(r"\w\[\d+\]", codigo))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -162,6 +162,10 @@ COLUNA_E_CAMPO_JSON = (
     ("tempo_lugar_evidencia", "TEMPO_LUGAR_EVIDENCIA"),
     ("janela_declarada", "JANELA_DECLARADA"),
 )
+# o que `listar_pendentes` le: coluna da Sala -> chave devolvida
+COLUNAS_PENDENTES = (
+    ("run_id", "RUN_ID"), ("ordem", "ORDEM"), ("item_id", "ITEM_ID"),
+)
 
 COLUNAS_ESCRITAS = (
     "run_id", "ordem", "item_id", "raw_observation_id", "universo", "texto",
@@ -966,15 +970,22 @@ select resultado from _recibo;
 
     # ── a fila ──────────────────────────────────────────────────────────
     def listar_pendentes(self, limite=None):
-        sql = ("select run_id, ordem, item_id from public.sala_de_espera "
+        # pelo NOME, como `ler`: o select nasce da mesma tabela que a leitura usa
+        sql = ("select %s from public.sala_de_espera "
                "where estado_da_fila = %s order by pousado_em, run_id, ordem"
-               % _lit(A_ESPERA))
+               % (", ".join(c for c, _ in COLUNAS_PENDENTES), _lit(A_ESPERA)))
         if limite is not None:
             sql += " limit %d" % int(limite)
         fora = []
         for l in self._consultar(sql):
-            c = l.split(self.SEP)
-            fora.append({"RUN_ID": c[0], "ORDEM": int(c[1]), "ITEM_ID": c[2]})
+            partes = l.split(self.SEP)
+            if len(partes) != len(COLUNAS_PENDENTES):
+                raise SalaIndisponivel(
+                    "listar_pendentes: %d valores para %d colunas"
+                    % (len(partes), len(COLUNAS_PENDENTES)))
+            u = {campo: v for (_, campo), v in zip(COLUNAS_PENDENTES, partes)}
+            u["ORDEM"] = int(u["ORDEM"])
+            fora.append(u)
         return fora
 
     def retirar(self, run_id, item_id, por):
