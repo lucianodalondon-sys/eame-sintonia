@@ -18,6 +18,7 @@ liga (depois do `pousar` da Admissao, com a ordem de cada item) e do dono da Sal
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 
@@ -51,8 +52,10 @@ def registar(run_id: str, pares: list, *, dsn: str, psql: str = "psql") -> str:
     sql = sql_de_registo(run_id, pares)
     if sql is None:
         return "NADA_A_REGISTAR"
-    r = subprocess.run([psql, "-X", "-v", "ON_ERROR_STOP=1", "-q", "-d", dsn, "-c", sql],
-                       capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=120)
+    # pela ENTRADA em UTF-8 (a linha de comando do Windows muda a codificacao; medido no ensaio da 037)
+    r = subprocess.run([psql, "-X", "-v", "ON_ERROR_STOP=1", "-q", "-d", dsn, "-f", "-"], input=sql,
+                       capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=120,
+                       env=dict(os.environ, PGCLIENTENCODING="UTF8"))
     if r.returncode:
         raise RuntimeError("SALA_VIDEO_RECUSOU: " + (r.stderr or "")[-400:])
     return "REGISTADO"
