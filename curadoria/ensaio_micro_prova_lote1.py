@@ -24,7 +24,8 @@ congelada em si é feita por coorte_unica sobre o plano da onda, que este ensaio
 
 Desenho dos sites (é uma ESCOLHA do ensaio, não uma previsão): 17 bons; 3 falham de propósito, um em cada ponto
 — Fitogest (robots proíbe tudo), Laimburg (casca JS: os mesmos bytes em todo o lado, como medido a 23/09), Laore
-(notícias curtas: o canário recusa).
+(notícias curtas: o canário recusa). Na 1.ª corrida a «notícia curta» tinha 4 parágrafos de ~380 caracteres
+(~1 500 no total, acima do mínimo de 800) e PASSOU — defeito do desenho, não do robô; agora tem 1 parágrafo de ~190.
 """
 from __future__ import annotations
 
@@ -62,7 +63,7 @@ def _site(ficha: dict) -> dict:
     if falha == "CASCA_JS":
         casca = b"<html><head><title>app</title></head><body><div id=app></div><script src=/app.js></script></body></html>"
         return {"*": (200, casca), "/robots.txt": (200, b"User-agent: *\nAllow: /\n")}
-    corpo = FRASE * (2 if falha == "NOTICIAS_CURTAS" else 14)
+    corpo = FRASE * (1 if falha == "NOTICIAS_CURTAS" else 14)
     itens = ["/notizie/2026/%s-aggiornamento-tecnico-numero-%d-per-le-aziende" % (cid.lower(), i) for i in range(6)]
     casa = ("<html><head><title>%s</title></head><body><header><a href='/chi-siamo'>Chi siamo</a> "
             "<a href='/contatti'>Contatti</a> <a href='/privacy'>Privacy</a></header><main><h1>%s</h1><ul>%s</ul>"
@@ -80,7 +81,7 @@ def _site(ficha: dict) -> dict:
                         "<meta property='article:published_time' content='%sT09:00:00+02:00'></head><body>"
                         "<a href='/'>Home</a><article><h1>Aggiornamento tecnico numero %d</h1><time datetime='%s'>%s</time>"
                         "%s</article></body></html>" % (i, nome, dia, i, dia, dia,
-                                                        "".join("<p>%s</p>" % corpo for _ in range(4)))).encode())
+                                                        "".join("<p>%s</p>" % corpo for _ in range(1 if falha == "NOTICIAS_CURTAS" else 4)))).encode())
     return pag
 
 
