@@ -101,7 +101,7 @@ def juizo_de_conteudo(b: bytes, url: str, hoje: str | None = None) -> dict:
     nos metadados, num <time>, no endereco, no titulo ou no inicio do texto. A data de HOJE nao conta: e o aviso do
     dia no topo do site (LaMMA: «Codice Allerta meteo Sabato 26 Settembre 2026» em todas as paginas)."""
     hoje = hoje or datetime.now(timezone.utc).date().isoformat()
-    if not b or b"\x00" in b[:2048] or b[:4] in (b"\x00\x00\x01\x00", b"\x89PNG", b"GIF8") or b[:3] == b"\xff\xd8\xff":
+    if not b or b"\x00" in b[:2048]:          # ico/png/jpeg/pdf trazem todos NUL no cabecalho
         return {"SERVE": False, "LETRAS": 0, "DATA_PUBLICADA": None, "PORQUE": "nao e texto (bytes de ficheiro binario)"}
     s = b.decode("utf-8", "replace")
     if s.count("�") > len(s) // 20 or not re.search(r"(?i)<(html|body|p|div)\b", s):

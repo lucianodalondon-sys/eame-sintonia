@@ -116,6 +116,15 @@ class ConteudoPublicado(Colher):
                 self.assertFalse(C._parece_conteudo(B + cam, B + "/"))
         self.assertTrue(C._parece_conteudo(B + "/campagne-passate/comunicato-10-03-2025/", B + "/"))
 
+    def test_estatico_com_ano_no_caminho_nao_e_conteudo(self):
+        for cam in ("/uploads/2024/03/logo.svg", "/media/2025/programma.docx", "/sites/all/themes/x/2026/pagina"):
+            with self.subTest(cam=cam):
+                self.assertFalse(C._parece_conteudo(B + cam, B + "/"))
+
+    def test_ano_colado_a_um_nome_nao_e_data(self):
+        self.assertFalse(C._parece_conteudo(B + "/archivio/tema_2017", B + "/"))
+        self.assertTrue(C._parece_conteudo(B + "/archivio/2017", B + "/"))
+
     def test_pagina_sem_data_e_rejeitada_e_nao_conta(self):
         pag = dict(PAG)
         pag[B + "/notizie/2026/bando-borse-di-studio-agronomia"] = (200, noticia("Bando", data="Ufficio bandi"), "")
@@ -141,7 +150,7 @@ class ConteudoPublicado(Colher):
         self.assertIn("texto curto", j["PORQUE"])
 
     def test_menu_e_rodape_nao_contam_como_texto(self):
-        pag = ("<html><title>x</title><nav>" + "Notizie Eventi Didattica " * 60 + "</nav><p>12/03/2026 ok</p>"
+        pag = ("<html><title>Avviso del 12/03/2026</title><nav>" + "Notizie Eventi Didattica " * 60 + "</nav><p>ok</p>"
                "<footer>" + "Via Brecce Bianche 10 Ancona " * 40 + "</footer></html>").encode()
         self.assertFalse(C.juizo_de_conteudo(pag, B + "/n/2026/x", HOJE)["SERVE"])
 
@@ -153,12 +162,13 @@ class ConteudoPublicado(Colher):
         self.assertIn("institucional quase vazia", r["PORQUE_PAROU"])
 
     def test_primeiro_o_que_tem_data_no_endereco(self):
-        casa = ('<html><a href="/chi-siamo">c</a><a href="/progetti-di-ricerca-sulla-vite-e-olivo">p</a>'
+        casa = ('<html><a href="/chi-siamo">c</a><a href="/progetti-sulla-vite-e-sulle-olive">p</a>'
                 '<a href="/notizie/2026/seminario-sulla-difesa-della-vite">n1</a>'
                 '<a href="/notizie/2026/bando-borse-di-studio-agronomia">n2</a></html>').encode()
+        self.assertTrue(C._parece_conteudo(B + "/progetti-sulla-vite-e-sulle-olive", B + "/"))
         r = self.colher(PAG, casa)
         self.assertTrue(r["PROVA_COMPLETA"], r.get("PORQUE_PAROU"))
-        self.assertNotIn(B + "/progetti-di-ricerca-sulla-vite-e-olivo", self.pedidos)
+        self.assertNotIn(B + "/progetti-sulla-vite-e-sulle-olive", self.pedidos)
 
 
 class Aplicar(unittest.TestCase):
