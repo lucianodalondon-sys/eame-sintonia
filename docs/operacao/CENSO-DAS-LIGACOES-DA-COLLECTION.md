@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b6d8ecced89dcf84786de3b22221fb49138295b3
+HEAD_DA_MEDICAO  8d2c8e0bb1b3d65e0f29081ee63609c31aa69b74
 BRANCH           social-micro-v1
-GERADO_EM        2026-09-25T23:13:50-03:00
+GERADO_EM        2026-09-25T23:19:26-03:00
 CARDS            103
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
