@@ -164,6 +164,12 @@ Os 2 pares são a mesma página duas vezes (ver «Resposta curta»). **Cruzament
 
 ## 6. Plano de instalação (para o coordenador — eu NÃO instalo)
 
+> **D80 (v), coordenação 06:30:** NÃO gravar agora as 19 regiões da QUATRO-CHAVES-MEDIR. Primeiro este
+> ramo corrige os 3 erros e prova o extrator (secções 2 e 4: os 3 erros dão NAO SEI; das 19, ficam 18;
+> as 10 mudanças em 1.252 lidas uma a uma). Depois, gravar **SÓ por revisão append-only**
+> (`sala_de_espera_revisao`, passo 4 abaixo) — **nunca** preencher as linhas antigas da Sala.
+> Nada neste ramo escreve na Sala: `reprocessar_tempo_lugar.py` sem `--aplicar` só conta.
+
 1. **Depois do LOTE 2** (`quatro-chaves-v2` + `conserto-regua-v1` no vivo). Juntar `periodo-chaves-v1`
    (merge `--no-ff`); conflito esperado só nos gerados do mapa (regerar pela cadeia).
 2. **Banco: nada.** Nenhuma migração: `janela_declarada` e o caderno já existem (033).
