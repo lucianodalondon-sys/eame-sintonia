@@ -129,6 +129,10 @@ deno, o yt-dlp passa a usar 2 clientes (`visionos` + `web`) e o número muda —
 
 ## 6 · PLANO DE INSTALAÇÃO ÚNICO (social-micro + qualificar) — para o coordenador
 
+⚠️ **SUBSTITUÍDO (26/09 02:08):** o vivo passou a `83de0ccd` (C9). A ordem que vale é a do
+`PLANO-INSTALACAO-SOCIAL.md` (ramo `social-qualificar-v2`, ff-only sobre `83de0ccd`, com a legacy-99-v5). O texto
+abaixo fica como estava, medido sobre `ce28040c`.
+
 Medido: `ce28040c` é antepassado de `social-qualificar-v1`, e os 39 ficheiros que o pacote muda **não incluem
 nenhum** dos 16 livros sujos do vivo → **`--ff-only` serve**, sem tocar no que o bot está a escrever.
 
