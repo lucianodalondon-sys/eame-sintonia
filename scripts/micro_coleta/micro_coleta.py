@@ -18,7 +18,7 @@ Tres verbos, e so um deles vai a rede:
             orquestrador -> italy_executor -> ingresso -> preservar_coleta
         e no fim chama `relatorio` sobre os RUN_ID que nasceram.
 
-    py scripts/micro_coleta/micro_coleta.py relatorio --run-id=<R> [--run-id=...]
+    py scripts/micro_coleta/micro_coleta.py relatorio --run-id=<R> [--run-id=...] [--estado=<ONDA-WEB-ESTADO.json>]
         So SELECT, e com a ligacao posta em `default_transaction_read_only`
         pelo proprio Postgres: uma escrita seria recusada pelo banco, nao pela
         nossa boa vontade. Mede os criterios de passagem (ver CRITERIOS) e
@@ -460,13 +460,30 @@ _PALAVRAS = {
 }
 
 
+# C9-IDIOMA (25/09): o limiar era so `>= 20`. No MICRO-V3 duas noticias italianas da ARPAE
+# (RAW 1436: 17 palavras «it» contra 1; RAW 1437: 9 contra 0) sairam NAO SEI e o C9 contou-as
+# como «estrangeiro sem sinal». Medido nos 758 textos extraidos do armazem (25/09): quem passa
+# de 20 fica igual; abaixo, ha um VAO — nenhum texto entre 5 e 8 — e por baixo dele so restos de
+# 30-40 palavras (menus, cabecalhos). A banda curta conta so com DOMINIO CLARO: pelo menos
+# IDIOMA_MINIMO_CURTO palavras da lingua e IDIOMA_DOMINIO vezes a segunda. 11 contra 6 continua
+# NAO SEI; 4 contra 0 tambem. A regra C9 nao muda: muda so o que o detector consegue ler.
+IDIOMA_MINIMO = 20
+IDIOMA_MINIMO_CURTO = 8
+IDIOMA_DOMINIO = 3
+
+
 def idioma(texto: str) -> str:
     """Leitura grosseira e declarada: a lingua cujas dez palavras mais comuns
     aparecem mais. Serve para CONTAR (C9), nunca para decidir entrada."""
     pal = re.findall(r"[a-zà-ú]+", texto.lower())
     conta = {lg: sum(1 for p in pal if p in ws) for lg, ws in _PALAVRAS.items()}
     lg = max(conta, key=conta.get)
-    return lg if conta[lg] >= 20 else AUSENCIA
+    if conta[lg] >= IDIOMA_MINIMO:
+        return lg
+    segunda = max(v for k, v in conta.items() if k != lg)
+    if conta[lg] >= IDIOMA_MINIMO_CURTO and conta[lg] >= IDIOMA_DOMINIO * segunda:
+        return lg
+    return AUSENCIA
 
 
 def _armazem() -> Path:
@@ -728,6 +745,27 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
     return rel
 
 
+def corridas_do_estado(estado: dict, ids: list[str] | None = None) -> list[dict]:
+    """As corridas no formato que `relatorio` le (C1: EGRESSO_ANTES/DEPOIS; C3: GATE_NO_INSTANTE),
+    a partir do que o condutor da onda grava por fonte (`ferramentas/big_collection/onda_web.py`:
+    GATE, EGRESSO [antes, depois]).
+
+    C9-IDIOMA (25/09): o MICRO-V3 teve C1 e C3 FAIL no relatorio da onda com as 6 corridas a IT,IT
+    e ELIGIBLE no estado — o relatorio pedido pela linha de comando nao recebia as corridas e media
+    uma lista vazia. Isto so traduz; nao inventa: o que o estado nao diz fica None, e o criterio,
+    que e o mesmo, reprova."""
+    out = []
+    for f in estado.get("FONTES", []):
+        if not f.get("RUN_ID") or (ids is not None and f["RUN_ID"] not in ids):
+            continue
+        eg = f.get("EGRESSO") or [None, None]
+        out.append({"SOURCE_ID": f.get("SOURCE_ID"), "RUN_ID": f["RUN_ID"], "CORREU": f.get("CORREU"),
+                    "STATUS": f.get("STATUS"), "GATE_NO_INSTANTE": f.get("GATE"),
+                    "EGRESSO_ANTES": {"PAIS": eg[0] if len(eg) > 0 else None},
+                    "EGRESSO_DEPOIS": {"PAIS": eg[1] if len(eg) > 1 else None}})
+    return out
+
+
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     verbo = argv[0] if argv else "plano"
@@ -751,10 +789,15 @@ def main(argv=None) -> int:
         return 0 if r.get("CORREU") else 2
     if verbo == "relatorio":
         ids = [a.split("=", 1)[1] for a in argv if a.startswith("--run-id=")]
+        estado = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--estado=")), None)
+        corridas = None
+        if estado:
+            corridas = corridas_do_estado(json.loads(estado.read_text(encoding="utf-8")), ids or None)
+            ids = ids or [c["RUN_ID"] for c in corridas]
         if not ids:
-            print("uso: relatorio --run-id=<RUN_ID> [...]", file=sys.stderr)
+            print("uso: relatorio --run-id=<RUN_ID> [...] [--estado=<ONDA-WEB-ESTADO.json>]", file=sys.stderr)
             return 2
-        r = relatorio(ids, saida=saida)
+        r = relatorio(ids, corridas=corridas, saida=saida)
         print(json.dumps(r, ensure_ascii=False, indent=1))
         print(f"escrito em {saida}", file=sys.stderr)
         return 0
