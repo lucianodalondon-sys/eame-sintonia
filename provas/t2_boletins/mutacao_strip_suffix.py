@@ -21,7 +21,7 @@ MUTANTES = [
     ("cli: SO_CONFERIR aceita tudo", "regras/identidade_do_motor_cli.mjs",
      "    conferirIdentidade(pedido.SOURCE_ID, pedido.IDENTITY);", "    void 0;"),
     ("canario pdf: identidade a mao (como antes)", "curadoria/canario.py",
-     "capturas.\n    ident = identidade_pelo_motor(c, alvo, b2)",
+     "capturas.\n    ident = identidade_pelo_motor(c, alvo, b2, texto_da_ligacao)",
      'capturas.\n    ident = {"DOCUMENT_ID": c["IDENTITY"]["DOCUMENT_ID"].replace("{doc.1}", re.sub(r"^https?://[^/]+/?", "", alvo).rstrip("/"))}'),
 ]
 mortos = 0
