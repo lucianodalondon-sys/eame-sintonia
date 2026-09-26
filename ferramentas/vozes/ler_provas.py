@@ -100,6 +100,9 @@ def ler_passo1(plano: dict, provas: Path) -> dict:
         for c in json.loads(r.read_text("utf-8"))["COLHIDAS"]:
             recibos[c["ID"]] = c
     pessoas = {f["ID"]: f.get("PESSOA") for f in plano["FICHAS"]}
+    for f in plano["FICHAS"]:                      # a ficha que le a pagina de outra (MESMA_PAGINA_DE)
+        if f.get("MESMA_PAGINA_DE") in recibos:
+            recibos[f["ID"]] = dict(recibos[f["MESMA_PAGINA_DE"]], ID=f["ID"])
     for fid, c in recibos.items():
         alvo = next((x for x in c["PROVAS"] if x["PAPEL"] == "ALVO"), None)
         if not alvo:

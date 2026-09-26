@@ -1,0 +1,54 @@
+# -*- coding: utf-8 -*-
+# VOZES-EXECUTAR · mutacao do executor e da leitura: cada mutante desliga UMA regra; os testes tem de reprovar.
+#   PYTHONDONTWRITEBYTECODE=1 PYTHONUTF8=1 py data/derivados/VOZES-AGRONOMOS/mutacao.py.txt   (codigo ja commitado)
+import hashlib
+import os
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+EX, LE = "ferramentas/vozes/colher_papel.py", "ferramentas/vozes/ler_provas.py"
+MUTANTES = [
+    ("M1 teto 2 -> 3 por dominio", EX, "TETO_POR_DOMINIO = 2", "TETO_POR_DOMINIO = 3"),
+    ("M2 robots nao e cumprido", EX, '    if not rp.can_fetch("*", alvo):', '    if False:'),
+    ("M3 CNR/Coldiretti deixam de ser recusados", EX,
+     '    if any(p == d or d.endswith("." + p) for p in PROIBIDOS):', '    if False:'),
+    ("M4 a 4.a onda deixa de ser recusada", EX, '    if any(mesmo_site(d, o) for o in onda4):', '    if False:'),
+    ("M5 a janela noturna e ignorada", EX,
+     '    if noturno and not (JANELA_NOTURNA_UTC[0] <= hora_utc < JANELA_NOTURNA_UTC[1]):', '    if False:'),
+    ("M6 portao sem PASS deixa pedir", EX, '    if g.get("EGRESS_GATE") != "PASS":', '    if False:'),
+    ("M7 SIM sem palavra de papel", LE, '        if achou:', '        if True:'),
+    ("M8 o sha256 do recibo nao e conferido", LE,
+     '        if hashlib.sha256(b).hexdigest() != alvo["SHA256"]:', '        if False:'),
+]
+
+
+def sha(p):
+    with open(p, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+mortos = 0
+for nome, rel, de, para in MUTANTES:
+    caminho = os.path.join(RAIZ, rel)
+    original = open(caminho, "rb").read()
+    antes = sha(caminho)
+    texto = original.decode("utf-8").replace("\r\n", "\n")
+    assert texto.count(de) == 1, "%s: alvo nao unico (%d)" % (nome, texto.count(de))
+    try:
+        open(caminho, "wb").write(texto.replace(de, para).encode("utf-8"))
+        r = subprocess.run([sys.executable, "-m", "unittest", "tests.test_vozes_executar"], cwd=RAIZ,
+                           capture_output=True, text=True,
+                           env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1",
+                                    HTTP_PROXY="http://127.0.0.1:9", HTTPS_PROXY="http://127.0.0.1:9"))
+        morto = r.returncode != 0
+    finally:
+        open(caminho, "wb").write(original)
+    reposto = sha(caminho) == antes
+    mortos += morto
+    print("%-44s %s · reposto=%s" % (nome, "MORTO" if morto else "SOBREVIVEU <-- o teste nao morde",
+                                     "SIM" if reposto else "NAO <-- GRAVE"))
+    if not reposto:
+        sys.exit(2)
+print("MUTANTES %d · MORTOS %d" % (len(MUTANTES), mortos))
+sys.exit(0 if mortos == len(MUTANTES) else 1)

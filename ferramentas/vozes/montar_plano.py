@@ -135,6 +135,15 @@ def montar(vozes: dict, entradas: dict, formularios: dict, onda4: set[str]) -> d
             linha["ESTADO"] = "NOTURNO" if any(n in d for n in NOTURNOS) else "A_PEDIR"
             linha["ORGANIZACAO"] = organizacao(dominio(linha["ALVO"]))
         fichas.append(linha)
+    # a MESMA pagina pedida por duas fichas (ex.: a entrada da Conserve Italia) pede-se UMA vez: a 2.a le a prova da 1.a
+    primeira = {}
+    for f in fichas:
+        if f["ESTADO"] in ("A_PEDIR", "NOTURNO"):
+            if f["ALVO"] in primeira:
+                f.update(ESTADO="MESMA_PAGINA", MESMA_PAGINA_DE=primeira[f["ALVO"]], PORQUE="o mesmo ALVO de %s: 0 pedidos"
+                         % primeira[f["ALVO"]])
+            else:
+                primeira[f["ALVO"]] = f["ID"]
     # rondas: por organizacao, robots.txt + 1 pagina = 2 pedidos (teto 2); a 2.a pessoa do mesmo site vai a ronda seguinte
     ronda_de, n = {}, {}
     for f in fichas:
