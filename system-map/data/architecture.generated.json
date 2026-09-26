@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "c9-sobre-ce28-v1",
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-    "GENERATED_AT": "2026-09-26T01:07:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a"
+    "BRANCH": "acervo-tempo-lugar-v1",
+    "HEAD": "d1850e318db8cc14768ee19902ab9606bf9bef9e",
+    "GENERATED_AT": "2026-09-26T03:11:41-03:00",
+    "SOURCE_TREE_FINGERPRINT": "621169b5c0a24508967d90278e564aff9ce57a04851e965ebd1b200b9a94cc42"
   },
   "FILES": [
     {
@@ -187,6 +187,13 @@
       "path": ".vercelignore",
       "sha": "36828989b7aedbd5d89a6b9b9429092395141ba6",
       "ext": "",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "ACERVO-TEMPO-LUGAR.md",
+      "sha": "b3c8a1714ec589f23c3a789d3b724811ad8ef966",
+      "ext": ".md",
       "readable": false,
       "code_dir": false
     },
@@ -17810,6 +17817,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/migracao_034_ensaio_copia.py",
+      "sha": "2df2f13ff0ad4c3cbcebc243b22e22f9e31acc3f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/modelo_de_objetos_da_intelligence.py",
       "sha": "ad3455379ac2e32760c9c69d5e7d608576d20ee3",
       "ext": ".py",
@@ -20477,6 +20491,27 @@
       "code_dir": true
     },
     {
+      "path": "scripts/reproc_acervo/ACERVO-TEMPO-LUGAR-V1.json",
+      "sha": "7bf700e370ca9dae7ca84c250cb542d3d882c2ce",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json",
+      "sha": "983e41c6238e208a6066a552503d4c90e924f163",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reproc_acervo/prever_acervo.py",
+      "sha": "ca1c34af8cb2ae77d9004ac636116b470b0d59e4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "security/ACCOES-DE-ADMINISTRADOR.md",
       "sha": "05cbaae9a8dd420a88524ece8287f89ea1426804",
       "ext": ".md",
@@ -20626,6 +20661,13 @@
     {
       "path": "supabase/desfazer/033_desfazer.sql",
       "sha": "3f86f99171b64c984f5a55451551df5dcb605360",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "supabase/desfazer/034_desfazer.sql",
+      "sha": "d273e79442b78f0737771f6486140f6e538ab19d",
       "ext": ".sql",
       "readable": false,
       "code_dir": false
@@ -20932,6 +20974,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/034_o_acervo_guarda_tempo_e_lugar_como_derivado.sql",
+      "sha": "407e7c6c9bb0e863c91693e8457c10e467da8467",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/tests/mutacao_cicatrizes.sql",
       "sha": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
       "ext": ".sql",
@@ -21087,7 +21136,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "2e70e218f30997daa2ca76c530473209422b8d19",
+      "sha": "ff9bb0da6e2959aa9ac260ad43e896680004d2fe",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -60331,6 +60380,39 @@
       }
     },
     {
+      "from_file": "provas/migracao_034_ensaio_copia.py",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/migracao_034_ensaio_copia.py",
+        "line": 76,
+        "snippet": "r = subprocess.run([shutil.which(\"bash\") or \"bash\", \"motor/cadeia_canonica.sh\", \"migrations\", base.url],"
+      }
+    },
+    {
+      "from_file": "provas/migracao_034_ensaio_copia.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/migracao_034_ensaio_copia.py",
+        "line": 33,
+        "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
+      "from_file": "provas/migracao_034_ensaio_copia.py",
+      "to_file": "supabase/desfazer/034_desfazer.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/migracao_034_ensaio_copia.py",
+        "line": 52,
+        "snippet": "(RAIZ / \"supabase\" / \"desfazer\" / \"034_desfazer.sql\").read_bytes()).hexdigest(),"
+      }
+    },
+    {
       "from_file": "provas/modelo_de_objetos_da_intelligence.py",
       "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
       "type": "READS",
@@ -69722,6 +69804,50 @@
         "file": "scripts/reparo/juntar_bancas.py",
         "line": 71,
         "snippet": "fila = json.loads((Path(b) / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/reproc_acervo/prever_acervo.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/reproc_acervo/prever_acervo.py",
+        "line": 32,
+        "snippet": "import _gavetas  # noqa: E402,F401 — as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "scripts/reproc_acervo/prever_acervo.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/reproc_acervo/prever_acervo.py",
+        "line": 34,
+        "snippet": "import ingresso as ing  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/reproc_acervo/prever_acervo.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/reproc_acervo/prever_acervo.py",
+        "line": 35,
+        "snippet": "import italy_executor as ex  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/reproc_acervo/prever_acervo.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/reproc_acervo/prever_acervo.py",
+        "line": 36,
+        "snippet": "import orquestrador as ORQ  # noqa: E402"
       }
     },
     {
@@ -92341,10 +92467,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3345,
-    "files_readable": 1422,
-    "files_code_dir": 1531,
-    "file_edges": 6210,
+    "files_tracked": 3352,
+    "files_readable": 1424,
+    "files_code_dir": 1535,
+    "file_edges": 6217,
     "escritas_em_pasta": 88,
     "declared_missing_here": 0
   },

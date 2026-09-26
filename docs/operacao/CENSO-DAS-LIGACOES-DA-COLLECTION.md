@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  02b8abc091fad514c81e766cb2d3049b6b37a65f
-BRANCH           c9-sobre-ce28-v1
-GERADO_EM        2026-09-26T01:07:37-03:00
+HEAD_DA_MEDICAO  d1850e318db8cc14768ee19902ab9606bf9bef9e
+BRANCH           acervo-tempo-lugar-v1
+GERADO_EM        2026-09-26T03:11:41-03:00
 CARDS            104
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -333,18 +333,18 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **status operacional** | yellow — esta no caminho: alguem o chama antes de publicar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | admissao/reprocessar_tempo_lugar.py:56; coleta/derivacao_forward.py:347; coleta/golden_path_pdf.py:51 |
-| **porquê** | estas pecas importam-na — C-DERIVACAO-FORWARD · C-DETECTOR-CAPA-GABARITO · C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **porquê** | estas pecas importam-na — C-DERIVACAO-FORWARD · C-DETECTOR-CAPA-GABARITO · C-ESTRADA-PDF · C-LUGAR-COLETA · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `leis/artefato.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 25 |
-| **arestas provadas** | entram 7 · saem 25 |
+| **arestas no mapa** | entram 7 · saem 26 |
+| **arestas provadas** | entram 7 · saem 26 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 32 |
+| **prova das ligações** | CODE 33 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -363,13 +363,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 14 · saem 25 |
-| **arestas provadas** | entram 11 · saem 24 |
+| **arestas no mapa** | entram 14 · saem 26 |
+| **arestas provadas** | entram 11 · saem 25 |
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 34 · NÃO SEI 4 · OBSERVED 1 |
+| **prova das ligações** | CODE 35 · NÃO SEI 4 · OBSERVED 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1493,10 +1493,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `guarda/sql_conferir.py`, `supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql`, `supabase/desfazer/033_desfazer.sql`, `supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql`, `supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql` _(e mais 51)_ |
+| **peça real** | `guarda/sql_conferir.py`, `supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql`, `supabase/desfazer/033_desfazer.sql`, `supabase/desfazer/034_desfazer.sql`, `supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql` _(e mais 53)_ |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 14 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CADEIA-V21 |
 | **prova de quem ativa** | motor/cadeia_canonica.sh:205 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -2233,13 +2233,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/executor_texto_de_pdf.py`, `guarda/preservar_documento.py` |
 | **o que sai · dado** | C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 18 · saem 36 |
-| **arestas provadas** | entram 18 · saem 35 |
+| **arestas no mapa** | entram 18 · saem 37 |
+| **arestas provadas** | entram 18 · saem 36 |
 | **OBSERVADAS** | 3 — corrida `?` |
 | **control plane** | entram 3 · saem 7 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 50 · OBSERVED 3 · NÃO SEI 1 |
+| **prova das ligações** | CODE 51 · OBSERVED 3 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-011/012 · um dono da orquestracao; ele controla e nao transporta dado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 

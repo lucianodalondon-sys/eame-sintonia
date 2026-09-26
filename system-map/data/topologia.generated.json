@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T04:10:46+00:00",
-  "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-  "BRANCH": "c9-sobre-ce28-v1",
+  "GENERATED_AT": "2026-09-26T06:16:13+00:00",
+  "HEAD": "d1850e318db8cc14768ee19902ab9606bf9bef9e",
+  "BRANCH": "acervo-tempo-lugar-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
-  "FICHEIROS_NA_IMPRESSAO": 3493,
+  "SOURCE_TREE_FINGERPRINT": "621169b5c0a24508967d90278e564aff9ce57a04851e965ebd1b200b9a94cc42",
+  "FICHEIROS_NA_IMPRESSAO": 3500,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3021,6 +3021,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/migracao_034_ensaio_copia.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2df2f13ff0ad4c3cbcebc243b22e22f9e31acc3f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/mutacao_da_autorizacao.py",
     "PAPEL": "FONTE",
     "VERSAO": "07b703a304e8e1e2c1304615fd2437fd89e37ccb",
@@ -4183,6 +4190,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/reproc_acervo/prever_acervo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ca1c34af8cb2ae77d9004ac636116b470b0d59e4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "security/censo_do_cliente.py",
     "PAPEL": "FONTE",
     "VERSAO": "b4bca8482feee20bdd30331d6830d31fd06ed17b",
@@ -4234,14 +4248,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
+    "VERSAO": "621169b5c0a24508967d90278e564aff9ce57a04851e965ebd1b200b9a94cc42",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
+    "VERSAO": "621169b5c0a24508967d90278e564aff9ce57a04851e965ebd1b200b9a94cc42",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6332,8 +6346,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 899,
-  "INPUTS_DIGEST": "392b5de90bb2be7c9a28a1fb17b65a69ec97af3ad535fee4411d8d4c0963e690",
+  "INPUTS_COUNT": 901,
+  "INPUTS_DIGEST": "15152133fba2125682c81ddb69b56cc3a36bd5e9380be6712961a9873579ff95",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6359,15 +6373,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 546,
+  "DOCUMENTOS_LIDOS": 547,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0503341c6ba67cd7dae57d67353eaa808bc78194b8ab4ba7bee1934583cb0968",
-  "SEMANTIC_HASH": "476a02cd688d3bb1fe9035d58ee640c8544f72013e76d4d889178dd2001f95f7"
+  "MEASUREMENT_HASH": "5b478d5b6a447db909861fe4cd3bf0c4d7dd1452b0eb0b4b253ef40902541db8",
+  "SEMANTIC_HASH": "4650ffcc31c189a97f96b21f93d4123e84343580ab5f70ae4a18ab1ee8b8892f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -11592,6 +11606,14 @@
      {
       "FICHEIRO": "provas/migracao_033_ensaio_copia.py",
       "LINHA": 89,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CADEIA-V21--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/migracao_034_ensaio_copia.py",
+      "LINHA": 76,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CADEIA-V21--READS-->C-PROVA-COLETA",
@@ -22952,6 +22974,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-INGRESSO--IMPORTS-->C-LUGAR-COLETA",
+    "FROM": "C-INGRESSO",
+    "TO": "C-LUGAR-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/reproc_acervo/prever_acervo.py",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INGRESSO--IMPORTS-->C-LUGAR-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-INGRESSO--IMPORTS-->C-ORQUESTRADOR",
     "FROM": "C-INGRESSO",
     "TO": "C-ORQUESTRADOR",
@@ -25252,6 +25296,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-LUGAR-COLETA",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-LUGAR-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/reproc_acervo/prever_acervo.py",
+      "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--IMPORTS-->C-LUGAR-COLETA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -30517,6 +30583,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-LUGAR-COLETA",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-LUGAR-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/reproc_acervo/prever_acervo.py",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-LUGAR-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-LUGAR-DO-FATO",
     "FROM": "C-MAPA-TESTES",
     "TO": "C-LUGAR-DO-FATO",
@@ -32881,6 +32969,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/migracao_034_ensaio_copia.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/tempo_e_lugar_replay.py",
       "LINHA": 71,
       "SUPPORTS": "YES",
@@ -33401,6 +33497,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-LASTMILE-MEDIDORES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-LUGAR-COLETA",
+    "FROM": "C-ORQUESTRADOR",
+    "TO": "C-LUGAR-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/reproc_acervo/prever_acervo.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-LUGAR-COLETA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -49845,12 +49963,12 @@
     ]
    }
   ],
-  "COUNT": 1405
+  "COUNT": 1409
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 194,
   "CARTOES_AUDITADOS": 194,
-  "ARESTAS_RELACIONADAS": 1405,
+  "ARESTAS_RELACIONADAS": 1409,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -50270,10 +50388,10 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 227,
+   "CODE": 230,
    "CONTROL": 86,
    "DATA": 30,
-   "PROOF": 500,
+   "PROOF": 501,
    "READ": 309,
    "RULE": 238,
    "WRITE": 15
@@ -51100,6 +51218,7 @@
     "provas/a_sala_sobrevive_ao_processo.py",
     "provas/inventario_esperado.py",
     "provas/migracao_033_ensaio_copia.py",
+    "provas/migracao_034_ensaio_copia.py",
     "provas/o_dedupe_tem_constraint.py",
     "provas/objeto_e_observacao_no_postgres.py",
     "provas/preflight_022_live.sh",
@@ -53770,7 +53889,7 @@
     "guarda"
    ],
    "ENTRAM": 7,
-   "SAEM": 25,
+   "SAEM": 26,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -54145,7 +54264,7 @@
     "coleta"
    ],
    "ENTRAM": 14,
-   "SAEM": 25,
+   "SAEM": 26,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -54716,6 +54835,7 @@
    "KIND": "contract",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "ACERVO-TEMPO-LUGAR.md",
     "RELATORIO-LUGAR-FATO.md",
     "leis/fato_do_texto.py",
     "leis/fato_local.py",
@@ -54729,7 +54849,10 @@
     "scripts/lugar_fato/bateria_por_nome.py",
     "scripts/lugar_fato/medir_78.py",
     "scripts/lugar_fato/mutar_fato_do_texto.py",
-    "scripts/lugar_fato/mutar_lei_do_tempo.py"
+    "scripts/lugar_fato/mutar_lei_do_tempo.py",
+    "scripts/reproc_acervo/ACERVO-TEMPO-LUGAR-V1.json",
+    "scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json",
+    "scripts/reproc_acervo/prever_acervo.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -54749,9 +54872,10 @@
     "datetime",
     "pathlib"
    ],
-   "ENTRAM": 2,
+   "ENTRAM": 6,
    "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
     "PROOF",
     "RULE"
    ],
@@ -54960,7 +55084,7 @@
     "pente_fino_da_coleta"
    ],
    "ENTRAM": 29,
-   "SAEM": 102,
+   "SAEM": 103,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -55050,6 +55174,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/migracao_033_ensaio_copia.py",
+    "provas/migracao_034_ensaio_copia.py",
     "provas/tempo_e_lugar_replay.py",
     "tests/test_bc4_armazem_e_pais.py",
     "tests/test_c9_idioma.py",
@@ -55356,7 +55481,7 @@
     "receitas"
    ],
    "ENTRAM": 18,
-   "SAEM": 36,
+   "SAEM": 37,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -56371,6 +56496,7 @@
     "provas/medir_admission_t3_atual.py",
     "provas/medir_source_id_wiring_gap.py",
     "provas/migracao_033_ensaio_copia.py",
+    "provas/migracao_034_ensaio_copia.py",
     "provas/mutacao_da_autorizacao.py",
     "provas/mutacao_da_linhagem_do_ready.py",
     "provas/mutacao_da_release_v1.py",
@@ -56451,6 +56577,7 @@
     "provas/fechar_ground_truth_t3.py",
     "provas/fluxo_no_seco.py",
     "provas/medir_source_id_wiring_gap.py",
+    "provas/migracao_034_ensaio_copia.py",
     "provas/mutacao_da_linhagem_do_ready.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/mutacao_do_gate.py",
@@ -59336,6 +59463,7 @@
     "guarda/sql_conferir.py",
     "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
     "supabase/desfazer/033_desfazer.sql",
+    "supabase/desfazer/034_desfazer.sql",
     "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
     "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
     "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
@@ -59379,6 +59507,7 @@
     "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
     "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
     "supabase/migrations/033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql",
+    "supabase/migrations/034_o_acervo_guarda_tempo_e_lugar_como_derivado.sql",
     "supabase/tests/mutacao_cicatrizes.sql",
     "supabase/tests/mutacao_coleta.sql",
     "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -59404,6 +59533,7 @@
     "provas/derived_artifact_no_postgres.py",
     "provas/medir_source_id_wiring_gap.py",
     "provas/migracao_033_ensaio_copia.py",
+    "provas/migracao_034_ensaio_copia.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_dedupe_tem_constraint.py",
     "provas/objeto_e_observacao_no_postgres.py",
