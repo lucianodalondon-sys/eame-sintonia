@@ -22,7 +22,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 ALVO = "pacote/ponte_intelligence_casco.py"
 COPIAR = ("_gavetas.py", ALVO, "motor/corrida_da_inteligencia.py",
-          "provas/espinha_da_intelligence.py",
+          "provas/espinha_da_intelligence.py", "admissao/sala_de_espera.py",
           "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
           "tests/test_ponte_intelligence_casco.py",
           "italia-portale/client/_ds/adama-brandwell/styles.css",
@@ -111,7 +111,13 @@ def main() -> int:
     vivos, nao_aplicou = [], []
     with tempfile.TemporaryDirectory() as d:
         pasta = Path(d)
-        for rel in COPIAR:
+        # Todo .py versionado vai junto: a espinha le admissao/ e o que ela
+        # importa, e essa cadeia muda com cada lote (medido no 278cd489).
+        pys = subprocess.run(["git", "-C", str(RAIZ), "ls-files", "*.py"], capture_output=True,
+                             text=True, encoding="utf-8").stdout.split()
+        for rel in sorted(set(COPIAR) | set(pys)):
+            if not (RAIZ / rel).is_file():
+                continue
             (pasta / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(RAIZ / rel, pasta / rel)
         base = correr(pasta)
