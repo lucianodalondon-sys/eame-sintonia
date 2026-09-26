@@ -984,6 +984,31 @@
    ]
   },
   {
+   "id": "C-PRECO-DE-MERCADO",
+   "name": "O preco observado do Polso di Mercato — a lei escrita, e ainda nao aplicada",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "€",
+   "views": [
+    "audit"
+   ],
+   "what": "Le um texto de mercado (myfruit, ISMEA, borse merci, listini) e tira dele o PRECO OBSERVADO: commodity/cultura, praca, periodo de referencia, preco, moeda, unidade, estagio e serie. Separa o preco do comentario jornalistico e recusa o que nao e preco unitario.",
+   "why_here": "A ferramenta Polso di Mercato (D84) cruza cultura+praca+periodo+preco+unidade+estagio, e a Biblia (CAP-MKT) proibe comparar preco sem unidade e periodo e confundir preco com procura ou venda. Caso real que motivou a lei: 2,80 €/kg de erba medica com «2025» ao lado, e o ano da comparacao virou a data do facto. Aqui o ano de comparacao e a data de publicacao sao tapados antes de procurar o periodo, e a funcao nem recebe a publicacao. ⚠️ MEDIDO: nenhum modulo de runtime a importa — so tests/test_preco_de_mercado.py e a prova de mutacao. DECLARED_RULE_NOT_ENFORCED: liga-la a entrada do dado e decisao de arquitetura, por tomar.",
+   "departments": [
+    "INTELIGENCIA",
+    "COMERCIAL"
+   ],
+   "files": [
+    "leis/preco_de_mercado.py",
+    "provas/_mutantes_preco_de_mercado.py",
+    "scripts/polso_mercato/bateria_por_nome.py",
+    "scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json",
+    "scripts/polso_mercato/BATERIA-LEVE-ANTES.json",
+    "scripts/polso_mercato/BATERIA-LEVE-DEPOIS.json",
+    "POLSO-DI-MERCATO.md"
+   ]
+  },
+  {
    "id": "C-CONTRATO-CAMPOS",
    "name": "O que a coleta tem de trazer",
    "territory": "Z-MEDIDAS",
