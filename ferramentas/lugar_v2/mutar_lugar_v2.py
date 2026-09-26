@@ -11,9 +11,12 @@ MUTANTES = {
     "M2_qualquer_adjectivo_em_ese": ("leis/fato_local.py", "        if m.group(1) in adj:\n            nome, prec = adj[m.group(1)]\n",
                                      "        if True:\n            nome, prec = adj.get(m.group(1), ('Roma', PROVINCE))\n"),
     "M3_homonimo_fica_com_o_primeiro": ("leis/fato_local.py", "                if len({c[2] for c in cands}) != 1:\n", "                if False:\n"),
-    "M4_titulo_com_o_nome_do_site": ("leis/fato_do_texto.py", "    if m:\n        t = t[:m.start()].strip()\n", ""),
+    "M4_titulo_com_o_nome_do_site": ("leis/fato_do_texto.py", "        t = t[:m.start()].strip()\n", "        pass\n"),
     "M5_in_provincia_volta_a_ser_negativa": ("leis/fato_local.py", "(r'(?<!in )(?<!nella )provinci[ae]", "(r'provinci[ae]"),
     "M6_titulo_de_qualquer_tamanho": ("leis/fato_do_texto.py", "PALAVRAS_MINIMAS_DO_TITULO = 3\n", "PALAVRAS_MINIMAS_DO_TITULO = 1\n"),
+    "M7_ancora_dentro_de_orgao_conta": ("leis/fato_do_texto.py",
+                                        "                          if not _ancora_dentro_de_orgao(r[\"EVIDENCE\"], m)\n", ""),
+    "M8_titulo_corta_a_data": ("leis/fato_do_texto.py", "    if m and not re.search(r\"\\d\", t[m.end():]):\n", "    if m:\n"),
 }
 
 

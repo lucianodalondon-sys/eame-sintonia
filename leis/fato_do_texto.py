@@ -99,7 +99,7 @@ def titulo(texto: str) -> str:
         return ""
     t = linhas[0]
     m = _RE_SEPARADOR_DO_SITE.search(t)
-    if m:
+    if m and not re.search(r"\d", t[m.end():]):
         t = t[:m.start()].strip()
     if len(re.findall(r"[A-Za-zÀ-ÿ']+", t)) < PALAVRAS_MINIMAS_DO_TITULO or RODAPE.search(t):
         return ""
@@ -440,6 +440,16 @@ ANCORAS_DE_PRODUCAO = (
 DISTANCIA_MAXIMA_DA_PRODUCAO = 60      # letras entre a palavra de producao e o lugar
 _RE_PRODUCAO = re.compile(r"(?<![0-9a-zà-ÿ])(?:%s)(?![0-9a-zà-ÿ])" % "|".join(ANCORAS_DE_PRODUCAO), re.I)
 RECUSA_QUE_PODE_SER_PRODUCAO = ("área econômica", "topônimo sem relação semântica com o acontecimento")
+# EXTRATOR-LUGAR-V2 (26/09) · a palavra de producao DENTRO DO NOME DE UM ORGAO nao e acontecimento. Lido a mao na
+# medida (IT-T5-010, Sala): «nel 1895 viene fondato a Scafati, in provincia di Salerno, l'Istituto Sperimentale e
+# di Tirocinio per la Coltivazione dei Tabacchi» dava Salerno como CAMPO pela ancora «Coltivazione».
+_RE_ORGAO_ANTES_DA_ANCORA = re.compile(
+    r"(?<![0-9a-zà-ÿ])(?:istitut[oi]|ent[ei]|centr[oi]|consorzi[oi]|associazion[ei]|stazion[ei]|scuol[ae]|"
+    r"osservatori[oi]|accademi[ae]|fondazion[ei])(?![0-9a-zà-ÿ])[^.;:]{0,80}$", re.I)
+
+
+def _ancora_dentro_de_orgao(frase: str, m) -> bool:
+    return bool(_RE_ORGAO_ANTES_DA_ANCORA.search(frase[:m.start()]))
 
 # data explicita de evento: «12 e 13 novembre 2026», «dal 6 all'8 ottobre 2026», «16-24 maggio 2026», «8 ottobre»
 _RE_DATA_EVENTO = re.compile(
@@ -583,6 +593,7 @@ def _lugares(c: str) -> tuple[list, list]:
                 cands += [(m, EVENTO, None) for m in _RE_EVENTO.finditer(r["EVIDENCE"])]
             if r["WHY"] in RECUSA_QUE_PODE_SER_PRODUCAO:
                 cands += [(m, CAMPO, "PRODUCAO") for m in _RE_PRODUCAO.finditer(r["EVIDENCE"])
+                          if not _ancora_dentro_de_orgao(r["EVIDENCE"], m)
                           if _distancia(m, pos, len(r["PLACE"])) <= DISTANCIA_MAXIMA_DA_PRODUCAO]
             if r["WHY"] in RECUSA_QUE_E_MERCADO:
                 cands += [(m, MERCADO, None) for m in _RE_MERCADO.finditer(r["EVIDENCE"])]

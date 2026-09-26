@@ -118,5 +118,34 @@ class TituloCurto(unittest.TestCase):
         self.assertEqual("NAO SEI", r["fact_location"])
 
 
+class CasosLidosAMaoNaSala(unittest.TestCase):
+    """As frases reais das 4 trocas de lugar na Sala (medida antes x depois), lidas a mao."""
+
+    def _lugares(self, texto):
+        ev = T.campos_do_fato(texto).get("EVIDENCIA") or {}
+        return {(l["LUGAR"], l["KIND"]) for l in ev.get("LUGARES") or []}
+
+    def test_it_t3_008_chuva_registada_in_provincia_di_lecce_e_campo(self):
+        t = ("Titolo lungo del bollettino agrometeorologico settimanale della regione Puglia\n"
+             "Gli accumuli settimanali più importanti si sono registrati in provincia di Lecce a Nociglia e Otranto, "
+             "rispettivamente con 46 e 40 millimetri di pioggia")
+        self.assertIn(("Lecce", "CAMPO"), self._lugares(t))
+
+    def test_it_t10_018_mercato_in_provincia_di_ragusa_e_mercado(self):
+        t = ("Dai mercati: pomodori sempre alle stelle - Myfruit\n"
+             "Al mercato ortofrutticolo di Vittoria, in provincia di Ragusa, i prezzi del pomodoro continuano a rimanere molto alti")
+        self.assertIn(("Ragusa", "MERCADO"), self._lugares(t))
+
+    def test_it_t5_010_a_ancora_dentro_do_nome_de_um_orgao_nao_conta(self):
+        t = ("Rivista quadrimestrale di economia e cultura della Camera di Commercio\n"
+             "Nel 1895 viene fondato a Scafati, in provincia di Salerno, l'Istituto Sperimentale e di Tirocinio "
+             "per la Coltivazione dei Tabacchi, con il compito di sperimentare nuove varietà")
+        self.assertNotIn(("Salerno", "CAMPO"), self._lugares(t))
+
+    def test_o_titulo_nao_perde_a_data_que_vem_depois_do_traco(self):
+        self.assertEqual("Evento RetePAC Valutazioni ex post - 26 Maggio 2026",
+                         T.titulo("Evento RetePAC Valutazioni ex post - 26 Maggio 2026\nx"))
+
+
 if __name__ == "__main__":
     unittest.main()
