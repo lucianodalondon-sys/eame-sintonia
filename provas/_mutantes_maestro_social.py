@@ -35,9 +35,7 @@ MUTANTES = [
     ("UNKNOWN entra na Sala", "admissao/video_na_sala.py",
      "    if not RE_IDENTIDADE.match(vid):\n        return None\n", "    if not vid:\n        return None\n"),
     ("D80: a busca publica prova", "leis/prova_de_post_de_pessoa.py",
-     '    if origem == "BUSCA_PUBLICA":
-', '    if False:
-'),
+     '    if origem == "BUSCA_PUBLICA":\n', '    if False:\n'),
     ("D80: um pedaco do nome basta", "leis/prova_de_post_de_pessoa.py",
      "    return len(pedacos) >= 2 and all(", "    return len(pedacos) >= 1 and all("),
 ]
