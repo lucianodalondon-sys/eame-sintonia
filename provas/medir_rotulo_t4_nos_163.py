@@ -74,7 +74,50 @@ def medir(pasta):
                         LINHAS=len(ls), COM_DOSE=sum(1 for l in ls if l['DOSE']['ESTADO'] == R.ENCONTRADO),
                         MOTIVO=r.get('MOTIVO') or r['DOCUMENTO'].get('MOTIVO')))
     return {'SCHEMA': 'sintonia.medida-rotulo-t4/1', 'MANIFESTO_TOTAL': man['TOTAL'],
-            'CONTAGEM': dict(sorted(c.items())), 'POR_ROTULO': por}
+            'CONTAGEM': dict(sorted(c.items())), 'POR_ROTULO': por,
+            'PARES_PUBLICADOS_PELO_VAZAMENTO': pares_pelo_vazamento(pasta)}
+
+
+PARES = os.path.join(ROOT, 'data', 'samples', 'IT-ROTULOS', 'IT-ROTULOS-PARES.json')
+
+
+def pares_pelo_vazamento(pasta):
+    """Pares de IT-ROTULOS-PARES.json que só nascem porque o bloco sem cabeçalho
+    (8 linhas, `rotulos_ler.blocos_sem_cabecalho`) entrou na cultura seguinte.
+
+    Só lê. Não corrige o ficheiro publicado: aponta, com o par e o rótulo.
+    """
+    import pypdf
+    RL = R.RL
+    with open(PARES, encoding='utf-8') as f:
+        d = json.load(f)
+    with open(MANIFESTO, encoding='utf-8') as f:
+        sha = {i['REGISTRATION_ID']: i['SHA256'] for i in json.load(f)['ITENS']}
+    por = {}
+    for p in d['PARES']:
+        if p.get('LIGACAO_NIVEL') == 'BLOCO_DA_CULTURA':
+            por.setdefault(p['REGISTRATION_ID'], []).append(p)
+    lista, total = [], 0
+    for reg, ps in sorted(por.items()):
+        caminho = os.path.join(pasta, reg + '.pdf')
+        if not os.path.exists(caminho):
+            continue
+        with open(caminho, 'rb') as f:
+            dados = f.read()
+        if hashlib.sha256(dados).hexdigest() != sha.get(reg):
+            continue
+        import io
+        t = '\n'.join((pg.extract_text() or '') for pg in pypdf.PdfReader(io.BytesIO(dados)).pages)
+        if any(RL.pares_do_bloco_de_cultura(b) for b in RL.regiao_de_impiego(t)):
+            continue   # vieram do bloco COM cabeçalho, que não usa as 8 linhas
+        bons = {(b['CULTURA_CANONICA'], lit.lower()) for b in R.blocos_sem_cabecalho_cortados(t)
+                for lit, _ in RL.alvos_da_linha(b['TEXTO'])}
+        for p in ps:
+            total += 1
+            if (p['CULTURA_CANONICA'], p['ALVO_LITERAL'].lower()) not in bons:
+                lista.append({'REGISTRATION_ID': reg, 'PRODUCT': p['PRODUCT'],
+                              'CULTURA_CANONICA': p['CULTURA_CANONICA'], 'ALVO_LITERAL': p['ALVO_LITERAL']})
+    return {'PARES_DO_BLOCO_SEM_CABECALHO': total, 'SO_EXISTEM_PELO_VAZAMENTO': len(lista), 'PARES': lista}
 
 
 def main(argv):

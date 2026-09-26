@@ -262,6 +262,12 @@ class ADoseContraOLeitorGeometrico(unittest.TestCase):
         # SINTETICO — «200-20 g/hl» é número de outra coluna colado na dose
         self.assertEqual(R.doses_da_linha('Vite Plasmopara viticola 200-20 g/hl'), [])
 
+    def test_volume_de_agua_nao_e_dose(self):
+        # SPYRALE (reg. 009757): a única «dose» que o parser dava era esta, e era água
+        self.assertEqual(R.doses_da_linha('Volume di riferimento per irroratrici a volume normale: 500 l/ha.'), [])
+        ds = R.doses_da_linha('impiegare a 0,3 l/ha in 500 l/ha di acqua')
+        self.assertEqual([(d['MIN'], d['UNIDADE']) for d in ds], [(0.3, 'l/ha')])
+
     def test_dose_com_unidade_na_linha(self):
         ds = R.doses_da_linha('Vite: 1,5 - 2 l/ha oppure 150-200 ml/hl')
         self.assertEqual([(d['MIN'], d['MAX'], d['UNIDADE']) for d in ds],
@@ -385,6 +391,22 @@ class ORotuloInteiroSintetico(unittest.TestCase):
             self.assertEqual(l['ALVO']['ESTADO'], R.ENCONTRADO)
             if l['CULTURA']['VALOR']['CANONICA'] == 'VITE':
                 self.assertNotIn('Patata', l['CITACAO_DA_LINHA'])
+
+    def test_bloco_acaba_tambem_na_cultura_que_a_lista_nao_conhece(self):
+        # MAVRIK SMART (reg. 009800), como o pypdf o extrai. «Lattughe» não está na
+        # lista de culturas; mesmo assim o seu «Contro…» fecha o bloco dos cavoli.
+        txt = ("Registrazione Ministero della Salute n. 9800\n"
+               "Cavoli (cavolfiore, cavolo cappuccio, cavoletto di Bruxelles)\n"
+               "Contro afidi (Brevicoryne brassicae, Myzus persicae), tripidi (Thrips spp.) e\n"
+               "lepidotteri (Pieris spp., Mamestra brassicae) impiegare a 0,3 l/ha in 100-500 litri di acqua/ha\n"
+               "Lattughe e simili (lattuga, indivia, scarola)\n"
+               "Contro afidi ( Myzus persicae, Nasonovia ribisnigri, Uroleucon cichorii)\n")
+        r = self.ler(texto=txt, reg='009800', pid=None)
+        cavoli = {l['ALVO']['VALOR']['LITERAL'] for l in r['LINHAS_DE_USO']
+                  if l['CULTURA']['VALOR']['CANONICA'] == 'BRASSICACEE'}
+        self.assertIn('Mamestra brassicae', cavoli)
+        self.assertNotIn('Nasonovia ribisnigri', cavoli)
+        self.assertNotIn('Uroleucon cichorii', cavoli)
 
     def test_versao_muda_quando_o_documento_muda(self):
         a = self.ler()['DOCUMENTO']['SHA256']

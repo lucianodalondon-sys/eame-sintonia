@@ -391,6 +391,21 @@ def _norm_unid(u):
     return u.replace('100lt', '100l').replace('100litri', '100l')
 
 
+RX_AGUA_ANTES = re.compile(r'(volum\w*|acqua|irrorazion\w*|bagnatur\w*)[^.;\n]{0,50}$', re.I)
+RX_AGUA_DEPOIS = re.compile(r'^\s*(?:d[i\'’]\s*)?(?:acqua|soluzione|miscela)', re.I)
+
+
+def eh_volume_de_agua(texto, m):
+    """«Volume di riferimento: 500 l/ha» e «0,3 l/ha in 500 l di acqua/ha».
+
+    Medido em 26/09: das 5 doses que o parser deu nos 21 rótulos que o leitor
+    geométrico também leu, a do SPYRALE (009757) era o volume de água. Volume é
+    outra grandeza e não entra como dose.
+    """
+    return bool(RX_AGUA_ANTES.search(texto[max(0, m.start() - 60):m.start()])
+                or RX_AGUA_DEPOIS.match(texto[m.end():m.end() + 25]))
+
+
 def doses_da_linha(texto, unidades_do_cabecalho=None):
     """→ [dose]. Dose com unidade escrita na linha = ENCONTRADO.
 
@@ -400,7 +415,10 @@ def doses_da_linha(texto, unidades_do_cabecalho=None):
     é a geometria da página que sabe a coluna, e o texto corrido não.
     """
     doses = []
-    for m in RX_DOSE.finditer(texto or ''):
+    t = texto or ''
+    for m in RX_DOSE.finditer(t):
+        if eh_volume_de_agua(t, m):
+            continue
         doses.append({'MIN': _f(m.group(1)), 'MAX': _f(m.group(2)) or _f(m.group(1)),
                       'UNIDADE': _norm_unid(m.group(3)), 'LITERAL': m.group(0).strip(),
                       'UNIDADE_HERDADA_DO_CABECALHO': False})
@@ -510,18 +528,30 @@ def blocos_sem_cabecalho_cortados(texto):
     dose da PATATA. Isso cria autorização que o rótulo não dá. Aqui o bloco
     acaba onde o próximo começa.
 
-    Limite declarado: só corta no próximo bloco QUE FOI RECONHECIDO. Uma cultura
-    seguinte sem «Contro…» logo abaixo não é bloco, e não serve de corte.
+    E o corte não pode esperar que a cultura seguinte seja CONHECIDA: na amostra
+    lida à mão (25 doses, semente 26092026), 3 de 4 erros eram o bloco a entrar
+    em «Carciofo», «Lattughe», «Colture floreali» — culturas fora da lista de
+    `rotulos_ler`. Por isso o bloco acaba em QUALQUER linha curta seguida de
+    «Contro…», que é o desenho de um título de bloco, conhecido ou não.
     """
-    bls = RL.blocos_sem_cabecalho(texto)
+    linhas = texto.split('\n')
+    titulo = [False] * len(linhas)
+    for k in range(len(linhas) - 1):
+        crua = linhas[k].strip()
+        seg = next((x.strip() for x in linhas[k + 1:k + 3] if x.strip()), '')
+        titulo[k] = bool(crua) and len(crua) <= 90 and bool(RL.ABRE_ALVOS_NO_BLOCO.match(seg))
     saida = []
-    for i, bl in enumerate(bls):
-        corpo = bl['TEXTO']
-        if i + 1 < len(bls):
-            j = corpo.find(bls[i + 1]['TEXTO'][:40], 5)
-            if j > 0:
-                corpo = corpo[:j].rstrip()
-        saida.append({'CULTURA_CANONICA': bl['CULTURA_CANONICA'], 'TEXTO': corpo})
+    for i, ln in enumerate(linhas):
+        # as mesmas duas travas de `rotulos_ler.blocos_sem_cabecalho`, mais a posição
+        crua = ln.strip()
+        if not titulo[i] or RL.EH_ESPECIE_NAO_CULTURA.match(crua):
+            continue
+        cult = next((k for k, rx in RL.INICIO_CULTURA if rx.search(crua)), None)
+        if not cult:
+            continue
+        fim = next((k for k in range(i + 1, min(i + 8, len(linhas))) if titulo[k]), i + 8)
+        corpo = re.sub(r'\s+', ' ', ' '.join(x.strip() for x in linhas[i:fim]))[:700]
+        saida.append({'CULTURA_CANONICA': cult, 'TEXTO': corpo})
     return saida
 
 
