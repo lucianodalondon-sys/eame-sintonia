@@ -1,6 +1,6 @@
 # POLSO-DI-MERCATO — o extrator de preço observado
 
-Ramo `nuvem-polso-mercato-v1`, sobre a produção `69b0e23f`. Sem rede externa: só fixtures do repo e
+Ramo `nuvem-polso-mercato-v1`, começado sobre `69b0e23f` e **rebaseado sobre o vivo `278cd489`** (lote 2, aviso da coordenação 14:00). Sem rede externa: só fixtures do repo e
 casos sintéticos marcados. SHA final: ver o fim deste ficheiro e o `git log` do ramo.
 
 ## O que fiz
@@ -49,12 +49,11 @@ casos sintéticos marcados. SHA final: ver o fim deste ficheiro e o `git log` do
 - **«rispetto ai 2,80 €/kg del 2025» (sintético):** duas observações. A principal fica com o período dela;
   a de 2,80 é REFERENCIA_DE_COMPARACAO com PERIODO 2025.
 
-⚠️ **Achado, fora do meu âmbito:** o leitor de tempo do facto `leis/fato_do_texto.py` (dono: LUGAR-FATO)
-**ainda comete o erro** nesta árvore. Para «Erba medica: il prezzo orientativo resta di 2,80 €/kg come nel
-2025, stabile per gli agricoltori italiani della campagna.» ele devolve `fact_time = 2025`
-(CAMPO · AMARRADO_AO_ACONTECIMENTO · APPROXIMATE). O marcador «come nel» não está no `_RE_COMPARACAO` dele
-(`leis/fato_do_texto.py:198`). Não mexi: é outro dono. O ramo `extrator-evento-v2` (fora desta base) trata
-anos de comparação; se cobre «come nel», NAO SEI.
+**O leitor de tempo do facto (`leis/fato_do_texto.py`, outro dono):** medido nas duas bases com a frase
+«Erba medica: il prezzo orientativo resta di 2,80 €/kg come nel 2025, stabile per gli agricoltori italiani
+della campagna.»
+- em `69b0e23f`: `fact_time = 2025` (CAMPO · AMARRADO_AO_ACONTECIMENTO) — **o erro do caso real**;
+- em `278cd489` (vivo, lote 2): `fact_time = NAO SEI` — **já consertado** por outro pacote. Não mexi nele.
 
 ## Real, medido nos bytes do repo
 
@@ -67,7 +66,7 @@ anos de comparação; se cobre «come nel», NAO SEI.
 
 ## Testes antes/depois, por nome
 
-Base = cópia limpa de `69b0e23f` (worktree destacada em `%TEMP%`). Rede fechada (proxy numa porta morta).
+Base = cópia limpa do vivo `278cd489` (worktree destacada em `%TEMP%`; a medida também foi feita antes sobre `69b0e23f`, com o mesmo resultado: 103 → 134, 0 falhas novas). Rede fechada (proxy numa porta morta).
 
 | parte | antes | depois | falhas novas por nome |
 |---|---|---|---|
@@ -126,8 +125,8 @@ do atacado ou do varejo.
 
 O cuidado principal foi com o ano. Numa frase como "2,80 €/kg, como em 2025", o 2025 é só a régua de
 comparação, como dizer "estou mais alto que no ano passado". O leitor novo não confunde mais isso: sem
-período escrito, ele diz "não sei". O leitor antigo de datas do projeto **ainda erra** esse caso; está
-anotado, mas não mexi, porque tem outro dono.
+período escrito, ele diz "não sei". O leitor antigo de datas do projeto errava esse caso na versão de
+ontem; na versão que está no ar hoje (`278cd489`) ele já foi consertado por outra equipe — medi as duas.
 
 Ele também separa o preço do comentário ("os sócios ficaram satisfeitos" não é preço) e recusa o que não é
 preço ("faturou 266 milhões de euros" não vira preço, nem venda, nem procura).
