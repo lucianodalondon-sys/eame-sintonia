@@ -34,7 +34,11 @@ CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO",
           "PUBLISHED_AT_BASIS", "SOURCE_LOCATION_BASIS", "COMPLETUDE_TEMPO_LUGAR",
           "TEMPO_LUGAR_EVIDENCIA",
           "SOURCE_DECLARED_EVIDENCE_CLASS",
-          "FATO", "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
+          "FATO",
+          # AJUSTE DECLARADO (D58, QUATRO-CHAVES-NA-SALA): as quatro chaves, na
+          # coluna `janela_declarada` que a 033 unica ja criou.
+          "JANELA_DECLARADA",
+          "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
 
 
 def _fonte(caminho):

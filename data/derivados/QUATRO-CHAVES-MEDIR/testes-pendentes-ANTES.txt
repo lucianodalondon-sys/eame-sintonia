@@ -1,0 +1,37 @@
+Could not find platform independent libraries <prefix>
+test_cada_chave_volta_da_sua_coluna (tests.test_sala_por_nome.OsPendentesSaoPeloNome.test_cada_chave_volta_da_sua_coluna) ... ERROR
+test_nenhuma_leitura_posicional_em_listar_pendentes (tests.test_sala_por_nome.OsPendentesSaoPeloNome.test_nenhuma_leitura_posicional_em_listar_pendentes) ... FAIL
+test_numero_de_valores_errado_rebenta (tests.test_sala_por_nome.OsPendentesSaoPeloNome.test_numero_de_valores_errado_rebenta) ... ERROR
+
+======================================================================
+ERROR: test_cada_chave_volta_da_sua_coluna (tests.test_sala_por_nome.OsPendentesSaoPeloNome.test_cada_chave_volta_da_sua_coluna)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 156, in test_cada_chave_volta_da_sua_coluna
+    fora, sql = self._listar([vals[c] for c, _ in S.COLUNAS_PENDENTES])
+                                                  ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'sala_de_espera' has no attribute 'COLUNAS_PENDENTES'. Did you mean: 'COLUNAS_ESCRITAS'?
+
+======================================================================
+ERROR: test_numero_de_valores_errado_rebenta (tests.test_sala_por_nome.OsPendentesSaoPeloNome.test_numero_de_valores_errado_rebenta)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 164, in test_numero_de_valores_errado_rebenta
+    b.listar_pendentes()
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\admissao\sala_de_espera.py", line 977, in listar_pendentes
+    fora.append({"RUN_ID": c[0], "ORDEM": int(c[1]), "ITEM_ID": c[2]})
+                                                                ~^^^
+IndexError: list index out of range
+
+======================================================================
+FAIL: test_nenhuma_leitura_posicional_em_listar_pendentes (tests.test_sala_por_nome.OsPendentesSaoPeloNome.test_nenhuma_leitura_posicional_em_listar_pendentes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 169, in test_nenhuma_leitura_posicional_em_listar_pendentes
+    self.assertIsNone(re.search(r"\w\[\d+\]", codigo))
+AssertionError: <re.Match object; span=(433, 437), match='c[0]'> is not None
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.006s
+
+FAILED (failures=1, errors=2)
