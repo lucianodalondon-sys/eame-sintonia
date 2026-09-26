@@ -1,0 +1,190 @@
+{
+ "DATASET": "MUTACAO-PRECO-DE-MERCADO-V1",
+ "ALVO": "leis/preco_de_mercado.py",
+ "SHA256_DO_ALVO": "fe2e8b0040b00b3b74b3a96436794ff6cc00648616593c139f2e98befdae7d8a",
+ "MORTOS": 20,
+ "TOTAL": 20,
+ "MUTANTES": [
+  {
+   "MUTANTE": "M1 comparacao desligada (o caso 2,80/2025)",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "ERROR: test_sintetico_preco_do_2025_dentro_da_comparacao_e_referencia (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_preco_do_2025_dentro_da_comparacao_e_referencia)",
+    "FAIL: test_sintetico_come_nel_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_come_nel_2025_nao_e_periodo)",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg rispetto al 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg, in linea sul 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg contro il 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg, in calo rispetto allo scorso anno 2025.')"
+   ]
+  },
+  {
+   "MUTANTE": "M2 «come nel» sai da comparacao",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_sintetico_come_nel_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_come_nel_2025_nao_e_periodo)"
+   ]
+  },
+  {
+   "MUTANTE": "M3 publicacao nao tapada",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_publicacao_escrita_no_texto_nao_e_periodo (tests.test_preco_de_mercado.TestSinteticoMercado.test_publicacao_escrita_no_texto_nao_e_periodo)"
+   ]
+  },
+  {
+   "MUTANTE": "M4 comparacao tapa so o marcador, nao o ano",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "ERROR: test_sintetico_preco_do_2025_dentro_da_comparacao_e_referencia (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_preco_do_2025_dentro_da_comparacao_e_referencia)",
+    "FAIL: test_sintetico_come_nel_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_come_nel_2025_nao_e_periodo)",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg rispetto al 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg, in linea sul 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg contro il 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg, in calo rispetto allo scorso anno 2025.')"
+   ]
+  },
+  {
+   "MUTANTE": "M5 preco da regua vira observacao",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "ERROR: test_sintetico_preco_do_2025_dentro_da_comparacao_e_referencia (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_preco_do_2025_dentro_da_comparacao_e_referencia)"
+   ]
+  },
+  {
+   "MUTANTE": "M6 regua sem periodo proprio",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_sintetico_preco_do_2025_dentro_da_comparacao_e_referencia (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_preco_do_2025_dentro_da_comparacao_e_referencia)"
+   ]
+  },
+  {
+   "MUTANTE": "M7 montante sem unidade nao e recusado",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "ERROR: test_fatturato_nunca_e_preco (tests.test_preco_de_mercado.TestPrecoNaoViraDemanda.test_fatturato_nunca_e_preco)",
+    "ERROR: test_preco_sem_unidade_recusado (tests.test_preco_de_mercado.TestSinteticoMercado.test_preco_sem_unidade_recusado)",
+    "FAIL: test_capital_social_do_rodape_e_recusado (tests.test_preco_de_mercado.TestRealBMTI.test_capital_social_do_rodape_e_recusado)",
+    "FAIL: test_real_bmti_46647_so_rodape_nenhum_preco (tests.test_preco_de_mercado.TestRealOutros.test_real_bmti_46647_so_rodape_nenhum_preco)",
+    "FAIL: test_real_cooperativa_preco_de_riparto_e_fatturato (tests.test_preco_de_mercado.TestRealOutros.test_real_cooperativa_preco_de_riparto_e_fatturato)"
+   ]
+  },
+  {
+   "MUTANTE": "M8 projecao vira observacao",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_projecao_nao_e_observacao (tests.test_preco_de_mercado.TestSinteticoMercado.test_projecao_nao_e_observacao)"
+   ]
+  },
+  {
+   "MUTANTE": "M9 conflito de estagio escolhe o primeiro",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_estagios_em_conflito_ficam_nao_sei (tests.test_preco_de_mercado.TestSinteticoMercado.test_estagios_em_conflito_ficam_nao_sei)"
+   ]
+  },
+  {
+   "MUTANTE": "M10 CUN deixa de ser ingrosso",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_uma_so_observacao_o_grano_duro_da_cun (tests.test_preco_de_mercado.TestRealBMTI.test_uma_so_observacao_o_grano_duro_da_cun)"
+   ]
+  },
+  {
+   "MUTANTE": "M11 serie sem exigir as cinco chaves",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_commodity_fora_da_tabela_e_cultura_nao_sei (tests.test_preco_de_mercado.TestSinteticoMercado.test_commodity_fora_da_tabela_e_cultura_nao_sei)"
+   ]
+  },
+  {
+   "MUTANTE": "M12 milhar italiano lido como decimal",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "ERROR: test_numero_italiano (tests.test_preco_de_mercado.TestPorta.test_numero_italiano)",
+    "ERROR: test_numero_com_milhar_italiano (tests.test_preco_de_mercado.TestSinteticoMercado.test_numero_com_milhar_italiano)"
+   ]
+  },
+  {
+   "MUTANTE": "M13 orientativo vira observado",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_real_titulo_assosementi_periodo_e_a_campanha (tests.test_preco_de_mercado.TestCasoReal280.test_real_titulo_assosementi_periodo_e_a_campanha)"
+   ]
+  },
+  {
+   "MUTANTE": "M14 menu vira comentario",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_menu_nao_e_comentario (tests.test_preco_de_mercado.TestRealBMTI.test_menu_nao_e_comentario)"
+   ]
+  },
+  {
+   "MUTANTE": "M15 «su base mensile» volta a levar a oracao",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_su_base_mensile_nao_come_a_praca (tests.test_preco_de_mercado.TestRealBMTI.test_su_base_mensile_nao_come_a_praca)"
+   ]
+  },
+  {
+   "MUTANTE": "M16 procura/venda sem porque proprio",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_nenhum_campo_de_demanda_ou_venda (tests.test_preco_de_mercado.TestPrecoNaoViraDemanda.test_nenhum_campo_de_demanda_ou_venda)"
+   ]
+  },
+  {
+   "MUTANTE": "M17 a porta aceita a publicacao",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_publicacao_e_coleta_nao_tem_por_onde_entrar (tests.test_preco_de_mercado.TestPorta.test_publicacao_e_coleta_nao_tem_por_onde_entrar)"
+   ]
+  },
+  {
+   "MUTANTE": "M18 fatturato vira «preco sem unidade»",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_fatturato_nunca_e_preco (tests.test_preco_de_mercado.TestPrecoNaoViraDemanda.test_fatturato_nunca_e_preco)",
+    "FAIL: test_capital_social_do_rodape_e_recusado (tests.test_preco_de_mercado.TestRealBMTI.test_capital_social_do_rodape_e_recusado)",
+    "FAIL: test_real_cooperativa_preco_de_riparto_e_fatturato (tests.test_preco_de_mercado.TestRealOutros.test_real_cooperativa_preco_de_riparto_e_fatturato)"
+   ]
+  },
+  {
+   "MUTANTE": "M19 ano solto da comparacao entra como periodo (sem tapar)",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_sintetico_come_nel_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_come_nel_2025_nao_e_periodo)",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg rispetto al 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg, in linea sul 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg contro il 2025.')",
+    "FAIL: test_sintetico_rispetto_al_2025_nao_e_periodo (tests.test_preco_de_mercado.TestCasoReal280.test_sintetico_rispetto_al_2025_nao_e_periodo) (frase='Il seme di erba medica e quotato 2,80 €/kg, in calo rispetto allo scorso anno 2025.')"
+   ]
+  },
+  {
+   "MUTANTE": "M20 mes sem ano sem aviso",
+   "VEREDITO": "MORTO",
+   "SHA_MUDOU": true,
+   "TESTES_QUE_APANHARAM": [
+    "FAIL: test_mes_sem_ano_nao_ganha_ano (tests.test_preco_de_mercado.TestRealBMTI.test_mes_sem_ano_nao_ganha_ano)"
+   ]
+  }
+ ]
+}
