@@ -44,13 +44,20 @@ for p in ("curadoria", "superficie", "medidas"):
 
 import colher_prova_territorio as CP   # noqa: E402
 
-LOTE = json.loads((RAIZ / "curadoria" / "MICRO-PROVA-LOTE1.json").read_text(encoding="utf-8"))["CANDIDATAS"]
+# --lote=<ficheiro>: por omissao o LOTE 1. Um lote pode trazer ENSAIO.CLASSE e ENSAIO.FALHA (o desenho do seu ensaio).
+_ARG_LOTE = next((x.split("=", 1)[1] for x in sys.argv[1:] if x.startswith("--lote=")),
+                 str(RAIZ / "curadoria" / "MICRO-PROVA-LOTE1.json"))
+_DOC_LOTE = json.loads(Path(_ARG_LOTE).read_text(encoding="utf-8"))
+LOTE = _DOC_LOTE["CANDIDATAS"]
 CLASSE_DO_ENSAIO = {
     "CAND-1173": "T3", "CAND-1069": "T3", "CAND-1070": "T3", "CAND-1164": "T3", "CAND-1167": "T3",
     "CAND-1049": "T5", "CAND-0953": "T2", "CAND-1032": "T5", "CAND-1018": "T5", "CAND-1019": "T5",
     "CAND-1021": "T5", "CAND-1055": "T5", "CAND-1029": "T5", "CAND-0026": "T5", "CAND-0647": "T5",
     "CAND-1045": "T5", "CAND-1043": "T5", "CAND-0018": "T12", "CAND-0015": "T12", "CAND-0003": "T4"}
 FALHA = {"CAND-0003": "ROBOTS_PROIBE", "CAND-0026": "CASCA_JS", "CAND-0015": "NOTICIAS_CURTAS"}
+if "ENSAIO" in _DOC_LOTE:                                   # o lote traz o seu proprio desenho
+    CLASSE_DO_ENSAIO = _DOC_LOTE["ENSAIO"]["CLASSE"]
+    FALHA = _DOC_LOTE["ENSAIO"].get("FALHA", {})
 FRASE = ("La campagna in corso richiede attenzione alle condizioni meteorologiche e allo stato fitosanitario "
          "delle colture; i tecnici raccomandano monitoraggi settimanali in campo e interventi mirati. ")
 
@@ -60,6 +67,10 @@ def _site(ficha: dict) -> dict:
     cid, url, nome = ficha["CANDIDATA_ID"], ficha["URL"], ficha.get("NOME") or ficha["CANDIDATA_ID"]
     entrada = urlparse(url).path or "/"
     falha = FALHA.get(cid)
+    if falha == "HTTP_403":                                   # portal que recusa: robots deixa, a pagina nao
+        return {"*": (403, b"<html><title>403 Forbidden</title></html>"), "/robots.txt": (200, b"User-agent: *
+Allow: /
+")}
     if falha == "CASCA_JS":
         casca = b"<html><head><title>app</title></head><body><div id=app></div><script src=/app.js></script></body></html>"
         return {"*": (200, casca), "/robots.txt": (200, b"User-agent: *\nAllow: /\n")}

@@ -1,0 +1,72 @@
+{
+ "DATASET": "MICRO-PROVA-LOTE2",
+ "CANDIDATAS": [
+  "CAND-1042",
+  "CAND-1056",
+  "CAND-0010",
+  "CAND-0945",
+  "CAND-0673",
+  "CAND-0857",
+  "CAND-0743",
+  "CAND-1058",
+  "CAND-1059",
+  "CAND-0051",
+  "CAND-0057",
+  "CAND-0058",
+  "CAND-0619",
+  "CAND-0586",
+  "CAND-0595",
+  "CAND-0588",
+  "CAND-0168",
+  "CAND-0151",
+  "CAND-1153",
+  "CAND-0487",
+  "CAND-0486",
+  "CAND-0602",
+  "CAND-0556",
+  "CAND-0176",
+  "CAND-0144"
+ ],
+ "CRITERIO": "mesmo do lote 1: pesquisa/agronomia primeiro (os 2 de pesquisa que sobraram), depois bases oficiais agricolas, imprensa agricola (T8), rede tecnica (T7), mercado (T10 so 8 READY), feiras (T11 so 3 READY) e 1 cooperativa de producao (T1 so 7 READY); 25 dominios distintos, 0 colisoes com a RODADA 1 da 4.a onda nem com as 24 h do coletor (micro_prova_colisao.py, 26/09)",
+ "FORA_E_PORQUE": {
+  "ordens de agronomos (5)": "D52",
+  "pais NAO SEI/EU/OUTRO (11)": "a prova daria fora de IT: esperar a decisao do dono sobre EU/INT",
+  "paginas soltas (normattiva x3, decretos MASAF x2, RENTRI, 'via Stalingrado', DM Gazzetta, CREDITS smart.it)": "nao sao organizacoes: candidatas a recusa, nao a prova",
+  "CAND-0009 Rete Rurale": "janela do robots 01-03 UTC: sessao propria"
+ },
+ "ENSAIO": {
+  "CLASSE": {
+   "CAND-1042": "T5",
+   "CAND-1056": "T5",
+   "CAND-0010": "T12",
+   "CAND-0945": "T2",
+   "CAND-0673": "T4",
+   "CAND-0857": "T5",
+   "CAND-0743": "T2",
+   "CAND-1058": "T8",
+   "CAND-1059": "T8",
+   "CAND-0051": "T8",
+   "CAND-0057": "T8",
+   "CAND-0058": "T8",
+   "CAND-0619": "T7",
+   "CAND-0586": "T7",
+   "CAND-0595": "T7",
+   "CAND-0588": "T7",
+   "CAND-0168": "T7",
+   "CAND-0151": "T1",
+   "CAND-1153": "T7",
+   "CAND-0487": "T10",
+   "CAND-0486": "T10",
+   "CAND-0602": "T7",
+   "CAND-0556": "T7",
+   "CAND-0176": "T11",
+   "CAND-0144": "T11"
+  },
+  "FALHA": {
+   "CAND-0487": "CASCA_JS",
+   "CAND-0486": "CASCA_JS",
+   "CAND-0010": "HTTP_403"
+  },
+  "PORQUE_DAS_FALHAS": "desenho do ensaio a partir do que ja se sabe: Agrifood Monitor e Wine Monitor deram os MESMOS bytes (casca JS) a 23/09; o SIAN e portal com area reservada. Nao e previsao."
+ }
+}
