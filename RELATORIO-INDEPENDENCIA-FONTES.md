@@ -93,6 +93,20 @@ base falhar com o **mesmo nome**.
   falhas). Correu **sem** a LOCK-PESADO (deslize meu) e foi cortada a meio pela queda das abas (~10:20).
 - `test_independencia_de_fontes`: **35 testes, 35 passam**, sobre `278cd489` e sobre `dc0de726`.
 
+**Na árvore final** (sobre `dc0de726`, mapa regerado; `provas/independencia/final-dc0de726.json`), os 8
+módulos que leem o mapa ou tocam o que mudei: `test_o_controle_separa_lei_de_mencao` 60/0 (o M5 passou),
+`test_atomicidade_da_intelligence` 39/5 (as mesmas 5 herdadas), `test_o_mapa_da_intelligence_nao_mente`
+36/0, `test_independencia_de_fontes` 35/0, `test_a_primeira_corrida_da_inteligencia` 37/0,
+`test_ausencia_na_fronteira_da_corrida` 10/0, `test_corrida_abortada` 1/0, `test_completude_oportunidade`
+12/0. **Falhas novas: 0.**
+
+**System Map:** `correr_a_cadeia.py REGERAR` → `CADEIA=OK`; `VALIDAR` → `SYSTEM_MAP_CHECK=PASS` (a 1.ª volta
+reprovou P2/P8 por arrumação minha — os scripts de prova estavam na peça de `motor/` e o teste era reclamado
+por duas peças; ficaram em `C-PROVA-INDEPENDENCIA`, zona `Z-PROVA`); `impressao_da_arvore.py
+--conferir-carimbo` → `IGUAL`. Efeito lateral declarado: `docs/fontes/INDICE-DE-FONTES.md` passou de 729 para
+750 «endereços que o código chama» — os +21 são URLs sintéticas do meu teste (o `scan_sources.py` conta todo
+`https://` em `.py`, testes incluídos, como já fazia com os testes das outras equipas).
+
 ## Mutação
 
 `provas/independencia/mutantes.py` planta **um** defeito de cada vez e restaura os bytes (sem

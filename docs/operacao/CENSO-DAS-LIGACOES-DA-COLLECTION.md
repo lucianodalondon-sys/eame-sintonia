@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  595d6c79ec7a18cbde1ee2519f8e6a8d097ded5e
+HEAD_DA_MEDICAO  74c60ff18b3eaf216735b8b3922386e2bd7346cb
 BRANCH           nuvem-independencia-v1
-GERADO_EM        2026-09-26T18:05:09-03:00
+GERADO_EM        2026-09-26T18:14:04-03:00
 CARDS            105
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
