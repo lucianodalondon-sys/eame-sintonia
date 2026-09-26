@@ -5073,6 +5073,30 @@
     "scripts/reparo/juntar_bancas.py",
     "scripts/reparo/revisar_ready.py"
    ]
+  },
+  {
+   "id": "C-BLOQUEADAS-DESTRAVAR",
+   "name": "BLOQUEADAS-DESTRAVAR — sonda de 1 pedido por fonte, plano da MICRO-PROVA de territorio, canais para o CANAIS-41",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "sonda_um_pedido.py: 1 pedido ao robots.txt por fonte parada por ligacao, 1 por organizacao por ronda, portao IT antes de cada ronda (o coordenador corre com VPN). micro_prova_plano.py: plano sem rede das rondas de prova de territorio (1 institucional + 2 conteudos, teto D38) para as 89 candidatas. Lista dos 22 canais YouTube candidatos para o CANAIS-41.",
+   "why_here": "Coletar o maximo: destravar as fontes paradas (missao BLOQUEADAS-DESTRAVAR, 26/09).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "curadoria/sonda_um_pedido.py",
+    "curadoria/micro_prova_plano.py",
+    "curadoria/MICRO-PROVA-PLANO-V1.json",
+    "curadoria/CANAIS-YOUTUBE-22-PARA-CANAIS-41.json",
+    "BLOQUEADAS-DESTRAVAR.md"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
