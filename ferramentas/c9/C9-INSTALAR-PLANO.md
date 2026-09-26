@@ -1,6 +1,6 @@
 # C9-INSTALAR-PLANO — o C9-IDIOMA sobre o vivo ce28040c — 25/09/2026
 
-Ramo **`c9-sobre-ce28-v1` @ `__SHA__`** = produção `ce28040c` + `origin/c9-idioma-v1` (`bcefc6d9`). **NÃO instalado.**
+Ramo **`c9-sobre-ce28-v1` @ `__SHA__` (a preencher depois do mapa; hoje `3ef8b296`, sem o mapa regerado)** = produção `ce28040c` + `origin/c9-idioma-v1` (`bcefc6d9`). **NÃO instalado.**
 Sem rede HTTP; Sala real **só lida** (`PGOPTIONS=-c default_transaction_read_only=on`, DSN do ficheiro, nunca impressa);
 nenhum RAW tocado; o vivo não foi tocado (só leitura dos livros para a cópia).
 
@@ -56,7 +56,7 @@ HEAD = vivo.
 
 ## 4 · Mapa
 
-__MAPA__
+**Ainda NÃO regerado neste ramo** (26/09 00:04): a LOCK-PESADO esteve 30 min com outras bancadas (FECHAR-MAPAS 23:28 → QUATRO-CHAVES 23:55). Os 15 gerados em conflito ficaram na versão da produção e a peça nova `C-C9-INSTALAR` está declarada; falta `correr_a_cadeia.py REGERAR` → `VALIDAR` (PASS) → commit. O SHA final sai daí.
 
 ## 5 · Plano de instalação (executa: o coordenador; um escritor no vivo)
 
