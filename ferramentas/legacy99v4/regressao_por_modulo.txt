@@ -1,0 +1,39 @@
+"""Corre cada modulo em separado (rede fechada por proxy), guarda o resultado e repoe livros tocados."""
+import json, os, re, subprocess, sys
+from pathlib import Path
+
+raiz = Path(sys.argv[1]); saida = Path(sys.argv[2])
+mods = Path("C:/rend/v4/modulos.txt").read_text().split()
+LIVROS = ["curadoria/LIFECYCLE-LEDGER-V1.json", "curadoria/LIFECYCLE-QUEUE-V1.json",
+          "curadoria/LIFECYCLE-EVIDENCE-V1.json", "curadoria/italy_contracts_curator.json",
+          "regras/italy_contracts_onboarded.json", "curadoria/DESBLOQUEIO-LEDGER-V1.jsonl"]
+env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONIOENCODING="utf-8",
+           HTTP_PROXY="http://127.0.0.1:9", HTTPS_PROXY="http://127.0.0.1:9",
+           http_proxy="http://127.0.0.1:9", https_proxy="http://127.0.0.1:9")
+out = {}
+for m in mods:
+    if not (raiz / (m.replace(".", "/") + ".py")).exists():
+        out[m] = {"ESTADO": "NAO_EXISTE"}; continue
+    antes = {p: ((raiz / p).read_bytes() if (raiz / p).exists() else None) for p in LIVROS}
+    try:
+        r = subprocess.run([sys.executable, "-m", "unittest", m], cwd=raiz, env=env,
+                           capture_output=True, text=True, timeout=900)
+        txt = r.stderr + r.stdout
+        ran = re.search(r"Ran (\d+) test", txt)
+        fal = re.search(r"FAILED \(([^)]*)\)", txt)
+        nomes = sorted(set(re.findall(r"^(?:FAIL|ERROR): (\S+ \([^)]*\))", txt, re.M)))
+        out[m] = {"ESTADO": "OK" if r.returncode == 0 else "FALHA", "RAN": int(ran.group(1)) if ran else None,
+                  "RESUMO": fal.group(1) if fal else "", "FALHAS": nomes}
+    except subprocess.TimeoutExpired:
+        out[m] = {"ESTADO": "TIMEOUT"}
+    tocou = []
+    for p, b in antes.items():
+        f = raiz / p
+        agora = f.read_bytes() if f.exists() else None
+        if agora != b:
+            tocou.append(p)
+            if b is None: f.unlink()
+            else: f.write_bytes(b)
+    if tocou: out[m]["ESCREVEU_LIVRO"] = tocou
+    print(m, out[m]["ESTADO"], out[m].get("RAN"), out[m].get("RESUMO", ""), tocou or "", flush=True)
+saida.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
