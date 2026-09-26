@@ -81,11 +81,7 @@ def main():
                            env=env, check=True)
         texto = r.stdout
         if sem_036:
-            texto = "
-
-".join(b for b in texto.split("
-
-")
+            texto = "\n\n".join(b for b in texto.split("\n\n")
                                 if "sala_de_espera_versao" not in b)
         return hashlib.sha256(texto.encode()).hexdigest()
 
