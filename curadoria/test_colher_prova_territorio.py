@@ -171,6 +171,30 @@ class ConteudoPublicado(Colher):
         self.assertNotIn(B + "/progetti-sulla-vite-e-sulle-olive", self.pedidos)
 
 
+class LoteComFichasNovas(unittest.TestCase):
+    """LOTE 2B: consorzi que ainda nao estao na porta. So se registam os que a prova aprovar."""
+    VIVO = [{"CANDIDATA_ID": "CAND-0001", "NOME": "Condifesa TVB", "URL": "https://www.condifesatvb.it/"}]
+
+    def test_nova_entra_com_id_provisorio(self):
+        f = C.fichas_do_lote({"FICHAS_NOVAS": [{"ID": "L2B-01", "NOME": "Condifesa Foggia",
+                                                 "URL": "http://www.condifesafoggia.it/"}]}, self.VIVO)
+        self.assertEqual(["L2B-01"], list(f))
+        self.assertTrue(f["L2B-01"]["NAO_REGISTADA"])
+
+    def test_nova_que_ja_esta_na_porta_e_erro(self):
+        with self.assertRaises(SystemExit):
+            C.fichas_do_lote({"FICHAS_NOVAS": [{"ID": "L2B-01", "NOME": "x", "URL": "http://condifesatvb.it"}]},
+                             self.VIVO)
+
+    def test_id_provisorio_nao_pode_parecer_cand(self):
+        with self.assertRaises(SystemExit):
+            C.fichas_do_lote({"FICHAS_NOVAS": [{"ID": "CAND-9999", "NOME": "x", "URL": "https://a.it/"}]}, self.VIVO)
+
+    def test_cand_desconhecida_e_erro(self):
+        with self.assertRaises(SystemExit):
+            C.fichas_do_lote({"CANDIDATAS": ["CAND-0404"]}, self.VIVO)
+
+
 class Aplicar(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(self.enterContext(tempfile.TemporaryDirectory(prefix="aplicar-")))

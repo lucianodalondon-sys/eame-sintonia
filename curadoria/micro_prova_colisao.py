@@ -70,12 +70,19 @@ def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     a = dict(x[2:].split("=", 1) for x in argv if x.startswith("--") and "=" in x)
     r1 = rodada1(Path(a["rodadas"]).read_text(encoding="utf-8"))
-    recentes = colhidos(OBS.read_text(encoding="utf-8", errors="replace").splitlines(), datetime.now(timezone.utc))
+    # --vivo=<pasta>: le as observacoes e a porta DO VIVO. Sem isto le as desta arvore — numa copia antiga do
+    # ramo as 24 h vinham «0 dominios» as cegas (medido no LOTE 2B: 521 linhas aqui, 678 no vivo).
+    raiz = Path(a["vivo"]) if a.get("vivo") else RAIZ
+    obs, cands = raiz / OBS.relative_to(RAIZ), raiz / CANDIDATAS.relative_to(RAIZ)
+    linhas = obs.read_text(encoding="utf-8", errors="replace").splitlines()
+    recentes = colhidos(linhas, datetime.now(timezone.utc))
     alvos = {}
     if a.get("lote"):
-        fichas = {c["CANDIDATA_ID"]: c for c in json.loads(CANDIDATAS.read_text(encoding="utf-8"))["CANDIDATAS"]}
-        for c in json.loads(Path(a["lote"]).read_text(encoding="utf-8"))["CANDIDATAS"]:
-            alvos[c] = fichas[c]["URL"]
+        import colher_prova_territorio as CPT     # a mesma leitura do lote que a colheita usa (inclui FICHAS_NOVAS)
+        fichas = CPT.fichas_do_lote(json.loads(Path(a["lote"]).read_text(encoding="utf-8")),
+                                    json.loads(cands.read_text(encoding="utf-8"))["CANDIDATAS"])
+        for c, f in fichas.items():
+            alvos[c] = f["URL"]
     if a.get("sonda"):
         contratos = {c["SOURCE_ID"]: c for c in json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
         sem = []
@@ -88,7 +95,7 @@ def main(argv=None) -> int:
     else:
         sem = []
     col = verificar(alvos, r1, recentes) + sem
-    print(json.dumps({"ALVOS": len(alvos), "RODADA1_DOMINIOS": len(r1), "COLHIDOS_24H_DOMINIOS": len(recentes),
+    print(json.dumps({"ALVOS": len(alvos), "RODADA1_DOMINIOS": len(r1), "OBSERVACOES": "%s (%d linhas)" % (obs, len(linhas)), "COLHIDOS_24H_DOMINIOS": len(recentes),
                       "COLISOES": col, "PODE_CORRER": not col}, ensure_ascii=False, indent=1))
     return 1 if col else 0
 

@@ -33,6 +33,7 @@ from urllib.parse import urljoin, urlparse
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 sys.path.insert(0, str(RAIZ / "superficie"))
+sys.path.insert(0, str(RAIZ / "candidatas"))
 
 CANDIDATAS = RAIZ / "candidatas" / "FONTES-CANDIDATAS.json"
 DECISOES = RAIZ / "curadoria" / "DECISOES-SEMANTICAS-V1.json"
@@ -266,6 +267,33 @@ def colher(ficha: dict, buscar, portao, pasta: Path, dormir=time.sleep, pausa: f
     return out
 
 
+RE_ID_NAO_REGISTADA = re.compile(r"^L[0-9A-Z]+-\d{2,3}$")
+
+
+def fichas_do_lote(lote: dict, candidatas: list[dict]) -> dict:
+    """{id: ficha} do lote, pela ordem. `CANDIDATAS` = CAND-ids da porta; `FICHAS_NOVAS` = pistas AINDA NAO
+    registadas ({ID provisorio «L2B-01», NOME, URL}) — so se registam pela porta as que a prova aprovar (passo 9),
+    para nao encher a fila com sites que nao publicam nada. Uma «nova» que ja esta na porta e erro: usa o CAND-id."""
+    por_id = {c["CANDIDATA_ID"]: c for c in candidatas}
+    import fonte_nova as FN
+    por_url = {FN.normalizar(c["URL"]): c["CANDIDATA_ID"] for c in candidatas}
+    out = {}
+    for cid in lote.get("CANDIDATAS", []):
+        if cid not in por_id:
+            raise SystemExit("lote: %s nao existe na porta" % cid)
+        out[cid] = por_id[cid]
+    for f in lote.get("FICHAS_NOVAS", []):
+        if not RE_ID_NAO_REGISTADA.match(f.get("ID", "")):
+            raise SystemExit("lote: id provisorio invalido %r (ex.: L2B-01)" % f.get("ID"))
+        ja = por_url.get(FN.normalizar(f["URL"]))
+        if ja:
+            raise SystemExit("lote: %s ja esta na porta como %s — usar o CAND-id" % (f["URL"], ja))
+        if f["ID"] in out:
+            raise SystemExit("lote: id repetido %s" % f["ID"])
+        out[f["ID"]] = {"CANDIDATA_ID": f["ID"], "NOME": f["NOME"], "URL": f["URL"], "NAO_REGISTADA": True}
+    return out
+
+
 def aplicar(decididas: list[dict], caminho: Path = DECISOES, fichas: dict | None = None) -> dict:
     import decisao_semantica as DS
     fichas = fichas if fichas is not None else {c["CANDIDATA_ID"]: c for c in
@@ -323,9 +351,9 @@ def main(argv=None) -> int:
     import canario as CAN      # noqa: E402
     import rede                # noqa: E402
     lote = json.loads(Path(a["lote"]).read_text(encoding="utf-8"))
-    fichas = {c["CANDIDATA_ID"]: c for c in json.loads(CANDIDATAS.read_text(encoding="utf-8"))["CANDIDATAS"]}
-    props = [colher(fichas[cid], CAN.buscar, lambda: rede.portao_de_egresso("IT"), Path(a["bytes"]))
-             for cid in lote["CANDIDATAS"]]
+    porta = (Path(a["vivo"]) / CANDIDATAS.relative_to(RAIZ)) if a.get("vivo") else CANDIDATAS   # a porta DO VIVO
+    fichas = fichas_do_lote(lote, json.loads(porta.read_text(encoding="utf-8"))["CANDIDATAS"])
+    props = [colher(f, CAN.buscar, lambda: rede.portao_de_egresso("IT"), Path(a["bytes"])) for f in fichas.values()]
     out = {"DATASET": "PROPOSTAS-DE-TERRITORIO", "GERADO_EM": _agora(), "PEDIDOS": sum(p["PEDIDOS"] for p in props),
            "PROVA_COMPLETA": sum(1 for p in props if p.get("PROVA_COMPLETA")), "PROPOSTAS": props}
     Path(a.get("saida", "PROPOSTAS-DE-TERRITORIO.json")).write_text(
