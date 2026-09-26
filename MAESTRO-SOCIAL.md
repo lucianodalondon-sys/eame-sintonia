@@ -126,7 +126,19 @@ LinkedIn (1 pedido à página do post + 1-2 ao licdn) → (e) `autor_confere` na
 
 ## 7 · Ensaio da 037 (Sala descartável)
 
-Ver o fim deste ficheiro (preenchido depois de correr com a LOCK-PESADO).
+Corrido com a LOCK-PESADO (07:25-07:27; a 1.ª tentativa às 07:03 rebentou ANTES da 037 por codificação: o `psql`
+recebia o SQL pela linha de comando do Windows e o `·` do comentário chegou como 0xb7 — passou a ir pela entrada em
+UTF-8, no ensaio e no escritor). Resultado inteiro em `provas/maestro-social/ENSAIO-037.json`:
+
+- Sala descartável da cópia `C:/ens-sm` (32 migrações), com os **2 itens reais** do canário LinkedIn de 24/09 pousados
+  pelo orquestrador (ISPRA IT-T5-193; ARPA VdA IT-T2-170 com universo T5 — diagnóstico) → **037 aplicada**.
+- As unidades carimbadas pela lei: as duas com `LINKEDIN:urn:li:digitalmediaAsset:D4D05AQH1yJW2COxvNQ`; a da ARPA com
+  `MESMO_VIDEO_QUE` → ISPRA. Escritor: `REGISTADO` ×2.
+- `sala_de_espera_video`: ISPRA `null` (o primeiro), ARPA → {ISPRA}. **Vista: 1 vídeo, 2 itens, 1 primeiro.**
+- **Recusados pelo banco:** `NAO SEI` (`video_identity_conhecida`) · UPDATE e DELETE (`SALA_VIDEO_SO_ACRESCENTA`) ·
+  linha sem item na Sala (chave estrangeira).
+- `sala_de_espera` com as mesmas 2 linhas antes, depois, e depois de **desfazer** (tabela e vista saíram). Banco
+  desligado.
 
 ## EM PALAVRAS SIMPLES
 

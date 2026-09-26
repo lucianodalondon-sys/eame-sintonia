@@ -1,0 +1,69 @@
+{
+ "ENS": "C:\\ens-sm",
+ "PROPOSTA": "supabase\\propostas\\037_a_sala_diz_qual_video_e_o_mesmo.sql",
+ "MIGRACOES_DA_COPIA": 32,
+ "CORRIDAS": [
+  {
+   "ENVELOPE": "IT-T5-2026-09-26-013213-c16b45abc2778073",
+   "SOURCE_ID": "IT-T5-193",
+   "SAIDA": "STATUS SUCCESS IT-T5-2026-09-26-102652-906f23d78f6b4e07"
+  },
+  {
+   "ENVELOPE": "IT-T2-2026-09-26-013122-d2a62bb995556b9c",
+   "SOURCE_ID": "IT-T2-170",
+   "SAIDA": "STATUS SUCCESS IT-T5-2026-09-26-102716-c38d15012b657068"
+  }
+ ],
+ "SALA_ANTES": [
+  [
+   "IT-T5-2026-09-26-102652-906f23d78f6b4e07",
+   "0",
+   "IT-T5-193"
+  ],
+  [
+   "IT-T5-2026-09-26-102716-c38d15012b657068",
+   "0",
+   "IT-T2-170"
+  ]
+ ],
+ "037_APLICADA": true,
+ "UNIDADES": [
+  {
+   "SOURCE_ID": "IT-T5-193",
+   "VIDEO_IDENTITY": "LINKEDIN:urn:li:digitalmediaAsset:D4D05AQH1yJW2COxvNQ",
+   "MESMO_VIDEO_QUE": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-170",
+   "VIDEO_IDENTITY": "LINKEDIN:urn:li:digitalmediaAsset:D4D05AQH1yJW2COxvNQ",
+   "MESMO_VIDEO_QUE": {
+    "SOURCE_ID": "IT-T5-193",
+    "RUN_ID": "IT-T5-2026-09-26-102652-906f23d78f6b4e07",
+    "DOCUMENT_ID": "NAO SEI",
+    "POST": "https://it.linkedin.com/posts/ispra_2_ispra-a-remtech-expo-ricerca-e-competenze-activity-7507010113581314048-KARA"
+   }
+  }
+ ],
+ "REGISTOS": [
+  "REGISTADO",
+  "REGISTADO"
+ ],
+ "SALA_DE_ESPERA_VIDEO": [
+  "IT-T5-2026-09-26-102652-906f23d78f6b4e07|0|LINKEDIN:urn:li:digitalmediaAsset:D4D05AQH1yJW2COxvNQ|null",
+  "IT-T5-2026-09-26-102716-c38d15012b657068|0|LINKEDIN:urn:li:digitalmediaAsset:D4D05AQH1yJW2COxvNQ|{\"POST\": \"https://it.linkedin.com/posts/ispra_2_ispra-a-remtech-expo-ricerca-e-competenze-activity-7507010113581314048-KARA\", \"RUN_ID\": \"IT-T5-2026-09-26-102652-906f23d78f6b4e07\", \"SOURCE_ID\": \"IT-T5-193\", \"DOCUMENT_ID\": \"NAO SEI\"}"
+ ],
+ "VISTA_UM_VIDEO": [
+  "LINKEDIN:urn:li:digitalmediaAsset:D4D05AQH1yJW2COxvNQ|2|1"
+ ],
+ "RECUSA_NAO_SEI": "psql:<stdin>:1: ERRO:  a nova linha da relação \"sala_de_espera_video\" viola a restrição de verificação \"video_identity_conhecida\"\nDETALHE:  Registro que falhou contém (x, 0, NAO SEI, b, null, 2026-09-",
+ "RECUSA_UPDATE": "psql:<stdin>:1: ERRO:  SALA_VIDEO_SO_ACRESCENTA: UPDATE recusado em sala_de_espera_video. A identidade do video e o que pousou: nao se edita nem se apaga.\nCONTEXTO:  função PL/pgSQL sala_de_espera_vid",
+ "RECUSA_DELETE": "psql:<stdin>:1: ERRO:  SALA_VIDEO_SO_ACRESCENTA: DELETE recusado em sala_de_espera_video. A identidade do video e o que pousou: nao se edita nem se apaga.\nCONTEXTO:  função PL/pgSQL sala_de_espera_vid",
+ "RECUSA_SEM_ITEM_NA_SALA": "psql:<stdin>:1: ERRO:  inserção ou atualização em tabela \"sala_de_espera_video\" viola restrição de chave estrangeira \"sala_de_espera_video_run_id_ordem_fkey\"\nDETALHE:  Chave (run_id, ordem)=(nao-exist",
+ "SALA_DEPOIS": "2",
+ "DEPOIS_DE_DESFAZER": {
+  "TABELA": "t",
+  "VISTA": "t",
+  "SALA": "2"
+ },
+ "BANCO_DESLIGADO": "C:\\soc2\\sala-037\\pg-prova-cli-gfeiwt0x"
+}
