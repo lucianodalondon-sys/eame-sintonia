@@ -5049,6 +5049,28 @@
     "scripts/reparo/juntar_bancas.py",
     "scripts/reparo/revisar_ready.py"
    ]
+  },
+  {
+   "id": "C-BLOQUEADAS-268",
+   "name": "BLOQUEADAS-268 — as tarefas BLOCKED/FAILED da fila por motivo, e o que as destrava",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Le (so leitura) a fila, as fichas, o livro de contratos, o ledger e DECISOES-SEMANTICAS do vivo e classifica cada tarefa BLOCKED/FAILED: motivo, classe T, dominio, accao, quem destrava, se precisa de rede, e uma PROPOSTA (nunca decisao). Medido sobre ce28040c: 280 tarefas, 279 fontes.",
+   "why_here": "Coletar o maximo: saber que fontes se destravam com menos esforco (missao BLOQUEADAS-268, 25/09).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "curadoria/bloqueadas_268.py",
+    "curadoria/BLOQUEADAS-268-V1.json",
+    "PLANO-INSTALACAO-BLOQUEADAS.md"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
