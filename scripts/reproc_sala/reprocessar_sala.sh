@@ -5,13 +5,17 @@
 #   bash scripts/reproc_sala/reprocessar_sala.sh <pasta-de-saida> [--sala-real]
 #
 # Precisa no ambiente: SINTONIA_SALA_DSN, SINTONIA_PSQL_EXE, SINTONIA_SALA_BACKEND=POSTGRES.
-# Opcionais: LIV (globs dos livros do coletor, ';'), RZ (onde estao os bytes, ';'), PY, VIVA.
+# Opcionais: LIV (globs dos livros do coletor, ';'), RZ (onde estao os bytes, ';'), PY, VIVA,
+#   CODIGO = a arvore cujo admissao/reprocessar_tempo_lugar.py reprocessa (por omissao, esta).
+#   A versao gravada em cada revisao e o sha256 do codigo DESSA arvore: para reprocessar com o
+#   codigo instalado no robo, CODIGO=<pasta do vivo>.
 # Na Sala real (porta 54330) so corre com --sala-real E com o robo parado (PARAR.flag no vivo).
 # Ultima linha: REPROC_SALA=PASS ou REPROC_SALA=FAIL (com o PARAR: que falhou antes).
 set -u
 OUT=${1:?pasta de saida}
 REAL=${2:-}
 RAIZ=$(cd "$(dirname "$0")/../.." && pwd)
+CODIGO=${CODIGO:-$RAIZ}
 PY=${PY:-py}
 VIVA=${VIVA:-$HOME/orca/workspaces/eame-sintonia/source-curator-service-v1}
 LIV=${LIV:-$VIVA/data/collection-ledger/italy/observations.ndjson;$HOME/orca/workspaces/eame-sintonia/*/data/collection-ledger/italy/observations.ndjson}
@@ -33,7 +37,8 @@ esac
 if [ "$REAL" = "--sala-real" ]; then
   [ -f "$VIVA/curadoria/PARAR.flag" ] || falha "o robo nao esta parado (falta $VIVA/curadoria/PARAR.flag)"
 fi
-echo "0 · codigo: $(git -C "$RAIZ" rev-parse --short HEAD) · DSN porta ${DSN##*:}" | sed -E 's#/.*##'
+PORTA=${DSN##*:}; PORTA=${PORTA%%/*}
+echo "0 · codigo que reprocessa: $CODIGO @ $(git -C "$CODIGO" rev-parse --short HEAD) · DSN porta $PORTA"
 
 # ── 1 · validacao da 033: 5 colunas, 3 objetos, 2 gatilhos, livro-razao ───────
 COLS=$(q "select string_agg(column_name, ',' order by column_name) from information_schema.columns
@@ -66,7 +71,8 @@ q "$VISTA" > "$OUT/vista-antes.json" || falha "vista antes"
 echo "2 · antes: linhas+md5 das originais «$ORIG_ANTES» · revisoes $REVS_ANTES"
 
 # ── 3 · plano SEM escrever ────────────────────────────────────────────────────
-cd "$RAIZ" || falha "raiz"
+cd "$CODIGO" || falha "codigo"
+[ -f admissao/reprocessar_tempo_lugar.py ] || falha "$CODIGO nao tem admissao/reprocessar_tempo_lugar.py"
 $PY -B admissao/reprocessar_tempo_lugar.py --livros "$LIV" --raizes "$RZ" --saida "$OUT/plano.json" > "$OUT/plano.log" 2>&1 \
   || { tail -5 "$OUT/plano.log"; falha "reprocesso sem escrever"; }
 [ "$(q "$REVS")" = "$REVS_ANTES" ] || falha "o reprocesso SEM --aplicar escreveu"
@@ -87,7 +93,7 @@ done
 
 # ── 5 · fotografia DEPOIS e a vista campo a campo ─────────────────────────────
 q "$VISTA" > "$OUT/vista-depois.json" || falha "vista depois"
-$PY -B scripts/reproc_sala/comparar_vista.py "$OUT/vista-antes.json" "$OUT/vista-depois.json" "$OUT/comparacao.json" 2>/dev/null \
+$PY -B "$RAIZ/scripts/reproc_sala/comparar_vista.py" "$OUT/vista-antes.json" "$OUT/vista-depois.json" "$OUT/comparacao.json" 2>/dev/null \
   || falha "comparar a vista"
 REVS_DEPOIS=$(q "$REVS")
 echo "5 · revisoes $REVS_ANTES -> $REVS_DEPOIS"
