@@ -250,6 +250,95 @@ def revalidar_elegiveis(agora: datetime, *, ctx: dict | None = None,
     return {"CANDIDATAS": len(cands), "ENFILEIRADAS": feitas}
 
 
+# ── RE-CHECK DAS ANTIGAS: READY_LEGACY pela regua de hoje (LEGACY-99 C, 25/09/2026) ──
+# ⚠️ MEDIDO: `candidatas_a_revalidar` (acima) salta tudo o que nao e ELIGIBLE (linha
+# «if sid not in elegiveis ... continue»). Uma READY_LEGACY nunca e ELIGIBLE, por isso
+# nunca voltava a ser medida: 99 fontes paradas pela regua antiga, e so nos as
+# revalidavamos a mao (LEGACY-99, em copia: 1 das 26 HTML passou).
+#
+# O caminho e o canonico de sempre — `ready_split.remedir` (CANARY_PENDING +
+# VALIDATE_ROUTE) — e a rede e a do worker. Aqui so se decide QUEM e QUANDO:
+#   * so READY_LEGACY (a leitura do portao, `collection_gate.avaliar`) com contrato
+#     do Curator que o canario sabe provar (HTML_LINK_DISCOVERY): as outras parariam
+#     em BLOCK sem ganho (as YouTube pelo robots, as sem contrato por identidade);
+#   * no maximo LEGACY_POR_LOTE por LEGACY_INTERVALO_H, e UMA por dominio registavel
+#     no lote (D38: o canario faz ~3-4 pedidos por fonte);
+#   * a mais antiga primeiro (pela promocao).
+LEGACY_POR_LOTE = 10
+LEGACY_INTERVALO_H = 24
+ESTRATEGIAS_QUE_O_CANARIO_PROVA = ("HTML_LINK_DISCOVERY",)
+
+
+def _dominio_registavel(host: str) -> str:
+    """A regra do coletor (ONDA2-G3 `dominioRegistavel`), sem lista publica: as duas
+    ultimas etiquetas, salvo sufixo regional italiano de dois niveis (x.regione.it)."""
+    h = str(host or "").lower()
+    h = (h[4:] if h.startswith("www.") else h).rstrip(".")
+    p = [x for x in h.split(".") if x]
+    if len(p) <= 2:
+        return ".".join(p)
+    dois = ".".join(p[-2:])
+    regionais = {"gov.it", "edu.it", "abruzzo.it", "basilicata.it", "calabria.it", "campania.it",
+                 "emilia-romagna.it", "friuli-venezia-giulia.it", "fvg.it", "lazio.it", "liguria.it",
+                 "lombardia.it", "marche.it", "molise.it", "piemonte.it", "puglia.it", "sardegna.it",
+                 "sicilia.it", "toscana.it", "trentino.it", "umbria.it", "valledaosta.it", "veneto.it",
+                 "co.uk", "com.br"}
+    return ".".join(p[-3:]) if dois in regionais else dois
+
+
+def candidatas_legacy(*, ctx: dict | None = None) -> list[dict]:
+    """[{SOURCE_ID, DOMINIO, PROMOVIDA_EM}] das READY_LEGACY re-mediveis, a mais antiga primeiro."""
+    import collection_gate as CG   # noqa: E402
+    import ready_split as RS       # noqa: E402
+    from urllib.parse import urlparse
+    ctx = ctx if ctx is not None else CG._contexto()
+    out = []
+    for sid, c in sorted(ctx["contratos"].items()):
+        aq = (c or {}).get("ACQUISITION") or {}
+        if aq.get("STRATEGY") not in ESTRATEGIAS_QUE_O_CANARIO_PROVA or not aq.get("INDEX_URL"):
+            continue
+        if CG.avaliar(sid, **ctx).get("MOTIVO") != CG.READY_LEGACY:
+            continue
+        promo = RS.ultima_promocao(sid, ctx["livro"]) or {}
+        out.append({"SOURCE_ID": sid, "DOMINIO": _dominio_registavel(urlparse(aq["INDEX_URL"]).hostname),
+                    "PROMOVIDA_EM": promo.get("OBSERVED_AT") or ""})
+    return sorted(out, key=lambda x: (x["PROMOVIDA_EM"], x["SOURCE_ID"]))
+
+
+def lote_legacy(cands: list[dict], maximo: int = LEGACY_POR_LOTE) -> list[str]:
+    vistos, lote = set(), []
+    for c in cands:
+        if c["DOMINIO"] in vistos:
+            continue
+        vistos.add(c["DOMINIO"])
+        lote.append(c["SOURCE_ID"])
+        if len(lote) >= maximo:
+            break
+    return lote
+
+
+def revalidar_legacy_se_devido(estado: dict, agora: datetime | None = None, *,
+                               candidatas_fn=None, remedir_fn=None) -> dict:
+    """Um lote por LEGACY_INTERVALO_H. Sem rede aqui: so remedir (livro + fila);
+    a rede e a do worker, que ja corre. `estado` guarda LEGACY_ULTIMO_LOTE_EM."""
+    agora = agora or _agora()
+    ultimo = _quando(estado.get("LEGACY_ULTIMO_LOTE_EM"))
+    if ultimo and (agora - ultimo).total_seconds() < LEGACY_INTERVALO_H * 3600:
+        return {"ACCAO": "NADA"}
+    estado["LEGACY_ULTIMO_LOTE_EM"] = agora.isoformat()
+    lote = lote_legacy((candidatas_fn or candidatas_legacy)())
+    if not lote:
+        return {"ACCAO": "SEM_LEGACY_A_REMEDIR"}
+    if remedir_fn is None:
+        import ready_split as RS   # noqa: E402
+        remedir_fn = lambda ids: RS.remedir(ids, motivo=(  # noqa: E731
+            "re-medir READY_LEGACY pela regua de hoje (gatilho, LEGACY-99 C: lote de %d/%dh)"
+            % (LEGACY_POR_LOTE, LEGACY_INTERVALO_H)))
+    feitas = remedir_fn(lote)
+    return {"ACCAO": "LEGACY_REMEDIDAS", "LOTE": lote,
+            "FEITAS": sum(1 for f in feitas if f.get("FEITO"))}
+
+
 # ── REPARO ANTES DE DISCOVERY (REPARO-FONTES-V1, R1, 23/09/2026) ──────────────
 # Pergunta do dono: «porque o bot esta procurando fontes novas e nao esta
 # validando as que ja achou?». Medido no livro vivo as 15:10: 400 fontes em
@@ -298,6 +387,7 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
                          tarefas: list | None = None) -> list[dict]:
     """[{SOURCE_ID, TASK_TYPE, MOTIVO}] por ordem. Nao escreve nada."""
     import lifecycle as LC         # noqa: E402
+    import retirar_por_decisao as RPD   # noqa: E402  (D52: a marca de catalogo)
     estados = estados if estados is not None else LC.snapshot()
     if contratos is None:
         contratos = ({c["SOURCE_ID"]: c for c in
@@ -325,6 +415,18 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
                 return True
         return False
 
+    import revisao_ready as REV   # noqa: E402
+    revistas = {s: x for s, x in REV._ler().items() if x.get("REVISTO_EM")}
+
+    def _leitura_nova(sid: str) -> bool:
+        """So as leituras com data (REVISTO_EM) e mais novas que a ultima rota/canario."""
+        x = revistas.get(sid)
+        if not x:
+            return False
+        u = ultima_rota.get(sid)
+        r = _quando(x["REVISTO_EM"])
+        return r is not None and (u is None or u < r)
+
     def _html(c: dict | None) -> bool:
         return (c or {}).get("ACQUISITION", {}).get("STRATEGY") in (None, "HTML_LINK_DISCOVERY")
 
@@ -334,7 +436,19 @@ def candidatas_a_reparar(agora: datetime, *, estados: dict | None = None,
         if not sid.startswith("IT-") or sid in abertas:
             continue
         c = contratos.get(sid)
-        if e == LC.CONTRACTED_CANARY_FAILED:
+        # D52: uma fonte RETIRADA_POR_DECISAO (a marca de catalogo da D9) nao volta a ser
+        # trabalho do reparo nem da validacao; volta pelo circuito do Curator se a decisao
+        # for revertida (`retirar_por_decisao.py --reverter`).
+        if RPD.retirada(c):
+            continue
+        if e == LC.CONTRACTED_CANARY_FAILED and _leitura_nova(sid):
+            # REVISAO-15: a fonte ja reparada ganhou uma leitura DEPOIS do ultimo
+            # canario — re-medir UMA vez, para a trava da revisao decidir com ela
+            # (LIMPA -> READY pela regua; SUSPEITA -> o motivo fica no livro).
+            out.append({"SOURCE_ID": sid, "TASK_TYPE": F.VALIDATE_ROUTE, "ORDEM": 0,
+                        "MOTIVO": "revisao nova (%s) depois do ultimo canario: re-medir uma vez"
+                                  % revistas[sid]["REVISTO_EM"][:19]})
+        elif e == LC.CONTRACTED_CANARY_FAILED:
             if _html(c) and not _ja_reparada(sid):
                 out.append({"SOURCE_ID": sid, "TASK_TYPE": F.REPAIR_CONTRACT, "ORDEM": 1,
                             "MOTIVO": "canario falhou e o contrato nunca foi reparado"})

@@ -624,6 +624,56 @@ EXECUTORES = {
 # Escrever aqui que o plano ficaria vazio seria mais bonito e seria falso.
 EXECUTORES["T8"] = [e for e in EXECUTORES["T9"] if e.get("id") == "scrap-colheita"]
 
+# ── T8 · T9 · T12 GANHAM O COLETOR DE SITES (D48, 25/09/2026) ──────────────
+# Medido a 25/09 (FUNIL-RESTO): 22 fontes elegiveis de T8/T9/T12 sao PAGINAS
+# WEB (revistas Edagricole, regioes, PSRN, Didacta) e ficavam
+# `SEM_RECEITA_WEB`: T8 so tinha o social, T9 o de comunicacao publica e o
+# social, T12 nada. Nao era falta de fonte — era falta de receita.
+#
+# O gesto e o mesmo que o do YouTube acima: o executor que JA EXISTE entra
+# noutro universo. Nao se cria executor, nao se copia regua, nao se mexe no
+# portao, no teto D38 nem no robots — continuam os do `italy_executor`.
+#
+#     TERRITORY != PLATFORM != ROUTE.
+#     ISTO NAO DIZ «TODO O T8 E WEB». Diz que um pedido T8 que NOMEIE uma
+#     fonte web encontra quem a colha.
+#
+# ⚠️ ENTRA NO FIM DA LISTA, E A ORDEM E A LEI. O `resolver()` so reordena
+# quando ha filtros declarados, e `fase` e filtro do proprio resolvedor: num
+# pedido social os dois empatam e ganha a ORDEM. No fim, um pedido social ou
+# sem filtros abre exactamente o que abria antes; um pedido web (fonte, sem
+# fase) sobe o de sites, porque o social so serve as fases dele.
+#
+# ⚠️ SEM `filtros_por_omissao`. As outras entradas `italia-recorrente` nomeiam
+# uma fonte provada por omissao; aqui nenhuma foi colhida ainda por esta
+# porta (a prova e a micro nas 10 com contrato, D48). Sem `--filtro fonte=`
+# nao ha fonte — e o coletor recusa alto.
+#
+# ⚠️ SAUDE ANIMAL / VETERINARIA FICA FORA POR FONTE, e nao aqui: a receita
+# e por universo; a exclusao e do Curator (D48), fonte a fonte.
+_SITES_POR_FONTE_NOMEADA = {
+    "id": "italia-recorrente",
+    "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+    "roda": ["coleta/italy_executor.py"],
+    "recebe_run_id": True,
+    "larga_em": ["data/colheita/italia/"],
+    "argumentos_de_filtros": ["fonte"],
+    # ⚠️ SO SERVE O PEDIDO SEM FASE. Sem esta linha o `resolver()` le «sem
+    # `serve_fases`» como «serve TODAS» (`fase in (... or [fase])`), e um pedido
+    # T9 `fase=posts fonte=...` — que era do Scrap/comunicacao publica — subia
+    # para o de sites. Medido no teste `OSocialNaoMuda` antes desta linha.
+    "serve_fases": [""],
+    "rotas": ["HTTP direto"],
+    "o_que_traz": "a pagina da fonte web nomeada no pedido (noticia, boletim, "
+                  "documento), como HTML ou PDF, com a versao do documento e o "
+                  "sitio onde o byte ficou",
+    "custo": "gratuito",
+    "registado_por": "D48 (bot Luciano, delegacao do dono, 25/09/2026)",
+}
+for _u in ("T8", "T9", "T12"):
+    EXECUTORES[_u] = list(EXECUTORES.get(_u, [])) + [_SITES_POR_FONTE_NOMEADA]
+del _u
+
 # Contratos que NENHUMA coleta pode dispensar. Nao sao conselhos: sem eles o
 # item nao consegue provar de onde veio nem quando aconteceu, e a inteligencia
 # recebe um numero sem passado.

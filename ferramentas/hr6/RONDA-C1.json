@@ -1,0 +1,100 @@
+[
+ {
+  "PASS": false,
+  "CLASSE": "SOURCE_FAILURE",
+  "HTTP": 200,
+  "PORQUE": "bytes nao sao HTML — BYTE_VALIDATION_FAILED",
+  "ALVO": "http://www.sar.sardegna.it/pubblicazioni/riepiloghimensili/pdf/1999.01.pdf",
+  "_ROBOTS": "# /robots.txt file for http://www.sar.sardegna.it\r\n\r\nUser-agent: *\r\nDisallow: /_private/\r\nDisallow: /_ScriptLibrary/\r\nDi",
+  "_SOURCE_ID": "IT-T2-143",
+  "_HR_SOBRE_O_ITEM": null
+ },
+ {
+  "PASS": false,
+  "CLASSE": "SOURCE_FAILURE",
+  "HTTP": 200,
+  "PORQUE": "bytes nao sao HTML — BYTE_VALIDATION_FAILED",
+  "ALVO": "https://www.regione.umbria.it/documents/18/0/bollettino+NOCCIOLO+n.10+del+17_07_2026/d07bdc4c-1fef-4eb5-832f-fdbafec578a1?version=1.0",
+  "_ROBOTS": "User-Agent: *\nDisallow:\nSitemap: http://www.regione.umbria.it/sitemap.xml",
+  "_SOURCE_ID": "IT-T3-053",
+  "_HR_SOBRE_O_ITEM": null
+ },
+ {
+  "HTTP": 200,
+  "ALVO": "https://www.dafnae.unipd.it/ricerca/le-linee-strategiche-della-ricerca",
+  "ALVOS_DESCOBERTOS": 3,
+  "DETAIL_ENUMERATED": 3,
+  "ITEM_ABERTO": {
+   "URL": "https://www.dafnae.unipd.it/ricerca/le-linee-strategiche-della-ricerca",
+   "HTTP": 200,
+   "BYTES": 65154,
+   "HTML_KIND": "NAVIGATION",
+   "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+   "LINKS": 234,
+   "NON_WHITESPACE_CHARACTERS": 5069,
+   "PARAGRAPH_CHARACTERS": 1720,
+   "TEXT_SHA256": "b2f0bb526de6d57386e997c41c7f022a578cc6da59d13eba52c661d1b536e1a4"
+  },
+  "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+  "BYTES": 65154,
+  "PASS": false,
+  "CLASSE": "SOURCE_FAILURE",
+  "DETAIL_GATE_PASSED": false,
+  "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (234 ligacoes para 5069 caracteres, 1720 em paragrafos)",
+  "_ROBOTS": "#\n# robots.txt\n#\n# This file is to prevent the crawling and indexing of certain parts\n# of your site by web crawlers and",
+  "_SOURCE_ID": "IT-T5-064",
+  "_HR_SOBRE_O_ITEM": null
+ },
+ {
+  "HTTP": 200,
+  "ALVO": "https://www.noisiamoagricoltura.com/categorie/blog/curiosita-dalla-natura/",
+  "ALVOS_DESCOBERTOS": 3,
+  "DETAIL_ENUMERATED": 3,
+  "ITEM_ABERTO": {
+   "URL": "https://www.noisiamoagricoltura.com/categorie/blog/curiosita-dalla-natura/",
+   "HTTP": 200,
+   "BYTES": 210059,
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 88,
+   "NON_WHITESPACE_CHARACTERS": 3944,
+   "PARAGRAPH_CHARACTERS": 2475,
+   "TEXT_SHA256": "ac50b9ff1cae920d49cd586abf80d0eb0417df7d0a4610d417885efb0eea3822"
+  },
+  "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+  "BYTES": 210059,
+  "PASS": true,
+  "CLASSE": "OK",
+  "DETAIL_GATE_PASSED": true,
+  "DOCUMENT_ID": "IT-T8-050:URL:categorie/blog/curiosita-dalla-natura",
+  "_ROBOTS": "User-agent: *\r\n\r\n\r\nAllow: /wp-admin/admin-ajax.php\r\n\r\nSitemap: https://www.noisiamoagricoltura.com/sitemap_index.xml",
+  "_SOURCE_ID": "IT-T8-050",
+  "_HR_SOBRE_O_ITEM": "ITEM_PARECE_SECCAO: https://www.noisiamoagricoltura.com/categorie/blog/curiosita-dalla-natura/ — confirmar a olho que e um item e nao uma seccao"
+ },
+ {
+  "HTTP": 200,
+  "ALVO": "https://www.conaf.it/news/benessere-animale-decreto-ue/",
+  "ALVOS_DESCOBERTOS": 29,
+  "DETAIL_ENUMERATED": 29,
+  "ITEM_ABERTO": {
+   "URL": "https://www.conaf.it/news/benessere-animale-decreto-ue/",
+   "HTTP": 200,
+   "BYTES": 69292,
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 91,
+   "NON_WHITESPACE_CHARACTERS": 3034,
+   "PARAGRAPH_CHARACTERS": 1341,
+   "TEXT_SHA256": "2b6578194d53ecdbb5af0491d606e73d6ff05a92f1584c0ecacbb2b5bb6169eb"
+  },
+  "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+  "BYTES": 69292,
+  "PASS": true,
+  "CLASSE": "OK",
+  "DETAIL_GATE_PASSED": true,
+  "DOCUMENT_ID": "IT-T7-174:URL:news/benessere-animale-decreto-ue",
+  "_ROBOTS": "User-agent: *\nDisallow: /wp-admin\nDisallow: /wp-login\n\nSitemap: https://www.conaf.it/wp-sitemap.xml\n",
+  "_SOURCE_ID": "IT-T7-174",
+  "_HR_SOBRE_O_ITEM": null
+ }
+]

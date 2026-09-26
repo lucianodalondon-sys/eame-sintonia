@@ -860,6 +860,38 @@
    ]
   },
   {
+   "id": "C-ORDENS-63",
+   "name": "Sites das ordens de agronomos (63) — ha forma util para a coleta?",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Mede, com 1 pedido por dominio, se as 63 ordens de agronomos paradas no canario publicam algo datado e com corpo: 59 do CONAF (1 feed de amostra) so avisos institucionais (~1/mes, 0-547 letras); Palermo ~0,7 noticias/dia, 6/10 >= 800 letras, coberta pela receita da RECEITAS-182; pergunta ao dono sobre retirar as 62 institucionais. D52: as 62 saem por decisao pela porta curadoria/retirar_por_decisao.py (marca da D9, por SOURCE_ID, reversivel); o gatilho e a alimentacao da fila saltam-nas.",
+   "why_here": "Proximo da fila da bancada (25/09): mais fontes elegiveis.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/ordens_63/medir_ordens.py",
+    "scripts/ordens_63/MEDIDA-ORDENS-V1.json",
+    "RELATORIO-ORDENS-63.md",
+    "PERGUNTA-BOT-LUCIANO-ORDENS-63.md",
+    "curadoria/retirar_por_decisao.py",
+    "curadoria/DECISAO-D52-RETIRAR-V1.json",
+    "curadoria/test_retirar_por_decisao.py",
+    "scripts/ordens_63/gerar_d52.py",
+    "scripts/ordens_63/mutar_d52.py",
+    "scripts/ordens_63/MUTACAO-D52-V1.json",
+    "scripts/ordens_63/ensaio_d52.py",
+    "scripts/ordens_63/ENSAIO-D52-V1.json",
+    "RELATORIO-ORDENS-63-V2.md"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",
@@ -4930,6 +4962,71 @@
    "files": [
     "ferramentas/integra_onda2/prova_teto_micro.py",
     "ferramentas/integra_onda2/final/ensaio_integra.sh"
+   ]
+  },
+  {
+   "id": "C-HR6",
+   "name": "HR-6 — re-medir pelo caminho canonico as READY que o portao manda a olho humano",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "remedir_hr6.py: READY + HUMAN_REVIEW_REQUIRED -> CANARY_PENDING + VALIDATE_ROUTE pela fila (so mostra; --aplicar escreve); o worker re-mede com canario.escolher_alvo (tenta o item mais fundo, volta ao 1.o se falhar). ronda_*.py e hr6-*.sh: as rondas e a copia da missao (rede so pelo portao IT, 1 fonte por dominio, D38). Nada aqui promove.",
+   "why_here": "HR-6 + CATANIA (25/09/2026): as 6 READY fora da colheita por endereco com cara de seccao; 2 CONAF saem da suspeita, 1 entra no coletor (IT-T7-174), IT-T7-170 duplicada (D51).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/hr6/remedir_hr6.py",
+    "ferramentas/hr6/test_remedir_hr6.py",
+    "ferramentas/hr6/ronda_a_reparo_infere.py",
+    "ferramentas/hr6/ronda_bc_canario_curador.py",
+    "ferramentas/hr6/ronda_worker_uma_fonte.py",
+    "ferramentas/hr6/hr6-copia.sh",
+    "ferramentas/hr6/hr6-plano.sh"
+   ]
+  },
+  {
+   "id": "C-PACOTE-ONDA3",
+   "name": "PACOTE-ONDA3 — o ensaio integrado da 3.a onda",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "ensaio_onda3.sh: ensaio integrado numa worktree destacada no HEAD do vivo + os ficheiros sujos do vivo lidos na hora (para se o pacote tocar um livro no Git); D49/D51, D52, provas de rota ja feitas, onboarding, o que o robo vai medir, plano, coorte PROVISORIA da 3.a onda, onda_web --so-plano, prova do teto, desfazer a partir da foto. Sem rede.",
+   "why_here": "PACOTE-ONDA3 (25/09/2026): contrato-44 v1/v3, REVISAO-15, HR-6 (+D51), ordens-63-v2 (D52) juntas; 210->226 no coletor, prontas 29->41, coorte 40, 30 correm / 120 pedidos / max 5.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/onda3_pacote/ensaio_onda3.sh",
+    "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+    "ferramentas/onda3_pacote/v2/tl-testes.sh",
+    "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
+   ]
+  },
+  {
+   "id": "C-LEGACY-99",
+   "name": "LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "revalidar_em_rondas.py: revalida READY_LEGACY numa COPIA pelo caminho canonico (ready_split.remedir -> worker), em rodadas de 1 fonte por dominio, com urlopen embrulhado (rede fechada por omissao, D41.3; teto 5 por dominio contado, D38) e o portao de consenso antes de cada rodada. video_com_o_guardado.py: as fontes YouTube pela regua VIDEO/v1 (D53) sobre as paginas /watch ja guardadas na Sala (so leitura, sha256 conferido), sem rede. mutacao*.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro. [onda3-pacote-v2: so A+C+D da v2; B inerte (DA-15/D67); sem a rota VIDEO]",
+   "why_here": "LEGACY-99 v1-v3 (25/09/2026): 99 READY_LEGACY promovidas pela regua antiga nunca voltavam (o re-check so olhava ELIGIBLE); em copia: 1/26 HTML (v1), 11/21 importadas do coletor (v2), 41 YouTube pela rota VIDEO (v3: 39 pelo guardado + 2 canais reais).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/legacy99/revalidar_em_rondas.py",
+    "ferramentas/legacy99v2/mutacao.py",
+    "ferramentas/legacy99v2/mutacao_ab.py"
    ]
   },
   {

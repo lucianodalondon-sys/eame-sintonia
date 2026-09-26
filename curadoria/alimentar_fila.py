@@ -32,6 +32,7 @@ sys.path.insert(0, str(RAIZ / "curadoria"))
 
 import fila as F          # noqa: E402
 import lifecycle as LC    # noqa: E402
+import retirar_por_decisao as RPD   # noqa: E402
 
 ALLOC = RAIZ / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json"
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
@@ -40,13 +41,18 @@ CARACT = RAIZ / "curadoria" / "SOURCE-CHARACTERIZATION-V1.json"
 
 def main() -> int:
     est = LC.snapshot()
-    contratos = {c["SOURCE_ID"] for c in
-                 json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
+    livro = {c["SOURCE_ID"]: c for c in
+             json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
+    # `contratos` continua a ser «tem contrato» (o passo 3 nao escreve contrato novo a quem ja
+    # tem um, retirado ou nao); `retiradas` e o que nao volta a ser trabalho (D52: a marca de
+    # catalogo da D9, lida por `retirar_por_decisao.retirada`).
+    contratos = set(livro)
+    retiradas = {s for s, c in livro.items() if RPD.retirada(c)}
     posto = {"REPAIR": 0, "REVALIDATE": 0, "BUILD_CONTRACT": 0}
 
     # 1. Degradadas — o reparo vem primeiro.
     for sid, e in est.items():
-        if e in (LC.DEGRADED, LC.REPAIRING):
+        if e in (LC.DEGRADED, LC.REPAIRING) and sid not in retiradas:
             F.enfileirar(sid, F.REPAIR, priority=80,
                          motivo="degradada — reparar e canariar de novo")
             posto["REPAIR"] += 1
@@ -54,7 +60,7 @@ def main() -> int:
     # 2. Canário falhou antes: a fonte respondeu, o padrão é que não serviu.
     #    Não é recusa definitiva — merece nova tentativa contra o site de hoje.
     for sid, e in est.items():
-        if e == LC.CONTRACTED_CANARY_FAILED and sid in contratos:
+        if e == LC.CONTRACTED_CANARY_FAILED and sid in contratos and sid not in retiradas:
             F.enfileirar(sid, F.REVALIDATE, priority=40,
                          motivo="canario falhou antes — remedir contra o site de hoje")
             posto["REVALIDATE"] += 1

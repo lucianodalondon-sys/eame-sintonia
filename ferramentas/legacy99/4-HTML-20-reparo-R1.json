@@ -1,0 +1,421 @@
+{
+ "DATASET": "LEGACY-99-REVALIDAR-EM-COPIA",
+ "MEDIDO_EM": "2026-09-25T10:07:21+00:00",
+ "COPIA": "C:\\rend\\copia-legacy",
+ "REDE": "ABERTA",
+ "MODO": "REPARAR",
+ "REMEDIR": [],
+ "RONDAS": [
+  {
+   "RONDA": 1,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T1-025",
+    "IT-T10-026",
+    "IT-T11-010",
+    "IT-T12-019",
+    "IT-T2-049",
+    "IT-T2-107",
+    "IT-T5-051",
+    "IT-T5-089",
+    "IT-T7-040",
+    "IT-T7-130",
+    "IT-T7-142",
+    "IT-T8-023"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "teatronaturale.it": 5,
+    "granariamilano.it": 3,
+    "regione.lombardia.it": 2,
+    "ersaf.lombardia.it": 3,
+    "arpa.sicilia.it": 5,
+    "arpae.it": 4,
+    "unirc.it": 5,
+    "isprambiente.gov.it": 4,
+    "parmigianoreggiano.it": 2,
+    "parmigianoreggiano.com": 5,
+    "cia.it": 3,
+    "ciaumbria.it": 4,
+    "edagricole.it": 5
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T1-025",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T1-025",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T1-025",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "RETRY"
+    },
+    {
+     "SOURCE_ID": "IT-T10-026",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T11-010",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T12-019",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "RETRY"
+    },
+    {
+     "SOURCE_ID": "IT-T2-049",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T2-107",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T5-051",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T1-025",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "RETRY"
+    },
+    {
+     "SOURCE_ID": "IT-T5-089",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T12-019",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "RETRY"
+    },
+    {
+     "SOURCE_ID": "IT-T7-040",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T7-040",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T7-040",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "RETRY"
+    },
+    {
+     "SOURCE_ID": "IT-T7-130",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T7-142",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T8-023",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T8-023",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "RESULTADO": "OK"
+    },
+    {
+     "SOURCE_ID": "IT-T8-023",
+     "TASK_TYPE": "CANARY",
+     "RESULTADO": "RETRY"
+    }
+   ]
+  },
+  {
+   "RONDA": 2,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T10-030",
+    "IT-T12-089",
+    "IT-T2-113",
+    "IT-T8-032"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "granariamilano.it": 2,
+    "regione.lombardia.it": 2,
+    "arpae.it": 3,
+    "edagricole.it": 1
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T10-030",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T12-089",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T2-113",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T8-032",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    }
+   ]
+  },
+  {
+   "RONDA": 3,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T10-035",
+    "IT-T2-114",
+    "IT-T8-048"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "granariamilano.it": 2,
+    "arpae.it": 3,
+    "edagricole.it": 2
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T10-035",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T2-114",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    },
+    {
+     "SOURCE_ID": "IT-T8-048",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    }
+   ]
+  },
+  {
+   "RONDA": 4,
+   "SAIU": true,
+   "FONTES": [
+    "IT-T2-115"
+   ],
+   "PEDIDOS_POR_DOMINIO": {
+    "arpae.it": 3
+   },
+   "PASSOS": [
+    {
+     "SOURCE_ID": "IT-T2-115",
+     "TASK_TYPE": "REPAIR_CONTRACT",
+     "RESULTADO": "FAIL"
+    }
+   ]
+  }
+ ],
+ "RECUSADOS_PELO_TRANSPORTE": {
+  "TETO_D38:teatronaturale.it": 2,
+  "TETO_D38:parmigianoreggiano.com": 1,
+  "TETO_D38:edagricole.it": 1
+ },
+ "RESUMO": {
+  "FALHOU": 20
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T1-025",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "RETRY_AFTER",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "adiada: documento inacessivel: URLError: <urlopen error TETO_D38: teatronaturale.it ja levou 5 pedidos nesta rodada>"
+  },
+  {
+   "SOURCE_ID": "IT-T10-026",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.granariamilano.it/comunicazione/regole-usi-consuetudini-pe -> MIXED/NAO_SEI, 744 em paragrafos (< 800 ou nao e materia)"
+  },
+  {
+   "SOURCE_ID": "IT-T10-030",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.granariamilano.it/newsletter/febbraio-2026/ -> MIXED/NAO_SEI, 172 em paragrafos (< 800 ou nao e materia)"
+  },
+  {
+   "SOURCE_ID": "IT-T10-035",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.granariamilano.it/comunicazione/regole-usi-consuetudini-pe -> MIXED/NAO_SEI, 744 em paragrafos (< 800 ou nao e materia)"
+  },
+  {
+   "SOURCE_ID": "IT-T11-010",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto"
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "RETRY_AFTER",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "adiada: excecao na etapa REPAIR_CONTRACT: ValueError: Invalid IPv6 URL"
+  },
+  {
+   "SOURCE_ID": "IT-T12-089",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ENTRADA_E_MATERIA — a entrada e UMA noticia (item no fim do caminho, 22812 caracteres em paragrafos): nao e uma fonte, e os links dela sao de outra"
+  },
+  {
+   "SOURCE_ID": "IT-T2-049",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arpa.sicilia.it/2026/08/10/ -> MIXED/NAO_SEI, 53 em paragrafos (< 800 ou nao e materia); https://www.arpa.sicilia.it/temi-ambientali/aria/bollettino-q"
+  },
+  {
+   "SOURCE_ID": "IT-T2-107",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arpae.it/it/notizie/30-anni-per-l-ambiente -> DUPLICADA de IT-T2-051; https://www.arpae.it/it/notizie/30-anni-per-l-ambiente -> DUPLICADA de IT-T2-051"
+  },
+  {
+   "SOURCE_ID": "IT-T2-113",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arpae.it/it/notizie/30-anni-per-l-ambiente -> DUPLICADA de IT-T2-051; https://www.arpae.it/it/notizie/30-anni-per-l-ambiente -> DUPLICADA de IT-T2-051"
+  },
+  {
+   "SOURCE_ID": "IT-T2-114",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arpae.it/it/notizie/30-anni-per-l-ambiente -> DUPLICADA de IT-T2-051; https://www.arpae.it/it/notizie/30-anni-per-l-ambiente -> DUPLICADA de IT-T2-051"
+  },
+  {
+   "SOURCE_ID": "IT-T2-115",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arpae.it/it/notizie/30-anni-per-l-ambiente -> DUPLICADA de IT-T2-051; https://www.arpae.it/it/notizie/30-anni-per-l-ambiente -> DUPLICADA de IT-T2-051"
+  },
+  {
+   "SOURCE_ID": "IT-T5-051",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.unirc.it/ateneo/albo-online -> FAMILIA_E_MENU: 14 dos 14 enderecos da familia repetem-se de; https://www.unirc.it/node/19 -> NAVIGATION/CAPA_PROVAVEL,"
+  },
+  {
+   "SOURCE_ID": "IT-T5-089",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.isprambiente.gov.it/it/news/29a-conferenza-internazionale- -> MIXED/NAO_SEI, 1137 em paragrafos (< 800 ou nao e materia); https://www.isprambiente.gov"
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "RETRY_AFTER",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "adiada: documento inacessivel: URLError: <urlopen error TETO_D38: parmigianoreggiano.com ja levou 5 pedidos nesta rodada>"
+  },
+  {
+   "SOURCE_ID": "IT-T7-130",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://biocontrollo.cia.it/esperienze2/biocontrollo-su-vite-i-benefic -> NAVIGATION/CAPA_PROVAVEL, 17 em paragrafos (< 800 ou nao e m"
+  },
+  {
+   "SOURCE_ID": "IT-T7-142",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — http://www.ciaumbria.it/index.php/component/banners/click/11 -> item nao abriu: URLError: <urlopen error [Errno 11001] getad; http://www.ciaumbria.it/index.php/co"
+  },
+  {
+   "SOURCE_ID": "IT-T8-023",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "RETRY_AFTER",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "adiada: documento inacessivel: URLError: <urlopen error TETO_D38: edagricole.it ja levou 5 pedidos nesta rodada>"
+  },
+  {
+   "SOURCE_ID": "IT-T8-032",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ENTRADA_E_MATERIA — a entrada e UMA noticia (item no fim do caminho, 4281 caracteres em paragrafos): nao e uma fonte, e os links dela sao de outra"
+  },
+  {
+   "SOURCE_ID": "IT-T8-048",
+   "ANTES": "ESTADO_NAO_READY",
+   "RESULTADO": "FALHOU",
+   "ESTADO": "CONTRACTED_CANARY_FAILED",
+   "REGUA": "LEGACY",
+   "MOTIVO_DO_PORTAO": "ESTADO_NAO_READY",
+   "ULTIMA_RAZAO": "REPARO_RECUSADO: ENTRADA_E_MATERIA — a entrada e UMA noticia (item no fim do caminho, 7909 caracteres em paragrafos): nao e uma fonte, e os links dela sao de outra"
+  }
+ ]
+}
