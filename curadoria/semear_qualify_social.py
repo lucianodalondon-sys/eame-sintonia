@@ -3,6 +3,12 @@
     py curadoria/semear_qualify_social.py                     # só mostra quantas e quais
     py curadoria/semear_qualify_social.py --aplicar --copia   # numa cópia
     py curadoria/semear_qualify_social.py --aplicar --vivo    # no vivo, SÓ com o bot parado (PARAR.flag)
+    ... --candidatas CAND-0118,CAND-0133                      # só estas (o lote de uma missão)
+
+`--candidatas` (SOCIAL-QUALIFICAR, 25/09): semear SÓ o lote que a missão nomeia. Sem ele entram
+todas as elegíveis — 40 LinkedIn e 64 YouTube no livro de 25/09 23:43, e entre os canais há
+contas que já são fonte no vivo por outro endereço. Uma candidata pedida que NÃO é elegível
+não entra, e diz-se qual (nunca se semeia à força).
 
 PORQUE ISTO EXISTE (medido no LI-ONDA, 24/09): a ponte (`ponte_candidatas.POLITICA`)
 marca toda candidata LinkedIn POLICY_BLOCK e NUNCA lhe enfileira QUALIFY (D15). A D23
@@ -59,8 +65,16 @@ def main() -> int:
     ap.add_argument("--copia", action="store_true")
     ap.add_argument("--vivo", action="store_true")
     ap.add_argument("--tipo", choices=("LINKEDIN", "YOUTUBE"), default="LINKEDIN")
+    ap.add_argument("--candidatas", help="CAND-ids separados por virgula: semear so estas")
     a = ap.parse_args()
     lista = elegiveis(a.tipo)
+    if a.candidatas:
+        pedidas = [x.strip() for x in a.candidatas.split(",") if x.strip()]
+        ids = {c["CANDIDATA_ID"] for c in lista}
+        fora = [x for x in pedidas if x not in ids]
+        if fora:
+            print("PEDIDAS E NAO ELEGIVEIS (nao entram): %s" % ", ".join(fora))
+        lista = [c for c in lista if c["CANDIDATA_ID"] in set(pedidas)]
     print("candidatas %s com identidade provada e sem SOURCE_ID: %d" % (a.tipo, len(lista)))
     if not a.aplicar:
         for c in lista:
