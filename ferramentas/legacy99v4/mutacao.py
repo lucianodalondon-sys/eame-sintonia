@@ -17,7 +17,8 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[2]
 TESTES = ["tests.test_legacy_colchetes", "tests.test_importar_do_coletor", "tests.test_legacy_recheck",
           "tests.test_onboardar_rotas_provadas", "tests.test_youtube_pelo_scrap", "tests.test_rota_video_d53",
-          "tests.test_d36_envelope_equivalente", "curadoria.test_regua_social"]
+          "tests.test_d36_envelope_equivalente", "curadoria.test_regua_social",
+          "tests.test_onda3_b_inerte"]
 CAN, IMP = "curadoria/canario.py", "curadoria/importar_do_coletor.py"
 GD, SUP, RG = "curadoria/gatilho_discovery.py", "curadoria/supervisor.py", "curadoria/regua_social.py"
 MUTANTES = [
