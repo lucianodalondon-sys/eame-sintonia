@@ -1,5 +1,5 @@
 {
- "SHA256_ANTES": "645ffeda41778b8504172de5a3ff7d82f3c3bb54c114d04f870c4e4232c9af3d",
+ "SHA256_ANTES": "12e3da68345f3918ce63f1bc6dde4d8e944d966c71819ffc478d7ef33bdf0645",
  "LIMPO": {
   "RC": 0,
   "FALHAS": []
@@ -18,6 +18,8 @@
    "TESTES_QUE_APANHARAM": [
     "test_atribuicao_provada",
     "test_citacao_reescrita",
+    "test_especie_inventada",
+    "test_fala_da_pessoa_sem_especie",
     "test_influenciador_com_papel",
     "test_instituicao_com_speaker",
     "test_interpretacao_sem_assinatura",
@@ -73,10 +75,25 @@
    ]
   },
   {
-   "MUTANTE": "M08 traducao automatica nao detectada",
+   "MUTANTE": "M08 suspeita de traducao nao detectada",
    "ESTADO": "MORTO",
    "TESTES_QUE_APANHARAM": [
-    "test_titulo_frances_legenda_inglesa_e_provavel_traducao"
+    "test_titulo_frances_legenda_inglesa_e_suspeita_e_nao_carimbo"
+   ]
+  },
+  {
+   "MUTANTE": "M19 rotulo do dataset carimbado como especie original",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_citacao_e_pedaco_curto_marcado"
+   ]
+  },
+  {
+   "MUTANTE": "M20 suspeita promovida a fala da pessoa",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_citacao_e_pedaco_curto_marcado",
+    "test_toda_voz_cumpre_o_contrato"
    ]
   },
   {
@@ -162,7 +179,7 @@
    ]
   }
  ],
- "SHA256_DEPOIS": "645ffeda41778b8504172de5a3ff7d82f3c3bb54c114d04f870c4e4232c9af3d",
+ "SHA256_DEPOIS": "12e3da68345f3918ce63f1bc6dde4d8e944d966c71819ffc478d7ef33bdf0645",
  "REPOSTO_IGUAL": true,
- "PLACAR": "18/18 mortos"
+ "PLACAR": "20/20 mortos"
 }

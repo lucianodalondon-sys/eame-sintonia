@@ -1708,6 +1708,42 @@
    "icon": "⚙"
   },
   {
+   "id": "C-VOCI-DAL-CAMPO",
+   "name": "Voci dal Campo — o extrator de voz (ferramenta n.3 do casco)",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "what": "Le um transcrito JA feito (video, webinar, podcast, entrevista) e devolve o item Voce: SPEAKER_ID, papel com o trecho que o prova (agronomo, tecnico, investigador, agricultor=T8, influenciador), organizacao, citacao EXACTA com posicao, cultura, problema, FACT_TIME e FACT_LOCATION do relato. Separa pessoa de instituicao (quem publica nunca e o falante), papel de expertise, citacao de interpretacao, lugar da pessoa de lugar do facto e publicacao de facto. Funcao pura: sem rede, sem login, sem perfil; o contrato (validar_voce) reprova cada violacao.",
+   "why_here": "CAP-FIELD da Biblia (§34): observacao humana de campo sem a promover a incidencia. Nao tem vocabulario proprio: cultura/problema vem de motor/matriz_recorte.py, lugar/tempo italianos de leis/fato_local.py, especie do texto (original/traducao/ASR) de regras/proveniencia.py.",
+   "departments": [
+    "INTELIGENCIA",
+    "DESENVOLVIMENTO_MERCADO"
+   ],
+   "files": [
+    "motor/voce_dal_campo.py"
+   ],
+   "views": [],
+   "icon": "⚙"
+  },
+  {
+   "id": "C-PROVA-VOCI-DAL-CAMPO",
+   "name": "Prova do extrator de voz (VOCI-DAL-CAMPO)",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Medida do extrator sobre os 47 transcritos versionados (0 violacoes do contrato), testes por nome antes/depois com rede fechada, e a prova de mutacao que planta um defeito de cada vez no extrator e no validador e exige que a suite o apanhe.",
+   "why_here": "Um extrator que ninguem tentou enganar nao esta provado. Os ficheiros desta pasta repetem a prova sem rede e sem banco.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/voci_dal_campo/*"
+   ]
+  },
+  {
    "id": "C-V21-OPORTUNIDADE",
    "name": "Motor de Oportunidade",
    "territory": "Z-MOTOR",
