@@ -48,9 +48,9 @@ Cada campo leva o **seu** estado e a sua fonte.
 Não criei SOURCE_ID novo: o rótulo é documento do `IT-T4-001` (Bíblia § 28).
 
 **Provas** — `provas/medir_rotulo_t4_nos_163.py` (mede os 163 reais, confere sha256
-antes de ler) → `medidas/ROTULO-T4-MEDIDA-163.json`;
+antes de ler) → `provas/rotulo-t4/MEDIDA-163.json`;
 `provas/amostra_doses_rotulo_t4.py` (sorteio reprodutível) →
-`medidas/ROTULO-T4-AMOSTRA-DOSES-S20260926.txt`.
+`provas/rotulo-t4/AMOSTRA-DOSES-S20260926.txt`.
 
 **Mapa** — ficheiros novos declarados na peça `C-ROTULOS`
 (`system-map/data/architecture.declared.json`).
@@ -89,7 +89,7 @@ antes de ler) → `medidas/ROTULO-T4-MEDIDA-163.json`;
    e conferi contra o texto: **12 de 12 falsos**. Pelo mesmo
    número (2.030) é provável que estejam em `referencia/adama/AUTHORIZED-USES.json`
    e no portal — **não conferido**. Lista completa em
-   `medidas/ROTULO-T4-MEDIDA-163.json` → `PARES_PUBLICADOS_PELO_VAZAMENTO`.
+   `provas/rotulo-t4/MEDIDA-163.json` → `PARES_PUBLICADOS_PELO_VAZAMENTO`.
 2. **Adjuvante lido como alvo.** No OLIONET (014386) a tabela é de parceiros de
    mistura; o parser lê o nome do herbicida parceiro como «alvo». Não consertado.
 3. **Efeito colateral da suíte antiga**: a bateria reescreve

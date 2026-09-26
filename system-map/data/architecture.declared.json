@@ -1540,14 +1540,31 @@
     "coleta/ropf_pre_requisito.py",
     "coleta/rotulos_baixar.py",
     "coleta/rotulos_ler.py",
-    "coleta/rotulo_t4_it.py",
-    "provas/medir_rotulo_t4_nos_163.py",
-    "provas/amostra_doses_rotulo_t4.py",
-    "medidas/ROTULO-T4-MEDIDA-163.json",
-    "medidas/ROTULO-T4-AMOSTRA-DOSES-S20260926.txt"
+    "coleta/rotulo_t4_it.py"
    ],
    "views": [],
    "icon": "⚙"
+  },
+  {
+   "id": "C-PROVA-ROTULOS-T4",
+   "name": "A prova do rotulo T4 — os 163 rotulos reais, medidos",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊟",
+   "views": [
+    "audit"
+   ],
+   "what": "Corre o parser canonico do rotulo italiano nos 163 PDFs da ADAMA (cada um conferido pelo sha256 do manifesto) e conta cada degrau: abre, e deste registo, tem linha de uso, tem dose. Sorteia doses para leitura humana com semente fixa. Aponta os pares ja publicados que so existem porque o bloco de prosa invadia a cultura seguinte.",
+   "why_here": "Os PDFs nao estao no Git; sem esta medida o parser so teria sido provado em frases soltas e em rotulos sinteticos. Foi ela que mostrou que o texto com colunas punha o alvo na cultura errada, que o volume de agua passava por dose, e que 156 de 556 pares publicados de bloco sem titulo eram falsos.",
+   "departments": [
+    "REGULATORIO_PORTFOLIO"
+   ],
+   "files": [
+    "provas/medir_rotulo_t4_nos_163.py",
+    "provas/amostra_doses_rotulo_t4.py",
+    "provas/rotulo-t4/MEDIDA-163.json",
+    "provas/rotulo-t4/AMOSTRA-DOSES-S20260926.txt"
+   ]
   },
   {
    "id": "C-V2-LEGADO",

@@ -10,7 +10,7 @@ Inventar outro ID seria a proibição `INTELLIGENCE MUST NOT FABRICATE SOURCE_ID
 (Bíblia § 28). Aqui fica só o que é próprio do **documento rótulo**.
 
 O parser é [`coleta/rotulo_t4_it.py`](../../coleta/rotulo_t4_it.py). A medida nos
-163 rótulos reais é [`medidas/ROTULO-T4-MEDIDA-163.json`](../../medidas/ROTULO-T4-MEDIDA-163.json).
+163 rótulos reais é [`provas/rotulo-t4/MEDIDA-163.json`](../../provas/rotulo-t4/MEDIDA-163.json).
 
 ---
 
