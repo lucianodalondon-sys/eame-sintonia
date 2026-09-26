@@ -1,6 +1,6 @@
 # RELATÓRIO — ROTULOS-T4 (ramo `nuvem-rotulos-t4-v1`)
 
-**Data:** 2026-09-26 · **Base:** vivo `278cd489` (começou sobre `69b0e23f`) · **Missão:** `C:/nuvem/prompts/nuvem-rotulos-t4-v1.txt`
+**Data:** 2026-09-26 · **Base:** vivo `dc0de726` (começou sobre `69b0e23f`; rebase para `278cd489` às 14:00 e para `dc0de726` às 17:35) · **Missão:** `C:/nuvem/prompts/nuvem-rotulos-t4-v1.txt`
 
 Alimenta Portafoglio e Label Intelligence (Bíblia § 34, `CAP-PORT` e `CAP-LABEL`):
 a chave produto × cultura × alvo, com dose, época, restrição e versão do documento.
@@ -124,6 +124,10 @@ REAL do repo ou SINTETICO marcado.
 - Os 44 testes novos (`test_rotulo_t4_it`) passam.
 - A bateria reescreve `data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json` (efeito
   colateral antigo, também na base). Reposto depois de guardar a diferença.
+- **Depois do rebase para `dc0de726` (17:35)** não repeti a bateria inteira (~3 h de
+  trava). O único teste que muda entre `278cd489` e `dc0de726` é `test_rodadas.py`;
+  corri-o nos dois lados: 38/38 em `dc0de726` e 38/38 neste ramo. `test_rotulo_t4_it`
+  44/44 depois do rebase. O resto da comparação por nome vale contra `278cd489`.
 - Uma primeira base contra `69b0e23f` foi descartada quando a coordenação mudou o
   vivo para `278cd489` (14:00) e pediu o rebase.
 
@@ -149,7 +153,7 @@ teste novo — não se enfraqueceu teste nenhum.
 
 ## 8. SHA
 
-Base: vivo `278cd489` (rebase pedido pela coordenação às 14:00). O SHA final é o
+Base: vivo `dc0de726` (rebases pedidos pela coordenação às 14:00 e às 17:35). O SHA final é o
 do commit do mapa regerado e vai na mensagem de entrega — um commit não pode
 conhecer o próprio SHA (AGENTS.md). Cadeia, validação, carimbo e o M5 re-corrido
 depois dela também vão na entrega.
