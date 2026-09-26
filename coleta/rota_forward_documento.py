@@ -462,7 +462,7 @@ def _texto_derivado(recibo_deriv, armazem):
     return dados.decode('utf-8', errors='replace'), caminho
 
 
-def levar_a_espera(banco, *, unidade, decisao, run_id, tentativa=None):
+def levar_a_espera(banco, *, unidade, decisao, run_id, tentativa=None, armazem=None):
     """READY — a unidade admitida pousa na Sala de Espera, e so entao se conta.
 
     ⚠️ A ORDEM E A PROVA, E ELA E A MESMA DO RAW.
@@ -500,7 +500,12 @@ def levar_a_espera(banco, *, unidade, decisao, run_id, tentativa=None):
     pronta = admissao.pronto_para_inteligencia(item_para_a_porta(unidade),
                                                decisao)
     try:
-        recibo = espera.pousar(run_id, [pronta])
+        # D79 (DEDUP-PARA-INSTALAR): quem pousa entrega ao decisor de versoes o armazem
+        # (para ler o RAW anterior) e os extratores (para o re-extrair). Sem eles, «o
+        # extrator mudou» e sempre NAO SEI. Import tardio: so quem pousa o carrega.
+        from coleta.extratores_de_texto import registo as _extratores
+        recibo = espera.pousar(run_id, [pronta], armazem=armazem,
+                               extratores=_extratores())
     except Exception as erro:
         # ⚠️ NAO POUSOU, ENTAO NAO HA READY. Um conflito de corrida sai por
         # aqui, e sai com o nome dele — nao como sucesso parcial.
@@ -614,7 +619,7 @@ def atravessar(banco, *, unidade, run_id, armazem, memoria, canal_id,
     # A Collection termina na espera. Quem a le e a Inteligencia, e isso e
     # outra missao — zero consumidores neste estagio e o estado CERTO.
     espera_ = levar_a_espera(banco, unidade=a_frente, decisao=decisao,
-                             run_id=run_id)
+                             run_id=run_id, armazem=armazem)
     return {'DERIVED': recibo_d, 'STRUCTURED': recibo_s, 'ADMISSION': decisao,
             'READY': espera_, 'TEXTO_VEIO_DE': caminho}
 

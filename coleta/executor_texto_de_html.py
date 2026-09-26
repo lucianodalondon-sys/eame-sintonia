@@ -85,7 +85,15 @@ from coleta.texto_fonte import limpar  # noqa: E402 — O DONO ÚNICO DA EXTRAÇ
 
 # ── A FICHA DE CAPACIDADE ───────────────────────────────────────────────────
 EXECUTOR_ID = "texto-de-html"
-EXECUTOR_VERSION = "1"
+# ⚠️ "2" DESDE 26/09 (DEDUP-PARA-INSTALAR). Medido na Sala real: os derivados
+# 66 (20/09) e 1060 (25/09) da IT-T9-011 dizem os dois `texto-de-html` "1",
+# mas o 66 nasceu SEM parametros e o 1060 COM a receita de `receita()` (ligada
+# em f0c6ea6f, 21/09). A receita mudou e a versao nao: "1" nomeava duas
+# derivacoes diferentes. `tests/test_a_receita_tem_versao.py` reprova quem
+# voltar a mudar a receita sem subir isto.
+#
+#     RECEITA NOVA = VERSAO NOVA.
+EXECUTOR_VERSION = "2"
 PIPELINE_VERSION = "1"
 
 #: As espécies exactas que esta ponte abre.
@@ -701,6 +709,22 @@ def evidencia_relativa(r: dict) -> dict:
             "RELATIVE_TIME_BASIS": "%s «%s»" % (r["BASE"], r["EXPRESSAO"])}
 
 
+def receita():
+    """Os PARAMETROS da derivacao — a receita que a 022 guarda no `parameters_hash`.
+
+    Um so sitio: `derivar_um` usa-a para escrever e `coleta/extratores_de_texto.py`
+    para re-extrair (D79). Mudar isto sem subir `EXECUTOR_VERSION` reprova em
+    `tests/test_a_receita_tem_versao.py`.
+    """
+    return {
+        "TEXT_KIND": TEXT_KIND,
+        "TEXT_RELATION": TEXT_RELATION,
+        "TEXT_BASIS": TEXT_BASIS,
+        "DERIVATION_METHOD": METODO,
+        "TEXT_OWNER": CAPACIDADE["TEXT_OWNER"],
+    }
+
+
 def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,
                contexto_da_passagem=None) -> dict:
     """Um HTML, um pai canónico, um texto — pelo dono da escrita.
@@ -765,13 +789,7 @@ def derivar_um(raw_asset_id, html, armazem, memoria, relogio=None,
     # primeira linha em vez de escrever uma segunda.
     #
     #     O QUE VARIA ENTRE DUAS CORRIDAS IGUAIS NÃO É IDENTIDADE: É MEDIDA.
-    parametros = {
-        "TEXT_KIND": TEXT_KIND,
-        "TEXT_RELATION": TEXT_RELATION,
-        "TEXT_BASIS": TEXT_BASIS,
-        "DERIVATION_METHOD": METODO,
-        "TEXT_OWNER": CAPACIDADE["TEXT_OWNER"],
-    }
+    parametros = receita()
 
     # ── A UNIDADE DE TEXTO, MONTADA E CONFERIDA PELO DONO ───────────────────
     # O construtor e o validador vêm de `regras/proveniencia.py`, e correm
