@@ -44,8 +44,10 @@ AS SEPARACOES, UMA POR UMA, E ONDE CADA UMA MORA NESTE FICHEIRO
   PUBLICACAO != FACTO      PUBLISHED_AT nunca preenche FACT_TIME. «hoje», «este ano», «ieri»
                            ficam NAO SEI: a data em que a pessoa FALOU nao esta provada (um webinar
                            vai para o ar semanas depois), e sem ela nao ha conta a fazer.
-  ORIGINAL != TRADUCAO     a legenda da plataforma pode ser traducao automatica. Titulo numa lingua
-                           e transcrito noutra = PROVAVEL_TRADUCAO: a frase NAO e a fala da pessoa.
+  ORIGINAL != TRADUCAO     a ESPECIE do texto e de `regras/proveniencia.py` e so ela carimba:
+                           QUOTE_IS_SPEAKERS_WORDS = SIM so com especie que sustenta o original (ASR
+                           local, legenda original declarada). Titulo numa lingua e transcrito noutra
+                           e SUSPEITA (QUOTE_TRANSLATION_SUSPECT = YES), nunca especie.
   VOZ != INCIDENCIA        (CAP-FIELD) sem metodo e sem denominador, uma voz nunca mede pressao.
 
 QUEM LE O QUE — um conceito, um dono (INT-LAW-000)
@@ -75,11 +77,12 @@ import sys
 import unicodedata
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-for _p in (RAIZ, os.path.join(RAIZ, 'motor'), os.path.join(RAIZ, 'leis')):
+for _p in (RAIZ, os.path.join(RAIZ, 'motor'), os.path.join(RAIZ, 'leis'), os.path.join(RAIZ, 'regras')):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
 import matriz_recorte as MR  # noqa: E402  dono do vocabulario de cultura e problema
+import proveniencia as PV    # noqa: E402  dono da especie do texto (original / traduzido / ASR local)
 import fato_local as FL      # noqa: E402  dono do leitor italiano de lugar e tempo
 
 NAO_SEI = 'NAO SEI'
@@ -104,9 +107,10 @@ AGRONOMO, TECNICO, INVESTIGADOR, AGRICULTOR, INFLUENCIADOR = (
 PAPEIS = (AGRONOMO, TECNICO, INVESTIGADOR, AGRICULTOR, INFLUENCIADOR, NAO_SEI)
 AUTO, TERCEIRO = 'AUTO_DECLARADO', 'DECLARADO_POR_TERCEIRO'
 RELATO, AFIRMACAO, RECOMENDACAO = 'RELATO_EM_PRIMEIRA_PESSOA', 'AFIRMACAO_GERAL', 'RECOMENDACAO'
-ORIG_AUDIO = 'TRANSCRICAO_DO_AUDIO'
-ORIG_DATASET = 'DECLARADA_ORIGINAL_PELO_DATASET'
-ORIG_TRADUCAO = 'PROVAVEL_TRADUCAO'
+# A ESPECIE do texto (legenda original, traduzida, ASR local, NAO SEI) tem dono: `regras/proveniencia.py`.
+# Aqui so se PERGUNTA. A comparacao titulo x transcrito e uma SUSPEITA e vive em campo proprio
+# (QUOTE_TRANSLATION_SUSPECT): «QUEM INFERE PODE SUSPEITAR. QUEM INFERE NAO PODE CARIMBAR» (C6).
+SUSPEITA_SIM, SUSPEITA_NAO, SUSPEITA_NAO_SEI = 'YES', 'NO', 'UNKNOWN'
 
 # ── lingua: contagem de palavras funcionais (declarada como tal, nao e um detector) ───────
 # Palavras que SO uma das quatro linguas usa (as partilhadas — «de», «la», «en», «in» — ficam de fora).
@@ -595,21 +599,27 @@ def _lugar(frase: str, lang: str, especie: str, orgs: set, so_nomes_conhecidos: 
 
 # ── o documento ─────────────────────────────────────────────────────────────────────────
 def documento(texto, *, source_id=None, external_id=None, url=None, platform=None, channel=None, title=None,
-              published_at=None, origem_do_texto=None, lingua_declarada=None, segmentos=None) -> dict:
+              published_at=None, especie=None, especie_base=None, rotulo_do_dataset=None, lingua_declarada=None,
+              segmentos=None) -> dict:
     """O envelope de UM transcrito. Nada aqui e inventado: o que o chamador nao traz fica NAO SEI.
 
-    origem_do_texto: ORIG_AUDIO (ASR local sobre o audio) · ORIG_DATASET (o dataset declara ORIGINAL
-    e TRANSLATION separados) · None (legenda da plataforma sem lingua declarada)."""
+    especie/especie_base: do vocabulario de `regras/proveniencia.py` — PV.ASR_LOCAL com PV.PRODUCED_BY_LOCAL_ASR
+    para o que `ferramentas/fala_local.py` transcreveu; o que o PROVEDOR declarou via `PV.especie_declarada`;
+    omitido = PV.NAO_SEI / PV.NOT_DECLARED (o silencio da rota e uma medicao sobre ela).
+    rotulo_do_dataset: o que o nosso proprio ficheiro chama ao campo (ex.: «TRANSCRIPT_ORIGINAL»). Fica como
+    evidencia, NUNCA vira especie: um nome de campo nao e declaracao do provedor."""
     texto = texto if isinstance(texto, str) else ''
     lt = lingua(texto)
     ltit = lingua(title or '', minimo=2)
-    if origem_do_texto in (ORIG_AUDIO, ORIG_DATASET):
-        originalidade, porque = origem_do_texto, 'declarada por quem produziu o texto'
-    elif ltit not in (NAO_SEI, lt) and lt != NAO_SEI:
-        originalidade = ORIG_TRADUCAO
-        porque = 'titulo em «%s» e transcrito em «%s»: a legenda e provavelmente traducao automatica' % (ltit, lt)
+    if especie is None:
+        especie, especie_base = PV.NAO_SEI, PV.NOT_DECLARED
+    if NAO_SEI in (lt, ltit):
+        suspeita, porque = SUSPEITA_NAO_SEI, 'sem lingua lida no titulo ou no transcrito'
+    elif lt != ltit:
+        suspeita = SUSPEITA_SIM
+        porque = 'titulo em «%s» e transcrito em «%s» — SUSPEITA, nao especie' % (ltit, lt)
     else:
-        originalidade, porque = NAO_SEI, 'a rota da legenda nao declara se e a lingua falada ou uma traducao'
+        suspeita, porque = SUSPEITA_NAO, 'titulo e transcrito na mesma lingua («%s») — nao prova original' % lt
     return {
         'SOURCE_ID': source_id or NAO_SEI, 'EXTERNAL_ID': external_id or NAO_SEI, 'URL': url or NAO_SEI,
         'PLATFORM': platform or NAO_SEI, 'PUBLISHER': channel or NAO_SEI, 'TITLE': title or NAO_SEI,
@@ -617,7 +627,12 @@ def documento(texto, *, source_id=None, external_id=None, url=None, platform=Non
         'TEXT': texto, 'TEXT_SHA1': hashlib.sha1(texto.encode('utf-8')).hexdigest(),
         'TEXT_LANGUAGE': lingua_declarada or lt,
         'TEXT_LANGUAGE_BASIS': 'DECLARADA' if lingua_declarada else 'CONTAGEM_DE_PALAVRAS_FUNCIONAIS',
-        'TITLE_LANGUAGE': ltit, 'QUOTE_ORIGINALITY': originalidade, 'QUOTE_ORIGINALITY_WHY': porque,
+        'TITLE_LANGUAGE': ltit,
+        'TEXT_KIND': especie, 'TEXT_KIND_BASIS': especie_base or PV.NOT_DECLARED,
+        'TEXT_KIND_OWNER': 'regras/proveniencia.py',
+        'DATASET_FIELD_LABEL': rotulo_do_dataset or NAO_SEI,
+        'QUOTE_IS_SPEAKERS_WORDS': 'SIM' if PV.serve_para_original(especie) else 'NAO_PROVADO',
+        'QUOTE_TRANSLATION_SUSPECT': suspeita, 'QUOTE_TRANSLATION_SUSPECT_BASIS': porque,
         'SEGMENTS': segmentos or [],
     }
 
@@ -755,7 +770,11 @@ def extrair(doc: dict) -> dict:
             'QUOTE_BOUNDARY': tipo_da_frase[(a, b)],
             'QUOTE_T_S': _tempo_do_segmento(doc, a),
             'QUOTE_LANGUAGE': doc['TEXT_LANGUAGE'],
-            'QUOTE_ORIGINALITY': doc['QUOTE_ORIGINALITY'], 'QUOTE_ORIGINALITY_WHY': doc['QUOTE_ORIGINALITY_WHY'],
+            'TEXT_KIND': doc['TEXT_KIND'], 'TEXT_KIND_BASIS': doc['TEXT_KIND_BASIS'],
+            'DATASET_FIELD_LABEL': doc['DATASET_FIELD_LABEL'],
+            'QUOTE_IS_SPEAKERS_WORDS': doc['QUOTE_IS_SPEAKERS_WORDS'],
+            'QUOTE_TRANSLATION_SUSPECT': doc['QUOTE_TRANSLATION_SUSPECT'],
+            'QUOTE_TRANSLATION_SUSPECT_BASIS': doc['QUOTE_TRANSLATION_SUSPECT_BASIS'],
             'STATEMENT_KIND': especie,
             'CROP': culturas[0]['CANONICAL'] if culturas else NAO_SEI, 'CROP_MATCHES': culturas,
             'ISSUE': problemas[0]['CANONICAL'] if problemas else NAO_SEI, 'ISSUE_MATCHES': problemas,
@@ -784,7 +803,7 @@ CAMPOS_OBRIGATORIOS = (
     'VOICE_ID', 'RULE_VERSION', 'SOURCE_ID', 'EXTERNAL_ID', 'PUBLISHER', 'PUBLISHED_AT',
     'SPEAKER_ID', 'SPEAKER_KIND', 'SPEAKER_NAME', 'ATTRIBUTION_STATE', 'ROLE', 'ROLE_STATE', 'ROLE_EVIDENCE',
     'EXPERTISE_TEMATICA', 'UNIVERSO_DO_PAPEL', 'ORGANIZATION', 'SPEAKER_PLACE',
-    'QUOTE_ORIGINAL', 'QUOTE_POS_START', 'QUOTE_POS_END', 'QUOTE_ORIGINALITY', 'STATEMENT_KIND',
+    'QUOTE_ORIGINAL', 'QUOTE_POS_START', 'QUOTE_POS_END', 'TEXT_KIND', 'QUOTE_IS_SPEAKERS_WORDS', 'STATEMENT_KIND',
     'CROP', 'ISSUE', 'FACT_TIME', 'FACT_TIME_BASIS', 'FACT_LOCATION', 'FACT_LOCATION_BASIS',
     'INTERPRETACAO', 'WHAT_IT_PROVES', 'WHAT_IT_DOES_NOT_PROVE',
 )
@@ -804,6 +823,10 @@ def validar_voce(v: dict, doc: dict) -> list:
     if v['INTERPRETACAO'].get('AUTOR') != AUTOR_DA_INTERPRETACAO or v['INTERPRETACAO'].get('LEITURA', '') in \
             v['QUOTE_ORIGINAL']:
         erros.append('INTERPRETACAO_SEM_ASSINATURA_OU_DENTRO_DA_CITACAO')
+    if v['TEXT_KIND'] not in PV.ESPECIES_DO_TEXTO:
+        erros.append('ESPECIE_DO_TEXTO_FORA_DO_DONO: %s' % v['TEXT_KIND'])
+    if v['QUOTE_IS_SPEAKERS_WORDS'] == 'SIM' and not PV.serve_para_original(v['TEXT_KIND']):
+        erros.append('FALA_DA_PESSOA_SEM_ESPECIE_QUE_A_SUSTENTE')
     if v['ROLE'] not in PAPEIS:
         erros.append('PAPEL_FORA_DO_VOCABULARIO: %s' % v['ROLE'])
     if v['ROLE'] not in (NAO_SEI, INFLUENCIADOR):
@@ -859,7 +882,7 @@ def documentos_do_repo(raiz: str = RAIZ) -> list:
                                   external_id=t.get('EXTERNAL_ID'), url=t.get('URL'), platform=t.get('PLATFORM'),
                                   channel=t.get('CHANNEL_NAME'), title=t.get('TITLE'),
                                   published_at=t.get('PUBLICATION_DATE'),
-                                  origem_do_texto=ORIG_DATASET if t.get('TRANSLATION') is None else None))
+                                  rotulo_do_dataset='TRANSCRIPT_ORIGINAL (a rota nao declarou a lingua)'))
     meta = {}
     for f in sorted(glob.glob(os.path.join(raiz, 'data', 'samples', 'SENSOR-PILOT', 'VIDEOS-*.json'))):
         for it in _ler(f).get('ITEMS', []):
@@ -884,7 +907,8 @@ def documentos_do_repo(raiz: str = RAIZ) -> list:
             docs.append(documento(it['TRANSCRIPT_TEXT'], source_id=d.get('SOURCE_ID'), external_id=r.get('POST_ID'),
                                   url=r.get('SOURCE_URL'), platform=r.get('PLATFORM'), channel=r.get('ACCOUNT_NAME'),
                                   title=r.get('TITLE'), published_at=(r.get('PUBLISHED_AT') or '')[:10] or None,
-                                  origem_do_texto=ORIG_AUDIO, segmentos=it.get('SEGMENTS'),
+                                  especie=PV.ASR_LOCAL, especie_base=PV.PRODUCED_BY_LOCAL_ASR,
+                                  segmentos=it.get('SEGMENTS'),
                                   lingua_declarada=it.get('LANGUAGE') if it.get('LANGUAGE_SOURCE') == 'DECLARED'
                                   else None))
     return docs
@@ -904,7 +928,8 @@ def medir(raiz: str = RAIZ) -> dict:
             c['KIND=' + v['SPEAKER_KIND']] += 1
             c['ROLE=' + v['ROLE']] += 1
             c['STATEMENT=' + v['STATEMENT_KIND']] += 1
-            c['ORIGINALITY=' + v['QUOTE_ORIGINALITY']] += 1
+            c['TEXT_KIND=' + v['TEXT_KIND']] += 1
+            c['TRANSLATION_SUSPECT=' + v['QUOTE_TRANSLATION_SUSPECT']] += 1
             c['FACT_TIME=' + ('SIM' if v['FACT_TIME'] != NAO_SEI else NAO_SEI)] += 1
             c['FACT_LOCATION=' + ('SIM' if v['FACT_LOCATION'] != NAO_SEI else NAO_SEI)] += 1
             for e in validar_voce(v, d):
