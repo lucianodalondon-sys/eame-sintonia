@@ -1,0 +1,66 @@
+"""Previsao LEVE (sem banco, sem porta inteira): a regua do vivo+ramo sobre o texto de cada video, antes/depois."""
+import json, os, sys, hashlib, collections, re
+ARV = r'C:/aps-base'
+os.environ["HTTP_PROXY"] = os.environ["HTTPS_PROXY"] = "http://127.0.0.1:9"
+sys.path[:0] = [os.path.join(ARV, 'admissao'), ARV]
+os.chdir(ARV)
+import _gavetas  # noqa
+import admissao as adm
+import orquestrador as ORQ
+from coleta import executor_texto_de_html as H
+from coleta import texto_fonte as tf
+sys.path.insert(0, r'C:/Users/London1/acervo-para-sala-2')
+M = json.load(open(r'C:/Users/London1/acervo-para-sala/motivos.json', encoding='utf-8'))
+raws = json.load(open(r'C:/Users/London1/acervo-para-sala/raw.json', encoding='utf-8'))
+raizes = open(r'C:/Users/London1/reproc-acervo/raizes.txt').read().strip().split(';')
+cam = collections.defaultdict(list); rp = {}
+for r in raws:
+    cam[r['sha256'].strip()].append(r['storage_path']); rp[r['sha256'].strip()] = r
+
+
+def achar(s):
+    for c in cam[s]:
+        for R in raizes:
+            p = os.path.join(R, c)
+            if os.path.isfile(p):
+                b = open(p, 'rb').read()
+                if hashlib.sha256(b).hexdigest() == s:
+                    return b
+
+
+def velho(b):
+    import html
+    t = b.decode('utf-8', 'replace')
+    t = re.sub(r'<(script|style)\b.*?</\1>', ' ', t, flags=re.S | re.I)
+    t = re.sub(r'<[^>]+>', ' ', t); t = html.unescape(t)
+    t = re.sub(r'[ \t\xa0]+', ' ', t); t = re.sub(r'\n\s*\n+', '\n', t)
+    return '\n'.join(l.strip() for l in t.split('\n') if l.strip())
+
+
+def decidir(texto, sid, uni, r):
+    est = {"SOURCE_ID": sid, "TEXTO": texto, "DERIVED_ARTIFACT_ID": "prev", "RAW_ASSET_ID": r.get('id'),
+           "PARENT_SHA256": r['sha256'].strip(), "CAPTURED_AT": r.get('captured_at'), "TEMPO_E_LUGAR": {}}
+    item = ORQ.item_documental_para_a_porta(est, source_id=sid)
+    d = adm.decidir(item, uni, corrida="PREVISAO")
+    return d.resultado, (str(d.motivo) or '')[:90]
+
+
+itens = [x for x in M['ITENS'] if 'YOUTUBE' in x.get('MARCAS', []) and x['MOTIVO'].startswith('NUNCA')]
+c = collections.Counter(); ex = collections.Counter(); por_uni = collections.Counter()
+for x in itens:
+    s = x['SHA256']; r = rp[s]; b = achar(s)
+    if b is None:
+        c['SEM_BYTES'] += 1; continue
+    uni = re.search(r'-(T\d+)-', x['SOURCE_ID']).group(1)
+    a, _ = decidir(velho(b), x['SOURCE_ID'], uni, r)
+    d, regra = decidir(tf.limpar(b, 'text/html'), x['SOURCE_ID'], uni, r)
+    c['ANTES:' + a] += 1; c['DEPOIS:' + d] += 1
+    if d != a:
+        ex['%s->%s' % (a, d)] += 1
+    if d == 'SIM':
+        por_uni[uni] += 1
+    ex['DEPOIS:%s:%s:%s' % (uni, d, regra[:70])] += 1
+print(len(itens), dict(c))
+print('SIM por universo', dict(por_uni))
+for k, v in ex.most_common(25):
+    print(v, k)

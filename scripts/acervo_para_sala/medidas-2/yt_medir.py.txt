@@ -1,0 +1,61 @@
+import json, os, re, hashlib, collections
+M = json.load(open(r'C:/Users/London1/acervo-para-sala/motivos.json', encoding='utf-8'))
+itens = M['ITENS'] if isinstance(M, dict) and 'ITENS' in M else M
+yt = [x for x in itens if 'YOUTUBE' in x.get('MARCAS', [])]
+raws = json.load(open(r'C:/Users/London1/acervo-para-sala/raw.json', encoding='utf-8'))
+ders = json.load(open(r'C:/Users/London1/acervo-para-sala/derivados.json', encoding='utf-8'))
+raizes = open(r'C:/Users/London1/reproc-acervo/raizes.txt').read().strip().split(';')
+cam = collections.defaultdict(list)
+for r in raws:
+    cam[r['sha256'].strip()].append(r['storage_path'])
+raw_por_sha = {r['sha256'].strip(): r for r in raws}
+der_por_raw = collections.defaultdict(list)
+for d in ders:
+    der_por_raw[d['raw_asset_id']].append(d)
+
+
+def achar(s):
+    for c in cam[s]:
+        for R in raizes:
+            p = os.path.join(R, c)
+            if os.path.isfile(p):
+                b = open(p, 'rb').read()
+                if hashlib.sha256(b).hexdigest() == s:
+                    return b
+
+
+SD = re.compile(r'"shortDescription":"((?:[^"\\]|\\.)*)"')
+MD = re.compile(r'<meta name="description" content="([^"]*)"')
+c = collections.Counter(); ex = []; kinds = collections.Counter(); mt = collections.Counter()
+for x in yt:
+    s = x['SHA256']
+    r = raw_por_sha.get(s)
+    mt[(r or {}).get('media_type')] += 1
+    for d in der_por_raw.get((r or {}).get('id'), []):
+        kinds[d['kind']] += 1
+    b = achar(s)
+    if b is None:
+        c['SEM_BYTES'] += 1
+        continue
+    t = b.decode('utf-8', 'replace')
+    m = SD.search(t)
+    md = MD.search(t)
+    if m:
+        n = len(json.loads('"%s"' % m.group(1)))
+        c['SHORTDESC_>=200' if n >= 200 else ('SHORTDESC_40-199' if n >= 40 else 'SHORTDESC_<40')] += 1
+        if len(ex) < 3:
+            ex.append((x['SOURCE_ID'], json.loads('"%s"' % m.group(1))[:200]))
+    elif md:
+        c['SO_META_DESC'] += 1
+    else:
+        c['SEM_DESC'] += 1
+    if '"captionTracks"' in t:
+        c['TEM_captionTracks'] += 1
+    if '"publishDate"' in t or 'itemprop="datePublished"' in t or '"uploadDate"' in t:
+        c['TEM_DATA_PUBLICACAO'] += 1
+print('youtube fora', len(yt), collections.Counter(x['MOTIVO'].split(':')[0] for x in yt))
+print('media', mt)
+print('derivados', kinds)
+print(c)
+for e in ex:
+    print(e)
