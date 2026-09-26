@@ -239,6 +239,15 @@ class ADoseContraOLeitorGeometrico(unittest.TestCase):
         self.assertEqual([(d['MIN'], d['MAX']) for d in R.doses_da_linha('Lattuga 75 BBCH 14-19', ['g/hl'])],
                          [(75.0, 75.0)])
 
+    def test_um_numero_so_com_duas_unidades_no_cabecalho_nao_se_atribui(self):
+        # SINTETICO — «150» é g/hl ou kg/ha? O texto corrido não sabe; cala-se.
+        self.assertEqual(R.doses_da_linha('Melo Venturia inaequalis 150', ['g/hl', 'kg/ha']), [])
+        self.assertEqual(len(R.doses_da_linha('Melo Venturia inaequalis 150', ['g/hl'])), 1)
+
+    def test_faixa_invertida_com_unidade_nao_e_dose(self):
+        # SINTETICO — «200-20 g/hl» é número de outra coluna colado na dose
+        self.assertEqual(R.doses_da_linha('Vite Plasmopara viticola 200-20 g/hl'), [])
+
     def test_dose_com_unidade_na_linha(self):
         ds = R.doses_da_linha('Vite: 1,5 - 2 l/ha oppure 150-200 ml/hl')
         self.assertEqual([(d['MIN'], d['MAX'], d['UNIDADE']) for d in ds],
