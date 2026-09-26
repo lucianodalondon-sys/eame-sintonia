@@ -90,4 +90,16 @@ ENSAIO_PENDENTE
 
 ## 4 · As 2 falhas antigas
 
-FALHAS_PENDENTE
+As mesmas na base (`d899f09e`, antes de qualquer mudança minha) e depois de juntar o vivo `278cd489`
+(medido 26/09 ~14:10, sem rede):
+
+1. `tests/test_lingua_da_porta.py` → **FAIL** `ORuntimeUsaOTradutorEUmSo.test_o_mapa_da_porta_vive_num_sitio_so`
+2. `tests/test_estagio_atravessa_a_fronteira.py` → **ERROR** `ACorridaInteiraProvadaACorrer.test_correr_julga_a_unidade_da_fronteira`
+   (já registada como falha de base em 25/09, na instalação da régua T2)
+
+Nenhuma das duas toca a Sala, as migrações ou o dedup. Não investiguei a causa: fora desta missão.
+
+Depois de juntar `278cd489`, os testes leves continuam iguais: `test_a_receita_tem_versao` 4/4,
+`test_versao_do_documento` 11/11, `test_quem_pousa_entrega_o_armazem` 4/4, `test_a_rota_do_html` 30/30,
+`test_forward_instrumentado` 21/21, `test_o_pedido_atravessa` 19/19, `test_a_linhagem_do_reaproveitamento`
+30/30, `test_a_ponte_do_derived` 33/33, `test_fonte_atravessa` 21/21; e só as 2 acima falham.
