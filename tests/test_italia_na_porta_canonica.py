@@ -226,6 +226,7 @@ class OCaminhoEstaLigado(CasoB1):
         "italia-recorrente",   # B1 · o adapter italiano, o primeiro a pedi-la
         "regulatorio-eu",      # T4 · o adapter regulatorio, que nao cunha
         "scrap-colheita",      # SCRAP · a colheita social, que tambem nao cunha
+        "pesquisadores-t6",    # T6-PARA-SALA · declara as rodadas guardadas; nao cunha
     }
 
     def test_6_so_recebe_corrida_quem_a_pede_por_escrito(self):
