@@ -24,7 +24,8 @@ ALVO = "pacote/ponte_intelligence_casco.py"
 COPIAR = ("_gavetas.py", ALVO, "motor/corrida_da_inteligencia.py",
           "provas/espinha_da_intelligence.py",
           "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
-          "tests/test_ponte_intelligence_casco.py")
+          "tests/test_ponte_intelligence_casco.py",
+          "italia-portale/client/_ds/adama-brandwell/styles.css")
 
 M = [
     ("M1 sinal sem prova atravessa",
@@ -75,6 +76,12 @@ M = [
     ("M16 ferramenta sem contrato desenha",
      '        if meta["CHAVES"] is None:\n            for s in sinais:\n',
      '        if meta["CHAVES"] is None and False:\n            for s in sinais:\n'),
+    ("M17 pagina sem a faixa EXPERIMENTAL",
+     "        f'<div class=\"faixa\" data-marca=\"1\">{E(MARCA)} — anteprima locale, non per il cliente, non pubblicata</div>',\n",
+     ""),
+    ("M18 pagina nao escapa o texto da corrida",
+     "    from html import escape as E\n",
+     "    E = lambda s: s  # noqa: E731\n"),
 ]
 
 
