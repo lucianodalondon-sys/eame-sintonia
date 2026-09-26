@@ -188,12 +188,7 @@ def _audio(video_id):
         # passam pelo portao do Scrap. Ele proprio escreve uma linha `send:`
         # por pedido, com o Host — e e dai que a contagem sai, medida.
         r = subprocess.run(
-            [sys.executable, FREIO_DO_YT_DLP, '-q', '--no-warnings',
-             '--print-traffic',
-             '-f', 'bestaudio/best', '-x', '--audio-format', 'wav',
-             '--postprocessor-args', '-ac 1 -ar 16000',
-             '--write-info-json',
-             '-o', os.path.join(MEDIA, '%(id)s.%(ext)s'), url],
+            [sys.executable, FREIO_DO_YT_DLP] + argumentos_do_yt_dlp(MEDIA) + [url],
             capture_output=True, text=True, encoding='utf-8', errors='replace',
             timeout=600, env=env)
     except subprocess.TimeoutExpired:
@@ -208,6 +203,10 @@ def _audio(video_id):
                       % (len(recusadas), recusadas[0].get('ORCAMENTO')))
     if os.path.exists(wav) and os.path.getsize(wav) > 1000:
         return wav, 'BAIXADO'
+    if r.returncode == 0 and 'MAESTRO_PASSOU_O_FILTRO' not in (r.stdout or ''):
+        # O `--match-filter` rejeitou o video: nada desceu, e isso diz-se pelo nome.
+        return None, ('VIDEO_LONGO_DEMAIS: mais de %d s (SINTONIA_YT_DURACAO_MAX_S); '
+                      'nao se descarregou' % duracao_max_s())
     erro = [l for l in (r.stderr or '').strip().splitlines() if l.strip()]
     erro = erro or [l for l in (r.stdout or '').strip().splitlines()
                     if l.strip() and not _LINHA_DE_TRAFEGO.match(l)]
@@ -215,6 +214,39 @@ def _audio(video_id):
 
 
 FREIO_DO_YT_DLP = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'yt_dlp_com_freio.py')
+
+# ── O BAIXADOR QUE NAO DESPERDICA VAGAS (MAESTRO-SOCIAL, 26/09) ──────────────
+# Medido offline (SOCIAL-QUALIFICAR, provas/social-qualificar/medir_yt_dlp_offline.py): um video
+# custa 3 pedidos a youtube.com + 1 a googlevideo.com por fatia de ~10 MiB — e os dois sao UM
+# orcamento (D41). Com o FREIO, o 6.o pedido ja nao sai: e recusado, e o audio fica por fazer.
+# Estes quatro argumentos evitam gastar vagas para nada:
+#   --http-chunk-size 50M   o audio ate 50 MiB desce num pedido so (medido: 25 MiB = 1 em vez de 3)
+#   --retries 1 / --fragment-retries 1 / --extractor-retries 1
+#                           um erro nao vira 10 tentativas (medido: um 404 na API fez 4 pedidos)
+#   --match-filter duration<=N   o video longo nao chega a descarregar (so os 3 da extraccao)
+# N = SINTONIA_YT_DURACAO_MAX_S (omissao 540 s = 9 min: cabe em 4 pedidos com folga de 1).
+DURACAO_MAX_S_OMISSAO = 540
+
+
+def duracao_max_s():
+    v = os.environ.get('SINTONIA_YT_DURACAO_MAX_S')
+    n = int(v) if v not in (None, '') else DURACAO_MAX_S_OMISSAO
+    if n < 1:
+        raise ValueError('SINTONIA_YT_DURACAO_MAX_S invalido: %r' % v)
+    return n
+
+
+def argumentos_do_yt_dlp(media):
+    """Os argumentos do yt-dlp (sem o endereco). Um so sitio: o transcritor e a prova usam estes."""
+    return ['-q', '--no-warnings', '--print-traffic',
+            '-f', 'bestaudio/best', '-x', '--audio-format', 'wav',
+            '--postprocessor-args', '-ac 1 -ar 16000',
+            '--write-info-json',
+            '--http-chunk-size', '50M',
+            '--retries', '1', '--fragment-retries', '1', '--extractor-retries', '1',
+            '--match-filter', 'duration <= %d' % duracao_max_s(),
+            '--print', 'after_filter:MAESTRO_PASSOU_O_FILTRO %(id)s', '--no-simulate',
+            '-o', os.path.join(media, '%(id)s.%(ext)s')]
 
 
 def _recolher_recusas(f):
