@@ -834,6 +834,14 @@ def colher(fase, *, run_id, fonte, banco=None, **extra):
              'QUANTOS': len(objetos)}]
     else:
         colheita = [unidade(o, run_id=run_id, fonte=fonte) for o in objetos]
+        # FREIO-SOCIAL (dedup): o MESMO video partilhado por duas contas. Nas fases
+        # sociais, cada unidade diz a identidade do video (ou NAO SEI, que nunca funde)
+        # e, se o video ja foi visto noutra publicacao, de quem e (`MESMO_VIDEO_QUE`).
+        # Nada se apaga: a partilha e um facto.
+        if fase in FASES_CONTADAS:
+            import identidade_do_video as IV                     # noqa: PLC0415
+            IV.marcar(colheita, objetos, registo=os.path.join(
+                os.environ.get('ITALY_OPS_ROOT') or RAIZ, IV.REGISTO))
         suporte = suporte_do_trace(trace)
         if not colheita:
             porque_zero = ('a corrida correu e não observou nada. ZERO LEGÍTIMO '
