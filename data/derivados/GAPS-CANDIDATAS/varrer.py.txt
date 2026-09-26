@@ -1,0 +1,129 @@
+# -*- coding: utf-8 -*-
+# GAPS-CANDIDATAS · procurar, SO no que ja temos, candidatas dos 5 tipos que faltam. SO LEITURA, sem rede.
+#   PYTHONUTF8=1 py data/derivados/GAPS-CANDIDATAS/varrer.py.txt
+# Le (copias do VIVO, so leitura): candidatas/FONTES-CANDIDATAS.json, curadoria/DISCOVERY-VISITED.json,
+# curadoria/italy_contracts_curator.json, regras/italy_contracts_onboarded.json; do ramo: docs/fontes/
+# ATLAS-DE-FONTES-EAME.md; da Sala (so leitura): raw_asset.source_url. Escreve VARRIDO.json (so aqui).
+import collections
+import importlib.machinery
+import json
+import os
+import re
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(AQUI)))
+VIVO = "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1"
+sys.path.insert(0, RAIZ)
+from leis import fato_local as FL  # noqa: E402
+
+TIPOS = {
+    "1_FITOSSANITARIO": r"fitosanitar|fitopatolog|difesa\s+integrat|lotta\s+integrat|condifesa|co\.?difesa|consorzi[oa]?\s+(?:di\s+)?difesa|"
+                        r"avvis[oi]\s+(?:di\s+)?(?:difesa|fitosan|tecnic)|bollettin[oi]\s+(?:di\s+)?(?:difesa|fitosan|tecnic|colturale|produzione\s+integrata)|"
+                        r"produzione\s+integrata|servizio\s+fitosanitario|\bsfr\b|monitoraggio\s+(?:insetti|fitofag|parassit)|agrifitosan|plant\s+protection",
+    "2_PRECOS": r"listin[oi]|borsa\s+merci|quotazion|prezzi\s+(?:all['’]?\s*ingrosso|agricol|dei\s+prodotti)|mercato\s+(?:ortofrutticol|all['’]?\s*ingrosso|agroalimentar)|"
+                r"camera\s+di\s+commercio|\bcciaa\b|ismea\s*mercati|ismeamercati|osservatorio\s+(?:prezzi|dei\s+prezzi)|granaria|borsino|mercuriale|cotazioni|clal",
+    "3_CALAMIDADE": r"calamit|eccezionalit|declaratori|avversit|fondo\s+di\s+solidariet|danni\s+(?:alle\s+)?(?:colture|agricol)|stato\s+di\s+emergenza|grandinat|siccit|"
+                    r"gelate|agevolazioni\s+(?:per\s+)?danni|ristor[oi]\s+(?:per\s+)?(?:danni|agricol)|decreto\s+(?:di\s+)?riconosciment",
+    "4_AGROMETEO": r"agrometeo|agro-meteo|agrometeorolog|agroclimat|bollettino\s+(?:agro|meteo\s+agr)|servizio\s+agrometeorolog|fenolog|irrigazion[ei]\s+(?:consigl|bollettin)|"
+                   r"irriframe|bilancio\s+idric|lamma|umbriameteo|meteo\s*agricol",
+    "5_VIDEO_COM_TEXTO": r"youtube|vimeo|webinar|videolezion|video\s*tutorial|podcast|trascrizion|sottotitol",
+}
+RE_TIPO = {k: re.compile(v, re.I) for k, v in TIPOS.items()}
+# a regiao pelo DOMINIO de orgaos regionais conhecidos (nao pelo nome da instituicao do texto: aqui e so
+# para agrupar candidatas; nenhum lugar do facto sai disto)
+DOMINIO_REGIAO = [
+    # ⚠️ os de nome mais comprido primeiro: «arpal» casava dentro de «arpalazio» e «arpalombardia» (1.a corrida)
+    (r"arpalazio|arsial|siarl|regione\.lazio", "Lazio"), (r"arpalombardia|fitosanitario\.regione\.lombardia|ersaf|granariamilano|granaria\.|cemi-milano", "Lombardia"),
+    (r"protezionedellepiante|masaf\.gov|crea\.gov|asnacodi|isafom\.cnr", "NACIONAL"),
+    (r"condifesa\.ra\.|ravenna", "Emilia-Romagna"), (r"condifesatvb|treviso", "Veneto"), (r"codipra|trento", "Trentino-Alto Adige (TN)"),
+    (r"osmer\.fvg|ersa\.fvg|\.fvg\.", "Friuli-Venezia Giulia"),
+    (r"arpae\.it|emilia-?romagna|\.er\.it|ermesagricoltura|crpv", "Emilia-Romagna"), (r"arpa\.?veneto|arpav|regione\.veneto|venetoagricoltura", "Veneto"),
+    (r"arpal\.liguria|liguria|agriligurianet", "Liguria"), (r"arpat|toscana|lamma", "Toscana"), (r"arpacampania|campania", "Campania"),
+    (r"arpa\.?piemonte|piemonte", "Piemonte"), (r"arpa\.?marche|marche|assam", "Marche"), (r"arpa\.?umbria|umbria", "Umbria"),
+    (r"arpa\.?puglia|puglia", "Puglia"), (r"arpacal|calabria", "Calabria"), (r"arpab|basilicata|alsia", "Basilicata"),
+    (r"arpa\.?sicilia|sicilia|siciliana", "Sicilia"), (r"arpas\.|sardegna|laore|agris", "Sardegna"), (r"arpa\.?fvg|friuli|ersa\.fvg", "Friuli-Venezia Giulia"),
+    (r"arpa\.?vda|valle\s*d.?aosta|regione\.vda", "Valle d'Aosta"), (r"provincia\.bz|laimburg|alto\s*adige|südtirol|suedtirol", "Trentino-Alto Adige (BZ)"),
+    (r"provincia\.tn|trentino|fmach|fondazione\s+edmund\s+mach", "Trentino-Alto Adige (TN)"), (r"lombardia|ersaf", "Lombardia"),
+    (r"lazio|arsial", "Lazio"), (r"abruzzo|arta", "Abruzzo"), (r"molise|arpamolise", "Molise"),
+]
+
+
+def regiao_de(*textos):
+    t = " ".join(str(x or "") for x in textos)
+    for pad, reg in DOMINIO_REGIAO:
+        if re.search(pad, t, re.I):
+            return reg, "dominio/nome do orgao"
+    low = t.lower()
+    for nome, prec in FL.GAZETTEER:
+        if prec == FL.REGION and re.search(r"(?<![a-z])%s(?![a-z])" % re.escape(nome.lower()), low):
+            return nome, "nome da regiao no nome/endereco"
+    return "NAO SEI", "sem regiao no nome nem no endereco"
+
+
+def tipos_de(*textos):
+    t = " ".join(str(x or "") for x in textos)
+    return [k for k, r in RE_TIPO.items() if r.search(t)]
+
+
+achados = []
+# 1) as candidatas
+cand = json.load(open(VIVO + "/candidatas/FONTES-CANDIDATAS.json", encoding="utf-8"))["CANDIDATAS"]
+for c in cand:
+    txt = (c.get("NOME"), c.get("URL"), c.get("PARA_QUE_SERVE"), c.get("NOTA"))
+    ts = tipos_de(*txt)
+    if ts:
+        reg, porque = regiao_de(c.get("NOME"), c.get("URL"))
+        achados.append({"ORIGEM": "FONTES-CANDIDATAS", "ID": c["CANDIDATA_ID"], "NOME": c.get("NOME"), "URL": c.get("URL"),
+                        "TIPOS": ts, "REGIAO": reg, "REGIAO_PORQUE": porque, "ESTADO": c.get("ESTADO"),
+                        "TIPO_CAND": c.get("TIPO"), "PAIS": c.get("PAIS"), "SOURCE_ID": c.get("SOURCE_ID"),
+                        "MOTIVO": c.get("MOTIVO_DA_RECUSA") or c.get("MOTIVO_DO_BLOQUEIO") or c.get("O_QUE_FALTA"),
+                        "PARA_QUE_SERVE": c.get("PARA_QUE_SERVE")})
+# 2) as fontes com contrato (curator + onboarded): ja sao fontes; interessa saber quais destes tipos ja existem
+for nome, f in (("CONTRATO_CURATOR", VIVO + "/curadoria/italy_contracts_curator.json"),
+                ("ONBOARDED", VIVO + "/regras/italy_contracts_onboarded.json")):
+    for s in json.load(open(f, encoding="utf-8"))["FONTES"]:
+        url = s.get("CANONICAL_ENTRY_URL") or (s.get("ACQUISITION") or {}).get("INDEX_URL")
+        ts = tipos_de(s.get("OWNER"), s.get("NAME"), url)
+        if ts:
+            reg, porque = regiao_de(s.get("OWNER"), s.get("NAME"), url)
+            achados.append({"ORIGEM": nome, "ID": s["SOURCE_ID"], "NOME": s.get("NAME"), "URL": url, "TIPOS": ts,
+                            "REGIAO": reg, "REGIAO_PORQUE": porque, "TERRITORY": s.get("TERRITORY"),
+                            "OUTPUT_TYPE": s.get("OUTPUT_TYPE"), "BATCH": s.get("BATCH_ID")})
+# 3) o que a descoberta visitou e recusou (dominios)
+vis = json.load(open(VIVO + "/curadoria/DISCOVERY-VISITED.json", encoding="utf-8"))
+for dom, info in (vis["REJEITADOS"].items() if isinstance(vis["REJEITADOS"], dict) else []):
+    ts = tipos_de(dom)
+    if ts:
+        reg, porque = regiao_de(dom)
+        achados.append({"ORIGEM": "DISCOVERY-REJEITADOS", "ID": dom, "NOME": dom, "URL": "https://" + dom + "/", "TIPOS": ts,
+                        "REGIAO": reg, "REGIAO_PORQUE": porque, "MOTIVO": info.get("MOTIVO"), "QUANDO": info.get("AT")})
+# 4) o Atlas: linhas com URL e um destes tipos (ficha de fonte ja estudada)
+atlas = open(os.path.join(RAIZ, "docs/fontes/ATLAS-DE-FONTES-EAME.md"), encoding="utf-8").read().splitlines()
+vistos = set()
+for i, l in enumerate(atlas):
+    for u in re.findall(r"https?://[^\s)|>\]]+", l):
+        ctx = " ".join(atlas[max(0, i - 2):i + 2])
+        ts = tipos_de(u, l)
+        if ts and u not in vistos:
+            vistos.add(u)
+            reg, porque = regiao_de(u, l)
+            sid = re.findall(r"IT-T\d+-\d+", ctx)
+            achados.append({"ORIGEM": "ATLAS", "ID": sid[0] if sid else "ATLAS-L%d" % (i + 1), "NOME": l.strip()[:120], "URL": u,
+                            "TIPOS": ts, "REGIAO": reg, "REGIAO_PORQUE": porque})
+# 5) a Sala: enderecos de bruto guardado destes tipos (ja colhidos)
+LS = importlib.machinery.SourceFileLoader("ler_sala", os.path.join(AQUI, "ler_sala.py.txt")).load_module()
+for l in LS.consultar("select source_id, source_url, count(*) from public.raw_asset group by 1, 2"):
+    sid, url, n = l.split(LS.SEP)
+    ts = tipos_de(url)
+    if ts:
+        reg, porque = regiao_de(url)
+        achados.append({"ORIGEM": "SALA_RAW", "ID": sid, "NOME": sid, "URL": url, "TIPOS": ts, "REGIAO": reg,
+                        "REGIAO_PORQUE": porque, "BRUTOS": int(n)})
+
+conta = collections.Counter((a["ORIGEM"], t) for a in achados for t in a["TIPOS"])
+json.dump({"TIPOS": TIPOS, "ACHADOS": achados, "CONTA": {"%s|%s" % k: v for k, v in sorted(conta.items())}},
+          open(os.path.join(AQUI, "VARRIDO.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+for k, v in sorted(conta.items()):
+    print("%-22s %-20s %d" % (k[0], k[1], v))
+print("ACHADOS", len(achados))

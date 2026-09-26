@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+# GAPS-CANDIDATAS · o LOTE para a MICRO-PROVA (formato de MICRO-PROVA-LOTE1), SO LEITURA, sem rede.
+#   PYTHONUTF8=1 py data/derivados/GAPS-CANDIDATAS/lote.py.txt
+import json
+import os
+import re
+from urllib.parse import urlparse
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+VIVO = "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1"
+cand = {c["CANDIDATA_ID"]: c for c in json.load(open(VIVO + "/candidatas/FONTES-CANDIDATAS.json", encoding="utf-8"))["CANDIDATAS"]}
+LC = json.load(open(VIVO + "/curadoria/LIFECYCLE-LEDGER-V1.json", encoding="utf-8"))["TRANSICOES"]
+cand_para_sid, ultimo = {}, {}
+for t in LC:
+    m = re.search(r"QUALIFY: (CAND-\d+) -> (IT-T\d+-\d+)", t.get("REASON") or "")
+    if m:
+        cand_para_sid[m.group(1)] = m.group(2)
+    ultimo[t["SOURCE_ID"]] = t
+contratos = {s["SOURCE_ID"]: s for s in json.load(open(VIVO + "/curadoria/italy_contracts_curator.json", encoding="utf-8"))["FONTES"]}
+
+ARSAC = ("a descoberta ja viu 3 boletins com cultura e data no proprio endereco (DISCOVERY-VISITED; HTTP_0 = falha de "
+         "ligacao, nao fonte morta): bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-1-8-settembre-2026, "
+         "limone-bollettino-difesa-fitosanitaria...valido-fino-al-30-settembre-2026, "
+         "consigli-di-difesa-fitosanitaria-del-nocciolo...settembre-2026")
+GRANARIA = ("a Granaria (Borsa Merci di Milano) ja tem 2 fontes READY (IT-T10-030 newsletters, IT-T10-035 home); "
+            "o listino e outra familia")
+MASAF = "o proprio registo e um PDF: 23/09/2026 Declaratoria del carattere di eccezionalita (MASAF ServeBLOB)"
+# (CAND, grupo, regiao, prova que ja existe fora do livro do robo)
+LOTE = [
+    ("CAND-0941", "1+4 FITO+AGROMETEO", "Calabria", ARSAC),
+    ("CAND-0948", "1 FITO", "Campania", None), ("CAND-0952", "1 FITO", "Emilia-Romagna", None),
+    ("CAND-0951", "1 FITO", "Friuli-Venezia Giulia", None), ("CAND-0972", "1 FITO", "Lazio", None),
+    ("CAND-0959", "1 FITO", "Molise", None), ("CAND-0961", "1 FITO", "Piemonte", None),
+    ("CAND-0979", "1 FITO", "Sardegna", None), ("CAND-0985", "1 FITO", "Sicilia", None),
+    ("CAND-0981", "1 FITO", "Toscana", None), ("CAND-0968", "1 FITO", "Trentino-Alto Adige (BZ)", None),
+    ("CAND-0988", "1+4 FITO+AGROMETEO", "Valle d'Aosta", None), ("CAND-0989", "1 FITO", "Veneto", None),
+    ("CAND-0967", "1 FITO", "Basilicata", None),
+    ("CAND-1160", "4 AGROMETEO", "Lombardia", None), ("CAND-0935", "4 AGROMETEO", "Sardegna", None),
+    ("CAND-1170", "4 AGROMETEO", "Lazio", None), ("CAND-0947", "4 AGROMETEO", "Puglia", None),
+    ("CAND-0943", "4 AGROMETEO", "Molise", None), ("CAND-1161", "4 AGROMETEO", "Emilia-Romagna", None),
+    ("CAND-0499", "2 PRECOS", "Lombardia", GRANARIA),
+    ("CAND-0911", "3 CALAMIDADE", "NACIONAL", MASAF),
+]
+
+
+def o_que_falta(motivo):
+    if "SEM_FAMILIA" in motivo:
+        return ("a FAMILIA de itens: a entrada nao lista 2+ boletins com o mesmo esqueleto; provar onde a lista "
+                "dos boletins esta (outra pagina, PDF, arquivo por ano)")
+    if "FAMILIA_ESTATICA" in motivo or "SERVICO_OU_INSTITUCIONAL" in motivo:
+        return "que existe uma lista DATADA de boletins/avisos (a entrada so tem paginas fixas de servico)"
+    if "ITEM_NAO_E_MATERIA" in motivo:
+        u = re.search(r"https?://\S+", motivo)
+        return ("que o item aberto e um BOLETIM (cultura + zona + data); o canario abriu "
+                + (u.group(0)[:90] if u else "outra coisa"))
+    if "ENTRADA_NAO_E_HTML" in motivo:
+        return ("a FORMA: a entrada nao e HTML (PDF ou outro); provar a forma A da D42 (boletim em PDF) e a lista "
+                "onde os PDF se publicam")
+    if "ALVO_ERRADO" in motivo:
+        return "o ALVO certo: o padrao do contrato aponta para outra seccao (revisao R1)"
+    if "ENTRADA_E_MATERIA" in motivo:
+        return "a pagina-indice: a entrada do contrato e um so boletim"
+    if "DUPLICADA" in motivo:
+        return "a familia do LISTINO (datado, por produto), distinta das noticias ja colhidas"
+    return "tudo: QUALIFY (territorio), contrato e canario"
+
+
+fichas, dominios = [], {}
+for cid, grupo, reg, prova_extra in LOTE:
+    c = cand[cid]
+    sid = c.get("SOURCE_ID") or cand_para_sid.get(cid)
+    u = ultimo.get(sid) if sid else None
+    k = contratos.get(sid) if sid else None
+    dom = urlparse(c["URL"]).netloc.replace("www.", "")
+    assert dom not in dominios.values(), (cid, dom)
+    dominios[cid] = dom
+    estado = u["NEW_STATE"] if u else "SEM_SOURCE_ID"
+    motivo = (u or {}).get("REASON") or ""
+    classe = (k or {}).get("TERRITORY") or {"1": "T3", "4": "T2", "2": "T10", "3": "T4/T12"}[grupo[0]]
+    prova = [x for x in (
+        ("contrato do Curator %s (%s)" % (sid, (k or {}).get("BATCH_ID"))) if k else None,
+        ("canario falhou em %s" % ((u or {}).get("OBSERVED_AT") or "")[:10]) if estado == "CONTRACTED_CANARY_FAILED" else None,
+        "candidata registada por %s em %s" % (c.get("QUEM_VIU"), c.get("QUANDO")),
+        prova_extra) if x]
+    nota = None
+    if classe == "T5" and grupo.startswith("1"):
+        nota = ("classe do contrato T5 (pesquisa) para um servico fitossanitario regional: o QUALIFY deu T5; "
+                "a provavel e T3. Nao se muda aqui: e decisao semantica (canal DECISOES-SEMANTICAS)")
+    fichas.append({"NOTA_DA_CLASSE": nota, "CANDIDATA": cid, "NOME": c["NOME"], "URL": c["URL"], "DOMINIO": dom, "GRUPO": grupo, "REGIAO": reg,
+                   "SOURCE_ID": sid or "NAO SEI", "CLASSE_PROVAVEL": classe,
+                   "ESTADO_NO_ROBO": estado, "PORQUE_NO_ROBO": motivo[:300], "EVIDENCIA": (u or {}).get("EVIDENCE_REF"),
+                   "PROVA_JA_EXISTENTE": "; ".join(prova), "FALTA_PROVAR": o_que_falta(motivo), "PEDIDOS": 4,
+                   "PAPEIS": ["INDICE (onde os boletins/listinos se listam)", "CONTEUDO 1 (um boletim)",
+                              "CONTEUDO 2 (outro boletim, outra data)", "reserva (robots.txt ou o PDF do boletim)"]})
+grupos = {}
+for f in fichas:
+    grupos.setdefault(f["GRUPO"], []).append(f["CANDIDATA"])
+lote = {
+    "DATASET": "MICRO-PROVA-GAPS-LOTE1",
+    "CANDIDATAS": [f["CANDIDATA"] for f in fichas], "GRUPOS": grupos,
+    "CRITERIO": ("so os 5 tipos que faltam (RENDIMENTO-POR-FONTE 4): fontes com cultura+zona+data no proprio formato. "
+                 "Uma por regiao e tipo, %d dominios distintos = 1 ronda, <=4 pedidos por dominio. A prova pedida e de "
+                 "CONTEUDO e FORMA (a lista datada existe? o item e um boletim com cultura, zona e data?), nao so de "
+                 "territorio." % len(fichas)),
+    "FORA_E_PORQUE": {
+        "ja no MICRO-PROVA-LOTE1": ("Condifesa Ravenna CAND-1173, Condifesa Lombardia NE CAND-1069, Condifesa TVB CAND-1070, "
+                                    "FEM bollettini CAND-1164, Liguria bollettini CAND-1167, LaMMA CAND-0953"),
+        "ja READY_FOR_COLLECTION (nao precisam de prova; precisam do canario do coletor + onboarding para a coorte)":
+            ("IT-T3-053 Umbria bollettini, IT-T3-045 SFR Marche, IT-T2-157 Marche agrometeo, IT-T2-143 ARPAS mensile, "
+             "IT-T2-002 ARPAV agrometeo, IT-T3-008 Agrometeo Puglia, IT-T2-001 ARPAE, IT-T10-030/035 Granaria"),
+        "robots": ("SFR Lombardia (fitosanitario.regione.lombardia.it/wps/portal: ROBOTS_BLOCKED), "
+                   "fitosanitario.venezia.it (ROBOTS_BLOCKED)"),
+        "endereco morto": ("SFR Abruzzo e Agrometeo Abruzzo (IT-T3-036, IT-T2-156: HTTP 404, RETRY_AFTER): "
+                           "precisa de endereco novo (descoberta)"),
+        "segundo do mesmo dominio": "CAND-0829 (agrometeo Campania, mesmo dominio da CAND-0948) e ASNACODI (3 entradas): lote 2",
+    },
+    "DOMINIOS": dominios, "FICHAS": fichas}
+json.dump(lote, open(os.path.join(AQUI, "MICRO-PROVA-GAPS-LOTE1.json"), "w", encoding="utf-8", newline="\n"),
+          ensure_ascii=False, indent=1)
+for f in fichas:
+    print("%-9s %-26s %-10s %-6s %-26s %s" % (f["CANDIDATA"], f["DOMINIO"][:26], f["SOURCE_ID"], f["CLASSE_PROVAVEL"],
+                                              f["ESTADO_NO_ROBO"][:26], f["FALTA_PROVAR"][:60]))
+print(len(fichas), "candidatas,", len(set(dominios.values())), "dominios,", 4 * len(fichas), "pedidos no maximo")

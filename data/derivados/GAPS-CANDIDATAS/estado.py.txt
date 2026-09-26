@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+# GAPS-CANDIDATAS · ultimo estado de cada fonte/candidata achada (livro do ciclo de vida do VIVO, so leitura).
+#   PYTHONUTF8=1 py data/derivados/GAPS-CANDIDATAS/estado.py.txt
+import collections
+import json
+import os
+AQUI = os.path.dirname(os.path.abspath(__file__))
+VIVO = "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1"
+V = json.load(open(os.path.join(AQUI, "VARRIDO.json"), encoding="utf-8"))["ACHADOS"]
+LC = json.load(open(VIVO + "/curadoria/LIFECYCLE-LEDGER-V1.json", encoding="utf-8"))["TRANSICOES"]
+ultimo = {}
+for t in LC:
+    ultimo[t["SOURCE_ID"]] = t
+cand = {c["CANDIDATA_ID"]: c for c in json.load(open(VIVO + "/candidatas/FONTES-CANDIDATAS.json", encoding="utf-8"))["CANDIDATAS"]}
+C64 = set(json.load(open("C:/Users/London1/orca/workspaces/eame-sintonia/rendimento-fonte-v1/data/derivados/RENDIMENTO-POR-FONTE/TABELA.json",
+                         encoding="utf-8"))["COORTES"]["C64"])
+linhas = {}
+for a in V:
+    if not set(a["TIPOS"]) - {"5_VIDEO_COM_TEXTO"}:
+        continue
+    sid = a["ID"] if a["ID"].startswith("IT-") else (a.get("SOURCE_ID") or None)
+    chave = sid or a["ID"]
+    l = linhas.setdefault(chave, {"CHAVE": chave, "SOURCE_ID": sid, "CANDIDATAS": [], "ORIGENS": set(), "TIPOS": set(),
+                                  "NOMES": set(), "URLS": set(), "REGIAO": a["REGIAO"], "MOTIVOS": set()})
+    if a["ORIGEM"] == "FONTES-CANDIDATAS":
+        l["CANDIDATAS"].append(a["ID"])
+    l["ORIGENS"].add(a["ORIGEM"]); l["TIPOS"].update(a["TIPOS"]); l["NOMES"].add(a["NOME"] or ""); l["URLS"].add(a["URL"] or "")
+    if a.get("MOTIVO"):
+        l["MOTIVOS"].add(str(a["MOTIVO"])[:160])
+    if l["REGIAO"] == "NAO SEI" and a["REGIAO"] != "NAO SEI":
+        l["REGIAO"] = a["REGIAO"]
+fora = []
+for l in linhas.values():
+    u = ultimo.get(l["SOURCE_ID"]) if l["SOURCE_ID"] else None
+    l["ESTADO_NO_ROBO"] = u["NEW_STATE"] if u else ("SEM_SOURCE_ID" if not l["SOURCE_ID"] else "SEM_TRANSICAO")
+    l["PORQUE_NO_ROBO"] = (u or {}).get("REASON")
+    l["EVIDENCIA"] = (u or {}).get("EVIDENCE_REF")
+    l["QUANDO"] = (u or {}).get("OBSERVED_AT")
+    l["NA_COORTE_64"] = l["SOURCE_ID"] in C64
+    fora.append({k: (sorted(v) if isinstance(v, set) else v) for k, v in l.items()})
+json.dump(fora, open(os.path.join(AQUI, "ESTADO.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+print(collections.Counter(x["ESTADO_NO_ROBO"] for x in fora).most_common())
+for x in sorted(fora, key=lambda x: (x["ESTADO_NO_ROBO"], x["REGIAO"], x["CHAVE"])):
+    print("%-44s|%-22s|%s|%s|c64=%s|%s" % (x["CHAVE"][:44], x["ESTADO_NO_ROBO"][:22], ",".join(t[:1] for t in x["TIPOS"]), x["REGIAO"][:14],
+                                     "S" if x["NA_COORTE_64"] else "-", (x["PORQUE_NO_ROBO"] or "")[:90]))
