@@ -20,6 +20,8 @@ Quatro verbos, e so um vai a rede:
             supervisor|worker|ponte_automatica vivo);
           - sem as variaveis da Sala operacional (as mesmas da micro web);
           - com o egresso que nao seja IT pelo portao de consenso (superficie/rede.py).
+        Por item: o contrato da fonte tem de ser a MESMA conta (LinkedIn) ou um canal
+        (YouTube) — o portao so diz «pode colher esta fonte» — e o portao no instante.
         Cada item corre pela porta canonica (orquestrador -> scrap-colheita), com o
         Pedido montado em processo (a frase da linha de comando polui o alvo). Depois
         da rodada: egresso outra vez e a PROVA-TETO sobre TODAS as corridas da noite
@@ -90,7 +92,7 @@ def universo_de(sid: str) -> str:
 
 
 # ── PLANO (sem rede) ─────────────────────────────────────────────────────────
-def conferir_item(it: dict, gate=None) -> list[str]:
+def conferir_item(it: dict, gate=None, contratos=None) -> list[str]:
     """O que impede este item de correr. Lista vazia = pronto."""
     falta = []
     sid, fase = it.get("SOURCE_ID") or "", it.get("FASE") or ""
@@ -111,11 +113,44 @@ def conferir_item(it: dict, gate=None) -> list[str]:
             falta.append("DURACAO_S em falta: a duracao le-se na pagina do video, antes")
         elif d > DURACAO_MAXIMA_S:
             falta.append("DURACAO_S %s > %s (video longo demais para a MICRO)" % (d, DURACAO_MAXIMA_S))
+    if contratos is not None and not falta:
+        falta += familia_confere(it, contratos)
     if gate is not None and not falta:
         g = gate(sid)
         if not g.get("COLLECTION_ELIGIBLE"):
             falta.append("portao de coleta: %s — %s" % (g.get("MOTIVO"), str(g.get("PORQUE"))[:160]))
     return falta
+
+
+def familia_confere(it: dict, contratos: dict) -> list[str]:
+    """O contrato da fonte e da MESMA conta que o item pede?
+
+    ⚠️ MEDIDO NO ENSAIO A SECO NA integra-noite-v1 (26/09): `IT-T7-171` e `IT-T5-160` sao, no
+    vivo, fontes WEB (Periti Agrari, CNR IBBA) e o portao diz ELIGIBLE — de WEB. Um item
+    `video-linkedin` com esse SOURCE_ID passava o plano, e o orquestrador colheria LinkedIn
+    carimbado com a identidade de um site. O portao responde «pode colher ESTA fonte»;
+    «esta fonte e esta conta» pergunta-se ao contrato."""
+    c = contratos.get(it.get("SOURCE_ID"))
+    if not c:
+        return ["o contrato de %s nao existe na tabela do Curator" % it.get("SOURCE_ID")]
+    texto = json.dumps(c, ensure_ascii=False).lower()
+    if it.get("FASE") == "video-linkedin":
+        m = re.match(r"https://www\.linkedin\.com/company/([^/?#]+)", str(it.get("PAGINA", "")))
+        slug = (m.group(1).lower() if m else "")
+        # A conta inteira, e nao o comeco dela: `ispra` nao e `ispra_2`.
+        if not slug or not re.search(r"linkedin\.com/company/%s(?:[/\"?#]|$)" % re.escape(slug), texto):
+            return ["o contrato de %s nao e a conta LinkedIn %r (%s)" % (
+                it["SOURCE_ID"], slug, str(c.get("NAME") or c.get("OWNER"))[:80])]
+    if it.get("FASE") == "audio-youtube":
+        if c.get("SOURCE_NATIVE_ID_KIND") != "YOUTUBE_CHANNEL_ID":
+            return ["o contrato de %s nao e um canal YouTube (%s)" % (
+                it["SOURCE_ID"], str(c.get("NAME") or c.get("OWNER"))[:80])]
+    return []
+
+
+def contratos_canonicos() -> dict:
+    import ready_split as RS  # noqa: PLC0415
+    return RS._contratos()
 
 
 def gate_canonico(sid: str) -> dict:
@@ -144,11 +179,12 @@ def comando_de(it: dict) -> list[str]:
     return [sys.executable, "-c", codigo]
 
 
-def plano(lote: dict, *, gate=gate_canonico) -> dict:
+def plano(lote: dict, *, gate=gate_canonico, contratos=None) -> dict:
+    contratos = contratos_canonicos() if contratos is None else contratos
     linhas = []
     for r in lote.get("RODADAS", []):
         for it in r.get("ITENS", []):
-            falta = conferir_item(it, gate)
+            falta = conferir_item(it, gate, contratos)
             linhas.append({"RODADA": r.get("N"), "SOURCE_ID": it.get("SOURCE_ID"),
                            "FASE": it.get("FASE"), "ESTADO": "PRONTA" if not falta else "BLOQUEADA",
                            "FALTA": falta, "PEDIDO": pedido_de(it) if not falta else None})
@@ -292,7 +328,8 @@ def prova_teto(run_ids: list[str], pasta: Path, livro: Path | None = None) -> di
 # ── RODADA (a unica porta para a rede) ──────────────────────────────────────
 def rodada(lote: dict, n: int, estado_p: Path, *, autorizado=False, gate=gate_canonico,
            parado=robo_parado, egresso=egresso_it, sala=precondicoes_da_sala,
-           lancar=None, teto=prova_teto, instalado=lote_1_instalado, yt_dlp=yt_dlp_abre) -> dict:
+           lancar=None, teto=prova_teto, instalado=lote_1_instalado, yt_dlp=yt_dlp_abre,
+           contratos=None) -> dict:
     estado_p = Path(estado_p)
     pasta = estado_p.parent
     flag = pasta / FLAG_DE_PARADA
@@ -324,10 +361,11 @@ def rodada(lote: dict, n: int, estado_p: Path, *, autorizado=False, gate=gate_ca
     if antes.get("GATE") != "PASS":
         return {"CORREU": False, "PORQUE": "EGRESSO_NAO_IT", "EGRESSO_ANTES": antes}
 
+    contratos = contratos_canonicos() if contratos is None else contratos
     estado = ler_json(estado_p) if estado_p.exists() else {"FONTES": [], "RODADAS": []}
     corridas = []
     for it in rodadas[0].get("ITENS", []):
-        falta = conferir_item(it, gate)
+        falta = conferir_item(it, gate, contratos)
         if falta:
             corridas.append({"SOURCE_ID": it.get("SOURCE_ID"), "CORREU": False, "FALTA": falta})
             continue

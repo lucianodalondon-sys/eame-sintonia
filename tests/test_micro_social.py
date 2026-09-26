@@ -24,6 +24,13 @@ YT = {"SOURCE_ID": "IT-T8-006", "FASE": "audio-youtube", "VIDEO": "abcdefghijk",
 LOTE = {"RODADAS": [{"N": 1, "ITENS": [LI]}, {"N": 2, "ITENS": [YT]}]}
 ELEGIVEL = lambda sid: {"COLLECTION_ELIGIBLE": True, "MOTIVO": "ELIGIBLE", "PORQUE": "ok"}  # noqa: E731
 PASS = lambda: {"PAIS": "IT", "GATE": "PASS"}  # noqa: E731
+CONTRATOS = {
+    "IT-T7-171": {"SOURCE_ID": "IT-T7-171", "NAME": "Consorzio Tutela Grana Padano — Linkedin ufficiale",
+                  "CANONICAL_ENTRY_URL": "https://www.linkedin.com/company/consorzio-tutela-grana-padano"},
+    "IT-T5-160": {"SOURCE_ID": "IT-T5-160", "NAME": "CNR IBBA", "CANONICAL_ENTRY_URL": "https://www.ibba.cnr.it/"},
+    "IT-T8-006": {"SOURCE_ID": "IT-T8-006", "NAME": "L'Informatore Agrario — canale YouTube",
+                  "SOURCE_NATIVE_ID_KIND": "YOUTUBE_CHANNEL_ID"},
+}
 
 
 def _run(n):
@@ -44,7 +51,7 @@ class _Base(unittest.TestCase):
     def correr(self, n=1, **kw):
         base = dict(autorizado=True, gate=ELEGIVEL, parado=lambda: (True, "ok"), egresso=PASS,
                     instalado=lambda: [], yt_dlp=lambda: (True, "2026.8.19"),
-                    sala=lambda: [], lancar=self.lancar,
+                    sala=lambda: [], lancar=self.lancar, contratos=CONTRATOS,
                     teto=lambda ids, pasta: {"ESTADO": "PASS", "PEDIDOS_NA_ONDA": len(ids)})
         base.update(kw)
         return MS.rodada(LOTE, n, self.estado, **base)
@@ -85,7 +92,7 @@ class ARodadaRecusaAntesDaRede(_Base):
         lote = {"RODADAS": [{"N": 1, "ITENS": [LI, dict(LI, SOURCE_ID="IT-T5-160")]}]}
         r = MS.rodada(lote, 1, self.estado, autorizado=True, gate=ELEGIVEL, parado=lambda: (True, ""),
                       egresso=PASS, sala=lambda: [], lancar=self.lancar, instalado=lambda: [],
-                      yt_dlp=lambda: (True, ""), teto=lambda i, p: {"ESTADO": "PASS"})
+                      yt_dlp=lambda: (True, ""), teto=lambda i, p: {"ESTADO": "PASS"}, contratos=CONTRATOS)
         self.assertNaoLancou(r, "licdn.com: 6 previstos")
 
     def test_a_segunda_conta_noutra_rodada_conta_o_que_a_noite_gastou(self):
@@ -120,6 +127,33 @@ class OItemEConferido(unittest.TestCase):
                  (dict(LI, FASE="janela"), "fora da MICRO social")]
         for it, texto in casos:
             self.assertIn(texto, " ".join(MS.conferir_item(it, ELEGIVEL)), it)
+
+    def test_fonte_web_pedida_como_linkedin_e_barrada(self):
+        """O caso medido no ensaio: IT-T5-160 e o site do CNR IBBA, e o portao diz ELIGIBLE."""
+        it = dict(LI, SOURCE_ID="IT-T5-160", PAGINA="https://www.linkedin.com/company/ispra_2/")
+        self.assertIn("nao e a conta LinkedIn", " ".join(MS.conferir_item(it, ELEGIVEL, CONTRATOS)))
+
+    def test_outra_conta_linkedin_no_mesmo_contrato_e_barrada(self):
+        it = dict(LI, PAGINA="https://www.linkedin.com/company/outra-coisa/")
+        self.assertIn("nao e a conta LinkedIn", " ".join(MS.conferir_item(it, ELEGIVEL, CONTRATOS)))
+
+    def test_o_comeco_de_outra_conta_nao_e_a_conta(self):
+        contratos = {"IT-T5-001": {"SOURCE_ID": "IT-T5-001", "CANONICAL_ENTRY_URL": "https://www.linkedin.com/company/ispra_2"}}
+        it = dict(LI, SOURCE_ID="IT-T5-001", PAGINA="https://www.linkedin.com/company/ispra/")
+        self.assertIn("nao e a conta LinkedIn", " ".join(MS.familia_confere(it, contratos)))
+        self.assertEqual(MS.familia_confere(dict(it, PAGINA="https://www.linkedin.com/company/ispra_2/"), contratos), [])
+
+    def test_contrato_certo_passa_e_youtube_exige_canal(self):
+        self.assertEqual(MS.conferir_item(LI, ELEGIVEL, CONTRATOS), [])
+        self.assertEqual(MS.conferir_item(YT, ELEGIVEL, CONTRATOS), [])
+        it = dict(YT, SOURCE_ID="IT-T5-160")
+        self.assertIn("nao e um canal YouTube", " ".join(MS.conferir_item(it, ELEGIVEL, CONTRATOS)))
+        self.assertIn("nao existe", " ".join(MS.conferir_item(dict(YT, SOURCE_ID="IT-T1-999"), ELEGIVEL, CONTRATOS)))
+
+    def test_o_plano_confere_a_familia(self):
+        p = MS.plano({"RODADAS": [{"N": 1, "ITENS": [dict(LI, SOURCE_ID="IT-T5-160")]}]},
+                     gate=ELEGIVEL, contratos=CONTRATOS)
+        self.assertEqual(p["PRONTAS"], 0)
 
     def test_portao_que_recusa_bloqueia(self):
         nao = lambda sid: {"COLLECTION_ELIGIBLE": False, "MOTIVO": "READY_LEGACY", "PORQUE": "x"}  # noqa: E731

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Mutacao do condutor da MICRO SOCIAL: 24 mutantes, cada um confirmado por git diff; corre
+"""Mutacao do condutor da MICRO SOCIAL: 28 mutantes, cada um confirmado por git diff; corre
 tests/test_micro_social.py e repoe o ficheiro.  py ferramentas/micro_social/_mutantes_micro_social.py"""
 import io,subprocess,sys,os
 F="ferramentas/micro_social/micro_social.py"
@@ -28,6 +28,10 @@ M=[
  ("M22 NAO SEI do youtube ignorado","        if ja_gasto.get(dom, 0) > 0:\n","        if False:\n"),
  ("M23 gasto da noite esquecido","    acima = previsao_cabe(rodadas[0].get(\"ITENS\", []), gasto_da_noite(pasta))\n","    acima = previsao_cabe(rodadas[0].get(\"ITENS\", []), {})\n"),
  ("M24 robots do licdn esquecido","PREVISAO_POR_ITEM = {\"video-linkedin\": {\"linkedin.com\": 2, \"licdn.com\": 3},","PREVISAO_POR_ITEM = {\"video-linkedin\": {\"linkedin.com\": 2, \"licdn.com\": 2},"),
+ ("M25 conta nao conferida","    if contratos is not None and not falta:\n        falta += familia_confere(it, contratos)\n","    if False:\n        pass\n"),
+ ("M26 comeco de outra conta passa","re.search(r\"linkedin\\.com/company/%s(?:[/\\\"?#]|$)\" % re.escape(slug), texto)","re.search(r\"linkedin\\.com/company/%s\" % re.escape(slug), texto)"),
+ ("M27 canal youtube nao exigido","        if c.get(\"SOURCE_NATIVE_ID_KIND\") != \"YOUTUBE_CHANNEL_ID\":\n","        if False:\n"),
+ ("M28 plano sem contratos","    contratos = contratos_canonicos() if contratos is None else contratos\n    linhas = []\n","    contratos = None\n    linhas = []\n"),
  ("M20 yt-dlp conferido sempre","    if any(it.get(\"FASE\") == \"audio-youtube\" for it in rodadas[0].get(\"ITENS\", [])):\n","    if True:\n"),
 ]
 orig=io.open(F,encoding="utf-8",newline="").read()
