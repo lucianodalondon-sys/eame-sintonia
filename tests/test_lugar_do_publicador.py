@@ -127,6 +127,23 @@ class PortaDaSala(unittest.TestCase):
         with _contrato("Napoli"):
             self.assertEqual(([], "JA_E_ASSIM"), P.revisoes_da_linha(_linha(loc="Napoli")))
 
+    def test_a_corrida_inteira_pelo_envelope_real_da_sala(self):
+        """`ler_atual` devolve {RUN_ID, ITENS}; `rever` recebe so as linhas que ganham sede."""
+        runs = [{"RUN_ID": "R1"}, {"RUN_ID": "R1"}, {"RUN_ID": "R2"}]
+        env = {"R1": {"RUN_ID": "R1", "ITENS": [dict(_linha(), ORDEM=0), dict(_linha("IT-T3-002", "Napoli"), ORDEM=1)]},
+               "R2": {"RUN_ID": "R2", "ITENS": [dict(_linha(), ORDEM=0)]}}
+        lugar = {"IT-T5-028": "Udine", "IT-T3-002": "Napoli"}
+        escritas = []
+        with mock.patch.object(P.espera, "exigir_canonica"), \
+             mock.patch.object(P.espera, "linhas_para_revisao", return_value=runs), \
+             mock.patch.object(P.espera, "ler_atual", side_effect=env.get), \
+             mock.patch.object(P.espera, "rever", side_effect=lambda r, o, revs, **k: escritas.append((r, o)) or
+                               {"INSERIDAS": len(revs), "JA_ERAM_ASSIM": 0}), \
+             mock.patch.object(P.CDF, "lugar_da_fonte", side_effect=lambda s: _contrato(lugar[s]).kwargs["return_value"]), \
+             mock.patch("sys.stdout"):
+            P.main(["--aplicar"])
+        self.assertEqual([("R1", 0), ("R2", 0)], escritas)
+
     def test_os_outros_tres_campos_nunca_sao_revistos(self):
         with _contrato("Udine"):
             revs, _ = P.revisoes_da_linha(_linha())

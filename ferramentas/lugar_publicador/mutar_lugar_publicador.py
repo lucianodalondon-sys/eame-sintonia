@@ -24,6 +24,9 @@ MUTANTES = {
                                     '    fora["LOCAL_DA_FONTE"] = adm.COMPLETUDE_PROVADA if tem_sede else adm.AUSENCIA\n', ''),
     "M8_nao_sei_do_contrato_entra": ("ferramentas/lugar_publicador/preencher_sede_na_sala.py",
                                      '    if r["VALOR"] in VAZIOS:\n', '    if r["VALOR"] is None:\n'),
+    "M9_le_o_envelope_como_lista": ("ferramentas/lugar_publicador/preencher_sede_na_sala.py",
+                                    '        for u in (espera.ler_atual(run) or {}).get("ITENS") or []:\n',
+                                    '        for u in espera.ler_atual(run) or []:\n'),
 }
 
 

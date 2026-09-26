@@ -78,6 +78,13 @@ def revisoes_da_linha(u: dict):
             r["PORQUE"])
 
 
+def linhas_da_sala():
+    """-> (run_id, linha) pela vista. `ler_atual` devolve o ENVELOPE `{RUN_ID, ITENS}`, nao a lista."""
+    for run in sorted({l["RUN_ID"] for l in espera.linhas_para_revisao()}):
+        for u in (espera.ler_atual(run) or {}).get("ITENS") or []:
+            yield run, u
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--aplicar", action="store_true")
@@ -85,28 +92,26 @@ def main(argv=None):
     a = ap.parse_args(argv)
     espera.exigir_canonica()
     versao = versao_do_codigo()
-    runs = sorted({l["RUN_ID"] for l in espera.linhas_para_revisao()})
     conta = collections.Counter()
     itens = []
-    for run in runs:
-        for u in espera.ler_atual(run) or []:
-            conta["LINHAS"] += 1
-            revs, porque = revisoes_da_linha(u)
-            recibo = None
-            if revs:
-                conta["GANHAM_SEDE"] += 1
-                if a.aplicar:
-                    recibo = espera.rever(run, u["ORDEM"], revs, extrator=EXTRATOR, versao=versao, motivo=MOTIVO)
-                    conta["INSERIDAS"] += recibo["INSERIDAS"]
-                    conta["JA_ERAM_ASSIM"] += recibo["JA_ERAM_ASSIM"]
-            elif porque == "JA_E_ASSIM":
-                conta["JA_TINHAM_A_MESMA"] += 1
-            else:
-                conta["FICAM_NAO_SEI" if u["SOURCE_LOCATION"] in VAZIOS else "FICAM_COM_A_SUA"] += 1
-            itens.append({"RUN_ID": run, "ORDEM": u["ORDEM"], "SOURCE_ID": u["SOURCE_ID"],
-                          "ANTES": u["SOURCE_LOCATION"],
-                          "DEPOIS": revs[0]["VALOR"] if revs else u["SOURCE_LOCATION"],
-                          "PORQUE": porque, "RECIBO": recibo})
+    for run, u in linhas_da_sala():
+        conta["LINHAS"] += 1
+        revs, porque = revisoes_da_linha(u)
+        recibo = None
+        if revs:
+            conta["GANHAM_SEDE"] += 1
+            if a.aplicar:
+                recibo = espera.rever(run, u["ORDEM"], revs, extrator=EXTRATOR, versao=versao, motivo=MOTIVO)
+                conta["INSERIDAS"] += recibo["INSERIDAS"]
+                conta["JA_ERAM_ASSIM"] += recibo["JA_ERAM_ASSIM"]
+        elif porque == "JA_E_ASSIM":
+            conta["JA_TINHAM_A_MESMA"] += 1
+        else:
+            conta["FICAM_NAO_SEI" if u["SOURCE_LOCATION"] in VAZIOS else "FICAM_COM_A_SUA"] += 1
+        itens.append({"RUN_ID": run, "ORDEM": u["ORDEM"], "SOURCE_ID": u["SOURCE_ID"],
+                      "ANTES": u["SOURCE_LOCATION"],
+                      "DEPOIS": revs[0]["VALOR"] if revs else u["SOURCE_LOCATION"],
+                      "PORQUE": porque, "RECIBO": recibo})
     fora = {"APLICOU": a.aplicar, "VERSAO": versao, "EXTRATOR": EXTRATOR, "CONTA": dict(conta),
             "COM_SEDE_DEPOIS": sum(1 for i in itens if i["DEPOIS"] not in VAZIOS),
             "FONTES_COM_SEDE_DEPOIS": len({i["SOURCE_ID"] for i in itens if i["DEPOIS"] not in VAZIOS}),
