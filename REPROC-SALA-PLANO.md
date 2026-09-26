@@ -11,6 +11,10 @@ não entra na versão do extrator. Por isso o ensaio corre com o **código exato
 ramo. **Nada instalado. A Sala real só foi lida.** O ensaio correu em
 Postgres **descartável**, desligado no fim.
 
+**Vivo `dc0de726` (17:35, ff de `278cd489`) juntado também.** Não mexe em nenhum dos 10 ficheiros que fazem a
+versão do extrator (`CODIGO_DA_VERSAO`) nem em `admissao/sala_de_espera.py`: o reprocesso com `dc0de726` grava
+a mesma versão que com `278cd489`, e o ensaio com a cópia de `278cd489` vale para ele.
+
 **Nenhuma migração nova.** Os três ramos não trazem SQL: o caderno de revisões é o da 033, já
 aplicada na Sala (`APLICADA b980c76e…`). O reprocesso só **acrescenta** revisões; a linha
 original da Sala não muda; o RAW não é aberto para escrita (só se leem os bytes, e só com o
