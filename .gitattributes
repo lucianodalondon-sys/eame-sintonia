@@ -45,3 +45,7 @@ candidatas/prova-termos/** -text -diff
 # C9-IDIOMA: as duas amostras reais do MICRO-V3 sao comparadas pelo SHA-256 do armazem; sem isto o
 # checkout com autocrlf trocava LF por CRLF e o teste do sha caia na maquina instalada.
 tests/dados/c9-idioma/** -text
+
+# RUNBOOK-MICRO-SOCIAL: as saidas do ensaio a seco batem com SHA256SUMS.txt byte a byte (saida-2
+# tem CRLF do proprio py); com autocrlf, o checkout trocava-as e o sha deixava de bater.
+ferramentas/micro_social/ensaio/** -text
