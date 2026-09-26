@@ -90,7 +90,7 @@ mutante M08 prova que o teste apanha quem o tentar). A aprovação europeia vive
    `C:/eame-sintonia/data/raw/IT-ROTULOS/` (163/163 com o sha256 do manifesto,
    conferido em 26/09). Primeiro passo, sem rede: levá-los ao armazém
    `data/collection-store/italy/IT-T4-001/` com o mesmo sha256, como já está o CSV
-   `MINSALUTE_FTS6_20260907`. Quem decide se entram no Git (≈30 MB) é o dono.
+   `MINSALUTE_FTS6_20260907`. Quem decide se entram no Git (33 MB) é o dono.
 2. **Revisita por mudança, não por calendário.** Comparar o CSV novo com o
    anterior: produto com `stato_amministrativo` ou `data_scadenza` mudado é o único
    que pede novo PDF. Teto D38: 5 pedidos por domínio por rodada, pausa de 1,2 s
