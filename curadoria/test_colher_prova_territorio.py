@@ -155,7 +155,9 @@ class ConteudoPublicado(Colher):
         self.assertFalse(C.juizo_de_conteudo(pag, B + "/n/2026/x", HOJE)["SERVE"])
 
     def test_pdf_nao_e_institucional_nem_conteudo(self):
-        pdf = b"%PDF-1.7\n%\xe2\xe3\xcf\xd3\n1 0 obj << /Type /Catalog >> endobj " + b"Statuto del consorzio " * 200
+        # um PDF cujo texto traz marcacao («<p>» num statuto exportado) nao pode passar por pagina
+        pdf = (b"%PDF-1.7\n1 0 obj << /Type /Catalog >> endobj <p>Avviso 12/03/2026</p> "
+               + b"Statuto del consorzio di difesa delle produzioni agricole. " * 40)
         self.assertFalse(C.juizo_de_conteudo(pdf, B + "/2026/05/dati.pdf", HOJE)["SERVE"])
         self.assertEqual(0, C._letras_de_pagina(pdf))
         casa = ('<html><a href="/wp-content/uploads/2026/05/PRESENTAZIONE-DATI-2025.pdf">p</a>'
