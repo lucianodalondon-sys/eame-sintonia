@@ -365,7 +365,12 @@ class G_OCascoNoArEALinhagemReal(unittest.TestCase):
         m = re.search(r"const AMMESSE = \[([^\]]*)\]", html)
         self.assertIsNotNone(m)
         ammesse = set(re.findall(r"'([a-z]+)'", m.group(1)))
-        self.assertEqual(ammesse, set(P.FERRAMENTAS))
+        # Ajuste DECLARADO (vivo 278cd489, lote 2): o casco passou a abrir 14
+        # vistas; `sala` e `painel` sao de operacao e estao nomeadas no modulo.
+        # Uma vista nova sem declaracao volta a reprovar aqui.
+        self.assertTrue(set(P.FERRAMENTAS) <= ammesse)
+        self.assertEqual(ammesse - set(P.FERRAMENTAS), set(P.VISTAS_QUE_NAO_SAO_FERRAMENTA))
+        self.assertEqual(len(P.FERRAMENTAS), 12)
 
     def test_G2_etichette_leva_o_contrato_t4_e_radarfuturo_nao_tem_contrato(self):
         c = corrida_sintetica()
