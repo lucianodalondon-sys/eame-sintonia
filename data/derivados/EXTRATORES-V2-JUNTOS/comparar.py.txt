@@ -6,7 +6,7 @@ import os
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 VERSOES = [("91ab4eb3", "base comum (antes dos dois extratores)"), ("6971ddb1", "so o EXTRATOR-EVENTO-V2"),
-           ("3b7c86da", "so o EXTRATOR-LUGAR-V2"), ("1d13b1dd", "JUNTOS (este ramo)")]
+           ("3b7c86da", "so o EXTRATOR-LUGAR-V2"), ("80ce1a3f", "JUNTOS (este ramo)")]
 AUS = "NAO SEI"
 TEM = {
     "FACT_TIME": lambda i: i.get("FACT_TIME") == "SIM",
@@ -29,12 +29,12 @@ M = {v: json.load(open(os.path.join(AQUI, "MEDIDA-%s.json" % v), encoding="utf-8
 print("Versoes medidas (mesma copia da Sala, mesmo livro, mesmo armazem; so muda o codigo):")
 for v, n in VERSOES:
     print("  %s = %s  (gerado %s)" % (v, n, M[v]["GERADO"][:19]))
-sala = [i for i in M["1d13b1dd"]["ITENS"] if i["GRUPO"] == "SALA"]
+sala = [i for i in M["80ce1a3f"]["ITENS"] if i["GRUPO"] == "SALA"]
 print("\nO QUE A SALA GUARDA HOJE (a vista sala_de_espera_atual da copia, o que a Intelligence le), 94 itens:")
 for c in ("FACT_TIME", "FACT_LOCATION", "CULTURA", "REGIAO_DO_FATO", "FASE", "JANELA", "PROBLEMA"):
     print("  %-16s %3d" % (c, sum(i["GUARDADO"][c] for i in sala)))
 for g, f in GRUPOS:
-    n = len([i for i in M["1d13b1dd"]["ITENS"] if f(i)])
+    n = len([i for i in M["80ce1a3f"]["ITENS"] if f(i)])
     print("\n== %s | itens %d" % (g, n))
     print("   %-27s" % "" + "".join("%10s" % v for v, _ in VERSOES))
     for c, t in TEM.items():
@@ -54,7 +54,7 @@ for v, _ in VERSOES[-1:]:
 def chave(i):
     return (i["GRUPO"], i["SHA256"], i.get("RUN_ID"), i.get("ORDEM"))
 a = {chave(i): i for i in M["91ab4eb3"]["ITENS"]}
-b = {chave(i): i for i in M["1d13b1dd"]["ITENS"]}
+b = {chave(i): i for i in M["80ce1a3f"]["ITENS"]}
 print("\n== base 91ab4eb3 -> JUNTOS, item a item (%d itens)" % len(b))
 for c in ("FACT_TIME", "FACT_LOCATION"):
     ganhou = sum(1 for k in b if TEM[c](b[k]) and not TEM[c](a[k]))
