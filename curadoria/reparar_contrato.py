@@ -293,7 +293,7 @@ def buscar_com_destino(url: str) -> tuple[int, bytes, str, str]:
     depois dos redireccionamentos, que o canario nao devolve."""
     import urllib.error
     import urllib.request
-    req = urllib.request.Request(url, headers={
+    req = urllib.request.Request(CAN.url_segura(url), headers={        # acento no link (BLOQUEADAS-268)
         "User-Agent": CAN.CAP.UA, "Accept": "*/*", "Accept-Language": "it-IT,it;q=0.9"})
     try:
         with urllib.request.urlopen(req, timeout=CAN.TIMEOUT, context=CAN.CTX) as r:
