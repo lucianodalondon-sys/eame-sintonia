@@ -9,7 +9,7 @@ import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 TESTES = ["tests.test_periodo_e_chaves", "tests.test_quatro_chaves"]
-ADM, FT = "admissao/admissao.py", "leis/fato_do_texto.py"
+ADM, FT, RPT = "admissao/admissao.py", "leis/fato_do_texto.py", "admissao/reprocessar_tempo_lugar.py"
 
 MUTANTES = [
     ("P1 periodo: sem ano, o ano vem da publicacao", ADM,
@@ -52,6 +52,15 @@ MUTANTES = [
     ("C5 cultura: o vocabulario da chave encolhe", ADM,
      'CULTURA_SO_DA_CHAVE = "mela|mirtillo|mirtilli|lampone|lamponi|mora"',
      'CULTURA_SO_DA_CHAVE = "lampone"'),
+    ("K1 caderno: a janela nao entra nas revisoes", RPT,
+     '    fora.append({"CAMPO": "janela_declarada",',
+     '    (lambda x: None)({"CAMPO": "janela_declarada",'),
+    ("K2 caderno: a evidencia de hoje nao passa", RPT,
+     '                    evidencia=dict(hoje.evidencia or {}), versao=hoje.versao)',
+     '                    versao=hoje.versao)'),
+    ("K3 caderno: o JSON da janela sem ordem", RPT,
+     '"VALOR": json.dumps(ready["JANELA_DECLARADA"], ensure_ascii=False, sort_keys=True),',
+     '"VALOR": json.dumps(ready["JANELA_DECLARADA"], ensure_ascii=False),'),
 ]
 
 
