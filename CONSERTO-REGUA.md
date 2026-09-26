@@ -74,6 +74,8 @@ bruto: pode ter erro de um item.
 
 **Base.** O ramo já contém o vivo `83de0ccd` (C9): junção `9e4ab4ad`, sem conflito — a C9 só mexeu em `scripts/micro_coleta`, `ferramentas/c9`, `tests/test_c9_idioma.py` e `regras/LEIA-ANTES-DE-COLETAR.md`. Depois da junção: 192 testes OK (os de tempo/lugar + `test_c9_idioma`) e mutação 9/9 de novo. Instala-se em avanço rápido (ff-only) sobre `83de0ccd`.
 
+**Mapa.** NÃO regerado neste ramo (PRONTO-SEM-MAPA, aviso da coordenação 03:21): a INTEGRA regera o mapa junto com os outros pacotes. Peças novas já declaradas em `architecture.declared.json` (C-PROVA-COLETA): `provas/sala_verifica.py`, `provas/conserto_regua_recalcular.py`.
+
 **Instalar.** Juntar `conserto-regua-v1` pela via de sempre (o coordenador). Só código de leitura muda;
 **nenhuma migração**: as colunas da 033 já existem.
 
