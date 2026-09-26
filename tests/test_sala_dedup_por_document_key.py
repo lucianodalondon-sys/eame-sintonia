@@ -81,10 +81,12 @@ class ASalaNaoRepeteODocumentoPelaChave(unittest.TestCase):
         return r.stdout.strip()
 
     _n = 0
+    _brutos = 0
 
     def bruto(self, run, source_id, chave, estado="FORWARD_IDENTIFIED", sha="a"):
         """Uma linha em raw_asset. Devolve o id. O bruto nunca é alterado depois."""
         ASalaNaoRepeteODocumentoPelaChave._n += 1
+        ASalaNaoRepeteODocumentoPelaChave._brutos += 1
         n = ASalaNaoRepeteODocumentoPelaChave._n
         k = "null" if chave is None else "'%s'" % chave
         base = "null" if chave is None else "'SOURCE_DOCUMENT_ID'"
@@ -210,7 +212,9 @@ class ASalaNaoRepeteODocumentoPelaChave(unittest.TestCase):
     def test_V1_bytes_iguais_nao_criam_versao(self):
         r1, d1 = self.par("D20", "IT-V-001", "IT-V-001:URL:a", "1", "a")
         r2 = self.bruto("D21", "IT-V-001", "IT-V-001:URL:a", sha="1")
-        d2 = self.derivado(r2, "1" * 64, "b" * 64)          # outro derivado, mesmos bytes do RAW
+        # outro derivado dos MESMOS bytes so existe com OUTRA receita: a 022 proibe
+        # dois derivados do mesmo pai com a mesma receita (derivacao_e_unica_por_regua)
+        d2 = self.derivado(r2, "1" * 64, "b" * 64, receita=self.OUTRA)
         espera.pousar("D20", [self.unidade(d1, r1, "IT-V-001")])
         b = espera.pousar("D21", [self.unidade(d2, r2, "IT-V-001")])
         self.assertEqual(b["INSERIDAS"], 0)
@@ -310,7 +314,7 @@ class ASalaNaoRepeteODocumentoPelaChave(unittest.TestCase):
     # ── nada é apagado nem alterado ──────────────────────────────────────
     def test_Z_o_bruto_e_a_sala_so_crescem(self):
         brutos = int(self.sql("select count(*) from raw_asset"))
-        self.assertGreaterEqual(brutos, ASalaNaoRepeteODocumentoPelaChave._n)
+        self.assertGreaterEqual(brutos, ASalaNaoRepeteODocumentoPelaChave._brutos)
 
 
 if __name__ == "__main__":
