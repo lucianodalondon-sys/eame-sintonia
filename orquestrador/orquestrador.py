@@ -677,6 +677,38 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     return item
 
 
+def item_do_bruto_para_a_porta(item):
+    """O item da ROTA DO BRUTO (sem STRUCTURED: o video social) com a mesma
+    leitura de tempo e lugar que a rota documental faz. → uma copia.
+
+    ⚠️ SOCIAL-MICRO-PREP (25/09): a Sala descartavel recebeu o video do ISPRA
+    com `published_at` e `source_location` e as bases — mas com
+    `tempo_lugar_evidencia` VAZIA. A Admissao pos a de omissao, que diz
+    «pousado antes da migration 033», e as precisoes (SECOND, COUNTRY), que
+    estavam no item da porta, morreram aqui. So `item_documental_para_a_porta`
+    chamava `_fato_do_texto`; o bruto ia a porta tal como a entrada o deixou.
+
+        DUAS ROTAS PARA A MESMA PORTA, UMA SO LEITURA DO TEMPO E DO LUGAR.
+
+    O item ja esta na lingua da porta (minusculas); aqui le-se de volta pelo
+    mesmo mapa (`ing.PARA_A_PORTA`). O que o coletor provou vence o texto,
+    como na rota documental. Um item que ja traz a evidencia passa intacto.
+    """
+    if item.get("tempo_lugar_evidencia"):
+        return item
+    def _v(k):
+        return item.get(k) if item.get(k) is not None else item.get(
+            ing.PARA_A_PORTA.get(k, k))
+    publicacao = {k: _v(k) for k in ing.TEMPO_E_LUGAR_PARA_A_EVIDENCIA
+                  if _v(k) not in ing.NAO_E_AFIRMACAO}
+    bruto = {k: _v(k) for k in ing.TEMPO_E_LUGAR[:9]
+             if _v(k) not in ing.NAO_E_AFIRMACAO}
+    fora = dict(item)
+    fora.update(ing.para_a_porta(_fato_do_texto(
+        item.get("texto") or "", bruto, publicacao)))
+    return fora
+
+
 def universo_do_pedido(p) -> str:
     """O universo que a porta vai perguntar. → a string, ou levanta.
 
@@ -1140,7 +1172,8 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             julgar = [item_documental_para_a_porta(e, source_id=fonte)
                       for e in estruturados]
         else:
-            julgar = recibo["INGRESSO"].get("PARA_A_PORTA") or []
+            julgar = [item_do_bruto_para_a_porta(i) for i in
+                      recibo["INGRESSO"].get("PARA_A_PORTA") or []]
         # ── O UNIVERSO VEM DO PEDIDO, E NÃO DO ALVO ────────────────────────
         # ⚠️ AQUI ESTAVA `pela_porta(julgar, p.alvo, ...)`, e isso era um
         # campo EMPRESTADO. Medido no canário do YouTube: um pedido com
