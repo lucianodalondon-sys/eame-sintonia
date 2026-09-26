@@ -48,14 +48,9 @@ O que a regra **não** faz, de propósito:
 - **Não apaga nem altera nada.** A observação nova continua em `raw_asset` e no derivado; só não volta
   à fila da Intelligence. A trava global `sala_de_espera:identidade` já serializa a pergunta.
 
-⚠️ **Mudança de lei declarada.** O comentário em `sala_de_espera.py` dizia «VERSÃO NOVA = LINHA NOVA».
-Com esta regra, uma versão nova **do mesmo documento** (conteúdo mudou de verdade) **também não** ganha
-2.ª linha. Foi a decisão do bot Luciano (dedupe por `document_key`). Se o dono quiser versões na Sala, o
-caminho é o caderno de revisões da 033, não uma linha nova. **Decisão do dono, não minha.**
-
-**PERGUNTA AO DONO — VERSÕES** (um documento que muda de verdade, depois de já estar na Sala):
-- **Opção A · guardar no caderno de revisões da 033:** a linha antiga fica, e a mudança entra como revisão (só acrescenta, com a data da mudança). Precisa de código novo; a Intelligence vê que o documento mudou.
-- **Opção B · ignorar:** a Sala guarda só a 1.ª versão; a nova fica no bruto e no derivado, fora da fila. É o que a regra faz hoje, sem código novo.
+**VERSÕES — decidido (D79, bot Luciano, 26/09 03:45).** O `document_key` mantém **um** documento
+lógico; uma mudança **real** de conteúdo acrescenta uma **versão** num caderno que só acrescenta; bytes
+iguais não criam versão. Detalhe na §6.
 
 O backend FICHEIRO **não mudou** (não tem `raw_asset`). Declarado.
 
@@ -102,6 +97,15 @@ Tipo C entre fontes (fica): IT-T5-034/035/036 — 3 linhas, 1 por fonte, mesmo t
 | L | o mesmo documento 2× na mesma corrida → 1 linha |
 | R | mesmo documento noutro universo entra (REROUTE) |
 | Z | o bruto só cresce |
+| V1 | bytes do RAW iguais → nenhuma versão |
+| V2 | texto diferente com o mesmo extrator → versão 2 (e 3); linha original intacta; retry não duplica |
+| V3 | bytes novos, texto igual, mesmo extrator (tipo B) → nenhuma versão |
+| V4 | extrator mudou e não há como re-extrair → `NAO_SEI` no recibo, nenhuma versão |
+| V5 | extrator mudou, re-extraído do RAW: igual → nada; diferente → versão `REEXTRAIDO_DO_RAW` |
+| V6 | identidade não provada → linha nova, nenhuma versão |
+| V7 | `UPDATE`/`DELETE`/`TRUNCATE` no caderno de versões → recusados pelo banco |
+
+`tests/test_versao_do_documento.py` (sem banco): 11 testes do decisor.
 
 **Sem teste (declarado):** um bruto `LEGACY_PRE_IDEMPOTENCY` com chave. A 026 só aceita legado com
 `id <= corte` (`legado_e_anterior_ao_corte`), por isso não se fabrica num banco novo. Consequência: o
@@ -109,7 +113,11 @@ mutante M3 (tirar a exigência `FORWARD_IDENTIFIED`) **deve sobreviver** aos tes
 nula por lei, e nulo nunca é igual a nulo. A exigência continua no código, porque a Sala real pode ter
 legado antigo com chave.
 
-Mutantes: M1 sem a pergunta pelo documento · M2 sem a pergunta dentro da mesma corrida · M3 sem a
+Mutantes do decisor (sem banco, corridos 26/09 ~05:45): **V-M5** comparar a receita só pela versão →
+6 falhas; **V-M6** sem o atalho «bytes iguais» → 1 falha; **V-M7** não conferir o extrator da
+re-extração → 1 falha. **3/3 mortos.** Decisor: **11/11 OK**.
+
+Mutantes do pousar: M1 sem a pergunta pelo documento · M2 sem a pergunta dentro da mesma corrida · M3 sem a
 exigência `FORWARD_IDENTIFIED` · M4 sem comparar a fonte.
 
 ### 4.1 · Resultados
@@ -129,20 +137,64 @@ exigência `FORWARD_IDENTIFIED` · M4 sem comparar a fonte.
   `PYTHONUTF8=1 py tests/test_sala_dedup_por_document_key.py`. Previsão: M1, M2 e M4 morrem; M3
   sobrevive (explicado acima).
 
+## 6 · Versões (D79) — migração 036
+
+**Onde:** tabela nova `sala_de_espera_versao` (`supabase/migrations/036_a_sala_guarda_as_versoes_do_documento.sql`),
+só `CREATE`, com gatilhos que recusam `UPDATE`/`DELETE`/`TRUNCATE` — o mesmo desenho do caderno da 033.
+O caderno da 033 não serve: só aceita 8 campos (`revisao_so_de_campo_revisivel`). Número 036 porque a
+D79 reservou 034 (lápide) e 035 (TEMPO_LUGAR). Desfazer: `supabase/desfazer/036_desfazer.sql`.
+**NÃO aplicada na Sala real.** Sem a 036, o `pousar` continua como antes e diz no recibo
+«036 não aplicada».
+
+**Quem decide:** `admissao/versao_do_documento.py::decidir`, antes da transação:
+
+| caso | resposta |
+|---|---|
+| bytes do RAW iguais | IGUAL — nada |
+| mesma receita de extrator (`producer` + `producer_version` + `parameters_hash`), texto igual | IGUAL — nada |
+| mesma receita, texto diferente | **MUDOU → versão** (`MESMO_EXTRATOR`) |
+| receita mudou | re-extrai o RAW anterior com o extrator novo: igual → nada; diferente → **versão** (`REEXTRAIDO_DO_RAW`) |
+| receita mudou e não há RAW legível, extrator ou a receita não bate | **NAO_SEI** — não cria versão; fica em `recibo["VERSOES"]` |
+
+**Quem escreve:** `sala_de_espera.py::pousar`, na mesma transação da corrida, debaixo da trava global;
+`versao = última + 1`; a mesma versão (mesmo `item_id`) não entra duas vezes.
+
+**A receita conta, não só a versão.** Medido na Sala real: os derivados 66 e 1060 da IT-T9-011 dizem os
+dois `texto-de-html` **versão 1**, mas a receita mudou (parâmetros vazios → `TEXT_OWNER =
+coleta/texto_fonte.py::limpar`). **O extrator mudou sem subir a versão** — isso é um achado para quem é
+dono dos extratores.
+
+**Os 14 repetidos da Sala real, pela regra D79 (só leitura, 26/09 ~05:30):**
+6 IGUAL (bytes) · 7 IGUAL (mesmo extrator, texto igual) · **1 NAO_SEI** (IT-T9-011 `derived:1060`: a
+receita mudou; sem armazém e extrator ligados, não se re-extrai). **0 versões novas.** Os 88 derivados
+da Sala vêm todos de `texto-de-html` v1 ou `texto-de-pdf` v1.
+
+⚠️ **Ligação por fazer (fora desta missão):** os dois chamadores do `pousar`
+(`orquestrador/orquestrador.py:745`, `coleta/rota_forward_documento.py:503`) **não passam** `armazem`
+nem `extratores`. Enquanto não passarem, todo «extrator mudou» dá `NAO_SEI` — seguro (não cria versão
+falsa), mas sem re-extração. Ligar é passar o armazém que eles já têm e um registo
+`{producer: extrair}` a partir de `coleta/executor_texto_de_html.py` / `_pdf.py`.
+
+⚠️ **A Intelligence ainda não lê as versões.** `ler_atual` (ramo `sala-leitura-v1`, D10) traz o histórico
+de revisões da 033, não as versões da 036. Juntar as duas coisas é o passo seguinte, depois de os dois
+ramos entrarem.
+
 ## 5 · Plano de instalação (NÃO executado — só o coordenador instala)
 
 1. LOCK-PESADO + ≥ 5 GB. Robô parado (`curadoria/PARAR.flag`), supervisor e observador parados.
 2. Backup da Sala (`pg_dump`, como em D68/D74) e do código (`/c/inst/<data>-dedup-doc`).
 3. No vivo `source-curator-service-v1` (em `83de0ccd`): `git merge --ff-only origin/dedup-doc-v1`.
-   Muda **um** ficheiro de código (`admissao/sala_de_espera.py`) e acrescenta 1 teste e este relatório.
-   **Sem migration**: não há coluna nem tabela nova; a regra vive no `insert` do `pousar`.
+   Código: `admissao/sala_de_espera.py` + `admissao/versao_do_documento.py` (novo); 2 testes; este relatório.
+   **Migração 036** (tabela nova): aplicar pela cadeia canónica **com backup antes**; ensaiada só em
+   descartável. Sem ela, o dedup funciona e as versões ficam desligadas (declarado no recibo).
 4. Correr `tests/test_sala_dedup_por_document_key.py` e `tests/test_sala_idempotente_por_documento.py`
    no SHA instalado.
 5. Conferir na Sala (só leitura): `select count(*) from sala_de_espera` igual ao de antes (a regra
    não apaga nada).
 6. Religar robô, supervisor e observador. Na próxima corrida, o recibo mostra as barradas em
    `JA_NA_SALA_POR_OUTRA_CORRIDA`.
-7. **Desfazer:** `git revert` do commit da regra; nada no banco para desfazer.
+7. **Desfazer:** `git revert` dos commits; no banco, `supabase/desfazer/036_desfazer.sql` (apaga as
+   versões — só com backup).
 
 Pendências que não são desta missão: (a) decidir se versões novas do mesmo documento devem aparecer
 (caderno de revisões); (b) Source Curator: 1 endereço em 3 fontes (Georgofili); (c) ordem do dono para
